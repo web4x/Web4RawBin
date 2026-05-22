@@ -6,7 +6,12 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-- [x] Done — oosh-expert executed via hiveMind team.setup. 4/4 agents active, all UUIDs captured.
+- [ ] Done — PARTIAL. Team created but needs fixes (see Remaining Issues)
+
+## Remaining Issues (must fix before Done)
+1. **Working directory wrong**: agents must start in `/Users/Shared/Workspaces/AI/Claude/` (the main Claude workspace), NOT in Web4RawBin directly. The Web4RawBin repo is accessible via `workspaces/Web4RawBin` symlink.
+2. **Naming convention wrong**: pane titles show `role@opus` — must be `role@MacStudio` (convention: `agentName@hostname` not `agentName@model`)
+3. **Symlink created**: `workspaces/Web4RawBin -> /Users/Shared/Workspaces/2cuGitHub/Web4RawBin` ✅
 
 ## Traceability
   - up
@@ -17,17 +22,19 @@ Use hiveMind team.setup to create a new robbinTeam session with 4 agents cloned 
 
 ```
 robbinTeam
-├── 0.0  robbin-po
-├── 0.1  robbin-architect
-├── 0.2  robbin-expert
-└── 0.3  robbin-tester
+├── 0.0  robbin-po@MacStudio
+├── 0.1  robbin-architect@MacStudio
+├── 0.2  robbin-expert@MacStudio
+└── 0.3  robbin-tester@MacStudio
 ```
 
-Steps:
+Requirements:
 1. `hiveMind team.setup robbin-po,robbin-architect,robbin-expert,robbin-tester robbinTeam`
-2. Wait for agents to initialize
-3. Set project directory to `/Users/Shared/Workspaces/2cuGitHub/Web4RawBin`
-4. Register team: `hiveMind team.register robbinTeam "RawBin AI server management — Robbin"`
+2. All agents start in `/Users/Shared/Workspaces/AI/Claude/` (main workspace)
+3. Pane titles: `role@MacStudio` not `role@opus`
+4. `/rename role@MacStudio` for each agent
+5. Register team: `hiveMind team.register robbinTeam "RawBin AI server management — Robbin"`
+6. Symlink: `workspaces/Web4RawBin -> /Users/Shared/Workspaces/2cuGitHub/Web4RawBin`
 
 ## Role
-Agent-trainer or whichever agent SM identifies as capable of team cloning.
+oosh-expert (executed initial setup), oosh-po to verify naming convention.
