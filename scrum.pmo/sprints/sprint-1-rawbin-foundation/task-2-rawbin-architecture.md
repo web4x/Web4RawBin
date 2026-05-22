@@ -1,6 +1,6 @@
 # Task 2: Define RawBin Architecture (Fork from QnD Stack)
 
-**Status:** IN PROGRESS
+**Status:** DONE (approved by Tron 2026-05-22)
 **Assigned:** robbin-po + robbin-architect (plan only)
 **Created:** 2026-05-22
 
