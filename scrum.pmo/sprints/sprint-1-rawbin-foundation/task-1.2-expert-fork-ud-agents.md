@@ -4,9 +4,9 @@
 [task:uuid:c9f5e3d4-0a6b-4b1c-d8e7-5f4a3b2c1d0e]
 
 ## Status
-- [ ] Planned
+- [x] Planned
 - [x] In Progress
-- [ ] Done
+- [x] Done — all 4 forked from ud-team UUIDs, renamed+locked role@MacStudio
 
 ## Traceability
   - up

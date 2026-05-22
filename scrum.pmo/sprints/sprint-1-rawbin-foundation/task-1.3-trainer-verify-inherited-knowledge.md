@@ -4,9 +4,9 @@
 [task:uuid:d0a6f4e5-1b7c-4c2d-e9f8-6a5b4c3d2e1f]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-- [ ] Done
+- [x] Planned
+- [x] In Progress
+- [x] Done — all 4 pass, inherited training confirmed. Trainer compacted after.
 
 ## Traceability
   - up

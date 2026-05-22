@@ -8,10 +8,10 @@
 - [x] In Progress
   - [x] refinement
   - [x] implementing
-    - [ ] testing — agent-trainer verifies inherited knowledge (task 1.3)
-- [ ] QA Review
-- [ ] Done
-**Reopened**: agents were empty sessions, not forks. Task 1.2 (fork from ud-team) in progress.
+    - [x] testing — agent-trainer verified all 4 have inherited knowledge
+- [x] QA Review — SM tracked full chain: fork → rename → lock → verify
+- [x] Done
+**Note**: agents need robbin-specific SKILL.md + context files to fully transition (next task).
 
 ## Traceability
 
