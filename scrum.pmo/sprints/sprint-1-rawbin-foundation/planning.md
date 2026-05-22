@@ -24,11 +24,17 @@ Robbin (AI Assistant)
 
 > **Note:** Subtasks must be named to indicate the affected role (e.g., `task-1.1-developer-setup.md`). Subtasks must be ordered to avoid blocking dependencies. If a blocking dependency is unavoidable, the Scrum Master is responsible for removing the impediment by reordering or splitting tasks.
 
-- [ ] [Task 1: Bootstrap robbinTeam from ud-team Clone](./task-1-team-bootstrap.md)
-  **Priority:** 1 (CRITICAL - No team, no work) **Status:** PLANNED
-  - [ ] [Task 1.1: Agent-Trainer - Clone ud-team as robbinTeam](./task-1.1-agent-trainer-clone-ud-team.md)
-  - [ ] [Task 1.2: Agent-Trainer - Rename and Rebrand Agents](./task-1.2-agent-trainer-rename-rebrand-agents.md)
-  - [ ] [Task 1.3: PO - Verify Team Operational](./task-1.3-po-verify-team-operational.md)
+- [x] [Task 1: Bootstrap robbinTeam from ud-team Clone](./task-1-team-bootstrap.md)
+  **Priority:** 1 (CRITICAL - No team, no work) **Status:** DONE
+  - [x] [Task 1.1: Agent-Trainer - Clone ud-team as robbinTeam](./task-1.1-agent-trainer-clone-ud-team.md)
+  - [x] [Task 1.2: Agent-Trainer - Rename and Rebrand Agents](./task-1.2-agent-trainer-rename-rebrand-agents.md)
+  - [x] [Task 1.3: PO - Verify Team Operational](./task-1.3-po-verify-team-operational.md)
+
+- [ ] [Task 2: Define RawBin Architecture (Fork from QnD)](./task-2-rawbin-architecture.md)
+  **Priority:** 2 (HIGH - Architecture before implementation) **Status:** IN PROGRESS
+  - Architect analyzing QnD codebase
+  - PO drafted keep/remove/rename plan
+  - Awaiting Tron review + open question answers
 
 ## Definition of Done
 - TBD
