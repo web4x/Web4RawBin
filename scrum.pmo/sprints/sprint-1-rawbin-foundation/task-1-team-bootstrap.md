@@ -8,9 +8,9 @@
 - [x] In Progress
   - [x] refinement
   - [x] implementing
-  - [ ] testing — agent-trainer re-verifying cwd + identity
-- [ ] QA Review
-- [ ] Done
+  - [x] testing — agent-trainer verified all 4: correct role, cwd, team name
+- [x] QA Review — SM monitored full chain: clone → fix → restart → verify
+- [x] Done
 
 ## Traceability
 

@@ -6,7 +6,7 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-- [ ] Done — PARTIAL. Team created but needs fixes (see Remaining Issues)
+- [x] Done — All fixes applied. cwd correct, naming role@MacStudio, all verified by agent-trainer.
 
 ## Remaining Issues (must fix before Done)
 1. **Working directory wrong**: agents must start in `/Users/Shared/Workspaces/AI/Claude/` (the main Claude workspace), NOT in Web4RawBin directly. The Web4RawBin repo is accessible via `workspaces/Web4RawBin` symlink.
