@@ -4,10 +4,10 @@
 [task:uuid:a7f3c1d2-8b4e-4f9a-b6c5-3d2e1f0a9b8c]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] implementing
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
