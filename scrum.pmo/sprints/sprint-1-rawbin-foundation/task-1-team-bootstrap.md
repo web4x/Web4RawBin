@@ -8,9 +8,10 @@
 - [x] In Progress
   - [x] refinement
   - [x] implementing
-  - [x] testing — agent-trainer verified all 4: correct role, cwd, team name
-- [x] QA Review — SM monitored full chain: clone → fix → restart → verify
-- [x] Done
+    - [ ] testing — agent-trainer verifies inherited knowledge (task 1.3)
+- [ ] QA Review
+- [ ] Done
+**Reopened**: agents were empty sessions, not forks. Task 1.2 (fork from ud-team) in progress.
 
 ## Traceability
 
