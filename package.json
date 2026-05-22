@@ -1,0 +1,20 @@
+{
+  "name": "web4rawbin",
+  "version": "0.1.0",
+  "description": "Web4RawBin — collaborative bin with rooms",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "@types/node-fetch": "^2.6.13",
+    "@types/ws": "^8.18.1",
+    "marked": "^18.0.4",
+    "node-fetch": "^3.3.2",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.5",
+    "ws": "^8.18.3"
+  }
+}
