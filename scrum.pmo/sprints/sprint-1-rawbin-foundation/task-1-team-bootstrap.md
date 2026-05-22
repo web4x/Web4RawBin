@@ -8,7 +8,7 @@
 - [x] In Progress
   - [x] refinement
   - [x] implementing
-  - [ ] testing
+  - [ ] testing — agent-trainer re-verifying cwd + identity
 - [ ] QA Review
 - [ ] Done
 
