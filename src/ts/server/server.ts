@@ -74,7 +74,7 @@ const avatarCache = new Map<string, string>();
 const tokenToClient = new Map<string, string>();
 let totalRequests = 0;
 
-// --- User Profiles (identity + bugs only, no game stats) ---
+// --- User Profiles ---
 
 interface UserProfile {
   token: string;

@@ -1,18 +1,32 @@
 {
-  "name": "web4rawbin",
+  "name": "rawbin",
   "version": "0.1.0",
-  "description": "Web4RawBin — collaborative bin with rooms",
+  "description": "RawBin — AI Server Management Interface",
   "type": "module",
   "scripts": {
+    "build": "esbuild src/public/ts/app.ts --bundle --format=esm --target=es2020 --outfile=src/public/dist/app.js --sourcemap --minify",
+    "build:watch": "esbuild src/public/ts/app.ts --bundle --format=esm --target=es2020 --outfile=src/public/dist/app.js --sourcemap --watch",
+    "dev": "tsx watch src/ts/server/server.ts",
+    "start": "npm run build && tsx src/ts/server/server.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },
+  "keywords": [
+    "server-management",
+    "pwa",
+    "https",
+    "ai-assistant"
+  ],
+  "author": "Web4RawBin",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^25.9.1",
     "@types/node-fetch": "^2.6.13",
     "@types/ws": "^8.18.1",
+    "esbuild": "^0.28.0",
     "marked": "^18.0.4",
     "node-fetch": "^3.3.2",
+    "tsx": "^4.19.2",
     "typescript": "^6.0.3",
     "vitest": "^4.1.5",
     "ws": "^8.18.3"
