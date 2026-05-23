@@ -1,5 +1,6 @@
 import { RawBinClient, guardClick, shareOrCopy } from './RawBinClient.js';
 import { ProfileEditor } from './ProfileEditor.js';
+import { ProfileSheet } from './ProfileSheet.js';
 import { MSG } from '../../shared/MessageTypes.js';
 
 interface MemberInfo {
@@ -17,12 +18,14 @@ export class RoomView {
   private chatMessages: { senderId: string; senderName: string; text: string }[] = [];
   private chatExpanded: boolean = false;
   private profileEditor: ProfileEditor;
+  private profileSheet: ProfileSheet;
 
   constructor(client: RawBinClient, container: HTMLElement, onLeave: () => void) {
     this.client = client;
     this.container = container;
     this.onLeave = onLeave;
     this.profileEditor = new ProfileEditor(client);
+    this.profileSheet = new ProfileSheet(client);
 
     this.client.on(MSG.ROOM_JOINED, (msg) => {
       this.roomId = msg.room.id;
@@ -110,9 +113,12 @@ export class RoomView {
     this.container.innerHTML = `
       <div class="room-view">
         <div class="room-header">
-          <button id="leave-btn" class="btn btn-back">← Leave</button>
+          <button id="leave-btn" class="btn btn-header" title="Leave room">←</button>
+          <button id="home-btn" class="btn btn-header" title="Home">🏠</button>
           <h2 id="room-title">${this.roomName}</h2>
-          ${isHost ? '<button id="delete-room-btn" class="btn btn-small btn-danger">Delete</button>' : ''}
+          ${isHost ? '<button id="delete-room-btn" class="btn btn-header btn-header-danger" title="Delete room">🗑</button>' : ''}
+          <button id="reload-btn" class="btn btn-header" title="Reload">↻</button>
+          <button id="fullscreen-btn" class="btn btn-header" title="Fullscreen">⛶</button>
         </div>
         <div class="room-body">
           <div class="member-panel">
@@ -152,6 +158,25 @@ export class RoomView {
     document.getElementById('leave-btn')?.addEventListener('click', () => {
       this.client.leaveRoom();
       this.onLeave();
+    });
+
+    document.getElementById('home-btn')?.addEventListener('click', () => {
+      window.location.href = '/';
+    });
+
+    document.getElementById('reload-btn')?.addEventListener('click', () => {
+      location.reload();
+    });
+
+    document.getElementById('fullscreen-btn')?.addEventListener('click', () => {
+      const btn = document.getElementById('fullscreen-btn');
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+        if (btn) btn.textContent = '✕';
+      } else {
+        document.exitFullscreen().catch(() => {});
+        if (btn) btn.textContent = '⛶';
+      }
     });
 
     document.getElementById('delete-room-btn')?.addEventListener('click', () => {
@@ -221,14 +246,22 @@ export class RoomView {
     el.innerHTML = this.members.map(m => {
       const isHost = m.id === this.hostId;
       const isSelf = m.id === this.client.clientId;
-      return `<div class="member-item${isSelf ? ' member-self' : ''} member-clickable" data-member-id="${m.id}" data-member-token="${m.playerToken || ''}">
-        <span class="member-name">${m.name}${isHost ? ' <span class="host-badge">host</span>' : ''}${isSelf ? ' (you)' : ''}</span>
+      const initial = (m.name || '?')[0].toUpperCase();
+      const avatar = m.avatarUrl
+        ? `<img src="${m.avatarUrl}" class="mb-avatar" alt="${initial}">`
+        : `<span class="mb-avatar mb-avatar-fallback">${initial}</span>`;
+      return `<div class="mb-badge${isSelf ? ' mb-self' : ''}" data-member-id="${m.id}" data-member-token="${m.playerToken || ''}">
+        ${avatar}
+        <span class="mb-name">${m.name}${isSelf ? ' (you)' : ''}</span>
+        ${isHost ? '<span class="mb-host" title="Host">★</span>' : ''}
+        <span class="mb-status" title="Connected">●</span>
       </div>`;
     }).join('');
 
-    el.querySelectorAll('.member-clickable').forEach(item => {
+    el.querySelectorAll('.mb-badge').forEach(item => {
       item.addEventListener('click', () => {
         const memberId = (item as HTMLElement).dataset.memberId;
+        const memberToken = (item as HTMLElement).dataset.memberToken;
         if (memberId === this.client.clientId) {
           const profile = this.client.getProfile();
           this.profileEditor.open({
@@ -236,6 +269,13 @@ export class RoomView {
             phone: profile?.phone || '', url: profile?.url || '',
             avatar: profile?.avatar || '', secretCode: profile?.secretCode || '',
           }, 'normal');
+        } else if (memberToken) {
+          const handler = (msg: any) => {
+            this.client.off(MSG.USER_INFO, handler);
+            if (msg.profile) this.profileSheet.open(msg.profile);
+          };
+          this.client.on(MSG.USER_INFO, handler);
+          this.client.send({ type: MSG.GET_USER_INFO, playerToken: memberToken });
         }
       });
     });
