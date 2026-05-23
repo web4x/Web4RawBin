@@ -85,5 +85,50 @@ async function init() {
 init();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').catch(() => {});
+  navigator.serviceWorker.register('/sw.js').then((reg) => {
+    reg.addEventListener('updatefound', () => {
+      const newWorker = reg.installing;
+      if (!newWorker) return;
+      newWorker.addEventListener('statechange', () => {
+        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+          showUpdateBanner(reg);
+        }
+      });
+    });
+  }).catch(() => {});
+
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    location.reload();
+  });
 }
+
+async function checkForUpdate(): Promise<void> {
+  try {
+    const res = await fetch('/api/config');
+    const config = await res.json();
+    const cachedVersion = localStorage.getItem('rawbin-version');
+    if (cachedVersion && cachedVersion !== config.version) {
+      const reg = await navigator.serviceWorker?.getRegistration();
+      if (reg) {
+        await reg.update();
+        if (reg.waiting) showUpdateBanner(reg);
+      }
+    }
+    localStorage.setItem('rawbin-version', config.version);
+  } catch {}
+}
+
+function showUpdateBanner(reg: ServiceWorkerRegistration): void {
+  if (document.getElementById('update-banner')) return;
+  const banner = document.createElement('div');
+  banner.id = 'update-banner';
+  banner.className = 'update-banner';
+  banner.innerHTML = '<span>New version available</span><button id="update-now">Update Now</button>';
+  document.body.prepend(banner);
+  document.getElementById('update-now')?.addEventListener('click', () => {
+    banner.remove();
+    reg.waiting?.postMessage('SKIP_WAITING');
+  });
+}
+
+checkForUpdate();

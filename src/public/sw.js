@@ -16,6 +16,12 @@ const OFFLINE_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta nam
 </head><body><div class="offline"><h1>You're Offline</h1><p>RawBin needs a network connection. Check your internet and try again.</p>
 <button class="retry" onclick="location.reload()">Retry</button></div></body></html>`;
 
+self.addEventListener('message', (event) => {
+  if (event.data === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
