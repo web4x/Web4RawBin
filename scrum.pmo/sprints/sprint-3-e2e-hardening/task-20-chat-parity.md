@@ -4,12 +4,15 @@
 
 [task:uuid:8e980a4c-8abc-4a35-a5cf-abc76d944f31]
 
-**Status:** DONE
-**Assigned:** robbin-expert
-**Effort:** 3h expert
-**Dependencies:** None
-**Created:** 2026-05-23
-**Completed:** 2026-05-23
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 
 ## Traceability
@@ -74,6 +77,8 @@ Port from QnD lines 403-407:
 ## Source Reference
 - QnD: `MultiplayerUI.ts` lines 266-277 (HTML), 394-447 (logic), `multiplayer.css` lines 387-456 (styling)
 
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).

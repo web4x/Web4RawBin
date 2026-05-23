@@ -5,10 +5,15 @@
 [task:uuid:a28f0e01-4c5d-4a3b-8e7f-001122334455]
 
 ## Status
-**Status:** DONE
-**Assigned:** robbin-expert
-**Effort:** 3h expert
-**Created:** 2026-05-23
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
+
 
 ## Traceability
 - up
@@ -31,17 +36,6 @@ Every task file must have these sections in order:
 
 [task:uuid:XXXXXXXX-XXXX-4XXX-8XXX-XXXXXXXXXXXX]
 
-## Status
-- [x] Planned
-- [x] In Progress
-- [x] Done
-
-**Assigned:** role
-**Effort:** Xh estimated, Yh actual
-**Created:** YYYY-MM-DD
-**Completed:** YYYY-MM-DD
-**Dependencies:** [Task M](./task-M-name.md)
-
 ## Traceability
 - up
   - [Sprint X Planning](./planning.md)
@@ -57,6 +51,8 @@ Every task file must have these sections in order:
 ## Acceptance Criteria
 - [x] Criterion (checked for DONE tasks)
 
+## QA Audit & User Feedback
+
 ## Subtasks
 None (atomic task for this sprint).
 ```
@@ -69,10 +65,6 @@ For each of the 33 DONE task files:
 
 2. **Convert Status field** — change `**Status:** DONE` to:
    ```
-   ## Status
-   - [x] Planned
-   - [x] In Progress
-   - [x] Done
    ```
 
 3. **Add Created/Completed dates** — use git log to find first commit mentioning the task for Created, last commit for Completed.
@@ -99,6 +91,8 @@ Sprint 4: task-23 through task-27
 - [x] Every task file has Traceability up/down section
 - [x] Every task file has Subtasks section (even if "None")
 - [x] Zero structural differences between any two task files
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task for this sprint).

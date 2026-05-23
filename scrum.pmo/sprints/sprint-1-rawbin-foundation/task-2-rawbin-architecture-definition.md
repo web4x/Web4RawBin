@@ -4,10 +4,15 @@
 
 [task:uuid:19442916-8dac-490a-bdc1-61f2c1e27da8]
 
-**Status:** DONE
-**Assigned:** robbin-architect
-**Created:** 2026-05-22
-**Completed:** 2026-05-22
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 
 ## Traceability
@@ -463,7 +468,8 @@ All deps survive. No new deps needed for the base fork.
 | HTTP routes | 12 | 8 |
 | npm deps | 11 | 11 (same) |
 
-**Estimated effort:** Expert creates Room.ts from GameRoom (~2h), strips server.ts (~3h), creates RoomUI.ts (~2h), rebrands assets (~1h). Total: ~8h expert work + tester verification.
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).

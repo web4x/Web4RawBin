@@ -4,12 +4,16 @@
 
 [task:uuid:a37159a8-6d81-4edf-b144-a2284f800308]
 
-**Status:** DONE
-**Assigned:** robbin-expert (implement), robbin-tester (verify)
-**Effort:** 4h expert + 1.5h tester
-**Dependencies:** T9 (user SSH keys must exist)
-**Created:** 2026-05-23
-**Completed:** 2026-05-23
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
+
 
 ## Diagrams
 - [Enrollment Sequence](./diagrams/sequence-enrollment.svg) — Full enrollment flow (gate → keys → device enrollment)
@@ -143,6 +147,8 @@ DEVICE_AUTH_FAILED: 'DEVICE_AUTH_FAILED',           // S→C (used in T12)
 - DEVICE_ENROLL_REQUEST without sshKeysGenerated → error
 - Device public key appears in authorized_keys after enrollment
 
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).

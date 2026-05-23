@@ -3,10 +3,16 @@
 # Task 1.2: Expert - Fork ud-team Agents into robbinTeam
 [task:uuid:c9f5e3d4-0a6b-4b1c-d8e7-5f4a3b2c1d0e]
 
-**Status:** DONE
-**Assigned:** oosh-expert
-**Created:** 2026-05-22
-**Completed:** 2026-05-22
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
+
 
 ## Traceability
 - up
@@ -36,6 +42,8 @@ For each pane in robbinTeam:
 | 0.2 | ud-expert | robbin-expert@MacStudio |
 | 0.3 | ud-tester | robbin-tester@MacStudio |
 
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).

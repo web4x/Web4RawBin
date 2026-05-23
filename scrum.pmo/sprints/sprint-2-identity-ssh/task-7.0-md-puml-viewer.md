@@ -4,12 +4,15 @@
 
 [task:uuid:ecf3e19f-3440-4c8f-806f-aad57254ef3d]
 
-**Status:** DONE
-**Assigned:** robbin-expert (implement)
-**Effort:** 1h expert
-**Dependencies:** None (prerequisite for Sprint 2 task references)
-**Created:** 2026-05-23
-**Completed:** 2026-05-23
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 
 ## Traceability
@@ -63,6 +66,8 @@ const relinked3 = relinked2.replace(/\]\(([^)]+\.puml)\)/g, (_, p) => `](/md/${d
 
 When markdown contains `![...](*.svg)` image references, the rendered HTML will have `<img src="/md/...svg">` tags. The SVG route from 7.0.1 serves the image.
 
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).

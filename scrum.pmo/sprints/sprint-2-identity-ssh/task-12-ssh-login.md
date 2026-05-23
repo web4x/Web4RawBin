@@ -4,12 +4,16 @@
 
 [task:uuid:ce7f0047-334b-474c-ac99-897b9590a968]
 
-**Status:** DONE
-**Assigned:** robbin-expert (implement), robbin-tester (verify)
-**Effort:** 3h expert + 1h tester
-**Dependencies:** T10 (device keys must exist)
-**Created:** 2026-05-23
-**Completed:** 2026-05-23
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
+
 
 ## Diagrams
 - [Auth Sequence](./diagrams/sequence-auth.svg) — Challenge-response flow with replay protection
@@ -151,6 +155,8 @@ Token-based IDENTIFY still works. Server sets `authMethod = 'token'` for IDENTIF
 - Token-only client still works (backward compatible)
 - Connection without any auth → authMethod = 'none'
 
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).

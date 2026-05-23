@@ -4,12 +4,16 @@
 
 [task:uuid:e7fbf79b-c564-4751-8144-dbfb6688946d]
 
-**Status:** DONE
-**Assigned:** robbin-expert (implement), robbin-tester (verify)
-**Effort:** 3h expert + 1h tester
-**Dependencies:** T8 (profile commit triggers key generation)
-**Created:** 2026-05-23
-**Completed:** 2026-05-23
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
+
 
 ## Diagrams
 - [Class Diagram](./diagrams/class-diagram.svg) — UserProfile + UserKeys + filesystem layout
@@ -142,6 +146,8 @@ sshKeyGeneratedAt: string;     // ISO date of key generation
 - authorized_keys exists and is empty initially
 - addAuthorizedKey appends to file
 
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).

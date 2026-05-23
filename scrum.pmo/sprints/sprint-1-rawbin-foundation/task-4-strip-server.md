@@ -4,13 +4,15 @@
 
 [task:uuid:01df5b22-b485-40c4-b9fc-57a85676dfa5]
 
-**Status:** DONE
-**Assigned:** robbin-expert (implement), robbin-tester (verify)
-**Estimated effort:** 3h expert + 1h tester
-**Priority:** 4 (HIGH — largest single task)
-**Depends on:** Task 3 (Room.ts exists)
-**Created:** 2026-05-22
-**Completed:** 2026-05-22
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 
 ## Traceability
@@ -138,6 +140,8 @@ Strip to 31 messages per architect analysis. See `task-2-rawbin-architecture-def
 - Profile page shows no game stats
 - TUI displays correctly with RawBin branding
 
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).

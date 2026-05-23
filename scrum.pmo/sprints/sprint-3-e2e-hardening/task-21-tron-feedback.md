@@ -4,12 +4,15 @@
 
 [task:uuid:c361dcf1-ba62-4888-a73c-c5ab924265a7]
 
-**Status:** DONE
-**Assigned:** robbin-expert
-**Effort:** 2h expert
-**Dependencies:** T18-T20
-**Created:** 2026-05-23
-**Completed:** 2026-05-23
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 
 ## Traceability
@@ -36,6 +39,8 @@
 - Generate QR as canvas/dataURL, show in popup overlay
 - URL format: `https://home.donges.it:4444/app?room=<roomId>`
 
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).

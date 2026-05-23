@@ -4,12 +4,15 @@
 
 [task:uuid:bd887043-73c1-4722-b3a8-f5cc4139f897]
 
-**Status:** DONE
-**Assigned:** robbin-expert (fix), robbin-tester (verify)
-**Effort:** Variable — depends on E2E findings
-**Dependencies:** T13 (bugs found during E2E testing)
-**Created:** 2026-05-23
-**Completed:** 2026-05-23
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 
 ## Traceability
@@ -26,6 +29,8 @@ Fix all bugs discovered during Playwright E2E testing and external access valida
 1. E2E test fails → tester files bug as T17.N subtask
 2. Expert fixes → tester re-runs E2E test
 3. Repeat until all E2E tests pass
+
+## QA Audit & User Feedback
 
 ## Subtasks (from T13 E2E findings)
 

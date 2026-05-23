@@ -5,10 +5,15 @@
 [task:uuid:b29f0e02-5d6e-4b4c-9f80-002233445566]
 
 ## Status
-**Status:** DONE
-**Assigned:** robbin-expert
-**Effort:** 2h expert
-**Created:** 2026-05-23
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
+
 
 ## Traceability
 - up
@@ -80,6 +85,8 @@ Sync should handle both planning.md formats:
 - [x] `sprint fix` batch-fixes structural issues in task files
 - [x] `sprint done` adds completion date
 - [x] Tool works on RawBin scrum.pmo (SPRINT_PMO_DIR)
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task for this sprint).

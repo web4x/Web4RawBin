@@ -4,12 +4,15 @@
 
 [task:uuid:cf488ded-0225-42a4-ba82-036e280e1a49]
 
-**Status:** DONE
-**Assigned:** robbin-tester
-**Effort:** 2h tester
-**Dependencies:** None
-**Created:** 2026-05-23
-**Completed:** 2026-05-23
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 
 ## Traceability
@@ -46,6 +49,8 @@ Fix or refactor:
 - Source code checks → grep for patterns, no server needed
 - WS flow tests → refactor to unit or move to E2E (T13)
 
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).

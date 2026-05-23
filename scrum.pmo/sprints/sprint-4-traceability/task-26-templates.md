@@ -4,12 +4,15 @@
 
 [task:uuid:a8cfeb7d-15a0-461e-bc55-c611d967364b]
 
-**Status:** DONE
-**Assigned:** robbin-architect (design)
-**Effort:** 1h architect
-**Dependencies:** None
-**Created:** 2026-05-23
-**Completed:** 2026-05-23
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 
 ## Traceability
@@ -44,12 +47,6 @@ Reviewed all task files in sprints 1-4. Inconsistencies found:
 ### Task File Header (required)
 
 ```
-**Status:** PLANNED | IN PROGRESS | DONE
-**Assigned:** <role> (action)
-**Effort:** <estimated> (actual: <actual> when done)
-**Dependencies:** T<N> (<reason>) | None
-**Created:** <YYYY-MM-DD>
-**Completed:** <YYYY-MM-DD>
 ```
 
 ### Dropped from template
@@ -71,6 +68,8 @@ Reviewed all task files in sprints 1-4. Inconsistencies found:
 | `scrum.pmo/templates/task-template.md` | 72 | Canonical task file with all fields, section reference, naming convention |
 | `scrum.pmo/templates/planning-template.md` | 69 | Sprint planning file with all sections, section reference |
 
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).

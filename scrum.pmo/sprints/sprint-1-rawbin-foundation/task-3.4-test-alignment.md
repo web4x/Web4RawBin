@@ -2,11 +2,16 @@
 
 [task:uuid:adf00ff5-d8e0-48b5-bb6e-07886064ebe4]
 
-**Status:** DONE
-**Assigned:** robbin-expert (fix Room.ts) + robbin-tester (fix tests)
-**Priority:** 3 (blocks T3 completion)
-**Created:** 2026-05-22
-**Completed:** 2026-05-22
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
+
 
 ## Traceability
 - up
@@ -73,6 +78,8 @@ Tests pass `cleanupStale(0)` (0ms threshold). Expert may not accept a threshold 
 - persistDir: pass string path
 - Mock ws.readyState = 1
 
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).

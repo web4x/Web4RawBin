@@ -2,10 +2,15 @@
 
 [task:uuid:b1a959d9-0388-4f9e-97fb-991dc73b4441]
 
-**Status:** DONE
-**Assigned:** robbin-po, robbin-architect
-**Created:** 2026-05-22
-**Completed:** 2026-05-22
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 
 ## Traceability
@@ -210,6 +215,8 @@ Key additions merged into this plan:
 5. **Effort estimate**: ~8h expert work (Room.ts 2h, strip server.ts 3h, RoomUI.ts 2h, rebrand 1h) + tester verification.
 6. **All npm deps survive** — no new deps needed for base fork.
 
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).

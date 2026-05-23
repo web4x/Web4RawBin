@@ -4,12 +4,15 @@
 
 [task:uuid:988ca807-ee65-455b-adaf-b759bb277981]
 
-**Status:** DONE
-**Assigned:** robbin-expert (implement), robbin-tester (verify)
-**Effort:** 3h expert + 1h tester
-**Dependencies:** None (Sprint 1 complete)
-**Created:** 2026-05-23
-**Completed:** 2026-05-23
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 
 ## Traceability
@@ -104,6 +107,8 @@ Add click handlers to member list items in `renderMemberList()`:
   - Secret code validation (must be 4 digits)
   - Backfill: existing profiles get phone:'', url:'', profileCommitted:false
 
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).

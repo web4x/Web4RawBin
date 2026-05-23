@@ -4,12 +4,15 @@
 
 [task:uuid:a165969c-fdb7-4b93-b3e5-6aa6ae4b1402]
 
-**Status:** DONE
-**Assigned:** robbin-expert (implement), robbin-tester (verify)
-**Effort:** 2h expert + 1h tester
-**Dependencies:** T7 (ProfileEditor must exist)
-**Created:** 2026-05-23
-**Completed:** 2026-05-23
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 
 ## Traceability
@@ -67,6 +70,8 @@ When `gateMode: true`:
 - Server rejects JOIN_ROOM for uncommitted profile
 - Returning user with profileCommitted:true skips gate
 
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).

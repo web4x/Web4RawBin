@@ -4,12 +4,15 @@
 
 [task:uuid:db9091a2-9cc9-4b2f-967a-b37355b9fc88]
 
-**Status:** DONE
-**Assigned:** robbin-expert (implement), robbin-tester (verify)
-**Effort:** 1.5h expert + 0.5h tester
-**Dependencies:** T7 (profile fields + member click handler)
-**Created:** 2026-05-23
-**Completed:** 2026-05-23
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 
 ## Traceability
@@ -62,6 +65,8 @@ Wire the other-user click handler (stubbed in T7):
 - GET_USER_INFO returns public fields only
 - .vcf download creates valid file
 
+
+## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).
