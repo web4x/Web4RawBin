@@ -64,18 +64,14 @@ During Sprints 2-3, the pace of implementation caused planning files to fall beh
 - [ ] [T27: Sprint CLI Tool](./task-27-sprint-cli.md)
   **Status:** PLANNED
   **Effort:** 4h expert + 1h tester
-  - CLI tool or MCP server that PO can invoke to:
+  - OOSH script `sprint` with standard method dispatch:
     - `sprint status` — scan all task files, report status summary
     - `sprint audit` — find inconsistencies (status mismatches, unchecked criteria, missing dates)
     - `sprint sync` — update planning.md from task file statuses
     - `sprint create <task-name>` — create task from template with next number
     - `sprint done <task-number>` — mark task done, add completion date, update planning
-  - Implementation options:
-    - **Option A:** OOSH skill (bash script, uses OOSH patterns)
-    - **Option B:** Node.js CLI (TypeScript, part of RawBin repo)
-    - **Option C:** MCP server (Claude Code tool integration)
-  - PO preference: Option C (MCP server) — lets PO invoke from Claude Code session directly
-  - Output: JSON for machine consumption, markdown table for human display
+  - OOSH pattern: script file in OOSH framework, uses OOSH method dispatch, logging, config
+  - Tron directive: OOSH script, not MCP server — simple, consistent with framework
 
 ## Dependency Graph
 ```
