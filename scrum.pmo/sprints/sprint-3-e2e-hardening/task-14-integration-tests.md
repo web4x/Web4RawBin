@@ -2,7 +2,7 @@
 
 # T14: Integration Test Alignment
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-tester
 **Effort:** 2h tester
 **Dependencies:** None

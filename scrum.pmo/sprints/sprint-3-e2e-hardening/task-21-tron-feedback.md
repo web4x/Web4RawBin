@@ -2,7 +2,7 @@
 
 # T21: Tron Live Feedback Fixes
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert
 **Effort:** 2h expert
 **Dependencies:** T18-T20

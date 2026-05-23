@@ -2,7 +2,7 @@
 
 # T20: Room Chat Parity with UpDown
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert
 **Effort:** 3h expert
 **Dependencies:** None

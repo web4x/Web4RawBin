@@ -4,102 +4,76 @@
 Verify the full RawBin stack end-to-end in a real browser, fix any issues found, and harden the deployment for external access.
 
 ## Sprint Overview
-**Duration:** TBD
-**Focus:** Playwright E2E tests, integration test alignment, MD browser enhancement, deployment hardening
+**Duration:** 2026-05-23 – ongoing
+**Focus:** UX parity, Playwright E2E, integration tests, deployment hardening
 **Team:** robbinTeam (PO, architect, expert, tester)
 **Input Sources:** Tron directives via iphone:0.0
 **Prerequisite:** Port 4444 forwarded on router — DONE (2026-05-23)
 
 ## Task List
 
-- [ ] [T13: Playwright E2E Test Suite](./task-13-playwright-e2e.md)
-  **Priority:** 13 (CRITICAL — validates full stack) **Status:** PLANNED
-  **Effort:** 4h expert + 2h tester
-  - Playwright config + test infrastructure
-  - Full user journey: new user → profile gate → name entry → room create → chat → leave
-  - Device enrollment flow: secret code entry → localStorage key storage → reconnect auto-auth
-  - vCard download: click other user → profile sheet → download .vcf → validate content
-  - Profile editor: self-click → edit name/phone/url → save → verify persistence
-  - Negative tests: empty name rejected, wrong secret code rejected, uncommitted profile can't join room
-  - Mobile viewport tests (PWA responsive)
-
-- [ ] [T14: Integration Test Alignment](./task-14-integration-tests.md)
-  **Priority:** 14 (HIGH — server.test.ts + client.test.ts against running server) **Status:** PLANNED
-  **Effort:** 2h tester
-  - Fix the 48 failing integration tests (server.test.ts + client.test.ts)
-  - Tests need running server — add beforeAll server start / afterAll server stop
-  - Or refactor to unit tests like profile.test.ts
-  - Verify all routes: kept routes 200, removed routes 404
-  - Verify WS protocol: all 47 message types
+### UX Parity Block (done — unlocked E2E)
 
 - [x] [T15: MD Browser PUML/SVG Support](./task-15-md-puml-viewer.md)
-  **Priority:** 15 (MEDIUM) **Status:** DONE
-  - `/md/*.svg` + `/md/*.puml` routes, markdown relinking, PROJECT_ROOT fix
+  **Status:** DONE — `/md/*.svg` + `/md/*.puml` routes, markdown relinking, PROJECT_ROOT fix
+
+- [x] [T18: Header Parity with UpDown](./task-18-header-parity.md)
+  **Status:** DONE — room header: home, fullscreen, reload, delete buttons (44px tap targets)
+
+- [x] [T19: Room Member List Parity](./task-19-member-list-parity.md)
+  **Status:** DONE — compact badges, 24px avatars, green self-styling, gold star host, status dots
+
+- [x] [T20: Room Chat Parity](./task-20-chat-parity.md)
+  **Status:** DONE — bottom sheet, drag handle, peek preview, WS status, QR invite, 274 lines
+
+- [x] [T21: Tron Live Feedback](./task-21-tron-feedback.md)
+  **Status:** DONE — profile edit button, avatar upload verified, QR invite popup
+
+- [x] [T22: Lobby & Server Fixes](./task-22-lobby-fixes.md)
+  **Status:** DONE — lobby header buttons, private room key check, Watch removed, md linking, directory listing
+
+### Testing & Hardening (in progress)
+
+- [ ] [T13: Playwright E2E Test Suite](./task-13-playwright-e2e.md)
+  **Status:** IN PROGRESS (expert)
+  **Effort:** 4h expert + 2h tester
+  - Full user journey, device enrollment, vCard, profile editor, negative cases, mobile
+
+- [x] [T14: Integration Test Alignment](./task-14-integration-tests.md)
+  **Status:** DONE — 202/202 tests pass in 2.9s, all refactored to unit tests
 
 - [ ] [T16: Deployment Hardening](./task-16-deployment.md)
-  **Priority:** 16 (HIGH — production readiness) **Status:** PLANNED
+  **Status:** PLANNED
   **Effort:** 2h expert + 1h tester
-  - Start script (src/sh/rawbin.sh) with proper daemonization
-  - Process management: auto-restart on crash
-  - SSL certificate: use real cert from OOSH certificates script (not self-signed)
-  - Log file persistence (not just in-memory)
-  - Environment config: production vs development mode
-  - Health check endpoint: GET /api/health
+  - Start script, process management, SSL, log persistence, health check
 
 - [ ] [T17: Bug Fix Sprint](./task-17-bugfixes.md)
-  **Priority:** 17 (as needed) **Status:** PLANNED
-  **Effort:** variable
-  - Placeholder for bugs found during E2E testing
-  - Each bug becomes a subtask (T17.1, T17.2, etc.)
-  - Bug lifecycle: found → filed → fixed → verified
-
-- [ ] [T18: Header Parity with UpDown](./task-18-header-parity.md)
-  **Priority:** 18 (HIGH — core UX) **Status:** PLANNED
-  **Effort:** 1h expert
-  - Home button, fullscreen toggle, reload button
-  - Header layout: [← Leave] [🏠]  Room Name  [↻] [⛶] [🔗]
-
-- [ ] [T19: Room Member List Parity](./task-19-member-list-parity.md)
-  **Priority:** 19 (HIGH — core UX) **Status:** PLANNED
-  **Effort:** 2h expert
-  - Compact horizontal badges with 24px avatars
-  - Status indicators, self-styling (green), host icon
-  - Flex-wrap layout matching UpDown player list
-
-- [ ] [T20: Room Chat Parity](./task-20-chat-parity.md)
-  **Priority:** 20 (CRITICAL — chat is broken) **Status:** PLANNED
-  **Effort:** 3h expert
-  - Bottom sheet drawer pattern (collapsed/expanded)
-  - Drag handle, message peek preview, WS status indicator
-  - QR invite popup, transform animations, backdrop blur
-  - Verify chat works end-to-end between users
+  **Status:** PLANNED
+  - Populated from E2E findings
 
 ## Dependency Graph
 ```
-T18 (Header)  ──┐
-T19 (Members) ──┼──→ T13 (E2E) ──→ T17 (Bug fixes)
-T20 (Chat)    ──┘
-T14 (Integration tests — independent)
-T16 (Deployment — independent)
+T15,T18-T22 (UX parity) ──DONE──→ T13 (E2E) ──→ T17 (Bug fixes)
+                                    T14 (Integration — parallel)
+                                    T16 (Deployment — independent)
 ```
-
-T18-T20 must be done BEFORE E2E tests (T13) — no point testing broken UX.
 
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 8 (1 done, 7 planned) |
+| Tasks | 10 (7 done, 1 in progress, 2 planned) |
 | Expert effort | ~13h + bugfixes |
 | Tester effort | ~3h + bugfixes |
-| Prerequisite | Router port 4444 forwarding — DONE |
+| Unit tests | 202/202 pass (2.9s) |
+| Build | 53.4KB |
 
 ## Definition of Done
-- UX parity with UpDown (header, members, chat)
-- Playwright E2E: full user journey passes in headless Chrome
-- All integration tests pass
-- Server starts reliably, restarts on crash
-- External access confirmed at https://home.donges.it:4444/app
-- No critical bugs open
+- [x] UX parity with UpDown (header, members, chat)
+- [ ] Playwright E2E: full user journey passes in headless Chrome
+- [x] All integration tests pass (202/202 unit-style, no server dependency)
+- [ ] Server starts reliably, restarts on crash
+- [x] External access confirmed at https://home.donges.it:4444/app
+- [ ] No critical bugs open
 
 ---
 

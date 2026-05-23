@@ -2,7 +2,7 @@
 
 # T19: Room Member List Parity with UpDown
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert
 **Effort:** 2h expert
 **Dependencies:** None

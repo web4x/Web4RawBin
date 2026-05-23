@@ -2,7 +2,7 @@
 
 # T18: Header Parity with UpDown
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert
 **Effort:** 1h expert
 **Dependencies:** None

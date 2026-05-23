@@ -2,7 +2,7 @@
 
 # T13: Playwright E2E Test Suite
 
-**Status:** PLANNED
+**Status:** IN PROGRESS
 **Assigned:** robbin-expert (infrastructure), robbin-tester (test cases)
 **Effort:** 4h expert + 2h tester
 **Dependencies:** Port 4444 forwarded (Tron action)
