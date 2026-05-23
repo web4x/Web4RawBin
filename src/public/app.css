@@ -28,7 +28,7 @@ body {
 .loading { opacity: 0.6; }
 
 /* Lobby */
-.lobby { background: rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; }
+.lobby { background: rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; max-height: calc(100vh - 32px); overflow-y: auto; -webkit-overflow-scrolling: touch; }
 .lobby-header { text-align: center; margin-bottom: 16px; }
 .lobby-header-row { display: flex; align-items: center; justify-content: center; gap: 4px; }
 .lobby-header-row h1 { flex: 1; color: white; font-size: 1.8rem; }
@@ -61,9 +61,10 @@ body {
 .host-badge { background: #ff9800; color: white; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; vertical-align: middle; }
 
 /* Join private */
-.lobby-join-private { display: flex; gap: 6px; margin-bottom: 12px; }
-.lobby-join-private input { flex: 1; padding: 8px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; background: rgba(255,255,255,0.1); color: white; font-size: 0.85rem; }
+.lobby-join-private { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.lobby-join-private input { flex: 1; min-width: 0; padding: 8px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; background: rgba(255,255,255,0.1); color: white; font-size: 0.85rem; }
 .lobby-join-private input::placeholder { color: rgba(255,255,255,0.4); }
+.lobby-join-private .btn { flex-shrink: 0; }
 .lobby-links { text-align: center; margin-top: 16px; }
 .lobby-links a { color: rgba(255,255,255,0.6); font-size: 0.8rem; text-decoration: none; }
 .lobby-links a:hover { color: white; }
@@ -180,6 +181,8 @@ body {
   #app { padding: 8px; }
   .room-view { min-height: calc(100vh - 16px); border-radius: 16px; }
   .profile-sheet { max-height: 85vh; }
+  .lobby-join-private { flex-wrap: wrap; }
+  .lobby-join-private .btn { width: 100%; }
 }
 
 @media (min-width: 481px) {
