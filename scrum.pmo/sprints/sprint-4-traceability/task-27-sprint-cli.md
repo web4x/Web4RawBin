@@ -2,7 +2,7 @@
 
 # T27: Sprint CLI Tool (OOSH Script)
 
-**Status:** IN PROGRESS
+**Status:** DONE
 **Assigned:** TBD
 **Effort:** TBD
 **Dependencies:** TBD

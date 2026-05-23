@@ -45,7 +45,7 @@ During Sprints 2-3, the pace of implementation caused planning files to fall beh
   - T22 was created retroactively — verify it covers all ad-hoc fixes
   - Check T13 E2E results and T17 bug entries
 
-- [ ] [T26: Task Template Standardization](./task-26-templates.md)
+- [x] [T26: Task Template Standardization](./task-26-templates.md)
   **Status:** PLANNED
   **Effort:** 1h architect
   - Define the canonical task file template with required fields:
