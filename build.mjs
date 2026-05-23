@@ -37,7 +37,15 @@ fs.writeFileSync(path.join(distDir, 'build-manifest.json'), JSON.stringify({
   built: new Date().toISOString(),
 }, null, 2));
 
+// Stamp CACHE_NAME in sw.js with current version
+const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
+const swPath = 'src/public/sw.js';
+const swContent = fs.readFileSync(swPath, 'utf-8');
+const swUpdated = swContent.replace(/const CACHE_NAME = 'rawbin-v[^']*';/, `const CACHE_NAME = 'rawbin-v${pkg.version}';`);
+if (swUpdated !== swContent) fs.writeFileSync(swPath, swUpdated);
+
 const size = (fs.statSync(jsFile).size / 1024).toFixed(1);
 console.log(`  ${jsFile}  ${size}kb`);
 if (!isProduction) console.log(`  ${jsFile}.map`);
 console.log(`  ${distDir}/build-manifest.json → ${jsBasename}`);
+console.log(`  sw.js CACHE_NAME → rawbin-v${pkg.version}`);
