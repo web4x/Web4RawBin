@@ -532,11 +532,13 @@ fetch('/api/config').then(r=>r.json()).then(c=>{document.getElementById('ver').t
       res.writeHead(304); res.end(); return;
     }
     const headers: Record<string, string> = { 'Content-Type': mimeType, 'ETag': etag };
+    const basename = path.basename(filepath);
     const isHtml = ext === '.html';
+    const isNeverCache = basename === 'sw.js' || basename === 'manifest.json' || basename === 'app.css';
     const isHashed = /\-[a-zA-Z0-9]{8,}\.(js|css)$/.test(filepath);
-    if (isHtml) {
+    if (isHtml || isNeverCache) {
       headers['Cache-Control'] = 'no-cache, must-revalidate';
-    } else if (isHashed || ext === '.png' || ext === '.ico' || ext === '.webmanifest') {
+    } else if (isHashed || ext === '.png' || ext === '.ico') {
       headers['Cache-Control'] = 'public, max-age=31536000, immutable';
     } else {
       headers['Cache-Control'] = 'public, max-age=3600';

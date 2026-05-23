@@ -1,9 +1,10 @@
-const CACHE_NAME = 'rawbin-v0.2.5';
+const CACHE_NAME = 'rawbin-v0.2.6';
 
 const STATIC_SHELL = [
   '/app',
   '/app.css',
   '/manifest.json',
+  '/icon-180.png',
   '/icon-192.png',
   '/icon-512.png',
 ];
@@ -38,7 +39,6 @@ self.addEventListener('install', (event) => {
       }
     })()
   );
-  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
