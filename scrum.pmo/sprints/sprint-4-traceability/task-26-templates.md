@@ -2,7 +2,7 @@
 
 # T26: Task Template Standardization
 
-**Status:** PLANNED
+**Status:** IN PROGRESS
 **Assigned:** TBD
 **Effort:** TBD
 **Dependencies:** TBD

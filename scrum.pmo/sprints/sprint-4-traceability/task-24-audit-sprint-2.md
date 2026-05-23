@@ -2,7 +2,7 @@
 
 # T24: Task File Audit — Sprint 2
 
-**Status:** PLANNED
+**Status:** IN PROGRESS
 **Assigned:** TBD
 **Effort:** TBD
 **Dependencies:** TBD

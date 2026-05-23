@@ -2,7 +2,7 @@
 
 # T25: Task File Audit — Sprint 3
 
-**Status:** PLANNED
+**Status:** IN PROGRESS
 **Assigned:** TBD
 **Effort:** TBD
 **Dependencies:** TBD

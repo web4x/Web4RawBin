@@ -2,7 +2,7 @@
 
 # T23: Task File Audit — Sprint 1
 
-**Status:** PLANNED
+**Status:** IN PROGRESS
 **Assigned:** TBD
 **Effort:** TBD
 **Dependencies:** TBD
