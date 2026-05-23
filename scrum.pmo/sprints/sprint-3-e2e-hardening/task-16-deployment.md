@@ -2,7 +2,7 @@
 
 # T16: Deployment Hardening
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Effort:** 2h expert + 1h tester
 **Dependencies:** Port 4444 forwarded (Tron action)

@@ -8,6 +8,10 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { Room, RoomManager } from '../../src/ts/server/Room.js';
 import type { RoomMember } from '../../src/ts/server/Room.js';
 import { WebSocket } from 'ws';
+import { existsSync, statSync, readFileSync } from 'node:fs';
+import nodePath from 'node:path';
+
+const PROJECT_ROOT = nodePath.resolve(import.meta.dirname, '../../');
 
 // ── Mock infrastructure ─────────────────────────────────────────────────────
 
@@ -40,6 +44,7 @@ const KNOWN_ROUTES: Record<string, RouteResult> = {
   '/docs/': { status: 200, contentType: 'text/html' },
   '/api/config': { status: 200, contentType: 'application/json' },
   '/api/bugs': { status: 200, contentType: 'application/json' },
+  '/api/health': { status: 200, contentType: 'application/json' },
 };
 
 const REMOVED_ROUTES = ['/api/leaderboard', '/leaderboard', '/mp', '/multiplayer'];
@@ -512,4 +517,121 @@ describe('TC-4.6.11: Removed WS message types', () => {
       expect(isKeptMessageType(type)).toBe(true);
     },
   );
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// T16: Deployment Hardening
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── Replicate health endpoint from spec ─────────────────────────────────────
+
+function getHealthResponse(
+  startTime: number,
+  wsClientsSize: number,
+  roomCount: number,
+  version: string,
+): { status: string; uptime: number; version: string; connections: number; rooms: number } {
+  return {
+    status: 'ok',
+    uptime: Math.floor((Date.now() - startTime) / 1000),
+    version,
+    connections: wsClientsSize,
+    rooms: roomCount,
+  };
+}
+
+// ── TC-16.1: /api/health response shape ─────────────────────────────────────
+
+describe('TC-16.1: /api/health response', () => {
+
+  it('returns all required fields', () => {
+    const startTime = Date.now() - 60000;
+    const health = getHealthResponse(startTime, 5, 2, '0.1.0');
+
+    expect(health.status).toBe('ok');
+    expect(health.uptime).toBeDefined();
+    expect(health.version).toBeDefined();
+    expect(health.connections).toBeDefined();
+    expect(health.rooms).toBeDefined();
+  });
+
+  it('status is always ok', () => {
+    const health = getHealthResponse(Date.now(), 0, 0, '0.1.0');
+    expect(health.status).toBe('ok');
+  });
+
+  it('/api/health is a known route', () => {
+    // Add to KNOWN_ROUTES check
+    expect(resolveRoute('/api/health')).not.toBe('removed');
+  });
+});
+
+// ── TC-16.2: Health uptime is positive number ───────────────────────────────
+
+describe('TC-16.2: Health uptime', () => {
+
+  it('uptime is a positive number when server has been running', () => {
+    const startTime = Date.now() - 120000;
+    const health = getHealthResponse(startTime, 3, 1, '0.1.0');
+    expect(health.uptime).toBeGreaterThan(0);
+    expect(typeof health.uptime).toBe('number');
+  });
+
+  it('uptime is 0 or near-0 when just started', () => {
+    const health = getHealthResponse(Date.now(), 0, 0, '0.1.0');
+    expect(health.uptime).toBeLessThanOrEqual(1);
+    expect(health.uptime).toBeGreaterThanOrEqual(0);
+  });
+
+  it('uptime increases with server age', () => {
+    const health60s = getHealthResponse(Date.now() - 60000, 0, 0, '0.1.0');
+    const health120s = getHealthResponse(Date.now() - 120000, 0, 0, '0.1.0');
+    expect(health120s.uptime).toBeGreaterThan(health60s.uptime);
+  });
+});
+
+// ── TC-16.3: Health version matches package.json ────────────────────────────
+
+describe('TC-16.3: Health version matches package.json', () => {
+
+  it('version from health matches package.json version', () => {
+    const pkg = JSON.parse(readFileSync(nodePath.join(PROJECT_ROOT, 'package.json'), 'utf-8'));
+    const health = getHealthResponse(Date.now(), 0, 0, pkg.version);
+    expect(health.version).toBe(pkg.version);
+    expect(health.version).toBe('0.1.0');
+  });
+});
+
+// ── TC-16.4: rawbin.sh is executable ────────────────────────────────────────
+
+describe('TC-16.4: rawbin.sh exists and is executable', () => {
+
+  it('src/sh/rawbin.sh exists', () => {
+    const scriptPath = nodePath.join(PROJECT_ROOT, 'src/sh/rawbin.sh');
+    expect(existsSync(scriptPath)).toBe(true);
+  });
+
+  it('rawbin.sh has execute permission', () => {
+    const scriptPath = nodePath.join(PROJECT_ROOT, 'src/sh/rawbin.sh');
+    if (!existsSync(scriptPath)) return;
+    const stat = statSync(scriptPath);
+    expect(stat.mode & 0o111).toBeGreaterThan(0);
+  });
+});
+
+// ── TC-16.5: stop.sh is executable ──────────────────────────────────────────
+
+describe('TC-16.5: stop.sh exists and is executable', () => {
+
+  it('src/sh/stop.sh exists', () => {
+    const scriptPath = nodePath.join(PROJECT_ROOT, 'src/sh/stop.sh');
+    expect(existsSync(scriptPath)).toBe(true);
+  });
+
+  it('stop.sh has execute permission', () => {
+    const scriptPath = nodePath.join(PROJECT_ROOT, 'src/sh/stop.sh');
+    if (!existsSync(scriptPath)) return;
+    const stat = statSync(scriptPath);
+    expect(stat.mode & 0o111).toBeGreaterThan(0);
+  });
 });

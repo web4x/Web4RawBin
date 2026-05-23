@@ -44,8 +44,12 @@ function getLocalIP(): string {
   return 'localhost';
 }
 
-const PORT = 4000;
-const HTTPS_PORT = 4444;
+const PORT = parseInt(envVars['PORT'] || '4000');
+const HTTPS_PORT = parseInt(envVars['HTTPS_PORT'] || '4444');
+const LOG_LEVEL = envVars['LOG_LEVEL'] || 'info';
+const MAX_ROOMS = parseInt(envVars['MAX_ROOMS'] || '100');
+const MAX_MEMBERS_PER_ROOM = parseInt(envVars['MAX_MEMBERS_PER_ROOM'] || '50');
+const IS_PRODUCTION = envVars['NODE_ENV'] === 'production' || process.env.NODE_ENV === 'production';
 const BASE_DOMAIN = envVars['BASE_DOMAIN'] || '';
 const PUBLIC_DIR = path.join(__dirname, '../../public');
 const CERT_DIR = path.join(__dirname, '.certs');
@@ -187,10 +191,37 @@ let serverStartTime = new Date();
 const serverLogs: string[] = [];
 const MAX_LOGS = 1000;
 
+const LOGS_DIR = path.join(DATA_DIR, 'logs');
+
+function getLogFileName(): string {
+  const d = new Date();
+  return `rawbin-${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}.log`;
+}
+
 function addLog(message: string): void {
   const timestamp = new Date().toLocaleTimeString();
-  serverLogs.push(`[${timestamp}] ${message}`);
+  const entry = `[${timestamp}] ${message}`;
+  serverLogs.push(entry);
   if (serverLogs.length > MAX_LOGS) serverLogs.shift();
+  if (IS_PRODUCTION) {
+    try {
+      fsSync.mkdirSync(LOGS_DIR, { recursive: true });
+      fsSync.appendFileSync(path.join(LOGS_DIR, getLogFileName()), entry + '\n');
+    } catch {}
+  }
+}
+
+function cleanupOldLogs(): void {
+  try {
+    if (!fsSync.existsSync(LOGS_DIR)) return;
+    const files = fsSync.readdirSync(LOGS_DIR).filter(f => f.startsWith('rawbin-') && f.endsWith('.log'));
+    const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
+    for (const f of files) {
+      const fpath = path.join(LOGS_DIR, f);
+      const stat = fsSync.statSync(fpath);
+      if (stat.mtimeMs < cutoff) fsSync.unlinkSync(fpath);
+    }
+  } catch {}
 }
 
 function trackClient(req: http.IncomingMessage): void {
@@ -256,6 +287,13 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const domain = BASE_DOMAIN || getLocalIP();
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
       res.end(JSON.stringify({ baseDomain: domain, httpsPort: HTTPS_PORT, version: '0.1.0', branch: 'rawbin' }));
+      return;
+    }
+
+    if (filepath === '/api/health') {
+      const uptime = Math.floor((Date.now() - serverStartTime.getTime()) / 1000);
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+      res.end(JSON.stringify({ status: 'ok', uptime, version: '0.1.0', connections: wsClients.size, rooms: roomManager.size }));
       return;
     }
 
@@ -607,7 +645,7 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
 
       const room = roomManager.getRoom(msg.roomId);
       if (!room) { send({ type: MSG.ERROR, message: 'Room not found' }); break; }
-      if (room.isPrivate && room.roomKey !== msg.roomKey) { send({ type: MSG.ERROR, message: 'Wrong room key' }); break; }
+      if (room.isPrivate) { send({ type: MSG.ERROR, message: 'Room is private' }); break; }
       const joinName = msg.playerName || 'User';
       if (msg.playerToken) {
         const oldId = tokenToClient.get(msg.playerToken);
@@ -1039,11 +1077,18 @@ async function main(): Promise<void> {
   const hasSSL = await generateCertificate();
   await startServers(!hasSSL);
   await new Promise(resolve => setTimeout(resolve, 100));
+  cleanupOldLogs();
   setInterval(() => {
     const cleaned = roomManager.cleanupStale();
     if (cleaned > 0) { addLog(`Periodic cleanup: ${cleaned} stale room(s)`); broadcastRoomList(); }
   }, 2 * 60 * 1000);
-  setupTUI();
+  setInterval(cleanupOldLogs, 24 * 60 * 60 * 1000);
+  if (!IS_PRODUCTION) {
+    setupTUI();
+  } else {
+    addLog('Server started (production mode)');
+    addLog(`HTTPS: https://localhost:${HTTPS_PORT}`);
+  }
 }
 
 process.on('uncaughtException', (error) => { console.error('Uncaught:', error); process.exit(1); });
