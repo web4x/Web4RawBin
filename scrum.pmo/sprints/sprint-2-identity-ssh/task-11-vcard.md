@@ -2,7 +2,7 @@
 
 # T11: vCard Download for Other Users
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Effort:** 1.5h expert + 0.5h tester
 **Dependencies:** T7 (profile fields + member click handler)

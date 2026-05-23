@@ -2,7 +2,7 @@
 
 # Task 5: Create RoomUI Client Components
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Estimated effort:** 2h expert + 1h tester
 **Priority:** 5 (HIGH — user-facing)

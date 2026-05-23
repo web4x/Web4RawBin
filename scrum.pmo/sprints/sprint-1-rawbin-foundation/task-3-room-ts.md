@@ -2,7 +2,7 @@
 
 # Task 3: Create Room.ts from GameRoom.ts
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Estimated effort:** 2h expert + 1h tester
 **Priority:** 3 (CRITICAL — blocks all room-related work)

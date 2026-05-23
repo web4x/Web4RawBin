@@ -2,7 +2,7 @@
 
 # T12: SSH-Based Login (Challenge-Response)
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Effort:** 3h expert + 1h tester
 **Dependencies:** T10 (device keys must exist)

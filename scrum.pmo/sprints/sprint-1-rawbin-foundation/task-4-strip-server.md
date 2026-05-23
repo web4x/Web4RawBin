@@ -2,7 +2,7 @@
 
 # Task 4: Strip server.ts of Game Logic
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Estimated effort:** 3h expert + 1h tester
 **Priority:** 4 (HIGH — largest single task)

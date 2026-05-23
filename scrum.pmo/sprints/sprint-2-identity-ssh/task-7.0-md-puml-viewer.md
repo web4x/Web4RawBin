@@ -2,7 +2,7 @@
 
 # T7.0: MD Browser PlantUML SVG Support
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert (implement)
 **Effort:** 1h expert
 **Dependencies:** None (prerequisite for Sprint 2 task references)

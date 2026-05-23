@@ -2,7 +2,7 @@
 
 # T7: User Editor Dialog
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Effort:** 3h expert + 1h tester
 **Dependencies:** None (Sprint 1 complete)

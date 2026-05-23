@@ -8,7 +8,7 @@ Verify the full RawBin stack end-to-end in a real browser, fix any issues found,
 **Focus:** Playwright E2E tests, integration test alignment, MD browser enhancement, deployment hardening
 **Team:** robbinTeam (PO, architect, expert, tester)
 **Input Sources:** Tron directives via iphone:0.0
-**Prerequisite:** Port 4444 forwarded on router (Tron action)
+**Prerequisite:** Port 4444 forwarded on router — DONE (2026-05-23)
 
 ## Task List
 
@@ -32,12 +32,9 @@ Verify the full RawBin stack end-to-end in a real browser, fix any issues found,
   - Verify all routes: kept routes 200, removed routes 404
   - Verify WS protocol: all 47 message types
 
-- [ ] [T15: MD Browser PUML/SVG Support](./task-15-md-puml-viewer.md)
-  **Priority:** 15 (MEDIUM — carried from Sprint 2 T7.0) **Status:** PLANNED
-  **Effort:** 1h expert
-  - Add `/md/*.svg` route to serve SVG files from project root
-  - Relink `.puml` references in markdown to `.svg` companions
-  - Sprint planning docs viewable at https://home.donges.it:4444/md/scrum.pmo/...
+- [x] [T15: MD Browser PUML/SVG Support](./task-15-md-puml-viewer.md)
+  **Priority:** 15 (MEDIUM) **Status:** DONE
+  - `/md/*.svg` + `/md/*.puml` routes, markdown relinking, PROJECT_ROOT fix
 
 - [ ] [T16: Deployment Hardening](./task-16-deployment.md)
   **Priority:** 16 (HIGH — production readiness) **Status:** PLANNED
@@ -69,7 +66,7 @@ T13 is the gate — bugs found during E2E testing flow into T17. T14, T15, T16 a
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 5 (T13-T17) |
+| Tasks | 5 (1 done, 4 planned) |
 | Expert effort | ~7h + bugfixes |
 | Tester effort | ~3h + bugfixes |
 | Prerequisite | Router port 4444 forwarding |

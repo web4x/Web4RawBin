@@ -1,6 +1,6 @@
 # Task 3.4: Align Room.ts with Test Cases
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert (fix Room.ts) + robbin-tester (fix tests)
 **Priority:** 3 (blocks T3 completion)
 

@@ -2,7 +2,7 @@
 
 # T8: Mandatory Profile Gate
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Effort:** 2h expert + 1h tester
 **Dependencies:** T7 (ProfileEditor must exist)

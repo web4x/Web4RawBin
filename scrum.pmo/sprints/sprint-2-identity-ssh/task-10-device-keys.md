@@ -2,7 +2,7 @@
 
 # T10: Device Key Enrollment
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Effort:** 4h expert + 1.5h tester
 **Dependencies:** T9 (user SSH keys must exist)

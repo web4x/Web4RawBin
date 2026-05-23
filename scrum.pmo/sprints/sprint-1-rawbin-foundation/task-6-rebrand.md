@@ -2,7 +2,7 @@
 
 # Task 6: Rebrand Assets (UpDown → RawBin)
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Estimated effort:** 1h expert + 30min tester
 **Priority:** 6 (MEDIUM — cosmetic but required)

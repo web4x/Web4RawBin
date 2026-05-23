@@ -2,7 +2,7 @@
 
 # T15: MD Browser PUML/SVG Support
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert
 **Effort:** 1h expert
 **Dependencies:** None (carried from Sprint 2 T7.0)

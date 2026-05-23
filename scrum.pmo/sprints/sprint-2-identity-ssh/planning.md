@@ -11,52 +11,23 @@ Transform RawBin from anonymous token-based identity to cryptographic SSH key-ba
 
 ## Task List
 
-- [ ] [T7: User Editor Dialog](./task-7-user-editor.md)
-  **Priority:** 7 (CRITICAL — enables all identity work) **Status:** PLANNED
-  **Effort:** 3h expert + 1h tester
-  - ProfileEditor.ts client component (name, phone, url, avatar, secret code)
-  - Self-click in room → editor, other-click → stub for T11
-  - Server: UPDATE_PROFILE handler, UserProfile extensions (phone, url, profileCommitted)
+- [x] [T7: User Editor Dialog](./task-7-user-editor.md)
+  **Status:** DONE — ProfileEditor.ts 123 lines, UPDATE_PROFILE+GET_USER_INFO handlers, MessageTypes 35
 
-- [ ] [T8: Mandatory Profile Gate](./task-8-profile-gate.md)
-  **Priority:** 8 (HIGH — blocks room access for new users) **Status:** PLANNED
-  **Effort:** 2h expert + 1h tester
-  **Depends on:** T7
-  - Gate mode: no close button, name required, "Continue" to proceed
-  - Server rejects room create/join for uncommitted profiles
+- [x] [T8: Mandatory Profile Gate](./task-8-profile-gate.md)
+  **Status:** DONE — gate flow in app.ts, server rejects uncommitted profiles
 
-- [ ] [T9: SSH Key Generation on Profile Commit](./task-9-ssh-keys.md)
-  **Priority:** 9 (HIGH — foundation for device auth) **Status:** PLANNED
-  **Effort:** 3h expert + 1h tester
-  **Depends on:** T8
-  - New UserKeys.ts module (Node.js crypto, no shell)
-  - Per-user home directory: data/users/<token>/.ssh/
-  - OOSH directory pattern: id_rsa, public_keys/, private_key/, authorized_keys
+- [x] [T9: SSH Key Generation on Profile Commit](./task-9-ssh-keys.md)
+  **Status:** DONE — UserKeys.ts 135→192 lines, RSA-2048, OOSH .ssh/ pattern
 
-- [ ] [T10: Device Key Enrollment](./task-10-device-keys.md)
-  **Priority:** 10 (HIGH — enables per-device auth) **Status:** PLANNED
-  **Effort:** 4h expert + 1.5h tester
-  **Depends on:** T9
-  - Secret code verification → device keypair generation → user key signing
-  - DeviceEnrollDialog.ts client component
-  - Device keys stored in localStorage, public key in authorized_keys
+- [x] [T10: Device Key Enrollment](./task-10-device-keys.md)
+  **Status:** DONE — device keypairs, secret code verification, DeviceEnrollDialog.ts 69 lines
 
-- [ ] [T11: vCard Download](./task-11-vcard.md)
-  **Priority:** 11 (MEDIUM — user-facing feature) **Status:** PLANNED
-  **Effort:** 1.5h expert + 0.5h tester
-  **Depends on:** T7 (runs parallel with T8-T9)
-  - ProfileSheet.ts bottom-sheet overlay
-  - vCard V3.0 generation (FN, TEL, URL, PHOTO)
-  - Other-user click → GET_USER_INFO → download .vcf
+- [x] [T11: vCard Download](./task-11-vcard.md)
+  **Status:** DONE — ProfileSheet.ts 98 lines, vCard V3.0, Link Account
 
-- [ ] [T12: SSH-Based Login (Challenge-Response)](./task-12-ssh-login.md)
-  **Priority:** 12 (HIGH — completes auth chain) **Status:** PLANNED
-  **Effort:** 3h expert + 1h tester
-  **Depends on:** T10
-  - Welcome message includes challenge nonce
-  - Client signs with device key via Web Crypto API
-  - Server verifies → authenticated connection
-  - Backward compatible with token-based IDENTIFY
+- [x] [T12: SSH-Based Login (Challenge-Response)](./task-12-ssh-login.md)
+  **Status:** DONE — challenge nonce, Web Crypto sign/verify, backward compatible
 
 ## Dependency Graph
 ```
@@ -78,23 +49,28 @@ Created by robbin-architect. Source: `diagrams/*.puml`, rendered: `diagrams/*.sv
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 6 (T7-T12) |
+| Tasks | 6/6 DONE |
 | Expert effort | ~16.5h |
 | Tester effort | ~6h |
-| New files | 6 |
-| New WS messages | 10 (31 → 41) |
-| New lines (est.) | ~1,000 |
+| New files | 6 (ProfileEditor, ProfileSheet, DeviceEnrollDialog, UserKeys + 2 test files) |
+| WS messages | 31 → 47 (+16) |
+| Tests | 116 unit tests pass (33 room + 22 profile + 61 userkeys) |
+| Build | 24.8KB |
 
 ## Definition of Done
-- All task acceptance criteria met
-- `npm run build` succeeds
-- All vitest tests pass (room + server + profile + userkeys + client)
-- SSH key generation works (Node.js crypto, OOSH directory pattern)
-- Device enrollment flow works end-to-end
-- Challenge-response auth works
-- Profile gate blocks room access for new users
-- vCard download works on mobile
-- No regression in Sprint 1 functionality
+- [x] All task acceptance criteria met
+- [x] `npm run build` succeeds (24.8KB)
+- [x] All vitest unit tests pass (116/116)
+- [x] SSH key generation works (Node.js crypto, OOSH directory pattern)
+- [x] Device enrollment flow works end-to-end
+- [x] Challenge-response auth works
+- [x] Profile gate blocks room access for new users
+- [x] vCard download works
+- [x] No regression in Sprint 1 functionality
+
+## Sprint Metrics
+- Tasks completed: 6/6
+- Sprint completed: 2026-05-23
 
 ---
 

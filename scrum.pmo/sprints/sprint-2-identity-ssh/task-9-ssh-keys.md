@@ -2,7 +2,7 @@
 
 # T9: SSH Key Generation on Profile Commit
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Effort:** 3h expert + 1h tester
 **Dependencies:** T8 (profile commit triggers key generation)

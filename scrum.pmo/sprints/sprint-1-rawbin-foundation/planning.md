@@ -36,57 +36,43 @@ Robbin (AI Assistant)
   - [Architect Analysis](./task-2-rawbin-architecture-definition.md) — 458-line codebase audit
   - Approved by Tron 2026-05-22
 
-- [ ] [Task 3: Create Room.ts from GameRoom.ts](./task-3-room-ts.md)
-  **Priority:** 3 (CRITICAL — blocks room work) **Status:** PLANNED
-  **Effort:** 2h expert + 1h tester
-  - Fork GameRoom.ts → Room.ts (~864 → ~300 lines)
-  - Strip game state, rename to RoomMember/RoomInfo
-  - Add file-backed persistence
-  - Unit tests in vitest
+- [x] [Task 3: Create Room.ts from GameRoom.ts](./task-3-room-ts.md)
+  **Priority:** 3 (CRITICAL) **Status:** DONE
+  - Room.ts 297 lines, 33/33 vitest pass
 
-- [ ] [Task 4: Strip server.ts of Game Logic](./task-4-strip-server.md)
-  **Priority:** 4 (HIGH — largest task) **Status:** PLANNED
-  **Effort:** 3h expert + 1h tester
-  **Depends on:** Task 3
-  - Strip game routes, WS handlers, data model
-  - Import Room.ts, separate profiles.json / devices.json
-  - Rebrand route titles, update MessageTypes.ts (46 → 31 messages)
+- [x] [Task 4: Strip server.ts of Game Logic](./task-4-strip-server.md)
+  **Priority:** 4 (HIGH) **Status:** DONE
+  - server.ts 910 lines, MessageTypes 31 messages, profiles+devices separated
 
-- [ ] [Task 5: Create RoomUI Client Components](./task-5-room-ui.md)
-  **Priority:** 5 (HIGH — user-facing) **Status:** PLANNED
-  **Effort:** 2h expert + 1h tester
-  **Depends on:** Tasks 3, 4
-  - RoomBrowser.ts (room list + create)
-  - RoomView.ts (inside-room: members, chat, settings)
-  - RawBinClient.ts (WS client, stripped of game events)
-  - app.ts entry point + esbuild config
+- [x] [Task 5: Create RoomUI Client Components](./task-5-room-ui.md)
+  **Priority:** 5 (HIGH) **Status:** DONE
+  - 6 client files (637 lines), esbuild 14.5kb
 
-- [ ] [Task 6: Rebrand Assets (UpDown → RawBin)](./task-6-rebrand.md)
-  **Priority:** 6 (MEDIUM — cosmetic) **Status:** PLANNED
-  **Effort:** 1h expert + 30min tester
-  **Depends on:** Tasks 3-5
-  - package.json, manifest.json, shell scripts, TUI, HTML pages, CSS vars, README
+- [x] [Task 6: Rebrand Assets (UpDown → RawBin)](./task-6-rebrand.md)
+  **Priority:** 6 (MEDIUM) **Status:** DONE
+  - Zero UpDown references, full RawBin branding
 
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 6 (2 done, 4 planned) |
+| Tasks | 6/6 DONE |
 | Expert effort | ~8h |
 | Tester effort | ~3.5h |
 | Files: QnD → RawBin | 23 → 12 |
 | Lines: QnD → RawBin | 7,549 → ~2,161 (71% removed) |
+| Tests | 33 room tests pass |
 
 ## Definition of Done
-- All task acceptance criteria met
-- `npm run dev` starts server
-- `npm run build` bundles client
-- All vitest tests pass
-- No "UpDown" or game references in codebase
-- File-backed room + profile persistence works
+- [x] All task acceptance criteria met
+- [x] `npm run dev` starts server
+- [x] `npm run build` bundles client
+- [x] All vitest tests pass
+- [x] No "UpDown" or game references in codebase
+- [x] File-backed room + profile persistence works
 
 ## Sprint Metrics
-- Tasks completed: 2/6
-- Expert velocity: TBD (starts at Task 3)
+- Tasks completed: 6/6
+- Sprint completed: 2026-05-22
 
 ---
 
