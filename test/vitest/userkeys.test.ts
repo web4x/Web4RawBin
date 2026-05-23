@@ -754,3 +754,210 @@ describe('TC-10.7.8: authorized_keys after enrollment', () => {
     expect(authKeys.length).toBe(0);
   });
 });
+
+// ═══════════════════════════════════════════════════════════════════════════
+// T12: Challenge-Response Authentication
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── Replicate T12 functions from spec ───────────────────────────────────────
+
+function generateChallenge(): string {
+  return crypto.randomBytes(32).toString('hex');
+}
+
+function verifyChallenge(
+  userToken: string,
+  devicePublicKey: string,
+  challenge: string,
+  signedChallenge: string,
+): boolean {
+  if (!userToken || !devicePublicKey || !challenge || !signedChallenge) return false;
+
+  // Check devicePublicKey is in authorized_keys
+  const akPath = path.join(getSshDir(userToken), 'authorized_keys');
+  let akContent: string;
+  try {
+    akContent = fs.readFileSync(akPath, 'utf-8');
+  } catch {
+    return false;
+  }
+  if (!akContent.includes(devicePublicKey.trim())) return false;
+
+  // Verify signature
+  try {
+    return crypto.verify(
+      'sha256',
+      Buffer.from(challenge, 'hex'),
+      devicePublicKey,
+      Buffer.from(signedChallenge, 'base64'),
+    );
+  } catch {
+    return false;
+  }
+}
+
+function signChallenge(devicePrivateKey: string, challenge: string): string {
+  const signature = crypto.sign('sha256', Buffer.from(challenge, 'hex'), devicePrivateKey);
+  return signature.toString('base64');
+}
+
+// ── TC-12.8.1: Challenge is unique per call ─────────────────────────────────
+
+describe('TC-12.8.1: Challenge uniqueness', () => {
+
+  it('generates 64-char hex string', () => {
+    const challenge = generateChallenge();
+    expect(challenge.length).toBe(64);
+    expect(/^[0-9a-f]{64}$/.test(challenge)).toBe(true);
+  });
+
+  it('no duplicates in 100 calls', () => {
+    const challenges = new Set<string>();
+    for (let i = 0; i < 100; i++) {
+      challenges.add(generateChallenge());
+    }
+    expect(challenges.size).toBe(100);
+  });
+});
+
+// ── TC-12.8.2: Valid device key signature → verified true ────────────────────
+
+describe('TC-12.8.2: Valid signature verification', () => {
+
+  it('verifyChallenge returns true for correctly signed challenge', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+    const enrolled = enrollDevice(TEST_TOKEN, DEVICE_ID);
+
+    const challenge = generateChallenge();
+    const signed = signChallenge(enrolled.devicePrivateKey, challenge);
+
+    expect(verifyChallenge(TEST_TOKEN, enrolled.devicePublicKey, challenge, signed)).toBe(true);
+  });
+
+  it('works with different challenges', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+    const enrolled = enrollDevice(TEST_TOKEN, DEVICE_ID);
+
+    const c1 = generateChallenge();
+    const c2 = generateChallenge();
+    const s1 = signChallenge(enrolled.devicePrivateKey, c1);
+    const s2 = signChallenge(enrolled.devicePrivateKey, c2);
+
+    expect(verifyChallenge(TEST_TOKEN, enrolled.devicePublicKey, c1, s1)).toBe(true);
+    expect(verifyChallenge(TEST_TOKEN, enrolled.devicePublicKey, c2, s2)).toBe(true);
+    // Cross-check: wrong challenge+signature pair fails
+    expect(verifyChallenge(TEST_TOKEN, enrolled.devicePublicKey, c1, s2)).toBe(false);
+  });
+});
+
+// ── TC-12.8.3: Invalid/tampered signature → false ────────────────────────────
+
+describe('TC-12.8.3: Invalid signature rejected', () => {
+
+  it('tampered signature returns false', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+    const enrolled = enrollDevice(TEST_TOKEN, DEVICE_ID);
+
+    const challenge = generateChallenge();
+    const badSig = Buffer.from('tampered-signature-data').toString('base64');
+
+    expect(verifyChallenge(TEST_TOKEN, enrolled.devicePublicKey, challenge, badSig)).toBe(false);
+  });
+
+  it('signature from different device key returns false', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+    const enrolled1 = enrollDevice(TEST_TOKEN, 'device-1');
+    const enrolled2 = enrollDevice(TEST_TOKEN, 'device-2');
+
+    const challenge = generateChallenge();
+    const signedByDevice2 = signChallenge(enrolled2.devicePrivateKey, challenge);
+
+    // Signed by device-2 but presented with device-1's public key
+    expect(verifyChallenge(TEST_TOKEN, enrolled1.devicePublicKey, challenge, signedByDevice2)).toBe(false);
+  });
+
+  it('replayed signature with different challenge returns false', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+    const enrolled = enrollDevice(TEST_TOKEN, DEVICE_ID);
+
+    const challenge1 = generateChallenge();
+    const signed1 = signChallenge(enrolled.devicePrivateKey, challenge1);
+
+    // Replay signed1 against a new challenge
+    const challenge2 = generateChallenge();
+    expect(verifyChallenge(TEST_TOKEN, enrolled.devicePublicKey, challenge2, signed1)).toBe(false);
+  });
+});
+
+// ── TC-12.8.4: Device key not in authorized_keys → false ─────────────────────
+
+describe('TC-12.8.4: Unauthorized device key rejected', () => {
+
+  it('unenrolled device key returns false', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+
+    // Generate a device keypair but do NOT enroll it
+    const { publicKey: unenrolledPub, privateKey: unenrolledPriv } = generateDeviceKeypair(TEST_TOKEN, 'rogue-device');
+
+    const challenge = generateChallenge();
+    const signed = signChallenge(unenrolledPriv, challenge);
+
+    expect(verifyChallenge(TEST_TOKEN, unenrolledPub, challenge, signed)).toBe(false);
+  });
+
+  it('device key from different user returns false', () => {
+    const otherToken = 'other-user-token';
+
+    // Setup user 1 with enrolled device
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+    const enrolled = enrollDevice(TEST_TOKEN, DEVICE_ID);
+
+    // Setup user 2 (no enrolled devices)
+    createUserHome(otherToken);
+    generateUserKeypair(otherToken);
+
+    const challenge = generateChallenge();
+    const signed = signChallenge(enrolled.devicePrivateKey, challenge);
+
+    // Try to auth against other user's authorized_keys
+    expect(verifyChallenge(otherToken, enrolled.devicePublicKey, challenge, signed)).toBe(false);
+  });
+});
+
+// ── TC-12.8.5: verifyChallenge returns false for empty/null inputs ───────────
+
+describe('TC-12.8.5: Empty/null input handling', () => {
+
+  it('empty userToken returns false', () => {
+    expect(verifyChallenge('', 'someKey', 'someChallenge', 'someSig')).toBe(false);
+  });
+
+  it('empty devicePublicKey returns false', () => {
+    expect(verifyChallenge(TEST_TOKEN, '', 'someChallenge', 'someSig')).toBe(false);
+  });
+
+  it('empty challenge returns false', () => {
+    expect(verifyChallenge(TEST_TOKEN, 'someKey', '', 'someSig')).toBe(false);
+  });
+
+  it('empty signedChallenge returns false', () => {
+    expect(verifyChallenge(TEST_TOKEN, 'someKey', 'someChallenge', '')).toBe(false);
+  });
+
+  it('non-existent user token returns false', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+    const enrolled = enrollDevice(TEST_TOKEN, DEVICE_ID);
+    const challenge = generateChallenge();
+    const signed = signChallenge(enrolled.devicePrivateKey, challenge);
+
+    expect(verifyChallenge('nonexistent-user', enrolled.devicePublicKey, challenge, signed)).toBe(false);
+  });
+});

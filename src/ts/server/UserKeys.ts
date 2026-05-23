@@ -175,6 +175,15 @@ export function enrollDevice(userToken: string, deviceId: string): { devicePubli
   return { devicePublicKey: publicKey, devicePrivateKey: privateKey, signature };
 }
 
+export function verifyChallenge(userToken: string, devicePublicKey: string, challenge: string, signedChallenge: string): boolean {
+  const authorizedKeys = getAuthorizedKeys(userToken);
+  const trimmedKey = devicePublicKey.trim();
+  if (!authorizedKeys.some(k => k.trim() === trimmedKey)) return false;
+  try {
+    return crypto.verify('sha256', Buffer.from(challenge, 'hex'), devicePublicKey, Buffer.from(signedChallenge, 'base64'));
+  } catch { return false; }
+}
+
 export function writeUserProfile(token: string, profile: object): void {
   const homeDir = getUserHomeDir(token);
   mkdirSafe(homeDir);

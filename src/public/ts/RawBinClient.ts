@@ -40,6 +40,9 @@ export class RawBinClient {
           const msg = JSON.parse(event.data);
           if (msg.type === 'welcome') {
             this.clientId = msg.clientId;
+            if (msg.challenge && localStorage.getItem('rawbin-device-privateKey')) {
+              this.signAndAuth(msg.challenge);
+            }
             this.send({
               type: MSG.IDENTIFY, playerToken: this.playerToken, deviceId: this.deviceId,
               name: localStorage.getItem('rawbin-name') || '',
@@ -91,6 +94,28 @@ export class RawBinClient {
 
   private emit(type: string, msg: any): void {
     this.handlers.get(type)?.forEach(h => h(msg));
+  }
+
+  private async signAndAuth(challenge: string): Promise<void> {
+    try {
+      const signedChallenge = await this.signChallenge(challenge);
+      if (!signedChallenge) return;
+      const devicePublicKey = localStorage.getItem('rawbin-device-publicKey') || '';
+      this.send({ type: MSG.DEVICE_AUTH, devicePublicKey, signedChallenge });
+    } catch {}
+  }
+
+  async signChallenge(challenge: string): Promise<string | null> {
+    const pemPrivateKey = localStorage.getItem('rawbin-device-privateKey');
+    if (!pemPrivateKey) return null;
+    const pemBody = pemPrivateKey.replace(/-----[^-]+-----/g, '').replace(/\s/g, '');
+    const der = Uint8Array.from(atob(pemBody), c => c.charCodeAt(0));
+    const key = await crypto.subtle.importKey(
+      'pkcs8', der, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['sign']
+    );
+    const challengeBytes = new Uint8Array(challenge.match(/.{2}/g)!.map(b => parseInt(b, 16)));
+    const signature = await crypto.subtle.sign('RSASSA-PKCS1-v1_5', key, challengeBytes);
+    return btoa(String.fromCharCode(...new Uint8Array(signature)));
   }
 
   createRoom(name: string, memberName: string, maxMembers?: number, roomKey?: string): void {

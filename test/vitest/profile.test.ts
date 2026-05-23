@@ -377,3 +377,48 @@ describe('TC-7.7.6: Backfill defaults', () => {
     expect(msg.profile.profileCommitted).toBe(true);
   });
 });
+
+// ── TC-12.8.6: Backward compatibility — token-only IDENTIFY ─────────────────
+
+describe('TC-12.8.6: Backward compat — token-only IDENTIFY', () => {
+
+  it('UPDATE_PROFILE works without device-key auth', () => {
+    // Client identified by token only (no DEVICE_AUTH), should still be able to update profile
+    handleUpdateProfile(
+      { name: 'TokenOnlyUser', phone: '+49 555', url: 'https://tokenonly.test', secretCode: '1234' },
+      CLIENT_ID, tokenToClient, userProfiles, send,
+    );
+
+    expect(sent.length).toBe(1);
+    expect(sent[0].type).toBe('PROFILE_UPDATED');
+    expect(sent[0].profile.name).toBe('TokenOnlyUser');
+  });
+
+  it('GET_USER_INFO works for token-only users', () => {
+    userProfiles.get(TOKEN)!.name = 'TokenUser';
+    userProfiles.get(TOKEN)!.phone = '+49 777';
+
+    handleGetUserInfo({ playerToken: TOKEN }, userProfiles, send);
+
+    expect(sent.length).toBe(1);
+    expect(sent[0].type).toBe('USER_INFO');
+    expect(sent[0].user.name).toBe('TokenUser');
+    expect(sent[0].user.phone).toBe('+49 777');
+  });
+
+  it('profile without sshKeysGenerated field still works', () => {
+    // Simulate legacy profile from before T9
+    const legacyProfile = backfillProfile({ token: 'legacy-no-ssh', name: 'LegacyNoSSH' });
+    userProfiles.set('legacy-no-ssh', legacyProfile);
+    tokenToClient.set('legacy-no-ssh', 'client-legacy-ssh');
+
+    handleUpdateProfile(
+      { name: 'StillWorks' },
+      'client-legacy-ssh', tokenToClient, userProfiles, send,
+    );
+
+    expect(sent.length).toBe(1);
+    expect(sent[0].type).toBe('PROFILE_UPDATED');
+    expect(sent[0].profile.name).toBe('StillWorks');
+  });
+});

@@ -15,7 +15,7 @@ import fetch from 'node-fetch';
 import { marked } from 'marked';
 import { RoomManager, type RoomMember } from './Room.js';
 import { MSG } from '../shared/MessageTypes.js';
-import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice } from './UserKeys.js';
+import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
 
 const execAsync = promisify(exec);
 const ADMIN_KEY = process.env.ADMIN_KEY || crypto.randomUUID();
@@ -67,6 +67,9 @@ interface ClientSession {
 interface WebSocketClient {
   ws: WebSocket; id: string; ip: string; userAgent: string;
   connectedAt: number; avatarUrl: string; deviceId: string; playerToken: string;
+  authenticated: boolean;
+  authMethod: 'none' | 'token' | 'device-key';
+  challenge: string;
 }
 
 const clientSessions = new Map<string, ClientSession>();
@@ -496,11 +499,12 @@ function setupWebSocketServer(server: https.Server): void {
     const avatarUrl = await fetchUniqueAvatar();
     avatarCache.set(clientId, avatarUrl);
 
-    const client: WebSocketClient = { ws, id: clientId, ip, userAgent, connectedAt, avatarUrl, deviceId: '', playerToken: '' };
+    const challenge = crypto.randomBytes(32).toString('hex');
+    const client: WebSocketClient = { ws, id: clientId, ip, userAgent, connectedAt, avatarUrl, deviceId: '', playerToken: '', authenticated: false, authMethod: 'none', challenge };
     wsClients.add(client);
     addLog(`WS connected: ${ip} (${wsClients.size} online)`);
 
-    ws.send(JSON.stringify({ type: 'welcome', clientId, onlineCount: wsClients.size }));
+    ws.send(JSON.stringify({ type: 'welcome', clientId, onlineCount: wsClients.size, challenge }));
     ws.send(JSON.stringify({ type: MSG.SERVER_CONFIG, shareDomain: BASE_DOMAIN || getLocalIP(), httpsPort: HTTPS_PORT }));
     ws.send(JSON.stringify({ type: MSG.ROOM_LIST, rooms: roomManager.listRooms() }));
 
@@ -688,7 +692,11 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
       }
       tokenToClient.set(token, clientId);
       const thisClient = [...wsClients].find(c => c.id === clientId);
-      if (thisClient) { thisClient.deviceId = msg.deviceId || ''; thisClient.playerToken = token; }
+      if (thisClient) {
+        thisClient.deviceId = msg.deviceId || '';
+        thisClient.playerToken = token;
+        if (!thisClient.authenticated) { thisClient.authenticated = true; thisClient.authMethod = 'token'; }
+      }
       const ua = thisClient?.userAgent || '';
       const ip = thisClient?.ip || '';
       const screenSize = msg.screenWidth && msg.screenHeight ? `${msg.screenWidth}x${msg.screenHeight}` : '';
@@ -860,6 +868,26 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
       saveDevices();
       send({ type: MSG.DEVICE_ENROLL_OK, devicePublicKey: result.devicePublicKey, devicePrivateKey: result.devicePrivateKey, signature: result.signature });
       addLog(`Device enrolled: ${enrollToken.slice(0,8)} / ${enrollDeviceId.slice(0,8)}`);
+      break;
+    }
+
+    case MSG.DEVICE_AUTH: {
+      const authClient = [...wsClients].find(c => c.id === clientId);
+      if (!authClient?.challenge) { send({ type: MSG.DEVICE_AUTH_FAILED, reason: 'No challenge' }); break; }
+      const authToken = authClient.playerToken;
+      if (!authToken) { send({ type: MSG.DEVICE_AUTH_FAILED, reason: 'Not identified' }); break; }
+      const { devicePublicKey, signedChallenge } = msg;
+      if (!devicePublicKey || !signedChallenge) { send({ type: MSG.DEVICE_AUTH_FAILED, reason: 'Missing credentials' }); break; }
+      const valid = verifyChallenge(authToken, devicePublicKey, authClient.challenge, signedChallenge);
+      if (valid) {
+        authClient.authenticated = true;
+        authClient.authMethod = 'device-key';
+        authClient.challenge = '';
+        send({ type: MSG.DEVICE_AUTH_OK });
+        addLog(`Device-key auth: ${authToken.slice(0,8)}`);
+      } else {
+        send({ type: MSG.DEVICE_AUTH_FAILED, reason: 'Invalid signature' });
+      }
       break;
     }
   }
