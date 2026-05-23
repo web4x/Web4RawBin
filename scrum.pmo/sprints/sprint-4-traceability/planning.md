@@ -73,27 +73,51 @@ During Sprints 2-3, the pace of implementation caused planning files to fall beh
   - OOSH pattern: script file in OOSH framework, uses OOSH method dispatch, logging, config
   - Tron directive: OOSH script, not MCP server — simple, consistent with framework
 
+### Structure Fix & Tool Update (Web4Articles compliance)
+
+- [ ] [T28: Fix All Task Files — Web4Articles Template Compliance](./task-28-fix-task-structure.md)
+  **Status:** PLANNED
+  **Effort:** 3h expert
+  - Add UUID tags, hierarchical Status checklist, Traceability up/down, Subtasks section, Created/Completed dates to all 33 task files
+
+- [ ] [T29: Update OOSH Sprint Tool — Template Enforcement](./task-29-update-sprint-tool.md)
+  **Status:** PLANNED
+  **Effort:** 2h expert
+  - Fix sprint.status (find all tasks), sprint.audit (Web4Articles compliance checks), sprint.create (full template), new sprint.fix (batch structure fix), sprint.done (completion date)
+
+- [ ] [T30: PO Process Documentation](./task-30-po-process-doc.md)
+  **Status:** PLANNED
+  **Effort:** 1h architect
+  - Create scrum.pmo/roles/PO/process.md with task creation protocol, sprint management, CMM4 rules
+
 ## Dependency Graph
 ```
 T23-T25 (Audit) ──→ T26 (Templates) ──→ T27 (CLI Tool)
+                                          ↓
+                    T28 (Fix Files) ←── T29 (Update Tool)
+                    T30 (PO Process Doc — independent)
 ```
 
-Audit first (understand the mess), then standardize templates, then automate.
+Phase 1 (done): audit + templates + initial tool.
+Phase 2 (now): fix files + update tool + PO process doc.
 
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 5 (T23-T27) |
-| PO effort | ~3h (audit) |
-| Architect effort | ~1h (templates) |
-| Expert effort | ~4h (CLI tool) |
-| Tester effort | ~1h (CLI tests) |
+| Tasks | 8 (5 done, 3 planned) |
+| PO effort | ~3h (audit — done) |
+| Architect effort | ~2h (templates + PO doc) |
+| Expert effort | ~9h (CLI tool + fix files + tool update) |
+| Tester effort | ~1h (CLI tests — done) |
 
 ## Definition of Done
-- All task files across Sprints 1-3 have correct status + dates
-- Task template exists and is documented
-- Sprint CLI tool operational (at least `status` and `audit` commands)
-- PO can invoke sprint tool from Claude Code session
+- [x] Audit complete — debt documented
+- [x] Task template exists
+- [x] Sprint CLI tool operational
+- [x] AC boxes checked in all DONE tasks
+- [ ] All 33 task files have UUID, Traceability, Subtasks, dates (Web4Articles compliant)
+- [ ] Sprint tool enforces Web4Articles template on create/audit/fix
+- [ ] PO process documented
 
 ---
 
