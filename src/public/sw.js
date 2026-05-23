@@ -1,10 +1,8 @@
 const CACHE_NAME = 'rawbin-v1';
 
-const APP_SHELL = [
+const STATIC_SHELL = [
   '/app',
-  '/app.html',
   '/app.css',
-  '/dist/app.js',
   '/manifest.json',
   '/icon-192.png',
   '/icon-512.png',
@@ -20,7 +18,19 @@ const OFFLINE_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta nam
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL))
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      await cache.addAll(STATIC_SHELL);
+      try {
+        const res = await fetch('/dist/build-manifest.json');
+        const manifest = await res.json();
+        if (manifest['app.js']) {
+          await cache.add('/dist/' + manifest['app.js']);
+        }
+      } catch {
+        await cache.add('/dist/app.js').catch(() => {});
+      }
+    })()
   );
   self.skipWaiting();
 });

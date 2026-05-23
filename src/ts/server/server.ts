@@ -383,7 +383,17 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (filepath === '/' || filepath === '/index.html') {
       filepath = '/index.html';
     } else if (filepath === '/app' || filepath === '/app/') {
-      filepath = '/app.html';
+      const manifestPath = path.join(PUBLIC_DIR, 'dist', 'build-manifest.json');
+      let appJsFile = 'dist/app.js';
+      try {
+        const manifest = JSON.parse(fsSync.readFileSync(manifestPath, 'utf-8'));
+        if (manifest['app.js']) appJsFile = 'dist/' + manifest['app.js'];
+      } catch {}
+      const htmlPath = path.join(PUBLIC_DIR, 'app.html');
+      const html = fsSync.readFileSync(htmlPath, 'utf-8').replace('dist/app.js', appJsFile);
+      res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache, must-revalidate' });
+      res.end(html);
+      return;
     } else if (filepath === '/bug-report' || filepath === '/bug-report/') {
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.end(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bug Report — RawBin</title>
@@ -516,7 +526,21 @@ fetch('/api/config').then(r=>r.json()).then(c=>{document.getElementById('ver').t
       res.writeHead(403, { 'Content-Type': 'text/plain' }); res.end('403 Forbidden'); return;
     }
     const data = await fs.readFile(fullPath);
-    res.writeHead(200, { 'Content-Type': mimeType, 'Cache-Control': 'no-cache' });
+    const etag = '"' + crypto.createHash('md5').update(data).digest('hex') + '"';
+    if (req.headers['if-none-match'] === etag) {
+      res.writeHead(304); res.end(); return;
+    }
+    const headers: Record<string, string> = { 'Content-Type': mimeType, 'ETag': etag };
+    const isHtml = ext === '.html';
+    const isHashed = /\-[a-zA-Z0-9]{8,}\.(js|css)$/.test(filepath);
+    if (isHtml) {
+      headers['Cache-Control'] = 'no-cache, must-revalidate';
+    } else if (isHashed || ext === '.png' || ext === '.ico' || ext === '.webmanifest') {
+      headers['Cache-Control'] = 'public, max-age=31536000, immutable';
+    } else {
+      headers['Cache-Control'] = 'public, max-age=3600';
+    }
+    res.writeHead(200, headers);
     res.end(data);
   } catch (error: any) {
     if (error.code === 'ENOENT') { res.writeHead(404, { 'Content-Type': 'text/plain' }); res.end('404 Not Found'); }
