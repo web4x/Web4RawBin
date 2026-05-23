@@ -53,28 +53,50 @@ Verify the full RawBin stack end-to-end in a real browser, fix any issues found,
   - Each bug becomes a subtask (T17.1, T17.2, etc.)
   - Bug lifecycle: found → filed → fixed → verified
 
+- [ ] [T18: Header Parity with UpDown](./task-18-header-parity.md)
+  **Priority:** 18 (HIGH — core UX) **Status:** PLANNED
+  **Effort:** 1h expert
+  - Home button, fullscreen toggle, reload button
+  - Header layout: [← Leave] [🏠]  Room Name  [↻] [⛶] [🔗]
+
+- [ ] [T19: Room Member List Parity](./task-19-member-list-parity.md)
+  **Priority:** 19 (HIGH — core UX) **Status:** PLANNED
+  **Effort:** 2h expert
+  - Compact horizontal badges with 24px avatars
+  - Status indicators, self-styling (green), host icon
+  - Flex-wrap layout matching UpDown player list
+
+- [ ] [T20: Room Chat Parity](./task-20-chat-parity.md)
+  **Priority:** 20 (CRITICAL — chat is broken) **Status:** PLANNED
+  **Effort:** 3h expert
+  - Bottom sheet drawer pattern (collapsed/expanded)
+  - Drag handle, message peek preview, WS status indicator
+  - QR invite popup, transform animations, backdrop blur
+  - Verify chat works end-to-end between users
+
 ## Dependency Graph
 ```
-[Port 4444 forwarded] ──→ T13 (E2E) ──→ T17 (Bug fixes from E2E)
-                          T14 (Integration alignment)
-                          T15 (MD viewer — independent)
-                          T16 (Deployment — independent)
+T18 (Header)  ──┐
+T19 (Members) ──┼──→ T13 (E2E) ──→ T17 (Bug fixes)
+T20 (Chat)    ──┘
+T14 (Integration tests — independent)
+T16 (Deployment — independent)
 ```
 
-T13 is the gate — bugs found during E2E testing flow into T17. T14, T15, T16 are independent and can run in parallel.
+T18-T20 must be done BEFORE E2E tests (T13) — no point testing broken UX.
 
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 5 (1 done, 4 planned) |
-| Expert effort | ~7h + bugfixes |
+| Tasks | 8 (1 done, 7 planned) |
+| Expert effort | ~13h + bugfixes |
 | Tester effort | ~3h + bugfixes |
-| Prerequisite | Router port 4444 forwarding |
+| Prerequisite | Router port 4444 forwarding — DONE |
 
 ## Definition of Done
+- UX parity with UpDown (header, members, chat)
 - Playwright E2E: full user journey passes in headless Chrome
-- All integration tests pass against running server
-- `/md/` route serves SVG diagrams inline
+- All integration tests pass
 - Server starts reliably, restarts on crash
 - External access confirmed at https://home.donges.it:4444/app
 - No critical bugs open

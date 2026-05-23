@@ -1,0 +1,77 @@
+[Back to Sprint 3 Planning](./planning.md)
+
+# T20: Room Chat Parity with UpDown
+
+**Status:** PLANNED
+**Assigned:** robbin-expert
+**Effort:** 3h expert
+**Dependencies:** None
+
+## Problem
+
+RawBin chat is either broken or renders as a flat inline panel. UpDown had a polished bottom-sheet chat drawer with drag handle, WS status indicator, message peek preview, QR invite popup, and transform animations. The chat was the primary interaction surface — losing it breaks the core UX.
+
+## Requirements
+
+### 20.1 Bottom sheet pattern
+Port from QnD `MultiplayerUI.ts` lines 266-277, `multiplayer.css` lines 387-456:
+- Fixed-position sheet at bottom of screen
+- Collapsed state: shows handle bar + last message peek (52px visible)
+- Expanded state: full chat with messages + input
+- Transform animation: `translateY(calc(100% - 52px))` ↔ `translateY(0)`
+- Backdrop blur (10px) on dark background (`rgba(20, 20, 40, 0.95)`)
+
+### 20.2 Drag handle
+- Visual bar at top of sheet (40px × 4px rounded, centered)
+- Touch drag to expand/collapse (touchstart/touchmove/touchend)
+- Click to toggle expanded/collapsed
+- Passive touch listeners for scroll performance
+
+### 20.3 Chat messages
+- Scrollable message list
+- Sender name in cyan (`#4dd0e1`), bold
+- Message text with `white-space: pre-wrap`
+- Auto-scroll to bottom on new message
+- 200 char input limit
+- Send button + Enter key to send
+
+### 20.4 Message preview peek
+When chat is collapsed and a new message arrives:
+- Show sender name + first 40 chars as a peek notification
+- Auto-hide after 3 seconds
+- Tap peek to expand chat
+
+### 20.5 WebSocket status indicator
+- Green dot: connected
+- Red dot: disconnected
+- Orange dot: reconnecting
+- Click to manually reconnect
+- Position: in chat header area
+
+### 20.6 Chat invite with QR
+Port from QnD lines 403-407:
+- `📨 Invite` button in chat header
+- Opens popup with QR code for room share URL
+- URL format: `https://home.donges.it:4444/app?room=<roomId>`
+- Uses existing `qrcode` npm dependency
+
+### 20.7 Verify chat actually works end-to-end
+- CHAT_MESSAGE sent via WS
+- Server broadcasts to all room members
+- Messages appear in chat for all participants
+- Chat history preserved on rejoin
+
+## Source Reference
+- QnD: `MultiplayerUI.ts` lines 266-277 (HTML), 394-447 (logic), `multiplayer.css` lines 387-456 (styling)
+
+## Acceptance Criteria
+- [ ] Chat renders as bottom sheet (collapsed by default)
+- [ ] Drag handle expands/collapses sheet
+- [ ] Messages display with colored sender names
+- [ ] Send works (Enter + button)
+- [ ] Message peek preview on new message while collapsed
+- [ ] WS status indicator (green/red/orange)
+- [ ] QR invite popup works
+- [ ] Chat works between multiple users in same room
+- [ ] Chat history preserved on rejoin
+- [ ] Mobile-friendly (touch drag, responsive)
