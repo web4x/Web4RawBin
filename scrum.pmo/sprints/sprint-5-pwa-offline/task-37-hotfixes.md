@@ -2,11 +2,14 @@
 
 # T37: Hotfixes — Private Room + Version Bar
 
-[task:uuid:$(uuidgen | tr '[:upper:]' '[:lower:]')]
+[task:uuid:d37f0e04-7f80-4d6e-b102-004455667788]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 

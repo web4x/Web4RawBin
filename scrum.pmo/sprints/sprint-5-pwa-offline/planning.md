@@ -74,11 +74,19 @@ Make RawBin a true PWA: installable, offline-capable, one-click update, and traf
   - Background sync API: replay queued messages when online
   - Profile data cached in IndexedDB (not just localStorage)
 
+- [ ] [T37: Hotfixes — Private Room + Version Bar](./task-37-hotfixes.md)
+  **Priority:** 7 (CRITICAL — Tron QA findings)
+  **Effort:** 1h expert
+  - Fix private room join (roomKey check was missing)
+  - Join-private CSS visible on mobile
+  - Version 0.2.0 from package.json, RED update bar
+
 ## Dependency Graph
 ```
 T31 (SW + cache) ──→ T32 (headers + versioning) ──→ T34 (one-click update)
       └──→ T33 (reconnect + queue) ──→ T36 (IndexedDB persistence)
 T35 (iOS — independent)
+T37 (hotfixes — independent)
 ```
 
 ## Sprint Totals
