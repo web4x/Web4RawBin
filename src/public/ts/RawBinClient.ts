@@ -2,9 +2,15 @@ import { MSG } from '../../shared/MessageTypes.js';
 
 type MessageHandler = (msg: any) => void;
 
+export interface UserProfile {
+  token: string; name: string; phone: string; url: string;
+  avatar: string; secretCode: string; profileCommitted: boolean;
+}
+
 export class RawBinClient {
   private ws: WebSocket | null = null;
   private handlers: Map<string, MessageHandler[]> = new Map();
+  private _profile: UserProfile | null = null;
   clientId: string = '';
   connected: boolean = false;
   readonly playerToken: string;
@@ -18,6 +24,9 @@ export class RawBinClient {
     if (!devId) { devId = crypto.randomUUID(); localStorage.setItem('rawbin-device-id', devId); }
     this.deviceId = devId;
   }
+
+  isProfileCommitted(): boolean { return this._profile?.profileCommitted === true; }
+  getProfile(): UserProfile | null { return this._profile; }
 
   connect(): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -40,6 +49,9 @@ export class RawBinClient {
           }
           if (msg.type === MSG.TOKEN_REDIRECT && msg.newToken) {
             localStorage.setItem('rawbin-player-id', msg.newToken);
+          }
+          if ((msg.type === MSG.PROFILE || msg.type === MSG.PROFILE_UPDATED) && msg.profile) {
+            this._profile = msg.profile;
           }
           this.emit(msg.type, msg);
         } catch {}

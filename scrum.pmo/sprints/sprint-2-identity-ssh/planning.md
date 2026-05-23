@@ -64,6 +64,17 @@ T7 (Editor) ──→ T8 (Gate) ──→ T9 (SSH Keys) ──→ T10 (Device Ke
      └──→ T11 (vCard) [parallel with T8-T9]
 ```
 
+## Architecture Diagrams
+
+Created by robbin-architect. Source: `diagrams/*.puml`, rendered: `diagrams/*.svg`.
+
+| Diagram | Source | Description |
+|---------|--------|-------------|
+| [Use Cases](./diagrams/use-case.svg) | [use-case.puml](./diagrams/use-case.puml) | All actors (User, Device, Server) and 20 use cases across T7-T12, color-coded by type |
+| [Class Diagram](./diagrams/class-diagram.svg) | [class-diagram.puml](./diagrams/class-diagram.puml) | UserProfile, DeviceRecord, UserKeys, WebSocketClient, Room, RoomMember — new fields highlighted in green |
+| [Enrollment Sequence](./diagrams/sequence-enrollment.svg) | [sequence-enrollment.puml](./diagrams/sequence-enrollment.puml) | Full flow: Profile Gate (T8) → SSH key generation (T9) → Device enrollment (T10) |
+| [Auth Sequence](./diagrams/sequence-auth.svg) | [sequence-auth.puml](./diagrams/sequence-auth.puml) | Challenge-response authentication (T12) with replay protection and backward compatibility |
+
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|

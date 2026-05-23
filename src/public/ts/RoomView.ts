@@ -1,4 +1,5 @@
 import { RawBinClient, guardClick, shareOrCopy } from './RawBinClient.js';
+import { ProfileEditor } from './ProfileEditor.js';
 import { MSG } from '../../shared/MessageTypes.js';
 
 interface MemberInfo {
@@ -14,11 +15,13 @@ export class RoomView {
   private hostId: string = '';
   private members: MemberInfo[] = [];
   private chatMessages: { senderId: string; senderName: string; text: string }[] = [];
+  private profileEditor: ProfileEditor;
 
   constructor(client: RawBinClient, container: HTMLElement, onLeave: () => void) {
     this.client = client;
     this.container = container;
     this.onLeave = onLeave;
+    this.profileEditor = new ProfileEditor(client);
 
     this.client.on(MSG.ROOM_JOINED, (msg) => {
       this.roomId = msg.room.id;
@@ -152,10 +155,20 @@ export class RoomView {
     el.innerHTML = this.members.map(m => {
       const isHost = m.id === this.hostId;
       const isSelf = m.id === this.client.clientId;
-      return `<div class="member-item${isSelf ? ' member-self' : ''}">
+      return `<div class="member-item${isSelf ? ' member-self' : ''} member-clickable" data-member-id="${m.id}" data-member-token="${m.playerToken || ''}">
         <span class="member-name">${m.name}${isHost ? ' <span class="host-badge">host</span>' : ''}${isSelf ? ' (you)' : ''}</span>
       </div>`;
     }).join('');
+
+    el.querySelectorAll('.member-clickable').forEach(item => {
+      item.addEventListener('click', () => {
+        const memberId = (item as HTMLElement).dataset.memberId;
+        if (memberId === this.client.clientId) {
+          const name = localStorage.getItem('rawbin-name') || '';
+          this.profileEditor.open({ name, phone: '', url: '', avatar: '', secretCode: '' }, 'normal');
+        }
+      });
+    });
   }
 
   private renderChatMessages(): void {

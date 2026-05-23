@@ -7,6 +7,10 @@
 **Effort:** 3h expert + 1h tester
 **Dependencies:** T8 (profile commit triggers key generation)
 
+## Diagrams
+- [Class Diagram](./diagrams/class-diagram.svg) — UserProfile + UserKeys + filesystem layout
+- [Enrollment Sequence](./diagrams/sequence-enrollment.svg) — Profile commit → key generation flow
+
 ## Goal
 
 When a user commits their profile for the first time, create a per-user home directory with SSH keypair following OOSH conventions.

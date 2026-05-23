@@ -1,0 +1,100 @@
+@startuml RawBin Sprint 2 — Use Cases
+!theme plain
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor<<done>> LightGreen
+  BackgroundColor<<new>> LightYellow
+  BackgroundColor<<auth>> LightBlue
+}
+
+title RawBin Sprint 2 — Identity & SSH Use Cases
+
+actor "User\n(Browser)" as User
+actor "Device\n(localStorage)" as Device
+actor "Server\n(Node.js)" as Server
+
+rectangle "T7: Profile Editor" {
+  usecase "UC-P1: Edit own profile\n(name, phone, url, avatar)" as UC_P1 <<new>>
+  usecase "UC-P2: Update secret code" as UC_P2 <<new>>
+  usecase "UC-P3: Save profile\n(UPDATE_PROFILE)" as UC_P3 <<new>>
+  usecase "UC-P4: View other user\n(GET_USER_INFO)" as UC_P4 <<new>>
+}
+
+rectangle "T8: Profile Gate" {
+  usecase "UC-G1: Gate new user\n(force profile commit)" as UC_G1 <<new>>
+  usecase "UC-G2: Block room entry\n(uncommitted profile)" as UC_G2 <<new>>
+  usecase "UC-G3: Skip gate for\nreturning user" as UC_G3 <<new>>
+}
+
+rectangle "T9: SSH Keys" {
+  usecase "UC-K1: Generate user\nRSA-2048 keypair" as UC_K1 <<auth>>
+  usecase "UC-K2: Create .ssh/\ndirectory tree" as UC_K2 <<auth>>
+  usecase "UC-K3: Store PEM keys\n(OOSH pattern)" as UC_K3 <<auth>>
+}
+
+rectangle "T10: Device Enrollment" {
+  usecase "UC-D1: Request enrollment\n(secret code)" as UC_D1 <<auth>>
+  usecase "UC-D2: Generate device\nkeypair" as UC_D2 <<auth>>
+  usecase "UC-D3: Sign device key\n(user private key)" as UC_D3 <<auth>>
+  usecase "UC-D4: Add to\nauthorized_keys" as UC_D4 <<auth>>
+  usecase "UC-D5: Store device keys\nin localStorage" as UC_D5 <<auth>>
+}
+
+rectangle "T11: vCard" {
+  usecase "UC-V1: View other user\nprofile sheet" as UC_V1 <<new>>
+  usecase "UC-V2: Download vCard\n(.vcf V3.0)" as UC_V2 <<new>>
+  usecase "UC-V3: Link account\n(CONSOLIDATE)" as UC_V3 <<done>>
+}
+
+rectangle "T12: SSH Login" {
+  usecase "UC-A1: Send challenge\nnonce (welcome)" as UC_A1 <<auth>>
+  usecase "UC-A2: Sign challenge\n(Web Crypto)" as UC_A2 <<auth>>
+  usecase "UC-A3: Verify signature\n(authorized_keys)" as UC_A3 <<auth>>
+  usecase "UC-A4: Fallback to\ntoken auth" as UC_A4 <<done>>
+}
+
+' User relationships
+User --> UC_P1
+User --> UC_P2
+User --> UC_P3
+User --> UC_G1
+User --> UC_D1
+User --> UC_V1
+User --> UC_V2
+User --> UC_V3
+User --> UC_A2
+
+' Device relationships
+Device --> UC_D5
+Device --> UC_A2
+
+' Server relationships
+Server --> UC_G2
+Server --> UC_G3
+Server --> UC_K1
+Server --> UC_K2
+Server --> UC_K3
+Server --> UC_D2
+Server --> UC_D3
+Server --> UC_D4
+Server --> UC_A1
+Server --> UC_A3
+Server --> UC_A4
+Server --> UC_P4
+
+' Dependencies
+UC_P3 ..> UC_K1 : <<triggers>>
+UC_G1 ..> UC_P3 : <<requires>>
+UC_K1 ..> UC_D1 : <<enables>>
+UC_D1 ..> UC_A2 : <<enables>>
+UC_P4 ..> UC_V1 : <<provides data>>
+
+legend right
+  |= Color |= Meaning |
+  | <back:LightGreen>   </back> | Existing (Sprint 1) |
+  | <back:LightYellow>   </back> | New feature |
+  | <back:LightBlue>   </back> | Auth/crypto |
+end legend
+
+@enduml

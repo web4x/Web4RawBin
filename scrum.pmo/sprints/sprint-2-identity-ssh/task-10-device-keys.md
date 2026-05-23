@@ -7,6 +7,10 @@
 **Effort:** 4h expert + 1.5h tester
 **Dependencies:** T9 (user SSH keys must exist)
 
+## Diagrams
+- [Enrollment Sequence](./diagrams/sequence-enrollment.svg) — Full enrollment flow (gate → keys → device enrollment)
+- [Class Diagram](./diagrams/class-diagram.svg) — DeviceRecord extensions + UserKeys methods
+
 ## Goal
 
 Each device gets its own keypair, signed by the user's private key. To enroll a new device, the user enters their 4-digit secret code. Enrolled devices auto-authenticate on future connections.

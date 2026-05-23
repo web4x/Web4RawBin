@@ -527,6 +527,10 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
 
   switch (msg.type) {
     case MSG.CREATE_ROOM: {
+      const creatorToken = msg.playerToken || [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
+      const creatorProfile = creatorToken ? userProfiles.get(creatorToken) : undefined;
+      if (!creatorProfile?.profileCommitted) { send({ type: MSG.ERROR, message: 'Profile required' }); break; }
+
       const cleaned = roomManager.cleanupStale();
       if (cleaned > 0) addLog(`Auto-cleaned ${cleaned} stale room(s)`);
 
@@ -544,6 +548,10 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
     }
 
     case MSG.JOIN_ROOM: {
+      const joinerToken = msg.playerToken || [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
+      const joinerProfile = joinerToken ? userProfiles.get(joinerToken) : undefined;
+      if (!joinerProfile?.profileCommitted) { send({ type: MSG.ERROR, message: 'Profile required' }); break; }
+
       const room = roomManager.getRoom(msg.roomId);
       if (!room) { send({ type: MSG.ERROR, message: 'Room not found' }); break; }
       const joinName = msg.playerName || 'User';

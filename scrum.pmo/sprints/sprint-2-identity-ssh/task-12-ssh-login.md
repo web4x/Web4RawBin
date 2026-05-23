@@ -7,6 +7,10 @@
 **Effort:** 3h expert + 1h tester
 **Dependencies:** T10 (device keys must exist)
 
+## Diagrams
+- [Auth Sequence](./diagrams/sequence-auth.svg) — Challenge-response flow with replay protection
+- [Class Diagram](./diagrams/class-diagram.svg) — WebSocketClient.authenticated + AuthMethod enum
+
 ## Goal
 
 Replace/augment token-based identity with cryptographic challenge-response authentication using device keys. Server sends a challenge nonce, client signs with device private key, server verifies against authorized_keys.

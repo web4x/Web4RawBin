@@ -1,0 +1,74 @@
+@startuml RawBin Sprint 2 — Device Enrollment Flow
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+title Device Enrollment Flow (T8 → T9 → T10)
+
+actor "User" as U
+participant "Browser\n(RawBinClient)" as C
+participant "Server\n(server.ts)" as S
+participant "UserKeys.ts" as K
+database "data/" as D
+
+== First Visit — Profile Gate (T8) ==
+
+C -> S : WebSocket connect
+S -> C : welcome { clientId, challenge }
+C -> S : IDENTIFY { playerToken, deviceId }
+S -> D : load profile
+D -> S : profile { profileCommitted: false }
+S -> C : PROFILE { profile }
+
+note over C : profileCommitted === false\n→ show ProfileEditor in gate mode
+
+U -> C : fills name, phone, url\nclicks "Continue"
+C -> S : UPDATE_PROFILE { name, phone, url }
+
+== SSH Key Generation (T9) ==
+
+S -> S : profileCommitted = true
+S -> K : createUserHome(token)
+K -> D : mkdir data/users/<token>/.ssh/
+K -> D : mkdir .ssh/public_keys/
+K -> D : mkdir .ssh/private_key/
+S -> K : generateUserKeypair(token)
+K -> K : crypto.generateKeyPairSync('rsa', 2048)
+K -> D : write .ssh/id_rsa (600)
+K -> D : write .ssh/id_rsa.pub (600)
+K -> D : write .ssh/public_keys/<token>.public_key
+K -> D : write .ssh/private_key/<token>.private_key
+K -> D : write .ssh/authorized_keys (empty)
+S -> S : sshKeysGenerated = true
+S -> D : save profile
+S -> C : PROFILE_UPDATED { profile }
+
+note over C : gate dismissed\n→ show RoomBrowser
+
+== Device Enrollment (T10) ==
+
+note over C : no rawbin-device-privateKey\nin localStorage\n→ show DeviceEnrollDialog
+
+U -> C : enters 4-digit secret code
+C -> S : DEVICE_ENROLL_REQUEST { secretCode }
+
+S -> S : verify secretCode === profile.secretCode
+
+alt Wrong code
+  S -> C : DEVICE_ENROLL_FAILED { reason: "Wrong secret code" }
+  note over C : show error, retry
+else Correct code
+  S -> K : enrollDevice(token, deviceId)
+  K -> K : generateDeviceKeypair()\ncrypto.generateKeyPairSync('rsa', 2048)
+  K -> K : signDeviceKey()\ncrypto.sign('sha256', devicePubKey, userPrivKey)
+  K -> D : append devicePubKey to authorized_keys
+  K -> S : { devicePublicKey, devicePrivateKey, signature }
+  S -> D : update DeviceRecord: enrolled=true, devicePublicKey
+  S -> C : DEVICE_ENROLL_OK {\n  devicePublicKey,\n  devicePrivateKey,\n  signature\n}
+  C -> C : localStorage.set('rawbin-device-privateKey', ...)
+  C -> C : localStorage.set('rawbin-device-publicKey', ...)
+  C -> C : localStorage.set('rawbin-device-signature', ...)
+  note over C : enrollment complete\ndevice will auto-auth next visit
+end
+
+@enduml

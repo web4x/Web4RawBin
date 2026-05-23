@@ -1,0 +1,206 @@
+@startuml RawBin Sprint 2 — Class Diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor<<new>> LightYellow
+  BackgroundColor<<extended>> LightCyan
+  BackgroundColor<<existing>> White
+}
+
+title RawBin Sprint 2 — Data Model
+
+package "Server (src/ts/server/)" {
+
+  class UserProfile <<extended>> {
+    + token: string
+    + name: string
+    + avatar: string
+    + secretCode: string
+    + consolidatedFrom: string[]
+    + redirectTo?: string
+    + bugReports: BugReport[]
+    --
+    <color:green>+ phone: string</color>
+    <color:green>+ url: string</color>
+    <color:green>+ profileCommitted: boolean</color>
+    <color:green>+ sshKeysGenerated: boolean</color>
+    <color:green>+ sshKeyGeneratedAt: string</color>
+  }
+
+  class DeviceRecord <<extended>> {
+    + deviceId: string
+    + ownerToken: string
+    + userAgent: string
+    + ip: string
+    + screenSize: string
+    + platform: string
+    + firstSeen: string
+    + lastSeen: string
+    + connectionCount: number
+    --
+    <color:green>+ enrolled: boolean</color>
+    <color:green>+ devicePublicKey: string</color>
+    <color:green>+ enrolledAt: string</color>
+  }
+
+  class UserKeys <<new>> {
+    + {static} createUserHome(token): void
+    + {static} generateUserKeypair(token): KeyPair
+    + {static} hasUserKeys(token): boolean
+    + {static} getUserPublicKey(token): string
+    + {static} getUserPrivateKey(token): string
+    + {static} getAuthorizedKeys(token): string[]
+    + {static} addAuthorizedKey(token, key): void
+    + {static} getUserHomeDir(token): string
+    + {static} generateDeviceKeypair(token, deviceId): KeyPair
+    + {static} signDeviceKey(token, pubKey): string
+    + {static} verifyDeviceKey(token, pubKey, sig): boolean
+    + {static} enrollDevice(token, deviceId): EnrollResult
+    + {static} verifyChallenge(token, pubKey, challenge, sig): boolean
+  }
+
+  class WebSocketClient <<extended>> {
+    + ws: WebSocket
+    + id: string
+    + ip: string
+    + userAgent: string
+    + connectedAt: number
+    + avatarUrl: string
+    + deviceId: string
+    + playerToken: string
+    --
+    <color:green>+ authenticated: boolean</color>
+    <color:green>+ authMethod: AuthMethod</color>
+    <color:green>+ challenge: string</color>
+  }
+
+  enum AuthMethod <<new>> {
+    none
+    token
+    device-key
+  }
+
+  class Room <<existing>> {
+    + id: string
+    + name: string
+    + hostId: string
+    + maxMembers: number
+    + isPrivate: boolean
+    + state: RoomState
+    + createdAt: number
+    + members: Map<string, RoomMember>
+    + spectators: Map<string, RoomMember>
+    --
+    + addMember(member): boolean
+    + removeMember(id): void
+    + broadcast(msg): void
+    + archive(): void
+    + info(): RoomInfo
+  }
+
+  class RoomMember <<existing>> {
+    + id: string
+    + ws: WebSocket
+    + name: string
+    + avatarUrl: string
+    + playerToken: string
+    + disconnected: boolean
+  }
+}
+
+package "Client (src/public/ts/)" {
+
+  class RawBinClient <<extended>> {
+    + playerToken: string
+    + deviceId: string
+    + connected: boolean
+    + clientId: string
+    --
+    + connect(): Promise<void>
+    + send(msg): void
+    + on(type, handler): void
+    <color:green>+ isProfileCommitted(): boolean</color>
+    <color:green>+ getProfile(): UserProfile</color>
+    <color:green>+ signChallenge(challenge): Promise<string></color>
+  }
+
+  class ProfileEditor <<new>> {
+    - fields: name, phone, url, avatar, secretCode
+    - gateMode: boolean
+    --
+    + show(profile, gateMode): void
+    + hide(): void
+    + onSave: callback
+    + onCommit: callback
+  }
+
+  class ProfileSheet <<new>> {
+    - userInfo: PublicProfile
+    --
+    + show(userInfo): void
+    + hide(): void
+    + downloadVCard(): void
+    + linkAccount(): void
+  }
+
+  class DeviceEnrollDialog <<new>> {
+    --
+    + show(): void
+    + hide(): void
+    + onEnrolled: callback
+  }
+
+  class RoomBrowser <<existing>> {
+    + show(): void
+    + hide(): void
+  }
+
+  class RoomView <<existing>> {
+    + show(roomId): void
+    + hide(): void
+  }
+}
+
+package "Filesystem (data/)" {
+
+  class "data/profiles.json" as ProfilesFile <<existing>> {
+    UserProfile[]
+  }
+
+  class "data/devices.json" as DevicesFile <<existing>> {
+    DeviceRecord[]
+  }
+
+  class "data/users/<token>/" as UserHome <<new>> {
+    profile.json
+    .ssh/id_rsa
+    .ssh/id_rsa.pub
+    .ssh/public_keys/<token>.public_key
+    .ssh/private_key/<token>.private_key
+    .ssh/authorized_keys
+  }
+}
+
+' Relationships
+UserProfile "1" -- "*" DeviceRecord : ownerToken
+UserProfile "1" -- "0..1" UserHome : token
+UserKeys ..> UserHome : creates/reads
+WebSocketClient --> UserProfile : playerToken
+WebSocketClient --> AuthMethod
+Room "1" *-- "*" RoomMember
+RawBinClient --> ProfileEditor : opens
+RawBinClient --> DeviceEnrollDialog : opens
+RoomView --> ProfileSheet : opens (other-click)
+RoomView --> ProfileEditor : opens (self-click)
+ProfilesFile ..> UserProfile : persists
+DevicesFile ..> DeviceRecord : persists
+
+legend right
+  |= Style |= Meaning |
+  | <<existing>> | Sprint 1 (unchanged) |
+  | <<extended>> | Sprint 1 + new fields |
+  | <<new>> | New in Sprint 2 |
+  | <color:green>green text</color> | New fields/methods |
+end legend
+
+@enduml

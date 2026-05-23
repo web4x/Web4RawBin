@@ -1,0 +1,96 @@
+@startuml RawBin Sprint 2 — Challenge-Response Auth Flow
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+title SSH Challenge-Response Authentication (T12)
+
+actor "User" as U
+participant "Browser\n(RawBinClient)" as C
+participant "Server\n(server.ts)" as S
+participant "UserKeys.ts" as K
+database "data/users/\n<token>/.ssh/" as SSH
+
+== Returning User — Enrolled Device ==
+
+C -> S : WebSocket connect
+S -> S : challenge = crypto.randomBytes(32).hex()
+S -> C : welcome { clientId, challenge }
+
+note over C : check localStorage for\nrawbin-device-privateKey
+
+alt Has device keys (enrolled)
+  C -> C : PEM → DER (strip headers, base64 decode)
+  C -> C : crypto.subtle.importKey('pkcs8', der, RSA)
+  C -> C : challengeBytes = hex decode challenge
+  C -> C : signature = crypto.subtle.sign(\n  'RSASSA-PKCS1-v1_5', key, challengeBytes)
+  C -> C : signedChallenge = btoa(signature)
+
+  C -> S : DEVICE_AUTH {\n  devicePublicKey: localStorage pubKey,\n  signedChallenge: base64\n}
+
+  S -> K : verifyChallenge(token, pubKey, challenge, sig)
+  K -> SSH : read authorized_keys
+  SSH -> K : [key1, key2, ...]
+
+  alt pubKey in authorized_keys
+    K -> K : crypto.verify('sha256',\n  challengeBuffer, pubKey, sigBuffer)
+
+    alt Signature valid
+      K -> S : true
+      S -> S : client.authenticated = true
+      S -> S : client.authMethod = 'device-key'
+      S -> S : client.challenge = '' (consumed)
+      S -> C : DEVICE_AUTH_OK
+      note over C #LightGreen : authenticated via device key
+
+    else Signature invalid
+      K -> S : false
+      S -> C : DEVICE_AUTH_FAILED { reason: "Invalid signature" }
+      note over C : fall back to token auth
+    end
+
+  else pubKey NOT in authorized_keys
+    K -> S : false
+    S -> C : DEVICE_AUTH_FAILED { reason: "Invalid signature" }
+  end
+
+  == Always: Token IDENTIFY (for profile data) ==
+
+  C -> S : IDENTIFY { playerToken, deviceId, name }
+  S -> C : PROFILE { profile, connectedDeviceIds }
+
+else No device keys (new device or not enrolled)
+
+  == Token-only path (backward compatible) ==
+
+  C -> S : IDENTIFY { playerToken, deviceId, name }
+  S -> S : client.authMethod = 'token'
+  S -> C : PROFILE { profile }
+
+  alt profileCommitted && sshKeysGenerated
+    note over C : show DeviceEnrollDialog\n(→ enrollment flow from T10)
+  else !profileCommitted
+    note over C : show ProfileEditor gate\n(→ commit flow from T8/T9)
+  end
+end
+
+== Replay Protection ==
+
+note over S #FFCCCC
+  Challenge is single-use:
+  • Stored in WebSocketClient on connect
+  • Cleared after DEVICE_AUTH (success or fail)
+  • New connection = new challenge
+  • Replay of old challenge → rejected
+end note
+
+== Auth State Summary ==
+
+note over S
+  | authMethod | Meaning |
+  | none | No auth attempted |
+  | token | IDENTIFY only (legacy) |
+  | device-key | Challenge-response verified |
+end note
+
+@enduml
