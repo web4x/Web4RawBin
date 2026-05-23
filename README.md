@@ -10,7 +10,9 @@ npm run dev      # Development (auto-reload)
 npm start        # Production (build + start)
 ```
 
-Server runs on HTTPS (port 3443) with auto-generated self-signed certificate. HTTP (port 3000) redirects to HTTPS.
+Server runs on HTTPS port 4444 with auto-generated self-signed certificate. HTTP port 4000 redirects to HTTPS.
+
+**Live:** [https://home.donges.it:4444/app](https://home.donges.it:4444/app)
 
 ## Architecture
 
@@ -40,13 +42,17 @@ rawbin/
 
 ## Key Features
 
-- **Rooms**: User-created with creator lifecycle (create/archive/delete)
-- **Identity**: Token-based profiles with device tracking, account linking
-- **Privacy**: User profiles and device data strictly separated (ownerToken FK)
+- **Rooms**: User-created shared workspaces with creator lifecycle (create/archive/delete)
+- **Identity**: SSH key-based authentication with per-user keypairs (OOSH pattern)
+- **Device Enrollment**: Per-device keys signed by user key, secret code verification
+- **Challenge-Response Auth**: Cryptographic login via Web Crypto API (RSASSA-PKCS1-v1_5)
+- **Profile Gate**: New users must complete profile before room access
+- **vCard**: Download other users' contact cards (V3.0 format)
+- **Privacy**: Profiles and device data strictly separated (ownerToken FK)
 - **Bug Reports**: In-app submission with PO pipeline via otmux
 - **PWA**: Installable progressive web app
 - **TUI**: Terminal UI with server status, client list, live log
-- **Docs**: Markdown viewer for project documentation and sprint planning
+- **Docs**: Markdown viewer with PlantUML SVG support for sprint planning
 
 ## Repository
 
@@ -55,4 +61,8 @@ rawbin/
 
 ## Sprint Planning
 
-See [Sprint 1 Planning](./scrum.pmo/sprints/sprint-1-rawbin-foundation/planning.md)
+| Sprint | Focus | Status |
+|--------|-------|--------|
+| [Sprint 1](./scrum.pmo/sprints/sprint-1-rawbin-foundation/planning.md) | Foundation — QnD fork, Room.ts, server strip, client, rebrand | DONE (6/6) |
+| [Sprint 2](./scrum.pmo/sprints/sprint-2-identity-ssh/planning.md) | Identity — SSH keys, device enrollment, profile gate, vCard, auth | DONE (6/6) |
+| [Sprint 3](./scrum.pmo/sprints/sprint-3-e2e-hardening/planning.md) | E2E Testing — Playwright, UX parity, deployment hardening | IN PROGRESS |
