@@ -50,6 +50,7 @@
 PO implemented 22.1 directly instead of delegating to expert. Process violation recorded in learnings #35.
 
 ## QA Audit & User Feedback
+- 2026-05-23 UTC: Tron QA REJECT — private room join STILL broken. Server line 672 reads `if (room.isPrivate)` which blocks ALL private room joins unconditionally. Should be `if (room.isPrivate && room.roomKey !== msg.roomKey)` to allow joins with correct key. The fix from T22.2 was overwritten or never applied correctly.
 
 ## Subtasks
 None (atomic task).
