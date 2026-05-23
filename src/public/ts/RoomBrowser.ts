@@ -39,7 +39,12 @@ export class RoomBrowser {
     this.container.innerHTML = `
       <div class="lobby">
         <div class="lobby-header">
-          <h1>RawBin</h1>
+          <div class="lobby-header-row">
+            <a href="/" class="btn btn-header" title="Home">🏠</a>
+            <h1>RawBin</h1>
+            <button id="lobby-reload-btn" class="btn btn-header" title="Reload">↻</button>
+            <button id="lobby-fullscreen-btn" class="btn btn-header" title="Fullscreen">⛶</button>
+          </div>
           <p class="lobby-subtitle">Collaborative Rooms</p>
         </div>
         <div class="lobby-name">
@@ -74,6 +79,14 @@ export class RoomBrowser {
   }
 
   private setupEvents(): void {
+    document.getElementById('lobby-reload-btn')?.addEventListener('click', () => location.reload());
+    document.getElementById('lobby-fullscreen-btn')?.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
+      }
+    });
     const nameInput = document.getElementById('member-name') as HTMLInputElement;
     nameInput?.addEventListener('change', () => {
       this.memberName = nameInput.value.trim() || 'User';

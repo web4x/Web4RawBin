@@ -25,7 +25,9 @@ body {
 /* Lobby */
 .lobby { background: rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; }
 .lobby-header { text-align: center; margin-bottom: 16px; }
-.lobby-header h1 { color: white; font-size: 1.8rem; }
+.lobby-header-row { display: flex; align-items: center; justify-content: center; gap: 4px; }
+.lobby-header-row h1 { flex: 1; color: white; font-size: 1.8rem; }
+.lobby-header-row .btn-header { color: white; }
 .lobby-subtitle { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
 .lobby-name { margin-bottom: 12px; }
 .lobby-name label { display: block; color: rgba(255,255,255,0.7); font-size: 0.8rem; margin-bottom: 4px; }
