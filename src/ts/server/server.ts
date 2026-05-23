@@ -44,7 +44,7 @@ function getLocalIP(): string {
   return 'localhost';
 }
 
-const PORT = 3000;
+const PORT = 4000;
 const HTTPS_PORT = 4444;
 const BASE_DOMAIN = envVars['BASE_DOMAIN'] || '';
 const PUBLIC_DIR = path.join(__dirname, '../../public');
