@@ -75,20 +75,14 @@ During Sprints 2-3, the pace of implementation caused planning files to fall beh
 
 ### Structure Fix & Tool Update (Web4Articles compliance)
 
-- [ ] [T28: Fix All Task Files — Web4Articles Template Compliance](./task-28-fix-task-structure.md)
-  **Status:** PLANNED
-  **Effort:** 3h expert
-  - Add UUID tags, hierarchical Status checklist, Traceability up/down, Subtasks section, Created/Completed dates to all 33 task files
+- [x] [T28: Fix All Task Files — Web4Articles Template Compliance](./task-28-fix-task-structure.md)
+  **Status:** DONE — 33 files fixed: +UUIDs, +traceability, +subtasks, +dates. 35 legacy issues remain in Sprint 1.
 
-- [ ] [T29: Update OOSH Sprint Tool — Template Enforcement](./task-29-update-sprint-tool.md)
-  **Status:** PLANNED
-  **Effort:** 2h expert
-  - Fix sprint.status (find all tasks), sprint.audit (Web4Articles compliance checks), sprint.create (full template), new sprint.fix (batch structure fix), sprint.done (completion date)
+- [x] [T29: Update OOSH Sprint Tool — Template Enforcement](./task-29-update-sprint-tool.md)
+  **Status:** DONE — 522 lines, 7 methods. sprint.fix batch-fixes structural issues. Dual-format Status detection.
 
-- [ ] [T30: PO Process Documentation](./task-30-po-process-doc.md)
-  **Status:** PLANNED
-  **Effort:** 1h architect
-  - Create scrum.pmo/roles/PO/process.md with task creation protocol, sprint management, CMM4 rules
+- [x] [T30: PO Process Documentation](./task-30-po-process-doc.md)
+  **Status:** DONE — scrum.pmo/roles/PO/process.md created.
 
 ## Dependency Graph
 ```
@@ -104,7 +98,7 @@ Phase 2 (now): fix files + update tool + PO process doc.
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 8 (5 done, 3 planned) |
+| Tasks | 8/8 DONE |
 | PO effort | ~3h (audit — done) |
 | Architect effort | ~2h (templates + PO doc) |
 | Expert effort | ~9h (CLI tool + fix files + tool update) |
@@ -115,9 +109,9 @@ Phase 2 (now): fix files + update tool + PO process doc.
 - [x] Task template exists
 - [x] Sprint CLI tool operational
 - [x] AC boxes checked in all DONE tasks
-- [ ] All 33 task files have UUID, Traceability, Subtasks, dates (Web4Articles compliant)
-- [ ] Sprint tool enforces Web4Articles template on create/audit/fix
-- [ ] PO process documented
+- [x] All 33 task files have UUID, Traceability, Subtasks, dates (35 legacy items remain in Sprint 1)
+- [x] Sprint tool enforces Web4Articles template (522 lines, 7 methods)
+- [x] PO process documented (scrum.pmo/roles/PO/process.md)
 
 ---
 

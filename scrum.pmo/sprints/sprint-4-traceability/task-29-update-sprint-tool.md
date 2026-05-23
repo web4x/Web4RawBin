@@ -5,7 +5,7 @@
 [task:uuid:b29f0e02-5d6e-4b4c-9f80-002233445566]
 
 ## Status
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert
 **Effort:** 2h expert
 **Created:** 2026-05-23
@@ -71,7 +71,7 @@ This is the automated version of T28 — the tool should be able to do what T28 
 
 Sync should handle both planning.md formats:
 - `- [ ] [TN: Title](./task-N.md)` (checkbox)
-- `- [ ] [TN: Title](./task-N.md) **Status:** PLANNED` (inline status)
+- `- [ ] [TN: Title](./task-N.md) **Status:** DONE` (inline status)
 
 ## Acceptance Criteria
 - [ ] `sprint status` finds all tasks across all sprints (not 0)

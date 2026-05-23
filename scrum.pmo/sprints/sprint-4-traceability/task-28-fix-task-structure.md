@@ -5,7 +5,7 @@
 [task:uuid:a28f0e01-4c5d-4a3b-8e7f-001122334455]
 
 ## Status
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert
 **Effort:** 3h expert
 **Created:** 2026-05-23
