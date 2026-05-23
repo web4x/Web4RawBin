@@ -181,7 +181,8 @@ body {
   #app { padding: 8px; }
   .room-view { min-height: calc(100vh - 16px); border-radius: 16px; }
   .profile-sheet { max-height: 85vh; }
-  .lobby-join-private { flex-wrap: wrap; }
+  .lobby-join-private { flex-direction: column; }
+  .lobby-join-private input { width: 100%; }
   .lobby-join-private .btn { width: 100%; }
 }
 
