@@ -415,6 +415,7 @@ h3{font-size:1rem;margin:16px 0 8px;border-bottom:1px solid #eee;padding-bottom:
 <div class="container">
 <a class="back" href="/app">Back to Lobby</a>
 <h1>My Profile</h1>
+<div style="text-align:center;margin-bottom:12px"><a href="/app?editProfile=1" style="display:inline-block;padding:10px 24px;background:#667eea;color:white;border-radius:10px;text-decoration:none;font-weight:600;font-size:0.95rem">Edit Profile</a></div>
 <div id="profile"><p class="empty">Connecting...</p></div>
 <p class="ver" id="ver"></p>
 </div>

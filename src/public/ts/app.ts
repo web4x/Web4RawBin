@@ -35,6 +35,17 @@ function hasDeviceKeys(): boolean {
 }
 
 function proceedToBrowser(): void {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('editProfile') === '1') {
+    history.replaceState({}, '', '/app');
+    const profile = client.getProfile();
+    profileEditor.open({
+      name: profile?.name || '', phone: profile?.phone || '', url: profile?.url || '',
+      avatar: profile?.avatar || '', secretCode: profile?.secretCode || '',
+    }, 'normal', () => { browser.show(); });
+    browser.show();
+    return;
+  }
   browser.show();
 }
 

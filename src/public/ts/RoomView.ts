@@ -2,6 +2,7 @@ import { RawBinClient, guardClick, shareOrCopy } from './RawBinClient.js';
 import { ProfileEditor } from './ProfileEditor.js';
 import { ProfileSheet } from './ProfileSheet.js';
 import { MSG } from '../../shared/MessageTypes.js';
+import QRCode from 'qrcode';
 
 interface MemberInfo {
   id: string; name: string; avatarUrl: string; playerToken: string;
@@ -194,7 +195,8 @@ export class RoomView {
     const chatInviteBtn = document.getElementById('chat-invite-btn');
     if (chatInviteBtn) guardClick(chatInviteBtn, async () => {
       const base = (window as any).__shareBase || location.origin;
-      await shareOrCopy(`${base}/app?join=${this.roomId}`, chatInviteBtn, this.roomName);
+      const url = `${base}/app?join=${this.roomId}`;
+      this.showQrPopup(url);
     });
 
     const wsStatus = document.getElementById('ws-status');
@@ -238,6 +240,37 @@ export class RoomView {
     if (!el) return;
     el.className = `ws-status ws-${state}`;
     el.title = state === 'connected' ? 'Connected' : state === 'disconnected' ? 'Disconnected' : 'Reconnecting';
+  }
+
+  private async showQrPopup(url: string): Promise<void> {
+    const existing = document.getElementById('qr-popup');
+    if (existing) existing.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = 'qr-popup';
+    overlay.className = 'qr-overlay';
+    overlay.innerHTML = `
+      <div class="qr-popup-content">
+        <h3>Scan to Join</h3>
+        <canvas id="qr-canvas"></canvas>
+        <p class="qr-url">${url}</p>
+        <div class="qr-actions">
+          <button class="btn btn-primary btn-small" id="qr-share">Share Link</button>
+          <button class="btn btn-secondary btn-small" id="qr-close">Close</button>
+        </div>
+      </div>`;
+    document.body.appendChild(overlay);
+
+    const canvas = document.getElementById('qr-canvas') as HTMLCanvasElement;
+    if (canvas) {
+      try { await QRCode.toCanvas(canvas, url, { width: 200, margin: 2 }); } catch {}
+    }
+
+    document.getElementById('qr-share')?.addEventListener('click', async () => {
+      await shareOrCopy(url, document.getElementById('qr-share')!, this.roomName);
+    });
+    document.getElementById('qr-close')?.addEventListener('click', () => overlay.remove());
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
   }
 
   private renderMemberList(): void {
