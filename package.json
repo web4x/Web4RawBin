@@ -9,7 +9,9 @@
     "dev": "tsx watch src/ts/server/server.ts",
     "start": "npm run build && tsx src/ts/server/server.ts",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:all": "vitest run && playwright test"
   },
   "keywords": [
     "server-management",
@@ -20,12 +22,14 @@
   "author": "Web4RawBin",
   "license": "MIT",
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@types/node": "^25.9.1",
     "@types/node-fetch": "^2.6.13",
     "@types/ws": "^8.18.1",
     "esbuild": "^0.28.0",
     "marked": "^18.0.4",
     "node-fetch": "^3.3.2",
+    "qrcode": "^1.5.4",
     "tsx": "^4.19.2",
     "typescript": "^6.0.3",
     "vitest": "^4.1.5",

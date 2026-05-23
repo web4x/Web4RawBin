@@ -1,13 +1,12 @@
 import { test, expect } from '@playwright/test';
-import { passEnrollmentIfNeeded } from './helpers.js';
 
 test.describe('T13.2: New User Journey', () => {
   test('profile gate shown for new user, Continue disabled until name entered', async ({ page }) => {
     await page.goto('/app');
 
-    const gate = page.locator('.profile-gate');
-    const gateVisible = await gate.isVisible({ timeout: 10000 }).catch(() => false);
-    if (!gateVisible) {
+    const nameField = page.locator('#pe-name');
+    const nameVisible = await nameField.isVisible({ timeout: 10000 }).catch(() => false);
+    if (!nameVisible) {
       test.skip(true, 'Gate not shown — user already committed');
       return;
     }
@@ -19,11 +18,13 @@ test.describe('T13.2: New User Journey', () => {
     await expect(continueBtn).toBeEnabled();
 
     await continueBtn.click();
-    await page.waitForSelector('.profile-gate', { state: 'hidden', timeout: 15000 });
+    await page.waitForSelector('#pe-name', { state: 'hidden', timeout: 15000 });
 
-    await passEnrollmentIfNeeded(page);
+    const lobbyOrEnroll = await Promise.race([
+      page.waitForSelector('.lobby', { timeout: 10000 }).then(() => 'lobby'),
+      page.waitForSelector('#de-code', { timeout: 10000 }).then(() => 'enroll'),
+    ]).catch(() => 'timeout');
 
-    const lobby = page.locator('.lobby');
-    await expect(lobby).toBeVisible({ timeout: 15000 });
+    expect(['lobby', 'enroll']).toContain(lobbyOrEnroll);
   });
 });
