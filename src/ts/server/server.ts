@@ -260,7 +260,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     }
 
     // Docs
-    const PROJECT_ROOT = path.join(__dirname, '../../../../');
+    const PROJECT_ROOT = path.join(__dirname, '../../../');
     const DOCS_DIR = path.join(__dirname, '../../../docs');
     const MD_CSS = 'body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;max-width:700px;margin:40px auto;padding:0 20px;color:#333;line-height:1.6}a{color:#667eea}h1,h2,h3{margin-top:1.5em}code{background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.9em}pre{background:#f5f5f5;padding:12px;border-radius:8px;overflow-x:auto}pre code{background:none;padding:0}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px;text-align:left}th{background:#f5f5f5}';
 
@@ -286,6 +286,28 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       } catch { res.writeHead(404); res.end('Doc not found'); }
       return;
     }
+    if (filepath.startsWith('/md/') && filepath.endsWith('.svg')) {
+      const relPath = filepath.slice(4);
+      if (relPath.includes('..')) { res.writeHead(403); res.end('Forbidden'); return; }
+      const svgFile = path.join(PROJECT_ROOT, relPath);
+      try {
+        const svg = fsSync.readFileSync(svgFile, 'utf-8');
+        res.writeHead(200, { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'no-cache' });
+        res.end(svg);
+      } catch { res.writeHead(404); res.end('SVG not found'); }
+      return;
+    }
+    if (filepath.startsWith('/md/') && filepath.endsWith('.puml')) {
+      const relPath = filepath.slice(4);
+      if (relPath.includes('..')) { res.writeHead(403); res.end('Forbidden'); return; }
+      const pumlFile = path.join(PROJECT_ROOT, relPath);
+      try {
+        const puml = fsSync.readFileSync(pumlFile, 'utf-8');
+        res.writeHead(200, { 'Content-Type': 'text/plain', 'Cache-Control': 'no-cache' });
+        res.end(puml);
+      } catch { res.writeHead(404); res.end('PUML not found'); }
+      return;
+    }
     if (filepath.startsWith('/md/') && filepath.endsWith('.md')) {
       const relPath = filepath.slice(4);
       if (relPath.includes('..')) { res.writeHead(403); res.end('Forbidden'); return; }
@@ -293,7 +315,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       try {
         const md = fsSync.readFileSync(mdFile, 'utf-8');
         const dirPrefix = path.dirname(relPath);
-        const relinked = md.replace(/\]\(([^)]+\.md)\)/g, (_, p) => `](/md/${dirPrefix}/${p})`);
+        let relinked = md.replace(/\]\(([^)]+\.md)\)/g, (_, p) => `](/md/${dirPrefix}/${p})`);
+        relinked = relinked.replace(/\]\(([^)]+\.svg)\)/g, (_, p) => `](/md/${dirPrefix}/${p})`);
+        relinked = relinked.replace(/\]\(([^)]+)\.puml\)/g, (_, p) => `](/md/${dirPrefix}/${p}.svg)`);
         const html = marked(relinked) as string;
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${path.basename(filepath, '.md')} — RawBin</title><style>${MD_CSS}</style></head><body><p><a href="/">Home</a></p>${html}</body></html>`);
