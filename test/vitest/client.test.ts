@@ -3,7 +3,7 @@
  * Tests build output, WS client behavior, room lifecycle, chat, and link integrity.
  *
  * Build tests: run locally (no server needed)
- * Runtime tests: require server on wss://localhost:3443 serving /app
+ * Runtime tests: require server on wss://localhost:4444 serving /app
  */
 
 import { describe, it, expect, afterAll } from 'vitest';
@@ -14,8 +14,8 @@ import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 
 const PROJECT_ROOT = path.resolve(import.meta.dirname, '../../');
-const BASE_URL = 'https://localhost:3443';
-const WS_URL = 'wss://localhost:3443';
+const BASE_URL = 'https://localhost:4444';
+const WS_URL = 'wss://localhost:4444';
 const WS_OPTS = { rejectUnauthorized: false };
 const sockets: WebSocket[] = [];
 

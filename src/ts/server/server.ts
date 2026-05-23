@@ -44,7 +44,7 @@ function getLocalIP(): string {
 }
 
 const PORT = 3000;
-const HTTPS_PORT = 3443;
+const HTTPS_PORT = 4444;
 const BASE_DOMAIN = envVars['BASE_DOMAIN'] || '';
 const PUBLIC_DIR = path.join(__dirname, '../../public');
 const CERT_DIR = path.join(__dirname, '.certs');
@@ -79,8 +79,11 @@ let totalRequests = 0;
 interface UserProfile {
   token: string;
   name: string;
+  phone: string;
+  url: string;
   avatar: string;
   secretCode: string;
+  profileCommitted: boolean;
   consolidatedFrom: string[];
   redirectTo?: string;
   bugReports: { date: string; text: string; status: string }[];
@@ -110,8 +113,9 @@ function loadProfiles(): void {
       const data = JSON.parse(fsSync.readFileSync(PROFILES_PATH, 'utf-8'));
       for (const p of data) {
         const profile: UserProfile = {
-          token: p.token, name: p.name || '', avatar: p.avatar || '',
-          secretCode: p.secretCode || generateSecretCode(),
+          token: p.token, name: p.name || '', phone: p.phone || '', url: p.url || '',
+          avatar: p.avatar || '', secretCode: p.secretCode || generateSecretCode(),
+          profileCommitted: p.profileCommitted || false,
           consolidatedFrom: p.consolidatedFrom || [],
           redirectTo: p.redirectTo, bugReports: p.bugReports || [],
         };
@@ -676,7 +680,7 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
 
       let profile = userProfiles.get(token);
       if (!profile) {
-        profile = { token, name: '', avatar: '', secretCode: generateSecretCode(), consolidatedFrom: [], bugReports: [] };
+        profile = { token, name: '', phone: '', url: '', avatar: '', secretCode: generateSecretCode(), profileCommitted: false, consolidatedFrom: [], bugReports: [] };
         userProfiles.set(token, profile);
       }
       if (msg.name) profile.name = msg.name;
@@ -786,6 +790,31 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
         send({ type: MSG.PAIR_OK, target: bugReportTarget });
         addLog(`Bug report paired to ${bugReportTarget}`);
       }
+      break;
+    }
+
+    case MSG.UPDATE_PROFILE: {
+      const myToken = [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
+      if (!myToken) { send({ type: MSG.ERROR, message: 'Not identified' }); break; }
+      const profile = userProfiles.get(myToken);
+      if (!profile) { send({ type: MSG.ERROR, message: 'No profile' }); break; }
+      if (typeof msg.name === 'string') profile.name = msg.name.slice(0, 20);
+      if (typeof msg.phone === 'string') profile.phone = msg.phone.slice(0, 30);
+      if (typeof msg.url === 'string') profile.url = msg.url.slice(0, 200);
+      if (typeof msg.avatar === 'string') profile.avatar = msg.avatar.slice(0, 50000);
+      if (typeof msg.secretCode === 'string' && /^\d{4}$/.test(msg.secretCode)) profile.secretCode = msg.secretCode;
+      if (profile.name) profile.profileCommitted = true;
+      saveProfiles();
+      send({ type: MSG.PROFILE_UPDATED, profile: { token: profile.token, name: profile.name, phone: profile.phone, url: profile.url, avatar: profile.avatar, secretCode: profile.secretCode, profileCommitted: profile.profileCommitted } });
+      break;
+    }
+
+    case MSG.GET_USER_INFO: {
+      const targetToken = msg.playerToken;
+      if (!targetToken) { send({ type: MSG.ERROR, message: 'No token provided' }); break; }
+      const target = userProfiles.get(targetToken);
+      if (!target) { send({ type: MSG.ERROR, message: 'User not found' }); break; }
+      send({ type: MSG.USER_INFO, user: { name: target.name, phone: target.phone, url: target.url, avatar: target.avatar, playerToken: target.token } });
       break;
     }
   }

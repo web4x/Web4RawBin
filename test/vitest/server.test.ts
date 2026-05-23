@@ -2,7 +2,7 @@
  * Task 4.6: Stripped server.ts verification
  * Tests server HTTP routes, WS handlers, and data separation after game logic removal.
  *
- * Requires: server running on wss://localhost:3443 (npm run dev)
+ * Requires: server running on wss://localhost:4444 (npm run dev)
  * All tests use self-signed cert (rejectUnauthorized: false)
  */
 
@@ -10,8 +10,8 @@ import { describe, it, expect, afterAll } from 'vitest';
 import WebSocket from 'ws';
 import https from 'node:https';
 
-const BASE_URL = 'https://localhost:3443';
-const WS_URL = 'wss://localhost:3443';
+const BASE_URL = 'https://localhost:4444';
+const WS_URL = 'wss://localhost:4444';
 const WS_OPTS = { rejectUnauthorized: false };
 const agent = new https.Agent({ rejectUnauthorized: false });
 const sockets: WebSocket[] = [];
@@ -140,7 +140,7 @@ afterAll(() => { sockets.forEach(ws => ws.close()); });
 
 describe('TC-4.6.1: Server starts and responds', () => {
 
-  it('HTTPS server responds on port 3443', async () => {
+  it('HTTPS server responds on port 4444', async () => {
     const res = await httpsGet('/');
     expect(res.status).toBe(200);
   });
