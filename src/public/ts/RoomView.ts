@@ -1,5 +1,6 @@
 import { RawBinClient, guardClick, shareOrCopy } from './RawBinClient.js';
 import { ProfileEditor } from './ProfileEditor.js';
+import { ProfileSheet } from './ProfileSheet.js';
 import { MSG } from '../../shared/MessageTypes.js';
 
 interface MemberInfo {
@@ -16,12 +17,14 @@ export class RoomView {
   private members: MemberInfo[] = [];
   private chatMessages: { senderId: string; senderName: string; text: string }[] = [];
   private profileEditor: ProfileEditor;
+  private profileSheet: ProfileSheet;
 
   constructor(client: RawBinClient, container: HTMLElement, onLeave: () => void) {
     this.client = client;
     this.container = container;
     this.onLeave = onLeave;
     this.profileEditor = new ProfileEditor(client);
+    this.profileSheet = new ProfileSheet(client);
 
     this.client.on(MSG.ROOM_JOINED, (msg) => {
       this.roomId = msg.room.id;
@@ -163,9 +166,21 @@ export class RoomView {
     el.querySelectorAll('.member-clickable').forEach(item => {
       item.addEventListener('click', () => {
         const memberId = (item as HTMLElement).dataset.memberId;
+        const memberToken = (item as HTMLElement).dataset.memberToken;
         if (memberId === this.client.clientId) {
-          const name = localStorage.getItem('rawbin-name') || '';
-          this.profileEditor.open({ name, phone: '', url: '', avatar: '', secretCode: '' }, 'normal');
+          const profile = this.client.getProfile();
+          this.profileEditor.open({
+            name: profile?.name || localStorage.getItem('rawbin-name') || '',
+            phone: profile?.phone || '', url: profile?.url || '',
+            avatar: profile?.avatar || '', secretCode: profile?.secretCode || '',
+          }, 'normal');
+        } else if (memberToken) {
+          const handler = (msg: any) => {
+            this.client.off(MSG.USER_INFO, handler);
+            if (msg.profile) this.profileSheet.open(msg.profile);
+          };
+          this.client.on(MSG.USER_INFO, handler);
+          this.client.send({ type: MSG.GET_USER_INFO, playerToken: memberToken });
         }
       });
     });

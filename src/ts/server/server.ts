@@ -15,6 +15,7 @@ import fetch from 'node-fetch';
 import { marked } from 'marked';
 import { RoomManager, type RoomMember } from './Room.js';
 import { MSG } from '../shared/MessageTypes.js';
+import { createUserHome, generateUserKeypair, writeUserProfile } from './UserKeys.js';
 
 const execAsync = promisify(exec);
 const ADMIN_KEY = process.env.ADMIN_KEY || crypto.randomUUID();
@@ -84,6 +85,8 @@ interface UserProfile {
   avatar: string;
   secretCode: string;
   profileCommitted: boolean;
+  sshKeysGenerated: boolean;
+  sshKeyGeneratedAt: string;
   consolidatedFrom: string[];
   redirectTo?: string;
   bugReports: { date: string; text: string; status: string }[];
@@ -116,6 +119,8 @@ function loadProfiles(): void {
           token: p.token, name: p.name || '', phone: p.phone || '', url: p.url || '',
           avatar: p.avatar || '', secretCode: p.secretCode || generateSecretCode(),
           profileCommitted: p.profileCommitted || false,
+          sshKeysGenerated: p.sshKeysGenerated || false,
+          sshKeyGeneratedAt: p.sshKeyGeneratedAt || '',
           consolidatedFrom: p.consolidatedFrom || [],
           redirectTo: p.redirectTo, bugReports: p.bugReports || [],
         };
@@ -688,7 +693,7 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
 
       let profile = userProfiles.get(token);
       if (!profile) {
-        profile = { token, name: '', phone: '', url: '', avatar: '', secretCode: generateSecretCode(), profileCommitted: false, consolidatedFrom: [], bugReports: [] };
+        profile = { token, name: '', phone: '', url: '', avatar: '', secretCode: generateSecretCode(), profileCommitted: false, sshKeysGenerated: false, sshKeyGeneratedAt: '', consolidatedFrom: [], bugReports: [] };
         userProfiles.set(token, profile);
       }
       if (msg.name) profile.name = msg.name;
@@ -812,8 +817,15 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
       if (typeof msg.avatar === 'string') profile.avatar = msg.avatar.slice(0, 50000);
       if (typeof msg.secretCode === 'string' && /^\d{4}$/.test(msg.secretCode)) profile.secretCode = msg.secretCode;
       if (profile.name) profile.profileCommitted = true;
+      if (profile.profileCommitted && !profile.sshKeysGenerated) {
+        createUserHome(profile.token);
+        generateUserKeypair(profile.token);
+        writeUserProfile(profile.token, { token: profile.token, name: profile.name, phone: profile.phone, url: profile.url });
+        profile.sshKeysGenerated = true;
+        profile.sshKeyGeneratedAt = new Date().toISOString();
+      }
       saveProfiles();
-      send({ type: MSG.PROFILE_UPDATED, profile: { token: profile.token, name: profile.name, phone: profile.phone, url: profile.url, avatar: profile.avatar, secretCode: profile.secretCode, profileCommitted: profile.profileCommitted } });
+      send({ type: MSG.PROFILE_UPDATED, profile: { token: profile.token, name: profile.name, phone: profile.phone, url: profile.url, avatar: profile.avatar, secretCode: profile.secretCode, profileCommitted: profile.profileCommitted, sshKeysGenerated: profile.sshKeysGenerated } });
       break;
     }
 
