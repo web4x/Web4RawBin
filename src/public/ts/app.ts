@@ -111,19 +111,20 @@ async function checkForUpdate(): Promise<void> {
       const reg = await navigator.serviceWorker?.getRegistration();
       if (reg) {
         await reg.update();
-        if (reg.waiting) showUpdateBanner(reg);
+        if (reg.waiting) showUpdateBanner(reg, config.version);
       }
     }
     localStorage.setItem('rawbin-version', config.version);
   } catch {}
 }
 
-function showUpdateBanner(reg: ServiceWorkerRegistration): void {
+function showUpdateBanner(reg: ServiceWorkerRegistration, version?: string): void {
   if (document.getElementById('update-banner')) return;
   const banner = document.createElement('div');
   banner.id = 'update-banner';
   banner.className = 'update-banner';
-  banner.innerHTML = '<span>New version available</span><button id="update-now">Update Now</button>';
+  const label = version ? `v${version} available` : 'New version available';
+  banner.innerHTML = `<span>${label}</span><button id="update-now">Update Now</button>`;
   document.body.prepend(banner);
   document.getElementById('update-now')?.addEventListener('click', () => {
     banner.remove();

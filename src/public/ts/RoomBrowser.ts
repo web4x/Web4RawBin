@@ -64,12 +64,12 @@ export class RoomBrowser {
             <button id="cancel-create-btn" class="btn btn-secondary">Cancel</button>
           </div>
         </div>
-        <div class="lobby-rooms" id="room-list"><p class="loading">Loading rooms...</p></div>
         <div class="lobby-join-private">
           <input type="text" id="join-room-id" placeholder="Room ID">
           <input type="text" id="join-room-key" placeholder="Key (if private)">
           <button id="join-private-btn" class="btn btn-small">Join Private</button>
         </div>
+        <div class="lobby-rooms" id="room-list"><p class="loading">Loading rooms...</p></div>
         <div id="lobby-error" class="lobby-error" style="display:none"></div>
         <div class="lobby-links">
           <a href="/profile">Profile</a> · <a href="/bug-report">Report Bug</a>

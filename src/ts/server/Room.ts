@@ -52,6 +52,7 @@ interface ChatMessage {
 interface RoomOpts {
   maxMembers?: number;
   isPrivate?: boolean;
+  roomKey?: string;
   id?: string;
 }
 
@@ -61,6 +62,7 @@ interface PersistedRoom {
   hostId: string;
   maxMembers: number;
   isPrivate: boolean;
+  roomKey: string;
   state: RoomState;
   createdAt: number;
   creatorId: string;
@@ -74,6 +76,7 @@ export class Room {
   hostId: string;
   maxMembers: number;
   isPrivate: boolean;
+  roomKey: string;
   state: RoomState = 'active';
   createdAt: number = Date.now();
 
@@ -89,6 +92,7 @@ export class Room {
     this.name = name;
     this.maxMembers = opts?.maxMembers || 10;
     this.isPrivate = opts?.isPrivate || false;
+    this.roomKey = opts?.roomKey || '';
     this.hostId = creator.id;
     this.creatorId = creator.id;
     this.members.set(creator.id, { ...creator, disconnected: false });
@@ -268,6 +272,7 @@ export class Room {
       hostId: this.hostId,
       maxMembers: this.maxMembers,
       isPrivate: this.isPrivate,
+      roomKey: this.roomKey,
       state: this.state,
       createdAt: this.createdAt,
       creatorId: this.creatorId,
@@ -289,7 +294,7 @@ export class Room {
     const placeholder: RoomMember = {
       id: data.hostId, ws: null as any, name: '', avatarUrl: '', playerToken: '', disconnected: true,
     };
-    const room = new Room(data.name, placeholder, { maxMembers: data.maxMembers, isPrivate: data.isPrivate, id: data.id });
+    const room = new Room(data.name, placeholder, { maxMembers: data.maxMembers, isPrivate: data.isPrivate, roomKey: data.roomKey || '', id: data.id });
     room.state = data.state;
     room.createdAt = data.createdAt;
     room.creatorId = data.creatorId;

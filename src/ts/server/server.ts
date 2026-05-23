@@ -19,6 +19,7 @@ import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, ve
 
 const execAsync = promisify(exec);
 const ADMIN_KEY = process.env.ADMIN_KEY || crypto.randomUUID();
+const PKG_VERSION = JSON.parse(fsSync.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../package.json'), 'utf-8')).version;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -286,14 +287,14 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (filepath === '/api/config') {
       const domain = BASE_DOMAIN || getLocalIP();
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
-      res.end(JSON.stringify({ baseDomain: domain, httpsPort: HTTPS_PORT, version: '0.1.0', branch: 'rawbin' }));
+      res.end(JSON.stringify({ baseDomain: domain, httpsPort: HTTPS_PORT, version: PKG_VERSION, branch: 'rawbin' }));
       return;
     }
 
     if (filepath === '/api/health') {
       const uptime = Math.floor((Date.now() - serverStartTime.getTime()) / 1000);
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
-      res.end(JSON.stringify({ status: 'ok', uptime, version: '0.1.0', connections: wsClients.size, rooms: roomManager.size }));
+      res.end(JSON.stringify({ status: 'ok', uptime, version: PKG_VERSION, connections: wsClients.size, rooms: roomManager.size }));
       return;
     }
 
@@ -655,7 +656,7 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
         id: clientId, ws, name: memberName, avatarUrl: useAvatar,
         playerToken: msg.playerToken || '', disconnected: false,
       };
-      const room = roomManager.createRoom(roomName, member, { maxMembers: msg.maxPlayers || 10, isPrivate: !!msg.roomKey });
+      const room = roomManager.createRoom(roomName, member, { maxMembers: msg.maxPlayers || 10, isPrivate: !!msg.roomKey, roomKey: msg.roomKey || '' });
       if (msg.playerToken) tokenToClient.set(msg.playerToken, clientId);
       room.sendTo(clientId, { type: MSG.ROOM_JOINED, room: room.info(), members: [...room.members.values()].map(m => ({ id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken })) });
       addLog(`Room created: ${room.name} (${room.id}) by ${clientId.slice(0,8)}`);
@@ -669,7 +670,7 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
 
       const room = roomManager.getRoom(msg.roomId);
       if (!room) { send({ type: MSG.ERROR, message: 'Room not found' }); break; }
-      if (room.isPrivate) { send({ type: MSG.ERROR, message: 'Room is private' }); break; }
+      if (room.isPrivate && room.roomKey !== msg.roomKey) { send({ type: MSG.ERROR, message: 'Wrong room key' }); break; }
       const joinName = msg.playerName || 'User';
       if (msg.playerToken) {
         const oldId = tokenToClient.get(msg.playerToken);
