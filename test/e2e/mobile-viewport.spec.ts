@@ -1,53 +1,33 @@
 import { test, expect } from '@playwright/test';
+import { ensureLobby } from './helpers.js';
 
 test.describe('T13.8: Mobile Viewport', () => {
   test.use({ viewport: { width: 375, height: 812 } });
 
   test('profile gate and room work on iPhone viewport', async ({ page }) => {
-    await page.goto('/app');
-
-    const gate = page.locator('.profile-gate');
-    if (await gate.isVisible().catch(() => false)) {
-      const sheet = page.locator('.profile-sheet');
-      await expect(sheet).toBeVisible();
-
-      const box = await sheet.boundingBox();
-      expect(box).toBeTruthy();
-      if (box) {
-        expect(box.width).toBeLessThanOrEqual(375);
-      }
-
-      await page.fill('#pe-name', 'E2E-Mobile');
-      await page.click('#pe-save');
-      await page.waitForSelector('.profile-overlay', { state: 'hidden', timeout: 10000 }).catch(() => {});
-    }
-
-    await page.waitForSelector('.lobby', { timeout: 15000 }).catch(() => {});
-
-    const enrollDialog = page.locator('#de-code');
-    if (await enrollDialog.isVisible().catch(() => false)) {
-      test.skip(true, 'Device enrollment shown — need secret code for mobile test');
-      return;
-    }
+    await ensureLobby(page, 'E2E-Mobile');
 
     const lobby = page.locator('.lobby');
-    if (await lobby.isVisible().catch(() => false)) {
-      const lobbyBox = await lobby.boundingBox();
-      expect(lobbyBox).toBeTruthy();
-      if (lobbyBox) {
-        expect(lobbyBox.width).toBeLessThanOrEqual(375);
-      }
+    await expect(lobby).toBeVisible();
+    const lobbyBox = await lobby.boundingBox();
+    expect(lobbyBox).toBeTruthy();
+    if (lobbyBox) expect(lobbyBox.width).toBeLessThanOrEqual(375);
 
-      await page.click('#create-room-btn');
-      await page.fill('#room-name', 'Mobile-Room');
-      await page.click('#confirm-create-btn');
-      await page.waitForSelector('.room-view', { timeout: 10000 });
+    await page.click('#create-room-btn');
+    await page.waitForSelector('#create-form', { state: 'visible', timeout: 3000 });
+    await page.fill('#room-name', 'Mobile-Room');
+    await page.click('#confirm-create-btn');
 
-      const roomView = page.locator('.room-view');
-      await expect(roomView).toBeVisible();
+    await page.waitForSelector('.room-view', { timeout: 15000 });
+    const roomView = page.locator('.room-view');
+    await expect(roomView).toBeVisible();
 
-      const chatSheet = page.locator('.chat-sheet');
-      await expect(chatSheet).toBeVisible();
-    }
+    const chatSheet = page.locator('.chat-sheet');
+    await expect(chatSheet).toBeVisible();
+
+    await page.locator('#chat-handle').click();
+    await page.fill('#chat-input', 'mobile test');
+    await page.click('#chat-send');
+    await expect(page.locator('#chat-messages')).toContainText('mobile test', { timeout: 5000 });
   });
 });

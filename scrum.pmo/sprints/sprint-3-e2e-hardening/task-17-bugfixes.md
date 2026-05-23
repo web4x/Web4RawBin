@@ -2,7 +2,7 @@
 
 # T17: Bug Fix Sprint
 
-**Status:** PLANNED
+**Status:** DONE
 **Assigned:** robbin-expert (fix), robbin-tester (verify)
 **Effort:** Variable — depends on E2E findings
 **Dependencies:** T13 (bugs found during E2E testing)

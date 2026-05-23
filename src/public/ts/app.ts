@@ -6,6 +6,7 @@ import { DeviceEnrollDialog } from './DeviceEnrollDialog.js';
 import { MSG } from '../../shared/MessageTypes.js';
 
 const client = new RawBinClient();
+(window as any).__rawbinClient = client;
 const container = document.getElementById('app')!;
 const profileEditor = new ProfileEditor(client);
 const deviceEnroll = new DeviceEnrollDialog(client);

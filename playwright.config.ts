@@ -4,6 +4,8 @@ export default defineConfig({
   testDir: 'test/e2e',
   timeout: 30000,
   retries: 0,
+  workers: 1,
+  fullyParallel: false,
   use: {
     baseURL: 'https://localhost:4444',
     ignoreHTTPSErrors: true,

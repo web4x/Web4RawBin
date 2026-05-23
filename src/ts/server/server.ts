@@ -549,7 +549,7 @@ function setupWebSocketServer(server: https.Server): void {
     ws.send(JSON.stringify({ type: MSG.ROOM_LIST, rooms: roomManager.listRooms() }));
 
     ws.on('message', (data) => {
-      try { handleMessage(clientId, ws, avatarUrl, JSON.parse(data.toString())); } catch {}
+      try { handleMessage(clientId, ws, avatarUrl, JSON.parse(data.toString())); } catch (e: any) { addLog(`WS handler error: ${e?.message || e}`); }
     });
 
     ws.on('close', () => {
@@ -595,6 +595,7 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
       };
       const room = roomManager.createRoom(roomName, member, { maxMembers: msg.maxPlayers || 10, isPrivate: !!msg.roomKey });
       if (msg.playerToken) tokenToClient.set(msg.playerToken, clientId);
+      room.sendTo(clientId, { type: MSG.ROOM_JOINED, room: room.info(), members: [...room.members.values()].map(m => ({ id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken })) });
       addLog(`Room created: ${room.name} (${room.id}) by ${clientId.slice(0,8)}`);
       break;
     }
