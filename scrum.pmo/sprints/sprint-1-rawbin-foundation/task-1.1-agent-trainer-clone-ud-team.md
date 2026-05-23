@@ -3,12 +3,12 @@
 # Task 1.1: Agent-Trainer - Clone ud-team as robbinTeam
 [task:uuid:b8f4d2e3-9c5f-4a0b-c7d6-4e3f2a1b0c9d]
 
-## Status
-- [x] Planned
-- [x] In Progress
-- [x] Done — All fixes applied. cwd correct, naming role@MacStudio, all verified by agent-trainer.
+**Status:** DONE
+**Assigned:** agent-trainer
+**Created:** 2026-05-22
+**Completed:** 2026-05-22
 
-## Remaining Issues (must fix before Done)
+## Remaining Issues
 1. **Working directory wrong**: agents must start in `/Users/Shared/Workspaces/AI/Claude/` (the main Claude workspace), NOT in Web4RawBin directly. The Web4RawBin repo is accessible via `workspaces/Web4RawBin` symlink.
 2. **Naming convention wrong**: pane titles show `role@opus` — must be `role@MacStudio` (convention: `agentName@hostname` not `agentName@model`)
 3. **Symlink created**: `workspaces/Web4RawBin -> /Users/Shared/Workspaces/2cuGitHub/Web4RawBin` ✅
@@ -38,3 +38,6 @@ Requirements:
 
 ## Role
 oosh-expert (executed initial setup), oosh-po to verify naming convention.
+
+## Subtasks
+None (atomic task).

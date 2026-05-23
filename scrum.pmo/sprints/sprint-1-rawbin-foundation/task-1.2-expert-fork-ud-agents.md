@@ -3,17 +3,16 @@
 # Task 1.2: Expert - Fork ud-team Agents into robbinTeam
 [task:uuid:c9f5e3d4-0a6b-4b1c-d8e7-5f4a3b2c1d0e]
 
-## Status
-- [x] Planned
-- [x] In Progress
-- [x] Done — all 4 forked from ud-team UUIDs, renamed+locked role@MacStudio
+**Status:** DONE
+**Assigned:** oosh-expert
+**Created:** 2026-05-22
+**Completed:** 2026-05-22
 
 ## Traceability
-  - up
-    - [Task 1: Bootstrap robbinTeam](./task-1-team-bootstrap.md)
-
-## Assigned
-oosh-expert (ooshTeam:0.1) — delegated via SM (TRONinterface:0.1)
+- up
+  - [Task 1: Bootstrap robbinTeam](./task-1-team-bootstrap.md)
+- down
+  - None
 
 ## Description
 Replace empty claudeCode sessions on robbinTeam with forks of upDownTeam agents.

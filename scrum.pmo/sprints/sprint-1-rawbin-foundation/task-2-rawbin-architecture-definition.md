@@ -4,11 +4,17 @@
 
 [task:uuid:19442916-8dac-490a-bdc1-61f2c1e27da8]
 
-**Owner:** robbin-architect (robbinTeam:0.1)
 **Status:** DONE
-**Priority:** 2 (blocks all implementation)
-**Date:** 2026-05-22
+**Assigned:** robbin-architect
+**Created:** 2026-05-22
+**Completed:** 2026-05-22
 
+
+## Traceability
+- up
+  - [sprint-1-rawbin-foundation Planning](./planning.md)
+- down
+  - None
 ## Source: QnD Codebase Audit
 
 Total: 7,549 lines across 23 TypeScript files + 3 HTML + 2 CSS + manifest + package.json
@@ -458,3 +464,6 @@ All deps survive. No new deps needed for the base fork.
 | npm deps | 11 | 11 (same) |
 
 **Estimated effort:** Expert creates Room.ts from GameRoom (~2h), strips server.ts (~3h), creates RoomUI.ts (~2h), rebrands assets (~1h). Total: ~8h expert work + tester verification.
+
+## Subtasks
+None (atomic task).

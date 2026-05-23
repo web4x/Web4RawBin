@@ -9,6 +9,8 @@
 **Estimated effort:** 2h expert + 1h tester
 **Priority:** 3 (CRITICAL — blocks all room-related work)
 **Depends on:** Task 2 (architecture approved)
+**Created:** 2026-05-22
+**Completed:** 2026-05-22
 
 
 ## Traceability

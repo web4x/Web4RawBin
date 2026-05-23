@@ -5,6 +5,14 @@
 **Status:** DONE
 **Assigned:** robbin-expert (fix Room.ts) + robbin-tester (fix tests)
 **Priority:** 3 (blocks T3 completion)
+**Created:** 2026-05-22
+**Completed:** 2026-05-22
+
+## Traceability
+- up
+  - [sprint-1-rawbin-foundation Planning](./planning.md)
+- down
+  - None
 
 ## Context
 

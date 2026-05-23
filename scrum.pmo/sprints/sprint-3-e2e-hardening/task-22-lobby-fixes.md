@@ -11,6 +11,12 @@
 **Created:** 2026-05-23
 **Completed:** 2026-05-23
 
+
+## Traceability
+- up
+  - [sprint-3-e2e-hardening Planning](./planning.md)
+- down
+  - None
 ## Issues Found During Tron Live Testing
 
 ### 22.1 Lobby header missing home/fullscreen/reload — DONE
@@ -39,3 +45,6 @@
 
 ## CMM4 Note
 PO implemented 22.1 directly instead of delegating to expert. Process violation recorded in learnings #35.
+
+## Subtasks
+None (atomic task).

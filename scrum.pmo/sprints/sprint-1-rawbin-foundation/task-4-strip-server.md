@@ -9,6 +9,8 @@
 **Estimated effort:** 3h expert + 1h tester
 **Priority:** 4 (HIGH — largest single task)
 **Depends on:** Task 3 (Room.ts exists)
+**Created:** 2026-05-22
+**Completed:** 2026-05-22
 
 
 ## Traceability

@@ -74,12 +74,12 @@ Sync should handle both planning.md formats:
 - `- [ ] [TN: Title](./task-N.md) **Status:** DONE` (inline status)
 
 ## Acceptance Criteria
-- [ ] `sprint status` finds all tasks across all sprints (not 0)
-- [ ] `sprint audit` reports UUID, Traceability, Subtasks, dates compliance
-- [ ] `sprint create` generates Web4Articles-compliant template
-- [ ] `sprint fix` batch-fixes structural issues in task files
-- [ ] `sprint done` adds completion date
-- [ ] Tool works on RawBin scrum.pmo (SPRINT_PMO_DIR)
+- [x] `sprint status` finds all tasks across all sprints (not 0)
+- [x] `sprint audit` reports UUID, Traceability, Subtasks, dates compliance
+- [x] `sprint create` generates Web4Articles-compliant template
+- [x] `sprint fix` batch-fixes structural issues in task files
+- [x] `sprint done` adds completion date
+- [x] Tool works on RawBin scrum.pmo (SPRINT_PMO_DIR)
 
 ## Subtasks
 None (atomic task for this sprint).

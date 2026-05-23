@@ -9,6 +9,8 @@
 **Estimated effort:** 1h expert + 30min tester
 **Priority:** 6 (MEDIUM — cosmetic but required)
 **Depends on:** Tasks 3-5 (codebase exists)
+**Created:** 2026-05-22
+**Completed:** 2026-05-22
 
 
 ## Traceability

@@ -93,12 +93,12 @@ Sprint 3: task-13 through task-22
 Sprint 4: task-23 through task-27
 
 ## Acceptance Criteria
-- [ ] Every task file has a UUID tag
-- [ ] Every task file has hierarchical Status checklist (not flat field)
-- [ ] Every task file has Created + Completed dates
-- [ ] Every task file has Traceability up/down section
-- [ ] Every task file has Subtasks section (even if "None")
-- [ ] Zero structural differences between any two task files
+- [x] Every task file has a UUID tag
+- [x] Every task file has hierarchical Status checklist (not flat field)
+- [x] Every task file has Created + Completed dates
+- [x] Every task file has Traceability up/down section
+- [x] Every task file has Subtasks section (even if "None")
+- [x] Zero structural differences between any two task files
 
 ## Subtasks
 None (atomic task for this sprint).

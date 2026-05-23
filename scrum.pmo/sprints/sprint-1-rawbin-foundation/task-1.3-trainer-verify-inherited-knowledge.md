@@ -3,19 +3,17 @@
 # Task 1.3: Agent-Trainer - Verify Inherited Knowledge
 [task:uuid:d0a6f4e5-1b7c-4c2d-e9f8-6a5b4c3d2e1f]
 
-## Status
-- [x] Planned
-- [x] In Progress
-- [x] Done — all 4 pass, inherited training confirmed. Trainer compacted after.
+**Status:** DONE
+**Assigned:** agent-trainer
+**Dependencies:** T1.2
+**Created:** 2026-05-22
+**Completed:** 2026-05-22
 
 ## Traceability
-  - up
-    - [Task 1: Bootstrap robbinTeam](./task-1-team-bootstrap.md)
-  - blocked by
-    - [Task 1.2: Fork ud-team agents](./task-1.2-expert-fork-ud-agents.md)
-
-## Assigned
-agent-trainer (baseTeam) — triggered by SM after task 1.2 completes
+- up
+  - [Task 1: Bootstrap robbinTeam](./task-1-team-bootstrap.md)
+- down
+  - None
 
 ## Description
 Verify each robbinTeam agent inherited knowledge from its ud-team source.
@@ -35,3 +33,6 @@ Verify each robbinTeam agent inherited knowledge from its ud-team source.
 - If agent doesn't know team name: correct to robbinTeam
 - If agent doesn't know project: correct to Web4RawBin (Robbin AI server management)
 - If agent has no inherited knowledge: task 1.2 failed, escalate to SM
+
+## Subtasks
+None (atomic task).

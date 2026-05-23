@@ -11,6 +11,12 @@
 **Created:** 2026-05-23
 **Completed:** 2026-05-23
 
+
+## Traceability
+- up
+  - [sprint-3-e2e-hardening Planning](./planning.md)
+- down
+  - None
 ## Issues Reported by Tron (2026-05-23)
 
 ### T21.1 Profile page needs editor button

@@ -9,6 +9,8 @@
 **Estimated effort:** 2h expert + 1h tester
 **Priority:** 5 (HIGH — user-facing)
 **Depends on:** Task 3 (Room.ts), Task 4 (stripped server.ts)
+**Created:** 2026-05-22
+**Completed:** 2026-05-22
 
 
 ## Traceability
