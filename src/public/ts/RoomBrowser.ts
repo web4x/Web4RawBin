@@ -118,22 +118,22 @@ export class RoomBrowser {
           </div>
           <div class="room-status">
             <span class="room-state room-state-${room.state}">${stateLabel}</span>
-            <button class="btn btn-share" data-room="${room.id}" title="Copy join link">🔗</button>
             ${room.state === 'active' ? `<button class="btn btn-join" data-room="${room.id}">Join</button>` : ''}
-            ${room.state === 'active' ? `<button class="btn btn-spectate" data-room="${room.id}">Watch</button>` : ''}
             ${isOwner ? `<button class="btn btn-delete" data-room="${room.id}" title="Delete room">✕</button>` : ''}
           </div>
         </div>`;
     }).join('');
 
     list.querySelectorAll('.btn-join').forEach(btn => {
-      btn.addEventListener('click', () => { this.client.joinRoom((btn as HTMLElement).dataset.room!, this.memberName); });
-    });
-    list.querySelectorAll('.btn-spectate').forEach(btn => {
       btn.addEventListener('click', () => {
         const roomId = (btn as HTMLElement).dataset.room!;
-        this.client.spectateRoom(roomId, this.memberName);
-        this.onEnterRoom(roomId);
+        const room = this.rooms.find(r => r.id === roomId);
+        if (room?.isPrivate) {
+          const key = prompt('Enter room key:');
+          if (key) this.client.joinRoom(roomId, this.memberName, key);
+        } else {
+          this.client.joinRoom(roomId, this.memberName);
+        }
       });
     });
     list.querySelectorAll('.btn-share').forEach(btn => {

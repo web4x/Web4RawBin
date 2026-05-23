@@ -286,6 +286,21 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       } catch { res.writeHead(404); res.end('Doc not found'); }
       return;
     }
+    if (filepath.startsWith('/md/') && filepath.endsWith('/')) {
+      const relPath = filepath.slice(4);
+      if (relPath.includes('..')) { res.writeHead(403); res.end('Forbidden'); return; }
+      const dirPath = path.join(PROJECT_ROOT, relPath);
+      try {
+        const entries = fsSync.readdirSync(dirPath, { withFileTypes: true });
+        const dirs = entries.filter(e => e.isDirectory() && !e.name.startsWith('.')).map(e => `<li>📁 <a href="/md/${relPath}${e.name}/">${e.name}/</a></li>`);
+        const mds = entries.filter(e => e.isFile() && e.name.endsWith('.md')).map(e => `<li>📄 <a href="/md/${relPath}${e.name}">${e.name}</a></li>`);
+        const svgs = entries.filter(e => e.isFile() && e.name.endsWith('.svg')).map(e => `<li>🖼 <a href="/md/${relPath}${e.name}">${e.name}</a></li>`);
+        const others = entries.filter(e => e.isFile() && !e.name.endsWith('.md') && !e.name.endsWith('.svg') && !e.name.startsWith('.')).map(e => `<li>${e.name}</li>`);
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${relPath || '/'} — RawBin</title><style>${MD_CSS}</style></head><body><p><a href="/md/README.md">Home</a> · <a href="/md/scrum.pmo/sprints/">Sprints</a> · <a href="/app">App</a></p><h1>📂 ${relPath || '/'}</h1><ul>${dirs.join('')}${mds.join('')}${svgs.join('')}${others.join('')}</ul></body></html>`);
+      } catch { res.writeHead(404); res.end('Directory not found'); }
+      return;
+    }
     if (filepath.startsWith('/md/') && filepath.endsWith('.svg')) {
       const relPath = filepath.slice(4);
       if (relPath.includes('..')) { res.writeHead(403); res.end('Forbidden'); return; }
@@ -320,7 +335,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         relinked = relinked.replace(/\]\(([^)]+)\.puml\)/g, (_, p) => `](/md/${dirPrefix}/${p}.svg)`);
         const html = marked(relinked) as string;
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${path.basename(filepath, '.md')} — RawBin</title><style>${MD_CSS}</style></head><body><p><a href="/">Home</a></p>${html}</body></html>`);
+        res.end(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${path.basename(filepath, '.md')} — RawBin</title><style>${MD_CSS}</style></head><body><p><a href="/md/README.md">Home</a> · <a href="/md/scrum.pmo/sprints/">Sprints</a> · <a href="/app">App</a></p>${html}</body></html>`);
       } catch { res.writeHead(404); res.end('File not found'); }
       return;
     }
@@ -591,6 +606,7 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
 
       const room = roomManager.getRoom(msg.roomId);
       if (!room) { send({ type: MSG.ERROR, message: 'Room not found' }); break; }
+      if (room.isPrivate && room.roomKey !== msg.roomKey) { send({ type: MSG.ERROR, message: 'Wrong room key' }); break; }
       const joinName = msg.playerName || 'User';
       if (msg.playerToken) {
         const oldId = tokenToClient.get(msg.playerToken);

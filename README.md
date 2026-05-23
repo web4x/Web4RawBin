@@ -59,10 +59,17 @@ rawbin/
 - **Organization**: [web4x](https://github.com/web4x)
 - **License**: MIT
 
+## App
+
+**[Open RawBin App](https://home.donges.it:4444/app)**
+
 ## Sprint Planning
 
-| Sprint | Focus | Status |
-|--------|-------|--------|
-| [Sprint 1](./scrum.pmo/sprints/sprint-1-rawbin-foundation/planning.md) | Foundation — QnD fork, Room.ts, server strip, client, rebrand | DONE (6/6) |
-| [Sprint 2](./scrum.pmo/sprints/sprint-2-identity-ssh/planning.md) | Identity — SSH keys, device enrollment, profile gate, vCard, auth | DONE (6/6) |
-| [Sprint 3](./scrum.pmo/sprints/sprint-3-e2e-hardening/planning.md) | E2E Testing — Playwright, UX parity, deployment hardening | IN PROGRESS |
+Browse all sprint documentation, task files, and architecture diagrams:
+
+**[Sprint Overview](/md/scrum.pmo/sprints/)** — dynamic index of all sprints
+
+Individual sprints:
+- [Sprint 1 — Foundation](./scrum.pmo/sprints/sprint-1-rawbin-foundation/planning.md)
+- [Sprint 2 — Identity & SSH](./scrum.pmo/sprints/sprint-2-identity-ssh/planning.md)
+- [Sprint 3 — E2E & Hardening](./scrum.pmo/sprints/sprint-3-e2e-hardening/planning.md)
