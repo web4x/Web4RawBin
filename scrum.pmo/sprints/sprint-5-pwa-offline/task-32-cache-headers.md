@@ -1,0 +1,45 @@
+[Back to Sprint 5 Planning](./planning.md)
+
+# T32: Cache Headers + Asset Versioning
+
+[task:uuid:559a384b-5a3c-40f9-af2e-35f0957b6c87]
+
+## Status
+- [ ] Planned
+- [ ] In Progress
+  - [ ] refinement
+  - [ ] creating test cases
+  - [ ] implementing
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
+
+## Traceability
+- up
+  - [Sprint 5 Planning](./planning.md)
+- down
+  - None (atomic task)
+
+## Task Description
+- PO: Long max-age + hash versioning for static files, must-revalidate for HTML, ETag headers, esbuild content hash, no source maps in production.
+
+## Context
+Sprint 5 requirement from Tron: thin internet connection, app must work offline, installable PWA with one-click update, traffic optimized via browser cache and sync.
+
+## Intention
+Verified by PO — task matches Tron's directive for offline-capable PWA.
+
+## Steps
+- [ ] TBD (refined during implementation)
+
+## Requirements
+See Sprint 5 planning.md for full requirements.
+
+## Acceptance Criteria
+- [ ] TBD (refined during implementation)
+
+## QA Audit & User Feedback
+- Pending Tron QA review.
+
+## Subtasks
+None (atomic task for this sprint).
