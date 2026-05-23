@@ -91,7 +91,7 @@ if ('serviceWorker' in navigator) {
       if (!newWorker) return;
       newWorker.addEventListener('statechange', () => {
         if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-          showUpdateBanner(reg);
+          showUpdateBanner();
         }
       });
     });
@@ -107,18 +107,17 @@ async function checkForUpdate(): Promise<void> {
     const res = await fetch('/api/config');
     const config = await res.json();
     const cachedVersion = localStorage.getItem('rawbin-version');
-    if (cachedVersion && cachedVersion !== config.version) {
-      const reg = await navigator.serviceWorker?.getRegistration();
-      if (reg) {
-        await reg.update();
-        if (reg.waiting) showUpdateBanner(reg, config.version);
-      }
+    if (!cachedVersion) {
+      localStorage.setItem('rawbin-version', config.version);
+      return;
     }
-    localStorage.setItem('rawbin-version', config.version);
+    if (cachedVersion !== config.version) {
+      showUpdateBanner(config.version);
+    }
   } catch {}
 }
 
-function showUpdateBanner(reg: ServiceWorkerRegistration, version?: string): void {
+function showUpdateBanner(version?: string): void {
   if (document.getElementById('update-banner')) return;
   const banner = document.createElement('div');
   banner.id = 'update-banner';
@@ -126,9 +125,15 @@ function showUpdateBanner(reg: ServiceWorkerRegistration, version?: string): voi
   const label = version ? `v${version} available` : 'New version available';
   banner.innerHTML = `<span>${label}</span><button id="update-now">Update Now</button>`;
   document.body.prepend(banner);
-  document.getElementById('update-now')?.addEventListener('click', () => {
+  document.getElementById('update-now')?.addEventListener('click', async () => {
+    if (version) localStorage.setItem('rawbin-version', version);
     banner.remove();
-    reg.waiting?.postMessage('SKIP_WAITING');
+    const reg = await navigator.serviceWorker?.getRegistration?.();
+    if (reg?.waiting) {
+      reg.waiting.postMessage('SKIP_WAITING');
+    } else {
+      location.reload();
+    }
   });
 }
 
