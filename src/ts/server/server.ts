@@ -15,7 +15,7 @@ import fetch from 'node-fetch';
 import { marked } from 'marked';
 import { RoomManager, type RoomMember } from './Room.js';
 import { MSG } from '../shared/MessageTypes.js';
-import { createUserHome, generateUserKeypair, writeUserProfile } from './UserKeys.js';
+import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice } from './UserKeys.js';
 
 const execAsync = promisify(exec);
 const ADMIN_KEY = process.env.ADMIN_KEY || crypto.randomUUID();
@@ -102,6 +102,9 @@ interface DeviceRecord {
   firstSeen: string;
   lastSeen: string;
   connectionCount: number;
+  enrolled: boolean;
+  devicePublicKey: string;
+  enrolledAt: string;
 }
 
 const DATA_DIR = path.join(__dirname, '../../../data');
@@ -710,7 +713,7 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
         if (msg.platform) existing.platform = msg.platform;
         if (devId && !existing.deviceId) existing.deviceId = devId;
       } else {
-        deviceRecords.push({ deviceId: devId, ownerToken: token, userAgent: ua, ip, screenSize, platform: msg.platform || '', firstSeen: now, lastSeen: now, connectionCount: 1 });
+        deviceRecords.push({ deviceId: devId, ownerToken: token, userAgent: ua, ip, screenSize, platform: msg.platform || '', firstSeen: now, lastSeen: now, connectionCount: 1, enrolled: false, devicePublicKey: '', enrolledAt: '' });
       }
       saveDevices();
 
@@ -835,6 +838,28 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
       const target = userProfiles.get(targetToken);
       if (!target) { send({ type: MSG.ERROR, message: 'User not found' }); break; }
       send({ type: MSG.USER_INFO, user: { name: target.name, phone: target.phone, url: target.url, avatar: target.avatar, playerToken: target.token } });
+      break;
+    }
+
+    case MSG.DEVICE_ENROLL_REQUEST: {
+      const enrollToken = [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
+      if (!enrollToken) { send({ type: MSG.DEVICE_ENROLL_FAILED, reason: 'Not identified' }); break; }
+      const enrollProfile = userProfiles.get(enrollToken);
+      if (!enrollProfile) { send({ type: MSG.DEVICE_ENROLL_FAILED, reason: 'No profile' }); break; }
+      if (!enrollProfile.sshKeysGenerated) { send({ type: MSG.DEVICE_ENROLL_FAILED, reason: 'Keys not generated' }); break; }
+      if (msg.secretCode !== enrollProfile.secretCode) { send({ type: MSG.DEVICE_ENROLL_FAILED, reason: 'Wrong secret code' }); break; }
+      const enrollClient = [...wsClients].find(c => c.id === clientId);
+      const enrollDeviceId = enrollClient?.deviceId || clientId;
+      const result = enrollDevice(enrollToken, enrollDeviceId);
+      const deviceRec = deviceRecords.find(d => d.ownerToken === enrollToken && d.deviceId === enrollDeviceId);
+      if (deviceRec) {
+        deviceRec.enrolled = true;
+        deviceRec.devicePublicKey = result.devicePublicKey;
+        deviceRec.enrolledAt = new Date().toISOString();
+      }
+      saveDevices();
+      send({ type: MSG.DEVICE_ENROLL_OK, devicePublicKey: result.devicePublicKey, devicePrivateKey: result.devicePrivateKey, signature: result.signature });
+      addLog(`Device enrolled: ${enrollToken.slice(0,8)} / ${enrollDeviceId.slice(0,8)}`);
       break;
     }
   }

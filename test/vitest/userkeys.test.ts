@@ -1,10 +1,12 @@
 /**
- * Task 9.7: SSH Key Generation unit tests
+ * Task 9.7 + 10.7: SSH Key Generation + Device Key Enrollment unit tests
  * Tests UserKeys functions: createUserHome, generateUserKeypair, hasUserKeys,
  * getUserPublicKey, addAuthorizedKey, idempotency, file permissions.
+ * T10: generateDeviceKeypair, signDeviceKey, verifyDeviceKey, enrollDevice,
+ * DEVICE_ENROLL handler logic.
  *
  * Uses temp dirs — no running server needed.
- * Handler logic replicated from task-9-ssh-keys.md spec until UserKeys.ts is delivered.
+ * Handler logic replicated from task specs until UserKeys.ts is delivered.
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
@@ -393,5 +395,362 @@ describe('TC-9.7.9: addAuthorizedKey appends to file', () => {
     // Current impl does append duplicates — this test documents behavior
     // If dedup is desired, expert should add it and this test will catch it
     expect(keys.length).toBe(2);
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// T10: Device Key Enrollment
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── Replicate T10 functions from spec ───────────────────────────────────────
+
+function generateDeviceKeypair(userToken: string, deviceId: string): { publicKey: string; privateKey: string } {
+  const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
+    modulusLength: 2048,
+    publicKeyEncoding: { type: 'spki', format: 'pem' },
+    privateKeyEncoding: { type: 'pkcs8', format: 'pem' },
+  });
+  return { publicKey, privateKey };
+}
+
+function signDeviceKey(userToken: string, devicePublicKey: string): string {
+  const userPrivateKey = getUserPrivateKey(userToken);
+  if (!userPrivateKey) throw new Error('User private key not found');
+  const signature = crypto.sign('sha256', Buffer.from(devicePublicKey), userPrivateKey);
+  return signature.toString('base64');
+}
+
+function verifyDeviceKey(userToken: string, devicePublicKey: string, signature: string): boolean {
+  const userPublicKey = getUserPublicKey(userToken);
+  if (!userPublicKey) return false;
+  return crypto.verify('sha256', Buffer.from(devicePublicKey), userPublicKey, Buffer.from(signature, 'base64'));
+}
+
+function enrollDevice(userToken: string, deviceId: string): { devicePublicKey: string; devicePrivateKey: string; signature: string } {
+  const { publicKey: devicePublicKey, privateKey: devicePrivateKey } = generateDeviceKeypair(userToken, deviceId);
+  const signature = signDeviceKey(userToken, devicePublicKey);
+  addAuthorizedKey(userToken, devicePublicKey);
+  return { devicePublicKey, devicePrivateKey, signature };
+}
+
+interface UserProfile {
+  token: string;
+  name: string;
+  secretCode: string;
+  sshKeysGenerated: boolean;
+  profileCommitted: boolean;
+}
+
+function handleDeviceEnroll(
+  msg: any,
+  clientId: string,
+  deviceId: string,
+  tokenToClient: Map<string, string>,
+  userProfiles: Map<string, UserProfile>,
+  send: (data: any) => void,
+): void {
+  const myToken = [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
+  if (!myToken) { send({ type: 'DEVICE_ENROLL_FAILED', reason: 'Not identified' }); return; }
+  const profile = userProfiles.get(myToken);
+  if (!profile) { send({ type: 'DEVICE_ENROLL_FAILED', reason: 'No profile' }); return; }
+  if (!profile.sshKeysGenerated) { send({ type: 'DEVICE_ENROLL_FAILED', reason: 'Keys not generated' }); return; }
+  if (msg.secretCode !== profile.secretCode) { send({ type: 'DEVICE_ENROLL_FAILED', reason: 'Wrong secret code' }); return; }
+  const result = enrollDevice(myToken, deviceId);
+  send({ type: 'DEVICE_ENROLL_OK', devicePublicKey: result.devicePublicKey, devicePrivateKey: result.devicePrivateKey, signature: result.signature });
+}
+
+const DEVICE_ID = 'device-xyz-789';
+
+// ── TC-10.7.1: generateDeviceKeypair creates valid RSA-2048 ─────────────────
+
+describe('TC-10.7.1: generateDeviceKeypair RSA-2048', () => {
+
+  it('returns valid PEM public key', () => {
+    const { publicKey } = generateDeviceKeypair(TEST_TOKEN, DEVICE_ID);
+    expect(publicKey).toContain('-----BEGIN PUBLIC KEY-----');
+    expect(publicKey).toContain('-----END PUBLIC KEY-----');
+  });
+
+  it('returns valid PEM private key', () => {
+    const { privateKey } = generateDeviceKeypair(TEST_TOKEN, DEVICE_ID);
+    expect(privateKey).toContain('-----BEGIN PRIVATE KEY-----');
+    expect(privateKey).toContain('-----END PRIVATE KEY-----');
+  });
+
+  it('device keys are usable for encrypt/decrypt', () => {
+    const { publicKey, privateKey } = generateDeviceKeypair(TEST_TOKEN, DEVICE_ID);
+    const data = Buffer.from('device test');
+    const encrypted = crypto.publicEncrypt(publicKey, data);
+    const decrypted = crypto.privateDecrypt(privateKey, encrypted);
+    expect(decrypted.toString()).toBe('device test');
+  });
+
+  it('different devices get different keys', () => {
+    const pair1 = generateDeviceKeypair(TEST_TOKEN, 'device-1');
+    const pair2 = generateDeviceKeypair(TEST_TOKEN, 'device-2');
+    expect(pair1.publicKey).not.toBe(pair2.publicKey);
+    expect(pair1.privateKey).not.toBe(pair2.privateKey);
+  });
+});
+
+// ── TC-10.7.2: signDeviceKey produces base64 signature ──────────────────────
+
+describe('TC-10.7.2: signDeviceKey base64 signature', () => {
+
+  it('produces a non-empty base64 string', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+    const { publicKey: devicePub } = generateDeviceKeypair(TEST_TOKEN, DEVICE_ID);
+
+    const signature = signDeviceKey(TEST_TOKEN, devicePub);
+    expect(signature.length).toBeGreaterThan(0);
+    // Valid base64
+    expect(Buffer.from(signature, 'base64').toString('base64')).toBe(signature);
+  });
+
+  it('different device keys produce different signatures', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+    const pair1 = generateDeviceKeypair(TEST_TOKEN, 'dev-1');
+    const pair2 = generateDeviceKeypair(TEST_TOKEN, 'dev-2');
+
+    const sig1 = signDeviceKey(TEST_TOKEN, pair1.publicKey);
+    const sig2 = signDeviceKey(TEST_TOKEN, pair2.publicKey);
+    expect(sig1).not.toBe(sig2);
+  });
+});
+
+// ── TC-10.7.3: verifyDeviceKey true for valid, false for tampered ────────────
+
+describe('TC-10.7.3: verifyDeviceKey validation', () => {
+
+  it('returns true for valid signature', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+    const { publicKey: devicePub } = generateDeviceKeypair(TEST_TOKEN, DEVICE_ID);
+    const signature = signDeviceKey(TEST_TOKEN, devicePub);
+
+    expect(verifyDeviceKey(TEST_TOKEN, devicePub, signature)).toBe(true);
+  });
+
+  it('returns false for tampered device key', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+    const { publicKey: devicePub } = generateDeviceKeypair(TEST_TOKEN, DEVICE_ID);
+    const signature = signDeviceKey(TEST_TOKEN, devicePub);
+
+    // Use a different device key with the original signature
+    const { publicKey: tamperedPub } = generateDeviceKeypair(TEST_TOKEN, 'tampered');
+    expect(verifyDeviceKey(TEST_TOKEN, tamperedPub, signature)).toBe(false);
+  });
+
+  it('returns false for tampered signature', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+    const { publicKey: devicePub } = generateDeviceKeypair(TEST_TOKEN, DEVICE_ID);
+
+    const badSig = Buffer.from('definitely-not-a-valid-signature').toString('base64');
+    expect(verifyDeviceKey(TEST_TOKEN, devicePub, badSig)).toBe(false);
+  });
+
+  it('returns false when user has no keys', () => {
+    const { publicKey: devicePub } = generateDeviceKeypair('no-keys-user', DEVICE_ID);
+    expect(verifyDeviceKey('no-keys-user', devicePub, 'anything')).toBe(false);
+  });
+});
+
+// ── TC-10.7.4: enrollDevice creates keypair + signs + authorized_keys ───────
+
+describe('TC-10.7.4: enrollDevice full flow', () => {
+
+  it('returns devicePublicKey, devicePrivateKey, and signature', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+
+    const result = enrollDevice(TEST_TOKEN, DEVICE_ID);
+    expect(result.devicePublicKey).toContain('-----BEGIN PUBLIC KEY-----');
+    expect(result.devicePrivateKey).toContain('-----BEGIN PRIVATE KEY-----');
+    expect(result.signature.length).toBeGreaterThan(0);
+  });
+
+  it('signature is valid for the returned device key', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+
+    const result = enrollDevice(TEST_TOKEN, DEVICE_ID);
+    expect(verifyDeviceKey(TEST_TOKEN, result.devicePublicKey, result.signature)).toBe(true);
+  });
+
+  it('adds device public key to authorized_keys', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+
+    const result = enrollDevice(TEST_TOKEN, DEVICE_ID);
+    const akPath = path.join(getSshDir(TEST_TOKEN), 'authorized_keys');
+    const akContent = fs.readFileSync(akPath, 'utf-8');
+    expect(akContent).toContain(result.devicePublicKey.trim());
+  });
+});
+
+// ── TC-10.7.5: DEVICE_ENROLL with correct secret code -> OK ─────────────────
+
+describe('TC-10.7.5: DEVICE_ENROLL correct code → OK', () => {
+
+  it('returns DEVICE_ENROLL_OK with keys and signature', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+
+    const profiles = new Map<string, UserProfile>();
+    profiles.set(TEST_TOKEN, { token: TEST_TOKEN, name: 'TestUser', secretCode: '4242', sshKeysGenerated: true, profileCommitted: true });
+    const tokenToClient = new Map<string, string>();
+    tokenToClient.set(TEST_TOKEN, 'client-1');
+    const sent: any[] = [];
+
+    handleDeviceEnroll(
+      { type: 'DEVICE_ENROLL_REQUEST', secretCode: '4242' },
+      'client-1', DEVICE_ID, tokenToClient, profiles, (d) => sent.push(d),
+    );
+
+    expect(sent.length).toBe(1);
+    expect(sent[0].type).toBe('DEVICE_ENROLL_OK');
+    expect(sent[0].devicePublicKey).toContain('-----BEGIN PUBLIC KEY-----');
+    expect(sent[0].devicePrivateKey).toContain('-----BEGIN PRIVATE KEY-----');
+    expect(sent[0].signature.length).toBeGreaterThan(0);
+  });
+});
+
+// ── TC-10.7.6: DEVICE_ENROLL with wrong code -> FAILED ──────────────────────
+
+describe('TC-10.7.6: DEVICE_ENROLL wrong code → FAILED', () => {
+
+  it('returns DEVICE_ENROLL_FAILED with reason', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+
+    const profiles = new Map<string, UserProfile>();
+    profiles.set(TEST_TOKEN, { token: TEST_TOKEN, name: 'TestUser', secretCode: '4242', sshKeysGenerated: true, profileCommitted: true });
+    const tokenToClient = new Map<string, string>();
+    tokenToClient.set(TEST_TOKEN, 'client-1');
+    const sent: any[] = [];
+
+    handleDeviceEnroll(
+      { type: 'DEVICE_ENROLL_REQUEST', secretCode: '0000' },
+      'client-1', DEVICE_ID, tokenToClient, profiles, (d) => sent.push(d),
+    );
+
+    expect(sent.length).toBe(1);
+    expect(sent[0].type).toBe('DEVICE_ENROLL_FAILED');
+    expect(sent[0].reason).toBe('Wrong secret code');
+  });
+});
+
+// ── TC-10.7.7: DEVICE_ENROLL without sshKeysGenerated -> error ──────────────
+
+describe('TC-10.7.7: DEVICE_ENROLL without SSH keys → error', () => {
+
+  it('returns DEVICE_ENROLL_FAILED when keys not generated', () => {
+    const profiles = new Map<string, UserProfile>();
+    profiles.set(TEST_TOKEN, { token: TEST_TOKEN, name: 'TestUser', secretCode: '4242', sshKeysGenerated: false, profileCommitted: true });
+    const tokenToClient = new Map<string, string>();
+    tokenToClient.set(TEST_TOKEN, 'client-1');
+    const sent: any[] = [];
+
+    handleDeviceEnroll(
+      { type: 'DEVICE_ENROLL_REQUEST', secretCode: '4242' },
+      'client-1', DEVICE_ID, tokenToClient, profiles, (d) => sent.push(d),
+    );
+
+    expect(sent.length).toBe(1);
+    expect(sent[0].type).toBe('DEVICE_ENROLL_FAILED');
+    expect(sent[0].reason).toBe('Keys not generated');
+  });
+
+  it('returns DEVICE_ENROLL_FAILED for unidentified client', () => {
+    const profiles = new Map<string, UserProfile>();
+    const tokenToClient = new Map<string, string>();
+    const sent: any[] = [];
+
+    handleDeviceEnroll(
+      { type: 'DEVICE_ENROLL_REQUEST', secretCode: '4242' },
+      'unknown-client', DEVICE_ID, tokenToClient, profiles, (d) => sent.push(d),
+    );
+
+    expect(sent.length).toBe(1);
+    expect(sent[0].type).toBe('DEVICE_ENROLL_FAILED');
+    expect(sent[0].reason).toBe('Not identified');
+  });
+});
+
+// ── TC-10.7.8: Device public key in authorized_keys after enrollment ────────
+
+describe('TC-10.7.8: authorized_keys after enrollment', () => {
+
+  it('device key appears in authorized_keys after successful enrollment', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+
+    const profiles = new Map<string, UserProfile>();
+    profiles.set(TEST_TOKEN, { token: TEST_TOKEN, name: 'TestUser', secretCode: '1234', sshKeysGenerated: true, profileCommitted: true });
+    const tokenToClient = new Map<string, string>();
+    tokenToClient.set(TEST_TOKEN, 'client-1');
+    const sent: any[] = [];
+
+    handleDeviceEnroll(
+      { type: 'DEVICE_ENROLL_REQUEST', secretCode: '1234' },
+      'client-1', DEVICE_ID, tokenToClient, profiles, (d) => sent.push(d),
+    );
+
+    const akPath = path.join(getSshDir(TEST_TOKEN), 'authorized_keys');
+    const akContent = fs.readFileSync(akPath, 'utf-8');
+    expect(akContent).toContain('-----BEGIN PUBLIC KEY-----');
+    expect(akContent).toContain(sent[0].devicePublicKey.trim());
+  });
+
+  it('multiple devices each add to authorized_keys', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+
+    const profiles = new Map<string, UserProfile>();
+    profiles.set(TEST_TOKEN, { token: TEST_TOKEN, name: 'TestUser', secretCode: '1234', sshKeysGenerated: true, profileCommitted: true });
+    const tokenToClient = new Map<string, string>();
+    tokenToClient.set(TEST_TOKEN, 'client-1');
+    const sent: any[] = [];
+
+    handleDeviceEnroll(
+      { type: 'DEVICE_ENROLL_REQUEST', secretCode: '1234' },
+      'client-1', 'device-A', tokenToClient, profiles, (d) => sent.push(d),
+    );
+    handleDeviceEnroll(
+      { type: 'DEVICE_ENROLL_REQUEST', secretCode: '1234' },
+      'client-1', 'device-B', tokenToClient, profiles, (d) => sent.push(d),
+    );
+
+    const akPath = path.join(getSshDir(TEST_TOKEN), 'authorized_keys');
+    const akContent = fs.readFileSync(akPath, 'utf-8');
+    // Both device keys present
+    expect(akContent).toContain(sent[0].devicePublicKey.trim());
+    expect(akContent).toContain(sent[1].devicePublicKey.trim());
+    // They are different keys
+    expect(sent[0].devicePublicKey).not.toBe(sent[1].devicePublicKey);
+  });
+
+  it('failed enrollment does NOT add to authorized_keys', () => {
+    createUserHome(TEST_TOKEN);
+    generateUserKeypair(TEST_TOKEN);
+
+    const profiles = new Map<string, UserProfile>();
+    profiles.set(TEST_TOKEN, { token: TEST_TOKEN, name: 'TestUser', secretCode: '1234', sshKeysGenerated: true, profileCommitted: true });
+    const tokenToClient = new Map<string, string>();
+    tokenToClient.set(TEST_TOKEN, 'client-1');
+    const sent: any[] = [];
+
+    handleDeviceEnroll(
+      { type: 'DEVICE_ENROLL_REQUEST', secretCode: '9999' },
+      'client-1', DEVICE_ID, tokenToClient, profiles, (d) => sent.push(d),
+    );
+
+    expect(sent[0].type).toBe('DEVICE_ENROLL_FAILED');
+    const authKeys = getAuthorizedKeys(TEST_TOKEN);
+    expect(authKeys.length).toBe(0);
   });
 });

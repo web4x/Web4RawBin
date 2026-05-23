@@ -2,11 +2,13 @@ import { RawBinClient } from './RawBinClient.js';
 import { RoomBrowser } from './RoomBrowser.js';
 import { RoomView } from './RoomView.js';
 import { ProfileEditor } from './ProfileEditor.js';
+import { DeviceEnrollDialog } from './DeviceEnrollDialog.js';
 import { MSG } from '../../shared/MessageTypes.js';
 
 const client = new RawBinClient();
 const container = document.getElementById('app')!;
 const profileEditor = new ProfileEditor(client);
+const deviceEnroll = new DeviceEnrollDialog(client);
 
 const browser = new RoomBrowser(client, container, (roomId) => {
   browser.hide();
@@ -28,6 +30,22 @@ async function loadConfig(): Promise<{ baseDomain: string; httpsPort: number }> 
   }
 }
 
+function hasDeviceKeys(): boolean {
+  return !!localStorage.getItem('rawbin-device-privateKey');
+}
+
+function proceedToBrowser(): void {
+  browser.show();
+}
+
+function checkDeviceEnrollment(profile: any): void {
+  if (profile.sshKeysGenerated && !hasDeviceKeys()) {
+    deviceEnroll.open(() => { proceedToBrowser(); });
+  } else {
+    proceedToBrowser();
+  }
+}
+
 async function init() {
   try {
     const config = await loadConfig();
@@ -42,10 +60,10 @@ async function init() {
       profileEditor.open(
         { name: initial.name || '', phone: initial.phone || '', url: initial.url || '', avatar: initial.avatar || '', secretCode: initial.secretCode || '' },
         'gate',
-        () => { browser.show(); }
+        (savedProfile: any) => { checkDeviceEnrollment(savedProfile); }
       );
     } else {
-      browser.show();
+      checkDeviceEnrollment(profileMsg.profile);
     }
   } catch {
     container.innerHTML = '<div class="error"><h2>Connection Failed</h2><p>Could not connect to server. Please refresh.</p></div>';

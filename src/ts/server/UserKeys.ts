@@ -127,6 +127,54 @@ export function addAuthorizedKey(token: string, devicePublicKey: string): void {
   writeKeySafe(p, content);
 }
 
+export function generateDeviceKeypair(userToken: string, deviceId: string): { publicKey: string; privateKey: string } {
+  const devKeysDir = path.join(getSshDir(userToken), 'devices');
+  mkdirSafe(devKeysDir);
+
+  const devPubPath = path.join(devKeysDir, `${deviceId}.pub`);
+  const devPrivPath = path.join(devKeysDir, `${deviceId}.key`);
+
+  if (fs.existsSync(devPubPath) && fs.existsSync(devPrivPath)) {
+    return {
+      publicKey: fs.readFileSync(devPubPath, 'utf-8'),
+      privateKey: fs.readFileSync(devPrivPath, 'utf-8'),
+    };
+  }
+
+  const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
+    modulusLength: 2048,
+    publicKeyEncoding: { type: 'spki', format: 'pem' },
+    privateKeyEncoding: { type: 'pkcs8', format: 'pem' },
+  });
+
+  writeKeySafe(devPubPath, publicKey);
+  writeKeySafe(devPrivPath, privateKey);
+
+  return { publicKey, privateKey };
+}
+
+export function signDeviceKey(userToken: string, devicePublicKey: string): string {
+  const userPrivateKey = getUserPrivateKey(userToken);
+  if (!userPrivateKey) throw new Error('User private key not found');
+  const signature = crypto.sign('sha256', Buffer.from(devicePublicKey), userPrivateKey);
+  return signature.toString('base64');
+}
+
+export function verifyDeviceKey(userToken: string, devicePublicKey: string, signature: string): boolean {
+  const userPublicKey = getUserPublicKey(userToken);
+  if (!userPublicKey) return false;
+  try {
+    return crypto.verify('sha256', Buffer.from(devicePublicKey), userPublicKey, Buffer.from(signature, 'base64'));
+  } catch { return false; }
+}
+
+export function enrollDevice(userToken: string, deviceId: string): { devicePublicKey: string; devicePrivateKey: string; signature: string } {
+  const { publicKey, privateKey } = generateDeviceKeypair(userToken, deviceId);
+  const signature = signDeviceKey(userToken, publicKey);
+  addAuthorizedKey(userToken, publicKey);
+  return { devicePublicKey: publicKey, devicePrivateKey: privateKey, signature };
+}
+
 export function writeUserProfile(token: string, profile: object): void {
   const homeDir = getUserHomeDir(token);
   mkdirSafe(homeDir);
