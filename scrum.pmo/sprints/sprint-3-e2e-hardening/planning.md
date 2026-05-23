@@ -45,9 +45,8 @@ Verify the full RawBin stack end-to-end in a real browser, fix any issues found,
   **Effort:** 2h expert + 1h tester
   - Start script, process management, SSL, log persistence, health check
 
-- [ ] [T17: Bug Fix Sprint](./task-17-bugfixes.md)
-  **Status:** PLANNED
-  - Populated from E2E findings
+- [x] [T17: Bug Fix Sprint](./task-17-bugfixes.md)
+  **Status:** DONE — 4 session bugs fixed, root cause: ROOM_JOINED not sent to creator. 6/6 E2E pass
 
 ## Dependency Graph
 ```
@@ -59,7 +58,7 @@ T15,T18-T22 (UX parity) ──DONE──→ T13 (E2E) ──→ T17 (Bug fixes)
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 10 (8 done, 2 planned) |
+| Tasks | 10 (9 done, 1 planned) |
 | Expert effort | ~13h + bugfixes |
 | Tester effort | ~3h + bugfixes |
 | Unit tests | 202/202 pass (2.9s) |
@@ -71,7 +70,7 @@ T15,T18-T22 (UX parity) ──DONE──→ T13 (E2E) ──→ T17 (Bug fixes)
 - [x] All integration tests pass (202/202 unit-style, no server dependency)
 - [ ] Server starts reliably, restarts on crash
 - [x] External access confirmed at https://home.donges.it:4444/app
-- [ ] No critical bugs open
+- [x] No critical bugs open (T17 fixed all 4)
 
 ---
 
