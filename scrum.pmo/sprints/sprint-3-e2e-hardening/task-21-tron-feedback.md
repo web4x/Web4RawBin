@@ -27,6 +27,6 @@
 - URL format: `https://home.donges.it:4444/app?room=<roomId>`
 
 ## Acceptance Criteria
-- [ ] Profile page has "Edit Profile" button
-- [ ] ProfileEditor supports avatar/picture upload with preview
-- [ ] QR code invite popup shows scannable room URL
+- [x] Profile page has "Edit Profile" button
+- [x] ProfileEditor supports avatar/picture upload with preview
+- [x] QR code invite popup shows scannable room URL

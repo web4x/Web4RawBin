@@ -52,7 +52,7 @@ if (filepath.startsWith('/md/') && filepath.endsWith('.puml')) {
 ```
 
 ## Acceptance Criteria
-- [ ] /md/scrum.pmo/.../diagrams/class-diagram.svg renders in browser
-- [ ] Markdown with `![](diagrams/class-diagram.svg)` shows inline
-- [ ] .puml links redirect to .svg
-- [ ] Sprint planning pages viewable with diagrams
+- [x] /md/scrum.pmo/.../diagrams/class-diagram.svg renders in browser
+- [x] Markdown with `![](diagrams/class-diagram.svg)` shows inline
+- [x] .puml links redirect to .svg
+- [x] Sprint planning pages viewable with diagrams

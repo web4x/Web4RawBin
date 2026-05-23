@@ -23,7 +23,7 @@ During Sprints 2-3, the pace of implementation caused planning files to fall beh
 
 ### Audit & Fix
 
-- [ ] [T23: Task File Audit — Sprint 1](./task-23-audit-sprint-1.md)
+- [x] [T23: Task File Audit — Sprint 1](./task-23-audit-sprint-1.md)
   **Status:** PLANNED
   **Effort:** 1h PO (audit only, no code)
   - Verify all 6 task files have correct Status: DONE
@@ -31,14 +31,14 @@ During Sprints 2-3, the pace of implementation caused planning files to fall beh
   - Add completion dates
   - Verify task file cross-references are valid
 
-- [ ] [T24: Task File Audit — Sprint 2](./task-24-audit-sprint-2.md)
+- [x] [T24: Task File Audit — Sprint 2](./task-24-audit-sprint-2.md)
   **Status:** PLANNED
   **Effort:** 1h PO
   - Verify all 7 task files (T7-T12 + T7.0) have correct status
   - Check acceptance criteria, add completion dates
   - Verify PUML diagram references work
 
-- [ ] [T25: Task File Audit — Sprint 3](./task-25-audit-sprint-3.md)
+- [x] [T25: Task File Audit — Sprint 3](./task-25-audit-sprint-3.md)
   **Status:** PLANNED
   **Effort:** 1h PO
   - Verify all 10 task files (T13-T22) have correct status
@@ -61,7 +61,7 @@ During Sprints 2-3, the pace of implementation caused planning files to fall beh
 
 ### Planning Automation
 
-- [ ] [T27: Sprint CLI Tool](./task-27-sprint-cli.md)
+- [x] [T27: Sprint CLI Tool](./task-27-sprint-cli.md)
   **Status:** PLANNED
   **Effort:** 4h expert + 1h tester
   - OOSH script `sprint` with standard method dispatch:

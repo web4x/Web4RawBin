@@ -45,8 +45,8 @@ Port from QnD MultiplayerUI.ts lines 227-237:
 - QnD: `MultiplayerUI.ts` lines 227-237, `multiplayer.css` lines 158-163, 370-375
 
 ## Acceptance Criteria
-- [ ] Home button navigates to /
-- [ ] Fullscreen toggle works on desktop + mobile
-- [ ] Reload refreshes the page
-- [ ] Header layout matches UpDown pattern
-- [ ] Touch-friendly button sizes (44px min)
+- [x] Home button navigates to /
+- [x] Fullscreen toggle works on desktop + mobile
+- [x] Reload refreshes the page
+- [x] Header layout matches UpDown pattern
+- [x] Touch-friendly button sizes (44px min)

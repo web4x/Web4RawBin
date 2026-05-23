@@ -54,7 +54,7 @@ const relinked3 = relinked2.replace(/\]\(([^)]+\.puml)\)/g, (_, p) => `](/md/${d
 When markdown contains `![...](*.svg)` image references, the rendered HTML will have `<img src="/md/...svg">` tags. The SVG route from 7.0.1 serves the image.
 
 ## Acceptance Criteria
-- [ ] `/md/path/to/diagram.svg` serves SVG with correct Content-Type
-- [ ] Markdown files with `![](diagram.svg)` show inline SVGs
-- [ ] `.puml` references auto-redirect to `.svg` companion
-- [ ] Sprint task files can reference PUML diagrams
+- [x] `/md/path/to/diagram.svg` serves SVG with correct Content-Type
+- [x] Markdown files with `![](diagram.svg)` show inline SVGs
+- [x] `.puml` references auto-redirect to `.svg` companion
+- [x] Sprint task files can reference PUML diagrams

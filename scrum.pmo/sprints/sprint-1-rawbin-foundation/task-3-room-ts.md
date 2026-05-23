@@ -109,8 +109,8 @@ export interface RoomInfo {
   - Spectator → verify add/remove/promote
 
 ## Acceptance Criteria
-- [ ] Room.ts compiles with no TypeScript errors
-- [ ] No imports from game files (BotPlayer, SpecialCards, CardUtils, ScoreCalculator)
-- [ ] All vitest tests pass
-- [ ] File persistence works (create room, restart, room still exists)
-- [ ] ~300 lines or less
+- [x] Room.ts compiles with no TypeScript errors
+- [x] No imports from game files (BotPlayer, SpecialCards, CardUtils, ScoreCalculator)
+- [x] All vitest tests pass
+- [x] File persistence works (create room, restart, room still exists)
+- [x] ~300 lines or less

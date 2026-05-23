@@ -65,13 +65,13 @@ Port from QnD lines 403-407:
 - QnD: `MultiplayerUI.ts` lines 266-277 (HTML), 394-447 (logic), `multiplayer.css` lines 387-456 (styling)
 
 ## Acceptance Criteria
-- [ ] Chat renders as bottom sheet (collapsed by default)
-- [ ] Drag handle expands/collapses sheet
-- [ ] Messages display with colored sender names
-- [ ] Send works (Enter + button)
-- [ ] Message peek preview on new message while collapsed
-- [ ] WS status indicator (green/red/orange)
-- [ ] QR invite popup works
-- [ ] Chat works between multiple users in same room
-- [ ] Chat history preserved on rejoin
-- [ ] Mobile-friendly (touch drag, responsive)
+- [x] Chat renders as bottom sheet (collapsed by default)
+- [x] Drag handle expands/collapses sheet
+- [x] Messages display with colored sender names
+- [x] Send works (Enter + button)
+- [x] Message peek preview on new message while collapsed
+- [x] WS status indicator (green/red/orange)
+- [x] QR invite popup works
+- [x] Chat works between multiple users in same room
+- [x] Chat history preserved on rejoin
+- [x] Mobile-friendly (touch drag, responsive)

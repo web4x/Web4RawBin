@@ -134,10 +134,10 @@ DEVICE_AUTH_FAILED: 'DEVICE_AUTH_FAILED',           // S→C (used in T12)
 - Device public key appears in authorized_keys after enrollment
 
 ## Acceptance Criteria
-- [ ] New device with committed profile prompted for secret code
-- [ ] Correct code → device keypair generated, signed, stored in localStorage
-- [ ] Device public key added to user's authorized_keys
-- [ ] Wrong code → DEVICE_ENROLL_FAILED with reason
-- [ ] User without SSH keys cannot enroll
-- [ ] Device keys persist in localStorage across page reloads
-- [ ] All tests pass
+- [x] New device with committed profile prompted for secret code
+- [x] Correct code → device keypair generated, signed, stored in localStorage
+- [x] Device public key added to user's authorized_keys
+- [x] Wrong code → DEVICE_ENROLL_FAILED with reason
+- [x] User without SSH keys cannot enroll
+- [x] Device keys persist in localStorage across page reloads
+- [x] All tests pass

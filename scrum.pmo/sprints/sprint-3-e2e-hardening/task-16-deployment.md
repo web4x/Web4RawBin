@@ -51,8 +51,8 @@ GET /api/health → { status: 'ok', uptime: N, version: '0.1.0', connections: N,
 - Production mode: file logging, TUI disabled (headless)
 
 ## Acceptance Criteria
-- [ ] `./src/sh/rawbin.sh` starts server reliably
-- [ ] Server restarts on crash
-- [ ] Logs written to disk
-- [ ] GET /api/health returns server status
-- [ ] External access works at https://home.donges.it:4444/app
+- [x] `./src/sh/rawbin.sh` starts server reliably
+- [x] Server restarts on crash
+- [x] Logs written to disk
+- [x] GET /api/health returns server status
+- [x] External access works at https://home.donges.it:4444/app

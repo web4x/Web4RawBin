@@ -58,10 +58,10 @@ When `gateMode: true`:
 - Returning user with profileCommitted:true skips gate
 
 ## Acceptance Criteria
-- [ ] First-time user sees editor immediately (no room list visible)
-- [ ] Editor has no close/skip button in gate mode
-- [ ] Name is required — submit disabled if empty
-- [ ] After commit, room browser appears
-- [ ] Returning user with committed profile goes straight to browser
-- [ ] Server rejects room create/join for uncommitted profiles with ERROR message
-- [ ] All tests pass
+- [x] First-time user sees editor immediately (no room list visible)
+- [x] Editor has no close/skip button in gate mode
+- [x] Name is required — submit disabled if empty
+- [x] After commit, room browser appears
+- [x] Returning user with committed profile goes straight to browser
+- [x] Server rejects room create/join for uncommitted profiles with ERROR message
+- [x] All tests pass

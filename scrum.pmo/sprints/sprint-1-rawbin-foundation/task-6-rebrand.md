@@ -94,9 +94,9 @@ Update workspaces/Web4RawBin/README.md with:
 - manifest.json references correct icons
 
 ## Acceptance Criteria
-- [ ] `grep -ri "updown" src/` returns zero results
-- [ ] `grep -ri "updown" package.json` returns zero results
-- [ ] TUI shows RawBin on help/status/clients screens
-- [ ] Browser shows RawBin in all page titles
-- [ ] PWA manifest shows RawBin
-- [ ] CSS custom properties defined for future color swap
+- [x] `grep -ri "updown" src/` returns zero results
+- [x] `grep -ri "updown" package.json` returns zero results
+- [x] TUI shows RawBin on help/status/clients screens
+- [x] Browser shows RawBin in all page titles
+- [x] PWA manifest shows RawBin
+- [x] CSS custom properties defined for future color swap

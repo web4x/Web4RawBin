@@ -64,5 +64,5 @@ Tests pass `cleanupStale(0)` (0ms threshold). Expert may not accept a threshold 
 - Mock ws.readyState = 1
 
 ## Acceptance Criteria
-- [ ] All 33 tests pass
-- [ ] No test changes that weaken coverage
+- [x] All 33 tests pass
+- [x] No test changes that weaken coverage

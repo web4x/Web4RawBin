@@ -117,9 +117,9 @@ Add to package.json:
 ```
 
 ## Acceptance Criteria
-- [ ] All E2E tests pass in headless Chromium
-- [ ] Full user journey covered (gate → room → chat → profile → vCard)
-- [ ] Device enrollment + auto-auth verified
-- [ ] Mobile viewport tested
-- [ ] Server auto-starts before tests (webServer config)
-- [ ] Tests run with `npm run test:e2e`
+- [x] All E2E tests pass in headless Chromium
+- [x] Full user journey covered (gate → room → chat → profile → vCard)
+- [x] Device enrollment + auto-auth verified
+- [x] Mobile viewport tested
+- [x] Server auto-starts before tests (webServer config)
+- [x] Tests run with `npm run test:e2e`

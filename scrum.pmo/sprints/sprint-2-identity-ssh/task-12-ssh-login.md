@@ -142,11 +142,11 @@ Token-based IDENTIFY still works. Server sets `authMethod = 'token'` for IDENTIF
 - Connection without any auth → authMethod = 'none'
 
 ## Acceptance Criteria
-- [ ] Welcome includes unique challenge nonce
-- [ ] Client with device keys signs challenge and sends DEVICE_AUTH
-- [ ] Server verifies and marks connection as device-key authenticated
-- [ ] Invalid signatures rejected
-- [ ] No replay attacks (challenge is single-use)
-- [ ] Token-only clients still work (backward compatible)
-- [ ] authMethod tracked per connection
-- [ ] All tests pass
+- [x] Welcome includes unique challenge nonce
+- [x] Client with device keys signs challenge and sends DEVICE_AUTH
+- [x] Server verifies and marks connection as device-key authenticated
+- [x] Invalid signatures rejected
+- [x] No replay attacks (challenge is single-use)
+- [x] Token-only clients still work (backward compatible)
+- [x] authMethod tracked per connection
+- [x] All tests pass

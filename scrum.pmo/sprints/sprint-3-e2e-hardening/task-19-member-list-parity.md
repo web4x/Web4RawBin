@@ -50,9 +50,9 @@ Port from QnD `multiplayer.css` lines 167-178:
 - QnD: `MultiplayerUI.ts` lines 449-471, `multiplayer.css` lines 167-178
 
 ## Acceptance Criteria
-- [ ] Members shown as compact horizontal badges with avatars
-- [ ] Self member has green tint + "(you)"
-- [ ] Status indicator shows connected/disconnected
-- [ ] Host indicated with icon (not text badge)
-- [ ] Clickable names with dotted underline
-- [ ] Responsive on mobile (flex-wrap)
+- [x] Members shown as compact horizontal badges with avatars
+- [x] Self member has green tint + "(you)"
+- [x] Status indicator shows connected/disconnected
+- [x] Host indicated with icon (not text badge)
+- [x] Clickable names with dotted underline
+- [x] Responsive on mobile (flex-wrap)

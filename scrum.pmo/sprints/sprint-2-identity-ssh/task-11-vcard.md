@@ -53,9 +53,9 @@ Wire the other-user click handler (stubbed in T7):
 - .vcf download creates valid file
 
 ## Acceptance Criteria
-- [ ] Clicking another user's name opens profile sheet
-- [ ] Download button generates valid .vcf file
-- [ ] vCard opens correctly in iOS/Android contacts app
-- [ ] Profile sheet dismissable (close button + drag)
-- [ ] Link Account button shows secret code prompt (CONSOLIDATE)
-- [ ] All tests pass
+- [x] Clicking another user's name opens profile sheet
+- [x] Download button generates valid .vcf file
+- [x] vCard opens correctly in iOS/Android contacts app
+- [x] Profile sheet dismissable (close button + drag)
+- [x] Link Account button shows secret code prompt (CONSOLIDATE)
+- [x] All tests pass

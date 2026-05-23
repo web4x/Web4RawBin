@@ -129,9 +129,9 @@ Strip to 31 messages per architect analysis. See `task-2-rawbin-architecture-def
 - TUI displays correctly with RawBin branding
 
 ## Acceptance Criteria
-- [ ] Server compiles and starts
-- [ ] No references to game concepts (cards, deck, rounds, scoring, bots, leaderboard)
-- [ ] profiles.json and devices.json separated
-- [ ] PROFILE response only includes requesting user's devices
-- [ ] All vitest tests pass
-- [ ] ~900 lines or less
+- [x] Server compiles and starts
+- [x] No references to game concepts (cards, deck, rounds, scoring, bots, leaderboard)
+- [x] profiles.json and devices.json separated
+- [x] PROFILE response only includes requesting user's devices
+- [x] All vitest tests pass
+- [x] ~900 lines or less

@@ -99,8 +99,8 @@ In package.json scripts:
 - Profile and bug-report links work
 
 ## Acceptance Criteria
-- [ ] `npm run build` succeeds (esbuild bundles app.js)
-- [ ] App loads in browser with no console errors
-- [ ] Full room lifecycle works (create → join → chat → leave → delete)
-- [ ] No references to game concepts in client code
-- [ ] Responsive on mobile (PWA)
+- [x] `npm run build` succeeds (esbuild bundles app.js)
+- [x] App loads in browser with no console errors
+- [x] Full room lifecycle works (create → join → chat → leave → delete)
+- [x] No references to game concepts in client code
+- [x] Responsive on mobile (PWA)

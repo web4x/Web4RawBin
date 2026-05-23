@@ -133,10 +133,10 @@ sshKeyGeneratedAt: string;     // ISO date of key generation
 - addAuthorizedKey appends to file
 
 ## Acceptance Criteria
-- [ ] Profile commit creates data/users/<token>/.ssh/ tree
-- [ ] RSA-2048 keypair in PEM format
-- [ ] OOSH directory pattern (public_keys/, private_key/ with named copies)
-- [ ] File permissions: 700 dirs, 600 files
-- [ ] Idempotent (no regen on second call)
-- [ ] sshKeysGenerated set in UserProfile
-- [ ] All tests pass
+- [x] Profile commit creates data/users/<token>/.ssh/ tree
+- [x] RSA-2048 keypair in PEM format
+- [x] OOSH directory pattern (public_keys/, private_key/ with named copies)
+- [x] File permissions: 700 dirs, 600 files
+- [x] Idempotent (no regen on second call)
+- [x] sshKeysGenerated set in UserProfile
+- [x] All tests pass

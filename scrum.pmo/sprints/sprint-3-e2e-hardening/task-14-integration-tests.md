@@ -37,7 +37,7 @@ Fix or refactor:
 - WS flow tests → refactor to unit or move to E2E (T13)
 
 ## Acceptance Criteria
-- [ ] All server.test.ts tests pass without running server
-- [ ] All client.test.ts tests pass without running server
-- [ ] Combined with existing tests: 150+ total unit tests passing
-- [ ] No test takes more than 5 seconds
+- [x] All server.test.ts tests pass without running server
+- [x] All client.test.ts tests pass without running server
+- [x] Combined with existing tests: 150+ total unit tests passing
+- [x] No test takes more than 5 seconds

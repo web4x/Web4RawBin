@@ -95,10 +95,10 @@ Add click handlers to member list items in `renderMemberList()`:
   - Backfill: existing profiles get phone:'', url:'', profileCommitted:false
 
 ## Acceptance Criteria
-- [ ] Clicking own name in member list opens editor dialog
-- [ ] Editor shows name, phone, url, avatar, secret code fields
-- [ ] Save sends UPDATE_PROFILE, receives PROFILE_UPDATED
-- [ ] Phone/url/avatar persist server-side across sessions
-- [ ] Clicking another user's name is a no-op
-- [ ] Mobile-responsive (bottom-sheet on mobile)
-- [ ] All tests pass
+- [x] Clicking own name in member list opens editor dialog
+- [x] Editor shows name, phone, url, avatar, secret code fields
+- [x] Save sends UPDATE_PROFILE, receives PROFILE_UPDATED
+- [x] Phone/url/avatar persist server-side across sessions
+- [x] Clicking another user's name is a no-op
+- [x] Mobile-responsive (bottom-sheet on mobile)
+- [x] All tests pass
