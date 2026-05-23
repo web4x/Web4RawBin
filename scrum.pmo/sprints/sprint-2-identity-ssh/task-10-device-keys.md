@@ -2,15 +2,25 @@
 
 # T10: Device Key Enrollment
 
+[task:uuid:a37159a8-6d81-4edf-b144-a2284f800308]
+
 **Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Effort:** 4h expert + 1.5h tester
 **Dependencies:** T9 (user SSH keys must exist)
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
 ## Diagrams
 - [Enrollment Sequence](./diagrams/sequence-enrollment.svg) — Full enrollment flow (gate → keys → device enrollment)
 - [Class Diagram](./diagrams/class-diagram.svg) — DeviceRecord extensions + UserKeys methods
 
+
+## Traceability
+- up
+  - [sprint-2-identity-ssh Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Each device gets its own keypair, signed by the user's private key. To enroll a new device, the user enters their 4-digit secret code. Enrolled devices auto-authenticate on future connections.
@@ -133,6 +143,9 @@ DEVICE_AUTH_FAILED: 'DEVICE_AUTH_FAILED',           // S→C (used in T12)
 - DEVICE_ENROLL_REQUEST without sshKeysGenerated → error
 - Device public key appears in authorized_keys after enrollment
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] New device with committed profile prompted for secret code
 - [x] Correct code → device keypair generated, signed, stored in localStorage

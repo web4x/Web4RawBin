@@ -2,10 +2,14 @@
 
 # T22: Lobby & Server Fixes (Tron Live Testing)
 
+[task:uuid:bea3af94-9de9-4f12-9c7c-4fc526a6c157]
+
 **Status:** DONE
 **Assigned:** robbin-po (CMM4 violation — should have been expert)
 **Effort:** 30min
 **Dependencies:** T18-T21
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
 ## Issues Found During Tron Live Testing
 

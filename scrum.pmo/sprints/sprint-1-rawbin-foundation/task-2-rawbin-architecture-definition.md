@@ -2,6 +2,8 @@
 
 # Task 2: RawBin Architecture Definition
 
+[task:uuid:19442916-8dac-490a-bdc1-61f2c1e27da8]
+
 **Owner:** robbin-architect (robbinTeam:0.1)
 **Status:** DONE
 **Priority:** 2 (blocks all implementation)

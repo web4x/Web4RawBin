@@ -2,11 +2,21 @@
 
 # T8: Mandatory Profile Gate
 
+[task:uuid:a165969c-fdb7-4b93-b3e5-6aa6ae4b1402]
+
 **Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Effort:** 2h expert + 1h tester
 **Dependencies:** T7 (ProfileEditor must exist)
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
+
+## Traceability
+- up
+  - [sprint-2-identity-ssh Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 New users MUST complete their profile before entering any room. No profile = no room access.
@@ -57,6 +67,9 @@ When `gateMode: true`:
 - Server rejects JOIN_ROOM for uncommitted profile
 - Returning user with profileCommitted:true skips gate
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] First-time user sees editor immediately (no room list visible)
 - [x] Editor has no close/skip button in gate mode

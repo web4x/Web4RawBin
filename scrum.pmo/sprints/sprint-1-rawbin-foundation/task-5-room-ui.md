@@ -2,12 +2,20 @@
 
 # Task 5: Create RoomUI Client Components
 
+[task:uuid:4e4f3530-db7c-479f-902b-a5aefefba3e6]
+
 **Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Estimated effort:** 2h expert + 1h tester
 **Priority:** 5 (HIGH — user-facing)
 **Depends on:** Task 3 (Room.ts), Task 4 (stripped server.ts)
 
+
+## Traceability
+- up
+  - [sprint-1-rawbin-foundation Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Create the client-side Room UI: room browser (lobby) and room view (inside a room). Strip all game UI, reuse Lit component patterns.
@@ -98,6 +106,9 @@ In package.json scripts:
 - Owner can delete room
 - Profile and bug-report links work
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] `npm run build` succeeds (esbuild bundles app.js)
 - [x] App loads in browser with no console errors

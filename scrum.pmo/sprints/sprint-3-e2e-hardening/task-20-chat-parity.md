@@ -2,11 +2,21 @@
 
 # T20: Room Chat Parity with UpDown
 
+[task:uuid:8e980a4c-8abc-4a35-a5cf-abc76d944f31]
+
 **Status:** DONE
 **Assigned:** robbin-expert
 **Effort:** 3h expert
 **Dependencies:** None
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
+
+## Traceability
+- up
+  - [sprint-3-e2e-hardening Planning](./planning.md)
+- down
+  - None
 ## Problem
 
 RawBin chat is either broken or renders as a flat inline panel. UpDown had a polished bottom-sheet chat drawer with drag handle, WS status indicator, message peek preview, QR invite popup, and transform animations. The chat was the primary interaction surface — losing it breaks the core UX.
@@ -64,6 +74,9 @@ Port from QnD lines 403-407:
 ## Source Reference
 - QnD: `MultiplayerUI.ts` lines 266-277 (HTML), 394-447 (logic), `multiplayer.css` lines 387-456 (styling)
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] Chat renders as bottom sheet (collapsed by default)
 - [x] Drag handle expands/collapses sheet

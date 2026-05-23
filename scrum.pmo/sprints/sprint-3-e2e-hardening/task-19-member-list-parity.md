@@ -2,11 +2,21 @@
 
 # T19: Room Member List Parity with UpDown
 
+[task:uuid:7051e416-1087-422b-a271-a5575d2475fc]
+
 **Status:** DONE
 **Assigned:** robbin-expert
 **Effort:** 2h expert
 **Dependencies:** None
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
+
+## Traceability
+- up
+  - [sprint-3-e2e-hardening Planning](./planning.md)
+- down
+  - None
 ## Problem
 
 RawBin member list is a plain vertical list with just names and host badges. UpDown had compact horizontal badges with avatars, status indicators, and distinct self-styling. The current UI doesn't look or feel like UpDown.
@@ -49,6 +59,9 @@ Port from QnD `multiplayer.css` lines 167-178:
 ## Source Reference
 - QnD: `MultiplayerUI.ts` lines 449-471, `multiplayer.css` lines 167-178
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] Members shown as compact horizontal badges with avatars
 - [x] Self member has green tint + "(you)"

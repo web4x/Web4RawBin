@@ -2,11 +2,21 @@
 
 # T14: Integration Test Alignment
 
+[task:uuid:cf488ded-0225-42a4-ba82-036e280e1a49]
+
 **Status:** DONE
 **Assigned:** robbin-tester
 **Effort:** 2h tester
 **Dependencies:** None
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
+
+## Traceability
+- up
+  - [sprint-3-e2e-hardening Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Fix the 48 failing integration tests in server.test.ts and client.test.ts. These tests hit a running server and currently timeout because no server is started during test runs.
@@ -36,6 +46,9 @@ Fix or refactor:
 - Source code checks → grep for patterns, no server needed
 - WS flow tests → refactor to unit or move to E2E (T13)
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] All server.test.ts tests pass without running server
 - [x] All client.test.ts tests pass without running server

@@ -37,9 +37,12 @@ For each pane in robbinTeam:
 | 0.2 | ud-expert | robbin-expert@MacStudio |
 | 0.3 | ud-tester | robbin-tester@MacStudio |
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
-- [ ] All 4 agents are forks (not fresh sessions)
-- [ ] Each agent has inherited knowledge from its ud-team source
-- [ ] cwd is /Users/Shared/Workspaces/AI/Claude/
-- [ ] Pane titles: role@MacStudio (locked)
-- [ ] Registry updated
+- [x] All 4 agents are forks (not fresh sessions)
+- [x] Each agent has inherited knowledge from its ud-team source
+- [x] cwd is /Users/Shared/Workspaces/AI/Claude/
+- [x] Pane titles: role@MacStudio (locked)
+- [x] Registry updated

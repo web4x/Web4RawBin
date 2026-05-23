@@ -1,5 +1,7 @@
 # Task 3.4: Align Room.ts with Test Cases
 
+[task:uuid:adf00ff5-d8e0-48b5-bb6e-07886064ebe4]
+
 **Status:** DONE
 **Assigned:** robbin-expert (fix Room.ts) + robbin-tester (fix tests)
 **Priority:** 3 (blocks T3 completion)
@@ -63,6 +65,9 @@ Tests pass `cleanupStale(0)` (0ms threshold). Expert may not accept a threshold 
 - persistDir: pass string path
 - Mock ws.readyState = 1
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] All 33 tests pass
 - [x] No test changes that weaken coverage

@@ -2,6 +2,8 @@
 
 # T26: Task Template Standardization
 
+[task:uuid:a8cfeb7d-15a0-461e-bc55-c611d967364b]
+
 **Status:** DONE
 **Assigned:** robbin-architect (design)
 **Effort:** 1h architect
@@ -9,6 +11,12 @@
 **Created:** 2026-05-23
 **Completed:** 2026-05-23
 
+
+## Traceability
+- up
+  - [sprint-4-traceability Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Define canonical templates for task files and sprint planning files, based on patterns extracted from 33 task files across 4 sprints.
@@ -63,6 +71,9 @@ Reviewed all task files in sprints 1-4. Inconsistencies found:
 | `scrum.pmo/templates/task-template.md` | 72 | Canonical task file with all fields, section reference, naming convention |
 | `scrum.pmo/templates/planning-template.md` | 69 | Sprint planning file with all sections, section reference |
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 
 - [x] `task-template.md` has all required fields (Status, Assigned, Effort, Dependencies, Created, Completed)

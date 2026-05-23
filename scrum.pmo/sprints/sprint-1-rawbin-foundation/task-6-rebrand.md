@@ -2,12 +2,20 @@
 
 # Task 6: Rebrand Assets (UpDown → RawBin)
 
+[task:uuid:cfb01bc2-1119-47d6-909e-2873734f5817]
+
 **Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Estimated effort:** 1h expert + 30min tester
 **Priority:** 6 (MEDIUM — cosmetic but required)
 **Depends on:** Tasks 3-5 (codebase exists)
 
+
+## Traceability
+- up
+  - [sprint-1-rawbin-foundation Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Replace all UpDown branding with RawBin. Update package.json, manifest, icons, shell scripts, TUI strings.
@@ -93,6 +101,9 @@ Update workspaces/Web4RawBin/README.md with:
 - PWA installs with "RawBin" name
 - manifest.json references correct icons
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] `grep -ri "updown" src/` returns zero results
 - [x] `grep -ri "updown" package.json` returns zero results

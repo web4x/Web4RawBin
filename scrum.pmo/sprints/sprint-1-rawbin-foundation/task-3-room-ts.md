@@ -2,12 +2,20 @@
 
 # Task 3: Create Room.ts from GameRoom.ts
 
+[task:uuid:606277ca-dd09-4409-a460-fa91fa334893]
+
 **Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Estimated effort:** 2h expert + 1h tester
 **Priority:** 3 (CRITICAL — blocks all room-related work)
 **Depends on:** Task 2 (architecture approved)
 
+
+## Traceability
+- up
+  - [sprint-1-rawbin-foundation Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Fork `GameRoom.ts` into `Room.ts` — strip all game logic, rename to RawBin conventions.
@@ -108,6 +116,9 @@ export interface RoomInfo {
   - File persistence → verify save/load cycle
   - Spectator → verify add/remove/promote
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] Room.ts compiles with no TypeScript errors
 - [x] No imports from game files (BotPlayer, SpecialCards, CardUtils, ScoreCalculator)

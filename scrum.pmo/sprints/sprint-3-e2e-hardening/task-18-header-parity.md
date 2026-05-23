@@ -2,11 +2,21 @@
 
 # T18: Header Parity with UpDown
 
+[task:uuid:676f309c-101a-4567-ba86-caa3077d6a01]
+
 **Status:** DONE
 **Assigned:** robbin-expert
 **Effort:** 1h expert
 **Dependencies:** None
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
+
+## Traceability
+- up
+  - [sprint-3-e2e-hardening Planning](./planning.md)
+- down
+  - None
 ## Problem
 
 RawBin header only has "Leave" and "Invite" buttons. UpDown header had home button, fullscreen toggle, and reload — essential for PWA usage on mobile.
@@ -44,6 +54,9 @@ Port from QnD MultiplayerUI.ts lines 227-237:
 ## Source Reference
 - QnD: `MultiplayerUI.ts` lines 227-237, `multiplayer.css` lines 158-163, 370-375
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] Home button navigates to /
 - [x] Fullscreen toggle works on desktop + mobile

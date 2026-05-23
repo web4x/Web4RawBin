@@ -2,11 +2,21 @@
 
 # T11: vCard Download for Other Users
 
+[task:uuid:db9091a2-9cc9-4b2f-967a-b37355b9fc88]
+
 **Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Effort:** 1.5h expert + 0.5h tester
 **Dependencies:** T7 (profile fields + member click handler)
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
+
+## Traceability
+- up
+  - [sprint-2-identity-ssh Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Clicking another user's name in the room member list shows a profile sheet with vCard download. Port from QnD MultiplayerUI.ts lines 486-542.
@@ -52,6 +62,9 @@ Wire the other-user click handler (stubbed in T7):
 - GET_USER_INFO returns public fields only
 - .vcf download creates valid file
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] Clicking another user's name opens profile sheet
 - [x] Download button generates valid .vcf file

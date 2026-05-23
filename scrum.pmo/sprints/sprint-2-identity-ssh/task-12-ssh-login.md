@@ -2,15 +2,25 @@
 
 # T12: SSH-Based Login (Challenge-Response)
 
+[task:uuid:ce7f0047-334b-474c-ac99-897b9590a968]
+
 **Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Effort:** 3h expert + 1h tester
 **Dependencies:** T10 (device keys must exist)
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
 ## Diagrams
 - [Auth Sequence](./diagrams/sequence-auth.svg) — Challenge-response flow with replay protection
 - [Class Diagram](./diagrams/class-diagram.svg) — WebSocketClient.authenticated + AuthMethod enum
 
+
+## Traceability
+- up
+  - [sprint-2-identity-ssh Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Replace/augment token-based identity with cryptographic challenge-response authentication using device keys. Server sends a challenge nonce, client signs with device private key, server verifies against authorized_keys.
@@ -141,6 +151,9 @@ Token-based IDENTIFY still works. Server sets `authMethod = 'token'` for IDENTIF
 - Token-only client still works (backward compatible)
 - Connection without any auth → authMethod = 'none'
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] Welcome includes unique challenge nonce
 - [x] Client with device keys signs challenge and sends DEVICE_AUTH

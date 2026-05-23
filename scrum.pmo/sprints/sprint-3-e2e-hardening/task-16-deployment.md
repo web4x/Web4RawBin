@@ -2,11 +2,21 @@
 
 # T16: Deployment Hardening
 
+[task:uuid:ab9e9801-bce0-4c1b-a4a3-ea71ce873bdd]
+
 **Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Effort:** 2h expert + 1h tester
 **Dependencies:** Port 4444 forwarded (Tron action)
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
+
+## Traceability
+- up
+  - [sprint-3-e2e-hardening Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Make RawBin production-ready: reliable process management, proper SSL, log persistence, health monitoring.
@@ -50,6 +60,9 @@ GET /api/health → { status: 'ok', uptime: N, version: '0.1.0', connections: N,
 - Development mode: verbose logging, TUI enabled
 - Production mode: file logging, TUI disabled (headless)
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] `./src/sh/rawbin.sh` starts server reliably
 - [x] Server restarts on crash

@@ -2,12 +2,20 @@
 
 # Task 4: Strip server.ts of Game Logic
 
+[task:uuid:01df5b22-b485-40c4-b9fc-57a85676dfa5]
+
 **Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Estimated effort:** 3h expert + 1h tester
 **Priority:** 4 (HIGH — largest single task)
 **Depends on:** Task 3 (Room.ts exists)
 
+
+## Traceability
+- up
+  - [sprint-1-rawbin-foundation Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Strip all game-specific routes, WS handlers, and data model from server.ts. Import Room.ts instead of GameRoom.ts. Rebrand UpDown → RawBin.
@@ -128,6 +136,9 @@ Strip to 31 messages per architect analysis. See `task-2-rawbin-architecture-def
 - Profile page shows no game stats
 - TUI displays correctly with RawBin branding
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] Server compiles and starts
 - [x] No references to game concepts (cards, deck, rounds, scoring, bots, leaderboard)

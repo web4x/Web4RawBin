@@ -2,11 +2,21 @@
 
 # T17: Bug Fix Sprint
 
+[task:uuid:bd887043-73c1-4722-b3a8-f5cc4139f897]
+
 **Status:** DONE
 **Assigned:** robbin-expert (fix), robbin-tester (verify)
 **Effort:** Variable — depends on E2E findings
 **Dependencies:** T13 (bugs found during E2E testing)
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
+
+## Traceability
+- up
+  - [sprint-3-e2e-hardening Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Fix all bugs discovered during Playwright E2E testing and external access validation.

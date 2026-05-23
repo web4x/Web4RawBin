@@ -2,11 +2,21 @@
 
 # T15: MD Browser PUML/SVG Support
 
+[task:uuid:dbb6bb7a-35e1-44c7-aa2b-4af5a4d5e5b8]
+
 **Status:** DONE
 **Assigned:** robbin-expert
 **Effort:** 1h expert
 **Dependencies:** None (carried from Sprint 2 T7.0)
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
+
+## Traceability
+- up
+  - [sprint-3-e2e-hardening Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Enhance the `/md/` route to serve SVG diagrams inline so sprint planning docs are viewable with diagrams at https://home.donges.it:4444/md/scrum.pmo/sprints/.../planning.md.
@@ -51,6 +61,9 @@ if (filepath.startsWith('/md/') && filepath.endsWith('.puml')) {
 }
 ```
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] /md/scrum.pmo/.../diagrams/class-diagram.svg renders in browser
 - [x] Markdown with `![](diagrams/class-diagram.svg)` shows inline

@@ -2,10 +2,14 @@
 
 # T21: Tron Live Feedback Fixes
 
+[task:uuid:c361dcf1-ba62-4888-a73c-c5ab924265a7]
+
 **Status:** DONE
 **Assigned:** robbin-expert
 **Effort:** 2h expert
 **Dependencies:** T18-T20
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
 ## Issues Reported by Tron (2026-05-23)
 
@@ -26,6 +30,9 @@
 - Generate QR as canvas/dataURL, show in popup overlay
 - URL format: `https://home.donges.it:4444/app?room=<roomId>`
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] Profile page has "Edit Profile" button
 - [x] ProfileEditor supports avatar/picture upload with preview

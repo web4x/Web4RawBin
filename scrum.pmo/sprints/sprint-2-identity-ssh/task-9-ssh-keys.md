@@ -2,15 +2,25 @@
 
 # T9: SSH Key Generation on Profile Commit
 
+[task:uuid:e7fbf79b-c564-4751-8144-dbfb6688946d]
+
 **Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Effort:** 3h expert + 1h tester
 **Dependencies:** T8 (profile commit triggers key generation)
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
 ## Diagrams
 - [Class Diagram](./diagrams/class-diagram.svg) — UserProfile + UserKeys + filesystem layout
 - [Enrollment Sequence](./diagrams/sequence-enrollment.svg) — Profile commit → key generation flow
 
+
+## Traceability
+- up
+  - [sprint-2-identity-ssh Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 When a user commits their profile for the first time, create a per-user home directory with SSH keypair following OOSH conventions.
@@ -132,6 +142,9 @@ sshKeyGeneratedAt: string;     // ISO date of key generation
 - authorized_keys exists and is empty initially
 - addAuthorizedKey appends to file
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] Profile commit creates data/users/<token>/.ssh/ tree
 - [x] RSA-2048 keypair in PEM format

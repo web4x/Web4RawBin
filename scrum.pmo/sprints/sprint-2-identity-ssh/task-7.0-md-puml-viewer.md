@@ -2,11 +2,21 @@
 
 # T7.0: MD Browser PlantUML SVG Support
 
+[task:uuid:ecf3e19f-3440-4c8f-806f-aad57254ef3d]
+
 **Status:** DONE
 **Assigned:** robbin-expert (implement)
 **Effort:** 1h expert
 **Dependencies:** None (prerequisite for Sprint 2 task references)
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
+
+## Traceability
+- up
+  - [sprint-2-identity-ssh Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Enhance the `/md/` markdown browser to serve PlantUML SVG diagrams inline, so sprint task files can reference PUML diagrams.
@@ -53,6 +63,9 @@ const relinked3 = relinked2.replace(/\]\(([^)]+\.puml)\)/g, (_, p) => `](/md/${d
 
 When markdown contains `![...](*.svg)` image references, the rendered HTML will have `<img src="/md/...svg">` tags. The SVG route from 7.0.1 serves the image.
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] `/md/path/to/diagram.svg` serves SVG with correct Content-Type
 - [x] Markdown files with `![](diagram.svg)` show inline SVGs

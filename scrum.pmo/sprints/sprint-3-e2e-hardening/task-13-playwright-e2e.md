@@ -2,11 +2,21 @@
 
 # T13: Playwright E2E Test Suite
 
+[task:uuid:7ab42153-9cb4-41e5-befe-8c7af894da9d]
+
 **Status:** DONE
 **Assigned:** robbin-expert (infrastructure), robbin-tester (test cases)
 **Effort:** 4h expert + 2h tester
 **Dependencies:** Port 4444 forwarded (Tron action)
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
+
+## Traceability
+- up
+  - [sprint-3-e2e-hardening Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Verify the full RawBin stack end-to-end in a real headless browser. Every user journey from Sprint 1+2 must be tested.
@@ -116,6 +126,9 @@ Add to package.json:
 "test:all": "vitest run && playwright test"
 ```
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] All E2E tests pass in headless Chromium
 - [x] Full user journey covered (gate → room → chat → profile → vCard)

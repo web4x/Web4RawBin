@@ -2,11 +2,21 @@
 
 # T7: User Editor Dialog
 
+[task:uuid:988ca807-ee65-455b-adaf-b759bb277981]
+
 **Status:** DONE
 **Assigned:** robbin-expert (implement), robbin-tester (verify)
 **Effort:** 3h expert + 1h tester
 **Dependencies:** None (Sprint 1 complete)
+**Created:** 2026-05-23
+**Completed:** 2026-05-23
 
+
+## Traceability
+- up
+  - [sprint-2-identity-ssh Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Add in-room profile editing. Clicking YOUR OWN name in the member list opens a user editor dialog. Clicking ANOTHER user is a stub (wired in T11).
@@ -94,6 +104,9 @@ Add click handlers to member list items in `renderMemberList()`:
   - Secret code validation (must be 4 digits)
   - Backfill: existing profiles get phone:'', url:'', profileCommitted:false
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] Clicking own name in member list opens editor dialog
 - [x] Editor shows name, phone, url, avatar, secret code fields

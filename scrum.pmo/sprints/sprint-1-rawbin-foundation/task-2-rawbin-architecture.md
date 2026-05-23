@@ -1,9 +1,17 @@
 # Task 2: Define RawBin Architecture (Fork from QnD Stack)
 
+[task:uuid:b1a959d9-0388-4f9e-97fb-991dc73b4441]
+
 **Status:** DONE (approved by Tron 2026-05-22)
 **Assigned:** robbin-po + robbin-architect (plan only)
 **Created:** 2026-05-22
 
+
+## Traceability
+- up
+  - [sprint-1-rawbin-foundation Planning](./planning.md)
+- down
+  - None
 ## Goal
 
 Define what RawBin keeps, removes, and renames from the QnD (UpDown card game) stack. RawBin is an AI-driven server management interface, not a game.
@@ -201,6 +209,9 @@ Key additions merged into this plan:
 5. **Effort estimate**: ~8h expert work (Room.ts 2h, strip server.ts 3h, RoomUI.ts 2h, rebrand 1h) + tester verification.
 6. **All npm deps survive** — no new deps needed for base fork.
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
 - [x] PO + architect agree on keep/remove/rename lists
 - [x] Tron approves architecture decisions (2026-05-22)

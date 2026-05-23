@@ -32,9 +32,12 @@ RawBin needs a dedicated agent team. Rather than bootstrapping from scratch, clo
 ## Intention
 Get a working robbinTeam running with 4 agents (robbin-po, robbin-architect, robbin-expert, robbin-tester) that can immediately start Sprint 1 work on the RawBin server management interface.
 
+
+## Subtasks
+None (atomic task).
 ## Acceptance Criteria
-- [ ] robbinTeam tmux session exists with 4+ panes
-- [ ] All agents registered in hiveMind registry
-- [ ] Agents have RawBin-appropriate role names
-- [ ] hiveMind team.status robbinTeam shows all agents active
-- [ ] Team registered: hiveMind team.register robbinTeam
+- [x] robbinTeam tmux session exists with 4+ panes
+- [x] All agents registered in hiveMind registry
+- [x] Agents have RawBin-appropriate role names
+- [x] hiveMind team.status robbinTeam shows all agents active
+- [x] Team registered: hiveMind team.register robbinTeam
