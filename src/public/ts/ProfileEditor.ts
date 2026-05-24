@@ -59,6 +59,7 @@ export class ProfileEditor {
         <button class="btn btn-primary profile-save" id="pe-save" ${mode === 'gate' && !initial.name ? 'disabled' : ''}>${mode === 'gate' ? 'Continue' : 'Save'}</button>
       </div>`;
 
+    this.avatarUrl = initial.avatar || '';
     document.body.appendChild(this.overlay);
     this.setupEvents();
   }
@@ -74,21 +75,42 @@ export class ProfileEditor {
     return this.overlay !== null;
   }
 
+  private avatarUrl: string = '';
+
   private setupEvents(): void {
     document.getElementById('pe-close')?.addEventListener('click', () => this.close());
 
     const avatarInput = document.getElementById('pe-avatar-input') as HTMLInputElement;
-    avatarInput?.addEventListener('change', () => {
+    avatarInput?.addEventListener('change', async () => {
       const file = avatarInput.files?.[0];
       if (!file) return;
-      if (file.size > 200 * 1024) { alert('Image must be under 200KB'); return; }
-      const reader = new FileReader();
-      reader.onload = () => {
-        const dataUrl = reader.result as string;
-        const preview = document.getElementById('pe-avatar-preview');
-        if (preview) preview.innerHTML = `<img src="${dataUrl}" alt="avatar">`;
-      };
-      reader.readAsDataURL(file);
+      if (file.size > 500 * 1024) { alert('Image must be under 500KB'); return; }
+      if (!file.type.startsWith('image/')) { alert('Must be an image file'); return; }
+
+      const preview = document.getElementById('pe-avatar-preview');
+      if (preview) preview.innerHTML = '<span class="avatar-placeholder">...</span>';
+
+      const buf = await file.arrayBuffer();
+      const base64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+
+      try {
+        const res = await fetch('/api/avatar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ playerToken: this.client.playerToken, data: base64, mimeType: file.type }),
+        });
+        const result = await res.json();
+        if (result.ok && result.avatarUrl) {
+          this.avatarUrl = result.avatarUrl;
+          if (preview) preview.innerHTML = `<img src="${result.avatarUrl}" alt="avatar">`;
+        } else {
+          alert(result.error || 'Upload failed');
+          if (preview) preview.innerHTML = '<span class="avatar-placeholder">?</span>';
+        }
+      } catch {
+        alert('Upload failed');
+        if (preview) preview.innerHTML = '<span class="avatar-placeholder">?</span>';
+      }
     });
 
     if (this.mode === 'gate') {
@@ -112,12 +134,11 @@ export class ProfileEditor {
         (document.getElementById('pe-code') as HTMLInputElement).focus();
         return;
       }
-      const avatarImg = document.querySelector('#pe-avatar-preview img') as HTMLImageElement;
-      const avatar = avatarImg?.src || '';
 
       this.client.send({
         type: MSG.UPDATE_PROFILE,
-        name, phone, url, avatar,
+        name, phone, url,
+        ...(this.avatarUrl ? { avatar: this.avatarUrl } : {}),
         ...(secretCode ? { secretCode } : {}),
       });
     });

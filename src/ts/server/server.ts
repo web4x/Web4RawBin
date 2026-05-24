@@ -558,7 +558,9 @@ else{
     if(m.type==='PROFILE'&&m.profile){
       const p=m.profile;var cids=m.connectedDeviceIds||[];
       const el=document.getElementById('profile');
-      el.innerHTML='<div class="field"><span class="label">Name</span><span>'+(p.name||'Unknown')+'</span></div>'
+      var avatarSrc=p.avatar&&p.avatar.startsWith('/api/avatar/')?p.avatar:'/icon-192.png';
+      el.innerHTML='<div style="text-align:center;margin-bottom:12px"><img src="'+avatarSrc+'" style="width:80px;height:80px;border-radius:50%;object-fit:cover" alt=""></div>'
+        +'<div class="field"><span class="label">Name</span><span>'+(p.name||'Unknown')+'</span></div>'
         +'<div class="field"><span class="label">Token</span><span style="font-size:0.6rem;opacity:0.5;word-break:break-all">'+p.token+'</span></div>'
         +'<h3>Your Secret Code</h3>'
         +'<div class="code">'+(p.secretCode||'----')+'</div>'
@@ -995,7 +997,7 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
       if (typeof msg.name === 'string') profile.name = msg.name.slice(0, 20);
       if (typeof msg.phone === 'string') profile.phone = msg.phone.slice(0, 30);
       if (typeof msg.url === 'string') profile.url = msg.url.slice(0, 200);
-      if (typeof msg.avatar === 'string') profile.avatar = msg.avatar.slice(0, 50000);
+      if (typeof msg.avatar === 'string' && msg.avatar.startsWith('/api/avatar/')) profile.avatar = msg.avatar;
       if (typeof msg.secretCode === 'string' && /^\d{4}$/.test(msg.secretCode)) profile.secretCode = msg.secretCode;
       if (profile.name) profile.profileCommitted = true;
       if (profile.profileCommitted && !profile.sshKeysGenerated) {
