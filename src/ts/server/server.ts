@@ -225,6 +225,22 @@ function cleanupOldLogs(): void {
   } catch {}
 }
 
+function getBannerScript(): string {
+  try {
+    const manifest = JSON.parse(fsSync.readFileSync(path.join(PUBLIC_DIR, 'dist', 'build-manifest.json'), 'utf-8'));
+    if (manifest['rb-update-banner.js']) return `/dist/${manifest['rb-update-banner.js']}`;
+  } catch {}
+  return '/dist/rb-update-banner.js';
+}
+
+function pageHead(title: string): string {
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>${title} — RawBin</title><link rel="stylesheet" href="/app.css"><script type="module" src="${getBannerScript()}"></script></head><body><rb-update-banner></rb-update-banner>`;
+}
+
+function pageNav(backHref: string = '/', backLabel: string = 'Home'): string {
+  return `<div style="padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top))"><a href="${backHref}" style="color:#667eea;text-decoration:none;font-size:0.9rem">← ${backLabel}</a> · <a href="/app" style="color:#667eea;text-decoration:none;font-size:0.9rem">App</a></div>`;
+}
+
 function trackClient(req: http.IncomingMessage): void {
   const ip = req.socket.remoteAddress || 'unknown';
   const userAgent = req.headers['user-agent'] || 'unknown';
@@ -308,7 +324,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const files = fsSync.readdirSync(DOCS_DIR).filter(f => f.endsWith('.md'));
         const list = files.map(f => `<li><a href="/docs/${f}">${f.replace('.md', '')}</a></li>`).join('');
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RawBin Docs</title><style>${MD_CSS}</style></head><body><h1>RawBin Docs</h1><p><a href="/">Home</a></p><ul>${list}</ul></body></html>`);
+        res.end(`${pageHead('Docs')}<style>${MD_CSS}</style>${pageNav()}<div style="max-width:700px;margin:0 auto;padding:0 20px"><h1>RawBin Docs</h1><ul>${list}</ul></div></body></html>`);
       } catch { res.writeHead(404); res.end('Docs not found'); }
       return;
     }
@@ -321,7 +337,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const html = marked(md) as string;
         const backLink = path.dirname(relPath) === '.' ? '/docs' : `/docs/${path.dirname(relPath)}`;
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${path.basename(filepath, '.md')} — RawBin</title><style>${MD_CSS}</style></head><body><p><a href="${backLink}">Back</a> · <a href="/docs">Docs</a> · <a href="/">Home</a></p>${html}</body></html>`);
+        res.end(`${pageHead(path.basename(filepath, '.md'))}<style>${MD_CSS}</style>${pageNav(backLink, 'Back')}<div style="max-width:700px;margin:0 auto;padding:0 20px">${html}</div></body></html>`);
       } catch { res.writeHead(404); res.end('Doc not found'); }
       return;
     }
@@ -336,7 +352,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const svgs = entries.filter(e => e.isFile() && e.name.endsWith('.svg')).map(e => `<li>🖼 <a href="/md/${relPath}${e.name}">${e.name}</a></li>`);
         const others = entries.filter(e => e.isFile() && !e.name.endsWith('.md') && !e.name.endsWith('.svg') && !e.name.startsWith('.')).map(e => `<li>${e.name}</li>`);
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${relPath || '/'} — RawBin</title><style>${MD_CSS}</style></head><body><p><a href="/md/README.md">Home</a> · <a href="/md/scrum.pmo/sprints/">Sprints</a> · <a href="/app">App</a></p><h1>📂 ${relPath || '/'}</h1><ul>${dirs.join('')}${mds.join('')}${svgs.join('')}${others.join('')}</ul></body></html>`);
+        res.end(`${pageHead(relPath || '/')}<style>${MD_CSS}</style>${pageNav('/md/', 'Browse')}<div style="max-width:700px;margin:0 auto;padding:0 20px"><h1>${relPath || '/'}</h1><ul>${dirs.join('')}${mds.join('')}${svgs.join('')}${others.join('')}</ul></div></body></html>`);
       } catch { res.writeHead(404); res.end('Directory not found'); }
       return;
     }
@@ -374,7 +390,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         relinked = relinked.replace(/\]\(([^)]+)\.puml\)/g, (_, p) => `](/md/${dirPrefix}/${p}.svg)`);
         const html = marked(relinked) as string;
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${path.basename(filepath, '.md')} — RawBin</title><style>${MD_CSS}</style></head><body><p><a href="/md/README.md">Home</a> · <a href="/md/scrum.pmo/sprints/">Sprints</a> · <a href="/app">App</a></p>${html}</body></html>`);
+        res.end(`${pageHead(path.basename(filepath, '.md'))}<style>${MD_CSS}</style>${pageNav('/md/', 'Browse')}<div style="max-width:700px;margin:0 auto;padding:0 20px">${html}</div></body></html>`);
       } catch { res.writeHead(404); res.end('File not found'); }
       return;
     }
@@ -397,9 +413,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     } else if (filepath === '/bug-report' || filepath === '/bug-report/') {
       res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bug Report — RawBin</title>
-<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:20px;color:#333}
-.container{background:white;border-radius:20px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:500px;width:100%}
+      res.end(`${pageHead('Bug Report')}
+<style>.container{background:white;border-radius:20px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:500px;width:100%;margin:0 auto}
 h1{text-align:center;margin-bottom:16px;font-size:1.5rem}
 .back{display:inline-block;margin-bottom:12px;color:#667eea;text-decoration:none;font-size:0.9rem}
 textarea{width:100%;min-height:120px;border:2px solid rgba(102,126,234,0.3);border-radius:10px;padding:12px;font-size:0.95rem;font-family:inherit;resize:vertical}
@@ -461,9 +476,8 @@ fetch('/api/config').then(function(r){return r.json()}).then(function(c){documen
       return;
     } else if (filepath === '/profile' || filepath === '/profile/') {
       res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Profile — RawBin</title>
-<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:20px;color:#333}
-.container{background:white;border-radius:20px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:500px;width:100%}
+      res.end(`${pageHead('Profile')}
+<style>.container{background:white;border-radius:20px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:500px;width:100%;margin:0 auto}
 h1{text-align:center;margin-bottom:16px;font-size:1.5rem}
 h3{font-size:1rem;margin:16px 0 8px;border-bottom:1px solid #eee;padding-bottom:4px}
 .back{display:inline-block;margin-bottom:12px;color:#667eea;text-decoration:none;font-size:0.9rem}
