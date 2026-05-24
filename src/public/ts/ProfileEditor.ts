@@ -41,7 +41,7 @@ export class ProfileEditor {
           ${mode === 'normal' ? '<button class="profile-close" id="pe-close">✕</button>' : ''}
         </div>
         <div class="profile-avatar-row">
-          <rb-avatar size="80" src="${initial.avatar || ''}" name="${initial.name || '?'}" token="${this.client.playerToken}" crop='${JSON.stringify(this.client.getProfile()?.avatarCrop || '')}' id="pe-avatar"></rb-avatar>
+          <rb-avatar size="80" src="${initial.avatar || ''}" name="${initial.name || '?'}" token="${this.client.playerToken}" crop='${this.client.getProfile()?.avatarCrop ? JSON.stringify(this.client.getProfile()!.avatarCrop) : ''}' id="pe-avatar"></rb-avatar>
           <p class="profile-avatar-hint">Tap photo to view or upload</p>
         </div>
         <div class="profile-fields">

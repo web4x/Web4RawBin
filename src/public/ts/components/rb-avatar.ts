@@ -52,7 +52,9 @@ class RbAvatar extends HTMLElement {
   private getName(): string { return this.getAttribute('name') || '?'; }
   private getToken(): string { return this.getAttribute('token') || ''; }
   private getCrop(): { scale: number; x: number; y: number } | null {
-    try { const c = JSON.parse(this.getAttribute('crop') || ''); return c?.scale ? c : null; } catch { return null; }
+    const raw = this.getAttribute('crop');
+    if (!raw || raw === '""' || raw === 'null' || raw === '') return null;
+    try { const c = JSON.parse(raw); return c?.scale && c.scale !== 1 ? c : (c?.x || c?.y ? c : null); } catch { return null; }
   }
 
   private render(): void {
@@ -61,7 +63,8 @@ class RbAvatar extends HTMLElement {
     const initial = this.getName()[0]?.toUpperCase() || '?';
     const fontSize = Math.max(10, Math.round(size * 0.4));
     const crop = this.getCrop();
-    const cropStyle = crop ? `transform:scale(${crop.scale}) translate(${crop.x * size}px,${crop.y * size}px)` : '';
+    const s = crop?.scale || 1;
+    const cropStyle = crop ? `object-fit:cover;object-position:${50 - (crop.x * 50)}% ${50 - (crop.y * 50)}%;transform:scale(${s})` : '';
 
     this.shadow.innerHTML = `<style>${AVATAR_CSS}</style>
       <div class="circle" style="width:${size}px;height:${size}px">
@@ -88,6 +91,7 @@ class RbAvatar extends HTMLElement {
         <div class="overlay-bar">
           <label class="btn-ov btn-upload">Upload<input type="file" accept="image/*" id="ov-file" style="display:none"></label>
           <button class="btn-ov btn-crop" id="ov-crop">Crop</button>
+          <button class="btn-ov btn-reset" id="ov-reset" style="background:rgba(255,255,255,0.25);color:white">Reset</button>
           <button class="btn-ov btn-close" id="ov-close">Close</button>
         </div>
       </div>`;
@@ -150,6 +154,20 @@ class RbAvatar extends HTMLElement {
           window.dispatchEvent(new CustomEvent('rb-avatar-updated', { detail: { token, crop } }));
         }
       } catch {}
+    });
+
+    this.overlayEl.querySelector('#ov-reset')?.addEventListener('click', () => {
+      const token = this.getToken() || localStorage.getItem('rawbin-player-id') || '';
+      const identity = { scale: 1, x: 0, y: 0 };
+      const ws = (window as any).__rawbinClient;
+      if (ws) {
+        ws.send({ type: 'UPDATE_PROFILE', avatarCrop: identity });
+        this.setAttribute('crop', '');
+        this.scale = 1; this.tx = 0; this.ty = 0;
+        const ovImg = this.overlayEl?.querySelector('#ov-img') as HTMLImageElement;
+        if (ovImg) ovImg.style.transform = '';
+        window.dispatchEvent(new CustomEvent('rb-avatar-updated', { detail: { token, crop: null } }));
+      }
     });
 
     // Upload
