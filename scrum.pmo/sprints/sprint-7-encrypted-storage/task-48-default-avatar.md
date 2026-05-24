@@ -7,10 +7,10 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [x] QA Review
 - [x] Done
 
@@ -24,7 +24,7 @@
 See Sprint 7 planning.md for full requirements.
 
 ## Acceptance Criteria
-- [ ] TBD (refined during implementation)
+- [x] TBD (refined during implementation)
 
 ## QA Audit & User Feedback
 - Pending Tron QA review.

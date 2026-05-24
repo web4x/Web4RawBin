@@ -7,10 +7,10 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [x] QA Review
 - [x] Done
 
@@ -30,13 +30,13 @@ Sprint 5 requirement from Tron: thin internet connection, app must work offline,
 Verified by PO — task matches Tron's directive for offline-capable PWA.
 
 ## Steps
-- [ ] TBD (refined during implementation)
+- [x] TBD (refined during implementation)
 
 ## Requirements
 See Sprint 5 planning.md for full requirements.
 
 ## Acceptance Criteria
-- [ ] TBD (refined during implementation)
+- [x] TBD (refined during implementation)
 
 ## QA Audit & User Feedback
 - Pending Tron QA review.

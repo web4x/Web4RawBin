@@ -5,10 +5,10 @@
 [task:uuid:g56b0c02-ad23-4e4f-c567-007788990011]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-- [ ] QA Review
-- [ ] Done
+- [x] Planned
+- [x] In Progress
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 - up
@@ -41,12 +41,12 @@
 - Profile page: use `<rb-avatar>` in server-rendered HTML
 
 ## Acceptance Criteria
-- [ ] Tapping avatar anywhere opens fullscreen zoomable overlay
-- [ ] Upload button in overlay uploads + replaces avatar
-- [ ] Close button dismisses overlay
-- [ ] Pinch-to-zoom works on iPhone
-- [ ] Works at all sizes (24px badge, 80px editor, fullscreen overlay)
-- [ ] Safe-area padding on overlay buttons
+- [x] Tapping avatar anywhere opens fullscreen zoomable overlay
+- [x] Upload button in overlay uploads + replaces avatar
+- [x] Close button dismisses overlay
+- [x] Pinch-to-zoom works on iPhone
+- [x] Works at all sizes (24px badge, 80px editor, fullscreen overlay)
+- [x] Safe-area padding on overlay buttons
 
 ## Subtasks
 None (atomic task).

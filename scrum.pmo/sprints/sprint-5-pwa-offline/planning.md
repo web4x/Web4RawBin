@@ -21,7 +21,7 @@ Make RawBin a true PWA: installable, offline-capable, one-click update, and traf
 
 ## Task List
 
-- [ ] [T31: Service Worker + App Shell Cache](./task-31-service-worker.md)
+- [x] [T31: Service Worker + App Shell Cache](./task-31-service-worker.md)
   **Priority:** 1 (CRITICAL — enables all offline capability)
   **Effort:** 3h expert + 1h tester
   - Create sw.js with pre-cache of app shell (HTML, CSS, JS, manifest, icons)
@@ -30,7 +30,7 @@ Make RawBin a true PWA: installable, offline-capable, one-click update, and traf
   - Register SW in app.ts + app.html manifest link
   - Create actual icon files (192px + 512px PNG)
 
-- [ ] [T32: Cache Headers + Asset Versioning](./task-32-cache-headers.md)
+- [x] [T32: Cache Headers + Asset Versioning](./task-32-cache-headers.md)
   **Priority:** 2 (HIGH — reduces traffic on thin connection)
   **Effort:** 2h expert + 1h tester
   - Static files: Cache-Control with long max-age + hash-based versioning
@@ -39,7 +39,7 @@ Make RawBin a true PWA: installable, offline-capable, one-click update, and traf
   - esbuild output with content hash in filename
   - Source maps excluded in production
 
-- [ ] [T33: Auto-Reconnect + Message Queue](./task-33-reconnect-queue.md)
+- [x] [T33: Auto-Reconnect + Message Queue](./task-33-reconnect-queue.md)
   **Priority:** 3 (HIGH — thin connection resilience)
   **Effort:** 3h expert + 1h tester
   - Auto-reconnect with exponential backoff (1s, 2s, 4s, 8s, max 30s)
@@ -48,7 +48,7 @@ Make RawBin a true PWA: installable, offline-capable, one-click update, and traf
   - Visual connection status in UI (already have WS status indicator)
   - Online/offline event listeners (navigator.onLine)
 
-- [ ] [T34: One-Click Update](./task-34-update-mechanism.md)
+- [x] [T34: One-Click Update](./task-34-update-mechanism.md)
   **Priority:** 4 (HIGH — Tron requirement)
   **Effort:** 2h expert + 1h tester
   - SW lifecycle: install → waiting → activate with skipWaiting
@@ -57,7 +57,7 @@ Make RawBin a true PWA: installable, offline-capable, one-click update, and traf
   - Update triggers SW update + page reload
   - SW handles clientsClaim for immediate activation
 
-- [ ] [T35: iOS PWA Support](./task-35-ios-pwa.md)
+- [x] [T35: iOS PWA Support](./task-35-ios-pwa.md)
   **Priority:** 5 (MEDIUM — Tron uses iPhone)
   **Effort:** 1h expert
   - apple-mobile-web-app-status-bar-style meta tag
@@ -66,7 +66,7 @@ Make RawBin a true PWA: installable, offline-capable, one-click update, and traf
   - Splash screen images for common iOS sizes
   - Fix app.html: add manifest link (currently missing)
 
-- [ ] [T36: Offline Data Persistence](./task-36-offline-data.md)
+- [x] [T36: Offline Data Persistence](./task-36-offline-data.md)
   **Priority:** 6 (MEDIUM — preserves state offline)
   **Effort:** 2h expert + 1h tester
   - IndexedDB for offline message queue persistence
@@ -74,7 +74,7 @@ Make RawBin a true PWA: installable, offline-capable, one-click update, and traf
   - Background sync API: replay queued messages when online
   - Profile data cached in IndexedDB (not just localStorage)
 
-- [ ] [T37: Hotfixes — Private Room + Version Bar](./task-37-hotfixes.md)
+- [x] [T37: Hotfixes — Private Room + Version Bar](./task-37-hotfixes.md)
   **Priority:** 7 (CRITICAL — Tron QA findings)
   **Effort:** 1h expert
   - Fix private room join (roomKey check was missing)
@@ -98,14 +98,14 @@ T37 (hotfixes — independent)
 | Key deliverable | Installable offline PWA with one-click update |
 
 ## Definition of Done
-- [ ] App installs on iOS (Add to Home Screen) and Android (install prompt)
-- [ ] App loads offline after first visit (service worker serves cached shell)
-- [ ] WS auto-reconnects with backoff on network blips
-- [ ] Messages queued while offline, replayed on reconnect
-- [ ] "Update available" banner appears when new version deployed
-- [ ] One-click update reloads with new version
-- [ ] Static assets cached (not re-downloaded every page load)
-- [ ] Lighthouse PWA score > 90
+- [x] App installs on iOS (Add to Home Screen) and Android (install prompt)
+- [x] App loads offline after first visit (service worker serves cached shell)
+- [x] WS auto-reconnects with backoff on network blips
+- [x] Messages queued while offline, replayed on reconnect
+- [x] "Update available" banner appears when new version deployed
+- [x] One-click update reloads with new version
+- [x] Static assets cached (not re-downloaded every page load)
+- [x] Lighthouse PWA score > 90
 
 ---
 

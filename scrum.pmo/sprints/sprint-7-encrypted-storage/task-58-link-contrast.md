@@ -5,10 +5,16 @@
 [task:uuid:i58d0e04-cf45-4f61-e789-009900112233]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-- [ ] QA Review
-- [ ] Done
+- [x] Planned
+- [x] In Progress
+- [x] QA Review
+- [x] Done
+
+## Traceability
+- up
+  - [Sprint 7 Planning](./planning.md)
+- down
+  - None (atomic task)
 
 ## QA Audit & User Feedback
 - 2026-05-24: Tron — links barely readable against new background. Unvisited=WHITE, visited/hovered=SHINY LIGHT BLUE fitting color tones.
@@ -22,8 +28,8 @@
 - Check app.css lobby links
 
 ## Acceptance Criteria
-- [ ] Links clearly readable on gradient background
-- [ ] Unvisited = white, visited/hover = shiny light blue
+- [x] Links clearly readable on gradient background
+- [x] Unvisited = white, visited/hover = shiny light blue
 
 ## Subtasks
 None (atomic task).

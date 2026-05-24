@@ -81,56 +81,56 @@ Modularize the UI into reusable vanilla Web Components. Extract duplicated patte
 
 ### Phase 1: Foundation (no behavior change — extract, don't rewrite)
 
-- [ ] [T39: `<rb-update-banner>` Web Component](./task-39-update-banner.md)
-  **Status:** PLANNED
+- [x] [T39: `<rb-update-banner>` Web Component](./task-39-update-banner.md)
+  **Status:** DONE
   **Effort:** 2h expert + 0.5h tester
   **Dependencies:** None
   Extract showUpdateBanner() + checkForUpdate() + SW registration from app.ts into a self-registering custom element. Include in app.html AND server-rendered pages. Solves "update banner only on /app."
 
-- [ ] [T40: `<rb-header>` Web Component](./task-40-header.md)
-  **Status:** PLANNED
+- [x] [T40: `<rb-header>` Web Component](./task-40-header.md)
+  **Status:** DONE
   **Effort:** 2h expert + 0.5h tester
   **Dependencies:** None (parallel with T39)
   Extract duplicated header bar from RoomBrowser + RoomView. Attributes: title, show-home, show-delete, show-leave. Events: rb-leave, rb-delete, rb-home.
 
-- [ ] [T41: `<rb-overlay>` base class](./task-41-overlay.md)
-  **Status:** PLANNED
+- [x] [T41: `<rb-overlay>` base class](./task-41-overlay.md)
+  **Status:** DONE
   **Effort:** 1.5h expert + 0.5h tester
   **Dependencies:** None (parallel)
   Extract shared overlay pattern (backdrop, close, touchmove dismiss). ProfileEditor, ProfileSheet, DeviceEnrollDialog extend it.
 
 ### Phase 2: Chat & Room extraction
 
-- [ ] [T42: `<rb-chat-sheet>` Web Component (Shadow DOM)](./task-42-chat-sheet.md)
-  **Status:** PLANNED
+- [x] [T42: `<rb-chat-sheet>` Web Component (Shadow DOM)](./task-42-chat-sheet.md)
+  **Status:** DONE
   **Effort:** 3h expert + 1h tester
   **Dependencies:** T39 (shared patterns established)
   Extract chat bottom-sheet (~120 lines) from RoomView into Shadow DOM custom element.
 
-- [ ] [T43: `<rb-member-badge>` + `<rb-member-list>`](./task-43-member-list.md)
-  **Status:** PLANNED
+- [x] [T43: `<rb-member-badge>` + `<rb-member-list>`](./task-43-member-list.md)
+  **Status:** DONE
   **Effort:** 1.5h expert + 0.5h tester
   **Dependencies:** T42 (RoomView simplified first)
   Extract renderMemberList() into components. RoomView just sets members array.
 
 ### Phase 3: Cross-page consistency
 
-- [ ] [T44: Server-rendered pages get shared shell](./task-44-server-pages.md)
-  **Status:** PLANNED
+- [x] [T44: Server-rendered pages get shared shell](./task-44-server-pages.md)
+  **Status:** DONE
   **Effort:** 2h expert + 1h tester
   **Dependencies:** T39, T40
   Refactor server.ts inline HTML (bug-report, profile, docs) to include `<rb-update-banner>`, consistent header, shared CSS.
 
-- [ ] [T45: `<rb-qr-popup>` Web Component (Shadow DOM)](./task-45-qr-popup.md)
-  **Status:** PLANNED
+- [x] [T45: `<rb-qr-popup>` Web Component (Shadow DOM)](./task-45-qr-popup.md)
+  **Status:** DONE
   **Effort:** 1h expert + 0.5h tester
   **Dependencies:** T41 (overlay base)
   Extract showQrPopup() from RoomView into Shadow DOM. Reusable from RoomBrowser.
 
 ### Phase 4: Cleanup
 
-- [ ] [T46: Remove dead code + verify bundle size](./task-46-cleanup.md)
-  **Status:** PLANNED
+- [x] [T46: Remove dead code + verify bundle size](./task-46-cleanup.md)
+  **Status:** DONE
   **Effort:** 1h expert + 0.5h tester
   **Dependencies:** T39-T45 all done
   Remove duplicated code. Verify bundle size. Run full E2E. Verify all pages have update banner.
@@ -168,13 +168,13 @@ Phase 4:                │
 | Expected outcome | RoomView: 372→~200 lines, app.ts: 140→~50 lines, all pages get update banner |
 
 ## Definition of Done
-- [ ] All task acceptance criteria met
-- [ ] `npm run build` succeeds
-- [ ] All vitest + Playwright tests pass
-- [ ] All 6 server-rendered pages have `<rb-update-banner>`
-- [ ] No header/fullscreen/reload code duplicated between views
-- [ ] Bundle size documented (before vs after)
-- [ ] No regression in Sprint 1-5 functionality
+- [x] All task acceptance criteria met
+- [x] `npm run build` succeeds
+- [x] All vitest + Playwright tests pass
+- [x] All 6 server-rendered pages have `<rb-update-banner>`
+- [x] No header/fullscreen/reload code duplicated between views
+- [x] Bundle size documented (before vs after)
+- [x] No regression in Sprint 1-5 functionality
 
 ---
 

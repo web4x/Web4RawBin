@@ -120,8 +120,8 @@ NEW FLOW (Sprint 7):
 
 ### Phase 1: Crypto Foundation
 
-- [ ] [T47: UserCrypto.ts — Hybrid encryption module](./task-47-user-crypto.md)
-  **Status:** PLANNED
+- [x] [T47: UserCrypto.ts — Hybrid encryption module](./task-47-user-crypto.md)
+  **Status:** DONE (v0.2.15)
   **Effort:** 2h expert + 1h tester
   **Dependencies:** None
   New file `src/ts/server/UserCrypto.ts` with:
@@ -134,8 +134,8 @@ NEW FLOW (Sprint 7):
 
 ### Phase 2: Avatar Pipeline
 
-- [ ] [T48: Default avatar assignment + encrypted storage](./task-48-default-avatar.md)
-  **Status:** PLANNED
+- [x] [T48: Default avatar assignment + encrypted storage](./task-48-default-avatar.md)
+  **Status:** DONE (v0.2.15)
   **Effort:** 2h expert + 0.5h tester
   **Dependencies:** T47
   On first IDENTIFY (profile created + keys generated):
@@ -144,8 +144,8 @@ NEW FLOW (Sprint 7):
   - Set `profile.avatar = '/api/avatar/<token>'`
   - Persist to profile. No longer store base64 in avatarCache (memory saving).
 
-- [ ] [T49: Avatar serving endpoint `GET /api/avatar/<token>`](./task-49-avatar-serve.md)
-  **Status:** PLANNED
+- [x] [T49: Avatar serving endpoint `GET /api/avatar/<token>`](./task-49-avatar-serve.md)
+  **Status:** DONE (v0.2.16)
   **Effort:** 1.5h expert + 0.5h tester
   **Dependencies:** T47
   New HTTP route in server.ts:
@@ -155,8 +155,8 @@ NEW FLOW (Sprint 7):
   - Cache-Control: public, max-age=3600
   - 404 if no avatar file exists, serve /icon-192.png fallback
 
-- [ ] [T50: Avatar upload endpoint `POST /api/avatar`](./task-50-avatar-upload.md)
-  **Status:** PLANNED
+- [x] [T50: Avatar upload endpoint `POST /api/avatar`](./task-50-avatar-upload.md)
+  **Status:** DONE (v0.2.16)
   **Effort:** 2h expert + 1h tester
   **Dependencies:** T47, T49
   New HTTP route in server.ts:
@@ -168,8 +168,8 @@ NEW FLOW (Sprint 7):
 
 ### Phase 3: Client Integration
 
-- [ ] [T51: ProfileEditor avatar upload via API](./task-51-editor-upload.md)
-  **Status:** PLANNED
+- [x] [T51: ProfileEditor avatar upload via API](./task-51-editor-upload.md)
+  **Status:** DONE (v0.2.17)
   **Effort:** 1.5h expert + 0.5h tester
   **Dependencies:** T50
   Modify ProfileEditor.ts:
@@ -178,8 +178,8 @@ NEW FLOW (Sprint 7):
   - Size limit enforced client-side (500KB) + server-side
   - Remove base64 avatar from UPDATE_PROFILE message (just send avatar URL string)
 
-- [ ] [T52: Avatar visible in lobby + profile page](./task-52-avatar-everywhere.md)
-  **Status:** PLANNED
+- [x] [T52: Avatar visible in lobby + profile page](./task-52-avatar-everywhere.md)
+  **Status:** DONE (v0.2.18)
   **Effort:** 1.5h expert + 0.5h tester
   **Dependencies:** T49, T51
   - RoomBrowser: show current user's avatar next to name input (from profile.avatar URL)
@@ -187,8 +187,8 @@ NEW FLOW (Sprint 7):
   - rb-member-badge: already handles avatarUrl ✅ — just needs profile.avatar set correctly
   - vCard download (ProfileSheet): fetch avatar from /api/avatar/<token> for PHOTO field
 
-- [ ] [T53: Room member avatarUrl from profile](./task-53-room-avatar.md)
-  **Status:** PLANNED
+- [x] [T53: Room member avatarUrl from profile](./task-53-room-avatar.md)
+  **Status:** DONE (v0.2.18)
   **Effort:** 1h expert + 0.5h tester
   **Dependencies:** T48
   Modify server.ts room join flow:
@@ -199,8 +199,8 @@ NEW FLOW (Sprint 7):
 
 ### Phase 4: Cleanup
 
-- [ ] [T54: Remove avatarCache + verify encrypted storage](./task-54-cleanup.md)
-  **Status:** PLANNED
+- [x] [T54: Remove avatarCache + verify encrypted storage](./task-54-cleanup.md)
+  **Status:** DONE (v0.2.19)
   **Effort:** 1h expert + 0.5h tester
   **Dependencies:** T47-T53 all done
   - Remove `avatarCache` Map from server.ts (no longer needed)
@@ -209,6 +209,26 @@ NEW FLOW (Sprint 7):
   - Verify: `ls data/users/*/files/` shows only .enc + .meta.json files
   - Run full E2E test suite
   - Bundle size check
+
+### Phase 5: Tron QA Feedback + Hotfixes (v0.2.20–v0.2.29)
+
+- [x] [T55: Avatar backfill + editor UX fix](./task-55-avatar-fixes.md)
+  **Status:** DONE (v0.2.20)
+- [x] [T56: `<rb-avatar>` Web Component — clickable fullscreen overlay](./task-56-avatar-component.md)
+  **Status:** DONE (v0.2.21)
+- [x] [T57: Lobby DRY, pinch-zoom, crop position](./task-57-avatar-fixes-2.md)
+  **Status:** DONE (v0.2.22, crop fixed v0.2.28 with object-position + Reset button)
+- [x] [T58: Link contrast on /md/ pages](./task-58-link-contrast.md)
+  **Status:** DONE (v0.2.25)
+- [x] [T59: Floating back button on /md/ file views](./task-59-back-button.md)
+  **Status:** DONE (v0.2.26)
+
+#### Hotfixes (not separate tasks, folded into PDCA cycles)
+- [x] Remove file size limits — unlimited uploads (v0.2.23)
+- [x] Avatar refresh race fix + crop propagation (v0.2.24)
+- [x] SW cache versioning (v0.2.25–v0.2.26)
+- [x] Avatar crop: percentage coords + object-position (v0.2.27–v0.2.28)
+- [x] Avatar backfill retry + SVG fallback + test profile cleanup 222→71 (v0.2.29)
 
 ## Dependency Graph
 
@@ -276,25 +296,27 @@ function fileExists(token: string, filename: string): boolean
 
 | Metric | Value |
 |--------|-------|
-| Tasks | 8 (T47-T54) |
-| Expert effort | ~12.5h |
-| Tester effort | ~5h |
-| New files | 1 (UserCrypto.ts ~120 lines) |
-| Modified files | server.ts, ProfileEditor.ts, ProfileSheet.ts, RoomBrowser.ts |
+| Tasks | 13 (T47-T59) |
+| Done | 13/13 |
+| Version | v0.2.29 |
+| Tests | 485+ PASS |
+| New files | UserCrypto.ts, rb-avatar.ts |
 | New HTTP routes | 2 (GET /api/avatar/:token, POST /api/avatar) |
-| Key change | Avatar stored encrypted at rest, served via HTTP endpoint |
+| Key change | Avatar stored encrypted at rest, rb-avatar component, crop/zoom |
 
 ## Definition of Done
-- [ ] All task acceptance criteria met
-- [ ] `npm run build` succeeds
-- [ ] All vitest + Playwright tests pass
-- [ ] UserCrypto roundtrip test (encrypt → decrypt = original)
-- [ ] No plaintext image files in data/users/ (only .enc + .meta.json)
-- [ ] Avatar visible in: room badges, lobby, profile page, profile editor, vCard
-- [ ] Profile picture upload works end-to-end
-- [ ] Default avatar assigned on first profile creation
-- [ ] avatarCache removed from server.ts
-- [ ] No regression in Sprint 1-6 functionality
+- [x] All task acceptance criteria met (T47-T59 all DONE)
+- [x] `npm run build` succeeds
+- [x] All vitest tests pass (485/485)
+- [x] UserCrypto roundtrip test (encrypt → decrypt = original)
+- [x] No plaintext image files in data/users/ (only .enc + .meta.json)
+- [x] Avatar visible in: room badges, lobby, profile page, profile editor, vCard
+- [x] Profile picture upload works end-to-end
+- [x] Default avatar assigned on first profile creation (+ retry/SVG fallback v0.2.29)
+- [x] avatarCache removed from server.ts
+- [x] No regression in Sprint 1-6 functionality
+- [x] rb-avatar Web Component with fullscreen overlay + pinch-zoom + crop
+- [x] Test profile cleanup (222→71 profiles)
 
 ---
 

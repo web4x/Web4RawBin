@@ -10,8 +10,8 @@
   - [x] refinement
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 - up
@@ -43,11 +43,11 @@ The `.lobby-join-private` section is off-screen on mobile. Ensure it's visible a
 - Version displayed in update bar: "v0.2.0 available — Update Now"
 
 ## Acceptance Criteria
-- [ ] Private room with key can be joined (correct key accepted, wrong key rejected)
-- [ ] Join-private section visible on mobile viewport
-- [ ] Version reads from package.json (not hardcoded)
-- [ ] Update bar is RED
-- [ ] /api/health shows new version
+- [x] Private room with key can be joined (correct key accepted, wrong key rejected)
+- [x] Join-private section visible on mobile viewport
+- [x] Version reads from package.json (not hardcoded)
+- [x] Update bar is RED
+- [x] /api/health shows new version
 
 ## Subtasks
 None (atomic task).

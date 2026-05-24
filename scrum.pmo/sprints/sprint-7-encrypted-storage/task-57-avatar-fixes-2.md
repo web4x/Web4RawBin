@@ -5,10 +5,16 @@
 [task:uuid:h57c0d03-be34-4f50-d678-008899001122]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-- [ ] QA Review
-- [ ] Done
+- [x] Planned
+- [x] In Progress
+- [x] QA Review
+- [x] Done
+
+## Traceability
+- up
+  - [Sprint 7 Planning](./planning.md)
+- down
+  - None (atomic task)
 
 ## QA Audit & User Feedback
 - 2026-05-24: Tron — avatar not clickable in lobby (DRY violation: inline img, not rb-avatar). Pinch-zoom doesn't work on iPhone. Add crop button that saves zoom+pan position.
@@ -30,11 +36,11 @@ CSS `touch-action: pinch-zoom` alone doesn't work in overlay context on iOS Safa
 - Server stores avatarCrop in UserProfile
 
 ## Acceptance Criteria
-- [ ] Lobby avatar is rb-avatar component (clickable, opens overlay)
-- [ ] Pinch-zoom works on iPhone Safari in overlay
-- [ ] Crop button saves zoom+pan position
-- [ ] Saved crop applied when rendering avatar everywhere
-- [ ] No actual image modification (only viewport transform)
+- [x] Lobby avatar is rb-avatar component (clickable, opens overlay)
+- [x] Pinch-zoom works on iPhone Safari in overlay
+- [x] Crop button saves zoom+pan position
+- [x] Saved crop applied when rendering avatar everywhere
+- [x] No actual image modification (only viewport transform)
 
 ## Subtasks
 None (atomic task).

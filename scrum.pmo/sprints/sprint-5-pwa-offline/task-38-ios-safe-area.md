@@ -5,10 +5,10 @@
 [task:uuid:e38f0e05-8a91-4e7f-c213-005566778899]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-- [ ] QA Review
-- [ ] Done
+- [x] Planned
+- [x] In Progress
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 - up
@@ -29,9 +29,9 @@
 - Test: header buttons must be below the iPhone notch/dynamic island
 
 ## Acceptance Criteria
-- [ ] Room header buttons clickable on iPhone 15 in standalone PWA mode
-- [ ] Lobby header buttons clickable on iPhone 15 in standalone PWA mode
-- [ ] No regression on non-notch devices (padding is 0 when no inset)
+- [x] Room header buttons clickable on iPhone 15 in standalone PWA mode
+- [x] Lobby header buttons clickable on iPhone 15 in standalone PWA mode
+- [x] No regression on non-notch devices (padding is 0 when no inset)
 
 ## Subtasks
 None (atomic task).

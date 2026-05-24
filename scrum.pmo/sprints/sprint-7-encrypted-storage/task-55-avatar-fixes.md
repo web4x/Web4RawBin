@@ -5,10 +5,10 @@
 [task:uuid:f55a0b01-9c12-4d3e-b456-006677889900]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-- [ ] QA Review
-- [ ] Done
+- [x] Planned
+- [x] In Progress
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 - up
@@ -31,9 +31,9 @@ ProfileEditor has a hidden file input triggered by a label. The label may be unc
 Verify avatar img appears in: member badges (room), lobby (next to name), profile page, profile editor preview. All should use /api/avatar/<token> URL.
 
 ## Acceptance Criteria
-- [ ] Existing users get thispersondoesnotexist avatar on next connect
-- [ ] "Change Photo" / "Add Photo" button clearly visible in ProfileEditor
-- [ ] Avatar shown consistently in member badges, lobby, profile page, editor
+- [x] Existing users get thispersondoesnotexist avatar on next connect
+- [x] "Change Photo" / "Add Photo" button clearly visible in ProfileEditor
+- [x] Avatar shown consistently in member badges, lobby, profile page, editor
 
 ## Subtasks
 None (atomic task).
