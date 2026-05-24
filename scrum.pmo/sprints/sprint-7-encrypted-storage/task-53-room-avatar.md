@@ -5,14 +5,14 @@
 [task:uuid:e9fdc892-64e7-4dac-9393-5d269e41357b]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
+- [x] Planned
+- [x] In Progress
   - [ ] refinement
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 - up
