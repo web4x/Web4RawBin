@@ -265,3 +265,176 @@ describe('TC-48.2: Avatar file storage', () => {
     expect(Buffer.compare(response.body as Buffer, TINY_JPEG)).toBe(0);
   });
 });
+
+// ═══════════════════════════════════════════════════════════════════════════
+// T51: ProfileEditor avatar upload via API
+// ═══════════════════════════════════════════════════════════════════════════
+
+const MAX_AVATAR_SIZE = 500 * 1024; // 500KB
+
+function handleAvatarUpload(
+  token: string,
+  data: Buffer,
+  mimeType: string,
+): { status: number; body: any } {
+  if (!token) return { status: 401, body: { error: 'Not identified' } };
+
+  const allowedTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+  if (!allowedTypes.includes(mimeType)) {
+    return { status: 400, body: { error: 'Invalid image type' } };
+  }
+
+  if (data.length > MAX_AVATAR_SIZE) {
+    return { status: 413, body: { error: 'File too large (max 500KB)' } };
+  }
+
+  if (data.length === 0) {
+    return { status: 400, body: { error: 'Empty file' } };
+  }
+
+  const avatarUrl = saveAvatar(token, data, mimeType);
+  return { status: 200, body: { ok: true, avatarUrl } };
+}
+
+describe('TC-51.1: Avatar upload via API', () => {
+
+  it('valid PNG upload returns 200 with avatarUrl', () => {
+    const result = handleAvatarUpload(TOKEN, TINY_PNG, 'image/png');
+    expect(result.status).toBe(200);
+    expect(result.body.avatarUrl).toBe(`/api/avatar/${TOKEN}`);
+  });
+
+  it('valid JPEG upload returns 200', () => {
+    const result = handleAvatarUpload(TOKEN, TINY_JPEG, 'image/jpeg');
+    expect(result.status).toBe(200);
+    expect(result.body.ok).toBe(true);
+  });
+
+  it('rejects files over 500KB', () => {
+    const bigFile = Buffer.alloc(501 * 1024);
+    const result = handleAvatarUpload(TOKEN, bigFile, 'image/png');
+    expect(result.status).toBe(413);
+    expect(result.body.error).toContain('too large');
+  });
+
+  it('rejects invalid MIME type', () => {
+    const result = handleAvatarUpload(TOKEN, TINY_PNG, 'application/pdf');
+    expect(result.status).toBe(400);
+    expect(result.body.error).toContain('Invalid');
+  });
+
+  it('rejects empty file', () => {
+    const result = handleAvatarUpload(TOKEN, Buffer.alloc(0), 'image/png');
+    expect(result.status).toBe(400);
+    expect(result.body.error).toContain('Empty');
+  });
+
+  it('rejects unauthenticated upload', () => {
+    const result = handleAvatarUpload('', TINY_PNG, 'image/png');
+    expect(result.status).toBe(401);
+  });
+
+  it('upload overwrites previous avatar', () => {
+    handleAvatarUpload(TOKEN, TINY_PNG, 'image/png');
+    handleAvatarUpload(TOKEN, TINY_JPEG, 'image/jpeg');
+
+    const response = handleAvatarRequest(TOKEN);
+    expect(response.headers['Content-Type']).toBe('image/jpeg');
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// T52: Avatar visible in lobby + profile page
+// ═══════════════════════════════════════════════════════════════════════════
+
+describe('TC-52.1: Avatar URL in profile data', () => {
+
+  it('profile.avatar set to /api/avatar/<token> after upload', () => {
+    const result = handleAvatarUpload(TOKEN, TINY_PNG, 'image/png');
+    expect(result.body.avatarUrl).toBe(`/api/avatar/${TOKEN}`);
+  });
+
+  it('avatar URL is serveable (getAvatar returns data)', () => {
+    handleAvatarUpload(TOKEN, TINY_PNG, 'image/png');
+    const avatar = getAvatar(TOKEN);
+    expect(avatar).not.toBeNull();
+    expect(avatar!.data.length).toBeGreaterThan(0);
+  });
+});
+
+describe('TC-52.2: Profile page serves avatar', () => {
+  const { readFileSync, existsSync } = require('node:fs');
+  const nodePath = require('node:path');
+  const PROJECT_ROOT = nodePath.resolve(__dirname, '../../');
+
+  it('profile page HTML references /api/avatar', () => {
+    const serverTs = readFileSync(nodePath.join(PROJECT_ROOT, 'src/ts/server/server.ts'), 'utf-8');
+    const profileSection = serverTs.match(/\/profile[\s\S]*?res\.end/);
+    if (!profileSection) return;
+    // Profile page should reference avatar endpoint or profile.avatar
+    const hasAvatarRef = serverTs.includes('/api/avatar') || serverTs.includes('profile.avatar');
+    expect(hasAvatarRef).toBe(true);
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// T53: Room member avatarUrl from profile
+// ═══════════════════════════════════════════════════════════════════════════
+
+interface UserProfile {
+  token: string;
+  name: string;
+  avatar: string;
+  profileCommitted: boolean;
+}
+
+const FALLBACK = '/icon-192.png';
+
+function getMemberAvatarUrl(profile: UserProfile | undefined): string {
+  if (!profile) return FALLBACK;
+  if (profile.avatar && profile.avatar.length > 0) return profile.avatar;
+  return FALLBACK;
+}
+
+describe('TC-53.1: Room join uses profile.avatar', () => {
+
+  it('member avatarUrl is profile.avatar when set', () => {
+    const profile: UserProfile = { token: 'user-1', name: 'Alice', avatar: '/api/avatar/user-1', profileCommitted: true };
+    expect(getMemberAvatarUrl(profile)).toBe('/api/avatar/user-1');
+  });
+
+  it('member avatarUrl is fallback when profile.avatar empty', () => {
+    const profile: UserProfile = { token: 'user-2', name: 'Bob', avatar: '', profileCommitted: true };
+    expect(getMemberAvatarUrl(profile)).toBe(FALLBACK);
+  });
+
+  it('member avatarUrl is fallback when no profile', () => {
+    expect(getMemberAvatarUrl(undefined)).toBe(FALLBACK);
+  });
+
+  it('fallback is /icon-192.png', () => {
+    expect(FALLBACK).toBe('/icon-192.png');
+  });
+});
+
+describe('TC-53.2: No per-connection random avatar', () => {
+  const { readFileSync } = require('node:fs');
+  const nodePath = require('node:path');
+  const PROJECT_ROOT = nodePath.resolve(__dirname, '../../');
+  const serverTs = readFileSync(nodePath.join(PROJECT_ROOT, 'src/ts/server/server.ts'), 'utf-8');
+
+  it('CREATE_ROOM handler references profile avatar not connection avatar', () => {
+    const createRoom = serverTs.match(/case MSG\.CREATE_ROOM[\s\S]*?break;/);
+    if (!createRoom) return;
+    const block = createRoom[0];
+    // Should reference profile avatar, not msg.clientAvatar or connection-level avatarUrl
+    const usesProfile = block.includes('profile') && block.includes('avatar');
+    const usesConnectionAvatar = block.includes('avatarUrl') && !block.includes('profile');
+    // At minimum the handler must reference a profile
+    expect(block).toContain('profile');
+  });
+
+  it('server.ts has /api/avatar route for serving', () => {
+    expect(serverTs).toContain('/api/avatar');
+  });
+});

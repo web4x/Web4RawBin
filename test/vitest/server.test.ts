@@ -598,7 +598,6 @@ describe('TC-16.3: Health version matches package.json', () => {
     const pkg = JSON.parse(readFileSync(nodePath.join(PROJECT_ROOT, 'package.json'), 'utf-8'));
     const health = getHealthResponse(Date.now(), 0, 0, pkg.version);
     expect(health.version).toBe(pkg.version);
-    expect(health.version).toBe('0.1.0');
   });
 });
 

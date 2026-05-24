@@ -36,6 +36,7 @@ export class RbEditorToolbar extends HTMLElement {
       <a href="/app" style="color:#ccc;text-decoration:none">← App</a>
       <a href="/md/" style="color:#ccc;text-decoration:none">📂</a>
       <span id="tb-path" style="flex:1;color:#667eea;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${this._path || '(no file)'}</span>
+      ${this._path && (this._path.endsWith('.md') || this._path.endsWith('.puml')) ? `<a href="/md/${this._path}" style="color:#ff9800;text-decoration:none;font-size:0.75rem" title="View rendered">👁 View</a>` : ''}
       <span id="tb-status" style="font-size:0.75rem;opacity:0.8"></span>
       <button class="tb-btn" id="tb-mode" style="background:none;border:1px solid #555;color:#ccc;padding:3px 10px;border-radius:4px;cursor:pointer;font-size:0.75rem">${this.modeLabel()}</button>
       <button class="tb-btn" id="tb-save" style="background:none;border:1px solid #555;color:#ccc;padding:3px 10px;border-radius:4px;cursor:pointer;font-size:0.75rem">Save</button>`;

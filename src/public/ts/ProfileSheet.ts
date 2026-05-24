@@ -20,8 +20,9 @@ export class ProfileSheet {
   open(profile: PublicProfile): void {
     if (this.overlay) this.close();
 
-    const avatarHtml = profile.avatar && profile.avatar.startsWith('data:image')
-      ? `<img src="${profile.avatar}" alt="${profile.name}">`
+    const avatarSrc = profile.avatar || '';
+    const avatarHtml = avatarSrc
+      ? `<img src="${avatarSrc}" alt="${profile.name}">`
       : `<span class="avatar-placeholder">?</span>`;
 
     this.overlay = document.createElement('div');
@@ -78,13 +79,23 @@ export class ProfileSheet {
     }, { passive: true });
   }
 
-  private downloadVCard(profile: PublicProfile): void {
+  private async downloadVCard(profile: PublicProfile): Promise<void> {
     const lines = ['BEGIN:VCARD', 'VERSION:3.0', `FN:${profile.name}`];
     if (profile.phone) lines.push(`TEL:${profile.phone}`);
     if (profile.url) lines.push(`URL:${profile.url}`);
-    if (profile.avatar && profile.avatar.startsWith('data:image')) {
-      const match = profile.avatar.match(/^data:image\/(\w+);base64,(.+)$/);
-      if (match) lines.push(`PHOTO;ENCODING=b;TYPE=${match[1].toUpperCase()}:${match[2]}`);
+    if (profile.avatar) {
+      try {
+        let dataUrl = profile.avatar;
+        if (!dataUrl.startsWith('data:')) {
+          const res = await fetch(profile.avatar);
+          const buf = await res.arrayBuffer();
+          const type = res.headers.get('content-type') || 'image/jpeg';
+          const b64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+          dataUrl = `data:${type};base64,${b64}`;
+        }
+        const match = dataUrl.match(/^data:image\/(\w+);base64,(.+)$/);
+        if (match) lines.push(`PHOTO;ENCODING=b;TYPE=${match[1].toUpperCase()}:${match[2]}`);
+      } catch {}
     }
     lines.push('NOTE:RawBin User');
     lines.push('END:VCARD');

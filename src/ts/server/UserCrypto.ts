@@ -17,7 +17,7 @@ interface FileMeta {
   uploadedAt: string;
 }
 
-export function encryptFile(token: string, plaintext: Buffer, mimeType: string, originalName: string): string {
+export function encryptFile(token: string, plaintext: Buffer, mimeType: string, originalName: string, storedName?: string): string {
   const pubKey = getUserPublicKey(token);
   if (!pubKey) throw new Error('User public key not found');
 
@@ -36,7 +36,7 @@ export function encryptFile(token: string, plaintext: Buffer, mimeType: string, 
   const filesDir = getFilesDir(token);
   fs.mkdirSync(filesDir, { recursive: true });
 
-  const name = crypto.randomBytes(8).toString('hex');
+  const name = storedName || crypto.randomBytes(8).toString('hex');
   const encPath = path.join(filesDir, `${name}.enc`);
   const metaPath = path.join(filesDir, `${name}.meta.json`);
 

@@ -1,7 +1,8 @@
 const AVATAR_CSS = `
-:host { display: inline-block; cursor: pointer; }
-.circle { border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background: rgba(102,126,234,0.15); }
-.circle img { width: 100%; height: 100%; object-fit: cover; }
+:host { display: inline-block; cursor: pointer; flex-shrink: 0; }
+.circle { border-radius: 50%; overflow: hidden; display: block; position: relative; background: rgba(102,126,234,0.15); }
+.circle img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.circle .initial { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
 .initial { color: #667eea; font-weight: 700; }
 .overlay { position: fixed; inset: 0; z-index: 3000; background: rgba(0,0,0,0.92); display: flex; flex-direction: column; align-items: center; justify-content: center; touch-action: none; }
 .overlay img { max-width: 90vw; max-height: 70vh; border-radius: 12px; object-fit: contain; will-change: transform; }
@@ -49,6 +50,12 @@ class RbAvatar extends HTMLElement {
 
   private getSize(): number { return parseInt(this.getAttribute('size') || '40'); }
   private getSrc(): string { return this.getAttribute('src') || ''; }
+  private getAvatarUrl(): string {
+    const src = this.getSrc();
+    if (src) return src;
+    const token = this.getToken();
+    return token ? `/api/avatar/${token}` : '';
+  }
   private getName(): string { return this.getAttribute('name') || '?'; }
   private getToken(): string { return this.getAttribute('token') || ''; }
   private getCrop(): { scale: number; x: number; y: number } | null {
@@ -59,28 +66,30 @@ class RbAvatar extends HTMLElement {
 
   private render(): void {
     const size = this.getSize();
-    const src = this.getSrc();
+    const src = this.getAvatarUrl();
     const initial = this.getName()[0]?.toUpperCase() || '?';
     const fontSize = Math.max(10, Math.round(size * 0.4));
     const crop = this.getCrop();
-    const s = crop?.scale || 1;
-    const cropStyle = crop ? `object-fit:cover;object-position:${50 - (crop.x * 50)}% ${50 - (crop.y * 50)}%;transform:scale(${s})` : '';
+    const cropStyle = crop ? `object-position:${50 - (crop.x * 50)}% ${50 - (crop.y * 50)}%` : '';
 
     this.shadow.innerHTML = `<style>${AVATAR_CSS}</style>
       <div class="circle" style="width:${size}px;height:${size}px">
-        ${src ? `<img src="${src}" alt="${initial}" id="img" style="${cropStyle}">` : `<span class="initial" style="font-size:${fontSize}px">${initial}</span>`}
+        ${src ? `<img src="${src}" alt="${initial}" id="img" style="${cropStyle}">` : `<span class="initial"><span style="font-size:${fontSize}px">${initial}</span></span>`}
       </div>`;
 
     const img = this.shadow.getElementById('img') as HTMLImageElement;
     if (img) img.addEventListener('error', () => {
-      img.replaceWith(Object.assign(document.createElement('span'), { className: 'initial', textContent: initial, style: `font-size:${fontSize}px` }));
+      const span = document.createElement('span');
+      span.className = 'initial';
+      span.innerHTML = `<span style="font-size:${fontSize}px">${initial}</span>`;
+      img.replaceWith(span);
     });
     this.shadow.querySelector('.circle')?.addEventListener('click', (e) => { e.stopPropagation(); this.openOverlay(); });
   }
 
   private openOverlay(): void {
     if (this.overlayEl) return;
-    const src = this.getSrc();
+    const src = this.getAvatarUrl();
     const initial = this.getName()[0]?.toUpperCase() || '?';
     this.scale = 1; this.tx = 0; this.ty = 0;
 
