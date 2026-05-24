@@ -17,7 +17,7 @@ import { RoomManager, type RoomMember } from './Room.js';
 import { MSG } from '../shared/MessageTypes.js';
 import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
 import { encryptFile, decryptFile, fileExists } from './UserCrypto.js';
-import { readDir, readFile } from './FileApi.js';
+import { readDir, readFile, writeFile } from './FileApi.js';
 
 const execAsync = promisify(exec);
 const ADMIN_KEY = process.env.ADMIN_KEY || crypto.randomUUID();
@@ -341,7 +341,31 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     }
 
     if (filepath.startsWith('/api/files/')) {
+      const playerToken = req.headers['x-player-token'] as string || '';
+      const adminKey = req.headers['x-admin-key'] as string || '';
+      const origin = req.headers['origin'] || req.headers['referer'] || '';
+      const isSameOrigin = origin.includes(`localhost:${HTTPS_PORT}`) || origin.includes(BASE_DOMAIN);
+      const isAuthorized = isSameOrigin || adminKey === ADMIN_KEY || (playerToken && tokenToClient.has(playerToken));
+      if (!isAuthorized) { res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unauthorized' })); return; }
+
       const relPath = decodeURIComponent(filepath.slice('/api/files/'.length));
+
+      if (req.method === 'PUT') {
+        let body = '';
+        req.on('data', (chunk: Buffer) => { body += chunk; if (body.length > 1100000) { res.writeHead(413); res.end('Too large'); } });
+        req.on('end', () => {
+          try {
+            const { content, expectedMtime } = JSON.parse(body);
+            if (typeof content !== 'string') { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Missing content' })); return; }
+            const result = writeFile(relPath, content, expectedMtime);
+            const status = 'ok' in result ? 200 : result.status;
+            res.writeHead(status, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(result));
+          } catch { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Bad request' })); }
+        });
+        return;
+      }
+
       const isDir = relPath.endsWith('/') || relPath === '';
       const result = isDir ? readDir(relPath) : readFile(relPath);
       if ('error' in result) {
