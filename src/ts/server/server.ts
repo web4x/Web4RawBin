@@ -6,7 +6,7 @@ import fs from 'node:fs/promises';
 import fsSync from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { exec, execFile } from 'node:child_process';
+import { exec, execFile, execFileSync } from 'node:child_process';
 import crypto from 'node:crypto';
 import { promisify } from 'node:util';
 import readline from 'node:readline';
@@ -345,7 +345,6 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       req.on('data', (chunk: Buffer) => { body += chunk; if (body.length > 500000) { res.writeHead(413); res.end('Too large'); } });
       req.on('end', () => {
         try {
-          const { execFileSync } = require('node:child_process');
           const svg = execFileSync('plantuml', ['-tsvg', '-pipe'], { input: body, maxBuffer: 2 * 1024 * 1024, timeout: 15000 }).toString();
           res.writeHead(200, { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'no-cache' });
           res.end(svg);
