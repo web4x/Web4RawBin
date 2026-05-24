@@ -648,12 +648,48 @@ async function startServers(httpOnly: boolean = false): Promise<void> {
 
 // --- Avatar ---
 
-async function fetchUniqueAvatar(): Promise<string> {
+function generateInitialsSvg(name: string): Buffer {
+  const initial = (name || '?')[0].toUpperCase();
+  const hue = Math.abs([...name].reduce((h, c) => h + c.charCodeAt(0), 0) % 360);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><rect width="256" height="256" rx="128" fill="hsl(${hue},60%,45%)"/><text x="128" y="128" dy=".35em" text-anchor="middle" font-family="sans-serif" font-size="120" font-weight="700" fill="white">${initial}</text></svg>`;
+  return Buffer.from(svg);
+}
+
+async function fetchAvatarWithRetry(retries: number = 3): Promise<Buffer | null> {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await fetch('https://thispersondoesnotexist.com/');
+      const buffer = await response.arrayBuffer();
+      if (buffer.byteLength > 1000) return Buffer.from(buffer);
+    } catch {}
+    if (i < retries - 1) await new Promise(r => setTimeout(r, 5000));
+  }
+  return null;
+}
+
+async function ensureAvatar(profile: UserProfile): Promise<void> {
+  if (profile.avatar && profile.avatar.startsWith('/api/avatar/')) return;
+  if (!profile.sshKeysGenerated) return;
+
+  const photoData = await fetchAvatarWithRetry(3);
+  let buf: Buffer;
+  let mime: string;
+
+  if (photoData) {
+    buf = photoData;
+    mime = 'image/jpeg';
+  } else {
+    buf = generateInitialsSvg(profile.name);
+    mime = 'image/svg+xml';
+    addLog(`Avatar fetch failed, using initials SVG: ${profile.token.slice(0, 8)}`);
+  }
+
   try {
-    const response = await fetch('https://thispersondoesnotexist.com/');
-    const buffer = await response.arrayBuffer();
-    return `data:image/jpeg;base64,${Buffer.from(buffer).toString('base64')}`;
-  } catch { return '/icon-192.png'; }
+    encryptFile(profile.token, buf, mime, 'avatar.' + (mime === 'image/jpeg' ? 'jpg' : 'svg'), 'avatar');
+    profile.avatar = `/api/avatar/${profile.token}`;
+    saveProfiles();
+    addLog(`Avatar assigned: ${profile.token.slice(0, 8)} (${mime})`);
+  } catch (e: any) { addLog(`Avatar encrypt failed: ${e?.message}`); }
 }
 
 // --- WebSocket ---
@@ -882,20 +918,12 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       if (msg.avatar && msg.avatar.startsWith('/api/avatar/')) profile.avatar = msg.avatar;
       saveProfiles();
 
-      // Backfill avatar for existing users without one — send updated PROFILE after
+      // Backfill avatar on every IDENTIFY if missing
       if (profile.sshKeysGenerated && (!profile.avatar || !profile.avatar.startsWith('/api/avatar/'))) {
-        fetchUniqueAvatar().then(dataUrl => {
-          try {
-            const match = dataUrl.match(/^data:image\/\w+;base64,(.+)$/);
-            if (match) {
-              const buf = Buffer.from(match[1], 'base64');
-              encryptFile(profile!.token, buf, 'image/jpeg', 'avatar.jpg', 'avatar');
-              profile!.avatar = `/api/avatar/${profile!.token}`;
-              saveProfiles();
-              addLog(`Avatar backfilled: ${profile!.token.slice(0, 8)}`);
-              send({ type: MSG.PROFILE_UPDATED, profile: { token: profile!.token, name: profile!.name, avatar: profile!.avatar, avatarCrop: profile!.avatarCrop, profileCommitted: profile!.profileCommitted, sshKeysGenerated: profile!.sshKeysGenerated } });
-            }
-          } catch {}
+        ensureAvatar(profile).then(() => {
+          if (profile!.avatar) {
+            send({ type: MSG.PROFILE_UPDATED, profile: { token: profile!.token, name: profile!.name, avatar: profile!.avatar, avatarCrop: profile!.avatarCrop, profileCommitted: profile!.profileCommitted, sshKeysGenerated: profile!.sshKeysGenerated } });
+          }
         }).catch(() => {});
       }
 
@@ -1024,18 +1052,10 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
         profile.sshKeysGenerated = true;
         profile.sshKeyGeneratedAt = new Date().toISOString();
         if (!profile.avatar || !profile.avatar.startsWith('/api/avatar/')) {
-          fetchUniqueAvatar().then(dataUrl => {
-            try {
-              const match = dataUrl.match(/^data:image\/\w+;base64,(.+)$/);
-              if (match) {
-                const buf = Buffer.from(match[1], 'base64');
-                encryptFile(profile.token, buf, 'image/jpeg', 'avatar.jpg', 'avatar');
-                profile.avatar = `/api/avatar/${profile.token}`;
-                saveProfiles();
-                addLog(`Avatar assigned: ${profile.token.slice(0, 8)}`);
-                send({ type: MSG.PROFILE_UPDATED, profile: { token: profile.token, name: profile.name, avatar: profile.avatar, avatarCrop: profile.avatarCrop, profileCommitted: profile.profileCommitted, sshKeysGenerated: profile.sshKeysGenerated } });
-              }
-            } catch (e: any) { addLog(`Avatar encrypt failed: ${e?.message}`); }
+          ensureAvatar(profile).then(() => {
+            if (profile.avatar) {
+              send({ type: MSG.PROFILE_UPDATED, profile: { token: profile.token, name: profile.name, avatar: profile.avatar, avatarCrop: profile.avatarCrop, profileCommitted: profile.profileCommitted, sshKeysGenerated: profile.sshKeysGenerated } });
+            }
           }).catch(() => {});
         }
       }
