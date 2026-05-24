@@ -1,0 +1,33 @@
+[Back to Sprint 8 Planning](./planning.md)
+
+# T70: rb-editor-toolbar — Save, View Toggle, Breadcrumb
+
+[task:uuid:fc5f62c4-b59a-405a-884c-536d215759a5]
+
+## Status
+- [ ] Planned
+- [ ] In Progress
+  - [ ] refinement
+  - [ ] creating test cases
+  - [ ] implementing
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
+
+## Traceability
+- up
+  - [Sprint 8 Planning](./planning.md)
+- down
+  - None (atomic task)
+
+## Task Description
+See [requirements.md](./requirements.md) and [architecture.md](./architecture.md) for full spec.
+
+## Acceptance Criteria
+- [ ] See requirements.md for detailed AC per use case
+
+## QA Audit & User Feedback
+- Pending Tron QA review.
+
+## Subtasks
+None (atomic task for this sprint).

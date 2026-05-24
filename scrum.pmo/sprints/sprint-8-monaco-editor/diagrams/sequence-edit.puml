@@ -1,0 +1,75 @@
+@startuml Monaco Editor — Edit + Save Sequence
+!theme plain
+skinparam sequenceMessageAlign center
+
+title File Open → Edit → Save → Conflict Flow
+
+actor "User" as U
+participant "rb-file-tree" as Tree
+participant "rb-editor-layout" as Layout
+participant "rb-code-editor" as Editor
+participant "rb-preview" as Preview
+participant "FileApi\n(server)" as API
+database "Disk" as Disk
+
+== File Open ==
+
+U -> Tree : click "planning.md"
+Tree -> Tree : dispatch rb-file-select\n{ path: "scrum.pmo/.../planning.md", ext: ".md" }
+Layout -> Editor : loadFile(path)
+Editor -> API : GET /api/files/scrum.pmo/.../planning.md
+API -> API : sanitizePath() — validate
+API -> Disk : fs.readFileSync(absPath, 'utf-8')
+Disk -> API : content (UTF-8)
+API -> Editor : { path, content, size, mtime }
+Editor -> Editor : monaco.editor.createModel(content, 'markdown')
+Editor -> Editor : store mtime for conflict detection
+note over Editor : dirty = false
+
+Layout -> Preview : renderMarkdown(content)
+Preview -> Preview : marked.parse(content) → HTML
+note over Preview : split view (default for .md)
+
+== Editing ==
+
+U -> Editor : types text
+Editor -> Editor : onDidChangeModelContent
+Editor -> Editor : dirty = true
+Editor -> Layout : rb-editor-dirty { dirty: true }
+Layout -> Layout : show dirty indicator (dot)
+
+Editor -> Preview : rb-editor-content { content }\n(debounced 300ms)
+Preview -> Preview : marked.parse(content) → HTML update
+
+== Save (success) ==
+
+U -> Editor : Cmd+S
+Editor -> API : PUT /api/files/scrum.pmo/.../planning.md\n{ content, expectedMtime }
+API -> API : check mtime matches
+API -> Disk : fs.writeFileSync(absPath, content)
+API -> Editor : { ok: true, mtime: "new", size }
+Editor -> Editor : store new mtime, dirty = false
+Editor -> Layout : rb-editor-saved { path, mtime }
+Layout -> Layout : show "Saved" toast, clear dirty indicator
+
+== Save (conflict) ==
+
+U -> Editor : Cmd+S (after external edit)
+Editor -> API : PUT /api/files/...\n{ content, expectedMtime: "old" }
+API -> API : file.mtime !== expectedMtime
+API -> Editor : 409 { conflict: true, serverMtime }
+Editor -> U : dialog "File changed on disk.\nOverwrite or Reload?"
+
+alt Overwrite
+  U -> Editor : click "Overwrite"
+  Editor -> API : PUT /api/files/...\n{ content, expectedMtime: null }
+  API -> Disk : write
+  API -> Editor : { ok: true, mtime }
+else Reload
+  U -> Editor : click "Reload"
+  Editor -> API : GET /api/files/...
+  API -> Editor : { content: "new from disk", mtime }
+  Editor -> Editor : replace model content
+end
+
+@enduml

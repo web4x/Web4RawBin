@@ -1,0 +1,156 @@
+@startuml Monaco Editor — Class Diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor<<new>> LightYellow
+  BackgroundColor<<existing>> White
+  BackgroundColor<<component>> LightCyan
+}
+
+title Sprint 8 — Monaco Editor Architecture
+
+package "Server (src/ts/server/)" {
+
+  class FileApi <<new>> {
+    - PROJECT_ROOT: string
+    - ALLOWED_EXT: Set<string>
+    - BLOCKED_DIRS: string[]
+    --
+    + handleFileRequest(req, res): void
+    - sanitizePath(relPath): string | null
+    - isTextFile(ext): boolean
+    - authorize(req): boolean
+    - readDir(absPath): DirEntry[]
+    - readFile(absPath): FileContent
+    - writeFile(absPath, content, expectedMtime): WriteMeta
+    - renderPuml(content): string
+  }
+
+  class "server.ts" as Server <<existing>> {
+    + handleRequest(req, res): void
+    --
+    Routes delegated to FileApi:
+    GET /api/files/<path>/  → readDir
+    GET /api/files/<path>   → readFile
+    PUT /api/files/<path>   → writeFile
+    POST /api/puml-render   → renderPuml
+    GET /edit               → serve edit.html
+    GET /edit/<path>        → serve edit.html
+  }
+
+  Server --> FileApi : delegates /api/files/*
+}
+
+package "Client — Editor (src/public/ts/)" {
+
+  class "edit.ts" as EditEntry <<new>> {
+    - init(): void
+    - loadMonaco(): Promise<void>
+    --
+    Entry point for /edit route.
+    Lazy-loads Monaco from CDN.
+    Wires up layout + components.
+  }
+
+  class "edit.html" as EditHtml <<new>> {
+    <link rel="stylesheet" href="edit.css">
+    <rb-update-banner>
+    <rb-editor-layout>
+    <script type="module" src="dist/edit.js">
+  }
+}
+
+package "Web Components (src/public/ts/components/)" {
+
+  class "rb-editor-layout" as Layout <<component>> {
+    - treeWidth: number
+    - previewMode: 'split' | 'editor' | 'preview'
+    --
+    + setAttribute('file', path): void
+    + setAttribute('mode', mode): void
+    --
+    Contains: rb-file-tree, rb-code-editor, rb-preview
+    Manages panel sizing + dividers.
+    Persists layout prefs in localStorage.
+  }
+
+  class "rb-file-tree" as Tree <<component>> {
+    - expanded: Set<string>
+    - activeFile: string
+    --
+    + loadDir(path): void
+    + setActive(path): void
+    --
+    Events:
+    rb-file-select { path, ext }
+    --
+    Lazy-loads dirs via GET /api/files/<path>/
+    Persists expanded state in localStorage.
+    Icons per file type.
+  }
+
+  class "rb-code-editor" as Editor <<component>> {
+    - editor: monaco.editor.IStandaloneCodeEditor
+    - currentPath: string
+    - currentMtime: string
+    - dirty: boolean
+    --
+    + loadFile(path): Promise<void>
+    + save(): Promise<void>
+    + getContent(): string
+    + isDirty(): boolean
+    --
+    Events:
+    rb-editor-dirty { dirty: boolean }
+    rb-editor-saved { path, mtime }
+    rb-editor-content { content } (debounced)
+    --
+    Shadow DOM. Hosts Monaco instance.
+    Cmd+S intercepted for save.
+  }
+
+  class "rb-preview" as Preview <<component>> {
+    - currentPath: string
+    - mode: 'markdown' | 'puml' | 'none'
+    --
+    + renderMarkdown(content): void
+    + renderPuml(content): Promise<void>
+    + clear(): void
+    --
+    Shadow DOM. Uses marked.js for .md,
+    POST /api/puml-render for .puml.
+  }
+
+  class "rb-editor-toolbar" as Toolbar <<component>> {
+    --
+    Buttons: Save, View Mode, File path breadcrumb
+    Shows dirty indicator.
+    Events: rb-save, rb-toggle-preview, rb-toggle-tree
+  }
+}
+
+package "Existing Components (unchanged)" {
+  class "rb-update-banner" as Banner <<existing>>
+  class "rb-header" as Header <<existing>>
+}
+
+' Relationships
+Layout *-- Tree
+Layout *-- Editor
+Layout *-- Preview
+Layout *-- Toolbar
+EditEntry --> Layout : creates
+EditEntry ..> Banner : includes in page
+Server --> EditHtml : serves at /edit
+Tree --> FileApi : GET /api/files/<path>/
+Editor --> FileApi : GET/PUT /api/files/<path>
+Preview --> FileApi : POST /api/puml-render
+
+legend right
+  |= Style |= Meaning |
+  | <<existing>> | Unchanged from prior sprints |
+  | <<new>> | New server/entry files |
+  | <<component>> | New Web Component |
+end legend
+
+@enduml
