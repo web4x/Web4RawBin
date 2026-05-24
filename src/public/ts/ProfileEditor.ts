@@ -1,5 +1,6 @@
 import { RawBinClient } from './RawBinClient.js';
 import { MSG } from '../../shared/MessageTypes.js';
+import './components/rb-avatar.js';
 
 interface ProfileData {
   name: string;
@@ -40,12 +41,8 @@ export class ProfileEditor {
           ${mode === 'normal' ? '<button class="profile-close" id="pe-close">✕</button>' : ''}
         </div>
         <div class="profile-avatar-row">
-          <div class="profile-avatar-preview" id="pe-avatar-preview">${initial.avatar ? `<img src="${initial.avatar}" alt="avatar">` : '<span class="avatar-placeholder">?</span>'}</div>
-          <label class="btn btn-primary profile-avatar-upload" id="pe-avatar-label">
-            ${initial.avatar ? 'Change Photo' : 'Add Photo'}
-            <input type="file" accept="image/*" id="pe-avatar-input" style="display:none">
-          </label>
-          <p class="profile-avatar-hint">Max 500KB</p>
+          <rb-avatar size="80" src="${initial.avatar || ''}" name="${initial.name || '?'}" token="${this.client.playerToken}" id="pe-avatar"></rb-avatar>
+          <p class="profile-avatar-hint">Tap photo to view or upload</p>
         </div>
         <div class="profile-fields">
           <label>Name${mode === 'gate' ? ' *' : ''}</label>
@@ -81,40 +78,9 @@ export class ProfileEditor {
   private setupEvents(): void {
     document.getElementById('pe-close')?.addEventListener('click', () => this.close());
 
-    const avatarInput = document.getElementById('pe-avatar-input') as HTMLInputElement;
-    avatarInput?.addEventListener('change', async () => {
-      const file = avatarInput.files?.[0];
-      if (!file) return;
-      if (file.size > 500 * 1024) { alert('Image must be under 500KB'); return; }
-      if (!file.type.startsWith('image/')) { alert('Must be an image file'); return; }
-
-      const preview = document.getElementById('pe-avatar-preview');
-      if (preview) preview.innerHTML = '<span class="avatar-placeholder">...</span>';
-
-      const buf = await file.arrayBuffer();
-      const base64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
-
-      try {
-        const res = await fetch('/api/avatar', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ playerToken: this.client.playerToken, data: base64, mimeType: file.type }),
-        });
-        const result = await res.json();
-        if (result.ok && result.avatarUrl) {
-          this.avatarUrl = result.avatarUrl;
-          if (preview) preview.innerHTML = `<img src="${result.avatarUrl}" alt="avatar">`;
-          const label = document.getElementById('pe-avatar-label');
-          if (label) label.childNodes[0].textContent = 'Change Photo';
-        } else {
-          alert(result.error || 'Upload failed');
-          if (preview) preview.innerHTML = '<span class="avatar-placeholder">?</span>';
-        }
-      } catch {
-        alert('Upload failed');
-        if (preview) preview.innerHTML = '<span class="avatar-placeholder">?</span>';
-      }
-    });
+    document.getElementById('pe-avatar')?.addEventListener('rb-avatar-changed', ((e: CustomEvent) => {
+      this.avatarUrl = e.detail.avatarUrl;
+    }) as EventListener);
 
     if (this.mode === 'gate') {
       const nameInput = document.getElementById('pe-name') as HTMLInputElement;
