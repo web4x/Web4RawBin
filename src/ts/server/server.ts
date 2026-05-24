@@ -303,7 +303,12 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const profile = userProfiles.get(playerToken);
           if (!profile?.sshKeysGenerated) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'SSH keys not generated' })); return; }
           const ext = mimeType === 'image/png' ? 'png' : mimeType === 'image/gif' ? 'gif' : mimeType === 'image/webp' ? 'webp' : 'jpg';
+          addLog(`Avatar POST: token=${playerToken.slice(0,8)} buf=${buf.length}bytes mime=${mimeType}`);
+          const encPathBefore = path.join(__dirname, '../../../data/users', playerToken, 'files', 'avatar.enc');
+          const sizeBefore = fsSync.existsSync(encPathBefore) ? fsSync.statSync(encPathBefore).size : 0;
           encryptFile(playerToken, buf, mimeType, `avatar.${ext}`, 'avatar');
+          const sizeAfter = fsSync.existsSync(encPathBefore) ? fsSync.statSync(encPathBefore).size : 0;
+          addLog(`Avatar POST: enc before=${sizeBefore} after=${sizeAfter}`);
           const avatarUrl = `/api/avatar/${playerToken}`;
           profile.avatar = avatarUrl;
           saveProfiles();
@@ -414,6 +419,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const etag = '"' + crypto.createHash('md5').update(encData).digest('hex') + '"';
         if (req.headers['if-none-match'] === etag) { res.writeHead(304); res.end(); return; }
         const { data, mimeType } = decryptFile(token, 'avatar');
+        addLog(`Avatar GET: token=${token.slice(0,8)} mime=${mimeType} size=${data.length}`);
         res.writeHead(200, { 'Content-Type': mimeType, 'ETag': etag, 'Cache-Control': 'no-cache, must-revalidate' });
         res.end(data);
       } catch { res.writeHead(500); res.end('Decrypt error'); }
