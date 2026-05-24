@@ -666,11 +666,9 @@ function setupWebSocketServer(server: https.Server): void {
     const clientId = `${ip}-${Date.now()}`;
     const connectedAt = Date.now();
     const userAgent = req.headers['user-agent'] || '';
-    const avatarUrl = await fetchUniqueAvatar();
-    avatarCache.set(clientId, avatarUrl);
 
     const challenge = crypto.randomBytes(32).toString('hex');
-    const client: WebSocketClient = { ws, id: clientId, ip, userAgent, connectedAt, avatarUrl, deviceId: '', playerToken: '', authenticated: false, authMethod: 'none', challenge };
+    const client: WebSocketClient = { ws, id: clientId, ip, userAgent, connectedAt, avatarUrl: '', deviceId: '', playerToken: '', authenticated: false, authMethod: 'none', challenge };
     wsClients.add(client);
     addLog(`WS connected: ${ip} (${wsClients.size} online)`);
 
@@ -679,7 +677,7 @@ function setupWebSocketServer(server: https.Server): void {
     ws.send(JSON.stringify({ type: MSG.ROOM_LIST, rooms: roomManager.listRooms() }));
 
     ws.on('message', (data) => {
-      try { handleMessage(clientId, ws, avatarUrl, JSON.parse(data.toString())); } catch (e: any) { addLog(`WS handler error: ${e?.message || e}`); }
+      try { handleMessage(clientId, ws, JSON.parse(data.toString())); } catch (e: any) { addLog(`WS handler error: ${e?.message || e}`); }
     });
 
     ws.on('close', () => {
@@ -704,7 +702,7 @@ function setupWebSocketServer(server: https.Server): void {
 
 // --- WS Message Handler ---
 
-function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: any): void {
+function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
   const send = (data: object) => ws.send(JSON.stringify(data));
 
   switch (msg.type) {
@@ -718,9 +716,9 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
 
       const memberName = msg.playerName || 'User';
       const roomName = msg.roomName || msg.name || `${memberName}'s Room`;
-      const useAvatar = msg.clientAvatar || avatarUrl;
+      const profileAvatar = creatorProfile?.avatar || '/icon-192.png';
       const member: RoomMember = {
-        id: clientId, ws, name: memberName, avatarUrl: useAvatar,
+        id: clientId, ws, name: memberName, avatarUrl: profileAvatar,
         playerToken: msg.playerToken || '', disconnected: false,
       };
       const room = roomManager.createRoom(roomName, member, { maxMembers: msg.maxPlayers || 10, isPrivate: !!msg.roomKey, roomKey: msg.roomKey || '' });
@@ -746,9 +744,10 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
         }
         tokenToClient.set(msg.playerToken, clientId);
       }
-      const useAvatar = msg.clientAvatar || avatarUrl;
+      const joinProfile = joinerToken ? userProfiles.get(joinerToken) : undefined;
+      const joinAvatar = joinProfile?.avatar || '/icon-192.png';
       const member: RoomMember = {
-        id: clientId, ws, name: joinName, avatarUrl: useAvatar,
+        id: clientId, ws, name: joinName, avatarUrl: joinAvatar,
         playerToken: msg.playerToken || '', disconnected: false,
       };
       const joined = room.addMember(member);
@@ -816,9 +815,11 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
     case MSG.SPECTATE: {
       const room = roomManager.getRoom(msg.roomId);
       if (room) {
+        const specToken = [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
+        const specProfile = specToken ? userProfiles.get(specToken) : undefined;
         const member: RoomMember = {
           id: clientId, ws, name: msg.playerName || 'Spectator',
-          avatarUrl, playerToken: '', disconnected: false,
+          avatarUrl: specProfile?.avatar || '/icon-192.png', playerToken: specToken || '', disconnected: false,
         };
         room.addSpectator(member);
         addLog(`${msg.playerName || clientId.slice(0,8)} spectating room ${room.name}`);
