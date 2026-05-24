@@ -1,6 +1,8 @@
 import './components/rb-update-banner.js';
 import './components/rb-editor-layout.js';
 import type { RbEditorLayout } from './components/rb-editor-layout.js';
+import './components/rb-file-tree.js';
+import type { RbFileTree } from './components/rb-file-tree.js';
 
 if (!document.querySelector('rb-update-banner')) {
   document.body.prepend(document.createElement('rb-update-banner'));
@@ -25,7 +27,7 @@ const saveBtn = document.getElementById('save-btn')!;
 const layout = document.getElementById('layout') as RbEditorLayout;
 
 const rawPath = location.pathname.replace(/^\/edit\/?/, '');
-const filePath = decodeURIComponent(rawPath);
+let filePath = decodeURIComponent(rawPath);
 pathEl.textContent = filePath || '(no file)';
 document.title = `${filePath.split('/').pop() || 'Editor'} — RawBin`;
 
@@ -71,7 +73,40 @@ async function saveFile(): Promise<void> {
 
 saveBtn.addEventListener('click', saveFile);
 
+let monacoInstance: any = null;
+
+async function openFile(path: string): Promise<void> {
+  filePath = path;
+  pathEl.textContent = path;
+  document.title = `${path.split('/').pop() || 'Editor'} — RawBin`;
+  history.replaceState({}, '', `/edit/${encodeURIComponent(path)}`);
+  statusEl.textContent = '';
+
+  const file = await loadFile();
+  if (!editor || !monacoInstance) return;
+
+  const lang = getLanguage(path);
+  const model = monacoInstance.editor.createModel(file?.content || '', lang);
+  editor.setModel(model);
+  editor.updateOptions({ wordWrap: lang === 'markdown' ? 'on' : 'off' });
+
+  const fileTree = document.querySelector('rb-file-tree') as RbFileTree | null;
+  if (fileTree) fileTree.setActive(path);
+
+  if (!file) statusEl.textContent = 'File not found';
+}
+
 async function init(): Promise<void> {
+  // Mount file tree
+  const treePanel = layout.treeEl;
+  if (treePanel) {
+    const tree = document.createElement('rb-file-tree') as RbFileTree;
+    treePanel.appendChild(tree);
+    tree.addEventListener('file-select', ((e: CustomEvent) => {
+      openFile(e.detail.path);
+    }) as EventListener);
+  }
+
   const file = await loadFile();
 
   const script = document.createElement('script');
@@ -80,19 +115,19 @@ async function init(): Promise<void> {
     const require = (window as any).require;
     require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs' } });
     require(['vs/editor/editor.main'], (monaco: any) => {
+      monacoInstance = monaco;
       const editorPanel = layout.editorEl;
       if (!editorPanel) return;
       editorPanel.innerHTML = '';
 
       const lang = getLanguage(filePath);
-      const isMarkdown = lang === 'markdown';
 
       editor = monaco.editor.create(editorPanel, {
         value: file?.content || '',
         language: lang,
         theme: 'vs-dark',
         minimap: { enabled: true },
-        wordWrap: isMarkdown ? 'on' : 'off',
+        wordWrap: lang === 'markdown' ? 'on' : 'off',
         fontSize: 14,
         tabSize: 2,
         automaticLayout: true,
@@ -106,7 +141,10 @@ async function init(): Promise<void> {
         run: () => saveFile(),
       });
 
-      if (!file) statusEl.textContent = filePath ? 'File not found' : 'No file specified';
+      const fileTree = document.querySelector('rb-file-tree') as RbFileTree | null;
+      if (fileTree && filePath) fileTree.setActive(filePath);
+
+      if (!file) statusEl.textContent = filePath ? 'File not found' : 'Select a file from the tree';
     });
   };
   document.head.appendChild(script);
