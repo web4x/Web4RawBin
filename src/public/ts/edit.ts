@@ -38,26 +38,42 @@ async function fetchFile(path: string): Promise<{ content: string; mtime: string
   } catch { statusEl.textContent = 'Fetch failed'; return null; }
 }
 
-async function saveFile(path: string, content: string): Promise<void> {
+async function saveFile(path: string, content: string, force?: boolean): Promise<void> {
   statusEl.textContent = 'Saving...';
+  statusEl.style.color = '';
   try {
+    const body: any = { content };
+    if (!force && currentMtime) body.expectedMtime = currentMtime;
     const res = await fetch(`/api/files/${encodeURIComponent(path)}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content, expectedMtime: currentMtime }),
+      body: JSON.stringify(body),
     });
     const result = await res.json();
     if (result.ok) {
       currentMtime = result.mtime;
       statusEl.textContent = 'Saved';
+      statusEl.style.color = '#4CAF50';
       codeEditor?.clearDirty();
-      setTimeout(() => { if (statusEl.textContent === 'Saved') statusEl.textContent = ''; }, 2000);
+      setTimeout(() => { if (statusEl.textContent === 'Saved') { statusEl.textContent = ''; statusEl.style.color = ''; } }, 2000);
     } else if (result.conflict) {
-      statusEl.textContent = 'Conflict — file changed externally!';
+      statusEl.textContent = 'Conflict!';
+      statusEl.style.color = '#e74c3c';
+      const choice = confirm('File changed on disk.\n\nOK = Overwrite with your version\nCancel = Reload file from disk');
+      if (choice) {
+        await saveFile(path, content, true);
+      } else {
+        const fresh = await fetchFile(path);
+        if (codeEditor && fresh) await codeEditor.loadFile(path, fresh.content);
+        statusEl.textContent = 'Reloaded';
+        statusEl.style.color = '#ff9800';
+        setTimeout(() => { statusEl.textContent = ''; statusEl.style.color = ''; }, 2000);
+      }
     } else {
       statusEl.textContent = result.error || 'Save failed';
+      statusEl.style.color = '#e74c3c';
     }
-  } catch { statusEl.textContent = 'Save failed'; }
+  } catch { statusEl.textContent = 'Save failed'; statusEl.style.color = '#e74c3c'; }
 }
 
 async function openFile(path: string): Promise<void> {
