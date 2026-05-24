@@ -19,15 +19,26 @@ test.describe('T13.8: Mobile Viewport', () => {
     await page.click('#confirm-create-btn');
 
     await page.waitForSelector('.room-view', { timeout: 15000 });
-    const roomView = page.locator('.room-view');
-    await expect(roomView).toBeVisible();
+    await expect(page.locator('.room-view')).toBeVisible();
+    await expect(page.locator('rb-chat-sheet')).toBeVisible({ timeout: 3000 });
 
-    const chatSheet = page.locator('.chat-sheet');
-    await expect(chatSheet).toBeVisible();
-
-    await page.locator('#chat-handle').click();
-    await page.fill('#chat-input', 'mobile test');
-    await page.click('#chat-send');
-    await expect(page.locator('#chat-messages')).toContainText('mobile test', { timeout: 5000 });
+    await page.evaluate(() => {
+      const sheet = document.querySelector('rb-chat-sheet') as any;
+      const handle = sheet?.shadowRoot?.getElementById('handle');
+      if (handle) handle.click();
+    });
+    await page.waitForTimeout(500);
+    await page.evaluate(() => {
+      const sheet = document.querySelector('rb-chat-sheet') as any;
+      const input = sheet?.shadowRoot?.getElementById('input') as HTMLInputElement;
+      if (input) { input.value = 'mobile test'; input.dispatchEvent(new Event('input')); }
+      sheet?.shadowRoot?.getElementById('send-btn')?.click();
+    });
+    await page.waitForTimeout(1000);
+    const chatText = await page.evaluate(() => {
+      const sheet = document.querySelector('rb-chat-sheet') as any;
+      return sheet?.shadowRoot?.getElementById('messages')?.textContent || '';
+    });
+    expect(chatText).toContain('mobile test');
   });
 });
