@@ -1,0 +1,86 @@
+@startuml avatar-crop-lifecycle
+title Avatar Crop Lifecycle — Root Cause Analysis
+skinparam backgroundColor #1a1a2e
+skinparam defaultFontColor white
+skinparam sequenceArrowColor #667eea
+skinparam sequenceLifeLineBorderColor #667eea
+skinparam sequenceParticipantBackgroundColor #16213e
+skinparam sequenceParticipantBorderColor #667eea
+skinparam noteBackgroundColor #e74c3c
+skinparam noteFontColor white
+
+actor User
+participant "rb-avatar\n(overlay)" as Overlay
+participant "RawBinClient" as Client
+participant "Server\nUPDATE_PROFILE" as Server
+participant "UserProfile\n(in-memory)" as Profile
+participant "rb-avatar\n(all instances)" as Avatars
+
+== User Pinch-Zoom + Tap Crop ==
+
+User -> Overlay : pinchZoom (JS touch events)
+note right: scale, tx, ty tracked\nin overlay state
+
+User -> Overlay : tap "Crop" button
+Overlay -> Client : ws.send({ type: UPDATE_PROFILE,\n  avatarCrop: {scale, x, y} })
+note right #ff9800: **No avatar field sent**\n(only avatarCrop)
+
+Overlay -> Overlay : setAttribute('crop', JSON.stringify(crop))
+Overlay -> Overlay : closeOverlay()
+Overlay -> Avatars : window.dispatchEvent('rb-avatar-updated',\n  { token, crop })  **NO url**
+
+== Server Processes ==
+
+Client -> Server : UPDATE_PROFILE message
+Server -> Profile : profile.avatarCrop = {scale, x, y}
+note right: profile.avatar is **NOT** touched\n(no msg.avatar in message)
+
+Server -> Client : PROFILE_UPDATED { profile:\n  { avatar: "/api/avatar/...",\n    avatarCrop: {scale, x, y} } }
+
+Server -> Avatars : MEMBER_JOINED broadcast\n{ avatarUrl: profile.avatar,\n  avatarCrop: profile.avatarCrop }
+
+== Client Receives PROFILE_UPDATED ==
+
+Client -> Client : _profile = msg.profile
+Client -> Avatars : window.dispatchEvent('rb-avatar-updated',\n  { token, url: profile.avatar, crop: profile.avatarCrop })
+
+Avatars -> Avatars : setAttribute('src', url + '?t=...')
+note right #e74c3c: **CACHE BUST** forces\nimg reload
+
+Avatars -> Avatars : setAttribute('crop', JSON.stringify(crop))
+Avatars -> Avatars : render()
+
+== BUG 1: Crop Transform Displaces Image ==
+
+note over Avatars #e74c3c
+**ROOT CAUSE 1: Visual displacement**
+render() applies: transform:scale(S) translate(Xpx, Ypx)
+on the <img> INSIDE a small circular overflow:hidden container.
+
+The overlay image is ~90vw wide. The circular avatar is 24-80px.
+translate(X,Y) values from the large overlay are HUGE relative
+to the tiny circular container.
+
+Example: overlay image 300px wide, user pans 50px right.
+tx=50. In a 24px badge, translate(50px,0) pushes the
+image completely out of the circle → shows background → R fallback.
+
+**FIX: Scale tx/ty relative to container size, not absolute pixels.**
+end note
+
+== BUG 2: Crop Not Restored ==
+
+note over Avatars #e74c3c
+**ROOT CAUSE 2: Missing crop attribute**
+rb-member-badge creates <rb-avatar> with src and name
+but does NOT pass crop attribute.
+Neither does RoomBrowser lobby avatar.
+ProfileEditor does not pass crop either.
+
+crop data exists in profile but is never propagated
+to the initial rb-avatar attribute at creation time.
+
+**FIX: Pass crop from profile/member data to rb-avatar.**
+end note
+
+@enduml
