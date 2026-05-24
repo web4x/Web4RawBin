@@ -3,22 +3,11 @@ import './components/rb-editor-layout.js';
 import type { RbEditorLayout } from './components/rb-editor-layout.js';
 import './components/rb-file-tree.js';
 import type { RbFileTree } from './components/rb-file-tree.js';
+import './components/rb-code-editor.js';
+import type { RbCodeEditor } from './components/rb-code-editor.js';
 
 if (!document.querySelector('rb-update-banner')) {
   document.body.prepend(document.createElement('rb-update-banner'));
-}
-
-const EXT_TO_LANG: Record<string, string> = {
-  '.md': 'markdown', '.sh': 'shell', '.ts': 'typescript', '.tsx': 'typescript',
-  '.js': 'javascript', '.mjs': 'javascript', '.jsx': 'javascript',
-  '.css': 'css', '.json': 'json', '.html': 'html', '.svg': 'xml',
-  '.yml': 'yaml', '.yaml': 'yaml', '.xml': 'xml', '.puml': 'plaintext',
-  '.env': 'ini', '.txt': 'plaintext', '.toml': 'plaintext',
-};
-
-function getLanguage(filePath: string): string {
-  const ext = '.' + filePath.split('.').pop()?.toLowerCase();
-  return EXT_TO_LANG[ext] || 'plaintext';
 }
 
 const pathEl = document.getElementById('file-path')!;
@@ -28,32 +17,31 @@ const layout = document.getElementById('layout') as RbEditorLayout;
 
 const rawPath = location.pathname.replace(/^\/edit\/?/, '');
 let filePath = decodeURIComponent(rawPath);
+let currentMtime = '';
+
 pathEl.textContent = filePath || '(no file)';
 document.title = `${filePath.split('/').pop() || 'Editor'} — RawBin`;
-
-let editor: any = null;
-let currentMtime: string = '';
 
 document.getElementById('toggle-tree')?.addEventListener('click', () => layout.toggleTree());
 document.getElementById('toggle-preview')?.addEventListener('click', () => layout.togglePreview());
 
-async function loadFile(): Promise<{ content: string; mtime: string } | null> {
-  if (!filePath) return null;
+let codeEditor: RbCodeEditor | null = null;
+
+async function fetchFile(path: string): Promise<{ content: string; mtime: string } | null> {
+  if (!path) return null;
   try {
-    const res = await fetch(`/api/files/${encodeURIComponent(filePath)}`);
-    if (!res.ok) { const e = await res.json().catch(() => ({})); statusEl.textContent = e.error || `Error ${res.status}`; return null; }
+    const res = await fetch(`/api/files/${encodeURIComponent(path)}`);
+    if (!res.ok) { statusEl.textContent = (await res.json().catch(() => ({}))).error || `Error ${res.status}`; return null; }
     const data = await res.json();
     currentMtime = data.mtime;
     return data;
   } catch { statusEl.textContent = 'Fetch failed'; return null; }
 }
 
-async function saveFile(): Promise<void> {
-  if (!editor || !filePath) return;
+async function saveFile(path: string, content: string): Promise<void> {
   statusEl.textContent = 'Saving...';
-  const content = editor.getValue();
   try {
-    const res = await fetch(`/api/files/${encodeURIComponent(filePath)}`, {
+    const res = await fetch(`/api/files/${encodeURIComponent(path)}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ content, expectedMtime: currentMtime }),
@@ -62,6 +50,7 @@ async function saveFile(): Promise<void> {
     if (result.ok) {
       currentMtime = result.mtime;
       statusEl.textContent = 'Saved';
+      codeEditor?.clearDirty();
       setTimeout(() => { if (statusEl.textContent === 'Saved') statusEl.textContent = ''; }, 2000);
     } else if (result.conflict) {
       statusEl.textContent = 'Conflict — file changed externally!';
@@ -71,83 +60,51 @@ async function saveFile(): Promise<void> {
   } catch { statusEl.textContent = 'Save failed'; }
 }
 
-saveBtn.addEventListener('click', saveFile);
-
-let monacoInstance: any = null;
-
 async function openFile(path: string): Promise<void> {
+  if (codeEditor?.dirty && !confirm('Unsaved changes. Discard?')) return;
   filePath = path;
   pathEl.textContent = path;
   document.title = `${path.split('/').pop() || 'Editor'} — RawBin`;
   history.replaceState({}, '', `/edit/${encodeURIComponent(path)}`);
   statusEl.textContent = '';
-
-  const file = await loadFile();
-  if (!editor || !monacoInstance) return;
-
-  const lang = getLanguage(path);
-  const model = monacoInstance.editor.createModel(file?.content || '', lang);
-  editor.setModel(model);
-  editor.updateOptions({ wordWrap: lang === 'markdown' ? 'on' : 'off' });
-
+  const file = await fetchFile(path);
+  if (codeEditor) await codeEditor.loadFile(path, file?.content || '');
   const fileTree = document.querySelector('rb-file-tree') as RbFileTree | null;
   if (fileTree) fileTree.setActive(path);
-
   if (!file) statusEl.textContent = 'File not found';
 }
 
+saveBtn.addEventListener('click', () => { if (filePath) saveFile(filePath, codeEditor?.getValue() || ''); });
+
 async function init(): Promise<void> {
-  // Mount file tree
   const treePanel = layout.treeEl;
   if (treePanel) {
     const tree = document.createElement('rb-file-tree') as RbFileTree;
     treePanel.appendChild(tree);
-    tree.addEventListener('file-select', ((e: CustomEvent) => {
-      openFile(e.detail.path);
-    }) as EventListener);
+    tree.addEventListener('file-select', ((e: CustomEvent) => openFile(e.detail.path)) as EventListener);
   }
 
-  const file = await loadFile();
+  const editorPanel = layout.editorEl;
+  if (editorPanel) {
+    editorPanel.innerHTML = '';
+    codeEditor = document.createElement('rb-code-editor') as RbCodeEditor;
+    codeEditor.setOnSave(saveFile);
+    editorPanel.appendChild(codeEditor);
+  }
 
-  const script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js';
-  script.onload = () => {
-    const require = (window as any).require;
-    require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs' } });
-    require(['vs/editor/editor.main'], (monaco: any) => {
-      monacoInstance = monaco;
-      const editorPanel = layout.editorEl;
-      if (!editorPanel) return;
-      editorPanel.innerHTML = '';
+  document.addEventListener('dirty-change', ((e: CustomEvent) => {
+    pathEl.textContent = filePath + (e.detail.dirty ? ' ●' : '');
+  }) as EventListener);
 
-      const lang = getLanguage(filePath);
-
-      editor = monaco.editor.create(editorPanel, {
-        value: file?.content || '',
-        language: lang,
-        theme: 'vs-dark',
-        minimap: { enabled: true },
-        wordWrap: lang === 'markdown' ? 'on' : 'off',
-        fontSize: 14,
-        tabSize: 2,
-        automaticLayout: true,
-        scrollBeyondLastLine: false,
-      });
-
-      editor.addAction({
-        id: 'save-file',
-        label: 'Save File',
-        keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS],
-        run: () => saveFile(),
-      });
-
-      const fileTree = document.querySelector('rb-file-tree') as RbFileTree | null;
-      if (fileTree && filePath) fileTree.setActive(filePath);
-
-      if (!file) statusEl.textContent = filePath ? 'File not found' : 'Select a file from the tree';
-    });
-  };
-  document.head.appendChild(script);
+  if (filePath) {
+    const file = await fetchFile(filePath);
+    if (codeEditor) await codeEditor.loadFile(filePath, file?.content || '');
+    const fileTree = document.querySelector('rb-file-tree') as RbFileTree | null;
+    if (fileTree) fileTree.setActive(filePath);
+    if (!file) statusEl.textContent = 'File not found';
+  } else {
+    statusEl.textContent = 'Select a file from the tree';
+  }
 }
 
 init();
