@@ -5,6 +5,8 @@ import './components/rb-file-tree.js';
 import type { RbFileTree } from './components/rb-file-tree.js';
 import './components/rb-code-editor.js';
 import type { RbCodeEditor } from './components/rb-code-editor.js';
+import './components/rb-preview.js';
+import type { RbPreview } from './components/rb-preview.js';
 
 if (!document.querySelector('rb-update-banner')) {
   document.body.prepend(document.createElement('rb-update-banner'));
@@ -26,6 +28,14 @@ document.getElementById('toggle-tree')?.addEventListener('click', () => layout.t
 document.getElementById('toggle-preview')?.addEventListener('click', () => layout.togglePreview());
 
 let codeEditor: RbCodeEditor | null = null;
+let preview: RbPreview | null = null;
+
+function isMarkdown(path: string): boolean { return path.endsWith('.md'); }
+
+function updatePreview(): void {
+  if (!preview || !codeEditor || !isMarkdown(filePath)) return;
+  preview.setContent(codeEditor.getValue(), filePath);
+}
 
 async function fetchFile(path: string): Promise<{ content: string; mtime: string } | null> {
   if (!path) return null;
@@ -85,6 +95,13 @@ async function openFile(path: string): Promise<void> {
   statusEl.textContent = '';
   const file = await fetchFile(path);
   if (codeEditor) await codeEditor.loadFile(path, file?.content || '');
+  if (isMarkdown(path)) {
+    layout.showPreview();
+    if (preview && file) preview.setContentImmediate(file.content, path);
+  } else {
+    layout.hidePreview();
+    if (preview) preview.clear();
+  }
   const fileTree = document.querySelector('rb-file-tree') as RbFileTree | null;
   if (fileTree) fileTree.setActive(path);
   if (!file) statusEl.textContent = 'File not found';
@@ -108,13 +125,27 @@ async function init(): Promise<void> {
     editorPanel.appendChild(codeEditor);
   }
 
+  const previewPanel = layout.previewEl;
+  if (previewPanel) {
+    previewPanel.innerHTML = '';
+    preview = document.createElement('rb-preview') as RbPreview;
+    previewPanel.appendChild(preview);
+  }
+
   document.addEventListener('dirty-change', ((e: CustomEvent) => {
+    updatePreview();
     pathEl.textContent = filePath + (e.detail.dirty ? ' ●' : '');
   }) as EventListener);
 
   if (filePath) {
     const file = await fetchFile(filePath);
     if (codeEditor) await codeEditor.loadFile(filePath, file?.content || '');
+    if (isMarkdown(filePath) && file) {
+      layout.showPreview();
+      if (preview) preview.setContentImmediate(file.content, filePath);
+    } else {
+      layout.hidePreview();
+    }
     const fileTree = document.querySelector('rb-file-tree') as RbFileTree | null;
     if (fileTree) fileTree.setActive(filePath);
     if (!file) statusEl.textContent = 'File not found';
