@@ -8,14 +8,14 @@ const distDir = 'src/public/dist';
 // Clean old hashed builds
 if (fs.existsSync(distDir)) {
   for (const f of fs.readdirSync(distDir)) {
-    if (f.startsWith('app-') || f === 'app.js' || f.endsWith('.map')) {
+    if (f.startsWith('app-') || f.startsWith('edit-') || f.startsWith('rb-update-banner-') || f === 'app.js' || f === 'edit.js' || f.endsWith('.map')) {
       fs.unlinkSync(path.join(distDir, f));
     }
   }
 }
 
 const result = await esbuild.build({
-  entryPoints: ['src/public/ts/app.ts', 'src/public/ts/components/rb-update-banner.ts'],
+  entryPoints: ['src/public/ts/app.ts', 'src/public/ts/edit.ts', 'src/public/ts/components/rb-update-banner.ts'],
   bundle: true,
   format: 'esm',
   target: 'es2020',
@@ -29,12 +29,15 @@ const result = await esbuild.build({
 // Find output filenames
 const outputs = Object.keys(result.metafile.outputs).filter(f => f.endsWith('.js') && !f.endsWith('.map'));
 const jsFile = outputs.find(f => path.basename(f).startsWith('app-'));
+const editFile = outputs.find(f => path.basename(f).startsWith('edit-'));
 const bannerFile = outputs.find(f => path.basename(f).startsWith('rb-update-banner-'));
 const jsBasename = path.basename(jsFile);
+const editBasename = editFile ? path.basename(editFile) : null;
 const bannerBasename = bannerFile ? path.basename(bannerFile) : null;
 
 // Write build manifest for server to read
 const manifest = { 'app.js': jsBasename, built: new Date().toISOString() };
+if (editBasename) manifest['edit.js'] = editBasename;
 if (bannerBasename) manifest['rb-update-banner.js'] = bannerBasename;
 fs.writeFileSync(path.join(distDir, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
 

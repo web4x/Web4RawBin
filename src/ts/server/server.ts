@@ -486,6 +486,18 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
 
     if (filepath === '/' || filepath === '/index.html') {
       filepath = '/index.html';
+    } else if (filepath.startsWith('/edit')) {
+      const manifestPath = path.join(PUBLIC_DIR, 'dist', 'build-manifest.json');
+      let editJsFile = 'dist/edit.js';
+      try {
+        const manifest = JSON.parse(fsSync.readFileSync(manifestPath, 'utf-8'));
+        if (manifest['edit.js']) editJsFile = 'dist/' + manifest['edit.js'];
+      } catch {}
+      const htmlPath = path.join(PUBLIC_DIR, 'edit.html');
+      const html = fsSync.readFileSync(htmlPath, 'utf-8').replace('dist/edit.js', editJsFile);
+      res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache, must-revalidate' });
+      res.end(html);
+      return;
     } else if (filepath === '/app' || filepath === '/app/') {
       const manifestPath = path.join(PUBLIC_DIR, 'dist', 'build-manifest.json');
       let appJsFile = 'dist/app.js';

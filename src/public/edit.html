@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#1e1e1e">
+  <title>RawBin Editor</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #1e1e1e; color: #d4d4d4; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; overflow: hidden; }
+    #editor-container { width: 100vw; height: 100vh; padding-top: env(safe-area-inset-top); }
+    #toolbar { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #252526; border-bottom: 1px solid #3c3c3c; font-size: 0.8rem; }
+    #toolbar a, #toolbar span { color: #cccccc; text-decoration: none; }
+    #toolbar a:hover { color: white; }
+    #file-path { flex: 1; color: #667eea; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #save-status { font-size: 0.75rem; opacity: 0.6; }
+    .tb-btn { background: none; border: 1px solid #555; color: #ccc; padding: 3px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
+    .tb-btn:hover { background: #3c3c3c; }
+    #monaco { width: 100%; height: calc(100vh - 36px - env(safe-area-inset-top)); }
+    #loading { display: flex; align-items: center; justify-content: center; height: 80vh; color: #666; font-size: 1.2rem; }
+  </style>
+</head>
+<body>
+  <rb-update-banner></rb-update-banner>
+  <div id="editor-container">
+    <div id="toolbar">
+      <a href="/app" title="Back to app">← App</a>
+      <a href="/md/" title="Browse files">📂</a>
+      <span id="file-path">Loading...</span>
+      <span id="save-status"></span>
+      <button class="tb-btn" id="save-btn" title="Cmd+S">Save</button>
+    </div>
+    <div id="monaco"><div id="loading">Loading editor...</div></div>
+  </div>
+  <script type="module" src="dist/edit.js"></script>
+</body>
+</html>
