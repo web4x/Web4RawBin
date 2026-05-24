@@ -239,7 +239,7 @@ function pageHead(title: string): string {
 }
 
 function pageNav(backHref: string = '/', backLabel: string = 'Home'): string {
-  return `<div style="padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top))"><a href="${backHref}" style="color:#667eea;text-decoration:none;font-size:0.9rem">← ${backLabel}</a> · <a href="/app" style="color:#667eea;text-decoration:none;font-size:0.9rem">App</a></div>`;
+  return `<div style="padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top))"><a href="${backHref}" style="color:#ffffff;text-decoration:none;font-size:0.9rem">← ${backLabel}</a> · <a href="/app" style="color:#ffffff;text-decoration:none;font-size:0.9rem">App</a></div>`;
 }
 
 function trackClient(req: http.IncomingMessage): void {
@@ -365,7 +365,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     // Docs
     const PROJECT_ROOT = path.join(__dirname, '../../../');
     const DOCS_DIR = path.join(__dirname, '../../../docs');
-    const MD_CSS = 'body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;max-width:700px;margin:40px auto;padding:0 20px;color:#333;line-height:1.6}a{color:#667eea}h1,h2,h3{margin-top:1.5em}code{background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:0.9em}pre{background:#f5f5f5;padding:12px;border-radius:8px;overflow-x:auto}pre code{background:none;padding:0}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px;text-align:left}th{background:#f5f5f5}';
+    const MD_CSS = 'body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;max-width:700px;margin:40px auto;padding:0 20px;color:#e0e0e0;line-height:1.6}a{color:#ffffff}a:visited{color:#a8c8ff}a:hover{color:#b8d8ff;text-decoration:underline}h1,h2,h3{margin-top:1.5em;color:white}code{background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:4px;font-size:0.9em;color:#e0e0e0}pre{background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;overflow-x:auto}pre code{background:none;padding:0}table{border-collapse:collapse;width:100%}th,td{border:1px solid rgba(255,255,255,0.2);padding:8px;text-align:left}th{background:rgba(255,255,255,0.1)}';
 
     if (filepath === '/docs' || filepath === '/docs/') {
       try {
