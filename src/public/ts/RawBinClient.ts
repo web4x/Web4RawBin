@@ -11,6 +11,11 @@ export class RawBinClient {
   private ws: WebSocket | null = null;
   private handlers: Map<string, MessageHandler[]> = new Map();
   private _profile: UserProfile | null = null;
+  private messageQueue: string[] = [];
+  private backoffMs: number = 0;
+  private backoffTimer: ReturnType<typeof setTimeout> | null = null;
+  private autoReconnect: boolean = false;
+  private online: boolean = typeof navigator !== 'undefined' ? navigator.onLine : true;
   clientId: string = '';
   connected: boolean = false;
   readonly playerToken: string;
@@ -23,18 +28,50 @@ export class RawBinClient {
     let devId = localStorage.getItem('rawbin-device-id');
     if (!devId) { devId = crypto.randomUUID(); localStorage.setItem('rawbin-device-id', devId); }
     this.deviceId = devId;
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('online', () => {
+        this.online = true;
+        this.emit('online', {});
+        if (this.autoReconnect && !this.connected) this.scheduleReconnect();
+      });
+      window.addEventListener('offline', () => {
+        this.online = false;
+        this.emit('offline', {});
+        this.cancelReconnect();
+      });
+    }
   }
 
   isProfileCommitted(): boolean { return this._profile?.profileCommitted === true; }
   getProfile(): UserProfile | null { return this._profile; }
+  isOnline(): boolean { return this.online; }
+  getBackoffMs(): number { return this.backoffMs; }
+  getQueueLength(): number { return this.messageQueue.length; }
 
   connect(): Promise<void> {
     return new Promise((resolve, reject) => {
       const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
       this.ws = new WebSocket(`${protocol}//${location.host}`);
-      this.ws.onopen = () => { this.connected = true; resolve(); };
-      this.ws.onclose = () => { this.connected = false; this.emit('disconnected', {}); };
-      this.ws.onerror = () => reject(new Error('WebSocket connection failed'));
+
+      this.ws.onopen = () => {
+        this.connected = true;
+        this.autoReconnect = true;
+        this.backoffMs = 0;
+        this.replayQueue();
+        resolve();
+      };
+
+      this.ws.onclose = () => {
+        this.connected = false;
+        this.emit('disconnected', {});
+        if (this.autoReconnect) this.scheduleReconnect();
+      };
+
+      this.ws.onerror = () => {
+        if (!this.connected) reject(new Error('WebSocket connection failed'));
+      };
+
       this.ws.onmessage = (event) => {
         try {
           const msg = JSON.parse(event.data);
@@ -55,6 +92,12 @@ export class RawBinClient {
           }
           if ((msg.type === MSG.PROFILE || msg.type === MSG.PROFILE_UPDATED) && msg.profile) {
             this._profile = msg.profile;
+            if (msg.profile.avatar && typeof window !== 'undefined') {
+              window.dispatchEvent(new CustomEvent('rb-avatar-updated', { detail: { token: msg.profile.token, url: msg.profile.avatar, crop: msg.profile.avatarCrop } }));
+            }
+          }
+          if (msg.type === MSG.MEMBER_JOINED && msg.member?.avatarUrl && typeof window !== 'undefined') {
+            window.dispatchEvent(new CustomEvent('rb-avatar-updated', { detail: { token: msg.member.playerToken, url: msg.member.avatarUrl, crop: msg.member.avatarCrop } }));
           }
           this.emit(msg.type, msg);
         } catch {}
@@ -62,16 +105,67 @@ export class RawBinClient {
     });
   }
 
+  private scheduleReconnect(): void {
+    if (!this.online) return;
+    this.cancelReconnect();
+    this.backoffMs = this.backoffMs === 0 ? 1000 : Math.min(this.backoffMs * 2, 30000);
+    this.emit('reconnecting', { backoffMs: this.backoffMs, queueLength: this.messageQueue.length });
+    this.backoffTimer = setTimeout(async () => {
+      this.backoffTimer = null;
+      try {
+        if (this.ws) { try { this.ws.close(); } catch {} }
+        this.ws = null;
+        await this.connect();
+        this.emit('reconnected', {});
+      } catch {
+        if (this.autoReconnect) this.scheduleReconnect();
+      }
+    }, this.backoffMs);
+  }
+
+  private cancelReconnect(): void {
+    if (this.backoffTimer) {
+      clearTimeout(this.backoffTimer);
+      this.backoffTimer = null;
+    }
+  }
+
   async reconnect(): Promise<void> {
+    this.cancelReconnect();
     if (this.ws) { try { this.ws.close(); } catch {} }
-    this.ws = null; this.connected = false;
-    this.emit('reconnecting', {});
+    this.ws = null;
+    this.connected = false;
+    this.backoffMs = 0;
+    this.emit('reconnecting', { backoffMs: 0, queueLength: this.messageQueue.length });
     await this.connect();
     this.emit('reconnected', {});
   }
 
   send(msg: object): void {
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) this.ws.send(JSON.stringify(msg));
+    const data = JSON.stringify(msg);
+    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+      this.ws.send(data);
+    } else {
+      this.messageQueue.push(data);
+      this.emit('queued', { queueLength: this.messageQueue.length });
+    }
+  }
+
+  private replayQueue(): void {
+    if (!this.ws || this.ws.readyState !== WebSocket.OPEN || this.messageQueue.length === 0) return;
+    const queued = this.messageQueue.splice(0);
+    for (const data of queued) {
+      this.ws.send(data);
+    }
+    this.emit('queue-flushed', { flushed: queued.length });
+  }
+
+  destroy(): void {
+    this.autoReconnect = false;
+    this.cancelReconnect();
+    if (this.ws) { try { this.ws.close(); } catch {} }
+    this.ws = null;
+    this.connected = false;
   }
 
   on(type: string, handler: MessageHandler): void {

@@ -882,7 +882,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       if (msg.avatar && msg.avatar.startsWith('/api/avatar/')) profile.avatar = msg.avatar;
       saveProfiles();
 
-      // Backfill avatar for existing users without one
+      // Backfill avatar for existing users without one — send updated PROFILE after
       if (profile.sshKeysGenerated && (!profile.avatar || !profile.avatar.startsWith('/api/avatar/'))) {
         fetchUniqueAvatar().then(dataUrl => {
           try {
@@ -893,6 +893,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
               profile!.avatar = `/api/avatar/${profile!.token}`;
               saveProfiles();
               addLog(`Avatar backfilled: ${profile!.token.slice(0, 8)}`);
+              send({ type: MSG.PROFILE_UPDATED, profile: { token: profile!.token, name: profile!.name, avatar: profile!.avatar, avatarCrop: profile!.avatarCrop, profileCommitted: profile!.profileCommitted, sshKeysGenerated: profile!.sshKeysGenerated } });
             }
           } catch {}
         }).catch(() => {});
@@ -1032,13 +1033,20 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
                 profile.avatar = `/api/avatar/${profile.token}`;
                 saveProfiles();
                 addLog(`Avatar assigned: ${profile.token.slice(0, 8)}`);
+                send({ type: MSG.PROFILE_UPDATED, profile: { token: profile.token, name: profile.name, avatar: profile.avatar, avatarCrop: profile.avatarCrop, profileCommitted: profile.profileCommitted, sshKeysGenerated: profile.sshKeysGenerated } });
               }
             } catch (e: any) { addLog(`Avatar encrypt failed: ${e?.message}`); }
           }).catch(() => {});
         }
       }
       saveProfiles();
-      send({ type: MSG.PROFILE_UPDATED, profile: { token: profile.token, name: profile.name, phone: profile.phone, url: profile.url, avatar: profile.avatar, secretCode: profile.secretCode, profileCommitted: profile.profileCommitted, sshKeysGenerated: profile.sshKeysGenerated } });
+      send({ type: MSG.PROFILE_UPDATED, profile: { token: profile.token, name: profile.name, phone: profile.phone, url: profile.url, avatar: profile.avatar, avatarCrop: profile.avatarCrop, secretCode: profile.secretCode, profileCommitted: profile.profileCommitted, sshKeysGenerated: profile.sshKeysGenerated } });
+
+      // Broadcast avatar/crop changes to room members
+      const memberRoom = roomManager.findMemberRoom(clientId);
+      if (memberRoom) {
+        memberRoom.broadcast({ type: MSG.MEMBER_JOINED, member: { id: clientId, name: profile.name, avatarUrl: profile.avatar || '/icon-192.png', playerToken: profile.token, avatarCrop: profile.avatarCrop }, memberCount: memberRoom.members.size }, clientId);
+      }
       break;
     }
 

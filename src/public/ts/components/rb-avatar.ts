@@ -25,8 +25,26 @@ class RbAvatar extends HTMLElement {
 
   static get observedAttributes() { return ['src', 'size', 'name', 'token', 'crop']; }
 
+  private boundRefresh: ((e: Event) => void) | null = null;
+
   constructor() { super(); this.shadow = this.attachShadow({ mode: 'open' }); }
-  connectedCallback(): void { this.render(); }
+
+  connectedCallback(): void {
+    this.render();
+    this.boundRefresh = (e: Event) => {
+      const d = (e as CustomEvent).detail;
+      if (d?.token && d.token === this.getToken()) {
+        if (d.url) this.setAttribute('src', d.url + '?t=' + Date.now());
+        if (d.crop !== undefined) this.setAttribute('crop', JSON.stringify(d.crop));
+      }
+    };
+    window.addEventListener('rb-avatar-updated', this.boundRefresh);
+  }
+
+  disconnectedCallback(): void {
+    if (this.boundRefresh) window.removeEventListener('rb-avatar-updated', this.boundRefresh);
+  }
+
   attributeChangedCallback(): void { if (this.isConnected) this.render(); }
 
   private getSize(): number { return parseInt(this.getAttribute('size') || '40'); }
@@ -126,6 +144,7 @@ class RbAvatar extends HTMLElement {
           ws.send({ type: 'UPDATE_PROFILE', avatarCrop: crop });
           this.setAttribute('crop', JSON.stringify(crop));
           this.closeOverlay();
+          window.dispatchEvent(new CustomEvent('rb-avatar-updated', { detail: { token, crop } }));
         }
       } catch {}
     });
@@ -143,9 +162,11 @@ class RbAvatar extends HTMLElement {
         const res = await fetch('/api/avatar', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playerToken: token, data: base64, mimeType: file.type }) });
         const result = await res.json();
         if (result.ok && result.avatarUrl) {
+          const tk = this.getToken() || localStorage.getItem('rawbin-player-id') || '';
           this.setAttribute('src', result.avatarUrl + '?t=' + Date.now());
           this.closeOverlay();
           this.dispatchEvent(new CustomEvent('rb-avatar-changed', { detail: { avatarUrl: result.avatarUrl }, bubbles: true, composed: true }));
+          window.dispatchEvent(new CustomEvent('rb-avatar-updated', { detail: { token: tk, url: result.avatarUrl } }));
         } else { alert(result.error || 'Upload failed'); }
       } catch { alert('Upload failed'); }
     });
