@@ -12,7 +12,7 @@ import './components/rb-avatar.js';
 import type { RbMemberList } from './components/rb-member-list.js';
 
 interface MemberInfo {
-  id: string; name: string; avatarUrl: string; playerToken: string;
+  id: string; name: string; avatarUrl: string; playerToken: string; avatarCrop?: { scale: number; x: number; y: number } | null;
 }
 
 export class RoomView {
@@ -116,7 +116,7 @@ export class RoomView {
     const el = document.getElementById('member-list') as RbMemberList | null;
     if (!el) return;
     el.setMembers(this.members.map(m => ({
-      id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken,
+      id: m.id, name: m.name, avatarUrl: m.avatarUrl, avatarCrop: m.avatarCrop, playerToken: m.playerToken,
       isHost: m.id === this.hostId, isSelf: m.id === this.client.clientId, isConnected: true,
     })));
   }

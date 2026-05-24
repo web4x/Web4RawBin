@@ -61,7 +61,7 @@ class RbAvatar extends HTMLElement {
     const initial = this.getName()[0]?.toUpperCase() || '?';
     const fontSize = Math.max(10, Math.round(size * 0.4));
     const crop = this.getCrop();
-    const cropStyle = crop ? `transform:scale(${crop.scale}) translate(${crop.x}px,${crop.y}px)` : '';
+    const cropStyle = crop ? `transform:scale(${crop.scale}) translate(${crop.x * size}px,${crop.y * size}px)` : '';
 
     this.shadow.innerHTML = `<style>${AVATAR_CSS}</style>
       <div class="circle" style="width:${size}px;height:${size}px">
@@ -137,7 +137,10 @@ class RbAvatar extends HTMLElement {
     this.overlayEl.querySelector('#ov-crop')?.addEventListener('click', async () => {
       const token = this.getToken() || localStorage.getItem('rawbin-player-id') || '';
       if (!token) return;
-      const crop = { scale: Math.round(this.scale * 100) / 100, x: Math.round(this.tx), y: Math.round(this.ty) };
+      const ovImg = this.overlayEl?.querySelector('#ov-img') as HTMLImageElement;
+      const imgW = ovImg?.offsetWidth || 300;
+      const imgH = ovImg?.offsetHeight || 300;
+      const crop = { scale: Math.round(this.scale * 100) / 100, x: Math.round((this.tx / imgW) * 1000) / 1000, y: Math.round((this.ty / imgH) * 1000) / 1000 };
       try {
         const ws = (window as any).__rawbinClient;
         if (ws) {

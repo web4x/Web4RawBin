@@ -46,7 +46,7 @@ export class RoomBrowser {
         </div>
         <div class="lobby-name">
           <div class="lobby-name-row">
-            <rb-avatar size="48" src="${this.client.getProfile()?.avatar || ''}" name="${this.memberName}" token="${this.client.playerToken}"></rb-avatar>
+            <rb-avatar size="48" src="${this.client.getProfile()?.avatar || ''}" name="${this.memberName}" token="${this.client.playerToken}" crop='${JSON.stringify(this.client.getProfile()?.avatarCrop || '')}'></rb-avatar>
             <div class="lobby-name-field">
               <label>Your Name</label>
               <input type="text" id="member-name" value="${this.memberName}" maxlength="20" placeholder="Enter name...">

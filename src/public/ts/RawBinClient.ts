@@ -4,7 +4,8 @@ type MessageHandler = (msg: any) => void;
 
 export interface UserProfile {
   token: string; name: string; phone: string; url: string;
-  avatar: string; secretCode: string; profileCommitted: boolean;
+  avatar: string; avatarCrop?: { scale: number; x: number; y: number } | null;
+  secretCode: string; profileCommitted: boolean;
 }
 
 export class RawBinClient {

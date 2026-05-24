@@ -721,7 +721,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       };
       const room = roomManager.createRoom(roomName, member, { maxMembers: msg.maxPlayers || 10, isPrivate: !!msg.roomKey, roomKey: msg.roomKey || '' });
       if (msg.playerToken) tokenToClient.set(msg.playerToken, clientId);
-      room.sendTo(clientId, { type: MSG.ROOM_JOINED, room: room.info(), members: [...room.members.values()].map(m => ({ id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken })) });
+      room.sendTo(clientId, { type: MSG.ROOM_JOINED, room: room.info(), members: [...room.members.values()].map(m => ({ id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken, avatarCrop: userProfiles.get(m.playerToken)?.avatarCrop || null })) });
       addLog(`Room created: ${room.name} (${room.id}) by ${clientId.slice(0,8)}`);
       break;
     }

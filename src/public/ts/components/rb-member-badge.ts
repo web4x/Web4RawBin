@@ -1,6 +1,6 @@
 import './rb-avatar.js';
 
-const BADGE_ATTRS = ['name', 'avatar-url', 'player-token', 'is-host', 'is-self', 'is-connected'] as const;
+const BADGE_ATTRS = ['name', 'avatar-url', 'avatar-crop', 'player-token', 'is-host', 'is-self', 'is-connected'] as const;
 
 export class RbMemberBadge extends HTMLElement {
   static get observedAttributes() { return [...BADGE_ATTRS]; }
@@ -19,7 +19,7 @@ export class RbMemberBadge extends HTMLElement {
     this.className = `mb-badge${isSelf ? ' mb-self' : ''}`;
 
     this.innerHTML = `
-      <rb-avatar size="24" src="${avatarUrl}" name="${name}" token="${token}"></rb-avatar>
+      <rb-avatar size="24" src="${avatarUrl}" name="${name}" token="${token}" crop='${this.getAttribute('avatar-crop') || ''}'></rb-avatar>
       <span class="mb-name">${name}${isSelf ? ' (you)' : ''}</span>
       ${isHost ? '<span class="mb-host" title="Host">★</span>' : ''}
       <span class="mb-status" style="color:${isConnected ? '#4CAF50' : '#f44336'}" title="${isConnected ? 'Connected' : 'Disconnected'}">●</span>
