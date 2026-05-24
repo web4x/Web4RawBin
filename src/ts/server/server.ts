@@ -879,8 +879,24 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
         userProfiles.set(token, profile);
       }
       if (msg.name) profile.name = msg.name;
-      if (msg.avatar) profile.avatar = msg.avatar;
+      if (msg.avatar && msg.avatar.startsWith('/api/avatar/')) profile.avatar = msg.avatar;
       saveProfiles();
+
+      // Backfill avatar for existing users without one
+      if (profile.sshKeysGenerated && (!profile.avatar || !profile.avatar.startsWith('/api/avatar/'))) {
+        fetchUniqueAvatar().then(dataUrl => {
+          try {
+            const match = dataUrl.match(/^data:image\/\w+;base64,(.+)$/);
+            if (match) {
+              const buf = Buffer.from(match[1], 'base64');
+              encryptFile(profile!.token, buf, 'image/jpeg', 'avatar.jpg', 'avatar');
+              profile!.avatar = `/api/avatar/${profile!.token}`;
+              saveProfiles();
+              addLog(`Avatar backfilled: ${profile!.token.slice(0, 8)}`);
+            }
+          } catch {}
+        }).catch(() => {});
+      }
 
       // Device tracking in separate store
       const devId = msg.deviceId || '';

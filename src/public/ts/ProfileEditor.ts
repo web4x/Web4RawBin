@@ -41,10 +41,11 @@ export class ProfileEditor {
         </div>
         <div class="profile-avatar-row">
           <div class="profile-avatar-preview" id="pe-avatar-preview">${initial.avatar ? `<img src="${initial.avatar}" alt="avatar">` : '<span class="avatar-placeholder">?</span>'}</div>
-          <label class="btn btn-small btn-secondary profile-avatar-btn">
-            Upload Photo
+          <label class="btn btn-primary profile-avatar-upload" id="pe-avatar-label">
+            ${initial.avatar ? 'Change Photo' : 'Add Photo'}
             <input type="file" accept="image/*" id="pe-avatar-input" style="display:none">
           </label>
+          <p class="profile-avatar-hint">Max 500KB</p>
         </div>
         <div class="profile-fields">
           <label>Name${mode === 'gate' ? ' *' : ''}</label>
@@ -103,6 +104,8 @@ export class ProfileEditor {
         if (result.ok && result.avatarUrl) {
           this.avatarUrl = result.avatarUrl;
           if (preview) preview.innerHTML = `<img src="${result.avatarUrl}" alt="avatar">`;
+          const label = document.getElementById('pe-avatar-label');
+          if (label) label.childNodes[0].textContent = 'Change Photo';
         } else {
           alert(result.error || 'Upload failed');
           if (preview) preview.innerHTML = '<span class="avatar-placeholder">?</span>';
