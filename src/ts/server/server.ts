@@ -91,6 +91,7 @@ interface UserProfile {
   phone: string;
   url: string;
   avatar: string;
+  avatarCrop: { scale: number; x: number; y: number } | null;
   secretCode: string;
   profileCommitted: boolean;
   sshKeysGenerated: boolean;
@@ -128,7 +129,7 @@ function loadProfiles(): void {
       for (const p of data) {
         const profile: UserProfile = {
           token: p.token, name: p.name || '', phone: p.phone || '', url: p.url || '',
-          avatar: p.avatar || '', secretCode: p.secretCode || generateSecretCode(),
+          avatar: p.avatar || '', avatarCrop: p.avatarCrop || null, secretCode: p.secretCode || generateSecretCode(),
           profileCommitted: p.profileCommitted || false,
           sshKeysGenerated: p.sshKeysGenerated || false,
           sshKeyGeneratedAt: p.sshKeyGeneratedAt || '',
@@ -875,7 +876,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
 
       let profile = userProfiles.get(token);
       if (!profile) {
-        profile = { token, name: '', phone: '', url: '', avatar: '', secretCode: generateSecretCode(), profileCommitted: false, sshKeysGenerated: false, sshKeyGeneratedAt: '', consolidatedFrom: [], bugReports: [] };
+        profile = { token, name: '', phone: '', url: '', avatar: '', avatarCrop: null, secretCode: generateSecretCode(), profileCommitted: false, sshKeysGenerated: false, sshKeyGeneratedAt: '', consolidatedFrom: [], bugReports: [] };
         userProfiles.set(token, profile);
       }
       if (msg.name) profile.name = msg.name;
@@ -1013,6 +1014,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       if (typeof msg.phone === 'string') profile.phone = msg.phone.slice(0, 30);
       if (typeof msg.url === 'string') profile.url = msg.url.slice(0, 200);
       if (typeof msg.avatar === 'string' && msg.avatar.startsWith('/api/avatar/')) profile.avatar = msg.avatar;
+      if (msg.avatarCrop && typeof msg.avatarCrop === 'object') profile.avatarCrop = { scale: Number(msg.avatarCrop.scale) || 1, x: Number(msg.avatarCrop.x) || 0, y: Number(msg.avatarCrop.y) || 0 };
       if (typeof msg.secretCode === 'string' && /^\d{4}$/.test(msg.secretCode)) profile.secretCode = msg.secretCode;
       if (profile.name) profile.profileCommitted = true;
       if (profile.profileCommitted && !profile.sshKeysGenerated) {

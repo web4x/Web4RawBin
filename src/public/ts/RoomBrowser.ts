@@ -1,5 +1,7 @@
 import { RawBinClient, shareOrCopy } from './RawBinClient.js';
 import { MSG } from '../../shared/MessageTypes.js';
+import './components/rb-header.js';
+import './components/rb-avatar.js';
 
 interface RoomInfo {
   id: string; name: string; hostId: string; memberCount: number;
@@ -39,17 +41,17 @@ export class RoomBrowser {
     this.container.innerHTML = `
       <div class="lobby">
         <div class="lobby-header">
-          <div class="lobby-header-row">
-            <a href="/" class="btn btn-header" title="Home">🏠</a>
-            <h1>RawBin</h1>
-            <button id="lobby-reload-btn" class="btn btn-header" title="Reload">↻</button>
-            <button id="lobby-fullscreen-btn" class="btn btn-header" title="Fullscreen">⛶</button>
-          </div>
+          <rb-header title="RawBin" show-home show-reload show-fullscreen></rb-header>
           <p class="lobby-subtitle">Collaborative Rooms</p>
         </div>
         <div class="lobby-name">
-          <label>Your Name</label>
-          <input type="text" id="member-name" value="${this.memberName}" maxlength="20" placeholder="Enter name...">
+          <div class="lobby-name-row">
+            <rb-avatar size="48" src="${this.client.getProfile()?.avatar || ''}" name="${this.memberName}" token="${this.client.playerToken}"></rb-avatar>
+            <div class="lobby-name-field">
+              <label>Your Name</label>
+              <input type="text" id="member-name" value="${this.memberName}" maxlength="20" placeholder="Enter name...">
+            </div>
+          </div>
         </div>
         <div class="lobby-actions">
           <button id="create-room-btn" class="btn btn-primary">Create Room</button>
@@ -79,14 +81,6 @@ export class RoomBrowser {
   }
 
   private setupEvents(): void {
-    document.getElementById('lobby-reload-btn')?.addEventListener('click', () => location.reload());
-    document.getElementById('lobby-fullscreen-btn')?.addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen?.();
-      } else {
-        document.exitFullscreen?.();
-      }
-    });
     const nameInput = document.getElementById('member-name') as HTMLInputElement;
     nameInput?.addEventListener('change', () => {
       this.memberName = nameInput.value.trim() || 'User';
