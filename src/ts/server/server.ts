@@ -16,6 +16,7 @@ import { marked } from 'marked';
 import { RoomManager, type RoomMember } from './Room.js';
 import { MSG } from '../shared/MessageTypes.js';
 import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
+import { encryptFile, decryptFile, fileExists } from './UserCrypto.js';
 
 const execAsync = promisify(exec);
 const ADMIN_KEY = process.env.ADMIN_KEY || crypto.randomUUID();
@@ -311,6 +312,29 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const uptime = Math.floor((Date.now() - serverStartTime.getTime()) / 1000);
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
       res.end(JSON.stringify({ status: 'ok', uptime, version: PKG_VERSION, connections: wsClients.size, rooms: roomManager.size }));
+      return;
+    }
+
+    if (filepath.startsWith('/api/avatar/')) {
+      const token = filepath.slice('/api/avatar/'.length).split('/')[0];
+      if (!token || !fileExists(token, 'avatar')) {
+        const fallback = path.join(PUBLIC_DIR, 'icon-192.png');
+        try {
+          const data = await fs.readFile(fallback);
+          res.writeHead(200, { 'Content-Type': 'image/png', 'Cache-Control': 'public, max-age=3600' });
+          res.end(data);
+        } catch { res.writeHead(404); res.end('Not found'); }
+        return;
+      }
+      try {
+        const encPath = path.join(__dirname, '../../../data/users', token, 'files', 'avatar.enc');
+        const encData = await fs.readFile(encPath);
+        const etag = '"' + crypto.createHash('md5').update(encData).digest('hex') + '"';
+        if (req.headers['if-none-match'] === etag) { res.writeHead(304); res.end(); return; }
+        const { data, mimeType } = decryptFile(token, 'avatar');
+        res.writeHead(200, { 'Content-Type': mimeType, 'ETag': etag, 'Cache-Control': 'public, max-age=3600' });
+        res.end(data);
+      } catch { res.writeHead(500); res.end('Decrypt error'); }
       return;
     }
 
@@ -955,6 +979,20 @@ function handleMessage(clientId: string, ws: WebSocket, avatarUrl: string, msg: 
         writeUserProfile(profile.token, { token: profile.token, name: profile.name, phone: profile.phone, url: profile.url });
         profile.sshKeysGenerated = true;
         profile.sshKeyGeneratedAt = new Date().toISOString();
+        if (!profile.avatar || !profile.avatar.startsWith('/api/avatar/')) {
+          fetchUniqueAvatar().then(dataUrl => {
+            try {
+              const match = dataUrl.match(/^data:image\/\w+;base64,(.+)$/);
+              if (match) {
+                const buf = Buffer.from(match[1], 'base64');
+                encryptFile(profile.token, buf, 'image/jpeg', 'avatar.jpg', 'avatar');
+                profile.avatar = `/api/avatar/${profile.token}`;
+                saveProfiles();
+                addLog(`Avatar assigned: ${profile.token.slice(0, 8)}`);
+              }
+            } catch (e: any) { addLog(`Avatar encrypt failed: ${e?.message}`); }
+          }).catch(() => {});
+        }
       }
       saveProfiles();
       send({ type: MSG.PROFILE_UPDATED, profile: { token: profile.token, name: profile.name, phone: profile.phone, url: profile.url, avatar: profile.avatar, secretCode: profile.secretCode, profileCommitted: profile.profileCommitted, sshKeysGenerated: profile.sshKeysGenerated } });
