@@ -298,7 +298,6 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (!data || !mimeType) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Missing data or mimeType' })); return; }
           if (!mimeType.startsWith('image/')) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'mimeType must be image/*' })); return; }
           const buf = Buffer.from(data, 'base64');
-          if (buf.length > 500 * 1024) { res.writeHead(413, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'File too large (max 500KB)' })); return; }
           const profile = userProfiles.get(playerToken);
           if (!profile?.sshKeysGenerated) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'SSH keys not generated' })); return; }
           encryptFile(playerToken, buf, mimeType, 'avatar.jpg', 'avatar');

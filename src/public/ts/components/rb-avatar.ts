@@ -134,7 +134,7 @@ class RbAvatar extends HTMLElement {
     const fileInput = this.overlayEl.querySelector('#ov-file') as HTMLInputElement;
     fileInput?.addEventListener('change', async () => {
       const file = fileInput.files?.[0];
-      if (!file || file.size > 500 * 1024 || !file.type.startsWith('image/')) { if (file && file.size > 500 * 1024) alert('Max 500KB'); return; }
+      if (!file || !file.type.startsWith('image/')) { if (file) alert('Must be an image'); return; }
       const token = this.getToken() || localStorage.getItem('rawbin-player-id') || '';
       if (!token) return;
       const buf = await file.arrayBuffer();
