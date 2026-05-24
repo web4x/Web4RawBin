@@ -1,8 +1,10 @@
 const AVATAR_CSS = `
 :host { display: inline-block; cursor: pointer; flex-shrink: 0; }
 .circle { border-radius: 50%; overflow: hidden; display: block; position: relative; background: rgba(102,126,234,0.15); }
-.circle img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.circle .initial { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+.circle img { display: none; width: 100%; height: 100%; object-fit: cover; }
+.circle img.loaded { display: block; }
+.circle .initial { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; position: absolute; inset: 0; }
+.circle img.loaded + .initial { display: none; }
 .initial { color: #667eea; font-weight: 700; }
 .overlay { position: fixed; inset: 0; z-index: 3000; background: rgba(0,0,0,0.92); display: flex; flex-direction: column; align-items: center; justify-content: center; touch-action: none; }
 .overlay img { max-width: 90vw; max-height: 70vh; border-radius: 12px; object-fit: contain; will-change: transform; }
@@ -74,16 +76,16 @@ class RbAvatar extends HTMLElement {
 
     this.shadow.innerHTML = `<style>${AVATAR_CSS}</style>
       <div class="circle" style="width:${size}px;height:${size}px">
-        ${src ? `<img src="${src}" alt="${initial}" id="img" style="${cropStyle}">` : `<span class="initial"><span style="font-size:${fontSize}px">${initial}</span></span>`}
+        ${src ? `<img src="${src}" alt="${initial}" id="img" style="${cropStyle}">` : ''}
+        <span class="initial"><span style="font-size:${fontSize}px">${initial}</span></span>
       </div>`;
 
     const img = this.shadow.getElementById('img') as HTMLImageElement;
-    if (img) img.addEventListener('error', () => {
-      const span = document.createElement('span');
-      span.className = 'initial';
-      span.innerHTML = `<span style="font-size:${fontSize}px">${initial}</span>`;
-      img.replaceWith(span);
-    });
+    if (img) {
+      img.addEventListener('load', () => { img.classList.add('loaded'); });
+      img.addEventListener('error', () => { img.remove(); });
+      if (img.complete && img.naturalWidth > 0) img.classList.add('loaded');
+    }
     this.shadow.querySelector('.circle')?.addEventListener('click', (e) => { e.stopPropagation(); this.openOverlay(); });
   }
 
