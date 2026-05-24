@@ -288,6 +288,31 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
+    if (req.method === 'POST' && filepath === '/api/avatar') {
+      let body = '';
+      req.on('data', (chunk: Buffer) => body += chunk);
+      req.on('end', () => {
+        try {
+          const { playerToken, data, mimeType } = JSON.parse(body);
+          if (!playerToken || !tokenToClient.has(playerToken)) { res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unauthenticated' })); return; }
+          if (!data || !mimeType) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Missing data or mimeType' })); return; }
+          if (!mimeType.startsWith('image/')) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'mimeType must be image/*' })); return; }
+          const buf = Buffer.from(data, 'base64');
+          if (buf.length > 500 * 1024) { res.writeHead(413, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'File too large (max 500KB)' })); return; }
+          const profile = userProfiles.get(playerToken);
+          if (!profile?.sshKeysGenerated) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'SSH keys not generated' })); return; }
+          encryptFile(playerToken, buf, mimeType, 'avatar.jpg', 'avatar');
+          const avatarUrl = `/api/avatar/${playerToken}`;
+          profile.avatar = avatarUrl;
+          saveProfiles();
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: true, avatarUrl }));
+          addLog(`Avatar uploaded: ${playerToken.slice(0,8)} (${buf.length} bytes)`);
+        } catch (e: any) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'Bad request' })); }
+      });
+      return;
+    }
+
     if (filepath === '/api/bugs') {
       const allBugs: any[] = [];
       userProfiles.forEach((p, token) => {
