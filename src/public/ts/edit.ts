@@ -1,4 +1,6 @@
 import './components/rb-update-banner.js';
+import './components/rb-editor-layout.js';
+import type { RbEditorLayout } from './components/rb-editor-layout.js';
 
 if (!document.querySelector('rb-update-banner')) {
   document.body.prepend(document.createElement('rb-update-banner'));
@@ -9,7 +11,7 @@ const EXT_TO_LANG: Record<string, string> = {
   '.js': 'javascript', '.mjs': 'javascript', '.jsx': 'javascript',
   '.css': 'css', '.json': 'json', '.html': 'html', '.svg': 'xml',
   '.yml': 'yaml', '.yaml': 'yaml', '.xml': 'xml', '.puml': 'plaintext',
-  '.env': 'plaintext', '.txt': 'plaintext', '.toml': 'plaintext',
+  '.env': 'ini', '.txt': 'plaintext', '.toml': 'plaintext',
 };
 
 function getLanguage(filePath: string): string {
@@ -20,7 +22,7 @@ function getLanguage(filePath: string): string {
 const pathEl = document.getElementById('file-path')!;
 const statusEl = document.getElementById('save-status')!;
 const saveBtn = document.getElementById('save-btn')!;
-const monacoDiv = document.getElementById('monaco')!;
+const layout = document.getElementById('layout') as RbEditorLayout;
 
 const rawPath = location.pathname.replace(/^\/edit\/?/, '');
 const filePath = decodeURIComponent(rawPath);
@@ -29,6 +31,9 @@ document.title = `${filePath.split('/').pop() || 'Editor'} — RawBin`;
 
 let editor: any = null;
 let currentMtime: string = '';
+
+document.getElementById('toggle-tree')?.addEventListener('click', () => layout.toggleTree());
+document.getElementById('toggle-preview')?.addEventListener('click', () => layout.togglePreview());
 
 async function loadFile(): Promise<{ content: string; mtime: string } | null> {
   if (!filePath) return null;
@@ -75,11 +80,14 @@ async function init(): Promise<void> {
     const require = (window as any).require;
     require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs' } });
     require(['vs/editor/editor.main'], (monaco: any) => {
-      monacoDiv.innerHTML = '';
+      const editorPanel = layout.editorEl;
+      if (!editorPanel) return;
+      editorPanel.innerHTML = '';
+
       const lang = getLanguage(filePath);
       const isMarkdown = lang === 'markdown';
 
-      editor = monaco.editor.create(monacoDiv, {
+      editor = monaco.editor.create(editorPanel, {
         value: file?.content || '',
         language: lang,
         theme: 'vs-dark',

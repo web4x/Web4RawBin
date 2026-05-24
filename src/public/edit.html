@@ -8,6 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#1e1e1e">
   <title>RawBin Editor</title>
+  <!-- Monaco editor loaded dynamically from cdn.jsdelivr.net via edit.ts -->
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
   <link rel="apple-touch-icon" href="/icon-192.png">
@@ -22,7 +23,7 @@
     #save-status { font-size: 0.75rem; opacity: 0.6; }
     .tb-btn { background: none; border: 1px solid #555; color: #ccc; padding: 3px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
     .tb-btn:hover { background: #3c3c3c; }
-    #monaco { width: 100%; height: calc(100vh - 36px - env(safe-area-inset-top)); }
+    rb-editor-layout { width: 100%; height: calc(100vh - 36px - env(safe-area-inset-top)); }
     #loading { display: flex; align-items: center; justify-content: center; height: 80vh; color: #666; font-size: 1.2rem; }
   </style>
 </head>
@@ -34,9 +35,11 @@
       <a href="/md/" title="Browse files">📂</a>
       <span id="file-path">Loading...</span>
       <span id="save-status"></span>
+      <button class="tb-btn" id="toggle-tree" title="Toggle file tree">📂</button>
+      <button class="tb-btn" id="toggle-preview" title="Toggle preview">👁</button>
       <button class="tb-btn" id="save-btn" title="Cmd+S">Save</button>
     </div>
-    <div id="monaco"><div id="loading">Loading editor...</div></div>
+    <rb-editor-layout id="layout"><div id="loading">Loading editor...</div></rb-editor-layout>
   </div>
   <script type="module" src="dist/edit.js"></script>
 </body>
