@@ -238,18 +238,6 @@ export class RawBinClient {
   sendBugReport(text: string): void { this.send({ type: MSG.BUG_REPORT, text }); }
 }
 
-export function guardClick(btn: HTMLElement, action: () => void | Promise<void>): void {
-  btn.addEventListener('click', async () => {
-    if ((btn as HTMLButtonElement).disabled) return;
-    (btn as HTMLButtonElement).disabled = true;
-    btn.classList.add('loading');
-    try { await action(); } finally {
-      (btn as HTMLButtonElement).disabled = false;
-      btn.classList.remove('loading');
-    }
-  });
-}
-
 export async function shareOrCopy(url: string, feedbackEl?: HTMLElement, roomName?: string): Promise<void> {
   const suffix = roomName ? ` — ${roomName}` : '';
   if (navigator.share) {
