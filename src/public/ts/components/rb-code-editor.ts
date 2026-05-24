@@ -73,7 +73,7 @@ export class RbCodeEditor extends HTMLElement {
           value: '',
           language: 'plaintext',
           theme: 'vs-dark',
-          minimap: { enabled: true },
+          minimap: { enabled: window.innerWidth >= 768 },
           wordWrap: 'off',
           fontSize: 14,
           tabSize: 2,
