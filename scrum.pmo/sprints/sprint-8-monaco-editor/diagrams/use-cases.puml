@@ -1,0 +1,105 @@
+@startuml Monaco Editor — Use Cases
+!theme plain
+skinparam usecase {
+  BackgroundColor<<core>> LightBlue
+  BackgroundColor<<api>> LightGreen
+  BackgroundColor<<ui>> LightYellow
+}
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+
+title RawBin Monaco Editor — Use Cases
+
+actor "User\n(Browser)" as User
+actor "Server\n(server.ts)" as Server
+actor "Filesystem\n(PROJECT_ROOT)" as FS
+
+rectangle "UC-FB: File Browser" {
+  usecase "file.browse\nNavigate directory tree" as UC_FB1 <<ui>>
+  usecase "file.open\nSelect file to edit" as UC_FB2 <<ui>>
+  usecase "file.filter\nShow only supported types\n(.md .sh .puml .ts .css .json)" as UC_FB3 <<ui>>
+  usecase "tree.expand\nLazy-load subdirectories" as UC_FB4 <<ui>>
+  usecase "tree.collapse\nFold directory node" as UC_FB5 <<ui>>
+
+  UC_FB1 -down-> UC_FB4 : <<include>>
+  UC_FB1 -down-> UC_FB5 : <<include>>
+  UC_FB1 -right-> UC_FB3 : <<include>>
+  UC_FB2 -right-> UC_FB3 : <<include>>
+}
+
+rectangle "UC-ED: Monaco Editor" {
+  usecase "editor.open\nLoad file content into\nMonaco editor panel" as UC_ED1 <<core>>
+  usecase "editor.highlight\nApply syntax highlighting\n(bash, markdown, plantuml,\ntypescript, css, json)" as UC_ED2 <<core>>
+  usecase "editor.save\nWrite buffer to disk\n(Cmd+S / Ctrl+S)" as UC_ED3 <<core>>
+  usecase "editor.dirty\nTrack unsaved changes\n(dot indicator in tab)" as UC_ED4 <<core>>
+  usecase "editor.undo\nMonaco built-in undo/redo" as UC_ED5 <<core>>
+
+  UC_ED1 -down-> UC_ED2 : <<include>>
+  UC_ED1 -down-> UC_ED4 : <<include>>
+  UC_ED3 -down-> UC_ED4 : <<include>>
+}
+
+rectangle "UC-PV: Preview Panel" {
+  usecase "preview.markdown\nRender .md via marked.js\n(live, side-by-side)" as UC_PV1 <<ui>>
+  usecase "preview.puml\nRender .puml as SVG\n(via server-side plantuml)" as UC_PV2 <<ui>>
+  usecase "preview.toggle\nShow/hide preview panel" as UC_PV3 <<ui>>
+  usecase "preview.sync\nScroll-sync editor ↔ preview" as UC_PV4 <<ui>>
+
+  UC_PV1 -down-> UC_PV4 : <<include>>
+}
+
+rectangle "UC-API: File API (Backend)" {
+  usecase "api.readDir\nGET /api/files/<path>/\nList directory entries" as UC_API1 <<api>>
+  usecase "api.readFile\nGET /api/files/<path>\nRead file content as text" as UC_API2 <<api>>
+  usecase "api.writeFile\nPUT /api/files/<path>\nWrite content back to disk" as UC_API3 <<api>>
+  usecase "api.authorize\nValidate request origin\n(same-origin, admin key,\nor WS auth token)" as UC_API4 <<api>>
+  usecase "api.sanitize\nReject path traversal (..)\nReject binary files\nReject files outside PROJECT_ROOT" as UC_API5 <<api>>
+
+  UC_API1 -down-> UC_API4 : <<include>>
+  UC_API1 -down-> UC_API5 : <<include>>
+  UC_API2 -down-> UC_API4 : <<include>>
+  UC_API2 -down-> UC_API5 : <<include>>
+  UC_API3 -down-> UC_API4 : <<include>>
+  UC_API3 -down-> UC_API5 : <<include>>
+}
+
+rectangle "UC-LY: Layout" {
+  usecase "layout.split\nThree-panel layout:\ntree | editor | preview" as UC_LY1 <<ui>>
+  usecase "layout.resize\nDraggable panel dividers" as UC_LY2 <<ui>>
+  usecase "layout.mobile\nCollapse to single panel\nwith tab switching" as UC_LY3 <<ui>>
+}
+
+' Actor connections
+User --> UC_FB1
+User --> UC_FB2
+User --> UC_ED1
+User --> UC_ED3
+User --> UC_PV3
+User --> UC_LY1
+
+Server --> UC_API1
+Server --> UC_API2
+Server --> UC_API3
+
+FS --> UC_API1
+FS --> UC_API2
+FS --> UC_API3
+
+' Cross-rectangle dependencies
+UC_FB2 ..> UC_ED1 : <<triggers>>
+UC_FB2 ..> UC_API2 : <<triggers>>
+UC_ED3 ..> UC_API3 : <<triggers>>
+UC_ED1 ..> UC_PV1 : <<triggers>>\nif .md
+UC_ED1 ..> UC_PV2 : <<triggers>>\nif .puml
+UC_FB1 ..> UC_API1 : <<triggers>>
+
+legend right
+  |= Color |= Category |
+  | <back:LightBlue>   </back> | Core editor |
+  | <back:LightGreen>   </back> | Backend API |
+  | <back:LightYellow>   </back> | UI / Layout |
+end legend
+
+footer Total: 20 use cases across 5 groups\nFile types: .md .sh .puml .ts .css .json .html
+
+@enduml
