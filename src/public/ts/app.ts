@@ -84,57 +84,8 @@ async function init() {
 
 init();
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').then((reg) => {
-    reg.addEventListener('updatefound', () => {
-      const newWorker = reg.installing;
-      if (!newWorker) return;
-      newWorker.addEventListener('statechange', () => {
-        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-          showUpdateBanner();
-        }
-      });
-    });
-  }).catch(() => {});
+import './components/rb-update-banner.js';
 
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    location.reload();
-  });
+if (!document.querySelector('rb-update-banner')) {
+  document.body.prepend(document.createElement('rb-update-banner'));
 }
-
-async function checkForUpdate(): Promise<void> {
-  try {
-    const res = await fetch('/api/config');
-    const config = await res.json();
-    const cachedVersion = localStorage.getItem('rawbin-version');
-    if (!cachedVersion) {
-      localStorage.setItem('rawbin-version', config.version);
-      return;
-    }
-    if (cachedVersion !== config.version) {
-      showUpdateBanner(config.version);
-    }
-  } catch {}
-}
-
-function showUpdateBanner(version?: string): void {
-  if (document.getElementById('update-banner')) return;
-  const banner = document.createElement('div');
-  banner.id = 'update-banner';
-  banner.className = 'update-banner';
-  const label = version ? `v${version} available` : 'New version available';
-  banner.innerHTML = `<span>${label}</span><button id="update-now">Update Now</button>`;
-  document.body.prepend(banner);
-  document.getElementById('update-now')?.addEventListener('click', async () => {
-    if (version) localStorage.setItem('rawbin-version', version);
-    banner.remove();
-    const reg = await navigator.serviceWorker?.getRegistration?.();
-    if (reg?.waiting) {
-      reg.waiting.postMessage('SKIP_WAITING');
-    } else {
-      location.reload();
-    }
-  });
-}
-
-checkForUpdate();

@@ -1,6 +1,6 @@
 {
   "name": "rawbin",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "RawBin — AI Server Management Interface",
   "type": "module",
   "scripts": {
@@ -27,6 +27,7 @@
     "@types/node-fetch": "^2.6.13",
     "@types/ws": "^8.18.1",
     "esbuild": "^0.28.0",
+    "jsdom": "^29.1.1",
     "marked": "^18.0.4",
     "node-fetch": "^3.3.2",
     "qrcode": "^1.5.4",

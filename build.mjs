@@ -15,7 +15,7 @@ if (fs.existsSync(distDir)) {
 }
 
 const result = await esbuild.build({
-  entryPoints: ['src/public/ts/app.ts'],
+  entryPoints: ['src/public/ts/app.ts', 'src/public/ts/components/rb-update-banner.ts'],
   bundle: true,
   format: 'esm',
   target: 'es2020',
@@ -26,16 +26,17 @@ const result = await esbuild.build({
   metafile: true,
 });
 
-// Find the output filename
-const outputs = Object.keys(result.metafile.outputs);
-const jsFile = outputs.find(f => f.endsWith('.js') && !f.endsWith('.map'));
+// Find output filenames
+const outputs = Object.keys(result.metafile.outputs).filter(f => f.endsWith('.js') && !f.endsWith('.map'));
+const jsFile = outputs.find(f => path.basename(f).startsWith('app-'));
+const bannerFile = outputs.find(f => path.basename(f).startsWith('rb-update-banner-'));
 const jsBasename = path.basename(jsFile);
+const bannerBasename = bannerFile ? path.basename(bannerFile) : null;
 
 // Write build manifest for server to read
-fs.writeFileSync(path.join(distDir, 'build-manifest.json'), JSON.stringify({
-  'app.js': jsBasename,
-  built: new Date().toISOString(),
-}, null, 2));
+const manifest = { 'app.js': jsBasename, built: new Date().toISOString() };
+if (bannerBasename) manifest['rb-update-banner.js'] = bannerBasename;
+fs.writeFileSync(path.join(distDir, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
 
 // Stamp CACHE_NAME in sw.js with current version
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
