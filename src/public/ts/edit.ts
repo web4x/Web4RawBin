@@ -31,6 +31,8 @@ let codeEditor: RbCodeEditor | null = null;
 let preview: RbPreview | null = null;
 
 function isMarkdown(path: string): boolean { return path.endsWith('.md'); }
+function isPuml(path: string): boolean { return path.endsWith('.puml'); }
+function hasPreview(path: string): boolean { return isMarkdown(path) || isPuml(path); }
 
 function updatePreview(): void {
   if (!preview || !codeEditor || !isMarkdown(filePath)) return;
@@ -65,6 +67,7 @@ async function saveFile(path: string, content: string, force?: boolean): Promise
       statusEl.textContent = 'Saved';
       statusEl.style.color = '#4CAF50';
       codeEditor?.clearDirty();
+      if (isPuml(path) && preview) preview.renderPuml(content);
       setTimeout(() => { if (statusEl.textContent === 'Saved') { statusEl.textContent = ''; statusEl.style.color = ''; } }, 2000);
     } else if (result.conflict) {
       statusEl.textContent = 'Conflict!';
@@ -95,7 +98,7 @@ async function openFile(path: string): Promise<void> {
   statusEl.textContent = '';
   const file = await fetchFile(path);
   if (codeEditor) await codeEditor.loadFile(path, file?.content || '');
-  if (isMarkdown(path)) {
+  if (hasPreview(path)) {
     layout.showPreview();
     if (preview && file) preview.setContentImmediate(file.content, path);
   } else {
@@ -140,7 +143,7 @@ async function init(): Promise<void> {
   if (filePath) {
     const file = await fetchFile(filePath);
     if (codeEditor) await codeEditor.loadFile(filePath, file?.content || '');
-    if (isMarkdown(filePath) && file) {
+    if (hasPreview(filePath) && file) {
       layout.showPreview();
       if (preview) preview.setContentImmediate(file.content, filePath);
     } else {

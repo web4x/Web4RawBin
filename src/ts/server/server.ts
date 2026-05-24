@@ -340,6 +340,24 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
+    if (req.method === 'POST' && filepath === '/api/puml-render') {
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; if (body.length > 500000) { res.writeHead(413); res.end('Too large'); } });
+      req.on('end', () => {
+        try {
+          const { execFileSync } = require('node:child_process');
+          const svg = execFileSync('plantuml', ['-tsvg', '-pipe'], { input: body, maxBuffer: 2 * 1024 * 1024, timeout: 15000 }).toString();
+          res.writeHead(200, { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'no-cache' });
+          res.end(svg);
+        } catch (e: any) {
+          const stderr = e?.stderr?.toString() || e?.message || 'PlantUML render failed';
+          if (e?.code === 'ENOENT') { res.writeHead(501, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'plantuml not installed on server' })); }
+          else { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: stderr })); }
+        }
+      });
+      return;
+    }
+
     if (filepath.startsWith('/api/files/')) {
       const playerToken = req.headers['x-player-token'] as string || '';
       const adminKey = req.headers['x-admin-key'] as string || '';
