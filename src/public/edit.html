@@ -30,15 +30,7 @@
 <body>
   <rb-update-banner></rb-update-banner>
   <div id="editor-container">
-    <div id="toolbar">
-      <a href="/app" title="Back to app">← App</a>
-      <a href="/md/" title="Browse files">📂</a>
-      <span id="file-path">Loading...</span>
-      <span id="save-status"></span>
-      <button class="tb-btn" id="toggle-tree" title="Toggle file tree">📂</button>
-      <button class="tb-btn" id="toggle-preview" title="Toggle preview">👁</button>
-      <button class="tb-btn" id="save-btn" title="Cmd+S">Save</button>
-    </div>
+    <rb-editor-toolbar id="toolbar"></rb-editor-toolbar>
     <rb-editor-layout id="layout"><div id="loading">Loading editor...</div></rb-editor-layout>
   </div>
   <script type="module" src="dist/edit.js"></script>

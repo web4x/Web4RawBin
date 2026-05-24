@@ -7,112 +7,100 @@ import './components/rb-code-editor.js';
 import type { RbCodeEditor } from './components/rb-code-editor.js';
 import './components/rb-preview.js';
 import type { RbPreview } from './components/rb-preview.js';
+import './components/rb-editor-toolbar.js';
+import type { RbEditorToolbar } from './components/rb-editor-toolbar.js';
 
 if (!document.querySelector('rb-update-banner')) {
   document.body.prepend(document.createElement('rb-update-banner'));
 }
 
-const pathEl = document.getElementById('file-path')!;
-const statusEl = document.getElementById('save-status')!;
-const saveBtn = document.getElementById('save-btn')!;
+const toolbar = document.getElementById('toolbar') as RbEditorToolbar;
 const layout = document.getElementById('layout') as RbEditorLayout;
 
 const rawPath = location.pathname.replace(/^\/edit\/?/, '');
 let filePath = decodeURIComponent(rawPath);
 let currentMtime = '';
 
-pathEl.textContent = filePath || '(no file)';
-document.title = `${filePath.split('/').pop() || 'Editor'} — RawBin`;
-
-document.getElementById('toggle-tree')?.addEventListener('click', () => layout.toggleTree());
-document.getElementById('toggle-preview')?.addEventListener('click', () => layout.togglePreview());
-
 let codeEditor: RbCodeEditor | null = null;
 let preview: RbPreview | null = null;
 
-function isMarkdown(path: string): boolean { return path.endsWith('.md'); }
-function isPuml(path: string): boolean { return path.endsWith('.puml'); }
-function hasPreview(path: string): boolean { return isMarkdown(path) || isPuml(path); }
+function hasPreview(path: string): boolean { return path.endsWith('.md') || path.endsWith('.puml'); }
 
 function updatePreview(): void {
-  if (!preview || !codeEditor || !isMarkdown(filePath)) return;
+  if (!preview || !codeEditor || !filePath.endsWith('.md')) return;
   preview.setContent(codeEditor.getValue(), filePath);
+}
+
+function applyMode(mode: string): void {
+  if (mode === 'code') { layout.hidePreview(); }
+  else if (mode === 'preview') { layout.showPreview(); layout.toggleTree(); }
+  else { layout.showPreview(); }
 }
 
 async function fetchFile(path: string): Promise<{ content: string; mtime: string } | null> {
   if (!path) return null;
   try {
     const res = await fetch(`/api/files/${encodeURIComponent(path)}`);
-    if (!res.ok) { statusEl.textContent = (await res.json().catch(() => ({}))).error || `Error ${res.status}`; return null; }
+    if (!res.ok) { toolbar.setStatus((await res.json().catch(() => ({}))).error || `Error ${res.status}`, '#e74c3c'); return null; }
     const data = await res.json();
     currentMtime = data.mtime;
     return data;
-  } catch { statusEl.textContent = 'Fetch failed'; return null; }
+  } catch { toolbar.setStatus('Fetch failed', '#e74c3c'); return null; }
 }
 
 async function saveFile(path: string, content: string, force?: boolean): Promise<void> {
-  statusEl.textContent = 'Saving...';
-  statusEl.style.color = '';
+  toolbar.setStatus('Saving...');
   try {
     const body: any = { content };
     if (!force && currentMtime) body.expectedMtime = currentMtime;
     const res = await fetch(`/api/files/${encodeURIComponent(path)}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
     });
     const result = await res.json();
     if (result.ok) {
       currentMtime = result.mtime;
-      statusEl.textContent = 'Saved';
-      statusEl.style.color = '#4CAF50';
+      toolbar.setStatus('Saved', '#4CAF50');
       codeEditor?.clearDirty();
-      if (isPuml(path) && preview) preview.renderPuml(content);
-      setTimeout(() => { if (statusEl.textContent === 'Saved') { statusEl.textContent = ''; statusEl.style.color = ''; } }, 2000);
+      if (path.endsWith('.puml') && preview) preview.renderPuml(content);
+      setTimeout(() => toolbar.setStatus(''), 2000);
     } else if (result.conflict) {
-      statusEl.textContent = 'Conflict!';
-      statusEl.style.color = '#e74c3c';
-      const choice = confirm('File changed on disk.\n\nOK = Overwrite with your version\nCancel = Reload file from disk');
-      if (choice) {
+      toolbar.setStatus('Conflict!', '#e74c3c');
+      if (confirm('File changed on disk.\n\nOK = Overwrite\nCancel = Reload from disk')) {
         await saveFile(path, content, true);
       } else {
         const fresh = await fetchFile(path);
         if (codeEditor && fresh) await codeEditor.loadFile(path, fresh.content);
-        statusEl.textContent = 'Reloaded';
-        statusEl.style.color = '#ff9800';
-        setTimeout(() => { statusEl.textContent = ''; statusEl.style.color = ''; }, 2000);
+        toolbar.setStatus('Reloaded', '#ff9800');
+        setTimeout(() => toolbar.setStatus(''), 2000);
       }
-    } else {
-      statusEl.textContent = result.error || 'Save failed';
-      statusEl.style.color = '#e74c3c';
-    }
-  } catch { statusEl.textContent = 'Save failed'; statusEl.style.color = '#e74c3c'; }
+    } else { toolbar.setStatus(result.error || 'Save failed', '#e74c3c'); }
+  } catch { toolbar.setStatus('Save failed', '#e74c3c'); }
 }
 
 async function openFile(path: string): Promise<void> {
   if (codeEditor?.dirty && !confirm('Unsaved changes. Discard?')) return;
   filePath = path;
-  pathEl.textContent = path;
   document.title = `${path.split('/').pop() || 'Editor'} — RawBin`;
   history.replaceState({}, '', `/edit/${encodeURIComponent(path)}`);
-  statusEl.textContent = '';
+  toolbar.setPath(path);
   const file = await fetchFile(path);
   if (codeEditor) await codeEditor.loadFile(path, file?.content || '');
-  if (hasPreview(path)) {
-    layout.showPreview();
-    if (preview && file) preview.setContentImmediate(file.content, path);
-  } else {
-    layout.hidePreview();
-    if (preview) preview.clear();
-  }
+  if (hasPreview(path) && file) {
+    if (preview) preview.setContentImmediate(file.content, path);
+  } else if (preview) { preview.clear(); }
   const fileTree = document.querySelector('rb-file-tree') as RbFileTree | null;
   if (fileTree) fileTree.setActive(path);
-  if (!file) statusEl.textContent = 'File not found';
+  if (!file) toolbar.setStatus('File not found', '#e74c3c');
 }
 
-saveBtn.addEventListener('click', () => { if (filePath) saveFile(filePath, codeEditor?.getValue() || ''); });
+// Toolbar events
+document.addEventListener('toolbar-save', () => { if (filePath) saveFile(filePath, codeEditor?.getValue() || ''); });
+document.addEventListener('mode-change', ((e: CustomEvent) => applyMode(e.detail.mode)) as EventListener);
+document.addEventListener('dirty-change', ((e: CustomEvent) => { toolbar.setDirty(e.detail.dirty); updatePreview(); }) as EventListener);
 
 async function init(): Promise<void> {
+  toolbar.setPath(filePath);
+
   const treePanel = layout.treeEl;
   if (treePanel) {
     const tree = document.createElement('rb-file-tree') as RbFileTree;
@@ -135,26 +123,14 @@ async function init(): Promise<void> {
     previewPanel.appendChild(preview);
   }
 
-  document.addEventListener('dirty-change', ((e: CustomEvent) => {
-    updatePreview();
-    pathEl.textContent = filePath + (e.detail.dirty ? ' ●' : '');
-  }) as EventListener);
-
   if (filePath) {
     const file = await fetchFile(filePath);
     if (codeEditor) await codeEditor.loadFile(filePath, file?.content || '');
-    if (hasPreview(filePath) && file) {
-      layout.showPreview();
-      if (preview) preview.setContentImmediate(file.content, filePath);
-    } else {
-      layout.hidePreview();
-    }
+    if (hasPreview(filePath) && file && preview) preview.setContentImmediate(file.content, filePath);
     const fileTree = document.querySelector('rb-file-tree') as RbFileTree | null;
     if (fileTree) fileTree.setActive(filePath);
-    if (!file) statusEl.textContent = 'File not found';
-  } else {
-    statusEl.textContent = 'Select a file from the tree';
-  }
+    if (!file) toolbar.setStatus('File not found', '#e74c3c');
+  } else { toolbar.setStatus('Select a file from the tree'); }
 }
 
 init();
