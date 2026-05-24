@@ -80,7 +80,6 @@ interface WebSocketClient {
 
 const clientSessions = new Map<string, ClientSession>();
 const wsClients = new Set<WebSocketClient>();
-const avatarCache = new Map<string, string>();
 const tokenToClient = new Map<string, string>();
 let totalRequests = 0;
 
@@ -682,7 +681,6 @@ function setupWebSocketServer(server: https.Server): void {
 
     ws.on('close', () => {
       wsClients.delete(client);
-      avatarCache.delete(clientId);
       for (const [token, cid] of tokenToClient) { if (cid === clientId) tokenToClient.delete(token); }
       addLog(`WS disconnected: ${ip} (${wsClients.size} online)`);
 
@@ -696,7 +694,7 @@ function setupWebSocketServer(server: https.Server): void {
       if (specRoom) specRoom.removeSpectator(clientId);
     });
 
-    ws.on('error', () => { wsClients.delete(client); avatarCache.delete(clientId); });
+    ws.on('error', () => { wsClients.delete(client); });
   });
 }
 
