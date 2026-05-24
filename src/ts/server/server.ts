@@ -239,8 +239,9 @@ function pageHead(title: string): string {
   return `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>${title} — RawBin</title><link rel="stylesheet" href="/app.css"><script type="module" src="${getBannerScript()}"></script></head><body><rb-update-banner></rb-update-banner><button onclick="history.back()" style="position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));right:20px;width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,0.6);color:white;border:none;font-size:1.5rem;cursor:pointer;z-index:100">✕</button>`;
 }
 
-function pageNav(backHref: string = '/', backLabel: string = 'Home'): string {
-  return `<div style="padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top))"><a href="${backHref}" style="color:#ffffff;text-decoration:none;font-size:0.9rem">← ${backLabel}</a> · <a href="/app" style="color:#ffffff;text-decoration:none;font-size:0.9rem">App</a></div>`;
+function pageNav(backHref: string = '/', backLabel: string = 'Home', editPath?: string): string {
+  const editLink = editPath ? ` · <a href="/edit/${editPath}" style="color:#ff9800;text-decoration:none;font-size:0.9rem">✏️ Edit</a>` : '';
+  return `<div style="padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top))"><a href="${backHref}" style="color:#ffffff;text-decoration:none;font-size:0.9rem">← ${backLabel}</a> · <a href="/app" style="color:#ffffff;text-decoration:none;font-size:0.9rem">App</a>${editLink}</div>`;
 }
 
 function trackClient(req: http.IncomingMessage): void {
@@ -441,7 +442,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const html = marked(md) as string;
         const backLink = path.dirname(relPath) === '.' ? '/docs' : `/docs/${path.dirname(relPath)}`;
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(`${pageHead(path.basename(filepath, '.md'))}<style>${MD_CSS}</style>${pageNav(backLink, 'Back')}<div style="max-width:700px;margin:0 auto;padding:0 20px">${html}</div></body></html>`);
+        res.end(`${pageHead(path.basename(filepath, '.md'))}<style>${MD_CSS}</style>${pageNav(backLink, 'Back', `docs/${relPath}`)}<div style="max-width:700px;margin:0 auto;padding:0 20px">${html}</div></body></html>`);
       } catch { res.writeHead(404); res.end('Doc not found'); }
       return;
     }
@@ -451,17 +452,19 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const dirPath = path.join(PROJECT_ROOT, relPath);
       try {
         const entries = fsSync.readdirSync(dirPath, { withFileTypes: true });
+        const editExts = new Set(['.md', '.sh', '.puml', '.ts', '.css', '.json', '.html', '.env', '.mjs']);
+        const editIcon = (name: string) => editExts.has(path.extname(name)) ? ` <a href="/edit/${relPath}${name}" style="opacity:0.5;text-decoration:none;font-size:0.8em" title="Edit">✏️</a>` : '';
         const dirs = entries.filter(e => e.isDirectory() && !e.name.startsWith('.')).map(e => `<li>📁 <a href="/md/${relPath}${e.name}/">${e.name}/</a></li>`);
-        const mds = entries.filter(e => e.isFile() && e.name.endsWith('.md')).map(e => `<li>📄 <a href="/md/${relPath}${e.name}">${e.name}</a></li>`);
+        const mds = entries.filter(e => e.isFile() && e.name.endsWith('.md')).map(e => `<li>📄 <a href="/md/${relPath}${e.name}">${e.name}</a>${editIcon(e.name)}</li>`);
         const svgs = entries.filter(e => e.isFile() && e.name.endsWith('.svg')).map(e => `<li>🖼 <a href="/md/${relPath}${e.name}">${e.name}</a></li>`);
-        const others = entries.filter(e => e.isFile() && !e.name.endsWith('.md') && !e.name.endsWith('.svg') && !e.name.startsWith('.')).map(e => `<li>${e.name}</li>`);
+        const others = entries.filter(e => e.isFile() && !e.name.endsWith('.md') && !e.name.endsWith('.svg') && !e.name.startsWith('.')).map(e => `<li>${e.name}${editIcon(e.name)}</li>`);
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(`${pageHead(relPath || '/')}<style>${MD_CSS}</style>${pageNav('/md/', 'Browse')}<div style="max-width:700px;margin:0 auto;padding:0 20px"><h1>${relPath || '/'}</h1><ul>${dirs.join('')}${mds.join('')}${svgs.join('')}${others.join('')}</ul></div></body></html>`);
       } catch { res.writeHead(404); res.end('Directory not found'); }
       return;
     }
-    if (filepath.startsWith('/md/') && filepath.endsWith('.svg')) {
-      const relPath = filepath.slice(4);
+    if (filepath.startsWith('/md/raw/') && filepath.endsWith('.svg')) {
+      const relPath = filepath.slice(8);
       if (relPath.includes('..')) { res.writeHead(403); res.end('Forbidden'); return; }
       const svgFile = path.join(PROJECT_ROOT, relPath);
       try {
@@ -469,6 +472,16 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         res.writeHead(200, { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'no-cache' });
         res.end(svg);
       } catch { res.writeHead(404); res.end('SVG not found'); }
+      return;
+    }
+    if (filepath.startsWith('/md/') && filepath.endsWith('.svg')) {
+      const relPath = filepath.slice(4);
+      if (relPath.includes('..')) { res.writeHead(403); res.end('Forbidden'); return; }
+      const svgFile = path.join(PROJECT_ROOT, relPath);
+      if (!fsSync.existsSync(svgFile)) { res.writeHead(404); res.end('SVG not found'); return; }
+      const dirPath = path.dirname(relPath);
+      res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache' });
+      res.end(`${pageHead(path.basename(relPath, '.svg'))}${pageNav('/md/' + dirPath + '/', 'Back')}<div style="max-width:100%;padding:16px;text-align:center"><object data="/md/raw/${relPath}" type="image/svg+xml" style="max-width:100%;background:white;border-radius:8px"></object></div></body></html>`);
       return;
     }
     if (filepath.startsWith('/md/') && filepath.endsWith('.puml')) {
@@ -494,7 +507,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         relinked = relinked.replace(/\]\(([^)]+)\.puml\)/g, (_, p) => `](/md/${dirPrefix}/${p}.svg)`);
         const html = marked(relinked) as string;
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(`${pageHead(path.basename(filepath, '.md'))}<style>${MD_CSS}</style>${pageNav('/md/', 'Browse')}<div style="max-width:700px;margin:0 auto;padding:0 20px">${html}</div></body></html>`);
+        res.end(`${pageHead(path.basename(filepath, '.md'))}<style>${MD_CSS}</style>${pageNav('/md/', 'Browse', relPath)}<div style="max-width:700px;margin:0 auto;padding:0 20px">${html}</div></body></html>`);
       } catch { res.writeHead(404); res.end('File not found'); }
       return;
     }
