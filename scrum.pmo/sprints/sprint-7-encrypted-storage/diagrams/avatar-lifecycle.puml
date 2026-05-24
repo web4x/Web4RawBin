@@ -1,0 +1,164 @@
+@startuml Avatar Lifecycle — Bug Analysis
+!theme plain
+skinparam usecase {
+  BackgroundColor<<ok>> LightGreen
+  BackgroundColor<<bug>> #FFCCCC
+  BackgroundColor<<gap>> LightYellow
+}
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+
+title Avatar Lifecycle — Full Flow + Bug Identification
+
+actor "User\n(Browser)" as User
+actor "Server\n(server.ts)" as Server
+actor "SW\n(sw.js)" as SW
+database "Disk\n(data/users/)" as Disk
+
+' =========================
+' FLOW 1: UPLOAD
+' =========================
+rectangle "1. avatar.upload (POST /api/avatar)" {
+  usecase "user.uploadPhoto\n(rb-avatar overlay)" as UC_UPLOAD <<ok>>
+  usecase "file.encrypt\n(AES-256-GCM +\nRSA envelope)" as UC_ENCRYPT <<ok>>
+  usecase "profile.updateAvatarUrl\n(profile.avatar =\n/api/avatar/<token>)" as UC_UPDATE_URL <<ok>>
+  usecase "cache.invalidate\n(ETag changes because\navatar.enc changed)" as UC_CACHE_INV <<ok>>
+  usecase "avatar.refreshAll\n(update ALL visible\nrb-avatar instances)" as UC_REFRESH_ALL <<bug>>
+
+  UC_UPLOAD -right--> UC_ENCRYPT : <<include>>
+  UC_ENCRYPT -right--> UC_UPDATE_URL : <<include>>
+  UC_UPDATE_URL -down--> UC_CACHE_INV : <<include>>
+  UC_UPDATE_URL -down--> UC_REFRESH_ALL : <<include>>
+}
+
+' =========================
+' FLOW 2: SERVE
+' =========================
+rectangle "2. avatar.serve (GET /api/avatar/<token>)" {
+  usecase "request.avatar\n(browser <img> or fetch)" as UC_REQ <<ok>>
+  usecase "sw.intercept\n(networkFirst for /api/)" as UC_SW <<ok>>
+  usecase "file.decrypt\n(RSA → AES key →\nGCM decrypt)" as UC_DECRYPT <<ok>>
+  usecase "response.etag\n(MD5 of .enc file →\n304 if match)" as UC_ETAG <<ok>>
+
+  UC_REQ -right--> UC_SW : <<include>>
+  UC_SW -right--> UC_DECRYPT : <<include>>
+  UC_DECRYPT -right--> UC_ETAG : <<include>>
+}
+
+' =========================
+' FLOW 3: CROP
+' =========================
+rectangle "3. avatar.crop (UPDATE_PROFILE)" {
+  usecase "user.adjustCrop\n(pinch-zoom +\npan in overlay)" as UC_CROP <<ok>>
+  usecase "profile.saveAvatarCrop\n(UPDATE_PROFILE\n{avatarCrop})" as UC_SAVE_CROP <<ok>>
+  usecase "avatar.updateTransforms\n(all rb-avatar set\ncrop attribute)" as UC_TRANSFORMS <<gap>>
+
+  UC_CROP -right--> UC_SAVE_CROP : <<include>>
+  UC_SAVE_CROP -right--> UC_TRANSFORMS : <<include>>
+}
+
+' =========================
+' FLOW 4: DEFAULT ASSIGNMENT
+' =========================
+rectangle "4. avatar.assignDefault (first profile commit)" {
+  usecase "profile.commit\n(UPDATE_PROFILE\nwith name)" as UC_COMMIT <<ok>>
+  usecase "avatar.fetchRandom\n(thispersondoesnotexist\n.com)" as UC_FETCH <<ok>>
+  usecase "file.encryptAndStore\n(avatar.enc +\navatar.meta.json)" as UC_STORE <<ok>>
+  usecase "profile.setAvatarUrl\n(async — may complete\nafter PROFILE_UPDATED)" as UC_SET_URL <<gap>>
+
+  UC_COMMIT -right--> UC_FETCH : <<include>>
+  UC_FETCH -right--> UC_STORE : <<include>>
+  UC_STORE -right--> UC_SET_URL : <<include>>
+}
+
+' =========================
+' FLOW 5: DISPLAY
+' =========================
+rectangle "5. avatar.display (rb-avatar component)" {
+  usecase "element.render\n(<rb-avatar src=...>)" as UC_RENDER <<ok>>
+  usecase "image.load\n(<img src=/api/avatar/>)" as UC_LOAD <<ok>>
+  usecase "crop.applyTransform\n(CSS scale + translate\nfrom crop attr)" as UC_APPLY_CROP <<ok>>
+  usecase "image.fallback\n(on error → show initial\nletter placeholder)" as UC_FALLBACK <<ok>>
+
+  UC_RENDER -right--> UC_LOAD : <<include>>
+  UC_LOAD -right--> UC_APPLY_CROP : <<include>>
+  UC_LOAD -down--> UC_FALLBACK : <<include>>\non error
+}
+
+' =========================
+' ACTOR CONNECTIONS
+' =========================
+User --> UC_UPLOAD
+User --> UC_CROP
+User --> UC_REQ
+Server --> UC_ENCRYPT
+Server --> UC_DECRYPT
+Server --> UC_COMMIT
+SW --> UC_SW
+Disk --> UC_STORE
+
+' =========================
+' BUG IDENTIFICATION
+' =========================
+
+note right of UC_REFRESH_ALL #FFCCCC
+  **ROOT CAUSE: avatar.refreshAll is missing**
+
+  After upload succeeds, rb-avatar.ts does:
+  1. Sets its OWN src to avatarUrl + "?t=" + Date.now() ✅
+  2. Dispatches "rb-avatar-changed" event ✅
+  3. ProfileEditor captures event, stores URL ✅
+
+  **BUT: other rb-avatar instances are NOT updated:**
+  - RoomBrowser lobby avatar: STALE (still shows old src)
+  - rb-member-badge in room: STALE (avatarUrl from Room member data)
+  - Profile page: STALE (reloads from profile.avatar which IS updated,
+    but page doesn't re-render)
+  - Other members' screens: STALE (server broadcasts
+    MEMBER_JOINED with old avatarUrl)
+
+  **The uploading rb-avatar updates itself via ?t= cache-bust,
+  but no mechanism propagates the change to
+  other rb-avatar elements on the same page or
+  other clients in the same room.**
+end note
+
+note bottom of UC_SET_URL #FFFFCC
+  **RACE CONDITION:**
+  fetchUniqueAvatar() is async (.then).
+  PROFILE_UPDATED is sent BEFORE the fetch completes.
+  Client receives profile.avatar = '' on first commit.
+  Avatar URL is set LATER in a separate saveProfiles().
+  Client never receives the updated URL unless it
+  re-identifies or refreshes.
+end note
+
+note bottom of UC_TRANSFORMS #FFFFCC
+  **GAP:** After crop save,
+  only the uploading rb-avatar
+  updates its own crop attribute.
+  Other instances don't receive
+  the new crop values.
+  Needs: PROFILE_UPDATED broadcast
+  with avatarCrop → all clients
+  update their rb-avatar crop attrs.
+end note
+
+note right of UC_SW
+  SW uses **networkFirst** for /api/* ✅
+  ETag changes on re-encrypt ✅
+  No SW caching bug — the stale
+  display is a **client rendering**
+  issue, not a cache issue.
+end note
+
+legend right
+  |= Color |= Meaning |
+  | <back:LightGreen>   </back> | Working correctly |
+  | <back:#FFCCCC>   </back> | **BUG** — root cause |
+  | <back:LightYellow>   </back> | Gap (secondary issue) |
+end legend
+
+footer \n**Verdict:** The uploaded photo IS encrypted and stored correctly.\nThe /api/avatar endpoint DOES serve the new image.\nThe bug is that **other rb-avatar instances on the page are not re-rendered**\nafter upload, and the **default avatar race condition** means first-commit\nusers don't see their avatar until page reload.
+
+@enduml
