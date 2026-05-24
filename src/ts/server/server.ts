@@ -17,6 +17,7 @@ import { RoomManager, type RoomMember } from './Room.js';
 import { MSG } from '../shared/MessageTypes.js';
 import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
 import { encryptFile, decryptFile, fileExists } from './UserCrypto.js';
+import { readDir, readFile } from './FileApi.js';
 
 const execAsync = promisify(exec);
 const ADMIN_KEY = process.env.ADMIN_KEY || crypto.randomUUID();
@@ -336,6 +337,20 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const uptime = Math.floor((Date.now() - serverStartTime.getTime()) / 1000);
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
       res.end(JSON.stringify({ status: 'ok', uptime, version: PKG_VERSION, connections: wsClients.size, rooms: roomManager.size }));
+      return;
+    }
+
+    if (filepath.startsWith('/api/files/')) {
+      const relPath = decodeURIComponent(filepath.slice('/api/files/'.length));
+      const isDir = relPath.endsWith('/') || relPath === '';
+      const result = isDir ? readDir(relPath) : readFile(relPath);
+      if ('error' in result) {
+        res.writeHead(result.status, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: result.error }));
+      } else {
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+        res.end(JSON.stringify(result));
+      }
       return;
     }
 
