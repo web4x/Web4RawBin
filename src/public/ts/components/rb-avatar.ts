@@ -89,7 +89,8 @@ class RbAvatar extends HTMLElement {
       <div class="overlay" id="ov">
         ${src ? `<img src="${src}" alt="Avatar" id="ov-img">` : `<div style="font-size:8rem;color:white">${initial}</div>`}
         <div class="overlay-bar">
-          <label class="btn-ov btn-upload">Upload<input type="file" accept="image/*" id="ov-file" style="display:none"></label>
+          <input type="file" accept="image/*" id="ov-file" style="display:none">
+          <button class="btn-ov btn-upload" id="ov-upload-btn">Upload</button>
           <button class="btn-ov btn-crop" id="ov-crop">Crop</button>
           <button class="btn-ov btn-reset" id="ov-reset" style="background:rgba(255,255,255,0.25);color:white">Reset</button>
           <button class="btn-ov btn-close" id="ov-close">Close</button>
@@ -170,15 +171,19 @@ class RbAvatar extends HTMLElement {
       }
     });
 
-    // Upload
+    // Upload button triggers hidden file input
     const fileInput = this.overlayEl.querySelector('#ov-file') as HTMLInputElement;
+    this.overlayEl.querySelector('#ov-upload-btn')?.addEventListener('click', () => fileInput?.click());
     fileInput?.addEventListener('change', async () => {
       const file = fileInput.files?.[0];
       if (!file || !file.type.startsWith('image/')) { if (file) alert('Must be an image'); return; }
       const token = this.getToken() || localStorage.getItem('rawbin-player-id') || '';
       if (!token) return;
       const buf = await file.arrayBuffer();
-      const base64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+      const bytes = new Uint8Array(buf);
+      let binary = '';
+      for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+      const base64 = btoa(binary);
       try {
         const res = await fetch('/api/avatar', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playerToken: token, data: base64, mimeType: file.type }) });
         const result = await res.json();
