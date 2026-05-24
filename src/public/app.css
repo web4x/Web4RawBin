@@ -1,7 +1,7 @@
 :root { --rb-primary: #667eea; --rb-secondary: #764ba2; }
 
 /* Update banner */
-.update-banner { position: fixed; top: 0; left: 0; right: 0; z-index: 2000; background: #e74c3c; color: white; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 10px 16px; font-size: 0.9rem; font-weight: 600; }
+.update-banner { position: fixed; top: 0; left: 0; right: 0; z-index: 2000; background: #e74c3c; color: white; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 10px 16px; padding-top: calc(10px + env(safe-area-inset-top)); font-size: 0.9rem; font-weight: 600; }
 .update-banner button { background: white; color: #e74c3c; border: none; border-radius: 6px; padding: 6px 16px; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
 .update-banner button:active { opacity: 0.8; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
