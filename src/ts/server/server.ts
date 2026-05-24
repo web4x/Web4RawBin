@@ -302,7 +302,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const buf = Buffer.from(data, 'base64');
           const profile = userProfiles.get(playerToken);
           if (!profile?.sshKeysGenerated) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'SSH keys not generated' })); return; }
-          encryptFile(playerToken, buf, mimeType, 'avatar.jpg', 'avatar');
+          const ext = mimeType === 'image/png' ? 'png' : mimeType === 'image/gif' ? 'gif' : mimeType === 'image/webp' ? 'webp' : 'jpg';
+          encryptFile(playerToken, buf, mimeType, `avatar.${ext}`, 'avatar');
           const avatarUrl = `/api/avatar/${playerToken}`;
           profile.avatar = avatarUrl;
           saveProfiles();
@@ -413,7 +414,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const etag = '"' + crypto.createHash('md5').update(encData).digest('hex') + '"';
         if (req.headers['if-none-match'] === etag) { res.writeHead(304); res.end(); return; }
         const { data, mimeType } = decryptFile(token, 'avatar');
-        res.writeHead(200, { 'Content-Type': mimeType, 'ETag': etag, 'Cache-Control': 'public, max-age=3600' });
+        res.writeHead(200, { 'Content-Type': mimeType, 'ETag': etag, 'Cache-Control': 'no-cache, must-revalidate' });
         res.end(data);
       } catch { res.writeHead(500); res.end('Decrypt error'); }
       return;
@@ -749,8 +750,15 @@ async function fetchAvatarWithRetry(retries: number = 3): Promise<Buffer | null>
 }
 
 async function ensureAvatar(profile: UserProfile): Promise<void> {
-  if (profile.avatar && profile.avatar.startsWith('/api/avatar/')) return;
   if (!profile.sshKeysGenerated) return;
+
+  if (profile.avatar && profile.avatar.startsWith('/api/avatar/')) {
+    try {
+      const { mimeType } = decryptFile(profile.token, 'avatar');
+      if (mimeType !== 'image/svg+xml') return;
+      addLog(`Avatar is SVG fallback, retrying photo fetch: ${profile.token.slice(0, 8)}`);
+    } catch { return; }
+  }
 
   const photoData = await fetchAvatarWithRetry(3);
   let buf: Buffer;
