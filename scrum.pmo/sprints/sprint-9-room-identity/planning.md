@@ -13,7 +13,7 @@ Transform rooms from ephemeral shared spaces into persistent, per-user SSH ident
 
 ## Task List
 
-- [ ] [T74: Room Directory + SSH Keypair](./task-74-room-keys.md)
+- [x] [T74: Room Directory + SSH Keypair](./task-74-room-keys.md)
   **Priority:** 1 (CRITICAL — foundation)
   **Effort:** 3h expert + 1h tester
   - Create room folder under user dir: data/users/<token>/rooms/<uuid>/
@@ -21,7 +21,7 @@ Transform rooms from ephemeral shared spaces into persistent, per-user SSH ident
   - room.json metadata file
   - Default name: "${profile.name}'s Room"
 
-- [ ] [T75: Room Persistence + Startup Load](./task-75-room-persist.md)
+- [x] [T75: Room Persistence + Startup Load](./task-75-room-persist.md)
   **Priority:** 2 (HIGH — rooms must survive restart)
   **Effort:** 2h expert + 1h tester
   - Scan data/users/*/rooms/*/room.json on startup
@@ -29,7 +29,7 @@ Transform rooms from ephemeral shared spaces into persistent, per-user SSH ident
   - Persist on every mutation (join/leave/chat/settings)
   - Remove auto-cleanup (no more cleanupStale for persistent rooms)
 
-- [ ] [T76: Owner Lifecycle + Manual Delete](./task-76-room-lifecycle.md)
+- [x] [T76: Owner Lifecycle + Manual Delete](./task-76-room-lifecycle.md)
   **Priority:** 3 (HIGH — owner-only control)
   **Effort:** 2h expert + 1h tester
   - Rooms ONLY deleted by owner (manual DELETE_ROOM)
@@ -37,7 +37,7 @@ Transform rooms from ephemeral shared spaces into persistent, per-user SSH ident
   - No auto-delete on empty, no timeout cleanup
   - Owner reconnect re-advertises rooms
 
-- [ ] [T77: Lobby Sync + Room Advertise](./task-77-lobby-sync.md)
+- [x] [T77: Lobby Sync + Room Advertise](./task-77-lobby-sync.md)
   **Priority:** 4 (HIGH — rooms visible to all)
   **Effort:** 2h expert + 1h tester
   - On lobby connect, owner's rooms broadcast to all clients
@@ -71,6 +71,8 @@ T79 (E2E — after all)
 | Metric | Value |
 |--------|-------|
 | Tasks | 6 (T74-T79) |
+| Done | 4/6 (T74-T77, v0.4.4) |
+| Remaining | 2 (T78, T79) |
 | Expert effort | ~10h |
 | Tester effort | ~3h |
 

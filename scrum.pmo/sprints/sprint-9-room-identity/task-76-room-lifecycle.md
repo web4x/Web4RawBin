@@ -5,14 +5,14 @@
 [task:uuid:7662f276-9cd4-4a67-a1d3-5c47a8294195]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 - up
@@ -27,7 +27,7 @@
 See [requirements.md](./requirements.md) and [architecture.md](./architecture.md) for full spec.
 
 ## Acceptance Criteria
-- [ ] See requirements.md for detailed AC per use case
+- [x] See requirements.md for detailed AC per use case
 
 ## QA Audit & User Feedback
 - Pending Tron QA review.
