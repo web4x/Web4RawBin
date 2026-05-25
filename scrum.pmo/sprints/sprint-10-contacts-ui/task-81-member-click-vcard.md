@@ -149,7 +149,7 @@ Result: `/api/config` and `/api/health` report `version: 0.4.9`; the client's up
 - [ ] AC3: Tapping a joined member's **status dot** opens their profile sheet
 - [ ] AC4: The opened sheet shows the member's name and avatar
 - [ ] AC5: "Download vCard" button is present in the sheet and clicking it invokes the vCard builder (produces a .vcf blob)
-- [ ] AC6: Tapping OWN badge opens ProfileEditor (self-edit path preserved, NOT the read-only sheet)
+- [ ] AC6: Tapping OWN badge opens ProfileEditor (self-edit path preserved, NOT the read-only sheet) — NOTE: SUPERSEDED by [T83](./task-83-self-click-profile.md), which changes self-click to open the read-only ProfileSheet per Tron directive 2026-05-25
 - [ ] AC7: Exactly ONE `GET_USER_INFO` WS message is sent per tap (no listener stacking) — verify after navigating room→lobby→room twice
 - [ ] AC8: Lobby avatar (RoomBrowser) and ProfileEditor avatar remain editable (tapping them opens the editor overlay — readonly NOT applied there)
 - [ ] AC9: `npm run build` succeeds

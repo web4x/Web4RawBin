@@ -22,13 +22,27 @@ code path and ensure "tap anywhere on a badge" works.
   - Listener-stacking guard (attach once, not per render)
   - vCard download from profile sheet
   - Bump v0.4.9 + sw.js cache (PWA update detection)
+  - NOTE: AC6 (self-click→ProfileEditor) SUPERSEDED by T83
+
+- [ ] [T82: vCard Button Visibility + ProfileSheet Avatar DRY](./task-82-vcard-visibility-avatar-dry.md)
+  **Status:** refinement complete — awaiting impl
+  **Owner:** robbin-expert (implement), robbin-tester (verify)
+  - vCard button invisible (CSS contrast bug, not missing)
+  - ProfileSheet avatar: replace duplicated inline `<img>` with `rb-avatar` (DRY)
+
+- [ ] [T83: Self-Click Opens Profile Sheet, Not Profile Editor](./task-83-self-click-profile.md)
+  **Status:** PLANNED (req-eng spec; renumbered from T81 collision) — awaiting architect refinement
+  **Owner:** robbin-expert (implement), robbin-tester (verify)
+  - Self-click in member list → read-only ProfileSheet (was ProfileEditor)
+  - CHANGES T81 AC6 (Tron directive 2026-05-25)
 
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 1 (T81) — sprint opening |
-| Tron QA-approved (Done) | 0/1 |
+| Tasks | 3 (T81, T82, T83) |
+| Tron QA-approved (Done) | 0/3 |
 | Impl-done, testing+QA pending | 1 (T81, v0.4.9) |
+| In refinement/planned | 2 (T82, T83) |
 
 ## Definition of Done
 - [ ] Tapping a joined member (name/avatar/dot) opens their profile sheet
