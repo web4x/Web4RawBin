@@ -74,6 +74,9 @@ Robbin (AI Assistant)
 - Tasks completed: 6/6
 - Sprint completed: 2026-05-22
 
+## Known Cleanup (deferred)
+- Duplicate task-2 files: `task-2-rawbin-architecture-definition.md` + `task-2-rawbin-architecture.md` — flagged 2026-05-25 (planner). DEFERRED (closed/QA'd sprint); reconcile canonical file as deliberate cleanup later.
+
 ---
 
 **Product Owner:** robbin-po (robbinTeam:0.0)
