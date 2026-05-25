@@ -374,9 +374,14 @@ export class RoomManager {
     return true;
   }
 
-  listRooms(): RoomInfo[] {
+  listRooms(connectedOwners?: Set<string>): RoomInfo[] {
     return [...this.rooms.values()]
-      .filter(r => !r.isPrivate && (r.members.size > 0 || !r.creatorToken))
+      .filter(r => {
+        if (r.isPrivate) return false;
+        if (!r.creatorToken) return true;
+        if (r.members.size > 0) return true;
+        return connectedOwners ? connectedOwners.has(r.creatorToken) : false;
+      })
       .map(r => r.info());
   }
 

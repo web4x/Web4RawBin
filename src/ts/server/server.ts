@@ -16,7 +16,7 @@ import { marked } from 'marked';
 import { Room, RoomManager, type RoomMember } from './Room.js';
 import { MSG } from '../shared/MessageTypes.js';
 import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
-import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms } from './RoomKeys.js';
+import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, getRoomDir } from './RoomKeys.js';
 import { encryptFile, decryptFile, fileExists } from './UserCrypto.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
@@ -822,7 +822,7 @@ function setupWebSocketServer(server: https.Server): void {
 
     ws.send(JSON.stringify({ type: 'welcome', clientId, onlineCount: wsClients.size, challenge }));
     ws.send(JSON.stringify({ type: MSG.SERVER_CONFIG, shareDomain: BASE_DOMAIN || getLocalIP(), httpsPort: HTTPS_PORT }));
-    ws.send(JSON.stringify({ type: MSG.ROOM_LIST, rooms: roomManager.listRooms() }));
+    ws.send(JSON.stringify({ type: MSG.ROOM_LIST, rooms: roomManager.listRooms(getConnectedOwners()) }));
 
     ws.on('message', (data) => {
       try { handleMessage(clientId, ws, JSON.parse(data.toString())); } catch (e: any) { addLog(`WS handler error: ${e?.message || e}`); }
@@ -836,7 +836,7 @@ function setupWebSocketServer(server: https.Server): void {
       const room = roomManager.findMemberRoom(clientId);
       if (room) {
         room.removeMember(clientId);
-        if (room.members.size === 0) roomManager.removeRoom(room.id);
+        if (room.members.size === 0 && !room.creatorToken) roomManager.removeRoom(room.id);
         addLog(`${clientId.slice(0,8)} left room ${room.name}`);
       }
       const specRoom = roomManager.findSpectatorRoom(clientId);
@@ -920,16 +920,16 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       const room = roomManager.findMemberRoom(clientId);
       if (room) {
         room.removeMember(clientId);
-        if (room.members.size === 0) {
+        if (room.members.size === 0 && !room.creatorToken) {
           setTimeout(() => {
-            if (room.members.size === 0 && room.spectators.size === 0) {
+            if (room.members.size === 0 && room.spectators.size === 0 && !room.creatorToken) {
               roomManager.removeRoom(room.id);
               broadcastRoomList();
             }
           }, 10 * 60 * 1000);
         }
         send({ type: MSG.ROOM_LEFT });
-        send({ type: MSG.ROOM_LIST, rooms: roomManager.listRooms() });
+        send({ type: MSG.ROOM_LIST, rooms: roomManager.listRooms(getConnectedOwners()) });
         addLog(`${clientId.slice(0,8)} left room ${room.name}`);
       }
       break;
@@ -939,11 +939,17 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       const delRoom = roomManager.getRoom(msg.roomId);
       if (!delRoom) { send({ type: MSG.ERROR, message: 'Room not found' }); break; }
       const deleterToken = [...wsClients].find(c => c.id === clientId)?.playerToken || [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
-      if (delRoom.getCreatorId() !== deleterToken) { send({ type: MSG.ERROR, message: 'Only the room creator can delete it' }); break; }
-      delRoom.broadcast({ type: MSG.ROOM_DELETED, roomId: msg.roomId, reason: 'Room deleted by creator' });
+      const isOwner = delRoom.creatorToken ? (delRoom.creatorToken === deleterToken) : (delRoom.getCreatorId() === deleterToken);
+      if (!isOwner) { send({ type: MSG.ERROR, message: 'Only the room owner can delete it' }); break; }
+      delRoom.broadcast({ type: MSG.ROOM_DELETED, roomId: msg.roomId, reason: 'Room deleted by owner' });
       roomManager.removeRoom(msg.roomId);
+      if (delRoom.creatorToken) {
+        const roomDir = getRoomDir(delRoom.creatorToken, msg.roomId);
+        try { fsSync.rmSync(roomDir, { recursive: true, force: true }); } catch {}
+        addLog(`Room dir deleted: ${roomDir}`);
+      }
       broadcastRoomList();
-      addLog(`Room deleted by creator: ${delRoom.name}`);
+      addLog(`Room deleted by owner: ${delRoom.name} (${msg.roomId.slice(0,8)})`);
       break;
     }
 
@@ -964,7 +970,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
     }
 
     case MSG.LIST_ROOMS: {
-      send({ type: MSG.ROOM_LIST, rooms: roomManager.listRooms() });
+      send({ type: MSG.ROOM_LIST, rooms: roomManager.listRooms(getConnectedOwners()) });
       break;
     }
 
@@ -1067,6 +1073,15 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       const myDevices = deviceRecords.filter(d => d.ownerToken === token);
       const connectedDeviceIds = [...wsClients].filter(c => c.playerToken === token && c.deviceId).map(c => c.deviceId);
       send({ type: MSG.PROFILE, profile: { ...profile, devices: myDevices }, connectedDeviceIds });
+
+      // UC-RM.4: Owner reconnect — activate dormant rooms
+      if (profile.sshKeysGenerated) {
+        const ownerRooms = roomManager.listRoomsForOwner(token);
+        if (ownerRooms.length > 0) {
+          broadcastRoomList();
+          addLog(`Owner ${token.slice(0,8)} connected — ${ownerRooms.length} room(s) activated`);
+        }
+      }
       break;
     }
 
@@ -1245,8 +1260,14 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
   }
 }
 
+function getConnectedOwners(): Set<string> {
+  const owners = new Set<string>();
+  wsClients.forEach(c => { if (c.playerToken) owners.add(c.playerToken); });
+  return owners;
+}
+
 function broadcastRoomList(): void {
-  const list = JSON.stringify({ type: MSG.ROOM_LIST, rooms: roomManager.listRooms() });
+  const list = JSON.stringify({ type: MSG.ROOM_LIST, rooms: roomManager.listRooms(getConnectedOwners()) });
   wsClients.forEach(c => { if (c.ws.readyState === 1) c.ws.send(list); });
 }
 
