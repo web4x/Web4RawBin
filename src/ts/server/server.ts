@@ -822,7 +822,7 @@ function setupWebSocketServer(server: https.Server): void {
 
     ws.send(JSON.stringify({ type: 'welcome', clientId, onlineCount: wsClients.size, challenge }));
     ws.send(JSON.stringify({ type: MSG.SERVER_CONFIG, shareDomain: BASE_DOMAIN || getLocalIP(), httpsPort: HTTPS_PORT }));
-    ws.send(JSON.stringify({ type: MSG.ROOM_LIST, rooms: roomManager.listRooms(getConnectedOwners()) }));
+    ws.send(JSON.stringify({ type: MSG.ROOM_LIST, rooms: enrichRoomList(roomManager.listRooms(getConnectedOwners())) }));
 
     ws.on('message', (data) => {
       try { handleMessage(clientId, ws, JSON.parse(data.toString())); } catch (e: any) { addLog(`WS handler error: ${e?.message || e}`); }
@@ -841,6 +841,8 @@ function setupWebSocketServer(server: https.Server): void {
       }
       const specRoom = roomManager.findSpectatorRoom(clientId);
       if (specRoom) specRoom.removeSpectator(clientId);
+
+      broadcastRoomList();
     });
 
     ws.on('error', () => { wsClients.delete(client); });
@@ -913,6 +915,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
         room.broadcast({ type: MSG.HOST_CHANGED, hostId: clientId });
       }
       addLog(`${joinName} joined room ${room.name}`);
+      broadcastRoomList();
       break;
     }
 
@@ -929,7 +932,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
           }, 10 * 60 * 1000);
         }
         send({ type: MSG.ROOM_LEFT });
-        send({ type: MSG.ROOM_LIST, rooms: roomManager.listRooms(getConnectedOwners()) });
+        broadcastRoomList();
         addLog(`${clientId.slice(0,8)} left room ${room.name}`);
       }
       break;
@@ -970,7 +973,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
     }
 
     case MSG.LIST_ROOMS: {
-      send({ type: MSG.ROOM_LIST, rooms: roomManager.listRooms(getConnectedOwners()) });
+      send({ type: MSG.ROOM_LIST, rooms: enrichRoomList(roomManager.listRooms(getConnectedOwners())) });
       break;
     }
 
@@ -1266,8 +1269,16 @@ function getConnectedOwners(): Set<string> {
   return owners;
 }
 
+function enrichRoomList(rooms: any[]): any[] {
+  return rooms.map(r => ({
+    ...r,
+    ownerName: r.ownerToken ? (userProfiles.get(r.ownerToken)?.name || 'Unknown') : '',
+  }));
+}
+
 function broadcastRoomList(): void {
-  const list = JSON.stringify({ type: MSG.ROOM_LIST, rooms: roomManager.listRooms(getConnectedOwners()) });
+  const rooms = enrichRoomList(roomManager.listRooms(getConnectedOwners()));
+  const list = JSON.stringify({ type: MSG.ROOM_LIST, rooms });
   wsClients.forEach(c => { if (c.ws.readyState === 1) c.ws.send(list); });
 }
 

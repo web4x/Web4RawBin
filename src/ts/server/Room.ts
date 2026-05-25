@@ -211,7 +211,7 @@ export class Room {
 
   // --- Info ---
 
-  info(): RoomInfo & { spectatorCount: number; creatorId: string } {
+  info(): RoomInfo & { spectatorCount: number; creatorId: string; ownerToken: string } {
     return {
       id: this.id,
       name: this.name,
@@ -224,6 +224,7 @@ export class Room {
       createdAt: this.createdAt,
       spectatorCount: this.spectators.size,
       creatorId: this.creatorId,
+      ownerToken: this.creatorToken,
     };
   }
 
