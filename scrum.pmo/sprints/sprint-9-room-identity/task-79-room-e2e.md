@@ -30,7 +30,7 @@ See [requirements.md](./requirements.md) and [architecture.md](./architecture.md
 - [ ] See requirements.md for detailed AC per use case
 
 ## QA Audit & User Feedback
-- 2026-05-25: Tester reports room-identity.spec 6/6 PASS (e2e) + room-identity.test 70 tests. Implementation + testing complete. Spec files not yet committed.
+- 2026-05-25: Tester committed specs (c43cbc8): room-identity.spec.ts 6/6 PASS (e2e) + room-identity.test.ts 70 unit tests. Implementation + testing complete and committed.
 - Pending Tron QA review.
 
 ## Subtasks

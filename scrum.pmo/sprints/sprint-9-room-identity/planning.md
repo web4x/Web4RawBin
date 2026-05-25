@@ -57,6 +57,7 @@ Transform rooms from ephemeral shared spaces into persistent, per-user SSH ident
   - Room persistence indicator in lobby (persistent badge)
 
 - [ ] [T79: E2E Tests](./task-79-room-e2e.md)
+  **Status:** impl-done + committed (c43cbc8, 6/6 e2e + 70 unit) — awaiting Tron QA
   **Priority:** 6 (MEDIUM)
   **Effort:** 2h tester
   - Playwright: create room → restart server → room still listed
@@ -76,8 +77,7 @@ T79 (E2E — after all)
 |--------|-------|
 | Tasks | 6 (T74-T79) |
 | Tron QA-approved (Done) | 0/6 |
-| Impl-done, awaiting Tron QA | 4 (T74-T77, v0.4.0-v0.4.4) |
-| Tested, awaiting commit+QA | 1 (T79 — room-identity 6/6 e2e) |
+| Impl-done + committed, awaiting Tron QA | 5 (T74-T77, T79) |
 | Not started | 1 (T78 — client updates) |
 | Expert effort | ~10h |
 | Tester effort | ~3h |
