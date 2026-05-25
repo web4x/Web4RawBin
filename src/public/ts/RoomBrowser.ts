@@ -126,6 +126,7 @@ export class RoomBrowser {
             <span class="room-name">${room.isPrivate ? '🔒 ' : ''}${room.name}${ownerLabel}</span>
             <span class="room-members">${room.memberCount}/${room.maxMembers} members</span>
             <span class="room-id">${room.id}</span>
+            <span class="room-persist" title="Persistent room — saved to disk with its own SSH identity">💾 Persistent</span>
           </div>
           <div class="room-status">
             <span class="room-state room-state-${room.state}">${stateLabel}</span>

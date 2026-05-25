@@ -55,6 +55,9 @@ body {
 .room-info { display: flex; flex-direction: column; }
 .room-name { color: white; font-weight: 600; font-size: 0.95rem; }
 .room-members { color: rgba(255,255,255,0.6); font-size: 0.8rem; }
+.room-owner { color: rgba(255,255,255,0.5); font-size: 0.7rem; font-weight: 400; }
+.room-id { color: rgba(255,255,255,0.3); font-size: 0.6rem; font-family: monospace; }
+.room-persist { color: rgba(76,175,80,0.85); font-size: 0.65rem; font-weight: 500; margin-top: 2px; }
 .room-status { display: flex; align-items: center; gap: 6px; }
 .room-state { color: rgba(255,255,255,0.5); font-size: 0.75rem; }
 .room-state-active { color: #4CAF50; }
