@@ -50,6 +50,7 @@ Transform rooms from ephemeral shared spaces into persistent, per-user SSH ident
   - Room list shows owner name, member count, private status
 
 - [ ] [T78: Client Updates](./task-78-client-updates.md)
+  **Status:** impl-committed (f5d7df4, v0.4.8) — testing (robbin-tester) + Tron QA pending
   **Priority:** 5 (MEDIUM — UI changes)
   **Effort:** 1h expert
   - Default room name from profile.name in RoomBrowser create form
@@ -83,7 +84,7 @@ T79 (E2E — after all)
 |--------|-------|
 | Tasks | 7 (T74-T80) |
 | Tron QA-approved (Done) | 6/7 (T74-T77, T79, T80) |
-| In development | 1 (T78 — client updates) |
+| Impl-committed, testing+QA pending | 1 (T78 — client updates, v0.4.8) |
 | Expert effort | ~10h |
 | Tester effort | ~3h |
 
