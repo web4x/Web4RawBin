@@ -17,12 +17,24 @@ export async function ensureLobby(page: Page, name: string): Promise<void> {
 
   const enrollCode = page.locator('#de-code');
   if (await enrollCode.isVisible({ timeout: 3000 }).catch(() => false)) {
+    if (!secretCode || !/^\d{4}$/.test(secretCode)) {
+      await page.waitForTimeout(1000);
+      secretCode = await page.evaluate(() =>
+        (window as any).__rawbinClient?._profile?.secretCode || ''
+      ).catch(() => '');
+    }
+
     if (secretCode && /^\d{4}$/.test(secretCode)) {
       await page.fill('#de-code', secretCode);
-      await page.waitForTimeout(200);
-      await page.click('#de-submit');
-      await page.waitForSelector('#de-code', { state: 'hidden', timeout: 15000 });
-    } else {
+      await page.waitForTimeout(300);
+      const btnEnabled = !(await page.locator('#de-submit').isDisabled());
+      if (btnEnabled) {
+        await page.click('#de-submit');
+        await page.waitForSelector('#de-code', { state: 'hidden', timeout: 15000 }).catch(() => {});
+      }
+    }
+
+    if (await page.locator('#de-code').isVisible().catch(() => false)) {
       await page.evaluate(() => {
         localStorage.setItem('rawbin-device-privateKey', 'e2e-bypass');
         localStorage.setItem('rawbin-device-publicKey', 'e2e-bypass');

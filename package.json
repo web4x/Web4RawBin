@@ -1,6 +1,6 @@
 {
   "name": "rawbin",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "RawBin — AI Server Management Interface",
   "type": "module",
   "scripts": {
@@ -12,6 +12,7 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:editor": "playwright test test/e2e/editor.spec.ts",
+    "test:e2e:rooms": "playwright test test/e2e/room-identity.spec.ts",
     "test:all": "vitest run && playwright test"
   },
   "keywords": [
