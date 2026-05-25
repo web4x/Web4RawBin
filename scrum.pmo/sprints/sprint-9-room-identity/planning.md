@@ -13,8 +13,8 @@ Transform rooms from ephemeral shared spaces into persistent, per-user SSH ident
 
 ## Task List
 
-- [ ] [T74: Room Directory + SSH Keypair](./task-74-room-keys.md)
-  **Status:** impl-done (v0.4.0) — awaiting Tron QA
+- [x] [T74: Room Directory + SSH Keypair](./task-74-room-keys.md)
+  **Status:** DONE (v0.4.0) — Tron QA approved
   **Priority:** 1 (CRITICAL — foundation)
   **Effort:** 3h expert + 1h tester
   - Create room folder under user dir: data/users/<token>/rooms/<uuid>/
@@ -22,8 +22,8 @@ Transform rooms from ephemeral shared spaces into persistent, per-user SSH ident
   - room.json metadata file
   - Default name: "${profile.name}'s Room"
 
-- [ ] [T75: Room Persistence + Startup Load](./task-75-room-persist.md)
-  **Status:** impl-done (v0.4.2) — awaiting Tron QA
+- [x] [T75: Room Persistence + Startup Load](./task-75-room-persist.md)
+  **Status:** DONE (v0.4.2) — Tron QA approved
   **Priority:** 2 (HIGH — rooms must survive restart)
   **Effort:** 2h expert + 1h tester
   - Scan data/users/*/rooms/*/room.json on startup
@@ -31,8 +31,8 @@ Transform rooms from ephemeral shared spaces into persistent, per-user SSH ident
   - Persist on every mutation (join/leave/chat/settings)
   - Remove auto-cleanup (no more cleanupStale for persistent rooms)
 
-- [ ] [T76: Owner Lifecycle + Manual Delete](./task-76-room-lifecycle.md)
-  **Status:** impl-done (v0.4.3) — awaiting Tron QA
+- [x] [T76: Owner Lifecycle + Manual Delete](./task-76-room-lifecycle.md)
+  **Status:** DONE (v0.4.3) — Tron QA approved
   **Priority:** 3 (HIGH — owner-only control)
   **Effort:** 2h expert + 1h tester
   - Rooms ONLY deleted by owner (manual DELETE_ROOM)
@@ -40,8 +40,8 @@ Transform rooms from ephemeral shared spaces into persistent, per-user SSH ident
   - No auto-delete on empty, no timeout cleanup
   - Owner reconnect re-advertises rooms
 
-- [ ] [T77: Lobby Sync + Room Advertise](./task-77-lobby-sync.md)
-  **Status:** impl-done (v0.4.4) — awaiting Tron QA
+- [x] [T77: Lobby Sync + Room Advertise](./task-77-lobby-sync.md)
+  **Status:** DONE (v0.4.4) — Tron QA approved
   **Priority:** 4 (HIGH — rooms visible to all)
   **Effort:** 2h expert + 1h tester
   - On lobby connect, owner's rooms broadcast to all clients
@@ -56,8 +56,8 @@ Transform rooms from ephemeral shared spaces into persistent, per-user SSH ident
   - Full UUID in room cards (was truncated)
   - Room persistence indicator in lobby (persistent badge)
 
-- [ ] [T79: E2E Tests](./task-79-room-e2e.md)
-  **Status:** impl-done + committed (c43cbc8, 6/6 e2e + 70 unit) — awaiting Tron QA
+- [x] [T79: E2E Tests](./task-79-room-e2e.md)
+  **Status:** DONE (c43cbc8, 6/6 e2e + 70 unit) — Tron QA approved
   **Priority:** 6 (MEDIUM)
   **Effort:** 2h tester
   - Playwright: create room → restart server → room still listed
@@ -65,8 +65,8 @@ Transform rooms from ephemeral shared spaces into persistent, per-user SSH ident
   - Owner delete removes room + keys
   - Non-owner cannot delete
 
-- [ ] [T80: Fix Enrollment Race — Second PROFILE_UPDATED Re-Renders Dialog](./task-80-enrollment-race-fix.md)
-  **Status:** impl-done + committed (25b1e47, v0.4.7, 21/21 E2E) — awaiting Tron QA
+- [x] [T80: Fix Enrollment Race — Second PROFILE_UPDATED Re-Renders Dialog](./task-80-enrollment-race-fix.md)
+  **Status:** DONE (25b1e47, v0.4.7, 21/21 E2E) — Tron QA approved
   **Owner:** robbin-expert
   - Avatar-backfill PROFILE_UPDATED no longer re-triggers enrollment dialog
   - One-shot onSave handler in ProfileEditor.ts
@@ -82,9 +82,8 @@ T79 (E2E — after all)
 | Metric | Value |
 |--------|-------|
 | Tasks | 7 (T74-T80) |
-| Tron QA-approved (Done) | 0/7 |
-| Impl-done + committed, awaiting Tron QA | 6 (T74-T77, T79, T80) |
-| Not started | 1 (T78 — client updates) |
+| Tron QA-approved (Done) | 6/7 (T74-T77, T79, T80) |
+| In development | 1 (T78 — client updates) |
 | Expert effort | ~10h |
 | Tester effort | ~3h |
 

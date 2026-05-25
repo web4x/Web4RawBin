@@ -11,8 +11,8 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 - up
@@ -27,7 +27,7 @@
 See [requirements.md](./requirements.md) and [architecture.md](./architecture.md) for full spec.
 
 ## Acceptance Criteria
-- [ ] See requirements.md for detailed AC per use case
+- [x] See requirements.md for detailed AC per use case
 
 ## QA Audit & User Feedback
 - 2026-05-25: Tester committed specs (c43cbc8): room-identity.spec.ts 6/6 PASS (e2e) + room-identity.test.ts 70 unit tests. Implementation + testing complete and committed.
