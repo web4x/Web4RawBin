@@ -3,10 +3,17 @@
 # Sprint 11 Planning — Traceability Standardization
 
 ## Sprint Goal
-Bring RawBin's scrum.pmo up to the Web4Articles planning standard: every task
-file carries the full forward-traceability chain **requirement → use case →
-PUML → class/method**, anchored by its existing `task:uuid`. Done in deliberate,
-QA-gated batches — NOT ad-hoc inline edits to signed-off sprints.
+Bring RawBin's **Sprints 1-9** task files up to the approved
+[Traceability Standard](../../standards/traceability-standard.md): every task
+carries the full chain **Tron→requirement→task→use case→PUML→class/method→test**,
+anchored by `task:uuid`. Done in deliberate, QA-gated batches — NOT ad-hoc inline
+edits to signed-off sprints. (Sprint 10 made compliant separately as active work;
+Sprint 11 itself uses the standard natively.)
+
+**Scope:** Sprints 1-9 (89→ existing tasks, minus Sprint 10 handled live).
+**Standard:** approved `scrum.pmo/standards/traceability-standard.md` (robbin-req).
+**Audit split:** req-eng completed the Sprint 1 audit (the pattern); req audits
+Sprints 2-9 within this sprint; planner wires links + keeps planning coherent.
 
 ## Why This Sprint (Tron directive 2026-05-25)
 Adopt the Web4Articles planning standard
@@ -40,9 +47,9 @@ requirements.md entirely.
 
 - [ ] [T84: Adopt Web4Articles task template + traceability conventions doc](./task-84-adopt-template.md)
   **Status:** PLANNED · **Owner:** planner + req-eng
-  - Upgraded `task-template.md` (done — Web4Articles-aligned, hierarchical Status, forward chain)
-  - Write `scrum.pmo/traceability-standard.md` defining the req→usecase→puml→class/method convention + UUID anchoring
-  - Future tasks use this template; this task is the foundation for T85-T89
+  - `scrum.pmo/standards/traceability-standard.md` — DONE (robbin-req, approved by PO)
+  - Upgraded `task-template.md` — DONE (planner; Web4Articles-aligned, hierarchical Status, forward chain)
+  - Remaining: verify template ⟷ standard agree; future tasks use both. Foundation for T85-T89
 
 - [ ] [T85: Traceability index — map all 89 tasks to chain coverage](./task-85-traceability-index.md)
   **Status:** PLANNED · **Owner:** planner + req-eng
@@ -50,10 +57,10 @@ requirements.md entirely.
   - Identify which sprints need requirements.md / use-case / PUML backfill
   - Output drives the batch order of T86-T88
 
-- [ ] [T86: Batch 1 — active sprints (8, 9, 10) full chain](./task-86-batch-active.md)
-  **Status:** PLANNED · **Owner:** req-eng (chain), planner (links)
-  - Sprints 8,9 already have requirements.md + diagrams — wire each task's forward chain
-  - Sprint 10: author requirements.md + use cases, link T81-T83 to PUML + class/method
+- [ ] [T86: Batch 1 — recent sprints (8, 9) full chain](./task-86-batch-active.md)
+  **Status:** PLANNED · **Owner:** req-eng (chain + audit), planner (links)
+  - Sprints 8,9 already have requirements.md + diagrams — add requirement:uuid tags + wire each task's forward chain
+  - (Sprint 10 already made compliant as active work — requirements.md + T81-T83 up→requirement links done)
   - QA-gated: Tron reviews before Done
 
 - [ ] [T87: Batch 2 — Sprints 5-7 chain backfill](./task-87-batch-mid.md)

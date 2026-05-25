@@ -16,6 +16,7 @@
 
 ## Traceability
 - up
+  - [requirement:uuid:20b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a51](./requirements.md) — R10.2 vCard button visibility + avatar DRY
   - [Sprint 10 Planning](./planning.md)
 - down
   - None (atomic task)
@@ -103,7 +104,48 @@ Notes:
 - `rb-avatar` brings crop support + `rb-avatar-updated` live refresh + the shared initial-letter fallback for free.
 - Keep the `.user-sheet-avatar` wrapper for layout (80px circle). The `.user-sheet-avatar img` CSS (app.css:178) still applies to the `<img>` rb-avatar renders inside its shadow root — actually rb-avatar styles its own shadow content, so the wrapper just centers it; confirm the 80px sizing comes from the `size="80"` attribute, not the wrapper. If the wrapper's fixed 80px conflicts, the `size` attribute governs the component — leave the wrapper as a centering container.
 
-### Change 3 — Version bump (required to reach the device)
+### Change 3 — Button row structured for self/other (anticipates T83)
+
+T82 and T83 reshape the SAME component (ProfileSheet). To avoid rework, build the button row now as an `isSelf` branch. Tron-confirmed final matrix:
+
+| Viewer | Buttons |
+|--------|---------|
+| OTHER member | `[Download vCard]` `[Link Account]` |
+| SELF | `[Download vCard]` `[Edit → opens ProfileEditor]` |
+
+`Download vCard` is **common to both** (always rendered). The second button differs.
+
+**File:** `src/public/ts/ProfileSheet.ts`
+
+Extend `open()` to accept an options object (default `{}`):
+```typescript
+interface SheetOpts { isSelf?: boolean; onEdit?: () => void; }
+open(profile: PublicProfile, opts: SheetOpts = {}): void {
+  const isSelf = opts.isSelf === true;
+  // store opts.onEdit for the Edit button handler (T83 wires the click)
+```
+
+Render the button row with the branch (Change 1 CSS makes the secondary button visible):
+```html
+<button id="us-vcard" class="btn btn-secondary user-sheet-btn">Download vCard</button>
+${isSelf
+  ? `<button id="us-edit" class="btn btn-primary user-sheet-btn">Edit Profile</button>`
+  : `<button id="us-link" class="btn btn-primary user-sheet-btn" data-token="${profile.playerToken}" data-name="${profile.name}">Link Account</button>`}
+```
+
+**T82 implements ONLY the `!isSelf` path** (Download vCard + Link Account, both visible). The `isSelf` branch markup may be present, but:
+- T82 callers pass no opts / `{}` (only OTHER members reach the sheet today; RoomView self-click still opens ProfileEditor directly until T83).
+- **T83 owns:** routing self-click to `profileSheet.open(ownProfile, { isSelf: true, onEdit: () => profileEditor.open(...) })` AND wiring `#us-edit` → `opts.onEdit()`. Do NOT wire `#us-edit` in T82.
+
+This way T83 fills the self branch without restructuring the row or the avatar — T82's CSS, avatar, and row scaffold already support both.
+
+**Seam contract for T83 (do not change in T82):**
+- `open(profile, opts: { isSelf?, onEdit? })` — options object, NOT positional (coherent with T83)
+- `#us-vcard` works identically for self and other (vCard builder is viewer-agnostic — uses `profile.*`)
+- `#us-edit` is the self-only button id T83 wires to `opts.onEdit()`
+- ProfileSheet stays DECOUPLED from ProfileEditor — never imports/constructs it; only invokes the `onEdit` callback the caller (RoomView) supplies
+
+### Change 4 — Version bump (required to reach the device)
 
 Per the SW-versioning rule (same as T81): bump `package.json` `"version"` 0.4.9 → **0.5.0** and rebuild (`node build.mjs` auto-stamps `sw.js` CACHE_NAME → `rawbin-v0.5.0`). Without it the PWA update banner never fires and Tron's iPhone keeps the old bundle.
 
@@ -121,6 +163,7 @@ Per the SW-versioning rule (same as T81): bump `package.json` `"version"` 0.4.9 
 - [ ] AC8: `npm run build` succeeds; no new tsc errors in changed files
 - [ ] AC9: Served bundle reflects **v0.5.0** — `/api/health` + `/api/config` report `version: 0.5.0`, built `sw.js` CACHE_NAME is `rawbin-v0.5.0`
 - [ ] AC10: All existing E2E specs still pass (no regression) + new test (below) passes
+- [ ] AC11: `ProfileSheet.open(profile, opts?: { isSelf?, onEdit? })` signature exists; with default/`{}` opts the row renders `[Download vCard][Link Account]` (T82's only implemented path). The `isSelf=true` branch markup (`#us-edit`) may be present but is NOT wired in T82 — T83 owns it. ProfileSheet does NOT import ProfileEditor.
 
 ---
 
@@ -175,6 +218,7 @@ Per the SW-versioning rule (same as T81): bump `package.json` `"version"` 0.4.9 
 ## Refinement Log
 
 - 2026-05-25 robbin-architect: drafted complete spec. Root cause: (1) vCard button invisible — `.btn-secondary` white-on-white on white `.profile-sheet` (app.css:20 vs :156); NOT conditional, NOT a duplicate sheet (single ProfileSheet.ts confirmed). (2) ProfileSheet avatar is inline `<img>` (ProfileSheet.ts:23-26,34), not rb-avatar. Fix: scope `.user-sheet .btn-secondary` to readable colors + swap inline img for `<rb-avatar readonly>` + version bump 0.5.0. Ready for PO review.
+- 2026-05-25 robbin-architect (coordination w/ T83): added Change 3 — `open(profile, isSelf)` button-row scaffold so T82 and T83 reshape ProfileSheet coherently (no rework). Final matrix: vCard common; OTHER=Link Account, SELF=Edit. T82 implements only `!isSelf`; T83 wires the `#us-edit` self branch + self-click routing. Seam contract documented (AC11). Version bump renumbered Change 3→Change 4.
 
 ## QA Audit & User Feedback
 - Pending PO refinement review, then Tron QA.
