@@ -855,7 +855,8 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       if (!creatorProfile?.sshKeysGenerated) { send({ type: MSG.ERROR, message: 'SSH keys required' }); break; }
 
       const memberName = msg.playerName || creatorProfile.name || 'User';
-      const roomName = msg.roomName || msg.name || `${creatorProfile.name || memberName}'s Room`;
+      const clientName = msg.roomName || msg.name || '';
+      const roomName = (!clientName || clientName === 'My Room') ? `${creatorProfile.name || memberName}'s Room` : clientName;
       const profileAvatar = creatorProfile?.avatar || '/icon-192.png';
       const member: RoomMember = {
         id: clientId, ws, name: memberName, avatarUrl: profileAvatar,
