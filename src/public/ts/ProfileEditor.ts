@@ -20,7 +20,9 @@ export class ProfileEditor {
     this.client = client;
     this.client.on(MSG.PROFILE_UPDATED, (msg) => {
       if (this.onSave && msg.profile) {
-        this.onSave(msg.profile);
+        const cb = this.onSave;
+        this.onSave = null;        // clear BEFORE invoking — one-shot
+        cb(msg.profile);
         if (msg.profile.name) localStorage.setItem('rawbin-name', msg.profile.name);
       }
       this.close();
