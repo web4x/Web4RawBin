@@ -45,36 +45,36 @@ requirements.md entirely.
 
 ## Task List
 
-- [ ] [T84: Adopt Web4Articles task template + traceability conventions doc](./task-84-adopt-template.md)
+- [ ] [T85: Adopt Web4Articles task template + traceability conventions doc](./task-85-adopt-template.md)
   **Status:** PLANNED · **Owner:** planner + req-eng
   - `scrum.pmo/standards/traceability-standard.md` — DONE (robbin-req, approved by PO)
   - Upgraded `task-template.md` — DONE (planner; Web4Articles-aligned, hierarchical Status, forward chain)
-  - Remaining: verify template ⟷ standard agree; future tasks use both. Foundation for T85-T89
+  - Remaining: verify template ⟷ standard agree; future tasks use both. Foundation for T86-T90
 
-- [ ] [T85: Traceability index — map all 89 tasks to chain coverage](./task-85-traceability-index.md)
+- [ ] [T86: Traceability index — map all 89 tasks to chain coverage](./task-86-traceability-index.md)
   **Status:** PLANNED · **Owner:** planner + req-eng
   - Produce `scrum.pmo/traceability-matrix.md`: per-task req/usecase/puml/class-method presence
   - Identify which sprints need requirements.md / use-case / PUML backfill
-  - Output drives the batch order of T86-T88
+  - Output drives the batch order of T87-T89
 
-- [ ] [T86: Batch 1 — recent sprints (8, 9) full chain](./task-86-batch-active.md)
+- [ ] [T87: Batch 1 — recent sprints (8, 9) full chain](./task-87-batch-active.md)
   **Status:** PLANNED · **Owner:** req-eng (chain + audit), planner (links)
   - Sprints 8,9 already have requirements.md + diagrams — add requirement:uuid tags + wire each task's forward chain
   - (Sprint 10 already made compliant as active work — requirements.md + T81-T83 up→requirement links done)
   - QA-gated: Tron reviews before Done
 
-- [ ] [T87: Batch 2 — Sprints 5-7 chain backfill](./task-87-batch-mid.md)
+- [ ] [T88: Batch 2 — Sprints 5-7 chain backfill](./task-88-batch-mid.md)
   **Status:** PLANNED · **Owner:** req-eng (chain), planner (links)
   - Sprints 5,6,7 — backfill requirements.md/use cases where missing, link PUML + code
   - DELIBERATE: these are closed/QA'd — changes tracked here, reviewed, not inline churn
 
-- [ ] [T88: Batch 3 — Sprints 1-4 chain backfill](./task-88-batch-foundation.md)
+- [ ] [T89: Batch 3 — Sprints 1-4 chain backfill](./task-89-batch-foundation.md)
   **Status:** PLANNED · **Owner:** req-eng (chain), planner (links)
   - Oldest sprints — retroactively author requirements.md + use-case stubs as tracked work
   - Reconcile the deferred Sprint 1 duplicate task-2 files as part of this batch
   - Highest risk (signed-off) — smallest sub-batches, Tron-gated per sprint
 
-- [ ] [T89: Traceability verification + audit gate](./task-89-traceability-verify.md)
+- [ ] [T90: Traceability verification + audit gate](./task-90-traceability-verify.md)
   **Status:** PLANNED · **Owner:** tester + planner
   - Add a chain-resolution check: every task's req→usecase→puml→class/method links resolve
   - Extend (or wrap) the `sprint audit` to flag broken/missing chain links
@@ -82,32 +82,32 @@ requirements.md entirely.
 
 ## Dependency Graph
 ```
-T84 (template + standard doc) ─→ T85 (index/matrix) ─┬─→ T86 (batch active 8-10)
-                                                      ├─→ T87 (batch mid 5-7)
-                                                      └─→ T88 (batch foundation 1-4)
+T85 (template + standard doc) ─→ T86 (index/matrix) ─┬─→ T87 (batch active 8-10)
+                                                      ├─→ T88 (batch mid 5-7)
+                                                      └─→ T89 (batch foundation 1-4)
                                                               │
-                                          T89 (verify) ←──────┘
+                                          T90 (verify) ←──────┘
 ```
 
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 6 (T84-T89) |
+| Tasks | 6 (T85-T90) |
 | Tron QA-approved (Done) | 0/6 |
 | Planned | 6 |
 | Scope | 89 existing task files, 10 sprints |
 
 ## Definition of Done
-- [ ] Web4Articles-aligned task-template.md adopted for future tasks (T84)
-- [ ] traceability-standard.md + traceability-matrix.md published (T84, T85)
-- [ ] All 89 tasks carry req→usecase→puml→class/method chain (T86-T88)
-- [ ] Chain-resolution audit passes 89/89 (T89)
+- [ ] Web4Articles-aligned task-template.md adopted for future tasks (T85)
+- [ ] traceability-standard.md + traceability-matrix.md published (T85, T86)
+- [ ] All 89 tasks carry req→usecase→puml→class/method chain (T87-T89)
+- [ ] Chain-resolution audit passes 89/89 (T90)
 - [ ] No closed/QA sprint rewritten inline — all via tracked, Tron-gated batches
-- [ ] Sprint 1 duplicate task-2 reconciled (in T88)
+- [ ] Sprint 1 duplicate task-2 reconciled (in T89)
 
 ## Guardrails (Tron directive)
 - FUTURE tasks: use upgraded template immediately
-- CLOSED/QA tasks: remediate ONLY through T86-T88 batches, reviewed + Tron-gated
+- CLOSED/QA tasks: remediate ONLY through T87-T89 batches, reviewed + Tron-gated
 - Never silent inline edits to signed-off sprints
 - QA Review + Done remain Tron's gate
 

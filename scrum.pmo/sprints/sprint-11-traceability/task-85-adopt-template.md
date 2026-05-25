@@ -1,6 +1,6 @@
 [Back to Sprint 11 Planning](./planning.md)
 
-# T84: Adopt Web4Articles Task Template + Traceability Conventions
+# T85: Adopt Web4Articles Task Template + Traceability Conventions
 
 [task:uuid:a1f4c9d2-8b30-4e67-9c15-3d8e2f7a0b41]
 
@@ -19,7 +19,7 @@
   - [Sprint 11 Planning](./planning.md)
   - Tron directive 2026-05-25 (adopt Web4Articles planning standard)
 - down
-  - None (atomic task — foundation for T85-T89)
+  - None (atomic task — foundation for T86-T90)
 
 ## Task Description
 Upgrade RawBin's task template to the Web4Articles standard and document the
@@ -42,7 +42,7 @@ Tron: adopt the Web4Articles planning standard. Reference:
 
 ## Dependencies
 - **Requires:** None
-- **Enables:** T85 (index), T86-T88 (batches use the standard)
+- **Enables:** T86 (index), T87-T89 (batches use the standard)
 
 ## Definition of Done
 - [ ] Template + standard doc published

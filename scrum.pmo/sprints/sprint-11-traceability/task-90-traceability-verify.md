@@ -1,6 +1,6 @@
 [Back to Sprint 11 Planning](./planning.md)
 
-# T89: Traceability Verification + Audit Gate
+# T90: Traceability Verification + Audit Gate
 
 [task:uuid:f6c9b4e7-3a85-4d12-8b60-8c3d7e2f5a96]
 
@@ -20,7 +20,7 @@
 - down
   - None (atomic task)
 - follows
-  - [T86](./task-86-batch-active.md), [T87](./task-87-batch-mid.md), [T88](./task-88-batch-foundation.md)
+  - [T87](./task-87-batch-active.md), [T88](./task-88-batch-mid.md), [T89](./task-89-batch-foundation.md)
 
 ## Task Description
 Add a chain-resolution verification: for every task, confirm its
@@ -29,7 +29,7 @@ req→usecase→puml→class/method links resolve to real artifacts. Extend or w
 are flagged like other Web4Articles compliance warnings.
 
 ## Context
-Closes the loop: T86-T88 add chains; T89 proves 89/89 resolve and keeps them
+Closes the loop: T87-T89 add chains; T90 proves 89/89 resolve and keeps them
 honest going forward (audit catches future drift).
 
 ## Acceptance Criteria
@@ -43,10 +43,10 @@ honest going forward (audit catches future drift).
 |------|--------|----------|
 | TS1 | Run chain audit on a task missing a PUML link | flagged |
 | TS2 | Run on a fully-chained task | passes |
-| TS3 | Run across all sprints | 89/89 pass after T86-T88 |
+| TS3 | Run across all sprints | 89/89 pass after T87-T89 |
 
 ## Dependencies
-- **Requires:** T86, T87, T88 (chains must exist to verify)
+- **Requires:** T87, T88, T89 (chains must exist to verify)
 - **Enables:** ongoing planner monitoring (drift detection)
 
 ## Definition of Done
@@ -55,7 +55,7 @@ honest going forward (audit catches future drift).
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
-- Pending T86-T88, then Tron QA.
+- Pending T87-T89, then Tron QA.
 
 ## Subtasks
 None (atomic task).

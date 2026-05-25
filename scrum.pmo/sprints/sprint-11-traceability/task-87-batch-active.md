@@ -1,6 +1,6 @@
 [Back to Sprint 11 Planning](./planning.md)
 
-# T86: Batch 1 — Active Sprints (8, 9, 10) Full Chain
+# T87: Batch 1 — Active Sprints (8, 9, 10) Full Chain
 
 [task:uuid:c3f6e1b4-0d52-4a89-9e37-5f0a4b9c2d63]
 
@@ -20,7 +20,7 @@
 - down
   - None (atomic task)
 - follows
-  - [T85](./task-85-traceability-index.md) — consumes the matrix
+  - [T86](./task-86-traceability-index.md) — consumes the matrix
 
 ## Task Description
 Wire the full forward chain (req→usecase→puml→class/method) into every task of
@@ -39,15 +39,15 @@ standardize as it develops so it sets the example.
 - [ ] No closed-task checkbox state changed (chain links only; Tron-gated)
 
 ## Dependencies
-- **Requires:** T85 (matrix)
-- **Enables:** T89 (verification)
+- **Requires:** T86 (matrix)
+- **Enables:** T90 (verification)
 
 ## Definition of Done
 - [ ] Sprints 8,9,10 chain-complete
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
-- Pending T85, then Tron QA.
+- Pending T86, then Tron QA.
 
 ## Subtasks
 None (atomic task).

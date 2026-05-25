@@ -1,6 +1,6 @@
 [Back to Sprint 11 Planning](./planning.md)
 
-# T87: Batch 2 — Sprints 5-7 Chain Backfill
+# T88: Batch 2 — Sprints 5-7 Chain Backfill
 
 [task:uuid:d4a7f2c5-1e63-4b90-8f48-6a1b5c0d3e74]
 
@@ -20,7 +20,7 @@
 - down
   - None (atomic task)
 - follows
-  - [T86](./task-86-batch-active.md)
+  - [T87](./task-87-batch-active.md)
 
 ## Task Description
 Backfill the forward chain for Sprints 5 (PWA Offline), 6 (Web Components),
@@ -37,15 +37,15 @@ reviewed, Tron-gated. Never silent inline edits.
 - [ ] Closed-task Status checkboxes unchanged (chain links only)
 
 ## Dependencies
-- **Requires:** T85 (matrix), T86 (pattern proven on active sprints)
-- **Enables:** T89
+- **Requires:** T86 (matrix), T87 (pattern proven on active sprints)
+- **Enables:** T90
 
 ## Definition of Done
 - [ ] Sprints 5,6,7 chain-complete
 - [ ] Tron QA approved (per-sprint sub-gate)
 
 ## QA Audit & User Feedback
-- Pending T86, then Tron QA.
+- Pending T87, then Tron QA.
 
 ## Subtasks
 None (atomic task).

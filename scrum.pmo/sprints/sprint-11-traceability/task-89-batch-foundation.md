@@ -1,6 +1,6 @@
 [Back to Sprint 11 Planning](./planning.md)
 
-# T88: Batch 3 — Sprints 1-4 Chain Backfill + Sprint-1 Dup Reconcile
+# T89: Batch 3 — Sprints 1-4 Chain Backfill + Sprint-1 Dup Reconcile
 
 [task:uuid:e5b8a3d6-2f74-4c01-9a59-7b2c6d1e4f85]
 
@@ -20,7 +20,7 @@
 - down
   - None (atomic task)
 - follows
-  - [T87](./task-87-batch-mid.md)
+  - [T88](./task-88-batch-mid.md)
 - resolves
   - Sprint 1 deferred cleanup: duplicate task-2 files (see sprint-1-rawbin-foundation/planning.md "Known Cleanup")
 
@@ -42,8 +42,8 @@ Tron gate. This is the sanctioned path to touch these files (vs silent inline ed
 - [ ] Each sprint's changes Tron-gated before its sub-batch is Done
 
 ## Dependencies
-- **Requires:** T85 (matrix), T87 (pattern)
-- **Enables:** T89
+- **Requires:** T86 (matrix), T88 (pattern)
+- **Enables:** T90
 
 ## Definition of Done
 - [ ] Sprints 1-4 chain-complete
@@ -51,7 +51,7 @@ Tron gate. This is the sanctioned path to touch these files (vs silent inline ed
 - [ ] Tron QA approved (per-sprint sub-gate)
 
 ## QA Audit & User Feedback
-- Pending T87, then Tron QA.
+- Pending T88, then Tron QA.
 
 ## Subtasks
 None (atomic task — may split per-sprint sub-batches during refinement).
