@@ -65,6 +65,12 @@ Transform rooms from ephemeral shared spaces into persistent, per-user SSH ident
   - Owner delete removes room + keys
   - Non-owner cannot delete
 
+- [ ] [T80: Fix Enrollment Race — Second PROFILE_UPDATED Re-Renders Dialog](./task-80-enrollment-race-fix.md)
+  **Status:** impl-done + committed (25b1e47, v0.4.7, 21/21 E2E) — awaiting Tron QA
+  **Owner:** robbin-expert
+  - Avatar-backfill PROFILE_UPDATED no longer re-triggers enrollment dialog
+  - One-shot onSave handler in ProfileEditor.ts
+
 ## Dependency Graph
 ```
 T74 (keys) → T75 (persist) → T76 (lifecycle) → T77 (sync)
@@ -75,9 +81,9 @@ T79 (E2E — after all)
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 6 (T74-T79) |
-| Tron QA-approved (Done) | 0/6 |
-| Impl-done + committed, awaiting Tron QA | 5 (T74-T77, T79) |
+| Tasks | 7 (T74-T80) |
+| Tron QA-approved (Done) | 0/7 |
+| Impl-done + committed, awaiting Tron QA | 6 (T74-T77, T79, T80) |
 | Not started | 1 (T78 — client updates) |
 | Expert effort | ~10h |
 | Tester effort | ~3h |
