@@ -15,7 +15,7 @@ code path and ensure "tap anywhere on a badge" works.
 ## Task List
 
 - [ ] [T81: Member Click → Profile Sheet → vCard Download](./task-81-member-click-vcard.md)
-  **Status:** refinement complete — awaiting PO re-review (R1-R3), then expert impl
+  **Status:** impl-done (v0.4.9) — testing (robbin-tester, TS1-TS5) + Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   - Fix key mismatch: client reads `msg.user` not `msg.profile` (RoomView.ts:99)
   - rb-avatar `readonly` attr so badge avatars bubble click (tap-anywhere)
@@ -28,7 +28,7 @@ code path and ensure "tap anywhere on a badge" works.
 |--------|-------|
 | Tasks | 1 (T81) — sprint opening |
 | Tron QA-approved (Done) | 0/1 |
-| In refinement/dev | 1 (T81) |
+| Impl-done, testing+QA pending | 1 (T81, v0.4.9) |
 
 ## Definition of Done
 - [ ] Tapping a joined member (name/avatar/dot) opens their profile sheet
