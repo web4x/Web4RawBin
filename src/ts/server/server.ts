@@ -13,9 +13,10 @@ import readline from 'node:readline';
 import { WebSocketServer, WebSocket } from 'ws';
 import fetch from 'node-fetch';
 import { marked } from 'marked';
-import { RoomManager, type RoomMember } from './Room.js';
+import { Room, RoomManager, type RoomMember } from './Room.js';
 import { MSG } from '../shared/MessageTypes.js';
 import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
+import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms } from './RoomKeys.js';
 import { encryptFile, decryptFile, fileExists } from './UserCrypto.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
@@ -190,6 +191,18 @@ function appendBugReport(name: string, text: string, token: string = ''): void {
 const ROOMS_DIR = path.join(DATA_DIR, 'rooms');
 const roomManager = new RoomManager(ROOMS_DIR);
 roomManager.loadFromDisk();
+
+// Load rooms from per-user directories (Sprint 9)
+{
+  const userRooms = scanAllRooms();
+  for (const { userToken, roomId, data } of userRooms) {
+    if (roomManager.getRoom(roomId)) continue;
+    const placeholder: RoomMember = { id: 'server', ws: null as any, name: '', avatarUrl: '', playerToken: userToken, disconnected: true };
+    const room = roomManager.createRoom(data.name, placeholder, { id: roomId, maxMembers: data.maxMembers, isPrivate: data.isPrivate, roomKey: data.roomKey || '', creatorToken: data.ownerToken });
+    room.creatorToken = data.ownerToken;
+  }
+}
+
 let serverStartTime = new Date();
 const serverLogs: string[] = [];
 const MAX_LOGS = 1000;
@@ -839,21 +852,29 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       const creatorToken = msg.playerToken || [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
       const creatorProfile = creatorToken ? userProfiles.get(creatorToken) : undefined;
       if (!creatorProfile?.profileCommitted) { send({ type: MSG.ERROR, message: 'Profile required' }); break; }
+      if (!creatorProfile?.sshKeysGenerated) { send({ type: MSG.ERROR, message: 'SSH keys required' }); break; }
 
-      const cleaned = roomManager.cleanupStale();
-      if (cleaned > 0) addLog(`Auto-cleaned ${cleaned} stale room(s)`);
-
-      const memberName = msg.playerName || 'User';
-      const roomName = msg.roomName || msg.name || `${memberName}'s Room`;
+      const memberName = msg.playerName || creatorProfile.name || 'User';
+      const roomName = msg.roomName || msg.name || `${creatorProfile.name || memberName}'s Room`;
       const profileAvatar = creatorProfile?.avatar || '/icon-192.png';
       const member: RoomMember = {
         id: clientId, ws, name: memberName, avatarUrl: profileAvatar,
         playerToken: msg.playerToken || '', disconnected: false,
       };
-      const room = roomManager.createRoom(roomName, member, { maxMembers: msg.maxPlayers || 10, isPrivate: !!msg.roomKey, roomKey: msg.roomKey || '' });
+      const room = roomManager.createRoom(roomName, member, { maxMembers: msg.maxPlayers || 10, isPrivate: !!msg.roomKey, roomKey: msg.roomKey || '', creatorToken: creatorToken || '' });
       if (msg.playerToken) tokenToClient.set(msg.playerToken, clientId);
+
+      createRoomHome(creatorToken!, room.id);
+      const { publicKey: roomPubKey } = generateRoomKeypair(creatorToken!, room.id);
+      writeRoomJson(creatorToken!, room.id, {
+        id: room.id, name: room.name, ownerToken: creatorToken!,
+        maxMembers: room.maxMembers, isPrivate: room.isPrivate, roomKey: room.roomKey,
+        state: 'active', createdAt: Date.now(), sshKeysGenerated: true,
+        sshPublicKey: roomPubKey, chatHistory: [],
+      });
+
       room.sendTo(clientId, { type: MSG.ROOM_JOINED, room: room.info(), members: [...room.members.values()].map(m => ({ id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken, avatarCrop: userProfiles.get(m.playerToken)?.avatarCrop || null })) });
-      addLog(`Room created: ${room.name} (${room.id}) by ${clientId.slice(0,8)}`);
+      addLog(`Room created: ${room.name} (${room.id.slice(0,8)}) by ${(creatorToken || '').slice(0,8)} with SSH keypair`);
       break;
     }
 

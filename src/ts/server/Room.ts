@@ -54,6 +54,7 @@ interface RoomOpts {
   isPrivate?: boolean;
   roomKey?: string;
   id?: string;
+  creatorToken?: string;
 }
 
 interface PersistedRoom {
@@ -84,17 +85,19 @@ export class Room {
   spectators: Map<string, RoomMember> = new Map();
   private _chatHistory: ChatMessage[] = [];
   private creatorId: string = '';
+  creatorToken: string = '';
   private persistDir: string | null = null;
   private cleanupCallback: (() => void) | null = null;
 
   constructor(name: string, creator: RoomMember, opts?: RoomOpts) {
-    this.id = opts?.id || crypto.randomUUID().slice(0, 8);
+    this.id = opts?.id || crypto.randomUUID();
     this.name = name;
     this.maxMembers = opts?.maxMembers || 10;
     this.isPrivate = opts?.isPrivate || false;
     this.roomKey = opts?.roomKey || '';
     this.hostId = creator.id;
     this.creatorId = creator.id;
+    this.creatorToken = opts?.creatorToken || creator.playerToken || '';
     this.members.set(creator.id, { ...creator, disconnected: false });
   }
 
