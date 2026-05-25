@@ -2,6 +2,7 @@ import { WebSocket } from 'ws';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
+import { writeRoomJson, getRoomPublicKey, type RoomJsonData } from './RoomKeys.js';
 
 export interface RoomMember {
   id: string;
@@ -97,7 +98,7 @@ export class Room {
     this.roomKey = opts?.roomKey || '';
     this.hostId = creator.id;
     this.creatorId = creator.id;
-    this.creatorToken = opts?.creatorToken || creator.playerToken || '';
+    this.creatorToken = opts?.creatorToken || '';
     this.members.set(creator.id, { ...creator, disconnected: false });
   }
 
@@ -189,10 +190,15 @@ export class Room {
     this._chatHistory.push(msg);
     if (this._chatHistory.length > 100) this._chatHistory = this._chatHistory.slice(-100);
     this.broadcastAll({ type: MSG.CHAT_MESSAGE, ...msg });
+    this.persist();
   }
 
   getChatHistory(): ChatMessage[] {
     return [...this._chatHistory];
+  }
+
+  loadChatHistory(messages: ChatMessage[]): void {
+    this._chatHistory = messages.slice(-100);
   }
 
   // --- Archive ---
@@ -268,23 +274,28 @@ export class Room {
   // --- Persistence ---
 
   private persist(): void {
-    if (!this.persistDir) return;
-    const data: PersistedRoom = {
-      id: this.id,
-      name: this.name,
-      hostId: this.hostId,
-      maxMembers: this.maxMembers,
-      isPrivate: this.isPrivate,
-      roomKey: this.roomKey,
-      state: this.state,
-      createdAt: this.createdAt,
-      creatorId: this.creatorId,
-      chatHistory: this._chatHistory,
-      memberCount: this.members.size,
-    };
-    const filePath = path.join(this.persistDir, `${this.id}.json`);
-    fs.mkdirSync(this.persistDir, { recursive: true });
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+    if (this.persistDir) {
+      const data: PersistedRoom = {
+        id: this.id, name: this.name, hostId: this.hostId,
+        maxMembers: this.maxMembers, isPrivate: this.isPrivate, roomKey: this.roomKey,
+        state: this.state, createdAt: this.createdAt, creatorId: this.creatorId,
+        chatHistory: this._chatHistory, memberCount: this.members.size,
+      };
+      const filePath = path.join(this.persistDir, `${this.id}.json`);
+      fs.mkdirSync(this.persistDir, { recursive: true });
+      fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+    }
+    if (this.creatorToken) {
+      try {
+        const pubKey = getRoomPublicKey(this.creatorToken, this.id) || '';
+        writeRoomJson(this.creatorToken, this.id, {
+          id: this.id, name: this.name, ownerToken: this.creatorToken,
+          maxMembers: this.maxMembers, isPrivate: this.isPrivate, roomKey: this.roomKey,
+          state: this.state, createdAt: this.createdAt, sshKeysGenerated: !!pubKey,
+          sshPublicKey: pubKey, chatHistory: this._chatHistory,
+        });
+      } catch {}
+    }
   }
 
   removePersisted(): void {
@@ -365,7 +376,13 @@ export class RoomManager {
 
   listRooms(): RoomInfo[] {
     return [...this.rooms.values()]
-      .filter(r => !r.isPrivate)
+      .filter(r => !r.isPrivate && (r.members.size > 0 || !r.creatorToken))
+      .map(r => r.info());
+  }
+
+  listRoomsForOwner(ownerToken: string): RoomInfo[] {
+    return [...this.rooms.values()]
+      .filter(r => r.creatorToken === ownerToken)
       .map(r => r.info());
   }
 
@@ -387,6 +404,7 @@ export class RoomManager {
     let removed = 0;
     const now = Date.now();
     for (const [id, room] of this.rooms) {
+      if (room.creatorToken) continue;
       const age = now - room.createdAt;
       const aged = age >= maxAgeMs;
       const empty = room.members.size === 0 && room.spectators.size === 0;

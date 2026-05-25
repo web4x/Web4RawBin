@@ -192,15 +192,20 @@ const ROOMS_DIR = path.join(DATA_DIR, 'rooms');
 const roomManager = new RoomManager(ROOMS_DIR);
 roomManager.loadFromDisk();
 
-// Load rooms from per-user directories (Sprint 9)
+// Load persistent rooms from per-user directories (Sprint 9)
 {
   const userRooms = scanAllRooms();
+  let loaded = 0;
   for (const { userToken, roomId, data } of userRooms) {
     if (roomManager.getRoom(roomId)) continue;
-    const placeholder: RoomMember = { id: 'server', ws: null as any, name: '', avatarUrl: '', playerToken: userToken, disconnected: true };
+    const placeholder: RoomMember = { id: 'dormant', ws: null as any, name: '', avatarUrl: '', playerToken: userToken, disconnected: true };
     const room = roomManager.createRoom(data.name, placeholder, { id: roomId, maxMembers: data.maxMembers, isPrivate: data.isPrivate, roomKey: data.roomKey || '', creatorToken: data.ownerToken });
     room.creatorToken = data.ownerToken;
+    room.members.delete('dormant');
+    if (data.chatHistory?.length) room.loadChatHistory(data.chatHistory);
+    loaded++;
   }
+  if (loaded > 0) console.log(`Loaded ${loaded} persistent room(s) from user directories`);
 }
 
 let serverStartTime = new Date();
