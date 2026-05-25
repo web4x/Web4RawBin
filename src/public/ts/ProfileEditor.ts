@@ -46,7 +46,7 @@ export class ProfileEditor {
         </div>
         <div class="profile-fields">
           <label>Name${mode === 'gate' ? ' *' : ''}</label>
-          <input type="text" id="pe-name" value="${initial.name || ''}" maxlength="20" placeholder="Your name..." ${mode === 'gate' ? 'required' : ''}>
+          <input type="text" id="pe-name" value="${initial.name || ''}" placeholder="Your name..." ${mode === 'gate' ? 'required' : ''}>
           <label>Phone</label>
           <input type="tel" id="pe-phone" value="${initial.phone || ''}" maxlength="30" placeholder="Phone number...">
           <label>URL</label>

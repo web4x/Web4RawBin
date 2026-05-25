@@ -1178,7 +1178,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       if (!myToken) { send({ type: MSG.ERROR, message: 'Not identified' }); break; }
       const profile = userProfiles.get(myToken);
       if (!profile) { send({ type: MSG.ERROR, message: 'No profile' }); break; }
-      if (typeof msg.name === 'string') profile.name = msg.name.slice(0, 20);
+      if (typeof msg.name === 'string') profile.name = msg.name;
       if (typeof msg.phone === 'string') profile.phone = msg.phone.slice(0, 30);
       if (typeof msg.url === 'string') profile.url = msg.url.slice(0, 200);
       if (typeof msg.avatar === 'string' && msg.avatar.startsWith('/api/avatar/')) profile.avatar = msg.avatar;

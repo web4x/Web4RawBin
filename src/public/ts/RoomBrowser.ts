@@ -5,7 +5,8 @@ import './components/rb-avatar.js';
 
 interface RoomInfo {
   id: string; name: string; hostId: string; memberCount: number;
-  maxMembers: number; isPrivate: boolean; state: string; creatorId?: string;
+  maxMembers: number; isPrivate: boolean; state: string;
+  creatorId?: string; ownerToken?: string; ownerName?: string;
 }
 
 export class RoomBrowser {
@@ -49,7 +50,7 @@ export class RoomBrowser {
             <rb-avatar size="48" src="${this.client.getProfile()?.avatar || ''}" name="${this.memberName}" token="${this.client.playerToken}" crop='${this.client.getProfile()?.avatarCrop ? JSON.stringify(this.client.getProfile()!.avatarCrop) : ''}'></rb-avatar>
             <div class="lobby-name-field">
               <label>Your Name</label>
-              <input type="text" id="member-name" value="${this.memberName}" maxlength="20" placeholder="Enter name...">
+              <input type="text" id="member-name" value="${this.memberName}" placeholder="Enter name...">
             </div>
           </div>
         </div>
@@ -58,7 +59,7 @@ export class RoomBrowser {
           <button id="refresh-rooms-btn" class="btn btn-secondary">Refresh</button>
         </div>
         <div class="lobby-create-form" id="create-form" style="display:none">
-          <input type="text" id="room-name" placeholder="Room name..." value="My Room">
+          <input type="text" id="room-name" placeholder="Room name..." value="${this.client.getProfile()?.name ? this.client.getProfile()!.name + "'s Room" : ''}">
           <input type="number" id="room-max" placeholder="Max members" value="10" min="2" max="50">
           <input type="text" id="room-key" placeholder="Private key (optional)">
           <div class="lobby-create-actions">
@@ -94,7 +95,8 @@ export class RoomBrowser {
       document.getElementById('create-form')!.style.display = 'none';
     });
     document.getElementById('confirm-create-btn')?.addEventListener('click', () => {
-      const name = (document.getElementById('room-name') as HTMLInputElement).value || 'My Room';
+      const defaultName = this.client.getProfile()?.name ? this.client.getProfile()!.name + "'s Room" : 'New Room';
+      const name = (document.getElementById('room-name') as HTMLInputElement).value || defaultName;
       const max = parseInt((document.getElementById('room-max') as HTMLInputElement).value) || 10;
       const key = (document.getElementById('room-key') as HTMLInputElement).value || undefined;
       this.client.createRoom(name, this.memberName, max, key);
@@ -115,13 +117,15 @@ export class RoomBrowser {
       return;
     }
     list.innerHTML = this.rooms.map(room => {
-      const isOwner = room.creatorId === this.client.playerToken;
+      const isOwner = (room.ownerToken || room.creatorId) === this.client.playerToken;
       const stateLabel = room.state === 'archived' ? 'Archived' : 'Active';
+      const ownerLabel = isOwner ? ' <span class="owner-badge">you</span>' : (room.ownerName ? ` <span class="room-owner">by ${room.ownerName}</span>` : '');
       return `
         <div class="room-card" data-room-id="${room.id}">
           <div class="room-info">
-            <span class="room-name">${room.isPrivate ? '🔒 ' : ''}${room.name}${isOwner ? ' <span class="owner-badge">owner</span>' : ''}</span>
+            <span class="room-name">${room.isPrivate ? '🔒 ' : ''}${room.name}${ownerLabel}</span>
             <span class="room-members">${room.memberCount}/${room.maxMembers} members</span>
+            <span class="room-id">${room.id}</span>
           </div>
           <div class="room-status">
             <span class="room-state room-state-${room.state}">${stateLabel}</span>

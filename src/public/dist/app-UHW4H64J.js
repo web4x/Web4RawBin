@@ -52,7 +52,7 @@ Minimum version required to store current data is: `+r+`.
             <rb-avatar size="48" src="${this.client.getProfile()?.avatar||""}" name="${this.memberName}" token="${this.client.playerToken}" crop='${this.client.getProfile()?.avatarCrop?JSON.stringify(this.client.getProfile().avatarCrop):""}'></rb-avatar>
             <div class="lobby-name-field">
               <label>Your Name</label>
-              <input type="text" id="member-name" value="${this.memberName}" maxlength="20" placeholder="Enter name...">
+              <input type="text" id="member-name" value="${this.memberName}" placeholder="Enter name...">
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@ Minimum version required to store current data is: `+r+`.
         </div>
         <div class="profile-fields">
           <label>Name${t==="gate"?" *":""}</label>
-          <input type="text" id="pe-name" value="${e.name||""}" maxlength="20" placeholder="Your name..." ${t==="gate"?"required":""}>
+          <input type="text" id="pe-name" value="${e.name||""}" placeholder="Your name..." ${t==="gate"?"required":""}>
           <label>Phone</label>
           <input type="tel" id="pe-phone" value="${e.phone||""}" maxlength="30" placeholder="Phone number...">
           <label>URL</label>
@@ -209,4 +209,4 @@ button:active { transform: scale(0.97); }
         <span>${r}</span>
         <button id="update-now">Update Now</button>
       </div>`,n.getElementById("update-now")?.addEventListener("click",async()=>{i&&localStorage.setItem("rawbin-version",i),this.remove();let s=await navigator.serviceWorker?.getRegistration?.();s?.waiting?s.waiting.postMessage("SKIP_WAITING"):location.reload()})}};customElements.define("rb-update-banner",Je);var A=new Q;window.__rawbinClient=A;var je=document.getElementById("app"),nn=new P(A),hi=new ue(A),W=new X(A,je,o=>{W.hide(),on.show(o)}),on=new he(A,je,()=>{on.hide(),W.show(),history.replaceState({},"","/app")});async function ui(){try{return await(await fetch("/api/config")).json()}catch{return{baseDomain:location.hostname,httpsPort:parseInt(location.port)||4444}}}function pi(){return!!localStorage.getItem("rawbin-device-privateKey")}function en(){if(new URLSearchParams(window.location.search).get("editProfile")==="1"){history.replaceState({},"","/app");let e=A.getProfile();nn.open({name:e?.name||"",phone:e?.phone||"",url:e?.url||"",avatar:e?.avatar||"",secretCode:e?.secretCode||""},"normal",()=>{W.show()}),W.show();return}W.show()}function tn(o){o.sshKeysGenerated&&!pi()?hi.open(()=>{en()}):en()}async function mi(){try{let o=await ui(),e=`https://${o.baseDomain}:${o.httpsPort}`;window.__shareBase=e,await A.connect();let t=await A.once(u.PROFILE);if(t?.profile?.profileCommitted)tn(t.profile);else{let n=t?.profile||{};nn.open({name:n.name||"",phone:n.phone||"",url:n.url||"",avatar:n.avatar||"",secretCode:n.secretCode||""},"gate",i=>{tn(i)})}}catch{je.innerHTML='<div class="error"><h2>Connection Failed</h2><p>Could not connect to server. Please refresh.</p></div>'}}mi();document.querySelector("rb-update-banner")||document.body.prepend(document.createElement("rb-update-banner"));
-//# sourceMappingURL=app-QHHFMBP6.js.map
+//# sourceMappingURL=app-UHW4H64J.js.map
