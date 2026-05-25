@@ -26,7 +26,7 @@ class RbAvatar extends HTMLElement {
   private overlayEl: HTMLElement | null = null;
   private scale = 1; private tx = 0; private ty = 0;
 
-  static get observedAttributes() { return ['src', 'size', 'name', 'token', 'crop']; }
+  static get observedAttributes() { return ['src', 'size', 'name', 'token', 'crop', 'readonly']; }
 
   private boundRefresh: ((e: Event) => void) | null = null;
 
@@ -86,7 +86,11 @@ class RbAvatar extends HTMLElement {
       img.addEventListener('error', () => { img.remove(); });
       if (img.complete && img.naturalWidth > 0) img.classList.add('loaded');
     }
-    this.shadow.querySelector('.circle')?.addEventListener('click', (e) => { e.stopPropagation(); this.openOverlay(); });
+    this.shadow.querySelector('.circle')?.addEventListener('click', (e) => {
+      if (this.hasAttribute('readonly')) return;   // let click bubble to host (e.g. member badge)
+      e.stopPropagation();
+      this.openOverlay();
+    });
   }
 
   private openOverlay(): void {

@@ -54,6 +54,20 @@ export class RoomView {
     this.client.on('reconnected', () => { this.chatSheet?.setWsStatus('connected'); this.hideOfflineBanner(); });
     this.client.on('online', () => this.hideOfflineBanner());
     this.client.on('offline', () => this.showOfflineBanner());
+
+    this.container.addEventListener('rb-leave', () => { this.client.leaveRoom(); this.onLeave(); });
+    this.container.addEventListener('rb-delete', () => { if (confirm('Delete this room permanently?')) this.client.deleteRoom(this.roomId); });
+    this.container.addEventListener('rb-member-click', ((e: CustomEvent) => {
+      const { playerToken, isSelf } = e.detail;
+      if (isSelf) {
+        const p = this.client.getProfile();
+        this.profileEditor.open({ name: p?.name || localStorage.getItem('rawbin-name') || '', phone: p?.phone || '', url: p?.url || '', avatar: p?.avatar || '', secretCode: p?.secretCode || '' }, 'normal');
+      } else if (playerToken) {
+        const h = (msg: any) => { this.client.off(MSG.USER_INFO, h); if (msg.user) this.profileSheet.open(msg.user); };
+        this.client.on(MSG.USER_INFO, h);
+        this.client.send({ type: MSG.GET_USER_INFO, playerToken });
+      }
+    }) as EventListener);
   }
 
   show(roomId: string): void { this.roomId = roomId; this.render(); }
@@ -88,19 +102,6 @@ export class RoomView {
     if (!this.client.isOnline()) this.showOfflineBanner();
 
     this.renderMemberList();
-    this.container.addEventListener('rb-leave', () => { this.client.leaveRoom(); this.onLeave(); });
-    this.container.addEventListener('rb-delete', () => { if (confirm('Delete this room permanently?')) this.client.deleteRoom(this.roomId); });
-    this.container.addEventListener('rb-member-click', ((e: CustomEvent) => {
-      const { playerToken, isSelf } = e.detail;
-      if (isSelf) {
-        const p = this.client.getProfile();
-        this.profileEditor.open({ name: p?.name || localStorage.getItem('rawbin-name') || '', phone: p?.phone || '', url: p?.url || '', avatar: p?.avatar || '', secretCode: p?.secretCode || '' }, 'normal');
-      } else if (playerToken) {
-        const h = (msg: any) => { this.client.off(MSG.USER_INFO, h); if (msg.profile) this.profileSheet.open(msg.profile); };
-        this.client.on(MSG.USER_INFO, h);
-        this.client.send({ type: MSG.GET_USER_INFO, playerToken });
-      }
-    }) as EventListener);
   }
 
   private showOfflineBanner(): void { const el = document.getElementById('offline-banner'); if (el) el.style.display = ''; }
