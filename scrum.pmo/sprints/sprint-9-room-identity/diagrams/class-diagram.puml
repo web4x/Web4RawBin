@@ -1,0 +1,154 @@
+@startuml Sprint 9 — Room as SSH Identity
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor<<new>> LightYellow
+  BackgroundColor<<changed>> LightCyan
+  BackgroundColor<<existing>> White
+}
+
+title Sprint 9 — Room as Persistent SSH Identity
+
+package "Server Data Model" {
+
+  class UserProfile <<existing>> {
+    + token: string
+    + name: string
+    + avatar: string
+    + profileCommitted: boolean
+    + sshKeysGenerated: boolean
+    ..
+    <color:green>+ ownedRooms: string[]</color>
+  }
+
+  class Room <<changed>> {
+    + id: string (UUID)
+    + name: string
+    + hostId: string
+    + maxMembers: number
+    + isPrivate: boolean
+    + roomKey: string
+    + state: RoomState
+    + createdAt: number
+    ..
+    <color:green>+ creatorToken: string</color>
+    <color:green>+ sshKeysGenerated: boolean</color>
+    <color:green>+ persistent: true</color>
+    --
+    + addMember(member): boolean
+    + removeMember(id): void
+    + broadcast(msg): void
+    + info(): RoomInfo
+    <color:green>+ getPublicKey(): string</color>
+  }
+
+  class RoomManager <<changed>> {
+    - rooms: Map<string, Room>
+    --
+    + createRoom(name, creator, opts): Room
+    + removeRoom(id): boolean
+    + listRooms(): RoomInfo[]
+    <color:green>+ loadUserRooms(token): Room[]</color>
+    <color:green>+ listAllPersistent(): RoomInfo[]</color>
+    <color:green>+ advertiseRooms(token, send): void</color>
+  }
+
+  class RoomKeys <<new>> {
+    + {static} createRoomHome(userToken, roomId): void
+    + {static} generateRoomKeypair(userToken, roomId): KeyPair
+    + {static} hasRoomKeys(userToken, roomId): boolean
+    + {static} getRoomPublicKey(userToken, roomId): string
+    + {static} getRoomPrivateKey(userToken, roomId): string
+    + {static} getRoomAuthorizedKeys(userToken, roomId): string[]
+    + {static} addRoomAuthorizedKey(userToken, roomId, key): void
+    + {static} getRoomDir(userToken, roomId): string
+  }
+
+  class PersistedRoom <<changed>> {
+    + id: string
+    + name: string
+    + creatorToken: string
+    + maxMembers: number
+    + isPrivate: boolean
+    + roomKey: string
+    + state: RoomState
+    + createdAt: number
+    + chatHistory: ChatMessage[]
+    <color:green>+ sshKeysGenerated: boolean</color>
+    <color:green>+ sshPublicKey: string</color>
+  }
+}
+
+package "Filesystem" {
+
+  class "data/users/<token>/" as UserDir <<existing>> {
+    profile.json
+    .ssh/ (user keys)
+    files/ (encrypted files)
+  }
+
+  class "data/users/<token>/rooms/<room-uuid>/" as RoomDir <<new>> {
+    room.json
+    .ssh/
+    ├── id_rsa
+    ├── id_rsa.pub
+    ├── public_keys/
+    │   └── <room-uuid>.public_key
+    ├── private_key/
+    │   └── <room-uuid>.private_key
+    └── authorized_keys
+  }
+
+  class "room.json" as RoomJson <<new>> {
+    name: string
+    id: string (UUID)
+    creatorToken: string
+    createdAt: ISO
+    maxMembers: number
+    isPrivate: boolean
+    roomKey: string
+    state: RoomState
+    sshPublicKey: string (PEM)
+    chatHistory: ChatMessage[]
+  }
+}
+
+package "WS Protocol" {
+
+  class "ROOM_LIST (changed)" as RoomListMsg <<changed>> {
+    rooms: RoomInfo[]
+    --
+    Now includes persistent rooms
+    from ALL connected users,
+    not just in-memory rooms.
+  }
+
+  class "ROOM_ADVERTISE (new)" as AdvertiseMsg <<new>> {
+    type: 'ROOM_ADVERTISE'
+    rooms: RoomInfo[]
+    --
+    Sent by server when user
+    enters lobby. Contains
+    that user's owned rooms
+    not yet in the room list.
+  }
+}
+
+' Relationships
+UserProfile "1" -- "*" RoomDir : owns
+Room "1" -- "1" RoomDir : persisted to
+Room "1" -- "1" PersistedRoom : serializes as
+RoomKeys ..> RoomDir : creates/reads
+RoomManager "1" *-- "*" Room
+RoomManager ..> RoomKeys : generates keys on create
+UserDir "1" *-- "*" RoomDir
+
+legend right
+  |= Style |= Meaning |
+  | <<existing>> | Unchanged |
+  | <<changed>> | Modified fields/methods |
+  | <<new>> | New in Sprint 9 |
+  | <color:green>green</color> | New fields |
+end legend
+
+@enduml

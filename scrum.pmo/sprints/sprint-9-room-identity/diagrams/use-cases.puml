@@ -1,0 +1,102 @@
+@startuml Room Identity — Use Cases
+!theme plain
+skinparam usecase {
+  BackgroundColor<<lifecycle>> LightBlue
+  BackgroundColor<<crypto>> LightGreen
+  BackgroundColor<<sync>> LightYellow
+}
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+
+title RawBin Sprint 9 — Room Identity Use Cases
+
+actor "Room Owner\n(Browser)" as Owner
+actor "Other Client\n(Browser)" as Client
+actor "Server\n(server.ts)" as Server
+database "Filesystem\ndata/users/<token>/\nrooms/<uuid>/" as FS
+
+rectangle "UC-RM.1: room.create" {
+  usecase "room.create\nCreate room with\ndefault name + UUID" as UC1 <<lifecycle>>
+  usecase "folder.create\ndata/users/<token>/\nrooms/<uuid>/" as UC1a <<lifecycle>>
+  usecase "keypair.generate\nRSA-2048 for room\n(crypto.generateKeyPairSync)" as UC1b <<crypto>>
+  usecase "sshTree.init\nOOSH .ssh/ structure:\nid_rsa, id_rsa.pub,\npublic_keys/, private_key/,\nauthorized_keys" as UC1c <<crypto>>
+  usecase "room.persist\nWrite room.json\nmetadata to folder" as UC1d <<lifecycle>>
+
+  UC1 -down-> UC1a : <<include>>
+  UC1a -down-> UC1b : <<include>>
+  UC1b -down-> UC1c : <<include>>
+  UC1 -down-> UC1d : <<include>>
+}
+
+rectangle "UC-RM.2: room.persist" {
+  usecase "room.loadOnStartup\nServer reads all user dirs,\nfinds rooms/<uuid>/room.json,\nregisters in RoomManager" as UC2a <<lifecycle>>
+  usecase "room.survive\nRooms survive server\nrestart with full state" as UC2 <<lifecycle>>
+  usecase "room.restore\nRestore chat history,\nmember list (empty),\ncreator identity" as UC2c <<lifecycle>>
+
+  UC2 -down-> UC2a : <<include>>
+  UC2a -down-> UC2c : <<include>>
+}
+
+rectangle "UC-RM.3: room.delete" {
+  usecase "room.delete\nOwner manually\ndeletes room" as UC3 <<lifecycle>>
+  usecase "folder.remove\nDelete rooms/<uuid>/\nincluding .ssh/ keys" as UC3a <<lifecycle>>
+  usecase "manager.unregister\nRemove from RoomManager\nmap + broadcast update" as UC3b <<lifecycle>>
+  usecase "members.evict\nDisconnect members,\nsend ROOM_DELETED" as UC3c <<lifecycle>>
+
+  UC3 -down-> UC3a : <<include>>
+  UC3 -down-> UC3b : <<include>>
+  UC3 -right-> UC3c : <<include>>
+}
+
+rectangle "UC-RM.4: room.advertise" {
+  usecase "room.advertise\nOn lobby connect,\nowner's rooms added\nto room list" as UC4 <<sync>>
+  usecase "owner.identify\nMatch connected client\nto their persisted rooms\nvia playerToken" as UC4a <<sync>>
+  usecase "room.activate\nDormant room becomes\nvisible in ROOM_LIST" as UC4b <<sync>>
+
+  UC4 -down-> UC4a : <<include>>
+  UC4a -down-> UC4b : <<include>>
+}
+
+rectangle "UC-RM.5: room.sync" {
+  usecase "room.sync\nRoom list changes\nbroadcast to ALL\nconnected clients" as UC5 <<sync>>
+  usecase "broadcast.roomList\nSend ROOM_LIST to\nevery WS client" as UC5a <<sync>>
+
+  UC5 -down-> UC5a : <<include>>
+}
+
+rectangle "UC-RM.6: room.identity" {
+  usecase "room.identity\nRoom has full OOSH\nSSH identity" as UC6 <<crypto>>
+  usecase "sshTree.structure\nrooms/<uuid>/.ssh/\nid_rsa, id_rsa.pub,\npublic_keys/<uuid>.public_key,\nprivate_key/<uuid>.private_key,\nauthorized_keys" as UC6a <<crypto>>
+  usecase "key.permissions\n700 dirs, 600 files\n(OOSH convention)" as UC6b <<crypto>>
+
+  UC6 -down-> UC6a : <<include>>
+  UC6a -down-> UC6b : <<include>>
+}
+
+' Actor connections
+Owner --> UC1
+Owner --> UC3
+Owner --> UC4
+Client --> UC5
+Server --> UC2
+Server --> UC5a
+FS --> UC1a
+FS --> UC2a
+FS --> UC3a
+
+' Cross-group
+UC1 ..> UC5 : <<triggers>>
+UC3 ..> UC5 : <<triggers>>
+UC4 ..> UC5 : <<triggers>>
+UC1 ..> UC6 : <<include>>
+
+legend right
+  |= Color |= Category |
+  | <back:LightBlue>   </back> | Room lifecycle |
+  | <back:LightGreen>   </back> | Crypto / SSH identity |
+  | <back:LightYellow>   </back> | Sync / broadcast |
+end legend
+
+footer Current: rooms in data/rooms/ (global, ephemeral)\nSprint 9: rooms in data/users/<token>/rooms/<uuid>/ (per-user, persistent, SSH identity)
+
+@enduml
