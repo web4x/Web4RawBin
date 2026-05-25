@@ -5,14 +5,19 @@
 [task:uuid:f7a2c4e6-3b8d-4f10-a5c7-9e1d3f5b7a90]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (architect)
-  - [ ] creating test cases
-  - [ ] implementing (expert)
-  - [ ] testing (tester)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (architect)
+  - [x] creating test cases
+  - [x] implementing (expert)
+  - [ ] testing (tester — TS1-TS4)
 - [ ] QA Review
 - [ ] Done
+
+## Implementation (robbin-expert, v0.4.10)
+- rb-editor-toolbar.ts render(): derive parent from `this._path` with PO guard — `const parent = this._path ? this._path.split('/').slice(0,-1).join('/') : ''; const parentDir = parent ? '/md/'+parent+'/' : '/md/';`. Root-level files → `/md/` (no `//`, AC6/TS2). Label `← App` → `← Back`. 📂 browse link unchanged.
+- Verified in built editor bundle (edit-SZJS7HJV.js): contains `slice(0,-1)` + "Back", no "App" back-link.
+- Version v0.4.10, sw.js cache → rawbin-v0.4.10. tsc clean, esbuild build clean.
 
 ## Traceability
 - up
@@ -56,6 +61,9 @@ For `this._path = scrum.pmo/sprints/sprint-9-room-identity/planning.md`:
 Empty `this._path` (no file open) → fall back to `/md/` (browse root).
 **Label:** "← App" → "← Back". **Keep** the `📂` browse button (line 37,
 `<a href="/md/">📂</a>`) unchanged.
+
+## PO Review (refinement)
+- 2026-05-25 robbin-po: Spec is delegatable. ONE edge-case fix to the proposed code: for a root-level file (`this._path = 'README.md'`), `split('/').slice(0,-1).join('/')` → `''`, so `'/md/' + '' + '/'` → **`/md//`** (double slash) — contradicts AC6/TS2 which expect `/md/`. Guard it: if the parent segment is empty, use `/md/` (no trailing concat). e.g. `const parent = this._path.split('/').slice(0,-1).join('/'); const parentDir = parent ? '/md/' + parent + '/' : '/md/';`. Expert: implement with this guard so AC6/TS2 pass.
 
 ## Acceptance Criteria
 - [ ] AC1: Back button navigates to parent dir of current file (`a/b/c.md` → `/md/a/b/`)

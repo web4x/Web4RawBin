@@ -32,8 +32,10 @@ export class RbEditorToolbar extends HTMLElement {
   }
 
   private render(): void {
+    const parent = this._path ? this._path.split('/').slice(0, -1).join('/') : '';
+    const parentDir = parent ? '/md/' + parent + '/' : '/md/';
     this.innerHTML = `
-      <a href="/app" style="color:#ccc;text-decoration:none">← App</a>
+      <a href="${parentDir}" style="color:#ccc;text-decoration:none">← Back</a>
       <a href="/md/" style="color:#ccc;text-decoration:none">📂</a>
       <span id="tb-path" style="flex:1;color:#667eea;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${this._path || '(no file)'}</span>
       ${this._path && (this._path.endsWith('.md') || this._path.endsWith('.puml')) ? `<a href="/md/${this._path}" style="color:#ff9800;text-decoration:none;font-size:0.75rem" title="View rendered">👁 View</a>` : ''}
