@@ -16,10 +16,13 @@
 
 ## Data Findings — on-disk reality (robbin-architect, 2026-05-26, measured)
 
-**The flat `data/rooms/` is already a STALE DUPLICATE of the per-user structure.** Measured:
+⚠️ **Counts below are PRE-PURGE (2026-05-26) and ILLUSTRATIVE.** Tron flagged `data/rooms/` is mostly E2E test pollution; the expert purges it (backup-first, preserve real) BEFORE migration. The migrator + T98 verifier operate on RUN-TIME counts, never these fixed numbers.
+
+**The flat `data/rooms/` is already a STALE DUPLICATE of the per-user structure.** Measured (pre-purge):
 - `data/rooms/*.json`: **239** legacy flat rooms.
 - per-user room dirs (`data/users/*/rooms/<id>/`): **239** unique ids.
 - **In BOTH: 239. Legacy-ONLY (need migrating): 0.**
+- (The structural finding — flat is a duplicate of per-user, per-user is authoritative — holds regardless of count; only the magnitude changes after purge.)
 
 So every legacy flat room ALREADY exists per-user. The per-user copy is the AUTHORITATIVE, newer schema (`ownerToken` + `sshPublicKey` + `sshKeysGenerated`); the flat copy is the OLD schema (`creatorId`, no ownerToken; 181/239 have `creatorId:"dormant"`). They are NOT byte-equal — per-user supersedes flat.
 
