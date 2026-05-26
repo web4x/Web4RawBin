@@ -32,7 +32,15 @@ See [requirements.md](./requirements.md) and [architecture.md](./architecture.md
 - [x] (c) Persistence indicator — `.room-persist` "💾 Persistent" badge on every room card (all Sprint 9 rooms persist to disk with own SSH identity)
 - [x] Owner attribution — `.room-owner` "by &lt;name&gt;" / "you" badge from `ownerToken`/`ownerName`
 - [x] `npm run build` succeeds (v0.4.8, bundle app-G2VRAV5W.js)
-- [ ] robbin-tester: verify badges render in lobby; full E2E suite stays 21/21 (no regression)
+- [x] robbin-tester: verify badges render in lobby; full E2E suite stays 21/21 (no regression)
+
+## Test Results (robbin-tester, 2026-05-26) — PASS
+Test: `test/e2e/lobby-card-badges.spec.ts` (1/1 PASS, 5.7s) against live v0.5.2. Creates an own room,
+returns to lobby, asserts on that card (`.room-card[data-room-id=<full-uuid>]`):
+- (c) `.room-persist` visible, text contains "Persistent" (💾 badge) ✓
+- (b) `.room-id` == the room's full id, matches UUID regex, length == 36 (NOT sliced) ✓
+- owner attribution: `.owner-badge` visible, text "you" (viewer owns the room) ✓ — `.room-owner` "by &lt;name&gt;" path confirmed in source RoomBrowser.ts:122 for non-owner rooms.
+No regression: full Playwright suite 21/21 (T80) earlier this session.
 
 ## Implementation Notes
 - `src/public/ts/RoomBrowser.ts`: added `.room-persist` badge in room-info block
