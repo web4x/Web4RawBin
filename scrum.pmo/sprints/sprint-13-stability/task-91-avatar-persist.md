@@ -2,32 +2,24 @@
 
 # T91: Avatar Persistence — Must Not Revert to Default
 
-## RECURRENCE ROOT CAUSE (robbin-architect, 2026-05-26) — T91 incomplete, owner: EXPERT
-Tron: "app keeps breaking the profile picture to the fallback" — still happening post-T91.
-
-**Root cause:** a present `avatar.enc` becomes UNDECRYPTABLE (current private key ≠ key that sealed its RSA envelope, after key regen / token redirect). `ensureAvatar` (server.ts:808-849) line 817 `decryptFile` THROWS → line 828 `catch { /* fall through */ }` → line 845 `encryptFile(...,'avatar')` **OVERWRITES the real photo with a default** (permanent storage loss). Serve path `/api/avatar` line 471 `decryptFile` throws → 500 → client initials fallback (display symptom). T91's `fileExists` guard (line 815) closed the STRING-desync overwrite but NOT the decrypt-EXCEPTION overwrite (file exists, but throws).
-
-**Fix:** (1) `ensureAvatar` must NEVER overwrite on a decrypt *exception* — distinguish "no file" (fetch default OK) from "present-but-undecryptable" (do NOT write; log; leave intact for recovery). (2) Don't regenerate user keys out from under existing avatar.enc; on key rotation re-encrypt files or orphan-without-delete (couples w/ T92). (3) serve icon fallback is fine once #1 stops destroying the file.
-
-**Sequencing:** avatar fix FIRST (actively destroying photos every reconnect). DISJOINT from S14: token-* dirs (T97 migrates) have 0 avatars/0 keys; 118 real avatars are on already-UUID dirs T97 never touches → migration can't fix or worsen it. S14 T96-T98 safe in parallel; T99 stays Tron-gated. T97 invariant to add: re-encrypt files/* on any identity rekey.
-
-
 [task:uuid:e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8091]
+
+> **Scope note (PO 2026-05-26):** T91's STRING-desync fix is genuinely met + verified
+> (5/5). A SECOND overwrite path (decrypt-EXCEPTION on a present-but-undecryptable
+> avatar.enc) is tracked separately in **[T109](./task-109-avatar-recurrence-fix.md)**.
+> The avatar-persist requirement R-A1 is satisfied by **T91 + T109 together** — R-A1
+> is NOT complete until T109 verifies.
 
 ## Tron Requirement (literal)
 
 > TRON DIRECTIVE: "my avatar picture disappeared. its back to default."
 
-## Status — ⚠️ REOPENED 2026-05-26 (recurrence, fix incomplete)
-The string-desync fix (v0.4.11) was impl+tested 5/5, but the architect found a
-SECOND overwrite path (decrypt-EXCEPTION on present-but-undecryptable avatar.enc) —
-see "RECURRENCE ROOT CAUSE" at top. T91 is NOT done; testing reset until the
-decrypt-exception path is fixed. Owner: EXPERT.
+## Status
 - [x] Planned
 - [x] In Progress
   - [x] refinement (architect)
-  - [x] implementing (expert) — v0.4.11 string-desync fix only; decrypt-exception fix PENDING
-  - [ ] testing (tester) — REOPENED: recurrence not yet fixed
+  - [x] implementing (expert)
+  - [x] testing (tester — avatar-persist 5/5, string-desync scope)
 - [ ] QA Review
 - [ ] Done
 

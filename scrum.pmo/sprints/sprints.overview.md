@@ -22,12 +22,12 @@ Status legend: **Done** = all tasks Tron QA-approved · **active** = in flight
 | 10 | Contacts UI | active — T81/82/83 tested, awaiting Tron QA | 3 | [planning](./sprint-10-contacts-ui/planning.md) |
 | 11 | Traceability Standardization | active — T85/86 impl-done; T87-90 planned (S1-9 remediation) | 6 | [planning](./sprint-11-traceability/planning.md) |
 | 12 | Editor Fixes | active — T84 tested, awaiting Tron QA | 1 | [planning](./sprint-12-editor-fixes/planning.md) |
-| 13 | Stability | active — T92-95,T100 tested→awaiting Tron QA; ⚠️ T91 REOPENED (avatar recurrence) | 6 | [planning](./sprint-13-stability/planning.md) |
+| 13 | Stability | active — T91-95,T100 tested→awaiting Tron QA; T109 (avatar recurrence) impl-done/testing | 7 | [planning](./sprint-13-stability/planning.md) |
 | 14 | Legacy Data Migration | refinement done; impl ⏸️ HELD until avatar fix (shared data/users/); T99 ⛔ GATED | 4 | [planning](./sprint-14-legacy-migration/planning.md) |
 | 15 | Traceability Browser & Object Model | active — T101 tested (8/8)→awaiting Tron QA; T102-108 planned | 8 | [planning](./sprint-15-traceability-browser/planning.md) |
 
 **Task numbering:** global sequential. T1-T80 (S1-9), T81-83 (S10), T84 (S12),
-T85-90 (S11), T91-95 (S13), T96-99 (S14), T100 (S13), T101-108 (S15). Next new task = **T109**.
+T85-90 (S11), T91-95 (S13), T96-99 (S14), T100 (S13), T101-108 (S15), T109 (S13). Next new task = **T110**.
 
 **Traceability & Standards:** [traceability matrix](../traceability-matrix.md)
 (req→uc→puml→method→test index) · [standard](../standards/traceability-standard.md) ·

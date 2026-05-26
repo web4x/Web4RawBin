@@ -20,8 +20,12 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
 ## Task List
 
 - [ ] [T91: Avatar persistence — must not revert to default](./task-91-avatar-persist.md)
-  **Status:** ⚠️ REOPENED (recurrence) — v0.4.11 string-desync fix tested 5/5, but decrypt-EXCEPTION overwrite path still destroys avatars (architect db76584). NOT done; back in dev (owner expert). · R-A1
-  - Uploaded avatar must persist; ALSO: present-but-undecryptable avatar.enc must NOT be overwritten on decrypt exception
+  **Status:** impl + testing DONE (f2e019c v0.4.11; tester 5/5, string-desync scope) — Tron QA pending · R-A1 (with T109)
+  - String-desync overwrite fixed. Recurrence (decrypt-exception) → [T109](./task-109-avatar-recurrence-fix.md). R-A1 done only when T91+T109 both verify.
+
+- [ ] [T109: Avatar Recurrence Fix — decrypt-exception overwrite + rekey re-encrypt](./task-109-avatar-recurrence-fix.md)
+  **Status:** impl-done (expert 75053e4, v0.5.9 — re-encrypt files on identity rekey) — testing + Tron QA pending · R-A1
+  - ensureAvatar catch must NEVER overwrite on decrypt exception; re-encrypt files/* on identity rekey so avatar.enc stays decryptable
 
 - [ ] [T92: Avatar upload key-error UX](./task-92-avatar-upload-ux.md)
   **Status:** impl + testing DONE (f2e019c v0.4.11; tester 6/6 AC1-AC6, 3ca7830) — Tron QA pending · R-A2
@@ -57,13 +61,12 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 4 (T91-T94) |
-| Tron QA-approved (Done) | 0/4 |
-| Tasks | 6 (T91-T95, T100) |
-| Tested, awaiting Tron QA | T92, T93, T94, T95, T100 (5) |
-| ⚠️ REOPENED (recurrence) | T91 — decrypt-exception overwrite, back in dev |
+| Tasks | 7 (T91-95, T100, T109) |
+| Tron QA-approved (Done) | 0/7 |
+| Tested, awaiting Tron QA | T91, T92, T93, T94, T95, T100 (6) |
+| Impl-done, testing pending | T109 (avatar recurrence fix, v0.5.9) |
+| Note | R-A1 (avatar persist) done only when T91 + T109 both verify |
 | Use case diagrams | 4 (architect, in diagrams/) |
-| Priority | T94 CRITICAL; T91-T93 HIGH |
 
 ## Definition of Done
 - [ ] All 4 bug sets fixed (T91-T94 acceptance criteria)
