@@ -32,8 +32,16 @@ irreversible (deletes code + data files) — the gate is non-negotiable.
 - **Step 2 code (AC1):** removed `roomManager.loadFromDisk()` call (server.ts) → per-user UUID scan is the SOLE load source. Restarted v0.5.19 → rooms=3 (unchanged) BEFORE any delete — proved per-user-only load.
 - **Step 3 files (AC2/AC3):** deleted data/rooms/ (3 redundant, all per-user-present); deleted 141 token-* ORIGINAL dirs via the remap table (guarded: each old token confirmed to have a populated UUID target first; never a glob; 0 skipped). _unowned untouched (none existed — 0 orphans). per-user rooms intact = 3.
 - **Step 4 verify (AC4):** restarted → /api/health=0.5.19 rooms=3; the 3 real rooms (Marcel Donges's Room, Admins's Room, Marcel Surface Mini) load from per-user ONLY. Zero loss post-deletion. 0 token-* dirs, no data/rooms.
-- NOTE: Room.persist still dual-writes to persistDir on NEW room creation (data/rooms could reappear on a future create) — never READ (loadFromDisk gone), a minor write-cleanup follow-up, not in T99 scope. Rollback artifact retained.
-- v0.5.19, sw.js rawbin-v0.5.19. Tester: full-suite regression (no legacy).
+- Rollback artifact retained.
+
+## COMPLETION (robbin-expert, 2026-05-26, v0.5.20) — kill the dual-WRITE (verify caught regen)
+PO/verify caught it: data/rooms REGENERATED at 19:57 after deletion — Room.persist's dual-write recreated the 3 files. "Consistently removed" requires removing the WRITE, not just files. Done:
+- (1) Room.persist: removed the `if (this.persistDir)` legacy-write block — rooms persist ONLY to per-user/UUID (writeRoomJson).
+- (2) RoomManager constructor: dropped the `'data/rooms'` default + persistDir field (now takes an ignored optional legacy arg for call-site compat); createRoom no longer setPersistDir.
+- (3) removed the dead `loadFromDisk` method + `fromPersisted` + `setPersistDir` + `removePersisted` (Room.ts) — all legacy-only, no longer called. removeRoom drops in-memory only (per-user dir delete stays in the server DELETE_ROOM handler).
+- (4) deleted the regenerated data/rooms/ + dir.
+- (5) VERIFY: runtime proof (tmp DATA_DIR) — `createRoom(...).persist()` writes per-user room.json ONLY, data/rooms NOT created. Restart → /api/health rooms=3 (3 real rooms load from per-user) AND data/rooms stays absent. Legacy write path truly gone.
+- v0.5.20, sw.js rawbin-v0.5.20. Tester: full-suite regression + re-confirm no data/rooms AFTER a UI room-create.
 
 ## Design (robbin-architect) — safe-delete sequence (POST-GATE ONLY)
 

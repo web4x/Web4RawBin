@@ -87,7 +87,6 @@ export class Room {
   private _chatHistory: ChatMessage[] = [];
   private creatorId: string = '';
   creatorToken: string = '';
-  private persistDir: string | null = null;
   private cleanupCallback: (() => void) | null = null;
 
   constructor(name: string, creator: RoomMember, opts?: RoomOpts) {
@@ -110,10 +109,6 @@ export class Room {
 
   setCleanupCallback(cb: () => void): void {
     this.cleanupCallback = cb;
-  }
-
-  setPersistDir(dir: string): void {
-    this.persistDir = dir;
   }
 
   getCreatorId(): string {
@@ -275,17 +270,7 @@ export class Room {
   // --- Persistence ---
 
   private persist(): void {
-    if (this.persistDir) {
-      const data: PersistedRoom = {
-        id: this.id, name: this.name, hostId: this.hostId,
-        maxMembers: this.maxMembers, isPrivate: this.isPrivate, roomKey: this.roomKey,
-        state: this.state, createdAt: this.createdAt, creatorId: this.creatorId,
-        chatHistory: this._chatHistory, memberCount: this.members.size,
-      };
-      const filePath = path.join(this.persistDir, `${this.id}.json`);
-      fs.mkdirSync(this.persistDir, { recursive: true });
-      fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-    }
+    // T99: legacy data/rooms write REMOVED — rooms persist ONLY to the per-user/UUID dir.
     if (this.creatorToken) {
       try {
         const pubKey = getRoomPublicKey(this.creatorToken, this.id) || '';
@@ -299,55 +284,18 @@ export class Room {
     }
   }
 
-  removePersisted(): void {
-    if (!this.persistDir) return;
-    const filePath = path.join(this.persistDir, `${this.id}.json`);
-    try { fs.unlinkSync(filePath); } catch {}
-  }
-
-  static fromPersisted(data: PersistedRoom, persistDir: string): Room {
-    const placeholder: RoomMember = {
-      id: data.hostId, ws: null as any, name: '', avatarUrl: '', playerToken: '', disconnected: true,
-    };
-    const room = new Room(data.name, placeholder, { maxMembers: data.maxMembers, isPrivate: data.isPrivate, roomKey: data.roomKey || '', id: data.id });
-    room.state = data.state;
-    room.createdAt = data.createdAt;
-    room.creatorId = data.creatorId;
-    room._chatHistory = data.chatHistory || [];
-    room.persistDir = persistDir;
-    return room;
-  }
 }
 
 export class RoomManager {
   private rooms: Map<string, Room> = new Map();
-  private persistDir: string;
 
-  constructor(persistDir: string = 'data/rooms') {
-    this.persistDir = persistDir;
-  }
-
-  loadFromDisk(): number {
-    if (!fs.existsSync(this.persistDir)) return 0;
-    const files = fs.readdirSync(this.persistDir).filter(f => f.endsWith('.json'));
-    let loaded = 0;
-    for (const file of files) {
-      try {
-        const raw = fs.readFileSync(path.join(this.persistDir, file), 'utf-8');
-        const data: PersistedRoom = JSON.parse(raw);
-        const room = Room.fromPersisted(data, this.persistDir);
-        room.setCleanupCallback(() => { this.removeRoom(room.id); });
-        this.rooms.set(room.id, room);
-        loaded++;
-      } catch {}
-    }
-    return loaded;
-  }
+  // T99: legacy data/rooms load/store fully removed. Per-user/UUID dirs are the sole source.
+  // (constructor takes an optional legacy arg for call-site compatibility; it is ignored.)
+  constructor(_legacyPersistDir?: string) { /* no legacy persist dir */ }
 
   createRoom(name: string, creator: RoomMember, opts?: RoomOpts): Room {
     const uniqueName = this.uniqueNameGenerate(name);
     const room = new Room(uniqueName, creator, opts);
-    room.setPersistDir(this.persistDir);
     room.setCleanupCallback(() => { this.removeRoom(room.id); });
     this.rooms.set(room.id, room);
     room['persist']();
@@ -370,7 +318,8 @@ export class RoomManager {
     const room = this.rooms.get(roomId);
     if (!room) return false;
     if (requesterId && requesterId !== room.getCreatorId()) return false;
-    room.removePersisted();
+    // T99: no legacy file to remove; per-user room dir deletion is handled by the server
+    // DELETE_ROOM handler (deleteRoomHome). RoomManager only drops the in-memory entry.
     this.rooms.delete(roomId);
     return true;
   }
