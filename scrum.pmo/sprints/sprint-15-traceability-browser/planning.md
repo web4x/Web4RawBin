@@ -33,7 +33,7 @@ flat JSON of object state with route-like references to other objects (no protoc
 - [ ] [T101: Typed Object Model — Requirement/Test/Implementation classes + UUIDs](./task-101-object-model.md)
   **R15.1** · architect+expert · foundation · impl + testing DONE (v0.5.8; trace-model.test 8/8, 47ee53f) — Tron QA pending
 - [ ] [T102: Traceability Matrix Consistency + Fix Engine](./task-102-matrix-consistency-engine.md)
-  **R15.1** · expert+tester · requires T101
+  **R15.1** · expert+tester · requires T101 · impl-done (74b33ad v0.5.11) — testing pending (trace-consistency.test + npm run trace:check)
 - [ ] [T103: Object.verb Routing + Flat-JSON Serialization + MVC Live Views](./task-103-object-verb-routing.md)
   **R15.2** · architect+expert · requires T101
 
@@ -70,7 +70,8 @@ T103 ─┬→ T105 (defaultItemView) → T106 (ListOverview+search) ┤
 | Tasks | 8 (T101-T108) |
 | Tron QA-approved (Done) | 0/8 |
 | Tested, awaiting Tron QA | 1 (T101 — 8/8) |
-| Planned | 7 (T102-T108) |
+| Impl-done, testing pending | 1 (T102 — matrix engine, v0.5.11) |
+| Planned | 6 (T103-T108) |
 | Requirements | R15.1-R15.7 (from Tron literal R1-R4) |
 | Use case diagrams | 1 (Object.verb, architect) |
 
