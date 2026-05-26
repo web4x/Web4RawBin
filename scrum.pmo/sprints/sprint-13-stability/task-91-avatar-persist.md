@@ -93,7 +93,8 @@ inputs against the real UserKeys+UserCrypto:
   reconnect+restart curl check (upload → reconnect/restart → curl /api/avatar/<token> bytes identical)
   as belt-and-suspenders before Tron QA. Self-heal/guard correctness is decisively proven.
 - No regression: full Playwright suite 21/21 (T80).
-- 2026-05-26: Tron directive — "my avatar picture disappeared. its back to default." Awaiting architect root-cause refinement, then Tron QA.
+## QA Audit & User Feedback
+- 2026-05-26: Tron directive — "my avatar picture disappeared. its back to default." Fixed v0.4.11 (ensureAvatar guards on file, not string); tester-verified (avatar-persist 5/5 + 21/21 Playwright). Awaiting Tron QA.
 
 ## Subtasks
 None (atomic task).
