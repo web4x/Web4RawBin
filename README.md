@@ -67,9 +67,21 @@ rawbin/
 
 Browse all sprint documentation, task files, and architecture diagrams:
 
-**[Sprint Overview](/md/scrum.pmo/sprints/)** — dynamic index of all sprints
+**[Sprints Overview](./scrum.pmo/sprints/sprints.overview.md)** — durable index of ALL sprints (S1-S14)
+**[Sprint Browser](/md/scrum.pmo/sprints/)** — dynamic in-app index
 
 Individual sprints:
 - [Sprint 1 — Foundation](./scrum.pmo/sprints/sprint-1-rawbin-foundation/planning.md)
 - [Sprint 2 — Identity & SSH](./scrum.pmo/sprints/sprint-2-identity-ssh/planning.md)
 - [Sprint 3 — E2E & Hardening](./scrum.pmo/sprints/sprint-3-e2e-hardening/planning.md)
+- [Sprint 4 — Traceability](./scrum.pmo/sprints/sprint-4-traceability/planning.md)
+- [Sprint 5 — PWA & Offline](./scrum.pmo/sprints/sprint-5-pwa-offline/planning.md)
+- [Sprint 6 — Web Components](./scrum.pmo/sprints/sprint-6-web-components/planning.md)
+- [Sprint 7 — Encrypted Storage](./scrum.pmo/sprints/sprint-7-encrypted-storage/planning.md)
+- [Sprint 8 — Monaco Editor](./scrum.pmo/sprints/sprint-8-monaco-editor/planning.md)
+- [Sprint 9 — Room Identity](./scrum.pmo/sprints/sprint-9-room-identity/planning.md)
+- [Sprint 10 — Contacts UI](./scrum.pmo/sprints/sprint-10-contacts-ui/planning.md)
+- [Sprint 11 — Traceability Standardization](./scrum.pmo/sprints/sprint-11-traceability/planning.md)
+- [Sprint 12 — Editor Fixes](./scrum.pmo/sprints/sprint-12-editor-fixes/planning.md)
+- [Sprint 13 — Stability](./scrum.pmo/sprints/sprint-13-stability/planning.md)
+- [Sprint 14 — Legacy Data Migration](./scrum.pmo/sprints/sprint-14-legacy-migration/planning.md)
