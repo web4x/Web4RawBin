@@ -208,8 +208,8 @@ class RbAvatar extends HTMLElement {
           this.closeOverlay();
           this.dispatchEvent(new CustomEvent('rb-avatar-changed', { detail: { avatarUrl: result.avatarUrl }, bubbles: true, composed: true }));
           window.dispatchEvent(new CustomEvent('rb-avatar-updated', { detail: { token: tk, url: result.avatarUrl } }));
-        } else { alert(result.error || 'Upload failed'); }
-      } catch { alert('Upload failed'); }
+        } else { alert('Upload failed. Please try again.'); }
+      } catch { alert('Upload failed. Please try again.'); }
     });
   }
 

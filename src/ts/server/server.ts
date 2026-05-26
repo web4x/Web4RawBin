@@ -15,7 +15,7 @@ import fetch from 'node-fetch';
 import { marked } from 'marked';
 import { Room, RoomManager, type RoomMember } from './Room.js';
 import { MSG } from '../shared/MessageTypes.js';
-import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
+import { createUserHome, generateUserKeypair, hasUserKeys, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, getRoomDir } from './RoomKeys.js';
 import { encryptFile, decryptFile, fileExists } from './UserCrypto.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
@@ -319,7 +319,15 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (!mimeType.startsWith('image/')) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'mimeType must be image/*' })); return; }
           const buf = Buffer.from(data, 'base64');
           const profile = userProfiles.get(playerToken);
-          if (!profile?.sshKeysGenerated) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'SSH keys not generated' })); return; }
+          if (!profile) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Upload failed, please try again' })); return; }
+          // Self-heal the flag/file desync: regenerate keys if missing on disk (idempotent).
+          // Never expose key state to the user (T92) — the user must not know about keys.
+          if (!hasUserKeys(playerToken)) {
+            generateUserKeypair(playerToken);
+            profile.sshKeysGenerated = true;
+            saveProfiles();
+            addLog(`Avatar POST: regenerated missing user keys for ${playerToken.slice(0, 8)}`);
+          }
           const ext = mimeType === 'image/png' ? 'png' : mimeType === 'image/gif' ? 'gif' : mimeType === 'image/webp' ? 'webp' : 'jpg';
           addLog(`Avatar POST: token=${playerToken.slice(0,8)} buf=${buf.length}bytes mime=${mimeType}`);
           const encPathBefore = path.join(__dirname, '../../../data/users', playerToken, 'files', 'avatar.enc');
@@ -333,7 +341,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ ok: true, avatarUrl }));
           addLog(`Avatar uploaded: ${playerToken.slice(0,8)} (${buf.length} bytes)`);
-        } catch (e: any) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'Bad request' })); }
+        } catch (e: any) { addLog(`Avatar POST error: ${e?.message || e}`); res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Upload failed, please try again' })); }
       });
       return;
     }
@@ -776,12 +784,24 @@ async function fetchAvatarWithRetry(retries: number = 3): Promise<Buffer | null>
 async function ensureAvatar(profile: UserProfile): Promise<void> {
   if (!profile.sshKeysGenerated) return;
 
-  if (profile.avatar && profile.avatar.startsWith('/api/avatar/')) {
+  // Trust the on-disk avatar.enc FILE, not the profile.avatar STRING. The string can
+  // desync (cleared/not persisted) while the encrypted upload still lives on disk —
+  // re-fetching a default here would OVERWRITE the user's real photo (T91 root cause).
+  // Only fetch a default when no usable avatar.enc exists.
+  if (fileExists(profile.token, 'avatar')) {
     try {
       const { mimeType } = decryptFile(profile.token, 'avatar');
-      if (mimeType !== 'image/svg+xml') return;
+      if (mimeType !== 'image/svg+xml') {
+        // Real upload on disk — restore the URL if it desynced, and NEVER overwrite it.
+        if (profile.avatar !== `/api/avatar/${profile.token}`) {
+          profile.avatar = `/api/avatar/${profile.token}`;
+          saveProfiles();
+          addLog(`Avatar restored from disk: ${profile.token.slice(0, 8)}`);
+        }
+        return;
+      }
       addLog(`Avatar is SVG fallback, retrying photo fetch: ${profile.token.slice(0, 8)}`);
-    } catch { return; }
+    } catch { /* corrupt/undecryptable — fall through to fetch a fresh default */ }
   }
 
   const photoData = await fetchAvatarWithRetry(3);
