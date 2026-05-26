@@ -35,6 +35,11 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
   **Status:** impl + testing DONE (f884672 v0.5.4, per-request version read; tester 3/3 + curl, 63f0219) — Tron QA pending · R-V1 · **CRITICAL**
   - New version shows update bar → reload picks up new build; architect audited SW path end-to-end
 
+- [ ] [T95: Lobby Rooms Ordered Newest-First](./task-95-newest-rooms-first.md)
+  **Status:** refinement done + committed (faa7d89, uses existing Room.createdAt, no new field) — impl pending
+  **Owner:** robbin-architect (design), robbin-expert (implement), robbin-tester (verify)
+  - Sort lobby room list by createdAt desc (legacy `|| 0` → bottom, deterministic across restart) — new Tron directive
+
 ## Dependency Graph
 ```
 Independent bug fixes (no inter-task deps):
@@ -50,10 +55,11 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 |--------|-------|
 | Tasks | 4 (T91-T94) |
 | Tron QA-approved (Done) | 0/4 |
-| Impl-done | 4/4 (T91-T94, v0.4.11→v0.5.4) |
+| Tasks | 5 (T91-T95) |
+| Impl-done | T91, T92, T93, T94 (v0.4.11→v0.5.4) |
 | Tested, awaiting Tron QA | T93, T94 |
 | Testing pending | T91, T92 |
-| New (untracked, incoming) | T95 newest-rooms-first (architect-refined) |
+| Refinement done, impl pending | T95 (newest-rooms-first, faa7d89) |
 | Use case diagrams | 4 (architect, in diagrams/) |
 | Priority | T94 CRITICAL; T91-T93 HIGH |
 
@@ -69,7 +75,7 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 - **architect:** complete-workflow use case .puml in diagrams/; T94 SW-path audit first
 - **planner:** sprint structure, planning↔task consistency, chain links
 - Parallel sprints consistent: S10 (contacts), S11 (traceability T85-T90), S12 (editor T84).
-  Next new task after this sprint = T95.
+  Next new task = T100 (T96-T99 are Sprint 14 Legacy Migration).
 
 ---
 **Product Owner:** robbin-po (robbinTeam:0.0)
