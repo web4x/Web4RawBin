@@ -1,0 +1,109 @@
+/**
+ * T102 — Traceability consistency engine unit tests (AC6).
+ * validate() on clean + drifted graphs; fixMatrix() drift→consistent→idempotent;
+ * generated-region markers preserve manual content.
+ *
+ * [test:uuid:102c3d4e-5f60-4071-8293-c02020202103] AC2/AC3/AC4/AC6
+ */
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { TraceGraph, Requirement, Task } from '../../src/ts/shared/TraceModel.js';
+import {
+  validate, fixMatrix, generateRegion, formatReport, REGION_BEGIN, REGION_END,
+  type TaskCoverage,
+} from '../../src/ts/server/TraceConsistency.js';
+
+const RU = '15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01';
+const TU = '101a0b1c-2d3e-4f50-8617-a01010101101';
+
+function cov(over: Partial<TaskCoverage> = {}): TaskCoverage {
+  return { sprint: 'sprint-15', task: 'task-101-x', uuid: TU, reqUuid: RU, req: true, uc: true, puml: true, method: true, ...over };
+}
+
+describe('T102 TraceConsistency', () => {
+  // AC2: validate reports broken/missing chain links
+  describe('validate (AC2)', () => {
+    it('returns no errors for a consistent graph+coverage', () => {
+      const g = new TraceGraph();
+      const r = new Requirement(g, RU, 'R15.1');
+      const t = new Task(g, TU, 'task-101-x');
+      r.addTask(t);
+      const issues = validate(g, [cov()]);
+      expect(issues.filter(i => i.level === 'error')).toHaveLength(0);
+    });
+
+    it('flags a task with no [task:uuid]', () => {
+      const g = new TraceGraph();
+      const issues = validate(g, [cov({ uuid: null, reqUuid: null, req: false })]);
+      expect(issues.some(i => i.level === 'error' && /no \[task:uuid\]/.test(i.reason))).toBe(true);
+    });
+
+    it('flags a dangling requirement up-link (uuid not in graph)', () => {
+      const g = new TraceGraph();
+      new Task(g, TU, 'task-101-x'); // task exists, but its reqUuid is not registered
+      const issues = validate(g, [cov({ reqUuid: '99999999-9999-4999-8999-999999999999' })]);
+      expect(issues.some(i => i.level === 'error' && /not found in any requirements/.test(i.reason))).toBe(true);
+    });
+
+    it('flags a requirement with no linked task', () => {
+      const g = new TraceGraph();
+      new Requirement(g, RU, 'orphan req'); // no addTask
+      const issues = validate(g, []);
+      expect(issues.some(i => i.level === 'error' && i.ref === `requirement:${RU}` && /no linked task/.test(i.reason))).toBe(true);
+    });
+
+    it('warns on a task with no requirement up-link', () => {
+      const g = new TraceGraph();
+      new Task(g, TU, 'task-101-x');
+      const issues = validate(g, [cov({ reqUuid: null, req: false })]);
+      expect(issues.some(i => i.level === 'warn' && /no requirement up-link/.test(i.reason))).toBe(true);
+    });
+
+    it('formatReport says CONSISTENT on zero issues', () => {
+      expect(formatReport([])).toMatch(/CONSISTENT/);
+    });
+  });
+
+  // AC3/AC4: fix regenerates the marked region, preserves manual content, idempotent
+  describe('fixMatrix (AC3/AC4)', () => {
+    let tmp: string;
+    beforeEach(() => { tmp = path.join(os.tmpdir(), `trace-matrix-${Date.now()}-${Math.random().toString(16).slice(2)}.md`); });
+    afterEach(() => { try { fs.rmSync(tmp); } catch { /* ignore */ } });
+
+    it('appends a marked region to a file with no markers, preserving manual content', () => {
+      const manual = '# Manual Matrix\n\nHand-authored planner content.\n';
+      fs.writeFileSync(tmp, manual);
+      const res = fixMatrix(tmp, [cov()]);
+      expect(res.changed).toBe(true);
+      const out = fs.readFileSync(tmp, 'utf-8');
+      expect(out).toContain('Hand-authored planner content.'); // manual preserved
+      expect(out).toContain(REGION_BEGIN);
+      expect(out).toContain(REGION_END);
+      expect(out).toContain('| sprint-15 | task-101-x |');
+    });
+
+    it('is idempotent — second fix makes no change', () => {
+      fs.writeFileSync(tmp, '# M\n');
+      expect(fixMatrix(tmp, [cov()]).changed).toBe(true);
+      expect(fixMatrix(tmp, [cov()]).changed).toBe(false); // already consistent
+    });
+
+    it('repairs drift inside the region without touching content outside', () => {
+      fs.writeFileSync(tmp, '# M\n');
+      fixMatrix(tmp, [cov()]);                 // region with task-101-x ✓✓✓✓
+      const res = fixMatrix(tmp, [cov({ uc: false, puml: false })]); // drift: uc/puml now ✗
+      expect(res.changed).toBe(true);
+      const out = fs.readFileSync(tmp, 'utf-8');
+      expect(out.startsWith('# M')).toBe(true); // manual header intact
+      // exactly one region (no duplication)
+      expect(out.split(REGION_BEGIN).length - 1).toBe(1);
+      expect(out.split(REGION_END).length - 1).toBe(1);
+    });
+
+    it('generateRegion is deterministic for the same coverage', () => {
+      expect(generateRegion([cov()])).toBe(generateRegion([cov()]));
+    });
+  });
+});

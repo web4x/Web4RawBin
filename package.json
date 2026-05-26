@@ -1,6 +1,6 @@
 {
   "name": "rawbin",
-  "version": "0.5.10",
+  "version": "0.5.11",
   "description": "RawBin — AI Server Management Interface",
   "type": "module",
   "scripts": {
@@ -10,6 +10,8 @@
     "start": "npm run build && tsx src/ts/server/server.ts",
     "test": "vitest run",
     "test:watch": "vitest",
+    "trace:check": "tsx src/ts/server/trace-cli.ts check",
+    "trace:fix": "tsx src/ts/server/trace-cli.ts fix",
     "test:e2e": "playwright test",
     "test:e2e:editor": "playwright test test/e2e/editor.spec.ts",
     "test:e2e:rooms": "playwright test test/e2e/room-identity.spec.ts",

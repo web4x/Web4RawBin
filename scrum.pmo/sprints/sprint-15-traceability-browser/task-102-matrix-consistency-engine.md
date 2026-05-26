@@ -5,14 +5,25 @@
 [task:uuid:102b1c2d-3e4f-4051-9728-b02020202102]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (architect)
-  - [ ] creating test cases
-  - [ ] implementing (expert)
-  - [ ] testing (tester)
+- [x] Planned
+- [x] In Progress
+  - [ ] refinement (architect — implemented ahead of refinement per PO; architect to review scan heuristics)
+  - [x] creating test cases
+  - [x] implementing (expert)
+  - [ ] testing (tester — run trace-consistency.test.ts + `npm run trace:check`)
 - [ ] QA Review
 - [ ] Done
+
+## Implementation (robbin-expert, 2026-05-26, v0.5.11)
+`src/ts/server/TraceConsistency.ts` (engine) + `src/ts/server/trace-cli.ts` (CLI) + npm scripts `trace:check`/`trace:fix`.
+- **AC1 scan→graph:** `scanRepo(sprintsDir)` walks `scrum.pmo/sprints/*`: requirements.md → `Requirement` (T101) objects + forward `→ [Task](./task-*.md)` links; task-*.md → `Task` objects + up `[requirement:uuid]` links + per-task coverage flags (req/uc/puml/method via tag/heuristic regex) + `[task:uuid]`. Returns `{ graph: TraceGraph, coverage }`. Verified live: scanned 110 tasks, built the graph.
+- **AC2 validate:** `validate(graph, coverage)` → Issues with level+ref+reason: task missing `[task:uuid]` (error), up-link requirement uuid not found (error, dangling), requirement with no linked task (error), task with no requirement up-link (warn). Live run flagged 14 errors (legacy Sprint-1 subtasks pre-UUID) + 96 warns — engine detects real drift.
+- **AC3 fix (non-destructive):** `fixMatrix(path, coverage)` regenerates ONLY the region between `<!-- TRACE:BEGIN -->`/`<!-- TRACE:END -->` markers; manual content outside is preserved verbatim. If no markers, the region is appended (the planner's hand-authored Sprints 1-9 table is left untouched).
+- **AC4 idempotent:** `fixMatrix` writes only when content changes; `generateRegion` is deterministic → second run = `{changed:false}`.
+- **AC5 check mode:** `npm run trace:check` (report-only) exits 1 on any ERROR-level issue (warnings don't fail CI), 0 when clean. `npm run trace:fix` regenerates the region.
+- **AC6 tests:** `test/vitest/trace-consistency.test.ts` — validate (clean + 4 drift cases), fix (append+preserve, idempotent, drift-repair single-region), deterministic region. Authored by expert; **execution is robbin-tester's**.
+- Toolchain note: project has no tsconfig.json (esbuild/tsx) — verified via `npm run trace:check` running cleanly under tsx + `npm run build`. v0.5.11, sw.js cache rawbin-v0.5.11. Server-side tool (CLI/CI) — no live deploy needed.
+- Scan scope: requirement↔task chain + per-task uc/puml/method presence flags (matches the existing matrix columns). Deeper first-class uc/class/method/impl/test object linking is a documented extension for architect review (T103/T108).
 
 ## Traceability
 - up
