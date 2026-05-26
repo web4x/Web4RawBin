@@ -4,7 +4,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const HELPERS_DIR = path.dirname(fileURLToPath(import.meta.url));
-const DATA_USERS_DIR = path.resolve(HELPERS_DIR, '../../data/users');
+// T100: honor isolated DATA_DIR — cleanup must target the dir the server actually wrote to
+const DATA_BASE = process.env.E2E_DATA_DIR || path.resolve(HELPERS_DIR, '../../data');
+const DATA_USERS_DIR = path.join(DATA_BASE, 'users');
 
 /**
  * Delete test-created rooms whose room.json `name` matches `pattern`.

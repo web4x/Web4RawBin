@@ -15,7 +15,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = path.resolve(__dirname, '../../data');
+// T100: honor isolated DATA_DIR so disk assertions read the same dir the server wrote to
+const DATA_DIR = process.env.E2E_DATA_DIR || path.resolve(__dirname, '../../data');
 
 function diskRoomIds(token: string): string[] {
   const roomsDir = path.join(DATA_DIR, 'users', token, 'rooms');
