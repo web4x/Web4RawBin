@@ -5,14 +5,21 @@
 [task:uuid:e8d3a7b2-5c61-4f08-a3d9-2b7c4e1f9a06]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
+- [x] Planned
+- [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+  - [x] creating test cases
+  - [x] implementing
+  - [ ] testing (handed to robbin-tester — TS1-TS4)
 - [ ] QA Review
 - [ ] Done
+
+## Implementation (robbin-expert, 2026-05-26, v0.5.0)
+- **Change 1 (CSS, app.css):** added `.user-sheet .btn-secondary { background: rgba(102,126,234,0.12); color: #667eea; }` + `:active` — scoped to `.user-sheet` only, so the vCard button is readable blue-on-white (AC1) and the global lobby `.btn-secondary` (dark bg) is untouched (AC7/TS3).
+- **Change 2 (ProfileSheet.ts):** `import './components/rb-avatar.js'`; replaced inline `<img>`/`avatarHtml` with `<rb-avatar size="80" name token [src] readonly>` inside `.user-sheet-avatar` — derives image from `/api/avatar/<their-token>`, gets crop + live refresh + initial fallback, readonly so tap doesn't open editor (AC4/AC5/AC6).
+- **Change 3 (ProfileSheet.ts):** `open(profile, opts: SheetOpts = {})` with `interface SheetOpts { isSelf?; onEdit? }`. Button row branches: vCard always; `!isSelf` → Link Account (implemented); `isSelf` → `#us-edit` Edit Profile markup present but NOT wired (T83 owns it + self-click routing). ProfileSheet does NOT import ProfileEditor — seam contract preserved (AC11). setupEvents uses optional chaining so absent `us-link` is safe.
+- **Change 4:** version 0.4.11 → 0.5.0, sw.js cache → rawbin-v0.5.0 (AC9).
+- tsc clean (ProfileSheet), build clean (bundle app-KVWCKUZI.js). vCard builder `downloadVCard()` unchanged (AC3).
 
 ## Traceability
 - up

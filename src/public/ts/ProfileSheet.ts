@@ -1,5 +1,6 @@
 import { RawBinClient } from './RawBinClient.js';
 import { MSG } from '../../shared/MessageTypes.js';
+import './components/rb-avatar.js';
 
 interface PublicProfile {
   name: string;
@@ -9,6 +10,8 @@ interface PublicProfile {
   playerToken: string;
 }
 
+interface SheetOpts { isSelf?: boolean; onEdit?: () => void; }
+
 export class ProfileSheet {
   private client: RawBinClient;
   private overlay: HTMLElement | null = null;
@@ -17,13 +20,10 @@ export class ProfileSheet {
     this.client = client;
   }
 
-  open(profile: PublicProfile): void {
+  open(profile: PublicProfile, opts: SheetOpts = {}): void {
     if (this.overlay) this.close();
 
-    const avatarSrc = profile.avatar || '';
-    const avatarHtml = avatarSrc
-      ? `<img src="${avatarSrc}" alt="${profile.name}">`
-      : `<span class="avatar-placeholder">?</span>`;
+    const isSelf = opts.isSelf === true;
 
     this.overlay = document.createElement('div');
     this.overlay.className = 'profile-overlay';
@@ -31,10 +31,12 @@ export class ProfileSheet {
       <div class="profile-sheet user-sheet">
         <div class="sheet-handle"><div class="sheet-handle-bar"></div></div>
         <button class="profile-close" id="us-close">✕</button>
-        <div class="user-sheet-avatar">${avatarHtml}</div>
+        <div class="user-sheet-avatar"><rb-avatar size="80" name="${profile.name || '?'}" token="${profile.playerToken || ''}" ${profile.avatar ? `src="${profile.avatar}"` : ''} readonly></rb-avatar></div>
         <h3 class="user-sheet-name">${profile.name || 'Unknown'}</h3>
         <button id="us-vcard" class="btn btn-secondary user-sheet-btn">Download vCard</button>
-        <button id="us-link" class="btn btn-primary user-sheet-btn" data-token="${profile.playerToken}" data-name="${profile.name}">Link Account</button>
+        ${isSelf
+          ? `<button id="us-edit" class="btn btn-primary user-sheet-btn">Edit Profile</button>`
+          : `<button id="us-link" class="btn btn-primary user-sheet-btn" data-token="${profile.playerToken}" data-name="${profile.name}">Link Account</button>`}
       </div>`;
 
     document.body.appendChild(this.overlay);
