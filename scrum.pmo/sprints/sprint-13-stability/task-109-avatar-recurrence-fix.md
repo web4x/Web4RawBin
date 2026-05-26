@@ -7,12 +7,17 @@
 ## Tron Requirement (literal)
 > TRON DIRECTIVE: "app keeps breaking the profile picture to the fallback" (still happening post-T91).
 
-## Status
-- [ ] Planned
-- [ ] In Progress
+## Status — IN PROGRESS (impl PARTIAL)
+Two parts: (b) re-encrypt files/* on identity rekey — SHIPPED (75053e4 v0.5.9);
+(a) ensureAvatar catch must never overwrite an undecryptable avatar — v0.5.10
+(0dc085e) just committed, pending tester verification. T109 is NOT impl-done and
+NOT gate-eligible until BOTH parts ship AND tester verifies BOTH (survives rekey
+AND undecryptable-never-overwritten).
+- [x] Planned
+- [x] In Progress
   - [x] refinement (architect)
   - [ ] creating test cases
-  - [x] implementing (expert)
+  - [ ] implementing (expert) — PARTIAL: (b) v0.5.9 done; (a) v0.5.10 committed, awaiting verify of both
   - [ ] testing (tester)
 - [ ] QA Review
 - [ ] Done

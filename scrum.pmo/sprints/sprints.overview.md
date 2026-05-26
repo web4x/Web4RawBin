@@ -22,7 +22,7 @@ Status legend: **Done** = all tasks Tron QA-approved · **active** = in flight
 | 10 | Contacts UI | active — T81/82/83 tested, awaiting Tron QA | 3 | [planning](./sprint-10-contacts-ui/planning.md) |
 | 11 | Traceability Standardization | active — T85/86 impl-done; T87-90 planned (S1-9 remediation) | 6 | [planning](./sprint-11-traceability/planning.md) |
 | 12 | Editor Fixes | active — T84 tested, awaiting Tron QA | 1 | [planning](./sprint-12-editor-fixes/planning.md) |
-| 13 | Stability | active — T91-95,T100 tested→awaiting Tron QA; T109 (avatar recurrence) impl-done/testing | 7 | [planning](./sprint-13-stability/planning.md) |
+| 13 | Stability | active — T91-95,T100 tested→awaiting Tron QA; T109 (avatar recurrence) IN PROGRESS impl-partial | 7 | [planning](./sprint-13-stability/planning.md) |
 | 14 | Legacy Data Migration | refinement done; impl ⏸️ HELD until avatar fix (shared data/users/); T99 ⛔ GATED | 4 | [planning](./sprint-14-legacy-migration/planning.md) |
 | 15 | Traceability Browser & Object Model | active — T101 tested (8/8)→awaiting Tron QA; T102-108 planned | 8 | [planning](./sprint-15-traceability-browser/planning.md) |
 
