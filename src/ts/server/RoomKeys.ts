@@ -5,7 +5,9 @@ import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const USERS_DIR = path.join(__dirname, '../../../data/users');
+// T100: configurable via DATA_DIR env (isolated test data). INVARIANT: unset → exact prod path.
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '../../../data');
+const USERS_DIR = path.join(DATA_DIR, 'users');
 
 function mkdirSafe(dir: string, mode: number = 0o700): void {
   fs.mkdirSync(dir, { recursive: true, mode });

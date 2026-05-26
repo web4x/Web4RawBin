@@ -128,7 +128,10 @@ interface DeviceRecord {
   enrolledAt: string;
 }
 
-const DATA_DIR = path.join(__dirname, '../../../data');
+// T100: data base is configurable via DATA_DIR env so E2E can run against an isolated tmp
+// dir. INVARIANT: unset → EXACTLY the current prod path (path.join(__dirname,'../../../data'))
+// — zero behavior change for prod. All data paths below derive from this single base.
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '../../../data');
 const PROFILES_PATH = path.join(DATA_DIR, 'profiles.json');
 const DEVICES_PATH = path.join(DATA_DIR, 'devices.json');
 const userProfiles = new Map<string, UserProfile>();
@@ -458,7 +461,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         return;
       }
       try {
-        const encPath = path.join(__dirname, '../../../data/users', token, 'files', 'avatar.enc');
+        const encPath = path.join(DATA_DIR, 'users', token, 'files', 'avatar.enc');
         const encData = await fs.readFile(encPath);
         const etag = '"' + crypto.createHash('md5').update(encData).digest('hex') + '"';
         if (req.headers['if-none-match'] === etag) { res.writeHead(304); res.end(); return; }

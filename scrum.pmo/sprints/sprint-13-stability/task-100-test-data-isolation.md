@@ -8,14 +8,28 @@
 > TRON DIRECTIVE (via PO 2026-05-26): E2E test runs flooded prod with test rooms. Tests must use an isolated data dir and NEVER pollute prod data again.
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (architect)
-  - [ ] creating test cases
-  - [ ] implementing (expert)
-  - [ ] testing (tester)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (architect)
+  - [x] creating test cases
+  - [x] implementing (expert)
+  - [ ] testing (tester — TS1/TS2, owns spec server-launch with tmp DATA_DIR)
 - [ ] QA Review
 - [ ] Done
+
+## Implementation (robbin-expert, 2026-05-26, v0.5.6)
+Single configurable base `DATA_DIR` across all server modules; default byte-identical to prod.
+- **server.ts:** `const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '../../../data')`. ALL data paths already derive from it: PROFILES_PATH, DEVICES_PATH, PAIRING_PATH, bug-reports, ROOMS_DIR (→ `new RoomManager(ROOMS_DIR)` so legacy data/rooms honors it), LOGS_DIR. Fixed the ONE stray hardcoded path (GET /api/avatar `encPath`) to use `path.join(DATA_DIR,'users',token,'files','avatar.enc')`.
+- **UserKeys.ts:** `const DATA_DIR = process.env.DATA_DIR || path.join(__dirname,'../../../data')` → USERS_DIR derived. (UserCrypto delegates to `getUserHomeDir` here, so encrypted avatar files honor it too.)
+- **RoomKeys.ts:** same DATA_DIR base → USERS_DIR (per-user rooms + room .ssh honor it).
+- NOT changed (intentionally — not data-write paths): FileApi PROJECT_ROOT + RESTRICTED_DIRS (file browser), server DOCS_DIR/PROJECT_ROOT (docs serving), Room.ts RoomManager default param `'data/rooms'` (never used — server always passes resolved ROOMS_DIR).
+
+### Invariant proof (AC1/AC5 — zero prod change when unset)
+Every base is `process.env.DATA_DIR || path.join(__dirname, '../../../data')`. The default operand is the EXACT expression each module used before this task (same `__dirname`, same `../../../data`). With `DATA_DIR` unset, `||` returns the identical default → byte-identical prod behavior. With it set, all three modules read the same env in one process → one consistent isolated base.
+
+### Tester handoff (AC3/AC4/TS1/TS2)
+Launch the E2E server with `DATA_DIR=<tmp/e2e-data>` (Playwright webServer env or the dev launch). Then: TS1 full E2E → test rooms land in tmp, prod `data/rooms` count byte-unchanged; TS2 unset → prod path (no change). AC4: assert prod `data/rooms` file count identical before/after the E2E run.
+- v0.5.6, sw.js cache rawbin-v0.5.6. tsc + build clean. Server-only.
 
 ## Traceability
 - up
