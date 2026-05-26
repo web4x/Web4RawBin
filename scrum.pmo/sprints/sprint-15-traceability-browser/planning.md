@@ -35,7 +35,7 @@ flat JSON of object state with route-like references to other objects (no protoc
 - [ ] [T102: Traceability Matrix Consistency + Fix Engine](./task-102-matrix-consistency-engine.md)
   **R15.1** · expert+tester · requires T101 · impl-done (74b33ad v0.5.11) — testing pending (trace-consistency.test + npm run trace:check)
 - [ ] [T103: Object.verb Routing + Flat-JSON Serialization + MVC Live Views](./task-103-object-verb-routing.md)
-  **R15.2** · architect+expert · requires T101
+  **R15.2** · architect+expert · requires T101 · impl-done (fca4540 v0.5.13 — Router/VerbRegistry/ViewBus/rb-trace-view) — testing pending
 
 ### Phase 2 — Diagrams
 - [ ] [T104: Object.verb Use-Case Diagrams](./task-104-object-verb-diagrams.md)
@@ -70,8 +70,8 @@ T103 ─┬→ T105 (defaultItemView) → T106 (ListOverview+search) ┤
 | Tasks | 8 (T101-T108) |
 | Tron QA-approved (Done) | 0/8 |
 | Tested, awaiting Tron QA | 1 (T101 — 8/8) |
-| Impl-done, testing pending | 1 (T102 — matrix engine, v0.5.11) |
-| Planned | 6 (T103-T108) |
+| Impl-done, testing pending | 2 (T102 matrix engine v0.5.11, T103 Object.verb routing v0.5.13) |
+| Planned | 5 (T104-T108) |
 | Requirements | R15.1-R15.7 (from Tron literal R1-R4) |
 | Use case diagrams | 1 (Object.verb, architect) |
 
