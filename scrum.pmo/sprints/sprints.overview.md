@@ -28,9 +28,11 @@ Status legend: **Done** = all tasks Tron QA-approved · **active** = in flight
 **Task numbering:** global sequential. T1-T80 (S1-9), T81-83 (S10), T84 (S12),
 T85-90 (S11), T91-95 (S13), T96-99 (S14), T100 (S13). Next new task = **T101**.
 
-**Standards:** [traceability standard](../standards/traceability-standard.md) ·
-[task template](../templates/task-template.md) ·
-[traceability matrix](../traceability-matrix.md) · [backlog](../backlog.md)
+**Traceability & Standards:** [traceability matrix](../traceability-matrix.md)
+(req→uc→puml→method→test index) · [standard](../standards/traceability-standard.md) ·
+audits [S1](../standards/sprint-1-traceability-audit.md) /
+[S2-9](../standards/sprints-2-9-traceability-audit.md) ·
+[task template](../templates/task-template.md) · [backlog](../backlog.md)
 
 ---
 **Maintained by:** robbin-planner (robbinTeam:1.0)

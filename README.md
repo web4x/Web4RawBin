@@ -85,3 +85,14 @@ Individual sprints:
 - [Sprint 12 — Editor Fixes](./scrum.pmo/sprints/sprint-12-editor-fixes/planning.md)
 - [Sprint 13 — Stability](./scrum.pmo/sprints/sprint-13-stability/planning.md)
 - [Sprint 14 — Legacy Data Migration](./scrum.pmo/sprints/sprint-14-legacy-migration/planning.md)
+
+## Traceability
+
+Browse the requirement → use case → PUML → class/method → test chain:
+
+- **[Traceability Matrix](./scrum.pmo/traceability-matrix.md)** — browsable per-task chain-coverage index (all tasks, S1-9 + active)
+- [Traceability Standard](./scrum.pmo/standards/traceability-standard.md) — the UUID chain convention (req/uc/class/impl/test tags)
+- [Sprint 1 Traceability Audit](./scrum.pmo/standards/sprint-1-traceability-audit.md)
+- [Sprints 2-9 Traceability Audit](./scrum.pmo/standards/sprints-2-9-traceability-audit.md)
+- [Sprints Overview](./scrum.pmo/sprints/sprints.overview.md) — all sprints: status + task counts
+- [Task Backlog](./scrum.pmo/backlog.md) — untriaged items
