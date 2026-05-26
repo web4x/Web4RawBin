@@ -2,6 +2,12 @@
 
 # Sprint 14 Planning — Legacy Data Migration
 
+> ⏸️ **IMPL HELD (PO directive 2026-05-26):** S14 migration EXECUTION is on hold
+> until the avatar-fallback bug fix lands. Both touch `data/users/<token>/`
+> (S14 renames token→UUID dirs; the avatar bug is in user-dir avatar storage/load) —
+> running them concurrently risks confusion/data races. Order: **avatar fix first →
+> then S14 impl**. Tasks stay refinement-done; do NOT start T96/T97 impl until released.
+
 ## Sprint Goal
 Safely migrate legacy on-disk data to the per-user / UUIDv4 model, PROVE no data
 loss, then — only after verification passes and Tron authorizes — remove the
@@ -50,7 +56,7 @@ T99's QA Audit GATE LOG before any implementation begins.
 |--------|-------|
 | Tasks | 4 (T96-T99) |
 | Tron QA-approved (Done) | 0/4 |
-| Refinement done, impl pending | 4 (T96-T99, d953d5a + migration-workflow diagram) |
+| Refinement done, impl HELD | 4 (T96-T99) — ⏸️ execution held until avatar-fallback fix lands (shared data/users/ surface) |
 | T99 gate | ⛔ still blocked (needs T98 PASS + Tron auth) |
 | Phases | migrate (T96,T97) → verify (T98) → ⛔gate→ delete (T99) |
 | Use case diagrams | 1 (architect — migration-workflow) |
