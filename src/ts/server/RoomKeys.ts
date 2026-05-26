@@ -119,12 +119,20 @@ export function scanAllRooms(): { userToken: string; roomId: string; data: RoomJ
   const results: { userToken: string; roomId: string; data: RoomJsonData }[] = [];
   if (!fs.existsSync(USERS_DIR)) return results;
   for (const userDir of fs.readdirSync(USERS_DIR)) {
-    const roomsDir = path.join(USERS_DIR, userDir, 'rooms');
-    if (!fs.existsSync(roomsDir)) continue;
-    for (const roomDir of fs.readdirSync(roomsDir)) {
-      const data = readRoomJson(userDir, roomDir);
-      if (data) results.push({ userToken: userDir, roomId: roomDir, data });
-    }
+    results.push(...scanUserRooms(userDir));
+  }
+  return results;
+}
+
+// Scan one user's rooms only — used on IDENTIFY so an owner's full room set loads when
+// they connect, without walking every user's directory (NFR-2).
+export function scanUserRooms(userToken: string): { userToken: string; roomId: string; data: RoomJsonData }[] {
+  const results: { userToken: string; roomId: string; data: RoomJsonData }[] = [];
+  const roomsDir = path.join(USERS_DIR, userToken, 'rooms');
+  if (!fs.existsSync(roomsDir)) return results;
+  for (const roomDir of fs.readdirSync(roomsDir)) {
+    const data = readRoomJson(userToken, roomDir);
+    if (data) results.push({ userToken, roomId: roomDir, data });
   }
   return results;
 }

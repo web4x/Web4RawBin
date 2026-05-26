@@ -16,7 +16,7 @@ import { marked } from 'marked';
 import { Room, RoomManager, type RoomMember } from './Room.js';
 import { MSG } from '../shared/MessageTypes.js';
 import { createUserHome, generateUserKeypair, regenerateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
-import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, getRoomDir } from './RoomKeys.js';
+import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
 import { encryptFile, decryptFile, fileExists } from './UserCrypto.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
@@ -192,20 +192,26 @@ const ROOMS_DIR = path.join(DATA_DIR, 'rooms');
 const roomManager = new RoomManager(ROOMS_DIR);
 roomManager.loadFromDisk();
 
-// Load persistent rooms from per-user directories (Sprint 9)
+// T93: per-user rooms carry creatorToken (legacy data/rooms does NOT — owner-aware listing
+// needs it). For each per-user room: if a legacy copy is already loaded, BACKFILL its
+// creatorToken in place (no re-create → no name-collision rename / persist drift); otherwise
+// register it fresh. This makes the owner's full room set visible without clobbering names.
 {
-  const userRooms = scanAllRooms();
-  let loaded = 0;
-  for (const { userToken, roomId, data } of userRooms) {
-    if (roomManager.getRoom(roomId)) continue;
+  let registered = 0, backfilled = 0;
+  for (const { userToken, roomId, data } of scanAllRooms()) {
+    const existing = roomManager.getRoom(roomId);
+    if (existing) {
+      if (!existing.creatorToken) { existing.creatorToken = data.ownerToken; backfilled++; }
+      continue;
+    }
     const placeholder: RoomMember = { id: 'dormant', ws: null as any, name: '', avatarUrl: '', playerToken: userToken, disconnected: true };
     const room = roomManager.createRoom(data.name, placeholder, { id: roomId, maxMembers: data.maxMembers, isPrivate: data.isPrivate, roomKey: data.roomKey || '', creatorToken: data.ownerToken });
     room.creatorToken = data.ownerToken;
     room.members.delete('dormant');
     if (data.chatHistory?.length) room.loadChatHistory(data.chatHistory);
-    loaded++;
+    registered++;
   }
-  if (loaded > 0) console.log(`Loaded ${loaded} persistent room(s) from user directories`);
+  console.log(`Per-user rooms: ${registered} registered, ${backfilled} creatorToken backfilled`);
 }
 
 let serverStartTime = new Date();
@@ -995,7 +1001,8 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
     }
 
     case MSG.LIST_ROOMS: {
-      send({ type: MSG.ROOM_LIST, rooms: enrichRoomList(roomManager.listRooms(getConnectedOwners())) });
+      const myToken = [...wsClients].find(c => c.id === clientId)?.playerToken || '';
+      send({ type: MSG.ROOM_LIST, rooms: roomListFor(myToken) });
       break;
     }
 
@@ -1099,13 +1106,24 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       const connectedDeviceIds = [...wsClients].filter(c => c.playerToken === token && c.deviceId).map(c => c.deviceId);
       send({ type: MSG.PROFILE, profile: { ...profile, devices: myDevices }, connectedDeviceIds });
 
-      // UC-RM.4: Owner reconnect — activate dormant rooms
+      // UC-RM.4 (T93): owner connects → ensure ALL their on-disk rooms are registered (any
+      // missed at startup) and carry creatorToken, then advertise. Per-user scan so a user's
+      // full room set always loads. Backfill existing rooms in place (no rename/persist drift).
       if (profile.sshKeysGenerated) {
-        const ownerRooms = roomManager.listRoomsForOwner(token);
-        if (ownerRooms.length > 0) {
-          broadcastRoomList();
-          addLog(`Owner ${token.slice(0,8)} connected — ${ownerRooms.length} room(s) activated`);
+        let registered = 0;
+        for (const { userToken, roomId, data } of scanUserRooms(token)) {
+          const existing = roomManager.getRoom(roomId);
+          if (existing) { if (!existing.creatorToken) existing.creatorToken = data.ownerToken; continue; }
+          const placeholder: RoomMember = { id: 'dormant', ws: null as any, name: '', avatarUrl: '', playerToken: userToken, disconnected: true };
+          const room = roomManager.createRoom(data.name, placeholder, { id: roomId, maxMembers: data.maxMembers, isPrivate: data.isPrivate, roomKey: data.roomKey || '', creatorToken: data.ownerToken });
+          room.creatorToken = data.ownerToken;
+          room.members.delete('dormant');
+          if (data.chatHistory?.length) room.loadChatHistory(data.chatHistory);
+          registered++;
         }
+        const ownerRooms = roomManager.listRoomsForOwner(token);
+        broadcastRoomList();
+        addLog(`Owner ${token.slice(0,8)} connected — ${ownerRooms.length} room(s) (${registered} newly registered)`);
       }
       break;
     }
@@ -1298,10 +1316,23 @@ function enrichRoomList(rooms: any[]): any[] {
   }));
 }
 
+// T93: owner-aware list. Everyone sees public rooms; the owner additionally sees ALL of
+// their OWN rooms (incl. private + empty) so a user's full room set shows in their lobby.
+function roomListFor(playerToken: string): any[] {
+  const publicRooms = roomManager.listRooms(getConnectedOwners());
+  if (!playerToken) return enrichRoomList(publicRooms);
+  const byId = new Map<string, any>();
+  for (const r of publicRooms) byId.set(r.id, r);
+  for (const r of roomManager.listRoomsForOwner(playerToken)) byId.set(r.id, r);
+  return enrichRoomList([...byId.values()]);
+}
+
 function broadcastRoomList(): void {
-  const rooms = enrichRoomList(roomManager.listRooms(getConnectedOwners()));
-  const list = JSON.stringify({ type: MSG.ROOM_LIST, rooms });
-  wsClients.forEach(c => { if (c.ws.readyState === 1) c.ws.send(list); });
+  // Per-recipient: each client gets public rooms plus their own (owner-aware).
+  wsClients.forEach(c => {
+    if (c.ws.readyState !== 1) return;
+    c.ws.send(JSON.stringify({ type: MSG.ROOM_LIST, rooms: roomListFor(c.playerToken) }));
+  });
 }
 
 // --- TUI ---

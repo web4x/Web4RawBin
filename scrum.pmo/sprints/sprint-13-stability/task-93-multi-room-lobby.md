@@ -9,13 +9,23 @@
 > TRON DIRECTIVE: "i created more than one room. but only one showes up in the lobby. when a user connects all his rooms should show up in the lobby and being loaded from disk."
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
+- [x] Planned
+- [x] In Progress
   - [x] refinement (architect)
-  - [ ] implementing (expert)
+  - [x] implementing (expert)
   - [ ] testing (tester)
 - [ ] QA Review
 - [ ] Done
+
+## Implementation (robbin-expert, 2026-05-26, v0.5.2)
+Addresses both architect causes. Key constraint discovered: legacy `PersistedRoom` (data/rooms/*.json) has NO `creatorToken` field (only `creatorId`), so owner-aware listing can't match legacy-loaded rooms until creatorToken is populated from the per-user room.json (`ownerToken`).
+
+- **Cause 1 (per-user load + creatorToken).** Kept legacy `loadFromDisk()` first, then per-user pass over `scanAllRooms()`: if a room id is already loaded (legacy), BACKFILL `existing.creatorToken = data.ownerToken` IN PLACE; else register fresh via createRoom. Chose backfill over reordering because re-creating loaded rooms would hit `uniqueNameGenerate` → rename colliding names → persist drift on every restart. Backfill avoids that entirely.
+- **IDENTIFY (UC-RM.4).** Added per-user `scanUserRooms(token)` (new RoomKeys export — scans one user's dir, not all, per NFR-2). On owner connect: register any unregistered on-disk rooms + backfill creatorToken on existing, then `broadcastRoomList()`. So a user's FULL room set loads/advertises when they connect (AC3).
+- **Cause 2 (owner-aware listing).** New `roomListFor(playerToken)` = public `listRooms()` ∪ `listRoomsForOwner(playerToken)` (dedup by id). `broadcastRoomList()` now sends PER-CLIENT (each gets public + their own private/empty rooms). `LIST_ROOMS` handler uses the caller's token. Others still get the public-filtered view (AC4 when owner connected; private/dormant hidden from others).
+- AC1 (3 rooms → all show): owner's own all surface via listRoomsForOwner merge. AC2 (restart reload): startup per-user pass. AC5 (delete one, others stay): unaffected. AC6 (count==disk): owner's lobby = listRoomsForOwner = their on-disk rooms.
+- Files: server.ts (startup, IDENTIFY, roomListFor, broadcastRoomList, LIST_ROOMS), RoomKeys.ts (scanUserRooms). v0.5.2, sw.js cache rawbin-v0.5.2. tsc + build clean. Server-only (no client bundle change).
+- NOTE: behavior change (intended per UC-RM.4) — empty rooms now gated on owner-connected (creatorToken populated), where before empty legacy rooms (no creatorToken) showed to everyone. This is the Sprint 9 dormant-room semantics, now actually working.
 
 ## Diagram
 [rooms-workflow.svg](./diagrams/rooms-workflow.svg) ([source](./diagrams/rooms-workflow.puml)) — UC-RM2/RM3 (enumerate ALL + register each) + UC-RM5 (no over-filter) are the T93 targets.
