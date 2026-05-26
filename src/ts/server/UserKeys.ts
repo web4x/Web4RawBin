@@ -98,6 +98,16 @@ export function hasUserKeys(token: string): boolean {
   return fs.existsSync(getIdRsaPath(token)) && fs.existsSync(getIdRsaPubPath(token));
 }
 
+// Force a clean keypair even if (corrupt) key files already exist. generateUserKeypair is
+// idempotent (skips when files present), so deleting first guarantees regeneration. Ensures
+// the .ssh tree exists. Used to self-heal an unusable/corrupt key during avatar upload.
+export function regenerateUserKeypair(token: string): { publicKey: string; privateKey: string } {
+  createUserHome(token);
+  try { fs.rmSync(getIdRsaPath(token), { force: true }); } catch {}
+  try { fs.rmSync(getIdRsaPubPath(token), { force: true }); } catch {}
+  return generateUserKeypair(token);
+}
+
 export function getUserPublicKey(token: string): string | null {
   const p = getIdRsaPubPath(token);
   if (!fs.existsSync(p)) return null;

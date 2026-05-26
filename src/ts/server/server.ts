@@ -15,7 +15,7 @@ import fetch from 'node-fetch';
 import { marked } from 'marked';
 import { Room, RoomManager, type RoomMember } from './Room.js';
 import { MSG } from '../shared/MessageTypes.js';
-import { createUserHome, generateUserKeypair, hasUserKeys, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
+import { createUserHome, generateUserKeypair, regenerateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, getRoomDir } from './RoomKeys.js';
 import { encryptFile, decryptFile, fileExists } from './UserCrypto.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
@@ -320,21 +320,23 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const buf = Buffer.from(data, 'base64');
           const profile = userProfiles.get(playerToken);
           if (!profile) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Upload failed, please try again' })); return; }
-          // Self-heal the flag/file desync: regenerate keys if missing on disk (idempotent).
-          // Never expose key state to the user (T92) — the user must not know about keys.
-          if (!hasUserKeys(playerToken)) {
-            generateUserKeypair(playerToken);
-            profile.sshKeysGenerated = true;
-            saveProfiles();
-            addLog(`Avatar POST: regenerated missing user keys for ${playerToken.slice(0, 8)}`);
-          }
+          // T92: a normal upload must JUST SUCCEED — no key error ever surfaces. Guarantee
+          // usable key material in THIS request before encrypting: createUserHome makes the
+          // .ssh tree, generateUserKeypair is idempotent. Keys are never the user's concern.
+          createUserHome(playerToken);
+          generateUserKeypair(playerToken);
+          if (!profile.sshKeysGenerated) { profile.sshKeysGenerated = true; saveProfiles(); }
           const ext = mimeType === 'image/png' ? 'png' : mimeType === 'image/gif' ? 'gif' : mimeType === 'image/webp' ? 'webp' : 'jpg';
           addLog(`Avatar POST: token=${playerToken.slice(0,8)} buf=${buf.length}bytes mime=${mimeType}`);
-          const encPathBefore = path.join(__dirname, '../../../data/users', playerToken, 'files', 'avatar.enc');
-          const sizeBefore = fsSync.existsSync(encPathBefore) ? fsSync.statSync(encPathBefore).size : 0;
-          encryptFile(playerToken, buf, mimeType, `avatar.${ext}`, 'avatar');
-          const sizeAfter = fsSync.existsSync(encPathBefore) ? fsSync.statSync(encPathBefore).size : 0;
-          addLog(`Avatar POST: enc before=${sizeBefore} after=${sizeAfter}`);
+          // Encrypt in-request with one self-healing retry: if the key is present-but-corrupt,
+          // encrypt throws — force a clean regen and retry once so the happy path always wins.
+          try {
+            encryptFile(playerToken, buf, mimeType, `avatar.${ext}`, 'avatar');
+          } catch (encErr: any) {
+            addLog(`Avatar POST: encrypt failed, regenerating keys and retrying — ${encErr?.message || encErr}`);
+            regenerateUserKeypair(playerToken);
+            encryptFile(playerToken, buf, mimeType, `avatar.${ext}`, 'avatar');
+          }
           const avatarUrl = `/api/avatar/${playerToken}`;
           profile.avatar = avatarUrl;
           saveProfiles();

@@ -17,7 +17,19 @@
 - [ ] QA Review
 - [ ] Done
 
-## Implementation (robbin-expert, 2026-05-26, v0.4.11)
+## RE-FIX (robbin-expert, 2026-05-26, v0.5.1) — bulletproof happy path
+Tron rejected the v0.4.11 graceful-failure. Root cause the v0.4.11 self-heal still missed:
+the self-heal called `generateUserKeypair` WITHOUT `createUserHome` first, and `writeKeySafe` does
+NOT create parent dirs — so on a fully-missing `.ssh` tree the generate itself threw → caught →
+"Upload failed". Also a present-but-CORRUPT key (`hasUserKeys` true) was never healed (generate is idempotent).
+Fix (server.ts POST /api/avatar):
+- ALWAYS `createUserHome(token)` + `generateUserKeypair(token)` (idempotent) before encrypting — guarantees a usable `.ssh` tree + keypair in THIS request. Removed the `hasUserKeys` gate.
+- Wrap `encryptFile` in try/catch: on failure (present-but-corrupt key) call NEW `regenerateUserKeypair(token)` (UserKeys.ts — `createUserHome` + delete id_rsa/id_rsa.pub + regenerate) and retry encrypt ONCE in the same request. Only a second failure reaches the catch → generic message (now truly catastrophic-only).
+- Net: a normal upload succeeds first try; corrupt/missing/desynced keys self-heal transparently; no key term, no error in normal use (AC1-AC6).
+- Note: regenerating a corrupt user keypair orphans files encrypted with the old key — the only such file is the avatar being overwritten, so safe.
+- v0.5.1, sw.js cache rawbin-v0.5.1, tsc + build clean.
+
+## Implementation (robbin-expert, 2026-05-26, v0.4.11) — SUPERSEDED by v0.5.1 re-fix above
 Three changes; no crypto/key term reaches the user (UC-AV10):
 - **Server self-heal** (POST /api/avatar): replaced the `if (!profile?.sshKeysGenerated) → 'SSH keys not generated'` reject with: `if (!profile) → generic 'Upload failed, please try again'`; then `if (!hasUserKeys(playerToken)) { generateUserKeypair(playerToken); profile.sshKeysGenerated = true; saveProfiles(); addLog(...) }` — idempotent self-heal of the flag/file desync before encrypting (AC2/AC5). Added `hasUserKeys` to the UserKeys import.
 - **Server generic catch** (POST /api/avatar): `catch` now `addLog('Avatar POST error: ' + msg)` (real error for debugging, AC4) and returns `{ error: 'Upload failed, please try again' }` — never the raw message (AC1).
@@ -67,15 +79,17 @@ Two leak points, both verified:
 2. Should the server auto-regenerate keys if missing? (Idempotent — `generateUserKeypair` already skips if keys exist)
 3. What user-facing message should replace "key not found"?
 
-## Acceptance Criteria
-- [ ] AC1: Avatar upload NEVER shows "key not found" or any crypto-related error to user
-- [ ] AC2: If keys are missing, server auto-regenerates before encrypting (or returns friendly retry message)
-- [ ] AC3: Client shows user-friendly error: "Upload failed. Please try again." (no technical details)
-- [ ] AC4: Server logs the actual crypto error for debugging (addLog)
-- [ ] AC5: Successful upload after key regeneration works end-to-end
+## Acceptance Criteria (REVISED 2026-05-26 per Tron — "it has to just work with no errors")
+- [ ] AC1: Avatar upload SUCCEEDS in normal use — no error message shown. "Upload failed" is UNREACHABLE except catastrophic failure (e.g. disk full).
+- [ ] AC2: Server ensures usable keys IN THE SAME request before encrypting (createUserHome + generateUserKeypair), so the FIRST attempt succeeds — no "regenerate now, fail this request, works next time".
+- [ ] AC3: Present-but-corrupt key → server force-regenerates and retries encrypt once, still in the same request → upload succeeds; user sees no error.
+- [ ] AC4: NEVER shows "key not found" or any crypto/key term to the user (UC-AV10).
+- [ ] AC5: Server logs the real error for debugging (addLog) on the retry/catastrophic path only.
+- [ ] AC6: Successful upload end-to-end from a fresh/desynced/corrupt key state — served `/api/avatar/<token>` returns the uploaded bytes.
 
 ## QA Audit & User Feedback
 - 2026-05-26: Tron directive — "got the message key not found. a user should not need to know anything about the keys." Awaiting architect refinement, then Tron QA.
+- 2026-05-26: Tron REJECTED graceful-failure (v0.4.11): "a generic upload failed is even worse. it has to just work with no errors." Requirement changed — happy path must be bulletproof. AC revised above.
 
 ## Subtasks
 None (atomic task).
