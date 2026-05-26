@@ -89,6 +89,15 @@ body {
 .ov-sprint { color: white; font-size: 0.95rem; margin: 0 0 6px; }
 .ov-counts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
 .ov-count { color: rgba(255,255,255,0.7); font-size: 0.7rem; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 8px; }
+/* T108 rb-trace-tree (lives in the dark /edit tree panel) */
+.trace-tree { display: block; padding: 4px; }
+.tt-row { display: flex; align-items: center; gap: 4px; }
+.tt-row rb-object-item { flex: 1; margin-bottom: 4px; }
+.tt-chevron { color: #888; cursor: pointer; width: 14px; flex-shrink: 0; user-select: none; }
+.tt-children { margin-left: 14px; border-left: 1px solid #3c3c3c; padding-left: 4px; }
+.tt-warn { flex-shrink: 0; }
+.tt-empty { color: #888; padding: 8px; font-size: 0.8rem; }
+.tt-detail { margin-top: 8px; padding: 8px; border-top: 1px solid #3c3c3c; }
 .room-status { display: flex; align-items: center; gap: 6px; }
 .room-state { color: rgba(255,255,255,0.5); font-size: 0.75rem; }
 .room-state-active { color: #4CAF50; }

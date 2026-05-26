@@ -5,14 +5,22 @@
 [task:uuid:108b7283-94a5-46b7-898e-b08080808108]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
+- [x] Planned
+- [x] In Progress
   - [x] refinement (architect)
-  - [ ] creating test cases
-  - [ ] implementing (expert)
-  - [ ] testing (tester)
+  - [x] creating test cases
+  - [x] implementing (expert)
+  - [ ] testing (tester — rb-trace-tree.test.ts + e2e)
 - [ ] QA Review
 - [ ] Done
+
+## Implementation (robbin-expert, 2026-05-26, v0.5.18) — S15 CAPSTONE
+- **`rb-trace-tree.ts`** → `<rb-trace-tree>` (AC2): expand/collapse tree, root=requirements, children = each object's links (toJSON().links) with a per-path cycle guard; node rows reuse T105 `<rb-object-item>`; expand state persisted to localStorage (rawbin-trace-expanded); subscribes ViewBus 'graph'.
+- **AC5**: built from the T102-validated graph. NEW server `GET /api/trace` (server.ts) runs `scanRepo`→`graph.toJSON()` + `validate()`; returns `{objects, broken[], issueCount}`. Broken/dangling node uuids render with a ⚠️ marker — shown, never hidden.
+- **AC1/AC3**: mounted in `/edit` next to `<rb-file-tree>` (edit.ts `mountTraceBrowser` appends tree + detail pane into the layout tree panel — additive + guarded, never breaks the editor if /api/trace fails). Composes T105 item rows + T107 rb-detail-view (detail pane) over the T103 seam.
+- **AC4**: node-row click (rb-object-item) → navigate(type,'show',{uuid}) via the active TraceRouter (viewRegistry) → renders `<rb-detail-view>` into the detail pane. Tree + detail stay consistent via ViewBus.
+- Routing: TraceRouter(graph, viewRegistry(), detailPane).start() in /edit; deep-link `#type.show?uuid=…` works.
+- Tests: `test/vitest/rb-trace-tree.test.ts` (jsdom) — root render, expand→tasks, persist across re-mount, broken-node warning visible, node-click→navigate spy. + e2e (tester). esbuild: edit bundle includes rb-trace-tree + /api/trace. v0.5.18, sw.js rawbin-v0.5.18. Deploying (live feature).
 
 ## Design (robbin-architect, 2026-05-26) — the capstone; integrates T102 + T105/106/107 on the T103 seam
 

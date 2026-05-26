@@ -19,11 +19,13 @@ export { RbObjectItem } from './rb-object-item.js';
 export { RbListOverview, LocalSearch, type SearchProvider } from './rb-list-overview.js';
 export { RbDetailView } from './rb-detail-view.js';
 export { RbOverview } from './rb-overview.js';
+export { RbTraceTree } from './rb-trace-tree.js';
 export { navigate, setActiveRouter } from './nav.js';
 import './rb-object-item.js';
 import './rb-list-overview.js';
 import './rb-detail-view.js';
 import './rb-overview.js';
+import './rb-trace-tree.js';
 
 export const TRACE_TYPES: ObjectType[] = [
   'requirement', 'task', 'usecase', 'class', 'method', 'implementation', 'test',

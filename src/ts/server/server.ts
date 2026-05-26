@@ -18,6 +18,7 @@ import { MSG } from '../shared/MessageTypes.js';
 import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
+import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
 const execAsync = promisify(exec);
@@ -390,6 +391,23 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const domain = BASE_DOMAIN || getLocalIP();
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
       res.end(JSON.stringify({ baseDomain: domain, httpsPort: HTTPS_PORT, version: getVersion(), branch: 'rawbin' }));
+      return;
+    }
+
+    // T108: traceability graph as flat JSON (+ T102 validation issues) for the browser tree.
+    if (filepath === '/api/trace') {
+      try {
+        const sprintsDir = path.join(__dirname, '../../../scrum.pmo/sprints');
+        const { graph, coverage } = scanRepo(sprintsDir);
+        const issues = validateTrace(graph, coverage);
+        const broken = [...new Set(issues.filter(i => i.level === 'error').map(i => i.ref.replace(/^[a-z]+:/, '')))];
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+        res.end(JSON.stringify({ objects: graph.toJSON(), broken, issueCount: issues.length }));
+      } catch (e: any) {
+        addLog(`/api/trace error: ${e?.message || e}`);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'trace scan failed' }));
+      }
       return;
     }
 
