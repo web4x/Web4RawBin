@@ -39,7 +39,7 @@ flat JSON of object state with route-like references to other objects (no protoc
 
 ### Phase 2 — Diagrams
 - [ ] [T104: Object.verb Use-Case Diagrams](./task-104-object-verb-diagrams.md)
-  **R15.3** · architect · requires T101
+  **R15.3** · architect · requires T101 · impl-done (object-verb-usecases.puml/svg authored) — testing pending (renders + uc:uuid anchors)
 
 ### Phase 3 — Views (web components)
 - [ ] [T105: defaultItemView Web Component (draggable, native-OS)](./task-105-default-item-view.md)
@@ -51,7 +51,7 @@ flat JSON of object state with route-like references to other objects (no protoc
 
 ### Phase 4 — Browser (capstone)
 - [ ] [T108: Traceability Browser — tree-navigable graph in Documentation](./task-108-traceability-browser.md)
-  **R15.7** · expert+tester · requires T102, T105, T106, T107
+  **R15.7** · expert+tester · requires T102, T105, T106, T107 · impl-done (b2a1104 v0.5.18 — rb-trace-tree + GET /api/trace) — testing pending
 
 ## Dependency Graph
 ```
@@ -69,9 +69,9 @@ T103 ─┬→ T105 (defaultItemView) → T106 (ListOverview+search) ┤
 |--------|-------|
 | Tasks | 8 (T101-T108) |
 | Tron QA-approved (Done) | 0/8 |
-| Tested, awaiting Tron QA | 5 (T101 8/8, T102 10/10, T103 11/11, T105 5/5, T106 7/7) |
-| Impl-done, testing pending | 1 (T107 — rb-detail/overview, v0.5.17) |
-| In progress | 2 (T104 diagrams, T108 browser capstone) |
+| Tested, awaiting Tron QA | 5 (T101, T102, T103, T105, T106) |
+| Impl-done, testing pending | 3 (T104 diagram, T107 detail/overview, T108 browser capstone v0.5.18) |
+| Note | All 8 S15 tasks now impl-complete; T104/107/108 awaiting tester verify |
 | Requirements | R15.1-R15.7 (from Tron literal R1-R4) |
 | Use case diagrams | 1 (Object.verb, architect) |
 
