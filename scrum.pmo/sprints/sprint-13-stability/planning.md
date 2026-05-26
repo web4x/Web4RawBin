@@ -32,7 +32,7 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
   - All of a user's rooms load from disk on connect and appear in lobby
 
 - [ ] [T94: PWA update banner fix](./task-94-pwa-update-banner.md)
-  **Status:** impl-done + committed (f884672, v0.5.4 — per-request version read, unfreezes PKG_VERSION) — testing + Tron QA pending · R-V1 · **CRITICAL**
+  **Status:** impl + testing DONE (f884672 v0.5.4, per-request version read; tester 3/3 + curl, 63f0219) — Tron QA pending · R-V1 · **CRITICAL**
   - New version shows update bar → reload picks up new build; architect audited SW path end-to-end
 
 ## Dependency Graph
@@ -51,8 +51,9 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 | Tasks | 4 (T91-T94) |
 | Tron QA-approved (Done) | 0/4 |
 | Impl-done | 4/4 (T91-T94, v0.4.11→v0.5.4) |
-| Tested, awaiting Tron QA | T93 (4/4 live) |
-| Testing pending | T91, T92, T94 |
+| Tested, awaiting Tron QA | T93, T94 |
+| Testing pending | T91, T92 |
+| New (untracked, incoming) | T95 newest-rooms-first (architect-refined) |
 | Use case diagrams | 4 (architect, in diagrams/) |
 | Priority | T94 CRITICAL; T91-T93 HIGH |
 
