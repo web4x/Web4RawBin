@@ -20,8 +20,8 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
 ## Task List
 
 - [ ] [T91: Avatar persistence — must not revert to default](./task-91-avatar-persist.md)
-  **Status:** impl + testing DONE (f2e019c v0.4.11; tester avatar-persist 5/5) — Tron QA pending · R-A1
-  - Uploaded avatar must persist across reload/restart/reconnect; default backfill only when no avatar.enc
+  **Status:** ⚠️ REOPENED (recurrence) — v0.4.11 string-desync fix tested 5/5, but decrypt-EXCEPTION overwrite path still destroys avatars (architect db76584). NOT done; back in dev (owner expert). · R-A1
+  - Uploaded avatar must persist; ALSO: present-but-undecryptable avatar.enc must NOT be overwritten on decrypt exception
 
 - [ ] [T92: Avatar upload key-error UX](./task-92-avatar-upload-ux.md)
   **Status:** impl + testing DONE (f2e019c v0.4.11; tester 6/6 AC1-AC6, 3ca7830) — Tron QA pending · R-A2
@@ -60,7 +60,8 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 | Tasks | 4 (T91-T94) |
 | Tron QA-approved (Done) | 0/4 |
 | Tasks | 6 (T91-T95, T100) |
-| Tested, awaiting Tron QA | T91, T92, T93, T94, T95, T100 (6) |
+| Tested, awaiting Tron QA | T92, T93, T94, T95, T100 (5) |
+| ⚠️ REOPENED (recurrence) | T91 — decrypt-exception overwrite, back in dev |
 | Use case diagrams | 4 (architect, in diagrams/) |
 | Priority | T94 CRITICAL; T91-T93 HIGH |
 

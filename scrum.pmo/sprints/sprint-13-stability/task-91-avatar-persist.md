@@ -18,12 +18,16 @@ Tron: "app keeps breaking the profile picture to the fallback" — still happeni
 
 > TRON DIRECTIVE: "my avatar picture disappeared. its back to default."
 
-## Status
+## Status — ⚠️ REOPENED 2026-05-26 (recurrence, fix incomplete)
+The string-desync fix (v0.4.11) was impl+tested 5/5, but the architect found a
+SECOND overwrite path (decrypt-EXCEPTION on present-but-undecryptable avatar.enc) —
+see "RECURRENCE ROOT CAUSE" at top. T91 is NOT done; testing reset until the
+decrypt-exception path is fixed. Owner: EXPERT.
 - [x] Planned
 - [x] In Progress
   - [x] refinement (architect)
-  - [x] implementing (expert)
-  - [x] testing (tester)
+  - [x] implementing (expert) — v0.4.11 string-desync fix only; decrypt-exception fix PENDING
+  - [ ] testing (tester) — REOPENED: recurrence not yet fixed
 - [ ] QA Review
 - [ ] Done
 
