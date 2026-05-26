@@ -13,7 +13,7 @@
   - [x] refinement (architect)
   - [x] creating test cases
   - [x] implementing (expert)
-  - [ ] testing (tester — TS1/TS2, owns spec server-launch with tmp DATA_DIR)
+  - [x] testing (tester — TS1/TS2, DATA_DIR=tmp webServer; read-isolation proven, ab08927)
 - [ ] QA Review
 - [ ] Done
 

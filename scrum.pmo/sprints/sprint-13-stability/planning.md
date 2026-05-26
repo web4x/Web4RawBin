@@ -41,7 +41,7 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
   - Sort lobby room list by createdAt desc (legacy `|| 0` → bottom, deterministic across restart)
 
 - [ ] [T100: Test Data Isolation — DATA_DIR override](./task-100-test-data-isolation.md)
-  **Status:** impl-done + committed (21d46fa, v0.5.6 — single DATA_DIR base across server/UserKeys/RoomKeys; default=prod) — testing (tester tmp DATA_DIR) + Tron QA pending · R-T1 · test-infra
+  **Status:** impl + testing DONE (21d46fa v0.5.6; tester DATA_DIR=tmp, read-isolation proven, ab08927) — Tron QA pending · R-T1 · test-infra
   - server.ts resolves data base from `DATA_DIR` env (default=prod, unset→no change); E2E uses isolated tmp dir → prod never polluted again. Proper fix for the room-flood; tester afterAll cleanup is separate/immediate
 
 ## Dependency Graph
@@ -60,8 +60,8 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 | Tasks | 4 (T91-T94) |
 | Tron QA-approved (Done) | 0/4 |
 | Tasks | 6 (T91-T95, T100) |
-| Tested, awaiting Tron QA | T93, T94, T95 |
-| Impl-done, testing pending | T91, T92, T100 |
+| Tested, awaiting Tron QA | T93, T94, T95, T100 |
+| Impl-done, testing pending | T91, T92 |
 | Use case diagrams | 4 (architect, in diagrams/) |
 | Priority | T94 CRITICAL; T91-T93 HIGH |
 
