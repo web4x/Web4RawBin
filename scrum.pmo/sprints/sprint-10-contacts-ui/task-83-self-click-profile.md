@@ -9,13 +9,21 @@
 > "when i am in a room clicking on my users item, i want the profile to open. not the profile editor."
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
+- [x] Planned
+- [x] In Progress
   - [x] refinement (architect)
-  - [ ] implementing (expert)
-  - [ ] testing (tester)
+  - [x] implementing (expert)
+  - [ ] testing (tester — TS1-TS5, REPLACE old T81 TS3)
 - [ ] QA Review
 - [ ] Done
+
+## Implementation (robbin-expert, 2026-05-26, v0.5.3)
+T82 scaffold confirmed in tree (open(profile,opts), #us-edit markup branch, scoped CSS). Two changes:
+- **Change A (RoomView.ts):** self-click branch now `profileSheet.open({name,phone,url,avatar,playerToken:this.client.playerToken}, { isSelf:true, onEdit:() => profileEditor.open({...,secretCode}, 'normal') })` — was `profileEditor.open(...)` (T81 AC6, now superseded). Other-member branch unchanged (GET_USER_INFO → open(msg.user), no opts → isSelf=false).
+- **Change B (ProfileSheet.ts):** store `this.onEdit = opts.onEdit` in open(); in setupEvents wire `#us-edit` → `this.close(); this.onEdit?.()`. `#us-edit` only in DOM when isSelf so handler is inert for others. ProfileSheet still does NOT import ProfileEditor (decoupled via callback).
+- AC1 (self→sheet), AC2 (own avatar+name via rb-avatar), AC3 (own vCard), AC4 (Edit→editor prefilled), AC5/AC6 (other = vCard+Link, no Edit), AC7 (lobby/`/profile` editor entry points untouched), AC8 (other-click unchanged).
+- v0.5.3, sw.js cache rawbin-v0.5.3, tsc + build clean (bundle app-2SMD5C2R.js).
+- ⚠️ Tester: T83 INVERTS T81 TS3 (self-tap was → #pe-name; now → .user-sheet). Replace that assertion, don't keep it.
 
 ## Traceability
 - up

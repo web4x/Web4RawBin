@@ -60,8 +60,12 @@ export class RoomView {
     this.container.addEventListener('rb-member-click', ((e: CustomEvent) => {
       const { playerToken, isSelf } = e.detail;
       if (isSelf) {
+        // T83 (supersedes T81 AC6): self-click opens the read-only sheet; Edit re-routes to the editor.
         const p = this.client.getProfile();
-        this.profileEditor.open({ name: p?.name || localStorage.getItem('rawbin-name') || '', phone: p?.phone || '', url: p?.url || '', avatar: p?.avatar || '', secretCode: p?.secretCode || '' }, 'normal');
+        this.profileSheet.open(
+          { name: p?.name || localStorage.getItem('rawbin-name') || '', phone: p?.phone || '', url: p?.url || '', avatar: p?.avatar || '', playerToken: this.client.playerToken },
+          { isSelf: true, onEdit: () => this.profileEditor.open({ name: p?.name || '', phone: p?.phone || '', url: p?.url || '', avatar: p?.avatar || '', secretCode: p?.secretCode || '' }, 'normal') }
+        );
       } else if (playerToken) {
         const h = (msg: any) => { this.client.off(MSG.USER_INFO, h); if (msg.user) this.profileSheet.open(msg.user); };
         this.client.on(MSG.USER_INFO, h);

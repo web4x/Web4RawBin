@@ -15,6 +15,7 @@ interface SheetOpts { isSelf?: boolean; onEdit?: () => void; }
 export class ProfileSheet {
   private client: RawBinClient;
   private overlay: HTMLElement | null = null;
+  private onEdit: (() => void) | null = null;
 
   constructor(client: RawBinClient) {
     this.client = client;
@@ -24,6 +25,7 @@ export class ProfileSheet {
     if (this.overlay) this.close();
 
     const isSelf = opts.isSelf === true;
+    this.onEdit = opts.onEdit || null;
 
     this.overlay = document.createElement('div');
     this.overlay.className = 'profile-overlay';
@@ -59,6 +61,13 @@ export class ProfileSheet {
 
     document.getElementById('us-vcard')?.addEventListener('click', () => {
       this.downloadVCard(profile);
+    });
+
+    // T83: self-only Edit button → ProfileEditor via the onEdit callback (ProfileSheet stays
+    // decoupled — never imports ProfileEditor). #us-edit only exists in the DOM when isSelf.
+    document.getElementById('us-edit')?.addEventListener('click', () => {
+      this.close();
+      this.onEdit?.();
     });
 
     document.getElementById('us-link')?.addEventListener('click', () => {
