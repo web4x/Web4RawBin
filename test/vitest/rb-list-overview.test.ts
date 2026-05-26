@@ -8,6 +8,11 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import { TraceGraph, Requirement, Task } from '../../src/ts/shared/TraceModel.js';
 import { RbListOverview, LocalSearch, type SearchProvider } from '../../src/public/ts/trace/rb-list-overview.js';
+import { RbObjectItem } from '../../src/public/ts/trace/rb-object-item.js';
+
+// jsdom may evaluate the modules before customElements attaches → ensure registration
+if (!customElements.get('rb-list-overview')) customElements.define('rb-list-overview', RbListOverview);
+if (!customElements.get('rb-object-item')) customElements.define('rb-object-item', RbObjectItem);
 
 const A = '1aaaaaaa-d4e5-4f60-8a71-9b0c1d2e3f01';
 const B = '2bbbbbbb-d4e5-4f60-8a71-9b0c1d2e3f02';

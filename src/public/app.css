@@ -71,6 +71,24 @@ body {
 .lo-search { width: 100%; box-sizing: border-box; padding: 10px 12px; margin-bottom: 10px; border-radius: 10px; border: none; background: rgba(255,255,255,0.15); color: white; font-size: 0.95rem; }
 .lo-search::placeholder { color: rgba(255,255,255,0.5); }
 .lo-empty { color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 0.9rem; }
+/* T107 rb-detail-view + rb-overview */
+.detail-view { display: block; }
+.dv-head { margin-bottom: 12px; }
+.dv-type { color: rgba(255,255,255,0.5); font-size: 0.7rem; text-transform: uppercase; }
+.dv-title { color: white; margin: 2px 0; font-size: 1.2rem; }
+.dv-uuid { color: rgba(255,255,255,0.3); font-size: 0.6rem; font-family: monospace; }
+.dv-status { margin-left: 8px; color: rgba(255,255,255,0.7); font-size: 0.75rem; background: rgba(255,255,255,0.12); padding: 2px 8px; border-radius: 8px; }
+.dv-link { display: flex; align-items: center; gap: 8px; padding: 8px 10px; margin-bottom: 6px; background: rgba(255,255,255,0.1); border-radius: 8px; cursor: pointer; }
+.dv-link:active { background: rgba(255,255,255,0.18); }
+.dv-rel { color: rgba(102,126,234,0.9); font-size: 0.65rem; min-width: 90px; }
+.dv-link-title { color: white; font-size: 0.9rem; flex: 1; }
+.dv-link-ref { color: rgba(255,255,255,0.3); font-size: 0.55rem; font-family: monospace; }
+.dv-empty, .ov-empty { color: rgba(255,255,255,0.5); padding: 12px; font-size: 0.85rem; }
+.overview { display: block; }
+.ov-group { margin-bottom: 16px; }
+.ov-sprint { color: white; font-size: 0.95rem; margin: 0 0 6px; }
+.ov-counts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.ov-count { color: rgba(255,255,255,0.7); font-size: 0.7rem; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 8px; }
 .room-status { display: flex; align-items: center; gap: 6px; }
 .room-state { color: rgba(255,255,255,0.5); font-size: 0.75rem; }
 .room-state-active { color: #4CAF50; }

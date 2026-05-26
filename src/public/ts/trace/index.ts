@@ -17,9 +17,13 @@ export { ViewBus } from './ViewBus.js';
 export { RbTraceView } from './rb-trace-view.js';
 export { RbObjectItem } from './rb-object-item.js';
 export { RbListOverview, LocalSearch, type SearchProvider } from './rb-list-overview.js';
+export { RbDetailView } from './rb-detail-view.js';
+export { RbOverview } from './rb-overview.js';
 export { navigate, setActiveRouter } from './nav.js';
 import './rb-object-item.js';
 import './rb-list-overview.js';
+import './rb-detail-view.js';
+import './rb-overview.js';
 
 export const TRACE_TYPES: ObjectType[] = [
   'requirement', 'task', 'usecase', 'class', 'method', 'implementation', 'test',
@@ -77,7 +81,7 @@ function linkHandler(ctx: VerbContext): void {
   ViewBus.notify(target.ref());
 }
 
-/** A registry with show/list/link wired for all 7 object types. */
+/** A registry with show/list/link wired for all 7 object types (T103 minimal seam proof). */
 export function defaultRegistry(): VerbRegistry {
   const reg = new VerbRegistry();
   for (const type of TRACE_TYPES) {
@@ -86,4 +90,45 @@ export function defaultRegistry(): VerbRegistry {
     reg.register(type, 'link', linkHandler);
   }
   return reg;
+}
+
+/** T107 production wiring: show → rb-detail-view, task.list/planning.overview → rb-overview,
+ *  <type>.list → rb-list-overview. This is the registry the browser (T108) uses. */
+export function viewRegistry(): VerbRegistry {
+  const reg = new VerbRegistry();
+  for (const type of TRACE_TYPES) {
+    reg.register(type, 'show', detailHandler);
+    reg.register(type, 'list', listOverviewHandler(type));
+    reg.register(type, 'link', linkHandler);
+  }
+  reg.register('task', 'list', overviewHandler);
+  reg.register('planning', 'overview', overviewHandler);
+  return reg;
+}
+
+function detailHandler(ctx: VerbContext): void {
+  const { obj, graph, mount } = ctx;
+  if (!obj) { mount.innerHTML = '<div class="trace-notfound">object not found</div>'; return; }
+  const el = document.createElement('rb-detail-view') as HTMLElement & { graph: TraceGraph };
+  el.graph = graph;
+  el.setAttribute('ref', obj.ref());
+  mount.innerHTML = '';
+  mount.appendChild(el);
+}
+
+function overviewHandler(ctx: VerbContext): void {
+  const el = document.createElement('rb-overview') as HTMLElement & { graph: TraceGraph };
+  el.graph = ctx.graph;
+  ctx.mount.innerHTML = '';
+  ctx.mount.appendChild(el);
+}
+
+function listOverviewHandler(type: ObjectType): (ctx: VerbContext) => void {
+  return ({ graph, mount }) => {
+    const el = document.createElement('rb-list-overview') as HTMLElement & { graph: TraceGraph; setItems(refs: string[]): void };
+    el.graph = graph;
+    mount.innerHTML = '';
+    mount.appendChild(el);
+    el.setItems(graph.ofType(type).map(o => o.ref()));
+  };
 }

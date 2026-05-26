@@ -29,6 +29,8 @@ export interface FlatObject {
   uuid: string;
   title: string;
   links: Record<string, ObjectRef[]>;
+  status?: string;
+  sprint?: string;
 }
 
 /**
@@ -77,6 +79,8 @@ export class TraceGraph {
     const graph = new TraceGraph();
     for (const r of records) {
       const obj = makeObject(graph, r.type, r.uuid, r.title);
+      if (r.status) obj.status = r.status;
+      if (r.sprint) obj.sprint = r.sprint;
       for (const [relation, refs] of Object.entries(r.links || {})) {
         for (const ref of refs) obj.addRef(relation, refUuid(ref));
       }
@@ -90,6 +94,8 @@ export abstract class TraceObject {
   abstract readonly type: ObjectType;
   readonly uuid: string;
   title: string;
+  status = '';   // optional lifecycle status (e.g. Planned/In Progress/QA Review/Done) — drives T107 rollup
+  sprint = '';   // optional sprint grouping key — drives T107 overview grouping
   protected readonly graph: TraceGraph;
   private readonly _links = new Map<string, Set<string>>();
 
@@ -123,7 +129,10 @@ export abstract class TraceObject {
         return toRef(t ? t.type : ('requirement' as ObjectType), u);
       });
     }
-    return { type: this.type, uuid: this.uuid, title: this.title, links };
+    const out: FlatObject = { type: this.type, uuid: this.uuid, title: this.title, links };
+    if (this.status) out.status = this.status;
+    if (this.sprint) out.sprint = this.sprint;
+    return out;
   }
 }
 
