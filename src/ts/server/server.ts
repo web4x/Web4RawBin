@@ -15,9 +15,9 @@ import fetch from 'node-fetch';
 import { marked } from 'marked';
 import { Room, RoomManager, type RoomMember } from './Room.js';
 import { MSG } from '../shared/MessageTypes.js';
-import { createUserHome, generateUserKeypair, regenerateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
+import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
-import { encryptFile, decryptFile, fileExists } from './UserCrypto.js';
+import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
 const execAsync = promisify(exec);
@@ -355,8 +355,11 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           try {
             encryptFile(playerToken, buf, mimeType, `avatar.${ext}`, 'avatar');
           } catch (encErr: any) {
-            addLog(`Avatar POST: encrypt failed, regenerating keys and retrying — ${encErr?.message || encErr}`);
-            regenerateUserKeypair(playerToken);
+            // Rekey via rekeyUser (not bare regenerate) so any OTHER decryptable files are
+            // re-encrypted with the new key and not orphaned (avatar-fallback fix). The fresh
+            // avatar is then written below with the new key.
+            addLog(`Avatar POST: encrypt failed, rekeying and retrying — ${encErr?.message || encErr}`);
+            rekeyUser(playerToken);
             encryptFile(playerToken, buf, mimeType, `avatar.${ext}`, 'avatar');
           }
           const avatarUrl = `/api/avatar/${playerToken}`;

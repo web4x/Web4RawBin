@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
-import { getUserHomeDir, getUserPublicKey, getUserPrivateKey } from './UserKeys.js';
+import { getUserHomeDir, getUserPublicKey, getUserPrivateKey, regenerateUserKeypair } from './UserKeys.js';
 
 function getFilesDir(token: string): string {
   return path.join(getUserHomeDir(token), 'files');
@@ -109,4 +109,35 @@ export function listUserFiles(token: string): { name: string; meta: FileMeta }[]
 export function fileExists(token: string, filename: string): boolean {
   const filesDir = getFilesDir(token);
   return fs.existsSync(path.join(filesDir, `${filename}.enc`)) && fs.existsSync(path.join(filesDir, `${filename}.meta.json`));
+}
+
+/**
+ * Rekey a user's identity WITHOUT orphaning their encrypted files (avatar fix + S14 T97
+ * invariant). Each file's AES key is RSA-wrapped with the user's public key, so a keypair
+ * rotation makes the OLD ciphertext undecryptable → avatar.enc orphaned → avatar reverts to
+ * the SVG fallback. This snapshots every file's plaintext with the CURRENT key, rotates the
+ * keypair, then RE-ENCRYPTS each snapshot with the NEW key — so nothing is left orphaned.
+ *
+ * Files that can't be decrypted with the current key (old key already gone/corrupt) are
+ * unrecoverable and skipped (counted in `lost`). Re-encryption preserves stored name,
+ * original name, and mimeType, so `/api/avatar/<token>` keeps working after the rekey.
+ *
+ * [impl:uuid:13a4b5c6-d7e8-4f90-a1b2-c3d4e5f60097] avatar-fallback fix — re-encrypt files/* on identity rekey
+ */
+export function rekeyUser(token: string): { reEncrypted: number; lost: number } {
+  const snapshot: { name: string; data: Buffer; mimeType: string; originalName: string }[] = [];
+  let lost = 0;
+  for (const { name, meta } of listUserFiles(token)) {
+    try {
+      const { data, mimeType } = decryptFile(token, name); // decrypt with CURRENT (old) key first
+      snapshot.push({ name, data, mimeType, originalName: meta.originalName });
+    } catch {
+      lost++; // old key already gone/corrupt — this ciphertext is unrecoverable
+    }
+  }
+  regenerateUserKeypair(token); // rotate: delete old keypair, generate fresh
+  for (const f of snapshot) {
+    encryptFile(token, f.data, f.mimeType, f.originalName, f.name); // re-wrap with the NEW key
+  }
+  return { reEncrypted: snapshot.length, lost };
 }
