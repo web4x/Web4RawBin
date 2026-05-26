@@ -58,8 +58,11 @@ function getLocalIP(): string {
   return 'localhost';
 }
 
-const PORT = parseInt(envVars['PORT'] || '4000');
-const HTTPS_PORT = parseInt(envVars['HTTPS_PORT'] || '4444');
+// T100: process.env overrides .env so an isolated test server can bind a DIFFERENT port
+// (with DATA_DIR=tmp + reuseExistingServer:false) alongside the live server — no shared-port
+// reuse race, no downtime. INVARIANT: unset → .env value → exact prod port (4444/4000).
+const PORT = parseInt(process.env.PORT || envVars['PORT'] || '4000');
+const HTTPS_PORT = parseInt(process.env.HTTPS_PORT || envVars['HTTPS_PORT'] || '4444');
 const LOG_LEVEL = envVars['LOG_LEVEL'] || 'info';
 const MAX_ROOMS = parseInt(envVars['MAX_ROOMS'] || '100');
 const MAX_MEMBERS_PER_ROOM = parseInt(envVars['MAX_MEMBERS_PER_ROOM'] || '50');
