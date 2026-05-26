@@ -58,6 +58,14 @@ body {
 .room-owner { color: rgba(255,255,255,0.5); font-size: 0.7rem; font-weight: 400; }
 .room-id { color: rgba(255,255,255,0.3); font-size: 0.6rem; font-family: monospace; }
 .room-persist { color: rgba(76,175,80,0.85); font-size: 0.65rem; font-weight: 500; margin-top: 2px; }
+/* T105 rb-object-item — mirrors the .room-card idiom (rounded translucent flex row) */
+.object-item { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.object-item:active { background: rgba(255,255,255,0.22); }
+.object-item-accent { font-size: 1.1rem; flex-shrink: 0; }
+.item-info { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.item-title { color: white; font-weight: 600; font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.item-id { color: rgba(255,255,255,0.3); font-size: 0.6rem; font-family: monospace; }
+.item-status { color: rgba(255,255,255,0.6); font-size: 0.7rem; background: rgba(255,255,255,0.12); padding: 2px 8px; border-radius: 8px; flex-shrink: 0; }
 .room-status { display: flex; align-items: center; gap: 6px; }
 .room-state { color: rgba(255,255,255,0.5); font-size: 0.75rem; }
 .room-state-active { color: #4CAF50; }

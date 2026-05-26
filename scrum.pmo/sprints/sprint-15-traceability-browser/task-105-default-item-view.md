@@ -5,14 +5,61 @@
 [task:uuid:105e4f50-6172-4384-895b-e05050505105]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (architect)
-  - [ ] creating test cases
-  - [ ] implementing (expert)
-  - [ ] testing (tester)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (architect)
+  - [x] creating test cases
+  - [x] implementing (expert)
+  - [ ] testing (tester — run rb-object-item.test.ts, jsdom)
 - [ ] QA Review
 - [ ] Done
+
+## Implementation (robbin-expert, 2026-05-26, v0.5.15)
+`src/public/ts/trace/rb-object-item.ts` → `<rb-object-item>` (+ `nav.ts` navigation hook, `.object-item` CSS in app.css).
+- AC1: one component renders all 7 types; attribute-driven (ref/type/title/status); per-type accent emoji. Parses type+uuid from `ref` (type:uuid).
+- AC2: `.object-item` mirrors the `.room-card` idiom (rounded translucent flex row; `.item-title` + muted `.item-id` sub-line + trailing `.item-status` chip).
+- AC3/AC4: `draggable=true`; dragstart sets text/plain=`#<type>.show?uuid=…`, text/uri-list=`${origin}/app#…` (OS-recognizable), application/rb-object-ref=`type:uuid`; effectAllowed=copyLink.
+- AC5: ViewBus.subscribe(ref) on connect / unsubscribe on disconnect; notify(ref)→re-render region (no reload).
+- AC6: click → `navigate(type,'show',{uuid})` via the module-level active router (nav.ts; TraceRouter.start registers itself). View stays pure — routing in the controller.
+- Tests: `test/vitest/rb-object-item.test.ts` (jsdom) — all-7-types render, draggable + 3 payloads, ViewBus live re-render + unsubscribe, click→navigate spy. Tester runs.
+- esbuild bundles the layer; build clean. v0.5.15, sw.js rawbin-v0.5.15. Not yet mounted in a page (T108). No deploy needed.
+
+## Design (robbin-architect, 2026-05-26) — consumes the T103 seam
+
+**New component:** `src/public/ts/trace/rb-object-item.ts` → `<rb-object-item>`. The default list-item View for any TraceModel object. One component renders ALL 7 types (type drives icon/accent, not structure).
+
+**Attributes (T103 contract):** `ref` (`type:uuid` identity), `type`, `title`, `status` (optional). View reads these; controller sets them from `obj` on render; observed-attribute change → re-render.
+
+**Visual parity with lobby room entry (AC2):** mirror `RoomBrowser.renderRoomList()`'s `.room-card` — card with `.item-info` (title + muted `type:uuid` sub-line, like `.room-name`/`.room-id`) + trailing `.item-status` chip. Reuse the rounded/translucent/flex-row card idiom; add `.object-item-*` classes mirroring `.room-card`/`.room-info`/`.room-id`. Per-type accent dot/emoji.
+
+**Native-OS drag (AC3/AC4):** `draggable="true"`; on `dragstart` populate `dataTransfer`:
+- `text/plain` = `#<type>.show?uuid=<uuid>` (paste → navigable link)
+- `text/uri-list` = `${location.origin}/app#<type>.show?uuid=<uuid>` (OS-recognizable — Finder/desktop accept uri-list)
+- `application/rb-object-ref` = raw `type:uuid` (internal drops for T107/T108 linking)
+`effectAllowed='copyLink'`.
+
+**MVC live-update (AC5):** `connectedCallback` → `ViewBus.subscribe(ref, () => this.render())`; `disconnectedCallback` → `unsubscribe`. A `ViewBus.notify(ref)` from any mutation verb re-renders the item region — no reload (same pattern as `rb-avatar`'s `rb-avatar-updated`).
+
+**Click → navigate:** clicking calls `TraceRouter.navigate(type,'show',{uuid})` (opens DetailView, T107). Routing stays in the controller; the item is a pure View.
+
+**Decoupling:** imports shared TraceModel TYPES only + client `ViewBus`/`TraceRouter`; renders from attributes, resolves on demand — serialization-friendly, no long-held object reference.
+
+## Acceptance Criteria
+- [ ] AC1: `<rb-object-item>` renders a typed object's default summary (title + `type:uuid` + optional status) for ALL 7 T101 types, attribute-driven (`ref`/`type`/`title`/`status`)
+- [ ] AC2: Visually consistent with the lobby room entry — reuses the `.room-card` idiom (rounded translucent flex row; title + muted id sub-line + trailing status chip)
+- [ ] AC3: `draggable="true"`; `dragstart` sets `text/plain`=`#<type>.show?uuid=…` and `application/rb-object-ref`=`type:uuid`
+- [ ] AC4: `dataTransfer` also sets `text/uri-list`=absolute `${origin}/app#<type>.show?uuid=…` (OS-recognizable native drag)
+- [ ] AC5: ViewBus subscribe-on-connect / unsubscribe-on-disconnect; `ViewBus.notify(ref)` re-renders (no reload) — T103 MVC path
+- [ ] AC6: Click calls `TraceRouter.navigate(type,'show',{uuid})`
+- [ ] AC7: Tests cover render-per-type, draggable + all three dataTransfer payloads, ViewBus live re-render, click→navigate
+- [ ] `npm run build` + version bump
+
+## Test Scenario (tester)
+`test/vitest/rb-object-item.test.ts` (jsdom):
+1. `<rb-object-item ref="task:<uuid>" type="task" title="T" status="DONE">` → renders title + `task:<uuid>` sub-line + status chip; repeat all 7 types.
+2. `draggable===true`. Synthetic `dragstart` w/ stub DataTransfer → `text/plain`===`#task.show?uuid=<uuid>`, `text/uri-list` ends `/app#task.show?uuid=<uuid>`, `application/rb-object-ref`===`task:<uuid>`.
+3. `ViewBus.notify('task:<uuid>')` → item re-rendered.
+4. Click card → `TraceRouter.navigate` called with `('task','show',{uuid})` (spy).
 
 ## Traceability
 - up

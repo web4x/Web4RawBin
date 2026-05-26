@@ -11,6 +11,7 @@
  */
 import type { TraceGraph } from '../../../ts/shared/TraceModel.js';
 import { VerbRegistry, type Navigator } from './VerbRegistry.js';
+import { setActiveRouter } from './nav.js';
 
 export interface TraceRoute {
   type: string;
@@ -53,6 +54,7 @@ export class TraceRouter implements Navigator {
   ) {}
 
   start(): void {
+    setActiveRouter(this); // Views (rb-object-item) navigate through the active router
     window.addEventListener('hashchange', () => this.route());
     this.route();
   }
