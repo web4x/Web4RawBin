@@ -94,6 +94,16 @@ dir and can never write into prod `data/`.
 
 INTERIM MITIGATION still active: `cleanupTestRooms()` afterAll (commit 5823443) in room-order/identity/lifecycle specs — belt+suspenders with T100.
 
+### AC4 ISOLATED-RUN ATTEMPT (2026-05-26, post-purge) — **FAILED — isolation did NOT engage**
+After expert purged prod (→2 Marcel rooms) and the 4444 window opened, I ran the FULL suite (40 tests, all PASS) with `E2E_DATA_DIR=/tmp/rawbin-ac4-*`. AC4 byte-count proof **FAILED**:
+- prod `data/rooms` 2 → 26 (CHANGED), `data/users` 234 → 260 (CHANGED) — **test data LEAKED INTO PROD**.
+- tmp DATA_DIR was **EMPTY** (0 rooms/users) — Playwright's server did NOT use DATA_DIR=tmp.
+- **Root cause:** `reuseExistingServer: true`. The expert restarted the live v0.5.6 server on 4444 during/just-before my run; Playwright found 4444 responding and REUSED the live (prod-DATA_DIR) server, ignoring my webServer.env DATA_DIR. The tmp dir stayed empty; all writes hit prod.
+- Leaked test rooms (per-user): AC4-*, Contact-*, DL-*, EdSelf-*, MR-*, Mobile-Room, Profile-Test, RC-*, Self-*, T78-*, VcSelf-* (the 2 "Marcel … Room" rooms are the real ones to keep). `cleanupTestRooms()` afterAll removed 9 but net +24 leaked (specs whose names its patterns don't cover).
+- I attempted targeted cleanup of the leak; correctly BLOCKED (deleting shared prod data is not the tester's authority — purge is expert-owned, backup exists `web4rawbin-data-backup-20260526T161601.tar.gz`).
+
+**FIX REQUIRED for a valid AC4 run:** `reuseExistingServer: false` so Playwright ALWAYS launches its OWN server with DATA_DIR=tmp, AND the live server MUST stay DOWN for the whole isolated run (no mid-run restart). Then prod is provably untouched. Until then AC4 is NOT met. Expert: please re-purge the leak I caused (or restore backup).
+
 ## QA Audit & User Feedback
 - 2026-05-26: Tron directive (via PO) — E2E flooded prod with test rooms; proper fix is isolated DATA_DIR. Tester interim afterAll cleanup is separate/immediate.
 
