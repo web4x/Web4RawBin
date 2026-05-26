@@ -9,13 +9,17 @@
 > TRON DIRECTIVE: newest rooms should appear at the top of the lobby.
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
+- [x] Planned
+- [x] In Progress
   - [x] refinement (architect)
-  - [ ] implementing (expert)
-  - [ ] testing (tester)
+  - [x] implementing (expert)
+  - [ ] testing (tester — TS1)
 - [ ] QA Review
 - [ ] Done
+
+## Implementation (robbin-expert, 2026-05-26, v0.5.5)
+- Single-seam sort in `enrichRoomList()` (server.ts): after the ownerName map, `.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0))` — newest-first for EVERY path (welcome, broadcastRoomList, T93 owner-aware roomListFor merge, LIST_ROOMS). No new field — `createdAt` already on RoomInfo via `info()` (Room.ts:224), persisted + restored (fromPersisted) so stable across restart (AC3). Legacy rooms with no createdAt → `|| 0` sinks them to the bottom deterministically (AC4). Owner-aware merge unaffected — sort reorders, drops nothing (AC5).
+- Server-only, no client change (RoomBrowser renders received order). v0.5.5, sw.js cache rawbin-v0.5.5. tsc + build clean.
 
 ## Diagram
 [rooms-workflow.svg](./diagrams/rooms-workflow.svg) ([source](./diagrams/rooms-workflow.puml)) — UC-RM5 (list)/RM6 (render) — ordering is applied at the list-build seam.

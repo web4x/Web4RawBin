@@ -1320,10 +1320,14 @@ function getConnectedOwners(): Set<string> {
 }
 
 function enrichRoomList(rooms: any[]): any[] {
-  return rooms.map(r => ({
-    ...r,
-    ownerName: r.ownerToken ? (userProfiles.get(r.ownerToken)?.name || 'Unknown') : '',
-  }));
+  // T95: single seam — sort newest-first here so EVERY list path (welcome, broadcast,
+  // owner-aware merge) is consistent. Legacy rooms without createdAt sink to the bottom.
+  return rooms
+    .map(r => ({
+      ...r,
+      ownerName: r.ownerToken ? (userProfiles.get(r.ownerToken)?.name || 'Unknown') : '',
+    }))
+    .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 }
 
 // T93: owner-aware list. Everyone sees public rooms; the owner additionally sees ALL of
