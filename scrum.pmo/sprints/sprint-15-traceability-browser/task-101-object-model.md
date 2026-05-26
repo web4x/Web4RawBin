@@ -5,14 +5,23 @@
 [task:uuid:101a0b1c-2d3e-4f50-8617-a01010101101]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (architect)
-  - [ ] creating test cases
-  - [ ] implementing (expert)
-  - [ ] testing (tester)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (architect)
+  - [x] creating test cases
+  - [x] implementing (expert)
+  - [ ] testing (tester — run trace-model.test.ts)
 - [ ] QA Review
 - [ ] Done
+
+## Implementation (robbin-expert, 2026-05-26, v0.5.8)
+`src/ts/shared/TraceModel.ts` (shared — usable by server matrix-build + client browser views):
+- **7 typed classes** (AC1): `Requirement`, `Task`, `UseCase`, `TraceClass` (`class` reserved → class named TraceClass, `type='class'`), `Method`, `Implementation`, `Test`. Each extends `TraceObject` with a readonly v4 `uuid` + `type` discriminator.
+- **UUID validation (AC4):** `isUuidV4()` (strict v4 regex) enforced in the base constructor → throws on non-v4. `TraceGraph.register()` rejects duplicate UUIDs (constructor self-registers).
+- **Typed links / navigable graph (AC2/AC3):** bidirectional via `TraceGraph.link(a,relation,b,inverse)`. Each subclass exposes TYPED add-methods + getters (e.g. `Requirement.addTask(Task)` / `get tasks(): Task[]`) — NO `any` at the API surface; getters resolve refs through the graph filtered by type. Full chain wired: req↔task↔useCase↔class↔method↔impl/test (both directions). Links are de-duplicated (Set-backed).
+- **Object.verb / flat-JSON (Tron R1):** references stored route-like `${type}:${uuid}` (`toRef`/`refUuid`). `obj.toJSON()` → `{type,uuid,title,links:{relation:[ref...]}}`; `graph.toJSON()` → flat array; `TraceGraph.fromJSON()` rebuilds typed instances + relinks. No protocol — pure serialized state with references, as specified. `makeObject()` factory backs fromJSON.
+- **Tests (AC5):** `test/vitest/trace-model.test.ts` — construction, v4 validation, non-v4 + duplicate rejection, full-chain bidirectional traversal, type-filtered + de-duped getters, flat-JSON round-trip. Authored by expert; **execution is robbin-tester's** (per role split). tsc + build clean.
+- Foundation only — Object.verb ROUTING (T103) + MVC view binding (webcomponents) are downstream; architect designs T103. v0.5.8, sw.js cache rawbin-v0.5.8.
 
 ## Traceability
 - up
