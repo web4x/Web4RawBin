@@ -4,11 +4,9 @@
 
 [task:uuid:e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8091]
 
-> **Scope note (PO 2026-05-26):** T91's STRING-desync fix is genuinely met + verified
-> (5/5). A SECOND overwrite path (decrypt-EXCEPTION on a present-but-undecryptable
-> avatar.enc) is tracked separately in **[T109](./task-109-avatar-recurrence-fix.md)**.
-> The avatar-persist requirement R-A1 is satisfied by **T91 + T109 together** — R-A1
-> is NOT complete until T109 verifies.
+> **Scope note (PO 2026-05-26):** T91 (string-desync, 5/5) + **[T109](./task-109-avatar-recurrence-fix.md)**
+> (decrypt-exception + rekey re-encrypt, 6/6+6/6) TOGETHER satisfy the avatar-persist
+> requirement R-A1 — both now tester-verified; R-A1 met (pending only Tron QA).
 
 ## Tron Requirement (literal)
 

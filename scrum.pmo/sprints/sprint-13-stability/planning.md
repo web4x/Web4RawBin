@@ -24,8 +24,8 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
   - String-desync overwrite fixed. Recurrence (decrypt-exception) → [T109](./task-109-avatar-recurrence-fix.md). R-A1 done only when T91+T109 both verify.
 
 - [ ] [T109: Avatar Recurrence Fix — decrypt-exception overwrite + rekey re-encrypt](./task-109-avatar-recurrence-fix.md)
-  **Status:** IN PROGRESS — impl PARTIAL: (b) rekey re-encrypt SHIPPED (75053e4 v0.5.9); (a) catch-no-overwrite v0.5.10 (0dc085e) committed, pending verify. NOT impl-done; NOT gate-eligible until BOTH parts verify. · R-A1
-  - (a) ensureAvatar catch must NEVER overwrite undecryptable avatar.enc with default; (b) re-encrypt files/* on identity rekey
+  **Status:** impl + testing DONE (v0.5.10; (a) avatar-preserve 6/6 dba9798 + (b) avatar-rekey 6/6 915f880) — Tron QA pending · R-A1
+  - (a) catch never overwrites undecryptable avatar.enc; (b) re-encrypt files/* on identity rekey. With T91, R-A1 satisfied.
 
 - [ ] [T92: Avatar upload key-error UX](./task-92-avatar-upload-ux.md)
   **Status:** impl + testing DONE (f2e019c v0.4.11; tester 6/6 AC1-AC6, 3ca7830) — Tron QA pending · R-A2
@@ -63,9 +63,8 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 |--------|-------|
 | Tasks | 7 (T91-95, T100, T109) |
 | Tron QA-approved (Done) | 0/7 |
-| Tested, awaiting Tron QA | T91, T92, T93, T94, T95, T100 (6) |
-| In progress (impl partial) | T109 — (b) v0.5.9 done; (a) v0.5.10 committed, pending verify of BOTH |
-| Note | R-A1 (avatar persist) done only when T91 + T109 both verify |
+| Tested, awaiting Tron QA | T91, T92, T93, T94, T95, T100, T109 (7) |
+| Note | R-A1 (avatar persist) satisfied by T91 + T109 (both tested); pending Tron QA |
 | Use case diagrams | 4 (architect, in diagrams/) |
 
 ## Definition of Done
