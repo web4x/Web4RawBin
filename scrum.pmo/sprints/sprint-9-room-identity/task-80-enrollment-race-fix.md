@@ -86,6 +86,7 @@ The deeper fix is to split the avatar-ready notification into its own message ty
 
 ## QA Audit & User Feedback
 - Pending Tron QA review.
+- 2026-05-26 (robbin-tester): INDEPENDENT GATE CONFIRMED ✓ — `npx playwright test --reporter=line` against live server (HEAD 057d491) = **21/21 PASS** (1.3m, exit 0). device-enrollment(1), editor(9), mobile-viewport(1), negative-cases(1), new-user(1), profile-editor(1), room-identity(6), room-lifecycle(1). The one-shot `onSave` fix holds; device-enrollment + new-user both green (prior 2/6 room-identity failure was STALE pre-helper-fix output, not current code). Suite is the gate before Tron QA.
 
 ## Subtasks
 None (atomic task for this sprint).
