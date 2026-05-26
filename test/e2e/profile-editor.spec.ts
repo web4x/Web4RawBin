@@ -12,10 +12,11 @@ test.describe('T13.4: Profile Editor', () => {
     await page.waitForSelector('.room-view', { timeout: 15000 });
     await page.waitForTimeout(500);
 
-    await page.evaluate(() => {
-      const badge = document.querySelector('.mb-badge, [data-member-id]') as HTMLElement;
-      if (badge) badge.click();
-    });
+    // T83 (v0.5.3): self-click opens the read-only .user-sheet, NOT ProfileEditor directly.
+    // The editor is now reached via the sheet's Edit button (#us-edit).
+    await page.locator('rb-member-badge').first().click();
+    await page.waitForSelector('.user-sheet', { timeout: 5000 });
+    await page.click('#us-edit');
 
     await page.waitForSelector('#pe-name', { timeout: 5000 });
     await page.fill('#pe-phone', '+49123456');

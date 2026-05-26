@@ -138,6 +138,14 @@ Test: `test/e2e/contacts-ui.spec.ts` (6/6 PASS, 23.3s) against live server. The 
 | TS5/AC7 | lobby avatar (editable) → ProfileEditor overlay opens (entry point untouched) | PASS ✓ |
 No regression: contacts spec is additive; full suite was 21/21 (T80).
 
+### Inversion fallout fixed (robbin-tester)
+Per the expert's directive to "search existing specs for any 'self tap → #pe-name' assertion and update",
+found a SECOND such spec: `test/e2e/profile-editor.spec.ts` (T13.4) clicked the own badge in a room and
+waited for `#pe-name` — the pre-T83 behavior — so it began failing after the v0.5.3 deploy (it passed in
+the T80 21/21 run earlier this session, before the deploy). Updated it to route through the sheet:
+self-badge click → `.user-sheet` → `#us-edit` → `#pe-name` → save. Now passes. No product code touched —
+the product (T83) is correct; the old test encoded superseded behavior.
+
 ## Test Scenarios (tester works from these directly)
 
 ### TS1 — Self-click opens read-only sheet (REPLACES T81 TS3)
