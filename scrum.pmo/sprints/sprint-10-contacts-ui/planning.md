@@ -25,7 +25,7 @@ code path and ensure "tap anywhere on a badge" works.
   - NOTE: AC6 (self-click→ProfileEditor) SUPERSEDED by T83
 
 - [ ] [T82: vCard Button Visibility + ProfileSheet Avatar DRY](./task-82-vcard-visibility-avatar-dry.md)
-  **Status:** refinement complete — awaiting impl
+  **Status:** impl-done + committed (86256fa, v0.5.0) — testing + Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   - vCard button invisible (CSS contrast bug, not missing)
   - ProfileSheet avatar: replace duplicated inline `<img>` with `rb-avatar` (DRY)
@@ -41,8 +41,8 @@ code path and ensure "tap anywhere on a badge" works.
 |--------|-------|
 | Tasks | 3 (T81, T82, T83) |
 | Tron QA-approved (Done) | 0/3 |
-| Impl-done, testing+QA pending | 1 (T81, v0.4.9) |
-| In refinement/planned | 2 (T82, T83) |
+| Impl-done, testing+QA pending | 2 (T81 v0.4.9, T82 v0.5.0) |
+| In refinement/planned | 1 (T83) |
 
 ## Definition of Done
 - [ ] Tapping a joined member (name/avatar/dot) opens their profile sheet

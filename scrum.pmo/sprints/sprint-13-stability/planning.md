@@ -28,12 +28,12 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
   - Upload never surfaces "key not found"; auto-regenerate or friendly retry; log real error
 
 - [ ] [T93: Multi-room lobby listing (load-from-disk)](./task-93-multi-room-lobby.md)
-  **Status:** PLANNED · R-R1 · **Owner:** architect (refine), expert (impl), tester (verify)
+  **Status:** refinement done + committed (1042a4a, root cause: legacy data/rooms shadows per-user scan) — impl pending · R-R1
   - All of a user's rooms load from disk on connect and appear in lobby
 
 - [ ] [T94: PWA update banner fix](./task-94-pwa-update-banner.md)
-  **Status:** PLANNED · R-V1 · **CRITICAL** · **Owner:** architect (SW path audit), expert (impl), tester (verify)
-  - New version shows update bar → reload picks up new build; architect audits SW update path end-to-end first
+  **Status:** refinement done + committed (1042a4a, root cause: PKG_VERSION frozen at startup) — impl pending · R-V1 · **CRITICAL**
+  - New version shows update bar → reload picks up new build; architect audited SW path end-to-end
 
 ## Dependency Graph
 ```
@@ -50,8 +50,8 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 |--------|-------|
 | Tasks | 4 (T91-T94) |
 | Tron QA-approved (Done) | 0/4 |
-| Impl-done, testing+QA pending | 2 (T91, T92 — v0.4.11) |
-| Refinement done, impl pending | 2 (T93, T94 — architect WIP) |
+| Impl-done, testing+QA pending | 2 (T91, T92 — v0.4.11/v0.5.1) |
+| Refinement done, impl pending | 2 (T93, T94 — diagrams + root causes committed 1042a4a) |
 | Use case diagrams | 4 (architect, in diagrams/) |
 | Priority | T94 CRITICAL; T91-T93 HIGH |
 
