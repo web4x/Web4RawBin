@@ -20,11 +20,11 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
 ## Task List
 
 - [ ] [T91: Avatar persistence — must not revert to default](./task-91-avatar-persist.md)
-  **Status:** PLANNED · R-A1 · **Owner:** architect (refine), expert (impl), tester (verify)
+  **Status:** impl-done + committed (f2e019c, v0.4.11) — testing + Tron QA pending · R-A1
   - Uploaded avatar must persist across reload/restart/reconnect; default backfill only when no avatar.enc
 
 - [ ] [T92: Avatar upload key-error UX](./task-92-avatar-upload-ux.md)
-  **Status:** PLANNED · R-A2 · **Owner:** architect (refine), expert (impl), tester (verify)
+  **Status:** impl-done + committed (f2e019c, v0.4.11) — testing + Tron QA pending · R-A2
   - Upload never surfaces "key not found"; auto-regenerate or friendly retry; log real error
 
 - [ ] [T93: Multi-room lobby listing (load-from-disk)](./task-93-multi-room-lobby.md)
@@ -50,7 +50,8 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 |--------|-------|
 | Tasks | 4 (T91-T94) |
 | Tron QA-approved (Done) | 0/4 |
-| Planned | 4 |
+| Impl-done, testing+QA pending | 2 (T91, T92 — v0.4.11) |
+| Refinement done, impl pending | 2 (T93, T94 — architect WIP) |
 | Use case diagrams | 4 (architect, in diagrams/) |
 | Priority | T94 CRITICAL; T91-T93 HIGH |
 
