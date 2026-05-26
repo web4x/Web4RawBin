@@ -1,0 +1,84 @@
+@startuml Legacy Data Migration — UUID-v4-only End State
+!theme plain
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor<<migrate>> LightYellow
+  BackgroundColor<<verify>> LightCyan
+  BackgroundColor<<gate>> #FFCDD2
+  BackgroundColor<<safe>> LightGreen
+}
+
+title Sprint 14 — Legacy Data Migration (copy → verify → GATE → delete)
+
+actor "Migrator\n(server, idempotent)" as Mig
+actor "Verifier\n(read-only)" as Ver
+actor "Tron\n(auth gate)" as Tron
+database "data/ (legacy + per-user)" as Disk
+
+rectangle "Phase 1 — MIGRATE (copy, never move; legacy untouched)" {
+  usecase "UC-MIG1: T96 reconcileRooms\n(239 flat already per-user → SKIP,\nnever overwrite; orphans→_unowned)\n[uc:uuid:e8c066b7-eaa6-4cf8-8d5c-b11ddff79a64]" as MIG1 <<migrate>>
+  usecase "UC-MIG2: T97 migrateTokenDirs\n(141 token-* → new UUIDv4 dir,\ncopy + rewrite ownerToken)\n[uc:uuid:a9fd3645-ec19-4ed2-b17f-a20ade0b152d]" as MIG2 <<migrate>>
+  usecase "UC-MIG3: write token-remap.json\n(old token → newUuid, 1:1)\n[uc:uuid:f547c55a-53d5-450c-8e6c-0c99512ed41f]" as MIG3 <<migrate>>
+  usecase "UC-MIG4: legacy left INTACT\n(copy semantics — no delete here)\n[uc:uuid:5bb80875-5c9c-43df-b6ac-6ecd1e0659c6]" as MIG4 <<safe>>
+}
+
+rectangle "Phase 2 — VERIFY (T98, read-only, gate-half-1)" {
+  usecase "UC-VER1: room coverage\n(per-user ∪ quarantine ≥ legacy)\n[uc:uuid:a4203761-bd5a-49f6-b3b9-891399d7601e]" as VER1 <<verify>>
+  usecase "UC-VER2: content integrity\n(immutable fields id/createdAt/chat;\nownerToken rewrite asserted)\n[uc:uuid:fb138f72-2705-4258-8bc8-347574eaa470]" as VER2 <<verify>>
+  usecase "UC-VER3: remap complete\n(every token-* → 1 valid v4)\n[uc:uuid:8841f134-7167-4337-991d-aec763f34c95]" as VER3 <<verify>>
+  usecase "UC-VER4: NO dangling token-\nref in canonical tree + profiles\n[uc:uuid:418cc001-40cc-41e5-a4cf-f6dcbcfb2cdb]" as VER4 <<verify>>
+  usecase "UC-VER5: write verify-report.json\n(PASS:true|false, loud FAIL)\n[uc:uuid:f9c82674-5044-434c-9868-4e339ed344c9]" as VER5 <<verify>>
+}
+
+rectangle "⛔ GATE — both required" {
+  usecase "UC-GATE: T98 PASS\n+ Tron explicit auth\n[uc:uuid:740f0010-0725-49b1-8371-92f8a66a14be]" as GATE <<gate>>
+}
+
+rectangle "Phase 3 — SAFE DELETE (T99, POST-GATE only)" {
+  usecase "UC-DEL1: backup tar + verify readable\n(rollback point)\n[uc:uuid:9b65d9cf-f63f-4694-bbcf-937651532e64]" as DEL1 <<safe>>
+  usecase "UC-DEL2: remove legacy CODE path\n(loadFromDisk) BEFORE file delete\n[uc:uuid:9f521114-f883-4572-932f-a7c46331b5d0]" as DEL2 <<gate>>
+  usecase "UC-DEL3: delete data/rooms/ +\ntoken-* dirs (remap-driven, no glob)\n→ UUID-v4-only end state" as DEL3 <<gate>>
+}
+
+Mig --> MIG1
+Mig --> MIG2
+MIG2 ..> MIG3 : <<include>>
+MIG1 ..> MIG4 : <<include>>
+MIG2 ..> MIG4 : <<include>>
+MIG1 ..> VER1 : <<precedes>>
+MIG2 ..> VER3 : <<precedes>>
+Ver --> VER1
+Ver --> VER2
+Ver --> VER3
+Ver --> VER4
+VER1 ..> VER5 : <<include>>
+VER2 ..> VER5 : <<include>>
+VER3 ..> VER5 : <<include>>
+VER4 ..> VER5 : <<include>>
+VER5 ..> GATE : <<feeds>>
+Tron --> GATE
+GATE ..> DEL1 : <<unblocks>>
+DEL1 ..> DEL2 : <<then>>
+DEL2 ..> DEL3 : <<then>>
+
+note bottom of GATE #FFCDD2
+  T99 NEVER auto-runs. Verifier PASS
+  AND recorded Tron auth both required.
+  Backup precedes any delete; rollback =
+  restore tar. Token delete is remap-driven
+  only — never a UUID-matching glob.
+end note
+
+note right of MIG1 #FFFFCC
+  MEASURED: 239 flat rooms, ALL already
+  per-user (0 legacy-only). Flat is a stale
+  duplicate → T96 is reconcile, NOT bulk move.
+end note
+
+legend right
+  | <back:LightYellow>migrate</back> | copy/rewrite (legacy intact) |
+  | <back:LightCyan>verify</back> | read-only proof |
+  | <back:#FFCDD2>gate/delete</back> | gated, destructive |
+  | <back:LightGreen>safe</back> | no-data-loss safeguard |
+end legend
+@enduml

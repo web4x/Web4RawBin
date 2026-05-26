@@ -7,12 +7,42 @@
 ## Status
 - [ ] Planned
 - [ ] In Progress
-  - [ ] refinement (architect)
+  - [x] refinement (architect)
   - [ ] creating test cases
   - [ ] implementing (expert)
   - [ ] testing (tester)
 - [ ] QA Review
 - [ ] Done
+
+## Data Findings — on-disk reality (robbin-architect, 2026-05-26, measured)
+
+**The flat `data/rooms/` is already a STALE DUPLICATE of the per-user structure.** Measured:
+- `data/rooms/*.json`: **239** legacy flat rooms.
+- per-user room dirs (`data/users/*/rooms/<id>/`): **239** unique ids.
+- **In BOTH: 239. Legacy-ONLY (need migrating): 0.**
+
+So every legacy flat room ALREADY exists per-user. The per-user copy is the AUTHORITATIVE, newer schema (`ownerToken` + `sshPublicKey` + `sshKeysGenerated`); the flat copy is the OLD schema (`creatorId`, no ownerToken; 181/239 have `creatorId:"dormant"`). They are NOT byte-equal — per-user supersedes flat.
+
+**Implication:** T96 is NOT a bulk data move. A blind copy would be DANGEROUS — it could overwrite a newer per-user `room.json` with the older flat schema (data regression). T96 = a safe, idempotent reconciler that migrates ONLY genuine legacy-only orphans (0 today) and NEVER overwrites an existing per-user room. The flat files are deleted in T99 (gated), not here.
+
+## Design (robbin-architect)
+
+### Algorithm — `migrateLegacyRooms()` (idempotent, copy-not-move, never-overwrite)
+
+For each `data/rooms/<id>.json`:
+1. If `data/users/<owner>/rooms/<id>/room.json` already exists for ANY owner → **SKIP** (already migrated; do NOT touch the per-user copy). This covers all 239 today.
+2. Else (legacy-only orphan): resolve owner:
+   - The flat schema's `creatorId` is an old ws-client id or `"dormant"` — NOT a user token. It cannot reliably map to an owner. So a legacy-only room with no resolvable owner is an **ORPHAN**.
+   - Orphans are NOT silently dropped and NOT deleted: copy to a quarantine home `data/users/_unowned/rooms/<id>/room.json` (a reserved, non-UUID holding key), and REPORT (count + ids) for Tron review. Never invent an owner.
+3. Log per-room outcome: `migrated | skipped(already per-user) | orphan-quarantined`.
+
+Copy semantics: read flat JSON → write to target room.json ONLY if target absent (atomic write to temp then rename). Legacy flat files are left untouched (deletion is T99).
+
+### Why no schema translation is needed for the 239
+They're already per-user in the new schema. The reconciler only writes NEW per-user files for true orphans (mapping old fields forward: `id`, `name`, `maxMembers`, `isPrivate`, `roomKey`, `state`, `createdAt`, `chatHistory`; `ownerToken` = `_unowned`; `sshKeysGenerated:false`).
+
+### Server load path (ties to T93)
+After migration, `loadFromDisk(data/rooms)` is obsolete — the per-user scan is authoritative. Removing the flat load path is T99 (gated), but T96 must NOT add new dependence on the flat dir.
 
 ## Traceability
 - up
@@ -36,11 +66,12 @@ per-user dir. Rooms already present per-user are skipped (no duplication).
 _(Architect designs the safe/idempotent algorithm; req confirms requirement text.)_
 
 ## Acceptance Criteria
-- [ ] AC1: Every legacy data/rooms/*.json with a resolvable owner is migrated to per-user
-- [ ] AC2: Idempotent — re-running migrates nothing new, no duplicates
-- [ ] AC3: No data loss — legacy files untouched until T99 (migration is copy, not move)
-- [ ] AC4: Rooms with no resolvable owner are reported (not silently dropped)
-- [ ] AC5: Migration logged with per-room outcome (migrated/skipped/orphan)
+- [ ] AC1: Every legacy `data/rooms/<id>.json` whose `<id>` already exists per-user is SKIPPED — the per-user copy is NEVER overwritten (no schema regression). [239/239 today]
+- [ ] AC2: A genuine legacy-only room (id absent from all per-user dirs) is copied forward; with no resolvable owner it is quarantined under `data/users/_unowned/rooms/<id>/` and REPORTED (count + ids) — never silently dropped, never deleted. [0 today]
+- [ ] AC3: Idempotent — re-running migrates nothing new, creates no duplicates, mutates no existing per-user room.json
+- [ ] AC4: No data loss — legacy `data/rooms/*.json` files left UNTOUCHED (copy, not move; deletion is T99, gated)
+- [ ] AC5: Per-room outcome logged: migrated | skipped(already-per-user) | orphan-quarantined; summary counts emitted
+- [ ] AC6: Migration adds NO new code dependence on the flat `data/rooms/` dir
 - [ ] `npm run build` + version bump
 
 ## Dependencies

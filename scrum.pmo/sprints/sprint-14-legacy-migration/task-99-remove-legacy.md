@@ -15,12 +15,43 @@ irreversible (deletes code + data files) — the gate is non-negotiable.
 ## Status
 - [ ] Planned (BLOCKED by gate)
 - [ ] In Progress
-  - [ ] refinement (architect)
+  - [x] refinement (architect)
   - [ ] creating test cases
   - [ ] implementing (expert)
   - [ ] testing (tester)
 - [ ] QA Review
 - [ ] Done
+
+## Design (robbin-architect) — safe-delete sequence (POST-GATE ONLY)
+
+Destructive + irreversible. The expert executes this ONLY after BOTH gate conditions (T98 PASS + Tron auth) are recorded. Strict ordering — backup precedes any delete; code-path removal precedes file delete so the running server never reads half-deleted state.
+
+### Step 0 — GATE CHECK (refuse otherwise)
+Read `data/migration/verify-report.json`; require `PASS:true`. Read the GATE LOG below; require Tron authorization recorded. If either missing → ABORT, do nothing.
+
+### Step 1 — BACKUP (rollback point)
+`tar -czf data/migration/backup-pre-T99-<UTC>.tgz data/rooms data/users` (whole user tree + flat rooms). Store the tar PATH + sha256 in the GATE LOG. This is the rollback artifact — verify it's readable (`tar -tzf` lists expected entries) BEFORE proceeding.
+
+### Step 2 — REMOVE legacy CODE path (before deleting files)
+In server.ts: remove the legacy `roomManager.loadFromDisk(data/rooms)` call so per-user scan is the sole source of truth. Rebuild. Restart. Confirm server loads rooms ONLY from per-user dirs (room count unchanged vs per-user count). Doing code-first means even if file-delete is interrupted, the server already ignores the flat dir.
+
+### Step 3 — DELETE legacy files (idempotent, scoped)
+Only after Step 2 verified:
+- `rm -rf data/rooms/` (the 239 flat duplicates — all proven present per-user by T98).
+- Remove the original `data/users/token-*` dirs that T97 copied to UUID dirs — delete ONLY tokens listed in `token-remap.json` (never a glob that could catch a non-migrated dir). For each remap entry: confirm `data/users/<newUuid>/` exists and is populated, THEN `rm -rf data/users/<oldToken>/`.
+- Do NOT touch `data/users/_unowned/` (quarantine stays until Tron reviews).
+
+### Step 4 — POST-DELETE verification
+- Re-run T98 verifier (or a subset): zero `token-*` dirs remain; zero `data/rooms/`; `/api/health` room count == per-user count (no legacy inflation, no loss).
+- Full E2E suite green.
+
+### Rollback
+If anything fails at Steps 2-4: `rm -rf data/rooms data/users && tar -xzf <backup>.tgz` restores the exact pre-T99 state. Document rollback trigger in GATE LOG.
+
+### Scope guards
+- Never `rm -rf` with a glob that could match UUID dirs — token deletion is driven by the explicit remap table only.
+- Backup is mandatory and verified-readable before any delete.
+- All deletes are idempotent (re-run safe).
 
 ## Traceability
 - up

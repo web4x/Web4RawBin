@@ -7,12 +7,37 @@
 ## Status
 - [ ] Planned
 - [ ] In Progress
-  - [ ] refinement (architect)
+  - [x] refinement (architect)
   - [ ] creating test cases
   - [ ] implementing (expert)
   - [ ] testing (tester)
 - [ ] QA Review
 - [ ] Done
+
+## Design (robbin-architect) — invariants the verifier MUST prove
+
+T98 is the no-data-loss proof and the FIRST half of T99's gate. It runs AFTER T96+T97, BEFORE any delete. It is read-only — it never mutates data. Output: `data/migration/verify-report.json` (machine) + a human summary, with an explicit top-level `PASS: true|false`.
+
+### Baseline snapshot (captured BEFORE migration, compared AFTER)
+Record pre-migration counts so the verifier compares against a known baseline (not just self-consistency):
+- `legacyFlatRooms` = count `data/rooms/*.json` (expected 239)
+- `perUserRooms` = count `data/users/*/rooms/<id>/room.json`
+- `tokenDirs` = count `data/users/token-*` (expected 141), `tokenDirRooms` = rooms within (expected 171)
+- `uuidUserDirs` = count UUID-v4 `data/users/*`
+
+### Invariants (all must hold for PASS)
+1. **Room coverage:** every legacy `data/rooms/<id>.json` has a per-user `rooms/<id>/room.json` OR is in the enumerated `_unowned` quarantine list. `count(per-user ∪ quarantine) ≥ count(legacy)`. (Today: 239 all present per-user, 0 orphans.)
+2. **No room dropped by T97 rename:** for each `token-remap` entry old→new, every room that was under `token-<ts>/rooms/` exists under `<newUuid>/rooms/` with the SAME room id. `sum(rooms moved) == 171`.
+3. **Content integrity:** for migrated/renamed rooms, the room.json is parseable and its identity fields (`id`, `name`, `createdAt`, `chatHistory` length) match the source. Where T97 rewrote `ownerToken`, assert new value == newUuid (intended change, not loss). Use a field-level compare, not raw checksum (T97 intentionally edits ownerToken, so byte-equality is wrong here; checksum only the immutable fields: id, createdAt, chatHistory).
+4. **Token remap completeness:** every `token-*` dir has exactly one `newUuid` in `token-remap.json`; every newUuid is a valid v4; no duplicate mappings.
+5. **No dangling token- reference (Tron's explicit requirement):** grep the ENTIRE migrated tree (`data/users/<uuid>/**`) + profiles.json + devices.json → **zero** occurrences of `token-<timestamp>` in any migrated/canonical location. (The original token-* dirs still exist pre-T99; the check targets the NEW UUID dirs + global files, proving the canonical structure is clean.)
+6. **UUID-only canonical end-state (post-T99 readiness):** every canonical user dir name matches v4 regex; every room subdir name matches v4; no `_unowned` rooms remain unreviewed (if any, listed for Tron).
+
+### FAIL semantics
+Any invariant violation → `PASS:false`, the failing invariant + offending ids listed, non-zero exit. T99 reads this file and refuses to start unless `PASS:true`. FAIL is loud (logged + report) — never a silent pass.
+
+### Read-only guarantee
+The verifier opens files read-only, writes ONLY `data/migration/verify-report.json`. It must not touch `data/rooms/`, `data/users/token-*`, or any room.json.
 
 ## Traceability
 - up
@@ -37,11 +62,13 @@ first half of T99's gate** — T99 cannot proceed unless this PASSES.
 _(Architect defines the invariants; expert implements the verifier; tester runs it.)_
 
 ## Acceptance Criteria
-- [ ] AC1: Legacy room count == migrated room count (minus reported orphans, which are enumerated)
-- [ ] AC2: Each legacy room's content matches its migrated copy (checksum/field compare)
-- [ ] AC3: Every old token has exactly one UUIDv4 mapping; no orphaned references anywhere
-- [ ] AC4: Verification report written (machine + human readable); PASS/FAIL explicit
-- [ ] AC5: FAIL is loud and blocks T99 (no silent pass)
+- [ ] AC1: Room coverage — `count(per-user rooms ∪ _unowned quarantine) ≥ count(legacy data/rooms)`; orphans enumerated (Inv.1). 239 today, 0 orphans.
+- [ ] AC2: Content integrity on IMMUTABLE fields only (`id`, `createdAt`, `chatHistory`) — checksum/compare these; `ownerToken` is EXPECTED to differ where T97 rewrote it (assert new==newUuid, not byte-equality). (Inv.3)
+- [ ] AC3: Every `token-*` dir has exactly one valid-v4 mapping in `token-remap.json`; no duplicates; all 171 token-dir rooms present under their newUuid (Inv.2, Inv.4)
+- [ ] AC4: Zero `token-<timestamp>` strings anywhere in the canonical UUID tree + profiles.json + devices.json (Inv.5 — Tron's no-dangling-ref requirement)
+- [ ] AC5: Every canonical user dir + room subdir name matches v4 UUID regex; any `_unowned` rooms listed for Tron (Inv.6)
+- [ ] AC6: Report `data/migration/verify-report.json` written with explicit top-level `PASS:true|false`; verifier is READ-ONLY (mutates nothing but the report)
+- [ ] AC7: FAIL is loud (lists failing invariant + offending ids, non-zero exit) and BLOCKS T99 — no silent pass
 - [ ] `npm run build` + version bump
 
 ## Dependencies

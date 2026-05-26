@@ -7,12 +7,54 @@
 ## Status
 - [ ] Planned
 - [ ] In Progress
-  - [ ] refinement (architect)
+  - [x] refinement (architect)
   - [ ] creating test cases
   - [ ] implementing (expert)
   - [ ] testing (tester)
 - [ ] QA Review
 - [ ] Done
+
+## Data Findings — on-disk reality (robbin-architect, 2026-05-26, measured)
+
+The `token-<timestamp>` dirs are **self-contained, room-only orphans** — the reference surface is far smaller than feared:
+- `data/users/token-*` dirs: **141**.
+- With `profile.json`: **0**. With `.ssh/`: **0**. With `rooms/`: **141** (171 rooms total).
+- `ownerToken: "token-..."` refs in room.json: **171** — ALL inside those same token-* dirs' own rooms.
+- token-* references in `profiles.json`: **0**. In `devices.json`: none found.
+
+**So the ENTIRE reference surface of a token-* dir is: (a) the dir name itself, and (b) the `ownerToken` fields in its own `rooms/*/room.json`.** No profile entry, no SSH identity, no cross-dir reference, no device record. Each dir is fully self-contained → migration is local to each dir, no global reference graph to rewrite.
+
+(Real users are already UUID v4 — 81 of 222 dirs. The 141 token-* dirs appear to be seed/test data with rooms but no profile/keys. Tron's directive: migrate to UUID v4, do NOT delete.)
+
+## Design (robbin-architect)
+
+### Algorithm — `migrateTokenDirs()` (idempotent, copy-then-rename, self-contained)
+
+For each `data/users/token-<ts>/`:
+1. Generate a fresh `newUuid = crypto.randomUUID()` (v4).
+2. Record the remap `token-<ts> → newUuid` in a remap table (persisted to `data/migration/token-remap.json` for T98 verify + audit).
+3. Copy (not move) the dir → `data/users/<newUuid>/` (preserve rooms/, and any files/.ssh if present — none today).
+4. In the COPY, rewrite every `rooms/*/room.json` `ownerToken` from `token-<ts>` → `newUuid`. (Also rewrite legacy `creatorId`/`creatorToken` if present, for forward-schema consistency.)
+5. profiles.json: NO change required (0 token-* entries). If a future token-* dir DID have a profile, the migration would also rekey that profile entry + add `redirectTo` (see below) — include the branch defensively but it is a no-op on current data.
+6. Leave the original `token-<ts>/` dir UNTOUCHED (removal is T99, gated).
+
+### Identity-redirect safety (defensive, for any token-* that IS a live user)
+A hard rename would break a device whose localStorage still holds `token-<ts>`. Current data has 0 token-* profiles so no live device is affected. BUT the algorithm MUST be safe if that changes: when a token-* dir has a profile, after rekeying to newUuid, write a redirect stub so the old token resolves forward — reuse the EXISTING `redirectTo` / `TOKEN_REDIRECT` mechanism (same as account consolidation). This guarantees no device is orphaned. For the current 141 profile-less dirs, no redirect is needed.
+
+### Idempotency
+A dir already named as a UUID v4 is skipped. The remap table makes re-runs a no-op (already-mapped tokens skipped). Copy targets that already exist are not re-copied.
+
+### Ordering vs T96
+T96 (rooms) and T97 (userdirs) are independent on current data (T96's 239 are all under UUID dirs already; T97's token-* rooms are inside token-* dirs). Run order does not matter, but T98 verify must run AFTER both.
+
+## Acceptance Criteria
+- [ ] AC1: Every `token-<timestamp>` dir is copied to a fresh UUIDv4 dir (141 → 141 new UUID dirs)
+- [ ] AC2: In each copied dir, ALL `rooms/*/room.json` `ownerToken` (+ any `creatorId`/`creatorToken`) rewritten from the old token to the new UUID — zero `token-` strings remain in the copies (171 refs rewritten)
+- [ ] AC3: A persisted remap table `data/migration/token-remap.json` (old→new) is produced for T98
+- [ ] AC4: profiles.json correctly handled — no-op on current data (0 token-* profiles); defensive rekey+redirect branch present for any future token-* profile
+- [ ] AC5: Idempotent — re-run is a no-op; already-UUID dirs untouched
+- [ ] AC6: No data loss — copy-then-verify; original token-* dirs left intact (removal deferred to T99, gated)
+- [ ] `npm run build` + version bump
 
 ## Traceability
 - up
