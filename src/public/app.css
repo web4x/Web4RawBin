@@ -66,6 +66,11 @@ body {
 .item-title { color: white; font-weight: 600; font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .item-id { color: rgba(255,255,255,0.3); font-size: 0.6rem; font-family: monospace; }
 .item-status { color: rgba(255,255,255,0.6); font-size: 0.7rem; background: rgba(255,255,255,0.12); padding: 2px 8px; border-radius: 8px; flex-shrink: 0; }
+/* T106 rb-list-overview */
+.list-overview { display: block; }
+.lo-search { width: 100%; box-sizing: border-box; padding: 10px 12px; margin-bottom: 10px; border-radius: 10px; border: none; background: rgba(255,255,255,0.15); color: white; font-size: 0.95rem; }
+.lo-search::placeholder { color: rgba(255,255,255,0.5); }
+.lo-empty { color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 0.9rem; }
 .room-status { display: flex; align-items: center; gap: 6px; }
 .room-state { color: rgba(255,255,255,0.5); font-size: 0.75rem; }
 .room-state-active { color: #4CAF50; }

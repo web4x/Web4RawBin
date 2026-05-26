@@ -16,8 +16,10 @@ export { VerbRegistry } from './VerbRegistry.js';
 export { ViewBus } from './ViewBus.js';
 export { RbTraceView } from './rb-trace-view.js';
 export { RbObjectItem } from './rb-object-item.js';
+export { RbListOverview, LocalSearch, type SearchProvider } from './rb-list-overview.js';
 export { navigate, setActiveRouter } from './nav.js';
 import './rb-object-item.js';
+import './rb-list-overview.js';
 
 export const TRACE_TYPES: ObjectType[] = [
   'requirement', 'task', 'usecase', 'class', 'method', 'implementation', 'test',
