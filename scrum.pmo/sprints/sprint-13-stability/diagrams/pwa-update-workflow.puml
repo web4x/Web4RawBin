@@ -1,0 +1,76 @@
+@startuml PWA — Version Update Bar
+!theme plain
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor<<done>> LightGreen
+  BackgroundColor<<fix>> #FFE0B2
+  BackgroundColor<<guard>> #FFCDD2
+}
+
+title PWA Version-Update Workflow — Live Version → Update Bar → New Code
+
+actor "Device\n(PWA)" as Device
+actor "Server" as Server
+actor "Service Worker" as SW
+
+rectangle "Build + deploy" {
+  usecase "UC-PV1: build.bumpVersion\n(package.json + stamp sw.js CACHE_NAME)\n[uc:uuid:b8ca5b40-b4f3-4f6a-a0a9-7789f6354e6c]" as PV1 <<done>>
+  usecase "UC-PV2: ops.restartProcess\n(so live version == disk version)\n[uc:uuid:043764a9-0801-482e-974a-4b81057f0cf7]" as PV2 <<fix>>
+}
+
+rectangle "Report LIVE version" {
+  usecase "UC-PV3: server.reportVersion\n(/api/config — read per-request,\nNOT frozen at startup)\n[uc:uuid:c640aac0-442c-422d-bad0-840cbf55e1e4]" as PV3 <<fix>>
+}
+
+rectangle "Detect + prompt" {
+  usecase "UC-PV4: device.checkVersion\n(localStorage vs /api/config)\n[uc:uuid:623b88a2-3f91-48d8-86bc-7e956264f6ac]" as PV4 <<done>>
+  usecase "UC-PV5: device.showUpdateBar\n(on mismatch)\n[uc:uuid:4aac893f-cd44-4a54-83ed-9a56954557a1]" as PV5 <<done>>
+}
+
+rectangle "Apply update" {
+  usecase "UC-PV6: user.tapUpdateNow\n[uc:uuid:eb470b8e-295c-49ad-8d1b-e13fb07b8c56]" as PV6 <<done>>
+  usecase "UC-PV7: sw.skipWaiting →\ncontrollerchange → reload\n[uc:uuid:ac109abb-d64c-4f56-9239-4aa322edc749]" as PV7 <<done>>
+  usecase "UC-PV8: device.runsNewBundle\n[uc:uuid:bec090eb-f82f-49b5-97d5-9a5dd7acc8eb]" as PV8 <<done>>
+}
+
+rectangle "No-stale guard" {
+  usecase "UC-PV9: /api/config.version ==\nserved bundle version (always)\n[uc:uuid:60347b39-7bac-4d9e-8529-ad59b7157317]" as PV9 <<guard>>
+}
+
+Device --> PV4
+PV1 ..> PV2 : <<include>>
+PV2 ..> PV3 : <<include>>
+PV3 ..> PV4 : <<provides version>>
+PV4 ..> PV5 : <<extend>>\non mismatch
+PV5 ..> PV6 : <<include>>
+PV6 ..> PV7 : <<include>>
+PV7 ..> PV8 : <<include>>
+PV3 ..> PV9 : <<verify>>
+Server --> PV3
+SW --> PV7
+
+note right of PV3 #FFE0B2
+  ROOT-CAUSE (C) — CONFIRMED:
+  server.ts:25 PKG_VERSION read ONCE
+  at startup (frozen const). /api/config
+  + /api/health return it forever.
+  Restarts deferred thru v0.4.8/9/10 ⇒
+  process froze at ~0.4.7 while disk
+  serves 0.4.10 ⇒ device sees no
+  mismatch ⇒ bar never fires.
+end note
+
+note bottom of PV2 #FFE0B2
+  IMMEDIATE: clean restart → /api/config
+  flips to 0.4.10 → mismatch → bar fires.
+  HARDENING (PV3): read version per
+  request (or from build-manifest.json)
+  so PV9 holds without restarts.
+end note
+
+legend right
+  | <back:LightGreen>done</back> | works today |
+  | <back:#FFE0B2>fix</back> | bug to fix |
+  | <back:#FFCDD2>guard</back> | no-stale invariant |
+end legend
+@enduml

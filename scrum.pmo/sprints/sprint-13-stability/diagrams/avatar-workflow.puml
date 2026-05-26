@@ -1,0 +1,74 @@
+@startuml Avatar — Persist + Keyless Upload
+!theme plain
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor<<done>> LightGreen
+  BackgroundColor<<fix>> #FFE0B2
+  BackgroundColor<<guard>> #FFCDD2
+}
+
+title Avatar Workflow — Persist Across Sessions + Keyless Upload (no key-leak)
+
+actor "User\n(Browser)" as User
+actor "Server" as Server
+database "data/users/<token>/" as Disk
+
+rectangle "Upload" {
+  usecase "UC-AV1: user.uploadPhoto\n[uc:uuid:b8ca5b40-b4f3-4f6a-a0a9-7789f6354e6c]" as AV1 <<done>>
+  usecase "UC-AV2: server.encryptAvatar\n(AES-256-GCM + RSA envelope,\nuser public key)\n[uc:uuid:043764a9-0801-482e-974a-4b81057f0cf7]" as AV2 <<done>>
+  usecase "UC-AV3: server.storeEnc\n(avatar.enc + avatar.meta.json)\n[uc:uuid:c640aac0-442c-422d-bad0-840cbf55e1e4]" as AV3 <<done>>
+  usecase "UC-AV4: server.setProfileAvatarUrl\n(/api/avatar/<token>) + PERSIST to profile\n[uc:uuid:623b88a2-3f91-48d8-86bc-7e956264f6ac]" as AV4 <<fix>>
+}
+
+rectangle "Persist across session" {
+  usecase "UC-AV5: user.reconnect → IDENTIFY\n[uc:uuid:4aac893f-cd44-4a54-83ed-9a56954557a1]" as AV5 <<done>>
+  usecase "UC-AV6: server.restoreProfileAvatar\n(profile.avatar survives reconnect —\nNOT reset to default)\n[uc:uuid:eb470b8e-295c-49ad-8d1b-e13fb07b8c56]" as AV6 <<fix>>
+}
+
+rectangle "Serve + display" {
+  usecase "UC-AV7: server.decryptAvatar\n(user private key)\n[uc:uuid:ac109abb-d64c-4f56-9239-4aa322edc749]" as AV7 <<done>>
+  usecase "UC-AV8: client.displayAvatar\n(rb-avatar)\n[uc:uuid:bec090eb-f82f-49b5-97d5-9a5dd7acc8eb]" as AV8 <<done>>
+}
+
+rectangle "Error handling — KEYLESS UX (no leak)" {
+  usecase "UC-AV9: server.fallbackOnDecryptFail\n(serve /icon-192.png, log internally)\n[uc:uuid:60347b39-7bac-4d9e-8529-ad59b7157317]" as AV9 <<guard>>
+  usecase "UC-AV10: NEVER surface key/crypto\nerror text to user\n[uc:uuid:f5164908-48ad-4175-8142-6bad52eff83b]" as AV10 <<guard>>
+}
+
+User --> AV1
+AV1 ..> AV2 : <<include>>
+AV2 ..> AV3 : <<include>>
+AV3 ..> AV4 : <<include>>
+User --> AV5
+AV5 ..> AV6 : <<include>>
+AV6 ..> AV7 : <<enables>>
+AV7 ..> AV8 : <<include>>
+AV7 ..> AV9 : <<extend>>\non failure
+AV9 ..> AV10 : <<include>>
+Server --> AV2
+Server --> AV7
+Server --> AV9
+Disk --> AV3
+
+note right of AV6 #FFE0B2
+  ROOT-CAUSE TARGET (A):
+  Avatar reverts to default across
+  sessions ⇒ profile.avatar URL not
+  restored on reconnect OR decrypt
+  fails → fallback. Confirm both.
+end note
+
+note right of AV10 #FFCDD2
+  UX VIOLATION TODAY:
+  'key not found' / 'Decrypt error'
+  reaches the user. The workflow
+  forbids ANY crypto/key error in
+  user-facing output. Internal log only.
+end note
+
+legend right
+  | <back:LightGreen>done</back> | works today |
+  | <back:#FFE0B2>fix</back> | bug to fix |
+  | <back:#FFCDD2>guard</back> | constraint (no key-leak) |
+end legend
+@enduml

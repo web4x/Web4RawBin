@@ -11,11 +11,28 @@
 ## Status
 - [ ] Planned
 - [ ] In Progress
-  - [ ] refinement (architect)
+  - [x] refinement (architect)
   - [ ] implementing (expert)
   - [ ] testing (tester)
 - [ ] QA Review
 - [ ] Done
+
+## Diagram
+[rooms-workflow.svg](./diagrams/rooms-workflow.svg) ([source](./diagrams/rooms-workflow.puml)) — UC-RM2/RM3 (enumerate ALL + register each) + UC-RM5 (no over-filter) are the T93 targets.
+
+## Root-Cause Findings (robbin-architect, 2026-05-26 — evidence-backed)
+
+**CONFIRMED: two compounding causes.**
+
+**Cause 1 — no per-user room load (the dominant one).** `RoomManager.loadFromDisk()` (Room.ts:330-345) reads ONLY `this.persistDir` (default `data/rooms` — flat dir; server.ts constructs `new RoomManager(ROOMS_DIR=data/rooms)`). It does `readdirSync(data/rooms).filter(.json)` — it NEVER walks `data/users/<token>/rooms/<uuid>/room.json`. Sprint 9 introduced per-user room persistence (createRoomHome/writeRoomJson under the user dir, with `.ssh/`), but that path is **write-only** — there is no symmetric read that loads those per-user rooms back. So on restart/connect, per-user rooms are not loaded; only whatever sits in the flat `data/rooms` reloads. Hence "only one shows."
+
+**Cause 2 — `listRooms()` filter hides owned rooms (Room.ts:378-386).** Even for loaded rooms: line 381 `if (r.isPrivate) return false` hides ALL private rooms (including the owner's own), and an empty room with a `creatorToken` only shows when `connectedOwners.has(creatorToken)`. So an owner's empty/private rooms can be filtered out of their own lobby.
+
+**Fix direction (drives AC1-AC6):**
+1. Add a per-user load path: on server start AND on IDENTIFY, enumerate `data/users/<token>/rooms/*/room.json` and register EACH in RoomManager (loop, not first-match). This is UC-RM2 + UC-RM3.
+2. Reconcile the two persistence locations — Sprint 9 per-user dir should be the source of truth; the flat `data/rooms` is legacy. Either migrate-and-read per-user, or have loadFromDisk walk the per-user tree.
+3. Owner-aware listing: the owner must see ALL their own rooms (incl. empty + private). Use `listRoomsForOwner(ownerToken)` (Room.ts:389) merged into the owner's ROOM_LIST so their private/empty rooms aren't filtered (UC-RM5). Other users keep the public filter.
+4. Verify count(lobby) == count(disk rooms for owner) (UC-RM7).
 
 ## Traceability
 - up

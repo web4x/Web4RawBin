@@ -11,11 +11,35 @@
 ## Status
 - [ ] Planned
 - [ ] In Progress
-  - [ ] refinement (architect)
+  - [x] refinement (architect)
   - [ ] implementing (expert)
   - [ ] testing (tester)
 - [ ] QA Review
 - [ ] Done
+
+## Diagram
+[pwa-update-workflow.svg](./diagrams/pwa-update-workflow.svg) ([source](./diagrams/pwa-update-workflow.puml)) — UC-PV2 (restart) + UC-PV3 (live version, not frozen) + UC-PV9 (no-stale guard) are the T94 targets.
+
+## Root-Cause Findings (robbin-architect, 2026-05-26 — CONFIRMED, matches Tron/PO hypothesis)
+
+**Root cause: stale server PROCESS — the version is frozen at startup.**
+
+`server.ts:25`: `const PKG_VERSION = JSON.parse(readFileSync(package.json)).version` is read ONCE at module load. `/api/config` (line 357) and `/api/health` (line 364) return this frozen value forever.
+
+Failure chain:
+- Restarts deferred through v0.4.8/9/10 → the live process froze `PKG_VERSION` at ~v0.4.7.
+- Builds wrote new hashed bundles + stamped `sw.js` CACHE_NAME `rawbin-v0.4.10` to disk.
+- But `/api/config` still returns 0.4.7. The device stored `localStorage['rawbin-version']=0.4.7`; `checkForUpdate` (rb-update-banner.ts:38) compares 0.4.7 vs 0.4.7 → equal → **the version bar never fires** even though disk has newer code.
+- Note: this is the `checkForUpdate` (version-check) path. The SW-update path (updatefound) is separate and produces a version-less banner; the missing "vX available" bar is specifically the version-check path broken by the stale version.
+
+**This explains why every recent fix is invisible to Tron** — the device's update detection can't see them.
+
+**Other chain links — verified OK (not the cause):** sw.js IS served no-cache (T-fix held); skipWaiting is message-only (v0.2.6 fix held); `<rb-update-banner>` is prepended on /app and /edit (app.ts:89, edit.ts:13).
+
+**Fix direction:**
+1. **OPERATIONAL (immediate, OPS/Tron owns the process):** clean server restart → `PKG_VERSION` re-reads 0.4.10 → device mismatch → bar fires → Update Now → new code. Verify: `curl -k https://localhost:4444/api/config` reports `version: 0.4.10` (currently 0.4.7).
+2. **DESIGN HARDENING (drives AC1/AC3, removes recurrence):** stop freezing. In the `/api/config` + `/api/health` handlers, read the version per-request (inline `readFileSync(package.json)`, tiny file) OR derive from `build-manifest.json` (rewritten every build). Then `/api/config.version` always equals the served bundle without a restart (UC-PV9).
+3. AC7 (banner on ALL pages): /profile + /bug-report are server-rendered inline HTML — confirm `<rb-update-banner>` is injected there too (currently only the bundled /app + /edit load it). If not, add the banner script to those server-rendered pages.
 
 ## Traceability
 - up

@@ -1,0 +1,67 @@
+@startuml Rooms — Multi-Room Lobby Load From Disk
+!theme plain
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor<<done>> LightGreen
+  BackgroundColor<<fix>> #FFE0B2
+  BackgroundColor<<guard>> #FFCDD2
+}
+
+title Rooms Workflow — Load ALL Rooms From Disk → Appear In Lobby
+
+actor "User\n(Browser)" as User
+actor "Server" as Server
+database "data/users/<token>/rooms/" as Disk
+
+rectangle "Connect + load" {
+  usecase "UC-RM1: user.connect → IDENTIFY\n[uc:uuid:ac109abb-d64c-4f56-9239-4aa322edc749]" as RM1 <<done>>
+  usecase "UC-RM2: server.enumerateAllRoomDirs\n(scan EVERY rooms/<uuid>/, not just one)\n[uc:uuid:237aba40-d891-40a3-a109-a58b2b59bfad]" as RM2 <<fix>>
+  usecase "UC-RM3: server.registerEachRoom\n(load room.json → RoomManager, loop all)\n[uc:uuid:994556e3-30f6-4d58-a7cb-a4bdbe8de229]" as RM3 <<fix>>
+}
+
+rectangle "Advertise + list" {
+  usecase "UC-RM4: server.advertiseOwnedRooms\n(broadcast ROOM_LIST)\n[uc:uuid:df7d0bfa-51e2-4232-9c33-72a8a01d93ce]" as RM4 <<done>>
+  usecase "UC-RM5: server.listRooms\n(owner sees ALL own rooms incl. empty\n+ private; no over-filter)\n[uc:uuid:833c8e85-95a4-4f1f-be02-d0054e2e0d3b]" as RM5 <<fix>>
+  usecase "UC-RM6: client.renderLobby\n(every room as a card)\n[uc:uuid:60347b39-7bac-4d9e-8529-ad59b7157317]" as RM6 <<done>>
+}
+
+rectangle "Completeness guard" {
+  usecase "UC-RM7: count(lobby rooms) ==\ncount(disk rooms for owner)\n[uc:uuid:eb470b8e-295c-49ad-8d1b-e13fb07b8c56]" as RM7 <<guard>>
+}
+
+User --> RM1
+RM1 ..> RM2 : <<include>>
+RM2 ..> RM3 : <<include>>
+RM3 ..> RM4 : <<include>>
+RM4 ..> RM5 : <<include>>
+RM5 ..> RM6 : <<include>>
+RM6 ..> RM7 : <<verify>>
+Server --> RM2
+Server --> RM3
+Server --> RM5
+Disk --> RM2
+
+note right of RM2 #FFE0B2
+  ROOT-CAUSE TARGET (B):
+  Only 1 room shows. Suspect:
+  (a) load loop registers a single
+      room, OR
+  (b) listRooms filter
+      (!isPrivate && (members>0 ||
+      connectedOwners.has(creator)))
+      hides empty/private owned rooms.
+  Confirm which during trace.
+end note
+
+note right of RM5 #FFE0B2
+  Owner must see ALL their rooms —
+  including empty + private — not
+  just rooms with live members.
+end note
+
+legend right
+  | <back:LightGreen>done</back> | works today |
+  | <back:#FFE0B2>fix</back> | bug to fix |
+  | <back:#FFCDD2>guard</back> | completeness invariant |
+end legend
+@enduml
