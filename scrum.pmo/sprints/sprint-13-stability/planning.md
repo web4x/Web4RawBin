@@ -28,11 +28,11 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
   - Upload never surfaces "key not found"; auto-regenerate or friendly retry; log real error
 
 - [ ] [T93: Multi-room lobby listing (load-from-disk)](./task-93-multi-room-lobby.md)
-  **Status:** impl-done + committed (492221a, v0.5.2 — per-user load + owner-aware listing) — testing + Tron QA pending · R-R1
+  **Status:** impl + testing DONE (492221a v0.5.2; tester 4/4 live, 27ef9c6) — Tron QA pending · R-R1
   - All of a user's rooms load from disk on connect and appear in lobby
 
 - [ ] [T94: PWA update banner fix](./task-94-pwa-update-banner.md)
-  **Status:** refinement done + committed (1042a4a, root cause: PKG_VERSION frozen at startup) — impl pending · R-V1 · **CRITICAL**
+  **Status:** impl-done + committed (f884672, v0.5.4 — per-request version read, unfreezes PKG_VERSION) — testing + Tron QA pending · R-V1 · **CRITICAL**
   - New version shows update bar → reload picks up new build; architect audited SW path end-to-end
 
 ## Dependency Graph
@@ -50,8 +50,9 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 |--------|-------|
 | Tasks | 4 (T91-T94) |
 | Tron QA-approved (Done) | 0/4 |
-| Impl-done, testing+QA pending | 3 (T91, T92, T93 — v0.4.11→v0.5.2) |
-| Refinement done, impl pending | 1 (T94 — frozen-PKG_VERSION root cause, 1042a4a) |
+| Impl-done | 4/4 (T91-T94, v0.4.11→v0.5.4) |
+| Tested, awaiting Tron QA | T93 (4/4 live) |
+| Testing pending | T91, T92, T94 |
 | Use case diagrams | 4 (architect, in diagrams/) |
 | Priority | T94 CRITICAL; T91-T93 HIGH |
 

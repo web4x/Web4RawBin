@@ -31,7 +31,7 @@ code path and ensure "tap anywhere on a badge" works.
   - ProfileSheet avatar: replace duplicated inline `<img>` with `rb-avatar` (DRY)
 
 - [ ] [T83: Self-Click Opens Profile Sheet, Not Profile Editor](./task-83-self-click-profile.md)
-  **Status:** PLANNED (req-eng spec; renumbered from T81 collision) — awaiting architect refinement
+  **Status:** impl-done + committed (c67bc11, v0.5.3 — self-click→sheet + Edit button) — testing + Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   - Self-click in member list → read-only ProfileSheet (was ProfileEditor)
   - CHANGES T81 AC6 (Tron directive 2026-05-25)
@@ -41,8 +41,7 @@ code path and ensure "tap anywhere on a badge" works.
 |--------|-------|
 | Tasks | 3 (T81, T82, T83) |
 | Tron QA-approved (Done) | 0/3 |
-| Impl-done, testing+QA pending | 2 (T81 v0.4.9, T82 v0.5.0) |
-| In refinement/planned | 1 (T83) |
+| Impl-done, testing+QA pending | 3 (T81 v0.4.9, T82 v0.5.0, T83 v0.5.3) |
 
 ## Definition of Done
 - [ ] Tapping a joined member (name/avatar/dot) opens their profile sheet
