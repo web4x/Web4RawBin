@@ -62,6 +62,11 @@ object graph.
 - [ ] Tests pass, build clean
 - [ ] Tron QA approved
 
+## Test Results (robbin-tester, 2026-05-26, v0.5.11) — **PASS**
+- trace-consistency.test.ts **10/10 PASS**: validate (clean + 4 drift cases), fixMatrix (append-preserve, idempotent, drift-repair single-region, deterministic region).
+- `npm run trace:check` (read-only) exits **1** (non-zero, as designed) with **14 errors + 96 warnings** over 115 tasks — errors are legacy tasks w/o [task:uuid] + 1 requirement w/o linked task (expected baseline).
+- Fix-safety: fixMatrix only rewrites the TRACE:BEGIN/END region (planner table preserved) — proven by the unit tests; REAL scrum.pmo/traceability-matrix.md confirmed byte-untouched (never ran trace:fix against it; PO/planner-gated).
+
 ## QA Audit & User Feedback
 - 2026-05-26: Tron directive (Sprint 15 R1-R4). Quote in requirements.tron-literal.md.
 

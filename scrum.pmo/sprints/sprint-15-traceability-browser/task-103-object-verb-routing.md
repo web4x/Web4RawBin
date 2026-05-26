@@ -105,6 +105,9 @@ protocols), so the typed object graph is navigable and renderable.
 - [ ] Tests pass, build clean
 - [ ] Tron QA approved
 
+## Test Results (robbin-tester, 2026-05-26, v0.5.13) — **PASS**
+- trace-routing.test.ts **11/11 PASS**: AC1 parseHash/buildHash + router resolution/notFound/list, AC2 rb-trace-view attribute round-trip, AC3 ViewBus subscribe/notify/unsubscribe + mounted re-render, AC4/AC5 serialize/deserialize fidelity. Pure client (jsdom).
+
 ## QA Audit & User Feedback
 - 2026-05-26: Tron directive (Sprint 15 R1-R4). Quote in requirements.tron-literal.md.
 

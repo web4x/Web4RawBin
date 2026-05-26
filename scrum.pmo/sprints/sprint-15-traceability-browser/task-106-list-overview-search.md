@@ -102,6 +102,9 @@ a search over the listed objects. The search is designed to extend cleanly to a
 - [ ] Tests pass, build clean
 - [ ] Tron QA approved
 
+## Test Results (robbin-tester, 2026-05-26, v0.5.16) — **PASS**
+- rb-list-overview.test.ts **7/7 PASS**: AC1 setItems render, AC2 local substring filter + clear, AC3 RemoteSearch provider substitution, AC4 empty state, AC5 live remove via graph re-query + type/uuid match, AC6 no-maxlength. Tests call runSearch() directly (no debounce flakiness).
+
 ## QA Audit & User Feedback
 - 2026-05-26: Tron directive (Sprint 15 R1-R4). Quote in requirements.tron-literal.md.
 

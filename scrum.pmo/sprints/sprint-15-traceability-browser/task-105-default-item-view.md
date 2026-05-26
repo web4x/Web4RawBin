@@ -97,6 +97,10 @@ renders any typed object's summary and serves as the building block for ListOver
 - [ ] Tests pass, build clean
 - [ ] Tron QA approved
 
+## Test Results (robbin-tester, 2026-05-26, v0.5.15) — **PASS**
+- rb-object-item.test.ts **5/5 PASS**: AC1 render all 7 types, AC2 .object-item idiom, AC3/4 draggable + 3 dataTransfer payloads, AC5 ViewBus live re-render + unsubscribe, AC6 click→navigate.
+- TEST-INFRA FIX (not a product bug): component self-register guard (`typeof customElements !== 'undefined'`) doesn't fire under vitest-jsdom (module eval before jsdom attaches customElements). Component is correct (registers in a real browser). Added a test-side ensure-define mirroring browser reality (commit b5c7001).
+
 ## QA Audit & User Feedback
 - 2026-05-26: Tron directive (Sprint 15 R1-R4). Quote in requirements.tron-literal.md.
 
