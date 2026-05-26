@@ -110,37 +110,38 @@ After expert purged prod (→2 Marcel rooms) and the 4444 window opened, I ran t
 
 **FIX REQUIRED for a valid AC4 run:** `reuseExistingServer: false` so Playwright ALWAYS launches its OWN server with DATA_DIR=tmp, AND the live server MUST stay DOWN for the whole isolated run (no mid-run restart). Then prod is provably untouched. Until then AC4 is NOT met. Expert: please re-purge the leak I caused (or restore backup).
 
-## AC4 Coordinated Window (PO green-lit 2026-05-26) — DRIVE SEQUENCE
-Planner (robbin-planner) drives status through these steps; each agent picks up
-its step FROM THIS FILE and updates the STEP TRACKER below when done. AC4 PASS
-gates T100 Done; Tron QA gate follows.
+## AC4 Validation — NO-DOWNTIME ISOLATED PROTOCOL (supersedes the maintenance-window)
+Planner (robbin-planner) drives; each agent picks up its step FROM THIS FILE and
+updates the STEP TRACKER. AC4 PASS gates T100 Done; Tron QA gate follows.
 
-Root cause of the failed run: `reuseExistingServer:true` made Playwright reuse the
-live prod-DATA_DIR server. The valid AC4 run requires BOTH: (a) `reuseExistingServer:false`
-so Playwright launches its OWN server with DATA_DIR=tmp, and (b) the live server
-DOWN for the entire isolated run (no mid-run restart).
+**Protocol changed (expert 86780fc v0.5.7 + tester 8c52359):** the live server now
+STAYS UP — no downtime, no maintenance window. The valid AC4 run is FULLY ISOLATED
+on a separate port + tmp data:
+- **PORT/HTTPS_PORT env override** (86780fc): `process.env.PORT/HTTPS_PORT` override
+  .env; unset = exact prod ports 4444/4000 (zero prod change).
+- **reuseExistingServer:false** via `E2E_ISOLATED=1` (8c52359): Playwright NEVER
+  reuses the live server — always launches its OWN.
+- **Recipe:** Playwright webServer.env = `{ DATA_DIR:/tmp/rawbin-e2e-*, HTTPS_PORT:4445,
+  PORT:4001 }`, `reuseExistingServer:false`, baseURL `https://localhost:4445`.
+  Playwright owns its own server on 4445 with tmp data; live stays on 4444 untouched.
+  Both DATA_DIR **and** port isolated → prod `data/rooms` provably unchanged.
+- Prod already re-cleaned to 2 rooms, live on v0.5.7 (leak from the first race fixed).
 
-### Steps (sequential — do not start a step until the prior is signalled done)
-1. **(A) RE-PURGE — robbin-expert:** prod re-polluted to ~26 rooms by the AC4 race.
-   Re-run the GUARDED purge → clean to the 2 real "Marcel … Room" rooms (backup
-   exists: `web4rawbin-data-backup-20260526T161601.tar.gz`). Then STOP the live
-   server (4444/4000 down). Signal in STEP TRACKER: "4444 free, prod=2 rooms".
-2. **(config) reuseExistingServer:false — robbin-tester:** set `reuseExistingServer:false`
-   in playwright.config.ts (commit it) so Playwright always launches its own server.
-3. **AC4 ISOLATED RUN — robbin-tester:** with live server DOWN, run the FULL suite
-   with `DATA_DIR=<tmp>`. Capture prod `data/rooms` + `data/users` file counts
-   BEFORE and AFTER. PASS = both byte/count-unchanged AND tmp dir received the test
-   rooms. Record result in STEP TRACKER + Test Results.
-4. **RESTART — robbin-expert:** bring the live v0.5.6 server back up on 4444.
-5. **planner:** on AC4 PASS → check T100 testing box, sync planning/overview; T100
-   then awaits Tron QA. On FAIL → log, keep testing unchecked, re-drive.
+### Steps
+1. **AC4 ISOLATED RUN — robbin-tester:** with the v0.5.7 recipe (E2E_ISOLATED=1,
+   ports 4445/4001, DATA_DIR=tmp), run the FULL suite. Capture prod `data/rooms` +
+   `data/users` counts BEFORE and AFTER. PASS = prod counts UNCHANGED AND tmp dir
+   received the test rooms. Live 4444 stays up throughout. Record in STEP TRACKER + Test Results.
+2. **planner:** on AC4 PASS → check T100 testing box + sync planning/overview → T100
+   awaits Tron QA. On FAIL → log honestly, keep testing unchecked, re-drive.
+
+(No live-down step, no expert restart step — isolation is by port, not by downtime.)
 
 ### STEP TRACKER (agents update their line)
-- [ ] S1 expert: re-purge → prod=2, live server STOPPED — signal: ____
-- [ ] S2 tester: reuseExistingServer:false committed — commit: ____
-- [ ] S3 tester: AC4 isolated run — prod before/after counts: ____ / ____ ; tmp got rooms: ____ ; PASS/FAIL: ____
-- [ ] S4 expert: live v0.5.6 restarted — signal: ____
-- [ ] S5 planner: AC4 result reconciled into status — ____
+- [x] infra: PORT/HTTPS_PORT override (expert 86780fc) + reuseExistingServer:false via E2E_ISOLATED (tester 8c52359) — DONE
+- [x] prod re-cleaned to 2 rooms, live v0.5.7 — DONE (expert)
+- [ ] tester: AC4 isolated run (ports 4445/4001, DATA_DIR=tmp) — prod before/after: ____ / ____ ; tmp got rooms: ____ ; PASS/FAIL: ____
+- [ ] planner: AC4 result reconciled into status — ____
 
 ## QA Audit & User Feedback
 - 2026-05-26: Tron directive (via PO) — E2E flooded prod with test rooms; proper fix is isolated DATA_DIR. Tester interim afterAll cleanup is separate/immediate.

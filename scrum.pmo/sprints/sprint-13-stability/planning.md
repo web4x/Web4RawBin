@@ -41,8 +41,8 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
   - Sort lobby room list by createdAt desc (legacy `|| 0` → bottom, deterministic across restart)
 
 - [ ] [T100: Test Data Isolation — DATA_DIR override](./task-100-test-data-isolation.md)
-  **Status:** impl-done (21d46fa v0.5.6); testing IN PROGRESS — read-isolation proven but **AC4 isolated-run FAILED** (reuseExistingServer:true leaked to prod). PO-greenlit coordinated AC4 window driving in task file (expert re-purge+stop → tester reuseExistingServer:false + isolated run → expert restart). · R-T1 · test-infra
-  - server.ts resolves data base from `DATA_DIR` env (default=prod, unset→no change); AC4 (prod byte-unchanged) blocked until coordinated window completes
+  **Status:** impl-done (v0.5.7); testing IN PROGRESS — AC4 via NO-DOWNTIME isolated protocol (86780fc port override + 8c52359 reuseExistingServer:false; ports 4445/4001 + DATA_DIR=tmp, live stays up). Awaiting tester's isolated run to prove prod byte-unchanged. · R-T1 · test-infra
+  - DATA_DIR env (default=prod, unset→no change). AC1/AC2/AC5 + read-isolation proven; AC4 prod-untouched proof pending the isolated run (procedure + step tracker in task file)
 
 ## Dependency Graph
 ```
