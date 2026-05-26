@@ -85,6 +85,7 @@ Individual sprints:
 - [Sprint 12 — Editor Fixes](./scrum.pmo/sprints/sprint-12-editor-fixes/planning.md)
 - [Sprint 13 — Stability](./scrum.pmo/sprints/sprint-13-stability/planning.md)
 - [Sprint 14 — Legacy Data Migration](./scrum.pmo/sprints/sprint-14-legacy-migration/planning.md)
+- [Sprint 15 — Traceability Browser & Object Model](./scrum.pmo/sprints/sprint-15-traceability-browser/planning.md)
 
 ## Traceability
 
