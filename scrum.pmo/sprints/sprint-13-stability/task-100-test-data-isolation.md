@@ -12,7 +12,7 @@
 - [x] In Progress
   - [x] refinement (architect)
   - [x] creating test cases
-  - [ ] testing (tester — read-isolation PROVEN, but AC4 isolated-run FAILED: reuseExistingServer:true leaked test data into prod; fix = reuseExistingServer:false + live server down. AC4 NOT met.)
+  - [x] testing (tester — AC1-AC5 PASS; AC4 port-isolated run ed5c5de: prod data/rooms 3→3 sha-identical, tmp got 26 rooms, live stayed up. 7 disk-asserting specs need E2E_DATA_DIR — tester follow-up, not a T100 bug.)
 - [ ] QA Review
 - [ ] Done
 
@@ -141,7 +141,7 @@ on a separate port + tmp data:
 - [x] infra: PORT/HTTPS_PORT override (expert 86780fc) + reuseExistingServer:false via E2E_ISOLATED (tester 8c52359) — DONE
 - [x] prod re-cleaned to 2 rooms, live v0.5.7 — DONE (expert)
 - [x] tester: AC4 isolated run (ports 4445/4001, DATA_DIR=tmp) — prod data/rooms before/after: 3 / 3 (sha IDENTICAL) ; per-user rooms 3/3 ; tmp got rooms: YES (26 per-user rooms + 26 users + profiles.json) ; **PASS** (commit pending). Live stayed up on 4444 throughout.
-- [ ] planner: AC4 result reconciled into status — ____
+- [x] planner: AC4 PASS reconciled — testing box checked; T100 → tested, awaits Tron QA gate (ed5c5de).
 
 ### AC4 ISOLATED RUN — v0.5.7 port-isolation recipe (2026-05-26) — **PASS**
 Ran FULL suite with `E2E_ISOLATED=1 E2E_DATA_DIR=/tmp/rawbin-ac4b-*` → Playwright spawned its OWN server on **4445/4001** with tmp DATA_DIR; live prod server stayed UP on 4444 throughout.

@@ -41,8 +41,8 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
   - Sort lobby room list by createdAt desc (legacy `|| 0` → bottom, deterministic across restart)
 
 - [ ] [T100: Test Data Isolation — DATA_DIR override](./task-100-test-data-isolation.md)
-  **Status:** impl-done (v0.5.7); testing IN PROGRESS — AC4 via NO-DOWNTIME isolated protocol (86780fc port override + 8c52359 reuseExistingServer:false; ports 4445/4001 + DATA_DIR=tmp, live stays up). Awaiting tester's isolated run to prove prod byte-unchanged. · R-T1 · test-infra
-  - DATA_DIR env (default=prod, unset→no change). AC1/AC2/AC5 + read-isolation proven; AC4 prod-untouched proof pending the isolated run (procedure + step tracker in task file)
+  **Status:** impl + testing DONE (v0.5.7; AC4 PASS ed5c5de — port-isolated run, prod 3→3 sha-identical, live stayed up) — Tron QA pending · R-T1 · test-infra
+  - DATA_DIR env (default=prod). All AC1-AC5 met. Follow-up (tester): 7 disk-asserting specs to honor E2E_DATA_DIR (not a T100 bug)
 
 ## Dependency Graph
 ```
@@ -60,8 +60,7 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 | Tasks | 4 (T91-T94) |
 | Tron QA-approved (Done) | 0/4 |
 | Tasks | 6 (T91-T95, T100) |
-| Tested, awaiting Tron QA | T91, T92, T93, T94, T95 (5) |
-| Testing in progress | T100 (AC4 coordinated window — see task file) |
+| Tested, awaiting Tron QA | T91, T92, T93, T94, T95, T100 (6) |
 | Use case diagrams | 4 (architect, in diagrams/) |
 | Priority | T94 CRITICAL; T91-T93 HIGH |
 
