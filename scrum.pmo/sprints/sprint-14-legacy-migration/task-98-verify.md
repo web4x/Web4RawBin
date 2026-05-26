@@ -9,8 +9,8 @@
 - [ ] In Progress
   - [x] refinement (architect)
   - [ ] creating test cases
-  - [x] implementing (expert) — verifier ran, 55330a1
-  - [x] testing (tester) — PASS 55330a1: 141 token dirs preserved, bijective remap, 0 dangling, 3 real rooms intact, idempotent
+  - [x] implementing (expert) — verifier exists, 55330a1
+  - [ ] testing (tester) — ⚠️ 55330a1 PASS is STALE (ran pre-v0.5.17 re-migrate). CLEAN re-verify on current 3-room state required; verify-report.json PASS (19:43) present, pending PO confirm. Only the clean run counts for T99 gate-(a).
 - [ ] QA Review
 - [ ] Done
 
