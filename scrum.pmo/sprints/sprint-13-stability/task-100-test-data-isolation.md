@@ -81,6 +81,19 @@ dir and can never write into prod `data/`.
 - [ ] Tests pass, build clean
 - [ ] Tron QA approved
 
+## Test Results (robbin-tester, 2026-05-26, v0.5.6 live)
+
+**VERDICT: AC1/AC2/AC5 PASS, read-isolation PROVEN live. AC3 config landed. AC4 live full-suite byte-count BLOCKED on port — runs clean post purge-restart.**
+
+- **AC1** PASS — server.ts:134 `const DATA_DIR = process.env.DATA_DIR || path.join(__dirname,'../../../data')`. Confirmed in source.
+- **AC2** PASS — grep of server.ts/UserKeys.ts/RoomKeys.ts for hardcoded `'data/'`/`/data/rooms`/`/data/users`/`/data/profiles` (excluding DATA_DIR-derived) returns EMPTY. All write paths (PROFILES/DEVICES/PAIRING/bug-reports/ROOMS_DIR/LOGS_DIR + avatar encPath) derive from DATA_DIR.
+- **AC5** PASS by invariant — `process.env.DATA_DIR || <exact prior default>`; unset returns byte-identical default path → zero prod behavior change.
+- **READ-ISOLATION PROVEN (live)** — spawned `tsx server.ts` with `DATA_DIR=/tmp/e2e-dataproof-*` → server logged **"Per-user rooms: 0 registered"**. It scanned the EMPTY tmp dir, NOT prod's 230+ rooms. If DATA_DIR were ignored it would have registered 230+. Conclusive: room registry honors DATA_DIR.
+- **AC3** config landed — `playwright.config.ts` webServer.env sets `DATA_DIR` to `os.tmpdir()/rawbin-e2e-data` (override via E2E_DATA_DIR). When Playwright launches its own server (no live server on 4444), all E2E writes go to tmp.
+- **AC4 (prod byte-unchanged after full E2E)** — LIVE PROOF BLOCKED: port (HTTPS 4444 / HTTP 4000) is read ONLY from .env (not process.env), so a 2nd isolated server cannot bind alongside the running prod server (EADDRINUSE). Prod data/rooms also actively mutating (live purge: 241→230 observed). Clean byte-count proof runs once the live server is stopped/restarted (the purge-restart — v0.5.6 deploys then) and Playwright owns 4444 with DATA_DIR=tmp + reuseExistingServer:false.
+
+INTERIM MITIGATION still active: `cleanupTestRooms()` afterAll (commit 5823443) in room-order/identity/lifecycle specs — belt+suspenders with T100.
+
 ## QA Audit & User Feedback
 - 2026-05-26: Tron directive (via PO) — E2E flooded prod with test rooms; proper fix is isolated DATA_DIR. Tester interim afterAll cleanup is separate/immediate.
 
