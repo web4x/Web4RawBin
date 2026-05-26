@@ -207,12 +207,12 @@ function appendBugReport(name: string, text: string, token: string = ''): void {
 // Room manager
 const ROOMS_DIR = path.join(DATA_DIR, 'rooms');
 const roomManager = new RoomManager(ROOMS_DIR);
-roomManager.loadFromDisk();
+// T99: legacy roomManager.loadFromDisk(data/rooms) REMOVED — per-user/UUID dirs are now the
+// SOLE source of truth. Rooms load only from the per-user scan below.
 
-// T93: per-user rooms carry creatorToken (legacy data/rooms does NOT — owner-aware listing
-// needs it). For each per-user room: if a legacy copy is already loaded, BACKFILL its
-// creatorToken in place (no re-create → no name-collision rename / persist drift); otherwise
-// register it fresh. This makes the owner's full room set visible without clobbering names.
+// T93/T99: register every per-user room from its UUID dir (creatorToken carried in room.json).
+// (Pre-T99 this also backfilled creatorToken onto legacy-loaded copies; with the legacy load
+// gone, every per-user room is registered fresh here.)
 {
   let registered = 0, backfilled = 0;
   for (const { userToken, roomId, data } of scanAllRooms()) {

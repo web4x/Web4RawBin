@@ -13,14 +13,27 @@ conditions are satisfied and recorded in the QA Audit section below. Destructive
 irreversible (deletes code + data files) — the gate is non-negotiable.
 
 ## Status
-- [ ] Planned (BLOCKED by gate)
-- [ ] In Progress
+- [x] Planned (gate cleared)
+- [x] In Progress
   - [x] refinement (architect)
-  - [ ] creating test cases
-  - [ ] implementing (expert)
-  - [ ] testing (tester)
+  - [x] creating test cases
+  - [x] implementing (expert)
+  - [ ] testing (tester — full-suite regression, no legacy)
 - [ ] QA Review
 - [ ] Done
+
+## GATE LOG (both conditions MET before execution)
+- [x] **(a) T98 PASS** — data/migration/verify-report.json `PASS:true` (v0.5.17; PO-confirmed: 3 rooms, 141 bijective remap, 0 dangling).
+- [x] **(b) Tron deletion authorization** — granted 2026-05-26 (relayed via robbin-po).
+
+## Execution (robbin-expert, 2026-05-26, v0.5.19)
+- **Step 0 gate check:** verified verify-report.json PASS:true + Tron auth recorded; CONFIRMED all 3 real rooms present in per-user dirs (99e6a422+c5899b10 under 3dca7f5e, fe4d5664 under f4798dae) so removing the legacy path is loss-free.
+- **Step 1 backup:** web4rawbin-pre-T99-backup-20260526T175321Z.tar.gz (65M), verified readable (3 data/rooms + 141 token dirs), sha256 4359315d41c38b77b4e40899a435d13c789c15a33d8b66968ec68bb55faca640.
+- **Step 2 code (AC1):** removed `roomManager.loadFromDisk()` call (server.ts) → per-user UUID scan is the SOLE load source. Restarted v0.5.19 → rooms=3 (unchanged) BEFORE any delete — proved per-user-only load.
+- **Step 3 files (AC2/AC3):** deleted data/rooms/ (3 redundant, all per-user-present); deleted 141 token-* ORIGINAL dirs via the remap table (guarded: each old token confirmed to have a populated UUID target first; never a glob; 0 skipped). _unowned untouched (none existed — 0 orphans). per-user rooms intact = 3.
+- **Step 4 verify (AC4):** restarted → /api/health=0.5.19 rooms=3; the 3 real rooms (Marcel Donges's Room, Admins's Room, Marcel Surface Mini) load from per-user ONLY. Zero loss post-deletion. 0 token-* dirs, no data/rooms.
+- NOTE: Room.persist still dual-writes to persistDir on NEW room creation (data/rooms could reappear on a future create) — never READ (loadFromDisk gone), a minor write-cleanup follow-up, not in T99 scope. Rollback artifact retained.
+- v0.5.19, sw.js rawbin-v0.5.19. Tester: full-suite regression (no legacy).
 
 ## Design (robbin-architect) — safe-delete sequence (POST-GATE ONLY)
 
