@@ -140,12 +140,20 @@ on a separate port + tmp data:
 ### STEP TRACKER (agents update their line)
 - [x] infra: PORT/HTTPS_PORT override (expert 86780fc) + reuseExistingServer:false via E2E_ISOLATED (tester 8c52359) — DONE
 - [x] prod re-cleaned to 2 rooms, live v0.5.7 — DONE (expert)
-- [ ] tester: AC4 isolated run (ports 4445/4001, DATA_DIR=tmp) — prod before/after: ____ / ____ ; tmp got rooms: ____ ; PASS/FAIL: ____
+- [x] tester: AC4 isolated run (ports 4445/4001, DATA_DIR=tmp) — prod data/rooms before/after: 3 / 3 (sha IDENTICAL) ; per-user rooms 3/3 ; tmp got rooms: YES (26 per-user rooms + 26 users + profiles.json) ; **PASS** (commit pending). Live stayed up on 4444 throughout.
 - [ ] planner: AC4 result reconciled into status — ____
+
+### AC4 ISOLATED RUN — v0.5.7 port-isolation recipe (2026-05-26) — **PASS**
+Ran FULL suite with `E2E_ISOLATED=1 E2E_DATA_DIR=/tmp/rawbin-ac4b-*` → Playwright spawned its OWN server on **4445/4001** with tmp DATA_DIR; live prod server stayed UP on 4444 throughout.
+- **PROD UNCHANGED (AC4 ✓):** data/rooms 3→3, per-user rooms 3→3, combined sha **IDENTICAL** (52066d2a…) before/after. Prod provably untouched.
+- **tmp got the data (isolation ✓):** /tmp/rawbin-ac4b-* received 26 per-user rooms + 26 users + profiles.json — all test writes landed in tmp, none in prod.
+- **Suite:** 33/40 PASS. The 7 "failures" are NOT product/isolation bugs — they are disk-asserting specs (room-identity TS1/2/3/5, multi-room-lobby AC1/AC5, lobby-card-badges) whose helpers (`findUserRooms`) read the hardcoded PROD `data/` path; under isolation the server writes to tmp, so they can't find their rooms in prod. This actually CONFIRMS isolation. **Follow-up (tester): make disk-asserting specs read `process.env.E2E_DATA_DIR` when set, so they pass in isolated mode.** Those 7 pass against the live shared server (non-isolated) as before.
+
+**AC4 MET.** Port + DATA_DIR isolation proven: full E2E cannot touch prod even with the live server up.
 
 ## QA Audit & User Feedback
 - 2026-05-26: Tron directive (via PO) — E2E flooded prod with test rooms; proper fix is isolated DATA_DIR. Tester interim afterAll cleanup is separate/immediate.
-- 2026-05-26: AC4 isolated-run FAILED (reuseExistingServer:true race leaked to prod). PO green-lit a coordinated window (above); planner driving. testing box UNCHECKED until AC4 PASS.
+- 2026-05-26: AC4 isolated-run FAILED (reuseExistingServer:true race leaked to prod). PO green-lit; expert added port override (86780fc), tester added E2E_ISOLATED port isolation (playwright.config). Re-run PASSED — prod byte-unchanged, tmp populated. AC4 MET.
 
 ## Subtasks
 None (atomic task).

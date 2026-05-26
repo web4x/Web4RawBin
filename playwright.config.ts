@@ -2,6 +2,16 @@ import { defineConfig } from '@playwright/test';
 import path from 'node:path';
 import os from 'node:os';
 
+// T100: ISOLATED AC4 mode (E2E_ISOLATED=1) — Playwright spawns its OWN server on a
+// SEPARATE port (4445/4001) with an isolated tmp DATA_DIR, so the live prod server on
+// 4444 is fully untouched (cannot be reused — different port). Both port AND data dir
+// isolated. Requires expert's process.env.HTTPS_PORT/PORT override (server.ts:64-65).
+// Learned the hard way: reuseExistingServer:true + shared port 4444 leaked test data
+// to prod when the live server was up. Port isolation removes the race entirely.
+const ISOLATED = process.env.E2E_ISOLATED === '1';
+const HTTPS_PORT = ISOLATED ? '4445' : '4444';
+const BASE_URL = `https://localhost:${HTTPS_PORT}`;
+
 export default defineConfig({
   testDir: 'test/e2e',
   timeout: 30000,
@@ -9,7 +19,7 @@ export default defineConfig({
   workers: 1,
   fullyParallel: false,
   use: {
-    baseURL: 'https://localhost:4444',
+    baseURL: BASE_URL,
     ignoreHTTPSErrors: true,
     headless: true,
     viewport: { width: 1280, height: 720 },
@@ -17,23 +27,17 @@ export default defineConfig({
   projects: [
     { name: 'chromium', use: { browserName: 'chromium' } },
   ],
-  // T100: isolate E2E data via DATA_DIR → all writes go to an isolated tmp dir,
-  // prod data/ untouched. CRITICAL (learned the hard way 2026-05-26): with
-  // reuseExistingServer:true Playwright will REUSE a live server on 4444 (incl. one
-  // that restarts mid-run) → it uses the live server's prod DATA_DIR, not ours,
-  // and test data LEAKS to prod. So when E2E_ISOLATED=1 we set reuseExistingServer:FALSE
-  // — Playwright MUST own its server with DATA_DIR=tmp. Requirement: the live server
-  // must be DOWN for the whole isolated run (no mid-run restart on 4444).
   webServer: {
     command: 'npm run dev',
-    url: 'https://localhost:4444',
+    url: BASE_URL,
     ignoreHTTPSErrors: true,
     timeout: 15000,
-    // Default true for normal dev runs; force false for the isolated AC4 proof run.
-    reuseExistingServer: process.env.E2E_ISOLATED !== '1',
+    // ISOLATED: never reuse a live server — spawn our own on 4445 with tmp data.
+    reuseExistingServer: !ISOLATED,
     env: {
       ...process.env,
       DATA_DIR: process.env.E2E_DATA_DIR || path.join(os.tmpdir(), 'rawbin-e2e-data'),
+      ...(ISOLATED ? { HTTPS_PORT: '4445', PORT: '4001' } : {}),
     },
   },
 });
