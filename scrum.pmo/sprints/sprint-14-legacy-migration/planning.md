@@ -37,11 +37,11 @@ auditable no-data-loss proof and a GATED removal of the legacy path.
   - Architect finding: 141 token-* dirs are self-contained (0 profiles/ssh; 171 rooms) → copy-then-rename + rewrite ownerToken in copies; remap table → token-remap.json
 
 - [ ] [T98: Migration integrity verification (no-data-loss proof)](./task-98-verify.md)
-  **Status:** verify run — ⚠️ the 55330a1 PASS ran BEFORE the v0.5.17 re-pollution/re-purge/re-migrate, so it is STALE. A CLEAN re-verify on current 3-room state must PASS + write data/migration/verify-report.json. (A PASS report dated 19:43 is present; PO confirms it reflects current data before it counts.) · R14.3 · **GATES T99**
-  - No-data-loss must be proven on CURRENT data; only the clean re-verify counts for T99 gate-(a).
+  **Status:** ✅ CLEAN re-verify PASS (PO-confirmed) — verify-report.json PASS:true, serverVersion 0.5.17, legacy data/rooms=3 (post-purge), 141 bijective remap, 0 dangling, 3 real rooms intact. Tron QA pending. · R14.3 · **GATES T99**
+  - No-data-loss proven on CURRENT data. T99 gate-(a) clean-T98-PASS is MET.
 
 - [ ] [T99: Remove legacy load path + files — ⛔ GATED](./task-99-remove-legacy.md)
-  **Status:** refinement done — ⛔ **STILL GATED** · (a) T98 clean re-verify PASS — NOT yet confirmed (55330a1 is stale/pre-re-migrate; clean run on current data pending PO confirm); (b) Tron deletion authorization STILL REQUIRED. BOTH unmet. NEVER auto-runs. · R14.4 · delete phase (LAST)
+  **Status:** refinement done — ⛔ **STILL GATED** · (a) clean T98 re-verify PASS ✅ MET (PO-confirmed, v0.5.17); (b) Tron deletion authorization STILL REQUIRED — PO taking it to Tron now. Until Tron authorizes, T99 NEVER runs. · R14.4 · delete phase (LAST)
   - **GATE: starts ONLY after (a) T98 verify PASS AND (b) explicit Tron authorization. NEVER auto-runs.**
   - Remove legacy loadFromDisk; delete data/rooms/ + migrated token dirs (after backup tar)
 
@@ -60,8 +60,8 @@ T99's QA Audit GATE LOG before any implementation begins.
 | Tasks | 4 (T96-T99) |
 | Tron QA-approved (Done) | 0/4 |
 | Migrate done | T96, T97 (5dc7a53 v0.5.12) |
-| Verify | T98 — 55330a1 PASS is STALE (pre-re-migrate); CLEAN re-verify on current data pending PO confirm (PASS report dated 19:43 present) |
-| T99 gate | ⛔ blocked: (a) clean re-verify PASS NOT confirmed; (b) Tron deletion auth required — BOTH unmet |
+| Verify ✅ | T98 — CLEAN re-verify PASS (PO-confirmed, v0.5.17, 3 rooms, 141 bijective, 0 dangling) — Tron QA pending |
+| T99 gate | ⛔ blocked: (a) clean T98 PASS ✅ MET; (b) Tron deletion auth — PO taking to Tron now |
 | Phases | migrate (T96,T97) → verify (T98) → ⛔gate→ delete (T99) |
 | Use case diagrams | 1 (architect — migration-workflow) |
 
