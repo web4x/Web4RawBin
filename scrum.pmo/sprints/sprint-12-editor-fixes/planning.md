@@ -16,7 +16,7 @@ approved [traceability standard](../../standards/traceability-standard.md).
 ## Task List
 
 - [ ] [T84: Editor back button navigates to parent directory, not /app](./task-84-editor-back-button.md)
-  **Status:** impl-done + committed (24482f7, v0.4.10) — testing (TS1-TS4) + Tron QA pending
+  **Status:** impl + testing DONE (24482f7 v0.4.10; tester 4/4, 6db4ba3) — Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   - `rb-editor-toolbar.ts:36` hardcodes `<a href="/app">` — derive parent dir from `this._path`
   - Relabel "← App" → "← Back"; keep `📂` root-browse button
@@ -27,7 +27,7 @@ approved [traceability standard](../../standards/traceability-standard.md).
 |--------|-------|
 | Tasks | 1 (T84) — opening |
 | Tron QA-approved (Done) | 0/1 |
-| Impl-done, testing+QA pending | 1 (T84, v0.4.10) |
+| Tested, awaiting Tron QA | 1 (T84 — tester 4/4) |
 
 ## Definition of Done
 - [ ] Editor back button goes to parent dir of current file (all AC)

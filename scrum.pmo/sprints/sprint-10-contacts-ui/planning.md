@@ -15,7 +15,7 @@ code path and ensure "tap anywhere on a badge" works.
 ## Task List
 
 - [ ] [T81: Member Click → Profile Sheet → vCard Download](./task-81-member-click-vcard.md)
-  **Status:** impl-done (v0.4.9) — testing (robbin-tester, TS1-TS5) + Tron QA pending
+  **Status:** impl + testing DONE (v0.4.9; tester 6/6, c88b4eb) — Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   - Fix key mismatch: client reads `msg.user` not `msg.profile` (RoomView.ts:99)
   - rb-avatar `readonly` attr so badge avatars bubble click (tap-anywhere)
@@ -25,13 +25,13 @@ code path and ensure "tap anywhere on a badge" works.
   - NOTE: AC6 (self-click→ProfileEditor) SUPERSEDED by T83
 
 - [ ] [T82: vCard Button Visibility + ProfileSheet Avatar DRY](./task-82-vcard-visibility-avatar-dry.md)
-  **Status:** impl-done + committed (86256fa, v0.5.0) — testing + Tron QA pending
+  **Status:** impl + testing DONE (86256fa v0.5.0; tester 6/6, c88b4eb) — Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   - vCard button invisible (CSS contrast bug, not missing)
   - ProfileSheet avatar: replace duplicated inline `<img>` with `rb-avatar` (DRY)
 
 - [ ] [T83: Self-Click Opens Profile Sheet, Not Profile Editor](./task-83-self-click-profile.md)
-  **Status:** impl-done + committed (c67bc11, v0.5.3 — self-click→sheet + Edit button) — testing + Tron QA pending
+  **Status:** impl + testing DONE (c67bc11 v0.5.3; tester 6/6, c88b4eb) — Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   - Self-click in member list → read-only ProfileSheet (was ProfileEditor)
   - CHANGES T81 AC6 (Tron directive 2026-05-25)
@@ -41,7 +41,7 @@ code path and ensure "tap anywhere on a badge" works.
 |--------|-------|
 | Tasks | 3 (T81, T82, T83) |
 | Tron QA-approved (Done) | 0/3 |
-| Impl-done, testing+QA pending | 3 (T81 v0.4.9, T82 v0.5.0, T83 v0.5.3) |
+| Tested, awaiting Tron QA | 3/3 (T81, T82, T83 — tester 6/6) |
 
 ## Definition of Done
 - [ ] Tapping a joined member (name/avatar/dot) opens their profile sheet
