@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { ensureLobby } from './helpers';
+import { ensureLobby, cleanupTestRooms } from './helpers';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -16,6 +16,13 @@ function findUserRooms(token: string): string[] {
 }
 
 test.describe('T79: Room Identity E2E', () => {
+
+  // Clean rooms this spec creates: custom names + "<User>'s Room" defaults
+  test.afterAll(() => {
+    const n = cleanupTestRooms(/(RoomE2E|SshE2E|NameE2E|DeleteE2E|VisibleE2E|VisibleRoom|SyncOwner|SyncTestRoom|SyncViewer)/);
+    console.log(`[room-identity cleanup] removed ${n} test rooms`);
+  });
+
 
   test('(1) Create room → dir exists on disk', async ({ page }) => {
     await ensureLobby(page, 'RoomE2E');

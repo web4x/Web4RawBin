@@ -1,7 +1,13 @@
 import { test, expect } from '@playwright/test';
-import { ensureLobby } from './helpers.js';
+import { ensureLobby, cleanupTestRooms } from './helpers.js';
 
 test.describe('T13.3: Room Lifecycle', () => {
+
+  test.afterAll(() => {
+    const n = cleanupTestRooms(/^E2E-Room/);
+    console.log(`[room-lifecycle cleanup] removed ${n} test rooms`);
+  });
+
   test('create room, chat, leave, rejoin, delete', async ({ page }) => {
     await ensureLobby(page, 'E2E-Room-Test');
 

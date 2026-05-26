@@ -1,5 +1,5 @@
 import { test, expect, Page } from '@playwright/test';
-import { ensureLobby } from './helpers';
+import { ensureLobby, cleanupTestRooms } from './helpers';
 
 async function createRoom(page: Page, name: string): Promise<void> {
   await page.click('#create-room-btn');
@@ -25,6 +25,12 @@ async function createRoom(page: Page, name: string): Promise<void> {
 }
 
 test.describe('T95: Lobby newest-first ordering', () => {
+
+  // Clean up the Alpha/Bravo/Charlie-T95-* rooms this spec creates (no prod flood)
+  test.afterAll(() => {
+    const n = cleanupTestRooms(/^(Alpha|Bravo|Charlie)-T95-/);
+    console.log(`[room-order cleanup] removed ${n} test rooms`);
+  });
 
   test('TS1: Alpha, Bravo, Charlie → list shows Charlie, Bravo, Alpha', async ({ page }) => {
     await ensureLobby(page, 'OrderUser');

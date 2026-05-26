@@ -1,4 +1,37 @@
 import { Page } from '@playwright/test';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const HELPERS_DIR = path.dirname(fileURLToPath(import.meta.url));
+const DATA_USERS_DIR = path.resolve(HELPERS_DIR, '../../data/users');
+
+/**
+ * Delete test-created rooms whose room.json `name` matches `pattern`.
+ * Scans data/users/* /rooms/* /room.json and rmSync's matching room dirs.
+ * Use in afterAll to avoid flooding prod data with test rooms.
+ * Returns count of rooms removed.
+ */
+export function cleanupTestRooms(pattern: RegExp): number {
+  let removed = 0;
+  if (!fs.existsSync(DATA_USERS_DIR)) return 0;
+  for (const userDir of fs.readdirSync(DATA_USERS_DIR)) {
+    const roomsDir = path.join(DATA_USERS_DIR, userDir, 'rooms');
+    if (!fs.existsSync(roomsDir)) continue;
+    for (const roomId of fs.readdirSync(roomsDir)) {
+      const jsonPath = path.join(roomsDir, roomId, 'room.json');
+      if (!fs.existsSync(jsonPath)) continue;
+      try {
+        const meta = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
+        if (typeof meta.name === 'string' && pattern.test(meta.name)) {
+          fs.rmSync(path.join(roomsDir, roomId), { recursive: true, force: true });
+          removed++;
+        }
+      } catch { /* skip corrupt */ }
+    }
+  }
+  return removed;
+}
 
 export async function ensureLobby(page: Page, name: string): Promise<void> {
   await page.goto('/app');
