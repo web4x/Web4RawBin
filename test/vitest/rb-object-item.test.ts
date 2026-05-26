@@ -10,6 +10,12 @@ import { RbObjectItem } from '../../src/public/ts/trace/rb-object-item.js';
 import { ViewBus } from '../../src/public/ts/trace/ViewBus.js';
 import { setActiveRouter } from '../../src/public/ts/trace/nav.js';
 
+// Under vitest-jsdom the component module is evaluated before jsdom attaches
+// `customElements`, so its top-level self-register guard (`typeof customElements
+// !== 'undefined'`) is skipped. In a real browser customElements always exists, so
+// the component registers fine. Replicate that here: ensure registration before use.
+if (!customElements.get('rb-object-item')) customElements.define('rb-object-item', RbObjectItem);
+
 const UUID = '15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01';
 const TYPES = ['requirement', 'task', 'usecase', 'class', 'method', 'implementation', 'test'];
 
