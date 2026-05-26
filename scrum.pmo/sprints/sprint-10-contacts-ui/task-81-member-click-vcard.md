@@ -10,7 +10,7 @@
   - [x] refinement
   - [x] creating test cases
   - [x] implementing
-  - [ ] testing (handed to robbin-tester — TS1-TS5)
+  - [x] testing (robbin-tester — TS1/TS2/TS4/TS5; TS3 superseded by T83)
 - [ ] QA Review
 - [ ] Done
 
@@ -145,17 +145,28 @@ Result: `/api/config` and `/api/health` report `version: 0.4.9`; the client's up
 
 ## Acceptance Criteria
 
-- [ ] AC1: Tapping a joined member's **name** opens their profile sheet (`.user-sheet` visible)
-- [ ] AC2: Tapping a joined member's **avatar** opens their profile sheet (NOT the avatar editor overlay)
-- [ ] AC3: Tapping a joined member's **status dot** opens their profile sheet
-- [ ] AC4: The opened sheet shows the member's name and avatar
-- [ ] AC5: "Download vCard" button is present in the sheet and clicking it invokes the vCard builder (produces a .vcf blob)
-- [ ] AC6: Tapping OWN badge opens ProfileEditor (self-edit path preserved, NOT the read-only sheet) — NOTE: SUPERSEDED by [T83](./task-83-self-click-profile.md), which changes self-click to open the read-only ProfileSheet per Tron directive 2026-05-25
-- [ ] AC7: Exactly ONE `GET_USER_INFO` WS message is sent per tap (no listener stacking) — verify after navigating room→lobby→room twice
-- [ ] AC8: Lobby avatar (RoomBrowser) and ProfileEditor avatar remain editable (tapping them opens the editor overlay — readonly NOT applied there)
-- [ ] AC9: `npm run build` succeeds
-- [ ] AC10: All existing E2E specs still pass (no regression) + new test (below) passes
-- [ ] AC11: Served bundle reflects **v0.4.9** — `GET /api/health` (and `/api/config`) report `version: 0.4.9`, and built `sw.js` CACHE_NAME is `rawbin-v0.4.9` (so the PWA update banner fires and the fix reaches the device)
+- [x] AC1: Tapping a joined member's **name** opens their profile sheet (`.user-sheet` visible)
+- [x] AC2: Tapping a joined member's **avatar** opens their profile sheet (NOT the avatar editor overlay)
+- [x] AC3: Tapping a joined member's **status dot** opens their profile sheet
+- [x] AC4: The opened sheet shows the member's name and avatar
+- [x] AC5: "Download vCard" button is present in the sheet and clicking it invokes the vCard builder (produces a .vcf blob)
+- [~] AC6: Tapping OWN badge opens ProfileEditor — **SUPERSEDED by [T83](./task-83-self-click-profile.md)**: self-tap now opens the read-only ProfileSheet (verified in T83 TS1). The old assertion was replaced, not kept.
+- [x] AC7: Exactly ONE `GET_USER_INFO` WS message is sent per tap (no listener stacking) — verified after navigating room→lobby→room twice (WS frame count == 1)
+- [x] AC8: Lobby avatar (RoomBrowser) and ProfileEditor avatar remain editable (tapping them opens the editor overlay — readonly NOT applied there)
+- [x] AC9: `npm run build` succeeds (expert; live server now v0.5.4, well past v0.4.9)
+- [x] AC10: All existing E2E specs still pass (no regression) + new test passes
+- [x] AC11: Served bundle reflects the bump — live `/api/health` + `/api/config` now report v0.5.4 (advanced past v0.4.9 via subsequent deploys; PWA update path exercised by T94)
+
+## Test Results (robbin-tester, 2026-05-26) — PASS (TS3 inverted by T83)
+Test: `test/e2e/contacts-ui.spec.ts` (6/6 PASS, 23.3s) against live server.
+| TS | Check | Result |
+|----|-------|--------|
+| TS1/AC1,4,5 | OwnerA + GuestB two-client: tap GuestB badge → `.user-sheet` visible, name 'GuestB', `#us-vcard` visible | PASS ✓ |
+| TS2/AC2 | sheet avatar is `rb-avatar` (readonly); tapping it does NOT open `#ov-upload-btn` editor | PASS ✓ |
+| TS4/AC7 | after room→lobby→room ×2, exactly **1** `GET_USER_INFO` WS frame per tap (no stacking) | PASS ✓ |
+| TS5/AC8 | lobby `rb-avatar` (editable) → `#ov-upload-btn` editor opens | PASS ✓ |
+| AC3 | tap-anywhere (name/avatar/badge) opens sheet — readonly avatar lets the click bubble to `rb-member-click` | PASS ✓ |
+| ~~TS3~~ | self-tap → **`.user-sheet`** (NOT `#pe-name`) — the T81 AC6/TS3 inversion, verified in T83 | REPLACED ✓ |
 
 ---
 

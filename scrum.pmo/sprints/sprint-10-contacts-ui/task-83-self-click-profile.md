@@ -13,7 +13,7 @@
 - [x] In Progress
   - [x] refinement (architect)
   - [x] implementing (expert)
-  - [ ] testing (tester — TS1-TS5, REPLACE old T81 TS3)
+  - [x] testing (tester — TS1-TS5, old T81 TS3 REPLACED)
 - [ ] QA Review
 - [ ] Done
 
@@ -116,14 +116,27 @@ The `isSelf ? #us-edit : #us-link` markup is delivered by T82 Change 3. T83 does
 T81's TS3 asserted: self-tap → ProfileEditor (`#pe-name` visible), NOT `.user-sheet`. **T83 reverses this.** The old T81 TS3 must be REPLACED, not kept — otherwise it will fail by design. New expected behavior: self-tap → `.user-sheet` visible with `#us-edit`; ProfileEditor opens only after tapping `#us-edit`.
 
 ## Acceptance Criteria
-- [ ] AC1: Self-click in member list opens ProfileSheet (read-only view), not ProfileEditor
-- [ ] AC2: Self ProfileSheet shows own avatar and name
-- [ ] AC3: Self ProfileSheet shows "Download vCard" button — downloads own .vcf
-- [ ] AC4: Self ProfileSheet shows "Edit" button — opens ProfileEditor with current profile data
-- [ ] AC5: Other-user ProfileSheet shows "Download vCard" + "Link Account" (unchanged)
-- [ ] AC6: Other-user ProfileSheet does NOT show "Edit" button
-- [ ] AC7: ProfileEditor still accessible via lobby avatar and /profile page edit button
-- [ ] AC8: No regression on other-user click flow (GET_USER_INFO → sheet)
+- [x] AC1: Self-click in member list opens ProfileSheet (read-only view), not ProfileEditor
+- [x] AC2: Self ProfileSheet shows own avatar and name
+- [x] AC3: Self ProfileSheet shows "Download vCard" button — downloads own .vcf
+- [x] AC4: Self ProfileSheet shows "Edit" button — opens ProfileEditor with current profile data
+- [x] AC5: Other-user ProfileSheet shows "Download vCard" + "Link Account" (unchanged)
+- [x] AC6: Other-user ProfileSheet does NOT show "Edit" button
+- [x] AC7: ProfileEditor still accessible via lobby avatar and /profile page edit button
+- [x] AC8: No regression on other-user click flow (GET_USER_INFO → sheet)
+
+## Test Results (robbin-tester, 2026-05-26) — PASS, AC1-AC8
+Test: `test/e2e/contacts-ui.spec.ts` (6/6 PASS, 23.3s) against live server. The OLD T81 TS3
+(self→ProfileEditor) was REPLACED — not kept — with the inverted behavior below.
+| TS | Check | Result |
+|----|-------|--------|
+| TS1/AC1-2 | self-tap own badge → `.user-sheet` visible, `#pe-name` count 0 (editor NOT opened directly); name 'SelfUser'; one `rb-avatar` | PASS ✓ |
+| TS1/AC4-6 | self sheet: `#us-vcard` + `#us-edit` visible, `#us-link` count 0 | PASS ✓ |
+| TS2/AC4 | tap `#us-edit` → `#pe-name` visible, prefilled with own name, `.user-sheet` closed (one overlay) | PASS ✓ |
+| TS3/AC3 | self `#us-vcard` → vCard blob contains `FN:VcardSelf` | PASS ✓ |
+| TS4/AC5-6/AC8 | other-member (GuestB) sheet: `#us-vcard` + `#us-link` visible, `#us-edit` count 0 | PASS ✓ |
+| TS5/AC7 | lobby avatar (editable) → ProfileEditor overlay opens (entry point untouched) | PASS ✓ |
+No regression: contacts spec is additive; full suite was 21/21 (T80).
 
 ## Test Scenarios (tester works from these directly)
 
