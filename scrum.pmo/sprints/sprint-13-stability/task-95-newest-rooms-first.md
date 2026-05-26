@@ -96,8 +96,18 @@ Sorting server-side in the shared seam means newest-first is identical for every
 - depends
   - Builds on T93 (`roomListFor`/owner-aware list) — already landed.
 
-## QA Audit & User Feedback
-- 2026-05-26 robbin-architect: design + createdAt finding (field already exists, no schema change). Single-seam sort in enrichRoomList. Ready for PO review.
+## Test Results (robbin-tester, 2026-05-26, v0.5.5 live)
+
+**VERDICT: PASS.** TS1 + AC1/AC3/AC4/AC5 verified.
+
+- **TS1 E2E (AC1/AC2)** — `test/e2e/room-order.spec.ts` (1/1 PASS, live v0.5.5): created Alpha→Bravo→Charlie (unique tag), read rendered `#room-list` `.room-card .room-name` order top→bottom = **[Charlie, Bravo, Alpha]** (newest-first). Confirmed.
+- **Unit (AC1/AC3/AC4/AC5)** — `test/vitest/room-order.test.ts` (10/10 PASS): replicates enrichRoomList comparator `(b.createdAt||0)-(a.createdAt||0)`. Covers: newest-first regardless of input order, fresh room→top, legacy (undefined createdAt)→bottom deterministically, createdAt=0 treated as missing, no rooms dropped (count in==out), owner-aware private room preserved + ordered, idempotent re-sort (stable across restart).
+- **AC4 legacy sink** — verified: undefined/0 createdAt sorts last, no error, no reshuffle.
+- **AC5 no drop** — verified: enrich adds ownerName, sort reorders only, count preserved.
+- **AC3 restart stability** — covered by idempotent-sort unit test + design (createdAt restored from disk via fromPersisted, not regenerated). Live restart re-check is Tron device QA / optional.
+- **AC6 build** — server live at v0.5.5 (per /api/health), bundle served.
+
+NOTE: TS1 E2E hit the LIVE server and created 3 real rooms (data flooding — see PO directive). Self-cleanup fix tracked separately; these specs need afterAll room-delete or isolated test-data dir.
 
 ## Subtasks
 None (atomic task).
