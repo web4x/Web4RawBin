@@ -37,11 +37,11 @@ auditable no-data-loss proof and a GATED removal of the legacy path.
   - Architect finding: 141 token-* dirs are self-contained (0 profiles/ssh; 171 rooms) → copy-then-rename + rewrite ownerToken in copies; remap table → token-remap.json
 
 - [ ] [T98: Migration integrity verification (no-data-loss proof)](./task-98-verify.md)
-  **Status:** refinement done + committed (d953d5a, 4501e05 run-time baseline) — impl pending · R14.3 · verify phase — **GATES T99**
-  - 6 invariants (coverage, no-drop, content on immutable fields, remap completeness, zero dangling token-, UUID-only end-state); read-only; verify-report.json PASS/FAIL
+  **Status:** ✅ PASS (55330a1) — 141 token dirs preserved, bijective remap, 0 dangling, 3 real rooms intact, idempotent. Tron QA pending. · R14.3 · verify phase — **GATES T99**
+  - No-data-loss proven. T99 gate condition (a) T98 PASS is now MET.
 
 - [ ] [T99: Remove legacy load path + files — ⛔ GATED](./task-99-remove-legacy.md)
-  **Status:** refinement done + committed (d953d5a, safe-delete sequence) — ⛔ **STILL BLOCKED by gate** (T98 PASS + Tron auth) · R14.4 · delete phase (LAST)
+  **Status:** refinement done — ⛔ **STILL GATED** · (a) T98 PASS ✅ MET (55330a1); (b) Tron deletion authorization STILL REQUIRED (PO to bring Tron the verify result + ask). NEVER auto-runs. · R14.4 · delete phase (LAST)
   - **GATE: starts ONLY after (a) T98 verify PASS AND (b) explicit Tron authorization. NEVER auto-runs.**
   - Remove legacy loadFromDisk; delete data/rooms/ + migrated token dirs (after backup tar)
 
@@ -59,9 +59,9 @@ T99's QA Audit GATE LOG before any implementation begins.
 |--------|-------|
 | Tasks | 4 (T96-T99) |
 | Tron QA-approved (Done) | 0/4 |
-| Impl-done | T96, T97 (migrate — 5dc7a53 v0.5.12, copy-only idempotent) |
-| Next | T98 verify (gates T99) |
-| T99 gate | ⛔ still blocked (needs T98 PASS + Tron deletion auth) |
+| Migrate done | T96, T97 (5dc7a53 v0.5.12) |
+| Verify ✅ PASS | T98 (55330a1) — Tron QA pending |
+| T99 gate | ⛔ blocked: (a) T98 PASS ✅ MET; (b) Tron deletion auth STILL REQUIRED |
 | Phases | migrate (T96,T97) → verify (T98) → ⛔gate→ delete (T99) |
 | Use case diagrams | 1 (architect — migration-workflow) |
 

@@ -47,7 +47,7 @@ flat JSON of object state with route-like references to other objects (no protoc
 - [ ] [T106: ListOverview Component + Search → remoteSearch](./task-106-list-overview-search.md)
   **R15.5** · expert+tester · requires T105 · impl-done (e0df213 v0.5.16 — rb-list-overview + SearchProvider local→remote) — testing pending
 - [ ] [T107: Task DetailViews + Planning Overview (always consistent)](./task-107-detail-overview-views.md)
-  **R15.6** · expert+tester · requires T103
+  **R15.6** · expert+tester · requires T103 · impl-done (ce15c08 v0.5.17 — rb-detail-view + rb-overview computed-from-graph) — testing pending
 
 ### Phase 4 — Browser (capstone)
 - [ ] [T108: Traceability Browser — tree-navigable graph in Documentation](./task-108-traceability-browser.md)
@@ -69,9 +69,9 @@ T103 ─┬→ T105 (defaultItemView) → T106 (ListOverview+search) ┤
 |--------|-------|
 | Tasks | 8 (T101-T108) |
 | Tron QA-approved (Done) | 0/8 |
-| Tested, awaiting Tron QA | 1 (T101 — 8/8) |
-| Impl-done, testing pending | 4 (T102, T103, T105, T106 — v0.5.11→v0.5.16) |
-| Planned | 3 (T104 diagrams, T107, T108) |
+| Tested, awaiting Tron QA | 5 (T101 8/8, T102 10/10, T103 11/11, T105 5/5, T106 7/7) |
+| Impl-done, testing pending | 1 (T107 — rb-detail/overview, v0.5.17) |
+| In progress | 2 (T104 diagrams, T108 browser capstone) |
 | Requirements | R15.1-R15.7 (from Tron literal R1-R4) |
 | Use case diagrams | 1 (Object.verb, architect) |
 

@@ -10,7 +10,7 @@
   - [ ] refinement (architect — implemented ahead of refinement per PO; architect to review scan heuristics)
   - [x] creating test cases
   - [x] implementing (expert)
-  - [ ] testing (tester — run trace-consistency.test.ts + `npm run trace:check`)
+  - [x] testing (tester — run trace-consistency.test.ts + `npm run trace:check`) — trace-consistency 10/10 PASS, 1d9d4fd; trace:check engine flags 14 repo gaps = working as intended
 - [ ] QA Review
 - [ ] Done
 

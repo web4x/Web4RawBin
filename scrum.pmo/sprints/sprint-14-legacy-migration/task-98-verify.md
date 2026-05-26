@@ -9,8 +9,8 @@
 - [ ] In Progress
   - [x] refinement (architect)
   - [ ] creating test cases
-  - [ ] implementing (expert)
-  - [ ] testing (tester)
+  - [x] implementing (expert) — verifier ran, 55330a1
+  - [x] testing (tester) — PASS 55330a1: 141 token dirs preserved, bijective remap, 0 dangling, 3 real rooms intact, idempotent
 - [ ] QA Review
 - [ ] Done
 

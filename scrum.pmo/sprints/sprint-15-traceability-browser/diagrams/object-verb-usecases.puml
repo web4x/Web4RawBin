@@ -1,0 +1,90 @@
+@startuml Object.verb Use Cases — Traceability Browser
+!theme plain
+skinparam packageStyle rectangle
+skinparam usecaseBackgroundColor #E8F0FE
+title Sprint 15 — Object.verb Use Cases (Object = noun/class, verb = method ≈ route ≈ OOSH CLI)
+
+actor "User\n(Browser)" as User
+actor "Server\n(scan/serve)" as Server
+
+' ── Object: Requirement ──────────────────────────────
+rectangle "Requirement" as R {
+  usecase "requirement.show\n(detail view)\n[uc:uuid:123c342b-05f5-4bc4-a262-b0c386a974f2]" as R_show
+  usecase "requirement.list\n(overview + search)\n[uc:uuid:f0e57f41-6f58-40ad-872e-60a2b1ef591e]" as R_list
+  usecase "requirement.link\n(→ task/test/impl)\n[uc:uuid:e93e25dd-e3c3-49d1-b4f9-f7f88742d8c2]" as R_link
+}
+
+' ── Object: Task ─────────────────────────────────────
+rectangle "Task" as T {
+  usecase "task.show\n(DetailView)\n[uc:uuid:aa983a75-1419-4b70-9d2c-6023bc8e6625]" as T_show
+  usecase "task.list\n(planning Overview)\n[uc:uuid:eb5362dc-4be4-440c-9976-799e3e3114dd]" as T_list
+}
+
+' ── Object: UseCase ──────────────────────────────────
+rectangle "UseCase" as U {
+  usecase "useCase.show\n[uc:uuid:56989c57-3d2c-4260-9695-301fcf09043e]" as U_show
+}
+
+' ── Object: Class / Method ───────────────────────────
+rectangle "Class / Method" as C {
+  usecase "class.show\n[uc:uuid:08cc4a35-2462-4252-b17d-35cbcca0974e]" as C_show
+  usecase "method.show\n[uc:uuid:af483d6c-b4dc-42d3-b6e4-ec10857e77c5]" as M_show
+}
+
+' ── Object: Implementation / Test ────────────────────
+rectangle "Implementation / Test" as I {
+  usecase "implementation.show\n[uc:uuid:31244f0e-ae17-40ea-9695-282446d88b2c]" as I_show
+  usecase "test.show\n[uc:uuid:b44d2bad-1a9f-45f8-864d-4c8161c8a60d]" as Te_show
+}
+
+' ── Object: TraceGraph (the container) ───────────────
+rectangle "TraceGraph" as G {
+  usecase "graph.serialize\n(flat JSON + refs)\n[uc:uuid:f8417bf2-5e1c-416f-88b4-02eb59a91793]" as G_ser
+  usecase "graph.deserialize\n(rebuild typed graph)\n[uc:uuid:6ec2c659-b8ae-4401-9b44-5eca932331c0]" as G_deser
+  usecase "graph.validate+fix\n(consistency engine)\n[uc:uuid:2d1ada75-d77f-4ca5-bbfd-ff22c296276d]" as G_fix
+}
+
+' ── Cross-cutting routing / view surface ─────────────
+rectangle "Router / Views (T103)" as RT {
+  usecase "router.navigate\n(#type.verb?params)\n[uc:uuid:a1855909-1b13-43bd-88c5-d899fd3f92b6]" as RT_nav
+  usecase "view.render\n(defaultItemView / Detail / Overview)\n[uc:uuid:736b4a9c-2343-41bd-a6e4-4104236185d6]" as RT_render
+  usecase "view.liveUpdate\n(MVC ViewBus push)\n[uc:uuid:cfe4e6a4-82b9-4bb0-8b96-daf55d0f9dee]" as RT_live
+}
+
+' User drives verbs through the router
+User --> RT_nav
+RT_nav ..> R_show : <<include>>
+RT_nav ..> R_list
+RT_nav ..> T_show
+RT_nav ..> T_list
+RT_nav ..> U_show
+RT_nav ..> C_show
+RT_nav ..> M_show
+RT_nav ..> I_show
+RT_nav ..> Te_show
+
+' Every show/list renders a view; mutations push live updates
+R_show ..> RT_render : <<include>>
+T_show ..> RT_render : <<include>>
+T_list ..> RT_render : <<include>>
+R_link ..> RT_live : <<include>>
+
+' Serialization underpins load/save; server scans + fixes
+RT_render ..> G_deser : <<include>>
+Server --> G_ser
+Server --> G_fix
+G_ser ..> G_deser : round-trip
+
+note bottom of RT
+  T103 = router + VerbRegistry + ViewBus + rb-trace-view.
+  T105 defaultItemView, T106 ListOverview+search,
+  T107 Detail/Overview, T108 browser capstone — all
+  consume router.navigate + view.render + view.liveUpdate.
+  Refs are route-like type:uuid (no protocol).
+end note
+
+legend right
+  Object.verb maps to a route:  #<type>.<verb>?<params>
+  e.g.  #requirement.show?uuid=…   ≈  ./requirement show …
+end legend
+@enduml

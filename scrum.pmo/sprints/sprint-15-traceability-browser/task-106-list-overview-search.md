@@ -10,7 +10,7 @@
   - [x] refinement (architect)
   - [x] creating test cases
   - [x] implementing (expert)
-  - [ ] testing (tester — run rb-list-overview.test.ts, jsdom)
+  - [x] testing (tester — run rb-list-overview.test.ts, jsdom) — rb-list-overview 7/7 PASS, 1d9d4fd
 - [ ] QA Review
 - [ ] Done
 

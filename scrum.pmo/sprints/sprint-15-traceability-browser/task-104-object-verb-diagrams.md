@@ -5,14 +5,23 @@
 [task:uuid:104d3e4f-5061-4273-894a-d04040404104]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (architect)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (architect)
   - [ ] creating test cases
-  - [ ] implementing (expert)
-  - [ ] testing (tester)
+  - [x] implementing (architect — diagram authored + rendered)
+  - [ ] testing (tester — verify renders + uc:uuid anchors resolve)
 - [ ] QA Review
 - [ ] Done
+
+## Delivered (robbin-architect, 2026-05-26)
+Authored `diagrams/object-verb-usecases.puml` (+ rendered `object-verb-usecases.svg`, 31KB, renders clean).
+- **Object=noun, verb=method** (AC1): 7 objects as rectangles (Requirement, Task, UseCase, Class/Method, Implementation/Test, TraceGraph) with verb use cases (`requirement.show`, `task.list`, `requirement.link`, `graph.serialize/deserialize/validate+fix`, etc.) + a Router/Views surface (`router.navigate`, `view.render`, `view.liveUpdate`).
+- **uc:uuid on every use case** (AC2): 16 v4 `[uc:uuid:…]` tags, one per use case — these are the anchors T101-T108 chain links resolve to.
+- **Covers the T101-T108 surface** (AC3): object model (the 7 objects), routing (router.navigate = T103), defaultItemView/Detail/Overview (view.render = T105-T107), browser capstone (T108 consumes navigate+render+liveUpdate), consistency (graph.validate+fix = T102).
+- **Routing legend** ties Object.verb to `#<type>.<verb>?<params>` ≈ OOSH CLI — coherent with the T103 design in this sprint.
+- AC4/AC5: SVG checked in beside source; renders without syntax errors.
+- NOTE: PlantUML names the SVG from the @startuml title; renamed to canonical `object-verb-usecases.svg`. Chain links across S15 tasks point at this file — stable.
 
 ## Traceability
 - up
