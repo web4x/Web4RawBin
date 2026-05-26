@@ -10,7 +10,7 @@
   - [x] refinement
   - [x] creating test cases
   - [x] implementing
-  - [ ] testing (handed to robbin-tester)
+  - [x] testing (robbin-tester — lobby-card-badges.spec 1/1 PASS, f4bd7c3)
 - [ ] QA Review
 - [ ] Done
 

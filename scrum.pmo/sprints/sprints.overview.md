@@ -18,11 +18,11 @@ Status legend: **Done** = all tasks Tron QA-approved · **active** = in flight
 | 6 | Web Components | Done | 8 | [planning](./sprint-6-web-components/planning.md) |
 | 7 | Encrypted Storage | Done | 13 | [planning](./sprint-7-encrypted-storage/planning.md) |
 | 8 | Monaco Editor | Done (Tron QA) | 14 | [planning](./sprint-8-monaco-editor/planning.md) |
-| 9 | Room Identity | Done (T74-77,79,80 Tron QA; T78 verified) | 7 | [planning](./sprint-9-room-identity/planning.md) |
+| 9 | Room Identity | T74-77,79,80 Tron QA Done; T78 tested→awaiting Tron QA | 7 | [planning](./sprint-9-room-identity/planning.md) |
 | 10 | Contacts UI | active — T81/82/83 tested, awaiting Tron QA | 3 | [planning](./sprint-10-contacts-ui/planning.md) |
 | 11 | Traceability Standardization | active — T85/86 impl-done; T87-90 planned (S1-9 remediation) | 6 | [planning](./sprint-11-traceability/planning.md) |
 | 12 | Editor Fixes | active — T84 tested, awaiting Tron QA | 1 | [planning](./sprint-12-editor-fixes/planning.md) |
-| 13 | Stability | active — T93/94/95/100 tested awaiting Tron QA; T91/92 testing | 6 | [planning](./sprint-13-stability/planning.md) |
+| 13 | Stability | active — T91-95 tested→awaiting Tron QA; T100 testing (AC4 coordinated window) | 6 | [planning](./sprint-13-stability/planning.md) |
 | 14 | Legacy Data Migration | active — T96-99 refinement done, impl pending (T99 ⛔ GATED) | 4 | [planning](./sprint-14-legacy-migration/planning.md) |
 
 **Task numbering:** global sequential. T1-T80 (S1-9), T81-83 (S10), T84 (S12),

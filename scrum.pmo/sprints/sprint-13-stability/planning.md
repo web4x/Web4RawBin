@@ -20,11 +20,11 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
 ## Task List
 
 - [ ] [T91: Avatar persistence — must not revert to default](./task-91-avatar-persist.md)
-  **Status:** impl-done + committed (f2e019c, v0.4.11) — testing + Tron QA pending · R-A1
+  **Status:** impl + testing DONE (f2e019c v0.4.11; tester avatar-persist 5/5) — Tron QA pending · R-A1
   - Uploaded avatar must persist across reload/restart/reconnect; default backfill only when no avatar.enc
 
 - [ ] [T92: Avatar upload key-error UX](./task-92-avatar-upload-ux.md)
-  **Status:** impl-done + committed (f2e019c, v0.4.11) — testing + Tron QA pending · R-A2
+  **Status:** impl + testing DONE (f2e019c v0.4.11; tester 6/6 AC1-AC6, 3ca7830) — Tron QA pending · R-A2
   - Upload never surfaces "key not found"; auto-regenerate or friendly retry; log real error
 
 - [ ] [T93: Multi-room lobby listing (load-from-disk)](./task-93-multi-room-lobby.md)
@@ -41,8 +41,8 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
   - Sort lobby room list by createdAt desc (legacy `|| 0` → bottom, deterministic across restart)
 
 - [ ] [T100: Test Data Isolation — DATA_DIR override](./task-100-test-data-isolation.md)
-  **Status:** impl + testing DONE (21d46fa v0.5.6; tester DATA_DIR=tmp, read-isolation proven, ab08927) — Tron QA pending · R-T1 · test-infra
-  - server.ts resolves data base from `DATA_DIR` env (default=prod, unset→no change); E2E uses isolated tmp dir → prod never polluted again. Proper fix for the room-flood; tester afterAll cleanup is separate/immediate
+  **Status:** impl-done (21d46fa v0.5.6); testing IN PROGRESS — read-isolation proven but **AC4 isolated-run FAILED** (reuseExistingServer:true leaked to prod). PO-greenlit coordinated AC4 window driving in task file (expert re-purge+stop → tester reuseExistingServer:false + isolated run → expert restart). · R-T1 · test-infra
+  - server.ts resolves data base from `DATA_DIR` env (default=prod, unset→no change); AC4 (prod byte-unchanged) blocked until coordinated window completes
 
 ## Dependency Graph
 ```
@@ -60,8 +60,8 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 | Tasks | 4 (T91-T94) |
 | Tron QA-approved (Done) | 0/4 |
 | Tasks | 6 (T91-T95, T100) |
-| Tested, awaiting Tron QA | T93, T94, T95, T100 |
-| Impl-done, testing pending | T91, T92 |
+| Tested, awaiting Tron QA | T91, T92, T93, T94, T95 (5) |
+| Testing in progress | T100 (AC4 coordinated window — see task file) |
 | Use case diagrams | 4 (architect, in diagrams/) |
 | Priority | T94 CRITICAL; T91-T93 HIGH |
 
