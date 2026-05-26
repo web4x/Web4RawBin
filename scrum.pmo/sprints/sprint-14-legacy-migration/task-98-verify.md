@@ -84,6 +84,17 @@ _(Architect defines the invariants; expert implements the verifier; tester runs 
 - [ ] Tests pass, build clean
 - [ ] Tron QA approved
 
+## Test Results (robbin-tester, 2026-05-26, v0.5.12 live) — **PASS**
+
+Read-only filesystem proofs over the executed migration (T96 skipped=3/quarantined=0; T97 migrated=141, remap=data/migration/token-remap.json):
+
+1. **NO DATA LOSS — PASS.** 3 legacy `data/rooms/*.json` still present; all **141 token-* dirs still present** (copy-not-move); remap has **141 entries**; **every remap target UUID dir exists (0 missing)**.
+2. **NO DANGLING TOKEN REF — PASS.** Remap is **bijective** (141 unique new UUIDs). Copied room.json scanned for `token-` strings: **0** (checked=0 because roomsRewritten=0 — token dirs were empty post-purge, so target UUID dirs carry no room.json; consistent with T97 report). No dangling refs possible.
+3. **AUTHORITATIVE ROOMS UNCHANGED — PASS.** The 3 real rooms intact (non-token owners): "Marcel Donges's Room", "Admins's Room", "Marcel Donges Surface Mini's Room".
+4. **IDEMPOTENT — PASS (by construction).** All 141 targets already exist (0 missing) → a 2nd copy-only migrate finds every target present → migrated=0/skipped=141. Did NOT re-run migrate (expert-authorized op); proven via targets-exist evidence.
+
+T99 legacy deletion remains GATED — tester did NOT delete anything. Backup on record: web4rawbin-premigration-backup-20260526T185145.tar.gz.
+
 ## QA Audit & User Feedback
 - 2026-05-26: Tron directive — no-data-loss proof required before any legacy delete. Quote pending req.
 
