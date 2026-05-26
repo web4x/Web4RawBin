@@ -27,3 +27,10 @@ Re-encrypt-on-rekey invariant, as the architect specified.
 - **Rotation-site audit:** the only force-rotation of a (possibly) live key is that self-heal catch. The other two `generateUserKeypair` calls (avatar-POST pre-encrypt + profile-commit) are idempotent first-time gen — they do NOT rotate an existing good key, so they cannot orphan a good avatar; left unchanged.
 - **Reusable for S14 T97:** `rekeyUser` is the shared "re-encrypt files/* on any identity rekey" guardrail — the migration should route any identity rekey through it.
 - tsc + build clean. v0.5.9, sw.js cache rawbin-v0.5.9. Tester verifies: "avatar survives a keypair regen" (upload avatar → rekeyUser → /api/avatar still returns the same bytes, no SVG fallback).
+
+### SECOND HALF (T109, robbin-expert, 2026-05-26, v0.5.10, commit <pending>)
+PO caught that rekeyUser only prevents NEW orphans — the db76584 permanent-loss path was still live: `ensureAvatar`'s decrypt-FAILURE catch FELL THROUGH to `fetchAvatarWithRetry` + `encryptFile`, OVERWRITING a present-but-undecryptable `avatar.enc` with a default = permanent destruction of an already-orphaned real avatar.
+- **FIX (server.ts `ensureAvatar` catch):** on decrypt failure of an EXISTING `avatar.enc`, PRESERVE the file and `return` — never overwrite with a default. (Restores `profile.avatar = /api/avatar/<token>` if desynced so the client points at the real, preserved avatar; GET shows a transient fallback while undecryptable, but the bytes survive for recovery once re-keyed/restored.)
+- **Unchanged:** the SVG-retry path (decrypt SUCCEEDS and mimeType === 'image/svg+xml') still falls through to re-fetch a real photo. The no-file path still fetches a first default. Only the decrypt-FAILURE catch stopped overwriting.
+- Net with rekeyUser (v0.5.9): rekeyUser stops creating orphans; this stops destroying existing ones. Together = real avatar never lost on rekey.
+- tsc + build clean. v0.5.10, sw.js cache rawbin-v0.5.10. Tester verifies: "undecryptable avatar.enc is NOT overwritten with a default" (corrupt/orphan avatar.enc → IDENTIFY/ensureAvatar runs → the .enc file bytes are byte-unchanged afterward).

@@ -828,7 +828,18 @@ async function ensureAvatar(profile: UserProfile): Promise<void> {
         return;
       }
       addLog(`Avatar is SVG fallback, retrying photo fetch: ${profile.token.slice(0, 8)}`);
-    } catch { /* corrupt/undecryptable — fall through to fetch a fresh default */ }
+    } catch {
+      // T109: decrypt FAILED on an EXISTING avatar.enc (e.g. orphaned by a past rekey).
+      // Do NOT fall through to overwrite it with a default — that is PERMANENT LOSS of the
+      // user's real avatar (Tron's bug). PRESERVE the file. The client shows a transient
+      // fallback while GET /api/avatar fails to decrypt, but the bytes survive for recovery.
+      if (profile.avatar !== `/api/avatar/${profile.token}`) {
+        profile.avatar = `/api/avatar/${profile.token}`;
+        saveProfiles();
+      }
+      addLog(`Avatar present but undecryptable — preserving, not overwriting: ${profile.token.slice(0, 8)}`);
+      return;
+    }
   }
 
   const photoData = await fetchAvatarWithRetry(3);
