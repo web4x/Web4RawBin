@@ -43,9 +43,9 @@ flat JSON of object state with route-like references to other objects (no protoc
 
 ### Phase 3 — Views (web components)
 - [ ] [T105: defaultItemView Web Component (draggable, native-OS)](./task-105-default-item-view.md)
-  **R15.4** · expert+tester · requires T103
+  **R15.4** · expert+tester · requires T103 · impl-done (950add4 v0.5.15 — rb-object-item) — testing pending
 - [ ] [T106: ListOverview Component + Search → remoteSearch](./task-106-list-overview-search.md)
-  **R15.5** · expert+tester · requires T105
+  **R15.5** · expert+tester · requires T105 · impl-done (e0df213 v0.5.16 — rb-list-overview + SearchProvider local→remote) — testing pending
 - [ ] [T107: Task DetailViews + Planning Overview (always consistent)](./task-107-detail-overview-views.md)
   **R15.6** · expert+tester · requires T103
 
@@ -70,8 +70,8 @@ T103 ─┬→ T105 (defaultItemView) → T106 (ListOverview+search) ┤
 | Tasks | 8 (T101-T108) |
 | Tron QA-approved (Done) | 0/8 |
 | Tested, awaiting Tron QA | 1 (T101 — 8/8) |
-| Impl-done, testing pending | 2 (T102 matrix engine v0.5.11, T103 Object.verb routing v0.5.13) |
-| Planned | 5 (T104-T108) |
+| Impl-done, testing pending | 4 (T102, T103, T105, T106 — v0.5.11→v0.5.16) |
+| Planned | 3 (T104 diagrams, T107, T108) |
 | Requirements | R15.1-R15.7 (from Tron literal R1-R4) |
 | Use case diagrams | 1 (Object.verb, architect) |
 
