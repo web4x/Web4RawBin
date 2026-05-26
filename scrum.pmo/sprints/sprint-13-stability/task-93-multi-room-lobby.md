@@ -47,8 +47,33 @@
 - [ ] AC5: Deleting one room leaves the other 2 visible
 - [ ] AC6: Room count in lobby matches actual rooms on disk for each user
 
+## Measured Evidence (robbin-expert, 2026-05-26, v0.4.10 deploy on iphone:0.1)
+Captured during the authorized v0.4.10 server restart. Answers the architect's investigation questions with live measurements — architect owns refinement; this is evidence, not a fix.
+
+**Disk inventory:**
+- Legacy `data/rooms/*.json`: **191** files (full-UUID names)
+- Per-user `data/users/*/rooms/*/room.json`: **173** files
+- ID overlap (legacy ∩ per-user): **173** — i.e. EVERY per-user room ID also exists as a legacy file
+- `/api/health` after restart: `rooms: 191` (= legacy count exactly)
+
+**Startup load path (server.ts:190-209):**
+1. `roomManager.loadFromDisk()` (line 193) loads LEGACY `data/rooms/` first → 191 rooms claim all IDs.
+2. `scanAllRooms()` (line 197) iterates 173 per-user rooms but `if (roomManager.getRoom(roomId)) continue` (line 200) SKIPS every ID already loaded.
+3. Because all 173 per-user IDs overlap the legacy set, `loaded === 0`. Confirmed: the `if (loaded > 0) console.log('Loaded N persistent room(s)')` line (208) did NOT print at startup.
+
+**Q1 (does loadFromDisk scan per-user?):** No — it scans legacy `data/rooms/` only. The per-user scan is a separate block that is effectively dead at startup (shadowed).
+**Q2/Q3 (advertise all rooms on IDENTIFY?):** server.ts:1080-1087 calls `listRoomsForOwner(token)` then just `broadcastRoomList()` + logs count. Live log showed `Owner f4798dae connected — 1 room(s) activated`. NOTE: this block does not change room state; the lobby filter lives in `broadcastRoomList()`/`listRooms()` (architect: trace what that filter includes — dormant vs active — this is the likely "only one shows" filter). **Q4 is the prime suspect.**
+
+**AC bearing:**
+- AC2 (rooms reload after restart): PASS in effect — 191 reload — but via the LEGACY path, NOT the Sprint 9 per-user path. The per-user persistence (T74/UC-RM.2 intent) contributes ZERO rooms at startup.
+- AC6 (lobby count == disk per user): in-memory 191 ≠ per-user 173 (18 legacy-only rooms with no per-user dir).
+- Root-cause hypothesis for the Tron bug ("only one shows"): not the load (all load) but the lobby LIST FILTER — only the owner's active/non-dormant room(s) surface. Architect to confirm in `listRooms()`/`broadcastRoomList()`.
+
+**Migration risk (NFR-1):** legacy `data/rooms/` is still authoritative on load. Until `loadFromDisk()` is retired or de-conflicted with `scanAllRooms()`, the per-user SSH-identity rooms are not the source of truth.
+
 ## QA Audit & User Feedback
 - 2026-05-26: Tron directive — "i created more than one room. but only one shows up in the lobby… all his rooms should show up… loaded from disk." Awaiting architect refinement, then Tron QA.
+- 2026-05-26: robbin-expert added Measured Evidence section above from the v0.4.10 deploy verification.
 
 ## Subtasks
 None (atomic task).
