@@ -17,18 +17,20 @@ export default defineConfig({
   projects: [
     { name: 'chromium', use: { browserName: 'chromium' } },
   ],
-  // T100: isolate E2E data — when Playwright launches its OWN server (no running
-  // server on 4444), DATA_DIR redirects ALL writes (profiles, devices, rooms,
-  // users/.ssh, avatars) to an isolated tmp dir so prod data/ is never touched.
-  // NOTE: reuseExistingServer:true means a live server on 4444 is reused as-is —
-  // for GUARANTEED isolation, stop the live server first so Playwright spawns fresh
-  // with DATA_DIR below (e.g. CI, or after the purge-restart).
+  // T100: isolate E2E data via DATA_DIR → all writes go to an isolated tmp dir,
+  // prod data/ untouched. CRITICAL (learned the hard way 2026-05-26): with
+  // reuseExistingServer:true Playwright will REUSE a live server on 4444 (incl. one
+  // that restarts mid-run) → it uses the live server's prod DATA_DIR, not ours,
+  // and test data LEAKS to prod. So when E2E_ISOLATED=1 we set reuseExistingServer:FALSE
+  // — Playwright MUST own its server with DATA_DIR=tmp. Requirement: the live server
+  // must be DOWN for the whole isolated run (no mid-run restart on 4444).
   webServer: {
     command: 'npm run dev',
     url: 'https://localhost:4444',
     ignoreHTTPSErrors: true,
     timeout: 15000,
-    reuseExistingServer: true,
+    // Default true for normal dev runs; force false for the isolated AC4 proof run.
+    reuseExistingServer: process.env.E2E_ISOLATED !== '1',
     env: {
       ...process.env,
       DATA_DIR: process.env.E2E_DATA_DIR || path.join(os.tmpdir(), 'rawbin-e2e-data'),
