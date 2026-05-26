@@ -2,14 +2,13 @@
 
 # Sprint 14 Planning — Legacy Data Migration
 
-> ▶️ **IMPL RELEASED (PO 2026-05-26):** the avatar fix (T109) is done+verified, so the
-> shared `data/users/<token>/` concurrency concern is resolved. **T96/T97/T98
-> (migrate + verify) are RELEASED to run** — non-destructive, copy-then-verify,
-> architect-confirmed parallel-safe. Sequence: expert finishes S15 T102 → runs S14
-> T96/T97 migration → tester runs T98 verify. **T99 remove-legacy STAYS ⛔ GATED** —
-> runs only after T98 PASS AND Tron's explicit deletion authorization (PO brings Tron
-> the verify result + asks). Guardrail: `rekeyUser` (T109) is also T97's
-> re-encrypt-on-rekey safeguard — identity rekey re-encrypts files/* so avatars stay decryptable.
+> ✅ **MIGRATION COMPLETE (2026-05-26):** T96/T97 migrated → T98 clean-verify PASS
+> (no data loss, PO-confirmed) → **T99 GATE CLEARED** (T98 PASS + Tron deletion auth
+> 2026-05-26) and EXECUTED (ec0423d v0.5.19): legacy load path removed, per-user/UUID
+> is now the sole source of truth. The gate held end-to-end — destructive delete ran
+> ONLY after both conditions were recorded + a Step-0 loss-free check. Remaining:
+> full-suite regression test on T99, then Tron QA across S14. Guardrail: `rekeyUser`
+> (T109) re-encrypts files/* on identity rekey so avatars stay decryptable.
 
 ## Sprint Goal
 Safely migrate legacy on-disk data to the per-user / UUIDv4 model, PROVE no data
@@ -41,7 +40,7 @@ auditable no-data-loss proof and a GATED removal of the legacy path.
   - No-data-loss proven on CURRENT data. T99 gate-(a) clean-T98-PASS is MET.
 
 - [ ] [T99: Remove legacy load path + files — ⛔ GATED](./task-99-remove-legacy.md)
-  **Status:** refinement done — ⛔ **STILL GATED** · (a) clean T98 re-verify PASS ✅ MET (PO-confirmed, v0.5.17); (b) Tron deletion authorization STILL REQUIRED — PO taking it to Tron now. Until Tron authorizes, T99 NEVER runs. · R14.4 · delete phase (LAST)
+  **Status:** GATE CLEARED + EXECUTED (ec0423d v0.5.19) — both conditions met & logged: (a) T98 PASS ✅, (b) Tron deletion auth granted 2026-05-26. Step-0 gate check confirmed 3 real rooms in per-user dirs (loss-free) before removing legacy path. impl-done; full-suite regression test pending, then Tron QA. · R14.4 · delete phase (LAST)
   - **GATE: starts ONLY after (a) T98 verify PASS AND (b) explicit Tron authorization. NEVER auto-runs.**
   - Remove legacy loadFromDisk; delete data/rooms/ + migrated token dirs (after backup tar)
 
@@ -61,7 +60,7 @@ T99's QA Audit GATE LOG before any implementation begins.
 | Tron QA-approved (Done) | 0/4 |
 | Migrate done | T96, T97 (5dc7a53 v0.5.12) |
 | Verify ✅ | T98 — CLEAN re-verify PASS (PO-confirmed, v0.5.17, 3 rooms, 141 bijective, 0 dangling) — Tron QA pending |
-| T99 gate | ⛔ blocked: (a) clean T98 PASS ✅ MET; (b) Tron deletion auth — PO taking to Tron now |
+| T99 ✅ EXECUTED | gate cleared (T98 PASS + Tron auth 2026-05-26); legacy path removed (ec0423d v0.5.19); regression test pending |
 | Phases | migrate (T96,T97) → verify (T98) → ⛔gate→ delete (T99) |
 | Use case diagrams | 1 (architect — migration-workflow) |
 

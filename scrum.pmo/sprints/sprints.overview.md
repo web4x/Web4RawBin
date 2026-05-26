@@ -23,7 +23,7 @@ Status legend: **Done** = all tasks Tron QA-approved · **active** = in flight
 | 11 | Traceability Standardization | active — T85/86 impl-done; T87-90 planned (S1-9 remediation) | 6 | [planning](./sprint-11-traceability/planning.md) |
 | 12 | Editor Fixes | active — T84 tested, awaiting Tron QA | 1 | [planning](./sprint-12-editor-fixes/planning.md) |
 | 13 | Stability | active — all 7 (T91-95,T100,T109) tested→awaiting Tron QA | 7 | [planning](./sprint-13-stability/planning.md) |
-| 14 | Legacy Data Migration | T96/97 migrated; T98 clean re-verify ✅ PASS (PO-confirmed); T99 ⛔ GATED — gate-(a) MET, only Tron deletion auth left | 4 | [planning](./sprint-14-legacy-migration/planning.md) |
+| 14 | Legacy Data Migration | ✅ migration complete — T96/97 migrated, T98 verify PASS, T99 gate-cleared + EXECUTED (legacy removed v0.5.19); regression+Tron QA pending | 4 | [planning](./sprint-14-legacy-migration/planning.md) |
 | 15 | Traceability Browser & Object Model | active — all 8 impl-complete (v0.5.18); T101/102/103/105/106 tested→Tron QA; T104/107/108 testing | 8 | [planning](./sprint-15-traceability-browser/planning.md) |
 
 **Task numbering:** global sequential. T1-T80 (S1-9), T81-83 (S10), T84 (S12),
