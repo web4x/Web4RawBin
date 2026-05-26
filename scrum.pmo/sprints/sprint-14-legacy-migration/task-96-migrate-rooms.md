@@ -5,14 +5,24 @@
 [task:uuid:96a1c3e5-2b7d-4f10-9a46-1c3e5f7a9b96]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
+- [x] Planned
+- [x] In Progress
   - [x] refinement (architect)
-  - [ ] creating test cases
-  - [ ] implementing (expert)
-  - [ ] testing (tester)
+  - [x] creating test cases
+  - [x] implementing (expert)
+  - [ ] testing (tester — T98 verify)
 - [ ] QA Review
 - [ ] Done
+
+## Implementation (robbin-expert, 2026-05-26, v0.5.12)
+`migrateLegacyRooms(dataDir)` in `src/ts/server/Migration.ts` (CLI `npm run migrate:rooms`, honors DATA_DIR/T100).
+- AC1: for each `data/rooms/<id>.json`, if `<id>` exists in ANY `data/users/*/rooms/<id>/room.json` → SKIP, per-user copy untouched (no schema regression).
+- AC2: legacy-only orphan (id absent per-user) → forward-mapped + quarantined to `data/users/_unowned/rooms/<id>/room.json` (ownerToken='_unowned', sshKeysGenerated:false), id REPORTED. Never invents an owner, never deletes.
+- AC3: idempotent — already-quarantined ids skipped; existing per-user room.json never mutated. Atomic write (temp+rename).
+- AC4: legacy `data/rooms/*.json` left UNTOUCHED (copy, not move; removal = T99 gated).
+- AC5: per-room outcome logged (skipped/quarantined) + summary counts in RoomReport.
+- AC6: no new code dependence on flat dir (read-only scan).
+- Tests: `test/vitest/migration.test.ts` (skip-no-overwrite, orphan quarantine, idempotent + legacy-untouched). tester runs. v0.5.12.
 
 ## Data Findings — on-disk reality (robbin-architect, 2026-05-26, measured)
 

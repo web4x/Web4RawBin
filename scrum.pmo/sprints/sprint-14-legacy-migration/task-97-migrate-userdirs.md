@@ -5,14 +5,23 @@
 [task:uuid:97b2d4f6-3c8e-4a11-8b57-2d4f6a8b9c97]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
+- [x] Planned
+- [x] In Progress
   - [x] refinement (architect)
-  - [ ] creating test cases
-  - [ ] implementing (expert)
-  - [ ] testing (tester)
+  - [x] creating test cases
+  - [x] implementing (expert)
+  - [ ] testing (tester — T98 verify)
 - [ ] QA Review
 - [ ] Done
+
+## Implementation (robbin-expert, 2026-05-26, v0.5.12)
+`migrateTokenDirs(dataDir)` in `src/ts/server/Migration.ts` (CLI `npm run migrate:userdirs`).
+- AC1: each `data/users/token-<ts>/` → COPY to fresh `crypto.randomUUID()` dir (copyDirRecursive; rooms/ + any files/.ssh preserved).
+- AC2: in the COPY's `rooms/*/room.json`, rewrite `ownerToken`/`creatorToken`/`creatorId` from the old token → new UUID. (Atomic write; original token dir untouched.)
+- AC3/AC5: remap persisted to `data/migration/token-remap.json` (old→new).
+- AC4: defensive `rekeyProfileIfPresent` — if profiles.json has a token-* entry, add a UUID-keyed copy + set `redirectTo` on the old (reuses TOKEN_REDIRECT); STRICTLY additive, never mutates a UUID-keyed real profile. No-op on current data (0 token-* profiles). Re: rekeyUser — a COPY preserves the keypair with the files, so encrypted files stay decryptable (no key rotation → no re-encrypt needed); rekeyUser is only the guardrail IF a key is actually regenerated (not here).
+- AC5(idempotent)/AC6: already-UUID dirs skipped; remapped tokens with existing target skipped → re-run no-op. Originals left intact (removal = T99 gated).
+- Tests: `test/vitest/migration.test.ts` (copy+rewrite, idempotent, defensive-profile no-op). tester runs. v0.5.12.
 
 ## Data Findings — on-disk reality (robbin-architect, 2026-05-26, measured)
 
