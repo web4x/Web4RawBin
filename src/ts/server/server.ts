@@ -24,6 +24,16 @@ const execAsync = promisify(exec);
 const ADMIN_KEY = process.env.ADMIN_KEY || crypto.randomUUID();
 const PKG_VERSION = JSON.parse(fsSync.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../package.json'), 'utf-8')).version;
 
+// T94: read the version PER REQUEST, not frozen at module load. `tsx watch` only restarts on
+// server.ts changes, so a version-only bump (+client rebuild) leaves the process serving a stale
+// frozen version → the PWA update banner never fires. Reading package.json (tiny file) per
+// request keeps /api/config + /api/health in sync with the deployed bundle without a restart.
+function getVersion(): string {
+  try {
+    return JSON.parse(fsSync.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../package.json'), 'utf-8')).version;
+  } catch { return PKG_VERSION; }
+}
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -370,14 +380,14 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (filepath === '/api/config') {
       const domain = BASE_DOMAIN || getLocalIP();
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
-      res.end(JSON.stringify({ baseDomain: domain, httpsPort: HTTPS_PORT, version: PKG_VERSION, branch: 'rawbin' }));
+      res.end(JSON.stringify({ baseDomain: domain, httpsPort: HTTPS_PORT, version: getVersion(), branch: 'rawbin' }));
       return;
     }
 
     if (filepath === '/api/health') {
       const uptime = Math.floor((Date.now() - serverStartTime.getTime()) / 1000);
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
-      res.end(JSON.stringify({ status: 'ok', uptime, version: PKG_VERSION, connections: wsClients.size, rooms: roomManager.size }));
+      res.end(JSON.stringify({ status: 'ok', uptime, version: getVersion(), connections: wsClients.size, rooms: roomManager.size }));
       return;
     }
 

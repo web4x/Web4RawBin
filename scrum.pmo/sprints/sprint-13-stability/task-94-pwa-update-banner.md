@@ -9,13 +9,21 @@
 > TRON DIRECTIVE: "i did also not see the version update bar any more."
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
+- [x] Planned
+- [x] In Progress
   - [x] refinement (architect)
-  - [ ] implementing (expert)
+  - [x] implementing (expert)
   - [ ] testing (tester)
 - [ ] QA Review
 - [ ] Done
+
+## Implementation (robbin-expert, 2026-05-26, v0.5.4)
+Design hardening (removes recurrence of the frozen-version bug; the operational fix = restart, already done across the deploys this session):
+- **Per-request version (server.ts):** added `getVersion()` that reads `package.json` per request (falls back to the module-load `PKG_VERSION` on error). `/api/config` (line ~380) and `/api/health` (~387) now call `getVersion()` instead of the frozen `PKG_VERSION`. Drives AC1/AC3/UC-PV9 — `/api/config.version` always equals the on-disk/deployed version even if the node process isn't restarted.
+  - WHY this is the real fix: `npm run dev` = `tsx watch src/ts/server/server.ts` — it only restarts when **server.ts** changes. A version-only `package.json` bump + client rebuild does NOT touch server.ts → process keeps serving the frozen startup version → device sees no version change → banner never fires. Per-request read closes that gap.
+- **AC7 (banner on all pages):** VERIFIED already satisfied — `pageHead()` (server.ts:262) injects `<rb-update-banner>` + the banner script, and `/profile`, `/bug-report`, `/docs`, `/md` all render via `pageHead()`. `/app` + `/edit` load it via their bundles. No change needed.
+- **AC4 (sw.js no-cache):** confirmed held (architect verified). **AC2 (Update Now reloads):** unchanged SW message path.
+- v0.5.4, sw.js cache rawbin-v0.5.4, tsc + build clean. Server-only.
 
 ## Diagram
 [pwa-update-workflow.svg](./diagrams/pwa-update-workflow.svg) ([source](./diagrams/pwa-update-workflow.puml)) — UC-PV2 (restart) + UC-PV3 (live version, not frozen) + UC-PV9 (no-stale guard) are the T94 targets.
