@@ -37,6 +37,15 @@ Tron directives 2026-05-26 via robbin-po. Four requirements across three workflo
 
 ---
 
+## TEST-INFRA Workflow
+
+- [ ] **R-T1: E2E tests must never pollute prod data — isolated DATA_DIR**
+  [requirement:uuid:e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8092]
+  > TRON DIRECTIVE (via PO 2026-05-26): E2E test runs flooded prod with test rooms; tests must use an isolated data dir, never prod.
+  → [T100: Test data isolation (DATA_DIR override)](./task-100-test-data-isolation.md)
+
+  Proper fix for the room-flood (the same prod-pollution that T93/S14 migration is cleaning up). Tester's interim afterAll cleanup is separate/immediate.
+
 ## UUID Index
 
 | Requirement | UUID (short) | Task | Workflow | Priority |
@@ -45,3 +54,4 @@ Tron directives 2026-05-26 via robbin-po. Four requirements across three workflo
 | R-A2 | `b2c3d4e5` | T92 | Avatar | HIGH |
 | R-R1 | `c3d4e5f6` | T93 | Rooms | HIGH |
 | R-V1 | `d4e5f6a7` | T94 | PWA | **CRITICAL** |
+| R-T1 | `e5f6a7b8` | T100 | Test-infra | HIGH |

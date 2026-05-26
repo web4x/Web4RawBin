@@ -13,7 +13,7 @@
 - [x] In Progress
   - [x] refinement (architect)
   - [x] implementing (expert)
-  - [ ] testing (tester — TS1)
+  - [x] testing (tester — TS1 1/1 + room-order.test 10/10, 073b027)
 - [ ] QA Review
 - [ ] Done
 
@@ -108,6 +108,10 @@ Sorting server-side in the shared seam means newest-first is identical for every
 - **AC6 build** — server live at v0.5.5 (per /api/health), bundle served.
 
 NOTE: TS1 E2E hit the LIVE server and created 3 real rooms (data flooding — see PO directive). Self-cleanup fix tracked separately; these specs need afterAll room-delete or isolated test-data dir.
+
+## QA Audit & User Feedback
+- 2026-05-26: Tron directive — newest rooms at top of lobby. Impl v0.5.5 (3748f0e); tester-verified TS1 1/1 + room-order.test 10/10 (073b027). Awaiting Tron QA.
+- 2026-05-26: TS1 flooded prod with 3 test rooms → proper fix is [T100](./task-100-test-data-isolation.md) (DATA_DIR isolation); tester afterAll cleanup separate/immediate.
 
 ## Subtasks
 None (atomic task).
