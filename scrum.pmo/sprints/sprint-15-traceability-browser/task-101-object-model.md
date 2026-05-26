@@ -10,7 +10,7 @@
   - [x] refinement (architect)
   - [x] creating test cases
   - [x] implementing (expert)
-  - [ ] testing (tester — run trace-model.test.ts)
+  - [x] testing (tester — trace-model.test.ts 8/8 PASS, 47ee53f)
 - [ ] QA Review
 - [ ] Done
 
