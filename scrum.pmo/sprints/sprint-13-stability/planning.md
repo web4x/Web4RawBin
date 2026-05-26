@@ -28,7 +28,7 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
   - Upload never surfaces "key not found"; auto-regenerate or friendly retry; log real error
 
 - [ ] [T93: Multi-room lobby listing (load-from-disk)](./task-93-multi-room-lobby.md)
-  **Status:** refinement done + committed (1042a4a, root cause: legacy data/rooms shadows per-user scan) — impl pending · R-R1
+  **Status:** impl-done + committed (492221a, v0.5.2 — per-user load + owner-aware listing) — testing + Tron QA pending · R-R1
   - All of a user's rooms load from disk on connect and appear in lobby
 
 - [ ] [T94: PWA update banner fix](./task-94-pwa-update-banner.md)
@@ -50,8 +50,8 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 |--------|-------|
 | Tasks | 4 (T91-T94) |
 | Tron QA-approved (Done) | 0/4 |
-| Impl-done, testing+QA pending | 2 (T91, T92 — v0.4.11/v0.5.1) |
-| Refinement done, impl pending | 2 (T93, T94 — diagrams + root causes committed 1042a4a) |
+| Impl-done, testing+QA pending | 3 (T91, T92, T93 — v0.4.11→v0.5.2) |
+| Refinement done, impl pending | 1 (T94 — frozen-PKG_VERSION root cause, 1042a4a) |
 | Use case diagrams | 4 (architect, in diagrams/) |
 | Priority | T94 CRITICAL; T91-T93 HIGH |
 
