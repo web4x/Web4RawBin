@@ -5,11 +5,11 @@
 [task:uuid:a1f4c9d2-8b30-4e67-9c15-3d8e2f7a0b41]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
@@ -36,9 +36,21 @@ Tron: adopt the Web4Articles planning standard. Reference:
 `/Users/Shared/Workspaces/2cuGitHub/Web4Articles/scrum.pmo/sprints/`.
 
 ## Acceptance Criteria
-- [ ] task-template.md reflects Web4Articles structure (DONE — verify)
-- [ ] traceability-standard.md published with worked req→usecase→puml→class/method example
-- [ ] Future tasks created from the template pass `sprint audit`
+- [x] task-template.md reflects Web4Articles structure (VERIFIED 2026-05-26)
+- [x] traceability-standard.md published — at `scrum.pmo/standards/traceability-standard.md` (robbin-req, committed 33de99f)
+- [x] Future tasks created from the template pass `sprint audit` (S10 T81-83, S12 T84, S13 T91-94 all authored to standard, audit 0 issues)
+
+## Verification Findings (planner, 2026-05-26)
+Template ⟷ standard agreement check:
+- Template's forward chain (req→usecase→puml→class/method) is a subset of the
+  standard's full chain (Tron→requirement→task→uc→puml→method→test). COMPATIBLE —
+  template covers the task-file-authored portion; standard adds the endpoints
+  (Tron quote at top, test:uuid in test files) which the template's Test Scenarios
+  + Context sections already accommodate.
+- Standard lives at `scrum.pmo/standards/traceability-standard.md` (not the root
+  path the template's prose originally referenced). Both docs now point consistently.
+- Recent sprints authored from the template (S10/S12/S13) all pass audit → template
+  is fit for purpose. Remaining: Tron QA sign-off.
 
 ## Dependencies
 - **Requires:** None

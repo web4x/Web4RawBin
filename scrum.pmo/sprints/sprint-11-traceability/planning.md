@@ -46,16 +46,14 @@ requirements.md entirely.
 ## Task List
 
 - [ ] [T85: Adopt Web4Articles task template + traceability conventions doc](./task-85-adopt-template.md)
-  **Status:** PLANNED · **Owner:** planner + req-eng
-  - `scrum.pmo/standards/traceability-standard.md` — DONE (robbin-req, approved by PO)
-  - Upgraded `task-template.md` — DONE (planner; Web4Articles-aligned, hierarchical Status, forward chain)
-  - Remaining: verify template ⟷ standard agree; future tasks use both. Foundation for T86-T90
+  **Status:** impl-done (verified 2026-05-26) — testing + Tron QA pending · **Owner:** planner + req-eng
+  - standard (req) + upgraded template (planner) DONE; verified compatible; S10/S12/S13 authored from it pass audit
 
-- [ ] [T86: Traceability index — map all 89 tasks to chain coverage](./task-86-traceability-index.md)
-  **Status:** PLANNED · **Owner:** planner + req-eng
-  - Produce `scrum.pmo/traceability-matrix.md`: per-task req/usecase/puml/class-method presence
-  - Identify which sprints need requirements.md / use-case / PUML backfill
-  - Output drives the batch order of T87-T89
+- [ ] [T86: Traceability index — map all Sprint 1-9 tasks to chain coverage](./task-86-traceability-index.md)
+  **Status:** impl-done (2026-05-26) — testing + Tron QA pending · **Owner:** planner + req-eng
+  - Published `scrum.pmo/traceability-matrix.md` — 86 tasks (S1-9), per-link coverage
+  - Findings: uuid 86/86; req/uc only S8-9; requirements.md missing S1-7; puml 5/86
+  - Batch order set: T87=S8,9 · T88=S5,6,7 · T89=S1-4 (+ Sprint-1 dup reconcile)
 
 - [ ] [T87: Batch 1 — recent sprints (8, 9) full chain](./task-87-batch-active.md)
   **Status:** PLANNED · **Owner:** req-eng (chain + audit), planner (links)

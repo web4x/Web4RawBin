@@ -5,11 +5,11 @@
 [task:uuid:b2e5d0a3-9c41-4f78-8d26-4e9f3a8b1c52]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
@@ -33,9 +33,18 @@ Baseline: 89/89 have UUID; 20 link requirements, 19 use cases, 6 PUML, 15 code.
 Sprints 1,3,4,5,6,10 lack requirements.md.
 
 ## Acceptance Criteria
-- [ ] traceability-matrix.md lists all 89 tasks with per-link coverage
-- [ ] Missing-artifact list per sprint (which need requirements.md / use cases / PUML)
-- [ ] Batch order recommendation for T87-T89
+- [x] traceability-matrix.md lists all Sprint 1-9 tasks (86) with per-link coverage — published at `scrum.pmo/traceability-matrix.md`
+- [x] Missing-artifact list per sprint (requirements.md absent in Sprints 1-7; puml ~absent everywhere)
+- [x] Batch order recommendation for T87-T89
+
+## Findings (planner, 2026-05-26 — written into matrix)
+Scope corrected to Sprints 1-9 = **86 tasks** (S10-13 excluded; S10 handled live).
+- **task:uuid 86/86** ✓ — no remediation.
+- **requirement 20/86, usecase 19/86** — adopted only from mid-Sprint-8; Sprints 1-7 are 0/0.
+- **requirements.md missing in 7/9 sprints** (1-7) → T89 must author them (biggest lift).
+- **puml 5/86** — near-absent; architect use-case .puml needed across all batches.
+- **method 27/86** — partial; strongest in S1-3.
+Batch order (refines plan): **T87** = S8,9 (lightest, req+uc done — add puml/method/uc:uuid); **T88** = S5,6,7 (author requirements.md+UC); **T89** = S1-4 (heaviest, author from scratch + Sprint-1 dup reconcile).
 
 ## Dependencies
 - **Requires:** T85 (chain definition)
