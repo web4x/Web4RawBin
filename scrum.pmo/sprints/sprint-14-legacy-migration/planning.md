@@ -20,19 +20,19 @@ auditable no-data-loss proof and a GATED removal of the legacy path.
 ## Task List
 
 - [ ] [T96: Migrate legacy data/rooms → per-user room model](./task-96-migrate-rooms.md)
-  **Status:** PLANNED · R14.1 · migrate phase · **Owner:** architect (design), expert (impl), tester (verify)
-  - Idempotent copy of legacy room files into data/users/<token>/rooms/<uuid>/; no data loss; orphans reported
+  **Status:** refinement done + committed (d953d5a) — impl pending · R14.1 · migrate phase
+  - Architect finding: all 239 legacy rooms ALREADY per-user (0 legacy-only) → T96 = never-overwrite reconciler, NOT a bulk move; orphans → _unowned quarantine
 
 - [ ] [T97: Migrate token-<timestamp> user dirs → UUIDv4](./task-97-migrate-userdirs.md)
-  **Status:** PLANNED · R14.2 · migrate phase (parallel with T96) · **Owner:** architect (design), expert (impl), tester (verify)
-  - Rewrite ALL token references (profiles/devices/room owners/ssh); idempotent; no data loss
+  **Status:** refinement done + committed (d953d5a) — impl pending · R14.2 · migrate phase (parallel with T96)
+  - Architect finding: 141 token-* dirs are self-contained (0 profiles/ssh; 171 rooms) → copy-then-rename + rewrite ownerToken in copies; remap table → token-remap.json
 
 - [ ] [T98: Migration integrity verification (no-data-loss proof)](./task-98-verify.md)
-  **Status:** PLANNED · R14.3 · verify phase — **GATES T99** · **Owner:** architect (invariants), expert (verifier), tester (run)
-  - Counts reconcile + content checksums + complete token remap; explicit PASS/FAIL report
+  **Status:** refinement done + committed (d953d5a, 4501e05 run-time baseline) — impl pending · R14.3 · verify phase — **GATES T99**
+  - 6 invariants (coverage, no-drop, content on immutable fields, remap completeness, zero dangling token-, UUID-only end-state); read-only; verify-report.json PASS/FAIL
 
 - [ ] [T99: Remove legacy load path + files — ⛔ GATED](./task-99-remove-legacy.md)
-  **Status:** PLANNED — ⛔ **BLOCKED by gate** · R14.4 · delete phase (LAST) · **Owner:** architect (safe-delete), expert (execute POST-GATE only), tester (verify)
+  **Status:** refinement done + committed (d953d5a, safe-delete sequence) — ⛔ **STILL BLOCKED by gate** (T98 PASS + Tron auth) · R14.4 · delete phase (LAST)
   - **GATE: starts ONLY after (a) T98 verify PASS AND (b) explicit Tron authorization. NEVER auto-runs.**
   - Remove legacy loadFromDisk; delete data/rooms/ + migrated token dirs (after backup tar)
 
@@ -50,7 +50,8 @@ T99's QA Audit GATE LOG before any implementation begins.
 |--------|-------|
 | Tasks | 4 (T96-T99) |
 | Tron QA-approved (Done) | 0/4 |
-| Planned | 4 |
+| Refinement done, impl pending | 4 (T96-T99, d953d5a + migration-workflow diagram) |
+| T99 gate | ⛔ still blocked (needs T98 PASS + Tron auth) |
 | Phases | migrate (T96,T97) → verify (T98) → ⛔gate→ delete (T99) |
 | Use case diagrams | 1 (architect — migration-workflow) |
 
