@@ -29,11 +29,11 @@ auditable no-data-loss proof and a GATED removal of the legacy path.
 ## Task List
 
 - [ ] [T96: Migrate legacy data/rooms → per-user room model](./task-96-migrate-rooms.md)
-  **Status:** refinement done + committed (d953d5a) — impl pending · R14.1 · migrate phase
+  **Status:** impl-done + committed (5dc7a53 v0.5.12, copy-only idempotent) — verify via T98, then Tron QA · R14.1 · migrate phase
   - Architect finding: all 239 legacy rooms ALREADY per-user (0 legacy-only) → T96 = never-overwrite reconciler, NOT a bulk move; orphans → _unowned quarantine
 
 - [ ] [T97: Migrate token-<timestamp> user dirs → UUIDv4](./task-97-migrate-userdirs.md)
-  **Status:** refinement done + committed (d953d5a) — impl pending · R14.2 · migrate phase (parallel with T96)
+  **Status:** impl-done + committed (5dc7a53 v0.5.12, copy-only idempotent) — verify via T98, then Tron QA · R14.2 · migrate phase (parallel with T96)
   - Architect finding: 141 token-* dirs are self-contained (0 profiles/ssh; 171 rooms) → copy-then-rename + rewrite ownerToken in copies; remap table → token-remap.json
 
 - [ ] [T98: Migration integrity verification (no-data-loss proof)](./task-98-verify.md)
@@ -59,8 +59,8 @@ T99's QA Audit GATE LOG before any implementation begins.
 |--------|-------|
 | Tasks | 4 (T96-T99) |
 | Tron QA-approved (Done) | 0/4 |
-| Refinement done | 4 (T96-T99) |
-| Impl RELEASED to run | T96, T97 (migrate), T98 (verify) — copy-then-verify, parallel-safe |
+| Impl-done | T96, T97 (migrate — 5dc7a53 v0.5.12, copy-only idempotent) |
+| Next | T98 verify (gates T99) |
 | T99 gate | ⛔ still blocked (needs T98 PASS + Tron deletion auth) |
 | Phases | migrate (T96,T97) → verify (T98) → ⛔gate→ delete (T99) |
 | Use case diagrams | 1 (architect — migration-workflow) |
