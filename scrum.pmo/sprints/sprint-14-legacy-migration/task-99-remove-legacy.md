@@ -12,13 +12,21 @@ This task **NEVER auto-runs**. No agent may begin implementing until both gate
 conditions are satisfied and recorded in the QA Audit section below. Destructive +
 irreversible (deletes code + data files) — the gate is non-negotiable.
 
-## Status
+## Status — implementing DONE (v0.5.20) — write path removed + proven; awaiting tester UI verify, then Tron QA
+Gate held correctly (both conditions logged pre-delete). The post-delete regeneration
+(data/rooms reappeared 19:57 via Room.persist's DUAL-WRITE) is now FIXED: v0.5.20
+(9c1b0a0) removed the dual-write + dead loadFromDisk/fromPersisted/setPersistDir.
+Planner code-verified 2026-05-27: src/ has NO data/rooms write/load path (only T99
+removal-marker comments in Room.ts:273,292 + server.ts:210). Live filesystem: data/rooms
+ABSENT while per-user rooms present (3 users). Expert runtime proof: createRoom().persist()
+writes per-user ONLY, restart → rooms=3 from per-user, data/rooms stays absent.
+Remaining: tester independent UI room-create verification, then Tron QA.
 - [x] Planned (gate cleared)
 - [x] In Progress
   - [x] refinement (architect)
   - [x] creating test cases
-  - [x] implementing (expert)
-  - [ ] testing (tester — full-suite regression, no legacy)
+  - [x] implementing (expert) — read-path removal + delete (ec0423d) AND dual-WRITE removal (9c1b0a0 v0.5.20); code-verified no legacy write/load path remains
+  - [ ] testing (tester — independent UI room-create must confirm data/rooms stays gone)
 - [ ] QA Review
 - [ ] Done
 

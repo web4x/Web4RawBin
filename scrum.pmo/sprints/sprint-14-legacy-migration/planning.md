@@ -2,13 +2,15 @@
 
 # Sprint 14 Planning — Legacy Data Migration
 
-> ✅ **MIGRATION COMPLETE (2026-05-26):** T96/T97 migrated → T98 clean-verify PASS
-> (no data loss, PO-confirmed) → **T99 GATE CLEARED** (T98 PASS + Tron deletion auth
-> 2026-05-26) and EXECUTED (ec0423d v0.5.19): legacy load path removed, per-user/UUID
-> is now the sole source of truth. The gate held end-to-end — destructive delete ran
-> ONLY after both conditions were recorded + a Step-0 loss-free check. Remaining:
-> full-suite regression test on T99, then Tron QA across S14. Guardrail: `rekeyUser`
-> (T109) re-encrypts files/* on identity rekey so avatars stay decryptable.
+> ✅ **IMPL COMPLETE — awaiting tester UI verify + Tron QA (2026-05-27):** T96/T97
+> migrated, T98 clean-verify PASS, T99 GATE CLEARED (T98 PASS + Tron auth) + delete
+> RAN (ec0423d v0.5.19) — gate held end-to-end. The post-delete dual-write regeneration
+> is FIXED: v0.5.20 (9c1b0a0) removed the dual-WRITE + dead loadFromDisk/fromPersisted/
+> setPersistDir. Planner code-verified 2026-05-27: NO data/rooms write/load path in src/
+> (only T99 removal comments); live FS has data/rooms ABSENT while per-user rooms present;
+> expert runtime proof shows a new room writes per-user ONLY, data/rooms stays gone.
+> **Remaining: tester independent UI room-create verification, then Tron QA across S14.**
+> Guardrail: `rekeyUser` (T109) re-encrypts files/* on identity rekey.
 
 ## Sprint Goal
 Safely migrate legacy on-disk data to the per-user / UUIDv4 model, PROVE no data
@@ -40,7 +42,7 @@ auditable no-data-loss proof and a GATED removal of the legacy path.
   - No-data-loss proven on CURRENT data. T99 gate-(a) clean-T98-PASS is MET.
 
 - [ ] [T99: Remove legacy load path + files — ⛔ GATED](./task-99-remove-legacy.md)
-  **Status:** GATE CLEARED + EXECUTED (ec0423d v0.5.19) — both conditions met & logged: (a) T98 PASS ✅, (b) Tron deletion auth granted 2026-05-26. Step-0 gate check confirmed 3 real rooms in per-user dirs (loss-free) before removing legacy path. impl-done; full-suite regression test pending, then Tron QA. · R14.4 · delete phase (LAST)
+  **Status:** impl-done (v0.5.20, 9c1b0a0) — gate held + delete ran (ec0423d v0.5.19); post-delete dual-write regen FIXED (write path + dead loadFromDisk removed). Code-verified: no legacy write/load path in src/; data/rooms absent, per-user rooms present. Awaiting tester UI room-create verification, then Tron QA. · R14.4 · delete phase (LAST)
   - **GATE: starts ONLY after (a) T98 verify PASS AND (b) explicit Tron authorization. NEVER auto-runs.**
   - Remove legacy loadFromDisk; delete data/rooms/ + migrated token dirs (after backup tar)
 
