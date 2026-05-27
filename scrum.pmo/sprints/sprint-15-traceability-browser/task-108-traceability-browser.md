@@ -14,7 +14,14 @@
 - [ ] QA Review
 - [ ] Done
 
-## Implementation (robbin-expert, 2026-05-26, v0.5.18) — S15 CAPSTONE
+## PLACEMENT FIX (robbin-expert, 2026-05-27, v0.5.21) — Tron: docs top-nav choice, NOT /edit sidebar
+Tron clarified: the browser must be a TOP-NAV choice on the docs page (peer to browser/App), not the /edit sidebar. Relocated (reused all of T108 — rb-trace-tree + GET /api/trace, no component rebuild):
+- NEW standalone route `GET /trace` (server.ts) → HTML page (pageHead + pageNav) mounting `#trace-tree` (rb-trace-tree) + `#trace-detail` off /api/trace, loaded by a NEW `trace-page.ts` bundle (added to build.mjs + manifest `trace-page.js`).
+- `pageNav()` now includes a `Traceability` link (→ /trace) next to App — appears on every docs page (peer to Browse/App).
+- REMOVED the /edit sidebar mount (`mountTraceBrowser` + its call + the trace import in edit.ts) — the browser lives ONLY in the docs nav now. Edit bundle shrank (trace layer removed).
+- node-click → rb-detail-view in the detail pane via TraceRouter/viewRegistry (unchanged). v0.5.21, sw.js rawbin-v0.5.21.
+
+## Implementation (robbin-expert, 2026-05-26, v0.5.18) — S15 CAPSTONE (original /edit placement, superseded above)
 - **`rb-trace-tree.ts`** → `<rb-trace-tree>` (AC2): expand/collapse tree, root=requirements, children = each object's links (toJSON().links) with a per-path cycle guard; node rows reuse T105 `<rb-object-item>`; expand state persisted to localStorage (rawbin-trace-expanded); subscribes ViewBus 'graph'.
 - **AC5**: built from the T102-validated graph. NEW server `GET /api/trace` (server.ts) runs `scanRepo`→`graph.toJSON()` + `validate()`; returns `{objects, broken[], issueCount}`. Broken/dangling node uuids render with a ⚠️ marker — shown, never hidden.
 - **AC1/AC3**: mounted in `/edit` next to `<rb-file-tree>` (edit.ts `mountTraceBrowser` appends tree + detail pane into the layout tree panel — additive + guarded, never breaks the editor if /api/trace fails). Composes T105 item rows + T107 rb-detail-view (detail pane) over the T103 seam.

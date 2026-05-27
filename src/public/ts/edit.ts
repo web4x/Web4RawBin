@@ -9,7 +9,6 @@ import './components/rb-preview.js';
 import type { RbPreview } from './components/rb-preview.js';
 import './components/rb-editor-toolbar.js';
 import type { RbEditorToolbar } from './components/rb-editor-toolbar.js';
-import { RbTraceTree, TraceRouter, viewRegistry, deserialize } from './trace/index.js';
 
 if (!document.querySelector('rb-update-banner')) {
   document.body.prepend(document.createElement('rb-update-banner'));
@@ -99,31 +98,6 @@ document.addEventListener('toolbar-save', () => { if (filePath) saveFile(filePat
 document.addEventListener('mode-change', ((e: CustomEvent) => applyMode(e.detail.mode)) as EventListener);
 document.addEventListener('dirty-change', ((e: CustomEvent) => { toolbar.setDirty(e.detail.dirty); updatePreview(); }) as EventListener);
 
-// T108: traceability browser — a tree sibling to the file tree, with a detail pane below.
-// Additive + guarded: if /api/trace fails, the editor is unaffected.
-async function mountTraceBrowser(treePanel: HTMLElement): Promise<void> {
-  try {
-    const heading = document.createElement('div');
-    heading.textContent = 'Traceability';
-    heading.style.cssText = 'color:#888;font-size:0.7rem;text-transform:uppercase;padding:8px 8px 4px;border-top:1px solid #3c3c3c;margin-top:8px';
-    const traceTree = document.createElement('rb-trace-tree') as RbTraceTree;
-    const detail = document.createElement('div');
-    detail.className = 'tt-detail';
-    treePanel.appendChild(heading);
-    treePanel.appendChild(traceTree);
-    treePanel.appendChild(detail);
-
-    const res = await fetch('/api/trace');
-    if (!res.ok) return;
-    const data = await res.json();
-    const graph = deserialize(data.objects || []);
-    traceTree.setGraph(graph, data.broken || []);
-    // node click (rb-object-item) → navigate → router renders the DetailView into `detail`
-    const router = new TraceRouter(graph, viewRegistry(), detail);
-    router.start();
-  } catch { /* trace browser optional — never break the editor */ }
-}
-
 async function init(): Promise<void> {
   toolbar.setPath(filePath);
 
@@ -132,7 +106,6 @@ async function init(): Promise<void> {
     const tree = document.createElement('rb-file-tree') as RbFileTree;
     treePanel.appendChild(tree);
     tree.addEventListener('file-select', ((e: CustomEvent) => openFile(e.detail.path)) as EventListener);
-    mountTraceBrowser(treePanel); // T108: traceability tree next to the file tree
   }
 
   const editorPanel = layout.editorEl;

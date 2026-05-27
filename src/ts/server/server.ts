@@ -276,13 +276,21 @@ function getBannerScript(): string {
   return '/dist/rb-update-banner.js';
 }
 
+function getBundleScript(key: string, fallback: string): string {
+  try {
+    const manifest = JSON.parse(fsSync.readFileSync(path.join(PUBLIC_DIR, 'dist', 'build-manifest.json'), 'utf-8'));
+    if (manifest[key]) return `/dist/${manifest[key]}`;
+  } catch {}
+  return `/dist/${fallback}`;
+}
+
 function pageHead(title: string): string {
   return `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>${title} — RawBin</title><link rel="stylesheet" href="/app.css"><script type="module" src="${getBannerScript()}"></script></head><body><rb-update-banner></rb-update-banner><button onclick="history.back()" style="position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));right:20px;width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,0.6);color:white;border:none;font-size:1.5rem;cursor:pointer;z-index:100">✕</button>`;
 }
 
 function pageNav(backHref: string = '/', backLabel: string = 'Home', editPath?: string): string {
   const editLink = editPath ? ` · <a href="/edit/${editPath}" style="color:#ff9800;text-decoration:none;font-size:0.9rem">✏️ Edit</a>` : '';
-  return `<div style="padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top))"><a href="${backHref}" style="color:#ffffff;text-decoration:none;font-size:0.9rem">← ${backLabel}</a> · <a href="/app" style="color:#ffffff;text-decoration:none;font-size:0.9rem">App</a>${editLink}</div>`;
+  return `<div style="padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top))"><a href="${backHref}" style="color:#ffffff;text-decoration:none;font-size:0.9rem">← ${backLabel}</a> · <a href="/app" style="color:#ffffff;text-decoration:none;font-size:0.9rem">App</a> · <a href="/trace" style="color:#ffffff;text-decoration:none;font-size:0.9rem">Traceability</a>${editLink}</div>`;
 }
 
 function trackClient(req: http.IncomingMessage): void {
@@ -391,6 +399,20 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const domain = BASE_DOMAIN || getLocalIP();
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
       res.end(JSON.stringify({ baseDomain: domain, httpsPort: HTTPS_PORT, version: getVersion(), branch: 'rawbin' }));
+      return;
+    }
+
+    // T108 (relocated): standalone Traceability browser page — docs top-nav choice (peer to
+    // browser/App). Mounts rb-trace-tree + detail pane off /api/trace.
+    if (filepath === '/trace' || filepath === '/trace/') {
+      const script = getBundleScript('trace-page.js', 'trace-page.js');
+      res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache' });
+      res.end(`${pageHead('Traceability')}<style>${MD_CSS}</style>${pageNav('/md/', 'Browse')}
+        <div style="display:flex;gap:12px;max-width:1100px;margin:0 auto;padding:0 16px;flex-wrap:wrap">
+          <div id="trace-tree" style="flex:1;min-width:280px"><div style="color:#888;padding:20px">Loading traceability graph…</div></div>
+          <div id="trace-detail" style="flex:1;min-width:280px"></div>
+        </div>
+        <script type="module" src="${script}"></script></body></html>`);
       return;
     }
 
