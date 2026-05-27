@@ -407,7 +407,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (filepath === '/trace' || filepath === '/trace/') {
       const script = getBundleScript('trace-page.js', 'trace-page.js');
       res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache' });
-      res.end(`${pageHead('Traceability')}<style>${MD_CSS}</style>${pageNav('/md/', 'Browse')}
+      // NOTE: do NOT reference MD_CSS here — it's a const declared later in handleRequest (TDZ).
+      // pageHead already links /app.css which carries the trace component styles.
+      res.end(`${pageHead('Traceability')}${pageNav('/md/', 'Browse')}
         <div style="display:flex;gap:12px;max-width:1100px;margin:0 auto;padding:0 16px;flex-wrap:wrap">
           <div id="trace-tree" style="flex:1;min-width:280px"><div style="color:#888;padding:20px">Loading traceability graph…</div></div>
           <div id="trace-detail" style="flex:1;min-width:280px"></div>
