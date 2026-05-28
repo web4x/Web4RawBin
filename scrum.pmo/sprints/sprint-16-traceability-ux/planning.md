@@ -32,36 +32,39 @@ class).
 
 ## Task List
 
+> **Progress legend** (at-a-glance per task; `[ ]` stays = Tron's Done gate):
+> ⏳ planned · 📝 designed (refinement-done) · 🔧 implementing · ✅ impl-shipped · 🧪 testing · 🏁 Tron-QA-done
+
 ### Phase 1 — Detail drawer infrastructure
 
-- [ ] [T110: DetailViewContainer — Google-Maps-style detail drawer](./task-110-detailview-container.md)
+- [ ] ✅ [T110: DetailViewContainer — Google-Maps-style detail drawer](./task-110-detailview-container.md)
   **Status:** impl-shipped (rb-detail-drawer + drawer integration; build clean, 791 tests pass) — testing (robbin-tester) + Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.1
   - Drawer-like container (like room chat drawer) on /trace; clicking a tree item shows its details inside
 
-- [ ] [T111: Specialized DetailViews (TaskDetailView, RequirementDetailView)](./task-111-detail-views.md)
+- [ ] 📝 [T111: Specialized DetailViews (TaskDetailView, RequirementDetailView)](./task-111-detail-views.md)
   **Status:** refinement done (architect, 9324e4c) — awaiting impl
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.2
   - Typed views rendered inside the container; extensible per object type
 
 ### Phase 2 — Tree-item redesign
 
-- [ ] [T112: Tree-item — speaky name (generate if absent) + word-wrap description](./task-112-tree-item-name-desc.md)
+- [ ] 📝 [T112: Tree-item — speaky name (generate if absent) + word-wrap description](./task-112-tree-item-name-desc.md)
   **Status:** refinement done (architect, 9324e4c) — awaiting impl
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.3 + R16.4
   - `name` attr = human short name; generate from requirement text if none; word-wrapping description paragraph below name
 
-- [ ] [T113: Tree-item — square SVG type icon (free icon library)](./task-113-tree-item-icon.md)
+- [ ] 📝 [T113: Tree-item — square SVG type icon (free icon library)](./task-113-tree-item-icon.md)
   **Status:** refinement done (architect, 9324e4c — icon-library chosen) — awaiting impl
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.5
   - Left-side catchy quadratic (square) SVG icon per type (requirement/task); architect picks a free lib (Lucide/Tabler/Feather, MIT/ISC)
 
-- [ ] [T114: Tree-item — OS drag-and-drop](./task-114-tree-item-drag.md)
+- [ ] 📝 [T114: Tree-item — OS drag-and-drop](./task-114-tree-item-drag.md)
   **Status:** refinement done (architect, 9324e4c) — awaiting impl
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.6
   - OS-specific drag-and-drop of a tree item
 
-- [ ] [T115: Tree-item — tap-icon collapse/expand + ">" children expander](./task-115-tree-item-collapse-expand.md)
+- [ ] 📝 [T115: Tree-item — tap-icon collapse/expand + ">" children expander](./task-115-tree-item-collapse-expand.md)
   **Status:** refinement done (architect, 9324e4c) — awaiting impl
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.7 + R16.8
   - Tap icon once → collapse to just the square icon; tap again → expand to name + description
@@ -69,12 +72,12 @@ class).
 
 ### Phase 3 — Traceability chain integrity
 
-- [ ] [T116: Traceability-chain review — every method traces to its requirement](./task-116-chain-review.md)
+- [ ] 📝 [T116: Traceability-chain review — every method traces to its requirement](./task-116-chain-review.md)
   **Status:** refinement done (architect, 9324e4c) — awaiting impl
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.9
   - Chain: requirement → task → use cases → classes (nouns) → methods (verbs); ensure EVERY method traces back to its originating requirement
 
-- [ ] [T117: UseCase as class instances in PUML](./task-117-usecase-as-class.md)
+- [ ] 📝 [T117: UseCase as class instances in PUML](./task-117-usecase-as-class.md)
   **Status:** refinement done (architect, 9324e4c) — awaiting impl
   **Owner:** robbin-architect (design), robbin-expert (implement), robbin-tester (verify) · maps R16.10
   - Track use cases in PUML as dedicated instances of a UseCase class (first-class, not labels) — enables T116's method→UC→requirement chain

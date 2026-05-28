@@ -15,7 +15,10 @@ approved [traceability standard](../../standards/traceability-standard.md).
 
 ## Task List
 
-- [ ] [T84: Editor back button navigates to parent directory, not /app](./task-84-editor-back-button.md)
+> **Progress legend** (at-a-glance per task; `[ ]` stays = Tron's Done gate):
+> ⏳ planned · 📝 designed (refinement-done) · 🔧 implementing · ✅ impl-shipped · 🧪 testing · 🏁 Tron-QA-done
+
+- [ ] 🧪 [T84: Editor back button navigates to parent directory, not /app](./task-84-editor-back-button.md)
   **Status:** impl + testing DONE (24482f7 v0.4.10; tester 4/4, 6db4ba3) — Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   - `rb-editor-toolbar.ts:36` hardcodes `<a href="/app">` — derive parent dir from `this._path`

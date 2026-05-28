@@ -45,34 +45,37 @@ requirements.md entirely.
 
 ## Task List
 
-- [ ] [T85: Adopt Web4Articles task template + traceability conventions doc](./task-85-adopt-template.md)
+> **Progress legend** (at-a-glance per task; `[ ]` stays = Tron's Done gate):
+> ⏳ planned · 📝 designed (refinement-done) · 🔧 implementing · ✅ impl-shipped · 🧪 testing · 🏁 Tron-QA-done
+
+- [ ] ✅ [T85: Adopt Web4Articles task template + traceability conventions doc](./task-85-adopt-template.md)
   **Status:** impl-done (verified 2026-05-26) — testing + Tron QA pending · **Owner:** planner + req-eng
   - standard (req) + upgraded template (planner) DONE; verified compatible; S10/S12/S13 authored from it pass audit
 
-- [ ] [T86: Traceability index — map all Sprint 1-9 tasks to chain coverage](./task-86-traceability-index.md)
+- [ ] ✅ [T86: Traceability index — map all Sprint 1-9 tasks to chain coverage](./task-86-traceability-index.md)
   **Status:** impl-done (2026-05-26) — testing + Tron QA pending · **Owner:** planner + req-eng
   - Published `scrum.pmo/traceability-matrix.md` — 86 tasks (S1-9), per-link coverage
   - Findings: uuid 86/86; req/uc only S8-9; requirements.md missing S1-7; puml 5/86
   - Batch order set: T87=S8,9 · T88=S5,6,7 · T89=S1-4 (+ Sprint-1 dup reconcile)
 
-- [ ] [T87: Batch 1 — recent sprints (8, 9) full chain](./task-87-batch-active.md)
+- [ ] ⏳ [T87: Batch 1 — recent sprints (8, 9) full chain](./task-87-batch-active.md)
   **Status:** PLANNED · **Owner:** req-eng (chain + audit), planner (links)
   - Sprints 8,9 already have requirements.md + diagrams — add requirement:uuid tags + wire each task's forward chain
   - (Sprint 10 already made compliant as active work — requirements.md + T81-T83 up→requirement links done)
   - QA-gated: Tron reviews before Done
 
-- [ ] [T88: Batch 2 — Sprints 5-7 chain backfill](./task-88-batch-mid.md)
+- [ ] ⏳ [T88: Batch 2 — Sprints 5-7 chain backfill](./task-88-batch-mid.md)
   **Status:** PLANNED · **Owner:** req-eng (chain), planner (links)
   - Sprints 5,6,7 — backfill requirements.md/use cases where missing, link PUML + code
   - DELIBERATE: these are closed/QA'd — changes tracked here, reviewed, not inline churn
 
-- [ ] [T89: Batch 3 — Sprints 1-4 chain backfill](./task-89-batch-foundation.md)
+- [ ] ⏳ [T89: Batch 3 — Sprints 1-4 chain backfill](./task-89-batch-foundation.md)
   **Status:** PLANNED · **Owner:** req-eng (chain), planner (links)
   - Oldest sprints — retroactively author requirements.md + use-case stubs as tracked work
   - Reconcile the deferred Sprint 1 duplicate task-2 files as part of this batch
   - Highest risk (signed-off) — smallest sub-batches, Tron-gated per sprint
 
-- [ ] [T90: Traceability verification + audit gate](./task-90-traceability-verify.md)
+- [ ] ⏳ [T90: Traceability verification + audit gate](./task-90-traceability-verify.md)
   **Status:** PLANNED · **Owner:** tester + planner
   - Add a chain-resolution check: every task's req→usecase→puml→class/method links resolve
   - Extend (or wrap) the `sprint audit` to flag broken/missing chain links

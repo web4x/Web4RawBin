@@ -14,7 +14,10 @@ code path and ensure "tap anywhere on a badge" works.
 
 ## Task List
 
-- [ ] [T81: Member Click → Profile Sheet → vCard Download](./task-81-member-click-vcard.md)
+> **Progress legend** (at-a-glance per task; `[ ]` stays = Tron's Done gate):
+> ⏳ planned · 📝 designed (refinement-done) · 🔧 implementing · ✅ impl-shipped · 🧪 testing · 🏁 Tron-QA-done
+
+- [ ] 🧪 [T81: Member Click → Profile Sheet → vCard Download](./task-81-member-click-vcard.md)
   **Status:** impl + testing DONE (v0.4.9; tester 6/6, c88b4eb) — Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   - Fix key mismatch: client reads `msg.user` not `msg.profile` (RoomView.ts:99)
@@ -24,13 +27,13 @@ code path and ensure "tap anywhere on a badge" works.
   - Bump v0.4.9 + sw.js cache (PWA update detection)
   - NOTE: AC6 (self-click→ProfileEditor) SUPERSEDED by T83
 
-- [ ] [T82: vCard Button Visibility + ProfileSheet Avatar DRY](./task-82-vcard-visibility-avatar-dry.md)
+- [ ] 🧪 [T82: vCard Button Visibility + ProfileSheet Avatar DRY](./task-82-vcard-visibility-avatar-dry.md)
   **Status:** impl + testing DONE (86256fa v0.5.0; tester 6/6, c88b4eb) — Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   - vCard button invisible (CSS contrast bug, not missing)
   - ProfileSheet avatar: replace duplicated inline `<img>` with `rb-avatar` (DRY)
 
-- [ ] [T83: Self-Click Opens Profile Sheet, Not Profile Editor](./task-83-self-click-profile.md)
+- [ ] 🧪 [T83: Self-Click Opens Profile Sheet, Not Profile Editor](./task-83-self-click-profile.md)
   **Status:** impl + testing DONE (c67bc11 v0.5.3; tester 6/6, c88b4eb) — Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   - Self-click in member list → read-only ProfileSheet (was ProfileEditor)

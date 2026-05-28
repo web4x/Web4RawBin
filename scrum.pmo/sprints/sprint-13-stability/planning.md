@@ -19,32 +19,35 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
 
 ## Task List
 
-- [ ] [T91: Avatar persistence — must not revert to default](./task-91-avatar-persist.md)
+> **Progress legend** (at-a-glance per task; `[ ]` stays = Tron's Done gate):
+> ⏳ planned · 📝 designed (refinement-done) · 🔧 implementing · ✅ impl-shipped · 🧪 testing · 🏁 Tron-QA-done
+
+- [ ] 🧪 [T91: Avatar persistence — must not revert to default](./task-91-avatar-persist.md)
   **Status:** impl + testing DONE (f2e019c v0.4.11; tester 5/5, string-desync scope) — Tron QA pending · R-A1 (with T109)
   - String-desync overwrite fixed. Recurrence (decrypt-exception) → [T109](./task-109-avatar-recurrence-fix.md). R-A1 done only when T91+T109 both verify.
 
-- [ ] [T109: Avatar Recurrence Fix — decrypt-exception overwrite + rekey re-encrypt](./task-109-avatar-recurrence-fix.md)
+- [ ] 🧪 [T109: Avatar Recurrence Fix — decrypt-exception overwrite + rekey re-encrypt](./task-109-avatar-recurrence-fix.md)
   **Status:** impl + testing DONE (v0.5.10; (a) avatar-preserve 6/6 dba9798 + (b) avatar-rekey 6/6 915f880) — Tron QA pending · R-A1
   - (a) catch never overwrites undecryptable avatar.enc; (b) re-encrypt files/* on identity rekey. With T91, R-A1 satisfied.
 
-- [ ] [T92: Avatar upload key-error UX](./task-92-avatar-upload-ux.md)
+- [ ] 🧪 [T92: Avatar upload key-error UX](./task-92-avatar-upload-ux.md)
   **Status:** impl + testing DONE (f2e019c v0.4.11; tester 6/6 AC1-AC6, 3ca7830) — Tron QA pending · R-A2
   - Upload never surfaces "key not found"; auto-regenerate or friendly retry; log real error
 
-- [ ] [T93: Multi-room lobby listing (load-from-disk)](./task-93-multi-room-lobby.md)
+- [ ] 🧪 [T93: Multi-room lobby listing (load-from-disk)](./task-93-multi-room-lobby.md)
   **Status:** impl + testing DONE (492221a v0.5.2; tester 4/4 live, 27ef9c6) — Tron QA pending · R-R1
   - All of a user's rooms load from disk on connect and appear in lobby
 
-- [ ] [T94: PWA update banner fix](./task-94-pwa-update-banner.md)
+- [ ] 🧪 [T94: PWA update banner fix](./task-94-pwa-update-banner.md)
   **Status:** impl + testing DONE (f884672 v0.5.4, per-request version read; tester 3/3 + curl, 63f0219) — Tron QA pending · R-V1 · **CRITICAL**
   - New version shows update bar → reload picks up new build; architect audited SW path end-to-end
 
-- [ ] [T95: Lobby Rooms Ordered Newest-First](./task-95-newest-rooms-first.md)
+- [ ] 🧪 [T95: Lobby Rooms Ordered Newest-First](./task-95-newest-rooms-first.md)
   **Status:** impl + testing DONE (3748f0e v0.5.5; tester TS1 1/1 + 10/10, 073b027) — Tron QA pending
   **Owner:** robbin-architect (design), robbin-expert (implement), robbin-tester (verify)
   - Sort lobby room list by createdAt desc (legacy `|| 0` → bottom, deterministic across restart)
 
-- [ ] [T100: Test Data Isolation — DATA_DIR override](./task-100-test-data-isolation.md)
+- [ ] 🧪 [T100: Test Data Isolation — DATA_DIR override](./task-100-test-data-isolation.md)
   **Status:** impl + testing DONE (v0.5.7; AC4 PASS ed5c5de — port-isolated run, prod 3→3 sha-identical, live stayed up) — Tron QA pending · R-T1 · test-infra
   - DATA_DIR env (default=prod). All AC1-AC5 met. Follow-up (tester): 7 disk-asserting specs to honor E2E_DATA_DIR (not a T100 bug)
 

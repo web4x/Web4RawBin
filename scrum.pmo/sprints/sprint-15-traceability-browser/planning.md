@@ -29,28 +29,31 @@ flat JSON of object state with route-like references to other objects (no protoc
 
 ## Task List
 
+> **Progress legend** (at-a-glance per task; `[ ]` stays = Tron's Done gate):
+> ⏳ planned · 📝 designed (refinement-done) · 🔧 implementing · ✅ impl-shipped · 🧪 testing · 🏁 Tron-QA-done
+
 ### Phase 1 — Object model + consistency (backend)
-- [ ] [T101: Typed Object Model — Requirement/Test/Implementation classes + UUIDs](./task-101-object-model.md)
+- [ ] 🧪 [T101: Typed Object Model — Requirement/Test/Implementation classes + UUIDs](./task-101-object-model.md)
   **R15.1** · architect+expert · foundation · impl + testing DONE (v0.5.8; trace-model.test 8/8, 47ee53f) — Tron QA pending
-- [ ] [T102: Traceability Matrix Consistency + Fix Engine](./task-102-matrix-consistency-engine.md)
+- [ ] ✅ [T102: Traceability Matrix Consistency + Fix Engine](./task-102-matrix-consistency-engine.md)
   **R15.1** · expert+tester · requires T101 · impl-done (74b33ad v0.5.11) — testing pending (trace-consistency.test + npm run trace:check)
-- [ ] [T103: Object.verb Routing + Flat-JSON Serialization + MVC Live Views](./task-103-object-verb-routing.md)
+- [ ] ✅ [T103: Object.verb Routing + Flat-JSON Serialization + MVC Live Views](./task-103-object-verb-routing.md)
   **R15.2** · architect+expert · requires T101 · impl-done (fca4540 v0.5.13 — Router/VerbRegistry/ViewBus/rb-trace-view) — testing pending
 
 ### Phase 2 — Diagrams
-- [ ] [T104: Object.verb Use-Case Diagrams](./task-104-object-verb-diagrams.md)
+- [ ] ✅ [T104: Object.verb Use-Case Diagrams](./task-104-object-verb-diagrams.md)
   **R15.3** · architect · requires T101 · impl-done (object-verb-usecases.puml/svg authored) — testing pending (renders + uc:uuid anchors)
 
 ### Phase 3 — Views (web components)
-- [ ] [T105: defaultItemView Web Component (draggable, native-OS)](./task-105-default-item-view.md)
+- [ ] ✅ [T105: defaultItemView Web Component (draggable, native-OS)](./task-105-default-item-view.md)
   **R15.4** · expert+tester · requires T103 · impl-done (950add4 v0.5.15 — rb-object-item) — testing pending
-- [ ] [T106: ListOverview Component + Search → remoteSearch](./task-106-list-overview-search.md)
+- [ ] ✅ [T106: ListOverview Component + Search → remoteSearch](./task-106-list-overview-search.md)
   **R15.5** · expert+tester · requires T105 · impl-done (e0df213 v0.5.16 — rb-list-overview + SearchProvider local→remote) — testing pending
-- [ ] [T107: Task DetailViews + Planning Overview (always consistent)](./task-107-detail-overview-views.md)
+- [ ] ✅ [T107: Task DetailViews + Planning Overview (always consistent)](./task-107-detail-overview-views.md)
   **R15.6** · expert+tester · requires T103 · impl-done (ce15c08 v0.5.17 — rb-detail-view + rb-overview computed-from-graph) — testing pending
 
 ### Phase 4 — Browser (capstone)
-- [ ] [T108: Traceability Browser — tree-navigable graph in Documentation](./task-108-traceability-browser.md)
+- [ ] ✅ [T108: Traceability Browser — tree-navigable graph in Documentation](./task-108-traceability-browser.md)
   **R15.7** · expert+tester · requires T102, T105, T106, T107 · impl-done (b2a1104 v0.5.18 — rb-trace-tree + GET /api/trace) — testing pending
 
 ## Dependency Graph
