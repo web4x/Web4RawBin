@@ -8,7 +8,15 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
-### B2 — E2E test runs flood `data/` with orphan users/rooms (no cleanup of users)
+_None._
+
+### Triaged out
+- **B2 — E2E test runs flood `data/` with orphan users/rooms** — **PROMOTED 2026-05-29**
+  to [T118](./sprints/sprint-13-stability/task-118-e2e-cleanup.md) in Sprint 13
+  (Stability). Tron triage via PO: confirmed as a real test-infra hygiene fix,
+  E2E cousin of T100. Original analysis preserved below.
+
+### B2 — E2E test runs flood `data/` with orphan users/rooms (no cleanup of users) [HISTORICAL — see T118]
 
 **Filed:** 2026-05-29 · **Reporter:** Tron via robbin-planner
 **Type:** test-infra hygiene / data leakage

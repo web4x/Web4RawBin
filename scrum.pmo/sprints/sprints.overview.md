@@ -22,13 +22,13 @@ Status legend: **Done** = all tasks Tron QA-approved · **active** = in flight
 | 10 | Contacts UI | active — T81/82/83 tested, awaiting Tron QA | 3 | [planning](./sprint-10-contacts-ui/planning.md) |
 | 11 | Traceability Standardization | active — T85/86 impl-done; T87-90 planned (S1-9 remediation) | 6 | [planning](./sprint-11-traceability/planning.md) |
 | 12 | Editor Fixes | active — T84 tested, awaiting Tron QA | 1 | [planning](./sprint-12-editor-fixes/planning.md) |
-| 13 | Stability | active — all 7 (T91-95,T100,T109) tested→awaiting Tron QA | 7 | [planning](./sprint-13-stability/planning.md) |
+| 13 | Stability | active — 7 (T91-95,T100,T109) tested→awaiting Tron QA; T118 planned (E2E cleanup, from B2) | 8 | [planning](./sprint-13-stability/planning.md) |
 | 14 | Legacy Data Migration | ✅ migration complete — T96/97 migrated, T98 verify PASS, T99 gate-cleared + EXECUTED (legacy removed v0.5.19); regression+Tron QA pending | 4 | [planning](./sprint-14-legacy-migration/planning.md) |
 | 15 | Traceability Browser & Object Model | active — all 8 impl-complete (v0.5.18); T101/102/103/105/106 tested→Tron QA; T104/107/108 testing | 8 | [planning](./sprint-15-traceability-browser/planning.md) |
 | 16 | Traceability UX & DetailViews | planned — DetailView drawer + tree-item redesign + chain integrity (T110-117) | 8 | [planning](./sprint-16-traceability-ux/planning.md) |
 
 **Task numbering:** global sequential. T1-T80 (S1-9), T81-83 (S10), T84 (S12),
-T85-90 (S11), T91-95 (S13), T96-99 (S14), T100 (S13), T101-108 (S15), T109 (S13), T110-117 (S16). Next new task = **T118**.
+T85-90 (S11), T91-95 (S13), T96-99 (S14), T100 (S13), T101-108 (S15), T109 (S13), T110-117 (S16), T118 (S13). Next new task = **T119**.
 
 **Traceability & Standards:** [traceability matrix](../traceability-matrix.md)
 (req→uc→puml→method→test index) · [standard](../standards/traceability-standard.md) ·

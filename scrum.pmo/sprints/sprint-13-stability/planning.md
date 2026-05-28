@@ -51,6 +51,13 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
   **Status:** impl + testing DONE (v0.5.7; AC4 PASS ed5c5de — port-isolated run, prod 3→3 sha-identical, live stayed up) — Tron QA pending · R-T1 · test-infra
   - DATA_DIR env (default=prod). All AC1-AC5 met. Follow-up (tester): 7 disk-asserting specs to honor E2E_DATA_DIR (not a T100 bug)
 
+- [ ] ⏳ [T118: E2E test cleanup — cleanupTestUsers + per-spec afterAll + backfill purge](./task-118-e2e-cleanup.md)
+  **Status:** PLANNED — promoted from backlog B2 (2026-05-29) · R-T2 · test-infra (E2E cousin of T100)
+  **Owner:** robbin-expert (helper + spec wiring), robbin-tester (verify; prod-data preserved)
+  - cleanupTestUsers(pattern) helper in test/e2e/helpers.ts (honors T100 DATA_DIR)
+  - Per-spec test.afterAll wiring for 8 ensureLobby-using specs (5 have zero cleanup; 3 clean rooms only)
+  - One-shot backfill purge of 263-user pile, preserving 3 real owners
+
 ## Dependency Graph
 ```
 Independent bug fixes (no inter-task deps):
@@ -64,9 +71,10 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 7 (T91-95, T100, T109) |
-| Tron QA-approved (Done) | 0/7 |
+| Tasks | 8 (T91-95, T100, T109, T118) |
+| Tron QA-approved (Done) | 0/8 |
 | Tested, awaiting Tron QA | T91, T92, T93, T94, T95, T100, T109 (7) |
+| Planned (R-T2 test-infra) | T118 (1) |
 | Note | R-A1 (avatar persist) satisfied by T91 + T109 (both tested); pending Tron QA |
 | Use case diagrams | 4 (architect, in diagrams/) |
 
