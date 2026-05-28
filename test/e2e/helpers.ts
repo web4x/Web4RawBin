@@ -8,12 +8,7 @@ const HELPERS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DATA_BASE = process.env.E2E_DATA_DIR || path.resolve(HELPERS_DIR, '../../data');
 const DATA_USERS_DIR = path.join(DATA_BASE, 'users');
 
-/**
- * Delete test-created rooms whose room.json `name` matches `pattern`.
- * Scans data/users/* /rooms/* /room.json and rmSync's matching room dirs.
- * Use in afterAll to avoid flooding prod data with test rooms.
- * Returns count of rooms removed.
- */
+// Delete test-created rooms matching pattern. Scans room.json names, rmSync dirs.
 export function cleanupTestRooms(pattern: RegExp): number {
   let removed = 0;
   if (!fs.existsSync(DATA_USERS_DIR)) return 0;
@@ -35,12 +30,7 @@ export function cleanupTestRooms(pattern: RegExp): number {
   return removed;
 }
 
-/**
- * T118: Delete test-created user dirs whose profile.name matches `pattern`.
- * Scans data/users/*/profile.json, rmSync's matching user dirs entirely.
- * Refuses unbounded patterns (e.g. /.*/) as a safety guard.
- * Returns count of users removed.
- */
+// T118: cleanupTestUsers — delete test user dirs matching pattern (unbounded-pattern guard).
 export function cleanupTestUsers(pattern: RegExp): number {
   if (pattern.source === '.*' || pattern.source === '.+' || pattern.source === '') {
     return 0;
