@@ -24,6 +24,7 @@ export { RbDetailDrawer } from './rb-detail-drawer.js';
 export { RbTaskDetail } from './rb-task-detail.js';
 export { RbRequirementDetail } from './rb-requirement-detail.js';
 export { RbUseCaseDetail } from './rb-usecase-detail.js';
+export { TRACE_ICONS } from './icons.js';
 export { navigate, setActiveRouter } from './nav.js';
 import './rb-object-item.js';
 import './rb-list-overview.js';

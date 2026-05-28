@@ -9,10 +9,7 @@
  */
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
-
-const TYPE_ACCENT: Record<string, string> = {
-  requirement: '🎯', task: '📋', usecase: '🧩', class: '🏷️', method: '⚙️', implementation: '🔧', test: '✅',
-};
+import { TRACE_ICONS } from './icons.js';
 
 export class RbObjectItem extends HTMLElement {
   static get observedAttributes() { return ['ref', 'type', 'title', 'status', 'name', 'description']; }
@@ -69,9 +66,9 @@ export class RbObjectItem extends HTMLElement {
     const { type } = this.parts();
     const name = this.getAttribute('name') || generateName(this.getAttribute('title'));
     const desc = this.getAttribute('description') || this.getAttribute('title') || '';
-    const accent = TYPE_ACCENT[type] || '•';
+    const icon = TRACE_ICONS[type] || '•';
     this.innerHTML = `
-      <span class="oi-icon" title="${type}">${accent}</span>
+      <span class="oi-icon" title="${type}">${icon}</span>
       <div class="oi-content">
         <span class="oi-name">${esc(name)}</span>
         ${desc ? `<p class="oi-desc">${esc(desc)}</p>` : ''}
