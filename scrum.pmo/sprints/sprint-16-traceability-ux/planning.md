@@ -2,6 +2,13 @@
 
 # Sprint 16 Planning — Traceability UX & DetailViews
 
+> ⚠️ **VERSION-BUMP GAP (Tron 2026-05-29):** T110-T117 shipped 2026-05-29
+> (51812eb → 61d0253) WITHOUT a `package.json` + `sw.js` cache bump. Code is
+> committed but the PWA update banner did NOT fire — Tron's device stays on
+> old code. Expert is remediating; until that bump lands, ✅ here means
+> "impl-committed at code level," NOT "delivered to Tron's device."
+> Planner standing rule (learnings #15): impl-done ≠ shipped without bump.
+
 ## Sprint Goal
 The traceability browser (/trace, S15) works but its UX is clumsy. Make the
 traceability tree interactive and legible: a Google-Maps-style detail drawer

@@ -81,6 +81,14 @@ requirements.md entirely.
   - Extend (or wrap) the `sprint audit` to flag broken/missing chain links
   - Target: 89/89 tasks chain-complete
 
+- [ ] ⏳ [T119: Test traceability — `[test:uuid:]` markers + trace-cli Pass 6 + chain validation](./task-119-test-traceability.md)
+  **Status:** PLANNED — Tron 2026-05-29 ("797/797 tests but none traceable"); req:r119-test-traceability captured
+  **Owner:** robbin-architect (retrofit design), robbin-expert (Pass 6 + marker rollout), robbin-tester (chain-complete verify), with robbin-req formalizing the requirement first
+  - Marker convention `[test:uuid:]` for every test file (file-level; case-level where multi-AC)
+  - trace-cli Pass 6 parser + `validate()` `orphanTests` check
+  - Standard + matrix + s16-usecases.puml extended to include the **test** node
+  - Closes the chain end-to-end (req→uc→puml→class/method→**test**); precondition for T90's full audit gate
+
 ## Dependency Graph
 ```
 T85 (template + standard doc) ─→ T86 (index/matrix) ─┬─→ T87 (batch active 8-10)
@@ -93,7 +101,7 @@ T85 (template + standard doc) ─→ T86 (index/matrix) ─┬─→ T87 (batch 
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 6 (T85-T90) |
+| Tasks | 7 (T85-T90, T119) |
 | Tron QA-approved (Done) | 0/6 |
 | Planned | 6 |
 | Scope | 89 existing task files, 10 sprints |
