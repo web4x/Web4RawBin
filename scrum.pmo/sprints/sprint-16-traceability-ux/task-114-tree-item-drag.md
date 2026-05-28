@@ -25,9 +25,11 @@
   - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.6** (OS drag-and-drop)
 - down
   - None (atomic task)
-- chain (req → usecase → puml → class/method) — to be completed by req + architect
-  - **requirement:** R16.6 (req-eng to formalize)
-  - **use case / puml / method:** TBD (architect)
+- chain (req → usecase → puml → class/method)
+  - **requirement:** R16.6
+  - **use case:** objectItem.drag [uc:uuid:16a01141-d141-4a01-b141-000000114001]
+  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 2 package)
+  - **class/method:** `rb-object-item.ts` → `RbObjectItem.onDragStart()` (existing T105, verify after redesign)
 
 ## Task Description
 Make the tree-item **draggable** so the user can perform **OS-specific** drag-and-drop

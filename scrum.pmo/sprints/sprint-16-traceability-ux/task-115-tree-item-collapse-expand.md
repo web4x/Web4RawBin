@@ -25,9 +25,11 @@
   - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.7** (tap-icon collapse/expand) + **R16.8** (children expander)
 - down
   - None (atomic task)
-- chain (req → usecase → puml → class/method) — to be completed by req + architect
-  - **requirement:** R16.7 + R16.8 (req-eng to formalize)
-  - **use case / puml / method:** TBD (architect)
+- chain (req → usecase → puml → class/method)
+  - **requirement:** R16.7 + R16.8
+  - **use case:** objectItem.collapse [uc:uuid:16a01151-d151-4a01-b151-000000115001], objectItem.expand [uc:uuid:16a01152-d152-4a02-b152-000000115002], treeItem.expandChildren [uc:uuid:16a01153-d153-4a03-b153-000000115003]
+  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 2 package)
+  - **class/method:** `rb-object-item.ts` → `RbObjectItem.collapse()`, `expand()`, `expandChildren()` + `toggle-children` event dispatch
 
 ## Task Description
 Two distinct interactions on the tree-item:

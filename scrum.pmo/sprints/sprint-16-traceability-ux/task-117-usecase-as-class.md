@@ -27,6 +27,10 @@
 - down
   - None (atomic task)
 - chain (req → usecase → puml → class/method)
+  - **requirement:** R16.10
+  - **use case:** useCase.trackInPuml [uc:uuid:16a01171-d171-4a01-b171-000000117001]
+  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 3 package) — AUTHORED
+  - **class/method:** `TraceConsistency.ts` → `parseStereotype()` (<<UseCase>> PUML parsing)
   - Establishes the **use case** link as a first-class node so T116's chain is complete
 
 ## Task Description

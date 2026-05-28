@@ -25,11 +25,11 @@
   - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.2** (specialized DetailViews)
 - down
   - None (atomic task)
-- chain (req → usecase → puml → class/method) — to be completed by req + architect
-  - **requirement:** R16.2 (req-eng to formalize)
-  - **use case:** UC-TBD (architect)
-  - **puml:** diagrams/TBD.puml (architect)
-  - **class/method:** `TaskDetailView`, `RequirementDetailView` (TBD)
+- chain (req → usecase → puml → class/method)
+  - **requirement:** R16.2
+  - **use case:** taskDetail.render [uc:uuid:16a01101-d101-4a01-b101-000000111001], requirementDetail.render [uc:uuid:16a01102-d102-4a02-b102-000000111002], usecaseDetail.render [uc:uuid:16a01103-d103-4a03-b103-000000111003]
+  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 1 package)
+  - **class/method:** `rb-task-detail.ts` → `RbTaskDetail.render()`, `rb-requirement-detail.ts` → `RbRequirementDetail.render()`, `rb-usecase-detail.ts` → `RbUseCaseDetail.render()`
 
 ## Task Description
 Implement typed DetailViews rendered inside the DetailViewContainer (T110):

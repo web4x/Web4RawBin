@@ -25,9 +25,11 @@
   - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.3** (speaky name) + **R16.4** (word-wrap description)
 - down
   - None (atomic task)
-- chain (req → usecase → puml → class/method) — to be completed by req + architect
-  - **requirement:** R16.3 + R16.4 (req-eng to formalize)
-  - **use case / puml / method:** TBD (architect)
+- chain (req → usecase → puml → class/method)
+  - **requirement:** R16.3 + R16.4
+  - **use case:** objectItem.renderNameDesc [uc:uuid:16a01121-d121-4a01-b121-000000112001], objectItem.generateName [uc:uuid:16a01122-d122-4a02-b122-000000112002]
+  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 2 package)
+  - **class/method:** `rb-object-item.ts` → `RbObjectItem.render()`, `generateName()`
 
 ## Task Description
 Redesign the traceability tree-item to carry a **`name`** attribute = a human-readable

@@ -29,11 +29,11 @@
   - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.1** (DetailViewContainer)
 - down
   - None (atomic task)
-- chain (req → usecase → puml → class/method) — to be completed by req + architect
-  - **requirement:** R16.1 (req-eng to formalize as requirement:uuid)
-  - **use case:** UC-TBD (architect)
-  - **puml:** diagrams/TBD.puml (architect)
-  - **class/method:** `src/public/ts/components/` → `DetailViewContainer` (TBD)
+- chain (req → usecase → puml → class/method)
+  - **requirement:** R16.1
+  - **use case:** detailDrawer.open [uc:uuid:16a01001-d001-4a01-b001-000000110001], detailDrawer.close [uc:uuid:16a01002-d002-4a02-b002-000000110002], detailDrawer.swipeDismiss [uc:uuid:16a01003-d003-4a03-b003-000000110003]
+  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 1 package)
+  - **class/method:** `src/public/ts/trace/rb-detail-drawer.ts` → `RbDetailDrawer.open()`, `close()`, `swipeDismiss()`
 
 ## Task Description
 Create a dedicated **DetailViewContainer** — a drawer-like detail area (like the

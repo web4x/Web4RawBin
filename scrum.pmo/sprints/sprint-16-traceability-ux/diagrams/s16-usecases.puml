@@ -1,4 +1,4 @@
-@startuml S16 UseCases — Object.verb as class instances
+@startuml s16-usecases
 !theme plain
 skinparam classAttributeIconSize 0
 skinparam defaultFontSize 9

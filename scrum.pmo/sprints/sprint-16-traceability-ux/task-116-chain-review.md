@@ -27,6 +27,10 @@
 - down
   - None (atomic task)
 - chain (req → usecase → puml → class/method)
+  - **requirement:** R16.9
+  - **use case:** traceChain.auditOrphans [uc:uuid:16a01161-d161-4a01-b161-000000116001]
+  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 3 package)
+  - **class/method:** `TraceConsistency.ts` → `auditOrphans()` (scanner extension)
   - This task IS the chain-integrity audit: requirement → task → use case → class (noun) → method (verb)
 
 ## Task Description

@@ -25,9 +25,11 @@
   - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.5** (square SVG type icon)
 - down
   - None (atomic task)
-- chain (req → usecase → puml → class/method) — to be completed by req + architect
-  - **requirement:** R16.5 (req-eng to formalize)
-  - **use case / puml / method:** TBD (architect)
+- chain (req → usecase → puml → class/method)
+  - **requirement:** R16.5
+  - **use case:** objectItem.setIcon [uc:uuid:16a01131-d131-4a01-b131-000000113001]
+  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 2 package)
+  - **class/method:** `rb-object-item.ts` → `RbObjectItem` icon rendering + `trace/icons.ts` (Lucide vendored SVGs)
 
 ## Task Description
 On the **left side** of each tree-item, render a catchy **quadratic (square) SVG** icon
