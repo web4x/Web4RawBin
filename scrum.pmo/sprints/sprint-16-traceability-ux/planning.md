@@ -59,8 +59,8 @@ class).
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.5
   - Left-side catchy quadratic (square) SVG icon per type (requirement/task); architect picks a free lib (Lucide/Tabler/Feather, MIT/ISC)
 
-- [ ] 📝 [T114: Tree-item — OS drag-and-drop](./task-114-tree-item-drag.md)
-  **Status:** refinement done (architect, 9324e4c) — awaiting impl
+- [ ] ✅ [T114: Tree-item — OS drag-and-drop](./task-114-tree-item-drag.md)
+  **Status:** impl-shipped (6ede466 — drag already worked from T105; added setDragImage to show square icon as drag ghost, jsdom guard; 795/795) — testing (robbin-tester) + Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.6
   - OS-specific drag-and-drop of a tree item
 
@@ -98,8 +98,8 @@ Tree-item click (Phase 2) feeds DetailViews (Phase 1): T111 consumes T112 data.
 |--------|-------|
 | Tasks | 8 (T110–T117) |
 | Tron QA-approved (Done) | 0/8 |
-| Impl-shipped, testing+QA pending | 4 (T110, T111, T112, T113) |
-| Refinement done (architect 9324e4c), awaiting impl | 4 (T114, T115, T116, T117) |
+| Impl-shipped, testing+QA pending | 5 (T110, T111, T112, T113, T114) |
+| Refinement done (architect; chain gaps fixed d87e826), awaiting impl | 3 (T115, T116, T117) |
 | New client | DetailViewContainer + DetailViews; redesigned tree-item on /trace |
 | Traceability | every method → requirement (R16.9); UseCase first-class in PUML (R16.10) |
 

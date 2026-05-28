@@ -44,8 +44,8 @@ auditable no-data-loss proof and a GATED removal of the legacy path.
   **Status:** ✅ CLEAN re-verify PASS (PO-confirmed) — verify-report.json PASS:true, serverVersion 0.5.17, legacy data/rooms=3 (post-purge), 141 bijective remap, 0 dangling, 3 real rooms intact. Tron QA pending. · R14.3 · **GATES T99**
   - No-data-loss proven on CURRENT data. T99 gate-(a) clean-T98-PASS is MET.
 
-- [ ] ✅ [T99: Remove legacy load path + files — ⛔ GATED](./task-99-remove-legacy.md)
-  **Status:** impl-done (v0.5.20, 9c1b0a0) — gate held + delete ran (ec0423d v0.5.19); post-delete dual-write regen FIXED (write path + dead loadFromDisk removed). Code-verified: no legacy write/load path in src/; data/rooms absent, per-user rooms present. Awaiting tester UI room-create verification, then Tron QA. · R14.4 · delete phase (LAST)
+- [ ] 🧪 [T99: Remove legacy load path + files — ⛔ GATED](./task-99-remove-legacy.md)
+  **Status:** impl + testing DONE (v0.5.20 9c1b0a0; tester runtime-proof UI room-create — data/rooms stays gone, per-user only; PO-confirmed 2026-05-29) — Tron QA pending · R14.4 · delete phase (LAST)
   - **GATE: starts ONLY after (a) T98 verify PASS AND (b) explicit Tron authorization. NEVER auto-runs.**
   - Remove legacy loadFromDisk; delete data/rooms/ + migrated token dirs (after backup tar)
 

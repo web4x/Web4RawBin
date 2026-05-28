@@ -26,7 +26,7 @@ Remaining: tester independent UI room-create verification, then Tron QA.
   - [x] refinement (architect)
   - [x] creating test cases
   - [x] implementing (expert) — read-path removal + delete (ec0423d) AND dual-WRITE removal (9c1b0a0 v0.5.20); code-verified no legacy write/load path remains
-  - [ ] testing (tester — independent UI room-create must confirm data/rooms stays gone)
+  - [x] testing (tester — UI room-create runtime-proof: created room via WS, confirmed data/rooms stays gone, per-user only; cleaned test data; PO-confirmed 2026-05-29)
 - [ ] QA Review
 - [ ] Done
 
