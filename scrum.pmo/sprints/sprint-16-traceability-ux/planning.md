@@ -35,7 +35,7 @@ class).
 ### Phase 1 — Detail drawer infrastructure
 
 - [ ] [T110: DetailViewContainer — Google-Maps-style detail drawer](./task-110-detailview-container.md)
-  **Status:** PLANNED — awaiting req split + architect design
+  **Status:** impl-shipped (rb-detail-drawer + drawer integration; build clean, 791 tests pass) — testing (robbin-tester) + Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.1
   - Drawer-like container (like room chat drawer) on /trace; clicking a tree item shows its details inside
 
@@ -95,7 +95,8 @@ Tree-item click (Phase 2) feeds DetailViews (Phase 1): T111 consumes T112 data.
 |--------|-------|
 | Tasks | 8 (T110–T117) |
 | Tron QA-approved (Done) | 0/8 |
-| Planned | 8 |
+| Impl-shipped, testing+QA pending | 1 (T110) |
+| Planned | 7 (T111–T117) |
 | New client | DetailViewContainer + DetailViews; redesigned tree-item on /trace |
 | Traceability | every method → requirement (R16.9); UseCase first-class in PUML (R16.10) |
 
