@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { ensureLobby, cleanupTestRooms } from './helpers';
+import { ensureLobby, cleanupTestRooms, cleanupTestUsers } from './helpers';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -20,8 +20,8 @@ test.describe('T79: Room Identity E2E', () => {
 
   // Clean rooms this spec creates: custom names + "<User>'s Room" defaults
   test.afterAll(() => {
-    const n = cleanupTestRooms(/(RoomE2E|SshE2E|NameE2E|DeleteE2E|VisibleE2E|VisibleRoom|SyncOwner|SyncTestRoom|SyncViewer)/);
-    console.log(`[room-identity cleanup] removed ${n} test rooms`);
+    cleanupTestUsers(/^(RoomE2E|SshE2E|NameE2E|DeleteE2E|VisibleE2E|SyncOwner|SyncViewer)$/);
+    cleanupTestRooms(/(RoomE2E|SshE2E|NameE2E|DeleteE2E|VisibleE2E|VisibleRoom|SyncOwner|SyncTestRoom|SyncViewer)/);
   });
 
 

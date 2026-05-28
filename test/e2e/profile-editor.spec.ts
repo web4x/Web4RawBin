@@ -1,7 +1,11 @@
 import { test, expect } from '@playwright/test';
-import { ensureLobby } from './helpers.js';
+import { ensureLobby, cleanupTestUsers, cleanupTestRooms } from './helpers.js';
 
 test.describe('T13.4: Profile Editor', () => {
+  test.afterAll(() => {
+    cleanupTestUsers(/^E2E-Profile$/);
+    cleanupTestRooms(/^Profile-Test$/);
+  });
   test('click own name opens editor, saves phone+url, verify persisted via profile', async ({ page }) => {
     await ensureLobby(page, 'E2E-Profile');
 

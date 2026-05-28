@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
-import { ensureLobby } from './helpers.js';
+import { ensureLobby, cleanupTestUsers } from './helpers.js';
 
 test.describe('T13.8: Mobile Viewport', () => {
+  test.afterAll(() => { cleanupTestUsers(/^E2E-Mobile$/); });
   test.use({ viewport: { width: 375, height: 812 } });
 
   test('profile gate and room work on iPhone viewport', async ({ page }) => {

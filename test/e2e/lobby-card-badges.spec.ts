@@ -3,7 +3,7 @@
  * Verifies the rendered DOM (RoomBrowser.ts:122-134) on a card the viewer owns.
  */
 import { test, expect, Page } from '@playwright/test';
-import { ensureLobby } from './helpers';
+import { ensureLobby, cleanupTestUsers, cleanupTestRooms } from './helpers';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -34,6 +34,10 @@ async function createRoomAndReturn(page: Page, name: string): Promise<void> {
 }
 
 test.describe('T78: lobby room card badges', () => {
+  test.afterAll(() => {
+    cleanupTestUsers(/^BadgeOwner$/);
+    cleanupTestRooms(/^BadgeOwner/);
+  });
   test('own room card: full UUID + 💾 Persistent badge + "you" owner attribution', async ({ page }) => {
     await ensureLobby(page, 'BadgeOwner');
     const token = await page.evaluate(() => localStorage.getItem('rawbin-player-id'));

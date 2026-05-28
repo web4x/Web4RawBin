@@ -4,7 +4,7 @@
  * TS3 (self-tap → ProfileEditor); self-tap now opens `.user-sheet` with an Edit button.
  */
 import { test, expect, Page } from '@playwright/test';
-import { ensureLobby } from './helpers';
+import { ensureLobby, cleanupTestUsers, cleanupTestRooms } from './helpers';
 
 const RID = Date.now().toString(36);
 
@@ -39,6 +39,10 @@ async function hookVCard(page: Page): Promise<void> {
 }
 
 test.describe('Contacts UI: T81/T82/T83 (current v0.5.x behavior)', () => {
+  test.afterAll(() => {
+    cleanupTestUsers(/^(SelfUser|EditSelf|VcardSelf|OwnerA|GuestB|RegUser|EditAvatarUser)$/);
+    cleanupTestRooms(/^(SelfUser|EditSelf|VcardSelf|OwnerA|GuestB|RegUser|EditAvatarUser)/);
+  });
 
   // ---- T83 self-flow (single client) ----
   test('T83 TS1: self-tap opens read-only .user-sheet (NOT ProfileEditor) with #us-vcard + #us-edit, no #us-link', async ({ page }) => {

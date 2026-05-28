@@ -35,6 +35,32 @@ export function cleanupTestRooms(pattern: RegExp): number {
   return removed;
 }
 
+/**
+ * T118: Delete test-created user dirs whose profile.name matches `pattern`.
+ * Scans data/users/*/profile.json, rmSync's matching user dirs entirely.
+ * Refuses unbounded patterns (e.g. /.*/) as a safety guard.
+ * Returns count of users removed.
+ */
+export function cleanupTestUsers(pattern: RegExp): number {
+  if (pattern.source === '.*' || pattern.source === '.+' || pattern.source === '') {
+    return 0;
+  }
+  let removed = 0;
+  if (!fs.existsSync(DATA_USERS_DIR)) return 0;
+  for (const userDir of fs.readdirSync(DATA_USERS_DIR)) {
+    const profilePath = path.join(DATA_USERS_DIR, userDir, 'profile.json');
+    if (!fs.existsSync(profilePath)) continue;
+    try {
+      const profile = JSON.parse(fs.readFileSync(profilePath, 'utf-8'));
+      if (typeof profile.name === 'string' && pattern.test(profile.name)) {
+        fs.rmSync(path.join(DATA_USERS_DIR, userDir), { recursive: true, force: true });
+        removed++;
+      }
+    } catch { /* skip corrupt */ }
+  }
+  return removed;
+}
+
 export async function ensureLobby(page: Page, name: string): Promise<void> {
   await page.goto('/app');
   await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});

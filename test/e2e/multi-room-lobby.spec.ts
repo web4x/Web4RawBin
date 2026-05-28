@@ -9,7 +9,7 @@
  * rooms hidden from non-owners); verified and documented rather than asserted as all-visible.
  */
 import { test, expect, Page } from '@playwright/test';
-import { ensureLobby } from './helpers';
+import { ensureLobby, cleanupTestUsers, cleanupTestRooms } from './helpers';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -53,6 +53,10 @@ async function leaveToLobby(page: Page): Promise<void> {
 }
 
 test.describe('T93: multi-room lobby (all owner rooms load + show)', () => {
+  test.afterAll(() => {
+    cleanupTestUsers(/^(OwnerMulti|OwnerReconnect|OwnerDelete|OwnerVisible|OtherViewer)$/);
+    cleanupTestRooms(/^(OwnerMulti|OwnerReconnect|OwnerDelete|OwnerVisible|OtherViewer)/);
+  });
   const runId = Date.now().toString(36);
 
   test('AC1/AC6: owner creates 3 rooms → all 3 (and every on-disk room) appear in owner lobby', async ({ page }) => {
