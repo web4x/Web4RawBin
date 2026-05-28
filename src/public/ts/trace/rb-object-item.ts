@@ -55,6 +55,8 @@ export class RbObjectItem extends HTMLElement {
     dt.setData('text/uri-list', `${origin}/app${hash}`);              // OS-recognizable native drag
     dt.setData('application/rb-object-ref', `${type}:${uuid}`);       // internal drop (T107/T108 linking)
     dt.effectAllowed = 'copyLink';
+    const icon = this.querySelector('.oi-icon') as HTMLElement;
+    if (icon && dt.setDragImage) dt.setDragImage(icon, 16, 16);
   };
 
   private onClick = (): void => {
