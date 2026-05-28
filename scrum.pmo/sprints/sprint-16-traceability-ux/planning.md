@@ -2,12 +2,12 @@
 
 # Sprint 16 Planning — Traceability UX & DetailViews
 
-> ⚠️ **VERSION-BUMP GAP (Tron 2026-05-29):** T110-T117 shipped 2026-05-29
-> (51812eb → 61d0253) WITHOUT a `package.json` + `sw.js` cache bump. Code is
-> committed but the PWA update banner did NOT fire — Tron's device stays on
-> old code. Expert is remediating; until that bump lands, ✅ here means
-> "impl-committed at code level," NOT "delivered to Tron's device."
-> Planner standing rule (learnings #15): impl-done ≠ shipped without bump.
+> ✅ **VERSION-BUMP CLOSED (a1b58ee, v0.5.23, 2026-05-29):** S16 T110-T117 shipped
+> 2026-05-29 (51812eb → 61d0253) initially without a `package.json` + `sw.js`
+> bump (Tron flagged). Expert remediated in `a1b58ee` — `package.json` v0.5.23
+> + `sw.js` `CACHE_NAME='rawbin-v0.5.23'`. PWA delivery satisfied; ✅ on
+> T110-T117 now means "code-committed AND delivered to device." Planner
+> standing rule (learnings #15): impl-done ≠ shipped without bump.
 
 ## Sprint Goal
 The traceability browser (/trace, S15) works but its UX is clumsy. Make the
