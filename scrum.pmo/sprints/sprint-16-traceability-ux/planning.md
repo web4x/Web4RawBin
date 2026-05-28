@@ -101,6 +101,13 @@ class).
   - Phase 1 diagnose: catalog defects (C1 stubs · C2 placeholder uuids · C3 orphan UCs · C4 broken PUML refs · C5 missing [impl:uuid:] markers · C6 matrix drift · C7 duplicate ids · C8 closed-sprint legacy — deferred to S11 T87-T89)
   - Phase 2 remediate per the diagnosis; reconcile traceability-matrix.md; trace-cli + sprint audit run clean
   - Parallel-with T119 (test traceability)
+
+- [ ] ⏳ [T122: DetailsViewContainer sticky-to-bottom](./task-122-detailview-sticky-bottom.md)
+  **Status:** PLANNED — Tron 2026-05-29 ("the detailsViewContainer is not sticky to the bottom"; req-eng to anchor literal quote) · CSS positioning fix on T110 drawer
+  **Owner:** robbin-expert (impl), robbin-tester (verify)
+  - `rb-detail-drawer` must stay anchored to viewport bottom regardless of scroll; iPhone safe-area-inset-bottom respected
+  - Coordinate with T120 (peer surface change on same component)
+  - Per learnings #15: version + sw.js bump required at impl. STATIC_SHELL untouched per #16 (no new route).
   **Owner:** robbin-architect (design), robbin-expert (implement), robbin-tester (verify) · maps R16.10
   - Track use cases in PUML as dedicated instances of a UseCase class (first-class, not labels) — enables T116's method→UC→requirement chain
 
@@ -118,10 +125,10 @@ Tree-item click (Phase 2) feeds DetailViews (Phase 1): T111 consumes T112 data.
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 10 (T110–T117, T120, T121) |
-| Tron QA-approved (Done) | 0/10 |
+| Tasks | 11 (T110–T117, T120, T121, T122) |
+| Tron QA-approved (Done) | 0/11 |
 | Impl-shipped, testing+QA pending | 8 (T110–T117) |
-| Planned (Phase 4 — Tron iteration) | 2 (T120 UI, T121 chain data) |
+| Planned (Phase 4 — Tron iteration) | 3 (T120 black-bg, T121 chain-data, T122 sticky-bottom) |
 | New client | DetailViewContainer + DetailViews; redesigned tree-item on /trace |
 | Traceability | every method → requirement (R16.9); UseCase first-class in PUML (R16.10) |
 
