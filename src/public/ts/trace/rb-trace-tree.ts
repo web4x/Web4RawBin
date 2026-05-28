@@ -72,6 +72,7 @@ export class RbTraceTree extends HTMLElement {
     item.setAttribute('ref', ref);
     item.setAttribute('type', obj ? obj.type : ref.split(':')[0]);
     item.setAttribute('title', obj ? obj.title : ref);
+    if (obj && obj.title) item.setAttribute('description', obj.title);
     if (obj && obj.status) item.setAttribute('status', obj.status);
     if (this.brokenUuids.has(refUuid(ref))) {
       const warn = document.createElement('span');

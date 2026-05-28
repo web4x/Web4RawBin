@@ -32,22 +32,21 @@ function mk(type: string, title = 'T', status = ''): RbObjectItem {
 describe('T105 rb-object-item', () => {
   afterEach(() => { document.body.innerHTML = ''; setActiveRouter(null); });
 
-  // AC1: renders for all 7 types
-  it('renders title + type:uuid sub-line (+ status) for all 7 types (AC1)', () => {
+  // AC1: renders name + description for all 7 types (T112 two-line layout)
+  it('renders name + description for all 7 types (AC1)', () => {
     for (const type of TYPES) {
       const el = mk(type, 'My ' + type, 'DONE');
-      expect(el.querySelector('.item-title')!.textContent).toBe('My ' + type);
-      expect(el.querySelector('.item-id')!.textContent).toBe(`${type}:${UUID}`);
-      expect(el.querySelector('.item-status')!.textContent).toBe('DONE');
+      expect(el.querySelector('.oi-name')!.textContent).toBe('My ' + type);
+      expect(el.querySelector('.oi-desc')!.textContent).toBe('My ' + type);
       el.remove();
     }
   });
 
-  // AC2: room-card idiom
+  // AC2: object-item card with oi-content layout (T112)
   it('uses the .object-item card idiom (AC2)', () => {
     const el = mk('task');
     expect(el.classList.contains('object-item')).toBe(true);
-    expect(el.querySelector('.item-info')).toBeTruthy();
+    expect(el.querySelector('.oi-content')).toBeTruthy();
   });
 
   // AC3/AC4: draggable + 3 dataTransfer payloads
@@ -69,7 +68,7 @@ describe('T105 rb-object-item', () => {
     expect(ViewBus.count(`task:${UUID}`)).toBe(1);
     el.setAttribute('title', 'after-model-change');
     ViewBus.notify(`task:${UUID}`);
-    expect(el.querySelector('.item-title')!.textContent).toBe('after-model-change');
+    expect(el.querySelector('.oi-name')!.textContent).toBe('after-model-change');
     el.remove();
     expect(ViewBus.count(`task:${UUID}`)).toBe(0); // unsubscribed on disconnect
   });

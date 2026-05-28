@@ -15,7 +15,7 @@ const TYPE_ACCENT: Record<string, string> = {
 };
 
 export class RbObjectItem extends HTMLElement {
-  static get observedAttributes() { return ['ref', 'type', 'title', 'status']; }
+  static get observedAttributes() { return ['ref', 'type', 'title', 'status', 'name', 'description']; }
   private unsub: (() => void) | null = null;
 
   connectedCallback(): void {
@@ -66,18 +66,24 @@ export class RbObjectItem extends HTMLElement {
   };
 
   render(): void {
-    const { type, uuid, ref } = this.parts();
-    const title = this.getAttribute('title') || '(untitled)';
-    const status = this.getAttribute('status') || '';
+    const { type } = this.parts();
+    const name = this.getAttribute('name') || generateName(this.getAttribute('title'));
+    const desc = this.getAttribute('description') || this.getAttribute('title') || '';
     const accent = TYPE_ACCENT[type] || '•';
     this.innerHTML = `
-      <span class="object-item-accent" title="${type}">${accent}</span>
-      <div class="item-info">
-        <span class="item-title">${esc(title)}</span>
-        <span class="item-id">${ref || `${type}:${uuid}`}</span>
-      </div>
-      ${status ? `<span class="item-status">${esc(status)}</span>` : ''}`;
+      <span class="oi-icon" title="${type}">${accent}</span>
+      <div class="oi-content">
+        <span class="oi-name">${esc(name)}</span>
+        ${desc ? `<p class="oi-desc">${esc(desc)}</p>` : ''}
+      </div>`;
   }
+}
+
+function generateName(title: string | null): string {
+  if (!title) return '(untitled)';
+  const words = title.split(/\s+/);
+  if (words.length <= 5) return title;
+  return words.slice(0, 5).join(' ') + '…';
 }
 
 function esc(s: string): string {

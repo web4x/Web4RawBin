@@ -58,14 +58,13 @@ body {
 .room-owner { color: rgba(255,255,255,0.5); font-size: 0.7rem; font-weight: 400; }
 .room-id { color: rgba(255,255,255,0.3); font-size: 0.6rem; font-family: monospace; }
 .room-persist { color: rgba(76,175,80,0.85); font-size: 0.65rem; font-weight: 500; margin-top: 2px; }
-/* T105 rb-object-item — mirrors the .room-card idiom (rounded translucent flex row) */
-.object-item { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+/* T105+T112 rb-object-item — two-line layout: name (bold) + description (word-wrap) */
+.object-item { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 8px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px; cursor: pointer; }
 .object-item:active { background: rgba(255,255,255,0.22); }
-.object-item-accent { font-size: 1.1rem; flex-shrink: 0; }
-.item-info { display: flex; flex-direction: column; min-width: 0; flex: 1; }
-.item-title { color: white; font-weight: 600; font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.item-id { color: rgba(255,255,255,0.3); font-size: 0.6rem; font-family: monospace; }
-.item-status { color: rgba(255,255,255,0.6); font-size: 0.7rem; background: rgba(255,255,255,0.12); padding: 2px 8px; border-radius: 8px; flex-shrink: 0; }
+.oi-icon { font-size: 1.1rem; flex-shrink: 0; line-height: 1.2; }
+.oi-content { flex: 1; min-width: 0; }
+.oi-name { color: white; font-weight: 600; font-size: 0.85rem; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.oi-desc { color: rgba(255,255,255,0.5); font-size: 0.75rem; margin: 2px 0 0; word-wrap: break-word; overflow-wrap: break-word; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 /* T106 rb-list-overview */
 .list-overview { display: block; }
 .lo-search { width: 100%; box-sizing: border-box; padding: 10px 12px; margin-bottom: 10px; border-radius: 10px; border: none; background: rgba(255,255,255,0.15); color: white; font-size: 0.95rem; }
