@@ -38,24 +38,24 @@ class).
 ### Phase 1 — Detail drawer infrastructure
 
 - [ ] ✅ [T110: DetailViewContainer — Google-Maps-style detail drawer](./task-110-detailview-container.md)
-  **Status:** impl-shipped (rb-detail-drawer + drawer integration; build clean, 791 tests pass) — testing (robbin-tester) + Tron QA pending
+  **Status:** impl-shipped (51812eb — rb-detail-drawer + trace-page wiring + viewRegistry; build clean, 795 tests pass) — testing (robbin-tester) + Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.1
   - Drawer-like container (like room chat drawer) on /trace; clicking a tree item shows its details inside
 
-- [ ] 📝 [T111: Specialized DetailViews (TaskDetailView, RequirementDetailView)](./task-111-detail-views.md)
-  **Status:** refinement done (architect, 9324e4c) — awaiting impl
+- [ ] ✅ [T111: Specialized DetailViews (TaskDetailView, RequirementDetailView)](./task-111-detail-views.md)
+  **Status:** impl-shipped (51812eb — rb-task-detail + rb-requirement-detail + rb-usecase-detail; rb-detail-view fallback; 795/795) — testing (robbin-tester) + Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.2
   - Typed views rendered inside the container; extensible per object type
 
 ### Phase 2 — Tree-item redesign
 
-- [ ] 📝 [T112: Tree-item — speaky name (generate if absent) + word-wrap description](./task-112-tree-item-name-desc.md)
-  **Status:** refinement done (architect, 9324e4c) — awaiting impl
+- [ ] ✅ [T112: Tree-item — speaky name (generate if absent) + word-wrap description](./task-112-tree-item-name-desc.md)
+  **Status:** impl-shipped (13c9dc1 — name + word-wrap description, generateName() first-5-words, 3-line clamp; 795/795) — testing (robbin-tester) + Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.3 + R16.4
   - `name` attr = human short name; generate from requirement text if none; word-wrapping description paragraph below name
 
-- [ ] 📝 [T113: Tree-item — square SVG type icon (free icon library)](./task-113-tree-item-icon.md)
-  **Status:** refinement done (architect, 9324e4c — icon-library chosen) — awaiting impl
+- [ ] ✅ [T113: Tree-item — square SVG type icon (free icon library)](./task-113-tree-item-icon.md)
+  **Status:** impl-shipped (5b9b86c — Lucide ISC, 7 vendored icons, 32×32 square, per-type CSS custom props; 795/795) — testing (robbin-tester) + Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.5
   - Left-side catchy quadratic (square) SVG icon per type (requirement/task); architect picks a free lib (Lucide/Tabler/Feather, MIT/ISC)
 
@@ -98,8 +98,8 @@ Tree-item click (Phase 2) feeds DetailViews (Phase 1): T111 consumes T112 data.
 |--------|-------|
 | Tasks | 8 (T110–T117) |
 | Tron QA-approved (Done) | 0/8 |
-| Impl-shipped, testing+QA pending | 1 (T110) |
-| Refinement done (architect 9324e4c), awaiting impl | 7 (T111–T117) |
+| Impl-shipped, testing+QA pending | 4 (T110, T111, T112, T113) |
+| Refinement done (architect 9324e4c), awaiting impl | 4 (T114, T115, T116, T117) |
 | New client | DetailViewContainer + DetailViews; redesigned tree-item on /trace |
 | Traceability | every method → requirement (R16.9); UseCase first-class in PUML (R16.10) |
 
