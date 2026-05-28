@@ -305,71 +305,66 @@ describe('TC-3.3.6: Chat → chatHistory append + limit', () => {
   });
 });
 
-// ── TC-3.3.7: File Persistence ───────────────────────────────────────────────
+// ── TC-3.3.7: Per-user persistence (T99 — replaces legacy data/rooms) ───────
 
-describe('TC-3.3.7: File persistence → save/load cycle', () => {
-  const dataDir = '/tmp/rawbin-test-rooms-' + Date.now();
+vi.mock('../../src/ts/server/RoomKeys.js', async (importOriginal) => {
+  const orig = await importOriginal<typeof import('../../src/ts/server/RoomKeys.js')>();
+  return { ...orig, writeRoomJson: vi.fn(), getRoomPublicKey: vi.fn(() => '') };
+});
+import { writeRoomJson, getRoomPublicKey } from '../../src/ts/server/RoomKeys.js';
+const mockWriteRoomJson = vi.mocked(writeRoomJson);
+const mockGetRoomPublicKey = vi.mocked(getRoomPublicKey);
 
-  afterEach(async () => {
-    // Cleanup test data
-    const { rm } = await import('node:fs/promises');
-    await rm(dataDir, { recursive: true, force: true }).catch(() => {});
+describe('TC-3.3.7: Per-user persistence (T99)', () => {
+
+  beforeEach(() => { mockWriteRoomJson.mockClear(); mockGetRoomPublicKey.mockClear(); });
+
+  it('persists to per-user dir on create when creatorToken is set', () => {
+    const creator = makeMember({ name: 'Persist', playerToken: 'tok-persist' });
+    const manager = new RoomManager();
+    const room = manager.createRoom('PersistRoom', creator, { maxMembers: 4, creatorToken: 'tok-persist' });
+
+    expect(mockWriteRoomJson).toHaveBeenCalledTimes(1);
+    const [token, roomId, data] = mockWriteRoomJson.mock.calls[0];
+    expect(token).toBe('tok-persist');
+    expect(roomId).toBe(room.info().id);
+    expect(data.name).toBe('PersistRoom');
+    expect(data.ownerToken).toBe('tok-persist');
+    expect(data.maxMembers).toBe(4);
   });
 
-  it('saves room to disk on create', async () => {
-    const { readdir } = await import('node:fs/promises');
-    const creator = makeMember({ name: 'Persist' });
-    const manager = new RoomManager(dataDir);
-    manager.createRoom('PersistRoom', creator, { maxMembers: 4 });
+  it('does NOT persist when creatorToken is empty', () => {
+    const creator = makeMember({ name: 'Anon' });
+    const manager = new RoomManager();
+    manager.createRoom('NoToken', creator, { maxMembers: 4 });
 
-    const files = await readdir(dataDir);
-    expect(files.length).toBe(1);
-    expect(files[0]).toMatch(/\.json$/);
+    expect(mockWriteRoomJson).not.toHaveBeenCalled();
   });
 
-  it('loads rooms from disk on startup', async () => {
-    const creator = makeMember({ name: 'Persist' });
-    const manager1 = new RoomManager(dataDir);
-    const room = manager1.createRoom('Reload', creator, { maxMembers: 4 });
-    const roomId = room.info().id;
-
-    // New manager loads from same dir
-    const manager2 = new RoomManager(dataDir);
-    await manager2.loadFromDisk();
-
-    const loaded = manager2.getRoom(roomId);
-    expect(loaded).toBeDefined();
-    expect(loaded!.info().name).toBe('Reload');
-    expect(loaded!.info().maxMembers).toBe(4);
-  });
-
-  it('deletes room file on removeRoom', async () => {
-    const { readdir } = await import('node:fs/promises');
-    const creator = makeMember({ name: 'Persist' });
-    const manager = new RoomManager(dataDir);
-    const room = manager.createRoom('DeleteMe', creator, { maxMembers: 4 });
-    const roomId = room.info().id;
-
-    manager.removeRoom(roomId, creator.id);
-
-    const files = await readdir(dataDir);
-    expect(files.length).toBe(0);
-  });
-
-  it('updates room file on member change', async () => {
-    const { readFile } = await import('node:fs/promises');
-    const { readdir } = await import('node:fs/promises');
+  it('removeRoom drops in-memory entry (disk cleanup is server handler)', () => {
     const creator = makeMember({ name: 'Host' });
-    const manager = new RoomManager(dataDir);
-    const room = manager.createRoom('UpdateMe', creator, { maxMembers: 4 });
+    const manager = new RoomManager();
+    const room = manager.createRoom('DeleteMe', creator, { maxMembers: 4, creatorToken: 'tok-del' });
+    const roomId = room.info().id;
+
+    const removed = manager.removeRoom(roomId, creator.id);
+    expect(removed).toBe(true);
+    expect(manager.getRoom(roomId)).toBeUndefined();
+  });
+
+  it('re-persists on member change', () => {
+    const creator = makeMember({ name: 'Host', playerToken: 'tok-host' });
+    const manager = new RoomManager();
+    const room = manager.createRoom('UpdateMe', creator, { maxMembers: 4, creatorToken: 'tok-host' });
+    mockWriteRoomJson.mockClear();
 
     const joiner = makeMember({ name: 'Joiner' });
     room.addMember(joiner);
 
-    const files = await readdir(dataDir);
-    const content = await readFile(`${dataDir}/${files[0]}`, 'utf-8');
-    const parsed = JSON.parse(content);
-    expect(parsed.memberCount || parsed.members?.length).toBe(2);
+    expect(mockWriteRoomJson).toHaveBeenCalled();
+    const [token, , data] = mockWriteRoomJson.mock.calls[0];
+    expect(token).toBe('tok-host');
+    expect(data.name).toBe('UpdateMe');
   });
 });
 
