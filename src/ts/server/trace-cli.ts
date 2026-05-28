@@ -11,10 +11,11 @@ import { scanRepo, validate, formatReport, fixMatrix } from './TraceConsistency.
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRINTS_DIR = path.join(__dirname, '../../../scrum.pmo/sprints');
+const SRC_DIR = path.join(__dirname, '../../../src');
 const MATRIX_PATH = path.join(__dirname, '../../../scrum.pmo/traceability-matrix.md');
 
 const mode = (process.argv[2] || 'check').toLowerCase();
-const { graph, coverage } = scanRepo(SPRINTS_DIR);
+const { graph, coverage } = scanRepo(SPRINTS_DIR, SRC_DIR);
 const issues = validate(graph, coverage);
 
 console.log(formatReport(issues));

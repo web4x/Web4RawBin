@@ -9,9 +9,9 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { TraceGraph, Requirement, Task } from '../../src/ts/shared/TraceModel.js';
+import { TraceGraph, Requirement, Task, UseCase } from '../../src/ts/shared/TraceModel.js';
 import {
-  validate, fixMatrix, generateRegion, formatReport, REGION_BEGIN, REGION_END,
+  scanRepo, validate, fixMatrix, generateRegion, formatReport, REGION_BEGIN, REGION_END,
   type TaskCoverage,
 } from '../../src/ts/server/TraceConsistency.js';
 
@@ -104,6 +104,47 @@ describe('T102 TraceConsistency', () => {
 
     it('generateRegion is deterministic for the same coverage', () => {
       expect(generateRegion([cov()])).toBe(generateRegion([cov()]));
+    });
+  });
+
+  // T117: Pass 4 — PUML <<UseCase>> parsing
+  describe('Pass 4: PUML UseCase parsing (T117)', () => {
+    let tmp: string;
+    beforeEach(() => { tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'trace-p4-')); });
+    afterEach(() => { fs.rmSync(tmp, { recursive: true, force: true }); });
+
+    it('parses <<UseCase>> blocks and creates UseCase objects linked to tasks', () => {
+      const sprint = path.join(tmp, 'sprint-16-test');
+      fs.mkdirSync(path.join(sprint, 'diagrams'), { recursive: true });
+      fs.writeFileSync(path.join(sprint, 'task-110-test.md'), `# T110\n[task:uuid:${TU}]\n[requirement:uuid:${RU}]\n`);
+      fs.writeFileSync(path.join(sprint, 'requirements.md'), `[requirement:uuid:${RU}]\nR16.1 Test\n→ [T110](./task-110-test.md)\n`);
+      fs.writeFileSync(path.join(sprint, 'diagrams', 'test.puml'), `
+class "drawer.open" <<UseCase>> {
+  [uc:uuid:16a01001-d001-4a01-b001-000000110001]
+  requirement: R16.1
+  task: T110
+  object: Drawer
+  verb: open
+}
+`);
+      const { graph } = scanRepo(tmp);
+      const ucs = graph.ofType('usecase');
+      expect(ucs.length).toBe(1);
+      expect(ucs[0].title).toBe('drawer.open');
+      const task = graph.get(TU) as Task;
+      expect(task.useCases.length).toBe(1);
+    });
+  });
+
+  // T116: validate flags UseCase orphans
+  describe('validate UseCase chain (T116)', () => {
+    it('warns on a use case with no linked task', () => {
+      const g = new TraceGraph();
+      new Requirement(g, RU, 'R16.1');
+      const ucUuid = '16a01001-d001-4a01-b001-000000110001';
+      new UseCase(g, ucUuid, 'orphan.uc');
+      const issues = validate(g, []);
+      expect(issues.some(i => i.level === 'warn' && i.ref === `usecase:${ucUuid}` && /no linked task/.test(i.reason))).toBe(true);
     });
   });
 });
