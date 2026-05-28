@@ -25,8 +25,22 @@ export class RbTraceTree extends HTMLElement {
     try { this.expanded = new Set(JSON.parse(localStorage.getItem(LS_KEY) || '[]')); } catch { /* ignore */ }
     this.render();
     this.unsub = ViewBus.subscribe('graph', () => this.render());
+    this.addEventListener('toggle-children', this.onToggleChildren as EventListener);
   }
-  disconnectedCallback(): void { this.unsub?.(); this.unsub = null; }
+  disconnectedCallback(): void {
+    this.unsub?.(); this.unsub = null;
+    this.removeEventListener('toggle-children', this.onToggleChildren as EventListener);
+  }
+
+  private onToggleChildren = (e: CustomEvent): void => {
+    const item = (e.target as HTMLElement).closest('rb-object-item');
+    if (!item) return;
+    const ref = item.getAttribute('ref') || '';
+    if (!ref) return;
+    if (e.detail.open) this.expanded.add(ref); else this.expanded.delete(ref);
+    this.persist();
+    this.render();
+  };
 
   setGraph(graph: TraceGraph, brokenUuids: string[] = []): void {
     this.graph = graph;
@@ -46,40 +60,32 @@ export class RbTraceTree extends HTMLElement {
     for (const obj of rootObjs) this.appendChild(this.nodeEl(obj.ref(), new Set()));
   }
 
-  /** Build a node row (chevron + rb-object-item) and, if expanded, its children. */
+  /** Build a node row (rb-object-item with built-in expander) and, if expanded, its children. */
   private nodeEl(ref: string, ancestry: Set<string>): HTMLElement {
     const node = document.createElement('div');
     node.className = 'tt-node';
     const obj = this.graph!.get(refUuid(ref));
     const childRefs = obj ? Object.values(obj.toJSON().links).flat() : [];
-    const hasChildren = childRefs.length > 0 && !ancestry.has(ref); // cycle guard
+    const hasChildren = childRefs.length > 0 && !ancestry.has(ref);
     const isOpen = this.expanded.has(ref);
 
     const row = document.createElement('div');
     row.className = 'tt-row';
-    const chevron = document.createElement('span');
-    chevron.className = 'tt-chevron';
-    chevron.textContent = hasChildren ? (isOpen ? '▾' : '▸') : '·';
-    if (hasChildren) {
-      chevron.addEventListener('click', (e) => {
-        e.stopPropagation(); // don't trigger the item's navigate
-        if (this.expanded.has(ref)) this.expanded.delete(ref); else this.expanded.add(ref);
-        this.persist();
-        this.render();
-      });
-    }
     const item = document.createElement('rb-object-item');
     item.setAttribute('ref', ref);
     item.setAttribute('type', obj ? obj.type : ref.split(':')[0]);
     item.setAttribute('title', obj ? obj.title : ref);
     if (obj && obj.title) item.setAttribute('description', obj.title);
     if (obj && obj.status) item.setAttribute('status', obj.status);
+    if (hasChildren) {
+      item.setAttribute('has-children', '');
+      if (isOpen) item.setAttribute('children-open', '');
+    }
     if (this.brokenUuids.has(refUuid(ref))) {
       const warn = document.createElement('span');
       warn.className = 'tt-warn'; warn.title = 'traceability issue (T102)'; warn.textContent = '⚠️';
       row.appendChild(warn);
     }
-    row.appendChild(chevron);
     row.appendChild(item);
     node.appendChild(row);
 

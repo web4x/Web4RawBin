@@ -20,14 +20,14 @@ export class RbObjectItem extends HTMLElement {
     this.classList.add('object-item');
     this.render();
     this.addEventListener('dragstart', this.onDragStart);
-    this.addEventListener('click', this.onClick);
+    this.addEventListener('click', this.onClickDelegate);
     const ref = this.getAttribute('ref');
     if (ref) this.unsub = ViewBus.subscribe(ref, () => this.render());
   }
 
   disconnectedCallback(): void {
     this.removeEventListener('dragstart', this.onDragStart);
-    this.removeEventListener('click', this.onClick);
+    this.removeEventListener('click', this.onClickDelegate);
     this.unsub?.();
     this.unsub = null;
   }
@@ -59,7 +59,21 @@ export class RbObjectItem extends HTMLElement {
     if (icon && dt.setDragImage) dt.setDragImage(icon, 16, 16);
   };
 
-  private onClick = (): void => {
+  private onClickDelegate = (e: Event): void => {
+    const target = e.target as HTMLElement;
+    const icon = this.querySelector('.oi-icon');
+    const expander = this.querySelector('.oi-expand');
+    if (icon && (target === icon || icon.contains(target))) {
+      e.stopPropagation();
+      this.toggleAttribute('collapsed');
+      return;
+    }
+    if (expander && (target === expander || expander.contains(target))) {
+      e.stopPropagation();
+      const open = this.toggleAttribute('children-open');
+      this.dispatchEvent(new CustomEvent('toggle-children', { bubbles: true, detail: { open } }));
+      return;
+    }
     const { type, uuid } = this.parts();
     if (type && uuid) navigate(type, 'show', { uuid });
   };
@@ -69,12 +83,14 @@ export class RbObjectItem extends HTMLElement {
     const name = this.getAttribute('name') || generateName(this.getAttribute('title'));
     const desc = this.getAttribute('description') || this.getAttribute('title') || '';
     const icon = TRACE_ICONS[type] || '•';
+    const hasChildren = this.hasAttribute('has-children');
     this.innerHTML = `
       <span class="oi-icon" title="${type}">${icon}</span>
       <div class="oi-content">
         <span class="oi-name">${esc(name)}</span>
         ${desc ? `<p class="oi-desc">${esc(desc)}</p>` : ''}
-      </div>`;
+      </div>
+      ${hasChildren ? '<span class="oi-expand">›</span>' : ''}`;
   }
 }
 

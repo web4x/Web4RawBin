@@ -38,8 +38,8 @@ describe('T108 rb-trace-tree', () => {
     const rootRefs = [...tree.querySelectorAll('.tt-node > .tt-row rb-object-item')].map(e => e.getAttribute('ref'));
     expect(rootRefs).toContain(`requirement:${RU}`);
     expect(tree.querySelector('.tt-children')).toBeNull();
-    // expand the requirement
-    (tree.querySelector('.tt-chevron') as HTMLElement).click();
+    // expand the requirement via the oi-expand expander (T115)
+    (tree.querySelector('.oi-expand') as HTMLElement).click();
     const childRefs = [...tree.querySelectorAll('.tt-children rb-object-item')].map(e => e.getAttribute('ref'));
     expect(childRefs).toContain(`task:${T1}`);
   });
@@ -48,7 +48,7 @@ describe('T108 rb-trace-tree', () => {
     const g = seed();
     let tree = document.createElement('rb-trace-tree') as RbTraceTree;
     document.body.appendChild(tree); tree.setGraph(g);
-    (tree.querySelector('.tt-chevron') as HTMLElement).click(); // expand
+    (tree.querySelector('.oi-expand') as HTMLElement).click(); // expand via T115 expander
     expect(tree.querySelector('.tt-children')).toBeTruthy();
     tree.remove();
     // re-mount → expand state restored from localStorage

@@ -6,10 +6,10 @@
 
 ## Status
 - [ ] Planned
-- [ ] In Progress
+- [x] In Progress
   - [x] refinement (architect — icon-library choice)
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
