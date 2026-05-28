@@ -64,21 +64,21 @@ class).
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.6
   - OS-specific drag-and-drop of a tree item
 
-- [ ] 📝 [T115: Tree-item — tap-icon collapse/expand + ">" children expander](./task-115-tree-item-collapse-expand.md)
-  **Status:** refinement done (architect, 9324e4c) — awaiting impl
+- [ ] ✅ [T115: Tree-item — tap-icon collapse/expand + ">" children expander](./task-115-tree-item-collapse-expand.md)
+  **Status:** impl-shipped (c9f4a48 — icon tap toggles [collapsed], right-side > expander w/ toggle-children event; 795/795) — testing (robbin-tester) + Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.7 + R16.8
   - Tap icon once → collapse to just the square icon; tap again → expand to name + description
   - Right-side ">" icon when item has children; clicking expands the subtree
 
 ### Phase 3 — Traceability chain integrity
 
-- [ ] 📝 [T116: Traceability-chain review — every method traces to its requirement](./task-116-chain-review.md)
-  **Status:** refinement done (architect, 9324e4c) — awaiting impl
+- [ ] ✅ [T116: Traceability-chain review — every method traces to its requirement](./task-116-chain-review.md)
+  **Status:** impl-shipped (61d0253 — trace-cli Pass 5 [impl:uuid:] scan + Implementation→requirement links, orphan-UC validation; 797/797) — testing (robbin-tester) + Tron QA pending
   **Owner:** robbin-expert (implement), robbin-tester (verify) · maps R16.9
   - Chain: requirement → task → use cases → classes (nouns) → methods (verbs); ensure EVERY method traces back to its originating requirement
 
-- [ ] 📝 [T117: UseCase as class instances in PUML](./task-117-usecase-as-class.md)
-  **Status:** refinement done (architect, 9324e4c) — awaiting impl
+- [ ] ✅ [T117: UseCase as class instances in PUML](./task-117-usecase-as-class.md)
+  **Status:** impl-shipped (61d0253 — trace-cli Pass 4 parseUseCaseBlocks() for <<UseCase>>, UC→Task linking by T-number; 15 UCs from s16-usecases.puml; 797/797) — testing (robbin-tester) + Tron QA pending
   **Owner:** robbin-architect (design), robbin-expert (implement), robbin-tester (verify) · maps R16.10
   - Track use cases in PUML as dedicated instances of a UseCase class (first-class, not labels) — enables T116's method→UC→requirement chain
 
@@ -98,8 +98,8 @@ Tree-item click (Phase 2) feeds DetailViews (Phase 1): T111 consumes T112 data.
 |--------|-------|
 | Tasks | 8 (T110–T117) |
 | Tron QA-approved (Done) | 0/8 |
-| Impl-shipped, testing+QA pending | 5 (T110, T111, T112, T113, T114) |
-| Refinement done (architect; chain gaps fixed d87e826), awaiting impl | 3 (T115, T116, T117) |
+| Impl-shipped, testing+QA pending | 8 (T110–T117 — all) |
+| Refinement done, awaiting impl | 0 |
 | New client | DetailViewContainer + DetailViews; redesigned tree-item on /trace |
 | Traceability | every method → requirement (R16.9); UseCase first-class in PUML (R16.10) |
 
