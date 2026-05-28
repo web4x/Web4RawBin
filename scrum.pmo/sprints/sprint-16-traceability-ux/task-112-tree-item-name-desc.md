@@ -7,7 +7,7 @@
 ## Status
 - [ ] Planned
 - [ ] In Progress
-  - [ ] refinement (req + architect)
+  - [x] refinement (req + architect)
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
@@ -46,6 +46,69 @@ requirement text."
 - [ ] AC2 — When absent, a short name is generated from the requirement text
 - [ ] AC3 — A smaller-text description paragraph renders below the name and word-wraps (no overflow/clipping)
 - [ ] `npm run build` succeeds; version + sw.js bumped; no regression
+
+## Architect Design — robbin-architect
+
+### rb-object-item redesign: name + description layout
+
+Current render (rb-object-item.ts:73-79) shows `accent | title | id | status`. Replace with a two-line layout:
+
+```
+┌──────┬──────────────────────────────────┐
+│ ICON │  Name (bold, 1 line, truncate)   │
+│ 32x32│  Description (smaller, word-wrap) │
+└──────┴──────────────────────────────────┘
+```
+
+### New attributes on rb-object-item
+
+```
+Existing: ref, type, title, status
+New:      name, description
+```
+
+- `name` — short human name (e.g., "Detail Drawer", "Speaky Names"). If absent, auto-generate from `title` (first 5 words + ellipsis).
+- `description` — full requirement/task text, word-wrapping.
+
+### Name generation (when absent)
+
+In `render()`:
+```typescript
+const name = this.getAttribute('name')
+  || this.getAttribute('title')?.split(/\s+/).slice(0, 5).join(' ') + '…'
+  || '(untitled)';
+```
+
+### Updated render() HTML
+
+```typescript
+render(): void {
+  const { type, ref } = this.parts();
+  const name = this.getAttribute('name') || generateName(this.getAttribute('title'));
+  const desc = this.getAttribute('description') || this.getAttribute('title') || '';
+  const icon = TRACE_ICONS[type] || '•';
+  this.innerHTML = `
+    <span class="oi-icon" title="${type}">${icon}</span>
+    <div class="oi-content">
+      <span class="oi-name">${esc(name)}</span>
+      ${desc ? `<p class="oi-desc">${esc(desc)}</p>` : ''}
+    </div>
+    ${this.hasAttribute('has-children') ? '<span class="oi-expand">›</span>' : ''}`;
+}
+```
+
+### CSS
+
+```css
+.object-item { display: flex; align-items: flex-start; gap: 8px; padding: 8px; cursor: pointer; }
+.oi-content { flex: 1; min-width: 0; }
+.oi-name { font-weight: 600; font-size: 0.85rem; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.oi-desc { font-size: 0.75rem; color: #666; margin-top: 2px; word-wrap: break-word; overflow-wrap: break-word; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+```
+
+### Data source
+
+`rb-trace-tree.ts` (or the TraceRouter) sets these attributes when creating `rb-object-item` elements from TraceModel objects. The TraceModel objects already have `title` — the tree builder needs to also set `name` (from a new TraceObject field or generated) and `description` (the full text).
 
 ## Dependencies
 - **Requires:** None (tree-item redesign foundation for Phase 2)

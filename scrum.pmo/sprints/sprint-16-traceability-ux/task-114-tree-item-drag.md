@@ -7,7 +7,7 @@
 ## Status
 - [ ] Planned
 - [ ] In Progress
-  - [ ] refinement (architect)
+  - [x] refinement (architect)
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
@@ -42,6 +42,38 @@ Tron 2026-05-27: "draggable so i could os specificly drag and drop the item."
 - [ ] AC2 — Drag carries a meaningful payload (item identity / type) for OS drop targets
 - [ ] AC3 — Drag does not break tap-collapse (T115) or children-expand (T115) interactions
 - [ ] `npm run build` succeeds; version + sw.js bumped; no regression
+
+## Architect Design — robbin-architect
+
+### Already implemented (T105)
+
+**This is already done.** The current `rb-object-item.ts` lines 22-61 have full OS drag support:
+- `setAttribute('draggable', 'true')` (line 22)
+- `dragstart` handler with 3 dataTransfer payloads (lines 51-61):
+  - `text/plain` → `#type.show?uuid=...` (paste → navigable hash link)
+  - `text/uri-list` → `origin/app#type.show?uuid=...` (OS native drag)
+  - `application/rb-object-ref` → `type:uuid` (internal drop for T107/T108 linking)
+
+### T114 delta: Just verify drag still works after T112/T113 redesign
+
+The T112+T113 changes restructure `render()` HTML. Ensure:
+1. `draggable="true"` still on the root element (connectedCallback)
+2. `dragstart` handler still fires (it's on `this`, not on child elements — should be fine)
+3. Drag icon shows the new icon (not the old emoji) as drag image
+
+### Optional enhancement: custom drag image
+
+```typescript
+// In onDragStart, set custom drag image to the icon element:
+const icon = this.querySelector('.oi-icon') as HTMLElement;
+if (icon && e.dataTransfer) {
+  e.dataTransfer.setDragImage(icon, 16, 16);
+}
+```
+
+This shows just the square icon as the drag ghost — cleaner than dragging the full item.
+
+### Effort: ~5 lines (verify + optional drag image)
 
 ## Dependencies
 - **Requires:** tree-item redesign (T112/T113 establish the item)

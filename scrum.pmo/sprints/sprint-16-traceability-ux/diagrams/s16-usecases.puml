@@ -1,0 +1,209 @@
+@startuml S16 UseCases — Object.verb as class instances
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 9
+skinparam backgroundColor White
+
+title Sprint 16 — UseCase Instances (<<UseCase>> stereotyped classes)\nEach UC = Object.verb; fields trace to requirement + task + implementing class
+
+' ═══════════════════════════════════════════════════════════════
+' Phase 1 — Detail drawer
+' ═══════════════════════════════════════════════════════════════
+
+package "Phase 1 — Detail Drawer" as P1 #E8F5E9 {
+
+  class "detailDrawer.open" <<UseCase>> {
+    [uc:uuid:16a01001-d001-4a01-b001-000000110001]
+    requirement: R16.1
+    task: T110
+    object: RbDetailDrawer
+    verb: open
+  }
+
+  class "detailDrawer.close" <<UseCase>> {
+    [uc:uuid:16a01002-d002-4a02-b002-000000110002]
+    requirement: R16.1
+    task: T110
+    object: RbDetailDrawer
+    verb: close
+  }
+
+  class "detailDrawer.swipeDismiss" <<UseCase>> {
+    [uc:uuid:16a01003-d003-4a03-b003-000000110003]
+    requirement: R16.1
+    task: T110
+    object: RbDetailDrawer
+    verb: swipeDismiss
+  }
+
+  class "taskDetail.render" <<UseCase>> {
+    [uc:uuid:16a01101-d101-4a01-b101-000000111001]
+    requirement: R16.2
+    task: T111
+    object: RbTaskDetail
+    verb: render
+  }
+
+  class "requirementDetail.render" <<UseCase>> {
+    [uc:uuid:16a01102-d102-4a02-b102-000000111002]
+    requirement: R16.2
+    task: T111
+    object: RbRequirementDetail
+    verb: render
+  }
+
+  class "usecaseDetail.render" <<UseCase>> {
+    [uc:uuid:16a01103-d103-4a03-b103-000000111003]
+    requirement: R16.2
+    task: T111
+    object: RbUseCaseDetail
+    verb: render
+  }
+}
+
+' ═══════════════════════════════════════════════════════════════
+' Phase 2 — Tree-item redesign
+' ═══════════════════════════════════════════════════════════════
+
+package "Phase 2 — Tree-Item Redesign" as P2 #E3F2FD {
+
+  class "objectItem.renderNameDesc" <<UseCase>> {
+    [uc:uuid:16a01121-d121-4a01-b121-000000112001]
+    requirement: R16.3 + R16.4
+    task: T112
+    object: RbObjectItem
+    verb: renderNameDesc
+  }
+
+  class "objectItem.generateName" <<UseCase>> {
+    [uc:uuid:16a01122-d122-4a02-b122-000000112002]
+    requirement: R16.3
+    task: T112
+    object: RbObjectItem
+    verb: generateName
+  }
+
+  class "objectItem.setIcon" <<UseCase>> {
+    [uc:uuid:16a01131-d131-4a01-b131-000000113001]
+    requirement: R16.5
+    task: T113
+    object: RbObjectItem
+    verb: setIcon
+  }
+
+  class "objectItem.drag" <<UseCase>> {
+    [uc:uuid:16a01141-d141-4a01-b141-000000114001]
+    requirement: R16.6
+    task: T114
+    object: RbObjectItem
+    verb: drag
+  }
+
+  class "objectItem.collapse" <<UseCase>> {
+    [uc:uuid:16a01151-d151-4a01-b151-000000115001]
+    requirement: R16.7
+    task: T115
+    object: RbObjectItem
+    verb: collapse
+  }
+
+  class "objectItem.expand" <<UseCase>> {
+    [uc:uuid:16a01152-d152-4a02-b152-000000115002]
+    requirement: R16.7
+    task: T115
+    object: RbObjectItem
+    verb: expand
+  }
+
+  class "treeItem.expandChildren" <<UseCase>> {
+    [uc:uuid:16a01153-d153-4a03-b153-000000115003]
+    requirement: R16.8
+    task: T115
+    object: RbObjectItem
+    verb: expandChildren
+  }
+}
+
+' ═══════════════════════════════════════════════════════════════
+' Phase 3 — Chain integrity
+' ═══════════════════════════════════════════════════════════════
+
+package "Phase 3 — Chain Integrity" as P3 #FFF3E0 {
+
+  class "traceChain.auditOrphans" <<UseCase>> {
+    [uc:uuid:16a01161-d161-4a01-b161-000000116001]
+    requirement: R16.9
+    task: T116
+    object: TraceConsistency
+    verb: auditOrphans
+  }
+
+  class "useCase.trackInPuml" <<UseCase>> {
+    [uc:uuid:16a01171-d171-4a01-b171-000000117001]
+    requirement: R16.10
+    task: T117
+    object: TraceConsistency
+    verb: trackInPuml
+  }
+}
+
+' ═══════════════════════════════════════════════════════════════
+' Implementing classes (from S15 + S16)
+' ═══════════════════════════════════════════════════════════════
+
+package "Implementing Classes" as IMPL #F5F5F5 {
+  class "RbDetailDrawer" as DD {
+    src/public/ts/trace/rb-detail-drawer.ts
+    + open, close, swipeDismiss
+  }
+  class "RbTaskDetail" as TD {
+    src/public/ts/trace/rb-task-detail.ts
+    + render
+  }
+  class "RbRequirementDetail" as RD {
+    src/public/ts/trace/rb-requirement-detail.ts
+    + render
+  }
+  class "RbUseCaseDetail" as UD {
+    src/public/ts/trace/rb-usecase-detail.ts
+    + render
+  }
+  class "RbObjectItem" as OI {
+    src/public/ts/trace/rb-object-item.ts
+    + render, generateName, setIcon, drag
+    + collapse, expand, expandChildren
+  }
+  class "TraceConsistency" as TC {
+    src/ts/server/TraceConsistency.ts
+    + auditOrphans, scanRepo, validate
+  }
+}
+
+' ═══════════════════════════════════════════════════════════════
+' UC → Class links (implements)
+' ═══════════════════════════════════════════════════════════════
+
+"detailDrawer.open" --> DD : implements
+"detailDrawer.close" --> DD : implements
+"detailDrawer.swipeDismiss" --> DD : implements
+"taskDetail.render" --> TD : implements
+"requirementDetail.render" --> RD : implements
+"usecaseDetail.render" --> UD : implements
+"objectItem.renderNameDesc" --> OI : implements
+"objectItem.generateName" --> OI : implements
+"objectItem.setIcon" --> OI : implements
+"objectItem.drag" --> OI : implements
+"objectItem.collapse" --> OI : implements
+"objectItem.expand" --> OI : implements
+"treeItem.expandChildren" --> OI : implements
+"traceChain.auditOrphans" --> TC : implements
+"useCase.trackInPuml" --> TC : implements
+
+legend bottom right
+  **15 UseCase instances** across 3 phases.
+  Each UC carries requirement + task + implementing class.
+  Chain: Requirement → Task → UseCase → Class → Method
+  <<UseCase>> stereotype = first-class traceable object.
+endlegend
+
+@enduml

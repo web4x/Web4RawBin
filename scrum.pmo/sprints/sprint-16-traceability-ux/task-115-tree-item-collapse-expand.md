@@ -7,7 +7,7 @@
 ## Status
 - [ ] Planned
 - [ ] In Progress
-  - [ ] refinement (architect)
+  - [x] refinement (architect)
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
@@ -51,6 +51,74 @@ clicking on it will expand the tree."
 - [ ] AC4 — Clicking ">" expands the child subtree (and toggles closed)
 - [ ] AC5 — Icon-tap (collapse) is distinguishable from drag (T114) and from ">" (children)
 - [ ] `npm run build` succeeds; version + sw.js bumped; no regression
+
+## Architect Design — robbin-architect
+
+### State machine for rb-object-item
+
+```
+Item states:
+  EXPANDED   — icon + name + description visible (default)
+  COLLAPSED  — icon only (32x32 square), name+desc hidden
+
+Transitions:
+  EXPANDED + tap-icon → COLLAPSED  (add [collapsed] attribute)
+  COLLAPSED + tap-icon → EXPANDED  (remove [collapsed] attribute)
+  
+Children expansion (separate from item collapse):
+  CLOSED   — children hidden, "›" shows on right
+  OPEN     — children visible, "›" rotates to "⌄"
+
+Transitions:
+  CLOSED + click-expander → OPEN   (add [children-open] attribute)
+  OPEN + click-expander → CLOSED   (remove [children-open] attribute)
+```
+
+### Implementation
+
+**Icon tap vs drag distinction:** Use a 200ms timer. On `pointerdown` on `.oi-icon`, start timer. If `pointerup` within 200ms AND no movement (< 5px) → it's a tap → toggle collapsed. If drag starts (T114 `dragstart` fires) → cancel timer, it's a drag.
+
+```typescript
+// In rb-object-item.ts:
+private collapsed = false;
+
+// Icon click handler (separate from item click)
+this.querySelector('.oi-icon')?.addEventListener('click', (e) => {
+  e.stopPropagation(); // Don't trigger item click → navigate
+  this.collapsed = !this.collapsed;
+  this.toggleAttribute('collapsed', this.collapsed);
+  this.render();
+});
+
+// Expander click handler
+this.querySelector('.oi-expand')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const open = this.toggleAttribute('children-open');
+  // rb-trace-tree listens for this event to show/hide children
+  this.dispatchEvent(new CustomEvent('toggle-children', { bubbles: true, detail: { open } }));
+});
+```
+
+### CSS for collapsed state
+
+```css
+rb-object-item[collapsed] .oi-content { display: none; }
+rb-object-item[collapsed] .oi-expand { display: none; }
+rb-object-item[collapsed] { padding: 4px; width: 40px; height: 40px; }
+
+/* Expander icon */
+.oi-expand {
+  width: 24px; height: 24px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: #999; font-size: 1.2rem; flex-shrink: 0;
+  transition: transform 0.2s;
+}
+rb-object-item[children-open] .oi-expand { transform: rotate(90deg); }
+```
+
+### Tree integration
+
+`rb-trace-tree.ts` listens for `toggle-children` events and shows/hides the child `<div>` that contains nested `rb-object-item` elements. The `has-children` attribute on `rb-object-item` is set by the tree builder when the TraceModel object has outgoing links.
 
 ## Dependencies
 - **Requires:** T112 (name+desc to show on expand), T113 (square icon for collapsed state)
