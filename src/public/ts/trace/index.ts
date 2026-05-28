@@ -7,7 +7,7 @@
 import {
   TraceGraph, type FlatObject, type ObjectType, refUuid,
 } from '../../../ts/shared/TraceModel.js';
-import { VerbRegistry, type VerbContext } from './VerbRegistry.js';
+import { VerbRegistry, type VerbContext, type VerbHandler } from './VerbRegistry.js';
 import { ViewBus } from './ViewBus.js';
 import './rb-trace-view.js';
 
@@ -20,12 +20,20 @@ export { RbListOverview, LocalSearch, type SearchProvider } from './rb-list-over
 export { RbDetailView } from './rb-detail-view.js';
 export { RbOverview } from './rb-overview.js';
 export { RbTraceTree } from './rb-trace-tree.js';
+export { RbDetailDrawer } from './rb-detail-drawer.js';
+export { RbTaskDetail } from './rb-task-detail.js';
+export { RbRequirementDetail } from './rb-requirement-detail.js';
+export { RbUseCaseDetail } from './rb-usecase-detail.js';
 export { navigate, setActiveRouter } from './nav.js';
 import './rb-object-item.js';
 import './rb-list-overview.js';
 import './rb-detail-view.js';
 import './rb-overview.js';
 import './rb-trace-tree.js';
+import './rb-detail-drawer.js';
+import './rb-task-detail.js';
+import './rb-requirement-detail.js';
+import './rb-usecase-detail.js';
 
 export const TRACE_TYPES: ObjectType[] = [
   'requirement', 'task', 'usecase', 'class', 'method', 'implementation', 'test',
@@ -94,12 +102,22 @@ export function defaultRegistry(): VerbRegistry {
   return reg;
 }
 
+/** T111: type → specialized Web Component tag. Unlisted types fall back to rb-detail-view. */
+const DETAIL_TAG: Partial<Record<ObjectType, string>> = {
+  task: 'rb-task-detail',
+  requirement: 'rb-requirement-detail',
+  usecase: 'rb-usecase-detail',
+};
+
 /** T107 production wiring: show → rb-detail-view, task.list/planning.overview → rb-overview,
- *  <type>.list → rb-list-overview. This is the registry the browser (T108) uses. */
-export function viewRegistry(): VerbRegistry {
+ *  <type>.list → rb-list-overview. This is the registry the browser (T108) uses.
+ *  T110: optional drawer — when provided, show verb renders inside the drawer instead of mount.
+ *  T111: specialized DetailViews per type (task/requirement/usecase), generic fallback for rest. */
+export function viewRegistry(drawer?: HTMLElement): VerbRegistry {
   const reg = new VerbRegistry();
   for (const type of TRACE_TYPES) {
-    reg.register(type, 'show', detailHandler);
+    const tag = DETAIL_TAG[type] || 'rb-detail-view';
+    reg.register(type, 'show', drawer ? drawerShowHandler(drawer, tag) : mountShowHandler(tag));
     reg.register(type, 'list', listOverviewHandler(type));
     reg.register(type, 'link', linkHandler);
   }
@@ -108,14 +126,33 @@ export function viewRegistry(): VerbRegistry {
   return reg;
 }
 
-function detailHandler(ctx: VerbContext): void {
-  const { obj, graph, mount } = ctx;
-  if (!obj) { mount.innerHTML = '<div class="trace-notfound">object not found</div>'; return; }
-  const el = document.createElement('rb-detail-view') as HTMLElement & { graph: TraceGraph };
-  el.graph = graph;
-  el.setAttribute('ref', obj.ref());
-  mount.innerHTML = '';
-  mount.appendChild(el);
+/** Non-drawer fallback: render a DetailView into the mount element. */
+function mountShowHandler(tagName: string): VerbHandler {
+  return (ctx: VerbContext) => {
+    const { obj, graph, mount } = ctx;
+    if (!obj) { mount.innerHTML = '<div class="trace-notfound">object not found</div>'; return; }
+    const el = document.createElement(tagName) as HTMLElement & { graph: TraceGraph };
+    el.graph = graph;
+    el.setAttribute('ref', obj.ref());
+    mount.innerHTML = '';
+    mount.appendChild(el);
+  };
+}
+
+/** T110+T111: render a typed DetailView inside the drawer; set drawer ref to open it. */
+function drawerShowHandler(drawer: HTMLElement, tagName: string): VerbHandler {
+  return (ctx: VerbContext) => {
+    const { obj, graph } = ctx;
+    if (!obj) { drawer.removeAttribute('ref'); return; }
+    for (const child of [...drawer.children]) {
+      if (!child.classList.contains('drawer-handle')) child.remove();
+    }
+    const el = document.createElement(tagName) as HTMLElement & { graph: TraceGraph };
+    el.graph = graph;
+    el.setAttribute('ref', obj.ref());
+    drawer.appendChild(el);
+    drawer.setAttribute('ref', obj.ref());
+  };
 }
 
 function overviewHandler(ctx: VerbContext): void {

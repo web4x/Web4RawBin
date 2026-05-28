@@ -1,0 +1,90 @@
+/**
+ * T110 — rb-detail-drawer: Google-Maps-style bottom drawer for DetailViews.
+ *
+ * Slides up from the bottom when `ref` is set; swipe-down or ESC to dismiss.
+ * Hosts pluggable DetailViews (T111) via default slot / direct child append.
+ *
+ * [impl:uuid:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50] R16.1 DetailViewContainer
+ */
+
+export class RbDetailDrawer extends HTMLElement {
+  static get observedAttributes() { return ['ref', 'open']; }
+  private startY = 0;
+  private dragging = false;
+
+  connectedCallback(): void {
+    this.render();
+    this.addEventListener('touchstart', this.onTouchStart, { passive: true });
+    this.addEventListener('touchmove', this.onTouchMove, { passive: false });
+    this.addEventListener('touchend', this.onTouchEnd);
+    document.addEventListener('keydown', this.onKeyDown);
+  }
+
+  disconnectedCallback(): void {
+    this.removeEventListener('touchstart', this.onTouchStart);
+    this.removeEventListener('touchmove', this.onTouchMove);
+    this.removeEventListener('touchend', this.onTouchEnd);
+    document.removeEventListener('keydown', this.onKeyDown);
+  }
+
+  attributeChangedCallback(name: string): void {
+    if (name === 'ref') {
+      const ref = this.getAttribute('ref');
+      if (ref) {
+        this.setAttribute('open', '');
+      } else {
+        this.removeAttribute('open');
+      }
+    }
+  }
+
+  close(): void {
+    this.removeAttribute('ref');
+    this.removeAttribute('open');
+  }
+
+  private render(): void {
+    if (this.querySelector('.drawer-handle')) return;
+    const handle = document.createElement('div');
+    handle.className = 'drawer-handle';
+    handle.addEventListener('click', () => this.close());
+    this.prepend(handle);
+  }
+
+  private onTouchStart = (e: TouchEvent): void => {
+    const handle = this.querySelector('.drawer-handle');
+    if (!handle) return;
+    const t = e.target as Node;
+    if (handle.contains(t) || t === handle) {
+      this.dragging = true;
+      this.startY = e.touches[0].clientY;
+      this.style.transition = 'none';
+    }
+  };
+
+  private onTouchMove = (e: TouchEvent): void => {
+    if (!this.dragging) return;
+    const dy = e.touches[0].clientY - this.startY;
+    if (dy > 0) {
+      this.style.transform = `translateY(${dy}px)`;
+      e.preventDefault();
+    }
+  };
+
+  private onTouchEnd = (e: TouchEvent): void => {
+    if (!this.dragging) return;
+    this.dragging = false;
+    const dy = e.changedTouches[0].clientY - this.startY;
+    this.style.transition = '';
+    this.style.transform = '';
+    if (dy > 80) this.close();
+  };
+
+  private onKeyDown = (e: KeyboardEvent): void => {
+    if (e.key === 'Escape' && this.hasAttribute('open')) this.close();
+  };
+}
+
+if (typeof customElements !== 'undefined' && !customElements.get('rb-detail-drawer')) {
+  customElements.define('rb-detail-drawer', RbDetailDrawer);
+}

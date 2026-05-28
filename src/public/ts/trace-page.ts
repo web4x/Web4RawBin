@@ -7,6 +7,7 @@
  */
 import { TraceRouter, viewRegistry, deserialize } from './trace/index.js';
 import './trace/rb-trace-tree.js';
+import './trace/rb-detail-drawer.js';
 
 const treeMount = document.getElementById('trace-tree');
 const detailMount = document.getElementById('trace-detail');
@@ -22,8 +23,12 @@ async function load(): Promise<void> {
     treeMount.innerHTML = '';
     treeMount.appendChild(tree);
     tree.setGraph(graph, data.broken || []);
-    // node click → navigate → DetailView renders into the detail pane
-    const router = new TraceRouter(graph as never, viewRegistry(), detailMount);
+    // T110: detail drawer — slides up from bottom on item click
+    const drawer = document.createElement('rb-detail-drawer');
+    document.body.appendChild(drawer);
+
+    // node click → navigate → DetailView renders inside the drawer
+    const router = new TraceRouter(graph as never, viewRegistry(drawer), detailMount);
     router.start();
   } catch (e) {
     treeMount.innerHTML = `<div style="color:#888;padding:20px">Failed to load traceability graph</div>`;
