@@ -86,6 +86,21 @@ class).
 
 - [ ] ✅ [T117: UseCase as class instances in PUML](./task-117-usecase-as-class.md)
   **Status:** impl-shipped (61d0253 — trace-cli Pass 4 parseUseCaseBlocks() for <<UseCase>>, UC→Task linking by T-number; 15 UCs from s16-usecases.puml; 797/797) — testing (robbin-tester) + Tron QA pending
+
+### Phase 4 — Tron iteration (post-shipping)
+
+- [ ] ⏳ [T120: DetailsView black background](./task-120-detailsview-black-bg.md)
+  **Status:** PLANNED — Tron 2026-05-29 (req-eng to capture literal quote in task) · UI surface change to T110 drawer + T111 typed views
+  **Owner:** robbin-expert (implement), robbin-tester (verify)
+  - Drawer + hosted DetailViews repainted to black background with legible text + badge contrast; no behavior change
+  - Per learnings #15: version + sw.js bump required at impl commit
+
+- [ ] ⏳ [T121: Data + traceability-chain fix — diagnose what's "very bad", remediate](./task-121-chain-data-fix.md)
+  **Status:** PLANNED — Tron 2026-05-29 (architect + req JOINTLY assigned to diagnose + fix; req-eng to capture literal quote) · Precondition for clean T119 land + T90 audit gate
+  **Owner:** robbin-architect + robbin-req (jointly, Tron-assigned), robbin-expert assists, robbin-tester verifies
+  - Phase 1 diagnose: catalog defects (C1 stubs · C2 placeholder uuids · C3 orphan UCs · C4 broken PUML refs · C5 missing [impl:uuid:] markers · C6 matrix drift · C7 duplicate ids · C8 closed-sprint legacy — deferred to S11 T87-T89)
+  - Phase 2 remediate per the diagnosis; reconcile traceability-matrix.md; trace-cli + sprint audit run clean
+  - Parallel-with T119 (test traceability)
   **Owner:** robbin-architect (design), robbin-expert (implement), robbin-tester (verify) · maps R16.10
   - Track use cases in PUML as dedicated instances of a UseCase class (first-class, not labels) — enables T116's method→UC→requirement chain
 
@@ -103,10 +118,10 @@ Tree-item click (Phase 2) feeds DetailViews (Phase 1): T111 consumes T112 data.
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 8 (T110–T117) |
-| Tron QA-approved (Done) | 0/8 |
-| Impl-shipped, testing+QA pending | 8 (T110–T117 — all) |
-| Refinement done, awaiting impl | 0 |
+| Tasks | 10 (T110–T117, T120, T121) |
+| Tron QA-approved (Done) | 0/10 |
+| Impl-shipped, testing+QA pending | 8 (T110–T117) |
+| Planned (Phase 4 — Tron iteration) | 2 (T120 UI, T121 chain data) |
 | New client | DetailViewContainer + DetailViews; redesigned tree-item on /trace |
 | Traceability | every method → requirement (R16.9); UseCase first-class in PUML (R16.10) |
 
