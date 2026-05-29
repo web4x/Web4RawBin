@@ -103,6 +103,11 @@ class).
 - [ ] ✅ [T122: DetailsViewContainer sticky-to-bottom](./task-122-detailview-sticky-bottom.md)
   **Status:** impl-shipped (50d20be v0.5.25 — position:fixed verified-correct from T110 origin; no new code needed; drawer stays viewport-bottom; 797/797) — testing (robbin-tester) + Tron QA pending
   **Rule-pair:** ✓ same commit as T120; package.json + sw.js CACHE_NAME bumped · ✓ STATIC_SHELL exempt (no new route)
+
+- [ ] 🔧 [T123: pageNav() sticky-top fix](./task-123-pagenav-sticky-top.md)
+  **Status:** architect diagnosed (missing feature at server.ts:293, not a regression); expert implementing NOW (PO 2026-05-29) — surface-only inline CSS change to pageNav() so `<nav>` is `position: sticky; top: 0;` on `/trace` + `/md/*`
+  **Owner:** robbin-expert (impl), robbin-tester (verify)
+  **Rule-pair:** (a) package.json + (b) sw.js CACHE_NAME bump required at impl; (c) STATIC_SHELL exempt (no new route)
   **Owner:** robbin-architect (design), robbin-expert (implement), robbin-tester (verify) · maps R16.10
   - Track use cases in PUML as dedicated instances of a UseCase class (first-class, not labels) — enables T116's method→UC→requirement chain
 
@@ -120,10 +125,10 @@ Tree-item click (Phase 2) feeds DetailViews (Phase 1): T111 consumes T112 data.
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 11 (T110–T117, T120, T121, T122) |
-| Tron QA-approved (Done) | 0/11 |
+| Tasks | 12 (T110–T117, T120, T121, T122, T123) |
+| Tron QA-approved (Done) | 0/12 |
 | Impl-shipped, testing+QA pending | 10 (T110–T117 + T120, T122) |
-| Implementing (Phase 4) | 1 (T121 — Phase 1 diagnosis done, Phase 2 C2 in progress) |
+| Implementing (Phase 4) | 2 (T121 chain-data Phase 2 active; T123 pageNav-sticky expert impl in flight) |
 | New client | DetailViewContainer + DetailViews; redesigned tree-item on /trace |
 | Traceability | every method → requirement (R16.9); UseCase first-class in PUML (R16.10) |
 

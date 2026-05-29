@@ -25,10 +25,10 @@ Status legend: **Done** = all tasks Tron QA-approved · **active** = in flight
 | 13 | Stability | active — 7 (T91-95,T100,T109) tested→awaiting Tron QA; T118 impl-shipped 317f41a (cleanupTestUsers + 8-spec afterAll + purge script) | 8 | [planning](./sprint-13-stability/planning.md) |
 | 14 | Legacy Data Migration | ✅ migration complete — T96/97 migrated, T98 verify PASS, T99 gate-cleared + EXECUTED (legacy removed v0.5.19); regression+Tron QA pending | 4 | [planning](./sprint-14-legacy-migration/planning.md) |
 | 15 | Traceability Browser & Object Model | active — all 8 impl-complete (v0.5.18); T101/102/103/105/106 tested→Tron QA; T104/107/108 testing | 8 | [planning](./sprint-15-traceability-browser/planning.md) |
-| 16 | Traceability UX & DetailViews | active — Phase 1-3 all 8 impl-shipped (T110-117, v0.5.23+bdb74ec STATIC_SHELL); Phase 4 planned (T120 black-bg, T121 chain-data fix, T122 sticky-bottom — Tron 2026-05-29) | 11 | [planning](./sprint-16-traceability-ux/planning.md) |
+| 16 | Traceability UX & DetailViews | active — Phase 1-3 all 8 ✅ (T110-117, v0.5.23+bdb74ec STATIC_SHELL); Phase 4: T120/T122 ✅ (50d20be v0.5.25), T121 🔧 (Phase 1 diagnosis done, Phase 2 C2 22/34), T123 🔧 (pageNav sticky-top — Tron 2026-05-29) | 12 | [planning](./sprint-16-traceability-ux/planning.md) |
 
 **Task numbering:** global sequential. T1-T80 (S1-9), T81-83 (S10), T84 (S12),
-T85-90 (S11), T91-95 (S13), T96-99 (S14), T100 (S13), T101-108 (S15), T109 (S13), T110-117 (S16), T118 (S13), T119 (S11), T120-122 (S16). Next new task = **T123**.
+T85-90 (S11), T91-95 (S13), T96-99 (S14), T100 (S13), T101-108 (S15), T109 (S13), T110-117 (S16), T118 (S13), T119 (S11), T120-123 (S16). Next new task = **T124**.
 
 **Traceability & Standards:** [traceability matrix](../traceability-matrix.md)
 (req→uc→puml→method→test index) · [standard](../standards/traceability-standard.md) ·
