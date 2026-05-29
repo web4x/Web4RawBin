@@ -26,7 +26,7 @@
 
 - up
   - [Sprint 16 Planning](./planning.md)
-  - **requirement:** `[requirement:uuid:r121-chain-data-fix-041b-3e74-d2c58b1f0bc4]` —
+  - **requirement:** `[requirement:uuid:e61d14c0-69ce-4e6d-a3f5-9579795188b1]` —
     "The traceability chain data is very bad — diagnose what's wrong and fix it."
     (Tron directive 2026-05-29; req-eng to capture the literal verbatim quote
     in this slot.)
@@ -152,7 +152,7 @@ C8 explicitly deferred.
 |-------|-------|----------|-------------|---------|
 | **C1 — No requirement up-link** | 117 tasks | MEDIUM | Task has no `[requirement:uuid:]` tag → chain starts at task, not requirement. S1-S9 have zero requirements.md files. | All S1-S9 tasks (80+), plus S11/S13/S16 tasks |
 | **C2a — Invalid v4 UUIDs on tasks** | **34 / 128** | **BLOCKER** | Task UUIDs fail strict v4 validation. The 4th group's variant nibble is outside `[89ab]` (uses c/d/e/f). trace-cli `isUuidV4()` rejects them → tasks invisible in graph. | S16 T111 `b1113a7d-...-c3b9-...` (c≠[89ab]), T112 `c1124b8e-...-d4c0-...`, T117 `11179033-...-c915-...`, ALL 8 S16 tasks fail |
-| **C2b — Invented non-hex requirement UUIDs** | 3 | **BLOCKER** | T120/T121/T122 have UUIDs starting with `r120-`, `r121-`, `r122-` — not hex at all. Scanner ignores them completely. | `r121-chain-data-fix-041b-3e74-d2c58b1f0bc4` |
+| **C2b — Invented non-hex requirement UUIDs** | 3 | **BLOCKER** | T120/T121/T122 have UUIDs starting with `r120-`, `r121-`, `r122-` — not hex at all. Scanner ignores them completely. | `e61d14c0-69ce-4e6d-a3f5-9579795188b1` |
 | **C3 — Orphan UseCases** | 8 UCs | HIGH | UseCases in PUML with no linked task in the graph (because task UUIDs are invalid v4 → tasks not in graph → UC→task link unresolvable). | `usecase:16a01101-...` through `16a01171-...` |
 | **C4 — Placeholder requirement quotes** | 4 | LOW | S14 requirements.md has `_(req to insert literal quote)_` — cosmetic, title extraction uses description line above. | S14 R96-R99 |
 | **C5 — No requirements.md** | 9 sprints | HIGH | S1-S9 have no requirements.md → no requirement objects in graph → all their tasks are chain-orphans. | sprint-1 through sprint-9 |

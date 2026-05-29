@@ -46,7 +46,7 @@ Addresses both architect causes. Key constraint discovered: legacy `PersistedRoo
 
 ## Traceability
 - up
-  - [requirement:uuid:c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f](./requirements.md) — R-R1: All rooms appear in lobby
+  - [requirement:uuid:67bde18f-76f9-43cd-abea-77c2ad7134f9](./requirements.md) — R-R1: All rooms appear in lobby
   - [Sprint 13 Planning](./planning.md)
   - Sprint 9 UC-RM.2 (room.persist) + UC-RM.4 (room.advertise) — these specified the behavior that is now failing
 - down

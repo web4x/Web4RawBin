@@ -26,7 +26,7 @@
 
 - up
   - [Sprint 16 Planning](./planning.md)
-  - **requirement:** `[requirement:uuid:r122-detailview-sticky-bottom-152c-3e85-d2f6c9af1ad5]` —
+  - **requirement:** `[requirement:uuid:bca276d9-8ff6-4234-a562-19e15e4ab8fb]` —
     "the detailsViewContainer is not sticky to the bottom" (Tron directive
     2026-05-29; req-eng to confirm/anchor the literal verbatim quote in this slot.)
 - down

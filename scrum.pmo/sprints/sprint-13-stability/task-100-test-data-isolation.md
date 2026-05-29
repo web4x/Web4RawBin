@@ -39,7 +39,7 @@ First AC4 run LEAKED to prod: Playwright `reuseExistingServer:true` found the li
 
 ## Traceability
 - up
-  - [requirement:uuid:e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8092](./requirements.md) — R-T1 test data isolation
+  - [requirement:uuid:80ca8e83-fb72-4e3d-874b-af17cd8c2dbf](./requirements.md) — R-T1 test data isolation
   - [Sprint 13 Planning](./planning.md)
   - Tron directive 2026-05-26 (room-flood from E2E into prod)
 - down

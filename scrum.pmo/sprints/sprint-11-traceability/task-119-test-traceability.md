@@ -26,7 +26,7 @@
 
 - up
   - [Sprint 11 Planning](./planning.md)
-  - **requirement:** `[requirement:uuid:r119-test-traceability-e29f-3c5d-b1c0a3d2f1e8]` —
+  - **requirement:** `[requirement:uuid:41c68a9a-b27d-488e-8346-4bc7a4ce685e]` —
     "797/797 tests but none traceable. Every test must declare which AC /
     requirement it verifies, so the chain (requirement → task → use case →
     class → method → **test**) closes end-to-end and `sprint audit` /

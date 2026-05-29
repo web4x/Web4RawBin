@@ -22,14 +22,14 @@ Tron directives 2026-05-26 via robbin-po. Four requirements across three workflo
 ## ROOMS Workflow
 
 - [ ] **R-R1: All user rooms load from disk on connect and appear in lobby**
-  [requirement:uuid:c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f]
+  [requirement:uuid:67bde18f-76f9-43cd-abea-77c2ad7134f9]
   > TRON DIRECTIVE: "i created more than one room. but only one showes up in the lobby. when a user connects all his rooms should show up in the lobby and being loaded from disk."
   → [T93: Multi-room lobby listing](./task-93-multi-room-lobby.md)
 
 ## PWA Workflow
 
 - [ ] **R-V1: Version update bar must appear on new version** (PRIORITY)
-  [requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f80]
+  [requirement:uuid:5b6122fe-75f1-4a33-9b2f-63fcaeb4323f]
   > TRON DIRECTIVE: "i did also not see the version update bar any more."
   → [T94: PWA update banner fix](./task-94-pwa-update-banner.md)
 
@@ -40,7 +40,7 @@ Tron directives 2026-05-26 via robbin-po. Four requirements across three workflo
 ## TEST-INFRA Workflow
 
 - [ ] **R-T1: E2E tests must never pollute prod data — isolated DATA_DIR**
-  [requirement:uuid:e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8092]
+  [requirement:uuid:80ca8e83-fb72-4e3d-874b-af17cd8c2dbf]
   > TRON DIRECTIVE (via PO 2026-05-26): E2E test runs flooded prod with test rooms; tests must use an isolated data dir, never prod.
   → [T100: Test data isolation (DATA_DIR override)](./task-100-test-data-isolation.md)
 

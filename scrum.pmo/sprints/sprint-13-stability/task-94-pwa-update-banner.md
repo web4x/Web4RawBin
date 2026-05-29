@@ -51,7 +51,7 @@ Failure chain:
 
 ## Traceability
 - up
-  - [requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f80](./requirements.md) — R-V1: Update bar must appear
+  - [requirement:uuid:5b6122fe-75f1-4a33-9b2f-63fcaeb4323f](./requirements.md) — R-V1: Update bar must appear
   - [Sprint 13 Planning](./planning.md)
   - Sprint 5 T33 (auto-reconnect), Sprint 5 T35 (iOS PWA), Sprint 7 v0.2.6 PWA cache review
 - down

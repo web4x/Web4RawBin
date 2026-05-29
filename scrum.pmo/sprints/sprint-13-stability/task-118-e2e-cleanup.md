@@ -26,7 +26,7 @@
 
 - up
   - [Sprint 13 Planning](./planning.md)
-  - **requirement:** `[requirement:uuid:r118-e2e-cleanup-d18b-2c5f-a7f0e2b1c5d8]` — "E2E test runs must not flood `data/` with orphan users or rooms; every spec that creates user/room state must clean it up after the run." (Tron directive 2026-05-29, promoted from B2 in [backlog.md](../../backlog.md).)
+  - **requirement:** `[requirement:uuid:c32974c5-dd10-45a7-b5dd-0d711b412fdc]` — "E2E test runs must not flood `data/` with orphan users or rooms; every spec that creates user/room state must clean it up after the run." (Tron directive 2026-05-29, promoted from B2 in [backlog.md](../../backlog.md).)
   - **promoted from:** B2 in [backlog.md](../../backlog.md) (2026-05-29)
 - down
   - None (atomic task)

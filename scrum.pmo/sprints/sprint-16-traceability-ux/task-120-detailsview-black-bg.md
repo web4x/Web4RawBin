@@ -26,7 +26,7 @@
 
 - up
   - [Sprint 16 Planning](./planning.md)
-  - **requirement:** `[requirement:uuid:r120-detailsview-black-bg-f30a-2d4b-c1d4f7a0fae3]` —
+  - **requirement:** `[requirement:uuid:20be0ac2-3a4b-41ef-b744-72354c90d62f]` —
     "DetailsView (the drawer's typed views) must have a black background."
     (Tron directive 2026-05-29; req-eng to capture the literal verbatim quote
     in this slot.)
