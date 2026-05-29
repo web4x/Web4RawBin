@@ -2,7 +2,7 @@
 
 # T57: rb-avatar Fixes — Lobby DRY, Pinch-Zoom, Crop Position
 
-[task:uuid:h57c0d03-be34-4f50-d678-008899001122]
+[task:uuid:8975ff1f-c486-4f4d-be1b-750b70c2ec25]
 
 ## Status
 - [x] Planned

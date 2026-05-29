@@ -2,7 +2,7 @@
 
 # T119: Test traceability — `[test:uuid:]` markers + trace-cli Pass 6 + chain validation
 
-[task:uuid:d3119b08-e29f-4c52-c0a3-6f9e3d2f1e88]
+[task:uuid:1e797ea6-c535-4779-9288-a72798dc17d5]
 
 ## Status
 - [ ] Planned
@@ -22,7 +22,7 @@
 
 ## Traceability
 
-`[task:uuid:d3119b08-e29f-4c52-c0a3-6f9e3d2f1e88]`
+`[task:uuid:1e797ea6-c535-4779-9288-a72798dc17d5]`
 
 - up
   - [Sprint 11 Planning](./planning.md)

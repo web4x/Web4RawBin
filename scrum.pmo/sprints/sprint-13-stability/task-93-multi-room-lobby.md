@@ -2,7 +2,7 @@
 
 # T93: All User Rooms Load from Disk and Appear in Lobby
 
-[task:uuid:a7b8c9d0-e1f2-4a3b-4c5d-6e7f80910093]
+[task:uuid:84c9d362-fad3-4325-8d9e-bf7c06cd04b6]
 
 ## Tron Requirement (literal)
 

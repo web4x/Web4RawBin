@@ -2,7 +2,7 @@
 
 # T117: UseCase as class instances in PUML
 
-[task:uuid:11179033-e47b-4f68-c915-8a7fd3046c27]
+[task:uuid:d1f826f8-f667-45cf-ac4a-a293e41679c4]
 
 ## Status
 - [ ] Planned
@@ -18,7 +18,7 @@
 
 ## Traceability
 
-`[task:uuid:11179033-e47b-4f68-c915-8a7fd3046c27]`
+`[task:uuid:d1f826f8-f667-45cf-ac4a-a293e41679c4]`
 
 - up
   - [Sprint 16 Planning](./planning.md)

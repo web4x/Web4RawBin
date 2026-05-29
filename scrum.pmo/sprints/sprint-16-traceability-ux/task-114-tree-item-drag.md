@@ -2,7 +2,7 @@
 
 # T114: Tree-item — OS drag-and-drop
 
-[task:uuid:e1146da0-b148-4c35-f6e2-5d4ca0713f94]
+[task:uuid:a9341bae-656e-4e87-ab50-c9a17a7c9222]
 
 ## Status
 - [ ] Planned
@@ -18,7 +18,7 @@
 
 ## Traceability
 
-`[task:uuid:e1146da0-b148-4c35-f6e2-5d4ca0713f94]`
+`[task:uuid:a9341bae-656e-4e87-ab50-c9a17a7c9222]`
 
 - up
   - [Sprint 16 Planning](./planning.md)

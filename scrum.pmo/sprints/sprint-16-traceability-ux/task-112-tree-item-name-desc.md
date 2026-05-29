@@ -2,7 +2,7 @@
 
 # T112: Tree-item — speaky name (generate if absent) + word-wrap description
 
-[task:uuid:c1124b8e-9f26-4a13-d4c0-3b2a8e5f1d72]
+[task:uuid:6d2225b7-d96b-4452-8719-b3667b344816]
 
 ## Status
 - [ ] Planned
@@ -18,7 +18,7 @@
 
 ## Traceability
 
-`[task:uuid:c1124b8e-9f26-4a13-d4c0-3b2a8e5f1d72]`
+`[task:uuid:6d2225b7-d96b-4452-8719-b3667b344816]`
 
 - up
   - [Sprint 16 Planning](./planning.md)

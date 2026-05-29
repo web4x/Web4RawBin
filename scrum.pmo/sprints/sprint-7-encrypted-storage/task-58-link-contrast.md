@@ -2,7 +2,7 @@
 
 # T58: Fix Link Contrast on Sprint Overview Pages
 
-[task:uuid:i58d0e04-cf45-4f61-e789-009900112233]
+[task:uuid:68dec25a-ec4e-4655-904b-0cdff10f50ad]
 
 ## Status
 - [x] Planned

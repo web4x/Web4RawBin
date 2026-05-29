@@ -2,7 +2,7 @@
 
 # T113: Tree-item — square SVG type icon (free icon library)
 
-[task:uuid:d1135c9f-a037-4b24-e5d1-4c3b9f602e83]
+[task:uuid:09dd41a7-8712-4012-ba05-1d34f6d94e07]
 
 ## Status
 - [ ] Planned
@@ -18,7 +18,7 @@
 
 ## Traceability
 
-`[task:uuid:d1135c9f-a037-4b24-e5d1-4c3b9f602e83]`
+`[task:uuid:09dd41a7-8712-4012-ba05-1d34f6d94e07]`
 
 - up
   - [Sprint 16 Planning](./planning.md)

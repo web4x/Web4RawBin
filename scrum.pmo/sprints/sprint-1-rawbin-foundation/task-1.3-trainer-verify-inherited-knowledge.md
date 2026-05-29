@@ -1,7 +1,7 @@
 [Back to Task 1](./task-1-team-bootstrap.md)
 
 # Task 1.3: Agent-Trainer - Verify Inherited Knowledge
-[task:uuid:d0a6f4e5-1b7c-4c2d-e9f8-6a5b4c3d2e1f]
+[task:uuid:771a4a9a-e44f-44ef-9200-960ad64fdc55]
 
 ## Status
 - [x] Planned

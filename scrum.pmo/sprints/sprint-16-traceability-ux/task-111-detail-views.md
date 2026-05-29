@@ -2,7 +2,7 @@
 
 # T111: Specialized DetailViews (TaskDetailView, RequirementDetailView)
 
-[task:uuid:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61]
+[task:uuid:471b9c4a-378f-4e56-a990-28f82a998b80]
 
 ## Status
 - [ ] Planned
@@ -18,7 +18,7 @@
 
 ## Traceability
 
-`[task:uuid:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61]`
+`[task:uuid:471b9c4a-378f-4e56-a990-28f82a998b80]`
 
 - up
   - [Sprint 16 Planning](./planning.md)

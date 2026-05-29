@@ -2,7 +2,7 @@
 
 # T91: Avatar Persistence — Must Not Revert to Default
 
-[task:uuid:e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8091]
+[task:uuid:b2e72ab1-0111-420b-b82b-387a3b339567]
 
 > **Scope note (PO 2026-05-26):** T91 (string-desync, 5/5) + **[T109](./task-109-avatar-recurrence-fix.md)**
 > (decrypt-exception + rekey re-encrypt, 6/6+6/6) TOGETHER satisfy the avatar-persist

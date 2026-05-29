@@ -2,7 +2,7 @@
 
 # T56: `<rb-avatar>` Web Component — Clickable Photo with Fullscreen Overlay
 
-[task:uuid:g56b0c02-ad23-4e4f-c567-007788990011]
+[task:uuid:dc1149a4-f639-4b52-9ae2-7634a3a7321e]
 
 ## Status
 - [x] Planned

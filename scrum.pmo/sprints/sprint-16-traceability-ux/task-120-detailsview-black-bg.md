@@ -2,7 +2,7 @@
 
 # T120: DetailsView black background
 
-[task:uuid:e4120c09-f30a-4d63-d1b4-7a0fae3f2f99]
+[task:uuid:e7cb6434-97a2-4752-8d63-f8bea13646b6]
 
 ## Status
 - [ ] Planned
@@ -22,7 +22,7 @@
 
 ## Traceability
 
-`[task:uuid:e4120c09-f30a-4d63-d1b4-7a0fae3f2f99]`
+`[task:uuid:e7cb6434-97a2-4752-8d63-f8bea13646b6]`
 
 - up
   - [Sprint 16 Planning](./planning.md)

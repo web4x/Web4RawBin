@@ -2,7 +2,7 @@
 
 # T121: Data + traceability-chain fix — diagnose what's "very bad", remediate
 
-[task:uuid:f5121d0a-041b-4e74-e2c5-8b1f0bc4a1ab]
+[task:uuid:a6c66693-4e28-4a2a-be02-0f202084ac95]
 
 ## Status
 - [ ] Planned
@@ -22,7 +22,7 @@
 
 ## Traceability
 
-`[task:uuid:f5121d0a-041b-4e74-e2c5-8b1f0bc4a1ab]`
+`[task:uuid:a6c66693-4e28-4a2a-be02-0f202084ac95]`
 
 - up
   - [Sprint 16 Planning](./planning.md)

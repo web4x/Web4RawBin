@@ -2,7 +2,7 @@
 
 # T92: Avatar Upload — Never Expose Key Errors to User
 
-[task:uuid:f6a7b8c9-d0e1-4f2a-3b4c-5d6e7f809200]
+[task:uuid:ee527264-01d6-452a-9c73-b692e65a3a42]
 
 ## Tron Requirement (literal)
 

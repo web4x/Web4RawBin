@@ -2,7 +2,7 @@
 
 # T94: PWA Update Banner Not Appearing (PRIORITY)
 
-[task:uuid:b8c9d0e1-f2a3-4b4c-5d6e-7f8091000094]
+[task:uuid:428edbf7-ae00-4979-a3b7-3e32eecdc496]
 
 ## Tron Requirement (literal)
 

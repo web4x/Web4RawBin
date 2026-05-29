@@ -2,7 +2,7 @@
 
 # T122: DetailsViewContainer sticky-to-bottom
 
-[task:uuid:a6122e0b-152c-4f85-f3d6-9c2f1ad502bc]
+[task:uuid:bbca5514-a5c0-4a32-8be4-bf1133290c7a]
 
 ## Status
 - [ ] Planned
@@ -22,7 +22,7 @@
 
 ## Traceability
 
-`[task:uuid:a6122e0b-152c-4f85-f3d6-9c2f1ad502bc]`
+`[task:uuid:bbca5514-a5c0-4a32-8be4-bf1133290c7a]`
 
 - up
   - [Sprint 16 Planning](./planning.md)
