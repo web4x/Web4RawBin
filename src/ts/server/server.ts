@@ -290,7 +290,7 @@ function pageHead(title: string): string {
 
 function pageNav(backHref: string = '/', backLabel: string = 'Home', editPath?: string): string {
   const editLink = editPath ? ` · <a href="/edit/${editPath}" style="color:#ff9800;text-decoration:none;font-size:0.9rem">✏️ Edit</a>` : '';
-  return `<div style="padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top))"><a href="${backHref}" style="color:#ffffff;text-decoration:none;font-size:0.9rem">← ${backLabel}</a> · <a href="/app" style="color:#ffffff;text-decoration:none;font-size:0.9rem">App</a> · <a href="/trace" style="color:#ffffff;text-decoration:none;font-size:0.9rem">Traceability</a>${editLink}</div>`;
+  return `<div style="padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top));position:sticky;top:0;z-index:50;background:#1a1a2e"><a href="${backHref}" style="color:#ffffff;text-decoration:none;font-size:0.9rem">← ${backLabel}</a> · <a href="/app" style="color:#ffffff;text-decoration:none;font-size:0.9rem">App</a> · <a href="/trace" style="color:#ffffff;text-decoration:none;font-size:0.9rem">Traceability</a>${editLink}</div>`;
 }
 
 function trackClient(req: http.IncomingMessage): void {
