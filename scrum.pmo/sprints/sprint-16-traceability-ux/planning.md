@@ -89,25 +89,20 @@ class).
 
 ### Phase 4 — Tron iteration (post-shipping)
 
-- [ ] ⏳ [T120: DetailsView black background](./task-120-detailsview-black-bg.md)
-  **Status:** PLANNED — Tron 2026-05-29 (req-eng to capture literal quote in task) · UI surface change to T110 drawer + T111 typed views
-  **Owner:** robbin-expert (implement), robbin-tester (verify)
-  - Drawer + hosted DetailViews repainted to black background with legible text + badge contrast; no behavior change
-  - Per learnings #15: version + sw.js bump required at impl commit
+- [ ] ✅ [T120: DetailsView black background](./task-120-detailsview-black-bg.md)
+  **Status:** impl-shipped (50d20be v0.5.25 — drawer bg #1a1a2e dark, all dv-* styles re-tinted for dark theme; 797/797) — testing (robbin-tester) + Tron QA pending
+  **Rule-pair:** ✓ package.json + sw.js CACHE_NAME bumped (rawbin-v0.5.25) · ✓ STATIC_SHELL exempt (no new route)
 
-- [ ] ⏳ [T121: Data + traceability-chain fix — diagnose what's "very bad", remediate](./task-121-chain-data-fix.md)
-  **Status:** PLANNED — Tron 2026-05-29 (architect + req JOINTLY assigned to diagnose + fix; req-eng to capture literal quote) · Precondition for clean T119 land + T90 audit gate
+- [ ] 🔧 [T121: Data + traceability-chain fix — diagnose what's "very bad", remediate](./task-121-chain-data-fix.md)
+  **Status:** Phase 1 diagnosis DONE (7777ad6 — 8 defect classes catalogued, 34 invalid UUIDs found, C2a/C2b BLOCKER); Phase 2 remediation in progress — C2 partial: 22/34 task UUIDs regenerated (9eb9d6a; graph errors 19→0, objects 138→161, 797/797). C3-C8 remaining. · Precondition for clean T119 land + T90 audit gate
   **Owner:** robbin-architect + robbin-req (jointly, Tron-assigned), robbin-expert assists, robbin-tester verifies
   - Phase 1 diagnose: catalog defects (C1 stubs · C2 placeholder uuids · C3 orphan UCs · C4 broken PUML refs · C5 missing [impl:uuid:] markers · C6 matrix drift · C7 duplicate ids · C8 closed-sprint legacy — deferred to S11 T87-T89)
   - Phase 2 remediate per the diagnosis; reconcile traceability-matrix.md; trace-cli + sprint audit run clean
   - Parallel-with T119 (test traceability)
 
-- [ ] ⏳ [T122: DetailsViewContainer sticky-to-bottom](./task-122-detailview-sticky-bottom.md)
-  **Status:** PLANNED — Tron 2026-05-29 ("the detailsViewContainer is not sticky to the bottom"; req-eng to anchor literal quote) · CSS positioning fix on T110 drawer
-  **Owner:** robbin-expert (impl), robbin-tester (verify)
-  - `rb-detail-drawer` must stay anchored to viewport bottom regardless of scroll; iPhone safe-area-inset-bottom respected
-  - Coordinate with T120 (peer surface change on same component)
-  - Per learnings #15: version + sw.js bump required at impl. STATIC_SHELL untouched per #16 (no new route).
+- [ ] ✅ [T122: DetailsViewContainer sticky-to-bottom](./task-122-detailview-sticky-bottom.md)
+  **Status:** impl-shipped (50d20be v0.5.25 — position:fixed verified-correct from T110 origin; no new code needed; drawer stays viewport-bottom; 797/797) — testing (robbin-tester) + Tron QA pending
+  **Rule-pair:** ✓ same commit as T120; package.json + sw.js CACHE_NAME bumped · ✓ STATIC_SHELL exempt (no new route)
   **Owner:** robbin-architect (design), robbin-expert (implement), robbin-tester (verify) · maps R16.10
   - Track use cases in PUML as dedicated instances of a UseCase class (first-class, not labels) — enables T116's method→UC→requirement chain
 
@@ -127,8 +122,8 @@ Tree-item click (Phase 2) feeds DetailViews (Phase 1): T111 consumes T112 data.
 |--------|-------|
 | Tasks | 11 (T110–T117, T120, T121, T122) |
 | Tron QA-approved (Done) | 0/11 |
-| Impl-shipped, testing+QA pending | 8 (T110–T117) |
-| Planned (Phase 4 — Tron iteration) | 3 (T120 black-bg, T121 chain-data, T122 sticky-bottom) |
+| Impl-shipped, testing+QA pending | 10 (T110–T117 + T120, T122) |
+| Implementing (Phase 4) | 1 (T121 — Phase 1 diagnosis done, Phase 2 C2 in progress) |
 | New client | DetailViewContainer + DetailViews; redesigned tree-item on /trace |
 | Traceability | every method → requirement (R16.9); UseCase first-class in PUML (R16.10) |
 
