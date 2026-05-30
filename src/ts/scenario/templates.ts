@@ -47,11 +47,33 @@ function esc(s: string): string {
 export const TaskTemplate: ViewTemplate = {
   renderHtml(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
-    return `<div class="sv-task"><h3>${esc(String(m.name || ''))}</h3><p>${esc(String(m.description || ''))}</p><span class="sv-status">${esc(String(m.status || ''))}</span></div>`;
+    const sections: string[] = [
+      `<div class="sv-header"><span class="sv-type-badge">Task</span><h2>${esc(String(m.name || ''))}</h2><code>${esc(String(m.uuid || ''))}</code></div>`,
+    ];
+    if (m.statusChecklist) sections.push(`<div class="sv-section"><h3>Status</h3><pre>${esc(String(m.statusChecklist))}</pre></div>`);
+    if (m.remainingIssues) sections.push(`<div class="sv-section"><h3>Remaining Issues</h3><p>${esc(String(m.remainingIssues))}</p></div>`);
+    if (m.traceability) sections.push(`<div class="sv-section"><h3>Traceability</h3><pre>${esc(String(m.traceability))}</pre></div>`);
+    if (m.description) sections.push(`<div class="sv-section"><h3>Task Description</h3><p>${esc(String(m.description))}</p></div>`);
+    if (m.context) sections.push(`<div class="sv-section"><h3>Context</h3><p>${esc(String(m.context))}</p></div>`);
+    if (m.intention) sections.push(`<div class="sv-section"><h3>Intention</h3><p>${esc(String(m.intention))}</p></div>`);
+    if (m.acceptanceCriteria) sections.push(`<div class="sv-section"><h3>Acceptance Criteria</h3><pre>${esc(String(m.acceptanceCriteria))}</pre></div>`);
+    if (m.qaAudit) sections.push(`<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>${esc(String(m.qaAudit))}</p></div>`);
+    if (m.subtasks) sections.push(`<div class="sv-section"><h3>Subtasks</h3><p>${esc(String(m.subtasks))}</p></div>`);
+    return `<div class="sv-task">${sections.join('\n')}</div>`;
   },
   renderMd(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
-    return `### ${m.name || '(untitled)'}\n\n${m.description || ''}\n\n**Status:** ${m.status || 'PLANNED'}`;
+    const lines = [`# ${m.name || '(untitled)'}`, `[task:uuid:${m.uuid || ''}]`, ''];
+    if (m.statusChecklist) lines.push('## Status', '', String(m.statusChecklist), '');
+    if (m.remainingIssues) lines.push('## Remaining Issues', '', String(m.remainingIssues), '');
+    if (m.traceability) lines.push('## Traceability', '', String(m.traceability), '');
+    if (m.description) lines.push('## Task Description', '', String(m.description), '');
+    if (m.context) lines.push('## Context', '', String(m.context), '');
+    if (m.intention) lines.push('## Intention', '', String(m.intention), '');
+    if (m.acceptanceCriteria) lines.push('## Acceptance Criteria', '', String(m.acceptanceCriteria), '');
+    if (m.qaAudit) lines.push('## QA Audit & User Feedback', '', String(m.qaAudit), '');
+    if (m.subtasks) lines.push('## Subtasks', '', String(m.subtasks), '');
+    return lines.join('\n');
   },
 };
 

@@ -2,15 +2,29 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "adf00ff5-d8e0-48b5-bb6e-07886064ebe4",
-    "name": "3.4: Align Room.ts with Test Cases",
+    "name": "Task 3.4: Align Room.ts with Test Cases",
+    "slug": "task-3.4-test-alignment",
     "description": "",
     "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [sprint-1-rawbin-foundation Planning](./planning.md)\n- down\n  - None",
+    "context": "Expert wrote Room.ts (385 lines), tester wrote room.test.ts (484 lines, 33 tests) in parallel. First vitest run: 6 passed, 27 failed. Failures are API mismatches, not logic bugs. Both sides need alignment.",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] All 33 tests pass\n- [x] No test changes that weaken coverage",
+    "qaAudit": "## Subtasks\nNone (atomic task).",
+    "subtasks": "None (atomic task).",
     "assigned": "",
-    "effort": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
     "children": [],
     "requirements": [],
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:cc4846fc-51e7-465e-a3dd-b435f926c7fa"
+  "ownerIor": "ior:instance:90672862-ce24-4bbb-9f87-fc116b6a95b9"
 }

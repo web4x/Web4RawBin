@@ -2,15 +2,29 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "01df5b22-b485-40c4-b9fc-57a85676dfa5",
-    "name": "4: Strip server.ts of Game Logic",
+    "name": "Task 4: Strip server.ts of Game Logic",
+    "slug": "task-4-strip-server",
     "description": "",
     "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [sprint-1-rawbin-foundation Planning](./planning.md)\n- down\n  - None",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] Server compiles and starts\n- [x] No references to game concepts (cards, deck, rounds, scoring, bots, leaderboard)\n- [x] profiles.json and devices.json separated\n- [x] PROFILE response only includes requesting user's devices\n- [x] All vitest tests pass\n- [x] ~900 lines or less",
+    "qaAudit": "## Subtasks\nNone (atomic task).",
+    "subtasks": "None (atomic task).",
     "assigned": "",
-    "effort": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
     "children": [],
     "requirements": [],
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:cc4846fc-51e7-465e-a3dd-b435f926c7fa"
+  "ownerIor": "ior:instance:90672862-ce24-4bbb-9f87-fc116b6a95b9"
 }

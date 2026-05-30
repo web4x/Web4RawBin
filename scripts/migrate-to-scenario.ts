@@ -25,16 +25,20 @@ const JSON_TREE = path.join(SCENARIO_DIR, 'sprints.json');
 const MD_TREE = path.join(SCENARIO_DIR, 'sprints.md');
 
 const RE_UUID = /\[task:uuid:([0-9a-f-]{36})\]/i;
-const RE_STATUS = /- \[(x| )\] Done/;
-
 interface ParsedTask {
   uuid: string;
   slug: string;
   name: string;
-  description: string;
+  sections: Record<string, string>;
   status: string;
+  statusChecklist: string;
   children: string[];
-  parentSlug?: string;
+}
+
+function extractSection(text: string, heading: string): string {
+  const re = new RegExp(`## ${heading}\\s*\\n([\\s\\S]*?)(?=\\n## |\\n---\\s*$|$)`, 'i');
+  const m = text.match(re);
+  return m ? m[1].trim() : '';
 }
 
 function parseTaskFile(filePath: string, slug: string): ParsedTask | null {
@@ -42,20 +46,32 @@ function parseTaskFile(filePath: string, slug: string): ParsedTask | null {
   const uuidMatch = text.match(RE_UUID);
   if (!uuidMatch) return null;
 
-  const titleMatch = text.match(/^#\s+(?:Task\s+)?(.+)$/m);
+  const titleMatch = text.match(/^#\s+(.+)$/m);
   const name = titleMatch ? titleMatch[1].trim() : slug;
 
-  const descMatch = text.match(/## (?:Task )?Description\s*\n+([\s\S]*?)(?=\n## |\n---|\Z)/);
-  const description = descMatch ? descMatch[1].trim().slice(0, 500) : '';
+  const statusBlock = extractSection(text, 'Status');
+  const doneMatch = statusBlock.match(/- \[(x)\] Done/);
+  const status = doneMatch ? 'Done' : (statusBlock.includes('[x] In Progress') ? 'In Progress' : 'Planned');
 
-  const doneMatch = text.match(RE_STATUS);
-  const status = doneMatch && doneMatch[1] === 'x' ? 'Done' : 'In Progress';
+  const sections: Record<string, string> = {};
+  const sectionNames = [
+    'Status', 'Remaining Issues', 'Traceability', 'Task Description', 'Description',
+    'Context', 'Intention', 'Role', 'QA Audit & User Feedback', 'QA Audit',
+    'Acceptance Criteria', 'Subtasks', 'Assigned', 'Architect Design',
+    'Dependencies', 'Definition of Done', 'Implementation', 'Test Scenarios',
+  ];
+  for (const s of sectionNames) {
+    const content = extractSection(text, s);
+    if (content) sections[s] = content;
+  }
+
+  const description = sections['Task Description'] || sections['Description'] || '';
 
   const children: string[] = [];
-  const childMatches = text.matchAll(/\[Task \d+\.\d+[^\]]*\]\(\.\/([^)]+)\.md\)/g);
+  const childMatches = text.matchAll(/\[(?:Task )?\d+\.\d+[^\]]*\]\(\.\/([^)]+)\.md\)/g);
   for (const cm of childMatches) children.push(cm[1]);
 
-  return { uuid: uuidMatch[1].toLowerCase(), slug, name, description, status, children };
+  return { uuid: uuidMatch[1].toLowerCase(), slug, name, sections, status, statusChecklist: statusBlock, description, children } as ParsedTask & { description: string };
 }
 
 function migrateSprint(sprintSlug: string, dryRun: boolean): void {
@@ -105,15 +121,30 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
   console.log(`  Created sprint unit: ${sprintUuid}`);
 
   for (const t of tasks) {
+    const p = t as ParsedTask & { description: string };
     const taskUnit: ScenarioUnit = {
       ior: 'ior:class:Task',
       model: {
         uuid: t.uuid,
         name: t.name,
-        description: t.description,
+        slug: t.slug,
+        description: p.description,
         status: t.status,
-        assigned: '',
-        effort: '',
+        statusChecklist: t.statusChecklist,
+        remainingIssues: t.sections['Remaining Issues'] || '',
+        traceability: t.sections['Traceability'] || '',
+        context: t.sections['Context'] || '',
+        intention: t.sections['Intention'] || '',
+        role: t.sections['Role'] || '',
+        acceptanceCriteria: t.sections['Acceptance Criteria'] || '',
+        qaAudit: t.sections['QA Audit & User Feedback'] || t.sections['QA Audit'] || '',
+        subtasks: t.sections['Subtasks'] || '',
+        assigned: t.sections['Assigned'] || '',
+        architectDesign: t.sections['Architect Design'] || '',
+        dependencies: t.sections['Dependencies'] || '',
+        definitionOfDone: t.sections['Definition of Done'] || '',
+        implementation: t.sections['Implementation'] || '',
+        testScenarios: t.sections['Test Scenarios'] || '',
         children: t.children.map(c => {
           const child = tasks.find(ct => ct.slug === c);
           return child ? `ior:instance:${child.uuid}` : '';

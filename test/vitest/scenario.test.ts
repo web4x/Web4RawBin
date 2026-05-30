@@ -84,13 +84,13 @@ describe('T125.3: ScenarioIndex storage', () => {
 describe('T125.4: ViewTemplateRegistry', () => {
   it('defaultTemplateRegistry renders Task HTML + MD', () => {
     const reg = defaultTemplateRegistry();
-    const unit: ScenarioUnit = { ior: 'ior:class:Task', model: { name: 'T1', description: 'Do X', status: 'Done' }, ownerIor: null };
+    const unit: ScenarioUnit = { ior: 'ior:class:Task', model: { name: 'T1', description: 'Do X', status: 'Done', statusChecklist: '- [x] Done' }, ownerIor: null };
     const html = reg.renderHtml(unit);
     expect(html).toContain('T1');
     expect(html).toContain('Do X');
     const md = reg.renderMd(unit);
-    expect(md).toContain('### T1');
-    expect(md).toContain('**Status:** Done');
+    expect(md).toContain('# T1');
+    expect(md).toContain('Do X');
   });
 
   it('returns fallback for unknown class', () => {
