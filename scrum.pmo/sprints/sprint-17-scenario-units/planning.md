@@ -50,8 +50,9 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 2 — Foundation Implementation (T125, expert)
 
-- [ ] ⏳ [T125: Scenario-unit primitives + class system + storage](./task-125-foundation.md)
-  **Status:** PLANNED — awaiting T124 refinement
+- [ ] ✅ [T125: Scenario-unit primitives + class system + storage](./task-125-foundation.md)
+  **Status:** impl-shipped (9b79be3 — Unit+IOR, 7 ClassLoaders + ClassRegistry, index-store @ scenario/index/<5char>/, ViewTemplateRegistry) — testing (robbin-tester) + Tron QA pending
+  **Rule-pair FLAG:** ⚠️ no package.json/sw.js bump in 9b79be3 despite AC7 — expert judgment that scaffolding doesn't reach PWA yet; PO awareness — bump can come at T127 wire-up
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   **Sub-tasks (expert to create during refinement):**
   - T125.1 — `Unit` base + `IOR` primitive (load/resolve/serialize)
@@ -61,8 +62,9 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 3 — Generated Views (T126, expert)
 
-- [ ] ⏳ [T126: Generated views — planning.md, sprints.md, per-instance .md/.html](./task-126-views.md)
-  **Status:** PLANNED — awaiting T125 foundation
+- [ ] ✅ [T126: Generated views — planning.md, sprints.md, per-instance .md/.html](./task-126-views.md)
+  **Status:** impl-shipped (5a7e162 — ViewGenerator reads scenario index, emits per-instance .md+.html grouped by class; sprint overview.md; per-sprint planning.md generated from task IOR array; all 7 class HTML+MD templates; scripts/regenerate-views.ts CLI) — testing (robbin-tester) + Tron QA pending
+  **Rule-pair FLAG:** ⚠️ no package.json/sw.js bump in 5a7e162 despite AC6 — same scaffolding-not-yet-served rationale as T125; PO awareness
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   **Sub-tasks:**
   - T126.1 — planning.md becomes a generated Task-overview view (built from Task instance views via the template)
@@ -71,8 +73,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 4 — Navigation (T127, expert)
 
-- [ ] ⏳ [T127: File-browser ↔ traceability-browser nav + IOR universal handler](./task-127-navigation.md)
-  **Status:** PLANNED — awaiting T125+T126
+- [ ] 🔧 [T127: File-browser ↔ traceability-browser nav + IOR universal handler](./task-127-navigation.md)
+  **Status:** expert in flight — refinement + implementing checked on disk; v0.5.28 staged in working tree (likely the T127 commit will include the bump, retroactively covering T125/T126 too)
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   **Sub-tasks:**
   - T127.1 — file-browser ↔ traceability-browser bi-directional nav (every node in /trace links to its file; every file in /md links to its scenario)
