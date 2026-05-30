@@ -52,7 +52,7 @@ prose. Then **migrate every existing sprint** to this model.
 
 - [ ] ✅ [T125: Scenario-unit primitives + class system + storage](./task-125-foundation.md)
   **Status:** impl-shipped (9b79be3 — Unit+IOR, 7 ClassLoaders + ClassRegistry, index-store @ scenario/index/<5char>/, ViewTemplateRegistry) — testing (robbin-tester) + Tron QA pending
-  **Rule-pair FLAG:** ⚠️ no package.json/sw.js bump in 9b79be3 despite AC7 — expert judgment that scaffolding doesn't reach PWA yet; PO awareness — bump can come at T127 wire-up
+  **Rule-pair:** ✓ retroactively covered by b30b3de v0.5.28 bump (T125+T126+T127 unified batch — PWA-served surface lands with T127's nav wiring)
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   **Sub-tasks (expert to create during refinement):**
   - T125.1 — `Unit` base + `IOR` primitive (load/resolve/serialize)
@@ -64,7 +64,7 @@ prose. Then **migrate every existing sprint** to this model.
 
 - [ ] ✅ [T126: Generated views — planning.md, sprints.md, per-instance .md/.html](./task-126-views.md)
   **Status:** impl-shipped (5a7e162 — ViewGenerator reads scenario index, emits per-instance .md+.html grouped by class; sprint overview.md; per-sprint planning.md generated from task IOR array; all 7 class HTML+MD templates; scripts/regenerate-views.ts CLI) — testing (robbin-tester) + Tron QA pending
-  **Rule-pair FLAG:** ⚠️ no package.json/sw.js bump in 5a7e162 despite AC6 — same scaffolding-not-yet-served rationale as T125; PO awareness
+  **Rule-pair:** ✓ retroactively covered by b30b3de v0.5.28 bump (unified batch with T125+T127)
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   **Sub-tasks:**
   - T126.1 — planning.md becomes a generated Task-overview view (built from Task instance views via the template)
@@ -73,8 +73,9 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 4 — Navigation (T127, expert)
 
-- [ ] 🔧 [T127: File-browser ↔ traceability-browser nav + IOR universal handler](./task-127-navigation.md)
-  **Status:** expert in flight — refinement + implementing checked on disk; v0.5.28 staged in working tree (likely the T127 commit will include the bump, retroactively covering T125/T126 too)
+- [ ] ✅ [T127: File-browser ↔ traceability-browser nav + IOR universal handler](./task-127-navigation.md)
+  **Status:** impl-shipped (b30b3de v0.5.28 — cross-nav /md/↔/trace + IOR resolver; 818/818) — testing (robbin-tester) + Tron QA pending
+  **Rule-pair:** ✓ (a) package.json v0.5.28 ✓ (b) sw.js rawbin-v0.5.28 ✓ (c) STATIC_SHELL (no new route — explicitly noted by expert in commit message). Covers T125+T126 retroactively.
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   **Sub-tasks:**
   - T127.1 — file-browser ↔ traceability-browser bi-directional nav (every node in /trace links to its file; every file in /md links to its scenario)
@@ -82,8 +83,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 5 — Migration (T128, planner + req + expert)
 
-- [ ] ⏳ [T128: Migrate all existing sprints/tasks/requirements to scenario-unit model](./task-128-migration.md)
-  **Status:** PLANNED — awaiting T125+T126+T127
+- [ ] 🔧 [T128: Migrate all existing sprints/tasks/requirements to scenario-unit model](./task-128-migration.md)
+  **Status:** Phase 5 active — T128.1 exemplar Sprint 1 migration SHIPPED (efc6d17 — migrate-to-scenario script + scenario/sprints.md/task/*.html+md units for Sprint 1 task tree). Awaiting Tron sign-off on the exemplar BEFORE T128.2 closed-batch + T128.3 active-batch + T128.4 method markers proceed.
   **Owner:** robbin-planner (structure), robbin-req (requirement units), robbin-expert (tooling), robbin-tester (verify)
   **Strategy:** generate scenario.json units from existing markdown task files; preserve `task:uuid` + `requirement:uuid` identities (T121 already regenerated to v4 — clean base); reuse Sprint 1 task-1/task-1.1 hierarchical structure as exemplar; closed sprints (S1-9) migrate as artifact (no rewrites of prose), active sprints (S10-S16) migrate with view regeneration.
   **Sub-tasks:**
@@ -116,7 +117,7 @@ T124 architecture+requirements ──→ T125 foundation ──┬──→ T126
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Parent tasks | 6 (T124–T129) |
+| Parent tasks | 6 (T124–T129) — 3 ✅ (T125/T126/T127), 2 🔧 (T124 4/6 sub, T128 1/4 sub), 1 ⏳ (T129) |
 | Sub-tasks (refinement-time) | ~20 (T124.1-T124.6, T125.1-T125.4, T126.1-T126.3, T127.1-T127.2, T128.1-T128.4, T129.1-T129.3) |
 | Tron QA-approved (Done) | 0/6 parents |
 | Planned | 6 parents |
