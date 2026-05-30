@@ -59,6 +59,12 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
   - Per-spec test.afterAll wiring for 8 ensureLobby-using specs (contacts-ui, lobby-card-badges, mobile-viewport, multi-room-lobby, profile-editor, room-identity+users, room-lifecycle+users, room-order+users) ✓
   - One-shot backfill purge — script ready; dry-run executed; --apply pending PO/tester sign-off
 
+- [ ] 🔧 [T130: md preview renders hierarchical lists (nested checkboxes) incorrectly](./task-130-md-preview-hierarchical-lists.md)
+  **Status:** Tron 2026-05-30 — expert in flight. Server-side renderer fix; affects every planning.md + task on /md/.
+  **Owner:** robbin-expert (impl), robbin-tester (verify)
+  - Nested `<ul>` inside `<li>` collapses or escapes parent — Status sub-steps not visibly nested under "In Progress"
+  - Rule-pair: (a) package.json + (b) sw.js CACHE_NAME bump required; (c) STATIC_SHELL exempt (no new route)
+
 ## Dependency Graph
 ```
 Independent bug fixes (no inter-task deps):
@@ -72,10 +78,11 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Tasks | 8 (T91-95, T100, T109, T118) |
-| Tron QA-approved (Done) | 0/8 |
+| Tasks | 9 (T91-95, T100, T109, T118, T130) |
+| Tron QA-approved (Done) | 0/9 |
 | Tested, awaiting Tron QA | T91, T92, T93, T94, T95, T100, T109 (7) |
 | Impl-shipped, testing+QA pending | T118 (1, 317f41a) |
+| Implementing | T130 (1, md-preview hierarchical-list fix — Tron 2026-05-30) |
 | Note | R-A1 (avatar persist) satisfied by T91 + T109 (both tested); pending Tron QA |
 | Use case diagrams | 4 (architect, in diagrams/) |
 
