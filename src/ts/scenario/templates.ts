@@ -77,10 +77,58 @@ export const SprintTemplate: ViewTemplate = {
   },
 };
 
+export const UseCaseTemplate: ViewTemplate = {
+  renderHtml(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `<div class="sv-usecase"><h3>${esc(String(m.name || ''))}</h3><code>${esc(String(m.object || ''))}.${esc(String(m.verb || ''))}</code></div>`;
+  },
+  renderMd(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `### ${m.name || '(untitled)'}\n\n\`${m.object || ''}.${m.verb || ''}\``;
+  },
+};
+
+export const ClassTemplate: ViewTemplate = {
+  renderHtml(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `<div class="sv-class"><h3>${esc(String(m.name || ''))}</h3><code>${esc(String(m.file || ''))}</code></div>`;
+  },
+  renderMd(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `### ${m.name || '(untitled)'}\n\n**File:** \`${m.file || ''}\``;
+  },
+};
+
+export const MethodTemplate: ViewTemplate = {
+  renderHtml(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `<div class="sv-method"><h3>${esc(String(m.name || ''))}</h3></div>`;
+  },
+  renderMd(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `### ${m.name || '(untitled)'}`;
+  },
+};
+
+export const TestTemplate: ViewTemplate = {
+  renderHtml(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `<div class="sv-test"><h3>${esc(String(m.name || ''))}</h3><span class="sv-status">${esc(String(m.status || ''))}</span><code>${esc(String(m.file || ''))}</code></div>`;
+  },
+  renderMd(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `### ${m.name || '(untitled)'}\n\n**Status:** ${m.status || 'PENDING'} · **File:** \`${m.file || ''}\``;
+  },
+};
+
 export function defaultTemplateRegistry(): ViewTemplateRegistry {
   const reg = new ViewTemplateRegistry();
+  reg.register('ior:class:Sprint', SprintTemplate);
   reg.register('ior:class:Task', TaskTemplate);
   reg.register('ior:class:Requirement', RequirementTemplate);
-  reg.register('ior:class:Sprint', SprintTemplate);
+  reg.register('ior:class:UseCase', UseCaseTemplate);
+  reg.register('ior:class:Class', ClassTemplate);
+  reg.register('ior:class:Method', MethodTemplate);
+  reg.register('ior:class:Test', TestTemplate);
   return reg;
 }

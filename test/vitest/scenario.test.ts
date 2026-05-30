@@ -13,6 +13,7 @@ import {
   ClassRegistry, TaskLoader,
   ScenarioIndex,
   ViewTemplateRegistry, TaskTemplate, defaultTemplateRegistry,
+  ViewGenerator,
   type ScenarioUnit,
 } from '../../src/ts/scenario/index.js';
 
@@ -103,5 +104,65 @@ describe('T125.4: ViewTemplateRegistry', () => {
     reg.register('ior:class:Task', TaskTemplate);
     expect(reg.has('ior:class:Task')).toBe(true);
     expect(reg.resolve('ior:class:Task')).toBe(TaskTemplate);
+  });
+
+  it('all 7 class templates registered in defaultTemplateRegistry', () => {
+    const reg = defaultTemplateRegistry();
+    for (const cls of ['Sprint', 'Task', 'Requirement', 'UseCase', 'Class', 'Method', 'Test']) {
+      expect(reg.has(iorClass(cls))).toBe(true);
+    }
+  });
+});
+
+describe('T126: ViewGenerator', () => {
+  let idxDir: string;
+  let outDir: string;
+  let idx: ScenarioIndex;
+  beforeEach(() => {
+    idxDir = fs.mkdtempSync(path.join(os.tmpdir(), 'gen-idx-'));
+    outDir = fs.mkdtempSync(path.join(os.tmpdir(), 'gen-out-'));
+    idx = new ScenarioIndex(idxDir);
+  });
+  afterEach(() => {
+    fs.rmSync(idxDir, { recursive: true, force: true });
+    fs.rmSync(outDir, { recursive: true, force: true });
+  });
+
+  it('generateAll emits .md + .html for each instance', () => {
+    const uuid = 'a7f3c1d2-8b4e-4f9a-b6c5-3d2e1f0a9b8c';
+    idx.put(uuid, { ior: 'ior:class:Task', model: { uuid, name: 'T1', description: 'Do X', status: 'Done' }, ownerIor: null });
+    const gen = new ViewGenerator(idx, defaultTemplateRegistry(), outDir);
+    const result = gen.generateAll();
+    expect(result.filesWritten).toBeGreaterThanOrEqual(2);
+    expect(fs.existsSync(path.join(outDir, 'task', `${uuid}.md`))).toBe(true);
+    expect(fs.existsSync(path.join(outDir, 'task', `${uuid}.html`))).toBe(true);
+    const md = fs.readFileSync(path.join(outDir, 'task', `${uuid}.md`), 'utf-8');
+    expect(md).toContain('T1');
+  });
+
+  it('generates sprint overview + planning.md', () => {
+    const sprintUuid = 'b72e58c4-91d3-4a07-b845-3c6f1d92e7a0';
+    const taskUuid = 'c83f69d5-a2e4-4b18-c956-4d7a2e03f8b1';
+    idx.put(taskUuid, { ior: 'ior:class:Task', model: { uuid: taskUuid, name: 'T1: Bootstrap', status: 'Done' }, ownerIor: iorInstance(sprintUuid) });
+    idx.put(sprintUuid, { ior: 'ior:class:Sprint', model: { uuid: sprintUuid, name: 'Sprint 1', number: 1, goal: 'Foundation', status: 'Done', tasks: [iorInstance(taskUuid)] }, ownerIor: null });
+    const gen = new ViewGenerator(idx, defaultTemplateRegistry(), outDir);
+    const result = gen.generateAll();
+    expect(result.filesWritten).toBeGreaterThanOrEqual(5);
+    expect(fs.existsSync(path.join(outDir, 'overview.md'))).toBe(true);
+    const overview = fs.readFileSync(path.join(outDir, 'overview.md'), 'utf-8');
+    expect(overview).toContain('Sprint 1');
+    const planning = fs.readFileSync(path.join(outDir, 'sprint', `${sprintUuid}-planning.md`), 'utf-8');
+    expect(planning).toContain('T1: Bootstrap');
+    expect(planning).toContain('[x]');
+  });
+
+  it('generateOne returns md + html for a single uuid', () => {
+    const uuid = 'd94a7ae6-b3f5-4c29-a067-5e8b3f14a9c2';
+    idx.put(uuid, { ior: 'ior:class:Requirement', model: { uuid, name: 'R1', description: 'Do Y', priority: 'HIGH' }, ownerIor: null });
+    const gen = new ViewGenerator(idx, defaultTemplateRegistry(), outDir);
+    const result = gen.generateOne(uuid);
+    expect(result).not.toBeNull();
+    expect(result!.md).toContain('R1');
+    expect(result!.html).toContain('R1');
   });
 });

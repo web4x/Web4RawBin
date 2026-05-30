@@ -5,4 +5,5 @@
 export { type ScenarioUnit, type ClassLoader, type IORType, parseIor, iorClass, iorInstance, iorFile } from './types.js';
 export { ClassRegistry, SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader } from './classes.js';
 export { ScenarioIndex } from './index-store.js';
-export { type ViewTemplate, ViewTemplateRegistry, TaskTemplate, RequirementTemplate, SprintTemplate, defaultTemplateRegistry } from './templates.js';
+export { type ViewTemplate, ViewTemplateRegistry, TaskTemplate, RequirementTemplate, SprintTemplate, UseCaseTemplate, ClassTemplate, MethodTemplate, TestTemplate, defaultTemplateRegistry } from './templates.js';
+export { ViewGenerator } from './generator.js';
