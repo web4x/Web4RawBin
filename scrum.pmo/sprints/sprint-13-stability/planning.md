@@ -59,11 +59,9 @@ tasks with complete-workflow use case diagrams (architect). All tasks follow the
   - Per-spec test.afterAll wiring for 8 ensureLobby-using specs (contacts-ui, lobby-card-badges, mobile-viewport, multi-room-lobby, profile-editor, room-identity+users, room-lifecycle+users, room-order+users) ✓
   - One-shot backfill purge — script ready; dry-run executed; --apply pending PO/tester sign-off
 
-- [ ] 🔧 [T130: md preview renders hierarchical lists (nested checkboxes) incorrectly](./task-130-md-preview-hierarchical-lists.md)
-  **Status:** Tron 2026-05-30 — expert in flight. Server-side renderer fix; affects every planning.md + task on /md/.
-  **Owner:** robbin-expert (impl), robbin-tester (verify)
-  - Nested `<ul>` inside `<li>` collapses or escapes parent — Status sub-steps not visibly nested under "In Progress"
-  - Rule-pair: (a) package.json + (b) sw.js CACHE_NAME bump required; (c) STATIC_SHELL exempt (no new route)
+- [ ] ✅ [T130: md preview renders hierarchical lists (nested checkboxes) incorrectly](./task-130-md-preview-hierarchical-lists.md)
+  **Status:** impl-shipped (8539d57 v0.5.27 — MD_CSS had no ul/li rules; added ul/ol padding-left + nested indent + li margin + checkbox accent-color; marked.js was parsing nesting correctly, purely CSS gap; 797/797) — testing (robbin-tester) + Tron QA pending
+  **Rule-pair:** ✓ package.json + sw.js CACHE_NAME bumped (rawbin-v0.5.27) · ✓ STATIC_SHELL exempt (no new route)
 
 ## Dependency Graph
 ```
@@ -82,7 +80,7 @@ Each: architect use case diagram → expert impl → tester verify → Tron QA
 | Tron QA-approved (Done) | 0/9 |
 | Tested, awaiting Tron QA | T91, T92, T93, T94, T95, T100, T109 (7) |
 | Impl-shipped, testing+QA pending | T118 (1, 317f41a) |
-| Implementing | T130 (1, md-preview hierarchical-list fix — Tron 2026-05-30) |
+| Impl-shipped, testing+QA pending | T130 (1, 8539d57 v0.5.27 — md-preview hierarchical-list fix) |
 | Note | R-A1 (avatar persist) satisfied by T91 + T109 (both tested); pending Tron QA |
 | Use case diagrams | 4 (architect, in diagrams/) |
 

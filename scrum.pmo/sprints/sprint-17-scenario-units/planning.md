@@ -37,8 +37,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 1 — Architecture, Standards, Requirements (T124, architect + req)
 
-- [ ] ⏳ [T124: Scenario-unit + IOR + class-based view architecture](./task-124-architecture.md)
-  **Status:** PLANNED — Tron-assigned JOINT (architect + req + planner); req-eng to formalize R17.1-R17.15 in requirements.md; architect drafts class model, view template architecture, storage layout, PUML use cases referencing the new classes
+- [ ] 🔧 [T124: Scenario-unit + IOR + class-based view architecture](./task-124-architecture.md)
+  **Status:** refinement in flight — architect shipped T124.1 (data model, IOR=class loader, Tron-refined) + T124.6 (PUML) in 1316b7e. Remaining: T124.2 view templates, T124.3 storage, T124.4 req-eng requirements.md, T124.5 standard update.
   **Owner:** robbin-architect (design lead), robbin-req (requirements), robbin-planner (structure)
   **Sub-tasks (architect/req to create during refinement, following Sprint 1 task-1.x pattern):**
   - T124.1 architect — scenario-unit + IOR data model (class diagram, JSON shape, resolution rules)
