@@ -1,5 +1,6 @@
 /**
  * Task 7.7: User Editor / Profile unit tests
+ * [test:uuid:ba9ffcd6-f8ae-49db-ba78-61c72e496226] T7 user profile
  * Tests UPDATE_PROFILE, GET_USER_INFO, profileCommitted, secretCode validation, backfill.
  *
  * Unit tests — replicates handler logic from server.ts without requiring a running server.

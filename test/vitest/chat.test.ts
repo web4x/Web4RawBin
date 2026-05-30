@@ -1,5 +1,6 @@
 /**
  * Task 20: Room Chat Parity — unit tests
+ * [test:uuid:75d1d899-8c52-48dd-a696-42f7492889e3] T20 room chat parity
  * Tests Room.addChat, broadcast, chat history, 200 char limit, sender name, multi-user.
  *
  * Uses Room class directly — no running server needed.

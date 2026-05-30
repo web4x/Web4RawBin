@@ -1,5 +1,6 @@
 /**
  * Task 3.3: Room.ts unit tests
+ * [test:uuid:f7abd9f6-bbd1-4614-9280-19696c506de1] T3 Room.ts unit tests
  * Tests Room class and RoomManager against interfaces from task-3-room-ts.md
  *
  * Interfaces under test:

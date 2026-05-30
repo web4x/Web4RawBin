@@ -1,5 +1,6 @@
 /**
  * T92 RE-FIX (v0.5.1, commit 057d491): Avatar upload must JUST SUCCEED — no key error ever.
+ * [test:uuid:19449505-10d2-4727-a199-91c205c84ba3] T92 avatar keyless upload
  *
  * Exercises the REAL shipped server modules (UserKeys + UserCrypto), not a re-implementation,
  * by replicating the exact POST /api/avatar handler sequence (server.ts:328-341):

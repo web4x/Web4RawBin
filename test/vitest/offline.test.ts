@@ -1,5 +1,6 @@
 /**
  * Task 36: Offline Data Persistence tests
+ * [test:uuid:d7682614-6a2e-4630-af7e-26258d669b81] T36 offline data persistence
  * Tests OfflineStore IndexedDB wrapper: messageQueue, roomState, profile stores.
  * Unit tests with in-memory mock — no browser IndexedDB needed.
  */

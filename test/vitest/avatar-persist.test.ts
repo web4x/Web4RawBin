@@ -1,5 +1,6 @@
 /**
  * T91 (v0.4.11): Avatar persistence — uploaded photo must NOT revert to default.
+ * [test:uuid:aba97062-537a-4442-805a-6e41e7705ade] T91 avatar persistence
  *
  * The fix is a guard in ensureAvatar() (server.ts:792-834): before fetching a default avatar
  * it checks `fileExists(token,'avatar')` and, if the stored avatar decrypts to a NON-SVG (a real

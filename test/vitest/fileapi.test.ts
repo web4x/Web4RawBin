@@ -1,5 +1,6 @@
 /**
  * T60: File API tests (UC-API.1 + UC-API.2)
+ * [test:uuid:2e017c2e-1f28-47d0-b457-a6a45dc8c547] T60 file API
  * Tests readDir and readFile handler logic.
  * Unit tests with temp dirs — no running server.
  */

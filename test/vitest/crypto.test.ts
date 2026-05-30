@@ -1,5 +1,6 @@
 /**
  * Task 47: File encryption/decryption unit tests
+ * [test:uuid:490c3106-4b8d-4d9f-8d43-da2e3a91b1d3] T47 file encryption
  * Tests UserCrypto: encryptFile, decryptFile, roundtrip, wrong-user rejection,
  * tampered ciphertext, large file, listUserFiles, deleteFile, fileExists.
  *

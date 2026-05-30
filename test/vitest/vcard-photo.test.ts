@@ -1,5 +1,6 @@
 /**
  * vCard photo fix (commit 148e9b8, v0.5.14): downloadVCard must embed the PHOTO sourced
+ * [test:uuid:40f20e19-71a5-47ff-9391-75661b520ed2] vCard photo fix
  * from the TOKEN (the same source the sheet's rb-avatar displays), NOT gated on the
  * possibly-empty profile.avatar string; the data-URL regex must accept svg+xml; and the
  * NOTE must carry the user's UUID.

@@ -1,5 +1,6 @@
 /**
  * AVATAR FIX v0.5.9 (commit 75053e4): avatar survives a keypair regen.
+ * [test:uuid:3615a349-01ac-4816-ac6d-c343ff1d3050] T109 avatar rekey survival
  *
  * Root cause (avatar-fallback-rootcause.captured.md): a keypair rotation left avatar.enc
  * wrapped under the OLD RSA key → decryptFile failed → /api/avatar fell back to the SVG

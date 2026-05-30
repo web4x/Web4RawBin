@@ -423,7 +423,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       try {
         const sprintsDir = path.join(__dirname, '../../../scrum.pmo/sprints');
         const srcDir = path.join(__dirname, '../../../src');
-        const { graph, coverage } = scanRepo(sprintsDir, srcDir);
+        const testDir = path.join(__dirname, '../../../test');
+        const { graph, coverage } = scanRepo(sprintsDir, srcDir, testDir);
         const issues = validateTrace(graph, coverage);
         const broken = [...new Set(issues.filter(i => i.level === 'error').map(i => i.ref.replace(/^[a-z]+:/, '')))];
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });

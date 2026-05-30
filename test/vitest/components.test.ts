@@ -1,5 +1,6 @@
 /**
  * T39-T41: Web Component unit tests
+ * [test:uuid:7e304eec-2c8c-4e2f-b2f0-b46bea80feb0] T39-T41 web components
  * T39: rb-update-banner — version check, banner DOM, click handler
  * T40: rb-header — attributes, events
  * T41: rb-overlay — base class for modal overlays

@@ -1,5 +1,6 @@
 /**
  * T63: Editor entry point tests
+ * [test:uuid:8dfbe1a7-afbf-44a4-818d-6959faab4cd2] T63 editor entry point
  * Tests edit.html, edit.ts, /edit route, Monaco CDN, manifest, build output.
  * File existence and content checks — no running server.
  */

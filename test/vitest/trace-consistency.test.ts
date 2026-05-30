@@ -9,7 +9,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { TraceGraph, Requirement, Task, UseCase } from '../../src/ts/shared/TraceModel.js';
+import { TraceGraph, Requirement, Task, UseCase, Test as TraceTest } from '../../src/ts/shared/TraceModel.js';
 import {
   scanRepo, validate, fixMatrix, generateRegion, formatReport, REGION_BEGIN, REGION_END,
   type TaskCoverage,
@@ -145,6 +145,39 @@ class "drawer.open" <<UseCase>> {
       new UseCase(g, ucUuid, 'orphan.uc');
       const issues = validate(g, []);
       expect(issues.some(i => i.level === 'warn' && i.ref === `usecase:${ucUuid}` && /no linked task/.test(i.reason))).toBe(true);
+    });
+  });
+
+  // T119: Pass 6 — test:uuid parsing
+  describe('Pass 6: test:uuid parsing (T119)', () => {
+    let tmp: string;
+    beforeEach(() => { tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'trace-p6-')); });
+    afterEach(() => { fs.rmSync(tmp, { recursive: true, force: true }); });
+
+    it('parses [test:uuid] markers and creates Test objects', () => {
+      const sprint = path.join(tmp, 'sprint-test');
+      fs.mkdirSync(sprint, { recursive: true });
+      fs.writeFileSync(path.join(sprint, 'task-101-x.md'), `# T101\n[task:uuid:${TU}]\n[requirement:uuid:${RU}]\n`);
+      fs.writeFileSync(path.join(sprint, 'requirements.md'), `[requirement:uuid:${RU}]\nR15.1 Test req\n`);
+      const testDir = path.join(tmp, 'tests');
+      fs.mkdirSync(testDir, { recursive: true });
+      const testUuid = '20a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f99';
+      fs.writeFileSync(path.join(testDir, 'example.test.ts'), `// [test:uuid:${testUuid}] R15.1 unit test\n`);
+      const { graph } = scanRepo(sprint, undefined, testDir);
+      const tests = graph.ofType('test');
+      expect(tests.length).toBe(1);
+      expect(tests[0].uuid).toBe(testUuid);
+    });
+  });
+
+  // T119: validate flags orphan tests
+  describe('validate orphan tests (T119)', () => {
+    it('warns on a test with no linked requirement or method', () => {
+      const g = new TraceGraph();
+      const testUuid = '30b2c3d4-e5f6-4a71-8b82-0c1d2e3f4a00';
+      new TraceTest(g, testUuid, 'orphan test');
+      const issues = validate(g, []);
+      expect(issues.some(i => i.level === 'warn' && i.ref === `test:${testUuid}` && /no linked requirement/.test(i.reason))).toBe(true);
     });
   });
 });

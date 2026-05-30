@@ -1,5 +1,6 @@
 /**
  * T95: Lobby newest-first ordering — unit tests for the enrichRoomList sort.
+ * [test:uuid:80c16527-a6b6-4b5f-8c94-0d76e838d2b3] T95 lobby ordering
  * Replicates the comparator from server.ts enrichRoomList():
  *   .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
  * Covers AC1 (newest-first), AC4 (legacy no-createdAt sinks to bottom),

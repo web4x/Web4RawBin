@@ -1,5 +1,6 @@
 /**
  * T48+T49: Avatar storage and serving tests
+ * [test:uuid:1ef26996-40fa-4532-93ba-9a861da64ee1] T48+T49 avatar storage and serving
  * T49: GET /api/avatar/<token> returns image, 404 for unknown, ETag header
  * T48: Profile avatar URL set, avatar.enc exists in user files dir
  *

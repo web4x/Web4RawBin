@@ -1,5 +1,6 @@
 /**
  * T109 part (a) — v0.5.10 (commit 0dc085e): ensureAvatar must NOT overwrite an
+ * [test:uuid:d9da24e7-c11b-4ba5-85b1-ad568afcc14f] T109 avatar preserve on rekey
  * EXISTING-but-undecryptable avatar.enc with a default. (Tron's permanent-loss bug:
  * a keypair rotation orphaned avatar.enc; the old ensureAvatar `catch` fell through to
  * encryptFile(default) → the user's real photo was destroyed forever.)

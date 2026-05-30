@@ -1,5 +1,6 @@
 /**
  * Task 5.7 + T14: Client UI verification — unit tests
+ * [test:uuid:4b13ce77-8a21-4d91-861e-b77575db3074] T5+T14 client UI verification
  * Tests build output, source code checks, route dispatch, WS protocol.
  * No running server needed.
  */

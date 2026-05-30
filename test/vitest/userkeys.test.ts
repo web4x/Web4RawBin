@@ -1,5 +1,6 @@
 /**
  * Task 9.7 + 10.7: SSH Key Generation + Device Key Enrollment unit tests
+ * [test:uuid:34e12488-29f0-49a1-b99c-7af85d3659e6] T9+T10 SSH device key tests
  * Tests UserKeys functions: createUserHome, generateUserKeypair, hasUserKeys,
  * getUserPublicKey, addAuthorizedKey, idempotency, file permissions.
  * T10: generateDeviceKeypair, signDeviceKey, verifyDeviceKey, enrollDevice,
