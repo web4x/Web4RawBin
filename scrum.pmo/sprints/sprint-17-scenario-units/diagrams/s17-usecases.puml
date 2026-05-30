@@ -1,0 +1,231 @@
+@startuml s17-usecases
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 8
+skinparam backgroundColor White
+
+title Sprint 17 — Scenario Units: UseCase Instances\nIOR = Class Loader | model = domain attrs | ownerIor = parent
+
+' ═══════════════════════════════════════════════════════════════
+' Phase 1 — Data Model & Loading
+' ═══════════════════════════════════════════════════════════════
+
+package "Phase 1 — Data Model" as P1 #E8F5E9 {
+
+  class "unit.load" <<UseCase>> {
+    [uc:uuid:17a00101-0001-4a01-a001-000017010001]
+    R17.1 + R17.2
+    T124.1 / T125
+    Read scenario JSON, resolve ior
+    to class loader, instantiate,
+    populate model + ownerIor
+  }
+
+  class "ior.resolveClass" <<UseCase>> {
+    [uc:uuid:17a00102-0002-4a02-a002-000017010002]
+    R17.2
+    T124.1 / T125
+    "ior:class:Task" → TaskLoader
+    Class registry lookup
+  }
+
+  class "ior.resolveInstance" <<UseCase>> {
+    [uc:uuid:17a00103-0003-4a03-a003-000017010003]
+    R17.2
+    T124.1 / T125
+    "ior:instance:<uuid>" →
+    load scenario from index by UUID
+  }
+
+  class "index.put" <<UseCase>> {
+    [uc:uuid:17a00104-0004-4a04-a004-000017010004]
+    R17.4
+    T124.3 / T125
+    Store <uuid>.scenario.json at
+    scenario/index/<5-prefix>/
+  }
+
+  class "index.get" <<UseCase>> {
+    [uc:uuid:17a00105-0005-4a05-a005-000017010005]
+    R17.4
+    T124.3 / T125
+    Load scenario by UUID from index
+  }
+}
+
+' ═══════════════════════════════════════════════════════════════
+' Phase 2 — Speaking-Name Trees
+' ═══════════════════════════════════════════════════════════════
+
+package "Phase 2 — Trees" as P2 #E3F2FD {
+
+  class "tree.symlinkJson" <<UseCase>> {
+    [uc:uuid:17a00201-0001-4a01-a001-000017020001]
+    R17.5
+    T124.3 / T126
+    Create ln tree under
+    scenarios/sprints.json/
+    with speaking names
+  }
+
+  class "tree.generateMd" <<UseCase>> {
+    [uc:uuid:17a00202-0002-4a02-a002-000017020002]
+    R17.6
+    T124.2 / T126
+    Generate MD views under
+    scenarios/sprints.md/
+    from templates
+  }
+
+  class "tree.navigate" <<UseCase>> {
+    [uc:uuid:17a00203-0003-4a03-a003-000017020003]
+    R17.11
+    T127
+    File-browser ↔ traceability-browser
+    bidirectional navigation
+  }
+}
+
+' ═══════════════════════════════════════════════════════════════
+' Phase 3 — Views
+' ═══════════════════════════════════════════════════════════════
+
+package "Phase 3 — Views" as P3 #FFF3E0 {
+
+  class "view.renderHtml" <<UseCase>> {
+    [uc:uuid:17a00301-0001-4a01-a001-000017030001]
+    R17.7 + R17.8
+    T124.2 / T126
+    Render HTML view from template
+    per class (Task, Requirement, ...)
+    Pure function of flat JSON
+  }
+
+  class "view.renderMd" <<UseCase>> {
+    [uc:uuid:17a00302-0002-4a02-a002-000017030002]
+    R17.7 + R17.8
+    T124.2 / T126
+    Render MD view from template
+    per class — same data, different format
+  }
+
+  class "view.liveUpdate" <<UseCase>> {
+    [uc:uuid:17a00303-0003-4a03-a003-000017030003]
+    R17.8
+    T126
+    Views auto-update when underlying
+    scenario JSON changes (ViewBus)
+  }
+
+  class "planning.generate" <<UseCase>> {
+    [uc:uuid:17a00304-0004-4a04-a004-000017030004]
+    R17.9 + R17.10
+    T126
+    planning.md = generated task overview
+    sprint overview = list of sprint items
+  }
+}
+
+' ═══════════════════════════════════════════════════════════════
+' Phase 4 — Migration
+' ═══════════════════════════════════════════════════════════════
+
+package "Phase 4 — Migration" as P4 #FCE4EC {
+
+  class "migrate.sprintToScenario" <<UseCase>> {
+    [uc:uuid:17a00401-0001-4a01-a001-000017040001]
+    R17.14
+    T128
+    Convert existing sprint/task/req .md
+    to scenario JSON units with IOR links
+  }
+
+  class "migrate.preserveHierarchy" <<UseCase>> {
+    [uc:uuid:17a00402-0002-4a02-a002-000017040002]
+    R17.14
+    T128
+    Maintain task-1 / task-1.1 speaking names
+    in ln tree (Sprint 1 reference structure)
+  }
+
+  class "chain.traceMethodToReq" <<UseCase>> {
+    [uc:uuid:17a00403-0003-4a03-a003-000017040003]
+    R17.13
+    T128
+    Every method → task → requirement
+    fully traceable via IOR chain
+  }
+}
+
+' ═══════════════════════════════════════════════════════════════
+' Implementing Classes
+' ═══════════════════════════════════════════════════════════════
+
+package "Classes" as CLS #F5F5F5 {
+  class "ScenarioUnit" as SU {
+    + ior: string
+    + model: Record<string, any>
+    + ownerIor: string | null
+    + load(json): this
+    + save(indexPath): void
+  }
+  class "IORResolver" as IR {
+    + resolve(ior): ScenarioUnit | ClassLoader
+    + resolveClass(ior): ClassLoader
+    + resolveInstance(ior): ScenarioUnit
+  }
+  class "ClassRegistry" as CR {
+    + register(name, loader): void
+    + get(name): ClassLoader
+    -- 7 loaders --
+    TaskLoader, RequirementLoader,
+    SprintLoader, UseCaseLoader,
+    ClassLoader, MethodLoader, TestLoader
+  }
+  class "ScenarioIndex" as SI {
+    + put(uuid, scenario): void
+    + get(uuid): ScenarioUnit
+    + prefix(uuid): string
+  }
+  class "SpeakingTree" as ST {
+    + symlinkJson(sprint, tasks): void
+    + generateMd(sprint, templates): void
+  }
+  class "ViewTemplateRegistry" as VT {
+    + register(className, tmpl): void
+    + renderHtml(scenario): string
+    + renderMd(scenario): string
+  }
+}
+
+' ═══════════════════════════════════════════════════════════════
+' UC → Class links
+' ═══════════════════════════════════════════════════════════════
+
+"unit.load" --> SU : implements
+"unit.load" --> IR : uses
+"ior.resolveClass" --> IR : implements
+"ior.resolveClass" --> CR : uses
+"ior.resolveInstance" --> IR : implements
+"ior.resolveInstance" --> SI : uses
+"index.put" --> SI : implements
+"index.get" --> SI : implements
+"tree.symlinkJson" --> ST : implements
+"tree.generateMd" --> ST : implements
+"tree.generateMd" --> VT : uses
+"view.renderHtml" --> VT : implements
+"view.renderMd" --> VT : implements
+"planning.generate" --> VT : uses
+"migrate.sprintToScenario" --> SU : uses
+"migrate.sprintToScenario" --> SI : uses
+"migrate.preserveHierarchy" --> ST : uses
+
+legend bottom right
+  **ior field = CLASS LOADER** (not instance UUID)
+  "ior:class:Task" → TaskLoader → processes model
+  model.uuid = instance identity
+  model.children = IOR array (relationships)
+  ownerIor = parent instance IOR
+endlegend
+
+@enduml
