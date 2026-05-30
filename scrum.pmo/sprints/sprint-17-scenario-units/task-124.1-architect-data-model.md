@@ -1,6 +1,71 @@
-[Back to T124](./task-124-architecture.md)
+[Back to T124](./task-124-architecture.md) | [Back to Sprint 17 Planning](./planning.md)
 
 # T124.1: Architect — Scenario-Unit + IOR Data Model
+
+[task:uuid:e83d47a1-6cf2-4b19-ae53-8f7d2c014b61]
+
+## Status
+- [ ] Planned
+- [x] In Progress
+  - [x] refinement (architect — Tron-refined)
+  - [ ] creating test cases
+  - [ ] implementing
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
+
+> QA Review + Done are TRON's gate only — never checked by planner/sync.
+
+## Assigned
+**Owner:** robbin-architect (design lead)
+
+## Traceability
+
+`[task:uuid:e83d47a1-6cf2-4b19-ae53-8f7d2c014b61]`
+
+- up
+  - [T124: Scenario-unit + IOR + class-based view architecture](./task-124-architecture.md)
+  - [compound-requirement-source.md](./compound-requirement-source.md) → **R17.1** (scenario JSON unit), **R17.2** (IOR), **R17.3** (class-based instances)
+- down
+  - None (atomic sub-task)
+- chain (req → usecase → puml → class/method)
+  - **requirement:** R17.1 + R17.2 + R17.3
+  - **use case:** unit.load [uc:uuid:17a00101-0001-4a01-a001-000017010001], ior.resolveClass [uc:uuid:17a00102-0002-4a02-a002-000017010002], ior.resolveInstance [uc:uuid:17a00103-0003-4a03-a003-000017010003]
+  - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (Phase 1 package)
+  - **class/method:** ScenarioUnit, IORResolver, ClassRegistry (design — impl in T125)
+
+## Task Description
+Design the scenario-unit JSON shape, IOR format, class registry, and loading protocol. Refined per Tron clarification: the outer `ior` is the CLASS LOADER IOR, not the instance UUID.
+
+## Context
+Tron 2026-05-30 (verbatim in compound-requirement-source.md): "the json has { ior, model, ownerIor } model contains all attributes and ior relationships to other instances."
+Tron clarification: "the outer ior is the IOR to the CLASS LOADER (e.g. task.class) that loads the right class to process this scenario."
+
+## Acceptance Criteria
+- [x] AC1 — Scenario unit JSON shape `{ior, model, ownerIor}` defined with `ior` = class loader
+- [x] AC2 — IOR format defined: `ior:class:<Name>`, `ior:instance:<uuid>`, `ior:file:<path>`
+- [x] AC3 — Loading protocol defined: read ior → resolve class → instantiate → populate model+ownerIor
+- [x] AC4 — All 7 class models defined (Sprint, Task, Requirement, UseCase, Class, Method, Test)
+- [x] AC5 — Compatibility with existing TraceModel documented
+- [ ] AC6 — PO + Tron reviewed
+
+## Dependencies
+- **Requires:** None (foundation design)
+- **Enables:** T124.2 (view templates need class models), T124.3 (storage needs JSON shape), T125 (implementation)
+
+## Definition of Done
+- [ ] All AC met; design reviewed by PO + Tron
+- [ ] Committed with standard template sections
+- [ ] Tron QA approved
+
+## QA Audit & User Feedback
+- 2026-05-30: Design authored, refined per Tron clarification (ior = class loader). Awaiting PO + Tron review.
+- 2026-05-30: Planner audit flag — missing template sections. Fixed.
+
+## Subtasks
+None (atomic sub-task).
+
+---
 
 ## Architect Design — robbin-architect (2026-05-30, refined per Tron clarification)
 
@@ -107,10 +172,10 @@ const CLASS_REGISTRY: Record<string, ClassLoader> = {
     "number": 1,
     "goal": "Bootstrap team, strip server, rebrand",
     "status": "Done",
-    "tasks": ["ior:instance:<task-uuid>", ...],        // children
-    "requirements": ["ior:instance:<req-uuid>", ...]   // requirements.md entries
+    "tasks": ["ior:instance:<task-uuid>", ...],
+    "requirements": ["ior:instance:<req-uuid>", ...]
   },
-  "ownerIor": null  // top-level, no owner
+  "ownerIor": null
 }
 ```
 
@@ -125,9 +190,9 @@ const CLASS_REGISTRY: Record<string, ClassLoader> = {
     "status": "Done",
     "assigned": "robbin-expert",
     "effort": "S",
-    "children": ["ior:instance:<subtask-uuid>", ...],  // T1.1, T1.2, ...
-    "requirements": ["ior:instance:<req-uuid>"],        // up-link
-    "useCases": ["ior:instance:<uc-uuid>", ...],        // down-link
+    "children": ["ior:instance:<subtask-uuid>", ...],
+    "requirements": ["ior:instance:<req-uuid>"],
+    "useCases": ["ior:instance:<uc-uuid>", ...],
     "implementations": ["ior:instance:<impl-uuid>", ...]
   },
   "ownerIor": "ior:instance:<sprint-uuid>"
@@ -144,7 +209,7 @@ const CLASS_REGISTRY: Record<string, ClassLoader> = {
     "description": "Every instance is a uuid.scenario.json with {ior, model, ownerIor}",
     "priority": "HIGH",
     "source": "Tron 2026-05-30 compound-requirement-source.md",
-    "tasks": ["ior:instance:<task-uuid>", ...],     // down-link
+    "tasks": ["ior:instance:<task-uuid>", ...],
     "tests": ["ior:instance:<test-uuid>", ...]
   },
   "ownerIor": "ior:instance:<sprint-uuid>"
@@ -157,12 +222,12 @@ const CLASS_REGISTRY: Record<string, ClassLoader> = {
   "ior": "ior:class:UseCase",
   "model": {
     "uuid": "...",
-    "name": "unit.load",                              // Object.verb
+    "name": "unit.load",
     "object": "Unit",
     "verb": "load",
-    "tasks": ["ior:instance:<task-uuid>"],             // up-link
-    "classes": ["ior:instance:<class-uuid>", ...],     // down-link
-    "requirement": "ior:instance:<req-uuid>"           // up-link to originating req
+    "tasks": ["ior:instance:<task-uuid>"],
+    "classes": ["ior:instance:<class-uuid>", ...],
+    "requirement": "ior:instance:<req-uuid>"
   },
   "ownerIor": "ior:instance:<task-uuid>"
 }
@@ -189,12 +254,12 @@ const CLASS_REGISTRY: Record<string, ClassLoader> = {
   "ior": "ior:class:Method",
   "model": {
     "uuid": "...",
-    "name": "TaskLoader.load",                        // Class.verb
-    "class": "ior:instance:<class-uuid>",             // owner class
+    "name": "TaskLoader.load",
+    "class": "ior:instance:<class-uuid>",
     "implementations": ["ior:instance:<impl-uuid>"],
     "tests": ["ior:instance:<test-uuid>"],
-    "task": "ior:instance:<task-uuid>",               // traces back to task
-    "requirement": "ior:instance:<req-uuid>"           // traces back to requirement
+    "task": "ior:instance:<task-uuid>",
+    "requirement": "ior:instance:<req-uuid>"
   },
   "ownerIor": "ior:instance:<class-uuid>"
 }
@@ -251,5 +316,6 @@ The outer `ior` tells the system HOW to process this file. The `model.uuid` tell
 
 ---
 
-*Author: robbin-architect @ robbinTeam:0.1*
+*Sprint 17 — Scenario Units / IOR Data Model & Class Views · Phase 1*
+*Owner: robbin-architect @ robbinTeam:0.1*
 *Refined: 2026-05-30 per Tron clarification (ior = class loader, not instance UUID)*
