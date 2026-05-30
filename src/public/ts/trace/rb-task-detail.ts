@@ -38,6 +38,7 @@ export class RbTaskDetail extends HTMLElement {
         <div class="dv-field"><label>Status</label>
           <span class="dv-status-badge">${esc(obj.status || 'PLANNED')}</span></div>
         ${obj.sprint ? `<div class="dv-field"><label>Sprint</label><span>${esc(obj.sprint)}</span></div>` : ''}
+        <div class="dv-field"><a href="/md/scrum.pmo/sprints/" class="dv-file-link" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Browse source</a></div>
       </div>
       <div class="dv-links">
         <h4>Traceability Chain</h4>

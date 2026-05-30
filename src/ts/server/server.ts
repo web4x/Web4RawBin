@@ -19,6 +19,7 @@ import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, ve
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
+import { ScenarioIndex, IORResolver, defaultTemplateRegistry } from '../scenario/index.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
 const execAsync = promisify(exec);
@@ -437,6 +438,23 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
+    // T127.2: IOR universal resolver endpoint
+    if (filepath.startsWith('/api/ior/')) {
+      const ior = decodeURIComponent(filepath.slice('/api/ior/'.length));
+      try {
+        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        const idx = new ScenarioIndex(scenarioDir);
+        const resolver = new IORResolver(idx, defaultTemplateRegistry(), path.join(__dirname, '../../..'));
+        const result = resolver.resolve(ior);
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+        res.end(JSON.stringify(result));
+      } catch (e: any) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: e?.message || 'resolve failed' }));
+      }
+      return;
+    }
+
     if (filepath === '/api/health') {
       const uptime = Math.floor((Date.now() - serverStartTime.getTime()) / 1000);
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
@@ -610,8 +628,11 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         relinked = relinked.replace(/\]\(([^)]+\.svg)\)/g, (_, p) => `](/md/${dirPrefix}/${p})`);
         relinked = relinked.replace(/\]\(([^)]+)\.puml\)/g, (_, p) => `](/md/${dirPrefix}/${p}.svg)`);
         const html = marked(relinked) as string;
+        // T127.1: cross-nav — extract task/requirement UUID for "Open in trace" link
+        const uuidMatch = md.match(/\[task:uuid:([0-9a-f-]{36})\]/i) || md.match(/\[requirement:uuid:([0-9a-f-]{36})\]/i);
+        const traceLink = uuidMatch ? ` · <a href="/trace#task.show?uuid=${uuidMatch[1]}" style="color:#ff9800;text-decoration:none;font-size:0.9rem">🔗 Trace</a>` : '';
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(`${pageHead(path.basename(filepath, '.md'))}<style>${MD_CSS}</style>${pageNav('/md/', 'Browse', relPath)}<div style="max-width:700px;margin:0 auto;padding:0 20px">${html}</div></body></html>`);
+        res.end(`${pageHead(path.basename(filepath, '.md'))}<style>${MD_CSS}</style>${pageNav('/md/', 'Browse', relPath)}${traceLink ? `<div style="padding:0 16px;margin-bottom:8px">${traceLink}</div>` : ''}<div style="max-width:700px;margin:0 auto;padding:0 20px">${html}</div></body></html>`);
       } catch { res.writeHead(404); res.end('File not found'); }
       return;
     }

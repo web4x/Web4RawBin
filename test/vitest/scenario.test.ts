@@ -14,6 +14,7 @@ import {
   ScenarioIndex,
   ViewTemplateRegistry, TaskTemplate, defaultTemplateRegistry,
   ViewGenerator,
+  IORResolver,
   type ScenarioUnit,
 } from '../../src/ts/scenario/index.js';
 
@@ -164,5 +165,43 @@ describe('T126: ViewGenerator', () => {
     expect(result).not.toBeNull();
     expect(result!.md).toContain('R1');
     expect(result!.html).toContain('R1');
+  });
+});
+
+describe('T127.2: IORResolver', () => {
+  let idxDir: string;
+  let idx: ScenarioIndex;
+  beforeEach(() => { idxDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ior-')); idx = new ScenarioIndex(idxDir); });
+  afterEach(() => { fs.rmSync(idxDir, { recursive: true, force: true }); });
+
+  it('resolves ior:class to className', () => {
+    const resolver = new IORResolver(idx, defaultTemplateRegistry(), '/tmp');
+    const result = resolver.resolve('ior:class:Task');
+    expect(result.type).toBe('class');
+    expect(result.className).toBe('Task');
+  });
+
+  it('resolves ior:instance to unit + rendered views', () => {
+    const uuid = 'e05f1a2b-3c4d-4e5f-9a7b-8c9d0e1f2a3b';
+    idx.put(uuid, { ior: 'ior:class:Task', model: { uuid, name: 'TestTask', status: 'Done' }, ownerIor: null });
+    const resolver = new IORResolver(idx, defaultTemplateRegistry(), '/tmp');
+    const result = resolver.resolve(`ior:instance:${uuid}`);
+    expect(result.type).toBe('instance');
+    expect(result.className).toBe('Task');
+    expect(result.unit).toBeDefined();
+    expect(result.html).toContain('TestTask');
+    expect(result.md).toContain('TestTask');
+  });
+
+  it('resolves ior:file to filePath', () => {
+    const resolver = new IORResolver(idx, defaultTemplateRegistry(), os.tmpdir());
+    const result = resolver.resolve('ior:file:.');
+    expect(result.type).toBe('file');
+    expect(result.filePath).toBeDefined();
+  });
+
+  it('returns unknown for invalid IOR', () => {
+    const resolver = new IORResolver(idx, defaultTemplateRegistry(), '/tmp');
+    expect(resolver.resolve('garbage').type).toBe('unknown');
   });
 });

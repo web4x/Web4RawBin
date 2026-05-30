@@ -7,3 +7,4 @@ export { ClassRegistry, SprintLoader, TaskLoader, RequirementLoader, UseCaseLoad
 export { ScenarioIndex } from './index-store.js';
 export { type ViewTemplate, ViewTemplateRegistry, TaskTemplate, RequirementTemplate, SprintTemplate, UseCaseTemplate, ClassTemplate, MethodTemplate, TestTemplate, defaultTemplateRegistry } from './templates.js';
 export { ViewGenerator } from './generator.js';
+export { IORResolver, type IORResolution } from './ior-resolver.js';
