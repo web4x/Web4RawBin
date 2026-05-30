@@ -81,8 +81,9 @@ requirements.md entirely.
   - Extend (or wrap) the `sprint audit` to flag broken/missing chain links
   - Target: 89/89 tasks chain-complete
 
-- [ ] ⏳ [T119: Test traceability — `[test:uuid:]` markers + trace-cli Pass 6 + chain validation](./task-119-test-traceability.md)
-  **Status:** PLANNED — Tron 2026-05-29 ("797/797 tests but none traceable"); req:r119-test-traceability captured
+- [ ] ✅ [T119: Test traceability — `[test:uuid:]` markers + trace-cli Pass 6 + chain validation](./task-119-test-traceability.md)
+  **Status:** impl-shipped (ac4a6d2 Pass 6 parser + 28 vitest markers; a242530 all 14 e2e markers) — testing (robbin-tester chain-complete verify) + Tron QA pending
+  **Rule-pair:** test-infra exception per task AC8 (server.ts trace endpoint now exposes Test nodes — borderline user-facing; expert exercised AC8 latitude); STATIC_SHELL exempt (no new route)
   **Owner:** robbin-architect (retrofit design), robbin-expert (Pass 6 + marker rollout), robbin-tester (chain-complete verify), with robbin-req formalizing the requirement first
   - Marker convention `[test:uuid:]` for every test file (file-level; case-level where multi-AC)
   - trace-cli Pass 6 parser + `validate()` `orphanTests` check
