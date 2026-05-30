@@ -1,3 +1,4 @@
+// [test:uuid:52750178-a50d-419a-93b6-a578f77e6806] T13 new user flow
 import { test, expect } from '@playwright/test';
 
 test.describe('T13.2: New User Journey', () => {

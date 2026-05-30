@@ -1,5 +1,6 @@
 /**
  * T84 (v0.4.10): Monaco editor toolbar Back button goes to the file's PARENT directory, not /app.
+ * [test:uuid:2f5c543a-280d-48f9-bff5-e99870115d7b] T84 editor back button
  * rb-editor-toolbar derives the parent from this._path (set from /edit/<path>). Light-DOM anchors.
  */
 import { test, expect, Page } from '@playwright/test';

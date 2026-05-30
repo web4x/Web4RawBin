@@ -1,3 +1,4 @@
+// [test:uuid:71396672-5795-47a9-8074-b314ecfe092d] T13 mobile viewport
 import { test, expect } from '@playwright/test';
 import { ensureLobby, cleanupTestUsers } from './helpers.js';
 

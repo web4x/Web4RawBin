@@ -1,3 +1,4 @@
+// [test:uuid:73ba7577-becc-4c43-be64-26a255872090] T13 room lifecycle
 import { test, expect } from '@playwright/test';
 import { ensureLobby, cleanupTestRooms, cleanupTestUsers } from './helpers.js';
 

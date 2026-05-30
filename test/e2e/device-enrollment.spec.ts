@@ -1,3 +1,4 @@
+// [test:uuid:bfd84a15-67ca-4b1b-a76a-716ed18b7c2e] T13 device enrollment
 import { test, expect } from '@playwright/test';
 
 test.describe('T13.5: Device Enrollment', () => {

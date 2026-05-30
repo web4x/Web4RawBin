@@ -1,3 +1,4 @@
+// [test:uuid:c9e3bd8c-b143-40ac-ade5-8be74149a4ab] T95 lobby ordering E2E
 import { test, expect, Page } from '@playwright/test';
 import { ensureLobby, cleanupTestRooms, cleanupTestUsers } from './helpers';
 

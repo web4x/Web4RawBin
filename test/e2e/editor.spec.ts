@@ -1,3 +1,4 @@
+// [test:uuid:6d5060bf-b638-460e-b922-ff2eb20b2e1c] T73 editor E2E
 import { test, expect } from '@playwright/test';
 
 test.describe('T73: Editor E2E', () => {

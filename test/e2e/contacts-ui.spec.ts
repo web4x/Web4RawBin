@@ -1,5 +1,6 @@
 /**
  * Contacts UI — T81 (member-click→sheet), T82 (vCard visible + rb-avatar DRY), T83 (self→read-only
+ * [test:uuid:5e58a822-dc43-429b-85e6-9d3091465508] T81+T82+T83 contacts UI
  * sheet, NOT ProfileEditor). Verified against CURRENT behavior (v0.5.3+): T83 INVERTS the old T81
  * TS3 (self-tap → ProfileEditor); self-tap now opens `.user-sheet` with an Edit button.
  */

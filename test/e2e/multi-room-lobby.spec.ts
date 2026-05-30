@@ -1,5 +1,6 @@
 /**
  * T93 (v0.5.2): All of a user's rooms load from disk and appear in their lobby.
+ * [test:uuid:feac61c4-da1b-41fb-95b7-476973946d7f] T93 multi-room lobby
  * Tron bug: "i created more than one room. but only one shows up in the lobby."
  *
  * Runs against the LIVE server (reuseExistingServer). The server is shared (181+ rooms), so

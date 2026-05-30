@@ -1,3 +1,4 @@
+// [test:uuid:c4179894-e662-41e8-a0d1-f94089f6576a] T13 profile editor
 import { test, expect } from '@playwright/test';
 import { ensureLobby, cleanupTestUsers, cleanupTestRooms } from './helpers.js';
 
