@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "b1a959d9-0388-4f9e-97fb-991dc73b4441",
+    "name": "2: Define RawBin Architecture (Fork from QnD Stack)",
+    "description": "",
+    "status": "Done",
+    "assigned": "",
+    "effort": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:cc4846fc-51e7-465e-a3dd-b435f926c7fa"
+}

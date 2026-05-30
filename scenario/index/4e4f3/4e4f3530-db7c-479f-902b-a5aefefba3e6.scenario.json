@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "4e4f3530-db7c-479f-902b-a5aefefba3e6",
+    "name": "5: Create RoomUI Client Components",
+    "description": "",
+    "status": "Done",
+    "assigned": "",
+    "effort": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:cc4846fc-51e7-465e-a3dd-b435f926c7fa"
+}

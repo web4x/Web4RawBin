@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "19442916-8dac-490a-bdc1-61f2c1e27da8",
+    "name": "2: RawBin Architecture Definition",
+    "description": "",
+    "status": "Done",
+    "assigned": "",
+    "effort": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:cc4846fc-51e7-465e-a3dd-b435f926c7fa"
+}

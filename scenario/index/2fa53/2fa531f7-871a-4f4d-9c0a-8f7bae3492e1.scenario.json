@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "2fa531f7-871a-4f4d-9c0a-8f7bae3492e1",
+    "name": "1.1: Agent-Trainer - Clone ud-team as robbinTeam",
+    "description": "Use hiveMind team.setup to create a new robbinTeam session with 4 agents cloned from the ud-team structure:\n\n```\nrobbinTeam\n├── 0.0  robbin-po@MacStudio\n├── 0.1  robbin-architect@MacStudio\n├── 0.2  robbin-expert@MacStudio\n└── 0.3  robbin-tester@MacStudio\n```\n\nRequirements:\n1. `hiveMind team.setup robbin-po,robbin-architect,robbin-expert,robbin-tester robbinTeam`\n2. All agents start in `/Users/Shared/Workspaces/AI/Claude/` (main workspace)\n3. Pane titles: `role@MacStudio` not `role@opus`\n4. `/ren",
+    "status": "Done",
+    "assigned": "",
+    "effort": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:cc4846fc-51e7-465e-a3dd-b435f926c7fa"
+}

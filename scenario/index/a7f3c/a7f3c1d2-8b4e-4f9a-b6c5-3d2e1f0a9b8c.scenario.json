@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "a7f3c1d2-8b4e-4f9a-b6c5-3d2e1f0a9b8c",
+    "name": "1: Bootstrap robbinTeam from ud-team Clone",
+    "description": "Clone the existing ud-team (UpDown team) as a new robbinTeam for the Web4RawBin project. The ud-team has a proven 4-agent structure (PO, architect, expert, tester) that provides the right team composition for RawBin development.",
+    "status": "Done",
+    "assigned": "",
+    "effort": "",
+    "children": [
+      "ior:instance:2fa531f7-871a-4f4d-9c0a-8f7bae3492e1"
+    ],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:cc4846fc-51e7-465e-a3dd-b435f926c7fa"
+}

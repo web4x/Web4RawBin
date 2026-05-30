@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "771a4a9a-e44f-44ef-9200-960ad64fdc55",
+    "name": "1.3: Agent-Trainer - Verify Inherited Knowledge",
+    "description": "Verify each robbinTeam agent inherited knowledge from its ud-team source.\n\n### Verification Questions (send to each agent)\n1. \"State your role, team, working directory, and what project you serve.\"\n2. \"What OOSH scripts do you know? Name 3 with their purpose.\"\n3. \"What is the WODA pattern?\"\n\n### Pass Criteria\n- Agent knows its role and team (robbinTeam)\n- Agent has OOSH framework knowledge (inherited from ud-team)\n- Agent can reference WODA, MVC, or other team patterns\n- If agent answers like a ",
+    "status": "Done",
+    "assigned": "",
+    "effort": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:cc4846fc-51e7-465e-a3dd-b435f926c7fa"
+}

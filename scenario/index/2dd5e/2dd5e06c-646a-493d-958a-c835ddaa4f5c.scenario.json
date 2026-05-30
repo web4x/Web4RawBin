@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "2dd5e06c-646a-493d-958a-c835ddaa4f5c",
+    "name": "1.2: Expert - Fork ud-team Agents into robbinTeam",
+    "description": "Replace empty claudeCode sessions on robbinTeam with forks of upDownTeam agents.\n\n### Steps\nFor each pane in robbinTeam:\n\n1. Get source UUID: `hiveMind resolve <ud-role>` → get pane → `claudeCode session.current <pane>`\n2. Exit current empty session: send `/exit` to robbinTeam pane\n3. Ensure cwd: `cd /Users/Shared/Workspaces/AI/Claude`\n4. Fork: `claudeCode fork <uuid>`\n5. Rename: `/rename role@MacStudio`\n6. Lock title: `otmux pane.lock robbinTeam:0.X role@MacStudio`\n\n### Agent Mapping\n\n| robbinT",
+    "status": "Done",
+    "assigned": "",
+    "effort": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:cc4846fc-51e7-465e-a3dd-b435f926c7fa"
+}

@@ -1,0 +1,15 @@
+<div class="sv-task"><h3>1.2: Expert - Fork ud-team Agents into robbinTeam</h3><p>Replace empty claudeCode sessions on robbinTeam with forks of upDownTeam agents.
+
+### Steps
+For each pane in robbinTeam:
+
+1. Get source UUID: `hiveMind resolve &lt;ud-role&gt;` → get pane → `claudeCode session.current &lt;pane&gt;`
+2. Exit current empty session: send `/exit` to robbinTeam pane
+3. Ensure cwd: `cd /Users/Shared/Workspaces/AI/Claude`
+4. Fork: `claudeCode fork &lt;uuid&gt;`
+5. Rename: `/rename role@MacStudio`
+6. Lock title: `otmux pane.lock robbinTeam:0.X role@MacStudio`
+
+### Agent Mapping
+
+| robbinT</p><span class="sv-status">Done</span></div>
