@@ -158,8 +158,92 @@ File: `test/vitest/user-scenario.test.ts` (new) + `test/e2e/user-name-refresh.sp
 - 2026-06-01: PO directed planner to lift T145 from backlog packet (B6) per Web4Articles + 4-role + real v4 uuids. CMM4 4-role engagement enforced (learnings #18); rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Coordinate with req + architect for design refinement. Awaiting req-eng anchor confirmation → architect design → expert impl → tester verify → Tron QA.
 - 2026-06-01 **robbin-req (refinement):** B6 verbatim confirmed at lines 37-41 — matches backlog.md verbatim exactly. `requirement:uuid:f7a8b9c0` at line 35 confirmed. Bug-AC (AC2: stale name) and architecture-AC (AC1: User as scenario unit, AC3: ViewBus-only updates) are already cleanly separated — no split needed. Scope note: AC4 (chain audit shows User first-class) requires `/md/scenarios/sprints.md/user/` path — architect to confirm whether User units get their own class folder or live under the sprint's units. No scope drift detected. Req refinement complete — ready for architect.
 
+## Design (robbin-architect, 2026-06-01)
+
+### 1. User as 8th scenario class
+
+Add to `src/ts/scenario/classes.ts`:
+```typescript
+export const UserLoader = loader('User', {
+  displayName: '', token: '', avatarHash: '', deviceId: '',
+  sshPubKey: '', createdAt: '', updatedAt: '',
+});
+```
+Register in `ClassRegistry.boot()` alongside the existing 7+TraceLink.
+
+### 2. ViewBus — new module
+
+New file: `src/public/ts/ViewBus.ts`
+```typescript
+type Listener = (model: Record<string, unknown>) => void;
+
+class ViewBus {
+  private subs = new Map<string, Set<Listener>>();
+
+  subscribe(classType: string, uuid: string, listener: Listener): () => void {
+    const key = `${classType}:${uuid}`;
+    if (!this.subs.has(key)) this.subs.set(key, new Set());
+    this.subs.get(key)!.add(listener);
+    return () => this.subs.get(key)?.delete(listener);
+  }
+
+  publish(classType: string, uuid: string, model: Record<string, unknown>): void {
+    const key = `${classType}:${uuid}`;
+    for (const fn of this.subs.get(key) ?? []) fn(model);
+  }
+}
+
+export const viewBus = new ViewBus();
+```
+Lightweight singleton pub/sub. No framework dependency.
+
+### 3. Four view bindings
+
+| View | File | After T145 |
+|------|------|------------|
+| **Lobby name** | `RoomBrowser.ts` | `viewBus.subscribe('User', uuid, m => nameInput.value = m.displayName)` |
+| **Room badge** | `rb-member-badge.ts` | `viewBus.subscribe('User', uuid, m => this.name = m.displayName)` |
+| **Profile editor** | `ProfileEditor.ts` | `viewBus.publish('User', uuid, updatedModel)` on save |
+| **Chat name** | `RoomView.ts` | `viewBus.subscribe('User', uuid, m => badge.name = m.displayName)` |
+
+### 4. Save flow
+```
+ProfileEditor.onSave()
+  → scenarioIndex.get(userUuid).model = { ...updated }
+  → viewBus.publish('User', uuid, model)
+  → all 4 views update. Zero special-case refresh.
+```
+
+### 5. User scenario JSON
+```json
+{ "ior": "ior:class:User",
+  "model": { "uuid": "<v4>", "name": "donges", "displayName": "Marcel Donges",
+    "token": "<token>", "avatarHash": "<sha256>", "deviceId": "<v4>",
+    "sshPubKey": "ssh-ed25519 ...", "createdAt": "...", "updatedAt": "..." },
+  "ownerIor": null }
+```
+No FSM — data-shaped, not workflow-shaped.
+
+### 6. Migration
+Existing `data/users/<token>/profile.json` → scenario envelope → `scenario/index/<prefix>/<uuid>.scenario.json` + symlink at `scenario/sprints.json/user/<speaking-name>.scenario.json`. Original profile.json untouched (backward compat).
+
+User units get own class folder: `scenario/sprints.json/user/` and `scenario/sprints.md/user/` (AC4 confirmed — same as requirement/task/usecase/class/method/test).
+
+### 7. 8th template
+```typescript
+export const UserTemplate: ViewTemplate = {
+  toHtml(m) { return `<div class="sv-user"><h3>${esc(m.displayName)}</h3><code>${esc(m.token?.slice(0,8))}</code></div>`; },
+  toMd(m) { return `# ${m.displayName}\nToken: \`${m.token?.slice(0,8)}\`\n`; },
+};
+```
+
+### 8. Cross-client (TS4)
+Existing PROFILE_UPDATED WebSocket broadcast → receiving client calls `viewBus.publish('User', uuid, newModel)`. No new WS message type.
+
+### No new routes, no STATIC_SHELL change.
+
 ## Subtasks
-None at parent level (architect may split T145.x if scope warrants — coordinate with planner first).
+None (single commit-set).
 
 ---
 

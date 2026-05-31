@@ -151,8 +151,84 @@ File: `test/vitest/requirement-format.test.ts` (new) + visual on `/md/scenarios/
 - 2026-06-01: PO directed planner to lift T146 from backlog packet (B7) per Web4Articles + 4-role + real v4 uuids. B7 already captured by req-eng (Tron literal anchored). CMM4 4-role engagement enforced (learnings #18); rule-pair (a)+(b) in AC8 + DoD (learnings #15+#16). Coordinate with req + architect for design refinement. Awaiting req-eng retro-clean audit → architect design + standard update → expert migrator + template + validator → tester verify → Tron QA.
 - 2026-06-01 **robbin-req (refinement):** B7 verbatim confirmed at lines 37-38 — matches backlog.md verbatim exactly. `requirement:uuid:a8b9c0d1` at line 35 confirmed. Pre-audit already completed (session/agents/robbin-req/t146-name-drafts.md): 16 entries across S11(1), S13(7), S17(8) need title shortening. S16 already clean (5-7 words). Draft 3-5 word names ready for each — e.g. "Avatar must persist across sessions — must not revert to default" → "Avatar session persistence". Additionally, S10/S12/S14/S15 have a format issue: requirement titles not in bold `**...**` markers — needs fixing in retro-clean pass. Req refinement complete — ready for architect.
 
+## Design (robbin-architect, 2026-06-01)
+
+### 1. Requirement entry format spec (4 lines)
+
+```markdown
+**Short Name Here**             ← line 1: 3-5 word NAME (bold)
+> Tron's verbatim directive...  ← line 2+: blockquote (IS the description, no dup)
+[requirement:uuid:<v4>]         ← uuid line
+([task-N](./task-N-....md))     ← forward link(s)
+```
+
+Update `scrum.pmo/standards/traceability-standard.md` with this shape.
+
+### 2. Model change — add `name` field to Requirement scenario
+
+Currently RequirementLoader defaults:
+```typescript
+export const RequirementLoader = loader('Requirement', { description: '', priority: '', source: '', tasks: [], tests: [] });
+```
+
+Add `name` field (already named `name` in the base — inherited from Model). The `name` field = the 3-5 word short name. `description` = the Tron literal quote. No schema break — `name` already exists on Model.
+
+### 3. Template change — NAME on 🔗 anchors
+
+In `templates.ts` RequirementTemplate:
+```typescript
+// BEFORE (renders description or uuid):
+toHtml(m) { return `...${esc(String(m.description || ''))}...` }
+
+// AFTER (renders NAME prominently, description as <details>):
+toHtml(m) {
+  const name = esc(String(m.name || 'Untitled'));
+  const desc = esc(String(m.description || ''));
+  return `<div class="sv-requirement"><h3>${name}</h3>
+    <details><summary>Description</summary><blockquote>${desc}</blockquote></details>
+    ${status}${renderTraceTreeHtml(...)}</div>`;
+}
+```
+
+Chain-link 🔗 anchors: `renderTreeNodeHtml` already uses `n.name` (the speaking name). Once requirements have a proper `name` field, this works automatically — the tree renderer picks up `model.name` via `TraceNode.name`. No change needed in trace-tree.ts.
+
+### 4. trace-cli validator rule
+
+New rule in trace-cli audit:
+```
+requirement.namePresent: model.name exists && model.name.split(' ').length >= 3 && <= 7
+requirement.noDuplicate: model.name !== model.description.slice(0, model.name.length)
+```
+Reports per-entry compliance. Fails on missing name or name === description prefix.
+
+### 5. Retro-clean scope (from req-eng audit)
+
+| Sprint | Entries | Issue |
+|--------|---------|-------|
+| S10, S12, S14, S15 | varied | Titles not in bold markers — format fix |
+| S11 | 1 | Title >5 words — shorten |
+| S13 | 7 | Titles >5 words — shorten |
+| S16 | 0 | Already clean (5-7 words) |
+| S17 | 8 | Titles >5 words — shorten |
+
+Draft names already prepared by req-eng in `session/agents/robbin-req/t146-name-drafts.md`.
+
+One-shot migrator script: reads each `requirements.md`, parses entries, applies draft names from the name-drafts file, reformats to 4-line shape, writes back. Expert implements.
+
+### 6. Symmetric question — do Task/UC/Class/Method/Test also get NAME-first?
+
+**Decision: NO, not in T146 scope.** Tasks already have names (task file title = name). UCs have `object.verb`. Classes have class name. Methods have method name. Only Requirements lacked a short name. T146 is requirement-specific. If Tron directs symmetry for others later, it's a new task.
+
+### 7. Tooltip/hover for description
+
+Desktop: CSS `<details><summary>` — click to expand.
+Mobile: same — native `<details>` works on iOS/Android.
+No JS needed. No `title` attribute tooltip (unreliable on mobile).
+
+### No new routes, no STATIC_SHELL change.
+
 ## Subtasks
-None at parent level (architect may split T146.x per-sprint retro-clean if useful — coordinate with planner first).
+None (single commit-set; retro-clean across sprints is part of the migrator script run, not separate sub-tasks).
 
 ---
 
