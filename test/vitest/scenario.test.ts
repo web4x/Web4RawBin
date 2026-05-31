@@ -12,7 +12,7 @@ import {
   parseIor, iorClass, iorInstance, iorFile,
   ClassRegistry, TaskLoader,
   ScenarioIndex,
-  ViewTemplateRegistry, TaskTemplate, defaultTemplateRegistry,
+  ViewTemplateRegistry, TaskTemplate, defaultTemplateRegistry, renderStatusHtml,
   ViewGenerator,
   IORResolver,
   type ScenarioUnit,
@@ -206,5 +206,21 @@ describe('T127.2: IORResolver', () => {
   it('returns unknown for invalid IOR', () => {
     const resolver = new IORResolver(idx, defaultTemplateRegistry(), '/tmp');
     expect(resolver.resolve('garbage').type).toBe('unknown');
+  });
+});
+
+describe('T132: renderStatusHtml', () => {
+  it('renders checklist with nested substeps as HTML list', () => {
+    const checklist = '- [x] Planned\n- [x] In Progress\n    - [x] refinement\n    - [ ] implementing\n- [ ] Done';
+    const html = renderStatusHtml(checklist);
+    expect(html).toContain('<ul class="sv-steps">');
+    expect(html).toContain('<ul class="sv-substeps">');
+    expect(html).toContain('✅ Planned');
+    expect(html).toContain('⬜ implementing');
+    expect(html).toContain('⬜ Done');
+  });
+
+  it('returns empty for empty checklist', () => {
+    expect(renderStatusHtml('')).toBe('');
   });
 });

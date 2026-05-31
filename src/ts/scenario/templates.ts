@@ -44,13 +44,35 @@ function esc(s: string): string {
   return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] as string));
 }
 
+export function renderStatusHtml(checklist: string): string {
+  if (!checklist) return '';
+  const lines = checklist.split('\n').filter(l => l.trim());
+  let html = '<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps">';
+  let inSub = false;
+  for (const line of lines) {
+    const indent = line.search(/\S/);
+    const nested = indent >= 4;
+    const checked = /\[x\]/i.test(line);
+    const label = line.replace(/^[\s-]*\[.\]\s*/, '').trim();
+    if (!label) continue;
+    if (nested && !inSub) { html += '<ul class="sv-substeps">'; inSub = true; }
+    if (!nested && inSub) { html += '</ul>'; inSub = false; }
+    const icon = checked ? '✅' : '⬜';
+    const cls = checked ? 'sv-checked' : 'sv-unchecked';
+    html += `<li class="${cls}">${icon} ${esc(label)}</li>`;
+  }
+  if (inSub) html += '</ul>';
+  html += '</ul></div>';
+  return html;
+}
+
 export const TaskTemplate: ViewTemplate = {
   renderHtml(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
     const sections: string[] = [
       `<div class="sv-header"><span class="sv-type-badge">Task</span><h2>${esc(String(m.name || ''))}</h2><code>${esc(String(m.uuid || ''))}</code></div>`,
     ];
-    if (m.statusChecklist) sections.push(`<div class="sv-section"><h3>Status</h3><pre>${esc(String(m.statusChecklist))}</pre></div>`);
+    if (m.statusChecklist) sections.push(renderStatusHtml(String(m.statusChecklist)));
     if (m.remainingIssues) sections.push(`<div class="sv-section"><h3>Remaining Issues</h3><p>${esc(String(m.remainingIssues))}</p></div>`);
     if (m.traceability) sections.push(`<div class="sv-section"><h3>Traceability</h3><pre>${esc(String(m.traceability))}</pre></div>`);
     if (m.description) sections.push(`<div class="sv-section"><h3>Task Description</h3><p>${esc(String(m.description))}</p></div>`);
@@ -80,7 +102,8 @@ export const TaskTemplate: ViewTemplate = {
 export const RequirementTemplate: ViewTemplate = {
   renderHtml(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
-    return `<div class="sv-requirement"><h3>${esc(String(m.name || ''))}</h3><p>${esc(String(m.description || ''))}</p><span class="sv-priority">${esc(String(m.priority || ''))}</span></div>`;
+    const status = m.statusChecklist ? renderStatusHtml(String(m.statusChecklist)) : '';
+    return `<div class="sv-requirement"><h3>${esc(String(m.name || ''))}</h3><p>${esc(String(m.description || ''))}</p><span class="sv-priority">${esc(String(m.priority || ''))}</span>${status}</div>`;
   },
   renderMd(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
@@ -91,7 +114,8 @@ export const RequirementTemplate: ViewTemplate = {
 export const SprintTemplate: ViewTemplate = {
   renderHtml(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
-    return `<div class="sv-sprint"><h2>${esc(String(m.name || ''))}</h2><p>${esc(String(m.goal || ''))}</p><span class="sv-status">${esc(String(m.status || ''))}</span></div>`;
+    const status = m.statusChecklist ? renderStatusHtml(String(m.statusChecklist)) : `<span class="sv-status">${esc(String(m.status || ''))}</span>`;
+    return `<div class="sv-sprint"><h2>${esc(String(m.name || ''))}</h2><p>${esc(String(m.goal || ''))}</p>${status}</div>`;
   },
   renderMd(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
