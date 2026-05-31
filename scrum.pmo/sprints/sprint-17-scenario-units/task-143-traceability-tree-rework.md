@@ -5,9 +5,9 @@
 [task:uuid:49cbf5f4-ee83-4856-a35b-6721c70e2e53]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — `4b65e79` architect design)
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing

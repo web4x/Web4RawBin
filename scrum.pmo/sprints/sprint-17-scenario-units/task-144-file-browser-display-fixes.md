@@ -5,11 +5,11 @@
 [task:uuid:d03a73ff-0329-47a3-8610-bf5c18053221]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — `4b65e79` architect design)
   - [ ] creating test cases
-  - [x] implementing
+  - [x] implementing (`5da4054` v0.5.36 — rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME both bumped to v0.5.36)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
