@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "cb93f0db-0e42-4795-b41f-2e125120f259",
+    "name": "> TRON DIRECTIVE: \"each instance becomes the same scenario json format where just the class model attributes varies. the",
+    "description": "[requirement:uuid:cb93f0db-0e42-4795-b41f-2e125120f259]\n  > TRON DIRECTIVE: \"each instance becomes the same scenario json format where just the class model attributes varies. the json has { ior, model, ownerIor }\"\n  → [T131: File-browser symlink support](./task-131-file-browser-symlinks.md)\n\n- [ ] **R17.2: IOR (Internet Object Reference) — universal reference handle**",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:6c90dfb9-41f7-4ccb-8fcd-a17a5ebeee20"
+}

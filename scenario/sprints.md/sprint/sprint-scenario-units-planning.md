@@ -26,3 +26,4 @@
 - [ ] [T137: req + planner LEARN scenarios for planning + update SKILL.md](../task/task-137-req-planner-learn-scenarios.md)
 - [ ] [T138: skill set on scenarios (capture-quote, propose-task, walk-chain)](../task/task-138-skill-set-scenarios.md)
 - [ ] [T139: fork skill-expert from expert (PO decision; agent-trainer executes)](../task/task-139-fork-skill-expert.md)
+- [ ] [T140: Source-Location IOR for UC/Class/Method Scenario Units](../task/task-140-source-location-ior.md)

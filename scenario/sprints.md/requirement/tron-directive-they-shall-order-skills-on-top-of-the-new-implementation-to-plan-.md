@@ -1,0 +1,9 @@
+### > TRON DIRECTIVE: "they shall order skills on top of the new implementation to plan and trace work. add that to sprint 1
+
+[requirement:uuid:39a893de-1e86-4d0e-ace4-c09be2d42bdb]
+  > TRON DIRECTIVE: "they shall order skills on top of the new implementation to plan and trace work. add that to sprint 17."
+  → [T138: Skill set on scenarios](./task-138-skill-set-scenarios.md)
+
+- [ ] **R17.7: Fork skill-expert from expert**
+
+**Priority:** MEDIUM

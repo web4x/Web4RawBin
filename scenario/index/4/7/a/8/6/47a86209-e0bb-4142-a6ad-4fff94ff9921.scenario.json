@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "47a86209-e0bb-4142-a6ad-4fff94ff9921",
+    "name": "> TRON DIRECTIVE: \"use case json must track the exact locations in the exact puml file units for tracability as well as ",
+    "description": "[requirement:uuid:47a86209-e0bb-4142-a6ad-4fff94ff9921]\n  > TRON DIRECTIVE: \"use case json must track the exact locations in the exact puml file units for tracability as well as classes and methods as iors to the git location and commit of the file\"\n  → [T140: Source-location IOR for UC/Class/Method units](./task-140-source-location-ior.md)\n\n  Model MUST track: (a) exact source FILE (.puml for UC, .ts for Class/Method); (b) exact location within file (line range); (c) git commit SHA. Expressed as `ior:file:<repo-path>?commit=<sha>&lines=<start>-<end>`.\n\n## Process & Skills\n\n- [ ] **R17.5: Req-eng + planner LEARN to use scenarios for planning**",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:6c90dfb9-41f7-4ccb-8fcd-a17a5ebeee20"
+}

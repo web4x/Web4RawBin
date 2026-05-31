@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "024c7b8f-f314-4745-a998-85b87cd09b09",
+    "name": "> TRON DIRECTIVE: \"i do not see uuid.scenario.JSON for requirements and use cases\"",
+    "description": "[requirement:uuid:024c7b8f-f314-4745-a998-85b87cd09b09]\n  > TRON DIRECTIVE: \"i do not see uuid.scenario.JSON for requirements and use cases\"\n  → [T136: Migration extension — Requirement + UseCase units](./task-136-migration-extension-req-uc.md)\n\n## Audit & Formalization\n\n- [ ] **R17.10: Tron prompts → formal requirement units (audit backlog)**",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:6c90dfb9-41f7-4ccb-8fcd-a17a5ebeee20"
+}

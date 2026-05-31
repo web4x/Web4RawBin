@@ -16,7 +16,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import { ScenarioIndex, defaultTemplateRegistry, ViewGenerator, createTraceLink, type ScenarioUnit } from '../src/ts/scenario/index.js';
+import { ScenarioIndex, defaultTemplateRegistry, ViewGenerator, createTraceLink, extractPumlUseCaseRanges, makeSource, type ScenarioUnit } from '../src/ts/scenario/index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRINTS_DIR = path.join(__dirname, '../scrum.pmo/sprints');
@@ -220,13 +220,16 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
     }
   }
 
-  // T136: migrate UseCases from diagrams/*.puml
+  // T136+T140: migrate UseCases from diagrams/*.puml with source locations
   const diagDir = path.join(sprintDir, 'diagrams');
   const ucUuids: string[] = [];
   if (fs.existsSync(diagDir) && fs.statSync(diagDir).isDirectory()) {
     for (const file of fs.readdirSync(diagDir)) {
       if (!file.endsWith('.puml')) continue;
-      const pumlText = fs.readFileSync(path.join(diagDir, file), 'utf-8');
+      const pumlFilePath = path.join(diagDir, file);
+      const pumlText = fs.readFileSync(pumlFilePath, 'utf-8');
+      const pumlRelPath = path.relative(path.join(__dirname, '..'), pumlFilePath);
+      const ucRanges = extractPumlUseCaseRanges(pumlFilePath);
       const ucRe = /class\s+"([^"]+)"\s+<<UseCase>>\s*\{([^}]+)\}/g;
       for (const m of pumlText.matchAll(ucRe)) {
         const ucName = m[1];
@@ -238,9 +241,11 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
         const objM = body.match(/object:\s*(\S+)/);
         const verbM = body.match(/verb:\s*(\S+)/);
         const taskM = body.match(/task:\s*T(\d+)/i);
+        const lineRange = ucRanges.get(ucName);
+        const source = lineRange ? makeSource(pumlRelPath, lineRange, path.join(__dirname, '..')) : undefined;
         const ucUnit: ScenarioUnit = {
           ior: 'ior:class:UseCase',
-          model: { uuid: ucUuid, name: ucName, object: objM?.[1] || '', verb: verbM?.[1] || '', tasks: [], classes: [], requirement: null },
+          model: { uuid: ucUuid, name: ucName, object: objM?.[1] || '', verb: verbM?.[1] || '', tasks: [], classes: [], requirement: null, ...(source ? { source } : {}) },
           ownerIor: `ior:instance:${sprintUuid}`,
         };
         if (taskM) {

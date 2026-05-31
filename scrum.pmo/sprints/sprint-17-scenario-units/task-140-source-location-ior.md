@@ -10,9 +10,9 @@
 
 ## Status
 - [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (architect)
-  - [ ] implementing (expert)
+- [x] In Progress
+  - [x] refinement (architect)
+  - [x] implementing (expert)
   - [ ] testing (tester)
 - [ ] QA Review
 - [ ] Done

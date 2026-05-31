@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "39a893de-1e86-4d0e-ace4-c09be2d42bdb",
+    "name": "> TRON DIRECTIVE: \"they shall order skills on top of the new implementation to plan and trace work. add that to sprint 1",
+    "description": "[requirement:uuid:39a893de-1e86-4d0e-ace4-c09be2d42bdb]\n  > TRON DIRECTIVE: \"they shall order skills on top of the new implementation to plan and trace work. add that to sprint 17.\"\n  → [T138: Skill set on scenarios](./task-138-skill-set-scenarios.md)\n\n- [ ] **R17.7: Fork skill-expert from expert**",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:6c90dfb9-41f7-4ccb-8fcd-a17a5ebeee20"
+}

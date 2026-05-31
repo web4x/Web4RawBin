@@ -11,3 +11,4 @@ export { IORResolver, type IORResolution } from './ior-resolver.js';
 export { type TaskState, TASK_STATES, STATE_SYMBOLS, TRANSITIONS, startRefinement, startCreatingTestCases, startImplementing, startTesting, requestQAReview, tronApprove, resetToPlanned, canTransition } from './task-fsm.js';
 export { type LinkRelation, RELATION_INVERSE, TraceLinkLoader, createTraceLink, inverseRelation } from './trace-link.js';
 export { type SkillResult, type ChainStep, type TaskSpec, type TaskVerb, captureQuote, proposeTask, walkChain, statusTransition } from './skills.js';
+export { type SourceLocation, buildSourceIor, makeSource, getFileCommit, extractPumlUseCaseRanges, extractTsClassRanges, extractTsMethodRanges, validateSource } from './source-location.js';

@@ -128,11 +128,15 @@ export const SprintTemplate: ViewTemplate = {
 export const UseCaseTemplate: ViewTemplate = {
   renderHtml(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
-    return `<div class="sv-usecase"><h3>${esc(String(m.name || ''))}</h3><code>${esc(String(m.object || ''))}.${esc(String(m.verb || ''))}</code></div>`;
+    const src = m.source as Record<string, unknown> | undefined;
+    const srcHtml = src ? `<div class="sv-source"><a href="/edit/${esc(String(src.file || ''))}#L${(src.lines as number[])?.[0] || 1}">${esc(String(src.file || ''))}</a> <span class="sv-commit">@${esc(String(src.commit || ''))}</span></div>` : '';
+    return `<div class="sv-usecase"><h3>${esc(String(m.name || ''))}</h3><code>${esc(String(m.object || ''))}.${esc(String(m.verb || ''))}</code>${srcHtml}</div>`;
   },
   renderMd(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
-    return `### ${m.name || '(untitled)'}\n\n\`${m.object || ''}.${m.verb || ''}\``;
+    const src = m.source as Record<string, unknown> | undefined;
+    const srcMd = src ? `\n\n**Source:** \`${src.file || ''}\` lines ${(src.lines as number[])?.[0] || '?'}-${(src.lines as number[])?.[1] || '?'} @${src.commit || '?'}` : '';
+    return `### ${m.name || '(untitled)'}\n\n\`${m.object || ''}.${m.verb || ''}\`${srcMd}`;
   },
 };
 

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "9dedeb00-6038-4c43-bcd4-efab99792be1",
+    "name": "> TRON DIRECTIVE: \"decide yourself to give the skill development to the expert, or agent trainer (would need much contex",
+    "description": "[requirement:uuid:9dedeb00-6038-4c43-bcd4-efab99792be1]\n  > TRON DIRECTIVE: \"decide yourself to give the skill development to the expert, or agent trainer (would need much context) or to fork an skill-expert from the expert\"\n  → [T139: Fork skill-expert](./task-139-fork-skill-expert.md)\n\n## Migration\n\n- [ ] **R17.9: Requirement + UseCase units in scenario index**",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:6c90dfb9-41f7-4ccb-8fcd-a17a5ebeee20"
+}
