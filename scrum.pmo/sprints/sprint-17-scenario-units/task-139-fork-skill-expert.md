@@ -63,13 +63,99 @@ the decision on:
   general expert responsibilities, adds skill-set focus + reading-list
   pointing at T125/T133/T134/T138 + planner+req SKILL.md (per T137)
 
-## Architect / agent-trainer Design (TO FILL during refinement)
-agent-trainer: design the SKILL.md for robbin-skill-expert. Likely structure:
-- **Identity:** sole owner of scenario-unit skill verbs (captureQuote, proposeTask, walkChain, future verbs)
-- **Reading list on boot:** T138 task file, T125 (foundation), T133 (Task FSM), T134 (TraceLink), planner SKILL.md (post-T137), req SKILL.md (post-T137)
-- **Communication:** reports to robbin-po; collaborates with robbin-architect on verb design, robbin-expert on integration, robbin-tester on verification
-- **Pane:** PO assigns (likely robbinTeam:0.4 free slot or a new window)
-- **Standing rules:** inherits #15+#16 rule-pair, #17 v4 UUIDs, #18 CMM4 4-role
+## Architect Skill Catalog — robbin-architect (2026-05-31)
+
+### Complete .skill File Set for robbin-skill-expert
+
+The skill-expert owns ALL scenario-aware verb functions. Organized by domain:
+
+#### Core CRUD (T138 — already designed)
+| Skill | Signature | Source |
+|-------|-----------|--------|
+| `capture-quote` | `captureQuote(text, sprintIor, taskIor?) → SkillResult<Requirement>` | T138 |
+| `propose-task` | `proposeTask(requirementIor, spec) → SkillResult<Task>` | T138 |
+| `walk-chain` | `walkChain(ior, direction?, maxDepth?) → ChainStep[]` | T138 |
+| `status-transition` | `statusTransition(taskIor, verb, opts?) → SkillResult<Task>` | T138 |
+
+#### Migration (T128/T136 — extend as skills)
+| Skill | Signature | Source |
+|-------|-----------|--------|
+| `migrate-sprint` | `migrateSprint(sprintSlug, opts?) → MigrateResult` | T128 |
+| `migrate-requirements` | `migrateRequirements(sprintDir, sprintUuid) → string[]` | T136 |
+| `migrate-usecases` | `migrateUseCases(sprintDir, sprintUuid) → string[]` | T136 |
+
+#### View Generation (T126 — wrap as skills)
+| Skill | Signature | Source |
+|-------|-----------|--------|
+| `regenerate-views` | `regenerateViews(sprintSlug?) → { filesWritten: number }` | T126 |
+| `regenerate-planning` | `regeneratePlanning(sprintIor) → string` | T126.1 |
+
+#### Source Location (T140 — wrap as skills)
+| Skill | Signature | Source |
+|-------|-----------|--------|
+| `resolve-source` | `resolveSource(ior) → SourceLocation` | T140 |
+| `anchor-commit` | `anchorCommit(unitIor) → string` (SHA) | T140 |
+
+#### TraceLink (T134 — wrap as skills)
+| Skill | Signature | Source |
+|-------|-----------|--------|
+| `create-link` | `createLink(fromIor, toIor, relation, opts?) → SkillResult<TraceLink>` | T134 |
+| `list-links` | `listLinks(ior, direction?) → TraceLink[]` | T134 |
+
+#### Chain Integrity (T116/T121 — wrap as skills)
+| Skill | Signature | Source |
+|-------|-----------|--------|
+| `audit-chain` | `auditChain(sprintSlug?) → AuditResult` | T116 |
+| `fix-uuids` | `fixInvalidUuids(sprintSlug) → { fixed: number }` | T121 |
+
+**Total: 16 skills** across 6 domains.
+
+### SKILL.md Structure for robbin-skill-expert
+
+```markdown
+# robbin-skill-expert — Scenario-Unit Skill Verb Maintainer
+
+## Identity
+Sole owner of scenario-aware skill verbs. Implements, tests, and maintains
+the skill API that all roles invoke instead of hand-editing markdown.
+
+## Owns
+- src/ts/scenario/skills.ts (all 16 skill functions)
+- src/ts/scenario/skills/ (if split per domain)
+- test/vitest/skills-*.test.ts
+
+## Does NOT Own
+- General expert work (stays with robbin-expert)
+- Template HTML/MD rendering (robbin-expert per T126)
+- Architecture decisions (robbin-architect)
+- Class model changes (robbin-architect designs, skill-expert implements verb wrappers)
+
+## Reading List (on boot)
+1. T138 (core 4 skills — designed)
+2. T125 (foundation classes — what skills operate on)
+3. T133 (Task FSM — status-transition skill wraps this)
+4. T134 (TraceLink — create-link/list-links wrap this)
+5. T140 (source location — resolve-source/anchor-commit wrap this)
+6. T128/T136 (migration — migrate-* skills wrap these)
+
+## Standing Rules
+- #15+#16 rule-pair (version bump on client-facing changes)
+- #17 v4 UUIDs only (never invented prefixes)
+- #18 CMM4 4-role (req→architect→skill-expert→tester)
+- All skills return SkillResult<T> = {ior, unit, links[]}
+- All skills throw on invalid input (no silent failures)
+- Idempotency required where noted (capture-quote dedupe, migrate-* rerun-safe)
+```
+
+### Handoff from robbin-expert
+
+When T139 executes, robbin-expert's SKILL.md gets a note:
+```
+## Delegated to robbin-skill-expert
+- All scenario-unit skill verbs (src/ts/scenario/skills.ts)
+- Migration script extensions (scripts/migrate-to-scenario.ts skill wrappers)
+- Skill tests (test/vitest/skills-*.test.ts)
+```
 
 ## Acceptance Criteria
 - [ ] AC1 — `~/.claude/agents/robbin-skill-expert/SKILL.md` exists, peer-reviewed by PO
