@@ -93,8 +93,8 @@ prose. Then **migrate every existing sprint** to this model.
   - T128.3 — batch migrate Sprints 10-16 (active, regenerate views)
   - T128.4 — method markers retrofit (every src/ method gets `[impl:uuid:]` linking up to a Task)
 
-- [ ] ✅ [T131: File-browser symlink support (FileApi + rb-file-tree)](./task-131-file-browser-symlinks.md)
-  **Status:** impl-shipped (aad0816 v0.5.30 — FileApi.readDir() follows symlinks via isSymbolicLink+statSync(target); rb-file-tree renders 🔗 marker; broken symlinks silently skipped; 818/818) — testing (robbin-tester) + Tron QA pending
+- [ ] 🧪 [T131: File-browser symlink support (FileApi + rb-file-tree)](./task-131-file-browser-symlinks.md)
+  **Status:** impl + testing DONE (aad0816 v0.5.30; tester verified 37 markers per PO 2026-05-31; 818/818) — Tron QA pending
   **Rule-pair:** ✓ (a) v0.5.30 ✓ (b) sw.js rawbin-v0.5.30 ✓ (c) STATIC_SHELL exempt (no new route) — explicit in commit msg
   **CMM4 GAP:** retroactive stand-up — work shipped before planner stood it up; commit mis-labelled "T39" (unrelated S6 task); planner reconstructed the 4-role attribution. Going forward: tasks MUST be stood up BEFORE impl per learnings #18.
 
