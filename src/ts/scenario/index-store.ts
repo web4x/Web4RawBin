@@ -13,7 +13,9 @@ export class ScenarioIndex {
   constructor(private basePath: string) {}
 
   prefixPath(uuid: string): string {
+    if (!uuid || typeof uuid !== 'string') return '';
     const hex = uuid.replace(/-/g, '');
+    if (hex.length < 5) return '';
     return path.join(hex[0], hex[1], hex[2], hex[3], hex[4]);
   }
 
@@ -28,8 +30,9 @@ export class ScenarioIndex {
   }
 
   get(uuid: string): ScenarioUnit | null {
+    if (!uuid) return null;
     const fp = this.filePath(uuid);
-    if (!fs.existsSync(fp)) return null;
+    if (!fp || !fs.existsSync(fp)) return null;
     return JSON.parse(fs.readFileSync(fp, 'utf-8'));
   }
 

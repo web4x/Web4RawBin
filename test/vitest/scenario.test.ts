@@ -17,6 +17,7 @@ import {
   IORResolver,
   startRefinement, startImplementing, startTesting, requestQAReview, tronApprove, canTransition, resetToPlanned,
   createTraceLink, inverseRelation, TraceLinkLoader,
+  captureQuote, proposeTask, walkChain, statusTransition,
   type ScenarioUnit,
 } from '../../src/ts/scenario/index.js';
 
@@ -299,5 +300,45 @@ describe('T134: TraceLink', () => {
     expect(reg.renderHtml(link)).toContain('implements');
     expect(reg.renderMd(link)).toContain('implements');
     expect(reg.renderMd(link)).toContain('T1 implements R1');
+  });
+});
+
+describe('T138: Skills', () => {
+  let idxDir: string;
+  let idx: ScenarioIndex;
+  beforeEach(() => { idxDir = fs.mkdtempSync(path.join(os.tmpdir(), 'skills-')); idx = new ScenarioIndex(idxDir); });
+  afterEach(() => { fs.rmSync(idxDir, { recursive: true, force: true }); });
+
+  it('captureQuote creates Requirement + dedupes on repeat', () => {
+    const r1 = captureQuote(idx, 'the items should have a name attribute', 'ior:instance:sprint-1');
+    expect(r1.unit.ior).toBe('ior:class:Requirement');
+    expect(r1.unit.model.tronQuote).toBe('the items should have a name attribute');
+    const r2 = captureQuote(idx, 'the items should have a name attribute', 'ior:instance:sprint-1');
+    expect(r2.ior).toBe(r1.ior);
+  });
+
+  it('proposeTask creates Task at Planned + emits TraceLinks', () => {
+    const req = captureQuote(idx, 'test req', 'ior:instance:sprint-1');
+    const task = proposeTask(idx, req.ior, { name: 'T1', description: 'Do X', sprintIor: 'ior:instance:sprint-1' });
+    expect(task.unit.ior).toBe('ior:class:Task');
+    expect(task.unit.model.status).toBe('Planned');
+    expect(task.links.length).toBe(2);
+  });
+
+  it('walkChain traverses from requirement down to task', () => {
+    const req = captureQuote(idx, 'walk test', 'ior:instance:s1');
+    const task = proposeTask(idx, req.ior, { name: 'T-walk', description: '', sprintIor: 'ior:instance:s1' });
+    const chain = walkChain(idx, req.ior, 'both');
+    expect(chain.length).toBeGreaterThanOrEqual(2);
+    expect(chain.some(s => s.type === 'Requirement')).toBe(true);
+    expect(chain.some(s => s.type === 'Task')).toBe(true);
+  });
+
+  it('statusTransition applies FSM verb + persists', () => {
+    const req = captureQuote(idx, 'fsm test', 'ior:instance:s1');
+    const task = proposeTask(idx, req.ior, { name: 'T-fsm', description: '', sprintIor: 'ior:instance:s1' });
+    statusTransition(idx, task.ior, 'startRefinement');
+    const reloaded = idx.get(task.ior.replace('ior:instance:', ''));
+    expect(reloaded?.model.status).toBe('Refining');
   });
 });
