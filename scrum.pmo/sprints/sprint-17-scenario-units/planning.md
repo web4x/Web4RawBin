@@ -84,7 +84,7 @@ prose. Then **migrate every existing sprint** to this model.
 ### Phase 5 — Migration (T128, planner + req + expert)
 
 - [ ] 🔧 [T128: Migrate all existing sprints/tasks/requirements to scenario-unit model](./task-128-migration.md)
-  **Status:** Phase 5 active — T128.1 exemplar Sprint 1 migration SHIPPED (efc6d17 — migrate-to-scenario script + scenario/sprints.md/task/*.html+md units for Sprint 1 task tree). Awaiting Tron sign-off on the exemplar BEFORE T128.2 closed-batch + T128.3 active-batch + T128.4 method markers proceed.
+  **Status:** Phase 5 active — T128.1 exemplar in **Tron-co-design iteration** (heavy refinement burst): efc6d17 initial → e1fabbf full-content fidelity → 0fc5b90 (5-level deep index, UpDown convention) → 1d80907 (T124.1+T124.3 index fix) → 44f9dce (T124.2+T126 indent/speaking-names/404) → 17dcd01 (nested subtasks, 404 back-nav) → **60d6e36 v0.5.29** (subtask indent + symlink visibility + file browser fix). Tron driving the refinements; explicit sign-off pending on final exemplar shape — then T128.2/T128.3/T128.4 batches unlock.
   **Owner:** robbin-planner (structure), robbin-req (requirement units), robbin-expert (tooling), robbin-tester (verify)
   **Strategy:** generate scenario.json units from existing markdown task files; preserve `task:uuid` + `requirement:uuid` identities (T121 already regenerated to v4 — clean base); reuse Sprint 1 task-1/task-1.1 hierarchical structure as exemplar; closed sprints (S1-9) migrate as artifact (no rewrites of prose), active sprints (S10-S16) migrate with view regeneration.
   **Sub-tasks:**
