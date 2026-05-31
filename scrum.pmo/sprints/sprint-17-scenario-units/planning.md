@@ -155,15 +155,15 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 9 — User class scenario-unit + ViewBus model parity (PO directive 2026-06-01, lifted from backlog B6)
 
-- [ ] ⏳ [T145: User class as scenario-unit + ViewBus-driven view updates (fixes lobby/room name stale)](./task-145-user-scenario-viewbus.md)
-  **Status:** PLANNED — fixes the stale lobby/room user-name bug by promoting User to a scenario class on par with Requirement/Task/UC/Class/Method/Test/TraceLink. Every view subscribes via ViewBus; ProfileEditor mutates `model.user`; bug fix is a side-effect of the architectural standardization.
+- [ ] ✅ [T145: User class as scenario-unit + ViewBus-driven view updates (fixes lobby/room name stale)](./task-145-user-scenario-viewbus.md)
+  **Status:** impl-shipped (`ccca722` req → `83099ea` architect → `f549114` expert v0.5.41 — User as 9th scenario class + ViewBus singleton). Rule-pair (a)+(b) BOTH ✓ in f549114 commit-set (package.json + sw.js CACHE_NAME → rawbin-v0.5.41). Testing pending (robbin-tester TS1–TS8) → Tron QA.
   **Owners (CMM4):** robbin-req (anchor B6 verbatim) → robbin-architect (User scenario schema + ViewBus subscription pattern + 4 view-bindings + migration plan) → robbin-expert (impl + migrate) → robbin-tester (stale-name bug fix + S9/S17 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route, architect confirms)
 
 ### Phase 10 — Requirement entry format + speaky-NAME on 🔗 (PO directive 2026-06-01, lifted from backlog B7)
 
-- [ ] ⏳ [T146: Requirement-entry format reform — 3–5 word NAME first line + speaky-NAME on 🔗](./task-146-requirement-name-first-format.md)
-  **Status:** PLANNED — B7 captured (req-eng ✓). Standardize requirement entry shape (NAME line + Tron quote + uuid + forward link); retro-clean S10–S17 `requirements.md`; T126/T141 anchors render NAME (description as tooltip / `<details>`); `trace-cli` validator. Rides on T143 (tree + every-element-a-link) + T144 (🔗 click-through).
+- [ ] ✅ [T146: Requirement-entry format reform — 3–5 word NAME first line + speaky-NAME on 🔗](./task-146-requirement-name-first-format.md)
+  **Status:** impl-shipped (`ccca722` req → `83099ea` architect → `7fbfd8e` expert — template + validator + views). **Rule-pair FLAG ⚠️**: 7fbfd8e itself has no package.json/sw.js bump; batched via `f549114` v0.5.41 (T145's bump — reaches device, same pattern as T136/T138 batched bumps). Testing pending (robbin-tester TS1–TS7) → Tron QA.
   **Owners (CMM4):** robbin-req (retro-clean audit, dup-list) → robbin-architect (format spec + template change + standard update + symmetric scope decision) → robbin-expert (migrator + T126/T141 + trace-cli validator) → robbin-tester (0-dup + visual + regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route, architect confirms)
 
