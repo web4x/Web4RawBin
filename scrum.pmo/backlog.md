@@ -8,6 +8,24 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **B7 — Requirement entry format: short name + no duplicate content**
+  [requirement:uuid:a8b9c0d1-e2f3-4a4b-b5c6-d7e8f9a0b1c7]
+  > TRON DIRECTIVE: "requirement has duplicate content. keep the description and make a 3 to 5 word name as first line name of the requirement as a summary"
+
+  **Format change for requirements.md entries (all sprints):**
+  Each requirement entry becomes:
+  1. **3-5 word NAME** as first line (summary/title)
+  2. Tron literal description (the `> TRON DIRECTIVE:` blockquote — single source, no duplicate)
+  3. `[requirement:uuid:<v4>]`
+  4. Forward link(s) `→ [T<N>]`
+
+  No restating the Tron quote in a separate description paragraph — the quote IS the description. Eliminates the current pattern where the same content appears twice (once in the quote, once paraphrased below it).
+
+  **Scope:** Update the requirements.md template going forward + retro-clean duplicate content across S10-S17 requirements.md files.
+
+  **Sprint:** TBD (planner to triage AFTER T143+T144 — reserved as T146)
+  **Touches:** All `scrum.pmo/sprints/sprint-*/requirements.md` files, `scrum.pmo/standards/traceability-standard.md` (update the format spec)
+
 - **B6 — Lobby/room user name doesn't refresh after profile edit + User as scenario model**
   [requirement:uuid:f7a8b9c0-d1e2-4f3a-b4c5-d6e7f8a9b0c6]
   > TRON DIRECTIVE: "the vcard upload works. the editor is updated on all fields. but the user name in the lobby not and when the user immediately enters a room also not. make the user class use the same scenario model as the requirements, tasks and so on. handle every views update as a model update on user....as on all other classes that use scenario models."
