@@ -1,0 +1,15 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T80: Fix Enrollment Race — Second PROFILE_UPDATED Re-Renders Dialog</h2><code>b4f1c2a8-9e3d-4a17-bc52-1f8e7d6a0c44</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement</li><li class="sv-checked">✅ creating test cases</li><li class="sv-checked">✅ implementing</li><li class="sv-checked">✅ testing</li></ul><li class="sv-checked">✅ QA Review</li><li class="sv-checked">✅ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>- up
+  - [Sprint 9 Planning](./planning.md)
+- down
+  - None (atomic task)</pre></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [x] `ProfileEditor.ts` clears `this.onSave` before invoking it (one-shot pattern)
+- [x] `device-enrollment.spec.ts` PASSES (wrong code → error, correct code → keys stored, reload auto-auths)
+- [x] `new-user.spec.ts` PASSES (not flaky — ran 3× consecutively, all green)
+- [x] Full E2E suite reaches **21/21**
+- [x] `npm run build` succeeds
+- [x] No regression: full suite green incl. profile-editor, room-lifecycle, mobile-viewport</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- Pending Tron QA review.
+- 2026-05-26 (robbin-tester): INDEPENDENT GATE CONFIRMED ✓ — `npx playwright test --reporter=line` against live server (HEAD 057d491) = **21/21 PASS** (1.3m, exit 0). device-enrollment(1), editor(9), mobile-viewport(1), negative-cases(1), new-user(1), profile-editor(1), room-identity(6), room-lifecycle(1). The one-shot `onSave` fix holds; device-enrollment + new-user both green (prior 2/6 room-identity failure was STALE pre-helper-fix output, not current code). Suite is the gate before Tron QA.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task for this sprint).</p></div></div>

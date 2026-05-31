@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "aba5fe3b-b162-4fad-9625-2bb4e4776463",
+    "name": "Sprint pwa offline",
+    "number": 5,
+    "goal": "",
+    "status": "Done",
+    "tasks": [
+      "ior:instance:c2b27a4e-4cb6-4fd2-ab57-81931bd3b2ec",
+      "ior:instance:559a384b-5a3c-40f9-af2e-35f0957b6c87",
+      "ior:instance:d0c4d141-0c5f-4ba4-9f77-9f1fa52694f0",
+      "ior:instance:bca855a1-1cdf-42b1-9121-1ec3e5611ffb",
+      "ior:instance:3f980c63-0f51-4411-a400-9c11a3826a21",
+      "ior:instance:a6ab0ca4-e972-4ee4-b287-1e59ed82134b",
+      "ior:instance:d37f0e04-7f80-4d6e-b102-004455667788",
+      "ior:instance:f116160a-4026-41d8-b4c3-bcc807c9240b"
+    ],
+    "requirements": []
+  },
+  "ownerIor": null
+}

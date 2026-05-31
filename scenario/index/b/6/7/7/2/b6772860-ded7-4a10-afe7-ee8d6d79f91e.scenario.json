@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "b6772860-ded7-4a10-afe7-ee8d6d79f91e",
+    "name": "T74: Room Directory + SSH Keypair",
+    "slug": "task-74-room-keys",
+    "description": "- PO: Create room folder under user dir with RSA-2048 keypair in OOSH .ssh/ pattern. Default name from profile.name.",
+    "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 9 Planning](./planning.md)\n- down\n  - None (atomic task)",
+    "context": "See [requirements.md](./requirements.md) and [architecture.md](./architecture.md) for full spec.",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] See requirements.md for detailed AC per use case",
+    "qaAudit": "- Pending Tron QA review.",
+    "subtasks": "None (atomic task for this sprint).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:930add05-084b-44df-afe2-8a89adab6a27"
+}

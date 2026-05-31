@@ -1,0 +1,32 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "988ca807-ee65-455b-adaf-b759bb277981",
+    "name": "T7: User Editor Dialog",
+    "slug": "task-7-user-editor",
+    "description": "",
+    "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [sprint-2-identity-ssh Planning](./planning.md)\n- down\n  - None",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] Clicking own name in member list opens editor dialog\n- [x] Editor shows name, phone, url, avatar, secret code fields\n- [x] Save sends UPDATE_PROFILE, receives PROFILE_UPDATED\n- [x] Phone/url/avatar persist server-side across sessions\n- [x] Clicking another user's name is a no-op\n- [x] Mobile-responsive (bottom-sheet on mobile)\n- [x] All tests pass",
+    "qaAudit": "## Subtasks\nNone (atomic task).",
+    "subtasks": "None (atomic task).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [
+      "ior:instance:ecf3e19f-3440-4c8f-806f-aad57254ef3d"
+    ],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:8483d090-c3b5-48bc-8e56-44676e6aff16"
+}

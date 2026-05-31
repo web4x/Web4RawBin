@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "a8cfeb7d-15a0-461e-bc55-c611d967364b",
+    "name": "T26: Task Template Standardization",
+    "slug": "task-26-templates",
+    "description": "",
+    "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [sprint-4-traceability Planning](./planning.md)\n- down\n  - None",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] `task-template.md` has all required fields (Status, Assigned, Effort, Dependencies, Created, Completed)\n- [x] `task-template.md` has acceptance criteria section with checkboxes\n- [x] `task-template.md` has commits section for traceability\n- [x] `task-template.md` documents naming convention (file + title)\n- [x] `planning-template.md` has sprint overview, task list, dependency graph, totals, DoD\n- [x] Both templates include field/section reference tables\n- [x] Templates based on audited patterns from 33 existing task files",
+    "qaAudit": "## Subtasks\nNone (atomic task).",
+    "subtasks": "None (atomic task).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:b5289d38-793d-4d0b-92f9-4ec0a74b38b1"
+}

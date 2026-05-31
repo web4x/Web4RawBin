@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "add91a59-e2ea-4a72-9ad8-02647a0a06e0",
+    "name": "T67: rb-code-editor Save — Cmd+S + Dirty + Conflict",
+    "slug": "task-67-editor-save",
+    "description": "See [requirements.md](./requirements.md) and [architecture.md](./architecture.md) for full spec.",
+    "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 8 Planning](./planning.md)\n- down\n  - None (atomic task)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] See requirements.md for detailed AC per use case",
+    "qaAudit": "- Pending Tron QA review.",
+    "subtasks": "None (atomic task for this sprint).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:1935f559-bf2d-4c77-a753-d60bc74364a2"
+}

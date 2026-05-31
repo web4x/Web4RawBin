@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "1935f559-bf2d-4c77-a753-d60bc74364a2",
+    "name": "Sprint monaco editor",
+    "number": 8,
+    "goal": "",
+    "status": "Done",
+    "tasks": [
+      "ior:instance:1f34b93c-1d3d-4b1a-b1ea-22dd0846799f",
+      "ior:instance:7d99650e-44f4-4836-ac3a-6327b3418fa3",
+      "ior:instance:98cab0df-9bdf-4a63-9a2c-120626db0edd",
+      "ior:instance:cf09cf2b-b67f-44db-921b-87e7bb19d689",
+      "ior:instance:d089a550-f65b-4dda-aabc-e53c2341cef5",
+      "ior:instance:90b208e8-98f6-4d6c-bfc9-b1fab893c342",
+      "ior:instance:88ea152a-ddd3-4824-859c-276e504b24b3",
+      "ior:instance:add91a59-e2ea-4a72-9ad8-02647a0a06e0",
+      "ior:instance:c2ec9189-0245-4deb-823c-64ec301933f0",
+      "ior:instance:dcb79471-0f7d-4479-b13e-7a2136c4b11c",
+      "ior:instance:fc5f62c4-b59a-405a-884c-536d215759a5",
+      "ior:instance:51d3b63f-4254-438b-a2b1-78513f9bb396",
+      "ior:instance:a6ae7989-d393-40d8-896f-273d394b2124",
+      "ior:instance:15a67f72-9746-4a5d-8fb8-7e665de72a80"
+    ],
+    "requirements": []
+  },
+  "ownerIor": null
+}

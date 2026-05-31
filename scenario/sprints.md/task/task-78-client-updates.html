@@ -1,0 +1,16 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T78: Client Updates</h2><code>9c9d4eda-ed8b-466b-b738-a5d4c621be7a</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement</li><li class="sv-checked">✅ creating test cases</li><li class="sv-checked">✅ implementing</li><li class="sv-checked">✅ testing (robbin-tester — lobby-card-badges.spec 1/1 PASS, f4bd7c3)</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>- up
+  - [Sprint 9 Planning](./planning.md)
+- down
+  - None (atomic task)</pre></div>
+<div class="sv-section"><h3>Task Description</h3><p>- PO: Default room name from profile.name. Full UUID in cards. Persistence indicator.</p></div>
+<div class="sv-section"><h3>Context</h3><p>See [requirements.md](./requirements.md) and [architecture.md](./architecture.md) for full spec.</p></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [x] (a) Default room name from `profile.name` — `RoomBrowser.ts` create-form prefill + confirm fallback `${name}'s Room`
+- [x] (b) Full UUID in room cards — `.room-id` span renders `room.id` (full crypto.randomUUID, not sliced)
+- [x] (c) Persistence indicator — `.room-persist` &quot;💾 Persistent&quot; badge on every room card (all Sprint 9 rooms persist to disk with own SSH identity)
+- [x] Owner attribution — `.room-owner` &quot;by &amp;lt;name&amp;gt;&quot; / &quot;you&quot; badge from `ownerToken`/`ownerName`
+- [x] `npm run build` succeeds (v0.4.8, bundle app-G2VRAV5W.js)
+- [x] robbin-tester: verify badges render in lobby; full E2E suite stays 21/21 (no regression)</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- Pending Tron QA review.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task for this sprint).</p></div></div>

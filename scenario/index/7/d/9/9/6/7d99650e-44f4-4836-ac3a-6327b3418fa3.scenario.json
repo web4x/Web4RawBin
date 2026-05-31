@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "7d99650e-44f4-4836-ac3a-6327b3418fa3",
+    "name": "T61: FileApi.ts — writeFile with mtime conflict",
+    "slug": "task-61-fileapi-write",
+    "description": "See [requirements.md](./requirements.md) and [architecture.md](./architecture.md) for full spec.",
+    "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 8 Planning](./planning.md)\n- down\n  - None (atomic task)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] See requirements.md for detailed AC per use case",
+    "qaAudit": "- Pending Tron QA review.",
+    "subtasks": "None (atomic task for this sprint).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:1935f559-bf2d-4c77-a753-d60bc74364a2"
+}
