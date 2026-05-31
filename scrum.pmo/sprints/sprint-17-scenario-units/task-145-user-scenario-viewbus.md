@@ -156,6 +156,7 @@ File: `test/vitest/user-scenario.test.ts` (new) + `test/e2e/user-name-refresh.sp
 
 ## QA Audit & User Feedback
 - 2026-06-01: PO directed planner to lift T145 from backlog packet (B6) per Web4Articles + 4-role + real v4 uuids. CMM4 4-role engagement enforced (learnings #18); rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Coordinate with req + architect for design refinement. Awaiting req-eng anchor confirmation → architect design → expert impl → tester verify → Tron QA.
+- 2026-06-01 **robbin-req (refinement):** B6 verbatim confirmed at lines 37-41 — matches backlog.md verbatim exactly. `requirement:uuid:f7a8b9c0` at line 35 confirmed. Bug-AC (AC2: stale name) and architecture-AC (AC1: User as scenario unit, AC3: ViewBus-only updates) are already cleanly separated — no split needed. Scope note: AC4 (chain audit shows User first-class) requires `/md/scenarios/sprints.md/user/` path — architect to confirm whether User units get their own class folder or live under the sprint's units. No scope drift detected. Req refinement complete — ready for architect.
 
 ## Subtasks
 None at parent level (architect may split T145.x if scope warrants — coordinate with planner first).

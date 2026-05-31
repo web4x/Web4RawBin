@@ -149,6 +149,7 @@ File: `test/vitest/requirement-format.test.ts` (new) + visual on `/md/scenarios/
 
 ## QA Audit & User Feedback
 - 2026-06-01: PO directed planner to lift T146 from backlog packet (B7) per Web4Articles + 4-role + real v4 uuids. B7 already captured by req-eng (Tron literal anchored). CMM4 4-role engagement enforced (learnings #18); rule-pair (a)+(b) in AC8 + DoD (learnings #15+#16). Coordinate with req + architect for design refinement. Awaiting req-eng retro-clean audit → architect design + standard update → expert migrator + template + validator → tester verify → Tron QA.
+- 2026-06-01 **robbin-req (refinement):** B7 verbatim confirmed at lines 37-38 — matches backlog.md verbatim exactly. `requirement:uuid:a8b9c0d1` at line 35 confirmed. Pre-audit already completed (session/agents/robbin-req/t146-name-drafts.md): 16 entries across S11(1), S13(7), S17(8) need title shortening. S16 already clean (5-7 words). Draft 3-5 word names ready for each — e.g. "Avatar must persist across sessions — must not revert to default" → "Avatar session persistence". Additionally, S10/S12/S14/S15 have a format issue: requirement titles not in bold `**...**` markers — needs fixing in retro-clean pass. Req refinement complete — ready for architect.
 
 ## Subtasks
 None at parent level (architect may split T146.x per-sprint retro-clean if useful — coordinate with planner first).
