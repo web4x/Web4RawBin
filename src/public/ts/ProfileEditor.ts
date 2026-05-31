@@ -2,6 +2,7 @@
 import { RawBinClient } from './RawBinClient.js';
 import { MSG } from '../../shared/MessageTypes.js';
 import './components/rb-avatar.js';
+import { parseVCard, type VCardData } from './vcard-parse.js';
 
 interface ProfileData {
   name: string;
@@ -43,6 +44,11 @@ export class ProfileEditor {
           <h3>${mode === 'gate' ? 'Set Up Your Profile' : 'Edit Profile'}</h3>
           ${mode === 'normal' ? '<button class="profile-close" id="pe-close">✕</button>' : ''}
         </div>
+        <div class="profile-vcard-import">
+          <button id="pe-import-vcard" class="btn btn-primary profile-vcard-btn">📇 Import vCard</button>
+          <input type="file" id="pe-vcf-input" accept=".vcf,text/vcard" hidden>
+          <p class="profile-vcard-hint">or drag & drop a .vcf file here</p>
+        </div>
         <div class="profile-avatar-row">
           <rb-avatar size="80" src="${initial.avatar || ''}" name="${initial.name || '?'}" token="${this.client.playerToken}" crop='${this.client.getProfile()?.avatarCrop ? JSON.stringify(this.client.getProfile()!.avatarCrop) : ''}' id="pe-avatar"></rb-avatar>
           <p class="profile-avatar-hint">Tap photo to view or upload</p>
@@ -80,6 +86,32 @@ export class ProfileEditor {
 
   private setupEvents(): void {
     document.getElementById('pe-close')?.addEventListener('click', () => this.close());
+
+    // T142: vCard import handlers
+    document.getElementById('pe-import-vcard')?.addEventListener('click', () => {
+      (document.getElementById('pe-vcf-input') as HTMLInputElement)?.click();
+    });
+    document.getElementById('pe-vcf-input')?.addEventListener('change', async (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (!file) return;
+      try {
+        const vcf = parseVCard(await file.text());
+        this.applyVCard(vcf);
+      } catch { this.showVCardError('Could not parse this vCard'); }
+    });
+    const overlay = this.overlay!;
+    overlay.addEventListener('dragover', (e: DragEvent) => { e.preventDefault(); e.dataTransfer!.dropEffect = 'copy'; overlay.classList.add('profile-drag-active'); });
+    overlay.addEventListener('dragleave', () => { overlay.classList.remove('profile-drag-active'); });
+    overlay.addEventListener('drop', async (e: DragEvent) => {
+      e.preventDefault(); overlay.classList.remove('profile-drag-active');
+      const file = e.dataTransfer?.files[0];
+      if (!file || (!file.name.endsWith('.vcf') && file.type !== 'text/vcard')) { this.showVCardError('Please drop a .vcf file'); return; }
+      try {
+        const vcf = parseVCard(await file.text());
+        if (!vcf.fn && !vcf.tel && !vcf.url && !vcf.photo) { this.showVCardError('No profile data found'); return; }
+        this.applyVCard(vcf);
+      } catch { this.showVCardError('Could not read this file'); }
+    });
 
     document.getElementById('pe-avatar')?.addEventListener('rb-avatar-changed', ((e: CustomEvent) => {
       this.avatarUrl = e.detail.avatarUrl;
@@ -120,5 +152,25 @@ export class ProfileEditor {
         if (e.target === this.overlay) this.close();
       });
     }
+  }
+
+  private applyVCard(vcf: VCardData): void {
+    if (vcf.fn) {
+      const nameInput = document.getElementById('pe-name') as HTMLInputElement;
+      nameInput.value = vcf.fn;
+      nameInput.dispatchEvent(new Event('input'));
+    }
+    if (vcf.tel) (document.getElementById('pe-phone') as HTMLInputElement).value = vcf.tel;
+    if (vcf.url) (document.getElementById('pe-url') as HTMLInputElement).value = vcf.url;
+    if (vcf.photo) {
+      const avatar = document.getElementById('pe-avatar') as any;
+      if (avatar?.uploadBlob) avatar.uploadBlob(vcf.photo);
+    }
+  }
+
+  private showVCardError(msg: string): void {
+    const hint = this.overlay?.querySelector('.profile-vcard-hint') as HTMLElement;
+    if (hint) { hint.textContent = msg; hint.classList.add('profile-vcard-error'); }
+    setTimeout(() => { if (hint) { hint.textContent = 'or drag & drop a .vcf file here'; hint.classList.remove('profile-vcard-error'); } }, 3000);
   }
 }

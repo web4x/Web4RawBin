@@ -9,4 +9,4 @@ var d=Object.defineProperty;var l=(o,n,t)=>n in o?d(o,n,{enumerable:!0,configura
         <span>${c}</span>
         <button id="update-now">Update Now</button>
       </div>`,e.getElementById("update-now")?.addEventListener("click",async()=>{i&&localStorage.setItem("rawbin-version",i),this.remove();let a=await navigator.serviceWorker?.getRegistration?.();a?.waiting?a.waiting.postMessage("SKIP_WAITING"):location.reload()})}};customElements.define("rb-update-banner",r);
-//# sourceMappingURL=rb-update-banner-OV46B7PF.js.map
+//# sourceMappingURL=rb-update-banner-KJZKKXC6.js.map

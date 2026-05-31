@@ -203,6 +203,13 @@ rb-member-badge { display: flex; align-items: center; gap: 4px; padding: 3px 8px
 .error { text-align: center; color: white; padding: 40px 20px; }
 .error h2 { margin-bottom: 8px; }
 
+/* T142: vCard import */
+.profile-vcard-import { text-align: center; margin-bottom: 16px; }
+.profile-vcard-btn { width: 100%; font-size: 1rem; }
+.profile-vcard-hint { font-size: 0.75rem; color: #999; margin-top: 4px; }
+.profile-vcard-error { color: #e74c3c; }
+.profile-drag-active { outline: 2px dashed #667eea; outline-offset: -4px; }
+
 /* Profile Editor Overlay */
 .profile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: flex; align-items: flex-end; justify-content: center; }
 .profile-gate { align-items: center; }

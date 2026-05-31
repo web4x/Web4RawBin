@@ -192,7 +192,17 @@ class RbAvatar extends HTMLElement {
     this.overlayEl.querySelector('#ov-upload-btn')?.addEventListener('click', () => fileInput?.click());
     fileInput?.addEventListener('change', async () => {
       const file = fileInput.files?.[0];
-      if (!file || !file.type.startsWith('image/')) { if (file) alert('Must be an image'); return; }
+      if (file) this.handleFile(file);
+    });
+  }
+
+  uploadBlob(blob: Blob): void {
+    const file = new File([blob], 'vcard-photo.jpg', { type: blob.type });
+    this.handleFile(file);
+  }
+
+  private async handleFile(file: File): Promise<void> {
+      if (!file.type.startsWith('image/')) { alert('Must be an image'); return; }
       const token = this.getToken() || localStorage.getItem('rawbin-player-id') || '';
       if (!token) return;
       const buf = await file.arrayBuffer();
@@ -211,7 +221,6 @@ class RbAvatar extends HTMLElement {
           window.dispatchEvent(new CustomEvent('rb-avatar-updated', { detail: { token: tk, url: result.avatarUrl } }));
         } else { alert('Upload failed. Please try again.'); }
       } catch { alert('Upload failed. Please try again.'); }
-    });
   }
 
   private closeOverlay(): void {
