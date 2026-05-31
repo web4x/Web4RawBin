@@ -8,14 +8,19 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
-- **B4 — Connection-Failed page: add Reload button**
+- **B4 — Connection-Failed + Offline pages: add Reload button**
   [requirement:uuid:c5d6e7f8-a9b0-4c1d-2e3f-4a5b6c7d8e90]
   > TRON DIRECTIVE: "add a reload button to page Connection Failed / Could not connect to server. Please refresh."
+  > TRON DIRECTIVE (addendum): "same on the you are offline page"
 
-  The Connection-Failed error page (rendered in `app.ts` catch block: `<div class="error"><h2>Connection Failed</h2><p>Could not connect to server. Please refresh.</p></div>`) must have a `[Reload]` button that calls `location.reload()`. Plain text "Please refresh" is not actionable on mobile — user needs a tappable button.
+  Two surfaces need a `[Reload]` button (`location.reload()`):
+  1. **Connection-Failed page** — `app.ts` catch block (`<div class="error">...Please refresh...</div>`)
+  2. **You-Are-Offline page** — `sw.js` OFFLINE_HTML (`<div class="offline">...Retry...</div>`)
 
-  **Sprint:** TBD (planner to triage)
-  **Touches:** app.ts error HTML (~line 81), possibly edit.ts equivalent
+  Note: the offline page already has a `<button class="retry" onclick="location.reload()">Retry</button>` — verify it works; the connection-failed page does NOT have one.
+
+  **Sprint:** TBD (planner to triage) — promoted to T143 if planner assigns
+  **Touches:** app.ts error HTML (~line 81), sw.js OFFLINE_HTML, possibly edit.ts equivalent
 
 - **B3 — Profile gate: Upload vCard for fast onboarding (button + native drag-and-drop)**
   [requirement:uuid:a3b4c5d6-e7f8-4a9b-0c1d-2e3f4a5b6c7d]
