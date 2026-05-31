@@ -8,6 +8,17 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **B6 — Lobby/room user name doesn't refresh after profile edit + User as scenario model**
+  [requirement:uuid:f7a8b9c0-d1e2-4f3a-b4c5-d6e7f8a9b0c6]
+  > TRON DIRECTIVE: "the vcard upload works. the editor is updated on all fields. but the user name in the lobby not and when the user immediately enters a room also not. make the user class use the same scenario model as the requirements, tasks and so on. handle every views update as a model update on user....as on all other classes that use scenario models."
+
+  **BUG:** After profile edit (name change via ProfileEditor or vCard upload), the user name in the lobby (RoomBrowser name input) and in-room (member badge) does not refresh — still shows the old name until page reload.
+
+  **ARCH FIX (Tron directive):** User joins the scenario-unit + ViewBus model. All view updates flow from `model.user` mutation — same pattern as Requirement, Task, and other scenario classes. No special-case view refresh; the ViewBus propagates model changes to all registered views automatically.
+
+  **Sprint:** TBD (planner to triage AFTER T143+T144 complete — Tron: do NOT interrupt current work)
+  **Touches:** User class (new scenario model), RoomBrowser (lobby name binding), RoomView/rb-member-badge (room name binding), ProfileEditor (model mutation on save), ViewBus integration
+
 - **B5 — File-browser display fixes: icon order + link targets (3 issues)**
   [requirement:uuid:e6f7a8b9-c0d1-4e2f-a3b4-c5d6e7f8a9b5]
   > TRON DIRECTIVE (3 in one): (a) swap icon order: ✏️ 🔗 → 🔗 ✏️ (link before edit). (b) make 🔗 clickable → links to original scenario/index/.../uuid.scenario.json (the symlink target). (c) clicking the .json filename in symlink listings currently 404s → must link to the corresponding MD view (scenarios/sprints.md/task/<speaking>.md).
