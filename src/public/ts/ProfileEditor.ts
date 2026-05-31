@@ -1,3 +1,4 @@
+// [impl:uuid:5b438bb9-1602-4890-9c09-407606a28d6c] T8 profile editor
 import { RawBinClient } from './RawBinClient.js';
 import { MSG } from '../../shared/MessageTypes.js';
 import './components/rb-avatar.js';

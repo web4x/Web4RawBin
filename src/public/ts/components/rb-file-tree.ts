@@ -1,3 +1,4 @@
+// [impl:uuid:c335d0b8-e290-4e60-b359-e6b4c51ae22a] T65 file tree
 const ICONS: Record<string, string> = { '.md': '📄', '.sh': '📜', '.puml': '🎨', '.ts': '⚡', '.tsx': '⚡', '.js': '📦', '.mjs': '📦', '.css': '🎨', '.json': '⚙️', '.html': '🌐', '.svg': '🖼', '.env': '🔒', '.yml': '📋', '.yaml': '📋' };
 const BINARY_EXTS = new Set(['.png', '.jpg', '.jpeg', '.gif', '.ico', '.enc', '.key', '.woff', '.woff2', '.ttf', '.zip', '.gz', '.tar', '.pdf', '.map', '.lock']);
 const HIDDEN_DIRS = new Set(['node_modules', '.git', 'data']);

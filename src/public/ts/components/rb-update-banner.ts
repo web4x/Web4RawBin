@@ -1,3 +1,4 @@
+// [impl:uuid:18ebf760-c51b-4b67-9dcb-a2c2f5f3cfa3] T39 update banner
 class RbUpdateBanner extends HTMLElement {
   private version: string = '';
 

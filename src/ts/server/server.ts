@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+ * [impl:uuid:e94199c4-5c74-458e-92ad-2e75f8bc2926] T4 server core
 import https from 'node:https';
 import http from 'node:http';
 import fs from 'node:fs/promises';

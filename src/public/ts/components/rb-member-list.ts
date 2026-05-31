@@ -1,3 +1,4 @@
+// [impl:uuid:b549aef8-c99b-4d41-8dd8-0dbd538f1e8d] T43 member list
 import './rb-member-badge.js';
 
 export interface MemberData {

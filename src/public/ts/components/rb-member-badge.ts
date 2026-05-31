@@ -1,3 +1,4 @@
+// [impl:uuid:574ae9d1-2e23-4fdf-93e4-496102aad08f] T43 member badge
 import './rb-avatar.js';
 
 const BADGE_ATTRS = ['name', 'avatar-url', 'avatar-crop', 'player-token', 'is-host', 'is-self', 'is-connected'] as const;

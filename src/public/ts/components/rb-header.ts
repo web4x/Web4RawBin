@@ -1,3 +1,4 @@
+// [impl:uuid:39074a59-864f-4947-ac7b-0457bbbe172b] T40 header
 const ATTRS = ['title', 'show-home', 'show-leave', 'show-delete', 'show-reload', 'show-fullscreen'] as const;
 
 export class RbHeader extends HTMLElement {

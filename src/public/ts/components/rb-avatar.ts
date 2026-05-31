@@ -1,3 +1,4 @@
+// [impl:uuid:ddeb708a-e038-4901-a4c4-fba2cbf56d12] T56 avatar component
 const AVATAR_CSS = `
 :host { display: inline-block; cursor: pointer; flex-shrink: 0; }
 .circle { border-radius: 50%; overflow: hidden; display: block; position: relative; background: rgba(102,126,234,0.15); }

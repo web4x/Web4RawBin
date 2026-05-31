@@ -1,3 +1,4 @@
+// [impl:uuid:e7209648-2e3e-49d0-a8a2-f6353d7735b5] T5 message types
 export const MSG = {
   // Client -> Server (Room lifecycle)
   CREATE_ROOM: 'CREATE_ROOM',

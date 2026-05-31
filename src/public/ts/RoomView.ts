@@ -1,3 +1,4 @@
+// [impl:uuid:a2dfd6e8-3d5c-419a-a743-01fcaa7ba069] T5 room view
 import { RawBinClient } from './RawBinClient.js';
 import { ProfileEditor } from './ProfileEditor.js';
 import { ProfileSheet } from './ProfileSheet.js';

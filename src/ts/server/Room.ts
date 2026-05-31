@@ -1,3 +1,4 @@
+// [impl:uuid:9fbb1f6e-ad24-45ac-bc5d-148d622f0237] T3 Room class
 import { WebSocket } from 'ws';
 import crypto from 'node:crypto';
 import fs from 'node:fs';

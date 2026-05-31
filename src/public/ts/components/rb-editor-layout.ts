@@ -1,3 +1,4 @@
+// [impl:uuid:1e9916f1-7e29-4e9d-9aa9-c930fe693c9f] T64 editor layout
 const STORAGE_KEY = 'rawbin-editor-layout';
 const TAB_BAR_HEIGHT = 52;
 

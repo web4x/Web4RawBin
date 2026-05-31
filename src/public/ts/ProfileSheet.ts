@@ -1,3 +1,4 @@
+// [impl:uuid:3bbd5f2b-eb9c-4c48-9cf7-f6424d0b1ec2] T81 profile sheet
 import { RawBinClient } from './RawBinClient.js';
 import { MSG } from '../../shared/MessageTypes.js';
 import './components/rb-avatar.js';

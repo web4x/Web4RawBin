@@ -1,3 +1,4 @@
+// [impl:uuid:3858a667-1f57-4ebf-afd4-fd34128a985d] T70 editor toolbar
 const MODE_KEY = 'rawbin-editor-mode';
 type ViewMode = 'code' | 'split' | 'preview';
 

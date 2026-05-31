@@ -1,3 +1,4 @@
+// [impl:uuid:7bb9a7dd-da94-4f9f-9e0c-1c37dab9de8d] T68 markdown preview
 import { marked } from 'marked';
 
 const PREVIEW_CSS = `

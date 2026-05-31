@@ -1,3 +1,4 @@
+// [impl:uuid:acd66fde-04e9-4ef3-86b5-afd10b447f6a] T66 code editor
 // Files loaded via /api/files/<path> by edit.ts, content passed to loadFile()
 const EXT_TO_LANG: Record<string, string> = {
   '.md': 'markdown', '.sh': 'shell', '.ts': 'typescript', '.tsx': 'typescript',

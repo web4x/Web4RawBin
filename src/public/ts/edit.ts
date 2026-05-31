@@ -1,3 +1,4 @@
+// [impl:uuid:1b854ba5-65b9-4a2d-a16c-b288388f42b7] T63 editor entry
 import './components/rb-update-banner.js';
 import './components/rb-editor-layout.js';
 import type { RbEditorLayout } from './components/rb-editor-layout.js';

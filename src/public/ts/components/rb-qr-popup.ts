@@ -1,3 +1,4 @@
+// [impl:uuid:7b4d275b-861c-4ee9-b7ee-24c99d8b9cdc] T45 QR popup
 import QRCode from 'qrcode';
 
 const STYLES = `

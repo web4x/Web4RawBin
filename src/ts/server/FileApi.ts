@@ -1,3 +1,4 @@
+// [impl:uuid:cdbd3970-ba43-4efc-920d-8352d3c4daa0] T60 file API
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

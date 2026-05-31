@@ -1,5 +1,6 @@
 export interface OverlayOptions {
   className?: string;
+ * [impl:uuid:e8d95f47-0a17-4d64-b653-338584dcc6fd] T41 overlay base
   closable?: boolean;
   onClose?: () => void;
 }

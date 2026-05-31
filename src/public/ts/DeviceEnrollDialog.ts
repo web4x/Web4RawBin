@@ -1,3 +1,4 @@
+// [impl:uuid:7a5752ae-3c8c-47b1-867e-1490db5796bf] T10 device enrollment
 import { RawBinClient } from './RawBinClient.js';
 import { MSG } from '../../shared/MessageTypes.js';
 

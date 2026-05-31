@@ -1,3 +1,4 @@
+// [impl:uuid:784f17fd-53d4-4b45-86e4-5f3391ba3fdd] T5+T77 room browser lobby
 import { RawBinClient, shareOrCopy } from './RawBinClient.js';
 import { MSG } from '../../shared/MessageTypes.js';
 import './components/rb-header.js';
