@@ -577,13 +577,15 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const entries = fsSync.readdirSync(dirPath, { withFileTypes: true });
         const editExts = new Set(['.md', '.sh', '.puml', '.ts', '.css', '.json', '.html', '.env', '.mjs']);
         const editIcon = (name: string) => editExts.has(path.extname(name)) ? ` <a href="/edit/${relPath}${name}" style="opacity:0.5;text-decoration:none;font-size:0.8em" title="Edit">✏️</a>` : '';
+        const symlinkIcon = (e: any) => { if (!e.isSymbolicLink()) return ''; try { const target = fsSync.readlinkSync(path.join(dirPath, e.name)); const abs = path.resolve(dirPath, target); const mdRel = path.relative(PROJECT_ROOT, abs); return ` <a href="/md/${mdRel}" style="text-decoration:none;font-size:0.8em" title="→ ${target}">🔗</a>`; } catch { return ' 🔗'; } };
+        const jsonHref = (e: any) => { const m = relPath.match(/^scenario\/sprints\.json\/([^/]+)\//); if (m && e.name.endsWith('.json')) { const slug = e.name.replace('.scenario.json', '').replace('.json', ''); return `/md/scenario/sprints.md/task/${slug}.md`; } return `/md/${relPath}${e.name}`; };
         const isFileOrLink = (e: any) => e.isFile() || e.isSymbolicLink();
         const isDir = (e: any) => { if (e.isDirectory()) return true; if (e.isSymbolicLink()) { try { return fsSync.statSync(path.join(dirPath, e.name)).isDirectory(); } catch { return false; } } return false; };
-        const dirs = entries.filter(e => isDir(e) && !e.name.startsWith('.')).map(e => `<li>📁 <a href="/md/${relPath}${e.name}/">${e.name}/</a>${e.isSymbolicLink() ? ' 🔗' : ''}</li>`);
-        const mds = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.md')).map(e => `<li>📄 <a href="/md/${relPath}${e.name}">${e.name}</a>${editIcon(e.name)}${e.isSymbolicLink() ? ' 🔗' : ''}</li>`);
-        const svgs = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.svg')).map(e => `<li>🖼 <a href="/md/${relPath}${e.name}">${e.name}</a>${e.isSymbolicLink() ? ' 🔗' : ''}</li>`);
-        const jsons = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.json')).map(e => `<li>📋 <a href="/md/${relPath}${e.name}">${e.name}</a>${editIcon(e.name)}${e.isSymbolicLink() ? ' 🔗' : ''}</li>`);
-        const others = entries.filter(e => isFileOrLink(e) && !e.name.endsWith('.md') && !e.name.endsWith('.svg') && !e.name.endsWith('.json') && !e.name.startsWith('.')).map(e => `<li>${e.name}${editIcon(e.name)}${e.isSymbolicLink() ? ' 🔗' : ''}</li>`);
+        const dirs = entries.filter(e => isDir(e) && !e.name.startsWith('.')).map(e => `<li>📁 <a href="/md/${relPath}${e.name}/">${e.name}/</a>${symlinkIcon(e)}</li>`);
+        const mds = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.md')).map(e => `<li>📄 <a href="/md/${relPath}${e.name}">${e.name}</a>${symlinkIcon(e)}${editIcon(e.name)}</li>`);
+        const svgs = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.svg')).map(e => `<li>🖼 <a href="/md/${relPath}${e.name}">${e.name}</a>${symlinkIcon(e)}</li>`);
+        const jsons = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.json')).map(e => `<li>📋 <a href="${jsonHref(e)}">${e.name}</a>${symlinkIcon(e)}${editIcon(e.name)}</li>`);
+        const others = entries.filter(e => isFileOrLink(e) && !e.name.endsWith('.md') && !e.name.endsWith('.svg') && !e.name.endsWith('.json') && !e.name.startsWith('.')).map(e => `<li>${e.name}${symlinkIcon(e)}${editIcon(e.name)}</li>`);
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(`${pageHead(relPath || '/')}<style>${MD_CSS}</style>${pageNav('/md/', 'Browse')}<div style="max-width:700px;margin:0 auto;padding:0 20px"><h1>${relPath || '/'}</h1><ul>${dirs.join('')}${mds.join('')}${svgs.join('')}${jsons.join('')}${others.join('')}</ul></div></body></html>`);
       } catch { res.writeHead(404); res.end('Directory not found'); }
