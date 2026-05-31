@@ -19,6 +19,31 @@ T-number). Items here are NOT in any sprint's scope.
   **Sprint:** TBD (planner to triage AFTER T143+T144 complete — Tron: do NOT interrupt current work)
   **Touches:** User class (new scenario model), RoomBrowser (lobby name binding), RoomView/rb-member-badge (room name binding), ProfileEditor (model mutation on save), ViewBus integration
 
+  **Planner pre-record (queued — PO directive 2026-05-31, NOT yet stood up):**
+  - **Next-T-number to assign:** **T145** (T144 is the current highest; T145 free after T143+T144 land)
+  - **Reserved task:uuid (v4, planner-generated):** `df4ea98b-b47c-4129-be73-a4047e919a6f`
+  - **Sprint placement (proposed, planner-triage):** sprint-17-scenario-units/ as **Phase 9 — User class scenario-unit + ViewBus model parity** — natural fit: same scenario-unit + ViewBus pattern already established by S17 for Requirement/UseCase/Task/Class/Method/Test/TraceLink (T125/T126/T127/T134/T136 lineage). Alternative: a new sprint-18 if Tron prefers a clean container for "User domain unification" — PO decides at triage.
+  - **CMM4 4-role engagement (per learnings #18):**
+    1. **robbin-req** — anchor the verbatim Tron quote (already captured in B6 above); confirm the bug-AC (stale name in lobby + on first room enter) is distinct from the architecture-AC (User → scenario model + ViewBus); split into two requirement:uuids if needed (req decides)
+    2. **robbin-architect** — design User as a scenario class on par with Requirement/UseCase/Task/Class/Method/Test/TraceLink: scenario JSON schema, ClassLoader, ScenarioIndex membership, ViewBus subscription pattern, View template, FSM (if applicable — likely simpler than Task FSM since User is data-shaped not workflow-shaped); decide how ProfileEditor/RoomBrowser/RoomView/rb-member-badge become Views in the ViewBus model; specify the back-fill/migration of existing user JSONs to the scenario-unit form
+    3. **robbin-expert** — implement per architect's design: new User scenario class + loader + index + template + view-bus wiring; mutate via `model.user` only; migrate existing user JSONs (T128.x pattern); kill the special-case refresh paths that exist today
+    4. **robbin-tester** — verify the stale-name bug fixed across all surfaces (lobby name input, in-room member badge, profile sheet, vCard re-export); chain audit shows User as first-class scenario unit; regression on Sprint 9 (room identity) + Sprint 17 (scenario model)
+  - **Rule-pair (a)+(b) [#15+#16]:** REQUIRED (`package.json` bump + `sw.js` CACHE_NAME bump in the impl commit-set; PWA must reach Tron's device). **(c) STATIC_SHELL:** likely exempt — no new route — but architect to confirm.
+  - **Dependencies (block T145 stand-up until satisfied):**
+    - **T143 land** (chain→tree rework) — User joins the scenario-unit graph; the tree model T143 establishes is the consumer
+    - **T144 land** (file-browser display fixes) — file-browser navigation for the new User scenarios depends on B5 fixes
+    - **T136 close** (Requirement+UseCase migration extension) — confirms the migration pattern T145 follows for User
+  - **Estimated scope:** medium — new scenario class (~T134 size) + migration (~T128.x exemplar size) + 4 view wirings (Lobby, RoomView, ProfileEditor, member-badge). Architect's design will pin effort.
+  - **Stand-up trigger:** when ALL of {T143 closes (Tron QA OR PO directive), T144 closes (Tron QA OR PO directive), Tron approves the User class fit in scenario model} are met. Until then, this remains B6 in the backlog — NOT a task file in any sprint.
+  - **Acceptance criteria (planner draft — refine on stand-up):**
+    1. User is a scenario unit with `[user:uuid:v4]` identity (or class=User in scenario JSON)
+    2. Stale-name bug fixed across lobby + first-room-enter + member badge
+    3. Every view that displays user-name subscribes via ViewBus; no special-case refresh code
+    4. chain audit shows User class first-class in `/trace` + `/md/scenarios/sprints.md/user/`
+    5. No regression on Sprint 9 (rooms still load owner names) or Sprint 17 (other scenario classes unaffected)
+    6. Rule-pair (a)+(b) in the impl commit-set
+    7. All 4 roles committed work in this file
+
 - **B5 — File-browser display fixes: icon order + link targets (3 issues)**
   [requirement:uuid:e6f7a8b9-c0d1-4e2f-a3b4-c5d6e7f8a9b5]
   > TRON DIRECTIVE (3 in one): (a) swap icon order: ✏️ 🔗 → 🔗 ✏️ (link before edit). (b) make 🔗 clickable → links to original scenario/index/.../uuid.scenario.json (the symlink target). (c) clicking the .json filename in symlink listings currently 404s → must link to the corresponding MD view (scenarios/sprints.md/task/<speaking>.md).
