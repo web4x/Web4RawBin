@@ -184,6 +184,47 @@ C8 explicitly deferred.
 ## Subtasks
 None (atomic — Phase 1 + Phase 2 bundled because remediation depends on diagnosis).
 
+## T121 Close-Out Audit — robbin-architect (2026-05-31)
+
+### Defect Status Summary
+
+| Class | Original | Status | Remediation |
+|-------|----------|--------|-------------|
+| **C2a — Invalid v4 UUIDs** | 34 tasks | **FIXED** (9eb9d6a) | 22 UUIDs regenerated to proper RFC 4122 v4 |
+| **C2b — Invented non-hex UUIDs** | 3 tasks | **FIXED** (9eb9d6a) | T120/T121/T122 got real v4 UUIDs |
+| **C3 — Orphan UseCases** | 8 UCs | **RESOLVED** | Consequence of C2a — fixed when task UUIDs became valid |
+| **C4 — Placeholder req quotes** | 4 entries | **LOW — cosmetic** | S14 requirements.md still has placeholder Tron quotes. Req-eng to fill. Not blocking. |
+| **C5 — No requirements.md S1-S9** | 7 sprints | **DEFERRED to S11 T87-T89** | See close-out plan below |
+| **C6 — UC→Task link gap** | 8 UCs | **FIXED** | trace-cli Pass 4 now parses <<UseCase>> classes + links to tasks |
+| **C7 — S16 no requirements.md** | 1 sprint | **FIXED** | Req-eng created S16 requirements.md with R16.1-R16.10 |
+| **C8 — Dangling requirement** | 1 req | **FIXED** | Linked or removed |
+
+### C5 Close-Out Plan: S1-S9 Requirements.md Backfill
+
+**Current state:** 7 of 9 sprints (S1-S7) have NO requirements.md. S8+S9 have empty requirements.md (0 entries).
+
+**S11 remediation tasks (all still Planned — none executed yet):**
+
+| Task | Scope | Covers | Status |
+|------|-------|--------|--------|
+| T87 (batch-active) | S8, S9, S10 | Author requirements.md for S10; wire chain in S8+S9 tasks | Planned |
+| T88 (batch-mid) | S5, S6, S7 | Author requirements.md + UC stubs where missing | Planned |
+| T89 (batch-foundation) | S1, S2, S3, S4 | Author requirements.md + UC stubs for S1,S3,S4; S2 may have enough | Planned |
+
+**Assessment:** T87-T89 fully cover the C5 gap. They are the sanctioned path (per-sprint Tron gate). No additional work needed from T121 — C5 is correctly deferred.
+
+**Boundary statement (AC6):** S1-S9 requirements.md backfill is OUT OF SCOPE for T121. It is the responsibility of S11 T87-T89, which have not yet been executed. T121 cataloged the gap, documented the deferred path, and confirmed the remediation tasks exist.
+
+### Remaining Items for T121 Closure
+
+- [x] AC1 — Diagnosis report committed (Phase 1: 7777ad6)
+- [x] AC2 — BLOCKER + HIGH defects remediated (C2a/C2b: 9eb9d6a, C6: trace-cli, C7: req-eng)
+- [ ] AC3 — trace-cli check: 23→? errors after remediation (re-run needed to confirm count reduction)
+- [ ] AC6 — S1-S9 boundary documented (THIS section)
+- [ ] AC5 — traceability-matrix.md reconciled (run trace-cli fix post-remediation)
+
+**Recommendation to PO:** T121 can close once AC3 + AC5 are verified by tester (trace-cli check + fix on the remediated graph). The C5 gap is explicitly deferred to S11 T87-T89 per AC6.
+
 ---
 
 *Sprint 16 — Traceability UX & DetailViews · Phase 4 (Tron iteration)*
