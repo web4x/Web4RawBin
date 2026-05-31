@@ -192,14 +192,23 @@ const symlinkIcon = (e: any, relDir: string) => {
   if (!e.isSymbolicLink()) return '';
   try {
     const target = fsSync.readlinkSync(path.join(dirPath, e.name));
-    // Resolve to absolute, then make /md/-relative
+    // Resolve to absolute, then make project-relative
     const abs = path.resolve(dirPath, target);
-    const mdRel = path.relative(PROJECT_ROOT, abs);
-    return ` <a href="/md/${mdRel}" style="text-decoration:none;font-size:0.8em" title="Symlink → ${target}">🔗</a>`;
+    const projRel = path.relative(PROJECT_ROOT, abs);
+    // Use /edit/ route (not /md/) — /md/ 404s on .scenario.json, /edit/ works
+    return ` <a href="/edit/${projRel}" style="text-decoration:none;font-size:0.8em" title="Symlink → ${target}">🔗</a>`;
   } catch {
     return ' 🔗';  // fallback: unresolvable symlink = plain glyph
   }
 };
+```
+
+**AC2 fix decision (2026-06-01, per tester report 65cc351):**
+Option A chosen: 🔗 href uses `/edit/` not `/md/`. Rationale:
+- `/edit/` already returns 200 for `.scenario.json` (Monaco renders JSON)
+- `/md/` returns 404 for `.scenario.json` (no handler)
+- Adding a JSON viewer to `/md/` = scope creep for a B5 cosmetic fix
+- The 🔗 purpose is "show canonical scenario" — `/edit/` serves that
 ```
 
 This resolves the symlink to its target (e.g., `../../scenario/index/d/0/3/a/7/d03a73ff-....scenario.json`) and constructs an absolute `/md/` path to it.
