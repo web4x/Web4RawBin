@@ -129,32 +129,35 @@ describe('T126: ViewGenerator', () => {
     fs.rmSync(outDir, { recursive: true, force: true });
   });
 
-  it('generateAll emits .md + .html for each instance', () => {
+  it('generateAll emits .md + .html with speaking names', () => {
     const uuid = 'a7f3c1d2-8b4e-4f9a-b6c5-3d2e1f0a9b8c';
-    idx.put(uuid, { ior: 'ior:class:Task', model: { uuid, name: 'T1', description: 'Do X', status: 'Done' }, ownerIor: null });
+    idx.put(uuid, { ior: 'ior:class:Task', model: { uuid, slug: 'task-1-bootstrap', name: 'T1', description: 'Do X', status: 'Done' }, ownerIor: null });
     const gen = new ViewGenerator(idx, defaultTemplateRegistry(), outDir);
     const result = gen.generateAll();
     expect(result.filesWritten).toBeGreaterThanOrEqual(2);
-    expect(fs.existsSync(path.join(outDir, 'task', `${uuid}.md`))).toBe(true);
-    expect(fs.existsSync(path.join(outDir, 'task', `${uuid}.html`))).toBe(true);
-    const md = fs.readFileSync(path.join(outDir, 'task', `${uuid}.md`), 'utf-8');
+    expect(fs.existsSync(path.join(outDir, 'task', 'task-1-bootstrap.md'))).toBe(true);
+    expect(fs.existsSync(path.join(outDir, 'task', 'task-1-bootstrap.html'))).toBe(true);
+    const md = fs.readFileSync(path.join(outDir, 'task', 'task-1-bootstrap.md'), 'utf-8');
     expect(md).toContain('T1');
   });
 
-  it('generates sprint overview + planning.md', () => {
+  it('generates sprint overview + planning.md with speaking names + nested subtasks', () => {
     const sprintUuid = 'b72e58c4-91d3-4a07-b845-3c6f1d92e7a0';
     const taskUuid = 'c83f69d5-a2e4-4b18-c956-4d7a2e03f8b1';
-    idx.put(taskUuid, { ior: 'ior:class:Task', model: { uuid: taskUuid, name: 'T1: Bootstrap', status: 'Done' }, ownerIor: iorInstance(sprintUuid) });
-    idx.put(sprintUuid, { ior: 'ior:class:Sprint', model: { uuid: sprintUuid, name: 'Sprint 1', number: 1, goal: 'Foundation', status: 'Done', tasks: [iorInstance(taskUuid)] }, ownerIor: null });
+    const childUuid = 'd94a8bf6-b3c5-4d29-a178-6f9c4e25b0d3';
+    idx.put(childUuid, { ior: 'ior:class:Task', model: { uuid: childUuid, slug: 'task-1-1-child', name: 'T1.1: Child', status: 'Done', children: [] }, ownerIor: iorInstance(taskUuid) });
+    idx.put(taskUuid, { ior: 'ior:class:Task', model: { uuid: taskUuid, slug: 'task-1-bootstrap', name: 'T1: Bootstrap', status: 'Done', children: [iorInstance(childUuid)] }, ownerIor: iorInstance(sprintUuid) });
+    idx.put(sprintUuid, { ior: 'ior:class:Sprint', model: { uuid: sprintUuid, slug: 'sprint-1', name: 'Sprint 1', number: 1, goal: 'Foundation', status: 'Done', tasks: [iorInstance(taskUuid)] }, ownerIor: null });
     const gen = new ViewGenerator(idx, defaultTemplateRegistry(), outDir);
     const result = gen.generateAll();
-    expect(result.filesWritten).toBeGreaterThanOrEqual(5);
-    expect(fs.existsSync(path.join(outDir, 'overview.md'))).toBe(true);
+    expect(result.filesWritten).toBeGreaterThanOrEqual(7);
     const overview = fs.readFileSync(path.join(outDir, 'overview.md'), 'utf-8');
-    expect(overview).toContain('Sprint 1');
-    const planning = fs.readFileSync(path.join(outDir, 'sprint', `${sprintUuid}-planning.md`), 'utf-8');
+    expect(overview).toContain('sprint-1.md');
+    const planning = fs.readFileSync(path.join(outDir, 'sprint', 'sprint-1-planning.md'), 'utf-8');
     expect(planning).toContain('T1: Bootstrap');
-    expect(planning).toContain('[x]');
+    expect(planning).toContain('task-1-bootstrap.md');
+    expect(planning).toContain('  - [x]');
+    expect(planning).toContain('T1.1: Child');
   });
 
   it('generateOne returns md + html for a single uuid', () => {

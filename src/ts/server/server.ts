@@ -816,7 +816,7 @@ fetch('/api/config').then(r=>r.json()).then(c=>{document.getElementById('ver').t
     res.writeHead(200, headers);
     res.end(data);
   } catch (error: any) {
-    if (error.code === 'ENOENT') { res.writeHead(404, { 'Content-Type': 'text/plain' }); res.end('404 Not Found'); }
+    if (error.code === 'ENOENT') { res.writeHead(404, { 'Content-Type': 'text/html' }); res.end(`${pageHead('404')}${pageNav('/md/', 'Browse')}<div style="max-width:700px;margin:40px auto;padding:0 20px;color:#e0e0e0;text-align:center"><h1>404 — Not Found</h1><p style="margin-top:12px"><a href="/md/" style="color:#ff9800">← Back to Browse</a> · <a href="/trace" style="color:#667eea">Traceability</a></p></div></body></html>`); }
     else { res.writeHead(500, { 'Content-Type': 'text/plain' }); res.end('500 Internal Server Error'); }
   }
 }
