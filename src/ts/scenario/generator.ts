@@ -9,6 +9,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { type ScenarioUnit } from './types.js';
 import { ScenarioIndex } from './index-store.js';
+import { setActiveResolver } from './templates.js';
 import { type ViewTemplateRegistry } from './templates.js';
 
 export interface GenerateResult {
@@ -32,6 +33,15 @@ export class ViewGenerator {
 
   generateAll(): GenerateResult {
     const result: GenerateResult = { filesWritten: 0, errors: [] };
+    const idx = this.index;
+    setActiveResolver((uuid) => {
+      const u = idx.get(uuid);
+      if (!u) return null;
+      const name = (u.model.name as string) || uuid.slice(0, 8);
+      const slug = (u.model.slug as string) || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80);
+      const type = u.ior.replace('ior:class:', '').toLowerCase();
+      return { slug, type, name };
+    });
     const uuids = this.index.list();
     const sprints: ScenarioUnit[] = [];
     const allUnits: ScenarioUnit[] = [];

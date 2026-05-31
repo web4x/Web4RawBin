@@ -15,7 +15,7 @@
 ## Traceability
 
 **Children:**
-- [🔗 adf00ff5](../sprints.md/task/adf00ff5.md)
+- [🔗 Task 3.4: Align Room.ts with Test Cases](../sprints.md/task/task-3.4-test-alignment.md)
 
 
 ## Traceability

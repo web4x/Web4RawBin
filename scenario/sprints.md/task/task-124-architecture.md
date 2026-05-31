@@ -17,9 +17,9 @@
 ## Traceability
 
 **Children:**
-- [🔗 e83d47a1](../sprints.md/task/e83d47a1.md)
-- [🔗 b72e58c4](../sprints.md/task/b72e58c4.md)
-- [🔗 c93f69d5](../sprints.md/task/c93f69d5.md)
+- [🔗 T124.1: Architect — Scenario-Unit + IOR Data Model](../sprints.md/task/task-124.1-architect-data-model.md)
+- [🔗 T124.2: Architect — View Template Architecture](../sprints.md/task/task-124.2-architect-view-templates.md)
+- [🔗 T124.3: Architect — Storage Layout (Index + Speaking-Name Trees)](../sprints.md/task/task-124.3-architect-storage-layout.md)
 
 
 ## Traceability

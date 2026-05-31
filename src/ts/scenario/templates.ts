@@ -53,18 +53,27 @@ function speakingSlug(unit: ScenarioUnit): string {
 
 const CHAIN_FIELDS = ['requirements', 'tasks', 'useCases', 'classes', 'methods', 'implementations', 'tests', 'children'];
 
-function renderChainLinkMd(ior: string): string {
+export type SlugResolver = (uuid: string) => { slug: string; type: string; name: string } | null;
+
+let _activeResolver: SlugResolver | undefined;
+export function setActiveResolver(r: SlugResolver | undefined): void { _activeResolver = r; }
+
+function renderChainLinkMd(ior: string, resolve?: SlugResolver): string {
   const uuid = ior.replace('ior:instance:', '');
+  const info = resolve?.(uuid);
+  if (info) return `[🔗 ${info.name}](../sprints.md/${info.type}/${info.slug}.md)`;
   return `[🔗 ${uuid.slice(0, 8)}](../sprints.md/task/${uuid.slice(0, 8)}.md)`;
 }
 
-function renderChainLinkHtml(ior: string): string {
+function renderChainLinkHtml(ior: string, resolve?: SlugResolver): string {
   const uuid = ior.replace('ior:instance:', '');
+  const info = resolve?.(uuid);
+  if (info) return `<a href="/md/scenario/sprints.md/${info.type}/${info.slug}.md" class="chain-link">🔗 ${esc(info.name)}</a>`;
   return `<a href="/md/scenario/sprints.md/task/${uuid}.md" class="chain-link">🔗 ${esc(uuid.slice(0, 8))}</a>`;
 }
 
-export function renderChainSection(model: Record<string, unknown>, format: 'md' | 'html'): string {
-  const render = format === 'md' ? renderChainLinkMd : renderChainLinkHtml;
+export function renderChainSection(model: Record<string, unknown>, format: 'md' | 'html', resolve?: SlugResolver): string {
+  const render = (ior: string) => format === 'md' ? renderChainLinkMd(ior, resolve) : renderChainLinkHtml(ior, resolve);
   const sections: string[] = [];
   for (const field of CHAIN_FIELDS) {
     const arr = model[field] as string[] | undefined;
@@ -113,7 +122,7 @@ export const TaskTemplate: ViewTemplate = {
       `<div class="sv-header"><span class="sv-type-badge">Task</span><h2>${esc(String(m.name || ''))}</h2><code>${esc(String(m.uuid || ''))}</code></div>`,
     ];
     if (m.statusChecklist) sections.push(renderStatusHtml(String(m.statusChecklist)));
-    const chainHtml = renderChainSection(m, 'html');
+    const chainHtml = renderChainSection(m, 'html', _activeResolver);
     if (chainHtml) sections.push(chainHtml);
     if (m.remainingIssues) sections.push(`<div class="sv-section"><h3>Remaining Issues</h3><p>${esc(String(m.remainingIssues))}</p></div>`);
     if (m.traceability) sections.push(`<div class="sv-section"><h3>Traceability</h3><pre>${esc(String(m.traceability))}</pre></div>`);
@@ -129,7 +138,7 @@ export const TaskTemplate: ViewTemplate = {
     const m = s.model as Record<string, unknown>;
     const lines = [`# ${m.name || '(untitled)'}`, `[task:uuid:${m.uuid || ''}]`, ''];
     if (m.statusChecklist) lines.push('## Status', '', String(m.statusChecklist), '');
-    const chainMd = renderChainSection(m, 'md');
+    const chainMd = renderChainSection(m, 'md', _activeResolver);
     if (chainMd) lines.push(chainMd, '');
     if (m.remainingIssues) lines.push('## Remaining Issues', '', String(m.remainingIssues), '');
     if (m.traceability) lines.push('## Traceability', '', String(m.traceability), '');
@@ -147,11 +156,11 @@ export const RequirementTemplate: ViewTemplate = {
   renderHtml(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
     const status = m.statusChecklist ? renderStatusHtml(String(m.statusChecklist)) : '';
-    return `<div class="sv-requirement"><h3>${esc(String(m.name || ''))}</h3><p>${esc(String(m.description || ''))}</p><span class="sv-priority">${esc(String(m.priority || ''))}</span>${status}${renderChainSection(m, 'html')}</div>`;
+    return `<div class="sv-requirement"><h3>${esc(String(m.name || ''))}</h3><p>${esc(String(m.description || ''))}</p><span class="sv-priority">${esc(String(m.priority || ''))}</span>${status}${renderChainSection(m, 'html', _activeResolver)}</div>`;
   },
   renderMd(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
-    const chain = renderChainSection(m, 'md');
+    const chain = renderChainSection(m, 'md', _activeResolver);
     return `### ${m.name || '(untitled)'}\n\n${m.description || ''}\n\n**Priority:** ${m.priority || 'MEDIUM'}${chain ? '\n\n' + chain : ''}`;
   },
 };
@@ -160,11 +169,11 @@ export const SprintTemplate: ViewTemplate = {
   renderHtml(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
     const status = m.statusChecklist ? renderStatusHtml(String(m.statusChecklist)) : `<span class="sv-status">${esc(String(m.status || ''))}</span>`;
-    return `<div class="sv-sprint"><h2>${esc(String(m.name || ''))}</h2><p>${esc(String(m.goal || ''))}</p>${status}${renderChainSection(m, 'html')}</div>`;
+    return `<div class="sv-sprint"><h2>${esc(String(m.name || ''))}</h2><p>${esc(String(m.goal || ''))}</p>${status}${renderChainSection(m, 'html', _activeResolver)}</div>`;
   },
   renderMd(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
-    const chain = renderChainSection(m, 'md');
+    const chain = renderChainSection(m, 'md', _activeResolver);
     return `## ${m.name || '(untitled)'}\n\n${m.goal || ''}\n\n**Status:** ${m.status || 'PLANNED'}${chain ? '\n\n' + chain : ''}`;
   },
 };
@@ -174,13 +183,13 @@ export const UseCaseTemplate: ViewTemplate = {
     const m = s.model as Record<string, unknown>;
     const src = m.source as Record<string, unknown> | undefined;
     const srcHtml = src ? `<div class="sv-source"><a href="/edit/${esc(String(src.file || ''))}#L${(src.lines as number[])?.[0] || 1}">${esc(String(src.file || ''))}</a> <span class="sv-commit">@${esc(String(src.commit || ''))}</span></div>` : '';
-    return `<div class="sv-usecase"><h3>${esc(String(m.name || ''))}</h3><code>${esc(String(m.object || ''))}.${esc(String(m.verb || ''))}</code>${srcHtml}${renderChainSection(m, 'html')}</div>`;
+    return `<div class="sv-usecase"><h3>${esc(String(m.name || ''))}</h3><code>${esc(String(m.object || ''))}.${esc(String(m.verb || ''))}</code>${srcHtml}${renderChainSection(m, 'html', _activeResolver)}</div>`;
   },
   renderMd(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
     const src = m.source as Record<string, unknown> | undefined;
     const srcMd = src ? `\n\n**Source:** \`${src.file || ''}\` lines ${(src.lines as number[])?.[0] || '?'}-${(src.lines as number[])?.[1] || '?'} @${src.commit || '?'}` : '';
-    const chain = renderChainSection(m, 'md');
+    const chain = renderChainSection(m, 'md', _activeResolver);
     return `### ${m.name || '(untitled)'}\n\n\`${m.object || ''}.${m.verb || ''}\`${srcMd}${chain ? '\n\n' + chain : ''}`;
   },
 };
@@ -188,11 +197,11 @@ export const UseCaseTemplate: ViewTemplate = {
 export const ClassTemplate: ViewTemplate = {
   renderHtml(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
-    return `<div class="sv-class"><h3>${esc(String(m.name || ''))}</h3><code>${esc(String(m.file || ''))}</code>${renderChainSection(m, 'html')}</div>`;
+    return `<div class="sv-class"><h3>${esc(String(m.name || ''))}</h3><code>${esc(String(m.file || ''))}</code>${renderChainSection(m, 'html', _activeResolver)}</div>`;
   },
   renderMd(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
-    const chain = renderChainSection(m, 'md');
+    const chain = renderChainSection(m, 'md', _activeResolver);
     return `### ${m.name || '(untitled)'}\n\n**File:** \`${m.file || ''}\`${chain ? '\n\n' + chain : ''}`;
   },
 };
@@ -200,11 +209,11 @@ export const ClassTemplate: ViewTemplate = {
 export const MethodTemplate: ViewTemplate = {
   renderHtml(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
-    return `<div class="sv-method"><h3>${esc(String(m.name || ''))}</h3>${renderChainSection(m, 'html')}</div>`;
+    return `<div class="sv-method"><h3>${esc(String(m.name || ''))}</h3>${renderChainSection(m, 'html', _activeResolver)}</div>`;
   },
   renderMd(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
-    const chain = renderChainSection(m, 'md');
+    const chain = renderChainSection(m, 'md', _activeResolver);
     return `### ${m.name || '(untitled)'}${chain ? '\n\n' + chain : ''}`;
   },
 };
@@ -212,11 +221,11 @@ export const MethodTemplate: ViewTemplate = {
 export const TestTemplate: ViewTemplate = {
   renderHtml(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
-    return `<div class="sv-test"><h3>${esc(String(m.name || ''))}</h3><span class="sv-status">${esc(String(m.status || ''))}</span><code>${esc(String(m.file || ''))}</code>${renderChainSection(m, 'html')}</div>`;
+    return `<div class="sv-test"><h3>${esc(String(m.name || ''))}</h3><span class="sv-status">${esc(String(m.status || ''))}</span><code>${esc(String(m.file || ''))}</code>${renderChainSection(m, 'html', _activeResolver)}</div>`;
   },
   renderMd(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
-    const chain = renderChainSection(m, 'md');
+    const chain = renderChainSection(m, 'md', _activeResolver);
     return `### ${m.name || '(untitled)'}\n\n**Status:** ${m.status || 'PENDING'} · **File:** \`${m.file || ''}\`${chain ? '\n\n' + chain : ''}`;
   },
 };

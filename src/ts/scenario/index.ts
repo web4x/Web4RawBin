@@ -5,7 +5,7 @@
 export { type ScenarioUnit, type ClassLoader, type IORType, parseIor, iorClass, iorInstance, iorFile } from './types.js';
 export { ClassRegistry, SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader } from './classes.js';
 export { ScenarioIndex } from './index-store.js';
-export { type ViewTemplate, ViewTemplateRegistry, TaskTemplate, RequirementTemplate, SprintTemplate, UseCaseTemplate, ClassTemplate, MethodTemplate, TestTemplate, defaultTemplateRegistry, renderStatusHtml, renderChainSection } from './templates.js';
+export { type ViewTemplate, type SlugResolver, ViewTemplateRegistry, TaskTemplate, RequirementTemplate, SprintTemplate, UseCaseTemplate, ClassTemplate, MethodTemplate, TestTemplate, defaultTemplateRegistry, renderStatusHtml, renderChainSection, setActiveResolver } from './templates.js';
 export { ViewGenerator } from './generator.js';
 export { IORResolver, type IORResolution } from './ior-resolver.js';
 export { type TaskState, TASK_STATES, STATE_SYMBOLS, TRANSITIONS, startRefinement, startCreatingTestCases, startImplementing, startTesting, requestQAReview, tronApprove, resetToPlanned, canTransition } from './task-fsm.js';
