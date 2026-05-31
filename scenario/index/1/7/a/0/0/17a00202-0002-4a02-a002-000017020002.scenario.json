@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "17a00202-0002-4a02-a002-000017020002",
+    "name": "tree.generateMd",
+    "object": "",
+    "verb": "",
+    "tasks": [],
+    "classes": [],
+    "requirement": null
+  },
+  "ownerIor": "ior:instance:769df145-73dc-4334-b3b8-d1ffed7a582d"
+}

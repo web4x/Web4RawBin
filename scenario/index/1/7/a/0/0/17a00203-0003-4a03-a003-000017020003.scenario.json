@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "17a00203-0003-4a03-a003-000017020003",
+    "name": "tree.navigate",
+    "object": "",
+    "verb": "",
+    "tasks": [],
+    "classes": [],
+    "requirement": null
+  },
+  "ownerIor": "ior:instance:769df145-73dc-4334-b3b8-d1ffed7a582d"
+}

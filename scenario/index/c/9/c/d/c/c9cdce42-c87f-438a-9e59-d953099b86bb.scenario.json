@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "c9cdce42-c87f-438a-9e59-d953099b86bb",
+    "name": "T136: Migration extension for Requirement + UseCase units (T128 extension)",
+    "slug": "task-136-migration-extension-req-uc",
+    "description": "T128.1 currently emits **Task** units + light **impl** markers. The full\nclass set per T125.2 includes Requirement, UseCase, Class, Method, Test\nalongside Task and Sprint. To realize R17.14 fully (migrate all existing\nsprints+tasks+requirements), T128 must also emit:\n\n- **Requirement** units — one per `requirements.md` entry across S10-S17 (and S1-S9 once their requirements are formalized via T135). model carries verbatim Tron quote + v4 uuid + ownerIor (the Sprint that hosts the requirements.md).\n- **UseCase** units — one per `<<UseCase>>` instance in `*-usecases.puml` (T117 made these first-class in PUML; T136 makes them first-class in the scenario index). ownerIor = the Sprint (or task) that authored the puml.\n\nCross-link semantics:\n- Requirement → Task links (the existing `→ T<n>` in requirements.md) become TraceLink units (T134) on commit.\n- UseCase → Task / UseCase → Method links (from puml chain blocks) become TraceLink units too.",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement (req → architect)\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
+    "remainingIssues": "",
+    "traceability": "`[task:uuid:c9cdce42-c87f-438a-9e59-d953099b86bb]`\n\n- up\n  - [Sprint 17 Planning](./planning.md)\n  - **requirement:** `[requirement:uuid:024c7b8f-f314-4745-a998-85b87cd09b09]` —\n    \"T128 migration extension: emit Requirement + UseCase units (currently\n    only Task + impl emitted; Requirement entries in `requirements.md` and\n    UseCase entries in `*-usecases.puml` need to land as scenario.json units\n    in scenario/index/ with proper IOR + ownerIor wiring).\" (Tron via PO\n    2026-05-31; req-eng to anchor verbatim Tron quote here.)\n- down\n  - None (atomic — single migration-tooling extension)\n- follows\n  - [T128: Migration parent](./task-128-migration.md) — T136 extends T128.1's migrate-to-scenario script\n  - [T125.2: 7-class system](./task-125-foundation.md) — Requirement + UseCase are already classes; T136 makes the migration emit them\n- chain\n  - **requirement:** r136 migration extension for Requirement+UseCase (Tron 2026-05-31)\n  - **use case:** migrate.requirement, migrate.useCase, migrate.linkBack (architect adds to s17-usecases.puml)\n  - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml)\n  - **class/method:** `scripts/migrate-to-scenario.ts` (extend) + `src/ts/scenario/classes.ts` (Requirement+UseCase emit helpers if needed)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [ ] AC1 — `migrate-to-scenario.ts` extended with `--include-requirements` + `--include-usecases` flags (or default-on; architect picks)\n- [ ] AC2 — Running migration on Sprint 1 emits all Requirement + UseCase units from its sources; round-trip via IOR.resolve()\n- [ ] AC3 — TraceLink units emitted for every `Requirement → Task` and `UseCase → {Task, Method}` cross-reference\n- [ ] AC4 — Idempotent: re-running on the same sources does not duplicate units (existing v4 uuid used as index key)\n- [ ] AC5 — T128.1 exemplar regenerated cleanly with the extension; `scenario/sprints.md/` tree now includes `/requirement/` + `/useCase/` peers to `/task/`\n- [ ] AC6 — `npm run trace:check` clean (no new orphans); graph object count grows by the emitted reqs+UCs\n- [ ] AC7 — `npm run build` + suite passes; rule-pair: (a)+(b) per #15 (data emission counts as user-visible since /md/ and /trace will surface the new units); (c) STATIC_SHELL exempt unless new route",
+    "qaAudit": "- 2026-05-31: Tron via PO directed S17 2nd extension. CMM4 4-role enforced. Awaiting req anchor + architect design.",
+    "subtasks": "Architect may split into T136.1 (Requirement parser), T136.2 (UseCase parser), T136.3 (TraceLink hook), T136.4 (idempotency + integration test) — decision at refinement.\n\n---\n\n*Sprint 17 — Scenario Units / IOR Data Model & Class Views · Phase 7 (S17 2nd extension)*\n*Owners (CMM4): robbin-req (req anchor), robbin-architect (design lead), robbin-expert (impl), robbin-tester (verify)*\n*Priority: 2 (completes T128 coverage — required for T129 full-graph verification)*",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "- **Requires:** T128 (migration parent), T125 (classes), T126 (Requirement+UseCase templates), T134 (TraceLink for cross-references), T135 (req-audit cleans the source)\n- **Enables:** T128.2/.3 closed/active batches can run with full coverage; T129 re-verification with reduced allowlist",
+    "definitionOfDone": "- [ ] All AC met; sub-tasks committed\n- [ ] Rule-pair held\n- [ ] Tron QA approved",
+    "implementation": "",
+    "testScenarios": "| Test | Action | Expected |\n|------|--------|----------|\n| TS1 | Migrate Sprint 1 with --include-requirements --include-usecases | scenario/index has Requirement + UseCase units |\n| TS2 | Re-run migration on same input | No duplicates; same uuids |\n| TS3 | IOR.resolve(\"requirement:<uuid>\") for a migrated req | Returns the Requirement unit with verbatim Tron quote |\n| TS4 | trace-cli check post-migration | Orphan-req count decreases; orphan-UC count decreases |\n| TS5 | Browse /md/scenarios/sprints.md/sprint-1/requirement/ | Generated MD views render per the Requirement template |",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:769df145-73dc-4334-b3b8-d1ffed7a582d"
+}

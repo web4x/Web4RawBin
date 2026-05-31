@@ -14,8 +14,9 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import { ScenarioIndex, defaultTemplateRegistry, ViewGenerator, type ScenarioUnit } from '../src/ts/scenario/index.js';
+import { ScenarioIndex, defaultTemplateRegistry, ViewGenerator, createTraceLink, type ScenarioUnit } from '../src/ts/scenario/index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRINTS_DIR = path.join(__dirname, '../scrum.pmo/sprints');
@@ -172,6 +173,85 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
     };
     idx.put(t.uuid, taskUnit);
     console.log(`  Created task unit: ${t.uuid} — ${t.name}`);
+  }
+
+  // T136: migrate Requirements from requirements.md
+  const taskBySlug = new Map<string, ParsedTask>();
+  for (const t of tasks) taskBySlug.set(t.slug, t);
+  const taskNumToUuid = new Map<string, string>();
+  for (const t of tasks) {
+    const m = t.slug.match(/^task-(\d+(?:\.\d+)*)/);
+    if (m) taskNumToUuid.set(m[1], t.uuid);
+  }
+
+  const reqFile = path.join(sprintDir, 'requirements.md');
+  const reqUuids: string[] = [];
+  if (fs.existsSync(reqFile)) {
+    const reqText = fs.readFileSync(reqFile, 'utf-8');
+    const blocks = reqText.split(/(?=\[requirement:uuid:)/i);
+    for (const block of blocks) {
+      const rm = block.match(/\[requirement:uuid:([0-9a-f-]{36})\]/i);
+      if (!rm) continue;
+      const reqUuid = rm[1].toLowerCase();
+      if (idx.has(reqUuid)) continue;
+      const titleLine = block.split('\n').map(s => s.trim()).find(s => s && !s.startsWith('[requirement'));
+      const title = (titleLine || 'requirement').replace(/^[-*]\s*\[.\]\s*/, '').slice(0, 120);
+      const reqUnit: ScenarioUnit = {
+        ior: 'ior:class:Requirement',
+        model: { uuid: reqUuid, name: title, description: block.trim(), tasks: [], tests: [] },
+        ownerIor: `ior:instance:${sprintUuid}`,
+      };
+      idx.put(reqUuid, reqUnit);
+      reqUuids.push(reqUuid);
+      console.log(`  Created requirement unit: ${reqUuid} — ${title}`);
+
+      const taskRefs = block.matchAll(/→\s*\[T?(\d+)[^\]]*\]\(\.\/task-[^)]+\)/gi);
+      for (const tr of taskRefs) {
+        const tUuid = taskNumToUuid.get(tr[1]);
+        if (tUuid) {
+          const linkId = crypto.createHash('sha256').update(reqUuid + tUuid + 'implements').digest('hex').slice(0, 8) + '-' + crypto.createHash('sha256').update(reqUuid + tUuid).digest('hex').slice(0, 4) + '-4' + crypto.createHash('sha256').update(tUuid + reqUuid).digest('hex').slice(0, 3) + '-a' + crypto.createHash('sha256').update(reqUuid + tUuid + 'x').digest('hex').slice(0, 3) + '-' + crypto.createHash('sha256').update(reqUuid + tUuid + 'link').digest('hex').slice(0, 12);
+          if (!idx.has(linkId)) {
+            const link = createTraceLink(reqUuid, 'requirement', tUuid, 'task', 'implements', { createdBy: 'migrate-to-scenario.ts' });
+            (link.model as Record<string, unknown>).uuid = linkId;
+            idx.put(linkId, link);
+          }
+        }
+      }
+    }
+  }
+
+  // T136: migrate UseCases from diagrams/*.puml
+  const diagDir = path.join(sprintDir, 'diagrams');
+  const ucUuids: string[] = [];
+  if (fs.existsSync(diagDir) && fs.statSync(diagDir).isDirectory()) {
+    for (const file of fs.readdirSync(diagDir)) {
+      if (!file.endsWith('.puml')) continue;
+      const pumlText = fs.readFileSync(path.join(diagDir, file), 'utf-8');
+      const ucRe = /class\s+"([^"]+)"\s+<<UseCase>>\s*\{([^}]+)\}/g;
+      for (const m of pumlText.matchAll(ucRe)) {
+        const ucName = m[1];
+        const body = m[2];
+        const ucUuidM = body.match(/\[uc:uuid:([0-9a-f-]{36})\]/i);
+        if (!ucUuidM) continue;
+        const ucUuid = ucUuidM[1].toLowerCase();
+        if (idx.has(ucUuid)) continue;
+        const objM = body.match(/object:\s*(\S+)/);
+        const verbM = body.match(/verb:\s*(\S+)/);
+        const taskM = body.match(/task:\s*T(\d+)/i);
+        const ucUnit: ScenarioUnit = {
+          ior: 'ior:class:UseCase',
+          model: { uuid: ucUuid, name: ucName, object: objM?.[1] || '', verb: verbM?.[1] || '', tasks: [], classes: [], requirement: null },
+          ownerIor: `ior:instance:${sprintUuid}`,
+        };
+        if (taskM) {
+          const tUuid = taskNumToUuid.get(taskM[1]);
+          if (tUuid) (ucUnit.model as Record<string, unknown>).tasks = [`ior:instance:${tUuid}`];
+        }
+        idx.put(ucUuid, ucUnit);
+        ucUuids.push(ucUuid);
+        console.log(`  Created usecase unit: ${ucUuid} — ${ucName}`);
+      }
+    }
   }
 
   // Symlink tree: scenario/sprints.json/<sprint>/<slug>.json → ../../index/<5char>/<uuid>.scenario.json

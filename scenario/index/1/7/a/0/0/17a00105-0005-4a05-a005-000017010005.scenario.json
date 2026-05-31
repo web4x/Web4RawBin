@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "17a00105-0005-4a05-a005-000017010005",
+    "name": "index.get",
+    "object": "",
+    "verb": "",
+    "tasks": [],
+    "classes": [],
+    "requirement": null
+  },
+  "ownerIor": "ior:instance:769df145-73dc-4334-b3b8-d1ffed7a582d"
+}

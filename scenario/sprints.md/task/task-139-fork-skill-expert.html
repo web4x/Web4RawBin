@@ -1,0 +1,48 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T139: fork skill-expert from expert (PO decision; agent-trainer executes)</h2><code>82ec736c-8106-424d-b953-d0323679de8c</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-unchecked">⬜ Planned</li><li class="sv-unchecked">⬜ In Progress</li><ul class="sv-substeps"><li class="sv-unchecked">⬜ refinement (PO + agent-trainer — decision pending)</li><li class="sv-unchecked">⬜ creating test cases</li><li class="sv-unchecked">⬜ implementing</li><li class="sv-unchecked">⬜ testing</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>`[task:uuid:82ec736c-8106-424d-b953-d0323679de8c]`
+
+- up
+  - [Sprint 17 Planning](./planning.md)
+  - **requirement:** `[requirement:uuid:9dedeb00-6038-4c43-bcd4-efab99792be1]` —
+    &quot;Fork a new `robbin-skill-expert` agent from `robbin-expert`, focused on
+    implementing + maintaining the scenario-unit skill verb-set (T138 + future
+    skills). PO decides timing + scope; agent-trainer executes the SKILL.md
+    fork.&quot; (Tron via PO 2026-05-31; req-eng to anchor verbatim Tron quote
+    here.)
+- down
+  - None (atomic role-creation task)
+- follows
+  - [T138: skill set on scenarios](./task-138-skill-set-scenarios.md) — T138 ships the verbs; T139 dedicates a maintainer
+  - [T137: req+planner learn scenarios](./task-137-req-planner-learn-scenarios.md) — T139 follows the same role-evolution pattern
+- chain
+  - **requirement:** r139 fork skill-expert (Tron 2026-05-31)
+  - **use case:** agentTrainer.forkRole, role.boot (architect adds to s17-usecases.puml)
+  - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml)
+  - **class/method:** new `~/.claude/agents/robbin-skill-expert/SKILL.md`; updates to `hiveMind` / role registry; possibly a new tmux pane</pre></div>
+<div class="sv-section"><h3>Task Description</h3><p>Tron's directive: fork `robbin-skill-expert` from `robbin-expert`. PO holds
+the decision on:
+- **When** — likely after T138 lands (the verb-set the new role will own)
+- **Scope** — owns the skill verbs (T138 + future T138-derivatives) and any
+  follow-on scenario-skill modules; does NOT own general expert work
+  (those stay with robbin-expert)
+- **Naming + pane** — `robbin-skill-expert`, dedicated tmux pane (e.g.
+  robbinTeam:0.4 or a window:2 slot)
+- **Boot SKILL.md** — agent-trainer clones robbin-expert/SKILL.md, removes
+  general expert responsibilities, adds skill-set focus + reading-list
+  pointing at T125/T133/T134/T138 + planner+req SKILL.md (per T137)</p></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [ ] AC1 — `~/.claude/agents/robbin-skill-expert/SKILL.md` exists, peer-reviewed by PO
+- [ ] AC2 — Agent boots in its assigned pane and reads its SKILL.md correctly (verified by tester)
+- [ ] AC3 — Agent can be addressed via `hiveMind send.enter robbin-skill-expert &quot;&lt;msg&gt;&quot;` and `otmux send &lt;pane&gt; &quot;&lt;msg&gt;&quot; Enter`
+- [ ] AC4 — Role registry / hiveMind knows the new agent (resolves name → pane correctly)
+- [ ] AC5 — Reading-list pointers (T125/T133/T134/T138/etc.) all resolve
+- [ ] AC6 — robbin-expert's SKILL.md updated to clarify that skill-set work is now skill-expert's domain (handoff documented)
+- [ ] AC7 — Rule-pair: SKILL.md authoring is docs-only — no version bump required (no client-served surface)</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-05-31: Tron via PO directed S17 2nd extension. PO holds fork decision; agent-trainer executes. CMM4 4-role with agent-trainer in the &quot;expert&quot; slot.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic role-fork task).
+
+---
+
+*Sprint 17 — Scenario Units / IOR Data Model &amp; Class Views · Phase 7 (S17 2nd extension)*
+*Owners: robbin-po (decision), agent-trainer (execute), robbin-req (req anchor), robbin-tester (verify)*
+*Priority: 5 (org evolution — depends on T138 to define what the new role owns)*</p></div></div>

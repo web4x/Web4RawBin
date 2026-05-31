@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "17a00102-0002-4a02-a002-000017010002",
+    "name": "ior.resolveClass",
+    "object": "",
+    "verb": "",
+    "tasks": [],
+    "classes": [],
+    "requirement": null
+  },
+  "ownerIor": "ior:instance:769df145-73dc-4334-b3b8-d1ffed7a582d"
+}

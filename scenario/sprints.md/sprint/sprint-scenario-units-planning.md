@@ -21,3 +21,8 @@
 - [ ] [T132: HTML status template fix](../task/task-132-html-status-template-fix.md)
 - [ ] [T133: Task state-machine + status methods](../task/task-133-task-state-machine.md)
 - [ ] [T134: Traceability-as-units (links as scenario.json with ln in referenced instances + MD/HTML views)](../task/task-134-traceability-as-units.md)
+- [ ] [T135: req-audit — formalize backlog Tron quotes req missed](../task/task-135-req-audit.md)
+- [ ] [T136: Migration extension for Requirement + UseCase units (T128 extension)](../task/task-136-migration-extension-req-uc.md)
+- [ ] [T137: req + planner LEARN scenarios for planning + update SKILL.md](../task/task-137-req-planner-learn-scenarios.md)
+- [ ] [T138: skill set on scenarios (capture-quote, propose-task, walk-chain)](../task/task-138-skill-set-scenarios.md)
+- [ ] [T139: fork skill-expert from expert (PO decision; agent-trainer executes)](../task/task-139-fork-skill-expert.md)
