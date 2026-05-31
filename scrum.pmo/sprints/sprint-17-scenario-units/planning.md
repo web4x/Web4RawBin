@@ -144,7 +144,7 @@ prose. Then **migrate every existing sprint** to this model.
 ### Phase 8 — S17 4th extension (Tron 2026-05-31 — traceability is a TREE) + B5 file-browser
 
 - [ ] 🧪 [T143: Traceability chain → TREE rework (R17.26–R17.29)](./task-143-traceability-tree-rework.md)
-  **Status:** impl-shipped (`84f3915` v0.5.37 — trace-tree module + clickable links + re-sectioned views) → tester verified (`6e2a532` — **AC1+AC4–AC7 PASS, AC2 PARTIAL**: UUID hrefs 404). AC2 fix pending → re-verify → Tron QA. Tron 4th S17 extension (`df09df2` + `ac8c8e7`).
+  **Status:** impl v0.5.37 (`84f3915`) → tester (`6e2a532`) AC1+AC4–AC7 PASS, **AC2 PARTIAL** (UUID hrefs 404) → architect AC2 fix (`fe69562` TraceNode.slug) → expert reship v0.5.39 (`4e79afa`) → tester re-verify (`8b54788`) **STILL FAIL** (templates.ts not using slug). **AC2 fix attempt 2 in progress (v0.5.40 uncommitted)** → re-verify → Tron QA. Tron 4th S17 extension (`df09df2` + `ac8c8e7`).
   **Owners (CMM4):** robbin-req (anchor verbatim quotes under R17.26–R17.29) → robbin-architect (tree model + template + ViewGenerator + coverage audit + rework plan) → robbin-expert (impl) → robbin-tester (chain-walk + visual + regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) STATIC_SHELL if new route introduced (architect decides)
 
