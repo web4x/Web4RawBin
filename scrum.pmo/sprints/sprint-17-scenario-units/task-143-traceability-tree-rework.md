@@ -279,6 +279,43 @@ Parent-child from TraceLink `contains`/`follows`. Symbols from FSM (T133):
 
 ### Scope: single commit-set, no sub-tasks
 
+### AC2 Fix: speaking-name href resolution (2026-06-01, per tester 6e2a532)
+
+**Bug:** `speakSlug()` in trace-tree.ts re-derives the slug from `TraceNode.name`, but `generator.ts:speakingName()` uses `model.slug` first (if present), then falls back to the same slugify. The generated filenames (e.g. `task-124.1-architect-data-model.md`) come from the generator's `speakingName()` — trace-tree's `speakSlug()` may produce a different result (e.g. `task-124-1-architect-data-model.md` without the dot).
+
+**Root cause:** `TraceNode` doesn't carry `model.slug`. The tree builder has access to the full unit via `allUnits.get(uuid)` but only copies `model.name`, losing `model.slug`.
+
+**Fix — 3 changes in trace-tree.ts:**
+
+1. Add `slug` field to `TraceNode`:
+```typescript
+export interface TraceNode {
+  uuid: string;
+  type: string;
+  name: string;
+  slug: string;      // NEW — from model.slug || speakSlug(model.name)
+  relation: string;
+  children: TraceNode[];
+}
+```
+
+2. Populate `slug` in `buildTraceTree` and `walkDown` from unit model:
+```typescript
+// In buildTraceTree (line 22) and walkDown (line 43):
+slug: (unit?.model.slug as string) || speakSlug((unit?.model.name as string) || ''),
+```
+
+3. Use `n.slug` (not `speakSlug(n.name)`) in both renderers:
+```typescript
+// renderNodeHtml (line 78):
+const href = `/md/scenario/sprints.md/${n.type}/${n.slug}.md`;
+
+// renderNodeMd (line 90):
+const line = `${indent}- ${rel}[🔗 ${n.name}](../sprints.md/${n.type}/${n.slug}.md)`;
+```
+
+**Result:** href matches exactly what `generator.ts:speakingName()` wrote to disk. No 404.
+
 ## Subtasks
 None (single commit-set as designed).
 
