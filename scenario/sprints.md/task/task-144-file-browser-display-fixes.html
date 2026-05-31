@@ -1,5 +1,5 @@
 <div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T144: File-browser display fixes — icon order + link targets (B5, 3 fixes)</h2><code>d03a73ff-0329-47a3-8610-bf5c18053221</code></div>
-<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement (req → architect — `4b65e79` architect design)</li><li class="sv-unchecked">⬜ creating test cases</li><li class="sv-checked">✅ implementing (`5da4054` v0.5.36 — rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME both bumped to v0.5.36)</li><li class="sv-unchecked">⬜ testing</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement (req → architect — `4b65e79` architect design)</li><li class="sv-checked">✅ creating test cases</li><li class="sv-checked">✅ implementing (`5da4054` v0.5.36 — rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME both bumped to v0.5.36)</li><li class="sv-checked">✅ testing</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
 <div class="sv-section"><h3>Traceability</h3><pre>`[task:uuid:d03a73ff-0329-47a3-8610-bf5c18053221]`
 
 - up
@@ -68,7 +68,26 @@ visually present but functionally broken.
 - [ ] AC5 — `rb-file-tree` component (if it renders these icons) stays consistent with `/md/` server-side rendering
 - [ ] AC6 — `npm run build` succeeds; all existing tests pass (no regression on T131 / T141)
 - [ ] AC7 — **Rule-pair (a)+(b) [learning #15+#16]:** `package.json` &quot;version&quot; bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing impl (no STATIC_SHELL change expected — no new route, but architect to confirm)</pre></div>
-<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-05-31: PO directed planner to stand up T144 immediately (no further reminder). Source: `2bfb64f` (req-eng B5 captured Tron's 3-in-1 directive into backlog). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17) — composite B5 uuid kept as req formalized + 3 sub-fix uuids generated for AC-level traceability; rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Awaiting req-eng confirmation → architect design → expert impl → tester verify → Tron QA.</p></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>### T144 Verification Report — robbin-tester 2026-06-01
+
+**Tested on:** `/md/scenario/sprints.json/sprint-2-identity-ssh/` + `/md/scenario/sprints.json/sprint-17-scenario-units/`
+
+| AC | Test | Result |
+|----|------|--------|
+| AC1 (B5a icon order) | Every row shows 🔗 then ✏️ | **PASS** — all S2+S17 rows confirmed `🔗` left of `✏️` |
+| AC2 (B5b 🔗 clickable) | 🔗 is `&lt;a href=&quot;/md/scenario/index/&lt;prefix&gt;/&lt;uuid&gt;.scenario.json&quot;&gt;` | **PARTIAL** — anchor exists + href correct, but `/md/` route returns **404** for `.scenario.json` files. `/edit/` route returns 200. The 🔗 target file exists on disk. |
+| AC3 (B5c json→MD) | `.json` filename click → `/md/scenario/sprints.md/task/&lt;speaking&gt;.md` | **PASS** — task-10-device-keys.json → 200, task-12-ssh-login.json → 200 |
+| AC4 (cross-class) | Verified on S2 (6 tasks) + S17 (21 tasks) | **PASS** — same pattern across both sprints |
+| AC6 (no regression) | 834/834 vitest | **PASS** |
+| AC7 (rule-pair) | v0.5.36 in package.json + sw.js | **PASS** |
+
+**BUG — AC2 partial (v0.5.36):** 🔗 href pointed to `/md/` which 404d on `.scenario.json`.
+**FIX — AC2 re-verify (0101980, v0.5.38):** 🔗 href now `/edit/scenario/index/&lt;prefix&gt;/&lt;uuid&gt;.scenario.json` → 200. All 3 ACs confirmed PASS on v0.5.38:
+- AC1: 🔗 before ✏️ — PASS
+- AC2: 🔗 → `/edit/...scenario.json` → HTTP 200 — **PASS**
+- AC3: .json filename → `/md/scenario/sprints.md/task/&lt;speaking&gt;.md` → HTTP 200 — PASS
+
+- 2026-05-31: PO directed planner to stand up T144 immediately (no further reminder). Source: `2bfb64f` (req-eng B5 captured Tron's 3-in-1 directive into backlog). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17) — composite B5 uuid kept as req formalized + 3 sub-fix uuids generated for AC-level traceability; rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Awaiting req-eng confirmation → architect design → expert impl → tester verify → Tron QA.</p></div>
 <div class="sv-section"><h3>Subtasks</h3><p>None (atomic task; 3 fixes are sub-ACs, not sub-tasks).
 
 ---

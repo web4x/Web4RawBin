@@ -6,9 +6,9 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement (req → architect — `4b65e79` architect design)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
@@ -122,6 +122,22 @@ formalized by req-eng in `ac8c8e7`) re-shapes traceability:
   all sprint-17 units after the rework
 
 ## QA Audit & User Feedback
+
+### T143 Verification Report — robbin-tester 2026-06-01
+
+**Tested on:** task-124-architecture.html (task w/ children), sprint-scenario-units.html (sprint), unit-load.html (usecase)
+
+| AC | Check | Result |
+|----|------|--------|
+| AC1 | Section renamed Chain→Traceability, sv-trace-tree class, walkUp/walkDown in trace-tree.ts | **PASS** |
+| AC2 | Links now have `href` attrs (was bare `<a>` in T141). Relation labels present ("Children", "Tasks") | **PARTIAL** — hrefs use UUID filenames (`e83d47a1.md`) but generated views use speaking names (`task-124.1-architect-data-model.md`). **Links 404.** |
+| AC4 | planning.md uses tree (nested ul/li visible in generated planning.md) | **PASS** |
+| AC5 | Existing views re-render (T124 has 3 children, sprint has 22 tasks) | **PASS** (structure present) |
+| AC6 | 834/834 vitest | **PASS** |
+| AC7 | v0.5.37 in package.json + sw.js | **PASS** |
+| CSS | `.sv-trace-tree ul` + `.sv-trace-tree li` in app.css | **PASS** |
+
+**BUG — AC2 partial:** chain-link hrefs resolve to UUID-based filenames (`/md/scenario/sprints.md/task/<uuid>.md`) which don't exist. Generated views use speaking names (`task-124.1-architect-data-model.md`). 3/3 sampled links 404. Expert needs to resolve UUIDs to speaking-name paths in `renderTraceTreeHtml`.
 
 - 2026-05-31: PO directed planner to stand up T143 immediately (no further reminder). Sources: `df09df2` (Tron capture) + `ac8c8e7` (req formalization R17.26–R17.29). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Awaiting req-eng verbatim anchor → architect design → expert impl → tester verify → Tron QA.
 

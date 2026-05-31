@@ -6,9 +6,9 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement (req → architect — `4b65e79` architect design)
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing (`5da4054` v0.5.36 — rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME both bumped to v0.5.36)
-  - [ ] testing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
@@ -95,6 +95,25 @@ visually present but functionally broken.
 - [ ] AC7 — **Rule-pair (a)+(b) [learning #15+#16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing impl (no STATIC_SHELL change expected — no new route, but architect to confirm)
 
 ## QA Audit & User Feedback
+
+### T144 Verification Report — robbin-tester 2026-06-01
+
+**Tested on:** `/md/scenario/sprints.json/sprint-2-identity-ssh/` + `/md/scenario/sprints.json/sprint-17-scenario-units/`
+
+| AC | Test | Result |
+|----|------|--------|
+| AC1 (B5a icon order) | Every row shows 🔗 then ✏️ | **PASS** — all S2+S17 rows confirmed `🔗` left of `✏️` |
+| AC2 (B5b 🔗 clickable) | 🔗 is `<a href="/md/scenario/index/<prefix>/<uuid>.scenario.json">` | **PARTIAL** — anchor exists + href correct, but `/md/` route returns **404** for `.scenario.json` files. `/edit/` route returns 200. The 🔗 target file exists on disk. |
+| AC3 (B5c json→MD) | `.json` filename click → `/md/scenario/sprints.md/task/<speaking>.md` | **PASS** — task-10-device-keys.json → 200, task-12-ssh-login.json → 200 |
+| AC4 (cross-class) | Verified on S2 (6 tasks) + S17 (21 tasks) | **PASS** — same pattern across both sprints |
+| AC6 (no regression) | 834/834 vitest | **PASS** |
+| AC7 (rule-pair) | v0.5.36 in package.json + sw.js | **PASS** |
+
+**BUG — AC2 partial (v0.5.36):** 🔗 href pointed to `/md/` which 404d on `.scenario.json`.
+**FIX — AC2 re-verify (0101980, v0.5.38):** 🔗 href now `/edit/scenario/index/<prefix>/<uuid>.scenario.json` → 200. All 3 ACs confirmed PASS on v0.5.38:
+- AC1: 🔗 before ✏️ — PASS
+- AC2: 🔗 → `/edit/...scenario.json` → HTTP 200 — **PASS**
+- AC3: .json filename → `/md/scenario/sprints.md/task/<speaking>.md` → HTTP 200 — PASS
 
 - 2026-05-31: PO directed planner to stand up T144 immediately (no further reminder). Source: `2bfb64f` (req-eng B5 captured Tron's 3-in-1 directive into backlog). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17) — composite B5 uuid kept as req formalized + 3 sub-fix uuids generated for AC-level traceability; rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Awaiting req-eng confirmation → architect design → expert impl → tester verify → Tron QA.
 

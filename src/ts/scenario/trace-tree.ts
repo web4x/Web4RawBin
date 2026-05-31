@@ -10,6 +10,7 @@ export interface TraceNode {
   uuid: string;
   type: string;
   name: string;
+  slug: string;
   relation: string;
   children: TraceNode[];
 }
@@ -20,6 +21,7 @@ export function buildTraceTree(rootUuid: string, allLinks: ScenarioUnit[], allUn
     uuid: rootUuid,
     type: unit?.ior.replace('ior:class:', '').toLowerCase() || 'unknown',
     name: (unit?.model.name as string) || rootUuid.slice(0, 8),
+    slug: (unit?.model.slug as string) || speakSlug((unit?.model.name as string) || rootUuid),
     relation: '',
     children: walkDown(rootUuid, allLinks, allUnits),
   };
@@ -41,6 +43,7 @@ export function walkDown(uuid: string, allLinks: ScenarioUnit[], allUnits: Map<s
       uuid: toUuid,
       type: target?.ior.replace('ior:class:', '').toLowerCase() || 'unknown',
       name: (target?.model.name as string) || toUuid.slice(0, 8),
+      slug: (target?.model.slug as string) || speakSlug((target?.model.name as string) || toUuid),
       relation: String(m.relation || ''),
       children: walkDown(toUuid, allLinks, allUnits, visited),
     });
@@ -63,6 +66,7 @@ export function walkUp(uuid: string, allLinks: ScenarioUnit[], allUnits: Map<str
       uuid: fromUuid,
       type: source?.ior.replace('ior:class:', '').toLowerCase() || 'unknown',
       name: (source?.model.name as string) || fromUuid.slice(0, 8),
+      slug: (source?.model.slug as string) || speakSlug((source?.model.name as string) || fromUuid),
       relation: String(m.relation || ''),
       children: walkUp(fromUuid, allLinks, allUnits, visited),
     });
@@ -75,8 +79,7 @@ function speakSlug(name: string): string {
 }
 
 function renderNodeHtml(n: TraceNode): string {
-  const slug = speakSlug(n.name);
-  const href = `/md/scenario/sprints.md/${n.type}/${slug}.md`;
+  const href = `/md/scenario/sprints.md/${n.type}/${n.slug}.md`;
   const link = `<a href="${href}" class="chain-link">🔗 ${esc(n.name)}</a>`;
   const rel = n.relation ? `<span class="sv-relation">${esc(n.relation)}</span> ` : '';
   if (!n.children.length) return `<li>${rel}${link}</li>`;
@@ -84,10 +87,9 @@ function renderNodeHtml(n: TraceNode): string {
 }
 
 function renderNodeMd(n: TraceNode, depth = 0): string {
-  const slug = speakSlug(n.name);
   const indent = '  '.repeat(depth);
   const rel = n.relation ? `${n.relation}: ` : '';
-  const line = `${indent}- ${rel}[🔗 ${n.name}](../sprints.md/${n.type}/${slug}.md)`;
+  const line = `${indent}- ${rel}[🔗 ${n.name}](../sprints.md/${n.type}/${n.slug}.md)`;
   const childLines = n.children.map(c => renderNodeMd(c, depth + 1));
   return [line, ...childLines].join('\n');
 }
