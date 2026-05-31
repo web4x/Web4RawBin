@@ -71,7 +71,9 @@ function parseTaskFile(filePath: string, slug: string): ParsedTask | null {
   const childMatches = text.matchAll(/\[(?:Task )?\d+\.\d+[^\]]*\]\(\.\/([^)]+)\.md\)/g);
   for (const cm of childMatches) children.push(cm[1]);
 
-  return { uuid: uuidMatch[1].toLowerCase(), slug, name, sections, status, statusChecklist: statusBlock, description, children } as ParsedTask & { description: string };
+  const taskNum = slug.match(/^task-(\d+(?:\.\d+)*)/)?.[1] || '';
+
+  return { uuid: uuidMatch[1].toLowerCase(), slug, name, sections, status, statusChecklist: statusBlock, description, children, taskNum } as ParsedTask & { description: string; taskNum: string };
 }
 
 function migrateSprint(sprintSlug: string, dryRun: boolean): void {
@@ -86,6 +88,19 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
     const parsed = parseTaskFile(path.join(sprintDir, file), slug);
     if (parsed) tasks.push(parsed);
     else console.log(`  SKIP (no uuid): ${file}`);
+  }
+
+  // Infer parent-child by slug pattern: task-3 is parent of task-3.4
+  for (const parent of tasks) {
+    const pNum = (parent as any).taskNum as string;
+    if (!pNum) continue;
+    for (const child of tasks) {
+      const cNum = (child as any).taskNum as string;
+      if (!cNum || cNum === pNum) continue;
+      if (cNum.startsWith(pNum + '.') && !cNum.slice(pNum.length + 1).includes('.')) {
+        if (!parent.children.includes(child.slug)) parent.children.push(child.slug);
+      }
+    }
   }
 
   console.log(`\nSprint: ${sprintSlug}`);
