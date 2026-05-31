@@ -136,6 +136,11 @@ prose. Then **migrate every existing sprint** to this model.
   **Owners:** robbin-po (decision) + agent-trainer (execute) + robbin-req (anchor) + robbin-tester (boot verify)
   **Rule-pair scope:** docs-only (SKILL.md authoring) — no bump
 
+- [ ] ⏳ [T141: chain-link icon → sprints.json symlink in generated MD views](./task-141-chain-link-icon-symlinks.md)
+  **Status:** PLANNED — Tron via PO 2026-05-31. Generated MD views render `🔗 [Speaking Name](sprints.json/...)` on every cross-reference; UseCase template first, architect decides extend-to-all-7-templates scope.
+  **Owners (CMM4):** robbin-req (req anchor) → robbin-architect (icon + helper + scope decision) → robbin-expert (impl) → robbin-tester (visual + click-through verify)
+  **Rule-pair scope:** (a)+(b) required at impl (T126 output served via /md/); (c) exempt (no new route)
+
 ### Phase 6 — Verification (T129, tester + planner)
 
 - [ ] 🧪 [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)
