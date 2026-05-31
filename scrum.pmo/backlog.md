@@ -8,7 +8,20 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
-_None._
+- **B3 — Profile gate: Upload vCard for fast onboarding (button + native drag-and-drop)**
+  [requirement:uuid:a3b4c5d6-e7f8-4a9b-0c1d-2e3f4a5b6c7d]
+  > TRON DIRECTIVE: "on first time connect we have to fill out profile. add a upload vcard button at the top to speed up onboarding and initialize from the card. can be dropped natively from os drag and drop eg on iphone but also android and windows."
+
+  Two input methods:
+  1. **Upload button** at the TOP of the first-time-connect profile gate — user selects a .vcf file
+  2. **Native OS drag-and-drop** — user drags a .vcf from the OS (iOS, Android, Windows) onto the form
+
+  Both pre-fill profile fields from the vCard: FN→name, TEL→phone, URL→url, PHOTO→avatar.
+
+  **Multi-platform AC (from Tron):** must work on iOS, Android, AND Windows native drag-and-drop.
+
+  **Sprint:** TBD (planner to triage)
+  **Touches:** ProfileEditor.ts (gate mode), vCard V3.0 parsing (new — currently only exports, never imports), HTML5 drag-and-drop API, mobile share-sheet / file-drop handling
 
 ### Triaged out
 - **B2 — E2E test runs flood `data/` with orphan users/rooms** — **PROMOTED 2026-05-29**
