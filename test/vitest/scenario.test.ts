@@ -15,6 +15,7 @@ import {
   ViewTemplateRegistry, TaskTemplate, defaultTemplateRegistry, renderStatusHtml,
   ViewGenerator,
   IORResolver,
+  startRefinement, startImplementing, startTesting, requestQAReview, tronApprove, canTransition, resetToPlanned,
   type ScenarioUnit,
 } from '../../src/ts/scenario/index.js';
 
@@ -222,5 +223,42 @@ describe('T132: renderStatusHtml', () => {
 
   it('returns empty for empty checklist', () => {
     expect(renderStatusHtml('')).toBe('');
+  });
+});
+
+describe('T133: Task state machine', () => {
+  function mkTask(status = 'Planned'): ScenarioUnit {
+    return { ior: 'ior:class:Task', model: { uuid: 'x', status }, ownerIor: null };
+  }
+
+  it('happy path: Planned → Refining → Implementing → Testing → QAReview → Done', () => {
+    const t = mkTask();
+    startRefinement(t); expect(t.model.status).toBe('Refining');
+    startImplementing(t); expect(t.model.status).toBe('Implementing');
+    startTesting(t); expect(t.model.status).toBe('Testing');
+    requestQAReview(t); expect(t.model.status).toBe('QAReview');
+    tronApprove(t, 'abc123'); expect(t.model.status).toBe('Done');
+    expect((t.model as any).tronApprovalCommit).toBe('abc123');
+  });
+
+  it('rejects invalid transition', () => {
+    const t = mkTask('Planned');
+    expect(() => startTesting(t)).toThrow(/Cannot transition/);
+  });
+
+  it('tronApprove requires commit ref', () => {
+    const t = mkTask('QAReview');
+    expect(() => tronApprove(t, '')).toThrow(/requires a Tron commit ref/);
+  });
+
+  it('canTransition checks allowed targets', () => {
+    const t = mkTask('Implementing');
+    expect(canTransition(t, 'Testing')).toBe(true);
+    expect(canTransition(t, 'Done')).toBe(false);
+  });
+
+  it('resetToPlanned works from any state', () => {
+    const t = mkTask('Testing');
+    resetToPlanned(t); expect(t.model.status).toBe('Planned');
   });
 });

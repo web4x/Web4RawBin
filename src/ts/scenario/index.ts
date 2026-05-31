@@ -8,3 +8,4 @@ export { ScenarioIndex } from './index-store.js';
 export { type ViewTemplate, ViewTemplateRegistry, TaskTemplate, RequirementTemplate, SprintTemplate, UseCaseTemplate, ClassTemplate, MethodTemplate, TestTemplate, defaultTemplateRegistry, renderStatusHtml } from './templates.js';
 export { ViewGenerator } from './generator.js';
 export { IORResolver, type IORResolution } from './ior-resolver.js';
+export { type TaskState, TASK_STATES, STATE_SYMBOLS, TRANSITIONS, startRefinement, startCreatingTestCases, startImplementing, startTesting, requestQAReview, tronApprove, resetToPlanned, canTransition } from './task-fsm.js';
