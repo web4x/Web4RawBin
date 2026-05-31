@@ -1,9 +1,11 @@
 ### > TRON: "uuid identified instances are units in a data directory in scenario/index in which has folders from the first 5
 
-[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000004]
-  > TRON: "uuid identified instances are units in a data directory in scenario/index in which has folders from the first 5 characters of the uuid and there stores the original uuid.scenario.json."
-  → [T124.3](./task-124.3-architect-storage-layout.md)
+<details><summary>Tron directive</summary>
 
-- [ ] **R17.5: Speaking-name tree (json) — symlink tree with human names**
+> [requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000004]
+>   > TRON: "uuid identified instances are units in a data directory in scenario/index in which has folders from the first 5 characters of the uuid and there stores the original uuid.scenario.json."
+>   → [T124.3](./task-124.3-architect-storage-layout.md)
+> 
+> - [ ] **R17.5: Speaking-name tree (json) — symlink tree with human names**
 
-**Priority:** MEDIUM
+</details>

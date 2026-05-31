@@ -234,6 +234,13 @@ export function validate(graph: TraceGraph, coverage: TaskCoverage[]): Issue[] {
       issues.push({ level: 'warn', ref: `test:${t.uuid}`, reason: 'test has no linked requirement or method (chain gap)' });
     }
   }
+  // T146: requirement name format validation
+  for (const req of graph.ofType('requirement') as Requirement[]) {
+    const words = req.title.split(/\s+/).length;
+    if (words > 7) {
+      issues.push({ level: 'warn', ref: `requirement:${req.uuid}`, reason: `requirement name too long (${words} words, max 7)` });
+    }
+  }
   return issues;
 }
 

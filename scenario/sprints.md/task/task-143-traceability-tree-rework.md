@@ -141,6 +141,12 @@ formalized by req-eng in `ac8c8e7`) re-shapes traceability:
 **FIX ATTEMPT (4e79afa, v0.5.39):** trace-tree.ts TraceNode.slug populated correctly from unit model.slug. BUT templates.ts `renderChainLinkHtml`/`renderChainLinkMd` (L61-63) still uses raw UUID, not slug. The templates don't call trace-tree.ts — they use their own `renderChainSection`. Views regenerated (205 files) — still UUID hrefs.
 **ROOT CAUSE:** templates.ts `renderChainLinkHtml` at L63 does `${uuid}.md`, not `${slug}.md`. Fix needs to either (a) pass slug lookup into renderChainSection, or (b) switch templates to use trace-tree.ts renderers.
 **RE-VERIFY (v0.5.39):** AC2 still FAIL — 3/3 sampled links still 404.
+**FIX 2 (6f5cf89, v0.5.40):** renderChainLinkHtml/Md now use SlugResolver. Views regenerated.
+**RE-VERIFY (v0.5.40):** AC2 **PASS** — all chain-link hrefs use speaking names:
+- T124 HTML: `/md/.../task/task-124.1-architect-data-model.md` → 200 ✓
+- S1 sprint HTML: `/md/.../task/task-1-team-bootstrap.md` → 200 ✓
+- MD format: `[🔗 T124.1: Architect — Scenario-Unit + IOR Data Model](../sprints.md/task/task-124.1-architect-data-model.md)` ✓
+- 5/5 sampled links → HTTP 200, 0 UUID filenames, 0 dead anchors.
 
 - 2026-05-31: PO directed planner to stand up T143 immediately (no further reminder). Sources: `df09df2` (Tron capture) + `ac8c8e7` (req formalization R17.26–R17.29). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Awaiting req-eng verbatim anchor → architect design → expert impl → tester verify → Tron QA.
 

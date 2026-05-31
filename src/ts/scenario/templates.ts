@@ -155,13 +155,19 @@ export const TaskTemplate: ViewTemplate = {
 export const RequirementTemplate: ViewTemplate = {
   renderHtml(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
+    const name = esc(String(m.name || 'Untitled'));
+    const desc = esc(String(m.description || ''));
     const status = m.statusChecklist ? renderStatusHtml(String(m.statusChecklist)) : '';
-    return `<div class="sv-requirement"><h3>${esc(String(m.name || ''))}</h3><p>${esc(String(m.description || ''))}</p><span class="sv-priority">${esc(String(m.priority || ''))}</span>${status}${renderChainSection(m, 'html', _activeResolver)}</div>`;
+    const details = desc ? `<details><summary>Tron directive</summary><blockquote>${desc}</blockquote></details>` : '';
+    return `<div class="sv-requirement"><h3>${name}</h3>${details}${status}${renderChainSection(m, 'html', _activeResolver)}</div>`;
   },
   renderMd(s: ScenarioUnit): string {
     const m = s.model as Record<string, unknown>;
+    const name = String(m.name || '(untitled)');
+    const desc = String(m.description || '');
     const chain = renderChainSection(m, 'md', _activeResolver);
-    return `### ${m.name || '(untitled)'}\n\n${m.description || ''}\n\n**Priority:** ${m.priority || 'MEDIUM'}${chain ? '\n\n' + chain : ''}`;
+    const details = desc ? `\n\n<details><summary>Tron directive</summary>\n\n> ${desc.split('\n').join('\n> ')}\n\n</details>` : '';
+    return `### ${name}${details}${chain ? '\n\n' + chain : ''}`;
   },
 };
 

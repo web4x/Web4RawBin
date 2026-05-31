@@ -30,3 +30,5 @@
 - [ ] [T141: Chain-link icon → sprints.json symlink in generated MD views](../task/task-141-chain-link-icon-symlinks.md)
 - [ ] [T143: Traceability chain → TREE rework (R17.26–R17.29)](../task/task-143-traceability-tree-rework.md)
 - [ ] [T144: File-browser display fixes — icon order + link targets (B5, 3 fixes)](../task/task-144-file-browser-display-fixes.md)
+- [ ] [T145: User class as scenario-unit + ViewBus-driven view updates (fixes lobby/room name stale)](../task/task-145-user-scenario-viewbus.md)
+- [ ] [T146: Requirement-entry format reform — 3–5 word NAME first line + speaky-NAME on 🔗](../task/task-146-requirement-name-first-format.md)

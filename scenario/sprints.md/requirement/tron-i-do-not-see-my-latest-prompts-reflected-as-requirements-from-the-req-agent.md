@@ -1,9 +1,11 @@
 ### > TRON: "i do not see my latest prompts reflected as requirements from the req agent"
 
-[requirement:uuid:47a86209-e0bb-4142-a6ad-4fff94ff9921]
-  > TRON: "i do not see my latest prompts reflected as requirements from the req agent"
-  → [T135](./task-135-req-audit.md)
+<details><summary>Tron directive</summary>
 
-- [ ] **R17.20: Requirement + UseCase units in scenario index**
+> [requirement:uuid:47a86209-e0bb-4142-a6ad-4fff94ff9921]
+>   > TRON: "i do not see my latest prompts reflected as requirements from the req agent"
+>   → [T135](./task-135-req-audit.md)
+> 
+> - [ ] **R17.20: Requirement + UseCase units in scenario index**
 
-**Priority:** MEDIUM
+</details>
