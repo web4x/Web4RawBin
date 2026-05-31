@@ -12,10 +12,10 @@
 - [x] QA Review
 - [x] Done
 
-## Chain
+## Traceability
 
 **Children:**
-- 🔗 adf00ff5
+- [🔗 adf00ff5](../sprints.md/task/adf00ff5.md)
 
 
 ## Traceability

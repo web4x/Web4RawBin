@@ -5,8 +5,8 @@
     "name": "T141: Chain-link icon → sprints.json symlink in generated MD views",
     "slug": "task-141-chain-link-icon-symlinks",
     "description": "",
-    "status": "Planned",
-    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement (req → architect)\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
+    "status": "In Progress",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (req → architect)\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
     "remainingIssues": "",
     "traceability": "`[task:uuid:f0af3251-3884-4238-9159-7eeac15c46d6]`\n\n- up\n  - [Sprint 17 Planning](./planning.md)\n  - **requirement:** `[requirement:uuid:bdda9290-56d0-499a-8277-954bdb35e818]` —\n    \"Generated MD views should render a chain-link icon (🔗 or similar) on every\n    cross-reference, with the link pointing into the `scenarios/sprints.json/`\n    speaking-name symlink tree (not the raw UUID index). Start with the UseCase\n    template; architect decides whether to extend to all 7 class templates.\"\n    (Tron via PO 2026-05-31; req-eng to anchor the verbatim Tron quote here.)\n- down\n  - None (atomic task; may split if architect extends to all 7 templates)\n- follows\n  - [T126: Generated views](./task-126-views.md) — provides the 7 class templates this task extends\n  - [T131: File-browser symlink support](./task-131-file-browser-symlinks.md) — visibility of the symlink tree this task points into\n  - [T134: Traceability-as-units](./task-134-traceability-as-units.md) — source of the chain edges to render\n  - [T128.1: Sprint 1 exemplar migration](./task-128-migration.md) — supplies the live symlink tree to link into\n- chain (req → usecase → puml → class/method)\n  - **requirement:** chain-link icon → sprints.json symlink (Tron 2026-05-31)\n  - **use case:** existing `view.render` UC (T124.6 PUML) — T141 extends per-class HTML+MD chain rendering; architect may add `view.renderChainLink` UC as a new instance\n  - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (architect adds the UC if introduced)\n  - **class/method:** `src/ts/templates/` — UseCase template first (one shared helper or per-template render); affects per-class chain rendering blocks emitted by T126 ViewGenerator",
     "context": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:b6f014fd-15ec-46f4-9764-b07e754ec2d0"
+  "ownerIor": "ior:instance:ddbf1c7a-a6d6-418d-acb3-d071344fa353"
 }

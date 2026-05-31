@@ -1,0 +1,11 @@
+### > TRON: "migrate all sprints, tasks, requirements like this with references to classes, tests and puml usecases and clas
+
+[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000014]
+  > TRON: "migrate all sprints, tasks, requirements like this with references to classes, tests and puml usecases and classes and verb/methods."
+  → [T128](./task-128-migration.md)
+
+## Process (original directive)
+
+- [ ] **R17.15: Collaborative planning — architect + req + planner**
+
+**Priority:** MEDIUM

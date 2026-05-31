@@ -283,6 +283,9 @@ rb-detail-drawer .drawer-handle {
 .chain-link-broken { color: rgba(255,255,255,0.3); font-size: 0.75rem; font-style: italic; }
 .sv-chain-group h4 { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin: 8px 0 4px; }
 .sv-chain-item { padding: 2px 0; }
+.sv-trace-tree ul { list-style: none; padding-left: 1em; }
+.sv-trace-tree li { margin: 2px 0; }
+.sv-relation { font-size: 0.65rem; color: rgba(102,126,234,0.8); margin-right: 4px; }
 
 /* Mobile */
 @media (max-width: 480px) {

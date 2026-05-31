@@ -28,3 +28,5 @@
 - [ ] [T139: fork skill-expert from expert (PO decision; agent-trainer executes)](../task/task-139-fork-skill-expert.md)
 - [ ] [T140: Source-Location IOR for UC/Class/Method Scenario Units](../task/task-140-source-location-ior.md)
 - [ ] [T141: Chain-link icon → sprints.json symlink in generated MD views](../task/task-141-chain-link-icon-symlinks.md)
+- [ ] [T143: Traceability chain → TREE rework (R17.26–R17.29)](../task/task-143-traceability-tree-rework.md)
+- [ ] [T144: File-browser display fixes — icon order + link targets (B5, 3 fixes)](../task/task-144-file-browser-display-fixes.md)

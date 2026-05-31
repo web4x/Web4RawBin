@@ -2,10 +2,10 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "891f1983-7486-474a-80fb-740a9d843621",
-    "name": "> TRON DIRECTIVE: \"make them learn to use scenarios to plan in future. they shall order skills on top of the new impleme",
-    "description": "[requirement:uuid:891f1983-7486-474a-80fb-740a9d843621]\n  > TRON DIRECTIVE: \"make them learn to use scenarios to plan in future. they shall order skills on top of the new implementation to plan and trace work.\"\n  → [T137: req + planner learn scenarios](./task-137-req-planner-learn-scenarios.md)\n\n- [ ] **R17.6: Skills on top of scenarios**",
+    "name": "> TRON: \"make them learn to use scenarios to plan in future.\"",
+    "description": "[requirement:uuid:891f1983-7486-474a-80fb-740a9d843621]\n  > TRON: \"make them learn to use scenarios to plan in future.\"\n  → [T137](./task-137-req-planner-learn-scenarios.md)\n\n- [ ] **R17.22: Skills on top of scenarios**",
     "tasks": [],
     "tests": []
   },
-  "ownerIor": "ior:instance:b6f014fd-15ec-46f4-9764-b07e754ec2d0"
+  "ownerIor": "ior:instance:ddbf1c7a-a6d6-418d-acb3-d071344fa353"
 }

@@ -12,12 +12,12 @@
 - [x] QA Review
 - [x] Done
 
-## Chain
+## Traceability
 
 **Children:**
-- 🔗 2fa531f7
-- 🔗 2dd5e06c
-- 🔗 771a4a9a
+- [🔗 2fa531f7](../sprints.md/task/2fa531f7.md)
+- [🔗 2dd5e06c](../sprints.md/task/2dd5e06c.md)
+- [🔗 771a4a9a](../sprints.md/task/771a4a9a.md)
 
 
 ## Remaining Issues

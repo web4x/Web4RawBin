@@ -2,10 +2,10 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "7e4f8a2b-c3d5-4e6f-9a1b-2c3d4e5f6a25",
-    "name": "> TRON DIRECTIVE: \"in scenario/sprints.md/usecase/ <file>.md add a chain link symbol before the edit to link to the orig",
-    "description": "[requirement:uuid:7e4f8a2b-c3d5-4e6f-9a1b-2c3d4e5f6a25]\n  > TRON DIRECTIVE: \"in scenario/sprints.md/usecase/ <file>.md add a chain link symbol before the edit to link to the original ln file in scenario/sprints.json/…\"\n  → Task TBD (planner to stand up)\n\n  Every generated MD view (UseCase and all 7 classes) renders a 🔗 chain-link icon BEFORE the ✏️ Edit link, pointing to the corresponding symlink path in `scenario/sprints.json/<sprint>/<speaking-name>.json`. This lets the user navigate from the rendered view to the raw scenario JSON source.\n\n---\n\n## UUID Index\n\n| Requirement | UUID (short) | Task | Category |\n|-------------|-------------|------|----------|\n| R17.1 | `cb93f0db` | T131 | Data model |\n| R17.2 | `3b6cce5a` | T132 | Data model |\n| R17.3 | `bebee55d` | T133 | Data model |\n| R17.4 | `dd8709c3` | T134 | Traceability |\n| R17.24 | `47a86209` | T140 | Traceability |\n| R17.25 | `7e4f8a2b` | TBD | Views |\n| R17.5 | `891f1983` | T137 | Process |\n| R17.6 | `39a893de` | T138 | Skills |\n| R17.7 | `9dedeb00` | T139 | Skills |\n| R17.8 | `47a86209` | T135 | Audit |\n| R17.9 | `024c7b8f` | T136 | Migration |",
+    "name": "> TRON: \"in scenario/sprints.md/usecase/ <file>.md add a chain link symbol before the edit to link to the original ln fi",
+    "description": "[requirement:uuid:7e4f8a2b-c3d5-4e6f-9a1b-2c3d4e5f6a25]\n  > TRON: \"in scenario/sprints.md/usecase/ <file>.md add a chain link symbol before the edit to link to the original ln file in scenario/sprints.json/…\"\n  → Task TBD (planner to stand up)\n\n## Extension 4 (2026-05-31 — traceability is a TREE)\n\n- [ ] **R17.26: Traceability is a TREE, not a chain**",
     "tasks": [],
     "tests": []
   },
-  "ownerIor": "ior:instance:b6f014fd-15ec-46f4-9764-b07e754ec2d0"
+  "ownerIor": "ior:instance:ddbf1c7a-a6d6-418d-acb3-d071344fa353"
 }

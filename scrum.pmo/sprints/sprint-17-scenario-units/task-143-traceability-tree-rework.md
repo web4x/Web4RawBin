@@ -9,7 +9,7 @@
 - [x] In Progress
   - [x] refinement (req → architect — `4b65e79` architect design)
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done

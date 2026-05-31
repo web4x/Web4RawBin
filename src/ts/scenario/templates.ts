@@ -55,12 +55,12 @@ const CHAIN_FIELDS = ['requirements', 'tasks', 'useCases', 'classes', 'methods',
 
 function renderChainLinkMd(ior: string): string {
   const uuid = ior.replace('ior:instance:', '');
-  return `🔗 ${uuid.slice(0, 8)}`;
+  return `[🔗 ${uuid.slice(0, 8)}](../sprints.md/task/${uuid.slice(0, 8)}.md)`;
 }
 
 function renderChainLinkHtml(ior: string): string {
   const uuid = ior.replace('ior:instance:', '');
-  return `<a class="chain-link">🔗 ${esc(uuid.slice(0, 8))}</a>`;
+  return `<a href="/md/scenario/sprints.md/task/${uuid}.md" class="chain-link">🔗 ${esc(uuid.slice(0, 8))}</a>`;
 }
 
 export function renderChainSection(model: Record<string, unknown>, format: 'md' | 'html'): string {
@@ -79,7 +79,7 @@ export function renderChainSection(model: Record<string, unknown>, format: 'md' 
     }
   }
   if (!sections.length) return '';
-  return format === 'md' ? `## Chain\n\n${sections.join('\n')}` : `<div class="sv-section sv-chain"><h3>Chain</h3>${sections.join('')}</div>`;
+  return format === 'md' ? `## Traceability\n\n${sections.join('\n')}` : `<div class="sv-section sv-trace-tree"><h3>Traceability</h3>${sections.join('')}</div>`;
 }
 
 export function renderStatusHtml(checklist: string): string {
