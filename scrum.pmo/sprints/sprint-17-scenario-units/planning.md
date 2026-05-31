@@ -153,6 +153,20 @@ prose. Then **migrate every existing sprint** to this model.
   **Owners (CMM4):** robbin-req (confirm anchor — no scope drift) → robbin-architect (3 fixes design in `server.ts` /md/ + `rb-file-tree`) → robbin-expert (impl) → robbin-tester (visual + click-through across class trees)
   **Rule-pair scope:** (a)+(b) required at impl; (c) exempt (no new route, architect to confirm)
 
+### Phase 9 — User class scenario-unit + ViewBus model parity (PO directive 2026-06-01, lifted from backlog B6)
+
+- [ ] ⏳ [T145: User class as scenario-unit + ViewBus-driven view updates (fixes lobby/room name stale)](./task-145-user-scenario-viewbus.md)
+  **Status:** PLANNED — fixes the stale lobby/room user-name bug by promoting User to a scenario class on par with Requirement/Task/UC/Class/Method/Test/TraceLink. Every view subscribes via ViewBus; ProfileEditor mutates `model.user`; bug fix is a side-effect of the architectural standardization.
+  **Owners (CMM4):** robbin-req (anchor B6 verbatim) → robbin-architect (User scenario schema + ViewBus subscription pattern + 4 view-bindings + migration plan) → robbin-expert (impl + migrate) → robbin-tester (stale-name bug fix + S9/S17 regression)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route, architect confirms)
+
+### Phase 10 — Requirement entry format + speaky-NAME on 🔗 (PO directive 2026-06-01, lifted from backlog B7)
+
+- [ ] ⏳ [T146: Requirement-entry format reform — 3–5 word NAME first line + speaky-NAME on 🔗](./task-146-requirement-name-first-format.md)
+  **Status:** PLANNED — B7 captured (req-eng ✓). Standardize requirement entry shape (NAME line + Tron quote + uuid + forward link); retro-clean S10–S17 `requirements.md`; T126/T141 anchors render NAME (description as tooltip / `<details>`); `trace-cli` validator. Rides on T143 (tree + every-element-a-link) + T144 (🔗 click-through).
+  **Owners (CMM4):** robbin-req (retro-clean audit, dup-list) → robbin-architect (format spec + template change + standard update + symmetric scope decision) → robbin-expert (migrator + T126/T141 + trace-cli validator) → robbin-tester (0-dup + visual + regression)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route, architect confirms)
+
 ### Phase 6 — Verification (T129, tester + planner)
 
 - [ ] 🧪 [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)
