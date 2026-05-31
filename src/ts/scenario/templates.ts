@@ -50,6 +50,8 @@ export function renderStatusHtml(checklist: string): string {
   let html = '<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps">';
   let inSub = false;
   for (const line of lines) {
+    if (line.trimStart().startsWith('>')) continue;
+    if (!/\[.\]/.test(line)) continue;
     const indent = line.search(/\S/);
     const nested = indent >= 2;
     const checked = /\[x\]/i.test(line);

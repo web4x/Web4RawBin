@@ -4,11 +4,11 @@
 ## Status
 
 - [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+- [x] In Progress
+  - [x] refinement (req → architect)
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
