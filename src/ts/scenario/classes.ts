@@ -24,12 +24,13 @@ export const UseCaseLoader = loader('UseCase', { object: '', verb: '', tasks: []
 export const ClassObjLoader = loader('Class', { file: null, useCases: [], methods: [] });
 export const MethodLoader = loader('Method', { class: null, implementations: [], tests: [], task: null, requirement: null });
 export const TestLoader = loader('Test', { file: null, methods: [], requirements: [], status: '' });
+export const UserLoader = loader('User', { displayName: '', token: '', avatarHash: '', deviceId: '', sshPubKey: '', createdAt: '', updatedAt: '' });
 
 export class ClassRegistry {
   private loaders = new Map<string, ClassLoader>();
 
   constructor() {
-    for (const l of [SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader, TraceLinkLoader]) {
+    for (const l of [SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader, TraceLinkLoader, UserLoader]) {
       this.loaders.set(l.className, l);
     }
   }

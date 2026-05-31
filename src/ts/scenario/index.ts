@@ -3,7 +3,7 @@
  * [impl:uuid:20cca741-0a93-4d93-8a51-9c72bdb77d92] R17.1-R17.6
  */
 export { type ScenarioUnit, type ClassLoader, type IORType, parseIor, iorClass, iorInstance, iorFile } from './types.js';
-export { ClassRegistry, SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader } from './classes.js';
+export { ClassRegistry, SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader, UserLoader } from './classes.js';
 export { ScenarioIndex } from './index-store.js';
 export { type ViewTemplate, type SlugResolver, ViewTemplateRegistry, TaskTemplate, RequirementTemplate, SprintTemplate, UseCaseTemplate, ClassTemplate, MethodTemplate, TestTemplate, defaultTemplateRegistry, renderStatusHtml, renderChainSection, setActiveResolver } from './templates.js';
 export { ViewGenerator } from './generator.js';

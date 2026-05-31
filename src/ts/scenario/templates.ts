@@ -247,6 +247,19 @@ export const TraceLinkTemplate: ViewTemplate = {
   },
 };
 
+export const UserTemplate: ViewTemplate = {
+  renderHtml(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    const token = String(m.token || '').slice(0, 8);
+    return `<div class="sv-user"><h3>${esc(String(m.displayName || m.name || ''))}</h3><code>${esc(token)}</code></div>`;
+  },
+  renderMd(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    const token = String(m.token || '').slice(0, 8);
+    return `### ${m.displayName || m.name || '(unnamed)'}\n\nToken: \`${token}\``;
+  },
+};
+
 export function defaultTemplateRegistry(): ViewTemplateRegistry {
   const reg = new ViewTemplateRegistry();
   reg.register('ior:class:Sprint', SprintTemplate);
@@ -257,5 +270,6 @@ export function defaultTemplateRegistry(): ViewTemplateRegistry {
   reg.register('ior:class:Method', MethodTemplate);
   reg.register('ior:class:Test', TestTemplate);
   reg.register('ior:class:TraceLink', TraceLinkTemplate);
+  reg.register('ior:class:User', UserTemplate);
   return reg;
 }

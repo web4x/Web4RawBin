@@ -3,6 +3,7 @@ import { RawBinClient } from './RawBinClient.js';
 import { MSG } from '../../shared/MessageTypes.js';
 import './components/rb-avatar.js';
 import { parseVCard, type VCardData } from './vcard-parse.js';
+import { viewBus } from './ViewBus.js';
 
 interface ProfileData {
   name: string;
@@ -145,6 +146,7 @@ export class ProfileEditor {
         ...(this.avatarUrl ? { avatar: this.avatarUrl } : {}),
         ...(secretCode ? { secretCode } : {}),
       });
+      viewBus.publish('User', this.client.playerToken, { displayName: name, token: this.client.playerToken });
     });
 
     if (this.mode !== 'gate') {
