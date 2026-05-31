@@ -177,7 +177,10 @@ File: `test/vitest/trace-tree.test.ts` (new) + `test/e2e/trace-tree.spec.ts` (ne
 | AC7 | v0.5.37 in package.json + sw.js | **PASS** |
 | CSS | `.sv-trace-tree ul` + `.sv-trace-tree li` in app.css | **PASS** |
 
-**BUG — AC2 partial:** chain-link hrefs resolve to UUID-based filenames (`/md/scenario/sprints.md/task/<uuid>.md`) which don't exist. Generated views use speaking names (`task-124.1-architect-data-model.md`). 3/3 sampled links 404. Expert needs to resolve UUIDs to speaking-name paths in `renderTraceTreeHtml`.
+**BUG — AC2 partial (v0.5.37):** chain-link hrefs use UUID filenames → 404.
+**FIX ATTEMPT (4e79afa, v0.5.39):** trace-tree.ts TraceNode.slug populated correctly from unit model.slug. BUT templates.ts `renderChainLinkHtml`/`renderChainLinkMd` (L61-63) still uses raw UUID, not slug. The templates don't call trace-tree.ts — they use their own `renderChainSection`. Views regenerated (205 files) — still UUID hrefs.
+**ROOT CAUSE:** templates.ts `renderChainLinkHtml` at L63 does `${uuid}.md`, not `${slug}.md`. Fix needs to either (a) pass slug lookup into renderChainSection, or (b) switch templates to use trace-tree.ts renderers.
+**RE-VERIFY (v0.5.39):** AC2 still FAIL — 3/3 sampled links still 404.
 
 - 2026-05-31: PO directed planner to stand up T143 immediately (no further reminder). Sources: `df09df2` (Tron capture) + `ac8c8e7` (req formalization R17.26–R17.29). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Awaiting req-eng verbatim anchor → architect design → expert impl → tester verify → Tron QA.
 
