@@ -98,6 +98,21 @@ prose. Then **migrate every existing sprint** to this model.
   **Rule-pair:** ✓ (a) v0.5.30 ✓ (b) sw.js rawbin-v0.5.30 ✓ (c) STATIC_SHELL exempt (no new route) — explicit in commit msg
   **CMM4 GAP:** retroactive stand-up — work shipped before planner stood it up; commit mis-labelled "T39" (unrelated S6 task); planner reconstructed the 4-role attribution. Going forward: tasks MUST be stood up BEFORE impl per learnings #18.
 
+- [ ] ⏳ [T132: HTML status template fix](./task-132-html-status-template-fix.md)
+  **Status:** PLANNED — Tron via PO 2026-05-31. HTML status section in generated views (T126 output) renders incorrectly; sister-task to T130 (MD side fixed in v0.5.27).
+  **Owners (CMM4):** robbin-req (req anchor) → robbin-architect (diagnose+design) → robbin-expert (impl) → robbin-tester (verify)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) exempt (no new route)
+
+- [ ] ⏳ [T133: Task state-machine + status methods](./task-133-task-state-machine.md)
+  **Status:** PLANNED — Tron via PO 2026-05-31. Task class needs first-class FSM + verb methods (`task.startRefinement()`, `task.startImplementing()`, `task.tronApprove()`, …); symbol legend becomes derived from `model.status` not manually mirrored.
+  **Owners (CMM4):** robbin-req (req anchor) → robbin-architect (FSM design + verb naming) → robbin-expert (impl on Task class) → robbin-tester (verify transitions + guards)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) depends on architect's surface decision
+
+- [ ] ⏳ [T134: Traceability-as-units (links as scenario.json with ln in referenced instances + MD/HTML views)](./task-134-traceability-as-units.md)
+  **Status:** PLANNED — Tron via PO 2026-05-31. Traceability links become first-class units (8th class alongside Sprint/Task/Requirement/UseCase/Class/Method/Test); each link emits `ln` symlinks into both endpoints' speaking-name trees; generated MD+HTML view per link.
+  **Owners (CMM4):** robbin-req (req anchor — key model decision: links PRIMARY vs MIRROR) → robbin-architect (class + symlink + template design; may split into T134.1-T134.4) → robbin-expert (impl) → robbin-tester (verify round-trip, walk graph)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt unless architect introduces /links/&lt;uuid&gt; route
+
 ### Phase 6 — Verification (T129, tester + planner)
 
 - [ ] ⏳ [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)

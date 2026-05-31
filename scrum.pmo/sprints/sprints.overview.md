@@ -29,7 +29,7 @@ Status legend: **Done** = all tasks Tron QA-approved · **active** = in flight
 | 17 | Scenario Units / IOR Data Model & Class Views | planned — 6 parent tasks T124-T129 (JOINT architect+req+planner per Tron 2026-05-30); class-based scenario.json units, IOR, generated views, migration of all sprints | 6 (+~20 sub) | [planning](./sprint-17-scenario-units/planning.md) |
 
 **Task numbering:** global sequential. T1-T80 (S1-9), T81-83 (S10), T84 (S12),
-T85-90 (S11), T91-95 (S13), T96-99 (S14), T100 (S13), T101-108 (S15), T109 (S13), T110-117 (S16), T118 (S13), T119 (S11), T120-123 (S16), T124-129 (S17 parents — sub-tasks T124.1+ allocated at refinement time), T130 (S13), T131 (S17 follow-on, retroactive). Next new task = **T132**.
+T85-90 (S11), T91-95 (S13), T96-99 (S14), T100 (S13), T101-108 (S15), T109 (S13), T110-117 (S16), T118 (S13), T119 (S11), T120-123 (S16), T124-129 (S17 parents — sub-tasks T124.1+ allocated at refinement time), T130 (S13), T131-T134 (S17 follow-ons). Next new task = **T135**.
 
 **Traceability & Standards:** [traceability matrix](../traceability-matrix.md)
 (req→uc→puml→method→test index) · [standard](../standards/traceability-standard.md) ·
