@@ -8,9 +8,9 @@
 - [ ] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
