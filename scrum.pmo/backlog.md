@@ -26,6 +26,33 @@ T-number). Items here are NOT in any sprint's scope.
   **Sprint:** TBD (planner to triage AFTER T143+T144 — reserved as T146)
   **Touches:** All `scrum.pmo/sprints/sprint-*/requirements.md` files, `scrum.pmo/standards/traceability-standard.md` (update the format spec)
 
+  **Planner pre-record (queued — PO directive 2026-05-31, NOT yet stood up):**
+  - **Next-T-number reserved:** **T146** (after T145/B6; T143+T144 must close first per Tron's no-interrupt directive)
+  - **Reserved task:uuid (v4, planner-generated):** `1747c27f-e295-4933-b885-3a567072663e`
+  - **Sprint placement (proposed):** sprint-17-scenario-units as **Phase 10 — Requirement entry format (NAME first) + speaky-name on 🔗** — natural fit with T141 chain-link icon + T143 tree rework + the broader S17 scenario-unit lineage. Alt: new S18 if Tron prefers a clean container; PO decides at triage.
+  - **CMM4 4-role engagement (per learnings #18):**
+    1. **robbin-req** (DONE for capture step — B7 anchored above) — additional req work: audit S10–S17 `requirements.md` for entries needing retro-clean; produce the per-sprint dup-list; confirm the 4-line format spec matches Tron's literal directive end-to-end
+    2. **robbin-architect** — design the NAME-first format (markdown shape + validator rule for `trace-cli`); design the template change (T126 helper resolves requirement→NAME on chain-link 🔗 anchors; description renders as tooltip/`<details>`/hover preview); decide whether Task/UC/Class/Method/Test names normalize symmetrically at this layer; update `scrum.pmo/standards/traceability-standard.md`
+    3. **robbin-expert** — implement: format migrator (one-shot script across S10–S17 `requirements.md`); T126 template helper + T141 chain-link anchor uses NAME; `trace-cli` validator; rule-pair (a)+(b) in the impl commit-set
+    4. **robbin-tester** — verify 0 dups across S10–S17 `requirements.md`; visual on `/md/scenarios/sprints.md/...` shows NAME on 🔗 with hover/tooltip preview of description; regression on T141 chain-link rendering + T144 click-through; chain audit clean
+  - **Rule-pair (a)+(b) [#15+#16]:** REQUIRED (user-facing template change must reach Tron's device via PWA). **(c) STATIC_SHELL:** likely exempt (no new route — architect confirms).
+  - **Dependencies (block T146 stand-up until satisfied):**
+    - **T143 land** (chain→tree rework) — the rendering layer T146 modifies is the tree-rework consumer
+    - **T144 land** (file-browser fixes) — 🔗 anchor click-through T144 fixes is what T146 changes the display text of
+    - **B7 captured** ✓ — req-eng anchored (a8b9c0d1-e2f3-4a4b-b5c6-d7e8f9a0b1c7)
+  - **Estimated scope:** small-medium — format spec + template helper + one-shot migrator over S10–S17 + tester sweep. Architect's design will pin effort.
+  - **Stand-up trigger:** when ALL of {T143 lands, T144 lands, Tron approves the format spec} are met. Until then, this remains B7 in the backlog — NOT a task file.
+  - **Acceptance criteria (planner draft — refine on stand-up):**
+    1. Format spec documented in `scrum.pmo/standards/traceability-standard.md`: each requirement entry = line-1 NAME (3–5 words), Tron literal blockquote (no dup), `[requirement:uuid:v4]`, forward link(s)
+    2. S10–S17 `requirements.md` retro-cleaned: 0 NAME/description duplicates; every entry has a NAME line; every uuid is real v4 (learning #17)
+    3. T126 ViewGenerator templates render NAME on chain-link 🔗 anchors (not UUID, not full description)
+    4. Description renders as tooltip / hover-preview / `<details>` reveal — visible on demand
+    5. T141 chain-link helper updated to use NAME; existing 🔗 rendering on migrated views shows speaky text
+    6. `trace-cli` audit validates format (line-1 NAME present + no dup) and reports compliance per requirement entry
+    7. No regression on T141 click-through (still resolves to symlink target post-T144)
+    8. Rule-pair (a)+(b) in the impl commit-set
+    9. All 4 roles committed work in the eventual T146 file
+
 - **B6 — Lobby/room user name doesn't refresh after profile edit + User as scenario model**
   [requirement:uuid:f7a8b9c0-d1e2-4f3a-b4c5-d6e7f8a9b0c6]
   > TRON DIRECTIVE: "the vcard upload works. the editor is updated on all fields. but the user name in the lobby not and when the user immediately enters a room also not. make the user class use the same scenario model as the requirements, tasks and so on. handle every views update as a model update on user....as on all other classes that use scenario models."
