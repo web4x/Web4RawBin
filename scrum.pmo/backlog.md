@@ -8,6 +8,15 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **B4 — Connection-Failed page: add Reload button**
+  [requirement:uuid:c5d6e7f8-a9b0-4c1d-2e3f-4a5b6c7d8e90]
+  > TRON DIRECTIVE: "add a reload button to page Connection Failed / Could not connect to server. Please refresh."
+
+  The Connection-Failed error page (rendered in `app.ts` catch block: `<div class="error"><h2>Connection Failed</h2><p>Could not connect to server. Please refresh.</p></div>`) must have a `[Reload]` button that calls `location.reload()`. Plain text "Please refresh" is not actionable on mobile — user needs a tappable button.
+
+  **Sprint:** TBD (planner to triage)
+  **Touches:** app.ts error HTML (~line 81), possibly edit.ts equivalent
+
 - **B3 — Profile gate: Upload vCard for fast onboarding (button + native drag-and-drop)**
   [requirement:uuid:a3b4c5d6-e7f8-4a9b-0c1d-2e3f4a5b6c7d]
   > TRON DIRECTIVE: "on first time connect we have to fill out profile. add a upload vcard button at the top to speed up onboarding and initialize from the card. can be dropped natively from os drag and drop eg on iphone but also android and windows."
