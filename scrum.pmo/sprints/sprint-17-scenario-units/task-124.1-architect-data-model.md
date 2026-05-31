@@ -78,8 +78,10 @@ Tron clarification: the outer `ior` in a scenario unit is the IOR to the **CLASS
 Every instance (Task, Requirement, UseCase, Sprint, Class, Method, Test) is a file:
 
 ```
-scenario/index/<5-char-prefix>/<uuid>.scenario.json
+scenario/index/<c1>/<c2>/<c3>/<c4>/<c5>/<uuid>.scenario.json
 ```
+Where `<c1>...<c5>` = first 5 hex chars of UUID (hyphens stripped), each as a single-char directory.
+Example: `a7f3c1d2-...` → `scenario/index/a/7/f/3/c/a7f3c1d2-....scenario.json`
 
 ```jsonc
 {

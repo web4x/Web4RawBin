@@ -71,19 +71,19 @@ None (atomic sub-task).
 
 ```
 scenario/                              ← ROOT
-├── index/                             ← LAYER 1: Canonical store (UUID-addressed)
-│   ├── a7f3c/
+├── index/                             ← LAYER 1: Canonical store (5-level UUID dirs)
+│   ├── a/7/f/3/c/                     ← 5 single-char dirs from UUID (strip hyphens, first 5)
 │   │   └── a7f3c1d2-8b4e-4f9a-b6c5-3d2e1f0a9b8c.scenario.json
-│   ├── b72e5/
+│   ├── b/7/2/e/5/
 │   │   └── b72e58c4-91d3-4a07-b845-3c6f1d92e7a0.scenario.json
 │   └── .../
 │
 ├── sprints.json/                      ← LAYER 2: Speaking-name symlink tree
 │   ├── sprint-1/
-│   │   ├── sprint.json → ../../index/a7f3c/a7f3c....scenario.json
-│   │   ├── task-1-bootstrap.json → ../../index/b72e5/b72e5....scenario.json
-│   │   ├── task-1.1-clone.json → ../../index/c93f6/c93f6....scenario.json
-│   │   └── task-1.2-rebrand.json → ../../index/d83e4/d83e4....scenario.json
+│   │   ├── sprint.json → ../../index/a/7/f/3/c/a7f3c....scenario.json
+│   │   ├── task-1-bootstrap.json → ../../index/b/7/2/e/5/b72e5....scenario.json
+│   │   ├── task-1.1-clone.json → ../../index/c/9/3/f/6/c93f6....scenario.json
+│   │   └── task-1.2-rebrand.json → ../../index/d/8/3/e/4/d83e4....scenario.json
 │   ├── sprint-2/
 │   │   ├── sprint.json → ...
 │   │   ├── task-7-user-editor.json → ...
@@ -103,29 +103,41 @@ scenario/                              ← ROOT
     └── .../
 ```
 
-### Layer 1: Canonical Index (R17.4)
+### Layer 1: Canonical Index (R17.4) — 5-Level Deep
 
-**Path:** `scenario/index/<first-5-chars-of-uuid>/<uuid>.scenario.json`
+**Path:** `scenario/index/<c1>/<c2>/<c3>/<c4>/<c5>/<uuid>.scenario.json`
+
+Where `<c1>...<c5>` are the first 5 hex characters of the UUID (hyphens stripped).
+
+**UpDown convention confirmed:** `UcpStorage.uuidFolderPathGenerate()` (Persistence/0.3.23.0 line 300-303):
+```typescript
+const cleanUuid = uuid.replace(/-/g, '');
+const folderStructure = cleanUuid.substring(0, 5).split('');
+return join(this.model.indexBaseDir, ...folderStructure);
+```
+Example: `44443290-015c-...` → `scenarios/index/4/4/4/4/3/44443290-015c-....scenario.json`
 
 ```typescript
 class ScenarioIndex {
   private basePath: string;  // scenario/index
 
-  /** 5-char prefix from UUID (strip hyphens, take first 5) */
-  prefix(uuid: string): string {
-    return uuid.replace(/-/g, '').slice(0, 5);
+  /** 5 single-char dirs from UUID (strip hyphens, split first 5 chars) */
+  folderPath(uuid: string): string {
+    const clean = uuid.replace(/-/g, '');
+    const chars = clean.substring(0, 5).split('');
+    return path.join(this.basePath, ...chars);
   }
 
   /** Full path to a scenario file */
   path(uuid: string): string {
-    return `${this.basePath}/${this.prefix(uuid)}/${uuid}.scenario.json`;
+    return path.join(this.folderPath(uuid), `${uuid}.scenario.json`);
   }
 
   /** Store a scenario unit */
   put(uuid: string, scenario: ScenarioUnit): void {
-    const dir = `${this.basePath}/${this.prefix(uuid)}`;
+    const dir = this.folderPath(uuid);
     fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(`${dir}/${uuid}.scenario.json`, JSON.stringify(scenario, null, 2));
+    fs.writeFileSync(path.join(dir, `${uuid}.scenario.json`), JSON.stringify(scenario, null, 2));
   }
 
   /** Load a scenario unit */
@@ -134,16 +146,19 @@ class ScenarioIndex {
     return JSON.parse(content);
   }
 
-  /** List all scenario UUIDs */
+  /** List all scenario UUIDs (walk 5-level tree) */
   list(): string[] {
     const uuids: string[] = [];
-    for (const prefix of fs.readdirSync(this.basePath)) {
-      for (const file of fs.readdirSync(`${this.basePath}/${prefix}`)) {
-        if (file.endsWith('.scenario.json')) {
-          uuids.push(file.replace('.scenario.json', ''));
+    const walk = (dir: string, depth: number) => {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        if (entry.isDirectory() && depth < 5) {
+          walk(path.join(dir, entry.name), depth + 1);
+        } else if (entry.name.endsWith('.scenario.json')) {
+          uuids.push(entry.name.replace('.scenario.json', ''));
         }
       }
-    }
+    };
+    walk(this.basePath, 0);
     return uuids;
   }
 }
