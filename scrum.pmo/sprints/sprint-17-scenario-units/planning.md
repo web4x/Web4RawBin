@@ -100,17 +100,17 @@ prose. Then **migrate every existing sprint** to this model.
 
 - [ ] 🧪 [T132: HTML status template fix](./task-132-html-status-template-fix.md)
   **Status:** impl + testing DONE (497cee2 architect design → 4a362d0 expert renderStatusHtml impl → 8e42361 tester verify, 830/830) — Tron QA pending
-  **Rule-pair FLAG:** ⚠️ 4a362d0 shipped WITHOUT package.json/sw.js bump despite T132 being user-facing (HTML template served via /md/ and /trace). v0.5.30 unchanged across T132/T133/T134 burst. Per #15 a bump is required for the device to see the new template. Recommend a follow-up bump commit (single bump covers T132+T133+T134 batch).
+  **Rule-pair:** ✓ retroactively covered by 2f6dde2 v0.5.31 follow-up (T132/T133/T134 batch unified bump + T132 indent fix); STATIC_SHELL exempt (no new route)
 
 - [ ] 🧪 [T133: Task state-machine + status methods](./task-133-task-state-machine.md)
   **Status:** impl + testing DONE (497cee2 architect FSM design → e062849 expert 7-state/8-verb impl with Tron gate → 8e42361 tester verify, 830/830) — Tron QA pending
-  **Rule-pair FLAG:** ⚠️ no bump (same batch as T132/T134) — see T132 note.
+  **Rule-pair:** ✓ retroactively covered by 2f6dde2 v0.5.31 unified bump
   **Owners (CMM4):** robbin-req (req anchor) → robbin-architect (FSM design + verb naming) → robbin-expert (impl on Task class) → robbin-tester (verify transitions + guards)
   **Rule-pair scope:** (a)+(b) required at impl; (c) depends on architect's surface decision
 
 - [ ] 🧪 [T134: Traceability-as-units (links as scenario.json with ln in referenced instances + MD/HTML views)](./task-134-traceability-as-units.md)
   **Status:** impl + testing DONE (497cee2 architect design → f173cad expert TraceLink class + symlink emission + template → 8e42361 tester verify, 830/830) — Tron QA pending
-  **Rule-pair FLAG:** ⚠️ no bump (same batch as T132/T133) — see T132 note.
+  **Rule-pair:** ✓ retroactively covered by 2f6dde2 v0.5.31 unified bump
 
 ### Phase 6 — Verification (T129, tester + planner)
 
