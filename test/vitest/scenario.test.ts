@@ -16,6 +16,7 @@ import {
   ViewGenerator,
   IORResolver,
   startRefinement, startImplementing, startTesting, requestQAReview, tronApprove, canTransition, resetToPlanned,
+  createTraceLink, inverseRelation, TraceLinkLoader,
   type ScenarioUnit,
 } from '../../src/ts/scenario/index.js';
 
@@ -40,7 +41,7 @@ describe('T125.2: Class loaders + registry', () => {
     for (const name of ['Sprint', 'Task', 'Requirement', 'UseCase', 'Class', 'Method', 'Test']) {
       expect(reg.has(iorClass(name))).toBe(true);
     }
-    expect(reg.all().length).toBe(7);
+    expect(reg.all().length).toBe(8);
   });
 
   it('TaskLoader.create populates defaults + overrides', () => {
@@ -260,5 +261,43 @@ describe('T133: Task state machine', () => {
   it('resetToPlanned works from any state', () => {
     const t = mkTask('Testing');
     resetToPlanned(t); expect(t.model.status).toBe('Planned');
+  });
+});
+
+describe('T134: TraceLink', () => {
+  it('createTraceLink produces valid unit with from/to/relation', () => {
+    const link = createTraceLink('aaa-uuid', 'task', 'bbb-uuid', 'requirement', 'implements');
+    expect(link.ior).toBe('ior:class:TraceLink');
+    expect(link.model.from).toBe('ior:instance:aaa-uuid');
+    expect(link.model.to).toBe('ior:instance:bbb-uuid');
+    expect(link.model.relation).toBe('implements');
+    expect(link.model.direction).toBe('bidirectional');
+    expect(link.model.uuid).toBeTruthy();
+  });
+
+  it('inverseRelation returns correct inverse', () => {
+    expect(inverseRelation('implements')).toBe('implementedBy');
+    expect(inverseRelation('contains')).toBe('containedBy');
+    expect(inverseRelation('tests')).toBe('testedBy');
+  });
+
+  it('TraceLinkLoader.create populates defaults', () => {
+    const unit = TraceLinkLoader.create({ ior: 'ior:class:TraceLink', model: { uuid: 'x', relation: 'follows' }, ownerIor: null });
+    expect(unit.model.relation).toBe('follows');
+    expect(unit.model.direction).toBe('bidirectional');
+  });
+
+  it('ClassRegistry resolves TraceLink (8th class)', () => {
+    const reg = new ClassRegistry();
+    expect(reg.has(iorClass('TraceLink'))).toBe(true);
+    expect(reg.all().length).toBe(8);
+  });
+
+  it('defaultTemplateRegistry renders TraceLink HTML+MD', () => {
+    const reg = defaultTemplateRegistry();
+    const link = createTraceLink('aaa', 'task', 'bbb', 'requirement', 'implements', { label: 'T1 implements R1' });
+    expect(reg.renderHtml(link)).toContain('implements');
+    expect(reg.renderMd(link)).toContain('implements');
+    expect(reg.renderMd(link)).toContain('T1 implements R1');
   });
 });

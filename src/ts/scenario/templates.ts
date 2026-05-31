@@ -167,6 +167,17 @@ export const TestTemplate: ViewTemplate = {
   },
 };
 
+export const TraceLinkTemplate: ViewTemplate = {
+  renderHtml(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `<div class="sv-tracelink"><span class="sv-relation">${esc(String(m.relation || ''))}</span> <span class="sv-from">${esc(String(m.fromType || ''))}:${esc(String(m.from || '').slice(13, 21))}</span> → <span class="sv-to">${esc(String(m.toType || ''))}:${esc(String(m.to || '').slice(13, 21))}</span>${m.label ? `<p class="sv-label">${esc(String(m.label))}</p>` : ''}</div>`;
+  },
+  renderMd(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `### ${m.relation || 'link'}: ${m.fromType || '?'} → ${m.toType || '?'}\n\n${m.label || ''}`;
+  },
+};
+
 export function defaultTemplateRegistry(): ViewTemplateRegistry {
   const reg = new ViewTemplateRegistry();
   reg.register('ior:class:Sprint', SprintTemplate);
@@ -176,5 +187,6 @@ export function defaultTemplateRegistry(): ViewTemplateRegistry {
   reg.register('ior:class:Class', ClassTemplate);
   reg.register('ior:class:Method', MethodTemplate);
   reg.register('ior:class:Test', TestTemplate);
+  reg.register('ior:class:TraceLink', TraceLinkTemplate);
   return reg;
 }
