@@ -26,6 +26,7 @@ export interface DirEntry {
   type: 'file' | 'dir';
   size?: number;
   ext?: string;
+  symlink?: boolean;
 }
 
 export function readDir(relPath: string): { path: string; entries: DirEntry[] } | { error: string; status: number } {
@@ -39,7 +40,17 @@ export function readDir(relPath: string): { path: string; entries: DirEntry[] } 
   const entries: DirEntry[] = [];
   for (const ent of raw) {
     if (ent.name.startsWith('.') && ent.name !== '.env') continue;
-    if (ent.isDirectory()) {
+    if (ent.isSymbolicLink()) {
+      try {
+        const target = fs.statSync(path.join(absPath, ent.name));
+        if (target.isDirectory()) {
+          entries.push({ name: ent.name, type: 'dir', symlink: true });
+        } else {
+          const ext = path.extname(ent.name);
+          entries.push({ name: ent.name, type: 'file', size: target.size, ext, symlink: true });
+        }
+      } catch { /* broken symlink — skip */ }
+    } else if (ent.isDirectory()) {
       entries.push({ name: ent.name, type: 'dir' });
     } else if (ent.isFile()) {
       const ext = path.extname(ent.name);

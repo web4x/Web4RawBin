@@ -45,7 +45,8 @@ export class RbFileTree extends HTMLElement {
         if (entry.type === 'dir') {
           const isExpanded = this.expanded.has(fullPath + '/');
           el.className = 'ft-dir';
-          el.innerHTML = `<div class="ft-row" data-dir="${fullPath}/" style="padding:2px 0 2px ${this.indent(dirPath)}px;cursor:pointer;white-space:nowrap"><span style="display:inline-block;width:16px;text-align:center">${isExpanded ? '▾' : '▸'}</span> 📁 ${entry.name}</div><div data-children="${fullPath}/" style="display:${isExpanded ? '' : 'none'}"></div>`;
+          const lnk = entry.symlink ? ' 🔗' : '';
+          el.innerHTML = `<div class="ft-row" data-dir="${fullPath}/" style="padding:2px 0 2px ${this.indent(dirPath)}px;cursor:pointer;white-space:nowrap"><span style="display:inline-block;width:16px;text-align:center">${isExpanded ? '▾' : '▸'}</span> 📁 ${entry.name}${lnk}</div><div data-children="${fullPath}/" style="display:${isExpanded ? '' : 'none'}"></div>`;
           container.appendChild(el);
 
           el.querySelector('.ft-row')?.addEventListener('click', () => this.toggleDir(fullPath + '/'));
@@ -55,7 +56,8 @@ export class RbFileTree extends HTMLElement {
           el.className = 'ft-file';
           el.dataset.path = fullPath;
           el.style.cssText = `padding:2px 0 2px ${this.indent(dirPath) + 16}px;cursor:pointer;white-space:nowrap;${fullPath === this.activePath ? 'background:#37373d' : ''}`;
-          el.innerHTML = `${icon} ${entry.name}`;
+          const flnk = entry.symlink ? ' 🔗' : '';
+          el.innerHTML = `${icon} ${entry.name}${flnk}`;
           el.addEventListener('click', () => {
             this.setActive(fullPath);
             this.dispatchEvent(new CustomEvent('file-select', { bubbles: true, detail: { path: fullPath } }));
