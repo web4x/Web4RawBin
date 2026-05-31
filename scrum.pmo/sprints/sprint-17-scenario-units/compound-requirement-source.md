@@ -53,7 +53,49 @@
 
 (req: split/refine per the literal source; these hints are NOT authoritative. The verbatim text is.)
 
-> NOTE 2026-05-31: extensions 1-3 (R17.16-R17.25) literal-source archive was lost to the iphone:0.1 server-crash recovery (`git checkout -- .` discarded uncommitted PO edits). Formalized requirements with verbatim quotes are durable in S17 `requirements.md` (commit `ea532bd`). Req-eng to re-archive the verbatim chat fragments into this file when capacity allows.
+> NOTE 2026-05-31: extensions 1-3 verbatim source was lost to iphone:0.1 server-crash recovery. Re-archived below from formalized requirements.md (ea532bd).
+
+---
+
+## EXTENSION — TRON 2026-05-31 (verbatim, 1st extension — re-archived from requirements.md ea532bd)
+
+> the task statuses will work like that in md but not in html. actually the tasks statuses must be methods of task class that trigger a task state machine until a task is done. the traceability needs to be converted to uuid.scenario.json of the traced type as atomic units in the index with ln links in a requirement and use case and class,… instances with md and html views
+
+### Decomposition hints
+- **R17.16 HTML status renders correctly** — Status checklist works in MD but NOT in HTML; fix the HTML template.
+- **R17.17 Task status as state-machine methods on the Task class** — status must be METHODS on the Task class that trigger a state machine until Done.
+- **R17.18 Traceability links → first-class scenario units** — every traceability LINK becomes its own `uuid.scenario.json` atomic unit in the index with `ln` symlinks.
+
+---
+
+## EXTENSION — TRON 2026-05-31 (verbatim, 2nd extension — re-archived from requirements.md ea532bd)
+
+> i do not see my latest prompts reflected as requirements from the req agent neither do i see uuid.scenario.JSON for requirements and use cases… relay it to the req agent and planner and make them learn to use scenarios to plan in future. they shall order skills on top of the new implementation to plan and trace work. add that to sprint 17. decide yourself to give the skill development to the expert, or agent trainer (would need much context) or to fork an skill-expert from the expert
+
+### Decomposition hints
+- **R17.19 Tron prompts → formal requirement units** — every Tron literal quote must be captured as a `requirement:uuid`.
+- **R17.20 Requirement + UseCase units in scenario index** — extend migration to emit scenario JSON for Requirement + UseCase.
+- **R17.21 Req-eng + planner LEARN to use scenarios for planning** — update SKILL.md.
+- **R17.22 Skills on top of scenarios** — `.skill` definitions built on the scenario implementation.
+- **R17.23 Skill development owner** — PO decision: fork skill-expert from expert.
+
+---
+
+## EXTENSION — TRON 2026-05-31 (verbatim, 3rd extension — re-archived from requirements.md ea532bd)
+
+> use case json must track the exact locations in the exact puml file units for tracability as well as classes and methods as iors to the git location and commit of the file
+
+### Decomposition hints
+- **R17.24 UC/Class/Method unit carries exact source location + git anchor** — model MUST track exact source FILE, location (line range), git commit SHA.
+
+---
+
+## EXTENSION — TRON 2026-05-31 (verbatim, PO-relayed — re-archived from requirements.md ea532bd)
+
+> in scenario/sprints.md/usecase/ <file>.md add a chain link symbol before the edit to link to the original ln file in scenario/sprints.json/…
+
+### Decomposition hints
+- **R17.25 Generated MD views show chain-link icon → symlink JSON source** — 🔗 before ✏️ linking to sprints.json/.
 
 ---
 

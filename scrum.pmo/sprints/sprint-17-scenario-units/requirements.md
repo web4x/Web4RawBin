@@ -153,6 +153,36 @@
   > TRON: "in scenario/sprints.md/usecase/ <file>.md add a chain link symbol before the edit to link to the original ln file in scenario/sprints.json/…"
   → Task TBD (planner to stand up)
 
+## Extension 4 (2026-05-31 — traceability is a TREE)
+
+- [ ] **R17.26: Traceability is a TREE, not a chain**
+  [requirement:uuid:a1e2f3d4-b5c6-4d7e-8f90-1a2b3c4d5e26]
+  > TRON: "thats basically good. but chain is actually a tree. each element should be a link. all are based on typed scenarios... sharpen that in the planning and rework the refined tasks"
+  → Task TBD (planner to assign — rework all task Traceability sections)
+
+  The `## Chain` / linear sequence framing (req → uc → puml → class/method) is wrong; the real structure is a TREE that branches at every level. Rename `## Chain` → `## Traceability` and render hierarchically.
+
+- [ ] **R17.27: Every traceability element is a clickable link**
+  [requirement:uuid:b2f3a4e5-c6d7-4e8f-9a01-2b3c4d5e6f27]
+  > TRON: "each element should be a link"
+  → Task TBD
+
+  In BOTH task files AND generated views, every referenced node (Requirement/UseCase/PUML/Class/Method/Task/Subtask/Test/TraceLink) MUST be a clickable link to its scenario-unit view. No plain text references.
+
+- [ ] **R17.28: All traceability elements are typed scenarios**
+  [requirement:uuid:c3a4b5e6-d7e8-4f90-a1b2-3c4d5e6f7028]
+  > TRON: "all are based on typed scenarios"
+  → Task TBD
+
+  Every node in the traceability tree IS a typed scenario unit (no bare strings) — the tree is a graph of `ior:instance:<uuid>` references resolved through ClassLoader + ViewTemplateRegistry.
+
+- [ ] **R17.29: Sharpen planning + rework refined task files**
+  [requirement:uuid:d4b5c6e7-e8f9-4a01-b2c3-4d5e6f708029]
+  > TRON: "sharpen that in the planning and rework the refined tasks"
+  → Task TBD
+
+  Update S17 `planning.md` AND rework every refined task file (T124.x, T125-T142) so the Traceability section is tree-of-typed-scenario-links.
+
 ---
 
 ## UUID Index
@@ -184,3 +214,7 @@
 | R17.23 | `9dedeb00` | T139 | Ext 2 |
 | R17.24 | `47a86209` | T140 | Ext 3 |
 | R17.25 | `7e4f8a2b` | TBD | Views |
+| R17.26 | `a1e2f3d4` | TBD | Ext 4 |
+| R17.27 | `b2f3a4e5` | TBD | Ext 4 |
+| R17.28 | `c3a4b5e6` | TBD | Ext 4 |
+| R17.29 | `d4b5c6e7` | TBD | Ext 4 |
