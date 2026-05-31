@@ -118,20 +118,18 @@ prose. Then **migrate every existing sprint** to this model.
   **Status:** PLANNED — closes T129's documented req-allowlist for S10-S17
   **Owners (CMM4):** robbin-req (audit lead) + robbin-planner (JOINT audit pass) → robbin-architect (review) → robbin-tester (verify)
 
-- [ ] ⏳ [T136: Migration extension for Requirement + UseCase units](./task-136-migration-extension-req-uc.md)
-  **Status:** PLANNED — extends T128 migration to emit Requirement + UseCase scenario units (currently only Task + impl emitted)
-  **Owners (CMM4):** robbin-req → robbin-architect → robbin-expert → robbin-tester
-  **Rule-pair scope:** (a)+(b) per #15 (data emission user-visible via /md/+/trace); (c) STATIC_SHELL exempt
+- [ ] 🧪 [T136: Migration extension for Requirement + UseCase units](./task-136-migration-extension-req-uc.md)
+  **Status:** impl + testing DONE (5073c3b architect design → 4b3dafb expert Requirement+UseCase parsers + TraceLink emission → 3b79545 tester verify, 834/834) — Tron QA pending
+  **Rule-pair FLAG:** ⚠️ 4b3dafb shipped without package.json/sw.js bump despite AC7. Likely batching unified follow-up bump as with T132-T134 burst (which closed in 2f6dde2). Watch for it.
 
 - [ ] ⏳ [T137: req + planner LEARN scenarios for planning + update SKILL.md](./task-137-req-planner-learn-scenarios.md)
   **Status:** PLANNED — req + planner SKILL.md adopt scenario-unit workflow (planning.md becomes a generated view)
   **Owners (CMM4):** robbin-req (own SKILL update) + robbin-planner (own SKILL update — this agent) JOINT → robbin-architect (peer review) → robbin-tester (verify)
   **Rule-pair scope:** docs-only — no bump
 
-- [ ] ⏳ [T138: skill set on scenarios (capture-quote, propose-task, walk-chain)](./task-138-skill-set-scenarios.md)
-  **Status:** PLANNED — three foundational verbs every role uses over the scenario-unit model
-  **Owners (CMM4):** robbin-req → robbin-architect (verb-contract design) → robbin-expert (skills.ts impl) → robbin-tester
-  **Rule-pair scope:** (a)+(b) per #15 (new exports = surface change); (c) STATIC_SHELL exempt
+- [ ] 🧪 [T138: skill set on scenarios (capture-quote, propose-task, walk-chain)](./task-138-skill-set-scenarios.md)
+  **Status:** impl + testing DONE (5073c3b architect design → 368f1d0 expert 4 skills: captureQuote, proposeTask, walkChain + **statusTransition** (architect added a 4th beyond original 3 — scope adjustment, healthy refinement) → 3b79545 tester verify, 834/834) — Tron QA pending
+  **Rule-pair FLAG:** ⚠️ 368f1d0 shipped without bump despite AC7. Same pattern as T136 — watch for unified follow-up bump.
 
 - [ ] ⏳ [T139: fork skill-expert from expert (PO decision; agent-trainer executes)](./task-139-fork-skill-expert.md)
   **Status:** PLANNED — new dedicated agent for the skill verb-set; PO decision-led, agent-trainer executes
