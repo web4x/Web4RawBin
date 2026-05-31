@@ -95,8 +95,149 @@ Migration considerations (T128 hook):
 - Total link count after migration: ~hundreds (every task has 3-10 chain edges
   × 17 sprints × ~130 tasks). Architect plans the batching.
 
-## Design (architect → expert)
-TO FILL after architect refinement. Should include:
+## Architect Design — robbin-architect (2026-05-31)
+
+### TraceLink Scenario Unit
+
+```jsonc
+{
+  "ior": "ior:class:TraceLink",
+  "model": {
+    "uuid": "...",
+    "from": "ior:instance:<source-uuid>",    // e.g., task UUID
+    "to": "ior:instance:<target-uuid>",      // e.g., requirement UUID
+    "fromType": "task",                       // for display without resolving
+    "toType": "requirement",
+    "relation": "implements",                 // typed: implements | tests | contains | follows | changes | supersedes
+    "direction": "bidirectional",             // or "forward-only"
+    "label": "T1 implements R1",             // optional human label
+    "createdAt": "2026-05-31T...",
+    "createdBy": "migrate-to-scenario.ts"    // provenance
+  },
+  "ownerIor": "ior:instance:<sprint-uuid>"   // owning sprint or null
+}
+```
+
+### Relation Types (typed enum, not free-form)
+
+| Relation | From → To | Inverse | Example |
+|----------|-----------|---------|---------|
+| `implements` | task → requirement | `implementedBy` | T1 implements R1 |
+| `tests` | test → method | `testedBy` | TS1 tests task.startRefinement |
+| `contains` | sprint → task, task → subtask | `containedBy` | Sprint-1 contains T1 |
+| `follows` | task → task | `followedBy` | T134 follows T125 |
+| `changes` | task → task | `changedBy` | T132 changes T126 |
+| `supersedes` | req → req | `supersededBy` | R17.1v2 supersedes R17.1v1 |
+| `usesClass` | usecase → class | `usedBy` | UC unit.load uses ScenarioIndex |
+| `hasMethod` | class → method | `methodOf` | ScenarioIndex has put() |
+
+### Symlink Emission (bidirectional visibility)
+
+For each TraceLink unit, emit `ln` symlinks into BOTH endpoints' speaking-name directories:
+
+```
+scenario/sprints.json/sprint-1/task-1-team-bootstrap/
+  links/
+    implements/
+      req-r1-bootstrap.link.json → ../../../index/a/b/c/d/e/<link-uuid>.scenario.json
+
+scenario/sprints.json/sprint-1/
+  links/
+    implementedBy/
+      task-1-team-bootstrap.link.json → ../../index/a/b/c/d/e/<link-uuid>.scenario.json
+```
+
+Convention: `<links>/<relation>/<endpoint-speaking-name>.link.json`
+
+Both symlinks point to the SAME index file. Listing either endpoint's `links/` directory shows all its relationships.
+
+### TraceLink Class
+
+```typescript
+class TraceLink extends Unit {
+  readonly classIor = 'ior:class:TraceLink';
+
+  // Create a link between two instances
+  static create(from: Unit, to: Unit, relation: string, opts?: { label?: string }): TraceLink {
+    const link = new TraceLink();
+    link.model = {
+      uuid: crypto.randomUUID(),
+      from: `ior:instance:${from.model.uuid}`,
+      to: `ior:instance:${to.model.uuid}`,
+      fromType: from.classIor.split(':').pop(),
+      toType: to.classIor.split(':').pop(),
+      relation,
+      direction: 'bidirectional',
+      label: opts?.label || `${from.model.name} ${relation} ${to.model.name}`,
+      createdAt: new Date().toISOString(),
+    };
+    return link;
+  }
+
+  // Emit ln symlinks into both endpoints' speaking-name dirs
+  emitSymlinks(fromDir: string, toDir: string, indexPath: string): void {
+    const rel = this.model.relation;
+    const inverse = INVERSE_MAP[rel] || `${rel}By`;
+
+    // from → links/out/<relation>/<to-name>.link.json
+    const fromLinksDir = path.join(fromDir, 'links', rel);
+    fs.mkdirSync(fromLinksDir, { recursive: true });
+    fs.symlinkSync(path.relative(fromLinksDir, indexPath),
+      path.join(fromLinksDir, `${slug(this.model.toName)}.link.json`));
+
+    // to → links/in/<inverse>/<from-name>.link.json
+    const toLinksDir = path.join(toDir, 'links', inverse);
+    fs.mkdirSync(toLinksDir, { recursive: true });
+    fs.symlinkSync(path.relative(toLinksDir, indexPath),
+      path.join(toLinksDir, `${slug(this.model.fromName)}.link.json`));
+  }
+}
+
+const INVERSE_MAP: Record<string, string> = {
+  implements: 'implementedBy', tests: 'testedBy', contains: 'containedBy',
+  follows: 'followedBy', changes: 'changedBy', supersedes: 'supersededBy',
+  usesClass: 'usedBy', hasMethod: 'methodOf',
+};
+```
+
+### View Templates (8th class template)
+
+**HTML:**
+```html
+<div class="sv-tracelink">
+  <span class="sv-type-badge sv-link-badge">🔗 Link</span>
+  <div class="sv-link-endpoints">
+    <a href="#{from}" class="sv-link-from">{fromType}: {fromName}</a>
+    <span class="sv-link-arrow">─{relation}→</span>
+    <a href="#{to}" class="sv-link-to">{toType}: {toName}</a>
+  </div>
+  <div class="sv-meta">
+    <span class="sv-field">{createdAt}</span>
+    <span class="sv-field">{createdBy}</span>
+  </div>
+</div>
+```
+
+**MD:**
+```markdown
+## 🔗 {label}
+**From:** [{fromType}: {fromName}](./{speakingName(from)}.md)
+**To:** [{toType}: {toName}](./{speakingName(to)}.md)
+**Relation:** {relation} · **Created:** {createdAt}
+```
+
+### Migration Hook (T128 extension)
+
+For every chain edge parsed from existing markdown (up/down/chain/follows/changes):
+1. Create a TraceLink scenario unit
+2. Store in `scenario/index/<5-level>/<uuid>.scenario.json`
+3. Emit symlinks into both endpoints' `links/` dirs
+4. Estimated count: ~500 links across 17 sprints × ~130 tasks × ~3-5 edges each
+
+Batching: process one sprint at a time, same as T128 migration passes.
+
+## Design (architect → expert, continued)
+Expert implementation paths:
 - TraceabilityLink class file paths + interface
 - Template path + visual design (link viewer with from/to/relation/timestamp)
 - Storage-emit changes to `index-store.ts` (or new `link-store.ts`)

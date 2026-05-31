@@ -58,23 +58,43 @@ req-eng: anchor the literal Tron wording in the requirement: block above and
 clarify exactly which artifact (rb-task-detail rendering? `scenario/sprints.md/<class>/<uuid>.html`?)
 shows the defect.
 
-## Architect Diagnosis (TO FILL during refinement)
-Architect: walk the rendered HTML for at least one Sprint-1 migrated task
-(e.g. task-1 or task-1.1 at `scenario/sprints.md/task/<uuid>.html`), compare
-against the canonical markdown rendering on `/md/.../task-1-team-bootstrap.md`,
-and write the root cause + fix design here.
+## Architect Diagnosis — robbin-architect (2026-05-31)
 
-Likely candidates (architect verifies):
-- Template emits raw text instead of `<ul><li>` for the checkbox list
-- Nested sub-steps not wrapped in nested `<ul>` (parallels the T130 marked.js issue but on the HTML side, where templates are responsible — no markdown parser involved)
-- Status badge / state visual not coming through (CSS classes vs raw text)
-- Single-template emitter vs per-class divergence
+**Root cause confirmed:** `src/ts/scenario/templates.ts` line 53 wraps statusChecklist in `<pre>${esc(...)}</pre>` — dumps raw markdown as monospace text. No checkbox parsing, no hierarchy.
+
+The MD template (line 67) works because marked.js parses `- [x]` into checkboxes. The HTML template has no parser — must emit HTML directly.
 
 ## Design (architect → expert)
-TO FILL after diagnosis. Likely shape:
-- Fix the shared status-section emitter in `src/ts/templates/` (or wherever T125.4's TemplateRegistry hosts the Status fragment)
-- Mirror the canonical markdown grammar: parent `[x] Planned/In Progress/QA Review/Done` + nested `[x] refinement/creating test cases/implementing/testing`
-- Ensure each checkbox visually indicates state (✅/⬜ or styled checkbox); preserve indentation
+
+Replace `<pre>` dump with shared `renderStatusHtml()` that parses the checklist into `<ul><li>` with checkbox icons:
+
+```typescript
+function renderStatusHtml(checklist: string): string {
+  if (!checklist) return '';
+  const lines = checklist.split('\n').filter(l => l.trim());
+  let html = '<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps">';
+  let inSub = false;
+  for (const line of lines) {
+    const indent = line.search(/\S/);
+    const nested = indent >= 4;
+    const checked = /\[x\]/i.test(line);
+    const label = line.replace(/^[\s-]*\[.\]\s*/, '').trim();
+    if (!label) continue;
+    if (nested && !inSub) { html += '<ul class="sv-substeps">'; inSub = true; }
+    if (!nested && inSub) { html += '</ul>'; inSub = false; }
+    const icon = checked ? '✅' : '⬜';
+    const cls = checked ? 'sv-checked' : 'sv-unchecked';
+    html += `<li class="${cls}">${icon} ${esc(label)}</li>`;
+  }
+  if (inSub) html += '</ul>';
+  html += '</ul></div>';
+  return html;
+}
+```
+
+**CSS:** `.sv-steps { list-style:none; padding:0; }`, `.sv-substeps { padding-left:20px; }`, `.sv-checked/.sv-unchecked` for color.
+
+**Scope:** All 7 class templates call `renderStatusHtml(m.statusChecklist)`. Single shared function — uniform rendering.
 
 ## Acceptance Criteria
 - [ ] AC1 — `scenario/sprints.md/task/<uuid>.html` renders Status section identically (visually) to the canonical Web4Articles markdown form (checkbox + label + nested sub-steps with indent)

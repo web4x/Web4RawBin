@@ -79,12 +79,127 @@ Status methods on Task class (the "verbs" Tron mentioned):
   `task.startTesting()`, `task.completeTesting()`, `task.tronApprove()` …
 - Each verb mutates `model.status` AND emits an event for view live-update (T126.4 wiring).
 
-## Design (architect → expert)
-TO FILL after architect refinement. Should include:
-- Type signatures of each verb method
-- Guard logic (e.g. `task.startTesting()` requires `model.status === 'Implemented'` AND a valid impl commit ref)
-- How `task.tronApprove()` is gated (signature + verification: only callable via an explicit Tron-authored commit message marker)
-- View regeneration hook (when verb fires, regenerate the unit's .md+.html via T126 ViewGenerator)
+## Architect Design — robbin-architect (2026-05-31)
+
+### State Machine (7 states, 8 transitions)
+
+```
+                    ┌──────────────────────────────────────────────────┐
+                    │                                                  │
+  ⏳ Planned ──→ 📝 Refining ──→ 🔧 Implementing ──→ ✅ Implemented  │
+                                                          │            │
+                                                          ↓            │
+                                                     🧪 Testing       │
+                                                          │            │
+                                                          ↓            │
+                                                     🏁 Done ←── Tron gate
+                                                                       │
+                                                                       │
+                              (QAReview is the waiting state            │
+                               between Testing→Done;                   │
+                               tronApprove() is the gate)──────────────┘
+```
+
+### States + Symbol Legend
+
+| State | Symbol | Meaning | Entered by |
+|-------|--------|---------|------------|
+| `Planned` | ⏳ | Task created, not started | Default on creation |
+| `Refining` | 📝 | Architect/req refining spec | `startRefinement()` |
+| `CreatingTestCases` | 📝🧪 | Tester writing test cases | `startCreatingTestCases()` |
+| `Implementing` | 🔧 | Expert coding | `startImplementing()` |
+| `Testing` | 🧪 | Tester verifying | `startTesting()` |
+| `QAReview` | 🔍 | Awaiting Tron approval | `requestQAReview()` |
+| `Done` | 🏁 | Tron approved | `tronApprove()` — **TRON-ONLY GATE** |
+
+### Transition Table
+
+| From | To | Verb Method | Guard |
+|------|----|-------------|-------|
+| Planned | Refining | `startRefinement()` | none (open) |
+| Refining | CreatingTestCases | `startCreatingTestCases()` | refinement section non-empty |
+| CreatingTestCases | Implementing | `startImplementing()` | none (open) |
+| Refining | Implementing | `startImplementing()` | allowed (skip test-case phase) |
+| Implementing | Testing | `startTesting()` | impl commit ref in model |
+| Testing | QAReview | `requestQAReview()` | all test scenarios PASS |
+| QAReview | Done | `tronApprove()` | **TRON-ONLY: requires `tronCommitRef` arg** |
+| ANY | Planned | `reset()` | admin/architect override (rare) |
+
+### Verb Method Signatures
+
+```typescript
+class Task extends Unit {
+  // State machine verbs
+  startRefinement(): void {
+    this.guardTransition('Planned');
+    this.model.status = 'Refining';
+    this.emit();
+  }
+
+  startCreatingTestCases(): void {
+    this.guardTransition('Refining');
+    this.model.status = 'CreatingTestCases';
+    this.emit();
+  }
+
+  startImplementing(): void {
+    this.guardTransition('Refining', 'CreatingTestCases');
+    this.model.status = 'Implementing';
+    this.emit();
+  }
+
+  startTesting(): void {
+    this.guardTransition('Implementing');
+    this.model.status = 'Testing';
+    this.emit();
+  }
+
+  requestQAReview(): void {
+    this.guardTransition('Testing');
+    this.model.status = 'QAReview';
+    this.emit();
+  }
+
+  tronApprove(tronCommitRef: string): void {
+    this.guardTransition('QAReview');
+    if (!tronCommitRef) throw new Error('tronApprove requires a Tron commit ref');
+    this.model.status = 'Done';
+    this.model.tronApprovalCommit = tronCommitRef;
+    this.emit();
+  }
+
+  // Guard helper — throws if current status not in allowed list
+  private guardTransition(...allowed: string[]): void {
+    if (!allowed.includes(this.model.status)) {
+      throw new Error(`Cannot transition from '${this.model.status}' — allowed: ${allowed.join(', ')}`);
+    }
+  }
+
+  // Emit: persist + regenerate views
+  private emit(): void {
+    this.save();  // persist to scenario/index/
+    ViewBus.notify(`task:${this.model.uuid}`);  // trigger view live-update
+  }
+}
+```
+
+### Tron Gate
+
+`tronApprove()` requires a `tronCommitRef` string — the git commit hash of Tron's explicit approval. This is NOT automatable by planner-sync or any agent. The commit must be authored by Tron (verified by examining `git log --author` if needed). The method stores the ref in `model.tronApprovalCommit` for audit trail.
+
+### Symbol Derivation (single source of truth)
+
+```typescript
+function taskSymbol(status: string): string {
+  const SYMBOLS: Record<string, string> = {
+    Planned: '⏳', Refining: '📝', CreatingTestCases: '📝🧪',
+    Implementing: '🔧', Testing: '🧪', QAReview: '🔍', Done: '🏁',
+  };
+  return SYMBOLS[status] || '❓';
+}
+```
+
+Planner no longer maintains symbols manually — they're computed from `model.status`.
 
 ## Acceptance Criteria
 - [ ] AC1 — Task class has a documented state machine with all transitions modeled (architect's diagram in this file)
