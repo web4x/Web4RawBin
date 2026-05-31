@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "b1a959d9-0388-4f9e-97fb-991dc73b4441",
+    "name": "Task 2: Define RawBin Architecture (Fork from QnD Stack)",
+    "slug": "task-2-rawbin-architecture",
+    "description": "",
+    "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [sprint-1-rawbin-foundation Planning](./planning.md)\n- down\n  - None",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] PO + architect agree on keep/remove/rename lists\n- [x] Tron approves architecture decisions (2026-05-22)\n- [x] Task file committed to Web4RawBin repo",
+    "qaAudit": "## Subtasks\nNone (atomic task).",
+    "subtasks": "None (atomic task).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:2cfec484-45a9-4f61-94b5-663b97cd9b03"
+}

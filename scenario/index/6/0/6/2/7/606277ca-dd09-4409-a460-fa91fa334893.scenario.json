@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "606277ca-dd09-4409-a460-fa91fa334893",
+    "name": "Task 3: Create Room.ts from GameRoom.ts",
+    "slug": "task-3-room-ts",
+    "description": "",
+    "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [sprint-1-rawbin-foundation Planning](./planning.md)\n- down\n  - None",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] Room.ts compiles with no TypeScript errors\n- [x] No imports from game files (BotPlayer, SpecialCards, CardUtils, ScoreCalculator)\n- [x] All vitest tests pass\n- [x] File persistence works (create room, restart, room still exists)\n- [x] ~300 lines or less",
+    "qaAudit": "## Subtasks\nNone (atomic task).",
+    "subtasks": "None (atomic task).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:2cfec484-45a9-4f61-94b5-663b97cd9b03"
+}

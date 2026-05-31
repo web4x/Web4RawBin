@@ -66,8 +66,8 @@ describe('T125.3: ScenarioIndex storage', () => {
     expect(loaded).toEqual(unit);
   });
 
-  it('prefix takes first 5 hex chars (no hyphens)', () => {
-    expect(idx.prefix('a7f3c1d2-8b4e-4f9a-b6c5-3d2e1f0a9b8c')).toBe('a7f3c');
+  it('prefixPath splits first 5 hex chars into 5 dir levels', () => {
+    expect(idx.prefixPath('a7f3c1d2-8b4e-4f9a-b6c5-3d2e1f0a9b8c')).toBe('a/7/f/3/c');
   });
 
   it('list returns stored UUIDs', () => {
