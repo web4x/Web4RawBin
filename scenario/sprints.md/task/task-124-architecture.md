@@ -14,6 +14,14 @@
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
 
+## Chain
+
+**Children:**
+- 🔗 e83d47a1
+- 🔗 b72e58c4
+- 🔗 c93f69d5
+
+
 ## Traceability
 
 `[task:uuid:f96a9da3-366c-491f-b2e6-78cbb837f203]`

@@ -12,6 +12,14 @@
 - [x] QA Review
 - [x] Done
 
+## Chain
+
+**Children:**
+- 🔗 2fa531f7
+- 🔗 2dd5e06c
+- 🔗 771a4a9a
+
+
 ## Remaining Issues
 
 Agents need robbin-specific SKILL.md + context files to fully transition (next task).

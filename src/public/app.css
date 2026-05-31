@@ -270,6 +270,13 @@ rb-detail-drawer .drawer-handle {
 .dv-link-title { font-size: 0.8rem; color: rgba(255,255,255,0.8); }
 .dv-empty { color: rgba(255,255,255,0.4); font-size: 0.8rem; padding: 8px 0; }
 
+/* T141: Chain link icons */
+.chain-link { color: #42a5f5; text-decoration: none; font-size: 0.8rem; }
+.chain-link:hover { text-decoration: underline; }
+.chain-link-broken { color: rgba(255,255,255,0.3); font-size: 0.75rem; font-style: italic; }
+.sv-chain-group h4 { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin: 8px 0 4px; }
+.sv-chain-item { padding: 2px 0; }
+
 /* Mobile */
 @media (max-width: 480px) {
   #app { padding: 8px; }

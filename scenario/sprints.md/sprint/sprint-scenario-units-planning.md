@@ -27,3 +27,4 @@
 - [ ] [T138: skill set on scenarios (capture-quote, propose-task, walk-chain)](../task/task-138-skill-set-scenarios.md)
 - [ ] [T139: fork skill-expert from expert (PO decision; agent-trainer executes)](../task/task-139-fork-skill-expert.md)
 - [ ] [T140: Source-Location IOR for UC/Class/Method Scenario Units](../task/task-140-source-location-ior.md)
+- [ ] [T141: Chain-link icon → sprints.json symlink in generated MD views](../task/task-141-chain-link-icon-symlinks.md)

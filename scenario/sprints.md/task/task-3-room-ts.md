@@ -12,6 +12,12 @@
 - [x] QA Review
 - [x] Done
 
+## Chain
+
+**Children:**
+- 🔗 adf00ff5
+
+
 ## Traceability
 
 - up

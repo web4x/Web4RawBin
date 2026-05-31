@@ -1,0 +1,40 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T141: Chain-link icon → sprints.json symlink in generated MD views</h2><code>f0af3251-3884-4238-9159-7eeac15c46d6</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-unchecked">⬜ Planned</li><li class="sv-unchecked">⬜ In Progress</li><ul class="sv-substeps"><li class="sv-unchecked">⬜ refinement (req → architect)</li><li class="sv-unchecked">⬜ creating test cases</li><li class="sv-unchecked">⬜ implementing</li><li class="sv-unchecked">⬜ testing</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>`[task:uuid:f0af3251-3884-4238-9159-7eeac15c46d6]`
+
+- up
+  - [Sprint 17 Planning](./planning.md)
+  - **requirement:** `[requirement:uuid:bdda9290-56d0-499a-8277-954bdb35e818]` —
+    &quot;Generated MD views should render a chain-link icon (🔗 or similar) on every
+    cross-reference, with the link pointing into the `scenarios/sprints.json/`
+    speaking-name symlink tree (not the raw UUID index). Start with the UseCase
+    template; architect decides whether to extend to all 7 class templates.&quot;
+    (Tron via PO 2026-05-31; req-eng to anchor the verbatim Tron quote here.)
+- down
+  - None (atomic task; may split if architect extends to all 7 templates)
+- follows
+  - [T126: Generated views](./task-126-views.md) — provides the 7 class templates this task extends
+  - [T131: File-browser symlink support](./task-131-file-browser-symlinks.md) — visibility of the symlink tree this task points into
+  - [T134: Traceability-as-units](./task-134-traceability-as-units.md) — source of the chain edges to render
+  - [T128.1: Sprint 1 exemplar migration](./task-128-migration.md) — supplies the live symlink tree to link into
+- chain (req → usecase → puml → class/method)
+  - **requirement:** chain-link icon → sprints.json symlink (Tron 2026-05-31)
+  - **use case:** existing `view.render` UC (T124.6 PUML) — T141 extends per-class HTML+MD chain rendering; architect may add `view.renderChainLink` UC as a new instance
+  - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (architect adds the UC if introduced)
+  - **class/method:** `src/ts/templates/` — UseCase template first (one shared helper or per-template render); affects per-class chain rendering blocks emitted by T126 ViewGenerator</pre></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [ ] AC1 — UseCase template chain block renders `🔗 [Speaking Name](sprints.json/...)` for every cross-reference (every existing chain edge in the migrated Sprint-1 UseCase units)
+- [ ] AC2 — Links resolve through the `scenarios/sprints.json/` symlink tree to the target's speaking-name path (T131 file-browser symlink support already makes these navigable)
+- [ ] AC3 — Broken/missing target falls back to raw IOR text — no broken links in output
+- [ ] AC4 — Architect's scope decision documented in this file: UseCase-only, or extended to all 7 (Sprint/Task/Requirement/UseCase/Class/Method/Test)
+- [ ] AC5 — If scope extends, all 7 class templates render chain links consistently (uniform icon + path format)
+- [ ] AC6 — Visual: tester opens 3 sample views on `/md/scenarios/sprints.md/usecase/...` and confirms the icon + clickable link + correct target
+- [ ] AC7 — `npm run build` succeeds; full suite passes; **rule-pair (a) package.json + (b) sw.js CACHE_NAME bumped** per learnings #15 (T126 output served via /md/ = user-facing); **(c) STATIC_SHELL exempt** per #16 (template-only change, no new route — confirm in commit)
+- [ ] AC8 — No regression: existing T132 (HTML status template) + T133 (FSM rendering) + T134 (TraceLink view) all still render correctly</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-05-31: Tron via PO 2026-05-31 directed planning. CMM4 4-role engagement enforced (learnings #18). Real v4 uuids per #17. Awaiting req anchor + architect design.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task; architect may split if extend-to-all-7 is large).
+
+---
+
+*Sprint 17 — Scenario Units / IOR Data Model &amp; Class Views · Phase 3 follow-on*
+*Owners (CMM4): robbin-req → robbin-architect → robbin-expert → robbin-tester*
+*Priority: 7 (visual legibility of chain navigation in generated views)*</p></div></div>
