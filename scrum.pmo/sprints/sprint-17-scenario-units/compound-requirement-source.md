@@ -52,3 +52,17 @@
 - **R17.15 Collaborative planning** — architect + req-eng + planner jointly plan this sprint. (Tron-assigned roles.)
 
 (req: split/refine per the literal source; these hints are NOT authoritative. The verbatim text is.)
+
+> NOTE 2026-05-31: extensions 1-3 (R17.16-R17.25) literal-source archive was lost to the iphone:0.1 server-crash recovery (`git checkout -- .` discarded uncommitted PO edits). Formalized requirements with verbatim quotes are durable in S17 `requirements.md` (commit `ea532bd`). Req-eng to re-archive the verbatim chat fragments into this file when capacity allows.
+
+---
+
+## EXTENSION — TRON 2026-05-31 (verbatim, 4th extension — traceability is a TREE)
+
+> thats basically good. but chain is actually a tree. each element should be a link. all are based on typed scenarios... sharpen that in the planning and rework the refined tasks
+
+### Decomposition hints (for req — confirm against literal)
+- **R17.26 Traceability is a TREE not a chain** — the `## Chain` / linear sequence framing (req → uc → puml → class/method) is wrong; the real structure is a TREE that branches at every level. Rename `## Chain` → `## Traceability` and render hierarchically.
+- **R17.27 Every element is a LINK** — in BOTH task files AND generated views, every referenced node (Requirement/UseCase/PUML/Class/Method/Task/Subtask/Test/TraceLink) MUST be a clickable link to its scenario-unit view. No plain text references.
+- **R17.28 All traceability elements are typed scenarios** — every node in the tree IS a typed scenario unit (no bare strings) — the tree is a graph of `ior:instance:<uuid>` references resolved through ClassLoader + ViewTemplateRegistry.
+- **R17.29 Sharpen planning + rework refined task files** — update S17 `planning.md` AND rework every refined task file (T124.x, T125-T142) so the Traceability section is tree-of-typed-scenario-links. New task files follow this shape from the start.
