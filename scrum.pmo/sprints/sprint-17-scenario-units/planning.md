@@ -143,13 +143,13 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 8 — S17 4th extension (Tron 2026-05-31 — traceability is a TREE) + B5 file-browser
 
-- [ ] 📝 [T143: Traceability chain → TREE rework (R17.26–R17.29)](./task-143-traceability-tree-rework.md)
-  **Status:** refinement done (`4b65e79` architect design — tree model + template + rework plan) — awaiting expert impl. Tron's 4th S17 extension (`df09df2` capture + `ac8c8e7` req formalization).
+- [ ] 🧪 [T143: Traceability chain → TREE rework (R17.26–R17.29)](./task-143-traceability-tree-rework.md)
+  **Status:** impl-shipped (`84f3915` v0.5.37 — trace-tree module + clickable links + re-sectioned views) → tester verified (`6e2a532` — **AC1+AC4–AC7 PASS, AC2 PARTIAL**: UUID hrefs 404). AC2 fix pending → re-verify → Tron QA. Tron 4th S17 extension (`df09df2` + `ac8c8e7`).
   **Owners (CMM4):** robbin-req (anchor verbatim quotes under R17.26–R17.29) → robbin-architect (tree model + template + ViewGenerator + coverage audit + rework plan) → robbin-expert (impl) → robbin-tester (chain-walk + visual + regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) STATIC_SHELL if new route introduced (architect decides)
 
-- [ ] ✅ [T144: File-browser display fixes — icon order + link targets (B5, 3 fixes)](./task-144-file-browser-display-fixes.md)
-  **Status:** impl-shipped (`4b65e79` architect → `5da4054` expert v0.5.36, rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME both → rawbin-v0.5.36) — testing pending (robbin-tester TS1–TS6) → Tron QA. Tron 3-in-1 directive (a)/(b)/(c) all implemented.
+- [ ] 🧪 [T144: File-browser display fixes — icon order + link targets (B5, 3 fixes)](./task-144-file-browser-display-fixes.md)
+  **Status:** impl v0.5.36 (`5da4054`) → tester round 1 (`65cc351` — **AC1+AC3 PASS, AC2 PARTIAL**: 🔗 target 404) → architect fix (`bd3b75d` Option A) → expert reship v0.5.38 (`0101980` — 🔗 href → `/edit/`). **AC2 re-verify pending tester** → Tron QA. Rule-pair (a)+(b) ✓ across both impl rounds.
   **Owners (CMM4):** robbin-req (confirm anchor — no scope drift) → robbin-architect (3 fixes design in `server.ts` /md/ + `rb-file-tree`) → robbin-expert (impl) → robbin-tester (visual + click-through across class trees)
   **Rule-pair scope:** (a)+(b) required at impl; (c) exempt (no new route, architect to confirm)
 
