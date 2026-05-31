@@ -96,8 +96,21 @@ export class ViewGenerator {
     const unitByUuid = new Map<string, ScenarioUnit>();
     for (const u of allUnits) unitByUuid.set(u.model.uuid as string, u);
 
+    // Build set of UUIDs that are children of another task — skip them at top level
+    const childUuids = new Set<string>();
     for (const taskIor of taskIors) {
       const taskUuid = taskIor.replace('ior:instance:', '');
+      const taskUnit = unitByUuid.get(taskUuid);
+      if (taskUnit) {
+        for (const cIor of ((taskUnit.model.children as string[]) || [])) {
+          childUuids.add(cIor.replace('ior:instance:', ''));
+        }
+      }
+    }
+
+    for (const taskIor of taskIors) {
+      const taskUuid = taskIor.replace('ior:instance:', '');
+      if (childUuids.has(taskUuid)) continue;
       const taskUnit = unitByUuid.get(taskUuid);
       if (taskUnit) {
         this.renderTaskLine(taskUnit, unitByUuid, lines, 0);
