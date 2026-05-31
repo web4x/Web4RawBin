@@ -76,13 +76,124 @@ Design questions:
 3. **Template scope:** UseCase first (Tron explicit). Architect decides if a single shared `renderChainLink(targetIor)` helper handles all 7 classes or each template emits its own. Recommend shared helper (DRY).
 4. **Broken-link handling:** if the target unit doesn't exist in the index OR the symlink path doesn't resolve, fall back to the raw IOR text (no broken link displayed).
 
-## Design (architect → expert)
-TO FILL after architect refinement. Should include:
-- New helper signature: `renderChainLink(ior, opts?) → string` (returns markdown like `🔗 [Speaking Name](relative/path/to/sprints.json/...)`)
-- File path: `src/ts/scenario/templates.ts` or new `src/ts/scenario/chain-link.ts`
-- Per-template integration: which class templates get the helper (UseCase first; then ?)
-- Resolution algorithm for IOR → speaking-name path (walk symlink tree or use stored field)
-- HTML counterpart (if scope extends to .html views) — `<a href="..." class="chain-link">🔗 Speaking Name</a>`
+## Architect Design — robbin-architect (2026-05-31)
+
+### Scope Decision: ALL 7 templates (not UseCase-only)
+
+**Pick: all 7 classes.** Justification:
+1. Tron said "start with UseCase" — but the helper is 1 shared function. Restricting to 1 template is more work (special-casing) than applying uniformly.
+2. Every class has chain refs (requirements→tasks, tasks→UCs, UCs→classes, etc.). Rendering them consistently is the whole point of S17.
+3. The 🔗 icon + speaking-name href is a pure render concern — adding it to all 7 is ~1 line per template calling the shared helper.
+
+### Shared Helper: `renderChainLinks(model, format)`
+
+```typescript
+// src/ts/scenario/templates.ts (add to existing file)
+
+interface ChainLinkOpts {
+  idx: ScenarioIndex;        // for resolving ior:instance:<uuid> → unit → speakingName
+  sprintSlug: string;        // current sprint slug for relative path building
+}
+
+function renderChainLinkMd(ior: string, opts: ChainLinkOpts): string {
+  const uuid = ior.replace('ior:instance:', '');
+  const unit = opts.idx.get(uuid);
+  if (!unit) return ior;  // fallback: raw IOR text (AC3 — no broken links)
+  const name = unit.model.name || uuid.slice(0, 8);
+  const slug = speakingName(unit);
+  // Relative path: from sprints.md/<sprint>/  to sprints.json/<sprint>/<slug>.json
+  const href = `../../sprints.json/${opts.sprintSlug}/${slug}.json`;
+  return `🔗 [${name}](${href})`;
+}
+
+function renderChainLinkHtml(ior: string, opts: ChainLinkOpts): string {
+  const uuid = ior.replace('ior:instance:', '');
+  const unit = opts.idx.get(uuid);
+  if (!unit) return `<span class="chain-link-broken">${esc(ior)}</span>`;
+  const name = unit.model.name || uuid.slice(0, 8);
+  const slug = speakingName(unit);
+  const href = `/md/scenarios/sprints.json/${opts.sprintSlug}/${slug}.json`;
+  return `<a href="${href}" class="chain-link">🔗 ${esc(name)}</a>`;
+}
+
+/** Render all IOR arrays in a model as chain-link sections */
+function renderChainSection(model: Record<string, unknown>, opts: ChainLinkOpts, format: 'md' | 'html'): string {
+  const render = format === 'md' ? renderChainLinkMd : renderChainLinkHtml;
+  const IOR_FIELDS = ['requirements', 'tasks', 'useCases', 'classes', 'methods',
+    'implementations', 'tests', 'children'];
+  const sections: string[] = [];
+
+  for (const field of IOR_FIELDS) {
+    const arr = model[field] as string[] | undefined;
+    if (!arr?.length) continue;
+    const label = field.charAt(0).toUpperCase() + field.slice(1);
+    const items = arr.map(ior => render(ior, opts));
+
+    if (format === 'md') {
+      sections.push(`**${label}:**`, ...items.map(i => `- ${i}`), '');
+    } else {
+      sections.push(`<div class="sv-chain-group"><h4>${label}</h4>${items.map(i =>
+        `<div class="sv-chain-item">${i}</div>`).join('')}</div>`);
+    }
+  }
+  return sections.join('\n');
+}
+```
+
+### Placement: BEFORE ✏️ Edit, AFTER Source
+
+In the MD template output order:
+```
+# Task Name
+[task:uuid:...]
+
+## Status
+- [x] Planned ...
+
+## Chain                    ← NEW: rendered by renderChainSection()
+**Requirements:**
+- 🔗 [R15.1 Typed Object model](../../sprints.json/sprint-15/req-r15-1.json)
+**Children:**
+- 🔗 [T1.1 Clone ud-team](../../sprints.json/sprint-1/task-1.1-clone.json)
+
+## Task Description         ← existing sections follow
+...
+```
+
+In the HTML template: chain section renders after the source block, before the description section. The ✏️ Edit link is in the page nav (pageNav function), not in the template body — so "before ✏️ Edit" means the chain section appears in the body above any edit controls.
+
+### Template Integration (1 line each)
+
+```typescript
+// TaskTemplate.renderMd — add after traceability section:
+if (hasChainFields(m)) lines.push('## Chain', '', renderChainSection(m, opts, 'md'));
+
+// TaskTemplate.renderHtml — add after traceability section:
+if (hasChainFields(m)) sections.push(`<div class="sv-section"><h3>Chain</h3>${renderChainSection(m, opts, 'html')}</div>`);
+
+// Same pattern for all 6 other templates — 1 line each
+
+function hasChainFields(m: Record<string, unknown>): boolean {
+  return ['requirements','tasks','useCases','classes','methods','implementations','tests','children']
+    .some(f => Array.isArray(m[f]) && (m[f] as unknown[]).length > 0);
+}
+```
+
+### CSS
+
+```css
+.chain-link { color: #667eea; text-decoration: none; }
+.chain-link:hover { text-decoration: underline; }
+.chain-link-broken { color: rgba(255,255,255,0.3); font-style: italic; }
+.sv-chain-group h4 { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin: 8px 0 4px; }
+.sv-chain-item { padding: 2px 0; font-size: 0.85rem; }
+```
+
+### IOR → Speaking-Name Resolution
+
+The `speakingName(unit)` function (from T124.2) generates the slug. The `opts.idx` provides the ScenarioIndex to look up the target unit by UUID. If the unit isn't in the index (orphan, broken link), the helper falls back to raw IOR text.
+
+No symlink-tree walk needed — the speaking-name path is COMPUTED from the unit's model, same function that created the symlink in the first place.
 
 ## Acceptance Criteria
 - [ ] AC1 — UseCase template chain block renders `🔗 [Speaking Name](sprints.json/...)` for every cross-reference (every existing chain edge in the migrated Sprint-1 UseCase units)
