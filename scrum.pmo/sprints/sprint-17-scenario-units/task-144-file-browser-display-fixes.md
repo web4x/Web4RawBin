@@ -148,7 +148,11 @@ File: `test/vitest/file-browser-display.test.ts` (new) + visual on `/md/scenario
 | AC6 (no regression) | 834/834 vitest | **PASS** |
 | AC7 (rule-pair) | v0.5.36 in package.json + sw.js | **PASS** |
 
-**BUG — AC2 partial:** 🔗 anchor href points to `/md/scenario/index/.../uuid.scenario.json` which 404s because the `/md/` route doesn't render `.scenario.json` files. The same path via `/edit/` returns 200. Either the href should use `/edit/` instead of `/md/`, or the `/md/` route needs a JSON viewer for `.scenario.json` files.
+**BUG — AC2 partial (v0.5.36):** 🔗 href pointed to `/md/` which 404d on `.scenario.json`.
+**FIX — AC2 re-verify (0101980, v0.5.38):** 🔗 href now `/edit/scenario/index/<prefix>/<uuid>.scenario.json` → 200. All 3 ACs confirmed PASS on v0.5.38:
+- AC1: 🔗 before ✏️ — PASS
+- AC2: 🔗 → `/edit/...scenario.json` → HTTP 200 — **PASS**
+- AC3: .json filename → `/md/scenario/sprints.md/task/<speaking>.md` → HTTP 200 — PASS
 
 - 2026-05-31: PO directed planner to stand up T144 immediately (no further reminder). Source: `2bfb64f` (req-eng B5 captured Tron's 3-in-1 directive into backlog). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17) — composite B5 uuid kept as req formalized + 3 sub-fix uuids generated for AC-level traceability; rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Awaiting req-eng confirmation → architect design → expert impl → tester verify → Tron QA.
 
