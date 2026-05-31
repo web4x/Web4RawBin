@@ -55,6 +55,12 @@ Live-update model: when a scenario.json changes, the corresponding view(s)
 re-render (file-watcher + on-demand build). Pure-function rendering — no
 template ever invokes class methods; templates read only the `model` flat JSON.
 
+**Tron refinements (2026-05-31, via T124.2 update):**
+1. **Subtask indentation:** planning.md + sprint overview render children IOR → 2-space indented under parent task (task-1.1 visually nested under task-1), matching Sprint 1 reference structure.
+2. **Speaking-name filenames:** generated files use `task-1-team-bootstrap.md` (slugified model.name), NOT `<uuid>.md`. Must match scrum.pmo/ naming convention.
+3. **Speaking-name hrefs:** all markdown links use speaking-name paths (e.g., `[T1.1: Clone](./task-1.1-clone-ud-team.md)`), NOT uuid paths. Links must resolve (no 404).
+4. **404 page:** when a speaking-name URL resolves to no file, render a "Not Found" page with `← Back to Sprint Overview` + `← All Sprints` links (parent always derivable: task → sprint, sprint → overview).
+
 ## Acceptance Criteria
 - [ ] AC1 — `regenerate-views` command emits `planning.md` for at least one migrated sprint from its Task instances (no hand-edited prose left)
 - [ ] AC2 — `scenarios/sprints.md/<speaking-name>/...` tree generated, mirroring `scenarios/sprints.json/`

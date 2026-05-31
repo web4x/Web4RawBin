@@ -144,7 +144,7 @@ class ViewTemplateRegistry {
 </div>
 ```
 
-**MD view** (generated file in scenarios/sprints.md/):
+**MD view** (generated file: `scenarios/sprints.md/sprint-N/task-1-bootstrap.md` — **speaking-name filename**):
 ```markdown
 # {model.name}
 
@@ -153,24 +153,56 @@ class ViewTemplateRegistry {
 {model.description}
 
 ## Requirements
-{model.requirements.map(ior → - [{resolve(ior).name}](./{resolve(ior).uuid}.md))}
+{model.requirements.map(ior → - [{resolve(ior).name}](./{speakingName(resolve(ior))}.md))}
 
 ## Use Cases
-{model.useCases.map(ior → - [{resolve(ior).name}](./{resolve(ior).uuid}.md))}
+{model.useCases.map(ior → - [{resolve(ior).name}](./{speakingName(resolve(ior))}.md))}
 
 ## Subtasks
-{model.children.map(ior → - [{resolve(ior).name}](./{resolve(ior).uuid}.md))}
+{model.children.map(ior → {
+  const sub = resolve(ior);
+  return `  - [${sub.model.status === 'Done' ? 'x' : ' '}] [${sub.model.name}](./${speakingName(sub)}.md)`;
+})}
 ```
+
+**Speaking-name file naming convention** (matches scrum.pmo/ filenames — NOT uuid.md):
+```typescript
+function speakingName(scenario: ScenarioUnit): string {
+  const m = scenario.model;
+  switch (scenario.ior) {
+    case 'ior:class:Sprint': return `sprint-${m.number}`;
+    case 'ior:class:Task': return slug(m.name);   // e.g., "task-1-team-bootstrap"
+    case 'ior:class:Requirement': return slug(m.name); // e.g., "req-r17-1-scenario-json"
+    default: return slug(m.name);
+  }
+}
+function slug(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9\s.-]/g, '').replace(/\s+/g, '-').slice(0, 50);
+}
+```
+
+**All href links use speaking-name paths** (resolvable, not 404):
+- Task link: `./${speakingName(task)}.md` → `./task-1-team-bootstrap.md`
+- Subtask link: `./${speakingName(sub)}.md` → `./task-1.1-clone-ud-team.md`
+- Requirement link: `./${speakingName(req)}.md` → `./req-r17-1-scenario-json.md`
 
 #### RequirementTemplate
 
-**HTML:** Type badge 🎯, priority field, source quote, linked tasks + tests.
-**MD:** Same structure, markdown links to related instances.
+**HTML:** Type badge 🎯, priority field, Tron literal quote block, linked tasks + tests.
+**MD:** Same structure, speaking-name markdown links.
 
 #### SprintTemplate
 
-**HTML:** Sprint number + goal header, task list as `<rb-object-item>` entries, requirement count, status summary bar (done/in-progress/planned counts).
-**MD:** Sprint overview with task checklist `- [x] T1: name` format.
+**HTML:** Sprint number + goal header, task list as `<rb-object-item>` entries with **subtask indentation** (children IOR → visually nested), requirement count, status summary bar.
+**MD:** Sprint overview with **indented subtask checklist**:
+```markdown
+- [x] [T1: Bootstrap robbinTeam](./task-1-team-bootstrap.md)
+  **Status:** Done · **Assigned:** robbin-expert
+  - [x] [T1.1: Clone ud-team](./task-1.1-clone-ud-team.md)
+  - [x] [T1.2: Rebrand agents](./task-1.2-rebrand-agents.md)
+- [ ] [T2: Architecture](./task-2-rawbin-architecture.md)
+  **Status:** Planned
+```
 
 #### UseCaseTemplate
 
@@ -207,11 +239,18 @@ class ViewTemplateRegistry {
 ## Tasks
 {sprint.model.tasks.map(taskIor → {
   const task = resolve(taskIor);
-  return `- [${task.model.status === 'Done' ? 'x' : ' '}] [${task.model.name}](./${task.model.uuid}.md)
+  const check = task.model.status === 'Done' ? 'x' : ' ';
+  return `- [${check}] [${task.model.name}](./${speakingName(task)}.md)
   **Status:** ${task.model.status} · **Assigned:** ${task.model.assigned}
-  ${task.model.children.map(subIor → `  - [${resolve(subIor).model.status === 'Done' ? 'x' : ' '}] [${resolve(subIor).model.name}](./${resolve(subIor).model.uuid}.md)`).join('\n')}`;
+${task.model.children.map(subIor → {
+    const sub = resolve(subIor);
+    const sc = sub.model.status === 'Done' ? 'x' : ' ';
+    return `  - [${sc}] [${sub.model.name}](./${speakingName(sub)}.md)`;
+  }).join('\n')}`;
 })}
 ```
+
+Subtask indentation: children render 2-space indented under their parent task, matching Sprint 1's task-1/task-1.1 visual hierarchy.
 
 #### Sprint Overview (R17.10)
 
@@ -220,10 +259,27 @@ A sprint-list view rendered from all Sprint scenarios:
 ```markdown
 # Sprints Overview
 
-{allSprints.map(s → `## Sprint ${s.model.number} — ${s.model.name}
+{allSprints.map(s → `## [Sprint ${s.model.number} — ${s.model.name}](./sprint-${s.model.number}/planning.md)
 **Status:** ${s.model.status} · **Tasks:** ${s.model.tasks.length}
 `)}
 ```
+
+Links use speaking-name paths (e.g., `./sprint-1/planning.md`).
+
+#### 404 Page
+
+When a speaking-name URL resolves to no file (scenario deleted, renamed, or not yet migrated):
+
+```html
+<div class="sv-404">
+  <h2>Not Found</h2>
+  <p>This scenario unit does not exist or has been moved.</p>
+  <a href="./planning.md">← Back to Sprint Overview</a>
+  <a href="../overview.md">← All Sprints</a>
+</div>
+```
+
+The parent link is always derivable: task → sprint planning, sprint → overview.
 
 ### Live Update Strategy (R17.8)
 
