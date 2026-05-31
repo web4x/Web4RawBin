@@ -156,7 +156,7 @@ prose. Then **migrate every existing sprint** to this model.
 ### Phase 9 — User class scenario-unit + ViewBus model parity (PO directive 2026-06-01, lifted from backlog B6)
 
 - [ ] ✅ [T145: User class as scenario-unit + ViewBus-driven view updates (fixes lobby/room name stale)](./task-145-user-scenario-viewbus.md)
-  **Status:** impl-shipped (`ccca722` req → `83099ea` architect → `f549114` expert v0.5.41 — User as 9th scenario class + ViewBus singleton). Rule-pair (a)+(b) BOTH ✓ in f549114 commit-set (package.json + sw.js CACHE_NAME → rawbin-v0.5.41). Testing pending (robbin-tester TS1–TS8) → Tron QA.
+  **Status:** impl-shipped (`ccca722` req → `83099ea` architect → `f549114` expert v0.5.41 User+ViewBus singleton → `48eb52a` v0.5.42 follow-up wires ViewBus subscribers into 3 view components). Rule-pair (a)+(b) ✓ in BOTH impl commits (v0.5.41 + v0.5.42). Testing pending (robbin-tester TS1–TS8) → Tron QA.
   **Owners (CMM4):** robbin-req (anchor B6 verbatim) → robbin-architect (User scenario schema + ViewBus subscription pattern + 4 view-bindings + migration plan) → robbin-expert (impl + migrate) → robbin-tester (stale-name bug fix + S9/S17 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route, architect confirms)
 

@@ -9,7 +9,7 @@
 - [x] In Progress
   - [x] refinement (req → architect — `ccca722` req confirm + `83099ea` architect design)
   - [ ] creating test cases
-  - [x] implementing (`f549114` v0.5.41 — rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME both bumped to v0.5.41)
+  - [x] implementing (`f549114` v0.5.41 User as 9th scenario class + ViewBus singleton; `48eb52a` v0.5.42 follow-up — ViewBus subscribers wired into 3 view components. Rule-pair (a)+(b) ✓ in both commits)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
