@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "e83d47a1-6cf2-4b19-ae53-8f7d2c014b61",
+    "name": "T124.1: Architect — Scenario-Unit + IOR Data Model",
+    "slug": "task-124.1-architect-data-model",
+    "description": "Design the scenario-unit JSON shape, IOR format, class registry, and loading protocol. Refined per Tron clarification: the outer `ior` is the CLASS LOADER IOR, not the instance UUID.",
+    "status": "In Progress",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (architect — Tron-refined)\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
+    "remainingIssues": "",
+    "traceability": "`[task:uuid:e83d47a1-6cf2-4b19-ae53-8f7d2c014b61]`\n\n- up\n  - [T124: Scenario-unit + IOR + class-based view architecture](./task-124-architecture.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) → **R17.1** (scenario JSON unit), **R17.2** (IOR), **R17.3** (class-based instances)\n- down\n  - None (atomic sub-task)\n- chain (req → usecase → puml → class/method)\n  - **requirement:** R17.1 + R17.2 + R17.3\n  - **use case:** unit.load [uc:uuid:17a00101-0001-4a01-a001-000017010001], ior.resolveClass [uc:uuid:17a00102-0002-4a02-a002-000017010002], ior.resolveInstance [uc:uuid:17a00103-0003-4a03-a003-000017010003]\n  - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (Phase 1 package)\n  - **class/method:** ScenarioUnit, IORResolver, ClassRegistry (design — impl in T125)",
+    "context": "Tron 2026-05-30 (verbatim in compound-requirement-source.md): \"the json has { ior, model, ownerIor } model contains all attributes and ior relationships to other instances.\"\nTron clarification: \"the outer ior is the IOR to the CLASS LOADER (e.g. task.class) that loads the right class to process this scenario.\"",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] AC1 — Scenario unit JSON shape `{ior, model, ownerIor}` defined with `ior` = class loader\n- [x] AC2 — IOR format defined: `ior:class:<Name>`, `ior:instance:<uuid>`, `ior:file:<path>`\n- [x] AC3 — Loading protocol defined: read ior → resolve class → instantiate → populate model+ownerIor\n- [x] AC4 — All 7 class models defined (Sprint, Task, Requirement, UseCase, Class, Method, Test)\n- [x] AC5 — Compatibility with existing TraceModel documented\n- [ ] AC6 — PO + Tron reviewed",
+    "qaAudit": "- 2026-05-30: Design authored, refined per Tron clarification (ior = class loader). Awaiting PO + Tron review.\n- 2026-05-30: Planner audit flag — missing template sections. Fixed.",
+    "subtasks": "None (atomic sub-task).\n\n---",
+    "assigned": "**Owner:** robbin-architect (design lead)",
+    "architectDesign": "",
+    "dependencies": "- **Requires:** None (foundation design)\n- **Enables:** T124.2 (view templates need class models), T124.3 (storage needs JSON shape), T125 (implementation)",
+    "definitionOfDone": "- [ ] All AC met; design reviewed by PO + Tron\n- [ ] Committed with standard template sections\n- [ ] Tron QA approved",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:01e3dc69-4547-4ca7-99c1-685d6693fb18"
+}

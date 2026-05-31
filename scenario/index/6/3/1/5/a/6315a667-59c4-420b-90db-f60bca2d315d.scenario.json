@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "6315a667-59c4-420b-90db-f60bca2d315d",
+    "name": "T126: Generated views — planning.md, sprints.md, per-instance .md/.html",
+    "slug": "task-126-views",
+    "description": "Turn the registered per-class templates (T125.4) into actual generated content\nfilling every existing planning + per-task surface.\n\n**Per the architecture (T124.2):**\n- T126.1 — planning.md becomes a **generated** Task-overview view: regenerated from the Task instances in the sprint's scenario/index. NO hand-edited prose survives.\n- T126.2 — sprint overview = list of Sprint items: `scenarios/sprints.md/` is a generated tree mirroring `scenarios/sprints.json/`; sprint-level `planning.md` is a generated list of Task views.\n- T126.3 — every instance class (Requirement/Task/UseCase/Class/Method/Test/Sprint) has its own `.md` + `.html` view rendered from the registered template.\n\nLive-update model: when a scenario.json changes, the corresponding view(s)\nre-render (file-watcher + on-demand build). Pure-function rendering — no\ntemplate ever invokes class methods; templates read only the `model` flat JSON.\n\n**Tron refinements (2026-05-31, via T124.2 update):**\n1. **Subtask indentation:** planning.md + sprint overview render children IOR → 2-space indented under parent task (task-1.1 visually nested under task-1), matching Sprint 1 reference structure.\n2. **Speaking-name filenames:** generated files use `task-1-team-bootstrap.md` (slugified model.name), NOT `<uuid>.md`. Must match scrum.pmo/ naming convention.\n3. **Speaking-name hrefs:** all markdown links use speaking-name paths (e.g., `[T1.1: Clone](./task-1.1-clone-ud-team.md)`), NOT uuid paths. Links must resolve (no 404).\n4. **404 page:** when a speaking-name URL resolves to no file, render a \"Not Found\" page with `← Back to Sprint Overview` + `← All Sprints` links (parent always derivable: task → sprint, sprint → overview).",
+    "status": "In Progress",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
+    "remainingIssues": "",
+    "traceability": "`[task:uuid:6315a667-59c4-420b-90db-f60bca2d315d]`\n\n- up\n  - [Sprint 17 Planning](./planning.md)\n  - **requirements:** R17.7 HTML view templates per class · R17.8 views generated + live-updated · R17.9 planning.md as generated Task overview · R17.10 sprint overview as list of sprint items\n  - **requirement:uuids** — T124.4 requirements.md\n- down\n  - T126.1 — planning.md generator (Task-overview view from instances)\n  - T126.2 — sprint.md / sprints.md generator (sprint overview = list of Sprint items)\n  - T126.3 — per-instance `.md` + `.html` views for Requirement/Task/UseCase/Class/Method/Test/Sprint\n- chain\n  - **requirement:** R17.7-R17.10\n  - **use case:** template.register, view.render, planning.regenerate, sprint.overview.regenerate (T124.6 PUML)\n  - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml)\n  - **class/method:** `src/ts/scenario/` template engine + `scripts/regenerate-views.ts` (one-shot + watch mode)\n- requires\n  - T125 (template engine + class instances)\n- enables\n  - T127 navigation (views are the link targets)\n  - T128 migration (migrated sprints produce generated views)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [ ] AC1 — `regenerate-views` command emits `planning.md` for at least one migrated sprint from its Task instances (no hand-edited prose left)\n- [ ] AC2 — `scenarios/sprints.md/<speaking-name>/...` tree generated, mirroring `scenarios/sprints.json/`\n- [ ] AC3 — Each of the 7 classes has a registered HTML + MD template; sample views render correctly\n- [ ] AC4 — Live-update verified: editing a scenario.json triggers re-render of its `.md` + `.html` views\n- [ ] AC5 — vitest covers template registry + render + regenerate flows\n- [ ] AC6 — `npm run build` succeeds; full suite passes; **version + sw.js bumped per #15**; **STATIC_SHELL entry per #16 if a new /views or /md route is introduced** (architect to decide in T124.2 — flag in commit)",
+    "qaAudit": "- 2026-05-30: Planned — awaiting T125, then expert implementation per T124.2 view-template design.",
+    "subtasks": "T126.1, T126.2, T126.3 — files created by expert during refinement.\n\n---\n\n*Sprint 17 — Scenario Units / IOR Data Model & Class Views · Phase 3*\n*Owner: robbin-expert (impl), robbin-tester (verify)*\n*Priority: 3 (views — gates user-visible migration)*",
+    "assigned": "**Owner:** robbin-expert (implement), robbin-tester (verify)",
+    "architectDesign": "",
+    "dependencies": "- **Requires:** T125 (foundation primitives + templates)\n- **Enables:** T127 (nav into views), T128 (migrated sprints land via these generators)",
+    "definitionOfDone": "- [ ] All AC met; sub-tasks T126.1-T126.3 committed\n- [ ] Rule-pair #15 + #16 verified (route introduction call documented in commit)\n- [ ] Tests pass, build clean\n- [ ] Tron QA approved",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:01e3dc69-4547-4ca7-99c1-685d6693fb18"
+}

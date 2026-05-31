@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "c93f69d5-a2e4-4b18-b956-4d7e2f03c8b1",
+    "name": "T124.3: Architect — Storage Layout (Index + Speaking-Name Trees)",
+    "slug": "task-124.3-architect-storage-layout",
+    "description": "Design the 3-layer storage layout: canonical UUID index, speaking-name symlink tree (JSON), and generated MD view tree. Plus file-browser ↔ traceability-browser navigation.",
+    "status": "In Progress",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
+    "remainingIssues": "",
+    "traceability": "`[task:uuid:c93f69d5-a2e4-4b18-b956-4d7e2f03c8b1]`\n\n- up\n  - [T124: Scenario-unit + IOR + class-based view architecture](./task-124-architecture.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) → **R17.4** (index by UUID prefix), **R17.5** (speaking-name JSON tree), **R17.6** (speaking-name MD tree), **R17.11** (file-browser ↔ traceability-browser navigation), **R17.12** (all files are units)\n- down\n  - None (atomic sub-task)\n- chain (req → usecase → puml → class/method)\n  - **requirement:** R17.4 + R17.5 + R17.6 + R17.11 + R17.12\n  - **use case:** index.put [uc:uuid:17a00104-0004-4a04-a004-000017010004], index.get [uc:uuid:17a00105-0005-4a05-a005-000017010005], tree.symlinkJson [uc:uuid:17a00201-0001-4a01-a001-000017020001], tree.generateMd [uc:uuid:17a00202-0002-4a02-a002-000017020002], tree.navigate [uc:uuid:17a00203-0003-4a03-a003-000017020003]\n  - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (Phase 1+2 packages)\n  - **class/method:** ScenarioIndex, SpeakingTree (design — impl in T125/T126)",
+    "context": "Tron 2026-05-30 (verbatim): \"uuid identified instances are units in a data directory in scenario/index in which has folders from the first 5 characters of the uuid and there stores the original uuid.scenario.json. under scenarios/sprints.json/ create a file tree of ln links to the json index with speaking names like in sprint 1 and task1 and task 1.1. in scenarios/sprints.md/ have the resulting structured md views from the templates with the same speaking names as in the sprints.json/ folder.\"",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] AC1 — Canonical index layout: `scenario/index/<5-char>/<uuid>.scenario.json`\n- [x] AC2 — Speaking-name JSON tree: `scenarios/sprints.json/<sprint>/<task>/` with ln symlinks\n- [x] AC3 — Generated MD tree: `scenarios/sprints.md/<sprint>/<task>/` with rendered views\n- [x] AC4 — File-browser ↔ traceability-browser navigation bridge documented\n- [x] AC5 — Migration path from current scrum.pmo/ layout documented\n- [ ] AC6 — PO + Tron reviewed",
+    "qaAudit": "- 2026-05-30: Design authored. Awaiting PO + Tron review.",
+    "subtasks": "None (atomic sub-task).\n\n---",
+    "assigned": "**Owner:** robbin-architect (design lead)",
+    "architectDesign": "",
+    "dependencies": "- **Requires:** T124.1 (scenario JSON shape), T124.2 (view templates for MD generation)\n- **Enables:** T125 (implementation), T128 (migration)",
+    "definitionOfDone": "- [ ] All AC met; design reviewed by PO + Tron\n- [ ] Committed with standard template sections\n- [ ] Tron QA approved",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:01e3dc69-4547-4ca7-99c1-685d6693fb18"
+}

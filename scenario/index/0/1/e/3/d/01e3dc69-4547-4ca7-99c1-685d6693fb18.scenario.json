@@ -1,0 +1,24 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "01e3dc69-4547-4ca7-99c1-685d6693fb18",
+    "name": "Sprint scenario units",
+    "number": 17,
+    "goal": "",
+    "status": "In Progress",
+    "tasks": [
+      "ior:instance:f96a9da3-366c-491f-b2e6-78cbb837f203",
+      "ior:instance:e83d47a1-6cf2-4b19-ae53-8f7d2c014b61",
+      "ior:instance:b72e58c4-91d3-4a07-b845-3c6f1d92e7a0",
+      "ior:instance:c93f69d5-a2e4-4b18-b956-4d7e2f03c8b1",
+      "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92",
+      "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d",
+      "ior:instance:b66fdf54-04f4-4609-9ded-04c835348b32",
+      "ior:instance:b94d2681-54f0-47e3-a431-f3d84e469b30",
+      "ior:instance:907cc43e-119c-467b-add0-0dd5cdf8344b",
+      "ior:instance:dce1bdf8-7076-4376-a32c-9c8b08422bdc"
+    ],
+    "requirements": []
+  },
+  "ownerIor": null
+}
