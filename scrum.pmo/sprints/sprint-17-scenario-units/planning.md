@@ -50,8 +50,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 2 — Foundation Implementation (T125, expert)
 
-- [ ] ✅ [T125: Scenario-unit primitives + class system + storage](./task-125-foundation.md)
-  **Status:** impl-shipped (9b79be3 — Unit+IOR, 7 ClassLoaders + ClassRegistry, index-store @ scenario/index/<5char>/, ViewTemplateRegistry) — testing (robbin-tester) + Tron QA pending
+- [ ] 🧪 [T125: Scenario-unit primitives + class system + storage](./task-125-foundation.md)
+  **Status:** impl + testing DONE (9b79be3; tester ticked 4c630dd) — Tron QA pending
   **Rule-pair:** ✓ retroactively covered by b30b3de v0.5.28 bump (T125+T126+T127 unified batch — PWA-served surface lands with T127's nav wiring)
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   **Sub-tasks (expert to create during refinement):**
@@ -62,8 +62,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 3 — Generated Views (T126, expert)
 
-- [ ] ✅ [T126: Generated views — planning.md, sprints.md, per-instance .md/.html](./task-126-views.md)
-  **Status:** impl-shipped (5a7e162 — ViewGenerator reads scenario index, emits per-instance .md+.html grouped by class; sprint overview.md; per-sprint planning.md generated from task IOR array; all 7 class HTML+MD templates; scripts/regenerate-views.ts CLI) — testing (robbin-tester) + Tron QA pending
+- [ ] 🧪 [T126: Generated views — planning.md, sprints.md, per-instance .md/.html](./task-126-views.md)
+  **Status:** impl + testing DONE (5a7e162; tester ticked 4c630dd) — Tron QA pending
   **Rule-pair:** ✓ retroactively covered by b30b3de v0.5.28 bump (unified batch with T125+T127)
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   **Sub-tasks:**
@@ -73,8 +73,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 4 — Navigation (T127, expert)
 
-- [ ] ✅ [T127: File-browser ↔ traceability-browser nav + IOR universal handler](./task-127-navigation.md)
-  **Status:** impl-shipped (b30b3de v0.5.28 — cross-nav /md/↔/trace + IOR resolver; 818/818) — testing (robbin-tester) + Tron QA pending
+- [ ] 🧪 [T127: File-browser ↔ traceability-browser nav + IOR universal handler](./task-127-navigation.md)
+  **Status:** impl + testing DONE (b30b3de v0.5.28; tester ticked 4c630dd) — Tron QA pending
   **Rule-pair:** ✓ (a) package.json v0.5.28 ✓ (b) sw.js rawbin-v0.5.28 ✓ (c) STATIC_SHELL (no new route — explicitly noted by expert in commit message). Covers T125+T126 retroactively.
   **Owner:** robbin-expert (implement), robbin-tester (verify)
   **Sub-tasks:**
@@ -83,8 +83,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 5 — Migration (T128, planner + req + expert)
 
-- [ ] 🔧 [T128: Migrate all existing sprints/tasks/requirements to scenario-unit model](./task-128-migration.md)
-  **Status:** Phase 5 active — T128.1 exemplar in **Tron-co-design iteration** (heavy refinement burst): efc6d17 initial → e1fabbf full-content fidelity → 0fc5b90 (5-level deep index, UpDown convention) → 1d80907 (T124.1+T124.3 index fix) → 44f9dce (T124.2+T126 indent/speaking-names/404) → 17dcd01 (nested subtasks, 404 back-nav) → **60d6e36 v0.5.29** (subtask indent + symlink visibility + file browser fix). Tron driving the refinements; explicit sign-off pending on final exemplar shape — then T128.2/T128.3/T128.4 batches unlock.
+- [ ] 🧪 [T128: Migrate all existing sprints/tasks/requirements to scenario-unit model](./task-128-migration.md)
+  **Status:** impl + testing DONE (T128.1 exemplar iteration burst through 60d6e36 v0.5.29; tester ticked 4c630dd) — Tron QA pending. T128.2/T128.3/T128.4 batches still gated on Tron approval of the exemplar shape.
   **Owner:** robbin-planner (structure), robbin-req (requirement units), robbin-expert (tooling), robbin-tester (verify)
   **Strategy:** generate scenario.json units from existing markdown task files; preserve `task:uuid` + `requirement:uuid` identities (T121 already regenerated to v4 — clean base); reuse Sprint 1 task-1/task-1.1 hierarchical structure as exemplar; closed sprints (S1-9) migrate as artifact (no rewrites of prose), active sprints (S10-S16) migrate with view regeneration.
   **Sub-tasks:**
@@ -98,25 +98,24 @@ prose. Then **migrate every existing sprint** to this model.
   **Rule-pair:** ✓ (a) v0.5.30 ✓ (b) sw.js rawbin-v0.5.30 ✓ (c) STATIC_SHELL exempt (no new route) — explicit in commit msg
   **CMM4 GAP:** retroactive stand-up — work shipped before planner stood it up; commit mis-labelled "T39" (unrelated S6 task); planner reconstructed the 4-role attribution. Going forward: tasks MUST be stood up BEFORE impl per learnings #18.
 
-- [ ] ⏳ [T132: HTML status template fix](./task-132-html-status-template-fix.md)
-  **Status:** PLANNED — Tron via PO 2026-05-31. HTML status section in generated views (T126 output) renders incorrectly; sister-task to T130 (MD side fixed in v0.5.27).
-  **Owners (CMM4):** robbin-req (req anchor) → robbin-architect (diagnose+design) → robbin-expert (impl) → robbin-tester (verify)
-  **Rule-pair scope:** (a)+(b) required at impl; (c) exempt (no new route)
+- [ ] 🧪 [T132: HTML status template fix](./task-132-html-status-template-fix.md)
+  **Status:** impl + testing DONE (497cee2 architect design → 4a362d0 expert renderStatusHtml impl → 8e42361 tester verify, 830/830) — Tron QA pending
+  **Rule-pair FLAG:** ⚠️ 4a362d0 shipped WITHOUT package.json/sw.js bump despite T132 being user-facing (HTML template served via /md/ and /trace). v0.5.30 unchanged across T132/T133/T134 burst. Per #15 a bump is required for the device to see the new template. Recommend a follow-up bump commit (single bump covers T132+T133+T134 batch).
 
-- [ ] ⏳ [T133: Task state-machine + status methods](./task-133-task-state-machine.md)
-  **Status:** PLANNED — Tron via PO 2026-05-31. Task class needs first-class FSM + verb methods (`task.startRefinement()`, `task.startImplementing()`, `task.tronApprove()`, …); symbol legend becomes derived from `model.status` not manually mirrored.
+- [ ] 🧪 [T133: Task state-machine + status methods](./task-133-task-state-machine.md)
+  **Status:** impl + testing DONE (497cee2 architect FSM design → e062849 expert 7-state/8-verb impl with Tron gate → 8e42361 tester verify, 830/830) — Tron QA pending
+  **Rule-pair FLAG:** ⚠️ no bump (same batch as T132/T134) — see T132 note.
   **Owners (CMM4):** robbin-req (req anchor) → robbin-architect (FSM design + verb naming) → robbin-expert (impl on Task class) → robbin-tester (verify transitions + guards)
   **Rule-pair scope:** (a)+(b) required at impl; (c) depends on architect's surface decision
 
-- [ ] ⏳ [T134: Traceability-as-units (links as scenario.json with ln in referenced instances + MD/HTML views)](./task-134-traceability-as-units.md)
-  **Status:** PLANNED — Tron via PO 2026-05-31. Traceability links become first-class units (8th class alongside Sprint/Task/Requirement/UseCase/Class/Method/Test); each link emits `ln` symlinks into both endpoints' speaking-name trees; generated MD+HTML view per link.
-  **Owners (CMM4):** robbin-req (req anchor — key model decision: links PRIMARY vs MIRROR) → robbin-architect (class + symlink + template design; may split into T134.1-T134.4) → robbin-expert (impl) → robbin-tester (verify round-trip, walk graph)
-  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt unless architect introduces /links/&lt;uuid&gt; route
+- [ ] 🧪 [T134: Traceability-as-units (links as scenario.json with ln in referenced instances + MD/HTML views)](./task-134-traceability-as-units.md)
+  **Status:** impl + testing DONE (497cee2 architect design → f173cad expert TraceLink class + symlink emission + template → 8e42361 tester verify, 830/830) — Tron QA pending
+  **Rule-pair FLAG:** ⚠️ no bump (same batch as T132/T133) — see T132 note.
 
 ### Phase 6 — Verification (T129, tester + planner)
 
-- [ ] ⏳ [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)
-  **Status:** PLANNED — closes the sprint
+- [ ] 🧪 [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)
+  **Status:** GATE PASSED (f487c2f tester verification report committed — T129.1 trace:check PASS with documented allowlist, S17-specific orphans ZERO; T129.2 6 end-to-end chain walks all PASS; T129.3 13/13 S17 files Web4Articles-compliant; AC1-AC7 met; 818/818) — Tron QA pending → closes Sprint 17
   **Owner:** robbin-tester (verify), robbin-planner (audit)
   **Sub-tasks:**
   - T129.1 — `npm run trace:check` clean against the migrated graph; orphanMethods/orphanTasks/orphanReqs all 0 or in documented waiver list
@@ -137,7 +136,9 @@ T124 architecture+requirements ──→ T125 foundation ──┬──→ T126
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Parent tasks | 6 (T124–T129) — 3 ✅ (T125/T126/T127), 2 🔧 (T124 4/6 sub, T128 1/4 sub), 1 ⏳ (T129) |
+| Parent tasks | 6 (T124–T129) — 5 🧪 (T125/T126/T127/T128/T129 — tester verified), 1 🔧 (T124 4/6 sub-done; T124.4+T124.5 req-eng pending) |
+| Follow-ons | T131🧪, T132🧪, T133🧪, T134🧪 (all tester-verified per 8e42361) |
+| Sprint 17 close | All tasks 🧪 except T124 🔧 (req-eng tail) — pending Tron QA gate batch-approval |
 | Sub-tasks (refinement-time) | ~20 (T124.1-T124.6, T125.1-T125.4, T126.1-T126.3, T127.1-T127.2, T128.1-T128.4, T129.1-T129.3) |
 | Tron QA-approved (Done) | 0/6 parents |
 | Planned | 6 parents |
