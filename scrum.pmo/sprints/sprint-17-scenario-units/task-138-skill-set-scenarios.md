@@ -72,13 +72,230 @@ model:
 - Returns the walk as a structured array (each step = `{ior, class, relation}`)
 - Used by trace-cli, /trace browser, and role self-verification
 
-## Architect Design (TO FILL during refinement)
-Architect: design the verb signatures + error handling + idempotency. Key
-decisions:
-- Where do the verbs live? Module: `src/ts/scenario/skills.ts` or split per verb?
-- Are verbs synchronous (return new IOR) or do they emit events (consumed by view regeneration)?
-- For `walkChain`: cycle detection (chain.changes/.supersedes can form loops); depth limit
-- For `captureQuote`: dedupe — if the same quote text already exists, return the existing IOR (or fail loud — architect decides)
+## Architect Design — robbin-architect (2026-05-31)
+
+### Skill Schema
+
+Each `.skill` is a scenario-aware verb — a function that reads/writes scenario units via the ScenarioIndex + emits TraceLinks. Skills are the API that agents invoke instead of hand-editing markdown.
+
+```typescript
+// src/ts/scenario/skills.ts — all 4 skills exported from one module
+
+interface SkillResult<T> {
+  ior: string;          // IOR of the created/modified unit
+  unit: ScenarioUnit;   // the unit itself
+  links: string[];      // IORs of any TraceLinks emitted
+}
+```
+
+### Skill 1: `captureQuote(text, sprintIor, taskIor?): SkillResult<Requirement>`
+
+Captures a verbatim Tron quote as a Requirement scenario unit.
+
+```typescript
+function captureQuote(
+  text: string,
+  sprintIor: string,
+  taskIor?: string
+): SkillResult<Requirement> {
+  // Dedupe: hash the text → check index for existing req with same hash
+  const textHash = crypto.createHash('sha256').update(text).digest('hex').slice(0, 16);
+  const existing = idx.findByModelField('textHash', textHash);
+  if (existing) return { ior: existing.ior, unit: existing, links: [] };
+
+  const uuid = crypto.randomUUID();
+  const unit: ScenarioUnit = {
+    ior: 'ior:class:Requirement',
+    model: {
+      uuid, name: text.split(/\s+/).slice(0, 8).join(' ') + '…',
+      description: text, tronQuote: text, textHash,
+      capturedAt: new Date().toISOString(),
+      tasks: [], tests: [],
+    },
+    ownerIor: sprintIor,
+  };
+  idx.put(uuid, unit);
+
+  const links: string[] = [];
+  if (taskIor) {
+    const link = emitTraceLink(uuid, taskIor.replace('ior:instance:', ''), 'implements');
+    links.push(link);
+  }
+  return { ior: `ior:instance:${uuid}`, unit, links };
+}
+```
+
+**Dedupe:** SHA-256 hash of text → stored in `model.textHash`. Same text = same requirement returned (no duplicate).
+
+### Skill 2: `proposeTask(requirementIor, spec): SkillResult<Task>`
+
+Creates a Task unit initialized at `Planned` state (T133 FSM).
+
+```typescript
+interface TaskSpec {
+  name: string;
+  description: string;
+  assigned?: string;
+  effort?: string;
+  acceptanceCriteria?: string[];
+  sprintIor: string;
+}
+
+function proposeTask(requirementIor: string, spec: TaskSpec): SkillResult<Task> {
+  const uuid = crypto.randomUUID();
+  const unit: ScenarioUnit = {
+    ior: 'ior:class:Task',
+    model: {
+      uuid, name: spec.name, description: spec.description,
+      status: 'Planned',  // T133 FSM initial state
+      assigned: spec.assigned || '', effort: spec.effort || '',
+      acceptanceCriteria: spec.acceptanceCriteria?.join('\n') || '',
+      statusChecklist: '- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done',
+      children: [], requirements: [requirementIor],
+      useCases: [], implementations: [],
+    },
+    ownerIor: spec.sprintIor,
+  };
+  idx.put(uuid, unit);
+
+  const links: string[] = [];
+  // Requirement → Task link
+  const reqUuid = requirementIor.replace('ior:instance:', '');
+  links.push(emitTraceLink(reqUuid, uuid, 'implements'));
+  // Sprint → Task link (contains)
+  const sprintUuid = spec.sprintIor.replace('ior:instance:', '');
+  links.push(emitTraceLink(sprintUuid, uuid, 'contains'));
+
+  return { ior: `ior:instance:${uuid}`, unit, links };
+}
+```
+
+### Skill 3: `walkChain(ior, direction?): ChainStep[]`
+
+Traverses the TraceLink graph from any node.
+
+```typescript
+interface ChainStep {
+  ior: string;
+  type: string;     // class name: Task, Requirement, UseCase, etc.
+  name: string;
+  relation: string; // how we got here
+  depth: number;
+}
+
+function walkChain(
+  startIor: string,
+  direction: 'down' | 'up' | 'both' = 'both',
+  maxDepth = 10
+): ChainStep[] {
+  const visited = new Set<string>();
+  const steps: ChainStep[] = [];
+
+  function walk(ior: string, depth: number, incomingRelation: string): void {
+    if (depth > maxDepth) return;
+    const uuid = ior.replace('ior:instance:', '');
+    if (visited.has(uuid)) {
+      steps.push({ ior, type: '⚠️ CYCLE', name: `cycle at ${uuid.slice(0,8)}`, relation: incomingRelation, depth });
+      return;  // Cycle detected — terminate this branch
+    }
+    visited.add(uuid);
+
+    const unit = idx.get(uuid);
+    if (!unit) return;
+    steps.push({
+      ior, type: unit.ior.replace('ior:class:', ''),
+      name: unit.model.name || '', relation: incomingRelation, depth
+    });
+
+    // Find all TraceLinks where this uuid is from or to
+    const links = idx.findLinks(uuid);
+    for (const link of links) {
+      const isFrom = link.model.from.includes(uuid);
+      const targetIor = isFrom ? link.model.to : link.model.from;
+      const rel = isFrom ? link.model.relation : (INVERSE_MAP[link.model.relation] || link.model.relation);
+      if (direction === 'down' && !isFrom) continue;
+      if (direction === 'up' && isFrom) continue;
+      walk(targetIor, depth + 1, rel);
+    }
+  }
+
+  walk(startIor, 0, 'start');
+  return steps;
+}
+```
+
+**Cycle detection:** `visited` set. If a UUID is seen again, emit a `⚠️ CYCLE` marker and stop that branch. No infinite recursion.
+**Depth limit:** default 10 (req→task→uc→class→method→test = 6 levels max in normal chain).
+
+### Skill 4: `statusTransition(taskIor, verb, opts?): SkillResult<Task>`
+
+Wraps the T133 Task FSM verbs as a skill.
+
+```typescript
+type TaskVerb = 'startRefinement' | 'startCreatingTestCases' | 'startImplementing' |
+  'startTesting' | 'requestQAReview' | 'tronApprove';
+
+function statusTransition(
+  taskIor: string,
+  verb: TaskVerb,
+  opts?: { tronCommitRef?: string }
+): SkillResult<Task> {
+  const uuid = taskIor.replace('ior:instance:', '');
+  const unit = idx.get(uuid);
+  if (!unit || unit.ior !== 'ior:class:Task') {
+    throw new Error(`Not a Task unit: ${taskIor}`);
+  }
+
+  const prevStatus = unit.model.status;
+
+  // Apply the FSM verb (T133 guard logic)
+  switch (verb) {
+    case 'startRefinement':
+      guardTransition(unit, 'Planned');
+      unit.model.status = 'Refining'; break;
+    case 'startCreatingTestCases':
+      guardTransition(unit, 'Refining');
+      unit.model.status = 'CreatingTestCases'; break;
+    case 'startImplementing':
+      guardTransition(unit, 'Refining', 'CreatingTestCases');
+      unit.model.status = 'Implementing'; break;
+    case 'startTesting':
+      guardTransition(unit, 'Implementing');
+      unit.model.status = 'Testing'; break;
+    case 'requestQAReview':
+      guardTransition(unit, 'Testing');
+      unit.model.status = 'QAReview'; break;
+    case 'tronApprove':
+      guardTransition(unit, 'QAReview');
+      if (!opts?.tronCommitRef) throw new Error('tronApprove requires tronCommitRef');
+      unit.model.status = 'Done';
+      unit.model.tronApprovalCommit = opts.tronCommitRef; break;
+  }
+
+  // Update statusChecklist to reflect new state
+  unit.model.statusChecklist = regenerateChecklist(unit.model.status);
+  idx.put(uuid, unit);
+
+  return { ior: taskIor, unit, links: [] };
+}
+```
+
+### Module Structure
+
+All 4 skills in one file: `src/ts/scenario/skills.ts`
+
+```typescript
+export { captureQuote } from './skills/captureQuote.js';
+export { proposeTask } from './skills/proposeTask.js';
+export { walkChain } from './skills/walkChain.js';
+export { statusTransition } from './skills/statusTransition.js';
+```
+
+Or if keeping it simple: single `skills.ts` with all 4 exported functions (~200 lines total).
+
+### Error Handling
+
+All skills throw on invalid input (wrong IOR format, non-existent unit, guard violation). No silent failures. Callers (agents, trace-cli, migration) catch and report.
 
 ## Acceptance Criteria
 - [ ] AC1 — `captureQuote(text, sprintIor)` emits a valid Requirement scenario.json; IOR.resolve() round-trips

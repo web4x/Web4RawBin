@@ -58,14 +58,34 @@ Cross-link semantics:
 - Requirement → Task links (the existing `→ T<n>` in requirements.md) become TraceLink units (T134) on commit.
 - UseCase → Task / UseCase → Method links (from puml chain blocks) become TraceLink units too.
 
-## Architect Design (TO FILL during refinement)
-Architect: extend `migrate-to-scenario.ts` with:
-- `parseRequirementsMd(filePath, sprintIor)` → array of Requirement scenario.json
-- `parseUseCasesPuml(filePath, sprintIor)` → array of UseCase scenario.json
-- IOR conventions: `requirement:<uuid>`, `useCase:<uuid>`
-- ownerIor: Sprint instance hosting the file
-- Emit TraceLink units for every cross-reference parsed (delegates to T134's emitter)
-- Idempotency: re-running the script should not duplicate units (use the existing v4 uuid as the index key)
+## Architect Design — robbin-architect (2026-05-31)
+
+### Overview
+Two new parsers for `migrate-to-scenario.ts`. TraceConsistency already parses both sources for the in-memory graph (Pass 1: requirements, Pass 4: UseCases) — the migration script emits the same data as on-disk scenario units.
+
+### Parser 1: `migrateRequirements(sprintDir, sprintUuid, idx)`
+**Source:** `<sprintDir>/requirements.md` — split by `[requirement:uuid:<v4>]` tag
+**Extracts:** uuid, title (firstLine), tronQuote (> line), task slugs (→ [T<N>] links)
+**Emits:** `{ior:"ior:class:Requirement", model:{uuid, name, description, tronQuote, tasks:[]}, ownerIor:"ior:instance:<sprintUuid>"}`
+**Idempotency:** `idx.exists(uuid)` check — skip if already indexed (uuid from source, not generated)
+
+### Parser 2: `migrateUseCases(sprintDir, sprintUuid, idx)`
+**Source:** `<sprintDir>/diagrams/*-usecases.puml` — parse `<<UseCase>>` stereotyped classes
+**Regex:** `class "([^"]+)" <<UseCase>> \{([^}]+)\}` (same as TraceConsistency parseUseCaseBlocks)
+**Extracts:** name (Object.verb), [uc:uuid], task ref, requirement ref from body fields
+**Emits:** `{ior:"ior:class:UseCase", model:{uuid, name, object, verb, tasks:[], classes:[], requirement}, ownerIor:"ior:instance:<sprintUuid>"}`
+
+### Post-Parse: IOR Resolution + TraceLink Emission
+After Sprint+Task+Req+UC all parsed, resolve slug refs to `ior:instance:<uuid>`:
+- `requirement.model.tasks["task-1"] → "ior:instance:<task-1-uuid>"`
+- For each resolved cross-ref, emit a TraceLink unit (T134 hook): `{ior:"ior:class:TraceLink", model:{from, to, relation:"implements"}}`
+- TraceLink UUID: `crypto.createHash('sha256').update(fromUuid+toUuid+relation).digest('hex').slice(0,32)` formatted as v4 — deterministic, idempotent
+
+### Speaking-Name Tree Extension
+New subdirs: `scenario/sprints.json/sprint-N/requirements/` + `usecases/` with ln symlinks. Same in `sprints.md/`.
+
+### Integration
+No new CLI flags — requirements+usecases always emitted when source files exist. `--dry-run`/`--apply` gates all writes.
 
 ## Acceptance Criteria
 - [ ] AC1 — `migrate-to-scenario.ts` extended with `--include-requirements` + `--include-usecases` flags (or default-on; architect picks)
