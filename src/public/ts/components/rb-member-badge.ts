@@ -1,12 +1,21 @@
 // [impl:uuid:574ae9d1-2e23-4fdf-93e4-496102aad08f] T43 member badge
 import './rb-avatar.js';
+import { viewBus } from '../ViewBus.js';
 
 const BADGE_ATTRS = ['name', 'avatar-url', 'avatar-crop', 'player-token', 'is-host', 'is-self', 'is-connected'] as const;
 
 export class RbMemberBadge extends HTMLElement {
   static get observedAttributes() { return [...BADGE_ATTRS]; }
+  private unsub: (() => void) | null = null;
 
-  connectedCallback() { this.render(); this.setupClick(); }
+  connectedCallback() {
+    this.render(); this.setupClick();
+    const token = this.getAttribute('player-token');
+    if (token) this.unsub = viewBus.subscribe('User', token, (m) => {
+      if (m.displayName) { this.setAttribute('name', String(m.displayName)); }
+    });
+  }
+  disconnectedCallback() { this.unsub?.(); this.unsub = null; }
   attributeChangedCallback() { if (this.isConnected) this.render(); }
 
   private render(): void {

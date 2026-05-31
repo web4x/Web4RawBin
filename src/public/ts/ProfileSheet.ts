@@ -2,6 +2,7 @@
 import { RawBinClient } from './RawBinClient.js';
 import { MSG } from '../../shared/MessageTypes.js';
 import './components/rb-avatar.js';
+import { viewBus } from './ViewBus.js';
 
 interface PublicProfile {
   name: string;
@@ -17,6 +18,7 @@ export class ProfileSheet {
   private client: RawBinClient;
   private overlay: HTMLElement | null = null;
   private onEdit: (() => void) | null = null;
+  private unsub: (() => void) | null = null;
 
   constructor(client: RawBinClient) {
     this.client = client;
@@ -44,9 +46,16 @@ export class ProfileSheet {
 
     document.body.appendChild(this.overlay);
     this.setupEvents(profile);
+    if (profile.playerToken) {
+      this.unsub = viewBus.subscribe('User', profile.playerToken, (m) => {
+        const nameEl = this.overlay?.querySelector('.user-sheet-name');
+        if (nameEl && m.displayName) nameEl.textContent = String(m.displayName);
+      });
+    }
   }
 
   close(): void {
+    this.unsub?.(); this.unsub = null;
     if (this.overlay) {
       this.overlay.remove();
       this.overlay = null;

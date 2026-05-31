@@ -3,6 +3,7 @@ import { RawBinClient, shareOrCopy } from './RawBinClient.js';
 import { MSG } from '../../shared/MessageTypes.js';
 import './components/rb-header.js';
 import './components/rb-avatar.js';
+import { viewBus } from './ViewBus.js';
 
 interface RoomInfo {
   id: string; name: string; hostId: string; memberCount: number;
@@ -87,6 +88,9 @@ export class RoomBrowser {
     nameInput?.addEventListener('change', () => {
       this.memberName = nameInput.value.trim() || 'User';
       localStorage.setItem('rawbin-name', this.memberName);
+    });
+    viewBus.subscribe('User', this.client.playerToken, (m) => {
+      if (m.displayName && nameInput) { nameInput.value = String(m.displayName); this.memberName = String(m.displayName); }
     });
 
     document.getElementById('create-room-btn')?.addEventListener('click', () => {
