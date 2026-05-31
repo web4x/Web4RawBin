@@ -46,6 +46,20 @@ Tron directives 2026-05-26 via robbin-po. Four requirements across three workflo
 
   Proper fix for the room-flood (the same prod-pollution that T93/S14 migration is cleaning up). Tester's interim afterAll cleanup is separate/immediate.
 
+## TEST-CLEANUP Workflow
+
+- [ ] **R-TC1: E2E tests must not flood data/ with orphan users or rooms**
+  [requirement:uuid:c32974c5-dd10-45a7-b5dd-0d711b412fdc]
+  > TRON DIRECTIVE (2026-05-29): "tests must not flood data/ with users that are never deleted."
+  → [T118: E2E test cleanup](./task-118-e2e-cleanup.md)
+
+## EDITOR Workflow
+
+- [ ] **R-ED1: Markdown preview must render hierarchical lists (nested checkboxes) correctly**
+  [requirement:uuid:b2dfe117-d591-4715-ba62-07b13a8433c0]
+  > TRON DIRECTIVE (2026-05-30): md preview renders hierarchical lists (nested checkboxes) incorrectly.
+  → [T130: MD preview hierarchical lists](./task-130-md-preview-hierarchical-lists.md)
+
 ## UUID Index
 
 | Requirement | UUID (short) | Task | Workflow | Priority |
@@ -55,3 +69,5 @@ Tron directives 2026-05-26 via robbin-po. Four requirements across three workflo
 | R-R1 | `c3d4e5f6` | T93 | Rooms | HIGH |
 | R-V1 | `d4e5f6a7` | T94 | PWA | **CRITICAL** |
 | R-T1 | `e5f6a7b8` | T100 | Test-infra | HIGH |
+| R-TC1 | `c32974c5` | T118 | Test-cleanup | HIGH |
+| R-ED1 | `b2dfe117` | T130 | Editor | MEDIUM |
