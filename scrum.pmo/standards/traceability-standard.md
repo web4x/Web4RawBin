@@ -160,9 +160,113 @@ grep "uc:uuid:" diagrams/*.puml | wc -l             # count annotated elements
 | PlantUML source | `diagrams/<name>.puml` |
 | Rendered diagram | `diagrams/<name>.svg` |
 
+## Source-Location IOR (Sprint 17 — R17.24)
+
+Every UseCase, Class, and Method scenario unit tracks its exact source location with a git-commit anchor. This makes traceability point-in-time-precise and survives refactors.
+
+### IOR Format
+
+```
+ior:file:<repo-relative-path>?commit=<short-sha>&lines=<start>-<end>
+```
+
+- `path`: relative to repo root (e.g. `scrum.pmo/sprints/sprint-9/diagrams/use-cases.puml`)
+- `commit`: short SHA (7+ chars) of the git commit when the location was recorded
+- `lines`: 1-indexed, inclusive range (e.g. `42-55`)
+
+### Examples
+
+```
+ior:file:scrum.pmo/sprints/sprint-9/diagrams/use-cases.puml?commit=9bf3363&lines=42-55
+ior:file:src/ts/server/Room.ts?commit=a7cb624&lines=71-300
+ior:file:src/ts/server/server.ts?commit=0663495&lines=838-857
+```
+
+### Where Source IORs Live
+
+In the scenario unit's `model.source` field:
+
+```json
+{
+  "ior": "ior:scenario:uuid:<uuid>",
+  "model": {
+    "name": "room.create",
+    "type": "UseCase",
+    "source": {
+      "file": "scrum.pmo/sprints/sprint-9/diagrams/use-cases.puml",
+      "lines": [42, 55],
+      "commit": "9bf3363",
+      "repo": "Web4RawBin",
+      "ior": "ior:file:scrum.pmo/sprints/sprint-9/diagrams/use-cases.puml?commit=9bf3363&lines=42-55"
+    }
+  }
+}
+```
+
+### Source Type by Class
+
+| Scenario Class | Source file type | Location method |
+|---------------|-----------------|-----------------|
+| UseCase | `.puml` (use case diagram) | Line range of `usecase "..." as UC_X` block |
+| Class | `.puml` (class diagram) or `.ts` | Line range of class declaration |
+| Method | `.ts` (source code) | Line range of function/method declaration |
+| Requirement | `.md` (requirements.md) | Line of `[requirement:uuid:]` tag |
+| Task | `.md` (task file) | Whole file (line 1 to EOF) |
+
+### Git Anchor Resolution
+
+To view the exact content at the recorded commit:
+```bash
+git show <commit>:<path>
+```
+To extract the specific lines:
+```bash
+git show <commit>:<path> | sed -n '<start>,<end>p'
+```
+
+### Capture at Migration Time
+
+```bash
+# Latest commit that touched the file
+git log --format=%h -1 -- <path>
+
+# Current HEAD (fallback)
+git rev-parse --short HEAD
+```
+
+## Chain-Link Icon Convention (Sprint 17 — R17.25 / T141)
+
+Generated MD and HTML views render navigation icons for traceability:
+
+### Icon Placement
+
+```
+🔗 ✏️ <Title>
+ │   │
+ │   └── Edit link → /edit/<path> (Monaco editor)
+ └────── Chain link → scenario/sprints.json/<sprint>/<speaking-name>.json
+```
+
+The 🔗 chain-link icon appears BEFORE the ✏️ edit icon on every generated view. It links to the symlink in the speaking-name JSON tree (`scenario/sprints.json/`), not the raw UUID index.
+
+### Applies to All 7 Classes
+
+Every generated MD/HTML view template renders the chain-link:
+UseCase, Class, Method, Task, Requirement, Sprint, TraceLink.
+
+### Link Target
+
+The chain-link href resolves to:
+```
+/md/scenario/sprints.json/<sprint-name>/<speaking-name>.json
+```
+This serves the raw scenario JSON via the existing `/md/` file browser, letting the user inspect the underlying data that generated the view.
+
 ## Adoption Plan
 
 - **New sprints (Sprint 10+):** Full compliance — requirements.md, task UUIDs, traceability sections, PlantUML annotations
 - **Existing sprints (1-9):** Retrofit during remediation sprint — add requirements.md where missing, verify UUID presence, add missing traceability links
 - **Source code:** Add `[impl:uuid:]` comments incrementally as code is touched
 - **Tests:** Add `[test:uuid:]` comments incrementally as tests are written/modified
+- **Source-location IOR:** Add `model.source` to scenario units during migration (T128) and incrementally as units are created
+- **Chain-link icons:** Added to view templates by T141; applies automatically to all generated views thereafter
