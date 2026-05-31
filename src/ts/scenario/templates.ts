@@ -51,7 +51,7 @@ export function renderStatusHtml(checklist: string): string {
   let inSub = false;
   for (const line of lines) {
     const indent = line.search(/\S/);
-    const nested = indent >= 4;
+    const nested = indent >= 2;
     const checked = /\[x\]/i.test(line);
     const label = line.replace(/^[\s-]*\[.\]\s*/, '').trim();
     if (!label) continue;

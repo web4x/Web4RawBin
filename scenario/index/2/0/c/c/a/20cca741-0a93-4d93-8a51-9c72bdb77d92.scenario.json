@@ -6,7 +6,7 @@
     "slug": "task-125-foundation",
     "description": "Implement the scenario-unit primitives, the 7-class system over the uniform\n`{ior, model, ownerIor}` wrapper, the storage layout, and the view template\nengine. Architect's design (T124) is authoritative — this task converts it\ninto running code.\n\n**Per the architecture (T124.1-T124.3):**\n- T125.1 ships `Unit` and `IOR` primitives with load/resolve/serialize.\n- T125.2 ships the 7 classes — each a thin wrapper extending `Unit` with class-specific `model` typings + relationship IOR fields.\n- T125.3 ships the storage layer: writes `scenario/index/<5char>/<uuid>.scenario.json`; maintains the `scenarios/sprints.json/` symlink tree with speaking names.\n- T125.4 ships the view template engine: registers per-class HTML + MD renderers; emits views from flat JSON (no class methods in the template path — purely functional rendering); wires live-update on JSON change.",
     "status": "In Progress",
-    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
     "remainingIssues": "",
     "traceability": "`[task:uuid:20cca741-0a93-4d93-8a51-9c72bdb77d92]`\n\n- up\n  - [Sprint 17 Planning](./planning.md)\n  - **requirements:** R17.1 scenario-unit · R17.2 IOR · R17.3 class-based instances · R17.4 UUID-prefix index · R17.5 sprints.json/ symlink tree · R17.6 sprints.md/ generated tree\n  - **requirement:uuids** — formalized in T124.4 requirements.md\n- down\n  - T125.1 — `Unit` base + `IOR` primitive (load/resolve/serialize)\n  - T125.2 — class system (Requirement/Task/UseCase/Class/Method/Test/Sprint over `{ior, model, ownerIor}`)\n  - T125.3 — storage layout (scenario/index UUID-prefix + sprints.json/ symlink tree)\n  - T125.4 — view template engine (per-class HTML+MD templates, live-update)\n- chain (req → usecase → puml → class/method)\n  - **requirement:** R17.1-R17.6 (T124.4)\n  - **use case:** unit.load, ior.resolve, index.put, tree.symlink, template.register, view.render (T124.6 PUML)\n  - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml)\n  - **class/method:** new TypeScript module `src/ts/scenario/` — `Unit`, `IOR`, `Requirement`, `Task`, `UseCase`, `Class`, `Method`, `Test`, `Sprint`, `Index`, `TemplateRegistry`\n- requires\n  - T124 architecture + standards (refinement must be done)\n- enables\n  - T126 generated views, T127 navigation, T128 migration",
     "context": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:01e3dc69-4547-4ca7-99c1-685d6693fb18"
+  "ownerIor": "ior:instance:046d828e-e586-4fd0-b1f4-a3fd6a731197"
 }

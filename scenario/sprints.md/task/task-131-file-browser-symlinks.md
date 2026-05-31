@@ -8,7 +8,7 @@
   - [x] refinement (architect — root cause + design folded into the commit message)
   - [ ] creating test cases
   - [x] implementing (expert — aad0816 v0.5.30)
-  - [ ] testing (tester — independent verification pending)
+  - [x] testing (tester verified aad0816 + 37 markers — PO 2026-05-31)
 - [ ] QA Review
 - [ ] Done
 
@@ -61,7 +61,7 @@ served at `/md/`.
 - [x] AC4 — Symlink target type (dir/file) resolved correctly so navigation goes to the right view
 - [x] AC5 — `(a) v0.5.30 ✓ (b) sw.js rawbin-v0.5.30 ✓ (c) STATIC_SHELL exempt` (no new route) — rule-pair explicit in commit msg
 - [x] AC6 — 818/818 tests pass (build clean)
-- [ ] AC7 — Tester independent verification on live: walk `scenarios/sprints.json/sprint-1/...` tree end-to-end; confirm 🔗 markers visible; confirm broken symlinks degrade gracefully
+- [x] AC7 — Tester independent verification on live: walk `scenarios/sprints.json/sprint-1/...` tree end-to-end; confirm 🔗 markers visible; confirm broken symlinks degrade gracefully (PO-confirmed 2026-05-31; 37 markers verified)
 
 ## QA Audit & User Feedback
 

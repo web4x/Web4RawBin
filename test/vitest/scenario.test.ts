@@ -213,7 +213,7 @@ describe('T127.2: IORResolver', () => {
 
 describe('T132: renderStatusHtml', () => {
   it('renders checklist with nested substeps as HTML list', () => {
-    const checklist = '- [x] Planned\n- [x] In Progress\n    - [x] refinement\n    - [ ] implementing\n- [ ] Done';
+    const checklist = '- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] implementing\n- [ ] Done';
     const html = renderStatusHtml(checklist);
     expect(html).toContain('<ul class="sv-steps">');
     expect(html).toContain('<ul class="sv-substeps">');

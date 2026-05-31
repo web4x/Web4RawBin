@@ -3,12 +3,12 @@
 
 ## Status
 
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
@@ -71,6 +71,37 @@ requirement (R17.13).
 ## QA Audit & User Feedback
 
 - 2026-05-30: Planned — sprint-closing gate, runs after T128. Tester walks the chain; planner runs the audit; Tron approves to close S17.
+
+### T129 Verification Report — robbin-tester 2026-05-31
+
+**T129.1 — trace-cli check:**
+- `npx tsx trace-cli.ts check` → 222 graph objects (20 reqs, 143 tasks, 15 UCs, 1 impl)
+- 11 ERRORS: tasks referencing requirement UUIDs not in any requirements.md — all are S16/S17 tasks awaiting T124.4 (requirement formalization). **Not S17 regression — scope gap in T124.4.**
+- 110 WARNINGS: S1-S9 tasks with no requirement up-link — historical (pre-requirements era). **Documented scope gap.**
+- 43 WARNINGS: test:uuid tags with no requirement/method chain link — test traceability not yet wired. **Known gap.**
+- **S17-specific orphans: ZERO.** All S17 tasks have task:uuid, all UCs link to tasks.
+- **VERDICT: PASS with documented allowlist** (pre-S10 tasks + unformalised S16/S17 requirements).
+
+**T129.2 — End-to-end chain walks (6 samples):**
+
+| # | Start | → Task | → UC | Status |
+|---|-------|--------|------|--------|
+| 1 | R16.1 (10a1b2c3) | T81 member-click-vcard | detailDrawer.open | PASS |
+| 2 | UC objectItem.collapse (16a01151) | T115 collapse-expand | — | PASS |
+| 3 | UC detailDrawer.close (16a01002) | T110 detailview-container | — | PASS |
+| 4 | UC objectItem.drag (16a01141) | T114 tree-item-drag | — | PASS |
+| 5 | UC taskDetail.render (16a01101) | T111 detail-views | — | PASS |
+| 6 | impl:13a4b5c6 (avatar-fallback) | — (src marker) | — | PASS |
+
+**IOR resolution chain:** Sprint(01e3dc69) → T124(ownerIor matches) → T124.1(ownerIor matches). **PASS.**
+
+**T129.3 — Sprint audit + Web4Articles compliance:**
+- 13/13 S17 task files COMPLIANT: Status + Traceability + AC + QA Audit + task:uuid — all present.
+- 0 missing sections. 0 template violations.
+
+**AC5 — sprints.md mirrors sprints.json:** S1 + S17 in both trees. **PASS.**
+**AC6 — S17 eats own dog food:** T124-T129 all exist as scenario units with IOR, ownerIor, generated views. **PASS.**
+**AC7 — 818/818 vitest, 29 files, v0.5.30. PASS.**
 
 ## Subtasks
 

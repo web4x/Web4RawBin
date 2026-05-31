@@ -1,14 +1,5 @@
 <div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T131: File-browser symlink support (FileApi + rb-file-tree)</h2><code>dce1bdf8-7076-4376-a32c-9c8b08422bdc</code></div>
-<div class="sv-section"><h3>Status</h3><pre>- [x] Planned (retroactive — work shipped before stand-up; see QA Audit)
-- [x] In Progress
-  - [x] refinement (architect — root cause + design folded into the commit message)
-  - [ ] creating test cases
-  - [x] implementing (expert — aad0816 v0.5.30)
-  - [ ] testing (tester — independent verification pending)
-- [ ] QA Review
-- [ ] Done
-
-&gt; QA Review + Done are TRON's gate only — never checked by planner/sync.</pre></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned (retroactive — work shipped before stand-up; see QA Audit)</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement (architect — root cause + design folded into the commit message)</li><li class="sv-unchecked">⬜ creating test cases</li><li class="sv-checked">✅ implementing (expert — aad0816 v0.5.30)</li><li class="sv-checked">✅ testing (tester verified aad0816 + 37 markers — PO 2026-05-31)</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li><li class="sv-unchecked">⬜ &gt; QA Review + Done are TRON's gate only — never checked by planner/sync.</li></ul></div>
 <div class="sv-section"><h3>Traceability</h3><pre>`[task:uuid:dce1bdf8-7076-4376-a32c-9c8b08422bdc]`
 
 - up
@@ -48,7 +39,7 @@ served at `/md/`.
 - [x] AC4 — Symlink target type (dir/file) resolved correctly so navigation goes to the right view
 - [x] AC5 — `(a) v0.5.30 ✓ (b) sw.js rawbin-v0.5.30 ✓ (c) STATIC_SHELL exempt` (no new route) — rule-pair explicit in commit msg
 - [x] AC6 — 818/818 tests pass (build clean)
-- [ ] AC7 — Tester independent verification on live: walk `scenarios/sprints.json/sprint-1/...` tree end-to-end; confirm 🔗 markers visible; confirm broken symlinks degrade gracefully</pre></div>
+- [x] AC7 — Tester independent verification on live: walk `scenarios/sprints.json/sprint-1/...` tree end-to-end; confirm 🔗 markers visible; confirm broken symlinks degrade gracefully (PO-confirmed 2026-05-31; 37 markers verified)</pre></div>
 <div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-05-31: Tron via PO — file-browser needs symlink support for scenarios/sprints.json/ tree.
 - 2026-05-31: aad0816 v0.5.30 — expert shipped before planner stood up the task; commit subject mis-labelled &quot;T39&quot; (T39 is an unrelated S6 task — PWA update banner). Planner retroactively stood up T131 here; corrected the T-numbering; reverse-engineered the 4-role attribution from the commit message (architect diagnosis + design described inline by expert; req-eng quote-anchor pending). Going forward: tasks MUST be stood up BEFORE impl per learnings #18 (CMM4 four-role engagement).
 - Awaiting tester independent verify, then Tron QA.</p></div>
