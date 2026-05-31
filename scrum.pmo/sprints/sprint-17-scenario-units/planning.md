@@ -112,6 +112,32 @@ prose. Then **migrate every existing sprint** to this model.
   **Status:** impl + testing DONE (497cee2 architect design → f173cad expert TraceLink class + symlink emission + template → 8e42361 tester verify, 830/830) — Tron QA pending
   **Rule-pair:** ✓ retroactively covered by 2f6dde2 v0.5.31 unified bump
 
+### Phase 7 — S17 2nd extension (Tron 2026-05-31)
+
+- [ ] ⏳ [T135: req-audit — formalize backlog Tron quotes req missed](./task-135-req-audit.md)
+  **Status:** PLANNED — closes T129's documented req-allowlist for S10-S17
+  **Owners (CMM4):** robbin-req (audit lead) + robbin-planner (JOINT audit pass) → robbin-architect (review) → robbin-tester (verify)
+
+- [ ] ⏳ [T136: Migration extension for Requirement + UseCase units](./task-136-migration-extension-req-uc.md)
+  **Status:** PLANNED — extends T128 migration to emit Requirement + UseCase scenario units (currently only Task + impl emitted)
+  **Owners (CMM4):** robbin-req → robbin-architect → robbin-expert → robbin-tester
+  **Rule-pair scope:** (a)+(b) per #15 (data emission user-visible via /md/+/trace); (c) STATIC_SHELL exempt
+
+- [ ] ⏳ [T137: req + planner LEARN scenarios for planning + update SKILL.md](./task-137-req-planner-learn-scenarios.md)
+  **Status:** PLANNED — req + planner SKILL.md adopt scenario-unit workflow (planning.md becomes a generated view)
+  **Owners (CMM4):** robbin-req (own SKILL update) + robbin-planner (own SKILL update — this agent) JOINT → robbin-architect (peer review) → robbin-tester (verify)
+  **Rule-pair scope:** docs-only — no bump
+
+- [ ] ⏳ [T138: skill set on scenarios (capture-quote, propose-task, walk-chain)](./task-138-skill-set-scenarios.md)
+  **Status:** PLANNED — three foundational verbs every role uses over the scenario-unit model
+  **Owners (CMM4):** robbin-req → robbin-architect (verb-contract design) → robbin-expert (skills.ts impl) → robbin-tester
+  **Rule-pair scope:** (a)+(b) per #15 (new exports = surface change); (c) STATIC_SHELL exempt
+
+- [ ] ⏳ [T139: fork skill-expert from expert (PO decision; agent-trainer executes)](./task-139-fork-skill-expert.md)
+  **Status:** PLANNED — new dedicated agent for the skill verb-set; PO decision-led, agent-trainer executes
+  **Owners:** robbin-po (decision) + agent-trainer (execute) + robbin-req (anchor) + robbin-tester (boot verify)
+  **Rule-pair scope:** docs-only (SKILL.md authoring) — no bump
+
 ### Phase 6 — Verification (T129, tester + planner)
 
 - [ ] 🧪 [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)
@@ -136,9 +162,10 @@ T124 architecture+requirements ──→ T125 foundation ──┬──→ T126
 ## Sprint Totals
 | Metric | Value |
 |--------|-------|
-| Parent tasks | 6 (T124–T129) — 5 🧪 (T125/T126/T127/T128/T129 — tester verified), 1 🔧 (T124 4/6 sub-done; T124.4+T124.5 req-eng pending) |
-| Follow-ons | T131🧪, T132🧪, T133🧪, T134🧪 (all tester-verified per 8e42361) |
-| Sprint 17 close | All tasks 🧪 except T124 🔧 (req-eng tail) — pending Tron QA gate batch-approval |
+| Parent tasks | 6 (T124–T129) — 5 🧪 (T125/T126/T127/T128/T129), 1 🔧 (T124 4/6 sub-done; T124.4+T124.5 req-eng pending) |
+| Follow-ons | T131🧪, T132🧪, T133🧪, T134🧪 (all tester-verified) |
+| 2nd extension (Tron 2026-05-31) | T135/T136/T137/T138/T139 — all ⏳ pending CMM4 4-role cycle |
+| Sprint 17 close | Pending: T124.4+T124.5 req-eng tail; T135-T139 cycle; Tron QA gate batch-approval |
 | Sub-tasks (refinement-time) | ~20 (T124.1-T124.6, T125.1-T125.4, T126.1-T126.3, T127.1-T127.2, T128.1-T128.4, T129.1-T129.3) |
 | Tron QA-approved (Done) | 0/6 parents |
 | Planned | 6 parents |
