@@ -8,6 +8,18 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **B5 — File-browser display fixes: icon order + link targets (3 issues)**
+  [requirement:uuid:e6f7a8b9-c0d1-4e2f-a3b4-c5d6e7f8a9b5]
+  > TRON DIRECTIVE (3 in one): (a) swap icon order: ✏️ 🔗 → 🔗 ✏️ (link before edit). (b) make 🔗 clickable → links to original scenario/index/.../uuid.scenario.json (the symlink target). (c) clicking the .json filename in symlink listings currently 404s → must link to the corresponding MD view (scenarios/sprints.md/task/<speaking>.md).
+
+  Three fixes in the file-browser (`/md/` route + `rb-file-tree`):
+  1. **Icon order:** chain-link 🔗 must come BEFORE edit ✏️ (currently reversed)
+  2. **🔗 target:** chain-link icon must be a clickable link to the canonical `scenario/index/<prefix>/<uuid>.scenario.json` (the symlink target, not the symlink itself)
+  3. **JSON 404 fix:** clicking a `.json` filename in symlink directory listings (`scenarios/sprints.json/`) currently 404s — must resolve to the corresponding generated MD view at `scenarios/sprints.md/<class>/<speaking-name>.md`
+
+  **Sprint:** TBD (planner to triage)
+  **Touches:** server.ts `/md/` directory listing renderer, `rb-file-tree` component, T141 chain-link implementation
+
 - **B4 — Connection-Failed + Offline pages: add Reload button**
   [requirement:uuid:c5d6e7f8-a9b0-4c1d-2e3f-4a5b6c7d8e90]
   > TRON DIRECTIVE: "add a reload button to page Connection Failed / Could not connect to server. Please refresh."
