@@ -54,9 +54,16 @@
   > TRON DIRECTIVE: "decide yourself to give the skill development to the expert, or agent trainer (would need much context) or to fork an skill-expert from the expert"
   → [T139: Fork skill-expert](./task-139-fork-skill-expert.md)
 
+## Migration
+
+- [ ] **R17.9: Requirement + UseCase units in scenario index**
+  [requirement:uuid:024c7b8f-f314-4745-a998-85b87cd09b09]
+  > TRON DIRECTIVE: "i do not see uuid.scenario.JSON for requirements and use cases"
+  → [T136: Migration extension — Requirement + UseCase units](./task-136-migration-extension-req-uc.md)
+
 ## Audit & Formalization
 
-- [ ] **R17.8: Tron prompts → formal requirement units (audit backlog)**
+- [ ] **R17.10: Tron prompts → formal requirement units (audit backlog)**
   [requirement:uuid:47a86209-e0bb-4142-a6ad-4fff94ff9921]
   > TRON DIRECTIVE: "i do not see my latest prompts reflected as requirements from the req agent"
   → [T135: req-audit — formalize backlog Tron quotes](./task-135-req-audit.md)
