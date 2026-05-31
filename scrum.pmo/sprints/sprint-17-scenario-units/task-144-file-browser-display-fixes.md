@@ -137,6 +137,94 @@ File: `test/vitest/file-browser-display.test.ts` (new) + visual on `/md/scenario
 ## QA Audit & User Feedback
 - 2026-05-31: PO directed planner to stand up T144 immediately (no further reminder). Source: `2bfb64f` (req-eng B5 captured Tron's 3-in-1 directive into backlog). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17) — composite B5 uuid kept as req formalized + 3 sub-fix uuids generated for AC-level traceability; rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Awaiting req-eng confirmation → architect design → expert impl → tester verify → Tron QA.
 
+## Design (robbin-architect, 2026-06-01)
+
+### Location
+`src/ts/server/server.ts` lines 579-586 — the `/md/` directory listing renderer.
+
+Five `.map()` calls build HTML `<li>` entries for dirs, mds, svgs, jsons, others. Each appends icons inline. The pattern per entry type:
+
+```
+Current (lines 582-586):
+  dirs:   📁 <a href>name/</a>{symlink ? ' 🔗' : ''}
+  mds:    📄 <a href>name</a>{editIcon}{symlink ? ' 🔗' : ''}
+  jsons:  📋 <a href>name</a>{editIcon}{symlink ? ' 🔗' : ''}
+  others: name{editIcon}{symlink ? ' 🔗' : ''}
+```
+
+### Fix B5(a): Icon order swap — ✏️🔗 → 🔗✏️
+
+**Current:** `editIcon(e.name)` emitted BEFORE `e.isSymbolicLink() ? ' 🔗' : ''`
+**Fix:** Swap the two fragments. For each entry type that has both, emit symlink icon first, then edit icon.
+
+Lines to change (mds, jsons, others):
+```typescript
+// BEFORE (line 583 example):
+.map(e => `<li>📄 <a href=...>${e.name}</a>${editIcon(e.name)}${e.isSymbolicLink() ? ' 🔗' : ''}</li>`)
+
+// AFTER:
+.map(e => `<li>📄 <a href=...>${e.name}</a>${symlinkIcon(e, relPath)}${editIcon(e.name)}</li>`)
+```
+
+### Fix B5(b): 🔗 becomes clickable anchor to symlink target
+
+**Current:** `' 🔗'` is a plain text glyph — not an anchor.
+**Fix:** Replace the glyph with an `<a>` whose href is the resolved symlink target path.
+
+New helper function (add near line 579):
+```typescript
+const symlinkIcon = (e: any, relDir: string) => {
+  if (!e.isSymbolicLink()) return '';
+  try {
+    const target = fsSync.readlinkSync(path.join(dirPath, e.name));
+    // Resolve to absolute, then make /md/-relative
+    const abs = path.resolve(dirPath, target);
+    const mdRel = path.relative(PROJECT_ROOT, abs);
+    return ` <a href="/md/${mdRel}" style="text-decoration:none;font-size:0.8em" title="Symlink → ${target}">🔗</a>`;
+  } catch {
+    return ' 🔗';  // fallback: unresolvable symlink = plain glyph
+  }
+};
+```
+
+This resolves the symlink to its target (e.g., `../../scenario/index/d/0/3/a/7/d03a73ff-....scenario.json`) and constructs an absolute `/md/` path to it.
+
+### Fix B5(c): .json filename click → MD view instead of 404
+
+**Current:** `<a href="/md/${relPath}${e.name}">${e.name}</a>` — links to the raw `.json` path which returns 404 if no handler exists.
+**Fix:** For `.json` files in `scenarios/sprints.json/` trees, rewrite the href to the corresponding `.md` view.
+
+Modify the jsons map (line 585):
+```typescript
+const jsonHref = (e: any) => {
+  // If we're inside a sprints.json/<class>/ directory, resolve to sprints.md/<class>/<speaking-name>.md
+  const jsonMatch = relPath.match(/^scenarios\/sprints\.json\/([^/]+)\//);
+  if (jsonMatch && e.name.endsWith('.scenario.json')) {
+    const classDir = jsonMatch[1];  // e.g., "task"
+    const speakingName = e.name.replace('.scenario.json', '.md');
+    return `/md/scenarios/sprints.md/${classDir}/${speakingName}`;
+  }
+  return `/md/${relPath}${e.name}`;  // default: direct link
+};
+
+const jsons = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.json'))
+  .map(e => `<li>📋 <a href="${jsonHref(e)}">${e.name}</a>${symlinkIcon(e, relPath)}${editIcon(e.name)}</li>`);
+```
+
+### Touchpoints Summary
+
+| Fix | File | Line(s) | Change |
+|-----|------|---------|--------|
+| B5(a) | server.ts | 582-586 | Swap order: symlinkIcon before editIcon in all 5 entry maps |
+| B5(b) | server.ts | new helper ~579 | `symlinkIcon()` function: resolves symlink target, wraps 🔗 in `<a>` |
+| B5(c) | server.ts | 585 | `jsonHref()` function: rewrites `.json` paths in `sprints.json/` to `sprints.md/` |
+
+### rb-file-tree impact
+`rb-file-tree.ts` is a client-side Web Component used in the `/edit/` route. The `/md/` directory listing is **server-side rendered HTML** (lines 582-588). These fixes are server-side only — no change to `rb-file-tree.ts` needed. AC5 passes by default.
+
+### No new routes
+No STATIC_SHELL change. The `/md/` handler already serves both `.json` and `.md` files — we're only changing the `<a href>` targets in the listing HTML, not adding new route handlers.
+
 ## Subtasks
 None (atomic task; 3 fixes are sub-ACs, not sub-tasks).
 

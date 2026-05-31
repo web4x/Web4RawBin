@@ -165,8 +165,106 @@ File: `test/vitest/trace-tree.test.ts` (new) + `test/e2e/trace-tree.spec.ts` (ne
 ## QA Audit & User Feedback
 - 2026-05-31: PO directed planner to stand up T143 immediately (no further reminder). Sources: `df09df2` (Tron capture) + `ac8c8e7` (req formalization R17.26–R17.29). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Awaiting req-eng verbatim anchor → architect design → expert impl → tester verify → Tron QA.
 
+## Design (robbin-architect, 2026-06-01)
+
+### Current Model: Linear Chain
+
+`trace-link.ts` stores edges as `{from, to, fromType, toType, relation}`. `renderChainSection()` in `templates.ts` reads flat arrays from model fields and renders each as `🔗 <8-char-uuid>` — bare text (MD) or dead `<a>` with no href (HTML). Violates R17.27.
+
+### Target: Tree of Typed Links
+
+#### 1. TraceLink model — NO schema change needed
+`createTraceLink()` already stores `from`, `to`, `fromType`, `toType`, `relation`, `direction: 'bidirectional'`. These ARE graph edges. The tree emerges from traversal.
+
+#### 2. New module: `src/ts/scenario/trace-tree.ts`
+
+```typescript
+export interface TraceNode {
+  uuid: string;
+  type: string;           // 'requirement'|'task'|'usecase'|'class'|'method'|'test'
+  name: string;           // speaking name from scenario model
+  relation: string;       // edge label to parent
+  children: TraceNode[];
+}
+
+export function buildTraceTree(rootUuid: string, allLinks: ScenarioUnit[], allUnits: Map<string, ScenarioUnit>): TraceNode
+export function walkUp(uuid: string, allLinks: ScenarioUnit[], allUnits: Map<string, ScenarioUnit>): TraceNode[]
+export function walkDown(uuid: string, allLinks: ScenarioUnit[], allUnits: Map<string, ScenarioUnit>): TraceNode[]
+```
+
+Multi-parent (walkUp returns N parents), multi-child (walkDown returns N children).
+
+#### 3. Fix R17.27 — every element a clickable link
+
+Replace `renderChainLinkMd`/`renderChainLinkHtml` (lines 56-63 in templates.ts):
+
+```typescript
+// BEFORE (dead):
+renderChainLinkHtml(ior) → '<a class="chain-link">🔗 uuid8</a>'  // no href!
+
+// AFTER (live, speaking name):
+renderTreeNodeHtml(node) → '<a href="/md/scenarios/sprints.md/{type}/{name}.md" class="chain-link">🔗 {name}</a>'
+renderTreeNodeMd(node)   → '[🔗 {name}](scenarios/sprints.json/{type}/{uuid}.scenario.json)'
+```
+
+#### 4. Tree HTML — nested `<ul><li>`
+
+```typescript
+export function renderTraceTreeHtml(root: TraceNode): string {
+  const renderNode = (n: TraceNode): string => {
+    const link = renderTreeNodeHtml(n);
+    const rel = n.relation ? `<span class="sv-relation">${n.relation}</span> ` : '';
+    if (!n.children.length) return `<li>${rel}${link}</li>`;
+    return `<li>${rel}${link}<ul>${n.children.map(renderNode).join('')}</ul></li>`;
+  };
+  return `<div class="sv-section sv-trace-tree"><h3>Traceability</h3><ul class="sv-tree">${root.children.map(renderNode).join('')}</ul></div>`;
+}
+```
+
+MD equivalent: indented `- relation: [🔗 name](href)` lists.
+
+#### 5. Template signature — add RenderContext
+
+Current templates receive only `model`. Tree rendering needs access to all links + units:
+
+```typescript
+interface RenderContext {
+  allLinks: ScenarioUnit[];
+  allUnits: Map<string, ScenarioUnit>;
+}
+// All 7+1 template signatures:
+toHtml(model, ctx?: RenderContext): string;
+toMd(model, ctx?: RenderContext): string;
+```
+
+Backward-compatible: without ctx, falls back to flat chain.
+
+#### 6. planning.md generator — tree-shaped task nesting
+
+Parent-child from TraceLink `contains`/`follows`. Symbols from FSM (T133):
+```markdown
+- 🏁 [T124: Data Model](./task-124.md)
+  - ✅ [T124.1: spec](./task-124.1.md) (implements)
+  - ✅ [T124.2: templates](./task-124.2.md) (implements)
+- 📝 [T143: Tree rework](./task-143.md)
+  - ⏳ [T144: File-browser](./task-144.md) (follows)
+```
+
+### Touchpoints
+
+| Component | File | Change |
+|-----------|------|--------|
+| NEW | `src/ts/scenario/trace-tree.ts` | TraceNode, build/walkUp/walkDown, render tree HTML+MD |
+| MODIFY | `src/ts/scenario/templates.ts` | Replace renderChainSection → renderTraceTree; add RenderContext to 8 templates |
+| MODIFY | `src/ts/scenario/index.ts` | Export trace-tree |
+| MODIFY | server.ts `/trace` handler | Pass RenderContext |
+| MODIFY | ViewGenerator | Tree nesting + FSM symbols |
+| NO CHANGE | `trace-link.ts` | Model already graph-capable |
+
+### Scope: single commit-set, no sub-tasks
+
 ## Subtasks
-None at parent level (architect may split T143.x if scope warrants — coordinate with planner first).
+None (single commit-set as designed).
 
 ---
 
