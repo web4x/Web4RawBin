@@ -9,7 +9,7 @@
 - [x] In Progress
   - [x] refinement (req → architect — architect pre-design adopted from stub `task-153-uc-class-req-refs.md`; req-eng backfill DONE via `ee04ffb` — B14 anchored with verbatim Tron quote "quality much better… classes array and requirements still empty and traceability therefore broken" + canonical `requirement:uuid:d4e5f6a7-…`)
   - [ ] creating test cases
-  - [ ] implementing — **PARTIAL** (`0365ff1` v0.5.50 — classes ✓ from PUML arrows + S16 `object:` field, rule-pair (a)+(b) ✓; **BUT requirement resolution BLOCKED**: R-number → `requirement:uuid` resolver not yet designed/shipped. Architect still owes the R-resolution design; expert owes the resolver impl. Per PO 2026-06-01: do NOT close T153 until requirements resolution lands)
+  - [ ] implementing — **PARTIAL** (`0365ff1` v0.5.50 — classes ✓ from PUML arrows + S16 `object:` field, rule-pair (a)+(b) ✓. **R-resolution design DONE** via `c77d1f5` architect v2: introduces `model.altId` field on Requirement units (e.g. `altId: 'R17.1'`), populated from `requirements.md **R17.1:**` pattern; UC `requirements` resolver scans index for altId match. **R-resolution IMPL still PENDING** — expert owes `populateReqAltIds()` migrator + extended `fixUcDataQuality()` per c77d1f5 design. Per PO 2026-06-01: do NOT close T153 until requirements resolution lands)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
