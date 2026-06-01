@@ -33,16 +33,10 @@
 
 - up
   - [Sprint 17 Planning](./planning.md)
-  - **Tron quote capture (req-eng):** *(awaiting req-eng B-entry / verbatim anchor — PO 2026-06-01 directed stand-up)*
-  - **UseCase data-quality requirement (planner-suggested; req-eng to anchor/override on capture)**
-    `[requirement:uuid:010deb5a-728f-4f42-8044-940923ea9740]`
-    Planner summary (req to confirm / correct from Tron's literal):
-    > UseCase scenarios today carry a `name` but lack derived `object` / `verb`
-    > and lack the populated link arrays that point back to the tasks /
-    > classes / requirement that the UC participates in. PUML diagrams already
-    > carry these refs (UC instances + their relations) — extract them and
-    > populate the JSON model so every UC has (a) non-empty `object` + `verb`
-    > and (b) `links` arrays whose count matches the PUML's refs for that UC.
+  - **Tron quote capture (req-eng anchored 2026-06-01):** B13 in [scrum.pmo/backlog.md](../../backlog.md), commit `0fff8be`
+  - **B13 requirement** `[requirement:uuid:c3d4e5f6-a7b8-4c9d-e0f1-234567890b13]`
+    Verbatim Tron quote:
+    > "i picked an arbitrary example...still no traceability content inside. object, verb empty even if it can be derived from name. bad data quality"
 - down
   - None at parent level (architect may split T152.x per derivation-rule vs PUML-extraction if scope warrants — coordinate with planner first)
 - follows
@@ -53,7 +47,7 @@
   - [T149: Universal symlink tree across 9 classes](./task-149-symlink-tree-all-9-classes.md) — UC speaking-name symlink T152's arrays resolve via
   - [T151: MD chain → JSON arrays migration](./task-151-md-traceability-to-json-arrays-migration.md) — the array shape T152 populates on UC units
 - chain (req → usecase → puml → class/method) — architect to fill on refinement
-  - **requirement:** UC data quality (above; planner-suggested → req-eng anchor)
+  - **requirement:** B13 `[requirement:uuid:c3d4e5f6-a7b8-4c9d-e0f1-234567890b13]` (req-eng anchored)
   - **use case:** UC-TBD (architect — likely `usecase.deriveObjectVerb`, `usecase.populateLinksFromPuml`, `audit.useCaseDataQuality`)
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds the new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** data-quality script (architect names — likely `scripts/uc-data-quality.ts` or extends `scripts/migrate-to-scenario.ts`) / `scrum.pmo/standards/traceability-standard.md` (UC shape spec) / UC scenario JSON schema
@@ -178,7 +172,8 @@ File: `test/vitest/uc-data-quality.test.ts` (new) + per-UC evidence table commit
 - [ ] Tron QA approved (with per-UC count + object/verb evidence table)
 
 ## QA Audit & User Feedback
-- 2026-06-01: PO directed planner to stand up T152 with per-UC audit count gate (object/verb non-empty + links count match PUML refs). req-eng to capture the verbatim Tron quote and anchor (or replace) the planner-suggested `requirement:uuid` on the next pass. CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC13 + DoD (learnings #15 + #16). Awaiting req anchor → architect derivation + extraction design → expert dry-run + apply → tester per-UC verify → Tron QA.
+- 2026-06-01: PO directed planner to stand up T152 with per-UC audit count gate. CMM4 4-role engagement enforced (learnings #18); real v4 uuids (#17); rule-pair (a)+(b) baked into AC13 + DoD (#15+#16).
+- 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:010deb5a` with req's canonical `requirement:uuid:c3d4e5f6...0b13` (from B13 capture, commit `0fff8be`). Verbatim Tron quote anchored. Tron's key phrase: "bad data quality" — object+verb derivable from name but not populated, traceability arrays empty. Same T151 discipline (no info loss, count gate). Ready for architect.
 
 ## Subtasks
 None at parent level (architect may split T152.x per derivation-rule vs PUML-extraction if scope warrants — coordinate with planner first).
