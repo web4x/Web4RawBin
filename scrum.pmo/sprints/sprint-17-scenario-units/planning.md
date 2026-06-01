@@ -174,6 +174,13 @@ prose. Then **migrate every existing sprint** to this model.
   **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (renderer change + 📋 glyph + rb-file-tree mirroring + standard update if applicable) → robbin-expert (impl in `server.ts /md/` + rb-file-tree; rule-pair (a)+(b)) → robbin-tester (visual + click-through + side-by-side `.json`/`.md` symmetry + T144/T141 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
 
+### Phase 12 — File-browser path-header clickable → parent dir (PO directive 2026-06-01)
+
+- [ ] ⏳ [T148: File-browser path-header clickable → parent dir navigation](./task-148-file-browser-path-header-clickable.md)
+  **Status:** PLANNED — page-level breadcrumb in `/md/<path>` listings: split the path-header into per-segment anchors, each navigating to that segment's directory. Sibling to T144 (row-level icons on `.json`) and T147 (row-level icons on `.md`); T148 is page-level, no conflict. req-eng to capture verbatim Tron quote.
+  **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (segment-split + cumulative-href + separator styling + rb-file-tree mirroring decision) → robbin-expert (impl in `server.ts /md/` renderer; rule-pair (a)+(b)) → robbin-tester (visual + click-through + T144/T147/T141 regression)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
+
 ### Phase 6 — Verification (T129, tester + planner)
 
 - [ ] 🧪 [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)
