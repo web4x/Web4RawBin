@@ -1,0 +1,187 @@
+[Back to Sprint 17 Planning](./planning.md)
+
+# T154: Requirement data quality — name vs description split + `tasks[]` populated
+
+[task:uuid:34ea153f-1981-48ef-bfac-fc336ebf58d4]
+
+## Status
+- [ ] Planned
+- [ ] In Progress
+  - [ ] refinement (req → architect)
+  - [ ] creating test cases
+  - [ ] implementing
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
+
+> QA Review + Done are TRON's gate only — never checked by planner/sync.
+> **Per-Requirement audit gate (PO 2026-06-01):** for every Requirement scenario —
+> (a) `name` is plain English (the speaky 3–5 word summary, per T146 NAME-first
+> format), (b) `description` is the **verbatim Tron quote** (no paraphrase, no
+> duplicate of NAME), (c) `tasks[]` count equals the count of forward links
+> req → task across `requirements.md` + task files. Mismatch on any of the
+> three = hard FAIL (same gate pattern as T151's AC5, T152's AC5, T153's AC5).
+
+## Assigned
+**Owners (CMM4 4-role, per learnings #18) — sequence req → architect → expert → tester:**
+1. **robbin-req** — capture the verbatim Tron quote for this directive; replace the planner-suggested `requirement:uuid` below with req's canonical one if different; confirm the canonical shape: line-1 NAME (3–5 words, plain English) + Tron quote as description (no duplicate paraphrase); audit S10–S17 `requirements.md` for entries failing the shape; produce the per-Requirement gap list
+2. **robbin-architect** — design the data-quality pass: (i) parse each `requirements.md` entry into `model.name` (line 1) + `model.description` (Tron quote blockquote) per T146 format; (ii) populate `model.tasks[]` from req → task forward links (parse task files' `## Traceability` for `requirement:` refs OR parse `requirements.md` forward-link bullets); (iii) per-Requirement audit (name non-empty plain English + description = verbatim quote + tasks count matches forward links); update `scrum.pmo/standards/traceability-standard.md` Requirement shape spec
+3. **robbin-expert** — implement the data-quality script per architect's design (extends T151/T152/T153 migrator pattern: parse `requirements.md`, populate `model.name` / `model.description` / `model.tasks[]` on each Requirement scenario, run audit table); dry-run first; carry rule-pair (a)+(b) in the impl commit-set
+4. **robbin-tester** — verify per-Req: `model.name` is plain English (non-empty, ≤5 words, no UUID/code/marker), `model.description` matches the Tron quote in `requirements.md` exactly, `tasks[]` count == count of forward links found in task files; spot-check ≥5 Requirements across sprints; T126 ViewGenerator regenerates Requirement `.md` views from the populated fields; chain audit (`trace-cli`) clean
+
+**This file is the single source of truth.** No chat clarification.
+
+## Traceability
+
+`[task:uuid:34ea153f-1981-48ef-bfac-fc336ebf58d4]`
+
+- up
+  - [Sprint 17 Planning](./planning.md)
+  - **Tron quote capture (req-eng):** *(awaiting req-eng B-entry / verbatim anchor — PO 2026-06-01 directed stand-up as data-quality sibling to T152 (UC) and T153 (UC residual))*
+  - **Requirement data-quality requirement (planner-suggested; req-eng to anchor/override on capture)**
+    `[requirement:uuid:2e6348c1-30c2-4c7c-b7cc-59f11d133793]`
+    Planner summary (req to confirm / correct from Tron's literal):
+    > Requirement scenarios today have `model.name` populated from
+    > `requirements.md` (post-T146 NAME-first), but `model.description`
+    > may be empty / duplicate of name, and `model.tasks[]` is sparse —
+    > the forward edges from Requirement to Task aren't materialized.
+    > T154 closes both gaps per-Requirement with the same audit
+    > discipline as T152/T153 introduced for UCs.
+- down
+  - None at parent level (architect may split T154.x per field if scope warrants — coordinate with planner first)
+- follows
+  - [T126: Generated views + 7 templates](./task-126-views.md) — Requirement template consumes the populated fields
+  - [T134: TraceLink as a scenario unit](./task-134-traceability-as-units.md) — TraceLink class (T154 may emit `requirement → task` TraceLink units)
+  - [T143: Chain → tree rework](./task-143-traceability-tree-rework.md) — `tasks[]` is the Requirement's downward tree edge
+  - [T146: Requirement-entry NAME-first format](./task-146-requirement-name-first-format.md) — defines the source shape (NAME line + Tron blockquote)
+  - [T149: Universal symlink tree across 9 classes](./task-149-symlink-tree-all-9-classes.md) — Requirement symlinks resolve via populated arrays
+  - [T151: MD chain → JSON arrays migration](./task-151-md-traceability-to-json-arrays-migration.md) — `tasks[]` is one of the array shapes T151 standardized
+  - [T152: UC data quality (object/verb + PUML links)](./task-152-usecase-data-quality-object-verb-from-name-puml-links.md) — sibling data-quality pattern (UC side)
+  - [T153: UC residual fields (classes + requirement)](./task-153-populate-classes-requirement-on-ucs.md) — sibling data-quality pattern; introduces `altId` field on Requirements — T154 may reuse the altId-based reverse-lookup for `tasks[]` resolution
+- chain (req → usecase → puml → class/method) — architect to fill on refinement
+  - **requirement:** Requirement data quality (above; planner-suggested → req-eng anchor)
+  - **use case:** UC-TBD (architect — likely `requirement.parseNameDescription`, `requirement.populateTasks`, `audit.requirementDataQuality`)
+  - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)
+  - **class/method:** data-quality script extension (architect names — likely extends `scripts/migrate-to-scenario.ts`) / `RequirementLoader` defaults / `scrum.pmo/standards/traceability-standard.md` Requirement shape spec
+
+## Context
+
+Sibling to T152 (UC data quality) and T153 (UC residual fields). T146 introduced
+the NAME-first format for `requirements.md`; T151 standardized JSON model arrays
+including `tasks[]`. But for Requirement scenarios:
+- `model.name` is set (post-T146) but quality varies — some entries may have
+  paraphrased text instead of the canonical 3–5-word plain-English summary
+- `model.description` is often empty / duplicate of name — the Tron quote
+  blockquote is not being captured as the description per T146's format
+- `model.tasks[]` is the forward edge to tasks the Requirement is implemented
+  by; sparse today
+
+Tron's directive (PO 2026-06-01 as data-quality completion): close all three
+fields with the per-Req audit gate; mismatch on name/description/tasks-count
+= hard FAIL.
+
+## Intention
+
+### Why this task exists
+- Per-Req data quality is the last missing piece after T152/T153 (UC side)
+- Without `tasks[]` populated, requirement → task downward tree edges break
+- Without NAME / description split, T146's view templates render uniformly
+  but the underlying data carries duplication or empties
+
+### Problems this task solves
+- `model.description` empty or duplicate of `name` → no Tron-quote rendering
+- `model.tasks[]` empty → 🔗 from Requirement to implementing Task breaks
+- Audit gap: T151/T152/T153 audit counts; T154 extends to Requirements
+
+### How it solves them
+- Parse each `requirements.md` entry per T146 format → split NAME (line 1)
+  from description (blockquote)
+- Populate `model.tasks[]` from forward-link bullets in `requirements.md` AND/OR
+  reverse-resolve from task files' `## Traceability` `requirement:` refs
+- Per-Req audit table: name plain English + description == verbatim quote +
+  tasks-count match
+- T126 regenerates Requirement view with both fields
+
+## Acceptance Criteria
+- [ ] AC1 (Shape spec) — Architect-finalized Requirement shape documented in
+  `scrum.pmo/standards/traceability-standard.md`: `model.name` = plain
+  English 3–5 word summary; `model.description` = verbatim Tron quote (no
+  paraphrase, no duplicate of name); `model.tasks[]` = forward-link array
+  to implementing Task units
+- [ ] AC2 (name plain English per Req) — For EVERY Requirement scenario,
+  `model.name` is non-empty, ≤5 words, plain English (no UUID, no
+  R-number, no code marker); per-Req audit table reports failures (target: 0)
+- [ ] AC3 (description = Tron quote verbatim per Req) — For EVERY Requirement
+  scenario, `model.description` matches the Tron quote blockquote in
+  `requirements.md` EXACTLY (whitespace-normalized); per-Req audit reports
+  failures (target: 0)
+- [ ] AC4 (tasks count match per Req) — For EVERY Requirement scenario, the
+  count of `model.tasks[]` entries EQUALS the count of forward links
+  req → task found in `requirements.md` + task files' `## Traceability`.
+  Mismatch = hard FAIL.
+- [ ] AC5 (Idempotence) — Running the data-quality pass twice yields the
+  same JSON; counts unchanged on the second run
+- [ ] AC6 (Dry-run) — `--dry-run` mode reports per-Req audit table without
+  writing
+- [ ] AC7 (Spot-check round-trip ≥5 Reqs) — Architect/tester selects ≥5
+  Requirements across S10–S17; verifies name + description + tasks against
+  the source `requirements.md` + linked task files
+- [ ] AC8 (T126 regenerates) — Requirement `.md` views show NAME + Tron-quote
+  description + tasks edges (clickable per T143)
+- [ ] AC9 (`trace-cli` clean) — Chain audit shows 0 broken
+  requirement → task links
+- [ ] AC10 (Regression) — No regression on T126 / T134 / T143 / T146 / T149 /
+  T151 / T152 / T153
+- [ ] AC11 — `npm run build` succeeds; all existing tests pass
+- [ ] AC12 — **Rule-pair (a)+(b) [learnings #15 + #16]:** `package.json`
+  "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME
+  commit-set as the user-facing impl. (c) STATIC_SHELL: likely exempt
+  (no new route — architect to confirm)
+- [ ] AC13 — All 4 roles committed work in this file
+
+## Test Scenarios
+File: `test/vitest/requirement-data-quality.test.ts` (new — sibling to T152's `uc-data-quality.test.ts`) + per-Req evidence table committed to QA Audit.
+
+| Test | Action | Expected |
+|------|--------|----------|
+| TS1 (name plain English per Req) | Dry-run audit across all Requirement scenarios in S10–S17 | Every Req: `model.name` non-empty, ≤5 words, no UUID/code |
+| TS2 (description verbatim per Req) | Dry-run audit | Every Req: `model.description` matches `requirements.md` blockquote exactly |
+| TS3 (tasks count per Req) | Dry-run audit emits per-Req table `Req → forward-links-count → model.tasks-count` | Every row: counts match |
+| TS4 (parsing rule unit tests) | Architect's rule on fixture `requirements.md` entries | Splits NAME / description correctly across the format variants |
+| TS5 (forward-link extraction unit tests) | Architect's rule on fixture `requirements.md` + task files | All `req → task` edges extracted (no silent drops) |
+| TS6 (idempotence) | Apply twice | Second run reports 0 changes |
+| TS7 (spot-check ≥5 Reqs) | Compare source `requirements.md` + task files vs JSON for 5+ Reqs across sprints | All match |
+| TS8 (T126 regenerates) | View a Requirement `.md` post-pass | NAME + Tron-quote description + tasks edges |
+| TS9 (broken-link audit) | `trace-cli` | 0 broken req → task links |
+| TS10 (regression) | Visual + click-through across T126/T143/T146/T149/T151/T152/T153 | No change for non-Req surfaces |
+| TS11 (rule-pair post-bump) | New CACHE_NAME activates | Richer Req views on Tron's device |
+
+## Dependencies
+- **Requires:** T146 (NAME-first format — source shape), T151 (JSON arrays — `tasks[]` shape), T126 (ViewGenerator + Requirement template), T134 (TraceLink class — may emit `req → task` links), T143 (chain tree — tasks are the downward edge), T149 (universal symlinks — task refs resolve via the tree)
+- **Coordinate-with:** T152 (sibling UC data-quality pass), T153 (introduces `altId` on Requirements — T154 may reuse for reverse-lookup of `tasks[]`)
+- **Enables:** Requirement nodes are fully first-class data; templates show NAME + Tron quote; req → task tree edges live; closes the audit-gap for the Requirement class
+
+## Drive Plan (planner-coordinated, CMM4 4-role)
+1. **robbin-req** captures the verbatim Tron quote into the Traceability block above; anchors / replaces the planner-suggested `requirement:uuid`; audits S10–S17 `requirements.md` for shape failures; produces the per-Req gap list
+2. **robbin-architect** designs: parsing rule (line 1 NAME / Tron blockquote / uuid / forward links); forward-link extraction rule (md bullets vs task-file reverse-lookup vs both); per-Req audit; standard update; writes Design section here
+3. **robbin-expert** implements (extends T151/T152/T153 migrator); dry-run; commits per-Req table into QA Audit as evidence; apply pass after PO sign-off; carries rule-pair (a)+(b)
+4. **robbin-tester** runs TS1–TS11 + ≥5-Req round-trip + regression; commits verification report into QA Audit
+
+## Definition of Done
+- [ ] All AC met (AC1–AC13) — especially AC2 (name plain English, zero failures), AC3 (description verbatim, zero failures), AC4 (tasks count match, zero mismatches)
+- [ ] Rule-pair (a)+(b) ✓; (c) STATIC_SHELL if applicable
+- [ ] No regression on T126 / T134 / T143 / T146 / T149 / T151 / T152 / T153
+- [ ] All 4 roles committed work
+- [ ] Tron QA approved (with per-Req evidence table)
+
+## QA Audit & User Feedback
+- 2026-06-01: PO directed planner to stand up T154 as the Requirement-side data-quality pass (sibling to T152 UC + T153 UC residual). Per-Req audit gate: name plain English + description verbatim + tasks count match. req-eng to capture the verbatim Tron quote and anchor (or replace) the planner-suggested `requirement:uuid` on the next pass. CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC12 + DoD (learnings #15 + #16). Awaiting req anchor → architect design → expert dry-run + apply → tester per-Req verify → Tron QA.
+
+## Subtasks
+None at parent level (architect may split T154.x if scope warrants — coordinate with planner first).
+
+---
+
+*Sprint 17 — Scenario Units / IOR Data Model & Class Views · Phase 18 (Requirement data quality — name / description / tasks)*
+*Owners (CMM4): robbin-req → robbin-architect → robbin-expert → robbin-tester*
+*Priority: 3 (closes the Requirement-class audit gap; sibling to T152/T153 UC data-quality work)*

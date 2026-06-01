@@ -216,6 +216,13 @@ prose. Then **migrate every existing sprint** to this model.
   **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (derivation rule + PUML extraction rule + per-UC audit + standard update) → robbin-expert (data-quality script + dry-run + apply, rule-pair (a)+(b)) → robbin-tester (per-UC verify + ≥5-UC round-trip + T117/T126/T143/T149/T151 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
 
+### Phase 18 — Requirement data quality (name / description / tasks) (PO directive 2026-06-01)
+
+- [ ] ⏳ [T154: Requirement data quality — name vs description split + `tasks[]` populated](./task-154-requirement-data-quality-name-description-tasks.md)
+  **Status:** PLANNED — Requirement-side data quality (sibling to T152 UC + T153 UC residual). Per-Req audit gate: `model.name` plain English (3–5 words, NAME-first per T146) + `model.description` = verbatim Tron quote (no paraphrase, no duplicate of name) + `model.tasks[]` count == forward-link count req → task. Mismatch on any of the three = hard FAIL (AC2/AC3/AC4).
+  **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid; S10–S17 audit + gap list) → robbin-architect (name/description parsing rule + forward-link extraction + per-Req audit + standard update) → robbin-expert (extends T151/T152/T153 migrator; dry-run + apply; rule-pair (a)+(b)) → robbin-tester (per-Req verify + ≥5-Req round-trip + T126/T143/T146/T149/T151/T152/T153 regression)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
+
 ### Phase 6 — Verification (T129, tester + planner)
 
 - [ ] 🧪 [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)
