@@ -37,16 +37,10 @@
 
 - up
   - [Sprint 17 Planning](./planning.md)
-  - **Tron quote capture (req-eng):** *(awaiting req-eng B-entry / verbatim anchor — PO 2026-06-01 directed stand-up as data-quality sibling to T152 (UC) and T153 (UC residual))*
-  - **Requirement data-quality requirement (planner-suggested; req-eng to anchor/override on capture)**
-    `[requirement:uuid:2e6348c1-30c2-4c7c-b7cc-59f11d133793]`
-    Planner summary (req to confirm / correct from Tron's literal):
-    > Requirement scenarios today have `model.name` populated from
-    > `requirements.md` (post-T146 NAME-first), but `model.description`
-    > may be empty / duplicate of name, and `model.tasks[]` is sparse —
-    > the forward edges from Requirement to Task aren't materialized.
-    > T154 closes both gaps per-Requirement with the same audit
-    > discipline as T152/T153 introduced for UCs.
+  - **Tron quote capture (req-eng anchored 2026-06-01):** B15 in [scrum.pmo/backlog.md](../../backlog.md), commit `8cf2b7f`
+  - **B15 requirement** `[requirement:uuid:e5f6a7b8-c9da-4ebf-0a12-345678900b15]`
+    Verbatim Tron quote:
+    > "data quality massively improved...requirement quality still poor. name and description should differ. name should be similar to filename but plain English. tasks traceability is still empty. needs to improve too."
 - down
   - None at parent level (architect may split T154.x per field if scope warrants — coordinate with planner first)
 - follows
@@ -59,7 +53,7 @@
   - [T152: UC data quality (object/verb + PUML links)](./task-152-usecase-data-quality-object-verb-from-name-puml-links.md) — sibling data-quality pattern (UC side)
   - [T153: UC residual fields (classes + requirement)](./task-153-populate-classes-requirement-on-ucs.md) — sibling data-quality pattern; introduces `altId` field on Requirements — T154 may reuse the altId-based reverse-lookup for `tasks[]` resolution
 - chain (req → usecase → puml → class/method) — architect to fill on refinement
-  - **requirement:** Requirement data quality (above; planner-suggested → req-eng anchor)
+  - **requirement:** B15 `[requirement:uuid:e5f6a7b8-c9da-4ebf-0a12-345678900b15]` (req-eng anchored)
   - **use case:** UC-TBD (architect — likely `requirement.parseNameDescription`, `requirement.populateTasks`, `audit.requirementDataQuality`)
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** data-quality script extension (architect names — likely extends `scripts/migrate-to-scenario.ts`) / `RequirementLoader` defaults / `scrum.pmo/standards/traceability-standard.md` Requirement shape spec
@@ -175,7 +169,8 @@ File: `test/vitest/requirement-data-quality.test.ts` (new — sibling to T152's 
 - [ ] Tron QA approved (with per-Req evidence table)
 
 ## QA Audit & User Feedback
-- 2026-06-01: PO directed planner to stand up T154 as the Requirement-side data-quality pass (sibling to T152 UC + T153 UC residual). Per-Req audit gate: name plain English + description verbatim + tasks count match. req-eng to capture the verbatim Tron quote and anchor (or replace) the planner-suggested `requirement:uuid` on the next pass. CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC12 + DoD (learnings #15 + #16). Awaiting req anchor → architect design → expert dry-run + apply → tester per-Req verify → Tron QA.
+- 2026-06-01: PO directed planner to stand up T154 as Requirement-side data-quality pass. CMM4 4-role (#18); real v4 uuids (#17); rule-pair (a)+(b) in AC12 + DoD (#15+#16).
+- 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:2e6348c1` with req's canonical `requirement:uuid:e5f6a7b8...0b15` (from B15 capture, commit `8cf2b7f`). Verbatim Tron quote anchored. Tron acknowledges data quality progress ("massively improved") but Requirement quality specifically "still poor": name=description (should differ), tasks[] empty. Aligns with T146 (MD name-first) — T154 is the JSON-side equivalent. Ready for architect.
 
 ## Subtasks
 None at parent level (architect may split T154.x if scope warrants — coordinate with planner first).
