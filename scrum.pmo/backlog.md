@@ -8,6 +8,15 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **B11 — Breadcrumb link color unreadable**
+  [requirement:uuid:a1b2c3d4-e5f6-4a7b-c8d9-012345670b11]
+  > TRON DIRECTIVE: "file browser clickable path works well, but link text color is barely readable on background."
+
+  File-browser breadcrumb path link color must have sufficient contrast against the background. Currently barely readable.
+
+  **Sprint:** TBD (planner to triage)
+  **Touches:** server.ts `/md/` directory listing breadcrumb CSS, possibly app.css
+
 - **B10 — Migration must emit symlinks for ALL 9 classes, not just Task**
   [requirement:uuid:f0a1b2c3-d4e5-4f6a-b7c8-901234560ab0]
   > TRON DIRECTIVE: "no ! this is not expected behavior!! this is a big implication gap"
