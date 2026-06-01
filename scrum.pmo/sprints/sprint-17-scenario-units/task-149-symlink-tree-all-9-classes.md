@@ -5,9 +5,9 @@
 [task:uuid:bce39256-6743-406e-b090-92ea2d13cde8]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — architect-side design landed via `3f8cd33` "T149 pre-design — sprints.json symlink tree for all 9 classes", adopted into the Design section below; **req verbatim Tron-quote anchor still pending — backfill needed**)
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
@@ -105,6 +105,63 @@ tree is uniform across all 9.
   symlink emitted now
 - New scenarios get symlinks at the same time the canonical JSON is emitted
   (architect decides whether this is a write-time hook or a post-process step)
+
+## Design (robbin-architect, 2026-06-01 — adopted from `3f8cd33`)
+
+### Current state
+`scripts/migrate-to-scenario.ts` lines 263-271 creates symlinks ONLY for tasks + sprint (flat, no per-class subdirs). Requirements / UseCases are indexed in `scenario/index/` but have NO symlinks in `sprints.json/`. TraceLinks / Classes / Methods / Tests / Users — same gap. The `.md` side (`scenario/sprints.md/`) IS organized by class.
+
+### Target layout
+```
+scenario/sprints.json/<sprint>/
+├── sprint.json
+├── task/
+├── requirement/
+├── usecase/
+├── tracelink/
+├── class/   (when Class units exist)
+├── method/  (when Method units exist)
+├── test/    (when Test units exist)
+└── user/    (T145)
+```
+**Slug = speaking name** from `model.slug || model.name` slugified (same as `generator.ts:speakingName()`).
+
+### Changes to `scripts/migrate-to-scenario.ts`
+1. **Replace flat task symlinks (lines 267-270)** with a generic `emitClassSymlinks(idx, sprintJsonDir, className, units)` helper that creates per-class subdirs and emits `${slug}.json → ../../../index/<prefix>/<uuid>.scenario.json`. Call once per class (`task`, `requirement`, `usecase`, `tracelink`, optionally `class`/`method`/`test`/`user` when those classes have units).
+2. **Add `speakSlug` helper** (reuse from `generator.ts`):
+   ```typescript
+   function speakSlug(name: string): string {
+     return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80);
+   }
+   ```
+3. **Collect TraceLink UUIDs** during the inline TraceLink creation loop (lines 212-218) and emit `tracelink/` symlinks after migrations.
+4. **Sprint symlink stays at root** (`sprints.json/<sprint>/sprint.json`).
+5. **T147 `scenarioLink` helper update** — scan one level deeper (flat backward-compat then class subdirs):
+   ```typescript
+   let jsonPath = path.join(sprintDir, `${slug}.json`);
+   if (!fsSync.existsSync(jsonPath)) {
+     for (const classDir of fsSync.readdirSync(sprintDir).filter(d => fsSync.statSync(path.join(sprintDir, d)).isDirectory())) {
+       jsonPath = path.join(sprintDir, classDir, `${slug}.json`);
+       if (fsSync.existsSync(jsonPath)) break;
+     }
+   }
+   ```
+
+### Migration execution (post-code-change)
+```bash
+rm -rf scenario/sprints.json/*   # wipe symlinks only; index untouched
+for s in sprint-1-rawbin-foundation sprint-2-identity-ssh ...; do
+  npx tsx scripts/migrate-to-scenario.ts --sprint "$s" --apply
+done
+```
+
+### Touchpoints
+| File | Change |
+|------|--------|
+| `scripts/migrate-to-scenario.ts` | Replace flat with `emitClassSymlinks()` + `speakSlug` helper + linkUuids collection |
+| `server.ts` T147 `scenarioLink` | Scan class subdirs (backward compat + new layout) |
+
+No new routes, no STATIC_SHELL change.
 
 ## Acceptance Criteria
 - [ ] AC1 (Requirement) — `scenarios/sprints.md/requirement/<speaking>.md` exists and resolves for every Requirement scenario in the index

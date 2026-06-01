@@ -183,8 +183,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 13 — Universal symlink tree across all 9 scenario classes (PO directive 2026-06-01 — Tron "same for requirements, classes methods")
 
-- [ ] ⏳ [T149: Extend symlink tree to all 9 scenario classes — universal 🔗 resolution](./task-149-symlink-tree-all-9-classes.md)
-  **Status:** PLANNED — T131's Task-only symlink tree extended to ALL 9 scenario classes (Requirement / UseCase / Task / Class / Method / Test / TraceLink / User / View) so 🔗 in T141/T144/T147 resolves universally. Per-class AC1–AC9 enumerated explicitly per Tron reinforcement.
+- [ ] 📝 [T149: Extend symlink tree to all 9 scenario classes — universal 🔗 resolution](./task-149-symlink-tree-all-9-classes.md)
+  **Status:** architect design adopted (`3f8cd33` pre-design merged into Design section: `emitClassSymlinks()` per-class helper + `speakSlug` + TraceLink uuid collection + T147 `scenarioLink` scan-deeper). Resolved T-149 collision (architect's stub `task-149-symlink-tree-all-classes.md` removed; planner's full-template file kept). **FLAG ⚠️:** req-eng verbatim Tron-quote anchor still pending — backfill needed. Awaiting expert impl + back-fill → tester per-class verify → Tron QA.
   **Owners (CMM4):** robbin-req (verbatim Tron anchor; confirm 9-class enumeration) → robbin-architect (per-class emitter generalization + speaking-name resolver + back-fill migrator) → robbin-expert (impl + back-fill on existing index; rule-pair (a)+(b)) → robbin-tester (per-class verification + chain audit + T131/T141/T144/T147 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
 
