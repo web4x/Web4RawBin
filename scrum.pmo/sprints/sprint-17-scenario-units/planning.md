@@ -232,15 +232,15 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 20 — Reload button on Connection-Failed + Offline pages (PO directive 2026-06-01, B4 promoted)
 
-- [ ] ⏳ [T156: Reload button on Connection-Failed + Offline pages](./task-156-reload-button-connection-failed-offline.md)
-  **Status:** PLANNED — promoted from backlog B4 (verbatim Tron quote + canonical `requirement:uuid:c5d6e7f8-…`). Quick-win UX uplift: add clickable reload button to Connection-Failed page (`app.ts` ~L81 error HTML); verify existing offline-page retry button. PO ordered as T156 first (quick single-cycle ship). req-eng B4 already anchored.
+- [ ] ✅ [T156: Reload button on Connection-Failed + Offline pages](./task-156-reload-button-connection-failed-offline.md)
+  **Status:** impl-shipped (`ac89151` req-eng confirm verbatim anchors + chain update → `d7ade7b` architect design → `b7f1919` expert v0.5.54 — Retry button on connection-failed screen). Rule-pair (a)+(b) BOTH ✓ in b7f1919 (package.json + sw.js CACHE_NAME → rawbin-v0.5.54). Testing pending → Tron QA.
   **Owners (CMM4):** robbin-req (scope confirm — label, both surfaces, mobile safe-area) → robbin-architect (button markup + CSS + onclick handler + consistency between surfaces) → robbin-expert (impl in `app.ts` + verify `sw.js` OFFLINE_HTML; rule-pair (a)+(b)) → robbin-tester (visual + functional on iPhone + Connection-Failed/offline regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) exempt (no new route)
 
 ### Phase 21 — Profile gate vCard onboarding (multi-platform) (PO directive 2026-06-01, B3 promoted)
 
-- [ ] ⏳ [T157: Profile gate — Upload vCard for fast onboarding (button + native drag-and-drop)](./task-157-profile-gate-vcard-onboarding.md)
-  **Status:** PLANNED — promoted from backlog B3 (verbatim Tron quote + canonical `requirement:uuid:a3b4c5d6-…`). Onboarding-speed win: Upload vCard button at TOP of first-time-connect profile gate + native OS drag-and-drop. **Multi-platform hard requirement:** iOS, Android, Windows. Introduces vCard V3.0 PARSER (current code only EXPORTS).
+- [ ] 📝 [T157: Profile gate — Upload vCard for fast onboarding (button + native drag-and-drop)](./task-157-profile-gate-vcard-onboarding.md)
+  **Status:** refinement done (`ac89151` req-eng confirm verbatim anchor B3 + chain update → `d7ade7b` architect design — vCard finding). Awaiting expert impl + multi-platform tester verify. **Multi-platform hard requirement:** iOS, Android, Windows. Introduces vCard V3.0 PARSER (current code only EXPORTS).
   **Owners (CMM4):** robbin-req (4-field scope FN/TEL/URL/PHOTO + review-before-save UX) → robbin-architect (button + drag-drop handlers + V3.0 parser + PHOTO→T50 pipeline + multi-platform notes) → robbin-expert (impl `ProfileEditor.ts` gate mode + new `vcard-parser.ts`; rule-pair (a)+(b)) → robbin-tester (verify on iOS / Android / Windows + parser unit tests + regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
 
