@@ -195,8 +195,107 @@ File: `test/vitest/md-chain-to-json-migration.test.ts` (new) + per-task evidence
 - 2026-06-01: PO directed planner to stand up T151 as a BIG diligent task per Tron. JOINT req+architect refinement enforced. CMM4 4-role engagement (learnings #18); real v4 uuids (#17); rule-pair (a)+(b) baked into AC12 + DoD (#15+#16).
 - 2026-06-01 **robbin-req (JOINT anchor + per-shape mapping):** Replaced planner-suggested `requirement:uuid:04d8ede7` with req's canonical `requirement:uuid:b2c3d4e5...0b12` (from B12 capture, commit `416d0a1`). Verbatim Tron quote anchored (full directive). Per-shape mapping table added: 12 MD bullet types → JSON model fields, with IOR types and notes for architect. Audit counts: 74 up, 74 down, 33 follows, 65 chain blocks, 1 changes across S10-S17. Ready for architect to design migration script + schema from this mapping.
 
+## Design (robbin-architect, 2026-06-01 — JOINT with req per-shape mapping from `416d0a1`)
+
+### Scope
+**73 task files** across S10-S17. **1,016 total bullets**. Zero information loss.
+
+### Per-shape mapping (req audit → architect schema)
+
+| MD shape | Count | JSON field | TraceEntry.type |
+|----------|-------|-----------|----------------|
+| `- up` sub-bullets | ~74 groups | `model.links.up[]` | sprint/requirement/tron-quote/commit |
+| `- down` sub-bullets | ~74 groups | `model.links.down[]` | task/text |
+| `- follows` sub-bullets | ~33 groups | `model.links.follows[]` | task |
+| `- changes` | 1 | `model.links.changes[]` | task/commit |
+| `- requires` (alias) | 5 | → `model.links.up[]` type:'requires' | |
+| `- enables` (alias) | 5 | → `model.links.down[]` type:'enables' | |
+| `**requirement:**` | 84 | `model.chain.requirements[]` | requirement |
+| `**use case:**` | 61 | `model.chain.useCases[]` | usecase |
+| `**puml:**` | 58 | `model.chain.puml[]` | puml |
+| `**class/method:**` | 65 | `model.chain.classMethods[]` | class/method |
+
+### TraceEntry schema
+
+```typescript
+interface TraceEntry {
+  type: string;      // 'sprint'|'requirement'|'task'|'usecase'|'class'|'method'|'puml'|'tron-quote'|'commit'|'text'
+  ref: string;       // 'ior:instance:<uuid>' | './planning.md' | 'src/ts/...'
+  label: string;     // human-readable
+  uuid?: string;     // extracted v4 UUID if present
+  commit?: string;   // git sha if referenced
+}
+```
+
+### Task model extension (classes.ts TaskLoader defaults)
+
+```typescript
+links: { up: [], down: [], follows: [], changes: [] },
+chain: { requirements: [], useCases: [], puml: [], classMethods: [] }
+```
+
+### Parsing rules
+
+| MD pattern | Parsed as |
+|-----------|-----------|
+| `[Link Text](./path.md)` | `{type:infer, ref:'./path.md', label:'Link Text'}` |
+| `[Link](./path.md) — description` | `{..., label:'Link — description'}` (preserve suffix) |
+| `` `[requirement:uuid:<v4>]` `` | `{type:'requirement', uuid:'<v4>', ref:'ior:instance:<v4>'}` |
+| `**Bold label:** text` | `{label:'Bold label: text'}` |
+| `` `commit-sha` — *italic* `` | `{type:'commit', commit:'sha', label:'italic text'}` |
+| `None (atomic)` | `{type:'text', ref:'', label:'None (atomic)'}` |
+| Multi-line sub-bullet (continuation) | Append to parent entry's label |
+
+### Decision: inline objects, NOT TraceLinks
+
+Chain entries are metadata ON the task, not edges BETWEEN units. Inline `TraceEntry` objects — NOT `ior:instance:<tracelink-uuid>` references. 1,016 new TraceLink scenario units would be excessive.
+
+### Migration script: `scripts/migrate-chain-to-json.ts`
+
+```
+npx tsx scripts/migrate-chain-to-json.ts --all --dry-run   (audit only)
+npx tsx scripts/migrate-chain-to-json.ts --all --apply      (write)
+```
+
+Per-task flow:
+1. Read `.md` → extract `## Traceability` section
+2. Parse top-level bullets (up/down/follows/chain/changes)
+3. Parse sub-bullets into `TraceEntry[]` per shape
+4. Count `mdBullets` = sum of all entries
+5. If `--apply`: write to scenario JSON via ScenarioIndex
+6. Count `jsonEntries` = sum of written arrays
+7. Emit audit row
+
+### AC5 per-task count audit (hard FAIL gate)
+
+Dry-run output:
+```
+| Task | MD | JSON | Match |
+|------|-----|------|-------|
+| task-81 | 5 | 5 | ✅ |
+| task-124 | 34 | 34 | ✅ |
+| ... | ... | ... | ... |
+| TOTAL | 1016 | 1016 | ✅ |
+```
+Any ❌ = stop. Fix parser. Re-run. Expert commits table as evidence.
+
+### T126 round-trip
+
+After migration, TaskTemplate.renderMd() reads arrays → emits Traceability section. Regenerated MD ≈ original (modulo whitespace). Tester spot-checks ≥5 tasks.
+
+### Touchpoints
+
+| File | Change |
+|------|--------|
+| NEW `scripts/migrate-chain-to-json.ts` | Parser + audit + apply |
+| `src/ts/scenario/classes.ts` | TaskLoader: add links + chain defaults |
+| `src/ts/scenario/templates.ts` | TaskTemplate reads from arrays |
+| `scrum.pmo/standards/traceability-standard.md` | TraceEntry schema |
+
+### No new routes, no STATIC_SHELL change.
+
 ## Subtasks
-None at parent level (architect+req may split T151.x per chain-shape or per sprint cohort if scope warrants — coordinate with planner first).
+None (single script + schema + template).
 
 ---
 
