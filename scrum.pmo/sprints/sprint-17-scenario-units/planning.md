@@ -225,8 +225,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 19 — Requirement `tasks[]` + `tests[]` bidirectional closure (PO directive 2026-06-01)
 
-- [ ] 📝 [T155: Requirement `tasks[]` + `tests[]` bidirectional closure](./task-155-requirement-tasks-tests-bidirectional-closure.md)
-  **Status:** req anchored — B16 `[requirement:uuid:f6a7b8c9-daeb-4fc0-a123-456789010b16]` already captured by req-eng (`e6fdda6` — verbatim Tron quote "requirement quality has improved.. BUT tasks and tests are still empty"). Closes T154 residual: reverse-scan task units' `links.up[]` → back-populate `requirement.model.tasks[]`; scan test files / `[test:uuid:…]` markers for requirement coverage → populate `requirement.model.tests[]`. **Per-Req audit gate AC4 + AC5:** tasks count == reverse-scan count AND tests count == coverage count. Mismatch = hard FAIL. Awaiting architect design → expert impl → tester verify → Tron QA.
+- [ ] ✅ [T155: Requirement `tasks[]` + `tests[]` bidirectional closure](./task-155-requirement-tasks-tests-bidirectional-closure.md)
+  **Status:** impl-shipped (`e6fdda6` req B16 anchor + canonical `requirement:uuid:f6a7b8c9-…` → `6cff106` architect design — bidirectional closure tasks[]+tests[] → `75af5ea` expert v0.5.53). Rule-pair (a)+(b) BOTH ✓ in 75af5ea (package.json + sw.js CACHE_NAME → rawbin-v0.5.53). Testing pending (TS1–TS10 + ≥5-Req round-trip + regression) → Tron QA.
   **Owners (CMM4):** robbin-req (B16 captured ✓; scope confirmation + per-Req gap list) → robbin-architect (reverse-scan rule + test-coverage marker shape + per-Req audit + standard update — add `tests: []` to RequirementLoader) → robbin-expert (closure script extends T154 migrator; dry-run + apply; rule-pair (a)+(b)) → robbin-tester (per-Req verify + ≥5-Req round-trip + T126/T143/T146/T149/T151-T154 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
 

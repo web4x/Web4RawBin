@@ -5,11 +5,11 @@
 [task:uuid:c1b9f69e-a9da-4559-808c-6c147b65bef6]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — B16 captured `e6fdda6` + `6cff106` architect design — bidirectional closure tasks[] + tests[])
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing (`75af5ea` v0.5.53 — Requirement bidirectional closure: tasks[] + tests[]; rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME → rawbin-v0.5.53)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
