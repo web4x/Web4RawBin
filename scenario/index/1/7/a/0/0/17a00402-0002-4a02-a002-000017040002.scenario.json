@@ -3,14 +3,10 @@
   "model": {
     "uuid": "17a00402-0002-4a02-a002-000017040002",
     "name": "migrate.preserveHierarchy",
-    "object": "migrate",
-    "verb": "preserveHierarchy",
-    "tasks": [
-      "ior:instance:b94d2681-54f0-47e3-a431-f3d84e469b30"
-    ],
-    "classes": [
-      "SpeakingTree"
-    ],
+    "object": "",
+    "verb": "",
+    "tasks": [],
+    "classes": [],
     "requirement": null,
     "source": {
       "file": "scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml",
@@ -21,10 +17,7 @@
       "commit": "1316b7e",
       "repo": "Web4RawBin",
       "ior": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml?commit=1316b7e&lines=143-149"
-    },
-    "requirements": [
-      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000014"
-    ]
+    }
   },
-  "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
+  "ownerIor": "ior:instance:8cba0274-8956-4266-9213-cee382ff3b38"
 }

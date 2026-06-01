@@ -3,16 +3,10 @@
   "model": {
     "uuid": "17a00202-0002-4a02-a002-000017020002",
     "name": "tree.generateMd",
-    "object": "tree",
-    "verb": "generateMd",
-    "tasks": [
-      "ior:instance:b72e58c4-91d3-4a07-b845-3c6f1d92e7a0",
-      "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d"
-    ],
-    "classes": [
-      "SpeakingTree",
-      "ViewTemplateRegistry"
-    ],
+    "object": "",
+    "verb": "",
+    "tasks": [],
+    "classes": [],
     "requirement": null,
     "source": {
       "file": "scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml",
@@ -23,10 +17,7 @@
       "commit": "1316b7e",
       "repo": "Web4RawBin",
       "ior": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml?commit=1316b7e&lines=71-78"
-    },
-    "requirements": [
-      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000006"
-    ]
+    }
   },
-  "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
+  "ownerIor": "ior:instance:8cba0274-8956-4266-9213-cee382ff3b38"
 }

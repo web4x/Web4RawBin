@@ -1,0 +1,58 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T156: Reload button on Connection-Failed + Offline pages</h2><code>9937a1f1-5674-48fb-92fe-6dc4a38089b0</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-unchecked">⬜ Planned</li><li class="sv-unchecked">⬜ In Progress</li><ul class="sv-substeps"><li class="sv-unchecked">⬜ refinement (req → architect)</li><li class="sv-unchecked">⬜ creating test cases</li><li class="sv-unchecked">⬜ implementing</li><li class="sv-unchecked">⬜ testing</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>`[task:uuid:9937a1f1-5674-48fb-92fe-6dc4a38089b0]`
+
+- up
+  - [Sprint 17 Planning](./planning.md)
+  - **Tron quote capture (req-eng):** B4 in [scrum.pmo/backlog.md](../../backlog.md)
+  - **B4 requirement** `[requirement:uuid:c5d6e7f8-a9b0-4c1d-2e3f-4a5b6c7d8e90]`
+    Verbatim Tron quotes:
+    &gt; &quot;add a reload button to page Connection Failed / Could not connect to server. Please refresh.&quot;
+    &gt; addendum: &quot;same on the you are offline page&quot;
+- down
+  - None (atomic task; small UI/HTML change in two error surfaces)
+- follows
+  - [T58: Link contrast on /md/ pages](../sprint-7-encrypted-storage/task-58-link-contrast.md) — historical UI-styling precedent (planning context)
+  - [T150: File-browser breadcrumb link contrast (CSS)](./task-150-breadcrumb-link-contrast.md) — recent CSS sibling
+- chain (req → usecase → puml → class/method) — architect to fill on refinement
+  - **requirement:** B4 `[requirement:uuid:c5d6e7f8-a9b0-4c1d-2e3f-4a5b6c7d8e90]` (req-eng confirmed)
+  - **use case:** UC-TBD (architect — likely `errorPage.renderReloadButton`)
+  - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UC as a `UseCase` instance (rule #10 / T117)
+  - **class/method:** `src/public/ts/app.ts` (connection-failed error HTML ~line 81), `src/public/sw.js` OFFLINE_HTML (existing `&lt;button class=&quot;retry&quot;&gt;`), possibly `src/public/ts/edit.ts` equivalent — TBD by architect</pre></div>
+<div class="sv-section"><h3>Context</h3><p>Tron 2026-06-01 (B4): two error surfaces should expose a manual reload action so
+the user isn't stuck — the **Connection-Failed page** (`app.ts` catch block,
+`&lt;div class=&quot;error&quot;&gt;...Please refresh...&lt;/div&gt;`) currently shows error text
+without a button; the **You-Are-Offline page** (`sw.js` OFFLINE_HTML) already
+has a `&lt;button class=&quot;retry&quot; onclick=&quot;location.reload()&quot;&gt;Retry&lt;/button&gt;` —
+verify it works and add the equivalent to Connection-Failed.</p></div>
+<div class="sv-section"><h3>Intention</h3><p>### Why this task exists
+- Connection-Failed page has no clickable reload action — users must
+  refresh manually via the browser address bar
+- Offline page button exists but may need verification (mobile, hover)
+
+### Problems this task solves
+- Connection-Failed users have no in-page action
+- Inconsistency between two error surfaces
+
+### How it solves them
+- Add `&lt;button onclick=&quot;location.reload()&quot;&gt;` to Connection-Failed
+- Verify (or restyle) the offline page button
+- Architect-finalized button shape applies to both</p></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [ ] AC1 — Connection-Failed page (`app.ts`) shows a clickable reload button
+- [ ] AC2 — Clicking the button invokes `location.reload()` (page refreshes)
+- [ ] AC3 — Offline page (`sw.js` OFFLINE_HTML) reload button verified working (or replaced if not)
+- [ ] AC4 — Visual consistency: both buttons follow the same shape/styling per architect's design
+- [ ] AC5 — iPhone safe-area-inset-bottom respected if the button is bottom-anchored
+- [ ] AC6 — No regression: existing pages unchanged
+- [ ] AC7 — `npm run build` succeeds; all existing tests pass
+- [ ] AC8 — **Rule-pair (a)+(b) [learnings #15 + #16]:** `package.json` &quot;version&quot; bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing impl. (c) STATIC_SHELL: exempt (no new route)
+- [ ] AC9 — All 4 roles committed work in this file</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-06-01: PO directed planner to stand up T156 from backlog B4. CMM4 4-role (#18); real v4 uuids (#17); rule-pair (a)+(b) in AC8 + DoD (#15+#16).
+- 2026-06-01 **robbin-req (anchor confirm):** B4 verbatim already in traceability block (lines 37-38, canonical uuid:c5d6e7f8). Both Tron quotes present (&quot;add a reload button...&quot; + &quot;same on the you are offline page&quot;). Chain section updated with full uuid. Note: sw.js offline page already has a Retry button — T156 scope is primarily the app.ts connection-failed page. Ready for architect.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (one line change + optional edit.ts mirror).
+
+---
+
+*Sprint 17 — Scenario Units / IOR Data Model &amp; Class Views · Phase 20 (Reload button on error pages)*
+*Owners (CMM4): robbin-req → robbin-architect → robbin-expert → robbin-tester*
+*Priority: 8 (small UX win on error surfaces; quick single-cycle ship)*</p></div></div>

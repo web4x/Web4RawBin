@@ -9,7 +9,7 @@
     "relation": "implements",
     "direction": "bidirectional",
     "label": "requirement:dd8709c3 implements task:d0f39414",
-    "createdAt": "2026-06-01T05:13:07.366Z",
+    "createdAt": "2026-06-01T08:59:28.369Z",
     "createdBy": "migrate-to-scenario.ts"
   },
   "ownerIor": null

@@ -2,11 +2,10 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "b2f3a4e5-c6d7-4e8f-9a01-2b3c4d5e6f27",
-    "name": "Every traceability element is a clickable link",
-    "description": "> TRON: \"each element should be a link\"",
+    "name": "> TRON: \"each element should be a link\"",
+    "description": "[requirement:uuid:b2f3a4e5-c6d7-4e8f-9a01-2b3c4d5e6f27]\n  > TRON: \"each element should be a link\"\n  → Task TBD\n\n  In BOTH task files AND generated views, every referenced node (Requirement/UseCase/PUML/Class/Method/Task/Subtask/Test/TraceLink) MUST be a clickable link to its scenario-unit view. No plain text references.\n\n- [ ] **R17.28: All traceability elements are typed scenarios**",
     "tasks": [],
-    "tests": [],
-    "altId": "R17.27"
+    "tests": []
   },
-  "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
+  "ownerIor": "ior:instance:8cba0274-8956-4266-9213-cee382ff3b38"
 }

@@ -24,72 +24,7 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": [],
-    "links": {
-      "up": [
-        {
-          "type": "sprint",
-          "ref": "./planning.md",
-          "label": "Sprint 17 Planning"
-        },
-        {
-          "type": "requirement",
-          "ref": "ior:instance:cb93f0db-0e42-4795-b41f-2e125120f259",
-          "label": "**requirement:** `[requirement:uuid:cb93f0db-0e42-4795-b41f-2e125120f259]` — \"File-browser must display and traverse symbolic links (the `scenarios/sprints.json/` symlink tree from R17.5 is unbrowsable until the file-browser handles symlinks).\" (Tron via PO 2026-05-31; req-eng to anchor the verbatim Tron quote in this slot.)",
-          "uuid": "cb93f0db-0e42-4795-b41f-2e125120f259"
-        }
-      ],
-      "down": [
-        {
-          "type": "text",
-          "ref": "",
-          "label": "None (atomic task)"
-        }
-      ],
-      "follows": [
-        {
-          "type": "task",
-          "ref": "./task-125-foundation.md",
-          "label": "T125.3: storage layout — emits the symlink tree this task makes browsable"
-        },
-        {
-          "type": "task",
-          "ref": "./task-128-migration.md",
-          "label": "T128.1: Sprint 1 exemplar migration — creates the live symlink content this task surfaces"
-        }
-      ],
-      "changes": []
-    },
-    "chain": {
-      "requirements": [
-        {
-          "type": "requirement",
-          "ref": "",
-          "label": "file-browser symlink support (Tron 2026-05-31)"
-        }
-      ],
-      "useCases": [
-        {
-          "type": "usecase",
-          "ref": "",
-          "label": "fileApi.readDir.followSymlink, rb-file-tree.render.symlinkMarker (architect to add to PUML if not present)"
-        }
-      ],
-      "puml": [
-        {
-          "type": "puml",
-          "ref": "",
-          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml)"
-        }
-      ],
-      "classMethods": [
-        {
-          "type": "class/method",
-          "ref": "",
-          "label": "`src/ts/server/FileApi.ts` → `readDir()` (`isSymbolicLink()` + `statSync(target)`); `src/public/ts/trace/rb-file-tree.ts` → render `🔗` marker on symlinked entries; `DirEntry` gets `symlink?` field"
-        }
-      ]
-    }
+    "implementations": []
   },
-  "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
+  "ownerIor": "ior:instance:8cba0274-8956-4266-9213-cee382ff3b38"
 }

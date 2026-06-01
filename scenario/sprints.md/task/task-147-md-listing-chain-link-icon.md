@@ -5,7 +5,7 @@
 
 - [x] Planned
 - [x] In Progress
-  - [x] refinement (req → architect — `2ff001b` architect design; **req verbatim Tron-quote anchor still pending — backfill needed**)
+  - [x] refinement (req → architect — `2ff001b` architect design + `0d36b4d` req-eng B8 anchor (verbatim Tron quote + canonical `requirement:uuid:d8e9f0a1-…` replaced planner-suggested) — **req backfill DONE**)
   - [ ] creating test cases
   - [x] implementing (`111f0c8` v0.5.43 — rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME → rawbin-v0.5.43)
   - [ ] testing

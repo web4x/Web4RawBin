@@ -2,13 +2,10 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000005",
-    "name": "Speaking-name tree (json) — symlink tree with human names",
-    "description": "> TRON: \"under scenarios/sprints.json/ create a file tree of ln links to the json index with speaking names like in sprint 1 and task1 and task 1.1\"",
-    "tasks": [
-      "ior:instance:b94d2681-54f0-47e3-a431-f3d84e469b30"
-    ],
-    "tests": [],
-    "altId": "R17.5"
+    "name": "> TRON: \"under scenarios/sprints.json/ create a file tree of ln links to the json index with speaking names like in spri",
+    "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000005]\n  > TRON: \"under scenarios/sprints.json/ create a file tree of ln links to the json index with speaking names like in sprint 1 and task1 and task 1.1\"\n  → [T128](./task-128-migration.md)\n\n- [ ] **R17.6: Speaking-name tree (md) — generated md views with same names**",
+    "tasks": [],
+    "tests": []
   },
-  "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
+  "ownerIor": "ior:instance:8cba0274-8956-4266-9213-cee382ff3b38"
 }

@@ -5,8 +5,8 @@
     "name": "T148: File-browser path-header clickable → parent dir navigation",
     "slug": "task-148-file-browser-path-header-clickable",
     "description": "",
-    "status": "Planned",
-    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement (req → architect)\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (req → architect — `555ca7c` req-eng B9 anchor + `6f0c72c` architect design — breadcrumb path-header for /md/ listings)\n  - [ ] creating test cases\n  - [x] implementing (`eec6515` v0.5.44 — clickable breadcrumb path header in /md/ listings; rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME → rawbin-v0.5.44)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
     "remainingIssues": "",
     "traceability": "`[task:uuid:95e93fd2-de9e-4579-a857-59f69608f982]`\n\n- up\n  - [Sprint 17 Planning](./planning.md)\n  - **Tron quote capture (req-eng anchored 2026-06-01):** B9 in [scrum.pmo/backlog.md](../../backlog.md), commit `4bb3f82`\n  - **B9 requirement** `[requirement:uuid:e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9]`\n    Verbatim Tron quote:\n    > \"in the file browser make the first line clickable eg scenario/ 📁 index/\n    > so scenario is clickable and will go 1 folder up\"\n- down\n  - None (atomic task; small UI / href fix)\n- follows\n  - [T144: File-browser display fixes — icon order + link targets](./task-144-file-browser-display-fixes.md) — same `/md/` renderer module\n  - [T147: `.md` directory listing symmetric icons](./task-147-md-listing-chain-link-icon.md) — sibling UX uplift in the same renderer\n  - [T131: File-browser symlinks](./task-131-file-browser-symlinks.md) — file-browser baseline\n- chain (req → usecase → puml → class/method) — architect to fill on refinement\n  - **requirement:** B9 `[requirement:uuid:e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9]` (req-eng anchored)\n  - **use case:** UC-TBD (architect — likely `fileBrowser.renderPathHeader` / `fileBrowser.navigateToParent`)\n  - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UC as a `UseCase` instance (rule #10 / T117)\n  - **class/method:** `src/ts/server/server.ts` (`/md/` directory listing renderer — path-header emission), `src/public/ts/components/rb-file-tree.ts` if mirrored (TBD by architect)",
     "context": "The `/md/` route renders a directory listing for any path under the served\nfile tree. Above the row listing it shows the current path as a static text\nheader (e.g. `📁 /md/scenarios/sprints.md/task/`). Today, clicking any part\nof that header does nothing — users have to either edit the URL or use the\nbrowser back button to navigate up the tree. Standard file-browser UX makes\neach path segment a clickable breadcrumb that jumps to that ancestor\ndirectory. T148 adds this breadcrumb behavior.\n\nSibling work in flight: T144 (icon order + link targets on `.json` rows,\nshipped) and T147 (symmetric icons on `.md` rows, plan-ahead). T148 is the\n**page-level** uplift; T144/T147 are **row-level**. No conflict — same\nrenderer module, different surfaces.",
@@ -24,83 +24,7 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": [],
-    "links": {
-      "up": [
-        {
-          "type": "sprint",
-          "ref": "./planning.md",
-          "label": "Sprint 17 Planning"
-        },
-        {
-          "type": "text",
-          "ref": "",
-          "label": "**Tron quote capture (req-eng anchored 2026-06-01):** B9 in [scrum.pmo/backlog.md](../../backlog.md), commit `4bb3f82`"
-        },
-        {
-          "type": "requirement",
-          "ref": "ior:instance:e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9",
-          "label": "**B9 requirement** `[requirement:uuid:e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9]` Verbatim Tron quote: > \"in the file browser make the first line clickable eg scenario/ 📁 index/ > so scenario is clickable and will go 1 folder up\"",
-          "uuid": "e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9"
-        }
-      ],
-      "down": [
-        {
-          "type": "text",
-          "ref": "",
-          "label": "None (atomic task; small UI / href fix)"
-        }
-      ],
-      "follows": [
-        {
-          "type": "task",
-          "ref": "./task-144-file-browser-display-fixes.md",
-          "label": "T144: File-browser display fixes — icon order + link targets — same `/md/` renderer module"
-        },
-        {
-          "type": "task",
-          "ref": "./task-147-md-listing-chain-link-icon.md",
-          "label": "T147: `.md` directory listing symmetric icons — sibling UX uplift in the same renderer"
-        },
-        {
-          "type": "task",
-          "ref": "./task-131-file-browser-symlinks.md",
-          "label": "T131: File-browser symlinks — file-browser baseline"
-        }
-      ],
-      "changes": []
-    },
-    "chain": {
-      "requirements": [
-        {
-          "type": "requirement",
-          "ref": "ior:instance:e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9",
-          "label": "**requirement:** B9 `[requirement:uuid:e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9]` (req-eng anchored)",
-          "uuid": "e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9"
-        }
-      ],
-      "useCases": [
-        {
-          "type": "usecase",
-          "ref": "",
-          "label": "UC-TBD (architect — likely `fileBrowser.renderPathHeader` / `fileBrowser.navigateToParent`)"
-        }
-      ],
-      "puml": [
-        {
-          "type": "puml",
-          "ref": "",
-          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UC as a `UseCase` instance (rule #10 / T117)"
-        }
-      ],
-      "classMethods": [
-        {
-          "type": "class/method",
-          "ref": "",
-          "label": "`src/ts/server/server.ts` (`/md/` directory listing renderer — path-header emission), `src/public/ts/components/rb-file-tree.ts` if mirrored (TBD by architect)"
-        }
-      ]
-    }
+    "implementations": []
   },
-  "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
+  "ownerIor": "ior:instance:8cba0274-8956-4266-9213-cee382ff3b38"
 }

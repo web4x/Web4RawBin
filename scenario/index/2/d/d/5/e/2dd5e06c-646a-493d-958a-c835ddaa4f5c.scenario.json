@@ -24,31 +24,7 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": [],
-    "links": {
-      "up": [
-        {
-          "type": "task",
-          "ref": "./task-1-team-bootstrap.md",
-          "label": "Task 1: Bootstrap robbinTeam"
-        }
-      ],
-      "down": [
-        {
-          "type": "text",
-          "ref": "",
-          "label": "None"
-        }
-      ],
-      "follows": [],
-      "changes": []
-    },
-    "chain": {
-      "requirements": [],
-      "useCases": [],
-      "puml": [],
-      "classMethods": []
-    }
+    "implementations": []
   },
-  "ownerIor": "ior:instance:439aea72-042c-4cf3-b4d0-a8e4c2def9ae"
+  "ownerIor": "ior:instance:9d5d6587-98ba-4861-8781-f73d2dd85bcb"
 }

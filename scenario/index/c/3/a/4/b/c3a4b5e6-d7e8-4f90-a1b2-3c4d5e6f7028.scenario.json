@@ -2,11 +2,10 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "c3a4b5e6-d7e8-4f90-a1b2-3c4d5e6f7028",
-    "name": "All traceability elements are typed scenarios",
-    "description": "> TRON: \"all are based on typed scenarios\"",
+    "name": "> TRON: \"all are based on typed scenarios\"",
+    "description": "[requirement:uuid:c3a4b5e6-d7e8-4f90-a1b2-3c4d5e6f7028]\n  > TRON: \"all are based on typed scenarios\"\n  → Task TBD\n\n  Every node in the traceability tree IS a typed scenario unit (no bare strings) — the tree is a graph of `ior:instance:<uuid>` references resolved through ClassLoader + ViewTemplateRegistry.\n\n- [ ] **R17.29: Sharpen planning + rework refined task files**",
     "tasks": [],
-    "tests": [],
-    "altId": "R17.28"
+    "tests": []
   },
-  "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
+  "ownerIor": "ior:instance:8cba0274-8956-4266-9213-cee382ff3b38"
 }

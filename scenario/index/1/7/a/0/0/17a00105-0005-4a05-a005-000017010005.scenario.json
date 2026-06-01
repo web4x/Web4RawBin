@@ -3,15 +3,10 @@
   "model": {
     "uuid": "17a00105-0005-4a05-a005-000017010005",
     "name": "index.get",
-    "object": "index",
-    "verb": "get",
-    "tasks": [
-      "ior:instance:c93f69d5-a2e4-4b18-b956-4d7e2f03c8b1",
-      "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
-    ],
-    "classes": [
-      "ScenarioIndex"
-    ],
+    "object": "",
+    "verb": "",
+    "tasks": [],
+    "classes": [],
     "requirement": null,
     "source": {
       "file": "scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml",
@@ -22,10 +17,7 @@
       "commit": "1316b7e",
       "repo": "Web4RawBin",
       "ior": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml?commit=1316b7e&lines=48-53"
-    },
-    "requirements": [
-      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000004"
-    ]
+    }
   },
-  "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
+  "ownerIor": "ior:instance:8cba0274-8956-4266-9213-cee382ff3b38"
 }

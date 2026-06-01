@@ -87,6 +87,26 @@ export function extractTsMethodRanges(filePath: string, className: string): Map<
   return ranges;
 }
 
+export interface SourceIssue {
+  ref: string;
+  reason: string;
+}
+
+export function validateAllSources(idx: import('./index-store.js').ScenarioIndex, projectRoot: string): SourceIssue[] {
+  const issues: SourceIssue[] = [];
+  for (const uuid of idx.list()) {
+    const unit = idx.get(uuid);
+    if (!unit) continue;
+    const src = (unit.model as Record<string, unknown>).source as SourceLocation | undefined;
+    if (!src) continue;
+    const className = unit.ior.replace('ior:class:', '').toLowerCase();
+    for (const reason of validateSource(src, projectRoot)) {
+      issues.push({ ref: `${className}:${uuid}`, reason: `source: ${reason}` });
+    }
+  }
+  return issues;
+}
+
 export function validateSource(src: SourceLocation, projectRoot: string): string[] {
   const issues: string[] = [];
   const fullPath = `${projectRoot}/${src.file}`;

@@ -2,13 +2,10 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000011",
-    "name": "File-browser ↔ traceability-browser navigation",
-    "description": "> TRON: \"there shall be navigation between the file browse and the traceability browser possible.\"",
-    "tasks": [
-      "ior:instance:b66fdf54-04f4-4609-9ded-04c835348b32"
-    ],
-    "tests": [],
-    "altId": "R17.11"
+    "name": "> TRON: \"there shall be navigation between the file browse and the traceability browser possible.\"",
+    "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000011]\n  > TRON: \"there shall be navigation between the file browse and the traceability browser possible.\"\n  → [T127](./task-127-ior-resolver.md)\n\n- [ ] **R17.12: All files are units, referenceable via IOR**",
+    "tasks": [],
+    "tests": []
   },
-  "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
+  "ownerIor": "ior:instance:8cba0274-8956-4266-9213-cee382ff3b38"
 }

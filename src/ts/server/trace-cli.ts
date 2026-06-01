@@ -8,16 +8,30 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { scanRepo, validate, formatReport, fixMatrix } from './TraceConsistency.js';
+import { ScenarioIndex } from '../scenario/index-store.js';
+import { validateAllSources } from '../scenario/source-location.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRINTS_DIR = path.join(__dirname, '../../../scrum.pmo/sprints');
 const SRC_DIR = path.join(__dirname, '../../../src');
 const TEST_DIR = path.join(__dirname, '../../../test');
+const SCENARIO_DIR = path.join(__dirname, '../../../scenario/index');
+const PROJECT_ROOT = path.join(__dirname, '../../../');
 const MATRIX_PATH = path.join(__dirname, '../../../scrum.pmo/traceability-matrix.md');
 
 const mode = (process.argv[2] || 'check').toLowerCase();
 const { graph, coverage } = scanRepo(SPRINTS_DIR, SRC_DIR, TEST_DIR);
 const issues = validate(graph, coverage);
+
+// T140: validate source locations on scenario units
+try {
+  const idx = new ScenarioIndex(SCENARIO_DIR);
+  const srcIssues = validateAllSources(idx, PROJECT_ROOT);
+  if (srcIssues.length) {
+    console.log(`\nSource location issues: ${srcIssues.length}`);
+    for (const si of srcIssues) console.log(`  [WARN] ${si.ref} — ${si.reason}`);
+  }
+} catch { /* scenario index not present — skip */ }
 
 console.log(formatReport(issues));
 console.log(`Scanned ${coverage.length} task(s), ${graph.size} graph object(s).`);

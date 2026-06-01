@@ -5,9 +5,9 @@
 
 - [x] Planned
 - [x] In Progress
-  - [x] refinement (req → architect — architect-side design landed via `3f8cd33` "T149 pre-design — sprints.json symlink tree for all 9 classes", adopted into the Design section below; **req verbatim Tron-quote anchor still pending — backfill needed**)
+  - [x] refinement (req → architect — architect pre-design `3f8cd33` adopted into Design section; **req-eng backfill DONE via `9669370`** — B10 anchored with verbatim Tron quotes + canonical `requirement:uuid:f0a1b2c3-...` replaced the planner-suggested one)
   - [ ] creating test cases
-  - [x] implementing
+  - [x] implementing (`b55abd8` v0.5.45 per-class symlink subdirs for all 9 scenario classes + `de7f348` architect slug-mismatch fix design + `1478924` v0.5.46 full-UUID tracelinks + two-strategy scenarioLink. Rule-pair (a)+(b) ✓ in BOTH ship commits: v0.5.45 + v0.5.46)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done

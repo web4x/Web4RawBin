@@ -6,7 +6,7 @@
     "slug": "task-147-md-listing-chain-link-icon",
     "description": "",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (req → architect — `2ff001b` architect design; **req verbatim Tron-quote anchor still pending — backfill needed**)\n  - [ ] creating test cases\n  - [x] implementing (`111f0c8` v0.5.43 — rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME → rawbin-v0.5.43)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.\n> **Tron plan-ahead-only directive:** no agent kick-off yet (file is staged for\n> req-eng to anchor the literal Tron quote; then architect, then expert, then tester).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (req → architect — `2ff001b` architect design + `0d36b4d` req-eng B8 anchor (verbatim Tron quote + canonical `requirement:uuid:d8e9f0a1-…` replaced planner-suggested) — **req backfill DONE**)\n  - [ ] creating test cases\n  - [x] implementing (`111f0c8` v0.5.43 — rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME → rawbin-v0.5.43)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.\n> **Tron plan-ahead-only directive:** no agent kick-off yet (file is staged for\n> req-eng to anchor the literal Tron quote; then architect, then expert, then tester).",
     "remainingIssues": "",
     "traceability": "`[task:uuid:ea70d80c-66e8-459a-af3d-74b137341303]`\n\n- up\n  - [Sprint 17 Planning](./planning.md)\n  - **Tron quote capture (req-eng anchored 2026-06-01):** B8 in [scrum.pmo/backlog.md](../../backlog.md), commit `f3cc50c`\n  - **B8 requirement** `[requirement:uuid:d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8]`\n    Verbatim Tron quote:\n    > \"scenario/sprints.json/sprint-17-scenario-units/ shows sprint.json/task-*.json\n    > with 🔗 + ✏️. i want it the same way linked for scenario/sprints.md/usecase/\n    > (chain-tracemethodtoreq.md, index-get.md, index-put.md, ior-resolveclass.md)\n    > and everything else in scenario/sprints.md\"\n- down\n  - None (atomic task; small symmetric extension of T144)\n- follows\n  - [T144: File-browser display fixes — icon order + link targets (B5, 3 fixes)](./task-144-file-browser-display-fixes.md) — `.json`-side precedent T147 mirrors on the `.md` side\n  - [T141: Chain-link icon → sprints.json symlink in generated MD views](./task-141-chain-link-icon-symlinks.md) — chain-link helper that T147 reuses\n  - [T126: Generated views + 7 templates](./task-126-views.md) — produces the `.md` views T147 lists into\n  - [T131: File-browser symlinks](./task-131-file-browser-symlinks.md) — symlink visibility T147 builds on\n- chain (req → usecase → puml → class/method) — architect to fill on refinement\n  - **requirement:** B8 `[requirement:uuid:d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8]` (req-eng anchored)\n  - **use case:** UC-TBD (architect — likely `fileBrowser.renderMdListing`, sibling to `fileBrowser.renderListing` from T144)\n  - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds the new UC as a `UseCase` instance (rule #10 / T117)\n  - **class/method:** `src/ts/server/server.ts` (`/md/` directory listing renderer — same module as T144), `src/public/ts/components/rb-file-tree.ts` if mirrored (TBD by architect)",
     "context": "T144 (`5da4054` v0.5.36 + `0101980` v0.5.38) restored click-through navigation on\nthe `.json` side of the scenario file-browser by setting per-row icon order to\n`🔗 ✏️`, making 🔗 a real clickable anchor to the canonical\n`scenario/index/<prefix>/<uuid>.scenario.json`, and resolving `.json` filename\nclicks to the corresponding MD view. With T143's tree rework adding \"every\ntyped reference a clickable link\" (R17.27), the `.md` side now lags: the\n`/md/scenarios/sprints.md/<class>/...` directory listings still render bare\nfilenames without the chain-link 🔗 (or its symmetric 📋 row-type and ✏️ edit\nicons). Tron's directive (PO 2026-06-01): make the `.md` side **symmetric** —\nsame three icons, same order, same behaviors.",
@@ -24,88 +24,7 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": [],
-    "links": {
-      "up": [
-        {
-          "type": "sprint",
-          "ref": "./planning.md",
-          "label": "Sprint 17 Planning"
-        },
-        {
-          "type": "text",
-          "ref": "",
-          "label": "**Tron quote capture (req-eng anchored 2026-06-01):** B8 in [scrum.pmo/backlog.md](../../backlog.md), commit `f3cc50c`"
-        },
-        {
-          "type": "requirement",
-          "ref": "ior:instance:d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8",
-          "label": "**B8 requirement** `[requirement:uuid:d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8]` Verbatim Tron quote: > \"scenario/sprints.json/sprint-17-scenario-units/ shows sprint.json/task-*.json > with 🔗 + ✏️. i want it the same way linked for scenario/sprints.md/usecase/ > (chain-tracemethodtoreq.md, index-get.md, index-put.md, ior-resolveclass.md) > and everything else in scenario/sprints.md\"",
-          "uuid": "d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8"
-        }
-      ],
-      "down": [
-        {
-          "type": "text",
-          "ref": "",
-          "label": "None (atomic task; small symmetric extension of T144)"
-        }
-      ],
-      "follows": [
-        {
-          "type": "task",
-          "ref": "./task-144-file-browser-display-fixes.md",
-          "label": "T144: File-browser display fixes — icon order + link targets (B5, 3 fixes) — `.json`-side precedent T147 mirrors on the `.md` side"
-        },
-        {
-          "type": "task",
-          "ref": "./task-141-chain-link-icon-symlinks.md",
-          "label": "T141: Chain-link icon → sprints.json symlink in generated MD views — chain-link helper that T147 reuses"
-        },
-        {
-          "type": "task",
-          "ref": "./task-126-views.md",
-          "label": "T126: Generated views + 7 templates — produces the `.md` views T147 lists into"
-        },
-        {
-          "type": "task",
-          "ref": "./task-131-file-browser-symlinks.md",
-          "label": "T131: File-browser symlinks — symlink visibility T147 builds on"
-        }
-      ],
-      "changes": []
-    },
-    "chain": {
-      "requirements": [
-        {
-          "type": "requirement",
-          "ref": "ior:instance:d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8",
-          "label": "**requirement:** B8 `[requirement:uuid:d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8]` (req-eng anchored)",
-          "uuid": "d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8"
-        }
-      ],
-      "useCases": [
-        {
-          "type": "usecase",
-          "ref": "",
-          "label": "UC-TBD (architect — likely `fileBrowser.renderMdListing`, sibling to `fileBrowser.renderListing` from T144)"
-        }
-      ],
-      "puml": [
-        {
-          "type": "puml",
-          "ref": "",
-          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds the new UC as a `UseCase` instance (rule #10 / T117)"
-        }
-      ],
-      "classMethods": [
-        {
-          "type": "class/method",
-          "ref": "",
-          "label": "`src/ts/server/server.ts` (`/md/` directory listing renderer — same module as T144), `src/public/ts/components/rb-file-tree.ts` if mirrored (TBD by architect)"
-        }
-      ]
-    }
+    "implementations": []
   },
-  "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
+  "ownerIor": "ior:instance:8cba0274-8956-4266-9213-cee382ff3b38"
 }

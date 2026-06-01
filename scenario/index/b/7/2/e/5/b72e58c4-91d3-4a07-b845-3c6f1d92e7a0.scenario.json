@@ -24,61 +24,7 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": [],
-    "links": {
-      "up": [
-        {
-          "type": "task",
-          "ref": "./task-124-architecture.md",
-          "label": "T124: Scenario-unit + IOR + class-based view architecture"
-        },
-        {
-          "type": "requirement",
-          "ref": "./compound-requirement-source.md",
-          "label": "compound-requirement-source.md → **R17.7** (HTML view templates per class), **R17.8** (views generated + live-updated), **R17.9** (planning.md = generated task overview), **R17.10** (sprint overview = list of sprint items)"
-        }
-      ],
-      "down": [
-        {
-          "type": "text",
-          "ref": "",
-          "label": "None (atomic sub-task)"
-        }
-      ],
-      "follows": [],
-      "changes": []
-    },
-    "chain": {
-      "requirements": [
-        {
-          "type": "requirement",
-          "ref": "",
-          "label": "R17.7 + R17.8 + R17.9 + R17.10"
-        }
-      ],
-      "useCases": [
-        {
-          "type": "uc",
-          "ref": "ior:instance:17a00301-0001-4a01-a001-000017030001",
-          "label": "**use case:** view.renderHtml [uc:uuid:17a00301-0001-4a01-a001-000017030001], view.renderMd [uc:uuid:17a00302-0002-4a02-a002-000017030002], view.liveUpdate [uc:uuid:17a00303-0003-4a03-a003-000017030003], planning.generate [uc:uuid:17a00304-0004-4a04-a004-000017030004]",
-          "uuid": "17a00301-0001-4a01-a001-000017030001"
-        }
-      ],
-      "puml": [
-        {
-          "type": "puml",
-          "ref": "",
-          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (Phase 3 package)"
-        }
-      ],
-      "classMethods": [
-        {
-          "type": "class/method",
-          "ref": "",
-          "label": "ViewTemplateRegistry (design — impl in T126)"
-        }
-      ]
-    }
+    "implementations": []
   },
-  "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
+  "ownerIor": "ior:instance:8cba0274-8956-4266-9213-cee382ff3b38"
 }

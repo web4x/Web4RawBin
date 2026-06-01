@@ -2,13 +2,10 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "39a893de-1e86-4d0e-ace4-c09be2d42bdb",
-    "name": "Skills on top of scenarios",
-    "description": "> TRON: \"they shall order skills on top of the new implementation to plan and trace work.\"",
-    "tasks": [
-      "ior:instance:9a1faf02-cffd-4e74-b115-5dba87b06ad0"
-    ],
-    "tests": [],
-    "altId": "R17.22"
+    "name": "> TRON: \"they shall order skills on top of the new implementation to plan and trace work.\"",
+    "description": "[requirement:uuid:39a893de-1e86-4d0e-ace4-c09be2d42bdb]\n  > TRON: \"they shall order skills on top of the new implementation to plan and trace work.\"\n  → [T138](./task-138-skill-set-scenarios.md)\n\n- [ ] **R17.23: Fork skill-expert from expert**",
+    "tasks": [],
+    "tests": []
   },
-  "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
+  "ownerIor": "ior:instance:8cba0274-8956-4266-9213-cee382ff3b38"
 }

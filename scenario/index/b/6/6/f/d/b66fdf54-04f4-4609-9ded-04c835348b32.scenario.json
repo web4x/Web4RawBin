@@ -24,75 +24,7 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": [],
-    "links": {
-      "up": [
-        {
-          "type": "sprint",
-          "ref": "./planning.md",
-          "label": "Sprint 17 Planning"
-        },
-        {
-          "type": "requirement",
-          "ref": "",
-          "label": "R17.11 file-browser ↔ traceability-browser nav · R17.12 all files are units, referenceable via IOR"
-        },
-        {
-          "type": "text",
-          "ref": "",
-          "label": "T125 (IOR primitive), T126 (views are the link targets on both sides)"
-        }
-      ],
-      "down": [
-        {
-          "type": "text",
-          "ref": "",
-          "label": "T127.1 — file-browser ↔ traceability-browser bi-directional nav"
-        },
-        {
-          "type": "text",
-          "ref": "",
-          "label": "T127.2 — IOR universal-reference handler (any repo file resolves to a unit)"
-        },
-        {
-          "type": "text",
-          "ref": "",
-          "label": "End-to-end UX: tap a file in `/md/`, jump to its trace node; tap a trace node, jump to its file. Any IOR resolves to its view."
-        }
-      ],
-      "follows": [],
-      "changes": []
-    },
-    "chain": {
-      "requirements": [
-        {
-          "type": "requirement",
-          "ref": "",
-          "label": "R17.11, R17.12"
-        }
-      ],
-      "useCases": [
-        {
-          "type": "usecase",
-          "ref": "",
-          "label": "nav.fileToTrace, nav.traceToFile, ior.resolveFile (T124.6 PUML)"
-        }
-      ],
-      "puml": [
-        {
-          "type": "puml",
-          "ref": "",
-          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml)"
-        }
-      ],
-      "classMethods": [
-        {
-          "type": "class/method",
-          "ref": "",
-          "label": "new client routes/handlers in `src/public/ts/trace/` + `src/ts/server/server.ts` IOR resolver"
-        }
-      ]
-    }
+    "implementations": []
   },
-  "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
+  "ownerIor": "ior:instance:8cba0274-8956-4266-9213-cee382ff3b38"
 }

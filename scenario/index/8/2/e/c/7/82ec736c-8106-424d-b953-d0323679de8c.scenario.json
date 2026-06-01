@@ -24,72 +24,7 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": [],
-    "links": {
-      "up": [
-        {
-          "type": "sprint",
-          "ref": "./planning.md",
-          "label": "Sprint 17 Planning"
-        },
-        {
-          "type": "requirement",
-          "ref": "ior:instance:9dedeb00-6038-4c43-bcd4-efab99792be1",
-          "label": "**requirement:** `[requirement:uuid:9dedeb00-6038-4c43-bcd4-efab99792be1]` — \"Fork a new `robbin-skill-expert` agent from `robbin-expert`, focused on implementing + maintaining the scenario-unit skill verb-set (T138 + future skills). PO decides timing + scope; agent-trainer executes the SKILL.md fork.\" (Tron via PO 2026-05-31; req-eng to anchor verbatim Tron quote here.)",
-          "uuid": "9dedeb00-6038-4c43-bcd4-efab99792be1"
-        }
-      ],
-      "down": [
-        {
-          "type": "text",
-          "ref": "",
-          "label": "None (atomic role-creation task)"
-        }
-      ],
-      "follows": [
-        {
-          "type": "task",
-          "ref": "./task-138-skill-set-scenarios.md",
-          "label": "T138: skill set on scenarios — T138 ships the verbs; T139 dedicates a maintainer"
-        },
-        {
-          "type": "task",
-          "ref": "./task-137-req-planner-learn-scenarios.md",
-          "label": "T137: req+planner learn scenarios — T139 follows the same role-evolution pattern"
-        }
-      ],
-      "changes": []
-    },
-    "chain": {
-      "requirements": [
-        {
-          "type": "requirement",
-          "ref": "",
-          "label": "r139 fork skill-expert (Tron 2026-05-31)"
-        }
-      ],
-      "useCases": [
-        {
-          "type": "usecase",
-          "ref": "",
-          "label": "agentTrainer.forkRole, role.boot (architect adds to s17-usecases.puml)"
-        }
-      ],
-      "puml": [
-        {
-          "type": "puml",
-          "ref": "",
-          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml)"
-        }
-      ],
-      "classMethods": [
-        {
-          "type": "class/method",
-          "ref": "",
-          "label": "new `~/.claude/agents/robbin-skill-expert/SKILL.md`; updates to `hiveMind` / role registry; possibly a new tmux pane"
-        }
-      ]
-    }
+    "implementations": []
   },
-  "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
+  "ownerIor": "ior:instance:8cba0274-8956-4266-9213-cee382ff3b38"
 }
