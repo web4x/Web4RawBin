@@ -33,17 +33,13 @@
 
 - up
   - [Sprint 17 Planning](./planning.md)
-  - **Tron quote capture (req-eng):** *(awaiting req-eng B-entry / verbatim anchor — PO 2026-06-01 directed stand-up; req capturing literal)*
-  - **Symmetric-UX requirement (planner-suggested; req-eng to anchor/override on capture)**
-    `[requirement:uuid:ef503b38-0871-4cb9-b300-b40b287a3dee]`
-    Planner summary (req to confirm / correct from Tron's literal):
-    > The `.json` side of the file-browser carries `📋 🔗 ✏️` per row (after
-    > T144). The `.md` side — `/md/scenarios/sprints.md/<class>/...` directory
-    > listings — does NOT today; make it symmetric. Each row in a `.md` listing
-    > should show the same three icons in the same order, with the same
-    > behavior: 📋 row-type marker (or class glyph), 🔗 navigates to the
-    > canonical `scenario/index/<prefix>/<uuid>.scenario.json`, ✏️ opens the
-    > underlying file in `/edit/`.
+  - **Tron quote capture (req-eng anchored 2026-06-01):** B8 in [scrum.pmo/backlog.md](../../backlog.md), commit `f3cc50c`
+  - **B8 requirement** `[requirement:uuid:d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8]`
+    Verbatim Tron quote:
+    > "scenario/sprints.json/sprint-17-scenario-units/ shows sprint.json/task-*.json
+    > with 🔗 + ✏️. i want it the same way linked for scenario/sprints.md/usecase/
+    > (chain-tracemethodtoreq.md, index-get.md, index-put.md, ior-resolveclass.md)
+    > and everything else in scenario/sprints.md"
 - down
   - None (atomic task; small symmetric extension of T144)
 - follows
@@ -52,7 +48,7 @@
   - [T126: Generated views + 7 templates](./task-126-views.md) — produces the `.md` views T147 lists into
   - [T131: File-browser symlinks](./task-131-file-browser-symlinks.md) — symlink visibility T147 builds on
 - chain (req → usecase → puml → class/method) — architect to fill on refinement
-  - **requirement:** symmetric-UX requirement (above; planner-suggested → req-eng anchor)
+  - **requirement:** B8 `[requirement:uuid:d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8]` (req-eng anchored)
   - **use case:** UC-TBD (architect — likely `fileBrowser.renderMdListing`, sibling to `fileBrowser.renderListing` from T144)
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds the new UC as a `UseCase` instance (rule #10 / T117)
   - **class/method:** `src/ts/server/server.ts` (`/md/` directory listing renderer — same module as T144), `src/public/ts/components/rb-file-tree.ts` if mirrored (TBD by architect)
@@ -151,7 +147,8 @@ File: `test/vitest/md-listing-icons.test.ts` (new — sibling to T144's `file-br
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
-- 2026-06-01: PO directed planner to stand up T147 immediately (Tron plan-ahead-only — no agent kick-off). req-eng to capture the verbatim Tron quote and anchor (or replace) the planner-suggested `requirement:uuid` on the next pass. CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC9 + DoD (learnings #15+#16). Awaiting req anchor → architect design → expert impl → tester verify → Tron QA.
+- 2026-06-01: PO directed planner to stand up T147 immediately (Tron plan-ahead-only — no agent kick-off). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC9 + DoD (learnings #15+#16).
+- 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:ef503b38` with req's canonical `requirement:uuid:d8e9f0a1` (from B8 capture, commit `f3cc50c`). Verbatim Tron quote anchored. Planner summary was accurate — Tron's literal confirms: 🔗 + ✏️ on `.md` side same as `.json` side, explicitly names UseCase files (chain-tracemethodtoreq.md, index-get.md, index-put.md, ior-resolveclass.md) + "everything else in scenario/sprints.md". Ready for architect.
 
 ## Subtasks
 None (atomic task; small symmetric extension of T144).
