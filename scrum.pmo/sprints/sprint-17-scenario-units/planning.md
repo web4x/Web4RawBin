@@ -176,8 +176,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 12 — File-browser path-header clickable → parent dir (PO directive 2026-06-01)
 
-- [ ] 📝 [T148: File-browser path-header clickable → parent dir navigation](./task-148-file-browser-path-header-clickable.md)
-  **Status:** req anchored (`555ca7c` — verbatim Tron quote "in the file browser make the first line clickable eg scenario/ 📁 index/ so scenario is clickable and will go 1 folder up"; B9 in backlog.md `4bb3f82`; canonical `requirement:uuid:e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9`). Awaiting architect design → expert impl → tester verify.
+- [ ] ✅ [T148: File-browser path-header clickable → parent dir navigation](./task-148-file-browser-path-header-clickable.md)
+  **Status:** impl-shipped (`555ca7c` req-eng B9 anchor verbatim Tron quote + canonical `requirement:uuid:e9f0a1b2-…` → `6f0c72c` architect design — breadcrumb path-header → `eec6515` expert v0.5.44 — clickable breadcrumb path header). Rule-pair (a)+(b) BOTH ✓ in eec6515. Testing pending → Tron QA.
   **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (segment-split + cumulative-href + separator styling + rb-file-tree mirroring decision) → robbin-expert (impl in `server.ts /md/` renderer; rule-pair (a)+(b)) → robbin-tester (visual + click-through + T144/T147/T141 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
 
@@ -228,6 +228,20 @@ prose. Then **migrate every existing sprint** to this model.
 - [ ] ✅ [T155: Requirement `tasks[]` + `tests[]` bidirectional closure](./task-155-requirement-tasks-tests-bidirectional-closure.md)
   **Status:** impl-shipped (`e6fdda6` req B16 anchor + canonical `requirement:uuid:f6a7b8c9-…` → `6cff106` architect design — bidirectional closure tasks[]+tests[] → `75af5ea` expert v0.5.53). Rule-pair (a)+(b) BOTH ✓ in 75af5ea (package.json + sw.js CACHE_NAME → rawbin-v0.5.53). Testing pending (TS1–TS10 + ≥5-Req round-trip + regression) → Tron QA.
   **Owners (CMM4):** robbin-req (B16 captured ✓; scope confirmation + per-Req gap list) → robbin-architect (reverse-scan rule + test-coverage marker shape + per-Req audit + standard update — add `tests: []` to RequirementLoader) → robbin-expert (closure script extends T154 migrator; dry-run + apply; rule-pair (a)+(b)) → robbin-tester (per-Req verify + ≥5-Req round-trip + T126/T143/T146/T149/T151-T154 regression)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
+
+### Phase 20 — Reload button on Connection-Failed + Offline pages (PO directive 2026-06-01, B4 promoted)
+
+- [ ] ⏳ [T156: Reload button on Connection-Failed + Offline pages](./task-156-reload-button-connection-failed-offline.md)
+  **Status:** PLANNED — promoted from backlog B4 (verbatim Tron quote + canonical `requirement:uuid:c5d6e7f8-…`). Quick-win UX uplift: add clickable reload button to Connection-Failed page (`app.ts` ~L81 error HTML); verify existing offline-page retry button. PO ordered as T156 first (quick single-cycle ship). req-eng B4 already anchored.
+  **Owners (CMM4):** robbin-req (scope confirm — label, both surfaces, mobile safe-area) → robbin-architect (button markup + CSS + onclick handler + consistency between surfaces) → robbin-expert (impl in `app.ts` + verify `sw.js` OFFLINE_HTML; rule-pair (a)+(b)) → robbin-tester (visual + functional on iPhone + Connection-Failed/offline regression)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) exempt (no new route)
+
+### Phase 21 — Profile gate vCard onboarding (multi-platform) (PO directive 2026-06-01, B3 promoted)
+
+- [ ] ⏳ [T157: Profile gate — Upload vCard for fast onboarding (button + native drag-and-drop)](./task-157-profile-gate-vcard-onboarding.md)
+  **Status:** PLANNED — promoted from backlog B3 (verbatim Tron quote + canonical `requirement:uuid:a3b4c5d6-…`). Onboarding-speed win: Upload vCard button at TOP of first-time-connect profile gate + native OS drag-and-drop. **Multi-platform hard requirement:** iOS, Android, Windows. Introduces vCard V3.0 PARSER (current code only EXPORTS).
+  **Owners (CMM4):** robbin-req (4-field scope FN/TEL/URL/PHOTO + review-before-save UX) → robbin-architect (button + drag-drop handlers + V3.0 parser + PHOTO→T50 pipeline + multi-platform notes) → robbin-expert (impl `ProfileEditor.ts` gate mode + new `vcard-parser.ts`; rule-pair (a)+(b)) → robbin-tester (verify on iOS / Android / Windows + parser unit tests + regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
 
 ### Phase 6 — Verification (T129, tester + planner)

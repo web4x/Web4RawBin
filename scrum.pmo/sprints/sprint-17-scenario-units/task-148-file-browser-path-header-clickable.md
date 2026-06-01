@@ -5,11 +5,11 @@
 [task:uuid:95e93fd2-de9e-4579-a857-59f69608f982]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — `555ca7c` req-eng B9 anchor + `6f0c72c` architect design — breadcrumb path-header for /md/ listings)
   - [ ] creating test cases
-  - [x] implementing
+  - [x] implementing (`eec6515` v0.5.44 — clickable breadcrumb path header in /md/ listings; rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME → rawbin-v0.5.44)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
