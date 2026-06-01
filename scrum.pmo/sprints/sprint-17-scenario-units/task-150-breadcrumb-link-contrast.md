@@ -31,15 +31,10 @@
 
 - up
   - [Sprint 17 Planning](./planning.md)
-  - **Tron quote capture (req-eng):** *(awaiting req-eng B-entry / verbatim anchor — PO 2026-06-01 directed stand-up; req capturing literal)*
-  - **Breadcrumb contrast requirement (planner-suggested; req-eng to anchor/override on capture)**
-    `[requirement:uuid:7601a6c5-46ea-4c88-a620-0defda065d93]`
-    Planner summary (req to confirm / correct from Tron's literal):
-    > T148 makes path-header segments clickable, but the link colors blend
-    > into the file-browser background — low contrast makes the breadcrumb
-    > hard to read. Pick a color scheme (unvisited / visited / hover) that
-    > reads cleanly against the file-browser surface, consistent with the
-    > rest of the app's link styling.
+  - **Tron quote capture (req-eng anchored 2026-06-01):** B11 in [scrum.pmo/backlog.md](../../backlog.md), commit `e0dd901`
+  - **B11 requirement** `[requirement:uuid:a1b2c3d4-e5f6-4a7b-c8d9-012345670b11]`
+    Verbatim Tron quote:
+    > "file browser clickable path works well, but link text color is barely readable on background."
 - down
   - None (atomic task; small CSS-only change)
 - follows
@@ -48,7 +43,7 @@
   - [T144: File-browser display fixes](./task-144-file-browser-display-fixes.md) — row anchors that may share styling
   - [T147: `.md` directory listing symmetric icons](./task-147-md-listing-chain-link-icon.md) — row anchors on `.md` side
 - chain (req → usecase → puml → class/method) — architect to fill on refinement
-  - **requirement:** breadcrumb contrast (above; planner-suggested → req-eng anchor)
+  - **requirement:** B11 `[requirement:uuid:a1b2c3d4-e5f6-4a7b-c8d9-012345670b11]` (req-eng anchored)
   - **use case:** UC-TBD (architect — likely `fileBrowser.renderPathHeader` styling, sibling to T148's rendering UC)
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect may extend the existing T148 UC's notes (no new UC necessarily)
   - **class/method:** `src/public/app.css` (or file-browser-specific stylesheet — architect names it)
@@ -120,7 +115,8 @@ File: visual + contrast-checker (no automated test typically for color contrast;
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
-- 2026-06-01: PO directed planner to stand up T150 (small CSS contrast fix). req-eng to capture the verbatim Tron quote and anchor (or replace) the planner-suggested `requirement:uuid` on the next pass. CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Awaiting req anchor → architect design → expert impl → tester verify → Tron QA.
+- 2026-06-01: PO directed planner to stand up T150 (small CSS contrast fix). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16).
+- 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:7601a6c5` with req's canonical `requirement:uuid:a1b2c3d4...0b11` (from B11 capture, commit `e0dd901`). Verbatim Tron quote anchored. Tron confirms breadcrumb works functionally ("works well") but link color has insufficient contrast. Ready for architect.
 
 ## Subtasks
 None (atomic task; small CSS-only change).
