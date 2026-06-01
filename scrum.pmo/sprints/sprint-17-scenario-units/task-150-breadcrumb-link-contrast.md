@@ -118,8 +118,46 @@ File: visual + contrast-checker (no automated test typically for color contrast;
 - 2026-06-01: PO directed planner to stand up T150 (small CSS contrast fix). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16).
 - 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:7601a6c5` with req's canonical `requirement:uuid:a1b2c3d4...0b11` (from B11 capture, commit `e0dd901`). Verbatim Tron quote anchored. Tron confirms breadcrumb works functionally ("works well") but link color has insufficient contrast. Ready for architect.
 
+## Design (robbin-architect, 2026-06-01)
+
+### Current state
+Breadcrumb inline style: `color:#667eea` (medium blue-purple). On dark background, contrast ~4.0:1 — below WCAG AA (4.5:1).
+
+### T58 precedent (MD_CSS link colors)
+```css
+a { color: #ffffff }             /* white — passes AA easily */
+a:visited { color: #a8c8ff }     /* light blue */
+a:hover { color: #b8d8ff; text-decoration: underline }
+```
+
+### Fix: `.bc-link` CSS class adopting MD_CSS scheme
+
+Add to MD_CSS string in server.ts:
+```css
+.bc-link { color: #ffffff; text-decoration: none }
+.bc-link:visited { color: #a8c8ff }
+.bc-link:hover { color: #b8d8ff; text-decoration: underline }
+```
+
+Update breadcrumb helper:
+```typescript
+// BEFORE: style="color:#667eea;text-decoration:none"
+// AFTER:  class="bc-link"
+```
+
+### Scope
+Breadcrumb only. T144/T147 row anchors use deliberately dimmed `opacity:0.5` — not a contrast bug. Separator `color:#555` stays dim (not clickable).
+
+### Touchpoints
+| File | Change |
+|------|--------|
+| `server.ts` MD_CSS string | Add 3 `.bc-link` rules |
+| `server.ts` breadcrumb helper | `style=` → `class="bc-link"` |
+
+### No new routes, no STATIC_SHELL change.
+
 ## Subtasks
-None (atomic task; small CSS-only change).
+None (3 CSS rules + 1 class swap).
 
 ---
 
