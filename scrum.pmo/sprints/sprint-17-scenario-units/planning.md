@@ -218,8 +218,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 18 — Requirement data quality (name / description / tasks) (PO directive 2026-06-01)
 
-- [ ] 📝 [T154: Requirement data quality — name vs description split + `tasks[]` populated](./task-154-requirement-data-quality-name-description-tasks.md)
-  **Status:** req anchored (`cd84ffe` — B15 verbatim Tron quote "data quality massively improved...requirement quality still poor. name and description should differ. name should be similar to filename but plain English. tasks traceability is still empty. needs to improve too." + canonical `requirement:uuid:e5f6a7b8-…`; B15 backlog commit `8cf2b7f`). Per-Req audit gate AC2/AC3/AC4 (name plain English + description verbatim + tasks count match). Awaiting architect design → expert impl → tester verify → Tron QA.
+- [ ] ✅ [T154: Requirement data quality — name vs description split + `tasks[]` populated](./task-154-requirement-data-quality-name-description-tasks.md)
+  **Status:** impl-shipped (`cd84ffe` req-eng B15 anchor verbatim Tron quote + canonical `requirement:uuid:e5f6a7b8-…` (B15 backlog `8cf2b7f`) → `2077202` architect design (Requirement data quality: name/desc/tasks) → `e3ae6ea` expert v0.5.52 — Requirement data quality migration). Rule-pair (a)+(b) BOTH ✓ in e3ae6ea (package.json + sw.js CACHE_NAME → rawbin-v0.5.52). Testing pending (TS1–TS11 + ≥5-Req round-trip + regression) → Tron QA.
   **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid; S10–S17 audit + gap list) → robbin-architect (name/description parsing rule + forward-link extraction + per-Req audit + standard update) → robbin-expert (extends T151/T152/T153 migrator; dry-run + apply; rule-pair (a)+(b)) → robbin-tester (per-Req verify + ≥5-Req round-trip + T126/T143/T146/T149/T151/T152/T153 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
 

@@ -5,11 +5,11 @@
 [task:uuid:34ea153f-1981-48ef-bfac-fc336ebf58d4]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — `cd84ffe` req-eng B15 anchor (verbatim Tron quote + canonical req:uuid:e5f6a7b8-…) + `2077202` architect design — Requirement data quality)
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing (`e3ae6ea` v0.5.52 — Requirement data quality migration: name/description/tasks[]; rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME → rawbin-v0.5.52)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
