@@ -580,12 +580,123 @@ function fixRequirementDataQuality(idx: ScenarioIndex, dryRun: boolean): void {
   console.log(`\n${fixed} Requirements ${dryRun ? 'would be' : ''} fixed. Mismatches: ${mismatches}`);
 }
 
+function closureRequirementTasksAndTests(idx: ScenarioIndex, dryRun: boolean): void {
+  console.log('\n=== Requirement Bidirectional Closure ===');
+  console.log('AltId | T154 tasks | Reverse tasks | Merged | Tests | Status');
+  console.log('------|-----------|--------------|--------|-------|-------');
+  let fixed = 0;
+
+  // Part 1: reverse-scan Task.links.up for requirement refs
+  const reqToRevTasks = new Map<string, string[]>();
+  for (const uid of idx.list()) {
+    const u = idx.get(uid);
+    if (u?.ior !== 'ior:class:Task') continue;
+    const linksUp = ((u.model as any).links?.up as any[]) || [];
+    for (const entry of linksUp) {
+      if (!entry || typeof entry !== 'object') continue;
+      if (entry.type !== 'requirement') continue;
+      const ref = String(entry.ref || '');
+      const reqUuid = ref.replace('ior:instance:', '');
+      if (!reqUuid || reqUuid.length < 36 || !idx.get(reqUuid)) continue;
+      if (!reqToRevTasks.has(reqUuid)) reqToRevTasks.set(reqUuid, []);
+      const taskRef = `ior:instance:${uid}`;
+      if (!reqToRevTasks.get(reqUuid)!.includes(taskRef)) reqToRevTasks.get(reqUuid)!.push(taskRef);
+    }
+  }
+
+  // Part 2: scan for test coverage (3 strategies)
+  const reqToTests = new Map<string, string[]>();
+  // Build altId → reqUuid lookup
+  const altIdToReqUuid = new Map<string, string>();
+  for (const uid of idx.list()) {
+    const u = idx.get(uid);
+    if (u?.ior !== 'ior:class:Requirement') continue;
+    const altId = String((u.model as any).altId || '');
+    if (altId) altIdToReqUuid.set(altId, uid);
+  }
+
+  // Strategy 1: Test scenario units with requirement refs
+  for (const uid of idx.list()) {
+    const u = idx.get(uid);
+    if (u?.ior !== 'ior:class:Test') continue;
+    const reqs = ((u.model as any).requirements as string[]) || [];
+    for (const ref of reqs) {
+      const reqUuid = ref.replace('ior:instance:', '');
+      if (!reqToTests.has(reqUuid)) reqToTests.set(reqUuid, []);
+      const testRef = `ior:instance:${uid}`;
+      if (!reqToTests.get(reqUuid)!.includes(testRef)) reqToTests.get(reqUuid)!.push(testRef);
+    }
+  }
+
+  // Strategy 2: TraceLink with relation='tests'
+  for (const uid of idx.list()) {
+    const u = idx.get(uid);
+    if (u?.ior !== 'ior:class:TraceLink') continue;
+    const m = u.model as any;
+    if (m.relation !== 'tests') continue;
+    const fromUuid = String(m.from || '').replace('ior:instance:', '');
+    const toUuid = String(m.to || '').replace('ior:instance:', '');
+    if (m.fromType === 'test' && m.toType === 'requirement') {
+      if (!reqToTests.has(toUuid)) reqToTests.set(toUuid, []);
+      if (!reqToTests.get(toUuid)!.includes(`ior:instance:${fromUuid}`)) reqToTests.get(toUuid)!.push(`ior:instance:${fromUuid}`);
+    }
+  }
+
+  // Strategy 3: Source scan test files for R-number via altId
+  const testDir = path.join(__dirname, '../test');
+  if (fs.existsSync(testDir)) {
+    const scanDir = (dir: string) => {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        if (entry.isDirectory() && entry.name !== 'node_modules') scanDir(path.join(dir, entry.name));
+        else if (entry.isFile() && entry.name.endsWith('.ts')) {
+          const text = fs.readFileSync(path.join(dir, entry.name), 'utf-8');
+          for (const rm of text.matchAll(/R(\d+\.\d+)/g)) {
+            const reqUuid = altIdToReqUuid.get(rm[0]);
+            if (!reqUuid) continue;
+            const testRef = `ior:file:test/${path.relative(testDir, path.join(dir, entry.name))}`;
+            if (!reqToTests.has(reqUuid)) reqToTests.set(reqUuid, []);
+            if (!reqToTests.get(reqUuid)!.includes(testRef)) reqToTests.get(reqUuid)!.push(testRef);
+          }
+        }
+      }
+    };
+    scanDir(testDir);
+  }
+
+  // Merge into requirements
+  for (const uid of idx.list()) {
+    const u = idx.get(uid);
+    if (u?.ior !== 'ior:class:Requirement') continue;
+    const m = u.model as Record<string, unknown>;
+    const altId = String(m.altId || uid.slice(0, 8));
+    let changed = false;
+
+    const existingTasks = (m.tasks as string[]) || [];
+    const revTasks = reqToRevTasks.get(uid) || [];
+    const mergedTasks = [...new Set([...existingTasks, ...revTasks])];
+    if (mergedTasks.length !== existingTasks.length) { m.tasks = mergedTasks; changed = true; }
+
+    const existingTests = (m.tests as string[]) || [];
+    const newTests = reqToTests.get(uid) || [];
+    const mergedTests = [...new Set([...existingTests, ...newTests])];
+    if (mergedTests.length !== existingTests.length) { m.tests = mergedTests; changed = true; }
+
+    console.log(`${altId} | ${existingTasks.length} | ${revTasks.length} | ${mergedTasks.length} | ${mergedTests.length} | ${changed ? (dryRun ? 'would fix' : 'fixed') : 'ok'}`);
+    if (changed && !dryRun) { idx.put(uid, u); fixed++; }
+  }
+  console.log(`\n${fixed} Requirements ${dryRun ? 'would be' : ''} fixed.`);
+}
+
 const args = process.argv.slice(2);
 const sprintIdx = args.indexOf('--sprint');
 const sprint = sprintIdx !== -1 ? args[sprintIdx + 1] : null;
 const dryRun = !args.includes('--apply');
 
-if (args.includes('--fix-req-quality')) {
+if (args.includes('--fix-req-closure')) {
+  const idx = new ScenarioIndex(INDEX_DIR);
+  closureRequirementTasksAndTests(idx, dryRun);
+  if (dryRun) console.log('\nDry run complete. Use --apply to write.');
+} else if (args.includes('--fix-req-quality')) {
   const idx = new ScenarioIndex(INDEX_DIR);
   fixRequirementDataQuality(idx, dryRun);
   if (dryRun) console.log('\nDry run complete. Use --apply to write.');

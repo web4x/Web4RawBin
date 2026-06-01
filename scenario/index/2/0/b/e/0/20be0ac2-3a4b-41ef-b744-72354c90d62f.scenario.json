@@ -7,7 +7,9 @@
     "tasks": [
       "ior:instance:e7cb6434-97a2-4752-8d63-f8bea13646b6"
     ],
-    "tests": [],
+    "tests": [
+      "ior:file:test/vitest/trace-consistency.test.ts"
+    ],
     "altId": "R16.1"
   },
   "ownerIor": "ior:instance:87dcd77d-ae44-4763-b5d7-a89256036db6"

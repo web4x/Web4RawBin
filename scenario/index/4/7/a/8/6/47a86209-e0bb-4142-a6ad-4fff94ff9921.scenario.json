@@ -5,7 +5,8 @@
     "name": "UC/Class/Method unit carries exact source location + git anc",
     "description": "> TRON: \"use case json must track the exact locations in the exact puml file units for tracability as well as classes and methods as iors to the git location and commit of the file\"",
     "tasks": [
-      "ior:instance:8f3a2b4c-d5e6-4f70-a1b2-c3d4e5f60140"
+      "ior:instance:8f3a2b4c-d5e6-4f70-a1b2-c3d4e5f60140",
+      "ior:instance:2c314fbb-6e07-4917-ac34-81f8ce987fcb"
     ],
     "tests": [],
     "altId": "R17.24"
