@@ -24,7 +24,72 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "sprint",
+          "ref": "./planning.md",
+          "label": "Sprint 17 Planning"
+        },
+        {
+          "type": "requirement",
+          "ref": "ior:instance:3b6cce5a-581c-4325-88b2-b9d381c7f268",
+          "label": "**requirement:** `[requirement:uuid:3b6cce5a-581c-4325-88b2-b9d381c7f268]` — \"HTML status template renders incorrectly — fix the template so generated `.html` views (T126 ViewGenerator output for each class) display the Status section the same way as the canonical Web4Articles markdown.\" (Tron via PO 2026-05-31; req-eng to anchor the verbatim Tron quote here.)",
+          "uuid": "3b6cce5a-581c-4325-88b2-b9d381c7f268"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "None (atomic task)"
+        }
+      ],
+      "follows": [
+        {
+          "type": "task",
+          "ref": "./task-126-views.md",
+          "label": "T126: Generated views — defines the HTML+MD templates this task fixes"
+        },
+        {
+          "type": "task",
+          "ref": "../sprint-13-stability/task-130-md-preview-hierarchical-lists.md",
+          "label": "T130: md preview hierarchical lists — same family of rendering bug (md side fixed; html side still broken)"
+        }
+      ],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "",
+          "label": "r132 HTML status template fix (Tron 2026-05-31)"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "usecase",
+          "ref": "",
+          "label": "existing `view.render` UC (T124.6 PUML) — T132 fixes the html status sub-section"
+        }
+      ],
+      "puml": [
+        {
+          "type": "puml",
+          "ref": "",
+          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (no new UC required — template fix)"
+        }
+      ],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "`src/ts/templates/` (per-class HTML template files from T124.2 / T125.4) — specifically the `Status` section emitter shared by all 7 class templates (or per-class if architect determines that's where the bug lives)"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

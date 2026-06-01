@@ -24,7 +24,85 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "sprint",
+          "ref": "./planning.md",
+          "label": "Sprint 17 Planning"
+        },
+        {
+          "type": "requirement",
+          "ref": "",
+          "label": "R17.14 migrate all sprints/tasks/requirements with references to classes, tests, puml use cases, puml classes, verb/methods"
+        },
+        {
+          "type": "text",
+          "ref": "",
+          "label": "T125 (foundation), T126 (views), T127 (nav)"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "T128.1 — exemplar: Sprint 1 task-1 + task-1.1 (Tron's preferred structural template)"
+        },
+        {
+          "type": "text",
+          "ref": "",
+          "label": "T128.2 — Sprints 2-9 batch (closed/QA'd; artifact-preserving — no prose rewrites)"
+        },
+        {
+          "type": "text",
+          "ref": "",
+          "label": "T128.3 — Sprints 10-16 batch (active; regenerate views from instances)"
+        },
+        {
+          "type": "text",
+          "ref": "",
+          "label": "T128.4 — method markers retrofit: every src/ method gets `[impl:uuid:]` linking up to a Task (chain closure for R17.13)"
+        },
+        {
+          "type": "text",
+          "ref": "",
+          "label": "T129 verification"
+        }
+      ],
+      "follows": [],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "",
+          "label": "R17.14 + R17.13 (method→task→req closure achieved here)"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "usecase",
+          "ref": "",
+          "label": "migrate.task, migrate.requirement, migrate.useCase, migrate.method, migrate.test, migrate.sprint, link.method-to-task (T124.6 PUML)"
+        }
+      ],
+      "puml": [
+        {
+          "type": "puml",
+          "ref": "",
+          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml)"
+        }
+      ],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "`scripts/migrate-to-scenario.ts` (one-shot per sprint, --dry-run + --apply gated)"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

@@ -24,7 +24,75 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "sprint",
+          "ref": "./planning.md",
+          "label": "Sprint 17 Planning"
+        },
+        {
+          "type": "requirement",
+          "ref": "",
+          "label": "R17.13 every method must be traced completely back to a task AND a requirement (sprint-closing gate)"
+        },
+        {
+          "type": "text",
+          "ref": "",
+          "label": "T128 migration must be complete (or in documented partial state)"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "T129.1 — `npm run trace:check` clean; `orphanMethods`/`orphanTasks`/`orphanReqs` all 0 (or in documented waiver list)"
+        },
+        {
+          "type": "text",
+          "ref": "",
+          "label": "T129.2 — Tester walks the chain end-to-end on a sample (method → class → useCase → task → requirement); confirms IOR resolution at each hop"
+        },
+        {
+          "type": "text",
+          "ref": "",
+          "label": "T129.3 — `sprint audit` + Web4Articles compliance audit pass 0-issue across all migrated sprints"
+        }
+      ],
+      "follows": [],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "",
+          "label": "R17.13"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "usecase",
+          "ref": "",
+          "label": "chain.verify, gate.close, audit.compliance (T124.6 PUML)"
+        }
+      ],
+      "puml": [
+        {
+          "type": "puml",
+          "ref": "",
+          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml)"
+        }
+      ],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "extends T102 matrix engine + T116 chain validator + T121 audit machinery"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

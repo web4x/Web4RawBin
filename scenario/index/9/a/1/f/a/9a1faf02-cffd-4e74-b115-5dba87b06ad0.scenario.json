@@ -24,7 +24,82 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "sprint",
+          "ref": "./planning.md",
+          "label": "Sprint 17 Planning"
+        },
+        {
+          "type": "requirement",
+          "ref": "ior:instance:39a893de-1e86-4d0e-ace4-c09be2d42bdb",
+          "label": "**requirement:** `[requirement:uuid:39a893de-1e86-4d0e-ace4-c09be2d42bdb]` — \"Define and ship a skill verb-set operating over scenario units: `capture-quote` (Tron quote → Requirement unit), `propose-task` (requirement + spec → Task unit with sub-state ready for refinement), `walk-chain` (any IOR → traversal of its req→task→useCase→class→method→test chain). These verbs are first-class skills any role can invoke.\" (Tron via PO 2026-05-31; req-eng to anchor verbatim Tron quote here.)",
+          "uuid": "39a893de-1e86-4d0e-ace4-c09be2d42bdb"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "None (atomic — single skill-set deliverable)"
+        }
+      ],
+      "follows": [
+        {
+          "type": "task",
+          "ref": "./task-125-foundation.md",
+          "label": "T125: 7-class foundation — verbs operate on these"
+        },
+        {
+          "type": "task",
+          "ref": "./task-133-task-state-machine.md",
+          "label": "T133: Task FSM + verbs — propose-task creates a Task in initial FSM state"
+        },
+        {
+          "type": "task",
+          "ref": "./task-134-traceability-as-units.md",
+          "label": "T134: TraceLink — walk-chain follows TraceLinks"
+        },
+        {
+          "type": "task",
+          "ref": "./task-137-req-planner-learn-scenarios.md",
+          "label": "T137: req+planner learn scenarios — T138 IS the verb-set those roles learn; coordinate"
+        }
+      ],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "",
+          "label": "r138 skill-set on scenarios (Tron 2026-05-31)"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "usecase",
+          "ref": "",
+          "label": "skill.captureQuote, skill.proposeTask, skill.walkChain (architect adds to s17-usecases.puml)"
+        }
+      ],
+      "puml": [
+        {
+          "type": "puml",
+          "ref": "",
+          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml)"
+        }
+      ],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "new `src/ts/scenario/skills.ts` (or extension to `classes.ts`) — verbs as exported functions taking class instances + emitting events"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

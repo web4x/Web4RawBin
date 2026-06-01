@@ -26,7 +26,31 @@
     ],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "sprint",
+          "ref": "./planning.md",
+          "label": "sprint-1-rawbin-foundation Planning"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "None"
+        }
+      ],
+      "follows": [],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [],
+      "useCases": [],
+      "puml": [],
+      "classMethods": []
+    }
   },
   "ownerIor": "ior:instance:439aea72-042c-4cf3-b4d0-a8e4c2def9ae"
 }

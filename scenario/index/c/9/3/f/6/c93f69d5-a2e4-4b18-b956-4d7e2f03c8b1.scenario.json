@@ -24,7 +24,61 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "task",
+          "ref": "./task-124-architecture.md",
+          "label": "T124: Scenario-unit + IOR + class-based view architecture"
+        },
+        {
+          "type": "requirement",
+          "ref": "./compound-requirement-source.md",
+          "label": "compound-requirement-source.md → **R17.4** (index by UUID prefix), **R17.5** (speaking-name JSON tree), **R17.6** (speaking-name MD tree), **R17.11** (file-browser ↔ traceability-browser navigation), **R17.12** (all files are units)"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "None (atomic sub-task)"
+        }
+      ],
+      "follows": [],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "",
+          "label": "R17.4 + R17.5 + R17.6 + R17.11 + R17.12"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "uc",
+          "ref": "ior:instance:17a00104-0004-4a04-a004-000017010004",
+          "label": "**use case:** index.put [uc:uuid:17a00104-0004-4a04-a004-000017010004], index.get [uc:uuid:17a00105-0005-4a05-a005-000017010005], tree.symlinkJson [uc:uuid:17a00201-0001-4a01-a001-000017020001], tree.generateMd [uc:uuid:17a00202-0002-4a02-a002-000017020002], tree.navigate [uc:uuid:17a00203-0003-4a03-a003-000017020003]",
+          "uuid": "17a00104-0004-4a04-a004-000017010004"
+        }
+      ],
+      "puml": [
+        {
+          "type": "puml",
+          "ref": "",
+          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (Phase 1+2 packages)"
+        }
+      ],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "ScenarioIndex, SpeakingTree (design — impl in T125/T126)"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

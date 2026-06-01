@@ -24,7 +24,72 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "sprint",
+          "ref": "./planning.md",
+          "label": "Sprint 17 Planning"
+        },
+        {
+          "type": "requirement",
+          "ref": "ior:instance:bebee55d-7d39-4f0c-b7de-d56e72d01363",
+          "label": "**requirement:** `[requirement:uuid:bebee55d-7d39-4f0c-b7de-d56e72d01363]` — \"The Task class needs a proper state machine + status methods (verbs) so state transitions are first-class operations on the scenario-unit Task instance rather than free-form checkbox edits.\" (Tron via PO 2026-05-31; req-eng to anchor the verbatim Tron quote in this slot.)",
+          "uuid": "bebee55d-7d39-4f0c-b7de-d56e72d01363"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "None (atomic task)"
+        }
+      ],
+      "follows": [
+        {
+          "type": "task",
+          "ref": "./task-125-foundation.md",
+          "label": "T125: Foundation (Task class) — T133 adds methods to the Task class"
+        },
+        {
+          "type": "task",
+          "ref": "./task-124.1-architect-data-model.md",
+          "label": "T124.1: data model — defines the unit/class structure this extends"
+        }
+      ],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "",
+          "label": "r133 task state-machine + status methods (Tron 2026-05-31)"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "usecase",
+          "ref": "",
+          "label": "task.plan, task.startRefinement, task.completeRefinement, task.startCreatingTestCases, task.startImplementing, task.completeImplementing, task.startTesting, task.completeTesting, task.submitForQA, task.tronApprove (architect refines the verb list during T133.1 below)"
+        }
+      ],
+      "puml": [
+        {
+          "type": "puml",
+          "ref": "",
+          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds the Task verbs as first-class UCs (T117 PUML machinery)"
+        }
+      ],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "`src/ts/scenario/classes.ts` Task class → new verb methods + state-transition guards; corresponds to symbol legend (⏳📝🔧✅🧪🏁) progression"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

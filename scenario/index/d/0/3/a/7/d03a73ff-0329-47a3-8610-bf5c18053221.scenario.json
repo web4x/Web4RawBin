@@ -24,7 +24,105 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "sprint",
+          "ref": "./planning.md",
+          "label": "Sprint 17 Planning"
+        },
+        {
+          "type": "text",
+          "ref": "",
+          "label": "**Tron quote capture (req-eng):** `2bfb64f` — *robbin-req: B5 — file-browser display fixes (icon order + link targets)* (added to `scrum.pmo/backlog.md`)"
+        },
+        {
+          "type": "requirement",
+          "ref": "ior:instance:e6f7a8b9-c0d1-4e2f-a3b4-c5d6e7f8a9b5",
+          "label": "**B5 composite requirement** `[requirement:uuid:e6f7a8b9-c0d1-4e2f-a3b4-c5d6e7f8a9b5]` Verbatim Tron quote (from `2bfb64f` backlog.md): > TRON DIRECTIVE (3 in one): (a) swap icon order: ✏️ 🔗 → 🔗 ✏️ (link before > edit). (b) make 🔗 clickable → links to original > `scenario/index/.../uuid.scenario.json` (the symlink target). (c) clicking > the .json filename in symlink listings currently 404s → must link to the > corresponding MD view (`scenarios/sprints.md/task/<speaking>.md`).",
+          "uuid": "e6f7a8b9-c0d1-4e2f-a3b4-c5d6e7f8a9b5"
+        },
+        {
+          "type": "text",
+          "ref": "",
+          "label": "**Sub-fixes (3) — each a distinct AC under B5:**"
+        },
+        {
+          "type": "requirement",
+          "ref": "ior:instance:fdff228f-3331-473b-abbb-801cb265cae1",
+          "label": "B5(a) icon order — `[requirement:uuid:fdff228f-3331-473b-abbb-801cb265cae1]` — chain-link 🔗 BEFORE edit ✏️",
+          "uuid": "fdff228f-3331-473b-abbb-801cb265cae1"
+        },
+        {
+          "type": "requirement",
+          "ref": "ior:instance:5faa1c91-9bd6-43da-8f81-927dfaa451bc",
+          "label": "B5(b) 🔗 clickable target — `[requirement:uuid:5faa1c91-9bd6-43da-8f81-927dfaa451bc]` — links to `scenario/index/<prefix>/<uuid>.scenario.json`",
+          "uuid": "5faa1c91-9bd6-43da-8f81-927dfaa451bc"
+        },
+        {
+          "type": "requirement",
+          "ref": "ior:instance:7eb8f63f-a7d2-4128-9acb-b26f75bdfbe1",
+          "label": "B5(c) .json → MD view — `[requirement:uuid:7eb8f63f-a7d2-4128-9acb-b26f75bdfbe1]` — `.json` filename click resolves to `scenarios/sprints.md/<class>/<speaking-name>.md`",
+          "uuid": "7eb8f63f-a7d2-4128-9acb-b26f75bdfbe1"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "None (atomic task; 3 fixes share file/component touchpoints)"
+        }
+      ],
+      "follows": [
+        {
+          "type": "task",
+          "ref": "./task-131-file-browser-symlinks.md",
+          "label": "T131: File-browser symlinks — establishes the symlink tree T144 navigates"
+        },
+        {
+          "type": "task",
+          "ref": "./task-141-chain-link-icon-symlinks.md",
+          "label": "T141: Chain-link icon → sprints.json symlink — chain-link icon precedent T144 corrects ordering on"
+        },
+        {
+          "type": "task",
+          "ref": "./task-126-views.md",
+          "label": "T126: Generated views — provides the speaking-name MD views B5(c) must resolve to"
+        }
+      ],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "",
+          "label": "B5 (above) + R17.27 (\"every traceability element is a clickable link\" — T143 parent rule; T144 implements a specific instance)"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "usecase",
+          "ref": "",
+          "label": "UC-TBD (architect — likely `fileBrowser.renderListing`, `fileBrowser.resolveJsonClick`)"
+        }
+      ],
+      "puml": [
+        {
+          "type": "puml",
+          "ref": "",
+          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds UCs as `UseCase` instances (rule #10 / T117)"
+        }
+      ],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "`src/ts/server/server.ts` (`/md/` directory listing renderer), `src/public/ts/components/rb-file-tree.ts` (TBD by architect)"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

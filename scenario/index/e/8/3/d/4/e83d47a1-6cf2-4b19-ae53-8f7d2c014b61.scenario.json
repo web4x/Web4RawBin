@@ -24,7 +24,61 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "task",
+          "ref": "./task-124-architecture.md",
+          "label": "T124: Scenario-unit + IOR + class-based view architecture"
+        },
+        {
+          "type": "requirement",
+          "ref": "./compound-requirement-source.md",
+          "label": "compound-requirement-source.md → **R17.1** (scenario JSON unit), **R17.2** (IOR), **R17.3** (class-based instances)"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "None (atomic sub-task)"
+        }
+      ],
+      "follows": [],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "",
+          "label": "R17.1 + R17.2 + R17.3"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "uc",
+          "ref": "ior:instance:17a00101-0001-4a01-a001-000017010001",
+          "label": "**use case:** unit.load [uc:uuid:17a00101-0001-4a01-a001-000017010001], ior.resolveClass [uc:uuid:17a00102-0002-4a02-a002-000017010002], ior.resolveInstance [uc:uuid:17a00103-0003-4a03-a003-000017010003]",
+          "uuid": "17a00101-0001-4a01-a001-000017010001"
+        }
+      ],
+      "puml": [
+        {
+          "type": "puml",
+          "ref": "",
+          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (Phase 1 package)"
+        }
+      ],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "ScenarioUnit, IORResolver, ClassRegistry (design — impl in T125)"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

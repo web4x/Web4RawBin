@@ -24,7 +24,82 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "sprint",
+          "ref": "./planning.md",
+          "label": "Sprint 17 Planning"
+        },
+        {
+          "type": "requirement",
+          "ref": "ior:instance:dd8709c3-f076-431e-a4be-64a875cb8888",
+          "label": "**requirement:** `[requirement:uuid:dd8709c3-f076-431e-a4be-64a875cb8888]` — \"Traceability links must themselves be units — each link is a scenario.json in the index, with `ln` symlinks emitted into both referenced instances' speaking-name trees, and MD/HTML views generated from the link unit's template.\" (Tron via PO 2026-05-31; req-eng to anchor the verbatim Tron quote in this slot.)",
+          "uuid": "dd8709c3-f076-431e-a4be-64a875cb8888"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "None (atomic task — large but coherent single deliverable)"
+        }
+      ],
+      "follows": [
+        {
+          "type": "task",
+          "ref": "./task-125-foundation.md",
+          "label": "T125: Foundation (Unit + IOR + class system) — T134 adds the `TraceabilityLink` class to the existing 7-class set"
+        },
+        {
+          "type": "task",
+          "ref": "./task-126-views.md",
+          "label": "T126: Generated views — T134 adds an 8th template (TraceabilityLink HTML+MD)"
+        },
+        {
+          "type": "task",
+          "ref": "./task-127-navigation.md",
+          "label": "T127: Navigation + IOR universal handler — T134 makes links navigable via IOR"
+        },
+        {
+          "type": "task",
+          "ref": "./task-128-migration.md",
+          "label": "T128: Migration — migration emits link units for every existing chain edge (T128.x flows into T134's link inventory)"
+        }
+      ],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "",
+          "label": "r134 traceability-as-units (Tron 2026-05-31)"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "usecase",
+          "ref": "",
+          "label": "traceabilityLink.create, traceabilityLink.resolve, traceabilityLink.emitSymlinks, traceabilityLink.renderView (architect refines during T134 design)"
+        }
+      ],
+      "puml": [
+        {
+          "type": "puml",
+          "ref": "",
+          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds TraceabilityLink as a class with these UCs"
+        }
+      ],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "`src/ts/scenario/classes.ts` → new `TraceabilityLink` class extending `Unit`; new template in `src/ts/templates/traceability-link.html.ts` + `.md.ts`; update T125.3 storage layer to emit `ln` into both endpoints' speaking-name dirs"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

@@ -24,7 +24,83 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "sprint",
+          "ref": "./planning.md",
+          "label": "Sprint 17 Planning"
+        },
+        {
+          "type": "text",
+          "ref": "",
+          "label": "**Tron quote capture (req-eng anchored 2026-06-01):** B9 in [scrum.pmo/backlog.md](../../backlog.md), commit `4bb3f82`"
+        },
+        {
+          "type": "requirement",
+          "ref": "ior:instance:e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9",
+          "label": "**B9 requirement** `[requirement:uuid:e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9]` Verbatim Tron quote: > \"in the file browser make the first line clickable eg scenario/ 📁 index/ > so scenario is clickable and will go 1 folder up\"",
+          "uuid": "e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "None (atomic task; small UI / href fix)"
+        }
+      ],
+      "follows": [
+        {
+          "type": "task",
+          "ref": "./task-144-file-browser-display-fixes.md",
+          "label": "T144: File-browser display fixes — icon order + link targets — same `/md/` renderer module"
+        },
+        {
+          "type": "task",
+          "ref": "./task-147-md-listing-chain-link-icon.md",
+          "label": "T147: `.md` directory listing symmetric icons — sibling UX uplift in the same renderer"
+        },
+        {
+          "type": "task",
+          "ref": "./task-131-file-browser-symlinks.md",
+          "label": "T131: File-browser symlinks — file-browser baseline"
+        }
+      ],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "ior:instance:e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9",
+          "label": "**requirement:** B9 `[requirement:uuid:e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9]` (req-eng anchored)",
+          "uuid": "e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "usecase",
+          "ref": "",
+          "label": "UC-TBD (architect — likely `fileBrowser.renderPathHeader` / `fileBrowser.navigateToParent`)"
+        }
+      ],
+      "puml": [
+        {
+          "type": "puml",
+          "ref": "",
+          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UC as a `UseCase` instance (rule #10 / T117)"
+        }
+      ],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "`src/ts/server/server.ts` (`/md/` directory listing renderer — path-header emission), `src/public/ts/components/rb-file-tree.ts` if mirrored (TBD by architect)"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

@@ -24,7 +24,25 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "task",
+          "ref": "./task-1-team-bootstrap.md",
+          "label": "Task 1: Bootstrap robbinTeam"
+        }
+      ],
+      "down": [],
+      "follows": [],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [],
+      "useCases": [],
+      "puml": [],
+      "classMethods": []
+    }
   },
   "ownerIor": "ior:instance:439aea72-042c-4cf3-b4d0-a8e4c2def9ae"
 }

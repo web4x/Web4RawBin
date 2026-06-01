@@ -24,7 +24,98 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "sprint",
+          "ref": "./planning.md",
+          "label": "Sprint 17 Planning"
+        },
+        {
+          "type": "text",
+          "ref": "",
+          "label": "**Tron quote capture (req-eng anchored 2026-06-01):** B10 in [scrum.pmo/backlog.md](../../backlog.md), commits `7044557` + `cce6d5e`"
+        },
+        {
+          "type": "requirement",
+          "ref": "ior:instance:f0a1b2c3-d4e5-4f6a-b7c8-901234560ab0",
+          "label": "**B10 requirement** `[requirement:uuid:f0a1b2c3-d4e5-4f6a-b7c8-901234560ab0]` Verbatim Tron quotes: > \"no ! this is not expected behavior!! this is a big implication gap\" > \"same for requirements, classes methods\"",
+          "uuid": "f0a1b2c3-d4e5-4f6a-b7c8-901234560ab0"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "None (atomic at parent level; architect may split T149.x sub-tasks per class group if scope warrants — coordinate with planner first)"
+        }
+      ],
+      "follows": [
+        {
+          "type": "task",
+          "ref": "./task-131-file-browser-symlinks.md",
+          "label": "T131: File-browser symlinks (Task class) — pattern T149 extends to the other 8 classes"
+        },
+        {
+          "type": "task",
+          "ref": "./task-141-chain-link-icon-symlinks.md",
+          "label": "T141: Chain-link icon → sprints.json symlink — consumer; gains universal resolution"
+        },
+        {
+          "type": "task",
+          "ref": "./task-144-file-browser-display-fixes.md",
+          "label": "T144: File-browser display fixes — `.json`-side click-through that benefits from universal symlinks"
+        },
+        {
+          "type": "task",
+          "ref": "./task-147-md-listing-chain-link-icon.md",
+          "label": "T147: `.md` directory listing symmetric icons — `.md`-side click-through that benefits from universal symlinks"
+        },
+        {
+          "type": "task",
+          "ref": "./task-143-traceability-tree-rework.md",
+          "label": "T143: Chain → tree rework — R17.27 \"every typed reference a clickable link\"; T149 is what makes the link **resolve** for all 9 types"
+        },
+        {
+          "type": "task",
+          "ref": "./task-145-user-scenario-viewbus.md",
+          "label": "T145: User class scenario-unit — User is one of the 9 classes T149 must include"
+        }
+      ],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "ior:instance:f0a1b2c3-d4e5-4f6a-b7c8-901234560ab0",
+          "label": "**requirement:** B10 `[requirement:uuid:f0a1b2c3-d4e5-4f6a-b7c8-901234560ab0]` (req-eng anchored)",
+          "uuid": "f0a1b2c3-d4e5-4f6a-b7c8-901234560ab0"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "usecase",
+          "ref": "",
+          "label": "UC-TBD (architect — likely `symlinkTree.emitPerClass`, `symlinkTree.backFillExisting`)"
+        }
+      ],
+      "puml": [
+        {
+          "type": "puml",
+          "ref": "",
+          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds the new UCs as `UseCase` instances (rule #10 / T117)"
+        }
+      ],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "symlink emitter (T131's module, TBD by architect — may live in `scripts/` or as a server-side helper) / `scrum.pmo/standards/traceability-standard.md` (spec) — architect names the concrete locations"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

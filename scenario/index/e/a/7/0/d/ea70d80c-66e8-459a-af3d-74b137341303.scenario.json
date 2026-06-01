@@ -24,7 +24,88 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "sprint",
+          "ref": "./planning.md",
+          "label": "Sprint 17 Planning"
+        },
+        {
+          "type": "text",
+          "ref": "",
+          "label": "**Tron quote capture (req-eng anchored 2026-06-01):** B8 in [scrum.pmo/backlog.md](../../backlog.md), commit `f3cc50c`"
+        },
+        {
+          "type": "requirement",
+          "ref": "ior:instance:d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8",
+          "label": "**B8 requirement** `[requirement:uuid:d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8]` Verbatim Tron quote: > \"scenario/sprints.json/sprint-17-scenario-units/ shows sprint.json/task-*.json > with 🔗 + ✏️. i want it the same way linked for scenario/sprints.md/usecase/ > (chain-tracemethodtoreq.md, index-get.md, index-put.md, ior-resolveclass.md) > and everything else in scenario/sprints.md\"",
+          "uuid": "d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "None (atomic task; small symmetric extension of T144)"
+        }
+      ],
+      "follows": [
+        {
+          "type": "task",
+          "ref": "./task-144-file-browser-display-fixes.md",
+          "label": "T144: File-browser display fixes — icon order + link targets (B5, 3 fixes) — `.json`-side precedent T147 mirrors on the `.md` side"
+        },
+        {
+          "type": "task",
+          "ref": "./task-141-chain-link-icon-symlinks.md",
+          "label": "T141: Chain-link icon → sprints.json symlink in generated MD views — chain-link helper that T147 reuses"
+        },
+        {
+          "type": "task",
+          "ref": "./task-126-views.md",
+          "label": "T126: Generated views + 7 templates — produces the `.md` views T147 lists into"
+        },
+        {
+          "type": "task",
+          "ref": "./task-131-file-browser-symlinks.md",
+          "label": "T131: File-browser symlinks — symlink visibility T147 builds on"
+        }
+      ],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "ior:instance:d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8",
+          "label": "**requirement:** B8 `[requirement:uuid:d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8]` (req-eng anchored)",
+          "uuid": "d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "usecase",
+          "ref": "",
+          "label": "UC-TBD (architect — likely `fileBrowser.renderMdListing`, sibling to `fileBrowser.renderListing` from T144)"
+        }
+      ],
+      "puml": [
+        {
+          "type": "puml",
+          "ref": "",
+          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds the new UC as a `UseCase` instance (rule #10 / T117)"
+        }
+      ],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "`src/ts/server/server.ts` (`/md/` directory listing renderer — same module as T144), `src/public/ts/components/rb-file-tree.ts` if mirrored (TBD by architect)"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

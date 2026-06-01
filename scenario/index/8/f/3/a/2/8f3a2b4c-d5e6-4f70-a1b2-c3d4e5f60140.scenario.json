@@ -24,7 +24,59 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "requirement",
+          "ref": "./requirements.md",
+          "label": "requirement:uuid:47a86209-e0bb-4142-a6ad-4fff94ff9921 — R17.24: UC/Class/Method carries exact source location + git anchor"
+        },
+        {
+          "type": "sprint",
+          "ref": "./planning.md",
+          "label": "Sprint 17 Planning"
+        },
+        {
+          "type": "requirement",
+          "ref": "./compound-requirement-source.md",
+          "label": "compound-requirement-source.md — 3rd extension, verbatim"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "None (atomic task)"
+        }
+      ],
+      "follows": [],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "",
+          "label": "R17.24 in [requirements.md](./requirements.md)"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "usecase",
+          "ref": "",
+          "label": "scenario.trackSourceLocation (architect to add to use case diagram)"
+        }
+      ],
+      "puml": [],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "scenario.json `model.source` field — new IOR structure"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

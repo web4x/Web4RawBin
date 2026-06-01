@@ -24,7 +24,72 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "sprint",
+          "ref": "./planning.md",
+          "label": "Sprint 17 Planning"
+        },
+        {
+          "type": "requirement",
+          "ref": "ior:instance:47a86209-e0bb-4142-a6ad-4fff94ff9921",
+          "label": "**requirement:** `[requirement:uuid:47a86209-e0bb-4142-a6ad-4fff94ff9921]` — \"req-eng must audit the backlog + S10-S17 task files for Tron quotes that were not yet formalized as `[requirement:uuid:v4]` entries in any `requirements.md`, then formalize each (verbatim quote + v4 uuid + ↔ task link).\" (Tron via PO 2026-05-31, S17 second extension; req-eng to anchor verbatim Tron quote here.)",
+          "uuid": "47a86209-e0bb-4142-a6ad-4fff94ff9921"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "None (atomic task — single audit pass + formalization)"
+        }
+      ],
+      "follows": [
+        {
+          "type": "task",
+          "ref": "./task-124-architecture.md",
+          "label": "T124.4 — req-eng requirements.md — T135 is the audit ensuring T124.4 is complete (not just present)"
+        },
+        {
+          "type": "task",
+          "ref": "../sprint-16-traceability-ux/task-121-chain-data-fix.md",
+          "label": "T121 — chain-data fix — Phase 2 C1 class (unformalized reqs) overlaps; T135 closes the S10-S17 portion"
+        }
+      ],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "",
+          "label": "r135 req-audit (Tron 2026-05-31)"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "usecase",
+          "ref": "",
+          "label": "req.auditBacklog, req.formalize, req.linkToTask (architect to add to s17-usecases.puml)"
+        }
+      ],
+      "puml": [
+        {
+          "type": "puml",
+          "ref": "",
+          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml)"
+        }
+      ],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "req-eng artifacts: per-sprint `requirements.md` files; backlog.md scan; T124.4 supplement"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

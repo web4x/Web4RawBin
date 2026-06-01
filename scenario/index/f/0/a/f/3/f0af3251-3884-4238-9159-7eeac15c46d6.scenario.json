@@ -24,7 +24,82 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "sprint",
+          "ref": "./planning.md",
+          "label": "Sprint 17 Planning"
+        },
+        {
+          "type": "requirement",
+          "ref": "ior:instance:bdda9290-56d0-499a-8277-954bdb35e818",
+          "label": "**requirement:** `[requirement:uuid:bdda9290-56d0-499a-8277-954bdb35e818]` — \"Generated MD views should render a chain-link icon (🔗 or similar) on every cross-reference, with the link pointing into the `scenarios/sprints.json/` speaking-name symlink tree (not the raw UUID index). Start with the UseCase template; architect decides whether to extend to all 7 class templates.\" (Tron via PO 2026-05-31; req-eng to anchor the verbatim Tron quote here.)",
+          "uuid": "bdda9290-56d0-499a-8277-954bdb35e818"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "None (atomic task; may split if architect extends to all 7 templates)"
+        }
+      ],
+      "follows": [
+        {
+          "type": "task",
+          "ref": "./task-126-views.md",
+          "label": "T126: Generated views — provides the 7 class templates this task extends"
+        },
+        {
+          "type": "task",
+          "ref": "./task-131-file-browser-symlinks.md",
+          "label": "T131: File-browser symlink support — visibility of the symlink tree this task points into"
+        },
+        {
+          "type": "task",
+          "ref": "./task-134-traceability-as-units.md",
+          "label": "T134: Traceability-as-units — source of the chain edges to render"
+        },
+        {
+          "type": "task",
+          "ref": "./task-128-migration.md",
+          "label": "T128.1: Sprint 1 exemplar migration — supplies the live symlink tree to link into"
+        }
+      ],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "",
+          "label": "chain-link icon → sprints.json symlink (Tron 2026-05-31)"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "usecase",
+          "ref": "",
+          "label": "existing `view.render` UC (T124.6 PUML) — T141 extends per-class HTML+MD chain rendering; architect may add `view.renderChainLink` UC as a new instance"
+        }
+      ],
+      "puml": [
+        {
+          "type": "puml",
+          "ref": "",
+          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (architect adds the UC if introduced)"
+        }
+      ],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "`src/ts/templates/` — UseCase template first (one shared helper or per-template render); affects per-class chain rendering blocks emitted by T126 ViewGenerator"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

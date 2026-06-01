@@ -24,7 +24,92 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "links": {
+      "up": [
+        {
+          "type": "sprint",
+          "ref": "./planning.md",
+          "label": "Sprint 17 Planning"
+        },
+        {
+          "type": "text",
+          "ref": "",
+          "label": "**Tron quote capture (req-eng):** B6 in [scrum.pmo/backlog.md](../../backlog.md)"
+        },
+        {
+          "type": "requirement",
+          "ref": "ior:instance:f7a8b9c0-d1e2-4f3a-b4c5-d6e7f8a9b0c6",
+          "label": "**B6 requirement** `[requirement:uuid:f7a8b9c0-d1e2-4f3a-b4c5-d6e7f8a9b0c6]` Verbatim Tron quote (from backlog B6): > \"the vcard upload works. the editor is updated on all fields. but the user > name in the lobby not and when the user immediately enters a room also not. > make the user class use the same scenario model as the requirements, tasks > and so on. handle every views update as a model update on user....as on all > other classes that use scenario models.\"",
+          "uuid": "f7a8b9c0-d1e2-4f3a-b4c5-d6e7f8a9b0c6"
+        }
+      ],
+      "down": [
+        {
+          "type": "text",
+          "ref": "",
+          "label": "None (atomic at parent level; architect may split T145.x sub-tasks if scope warrants — coordinate with planner first)"
+        }
+      ],
+      "follows": [
+        {
+          "type": "task",
+          "ref": "./task-125-foundation.md",
+          "label": "T125: Foundation (Unit + IOR + ClassLoaders + ClassRegistry + ScenarioIndex + ViewTemplateRegistry) — pattern T145 extends to User"
+        },
+        {
+          "type": "task",
+          "ref": "./task-126-views.md",
+          "label": "T126: Generated views + 7 templates — gains an 8th template (user) on this task"
+        },
+        {
+          "type": "task",
+          "ref": "./task-134-traceability-as-units.md",
+          "label": "T134: TraceLink as a scenario unit — class-as-scenario precedent"
+        },
+        {
+          "type": "task",
+          "ref": "./task-136-migration-extension-req-uc.md",
+          "label": "T136: Migration extension for Requirement + UseCase units — migration pattern T145 follows for User"
+        },
+        {
+          "type": "task",
+          "ref": "./task-143-traceability-tree-rework.md",
+          "label": "T143: Chain → tree rework — User joins the tree as a new class node"
+        }
+      ],
+      "changes": []
+    },
+    "chain": {
+      "requirements": [
+        {
+          "type": "requirement",
+          "ref": "",
+          "label": "B6 (above)"
+        }
+      ],
+      "useCases": [
+        {
+          "type": "usecase",
+          "ref": "",
+          "label": "UC-TBD (architect — likely `user.update`, `viewBus.subscribe`, `viewBus.publish`)"
+        }
+      ],
+      "puml": [
+        {
+          "type": "puml",
+          "ref": "",
+          "label": "[diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)"
+        }
+      ],
+      "classMethods": [
+        {
+          "type": "class/method",
+          "ref": "",
+          "label": "`src/ts/shared/User.ts` (new — scenario class) / `src/public/ts/trace/UserLoader.ts` (new) / `src/public/ts/RoomBrowser.ts` (View) / `src/public/ts/RoomView.ts` (View) / `src/public/ts/components/rb-member-badge.ts` (View) / `src/public/ts/ProfileEditor.ts` (mutator) — TBD by architect"
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

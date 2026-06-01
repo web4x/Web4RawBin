@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rawbin-v0.5.47';
+const CACHE_NAME = 'rawbin-v0.5.48';
 
 const STATIC_SHELL = [
   '/app',

@@ -18,7 +18,7 @@ function loader(className: string, defaults: Record<string, unknown>): ClassLoad
 }
 
 export const SprintLoader = loader('Sprint', { number: 0, goal: '', status: '', tasks: [], requirements: [] });
-export const TaskLoader = loader('Task', { description: '', status: '', assigned: '', effort: '', children: [], requirements: [], useCases: [], implementations: [] });
+export const TaskLoader = loader('Task', { description: '', status: '', assigned: '', effort: '', children: [], requirements: [], useCases: [], implementations: [], links: { up: [], down: [], follows: [], changes: [] }, chain: { requirements: [], useCases: [], puml: [], classMethods: [] } });
 export const RequirementLoader = loader('Requirement', { description: '', priority: '', source: '', tasks: [], tests: [] });
 export const UseCaseLoader = loader('UseCase', { object: '', verb: '', tasks: [], classes: [], requirement: null });
 export const ClassObjLoader = loader('Class', { file: null, useCases: [], methods: [] });
