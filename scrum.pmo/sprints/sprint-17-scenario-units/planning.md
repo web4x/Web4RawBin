@@ -265,6 +265,13 @@ prose. Then **migrate every existing sprint** to this model.
   **Owners (CMM4):** robbin-req (capture verbatim Tron quote; planner-suggested req:uuid:cda06ff4-…) → robbin-architect (forward-source repopulation design + secondary cache-strategy validation + standard update) → robbin-expert (repopulation migration + any cache fix; rule-pair (a)+(b)) → robbin-tester (per-Req + per-Task forward-count audit, walkDown resolves, **browser mutation→reflection** test, no back-refs reintroduced)
   **Rule-pair scope:** (a)+(b) required at impl; (c) STATIC_SHELL — architect confirms (likely exempt)
 
+### Phase 25 — Requirement title-render bug (sibling to T160; PO directive 2026-06-01)
+
+- [ ] ⏳ [T161: Requirement items render Tron-quote as NAME instead of speaky `model.name`](./task-161-requirement-name-renders-tron-quote-not-speaky.md)
+  **Status:** PLANNED — Tron live bug: "the names do not fit the json". /trace Requirement items render titles as raw blockquote text (`> TRON DIRECTIVE: …`) not the speaky 3–5-word `model.name` T146/T154 specified. Sibling to T160 (same surface, **different root cause**). Architect to diagnose: (A) data-store wrong (`model.name` got the quote) OR (B) renderer wrong (reads wrong field) OR both.
+  **Owners (CMM4):** robbin-req (capture verbatim Tron quote; planner-suggested req:uuid:23e7ec10-…) → robbin-architect (diagnose A vs B by sampling JSON + reading rb-tree-item / rb-requirement-detail; specify fix) → robbin-expert (fix per design; rule-pair (a)+(b)) → robbin-tester (JSON model.name + model.description per-Req audit; renderer unit tests; browser smoke ≥5 Reqs; sibling-class smoke)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
+
 ### Phase 6 — Verification (T129, tester + planner)
 
 - [ ] 🧪 [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)
