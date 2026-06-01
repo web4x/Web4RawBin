@@ -3,9 +3,11 @@
   "model": {
     "uuid": "17a00303-0003-4a03-a003-000017030003",
     "name": "view.liveUpdate",
-    "object": "",
-    "verb": "",
-    "tasks": [],
+    "object": "view",
+    "verb": "liveUpdate",
+    "tasks": [
+      "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d"
+    ],
     "classes": [],
     "requirement": null,
     "source": {

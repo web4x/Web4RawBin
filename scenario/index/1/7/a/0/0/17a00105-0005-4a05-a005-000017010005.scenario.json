@@ -3,9 +3,12 @@
   "model": {
     "uuid": "17a00105-0005-4a05-a005-000017010005",
     "name": "index.get",
-    "object": "",
-    "verb": "",
-    "tasks": [],
+    "object": "index",
+    "verb": "get",
+    "tasks": [
+      "ior:instance:c93f69d5-a2e4-4b18-b956-4d7e2f03c8b1",
+      "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
+    ],
     "classes": [],
     "requirement": null,
     "source": {

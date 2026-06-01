@@ -3,9 +3,11 @@
   "model": {
     "uuid": "17a00304-0004-4a04-a004-000017030004",
     "name": "planning.generate",
-    "object": "",
-    "verb": "",
-    "tasks": [],
+    "object": "planning",
+    "verb": "generate",
+    "tasks": [
+      "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d"
+    ],
     "classes": [],
     "requirement": null,
     "source": {

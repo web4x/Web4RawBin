@@ -1,0 +1,39 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T115: Tree-item — tap-icon collapse/expand + &quot;&gt;&quot; children expander</h2><code>f1157eb1-c259-4d46-a7f3-6e5db1824a05</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-unchecked">⬜ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement (architect)</li><li class="sv-unchecked">⬜ creating test cases</li><li class="sv-checked">✅ implementing</li><li class="sv-unchecked">⬜ testing</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>`[task:uuid:f1157eb1-c259-4d46-a7f3-6e5db1824a05]`
+
+- up
+  - [Sprint 16 Planning](./planning.md)
+  - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.7** (tap-icon collapse/expand) + **R16.8** (children expander)
+- down
+  - None (atomic task)
+- chain (req → usecase → puml → class/method)
+  - **requirement:** R16.7 + R16.8
+  - **use case:** objectItem.collapse [uc:uuid:16a01151-d151-4a01-b151-000000115001], objectItem.expand [uc:uuid:16a01152-d152-4a02-b152-000000115002], treeItem.expandChildren [uc:uuid:16a01153-d153-4a03-b153-000000115003]
+  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 2 package)
+  - **class/method:** `rb-object-item.ts` → `RbObjectItem.collapse()`, `expand()`, `expandChildren()` + `toggle-children` event dispatch</pre></div>
+<div class="sv-section"><h3>Task Description</h3><p>Two distinct interactions on the tree-item:
+- **Tap the icon** (R16.7): first tap **collapses** the item to just the quadratic icon
+  (T113); tap again **expands** to show name + description (T112).
+- **&quot;&gt;&quot; children expander** (R16.8): on the **right side**, show a &quot;&gt;&quot;-like icon when
+  the item has children; clicking it **expands the subtree** in the tree.
+
+These are separate from OS drag (T114) — distinguish tap vs drag.</p></div>
+<div class="sv-section"><h3>Context</h3><p>Tron 2026-05-27: &quot;taping the icon once will collapse the item view just into the
+quadratic item, taping again will make the item expand to show name and description.
+on rhe right side the icon will have a &quot;&gt;&quot; like icon if the item has children and
+clicking on it will expand the tree.&quot;</p></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [ ] AC1 — Tapping the left icon collapses the item to icon-only
+- [ ] AC2 — Tapping again expands to name + description
+- [ ] AC3 — A &quot;&gt;&quot; expander shows on the right ONLY when the item has children
+- [ ] AC4 — Clicking &quot;&gt;&quot; expands the child subtree (and toggles closed)
+- [ ] AC5 — Icon-tap (collapse) is distinguishable from drag (T114) and from &quot;&gt;&quot; (children)
+- [ ] `npm run build` succeeds; version + sw.js bumped; no regression</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-05-27: Planned from compound source R16.7+R16.8. Awaiting architect design, then Tron QA.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task).
+
+---
+
+*Sprint 16 — Traceability UX &amp; DetailViews*
+*Owner: robbin-expert (implement), robbin-tester (verify)*
+*Priority: 6 (Phase 2 — tree-item interactions)*</p></div></div>

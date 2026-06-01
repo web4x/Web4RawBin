@@ -3,9 +3,12 @@
   "model": {
     "uuid": "17a00201-0001-4a01-a001-000017020001",
     "name": "tree.symlinkJson",
-    "object": "",
-    "verb": "",
-    "tasks": [],
+    "object": "tree",
+    "verb": "symlinkJson",
+    "tasks": [
+      "ior:instance:c93f69d5-a2e4-4b18-b956-4d7e2f03c8b1",
+      "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d"
+    ],
     "classes": [],
     "requirement": null,
     "source": {

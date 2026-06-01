@@ -3,9 +3,11 @@
   "model": {
     "uuid": "17a00401-0001-4a01-a001-000017040001",
     "name": "migrate.sprintToScenario",
-    "object": "",
-    "verb": "",
-    "tasks": [],
+    "object": "migrate",
+    "verb": "sprintToScenario",
+    "tasks": [
+      "ior:instance:b94d2681-54f0-47e3-a431-f3d84e469b30"
+    ],
     "classes": [],
     "requirement": null,
     "source": {

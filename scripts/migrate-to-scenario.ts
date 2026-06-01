@@ -307,15 +307,98 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
   console.log(`  Generated ${result.filesWritten} view files in ${MD_TREE}/`);
 }
 
+function deriveObjectVerb(name: string): { object: string; verb: string } {
+  const dot = name.lastIndexOf('.');
+  if (dot > 0 && dot < name.length - 1) return { object: name.slice(0, dot), verb: name.slice(dot + 1) };
+  return { object: name, verb: '' };
+}
+
+function fixUcDataQuality(idx: ScenarioIndex, dryRun: boolean): void {
+  console.log('\n=== UC Data Quality Fix ===');
+  console.log('UC | object | verb | reqs | tasks | status');
+  console.log('---|--------|------|------|-------|-------');
+  let fixed = 0;
+  for (const uuid of idx.list()) {
+    const unit = idx.get(uuid);
+    if (!unit || unit.ior !== 'ior:class:UseCase') continue;
+    const m = unit.model as Record<string, unknown>;
+    let changed = false;
+
+    if (!m.object || !m.verb) {
+      const { object, verb } = deriveObjectVerb(String(m.name || ''));
+      if (object) { m.object = object; changed = true; }
+      if (verb) { m.verb = verb; changed = true; }
+    }
+
+    // Parse PUML refs from source if available (S17 free-form: R17.x, T124)
+    if (m.source && !(m.tasks as string[])?.length) {
+      const src = m.source as Record<string, unknown>;
+      const srcFile = String(src.file || '');
+      const lines = src.lines as number[] | undefined;
+      if (srcFile && lines && fs.existsSync(path.join(__dirname, '..', srcFile))) {
+        const pumlText = fs.readFileSync(path.join(__dirname, '..', srcFile), 'utf-8');
+        const pumlLines = pumlText.split('\n');
+        const blockLines = pumlLines.slice((lines[0] || 1) - 1, lines[1] || lines[0]);
+        const taskRefs: string[] = [];
+        const reqRefs: string[] = [];
+        for (const line of blockLines) {
+          for (const tm of line.matchAll(/T(\d+(?:\.\d+)?)/g)) {
+            const tNum = tm[1];
+            for (const tid of idx.list()) {
+              const tu = idx.get(tid);
+              if (tu?.ior === 'ior:class:Task' && String(tu.model.slug || '').match(new RegExp(`^task-${tNum.replace('.', '\\.')}`))) {
+                const ior = `ior:instance:${tid}`;
+                if (!taskRefs.includes(ior)) taskRefs.push(ior);
+              }
+            }
+          }
+          for (const rm of line.matchAll(/R(\d+\.\d+)/g)) {
+            for (const rid of idx.list()) {
+              const ru = idx.get(rid);
+              if (ru?.ior === 'ior:class:Requirement' && String(ru.model.name || '').includes(rm[0])) {
+                const ior = `ior:instance:${rid}`;
+                if (!reqRefs.includes(ior)) reqRefs.push(ior);
+              }
+            }
+          }
+          // S16 structured: task: T110, requirement: R16.1
+          const taskField = line.match(/^\s*task:\s*T(\d+)/i);
+          if (taskField) {
+            for (const tid of idx.list()) {
+              const tu = idx.get(tid);
+              if (tu?.ior === 'ior:class:Task' && String(tu.model.slug || '').match(new RegExp(`^task-${taskField[1]}`))) {
+                const ior = `ior:instance:${tid}`;
+                if (!taskRefs.includes(ior)) taskRefs.push(ior);
+              }
+            }
+          }
+        }
+        if (taskRefs.length) { m.tasks = taskRefs; changed = true; }
+        if (reqRefs.length) { m.requirement = reqRefs[0]; changed = true; }
+      }
+    }
+
+    const status = changed ? (dryRun ? 'would fix' : 'fixed') : 'ok';
+    console.log(`${String(m.name || uuid.slice(0,8))} | ${m.object || '∅'} | ${m.verb || '∅'} | ${(m.requirement ? 1 : 0) + ((m.tasks as string[])?.length || 0)} refs | ${(m.tasks as string[])?.length || 0} | ${status}`);
+
+    if (changed && !dryRun) { idx.put(uuid, unit); fixed++; }
+  }
+  console.log(`\n${fixed} UCs ${dryRun ? 'would be' : ''} fixed.`);
+}
+
 const args = process.argv.slice(2);
 const sprintIdx = args.indexOf('--sprint');
 const sprint = sprintIdx !== -1 ? args[sprintIdx + 1] : null;
 const dryRun = !args.includes('--apply');
 
-if (!sprint) {
-  console.log('Usage: npx tsx scripts/migrate-to-scenario.ts --sprint <slug> [--apply]');
+if (args.includes('--fix-uc-quality')) {
+  const idx = new ScenarioIndex(INDEX_DIR);
+  fixUcDataQuality(idx, dryRun);
+  if (dryRun) console.log('\nDry run complete. Use --apply to write.');
+} else if (!sprint) {
+  console.log('Usage:\n  npx tsx scripts/migrate-to-scenario.ts --sprint <slug> [--apply]\n  npx tsx scripts/migrate-to-scenario.ts --fix-uc-quality [--apply]');
   process.exit(1);
+} else {
+  migrateSprint(sprint, dryRun);
+  if (dryRun) console.log('\nDry run complete. Use --apply to write files.');
 }
-
-migrateSprint(sprint, dryRun);
-if (dryRun) console.log('\nDry run complete. Use --apply to write files.');

@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "16a01161-d161-4a01-b161-000000116001",
+    "name": "traceChain.auditOrphans",
+    "object": "TraceConsistency",
+    "verb": "auditOrphans",
+    "tasks": [
+      "ior:instance:01168fc2-d36a-4e57-b804-7f6ec2935b16"
+    ],
+    "classes": [],
+    "requirement": null,
+    "source": {
+      "file": "scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml",
+      "lines": [
+        133,
+        139
+      ],
+      "commit": "d87e826",
+      "repo": "Web4RawBin",
+      "ior": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml?commit=d87e826&lines=133-139"
+    }
+  },
+  "ownerIor": "ior:instance:87dcd77d-ae44-4763-b5d7-a89256036db6"
+}

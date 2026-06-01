@@ -3,9 +3,12 @@
   "model": {
     "uuid": "17a00301-0001-4a01-a001-000017030001",
     "name": "view.renderHtml",
-    "object": "",
-    "verb": "",
-    "tasks": [],
+    "object": "view",
+    "verb": "renderHtml",
+    "tasks": [
+      "ior:instance:b72e58c4-91d3-4a07-b845-3c6f1d92e7a0",
+      "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d"
+    ],
     "classes": [],
     "requirement": null,
     "source": {

@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "16a01001-d001-4a01-b001-000000110001",
+    "name": "detailDrawer.open",
+    "object": "RbDetailDrawer",
+    "verb": "open",
+    "tasks": [
+      "ior:instance:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50"
+    ],
+    "classes": [],
+    "requirement": null,
+    "source": {
+      "file": "scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml",
+      "lines": [
+        15,
+        21
+      ],
+      "commit": "d87e826",
+      "repo": "Web4RawBin",
+      "ior": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml?commit=d87e826&lines=15-21"
+    }
+  },
+  "ownerIor": "ior:instance:87dcd77d-ae44-4763-b5d7-a89256036db6"
+}

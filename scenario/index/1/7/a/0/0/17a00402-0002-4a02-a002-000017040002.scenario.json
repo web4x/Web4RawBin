@@ -3,9 +3,11 @@
   "model": {
     "uuid": "17a00402-0002-4a02-a002-000017040002",
     "name": "migrate.preserveHierarchy",
-    "object": "",
-    "verb": "",
-    "tasks": [],
+    "object": "migrate",
+    "verb": "preserveHierarchy",
+    "tasks": [
+      "ior:instance:b94d2681-54f0-47e3-a431-f3d84e469b30"
+    ],
     "classes": [],
     "requirement": null,
     "source": {

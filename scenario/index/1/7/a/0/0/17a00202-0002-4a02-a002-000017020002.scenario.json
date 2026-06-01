@@ -3,9 +3,12 @@
   "model": {
     "uuid": "17a00202-0002-4a02-a002-000017020002",
     "name": "tree.generateMd",
-    "object": "",
-    "verb": "",
-    "tasks": [],
+    "object": "tree",
+    "verb": "generateMd",
+    "tasks": [
+      "ior:instance:b72e58c4-91d3-4a07-b845-3c6f1d92e7a0",
+      "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d"
+    ],
     "classes": [],
     "requirement": null,
     "source": {

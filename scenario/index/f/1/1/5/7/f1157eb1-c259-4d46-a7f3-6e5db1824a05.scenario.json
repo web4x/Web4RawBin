@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "f1157eb1-c259-4d46-a7f3-6e5db1824a05",
+    "name": "T115: Tree-item — tap-icon collapse/expand + \">\" children expander",
+    "slug": "task-115-tree-item-collapse-expand",
+    "description": "Two distinct interactions on the tree-item:\n- **Tap the icon** (R16.7): first tap **collapses** the item to just the quadratic icon\n  (T113); tap again **expands** to show name + description (T112).\n- **\">\" children expander** (R16.8): on the **right side**, show a \">\"-like icon when\n  the item has children; clicking it **expands the subtree** in the tree.\n\nThese are separate from OS drag (T114) — distinguish tap vs drag.",
+    "status": "In Progress",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
+    "remainingIssues": "",
+    "traceability": "`[task:uuid:f1157eb1-c259-4d46-a7f3-6e5db1824a05]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.7** (tap-icon collapse/expand) + **R16.8** (children expander)\n- down\n  - None (atomic task)\n- chain (req → usecase → puml → class/method)\n  - **requirement:** R16.7 + R16.8\n  - **use case:** objectItem.collapse [uc:uuid:16a01151-d151-4a01-b151-000000115001], objectItem.expand [uc:uuid:16a01152-d152-4a02-b152-000000115002], treeItem.expandChildren [uc:uuid:16a01153-d153-4a03-b153-000000115003]\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 2 package)\n  - **class/method:** `rb-object-item.ts` → `RbObjectItem.collapse()`, `expand()`, `expandChildren()` + `toggle-children` event dispatch",
+    "context": "Tron 2026-05-27: \"taping the icon once will collapse the item view just into the\nquadratic item, taping again will make the item expand to show name and description.\non rhe right side the icon will have a \">\" like icon if the item has children and\nclicking on it will expand the tree.\"",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [ ] AC1 — Tapping the left icon collapses the item to icon-only\n- [ ] AC2 — Tapping again expands to name + description\n- [ ] AC3 — A \">\" expander shows on the right ONLY when the item has children\n- [ ] AC4 — Clicking \">\" expands the child subtree (and toggles closed)\n- [ ] AC5 — Icon-tap (collapse) is distinguishable from drag (T114) and from \">\" (children)\n- [ ] `npm run build` succeeds; version + sw.js bumped; no regression",
+    "qaAudit": "- 2026-05-27: Planned from compound source R16.7+R16.8. Awaiting architect design, then Tron QA.",
+    "subtasks": "None (atomic task).\n\n---\n\n*Sprint 16 — Traceability UX & DetailViews*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 6 (Phase 2 — tree-item interactions)*",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "- **Requires:** T112 (name+desc to show on expand), T113 (square icon for collapsed state)\n- **Enables:** None",
+    "definitionOfDone": "- [ ] All AC met; traceability chain complete + links resolve\n- [ ] Tests pass, build clean\n- [ ] Tron QA approved",
+    "implementation": "**Icon tap vs drag distinction:** Use a 200ms timer. On `pointerdown` on `.oi-icon`, start timer. If `pointerup` within 200ms AND no movement (< 5px) → it's a tap → toggle collapsed. If drag starts (T114 `dragstart` fires) → cancel timer, it's a drag.\n\n```typescript\n// In rb-object-item.ts:\nprivate collapsed = false;\n\n// Icon click handler (separate from item click)\nthis.querySelector('.oi-icon')?.addEventListener('click', (e) => {\n  e.stopPropagation(); // Don't trigger item click → navigate\n  this.collapsed = !this.collapsed;\n  this.toggleAttribute('collapsed', this.collapsed);\n  this.render();\n});\n\n// Expander click handler\nthis.querySelector('.oi-expand')?.addEventListener('click', (e) => {\n  e.stopPropagation();\n  const open = this.toggleAttribute('children-open');\n  // rb-trace-tree listens for this event to show/hide children\n  this.dispatchEvent(new CustomEvent('toggle-children', { bubbles: true, detail: { open } }));\n});\n```\n\n### CSS for collapsed state\n\n```css\nrb-object-item[collapsed] .oi-content { display: none; }\nrb-object-item[collapsed] .oi-expand { display: none; }\nrb-object-item[collapsed] { padding: 4px; width: 40px; height: 40px; }\n\n/* Expander icon */\n.oi-expand {\n  width: 24px; height: 24px; cursor: pointer;\n  display: flex; align-items: center; justify-content: center;\n  color: #999; font-size: 1.2rem; flex-shrink: 0;\n  transition: transform 0.2s;\n}\nrb-object-item[children-open] .oi-expand { transform: rotate(90deg); }\n```\n\n### Tree integration\n\n`rb-trace-tree.ts` listens for `toggle-children` events and shows/hides the child `<div>` that contains nested `rb-object-item` elements. The `has-children` attribute on `rb-object-item` is set by the tree builder when the TraceModel object has outgoing links.",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:87dcd77d-ae44-4763-b5d7-a89256036db6"
+}

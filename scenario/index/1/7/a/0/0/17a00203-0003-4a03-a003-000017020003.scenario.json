@@ -3,9 +3,11 @@
   "model": {
     "uuid": "17a00203-0003-4a03-a003-000017020003",
     "name": "tree.navigate",
-    "object": "",
-    "verb": "",
-    "tasks": [],
+    "object": "tree",
+    "verb": "navigate",
+    "tasks": [
+      "ior:instance:b66fdf54-04f4-4609-9ded-04c835348b32"
+    ],
     "classes": [],
     "requirement": null,
     "source": {
