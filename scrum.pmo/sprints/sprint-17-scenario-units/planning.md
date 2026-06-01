@@ -253,10 +253,17 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 23 — Forward-only chain refactor (Tron critical correction 2026-06-01, B18 promoted; supersedes T155 direction)
 
-- [ ] ⏳ [T159: Forward-only traceability chain — refactor (remove back-refs)](./task-159-forward-only-traceability-chain-refactor.md)
-  **Status:** PLANNED — Tron critical correction (PO 2026-06-01, B18 backlog): "the traceability traces requirements to tasks to use cases to classes and methods. tasks do not trace back to requirements. multiple requirements can be addressed in the same task, but from the task ist goes into subtasks and use cases never back to requirements." **OVERRIDES T155 bidirectional direction.** Strip back-refs from all scenarios (Task/UC/Class/Method); refactor T155 reverse-scan to forward-only input; standard update. **Hard blocker for T158** (browser must render forward-only).
-  **Owners (CMM4):** robbin-req (B18 anchored in backlog — planner-suggested req:uuid, req-eng to canonicalize) → robbin-architect (data-model re-design + strip migration + standard update) → robbin-expert (LoaderDefaults + migration + T155 refactor; rule-pair (a)+(b)) → robbin-tester (per-class zero-back-ref audit + T143 walkDown + T126 regen + forward regression)
-  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
+- [ ] ✅ [T159: Forward-only traceability chain — refactor (remove back-refs)](./task-159-forward-only-traceability-chain-refactor.md)
+  **Status:** impl-shipped (`58b17e3` v0.5.56 — forward-only chain strip-back-refs + validator). Rule-pair (a)+(b) BOTH ✓. **OVER-STRIP FINDING (tester TS2):** `requirement.tasks[]` + `task.useCases[]` now EMPTY because prior pipeline derived forward arrays from back-refs. Repopulation handled by **T160** below.
+  **Owners (CMM4):** robbin-req → robbin-architect → robbin-expert (58b17e3 ✓) → robbin-tester (TS2 found over-strip → escalated to T160). Testing remaining pending → Tron QA after T160 lands.
+  **Rule-pair scope:** (a)+(b) ✓; (c) exempt
+
+### Phase 24 — Forward-ref REPOPULATION + browser data-freshness (T159 over-strip root cause; PO directive 2026-06-01)
+
+- [ ] ⏳ [T160: Forward-ref REPOPULATION + browser data-freshness (T159 over-strip root cause)](./task-160-trace-browser-stale-requirement-items.md)
+  **Status:** PLANNED — Tron bug: "why does the traceability browser's requirement items do not change even when the scenarios changed?" Root cause IDENTIFIED (PO via T159 tester TS2): T159 over-stripped forward arrays. Forward refs must be REPOPULATED from forward sources (parse `requirements.md` forward bullets + task files' forward bullets), **preserving T159/B18 no-back-ref rule**. Closes both bugs in one task: empty forward arrays + stale browser items.
+  **Owners (CMM4):** robbin-req (capture verbatim Tron quote; planner-suggested req:uuid:cda06ff4-…) → robbin-architect (forward-source repopulation design + secondary cache-strategy validation + standard update) → robbin-expert (repopulation migration + any cache fix; rule-pair (a)+(b)) → robbin-tester (per-Req + per-Task forward-count audit, walkDown resolves, **browser mutation→reflection** test, no back-refs reintroduced)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) STATIC_SHELL — architect confirms (likely exempt)
 
 ### Phase 6 — Verification (T129, tester + planner)
 
