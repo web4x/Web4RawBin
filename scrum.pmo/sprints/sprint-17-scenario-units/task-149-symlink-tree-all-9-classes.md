@@ -31,17 +31,11 @@
 
 - up
   - [Sprint 17 Planning](./planning.md)
-  - **Tron quote capture (req-eng):** *(awaiting req-eng B-entry / verbatim anchor — PO 2026-06-01 directed stand-up + reinforced "same for requirements, classes methods")*
-  - **Symlink-tree-all-9-classes requirement (planner-suggested; req-eng to anchor/override on capture)**
-    `[requirement:uuid:127e6260-6ffe-4e25-9527-1f6b951edd2f]`
-    Planner summary (req to confirm / correct from Tron's literal):
-    > T131 introduced the symlink tree (`scenarios/sprints.md/task/<speaking>.md`)
-    > for the Task class. Tron's directive: extend the same symlink scheme to
-    > **ALL 9 scenario classes** (Tron reinforced "same for requirements,
-    > classes methods"). Each class gets its own subdir
-    > `scenarios/sprints.md/<class>/<speaking>.md` with a speaking-name symlink
-    > to the canonical `scenario/index/<prefix>/<uuid>.scenario.json`. After
-    > this, 🔗 in T141 / T144 / T147 resolves universally — not just for Tasks.
+  - **Tron quote capture (req-eng anchored 2026-06-01):** B10 in [scrum.pmo/backlog.md](../../backlog.md), commits `7044557` + `cce6d5e`
+  - **B10 requirement** `[requirement:uuid:f0a1b2c3-d4e5-4f6a-b7c8-901234560ab0]`
+    Verbatim Tron quotes:
+    > "no ! this is not expected behavior!! this is a big implication gap"
+    > "same for requirements, classes methods"
 - down
   - None (atomic at parent level; architect may split T149.x sub-tasks per class group if scope warrants — coordinate with planner first)
 - follows
@@ -52,7 +46,7 @@
   - [T143: Chain → tree rework](./task-143-traceability-tree-rework.md) — R17.27 "every typed reference a clickable link"; T149 is what makes the link **resolve** for all 9 types
   - [T145: User class scenario-unit](./task-145-user-scenario-viewbus.md) — User is one of the 9 classes T149 must include
 - chain (req → usecase → puml → class/method) — architect to fill on refinement
-  - **requirement:** symlink-tree-all-9-classes (above; planner-suggested → req-eng anchor)
+  - **requirement:** B10 `[requirement:uuid:f0a1b2c3-d4e5-4f6a-b7c8-901234560ab0]` (req-eng anchored)
   - **use case:** UC-TBD (architect — likely `symlinkTree.emitPerClass`, `symlinkTree.backFillExisting`)
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds the new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** symlink emitter (T131's module, TBD by architect — may live in `scripts/` or as a server-side helper) / `scrum.pmo/standards/traceability-standard.md` (spec) — architect names the concrete locations
@@ -215,7 +209,8 @@ File: `test/vitest/symlink-tree-all-classes.test.ts` (new) + visual on `/md/scen
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
-- 2026-06-01: PO directed planner to stand up T149 with explicit per-class enumeration (Tron reinforced "same for requirements, classes methods"). req-eng to capture the verbatim Tron quote and anchor (or replace) the planner-suggested `requirement:uuid` on the next pass. CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC15 + DoD (learnings #15+#16). Awaiting req anchor → architect design → expert impl + back-fill → tester per-class verify → Tron QA.
+- 2026-06-01: PO directed planner to stand up T149 with explicit per-class enumeration (Tron reinforced "same for requirements, classes methods"). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC15 + DoD (learnings #15+#16).
+- 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:127e6260` with req's canonical `requirement:uuid:f0a1b2c3` (from B10 capture, commits `7044557` + `cce6d5e`). Both verbatim Tron quotes anchored: the emphatic "no ! this is not expected behavior!! this is a big implication gap" + the scope clarification "same for requirements, classes methods". Planner summary was accurate — all 9 classes confirmed. Ready for architect.
 
 ## Subtasks
 None at parent level (architect may split T149.x per class group if useful — coordinate with planner first).
