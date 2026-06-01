@@ -170,7 +170,7 @@ prose. Then **migrate every existing sprint** to this model.
 ### Phase 11 — `.md` listing symmetric icons with `.json` side (PO directive 2026-06-01, plan-ahead only)
 
 - [ ] ✅ [T147: Chain-link icon in `/md/` directory listing for `scenarios/sprints.md/` subtrees](./task-147-md-listing-chain-link-icon.md)
-  **Status:** impl-shipped (`2ff001b` architect design → `111f0c8` expert v0.5.43 — 🔗 scenario link on sprints.md/ listings). Rule-pair (a)+(b) BOTH ✓ in 111f0c8 commit-set (package.json + sw.js CACHE_NAME → rawbin-v0.5.43). **FLAG ⚠️:** req-eng verbatim Tron-quote anchor still pending — backfill needed (CMM4 4-role sequence inversion: architect+expert ran ahead of req). Testing pending → Tron QA.
+  **Status:** impl-shipped (`2ff001b` architect design → `111f0c8` expert v0.5.43 — 🔗 scenario link on sprints.md/ listings → `0d36b4d` req-eng B8 anchor backfill: canonical `requirement:uuid:d8e9f0a1-…` replaced planner-suggested, verbatim Tron quote anchored). Rule-pair (a)+(b) BOTH ✓ in 111f0c8. **Req debt CLEARED** (PO confirmation 2026-06-01). Testing pending → Tron QA.
   **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (renderer change + 📋 glyph + rb-file-tree mirroring + standard update if applicable) → robbin-expert (impl in `server.ts /md/` + rb-file-tree; rule-pair (a)+(b)) → robbin-tester (visual + click-through + side-by-side `.json`/`.md` symmetry + T144/T141 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
 
@@ -209,8 +209,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 17 — UseCase residual fields: classes + requirement singular (T152 follow-up; PO directive 2026-06-01)
 
-- [ ] ✅ [T153: T152 follow-up — populate `model.classes` + `model.requirement` on UseCases](./task-153-populate-classes-requirement-on-ucs.md)
-  **Status:** impl-shipped (architect pre-design adopted from stub → `ee04ffb` req-eng anchor B14 verbatim ("quality much better… classes array and requirements still empty and traceability therefore broken"; canonical `requirement:uuid:d4e5f6a7-…`) → `0365ff1` expert v0.5.50 UC class refs from PUML arrows + S16 `object:` field). Rule-pair (a)+(b) BOTH ✓ in 0365ff1 (package.json + sw.js CACHE_NAME → rawbin-v0.5.50). T153 req backfill DONE (debt cleared). Testing pending → Tron QA.
+- [ ] 🔧 [T153: T152 follow-up — populate `model.classes` + `model.requirement` on UseCases](./task-153-populate-classes-requirement-on-ucs.md)
+  **Status:** PARTIAL impl (architect pre-design adopted from stub → `ee04ffb` req-eng anchor B14 verbatim ("quality much better… classes array and requirements still empty and traceability therefore broken"; canonical `requirement:uuid:d4e5f6a7-…`) → `0365ff1` expert v0.5.50: **classes ✓** from PUML arrows + S16 `object:` field, rule-pair (a)+(b) ✓; **BUT requirement resolution BLOCKED** — R-number → `requirement:uuid` resolver not yet designed/shipped. Architect still owes R-resolution design; expert owes resolver impl. Per PO 2026-06-01: **do NOT close T153 until requirements resolution lands**. Symbol walked back ✅ → 🔧.
   **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (classes-extraction rule + requirement-singular resolver + per-UC audit extensions + standard update) → robbin-expert (extends T152 script; dry-run + apply; rule-pair (a)+(b)) → robbin-tester (per-UC verify + ≥5-UC round-trip + T117/T126/T143/T149/T151/T152 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
   **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (derivation rule + PUML extraction rule + per-UC audit + standard update) → robbin-expert (data-quality script + dry-run + apply, rule-pair (a)+(b)) → robbin-tester (per-UC verify + ≥5-UC round-trip + T117/T126/T143/T149/T151 regression)
