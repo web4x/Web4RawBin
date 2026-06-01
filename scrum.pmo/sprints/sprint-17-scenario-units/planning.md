@@ -169,16 +169,23 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 11 — `.md` listing symmetric icons with `.json` side (PO directive 2026-06-01, plan-ahead only)
 
-- [ ] ⏳ [T147: Chain-link icon in `/md/` directory listing for `scenarios/sprints.md/` subtrees](./task-147-md-listing-chain-link-icon.md)
-  **Status:** PLANNED — Tron plan-ahead-only (no agent kick-off yet). Make `.md` directory listings symmetric with the `.json` side post-T144: per-row `📋 🔗 ✏️` (order `🔗 ✏️` matching T144); 🔗 → canonical `scenario/index/.../uuid.scenario.json`; ✏️ → `/edit/<path>`. req-eng to capture verbatim Tron quote next.
+- [ ] ✅ [T147: Chain-link icon in `/md/` directory listing for `scenarios/sprints.md/` subtrees](./task-147-md-listing-chain-link-icon.md)
+  **Status:** impl-shipped (`2ff001b` architect design → `111f0c8` expert v0.5.43 — 🔗 scenario link on sprints.md/ listings). Rule-pair (a)+(b) BOTH ✓ in 111f0c8 commit-set (package.json + sw.js CACHE_NAME → rawbin-v0.5.43). **FLAG ⚠️:** req-eng verbatim Tron-quote anchor still pending — backfill needed (CMM4 4-role sequence inversion: architect+expert ran ahead of req). Testing pending → Tron QA.
   **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (renderer change + 📋 glyph + rb-file-tree mirroring + standard update if applicable) → robbin-expert (impl in `server.ts /md/` + rb-file-tree; rule-pair (a)+(b)) → robbin-tester (visual + click-through + side-by-side `.json`/`.md` symmetry + T144/T141 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
 
 ### Phase 12 — File-browser path-header clickable → parent dir (PO directive 2026-06-01)
 
-- [ ] ⏳ [T148: File-browser path-header clickable → parent dir navigation](./task-148-file-browser-path-header-clickable.md)
-  **Status:** PLANNED — page-level breadcrumb in `/md/<path>` listings: split the path-header into per-segment anchors, each navigating to that segment's directory. Sibling to T144 (row-level icons on `.json`) and T147 (row-level icons on `.md`); T148 is page-level, no conflict. req-eng to capture verbatim Tron quote.
+- [ ] 📝 [T148: File-browser path-header clickable → parent dir navigation](./task-148-file-browser-path-header-clickable.md)
+  **Status:** req anchored (`555ca7c` — verbatim Tron quote "in the file browser make the first line clickable eg scenario/ 📁 index/ so scenario is clickable and will go 1 folder up"; B9 in backlog.md `4bb3f82`; canonical `requirement:uuid:e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9`). Awaiting architect design → expert impl → tester verify.
   **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (segment-split + cumulative-href + separator styling + rb-file-tree mirroring decision) → robbin-expert (impl in `server.ts /md/` renderer; rule-pair (a)+(b)) → robbin-tester (visual + click-through + T144/T147/T141 regression)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
+
+### Phase 13 — Universal symlink tree across all 9 scenario classes (PO directive 2026-06-01 — Tron "same for requirements, classes methods")
+
+- [ ] ⏳ [T149: Extend symlink tree to all 9 scenario classes — universal 🔗 resolution](./task-149-symlink-tree-all-9-classes.md)
+  **Status:** PLANNED — T131's Task-only symlink tree extended to ALL 9 scenario classes (Requirement / UseCase / Task / Class / Method / Test / TraceLink / User / View) so 🔗 in T141/T144/T147 resolves universally. Per-class AC1–AC9 enumerated explicitly per Tron reinforcement.
+  **Owners (CMM4):** robbin-req (verbatim Tron anchor; confirm 9-class enumeration) → robbin-architect (per-class emitter generalization + speaking-name resolver + back-fill migrator) → robbin-expert (impl + back-fill on existing index; rule-pair (a)+(b)) → robbin-tester (per-class verification + chain audit + T131/T141/T144/T147 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
 
 ### Phase 6 — Verification (T129, tester + planner)

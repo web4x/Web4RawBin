@@ -5,11 +5,11 @@
 [task:uuid:ea70d80c-66e8-459a-af3d-74b137341303]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — `2ff001b` architect design; **req verbatim Tron-quote anchor still pending — backfill needed**)
   - [ ] creating test cases
-  - [x] implementing
+  - [x] implementing (`111f0c8` v0.5.43 — rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME → rawbin-v0.5.43)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
