@@ -8,6 +8,16 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **B13 — UseCase object+verb empty, traceability links missing**
+  [requirement:uuid:c3d4e5f6-a7b8-4c9d-e0f1-234567890b13]
+  > TRON DIRECTIVE: "i picked an arbitrary example...still no traceability content inside. object, verb empty even if it can be derived from name. bad data quality"
+
+  UseCase scenario units MUST have populated `object` + `verb` fields (split from name, e.g. "unit.load" → object="unit", verb="load") + traceability links (tasks, classes, requirement) extracted from PUML source. Same diligent migration discipline as T151 — no information loss. Bad data quality is unacceptable per Tron.
+
+  **Sprint:** TBD (planner to triage)
+  **Touches:** migration script (UseCase emitter), PUML parser (extract UC→class/method/requirement edges), scenario JSON `model.object`/`model.verb`/traceability arrays
+  **Related:** T151 (MD→JSON migration — same discipline), T149 (UC symlinks), T140 (source-location IOR)
+
 - **B12 — Scenario JSON traceability arrays empty — migrate from MD**
   [requirement:uuid:b2c3d4e5-f6a7-4b8c-d9e0-123456780b12]
   > TRON DIRECTIVE: "the md file traceability content is good but its not at all reflected in the json scenarios. all tasks and usecases arrays with traceability reference are empty but the json should be the source from with the traceability section is generated. migrate the md traceability content diligently to data without loosing infos that you have in the plain text. this is a big diligent task for architect and req agent to fix that needs to be carefully tracked."
