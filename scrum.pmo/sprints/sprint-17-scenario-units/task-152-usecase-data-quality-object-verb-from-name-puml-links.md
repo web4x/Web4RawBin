@@ -94,6 +94,55 @@ from the PUML refs; (c) audit per-UC that both are present and counts match.
 - Per-UC audit: `object` and `verb` non-empty AND `links` count ==
   `PUML refs` count for that UC
 
+## Design (robbin-architect, 2026-06-01 — adopted from `b741d50` pre-design; impl 1b62d75)
+
+### Derivation rule — `deriveObjectVerb(name)`
+```typescript
+function deriveObjectVerb(name: string): { object: string; verb: string } {
+  const lastDot = name.lastIndexOf('.');
+  if (lastDot === -1) return { object: name, verb: '' };
+  return {
+    object: name.slice(0, lastDot),   // 'ior' from 'ior.resolveClass'
+    verb: name.slice(lastDot + 1),    // 'resolveClass' from 'ior.resolveClass'
+  };
+}
+```
+Applied to all 15 existing S17 UCs + future UCs where object/verb are empty.
+**Audit evidence (15 UCs split cleanly, zero ambiguity):** unit.load → unit/load, ior.resolveClass → ior/resolveClass, ior.resolveInstance, index.put, index.get, view.renderHtml, view.renderMd, view.liveUpdate, tree.generateMd, tree.navigate, tree.symlinkJson, migrate.sprintToScenario, migrate.preserveHierarchy, planning.generate, chain.traceMethodToReq.
+
+### PUML extraction — two formats supported
+
+**S17 free-form** (existing `s17-usecases.puml`):
+```
+class "unit.load" <<UseCase>> {
+    [uc:uuid:17a00101-...]
+    R17.1 + R17.2              ← requirement refs (split on +, /, ,)
+    T124.1 / T125              ← task refs (split on /, ,)
+    Read scenario JSON...      ← description (ignored for refs)
+}
+```
+Parse rules:
+- Lines matching `R\d+\.\d+` → `model.chain.requirement` / `model.links.requirements[]`
+- Lines matching `T\d+(?:\.\d+)?` → `model.links.tasks[]`
+
+**S16 structured fields** (also S16 17 UCs migrated by this task):
+```
+class "detailDrawer.open" <<UseCase>> {
+    [uc:uuid:16a01001-...]
+    requirement: R16.1
+    task: T110
+    object: RbDetailDrawer
+    verb: open
+}
+```
+Parse rules: `key: value` lines map directly to `model.<key>` fields.
+
+### Two-part fix landed in `1b62d75` v0.5.49
+- **Part 1** auto-derives object/verb across all 15 S17 UCs (`deriveObjectVerb`)
+- **Part 2** parses both PUML formats; populates `model.links.tasks[]`, `model.links.requirements[]` (+ S16 `classes` / `requirement` / `object` / `verb`); migrates the 17 S16 UCs into the scenario index alongside S17
+
+Per-UC audit table evidence to be committed by tester in QA Audit (AC5 hard-FAIL gate).
+
 ## Acceptance Criteria
 - [ ] AC1 (Derivation rule) — Architect-finalized rule documented in
   `scrum.pmo/standards/traceability-standard.md`: how `object` + `verb` are

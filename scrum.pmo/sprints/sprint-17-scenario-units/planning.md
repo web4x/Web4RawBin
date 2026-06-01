@@ -205,7 +205,14 @@ prose. Then **migrate every existing sprint** to this model.
 ### Phase 16 — UseCase data quality (object/verb + PUML links) (PO directive 2026-06-01)
 
 - [ ] ✅ [T152: UseCase data quality — derive object/verb from name + populate tasks/classes/requirement links from PUML](./task-152-usecase-data-quality-object-verb-from-name-puml-links.md)
-  **Status:** impl-shipped (`b741d50` architect pre-design → `119e9c8` req-eng anchor B13 verbatim ("i picked an arbitrary example...still no traceability content inside. object, verb empty even if it can be derived from name. bad data quality"; canonical `requirement:uuid:c3d4e5f6-…`) → `1b62d75` expert v0.5.49 UC data quality + PUML refs + S16 migration). Rule-pair (a)+(b) BOTH ✓ in 1b62d75 (package.json + sw.js CACHE_NAME → rawbin-v0.5.49). Testing pending (TS1–TS10 + ≥5-UC round-trip + regression) → Tron QA.
+  **Status:** impl-shipped (`b741d50` architect pre-design → `119e9c8` req-eng anchor B13 verbatim ("i picked an arbitrary example...still no traceability content inside. object, verb empty even if it can be derived from name. bad data quality"; canonical `requirement:uuid:c3d4e5f6-…`) → `1b62d75` expert v0.5.49 UC data quality + PUML refs + S16 migration). T-152 collision resolved (architect stub `task-152-uc-data-quality-migration.md` removed; design merged into the full Web4Articles file). Rule-pair (a)+(b) BOTH ✓ in 1b62d75 (package.json + sw.js CACHE_NAME → rawbin-v0.5.49). Testing pending (TS1–TS10 + ≥5-UC round-trip + regression) → Tron QA.
+
+### Phase 17 — UseCase residual fields: classes + requirement singular (T152 follow-up; PO directive 2026-06-01)
+
+- [ ] 📝 [T153: T152 follow-up — populate `model.classes` + `model.requirement` on UseCases](./task-153-populate-classes-requirement-on-ucs.md)
+  **Status:** architect design adopted (stub `task-153-uc-class-req-refs.md` merged into Design section: PUML class-refs parser via alias map + S16 `object:` field + S17 free-form `R17.X` requirement parser + new `model.requirements[]` plural schema; T-153 collision resolved). **FLAG ⚠️:** req-eng verbatim Tron-quote anchor still pending — backfill needed. Awaiting expert impl → tester per-UC verify → Tron QA.
+  **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (classes-extraction rule + requirement-singular resolver + per-UC audit extensions + standard update) → robbin-expert (extends T152 script; dry-run + apply; rule-pair (a)+(b)) → robbin-tester (per-UC verify + ≥5-UC round-trip + T117/T126/T143/T149/T151/T152 regression)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
   **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (derivation rule + PUML extraction rule + per-UC audit + standard update) → robbin-expert (data-quality script + dry-run + apply, rule-pair (a)+(b)) → robbin-tester (per-UC verify + ≥5-UC round-trip + T117/T126/T143/T149/T151 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
 
