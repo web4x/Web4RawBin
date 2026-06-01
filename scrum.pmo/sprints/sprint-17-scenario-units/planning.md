@@ -167,6 +167,13 @@ prose. Then **migrate every existing sprint** to this model.
   **Owners (CMM4):** robbin-req (retro-clean audit, dup-list) → robbin-architect (format spec + template change + standard update + symmetric scope decision) → robbin-expert (migrator + T126/T141 + trace-cli validator) → robbin-tester (0-dup + visual + regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route, architect confirms)
 
+### Phase 11 — `.md` listing symmetric icons with `.json` side (PO directive 2026-06-01, plan-ahead only)
+
+- [ ] ⏳ [T147: Chain-link icon in `/md/` directory listing for `scenarios/sprints.md/` subtrees](./task-147-md-listing-chain-link-icon.md)
+  **Status:** PLANNED — Tron plan-ahead-only (no agent kick-off yet). Make `.md` directory listings symmetric with the `.json` side post-T144: per-row `📋 🔗 ✏️` (order `🔗 ✏️` matching T144); 🔗 → canonical `scenario/index/.../uuid.scenario.json`; ✏️ → `/edit/<path>`. req-eng to capture verbatim Tron quote next.
+  **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (renderer change + 📋 glyph + rb-file-tree mirroring + standard update if applicable) → robbin-expert (impl in `server.ts /md/` + rb-file-tree; rule-pair (a)+(b)) → robbin-tester (visual + click-through + side-by-side `.json`/`.md` symmetry + T144/T141 regression)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
+
 ### Phase 6 — Verification (T129, tester + planner)
 
 - [ ] 🧪 [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)
