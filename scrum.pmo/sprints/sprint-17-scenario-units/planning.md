@@ -183,10 +183,17 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 13 — Universal symlink tree across all 9 scenario classes (PO directive 2026-06-01 — Tron "same for requirements, classes methods")
 
-- [ ] 📝 [T149: Extend symlink tree to all 9 scenario classes — universal 🔗 resolution](./task-149-symlink-tree-all-9-classes.md)
-  **Status:** architect design adopted (`3f8cd33` pre-design merged into Design section: `emitClassSymlinks()` per-class helper + `speakSlug` + TraceLink uuid collection + T147 `scenarioLink` scan-deeper). Resolved T-149 collision (architect's stub `task-149-symlink-tree-all-classes.md` removed; planner's full-template file kept). **FLAG ⚠️:** req-eng verbatim Tron-quote anchor still pending — backfill needed. Awaiting expert impl + back-fill → tester per-class verify → Tron QA.
+- [ ] ✅ [T149: Extend symlink tree to all 9 scenario classes — universal 🔗 resolution](./task-149-symlink-tree-all-9-classes.md)
+  **Status:** impl-shipped (`3f8cd33` arch pre-design + `9669370` req anchor backfill (B10, canonical `requirement:uuid:f0a1b2c3-...`) → `b55abd8` expert v0.5.45 per-class symlink subdirs → `de7f348` arch slug-mismatch fix design → `1478924` expert v0.5.46 full-UUID tracelinks + two-strategy scenarioLink). Rule-pair (a)+(b) ✓ in BOTH ship commits (v0.5.45 + v0.5.46). Testing pending (per-class TS1–TS9) → Tron QA.
   **Owners (CMM4):** robbin-req (verbatim Tron anchor; confirm 9-class enumeration) → robbin-architect (per-class emitter generalization + speaking-name resolver + back-fill migrator) → robbin-expert (impl + back-fill on existing index; rule-pair (a)+(b)) → robbin-tester (per-class verification + chain audit + T131/T141/T144/T147 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
+
+### Phase 14 — File-browser breadcrumb link contrast (CSS) (PO directive 2026-06-01)
+
+- [ ] ⏳ [T150: File-browser breadcrumb link color contrast fix (CSS)](./task-150-breadcrumb-link-contrast.md)
+  **Status:** PLANNED — small CSS contrast fix on T148's breadcrumb segments (T148 currently 📝). Pick unvisited / visited / hover colors that read cleanly on file-browser background (architect may adopt T58 precedent). req-eng to capture verbatim Tron quote.
+  **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (color scheme + scope: breadcrumb-only vs all anchors + adopt T58 precedent?) → robbin-expert (CSS only, rule-pair (a)+(b)) → robbin-tester (visual + contrast-checker + T148/T144/T147 regression)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) exempt (CSS-only)
 
 ### Phase 6 — Verification (T129, tester + planner)
 
