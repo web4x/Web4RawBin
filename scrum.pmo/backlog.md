@@ -8,6 +8,16 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **B16 — Requirement tasks[] and tests[] still empty**
+  [requirement:uuid:f6a7b8c9-daeb-4fc0-a123-456789010b16]
+  > TRON DIRECTIVE: "requirement quality has improved.. BUT tasks and tests are still empty"
+
+  Requirement scenario units MUST have populated `model.tasks[]` AND `model.tests[]`. Derive from bidirectional graph closure: scan task files for upward requirement refs (`links.up` R17.x) → reverse-populate `requirement.tasks[]`; scan test files for `[test:uuid:]` + their requirement coverage → populate `requirement.tests[]`. Same no-loss gate.
+
+  **Sprint:** TBD (planner to triage)
+  **Touches:** migration script (bidirectional graph resolver), task scenario JSON (links.up has req refs), test files ([test:uuid:] tags), Requirement scenario JSON (tasks[] + tests[])
+  **Related:** T154 (name/description done — B16 closes tasks[]+tests[]), T151 (same discipline), T119 (test traceability)
+
 - **B15 — Requirement name ≠ description, tasks[] empty**
   [requirement:uuid:e5f6a7b8-c9da-4ebf-0a12-345678900b15]
   > TRON DIRECTIVE: "data quality massively improved...requirement quality still poor. name and description should differ. name should be similar to filename but plain English. tasks traceability is still empty. needs to improve too."
