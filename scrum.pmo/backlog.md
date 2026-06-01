@@ -8,6 +8,25 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **B18 — Traceability chain is FORWARD-ONLY (no upward back-refs)**
+  [requirement:uuid:1a9750fa-6a64-4a28-a2f8-468ae73ec756] *(planner-suggested; req-eng to anchor/override on capture)*
+  > TRON DIRECTIVE (verbatim, relayed via PO 2026-06-01): "the traceability traces requirements to tasks to use cases to classes and methods. tasks do not trace back to requirements. multiple requirements can be addressed in the same task, but from the task ist goes into subtasks and use cases never back to requirements."
+
+  **Critical correction to the traceability model.** OVERRIDES T155 bidirectional closure direction-wise. Forward chain ONLY:
+  - `requirement.tasks[]` (forward) — multiple requirements MAY list the same task
+  - `task.subtasks[]` (forward, T-decimal hierarchy)
+  - `task.useCases[]` (forward) — UCs live INSIDE tasks, not directly under requirements
+  - `useCase.classes[]` (forward)
+  - `class.methods[]` (forward)
+  - **NO** `task.links.up → requirement` (anti-pattern per Tron)
+  - **NO** `useCase.requirement` / `useCase.requirements[]` (UC doesn't trace back to requirement directly)
+  - **NO** any reverse-closure / back-ref from task / UC / class / method back to a parent type
+
+  **Cleanup scope:** existing data populated by T151/T155 with reverse arrays needs back-ref removal; T155 reverse-scan logic refactor; standard update; T158 design must reflect forward-only chain.
+
+  **Sprint:** TBD (planner promoting to T159 in S17 — direct PO direction 2026-06-01)
+  **Touches:** scenario JSON models (Task / UseCase / Class / Method — drop back-refs); `scripts/migrate-to-scenario.ts` (T155 reverse-closure logic); `scrum.pmo/standards/traceability-standard.md` (canonical chain spec); T158 browser ACs
+
 - **B17 — Traceability browser must show full chain data**
   [requirement:uuid:a7b8c9da-ebfc-4d01-a234-567890120b17]
   > TRON DIRECTIVE: "as now data exists that traces till the class method, architect how the traceability browser has to change to reflect the full data"

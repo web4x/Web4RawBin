@@ -95,7 +95,7 @@ Tron explicitly assigned the design to the architect.
 - [ ] AC1 (Design — architect-led) — Architect-finalized design documented in `scrum.pmo/standards/traceability-standard.md`: per-type DetailView coverage matrix; tree-item rendering per type; data fields surfaced per view; scope decision on R17.24 source-location IORs
 - [ ] AC2 (DetailViews — Class/Method/Test/Implementation) — Web Components exist per type (architect-finalized list); registered in VerbRegistry per T111 pattern; render data from `model.links.*` / `model.chain.*`
 - [ ] AC3 (Tree-item rendering) — Tree-items show NAME + speaky description (per T146) + per-type icon + clickable chain edges (per T143); all 7 chain types render consistently
-- [ ] AC4 (Full chain walk) — From any Requirement, the user can walk Req → Task → UC → Class → Method → Impl → Test inside the browser; every hop clickable; no dead ends
+- [ ] AC4 (Full chain walk — FORWARD-ONLY per Tron 2026-06-01) — From any Requirement, the user can walk **forward-only** `Requirement → Task → (Subtask ∪ UseCase) → Class → Method` inside the browser; every forward hop clickable; **NO back-refs rendered** (task does NOT trace back to requirement; UC does NOT trace back to requirement). Multiple requirements may list the same task. Test/Implementation surfacing: architect decides direction (T140 source-location IORs may carry impl/test info forward from method, not back).
 - [ ] AC5 (Source-location IORs) — R17.24 source-location IORs surfaced where applicable (architect decides scope — may be follow-on)
 - [ ] AC6 (Spot-check ≥5 chains) — Tester walks 5+ chains from different Requirement roots; each fully renders
 - [ ] AC7 (Regression) — No regression on T110 / T111 / T143 / T149 / T151-T155
@@ -118,7 +118,7 @@ File: `test/vitest/trace-browser-full-chain.test.ts` (new) + `test/e2e/trace-ful
 | TS8 (rule-pair post-bump — (c) STATIC_SHELL) | New CACHE_NAME activates; new DetailView bundles cached via STATIC_SHELL | Routes load offline; no stale-bundle issue |
 
 ## Dependencies
-- **Requires:** T110 (drawer), T111 (DetailView pattern), T126 (templates), T143 (tree), T149 (universal symlinks), T151 (JSON arrays), T152/T153 (UC data), T154/T155 (Requirement data), T140 (source-location IORs — may be in-scope)
+- **Requires:** **T159 (forward-only chain refactor — HARD BLOCKER per Tron 2026-06-01)**, T110 (drawer), T111 (DetailView pattern), T126 (templates), T143 (tree), T149 (universal symlinks), T151 (JSON arrays), T152/T153 (UC data — back-refs to be removed by T159), T154/T155 (Requirement forward `tasks[]` retained; T155 back-ref input refactored by T159), T140 (source-location IORs — may be in-scope)
 - **Coordinate-with:** future R17.24 source-location surfacing tasks
 - **Enables:** the traceability browser becomes the **primary** chain-walk surface (currently sparse)
 

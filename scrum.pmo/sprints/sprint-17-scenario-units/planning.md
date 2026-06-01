@@ -251,6 +251,13 @@ prose. Then **migrate every existing sprint** to this model.
   **Owners (CMM4):** robbin-req (B17 captured ✓; scope confirm — which hops first, R17.24 in/out, DetailView coverage matrix) → robbin-architect (Tron-assigned design lead — per-type DetailViews + VerbRegistry wiring + tree-item rendering + standard update) → robbin-expert (impl + new Web Components; **rule-pair (a)+(b)+(c) — STATIC_SHELL REQUIRED** for new typed-DetailView bundle paths) → robbin-tester (full-chain walk + ≥5-chain spot-check + T110/T111/T143/T149/T151-T155 regression)
   **Rule-pair scope:** (a)+(b)+(c) — **(c) STATIC_SHELL required** (new typed-DetailView bundles need cache priming for /trace)
 
+### Phase 23 — Forward-only chain refactor (Tron critical correction 2026-06-01, B18 promoted; supersedes T155 direction)
+
+- [ ] ⏳ [T159: Forward-only traceability chain — refactor (remove back-refs)](./task-159-forward-only-traceability-chain-refactor.md)
+  **Status:** PLANNED — Tron critical correction (PO 2026-06-01, B18 backlog): "the traceability traces requirements to tasks to use cases to classes and methods. tasks do not trace back to requirements. multiple requirements can be addressed in the same task, but from the task ist goes into subtasks and use cases never back to requirements." **OVERRIDES T155 bidirectional direction.** Strip back-refs from all scenarios (Task/UC/Class/Method); refactor T155 reverse-scan to forward-only input; standard update. **Hard blocker for T158** (browser must render forward-only).
+  **Owners (CMM4):** robbin-req (B18 anchored in backlog — planner-suggested req:uuid, req-eng to canonicalize) → robbin-architect (data-model re-design + strip migration + standard update) → robbin-expert (LoaderDefaults + migration + T155 refactor; rule-pair (a)+(b)) → robbin-tester (per-class zero-back-ref audit + T143 walkDown + T126 regen + forward regression)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
+
 ### Phase 6 — Verification (T129, tester + planner)
 
 - [ ] 🧪 [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)
