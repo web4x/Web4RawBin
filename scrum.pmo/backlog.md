@@ -8,6 +8,16 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **B14 — UC classes[] and requirement still empty**
+  [requirement:uuid:d4e5f6a7-b8c9-4dae-f0a1-234567890b14]
+  > TRON DIRECTIVE: "quality much better… classes array and requirements still empty and traceability therefore broken"
+
+  T152 extension — UC scenario units must ALSO populate `model.classes[]` (parse PUML for class refs / UC owning class) and `model.requirement` (parse R17.x / R16.x refs in PUML body for free-form, and `requirement:` tag for structured format). Same diligent no-loss gate as T151/T152.
+
+  **Sprint:** TBD (planner to triage — likely T152 follow-up or T152.1)
+  **Touches:** UC data-quality script, PUML parser (class extraction + requirement extraction)
+  **Related:** T152 (object+verb done, this closes classes+requirement), T151 (same discipline)
+
 - **B13 — UseCase object+verb empty, traceability links missing**
   [requirement:uuid:c3d4e5f6-a7b8-4c9d-e0f1-234567890b13]
   > TRON DIRECTIVE: "i picked an arbitrary example...still no traceability content inside. object, verb empty even if it can be derived from name. bad data quality"
