@@ -202,6 +202,13 @@ prose. Then **migrate every existing sprint** to this model.
   **Owners (CMM4 — JOINT refinement):** robbin-req + robbin-architect (JOINT — req per-shape mapping list + architect JSON schema + migration script + audit design) → robbin-expert (dry-run + per-task count table + apply pass, rule-pair (a)+(b)) → robbin-tester (per-task verify + round-trip spot-check ≥5 tasks + T131/T141/T144/T147/T149/T146 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
 
+### Phase 16 — UseCase data quality (object/verb + PUML links) (PO directive 2026-06-01)
+
+- [ ] ⏳ [T152: UseCase data quality — derive object/verb from name + populate tasks/classes/requirement links from PUML](./task-152-usecase-data-quality-object-verb-from-name-puml-links.md)
+  **Status:** PLANNED — UC scenarios become full first-class data: derive `model.object` + `model.verb` from `model.name` (architect-finalized rule); populate `model.links.tasks[]`, `model.links.classes[]`, `model.chain.requirement` from PUML refs. **Per-UC audit gate (AC2 + AC5):** object/verb non-empty for every UC AND links count == PUML refs count, exactly. Mismatch = hard FAIL. Rides on T117/T126/T143/T149/T151.
+  **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (derivation rule + PUML extraction rule + per-UC audit + standard update) → robbin-expert (data-quality script + dry-run + apply, rule-pair (a)+(b)) → robbin-tester (per-UC verify + ≥5-UC round-trip + T117/T126/T143/T149/T151 regression)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
+
 ### Phase 6 — Verification (T129, tester + planner)
 
 - [ ] 🧪 [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)
