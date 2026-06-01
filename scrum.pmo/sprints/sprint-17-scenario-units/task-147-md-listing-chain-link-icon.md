@@ -150,8 +150,65 @@ File: `test/vitest/md-listing-icons.test.ts` (new — sibling to T144's `file-br
 - 2026-06-01: PO directed planner to stand up T147 immediately (Tron plan-ahead-only — no agent kick-off). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC9 + DoD (learnings #15+#16).
 - 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:ef503b38` with req's canonical `requirement:uuid:d8e9f0a1` (from B8 capture, commit `f3cc50c`). Verbatim Tron quote anchored. Planner summary was accurate — Tron's literal confirms: 🔗 + ✏️ on `.md` side same as `.json` side, explicitly names UseCase files (chain-tracemethodtoreq.md, index-get.md, index-put.md, ior-resolveclass.md) + "everything else in scenario/sprints.md". Ready for architect.
 
+## Design (robbin-architect, 2026-06-01)
+
+### Current state (server.ts line 585)
+`.md` listing already has `symlinkIcon` (🔗 for symlinks) + `editIcon` (✏️). But generated `.md` views in `scenario/sprints.md/<class>/` are NOT symlinks — they're real files. So no 🔗 appears. Users can't navigate from a `.md` view back to its scenario JSON.
+
+### The `.md` ↔ `.json` relationship
+```
+scenario/sprints.md/task/task-124-architecture.md        ← human view (by class)
+scenario/sprints.json/sprint-17-.../task-124-architecture.json  ← scenario data (by sprint)
+```
+Same speaking-name slug, different extension, different directory tree.
+
+### Fix: `scenarioLink` helper
+
+New helper (add near line 579):
+```typescript
+const scenarioLink = (e: any) => {
+  if (!relPath.startsWith('scenario/sprints.md/') || !e.name.endsWith('.md')) return '';
+  const slug = e.name.replace('.md', '');
+  const sprintsJsonDir = path.join(PROJECT_ROOT, 'scenario', 'sprints.json');
+  try {
+    for (const sprint of fsSync.readdirSync(sprintsJsonDir)) {
+      const jsonPath = path.join(sprintsJsonDir, sprint, `${slug}.json`);
+      if (fsSync.existsSync(jsonPath)) {
+        return ` <a href="/edit/scenario/sprints.json/${sprint}/${slug}.json" style="text-decoration:none;font-size:0.8em" title="Scenario JSON">🔗</a>`;
+      }
+    }
+  } catch {}
+  return '';
+};
+```
+
+**🔗 target:** `/edit/` route (per T144 AC2 decision — `/md/` 404s on `.json`).
+
+### Updated `.md` row (line 585)
+
+```typescript
+const inSprintsMd = relPath.startsWith('scenario/sprints.md/');
+const mds = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.md'))
+  .map(e => `<li>📄 <a href="/md/${relPath}${e.name}">${e.name}</a>${inSprintsMd ? scenarioLink(e) : symlinkIcon(e)}${editIcon(e.name)}</li>`);
+```
+
+In `sprints.md/` paths: `scenarioLink` (→ JSON) replaces `symlinkIcon` (redundant — generated files aren't symlinks). Outside `sprints.md/`: `symlinkIcon` as before.
+
+Icon order per row: `📄 [filename] 🔗 ✏️` — same order as T144 `.json` side.
+
+### rb-file-tree: NO change
+`rb-file-tree.ts` is the `/edit/` route's code editor tree. The `/md/` listing is server-rendered. Independent surfaces. No mirroring needed.
+
+### No new routes, no STATIC_SHELL change.
+
+### Touchpoints
+| File | Line | Change |
+|------|------|--------|
+| `server.ts` | ~579 | Add `scenarioLink` helper |
+| `server.ts` | ~585 | `.md` row uses `scenarioLink` in `sprints.md/` |
+
 ## Subtasks
-None (atomic task; small symmetric extension of T144).
+None (one helper + one line change).
 
 ---
 
