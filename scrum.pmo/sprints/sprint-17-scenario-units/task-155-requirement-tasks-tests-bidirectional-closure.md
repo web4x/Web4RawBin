@@ -167,8 +167,173 @@ File: `test/vitest/requirement-bidirectional-closure.test.ts` (new — sibling t
 ## QA Audit & User Feedback
 - 2026-06-01: PO directed planner to stand up T155 as the Requirement bidirectional closure pass (sibling/successor to T154). B16 already captured by req-eng (`e6fdda6` canonical req:uuid:f6a7b8c9-…). Per-Req audit gate AC4 + AC5 (tasks count match + tests count match). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC13 + DoD (learnings #15 + #16). Awaiting architect design → expert dry-run + apply → tester per-Req verify → Tron QA.
 
+## Design (robbin-architect, 2026-06-01)
+
+### Part 1: Reverse-scan Tasks → populate Requirement.tasks[]
+
+**Data shape:** Task scenarios have `model.links.up[]` entries with `type: 'requirement'` and `ref: 'ior:instance:<req-uuid>'`. Some refs are empty strings or file paths (data-quality gaps from T151) — filter those out.
+
+**Algorithm:**
+
+```typescript
+function closureRequirementTasks(idx: ScenarioIndex): Map<string, string[]> {
+  // Build: reqUuid → [taskUuid, taskUuid, ...]
+  const reqToTasks = new Map<string, string[]>();
+  
+  for (const uuid of idx.list()) {
+    const unit = idx.get(uuid);
+    if (unit?.ior !== 'ior:class:Task') continue;
+    const links = (unit.model as any).links?.up as any[] || [];
+    
+    for (const entry of links) {
+      if (!entry || typeof entry !== 'object') continue;
+      if (entry.type !== 'requirement') continue;
+      const ref = String(entry.ref || '');
+      // Extract req UUID from ior:instance:<uuid>
+      const reqUuid = ref.replace('ior:instance:', '');
+      if (!reqUuid || reqUuid.length < 36) continue;
+      if (!idx.get(reqUuid)) continue;  // req must exist
+      
+      if (!reqToTasks.has(reqUuid)) reqToTasks.set(reqUuid, []);
+      const taskRef = `ior:instance:${uuid}`;
+      if (!reqToTasks.get(reqUuid)!.includes(taskRef)) {
+        reqToTasks.get(reqUuid)!.push(taskRef);
+      }
+    }
+  }
+  return reqToTasks;
+}
+```
+
+**Then merge with existing T154 tasks[] (dedup):**
+
+```typescript
+for (const [reqUuid, taskRefs] of reqToTasks) {
+  const unit = idx.get(reqUuid);
+  const m = unit.model as Record<string, unknown>;
+  const existing = (m.tasks as string[]) || [];
+  const merged = [...new Set([...existing, ...taskRefs])];
+  m.tasks = merged;
+  idx.put(reqUuid, unit);
+}
+```
+
+**Audit:** per-Req, count of reverse-scanned task refs == count of `model.tasks[]` entries (after merge). T154's forward-link refs are a subset — closure only adds, never removes.
+
+### Part 2: Scan test files → populate Requirement.tests[]
+
+**Current state:** 43 test files. Some reference requirements via `R15.1` / `R17.x` labels in test code (fixture setup, not formal markers). No `[test:uuid:]` markers exist in test files today.
+
+**Coverage detection strategy (most resilient):**
+
+1. **Test scenario units** (if they exist in index): scan for `model.requirements[]` or `model.links` refs to requirements
+2. **Test file source scan:** grep test files for `R\d+\.\d+` patterns → resolve via `altId` lookup (T153)
+3. **TraceLink units:** scan for `relation: 'tests'` links where `fromType: 'test'` and `toType: 'requirement'`
+
+**Algorithm:**
+
+```typescript
+function closureRequirementTests(idx: ScenarioIndex, testDir: string): Map<string, string[]> {
+  const reqToTests = new Map<string, string[]>();
+  
+  // Strategy 1: Test scenario units with requirement refs
+  for (const uuid of idx.list()) {
+    const unit = idx.get(uuid);
+    if (unit?.ior !== 'ior:class:Test') continue;
+    const reqs = (unit.model as any).requirements as string[] || [];
+    for (const ref of reqs) {
+      const reqUuid = ref.replace('ior:instance:', '');
+      if (!reqToTests.has(reqUuid)) reqToTests.set(reqUuid, []);
+      reqToTests.get(reqUuid)!.push(`ior:instance:${uuid}`);
+    }
+  }
+  
+  // Strategy 2: TraceLink units with relation='tests'
+  for (const uuid of idx.list()) {
+    const unit = idx.get(uuid);
+    if (unit?.ior !== 'ior:class:TraceLink') continue;
+    const m = unit.model as any;
+    if (m.relation !== 'tests') continue;
+    const fromUuid = String(m.from || '').replace('ior:instance:', '');
+    const toUuid = String(m.to || '').replace('ior:instance:', '');
+    // tests relation: test → requirement
+    if (m.fromType === 'test' && m.toType === 'requirement') {
+      if (!reqToTests.has(toUuid)) reqToTests.set(toUuid, []);
+      reqToTests.get(toUuid)!.push(`ior:instance:${fromUuid}`);
+    }
+  }
+  
+  // Strategy 3: Source scan for R-number references in test files
+  const altIdToUuid = buildAltIdMap(idx);  // R17.1 → req-uuid
+  if (fs.existsSync(testDir)) {
+    for (const file of fs.readdirSync(testDir, { recursive: true })) {
+      const fpath = path.join(testDir, String(file));
+      if (!fpath.endsWith('.test.ts') && !fpath.endsWith('.spec.ts')) continue;
+      const content = fs.readFileSync(fpath, 'utf-8');
+      const rRefs = content.matchAll(/R(\d+\.\d+)/g);
+      for (const m of rRefs) {
+        const altId = `R${m[1]}`;
+        const reqUuid = altIdToUuid.get(altId);
+        if (!reqUuid) continue;
+        const testRef = `ior:file:${path.relative(PROJECT_ROOT, fpath)}`;
+        if (!reqToTests.has(reqUuid)) reqToTests.set(reqUuid, []);
+        if (!reqToTests.get(reqUuid)!.includes(testRef)) {
+          reqToTests.get(reqUuid)!.push(testRef);
+        }
+      }
+    }
+  }
+  
+  return reqToTests;
+}
+```
+
+**Note:** Strategy 3 (source scan) produces `ior:file:` refs (not `ior:instance:`) because test files may not have scenario units yet. When Test scenario units are created, Strategy 1 takes over and refs become proper `ior:instance:`.
+
+### Schema
+
+```typescript
+// RequirementLoader (classes.ts) — add tests:[] if not already there:
+export const RequirementLoader = loader('Requirement', {
+  description: '', priority: '', source: '',
+  tasks: [], tests: [],  // tests[] NEW
+  altId: '',
+});
+```
+
+### Per-Req audit table (AC4+AC5 hard-FAIL gate)
+
+```
+| altId | T154 fwd tasks | reverse tasks | merged tasks | match | test refs | model.tests | match |
+|-------|---------------|---------------|-------------|-------|-----------|-------------|-------|
+| R17.1 | 2 | 3 | 3 | ✅ | 1 | 1 | ✅ |
+| R17.2 | 2 | 4 | 4 | ✅ | 0 | 0 | ✅ |
+| R16.1 | 1 | 1 | 1 | ✅ | 2 | 2 | ✅ |
+| ... | ... | ... | ... | ... | ... | ... | ... |
+```
+
+Merged tasks ≥ T154 forward tasks (closure only adds). Tests count = coverage sources found. Any mismatch in the final `match` columns = hard FAIL.
+
+### Execution
+
+```bash
+npx tsx scripts/migrate-to-scenario.ts --fix-req-closure --all --dry-run
+# Review audit table (especially: are merged counts > T154 forward counts?)
+npx tsx scripts/migrate-to-scenario.ts --fix-req-closure --all --apply
+```
+
+### Touchpoints
+
+| File | Change |
+|------|--------|
+| `scripts/migrate-to-scenario.ts` | Add `closureRequirementTasks()` + `closureRequirementTests()` |
+| `src/ts/scenario/classes.ts` | RequirementLoader: add `tests: []` default |
+| `scrum.pmo/standards/traceability-standard.md` | Document Requirement.tests[] + bidirectional closure rule |
+
+### No new routes, no STATIC_SHELL change.
+
 ## Subtasks
-None at parent level (architect may split T155.x if scope warrants — coordinate with planner first).
+None (single closure pass extending migration pipeline).
 
 ---
 
