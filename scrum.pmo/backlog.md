@@ -8,6 +8,15 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **B9 — File-browser path header clickable for parent navigation**
+  [requirement:uuid:e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9]
+  > TRON DIRECTIVE: "in the file browser make the first line clickable eg scenario/ 📁 index/ so scenario is clickable and will go 1 folder up"
+
+  The directory header line (current path breadcrumb, e.g. `scenario/ 📁 index/`) must have each path segment as a clickable link navigating to that directory level. Clicking a parent segment = go one folder up. Applies to both `/md/` server-rendered directory listing AND `rb-file-tree` client component.
+
+  **Sprint:** TBD (planner to triage)
+  **Touches:** server.ts `/md/` directory listing header, `rb-file-tree` component breadcrumb
+
 - **B8 — MD view directory listings need 🔗 chain-link icons (parity with JSON tree)**
   [requirement:uuid:d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8]
   > TRON DIRECTIVE: "scenario/sprints.json/sprint-17-scenario-units/ shows sprint.json/task-*.json with 🔗 + ✏️. i want it the same way linked for scenario/sprints.md/usecase/ (chain-tracemethodtoreq.md, index-get.md, index-put.md, ior-resolveclass.md) and everything else in scenario/sprints.md"
