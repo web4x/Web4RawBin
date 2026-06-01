@@ -34,18 +34,10 @@
 
 - up
   - [Sprint 17 Planning](./planning.md)
-  - **Tron quote capture (req-eng):** *(awaiting req-eng B-entry / verbatim anchor — PO 2026-06-01 directed stand-up; "BIG diligent task per Tron")*
-  - **MD-to-JSON-arrays migration requirement (planner-suggested; req-eng to anchor/override on capture)**
-    `[requirement:uuid:04d8ede7-91c6-4d04-86a4-482556ea706c]`
-    Planner summary (req to confirm / correct from Tron's literal):
-    > Task files' `## Traceability` chain bullets (`up`, `down`, `follows`,
-    > `chain.requirement / use case / puml / class/method`, `changes`,
-    > etc.) carry traceability edges that today live ONLY in the MD prose.
-    > The scenario JSON model (T125 foundation) is the canonical source per
-    > learning #19. Each MD chain bullet must migrate to a corresponding
-    > entry in the JSON model's link arrays (`model.links.*` /
-    > `model.chain.*`) — **with zero information loss**. Per-task counts
-    > of MD bullets BEFORE = JSON entries AFTER, exactly.
+  - **Tron quote capture (req-eng anchored 2026-06-01):** B12 in [scrum.pmo/backlog.md](../../backlog.md), commit `416d0a1`
+  - **B12 requirement** `[requirement:uuid:b2c3d4e5-f6a7-4b8c-d9e0-123456780b12]`
+    Verbatim Tron quote:
+    > "the md file traceability content is good but its not at all reflected in the json scenarios. all tasks and usecases arrays with traceability reference are empty but the json should be the source from with the traceability section is generated. migrate the md traceability content diligently to data without loosing infos that you have in the plain text. this is a big diligent task for architect and req agent to fix that needs to be carefully tracked."
 - down
   - None at parent level (architect may split T151.x per chain-shape or per sprint cohort if scope warrants — coordinate with planner first)
 - follows
@@ -56,10 +48,37 @@
   - [T146: Requirement-entry format reform](./task-146-requirement-name-first-format.md) — NAME-first format; T151's arrays carry the NAME alongside the ref
   - [T149: Universal symlink tree across 9 classes](./task-149-symlink-tree-all-9-classes.md) — universal resolution; T151's arrays use the symlink-resolvable refs
 - chain (req → usecase → puml → class/method) — JOINT req+architect to fill on refinement
-  - **requirement:** MD-to-JSON-arrays migration (above; planner-suggested → req-eng anchor)
+  - **requirement:** B12 `[requirement:uuid:b2c3d4e5-f6a7-4b8c-d9e0-123456780b12]` (req-eng anchored)
   - **use case:** UC-TBD (architect — likely `migration.mdChainToJsonArrays`, `audit.itemCountPerTask`, `viewGenerator.regenerateFromArrays`)
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** migration script (architect names — likely `scripts/migrate-chain-to-json.ts` or extends `scripts/migrate-to-scenario.ts`) / `scrum.pmo/standards/traceability-standard.md` (model spec) / scenario JSON schema (T125 foundation)
+
+## Per-Shape Mapping Table (req-eng + architect JOINT — 2026-06-01)
+
+Audit of all S10-S17 task files: 74 `up` sections, 74 `down`, 33 `follows`, 65 `chain` blocks, 1 `changes`. Chain sub-bullets: 87 `requirement`, 61 `use case`, 58 `puml`, 65 `class/method`, 1 `test`.
+
+| MD Traceability Bullet | JSON Model Field | Content | IOR Type |
+|------------------------|-----------------|---------|----------|
+| `- up → [Sprint N Planning](./planning.md)` | `model.parent` | Sprint IOR | `ior:scenario:uuid:<sprint-uuid>` |
+| `- up → [requirement:uuid:xxx]` | `model.requirements[]` | Requirement IOR | `ior:scenario:uuid:<req-uuid>` |
+| `- up → Tron quote capture (B<N>)` | `model.tronSource` | Backlog ref + verbatim quote | `{ backlogId: "B<N>", quote: "..." }` |
+| `- down → [T<N>.M: Subtask]` | `model.children[]` | Child task IOR | `ior:scenario:uuid:<subtask-uuid>` |
+| `- down → None (atomic task)` | `model.children[]` | Empty array `[]` | — |
+| `- follows → [T<N>: ...]` | `model.follows[]` | Predecessor task IOR | `ior:scenario:uuid:<task-uuid>` |
+| `- changes → [T<M>] AC<X>` | `model.changes[]` | Changed task IOR + AC ref | `{ target: "ior:...", ac: "AC<X>" }` |
+| `- chain → requirement: ...` | `model.chain.requirement` | Requirement IOR or inline ref | `ior:scenario:uuid:<req-uuid>` |
+| `- chain → use case: UC-<id>` | `model.chain.useCase` | UseCase IOR | `ior:scenario:uuid:<uc-uuid>` |
+| `- chain → puml: [diagrams/...]` | `model.chain.puml` | Source-location IOR (R17.24) | `ior:file:<path>?commit=<sha>&lines=<a>-<b>` |
+| `- chain → class/method: ...` | `model.chain.classMethod[]` | Class/Method IOR(s) | `ior:scenario:uuid:<class-uuid>` or `ior:file:...` |
+| `- chain → test: ...` | `model.chain.test` | Test IOR | `ior:scenario:uuid:<test-uuid>` |
+
+### Notes for architect
+1. **`model.requirements[]`** — array because a task can trace to multiple requirements (e.g. T134 traces to both R17.4 and R17.18)
+2. **`model.follows[]`** — array because tasks can have multiple predecessors
+3. **`model.chain`** is an object (not array) — one entry per chain level. `classMethod` is an array because a task can touch multiple files/classes.
+4. **Verbatim Tron quote** in `model.tronSource` — preserves the literal directive that motivated the task (Tron's core requirement: "without loosing infos that you have in the plain text")
+5. **IOR resolution** — each array entry is an IOR string that resolves to a scenario unit via ClassLoader. Plain markdown link text (e.g. "pattern T149 extends to the other 8 classes") becomes the `description` field alongside the IOR.
+6. **Validation** — per-task count of MD bullets BEFORE must equal JSON entries AFTER. The migration script should log `$taskId: $mdBulletCount MD → $jsonEntryCount JSON` and fail on mismatch.
 
 ## Context
 
@@ -173,7 +192,8 @@ File: `test/vitest/md-chain-to-json-migration.test.ts` (new) + per-task evidence
 - [ ] Tron QA approved (with per-task count table evidence)
 
 ## QA Audit & User Feedback
-- 2026-06-01: PO directed planner to stand up T151 as a BIG diligent task per Tron. JOINT req+architect refinement enforced; per-task before/after item count audit baked into AC5 + DoD as loss-detection evidence. req-eng to capture the verbatim Tron quote and anchor (or replace) the planner-suggested `requirement:uuid` on the next pass. CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC12 + DoD (learnings #15+#16). Awaiting req+architect JOINT refinement → expert dry-run + apply → tester per-task verify → Tron QA.
+- 2026-06-01: PO directed planner to stand up T151 as a BIG diligent task per Tron. JOINT req+architect refinement enforced. CMM4 4-role engagement (learnings #18); real v4 uuids (#17); rule-pair (a)+(b) baked into AC12 + DoD (#15+#16).
+- 2026-06-01 **robbin-req (JOINT anchor + per-shape mapping):** Replaced planner-suggested `requirement:uuid:04d8ede7` with req's canonical `requirement:uuid:b2c3d4e5...0b12` (from B12 capture, commit `416d0a1`). Verbatim Tron quote anchored (full directive). Per-shape mapping table added: 12 MD bullet types → JSON model fields, with IOR types and notes for architect. Audit counts: 74 up, 74 down, 33 follows, 65 chain blocks, 1 changes across S10-S17. Ready for architect to design migration script + schema from this mapping.
 
 ## Subtasks
 None at parent level (architect+req may split T151.x per chain-shape or per sprint cohort if scope warrants — coordinate with planner first).
