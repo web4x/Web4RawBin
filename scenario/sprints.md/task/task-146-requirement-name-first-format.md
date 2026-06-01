@@ -3,11 +3,11 @@
 
 ## Status
 
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — `ccca722` req confirm + `83099ea` architect design)
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing (`7fbfd8e` template + validator + views — **rule-pair FLAG ⚠️**: 7fbfd8e itself has no package.json/sw.js bump; batched via `f549114` v0.5.41 (T145's bump). Same pattern as T136/T138 batched bumps — gets to device but not in same commit-set per #15 strict reading)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done

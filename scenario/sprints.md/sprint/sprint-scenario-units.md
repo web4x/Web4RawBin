@@ -31,3 +31,6 @@
 - [🔗 T144: File-browser display fixes — icon order + link targets (B5, 3 fixes)](../sprints.md/task/task-144-file-browser-display-fixes.md)
 - [🔗 T145: User class as scenario-unit + ViewBus-driven view updates (fixes lobby/room name stale)](../sprints.md/task/task-145-user-scenario-viewbus.md)
 - [🔗 T146: Requirement-entry format reform — 3–5 word NAME first line + speaky-NAME on 🔗](../sprints.md/task/task-146-requirement-name-first-format.md)
+- [🔗 T147: Chain-link icon in `/md/` directory listing for `scenarios/sprints.md/` subtrees (symmetric UX with `.json` side)](../sprints.md/task/task-147-md-listing-chain-link-icon.md)
+- [🔗 T148: File-browser path-header clickable → parent dir navigation](../sprints.md/task/task-148-file-browser-path-header-clickable.md)
+- [🔗 T149: Extend symlink tree to all 9 scenario classes — universal 🔗 resolution](../sprints.md/task/task-149-symlink-tree-all-9-classes.md)

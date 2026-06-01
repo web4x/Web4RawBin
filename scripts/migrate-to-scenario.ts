@@ -259,16 +259,47 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
     }
   }
 
-  // Symlink tree: scenario/sprints.json/<sprint>/<slug>.json → ../../index/<5char>/<uuid>.scenario.json
+  // Symlink tree: per-class subdirs under sprints.json/<sprint>/
   const sprintJsonDir = path.join(JSON_TREE, sprintSlug);
   fs.mkdirSync(sprintJsonDir, { recursive: true });
   const sprintRelPath = path.relative(sprintJsonDir, idx.filePath(sprintUuid));
   fs.symlinkSync(sprintRelPath, path.join(sprintJsonDir, 'sprint.json'));
-  for (const t of tasks) {
-    const taskRelPath = path.relative(sprintJsonDir, idx.filePath(t.uuid));
-    fs.symlinkSync(taskRelPath, path.join(sprintJsonDir, `${t.slug}.json`));
+
+  function emitClassSymlinks(classDir: string, units: { uuid: string; slug?: string; name?: string }[]): void {
+    if (!units.length) return;
+    const dir = path.join(sprintJsonDir, classDir);
+    fs.mkdirSync(dir, { recursive: true });
+    for (const u of units) {
+      const slug = u.slug || speakSlug(u.name || u.uuid);
+      const rel = path.relative(dir, idx.filePath(u.uuid));
+      const linkPath = path.join(dir, `${slug}.json`);
+      if (!fs.existsSync(linkPath)) fs.symlinkSync(rel, linkPath);
+    }
   }
-  console.log(`  Symlink tree: ${sprintJsonDir}/`);
+  function speakSlug(name: string): string {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80);
+  }
+
+  emitClassSymlinks('task', tasks.map(t => ({ uuid: t.uuid, slug: t.slug, name: t.name })));
+  emitClassSymlinks('requirement', reqUuids.map(u => { const unit = idx.get(u); return { uuid: u, name: (unit?.model.name as string) || u }; }));
+  emitClassSymlinks('usecase', ucUuids.map(u => { const unit = idx.get(u); return { uuid: u, name: (unit?.model.name as string) || u }; }));
+
+  // Collect TraceLinks from index for this sprint's units
+  const sprintUnitUuids = new Set([sprintUuid, ...tasks.map(t => t.uuid), ...reqUuids, ...ucUuids]);
+  const traceLinkUnits: { uuid: string; name: string }[] = [];
+  for (const uid of idx.list()) {
+    const unit = idx.get(uid);
+    if (unit?.ior === 'ior:class:TraceLink') {
+      const from = String((unit.model as any).from || '').replace('ior:instance:', '');
+      const to = String((unit.model as any).to || '').replace('ior:instance:', '');
+      if (sprintUnitUuids.has(from) || sprintUnitUuids.has(to)) {
+        traceLinkUnits.push({ uuid: uid, name: uid.slice(0, 12) });
+      }
+    }
+  }
+  emitClassSymlinks('tracelink', traceLinkUnits);
+
+  console.log(`  Symlink tree: ${sprintJsonDir}/ (task/${tasks.length} req/${reqUuids.length} uc/${ucUuids.length} link/${traceLinkUnits.length})`);
 
   // Generated MD views
   const gen = new ViewGenerator(idx, defaultTemplateRegistry(), MD_TREE);

@@ -9,7 +9,7 @@
 - [x] In Progress
   - [x] refinement (req → architect — architect-side design landed via `3f8cd33` "T149 pre-design — sprints.json symlink tree for all 9 classes", adopted into the Design section below; **req verbatim Tron-quote anchor still pending — backfill needed**)
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
