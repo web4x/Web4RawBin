@@ -2,9 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "b2237873-39b9-4154-9624-f809a9ca4983",
-    "name": "> TRON DIRECTIVE: \"pageNav() should be sticky to the top.\"",
-    "description": "[requirement:uuid:b2237873-39b9-4154-9624-f809a9ca4983]\n  > TRON DIRECTIVE: \"pageNav() should be sticky to the top.\"\n  → [T123: pageNav sticky-top fix](./task-123-pagenav-sticky-top.md)\n\n## Traceability Data\n\n- [ ] **R16.4: Traceability chain data diagnosis + fix**",
-    "tasks": [],
+    "name": "pageNav() sticky to top",
+    "description": "> TRON DIRECTIVE: \"pageNav() should be sticky to the top.\"",
+    "tasks": [
+      "ior:instance:05e394aa-d21b-4aaa-88ba-611cd427c2f1"
+    ],
     "tests": [],
     "altId": "R16.3"
   },

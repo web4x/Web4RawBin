@@ -2,9 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000003",
-    "name": "> TRON: \"the templates should be like the html registered view for the classes Requirement, Task, UseCase … each Task an",
-    "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000003]\n  > TRON: \"the templates should be like the html registered view for the classes Requirement, Task, UseCase … each Task and requirement shall have its own md, html view strictly from the view templates.\"\n  → [T125](./task-125-foundation.md)\n\n## Storage Layout (original directive)\n\n- [ ] **R17.4: Index by UUID prefix — scenario/index/<first-5>/<uuid>.scenario.json**",
-    "tasks": [],
+    "name": "Class-based instances — typed classes with uniform wrapper",
+    "description": "> TRON: \"the templates should be like the html registered view for the classes Requirement, Task, UseCase … each Task and requirement shall have its own md, html view strictly from the view templates.\"",
+    "tasks": [
+      "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
+    ],
     "tests": [],
     "altId": "R17.3"
   },

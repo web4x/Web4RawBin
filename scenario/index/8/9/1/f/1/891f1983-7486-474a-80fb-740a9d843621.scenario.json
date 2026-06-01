@@ -2,9 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "891f1983-7486-474a-80fb-740a9d843621",
-    "name": "> TRON: \"make them learn to use scenarios to plan in future.\"",
-    "description": "[requirement:uuid:891f1983-7486-474a-80fb-740a9d843621]\n  > TRON: \"make them learn to use scenarios to plan in future.\"\n  → [T137](./task-137-req-planner-learn-scenarios.md)\n\n- [ ] **R17.22: Skills on top of scenarios**",
-    "tasks": [],
+    "name": "Req-eng + planner LEARN scenarios for planning",
+    "description": "> TRON: \"make them learn to use scenarios to plan in future.\"",
+    "tasks": [
+      "ior:instance:067d025f-74b8-4edc-938d-361c4499cc63"
+    ],
     "tests": [],
     "altId": "R17.21"
   },

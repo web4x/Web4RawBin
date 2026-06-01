@@ -2,9 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000014",
-    "name": "> TRON: \"migrate all sprints, tasks, requirements like this with references to classes, tests and puml usecases and clas",
-    "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000014]\n  > TRON: \"migrate all sprints, tasks, requirements like this with references to classes, tests and puml usecases and classes and verb/methods.\"\n  → [T128](./task-128-migration.md)\n\n## Process (original directive)\n\n- [ ] **R17.15: Collaborative planning — architect + req + planner**",
-    "tasks": [],
+    "name": "Migrate all sprints/tasks/requirements to scenario units",
+    "description": "> TRON: \"migrate all sprints, tasks, requirements like this with references to classes, tests and puml usecases and classes and verb/methods.\"",
+    "tasks": [
+      "ior:instance:b94d2681-54f0-47e3-a431-f3d84e469b30"
+    ],
     "tests": [],
     "altId": "R17.14"
   },

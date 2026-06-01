@@ -2,9 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000010",
-    "name": "> TRON: \"the sprint overview becomes a list of sprint items and so on for the involved classes.\"",
-    "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000010]\n  > TRON: \"the sprint overview becomes a list of sprint items and so on for the involved classes.\"\n  → [T126](./task-126-views.md)\n\n## Navigation & Traceability (original directive)\n\n- [ ] **R17.11: File-browser ↔ traceability-browser navigation**",
-    "tasks": [],
+    "name": "Sprint overview = list of sprint items",
+    "description": "> TRON: \"the sprint overview becomes a list of sprint items and so on for the involved classes.\"",
+    "tasks": [
+      "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d"
+    ],
     "tests": [],
     "altId": "R17.10"
   },

@@ -491,12 +491,105 @@ function fixUcDataQuality(idx: ScenarioIndex, dryRun: boolean): void {
   console.log(`\n${fixed} UCs ${dryRun ? 'would be' : ''} fixed.`);
 }
 
+function findTaskBySlug(idx: ScenarioIndex, slug: string): string | null {
+  for (const uid of idx.list()) {
+    const u = idx.get(uid);
+    if (u?.ior !== 'ior:class:Task') continue;
+    if (String(u.model.slug || '') === slug) return uid;
+  }
+  // Fallback: match by task number prefix (e.g. task-127-ior-resolver → task-127-*)
+  const numMatch = slug.match(/^task-(\d+(?:\.\d+)?)/);
+  if (numMatch) {
+    const prefix = `task-${numMatch[1]}`;
+    for (const uid of idx.list()) {
+      const u = idx.get(uid);
+      if (u?.ior === 'ior:class:Task' && String(u.model.slug || '').startsWith(prefix)) return uid;
+    }
+  }
+  return null;
+}
+
+function fixRequirementDataQuality(idx: ScenarioIndex, dryRun: boolean): void {
+  console.log('\n=== Requirement Data Quality Fix ===');
+  console.log('AltId | Name (≤5w) | Desc len | MD fwd | JSON tasks | Match');
+  console.log('------|------------|----------|--------|-----------|------');
+  let fixed = 0; let mismatches = 0;
+  const sprintsDir = path.join(__dirname, '../scrum.pmo/sprints');
+  for (const sprint of fs.readdirSync(sprintsDir).filter(s => s.startsWith('sprint-'))) {
+    const reqFile = path.join(sprintsDir, sprint, 'requirements.md');
+    if (!fs.existsSync(reqFile)) continue;
+    const text = fs.readFileSync(reqFile, 'utf-8');
+    const lines = text.split('\n');
+
+    for (let i = 0; i < lines.length; i++) {
+      const uuidM = lines[i].match(/\[requirement:uuid:([0-9a-f-]{36})\]/i);
+      if (!uuidM) continue;
+      const uuid = uuidM[1].toLowerCase();
+      const unit = idx.get(uuid);
+      if (!unit || unit.ior !== 'ior:class:Requirement') continue;
+      const m = unit.model as Record<string, unknown>;
+
+      // (1) NAME: look back for **R17.1: Short Title**
+      const context = [lines[i - 2] || '', lines[i - 1] || '', lines[i]].join('\n');
+      const titleMatch = context.match(/\*\*R[\d.]+:\s*([^*]+)\*\*/);
+      const shortName = titleMatch ? titleMatch[1].trim().slice(0, 60) : String(m.name || '');
+
+      // (2) DESCRIPTION: look forward for > blockquote
+      let description = '';
+      for (let j = i + 1; j < Math.min(i + 5, lines.length); j++) {
+        if (lines[j].trim().startsWith('>')) {
+          description = lines[j].trim();
+          // Collect multi-line blockquote
+          for (let k = j + 1; k < Math.min(j + 10, lines.length); k++) {
+            if (lines[k].trim().startsWith('>')) description += ' ' + lines[k].trim().replace(/^>\s*/, '');
+            else break;
+          }
+          break;
+        }
+      }
+
+      // (3) TASKS: look forward for → forward links (stop at next entry or blank line)
+      const taskRefs: string[] = [];
+      let mdFwdCount = 0;
+      for (let j = i + 1; j < Math.min(i + 8, lines.length); j++) {
+        if (lines[j].match(/\[requirement:uuid:/i) || lines[j].match(/^\s*- \[[ x]\] \*\*R/)) break;
+        const fwdMatch = lines[j].match(/→\s*(.+)/);
+        if (!fwdMatch) continue;
+        for (const tl of fwdMatch[1].matchAll(/\[T(\d+(?:\.\d+)?)[^\]]*\]\(\.\/task-([^)]+)\.md\)/g)) {
+          mdFwdCount++;
+          const taskSlug = 'task-' + tl[2];
+          const taskUuid = findTaskBySlug(idx, taskSlug);
+          if (taskUuid) taskRefs.push(`ior:instance:${taskUuid}`);
+        }
+      }
+
+      const match = mdFwdCount === taskRefs.length;
+      if (!match) mismatches++;
+      const altId = String(m.altId || '');
+      console.log(`${altId || uuid.slice(0,8)} | ${shortName.slice(0,30)} | ${description.length} | ${mdFwdCount} | ${taskRefs.length} | ${match ? '✓' : '✗'}`);
+
+      if (!dryRun) {
+        m.name = shortName;
+        if (description) m.description = description;
+        if (taskRefs.length) m.tasks = taskRefs;
+        idx.put(uuid, unit);
+        fixed++;
+      }
+    }
+  }
+  console.log(`\n${fixed} Requirements ${dryRun ? 'would be' : ''} fixed. Mismatches: ${mismatches}`);
+}
+
 const args = process.argv.slice(2);
 const sprintIdx = args.indexOf('--sprint');
 const sprint = sprintIdx !== -1 ? args[sprintIdx + 1] : null;
 const dryRun = !args.includes('--apply');
 
-if (args.includes('--fix-uc-quality')) {
+if (args.includes('--fix-req-quality')) {
+  const idx = new ScenarioIndex(INDEX_DIR);
+  fixRequirementDataQuality(idx, dryRun);
+  if (dryRun) console.log('\nDry run complete. Use --apply to write.');
+} else if (args.includes('--fix-uc-quality')) {
   const idx = new ScenarioIndex(INDEX_DIR);
   populateReqAltIds(idx, dryRun);
   fixUcDataQuality(idx, dryRun);

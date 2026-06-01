@@ -2,9 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000008",
-    "name": "> TRON: \"views are purely generated and live updated from the flat json data\"",
-    "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000008]\n  > TRON: \"views are purely generated and live updated from the flat json data\"\n  → [T126](./task-126-views.md)\n\n- [ ] **R17.9: planning.md is a generated Task-overview**",
-    "tasks": [],
+    "name": "Views generated + live-updated from flat JSON",
+    "description": "> TRON: \"views are purely generated and live updated from the flat json data\"",
+    "tasks": [
+      "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d"
+    ],
     "tests": [],
     "altId": "R17.8"
   },

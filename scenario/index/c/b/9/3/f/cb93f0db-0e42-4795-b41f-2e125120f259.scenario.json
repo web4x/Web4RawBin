@@ -2,9 +2,12 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "cb93f0db-0e42-4795-b41f-2e125120f259",
-    "name": "> TRON: \"each instance becomes the same scenario json format where just the class model attributes varies. the json has ",
-    "description": "[requirement:uuid:cb93f0db-0e42-4795-b41f-2e125120f259]\n  > TRON: \"each instance becomes the same scenario json format where just the class model attributes varies. the json has { ior, model, ownerIor }\"\n  → [T131](./task-131-file-browser-symlinks.md), [T125](./task-125-foundation.md)\n\n- [ ] **R17.2: IOR — universal reference handle**",
-    "tasks": [],
+    "name": "Scenario JSON unit — every instance is uuid.scenario.json",
+    "description": "> TRON: \"each instance becomes the same scenario json format where just the class model attributes varies. the json has { ior, model, ownerIor }\"",
+    "tasks": [
+      "ior:instance:dce1bdf8-7076-4376-a32c-9c8b08422bdc",
+      "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
+    ],
     "tests": [],
     "altId": "R17.1"
   },

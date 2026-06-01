@@ -2,9 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "47a86209-e0bb-4142-a6ad-4fff94ff9921",
-    "name": "> TRON: \"i do not see my latest prompts reflected as requirements from the req agent\"",
-    "description": "[requirement:uuid:47a86209-e0bb-4142-a6ad-4fff94ff9921]\n  > TRON: \"i do not see my latest prompts reflected as requirements from the req agent\"\n  → [T135](./task-135-req-audit.md)\n\n- [ ] **R17.20: Requirement + UseCase units in scenario index**",
-    "tasks": [],
+    "name": "UC/Class/Method unit carries exact source location + git anc",
+    "description": "> TRON: \"use case json must track the exact locations in the exact puml file units for tracability as well as classes and methods as iors to the git location and commit of the file\"",
+    "tasks": [
+      "ior:instance:8f3a2b4c-d5e6-4f70-a1b2-c3d4e5f60140"
+    ],
     "tests": [],
     "altId": "R17.24"
   },
