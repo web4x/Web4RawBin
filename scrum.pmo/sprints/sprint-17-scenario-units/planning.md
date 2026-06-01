@@ -209,8 +209,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 17 — UseCase residual fields: classes + requirement singular (T152 follow-up; PO directive 2026-06-01)
 
-- [ ] 🔧 [T153: T152 follow-up — populate `model.classes` + `model.requirement` on UseCases](./task-153-populate-classes-requirement-on-ucs.md)
-  **Status:** PARTIAL impl. `ee04ffb` req-eng anchor B14 → `0365ff1` expert v0.5.50: **classes ✓** (PUML arrows + S16 `object:`), rule-pair ✓. `c77d1f5` **architect v2 R-resolution design DONE**: `model.altId` field on Requirement units populated from `requirements.md **R17.1:**` pattern → UC resolver scans by altId. **Expert R-resolution IMPL still PENDING** (`populateReqAltIds()` + extended `fixUcDataQuality()`). Per PO 2026-06-01: do NOT close until impl lands. Symbol 🔧.
+- [ ] ✅ [T153: T152 follow-up — populate `model.classes` + `model.requirement` on UseCases](./task-153-populate-classes-requirement-on-ucs.md)
+  **Status:** impl-shipped — both halves landed. `ee04ffb` req B14 anchor → `0365ff1` v0.5.50 classes ✓ (PUML arrows + S16 `object:`) → `c77d1f5` architect v2 R-resolution design (`model.altId` on Requirements) → `a9f9571` v0.5.51 expert R-resolution impl (altId on requirements + UC req refs via altId lookup). Rule-pair (a)+(b) ✓ in BOTH ship commits (v0.5.50 + v0.5.51). Testing pending → Tron QA. Symbol 🔧 → ✅.
   **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (classes-extraction rule + requirement-singular resolver + per-UC audit extensions + standard update) → robbin-expert (extends T152 script; dry-run + apply; rule-pair (a)+(b)) → robbin-tester (per-UC verify + ≥5-UC round-trip + T117/T126/T143/T149/T151/T152 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (no new route)
   **Owners (CMM4):** robbin-req (verbatim anchor; replace planner-suggested req:uuid) → robbin-architect (derivation rule + PUML extraction rule + per-UC audit + standard update) → robbin-expert (data-quality script + dry-run + apply, rule-pair (a)+(b)) → robbin-tester (per-UC verify + ≥5-UC round-trip + T117/T126/T143/T149/T151 regression)

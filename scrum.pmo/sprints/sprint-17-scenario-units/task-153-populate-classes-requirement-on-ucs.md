@@ -9,7 +9,7 @@
 - [x] In Progress
   - [x] refinement (req → architect — architect pre-design adopted from stub `task-153-uc-class-req-refs.md`; req-eng backfill DONE via `ee04ffb` — B14 anchored with verbatim Tron quote "quality much better… classes array and requirements still empty and traceability therefore broken" + canonical `requirement:uuid:d4e5f6a7-…`)
   - [ ] creating test cases
-  - [ ] implementing — **PARTIAL** (`0365ff1` v0.5.50 — classes ✓ from PUML arrows + S16 `object:` field, rule-pair (a)+(b) ✓. **R-resolution design DONE** via `c77d1f5` architect v2: introduces `model.altId` field on Requirement units (e.g. `altId: 'R17.1'`), populated from `requirements.md **R17.1:**` pattern; UC `requirements` resolver scans index for altId match. **R-resolution IMPL still PENDING** — expert owes `populateReqAltIds()` migrator + extended `fixUcDataQuality()` per c77d1f5 design. Per PO 2026-06-01: do NOT close T153 until requirements resolution lands)
+  - [x] implementing — both halves landed: `0365ff1` v0.5.50 (classes ✓ from PUML arrows + S16 `object:` field) + `c77d1f5` architect v2 R-resolution design (`model.altId` on Requirements) + `a9f9571` v0.5.51 expert R-resolution impl (altId on requirements + UC req refs via altId lookup). Rule-pair (a)+(b) ✓ in BOTH ship commits (v0.5.50 + v0.5.51).
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
