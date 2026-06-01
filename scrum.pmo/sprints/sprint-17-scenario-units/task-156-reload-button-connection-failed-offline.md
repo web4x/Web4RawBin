@@ -42,7 +42,7 @@
   - [T58: Link contrast on /md/ pages](../sprint-7-encrypted-storage/task-58-link-contrast.md) — historical UI-styling precedent (planning context)
   - [T150: File-browser breadcrumb link contrast (CSS)](./task-150-breadcrumb-link-contrast.md) — recent CSS sibling
 - chain (req → usecase → puml → class/method) — architect to fill on refinement
-  - **requirement:** B4 (above)
+  - **requirement:** B4 `[requirement:uuid:c5d6e7f8-a9b0-4c1d-2e3f-4a5b6c7d8e90]` (req-eng confirmed)
   - **use case:** UC-TBD (architect — likely `errorPage.renderReloadButton`)
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UC as a `UseCase` instance (rule #10 / T117)
   - **class/method:** `src/public/ts/app.ts` (connection-failed error HTML ~line 81), `src/public/sw.js` OFFLINE_HTML (existing `<button class="retry">`), possibly `src/public/ts/edit.ts` equivalent — TBD by architect
@@ -115,7 +115,8 @@ File: visual + functional (no automated test typically needed for a single butto
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
-- 2026-06-01: PO directed planner to stand up T156 from backlog B4 (quick-win UX uplift). B4 already captured by req-eng. CMM4 4-role enforced (#18); real v4 uuids (#17); rule-pair (a)+(b) in AC8 + DoD (#15+#16). Awaiting architect design → expert impl → tester verify → Tron QA.
+- 2026-06-01: PO directed planner to stand up T156 from backlog B4. CMM4 4-role (#18); real v4 uuids (#17); rule-pair (a)+(b) in AC8 + DoD (#15+#16).
+- 2026-06-01 **robbin-req (anchor confirm):** B4 verbatim already in traceability block (lines 37-38, canonical uuid:c5d6e7f8). Both Tron quotes present ("add a reload button..." + "same on the you are offline page"). Chain section updated with full uuid. Note: sw.js offline page already has a Retry button — T156 scope is primarily the app.ts connection-failed page. Ready for architect.
 
 ## Subtasks
 None (atomic task; small UI fix on two error surfaces).

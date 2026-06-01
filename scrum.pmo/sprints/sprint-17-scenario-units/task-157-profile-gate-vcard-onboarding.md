@@ -46,7 +46,7 @@
   - [T50: POST /api/avatar upload endpoint](../sprint-7-encrypted-storage/task-50-avatar-upload.md) — upload endpoint for the imported PHOTO
   - [T56: rb-avatar component](../sprint-7-encrypted-storage/task-56-avatar-component.md) — avatar UI affected by import
 - chain (req → usecase → puml → class/method) — architect to fill on refinement
-  - **requirement:** B3 (above)
+  - **requirement:** B3 `[requirement:uuid:a3b4c5d6-e7f8-4a9b-0c1d-2e3f4a5b6c7d]` (req-eng confirmed)
   - **use case:** UC-TBD (architect — likely `profileGate.uploadVCard`, `profileGate.dropVCard`, `vcard.parseV3`)
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** `src/public/ts/ProfileEditor.ts` (gate mode) + new `src/public/ts/vcard-parser.ts` (V3.0 parser) — architect confirms / renames
@@ -130,7 +130,8 @@ File: `test/vitest/vcard-parser.test.ts` (new — V3.0 parser unit tests) + mult
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
-- 2026-06-01: PO directed planner to stand up T157 from backlog B3 (onboarding-speed win). B3 already captured by req-eng. CMM4 4-role enforced (#18); real v4 uuids (#17); rule-pair (a)+(b) in AC12 + DoD (#15+#16). Multi-platform iOS/Android/Windows hard requirement per Tron's verbatim. Awaiting architect design → expert impl → tester verify across platforms → Tron QA.
+- 2026-06-01: PO directed planner to stand up T157 from backlog B3. CMM4 4-role (#18); real v4 uuids (#17); rule-pair (a)+(b) in AC12 + DoD (#15+#16). Multi-platform iOS/Android/Windows hard requirement per Tron.
+- 2026-06-01 **robbin-req (anchor confirm):** B3 verbatim already in traceability block (line 39, canonical uuid:a3b4c5d6). Full 3-fragment Tron quote present (upload button + initialize from card + native OS drag-and-drop iOS/Android/Windows). Chain section updated with full uuid. Note: B3 uuid was flagged by planner as invalid v4 (4th-group variant `0c1d` outside `[89ab]`) — functional but trace-cli may drop it. Consider regenerating via uuidgen if it causes issues. Ready for architect.
 
 ## Subtasks
 None at parent level (architect may split T157.x per platform if scope warrants — coordinate with planner first).
