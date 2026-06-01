@@ -5,11 +5,11 @@
 [task:uuid:59b76a78-a9c1-418f-81a5-52a97ffc0ecd]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — `b741d50` architect pre-design + `119e9c8` req-eng anchor B13 verbatim + canonical req:uuid)
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing (`1b62d75` v0.5.49 — UC data quality: object/verb derived + PUML refs populated + S16 migration; rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME → rawbin-v0.5.49)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
