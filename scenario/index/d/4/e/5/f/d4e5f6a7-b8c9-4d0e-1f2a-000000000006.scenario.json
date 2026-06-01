@@ -5,7 +5,8 @@
     "name": "> TRON: \"in scenarios/sprints.md/ have the resulting structured md views from the templates with the same speaking names",
     "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000006]\n  > TRON: \"in scenarios/sprints.md/ have the resulting structured md views from the templates with the same speaking names as in the sprints.json/ folder\"\n  → [T126](./task-126-views.md)\n\n## Views & Templates (original directive)\n\n- [ ] **R17.7: HTML view templates per class**",
     "tasks": [],
-    "tests": []
+    "tests": [],
+    "altId": "R17.6"
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

@@ -5,7 +5,8 @@
     "name": "> TRON: \"make them learn to use scenarios to plan in future.\"",
     "description": "[requirement:uuid:891f1983-7486-474a-80fb-740a9d843621]\n  > TRON: \"make them learn to use scenarios to plan in future.\"\n  → [T137](./task-137-req-planner-learn-scenarios.md)\n\n- [ ] **R17.22: Skills on top of scenarios**",
     "tasks": [],
-    "tests": []
+    "tests": [],
+    "altId": "R17.21"
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

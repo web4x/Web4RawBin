@@ -5,7 +5,8 @@
     "name": "> TRON: \"decide yourself to give the skill development to the expert, or agent trainer or to fork an skill-expert from t",
     "description": "[requirement:uuid:9dedeb00-6038-4c43-bcd4-efab99792be1]\n  > TRON: \"decide yourself to give the skill development to the expert, or agent trainer or to fork an skill-expert from the expert\"\n  → [T139](./task-139-fork-skill-expert.md)\n\n## Extension 3 (2026-05-31)\n\n- [ ] **R17.24: UC/Class/Method unit carries exact source location + git anchor**",
     "tasks": [],
-    "tests": []
+    "tests": [],
+    "altId": "R17.23"
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

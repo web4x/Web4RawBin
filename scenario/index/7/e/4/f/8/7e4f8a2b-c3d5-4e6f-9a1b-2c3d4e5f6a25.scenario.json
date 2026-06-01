@@ -5,7 +5,8 @@
     "name": "> TRON: \"in scenario/sprints.md/usecase/ <file>.md add a chain link symbol before the edit to link to the original ln fi",
     "description": "[requirement:uuid:7e4f8a2b-c3d5-4e6f-9a1b-2c3d4e5f6a25]\n  > TRON: \"in scenario/sprints.md/usecase/ <file>.md add a chain link symbol before the edit to link to the original ln file in scenario/sprints.json/…\"\n  → Task TBD (planner to stand up)\n\n## Extension 4 (2026-05-31 — traceability is a TREE)\n\n- [ ] **R17.26: Traceability is a TREE, not a chain**",
     "tasks": [],
-    "tests": []
+    "tests": [],
+    "altId": "R17.25"
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

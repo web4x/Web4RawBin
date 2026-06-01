@@ -5,7 +5,8 @@
     "name": "> TRON: \"the data shall be in uuid.scenario.json that contains an ior [internet object reference], that can load the cla",
     "description": "[requirement:uuid:3b6cce5a-581c-4325-88b2-b9d381c7f268]\n  > TRON: \"the data shall be in uuid.scenario.json that contains an ior [internet object reference], that can load the class Task to process the file and create the views.\"\n  → [T132](./task-132-html-status-template-fix.md), [T125](./task-125-foundation.md)\n\n- [ ] **R17.3: Class-based instances — typed classes with uniform wrapper**",
     "tasks": [],
-    "tests": []
+    "tests": [],
+    "altId": "R17.2"
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

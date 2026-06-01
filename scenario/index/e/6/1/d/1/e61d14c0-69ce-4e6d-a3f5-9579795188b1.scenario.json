@@ -5,7 +5,8 @@
     "name": "> TRON DIRECTIVE: \"The traceability chain data is very bad — diagnose what's wrong and fix it.\"",
     "description": "[requirement:uuid:e61d14c0-69ce-4e6d-a3f5-9579795188b1]\n  > TRON DIRECTIVE: \"The traceability chain data is very bad — diagnose what's wrong and fix it.\"\n  → [T121: Chain data fix](./task-121-chain-data-fix.md)\n\n---\n\n## UUID Index\n\n| Requirement | UUID (short) | Task | Category |\n|-------------|-------------|------|----------|\n| R16.1 | `20be0ac2` | T120 | UX |\n| R16.2 | `bca276d9` | T122 | UX |\n| R16.3 | `b2237873` | T123 | UX |\n| R16.4 | `e61d14c0` | T121 | Data |",
     "tasks": [],
-    "tests": []
+    "tests": [],
+    "altId": "R16.4"
   },
   "ownerIor": "ior:instance:87dcd77d-ae44-4763-b5d7-a89256036db6"
 }

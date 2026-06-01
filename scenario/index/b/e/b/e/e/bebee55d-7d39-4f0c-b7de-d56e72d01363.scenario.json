@@ -5,7 +5,8 @@
     "name": "> TRON: \"the tasks statuses must be methods of task class that trigger a task state machine until a task is done.\"",
     "description": "[requirement:uuid:bebee55d-7d39-4f0c-b7de-d56e72d01363]\n  > TRON: \"the tasks statuses must be methods of task class that trigger a task state machine until a task is done.\"\n  → [T133](./task-133-task-state-machine.md)\n\n- [ ] **R17.18: Traceability links → first-class scenario units**",
     "tasks": [],
-    "tests": []
+    "tests": [],
+    "altId": "R17.17"
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

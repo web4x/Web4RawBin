@@ -5,7 +5,8 @@
     "name": "> TRON: \"uuid identified instances are units in a data directory in scenario/index in which has folders from the first 5",
     "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000004]\n  > TRON: \"uuid identified instances are units in a data directory in scenario/index in which has folders from the first 5 characters of the uuid and there stores the original uuid.scenario.json.\"\n  → [T124.3](./task-124.3-architect-storage-layout.md)\n\n- [ ] **R17.5: Speaking-name tree (json) — symlink tree with human names**",
     "tasks": [],
-    "tests": []
+    "tests": [],
+    "altId": "R17.4"
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

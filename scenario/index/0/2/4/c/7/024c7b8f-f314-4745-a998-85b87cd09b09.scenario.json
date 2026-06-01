@@ -5,7 +5,8 @@
     "name": "> TRON: \"i do not see uuid.scenario.JSON for requirements and use cases\"",
     "description": "[requirement:uuid:024c7b8f-f314-4745-a998-85b87cd09b09]\n  > TRON: \"i do not see uuid.scenario.JSON for requirements and use cases\"\n  → [T136](./task-136-migration-extension-req-uc.md)\n\n- [ ] **R17.21: Req-eng + planner LEARN scenarios for planning**",
     "tasks": [],
-    "tests": []
+    "tests": [],
+    "altId": "R17.20"
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

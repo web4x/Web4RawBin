@@ -5,7 +5,8 @@
     "name": "> TRON: \"each method must be traced completely back to a task and a requirement.\"",
     "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000013]\n  > TRON: \"each method must be traced completely back to a task and a requirement.\"\n  → [T134](./task-134-traceability-as-units.md)\n\n## Migration (original directive)\n\n- [ ] **R17.14: Migrate all sprints/tasks/requirements to scenario units**",
     "tasks": [],
-    "tests": []
+    "tests": [],
+    "altId": "R17.13"
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }

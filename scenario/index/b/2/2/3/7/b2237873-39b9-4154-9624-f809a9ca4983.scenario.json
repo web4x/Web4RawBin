@@ -5,7 +5,8 @@
     "name": "> TRON DIRECTIVE: \"pageNav() should be sticky to the top.\"",
     "description": "[requirement:uuid:b2237873-39b9-4154-9624-f809a9ca4983]\n  > TRON DIRECTIVE: \"pageNav() should be sticky to the top.\"\n  → [T123: pageNav sticky-top fix](./task-123-pagenav-sticky-top.md)\n\n## Traceability Data\n\n- [ ] **R16.4: Traceability chain data diagnosis + fix**",
     "tasks": [],
-    "tests": []
+    "tests": [],
+    "altId": "R16.3"
   },
   "ownerIor": "ior:instance:87dcd77d-ae44-4763-b5d7-a89256036db6"
 }

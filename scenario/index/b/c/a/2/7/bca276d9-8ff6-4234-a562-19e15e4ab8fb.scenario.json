@@ -5,7 +5,8 @@
     "name": "> TRON DIRECTIVE: \"the detailsViewContainer is not sticky to the bottom\"",
     "description": "[requirement:uuid:bca276d9-8ff6-4234-a562-19e15e4ab8fb]\n  > TRON DIRECTIVE: \"the detailsViewContainer is not sticky to the bottom\"\n  → [T122: DetailsViewContainer sticky-to-bottom](./task-122-detailview-sticky-bottom.md)\n\n- [ ] **R16.3: pageNav() sticky to top**",
     "tasks": [],
-    "tests": []
+    "tests": [],
+    "altId": "R16.2"
   },
   "ownerIor": "ior:instance:87dcd77d-ae44-4763-b5d7-a89256036db6"
 }

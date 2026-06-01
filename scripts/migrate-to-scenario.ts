@@ -313,6 +313,37 @@ function deriveObjectVerb(name: string): { object: string; verb: string } {
   return { object: name, verb: '' };
 }
 
+function populateReqAltIds(idx: ScenarioIndex, dryRun: boolean): void {
+  console.log('\n=== Populate Requirement altIds ===');
+  let count = 0;
+  const sprintsDir = path.join(__dirname, '../scrum.pmo/sprints');
+  for (const sprint of fs.readdirSync(sprintsDir).filter(s => s.startsWith('sprint-'))) {
+    const reqFile = path.join(sprintsDir, sprint, 'requirements.md');
+    if (!fs.existsSync(reqFile)) continue;
+    const text = fs.readFileSync(reqFile, 'utf-8');
+    // Match patterns: **R17.1:** or **R17.1** or R14.1 before a [requirement:uuid:]
+    const lines = text.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      const uuidM = lines[i].match(/\[requirement:uuid:([0-9a-f-]{36})\]/i);
+      if (!uuidM) continue;
+      const uuid = uuidM[1].toLowerCase();
+      // Look for R-number in the current line, previous line, or 2 lines back
+      const context = [lines[i], lines[i - 1] || '', lines[i - 2] || ''].join(' ');
+      const rNumM = context.match(/(R\d+\.\d+)/);
+      if (!rNumM) continue;
+      const altId = rNumM[1];
+      const unit = idx.get(uuid);
+      if (!unit || unit.ior !== 'ior:class:Requirement') continue;
+      if ((unit.model as any).altId === altId) continue;
+      (unit.model as Record<string, unknown>).altId = altId;
+      if (!dryRun) idx.put(uuid, unit);
+      count++;
+      console.log(`  ${altId} → ${uuid.slice(0, 8)}`);
+    }
+  }
+  console.log(`${count} requirements ${dryRun ? 'would get' : 'got'} altId.`);
+}
+
 function fixUcDataQuality(idx: ScenarioIndex, dryRun: boolean): void {
   console.log('\n=== UC Data Quality Fix ===');
   console.log('UC | object | verb | reqs | tasks | status');
@@ -430,7 +461,10 @@ function fixUcDataQuality(idx: ScenarioIndex, dryRun: boolean): void {
             const rNum = rm[0];
             for (const rid of idx.list()) {
               const ru = idx.get(rid);
-              if (ru?.ior === 'ior:class:Requirement' && String(ru.model.name || '').includes(rNum)) {
+              if (ru?.ior !== 'ior:class:Requirement') continue;
+              const altId = String((ru.model as any).altId || '');
+              const name = String(ru.model.name || '');
+              if (altId === rNum || name.includes(rNum)) {
                 const ior = `ior:instance:${rid}`;
                 if (!reqArr.includes(ior)) reqArr.push(ior);
               }
@@ -464,6 +498,7 @@ const dryRun = !args.includes('--apply');
 
 if (args.includes('--fix-uc-quality')) {
   const idx = new ScenarioIndex(INDEX_DIR);
+  populateReqAltIds(idx, dryRun);
   fixUcDataQuality(idx, dryRun);
   if (dryRun) console.log('\nDry run complete. Use --apply to write.');
 } else if (!sprint) {

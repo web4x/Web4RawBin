@@ -5,7 +5,8 @@
     "name": "> TRON: \"the sprint overview becomes a list of sprint items and so on for the involved classes.\"",
     "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000010]\n  > TRON: \"the sprint overview becomes a list of sprint items and so on for the involved classes.\"\n  → [T126](./task-126-views.md)\n\n## Navigation & Traceability (original directive)\n\n- [ ] **R17.11: File-browser ↔ traceability-browser navigation**",
     "tasks": [],
-    "tests": []
+    "tests": [],
+    "altId": "R17.10"
   },
   "ownerIor": "ior:instance:a13589ee-47ce-47ce-a26c-6eafa7d33d88"
 }
