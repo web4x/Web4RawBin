@@ -35,16 +35,10 @@
 
 - up
   - [Sprint 17 Planning](./planning.md)
-  - **Tron quote capture (req-eng):** *(awaiting req-eng B-entry / verbatim anchor — PO 2026-06-01 directed stand-up as T152 follow-up)*
-  - **T153 requirement (planner-suggested; req-eng to anchor/override on capture)**
-    `[requirement:uuid:7eb4cc80-6cc7-44c6-9b4d-ba0e578cb583]`
-    Planner summary (req to confirm / correct from Tron's literal):
-    > T152 (v0.5.49) derived `object`/`verb` and populated `model.links.tasks[]` /
-    > `model.links.requirements[]` on every UC. The residual gap: `model.classes[]`
-    > and `model.requirement` (the singular chosen-requirement link, as
-    > opposed to the `requirements[]` array) remain empty on UCs whose PUML
-    > carries class refs / a primary requirement. T153 closes that gap and
-    > gates with the same per-UC audit pattern.
+  - **Tron quote capture (req-eng anchored 2026-06-01):** B14 in [scrum.pmo/backlog.md](../../backlog.md), commit `5b90ac4`
+  - **B14 requirement** `[requirement:uuid:d4e5f6a7-b8c9-4dae-f0a1-234567890b14]`
+    Verbatim Tron quote:
+    > "quality much better… classes array and requirements still empty and traceability therefore broken"
 - down
   - None at parent level (architect may split T153.x per residual field if scope warrants — coordinate with planner first)
 - follows
@@ -56,7 +50,7 @@
   - [T151: MD chain → JSON arrays migration](./task-151-md-traceability-to-json-arrays-migration.md) — the array shape T153 populates
   - [T152: UseCase data quality (object/verb + PUML links)](./task-152-usecase-data-quality-object-verb-from-name-puml-links.md) — T153 is its direct follow-up; T152 closed tasks + requirements[]; T153 closes classes + requirement (singular)
 - chain (req → usecase → puml → class/method) — architect to fill on refinement
-  - **requirement:** T153 requirement (above; planner-suggested → req-eng anchor)
+  - **requirement:** B14 `[requirement:uuid:d4e5f6a7-b8c9-4dae-f0a1-234567890b14]` (req-eng anchored)
   - **use case:** UC-TBD (architect — likely `usecase.populateClassesFromPuml`, `usecase.resolveRequirement`, `audit.useCaseClassesAndRequirement`)
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** data-quality script extension (architect names — likely extends T152's `scripts/uc-data-quality.ts`) / `scrum.pmo/standards/traceability-standard.md` (UC shape spec) / UC scenario JSON schema
@@ -207,7 +201,8 @@ File: `test/vitest/uc-classes-requirement.test.ts` (new — extends T152's `uc-d
 - [ ] Tron QA approved (with per-UC count + requirement-presence evidence)
 
 ## QA Audit & User Feedback
-- 2026-06-01: PO directed planner to stand up T153 as T152 follow-up with per-UC audit gate (classes-count match + requirement-presence). req-eng to capture the verbatim Tron quote and anchor (or replace) the planner-suggested `requirement:uuid` on the next pass. CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC13 + DoD (learnings #15 + #16). Awaiting req anchor → architect design → expert dry-run + apply → tester per-UC verify → Tron QA.
+- 2026-06-01: PO directed planner to stand up T153 as T152 follow-up. CMM4 4-role (#18); real v4 uuids (#17); rule-pair (a)+(b) in AC13 + DoD (#15+#16).
+- 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:7eb4cc80` with req's canonical `requirement:uuid:d4e5f6a7...0b14` (from B14 capture, commit `5b90ac4`). Verbatim Tron quote anchored. Tron acknowledges T152 progress ("quality much better") but classes[] + requirement still empty = "traceability therefore broken". Ready for architect.
 
 ## Subtasks
 None at parent level (architect may split T153.x if scope warrants — coordinate with planner first).
