@@ -11,10 +11,11 @@ T-number). Items here are NOT in any sprint's scope.
 - **B10 — Migration must emit symlinks for ALL 9 classes, not just Task**
   [requirement:uuid:f0a1b2c3-d4e5-4f6a-b7c8-901234560ab0]
   > TRON DIRECTIVE: "no ! this is not expected behavior!! this is a big implication gap"
+  > TRON DIRECTIVE (clarification): "same for requirements, classes methods"
 
   Context: UseCases (and Class/Method/Test/Requirement/TraceLink) have NO 🔗 in `/md/` listings because the T128 migration only emits Task symlinks in `sprints.json/<sprint>/`, not the other class instances. The 🔗 chain-link icon cannot resolve for non-Task entries because no symlink exists to point to.
 
-  T128 migration extension MUST emit symlinks for ALL 9 classes (Sprint, Task, Requirement, UseCase, Class, Method, Test, TraceLink, User) into `sprints.json/<sprint>/<class-dir>/<speaking-name>.json` so 🔗 resolves universally across the file browser. Without this, T147's symmetric icon UX is broken for 8 of 9 classes.
+  T128 migration extension MUST emit symlinks for ALL 9 classes — Tron explicitly confirms Requirements, Classes, and Methods are first-class symlinked too (not just UseCase). Full list: Sprint, Task, Requirement, UseCase, Class, Method, Test, TraceLink, User — each into `sprints.json/<sprint>/<class-dir>/<speaking-name>.json` so 🔗 resolves universally across the file browser. Without this, T147's symmetric icon UX is broken for 8 of 9 classes.
 
   **Sprint:** TBD (planner to triage — likely T128.x extension or new task)
   **Touches:** migration script (T128), symlink emission logic, `scenario/sprints.json/` tree structure
