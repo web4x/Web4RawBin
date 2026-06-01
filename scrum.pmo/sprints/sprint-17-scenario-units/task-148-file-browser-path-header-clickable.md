@@ -128,8 +128,65 @@ File: `test/vitest/path-header-clickable.test.ts` (new) + visual on `/md/scenari
 - 2026-06-01: PO directed planner to stand up T148. CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC9 + DoD (learnings #15+#16).
 - 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:806b3ad4` with req's canonical `requirement:uuid:e9f0a1b2` (from B9 capture, commit `4bb3f82`). Verbatim Tron quote anchored. Tron's example is concrete: "scenario/ 📁 index/" — each path segment becomes a clickable breadcrumb link. Planner summary was accurate. Ready for architect.
 
+## Design (robbin-architect, 2026-06-01)
+
+### Current state (server.ts line 592)
+```html
+<h1>${relPath || '/'}</h1>
+```
+Plain text. `scenario/sprints.md/task/` renders as dead text.
+
+### Fix: `breadcrumb` helper
+
+Add near line 579:
+```typescript
+const breadcrumb = (rel: string): string => {
+  if (!rel) return '<h1>/</h1>';
+  const parts = rel.replace(/\/$/, '').split('/');
+  const crumbs: string[] = [];
+  for (let i = 0; i < parts.length; i++) {
+    const href = '/md/' + parts.slice(0, i + 1).join('/') + '/';
+    const isLast = i === parts.length - 1;
+    if (isLast) {
+      crumbs.push(`<span>${parts[i]}</span>`);
+    } else {
+      crumbs.push(`<a href="${href}" style="color:#667eea;text-decoration:none">${parts[i]}</a>`);
+    }
+  }
+  return `<h1 style="font-size:1.1rem">${crumbs.join('<span style="color:#555;margin:0 2px">/</span>')}</h1>`;
+};
+```
+
+**Behavior:**
+- Each segment except last = clickable `<a>` to cumulative prefix
+- Last segment = plain `<span>` (current directory)
+- Separators = non-clickable styled `/`
+
+**Example:** `scenario/sprints.md/task/` →
+```
+[scenario] / [sprints.md] / task
+  ↓ click      ↓ click       (current)
+/md/scenario/ /md/scenario/sprints.md/
+```
+
+### Line 592 update
+```typescript
+// BEFORE: <h1>${relPath || '/'}</h1>
+// AFTER:  ${breadcrumb(relPath)}
+```
+
+### rb-file-tree: NO change
+`/edit/` route tree — independent surface.
+
+### No new routes, no STATIC_SHELL change.
+
+| File | Line | Change |
+|------|------|--------|
+| `server.ts` | ~579 | Add `breadcrumb` helper |
+| `server.ts` | 592 | Replace `<h1>` with `${breadcrumb(relPath)}` |
+
 ## Subtasks
-None (atomic task; small UI / href change in one renderer module).
+None (one helper + one substitution).
 
 ---
 
