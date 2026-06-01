@@ -79,7 +79,7 @@ async function init() {
       checkDeviceEnrollment(profileMsg.profile);
     }
   } catch {
-    container.innerHTML = '<div class="error"><h2>Connection Failed</h2><p>Could not connect to server. Please refresh.</p></div>';
+    container.innerHTML = '<div class="error"><h2>Connection Failed</h2><p>Could not connect to server.</p><button class="retry" onclick="location.reload()">Retry</button></div>';
   }
 }
 
