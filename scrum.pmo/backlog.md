@@ -8,6 +8,15 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **B8 — MD view directory listings need 🔗 chain-link icons (parity with JSON tree)**
+  [requirement:uuid:d8e9f0a1-b2c3-4d4e-a5f6-78901234b8c8]
+  > TRON DIRECTIVE: "scenario/sprints.json/sprint-17-scenario-units/ shows sprint.json/task-*.json with 🔗 + ✏️. i want it the same way linked for scenario/sprints.md/usecase/ (chain-tracemethodtoreq.md, index-get.md, index-put.md, ior-resolveclass.md) and everything else in scenario/sprints.md"
+
+  The `/md/` directory listing for `scenario/sprints.md/` subtrees must render the 🔗 chain-link icon next to each entry — same UX as the `scenario/sprints.json/` tree. The 🔗 links from each MD view file to its corresponding symlink in `scenario/sprints.json/<sprint>/<speaking-name>.json` (or to its source scenario unit in `scenario/index/`).
+
+  **Sprint:** TBD (planner to triage — PLAN AHEAD, do NOT interrupt current work)
+  **Touches:** server.ts `/md/` directory listing renderer (the code that builds `<li>` entries for `.md` files in scenario subtrees), T141 chain-link convention
+
 - **B7 — Requirement entry format: short name + no duplicate content**
   [requirement:uuid:a8b9c0d1-e2f3-4a4b-b5c6-d7e8f9a0b1c7]
   > TRON DIRECTIVE: "requirement has duplicate content. keep the description and make a 3 to 5 word name as first line name of the requirement as a summary"
