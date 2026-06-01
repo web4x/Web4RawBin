@@ -9,7 +9,9 @@
       "ior:instance:c93f69d5-a2e4-4b18-b956-4d7e2f03c8b1",
       "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d"
     ],
-    "classes": [],
+    "classes": [
+      "SpeakingTree"
+    ],
     "requirement": null,
     "source": {
       "file": "scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml",

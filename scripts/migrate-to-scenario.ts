@@ -378,8 +378,79 @@ function fixUcDataQuality(idx: ScenarioIndex, dryRun: boolean): void {
       }
     }
 
+    // T153: class refs from PUML arrows + S16 object: field
+    if (!(m.classes as string[])?.length && m.source) {
+      const src = m.source as Record<string, unknown>;
+      const srcFile = String(src.file || '');
+      if (srcFile && fs.existsSync(path.join(__dirname, '..', srcFile))) {
+        const fullPuml = fs.readFileSync(path.join(__dirname, '..', srcFile), 'utf-8');
+        const ucName = String(m.name || '');
+        const classRefs: string[] = [];
+
+        // S17: parse alias map (class "FullName" as Alias)
+        const aliasMap = new Map<string, string>();
+        for (const am of fullPuml.matchAll(/class\s+"([^"]+)"\s+as\s+(\w+)/g)) {
+          if (!am[0].includes('<<UseCase>>')) aliasMap.set(am[2], am[1]);
+        }
+        // Find arrows: "ucName" --> Alias : implements
+        for (const arrow of fullPuml.matchAll(/"([^"]+)"\s*-->\s*(\w+)/g)) {
+          if (arrow[1] === ucName) {
+            const target = aliasMap.get(arrow[2]) || arrow[2];
+            if (!classRefs.includes(target)) classRefs.push(target);
+          }
+        }
+        // S16: object: field as class ref
+        const srcLines = src.lines as number[] | undefined;
+        if (srcLines) {
+          const blockLines = fullPuml.split('\n').slice((srcLines[0] || 1) - 1, srcLines[1] || srcLines[0]);
+          for (const bl of blockLines) {
+            const objField = bl.match(/^\s*object:\s*(\S+)/);
+            if (objField && !classRefs.includes(objField[1])) classRefs.push(objField[1]);
+          }
+        }
+        if (classRefs.length) { m.classes = classRefs; changed = true; }
+      }
+    }
+
+    // T153: requirement refs (plural array) — scan PUML block for R-refs
+    if (!(m.requirements as string[])?.length) {
+      // Find this UC's block in any PUML file
+      const ucName = String(m.name || '');
+      const pumlDirs = fs.readdirSync(path.join(__dirname, '../scrum.pmo/sprints')).filter(s => s.startsWith('sprint-'));
+      const reqArr: string[] = [];
+      for (const sp of pumlDirs) {
+        const dDir = path.join(__dirname, '../scrum.pmo/sprints', sp, 'diagrams');
+        if (!fs.existsSync(dDir)) continue;
+        for (const pf of fs.readdirSync(dDir).filter(f => f.endsWith('.puml'))) {
+          const puml = fs.readFileSync(path.join(dDir, pf), 'utf-8');
+          const ucRe = new RegExp(`class\\s+"${ucName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"\\s+<<UseCase>>\\s*\\{([^}]+)\\}`, 's');
+          const blockMatch = puml.match(ucRe);
+          if (!blockMatch) continue;
+          for (const rm of blockMatch[1].matchAll(/R(\d+\.\d+)/g)) {
+            const rNum = rm[0];
+            for (const rid of idx.list()) {
+              const ru = idx.get(rid);
+              if (ru?.ior === 'ior:class:Requirement' && String(ru.model.name || '').includes(rNum)) {
+                const ior = `ior:instance:${rid}`;
+                if (!reqArr.includes(ior)) reqArr.push(ior);
+              }
+            }
+          }
+        }
+        if (reqArr.length) break;
+      }
+      if (reqArr.length) { m.requirements = reqArr; changed = true; }
+    }
+
+    // Migrate singular requirement → plural requirements[]
+    if (m.requirement && !(m.requirements as string[])?.length) {
+      m.requirements = [String(m.requirement)];
+      changed = true;
+    }
+    const classCount = (m.classes as string[])?.length || 0;
+    const reqCount = (m.requirements as string[])?.length || 0;
     const status = changed ? (dryRun ? 'would fix' : 'fixed') : 'ok';
-    console.log(`${String(m.name || uuid.slice(0,8))} | ${m.object || '∅'} | ${m.verb || '∅'} | ${(m.requirement ? 1 : 0) + ((m.tasks as string[])?.length || 0)} refs | ${(m.tasks as string[])?.length || 0} | ${status}`);
+    console.log(`${String(m.name || uuid.slice(0,8))} | ${m.object || '∅'} | ${m.verb || '∅'} | cls:${classCount} req:${reqCount} tsk:${(m.tasks as string[])?.length || 0} | ${status}`);
 
     if (changed && !dryRun) { idx.put(uuid, unit); fixed++; }
   }
