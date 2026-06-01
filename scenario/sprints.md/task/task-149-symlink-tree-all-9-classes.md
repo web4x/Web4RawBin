@@ -7,7 +7,7 @@
 - [x] In Progress
   - [x] refinement (req → architect — architect-side design landed via `3f8cd33` "T149 pre-design — sprints.json symlink tree for all 9 classes", adopted into the Design section below; **req verbatim Tron-quote anchor still pending — backfill needed**)
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
@@ -110,11 +110,12 @@ tree is uniform across all 9.
 
 ## QA Audit & User Feedback
 
-- 2026-06-01: PO directed planner to stand up T149 with explicit per-class enumeration (Tron reinforced "same for requirements, classes methods"). req-eng to capture the verbatim Tron quote and anchor (or replace) the planner-suggested `requirement:uuid` on the next pass. CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC15 + DoD (learnings #15+#16). Awaiting req anchor → architect design → expert impl + back-fill → tester per-class verify → Tron QA.
+- 2026-06-01: PO directed planner to stand up T149 with explicit per-class enumeration (Tron reinforced "same for requirements, classes methods"). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC15 + DoD (learnings #15+#16).
+- 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:127e6260` with req's canonical `requirement:uuid:f0a1b2c3` (from B10 capture, commits `7044557` + `cce6d5e`). Both verbatim Tron quotes anchored: the emphatic "no ! this is not expected behavior!! this is a big implication gap" + the scope clarification "same for requirements, classes methods". Planner summary was accurate — all 9 classes confirmed. Ready for architect.
 
 ## Subtasks
 
-None at parent level (architect may split T149.x per class group if useful — coordinate with planner first).
+None (scenarioLink fix + migration script fix + re-run).
 
 ---
 

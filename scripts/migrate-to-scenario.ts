@@ -293,7 +293,7 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
       const from = String((unit.model as any).from || '').replace('ior:instance:', '');
       const to = String((unit.model as any).to || '').replace('ior:instance:', '');
       if (sprintUnitUuids.has(from) || sprintUnitUuids.has(to)) {
-        traceLinkUnits.push({ uuid: uid, name: uid.slice(0, 12) });
+        traceLinkUnits.push({ uuid: uid, name: uid });
       }
     }
   }
