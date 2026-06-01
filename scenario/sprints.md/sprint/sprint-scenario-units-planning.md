@@ -43,3 +43,5 @@
 - [ ] [T155: Requirement `tasks[]` + `tests[]` bidirectional closure](../task/task-155-requirement-tasks-tests-bidirectional-closure.md)
 - [ ] [T156: Reload button on Connection-Failed + Offline pages](../task/task-156-reload-button-connection-failed-offline.md)
 - [ ] [T157: Profile gate — Upload vCard for fast onboarding (button + native drag-and-drop)](../task/task-157-profile-gate-vcard-onboarding.md)
+- [ ] [T158: Traceability browser — surface the FULL chain data (Req → Task → UC → Class → Method → Impl → Test)](../task/task-158-traceability-browser-full-chain-data.md)
+- [ ] [T159: Forward-only traceability chain — refactor (remove back-refs)](../task/task-159-forward-only-traceability-chain-refactor.md)

@@ -18,12 +18,13 @@ function loader(className: string, defaults: Record<string, unknown>): ClassLoad
 }
 
 export const SprintLoader = loader('Sprint', { number: 0, goal: '', status: '', tasks: [], requirements: [] });
-export const TaskLoader = loader('Task', { description: '', status: '', assigned: '', effort: '', children: [], requirements: [], useCases: [], implementations: [], links: { up: [], down: [], follows: [], changes: [] }, chain: { requirements: [], useCases: [], puml: [], classMethods: [] } });
+// T159: forward-only chain — no back-refs (task→req, uc→req, method→req removed)
+export const TaskLoader = loader('Task', { description: '', status: '', assigned: '', effort: '', children: [], useCases: [], implementations: [], links: { down: [], follows: [], changes: [] }, chain: { useCases: [], puml: [], classMethods: [] } });
 export const RequirementLoader = loader('Requirement', { description: '', priority: '', source: '', tasks: [], tests: [], altId: '' });
-export const UseCaseLoader = loader('UseCase', { object: '', verb: '', tasks: [], classes: [], requirement: null, requirements: [] });
+export const UseCaseLoader = loader('UseCase', { object: '', verb: '', tasks: [], classes: [] });
 export const ClassObjLoader = loader('Class', { file: null, useCases: [], methods: [] });
-export const MethodLoader = loader('Method', { class: null, implementations: [], tests: [], task: null, requirement: null });
-export const TestLoader = loader('Test', { file: null, methods: [], requirements: [], status: '' });
+export const MethodLoader = loader('Method', { class: null, implementations: [], tests: [], task: null });
+export const TestLoader = loader('Test', { file: null, methods: [], status: '' });
 export const UserLoader = loader('User', { displayName: '', token: '', avatarHash: '', deviceId: '', sshPubKey: '', createdAt: '', updatedAt: '' });
 
 export class ClassRegistry {

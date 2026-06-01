@@ -107,6 +107,39 @@ export function validateAllSources(idx: import('./index-store.js').ScenarioIndex
   return issues;
 }
 
+const BACK_REF_FIELDS: Record<string, string[]> = {
+  Task: ['requirements'],
+  UseCase: ['requirement', 'requirements'],
+  Method: ['requirement'],
+  Test: ['requirements'],
+};
+
+export function validateNoBackRefs(idx: import('./index-store.js').ScenarioIndex): SourceIssue[] {
+  const issues: SourceIssue[] = [];
+  for (const uuid of idx.list()) {
+    const unit = idx.get(uuid);
+    if (!unit) continue;
+    const className = unit.ior.replace('ior:class:', '');
+    const fields = BACK_REF_FIELDS[className];
+    if (!fields) continue;
+    const m = unit.model as Record<string, unknown>;
+    for (const field of fields) {
+      const val = m[field];
+      if (val && (Array.isArray(val) ? val.length > 0 : val !== null)) {
+        issues.push({ ref: `${className.toLowerCase()}:${uuid}`, reason: `back-ref field '${field}' still present` });
+      }
+    }
+    const links = m.links as Record<string, unknown> | undefined;
+    if (links && 'up' in links) {
+      const up = links.up;
+      if (up && (Array.isArray(up) ? up.length > 0 : true)) {
+        issues.push({ ref: `${className.toLowerCase()}:${uuid}`, reason: `back-ref field 'links.up' still present` });
+      }
+    }
+  }
+  return issues;
+}
+
 export function validateSource(src: SourceLocation, projectRoot: string): string[] {
   const issues: string[] = [];
   const fullPath = `${projectRoot}/${src.file}`;

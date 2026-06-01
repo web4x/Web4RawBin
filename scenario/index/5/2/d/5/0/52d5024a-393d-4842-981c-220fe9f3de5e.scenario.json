@@ -1,7 +1,7 @@
 {
   "ior": "ior:class:Sprint",
   "model": {
-    "uuid": "8cba0274-8956-4266-9213-cee382ff3b38",
+    "uuid": "52d5024a-393d-4842-981c-220fe9f3de5e",
     "name": "Sprint scenario units",
     "number": 17,
     "goal": "",
@@ -41,7 +41,9 @@
       "ior:instance:34ea153f-1981-48ef-bfac-fc336ebf58d4",
       "ior:instance:c1b9f69e-a9da-4559-808c-6c147b65bef6",
       "ior:instance:9937a1f1-5674-48fb-92fe-6dc4a38089b0",
-      "ior:instance:ec8e7a0f-18e4-418c-8242-4555c8106b7a"
+      "ior:instance:ec8e7a0f-18e4-418c-8242-4555c8106b7a",
+      "ior:instance:5eedd968-085c-443b-acae-7ae73a4ce252",
+      "ior:instance:13e644f4-8a89-44bf-a71c-cad66d12c539"
     ],
     "requirements": []
   },

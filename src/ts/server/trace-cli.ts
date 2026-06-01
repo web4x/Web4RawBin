@@ -9,7 +9,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { scanRepo, validate, formatReport, fixMatrix } from './TraceConsistency.js';
 import { ScenarioIndex } from '../scenario/index-store.js';
-import { validateAllSources } from '../scenario/source-location.js';
+import { validateAllSources, validateNoBackRefs } from '../scenario/source-location.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRINTS_DIR = path.join(__dirname, '../../../scrum.pmo/sprints');
@@ -30,6 +30,14 @@ try {
   if (srcIssues.length) {
     console.log(`\nSource location issues: ${srcIssues.length}`);
     for (const si of srcIssues) console.log(`  [WARN] ${si.ref} — ${si.reason}`);
+  }
+  // T159: no-back-refs validation
+  const backRefIssues = validateNoBackRefs(idx);
+  if (backRefIssues.length) {
+    console.log(`\nBack-ref violations (T159): ${backRefIssues.length}`);
+    for (const bi of backRefIssues) console.log(`  [WARN] ${bi.ref} — ${bi.reason}`);
+  } else {
+    console.log(`\nBack-ref check: CLEAN (0 violations)`);
   }
 } catch { /* scenario index not present — skip */ }
 
