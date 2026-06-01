@@ -8,6 +8,21 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **B15 — Requirement name ≠ description, tasks[] empty**
+  [requirement:uuid:e5f6a7b8-c9da-4ebf-0a12-345678900b15]
+  > TRON DIRECTIVE: "data quality massively improved...requirement quality still poor. name and description should differ. name should be similar to filename but plain English. tasks traceability is still empty. needs to improve too."
+
+  Three fixes on Requirement scenario units:
+  1. `model.name` = plain-English short name (similar to filename slug but human-readable, NOT the full Tron quote)
+  2. `model.description` = verbatim Tron quote (separate field — the quote IS the description, name is the summary)
+  3. `model.tasks[]` populated from req→task forward links (the `→ [T<N>]` lines in requirements.md)
+
+  Same diligent no-loss gate as T151/T152/T153.
+
+  **Sprint:** TBD (planner to triage)
+  **Touches:** Requirement scenario units, migration script (name/description split + tasks[] population), requirements.md parser
+  **Related:** T146 (name-first format — B15 is the JSON-side of the same principle), T151 (MD→JSON discipline)
+
 - **B14 — UC classes[] and requirement still empty**
   [requirement:uuid:d4e5f6a7-b8c9-4dae-f0a1-234567890b14]
   > TRON DIRECTIVE: "quality much better… classes array and requirements still empty and traceability therefore broken"
