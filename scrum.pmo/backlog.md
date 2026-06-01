@@ -8,6 +8,17 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **B12 — Scenario JSON traceability arrays empty — migrate from MD**
+  [requirement:uuid:b2c3d4e5-f6a7-4b8c-d9e0-123456780b12]
+  > TRON DIRECTIVE: "the md file traceability content is good but its not at all reflected in the json scenarios. all tasks and usecases arrays with traceability reference are empty but the json should be the source from with the traceability section is generated. migrate the md traceability content diligently to data without loosing infos that you have in the plain text. this is a big diligent task for architect and req agent to fix that needs to be carefully tracked."
+
+  Scenario JSON arrays (`children`, `tasks`, `requirements`, `useCases`, `classes`, `methods`, `tests`, `tracelinks`) are ALL empty despite the MD Traceability sections having rich content (up/down/follows/chain links). The JSON must be the source of truth — MD views are generated FROM it. Migration must parse the existing MD traceability content and populate the JSON arrays without losing any information from the plain text.
+
+  **Tron-assigned roles:** architect + req-eng JOINTLY (big diligent task, carefully tracked).
+  **Sprint:** TBD (planner to triage)
+  **Touches:** migration script (T128), all `scenario/index/*/*.scenario.json` files, MD traceability parser, JSON array population logic
+  **Scale:** Large — every scenario unit across all sprints needs traceability arrays populated
+
 - **B11 — Breadcrumb link color unreadable**
   [requirement:uuid:a1b2c3d4-e5f6-4a7b-c8d9-012345670b11]
   > TRON DIRECTIVE: "file browser clickable path works well, but link text color is barely readable on background."
