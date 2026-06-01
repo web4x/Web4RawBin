@@ -8,6 +8,16 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **B17 — Traceability browser must show full chain data**
+  [requirement:uuid:a7b8c9da-ebfc-4d01-a234-567890120b17]
+  > TRON DIRECTIVE: "as now data exists that traces till the class method, architect how the traceability browser has to change to reflect the full data"
+
+  Traceability browser (`/trace` + DetailViews + tree-item) must be redesigned to surface the FULL chain: Requirement → Task → UC → Class → Method → Impl → Test, with source locations + commit anchors (R17.24 IORs). Data now exists (T151-T155 populated the arrays) — the browser must render it. Tron-assigned: ARCHITECT designs.
+
+  **Sprint:** TBD (planner to triage)
+  **Touches:** `/trace` route, DetailView templates, tree-item rendering, chain visualization (tree not linear), source-location IOR display
+  **Related:** T151 (JSON arrays populated), T152-T155 (UC + Req data quality), T140 (source-location IOR), R17.26 (traceability is a tree)
+
 - **B16 — Requirement tasks[] and tests[] still empty**
   [requirement:uuid:f6a7b8c9-daeb-4fc0-a123-456789010b16]
   > TRON DIRECTIVE: "requirement quality has improved.. BUT tasks and tests are still empty"
