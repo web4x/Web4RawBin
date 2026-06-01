@@ -5,11 +5,11 @@
 [task:uuid:79ceb865-780f-4bcb-b487-8078bce47790]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req + architect — JOINT)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req + architect — JOINT: `fa7c9bb` req anchor B12 verbatim + per-shape mapping table; `6f4db8f` architect design — MD traceability → JSON arrays migration)
   - [ ] creating test cases
-  - [x] implementing
+  - [x] implementing (`d3ec388` v0.5.48 — **815/815 per-task count gate PASSED, zero loss**; rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME → rawbin-v0.5.48)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
