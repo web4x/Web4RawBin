@@ -31,16 +31,11 @@
 
 - up
   - [Sprint 17 Planning](./planning.md)
-  - **Tron quote capture (req-eng):** *(awaiting req-eng B-entry / verbatim anchor — PO 2026-06-01 directed stand-up; req capturing literal)*
-  - **Path-header clickability requirement (planner-suggested; req-eng to anchor/override on capture)**
-    `[requirement:uuid:806b3ad4-81d4-453d-822a-b99eb72dcbe3]`
-    Planner summary (req to confirm / correct from Tron's literal):
-    > The file-browser at `/md/<path>` shows the current path as a header above
-    > the directory listing, but the header is plain text — clicking does
-    > nothing. Make each path segment a clickable link that navigates to that
-    > segment's directory (the parent dir of everything below it). Standard
-    > breadcrumb behavior. Applies to all `/md/` subtrees including
-    > `scenarios/sprints.md/...` and `scenarios/sprints.json/...`.
+  - **Tron quote capture (req-eng anchored 2026-06-01):** B9 in [scrum.pmo/backlog.md](../../backlog.md), commit `4bb3f82`
+  - **B9 requirement** `[requirement:uuid:e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9]`
+    Verbatim Tron quote:
+    > "in the file browser make the first line clickable eg scenario/ 📁 index/
+    > so scenario is clickable and will go 1 folder up"
 - down
   - None (atomic task; small UI / href fix)
 - follows
@@ -48,7 +43,7 @@
   - [T147: `.md` directory listing symmetric icons](./task-147-md-listing-chain-link-icon.md) — sibling UX uplift in the same renderer
   - [T131: File-browser symlinks](./task-131-file-browser-symlinks.md) — file-browser baseline
 - chain (req → usecase → puml → class/method) — architect to fill on refinement
-  - **requirement:** path-header clickability (above; planner-suggested → req-eng anchor)
+  - **requirement:** B9 `[requirement:uuid:e9f0a1b2-c3d4-4e5f-a6b7-890123459bc9]` (req-eng anchored)
   - **use case:** UC-TBD (architect — likely `fileBrowser.renderPathHeader` / `fileBrowser.navigateToParent`)
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UC as a `UseCase` instance (rule #10 / T117)
   - **class/method:** `src/ts/server/server.ts` (`/md/` directory listing renderer — path-header emission), `src/public/ts/components/rb-file-tree.ts` if mirrored (TBD by architect)
@@ -130,7 +125,8 @@ File: `test/vitest/path-header-clickable.test.ts` (new) + visual on `/md/scenari
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
-- 2026-06-01: PO directed planner to stand up T148. req-eng to capture the verbatim Tron quote and anchor (or replace) the planner-suggested `requirement:uuid` on the next pass. CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC9 + DoD (learnings #15+#16). Awaiting req anchor → architect design → expert impl → tester verify → Tron QA.
+- 2026-06-01: PO directed planner to stand up T148. CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC9 + DoD (learnings #15+#16).
+- 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:806b3ad4` with req's canonical `requirement:uuid:e9f0a1b2` (from B9 capture, commit `4bb3f82`). Verbatim Tron quote anchored. Tron's example is concrete: "scenario/ 📁 index/" — each path segment becomes a clickable breadcrumb link. Planner summary was accurate. Ready for architect.
 
 ## Subtasks
 None (atomic task; small UI / href change in one renderer module).
