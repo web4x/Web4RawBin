@@ -212,8 +212,105 @@ File: `test/vitest/symlink-tree-all-classes.test.ts` (new) + visual on `/md/scen
 - 2026-06-01: PO directed planner to stand up T149 with explicit per-class enumeration (Tron reinforced "same for requirements, classes methods"). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC15 + DoD (learnings #15+#16).
 - 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:127e6260` with req's canonical `requirement:uuid:f0a1b2c3` (from B10 capture, commits `7044557` + `cce6d5e`). Both verbatim Tron quotes anchored: the emphatic "no ! this is not expected behavior!! this is a big implication gap" + the scope clarification "same for requirements, classes methods". Planner summary was accurate — all 9 classes confirmed. Ready for architect.
 
+## Design (robbin-architect, 2026-06-01)
+
+### Slug mismatch gap (PO-flagged)
+
+**Bug:** TraceLink `.json` filenames use truncated UUID slugs (`06a0be14-31d.json` — 11 chars from `uid.slice(0, 12)` at migrate line 296). TraceLink `.md` filenames use full UUID (`06a0be14-31d5-455b-a0c4-f5e102abc306.md` — from `generator.ts:speakingName()` falling through to `model.uuid`). T147's `scenarioLink` scanner can't match `.md` slug against `.json` filename.
+
+**Other classes affected:** NONE. Task/Requirement/UseCase all have `model.name` set, so `speakingName()` produces matching slugs on both sides. Only TraceLink lacks `model.name` (has `model.label` instead) — so the generator falls through to `model.uuid`.
+
+### Fix: Option (c) — index UUID lookup (PO-recommended)
+
+Instead of matching `.md` filename against `.json` filename by slug, resolve via the scenario index:
+
+1. `.md` filename → strip extension → candidate slug
+2. Look up in `scenario/index/` by UUID (if slug IS a UUID) or by scanning the index for a unit whose `speakingName()` matches
+3. Once UUID is found, compute the canonical index path → build `/edit/` href
+
+**Implementation — replace `scenarioLink` in server.ts:**
+
+```typescript
+const scenarioLink = (e: any) => {
+  if (!relPath.startsWith('scenario/sprints.md/') || !e.name.endsWith('.md')) return '';
+  const slug = e.name.replace('.md', '');
+
+  // Strategy 1: slug IS a UUID (tracelinks) — resolve directly via index
+  const uuidMatch = slug.match(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
+  if (uuidMatch) {
+    const prefix = slug.replace(/-/g, '').slice(0, 5).split('').join('/');
+    const indexPath = `scenario/index/${prefix}/${slug}.scenario.json`;
+    if (fsSync.existsSync(path.join(PROJECT_ROOT, indexPath))) {
+      return ` <a href="/edit/${indexPath}" style="text-decoration:none;font-size:0.8em" title="Scenario JSON">🔗</a>`;
+    }
+  }
+
+  // Strategy 2: slug is a speaking name (tasks, reqs, UCs) — scan sprints.json
+  const sprintsJsonDir = path.join(PROJECT_ROOT, 'scenario', 'sprints.json');
+  try {
+    for (const sprint of fsSync.readdirSync(sprintsJsonDir)) {
+      const sprintDir = path.join(sprintsJsonDir, sprint);
+      if (!fsSync.statSync(sprintDir).isDirectory()) continue;
+      // Check class subdirs
+      for (const classDir of fsSync.readdirSync(sprintDir)) {
+        const classDirPath = path.join(sprintDir, classDir);
+        if (!fsSync.statSync(classDirPath).isDirectory()) continue;
+        const jsonPath = path.join(classDirPath, `${slug}.json`);
+        if (fsSync.existsSync(jsonPath)) {
+          return ` <a href="/edit/scenario/sprints.json/${sprint}/${classDir}/${slug}.json" style="text-decoration:none;font-size:0.8em" title="Scenario JSON">🔗</a>`;
+        }
+      }
+      // Check flat (backward compat)
+      const flatPath = path.join(sprintDir, `${slug}.json`);
+      if (fsSync.existsSync(flatPath)) {
+        return ` <a href="/edit/scenario/sprints.json/${sprint}/${slug}.json" style="text-decoration:none;font-size:0.8em" title="Scenario JSON">🔗</a>`;
+      }
+    }
+  } catch {}
+  return '';
+};
+```
+
+**Why this is most resilient:**
+- UUID slugs (tracelinks) resolve via Strategy 1 — direct index lookup, no scanning
+- Speaking-name slugs (tasks, reqs, UCs) resolve via Strategy 2 — sprint tree scan
+- Both strategies are slug-format-agnostic — doesn't matter if `.json` side uses truncated or full UUIDs
+- Future classes work automatically — no per-class special case
+
+### Migration script fix (secondary)
+
+Also fix `migrate-to-scenario.ts` line 296 to use full UUID as slug (for consistency):
+
+```typescript
+// BEFORE:
+traceLinkUnits.push({ uuid: uid, name: uid.slice(0, 12) });
+
+// AFTER:
+traceLinkUnits.push({ uuid: uid, name: uid });
+```
+
+This makes `.json` filenames match `.md` filenames for tracelinks going forward. The `scenarioLink` Strategy 1 handles both old (truncated) and new (full) UUID filenames.
+
+### Re-run migrations after fix
+
+```bash
+rm -rf scenario/sprints.json/*
+for s in sprint-1-rawbin-foundation sprint-2-identity-ssh ...; do
+  npx tsx scripts/migrate-to-scenario.ts --sprint "$s" --apply
+done
+```
+
+### Touchpoints
+
+| File | Change |
+|------|--------|
+| `server.ts` `scenarioLink` | Two-strategy resolver (UUID direct + speaking-name scan) |
+| `scripts/migrate-to-scenario.ts` line 296 | Full UUID instead of `uid.slice(0, 12)` |
+
+### No new routes, no STATIC_SHELL change.
+
 ## Subtasks
-None at parent level (architect may split T149.x per class group if useful — coordinate with planner first).
+None (scenarioLink fix + migration script fix + re-run).
 
 ---
 
