@@ -118,8 +118,59 @@ File: visual + functional (no automated test typically needed for a single butto
 - 2026-06-01: PO directed planner to stand up T156 from backlog B4. CMM4 4-role (#18); real v4 uuids (#17); rule-pair (a)+(b) in AC8 + DoD (#15+#16).
 - 2026-06-01 **robbin-req (anchor confirm):** B4 verbatim already in traceability block (lines 37-38, canonical uuid:c5d6e7f8). Both Tron quotes present ("add a reload button..." + "same on the you are offline page"). Chain section updated with full uuid. Note: sw.js offline page already has a Retry button — T156 scope is primarily the app.ts connection-failed page. Ready for architect.
 
+## Design (robbin-architect, 2026-06-01)
+
+### Current state
+
+**Connection-Failed (app.ts line 82):**
+```typescript
+container.innerHTML = '<div class="error"><h2>Connection Failed</h2><p>Could not connect to server. Please refresh.</p></div>';
+```
+No button. Text says "Please refresh" but no clickable affordance.
+
+**Offline page (sw.js line 18-20):**
+```html
+.retry{padding:12px 32px;background:white;color:#667eea;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer}
+<button class="retry" onclick="location.reload()">Retry</button>
+```
+Already has a styled Retry button. ✅
+
+### Fix: add reload button to app.ts connection-failed
+
+```typescript
+// BEFORE (line 82):
+container.innerHTML = '<div class="error"><h2>Connection Failed</h2><p>Could not connect to server. Please refresh.</p></div>';
+
+// AFTER:
+container.innerHTML = '<div class="error"><h2>Connection Failed</h2><p>Could not connect to server.</p><button onclick="location.reload()" style="margin-top:16px;padding:12px 32px;background:white;color:#667eea;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer">Retry</button></div>';
+```
+
+**Style matches sw.js `.retry` class** — same padding, background, color, border-radius, font. Inline style (not a class) because app.ts error HTML is a one-shot string, not using a stylesheet. Consistent with the offline page button.
+
+### Also check edit.ts
+
+```bash
+grep -n 'Connection Failed\|connection.*fail' src/public/ts/edit.ts
+```
+
+If edit.ts has a similar error path, add the same button. If not, no change.
+
+### iOS safe-area
+
+The button is inside a centered `<div class="error">` which already has margin/padding. No additional `env(safe-area-inset-bottom)` needed — the button isn't at the bottom edge.
+
+### Touchpoints
+
+| File | Line | Change |
+|------|------|--------|
+| `src/public/ts/app.ts` | 82 | Add `<button onclick="location.reload()">Retry</button>` to connection-failed HTML |
+| `src/public/ts/edit.ts` | TBD | Same if it has a connection-failed path |
+| `src/public/sw.js` | — | No change (already has Retry button) |
+
+### No new routes, no STATIC_SHELL change.
+
 ## Subtasks
-None (atomic task; small UI fix on two error surfaces).
+None (one line change + optional edit.ts mirror).
 
 ---
 

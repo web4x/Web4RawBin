@@ -133,8 +133,42 @@ File: `test/vitest/vcard-parser.test.ts` (new — V3.0 parser unit tests) + mult
 - 2026-06-01: PO directed planner to stand up T157 from backlog B3. CMM4 4-role (#18); real v4 uuids (#17); rule-pair (a)+(b) in AC12 + DoD (#15+#16). Multi-platform iOS/Android/Windows hard requirement per Tron.
 - 2026-06-01 **robbin-req (anchor confirm):** B3 verbatim already in traceability block (line 39, canonical uuid:a3b4c5d6). Full 3-fragment Tron quote present (upload button + initialize from card + native OS drag-and-drop iOS/Android/Windows). Chain section updated with full uuid. Note: B3 uuid was flagged by planner as invalid v4 (4th-group variant `0c1d` outside `[89ab]`) — functional but trace-cli may drop it. Consider regenerating via uuidgen if it causes issues. Ready for architect.
 
+## Design (robbin-architect, 2026-06-01)
+
+### FINDING: Already implemented
+
+Code audit reveals T157 is **already fully implemented** in the current codebase:
+
+**ProfileEditor.ts (lines 48-52, 92-113, 159-176):**
+- `📇 Import vCard` button (line 49) — positioned at top of gate form ✅
+- Hidden `<input type="file" accept=".vcf,text/vcard">` (line 50) ✅
+- Drag-drop hint text (line 51) ✅
+- Button click → triggers file input (lines 92-93) ✅
+- File input change → `parseVCard(await file.text())` → `applyVCard(vcf)` (lines 95-100) ✅
+- Drag-drop handlers: `dragover` (line 104), `drop` (lines 108-113) ✅
+- `applyVCard()` populates FN→name, TEL→phone, URL→url, PHOTO→avatar (lines 159-169) ✅
+
+**vcard-parse.ts** — V3.0 parser exists:
+- Imported at ProfileEditor.ts line 5: `import { parseVCard, type VCardData } from './vcard-parse.js'`
+- Parses FN, TEL, URL, PHOTO fields ✅
+
+### What's left: tester verification only
+
+The implementation exists. What's needed is **multi-platform testing** per Tron's directive:
+1. iOS Safari — button upload + share-sheet drop
+2. Android Chrome — button upload + drag-drop
+3. Windows Edge/Chrome — button upload + native drag-drop
+4. Verify PHOTO → avatar roundtrip (blob upload via rb-avatar.uploadBlob)
+5. Verify fields pre-fill (user reviews before saving) — confirmed by line 159-169 logic
+
+### Architect recommendation
+
+Mark T157 as **implementing: DONE** (already in codebase). Move directly to **testing** phase. Tester runs TS1-TS8 across all three platforms.
+
+### No design changes needed. No new code. No rule-pair (already shipped).
+
 ## Subtasks
-None at parent level (architect may split T157.x per platform if scope warrants — coordinate with planner first).
+None (testing only — implementation already present).
 
 ---
 
