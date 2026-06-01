@@ -7,9 +7,9 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-  - [x] refinement (req → architect — architect pre-design adopted from stub `task-153-uc-class-req-refs.md`; **req verbatim Tron-quote anchor still pending — backfill needed**)
+  - [x] refinement (req → architect — architect pre-design adopted from stub `task-153-uc-class-req-refs.md`; req-eng backfill DONE via `ee04ffb` — B14 anchored with verbatim Tron quote "quality much better… classes array and requirements still empty and traceability therefore broken" + canonical `requirement:uuid:d4e5f6a7-…`)
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing (`0365ff1` v0.5.50 — UC class refs from PUML arrows + S16 `object:` field; rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME → rawbin-v0.5.50)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
