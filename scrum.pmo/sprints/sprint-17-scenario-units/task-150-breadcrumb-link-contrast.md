@@ -5,11 +5,11 @@
 [task:uuid:0da44cbe-6f10-4fb5-a11a-6c4a7e9c17f4]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — `8051692` req-eng anchor (B11, canonical req:uuid:a1b2c3d4-…) + `1d534a2` architect design)
   - [ ] creating test cases
-  - [x] implementing
+  - [x] implementing (`18a28ff` v0.5.47 — WCAG AA contrast fix; rule-pair (a)+(b) ✓: package.json + sw.js CACHE_NAME → rawbin-v0.5.47)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
