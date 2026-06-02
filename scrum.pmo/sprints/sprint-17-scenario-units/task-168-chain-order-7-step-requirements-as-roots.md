@@ -144,6 +144,100 @@ File: extend `test/vitest/trace-model.test.ts` + `test/e2e/trace-chain.spec.ts`.
 ## QA Audit & User Feedback
 - 2026-06-02: PO directed planner-first stand-up of T168 (R-E from compound-source-2 Tron completion + PO chain-to-test amendment same day). CMM4 4-role; real v4 uuids; rule-pair (a)+(b) in AC9+DoD. Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
 
+## Design (Architect — robbin-architect, 2026-06-02)
+
+### The 7-Step Canonical Chain (LOCKED)
+
+```
+requirement → task → usecase(s) → class → method → implementation → test(s)
+    ROOT        1:1      1:N        1:1    1:N         1:1            1:N
+```
+
+| Step | Type | Cardinality | Forward field | LEAF? |
+|------|------|-------------|---------------|-------|
+| 1 | requirement | ROOT | `tasks[]` | NO |
+| 2 | task | 1:1 from req | `useCases[]`, `subtasks[]` | NO |
+| 3 | usecase | 1:N from task | `classes[]` | NO |
+| 4 | class | 1:1 from UC | `methods[]` | NO |
+| 5 | method | 1:N from class | `implementations[]` | NO |
+| 6 | implementation | 1:1 from method | `tests[]` (NEW) | NO |
+| 7 | test | 1:N from impl | — | YES (LEAF) |
+
+Plural hops: task→usecase(s), class→method(s), implementation→test(s).
+
+### Tree Root Rule
+
+Atomic requirements are the ONLY tree roots:
+```typescript
+const roots = this.graph.ofType('requirement');
+// NO fallback to graph.all()
+```
+
+### Canonical Walk Order
+
+Replace unordered link walk with canonical order:
+```typescript
+const CANONICAL_WALK: Record<string, string[]> = {
+  requirement:    ['tasks'],
+  task:           ['subtasks', 'useCases'],
+  usecase:        ['classes'],
+  class:          ['methods'],
+  method:         ['implementations'],
+  implementation: ['tests'],
+  test:           [],
+};
+
+function orderedChildRefs(obj: TraceObject): string[] {
+  const order = CANONICAL_WALK[obj.type] || [];
+  return order.flatMap(key => obj.toJSON().links[key] || []);
+}
+```
+
+Replace `Object.values(obj.toJSON().links).flat()` in `nodeEl()` with `orderedChildRefs(obj)`.
+
+### Implementation.tests[] — New IOR Array
+
+```typescript
+// TraceModel.ts ImplementationObject — NEW field:
+tests: string[] = [];  // 1:N IOR refs to TestObject UUIDs
+```
+
+Scenario JSON:
+```json
+{ "model": { "chainType": "implementation", "tests": ["uuid-1", "uuid-2"] } }
+```
+
+### Validator: auditCanonicalChain()
+
+1. Every tree root is type `requirement`
+2. Every requirement reaches at least one `test` via 7-step walk
+3. Walk follows CANONICAL_WALK order (no skipped hops)
+
+### Standard Update (traceability-standard.md)
+
+1. Replace 6-step chain (lines 12-27) with 7-step canonical
+2. Replace "Bidirectional Verification" (lines 134-148) with forward-only (T159)
+3. Replace "Cross-Reference Rules" (lines 124-131) — remove "task MUST link up" (T159 violation)
+4. Add Implementation.tests[] to tag format table
+5. Add cardinality at plural hops
+
+### R-A Diagnosis Collision Note
+
+My earlier R-A diagnosis (HTML task-status checklist — renderStatusHtml emojis + missing CSS) was queued for T167, but planner reassigned T167 to R-D (mobile-first). R-A overlaps T132. NOT committing R-A to T167. Awaiting planner's T-number assignment.
+
+### Files to Modify
+
+| File | Change |
+|------|--------|
+| `src/ts/shared/TraceModel.ts` | CANONICAL_WALK, Implementation.tests[], orderedChildRefs() |
+| `src/public/ts/trace/rb-trace-tree.ts` | orderedChildRefs() in nodeEl(); lock roots |
+| `src/ts/server/TraceConsistency.ts` | auditCanonicalChain() |
+| `scrum.pmo/standards/traceability-standard.md` | 7-step chain, forward-only, Implementation.tests[] |
+| `diagrams/s17-usecases.puml` | Add UC_CHAIN |
+| `package.json` + `sw.js` | Rule-pair (a)+(b) |
+
+STATIC_SHELL (c): exempt.
+
 ## Subtasks
 None at parent level (architect may split if scope warrants).
 
