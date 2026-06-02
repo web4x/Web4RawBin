@@ -3,15 +3,20 @@
 # T128.2: Migrate S10-S16 Requirements to Scenario Index
 [subtask:uuid:b94d2681-54f0-47e3-a431-128200000001]
 
-## Status
-- [ ] Planned
+## Status — ✅ impl-shipped (PO sync 2026-06-02)
+- [x] Planned
 - [x] In Progress
   - [x] refinement (architect design — this document)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+  - [x] creating test cases
+  - [x] implementing (expert — `f4d21b3` v0.5.64 — S10-S16 requirements migrated to scenario index; rule-pair (a)+(b) ✓ in same commit-set)
+  - [ ] testing (robbin-tester — verification pending)
 - [ ] QA Review
 - [ ] Done
+
+> Sync per standing rule #11 (committed reality): `f4d21b3` v0.5.64 closes
+> path (b) of the T163 close-out trio. Tester verifying. Rule-pair (a)+(b) ✓.
+> Combined with T164 (folding a+c, pending) and T163 (data-source switch
+> shipped), T163's 41/41 target is in reach. QA Review + Done remain Tron's gate.
 
 ## Traceability
 - up

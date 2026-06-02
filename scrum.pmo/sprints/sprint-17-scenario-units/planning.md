@@ -89,7 +89,7 @@ prose. Then **migrate every existing sprint** to this model.
   **Strategy:** generate scenario.json units from existing markdown task files; preserve `task:uuid` + `requirement:uuid` identities (T121 already regenerated to v4 — clean base); reuse Sprint 1 task-1/task-1.1 hierarchical structure as exemplar; closed sprints (S1-9) migrate as artifact (no rewrites of prose), active sprints (S10-S16) migrate with view regeneration.
   **Sub-tasks:**
   - T128.1 — exemplar migration: Sprint 1 task-1 + task-1.1 (Tron's preferred structural template)
-  - T128.2 — batch migrate Sprints 2-9 (closed/QA'd, artifact-preserving)
+  - **T128.2 ✅ shipped** — S10-S16 requirements migrated to scenario index (`f4d21b3` v0.5.64, rule-pair (a)+(b) ✓; tester pending; closes path (b) of T163 close-out trio)
   - T128.3 — batch migrate Sprints 10-16 (active, regenerate views)
   - T128.4 — method markers retrofit (every src/ method gets `[impl:uuid:]` linking up to a Task)
 
