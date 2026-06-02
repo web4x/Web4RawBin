@@ -9,7 +9,7 @@
 - [x] In Progress
   - [x] refinement (req → architect — **`6486399` req anchor + `72e685d` architect design: 3 CI gates for no-stop sustain**)
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
