@@ -123,6 +123,12 @@ T160 established that `/api/trace` reads from scenario index. New S10-S16 requir
 | TS4 | `npm run trace:check` after full S10-S16 migration | Clean (0 orphans, 0 broken links) |
 | TS5 | Run migration twice on S10 | Identical JSON output (idempotent) |
 
+## QA Audit & User Feedback
+- 2026-06-02: Created concurrent with T164 close-out — handles path (b) of T163 residue (12 unmigrated S10-S16 reqs to the scenario index). Planner added required Web4Articles Subtasks + QA Audit sections for audit compliance (learning #12: planner owns structure). Architect content authoritative. Awaiting expert impl + tester verify → completes T163's full 41/41 close (in concert with T164's 9 in-scope units).
+
+## Subtasks
+None (atomic migration batch; one commit-set with rule-pair (a)+(b)).
+
 ---
 
 **Architect:** robbin-architect @ web4team:0.0

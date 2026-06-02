@@ -1,7 +1,15 @@
 [Back to Sprint 17 Planning](./planning.md)
 
 # T164: Re-migrate dirty model.name + firstLine() fallback hardening
-[task:uuid:a8b9c0d1-e2f3-4567-890a-164000000001]
+
+[task:uuid:e8c788c8-e085-4960-bad6-9a991af37d14]
+
+> **Reconciled 2026-06-02:** architect created this file concurrently with the
+> planner's stand-up; same scope. Planner adopted architect's content
+> (authoritative 9-scenario inventory vs PO's earlier "3" estimate) and
+> replaced the non-v4 uuid (`a8b9c0d1-…-164000000001` failed learning #17
+> RFC4122-v4 rule) with the planner's proper v4 (`uuidgen`). Required Web4Articles
+> sections (Subtasks + QA Audit) added below for audit compliance.
 
 ## Status
 - [ ] Planned
@@ -169,6 +177,12 @@ function firstLine(block: string): string {
 | TS4 | `## Views & Templates (original directive)` | `Views and templates` |
 | TS5 | Already-clean name `Forward chain completeness` | Unchanged |
 | TS6 | Run re-migration twice | Same output both times |
+
+## QA Audit & User Feedback
+- 2026-06-02: PO directed planner stand-up; architect created this file concurrently with a more accurate 9-scenario inventory (vs PO's earlier 3-unit estimate). Planner reconciled per learning #12 — architect's content authoritative, planner fixed the uuid (was non-v4, violated learning #17) and added required Subtasks + QA Audit sections for Web4Articles compliance. Path (b) — 12 unmigrated S10-S16 reqs — remains separate as **T128.2**. Awaiting expert impl → tester verify (target: 9/9 clean + T163 41/41 minus the T128.2 batch) → Tron QA.
+
+## Subtasks
+None (atomic task; (a) re-migration script + (c) firstLine() harden land in one commit-set).
 
 ---
 

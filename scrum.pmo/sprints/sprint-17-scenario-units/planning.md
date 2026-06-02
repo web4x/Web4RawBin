@@ -283,9 +283,9 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 27 — T163 close-out + tree-coverage enrichment (PO directives 2026-06-02)
 
-- [ ] ⏳ [T164: T163 close-out — re-migrate 3 dirty model.name + harden firstLine() fallback](./task-164-t163-close-out-remigrate-firstline-harden.md)
-  **Status:** PLANNED — folds T163 residue (a)+(c) per PO 2026-06-02. Path (a): re-migrate the 3 dirty `model.name` units sourced from `## Extension 2/3/4` (their stored model.name carries `##` prefix). Path (c): harden `firstLine()` fallback to skip `##`/`###`/`# `/`---` lines (defense-in-depth). Path (b) = 12 unmigrated S10-S16 reqs → **T128.2** (separate task).
-  **Owners (CMM4):** robbin-req (anchor T163 partial finding) → robbin-architect (re-migration script + firstLine() strip rule) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (29/41 in-scope clean; T128.2 owns the other 12)
+- [ ] 📝 [T164: Re-migrate dirty model.name + firstLine() fallback hardening](./task-164-dirty-model-name-remigration.md)
+  **Status:** REFINEMENT DONE (architect designed concurrent with planner stand-up; planner reconciled per learning #12 — adopted architect's content + 9-scenario inventory; fixed non-v4 uuid → planner's v4 `e8c788c8-…`; added Web4Articles Subtasks + QA Audit sections). Folds T163 residue (a)+(c). Path (a): re-migrate **9 dirty `model.name` units** (architect inventory: `## Extension 2/3/4`, 5x `## … (original directive)`, 1x `---`). Path (c): harden `firstLine()` to skip `##`/`---`/`**R` prefixes (defense-in-depth). Path (b) = 12 unmigrated S10-S16 reqs → **T128.2**.
+  **Owners (CMM4):** robbin-req (anchor T163 partial finding) → robbin-architect (designed ✓: cleanModelName() + firstLine() harden) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (9/9 clean + T163 in-scope close)
   **Rule-pair scope:** (a)+(b) required at impl; (c) exempt (no new route)
 
 - [ ] ⏳ [T165: Traceability tree renders ALL 7 typed classes (not only Requirements)](./task-165-tree-renders-all-7-typed-classes.md)
