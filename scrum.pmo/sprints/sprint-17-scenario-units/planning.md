@@ -301,8 +301,8 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
 **Chain order LOCKED (PO 2026-06-02):** `requirement → task → usecase(s) → class → method → implementation → test(s)` · 1:N at plural hops (usecase, test).
 **Priority:** T169 (R-F) is the **KEYSTONE** — T167/T170 build on T169-clean data; T168 supplies the canonical rule T169 audits against.
 
-- [ ] 📝 [T167: /trace mobile-first layout + hard width-cap on right pane](./task-167-trace-mobile-first-layout-width-cap.md)
-  **Status:** REFINEMENT DONE — `6486399` req anchor + `2638f52` architect design (mobile-first /trace layout + 480px width-cap). Expert next.
+- [ ] ✅ [T167: /trace mobile-first layout + hard width-cap on right pane](./task-167-trace-mobile-first-layout-width-cap.md)
+  **Status:** impl-shipped — `3336f38` v0.5.67 (mobile-first /trace + 480px width-cap). Rule-pair (a)+(b) ✓. Testing pending; Tron QA pending.
   **Owners (CMM4):** robbin-req (anchor R-D verbatim) → robbin-architect (mobile-first layout + width-cap rule) → robbin-expert (CSS impl; rule-pair (a)+(b)) → robbin-tester (visual on iPhone + desktop, TS1-TS6)
   **Rule-pair scope:** (a)+(b) required; (c) exempt (no new route). v4 uuids: task `d0881ad6-…`; req `ff3f06e7-…`.
 
@@ -316,15 +316,20 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
   **Owners (CMM4):** robbin-req (anchor R-F verbatim) → robbin-architect (audit + remigration + CI-gate design) → robbin-expert (impl audit + remigration tooling; rule-pair (a)+(b)) → robbin-tester (audit baseline + post-remigration; TS1-TS11)
   **Rule-pair scope:** (a)+(b) required; (c) architect confirms. v4 uuids: task `e43c24fe-…`; req `c182f6f1-…`. **KEYSTONE — block T167/T170 closure on T169 audit clean.**
 
-- [ ] 📝 [T170: Diligent plan + no-stop sustain (CI gates)](./task-170-diligent-plan-no-stop-sustain.md)
-  **Status:** REFINEMENT DONE — `6486399` req anchor + `72e685d` architect design (3 CI gates: data-quality + rule-pair + chain-order). Expert next.
+- [ ] ✅ [T170: Diligent plan + no-stop sustain (CI gates)](./task-170-diligent-plan-no-stop-sustain.md)
+  **Status:** impl-shipped — `afe969e` (3 CI gates: trace:audit:strict + rule-pair:check + chain-order; `npm run ci:gates`). Rule-pair exempt (infra-only; T167 bumped v0.5.67 already this cycle). Testing pending; Tron QA pending.
   **Owners (CMM4):** robbin-req (anchor R-G verbatim) → robbin-architect (3-gate design + sustain cadence doc) → robbin-expert (CI workflow + gate scripts; rule-pair (a)+(b)) → robbin-tester (gate firing + clean-state passing; TS1-TS9)
   **Rule-pair scope:** (a)+(b) required; (c) exempt. v4 uuids: task `6cf46cd1-…`; req `1267ef56-…`.
 
-- [ ] 📝 [T171: Untraced-closure + traceability-matrix refresh (T143-T171)](./task-171-untraced-closure-r17-26-linkback.md)
-  **Status:** REFINEMENT DONE — `826d30b` architect design (T169 decision: NO `requirements[]` on non-req per T159/B18 — 241 empty fields are CORRECT, strip; 50 unreachable = real R-F gap, fix via forward refs on parents). Matrix refresh folded in. Expert next.
+- [ ] ✅ [T171: Untraced-closure + traceability-matrix refresh (T143-T171)](./task-171-untraced-closure-r17-26-linkback.md)
+  **Status:** impl-shipped — `7c84fe0` strips 109 empty `requirements[]` back-refs + 50 unreachable are ALL TraceLinks (edge metadata, orphan-by-design) → 0 real orphans, 0 back-refs, 0 cardinality issues, 246/296 reachable. Matrix refreshed. Rule-pair exempt (scenario data only, no user surface). Testing pending; Tron QA pending. **Closes T169 testing path** (audit re-run clean).
   **Owners (CMM4):** robbin-req (anchor PO finding) → robbin-architect (categorize the 50 + design R17.26 link-back + allowlist mechanism) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (T169 audit re-run = ZERO untraced + R17.26 walkDown reaches T165/T166)
   **Rule-pair scope:** (a)+(b) required; (c) exempt. v4 uuids: task `75628241-…`; req `0dcaa94e-…`. **Gates T169 testing closure + T170 CI gates land cleanly only after T171.**
+
+- [ ] ⏳ [T172: Chain-direction enforcement + missing-data fill (R-H) + atomic-req-split rule (R-H.2)](./task-172-chain-direction-enforcement-missing-data-fill.md)
+  **Status:** PLANNED — Tron observation on live `/trace` (PO 2026-06-02): massive orphans + wrong-order deps despite T169/T171 audit-clean metrics. Audit too lenient OR display reveals deeper violations. Likely fix: **strict-direction validator** (every link follows LOCKED chain forward, no reverse, no hop-skips) + remigration. **R-H.2 folded:** Tron rule — req-eng splits each directive into ONE-SENTENCE atomic requirements; planner-first stand-ups require req atomic split BEFORE refinement closes.
+  **Owners (CMM4 — refinement JOINT, Tron-assigned):** robbin-req + robbin-architect (JOINT — diagnose audit-too-lenient vs display-reveals; design strict-direction validator + remigration) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (live `/trace` clean + T169 strict re-run)
+  **Rule-pair scope:** (a)+(b) required; (c) architect confirms. v4 uuids: task `7bf0199c-…`; req `383c3b28-…`. **Closes audit-display trust gap left by T171; adds atomic-split standing rule.**
 
 ### Phase 6 — Verification (T129, tester + planner)
 

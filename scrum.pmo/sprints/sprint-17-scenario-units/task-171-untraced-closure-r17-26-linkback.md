@@ -4,7 +4,7 @@
 
 [task:uuid:75628241-9157-4385-a7f0-f4f7a3142737]
 
-## Status — 📝 refinement done (architect 826d30b)
+## Status — ✅ impl-shipped (expert 7c84fe0 — strip 109 back-refs + 50 TraceLink orphans-by-design + matrix refresh; 246/296 reachable, 0 real orphans; rule-pair exempt — scenario data only)
 - [x] Planned
 - [x] In Progress
   - [x] refinement (req → architect — **`826d30b` architect design committed: T169 decision (NO `requirements[]` on non-req — back-ref per T159/B18; 241 empty requirements[] are CORRECT, strip field) + T171 50-orphan categorization**)

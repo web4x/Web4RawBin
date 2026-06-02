@@ -4,7 +4,7 @@
 
 [task:uuid:d0881ad6-ade5-4d60-94a2-fbe5347fd4b6]
 
-## Status — 📝 refinement done (architect 2638f52)
+## Status — ✅ impl-shipped (expert 3336f38 v0.5.67)
 - [x] Planned
 - [x] In Progress
   - [x] refinement (req → architect — **`6486399` req anchor + `2638f52` architect design: mobile-first /trace layout + 480px width-cap**)

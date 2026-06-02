@@ -4,7 +4,7 @@
 
 [task:uuid:6cf46cd1-5f65-4474-a023-1b54b56adb06]
 
-## Status — 📝 refinement done (architect 72e685d)
+## Status — ✅ impl-shipped (expert afe969e — CI gates + ci:gates script)
 - [x] Planned
 - [x] In Progress
   - [x] refinement (req → architect — **`6486399` req anchor + `72e685d` architect design: 3 CI gates for no-stop sustain**)
