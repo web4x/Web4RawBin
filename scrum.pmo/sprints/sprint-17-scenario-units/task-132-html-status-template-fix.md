@@ -96,6 +96,53 @@ function renderStatusHtml(checklist: string): string {
 
 **Scope:** All 7 class templates call `renderStatusHtml(m.statusChecklist)`. Single shared function — uniform rendering.
 
+### R-A Refinement (robbin-architect, 2026-06-02)
+
+**Tron R-A literal:** "the task statuses will work like that in md but not in html."
+
+**Additional diagnosis beyond initial design:**
+
+T132's initial design (above) shipped `renderStatusHtml()` in the templates. BUT three gaps remain:
+
+**Gap 1 — Emoji vs native checkbox:** `renderStatusHtml()` (templates.ts:109) renders `✅`/`⬜` emoji instead of `<input type="checkbox" checked disabled>`. The MD path (`marked`) renders native checkboxes. Visual parity requires native checkboxes.
+
+**Fix:** Replace emoji with native checkbox:
+```typescript
+// BEFORE (line 109):
+const icon = checked ? '✅' : '⬜';
+html += `<li class="${cls}">${icon} ${esc(label)}</li>`;
+
+// AFTER:
+const cb = `<input type="checkbox" ${checked ? 'checked' : ''} disabled>`;
+html += `<li class="${cls}">${cb} ${esc(label)}</li>`;
+```
+
+**Gap 2 — Zero CSS for checklist classes:** `app.css` has NO rules for `sv-status-checklist`, `sv-steps`, `sv-substeps`, `sv-checked`, `sv-unchecked`. The HTML structure exists but renders with browser defaults — flat, no indent.
+
+**Fix:** Add to `src/public/app.css`:
+```css
+.sv-status-checklist ul { list-style: none; padding-left: 0; }
+.sv-steps > li { padding: 4px 0; }
+.sv-substeps { padding-left: 1.5em; margin: 2px 0; }
+.sv-substeps > li { padding: 2px 0; }
+.sv-status-checklist input[type="checkbox"] {
+  accent-color: #4caf50;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.sv-checked { opacity: 0.8; }
+```
+
+**Gap 3 — Indent threshold:** `renderStatusHtml()` uses `indent >= 2` (line 103) for nesting. The actual markdown uses 2-space indent for sub-steps (`  - [x] refinement`). This is correct. BUT the initial design comment said `indent >= 4` — the shipped code uses `>= 2` which matches the markdown.
+
+**Files to modify (R-A scope):**
+| File | Change |
+|------|--------|
+| `src/ts/scenario/templates.ts` (~line 109) | Replace emoji with `<input type="checkbox">` |
+| `src/public/app.css` | Add `.sv-status-checklist` + `.sv-steps` + `.sv-substeps` rules |
+
+Rule-pair (a)+(b) required. STATIC_SHELL (c) exempt.
+
 ## Acceptance Criteria
 - [ ] AC1 — `scenario/sprints.md/task/<uuid>.html` renders Status section identically (visually) to the canonical Web4Articles markdown form (checkbox + label + nested sub-steps with indent)
 - [ ] AC2 — All 7 class templates (Sprint/Task/Requirement/UseCase/Class/Method/Test) render Status correctly — no per-class divergence
