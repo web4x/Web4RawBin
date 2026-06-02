@@ -34,7 +34,7 @@
   - [compound-requirement-source-2.md](./compound-requirement-source-2.md) → **R-G** (Tron completion 2026-06-02 via `bfae071` + `2be6e96` + `7e01491`)
   - **R-G Diligent plan + no-stop sustain**
     `[requirement:uuid:1267ef56-9d21-4def-a639-5484b1693220]`
-    Verbatim Tron quote: req-eng to anchor here from the completed source.
+    > TRON DIRECTIVE: "plan it diligently and do not stop until reached with the team. activate the sm again"
 - down
   - None (atomic at parent level; architect may split T170.x if scope warrants)
 - follows
@@ -142,6 +142,7 @@ File: `test/vitest/ci-gates.test.ts` (new) + CI workflow updates.
 
 ## QA Audit & User Feedback
 - 2026-06-02: PO directed planner-first stand-up of T170 (R-G from compound-source-2 via `bfae071` + `2be6e96` + `7e01491`). T170 makes the standing rules self-enforcing via CI gates so the planner's monitoring loop becomes light. CMM4 4-role; real v4 uuids; rule-pair (a)+(b) in AC10+DoD. Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
+- 2026-06-02: robbin-req anchored verbatim Tron R-G quote in traceability section.
 
 ## Design (Architect — robbin-architect, 2026-06-02)
 

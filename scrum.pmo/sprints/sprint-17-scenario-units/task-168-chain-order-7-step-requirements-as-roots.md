@@ -35,7 +35,9 @@
   - [compound-requirement-source-2.md](./compound-requirement-source-2.md) → **R-E** (Tron completion 2026-06-02; PO chain-to-test amendment same day)
   - **R-E Canonical chain order 7-step + atomic requirements as tree roots**
     `[requirement:uuid:12f6f7d1-1fd0-4f44-acd1-fb59c01e7f62]`
-    Verbatim Tron quote: req-eng to anchor here from the completed source.
+    > TRON DIRECTIVE: "traceability has to start with atomic requirements. tracing to tasks to many usecases to one class to one method to one implementation"
+    > TRON AMENDMENT 1: "implementation traces finally to test"
+    > TRON AMENDMENT 2: "one implementation can have multiple tests"
     **PO amendments 2026-06-02 (chain LOCKED):**
     - Chain extends to **test(s)** as final node:
       `requirement → task → usecase(s) → class → method → implementation → test(s)`
@@ -144,6 +146,7 @@ File: extend `test/vitest/trace-model.test.ts` + `test/e2e/trace-chain.spec.ts`.
 
 ## QA Audit & User Feedback
 - 2026-06-02: PO directed planner-first stand-up of T168 (R-E from compound-source-2 Tron completion + PO chain-to-test amendment same day). CMM4 4-role; real v4 uuids; rule-pair (a)+(b) in AC9+DoD. Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
+- 2026-06-02: robbin-req anchored verbatim Tron R-E quote + both amendments in traceability section.
 
 ## Design (Architect — robbin-architect, 2026-06-02)
 

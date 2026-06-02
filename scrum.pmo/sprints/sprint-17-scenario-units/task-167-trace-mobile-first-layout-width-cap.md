@@ -34,7 +34,7 @@
   - [compound-requirement-source-2.md](./compound-requirement-source-2.md) → **R-D** (Tron completion 2026-06-02)
   - **R-D /trace mobile-first layout + hard right-pane width-cap**
     `[requirement:uuid:ff3f06e7-228f-408f-ac06-8db50051108e]`
-    Verbatim Tron quote: req-eng to anchor here from the completed source.
+    > TRON DIRECTIVE: "keep it mobile first layout and limit the with hard to the current right window size"
 - down
   - None (atomic; CSS + responsive scope)
 - follows
@@ -116,6 +116,7 @@ File: `test/e2e/trace-mobile.spec.ts` (new) + visual on iPhone simulator + deskt
 
 ## QA Audit & User Feedback
 - 2026-06-02: PO directed planner-first stand-up of T167 (R-D from compound-source-2 Tron completion). CMM4 4-role; real v4 uuids; rule-pair (a)+(b) in AC7+DoD. Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
+- 2026-06-02: robbin-req anchored verbatim Tron R-D quote in traceability section.
 
 ## Subtasks
 None (atomic).
