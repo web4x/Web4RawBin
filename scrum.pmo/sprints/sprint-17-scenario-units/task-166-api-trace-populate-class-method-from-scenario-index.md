@@ -4,17 +4,19 @@
 
 [task:uuid:086a35db-0de3-49f3-971a-c6be1863100e]
 
-## Status
-- [ ] Planned
+## Status — ✅ impl-shipped (PO sync 2026-06-02)
+- [x] Planned
 - [x] In Progress
-  - [x] refinement (req → architect)
-  - [ ] creating test cases
-  - [x] implementing
-  - [ ] testing
+  - [x] refinement (req → architect — overlay design committed)
+  - [x] creating test cases
+  - [x] implementing (expert — `2a61aa2` v0.5.65 — /api/trace populates Class + Method from scenario index via overlay pattern; rule-pair (a)+(b) ✓)
+  - [ ] testing (robbin-tester — verification pending; expected to confirm T165 7/7 closure)
 - [ ] QA Review
 - [ ] Done
 
-> QA Review + Done are TRON's gate only — never checked by planner/sync.
+> Sync per standing rule #11 (committed reality): `2a61aa2` v0.5.65 shipped.
+> Rule-pair (a)+(b) ✓. T165 7/7 unblocked — tester to re-verify and close T165.
+> QA Review + Done remain Tron's gate.
 
 ## Assigned
 **Owners (CMM4 4-role, per learnings #18) — planner-first per PO direction 2026-06-02:**

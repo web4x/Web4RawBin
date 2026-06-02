@@ -291,10 +291,9 @@ prose. Then **migrate every existing sprint** to this model.
 - [ ] 📝 [T165: Traceability tree renders ALL 7 typed classes (not only Requirements)](./task-165-tree-renders-all-7-typed-classes.md)
   **Status:** REFINEMENT DONE — `60a97a7` architect design committed. Tester partial: **5/7 classes render** (req/task/uc/test/impl); Class + Method = 0 nodes in `/api/trace` graph because scanRepo doesn't produce them → unblocked by **T166** (data-source overlay). T165 closes ✅ once T166 lands.
 
-- [ ] ⏳ [T166: /api/trace populate Class + Method types from scenario index](./task-166-api-trace-populate-class-method-from-scenario-index.md)
-  **Status:** PLANNED — Tester finding on T165 verify (via PO 2026-06-02): /api/trace returns 0 Class + Method nodes because scanRepo doesn't produce them; data exists per T128.1 (S1 class/method scenario-index units migrated). **Sister to T163** (data-source switch to scenario index pattern). Unblocks T165 7/7. v4 uuids (`086a35db-…` task; `92c25e03-…` req).
-  **Owners (CMM4):** robbin-req (anchor tester finding) → robbin-architect (overlay vs full-switch design; preserve T160 forward-only rule) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (TS1-TS9 + T165 7/7 re-verify + sister-class regression)
-  **Rule-pair scope:** (a)+(b) required at impl; (c) exempt (no new route)
+- [ ] ✅ [T166: /api/trace populate Class + Method types from scenario index](./task-166-api-trace-populate-class-method-from-scenario-index.md)
+  **Status:** impl-shipped (`2a61aa2` v0.5.65 — overlay pattern: /api/trace merges scanRepo + scenario-index for Class + Method types). Rule-pair (a)+(b) ✓. T165 7/7 unblocked; tester to re-verify and close T165. Tron QA pending.
+  **Owners (CMM4):** robbin-req → robbin-architect (overlay design) → robbin-expert (`2a61aa2` ✓) → robbin-tester (T165 7/7 re-verify + TS1-TS9 pending)
 
 ### Phase 6 — Verification (T129, tester + planner)
 
