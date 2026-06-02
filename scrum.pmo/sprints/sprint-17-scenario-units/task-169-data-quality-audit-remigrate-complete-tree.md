@@ -4,17 +4,18 @@
 
 [task:uuid:e43c24fe-a1d1-4d14-8e7a-55ea7edd616f]
 
-## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+## Status — 📝 refinement done (architect 43f9a0e) — KEYSTONE
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — **`43f9a0e` architect design committed: data-quality audit + remigrate**)
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
-> QA Review + Done are TRON's gate only — never checked by planner/sync.
+> Sync per rule #11 (committed reality): `43f9a0e` lands the KEYSTONE design;
+> refinement box checked. Expert next. QA Review + Done remain Tron's gate.
 >
 > **KEYSTONE TASK** — PO 2026-06-02: "R-F is the keystone — others build on it."
 > T167 (mobile layout) and T170 (no-stop sustain) depend on T169's data being

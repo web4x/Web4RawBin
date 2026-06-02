@@ -306,13 +306,13 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
   **Owners (CMM4):** robbin-req (anchor R-D verbatim) → robbin-architect (mobile-first layout + width-cap rule) → robbin-expert (CSS impl; rule-pair (a)+(b)) → robbin-tester (visual on iPhone + desktop, TS1-TS6)
   **Rule-pair scope:** (a)+(b) required; (c) exempt (no new route). v4 uuids: task `d0881ad6-…`; req `ff3f06e7-…`.
 
-- [ ] ⏳ [T168: Chain order 7-step + atomic requirements as tree ROOTS](./task-168-chain-order-7-step-requirements-as-roots.md)
-  **Status:** PLANNED — R-E from compound-source-2 + PO amendments (chain extends to test as final node; Implementation:Test is 1:N — `Implementation.tests[]` IOR array). Canonical 7-step chain `requirement → task → usecase(s) → class → method → implementation → test(s)`; tree roots are atomic requirements only.
+- [ ] 📝 [T168: Chain order 7-step + atomic requirements as tree ROOTS](./task-168-chain-order-7-step-requirements-as-roots.md)
+  **Status:** REFINEMENT DONE — `c28c982` architect design committed (7-step canonical chain LOCKED + requirements as roots). Expert next.
   **Owners (CMM4):** robbin-req (anchor R-E verbatim + PO amendments) → robbin-architect (TraceModel walk + ViewGenerator + tree builder + standard update + Sprint 17 chain doc) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (chain walk + audit; TS1-TS8)
   **Rule-pair scope:** (a)+(b) required; (c) architect confirms. v4 uuids: task `c3951691-…`; req `12f6f7d1-…`.
 
-- [ ] ⏳ [T169: Data-quality audit + remigrate — complete tree, NO back-chaos, NO untraced scenarios (KEYSTONE)](./task-169-data-quality-audit-remigrate-complete-tree.md)
-  **Status:** PLANNED — R-F from compound-source-2 (PO 2026-06-02: **"R-F is the keystone — others build on it"**). Audit every scenario reachable from a req root via T168 canonical chain; remigrate units that fail; CI-gate the audit.
+- [ ] 📝 [T169: Data-quality audit + remigrate — complete tree, NO back-chaos, NO untraced scenarios (KEYSTONE)](./task-169-data-quality-audit-remigrate-complete-tree.md)
+  **Status:** REFINEMENT DONE — `43f9a0e` architect design committed (KEYSTONE: data-quality audit + remigrate). Expert next.
   **Owners (CMM4):** robbin-req (anchor R-F verbatim) → robbin-architect (audit + remigration + CI-gate design) → robbin-expert (impl audit + remigration tooling; rule-pair (a)+(b)) → robbin-tester (audit baseline + post-remigration; TS1-TS11)
   **Rule-pair scope:** (a)+(b) required; (c) architect confirms. v4 uuids: task `e43c24fe-…`; req `c182f6f1-…`. **KEYSTONE — block T167/T170 closure on T169 audit clean.**
 

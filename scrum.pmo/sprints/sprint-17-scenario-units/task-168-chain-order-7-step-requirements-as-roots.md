@@ -4,17 +4,18 @@
 
 [task:uuid:c3951691-b231-4b60-a2f8-79c9d5ef851e]
 
-## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+## Status — 📝 refinement done (architect c28c982)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — **`c28c982` architect design committed: 7-step canonical chain LOCKED + requirements as roots**)
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
-> QA Review + Done are TRON's gate only — never checked by planner/sync.
+> Sync per rule #11 (committed reality): `c28c982` lands the design;
+> refinement box checked. Expert next. QA Review + Done remain Tron's gate.
 
 ## Assigned
 **Owners (CMM4 4-role, per learnings #18) — planner-first per PO direction 2026-06-02:**
