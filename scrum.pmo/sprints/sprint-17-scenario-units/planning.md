@@ -246,8 +246,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 22 — Traceability browser full-chain data rendering (PO directive 2026-06-01, B17 promoted; Tron-assigned architect lead)
 
-- [ ] ⏳ [T158: Traceability browser — surface the FULL chain data (Req → Task → UC → Class → Method → Impl → Test)](./task-158-traceability-browser-full-chain-data.md)
-  **Status:** PLANNED — promoted from backlog B17 (`738f7c4` req-eng verbatim Tron quote "as now data exists that traces till the class method, architect how the traceability browser has to change to reflect the full data" + canonical `requirement:uuid:a7b8c9da-…`). **Tron-assigned: architect leads design.** Data exists post-T151-T155; browser must render it. New typed DetailViews for Class/Method/Test/Implementation; tree-item per-type rendering; possible R17.24 source-location IORs (architect scope decision).
+- [ ] ✅ [T158: Traceability browser — surface the FULL chain data (Req → Task → UC → Class → Method → Impl → Test)](./task-158-traceability-browser-full-chain-data.md)
+  **Status:** impl-shipped (`a41d16a` v0.5.59 — 4 typed DetailViews for Class/Method/Test/Implementation; architect design 304a94d). Rule-pair (a)+(b) ✓. Testing pending; tester finding surfaced a tree-coverage gap → escalated to **T165** (typed items have DetailViews but no tree-items yet). Tron QA pending.
   **Owners (CMM4):** robbin-req (B17 captured ✓; scope confirm — which hops first, R17.24 in/out, DetailView coverage matrix) → robbin-architect (Tron-assigned design lead — per-type DetailViews + VerbRegistry wiring + tree-item rendering + standard update) → robbin-expert (impl + new Web Components; **rule-pair (a)+(b)+(c) — STATIC_SHELL REQUIRED** for new typed-DetailView bundle paths) → robbin-tester (full-chain walk + ≥5-chain spot-check + T110/T111/T143/T149/T151-T155 regression)
   **Rule-pair scope:** (a)+(b)+(c) — **(c) STATIC_SHELL required** (new typed-DetailView bundles need cache priming for /trace)
 
@@ -260,8 +260,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 24 — Forward-ref REPOPULATION + browser data-freshness (T159 over-strip root cause; PO directive 2026-06-01)
 
-- [ ] 🔧 [T160: Forward-ref REPOPULATION + browser data-freshness (T159 over-strip root cause)](./task-160-trace-browser-stale-requirement-items.md)
-  **Status:** REOPENED 2026-06-02 — `5b354fd` v0.5.58 PARTIAL (requirement.tasks[] repopulation + /api/trace data-source switch shipped; rule-pair (a)+(b) ✓). **AC3 `task.useCases[]` forward-source parsing UNIMPLEMENTED** (tester report via PO). Implementing walked back [x]→[ ] (honesty rule #15 / b85dfa8). Expert to ship AC3 follow-on with new rule-pair (a)+(b).
+- [ ] ✅ [T160: Forward-ref REPOPULATION + browser data-freshness (T159 over-strip root cause)](./task-160-trace-browser-stale-requirement-items.md)
+  **Status:** FULLY SHIPPED (PO correction 2026-06-02). `5b354fd` v0.5.58 (requirement.tasks[] + /api/trace data source switch) + **`edc477c` v0.5.60 AC3 task.useCases[] populated from PUML T-number refs**. Rule-pair (a)+(b) ✓ on BOTH commits. Tester VERIFIED (5/51 tasks/24 UC refs per PO). Tron QA pending. (Prior planner walk-back was stale; corrected.)
   **Owners (CMM4):** robbin-req (capture verbatim Tron quote; planner-suggested req:uuid:cda06ff4-…) → robbin-architect (forward-source repopulation design + secondary cache-strategy validation + standard update) → robbin-expert (repopulation migration + any cache fix; rule-pair (a)+(b)) → robbin-tester (per-Req + per-Task forward-count audit, walkDown resolves, **browser mutation→reflection** test, no back-refs reintroduced)
   **Rule-pair scope:** (a)+(b) required at impl; (c) STATIC_SHELL — architect confirms (likely exempt)
 
@@ -277,10 +277,21 @@ prose. Then **migrate every existing sprint** to this model.
 - [ ] ⚠️ ~~[T162: MD artifacts (`##` headings) leak into requirement titles](./task-162-md-headings-leak-into-requirement-titles.md)~~
   **Status:** SUPERSEDED by T163 (2026-06-02). T162 proposed hardening `firstLine()` to strip MD; tester's clearer report identifies root cause as `/api/trace` using `firstLine()` instead of T161-clean `model.name`. Wrong layer. No work proceeds in T162; preserved for traceability.
 
-- [ ] ⏳ [T163: /api/trace requirement title source — switch from scanRepo firstLine() to scenario index `model.name`](./task-163-api-trace-title-source-switch.md)
-  **Status:** PLANNED — Tester report (via PO 2026-06-02): /trace MD-prefix titles persist because /api/trace computes titles via `scanRepo firstLine()` instead of reading T161-clean `model.name` from the scenario index. **Sister to T160** (same /api/trace data-source-switch pattern). SUPERSEDES T162.
-  **Owners (CMM4):** robbin-req (anchor finding verbatim; planner-suggested req:uuid:8ab16ae7-…) → robbin-architect (data-source switch design + sibling-class scope) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (re-verify TS6 + new TS1-TS7 + T160/T161 regression)
+- [ ] ⚠️ [T163: /api/trace requirement title source — switch from scanRepo firstLine() to scenario index `model.name`](./task-163-api-trace-title-source-switch.md)
+  **Status:** ⚠️ PARTIAL — impl-shipped `f138aa0` v0.5.61 (data-source switch correct), tester verified 26/41 clean. Residue split per PO 2026-06-02: (a) 3 dirty `model.name` units (`## Extension 2/3/4`) → **T164** (re-migrate + firstLine() harden, folded); (b) 12 unmigrated S10-S16 reqs → **T128.2** (broader migration); (c) firstLine() fallback harden → **T164**. T163 closes ✅ once T164 + T128.2 land. Rule-pair (a)+(b) ✓ on f138aa0.
+  **Owners (CMM4):** robbin-req → robbin-architect → robbin-expert (`f138aa0` ✓) → robbin-tester (26/41 partial, residue escalated to T164 + T128.2)
+
+### Phase 27 — T163 close-out + tree-coverage enrichment (PO directives 2026-06-02)
+
+- [ ] ⏳ [T164: T163 close-out — re-migrate 3 dirty model.name + harden firstLine() fallback](./task-164-t163-close-out-remigrate-firstline-harden.md)
+  **Status:** PLANNED — folds T163 residue (a)+(c) per PO 2026-06-02. Path (a): re-migrate the 3 dirty `model.name` units sourced from `## Extension 2/3/4` (their stored model.name carries `##` prefix). Path (c): harden `firstLine()` fallback to skip `##`/`###`/`# `/`---` lines (defense-in-depth). Path (b) = 12 unmigrated S10-S16 reqs → **T128.2** (separate task).
+  **Owners (CMM4):** robbin-req (anchor T163 partial finding) → robbin-architect (re-migration script + firstLine() strip rule) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (29/41 in-scope clean; T128.2 owns the other 12)
   **Rule-pair scope:** (a)+(b) required at impl; (c) exempt (no new route)
+
+- [ ] ⏳ [T165: Traceability tree renders ALL 7 typed classes (not only Requirements)](./task-165-tree-renders-all-7-typed-classes.md)
+  **Status:** PLANNED — Tester finding on T158 verification (via PO 2026-06-02): the `/trace` tree shows only Requirements as tree-items; the 4 typed DetailViews shipped in T158 (Class/Method/Test/Implementation) exist but their objects aren't tree-items yet. **Architect-LED design** per PO assignment. Aligns with T143 R17.26-R17.28 (tree-coverage / all typed scenarios). **Renumbered 2026-06-02 from T164 → T165** when PO reassigned T164 to T163 close-out (same scope, only T-number changed; task:uuid preserved).
+  **Owners (CMM4):** robbin-req (anchor tester finding) → robbin-architect (LEAD — enumerate 7 classes, design tree builder + per-class tree-item rendering) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (TS1-TS9 + chain audit + T158/T160/T161/T163 regression)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (architect confirms)
 
 ### Phase 6 — Verification (T129, tester + planner)
 

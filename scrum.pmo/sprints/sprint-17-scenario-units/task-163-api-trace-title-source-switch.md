@@ -4,17 +4,24 @@
 
 [task:uuid:57c1f23f-dbac-4b49-a7a2-e0651a986c3f]
 
-## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+## Status — ⚠️ PARTIAL (26/41) — close-out split across T164 (a)+(c) and T128.2 (b)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect)
+  - [x] creating test cases
+  - [x] implementing (expert — `f138aa0` v0.5.61 — /api/trace title source switched from scanRepo firstLine() → scenario index model.name; rule-pair (a)+(b) ✓ in same commit-set. Consumer-side of the MD-leak closed.)
+  - [ ] testing (robbin-tester — partial: 26/41 clean; remaining 15 split into 3 close-out paths below)
 - [ ] QA Review
 - [ ] Done
 
-> QA Review + Done are TRON's gate only — never checked by planner/sync.
+> **PO correction 2026-06-02:** T163 is impl-shipped but PARTIAL on verification —
+> 26/41 units clean. The data-source switch is correct; the residue is split:
+> - **(a) 3 dirty `model.name` units** (sourced from `## Extension 2/3/4` blocks):
+>   re-migrate → folded into [T164](./task-164-t163-close-out-remigrate-firstline-harden.md)
+> - **(b) 12 unmigrated S10-S16 reqs** to the scenario index → **T128.2** (separate broader migration task)
+> - **(c) `firstLine()` fallback harden** (defense-in-depth): folded into [T164](./task-164-t163-close-out-remigrate-firstline-harden.md)
+>
+> T163 closes (✅) once both T164 + T128.2 land. QA Review + Done remain Tron's gate.
 
 ## Assigned
 **Owners (CMM4 4-role, per learnings #18) — sequence req → architect → expert → tester:**

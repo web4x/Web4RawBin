@@ -4,15 +4,21 @@
 
 [task:uuid:5eedd968-085c-443b-acae-7ae73a4ce252]
 
-## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+## Status — ✅ impl-shipped (PO sync 2026-06-02)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — `304a94d` architect design: 4 typed DetailViews + VerbRegistry + tree-item per-type rendering)
+  - [x] creating test cases
+  - [x] implementing (expert — `a41d16a` v0.5.59 — 4 typed DetailViews for Class/Method/Test/Implementation; rule-pair (a)+(b) ✓ in same commit-set)
+  - [ ] testing (robbin-tester — verification pending; T158 verify surfaced a NEW finding: graph tree shows ONLY requirements; class/method/test/impl typed items have DetailViews but no tree-items yet → escalated to T164)
 - [ ] QA Review
 - [ ] Done
+
+> Sync per PO 2026-06-02: T158 shipped (`a41d16a` v0.5.59). Tester verifying.
+> Tree-rendering gap (typed items present in detail views but not in the tree)
+> escalated to **T164** — separate task, architect-led. T158's own AC is
+> impl-complete; T164 is the enrichment follow-up, not a T158 walk-back.
+> Rule-pair (a)+(b) ✓. QA Review + Done remain Tron's gate.
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
 > **Architect-assigned (Tron 2026-06-01):** architect designs how the
