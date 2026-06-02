@@ -118,6 +118,130 @@ File: `test/e2e/trace-mobile.spec.ts` (new) + visual on iPhone simulator + deskt
 - 2026-06-02: PO directed planner-first stand-up of T167 (R-D from compound-source-2 Tron completion). CMM4 4-role; real v4 uuids; rule-pair (a)+(b) in AC7+DoD. Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
 - 2026-06-02: robbin-req anchored verbatim Tron R-D quote in traceability section.
 
+## Design (Architect — robbin-architect, 2026-06-02)
+
+### Current Layout (problems)
+
+`/trace` page structure:
+- Tree (`rb-trace-tree` / `.trace-tree`) — block element, full width
+- Detail drawer (`rb-detail-drawer`) — `position: fixed; bottom: 0; left: 0; right: 0; max-height: 50vh`
+
+**Problem 1:** Drawer spans full viewport width (`left: 0; right: 0`). On desktop, a wide detail pane dominates. No max-width.
+**Problem 2:** On mobile (375px iPhone), tree + drawer compete for vertical space only. Drawer at 50vh leaves ~50vh for tree — OK vertically but drawer content doesn't wrap well horizontally.
+**Problem 3:** No `/trace`-specific responsive rules exist — only generic app rules in `@media (max-width: 480px)`.
+
+### Design: Mobile-First + Width-Cap
+
+#### Breakpoints
+
+| Width | Layout | Detail pane behavior |
+|-------|--------|---------------------|
+| ≤480px (phone) | **Single column.** Tree fills viewport. Drawer overlays from bottom (existing pattern). | Full width, max-height 60vh, swipe-dismiss |
+| 481px–1024px (tablet) | **Single column.** Same as phone but more breathing room. | Full width, max-height 50vh |
+| ≥1025px (desktop) | **Split.** Tree left (flex-grow), detail right (width-capped). | `max-width: 480px`, fixed right side |
+
+#### Desktop Split Layout (≥1025px)
+
+```css
+/* /trace page container — new rule */
+.trace-page {
+  display: flex;
+  gap: 0;
+  height: 100vh;
+}
+
+.trace-page .trace-tree-panel {
+  flex: 1;
+  overflow-y: auto;
+  min-width: 300px;
+}
+
+.trace-page rb-detail-drawer {
+  /* OVERRIDE fixed positioning on desktop — becomes a static right pane */
+  position: static;
+  transform: none;
+  max-width: 480px;         /* HARD WIDTH-CAP — Tron directive */
+  width: 480px;
+  flex-shrink: 0;
+  max-height: 100vh;
+  overflow-y: auto;
+  border-radius: 0;
+  border-left: 1px solid rgba(255,255,255,0.1);
+}
+```
+
+#### Mobile Layout (≤480px) — Already works, minor tweaks
+
+```css
+@media (max-width: 480px) {
+  .trace-page {
+    display: block;  /* single column stack */
+  }
+  
+  .trace-page rb-detail-drawer {
+    /* Keep existing fixed-bottom overlay */
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    max-height: 60vh;    /* slightly more room on phone */
+    max-width: none;     /* full width on phone */
+    border-radius: 16px 16px 0 0;
+  }
+}
+```
+
+#### Width-Cap Rule (Tron literal: "limit the width hard")
+
+```css
+/* Hard cap — applies at ALL breakpoints where detail is a side pane */
+rb-detail-drawer {
+  max-width: 480px;  /* architect-specified: matches iPhone viewport width */
+}
+```
+
+On phone (≤480px) the full-width bottom-drawer is acceptable — the cap effectively means "never wider than the phone screen." On desktop the cap constrains the right pane to 480px max, preserving tree visibility.
+
+#### Content overflow inside capped pane
+
+```css
+rb-detail-drawer {
+  overflow-x: hidden;    /* prevent horizontal scroll from long content */
+  word-break: break-word; /* wrap long titles/code within the cap */
+}
+
+rb-detail-drawer pre,
+rb-detail-drawer code {
+  overflow-x: auto;      /* scrollable code blocks inside the cap */
+  max-width: 100%;
+}
+```
+
+### HTML Structure Change
+
+The `/trace` index.ts entry point needs to wrap tree + drawer in a `.trace-page` container:
+
+```typescript
+// src/public/ts/trace/index.ts — mount function
+document.getElementById('trace-app')!.innerHTML = `
+  <div class="trace-page">
+    <div class="trace-tree-panel">
+      <rb-trace-tree></rb-trace-tree>
+    </div>
+    <rb-detail-drawer></rb-detail-drawer>
+  </div>
+`;
+```
+
+### Files to Modify
+
+| File | Change |
+|------|--------|
+| `src/public/app.css` | Add `.trace-page` flex container, desktop split at ≥1025px, `max-width: 480px` on drawer, mobile override, content overflow rules |
+| `src/public/ts/trace/index.ts` | Wrap tree + drawer in `.trace-page` container |
+| `package.json` | Bump version (rule-pair (a)) |
+| `src/public/sw.js` | Bump CACHE_NAME (rule-pair (b)) |
+
+STATIC_SHELL (c): exempt — no new route.
+
 ## Subtasks
 None (atomic).
 
