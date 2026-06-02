@@ -143,6 +143,157 @@ File: `test/vitest/ci-gates.test.ts` (new) + CI workflow updates.
 ## QA Audit & User Feedback
 - 2026-06-02: PO directed planner-first stand-up of T170 (R-G from compound-source-2 via `bfae071` + `2be6e96` + `7e01491`). T170 makes the standing rules self-enforcing via CI gates so the planner's monitoring loop becomes light. CMM4 4-role; real v4 uuids; rule-pair (a)+(b) in AC10+DoD. Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
 
+## Design (Architect — robbin-architect, 2026-06-02)
+
+### Three CI Gates
+
+#### Gate 1: Data-Quality (T169 audit)
+
+Wires `scripts/trace-audit.ts --strict` into the build pipeline.
+
+```json
+// package.json scripts:
+{
+  "trace:audit": "tsx scripts/trace-audit.ts",
+  "trace:audit:ci": "tsx scripts/trace-audit.ts --strict",
+  "pretest": "npm run trace:audit:ci"
+}
+```
+
+Runs as `pretest` hook — every `npm test` / `npm run build` triggers the audit. Fails on any orphan, back-ref, or cardinality violation. Output: audit report with file paths + remediation hints.
+
+Alternative: GitHub Actions step:
+```yaml
+- name: Trace data-quality gate
+  run: npm run trace:audit:ci
+```
+
+#### Gate 2: Rule-Pair (#15+#16)
+
+Validates that commits touching user-facing files also bump `package.json` version + `src/public/sw.js` CACHE_NAME.
+
+```typescript
+// scripts/rule-pair-check.ts
+function checkRulePair(): { pass: boolean; violations: string[] } {
+  // 1. Get files changed in current commit (or commit range)
+  const changed = execSync('git diff --name-only HEAD~1 HEAD').toString().split('\n');
+  
+  // 2. Identify user-facing changes
+  const userFacing = changed.filter(f => 
+    f.startsWith('src/public/') || 
+    f.includes('/templates') || 
+    f.includes('/trace/')
+  );
+  
+  if (userFacing.length === 0) return { pass: true, violations: [] };
+  
+  // 3. Check bumps in same commit
+  const hasPkgBump = changed.includes('package.json');
+  const hasSwBump = changed.includes('src/public/sw.js');
+  
+  const violations: string[] = [];
+  if (!hasPkgBump) violations.push('package.json version not bumped (rule-pair (a))');
+  if (!hasSwBump) violations.push('src/public/sw.js CACHE_NAME not bumped (rule-pair (b))');
+  
+  return { pass: violations.length === 0, violations };
+}
+```
+
+```json
+// package.json scripts:
+{
+  "rule-pair:check": "tsx scripts/rule-pair-check.ts"
+}
+```
+
+Wire as pre-push hook or GitHub Actions step.
+
+#### Gate 3: Chain-Order (T168 canonical)
+
+Validates the 7-step canonical chain is intact — no skipped hops, no wrong-order links.
+
+```typescript
+// Integrated into trace-audit.ts as pass 4:
+function auditChainOrder(index: ScenarioIndex): AuditResult {
+  const issues: string[] = [];
+  
+  for (const uuid of index.list()) {
+    const unit = index.get(uuid);
+    if (!unit) continue;
+    const type = unit.model.chainType;
+    const allowed = CANONICAL_WALK[type];
+    if (!allowed) continue;
+    
+    // Check: unit only has forward links to allowed next-hop types
+    const links = unit.model;
+    for (const key of Object.keys(links)) {
+      if (Array.isArray(links[key]) && links[key].length > 0) {
+        // Verify each ref points to the correct next-hop type
+        for (const ref of links[key]) {
+          const target = index.get(ref);
+          if (target) {
+            const expectedTypes = CANONICAL_NEXT[type]; // e.g. requirement → ['task']
+            if (!expectedTypes.includes(target.model.chainType)) {
+              issues.push(`${uuid} (${type}) links to ${ref} (${target.model.chainType}) — expected ${expectedTypes.join('|')}`);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  return { pass: issues.length === 0, issues };
+}
+```
+
+### Sustain Cadence Documentation
+
+Add to planner SKILL.md or sprint doc:
+
+```markdown
+## Sustain Cadence (T170)
+- CI gates run on every `npm test` / push
+- Gates: data-quality (T169), rule-pair (#15+#16), chain-order (T168)
+- Gate failure = build failure — must fix before merge
+- Planner monitors: 15-min check → 30-min → 60-min back-off (only if no gate violations)
+- No manual sweep needed — gates catch regressions automatically
+- Gate violations surface in CI logs with file + rule + fix hint
+```
+
+### Gate Output Format (all 3 gates)
+
+```
+=== CI Quality Gates ===
+Gate 1 (data-quality): PASS (119 units, 0 orphans, 0 back-refs)
+Gate 2 (rule-pair): PASS (no user-facing changes without bumps)
+Gate 3 (chain-order): PASS (0 chain violations)
+=== ALL GATES PASSED ===
+```
+
+On failure:
+```
+Gate 1 (data-quality): FAIL
+  - uuid-1 (class: GameRoom): orphan — no path to requirement root
+  Fix: add GameRoom to a UseCase's classes[] array
+Gate 2 (rule-pair): FAIL
+  - package.json version not bumped (rule-pair (a))
+  Fix: bump version in package.json
+=== 2 GATE FAILURES — BUILD BLOCKED ===
+```
+
+### Files to Create/Modify
+
+| File | Action |
+|------|--------|
+| `scripts/rule-pair-check.ts` | CREATE — rule-pair gate |
+| `scripts/trace-audit.ts` | MODIFY — add chain-order pass (pass 4) |
+| `package.json` | Add `rule-pair:check` + `pretest` scripts; bump version |
+| `src/public/sw.js` | Bump CACHE_NAME |
+| `.github/workflows/ci.yml` (if exists) | Add gate steps |
+| Planner SKILL.md or sprint doc | Document sustain cadence |
+
+STATIC_SHELL (c): exempt.
+
 ## Subtasks
 None at parent level (architect may split T170.x if scope warrants).
 
