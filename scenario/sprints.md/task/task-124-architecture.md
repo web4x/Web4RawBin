@@ -16,6 +16,17 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 unit.load](../sprints.md/usecase/unit-load.md)
+- [🔗 ior.resolveClass](../sprints.md/usecase/ior-resolveclass.md)
+- [🔗 ior.resolveInstance](../sprints.md/usecase/ior-resolveinstance.md)
+- [🔗 index.put](../sprints.md/usecase/index-put.md)
+- [🔗 index.get](../sprints.md/usecase/index-get.md)
+- [🔗 tree.symlinkJson](../sprints.md/usecase/tree-symlinkjson.md)
+- [🔗 tree.generateMd](../sprints.md/usecase/tree-generatemd.md)
+- [🔗 view.renderHtml](../sprints.md/usecase/view-renderhtml.md)
+- [🔗 view.renderMd](../sprints.md/usecase/view-rendermd.md)
+
 **Children:**
 - [🔗 T124.1: Architect — Scenario-Unit + IOR Data Model](../sprints.md/task/task-124.1-architect-data-model.md)
 - [🔗 T124.2: Architect — View Template Architecture](../sprints.md/task/task-124.2-architect-view-templates.md)

@@ -5,9 +5,11 @@
     "name": "index.get",
     "object": "",
     "verb": "",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:f96a9da3-366c-491f-b2e6-78cbb837f203",
+      "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
+    ],
     "classes": [],
-    "requirement": null,
     "source": {
       "file": "scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml",
       "lines": [
@@ -19,5 +21,5 @@
       "ior": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml?commit=1316b7e&lines=48-53"
     }
   },
-  "ownerIor": "ior:instance:9930be8a-a480-4217-878c-70f94accba07"
+  "ownerIor": "ior:instance:2ba45978-c36b-439f-b3d3-74db481e5e3f"
 }

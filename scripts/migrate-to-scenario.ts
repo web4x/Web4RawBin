@@ -262,23 +262,25 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
         if (idx.has(ucUuid)) continue;
         const objM = body.match(/object:\s*(\S+)/);
         const verbM = body.match(/verb:\s*(\S+)/);
-        const taskM = body.match(/task:\s*T(\d+)/i);
         const lineRange = ucRanges.get(ucName);
         const source = lineRange ? makeSource(pumlRelPath, lineRange, path.join(__dirname, '..')) : undefined;
+        // T160: extract ALL T-number refs from UC body (handles both "task: T124" and freeform "T124.1 / T125")
+        const ucTaskIors: string[] = [];
+        for (const tm of body.matchAll(/T(\d+(?:\.\d+)?)/g)) {
+          const tNum = tm[1].split('.')[0];
+          const tUuid = taskNumToUuid.get(tNum);
+          if (tUuid && !ucTaskIors.includes(`ior:instance:${tUuid}`)) ucTaskIors.push(`ior:instance:${tUuid}`);
+        }
         const ucUnit: ScenarioUnit = {
           ior: 'ior:class:UseCase',
-          model: { uuid: ucUuid, name: ucName, object: objM?.[1] || '', verb: verbM?.[1] || '', tasks: [], classes: [], requirement: null, ...(source ? { source } : {}) },
+          model: { uuid: ucUuid, name: ucName, object: objM?.[1] || '', verb: verbM?.[1] || '', tasks: ucTaskIors, classes: [], ...(source ? { source } : {}) },
           ownerIor: `ior:instance:${sprintUuid}`,
         };
-        if (taskM) {
-          const tUuid = taskNumToUuid.get(taskM[1]);
-          if (tUuid) (ucUnit.model as Record<string, unknown>).tasks = [`ior:instance:${tUuid}`];
-        }
         idx.put(ucUuid, ucUnit);
         ucUuids.push(ucUuid);
-        // T160: populate task.useCases[] forward ref
-        if (taskM) {
-          const tUuid = taskNumToUuid.get(taskM[1]);
+        // T160: populate task.useCases[] forward ref for each referenced task
+        for (const tIor of ucTaskIors) {
+          const tUuid = tIor.replace('ior:instance:', '');
           if (tUuid) {
             const taskUnit = idx.get(tUuid);
             if (taskUnit) {

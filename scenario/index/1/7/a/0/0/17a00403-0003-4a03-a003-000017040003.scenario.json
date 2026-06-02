@@ -5,9 +5,10 @@
     "name": "chain.traceMethodToReq",
     "object": "",
     "verb": "",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:b94d2681-54f0-47e3-a431-f3d84e469b30"
+    ],
     "classes": [],
-    "requirement": null,
     "source": {
       "file": "scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml",
       "lines": [
@@ -19,5 +20,5 @@
       "ior": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml?commit=1316b7e&lines=151-157"
     }
   },
-  "ownerIor": "ior:instance:9930be8a-a480-4217-878c-70f94accba07"
+  "ownerIor": "ior:instance:2ba45978-c36b-439f-b3d3-74db481e5e3f"
 }

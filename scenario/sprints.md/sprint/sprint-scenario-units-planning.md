@@ -47,3 +47,4 @@
 - [ ] [T159: Forward-only traceability chain — refactor (remove back-refs)](../task/task-159-forward-only-traceability-chain-refactor.md)
 - [ ] [T160: Forward-ref REPOPULATION + browser data-freshness (T159 over-strip root cause)](../task/task-160-trace-browser-stale-requirement-items.md)
 - [ ] [T161: Requirement items render Tron-quote as NAME instead of speaky `model.name` (bug)](../task/task-161-requirement-name-renders-tron-quote-not-speaky.md)
+- [ ] [T162: MD artifacts (`##` headings) leak into requirement titles](../task/task-162-md-headings-leak-into-requirement-titles.md)
