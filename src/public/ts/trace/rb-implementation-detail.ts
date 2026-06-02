@@ -1,0 +1,41 @@
+/**
+ * T158 — rb-implementation-detail: specialized DetailView for Implementation objects.
+ * [impl:uuid:5eedd968-085c-443b-acae-7ae73a4ce252] R17 full chain
+ */
+import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
+import { ViewBus } from './ViewBus.js';
+import { navigate } from './nav.js';
+
+export class RbImplementationDetail extends HTMLElement {
+  graph: TraceGraph | null = null;
+  static get observedAttributes() { return ['ref']; }
+  private unsubs: Array<() => void> = [];
+  connectedCallback(): void { this.render(); }
+  disconnectedCallback(): void { for (const u of this.unsubs) u(); this.unsubs = []; }
+  attributeChangedCallback(): void { if (this.isConnected) this.render(); }
+  render(): void {
+    for (const u of this.unsubs) u(); this.unsubs = [];
+    const ref = this.getAttribute('ref') || '';
+    const obj = this.graph?.get(refUuid(ref));
+    if (!obj) { this.innerHTML = '<div class="dv-empty">Implementation not found</div>'; return; }
+    const links = obj.toJSON().links;
+    this.innerHTML = `
+      <div class="dv-head">
+        <span class="dv-type-badge" style="background:rgba(78,52,46,0.25);color:#a1887f">Implementation</span>
+        <h3>${esc(obj.title)}</h3>
+        <code class="dv-uuid">${obj.uuid}</code>
+      </div>
+      <div class="dv-links"><h4>Traceability Chain</h4>${renderLinks(this.graph, links)}</div>`;
+    this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
+    this.querySelectorAll('.dv-link').forEach(row => {
+      row.addEventListener('click', () => { const lref = (row as HTMLElement).dataset.ref!; navigate(lref.split(':')[0], 'show', { uuid: refUuid(lref) }); });
+    });
+  }
+}
+function renderLinks(graph: TraceGraph | null, links: Record<string, string[]>): string {
+  const rows: string[] = [];
+  for (const [relation, refs] of Object.entries(links)) { for (const lref of refs) { const lobj = graph?.get(refUuid(lref)); rows.push(`<div class="dv-link" data-ref="${lref}"><span class="dv-rel">${relation}</span><span class="dv-link-title">${esc(lobj?.title || lref)}</span></div>`); } }
+  return rows.join('') || '<div class="dv-empty">no links</div>';
+}
+function esc(s: string): string { return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] as string)); }
+if (typeof customElements !== 'undefined' && !customElements.get('rb-implementation-detail')) { customElements.define('rb-implementation-detail', RbImplementationDetail); }

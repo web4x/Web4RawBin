@@ -24,6 +24,10 @@ export { RbDetailDrawer } from './rb-detail-drawer.js';
 export { RbTaskDetail } from './rb-task-detail.js';
 export { RbRequirementDetail } from './rb-requirement-detail.js';
 export { RbUseCaseDetail } from './rb-usecase-detail.js';
+export { RbClassDetail } from './rb-class-detail.js';
+export { RbMethodDetail } from './rb-method-detail.js';
+export { RbTestDetail } from './rb-test-detail.js';
+export { RbImplementationDetail } from './rb-implementation-detail.js';
 export { TRACE_ICONS } from './icons.js';
 export { navigate, setActiveRouter } from './nav.js';
 import './rb-object-item.js';
@@ -35,6 +39,10 @@ import './rb-detail-drawer.js';
 import './rb-task-detail.js';
 import './rb-requirement-detail.js';
 import './rb-usecase-detail.js';
+import './rb-class-detail.js';
+import './rb-method-detail.js';
+import './rb-test-detail.js';
+import './rb-implementation-detail.js';
 
 export const TRACE_TYPES: ObjectType[] = [
   'requirement', 'task', 'usecase', 'class', 'method', 'implementation', 'test',
@@ -108,6 +116,10 @@ const DETAIL_TAG: Partial<Record<ObjectType, string>> = {
   task: 'rb-task-detail',
   requirement: 'rb-requirement-detail',
   usecase: 'rb-usecase-detail',
+  class: 'rb-class-detail',
+  method: 'rb-method-detail',
+  test: 'rb-test-detail',
+  implementation: 'rb-implementation-detail',
 };
 
 /** T107 production wiring: show → rb-detail-view, task.list/planning.overview → rb-overview,
