@@ -295,6 +295,32 @@ prose. Then **migrate every existing sprint** to this model.
   **Status:** impl-shipped (`2a61aa2` v0.5.65 — overlay pattern: /api/trace merges scanRepo + scenario-index for Class + Method types). Rule-pair (a)+(b) ✓. T165 7/7 unblocked; tester to re-verify and close T165. Tron QA pending.
   **Owners (CMM4):** robbin-req → robbin-architect (overlay design) → robbin-expert (`2a61aa2` ✓) → robbin-tester (T165 7/7 re-verify + TS1-TS9 pending)
 
+### Phase 28 — Tron compound-source-2 (R-D through R-G; PO directives 2026-06-02)
+
+Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirement-source-2.md).
+**Chain order LOCKED (PO 2026-06-02):** `requirement → task → usecase(s) → class → method → implementation → test(s)` · 1:N at plural hops (usecase, test).
+**Priority:** T169 (R-F) is the **KEYSTONE** — T167/T170 build on T169-clean data; T168 supplies the canonical rule T169 audits against.
+
+- [ ] ⏳ [T167: /trace mobile-first layout + hard width-cap on right pane](./task-167-trace-mobile-first-layout-width-cap.md)
+  **Status:** PLANNED — R-D from compound-source-2. Mobile-first `/trace` layout; hard width-cap on right (detail) pane so it doesn't dominate small viewports. Tron's iPhone is the reference device.
+  **Owners (CMM4):** robbin-req (anchor R-D verbatim) → robbin-architect (mobile-first layout + width-cap rule) → robbin-expert (CSS impl; rule-pair (a)+(b)) → robbin-tester (visual on iPhone + desktop, TS1-TS6)
+  **Rule-pair scope:** (a)+(b) required; (c) exempt (no new route). v4 uuids: task `d0881ad6-…`; req `ff3f06e7-…`.
+
+- [ ] ⏳ [T168: Chain order 7-step + atomic requirements as tree ROOTS](./task-168-chain-order-7-step-requirements-as-roots.md)
+  **Status:** PLANNED — R-E from compound-source-2 + PO amendments (chain extends to test as final node; Implementation:Test is 1:N — `Implementation.tests[]` IOR array). Canonical 7-step chain `requirement → task → usecase(s) → class → method → implementation → test(s)`; tree roots are atomic requirements only.
+  **Owners (CMM4):** robbin-req (anchor R-E verbatim + PO amendments) → robbin-architect (TraceModel walk + ViewGenerator + tree builder + standard update + Sprint 17 chain doc) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (chain walk + audit; TS1-TS8)
+  **Rule-pair scope:** (a)+(b) required; (c) architect confirms. v4 uuids: task `c3951691-…`; req `12f6f7d1-…`.
+
+- [ ] ⏳ [T169: Data-quality audit + remigrate — complete tree, NO back-chaos, NO untraced scenarios (KEYSTONE)](./task-169-data-quality-audit-remigrate-complete-tree.md)
+  **Status:** PLANNED — R-F from compound-source-2 (PO 2026-06-02: **"R-F is the keystone — others build on it"**). Audit every scenario reachable from a req root via T168 canonical chain; remigrate units that fail; CI-gate the audit.
+  **Owners (CMM4):** robbin-req (anchor R-F verbatim) → robbin-architect (audit + remigration + CI-gate design) → robbin-expert (impl audit + remigration tooling; rule-pair (a)+(b)) → robbin-tester (audit baseline + post-remigration; TS1-TS11)
+  **Rule-pair scope:** (a)+(b) required; (c) architect confirms. v4 uuids: task `e43c24fe-…`; req `c182f6f1-…`. **KEYSTONE — block T167/T170 closure on T169 audit clean.**
+
+- [ ] ⏳ [T170: Diligent plan + no-stop sustain (CI gates)](./task-170-diligent-plan-no-stop-sustain.md)
+  **Status:** PLANNED — R-G from compound-source-2. Make standing rules self-enforcing via 3 CI gates: data-quality (T169) + rule-pair (#15+#16) + chain-order (T168). Removes manual-discipline gaps so the work sustains without stopping.
+  **Owners (CMM4):** robbin-req (anchor R-G verbatim) → robbin-architect (3-gate design + sustain cadence doc) → robbin-expert (CI workflow + gate scripts; rule-pair (a)+(b)) → robbin-tester (gate firing + clean-state passing; TS1-TS9)
+  **Rule-pair scope:** (a)+(b) required; (c) exempt. v4 uuids: task `6cf46cd1-…`; req `1267ef56-…`.
+
 ### Phase 6 — Verification (T129, tester + planner)
 
 - [ ] 🧪 [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)
