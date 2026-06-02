@@ -4,17 +4,17 @@
 
 [task:uuid:d0881ad6-ade5-4d60-94a2-fbe5347fd4b6]
 
-## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+## Status — 📝 refinement done (architect 2638f52)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — **`6486399` req anchor + `2638f52` architect design: mobile-first /trace layout + 480px width-cap**)
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
-> QA Review + Done are TRON's gate only — never checked by planner/sync.
+> Sync per rule #11: `2638f52` lands the design; refinement [x]. Expert next.
 
 ## Assigned
 **Owners (CMM4 4-role, per learnings #18) — planner-first per PO direction 2026-06-02:**

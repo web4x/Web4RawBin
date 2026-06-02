@@ -301,8 +301,8 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
 **Chain order LOCKED (PO 2026-06-02):** `requirement → task → usecase(s) → class → method → implementation → test(s)` · 1:N at plural hops (usecase, test).
 **Priority:** T169 (R-F) is the **KEYSTONE** — T167/T170 build on T169-clean data; T168 supplies the canonical rule T169 audits against.
 
-- [ ] ⏳ [T167: /trace mobile-first layout + hard width-cap on right pane](./task-167-trace-mobile-first-layout-width-cap.md)
-  **Status:** PLANNED — R-D from compound-source-2. Mobile-first `/trace` layout; hard width-cap on right (detail) pane so it doesn't dominate small viewports. Tron's iPhone is the reference device.
+- [ ] 📝 [T167: /trace mobile-first layout + hard width-cap on right pane](./task-167-trace-mobile-first-layout-width-cap.md)
+  **Status:** REFINEMENT DONE — `6486399` req anchor + `2638f52` architect design (mobile-first /trace layout + 480px width-cap). Expert next.
   **Owners (CMM4):** robbin-req (anchor R-D verbatim) → robbin-architect (mobile-first layout + width-cap rule) → robbin-expert (CSS impl; rule-pair (a)+(b)) → robbin-tester (visual on iPhone + desktop, TS1-TS6)
   **Rule-pair scope:** (a)+(b) required; (c) exempt (no new route). v4 uuids: task `d0881ad6-…`; req `ff3f06e7-…`.
 
@@ -311,15 +311,20 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
   **Owners (CMM4):** robbin-req (anchor R-E verbatim + PO amendments) → robbin-architect (TraceModel walk + ViewGenerator + tree builder + standard update + Sprint 17 chain doc) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (chain walk + audit; TS1-TS8)
   **Rule-pair scope:** (a)+(b) required; (c) architect confirms. v4 uuids: task `c3951691-…`; req `12f6f7d1-…`.
 
-- [ ] 📝 [T169: Data-quality audit + remigrate — complete tree, NO back-chaos, NO untraced scenarios (KEYSTONE)](./task-169-data-quality-audit-remigrate-complete-tree.md)
-  **Status:** REFINEMENT DONE — `43f9a0e` architect design committed (KEYSTONE: data-quality audit + remigrate). Expert next.
+- [ ] 🔧 [T169: Data-quality audit + remigrate — complete tree, NO back-chaos, NO untraced scenarios (KEYSTONE)](./task-169-data-quality-audit-remigrate-complete-tree.md)
+  **Status:** audit shipped + PARTIAL — `43f9a0e` design + `7ddf64f` v0.5.66 impl (rule-pair (a)+(b) ✓). Audit RAN; mechanics pass but **50/296 untraced (17%) + R17.26 links=0** — Tron R-F demands ZERO untraced → closure via **T171**. T169 testing closes once T171 lands.
   **Owners (CMM4):** robbin-req (anchor R-F verbatim) → robbin-architect (audit + remigration + CI-gate design) → robbin-expert (impl audit + remigration tooling; rule-pair (a)+(b)) → robbin-tester (audit baseline + post-remigration; TS1-TS11)
   **Rule-pair scope:** (a)+(b) required; (c) architect confirms. v4 uuids: task `e43c24fe-…`; req `c182f6f1-…`. **KEYSTONE — block T167/T170 closure on T169 audit clean.**
 
-- [ ] ⏳ [T170: Diligent plan + no-stop sustain (CI gates)](./task-170-diligent-plan-no-stop-sustain.md)
-  **Status:** PLANNED — R-G from compound-source-2. Make standing rules self-enforcing via 3 CI gates: data-quality (T169) + rule-pair (#15+#16) + chain-order (T168). Removes manual-discipline gaps so the work sustains without stopping.
+- [ ] 📝 [T170: Diligent plan + no-stop sustain (CI gates)](./task-170-diligent-plan-no-stop-sustain.md)
+  **Status:** REFINEMENT DONE — `6486399` req anchor + `72e685d` architect design (3 CI gates: data-quality + rule-pair + chain-order). Expert next.
   **Owners (CMM4):** robbin-req (anchor R-G verbatim) → robbin-architect (3-gate design + sustain cadence doc) → robbin-expert (CI workflow + gate scripts; rule-pair (a)+(b)) → robbin-tester (gate firing + clean-state passing; TS1-TS9)
   **Rule-pair scope:** (a)+(b) required; (c) exempt. v4 uuids: task `6cf46cd1-…`; req `1267ef56-…`.
+
+- [ ] ⏳ [T171: Untraced-closure — link 50 untraced + R17.26 link-back to T165/T166](./task-171-untraced-closure-r17-26-linkback.md)
+  **Status:** PLANNED — T169 audit findings (PO 2026-06-02): 50/296 untraced + R17.26 links=0. (a) link R17.26 → T165/T166; (b) for each of the 50: link to a req OR document as orphan-by-design in an allowlist. Tron R-F = ZERO untraced.
+  **Owners (CMM4):** robbin-req (anchor PO finding) → robbin-architect (categorize the 50 + design R17.26 link-back + allowlist mechanism) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (T169 audit re-run = ZERO untraced + R17.26 walkDown reaches T165/T166)
+  **Rule-pair scope:** (a)+(b) required; (c) exempt. v4 uuids: task `75628241-…`; req `0dcaa94e-…`. **Gates T169 testing closure + T170 CI gates land cleanly only after T171.**
 
 ### Phase 6 — Verification (T129, tester + planner)
 

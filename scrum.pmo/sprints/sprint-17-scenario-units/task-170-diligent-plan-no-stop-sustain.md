@@ -4,17 +4,17 @@
 
 [task:uuid:6cf46cd1-5f65-4474-a023-1b54b56adb06]
 
-## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+## Status — 📝 refinement done (architect 72e685d)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — **`6486399` req anchor + `72e685d` architect design: 3 CI gates for no-stop sustain**)
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
-> QA Review + Done are TRON's gate only — never checked by planner/sync.
+> Sync per rule #11: `72e685d` lands the design; refinement [x]. Expert next.
 
 ## Assigned
 **Owners (CMM4 4-role, per learnings #18) — planner-first per PO direction 2026-06-02:**
