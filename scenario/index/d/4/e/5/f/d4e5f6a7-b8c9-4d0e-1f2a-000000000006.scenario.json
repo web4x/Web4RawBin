@@ -2,10 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000006",
-    "name": "> TRON: \"in scenarios/sprints.md/ have the resulting structured md views from the templates with the same speaking names",
-    "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000006]\n  > TRON: \"in scenarios/sprints.md/ have the resulting structured md views from the templates with the same speaking names as in the sprints.json/ folder\"\n  → [T126](./task-126-views.md)\n\n## Views & Templates (original directive)\n\n- [ ] **R17.7: HTML view templates per class**",
+    "name": "## Views & Templates (original directive)",
+    "description": "> TRON: \"in scenarios/sprints.md/ have the resulting structured md views from the templates with the same speaking names as in the sprints.json/ folder\"",
+    "tronQuote": "> TRON: \"in scenarios/sprints.md/ have the resulting structured md views from the templates with the same speaking names as in the sprints.json/ folder\"",
     "tasks": [],
     "tests": []
   },
-  "ownerIor": "ior:instance:52d5024a-393d-4842-981c-220fe9f3de5e"
+  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
 }

@@ -2,10 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000007",
-    "name": "> TRON: \"the templates should be like the html registered view for the classes Requirement, Task, UseCase … each Task an",
-    "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000007]\n  > TRON: \"the templates should be like the html registered view for the classes Requirement, Task, UseCase … each Task and requirement shall have its own md, html view strictly from the view templates.\"\n  → [T126](./task-126-views.md)\n\n- [ ] **R17.8: Views generated + live-updated from flat JSON**",
+    "name": "**R17.8: Views generated + live-updated from flat JSON**",
+    "description": "> TRON: \"the templates should be like the html registered view for the classes Requirement, Task, UseCase … each Task and requirement shall have its own md, html view strictly from the view templates.\"",
+    "tronQuote": "> TRON: \"the templates should be like the html registered view for the classes Requirement, Task, UseCase … each Task and requirement shall have its own md, html view strictly from the view templates.\"",
     "tasks": [],
     "tests": []
   },
-  "ownerIor": "ior:instance:52d5024a-393d-4842-981c-220fe9f3de5e"
+  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
 }

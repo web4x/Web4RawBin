@@ -2,10 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000016",
-    "name": "> TRON: \"the task statuses will work like that in md but not in html.\"",
-    "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000016]\n  > TRON: \"the task statuses will work like that in md but not in html.\"\n  → [T132](./task-132-html-status-template-fix.md)\n\n- [ ] **R17.17: Task status as state-machine methods**",
+    "name": "**R17.17: Task status as state-machine methods**",
+    "description": "> TRON: \"the task statuses will work like that in md but not in html.\"",
+    "tronQuote": "> TRON: \"the task statuses will work like that in md but not in html.\"",
     "tasks": [],
     "tests": []
   },
-  "ownerIor": "ior:instance:52d5024a-393d-4842-981c-220fe9f3de5e"
+  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
 }

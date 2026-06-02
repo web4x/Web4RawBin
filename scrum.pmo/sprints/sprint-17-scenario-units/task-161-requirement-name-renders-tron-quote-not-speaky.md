@@ -5,9 +5,9 @@
 [task:uuid:6da66c11-558a-4718-8ca8-0b61a664260d]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — `410778d` architect design: diagnosed BOTH (A) data-store wrong AND (B) renderer wrong; same pipeline `firstLine()` in TraceConsistency.ts feeds raw blockquote into `model.name`; **req-eng verbatim anchor still pending — backfill needed**)
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing

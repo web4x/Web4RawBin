@@ -2,10 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000009",
-    "name": "> TRON: \"planning.md becomes an task overview from task item views as md and html views.\"",
-    "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000009]\n  > TRON: \"planning.md becomes an task overview from task item views as md and html views.\"\n  → [T126](./task-126-views.md)\n\n- [ ] **R17.10: Sprint overview = list of sprint items**",
+    "name": "**R17.10: Sprint overview = list of sprint items**",
+    "description": "> TRON: \"planning.md becomes an task overview from task item views as md and html views.\"",
+    "tronQuote": "> TRON: \"planning.md becomes an task overview from task item views as md and html views.\"",
     "tasks": [],
     "tests": []
   },
-  "ownerIor": "ior:instance:52d5024a-393d-4842-981c-220fe9f3de5e"
+  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
 }

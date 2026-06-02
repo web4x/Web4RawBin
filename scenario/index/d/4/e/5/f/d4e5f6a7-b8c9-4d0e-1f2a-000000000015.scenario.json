@@ -2,10 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000015",
-    "name": "> TRON: \"plan that in an collaborative action of the architect, the req agent and the planner\"",
-    "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000015]\n  > TRON: \"plan that in an collaborative action of the architect, the req agent and the planner\"\n  → [T124](./task-124-architecture.md)\n\n---\n\n## Extension 1 (2026-05-31)\n\n- [ ] **R17.16: HTML status renders correctly**",
+    "name": "---",
+    "description": "> TRON: \"plan that in an collaborative action of the architect, the req agent and the planner\"",
+    "tronQuote": "> TRON: \"plan that in an collaborative action of the architect, the req agent and the planner\"",
     "tasks": [],
     "tests": []
   },
-  "ownerIor": "ior:instance:52d5024a-393d-4842-981c-220fe9f3de5e"
+  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
 }

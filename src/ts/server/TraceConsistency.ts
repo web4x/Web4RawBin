@@ -170,8 +170,17 @@ export function scanRepo(sprintsDir: string, srcDir?: string, testDir?: string):
 }
 
 function firstLine(block: string): string {
-  const line = block.split('\n').map(s => s.trim()).find(s => s && !s.startsWith('[requirement'));
-  return (line || 'requirement').replace(/^[-*]\s*\[.\]\s*/, '').slice(0, 120);
+  const lines = block.split('\n').map(s => s.trim()).filter(s => s.length > 0);
+  for (const line of lines) {
+    if (line.startsWith('>')) continue;
+    if (line.startsWith('[requirement:uuid:')) continue;
+    if (line.startsWith('`[requirement:uuid:')) continue;
+    if (line.startsWith('(') && line.includes('task-')) continue;
+    if (line.startsWith('→') || line.match(/^\[T\d+\]/) || line.match(/^\(\[task-/)) continue;
+    return line.replace(/^[-*]\s*\[.\]\s*/, '').slice(0, 60);
+  }
+  const uuidMatch = block.match(/\[requirement:uuid:([^\]]{8})/);
+  return uuidMatch ? `REQ-${uuidMatch[1]}` : 'Unnamed Requirement';
 }
 
 interface UseCaseBlock { name: string; uuid: string; task: string; }

@@ -2,10 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000013",
-    "name": "> TRON: \"each method must be traced completely back to a task and a requirement.\"",
-    "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000013]\n  > TRON: \"each method must be traced completely back to a task and a requirement.\"\n  → [T134](./task-134-traceability-as-units.md)\n\n## Migration (original directive)\n\n- [ ] **R17.14: Migrate all sprints/tasks/requirements to scenario units**",
+    "name": "## Migration (original directive)",
+    "description": "> TRON: \"each method must be traced completely back to a task and a requirement.\"",
+    "tronQuote": "> TRON: \"each method must be traced completely back to a task and a requirement.\"",
     "tasks": [],
     "tests": []
   },
-  "ownerIor": "ior:instance:52d5024a-393d-4842-981c-220fe9f3de5e"
+  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
 }

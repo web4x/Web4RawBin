@@ -194,16 +194,31 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
       if (!rm) continue;
       const reqUuid = rm[1].toLowerCase();
       if (idx.has(reqUuid)) continue;
-      const titleLine = block.split('\n').map(s => s.trim()).find(s => s && !s.startsWith('[requirement'));
-      const title = (titleLine || 'requirement').replace(/^[-*]\s*\[.\]\s*/, '').slice(0, 120);
+      const blockLines = block.split('\n').map(s => s.trim()).filter(s => s.length > 0);
+      let speakyName = '';
+      const quoteLines: string[] = [];
+      for (const line of blockLines) {
+        if (line.startsWith('>')) { quoteLines.push(line); continue; }
+        if (line.startsWith('[requirement:uuid:')) continue;
+        if (line.startsWith('`[requirement:uuid:')) continue;
+        if (line.startsWith('(') && line.includes('task-')) continue;
+        if (line.startsWith('→') || line.startsWith('-&gt;')) continue;
+        if (line.match(/^\[T\d+\]/) || line.match(/^\(\[task-/)) continue;
+        if (!speakyName) speakyName = line.replace(/^[-*]\s*\[.\]\s*/, '').slice(0, 60);
+      }
+      if (!speakyName) {
+        const um = block.match(/\[requirement:uuid:([^\]]{8})/);
+        speakyName = um ? `REQ-${um[1]}` : 'Unnamed Requirement';
+      }
+      const tronQuote = quoteLines.join('\n');
       const reqUnit: ScenarioUnit = {
         ior: 'ior:class:Requirement',
-        model: { uuid: reqUuid, name: title, description: block.trim(), tasks: [], tests: [] },
+        model: { uuid: reqUuid, name: speakyName, description: tronQuote || block.trim(), tronQuote, tasks: [], tests: [] },
         ownerIor: `ior:instance:${sprintUuid}`,
       };
       idx.put(reqUuid, reqUnit);
       reqUuids.push(reqUuid);
-      console.log(`  Created requirement unit: ${reqUuid} — ${title}`);
+      console.log(`  Created requirement unit: ${reqUuid} — ${speakyName}`);
 
       const taskRefs = block.matchAll(/→\s*\[T?(\d+)[^\]]*\]\(\.\/task-[^)]+\)/gi);
       for (const tr of taskRefs) {

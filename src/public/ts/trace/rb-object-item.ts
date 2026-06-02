@@ -80,7 +80,8 @@ export class RbObjectItem extends HTMLElement {
 
   render(): void {
     const { type } = this.parts();
-    const name = this.getAttribute('name') || generateName(this.getAttribute('title'));
+    const rawName = this.getAttribute('name') || generateName(this.getAttribute('title'));
+    const name = rawName.startsWith('>') ? rawName.replace(/^>\s*/, '').slice(0, 50) : rawName;
     const desc = this.getAttribute('description') || this.getAttribute('title') || '';
     const icon = TRACE_ICONS[type] || '•';
     const hasChildren = this.hasAttribute('has-children');

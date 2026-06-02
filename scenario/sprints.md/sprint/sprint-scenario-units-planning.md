@@ -45,3 +45,5 @@
 - [ ] [T157: Profile gate — Upload vCard for fast onboarding (button + native drag-and-drop)](../task/task-157-profile-gate-vcard-onboarding.md)
 - [ ] [T158: Traceability browser — surface the FULL chain data (Req → Task → UC → Class → Method → Impl → Test)](../task/task-158-traceability-browser-full-chain-data.md)
 - [ ] [T159: Forward-only traceability chain — refactor (remove back-refs)](../task/task-159-forward-only-traceability-chain-refactor.md)
+- [ ] [T160: Forward-ref REPOPULATION + browser data-freshness (T159 over-strip root cause)](../task/task-160-trace-browser-stale-requirement-items.md)
+- [ ] [T161: Requirement items render Tron-quote as NAME instead of speaky `model.name` (bug)](../task/task-161-requirement-name-renders-tron-quote-not-speaky.md)

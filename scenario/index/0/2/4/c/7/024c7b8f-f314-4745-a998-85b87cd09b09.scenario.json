@@ -2,10 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "024c7b8f-f314-4745-a998-85b87cd09b09",
-    "name": "> TRON: \"i do not see uuid.scenario.JSON for requirements and use cases\"",
-    "description": "[requirement:uuid:024c7b8f-f314-4745-a998-85b87cd09b09]\n  > TRON: \"i do not see uuid.scenario.JSON for requirements and use cases\"\n  → [T136](./task-136-migration-extension-req-uc.md)\n\n- [ ] **R17.21: Req-eng + planner LEARN scenarios for planning**",
+    "name": "**R17.21: Req-eng + planner LEARN scenarios for planning**",
+    "description": "> TRON: \"i do not see uuid.scenario.JSON for requirements and use cases\"",
+    "tronQuote": "> TRON: \"i do not see uuid.scenario.JSON for requirements and use cases\"",
     "tasks": [],
     "tests": []
   },
-  "ownerIor": "ior:instance:52d5024a-393d-4842-981c-220fe9f3de5e"
+  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
 }

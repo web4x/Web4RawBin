@@ -2,10 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000012",
-    "name": "> TRON: \"all files are units and can be referenced via ior also as a scenario.\"",
-    "description": "[requirement:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000012]\n  > TRON: \"all files are units and can be referenced via ior also as a scenario.\"\n  → [T125](./task-125-foundation.md)\n\n- [ ] **R17.13: Method → task → requirement traceability**",
+    "name": "**R17.13: Method → task → requirement traceability**",
+    "description": "> TRON: \"all files are units and can be referenced via ior also as a scenario.\"",
+    "tronQuote": "> TRON: \"all files are units and can be referenced via ior also as a scenario.\"",
     "tasks": [],
     "tests": []
   },
-  "ownerIor": "ior:instance:52d5024a-393d-4842-981c-220fe9f3de5e"
+  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
 }
