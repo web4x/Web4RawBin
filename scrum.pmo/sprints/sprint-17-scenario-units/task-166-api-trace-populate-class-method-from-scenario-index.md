@@ -87,6 +87,117 @@ output. The fix is upstream of the tree builder — at the data-source layer.
 - Expert implements as a single endpoint change in one commit-set
 - Tree builder (T165) now has 7/7 typed objects to render
 
+## Design (Architect — robbin-architect, 2026-06-02)
+
+### Root Cause
+
+`src/ts/server/server.ts:429` — `const { graph, coverage } = scanRepo(sprintsDir, srcDir, testDir)` builds the graph from markdown parsing. `scanRepo()` produces Requirement, Task, UseCase, Test, Implementation (TraceLink) objects. It does NOT produce Class or Method objects — those types are only in the scenario index (created by T128.1's migration from TypeScript AST extraction).
+
+T163's overlay (lines 435-441) patches `model.name` from scenario index onto **existing** graph objects:
+```typescript
+const obj = graph.get(uuid);          // only finds objects scanRepo created
+if (obj && unit.model.name) obj.title = String(unit.model.name);
+```
+If scanRepo didn't create the object (Class/Method), `graph.get(uuid)` returns null → overlay skips it → Class/Method never appear.
+
+### Decision: OVERLAY (merge), not full switch
+
+**Overlay** — keep scanRepo for types it handles well (Req/Task/UC/Test/Impl), add scenario-index for types it misses (Class/Method). Rationale:
+- scanRepo produces forward refs, coverage stats, and validation data that scenario index doesn't replicate yet
+- Full switch would require rebuilding the entire graph from scenario index — larger scope, higher risk
+- Overlay is the same pattern T163 used (small addition to existing endpoint)
+
+### Fix: Add Class + Method Objects from Scenario Index
+
+After the T163 title-overlay loop (line 441), add a second pass that **creates graph objects** for Class + Method types not present in scanRepo's output:
+
+```typescript
+// server.ts /api/trace handler — AFTER T163 overlay (line 441):
+
+// T166: populate Class + Method from scenario index (scanRepo doesn't produce them)
+try {
+  const idx = new ScenarioIndex(scenarioDir);
+  for (const uuid of idx.list()) {
+    const unit = idx.get(uuid);
+    if (!unit) continue;
+    const chainType = unit.model.chainType;
+    
+    // Only add types scanRepo doesn't produce
+    if (chainType !== 'class' && chainType !== 'method') continue;
+    
+    // Skip if already in graph (shouldn't happen, but defensive)
+    if (graph.get(uuid)) continue;
+    
+    // Create graph object from scenario index
+    graph.add({
+      uuid,
+      type: chainType,
+      title: String(unit.model.name || ''),
+      description: String(unit.model.description || ''),
+      status: String(unit.model.status || ''),
+      links: {
+        // Forward refs from scenario (T160 forward-only)
+        ...(chainType === 'class' ? { methods: unit.model.methods || [] } : {}),
+        ...(chainType === 'method' ? {} : {}),  // Method = LEAF, no forward links
+      },
+    });
+  }
+} catch { /* scenario index not available for class/method — degrade gracefully */ }
+```
+
+### Walk Pattern
+
+Scenario index stores Class + Method units under `scenario/index/<5-char-prefix>/<uuid>.scenario.json`. Each has:
+
+```json
+{
+  "model": {
+    "uuid": "...",
+    "chainType": "class",
+    "name": "GameRoom",              // T161-clean speaky name
+    "description": "...",
+    "sourcePath": "src/ts/server/GameRoom.ts",
+    "methods": ["uuid-1", "uuid-2"]  // forward refs to Method units
+  }
+}
+```
+
+The overlay reads these, creates TraceObject nodes in the graph, and includes their forward links. The tree builder (T165) then renders them as tree-items.
+
+### Forward-Ref Integration with Existing Graph
+
+Class/Method objects need parent edges FROM existing graph objects (UseCase → Class). Two approaches:
+
+**Option A (minimal — T166 scope):** Add Class/Method as orphan nodes. T165's orphan recovery (Part 2 of T165 design) shows them in the "Orphan items" section. Tester clicks through to T158 DetailViews.
+
+**Option B (full — if UC→Class forward refs exist):** T153 populated `useCase.classes[]` in scenario units. If the `/api/trace` graph's UseCase objects carry `links.classes[]`, the tree builder already connects UC→Class→Method. Expert checks: do the graph's UC objects have `links.classes` populated? If yes, option B works automatically — no orphan section needed.
+
+**Architect recommendation:** Implement Option A first (guaranteed 7/7). If option B works (UC links already have class refs), the orphan section will be empty — best of both worlds.
+
+### Files to Modify
+
+| File | Change |
+|------|--------|
+| `src/ts/server/server.ts` (line ~441) | Add T166 overlay loop: create Class + Method graph objects from scenario index |
+| `package.json` | Bump version (rule-pair (a)) |
+| `src/public/sw.js` | Bump CACHE_NAME (rule-pair (b)) |
+
+**3 files.** Same minimal pattern as T163.
+
+### STATIC_SHELL (c): Exempt — no new route, no new bundle.
+
+### AC Mapping
+
+| AC | Design Answer |
+|----|---------------|
+| AC1 | Class nodes created from scenario index in overlay loop — count > 0 |
+| AC2 | Method nodes created from scenario index — count > 0 |
+| AC3 | Forward refs from scenario `model.methods[]` — no back-refs |
+| AC4 | `model.name` is scenario-index clean (T161/T163 pipeline) |
+| AC5 | T165 tree-item click → TraceRouter → VerbRegistry → T158 DetailView |
+| AC6 | 7/7 types in graph (5 from scanRepo + 2 from scenario index overlay) |
+| AC9 | Rule-pair (a)+(b) in same commit |
+
 ## Acceptance Criteria
 - [ ] AC1 — `GET /api/trace` returns Class nodes populated from the scenario index (count > 0; verify against T128.1's migrated S1 class units)
 - [ ] AC2 — `GET /api/trace` returns Method nodes populated from the scenario index (count > 0)
