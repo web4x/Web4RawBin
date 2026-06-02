@@ -9,7 +9,7 @@
 - [x] In Progress
   - [x] refinement (req → architect — **`826d30b` architect design committed: T169 decision (NO `requirements[]` on non-req — back-ref per T159/B18; 241 empty requirements[] are CORRECT, strip field) + T171 50-orphan categorization**)
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
