@@ -56,7 +56,12 @@ Atomic requirements are the root of every tree. No chain starts from a task or u
 **AMENDMENT (Tron literal):**
 > "implementation traces finally to test"
 
-Chain terminates at test. Full order: requirement → task → usecase → class → method → implementation → **test**.
+Chain terminates at test. Full order: requirement → task → usecase → class → method → implementation → **test(s)**.
+
+**AMENDMENT 2 (Tron literal):**
+> "one implementation can have multiple tests"
+
+Cardinality: implementation → test is **1:N**. An implementation traces to multiple tests (`Implementation.tests[]` = IOR array of Test instances).
 
 ### R-F: Data quality — complete consistent tree, zero untraced scenarios
 > "not all instances are reached over this tree. review the data and make is a complete consistent tree with no backward chaos and no untraced scenarios"
