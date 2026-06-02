@@ -5,3 +5,8 @@
 > > TRON: "all files are units and can be referenced via ior also as a scenario."
 
 </details>
+
+## Traceability
+
+**Tasks:**
+- [🔗 T125: Scenario-unit primitives + class system + storage](../sprints.md/task/task-125-foundation.md)

@@ -5,8 +5,10 @@
     "name": "**R17.6: Speaking-name tree (md) — generated md views with s",
     "description": "> TRON: \"under scenarios/sprints.json/ create a file tree of ln links to the json index with speaking names like in sprint 1 and task1 and task 1.1\"",
     "tronQuote": "> TRON: \"under scenarios/sprints.json/ create a file tree of ln links to the json index with speaking names like in sprint 1 and task1 and task 1.1\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:b94d2681-54f0-47e3-a431-f3d84e469b30"
+    ],
     "tests": []
   },
-  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
+  "ownerIor": "ior:instance:9930be8a-a480-4217-878c-70f94accba07"
 }

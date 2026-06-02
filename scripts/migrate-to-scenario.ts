@@ -220,10 +220,12 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
       reqUuids.push(reqUuid);
       console.log(`  Created requirement unit: ${reqUuid} — ${speakyName}`);
 
+      const forwardTaskIors: string[] = [];
       const taskRefs = block.matchAll(/→\s*\[T?(\d+)[^\]]*\]\(\.\/task-[^)]+\)/gi);
       for (const tr of taskRefs) {
         const tUuid = taskNumToUuid.get(tr[1]);
         if (tUuid) {
+          forwardTaskIors.push(`ior:instance:${tUuid}`);
           const linkId = crypto.createHash('sha256').update(reqUuid + tUuid + 'implements').digest('hex').slice(0, 8) + '-' + crypto.createHash('sha256').update(reqUuid + tUuid).digest('hex').slice(0, 4) + '-4' + crypto.createHash('sha256').update(tUuid + reqUuid).digest('hex').slice(0, 3) + '-a' + crypto.createHash('sha256').update(reqUuid + tUuid + 'x').digest('hex').slice(0, 3) + '-' + crypto.createHash('sha256').update(reqUuid + tUuid + 'link').digest('hex').slice(0, 12);
           if (!idx.has(linkId)) {
             const link = createTraceLink(reqUuid, 'requirement', tUuid, 'task', 'implements', { createdBy: 'migrate-to-scenario.ts' });
@@ -231,6 +233,11 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
             idx.put(linkId, link);
           }
         }
+      }
+      // T160: populate requirement.tasks[] with forward IOR refs
+      if (forwardTaskIors.length > 0) {
+        (reqUnit.model as Record<string, unknown>).tasks = forwardTaskIors;
+        idx.put(reqUuid, reqUnit);
       }
     }
   }
@@ -269,6 +276,22 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
         }
         idx.put(ucUuid, ucUnit);
         ucUuids.push(ucUuid);
+        // T160: populate task.useCases[] forward ref
+        if (taskM) {
+          const tUuid = taskNumToUuid.get(taskM[1]);
+          if (tUuid) {
+            const taskUnit = idx.get(tUuid);
+            if (taskUnit) {
+              const useCases = ((taskUnit.model as Record<string, unknown>).useCases as string[]) || [];
+              const ucIor = `ior:instance:${ucUuid}`;
+              if (!useCases.includes(ucIor)) {
+                useCases.push(ucIor);
+                (taskUnit.model as Record<string, unknown>).useCases = useCases;
+                idx.put(tUuid, taskUnit);
+              }
+            }
+          }
+        }
         console.log(`  Created usecase unit: ${ucUuid} — ${ucName}`);
       }
     }

@@ -5,8 +5,10 @@
     "name": "## Process (original directive)",
     "description": "> TRON: \"migrate all sprints, tasks, requirements like this with references to classes, tests and puml usecases and classes and verb/methods.\"",
     "tronQuote": "> TRON: \"migrate all sprints, tasks, requirements like this with references to classes, tests and puml usecases and classes and verb/methods.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:b94d2681-54f0-47e3-a431-f3d84e469b30"
+    ],
     "tests": []
   },
-  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
+  "ownerIor": "ior:instance:9930be8a-a480-4217-878c-70f94accba07"
 }

@@ -5,8 +5,10 @@
     "name": "**R17.3: Class-based instances — typed classes with uniform ",
     "description": "> TRON: \"the data shall be in uuid.scenario.json that contains an ior [internet object reference], that can load the class Task to process the file and create the views.\"",
     "tronQuote": "> TRON: \"the data shall be in uuid.scenario.json that contains an ior [internet object reference], that can load the class Task to process the file and create the views.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:32af18ad-b6be-4987-b677-1507fdec0851"
+    ],
     "tests": []
   },
-  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
+  "ownerIor": "ior:instance:9930be8a-a480-4217-878c-70f94accba07"
 }

@@ -9,7 +9,7 @@
     "relation": "implements",
     "direction": "bidirectional",
     "label": "requirement:bebee55d implements task:306f1ca2",
-    "createdAt": "2026-06-02T03:21:13.762Z",
+    "createdAt": "2026-06-02T03:23:43.251Z",
     "createdBy": "migrate-to-scenario.ts"
   },
   "ownerIor": null

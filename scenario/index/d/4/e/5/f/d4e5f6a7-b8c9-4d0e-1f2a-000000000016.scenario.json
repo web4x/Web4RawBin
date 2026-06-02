@@ -5,8 +5,10 @@
     "name": "**R17.17: Task status as state-machine methods**",
     "description": "> TRON: \"the task statuses will work like that in md but not in html.\"",
     "tronQuote": "> TRON: \"the task statuses will work like that in md but not in html.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:32af18ad-b6be-4987-b677-1507fdec0851"
+    ],
     "tests": []
   },
-  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
+  "ownerIor": "ior:instance:9930be8a-a480-4217-878c-70f94accba07"
 }

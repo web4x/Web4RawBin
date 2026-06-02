@@ -5,8 +5,10 @@
     "name": "**R17.12: All files are units, referenceable via IOR**",
     "description": "> TRON: \"there shall be navigation between the file browse and the traceability browser possible.\"",
     "tronQuote": "> TRON: \"there shall be navigation between the file browse and the traceability browser possible.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:b66fdf54-04f4-4609-9ded-04c835348b32"
+    ],
     "tests": []
   },
-  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
+  "ownerIor": "ior:instance:9930be8a-a480-4217-878c-70f94accba07"
 }

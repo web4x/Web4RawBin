@@ -5,3 +5,8 @@
 > > TRON: "there shall be navigation between the file browse and the traceability browser possible."
 
 </details>
+
+## Traceability
+
+**Tasks:**
+- [🔗 T127: File-browser ↔ traceability-browser navigation + IOR universal handler](../sprints.md/task/task-127-navigation.md)

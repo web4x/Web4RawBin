@@ -5,3 +5,8 @@
 > > TRON: "planning.md becomes an task overview from task item views as md and html views."
 
 </details>
+
+## Traceability
+
+**Tasks:**
+- [🔗 T126: Generated views — planning.md, sprints.md, per-instance .md/.html](../sprints.md/task/task-126-views.md)

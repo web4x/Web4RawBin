@@ -5,8 +5,10 @@
     "name": "## Extension 2 (2026-05-31)",
     "description": "> TRON: \"the traceability needs to be converted to uuid.scenario.json of the traced type as atomic units in the index with ln links\"",
     "tronQuote": "> TRON: \"the traceability needs to be converted to uuid.scenario.json of the traced type as atomic units in the index with ln links\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:d0f39414-dfb4-4944-ac1b-56dcad0a66fe"
+    ],
     "tests": []
   },
-  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
+  "ownerIor": "ior:instance:9930be8a-a480-4217-878c-70f94accba07"
 }

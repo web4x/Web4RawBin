@@ -5,8 +5,10 @@
     "name": "**R17.2: IOR — universal reference handle**",
     "description": "> TRON: \"each instance becomes the same scenario json format where just the class model attributes varies. the json has { ior, model, ownerIor }\"",
     "tronQuote": "> TRON: \"each instance becomes the same scenario json format where just the class model attributes varies. the json has { ior, model, ownerIor }\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:dce1bdf8-7076-4376-a32c-9c8b08422bdc"
+    ],
     "tests": []
   },
-  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
+  "ownerIor": "ior:instance:9930be8a-a480-4217-878c-70f94accba07"
 }

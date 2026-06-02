@@ -5,8 +5,10 @@
     "name": "**R17.10: Sprint overview = list of sprint items**",
     "description": "> TRON: \"planning.md becomes an task overview from task item views as md and html views.\"",
     "tronQuote": "> TRON: \"planning.md becomes an task overview from task item views as md and html views.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d"
+    ],
     "tests": []
   },
-  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
+  "ownerIor": "ior:instance:9930be8a-a480-4217-878c-70f94accba07"
 }

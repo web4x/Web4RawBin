@@ -5,8 +5,10 @@
     "name": "## Storage Layout (original directive)",
     "description": "> TRON: \"the templates should be like the html registered view for the classes Requirement, Task, UseCase … each Task and requirement shall have its own md, html view strictly from the view templates.\"",
     "tronQuote": "> TRON: \"the templates should be like the html registered view for the classes Requirement, Task, UseCase … each Task and requirement shall have its own md, html view strictly from the view templates.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
+    ],
     "tests": []
   },
-  "ownerIor": "ior:instance:9c6e7c08-be5a-43e5-8c81-acf305980171"
+  "ownerIor": "ior:instance:9930be8a-a480-4217-878c-70f94accba07"
 }
