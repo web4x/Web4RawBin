@@ -6,7 +6,8 @@
     "description": "> R1+R2 (literal): navigable tree graph; add a traceability browser next to the file browser in the Documentation.",
     "tronQuote": "> R1+R2 (literal): navigable tree graph; add a traceability browser next to the file browser in the Documentation.",
     "tasks": [
-      "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
+      "ior:instance:108b7283-94a5-46b7-898e-b08080808108",
+      "ior:instance:102b1c2d-3e4f-4051-9728-b02020202102"
     ],
     "tests": []
   },

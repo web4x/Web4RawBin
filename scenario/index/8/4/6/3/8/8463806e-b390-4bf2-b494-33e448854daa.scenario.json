@@ -8,6 +8,9 @@
     "status": "In Progress",
     "tasks": [
       "ior:instance:f7a2c4e6-3b8d-4f10-a5c7-9e1d3f5b7a90"
+    ],
+    "requirements": [
+      "ior:instance:12a4b6c8-5d2e-4f30-9a17-3b5c7d9e1f02"
     ]
   },
   "ownerIor": null

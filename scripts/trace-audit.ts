@@ -73,14 +73,15 @@ function auditAll(idx: ScenarioIndex): AuditResult {
     }
   }
 
+  // T172: walk from Requirement roots ONLY (strict forward chain)
   for (const [uuid, unit] of units) {
-    if (getType(unit) === 'Requirement' || getType(unit) === 'Sprint') walk(uuid);
+    if (getType(unit) === 'Requirement') walk(uuid);
   }
 
   const orphans: AuditResult['orphans'] = [];
   for (const [uuid, unit] of units) {
     const type = getType(unit);
-    if (type === 'TraceLink') continue;
+    if (type === 'TraceLink' || type === 'Sprint') continue;
     if (!visited.has(uuid)) {
       orphans.push({ uuid, type, name: String(unit.model.name || uuid) });
     }

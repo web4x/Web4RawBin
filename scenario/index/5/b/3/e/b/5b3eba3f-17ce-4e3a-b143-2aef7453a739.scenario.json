@@ -15,6 +15,15 @@
       "ior:instance:106f5061-7283-4495-896c-f06060606106",
       "ior:instance:107a6172-8394-45a6-897d-a07070707107",
       "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
+    ],
+    "requirements": [
+      "ior:instance:75a7b8c9-d0e1-4f26-8cd7-5b6c7d8e9f07",
+      "ior:instance:65f6a7b8-c9d0-4e15-9bc6-4a5b6c7d8e06",
+      "ior:instance:15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01",
+      "ior:instance:45d4e5f6-a7b8-4c93-9da4-2e3f4a5b6c04",
+      "ior:instance:35c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b03",
+      "ior:instance:25b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02",
+      "ior:instance:55e5f6a7-b8c9-4d04-8ab5-3f4a5b6c7d05"
     ]
   },
   "ownerIor": null

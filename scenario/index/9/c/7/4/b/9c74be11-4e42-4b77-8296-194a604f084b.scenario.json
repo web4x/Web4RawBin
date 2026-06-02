@@ -17,6 +17,15 @@
       "ior:instance:84c9d362-fad3-4325-8d9e-bf7c06cd04b6",
       "ior:instance:428edbf7-ae00-4979-a3b7-3e32eecdc496",
       "ior:instance:1c6c4aa1-7201-4ca8-a8b3-d4491f52ef35"
+    ],
+    "requirements": [
+      "ior:instance:67bde18f-76f9-43cd-abea-77c2ad7134f9",
+      "ior:instance:80ca8e83-fb72-4e3d-874b-af17cd8c2dbf",
+      "ior:instance:a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+      "ior:instance:c32974c5-dd10-45a7-b5dd-0d711b412fdc",
+      "ior:instance:b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
+      "ior:instance:b2dfe117-d591-4715-ba62-07b13a8433c0",
+      "ior:instance:5b6122fe-75f1-4a33-9b2f-63fcaeb4323f"
     ]
   },
   "ownerIor": null
