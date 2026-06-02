@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "4dfd37fd-d30f-4ec1-af8c-2647ff865ba7",
+    "name": "IORResolver",
+    "file": "",
+    "methods": [
+      "ior:instance:9d5369a9-17af-4884-bfdd-f981450f3852",
+      "ior:instance:f426d4c2-64c0-4e66-8a22-98b6706c8020",
+      "ior:instance:ca54a3eb-c39a-4b85-b985-dcb61ed431a9"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:658841dc-8feb-483f-810f-d6b4e1bb7b84"
+}

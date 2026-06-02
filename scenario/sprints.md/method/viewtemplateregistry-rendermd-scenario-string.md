@@ -1,0 +1,1 @@
+### ViewTemplateRegistry.renderMd(scenario): string

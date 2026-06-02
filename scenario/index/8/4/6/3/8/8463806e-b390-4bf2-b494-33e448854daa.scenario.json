@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "8463806e-b390-4bf2-b494-33e448854daa",
+    "name": "Sprint editor fixes",
+    "number": 12,
+    "goal": "",
+    "status": "In Progress",
+    "tasks": [
+      "ior:instance:f7a2c4e6-3b8d-4f10-a5c7-9e1d3f5b7a90"
+    ],
+    "requirements": []
+  },
+  "ownerIor": null
+}

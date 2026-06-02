@@ -1,0 +1,1 @@
+### ViewTemplateRegistry.tmpl): void

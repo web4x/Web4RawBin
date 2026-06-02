@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "f09de66b-34af-47a1-8d0b-8b0c0e9f689f",
+    "name": "RbTaskDetail",
+    "file": "src/public/ts/trace/rb-task-detail.ts",
+    "methods": [
+      "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
+}

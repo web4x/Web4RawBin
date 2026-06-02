@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "9535708a-08c9-4073-8c92-b582c09f1cae",
+    "name": "ScenarioUnit.load(json): this",
+    "className": "ScenarioUnit",
+    "methodName": "load(json): this"
+  },
+  "ownerIor": "ior:instance:e48d798c-c4ac-4bb2-9a0c-adba964250d8"
+}

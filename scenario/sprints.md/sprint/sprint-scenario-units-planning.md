@@ -51,3 +51,4 @@
 - [ ] [T163: /api/trace requirement title source — switch from scanRepo firstLine() to scenario index `model.name`](../task/task-163-api-trace-title-source-switch.md)
 - [ ] [T164: Re-migrate dirty model.name + firstLine() fallback hardening](../task/task-164-dirty-model-name-remigration.md)
 - [ ] [T165: Traceability tree renders ALL 7 typed classes (not only Requirements)](../task/task-165-tree-renders-all-7-typed-classes.md)
+- [ ] [T166: /api/trace populate Class + Method types from scenario index](../task/task-166-api-trace-populate-class-method-from-scenario-index.md)

@@ -20,6 +20,7 @@ import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, ve
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
+import { makeObject, type ObjectType } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry } from '../scenario/index.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
@@ -438,6 +439,22 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             if (!unit) continue;
             const obj = graph.get(uuid);
             if (obj && unit.model.name) obj.title = String(unit.model.name);
+          }
+          // T166: populate Class + Method from scenario index (scanRepo doesn't produce them)
+          for (const uuid of idx.list()) {
+            if (graph.has(uuid)) continue;
+            const unit = idx.get(uuid);
+            if (!unit) continue;
+            const iorType = unit.ior.replace('ior:class:', '').toLowerCase() as ObjectType;
+            if (iorType !== 'class' && iorType !== 'method') continue;
+            const obj = makeObject(graph, iorType, uuid, String(unit.model.name || ''));
+            if (unit.model.status) obj.status = String(unit.model.status);
+            if (iorType === 'class' && Array.isArray(unit.model.methods)) {
+              for (const mIor of unit.model.methods as string[]) {
+                const mUuid = String(mIor).replace('ior:instance:', '');
+                if (mUuid) obj.addRef('methods', mUuid);
+              }
+            }
           }
         } catch { /* scenario index not available — use scanRepo titles */ }
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });

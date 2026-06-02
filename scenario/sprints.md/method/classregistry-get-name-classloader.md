@@ -1,0 +1,1 @@
+### ClassRegistry.get(name): ClassLoader

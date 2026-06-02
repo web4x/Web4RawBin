@@ -311,6 +311,49 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
     }
   }
 
+  // T166: parse PUML implementing-class blocks → Class + Method scenario units
+  const classUuids: string[] = [];
+  const methodUuids: string[] = [];
+  if (fs.existsSync(diagDir) && fs.statSync(diagDir).isDirectory()) {
+    for (const file of fs.readdirSync(diagDir)) {
+      if (!file.endsWith('.puml')) continue;
+      const pumlText = fs.readFileSync(path.join(diagDir, file), 'utf-8');
+      const classRe = /class\s+"([^"]+)"(?:\s+as\s+\w+)?\s*\{([^}]*)\}/g;
+      for (const cm of pumlText.matchAll(classRe)) {
+        const className = cm[1];
+        if (pumlText.includes(`"${className}" <<UseCase>>`)) continue;
+        const body = cm[2];
+        const fileLine = body.split('\n').find(l => l.trim() && !l.trim().startsWith('+'));
+        const sourcePath = fileLine?.trim() || '';
+        const methodLines = body.split('\n').filter(l => l.trim().startsWith('+'));
+        const classUuid = crypto.randomUUID();
+        const methodIors: string[] = [];
+        for (const ml of methodLines) {
+          const methods = ml.replace(/^\s*\+\s*/, '').split(',').map(s => s.trim()).filter(Boolean);
+          for (const mName of methods) {
+            const mUuid = crypto.randomUUID();
+            const methodUnit: ScenarioUnit = {
+              ior: 'ior:class:Method',
+              model: { uuid: mUuid, name: `${className}.${mName}`, className, methodName: mName },
+              ownerIor: `ior:instance:${classUuid}`,
+            };
+            idx.put(mUuid, methodUnit);
+            methodUuids.push(mUuid);
+            methodIors.push(`ior:instance:${mUuid}`);
+          }
+        }
+        const classUnit: ScenarioUnit = {
+          ior: 'ior:class:Class',
+          model: { uuid: classUuid, name: className, file: sourcePath, methods: methodIors, useCases: [] },
+          ownerIor: `ior:instance:${sprintUuid}`,
+        };
+        idx.put(classUuid, classUnit);
+        classUuids.push(classUuid);
+        console.log(`  Created class unit: ${classUuid} — ${className} (${methodIors.length} methods)`);
+      }
+    }
+  }
+
   // Symlink tree: per-class subdirs under sprints.json/<sprint>/
   const sprintJsonDir = path.join(JSON_TREE, sprintSlug);
   fs.mkdirSync(sprintJsonDir, { recursive: true });
@@ -335,9 +378,11 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
   emitClassSymlinks('task', tasks.map(t => ({ uuid: t.uuid, slug: t.slug, name: t.name })));
   emitClassSymlinks('requirement', reqUuids.map(u => { const unit = idx.get(u); return { uuid: u, name: (unit?.model.name as string) || u }; }));
   emitClassSymlinks('usecase', ucUuids.map(u => { const unit = idx.get(u); return { uuid: u, name: (unit?.model.name as string) || u }; }));
+  emitClassSymlinks('class', classUuids.map(u => { const unit = idx.get(u); return { uuid: u, name: (unit?.model.name as string) || u }; }));
+  emitClassSymlinks('method', methodUuids.map(u => { const unit = idx.get(u); return { uuid: u, name: (unit?.model.name as string) || u }; }));
 
   // Collect TraceLinks from index for this sprint's units
-  const sprintUnitUuids = new Set([sprintUuid, ...tasks.map(t => t.uuid), ...reqUuids, ...ucUuids]);
+  const sprintUnitUuids = new Set([sprintUuid, ...tasks.map(t => t.uuid), ...reqUuids, ...ucUuids, ...classUuids, ...methodUuids]);
   const traceLinkUnits: { uuid: string; name: string }[] = [];
   for (const uid of idx.list()) {
     const unit = idx.get(uid);

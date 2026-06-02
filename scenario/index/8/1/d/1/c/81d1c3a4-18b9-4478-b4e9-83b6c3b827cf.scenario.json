@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "81d1c3a4-18b9-4478-b4e9-83b6c3b827cf",
+    "name": "RbObjectItem.setIcon",
+    "className": "RbObjectItem",
+    "methodName": "setIcon"
+  },
+  "ownerIor": "ior:instance:311ff74e-7024-4827-a9ee-d9a09c22c1b0"
+}

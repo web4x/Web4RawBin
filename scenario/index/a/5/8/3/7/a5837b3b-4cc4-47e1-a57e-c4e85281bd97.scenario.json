@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "a5837b3b-4cc4-47e1-a57e-c4e85281bd97",
+    "name": "SpeakingTree.templates): void",
+    "className": "SpeakingTree",
+    "methodName": "templates): void"
+  },
+  "ownerIor": "ior:instance:c8060ced-11f7-4fc1-bbc6-5c7683cf6463"
+}

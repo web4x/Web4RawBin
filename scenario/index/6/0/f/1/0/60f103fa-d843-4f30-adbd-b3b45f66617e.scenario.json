@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "60f103fa-d843-4f30-adbd-b3b45f66617e",
+    "name": "RbObjectItem.expandChildren",
+    "className": "RbObjectItem",
+    "methodName": "expandChildren"
+  },
+  "ownerIor": "ior:instance:311ff74e-7024-4827-a9ee-d9a09c22c1b0"
+}

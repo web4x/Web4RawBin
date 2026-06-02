@@ -1,0 +1,1 @@
+### ViewTemplateRegistry.renderHtml(scenario): string
