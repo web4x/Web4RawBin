@@ -1,4 +1,4 @@
-### **R17.2: IOR — universal reference handle**
+### R17.2: IOR — universal reference handle
 
 <details><summary>Tron directive</summary>
 

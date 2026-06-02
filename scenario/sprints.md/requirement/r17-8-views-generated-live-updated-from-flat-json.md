@@ -1,4 +1,4 @@
-### **R17.8: Views generated + live-updated from flat JSON**
+### R17.8: Views generated + live-updated from flat JSON
 
 <details><summary>Tron directive</summary>
 

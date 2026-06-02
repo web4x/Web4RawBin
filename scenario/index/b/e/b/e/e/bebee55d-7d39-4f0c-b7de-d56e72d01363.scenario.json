@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "bebee55d-7d39-4f0c-b7de-d56e72d01363",
-    "name": "**R17.18: Traceability links → first-class scenario units**",
+    "name": "R17.18: Traceability links → first-class scenario units",
     "description": "> TRON: \"the tasks statuses must be methods of task class that trigger a task state machine until a task is done.\"",
     "tronQuote": "> TRON: \"the tasks statuses must be methods of task class that trigger a task state machine until a task is done.\"",
     "tasks": [
@@ -10,5 +10,5 @@
     ],
     "tests": []
   },
-  "ownerIor": "ior:instance:2ba45978-c36b-439f-b3d3-74db481e5e3f"
+  "ownerIor": "ior:instance:70696267-c1e3-476c-8fd8-95f03a11e1b1"
 }

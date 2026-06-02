@@ -1,4 +1,4 @@
-### **R17.23: Fork skill-expert from expert**
+### R17.23: Fork skill-expert from expert
 
 <details><summary>Tron directive</summary>
 

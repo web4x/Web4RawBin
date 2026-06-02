@@ -1,4 +1,4 @@
-### **R17.18: Traceability links → first-class scenario units**
+### R17.18: Traceability links → first-class scenario units
 
 <details><summary>Tron directive</summary>
 

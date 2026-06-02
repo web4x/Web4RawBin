@@ -1,4 +1,4 @@
-### The `## Chain` / linear sequence framing (req → uc → puml → 
+### The `## Chain` / linear sequence framing (req → uc → puml...
 
 <details><summary>Tron directive</summary>
 

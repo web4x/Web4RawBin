@@ -1,32 +1,6 @@
 # T160: Forward-ref REPOPULATION + browser data-freshness (T159 over-strip root cause)
 [task:uuid:6bb3758d-1e62-4e96-a310-ee38d11e8346]
 
-## Status
-
-- [x] Planned
-- [x] In Progress
-  - [x] refinement (req → architect — `b2ac0b7` architect design: forward-ref repopulation + /api/trace data source switch)
-  - [x] creating test cases
-  - [x] implementing (expert — `5b354fd` v0.5.58; rule-pair (a)+(b) ✓: package.json + sw.js bumped in same commit-set)
-  - [ ] testing (robbin-tester — verification pending)
-- [ ] QA Review
-- [ ] Done
-
-> Sync per PO 2026-06-02: T160 shipped (5b354fd v0.5.58). Tester verifying.
-> Rule-pair (a)+(b) confirmed in the shipped commit. QA Review + Done remain Tron's gate.
-
-> QA Review + Done are TRON's gate only — never checked by planner/sync.
-> **ROOT CAUSE IDENTIFIED (PO 2026-06-01 via T159 tester TS2):** T159's
-> strip-back-refs went too far — it stripped the **forward arrays** too,
-> because they were being populated FROM back-refs in the prior pipeline.
-> `requirement.tasks[]` + `task.useCases[]` are now EMPTY. These ARE forward
-> refs (Req→Task forward, Task→UC forward); they must be **repopulated from
-> forward sources** (parse `requirements.md` forward bullets + tasks' forward
-> useCases bullets), preserving the no-back-ref rule from T159/B18.
->
-> Connect this to Tron's "browser items don't change" bug — SAME root cause:
-> forward arrays empty → browser has nothing to render → items appear stale.
-
 ## Traceability
 
 `[task:uuid:6bb3758d-1e62-4e96-a310-ee38d11e8346]`

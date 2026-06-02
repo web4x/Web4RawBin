@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "3b6cce5a-581c-4325-88b2-b9d381c7f268",
-    "name": "**R17.3: Class-based instances — typed classes with uniform ",
+    "name": "R17.3: Class-based instances — typed classes with uniform...",
     "description": "> TRON: \"the data shall be in uuid.scenario.json that contains an ior [internet object reference], that can load the class Task to process the file and create the views.\"",
     "tronQuote": "> TRON: \"the data shall be in uuid.scenario.json that contains an ior [internet object reference], that can load the class Task to process the file and create the views.\"",
     "tasks": [
@@ -10,5 +10,5 @@
     ],
     "tests": []
   },
-  "ownerIor": "ior:instance:2ba45978-c36b-439f-b3d3-74db481e5e3f"
+  "ownerIor": "ior:instance:70696267-c1e3-476c-8fd8-95f03a11e1b1"
 }

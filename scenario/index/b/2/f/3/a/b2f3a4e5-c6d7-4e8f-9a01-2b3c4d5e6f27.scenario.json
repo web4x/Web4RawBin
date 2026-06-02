@@ -2,11 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "b2f3a4e5-c6d7-4e8f-9a01-2b3c4d5e6f27",
-    "name": "In BOTH task files AND generated views, every referenced nod",
+    "name": "In BOTH task files AND generated views, every referenced ...",
     "description": "> TRON: \"each element should be a link\"",
     "tronQuote": "> TRON: \"each element should be a link\"",
     "tasks": [],
     "tests": []
   },
-  "ownerIor": "ior:instance:2ba45978-c36b-439f-b3d3-74db481e5e3f"
+  "ownerIor": "ior:instance:70696267-c1e3-476c-8fd8-95f03a11e1b1"
 }

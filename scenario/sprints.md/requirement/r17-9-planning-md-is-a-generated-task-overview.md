@@ -1,4 +1,4 @@
-### **R17.9: planning.md is a generated Task-overview**
+### R17.9: planning.md is a generated Task-overview
 
 <details><summary>Tron directive</summary>
 

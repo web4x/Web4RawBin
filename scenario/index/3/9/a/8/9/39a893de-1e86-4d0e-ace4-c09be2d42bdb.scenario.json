@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "39a893de-1e86-4d0e-ace4-c09be2d42bdb",
-    "name": "**R17.23: Fork skill-expert from expert**",
+    "name": "R17.23: Fork skill-expert from expert",
     "description": "> TRON: \"they shall order skills on top of the new implementation to plan and trace work.\"",
     "tronQuote": "> TRON: \"they shall order skills on top of the new implementation to plan and trace work.\"",
     "tasks": [
@@ -10,5 +10,5 @@
     ],
     "tests": []
   },
-  "ownerIor": "ior:instance:2ba45978-c36b-439f-b3d3-74db481e5e3f"
+  "ownerIor": "ior:instance:70696267-c1e3-476c-8fd8-95f03a11e1b1"
 }

@@ -1,4 +1,4 @@
-### **R17.17: Task status as state-machine methods**
+### R17.17: Task status as state-machine methods
 
 <details><summary>Tron directive</summary>
 

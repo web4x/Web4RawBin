@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "47a86209-e0bb-4142-a6ad-4fff94ff9921",
-    "name": "**R17.20: Requirement + UseCase units in scenario index**",
+    "name": "R17.20: Requirement + UseCase units in scenario index",
     "description": "> TRON: \"i do not see my latest prompts reflected as requirements from the req agent\"",
     "tronQuote": "> TRON: \"i do not see my latest prompts reflected as requirements from the req agent\"",
     "tasks": [
@@ -10,5 +10,5 @@
     ],
     "tests": []
   },
-  "ownerIor": "ior:instance:2ba45978-c36b-439f-b3d3-74db481e5e3f"
+  "ownerIor": "ior:instance:70696267-c1e3-476c-8fd8-95f03a11e1b1"
 }

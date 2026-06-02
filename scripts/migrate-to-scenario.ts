@@ -199,12 +199,24 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
       const quoteLines: string[] = [];
       for (const line of blockLines) {
         if (line.startsWith('>')) { quoteLines.push(line); continue; }
-        if (line.startsWith('[requirement:uuid:')) continue;
+        if (/^#{1,6}\s/.test(line)) continue;
+        if (/^-{3,}$/.test(line)) continue;
+        // Don't skip **R17.x** lines — they ARE the speaky names, just strip bold
+        if (line.startsWith('[requirement:uuid:') || line.startsWith('[task:uuid:')) continue;
         if (line.startsWith('`[requirement:uuid:')) continue;
         if (line.startsWith('(') && line.includes('task-')) continue;
         if (line.startsWith('→') || line.startsWith('-&gt;')) continue;
         if (line.match(/^\[T\d+\]/) || line.match(/^\(\[task-/)) continue;
-        if (!speakyName) speakyName = line.replace(/^[-*]\s*\[.\]\s*/, '').slice(0, 60);
+        if (!speakyName) {
+          let clean = line.replace(/^[-*]\s*\[.\]\s*/, '').trim();
+          clean = clean.replace(/^#{1,6}\s+/, '');
+          clean = clean.replace(/\*\*/g, '');
+          clean = clean.replace(/\s*\([^)]*\d{4}-\d{2}-\d{2}[^)]*\)\s*$/, '');
+          clean = clean.replace(/\s*\(original directive\)\s*$/i, '');
+          clean = clean.replace(/^["'>]+\s*/, '').replace(/["']+$/, '').trim();
+          if (clean.length > 60) clean = clean.substring(0, 57) + '...';
+          if (clean) speakyName = clean;
+        }
       }
       if (!speakyName) {
         const um = block.match(/\[requirement:uuid:([^\]]{8})/);

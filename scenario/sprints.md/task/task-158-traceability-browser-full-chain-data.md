@@ -1,21 +1,6 @@
 # T158: Traceability browser — surface the FULL chain data (Req → Task → UC → Class → Method → Impl → Test)
 [task:uuid:5eedd968-085c-443b-acae-7ae73a4ce252]
 
-## Status
-
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
-
-> QA Review + Done are TRON's gate only — never checked by planner/sync.
-> **Architect-assigned (Tron 2026-06-01):** architect designs how the
-> traceability browser surfaces the full chain now that the data exists.
-
 ## Traceability
 
 `[task:uuid:5eedd968-085c-443b-acae-7ae73a4ce252]`

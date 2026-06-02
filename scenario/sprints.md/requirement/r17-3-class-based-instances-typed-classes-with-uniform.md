@@ -1,4 +1,4 @@
-### **R17.3: Class-based instances — typed classes with uniform 
+### R17.3: Class-based instances — typed classes with uniform...
 
 <details><summary>Tron directive</summary>
 

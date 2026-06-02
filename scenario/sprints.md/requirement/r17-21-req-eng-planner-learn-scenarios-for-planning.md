@@ -1,4 +1,4 @@
-### **R17.21: Req-eng + planner LEARN scenarios for planning**
+### R17.21: Req-eng + planner LEARN scenarios for planning
 
 <details><summary>Tron directive</summary>
 

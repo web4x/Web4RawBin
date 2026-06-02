@@ -2,11 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "7e4f8a2b-c3d5-4e6f-9a1b-2c3d4e5f6a25",
-    "name": "## Extension 4 (2026-05-31 — traceability is a TREE)",
+    "name": "R17.26: Traceability is a TREE, not a chain",
     "description": "> TRON: \"in scenario/sprints.md/usecase/ <file>.md add a chain link symbol before the edit to link to the original ln file in scenario/sprints.json/…\"",
     "tronQuote": "> TRON: \"in scenario/sprints.md/usecase/ <file>.md add a chain link symbol before the edit to link to the original ln file in scenario/sprints.json/…\"",
     "tasks": [],
     "tests": []
   },
-  "ownerIor": "ior:instance:2ba45978-c36b-439f-b3d3-74db481e5e3f"
+  "ownerIor": "ior:instance:70696267-c1e3-476c-8fd8-95f03a11e1b1"
 }

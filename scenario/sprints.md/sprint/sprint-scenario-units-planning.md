@@ -48,3 +48,6 @@
 - [ ] [T160: Forward-ref REPOPULATION + browser data-freshness (T159 over-strip root cause)](../task/task-160-trace-browser-stale-requirement-items.md)
 - [ ] [T161: Requirement items render Tron-quote as NAME instead of speaky `model.name` (bug)](../task/task-161-requirement-name-renders-tron-quote-not-speaky.md)
 - [ ] [T162: MD artifacts (`##` headings) leak into requirement titles](../task/task-162-md-headings-leak-into-requirement-titles.md)
+- [ ] [T163: /api/trace requirement title source — switch from scanRepo firstLine() to scenario index `model.name`](../task/task-163-api-trace-title-source-switch.md)
+- [ ] [T164: Re-migrate dirty model.name + firstLine() fallback hardening](../task/task-164-dirty-model-name-remigration.md)
+- [ ] [T165: Traceability tree renders ALL 7 typed classes (not only Requirements)](../task/task-165-tree-renders-all-7-typed-classes.md)

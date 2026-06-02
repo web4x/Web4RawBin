@@ -1,4 +1,4 @@
-### **R17.13: Method → task → requirement traceability**
+### R17.13: Method → task → requirement traceability
 
 <details><summary>Tron directive</summary>
 

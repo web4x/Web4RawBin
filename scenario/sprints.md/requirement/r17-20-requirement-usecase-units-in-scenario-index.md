@@ -1,4 +1,4 @@
-### **R17.20: Requirement + UseCase units in scenario index**
+### R17.20: Requirement + UseCase units in scenario index
 
 <details><summary>Tron directive</summary>
 

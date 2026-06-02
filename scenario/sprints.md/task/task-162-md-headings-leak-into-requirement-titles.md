@@ -1,19 +1,6 @@
 # T162: MD artifacts (`##` headings) leak into requirement titles
 [task:uuid:7efe9b40-c7fe-407e-9cba-869261b8dcad]
 
-## Status
-
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
-
-> QA Review + Done are TRON's gate only — never checked by planner/sync.
-
 ## Traceability
 
 `[task:uuid:7efe9b40-c7fe-407e-9cba-869261b8dcad]`

@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000008",
-    "name": "**R17.9: planning.md is a generated Task-overview**",
+    "name": "R17.9: planning.md is a generated Task-overview",
     "description": "> TRON: \"views are purely generated and live updated from the flat json data\"",
     "tronQuote": "> TRON: \"views are purely generated and live updated from the flat json data\"",
     "tasks": [
@@ -10,5 +10,5 @@
     ],
     "tests": []
   },
-  "ownerIor": "ior:instance:2ba45978-c36b-439f-b3d3-74db481e5e3f"
+  "ownerIor": "ior:instance:70696267-c1e3-476c-8fd8-95f03a11e1b1"
 }

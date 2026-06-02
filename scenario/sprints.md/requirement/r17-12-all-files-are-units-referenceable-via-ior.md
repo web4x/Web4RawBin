@@ -1,4 +1,4 @@
-### **R17.12: All files are units, referenceable via IOR**
+### R17.12: All files are units, referenceable via IOR
 
 <details><summary>Tron directive</summary>
 

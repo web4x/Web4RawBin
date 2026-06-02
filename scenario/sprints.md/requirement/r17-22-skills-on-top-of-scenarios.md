@@ -1,4 +1,4 @@
-### **R17.22: Skills on top of scenarios**
+### R17.22: Skills on top of scenarios
 
 <details><summary>Tron directive</summary>
 

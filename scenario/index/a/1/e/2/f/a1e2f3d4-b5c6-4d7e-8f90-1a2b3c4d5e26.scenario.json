@@ -2,11 +2,11 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "a1e2f3d4-b5c6-4d7e-8f90-1a2b3c4d5e26",
-    "name": "The `## Chain` / linear sequence framing (req → uc → puml → ",
+    "name": "The `## Chain` / linear sequence framing (req → uc → puml...",
     "description": "> TRON: \"thats basically good. but chain is actually a tree. each element should be a link. all are based on typed scenarios... sharpen that in the planning and rework the refined tasks\"",
     "tronQuote": "> TRON: \"thats basically good. but chain is actually a tree. each element should be a link. all are based on typed scenarios... sharpen that in the planning and rework the refined tasks\"",
     "tasks": [],
     "tests": []
   },
-  "ownerIor": "ior:instance:2ba45978-c36b-439f-b3d3-74db481e5e3f"
+  "ownerIor": "ior:instance:70696267-c1e3-476c-8fd8-95f03a11e1b1"
 }

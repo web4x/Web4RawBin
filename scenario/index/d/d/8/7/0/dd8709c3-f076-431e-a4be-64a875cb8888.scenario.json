@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "dd8709c3-f076-431e-a4be-64a875cb8888",
-    "name": "## Extension 2 (2026-05-31)",
+    "name": "R17.19: Tron prompts → formal requirement units",
     "description": "> TRON: \"the traceability needs to be converted to uuid.scenario.json of the traced type as atomic units in the index with ln links\"",
     "tronQuote": "> TRON: \"the traceability needs to be converted to uuid.scenario.json of the traced type as atomic units in the index with ln links\"",
     "tasks": [
@@ -10,5 +10,5 @@
     ],
     "tests": []
   },
-  "ownerIor": "ior:instance:2ba45978-c36b-439f-b3d3-74db481e5e3f"
+  "ownerIor": "ior:instance:70696267-c1e3-476c-8fd8-95f03a11e1b1"
 }

@@ -173,14 +173,29 @@ function firstLine(block: string): string {
   const lines = block.split('\n').map(s => s.trim()).filter(s => s.length > 0);
   for (const line of lines) {
     if (line.startsWith('>')) continue;
-    if (line.startsWith('[requirement:uuid:')) continue;
+    if (/^#{1,6}\s/.test(line)) continue;
+    if (/^-{3,}$/.test(line)) continue;
+    if (/^\*\*R\d/.test(line)) continue;
+    if (line.startsWith('[requirement:uuid:') || line.startsWith('[task:uuid:')) continue;
     if (line.startsWith('`[requirement:uuid:')) continue;
     if (line.startsWith('(') && line.includes('task-')) continue;
     if (line.startsWith('→') || line.match(/^\[T\d+\]/) || line.match(/^\(\[task-/)) continue;
-    return line.replace(/^[-*]\s*\[.\]\s*/, '').slice(0, 60);
+    return cleanModelName(line.replace(/^[-*]\s*\[.\]\s*/, ''));
   }
   const uuidMatch = block.match(/\[requirement:uuid:([^\]]{8})/);
   return uuidMatch ? `REQ-${uuidMatch[1]}` : 'Unnamed Requirement';
+}
+
+function cleanModelName(raw: string): string {
+  let name = raw.trim();
+  name = name.replace(/^#{1,6}\s+/, '');
+  name = name.replace(/\*\*/g, '');
+  if (/^-{3,}$/.test(name)) return '';
+  name = name.replace(/\s*\([^)]*\d{4}-\d{2}-\d{2}[^)]*\)\s*$/, '');
+  name = name.replace(/\s*\(original directive\)\s*$/i, '');
+  name = name.replace(/^["'>]+\s*/, '').replace(/["']+$/, '').trim();
+  if (name.length > 60) name = name.substring(0, 57) + '...';
+  return name;
 }
 
 interface UseCaseBlock { name: string; uuid: string; task: string; }

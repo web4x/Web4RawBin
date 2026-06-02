@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000003",
-    "name": "## Storage Layout (original directive)",
+    "name": "R17.4: Index by UUID prefix — scenario/index/<first-5>/<u...",
     "description": "> TRON: \"the templates should be like the html registered view for the classes Requirement, Task, UseCase … each Task and requirement shall have its own md, html view strictly from the view templates.\"",
     "tronQuote": "> TRON: \"the templates should be like the html registered view for the classes Requirement, Task, UseCase … each Task and requirement shall have its own md, html view strictly from the view templates.\"",
     "tasks": [
@@ -10,5 +10,5 @@
     ],
     "tests": []
   },
-  "ownerIor": "ior:instance:2ba45978-c36b-439f-b3d3-74db481e5e3f"
+  "ownerIor": "ior:instance:70696267-c1e3-476c-8fd8-95f03a11e1b1"
 }
