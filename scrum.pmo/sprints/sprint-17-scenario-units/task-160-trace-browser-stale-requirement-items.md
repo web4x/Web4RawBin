@@ -4,18 +4,22 @@
 
 [task:uuid:6bb3758d-1e62-4e96-a310-ee38d11e8346]
 
-## Status
+## Status — 🔧 REOPENED 2026-06-02 (AC3 incomplete per tester)
 - [x] Planned
 - [x] In Progress
   - [x] refinement (req → architect — `b2ac0b7` architect design: forward-ref repopulation + /api/trace data source switch)
   - [x] creating test cases
-  - [x] implementing (expert — `5b354fd` v0.5.58; rule-pair (a)+(b) ✓: package.json + sw.js bumped in same commit-set)
-  - [ ] testing (robbin-tester — verification pending)
+  - [ ] implementing (expert — PARTIAL: `5b354fd` v0.5.58 shipped requirement.tasks[] repopulation + /api/trace data source switch; rule-pair (a)+(b) ✓ in that commit. **AC3 `task.useCases[]` forward-source parsing UNIMPLEMENTED** per tester report (PO 2026-06-02) — follow-on impl needed)
+  - [ ] testing (robbin-tester — verification on hold until AC3 lands)
 - [ ] QA Review
 - [ ] Done
 
-> Sync per PO 2026-06-02: T160 shipped (5b354fd v0.5.58). Tester verifying.
-> Rule-pair (a)+(b) confirmed in the shipped commit. QA Review + Done remain Tron's gate.
+> **REOPENED 2026-06-02 (PO via tester):** `5b354fd` partial — AC3
+> (`task.useCases[]` forward-source parsing) was unimplemented. Walking back
+> implementing [x] → [ ] with explicit partial-shipped note (honesty rule per
+> learning #15 / b85dfa8 incident: never check a box for partial work).
+> Expert to ship the AC3 follow-on impl in a new commit-set with rule-pair (a)+(b).
+> QA Review + Done remain Tron's gate.
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
 > **ROOT CAUSE IDENTIFIED (PO 2026-06-01 via T159 tester TS2):** T159's

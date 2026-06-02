@@ -4,7 +4,7 @@
 
 [task:uuid:7efe9b40-c7fe-407e-9cba-869261b8dcad]
 
-## Status
+## Status — ⚠️ SUPERSEDED by T163 (2026-06-02, PO direction)
 - [ ] Planned
 - [ ] In Progress
   - [ ] refinement (req → architect)
@@ -13,6 +13,15 @@
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
+
+> **SUPERSEDED by [T163](./task-163-api-trace-title-source-switch.md):** Same
+> MD-artifact symptom, but tester's clearer report (via PO 2026-06-02) identifies
+> the root cause as `/api/trace` using `scanRepo firstLine()` instead of the
+> already-clean scenario index `model.name` (T161). T162 proposed hardening
+> `firstLine()` to strip MD — wrong layer. T163 switches the data source, which
+> is the correct architectural fix. This file is preserved for traceability;
+> no work proceeds here. If `firstLine()` turns out to need hardening for OTHER
+> consumers, a new task would be opened — not this one.
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
 

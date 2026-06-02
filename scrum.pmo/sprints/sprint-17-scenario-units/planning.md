@@ -260,8 +260,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 24 — Forward-ref REPOPULATION + browser data-freshness (T159 over-strip root cause; PO directive 2026-06-01)
 
-- [ ] ✅ [T160: Forward-ref REPOPULATION + browser data-freshness (T159 over-strip root cause)](./task-160-trace-browser-stale-requirement-items.md)
-  **Status:** impl-shipped (`5b354fd` v0.5.58 — forward-ref repopulation + /api/trace data source switch). Rule-pair (a)+(b) BOTH ✓. Testing pending (robbin-tester). Tron QA pending.
+- [ ] 🔧 [T160: Forward-ref REPOPULATION + browser data-freshness (T159 over-strip root cause)](./task-160-trace-browser-stale-requirement-items.md)
+  **Status:** REOPENED 2026-06-02 — `5b354fd` v0.5.58 PARTIAL (requirement.tasks[] repopulation + /api/trace data-source switch shipped; rule-pair (a)+(b) ✓). **AC3 `task.useCases[]` forward-source parsing UNIMPLEMENTED** (tester report via PO). Implementing walked back [x]→[ ] (honesty rule #15 / b85dfa8). Expert to ship AC3 follow-on with new rule-pair (a)+(b).
   **Owners (CMM4):** robbin-req (capture verbatim Tron quote; planner-suggested req:uuid:cda06ff4-…) → robbin-architect (forward-source repopulation design + secondary cache-strategy validation + standard update) → robbin-expert (repopulation migration + any cache fix; rule-pair (a)+(b)) → robbin-tester (per-Req + per-Task forward-count audit, walkDown resolves, **browser mutation→reflection** test, no back-refs reintroduced)
   **Rule-pair scope:** (a)+(b) required at impl; (c) STATIC_SHELL — architect confirms (likely exempt)
 
@@ -274,9 +274,12 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 26 — Title-rendering MD-artifact cleanup (T161 tester TS6 finding; PO directive 2026-06-02)
 
-- [ ] ⏳ [T162: MD artifacts (`##` headings) leak into requirement titles](./task-162-md-headings-leak-into-requirement-titles.md)
-  **Status:** PLANNED — Tester TS6 finding during T161 verification: after T161's fix selected speaky names over blockquotes, MD heading prefixes (`##`, `###`, `# `) still surface as title content when the first speaky source line is a heading. Small follow-up: extend strip rule in `firstLine()` (TraceConsistency.ts T161 helper) to drop MD heading prefixes.
-  **Owners (CMM4):** robbin-req (anchor TS6 finding verbatim; planner-suggested req:uuid:b4f9c649-…) → robbin-architect (scope strip rule across typed scenarios; design fix) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (re-run TS6 + new heading-cases TS1–TS7)
+- [ ] ⚠️ ~~[T162: MD artifacts (`##` headings) leak into requirement titles](./task-162-md-headings-leak-into-requirement-titles.md)~~
+  **Status:** SUPERSEDED by T163 (2026-06-02). T162 proposed hardening `firstLine()` to strip MD; tester's clearer report identifies root cause as `/api/trace` using `firstLine()` instead of T161-clean `model.name`. Wrong layer. No work proceeds in T162; preserved for traceability.
+
+- [ ] ⏳ [T163: /api/trace requirement title source — switch from scanRepo firstLine() to scenario index `model.name`](./task-163-api-trace-title-source-switch.md)
+  **Status:** PLANNED — Tester report (via PO 2026-06-02): /trace MD-prefix titles persist because /api/trace computes titles via `scanRepo firstLine()` instead of reading T161-clean `model.name` from the scenario index. **Sister to T160** (same /api/trace data-source-switch pattern). SUPERSEDES T162.
+  **Owners (CMM4):** robbin-req (anchor finding verbatim; planner-suggested req:uuid:8ab16ae7-…) → robbin-architect (data-source switch design + sibling-class scope) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (re-verify TS6 + new TS1-TS7 + T160/T161 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) exempt (no new route)
 
 ### Phase 6 — Verification (T129, tester + planner)
