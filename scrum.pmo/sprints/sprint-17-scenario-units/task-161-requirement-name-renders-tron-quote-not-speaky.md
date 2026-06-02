@@ -100,6 +100,109 @@ is the orthogonal "wrong field rendered" bug on the same surface.
 ### How it solves them
 - Architect audits sample JSONs + renderer code path to pin A vs B
 - Fix path A: re-run T154 parser (with refined rules if needed); per-Req re-audit
+
+## Design (Architect — robbin-architect, 2026-06-02)
+
+### Diagnosis: BOTH (A) data-store AND (B) renderer — same pipeline
+
+**Evidence chain:**
+
+1. **`src/ts/server/TraceConsistency.ts:172-175`** — `firstLine()` extracts the first non-empty line after `[requirement:uuid:...]` from `requirements.md`. In current format, this IS the Tron quote (`> TRON: "clicking a joined..."`). `firstLine()` returns up to 120 chars of raw blockquote text.
+
+2. **`scripts/migrate-to-scenario.ts:197-198`** — stores `firstLine()` result directly into `model.name`. Sample scenario JSON confirms:
+   ```json
+   "name": "> TRON: \"thats basically good. but chain is actually a tree..."
+   ```
+   This is (A) data-store wrong — `model.name` holds raw quote, not speaky name.
+
+3. **`src/public/ts/trace/rb-trace-tree.ts:77-78`** — sets `title` attribute on `<rb-object-item>` from `TraceObject.title`, which comes from `firstLine()`. **`rb-object-item.ts:83-84`** renders `name` attribute, falls back to `title`. **`rb-requirement-detail.ts:34`** uses `obj.title`. All three renderers consume the same corrupted source. This is (B) renderer reads the corrupted field without sanitization.
+
+**Root cause:** The `requirements.md` format currently puts the Tron quote FIRST after the uuid line. T146 specified a NAME line first, but the entries were written quote-first. `firstLine()` faithfully grabs line 1 — which IS the quote.
+
+### Fix Specification
+
+#### Fix (A): Data — `firstLine()` must skip quote-leading lines
+
+In `src/ts/server/TraceConsistency.ts`, modify `firstLine()`:
+
+```typescript
+function firstLine(block: string): string {
+  const lines = block.split('\n').filter(l => l.trim().length > 0);
+  
+  // Skip lines that are Tron quotes (start with > or contain >)
+  for (const line of lines) {
+    const trimmed = line.trim();
+    // Skip blockquote lines
+    if (trimmed.startsWith('>')) continue;
+    // Skip uuid lines
+    if (trimmed.startsWith('[requirement:uuid:')) continue;
+    // Skip task link lines
+    if (trimmed.startsWith('(') && trimmed.includes('task-')) continue;
+    // First non-quote, non-meta line is the speaky name
+    return trimmed.substring(0, 60);
+  }
+  
+  // Fallback: if ALL lines are quotes, generate from uuid
+  const uuidMatch = block.match(/\[requirement:uuid:([^\]]{8})/);
+  return uuidMatch ? `REQ-${uuidMatch[1]}` : 'Unnamed Requirement';
+}
+```
+
+#### Fix (A2): Data — `migrate-to-scenario.ts` must split name/description
+
+```typescript
+// BEFORE (line 197-198):
+model.name = firstLine(block);  // gets raw quote
+
+// AFTER:
+model.name = extractSpeakyName(block);     // skips quotes, max 60 chars
+model.description = extractTronQuote(block); // the verbatim > text
+```
+
+Where `extractTronQuote()` collects all `>` prefixed lines from the block.
+
+#### Fix (A3): requirements.md entries must have NAME line first (T146 compliance)
+
+Expert must verify each requirement entry follows T146 format:
+```markdown
+- [ ] Forward chain completeness
+  > TRON: "clicking a joined requirement should navigate..."
+  [requirement:uuid:a1e2f3d4-...]
+  ([task-143](./task-143-...md))
+```
+
+Line 1 after `- [ ]` is the speaky NAME. Quote comes after.
+
+#### Fix (B): Renderer — defensive sanitization
+
+Even after (A), renderers should strip `>` prefix defensively:
+
+In `rb-object-item.ts`:
+```typescript
+get displayName(): string {
+  const raw = this.getAttribute('name') || this.getAttribute('title') || '';
+  // Strip leading > and quotes (defensive — data should already be clean)
+  return raw.replace(/^>\s*"?/, '').replace(/"?\s*$/, '').substring(0, 60);
+}
+```
+
+### Files to Modify
+| File | Change |
+|------|--------|
+| `src/ts/server/TraceConsistency.ts` | `firstLine()` skip `>`-prefixed lines |
+| `scripts/migrate-to-scenario.ts` | Split `model.name` (speaky) from `model.description` (quote) |
+| `src/public/ts/trace/rb-object-item.ts` | Defensive `>` strip on displayName |
+| `scrum.pmo/sprints/*/requirements.md` | Verify T146 NAME-first format on all entries |
+
+### Per-Requirement Audit (sample ≥3)
+
+| Scenario UUID (short) | Current model.name | Expected model.name | Fix |
+|----------------------|-------------------|--------------------|----|
+| a1e2f3d4 | `> TRON: "thats basically good..."` | "Forward chain tree structure" | (A) re-parse |
+| (sample 2 — expert to fill from scenarios/index/) | TBD | TBD | TBD |
+| (sample 3 — expert to fill) | TBD | TBD | TBD |
+
+Expert fills remaining rows during implementation by scanning `scenarios/index/` for all Requirement-type scenarios.
 - Fix path B: renderer reads `model.name` for title, `model.description` for body
 
 ## Acceptance Criteria
