@@ -1,6 +1,6 @@
 {
   "name": "rawbin",
-  "version": "0.5.60",
+  "version": "0.5.61",
   "description": "RawBin — AI Server Management Interface",
   "type": "module",
   "scripts": {

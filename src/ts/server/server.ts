@@ -420,7 +420,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
-    // T108: traceability graph as flat JSON (+ T102 validation issues) for the browser tree.
+    // T108+T163: traceability graph — overlay scenario index model.name for clean titles.
     if (filepath === '/api/trace') {
       try {
         const sprintsDir = path.join(__dirname, '../../../scrum.pmo/sprints');
@@ -429,6 +429,17 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const { graph, coverage } = scanRepo(sprintsDir, srcDir, testDir);
         const issues = validateTrace(graph, coverage);
         const broken = [...new Set(issues.filter(i => i.level === 'error').map(i => i.ref.replace(/^[a-z]+:/, '')))];
+        // T163: overlay scenario index model.name onto graph objects for clean titles
+        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        try {
+          const idx = new ScenarioIndex(scenarioDir);
+          for (const uuid of idx.list()) {
+            const unit = idx.get(uuid);
+            if (!unit) continue;
+            const obj = graph.get(uuid);
+            if (obj && unit.model.name) obj.title = String(unit.model.name);
+          }
+        } catch { /* scenario index not available — use scanRepo titles */ }
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify({ objects: graph.toJSON(), broken, issueCount: issues.length }));
       } catch (e: any) {
