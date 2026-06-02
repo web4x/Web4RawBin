@@ -143,8 +143,114 @@ File: extend `test/vitest/trace-tree.test.ts` (T143's test surface) + `test/e2e/
 ## QA Audit & User Feedback
 - 2026-06-02: PO directed planner to stand up T164 — tester finding during T158 verification: graph tree shows only Requirements; class/method/test/impl have DetailViews but no tree-items yet. Architect-LED design (PO assignment). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC8 + DoD (learnings #15+#16). Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
 
+## Design (Architect — robbin-architect, 2026-06-02)
+
+### Root Cause
+
+`src/public/ts/trace/rb-trace-tree.ts:57`:
+```typescript
+const roots = this.graph.ofType('requirement');
+```
+Tree starts ONLY from Requirement roots. `nodeEl()` recursively walks `obj.toJSON().links` to build children — so the infrastructure to render all 7 types already exists. The gap is: (1) root set is requirement-only; (2) forward links may be incomplete deeper in the chain.
+
+### The 7 Typed Classes (confirmed from `src/ts/shared/TraceModel.ts`)
+
+| # | Type | TraceModel Class | Root? | DetailView |
+|---|------|-----------------|-------|------------|
+| 1 | `requirement` | RequirementObject (L143) | YES (current root) | rb-requirement-detail |
+| 2 | `task` | TaskObject (L153) | NO — child of requirement | rb-task-detail |
+| 3 | `usecase` | UseCaseObject (L160) | NO — child of task | rb-usecase-detail |
+| 4 | `class` | ClassObject (L167) | NO — child of usecase | rb-class-detail (T158) |
+| 5 | `method` | MethodObject (L174) | NO — child of class | rb-method-detail (T158) |
+| 6 | `test` | TestObject (L191) | NO — evidence on usecase | rb-test-detail (T158) |
+| 7 | `implementation` | ImplementationObject (L183) | NO — child of method | rb-implementation-detail (T158) |
+
+### Fix: Three Parts
+
+#### Part 1 — Verify Forward Links End-to-End
+
+The tree walks `obj.toJSON().links`. These must be populated:
+
+| Link | Source→Target | Status |
+|------|--------------|--------|
+| `requirement.links.tasks[]` | Req → Task | ✅ T160 AC2 |
+| `task.links.useCases[]` | Task → UC | ✅ T160 AC3 |
+| `useCase.links.classes[]` | UC → Class | ⬜ Verify (T153) |
+| `class.links.methods[]` | Class → Method | ⬜ Verify (T151) |
+| `useCase.links.tests[]` | UC → Test | ⬜ Verify (T155) |
+| `method.links.implementations[]` | Method → Impl | ⬜ Verify (T140) |
+
+Expert audits ⬜ links. If empty, populate from scenario index (same T160 forward pattern).
+
+#### Part 2 — Orphan Recovery (Fallback Root Set)
+
+Any typed scenario NOT reachable from a Requirement root is an orphan. Show orphans in a separate section — never hide them (AC5: zero orphan typed objects hidden).
+
+```typescript
+// rb-trace-tree.ts render() — replace lines 55-61:
+render(): void {
+  if (!this.graph) { this.innerHTML = '<div class="tt-empty">no graph</div>'; return; }
+  
+  const roots = this.graph.ofType('requirement');
+  
+  // Walk forward from all roots to find reachable set
+  const reachable = new Set<string>();
+  const walk = (ref: string) => {
+    if (reachable.has(ref)) return;
+    reachable.add(ref);
+    const obj = this.graph!.get(refUuid(ref));
+    if (obj) Object.values(obj.toJSON().links).flat().forEach(walk);
+  };
+  roots.forEach(r => walk(r.ref()));
+  
+  // Orphans: typed objects not reachable from any requirement
+  const orphans = this.graph.all().filter(o => !reachable.has(o.ref()));
+  
+  this.innerHTML = '';
+  for (const obj of roots) this.appendChild(this.nodeEl(obj.ref(), new Set()));
+  
+  if (orphans.length > 0) {
+    const hdr = document.createElement('div');
+    hdr.className = 'tt-orphan-header';
+    hdr.textContent = `Orphan items (${orphans.length})`;
+    this.appendChild(hdr);
+    for (const obj of orphans) this.appendChild(this.nodeEl(obj.ref(), new Set()));
+  }
+}
+```
+
+#### Part 3 — Per-Type Tree-Item Icons
+
+`rb-object-item.ts` receives `type` attribute (line 76 of rb-trace-tree.ts). Add icon rendering:
+
+```typescript
+// rb-object-item.ts — add to render path:
+private typeIcon(type: string): string {
+  return { requirement: '📋', task: '📝', usecase: '🎯', class: '📦',
+           method: '⚙️', test: '✅', implementation: '💻' }[type] || '📄';
+}
+```
+
+Prepend `typeIcon(this.type)` before title text in the item's render.
+
+### Click-Through — Already Works
+
+`rb-object-item` dispatches clicks → `TraceRouter` → VerbRegistry → DetailView. T158 registered Class/Method/Test/Implementation in VerbRegistry. No change needed.
+
+### Files to Modify
+
+| File | Change |
+|------|--------|
+| `src/public/ts/trace/rb-trace-tree.ts` | Orphan recovery in `render()` |
+| `src/public/ts/trace/rb-object-item.ts` | Per-type icon rendering |
+| Server or migration | Verify + populate ⬜ forward links if empty |
+| `package.json` | Bump version (rule-pair (a)) |
+| `src/public/sw.js` | Bump CACHE_NAME (rule-pair (b)) |
+
+### STATIC_SHELL (c): Exempt — no new route, changes bundle into existing `dist/trace.js`.
+
 ## Subtasks
-None at parent level (architect may split T164.x if scope warrants — coordinate with planner first).
+None at parent level (architect may split T165.x if scope warrants — coordinate with planner first).
 
 ---
 
