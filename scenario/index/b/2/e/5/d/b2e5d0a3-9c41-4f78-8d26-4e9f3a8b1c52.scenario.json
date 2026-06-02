@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "b2e5d0a3-9c41-4f78-8d26-4e9f3a8b1c52",
+    "name": "T86: Traceability Index — Map All 89 Tasks to Chain Coverage",
+    "slug": "task-86-traceability-index",
+    "description": "Produce `scrum.pmo/traceability-matrix.md`: one row per task (all 89), columns for\npresence of each chain link (requirement, use case, PUML, class/method) + the\ntask UUID. Baseline already measured (planning.md gap table); formalize it into a\nliving matrix that drives batch ordering for T87-T89.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 11 Planning](./planning.md)\n- down\n  - None (atomic task)\n- follows\n  - [T85](./task-85-adopt-template.md) — uses the adopted standard's chain definition",
+    "context": "Baseline: 89/89 have UUID; 20 link requirements, 19 use cases, 6 PUML, 15 code.\nSprints 1,3,4,5,6,10 lack requirements.md.",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] traceability-matrix.md lists all Sprint 1-9 tasks (86) with per-link coverage — published at `scrum.pmo/traceability-matrix.md`\n- [x] Missing-artifact list per sprint (requirements.md absent in Sprints 1-7; puml ~absent everywhere)\n- [x] Batch order recommendation for T87-T89",
+    "qaAudit": "- Pending T85, then Tron QA.",
+    "subtasks": "None (atomic task).\n\n---\n*Sprint 11 — Traceability Standardization*\n*Owner: robbin-planner + robbin-req*\n*Priority: 2 (HIGH — drives batches)*",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "- **Requires:** T85 (chain definition)\n- **Enables:** T87, T88, T89 (batches consume the matrix)",
+    "definitionOfDone": "- [ ] Matrix published + batch order agreed\n- [ ] Tron QA approved",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:50cc0d8a-e6c7-4902-8f57-c5dd3655c236"
+}

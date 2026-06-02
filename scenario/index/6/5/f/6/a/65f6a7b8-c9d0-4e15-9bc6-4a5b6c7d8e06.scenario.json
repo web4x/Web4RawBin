@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "65f6a7b8-c9d0-4e15-9bc6-4a5b6c7d8e06",
+    "name": "R15.7 — Traceability BROWSER next to the file browser in ...",
+    "description": "> R2 (literal): browser includes traceability to tasks as DetailViews and planning as Overview, always consistent.",
+    "tronQuote": "> R2 (literal): browser includes traceability to tasks as DetailViews and planning as Overview, always consistent.",
+    "tasks": [
+      "ior:instance:107a6172-8394-45a6-897d-a07070707107"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:882e3fc9-4846-4bb1-af39-131988d15a4b"
+}

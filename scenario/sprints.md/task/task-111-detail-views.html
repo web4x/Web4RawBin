@@ -1,0 +1,33 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T111: Specialized DetailViews (TaskDetailView, RequirementDetailView)</h2><code>471b9c4a-378f-4e56-a990-28f82a998b80</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-unchecked">⬜ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement (req + architect)</li><li class="sv-unchecked">⬜ creating test cases</li><li class="sv-checked">✅ implementing</li><li class="sv-unchecked">⬜ testing</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section sv-trace-tree"><h3>Traceability</h3><div class="sv-chain-group"><h4>UseCases</h4><div class="sv-chain-item"><a href="/md/scenario/sprints.md/usecase/taskdetail-render.md" class="chain-link">🔗 taskDetail.render</a></div><div class="sv-chain-item"><a href="/md/scenario/sprints.md/usecase/requirementdetail-render.md" class="chain-link">🔗 requirementDetail.render</a></div><div class="sv-chain-item"><a href="/md/scenario/sprints.md/usecase/usecasedetail-render.md" class="chain-link">🔗 usecaseDetail.render</a></div></div></div>
+<div class="sv-section"><h3>Traceability</h3><pre>`[task:uuid:471b9c4a-378f-4e56-a990-28f82a998b80]`
+
+- up
+  - [Sprint 16 Planning](./planning.md)
+  - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.2** (specialized DetailViews)
+- down
+  - None (atomic task)
+- chain (req → usecase → puml → class/method)
+  - **requirement:** R16.2
+  - **use case:** taskDetail.render [uc:uuid:16a01101-d101-4a01-b101-000000111001], requirementDetail.render [uc:uuid:16a01102-d102-4a02-b102-000000111002], usecaseDetail.render [uc:uuid:16a01103-d103-4a03-b103-000000111003]
+  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 1 package)
+  - **class/method:** `rb-task-detail.ts` → `RbTaskDetail.render()`, `rb-requirement-detail.ts` → `RbRequirementDetail.render()`, `rb-usecase-detail.ts` → `RbUseCaseDetail.render()`</pre></div>
+<div class="sv-section"><h3>Task Description</h3><p>Implement typed DetailViews rendered inside the DetailViewContainer (T110):
+**TaskDetailView** and **RequirementDetailView**, extensible per object type. Each
+renders the details of the selected tree item by type.</p></div>
+<div class="sv-section"><h3>Context</h3><p>Tron 2026-05-27: &quot;specialized DetailViews like eg TaskDetailView or
+RequirementDetailView inside it and then show the details there when i click on the
+items on the traceability tree.&quot;</p></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [ ] AC1 — TaskDetailView renders a task's details inside the container
+- [ ] AC2 — RequirementDetailView renders a requirement's details
+- [ ] AC3 — View selection is by object type; adding a new type is a small, documented extension
+- [ ] `npm run build` succeeds; version + sw.js bumped; no regression</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-05-27: Planned from compound source R16.2. Awaiting req split + architect design, then Tron QA.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task).
+
+---
+
+*Sprint 16 — Traceability UX &amp; DetailViews*
+*Owner: robbin-expert (implement), robbin-tester (verify)*
+*Priority: 2 (Phase 1 — typed views)*</p></div></div>

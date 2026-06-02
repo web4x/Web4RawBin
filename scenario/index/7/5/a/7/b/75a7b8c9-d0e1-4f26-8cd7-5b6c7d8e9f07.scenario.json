@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "75a7b8c9-d0e1-4f26-8cd7-5b6c7d8e9f07",
+    "name": "| Req | Task(s) | Use case | PUML | Class/method |",
+    "description": "> R1+R2 (literal): navigable tree graph; add a traceability browser next to the file browser in the Documentation.",
+    "tronQuote": "> R1+R2 (literal): navigable tree graph; add a traceability browser next to the file browser in the Documentation.",
+    "tasks": [
+      "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:882e3fc9-4846-4bb1-af39-131988d15a4b"
+}

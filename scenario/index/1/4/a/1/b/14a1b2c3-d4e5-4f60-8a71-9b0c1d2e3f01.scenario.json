@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "14a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01",
+    "name": "R14.2 — Migrate legacy `token-<timestamp>` user directori...",
+    "description": "> Tron: _(req to insert literal quote)_",
+    "tronQuote": "> Tron: _(req to insert literal quote)_",
+    "tasks": [
+      "ior:instance:96a1c3e5-2b7d-4f10-9a46-1c3e5f7a9b96"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2d273adb-77a8-4fc7-aee4-481635b744f5"
+}

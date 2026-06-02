@@ -1,0 +1,35 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T112: Tree-item — speaky name (generate if absent) + word-wrap description</h2><code>6d2225b7-d96b-4452-8719-b3667b344816</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-unchecked">⬜ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement (req + architect)</li><li class="sv-unchecked">⬜ creating test cases</li><li class="sv-checked">✅ implementing</li><li class="sv-unchecked">⬜ testing</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section sv-trace-tree"><h3>Traceability</h3><div class="sv-chain-group"><h4>UseCases</h4><div class="sv-chain-item"><a href="/md/scenario/sprints.md/usecase/objectitem-rendernamedesc.md" class="chain-link">🔗 objectItem.renderNameDesc</a></div><div class="sv-chain-item"><a href="/md/scenario/sprints.md/usecase/objectitem-generatename.md" class="chain-link">🔗 objectItem.generateName</a></div></div></div>
+<div class="sv-section"><h3>Traceability</h3><pre>`[task:uuid:6d2225b7-d96b-4452-8719-b3667b344816]`
+
+- up
+  - [Sprint 16 Planning](./planning.md)
+  - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.3** (speaky name) + **R16.4** (word-wrap description)
+- down
+  - None (atomic task)
+- chain (req → usecase → puml → class/method)
+  - **requirement:** R16.3 + R16.4
+  - **use case:** objectItem.renderNameDesc [uc:uuid:16a01121-d121-4a01-b121-000000112001], objectItem.generateName [uc:uuid:16a01122-d122-4a02-b122-000000112002]
+  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 2 package)
+  - **class/method:** `rb-object-item.ts` → `RbObjectItem.render()`, `generateName()`</pre></div>
+<div class="sv-section"><h3>Task Description</h3><p>Redesign the traceability tree-item to carry a **`name`** attribute = a human-readable
+short name for the requirement/task; if none exists, **generate** a short name from
+the requirement text. Below the name, render a **word-wrapping** smaller-text paragraph
+with the current requirement text.</p></div>
+<div class="sv-section"><h3>Context</h3><p>Tron 2026-05-27: &quot;the tree items should have a name attribute that is a speaky name …
+if it does not have a short one create a short name from the requirement text. the item
+shall have below the name a word wrapping smaller text paragraph with the current
+requirement text.&quot;</p></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [ ] AC1 — Tree-item shows a speaky `name` when one exists
+- [ ] AC2 — When absent, a short name is generated from the requirement text
+- [ ] AC3 — A smaller-text description paragraph renders below the name and word-wraps (no overflow/clipping)
+- [ ] `npm run build` succeeds; version + sw.js bumped; no regression</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-05-27: Planned from compound source R16.3+R16.4. Awaiting req split + architect design, then Tron QA.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task).
+
+---
+
+*Sprint 16 — Traceability UX &amp; DetailViews*
+*Owner: robbin-expert (implement), robbin-tester (verify)*
+*Priority: 3 (Phase 2 — tree-item content)*</p></div></div>

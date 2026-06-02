@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "bca276d9-8ff6-4234-a562-19e15e4ab8fb",
+    "name": "R16.3: pageNav() sticky to top",
+    "description": "> TRON DIRECTIVE: \"the detailsViewContainer is not sticky to the bottom\"",
+    "tronQuote": "> TRON DIRECTIVE: \"the detailsViewContainer is not sticky to the bottom\"",
+    "tasks": [
+      "ior:instance:bbca5514-a5c0-4a32-8be4-bf1133290c7a"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1cdc4b17-2c90-411e-8ede-1f7c02e08d70"
+}

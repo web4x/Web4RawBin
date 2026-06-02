@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "24b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02",
+    "name": "R14.3 — Prove migration integrity: every legacy record ma...",
+    "description": "> Tron: _(req to insert literal quote)_",
+    "tronQuote": "> Tron: _(req to insert literal quote)_",
+    "tasks": [
+      "ior:instance:97b2d4f6-3c8e-4a11-8b57-2d4f6a8b9c97"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2d273adb-77a8-4fc7-aee4-481635b744f5"
+}

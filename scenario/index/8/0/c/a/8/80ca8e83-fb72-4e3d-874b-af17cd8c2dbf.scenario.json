@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "80ca8e83-fb72-4e3d-874b-af17cd8c2dbf",
+    "name": "Proper fix for the room-flood (the same prod-pollution th...",
+    "description": "> TRON DIRECTIVE (via PO 2026-05-26): E2E test runs flooded prod with test rooms; tests must use an isolated data dir, never prod.",
+    "tronQuote": "> TRON DIRECTIVE (via PO 2026-05-26): E2E test runs flooded prod with test rooms; tests must use an isolated data dir, never prod.",
+    "tasks": [
+      "ior:instance:a0b1c2d3-e4f5-4061-8273-849500000100"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5644168d-c678-4a42-aa21-409e1a9a9999"
+}

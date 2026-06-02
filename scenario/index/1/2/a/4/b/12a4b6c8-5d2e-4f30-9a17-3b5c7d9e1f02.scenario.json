@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "12a4b6c8-5d2e-4f30-9a17-3b5c7d9e1f02",
+    "name": "| Requirement | Task | Use case | PUML | Class/method |",
+    "description": "> Tron: \"the monaco editor has a back button on the top header, but it goes always to app and not to the directory in which the current edited file is. thats a bug.\"",
+    "tronQuote": "> Tron: \"the monaco editor has a back button on the top header, but it goes always to app and not to the directory in which the current edited file is. thats a bug.\"",
+    "tasks": [
+      "ior:instance:f7a2c4e6-3b8d-4f10-a5c7-9e1d3f5b7a90"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:ee961331-5dd0-4639-a343-f5f4cbccc854"
+}

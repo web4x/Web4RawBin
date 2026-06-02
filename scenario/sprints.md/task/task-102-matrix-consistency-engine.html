@@ -1,0 +1,31 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T102: Traceability Matrix Consistency + Fix Engine</h2><code>102b1c2d-3e4f-4051-9728-b02020202102</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-unchecked">⬜ refinement (architect — implemented ahead of refinement per PO; architect to review scan heuristics)</li><li class="sv-checked">✅ creating test cases</li><li class="sv-checked">✅ implementing (expert)</li><li class="sv-checked">✅ testing (tester — run trace-consistency.test.ts + `npm run trace:check`) — trace-consistency 10/10 PASS, 1d9d4fd; trace:check engine flags 14 repo gaps = working as intended</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>- up
+  - [requirement:uuid:15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01](./requirements.md) — R15.1 matrix consistency + fix
+  - [Sprint 15 Planning](./planning.md)
+  - Tron directive 2026-05-26
+- down
+  - None (atomic task)
+- chain
+  - **requirement:** R15.1 in [requirements.md](./requirements.md)
+  - **use case:** matrix.fix (validate + repair drift) — diagrams/object-verb-usecases.puml
+  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)
+  - **class/method:** MatrixConsistency engine — validate() / report() / fix()</pre></div>
+<div class="sv-section"><h3>Task Description</h3><p>A TypeScript engine that reads the typed objects (T101) plus the repository, validates
+the full req→uc→puml→method→test chain, and reports any inconsistencies. It also FIXES
+detected drift, keeping `scrum.pmo/traceability-matrix.md` consistent with the typed
+object graph.</p></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [ ] AC1: Engine loads the T101 typed object graph + scans the repo to build the live req→uc→puml→method→test chain
+- [ ] AC2: Validation reports every broken/missing chain link with the offending UUID and a human-readable reason
+- [ ] AC3: `fix` mode repairs drift (regenerates/updates `scrum.pmo/traceability-matrix.md`) without losing manually-authored content outside generated regions
+- [ ] AC4: Engine is idempotent — running `fix` twice produces no further changes when the matrix is already consistent
+- [ ] AC5: A `--check`/report-only mode exits non-zero on inconsistency (CI-usable) and zero when consistent
+- [ ] AC6: Tests cover validate (clean + drifted fixtures) and fix (drift → consistent → idempotent)
+- [ ] `npm run build` + version bump</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-05-26: Tron directive (Sprint 15 R1-R4). Quote in requirements.tron-literal.md.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task).
+
+---
+*Sprint 15 — Traceability Browser &amp; Object Model*
+*Owner: robbin-expert (implement), robbin-tester (verify)*
+*Priority: 2 (consistency engine)*</p></div></div>

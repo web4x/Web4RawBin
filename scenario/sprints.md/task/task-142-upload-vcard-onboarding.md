@@ -1,0 +1,70 @@
+# T142: Upload-vCard onboarding gate — speed up first-time profile fill
+[task:uuid:c481a2b9-b61d-4a0f-a077-690a9e2e1aa9]
+
+## Status
+
+- [ ] Planned
+- [ ] In Progress
+  - [ ] refinement (req → architect)
+  - [ ] creating test cases
+  - [x] implementing
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
+
+> QA Review + Done are TRON's gate only — never checked by planner/sync.
+
+## Traceability
+
+`[task:uuid:c481a2b9-b61d-4a0f-a077-690a9e2e1aa9]`
+
+- up
+  - [Sprint 13 Planning](./planning.md)
+  - **requirement:** `[requirement:uuid:a3b4c5d6-e7f8-4a9b-0c1d-2e3f4a5b6c7d]` (req-eng, B3 in backlog.md) —
+    Tron literal: "on first time connect we have to fill out profile. add a upload vcard button at the top to speed up onboarding and initialize from the card. can be dropped natively from os drag and drop eg on iphone but also android and windows."
+    **⚠️ Planner flag (learnings #17):** this uuid (4th group `0c1d`) is NOT valid v4 — variant nibble `0` is outside `[89ab]`. trace-cli will silently drop it. Recommend req regenerate via `uuidgen` before any chain commits depend on it. Using as-is here to preserve the backlog→task link until req refreshes.
+  - **promoted from:** B3 in [backlog.md](../../backlog.md) (2026-05-31)
+- down
+  - None (atomic task — single onboarding UI feature)
+- follows
+  - existing ProfileEditor flow (Sprint 2 identity work + Sprint 7 avatar profile work — `src/public/ts/ProfileEditor.ts`, `src/public/ts/ProfileSheet.ts`)
+  - existing vCard *download* (ProfileSheet.downloadVCard, post-T52 Sprint 7) — this task adds the inverse *upload* direction
+- chain (req → usecase → puml → class/method)
+  - **requirement:** upload-vCard onboarding gate (Tron 2026-05-31)
+  - **use case:** new — `profile.uploadVCard`, `profile.dropVCard`, `profile.initFromVCard` (architect adds UC instances at refinement)
+  - **puml:** likely `scrum.pmo/sprints/sprint-2-identity-ssh/diagrams/` (identity flow) — architect picks location
+  - **class/method:** `src/public/ts/ProfileEditor.ts` (UI: upload button at top + drop-zone on the form), new vCard V3.0 parser (vCard is line-oriented `KEY:VALUE`; the project currently only exports vCards via ProfileSheet.downloadVCard — this is the inverse import direction), profile-field mapping helper, HTML5 drag-and-drop handlers (`dragenter`/`dragover`/`drop` events)
+
+## Acceptance Criteria
+
+- [ ] AC1 — On first-connect ProfileEditor, an "Upload vCard" button is visible at the TOP of the form
+- [ ] AC2 — Clicking the button opens the native file picker filtered to `.vcf` / `text/vcard`
+- [ ] AC3 — Selecting a valid .vcf populates name (FN), phone (TEL), url (URL), avatar (PHOTO if present) into the form inputs
+- [ ] AC4 — Pre-filled fields are visually marked (architect picks: badge, color, "from vCard" hint)
+- [ ] AC5 — User can edit pre-filled fields before submit (no auto-save)
+- [ ] AC6 — Manual fill (no vCard upload) still works exactly as before
+- [ ] AC7 — Corrupt .vcf shows inline error; form stays usable
+- [ ] AC8 — PHOTO field: data URL → posted to `/api/avatar` (T50 flow); URL → set profile.avatar; absent → keep default random avatar (T48 flow)
+- [ ] AC9 — Mobile (iPhone Safari): file picker accepts .vcf; flow works on touch viewport
+- [ ] AC10 — **Native OS drag-and-drop drop zone**: dragging a .vcf from the OS file system onto the form triggers the same parse + populate flow as Method 1
+- [ ] AC11 — Drop zone shows visual cue on `dragenter` (architect picks: dashed border / overlay / etc.)
+- [ ] AC12 — Multi-platform drag-drop verified by tester: **macOS Finder drag**, **Windows Explorer drag**, **iOS Safari (iPhone) drag from Files/share-sheet**, **Android Chrome drag from Files**. Document any platforms where drag is unsupported — those fall back to Method 1 button (no broken UX)
+- [ ] AC13 — Non-.vcf drops rejected with inline error; form stays usable
+- [ ] AC14 — Drop zone keyboard-equivalent to upload button (a11y parity)
+- [ ] AC15 — `npm run build` succeeds; full vitest + playwright pass; **rule-pair (a) package.json + (b) sw.js CACHE_NAME bumped** per learnings #15 (client-facing UI change); **(c) STATIC_SHELL exempt** per #16 (no new route — confirm in commit)
+- [ ] AC16 — No regression: existing vCard *download* (ProfileSheet.downloadVCard) still works; the new *upload+drop* is the inverse direction, all three flows coexist
+
+## QA Audit & User Feedback
+
+- 2026-05-31: B3 filed in backlog.md by req-eng with verbatim Tron quote + drag-drop dimension. PO promoted to T142 with architect-picks-up direction (no longer plan-only). Multi-platform scope (iOS/Android/Windows) is the key new dimension over my initial stand-up draft. CMM4 4-role structured per #18.
+- 2026-05-31: Planner flagged req's `requirement:uuid:a3b4c5d6-e7f8-4a9b-0c1d-2e3f4a5b6c7d` as invalid v4 (4th-group variant `0c1d` — `0` outside `[89ab]`). Recommend req regenerate via `uuidgen`; current id used as-is to preserve B3→T142 link.
+
+## Subtasks
+
+None (atomic task — single onboarding UI feature).
+
+---
+
+*Sprint 13 — Stability*
+*Owners (CMM4): robbin-req → robbin-architect → robbin-expert → robbin-tester*
+*Priority: 7 (UX speed-up; reduces first-connect friction)*

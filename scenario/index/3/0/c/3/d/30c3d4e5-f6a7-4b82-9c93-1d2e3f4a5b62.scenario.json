@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "30c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b62",
+    "name": "| Requirement | Task | Use case | PUML | Class/method |",
+    "description": "> Tron: \"when I am in a room clicking on my users item, I want the profile to open, not the profile editor.\"",
+    "tronQuote": "> Tron: \"when I am in a room clicking on my users item, I want the profile to open, not the profile editor.\"",
+    "tasks": [
+      "ior:instance:e9a3b7c2-5f16-4d80-b3a9-2c7e4f1d6058"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:202abbb8-50d1-4002-9dbf-49c1f294081d"
+}

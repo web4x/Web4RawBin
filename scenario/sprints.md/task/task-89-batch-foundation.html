@@ -1,0 +1,28 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T89: Batch 3 — Sprints 1-4 Chain Backfill + Sprint-1 Dup Reconcile</h2><code>e5b8a3d6-2f74-4c01-9a59-7b2c6d1e4f85</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-unchecked">⬜ Planned</li><li class="sv-unchecked">⬜ In Progress</li><ul class="sv-substeps"><li class="sv-unchecked">⬜ refinement</li><li class="sv-unchecked">⬜ creating test cases</li><li class="sv-unchecked">⬜ implementing</li><li class="sv-unchecked">⬜ testing</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>- up
+  - [Sprint 11 Planning](./planning.md)
+- down
+  - None (atomic task)
+- follows
+  - [T88](./task-88-batch-mid.md)
+- resolves
+  - Sprint 1 deferred cleanup: duplicate task-2 files (see sprint-1-rawbin-foundation/planning.md &quot;Known Cleanup&quot;)</pre></div>
+<div class="sv-section"><h3>Task Description</h3><p>Backfill the forward chain for the oldest sprints — 1 (Foundation), 2 (Identity/SSH),
+3 (E2E Hardening), 4 (Traceability). Retroactively author requirements.md +
+use-case stubs (none exist for 1,3,4). Reconcile the duplicate Sprint 1 task-2
+files (`task-2-rawbin-architecture-definition.md` vs `task-2-rawbin-architecture.md`)
+— determine canonical, merge/remove the other deliberately.</p></div>
+<div class="sv-section"><h3>Context</h3><p>Highest-risk batch: all signed-off long ago. Smallest sub-batches, per-sprint
+Tron gate. This is the sanctioned path to touch these files (vs silent inline edits).</p></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [ ] Sprints 1,2,3,4 tasks have resolving forward chains
+- [ ] requirements.md/use-case stubs authored for 1,3,4
+- [ ] Sprint 1 duplicate task-2 reconciled (one canonical file)
+- [ ] Each sprint's changes Tron-gated before its sub-batch is Done</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- Pending T88, then Tron QA.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task — may split per-sprint sub-batches during refinement).
+
+---
+*Sprint 11 — Traceability Standardization*
+*Owner: robbin-req (chain), robbin-planner (links)*
+*Priority: 5 (MEDIUM — oldest, highest risk; smallest batches)*</p></div></div>

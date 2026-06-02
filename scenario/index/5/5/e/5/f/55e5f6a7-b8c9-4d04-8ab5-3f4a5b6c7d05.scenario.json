@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "55e5f6a7-b8c9-4d04-8ab5-3f4a5b6c7d05",
+    "name": "R15.6 — Task DetailViews + planning Overview that is ALWA...",
+    "description": "> R4 (literal): ListOverview with search → extensible to remoteSearch.",
+    "tronQuote": "> R4 (literal): ListOverview with search → extensible to remoteSearch.",
+    "tasks": [
+      "ior:instance:106f5061-7283-4495-896c-f06060606106"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:882e3fc9-4846-4bb1-af39-131988d15a4b"
+}

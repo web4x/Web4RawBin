@@ -1,0 +1,25 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T90: Traceability Verification + Audit Gate</h2><code>f6c9b4e7-3a85-4d12-8b60-8c3d7e2f5a96</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-unchecked">⬜ Planned</li><li class="sv-unchecked">⬜ In Progress</li><ul class="sv-substeps"><li class="sv-unchecked">⬜ refinement</li><li class="sv-unchecked">⬜ creating test cases</li><li class="sv-unchecked">⬜ implementing</li><li class="sv-unchecked">⬜ testing</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>- up
+  - [Sprint 11 Planning](./planning.md)
+- down
+  - None (atomic task)
+- follows
+  - [T87](./task-87-batch-active.md), [T88](./task-88-batch-mid.md), [T89](./task-89-batch-foundation.md)</pre></div>
+<div class="sv-section"><h3>Task Description</h3><p>Add a chain-resolution verification: for every task, confirm its
+req→usecase→puml→class/method links resolve to real artifacts. Extend or wrap the
+`sprint audit` (`components/OOSH/dev.claude/sprint`) so broken/missing chain links
+are flagged like other Web4Articles compliance warnings.</p></div>
+<div class="sv-section"><h3>Context</h3><p>Closes the loop: T87-T89 add chains; T90 proves 89/89 resolve and keeps them
+honest going forward (audit catches future drift).</p></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [ ] Chain-resolution check implemented (every link target exists)
+- [ ] `sprint audit` (or a companion) reports chain coverage + broken links
+- [ ] 89/89 tasks chain-complete and resolving
+- [ ] Check runnable in the planner's 15-min monitoring loop</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- Pending T87-T89, then Tron QA.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task).
+
+---
+*Sprint 11 — Traceability Standardization*
+*Owner: robbin-tester + robbin-planner*
+*Priority: 6 (verification — last)*</p></div></div>

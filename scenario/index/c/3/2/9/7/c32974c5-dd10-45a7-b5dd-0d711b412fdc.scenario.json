@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "c32974c5-dd10-45a7-b5dd-0d711b412fdc",
+    "name": "R-ED1: Markdown preview must render hierarchical lists (n...",
+    "description": "> TRON DIRECTIVE (2026-05-29): \"tests must not flood data/ with users that are never deleted.\"",
+    "tronQuote": "> TRON DIRECTIVE (2026-05-29): \"tests must not flood data/ with users that are never deleted.\"",
+    "tasks": [
+      "ior:instance:c2118a07-d18e-4e1b-b9a2-5f8e2c1f0d77"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5644168d-c678-4a42-aa21-409e1a9a9999"
+}

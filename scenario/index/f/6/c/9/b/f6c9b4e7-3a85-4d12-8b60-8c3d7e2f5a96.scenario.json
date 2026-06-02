@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "f6c9b4e7-3a85-4d12-8b60-8c3d7e2f5a96",
+    "name": "T90: Traceability Verification + Audit Gate",
+    "slug": "task-90-traceability-verify",
+    "description": "Add a chain-resolution verification: for every task, confirm its\nreq→usecase→puml→class/method links resolve to real artifacts. Extend or wrap the\n`sprint audit` (`components/OOSH/dev.claude/sprint`) so broken/missing chain links\nare flagged like other Web4Articles compliance warnings.",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 11 Planning](./planning.md)\n- down\n  - None (atomic task)\n- follows\n  - [T87](./task-87-batch-active.md), [T88](./task-88-batch-mid.md), [T89](./task-89-batch-foundation.md)",
+    "context": "Closes the loop: T87-T89 add chains; T90 proves 89/89 resolve and keeps them\nhonest going forward (audit catches future drift).",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [ ] Chain-resolution check implemented (every link target exists)\n- [ ] `sprint audit` (or a companion) reports chain coverage + broken links\n- [ ] 89/89 tasks chain-complete and resolving\n- [ ] Check runnable in the planner's 15-min monitoring loop",
+    "qaAudit": "- Pending T87-T89, then Tron QA.",
+    "subtasks": "None (atomic task).\n\n---\n*Sprint 11 — Traceability Standardization*\n*Owner: robbin-tester + robbin-planner*\n*Priority: 6 (verification — last)*",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "- **Requires:** T87, T88, T89 (chains must exist to verify)\n- **Enables:** ongoing planner monitoring (drift detection)",
+    "definitionOfDone": "- [ ] Verification passes 89/89\n- [ ] Audit integration documented\n- [ ] Tron QA approved",
+    "implementation": "",
+    "testScenarios": "| Test | Action | Expected |\n|------|--------|----------|\n| TS1 | Run chain audit on a task missing a PUML link | flagged |\n| TS2 | Run on a fully-chained task | passes |\n| TS3 | Run across all sprints | 89/89 pass after T87-T89 |",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:50cc0d8a-e6c7-4902-8f57-c5dd3655c236"
+}

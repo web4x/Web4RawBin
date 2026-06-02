@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "35c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b03",
+    "name": "R15.4 — `defaultItemView` per object for lists — like the...",
+    "description": "> R1 (literal): \"Object.verb usecase diagramms.\"",
+    "tronQuote": "> R1 (literal): \"Object.verb usecase diagramms.\"",
+    "tasks": [
+      "ior:instance:104d3e4f-5061-4273-894a-d04040404104"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:882e3fc9-4846-4bb1-af39-131988d15a4b"
+}

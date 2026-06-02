@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "20b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a51",
+    "name": "R10.3 — Tapping your OWN member item opens the read-only ...",
+    "description": "> Tron (iPhone test): \"vCard button is missing; the picture isn't the avatar component.\"",
+    "tronQuote": "> Tron (iPhone test): \"vCard button is missing; the picture isn't the avatar component.\"",
+    "tasks": [
+      "ior:instance:e8d3a7b2-5c61-4f08-a3d9-2b7c4e1f9a06"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:202abbb8-50d1-4002-9dbf-49c1f294081d"
+}

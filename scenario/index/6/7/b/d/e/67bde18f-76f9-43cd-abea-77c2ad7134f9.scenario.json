@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "67bde18f-76f9-43cd-abea-77c2ad7134f9",
+    "name": "R-V1: Version update bar must appear on new version (PRIO...",
+    "description": "> TRON DIRECTIVE: \"i created more than one room. but only one showes up in the lobby. when a user connects all his rooms should show up in the lobby and being loaded from disk.\"",
+    "tronQuote": "> TRON DIRECTIVE: \"i created more than one room. but only one showes up in the lobby. when a user connects all his rooms should show up in the lobby and being loaded from disk.\"",
+    "tasks": [
+      "ior:instance:84c9d362-fad3-4325-8d9e-bf7c06cd04b6"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5644168d-c678-4a42-aa21-409e1a9a9999"
+}

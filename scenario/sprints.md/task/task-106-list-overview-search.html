@@ -1,0 +1,31 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T106: ListOverview Component + Search → remoteSearch</h2><code>106f5061-7283-4495-896c-f06060606106</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement (architect)</li><li class="sv-checked">✅ creating test cases</li><li class="sv-checked">✅ implementing (expert)</li><li class="sv-checked">✅ testing (tester — run rb-list-overview.test.ts, jsdom) — rb-list-overview 7/7 PASS, 1d9d4fd</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>- up
+  - [requirement:uuid:55e5f6a7-b8c9-4d04-8ab5-3f4a5b6c7d05](./requirements.md) — R15.5 ListOverview + search
+  - [Sprint 15 Planning](./planning.md)
+  - Tron directive 2026-05-26
+- down
+  - None (atomic task)
+- chain
+  - **requirement:** R15.5 in [requirements.md](./requirements.md)
+  - **use case:** list.search / list.remoteSearch — diagrams/object-verb-usecases.puml
+  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)
+  - **class/method:** rb-list-overview component (search / remoteSearch)</pre></div>
+<div class="sv-section"><h3>Task Description</h3><p>Build a `rb-list-overview` component that renders a collection of `defaultItemView`s with
+a search over the listed objects. The search is designed to extend cleanly to a
+`remoteSearch` (server-side) without changing the component's public contract.</p></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [ ] AC1: `&lt;rb-list-overview&gt;` renders a collection as a list of T105 `&lt;rb-object-item&gt;`s (`setItems(refs)` or `type=` auto-list)
+- [ ] AC2: Search input filters in real time via default `LocalSearch` (title/type/uuid substring), debounced 300ms
+- [ ] AC3: Search goes through `SearchProvider` (`search(query): Promise&lt;ObjectRef[]&gt;`); a `RemoteSearch` provider assignable via `list.searchProvider` WITHOUT changing the component API
+- [ ] AC4: Explicit empty/no-results state when the query matches nothing
+- [ ] AC5: ViewBus live-update — items mutating re-render (T105); add/remove on the set re-runs the active search and updates the list
+- [ ] AC6: No artificial input/result limits (TRON rule)
+- [ ] AC7: Tests cover render, local filtering, provider substitution (mock RemoteSearch), empty state, live add/remove
+- [ ] `npm run build` + version bump</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-05-26: Tron directive (Sprint 15 R1-R4). Quote in requirements.tron-literal.md.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task).
+
+---
+*Sprint 15 — Traceability Browser &amp; Object Model*
+*Owner: robbin-expert (implement), robbin-tester (verify)*
+*Priority: 3 (view components)*</p></div></div>

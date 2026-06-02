@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "5b6122fe-75f1-4a33-9b2f-63fcaeb4323f",
+    "name": "FLAG: This may mean Tron's device is not receiving update...",
+    "description": "> TRON DIRECTIVE: \"i did also not see the version update bar any more.\"",
+    "tronQuote": "> TRON DIRECTIVE: \"i did also not see the version update bar any more.\"",
+    "tasks": [
+      "ior:instance:428edbf7-ae00-4979-a3b7-3e32eecdc496"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5644168d-c678-4a42-aa21-409e1a9a9999"
+}

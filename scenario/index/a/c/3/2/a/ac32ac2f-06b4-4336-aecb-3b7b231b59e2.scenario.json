@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:TraceLink",
+  "model": {
+    "uuid": "ac32ac2f-06b4-4336-aecb-3b7b231b59e2",
+    "from": "ior:instance:35c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b03",
+    "to": "ior:instance:104d3e4f-5061-4273-894a-d04040404104",
+    "fromType": "requirement",
+    "toType": "task",
+    "relation": "implements",
+    "direction": "bidirectional",
+    "label": "requirement:35c3d4e5 implements task:104d3e4f",
+    "createdAt": "2026-06-02T04:01:09.010Z",
+    "createdBy": "migrate-to-scenario.ts"
+  },
+  "ownerIor": null
+}

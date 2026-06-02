@@ -1,0 +1,28 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T93: All User Rooms Load from Disk and Appear in Lobby</h2><code>84c9d362-fad3-4325-8d9e-bf7c06cd04b6</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement (architect)</li><li class="sv-checked">✅ implementing (expert)</li><li class="sv-checked">✅ testing (tester)</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>- up
+  - [requirement:uuid:67bde18f-76f9-43cd-abea-77c2ad7134f9](./requirements.md) — R-R1: All rooms appear in lobby
+  - [Sprint 13 Planning](./planning.md)
+  - Sprint 9 UC-RM.2 (room.persist) + UC-RM.4 (room.advertise) — these specified the behavior that is now failing
+- down
+  - None (atomic task)
+- chain
+  - **requirement:** R-R1 in [requirements.md](./requirements.md)
+  - **use case:** UC-RM.2 room.persist, UC-RM.4 room.advertise (Sprint 9 requirements)
+  - **class/method:** `RoomManager.loadFromDisk()` in Room.ts, `server.ts` IDENTIFY handler (room advertise logic), `server.ts` WS connect (room list broadcast)</pre></div>
+<div class="sv-section"><h3>Task Description</h3><p>**Bug:** User creates multiple rooms, but only one appears in the lobby. Sprint 9 specified per-user room persistence and advertisement (UC-RM.2 + UC-RM.4), but the implementation only loads/advertises one room.
+
+**Investigation needed by architect:**
+1. Does `RoomManager.loadFromDisk()` scan `data/users/*/rooms/*/room.json`? Or only `data/rooms/`?
+2. On IDENTIFY, does the server scan the user's `rooms/` directory for ALL rooms, or just one?
+3. Is the room advertise logic (making dormant rooms active on owner connect) running for all rooms or just the first match?
+4. Does `listRooms()` return all active rooms or filter in a way that hides some?</p></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [x] AC1: Creating 3 rooms → all 3 appear in lobby room list
+- [x] AC2: After server restart → all 3 rooms reload from disk
+- [x] AC3: After owner reconnects → all 3 rooms appear in ROOM_LIST
+- [x] AC4: Other users see all 3 rooms in their lobby (when owner connected)
+- [x] AC5: Deleting one room leaves the other 2 visible
+- [x] AC6: Room count in lobby matches actual rooms on disk for each user (subset invariant on shared server)</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-05-26: Tron directive — &quot;i created more than one room. but only one shows up in the lobby… all his rooms should show up… loaded from disk.&quot; Awaiting architect refinement, then Tron QA.
+- 2026-05-26: robbin-expert added Measured Evidence section above from the v0.4.10 deploy verification.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task).</p></div></div>

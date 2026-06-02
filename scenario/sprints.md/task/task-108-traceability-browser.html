@@ -1,0 +1,31 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T108: Traceability Browser — tree-navigable graph in Documentation</h2><code>108b7283-94a5-46b7-898e-b08080808108</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement (architect)</li><li class="sv-checked">✅ creating test cases</li><li class="sv-checked">✅ implementing (expert)</li><li class="sv-unchecked">⬜ testing (tester — rb-trace-tree.test.ts + e2e)</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>- up
+  - [requirement:uuid:75a7b8c9-d0e1-4f26-8cd7-5b6c7d8e9f07](./requirements.md) — R15.7 traceability browser
+  - [Sprint 15 Planning](./planning.md)
+  - Tron directive 2026-05-26
+- down
+  - None (atomic task)
+- chain
+  - **requirement:** R15.7 in [requirements.md](./requirements.md)
+  - **use case:** traceability.browse (tree) — diagrams/object-verb-usecases.puml
+  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)
+  - **class/method:** /docs traceability browser + tree graph (integrates item/list/detail/overview)</pre></div>
+<div class="sv-section"><h3>Task Description</h3><p>Add a traceability browser NEXT TO the file browser in the Documentation, letting users
+navigate the traceability graph as a TREE. It integrates the
+`defaultItemView`/`ListOverview`/`DetailView`/`Overview` components into a single
+browsing experience over the typed object graph. This is the sprint capstone.</p></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [ ] AC1: A `&lt;rb-trace-tree&gt;` traceability browser renders NEXT TO the existing `&lt;rb-file-tree&gt;` file browser in the `/edit` Documentation UI (sibling panel or toggle)
+- [ ] AC2: The graph is navigable as a TREE — expand/collapse `requirement→task→useCase→class→method→test` chain nodes; node rows reuse T105 `&lt;rb-object-item&gt;`; expand state persisted
+- [ ] AC3: Integrates T105 defaultItemView (node rows), T106 ListOverview (search/flat toggle), T107 DetailView + Overview (detail/planning panes)
+- [ ] AC4: Selecting a node calls `TraceRouter.navigate(type,'show',{uuid})` → opens its DetailView; tree highlight + detail stay consistent via T103 ViewBus
+- [ ] AC5: Tree built from the T102 consistency-validated graph (`GET /api/trace` = scanRepo→`graph.toJSON()`); broken/dangling nodes shown WITH a warning marker (not silently dropped)
+- [ ] AC6: Tests cover tree render, expand/collapse navigation, node-select→detail, and integration of the four view components
+- [ ] `npm run build` + version bump</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-05-26: Tron directive (Sprint 15 R1-R4). Quote in requirements.tron-literal.md.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task).
+
+---
+*Sprint 15 — Traceability Browser &amp; Object Model*
+*Owner: robbin-expert (implement), robbin-tester (verify)*
+*Priority: 4 (capstone)*</p></div></div>

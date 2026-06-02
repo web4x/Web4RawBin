@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "bbca5514-a5c0-4a32-8be4-bf1133290c7a",
+    "name": "T122: DetailsViewContainer sticky-to-bottom",
+    "slug": "task-122-detailview-sticky-bottom",
+    "description": "Tron 2026-05-29 (literal quote — req-eng to confirm exact wording):\n> \"the detailsViewContainer is not sticky to the bottom\"\n\nThe drawer (`rb-detail-drawer`, T110) must remain anchored to the **viewport\nbottom** regardless of scroll position. Current CSS uses `position: fixed;\nbottom: 0; left: 0; right: 0` — verify whether this is actually being applied,\nwhether a stacking-context / overflow ancestor is breaking the fixed-position\nbehavior, or whether the drawer is rendered inside a container that constrains\nit. Fix so the drawer stays glued to the viewport bottom on all routes that\nhost it (today: `/trace`).",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
+    "remainingIssues": "",
+    "traceability": "`[task:uuid:bbca5514-a5c0-4a32-8be4-bf1133290c7a]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - **requirement:** `[requirement:uuid:bca276d9-8ff6-4234-a562-19e15e4ab8fb]` —\n    \"the detailsViewContainer is not sticky to the bottom\" (Tron directive\n    2026-05-29; req-eng to confirm/anchor the literal verbatim quote in this slot.)\n- down\n  - None (atomic task)\n- follows\n  - [T110: DetailViewContainer](./task-110-detailview-container.md) — drawer (sticky-bottom is a positioning fix on the same surface)\n- chain (req → usecase → puml → class/method)\n  - **requirement:** r122-detailview-sticky-bottom (Tron 2026-05-29)\n  - **use case:** existing `detailDrawer.open` / `detailDrawer.close` (T110) — positioning fix; no new UC\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (no PUML change required)\n  - **class/method:** `src/public/app.css` (`rb-detail-drawer` positioning) and/or `src/public/ts/trace/rb-detail-drawer.ts` if a JS-side anchor is required",
+    "context": "Tron iteration after using the live `/trace` browser. T120 (black background)\nis a peer surface change; this is the positioning fix. Both target the same\ncomponent (`rb-detail-drawer`) — coordinate with T120 to avoid step-on commits.",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [ ] AC1 — `rb-detail-drawer` stays anchored to the viewport bottom (`position: fixed; bottom: 0`) regardless of `/trace` page scroll position\n- [ ] AC2 — Behavior holds on iPhone Safari (safe-area-inset-bottom respected — drawer does not hide behind the home indicator)\n- [ ] AC3 — slideUp/slideDown + swipe-down dismiss + ESC + outside-click (T110 behaviors) unchanged\n- [ ] AC4 — No regression with T120's black background (peer task — coordinate on the same component)\n- [ ] AC5 — Tree (above the drawer) remains scrollable and visible\n- [ ] AC6 — `npm run build` succeeds; vitest + playwright pass; **version + sw.js bumped** per learnings #15\n- [ ] AC7 — **STATIC_SHELL untouched** per learnings #16 (no new route — confirm in commit message)",
+    "qaAudit": "- 2026-05-29: Tron directive — drawer not sticky to bottom. Routed via PO. Awaiting req formal quote anchor + expert impl + tester verify, then Tron QA.",
+    "subtasks": "None (atomic task — small CSS positioning fix).\n\n---\n\n*Sprint 16 — Traceability UX & DetailViews · Phase 4 (Tron iteration)*\n*Owner: robbin-expert (UI positioning), robbin-tester (verify)*\n*Priority: 9 (small UI fix on shipped drawer)*",
+    "assigned": "**Owner:** robbin-expert (implement), robbin-tester (verify)\n**This file is the single source of truth.** Expert and tester work from this file alone — no chat clarification.",
+    "architectDesign": "",
+    "dependencies": "- **Requires:** T110 (drawer)\n- **Coordinate-with:** T120 (peer surface change on same component)\n- **Enables:** Tron's iteration on the live /trace browser UX",
+    "definitionOfDone": "- [ ] All AC met; traceability chain complete + links resolve\n- [ ] Tests pass, build clean\n- [ ] Version + sw.js bumped (learnings #15); STATIC_SHELL untouched (learnings #16 — no new route, confirm)\n- [ ] Tron QA approved",
+    "implementation": "",
+    "testScenarios": "| Test | Action | Expected |\n|------|--------|----------|\n| TS1 | Open `/trace`, scroll the tree | Drawer (when open) stays anchored to viewport bottom; does not scroll with the tree |\n| TS2 | Open drawer on a long tree, then scroll | Drawer stays bottom-fixed; backdrop/blur (if any) remains correct |\n| TS3 | iPhone viewport (375×812) | Drawer respects safe-area-inset-bottom; no overlap with home indicator |\n| TS4 | Open drawer → resize viewport (desktop browser) | Drawer re-anchors to new viewport bottom; no overflow/jump |\n| TS5 | T120 black-bg applied + T122 sticky-bottom together | Both behaviors coexist; no CSS conflict |",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:1cdc4b17-2c90-411e-8ede-1f7c02e08d70"
+}

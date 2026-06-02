@@ -1,0 +1,22 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T82: vCard Button Visibility + ProfileSheet Avatar DRY</h2><code>e8d3a7b2-5c61-4f08-a3d9-2b7c4e1f9a06</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement</li><li class="sv-checked">✅ creating test cases</li><li class="sv-checked">✅ implementing</li><li class="sv-checked">✅ testing (robbin-tester — TS1-TS4)</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>- up
+  - [requirement:uuid:20b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a51](./requirements.md) — R10.2 vCard button visibility + avatar DRY
+  - [Sprint 10 Planning](./planning.md)
+- down
+  - None (atomic task)
+- follows
+  - [T81](./task-81-member-click-vcard.md) — member-click landed (v0.4.9); T82 fixes follow-on sheet defects</pre></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [x] AC1: &quot;Download vCard&quot; button is VISIBLE in the joined-user sheet (readable text, distinct from &quot;Link Account&quot;)
+- [x] AC2: &quot;Link Account&quot; button remains visible and unchanged
+- [x] AC3: Clicking &quot;Download vCard&quot; invokes the vCard builder (produces a .vcf blob) — behavior unchanged from existing `downloadVCard()`
+- [x] AC4: The sheet's avatar is an `&lt;rb-avatar&gt;` element (NOT a bare `&lt;img&gt;` built inline in ProfileSheet)
+- [x] AC5: The sheet avatar shows the joined user's picture (loaded from `/api/avatar/&lt;their-token&gt;`), or the initial-letter fallback if none
+- [x] AC6: The sheet avatar is `readonly` — tapping it does NOT open the upload/crop editor overlay
+- [x] AC7: Lobby `.btn-secondary` buttons (dark background, e.g. &quot;Refresh&quot;) remain visible/unchanged — the CSS override is scoped to `.user-sheet` only
+- [x] AC8: `npm run build` succeeds; no new tsc errors in changed files (expert)
+- [x] AC9: Served bundle reflects the bump — live `/api/health` + `/api/config` now v0.5.4 (advanced past v0.5.0)
+- [x] AC10: All existing E2E specs still pass (no regression) + new test passes
+- [x] AC11: `ProfileSheet.open(profile, opts?: { isSelf?, onEdit? })` signature exists (verified in source ProfileSheet.ts:24); `{}` opts → `[Download vCard][Link Account]`; `isSelf` branch (`#us-edit`) wired by T83; ProfileSheet does NOT import ProfileEditor</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- Pending PO refinement review, then Tron QA.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task for this sprint).</p></div></div>

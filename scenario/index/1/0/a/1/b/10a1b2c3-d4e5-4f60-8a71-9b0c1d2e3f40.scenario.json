@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "10a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f40",
+    "name": "R10.2 — In the opened profile sheet, the \"Download vCard\"...",
+    "description": "> Tron: \"clicking a joined user in a room does nothing — I want their profile/vCard.\"",
+    "tronQuote": "> Tron: \"clicking a joined user in a room does nothing — I want their profile/vCard.\"",
+    "tasks": [
+      "ior:instance:c7e2d6f1-3a84-4b29-9d05-6e1f2a8b4c70"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:202abbb8-50d1-4002-9dbf-49c1f294081d"
+}

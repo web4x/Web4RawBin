@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "41c68a9a-b27d-488e-8346-4bc7a4ce685e",
+    "name": "| Requirement | UUID (short) | Task | Category |",
+    "description": "> TRON DIRECTIVE: \"797/797 tests but none traceable. Every test must declare which AC / requirement it verifies, so the chain closes end-to-end.\"",
+    "tronQuote": "> TRON DIRECTIVE: \"797/797 tests but none traceable. Every test must declare which AC / requirement it verifies, so the chain closes end-to-end.\"",
+    "tasks": [
+      "ior:instance:1e797ea6-c535-4779-9288-a72798dc17d5"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:50cc0d8a-e6c7-4902-8f57-c5dd3655c236"
+}

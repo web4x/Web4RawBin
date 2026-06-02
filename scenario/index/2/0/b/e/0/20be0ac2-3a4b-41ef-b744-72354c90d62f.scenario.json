@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "20be0ac2-3a4b-41ef-b744-72354c90d62f",
+    "name": "R16.2: DetailsViewContainer sticky to bottom",
+    "description": "> TRON DIRECTIVE: \"DetailsView (the drawer's typed views) must have a black background.\"",
+    "tronQuote": "> TRON DIRECTIVE: \"DetailsView (the drawer's typed views) must have a black background.\"",
+    "tasks": [
+      "ior:instance:e7cb6434-97a2-4752-8d63-f8bea13646b6"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1cdc4b17-2c90-411e-8ede-1f7c02e08d70"
+}
