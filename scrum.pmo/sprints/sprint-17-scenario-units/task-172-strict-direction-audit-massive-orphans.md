@@ -22,15 +22,21 @@
 **R-H.2 atomic-split rule (PO 2026-06-02; req-eng to assign formal v4 req:uuid):**
 > Tron rule: req-eng splits each Tron directive into ONE-SENTENCE atomic requirements; planner-first stand-ups require req's atomic split BEFORE refinement closes.
 
-## Status
+## Status — ✅ COMPLETE (PO 2026-06-03: T172 ✓; S17 R-batch R-A through R-J complete + verified)
 - [x] Planned
 - [x] In Progress
   - [x] refinement (architect diagnosis — this document)
-  - [ ] creating test cases
-  - [x] implementing
-  - [ ] testing
+  - [x] creating test cases
+  - [x] implementing (expert — **`3fefc68`** 5-step forward-ref population + strict-direction audit; 238/238 chain reachability; 834/834 pass; rule-pair exempt — data only, no user surface)
+  - [x] testing (PO 2026-06-03: T172 ✓ verified; S17 R-A..R-J complete + verified)
 - [ ] QA Review
 - [ ] Done
+
+> Sync per PO direction 2026-06-03: T172 ✓ — 5-step forward-ref population
+> + strict-direction audit shipped (`3fefc68`); 146/296 (49%) → 238/238 (100%)
+> chain reachability. Sprints (9) + TraceLinks (50) excluded as orphan-by-design.
+> S17 R-batch (R-A through R-J) **complete + verified**. QA Review + Done
+> remain Tron's gate.
 
 ## Traceability
 - up

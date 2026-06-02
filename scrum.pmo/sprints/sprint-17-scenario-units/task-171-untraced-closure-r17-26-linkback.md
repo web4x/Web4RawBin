@@ -4,15 +4,20 @@
 
 [task:uuid:75628241-9157-4385-a7f0-f4f7a3142737]
 
-## Status — ✅ impl-shipped (expert 7c84fe0 — strip 109 back-refs + 50 TraceLink orphans-by-design + matrix refresh; 246/296 reachable, 0 real orphans; rule-pair exempt — scenario data only)
+## Status — ✅ CLOSED (PO 2026-06-03: T172 completed the chain-reachability work T171 was blocked on)
 - [x] Planned
 - [x] In Progress
   - [x] refinement (req → architect — **`826d30b` architect design committed: T169 decision (NO `requirements[]` on non-req — back-ref per T159/B18; 241 empty requirements[] are CORRECT, strip field) + T171 50-orphan categorization**)
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
+  - [x] testing (PO 2026-06-03: T171 closed via T172's 238-reachability proof; T171's baselines all valid + T172 verifies the complete chain)
 - [ ] QA Review
 - [ ] Done
+
+> Sync per PO direction 2026-06-03: T171 CLOSED. T172 (`3fefc68`) verified
+> 238/238 chain reachability; T171's stripped back-refs + matrix refresh +
+> TraceLink-orphan classification stand as valid baselines. S17 R-batch
+> (R-A through R-J) complete + verified. QA Review + Done remain Tron's gate.
 
 > Sync per rule #11: `826d30b` lands architect design. Decision crystallized:
 > the 50 unreachable units are the **real R-F gap** — fix via forward refs on
