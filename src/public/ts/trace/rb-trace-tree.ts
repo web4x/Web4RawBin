@@ -56,8 +56,29 @@ export class RbTraceTree extends HTMLElement {
     if (!this.graph) { this.innerHTML = '<div class="tt-empty">no graph</div>'; return; }
     const roots = this.graph.ofType('requirement');
     this.innerHTML = '';
-    const rootObjs = roots.length ? roots : this.graph.all(); // fall back to all if no requirements
-    for (const obj of rootObjs) this.appendChild(this.nodeEl(obj.ref(), new Set()));
+
+    // Walk forward from requirement roots to find reachable set
+    const reachable = new Set<string>();
+    const walk = (ref: string) => {
+      if (reachable.has(ref)) return;
+      reachable.add(ref);
+      const obj = this.graph!.get(refUuid(ref));
+      if (obj) Object.values(obj.toJSON().links).flat().forEach(walk);
+    };
+    for (const r of roots) walk(r.ref());
+
+    for (const obj of roots) this.appendChild(this.nodeEl(obj.ref(), new Set()));
+
+    // T165: orphan items — typed objects not reachable from any requirement
+    const orphans = this.graph.all().filter(o => !reachable.has(o.ref()));
+    if (orphans.length > 0) {
+      const hdr = document.createElement('div');
+      hdr.className = 'tt-orphan-header';
+      hdr.textContent = `Orphan items (${orphans.length})`;
+      hdr.style.cssText = 'color:rgba(255,255,255,0.5);font-size:0.75rem;padding:8px 4px 4px;border-top:1px solid rgba(255,255,255,0.1);margin-top:8px';
+      this.appendChild(hdr);
+      for (const obj of orphans) this.appendChild(this.nodeEl(obj.ref(), new Set()));
+    }
   }
 
   /** Build a node row (rb-object-item with built-in expander) and, if expanded, its children. */
