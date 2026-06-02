@@ -4,18 +4,21 @@
 
 [task:uuid:e43c24fe-a1d1-4d14-8e7a-55ea7edd616f]
 
-## Status — 📝 refinement done (architect 43f9a0e) — KEYSTONE
+## Status — 🔧 audit shipped + PARTIAL (50/296 untraced + R17.26 unlinked → T171)
 - [x] Planned
 - [x] In Progress
-  - [x] refinement (req → architect — **`43f9a0e` architect design committed: data-quality audit + remigrate**)
-  - [ ] creating test cases
-  - [x] implementing
-  - [ ] testing
+  - [x] refinement (req → architect — **`43f9a0e` architect KEYSTONE design**)
+  - [x] creating test cases
+  - [x] implementing (expert — **`7ddf64f` v0.5.66 audit tooling + remigration**; rule-pair (a)+(b) ✓: package.json + sw.js bumped in same commit-set)
+  - [ ] testing (PARTIAL — audit RAN successfully and **metrics pass on the rule mechanics**, but the data has known gaps: **50/296 scenarios untraced (17%)**; R17.26 "Traceability TREE" has links=0 (T165/T166 implement it but no scenario links back). Tron R-F demands ZERO untraced → **closure via T171** (planner stand-up 2026-06-02 per PO direction))
 - [ ] QA Review
 - [ ] Done
 
-> Sync per rule #11 (committed reality): `43f9a0e` lands the KEYSTONE design;
-> refinement box checked. Expert next. QA Review + Done remain Tron's gate.
+> **Status nuance:** T169's audit IS shipped + works (it found the gap). The
+> data fix that closes the 50 untraced + R17.26 link-back is T171's job
+> (PO 2026-06-02: "Tron R-F = ZERO untraced"). T169 testing closes once T171
+> lands the data closure and audit re-runs with 0 untraced.
+> QA Review + Done remain Tron's gate.
 >
 > **KEYSTONE TASK** — PO 2026-06-02: "R-F is the keystone — others build on it."
 > T167 (mobile layout) and T170 (no-stop sustain) depend on T169's data being
@@ -159,6 +162,13 @@ File: `test/vitest/trace-data-audit.test.ts` (new) + `scripts/trace-audit.ts` (n
 ## QA Audit & User Feedback
 - 2026-06-02: PO directed planner-first stand-up of T169 (R-F KEYSTONE from compound-source-2 via `bfae071` + `2be6e96` + `7e01491`). Per PO: "R-F is the keystone — others build on it." T167 + T170 depend on T169-clean data; T168 supplies the rule. CMM4 4-role; real v4 uuids; rule-pair (a)+(b) in AC11+DoD. Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
 - 2026-06-02: robbin-req anchored verbatim Tron R-F quote in traceability section.
+- 2026-06-02: robbin-req data-quality pre-audit (8f8f5e1):
+  - **Total units:** 296 (55 Requirements, 241 non-req)
+  - **Untraced (requirements[] empty):** 241/241 non-req units — ALL have empty requirements[]
+  - **Breakdown:** Task:100, TraceLink:50, Method:40, UseCase:30, Class:12, Sprint:9
+  - **R17.26 fixed:** was tasks:[], now links T165 (35ed4168) + T166 (086a35db). Committed 8f8f5e1.
+  - **Root cause:** Forward chain not populated during migration. Every Task/UC/Class/Method/TraceLink unit has the `requirements` field but it's `[]`. The Requirement units have `tasks[]` partially populated (R17.26 was empty, others may be too).
+  - **Scope for T169 expert:** ~241 units need `requirements[]` populated by walking UP from each unit to its requirement root. Sprint units (9) are structural — likely orphan-by-design (no requirement traces to a sprint). TraceLink units (50) are edges not nodes — may be orphan-by-design depending on architect's chain model.
 
 ## Design (Architect — robbin-architect, 2026-06-02)
 
