@@ -185,6 +185,100 @@
 
 ---
 
+## Atomic Requirements (R-I retroactive split — T167-T172)
+
+> Per Tron R-I: "let the req agent split tasks into one sentence requirements"
+> Each atomic requirement is one sentence = one chain root per R-E.
+
+### From T167 (R-D: mobile-first + width-cap)
+
+- [ ] **R17.30: The /trace layout uses mobile-first responsive design.**
+  [requirement:uuid:a30b41c5-d6e7-4f89-0a1b-2c3d4e5f6730]
+  → [T167](./task-167-trace-mobile-first-layout-width-cap.md)
+
+- [ ] **R17.31: The right detail pane has a hard max-width equal to the current window size.**
+  [requirement:uuid:b41c52d6-e7f8-4a90-1b2c-3d4e5f677031]
+  → [T167](./task-167-trace-mobile-first-layout-width-cap.md)
+
+### From T168 (R-E: chain order + roots)
+
+- [ ] **R17.32: The traceability chain starts with atomic requirements as roots.**
+  [requirement:uuid:c52d63e7-f8a9-4b01-2c3d-4e5f6f780032]
+  → [T168](./task-168-chain-order-7-step-requirements-as-roots.md)
+
+- [ ] **R17.33: The chain order is requirement → task → usecase(s) → class → method → implementation → test(s).**
+  [requirement:uuid:d63e74f8-a9b0-4c12-3d4e-5f6a7b890033]
+  → [T168](./task-168-chain-order-7-step-requirements-as-roots.md)
+
+- [ ] **R17.34: Implementation traces finally to test.**
+  [requirement:uuid:e74f85a9-b0c1-4d23-4e5f-6a7b8c900034]
+  → [T168](./task-168-chain-order-7-step-requirements-as-roots.md)
+
+- [ ] **R17.35: One implementation can have multiple tests (1:N cardinality).**
+  [requirement:uuid:f85a96b0-c1d2-4e34-5f6a-7b8c9d010035]
+  → [T168](./task-168-chain-order-7-step-requirements-as-roots.md)
+
+### From T169 (R-F: data quality — KEYSTONE)
+
+- [ ] **R17.36: Every scenario unit is reachable from a requirement root via the canonical chain.**
+  [requirement:uuid:a96b07c1-d2e3-4f45-6a7b-8c9d0e120036]
+  → [T169](./task-169-data-quality-audit-remigrate-complete-tree.md)
+
+- [ ] **R17.37: Zero backward-direction links exist in the traceability data.**
+  [requirement:uuid:b07c18d2-e3f4-4a56-7b8c-9d0e1f230037]
+  → [T169](./task-169-data-quality-audit-remigrate-complete-tree.md)
+
+- [ ] **R17.38: Zero orphan scenario units exist in the index.**
+  [requirement:uuid:c18d29e3-f4a5-4b67-8c9d-0e1f2a340038]
+  → [T169](./task-169-data-quality-audit-remigrate-complete-tree.md)
+
+### From T170 (R-G: no-stop sustain)
+
+- [ ] **R17.39: A data-quality CI gate fails the build on traceability violations.**
+  [requirement:uuid:d29e3af4-a5b6-4c78-9d0e-1f2a3b450039]
+  → [T170](./task-170-diligent-plan-no-stop-sustain.md)
+
+- [ ] **R17.40: A rule-pair CI gate enforces package.json + sw.js bumps in every user-facing commit.**
+  [requirement:uuid:e3af4ba5-b6c7-4d89-0e1f-2a3b4c560040]
+  → [T170](./task-170-diligent-plan-no-stop-sustain.md)
+
+- [ ] **R17.41: A chain-order CI gate validates the 7-step canonical chain on every commit.**
+  [requirement:uuid:f4ba5cb6-c7d8-4e90-1f2a-3b4c5d670041]
+  → [T170](./task-170-diligent-plan-no-stop-sustain.md)
+
+- [ ] **R17.42: The scrum master is re-activated for continuous monitoring.**
+  [requirement:uuid:a5cb6dc7-d8e9-4f01-2a3b-4c5d6e780042]
+  → [T170](./task-170-diligent-plan-no-stop-sustain.md)
+
+### From T171 (untraced closure)
+
+- [ ] **R17.43: All 50 untraced scenario units are linked to a requirement root or explicitly marked orphan-by-design.**
+  [requirement:uuid:b6dc7ed8-e9f0-4a12-3b4c-5d6e7f890043]
+  → [T171](./task-171-untraced-closure-link-50-r1726-link-back.md)
+
+- [ ] **R17.44: R17.26 links forward to its implementing tasks T165 and T166.**
+  [requirement:uuid:c7ed8fe9-f0a1-4b23-4c5d-6e7f8a900044]
+  → [T171](./task-171-untraced-closure-link-50-r1726-link-back.md)
+
+### From T172 (R-H: direction enforcement + data fill)
+
+- [ ] **R17.45: Every link in the scenario index traverses the canonical chain in the forward direction only.**
+  [requirement:uuid:d8fe90a1-a1b2-4c34-5d6e-7f8a9b010045]
+  → [T172](./task-172-chain-direction-enforcement-missing-data-fill.md)
+
+- [ ] **R17.46: Missing traceability data is filled consistently by req-eng and architect.**
+  [requirement:uuid:e9a0f1b2-b2c3-4d45-6e7f-8a9b0c120046]
+  → [T172](./task-172-chain-direction-enforcement-missing-data-fill.md)
+
+### From Tron R-J (test reachability)
+
+- [ ] **R17.47: Every Test instance is reachable from a Requirement root via the canonical tracking chain.**
+  [requirement:uuid:f0b1a2c3-c3d4-4e56-7f8a-9b0c1d230047]
+  > TRON: "each tes must be rached by a tracking chain"
+  → [T172](./task-172-chain-direction-enforcement-missing-data-fill.md)
+
+---
+
 ## UUID Index
 
 | Req | UUID (short) | Task(s) | Category |
@@ -218,3 +312,21 @@
 | R17.27 | `b2f3a4e5` | TBD | Ext 4 |
 | R17.28 | `c3a4b5e6` | TBD | Ext 4 |
 | R17.29 | `d4b5c6e7` | TBD | Ext 4 |
+| R17.30 | `a30b41c5` | T167 | R-I split (R-D) |
+| R17.31 | `b41c52d6` | T167 | R-I split (R-D) |
+| R17.32 | `c52d63e7` | T168 | R-I split (R-E) |
+| R17.33 | `d63e74f8` | T168 | R-I split (R-E) |
+| R17.34 | `e74f85a9` | T168 | R-I split (R-E) |
+| R17.35 | `f85a96b0` | T168 | R-I split (R-E) |
+| R17.36 | `a96b07c1` | T169 | R-I split (R-F) |
+| R17.37 | `b07c18d2` | T169 | R-I split (R-F) |
+| R17.38 | `c18d29e3` | T169 | R-I split (R-F) |
+| R17.39 | `d29e3af4` | T170 | R-I split (R-G) |
+| R17.40 | `e3af4ba5` | T170 | R-I split (R-G) |
+| R17.41 | `f4ba5cb6` | T170 | R-I split (R-G) |
+| R17.42 | `a5cb6dc7` | T170 | R-I split (R-G) |
+| R17.43 | `b6dc7ed8` | T171 | R-I split |
+| R17.44 | `c7ed8fe9` | T171 | R-I split |
+| R17.45 | `d8fe90a1` | T172 | R-I split (R-H) |
+| R17.46 | `e9a0f1b2` | T172 | R-I split (R-H) |
+| R17.47 | `f0b1a2c3` | T172 | R-J (test reachability) |

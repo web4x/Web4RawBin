@@ -116,3 +116,14 @@ Each TASK decomposes into multiple ATOMIC one-sentence requirements. Each atomic
 - R-F.3: "Zero orphan scenario units in the index" (one sentence)
 
 Each gets its own `[requirement:uuid:]` and becomes a chain root.
+
+---
+
+## Tron Verbatim — Follow-on (2026-06-02, fifth directive)
+
+> "each tes must be rached by a tracking chain"
+
+### R-J: Every Test must be reachable via the tracking chain
+> "each tes must be rached by a tracking chain"
+
+Every Test scenario unit instance MUST be reachable from a Requirement root via the LOCKED chain (req→task→uc→class→method→impl→test). Zero test orphans. Folds into T172 scope (direction enforcement + missing data fill).
