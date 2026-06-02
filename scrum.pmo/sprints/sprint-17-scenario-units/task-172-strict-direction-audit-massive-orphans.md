@@ -1,7 +1,26 @@
 [Back to Sprint 17 Planning](./planning.md)
 
-# T172: Strict-direction audit + massive orphan fix (Tron flag: 'not in correct order')
-[task:uuid:a7b8c9d0-e1f2-4345-6789-172000000001]
+# T172: Strict-direction audit + massive orphan fix (R-H, Tron flag: 'not in correct order') + atomic-req-split rule (R-H.2)
+
+[task:uuid:7bf0199c-f8e0-4af5-b383-e2fdee1152bc9]
+
+> **Reconciled 2026-06-02:** architect created this file concurrently with the
+> planner's stand-up; same scope. Planner adopted architect's authoritative
+> diagnosis (239 orphans, not the 50 T171 used — wrong metric) and replaced
+> the non-v4 uuid (`a7b8c9d0-…-172000000001` — fake suffix per learning #17)
+> with the planner's proper v4 from `uuidgen`. Required Web4Articles sections
+> (Subtasks + QA Audit) added below. **R-H.2 atomic-split rule folded in**
+> (PO 2026-06-02 amendment): Tron rule — req-eng splits each directive into
+> ONE-SENTENCE atomic requirements; planner-first stand-ups REQUIRE req's
+> atomic split BEFORE refinement closes. Recorded as a standing rule (must
+> land in `scrum.pmo/standards/`).
+
+**Requirement anchor (PO finding, planner-anchored):**
+`[requirement:uuid:383c3b28-1f62-488a-b362-8811fc6af9e9]` (R-H)
+> Tron live flag (2026-06-02): "massive orphans + many depending not in correct order" on /trace despite T169/T171 audit-clean metrics.
+
+**R-H.2 atomic-split rule (PO 2026-06-02; req-eng to assign formal v4 req:uuid):**
+> Tron rule: req-eng splits each Tron directive into ONE-SENTENCE atomic requirements; planner-first stand-ups require req's atomic split BEFORE refinement closes.
 
 ## Status
 - [x] Planned
@@ -161,14 +180,101 @@ function auditStrictDirection(index: ScenarioIndex): Issue[] {
 | ~12 Class scenario JSONs | Populate `methods[]` |
 | `package.json` + `sw.js` | Rule-pair (a)+(b) |
 
-### Success Metric
+### R-J Fold: Per-Test Reachability (43/43)
 
-**Before T172:** 57/296 reachable (19%)
-**After T172:** 287/296 reachable (97%) — 9 Sprint orphans-by-design remain
-**Target:** 0 unintended orphans
+Every Test unit (TraceLink with test semantics) must trace back through the LOCKED chain to a Requirement root. This is the chain's terminal validation — if a test is orphaned, its verification doesn't connect to any requirement.
+
+#### Test-Reachability Audit
+
+```typescript
+function auditTestReachability(index: ScenarioIndex, reachableSet: Set<string>): AuditResult {
+  // Identify test units: TraceLinks where model has test-like fields
+  // or ior contains 'Test' or model has aceCount/passCount
+  const testUnits = [];
+  for (const [uuid, unit] of index.entries()) {
+    if (unit.type === 'TraceLink' && (
+      unit.model.aceCount !== undefined ||
+      unit.model.testFile ||
+      (unit.model.name || '').match(/^(uc-|test-|Test)/)
+    )) {
+      testUnits.push({ uuid, name: unit.model.name });
+    }
+  }
+  
+  const reachableTests = testUnits.filter(t => reachableSet.has(t.uuid));
+  const orphanTests = testUnits.filter(t => !reachableSet.has(t.uuid));
+  
+  return {
+    pass: orphanTests.length === 0,
+    total: testUnits.length,
+    reachable: reachableTests.length,
+    orphans: orphanTests,
+    metric: `${reachableTests.length}/${testUnits.length}`
+  };
+}
+```
+
+#### Expected Output
+
+```
+=== Test Reachability (R-J) ===
+Total tests: 43
+Reachable from Requirement root: 43/43 ✅
+Orphan tests: 0
+```
+
+If any test is orphaned, the fix is the same 5-step population — ensure the chain from some Requirement reaches the test via req→task→uc→class→method→impl→test.
+
+#### Metric Added to Audit Report
+
+```
+=== RawBin Trace Data Quality Audit ===
+Total units: 296
+Reachable from requirements: 287/296 (97%)
+Orphans: 9 (Sprint — allowlisted)
+Direction violations: 0
+Test reachability: 43/43 (R-J) ✅    ← NEW
+Back-refs: 0 (T159)
+=== AUDIT PASSED ===
+```
+
+### Success Metrics (updated with R-J)
+
+| Metric | Before T172 | After T172 | Target |
+|--------|-------------|------------|--------|
+| Overall reachability | 57/296 (19%) | 287/296 (97%) | 97%+ |
+| Direction violations | 0 | 0 | 0 |
+| Test reachability (R-J) | 0/43 (0%) | **43/43 (100%)** | **43/43** |
+| Sprint orphans (by-design) | 9 | 9 | 9 (allowlisted) |
+| Unintended orphans | 230 | **0** | **0** |
+
+### Coordination with Req (R-H + R-I + R-J)
+
+Sharing with req for atomic splitting + data fill:
+
+| Gap | Count | Req Action |
+|-----|-------|------------|
+| Tasks unreachable from Requirements | 98 | Split requirement entries atomically; add `tasks[]` forward refs in each sprint's requirements |
+| UCs unreachable from Tasks | 30 | Verify each UC maps to a task via traceability-matrix; expert fills `task.useCases[]` |
+| Classes unreachable from UCs | 12 | Verify each Class maps to a UC; expert fills `uc.classes[]` |
+| Methods unreachable from Classes | 40 | Match by className; expert fills `class.methods[]` |
+| Tests unreachable from chain | 43 (R-J) | Ensure impl→test edges exist; expert fills `implementation.tests[]` |
+
+Req owns the Requirement→Task gap (biggest: 98 Tasks). Architect owns UC→Class→Method→Impl→Test chain. Joint coordination ensures no gap crosses the boundary unfixed.
+
+## QA Audit & User Feedback
+- 2026-06-02: PO directed planner-first stand-up of T172 — Tron live observation: massive orphans + wrong-order deps despite T169/T171 audit-clean. JOINT architect + req-eng refinement (Tron-assigned). Architect created this file concurrent with planner stand-up; planner reconciled per learning #12 — adopted architect's authoritative diagnosis (239 orphans, not 50; T171's "50" was a wrong metric — counted empty `requirements[]` back-refs, not forward-walk reachability); fixed non-v4 uuid; added Web4Articles Subtasks + QA Audit sections.
+- 2026-06-02 (PO amendment): **R-H.2 atomic-req-split rule FOLDED into T172.** Tron rule — req-eng splits each directive into ONE-SENTENCE atomic requirements; planner-first stand-ups require req atomic split BEFORE refinement closes. Recorded as a standing rule in `scrum.pmo/standards/` (T172 must land it). Also: **R-J folded** (per architect addendum) — per-test reachability 43/43 metric added to audit.
+
+## Subtasks
+None at parent level (architect may split T172.x per fix step: T172.a strict-direction audit; T172.b 5-step forward-ref population; T172.c Sprint allowlist; T172.d R-J test-reachability; T172.e R-H.2 atomic-split standing rule).
 
 ---
 
 **Architect:** robbin-architect @ web4team:0.0
 **Sprint:** Sprint 17 — Scenario Units
 **Blocks:** T171 closure (T171's "50" was wrong metric; T172 fixes the real 239)
+**R-J folded:** Test reachability 43/43 metric added to audit
+**R-H.2 folded:** atomic-requirement-split rule landed as standing rule (PO 2026-06-02)
+**Owners (CMM4, refinement JOINT per Tron 2026-06-02):** robbin-req + robbin-architect (JOINT) → robbin-expert → robbin-tester
+**Rule-pair scope:** (a)+(b) required at impl; (c) architect confirms
