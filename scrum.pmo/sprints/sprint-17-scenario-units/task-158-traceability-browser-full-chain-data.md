@@ -91,6 +91,236 @@ Tron explicitly assigned the design to the architect.
 - Tree-item per-type icon + NAME + links (extends T143)
 - Standard update documents the full-chain rendering model
 
+## Design (Architect — robbin-architect, 2026-06-02)
+
+### Current State Audit
+
+**Existing components in `src/public/ts/trace/`:**
+- `rb-requirement-detail.ts` — Requirement DetailView (exists, renders `obj.title`)
+- `rb-task-detail.ts` — Task DetailView (exists)
+- `rb-usecase-detail.ts` — UseCase DetailView (exists)
+- `rb-detail-view.ts` — Generic fallback DetailView
+- `rb-detail-drawer.ts` — Drawer container (T110)
+- `rb-object-item.ts` — List item renderer (renders `name` attribute)
+- `rb-trace-tree.ts` — Tree renderer (sets `title`/`description` on items)
+- `rb-list-overview.ts` — List overview
+- `rb-overview.ts` — Main overview
+- `rb-trace-view.ts` — Top-level trace view
+- `VerbRegistry.ts` — UC verb categorization
+- `ViewBus.ts` — Event bus for view coordination
+- `TraceRouter.ts` — Client-side routing
+- `icons.ts` — Icon definitions
+- `nav.ts` — Navigation helpers
+- `index.ts` — Entry point
+
+**Missing typed DetailViews for full chain:**
+- `rb-class-detail.ts` — ❌ MISSING (Class items use generic fallback)
+- `rb-method-detail.ts` — ❌ MISSING (Method items use generic fallback)
+- `rb-test-detail.ts` — ❌ MISSING (Test items use generic fallback)
+- `rb-implementation-detail.ts` — ❌ MISSING (Implementation items use generic fallback)
+
+**Tree-item gaps:**
+- `rb-object-item.ts` renders all types with same layout — no per-type icon differentiation
+- `rb-trace-tree.ts` doesn't distinguish chain types in rendering
+
+### New Typed DetailViews (4 components)
+
+Each follows the T111 pattern: extend `rb-detail-view`, register in VerbRegistry.
+
+#### `rb-class-detail.ts`
+```typescript
+@customElement('rb-class-detail')
+export class RbClassDetail extends RbDetailView {
+  render() {
+    return html`
+      <h2>${this.obj.name}</h2>
+      <div class="meta">
+        <span class="source">${this.obj.model?.sourcePath || ''}</span>
+        <span class="commit">${this.obj.model?.commit || ''}</span>
+        <span class="lines">${this.obj.model?.lineCount || ''} lines</span>
+      </div>
+      ${this.obj.model?.unit ? html`<div class="unit">Unit: ${this.obj.model.unit}</div>` : nothing}
+      <h3>Forward: Methods (${this.methods.length})</h3>
+      <ul>${this.methods.map(m => html`
+        <li @click=${() => this.navigate(m)}>
+          ⚙️ ${m.name}() :${m.model?.lines?.start || '?'}
+        </li>
+      `)}</ul>
+    `;
+  }
+  get methods() { return this.obj.model?.methods || []; }
+}
+```
+
+**Fields surfaced:** name, sourcePath, commit, lineCount, unit (.ts.unit path), m3Unit, forward methods[]
+
+#### `rb-method-detail.ts`
+```typescript
+@customElement('rb-method-detail')
+export class RbMethodDetail extends RbDetailView {
+  render() {
+    return html`
+      <h2>${this.obj.model?.className || ''}.${this.obj.name}()</h2>
+      <div class="meta">
+        <code>${this.obj.model?.signature || ''}</code>
+      </div>
+      <div class="source">
+        ${this.obj.model?.sourcePath || ''}:${this.obj.model?.lines?.start || '?'}-${this.obj.model?.lines?.end || '?'}
+      </div>
+      <div class="commit">commit: ${this.obj.model?.commit || ''}</div>
+      <div class="leaf-marker">LEAF — end of forward chain</div>
+    `;
+  }
+}
+```
+
+**Fields surfaced:** className.methodName(), signature, sourcePath:lines, commit. LEAF marker — no forward links.
+
+#### `rb-test-detail.ts`
+```typescript
+@customElement('rb-test-detail')
+export class RbTestDetail extends RbDetailView {
+  render() {
+    return html`
+      <h2>${this.obj.name}</h2>
+      <div class="meta">
+        <span class="coverage ${this.passRate === 1 ? 'full' : 'partial'}">
+          ${this.obj.model?.passCount || 0}/${this.obj.model?.aceCount || 0} AC
+        </span>
+      </div>
+      <div class="source">${this.obj.model?.sourcePath || ''}</div>
+      <div class="uc-ref">Tests UC: ${this.obj.model?.ucUuid || ''}</div>
+    `;
+  }
+  get passRate() {
+    const total = this.obj.model?.aceCount || 1;
+    return (this.obj.model?.passCount || 0) / total;
+  }
+}
+```
+
+**Fields surfaced:** test file name, passCount/aceCount, sourcePath, UC reference. Rendered inline under UseCase (evidence).
+
+#### `rb-implementation-detail.ts`
+```typescript
+@customElement('rb-implementation-detail')
+export class RbImplementationDetail extends RbDetailView {
+  render() {
+    return html`
+      <h2>${this.obj.name}</h2>
+      <div class="meta">
+        <span class="source">${this.obj.model?.sourcePath || ''}</span>
+        <span class="commit">${this.obj.model?.commit || ''}</span>
+      </div>
+      ${this.obj.model?.sourceLocationIOR ? html`
+        <div class="ior">IOR: ${this.obj.model.sourceLocationIOR}</div>
+      ` : nothing}
+    `;
+  }
+}
+```
+
+**Fields surfaced:** name, sourcePath, commit, sourceLocationIOR (R17.24 — if in scope).
+
+### VerbRegistry Wiring
+
+Register new DetailViews by chainType in VerbRegistry:
+
+```typescript
+// VerbRegistry.ts — extend registration
+VerbRegistry.register('class', RbClassDetail);
+VerbRegistry.register('method', RbMethodDetail);
+VerbRegistry.register('test', RbTestDetail);
+VerbRegistry.register('implementation', RbImplementationDetail);
+
+// Existing (already registered):
+// VerbRegistry.register('requirement', RbRequirementDetail);
+// VerbRegistry.register('task', RbTaskDetail);
+// VerbRegistry.register('usecase', RbUsecaseDetail);
+```
+
+`rb-detail-drawer.ts` already dispatches to VerbRegistry — new types automatically render in the drawer when registered.
+
+### Tree-Item Rendering for 7 Chain Types
+
+Update `rb-object-item.ts` to render per-type icons and styling:
+
+```typescript
+// rb-object-item.ts — add chainType-aware rendering
+private get icon(): string {
+  const typeIcons: Record<string, string> = {
+    'requirement': '📋',
+    'task': '📝',
+    'subtask': '🔧',
+    'usecase': '🎯',
+    'class': '📦',
+    'method': '⚙️',
+    'test': this.passRate === 1 ? '✅' : '❌',
+    'implementation': '💻',
+  };
+  return typeIcons[this.chainType] || '📄';
+}
+
+private get chainType(): string {
+  return this.getAttribute('chain-type') || 'unknown';
+}
+```
+
+Update `rb-trace-tree.ts` to pass `chain-type` attribute:
+
+```typescript
+// rb-trace-tree.ts — when creating tree items
+const item = document.createElement('rb-object-item');
+item.setAttribute('chain-type', node.chainType);
+item.setAttribute('title', node.name);      // speaky name (T161 fix)
+item.setAttribute('description', node.description || '');
+```
+
+### STATIC_SHELL — New Bundle Paths
+
+New DetailView components are bundled into the existing `dist/trace.js` via the `index.ts` entry point. Add imports:
+
+```typescript
+// src/public/ts/trace/index.ts — add:
+import './rb-class-detail.js';
+import './rb-method-detail.js';
+import './rb-test-detail.js';
+import './rb-implementation-detail.js';
+```
+
+**Rule (c):** No new HTML shell needed — components bundle into existing `dist/trace.js`. CACHE_NAME bump required in `sw.js` to force SW update with new bundle content.
+
+### Files to Create/Modify
+
+| File | Action | Type |
+|------|--------|------|
+| `src/public/ts/trace/rb-class-detail.ts` | CREATE | New DetailView |
+| `src/public/ts/trace/rb-method-detail.ts` | CREATE | New DetailView |
+| `src/public/ts/trace/rb-test-detail.ts` | CREATE | New DetailView |
+| `src/public/ts/trace/rb-implementation-detail.ts` | CREATE | New DetailView |
+| `src/public/ts/trace/index.ts` | MODIFY — add 4 imports | Bundle entry |
+| `src/public/ts/trace/VerbRegistry.ts` | MODIFY — register 4 new types | Registration |
+| `src/public/ts/trace/rb-object-item.ts` | MODIFY — add per-type icons | Tree rendering |
+| `src/public/ts/trace/rb-trace-tree.ts` | MODIFY — pass `chain-type` attribute | Tree rendering |
+| `src/public/sw.js` | MODIFY — bump CACHE_NAME | Rule (c) |
+| `package.json` | MODIFY — bump version | Rule (a)+(b) |
+| `scrum.pmo/standards/traceability-standard.md` | MODIFY — add browser-rendering spec | AC1 |
+
+### R17.24 Source-Location IOR Scope Decision
+
+**IN SCOPE for T158:** `rb-implementation-detail` surfaces `model.sourceLocationIOR` if present. No new IOR resolution — display only. Full IOR clickability (opening source file view) is a follow-on.
+
+### AC Mapping
+
+| AC | Design Answer |
+|----|---------------|
+| AC1 | Design documented above + standard update |
+| AC2 | 4 new DetailViews (class, method, test, implementation) registered in VerbRegistry |
+| AC3 | `rb-object-item` renders per-type icon; `rb-trace-tree` passes `chain-type` |
+| AC4 | Forward-only walk: Req → Task → UC → Class → Method (LEAF). All hops clickable via existing T143 edges + new DetailViews |
+| AC5 | `rb-implementation-detail` shows `sourceLocationIOR` if present |
+| AC9 | Rule (a)+(b)+(c): version bump + CACHE_NAME bump + no new STATIC_SHELL route (bundles into existing trace.js) |
+
 ## Acceptance Criteria
 - [ ] AC1 (Design — architect-led) — Architect-finalized design documented in `scrum.pmo/standards/traceability-standard.md`: per-type DetailView coverage matrix; tree-item rendering per type; data fields surfaced per view; scope decision on R17.24 source-location IORs
 - [ ] AC2 (DetailViews — Class/Method/Test/Implementation) — Web Components exist per type (architect-finalized list); registered in VerbRegistry per T111 pattern; render data from `model.links.*` / `model.chain.*`
