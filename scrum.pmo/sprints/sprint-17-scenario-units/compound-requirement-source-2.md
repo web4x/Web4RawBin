@@ -90,3 +90,29 @@ Despite T169 audit reporting clean mechanics, Tron sees on `/trace`:
 3. **Missing data** — traceability fields empty or incomplete
 
 Tron assigns this JOINTLY to req-eng + architect: fill the missing data consistently, fix direction violations, eliminate orphans. Not a tooling task — a data quality task that requires human judgment on which requirement each unit belongs to and which direction each link should point.
+
+---
+
+## Tron Verbatim — Follow-on (2026-06-02, fourth directive)
+
+> "let the req agent split tasks into one sentence requirements"
+
+## Decomposition
+
+### R-I: Tasks decompose into atomic one-sentence requirements (STANDING RULE)
+> "let the req agent split tasks into one sentence requirements"
+
+**STANDING RULE — applies to ALL work going forward + retroactively:**
+
+Each TASK decomposes into multiple ATOMIC one-sentence requirements. Each atomic requirement is a ROOT of the R-E chain (requirement→task→uc→class→method→impl→test). One sentence = one `[requirement:uuid:]` = one chain root.
+
+**Application:**
+- **(a) New tasks at refinement time:** req-eng splits each task's scope into atomic one-sentence requirements before architect designs
+- **(b) Retroactive:** Split compound requirements in T167-T172 + existing S17 tasks into atomic one-sentence `[requirement:uuid:]` entries
+
+**Example:** T169 "complete tree, no back-chaos, no untraced" → splits into:
+- R-F.1: "Every scenario unit is reachable from a requirement root" (one sentence)
+- R-F.2: "Zero backward-direction links in the traceability chain" (one sentence)
+- R-F.3: "Zero orphan scenario units in the index" (one sentence)
+
+Each gets its own `[requirement:uuid:]` and becomes a chain root.
