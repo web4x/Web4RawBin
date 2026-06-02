@@ -72,3 +72,21 @@ Every scenario unit instance must be reachable from a requirement root. Zero bac
 > "plan it diligently and do not stop until reached with the team. activate the sm again"
 
 This is a standing directive — not a single task but a team mode. Plan the data quality remediation diligently, execute with the full team, do not stop until every instance is traced. Scrum Master re-activated for monitoring.
+
+---
+
+## Tron Verbatim — Follow-on (2026-06-02, third directive)
+
+> "mmm its stll massive orphans and many depending not in the correct order. fill the missing tractability data with the req agent and architect consistently."
+
+## Decomposition (1 requirement — NOT authoritative, literal text above IS)
+
+### R-H: Chain-direction enforcement + missing-data fill (JOINT req+architect)
+> "its stll massive orphans and many depending not in the correct order. fill the missing tractability data with the req agent and architect consistently."
+
+Despite T169 audit reporting clean mechanics, Tron sees on `/trace`:
+1. **Massive orphans** — units not reachable from a requirement root
+2. **Wrong direction** — links going child→parent instead of parent→child (violates R-E forward-only chain: req→task→uc→class→method→impl→test)
+3. **Missing data** — traceability fields empty or incomplete
+
+Tron assigns this JOINTLY to req-eng + architect: fill the missing data consistently, fix direction violations, eliminate orphans. Not a tooling task — a data quality task that requires human judgment on which requirement each unit belongs to and which direction each link should point.
