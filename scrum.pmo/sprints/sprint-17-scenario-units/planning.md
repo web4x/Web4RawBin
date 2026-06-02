@@ -288,8 +288,8 @@ prose. Then **migrate every existing sprint** to this model.
   **Owners (CMM4):** robbin-req (anchor T163 partial finding) → robbin-architect (designed ✓: cleanModelName() + firstLine() harden) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (9/9 clean + T163 in-scope close)
   **Rule-pair scope:** (a)+(b) required at impl; (c) exempt (no new route)
 
-- [ ] ⏳ [T165: Traceability tree renders ALL 7 typed classes (not only Requirements)](./task-165-tree-renders-all-7-typed-classes.md)
-  **Status:** PLANNED — Tester finding on T158 verification (via PO 2026-06-02): the `/trace` tree shows only Requirements as tree-items; the 4 typed DetailViews shipped in T158 (Class/Method/Test/Implementation) exist but their objects aren't tree-items yet. **Architect-LED design** per PO assignment. Aligns with T143 R17.26-R17.28 (tree-coverage / all typed scenarios). **Renumbered 2026-06-02 from T164 → T165** when PO reassigned T164 to T163 close-out (same scope, only T-number changed; task:uuid preserved).
+- [ ] 📝 [T165: Traceability tree renders ALL 7 typed classes (not only Requirements)](./task-165-tree-renders-all-7-typed-classes.md)
+  **Status:** REFINEMENT DONE — `60a97a7` architect design committed (tree renders all 7 typed classes per PO 2026-06-02 assignment). Awaiting expert impl. **Renumbered 2026-06-02 from T164 → T165** when PO reassigned T164 to T163 close-out (same scope, only T-number changed; task:uuid 35ed4168-… preserved).
   **Owners (CMM4):** robbin-req (anchor tester finding) → robbin-architect (LEAD — enumerate 7 classes, design tree builder + per-class tree-item rendering) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (TS1-TS9 + chain audit + T158/T160/T161/T163 regression)
   **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (architect confirms)
 

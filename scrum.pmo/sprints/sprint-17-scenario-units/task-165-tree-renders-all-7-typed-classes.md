@@ -9,17 +9,19 @@
 > firstLine() fallback hardening). Task uuid + scope preserved; only the
 > T-number changed.
 
-## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect — architect-led design per Tron 2026-06-02)
+## Status — 📝 refinement done (architect 60a97a7)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — architect-led design per Tron 2026-06-02; **`60a97a7` architect design committed: tree renders all 7 typed classes**)
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
-> QA Review + Done are TRON's gate only — never checked by planner/sync.
+> Sync per standing rule #11 (architect drops content without checking box →
+> planner checks against committed reality): `60a97a7` lands the design;
+> refinement box checked. Expert next. QA Review + Done remain Tron's gate.
 
 ## Assigned
 **Owners (CMM4 4-role, per learnings #18) — architect-LED per PO direction 2026-06-02:**
