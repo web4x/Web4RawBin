@@ -92,6 +92,135 @@ Architect diagnoses which of the three (or combination) and specifies the fix.
 - Switch data source to scenarios/index/ OR cache-bust OR no-cache headers
 - Verify pre/post mutation in tester pass
 
+## Design (Architect — robbin-architect, 2026-06-02)
+
+### Root-Cause Diagnosis: ALL THREE candidates confirmed
+
+**Candidate 1 — `/api/trace` reads legacy MD source: CONFIRMED**
+
+`src/ts/server/server.ts:424-440` — route handler calls `scanRepo(sprintsDir, srcDir, testDir)` from `TraceConsistency.ts`. `scanRepo()` walks:
+- `scrum.pmo/sprints/*/requirements.md`
+- `scrum.pmo/sprints/*/task-*.md`
+- `scrum.pmo/sprints/*/diagrams/*.puml`
+- `src/**/*.ts` for `[impl:uuid]` comments
+
+It **never reads `scenarios/index/`**. The canonical post-T151 source (scenario JSONs with `model.links.*` / `model.chain.*` arrays) is ignored. `/api/trace` serves stale MD-parsed data even when scenario JSONs have been updated by T159's strip migration.
+
+**Candidate 2 — Server-side parsed-graph cache: NOT CONFIRMED (no in-memory cache)**
+
+`scanRepo()` is called on every `/api/trace` request — no in-memory caching detected. However, the parse itself is expensive (walks filesystem), so repeated calls return fresh-from-MD data. This is NOT the staleness cause — the staleness comes from reading MD instead of scenarios.
+
+**Candidate 3 — Client-side fetch cache via sw.js: PARTIALLY CONFIRMED**
+
+`src/public/sw.js:55-66` — `/api/*` routes use `networkFirst()` strategy. Server sets `Cache-Control: no-cache` (line 432). `networkFirst()` fetches from network first, caches on success, serves cached on network failure. Under normal conditions, browser gets fresh data. BUT: if the service worker has a stale cached version AND the network request races, the stale version can flash briefly. Also, `CACHE_NAME` is not bumped when data changes — old SW version may serve old cache.
+
+### Forward-Ref Repopulation Design
+
+**Problem:** T159 stripped back-refs (`task.links.up → req`). The prior pipeline populated `requirement.tasks[]` BY reverse-scanning task files' `links.up` field. After strip, reverse scan returns empty. Forward arrays are now empty.
+
+**Solution:** Parse FORWARD sources only (T159/B18 compliant).
+
+#### Source 1: `requirements.md` → `requirement.forwardTo.tasks[]`
+
+Parse pattern — each requirement block in `requirements.md`:
+```markdown
+- [ ] Forward chain completeness
+  > TRON: "clicking a joined..."
+  [requirement:uuid:a1e2f3d4-...]
+  ([task-143](./task-143-traceability-tree-rework.md))
+```
+
+The `([task-N](./path))` line is the FORWARD reference from Requirement to Task. Parse it:
+
+```typescript
+// In scanRepo() or a new forwardRefPopulator():
+function parseRequirementForwardTasks(reqBlock: string): string[] {
+  const taskLinks: string[] = [];
+  const taskPattern = /\(\[task-\d+[^]]*\]\(\.\/([^)]+)\)\)/g;
+  let match;
+  while ((match = taskPattern.exec(reqBlock)) !== null) {
+    taskLinks.push(match[1]); // e.g. "task-143-traceability-tree-rework.md"
+  }
+  return taskLinks;
+}
+```
+
+#### Source 2: Task files' forward `## Traceability` → `task.forwardTo.useCases[]`
+
+Parse pattern — task file's `- down` section:
+```markdown
+## Traceability
+  - down
+    - [Task 143.1: ...](./task-143.1-...)  ← subtask (forward)
+  - chain
+    - **use case:** UC-TBD ...              ← useCase ref (forward)
+```
+
+Parse `- down` links for subtasks. Parse `- chain` → `**use case:**` for UC references.
+
+#### Source 3: Scenario index → canonical post-T151 source
+
+**PRIMARY FIX:** `/api/trace` handler must switch from `scanRepo()` (MD parse) to reading `scenarios/index/<prefix>/<uuid>.scenario.json` files. These are the canonical source post-T151 and contain the JSON arrays (`model.tasks[]`, `model.useCases[]`, `model.classes[]`, `model.methods[]`) that T159 correctly preserved as forward refs.
+
+```typescript
+// server.ts /api/trace handler — REPLACE scanRepo() with:
+import { ScenarioIndex } from './ScenarioIndex.js';
+
+app.get('/api/trace', async (req, res) => {
+  const index = new ScenarioIndex(scenarioDir);
+  const chain = await index.buildForwardChain(); // reads scenarios/index/
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('ETag', computeETag(chain));
+  res.json(chain);
+});
+```
+
+If ScenarioIndex doesn't have `buildForwardChain()`, the expert implements it by:
+1. Loading all scenario JSONs from `scenarios/index/`
+2. Filtering by `model.chainType` (requirement, task, usecase, class, method)
+3. Following forward arrays (`model.tasks[]`, `model.useCases[]`, etc.)
+4. Building the TraceChain tree
+
+#### Hybrid approach (if scenario index is incomplete)
+
+If some forward arrays are still empty in scenario JSONs (not yet repopulated), fallback to MD parse for those specific links:
+1. Read scenario JSON for the entity
+2. If `model.tasks[]` is empty AND entity is a Requirement, parse `requirements.md` forward bullets
+3. Write the populated array back to the scenario JSON (self-healing migration)
+
+### Cache Strategy
+
+1. **Server:** `Cache-Control: no-cache` already set — keep it
+2. **ETag:** Add `ETag` header computed from response body hash. Browser sends `If-None-Match` → 304 if unchanged
+3. **Service Worker:** `networkFirst()` is correct — always tries network first. No change needed
+4. **CACHE_NAME bump:** Required in commit-set per rule-pair (c) — forces SW update on deploy
+5. **No fs.watch needed:** `scanRepo()` / scenario reads are per-request. Mutation is reflected on next request automatically
+
+### Files to Modify
+
+| File | Change | AC |
+|------|--------|----|
+| `src/ts/server/server.ts:424-440` | Replace `scanRepo()` with ScenarioIndex.buildForwardChain() | AC7 |
+| `src/ts/server/TraceConsistency.ts` | Add `parseRequirementForwardTasks()` for hybrid fallback | AC1 |
+| `src/ts/server/ScenarioIndex.ts` (or new) | Add `buildForwardChain()` method | AC2, AC3 |
+| `src/public/sw.js` | Bump CACHE_NAME | AC13 |
+| `package.json` | Bump version | AC13 |
+| `scrum.pmo/standards/traceability-standard.md` | Document canonical forward-source MD layout | AC1 |
+
+### AC Mapping
+
+| AC | Design Answer |
+|----|---------------|
+| AC1 | Forward sources: `requirements.md` task-link bullets + task file `- down` / `- chain` sections. Documented above. No back-ref parsing. |
+| AC2 | `requirement.tasks[]` populated from `requirements.md` `([task-N](path))` lines |
+| AC3 | `task.useCases[]` populated from task file `- chain → **use case:**` entries |
+| AC4 | `useCase.classes[]` / `class.methods[]` — check if also empty in scenarios; if yes, same forward-source parse from traceability-matrix or PUML |
+| AC5 | T143 walkDown resolves because forward arrays are populated from scenario index |
+| AC6 | Browser reflects mutations because `/api/trace` reads per-request from scenarios/index/ (no stale cache) |
+| AC7 | `/api/trace` reads from `scenarios/index/` (canonical post-T151), NOT from legacy MD scan |
+| AC9 | No back-refs reintroduced — all parsing is forward-source only |
+| AC10 | Idempotent — re-running repopulation yields same JSON (deterministic parse) |
+
 ## Acceptance Criteria
 - [ ] AC1 (Forward-source spec) — Architect documents the canonical FORWARD MD sources for repopulation: `requirements.md` forward bullets (Req→Task) + task files' forward `## Traceability` bullets (Task→UseCase, Task→Subtasks, UseCase→Class, Class→Method). Documented in `scrum.pmo/standards/traceability-standard.md`. **Preserves T159/B18 no-back-ref rule** — no reverse parsing (no `task.links.up → req` reads)
 - [ ] AC2 (`requirement.tasks[]` repopulated) — For EVERY Requirement scenario, `model.tasks[]` count EQUALS the count of forward `→ task` bullets in `requirements.md`. Per-Req audit table; mismatch = hard FAIL
