@@ -289,9 +289,12 @@ prose. Then **migrate every existing sprint** to this model.
   **Rule-pair scope:** (a)+(b) required at impl; (c) exempt (no new route)
 
 - [ ] 📝 [T165: Traceability tree renders ALL 7 typed classes (not only Requirements)](./task-165-tree-renders-all-7-typed-classes.md)
-  **Status:** REFINEMENT DONE — `60a97a7` architect design committed (tree renders all 7 typed classes per PO 2026-06-02 assignment). Awaiting expert impl. **Renumbered 2026-06-02 from T164 → T165** when PO reassigned T164 to T163 close-out (same scope, only T-number changed; task:uuid 35ed4168-… preserved).
-  **Owners (CMM4):** robbin-req (anchor tester finding) → robbin-architect (LEAD — enumerate 7 classes, design tree builder + per-class tree-item rendering) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (TS1-TS9 + chain audit + T158/T160/T161/T163 regression)
-  **Rule-pair scope:** (a)+(b) required at impl; (c) likely exempt (architect confirms)
+  **Status:** REFINEMENT DONE — `60a97a7` architect design committed. Tester partial: **5/7 classes render** (req/task/uc/test/impl); Class + Method = 0 nodes in `/api/trace` graph because scanRepo doesn't produce them → unblocked by **T166** (data-source overlay). T165 closes ✅ once T166 lands.
+
+- [ ] ⏳ [T166: /api/trace populate Class + Method types from scenario index](./task-166-api-trace-populate-class-method-from-scenario-index.md)
+  **Status:** PLANNED — Tester finding on T165 verify (via PO 2026-06-02): /api/trace returns 0 Class + Method nodes because scanRepo doesn't produce them; data exists per T128.1 (S1 class/method scenario-index units migrated). **Sister to T163** (data-source switch to scenario index pattern). Unblocks T165 7/7. v4 uuids (`086a35db-…` task; `92c25e03-…` req).
+  **Owners (CMM4):** robbin-req (anchor tester finding) → robbin-architect (overlay vs full-switch design; preserve T160 forward-only rule) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (TS1-TS9 + T165 7/7 re-verify + sister-class regression)
+  **Rule-pair scope:** (a)+(b) required at impl; (c) exempt (no new route)
 
 ### Phase 6 — Verification (T129, tester + planner)
 
