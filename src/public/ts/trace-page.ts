@@ -23,9 +23,10 @@ async function load(): Promise<void> {
     treeMount.innerHTML = '';
     treeMount.appendChild(tree);
     tree.setGraph(graph, data.broken || []);
-    // T110: detail drawer — slides up from bottom on item click
+    // T110+T167: detail drawer — inside .trace-page for desktop split layout
     const drawer = document.createElement('rb-detail-drawer');
-    document.body.appendChild(drawer);
+    const tracePage = document.querySelector('.trace-page');
+    (tracePage || document.body).appendChild(drawer);
 
     // node click → navigate → DetailView renders inside the drawer
     const router = new TraceRouter(graph as never, viewRegistry(drawer), detailMount);

@@ -9,7 +9,7 @@
 - [x] In Progress
   - [x] refinement (req → architect — **`6486399` req anchor + `2638f52` architect design: mobile-first /trace layout + 480px width-cap**)
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
