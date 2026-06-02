@@ -1,6 +1,6 @@
 [Back to Sprint 17 Planning](./planning.md)
 
-# T171: Untraced-closure — link 50 untraced + R17.26 link-back to T165/T166
+# T171: Untraced-closure — link 50 untraced + R17.26 link-back to T165/T166 + traceability-matrix refresh (T143-T171)
 
 [task:uuid:75628241-9157-4385-a7f0-f4f7a3142737]
 
@@ -100,6 +100,7 @@ PO 2026-06-02: "Tron R-F = ZERO untraced." T169 found the gap; T171 closes it.
 - [ ] AC7 — No regression on T134/T143/T158/T159/T160/T161/T163/T165/T166/T169
 - [ ] AC8 — `npm run build` succeeds; all existing tests pass
 - [ ] AC9 — **Rule-pair (a)+(b) [#15+#16]:** package.json bump + sw.js CACHE_NAME bump in the SAME commit-set; (c) STATIC_SHELL exempt (no new route)
+- [ ] AC10 — **traceability-matrix refresh (folded per PO 2026-06-02):** `scrum.pmo/traceability-matrix.md` updated in the SAME commit-set as the data closure. Coverage: T143 through T171 (last touched 2026-05-31; stale relative to T143/T144/T145/T146/T147/T148/T149/T150/T151/T152/T153/T154/T155/T158/T159/T160/T161/T163/T164/T165/T166/T167/T168/T169/T170/T171). Matrix reflects the locked 7-step chain + 1:N at plural hops + the orphan-by-design categories from this task.
 
 ## Test Scenarios
 File: extend `test/vitest/trace-data-audit.test.ts` (T169 surface) + chain-walk e2e.
@@ -131,12 +132,14 @@ File: extend `test/vitest/trace-data-audit.test.ts` (T169 surface) + chain-walk 
 - [ ] Rule-pair (a)+(b) ✓
 - [ ] T169 audit re-run: ZERO untraced
 - [ ] R17.26 → T165 + T166 link-back present + reachable
+- [ ] **traceability-matrix.md refreshed (T143-T171 covered) in the same commit-set** (PO 2026-06-02 fold)
 - [ ] No regression on shipped tasks
 - [ ] All 4 roles committed work
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
 - 2026-06-02: PO directed planner-first stand-up of T171 — closure of T169 audit findings. PO finding (via `7ddf64f` audit run): 50/296 untraced + R17.26 unlinked. Tron R-F = ZERO untraced. CMM4 4-role; real v4 uuids (learning #17); rule-pair (a)+(b) in AC9+DoD (learnings #15+#16). Awaiting req-eng anchor → architect categorization + design → expert impl → tester verify (audit re-run) → Tron QA.
+- 2026-06-02 (PO amendment): **traceability-matrix refresh FOLDED into T171** — single commit covers T143-T171 data closures + matrix refresh. AC10 added; DoD updated. Architect must include the matrix in their design + expert commits it alongside the data closure.
 
 ## Subtasks
 None at parent level (architect may split T171.x per category: e.g. T171.a R17.26 link-back; T171.b test-fixture allowlist; T171.c real-orphan links).

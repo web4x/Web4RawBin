@@ -321,8 +321,8 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
   **Owners (CMM4):** robbin-req (anchor R-G verbatim) → robbin-architect (3-gate design + sustain cadence doc) → robbin-expert (CI workflow + gate scripts; rule-pair (a)+(b)) → robbin-tester (gate firing + clean-state passing; TS1-TS9)
   **Rule-pair scope:** (a)+(b) required; (c) exempt. v4 uuids: task `6cf46cd1-…`; req `1267ef56-…`.
 
-- [ ] ⏳ [T171: Untraced-closure — link 50 untraced + R17.26 link-back to T165/T166](./task-171-untraced-closure-r17-26-linkback.md)
-  **Status:** PLANNED — T169 audit findings (PO 2026-06-02): 50/296 untraced + R17.26 links=0. (a) link R17.26 → T165/T166; (b) for each of the 50: link to a req OR document as orphan-by-design in an allowlist. Tron R-F = ZERO untraced.
+- [ ] ⏳ [T171: Untraced-closure + traceability-matrix refresh (T143-T171)](./task-171-untraced-closure-r17-26-linkback.md)
+  **Status:** PLANNED — T169 audit findings (PO 2026-06-02): 50/296 untraced + R17.26 links=0. (a) link R17.26 → T165/T166; (b) 50 untraced → link or orphan-by-design allowlist; **(c) traceability-matrix refresh folded in (PO 2026-06-02): single commit covers T143-T171.** Tron R-F = ZERO untraced.
   **Owners (CMM4):** robbin-req (anchor PO finding) → robbin-architect (categorize the 50 + design R17.26 link-back + allowlist mechanism) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (T169 audit re-run = ZERO untraced + R17.26 walkDown reaches T165/T166)
   **Rule-pair scope:** (a)+(b) required; (c) exempt. v4 uuids: task `75628241-…`; req `0dcaa94e-…`. **Gates T169 testing closure + T170 CI gates land cleanly only after T171.**
 
