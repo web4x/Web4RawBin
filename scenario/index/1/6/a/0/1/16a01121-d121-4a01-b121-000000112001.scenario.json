@@ -8,7 +8,9 @@
     "tasks": [
       "ior:instance:6d2225b7-d96b-4452-8719-b3667b344816"
     ],
-    "classes": [],
+    "classes": [
+      "ior:instance:311ff74e-7024-4827-a9ee-d9a09c22c1b0"
+    ],
     "source": {
       "file": "scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml",
       "lines": [

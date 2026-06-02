@@ -1,6 +1,6 @@
 {
   "name": "rawbin",
-  "version": "0.5.65",
+  "version": "0.5.66",
   "description": "RawBin — AI Server Management Interface",
   "type": "module",
   "scripts": {
@@ -12,6 +12,8 @@
     "test:watch": "vitest",
     "trace:check": "tsx src/ts/server/trace-cli.ts check",
     "trace:fix": "tsx src/ts/server/trace-cli.ts fix",
+    "trace:audit": "tsx scripts/trace-audit.ts",
+    "trace:audit:strict": "tsx scripts/trace-audit.ts --strict",
     "migrate": "tsx src/ts/server/migrate-cli.ts all",
     "migrate:rooms": "tsx src/ts/server/migrate-cli.ts rooms",
     "migrate:userdirs": "tsx src/ts/server/migrate-cli.ts userdirs",

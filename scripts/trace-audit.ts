@@ -1,0 +1,145 @@
+/**
+ * T169 — Data-quality audit: complete tree, no back-chaos, no untraced scenarios.
+ *
+ * Usage:
+ *   npx tsx scripts/trace-audit.ts              # report mode
+ *   npx tsx scripts/trace-audit.ts --strict     # exits non-zero on any violation
+ *
+ * [impl:uuid:e43c24fe-a1d1-4d14-8e7a-55ea7edd616f] R-F data quality
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { ScenarioIndex, type ScenarioUnit } from '../src/ts/scenario/index.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const INDEX_DIR = path.join(__dirname, '../scenario/index');
+
+const CANONICAL_FORWARD: Record<string, string[]> = {
+  Requirement: ['tasks'],
+  Task: ['useCases', 'children'],
+  UseCase: ['classes', 'tasks'],
+  Class: ['methods'],
+  Method: [],
+  Sprint: ['tasks', 'requirements'],
+  TraceLink: [],
+};
+
+const BACK_REF_FIELDS: Record<string, string[]> = {
+  Task: ['requirements'],
+  UseCase: ['requirements'],
+  Class: ['useCases'],
+  Method: ['classes', 'useCases', 'tests'],
+  TraceLink: [],
+};
+
+interface AuditResult {
+  total: number;
+  reachable: number;
+  orphans: { uuid: string; type: string; name: string }[];
+  backRefs: { uuid: string; type: string; field: string }[];
+  cardinalityIssues: string[];
+}
+
+function getType(unit: ScenarioUnit): string {
+  return unit.ior.replace('ior:class:', '');
+}
+
+function resolveIor(ior: string): string {
+  return String(ior).replace('ior:instance:', '');
+}
+
+function auditAll(idx: ScenarioIndex): AuditResult {
+  const allUuids = idx.list();
+  const units = new Map<string, ScenarioUnit>();
+  for (const uuid of allUuids) {
+    const u = idx.get(uuid);
+    if (u) units.set(uuid, u);
+  }
+
+  // Pass 1: Reachability — walk forward from Requirements
+  const visited = new Set<string>();
+  function walk(uuid: string): void {
+    if (visited.has(uuid)) return;
+    visited.add(uuid);
+    const unit = units.get(uuid);
+    if (!unit) return;
+    const type = getType(unit);
+    const fwdKeys = CANONICAL_FORWARD[type] || [];
+    for (const key of fwdKeys) {
+      const refs = (unit.model as Record<string, unknown>)[key];
+      if (!Array.isArray(refs)) continue;
+      for (const ref of refs) walk(resolveIor(String(ref)));
+    }
+  }
+
+  for (const [uuid, unit] of units) {
+    if (getType(unit) === 'Requirement' || getType(unit) === 'Sprint') walk(uuid);
+  }
+
+  const orphans: AuditResult['orphans'] = [];
+  for (const [uuid, unit] of units) {
+    const type = getType(unit);
+    if (type === 'TraceLink') continue;
+    if (!visited.has(uuid)) {
+      orphans.push({ uuid, type, name: String(unit.model.name || uuid) });
+    }
+  }
+
+  // Pass 2: No back-refs
+  const backRefs: AuditResult['backRefs'] = [];
+  for (const [uuid, unit] of units) {
+    const type = getType(unit);
+    const banned = BACK_REF_FIELDS[type] || [];
+    for (const field of banned) {
+      const val = (unit.model as Record<string, unknown>)[field];
+      if (val && ((Array.isArray(val) && val.length > 0) || (!Array.isArray(val) && val !== ''))) {
+        backRefs.push({ uuid, type, field });
+      }
+    }
+  }
+
+  // Pass 3: Cardinality
+  const cardinalityIssues: string[] = [];
+  for (const [uuid, unit] of units) {
+    const m = unit.model as Record<string, unknown>;
+    const type = getType(unit);
+    if (type === 'Task' && m.useCases !== undefined && !Array.isArray(m.useCases))
+      cardinalityIssues.push(`${uuid}: task.useCases not an array`);
+    if (type === 'Class' && m.methods !== undefined && !Array.isArray(m.methods))
+      cardinalityIssues.push(`${uuid}: class.methods not an array`);
+    if (type === 'Requirement' && m.tasks !== undefined && !Array.isArray(m.tasks))
+      cardinalityIssues.push(`${uuid}: requirement.tasks not an array`);
+  }
+
+  return {
+    total: allUuids.length,
+    reachable: visited.size,
+    orphans,
+    backRefs,
+    cardinalityIssues,
+  };
+}
+
+const idx = new ScenarioIndex(INDEX_DIR);
+const result = auditAll(idx);
+const strict = process.argv.includes('--strict');
+
+console.log(`\n=== RawBin Trace Data Quality Audit ===`);
+console.log(`Total units: ${result.total}`);
+console.log(`Reachable from requirements/sprints: ${result.reachable}`);
+
+console.log(`\nOrphans: ${result.orphans.length} (${result.orphans.length === 0 ? 'PASS' : 'FAIL'})`);
+for (const o of result.orphans.slice(0, 20)) console.log(`  - ${o.uuid.slice(0, 8)} (${o.type}: ${o.name})`);
+if (result.orphans.length > 20) console.log(`  ... and ${result.orphans.length - 20} more`);
+
+console.log(`\nBack-refs: ${result.backRefs.length} (${result.backRefs.length === 0 ? 'PASS' : 'FAIL'})`);
+for (const b of result.backRefs.slice(0, 20)) console.log(`  - ${b.uuid.slice(0, 8)} (${b.type}): prohibited field '${b.field}'`);
+
+console.log(`\nCardinality: ${result.cardinalityIssues.length} (${result.cardinalityIssues.length === 0 ? 'PASS' : 'FAIL'})`);
+for (const c of result.cardinalityIssues) console.log(`  - ${c}`);
+
+const totalIssues = result.orphans.length + result.backRefs.length + result.cardinalityIssues.length;
+console.log(`\n=== AUDIT ${totalIssues === 0 ? 'PASSED' : `FAILED (${totalIssues} issues)`} ===\n`);
+
+if (strict && totalIssues > 0) process.exit(1);

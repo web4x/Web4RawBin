@@ -9,7 +9,7 @@
 - [x] In Progress
   - [x] refinement (req → architect — **`43f9a0e` architect design committed: data-quality audit + remigrate**)
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
@@ -39,7 +39,7 @@
   - [compound-requirement-source-2.md](./compound-requirement-source-2.md) → **R-F** (Tron completion 2026-06-02 via `bfae071` + `2be6e96` + `7e01491`)
   - **R-F Data-quality audit + remigrate — complete tree, no back-chaos, no untraced scenarios**
     `[requirement:uuid:c182f6f1-68c0-4fb4-acd6-36a48d748480]`
-    Verbatim Tron quote: req-eng to anchor here from the completed source.
+    > TRON DIRECTIVE: "not all instances are reached over this tree. review the data and make is a complete consistent tree with no backward chaos and no untraced scenarios"
     **PO 2026-06-02:** "R-F is the keystone — others build on it." T169 owns
     the data audit; T168 owns the chain rule it audits against; T167 + T170
     depend on clean data.
@@ -158,6 +158,7 @@ File: `test/vitest/trace-data-audit.test.ts` (new) + `scripts/trace-audit.ts` (n
 
 ## QA Audit & User Feedback
 - 2026-06-02: PO directed planner-first stand-up of T169 (R-F KEYSTONE from compound-source-2 via `bfae071` + `2be6e96` + `7e01491`). Per PO: "R-F is the keystone — others build on it." T167 + T170 depend on T169-clean data; T168 supplies the rule. CMM4 4-role; real v4 uuids; rule-pair (a)+(b) in AC11+DoD. Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
+- 2026-06-02: robbin-req anchored verbatim Tron R-F quote in traceability section.
 
 ## Design (Architect — robbin-architect, 2026-06-02)
 
