@@ -4,17 +4,22 @@
 
 [task:uuid:75628241-9157-4385-a7f0-f4f7a3142737]
 
-## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
+## Status — 📝 refinement done (architect 826d30b)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (req → architect — **`826d30b` architect design committed: T169 decision (NO `requirements[]` on non-req — back-ref per T159/B18; 241 empty requirements[] are CORRECT, strip field) + T171 50-orphan categorization**)
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
-> QA Review + Done are TRON's gate only — never checked by planner/sync.
+> Sync per rule #11: `826d30b` lands architect design. Decision crystallized:
+> the 50 unreachable units are the **real R-F gap** — fix via forward refs on
+> parents (not back-refs on children). 241 empty `requirements[]` fields on
+> non-req units are correct per forward-only rule (T159/B18) and will be
+> stripped by the close-out commit. Expert next. QA Review + Done remain
+> Tron's gate.
 >
 > **T169 follow-on / closure** — PO 2026-06-02: T169 audit found 50/296
 > scenarios untraced (17%) + R17.26 "Traceability TREE" has links=0 despite
