@@ -158,6 +158,158 @@ File: `test/vitest/trace-data-audit.test.ts` (new) + `scripts/trace-audit.ts` (n
 ## QA Audit & User Feedback
 - 2026-06-02: PO directed planner-first stand-up of T169 (R-F KEYSTONE from compound-source-2 via `bfae071` + `2be6e96` + `7e01491`). Per PO: "R-F is the keystone — others build on it." T167 + T170 depend on T169-clean data; T168 supplies the rule. CMM4 4-role; real v4 uuids; rule-pair (a)+(b) in AC11+DoD. Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
 
+## Design (Architect — robbin-architect, 2026-06-02)
+
+### Audit: `scripts/trace-audit.ts`
+
+Three audit passes, each producing a report section:
+
+#### Pass 1 — Reachability (complete tree)
+
+Walk forward from every Requirement root via T168's CANONICAL_WALK. Track visited UUIDs. After walk, any scenario unit NOT in visited set = orphan.
+
+```typescript
+function auditReachability(index: ScenarioIndex): AuditResult {
+  const allUnits = index.list();
+  const visited = new Set<string>();
+  
+  // Walk forward from every requirement
+  const requirements = allUnits.filter(u => index.get(u)?.model.chainType === 'requirement');
+  for (const reqUuid of requirements) {
+    walkCanonical(index, reqUuid, visited);
+  }
+  
+  // Orphans = all minus visited
+  const orphans = allUnits.filter(u => !visited.has(u));
+  return { pass: orphans.length === 0, orphans, visited: visited.size, total: allUnits.length };
+}
+
+function walkCanonical(index: ScenarioIndex, uuid: string, visited: Set<string>): void {
+  if (visited.has(uuid)) return;
+  visited.add(uuid);
+  const unit = index.get(uuid);
+  if (!unit) return;
+  const type = unit.model.chainType;
+  const order = CANONICAL_WALK[type] || [];
+  for (const key of order) {
+    const refs: string[] = unit.model[key] || [];
+    refs.forEach(ref => walkCanonical(index, ref, visited));
+  }
+}
+```
+
+#### Pass 2 — No back-refs (forward-only)
+
+Scan every scenario JSON for prohibited fields:
+
+```typescript
+const BACK_REF_FIELDS: Record<string, string[]> = {
+  task:           ['links.up', 'requirement', 'requirements'],
+  usecase:        ['requirements', 'tasks'],
+  class:          ['useCases'],
+  method:         ['useCases', 'tests'],
+  implementation: ['methods'],  // impl points TO tests (forward), NOT back to methods
+  test:           ['implementations', 'methods', 'useCases', 'requirements'],
+};
+
+function auditNoBackRefs(index: ScenarioIndex): AuditResult {
+  const violations: { uuid: string; field: string }[] = [];
+  for (const uuid of index.list()) {
+    const unit = index.get(uuid);
+    if (!unit) continue;
+    const type = unit.model.chainType;
+    const banned = BACK_REF_FIELDS[type] || [];
+    for (const field of banned) {
+      if (unit.model[field] && (Array.isArray(unit.model[field]) ? unit.model[field].length > 0 : true)) {
+        violations.push({ uuid, field });
+      }
+    }
+  }
+  return { pass: violations.length === 0, violations };
+}
+```
+
+#### Pass 3 — Cardinality enforcement
+
+Check plural-hop arrays exist and are arrays (not strings):
+
+```typescript
+function auditCardinality(index: ScenarioIndex): AuditResult {
+  const issues: string[] = [];
+  for (const uuid of index.list()) {
+    const unit = index.get(uuid);
+    if (!unit) continue;
+    const m = unit.model;
+    // task.useCases[] must be array
+    if (m.chainType === 'task' && m.useCases && !Array.isArray(m.useCases))
+      issues.push(`${uuid}: task.useCases not an array`);
+    // implementation.tests[] must be array (NEW per T168)
+    if (m.chainType === 'implementation' && m.tests && !Array.isArray(m.tests))
+      issues.push(`${uuid}: implementation.tests not an array`);
+    // class.methods[] must be array
+    if (m.chainType === 'class' && m.methods && !Array.isArray(m.methods))
+      issues.push(`${uuid}: class.methods not an array`);
+  }
+  return { pass: issues.length === 0, issues };
+}
+```
+
+### Remigration Strategy
+
+For each flagged unit:
+
+| Issue | Remediation |
+|-------|------------|
+| **Orphan** (no path from req) | Find the correct parent by inspecting the unit's `model.sourcePath` / `model.sprint` → link it into the canonical chain at the correct hop |
+| **Back-ref** (prohibited field) | Delete the field from the scenario JSON (same as T159 strip) |
+| **Cardinality** (wrong type) | Convert string to single-element array; or populate empty array from forward sources (T160 pattern) |
+| **Missing Implementation.tests[]** | Parse test files for `[test:uuid:]` annotations matching this impl's method → populate `tests[]` |
+
+Remigration script: `scripts/trace-remigrate.ts --dry-run` (report) then `--apply` (fix).
+
+### CI Gate
+
+Wire as npm script:
+```json
+{
+  "scripts": {
+    "trace:audit": "tsx scripts/trace-audit.ts",
+    "trace:audit:ci": "tsx scripts/trace-audit.ts --strict"
+  }
+}
+```
+
+`--strict` mode exits non-zero on ANY violation. Add to CI pipeline (GitHub Actions or pre-push hook).
+
+### Report Format
+
+```
+=== RawBin Trace Data Quality Audit ===
+Total units: 119
+Reachable from requirements: 112
+Orphans: 7 (FAIL)
+  - uuid-1 (class: GameRoom — no UC parent)
+  - uuid-2 (method: connect — no class parent)
+  ...
+Back-refs: 0 (PASS)
+Cardinality: 2 issues (FAIL)
+  - uuid-3: implementation.tests not an array
+  - uuid-4: task.useCases not an array
+=== AUDIT FAILED (9 issues) ===
+```
+
+### Files to Create/Modify
+
+| File | Action |
+|------|--------|
+| `scripts/trace-audit.ts` | CREATE — 3-pass audit (reachability + back-refs + cardinality) |
+| `scripts/trace-remigrate.ts` | CREATE — remediation tool (--dry-run / --apply) |
+| `package.json` | Add `trace:audit` script; bump version (rule-pair (a)) |
+| `src/public/sw.js` | Bump CACHE_NAME (rule-pair (b)) |
+| `scrum.pmo/standards/traceability-standard.md` | Reference T169 audit as official data-quality gate |
+
+STATIC_SHELL (c): exempt.
+
 ## Subtasks
 None at parent level (architect may split T169.x per remigration batches).
 
