@@ -122,16 +122,27 @@ it('creates room directory', () => {
 
 ## Cross-Reference Rules
 
-1. **Every requirement MUST link forward** to at least one task file
-2. **Every task MUST link up** to a requirement (or to planning.md if no formal requirements exist)
-3. **Every subtask MUST link up** to both a requirement AND its parent task
+1. **Every requirement MUST link forward** to at least one task via `tasks[]`
+2. ~~**Every task MUST link up** to a requirement~~ **REMOVED (T159/B18)** — tasks do NOT store back-refs to requirements. Forward chain FROM requirements is the sole truth.
+3. ~~**Every subtask MUST link up** to both a requirement AND its parent task~~ **REMOVED (T159/B18)** — same principle. Subtasks are reached via `task.subtasks[]` forward array.
 4. **PlantUML elements SHOULD carry UUIDs** for elements that map 1:1 to requirements or tasks
 5. **Source code implementations SHOULD carry UUIDs** for key functions that implement specific requirements
 6. **Test cases SHOULD carry UUIDs** linking to the acceptance criteria they verify
 
 MUST = mandatory for new work. SHOULD = recommended, add during refactoring.
 
-## Bidirectional Verification
+## Prohibited Fields on Non-Requirement Units (T159/B18 + T169 Architect Decision)
+
+Non-requirement units (Task, UseCase, Class, Method, Implementation, Test) MUST NOT have:
+- `requirements[]` — back-reference to parent requirement
+- `requirement` — singular back-reference
+- `links.up` — generic upward pointer
+
+These are back-references. The forward chain is the sole truth. To answer "which requirement traces to this task," walk ALL requirements' `tasks[]` arrays — do not store the reverse pointer.
+
+**Empty `requirements[]` is CORRECT.** Strip the field entirely if present.
+
+## Forward-Only Verification (replaces Bidirectional Verification)
 
 To verify the chain is complete, check:
 

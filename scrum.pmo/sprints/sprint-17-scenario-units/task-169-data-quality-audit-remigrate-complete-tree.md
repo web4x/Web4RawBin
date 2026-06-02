@@ -170,6 +170,41 @@ File: `test/vitest/trace-data-audit.test.ts` (new) + `scripts/trace-audit.ts` (n
   - **Root cause:** Forward chain not populated during migration. Every Task/UC/Class/Method/TraceLink unit has the `requirements` field but it's `[]`. The Requirement units have `tasks[]` partially populated (R17.26 was empty, others may be too).
   - **Scope for T169 expert:** ~241 units need `requirements[]` populated by walking UP from each unit to its requirement root. Sprint units (9) are structural — likely orphan-by-design (no requirement traces to a sprint). TraceLink units (50) are edges not nodes — may be orphan-by-design depending on architect's chain model.
 
+## Architect Decision: requirements[] on non-req units (2026-06-02)
+
+### Decision: (a) NO — non-req units do NOT need requirements[]
+
+**T159/B18 forward-only invariant is absolute.** A `requirements[]` field on a Task/UC/Class/Method points UP the chain (child→parent). That is a back-reference. T159 literal: "tasks do not trace back to requirements... never back to requirements."
+
+Calling it a "convenience derived forward-ref" (option b) is semantically incorrect — the data direction is child→parent regardless of how it's populated. If we populated `requirements[]` by "traversing UP," we would:
+1. Violate T159's no-back-ref rule in the stored data
+2. Create a parallel truth that can drift from the canonical forward chain
+3. Require maintenance sync when requirements change
+
+**The 241 empty `requirements[]` are CORRECT.** They should remain empty — or better, be stripped entirely (same as T159 stripped `links.up`).
+
+**The 50 unreachable units are the REAL R-F gap.** Fix those by adding forward refs on the PARENT that should point to them:
+- Orphan Task → find the Requirement that should list it in `tasks[]`, add it
+- Orphan UC → find the Task that should list it in `useCases[]`, add it
+- Orphan Class → find the UC that should list it in `classes[]`, add it
+- etc.
+
+**Sprint units (9) are structural roots** — no requirement traces to a sprint. These are orphan-by-design, not an R-F gap.
+
+**TraceLink units (50):** Architect categorizes in T171 — some are implementation/test edges that belong in the chain, others may be structural metadata.
+
+### Standard Update
+
+Add to `traceability-standard.md` under Forward-Only Chain:
+
+> **Prohibited fields on non-Requirement units:** `requirements[]`, `requirement`, `links.up`. These are back-references. The forward chain is the sole truth. To find "which requirement traces to this task," walk ALL requirements' `tasks[]` arrays — do not store the reverse pointer.
+
+### Expert Action
+
+1. **Do NOT populate** `requirements[]` on 241 units — leave empty or strip the field
+2. **DO fix** the 50 unreachable units by adding them to their parent's forward array
+3. T171 categorizes the 50 to determine which parent gets the forward ref
+
 ## Design (Architect — robbin-architect, 2026-06-02)
 
 ### Audit: `scripts/trace-audit.ts`
