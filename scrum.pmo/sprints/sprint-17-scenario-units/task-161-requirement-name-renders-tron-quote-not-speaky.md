@@ -8,11 +8,14 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement (req → architect — `410778d` architect design: diagnosed BOTH (A) data-store wrong AND (B) renderer wrong; same pipeline `firstLine()` in TraceConsistency.ts feeds raw blockquote into `model.name`; **req-eng verbatim anchor still pending — backfill needed**)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+  - [x] creating test cases
+  - [x] implementing (expert — `737c841` v0.5.57; rule-pair (a)+(b) ✓: package.json + sw.js bumped in same commit-set)
+  - [ ] testing (robbin-tester — verification pending)
 - [ ] QA Review
 - [ ] Done
+
+> Sync per PO 2026-06-02: T161 shipped (737c841 v0.5.57). Tester verifying.
+> Rule-pair (a)+(b) confirmed in the shipped commit. QA Review + Done remain Tron's gate.
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
 > **Tron live bug 2026-06-01:** "the names do not fit the json" — /trace
