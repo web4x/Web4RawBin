@@ -143,7 +143,7 @@ export class RbTraceTree extends HTMLElement {
       if (data.children?.length) {
         const kids = document.createElement('div');
         kids.className = 'tt-children';
-        kids.style.display = '';
+        kids.style.display = 'none';
         for (const child of data.children) {
           const cnode = document.createElement('div');
           cnode.className = 'tt-node';
