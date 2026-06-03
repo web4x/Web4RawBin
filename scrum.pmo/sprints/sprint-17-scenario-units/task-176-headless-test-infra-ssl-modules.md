@@ -10,17 +10,32 @@
 > isolated test server cert/scheme so module JS executes in headless. This
 > unblocks ALL future browser-behavior verification. 4-role.
 
-## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (architect: pick approach; tester confirms unblock works)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+## Resolution: RESOLVED NOT-A-BUG (PO closure 2026-06-03)
 
-> QA Review + Done are TRON's gate only — never checked by planner/sync.
+R-O's diagnosed "ES modules silently refuse over self-signed SSL" turned out to be
+incorrect. Existing `ignoreHTTPSErrors:true` in `playwright.config` ALREADY handles
+module fetches headlessly. Expert proof `45a733d2` established this definitively:
+headless Chromium + ignoreHTTPSErrors successfully exec's `type="module"` scripts
+over self-signed HTTPS (/scenario: 2 module scripts execute, body rendered, 0
+errors; /trace: rb-trace-tree element created, 24K body text; 834/834 vitest pass).
+PO closes T176 as NOT-A-BUG — no fix shipped, no fix needed. T174 R-M3d/M3e and
+T175 R-N2 JS-behavioral verification are now UNBLOCKED (tester running per PO).
+
+## Status (honest board — Tron's QA gate untouched)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (architect investigated — no fix needed)
+  - [x] creating test cases (proof test: headless module exec)
+  - [x] implementing (expert proof `45a733d2` — ignoreHTTPSErrors already works)
+  - [x] testing (proof IS the verification; 834/834 pass; module exec confirmed)
+- [ ] QA Review *(N/A — no fix shipped; PO-closed NOT-A-BUG; left UNCHECKED per standing rule)*
+- [ ] Done *(N/A — same as above; standing rule: Tron's gate only)*
+
+> QA Review + Done remain unchecked per the standing rule (Tron's gate only,
+> never set by planner/sync). PO closure as NOT-A-BUG is recorded in the
+> Resolution header + QA Audit timeline rather than via the gate boxes — the
+> board reflects "no fix needed → no Tron QA required" honestly without
+> bypassing the gate semantic.
 
 ## Traceability
 - up
@@ -81,7 +96,9 @@ None (atomic task — single architect-picked approach, single fix, single teste
 ## QA Audit & User Feedback
 - 2026-06-03: req-eng captured R-O verbatim in `compound-requirement-source-2.md` — headless Playwright + self-signed SSL + ES modules silently refuse to load, deferring all browser-behavior ACs to Tron's physical device.
 - 2026-06-03: PO directs T176 stand-up — "fix the isolated test server cert/scheme so module JS executes in headless. This unblocks ALL future browser-behavior verification." Owner: architect (approach) + expert (impl) + tester (prove /scenario JS runs headless). 4-role.
-- Pending: architect picks approach + designs → expert impls → tester proves headless module-load via a previously-deferred AC → Tron QA.
+- 2026-06-03: Expert `45a733d2` ships proof test: headless Chromium + `ignoreHTTPSErrors:true` ALREADY exec's ES `type="module"` scripts over self-signed HTTPS. /scenario: 2 module scripts execute, body rendered, 0 errors. /trace: rb-trace-tree element created, 24K body text. 834/834 vitest pass. **R-O root cause was incorrect** — no systemic cert-blocks-modules issue; existing config already handles it.
+- 2026-06-03: Architect confirms convergence (per PO).
+- 2026-06-03: **PO closure — RESOLVED NOT-A-BUG.** No fix shipped, no fix needed. T174 R-M3d/M3e + T175 R-N2 JS-behavioral verification now UNBLOCKED (tester running per PO). QA Review + Done remain unchecked per the standing rule (Tron's gate only) — Resolution recorded in header + this timeline.
 
 ---
 

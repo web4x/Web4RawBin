@@ -332,5 +332,33 @@ to T100 (Test Data Isolation — vitest DATA_DIR override). Same story, E2E side
   Sprint 12 (Editor Fixes). Tron confirmed it as a bug (literal quote), so it
   graduated from backlog to a real task.
 
+### B3 — 7 room-identity E2E timing flakes (flaky-test-stabilization candidate)
+
+**Filed:** 2026-06-03 · **Reporter:** PO via robbin-planner · **Status:** awaiting Tron triage
+
+**Evidence:** During T174/T175 tester verification (post-T176 NOT-A-BUG closure
+unblocking headless behavior tests), the room-identity E2E spec surfaced 7 timing
+flakes. These are PRE-EXISTING and unrelated to ES-module / SSL (T176 closure
+proved that infra works) — they are timing-sensitive assertions in the room-identity
+flow that intermittently fail on slow CI / cold-cache runs.
+
+**Why backlog (not a sprint task yet):**
+- Not blocking T174/T175 closure — those verified PASS independently
+- Pre-existing — not caused by the current Sprint 17 work
+- Pattern (7 flakes in one spec) suggests a single root cause (likely setup/teardown
+  timing or shared-state contention) — Tron triage should classify before scoping
+
+**Proposed direction (Tron decides):**
+- Promote to a flaky-test-stabilization task (likely Sprint 13 Stability or a new
+  test-hygiene sprint) when Tron triages
+- Owner pair: tester (reproduce + isolate root cause) + expert (fix the root cause,
+  not the symptoms — avoid sleep() / retry whack-a-mole)
+- Acceptance: 0 flakes across N consecutive E2E runs (N≥10)
+- Effort: ~2-4h depending on root cause depth
+
+**Cross-ref:** T176 (45a733d2) ruled out module-load / cert as the cause; these
+7 flakes are an orthogonal pre-existing issue, surfaced now because headless
+behavior tests can finally run reliably.
+
 ---
 **Created:** 2026-05-25 · **Maintained by:** robbin-planner
