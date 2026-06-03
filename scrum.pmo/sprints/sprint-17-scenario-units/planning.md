@@ -349,8 +349,8 @@ Planner-first stand-up 2026-06-03. Initial planner SPLIT scaffold (T174+T175) re
    - **R-M3d** scroll-into-view — NOT in v0.5.72 (grep-verified no `scrollIntoView`/`select()` in shipped code) despite PO's "ship together" direction; **still pending expert impl**.
    - **R-M3e** /scenario interactions dead (missing event wiring) — req-eng captured `6f7614eb`, architect diagnosed + designed `54ab4f35`; **still pending expert impl**.
   Tester one-pass re-verify + Tron QA pending the remaining R-M3d + R-M3e fix commits.
-  **Folded req:uuids:** R-M3d `8832a890-ca92-4cfc-97c9-c81dff3ea1b1`; R-M3e *(req-eng pending formal uuid)*.
-  **PO direction needed:** R-M3e folds into T174 (precedent from R-M3d bundle direction)? — flagged in planner report.
+  **Folded req:uuids:** R-M3d `8832a890-ca92-4cfc-97c9-c81dff3ea1b1`; R-M3e `a591c117-3b62-42bb-bfef-8dc49b83e868` (PO confirmed fold 2026-06-03 — R-M3d precedent, same surface).
+  **PO 2026-06-03:** T174 NOT done until BOTH R-M3d (scroll-into-view) + R-M3e (interaction parity) ship + verify. T174 stays open.
   **Owners (CMM4):** robbin-req `acae0ffe` (verbatim capture R-M1-M4) → robbin-architect `483d1587` (design — ONE consolidated task) → robbin-expert (impl; rule-pair (a)+(b)+(c)) → robbin-tester (verify R-M1-M4 ACs; /trace regression check)
   **Rule-pair scope:** (a)+(b)+**(c)** all REQUIRED — `/scenario` is a new HTML route with its own bundle (`scenario.html` + `scenario-view.ts` → `dist/scenario.js`); STATIC_SHELL entry per learning #16.
   **v4 uuids:** task `46b7eadf-…`; req-uuids R-M1 `5d34db40-…`, R-M2 `c970f251-…`, R-M3 `cc673ef3-…`, R-M4 `fa1bd28e-…`.

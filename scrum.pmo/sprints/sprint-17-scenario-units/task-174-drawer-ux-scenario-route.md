@@ -629,6 +629,7 @@ this.unsub = ViewBus.subscribe('navigate', (data: { ref: string }) => {
 - **R-M3** `[requirement:uuid:cc673ef3-9581-4143-a978-bd734589c594]` — new /scenario route, IOR-seeded lazy tree
 - **R-M4** `[requirement:uuid:fa1bd28e-1960-4a42-bc5e-909c5f0ad1c1]` — drawer child width-cap on mobile
 - **R-M3d** `[requirement:uuid:8832a890-ca92-4cfc-97c9-c81dff3ea1b1]` — drawer nav must scroll tree to selected element (folded into T174 per PO 2026-06-03; req-eng captured in `f12ccec0`)
+- **R-M3e** `[requirement:uuid:a591c117-3b62-42bb-bfef-8dc49b83e868]` — /scenario interactions must match /trace parity (event wiring); folded into T174 per PO 2026-06-03 (R-M3d precedent); req-eng captured in `6f7614eb`, architect designed in `54ab4f35`
 
 (req-eng owns formal Requirement scenario units anchored to verbatim Tron quotes from `acae0ffe` + `f12ccec0`; planner pre-seeds these v4s so the chain is wireable.)
 
@@ -646,8 +647,8 @@ None (atomic task — architect explicitly chose ONE consolidated task: "All 4 a
 - 2026-06-03: Expert `d0796bf4` v0.5.72 ships fix-cycle PART 1: scenario-view.ts removes /api/trace full-graph fetch + uses data-seed-ior; rb-trace-tree.ts renderSeed() fetches /api/trace/children/<uuid>; scanRepo fallback for empty/string index arrays (bridges until T172 forward-ref data complete); 834/834. Rule-pair (a)+(b)+(c) ✓ verified (STATIC_SHELL trace-page-RA6MM7J4 + scenario-view-TOZZ2MDV).
 - 2026-06-03: ⚠️ Planner grep-verified — **R-M3d scroll-into-view NOT in v0.5.72** (no `scrollIntoView`/`select()` in shipped rb-trace-tree.ts/rb-object-item.ts). PO direction was "ship together"; expert shipped IOR-seed + Task-children but R-M3d still pending. Honest board: T174 ✅ shipped (v0.5.72), R-M3d open.
 - 2026-06-03: Tron caught ANOTHER atom — **R-M3e**: /scenario interactions dead (event wiring missing). req-eng captured `6f7614eb` (must match /trace parity); architect designed fix `54ab4f35`.
+- 2026-06-03: PO direction CONFIRMED — **R-M3e FOLDS into T174** (R-M3d precedent; same drawer/view surface). T174 NOT done until BOTH R-M3d (scroll-into-view) + R-M3e (interaction parity) ship + verify. T174 stays open. R-M3e req:uuid `a591c117-3b62-42bb-bfef-8dc49b83e868` planner-pre-seeded.
 - Pending: expert R-M3d scroll-into-view + R-M3e event-wiring fix commits (rule-pair (a)+(b); (c) likely exempt — fixes existing /scenario surface). Tester one-pass re-verify R-M1..R-M4 + R-M3d + R-M3e ACs. Then Tron QA.
-- **PO direction needed:** confirm R-M3e folds into T174 (precedent from R-M3d bundle direction).
 
 ---
 
