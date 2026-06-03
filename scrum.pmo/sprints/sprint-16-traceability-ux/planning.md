@@ -93,7 +93,7 @@ class).
   **Status:** impl-shipped (50d20be v0.5.25 — drawer bg #1a1a2e dark, all dv-* styles re-tinted for dark theme; 797/797) — testing (robbin-tester) + Tron QA pending
   **Rule-pair:** ✓ package.json + sw.js CACHE_NAME bumped (rawbin-v0.5.25) · ✓ STATIC_SHELL exempt (no new route)
 
-- [ ] 🔧 [T121: Data + traceability-chain fix — diagnose what's "very bad", remediate](./task-121-chain-data-fix.md)
+- [ ] 🧪 [T121: Data + traceability-chain fix — diagnose what's "very bad", remediate](./task-121-chain-data-fix.md)
   **Status:** Phase 1 diagnosis DONE (7777ad6 — 8 defect classes catalogued). Phase 2 in progress: C2a 22/34 task:uuids regenerated (9eb9d6a, graph errors 19→0, objects 138→161); C2b 8 req:uuids regenerated (2496aeb — 5 invented r-prefixed strings + 3 invalid S13 nibbles, graph 161→164, remaining 5 errors expected = C1 unformalized reqs). C1/C3/C5/C6/C7 + remaining 12 task:uuids still pending. · Precondition for clean T119 land + T90 audit gate
   **Owner:** robbin-architect + robbin-req (jointly, Tron-assigned), robbin-expert assists, robbin-tester verifies
   - Phase 1 diagnose: catalog defects (C1 stubs · C2 placeholder uuids · C3 orphan UCs · C4 broken PUML refs · C5 missing [impl:uuid:] markers · C6 matrix drift · C7 duplicate ids · C8 closed-sprint legacy — deferred to S11 T87-T89)

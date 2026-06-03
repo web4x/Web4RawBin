@@ -4,13 +4,13 @@
 
 [task:uuid:a6c66693-4e28-4a2a-be02-0f202084ac95]
 
-## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (architect + req — diagnose phase)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+## Status — 🧪 tester-VERIFIED (PO 2026-06-03; AC3+AC5 just verified — planner's "needs re-run" was stale per #69)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (architect + req — Phase 1 diagnosis report `7777ad6`)
+  - [x] creating test cases
+  - [x] implementing (C2a/C2b UUID regen `9eb9d6a` + C6 trace-cli UC→Task linking + C7 S16 requirements.md by req-eng)
+  - [x] testing (PO 2026-06-03 per #69: tester verified AC3 trace-cli + AC5 matrix reconciled on post-T172 graph — clean. AC1/AC2/AC6 already done in close-out. C5 (S1-S9 requirements.md backfill) explicitly DEFERRED to S11 T87-T89 backlog — see PO note re 33 trace-cli errors + 195 warnings.)
 - [ ] QA Review
 - [ ] Done
 
