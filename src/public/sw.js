@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rawbin-v0.5.78';
+const CACHE_NAME = 'rawbin-v0.5.79';
 
 const STATIC_SHELL = [
   '/app',
@@ -43,7 +43,6 @@ self.addEventListener('activate', (event) => {
       Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
     )
   );
-  self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
