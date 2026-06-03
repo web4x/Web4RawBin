@@ -345,10 +345,7 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
 Planner-first stand-up 2026-06-03. Initial planner SPLIT scaffold (T174+T175) reconciled per learning #20 — architect `483d1587` chose ONE consolidated task ("all 4 atoms touch the drawer/view layer + share commit surface; splitting = 4 version bumps for one coherent UX pass"); planner adopted the bundle. req-eng `acae0ffe` captured Tron verbatim for R-M1/M2/M3/M4. /trace stays full-tree from req roots; /scenario is the new IOR-seeded route.
 
 - [ ] ✅ [T174: Drawer UX cleanup + /scenario route + mobile width-cap (R-M1/M2/M3/M4 + R-M3d + R-M3e iterating)](./task-174-drawer-ux-scenario-route.md)
-  **Status:** ✅ impl-shipped (fix-cycle still iterating) — `2eb4dab1` v0.5.71 (R-M1+R-M2+R-M3+R-M4 initial; (c) STATIC_SHELL ✓) → `d0796bf4` v0.5.72 (R-M3 IOR-seed bug + Task children + scanRepo fallback; (a)+(b)+(c) ✓) → `6ee2278f` v0.5.73 (R-M3d drawer-nav scrollIntoView + auto-select seeded node + R-M3e full /trace interactions on /scenario via TraceRouter; (a)+(b)+(c) ✓ — STATIC_SHELL scenario-view-GJ6VCIZI.js; 834/834). ⚠️ **STILL ITERATING** — architect `86b024ae` post-v0.5.73 diagnosis found 2 more bugs in same atoms:
-   - **R-M3d timing race** — `setTimeout(100)` races async `renderSeed`; navigate fires before tree DOM ready. Fix: emit `seed-ready` event; navigate AFTER renderSeed completes.
-   - **R-M3e all-children-visible** — `renderSeed` shows all 51 children (Tron spec: "ONLY that item view THEN lazy-load children"). Fix: start collapsed; pending-children + cascading lazy-load on first expand.
-  Tester one-pass re-verify + Tron QA pending the final R-M3d/R-M3e fix commit.
+  **Status:** ✅ impl-shipped (all 6 atoms in code) — `2eb4dab1` v0.5.71 (R-M1-M4 initial; (c) STATIC_SHELL ✓) → `d0796bf4` v0.5.72 (R-M3 IOR-seed fix + Task children) → `6ee2278f` v0.5.73 (R-M3d scrollIntoView + R-M3e TraceRouter interactions) → `9ae98740` v0.5.74 (auto-open timing fix + collapsed-start children — architect's 2 follow-up bugs from `86b024ae` resolved; (a)+(b)+(c) ✓). All R-M1/M2/M3/M4/M3d/M3e atoms now in shipped code. Tester one-pass verify of all 6 atoms + Tron QA pending.
   **Folded req:uuids:** R-M3d `8832a890-ca92-4cfc-97c9-c81dff3ea1b1`; R-M3e `a591c117-3b62-42bb-bfef-8dc49b83e868` (PO confirmed fold 2026-06-03 — R-M3d precedent, same surface).
   **PO 2026-06-03:** T174 NOT done until BOTH R-M3d (scroll-into-view) + R-M3e (interaction parity) ship + verify. T174 stays open.
   **Owners (CMM4):** robbin-req `acae0ffe` (verbatim capture R-M1-M4) → robbin-architect `483d1587` (design — ONE consolidated task) → robbin-expert (impl; rule-pair (a)+(b)+(c)) → robbin-tester (verify R-M1-M4 ACs; /trace regression check)
@@ -360,12 +357,23 @@ Planner-first stand-up 2026-06-03. Initial planner SPLIT scaffold (T174+T175) re
 
 Planner-first stand-up 2026-06-03. PO directs single consolidated T175 covering R-N1+R-N2+R-N3. R-N3 architectural core: `Tree` base class; **`Traceability` EXTENDS `Tree`** (PO correction captured by architect — inheritance direction opposite to PO's initial seed hint); typed classes (Requirement/Task/UseCase/Class/Method/Implementation/Test) extend Traceability with `chainPosition`; `parent` + `children[]` getters derive from each type's LOCKED-chain position via forward-ref scan. R-N1/N2 are /scenario tree UX (item width overflow + expand-collapse state persistence in localStorage per seed IOR). Planner's initial scaffold (`task-175-scenario-tree-base-class.md`) RECONCILED — architect `fe6d2289` shipped design first; planner adopted architect's filename + content per learning #20; structural compliance (Subtasks + QA Audit + Requirement UUIDs) added by planner.
 
-- [ ] 📝 [T175: Tree base + Traceability layer + typed chain resolution (R-N1+R-N2+R-N3)](./task-175-tree-base-traceability-typed-classes.md)
-  **Status:** 📝 refinement done (architect `fe6d2289` 2026-06-03 — Tree base; Traceability EXTENDS Tree; typed chain resolution for all 7 types; R-N1 ellipsis+hover, R-N2 localStorage scoped per seed IOR). Awaiting expert impl (rule-pair (a)+(b); (c) STATIC_SHELL exempt — architect-declared, no new route), then tester, then Tron QA.
+- [ ] ✅ [T175: Tree base + Traceability layer + typed chain resolution (R-N1+R-N2+R-N3)](./task-175-tree-base-traceability-typed-classes.md)
+  **Status:** ✅ impl-shipped — expert `5d42f1a8` v0.5.75 (Tree navigation on TraceObject + R-N1 ellipsis + R-N2 localStorage). Rule-pair (a)+(b)+(c) ✓ verified. req-eng `8cb1e3ad` formally captured R-N1/N2/N3 (Tree<-Traceability inheritance direction in Tron-verbatim). Awaiting tester verification of R-N1/N2/N3 ACs, then Tron QA.
   **Owners (CMM4):** robbin-req (verbatim capture) → robbin-architect `fe6d2289` (Tree + Traceability layer + typed chain resolution design) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (verify R-N1/N2/N3 ACs; /trace regression check)
   **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL exempt (architect-declared — no new route, modifies existing surfaces).
   **v4 uuids:** task `20e89691-a5dc-4576-85dd-e1eec19b0f10` (planner replaced architect's fake-suffix `e1f2a3b4-…-175000000001` per learning #17); req-uuids R-N1 `2681ad2a-…`, R-N2 `cf759d95-…`, R-N3 `b323f3b9-…`.
   **Follows:** T168 (LOCKED chain), T172 (forward-ref population — Tree.children consumer), T174 (/scenario route surface).
+
+### Phase 32 — Tron R-O (test-infra unblocker — headless module-load)
+
+PO direction 2026-06-03: headless Playwright + self-signed SSL on T100 isolated test server → ES module `import` fetches silently refused → all browser-behavior ACs (T174 R-M3d/M3e, T175 R-N1/N2, all future client-JS tasks) deferred to Tron's physical device. Fix the test server cert/scheme so module JS executes in headless. Owner: architect (approach pick) + expert (impl) + tester (prove headless module-load via a previously-deferred AC). 4-role planner-first.
+
+- [ ] ⏳ [T176: Headless test-infra unblocker — page JS must execute over the isolated test server (R-O)](./task-176-headless-test-infra-ssl-modules.md)
+  **Status:** ⏳ planned (planner-first scaffold 2026-06-03 — three approach options listed by req-eng: trusted cert / HTTP test scheme / Chromium launch flag; architect to pick + design). Test-infra only — no user-facing surface.
+  **Owners (CMM4):** robbin-req (R-O captured in compound source) → robbin-architect (pick approach + design) → robbin-expert (impl) → robbin-tester (prove headless module-load via previously-deferred T174/T175 AC)
+  **Rule-pair scope:** (a)+(b) likely **EXEMPT** — test-infra only, no user surface (per learning #24). Architect confirms in refinement.
+  **v4 uuids:** task `c9ebef46-…`; req-uuid R-O `dc7aa9c8-…`.
+  **Follows:** T100 (isolated test server). **Unblocks:** ALL future browser-behavior verification (T174/T175 plus everything client-JS-dependent).
 
 ### Phase 6 — Verification (T129, tester + planner)
 
