@@ -1,7 +1,7 @@
 [Back to Sprint 17 Planning](./planning.md)
 
 # T174: Drawer UX cleanup + /scenario route + mobile width-cap (Tron R-M1/M2/M3/M4)
-[task:uuid:c8d9e0f1-a2b3-4567-890c-174000000001]
+[task:uuid:46b7eadf-d0ae-4950-9602-cc96390c3697]
 
 ## Status
 - [x] Planned
@@ -261,8 +261,29 @@ rb-detail-drawer pre, rb-detail-drawer code {
 - [ ] R-M4: All drawer child content width-capped at drawer width; no horizontal overflow on mobile
 - [ ] Rule-pair (a)+(b)+(c): version bump + CACHE_NAME bump + STATIC_SHELL entry for /scenario
 
+## Requirement UUIDs (planner — fresh v4 via uuidgen)
+
+- **R-M1** `[requirement:uuid:5d34db40-d4d6-4dea-9513-4cbff01175c5]` — drawer stale "No view" placeholder cleanup
+- **R-M2** `[requirement:uuid:c970f251-2e1f-405d-955c-218f7040a983]` — drawer swipe-dismiss touch area
+- **R-M3** `[requirement:uuid:cc673ef3-9581-4143-a978-bd734589c594]` — new /scenario route, IOR-seeded lazy tree
+- **R-M4** `[requirement:uuid:fa1bd28e-1960-4a42-bc5e-909c5f0ad1c1]` — drawer child width-cap on mobile
+
+(req-eng owns formal Requirement scenario units anchored to verbatim Tron quotes from `acae0ffe`; planner pre-seeds these v4s so the chain is wireable.)
+
+## Subtasks
+None (atomic task — architect explicitly chose ONE consolidated task: "All 4 atoms touch the drawer/view layer and share the same commit surface. Splitting would create 4 version bumps for what is one coherent UX pass.")
+
+## QA Audit & User Feedback
+- 2026-06-03: req-eng `acae0ffe` captures Tron verbatim quotes for R-M1/M2/M3/M4 (compound source).
+- 2026-06-03: PO directs stand-up T174 covering R-M1/M2/M3/M4 ("or split per planner's call").
+- 2026-06-03: Architect `483d1587` ships consolidated design (R-M1 placeholder + R-M2 touch-area + R-M3 /scenario route + R-M4 width-cap). Recommends ONE task; shared drawer/view commit surface.
+- 2026-06-03: Planner initial split scaffold ea88de12 (T174 + T175) RECONCILED — adopted architect's bundle per learning #20; my T174/T175 scaffolds removed; this file's fake-suffix uuid swapped for real v4; Subtasks + QA Audit + Requirement UUIDs sections added for audit compliance.
+- Pending: expert impl (rule-pair (a)+(b)+(c) — STATIC_SHELL required for /scenario route per learning #16), tester verifies R-M1..R-M4 ACs, then Tron QA.
+
 ---
 
 **Architect:** robbin-architect @ web4team:0.0
 **Sprint:** Sprint 17 — Scenario Units
-**Consolidated:** 4 atoms in 1 task (shared drawer/view commit surface)
+**Phase:** 30 — R-M (drawer UX + /scenario route)
+**Owners (CMM4):** robbin-req `acae0ffe` (verbatim capture) → robbin-architect `483d1587` (design) → robbin-expert (impl; rule-pair (a)+(b)+(c)) → robbin-tester (verify R-M1..R-M4 ACs)
+**Consolidated:** 4 atoms in 1 task (shared drawer/view commit surface — architect's call)

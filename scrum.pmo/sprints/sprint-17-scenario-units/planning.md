@@ -340,20 +340,16 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
   **v4 uuids:** task `7a5f0eb9-…`; req-uuids R-K1 `bd2670a9-…`, R-K2 `a78c8c41-…`, R-K3 `4c621af1-…`, R-L `7034b7ee-…`.
   **Why consolidated:** R-K1 ("dead end on .scenario.json click") + R-L ("File not found on sprint.json link") both trace to the same `jsonHref()` bug — hardcoded `task/` subdir + wrong `.json→.md` rewrite for `.scenario.json`. Architect's design fixes both + adds /trace lazy-load tree (R-K2/K3).
 
-### Phase 30 — Tron R-M (drawer UX cleanups + new /scenario route)
+### Phase 30 — Tron R-M (drawer UX cleanup + /scenario route + mobile width-cap)
 
-Planner-first stand-up 2026-06-03. Planner SPLIT call: T174 = drawer UX cleanups (M1+M2+M4 — existing /trace surface); T175 = new /scenario route + IOR-seeded lazy tree (M3 — meatiest, structurally different). req-eng to capture verbatim Tron quotes for R-M1/M2/M3/M4; architect refines; expert impl; tester verifies. /trace stays full-tree from req roots (unchanged).
+Planner-first stand-up 2026-06-03. Initial planner SPLIT scaffold (T174+T175) reconciled per learning #20 — architect `483d1587` chose ONE consolidated task ("all 4 atoms touch the drawer/view layer + share commit surface; splitting = 4 version bumps for one coherent UX pass"); planner adopted the bundle. req-eng `acae0ffe` captured Tron verbatim for R-M1/M2/M3/M4. /trace stays full-tree from req roots; /scenario is the new IOR-seeded route.
 
-- [ ] ⏳ [T174: /trace drawer UX cleanups (R-M1 + R-M2 + R-M4 consolidated)](./task-174-trace-drawer-ux-cleanups.md)
-  **Status:** ⏳ planned (planner-first scaffold 2026-06-03 — placeholder ACs awaiting req-eng verbatim capture for R-M1/M2/M4, then architect refinement). Scope: UX cleanups on the **existing** /trace drawer (no new route).
-  **Owners (CMM4):** robbin-req (verbatim capture) → robbin-architect (refine) → robbin-expert (impl; rule-pair (a)+(b); (c) exempt) → robbin-tester (verify)
-  **v4 uuids:** task `46b7eadf-…`; req-uuids R-M1 `5d34db40-…`, R-M2 `c970f251-…`, R-M4 `fa1bd28e-…`.
-
-- [ ] ⏳ [T175: new `/scenario` route — IOR-seeded lazy tree reusing /trace components (R-M3)](./task-175-scenario-route-ior-seeded-tree.md)
-  **Status:** ⏳ planned (planner-first scaffold 2026-06-03 — placeholder ACs awaiting req-eng verbatim capture for R-M3, then architect design of URL shape + mount model + STATIC_SHELL declaration). Scope: NEW `/scenario` route, IOR-seeded lazy tree; reuses `rb-trace-tree` + drawer + DetailViews from T110/T158/T173.
-  **Owners (CMM4):** robbin-req (verbatim capture) → robbin-architect (design URL/mount/seed/(c)-declaration) → robbin-expert (impl; rule-pair (a)+(b); (c) STATIC_SHELL per architect's declaration) → robbin-tester (verify ACs; /trace regression check)
-  **Rule-pair scope:** (a)+(b) required; **(c) STATIC_SHELL pre-gated** per learning #16 — architect must declare new-shell-yes-or-no in refinement.
-  **v4 uuids:** task `5514c6bd-…`; req-uuid R-M3 `cc673ef3-…`.
+- [ ] 📝 [T174: Drawer UX cleanup + /scenario route + mobile width-cap (R-M1/M2/M3/M4 consolidated)](./task-174-drawer-ux-scenario-route.md)
+  **Status:** 📝 refinement done (architect `483d1587` 2026-06-03 — full design covering R-M1 stale-placeholder cleanup, R-M2 drawer swipe touch-area, R-M3 new /scenario route + IOR-seeded lazy tree + STATIC_SHELL, R-M4 drawer child width-cap; rerouting `.scenario.json` clicks from /trace?ior= to /scenario?ior=). Awaiting expert impl (rule-pair (a)+(b)+(c) — STATIC_SHELL required for /scenario route per learning #16), then tester, then Tron QA.
+  **Owners (CMM4):** robbin-req `acae0ffe` (verbatim capture R-M1-M4) → robbin-architect `483d1587` (design — ONE consolidated task) → robbin-expert (impl; rule-pair (a)+(b)+(c)) → robbin-tester (verify R-M1-M4 ACs; /trace regression check)
+  **Rule-pair scope:** (a)+(b)+**(c)** all REQUIRED — `/scenario` is a new HTML route with its own bundle (`scenario.html` + `scenario-view.ts` → `dist/scenario.js`); STATIC_SHELL entry per learning #16.
+  **v4 uuids:** task `46b7eadf-…`; req-uuids R-M1 `5d34db40-…`, R-M2 `c970f251-…`, R-M3 `cc673ef3-…`, R-M4 `fa1bd28e-…`.
+  **Updates T173:** changes `.scenario.json` click target from `/trace?ior=` → `/scenario?ior=` (jsonHref + chain-link fallback). T173 stays ✅ shipped; T174 supersedes its `?ior=` routing for `.scenario.json` clicks specifically.
 
 ### Phase 6 — Verification (T129, tester + planner)
 
