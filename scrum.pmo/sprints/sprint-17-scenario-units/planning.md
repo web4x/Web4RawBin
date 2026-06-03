@@ -301,8 +301,8 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
 **Chain order LOCKED (PO 2026-06-02):** `requirement → task → usecase(s) → class → method → implementation → test(s)` · 1:N at plural hops (usecase, test).
 **Priority:** T169 (R-F) is the **KEYSTONE** — T167/T170 build on T169-clean data; T168 supplies the canonical rule T169 audits against.
 
-- [ ] ✅ [T167: /trace mobile-first layout + hard width-cap on right pane](./task-167-trace-mobile-first-layout-width-cap.md)
-  **Status:** impl-shipped — `3336f38` v0.5.67 (mobile-first /trace + 480px width-cap). Rule-pair (a)+(b) ✓. Testing pending; Tron QA pending.
+- [ ] 🧪 [T167: /trace mobile-first layout + hard width-cap on right pane](./task-167-trace-mobile-first-layout-width-cap.md)
+  **Status:** 🧪 tester-VERIFIED (PO 2026-06-03 — closes R-D+R-G with T170) — `3336f38` v0.5.67 (mobile-first /trace + 480px width-cap). Rule-pair (a)+(b) ✓. Awaiting Tron QA.
   **Owners (CMM4):** robbin-req (anchor R-D verbatim) → robbin-architect (mobile-first layout + width-cap rule) → robbin-expert (CSS impl; rule-pair (a)+(b)) → robbin-tester (visual on iPhone + desktop, TS1-TS6)
   **Rule-pair scope:** (a)+(b) required; (c) exempt (no new route). v4 uuids: task `d0881ad6-…`; req `ff3f06e7-…`.
 
@@ -316,8 +316,8 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
   **Owners (CMM4):** robbin-req (anchor R-F verbatim) → robbin-architect (audit + remigration + CI-gate design) → robbin-expert (impl audit + remigration tooling; rule-pair (a)+(b)) → robbin-tester (audit baseline + post-remigration; TS1-TS11)
   **Rule-pair scope:** (a)+(b) required; (c) architect confirms. v4 uuids: task `e43c24fe-…`; req `c182f6f1-…`. **KEYSTONE — block T167/T170 closure on T169 audit clean.**
 
-- [ ] ✅ [T170: Diligent plan + no-stop sustain (CI gates)](./task-170-diligent-plan-no-stop-sustain.md)
-  **Status:** impl-shipped — `afe969e` (3 CI gates: trace:audit:strict + rule-pair:check + chain-order; `npm run ci:gates`). Rule-pair exempt (infra-only; T167 bumped v0.5.67 already this cycle). Testing pending; Tron QA pending.
+- [ ] 🧪 [T170: Diligent plan + no-stop sustain (CI gates)](./task-170-diligent-plan-no-stop-sustain.md)
+  **Status:** 🧪 tester-VERIFIED (PO 2026-06-03 — closes R-D+R-G with T167) — `afe969e` (3 CI gates: trace:audit:strict + rule-pair:check + chain-order; `npm run ci:gates`). Rule-pair exempt (infra-only; T167 bumped v0.5.67 already this cycle). Awaiting Tron QA.
   **Owners (CMM4):** robbin-req (anchor R-G verbatim) → robbin-architect (3-gate design + sustain cadence doc) → robbin-expert (CI workflow + gate scripts; rule-pair (a)+(b)) → robbin-tester (gate firing + clean-state passing; TS1-TS9)
   **Rule-pair scope:** (a)+(b) required; (c) exempt. v4 uuids: task `6cf46cd1-…`; req `1267ef56-…`.
 
@@ -377,8 +377,8 @@ PO direction 2026-06-03: headless Playwright + self-signed SSL on T100 isolated 
 
 PO direction 2026-06-03: /scenario shows "Not found" for some UUIDs along ior-format lines (bare uuid vs `ior:instance:` prefix). Architect diagnosing; completes T173's dead-end fix (T173 routed clicks to /scenario?ior=, T177 ensures /scenario itself resolves the ior). 4-role planner-first.
 
-- [ ] ⏳ [T177: /scenario ior-format "Not found" — bare vs ior:instance: prefix](./task-177-scenario-ior-format-not-found.md)
-  **Status:** ⏳ planned (planner-first scaffold 2026-06-03 — architect diagnosing root cause of bare-vs-prefix lookup divergence; placeholder ACs pending). Fixes lookup inside existing /scenario surface — no new route.
+- [ ] 🧪 [T177: /scenario ior-format "Not found" — bare vs ior:instance: prefix](./task-177-scenario-ior-format-not-found.md)
+  **Status:** 🧪 tester-VERIFIED (PO 2026-06-03; T173 dead-end fully closed) — expert `e83c8c05` v0.5.76 ships IOR resolver normalization (bare UUID + `ior:instance:` + `.scenario.json`). Rule-pair (a)+(b)+(c) ✓ — STATIC_SHELL updated; 836/836. Awaiting Tron QA.
   **Owners (CMM4):** robbin-req (verbatim capture when Tron-relayed) → robbin-architect (diagnose + design canonicalization layer) → robbin-expert (impl; rule-pair (a)+(b); (c) exempt) → robbin-tester (verify both ior formats resolve + regression on T173 click flow)
   **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL exempt (no new route).
   **v4 uuids:** task `44bef447-…`; req-uuid R-P `37e4eefc-…`.

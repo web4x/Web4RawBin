@@ -4,13 +4,13 @@
 
 [task:uuid:6cf46cd1-5f65-4474-a023-1b54b56adb06]
 
-## Status — ✅ impl-shipped (expert afe969e — CI gates + ci:gates script)
+## Status — 🧪 tester-VERIFIED (PO 2026-06-03; closes R-D+R-G with T167)
 - [x] Planned
 - [x] In Progress
   - [x] refinement (req → architect — **`6486399` req anchor + `72e685d` architect design: 3 CI gates for no-stop sustain**)
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
+  - [x] testing (PO 2026-06-03 per #69 trust-tester-PASS-over-sync-lag: "T167+T170 VERIFIED... closes R-D+R-G")
 - [ ] QA Review
 - [ ] Done
 

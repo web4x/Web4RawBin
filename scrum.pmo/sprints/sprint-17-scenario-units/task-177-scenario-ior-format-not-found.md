@@ -11,13 +11,13 @@
 > found". One more lookup-normalization layer to close the dead-end story.
 > 4-role.
 
-## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (architect diagnosing — root cause of bare-vs-prefix lookup divergence)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+## Status — 🧪 tester-VERIFIED (PO 2026-06-03; T173 dead-end fully closed)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (architect diagnosed bare-vs-prefix lookup divergence)
+  - [x] creating test cases
+  - [x] implementing (expert `e83c8c05` v0.5.76 — IOR resolver normalization: bare UUID + `ior:instance:` + `.scenario.json`; rule-pair (a)+(b)+(c) ✓ verified — STATIC_SHELL updated; 836/836 pass)
+  - [x] testing (PO 2026-06-03 per #69 trust-tester-PASS-over-sync-lag: T177 ✓ tester-verified; T173 dead-end fully closed)
 - [ ] QA Review
 - [ ] Done
 

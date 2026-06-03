@@ -4,13 +4,13 @@
 
 [task:uuid:d0881ad6-ade5-4d60-94a2-fbe5347fd4b6]
 
-## Status — ✅ impl-shipped (expert 3336f38 v0.5.67)
+## Status — 🧪 tester-VERIFIED (PO 2026-06-03; closes R-D+R-G with T170)
 - [x] Planned
 - [x] In Progress
   - [x] refinement (req → architect — **`6486399` req anchor + `2638f52` architect design: mobile-first /trace layout + 480px width-cap**)
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
+  - [x] testing (PO 2026-06-03 per #69 trust-tester-PASS-over-sync-lag: "T167+T170 VERIFIED... closes R-D+R-G")
 - [ ] QA Review
 - [ ] Done
 
