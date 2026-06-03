@@ -163,3 +163,5 @@ The tree lazy-loads children on expand: Sprint shows its Requirements + Tasks, R
 A parent-sprint link in a Task generated view resolves to `../task/sprint.md` (wrong directory — sprint files are in `../sprint/`, not `../task/`). The ViewGenerator emits a relative href that points to the wrong sibling directory. Every generated link must resolve to an existing file.
 
 **PO refinement (2026-06-03):** The click was on `sprint.json 🔗 ✏️` (the symlink shown by the file browser). The `.json` click handler does wrong `.md` path conversion AND wrong directory. Same root cause as R-K1 (dead-end on .scenario.json click): the file browser's click-to-navigate logic converts `.scenario.json` to an `.md` path incorrectly — both the directory and the extension mapping are wrong. R-K1 and R-L share this root cause.
+
+**PO second repro (2026-06-03):** Clicking T110 in a `Tasks:` list also 404s. Not limited to sprint.json — ALL generated href emission (task links in planning.md views, sprint overview, DetailView navigation) must resolve. Same root-cause class: ViewGenerator emits relative paths that don't match the actual directory structure of generated .md files.
