@@ -127,3 +127,26 @@ Each gets its own `[requirement:uuid:]` and becomes a chain root.
 > "each tes must be rached by a tracking chain"
 
 Every Test scenario unit instance MUST be reachable from a Requirement root via the LOCKED chain (req→task→uc→class→method→impl→test). Zero test orphans. Folds into T172 scope (direction enforcement + missing data fill).
+
+---
+
+## Tron Verbatim — Follow-on (2026-06-03, sixth directive)
+
+> "scenario/sprints.json/sprint-17-scenario-units sprint.json 🔗 ✏️ clicking on the sprint.json currently ends in a dead end. instead open it as a sprint item view in the traceability tree view. lazy load all requirements and tasks as tree children. from there lazy load further traceability the same way"
+
+## Atomic Requirements (per R-I rule)
+
+### R-K1: Clicking a .scenario.json file must not be a dead end.
+> "clicking on the sprint.json currently ends in a dead end"
+
+Currently clicking a scenario unit JSON in the file browser or sprint listing produces no useful result. It must navigate somewhere meaningful.
+
+### R-K2: Clicking a scenario unit opens it as that instance in the /trace tree view.
+> "instead open it as a sprint item view in the traceability tree view"
+
+The click target is the `/trace` tree view, focused on that specific instance (e.g. Sprint 17 node expanded). Not a raw JSON view, not a dead-end — the traceability tree with that node selected.
+
+### R-K3: Lazy-load children cascading down the chain (Sprint→reqs+tasks, Req→tasks, Task→UCs, etc.).
+> "lazy load all requirements and tasks as tree children. from there lazy load further traceability the same way"
+
+The tree lazy-loads children on expand: Sprint shows its Requirements + Tasks, Requirement shows its Tasks, Task shows its UseCases, cascading down the R-E chain. Each level loads on demand, not all at once.
