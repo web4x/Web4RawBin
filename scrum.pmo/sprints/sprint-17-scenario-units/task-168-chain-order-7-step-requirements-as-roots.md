@@ -9,7 +9,7 @@
 - [x] In Progress
   - [x] refinement (req → architect — **`c28c982` architect design committed: 7-step canonical chain LOCKED + requirements as roots**)
   - [x] creating test cases
-  - [x] implementing (deliverables realized across downstream tasks: T126 ViewGenerator template chain-render; T169 audit + tree-builder atomic-req roots; T171 back-ref strip + matrix; T172 5-step forward-ref + strict-direction validator + 238/238 reachability; `scrum.pmo/standards/traceability-standard.md` reflects the 7 types)
+  - [x] implementing (deliverables realized across downstream tasks: T126 ViewGenerator template chain-render; T169 audit + tree-builder atomic-req roots; T171 back-ref strip + matrix; T172 5-step forward-ref + strict-direction validator + 238/238 reachability. **T168-close shipped by expert `e714e255` v0.5.77** — Implementation:['tests'] added to FORWARD_KEYS completing 7-step canonical chain; `traceability-standard.md` rewritten LOCKED 7-step with atomic-req roots; rule-pair (a)+(b)+(c) ✓; 836/836 pass.)
   - [x] testing (PO 2026-06-03 per #69 trust-tester-PASS-over-sync-lag: T172 238/238 chain reachability IS the implicit T168 verification — chain spec is live + enforced)
 - [ ] QA Review
 - [ ] Done

@@ -38,7 +38,7 @@ prose. Then **migrate every existing sprint** to this model.
 ### Phase 1 — Architecture, Standards, Requirements (T124, architect + req)
 
 - [ ] ✅ [T124: Scenario-unit + IOR + class-based view architecture](./task-124-architecture.md)
-  **Status:** ✅ impl-complete (parent; PO 2026-06-03) — T124.1-.4 + T124.6 DONE; T124.5 gap ≡ T168 AC3, closing in expert's current T168-close commit (FORWARD_KEYS impl→tests + standard 7-step). Testing gated: tester re-verifies 43/43 reachability after expert's T168-close lands; then T124 + T168 fully close together.
+  **Status:** ✅ impl-complete (parent; PO 2026-06-03) — T124.1-.4 + T124.6 DONE; T124.5 gap CLOSED by expert `e714e255` v0.5.77 (FORWARD_KEYS Implementation:['tests'] completes 7-step + standard LOCKED; rule-pair (a)+(b)+(c) ✓; 836/836). Testing gated: tester re-verifies 43/43 reachability on the post-e714e255 graph; then T124 + T168 fully close together.
   **Owner:** robbin-architect (design lead), robbin-req (requirements), robbin-planner (structure)
   **Sub-tasks (architect/req to create during refinement, following Sprint 1 task-1.x pattern):**
   - T124.1 architect — scenario-unit + IOR data model (class diagram, JSON shape, resolution rules)
