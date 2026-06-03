@@ -227,3 +227,14 @@ When opening a Sprint scenario unit: do NOT render the full traceability tree. S
 > "navigating through the details view must scroll the selected element in the tree into the view"
 
 When the user clicks a chain link or cross-navigates between instances inside the details drawer, the corresponding tree node must scroll into view AND be marked as selected. Extends R-M3b (scroll+open) to cover ALL in-drawer navigation, not just initial load. Folds into T174 (R-M3 scope).
+
+---
+
+## Tron Verbatim — Follow-on (2026-06-03, eleventh directive — R-M3 interaction parity)
+
+> "the click on a scenario.json now shows the right thing. but the collapse expands and detailsView on click are not working in that case. it should work from the behavior as the traceability browser, but just from the lazy loaded entry point"
+
+### R-M3e: /scenario route must have full /trace interaction parity — collapse/expand + DetailView-on-click.
+> "the collapse expands and detailsView on click are not working in that case. it should work from the behavior as the traceability browser, but just from the lazy loaded entry point"
+
+The /scenario route renders the scoped tree correctly but interactions are dead — collapse/expand (T115 icon-tap + `>` expander) and DetailView-on-click (T110/T111) are not wired. /scenario must have the SAME interactive behavior as /trace: all tree interactions fully functional, just seeded from the lazy-loaded single entry point instead of the full tree. Folds into T174.
