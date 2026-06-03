@@ -205,6 +205,97 @@ if (filepath === '/scenario' || filepath === '/scenario/') {
 
 Change the target: file-browser clicks and `/md/` 302 redirects go to `/scenario?ior=<uuid>` instead of `/trace?ior=<uuid>`. The user gets the focused single-instance view. From there, a "View in full trace" link navigates to `/trace?ior=<uuid>` if needed.
 
+### R-M3 BUG FIX — Expert Implementation Diverged from Design (2026-06-03)
+
+**Tron report:** `/scenario?ior=X` shows full tree, ignores the `?ior=` seeding.
+
+**Root cause in shipped code (`scenario-view.ts:29-31`):**
+```typescript
+// BUG: fetches FULL graph — shows all req roots, not single instance
+const fullRes = await fetch('/api/trace');
+const fullData = await fullRes.json();
+const graph = deserialize(fullData.objects || []);
+tree.setGraph(graph, fullData.broken || []);  // ← renders EVERYTHING
+```
+
+Expert used `setGraph()` (full graph) instead of the architect's `data-seed-ior` + `/api/trace/children/<uuid>` lazy-load design. The `router.navigate()` on line 46 auto-selects the detail view, but the TREE still shows all roots.
+
+**Required fix — replace lines 28-46 with single-IOR seed:**
+
+```typescript
+if (data.children && data.children.length > 0) {
+  // Build a MINIMAL graph containing ONLY the seeded IOR + its children
+  // NOT the full /api/trace graph
+  
+  const treePanel = document.createElement('div');
+  treePanel.className = 'trace-tree-panel';
+  
+  // Seed header: show the instance name + type
+  treePanel.innerHTML = `<div style="padding:8px">
+    <span style="color:rgba(255,255,255,0.5);font-size:0.8rem">${data.type || ''}</span>
+    <span style="color:white;font-weight:600">${data.name || ior}</span>
+  </div>`;
+  
+  // Create tree seeded from THIS instance only
+  const tree = document.createElement('rb-trace-tree') as any;
+  tree.setAttribute('data-seed-ior', ior!);
+  treePanel.appendChild(tree);
+  
+  const drawer = document.createElement('rb-detail-drawer');
+  app!.innerHTML = '';  // clear
+  app!.appendChild(treePanel);
+  app!.appendChild(drawer);
+  
+  // Auto-open detail view for the seeded instance
+  // (drawer opens with the instance's DetailView)
+}
+```
+
+**AND** `rb-trace-tree.ts` must implement `data-seed-ior`:
+
+```typescript
+// rb-trace-tree.ts render() — ADD at top:
+async render(): Promise<void> {
+  const seedIor = this.getAttribute('data-seed-ior');
+  
+  if (seedIor) {
+    // SCENARIO MODE: fetch only this one unit + its children
+    const res = await fetch(`/api/trace/children/${encodeURIComponent(seedIor)}`);
+    const data = await res.json();
+    this.innerHTML = '';
+    
+    // Render seed as the SOLE root
+    const root = this.lazyNode({
+      uuid: data.uuid,
+      type: data.type,
+      name: data.name,
+      hasChildren: (data.children || []).length > 0
+    }, 0);
+    this.appendChild(root);
+    
+    // Auto-expand to show children immediately
+    const childContainer = root.querySelector('[data-children]');
+    if (childContainer && data.children?.length) {
+      for (const child of data.children) {
+        childContainer.appendChild(this.lazyNode(child, 1));
+      }
+      childContainer.style.display = '';
+    }
+    
+    // Scroll to and highlight the root
+    root.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  
+  // TRACE MODE: existing full-tree-from-roots behavior
+  // ... existing code unchanged
+}
+```
+
+**Key difference:** `/scenario` NEVER calls `/api/trace` (full graph). It ONLY calls `/api/trace/children/<uuid>` for the seeded IOR, then each expand click fetches the next hop's children. This is the T173 lazy-load design applied correctly.
+
+**Expert action:** Replace `scenario-view.ts` lines 28-46. Add `data-seed-ior` to `rb-trace-tree.ts`. Remove the `fetch('/api/trace')` call entirely from `/scenario`.
+
 ---
 
 ### R-M4: Mobile Drawer Item-View Width Capped at Drawer Width
