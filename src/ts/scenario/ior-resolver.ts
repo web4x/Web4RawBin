@@ -20,6 +20,8 @@ export interface IORResolution {
   md?: string;
 }
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export class IORResolver {
   constructor(
     private index: ScenarioIndex,
@@ -27,9 +29,20 @@ export class IORResolver {
     private projectRoot: string,
   ) {}
 
+  private normalize(ior: string): string {
+    const trimmed = ior.trim();
+    if (trimmed.startsWith('ior:')) return trimmed;
+    if (UUID_RE.test(trimmed)) return `ior:instance:${trimmed}`;
+    const stripped = trimmed.replace(/\.scenario\.json$/, '');
+    if (UUID_RE.test(stripped)) return `ior:instance:${stripped}`;
+    return trimmed;
+  }
+
   resolve(ior: string): IORResolution {
-    const parsed = parseIor(ior);
+    const normalized = this.normalize(ior);
+    const parsed = parseIor(normalized);
     if (!parsed) return { ior, type: 'unknown' };
+    // use normalized for all downstream, keep original in response
 
     switch (parsed.type) {
       case 'class':

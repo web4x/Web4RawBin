@@ -10,7 +10,8 @@ import './trace/rb-trace-tree.js';
 import './trace/rb-detail-drawer.js';
 
 const params = new URLSearchParams(window.location.search);
-const ior = params.get('ior');
+const rawIor = params.get('ior') || '';
+const ior = rawIor.replace(/^ior:instance:/, '').replace(/\.scenario\.json$/, '').trim() || null;
 const app = document.getElementById('scenario-app');
 
 if (!ior || !app) {

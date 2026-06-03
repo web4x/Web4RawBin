@@ -138,7 +138,8 @@ export class RbTraceTree extends HTMLElement {
     } catch { /* ignore */ }
   }
 
-  private async renderSeed(uuid: string): Promise<void> {
+  private async renderSeed(rawUuid: string): Promise<void> {
+    const uuid = rawUuid.replace(/^ior:instance:/, '').replace(/\.scenario\.json$/, '').trim();
     this.innerHTML = '<div class="tt-empty">Loading…</div>';
     try {
       const res = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}`);

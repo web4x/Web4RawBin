@@ -495,7 +495,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
 
     // T173: /api/trace/children/<uuid> — one-hop forward children per LOCKED chain
     if (filepath.startsWith('/api/trace/children/')) {
-      const uuid = decodeURIComponent(filepath.slice('/api/trace/children/'.length));
+      const uuid = decodeURIComponent(filepath.slice('/api/trace/children/'.length)).replace(/^ior:instance:/, '').replace(/\.scenario\.json$/, '').trim();
       try {
         const scenarioDir = path.join(__dirname, '../../../scenario/index');
         const idx = new ScenarioIndex(scenarioDir);

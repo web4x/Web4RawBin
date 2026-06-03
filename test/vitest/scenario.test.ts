@@ -206,6 +206,25 @@ describe('T127.2: IORResolver', () => {
     expect(result.filePath).toBeDefined();
   });
 
+  it('resolves bare UUID (no ior: prefix) to instance', () => {
+    const uuid = 'e05f1a2b-3c4d-4e5f-9a7b-8c9d0e1f2a3b';
+    idx.put(uuid, { ior: 'ior:class:Task', model: { uuid, name: 'BareTest' }, ownerIor: null });
+    const resolver = new IORResolver(idx, defaultTemplateRegistry(), '/tmp');
+    const result = resolver.resolve(uuid);
+    expect(result.type).toBe('instance');
+    expect(result.unit).toBeDefined();
+    expect(result.html).toContain('BareTest');
+  });
+
+  it('resolves uuid.scenario.json suffix to instance', () => {
+    const uuid = 'e05f1a2b-3c4d-4e5f-9a7b-8c9d0e1f2a3b';
+    idx.put(uuid, { ior: 'ior:class:Task', model: { uuid, name: 'SuffixTest' }, ownerIor: null });
+    const resolver = new IORResolver(idx, defaultTemplateRegistry(), '/tmp');
+    const result = resolver.resolve(`${uuid}.scenario.json`);
+    expect(result.type).toBe('instance');
+    expect(result.html).toContain('SuffixTest');
+  });
+
   it('returns unknown for invalid IOR', () => {
     const resolver = new IORResolver(idx, defaultTemplateRegistry(), '/tmp');
     expect(resolver.resolve('garbage').type).toBe('unknown');
