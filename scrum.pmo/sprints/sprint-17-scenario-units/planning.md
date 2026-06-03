@@ -370,8 +370,19 @@ PO direction 2026-06-03: headless Playwright + self-signed SSL on T100 isolated 
 
 - [ ] [T176: Headless test-infra unblocker — page JS must execute over the isolated test server (R-O)](./task-176-headless-test-infra-ssl-modules.md) — **RESOLVED NOT-A-BUG**
   **Status:** RESOLVED NOT-A-BUG (PO closure 2026-06-03). Expert proof `45a733d2`: headless Chromium + existing `ignoreHTTPSErrors:true` ALREADY exec's ES `type="module"` scripts over self-signed HTTPS — /scenario 2 module scripts execute, /trace rb-trace-tree element created, 834/834 vitest pass. R-O's diagnosed root cause was incorrect; no fix shipped, no fix needed. Architect confirmed convergence. QA Review + Done remain UNCHECKED per standing rule (Tron's gate only) — closure recorded in task file Resolution header + QA Audit timeline.
-  **Unblocks (now open):** T174 R-M3d/R-M3e DOM/click behavior headless verify · T175 R-N2 reload-persistence headless verify · ALL future browser-behavior verification.
+  **Unblocked (confirmed by PO 2026-06-03):** T174 R-M3d/R-M3e behavior + T175 R-N2 reload — both VERIFIED post-closure; tails closed.
   **v4 uuids:** task `c9ebef46-…`; req-uuid R-O `dc7aa9c8-…` (planner pre-seed; req-eng `7bc51c5b` anchors verbatim).
+
+### Phase 33 — Tron R-P (ior-format normalization; completes T173 dead-end story)
+
+PO direction 2026-06-03: /scenario shows "Not found" for some UUIDs along ior-format lines (bare uuid vs `ior:instance:` prefix). Architect diagnosing; completes T173's dead-end fix (T173 routed clicks to /scenario?ior=, T177 ensures /scenario itself resolves the ior). 4-role planner-first.
+
+- [ ] ⏳ [T177: /scenario ior-format "Not found" — bare vs ior:instance: prefix](./task-177-scenario-ior-format-not-found.md)
+  **Status:** ⏳ planned (planner-first scaffold 2026-06-03 — architect diagnosing root cause of bare-vs-prefix lookup divergence; placeholder ACs pending). Fixes lookup inside existing /scenario surface — no new route.
+  **Owners (CMM4):** robbin-req (verbatim capture when Tron-relayed) → robbin-architect (diagnose + design canonicalization layer) → robbin-expert (impl; rule-pair (a)+(b); (c) exempt) → robbin-tester (verify both ior formats resolve + regression on T173 click flow)
+  **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL exempt (no new route).
+  **v4 uuids:** task `44bef447-…`; req-uuid R-P `37e4eefc-…`.
+  **Completes:** T173 dead-end story (T173 click → /scenario?ior= routing; T177 ensures /scenario itself resolves any valid ior format without "Not found").
 
 ### Phase 6 — Verification (T129, tester + planner)
 
