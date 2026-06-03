@@ -216,3 +216,14 @@ Even if the full /scenario route isn't ready, the minimum viable fix: scroll the
 > "in case of sprint.json it should ONLY show that itemview and THEN lazyliad children!!!"
 
 When opening a Sprint scenario unit: do NOT render the full traceability tree. Show ONLY that sprint's item view (detail panel), THEN lazy-load its children (requirements, tasks) on demand. This is the core R-M3 behavior — single-scenario root with cascading lazy-load. Tron's emphasis (!!!) marks this as the primary expectation.
+
+---
+
+## Tron Verbatim — Follow-on (2026-06-03, tenth directive — R-M3 extension)
+
+> "navigating through the details view must scroll the selected element in the tree into the view"
+
+### R-M3d: Details-drawer navigation must scroll the tree to the selected element.
+> "navigating through the details view must scroll the selected element in the tree into the view"
+
+When the user clicks a chain link or cross-navigates between instances inside the details drawer, the corresponding tree node must scroll into view AND be marked as selected. Extends R-M3b (scroll+open) to cover ALL in-drawer navigation, not just initial load. Folds into T174 (R-M3 scope).
