@@ -150,3 +150,14 @@ The click target is the `/trace` tree view, focused on that specific instance (e
 > "lazy load all requirements and tasks as tree children. from there lazy load further traceability the same way"
 
 The tree lazy-loads children on expand: Sprint shows its Requirements + Tasks, Requirement shows its Tasks, Task shows its UseCases, cascading down the R-E chain. Each level loads on demand, not all at once.
+
+---
+
+## Tron Verbatim — Follow-on (2026-06-03, seventh directive)
+
+> "https://home.donges.it:4444/md/scenario/sprints.md/task/sprint.md still shows File not found"
+
+### R-L: Generated views must never emit dead links — every href must resolve.
+> "https://home.donges.it:4444/md/scenario/sprints.md/task/sprint.md still shows File not found"
+
+A parent-sprint link in a Task generated view resolves to `../task/sprint.md` (wrong directory — sprint files are in `../sprint/`, not `../task/`). The ViewGenerator emits a relative href that points to the wrong sibling directory. Every generated link must resolve to an existing file.
