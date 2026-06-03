@@ -1,0 +1,98 @@
+# T170: Diligent plan + no-stop sustain (cadence + quality gates)
+[task:uuid:6cf46cd1-5f65-4474-a023-1b54b56adb06]
+
+## Traceability
+
+`[task:uuid:6cf46cd1-5f65-4474-a023-1b54b56adb06]`
+
+- up
+  - [Sprint 17 Planning](./planning.md)
+  - [compound-requirement-source-2.md](./compound-requirement-source-2.md) → **R-G** (Tron completion 2026-06-02 via `bfae071` + `2be6e96` + `7e01491`)
+  - **R-G Diligent plan + no-stop sustain**
+    `[requirement:uuid:1267ef56-9d21-4def-a639-5484b1693220]`
+    > TRON DIRECTIVE: "plan it diligently and do not stop until reached with the team. activate the sm again"
+- down
+  - None (atomic at parent level; architect may split T170.x if scope warrants)
+- follows
+  - [T169: Data-quality audit + remigrate (KEYSTONE)](./task-169-data-quality-audit-remigrate-complete-tree.md) — supplies the clean data baseline T170 sustains
+  - [T168: Chain order 7-step + atomic requirements as tree ROOTS](./task-168-chain-order-7-step-requirements-as-roots.md) — supplies the canonical chain rule T170 sustains
+- relates-to
+  - [T167: /trace mobile layout](./task-167-trace-mobile-first-layout-width-cap.md) — visual surface that benefits from sustained data quality
+- chain (req → task → usecase(s) → class → method → implementation → test(s); 1:N at plural hops, per T168) — architect fills on refinement
+  - **requirement:** R-G (above)
+  - **use case:** UC-TBD (architect — likely `sustain.dataGate` / `sustain.rulePairGate` / `sustain.chainGate`)
+  - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml)
+  - **class/method:** CI workflow updates + gate scripts — TBD
+  - **implementation:** TBD
+  - **test:** CI dry-runs on clean + violating states — TBD
+
+## Context
+
+Tron R-G (compound-requirement-source-2 completion 2026-06-02 across commits
+`bfae071` + `2be6e96` + `7e01491`): the work must **sustain** — diligent
+planning + no-stop cadence. The standing rules already exist (#15 rule-pair,
+#17 v4 uuids, #18 4-role CMM4, etc.); this task makes them **enforced** via
+CI gates rather than relying on planner discipline alone.
+
+Three gates land together:
+1. **Data-quality gate** (T169) — every scenario reachable from a req root, no
+   back-refs, cardinality enforced
+2. **Rule-pair gate** (#15+#16) — every impl commit on user-facing surface has
+   the package.json bump + sw.js CACHE_NAME bump in the same commit-set; CI
+   enforces this for the relevant change-types
+3. **Chain-order gate** (T168) — `traceability-standard.md`'s 7-step chain is
+   mechanically validated in CI
+
+Together these make the sustain pattern self-enforcing — no manual planner
+sweep needed to catch regressions.
+
+## Intention
+
+### Why this task exists
+Tron's "no-stop" directive is a process requirement: the work continues
+without stopping for cleanup cycles by making cleanup automatic. The standing
+rules are good; making them enforced removes manual-discipline gaps.
+
+### Problems this task solves
+- Standing rules rely on planner-noticing for enforcement (manual sweep cost)
+- Rule-pair (#15+#16) violations slip through (incidents: T136/T138 shipped
+  without bump initially; caught later)
+- Data quality requires periodic audit runs by hand (T169 provides the audit;
+  T170 makes it automatic)
+- Chain-order rule can drift silently
+
+### How it solves them
+- Architect designs CI gates wiring the three audits (T169 / rule-pair / T168
+  chain-order)
+- Expert wires the gates into CI (or pre-commit, per architect)
+- Tester confirms gates fail on violations + pass on clean state
+- Planner's role narrows to coordinating the gates (which is sustainable);
+  the gates do the enforcement
+
+## Acceptance Criteria
+
+- [ ] AC1 — Data-quality gate runs in CI (or pre-commit) and fails the build on T169 audit violations
+- [ ] AC2 — Rule-pair gate (#15+#16) runs in CI and fails when an impl commit on a user-facing surface lacks package.json + sw.js bumps in the same commit-set
+- [ ] AC3 — Chain-order gate runs in CI and fails on T168 canonical-chain violations
+- [ ] AC4 — Gates report violations clearly (file path + rule violated + remediation hint)
+- [ ] AC5 — Gates pass on the current clean state post-T169 remigration (positive baseline)
+- [ ] AC6 — Negative tests: deliberately violating each rule fails the gate (each gate has a corresponding negative test)
+- [ ] AC7 — Sustain-cadence rule: planner's monitoring cadence (15-min / 30-min / 60-min back-off) is documented (planner SKILL.md or sprint doc) — no manual sweeps required to catch regressions
+- [ ] AC8 — No regression on shipped tasks
+- [ ] AC9 — `npm run build` succeeds; all existing tests pass
+- [ ] AC10 — **Rule-pair (a)+(b) [#15+#16]:** package.json bump + sw.js CACHE_NAME bump in the SAME commit-set; (c) STATIC_SHELL exempt
+
+## QA Audit & User Feedback
+
+- 2026-06-02: PO directed planner-first stand-up of T170 (R-G from compound-source-2 via `bfae071` + `2be6e96` + `7e01491`). T170 makes the standing rules self-enforcing via CI gates so the planner's monitoring loop becomes light. CMM4 4-role; real v4 uuids; rule-pair (a)+(b) in AC10+DoD. Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
+- 2026-06-02: robbin-req anchored verbatim Tron R-G quote in traceability section.
+
+## Subtasks
+
+None at parent level (architect may split T170.x if scope warrants).
+
+---
+
+*Sprint 17 — Scenario Units / IOR Data Model & Class Views · Phase 28 (sustain / CI gates)*
+*Owners (CMM4): robbin-req → robbin-architect → robbin-expert → robbin-tester*
+*Priority: 3 (after KEYSTONE T169 + canonical T168; T170 wires the gates that sustain them)*

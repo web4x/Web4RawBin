@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "e9a0f1b2-b2c3-4d45-6e7f-8a9b0c120046",
+    "name": "R17.47: Every Test instance is reachable from a Requireme...",
+    "description": "[requirement:uuid:e9a0f1b2-b2c3-4d45-6e7f-8a9b0c120046]\n  → [T172](./task-172-chain-direction-enforcement-missing-data-fill.md)\n\n### From Tron R-J (test reachability)\n\n- [ ] **R17.47: Every Test instance is reachable from a Requirement root via the canonical tracking chain.**",
+    "tronQuote": "",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

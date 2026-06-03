@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "d2935088-2a32-41e7-afd0-4e8195471ae2",
+    "name": "RbDetailDrawer.open",
+    "className": "RbDetailDrawer",
+    "methodName": "open"
+  },
+  "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+}

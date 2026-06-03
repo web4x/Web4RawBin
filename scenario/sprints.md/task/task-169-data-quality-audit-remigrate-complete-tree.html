@@ -1,0 +1,95 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T169: Data-quality audit + remigrate — complete tree, NO back-chaos, NO untraced scenarios (KEYSTONE)</h2><code>e43c24fe-a1d1-4d14-8e7a-55ea7edd616f</code></div>
+<div class="sv-section"><h3>Traceability</h3><pre>`[task:uuid:e43c24fe-a1d1-4d14-8e7a-55ea7edd616f]`
+
+- up
+  - [Sprint 17 Planning](./planning.md)
+  - [compound-requirement-source-2.md](./compound-requirement-source-2.md) → **R-F** (Tron completion 2026-06-02 via `bfae071` + `2be6e96` + `7e01491`)
+  - **R-F Data-quality audit + remigrate — complete tree, no back-chaos, no untraced scenarios**
+    `[requirement:uuid:c182f6f1-68c0-4fb4-acd6-36a48d748480]`
+    &gt; TRON DIRECTIVE: &quot;not all instances are reached over this tree. review the data and make is a complete consistent tree with no backward chaos and no untraced scenarios&quot;
+    **PO 2026-06-02:** &quot;R-F is the keystone — others build on it.&quot; T169 owns
+    the data audit; T168 owns the chain rule it audits against; T167 + T170
+    depend on clean data.
+- down
+  - None at parent level; architect may split T169.x sub-tasks per remigration batches
+- follows
+  - [T168: Chain order 7-step + atomic requirements as tree ROOTS](./task-168-chain-order-7-step-requirements-as-roots.md) — supplies the canonical chain rule T169 audits against
+  - [T159: forward-only chain refactor](./task-159-forward-only-traceability-chain-refactor.md) — established no-back-refs (T169 enforces it ongoing)
+  - [T160: forward-ref REPOPULATION (incl. AC3 task.useCases[])](./task-160-trace-browser-stale-requirement-items.md) — established forward arrays
+  - [T128.1: Sprint 1 exemplar migration](./task-128-migration.md) and [T128.2: S10-S16 migration](./task-128.2-migrate-s10-s16-requirements.md) — migration baseline T169 audits
+  - [T164: re-migrate dirty model.name + firstLine() harden](./task-164-dirty-model-name-remigration.md) — narrow data-quality fix T169 generalizes
+- relates-to
+  - [T167: /trace mobile layout + width-cap](./task-167-trace-mobile-first-layout-width-cap.md) — depends on T169-clean data
+  - [T170: Diligent plan, no-stop sustain](./task-170-diligent-plan-no-stop-sustain.md) — depends on T169-clean data baseline
+- chain (req → task → usecase(s) → class → method → implementation → test(s); 1:N at plural hops, per T168) — architect fills on refinement
+  - **requirement:** R-F (above)
+  - **use case:** UC-TBD (architect — likely `audit.completeTree` / `audit.noBackChaos` / `audit.noOrphan` / `migration.remediate`)
+  - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml)
+  - **class/method:** audit script + remigration script — TBD
+  - **implementation:** TBD
+  - **test:** audit-clean run + remigration regression — TBD</pre></div>
+<div class="sv-section"><h3>Context</h3><p>Tron R-F (compound-requirement-source-2 completion 2026-06-02 across `bfae071`
++ `2be6e96` + `7e01491`): the traceability data must be **complete**, with
+**no back-chaos**, and **no untraced scenarios** — every instance reachable
+from a requirement root via the canonical T168 7-step chain.
+
+PO 2026-06-02: **R-F is the keystone** — T167 (mobile layout) and T170 (no-stop
+sustain) build on T169's clean data baseline. T168 (chain order) supplies the
+canonical rule T169 audits against.
+
+Current state has known gaps T169 generalizes:
+- T164 (in-flight) handles 9 dirty `model.name` units + firstLine() fallback
+  hardening — narrow data-quality fix
+- T128.2 (shipped `f4d21b3`) migrated S10-S16 reqs but tester verification
+  pending — coverage gap
+- T160 AC3 added `task.useCases[]` repopulation — forward-ref completeness
+- Various scenarios may still be orphan (no path to a requirement root)
+- Back-refs may have crept in via patches or pre-T159 artifacts
+
+T169 closes the data-quality loop systematically.</p></div>
+<div class="sv-section"><h3>Intention</h3><p>### Why this task exists
+Per Tron R-F, the data is the foundation of everything else. R-D mobile layout
++ R-G no-stop sustain + the T143 tree experience all require a clean,
+complete, canonical-chained data graph. T168 sets the rule; T169 enforces it
+on the existing data + builds the ongoing audit.
+
+### Problems this task solves
+- Orphan scenario units (not reachable from any req root)
+- Back-refs that crept in despite T159 forward-only rule
+- Incomplete tree (missing forward refs at some hops)
+- Cardinality not enforced (Implementation:Test, usecase(s))
+- Migration baseline doesn't have a CI gate
+
+### How it solves them
+- Architect specifies the audit (reachability + no-back-refs + cardinality)
+- Audit script enumerates all scenario units; for each: walk up to a req root
+  via the canonical chain; flag orphans
+- Remigration script (or in-place patches) fixes the flagged units
+- Audit becomes a permanent CI gate (no future regression)</p></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [ ] AC1 — Audit script enumerates every scenario unit (Requirement / Task / UseCase / Class / Method / Implementation / Test) in the index
+- [ ] AC2 — For every non-Requirement unit, audit confirms a path UP to a requirement root via the canonical T168 chain (`requirement → task → usecase(s) → class → method → implementation → test(s)`); zero orphan units
+- [ ] AC3 — Audit confirms zero back-refs across all units (forward-only rule T159 holds)
+- [ ] AC4 — Audit confirms cardinality: Implementation has `tests[]` IOR array (1:N); task has `useCases[]` IOR array (1:N); plural hops enforced
+- [ ] AC5 — Remigration completes any units flagged by AC2-AC4 (orphan fix; back-ref strip; cardinality fill)
+- [ ] AC6 — Re-running the audit post-remigration: **all clean** (0 orphans, 0 back-refs, cardinality enforced)
+- [ ] AC7 — Audit script wired as a CI gate (or runnable via `npm run trace:audit` or equivalent — architect specifies)
+- [ ] AC8 — `traceability-standard.md` references T169's audit as the official data-quality gate
+- [ ] AC9 — No regression on shipped tasks (T134/T143/T158/T160/T161/T163/T165/T166)
+- [ ] AC10 — `npm run build` succeeds; all existing tests pass
+- [ ] AC11 — **Rule-pair (a)+(b) [#15+#16]:** package.json bump + sw.js CACHE_NAME bump in the SAME commit-set; (c) STATIC_SHELL — architect confirms (likely exempt)</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-06-02: PO directed planner-first stand-up of T169 (R-F KEYSTONE from compound-source-2 via `bfae071` + `2be6e96` + `7e01491`). Per PO: &quot;R-F is the keystone — others build on it.&quot; T167 + T170 depend on T169-clean data; T168 supplies the rule. CMM4 4-role; real v4 uuids; rule-pair (a)+(b) in AC11+DoD. Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
+- 2026-06-02: robbin-req anchored verbatim Tron R-F quote in traceability section.
+- 2026-06-02: robbin-req data-quality pre-audit (8f8f5e1):
+  - **Total units:** 296 (55 Requirements, 241 non-req)
+  - **Untraced (requirements[] empty):** 241/241 non-req units — ALL have empty requirements[]
+  - **Breakdown:** Task:100, TraceLink:50, Method:40, UseCase:30, Class:12, Sprint:9
+  - **R17.26 fixed:** was tasks:[], now links T165 (35ed4168) + T166 (086a35db). Committed 8f8f5e1.
+  - **Root cause:** Forward chain not populated during migration. Every Task/UC/Class/Method/TraceLink unit has the `requirements` field but it's `[]`. The Requirement units have `tasks[]` partially populated (R17.26 was empty, others may be too).
+  - **Scope for T169 expert:** ~241 units need `requirements[]` populated by walking UP from each unit to its requirement root. Sprint units (9) are structural — likely orphan-by-design (no requirement traces to a sprint). TraceLink units (50) are edges not nodes — may be orphan-by-design depending on architect's chain model.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None at parent level (architect may split T169.x per remigration batches).
+
+---
+
+*Sprint 17 — Scenario Units / IOR Data Model &amp; Class Views · Phase 28 (KEYSTONE — data quality)*
+*Owners (CMM4): robbin-req → robbin-architect → robbin-expert → robbin-tester*
+*Priority: 1 (KEYSTONE per PO 2026-06-02 — T167/T170 build on this; T168 supplies the rule)*</p></div></div>

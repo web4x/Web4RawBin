@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "f9a3f8d1-93db-46aa-8ad7-c34f29905450",
+    "name": "ScenarioIndex",
+    "file": "",
+    "methods": [
+      "ior:instance:5b84da47-c7f4-4b01-b492-fae21be2e3cd",
+      "ior:instance:2db8e496-4f46-4fd5-98c5-4de14e9fa5f2",
+      "ior:instance:f180c93f-5a29-4849-911b-44ba5a86698a",
+      "ior:instance:b9abb018-0a39-41c0-9e4b-84d2d77c3b82"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

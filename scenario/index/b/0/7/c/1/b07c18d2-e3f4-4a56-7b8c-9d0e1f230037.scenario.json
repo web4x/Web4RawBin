@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b07c18d2-e3f4-4a56-7b8c-9d0e1f230037",
+    "name": "R17.38: Zero orphan scenario units exist in the index.",
+    "description": "[requirement:uuid:b07c18d2-e3f4-4a56-7b8c-9d0e1f230037]\n  → [T169](./task-169-data-quality-audit-remigrate-complete-tree.md)\n\n- [ ] **R17.38: Zero orphan scenario units exist in the index.**",
+    "tronQuote": "",
+    "tasks": [
+      "ior:instance:e43c24fe-a1d1-4d14-8e7a-55ea7edd616f"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "3bc876b5-594c-49f3-962b-84623de2aaff",
+    "name": "RbObjectItem",
+    "file": "src/public/ts/trace/rb-object-item.ts",
+    "methods": [
+      "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09",
+      "ior:instance:bac0abd4-c15b-40b8-ae6c-ef265f883a27",
+      "ior:instance:ee69e091-ad08-47d3-99b6-3747e4521ac0",
+      "ior:instance:0a78eab3-f3e8-4391-89c8-0b764ed28f8d",
+      "ior:instance:75e6419f-db35-47e4-b31d-177c0f778ca3",
+      "ior:instance:4b36dabd-4f56-433d-a01a-1625ca7a4693",
+      "ior:instance:f2134e76-33ac-44fd-84ca-0c68b54f4a95"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:5d8ba5b6-df24-41bf-a528-31b6e8bf6356"
+}

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "255ecabf-3961-404c-92b1-737c209c2030",
+    "name": "ClassRegistry.register(name",
+    "className": "ClassRegistry",
+    "methodName": "register(name"
+  },
+  "ownerIor": "ior:instance:60a20d33-6b6e-4acc-b9da-2685380f23cb"
+}

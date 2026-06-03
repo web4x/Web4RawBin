@@ -16,14 +16,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 objectItem.collapse](../sprints.md/usecase/objectitem-collapse.md)
-- [🔗 objectItem.expand](../sprints.md/usecase/objectitem-expand.md)
-- [🔗 treeItem.expandChildren](../sprints.md/usecase/treeitem-expandchildren.md)
-
-
-## Traceability
-
 `[task:uuid:f1157eb1-c259-4d46-a7f3-6e5db1824a05]`
 
 - up

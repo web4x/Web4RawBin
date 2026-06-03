@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "name": "RbDetailDrawer",
+    "file": "src/public/ts/trace/rb-detail-drawer.ts",
+    "methods": [
+      "ior:instance:d2935088-2a32-41e7-afd0-4e8195471ae2",
+      "ior:instance:f4b0acec-cf50-4916-9696-e89865bca632",
+      "ior:instance:9a0914b8-4158-4b90-a898-c082cff5c737"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:5d8ba5b6-df24-41bf-a528-31b6e8bf6356"
+}

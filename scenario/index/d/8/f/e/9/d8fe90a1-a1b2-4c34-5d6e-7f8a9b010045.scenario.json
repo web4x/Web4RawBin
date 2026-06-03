@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d8fe90a1-a1b2-4c34-5d6e-7f8a9b010045",
+    "name": "R17.46: Missing traceability data is filled consistently ...",
+    "description": "[requirement:uuid:d8fe90a1-a1b2-4c34-5d6e-7f8a9b010045]\n  → [T172](./task-172-chain-direction-enforcement-missing-data-fill.md)\n\n- [ ] **R17.46: Missing traceability data is filled consistently by req-eng and architect.**",
+    "tronQuote": "",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

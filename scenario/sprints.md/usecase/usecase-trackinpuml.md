@@ -8,3 +8,6 @@
 
 **Tasks:**
 - [🔗 T117: UseCase as class instances in PUML](../sprints.md/task/task-117-usecase-as-class.md)
+
+**Classes:**
+- [🔗 TraceConsistency](../sprints.md/class/traceconsistency.md)

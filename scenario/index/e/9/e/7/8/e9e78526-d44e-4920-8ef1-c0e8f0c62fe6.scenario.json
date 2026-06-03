@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e9e78526-d44e-4920-8ef1-c0e8f0c62fe6",
+    "name": "RbTaskDetail.render",
+    "className": "RbTaskDetail",
+    "methodName": "render"
+  },
+  "ownerIor": "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5"
+}

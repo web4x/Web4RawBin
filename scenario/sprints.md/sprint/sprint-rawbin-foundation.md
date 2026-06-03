@@ -6,6 +6,9 @@
 
 ## Traceability
 
+**Requirements:**
+- [🔗 S1 Foundation — Bootstrap RawBin team and server](../sprints.md/requirement/s1-foundation-bootstrap-rawbin-team-and-server.md)
+
 **Tasks:**
 - [🔗 Task 1: Bootstrap robbinTeam from ud-team Clone](../sprints.md/task/task-1-team-bootstrap.md)
 - [🔗 Task 1.1: Agent-Trainer - Clone ud-team as robbinTeam](../sprints.md/task/task-1.1-agent-trainer-clone-ud-team.md)

@@ -8,3 +8,6 @@
 
 **Tasks:**
 - [🔗 T110: DetailViewContainer — Google-Maps-style detail drawer](../sprints.md/task/task-110-detailview-container.md)
+
+**Classes:**
+- [🔗 RbDetailDrawer](../sprints.md/class/rbdetaildrawer.md)

@@ -4,17 +4,17 @@
     "uuid": "d1f826f8-f667-45cf-ac4a-a293e41679c4",
     "name": "T117: UseCase as class instances in PUML",
     "slug": "task-117-usecase-as-class",
-    "description": "Track use cases in **PUML as dedicated instances of a `UseCase` class** (first-class\nobjects, not just labels/notes). This makes each use case an addressable node that\nmethods and requirements link to, enabling T116's method\u2192UC\u2192requirement chain.",
+    "description": "Track use cases in **PUML as dedicated instances of a `UseCase` class** (first-class\nobjects, not just labels/notes). This makes each use case an addressable node that\nmethods and requirements link to, enabling T116's method→UC→requirement chain.",
     "status": "In Progress",
-    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only \u2014 never checked by planner/sync.",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
     "remainingIssues": "",
-    "traceability": "`[task:uuid:d1f826f8-f667-45cf-ac4a-a293e41679c4]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) \u2192 **R16.10** (UseCase as class instances in PUML)\n  - [traceability-standard.md](../../standards/traceability-standard.md)\n- down\n  - None (atomic task)\n- chain (req \u2192 usecase \u2192 puml \u2192 class/method)\n  - **requirement:** R16.10\n  - **use case:** useCase.trackInPuml [uc:uuid:16a01171-d171-4a01-b171-000000117001]\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 3 package) \u2014 AUTHORED\n  - **class/method:** `TraceConsistency.ts` \u2192 `parseStereotype()` (<<UseCase>> PUML parsing)\n  - Establishes the **use case** link as a first-class node so T116's chain is complete",
+    "traceability": "`[task:uuid:d1f826f8-f667-45cf-ac4a-a293e41679c4]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.10** (UseCase as class instances in PUML)\n  - [traceability-standard.md](../../standards/traceability-standard.md)\n- down\n  - None (atomic task)\n- chain (req → usecase → puml → class/method)\n  - **requirement:** R16.10\n  - **use case:** useCase.trackInPuml [uc:uuid:16a01171-d171-4a01-b171-000000117001]\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 3 package) — AUTHORED\n  - **class/method:** `TraceConsistency.ts` → `parseStereotype()` (<<UseCase>> PUML parsing)\n  - Establishes the **use case** link as a first-class node so T116's chain is complete",
     "context": "Tron 2026-05-27: \"this implies tracking the usecases in puml as dedicated instances of\na UseCase class.\"",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC1 \u2014 A `UseCase` class is defined in PUML; each use case is an instance of it\n- [ ] AC2 \u2014 Use case instances carry an id linking up to a requirement and down to classes/methods\n- [ ] AC3 \u2014 Existing use-case references migrate to the first-class instance form (no orphan labels)\n- [ ] AC4 \u2014 Generated SVG renders; /trace can surface UseCase nodes\n- [ ] `npm run build` succeeds; no regression",
+    "acceptanceCriteria": "- [ ] AC1 — A `UseCase` class is defined in PUML; each use case is an instance of it\n- [ ] AC2 — Use case instances carry an id linking up to a requirement and down to classes/methods\n- [ ] AC3 — Existing use-case references migrate to the first-class instance form (no orphan labels)\n- [ ] AC4 — Generated SVG renders; /trace can surface UseCase nodes\n- [ ] `npm run build` succeeds; no regression",
     "qaAudit": "- 2026-05-27: Planned from compound source R16.10. Awaiting architect design, then Tron QA.",
-    "subtasks": "None (atomic task).\n\n---\n\n*Sprint 16 \u2014 Traceability UX & DetailViews*\n*Owner: robbin-architect (design), robbin-expert (implement), robbin-tester (verify)*\n*Priority: 7 (Phase 3 \u2014 enables chain review)*",
+    "subtasks": "None (atomic task).\n\n---\n\n*Sprint 16 — Traceability UX & DetailViews*\n*Owner: robbin-architect (design), robbin-expert (implement), robbin-tester (verify)*\n*Priority: 7 (Phase 3 — enables chain review)*",
     "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** None (architect-led modeling task)\n- **Enables:** T116 (chain review uses first-class UseCase instances)",
@@ -22,10 +22,9 @@
     "implementation": "",
     "testScenarios": "",
     "children": [],
-    "useCases": [
-      "ior:instance:16a01171-d171-4a01-b171-000000117001"
-    ],
+    "requirements": [],
+    "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
+  "ownerIor": "ior:instance:5d8ba5b6-df24-41bf-a528-31b6e8bf6356"
 }

@@ -16,17 +16,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 tree.symlinkJson](../sprints.md/usecase/tree-symlinkjson.md)
-- [🔗 tree.generateMd](../sprints.md/usecase/tree-generatemd.md)
-- [🔗 view.renderHtml](../sprints.md/usecase/view-renderhtml.md)
-- [🔗 view.renderMd](../sprints.md/usecase/view-rendermd.md)
-- [🔗 view.liveUpdate](../sprints.md/usecase/view-liveupdate.md)
-- [🔗 planning.generate](../sprints.md/usecase/planning-generate.md)
-
-
-## Traceability
-
 `[task:uuid:6315a667-59c4-420b-90db-f60bca2d315d]`
 
 - up

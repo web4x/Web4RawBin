@@ -16,12 +16,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 objectItem.setIcon](../sprints.md/usecase/objectitem-seticon.md)
-
-
-## Traceability
-
 `[task:uuid:09dd41a7-8712-4012-ba05-1d34f6d94e07]`
 
 - up

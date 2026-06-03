@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "5d9132cf-f49e-4d3b-bc67-5078d0d576d0",
+    "name": "RbRequirementDetail",
+    "file": "src/public/ts/trace/rb-requirement-detail.ts",
+    "methods": [
+      "ior:instance:f2930f5e-c748-49f5-888e-2d3aaa9a9012"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:5d8ba5b6-df24-41bf-a528-31b6e8bf6356"
+}

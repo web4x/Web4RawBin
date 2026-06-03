@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "a45f4db1-05b7-4044-a50b-471adac393d3",
+    "name": "ViewTemplateRegistry.tmpl): void",
+    "className": "ViewTemplateRegistry",
+    "methodName": "tmpl): void"
+  },
+  "ownerIor": "ior:instance:6fdc9ac6-0cf1-4d16-86ed-7c6f68f07d2e"
+}

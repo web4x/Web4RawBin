@@ -1,19 +1,6 @@
 # T166: /api/trace populate Class + Method types from scenario index
 [task:uuid:086a35db-0de3-49f3-971a-c6be1863100e]
 
-## Status
-
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (req → architect)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
-
-> QA Review + Done are TRON's gate only — never checked by planner/sync.
-
 ## Traceability
 
 `[task:uuid:086a35db-0de3-49f3-971a-c6be1863100e]`

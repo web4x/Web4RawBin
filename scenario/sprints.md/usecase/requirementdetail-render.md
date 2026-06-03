@@ -8,3 +8,6 @@
 
 **Tasks:**
 - [🔗 T111: Specialized DetailViews (TaskDetailView, RequirementDetailView)](../sprints.md/task/task-111-detail-views.md)
+
+**Classes:**
+- [🔗 RbRequirementDetail](../sprints.md/class/rbrequirementdetail.md)

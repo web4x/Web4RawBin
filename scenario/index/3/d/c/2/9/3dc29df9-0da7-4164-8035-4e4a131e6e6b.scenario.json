@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "3dc29df9-0da7-4164-8035-4e4a131e6e6b",
+    "name": "TraceConsistency.validate",
+    "className": "TraceConsistency",
+    "methodName": "validate"
+  },
+  "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
+}

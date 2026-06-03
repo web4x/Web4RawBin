@@ -8,3 +8,6 @@
 
 **Tasks:**
 - [🔗 T115: Tree-item — tap-icon collapse/expand + ">" children expander](../sprints.md/task/task-115-tree-item-collapse-expand.md)
+
+**Classes:**
+- [🔗 RbObjectItem](../sprints.md/class/rbobjectitem.md)

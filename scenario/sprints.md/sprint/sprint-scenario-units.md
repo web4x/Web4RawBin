@@ -6,6 +6,36 @@
 
 ## Traceability
 
+**Requirements:**
+- [🔗 R17.24: UC/Class/Method unit carries exact source locatio...](../sprints.md/requirement/r17-24-uc-class-method-unit-carries-exact-source-locatio.md)
+- [🔗 R17.21: Req-eng + planner LEARN scenarios for planning](../sprints.md/requirement/r17-21-req-eng-planner-learn-scenarios-for-planning.md)
+- [🔗 R17.26: Traceability is a TREE, not a chain](../sprints.md/requirement/r17-26-traceability-is-a-tree-not-a-chain.md)
+- [🔗 R17.22: Skills on top of scenarios](../sprints.md/requirement/r17-22-skills-on-top-of-scenarios.md)
+- [🔗 The `## Chain` / linear sequence framing (req → uc → puml...](../sprints.md/requirement/the-chain-linear-sequence-framing-req-uc-puml.md)
+- [🔗 Every node in the traceability tree IS a typed scenario u...](../sprints.md/requirement/every-node-in-the-traceability-tree-is-a-typed-scenario-u.md)
+- [🔗 R17.2: IOR — universal reference handle](../sprints.md/requirement/r17-2-ior-universal-reference-handle.md)
+- [🔗 R17.19: Tron prompts → formal requirement units](../sprints.md/requirement/r17-19-tron-prompts-formal-requirement-units.md)
+- [🔗 R17.5: Speaking-name tree (json) — symlink tree with huma...](../sprints.md/requirement/r17-5-speaking-name-tree-json-symlink-tree-with-huma.md)
+- [🔗 R17.14: Migrate all sprints/tasks/requirements to scenari...](../sprints.md/requirement/r17-14-migrate-all-sprints-tasks-requirements-to-scenari.md)
+- [🔗 R17.11: File-browser ↔ traceability-browser navigation](../sprints.md/requirement/r17-11-file-browser-traceability-browser-navigation.md)
+- [🔗 R17.8: Views generated + live-updated from flat JSON](../sprints.md/requirement/r17-8-views-generated-live-updated-from-flat-json.md)
+- [🔗 R17.4: Index by UUID prefix — scenario/index/<first-5>/<u...](../sprints.md/requirement/r17-4-index-by-uuid-prefix-scenario-index-first-5-u.md)
+- [🔗 R17.15: Collaborative planning — architect + req + planner](../sprints.md/requirement/r17-15-collaborative-planning-architect-req-planner.md)
+- [🔗 R17.10: Sprint overview = list of sprint items](../sprints.md/requirement/r17-10-sprint-overview-list-of-sprint-items.md)
+- [🔗 R17.9: planning.md is a generated Task-overview](../sprints.md/requirement/r17-9-planning-md-is-a-generated-task-overview.md)
+- [🔗 R17.16: HTML status renders correctly](../sprints.md/requirement/r17-16-html-status-renders-correctly.md)
+- [🔗 R17.7: HTML view templates per class](../sprints.md/requirement/r17-7-html-view-templates-per-class.md)
+- [🔗 R17.12: All files are units, referenceable via IOR](../sprints.md/requirement/r17-12-all-files-are-units-referenceable-via-ior.md)
+- [🔗 R17.17: Task status as state-machine methods](../sprints.md/requirement/r17-17-task-status-as-state-machine-methods.md)
+- [🔗 R17.13: Method → task → requirement traceability](../sprints.md/requirement/r17-13-method-task-requirement-traceability.md)
+- [🔗 R17.6: Speaking-name tree (md) — generated md views with ...](../sprints.md/requirement/r17-6-speaking-name-tree-md-generated-md-views-with.md)
+- [🔗 Update S17 `planning.md` AND rework every refined task fi...](../sprints.md/requirement/update-s17-planning-md-and-rework-every-refined-task-fi.md)
+- [🔗 R17.20: Requirement + UseCase units in scenario index](../sprints.md/requirement/r17-20-requirement-usecase-units-in-scenario-index.md)
+- [🔗 R17.23: Fork skill-expert from expert](../sprints.md/requirement/r17-23-fork-skill-expert-from-expert.md)
+- [🔗 R17.3: Class-based instances — typed classes with uniform...](../sprints.md/requirement/r17-3-class-based-instances-typed-classes-with-uniform.md)
+- [🔗 R17.18: Traceability links → first-class scenario units](../sprints.md/requirement/r17-18-traceability-links-first-class-scenario-units.md)
+- [🔗 In BOTH task files AND generated views, every referenced ...](../sprints.md/requirement/in-both-task-files-and-generated-views-every-referenced.md)
+
 **Tasks:**
 - [🔗 T124: Scenario-unit + IOR + class-based view architecture](../sprints.md/task/task-124-architecture.md)
 - [🔗 T124.1: Architect — Scenario-Unit + IOR Data Model](../sprints.md/task/task-124.1-architect-data-model.md)

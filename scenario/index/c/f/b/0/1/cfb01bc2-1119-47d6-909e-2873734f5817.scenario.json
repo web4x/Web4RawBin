@@ -2,7 +2,7 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "cfb01bc2-1119-47d6-909e-2873734f5817",
-    "name": "Task 6: Rebrand Assets (UpDown \u2192 RawBin)",
+    "name": "Task 6: Rebrand Assets (UpDown → RawBin)",
     "slug": "task-6-rebrand",
     "description": "",
     "status": "Done",
@@ -22,8 +22,9 @@
     "implementation": "",
     "testScenarios": "",
     "children": [],
+    "requirements": [],
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:d5d89c3d-3522-49aa-8aeb-323109e6981c"
+  "ownerIor": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
 }

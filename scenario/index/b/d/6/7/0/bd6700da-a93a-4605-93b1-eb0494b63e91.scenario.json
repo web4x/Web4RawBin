@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "bd6700da-a93a-4605-93b1-eb0494b63e91",
+    "name": "IORResolver.resolveClass(ior): ClassLoader",
+    "className": "IORResolver",
+    "methodName": "resolveClass(ior): ClassLoader"
+  },
+  "ownerIor": "ior:instance:fdc768a6-8779-42e1-9e7c-775338733c09"
+}

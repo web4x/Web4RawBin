@@ -8,3 +8,6 @@
 
 **Tasks:**
 - [🔗 T114: Tree-item — OS drag-and-drop](../sprints.md/task/task-114-tree-item-drag.md)
+
+**Classes:**
+- [🔗 RbObjectItem](../sprints.md/class/rbobjectitem.md)

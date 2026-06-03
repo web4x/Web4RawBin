@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "f4ba5cb6-c7d8-4e90-1f2a-3b4c5d670041",
+    "name": "R17.42: The scrum master is re-activated for continuous m...",
+    "description": "[requirement:uuid:f4ba5cb6-c7d8-4e90-1f2a-3b4c5d670041]\n  → [T170](./task-170-diligent-plan-no-stop-sustain.md)\n\n- [ ] **R17.42: The scrum master is re-activated for continuous monitoring.**",
+    "tronQuote": "",
+    "tasks": [
+      "ior:instance:6cf46cd1-5f65-4474-a023-1b54b56adb06"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

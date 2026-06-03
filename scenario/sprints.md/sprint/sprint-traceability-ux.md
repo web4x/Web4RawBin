@@ -6,6 +6,12 @@
 
 ## Traceability
 
+**Requirements:**
+- [🔗 | Requirement | UUID (short) | Task | Category |](../sprints.md/requirement/requirement-uuid-short-task-category.md)
+- [🔗 R16.3: pageNav() sticky to top](../sprints.md/requirement/r16-3-pagenav-sticky-to-top.md)
+- [🔗 R16.4: Traceability chain data diagnosis + fix](../sprints.md/requirement/r16-4-traceability-chain-data-diagnosis-fix.md)
+- [🔗 R16.2: DetailsViewContainer sticky to bottom](../sprints.md/requirement/r16-2-detailsviewcontainer-sticky-to-bottom.md)
+
 **Tasks:**
 - [🔗 T110: DetailViewContainer — Google-Maps-style detail drawer](../sprints.md/task/task-110-detailview-container.md)
 - [🔗 T111: Specialized DetailViews (TaskDetailView, RequirementDetailView)](../sprints.md/task/task-111-detail-views.md)

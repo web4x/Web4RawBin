@@ -16,14 +16,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 taskDetail.render](../sprints.md/usecase/taskdetail-render.md)
-- [🔗 requirementDetail.render](../sprints.md/usecase/requirementdetail-render.md)
-- [🔗 usecaseDetail.render](../sprints.md/usecase/usecasedetail-render.md)
-
-
-## Traceability
-
 `[task:uuid:471b9c4a-378f-4e56-a990-28f82a998b80]`
 
 - up

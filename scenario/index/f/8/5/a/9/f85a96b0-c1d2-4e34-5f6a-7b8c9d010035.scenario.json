@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "f85a96b0-c1d2-4e34-5f6a-7b8c9d010035",
+    "name": "R17.36: Every scenario unit is reachable from a requireme...",
+    "description": "[requirement:uuid:f85a96b0-c1d2-4e34-5f6a-7b8c9d010035]\n  → [T168](./task-168-chain-order-7-step-requirements-as-roots.md)\n\n### From T169 (R-F: data quality — KEYSTONE)\n\n- [ ] **R17.36: Every scenario unit is reachable from a requirement root via the canonical chain.**",
+    "tronQuote": "",
+    "tasks": [
+      "ior:instance:c3951691-b231-4b60-a2f8-79c9d5ef851e"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

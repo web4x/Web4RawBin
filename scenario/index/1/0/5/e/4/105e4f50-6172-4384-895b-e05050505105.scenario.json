@@ -6,15 +6,15 @@
     "slug": "task-105-default-item-view",
     "description": "Build a per-object default list item view (`rb-object-item`), visually like the lobby\nroom entry, with native-OS draggable support (HTML5 drag plus file/dnd integration). It\nrenders any typed object's summary and serves as the building block for ListOverview.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [x] testing (tester \u2014 run rb-object-item.test.ts, jsdom) \u2014 rb-object-item 5/5 PASS, 1d9d4fd\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [x] testing (tester — run rb-object-item.test.ts, jsdom) — rb-object-item 5/5 PASS, 1d9d4fd\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:45d4e5f6-a7b8-4c93-9da4-2e3f4a5b6c04](./requirements.md) \u2014 R15.4 defaultItemView\n  - [Sprint 15 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R15.4 in [requirements.md](./requirements.md)\n  - **use case:** object.itemView \u2014 diagrams/object-verb-usecases.puml\n  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)\n  - **class/method:** rb-object-item web component (defaultItemView)",
+    "traceability": "- up\n  - [requirement:uuid:45d4e5f6-a7b8-4c93-9da4-2e3f4a5b6c04](./requirements.md) — R15.4 defaultItemView\n  - [Sprint 15 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R15.4 in [requirements.md](./requirements.md)\n  - **use case:** object.itemView — diagrams/object-verb-usecases.puml\n  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)\n  - **class/method:** rb-object-item web component (defaultItemView)",
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC1: `<rb-object-item>` renders a typed object's default summary (title + `type:uuid` + optional status) for ALL 7 T101 types, attribute-driven (`ref`/`type`/`title`/`status`)\n- [ ] AC2: Visually consistent with the lobby room entry \u2014 reuses the `.room-card` idiom (rounded translucent flex row; title + muted id sub-line + trailing status chip)\n- [ ] AC3: `draggable=\"true\"`; `dragstart` sets `text/plain`=`#<type>.show?uuid=\u2026` and `application/rb-object-ref`=`type:uuid`\n- [ ] AC4: `dataTransfer` also sets `text/uri-list`=absolute `${origin}/app#<type>.show?uuid=\u2026` (OS-recognizable native drag)\n- [ ] AC5: ViewBus subscribe-on-connect / unsubscribe-on-disconnect; `ViewBus.notify(ref)` re-renders (no reload) \u2014 T103 MVC path\n- [ ] AC6: Click calls `TraceRouter.navigate(type,'show',{uuid})`\n- [ ] AC7: Tests cover render-per-type, draggable + all three dataTransfer payloads, ViewBus live re-render, click\u2192navigate\n- [ ] `npm run build` + version bump",
+    "acceptanceCriteria": "- [ ] AC1: `<rb-object-item>` renders a typed object's default summary (title + `type:uuid` + optional status) for ALL 7 T101 types, attribute-driven (`ref`/`type`/`title`/`status`)\n- [ ] AC2: Visually consistent with the lobby room entry — reuses the `.room-card` idiom (rounded translucent flex row; title + muted id sub-line + trailing status chip)\n- [ ] AC3: `draggable=\"true\"`; `dragstart` sets `text/plain`=`#<type>.show?uuid=…` and `application/rb-object-ref`=`type:uuid`\n- [ ] AC4: `dataTransfer` also sets `text/uri-list`=absolute `${origin}/app#<type>.show?uuid=…` (OS-recognizable native drag)\n- [ ] AC5: ViewBus subscribe-on-connect / unsubscribe-on-disconnect; `ViewBus.notify(ref)` re-renders (no reload) — T103 MVC path\n- [ ] AC6: Click calls `TraceRouter.navigate(type,'show',{uuid})`\n- [ ] AC7: Tests cover render-per-type, draggable + all three dataTransfer payloads, ViewBus live re-render, click→navigate\n- [ ] `npm run build` + version bump",
     "qaAudit": "- 2026-05-26: Tron directive (Sprint 15 R1-R4). Quote in requirements.tron-literal.md.",
-    "subtasks": "None (atomic task).\n\n---\n*Sprint 15 \u2014 Traceability Browser & Object Model*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 3 (view components)*",
+    "subtasks": "None (atomic task).\n\n---\n*Sprint 15 — Traceability Browser & Object Model*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 3 (view components)*",
     "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** T103\n- **Enables:** T106, T108",
@@ -22,8 +22,9 @@
     "implementation": "",
     "testScenarios": "",
     "children": [],
+    "requirements": [],
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:5b3eba3f-17ce-4e3a-b143-2aef7453a739"
+  "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "c7ed8fe9-f0a1-4b23-4c5d-6e7f8a900044",
+    "name": "R17.45: Every link in the scenario index traverses the ca...",
+    "description": "[requirement:uuid:c7ed8fe9-f0a1-4b23-4c5d-6e7f8a900044]\n  → [T171](./task-171-untraced-closure-link-50-r1726-link-back.md)\n\n### From T172 (R-H: direction enforcement + data fill)\n\n- [ ] **R17.45: Every link in the scenario index traverses the canonical chain in the forward direction only.**",
+    "tronQuote": "",
+    "tasks": [
+      "ior:instance:75628241-9157-4385-a7f0-f4f7a3142737"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

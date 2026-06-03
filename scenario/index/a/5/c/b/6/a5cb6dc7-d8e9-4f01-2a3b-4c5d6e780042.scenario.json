@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "a5cb6dc7-d8e9-4f01-2a3b-4c5d6e780042",
+    "name": "R17.43: All 50 untraced scenario units are linked to a re...",
+    "description": "[requirement:uuid:a5cb6dc7-d8e9-4f01-2a3b-4c5d6e780042]\n  → [T170](./task-170-diligent-plan-no-stop-sustain.md)\n\n### From T171 (untraced closure)\n\n- [ ] **R17.43: All 50 untraced scenario units are linked to a requirement root or explicitly marked orphan-by-design.**",
+    "tronQuote": "",
+    "tasks": [
+      "ior:instance:6cf46cd1-5f65-4474-a023-1b54b56adb06"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

@@ -4,10 +4,10 @@
     "uuid": "2fa531f7-871a-4f4d-9c0a-8f7bae3492e1",
     "name": "Task 1.1: Agent-Trainer - Clone ud-team as robbinTeam",
     "slug": "task-1.1-agent-trainer-clone-ud-team",
-    "description": "Use hiveMind team.setup to create a new robbinTeam session with 4 agents cloned from the ud-team structure:\n\n```\nrobbinTeam\n\u251c\u2500\u2500 0.0  robbin-po@MacStudio\n\u251c\u2500\u2500 0.1  robbin-architect@MacStudio\n\u251c\u2500\u2500 0.2  robbin-expert@MacStudio\n\u2514\u2500\u2500 0.3  robbin-tester@MacStudio\n```\n\nRequirements:\n1. `hiveMind team.setup robbin-po,robbin-architect,robbin-expert,robbin-tester robbinTeam`\n2. All agents start in `/Users/Shared/Workspaces/AI/Claude/` (main workspace)\n3. Pane titles: `role@MacStudio` not `role@opus`\n4. `/rename role@MacStudio` for each agent\n5. Register team: `hiveMind team.register robbinTeam \"RawBin AI server management \u2014 Robbin\"`\n6. Symlink: `workspaces/Web4RawBin -> /Users/Shared/Workspaces/2cuGitHub/Web4RawBin`",
+    "description": "Use hiveMind team.setup to create a new robbinTeam session with 4 agents cloned from the ud-team structure:\n\n```\nrobbinTeam\n├── 0.0  robbin-po@MacStudio\n├── 0.1  robbin-architect@MacStudio\n├── 0.2  robbin-expert@MacStudio\n└── 0.3  robbin-tester@MacStudio\n```\n\nRequirements:\n1. `hiveMind team.setup robbin-po,robbin-architect,robbin-expert,robbin-tester robbinTeam`\n2. All agents start in `/Users/Shared/Workspaces/AI/Claude/` (main workspace)\n3. Pane titles: `role@MacStudio` not `role@opus`\n4. `/rename role@MacStudio` for each agent\n5. Register team: `hiveMind team.register robbinTeam \"RawBin AI server management — Robbin\"`\n6. Symlink: `workspaces/Web4RawBin -> /Users/Shared/Workspaces/2cuGitHub/Web4RawBin`",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
-    "remainingIssues": "1. **Working directory wrong**: agents must start in `/Users/Shared/Workspaces/AI/Claude/` (the main Claude workspace), NOT in Web4RawBin directly. The Web4RawBin repo is accessible via `workspaces/Web4RawBin` symlink.\n2. **Naming convention wrong**: pane titles show `role@opus` \u2014 must be `role@MacStudio` (convention: `agentName@hostname` not `agentName@model`)\n3. **Symlink created**: `workspaces/Web4RawBin -> /Users/Shared/Workspaces/2cuGitHub/Web4RawBin` \u2705",
+    "remainingIssues": "1. **Working directory wrong**: agents must start in `/Users/Shared/Workspaces/AI/Claude/` (the main Claude workspace), NOT in Web4RawBin directly. The Web4RawBin repo is accessible via `workspaces/Web4RawBin` symlink.\n2. **Naming convention wrong**: pane titles show `role@opus` — must be `role@MacStudio` (convention: `agentName@hostname` not `agentName@model`)\n3. **Symlink created**: `workspaces/Web4RawBin -> /Users/Shared/Workspaces/2cuGitHub/Web4RawBin` ✅",
     "traceability": "- up\n    - [Task 1: Bootstrap robbinTeam](./task-1-team-bootstrap.md)",
     "context": "",
     "intention": "",
@@ -22,8 +22,9 @@
     "implementation": "",
     "testScenarios": "",
     "children": [],
+    "requirements": [],
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:d5d89c3d-3522-49aa-8aeb-323109e6981c"
+  "ownerIor": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
 }

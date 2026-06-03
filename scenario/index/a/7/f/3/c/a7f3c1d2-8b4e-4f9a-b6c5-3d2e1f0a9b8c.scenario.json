@@ -26,8 +26,9 @@
       "ior:instance:2dd5e06c-646a-493d-958a-c835ddaa4f5c",
       "ior:instance:771a4a9a-e44f-44ef-9200-960ad64fdc55"
     ],
+    "requirements": [],
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:d5d89c3d-3522-49aa-8aeb-323109e6981c"
+  "ownerIor": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
 }

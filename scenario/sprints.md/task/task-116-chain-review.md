@@ -16,12 +16,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 traceChain.auditOrphans](../sprints.md/usecase/tracechain-auditorphans.md)
-
-
-## Traceability
-
 `[task:uuid:01168fc2-d36a-4e57-b804-7f6ec2935b16]`
 
 - up

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "a96b07c1-d2e3-4f45-6a7b-8c9d0e120036",
+    "name": "R17.37: Zero backward-direction links exist in the tracea...",
+    "description": "[requirement:uuid:a96b07c1-d2e3-4f45-6a7b-8c9d0e120036]\n  → [T169](./task-169-data-quality-audit-remigrate-complete-tree.md)\n\n- [ ] **R17.37: Zero backward-direction links exist in the traceability data.**",
+    "tronQuote": "",
+    "tasks": [
+      "ior:instance:e43c24fe-a1d1-4d14-8e7a-55ea7edd616f"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

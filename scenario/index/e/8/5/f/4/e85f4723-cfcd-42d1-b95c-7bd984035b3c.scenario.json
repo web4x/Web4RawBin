@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e85f4723-cfcd-42d1-b95c-7bd984035b3c",
+    "name": "ScenarioUnit.save(indexPath): void",
+    "className": "ScenarioUnit",
+    "methodName": "save(indexPath): void"
+  },
+  "ownerIor": "ior:instance:88dcce3a-770b-4c61-b996-02a72f5d6bef"
+}

@@ -467,6 +467,54 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
+    // T173: /api/trace/roots — Requirement roots for lazy tree
+    if (filepath === '/api/trace/roots') {
+      try {
+        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        const idx = new ScenarioIndex(scenarioDir);
+        const roots = idx.list().map(uuid => {
+          const u = idx.get(uuid);
+          if (!u || u.ior !== 'ior:class:Requirement') return null;
+          return { uuid, type: 'Requirement', name: String(u.model?.name || ''), hasChildren: Array.isArray(u.model?.tasks) && (u.model.tasks as string[]).length > 0 };
+        }).filter(Boolean);
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+        res.end(JSON.stringify(roots));
+      } catch { res.writeHead(500); res.end('[]'); }
+      return;
+    }
+
+    // T173: /api/trace/children/<uuid> — one-hop forward children per LOCKED chain
+    if (filepath.startsWith('/api/trace/children/')) {
+      const uuid = decodeURIComponent(filepath.slice('/api/trace/children/'.length));
+      try {
+        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        const idx = new ScenarioIndex(scenarioDir);
+        const unit = idx.get(uuid);
+        if (!unit) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{}'); return; }
+        const type = (unit.ior || '').split(':')[2] || '';
+        const FORWARD_KEYS: Record<string, string[]> = {
+          Requirement: ['tasks'], Task: ['children', 'useCases'], UseCase: ['classes'],
+          Class: ['methods'], Method: [], Sprint: ['tasks', 'requirements'],
+        };
+        const childRefs: string[] = [];
+        for (const key of (FORWARD_KEYS[type] || [])) {
+          const refs = (unit.model as Record<string, unknown>)[key];
+          if (Array.isArray(refs)) for (const r of refs) childRefs.push(String(r).replace('ior:instance:', ''));
+        }
+        const children = childRefs.map(ref => {
+          const child = idx.get(ref);
+          if (!child) return null;
+          const ct = (child.ior || '').split(':')[2] || '';
+          const fk = (({ Requirement: ['tasks'], Task: ['children', 'useCases'], UseCase: ['classes'], Class: ['methods'] }) as Record<string, string[]>)[ct] || [];
+          const hc = fk.some(k => { const v = (child.model as Record<string, unknown>)[k]; return Array.isArray(v) && v.length > 0; });
+          return { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: hc };
+        }).filter(Boolean);
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+        res.end(JSON.stringify({ uuid, type, name: String(unit.model?.name || ''), children }));
+      } catch { res.writeHead(500); res.end('{}'); }
+      return;
+    }
+
     // T127.2: IOR universal resolver endpoint
     if (filepath.startsWith('/api/ior/')) {
       const ior = decodeURIComponent(filepath.slice('/api/ior/'.length));
@@ -623,7 +671,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         };
         const breadcrumb = (rel: string): string => { if (!rel) return '<h1>/</h1>'; const parts = rel.replace(/\/$/, '').split('/'); const crumbs: string[] = []; for (let i = 0; i < parts.length; i++) { const href = '/md/' + parts.slice(0, i + 1).join('/') + '/'; const isLast = i === parts.length - 1; if (isLast) { crumbs.push(`<span>${parts[i]}</span>`); } else { crumbs.push(`<a href="${href}" class="bc-link">${parts[i]}</a>`); } } return `<h1 style="font-size:1.1rem">${crumbs.join('<span style="color:#555;margin:0 2px">/</span>')}</h1>`; };
         const inSprintsMd = relPath.startsWith('scenario/sprints.md/');
-        const jsonHref = (e: any) => { const m = relPath.match(/^scenario\/sprints\.json\/([^/]+)\//); if (m && e.name.endsWith('.json')) { const slug = e.name.replace('.scenario.json', '').replace('.json', ''); return `/md/scenario/sprints.md/task/${slug}.md`; } return `/md/${relPath}${e.name}`; };
+        const jsonHref = (e: any) => { if (e.name.endsWith('.scenario.json')) { const uuid = e.name.replace('.scenario.json', ''); return `/trace?ior=${encodeURIComponent(uuid)}`; } return `/md/${relPath}${e.name}`; };
         const isFileOrLink = (e: any) => e.isFile() || e.isSymbolicLink();
         const isDir = (e: any) => { if (e.isDirectory()) return true; if (e.isSymbolicLink()) { try { return fsSync.statSync(path.join(dirPath, e.name)).isDirectory(); } catch { return false; } } return false; };
         const dirs = entries.filter(e => isDir(e) && !e.name.startsWith('.')).map(e => `<li>📁 <a href="/md/${relPath}${e.name}/">${e.name}/</a>${symlinkIcon(e)}</li>`);

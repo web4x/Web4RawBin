@@ -2,19 +2,19 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "6d2225b7-d96b-4452-8719-b3667b344816",
-    "name": "T112: Tree-item \u2014 speaky name (generate if absent) + word-wrap description",
+    "name": "T112: Tree-item — speaky name (generate if absent) + word-wrap description",
     "slug": "task-112-tree-item-name-desc",
     "description": "Redesign the traceability tree-item to carry a **`name`** attribute = a human-readable\nshort name for the requirement/task; if none exists, **generate** a short name from\nthe requirement text. Below the name, render a **word-wrapping** smaller-text paragraph\nwith the current requirement text.",
     "status": "In Progress",
-    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (req + architect)\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only \u2014 never checked by planner/sync.",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (req + architect)\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
     "remainingIssues": "",
-    "traceability": "`[task:uuid:6d2225b7-d96b-4452-8719-b3667b344816]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) \u2192 **R16.3** (speaky name) + **R16.4** (word-wrap description)\n- down\n  - None (atomic task)\n- chain (req \u2192 usecase \u2192 puml \u2192 class/method)\n  - **requirement:** R16.3 + R16.4\n  - **use case:** objectItem.renderNameDesc [uc:uuid:16a01121-d121-4a01-b121-000000112001], objectItem.generateName [uc:uuid:16a01122-d122-4a02-b122-000000112002]\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 2 package)\n  - **class/method:** `rb-object-item.ts` \u2192 `RbObjectItem.render()`, `generateName()`",
-    "context": "Tron 2026-05-27: \"the tree items should have a name attribute that is a speaky name \u2026\nif it does not have a short one create a short name from the requirement text. the item\nshall have below the name a word wrapping smaller text paragraph with the current\nrequirement text.\"",
+    "traceability": "`[task:uuid:6d2225b7-d96b-4452-8719-b3667b344816]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.3** (speaky name) + **R16.4** (word-wrap description)\n- down\n  - None (atomic task)\n- chain (req → usecase → puml → class/method)\n  - **requirement:** R16.3 + R16.4\n  - **use case:** objectItem.renderNameDesc [uc:uuid:16a01121-d121-4a01-b121-000000112001], objectItem.generateName [uc:uuid:16a01122-d122-4a02-b122-000000112002]\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 2 package)\n  - **class/method:** `rb-object-item.ts` → `RbObjectItem.render()`, `generateName()`",
+    "context": "Tron 2026-05-27: \"the tree items should have a name attribute that is a speaky name …\nif it does not have a short one create a short name from the requirement text. the item\nshall have below the name a word wrapping smaller text paragraph with the current\nrequirement text.\"",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC1 \u2014 Tree-item shows a speaky `name` when one exists\n- [ ] AC2 \u2014 When absent, a short name is generated from the requirement text\n- [ ] AC3 \u2014 A smaller-text description paragraph renders below the name and word-wraps (no overflow/clipping)\n- [ ] `npm run build` succeeds; version + sw.js bumped; no regression",
+    "acceptanceCriteria": "- [ ] AC1 — Tree-item shows a speaky `name` when one exists\n- [ ] AC2 — When absent, a short name is generated from the requirement text\n- [ ] AC3 — A smaller-text description paragraph renders below the name and word-wraps (no overflow/clipping)\n- [ ] `npm run build` succeeds; version + sw.js bumped; no regression",
     "qaAudit": "- 2026-05-27: Planned from compound source R16.3+R16.4. Awaiting req split + architect design, then Tron QA.",
-    "subtasks": "None (atomic task).\n\n---\n\n*Sprint 16 \u2014 Traceability UX & DetailViews*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 3 (Phase 2 \u2014 tree-item content)*",
+    "subtasks": "None (atomic task).\n\n---\n\n*Sprint 16 — Traceability UX & DetailViews*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 3 (Phase 2 — tree-item content)*",
     "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** None (tree-item redesign foundation for Phase 2)\n- **Enables:** T115 (collapse/expand shows name+desc); T111 (DetailView consumes name/desc)",
@@ -22,11 +22,9 @@
     "implementation": "",
     "testScenarios": "",
     "children": [],
-    "useCases": [
-      "ior:instance:16a01121-d121-4a01-b121-000000112001",
-      "ior:instance:16a01122-d122-4a02-b122-000000112002"
-    ],
+    "requirements": [],
+    "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
+  "ownerIor": "ior:instance:5d8ba5b6-df24-41bf-a528-31b6e8bf6356"
 }
