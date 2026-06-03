@@ -276,3 +276,22 @@ Class hierarchy:
 Set via getters/setters that enforce the chain type constraints (e.g. Task.parent must be a Requirement IOR; Task.children must be UseCase IORs).
 
 → [T175](./task-175-tree-model-oversized-expand-collapse.md)
+
+---
+
+## Requirement — Verifiability gap (2026-06-03, PO-originated)
+
+> Headless Playwright cannot execute /scenario (and other) ES-module page JS because the self-signed SSL cert blocks type=module imports (ignoreHTTPSErrors doesn't cover module fetch). Tester can grep-verify code but NOT behavior of browser JS.
+
+### R-O: Test server must serve page JS so headless Playwright executes it — browser-behavior ACs are headlessly verifiable.
+
+The isolated test server (T100, port 4445) uses a self-signed certificate. Playwright's `ignoreHTTPSErrors` handles navigation but does NOT cover ES module `import` fetches — the browser silently refuses to load `<script type="module">` from an untrusted origin. This means all browser-behavior ACs (DOM state, click interactions, lazy-load cascading) cannot be verified headlessly — they are deferred to Tron's physical device.
+
+**Fix must be one of:**
+- Valid/trusted test certificate (e.g. mkcert-generated, added to system trust store)
+- HTTP test scheme (no SSL for test server — modules load over plain HTTP)
+- Module-fetch cert handling (Chromium launch flag `--allow-insecure-localhost` or equivalent)
+
+Without this, every AC that depends on client JS executing is unverifiable by the tester agent. This is a systemic blocker for all browser-behavior testing across T174, T175, and future UI tasks.
+
+→ Task TBD (planner stand-up)
