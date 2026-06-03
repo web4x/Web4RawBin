@@ -306,7 +306,7 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
   **Owners (CMM4):** robbin-req (anchor R-D verbatim) → robbin-architect (mobile-first layout + width-cap rule) → robbin-expert (CSS impl; rule-pair (a)+(b)) → robbin-tester (visual on iPhone + desktop, TS1-TS6)
   **Rule-pair scope:** (a)+(b) required; (c) exempt (no new route). v4 uuids: task `d0881ad6-…`; req `ff3f06e7-…`.
 
-- [ ] 📝 [T168: Chain order 7-step + atomic requirements as tree ROOTS](./task-168-chain-order-7-step-requirements-as-roots.md)
+- [ ] 🧪 [T168: Chain order 7-step + atomic requirements as tree ROOTS](./task-168-chain-order-7-step-requirements-as-roots.md)
   **Status:** REFINEMENT DONE — `c28c982` architect design committed (7-step canonical chain LOCKED + requirements as roots). Expert next.
   **Owners (CMM4):** robbin-req (anchor R-E verbatim + PO amendments) → robbin-architect (TraceModel walk + ViewGenerator + tree builder + standard update + Sprint 17 chain doc) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (chain walk + audit; TS1-TS8)
   **Rule-pair scope:** (a)+(b) required; (c) architect confirms. v4 uuids: task `c3951691-…`; req `12f6f7d1-…`.

@@ -4,13 +4,13 @@
 
 [task:uuid:c3951691-b231-4b60-a2f8-79c9d5ef851e]
 
-## Status — 📝 refinement done (architect c28c982)
+## Status — 🧪 tester-verified-via-downstream (PO 2026-06-03: T172 238/238 IS the implicit T168 verification)
 - [x] Planned
 - [x] In Progress
   - [x] refinement (req → architect — **`c28c982` architect design committed: 7-step canonical chain LOCKED + requirements as roots**)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+  - [x] creating test cases
+  - [x] implementing (deliverables realized across downstream tasks: T126 ViewGenerator template chain-render; T169 audit + tree-builder atomic-req roots; T171 back-ref strip + matrix; T172 5-step forward-ref + strict-direction validator + 238/238 reachability; `scrum.pmo/standards/traceability-standard.md` reflects the 7 types)
+  - [x] testing (PO 2026-06-03 per #69 trust-tester-PASS-over-sync-lag: T172 238/238 chain reachability IS the implicit T168 verification — chain spec is live + enforced)
 - [ ] QA Review
 - [ ] Done
 
