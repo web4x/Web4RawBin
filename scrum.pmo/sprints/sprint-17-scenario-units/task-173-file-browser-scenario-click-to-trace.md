@@ -1,7 +1,11 @@
 [Back to Sprint 17 Planning](./planning.md)
 
-# T173: File-browser .scenario.json click → /trace tree at that instance + lazy-load children
-[task:uuid:b2c3d4e5-f6a7-4890-bcde-173000000001]
+# T173: .scenario.json click → /trace tree + lazy-load (consolidates R-K1 + R-L; covers R-K2 + R-K3)
+[task:uuid:7a5f0eb9-7a33-492b-991a-b13c431dc695]
+
+> **PO direction 2026-06-03:** Consolidate R-K1 + R-L into this single task — they
+> share root cause (json-click-to-navigate logic in `server.ts:626 jsonHref()`).
+> One fix; dual AC; do NOT split. R-K2 + R-K3 are covered by the same design.
 
 ## Status
 - [x] Planned
@@ -16,8 +20,15 @@
 ## Traceability
 - up
   - [Sprint 17 Planning](./planning.md)
+  - [compound-requirement-source-2.md](./compound-requirement-source-2.md) — R-K1, R-K2, R-K3, R-L (Tron verbatim, captured by robbin-req)
+  - **R-K1** `[requirement:uuid:bd2670a9-e7c2-4dd8-87c5-f349807c1d95]` — clicking a .scenario.json must not be a dead end
+  - **R-K2** `[requirement:uuid:a78c8c41-7883-4628-8eb5-36a426e331f2]` — clicking opens it as that instance in the /trace tree
+  - **R-K3** `[requirement:uuid:4c621af1-0081-4e8a-ac45-92e49577cfdb]` — lazy-load children cascading down the LOCKED chain
+  - **R-L**  `[requirement:uuid:7034b7ee-d2da-45f4-9f54-bdb606d7df2a]` — generated views must never emit dead links (shares root cause with R-K1)
 - follows
   - T165 (7-class tree), T166 (Class+Method overlay), T158 (DetailViews), T168 (LOCKED chain)
+- down
+  - None (atomic task)
 
 ## Design (Architect — robbin-architect, 2026-06-03)
 
@@ -308,23 +319,43 @@ return `[🔗 ${uuid.slice(0, 8)}](/trace?ior=${encodeURIComponent(uuid)})`;
 | `src/ts/server/server.ts:626` | `jsonHref()` → `/trace?ior=` for `.scenario.json` |
 | `src/ts/scenario/templates.ts:65,72` | Fallback chain links → `/trace?ior=` instead of hardcoded `task/` |
 
-### AC (updated with R-K1)
-- [ ] Clicking `.scenario.json` in file-browser navigates to `/trace?ior=<uuid>` (NOT `/md/.../task/...`)
-- [ ] Clicking Sprint `.scenario.json` does NOT 404 (the Tron repro case)
-- [ ] Chain-link fallback (no slug resolver match) routes to `/trace?ior=` not `task/`
-- [ ] `/trace?ior=<uuid>` expands tree from root to that instance
-- [ ] Tree loads only roots on first paint (55 Requirement summaries, ~5KB)
-- [ ] Expanding a node fetches children lazily via `/api/trace/children/<uuid>`
-- [ ] Every child fetch follows LOCKED chain order (T168 CANONICAL_WALK)
-- [ ] Detail pane shows the targeted instance's DetailView on load
-- [ ] Full `/api/trace` endpoint preserved for tools (no breaking change)
-- [ ] Rule-pair (a)+(b)
+### Acceptance Criteria (R-K1 + R-L dual; covers R-K2 + R-K3)
+
+**R-K1 + R-L (shared root: json-click-to-navigate / dead-link prevention):**
+- [ ] AC1 (R-K1+R-L) — Clicking `.scenario.json` in file-browser navigates to `/trace?ior=<uuid>` (NOT `/md/.../task/...`)
+- [ ] AC2 (R-L) — Clicking Sprint `.scenario.json` does NOT 404 (Tron repro: `/md/scenario/sprints.md/task/sprint.md` "File not found")
+- [ ] AC3 (R-L) — `renderChainLinkHtml`/`renderChainLinkMd` fallback (no slug resolver match) routes to `/trace?ior=` not hardcoded `task/`
+- [ ] AC4 (R-L) — No generated view emits a dead href; every link resolves (chain-link audit clean)
+
+**R-K2 (open in /trace tree at that instance):**
+- [ ] AC5 (R-K2) — `/trace?ior=<uuid>` expands tree from a Requirement root down to that instance
+- [ ] AC6 (R-K2) — Detail pane shows the targeted instance's DetailView on load
+
+**R-K3 (lazy-load down the LOCKED chain):**
+- [ ] AC7 (R-K3) — Tree loads only Requirement roots on first paint (~5KB, 55 summaries)
+- [ ] AC8 (R-K3) — Expanding a node fetches children lazily via `/api/trace/children/<uuid>`
+- [ ] AC9 (R-K3) — Every child fetch follows LOCKED chain order (T168 CANONICAL_WALK: req→task→useCase→class→method→implementation→test)
+
+**Backwards-compat + ship rules:**
+- [ ] AC10 — Full `/api/trace` endpoint preserved for tools (trace-cli, audit) — no breaking change
+- [ ] AC11 — Rule-pair (a) `package.json` bump + (b) `sw.js` CACHE_NAME bump; (c) STATIC_SHELL exempt (no new HTML route — reuses `/trace` with `?ior=`)
+- [ ] AC12 — `npm run build` clean; full test suite passes
+
+## Subtasks
+None (atomic task — one consolidated fix per PO direction 2026-06-03).
+
+## QA Audit & User Feedback
+- 2026-06-03: Tron verbatim — R-K1 "clicking on the sprint.json currently ends in a dead end"; R-K2 "instead open it as a sprint item view in the traceability tree view"; R-K3 lazy-load cascade; R-L "still shows File not found". Captured by robbin-req in `compound-requirement-source-2.md`.
+- 2026-06-03: PO refinement — R-K1 + R-L share root cause (json-click-to-navigate). Consolidate into single task with dual AC (this T173).
+- 2026-06-03: Architect (3f9ff04) — design complete (Parts 1-4 + Concrete Repro + Fix Specification covering jsonHref + chain-link fallback).
+- Pending: expert impl (rule-pair (a)+(b)), tester verification (R-K1+R-L+R-K2+R-K3 ACs), then Tron QA.
 
 ---
 
 **Architect:** robbin-architect @ web4team:0.0
 **Sprint:** Sprint 17 — Scenario Units
-**R-K1:** No dead-end links from file-browser or chain-link fallbacks
+**Owners (CMM4):** robbin-req (R-K1/K2/K3/L capture) → robbin-architect (design, 3f9ff04) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (verify ACs)
+**R-K1 + R-L:** consolidated — no dead-end links from file-browser, chain-link fallbacks, or any generated view
 
 ### Second Repro: T110 Link from Sprint Overview (R-L family)
 

@@ -331,6 +331,15 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
   **Owners (CMM4 — refinement JOINT, Tron-assigned):** robbin-req + robbin-architect (JOINT — diagnose audit-too-lenient vs display-reveals; design strict-direction validator + remigration) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (live `/trace` clean + T169 strict re-run)
   **Rule-pair scope:** (a)+(b) required; (c) architect confirms. v4 uuids: task `7bf0199c-…`; req `383c3b28-…`. **Closes audit-display trust gap left by T171; adds atomic-split standing rule.**
 
+### Phase 29 — Tron compound-source-2 R-K + R-L (json-click-to-navigate + dead-link prevention)
+
+- [ ] 📝 [T173: .scenario.json click → /trace tree + lazy-load (R-K1 + R-L consolidated; covers R-K2 + R-K3)](./task-173-file-browser-scenario-click-to-trace.md)
+  **Status:** 📝 refinement done (architect `3f9ff04` 2026-06-03 — full design: Parts 1-4 lazy-load + Concrete Repro + Fix Spec for jsonHref + chain-link fallback). Per PO 2026-06-03: R-K1 + R-L consolidated (shared root cause: server.ts:626 json-click-to-navigate). Single task, dual AC. Awaiting expert impl (rule-pair (a)+(b)), then tester, then Tron QA.
+  **Owners (CMM4):** robbin-req (R-K1/K2/K3/L capture) → robbin-architect (design, 3f9ff04) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (verify AC1-AC12)
+  **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL exempt (reuses `/trace` with `?ior=`).
+  **v4 uuids:** task `7a5f0eb9-…`; req-uuids R-K1 `bd2670a9-…`, R-K2 `a78c8c41-…`, R-K3 `4c621af1-…`, R-L `7034b7ee-…`.
+  **Why consolidated:** R-K1 ("dead end on .scenario.json click") + R-L ("File not found on sprint.json link") both trace to the same `jsonHref()` bug — hardcoded `task/` subdir + wrong `.json→.md` rewrite for `.scenario.json`. Architect's design fixes both + adds /trace lazy-load tree (R-K2/K3).
+
 ### Phase 6 — Verification (T129, tester + planner)
 
 - [ ] 🧪 [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)
