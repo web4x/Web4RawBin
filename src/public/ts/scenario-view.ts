@@ -1,10 +1,10 @@
 /**
  * T174 R-M3 — /scenario?ior=<uuid> single-instance focused tree view.
- * Reuses trace components, seeded from one IOR with lazy-load children.
+ * Seeds from ONE IOR with lazy-load children per LOCKED chain.
+ * NEVER fetches /api/trace (full graph). Uses /api/trace/children/<uuid> only.
  *
  * [impl:uuid:7a5f0eb9-7a33-492b-991a-b13c431dc695] R-M3
  */
-import { TraceRouter, viewRegistry, deserialize } from './trace/index.js';
 import './trace/rb-trace-tree.js';
 import './trace/rb-detail-drawer.js';
 
@@ -25,29 +25,14 @@ if (!ior || !app) {
       treePanel.className = 'trace-tree-panel';
       treePanel.innerHTML = `<div style="padding:8px"><span style="color:rgba(255,255,255,0.5);font-size:0.8rem">${data.type || ''}</span> <span style="color:white;font-weight:600">${data.name || ior}</span></div>`;
 
-      if (data.children && data.children.length > 0) {
-        const fullRes = await fetch('/api/trace');
-        const fullData = await fullRes.json();
-        const graph = deserialize(fullData.objects || []);
-        const tree = document.createElement('rb-trace-tree') as HTMLElement & { setGraph(g: unknown, broken: string[]): void };
-        tree.setGraph(graph, fullData.broken || []);
-        treePanel.appendChild(tree);
+      const tree = document.createElement('rb-trace-tree');
+      tree.setAttribute('data-seed-ior', ior!);
+      treePanel.appendChild(tree);
 
-        const drawer = document.createElement('rb-detail-drawer');
-        app!.appendChild(treePanel);
-        app!.appendChild(drawer);
-
-        const detailMount = document.createElement('div');
-        const router = new TraceRouter(graph as never, viewRegistry(drawer), detailMount);
-        router.start();
-
-        // Auto-navigate to the seeded IOR
-        const type = data.type?.toLowerCase() || 'task';
-        router.navigate(type, 'show', { uuid: ior! });
-      } else {
-        treePanel.innerHTML += '<div style="color:#888;padding:8px">No children in chain</div>';
-        app!.appendChild(treePanel);
-      }
+      const drawer = document.createElement('rb-detail-drawer');
+      app!.innerHTML = '';
+      app!.appendChild(treePanel);
+      app!.appendChild(drawer);
     } catch (e) {
       app!.innerHTML = `<div style="color:#888;padding:20px">Failed to load scenario. <a href="/trace" style="color:#667eea">Open full trace</a></div>`;
     }

@@ -503,22 +503,39 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         if (!unit) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{}'); return; }
         const type = (unit.ior || '').split(':')[2] || '';
         const FORWARD_KEYS: Record<string, string[]> = {
-          Requirement: ['tasks'], Task: ['children', 'useCases'], UseCase: ['classes'],
-          Class: ['methods'], Method: [], Sprint: ['tasks', 'requirements'],
+          Requirement: ['tasks'], Task: ['subtasks', 'useCases', 'children'], UseCase: ['classes'],
+          Class: ['methods'], Method: ['implementations'], Sprint: ['tasks', 'requirements'],
         };
-        const childRefs: string[] = [];
+        let childRefs: string[] = [];
         for (const key of (FORWARD_KEYS[type] || [])) {
           const refs = (unit.model as Record<string, unknown>)[key];
-          if (Array.isArray(refs)) for (const r of refs) childRefs.push(String(r).replace('ior:instance:', ''));
+          if (Array.isArray(refs)) for (const r of refs) {
+            const clean = String(r).replace('ior:instance:', '');
+            if (/^[0-9a-f]{8}-/.test(clean)) childRefs.push(clean);
+          }
+        }
+        // Fallback: if scenario index has no forward UUID arrays, consult scanRepo graph
+        if (childRefs.length === 0) {
+          try {
+            const sprintsDir = path.join(__dirname, '../../../scrum.pmo/sprints');
+            const srcDir = path.join(__dirname, '../../../src');
+            const testDir = path.join(__dirname, '../../../test');
+            const { graph } = scanRepo(sprintsDir, srcDir, testDir);
+            const graphObj = graph.get(uuid);
+            if (graphObj) {
+              const links = graphObj.toJSON().links || {};
+              childRefs = Object.values(links).flat().map((r: string) => r.replace(/^[a-z]+:/, ''));
+            }
+          } catch { /* scanRepo fallback failed — empty children */ }
         }
         const children = childRefs.map(ref => {
           const child = idx.get(ref);
-          if (!child) return null;
-          const ct = (child.ior || '').split(':')[2] || '';
-          const fk = (({ Requirement: ['tasks'], Task: ['children', 'useCases'], UseCase: ['classes'], Class: ['methods'] }) as Record<string, string[]>)[ct] || [];
-          const hc = fk.some(k => { const v = (child.model as Record<string, unknown>)[k]; return Array.isArray(v) && v.length > 0; });
-          return { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: hc };
-        }).filter(Boolean);
+          if (child) {
+            const ct = (child.ior || '').split(':')[2] || '';
+            return { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: true };
+          }
+          return { uuid: ref, type: 'unknown', name: ref.slice(0, 8), hasChildren: false };
+        });
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify({ uuid, type, name: String(unit.model?.name || ''), children }));
       } catch { res.writeHead(500); res.end('{}'); }

@@ -53,6 +53,8 @@ export class RbTraceTree extends HTMLElement {
   }
 
   render(): void {
+    const seedIor = this.getAttribute('data-seed-ior');
+    if (seedIor) { this.renderSeed(seedIor); return; }
     if (!this.graph) { this.innerHTML = '<div class="tt-empty">no graph</div>'; return; }
     const roots = this.graph.ofType('requirement');
     this.innerHTML = '';
@@ -118,6 +120,48 @@ export class RbTraceTree extends HTMLElement {
       node.appendChild(kids);
     }
     return node;
+  }
+
+  private async renderSeed(uuid: string): Promise<void> {
+    this.innerHTML = '<div class="tt-empty">Loading…</div>';
+    try {
+      const res = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}`);
+      if (!res.ok) { this.innerHTML = '<div class="tt-empty">Not found</div>'; return; }
+      const data = await res.json();
+      this.innerHTML = '';
+      const root = document.createElement('div');
+      root.className = 'tt-node';
+      const row = document.createElement('div');
+      row.className = 'tt-row';
+      const item = document.createElement('rb-object-item');
+      item.setAttribute('ref', `${(data.type || 'task').toLowerCase()}:${uuid}`);
+      item.setAttribute('type', (data.type || 'task').toLowerCase());
+      item.setAttribute('title', data.name || uuid);
+      if (data.children?.length) item.setAttribute('has-children', '');
+      row.appendChild(item);
+      root.appendChild(row);
+      if (data.children?.length) {
+        const kids = document.createElement('div');
+        kids.className = 'tt-children';
+        kids.style.display = '';
+        for (const child of data.children) {
+          const cnode = document.createElement('div');
+          cnode.className = 'tt-node';
+          const crow = document.createElement('div');
+          crow.className = 'tt-row';
+          const citem = document.createElement('rb-object-item');
+          citem.setAttribute('ref', `${(child.type || 'task').toLowerCase()}:${child.uuid}`);
+          citem.setAttribute('type', (child.type || 'task').toLowerCase());
+          citem.setAttribute('title', child.name || child.uuid);
+          if (child.hasChildren) citem.setAttribute('has-children', '');
+          crow.appendChild(citem);
+          cnode.appendChild(crow);
+          kids.appendChild(cnode);
+        }
+        root.appendChild(kids);
+      }
+      this.appendChild(root);
+    } catch { this.innerHTML = '<div class="tt-empty">Failed to load</div>'; }
   }
 }
 
