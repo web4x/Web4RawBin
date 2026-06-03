@@ -238,3 +238,41 @@ When the user clicks a chain link or cross-navigates between instances inside th
 > "the collapse expands and detailsView on click are not working in that case. it should work from the behavior as the traceability browser, but just from the lazy loaded entry point"
 
 The /scenario route renders the scoped tree correctly but interactions are dead — collapse/expand (T115 icon-tap + `>` expander) and DetailView-on-click (T110/T111) are not wired. /scenario must have the SAME interactive behavior as /trace: all tree interactions fully functional, just seeded from the lazy-loaded single entry point instead of the full tree. Folds into T174.
+
+---
+
+## Tron Verbatim — Follow-on (2026-06-03, twelfth directive — tree model + oversized items)
+
+> [L1] "we hace still oversized items. the expand/collapse state does not look like its correct. make all scenarios implement tree extends traceability with parent and children[] model attributes, set via getter and setters from the type that should be above and below from traceability chain"
+
+> [L2 CORRECTION] "Traceability extends Tree is corrected"
+
+> [L3 REFINE] "parent children satisfy scenario iors and types"
+
+## Atomic Requirements (per R-I rule)
+
+### R-N1: Tree items must not be oversized (width).
+> "we hace still oversized items"
+
+Tree item rendering overflows the container width. Items must fit within the tree panel without horizontal overflow — consistent with R-D/T167 mobile-first width-cap.
+
+### R-N2: Expand/collapse state must be correct.
+> "the expand/collapse state does not look like its correct"
+
+Tree nodes show wrong expand/collapse state — nodes that should be expandable show as collapsed or vice versa. The visual state must match the data state (has children → expandable; no children → leaf).
+
+### R-N3: Class model — Tree (BASE) ← Traceability extends Tree ← typed scenario classes.
+> "make all scenarios implement tree extends traceability with parent and children[] model attributes, set via getter and setters from the type that should be above and below from traceability chain"
+> CORRECTION: "Traceability extends Tree is corrected"
+> REFINE: "parent children satisfy scenario iors and types"
+
+Class hierarchy:
+- **Tree** (BASE class): generic `parent` (IOR ref) + `children[]` (IOR ref array) model attributes
+- **Traceability** extends Tree: adds chain-typed semantics — resolves which type is "above" (parent) and "below" (children) from the R-E chain position
+- **Typed scenario classes** (Requirement, Task, UseCase, Class, Method, Implementation, Test) extend Traceability
+
+`parent` = single scenario IOR of the parent instance (typed per chain position).
+`children[]` = array of scenario IORs of child instances (typed per chain position).
+Set via getters/setters that enforce the chain type constraints (e.g. Task.parent must be a Requirement IOR; Task.children must be UseCase IORs).
+
+→ [T175](./task-175-tree-model-oversized-expand-collapse.md)
