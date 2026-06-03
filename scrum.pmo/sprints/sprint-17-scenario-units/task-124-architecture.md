@@ -4,13 +4,13 @@
 
 [task:uuid:f96a9da3-366c-491f-b2e6-78cbb837f203]
 
-## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (architect + req JOINT — Tron-assigned)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+## Status — ✅ impl-complete (parent) — testing gated on T168-close + 43/43 reverify
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (architect + req JOINT — Tron-assigned)
+  - [x] creating test cases
+  - [x] implementing (PO 2026-06-03: T124.1-.4 + T124.6 DONE; T124.5 gap ≡ T168 AC3, closing in expert's current commit — FORWARD_KEYS impl→tests + standard 7-step update)
+  - [ ] testing (gated: tester re-verifies 43/43 reachability after expert's T168-close commit lands; then T124 + T168 fully close together)
 - [ ] QA Review
 - [ ] Done
 

@@ -504,7 +504,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const type = (unit.ior || '').split(':')[2] || '';
         const FORWARD_KEYS: Record<string, string[]> = {
           Requirement: ['tasks'], Task: ['subtasks', 'useCases', 'children'], UseCase: ['classes'],
-          Class: ['methods'], Method: ['implementations'], Sprint: ['tasks', 'requirements'],
+          Class: ['methods'], Method: ['implementations'], Implementation: ['tests'],
+          Sprint: ['tasks', 'requirements'],
         };
         let childRefs: string[] = [];
         for (const key of (FORWARD_KEYS[type] || [])) {

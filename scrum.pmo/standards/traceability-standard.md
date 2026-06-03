@@ -5,25 +5,38 @@
 
 ## Purpose
 
-Every artifact must be traceable from Tron directive → requirement → use case → PlantUML element → class/method → test case. UUID tags are the mechanism. This document defines where each UUID lives and how they cross-reference.
+Every artifact must be traceable through the **LOCKED 7-step canonical chain** (T168, R-E). UUID tags and IOR references are the mechanism. This document defines the chain, where each UUID lives, and how they cross-reference.
 
-## The Traceability Chain
+## The Traceability Chain — LOCKED 7-Step (T168)
+
+**Canonical chain order** (Tron directive R-E, PO amendments 2026-06-02):
 
 ```
-Tron directive (literal quote in task file)
+Requirement → Task → UseCase(s) → Class → Method → Implementation → Test(s)
+```
+
+- **Atomic requirements are tree ROOTS** — nothing parents them; every other object descends from a requirement.
+- **Forward-only**: links point DOWN the chain (no back-refs in the graph).
+- **Plural hops**: UseCase(s) and Test(s) are 1:N branching points. Implementation:Test is 1:N.
+- **Tree walk**: `/api/trace/children/<uuid>` follows FORWARD_KEYS per class type.
+- **Chain audit**: every Test node must be reachable from a Requirement root via the 7-step chain.
+
+### UUID marker chain
+
+```
+[requirement:uuid:<v4>] in requirements.md        ← ROOT
   ↓
-[requirement:uuid:<v4>] in requirements.md
+[task:uuid:<v4>] in task-N.md                     ← Step 2
   ↓
-[task:uuid:<v4>] in task-N.md (or [subtask:uuid:<v4>] in task-N.M.md)
+[uc:uuid:<v4>] in <<UseCase>> PUML class          ← Step 3 (1:N)
   ↓
-PlantUML element (use case / class / sequence participant)
-  annotated with [uc:uuid:<v4>] or [class:uuid:<v4>]
+[class:uuid:<v4>] in scenario unit                ← Step 4
   ↓
-Source code method / function
-  annotated with // [impl:uuid:<v4>] comment
+Method scenario unit (verb)                       ← Step 5
   ↓
-Test case
-  annotated with // [test:uuid:<v4>] comment
+// [impl:uuid:<v4>] in source .ts file            ← Step 6
+  ↓
+// [test:uuid:<v4>] in test .ts file              ← Step 7 (1:N)
 ```
 
 ## UUID Tag Formats
