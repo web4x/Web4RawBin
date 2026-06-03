@@ -532,6 +532,148 @@ if (!ior || !app) {
 - ✅ Tree renders only seeded root (data-seed-ior controls root selection)
 - ✅ Auto-scroll + selection (R-M3d)
 
+### R-M3d PARTIAL: Auto-Open DetailView Timing (2026-06-03)
+
+**Bug:** DetailView doesn't open on /scenario load. Code present (line 52-57) but fires before tree renders.
+
+**Root cause:** `scenario-view.ts:52` uses `setTimeout(navigate, 100)`. But `renderSeed()` is async — it fetches `/api/trace/children/<uuid>` then builds DOM. 100ms is non-deterministic. `router.navigate()` resolves the object in the graph (works — graph loaded at line 29), but `scrollIntoView` on line 56 targets `rb-object-item` elements that don't exist yet.
+
+**Fix — deterministic: navigate AFTER renderSeed completes:**
+
+`renderSeed()` returns a Promise. Make it public and await it:
+
+```typescript
+// rb-trace-tree.ts — make renderSeed return a Promise that resolves when DOM is built:
+public async renderSeed(uuid: string): Promise<void> {
+  // ... existing fetch + DOM build ...
+  // At end, dispatch a custom event:
+  this.dispatchEvent(new CustomEvent('seed-ready', { detail: { uuid } }));
+}
+```
+
+```typescript
+// scenario-view.ts — REPLACE setTimeout with deterministic await:
+
+// Option A: await the renderSeed promise directly
+await (tree as any).renderSeed?.(ior);  // if renderSeed is exposed
+router.navigate(type, 'show', { uuid: ior! });
+const rootItem = tree.querySelector('rb-object-item');
+rootItem?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+// Option B: listen for seed-ready event
+tree.addEventListener('seed-ready', () => {
+  router.navigate(type, 'show', { uuid: ior! });
+  const rootItem = tree.querySelector('rb-object-item');
+  rootItem?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}, { once: true });
+```
+
+**Architect recommendation:** Option B (event-driven) — cleaner separation, no timing assumptions.
+
+### R-M3e PARTIAL: 51 Children Pre-Expanded (2026-06-03)
+
+**Bug:** /scenario shows seed root with ALL 51 children immediately visible. Expand-click is a no-op (already open).
+
+**Root cause:** `rb-trace-tree.ts renderSeed():143-161` — creates ALL child nodes with `kids.style.display = ''` (visible). No collapse state. The `has-children` attribute is set but no expander toggle is wired for children fetched via `renderSeed`.
+
+**Tron spec (R-M3c):** "ONLY that item view THEN lazy-load children" — seed shows ONLY the root item. Children load on first expand click.
+
+**Fix — renderSeed starts collapsed:**
+
+```typescript
+// rb-trace-tree.ts renderSeed() — REPLACE lines 143-161:
+
+// Show root with expander arrow but children HIDDEN
+if (data.children?.length) {
+  item.setAttribute('has-children', '');
+  // Do NOT set 'children-open' — start collapsed
+  
+  // Create children container but HIDE it
+  const kids = document.createElement('div');
+  kids.className = 'tt-children';
+  kids.style.display = 'none';          // COLLAPSED by default
+  kids.setAttribute('data-parent-uuid', uuid);
+  root.appendChild(kids);
+  
+  // Store children data for lazy-load on first expand
+  (root as any)._pendingChildren = data.children;
+}
+
+// ... append root to tree ...
+
+// Wire expand/collapse toggle
+root.querySelector('.tt-row')?.addEventListener('click', (e) => {
+  const kids = root.querySelector('.tt-children') as HTMLElement;
+  if (!kids) return;
+  
+  if (kids.style.display === 'none') {
+    // First expand: populate children from stored data
+    if ((root as any)._pendingChildren) {
+      for (const child of (root as any)._pendingChildren) {
+        kids.appendChild(this.buildChildNode(child));
+      }
+      delete (root as any)._pendingChildren;
+    }
+    kids.style.display = '';
+    item.setAttribute('children-open', '');
+  } else {
+    kids.style.display = 'none';
+    item.removeAttribute('children-open');
+  }
+});
+```
+
+**Children of children:** When a child node is expanded, it fetches ITS children via `/api/trace/children/<child-uuid>`. This is the cascading lazy-load per LOCKED chain. `buildChildNode()` creates a node with the same expand/collapse pattern:
+
+```typescript
+private buildChildNode(child: { uuid: string; type: string; name: string; hasChildren: boolean }): HTMLElement {
+  const cnode = document.createElement('div');
+  cnode.className = 'tt-node';
+  const crow = document.createElement('div');
+  crow.className = 'tt-row';
+  const citem = document.createElement('rb-object-item');
+  citem.setAttribute('ref', `${child.type.toLowerCase()}:${child.uuid}`);
+  citem.setAttribute('type', child.type.toLowerCase());
+  citem.setAttribute('title', child.name || child.uuid);
+  
+  if (child.hasChildren) {
+    citem.setAttribute('has-children', '');
+    const ckids = document.createElement('div');
+    ckids.className = 'tt-children';
+    ckids.style.display = 'none';  // collapsed
+    
+    // Lazy-load on expand
+    crow.addEventListener('click', async () => {
+      if (ckids.style.display === 'none' && ckids.children.length === 0) {
+        // First expand: fetch children
+        const res = await fetch(`/api/trace/children/${encodeURIComponent(child.uuid)}`);
+        const data = await res.json();
+        for (const grandchild of (data.children || [])) {
+          ckids.appendChild(this.buildChildNode(grandchild));
+        }
+      }
+      ckids.style.display = ckids.style.display === 'none' ? '' : 'none';
+      citem.toggleAttribute('children-open');
+    });
+    
+    cnode.appendChild(crow.appendChild(citem) && crow);
+    cnode.appendChild(ckids);
+  } else {
+    crow.appendChild(citem);
+    cnode.appendChild(crow);
+  }
+  
+  return cnode;
+}
+```
+
+### Summary: 2 Fixes for Expert (R-M3d + R-M3e)
+
+| # | Bug | Root Cause | Fix |
+|---|-----|-----------|-----|
+| R-M3d | DetailView doesn't auto-open | setTimeout(100) races renderSeed async | Event-driven: `seed-ready` event, navigate after |
+| R-M3e | 51 children pre-expanded | renderSeed shows all children visible | Start collapsed; lazy-load on first expand click; cascading buildChildNode for deeper levels |
+
 ### R-M3d: Detail-View Navigation → Tree Auto-Scroll + Selection State (PO fold 2026-06-03)
 
 **Current:** Tree has NO concept of "selected node." When a DetailView opens (via click or `/scenario?ior=`), the tree doesn't highlight or scroll to the corresponding item. User loses context between tree and detail.
