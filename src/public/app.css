@@ -272,6 +272,11 @@ rb-detail-drawer .drawer-handle {
   width: 40px; height: 4px; background: rgba(255,255,255,0.25); border-radius: 2px;
   margin: 0 auto 12px; cursor: grab;
 }
+@media (min-width: 1025px) { rb-detail-drawer .drawer-handle { display: none; } }
+@media (max-width: 480px) { rb-detail-drawer .drawer-handle { width: 60px; height: 6px; } }
+rb-detail-drawer > * { max-width: 100%; overflow-x: auto; box-sizing: border-box; }
+.dv-fields, .dv-links, .dv-head { max-width: 100%; overflow-x: hidden; word-break: break-word; }
+rb-detail-drawer pre, rb-detail-drawer code { font-size: 0.75rem; }
 
 /* T111+T120: Shared DetailView styles (dark theme inside drawer) */
 .dv-head { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }

@@ -8,7 +8,7 @@
 - [x] In Progress
   - [x] refinement (architect design — this document)
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done

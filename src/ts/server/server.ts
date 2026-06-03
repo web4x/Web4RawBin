@@ -421,6 +421,16 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
+    // T174 R-M3: /scenario?ior=<uuid> — single-instance focused tree view
+    if (filepath === '/scenario' || filepath === '/scenario/') {
+      const script = getBundleScript('scenario-view.js', 'scenario-view.js');
+      res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache' });
+      res.end(`${pageHead('Scenario')}${pageNav('/trace', 'Trace')}
+        <div class="trace-page" id="scenario-app"></div>
+        <script type="module" src="${script}"></script></body></html>`);
+      return;
+    }
+
     // T108+T163: traceability graph — overlay scenario index model.name for clean titles.
     if (filepath === '/api/trace') {
       try {
@@ -671,7 +681,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         };
         const breadcrumb = (rel: string): string => { if (!rel) return '<h1>/</h1>'; const parts = rel.replace(/\/$/, '').split('/'); const crumbs: string[] = []; for (let i = 0; i < parts.length; i++) { const href = '/md/' + parts.slice(0, i + 1).join('/') + '/'; const isLast = i === parts.length - 1; if (isLast) { crumbs.push(`<span>${parts[i]}</span>`); } else { crumbs.push(`<a href="${href}" class="bc-link">${parts[i]}</a>`); } } return `<h1 style="font-size:1.1rem">${crumbs.join('<span style="color:#555;margin:0 2px">/</span>')}</h1>`; };
         const inSprintsMd = relPath.startsWith('scenario/sprints.md/');
-        const jsonHref = (e: any) => { if (e.name.endsWith('.scenario.json')) { const uuid = e.name.replace('.scenario.json', ''); return `/trace?ior=${encodeURIComponent(uuid)}`; } return `/md/${relPath}${e.name}`; };
+        const jsonHref = (e: any) => { if (e.name.endsWith('.scenario.json')) { const uuid = e.name.replace('.scenario.json', ''); return `/scenario?ior=${encodeURIComponent(uuid)}`; } return `/md/${relPath}${e.name}`; };
         const isFileOrLink = (e: any) => e.isFile() || e.isSymbolicLink();
         const isDir = (e: any) => { if (e.isDirectory()) return true; if (e.isSymbolicLink()) { try { return fsSync.statSync(path.join(dirPath, e.name)).isDirectory(); } catch { return false; } } return false; };
         const dirs = entries.filter(e => isDir(e) && !e.name.startsWith('.')).map(e => `<li>📁 <a href="/md/${relPath}${e.name}/">${e.name}/</a>${symlinkIcon(e)}</li>`);
@@ -684,11 +694,11 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       } catch { res.writeHead(404); res.end('Directory not found'); }
       return;
     }
-    // T173: /md/ .scenario.json direct request → 302 redirect to /trace?ior=<uuid>
+    // T173: /md/ .scenario.json direct request → 302 redirect to /scenario?ior=<uuid>
     if (filepath.startsWith('/md/') && filepath.endsWith('.scenario.json')) {
       const basename = path.basename(filepath, '.scenario.json');
       if (/^[0-9a-f]{8}-/.test(basename)) {
-        res.writeHead(302, { Location: `/trace?ior=${encodeURIComponent(basename)}` });
+        res.writeHead(302, { Location: `/scenario?ior=${encodeURIComponent(basename)}` });
         res.end();
         return;
       }
@@ -700,7 +710,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const resolved = fsSync.realpathSync(fullPath);
         const uuid = path.basename(resolved, '.scenario.json');
         if (/^[0-9a-f]{8}-/.test(uuid)) {
-          res.writeHead(302, { Location: `/trace?ior=${encodeURIComponent(uuid)}` });
+          res.writeHead(302, { Location: `/scenario?ior=${encodeURIComponent(uuid)}` });
           res.end();
           return;
         }

@@ -61,7 +61,7 @@ describe('T103 Object.verb routing', () => {
       const g = seed();
       const router = new TraceRouter(g, defaultRegistry(), mount);
       expect(() => router.route('#requirement.frobnicate?uuid=' + RU)).not.toThrow();
-      expect(mount.querySelector('.trace-notfound')).toBeTruthy();
+      expect(mount.innerHTML).toBe('');
     });
 
     it('list renders one View per object of the type', () => {

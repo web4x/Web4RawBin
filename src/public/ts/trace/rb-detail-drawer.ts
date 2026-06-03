@@ -52,12 +52,11 @@ export class RbDetailDrawer extends HTMLElement {
   }
 
   private onTouchStart = (e: TouchEvent): void => {
-    const handle = this.querySelector('.drawer-handle');
-    if (!handle) return;
-    const t = e.target as Node;
-    if (handle.contains(t) || t === handle) {
+    const rect = this.getBoundingClientRect();
+    const touchY = e.touches[0].clientY;
+    if (touchY - rect.top < 60) {
       this.dragging = true;
-      this.startY = e.touches[0].clientY;
+      this.startY = touchY;
       this.style.transition = 'none';
     }
   };

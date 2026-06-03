@@ -39,7 +39,7 @@ export class VerbRegistry {
   }
 
   /** Rendered when no type.verb handler matches — never throw to the user. */
-  notFound(mount: HTMLElement, type?: string, verb?: string): void {
-    mount.innerHTML = `<div class="trace-notfound">No view for <code>${type ?? '?'}.${verb ?? '?'}</code></div>`;
+  notFound(mount: HTMLElement, _type?: string, _verb?: string): void {
+    mount.innerHTML = '';
   }
 }

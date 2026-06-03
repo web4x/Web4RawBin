@@ -62,14 +62,14 @@ function renderChainLinkMd(ior: string, resolve?: SlugResolver): string {
   const uuid = ior.replace('ior:instance:', '');
   const info = resolve?.(uuid);
   if (info) return `[🔗 ${info.name}](../sprints.md/${info.type}/${info.slug}.md)`;
-  return `[🔗 ${uuid.slice(0, 8)}](/trace?ior=${encodeURIComponent(uuid)})`;
+  return `[🔗 ${uuid.slice(0, 8)}](/scenario?ior=${encodeURIComponent(uuid)})`;
 }
 
 function renderChainLinkHtml(ior: string, resolve?: SlugResolver): string {
   const uuid = ior.replace('ior:instance:', '');
   const info = resolve?.(uuid);
   if (info) return `<a href="/md/scenario/sprints.md/${info.type}/${info.slug}.md" class="chain-link">🔗 ${esc(info.name)}</a>`;
-  return `<a href="/trace?ior=${encodeURIComponent(uuid)}" class="chain-link">🔗 ${esc(uuid.slice(0, 8))}</a>`;
+  return `<a href="/scenario?ior=${encodeURIComponent(uuid)}" class="chain-link">🔗 ${esc(uuid.slice(0, 8))}</a>`;
 }
 
 export function renderChainSection(model: Record<string, unknown>, format: 'md' | 'html', resolve?: SlugResolver): string {
