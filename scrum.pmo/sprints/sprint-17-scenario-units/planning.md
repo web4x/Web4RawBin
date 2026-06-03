@@ -311,7 +311,7 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
   **Owners (CMM4):** robbin-req (anchor R-E verbatim + PO amendments) → robbin-architect (TraceModel walk + ViewGenerator + tree builder + standard update + Sprint 17 chain doc) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (chain walk + audit; TS1-TS8)
   **Rule-pair scope:** (a)+(b) required; (c) architect confirms. v4 uuids: task `c3951691-…`; req `12f6f7d1-…`.
 
-- [ ] 🔧 [T169: Data-quality audit + remigrate — complete tree, NO back-chaos, NO untraced scenarios (KEYSTONE)](./task-169-data-quality-audit-remigrate-complete-tree.md)
+- [ ] 🧪 [T169: Data-quality audit + remigrate — complete tree, NO back-chaos, NO untraced scenarios (KEYSTONE)](./task-169-data-quality-audit-remigrate-complete-tree.md)
   **Status:** audit shipped + PARTIAL — `43f9a0e` design + `7ddf64f` v0.5.66 impl (rule-pair (a)+(b) ✓). Audit RAN; mechanics pass but **50/296 untraced (17%) + R17.26 links=0** — Tron R-F demands ZERO untraced → closure via **T171**. T169 testing closes once T171 lands.
   **Owners (CMM4):** robbin-req (anchor R-F verbatim) → robbin-architect (audit + remigration + CI-gate design) → robbin-expert (impl audit + remigration tooling; rule-pair (a)+(b)) → robbin-tester (audit baseline + post-remigration; TS1-TS11)
   **Rule-pair scope:** (a)+(b) required; (c) architect confirms. v4 uuids: task `e43c24fe-…`; req `c182f6f1-…`. **KEYSTONE — block T167/T170 closure on T169 audit clean.**
@@ -321,12 +321,12 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
   **Owners (CMM4):** robbin-req (anchor R-G verbatim) → robbin-architect (3-gate design + sustain cadence doc) → robbin-expert (CI workflow + gate scripts; rule-pair (a)+(b)) → robbin-tester (gate firing + clean-state passing; TS1-TS9)
   **Rule-pair scope:** (a)+(b) required; (c) exempt. v4 uuids: task `6cf46cd1-…`; req `1267ef56-…`.
 
-- [ ] ✅ [T171: Untraced-closure + traceability-matrix refresh (T143-T171)](./task-171-untraced-closure-r17-26-linkback.md)
+- [ ] 🧪 [T171: Untraced-closure + traceability-matrix refresh (T143-T171)](./task-171-untraced-closure-r17-26-linkback.md)
   **Status:** CLOSED (PO 2026-06-03 — T172 completed the chain-reachability work T171 was blocked on). `7c84fe0` strips 109 empty `requirements[]` back-refs; 50 are ALL TraceLinks (edge metadata, orphan-by-design); matrix refreshed. T171's baselines + T172's 238/238 reachability = complete. Tron QA pending.
   **Owners (CMM4):** robbin-req (anchor PO finding) → robbin-architect (categorize the 50 + design R17.26 link-back + allowlist mechanism) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (T169 audit re-run = ZERO untraced + R17.26 walkDown reaches T165/T166)
   **Rule-pair scope:** (a)+(b) required; (c) exempt. v4 uuids: task `75628241-…`; req `0dcaa94e-…`. **Gates T169 testing closure + T170 CI gates land cleanly only after T171.**
 
-- [ ] ✅ [T172: Strict-direction audit + massive orphan fix (R-H) + R-H.2 atomic-req-split + R-J test-reachability](./task-172-strict-direction-audit-massive-orphans.md)
+- [ ] 🧪 [T172: Strict-direction audit + massive orphan fix (R-H) + R-H.2 atomic-req-split + R-J test-reachability](./task-172-strict-direction-audit-massive-orphans.md)
   **Status:** ✓ COMPLETE (PO 2026-06-03 — S17 R-batch R-A through R-J complete + verified). `3fefc68` 5-step forward-ref population + strict-direction audit: **238/238 chain reachability (100%)** from 146/296 (49%). Sprints (9) + TraceLinks (50) excluded as orphan-by-design. 297 total, 0 chain orphans, 0 back-refs, 0 cardinality issues; 834/834 tests pass. Rule-pair exempt (data only, no user surface). Tron QA pending.
   **Owners (CMM4 — refinement JOINT, Tron-assigned):** robbin-req + robbin-architect (JOINT — diagnose audit-too-lenient vs display-reveals; design strict-direction validator + remigration) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (live `/trace` clean + T169 strict re-run)
   **Rule-pair scope:** (a)+(b) required; (c) architect confirms. v4 uuids: task `7bf0199c-…`; req `383c3b28-…`. **Closes audit-display trust gap left by T171; adds atomic-split standing rule.**

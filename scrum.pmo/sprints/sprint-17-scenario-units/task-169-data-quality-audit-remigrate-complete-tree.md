@@ -4,13 +4,13 @@
 
 [task:uuid:e43c24fe-a1d1-4d14-8e7a-55ea7edd616f]
 
-## Status — 🔧 audit shipped + PARTIAL (50/296 untraced + R17.26 unlinked → T171)
+## Status — 🧪 tester-verified via T172 closure (100% reach; awaiting Tron QA)
 - [x] Planned
 - [x] In Progress
   - [x] refinement (req → architect — **`43f9a0e` architect KEYSTONE design**)
   - [x] creating test cases
   - [x] implementing (expert — **`7ddf64f` v0.5.66 audit tooling + remigration**; rule-pair (a)+(b) ✓: package.json + sw.js bumped in same commit-set)
-  - [ ] testing (PARTIAL — audit RAN successfully and **metrics pass on the rule mechanics**, but the data has known gaps: **50/296 scenarios untraced (17%)**; R17.26 "Traceability TREE" has links=0 (T165/T166 implement it but no scenario links back). Tron R-F demands ZERO untraced → **closure via T171** (planner stand-up 2026-06-02 per PO direction))
+  - [x] testing (CLOSED 2026-06-03 per PO direction — original `7ddf64f` v0.5.66 shipped the audit rule mechanics; data gap (50/296 untraced) closed via T171 (`4431f9d` — 109 back-refs stripped + matrix refresh) + T172 (`3fefc68` — 5-step forward-ref + strict-direction audit → **238/238 chain reachability (100%)**). T169's audit metric now satisfies Tron R-F "ZERO untraced".)
 - [ ] QA Review
 - [ ] Done
 
