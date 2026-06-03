@@ -394,6 +394,19 @@ PO direction 2026-06-03 — explicit GATE on the traceability chain story: T168/
   **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL exempt (data-only migration; per learning #24).
   **v4 uuids:** task `4bd33c18-…`; req-uuid R-Q `cd5dc5b7-…`.
   **KEYSTONE for:** R-J ("every Test reachable via the chain") + R-E ("chain starts with atomic requirements") full DATA satisfaction. T124 + T168 closure GATED on T178 + tester 44/44.
+  **Critical-path note (PO 2026-06-04):** T178 is ranked BELOW T180 (real-device unblock) until Tron is back on a working device. Architect can still start T178 design in parallel.
+
+### Phase 36 — Tron R-T (real CA cert + CDP test-infra workaround — Tron real-device unblock; CRITICAL-PATH #1)
+
+PO direction 2026-06-04: TOP PRIORITY above T178. Tron locked out of real device — Chrome/Safari block SW registration on self-signed cert; with T179 making SW the durable runtime, this is a real-device blocker. Two-track scope: production Let's Encrypt cert for `home.donges.it` + CDP `Security.setIgnoreCertificateErrors` Playwright workaround for T100. 4-role planner-first. R-T new letter (R-R taken by S13, R-S by T179).
+
+- [ ] ⏳ [T180: Real CA cert (Let's Encrypt) for home.donges.it + CDP Playwright workaround (CRITICAL-PATH #1)](./task-180-real-ca-cert-letsencrypt-cdp-workaround.md)
+  **Status:** ⏳ planned — **TOP PRIORITY above T178** (real-device blocker; Tron locked out). Two tracks: (a) production LE cert + auto-renew for `home.donges.it`, (b) CDP `Security.setIgnoreCertificateErrors` in Playwright for SW-registration tests against T100.
+  **Owners (CMM4):** robbin-req (R-T anchor when Tron-relayed) → robbin-architect (Track 1 ACME pipeline + server integration + auto-renew; Track 2 CDP Playwright config) → robbin-expert (provision LE cert + server.ts update + Playwright config) → robbin-tester (cert chain valid + iPhone SW registers + Playwright SW registration succeeds + T179 AC11-13 verifiable)
+  **Rule-pair scope:** (a)+(b) likely **EXEMPT** for both tracks (infra-only / test-only per learning #24); architect confirms.
+  **v4 uuids:** task `915f458e-…`; req-uuid R-T `b748f8be-…`.
+  **Unblocks:** Tron real-device app use (CRITICAL) · T179 AC11-13 SW-active headless verify · all future PWA/SW tasks.
+  **Critical-path:** T180 ranks ABOVE T178 until shipped — Tron must be back on a working device first.
 
 ### Phase 35 — Tron R-S (SW auto-activation reliability — recurring stale-cache root fix)
 
