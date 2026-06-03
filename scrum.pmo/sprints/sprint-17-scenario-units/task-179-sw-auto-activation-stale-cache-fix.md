@@ -26,17 +26,24 @@
 > NOTE: letter **R-R** is already in use by S13 (R-R1: all user rooms load from
 > disk on connect). T179 uses **R-S** to avoid collision.
 
-## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement (architect designs SW lifecycle + update-banner interaction)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+## Status — ✅ impl-shipped (expert 80ed9911 v0.5.78; planner-first inverted but landed)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (architect designed SW lifecycle + build.mjs STATIC_SHELL derivation in same pass; planner-first inverted but converged)
+  - [x] creating test cases
+  - [x] implementing (expert `80ed9911` v0.5.78 — sw.js: SKIP_WAITING postMessage handler at L27-29 (skipWaiting), activate handler purges old caches at L46-47 (`caches.keys().filter(!== CACHE_NAME).delete`), `self.clients.claim()` at L50; build.mjs auto-injects ALL hashed bundle names (app + trace-page + scenario-view) into STATIC_SHELL — removed the fragile `cache.add('/dist/app.js').catch(() => {})` fallback that cached the 404. Rule-pair (a)+(b)+(c) ✓ verified — package.json + sw.js + build.mjs + STATIC_SHELL updated; 836/836 pass.)
+  - [ ] testing (PENDING — tester SW-ACTIVE verify per strict-bar (2b): AC11-13 + repro Tron's "all routes broken except /" symptom returns ZERO 404s for app.js with SW active; check `caches.match('/dist/app.js')` returns undefined post-install)
 - [ ] QA Review
 - [ ] Done
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
+
+> **One-time transition caveat (PO 2026-06-03):** Tron's CURRENT pre-v0.5.78
+> SW lacks the SKIP_WAITING postMessage handler and the `clients.claim` call.
+> So this single fix does NOT auto-takeover for him — he needs **ONE LAST
+> MANUAL CLEAR** to get onto v0.5.78. After that, every future version auto-
+> activates without manual intervention. This is the unavoidable transition
+> from a SW that doesn't know how to take over to one that does.
 
 ## Traceability
 - up
@@ -146,7 +153,10 @@ None (atomic task — single SW-lifecycle pass + banner-interaction update).
 - 2026-06-03: PO directs T179 stand-up — recurring stale-cache class of issues; "Tron never manually clears again." Architect designs SW lifecycle (skipWaiting/claim/cache-purge + banner interaction); expert implements; tester proves auto-takeover on 2nd load.
 - 2026-06-03: PO surfaced ROOT CAUSE of "all routes broken except /" — `sw.js:42` falls back to `cache.add('/dist/app.js').catch(() => {})`. Real bundle is hashed (`app-PMIKRTJL.js`); `/dist/app.js` returns 404; SW caches the 404; `/` works (no `app.js` dep); every other route breaks. PO folds the STATIC_SHELL build-manifest fix into T179 (same surface, one rule-pair cycle).
 - 2026-06-03: PO also surfaced a STRICT-VERIFY-BAR GAP — tester tested WITHOUT SW installed → false clean. Strict bar (in `scrum.pmo/standards/traceability-standard.md`) now extended to require SW-ACTIVE route verification for SW-touching tasks. T179 AC11 captures the rule.
-- Pending: architect designs SW lifecycle + manifest derivation → expert impls (rule-pair (a)+(b)+(c)) → tester proves auto-takeover + cache-purge + manifest-derived STATIC_SHELL + all-routes-live (Tron repro returns ZERO 404s) WITH SW ACTIVE → Tron QA closes the recurring stale-cache root.
+- 2026-06-03: Expert `80ed9911` v0.5.78 ships T179 — sw.js (SKIP_WAITING postMessage handler L27-29 + activate-time old-cache purge L46-47 + `clients.claim` L50) + build.mjs auto-injects ALL hashed bundle names (app + trace-page + scenario-view) into STATIC_SHELL; removed the `cache.add('/dist/app.js').catch(() => {})` fallback that cached the 404. Rule-pair (a)+(b)+(c) ✓ verified. 836/836 pass. Planner-first inverted but converged (expert shipped while planner finalizing 15-AC spec).
+- 2026-06-03: Planner verified expert's commit against the 15-AC spec: skipWaiting present, caches.delete-old present, clients.claim present, build.mjs auto-injection confirmed, rule-pair verified — all 10 impl-side ACs (AC1-10) satisfied by code.
+- 2026-06-03: PO direction — **one-time transition caveat:** Tron's CURRENT pre-v0.5.78 SW lacks SKIP_WAITING handler → ONE LAST manual clear gets him to v0.5.78; thereafter every update auto-activates without manual intervention.
+- Pending: tester **SW-ACTIVE** verify per strict-bar (2b) — AC11 (register SW → await activated → reload → assert with SW active), AC12 (2nd-load auto-takeover post-v0.5.78), AC13 (existing tabs receive SW control on next paint), AC10 (Tron repro: ZERO 404s for app.js with SW active); then Tron QA closes the recurring stale-cache root.
 
 ---
 
