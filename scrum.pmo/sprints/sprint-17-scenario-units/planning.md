@@ -344,9 +344,13 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
 
 Planner-first stand-up 2026-06-03. Initial planner SPLIT scaffold (T174+T175) reconciled per learning #20 — architect `483d1587` chose ONE consolidated task ("all 4 atoms touch the drawer/view layer + share commit surface; splitting = 4 version bumps for one coherent UX pass"); planner adopted the bundle. req-eng `acae0ffe` captured Tron verbatim for R-M1/M2/M3/M4. /trace stays full-tree from req roots; /scenario is the new IOR-seeded route.
 
-- [ ] ✅ [T174: Drawer UX cleanup + /scenario route + mobile width-cap (R-M1/M2/M3/M4 + R-M3d consolidated)](./task-174-drawer-ux-scenario-route.md)
-  **Status:** ✅ impl-shipped — expert `2eb4dab1` v0.5.71 (R-M1 stale-placeholder cleanup, R-M2 drawer swipe touch-area, R-M3 new /scenario route + scenario-view.ts + server route, R-M4 drawer child width-cap; `.scenario.json` clicks reroute /trace?ior= → /scenario?ior=). Rule-pair (a)+(b)+**(c) STATIC_SHELL** ✓ verified (`/scenario` + `dist/scenario-view-5CKNEWVS.js` added to sw.js). ⚠️ **OPEN ITERATION:** Tron caught R-M3 bug (`/scenario?ior=X` ignores `?ior=`); architect diagnosed `4845bd8b` then `da163dc3` (2-layer root cause: Task ior=0 children); req-eng captured **R-M3d** atom `f12ccec0` (drawer nav scroll-to-element) — **PO 2026-06-03: R-M3d FOLDS into T174** (architect bundle pattern; same drawer/view surface, one fix-cycle). Expert ships single-IOR-seed + Task-children + R-M3d scroll-into-view together; tester re-verifies all R-M1..R-M4+R-M3d in one pass, then Tron QA.
-  **Folded req:uuid:** R-M3d `8832a890-ca92-4cfc-97c9-c81dff3ea1b1`.
+- [ ] ✅ [T174: Drawer UX cleanup + /scenario route + mobile width-cap (R-M1/M2/M3/M4 + R-M3d + R-M3e iterating)](./task-174-drawer-ux-scenario-route.md)
+  **Status:** ✅ impl-shipped (partial fix-cycle) — expert `2eb4dab1` v0.5.71 (R-M1+R-M2+R-M3+R-M4 initial ship; (c) STATIC_SHELL ✓) + expert `d0796bf4` v0.5.72 (R-M3 IOR-seed bug fix + Task children + scanRepo fallback; rule-pair (a)+(b)+(c) ✓). ⚠️ **MID-ITERATION (3 atoms outstanding):**
+   - **R-M3d** scroll-into-view — NOT in v0.5.72 (grep-verified no `scrollIntoView`/`select()` in shipped code) despite PO's "ship together" direction; **still pending expert impl**.
+   - **R-M3e** /scenario interactions dead (missing event wiring) — req-eng captured `6f7614eb`, architect diagnosed + designed `54ab4f35`; **still pending expert impl**.
+  Tester one-pass re-verify + Tron QA pending the remaining R-M3d + R-M3e fix commits.
+  **Folded req:uuids:** R-M3d `8832a890-ca92-4cfc-97c9-c81dff3ea1b1`; R-M3e *(req-eng pending formal uuid)*.
+  **PO direction needed:** R-M3e folds into T174 (precedent from R-M3d bundle direction)? — flagged in planner report.
   **Owners (CMM4):** robbin-req `acae0ffe` (verbatim capture R-M1-M4) → robbin-architect `483d1587` (design — ONE consolidated task) → robbin-expert (impl; rule-pair (a)+(b)+(c)) → robbin-tester (verify R-M1-M4 ACs; /trace regression check)
   **Rule-pair scope:** (a)+(b)+**(c)** all REQUIRED — `/scenario` is a new HTML route with its own bundle (`scenario.html` + `scenario-view.ts` → `dist/scenario.js`); STATIC_SHELL entry per learning #16.
   **v4 uuids:** task `46b7eadf-…`; req-uuids R-M1 `5d34db40-…`, R-M2 `c970f251-…`, R-M3 `cc673ef3-…`, R-M4 `fa1bd28e-…`.

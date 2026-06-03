@@ -643,7 +643,11 @@ None (atomic task — architect explicitly chose ONE consolidated task: "All 4 a
 - 2026-06-03: Expert `2eb4dab1` ships v0.5.71 (R-M1+M2+M3+M4). Rule-pair (a)+(b)+(c) verified ✓ ((c) STATIC_SHELL: /scenario + dist/scenario-view-5CKNEWVS.js added).
 - 2026-06-03: Tron caught R-M3 bug — `/scenario?ior=X` shows full tree, ignores `?ior=`. Architect diagnosed `4845bd8b` then `da163dc3` (2-layer root: Task ior=0 children). req-eng `f12ccec0` captured **R-M3d** new atom: drawer navigation must scroll tree to selected element.
 - 2026-06-03: PO direction — **R-M3d FOLDS into T174** (architect bundle pattern: same drawer/view surface, one fix-cycle). Expert ships single-IOR-seed + Task-children + R-M3d scroll-into-view together; tester re-verifies all in one pass. R-M3d req:uuid `8832a890-…` added.
-- Pending: expert R-M3 + R-M3d bug-fix commit (rule-pair (a)+(b); (c) likely exempt — fixes existing route/components); tester re-verifies R-M1..R-M4 + R-M3d ACs in one pass; then Tron QA.
+- 2026-06-03: Expert `d0796bf4` v0.5.72 ships fix-cycle PART 1: scenario-view.ts removes /api/trace full-graph fetch + uses data-seed-ior; rb-trace-tree.ts renderSeed() fetches /api/trace/children/<uuid>; scanRepo fallback for empty/string index arrays (bridges until T172 forward-ref data complete); 834/834. Rule-pair (a)+(b)+(c) ✓ verified (STATIC_SHELL trace-page-RA6MM7J4 + scenario-view-TOZZ2MDV).
+- 2026-06-03: ⚠️ Planner grep-verified — **R-M3d scroll-into-view NOT in v0.5.72** (no `scrollIntoView`/`select()` in shipped rb-trace-tree.ts/rb-object-item.ts). PO direction was "ship together"; expert shipped IOR-seed + Task-children but R-M3d still pending. Honest board: T174 ✅ shipped (v0.5.72), R-M3d open.
+- 2026-06-03: Tron caught ANOTHER atom — **R-M3e**: /scenario interactions dead (event wiring missing). req-eng captured `6f7614eb` (must match /trace parity); architect designed fix `54ab4f35`.
+- Pending: expert R-M3d scroll-into-view + R-M3e event-wiring fix commits (rule-pair (a)+(b); (c) likely exempt — fixes existing /scenario surface). Tester one-pass re-verify R-M1..R-M4 + R-M3d + R-M3e ACs. Then Tron QA.
+- **PO direction needed:** confirm R-M3e folds into T174 (precedent from R-M3d bundle direction).
 
 ---
 
