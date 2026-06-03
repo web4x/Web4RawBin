@@ -296,6 +296,82 @@ async render(): Promise<void> {
 
 **Expert action:** Replace `scenario-view.ts` lines 28-46. Add `data-seed-ior` to `rb-trace-tree.ts`. Remove the `fetch('/api/trace')` call entirely from `/scenario`.
 
+### R-M3 SECOND DIAGNOSIS — Task ior=0 children (tester 2026-06-03)
+
+**Tester confirms:** Sprint ior → 379 items (full tree). Task ior → 0 items. Both wrong.
+
+**Root cause — TWO layers:**
+
+**Layer 1: Scenario data has NO UUID forward arrays.**
+```
+Task unit model.subtasks = "None (atomic task).\n---\n..."  // STRING, not UUID[]
+Task unit model.useCases = undefined                        // MISSING
+```
+Forward UUID arrays (`tasks[]`, `useCases[]`, `classes[]`, `methods[]`) were never populated in the scenario index. The T172 forward-ref population (5-step) hasn't run on the live data.
+
+**Layer 2: `/api/trace/children/` reads wrong field names.**
+```typescript
+// server.ts:506 — current:
+Task: ['children', 'useCases']  // 'children' doesn't exist in data
+```
+Should be `['subtasks', 'useCases']` per T168 canonical chain — but even with correct field names, the data is strings not UUID arrays.
+
+**Why `/api/trace` (full graph) works:** `scanRepo()` computes forward refs from markdown at request time — it parses task files, requirements.md, traceability-matrix.md and builds the graph. The `/api/trace/children/<uuid>` endpoint reads pre-stored scenario JSON which has NO computed refs.
+
+### EXACT FIX for Expert
+
+**Option A (fast — bridge):** `/api/trace/children/<uuid>` falls back to the scanRepo graph when scenario index has no forward arrays:
+
+```typescript
+// server.ts /api/trace/children handler — REPLACE lines 505-513:
+const type = (unit.ior || '').split(':')[2] || '';
+let childRefs: string[] = [];
+
+// Try scenario index forward arrays first (T172 populated data)
+const FORWARD_KEYS: Record<string, string[]> = {
+  Requirement: ['tasks'],
+  Task: ['subtasks', 'useCases'],     // FIX: 'subtasks' not 'children'
+  UseCase: ['classes'],
+  Class: ['methods'],
+  Method: ['implementations'],
+  TraceLink: ['tests'],
+  Sprint: ['tasks', 'requirements'],
+};
+for (const key of (FORWARD_KEYS[type] || [])) {
+  const refs = (unit.model as Record<string, unknown>)[key];
+  if (Array.isArray(refs)) {
+    for (const r of refs) {
+      const clean = String(r).replace('ior:instance:', '');
+      if (/^[0-9a-f]{8}-/.test(clean)) childRefs.push(clean);
+    }
+  }
+}
+
+// FALLBACK: if no UUID refs found, consult the scanRepo graph
+if (childRefs.length === 0) {
+  const { graph } = scanRepo(sprintsDir, srcDir, testDir);
+  const graphObj = graph.get(uuid);
+  if (graphObj) {
+    const links = graphObj.toJSON().links || {};
+    childRefs = Object.values(links).flat().map(r => String(r).replace(/^[a-z]+:/, ''));
+  }
+}
+```
+
+**Option B (correct — T172):** Run the 5-step forward-ref population on scenario data first, then children endpoint works natively. This is the T172 scope — but it's not shipped yet.
+
+**Architect recommendation:** Option A NOW (unblocks /scenario immediately), Option B in T172 (permanent fix removes the fallback).
+
+**Also fix `scenario-view.ts`** per previous diagnosis — remove `fetch('/api/trace')`, use `data-seed-ior`.
+
+### Summary: 3 Fixes for Expert (R-M3 complete)
+
+| # | File | Fix |
+|---|------|-----|
+| 1 | `scenario-view.ts` | Remove `fetch('/api/trace')`. Use `data-seed-ior` attribute on tree. Single root, not full graph. |
+| 2 | `rb-trace-tree.ts` | Implement `data-seed-ior` branch: fetch `/api/trace/children/<uuid>`, render as sole root, auto-expand, scroll-to. |
+| 3 | `server.ts:505-513` | Fix `FORWARD_KEYS` (`subtasks` not `children`). Add scanRepo fallback when scenario arrays empty/strings. |
+
 ---
 
 ### R-M4: Mobile Drawer Item-View Width Capped at Drawer Width
