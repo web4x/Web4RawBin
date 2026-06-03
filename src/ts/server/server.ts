@@ -319,7 +319,7 @@ function trackClient(req: http.IncomingMessage): void {
 async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {
   trackClient(req);
   try {
-    let filepath = req.url || '/';
+    let filepath = (req.url || '/').split('?')[0];
 
     // API: bug status update
     if (req.method === 'POST' && filepath === '/api/bug-status') {
