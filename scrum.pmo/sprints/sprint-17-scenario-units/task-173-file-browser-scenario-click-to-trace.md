@@ -230,8 +230,88 @@ Keep `/api/trace` returning the full graph for tools that need it (trace-cli, au
 
 STATIC_SHELL (c): exempt — no new HTML route (uses existing `/trace` with query param).
 
-### AC (architect-proposed, pending planner formalization)
-- [ ] Clicking `.scenario.json` in file-browser navigates to `/trace?ior=<uuid>`
+### Concrete Repro: Tron's Broken Sprint Link (R-K1)
+
+**Steps:**
+1. Open `/edit` → file browser → navigate to `scenario/sprints.json/sprint-15/`
+2. See `sprint-traceability-browser.json 🔗 ✏️`
+3. Click the `🔗` link
+4. Navigates to `/md/scenario/sprints.md/task/sprint-traceability-browser.md` → **404**
+
+**Root cause — TWO bugs in `server.ts:626`:**
+
+```typescript
+// server.ts line 626 — jsonHref():
+const jsonHref = (e: any) => {
+  const m = relPath.match(/^scenario\/sprints\.json\/([^/]+)\//);
+  if (m && e.name.endsWith('.json')) {
+    const slug = e.name.replace('.scenario.json', '').replace('.json', '');
+    return `/md/scenario/sprints.md/task/${slug}.md`;  // ← BUG 1 + BUG 2
+  }
+  return `/md/${relPath}${e.name}`;
+};
+```
+
+**Bug 1:** Hardcodes `task/` subdirectory for ALL `.json` files. Sprint scenario JSONs should resolve to `sprint/<slug>.md`, UC JSONs to `usecase/<slug>.md`, etc. The actual file lives at `scenario/sprints.md/sprint/sprint-traceability-browser.md`, not `task/`.
+
+**Bug 2:** The `.json → .md` rewrite itself is wrong for `.scenario.json` files. Per T173 design, `.scenario.json` clicks should navigate to `/trace?ior=<uuid>` — not to any `/md/` path. The `.md` view is a generated artifact; the `/trace` tree is the canonical navigation surface.
+
+**Also affected:** `renderChainLinkHtml()` (templates.ts:72) has the same `task/` hardcoding as fallback:
+```typescript
+return `<a href="/md/scenario/sprints.md/task/${uuid}.md" ...`;  // fallback: always task/
+```
+
+### Fix Specification (consolidated)
+
+#### Fix 1: `jsonHref()` → `/trace?ior=` for `.scenario.json`
+
+```typescript
+// server.ts line 626 — REPLACE:
+const jsonHref = (e: any) => {
+  const m = relPath.match(/^scenario\/sprints\.json\/([^/]+)\//);
+  if (m && e.name.endsWith('.scenario.json')) {
+    // T173: .scenario.json → open in /trace tree (not /md/ rewrite)
+    const uuid = e.name.replace('.scenario.json', '');
+    return `/trace?ior=${encodeURIComponent(uuid)}`;
+  }
+  if (m && e.name.endsWith('.json')) {
+    const slug = e.name.replace('.json', '');
+    return `/md/${relPath}${e.name}`;  // non-scenario JSON: open raw
+  }
+  return `/md/${relPath}${e.name}`;
+};
+```
+
+#### Fix 2: `renderChainLinkHtml()` fallback — use type from IOR, not hardcoded `task/`
+
+```typescript
+// templates.ts line 68-72 — REPLACE fallback:
+function renderChainLinkHtml(ior: string, resolve?: SlugResolver): string {
+  const uuid = ior.replace('ior:instance:', '');
+  const info = resolve?.(uuid);
+  if (info) return `<a href="/md/scenario/sprints.md/${info.type}/${info.slug}.md" class="chain-link">🔗 ${esc(info.name)}</a>`;
+  // Fallback: link to /trace tree instead of guessing /md/ path
+  return `<a href="/trace?ior=${encodeURIComponent(uuid)}" class="chain-link">🔗 ${esc(uuid.slice(0, 8))}</a>`;
+}
+```
+
+Same fix for `renderChainLinkMd()` (line 61-65):
+```typescript
+// Fallback: link to /trace instead of ../sprints.md/task/
+return `[🔗 ${uuid.slice(0, 8)}](/trace?ior=${encodeURIComponent(uuid)})`;
+```
+
+### Additional Files (beyond Part 1-4)
+
+| File | Change |
+|------|--------|
+| `src/ts/server/server.ts:626` | `jsonHref()` → `/trace?ior=` for `.scenario.json` |
+| `src/ts/scenario/templates.ts:65,72` | Fallback chain links → `/trace?ior=` instead of hardcoded `task/` |
+
+### AC (updated with R-K1)
+- [ ] Clicking `.scenario.json` in file-browser navigates to `/trace?ior=<uuid>` (NOT `/md/.../task/...`)
+- [ ] Clicking Sprint `.scenario.json` does NOT 404 (the Tron repro case)
+- [ ] Chain-link fallback (no slug resolver match) routes to `/trace?ior=` not `task/`
 - [ ] `/trace?ior=<uuid>` expands tree from root to that instance
 - [ ] Tree loads only roots on first paint (55 Requirement summaries, ~5KB)
 - [ ] Expanding a node fetches children lazily via `/api/trace/children/<uuid>`
@@ -244,3 +324,4 @@ STATIC_SHELL (c): exempt — no new HTML route (uses existing `/trace` with quer
 
 **Architect:** robbin-architect @ web4team:0.0
 **Sprint:** Sprint 17 — Scenario Units
+**R-K1:** No dead-end links from file-browser or chain-link fallbacks
