@@ -674,6 +674,127 @@ private buildChildNode(child: { uuid: string; type: string; name: string; hasChi
 | R-M3d | DetailView doesn't auto-open | setTimeout(100) races renderSeed async | Event-driven: `seed-ready` event, navigate after |
 | R-M3e | 51 children pre-expanded | renderSeed shows all children visible | Start collapsed; lazy-load on first expand click; cascading buildChildNode for deeper levels |
 
+### EXPERT HANDOFF — 2 Files, 2 Diffs (v0.5.73 → v0.5.74)
+
+**File 1: `src/public/ts/scenario-view.ts` lines 50-57 — R-M3d timing fix**
+
+REPLACE:
+```typescript
+      const type = (seedData.type || 'task').toLowerCase();
+      setTimeout(() => {
+        router.navigate(type, 'show', { uuid: ior! });
+        const rootItem = tree.querySelector('rb-object-item');
+        if (rootItem) rootItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+```
+
+WITH:
+```typescript
+      const type = (seedData.type || 'task').toLowerCase();
+      tree.addEventListener('seed-ready', () => {
+        router.navigate(type, 'show', { uuid: ior! });
+        const rootItem = tree.querySelector('rb-object-item');
+        if (rootItem) rootItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, { once: true });
+```
+
+**File 2: `src/public/ts/trace/rb-trace-tree.ts` renderSeed() lines 143-164 — R-M3e collapsed + R-M3d event**
+
+REPLACE lines 143-164:
+```typescript
+      if (data.children?.length) {
+        const kids = document.createElement('div');
+        kids.className = 'tt-children';
+        kids.style.display = '';
+        for (const child of data.children) {
+          const cnode = document.createElement('div');
+          cnode.className = 'tt-node';
+          const crow = document.createElement('div');
+          crow.className = 'tt-row';
+          const citem = document.createElement('rb-object-item');
+          citem.setAttribute('ref', `${(child.type || 'task').toLowerCase()}:${child.uuid}`);
+          citem.setAttribute('type', (child.type || 'task').toLowerCase());
+          citem.setAttribute('title', child.name || child.uuid);
+          if (child.hasChildren) citem.setAttribute('has-children', '');
+          crow.appendChild(citem);
+          cnode.appendChild(crow);
+          kids.appendChild(cnode);
+        }
+        root.appendChild(kids);
+      }
+      this.appendChild(root);
+    } catch { this.innerHTML = '<div class="tt-empty">Failed to load</div>'; }
+  }
+}
+```
+
+WITH:
+```typescript
+      if (data.children?.length) {
+        const kids = document.createElement('div');
+        kids.className = 'tt-children';
+        kids.style.display = 'none';  // R-M3e: START COLLAPSED
+        root.appendChild(kids);
+
+        // Expand/collapse on row click
+        row.addEventListener('click', () => {
+          if (kids.style.display === 'none') {
+            if (kids.children.length === 0) {
+              for (const child of data.children) {
+                kids.appendChild(this.buildLazyChild(child));
+              }
+            }
+            kids.style.display = '';
+            item.setAttribute('children-open', '');
+          } else {
+            kids.style.display = 'none';
+            item.removeAttribute('children-open');
+          }
+        });
+      }
+      this.appendChild(root);
+
+      // R-M3d: signal DOM ready
+      this.dispatchEvent(new CustomEvent('seed-ready', { detail: { uuid } }));
+    } catch { this.innerHTML = '<div class="tt-empty">Failed to load</div>'; }
+  }
+
+  /** Lazy child: fetches ITS children on first expand via /api/trace/children */
+  private buildLazyChild(child: { uuid: string; type: string; name: string; hasChildren: boolean }): HTMLElement {
+    const cnode = document.createElement('div');
+    cnode.className = 'tt-node';
+    const crow = document.createElement('div');
+    crow.className = 'tt-row';
+    const citem = document.createElement('rb-object-item');
+    citem.setAttribute('ref', `${(child.type || 'task').toLowerCase()}:${child.uuid}`);
+    citem.setAttribute('type', (child.type || 'task').toLowerCase());
+    citem.setAttribute('title', child.name || child.uuid);
+    if (child.hasChildren) {
+      citem.setAttribute('has-children', '');
+      const ckids = document.createElement('div');
+      ckids.className = 'tt-children';
+      ckids.style.display = 'none';
+      crow.addEventListener('click', async () => {
+        if (ckids.style.display === 'none' && ckids.children.length === 0) {
+          const res = await fetch(`/api/trace/children/${encodeURIComponent(child.uuid)}`);
+          const d = await res.json();
+          for (const gc of (d.children || [])) ckids.appendChild(this.buildLazyChild(gc));
+        }
+        ckids.style.display = ckids.style.display === 'none' ? '' : 'none';
+        citem.toggleAttribute('children-open');
+      });
+      crow.appendChild(citem);
+      cnode.appendChild(crow);
+      cnode.appendChild(ckids);
+    } else {
+      crow.appendChild(citem);
+      cnode.appendChild(crow);
+    }
+    return cnode;
+  }
+}
+```
+
 ### R-M3d: Detail-View Navigation → Tree Auto-Scroll + Selection State (PO fold 2026-06-03)
 
 **Current:** Tree has NO concept of "selected node." When a DetailView opens (via click or `/scenario?ior=`), the tree doesn't highlight or scroll to the corresponding item. User loses context between tree and detail.
