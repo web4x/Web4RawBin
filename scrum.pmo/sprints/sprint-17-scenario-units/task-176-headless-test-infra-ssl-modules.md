@@ -25,8 +25,8 @@
 ## Traceability
 - up
   - [Sprint 17 Planning](./planning.md)
-  - [compound-requirement-source-2.md](./compound-requirement-source-2.md) — R-O verbatim (req-eng captured)
-  - **R-O** `[requirement:uuid:dc7aa9c8-165b-46ab-8539-8444a7048563]` — test server must serve page JS so headless Playwright executes it; browser-behavior ACs become headlessly verifiable
+  - [compound-requirement-source-2.md](./compound-requirement-source-2.md) — R-O verbatim (req-eng captured in `7bc51c5b`)
+  - **R-O** `[requirement:uuid:dc7aa9c8-165b-46ab-8539-8444a7048563]` — test server must serve page JS so headless Playwright executes it; browser-behavior ACs become headlessly verifiable (planner pre-seed; req-eng `7bc51c5b` anchors verbatim — no formal scenario unit yet)
 - follows
   - T100 (isolated test server on port 4445 with self-signed cert — the surface this fix lives on)
 - unblocks
