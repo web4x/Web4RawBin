@@ -684,6 +684,29 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       } catch { res.writeHead(404); res.end('Directory not found'); }
       return;
     }
+    // T173: /md/ .scenario.json direct request → 302 redirect to /trace?ior=<uuid>
+    if (filepath.startsWith('/md/') && filepath.endsWith('.scenario.json')) {
+      const basename = path.basename(filepath, '.scenario.json');
+      if (/^[0-9a-f]{8}-/.test(basename)) {
+        res.writeHead(302, { Location: `/trace?ior=${encodeURIComponent(basename)}` });
+        res.end();
+        return;
+      }
+    }
+    if (filepath.startsWith('/md/') && filepath.endsWith('.json') && filepath.includes('scenario/sprints.json/')) {
+      const relPath = filepath.slice(4);
+      const fullPath = path.join(PROJECT_ROOT, relPath);
+      try {
+        const resolved = fsSync.realpathSync(fullPath);
+        const uuid = path.basename(resolved, '.scenario.json');
+        if (/^[0-9a-f]{8}-/.test(uuid)) {
+          res.writeHead(302, { Location: `/trace?ior=${encodeURIComponent(uuid)}` });
+          res.end();
+          return;
+        }
+      } catch { /* not a symlink or broken — fall through */ }
+    }
+
     if (filepath.startsWith('/md/raw/') && filepath.endsWith('.svg')) {
       const relPath = filepath.slice(8);
       if (relPath.includes('..')) { res.writeHead(403); res.end('Forbidden'); return; }
