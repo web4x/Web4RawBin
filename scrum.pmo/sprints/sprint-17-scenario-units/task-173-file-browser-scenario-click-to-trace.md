@@ -325,3 +325,61 @@ return `[🔗 ${uuid.slice(0, 8)}](/trace?ior=${encodeURIComponent(uuid)})`;
 **Architect:** robbin-architect @ web4team:0.0
 **Sprint:** Sprint 17 — Scenario Units
 **R-K1:** No dead-end links from file-browser or chain-link fallbacks
+
+### Second Repro: T110 Link from Sprint Overview (R-L family)
+
+**Steps:**
+1. Open `/md/scenario/sprints.md/sprint/sprint-traceability-ux.md`
+2. See "Traceability Tasks: 🔗 T110: DetailViewContainer..."
+3. Click → navigates to relative path `../sprints.md/task/task-110-detailview-container.md`
+4. Resolves to `/md/scenario/sprints.md/sprints.md/task/...` → **404 (double sprints.md)**
+
+**Root cause — `templates.ts:64`:**
+
+```typescript
+// Line 64 — MD chain link (with slug resolver match):
+if (info) return `[🔗 ${info.name}](../sprints.md/${info.type}/${info.slug}.md)`;
+```
+
+The relative path `../sprints.md/task/...` is wrong. Generated views live at `scenario/sprints.md/<type>/<slug>.md`. From `sprint/x.md`, `..` goes to `sprints.md/`, then `sprints.md/` prefix doubles it → `sprints.md/sprints.md/`.
+
+**Fix:** Drop the redundant `sprints.md/` from the relative path — views are siblings within the `sprints.md/` tree:
+
+```typescript
+// BEFORE (line 64):
+if (info) return `[🔗 ${info.name}](../sprints.md/${info.type}/${info.slug}.md)`;
+
+// AFTER — sibling navigation within sprints.md/:
+if (info) return `[🔗 ${info.name}](../${info.type}/${info.slug}.md)`;
+```
+
+From `sprint/x.md`, `../task/task-110.md` resolves correctly to `sprints.md/task/task-110.md`.
+
+**Same fix for fallback (line 65):**
+```typescript
+// BEFORE:
+return `[🔗 ${uuid.slice(0, 8)}](../sprints.md/task/${uuid.slice(0, 8)}.md)`;
+
+// AFTER (per earlier T173 fix — fallback routes to /trace):
+return `[🔗 ${uuid.slice(0, 8)}](/trace?ior=${encodeURIComponent(uuid)})`;
+```
+
+### ALL Generated Task Links — Single Fix Point
+
+The `renderChainLinkMd()` function (templates.ts:61-65) is called by `renderChainSection()` (line 76) which ALL 7 class templates use. Fixing it ONCE fixes all 296 generated views.
+
+**Updated files list (cumulative T173):**
+
+| File | Change | Bug |
+|------|--------|-----|
+| `src/ts/server/server.ts:626` | `jsonHref()` → `/trace?ior=` for `.scenario.json` | Sprint JSON 404 |
+| `src/ts/scenario/templates.ts:64` | `../sprints.md/${type}/` → `../${type}/` | Double sprints.md in MD links |
+| `src/ts/scenario/templates.ts:65` | Fallback → `/trace?ior=` | Hardcoded task/ fallback |
+| `src/ts/scenario/templates.ts:72` | Fallback → `/trace?ior=` | Hardcoded task/ fallback |
+| `src/public/ts/trace/index.ts` | Read `?ior=` param, expand tree | New: lazy-load entry |
+| `src/public/ts/trace/rb-trace-tree.ts` | Lazy root + per-expand | New: lazy-load tree |
+| `src/ts/server/server.ts` | Add `/api/trace/children/`, `/ancestry/`, `/roots` | New: lazy-load endpoints |
+| `src/public/ts/components/rb-file-tree.ts` | `.scenario.json` intercept | New: file-browser route |
+| `package.json` + `sw.js` | Rule-pair (a)+(b) | |
+
+**After fix:** ALL 296 generated view files have correct relative links. No regeneration needed — the templates emit correct paths on next view generation cycle.
