@@ -345,10 +345,10 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
 Planner-first stand-up 2026-06-03. Initial planner SPLIT scaffold (T174+T175) reconciled per learning #20 — architect `483d1587` chose ONE consolidated task ("all 4 atoms touch the drawer/view layer + share commit surface; splitting = 4 version bumps for one coherent UX pass"); planner adopted the bundle. req-eng `acae0ffe` captured Tron verbatim for R-M1/M2/M3/M4. /trace stays full-tree from req roots; /scenario is the new IOR-seeded route.
 
 - [ ] ✅ [T174: Drawer UX cleanup + /scenario route + mobile width-cap (R-M1/M2/M3/M4 + R-M3d + R-M3e iterating)](./task-174-drawer-ux-scenario-route.md)
-  **Status:** ✅ impl-shipped (partial fix-cycle) — expert `2eb4dab1` v0.5.71 (R-M1+R-M2+R-M3+R-M4 initial ship; (c) STATIC_SHELL ✓) + expert `d0796bf4` v0.5.72 (R-M3 IOR-seed bug fix + Task children + scanRepo fallback; rule-pair (a)+(b)+(c) ✓). ⚠️ **MID-ITERATION (3 atoms outstanding):**
-   - **R-M3d** scroll-into-view — NOT in v0.5.72 (grep-verified no `scrollIntoView`/`select()` in shipped code) despite PO's "ship together" direction; **still pending expert impl**.
-   - **R-M3e** /scenario interactions dead (missing event wiring) — req-eng captured `6f7614eb`, architect diagnosed + designed `54ab4f35`; **still pending expert impl**.
-  Tester one-pass re-verify + Tron QA pending the remaining R-M3d + R-M3e fix commits.
+  **Status:** ✅ impl-shipped (fix-cycle still iterating) — `2eb4dab1` v0.5.71 (R-M1+R-M2+R-M3+R-M4 initial; (c) STATIC_SHELL ✓) → `d0796bf4` v0.5.72 (R-M3 IOR-seed bug + Task children + scanRepo fallback; (a)+(b)+(c) ✓) → `6ee2278f` v0.5.73 (R-M3d drawer-nav scrollIntoView + auto-select seeded node + R-M3e full /trace interactions on /scenario via TraceRouter; (a)+(b)+(c) ✓ — STATIC_SHELL scenario-view-GJ6VCIZI.js; 834/834). ⚠️ **STILL ITERATING** — architect `86b024ae` post-v0.5.73 diagnosis found 2 more bugs in same atoms:
+   - **R-M3d timing race** — `setTimeout(100)` races async `renderSeed`; navigate fires before tree DOM ready. Fix: emit `seed-ready` event; navigate AFTER renderSeed completes.
+   - **R-M3e all-children-visible** — `renderSeed` shows all 51 children (Tron spec: "ONLY that item view THEN lazy-load children"). Fix: start collapsed; pending-children + cascading lazy-load on first expand.
+  Tester one-pass re-verify + Tron QA pending the final R-M3d/R-M3e fix commit.
   **Folded req:uuids:** R-M3d `8832a890-ca92-4cfc-97c9-c81dff3ea1b1`; R-M3e `a591c117-3b62-42bb-bfef-8dc49b83e868` (PO confirmed fold 2026-06-03 — R-M3d precedent, same surface).
   **PO 2026-06-03:** T174 NOT done until BOTH R-M3d (scroll-into-view) + R-M3e (interaction parity) ship + verify. T174 stays open.
   **Owners (CMM4):** robbin-req `acae0ffe` (verbatim capture R-M1-M4) → robbin-architect `483d1587` (design — ONE consolidated task) → robbin-expert (impl; rule-pair (a)+(b)+(c)) → robbin-tester (verify R-M1-M4 ACs; /trace regression check)
