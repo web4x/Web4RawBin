@@ -193,3 +193,26 @@ The drag-to-dismiss handle bar is mobile-only UX. On desktop viewports it must b
 > "when the drawer switches to mobile... the item views shall only be as borad as the drawer"
 
 On mobile, when the detail drawer is visible, item content must not overflow the drawer width. Hard width-cap at drawer boundary — consistent with R-D/T167 mobile-first directive.
+
+---
+
+## Tron Verbatim — Follow-on (2026-06-03, ninth directive — R-M3 refinement)
+
+> "clicking on sprint.json goe now to tractability but always shows the same content nowether what is the provided scenario parameter. it at least has to scroll to the selected element and open its details. but in case of sprint.json it should ONLY show that itemview and THEN lazyliad children!!!"
+
+### R-M3 refinement — three atomic sub-requirements:
+
+### R-M3a: /scenario?ior= MUST honor the ior parameter (not show same content regardless).
+> "always shows the same content nowether what is the provided scenario parameter"
+
+Currently the ior query param is ignored — every click renders the same default view. The route must read the param and load that specific scenario unit.
+
+### R-M3b: MINIMUM behavior — scroll to the selected element and open its details.
+> "it at least has to scroll to the selected element and open its details"
+
+Even if the full /scenario route isn't ready, the minimum viable fix: scroll the tree to the node matching the ior param and open the detail drawer for it.
+
+### R-M3c: For sprint.json — show ONLY that single item view, THEN lazy-load children.
+> "in case of sprint.json it should ONLY show that itemview and THEN lazyliad children!!!"
+
+When opening a Sprint scenario unit: do NOT render the full traceability tree. Show ONLY that sprint's item view (detail panel), THEN lazy-load its children (requirements, tasks) on demand. This is the core R-M3 behavior — single-scenario root with cascading lazy-load. Tron's emphasis (!!!) marks this as the primary expectation.
