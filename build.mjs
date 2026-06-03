@@ -47,12 +47,20 @@ if (scenarioBasename) manifest['scenario-view.js'] = scenarioBasename;
 if (bannerBasename) manifest['rb-update-banner.js'] = bannerBasename;
 fs.writeFileSync(path.join(distDir, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
 
-// Stamp CACHE_NAME in sw.js with current version
+// Stamp CACHE_NAME + STATIC_SHELL in sw.js with current version + hashed bundles
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
 const swPath = 'src/public/sw.js';
-const swContent = fs.readFileSync(swPath, 'utf-8');
-const swUpdated = swContent.replace(/const CACHE_NAME = 'rawbin-v[^']*';/, `const CACHE_NAME = 'rawbin-v${pkg.version}';`);
-if (swUpdated !== swContent) fs.writeFileSync(swPath, swUpdated);
+let swContent = fs.readFileSync(swPath, 'utf-8');
+swContent = swContent.replace(/const CACHE_NAME = 'rawbin-v[^']*';/, `const CACHE_NAME = 'rawbin-v${pkg.version}';`);
+const shellEntries = [
+  '/app', '/app.css', '/manifest.json', '/icon-180.png', '/icon-192.png', '/icon-512.png',
+  '/trace', `/dist/${traceBasename}`,
+  '/scenario', `/dist/${scenarioBasename}`,
+  `/dist/${jsBasename}`,
+];
+const shellStr = `const STATIC_SHELL = [\n${shellEntries.map(e => `  '${e}',`).join('\n')}\n];`;
+swContent = swContent.replace(/const STATIC_SHELL = \[[\s\S]*?\];/, shellStr);
+fs.writeFileSync(swPath, swContent);
 
 const size = (fs.statSync(jsFile).size / 1024).toFixed(1);
 console.log(`  ${jsFile}  ${size}kb`);
