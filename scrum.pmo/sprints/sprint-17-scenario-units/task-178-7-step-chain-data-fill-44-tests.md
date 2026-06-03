@@ -91,7 +91,9 @@ None (atomic task — single architect-designed pipeline, single expert pass, si
 
 ## QA Audit & User Feedback
 - 2026-06-03: PO directs T178 stand-up — KEYSTONE for R-J. Tester finding: 7-step CODE ready but DATA only 3 deep (Req→Task→Subtask); UC→Class→Method→Impl→Test forward arrays UNPOPULATED → 44 tests all "chain gap" → R-J + R-E NOT satisfied in DATA. Architect designs marker-parser pipeline; expert populates; tester proves 44/44 chain-reachable.
-- Pending: architect designs marker-parser + linking rules → expert impls + runs pipeline → tester walks 44/44 → Tron QA closes R-J fully.
+- 2026-06-04: PO folds Tron live-/trace **lazy-load-deeper-fails** observation into T178. Symptom: /trace tree expand stops working at some depth. **Two possible causes (architect to diagnose):** (i) empty deep DATA — exactly T178's existing scope (forward arrays unpopulated at deeper hops); (ii) tree mechanism bug — the lazy-load fetch / render code might fail even when data IS present. Architect's diagnosis must separate the two: run the marker-parser → re-test /trace deeper expand → if still fails with populated data, it's mechanism not data. Add AC to T178: "Live /trace tree expands all 7 hops with SW active (strict-bar 2b); if mechanism bug separate from data, escalate as a follow-on commit within T178 scope or a tight follow-on task."
+- 2026-06-04: PO critical-path note — T180 (real CA cert + CDP workaround) ranks ABOVE T178 until shipped (Tron locked out of real device). T178 architect can still start design in parallel.
+- Pending: architect designs marker-parser + linking rules + diagnoses lazy-load-deeper-fails (data vs mechanism) → expert impls pipeline + any mechanism fix → tester walks 44/44 + live /trace 7-hop expand with SW active → Tron QA closes R-J fully.
 
 ---
 

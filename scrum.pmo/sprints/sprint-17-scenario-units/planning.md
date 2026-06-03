@@ -388,8 +388,8 @@ PO direction 2026-06-03: /scenario shows "Not found" for some UUIDs along ior-fo
 
 PO direction 2026-06-03 — explicit GATE on the traceability chain story: T168/T124 CODE is done (`e714e255` v0.5.77), but tester reverify found scenario DATA only chains Req→Task→Subtask (3 deep); UC/Class/Method/Impl/Test forward arrays empty → 44 tests "chain gap" → R-J + R-E NOT satisfied in DATA. PO: **DO NOT mark traceability chain done on code alone.** T178 closes the data side. 4-role planner-first.
 
-- [ ] ⏳ [T178: 7-step chain DATA-FILL — populate UC→Class→Method→Impl→Test forward refs (KEYSTONE)](./task-178-7-step-chain-data-fill-44-tests.md)
-  **Status:** ⏳ planned (planner-first scaffold 2026-06-03 — architect designs marker-parser pipeline; expert populates; tester proves 44/44 tests reach Requirement roots via full 7-step). Data-only migration; no user surface.
+- [ ] ⏳ [T178: 7-step chain DATA-FILL + lazy-load-deeper-fails (KEYSTONE)](./task-178-7-step-chain-data-fill-44-tests.md)
+  **Status:** ⏳ planned (planner-first scaffold 2026-06-03 — architect designs marker-parser pipeline; expert populates; tester proves 44/44 tests reach Requirement roots via full 7-step). Data-only migration; no user surface. **Folded (PO 2026-06-04):** Tron live /trace lazy-load deeper expand stops working at some depth — architect must diagnose data-vs-mechanism (run marker-parser → re-test /trace deeper; if still fails with populated data, it's a tree mechanism bug to fix in the same T178 pass).
   **Owners (CMM4):** robbin-req (R-Q anchor when Tron-relayed) → robbin-architect (marker-parser pipeline + linking rules per hop: PUML for UC→Class; source for Class→Method, impl:uuid: markers for Method→Impl, test:uuid: markers for Impl→Test) → robbin-expert (impl + run; rule-pair (a)+(b)) → robbin-tester (walk 44/44 tests to Requirement roots via full 7-step; no regression on T172 238/238)
   **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL exempt (data-only migration; per learning #24).
   **v4 uuids:** task `4bd33c18-…`; req-uuid R-Q `cd5dc5b7-…`.
@@ -407,6 +407,17 @@ PO direction 2026-06-04: TOP PRIORITY above T178. Tron locked out of real device
   **v4 uuids:** task `915f458e-…`; req-uuid R-T `b748f8be-…`.
   **Unblocks:** Tron real-device app use (CRITICAL) · T179 AC11-13 SW-active headless verify · all future PWA/SW tasks.
   **Critical-path:** T180 ranks ABOVE T178 until shipped — Tron must be back on a working device first.
+
+### Phase 37 — Tron R-U (strict forward-only DISPLAY — close DATA-vs-DISPLAY gap)
+
+PO direction 2026-06-04: Tron live /trace shows Task DetailView rendering a `requirements` backward link **despite T172 stripping all back-refs from the DATA and audit reporting 0 issues**. Planner re-verified 2026-06-04: ZERO scenario units carry prohibited backward fields — the DISPLAY layer is the violator. T181 audits + fixes DetailView renderers (Task/UseCase/Class/Method/Impl/Test) so no DetailView emits a backward-direction collection. Adds a DISPLAY-side audit to T170 strict gate (per learning #27 verify-bar extension).
+
+- [ ] ⏳ [T181: Strict forward-only DISPLAY — no backward links in any DetailView (Tron live /trace violation)](./task-181-display-forward-only-no-back-links.md)
+  **Status:** ⏳ planned (planner-first scaffold 2026-06-04 — architect diagnoses per-DetailView audit table; expert removes back-link rendering + adds CI script; tester verifies live /trace with SW active per strict-bar 2b).
+  **Owners (CMM4):** robbin-req (R-U anchor when Tron-relayed) → robbin-architect (per-DetailView audit + render-contract design + DISPLAY-side audit script design) → robbin-expert (remove back-link rendering + add CI script; rule-pair (a)+(b); (c) per architect) → robbin-tester (live /trace with SW active: every DetailView for every type emits forward-only; audit script reports zero prohibited emissions)
+  **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL per architect declaration (DetailView bundle hash change likely).
+  **v4 uuids:** task `41b0d724-…`; req-uuid R-U `82638acb-…`.
+  **Audit blind spot closed:** existing audits scan DATA only; T181 AC9 adds DISPLAY-side scan (extends T170 strict gate per learning #27).
 
 ### Phase 35 — Tron R-S (SW auto-activation reliability — recurring stale-cache root fix)
 
