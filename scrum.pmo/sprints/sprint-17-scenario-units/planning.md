@@ -356,6 +356,17 @@ Planner-first stand-up 2026-06-03. Initial planner SPLIT scaffold (T174+T175) re
   **v4 uuids:** task `46b7eadf-…`; req-uuids R-M1 `5d34db40-…`, R-M2 `c970f251-…`, R-M3 `cc673ef3-…`, R-M4 `fa1bd28e-…`.
   **Updates T173:** changes `.scenario.json` click target from `/trace?ior=` → `/scenario?ior=` (jsonHref + chain-link fallback). T173 stays ✅ shipped; T174 supersedes its `?ior=` routing for `.scenario.json` clicks specifically.
 
+### Phase 31 — Tron R-N (Tree base class + /scenario tree UX)
+
+Planner-first stand-up 2026-06-03. PO directs single consolidated T175 covering R-N1+R-N2+R-N3. R-N3 architectural core: `Tree` base class extends `Traceability`; `parent` + `children[]` getters/setters derive from each type's chain position (LOCKED chain req→task→uc→class→method→impl→test). R-N1/N2 are /scenario tree UX (width + expand-collapse state) — UX layer over the Tree class foundation. /trace stays unchanged. req-eng captures verbatim Tron quotes for R-N1/N2/N3; architect designs the Tree class hierarchy; expert impls; tester verifies.
+
+- [ ] ⏳ [T175: /scenario tree base class + UX (R-N1 + R-N2 + R-N3 consolidated)](./task-175-scenario-tree-base-class.md)
+  **Status:** ⏳ planned (planner-first scaffold 2026-06-03 — placeholder ACs awaiting req-eng verbatim capture for R-N1/N2/N3, then architect Tree class hierarchy design). Scope: Tree base class extending Traceability with chain-position-derived parent/children[] getters across all 7 types; /scenario tree UX width + expand-collapse state.
+  **Owners (CMM4):** robbin-req (verbatim capture) → robbin-architect (Tree class hierarchy + UX design) → robbin-expert (impl; rule-pair (a)+(b); (c) architect-declared) → robbin-tester (verify; /trace regression check)
+  **Rule-pair scope:** (a)+(b) required; **(c) STATIC_SHELL declaration pending** — architect to confirm in refinement (likely exempt: modifies existing /scenario, no new route).
+  **v4 uuids:** task `20e89691-…`; req-uuids R-N1 `2681ad2a-…`, R-N2 `cf759d95-…`, R-N3 `b323f3b9-…`.
+  **Follows:** T168 (LOCKED chain), T172 (forward-ref population), T174 (/scenario route surface). Tree class consumes T172's populated `model[]` arrays and T168's CANONICAL_WALK order; lives inside T174's /scenario route.
+
 ### Phase 6 — Verification (T129, tester + planner)
 
 - [ ] 🧪 [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)
