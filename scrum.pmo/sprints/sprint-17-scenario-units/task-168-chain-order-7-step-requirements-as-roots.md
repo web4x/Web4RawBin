@@ -10,7 +10,7 @@
   - [x] refinement (req → architect — **`c28c982` architect design committed: 7-step canonical chain LOCKED + requirements as roots**)
   - [x] creating test cases
   - [x] implementing (deliverables realized across downstream tasks: T126 ViewGenerator template chain-render; T169 audit + tree-builder atomic-req roots; T171 back-ref strip + matrix; T172 5-step forward-ref + strict-direction validator + 238/238 reachability. **T168-close shipped by expert `e714e255` v0.5.77** — Implementation:['tests'] added to FORWARD_KEYS completing 7-step canonical chain; `traceability-standard.md` rewritten LOCKED 7-step with atomic-req roots; rule-pair (a)+(b)+(c) ✓; 836/836 pass.)
-  - [x] testing (PO 2026-06-03 per #69 trust-tester-PASS-over-sync-lag: T172 238/238 chain reachability IS the implicit T168 verification — chain spec is live + enforced)
+  - [x] testing (PO 2026-06-03 per #69: T172 238/238 chain reachability IS the implicit T168 verification — chain spec is live + enforced at the CODE level. ⚠️ **R-J + R-E full DATA satisfaction GATED on T178** — scenario DATA only chains 3 deep (Req→Task→Subtask); UC/Class/Method/Impl/Test forward arrays empty → 44 tests "chain gap". T178 data-fill closes the DATA side. T168 stays 🧪 here for the code/spec verification; full R-J/R-E closure tracked in T178.)
 - [ ] QA Review
 - [ ] Done
 

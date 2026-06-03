@@ -38,7 +38,7 @@ prose. Then **migrate every existing sprint** to this model.
 ### Phase 1 — Architecture, Standards, Requirements (T124, architect + req)
 
 - [ ] ✅ [T124: Scenario-unit + IOR + class-based view architecture](./task-124-architecture.md)
-  **Status:** ✅ impl-complete (parent; PO 2026-06-03) — T124.1-.4 + T124.6 DONE; T124.5 gap CLOSED by expert `e714e255` v0.5.77 (FORWARD_KEYS Implementation:['tests'] completes 7-step + standard LOCKED; rule-pair (a)+(b)+(c) ✓; 836/836). Testing gated: tester re-verifies 43/43 reachability on the post-e714e255 graph; then T124 + T168 fully close together.
+  **Status:** ✅ impl-complete CODE-side (PO 2026-06-03) — T124.1-.4 + T124.6 DONE; T124.5 gap CLOSED by expert `e714e255` v0.5.77 (FORWARD_KEYS + standard LOCKED). ⚠️ **DO NOT MARK TRACEABILITY CHAIN DONE ON CODE ALONE (PO 2026-06-03):** tester's reverify FOUND A GAP — scenario DATA only chains Req→Task→Subtask (3 deep); UC/Class/Method/Impl/Test forward arrays empty → 44 tests "chain gap" → **R-J + R-E NOT satisfied in DATA**. Closure of T124+T168 gated on **T178 data-fill** + tester 44/44 chain-reachable verify.
   **Owner:** robbin-architect (design lead), robbin-req (requirements), robbin-planner (structure)
   **Sub-tasks (architect/req to create during refinement, following Sprint 1 task-1.x pattern):**
   - T124.1 architect — scenario-unit + IOR data model (class diagram, JSON shape, resolution rules)
@@ -383,6 +383,17 @@ PO direction 2026-06-03: /scenario shows "Not found" for some UUIDs along ior-fo
   **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL exempt (no new route).
   **v4 uuids:** task `44bef447-…`; req-uuid R-P `37e4eefc-…`.
   **Completes:** T173 dead-end story (T173 click → /scenario?ior= routing; T177 ensures /scenario itself resolves any valid ior format without "Not found").
+
+### Phase 34 — Tron R-Q (7-step chain DATA-FILL — KEYSTONE for R-J + R-E)
+
+PO direction 2026-06-03 — explicit GATE on the traceability chain story: T168/T124 CODE is done (`e714e255` v0.5.77), but tester reverify found scenario DATA only chains Req→Task→Subtask (3 deep); UC/Class/Method/Impl/Test forward arrays empty → 44 tests "chain gap" → R-J + R-E NOT satisfied in DATA. PO: **DO NOT mark traceability chain done on code alone.** T178 closes the data side. 4-role planner-first.
+
+- [ ] ⏳ [T178: 7-step chain DATA-FILL — populate UC→Class→Method→Impl→Test forward refs (KEYSTONE)](./task-178-7-step-chain-data-fill-44-tests.md)
+  **Status:** ⏳ planned (planner-first scaffold 2026-06-03 — architect designs marker-parser pipeline; expert populates; tester proves 44/44 tests reach Requirement roots via full 7-step). Data-only migration; no user surface.
+  **Owners (CMM4):** robbin-req (R-Q anchor when Tron-relayed) → robbin-architect (marker-parser pipeline + linking rules per hop: PUML for UC→Class; source for Class→Method, impl:uuid: markers for Method→Impl, test:uuid: markers for Impl→Test) → robbin-expert (impl + run; rule-pair (a)+(b)) → robbin-tester (walk 44/44 tests to Requirement roots via full 7-step; no regression on T172 238/238)
+  **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL exempt (data-only migration; per learning #24).
+  **v4 uuids:** task `4bd33c18-…`; req-uuid R-Q `cd5dc5b7-…`.
+  **KEYSTONE for:** R-J ("every Test reachable via the chain") + R-E ("chain starts with atomic requirements") full DATA satisfaction. T124 + T168 closure GATED on T178 + tester 44/44.
 
 ### Phase 6 — Verification (T129, tester + planner)
 

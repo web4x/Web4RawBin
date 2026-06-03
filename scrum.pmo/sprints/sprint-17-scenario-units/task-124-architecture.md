@@ -4,13 +4,13 @@
 
 [task:uuid:f96a9da3-366c-491f-b2e6-78cbb837f203]
 
-## Status — ✅ impl-complete (parent) — T168-close LANDED; testing gated on tester 43/43 reverify
+## Status — ✅ CODE-complete; testing GATED on T178 data-fill + 44/44 chain-reach (PO 2026-06-03: do NOT mark chain done on code alone)
 - [x] Planned
 - [x] In Progress
   - [x] refinement (architect + req JOINT — Tron-assigned)
   - [x] creating test cases
   - [x] implementing (PO 2026-06-03: T124.1-.4 + T124.6 DONE. **T124.5 gap CLOSED by expert `e714e255` v0.5.77** — FORWARD_KEYS Implementation:['tests'] completes 7-step chain + `traceability-standard.md` rewritten LOCKED 7-step with atomic-req roots; rule-pair (a)+(b)+(c) ✓; 836/836 pass.)
-  - [ ] testing (gated: tester re-verifies 43/43 reachability on the post-`e714e255` graph; then T124 folds 🧪 with T168)
+  - [ ] testing (⚠️ **GATED on T178** — tester's reverify on post-`e714e255` FOUND A GAP: scenario DATA only chains Req→Task→Subtask (3 deep); UC/Class/Method/Impl/Test forward arrays empty → 44 tests "chain gap" → R-J + R-E NOT satisfied in DATA. T178 is the data-fill KEYSTONE; T124+T168 fold to 🧪 only after T178 ships + tester proves 44/44 tests chain-reachable via the full 7-step.)
 - [ ] QA Review
 - [ ] Done
 
