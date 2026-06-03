@@ -356,16 +356,16 @@ Planner-first stand-up 2026-06-03. Initial planner SPLIT scaffold (T174+T175) re
   **v4 uuids:** task `46b7eadf-…`; req-uuids R-M1 `5d34db40-…`, R-M2 `c970f251-…`, R-M3 `cc673ef3-…`, R-M4 `fa1bd28e-…`.
   **Updates T173:** changes `.scenario.json` click target from `/trace?ior=` → `/scenario?ior=` (jsonHref + chain-link fallback). T173 stays ✅ shipped; T174 supersedes its `?ior=` routing for `.scenario.json` clicks specifically.
 
-### Phase 31 — Tron R-N (Tree base class + /scenario tree UX)
+### Phase 31 — Tron R-N (Tree base class + Traceability extension + /scenario tree UX)
 
-Planner-first stand-up 2026-06-03. PO directs single consolidated T175 covering R-N1+R-N2+R-N3. R-N3 architectural core: `Tree` base class extends `Traceability`; `parent` + `children[]` getters/setters derive from each type's chain position (LOCKED chain req→task→uc→class→method→impl→test). R-N1/N2 are /scenario tree UX (width + expand-collapse state) — UX layer over the Tree class foundation. /trace stays unchanged. req-eng captures verbatim Tron quotes for R-N1/N2/N3; architect designs the Tree class hierarchy; expert impls; tester verifies.
+Planner-first stand-up 2026-06-03. PO directs single consolidated T175 covering R-N1+R-N2+R-N3. R-N3 architectural core: `Tree` base class; **`Traceability` EXTENDS `Tree`** (PO correction captured by architect — inheritance direction opposite to PO's initial seed hint); typed classes (Requirement/Task/UseCase/Class/Method/Implementation/Test) extend Traceability with `chainPosition`; `parent` + `children[]` getters derive from each type's LOCKED-chain position via forward-ref scan. R-N1/N2 are /scenario tree UX (item width overflow + expand-collapse state persistence in localStorage per seed IOR). Planner's initial scaffold (`task-175-scenario-tree-base-class.md`) RECONCILED — architect `fe6d2289` shipped design first; planner adopted architect's filename + content per learning #20; structural compliance (Subtasks + QA Audit + Requirement UUIDs) added by planner.
 
-- [ ] ⏳ [T175: /scenario tree base class + UX (R-N1 + R-N2 + R-N3 consolidated)](./task-175-scenario-tree-base-class.md)
-  **Status:** ⏳ planned (planner-first scaffold 2026-06-03 — placeholder ACs awaiting req-eng verbatim capture for R-N1/N2/N3, then architect Tree class hierarchy design). Scope: Tree base class extending Traceability with chain-position-derived parent/children[] getters across all 7 types; /scenario tree UX width + expand-collapse state.
-  **Owners (CMM4):** robbin-req (verbatim capture) → robbin-architect (Tree class hierarchy + UX design) → robbin-expert (impl; rule-pair (a)+(b); (c) architect-declared) → robbin-tester (verify; /trace regression check)
-  **Rule-pair scope:** (a)+(b) required; **(c) STATIC_SHELL declaration pending** — architect to confirm in refinement (likely exempt: modifies existing /scenario, no new route).
-  **v4 uuids:** task `20e89691-…`; req-uuids R-N1 `2681ad2a-…`, R-N2 `cf759d95-…`, R-N3 `b323f3b9-…`.
-  **Follows:** T168 (LOCKED chain), T172 (forward-ref population), T174 (/scenario route surface). Tree class consumes T172's populated `model[]` arrays and T168's CANONICAL_WALK order; lives inside T174's /scenario route.
+- [ ] 📝 [T175: Tree base + Traceability layer + typed chain resolution (R-N1+R-N2+R-N3)](./task-175-tree-base-traceability-typed-classes.md)
+  **Status:** 📝 refinement done (architect `fe6d2289` 2026-06-03 — Tree base; Traceability EXTENDS Tree; typed chain resolution for all 7 types; R-N1 ellipsis+hover, R-N2 localStorage scoped per seed IOR). Awaiting expert impl (rule-pair (a)+(b); (c) STATIC_SHELL exempt — architect-declared, no new route), then tester, then Tron QA.
+  **Owners (CMM4):** robbin-req (verbatim capture) → robbin-architect `fe6d2289` (Tree + Traceability layer + typed chain resolution design) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (verify R-N1/N2/N3 ACs; /trace regression check)
+  **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL exempt (architect-declared — no new route, modifies existing surfaces).
+  **v4 uuids:** task `20e89691-a5dc-4576-85dd-e1eec19b0f10` (planner replaced architect's fake-suffix `e1f2a3b4-…-175000000001` per learning #17); req-uuids R-N1 `2681ad2a-…`, R-N2 `cf759d95-…`, R-N3 `b323f3b9-…`.
+  **Follows:** T168 (LOCKED chain), T172 (forward-ref population — Tree.children consumer), T174 (/scenario route surface).
 
 ### Phase 6 — Verification (T129, tester + planner)
 
