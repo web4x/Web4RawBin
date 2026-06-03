@@ -1,16 +1,27 @@
 [Back to Sprint 17 Planning](./planning.md)
 
-# T179: SW auto-activation reliability — skipWaiting + clients.claim + old-cache purge (recurring stale-cache root fix)
+# T179: SW reliability — auto-activation + STATIC_SHELL build-manifest derivation (closes "all routes broken except /")
 [task:uuid:7b0985b9-6d81-4e37-963b-03fca2716f25]
 
-> **PO direction 2026-06-03:** Stand up T179 — Service Worker auto-activation
-> reliability. Make `skipWaiting` + `clients.claim` + old-cache purge on
-> `activate` work consistently so **Tron never has to manually clear the
-> service worker / cache again**. This is a recurring root fix for the stale
-> -cache class of issues. 4-role: architect designs the SW lifecycle (skipWaiting
-> / claim / cache-purge + update-banner interaction); expert implements; tester
-> proves a new version auto-takes-control on the 2nd page load. Rule-pair (a)+(b),
-> likely (c).
+> **PO direction 2026-06-03 (folded scope):** T179 covers BOTH SW concerns
+> that surface as Tron's "all routes broken except /" symptom:
+>
+> **(a) SW auto-activation reliability** — `skipWaiting` + `clients.claim` +
+> old-cache purge on `activate` so Tron never has to manually clear the SW.
+>
+> **(b) STATIC_SHELL must derive from build-manifest (never stale hashes).**
+> ROOT CAUSE confirmed 2026-06-03: `sw.js` line 42 falls back to
+> `cache.add('/dist/app.js').catch(() => {})` when the manifest lookup misses.
+> The real bundle is hashed (e.g. `app-PMIKRTJL.js`); `/dist/app.js` returns
+> 404; SW caches the 404; every route that depends on `app.js` (i.e. all of
+> them except `/`) breaks until manual clear. Fix: STATIC_SHELL MUST be
+> derived from the build-manifest at SW-generation time — no hard-coded
+> unhashed paths, no `.catch` swallows of cache-add failures.
+>
+> Both fixes ship together in one `sw.js` pass (same surface, one rule-pair
+> cycle). 4-role: architect designs lifecycle + manifest-derivation; expert
+> implements; tester proves auto-takeover + all-routes-live on 2nd load WITH
+> SW ACTIVE (per the strict-verify-bar extension below).
 
 > NOTE: letter **R-R** is already in use by S13 (R-R1: all user rooms load from
 > disk on connect). T179 uses **R-S** to avoid collision.
@@ -105,26 +116,37 @@ banner-component bundle changes (architect declares per learning #16).
 
 ## Acceptance Criteria
 
-**R-S (SW auto-activation reliability):**
+**R-S part (a) — SW auto-activation reliability:**
 - [ ] AC1 — `sw.js install` handler calls `self.skipWaiting()` (new SW takes over without waiting for all clients to close)
 - [ ] AC2 — `sw.js activate` handler calls `self.clients.claim()` (new SW controls open clients immediately)
 - [ ] AC3 — `sw.js activate` handler purges all non-current caches: `caches.keys()` post-activation returns exactly `[CACHE_NAME]`
 - [ ] AC4 — Update banner becomes informational ("App updated to vX.Y.Z" + dismiss) when `skipWaiting+claim` succeeded — not "Click to update" (action-required)
 - [ ] AC5 — Banner is dismissable per session; doesn't reappear until next version bump
-- [ ] AC6 — 2nd page load after a new deploy serves new bundle without manual SW clear (Tron headless + iPhone)
-- [ ] AC7 — Existing tabs/clients open during deploy receive new SW control on next paint (no close/reopen required)
+
+**R-S part (b) — STATIC_SHELL derives from build-manifest (closes "all routes broken except /"):**
+- [ ] AC6 — `sw.js` STATIC_SHELL is **generated from the build-manifest** at build time (or hydrated from manifest at SW install time) — never contains hard-coded unhashed paths like `/dist/app.js`
+- [ ] AC7 — The `/dist/app.js` fallback (current `sw.js:42` `cache.add('/dist/app.js').catch(() => {})`) is **removed** — no more silent 404 cache
+- [ ] AC8 — Any cache-add failure in `install` aborts SW installation (throws, doesn't `.catch()`) — a missing precache asset must NOT be silently swallowed
+- [ ] AC9 — Post-install audit: `caches.match('/dist/app.js')` returns undefined (no stale unhashed entry); `caches.match('/dist/app-<hash>.js')` returns the bundle
+- [ ] AC10 — `/app` route loads cleanly after a fresh SW install (the headless reproduction of Tron's "all routes broken except /" symptom returns ZERO 404s for app.js)
+
+**Tester verification (per strict-verify-bar 2026-06-03 extension):**
+- [ ] AC11 — Tester verifies WITH SW ACTIVE — not just unit/integration tests bypassing the SW. Headless Playwright registers the SW, awaits activation, then loads each route. Verifications done without SW = false-clean (the gap that hid this bug).
+- [ ] AC12 — 2nd page load after a new deploy serves new bundle without manual SW clear (Tron headless + iPhone)
+- [ ] AC13 — Existing tabs/clients open during deploy receive new SW control on next paint (no close/reopen required)
 
 **Backwards-compat + ship rules:**
-- [ ] AC8 — No regression on STATIC_SHELL precaching (existing assets still cached on install)
-- [ ] AC9 — Rule-pair (a) `package.json` bump + (b) `sw.js` CACHE_NAME bump + **(c) STATIC_SHELL** per architect declaration (banner-component bundle change likely requires)
-- [ ] AC10 — `npm run build` clean; full test suite passes; new SW-lifecycle spec passes
+- [ ] AC14 — Rule-pair (a) `package.json` bump + (b) `sw.js` CACHE_NAME bump + **(c) STATIC_SHELL** per architect declaration (banner-component bundle change likely requires)
+- [ ] AC15 — `npm run build` clean; full test suite passes; new SW-lifecycle + manifest-derivation spec passes
 
 ## Subtasks
 None (atomic task — single SW-lifecycle pass + banner-interaction update).
 
 ## QA Audit & User Feedback
 - 2026-06-03: PO directs T179 stand-up — recurring stale-cache class of issues; "Tron never manually clears again." Architect designs SW lifecycle (skipWaiting/claim/cache-purge + banner interaction); expert implements; tester proves auto-takeover on 2nd load.
-- Pending: architect designs → expert impls (rule-pair (a)+(b)+(c)) → tester proves auto-takeover + cache-purge + banner UX → Tron QA closes the recurring stale-cache root.
+- 2026-06-03: PO surfaced ROOT CAUSE of "all routes broken except /" — `sw.js:42` falls back to `cache.add('/dist/app.js').catch(() => {})`. Real bundle is hashed (`app-PMIKRTJL.js`); `/dist/app.js` returns 404; SW caches the 404; `/` works (no `app.js` dep); every other route breaks. PO folds the STATIC_SHELL build-manifest fix into T179 (same surface, one rule-pair cycle).
+- 2026-06-03: PO also surfaced a STRICT-VERIFY-BAR GAP — tester tested WITHOUT SW installed → false clean. Strict bar (in `scrum.pmo/standards/traceability-standard.md`) now extended to require SW-ACTIVE route verification for SW-touching tasks. T179 AC11 captures the rule.
+- Pending: architect designs SW lifecycle + manifest derivation → expert impls (rule-pair (a)+(b)+(c)) → tester proves auto-takeover + cache-purge + manifest-derived STATIC_SHELL + all-routes-live (Tron repro returns ZERO 404s) WITH SW ACTIVE → Tron QA closes the recurring stale-cache root.
 
 ---
 

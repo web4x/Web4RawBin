@@ -324,6 +324,23 @@ counts. For every browser-behaviour AC: the route renders, the DOM mutates as
 specified, the chain-depth visible in `/trace` and `/scenario` matches the data
 side. "All unit tests green" is necessary but not sufficient.
 
+### (2b) SW-ACTIVE verification (PO directive 2026-06-03 — added after T179 root cause)
+
+For any task that touches `sw.js`, `STATIC_SHELL`, the build manifest, or any
+PWA-served route: tester MUST verify WITH SW ACTIVE — not bypassing the SW by
+hitting the server directly. The flow:
+
+1. Headless Playwright registers the SW (`navigator.serviceWorker.register(...)`)
+2. Awaits SW `activated` state
+3. Reloads the route so the now-active SW serves the response
+4. Asserts the user-visible behaviour AND that no 404s landed in the SW cache
+
+**Gap that hid the T179 bug:** tester previously checked routes against the
+running server (bypassing the SW). That returned the server's fresh
+`/dist/app-<hash>.js`. But the SW had cached the 404 from `/dist/app.js`, so
+end-users got the cached 404 even though the server was fine. SW-active
+verification closes this gap. Apply to every PWA / SW-touching task.
+
 ### CI Gate (extension to T170 `trace:audit:strict`)
 
 T170's `trace:audit:strict` MUST be extended (T178 lands the data; T170-follow-on
