@@ -414,3 +414,59 @@ The `renderChainLinkMd()` function (templates.ts:61-65) is called by `renderChai
 | `package.json` + `sw.js` | Rule-pair (a)+(b) | |
 
 **After fix:** ALL 296 generated view files have correct relative links. No regeneration needed — the templates emit correct paths on next view generation cycle.
+
+### Third Repro: Direct URL /md/.../sprint.json → 404 (Tron v0.5.69)
+
+**Steps:**
+1. Navigate directly to `/md/scenario/sprints.json/sprint-15/sprint-traceability-browser.json` (URL bar / bookmark)
+2. → 404
+
+**Root cause:** `server.ts` `/md/` handler has cases for `.svg` (L698), `.puml` (L708), `.md` (L719) — **NO case for `.json`/`.scenario.json`**. Direct JSON requests fall through to static file server → 404.
+
+The `jsonHref()` fix (R-K1 v0.5.69) only fixes directory-listing links. Direct URL access bypasses directory listings.
+
+**Fix:** Add `.scenario.json` handler in `/md/` route chain — 302 redirect to `/trace?ior=<uuid>`:
+
+```typescript
+// server.ts — ADD before the .md handler (~line 718):
+if (filepath.startsWith('/md/') && filepath.endsWith('.scenario.json')) {
+  const relPath = filepath.slice(4);
+  const fullPath = path.join(PROJECT_ROOT, relPath);
+  let uuid = path.basename(filepath, '.scenario.json');
+  
+  try {
+    // Follow symlink (sprints.json/ files → index/<uuid>.scenario.json)
+    const realPath = fsSync.realpathSync(fullPath);
+    const realBase = path.basename(realPath, '.scenario.json');
+    if (/^[0-9a-f]{8}-/.test(realBase)) uuid = realBase;
+  } catch {
+    try {
+      const json = JSON.parse(fsSync.readFileSync(fullPath, 'utf-8'));
+      uuid = json.model?.uuid || uuid;
+    } catch {}
+  }
+  
+  res.writeHead(302, { 'Location': `/trace?ior=${encodeURIComponent(uuid)}` });
+  res.end();
+  return;
+}
+```
+
+**Why 302:** Redirect target may change on remigration. Browser re-checks each time.
+
+**Covers:** `/md/scenario/index/.../<uuid>.scenario.json`, `/md/scenario/sprints.json/.../<slug>.json` (symlink → follows to uuid), bookmarks, old tabs, external links.
+
+### Cumulative T173 — 4 bugs, 10 files
+
+| File | Change | Bug |
+|------|--------|-----|
+| `src/ts/server/server.ts:626` | `jsonHref()` → `/trace?ior=` for `.scenario.json` | R-K1: dir listing 404 |
+| `src/ts/server/server.ts:~718` | NEW: `/md/*.scenario.json` → 302 `/trace?ior=` | Direct URL 404 |
+| `src/ts/scenario/templates.ts:64` | `../sprints.md/${type}/` → `../${type}/` | R-L: double sprints.md |
+| `src/ts/scenario/templates.ts:65` | Fallback → `/trace?ior=` | R-K1: hardcoded task/ |
+| `src/ts/scenario/templates.ts:72` | Fallback → `/trace?ior=` | R-K1: hardcoded task/ |
+| `src/public/ts/trace/index.ts` | Read `?ior=`, expand tree | R-K2: tree expand |
+| `src/public/ts/trace/rb-trace-tree.ts` | Lazy root + per-expand | R-K3: lazy-load |
+| `src/ts/server/server.ts` | `/api/trace/children/`, `/ancestry/`, `/roots` | R-K3: lazy endpoints |
+| `src/public/ts/components/rb-file-tree.ts` | `.scenario.json` intercept | R-K1: file-browser |
+| `package.json` + `sw.js` | Rule-pair (a)+(b) | |
