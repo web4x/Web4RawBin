@@ -294,3 +294,61 @@ This serves the raw scenario JSON via the existing `/md/` file browser, letting 
 - **Tests:** Add `[test:uuid:]` comments incrementally as tests are written/modified
 - **Source-location IOR:** Add `model.source` to scenario units during migration (T128) and incrementally as units are created
 - **Chain-link icons:** Added to view templates by T141; applies automatically to all generated views thereafter
+
+## Strict Verify Bar (PO directive 2026-06-03 — root fix for "audit clean but Tron sees broken")
+
+A task or sprint is **not "verified"** until BOTH of the following are asserted:
+
+### (1) FULL semantic chain — per-Test 7-hop reachability
+
+The chain must be asserted **end-to-end at the individual Test level**, not as
+a node-count proxy. Every Test instance MUST be reachable from a Requirement
+root via the **full 7-step canonical chain**:
+
+```
+requirement → task → usecase(s) → class → method → implementation → test
+```
+
+A "metrics-pass" of total reachable nodes (e.g. 238/238 units) is NOT sufficient
+when the unit-set includes ancestors but the leaf Tests are unreached. The audit
+MUST iterate every Test instance and assert `walkUp(test)` terminates at a
+Requirement (`chainPosition.above === null`), with intermediate hops resolving
+through each canonical type. Any Test that fails this walk = the chain is broken
+for that Test = verification FAILS.
+
+### (2) LIVE user experience reproduction (headless)
+
+Tester reproduces the actual user-visible behaviour against the running app
+(headless Playwright on the isolated test server, T100), not just unit-test
+counts. For every browser-behaviour AC: the route renders, the DOM mutates as
+specified, the chain-depth visible in `/trace` and `/scenario` matches the data
+side. "All unit tests green" is necessary but not sufficient.
+
+### CI Gate (extension to T170 `trace:audit:strict`)
+
+T170's `trace:audit:strict` MUST be extended (T178 lands the data; T170-follow-on
+extends the assertion) to fail if any Test is `< 7-hop reachable` from a
+Requirement root via the LOCKED chain order. The script reports per-Test
+reachable-depth + the offending Test UUIDs; CI fails on any depth `< 7`.
+
+```bash
+# trace:audit:strict — required new assertion (T178/T170 follow-on):
+#   For each Test in the scenario index:
+#     depth = walkUp(test).length
+#     require depth === 7   # test→impl→method→class→uc→task→requirement
+#     require walkUp(test).pop().chainPosition.above === null  # ends at a Requirement
+#   Fail with count + uuid list if any test is < 7-hop reachable.
+```
+
+### Why this rule exists
+
+Incident (2026-06-03): T172 achieved 238/238 unit reachability — looked clean —
+but the underlying data had UC/Class/Method/Impl/Test forward arrays empty,
+leaving 44 Tests as "chain gap" when walked end-to-end. The 238/238 metric was
+counting units, not chain depth. T172 was a real win (Sprint→Task→Subtask layer
+populated); but R-J ("every Test reachable") and R-E ("chain starts with atomic
+requirements") demand the full 7-hop assertion. T178 lands the data fill; the
+strict-verify-bar prevents the next class of "metrics-pass-but-gapped" closures.
+
+Apply this bar to every task closure that involves traceability-chain claims.
+Audit-only / unit-test-count / node-count "verifications" do not satisfy it.

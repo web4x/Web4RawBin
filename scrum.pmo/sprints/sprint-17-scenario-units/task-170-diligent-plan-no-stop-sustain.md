@@ -298,6 +298,26 @@ STATIC_SHELL (c): exempt.
 ## Subtasks
 None at parent level (architect may split T170.x if scope warrants).
 
+## Follow-on Extension — STRICT VERIFY BAR (PO directive 2026-06-03)
+
+The 3 CI gates landed by T170 (`trace:audit:strict`, `rule-pair:check`,
+`chain-order`) are the foundation; PO has now codified the **strict-verify-bar**
+in `scrum.pmo/standards/traceability-standard.md` (see "Strict Verify Bar"
+section). This requires extending `trace:audit:strict` with an additional
+assertion: **per-Test 7-hop reachability** — for every Test in the scenario
+index, `walkUp(test).length === 7` and the walk terminates at a Requirement.
+CI MUST fail on any depth `< 7`.
+
+**Sequencing:** T178 (R-Q chain DATA-fill KEYSTONE) lands the per-instance
+forward arrays first. The CI-gate extension is wired AFTER T178 ships, otherwise
+the gate would fail immediately on the existing 44-test chain gap. Once T178
+data lands + tester proves 44/44 7-hop reachable, the extended gate locks in
+the bar permanently (no future "metrics-pass-but-gapped" regression).
+
+**Owner of the extension:** robbin-architect designs the depth assertion;
+robbin-expert extends the script; robbin-tester runs the gate against the
+post-T178 graph and confirms ZERO sub-7-hop tests.
+
 ---
 
 *Sprint 17 — Scenario Units / IOR Data Model & Class Views · Phase 28 (sustain / CI gates)*
