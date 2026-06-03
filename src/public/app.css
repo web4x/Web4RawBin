@@ -70,7 +70,10 @@ rb-object-item[type="class"] { --type-bg: rgba(106,27,154,0.15); --type-color: #
 rb-object-item[type="method"] { --type-bg: rgba(198,40,40,0.15); --type-color: #ef5350; }
 rb-object-item[type="implementation"] { --type-bg: rgba(78,52,46,0.15); --type-color: #a1887f; }
 rb-object-item[type="test"] { --type-bg: rgba(0,105,92,0.15); --type-color: #26a69a; }
-.oi-content { flex: 1; min-width: 0; }
+.oi-content { flex: 1; min-width: 0; overflow: hidden; }
+rb-object-item { max-width: 100%; }
+rb-object-item:hover .oi-name { white-space: normal; word-break: break-word; }
+.trace-tree-panel { overflow-x: hidden; }
 .oi-name { color: white; font-weight: 600; font-size: 0.85rem; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .oi-desc { color: rgba(255,255,255,0.5); font-size: 0.75rem; margin: 2px 0 0; word-wrap: break-word; overflow-wrap: break-word; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 /* T115: collapse/expand + children expander */

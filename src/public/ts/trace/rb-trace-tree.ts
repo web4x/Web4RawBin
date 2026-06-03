@@ -122,6 +122,22 @@ export class RbTraceTree extends HTMLElement {
     return node;
   }
 
+  private scenarioExpandKey(): string {
+    return `rawbin-scenario-expanded-${this.getAttribute('data-seed-ior') || ''}`;
+  }
+
+  private isSeedExpanded(uuid: string): boolean {
+    try { return new Set(JSON.parse(localStorage.getItem(this.scenarioExpandKey()) || '[]')).has(uuid); } catch { return false; }
+  }
+
+  private toggleSeedExpanded(uuid: string, open: boolean): void {
+    try {
+      const set = new Set(JSON.parse(localStorage.getItem(this.scenarioExpandKey()) || '[]'));
+      if (open) set.add(uuid); else set.delete(uuid);
+      localStorage.setItem(this.scenarioExpandKey(), JSON.stringify([...set]));
+    } catch { /* ignore */ }
+  }
+
   private async renderSeed(uuid: string): Promise<void> {
     this.innerHTML = '<div class="tt-empty">Loading…</div>';
     try {
@@ -129,39 +145,39 @@ export class RbTraceTree extends HTMLElement {
       if (!res.ok) { this.innerHTML = '<div class="tt-empty">Not found</div>'; return; }
       const data = await res.json();
       this.innerHTML = '';
-      const root = document.createElement('div');
-      root.className = 'tt-node';
-      const row = document.createElement('div');
-      row.className = 'tt-row';
-      const item = document.createElement('rb-object-item');
-      item.setAttribute('ref', `${(data.type || 'task').toLowerCase()}:${uuid}`);
-      item.setAttribute('type', (data.type || 'task').toLowerCase());
-      item.setAttribute('title', data.name || uuid);
-      if (data.children?.length) item.setAttribute('has-children', '');
-      row.appendChild(item);
-      root.appendChild(row);
-      if (data.children?.length) {
-        const kids = document.createElement('div');
-        kids.className = 'tt-children';
-        kids.style.display = 'none';
-        for (const child of data.children) {
-          const cnode = document.createElement('div');
-          cnode.className = 'tt-node';
-          const crow = document.createElement('div');
-          crow.className = 'tt-row';
-          const citem = document.createElement('rb-object-item');
-          citem.setAttribute('ref', `${(child.type || 'task').toLowerCase()}:${child.uuid}`);
-          citem.setAttribute('type', (child.type || 'task').toLowerCase());
-          citem.setAttribute('title', child.name || child.uuid);
-          if (child.hasChildren) citem.setAttribute('has-children', '');
-          crow.appendChild(citem);
-          cnode.appendChild(crow);
-          kids.appendChild(cnode);
-        }
-        root.appendChild(kids);
-      }
-      this.appendChild(root);
+      this.appendChild(this.buildSeedNode(uuid, data.type, data.name, data.children || []));
     } catch { this.innerHTML = '<div class="tt-empty">Failed to load</div>'; }
+  }
+
+  private buildSeedNode(uuid: string, type: string, name: string, children: { uuid: string; type: string; name: string; hasChildren: boolean }[]): HTMLElement {
+    const node = document.createElement('div');
+    node.className = 'tt-node';
+    const row = document.createElement('div');
+    row.className = 'tt-row';
+    const item = document.createElement('rb-object-item');
+    item.setAttribute('ref', `${(type || 'task').toLowerCase()}:${uuid}`);
+    item.setAttribute('type', (type || 'task').toLowerCase());
+    item.setAttribute('title', name || uuid);
+    if (children.length > 0) item.setAttribute('has-children', '');
+    const isOpen = this.isSeedExpanded(uuid);
+    if (isOpen) item.setAttribute('children-open', '');
+    row.appendChild(item);
+    node.appendChild(row);
+    if (children.length > 0) {
+      const kids = document.createElement('div');
+      kids.className = 'tt-children';
+      kids.style.display = isOpen ? '' : 'none';
+      for (const child of children) {
+        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, []));
+      }
+      node.appendChild(kids);
+      item.addEventListener('toggle-children', ((e: CustomEvent) => {
+        const open = e.detail.open;
+        kids.style.display = open ? '' : 'none';
+        this.toggleSeedExpanded(uuid, open);
+      }) as EventListener);
+    }
+    return node;
   }
 }
 

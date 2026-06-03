@@ -121,6 +121,34 @@ export abstract class TraceObject {
 
   ref(): ObjectRef { return toRef(this.type, this.uuid); }
 
+  /** T175 Tree: parent in the LOCKED chain (forward-only scan) */
+  get parent(): TraceObject | null {
+    const ABOVE: Partial<Record<ObjectType, ObjectType>> = { task: 'requirement', usecase: 'task', class: 'usecase', method: 'class', implementation: 'method', test: 'implementation' };
+    const FORWARD: Record<string, string> = { requirement: 'tasks', task: 'useCases', usecase: 'classes', class: 'methods', method: 'implementations', implementation: 'tests' };
+    const above = ABOVE[this.type];
+    if (!above) return null;
+    const fwd = FORWARD[above];
+    if (!fwd) return null;
+    for (const candidate of this.graph.ofType(above)) {
+      if (candidate.refs(fwd).includes(this.uuid)) return candidate;
+    }
+    return null;
+  }
+
+  /** T175 Tree: children in the LOCKED chain */
+  get children(): TraceObject[] {
+    const FORWARD: Record<string, string> = { requirement: 'tasks', task: 'useCases', usecase: 'classes', class: 'methods', method: 'implementations', implementation: 'tests' };
+    const BELOW: Partial<Record<ObjectType, ObjectType>> = { requirement: 'task', task: 'usecase', usecase: 'class', class: 'method', method: 'implementation', implementation: 'test' };
+    const fwd = FORWARD[this.type];
+    const below = BELOW[this.type];
+    if (!fwd || !below) return [];
+    return this.graph.resolve(this, fwd, below);
+  }
+
+  get hasChildren(): boolean { return this.children.length > 0; }
+  get isRoot(): boolean { return this.parent === null; }
+  get isLeaf(): boolean { return this.children.length === 0; }
+
   toJSON(): FlatObject {
     const links: Record<string, ObjectRef[]> = {};
     for (const [relation, uuids] of this._links) {
