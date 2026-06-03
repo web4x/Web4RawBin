@@ -517,8 +517,9 @@ this.unsub = ViewBus.subscribe('navigate', (data: { ref: string }) => {
 - **R-M2** `[requirement:uuid:c970f251-2e1f-405d-955c-218f7040a983]` — drawer swipe-dismiss touch area
 - **R-M3** `[requirement:uuid:cc673ef3-9581-4143-a978-bd734589c594]` — new /scenario route, IOR-seeded lazy tree
 - **R-M4** `[requirement:uuid:fa1bd28e-1960-4a42-bc5e-909c5f0ad1c1]` — drawer child width-cap on mobile
+- **R-M3d** `[requirement:uuid:8832a890-ca92-4cfc-97c9-c81dff3ea1b1]` — drawer nav must scroll tree to selected element (folded into T174 per PO 2026-06-03; req-eng captured in `f12ccec0`)
 
-(req-eng owns formal Requirement scenario units anchored to verbatim Tron quotes from `acae0ffe`; planner pre-seeds these v4s so the chain is wireable.)
+(req-eng owns formal Requirement scenario units anchored to verbatim Tron quotes from `acae0ffe` + `f12ccec0`; planner pre-seeds these v4s so the chain is wireable.)
 
 ## Subtasks
 None (atomic task — architect explicitly chose ONE consolidated task: "All 4 atoms touch the drawer/view layer and share the same commit surface. Splitting would create 4 version bumps for what is one coherent UX pass.")
@@ -528,7 +529,10 @@ None (atomic task — architect explicitly chose ONE consolidated task: "All 4 a
 - 2026-06-03: PO directs stand-up T174 covering R-M1/M2/M3/M4 ("or split per planner's call").
 - 2026-06-03: Architect `483d1587` ships consolidated design (R-M1 placeholder + R-M2 touch-area + R-M3 /scenario route + R-M4 width-cap). Recommends ONE task; shared drawer/view commit surface.
 - 2026-06-03: Planner initial split scaffold ea88de12 (T174 + T175) RECONCILED — adopted architect's bundle per learning #20; my T174/T175 scaffolds removed; this file's fake-suffix uuid swapped for real v4; Subtasks + QA Audit + Requirement UUIDs sections added for audit compliance.
-- Pending: expert impl (rule-pair (a)+(b)+(c) — STATIC_SHELL required for /scenario route per learning #16), tester verifies R-M1..R-M4 ACs, then Tron QA.
+- 2026-06-03: Expert `2eb4dab1` ships v0.5.71 (R-M1+M2+M3+M4). Rule-pair (a)+(b)+(c) verified ✓ ((c) STATIC_SHELL: /scenario + dist/scenario-view-5CKNEWVS.js added).
+- 2026-06-03: Tron caught R-M3 bug — `/scenario?ior=X` shows full tree, ignores `?ior=`. Architect diagnosed `4845bd8b` then `da163dc3` (2-layer root: Task ior=0 children). req-eng `f12ccec0` captured **R-M3d** new atom: drawer navigation must scroll tree to selected element.
+- 2026-06-03: PO direction — **R-M3d FOLDS into T174** (architect bundle pattern: same drawer/view surface, one fix-cycle). Expert ships single-IOR-seed + Task-children + R-M3d scroll-into-view together; tester re-verifies all in one pass. R-M3d req:uuid `8832a890-…` added.
+- Pending: expert R-M3 + R-M3d bug-fix commit (rule-pair (a)+(b); (c) likely exempt — fixes existing route/components); tester re-verifies R-M1..R-M4 + R-M3d ACs in one pass; then Tron QA.
 
 ---
 
