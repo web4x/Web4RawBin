@@ -395,6 +395,17 @@ PO direction 2026-06-03 — explicit GATE on the traceability chain story: T168/
   **v4 uuids:** task `4bd33c18-…`; req-uuid R-Q `cd5dc5b7-…`.
   **KEYSTONE for:** R-J ("every Test reachable via the chain") + R-E ("chain starts with atomic requirements") full DATA satisfaction. T124 + T168 closure GATED on T178 + tester 44/44.
 
+### Phase 35 — Tron R-S (SW auto-activation reliability — recurring stale-cache root fix)
+
+PO direction 2026-06-03: recurring stale-cache class of issues; "Tron never manually clears the service worker / cache again." Architect designs SW lifecycle (`skipWaiting` in install + `clients.claim` + old-cache purge in activate + update-banner interaction); expert impls; tester proves auto-takeover on 2nd page load. 4-role planner-first. NOTE: R-R is taken by S13 (R-R1: all user rooms load on connect); this task uses **R-S** to avoid collision.
+
+- [ ] ⏳ [T179: SW auto-activation reliability — skipWaiting + clients.claim + old-cache purge](./task-179-sw-auto-activation-stale-cache-fix.md)
+  **Status:** ⏳ planned (planner-first scaffold 2026-06-03 — architect designs the SW lifecycle pipeline + banner interaction; placeholder ACs pending). Recurring stale-cache root fix — removes the class of "looks fixed but Tron still sees old version" bugs.
+  **Owners (CMM4):** robbin-req (R-S anchor when Tron-relayed) → robbin-architect (3-step SW lifecycle: skipWaiting/claim/cache-purge + banner UX post-claim; declare (c) STATIC_SHELL requirement) → robbin-expert (impl in sw.js + rb-update-banner; rule-pair (a)+(b)+(c) per architect) → robbin-tester (prove 2nd-load auto-takeover, cache-purge, banner UX; rule-pair-bump regression check)
+  **Rule-pair scope:** (a)+(b) required; **(c) STATIC_SHELL likely required** (banner-component bundle change) — architect declares.
+  **v4 uuids:** task `7b0985b9-…`; req-uuid R-S `18e5e44e-…`.
+  **Follows:** rule-pair (b) standing CACHE_NAME bump (T179 makes the bump take effect at runtime). **Unblocks:** Tron no longer needs to manually clear SW/cache.
+
 ### Phase 6 — Verification (T129, tester + planner)
 
 - [ ] 🧪 [T129: Traceability gate — every method traces to a task AND a requirement](./task-129-verification.md)
