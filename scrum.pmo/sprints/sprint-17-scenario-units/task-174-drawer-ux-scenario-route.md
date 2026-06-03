@@ -409,7 +409,8 @@ rb-detail-drawer pre, rb-detail-drawer code {
 | File | Change | Atom |
 |------|--------|------|
 | `src/public/ts/trace/VerbRegistry.ts:42` | Replace `notFound()` with actionable placeholder | R-M1 |
-| `src/public/ts/trace/rb-trace-tree.ts` | Close drawer if no handler (R-M1); `data-seed-ior` attribute (R-M3) | R-M1, R-M3 |
+| `src/public/ts/trace/rb-trace-tree.ts` | Close drawer if no handler (R-M1); `data-seed-ior` attribute (R-M3); `select()` + `scrollIntoView` + ViewBus subscribe (R-M3d) | R-M1, R-M3, R-M3d |
+| `src/public/ts/trace/rb-object-item.ts` | Add `selected` observed attribute | R-M3d |
 | `src/public/ts/trace/rb-detail-drawer.ts:54` | Expand swipe touch area to top 60px (R-M2) | R-M2 |
 | `src/public/app.css` | Mobile handle enlargement (R-M2); drawer child width-cap (R-M4); notfound style (R-M1) | R-M1, R-M2, R-M4 |
 | `src/public/scenario.html` | CREATE — STATIC_SHELL for /scenario route | R-M3 |
@@ -420,11 +421,93 @@ rb-detail-drawer pre, rb-detail-drawer code {
 | esbuild config | Add `scenario-view.ts` entry point → `dist/scenario.js` | R-M3 |
 | `src/ts/server/server.ts:626` + `templates.ts:65,72` | Change `/trace?ior=` → `/scenario?ior=` for .scenario.json clicks | R-M3 (updates T173) |
 
-### AC (architect-proposed)
+### R-M3d: Detail-View Navigation → Tree Auto-Scroll + Selection State (PO fold 2026-06-03)
+
+**Current:** Tree has NO concept of "selected node." When a DetailView opens (via click or `/scenario?ior=`), the tree doesn't highlight or scroll to the corresponding item. User loses context between tree and detail.
+
+**Applies to BOTH `/trace` and `/scenario`.**
+
+#### Selection State on `rb-object-item`
+
+Add `selected` attribute + CSS:
+
+```typescript
+// rb-object-item.ts — add to observedAttributes:
+static get observedAttributes() { return ['ref', 'type', 'title', 'name', 'description', 'status', 'selected']; }
+```
+
+```css
+/* app.css — selected tree item */
+rb-object-item[selected] {
+  background: rgba(102, 126, 234, 0.15);
+  border-left: 3px solid #667eea;
+  padding-left: 5px;
+}
+```
+
+#### Tree Tracks Selected Node
+
+```typescript
+// rb-trace-tree.ts — add selection tracking:
+private selectedRef: string | null = null;
+
+/** Select a node: highlight it, scroll into view, deselect previous */
+select(ref: string): void {
+  // Deselect previous
+  if (this.selectedRef) {
+    const prev = this.querySelector(`rb-object-item[ref="${this.selectedRef}"]`);
+    prev?.removeAttribute('selected');
+  }
+  
+  // Select new
+  this.selectedRef = ref;
+  const item = this.querySelector(`rb-object-item[ref="${ref}"]`);
+  if (item) {
+    item.setAttribute('selected', '');
+    item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+```
+
+#### Wire to Navigation Events
+
+When a DetailView opens (via `navigate()` → VerbRegistry handler → drawer shows), notify the tree:
+
+```typescript
+// trace/index.ts or TraceRouter — after navigate resolves:
+const tree = document.querySelector('rb-trace-tree') as RbTraceTree;
+if (tree && params.uuid) {
+  tree.select(params.uuid);
+}
+```
+
+Also wire for `/scenario?ior=` initial load:
+
+```typescript
+// scenario-view.ts — after data-seed-ior tree renders:
+requestAnimationFrame(() => {
+  const tree = document.querySelector('rb-trace-tree') as any;
+  tree?.select(ior);
+});
+```
+
+#### ViewBus Integration (existing pattern)
+
+Subscribe the tree to ViewBus `navigate` events so selection stays in sync when user clicks chain-links inside DetailViews:
+
+```typescript
+// rb-trace-tree.ts connectedCallback — ADD:
+this.unsub = ViewBus.subscribe('navigate', (data: { ref: string }) => {
+  if (data.ref) this.select(refUuid(data.ref));
+});
+```
+
+### AC (architect-proposed — updated with R-M3d)
 - [ ] R-M1: Drawer clears stale "No view for ?.?" on tree navigation; placeholder is actionable text (not cryptic)
 - [ ] R-M2: Swipe-down works from top 60px of drawer on mobile (not just tiny handle); handle hidden on desktop split
 - [ ] R-M3: `/scenario?ior=<uuid>` serves scenario.html; tree seeded from single instance; lazy-loads children per LOCKED chain; STATIC_SHELL entry in sw.js
 - [ ] R-M3b: `.scenario.json` clicks (file-browser + /md/ 302) route to `/scenario?ior=` not `/trace?ior=`
+- [ ] **R-M3d: Tree auto-scrolls + highlights selected node on detail-view navigation (both /trace and /scenario)**
 - [ ] R-M4: All drawer child content width-capped at drawer width; no horizontal overflow on mobile
 - [ ] Rule-pair (a)+(b)+(c): version bump + CACHE_NAME bump + STATIC_SHELL entry for /scenario
 
