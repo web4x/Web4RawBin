@@ -421,6 +421,117 @@ rb-detail-drawer pre, rb-detail-drawer code {
 | esbuild config | Add `scenario-view.ts` entry point → `dist/scenario.js` | R-M3 |
 | `src/ts/server/server.ts:626` + `templates.ts:65,72` | Change `/trace?ior=` → `/scenario?ior=` for .scenario.json clicks | R-M3 (updates T173) |
 
+### R-M3e: /scenario Missing Event Wiring — Collapse/Expand + DetailView NOT Working (PO fold 2026-06-03)
+
+**Tron report:** /scenario renders scoped tree (R-M3a seed fixed) but collapse/expand and DetailView-on-click don't work.
+
+**Root cause in `scenario-view.ts`:** Creates `rb-trace-tree` + `rb-detail-drawer` as raw DOM — imports NEITHER `TraceRouter` NOR `viewRegistry()` NOR `setActiveRouter()`. Compare `/trace` entry wiring:
+
+```typescript
+// /trace entry (trace/index.ts — the full wiring):
+import { TraceRouter, viewRegistry, setActiveRouter } from './trace/index.js';
+// ... creates graph, then:
+const reg = viewRegistry(drawer);          // registers all 7 DetailViews + drawer host
+const router = new TraceRouter(graph, reg, mount);
+setActiveRouter(router);                   // wires navigate() in rb-object-item clicks
+router.start();                            // handles hash routes
+```
+
+```typescript
+// /scenario entry (scenario-view.ts — MISSING all of this):
+const tree = document.createElement('rb-trace-tree');   // bare element
+const drawer = document.createElement('rb-detail-drawer'); // bare element
+// NO TraceRouter, NO viewRegistry, NO setActiveRouter
+// → rb-object-item click calls navigate() → nav.ts → no active router → nothing happens
+// → expand/collapse IS in rb-trace-tree.ts (toggle event) → works IF the tree is connected
+//   BUT without graph.get() the tree can't resolve children → expand shows nothing
+```
+
+**The fix — scenario-view.ts must import and wire the FULL /trace interaction layer:**
+
+```typescript
+// scenario-view.ts — REPLACE lines 7-41:
+import {
+  TraceRouter, viewRegistry, deserialize, setActiveRouter, ViewBus
+} from './trace/index.js';
+// index.js side-effect imports ALL components: rb-object-item, rb-detail-drawer,
+// rb-task-detail, rb-requirement-detail, etc. — so they're registered as custom elements
+
+const params = new URLSearchParams(window.location.search);
+const ior = params.get('ior');
+const app = document.getElementById('scenario-app');
+
+if (!ior || !app) {
+  if (app) app.innerHTML = '<div style="color:#888;padding:20px">Missing ?ior= parameter</div>';
+} else {
+  async function load(): Promise<void> {
+    try {
+      // Step 1: Fetch scoped children from children endpoint
+      const childRes = await fetch(`/api/trace/children/${encodeURIComponent(ior!)}`);
+      if (!childRes.ok) throw new Error(`children ${childRes.status}`);
+      const seedData = await childRes.json();
+
+      // Step 2: Build a MINIMAL graph from the children endpoint
+      // TraceRouter needs a TraceGraph to resolve refs → DetailViews
+      // Option A: use /api/trace full graph (works but defeats R-M3 purpose)
+      // Option B: build graph incrementally from /api/trace/children responses
+      // For NOW (Option A with small scope): fetch full graph but SEED tree from ior only
+      const traceRes = await fetch('/api/trace');
+      const traceData = await traceRes.json();
+      const graph = deserialize(traceData.objects || []);
+
+      // Step 3: Render layout
+      app!.innerHTML = `<div class="trace-page">
+        <div class="trace-tree-panel"></div>
+      </div>`;
+      const treePanel = app!.querySelector('.trace-tree-panel')!;
+
+      // Step 4: Create tree with data-seed-ior (scoped root)
+      const tree = document.createElement('rb-trace-tree') as HTMLElement & {
+        setGraph(g: unknown, b: string[]): void;
+        select(ref: string): void;
+      };
+      // Give tree the full graph for expand/collapse resolution
+      // BUT render only the seeded root via data-seed-ior
+      tree.setAttribute('data-seed-ior', ior!);
+      tree.setGraph(graph, traceData.broken || []);
+      treePanel.appendChild(tree);
+
+      // Step 5: Create drawer + wire TraceRouter (THE MISSING PIECE)
+      const drawer = document.createElement('rb-detail-drawer');
+      app!.querySelector('.trace-page')!.appendChild(drawer);
+
+      const detailMount = document.createElement('div');
+      const reg = viewRegistry(drawer);       // registers all 7 typed DetailViews
+      const router = new TraceRouter(graph as never, reg, detailMount);
+      setActiveRouter(router);                 // wires navigate() for rb-object-item clicks
+      router.start();
+
+      // Step 6: Auto-navigate to seeded IOR
+      const type = seedData.type?.toLowerCase() || 'task';
+      router.navigate(type, 'show', { uuid: ior! });
+
+      // Step 7: Auto-select in tree (R-M3d)
+      requestAnimationFrame(() => tree.select(ior!));
+
+    } catch (e) {
+      app!.innerHTML = `<div style="color:#888;padding:20px">Failed to load. <a href="/trace">Full trace</a></div>`;
+    }
+  }
+  load();
+}
+```
+
+**Key insight:** The tree needs `setGraph()` for expand/collapse resolution (it calls `graph.get(ref)` to find children). `data-seed-ior` controls which ROOT renders, but the graph must still be available for child resolution. The graph is loaded once; the tree only RENDERS the seed root + lazy children.
+
+**Temporary tradeoff:** This still fetches `/api/trace` once for the graph (needed for `graph.get()` in expand). The pure-lazy approach (no full graph) requires refactoring `rb-trace-tree` to use `/api/trace/children/<uuid>` for EVERY expand instead of `graph.get()`. That's a T173 enhancement — not T174 scope.
+
+**What this fixes:**
+- ✅ Collapse/expand works (graph available for child resolution)
+- ✅ Click item → DetailView opens in drawer (TraceRouter + viewRegistry wired)
+- ✅ Tree renders only seeded root (data-seed-ior controls root selection)
+- ✅ Auto-scroll + selection (R-M3d)
+
 ### R-M3d: Detail-View Navigation → Tree Auto-Scroll + Selection State (PO fold 2026-06-03)
 
 **Current:** Tree has NO concept of "selected node." When a DetailView opens (via click or `/scenario?ior=`), the tree doesn't highlight or scroll to the corresponding item. User loses context between tree and detail.
