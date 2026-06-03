@@ -165,3 +165,31 @@ A parent-sprint link in a Task generated view resolves to `../task/sprint.md` (w
 **PO refinement (2026-06-03):** The click was on `sprint.json 🔗 ✏️` (the symlink shown by the file browser). The `.json` click handler does wrong `.md` path conversion AND wrong directory. Same root cause as R-K1 (dead-end on .scenario.json click): the file browser's click-to-navigate logic converts `.scenario.json` to an `.md` path incorrectly — both the directory and the extension mapping are wrong. R-K1 and R-L share this root cause.
 
 **PO second repro (2026-06-03):** Clicking T110 in a `Tasks:` list also 404s. Not limited to sprint.json — ALL generated href emission (task links in planning.md views, sprint overview, DetailView navigation) must resolve. Same root-cause class: ViewGenerator emits relative paths that don't match the actual directory structure of generated .md files.
+
+---
+
+## Tron Verbatim — Follow-on (2026-06-03, eighth directive — desktop /trace review)
+
+> "this is how it looks like on the desktop browser https://home.donges.it:4444/trace?ior=2370d3b3-... "No view for ?.?" This area has been replaced by the details drawer. clicking on r10.2 shows the second screenshot. on tesktop the drawer shall not have that nudge diplayed that in mobile closes the drawer. calling the link above shall not open the tracability as it does. it just shall show the one scenario from the parameter. on opening the itm view on the right, it shall lazy load the children tasks. as previously specified. to have this other mode lets introduce a new rout /scenario, that uses the same view components as the tracability view but just lasy loads the tree from the first clicked scenario. when the drawer switches to mobile, as in the third screenshot, the item views shall only be as borad as the drawer."
+
+## Atomic Requirements (per R-I rule)
+
+### R-M1: Desktop drawer must not show "No view for ?.?" placeholder.
+> "No view for ?.?" This area has been replaced by the details drawer."
+
+The legacy placeholder text must be removed. The detail area is now the drawer — it should show nothing (empty state) or the selected item, never a "No view" error.
+
+### R-M2: Desktop drawer must not show the mobile swipe-handle/nudge.
+> "on tesktop the drawer shall not have that nudge diplayed that in mobile closes the drawer"
+
+The drag-to-dismiss handle bar is mobile-only UX. On desktop viewports it must be hidden.
+
+### R-M3: New route /scenario?ior=<uuid> — single-scenario view with lazy-loaded children.
+> "calling the link above shall not open the tracability as it does. it just shall show the one scenario from the parameter... lets introduce a new rout /scenario, that uses the same view components as the tracability view but just lasy loads the tree from the first clicked scenario"
+
+`/scenario?ior=<uuid>` is a NEW route distinct from `/trace`. It reuses the same view components (tree + drawer) but starts from ONE scenario unit as root and lazy-loads its children down the chain — not the full traceability tree. `/trace` continues to show the full tree.
+
+### R-M4: Mobile drawer item-view width capped at drawer width (no overflow).
+> "when the drawer switches to mobile... the item views shall only be as borad as the drawer"
+
+On mobile, when the detail drawer is visible, item content must not overflow the drawer width. Hard width-cap at drawer boundary — consistent with R-D/T167 mobile-first directive.
