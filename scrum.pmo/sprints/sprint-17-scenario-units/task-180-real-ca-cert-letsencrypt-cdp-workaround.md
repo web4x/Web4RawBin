@@ -153,7 +153,10 @@ None (atomic task — two tracks shipped together; architect designs both, exper
 
 ## QA Audit & User Feedback
 - 2026-06-04: PO directs T180 stand-up NOW — TOP PRIORITY above T178. Tron locked out: Chrome blocks SW registration on self-signed cert; with T179 making SW the durable runtime, this is a real-device blocker. Two-track scope: production LE cert + CDP Playwright workaround. Architect designs both; expert ships; tester verifies (iPhone real-device + headless SW registration).
-- Pending: architect designs → expert provisions LE cert + updates server.ts + wires Playwright CDP config → tester verifies AC1-AC9 → Tron QA closes the real-device unblock.
+- 2026-06-04: **AWAITING TRON ACTION** — PO escalated the production cert to Tron with a DNS-01 certbot one-liner. Track 1 (LE cert provisioning) cannot proceed without Tron's DNS API access / direct shell execution on the host. Track 2 (Playwright CDP workaround) can proceed in parallel.
+- Pending Track 1: Tron runs DNS-01 certbot one-liner → expert updates `server.ts` to load LE cert/key/chain + wires auto-renew → tester confirms LE chain valid + iPhone SW registers.
+- Pending Track 2: architect designs CDP `Security.setIgnoreCertificateErrors` Playwright config → expert wires SW-test helper → tester proves SW registration succeeds against T100; unblocks T179 AC11-13 headless verify.
+- Pending overall: both tracks land → Tron QA closes the real-device unblock.
 
 ---
 

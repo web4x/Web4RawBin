@@ -112,7 +112,9 @@ None (atomic sub-task of T128 parent — single retrofit pass, single re-run of 
 ## QA Audit & User Feedback
 - 2026-06-04: PO directs T128.4 stand-up as a formal task — tester proved 0/44 tests 7-hop reachable after T178 pipeline shipped (`c6c695a4`). Root cause: 50 impl markers + 21 test markers missing in source/test files. T128.4 closes the marker gap so T178 pipeline can link deterministically. 4-role: architect + req map → expert markers → tester 44/44.
 - 2026-06-04: Planner pre-flight noted T128 parent already lists T128.4 ("method markers retrofit") as a scoped sub-task; T128.4 now becomes a formal task file per PO direction (was a planning-line reference only).
-- Pending: architect + req JOINT mapping table → expert marker additions → tester 44/44 verification → Tron QA closes the chain-data story.
+- 2026-06-04: **IN FLIGHT** — architect + req JOINT creating **6 new UseCase units for S14/S15 classes** (existing data had S14/S15 Class units without UseCase parents → broke the chain at UC hop even when method markers landed). UseCase creation is the prerequisite for the mapping table — once landed, T128.4 marker retrofit can proceed deterministically. Tracked separately from the marker-addition AC2/AC3.
+- 2026-06-04: T178 pipeline iteration progress (cc152130 + 194d747c heuristic improvements): Method→Impl 30→42 links, Impl→Test 16→15. Tester latest reachability snapshot: **36/44** (up from 0/44 baseline) — the improved heuristic + ongoing UC creation lifted reachability without changing the marker counts. T128.4 ACs unchanged; full 44/44 still requires the 50+21 marker retrofit on top of the UC creation.
+- Pending: architect + req JOINT (1) finish 6 new UseCases for S14/S15 → (2) mapping table → expert marker additions → expert pipeline re-run → tester 44/44 verification → Tron QA closes the chain-data story.
 
 ---
 
