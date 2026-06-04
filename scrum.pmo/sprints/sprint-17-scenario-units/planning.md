@@ -432,14 +432,21 @@ PO direction 2026-06-04: stand up T182 as formal task — Browse-source affordan
 
 **Snapshot 2026-06-04 (post-T183-ship):** T183 7-hop CI gate is the **auto-confirm trigger** — once it reports 44/44, T178+T124+T168 closure conditions are mechanically met.
 
-**Current state of the chain:**
+**Current state of the chain (refreshed post-a7c2b6b7):**
 | Task | Symbol | Closure gate | Driver |
 |------|--------|--------------|--------|
-| **T183** | ✅ | rule-pair EXEMPT — shipped `77adf9bf`; live baseline **1/44** (works as designed) | Watches 44/44 forever |
-| **T128.4** | ⏳/🔧 | Architect+req JOINT in-flight: 6 new UseCase units for S14/S15 classes + UC→Task mapping → expert `--apply` retrofit (50 impl + 21 test markers) | **NEXT PIVOT** — closure-chain trigger |
-| **T178** | ✅ | impl-shipped; **DATA gate**: tester reachability snapshot **36/44** → blocked by T128.4 markers | Auto-closes when T128.4 lifts to 44/44 |
+| **T183** | ✅ | rule-pair EXEMPT — shipped `77adf9bf`; live baseline now **2/44** (post-a7c2b6b7, up from 1/44; forward-reach 264 from 179) | Watches 44/44 forever |
+| **T128.4** | 🔧 | Architect+expert SHIPPED Step 0: T178 `a7c2b6b7` wrote 24 S17 UC→Task links + 22 bridge Impl units for orphan tests. **PARTIAL** — 7-hop lifted 1→2/44. **REMAINING BLOCKER (expert-flagged):** 91/106 tasks have NO useCases — S1-S14 tasks predate UC creation. Architect+req must create UC units for pre-S16 tasks OR architect-call Task→Method direct-link bypass. | Extended scope — see Pre-S16 UC Gap below |
+| **T178** | ✅ | impl-shipped (incl. `a7c2b6b7` Step 0). **DATA gate**: 2/44 — extends until pre-S16 UC gap resolved | Iterates until T183 hits 44/44 |
 | **T124** | ✅ code-side | DATA gate per PO 2026-06-03 — **do not mark traceability chain done on code alone** | Auto-closes when T183 hits 44/44 |
 | **T168** | 🧪 | LOCKED chain code DONE; DATA gate same as T124/T178 | Auto-closes when T183 hits 44/44 |
+
+#### Pre-S16 UC Gap (discovered by `a7c2b6b7` 2026-06-04)
+**91/106 Tasks (S1-S14) have no UseCase parents** — UC discipline started at S16. Two architect-paths to resolve:
+- **Path A — retroactive UC creation:** architect+req create UseCase units for the 91 historical tasks (large; reflects honest CMM4 history).
+- **Path B — Task→Method direct-link bypass:** architect declares a Task→Method shortcut for tasks without UCs (compact; preserves chain integrity at cost of UC-as-first-class invariant).
+
+**Awaiting PO + architect call on A vs B before further closure-chain motion.**
 
 **Closure trigger sequence (the moment X lands, Y auto-confirms):**
 ```
