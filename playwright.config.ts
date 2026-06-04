@@ -27,7 +27,15 @@ export default defineConfig({
     viewport: { width: 1280, height: 720 },
   },
   projects: [
-    { name: 'chromium', use: { browserName: 'chromium' } },
+    {
+      name: 'chromium',
+      use: {
+        browserName: 'chromium',
+        launchOptions: {
+          args: ['--ignore-certificate-errors'],
+        },
+      },
+    },
   ],
   webServer: {
     command: 'npm run dev',
