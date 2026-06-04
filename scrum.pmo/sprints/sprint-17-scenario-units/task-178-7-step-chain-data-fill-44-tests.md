@@ -98,7 +98,141 @@ None (atomic task — single architect-designed pipeline, single expert pass, si
 - 2026-06-04: **IN FLIGHT (architect + req JOINT)** — creating 6 new UseCase units for S14/S15 Classes (data gap: S14/S15 Classes lacked UseCase parents, breaking the chain at the UC hop). Tracked formally in T128.4 QA Audit; T178 closure absorbs the UC creation since it directly raises reachability.
 - 2026-06-04: Expert `f306e503` v0.5.82 ships T178 overlay-read fix — serves ALL forward refs from scenario index (DetailView overlays now read complete forward arrays, no truncation). Rule-pair (a)+(b) ✓; (c) STATIC_SHELL unchanged; 836/836 pass.
 - 2026-06-04: Tester `c0f61299` authored T183 (7-hop CI gate spec) — formal companion to T178; gate is ready before fill; expert implements per the spec.
-- Pending: architect + req finish 6 new UseCases → T128.4 marker retrofit → expert pipeline re-run → tester walks **44/44** + live /trace 7-hop expand with SW active → T183 gate enabled → Tron QA closes R-J fully.
+- 2026-06-05: Architect `7b7859ac` fills classes[] on 8 UseCase units — 12/12 orphan S17 classes now UC-parented (6 empty UCs filled + 2 existing UCs extended). 0 orphan classes remain.
+- 2026-06-05: Architect `c11f723a` commits s17-architecture.puml — Tree hierarchy + IOR chain class diagram with [class:uuid]/[method:uuid] annotations feeding T178 chain.
+- 2026-06-05: **Architect T178 TREE LAZY-LOAD DIAGNOSIS (Tron live)** — see design below.
+- Pending: expert applies tree lazy-load fix + UC wiring → tester walks **44/44** + live /trace 7-hop expand with SW active → T183 gate enabled → Tron QA closes R-J fully.
+
+## Architect Design — Tree Lazy-Load Fix (2026-06-05)
+
+### Root Cause: TWO rendering paths, seed mode is structurally broken
+
+**Path 1 — Full-graph mode** (`render()` → `nodeEl()`, main `/trace` page):
+- Loads entire graph from `/api/trace` into memory
+- `nodeEl()` line 91: `obj.children.map(c => c.ref())` — correct, uses T175 Tree getter
+- `onToggleChildren` calls `this.render()` — re-renders full tree from graph
+- **WORKS IF** the graph has forward-ref data. After overlay fix `f306e503`, it should.
+
+**Path 2 — Seed mode** (`renderSeed()` → `buildSeedNode()`, `/scenario?ior=<uuid>`):
+- Fetches ONE level from `/api/trace/children/<uuid>` — **3 bugs:**
+
+### Bug 2a — NEVER FETCHES GRANDCHILDREN
+`buildSeedNode()` line 172:
+```typescript
+kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, []));
+//                                                                       ^^
+// Empty array = children of children NEVER fetched from API
+```
+Every child is rendered as a leaf. Tree dead-ends at depth 2.
+
+### Bug 2b — IGNORES hasChildren FROM API
+Line 162: `if (children.length > 0) item.setAttribute('has-children', '');`
+Uses the passed-in array length (always `[]` for children → always 0). The API returns `hasChildren: true` per child but it's NEVER READ.
+Fix: `if (children.length > 0 || hasChildrenFlag) item.setAttribute('has-children', '');`
+
+### Bug 2c — EXPAND ONLY TOGGLES VISIBILITY
+Lines 175-179: `toggle-children` handler does `kids.style.display = open ? '' : 'none'`.
+Shows/hides existing DOM. NEVER fetches new data on expand.
+
+### Fix Design (expert copy-paste)
+
+Replace `buildSeedNode` with a lazy-load version:
+
+```typescript
+private buildSeedNode(
+  uuid: string, type: string, name: string,
+  children: { uuid: string; type: string; name: string; hasChildren: boolean }[]
+): HTMLElement {
+  const node = document.createElement('div');
+  node.className = 'tt-node';
+  const row = document.createElement('div');
+  row.className = 'tt-row';
+  const item = document.createElement('rb-object-item');
+  item.setAttribute('ref', `${(type || 'task').toLowerCase()}:${uuid}`);
+  item.setAttribute('type', (type || 'task').toLowerCase());
+  item.setAttribute('title', name || uuid);
+
+  // Bug 2b fix: use BOTH children array AND hasChildren flags
+  const hasKids = children.length > 0 || children.some(c => c.hasChildren);
+  // For the node itself: it has children if children were provided OR if API says so
+  const nodeHasChildren = children.length > 0;
+  if (nodeHasChildren) item.setAttribute('has-children', '');
+
+  const isOpen = this.isSeedExpanded(uuid);
+  if (isOpen) item.setAttribute('children-open', '');
+  row.appendChild(item);
+  node.appendChild(row);
+
+  if (nodeHasChildren) {
+    const kids = document.createElement('div');
+    kids.className = 'tt-children';
+    kids.style.display = isOpen ? '' : 'none';
+
+    for (const child of children) {
+      const childNode = this.buildSeedNode(child.uuid, child.type, child.name, []);
+      // Bug 2b fix: set has-children from API's hasChildren flag
+      if (child.hasChildren) {
+        childNode.querySelector('rb-object-item')?.setAttribute('has-children', '');
+      }
+      kids.appendChild(childNode);
+    }
+    node.appendChild(kids);
+
+    // Bug 2c fix: on expand, FETCH children if not yet loaded
+    item.addEventListener('toggle-children', (async (e: CustomEvent) => {
+      const open = e.detail.open;
+      kids.style.display = open ? '' : 'none';
+      this.toggleSeedExpanded(uuid, open);
+
+      // Bug 2a fix: lazy-load children on first expand
+      if (open) {
+        for (const childEl of Array.from(kids.children) as HTMLElement[]) {
+          const childItem = childEl.querySelector('rb-object-item');
+          if (!childItem?.hasAttribute('has-children')) continue;
+          if (childEl.querySelector('.tt-children')) continue; // already loaded
+
+          const childUuid = (childItem.getAttribute('ref') || '').split(':')[1];
+          if (!childUuid) continue;
+          try {
+            const res = await fetch(`/api/trace/children/${encodeURIComponent(childUuid)}`);
+            if (!res.ok) continue;
+            const data = await res.json();
+            if (!data.children?.length) { childItem.removeAttribute('has-children'); continue; }
+
+            const grandKids = document.createElement('div');
+            grandKids.className = 'tt-children';
+            grandKids.style.display = 'none'; // start collapsed
+            for (const gc of data.children) {
+              const gcNode = this.buildSeedNode(gc.uuid, gc.type, gc.name, []);
+              if (gc.hasChildren) gcNode.querySelector('rb-object-item')?.setAttribute('has-children', '');
+              grandKids.appendChild(gcNode);
+            }
+            childEl.appendChild(grandKids);
+
+            // Wire expand for this child
+            childItem.addEventListener('toggle-children', ((e2: CustomEvent) => {
+              grandKids.style.display = e2.detail.open ? '' : 'none';
+              this.toggleSeedExpanded(childUuid, e2.detail.open);
+            }) as EventListener);
+          } catch { /* fetch failed — leave as-is */ }
+        }
+      }
+    }) as EventListener);
+  }
+  return node;
+}
+```
+
+### Per-File Fix Table
+
+| File | Line | Bug | Fix |
+|------|------|-----|-----|
+| `rb-trace-tree.ts` | 172 | `buildSeedNode(child.uuid, ..., [])` — empty children | Fetch `/api/trace/children/<uuid>` on expand |
+| `rb-trace-tree.ts` | 162 | `children.length > 0` ignores `hasChildren` flag | Use `child.hasChildren` from API response |
+| `rb-trace-tree.ts` | 175-179 | `toggle-children` only toggles display | Add lazy-fetch on first expand |
+
+### Rule-pair: (a)+(b)+(c) REQUIRED
+Client-side code change → bundle hash changes → CACHE_NAME bump.
 
 ---
 
