@@ -109,6 +109,96 @@ inspect each DetailView for every type; confirm zero backward links emitted.
 - [ ] AC12 — Rule-pair (a)+(b) required; (c) STATIC_SHELL likely required if DetailView bundle hashes change (architect declares per learning #16)
 - [ ] AC13 — `npm run build` clean; full test suite passes; new DISPLAY-audit script passes (zero prohibited emissions)
 
+## Architect Design — Forward-Only Render Contract (2026-06-05)
+
+### Root Cause (confirmed by code audit)
+
+Every DetailView + the tree walker uses `obj.toJSON().links` which returns ALL link keys — both forward AND backward. The `renderLinks()` helper iterates `Object.entries(links)` unfiltered:
+
+```typescript
+// CURRENT (ALL 6 DetailViews — identical pattern):
+const links = obj.toJSON().links;           // ALL keys: forward + backward
+renderLinks(this.graph, links)              // renders every key
+
+// CURRENT (rb-trace-tree.ts:91 — tree children):
+const childRefs = Object.values(obj.toJSON().links).flat();  // ALL links
+```
+
+### The Fix: FORWARD_KEYS filter
+
+One shared constant defines the forward-only contract (matches LOCKED 7-step from T168):
+
+```typescript
+const FORWARD_KEYS: Record<string, string[]> = {
+  requirement: ['tasks'],
+  task:        ['useCases'],
+  usecase:     ['classes'],
+  class:       ['methods'],
+  method:      ['implementations'],
+  implementation: ['tests'],
+  test:        [],  // leaf — no forward children
+};
+```
+
+### Per-File Fix Table
+
+| File | Line | Current (BUG) | Fix |
+|------|------|---------------|-----|
+| `rb-task-detail.ts` | 30,45 | `renderLinks(graph, obj.toJSON().links)` | `renderLinks(graph, forwardOnly(obj))` |
+| `rb-usecase-detail.ts` | 30,43 | same | same |
+| `rb-class-detail.ts` | 26,36 | same | same |
+| `rb-method-detail.ts` | 21,29 | same | same |
+| `rb-implementation-detail.ts` | 21,29 | same | same |
+| `rb-test-detail.ts` | 21,30 | same | same |
+| `rb-trace-tree.ts` | 91 | `Object.values(obj.toJSON().links).flat()` | `obj.children.map(c => c.ref())` — uses T175 Tree getter |
+| `rb-trace-tree.ts` | 69 | `Object.values(obj.toJSON().links).flat().forEach(walk)` | same fix — forward-only reachability walk |
+| `rb-task-detail.ts` | 41 | `href="/md/scrum.pmo/sprints/"` hardcoded | construct from task slug: `href="/md/scrum.pmo/sprints/${sprint}/${slug}"` |
+
+### Backward Keys PROHIBITED Per Type (what the filter removes)
+
+| DetailView | Backward keys currently rendered | Must NOT render |
+|------------|----------------------------------|-----------------|
+| Task | `requirements` | Parent req is NOT a child |
+| UseCase | `tasks` | Parent task is NOT a child |
+| Class | `useCases` | Parent UC is NOT a child |
+| Method | `classes` | Parent class is NOT a child |
+| Implementation | `methods`, `requirements` | Parents are NOT children |
+| Test | `implementations`, `methods`, `requirements` | Parents are NOT children |
+
+### Implementation Pattern (expert copy-paste)
+
+Add ONE shared helper (e.g., in a new `trace-utils.ts` or inline in each file):
+
+```typescript
+function forwardOnly(obj: TraceObject): Record<string, string[]> {
+  const all = obj.toJSON().links;
+  const fwd = FORWARD_KEYS[obj.type] || [];
+  const result: Record<string, string[]> = {};
+  for (const key of fwd) {
+    if (all[key]) result[key] = all[key];
+  }
+  return result;
+}
+```
+
+Replace `renderLinks(this.graph, links)` with `renderLinks(this.graph, forwardOnly(obj))` in all 6 DetailViews.
+
+For `rb-trace-tree.ts`: replace line 91 with `const childRefs = obj.children.map(c => c.ref());` — the `children` getter on TraceObject (T175, line 139) already implements the FORWARD_KEYS filter via `graph.resolve()`.
+
+### Browse Source Fix (rb-task-detail.ts:41)
+
+Current: `<a href="/md/scrum.pmo/sprints/">📄 Browse source</a>` — hardcoded to generic dir.
+
+Fix: construct from task model data:
+```typescript
+const slug = obj.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^t(\d+)/, 'task-$1');
+const sprint = obj.sprint || '';
+const href = sprint ? `/md/scrum.pmo/sprints/${sprint}/${slug}.md` : '/md/scrum.pmo/sprints/';
+```
+
+### Rule-pair: (a)+(b) REQUIRED, (c) STATIC_SHELL REQUIRED
+DetailView bundle changes → client-side code changes → sw.js CACHE_NAME bump needed.
+
 ## Subtasks
 None (atomic task — single renderer audit + fix pass + new audit script).
 
