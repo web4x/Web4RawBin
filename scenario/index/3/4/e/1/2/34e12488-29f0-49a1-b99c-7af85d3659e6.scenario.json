@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "34e12488-29f0-49a1-b99c-7af85d3659e6",
+    "name": "T9+T10 SSH device key tests",
+    "file": "ior:file:test/vitest/userkeys.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

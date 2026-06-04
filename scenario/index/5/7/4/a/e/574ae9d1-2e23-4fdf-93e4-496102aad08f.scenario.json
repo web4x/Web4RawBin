@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "574ae9d1-2e23-4fdf-93e4-496102aad08f",
+    "name": "T43 member badge",
+    "sourceFile": "ior:file:src/public/ts/components/rb-member-badge.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

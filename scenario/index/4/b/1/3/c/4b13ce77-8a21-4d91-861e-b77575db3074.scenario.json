@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "name": "T5+T14 client UI verification",
+    "file": "ior:file:test/vitest/client.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

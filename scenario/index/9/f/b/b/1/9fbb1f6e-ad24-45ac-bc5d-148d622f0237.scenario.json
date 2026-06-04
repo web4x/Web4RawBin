@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "9fbb1f6e-ad24-45ac-bc5d-148d622f0237",
+    "name": "T3 Room class",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "tests": [
+      "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+    ]
+  },
+  "ownerIor": null
+}

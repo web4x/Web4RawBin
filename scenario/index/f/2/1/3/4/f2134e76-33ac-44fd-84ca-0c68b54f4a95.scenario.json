@@ -4,7 +4,10 @@
     "uuid": "f2134e76-33ac-44fd-84ca-0c68b54f4a95",
     "name": "RbObjectItem.expandChildren",
     "className": "RbObjectItem",
-    "methodName": "expandChildren"
+    "methodName": "expandChildren",
+    "implementations": [
+      "ior:instance:105e4f50-6172-4384-895b-e05050505105"
+    ]
   },
   "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
 }

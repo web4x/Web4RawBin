@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ddeb708a-e038-4901-a4c4-fba2cbf56d12",
+    "name": "T56 avatar component",
+    "sourceFile": "ior:file:src/public/ts/components/rb-avatar.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

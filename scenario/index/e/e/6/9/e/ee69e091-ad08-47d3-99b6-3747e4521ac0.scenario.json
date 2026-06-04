@@ -4,7 +4,10 @@
     "uuid": "ee69e091-ad08-47d3-99b6-3747e4521ac0",
     "name": "RbObjectItem.setIcon",
     "className": "RbObjectItem",
-    "methodName": "setIcon"
+    "methodName": "setIcon",
+    "implementations": [
+      "ior:instance:105e4f50-6172-4384-895b-e05050505105"
+    ]
   },
   "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
 }

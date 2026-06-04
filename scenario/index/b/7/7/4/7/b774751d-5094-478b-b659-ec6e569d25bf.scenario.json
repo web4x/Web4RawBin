@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b774751d-5094-478b-b659-ec6e569d25bf",
+    "name": "T78 lobby card badges",
+    "file": "ior:file:test/e2e/lobby-card-badges.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

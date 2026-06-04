@@ -4,7 +4,10 @@
     "uuid": "90df561e-b6d5-4d79-832a-5ba6543de98e",
     "name": "TraceConsistency.scanRepo",
     "className": "TraceConsistency",
-    "methodName": "scanRepo"
+    "methodName": "scanRepo",
+    "implementations": [
+      "ior:instance:102b1c2d-3e4f-4051-9728-b02020202102"
+    ]
   },
   "ownerIor": "ior:instance:fbd7573d-af75-4ddd-8a29-336e06239c78"
 }

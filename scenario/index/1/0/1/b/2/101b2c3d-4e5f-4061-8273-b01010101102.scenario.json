@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "101b2c3d-4e5f-4061-8273-b01010101102",
+    "name": "AC1-AC4 typed object model",
+    "file": "ior:file:test/vitest/trace-model.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

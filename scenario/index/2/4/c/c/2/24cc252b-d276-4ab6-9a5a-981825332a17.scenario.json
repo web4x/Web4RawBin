@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "name": "T31+T32+T33 PWA caching reconnect",
+    "file": "ior:file:test/vitest/pwa.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

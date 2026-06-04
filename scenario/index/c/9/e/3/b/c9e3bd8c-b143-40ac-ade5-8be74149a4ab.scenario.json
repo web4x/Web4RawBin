@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c9e3bd8c-b143-40ac-ade5-8be74149a4ab",
+    "name": "T95 lobby ordering E2E",
+    "file": "ior:file:test/e2e/room-order.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

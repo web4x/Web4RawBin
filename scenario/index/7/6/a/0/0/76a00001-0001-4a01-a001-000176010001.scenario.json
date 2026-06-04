@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "76a00001-0001-4a01-a001-000176010001",
+    "name": "T176 R-O module exec proof",
+    "file": "ior:file:test/e2e/module-exec-proof.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

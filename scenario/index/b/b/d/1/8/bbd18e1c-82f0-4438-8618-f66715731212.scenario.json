@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "bbd18e1c-82f0-4438-8618-f66715731212",
+    "name": "T5+T33 websocket client",
+    "sourceFile": "ior:file:src/public/ts/RawBinClient.ts",
+    "tests": [
+      "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074",
+      "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+    ]
+  },
+  "ownerIor": null
+}

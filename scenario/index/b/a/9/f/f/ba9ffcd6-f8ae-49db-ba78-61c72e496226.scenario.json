@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ba9ffcd6-f8ae-49db-ba78-61c72e496226",
+    "name": "T7 user profile",
+    "file": "ior:file:test/vitest/profile.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

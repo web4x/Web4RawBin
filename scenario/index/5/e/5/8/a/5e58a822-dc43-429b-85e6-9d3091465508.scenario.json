@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5e58a822-dc43-429b-85e6-9d3091465508",
+    "name": "T81+T82+T83 contacts UI",
+    "file": "ior:file:test/e2e/contacts-ui.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "490c3106-4b8d-4d9f-8d43-da2e3a91b1d3",
+    "name": "T47 file encryption",
+    "file": "ior:file:test/vitest/crypto.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

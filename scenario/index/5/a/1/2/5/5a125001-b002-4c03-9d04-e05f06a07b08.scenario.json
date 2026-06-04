@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "name": "T125 scenario-unit primitives",
+    "file": "ior:file:test/vitest/scenario.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

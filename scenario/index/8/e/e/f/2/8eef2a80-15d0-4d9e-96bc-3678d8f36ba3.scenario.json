@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8eef2a80-15d0-4d9e-96bc-3678d8f36ba3",
+    "name": "T13 negative cases",
+    "file": "ior:file:test/e2e/negative-cases.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

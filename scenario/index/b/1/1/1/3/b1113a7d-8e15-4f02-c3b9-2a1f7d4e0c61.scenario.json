@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61",
+    "name": "R16.2 RequirementDetailView",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-requirement-detail.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

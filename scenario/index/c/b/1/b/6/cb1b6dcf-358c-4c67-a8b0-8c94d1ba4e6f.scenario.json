@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "name": "T74 room identity SSH keys",
+    "file": "ior:file:test/vitest/room-identity.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

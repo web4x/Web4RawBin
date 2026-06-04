@@ -4,7 +4,10 @@
     "uuid": "415c9e2d-8e89-4019-851a-4e7a57de48ee",
     "name": "TraceConsistency.auditOrphans",
     "className": "TraceConsistency",
-    "methodName": "auditOrphans"
+    "methodName": "auditOrphans",
+    "implementations": [
+      "ior:instance:102b1c2d-3e4f-4051-9728-b02020202102"
+    ]
   },
   "ownerIor": "ior:instance:fbd7573d-af75-4ddd-8a29-336e06239c78"
 }

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "aba97062-537a-4442-805a-6e41e7705ade",
+    "name": "T91 avatar persistence",
+    "file": "ior:file:test/vitest/avatar-persist.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

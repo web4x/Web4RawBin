@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "40f20e19-71a5-47ff-9391-75661b520ed2",
+    "name": "vCard photo fix",
+    "file": "ior:file:test/vitest/vcard-photo.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "784f17fd-53d4-4b45-86e4-5f3391ba3fdd",
+    "name": "T5+T77 room browser lobby",
+    "sourceFile": "ior:file:src/public/ts/RoomBrowser.ts",
+    "tests": [
+      "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+    ]
+  },
+  "ownerIor": null
+}

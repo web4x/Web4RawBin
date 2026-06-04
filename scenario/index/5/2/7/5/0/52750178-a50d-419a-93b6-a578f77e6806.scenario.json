@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "52750178-a50d-419a-93b6-a578f77e6806",
+    "name": "T13 new user flow",
+    "file": "ior:file:test/e2e/new-user.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

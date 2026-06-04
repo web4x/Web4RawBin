@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "71396672-5795-47a9-8074-b314ecfe092d",
+    "name": "T13 mobile viewport",
+    "file": "ior:file:test/e2e/mobile-viewport.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c4179894-e662-41e8-a0d1-f94089f6576a",
+    "name": "T13 profile editor",
+    "file": "ior:file:test/e2e/profile-editor.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "cf702932-c711-4c9e-9fdc-9352eaf5d327",
+    "name": "T42 chat sheet",
+    "sourceFile": "ior:file:src/public/ts/components/rb-chat-sheet.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "75d1d899-8c52-48dd-a696-42f7492889e3",
+    "name": "T20 room chat parity",
+    "file": "ior:file:test/vitest/chat.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

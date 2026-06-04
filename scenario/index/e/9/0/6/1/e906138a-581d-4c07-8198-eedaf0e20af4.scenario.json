@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e906138a-581d-4c07-8198-eedaf0e20af4",
+    "name": "T79 room identity E2E",
+    "file": "ior:file:test/e2e/room-identity.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

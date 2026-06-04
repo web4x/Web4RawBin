@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "108c8394-a5b6-47c8-89af-c08080808109",
+    "name": "R15.7",
+    "file": "ior:file:test/vitest/rb-trace-tree.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

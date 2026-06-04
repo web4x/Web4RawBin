@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2f5c543a-280d-48f9-bff5-e99870115d7b",
+    "name": "T84 editor back button",
+    "file": "ior:file:test/e2e/editor-back.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

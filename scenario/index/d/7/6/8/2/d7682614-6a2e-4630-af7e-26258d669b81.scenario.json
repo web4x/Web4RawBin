@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "name": "T36 offline data persistence",
+    "file": "ior:file:test/vitest/offline.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

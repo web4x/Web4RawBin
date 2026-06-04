@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "name": "T3 Room.ts unit tests",
+    "file": "ior:file:test/vitest/room.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

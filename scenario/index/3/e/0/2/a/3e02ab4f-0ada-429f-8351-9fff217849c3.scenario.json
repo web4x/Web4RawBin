@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "name": "T4+T14 server unit tests",
+    "file": "ior:file:test/vitest/server.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

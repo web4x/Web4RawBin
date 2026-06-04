@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "39074a59-864f-4947-ac7b-0457bbbe172b",
+    "name": "T40 header",
+    "sourceFile": "ior:file:src/public/ts/components/rb-header.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

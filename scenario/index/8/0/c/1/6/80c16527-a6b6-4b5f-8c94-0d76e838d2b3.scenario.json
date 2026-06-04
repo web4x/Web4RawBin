@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "80c16527-a6b6-4b5f-8c94-0d76e838d2b3",
+    "name": "T95 lobby ordering",
+    "file": "ior:file:test/vitest/room-order.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

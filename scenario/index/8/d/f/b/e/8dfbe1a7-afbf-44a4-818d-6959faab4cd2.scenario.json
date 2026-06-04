@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "name": "T63 editor entry point",
+    "file": "ior:file:test/vitest/editor.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

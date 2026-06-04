@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e7209648-2e3e-49d0-a8a2-f6353d7735b5",
+    "name": "T5 message types",
+    "sourceFile": "ior:file:src/ts/shared/MessageTypes.ts",
+    "tests": [
+      "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+    ]
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "105f5061-7283-4495-8a6c-f05050505106",
+    "name": "R15.4",
+    "file": "ior:file:test/vitest/rb-object-item.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

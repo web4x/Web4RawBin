@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "3bbd5f2b-eb9c-4c48-9cf7-f6424d0b1ec2",
+    "name": "T81 profile sheet",
+    "sourceFile": "ior:file:src/public/ts/ProfileSheet.ts",
+    "tests": [
+      "ior:instance:5e58a822-dc43-429b-85e6-9d3091465508"
+    ]
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "1e9916f1-7e29-4e9d-9aa9-c930fe693c9f",
+    "name": "T64 editor layout",
+    "sourceFile": "ior:file:src/public/ts/components/rb-editor-layout.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

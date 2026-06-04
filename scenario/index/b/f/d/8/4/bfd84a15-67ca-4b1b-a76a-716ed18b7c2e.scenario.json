@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "bfd84a15-67ca-4b1b-a76a-716ed18b7c2e",
+    "name": "T13 device enrollment",
+    "file": "ior:file:test/e2e/device-enrollment.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

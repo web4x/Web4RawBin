@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "103d3e4f-5061-4273-839a-d03030303104",
+    "name": "AC1-AC5",
+    "file": "ior:file:test/vitest/trace-routing.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

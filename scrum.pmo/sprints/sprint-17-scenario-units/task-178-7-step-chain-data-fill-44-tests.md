@@ -15,11 +15,11 @@
 > 44/44 tests chain-reachable.
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
+- [x] Planned
+- [x] In Progress
   - [ ] refinement (architect designs the marker-parser pipeline + linking rules per chain hop)
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done

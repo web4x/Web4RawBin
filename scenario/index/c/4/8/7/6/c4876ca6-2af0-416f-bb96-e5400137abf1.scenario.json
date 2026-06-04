@@ -4,7 +4,10 @@
     "uuid": "c4876ca6-2af0-416f-bb96-e5400137abf1",
     "name": "RbObjectItem.render",
     "className": "RbObjectItem",
-    "methodName": "render"
+    "methodName": "render",
+    "implementations": [
+      "ior:instance:105e4f50-6172-4384-895b-e05050505105"
+    ]
   },
   "ownerIor": "ior:instance:311ff74e-7024-4827-a9ee-d9a09c22c1b0"
 }

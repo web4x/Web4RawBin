@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "102c3d4e-5f60-4071-8293-c02020202103",
+    "name": "AC2/AC3/AC4/AC6",
+    "file": "ior:file:test/vitest/trace-consistency.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

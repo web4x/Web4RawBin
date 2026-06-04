@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7b4d275b-861c-4ee9-b7ee-24c99d8b9cdc",
+    "name": "T45 QR popup",
+    "sourceFile": "ior:file:src/public/ts/components/rb-qr-popup.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

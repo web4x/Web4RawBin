@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b549aef8-c99b-4d41-8dd8-0dbd538f1e8d",
+    "name": "T43 member list",
+    "sourceFile": "ior:file:src/public/ts/components/rb-member-list.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

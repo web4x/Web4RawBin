@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "feac61c4-da1b-41fb-95b7-476973946d7f",
+    "name": "T93 multi-room lobby",
+    "file": "ior:file:test/e2e/multi-room-lobby.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

@@ -4,7 +4,10 @@
     "uuid": "0ab3b64a-a93e-4a74-80e6-744c5c0fc7c4",
     "name": "RbObjectItem.drag",
     "className": "RbObjectItem",
-    "methodName": "drag"
+    "methodName": "drag",
+    "implementations": [
+      "ior:instance:105e4f50-6172-4384-895b-e05050505105"
+    ]
   },
   "ownerIor": "ior:instance:311ff74e-7024-4827-a9ee-d9a09c22c1b0"
 }

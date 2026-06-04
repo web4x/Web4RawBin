@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "916b8bb0-08ef-4287-98f0-031ddf004723",
+    "name": "T94 PWA update banner",
+    "file": "ior:file:test/e2e/update-banner.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

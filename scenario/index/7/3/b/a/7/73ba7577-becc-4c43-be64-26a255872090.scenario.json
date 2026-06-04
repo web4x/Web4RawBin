@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "73ba7577-becc-4c43-be64-26a255872090",
+    "name": "T13 room lifecycle",
+    "file": "ior:file:test/e2e/room-lifecycle.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}
