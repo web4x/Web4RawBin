@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d7ef4453-d06e-4b33-99b4-02c216647036",
+    "name": "impl-bridge: T95 lobby ordering",
+    "tests": [
+      "ior:instance:80c16527-a6b6-4b5f-8c94-0d76e838d2b3"
+    ]
+  },
+  "ownerIor": null
+}

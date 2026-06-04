@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "81cc3815-89c3-4aa9-a4a2-0bfa22f6c79a",
+    "name": "impl-bridge: T36 offline data persistence",
+    "tests": [
+      "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+    ]
+  },
+  "ownerIor": null
+}

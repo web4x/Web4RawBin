@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "21595663-2b5b-4eca-a954-7bb3e48b4d73",
+    "name": "impl-bridge: T13 negative cases",
+    "tests": [
+      "ior:instance:8eef2a80-15d0-4d9e-96bc-3678d8f36ba3"
+    ]
+  },
+  "ownerIor": null
+}

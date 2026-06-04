@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6fab203e-9554-472f-8f75-cafebec000de",
+    "name": "impl-bridge: T47 file encryption",
+    "tests": [
+      "ior:instance:490c3106-4b8d-4d9f-8d43-da2e3a91b1d3"
+    ]
+  },
+  "ownerIor": null
+}

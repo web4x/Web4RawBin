@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f6909425-8807-4ccc-832d-35c9ed50bd96",
+    "name": "impl-bridge: T13 new user flow",
+    "tests": [
+      "ior:instance:52750178-a50d-419a-93b6-a578f77e6806"
+    ]
+  },
+  "ownerIor": null
+}

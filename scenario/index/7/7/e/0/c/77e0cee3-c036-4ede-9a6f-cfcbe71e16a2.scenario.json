@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "77e0cee3-c036-4ede-9a6f-cfcbe71e16a2",
+    "name": "impl-bridge: T92 avatar keyless upload",
+    "tests": [
+      "ior:instance:19449505-10d2-4727-a199-91c205c84ba3"
+    ]
+  },
+  "ownerIor": null
+}

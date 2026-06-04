@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "87a85986-0ef9-4bcd-bd43-34a5192d0ba0",
+    "name": "impl-bridge: T13 room lifecycle",
+    "tests": [
+      "ior:instance:73ba7577-becc-4c43-be64-26a255872090"
+    ]
+  },
+  "ownerIor": null
+}

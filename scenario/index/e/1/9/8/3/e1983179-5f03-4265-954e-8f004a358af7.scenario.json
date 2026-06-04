@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e1983179-5f03-4265-954e-8f004a358af7",
+    "name": "impl-bridge: T91 avatar persistence",
+    "tests": [
+      "ior:instance:aba97062-537a-4442-805a-6e41e7705ade"
+    ]
+  },
+  "ownerIor": null
+}

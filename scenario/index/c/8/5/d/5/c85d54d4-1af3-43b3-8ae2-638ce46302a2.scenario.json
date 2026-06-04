@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c85d54d4-1af3-43b3-8ae2-638ce46302a2",
+    "name": "impl-bridge: T84 editor back button",
+    "tests": [
+      "ior:instance:2f5c543a-280d-48f9-bff5-e99870115d7b"
+    ]
+  },
+  "ownerIor": null
+}

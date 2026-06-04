@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "953bdce6-6dec-4563-9276-fbca372b1a61",
+    "name": "impl-bridge: T79 room identity E2E",
+    "tests": [
+      "ior:instance:e906138a-581d-4c07-8198-eedaf0e20af4"
+    ]
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "dc3a706d-9ea7-4baa-93f5-e7ec3f1d0fa0",
+    "name": "impl-bridge: T13 device enrollment",
+    "tests": [
+      "ior:instance:bfd84a15-67ca-4b1b-a76a-716ed18b7c2e"
+    ]
+  },
+  "ownerIor": null
+}

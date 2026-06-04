@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d55124c4-0de0-45bc-9fb8-8375cad61de7",
+    "name": "impl-bridge: T78 lobby card badges",
+    "tests": [
+      "ior:instance:b774751d-5094-478b-b659-ec6e569d25bf"
+    ]
+  },
+  "ownerIor": null
+}

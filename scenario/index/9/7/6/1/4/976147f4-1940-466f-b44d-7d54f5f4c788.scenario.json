@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "976147f4-1940-466f-b44d-7d54f5f4c788",
+    "name": "impl-bridge: T94 PWA update banner",
+    "tests": [
+      "ior:instance:916b8bb0-08ef-4287-98f0-031ddf004723"
+    ]
+  },
+  "ownerIor": null
+}

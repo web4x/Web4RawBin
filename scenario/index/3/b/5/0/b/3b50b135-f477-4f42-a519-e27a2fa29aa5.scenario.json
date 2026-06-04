@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "3b50b135-f477-4f42-a519-e27a2fa29aa5",
+    "name": "impl-bridge: T109 avatar preserve on rekey",
+    "tests": [
+      "ior:instance:d9da24e7-c11b-4ba5-85b1-ad568afcc14f"
+    ]
+  },
+  "ownerIor": null
+}

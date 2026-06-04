@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e98f9217-1b1e-4f92-b566-408a7b7eb87d",
+    "name": "impl-bridge: T7 user profile",
+    "tests": [
+      "ior:instance:ba9ffcd6-f8ae-49db-ba78-61c72e496226"
+    ]
+  },
+  "ownerIor": null
+}

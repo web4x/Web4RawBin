@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b3e1707a-3f83-4ddc-b37c-184ea5d45961",
+    "name": "impl-bridge: T109 avatar rekey survival",
+    "tests": [
+      "ior:instance:3615a349-01ac-4816-ac6d-c343ff1d3050"
+    ]
+  },
+  "ownerIor": null
+}

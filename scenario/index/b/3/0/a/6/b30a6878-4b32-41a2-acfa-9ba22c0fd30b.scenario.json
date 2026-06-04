@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b30a6878-4b32-41a2-acfa-9ba22c0fd30b",
+    "name": "impl-bridge: T93 multi-room lobby",
+    "tests": [
+      "ior:instance:feac61c4-da1b-41fb-95b7-476973946d7f"
+    ]
+  },
+  "ownerIor": null
+}
