@@ -2,19 +2,19 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "101a0b1c-2d3e-4f50-8617-a01010101101",
-    "name": "T101: Typed Object Model — Requirement/Test/Implementation classes + UUIDs",
+    "name": "T101: Typed Object Model \u2014 Requirement/Test/Implementation classes + UUIDs",
     "slug": "task-101-object-model",
     "description": "Define TypeScript classes `Requirement`, `Test`, and `Implementation` (plus `Task`,\n`UseCase`, and `Class`/`Method`), each carrying a UUID per the traceability standard.\nThis typed object graph is the authoritative source from which the traceability matrix\nis built and against which consistency is validated.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [x] testing (tester — trace-model.test.ts 8/8 PASS, 47ee53f)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [x] testing (tester \u2014 trace-model.test.ts 8/8 PASS, 47ee53f)\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01](./requirements.md) — R15.1 typed object model\n  - [Sprint 15 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R15.1 in [requirements.md](./requirements.md)\n  - **use case:** object model (Object=noun) — diagrams/object-verb-usecases.puml\n  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)\n  - **class/method:** Requirement / Test / Implementation / Task / UseCase / Class / Method (uuid-carrying)",
+    "traceability": "- up\n  - [requirement:uuid:15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01](./requirements.md) \u2014 R15.1 typed object model\n  - [Sprint 15 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R15.1 in [requirements.md](./requirements.md)\n  - **use case:** object model (Object=noun) \u2014 diagrams/object-verb-usecases.puml\n  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)\n  - **class/method:** Requirement / Test / Implementation / Task / UseCase / Class / Method (uuid-carrying)",
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC1: `Requirement`, `Test`, `Implementation`, `Task`, `UseCase`, `Class`, `Method` TS classes exist, each exposing a stable `uuid` field per the traceability standard\n- [ ] AC2: Each class carries the typed links needed to form the req→uc→puml→method→test chain (no untyped `any` references between objects)\n- [ ] AC3: Objects construct a navigable typed object graph (a Requirement can resolve its Tasks/Tests/Implementations and vice-versa)\n- [ ] AC4: UUIDs are v4-format and validated on construction; duplicate UUIDs are rejected\n- [ ] AC5: Unit tests cover construction, UUID validation, and graph traversal for each class\n- [ ] `npm run build` + version bump",
+    "acceptanceCriteria": "- [ ] AC1: `Requirement`, `Test`, `Implementation`, `Task`, `UseCase`, `Class`, `Method` TS classes exist, each exposing a stable `uuid` field per the traceability standard\n- [ ] AC2: Each class carries the typed links needed to form the req\u2192uc\u2192puml\u2192method\u2192test chain (no untyped `any` references between objects)\n- [ ] AC3: Objects construct a navigable typed object graph (a Requirement can resolve its Tasks/Tests/Implementations and vice-versa)\n- [ ] AC4: UUIDs are v4-format and validated on construction; duplicate UUIDs are rejected\n- [ ] AC5: Unit tests cover construction, UUID validation, and graph traversal for each class\n- [ ] `npm run build` + version bump",
     "qaAudit": "- 2026-05-26: Tron directive (Sprint 15 R1-R4). Quote in requirements.tron-literal.md.",
-    "subtasks": "None (atomic task).\n\n---\n*Sprint 15 — Traceability Browser & Object Model*\n*Owner: robbin-architect (design), robbin-expert (implement)*\n*Priority: 1 (foundation)*",
+    "subtasks": "None (atomic task).\n\n---\n*Sprint 15 \u2014 Traceability Browser & Object Model*\n*Owner: robbin-architect (design), robbin-expert (implement)*\n*Priority: 1 (foundation)*",
     "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** None\n- **Enables:** T102, T103, T105, T106, T107, T108",
@@ -23,7 +23,9 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:f5abd427-4a1d-4824-ae65-9038de6031d3"
+    ],
     "implementations": [],
     "tests": [
       "ior:instance:101b2c3d-4e5f-4061-8273-b01010101102"

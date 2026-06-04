@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "5a3ccdac-9a18-421e-9116-68467c29e0db",
+    "name": "listOverview.searchAndFilter",
+    "description": "Display filtered list of typed objects with search",
+    "classes": [
+      "ior:instance:d48dc6bc-fe32-4df4-8f22-b8ba8f9d3323"
+    ],
+    "source": {
+      "file": "src/public/ts/trace/rb-list-overview.ts",
+      "commit": "2ab12654",
+      "ior": "ior:file:src/public/ts/trace/rb-list-overview.ts?commit=2ab12654"
+    }
+  },
+  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
+}

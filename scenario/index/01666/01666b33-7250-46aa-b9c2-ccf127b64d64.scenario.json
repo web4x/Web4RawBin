@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "01666b33-7250-46aa-b9c2-ccf127b64d64",
+    "name": "migration.convertLegacy",
+    "description": "Convert legacy sprint/task markdown to scenario-unit JSON format",
+    "classes": [
+      "ior:instance:66625aa7-4de6-4972-b731-f4e23a552480"
+    ],
+    "source": {
+      "file": "scripts/migrate-to-scenario.ts",
+      "commit": "2ab12654",
+      "ior": "ior:file:scripts/migrate-to-scenario.ts?commit=2ab12654"
+    }
+  },
+  "ownerIor": "ior:instance:658841dc-8feb-483f-810f-d6b"
+}

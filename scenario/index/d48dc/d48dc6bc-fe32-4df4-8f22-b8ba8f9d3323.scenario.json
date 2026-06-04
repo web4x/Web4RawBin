@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "d48dc6bc-fe32-4df4-8f22-b8ba8f9d3323",
+    "name": "RbListOverview",
+    "file": "src/public/ts/trace/rb-list-overview.ts",
+    "methods": [],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
+}

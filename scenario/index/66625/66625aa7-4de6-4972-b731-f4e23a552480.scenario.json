@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "66625aa7-4de6-4972-b731-f4e23a552480",
+    "name": "MigrateToScenario",
+    "file": "scripts/migrate-to-scenario.ts",
+    "methods": [],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:658841dc-8feb-483f-810f-d6b"
+}
