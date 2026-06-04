@@ -1,6 +1,6 @@
 [Back to Sprint 17 Planning](./planning.md)
 
-# T184: TraceConsistency .md-parser forward-only — strip backward keys at source so /api/trace is forward-only end-to-end (R-Y1)
+# T184: TraceConsistency .md-parser forward-only — strip backward keys at source so /api/trace is forward-only end-to-end (R-Z1)
 [task:uuid:ab0cbe5f-d097-42c7-a1a4-82339a468ad6]
 
 > **PO direction 2026-06-05 (LOW priority):** T181 closed forward-only DISPLAY +
@@ -27,7 +27,7 @@
 ## Traceability
 - up
   - [Sprint 17 Planning](./planning.md)
-  - **R-Y1** `[requirement:uuid:d9c419b3-8b36-4b8b-821b-b1171da62ab7]` — TraceConsistency .md-parser must emit forward-only links; /api/trace graph forward-only end-to-end (Tron's no-back-chaos principle at source, not just display).
+  - **R-Z1** `[requirement:uuid:d9c419b3-8b36-4b8b-821b-b1171da62ab7]` — TraceConsistency .md-parser must emit forward-only links; /api/trace graph forward-only end-to-end (Tron's no-back-chaos principle at source, not just display).
   - Tester residual flag 2026-06-05 — 42 Tasks carry backward `requirements` keys at /api/trace despite scenario index clean + T181 display/tree filters working.
 - follows
   - T181 (DISPLAY forward-only — closed in-scope; filters remain as defense-in-depth)
@@ -47,14 +47,14 @@
 **Why LOW priority:** T181's display + tree filter mean the user never sees backward keys today. T184 completes the no-back-chaos principle at the data layer so audits, CI tools, and any future graph consumer see only forward edges. Belt-and-braces preserved.
 
 ## Owners (CMM4 — 4-role per learning #18)
-- **robbin-req** — anchor R-Y1 verbatim if Tron-relayed (current capture is tester-finding-plus-PO-direction; may not need a separate Tron quote)
+- **robbin-req** — anchor R-Z1 verbatim if Tron-relayed (current capture is tester-finding-plus-PO-direction; may not need a separate Tron quote)
 - **robbin-architect** — diagnose .md-parser code path (which fn emits the backward keys; what node shape does the parser produce); design FORWARD_KEYS filter at emit; confirm scope (.md-only or include other parsers if any)
 - **robbin-expert** — implement filter at parser emit; rule-pair (a)+(b); (c) likely EXEMPT (data-pipeline only, no user surface change — display already forward-only via T181)
 - **robbin-tester** — verify `/api/trace` graph emits zero backward keys on all 42 historically-dirty Tasks; trace-cli + audit reports remain consistent; T181 display/tree filters still see forward-only data (defense-in-depth intact); T183 7-hop gate unchanged
 
 ## Acceptance Criteria
 
-**R-Y1 — parser forward-only at emit:**
+**R-Z1 — parser forward-only at emit:**
 - [ ] AC1 — TraceConsistency .md-parser applies FORWARD_KEYS filter at the emit step
 - [ ] AC2 — `/api/trace` returns zero backward `requirements` keys on Task nodes (was 42)
 - [ ] AC3 — `/api/trace` returns zero backward keys on any node type (UseCase/Class/Method/Impl/Test included)

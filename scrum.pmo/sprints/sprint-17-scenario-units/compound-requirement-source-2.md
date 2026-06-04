@@ -429,13 +429,13 @@ A `.puml` class diagram must exist showing ScenarioUnit, IORResolver, ClassRegis
 
 ### R-Y1: The TREE view lazy-loads children on expand at every level of the canonical chain.
 
-[requirement:uuid:a7b8c9d0-1e2f-3a4b-5c6d-y00000000001]
+[requirement:uuid:fbbbf9cb-8e9b-4cb4-9d99-56110ca209b5]
 
 The tree panel (rb-trace-tree) must fetch and display children when a node is expanded, at EVERY depth of the chain: requirement → task → useCase → class → method → implementation → test. Currently the DetailView drill-down works (Tron confirmed: "i can now start in the scenario browser and drill down in the details view to the tests"), but the TREE panel does not lazy-load below the first level. Expanding a node in the tree must trigger a fetch for that node's forward children regardless of depth. This is distinct from R-U1/R-V1 which identified the same gap — this is Tron's confirmation that DetailView is fixed but Tree is still broken.
 
 ### R-Y2: Tree expand/collapse works for children of ANY scenario type.
 
-[requirement:uuid:a7b8c9d0-1e2f-3a4b-5c6d-y00000000002]
+[requirement:uuid:75db0534-28d8-4fae-bb1f-bf60ace6ae57]
 
 The tree's expand/collapse behavior must not be restricted to specific types. A Method node must be expandable to show its Implementation children. An Implementation node must be expandable to show its Test children. Currently expand/collapse may only work for certain types (e.g. requirement→task) and silently fail for deeper types. The tree item component must handle all 7 types uniformly: if a node has forward children in its model, the expand arrow appears and clicking it lazy-loads those children.
 
