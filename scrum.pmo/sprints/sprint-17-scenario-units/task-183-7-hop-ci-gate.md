@@ -1,0 +1,113 @@
+[Back to Sprint 17 Planning](./planning.md)
+
+# T183: 7-hop CI gate — trace:audit:strict per-Test reachability
+
+[task:uuid:a3f183b4-c5d6-4e7f-8a90-1b2c3d4e5f83]
+
+## Status
+- [x] Planned
+- [ ] In Progress
+  - [x] refinement (tester spec — this file)
+  - [ ] creating test cases
+  - [ ] implementing
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
+
+> QA Review + Done are TRON's gate only — never checked by planner/sync.
+
+## Assigned
+**Owner:** robbin-expert (implement), robbin-tester (spec + verify)
+
+## Traceability
+
+`[task:uuid:a3f183b4-c5d6-4e7f-8a90-1b2c3d4e5f83]`
+
+- up
+  - [Sprint 17 Planning](./planning.md)
+  - strict-verify-bar learning #27
+- follows
+  - [T178: 7-step chain data fill](./task-178-7-step-chain-data-fill-44-tests.md) — T183 locks T178's win
+  - [T170: ci:gates](./task-170-ci-gates-trace-audit-vitest.md) — T183 extends the existing gate suite
+- chain
+  - **requirement:** R17.13 (every method traces to task AND requirement)
+  - **class/method:** `src/ts/server/trace-cli.ts` → `auditStrict7Hop()` or extend existing `validate()`
+
+## Task Description
+
+Extend `trace:audit:strict` (or `trace-cli check`) with a **per-Test 7-hop
+walkUp gate**: for EVERY Test scenario unit, walk UP through the LOCKED
+canonical chain (Test→Implementation→Method→Class→UseCase→Task→Requirement)
+and assert it reaches a Requirement root within 7 hops. If ANY test fails
+to reach a Requirement root, the gate FAILS with exit code 1 (CI-blocking).
+
+This gate is a **no-op pass once T178 fills Task→UC and closes 44/44**.
+After that, it **guards regression forever** — any future Test added without
+a complete chain will fail CI.
+
+## Gate Specification (tester-authored)
+
+### Input
+- All scenario units in `scenario/index/` of type `ior:class:Test`
+- The FORWARD_KEYS chain (already defined in server.ts:505-509):
+  ```
+  Requirement → [tasks] → Task → [subtasks, useCases, children] → UseCase → [classes] →
+  Class → [methods] → Method → [implementations] → Implementation → [tests] → Test
+  ```
+
+### Algorithm: walkUp per Test
+For each Test unit:
+1. Build reverse parent map from FORWARD_KEYS (child→parent edges)
+2. Starting from the Test's UUID, walk UP through parents
+3. At each hop, check if the current unit is `ior:class:Requirement`
+4. If Requirement reached within ≤7 hops → PASS for this test
+5. If no Requirement reachable (exhausted all parent paths) → FAIL, record break hop
+
+### Output (stdout)
+```
+7-hop strict audit: X/Y tests reachable from Requirement roots
+```
+Where X = reachable count, Y = total Test count.
+
+If X < Y, emit per-test break table:
+```
+UNREACHABLE TESTS:
+  <test-name>  break: <Type>→<Type> (no parent link)
+  ...
+```
+
+### Exit code
+- `0` if X === Y (all tests reachable)
+- `1` if X < Y (CI gate FAIL)
+
+### Integration
+- Wire into existing `trace-cli check` output (append after back-ref check)
+- OR add as `trace-cli audit:strict:7hop` subcommand
+- Must be runnable as `npm run trace:audit:strict` or equivalent in CI
+
+## Acceptance Criteria
+- [ ] AC1 — Gate runs against all Test scenario units in index
+- [ ] AC2 — walkUp follows FORWARD_KEYS reverse edges (same chain as /api/trace/children uses forward)
+- [ ] AC3 — Reports X/Y with per-test break table for failures
+- [ ] AC4 — Exit code 1 on any failure (CI-blocking)
+- [ ] AC5 — Currently reports 0/44 (Task→UC gap) — confirms gate works before fill
+- [ ] AC6 — After Task→UC fill: reports 44/44 (no-op pass, locks the win)
+- [ ] AC7 — Vitest + build clean, no regression
+
+## Test Scenarios (tester verifies after expert impl)
+
+| Test | Action | Expected |
+|------|--------|----------|
+| TS1 | Run gate on current graph (Task→UC = 0%) | Reports 0/44, exit 1 |
+| TS2 | After Task→UC fill | Reports 44/44, exit 0 |
+| TS3 | Remove one Impl→Test link, re-run | Reports 43/44, exit 1, names the broken test |
+| TS4 | Regression: add a new Test without chain | Gate catches it, exit 1 |
+
+## Dependencies
+- **Requires:** T178 data fill to make the gate pass (gate is ready before fill)
+- **Enables:** permanent regression guard on 7-hop chain integrity
+
+---
+
+*Sprint 17 — Scenario Units · CI Gate*
+*Owner: robbin-expert (impl), robbin-tester (spec + verify)*
