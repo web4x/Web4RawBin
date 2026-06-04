@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "34edaecc-2a44-4ad7-8665-57c26f12e858",
+    "name": "R14.1 migrate legacy rooms",
+    "sourceFile": "ior:file:src/ts/server/Migration.ts",
+    "tests": [
+      "ior:instance:14c3d4e5-f6a7-4b81-9c92-0d1e2f3a4b14"
+    ]
+  },
+  "ownerIor": null
+}

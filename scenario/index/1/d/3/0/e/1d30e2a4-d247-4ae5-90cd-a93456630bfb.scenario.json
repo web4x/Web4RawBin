@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "1d30e2a4-d247-4ae5-90cd-a93456630bfb",
+    "name": "R15.6 DetailView",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-view.ts",
+    "tests": [
+      "ior:instance:107b7283-94a5-46b7-8a8e-b07070707108"
+    ]
+  },
+  "ownerIor": null
+}

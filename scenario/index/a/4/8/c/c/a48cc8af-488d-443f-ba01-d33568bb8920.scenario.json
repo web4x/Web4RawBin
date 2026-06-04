@@ -6,7 +6,8 @@
     "className": "RbObjectItem",
     "methodName": "collapse",
     "implementations": [
-      "ior:instance:105e4f50-6172-4384-895b-e05050505105"
+      "ior:instance:105e4f50-6172-4384-895b-e05050505105",
+      "ior:instance:f2c32dc3-269d-41b7-80db-5fa6d786c221"
     ]
   },
   "ownerIor": "ior:instance:311ff74e-7024-4827-a9ee-d9a09c22c1b0"

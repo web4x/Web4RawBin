@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f1b4b429-5819-4adf-8da2-92f6e0a8dd7e",
+    "name": "R15.7 traceability browser",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
+    "tests": [
+      "ior:instance:108c8394-a5b6-47c8-89af-c08080808109"
+    ]
+  },
+  "ownerIor": null
+}

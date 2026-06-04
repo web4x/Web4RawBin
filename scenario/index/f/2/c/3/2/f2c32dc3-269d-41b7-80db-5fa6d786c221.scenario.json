@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f2c32dc3-269d-41b7-80db-5fa6d786c221",
+    "name": "R15.4 defaultItemView",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
+    "tests": [
+      "ior:instance:105f5061-7283-4495-8a6c-f05050505106"
+    ]
+  },
+  "ownerIor": null
+}
