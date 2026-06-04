@@ -400,3 +400,23 @@ When a user clicks a task `.scenario.json` file in the scenario/sprints.json/ tr
 **Tron clarification:** "and not the traceability or scenario view!!!" — the destination is the file's OWN rendered content, not any generated/derived view.
 
 → Folds into R-V2 task (planner)
+
+---
+
+## Requirement — PlantUML class diagram for traceability architecture (2026-06-05, Tron question → gap)
+
+> TRON (via PO): Tron's question reveals no class diagram exists documenting the traceability tree architecture or the scenario-instance implementation. The diagram is also the PUML source for [class:uuid] and [method:uuid] annotations that feed the UC→Class→Method chain (T178 data fill).
+
+### R-X1: A PlantUML class diagram documents the traceability-tree-extends architecture.
+
+[requirement:uuid:f6a7b8c9-0d1e-2f3a-4b5c-x00000000001]
+
+A `.puml` class diagram must exist showing the Tree base class extended by RbObjectItem and RbDetailDrawer, with parent/children as IOR references. The diagram covers: Tree (base with expand/collapse/lazy-load), RbObjectItem (one tree node — icon, name, drag, expand-children), RbDetailDrawer (detail panel — open, close, swipe-dismiss), and their inheritance/composition relationships. Each class and method element in the diagram carries `[class:uuid]` and `[method:uuid]` annotations per the traceability standard.
+
+### R-X2: A PlantUML class diagram documents the scenario-instance implementation classes.
+
+[requirement:uuid:f6a7b8c9-0d1e-2f3a-4b5c-x00000000002]
+
+A `.puml` class diagram must exist showing ScenarioUnit, IORResolver, ClassRegistry (with ClassLoaders), and ViewTemplateRegistry — the four pillars of the scenario-instance system. The diagram covers: ScenarioUnit (ior, model, ownerIor, load, save), IORResolver (resolve, resolveClass, resolveInstance), ClassRegistry (register, get), ViewTemplateRegistry (register, renderHtml, renderMd), and their associations. Each class and method element carries `[class:uuid]` and `[method:uuid]` annotations that become the authoritative PUML source for the UC→Class→Method chain links.
+
+→ New task (planner stand-up — architect creates diagrams, feeds T178 chain)
