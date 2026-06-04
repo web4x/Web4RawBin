@@ -450,19 +450,29 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const obj = graph.get(uuid);
             if (obj && unit.model.name) obj.title = String(unit.model.name);
           }
-          // T166: populate Class + Method from scenario index (scanRepo doesn't produce them)
+          // T166+T178: populate ALL typed objects + forward refs from scenario index
+          const SCENARIO_FORWARD: Record<string, string[]> = {
+            class: ['methods'], method: ['implementations'], implementation: ['tests'],
+            usecase: ['classes'], task: ['useCases', 'children', 'subtasks'],
+            requirement: ['tasks'], sprint: ['tasks', 'requirements'],
+          };
           for (const uuid of idx.list()) {
-            if (graph.has(uuid)) continue;
             const unit = idx.get(uuid);
             if (!unit) continue;
             const iorType = unit.ior.replace('ior:class:', '').toLowerCase() as ObjectType;
-            if (iorType !== 'class' && iorType !== 'method') continue;
-            const obj = makeObject(graph, iorType, uuid, String(unit.model.name || ''));
+            if (!graph.has(uuid)) {
+              try { makeObject(graph, iorType, uuid, String(unit.model.name || '')); } catch { continue; }
+            }
+            const obj = graph.get(uuid);
+            if (!obj) continue;
+            if (unit.model.name) obj.title = String(unit.model.name);
             if (unit.model.status) obj.status = String(unit.model.status);
-            if (iorType === 'class' && Array.isArray(unit.model.methods)) {
-              for (const mIor of unit.model.methods as string[]) {
-                const mUuid = String(mIor).replace('ior:instance:', '');
-                if (mUuid) obj.addRef('methods', mUuid);
+            for (const key of (SCENARIO_FORWARD[iorType] || [])) {
+              const refs = (unit.model as Record<string, unknown>)[key];
+              if (!Array.isArray(refs)) continue;
+              for (const ref of refs) {
+                const childUuid = String(ref).replace('ior:instance:', '');
+                if (childUuid && /^[0-9a-f]{8}-/.test(childUuid)) obj.addRef(key, childUuid);
               }
             }
           }
