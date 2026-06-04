@@ -1,7 +1,7 @@
 [Back to Sprint 17 Planning](./planning.md)
 
 # T184: Forward-only API emit — strip backward keys at TraceConsistency source (LOW)
-[task:uuid:184a0b1c-2d3e-4f50-8617-a18401840184]
+[task:uuid:ab0cbe5f-d097-42c7-a1a4-82339a468ad6]
 
 > **PO direction 2026-06-05:** Refine the md-parser forward-only design.
 > T181 filters backward keys at the DISPLAY layer (client). T184 goes deeper:
@@ -11,8 +11,14 @@
 ## Status
 - [ ] Planned
 - [ ] In Progress
+  - [x] refinement (architect `e05ddd6f` — per-file fix table + FORWARD_KEYS-at-emit design)
+  - [ ] creating test cases
+  - [ ] implementing
+  - [ ] testing
 - [ ] QA Review
 - [ ] Done
+
+> QA Review + Done are TRON's gate only — never checked by planner/sync.
 
 ## Traceability
 - up
@@ -109,8 +115,17 @@ Server-only code change — no client bundle change (T181 client filter stays as
 ## Subtasks
 None (atomic).
 
+## QA Audit & User Feedback
+- 2026-06-05: Tester (post-T181) flagged residual — /api/trace graph still carries backward `requirements` keys on 42 Tasks (T181 display+tree filter masks them; data isn't forward-only at source).
+- 2026-06-05: PO direction — stand up T184 (LOW priority — display already clean); 4-role planner-first.
+- 2026-06-05: Planner scaffolded `task-184-traceconsistency-parser-forward-only.md` (placeholder, R-X1 → R-Y1 → R-Z1 rename chain due to two consecutive req-eng label collisions: 15dd69c1 R-X1+R-X2, 58acb8e4 R-Y1+R-Y2).
+- 2026-06-05: Architect `e05ddd6f` shipped concurrent file `task-184-forward-only-api-emit.md` with full per-file fix table + FORWARD_KEYS-at-emit design + R-U same-as-T181 (Tron's no-backward-links principle = single requirement umbrella).
+- 2026-06-05: Planner reconciled per learning #20 — DELETED my scaffold; adopted architect's filename + content; swapped architect's fake-suffix uuid (`184a0b1c-…-a18401840184`) for my real v4 (`ab0cbe5f-d097-42c7-a1a4-82339a468ad6`); added Status sub-steps + QA Audit section for compliance; adopted architect's R-U mapping (drops the R-X/Y/Z1 chain — same requirement umbrella as T181).
+- Pending: expert impl (rule-pair (a)+(b); (c) EXEMPT per architect — server-only); tester verifies /api/trace emits forward-only end-to-end; then Tron QA.
+
 ---
 
 **Sprint:** Sprint 17 — Scenario Units
-**Phase:** LOW — defense-in-depth, follows T181 (display) + T178 (data)
+**Phase:** 40 — Tron R-U umbrella (forward-only at source; defense-in-depth with T181 display filter)
+**Priority:** LOW (PO 2026-06-05 — display already clean; completes no-back-chaos at source)
 **Follows:** T181 (client filter) · T178 (overlay-read fix)
