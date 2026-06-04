@@ -383,3 +383,18 @@ When expanding a Requirement node, children shown are Tasks (forward). When expa
 The "Browse source" link in the DetailView (the IOR source field rendered as a clickable action) MUST navigate to the file browser at the real file path — e.g. `/edit/scrum.pmo/sprints/sprint-15/task-101-object-model.md` for a Task, or `/edit/src/public/ts/trace/rb-trace-tree.ts` for a Class. Currently clicking "Browse source" navigates to a wrong destination (Tron: "goes to 3rd — bug — should have gone to picture 5"). The href must be constructed from `model.source.file` (or the scenario unit's markdown/typescript path) and resolve to the Monaco editor file browser at that path, not to the /md/ rendered view or a scenario JSON URL.
 
 → New task (planner triage — browse-source deep-link fix)
+
+---
+
+## Requirement — Scenario JSON click opens rendered task view (2026-06-04, Tron live from screenshot)
+
+> TRON: "clicking on the task json in picture 1 should open the task in picture 2 which is picture 3!!!"
+> Context: Picture 1 = scenario/sprints.json/sprint-15/task/ listing (task-101..task-108.json with 🔗✏️ icons). Picture 2 = scrum.pmo/sprints/sprint-15/ raw file listing. Picture 3 = rendered T107 task detail view (/md/ rendered markdown). Tron expects clicking task-107-detail-overview-views.json in the scenario tree to open the RENDERED task view (picture 3), not the raw file browser directory (picture 2).
+
+### R-W1: Clicking a .scenario.json task link in the scenario tree navigates to the rendered task view, not the raw file browser.
+
+[requirement:uuid:e5f6a7b8-9c0d-1e2f-3a4b-w00000000001]
+
+When a user clicks a task `.scenario.json` file in the scenario/sprints.json/ tree (the speaking-name symlink tree), the destination MUST be the rendered markdown view of that task's source `.md` file (via `/md/<path>.md`), NOT the raw file browser directory listing. The scenario JSON contains `model.source.file` or the task's slug — the click handler must resolve to `/md/scrum.pmo/sprints/<sprint>/<task-slug>.md` which renders the full task detail (title, status checklist, implementation, ACs) as in picture 3. This is a refinement of R-V2 — "Browse source" and "click scenario JSON" must both resolve to the rendered view of the underlying source file.
+
+→ Folds into R-V2 task (planner)
