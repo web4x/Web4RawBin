@@ -115,7 +115,8 @@ None (atomic task — single renderer audit + fix pass + new audit script).
 ## QA Audit & User Feedback
 - 2026-06-04: PO directs T181 stand-up — Tron live /trace shows Task DetailView rendering 'requirements' back-link despite T172 (strict-direction) + 0-issue sprint audit. **DATA is clean** (planner re-verified 2026-06-04: ZERO scenario units carry prohibited backward fields). **DISPLAY is the violator** — a DetailView template emits a back-link the data does not declare. Architect diagnoses; expert removes; tester verifies live /trace (SW active per strict-bar 2b).
 - 2026-06-04: Pre-flight scan confirmed audit blind spot — existing audits inspect DATA only, not DISPLAY. T181 AC9 adds a DISPLAY-side audit script (extends T170 strict gate).
-- Pending: architect produces per-DetailView audit table + render-contract design → expert removes back-link rendering + adds CI script → tester verifies live /trace with SW active → Tron QA closes the forward-only DISPLAY guarantee.
+- 2026-06-04: **FOLDED (PO 2026-06-04):** forward-only-TREE fix at `rb-trace-tree.ts:91` (`obj.children`) and `rb-trace-tree.ts:69` (`walk(r.ref())` recursion) — the TREE renderer is part of the DISPLAY surface; its `children` accessor must be forward-only (per the Tree class from T175 with `chainPosition.below`). Any walk that follows reverse links violates the same R-U rule. Architect to extend per-DetailView audit table to include rb-trace-tree.ts; expert fixes both line ranges in same commit as the DetailView fixes; tester verifies tree expand only walks the forward chain (req→task→uc→class→method→impl→test) with SW active per strict-bar 2b.
+- Pending: architect produces per-DetailView + per-tree-walker audit table → expert removes back-link rendering in DetailViews AND fixes rb-trace-tree.ts:91/:69 forward-only walk + adds CI script → tester verifies live /trace with SW active → Tron QA closes the forward-only DISPLAY guarantee.
 
 ---
 

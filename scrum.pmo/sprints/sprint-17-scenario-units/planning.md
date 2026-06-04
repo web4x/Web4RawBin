@@ -418,6 +418,18 @@ PO direction 2026-06-04: Tron live /trace shows Task DetailView rendering a `req
   **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL per architect declaration (DetailView bundle hash change likely).
   **v4 uuids:** task `41b0d724-…`; req-uuid R-U `82638acb-…`.
   **Audit blind spot closed:** existing audits scan DATA only; T181 AC9 adds DISPLAY-side scan (extends T170 strict gate per learning #27).
+  **Folded (PO 2026-06-04):** forward-only-TREE fix at `rb-trace-tree.ts:91` (`obj.children`) + `:69` (recursive walk) — TREE renderer is part of DISPLAY surface; its children-walk must be forward-only per Tree `chainPosition.below`. Bundled into T181 same commit; architect extends audit table to cover rb-trace-tree.
+
+### Phase 38 — Tron R-W (Browse-source affordance correctness — DetailView source link routing)
+
+PO direction 2026-06-04: stand up T182 as formal task — Browse-source affordance in `rb-task-detail.ts:41` currently links to `/scenario?ior=` (duplicating an existing affordance) instead of the unit's actual `model.source` (file:line). Architect diagnosed; expert implementing in-flight. Planner reconciles structure per learning #20 (work landing before formal stand-up).
+
+- [ ] ⏳ [T182: Browse-source href fix — rb-task-detail.ts:41 → obj.source (file:line)](./task-182-browse-source-href-fix.md)
+  **Status:** ⏳→🔧 expert in-flight (PO 2026-06-04). Architect diagnosed: affordance should consume `model.source` (R17.24) and build a `/md/<source-path>#L<line>` href, not `/scenario?ior=`. Same fix may apply to analogous DetailViews (Method/Class/Impl/Test).
+  **Owners (CMM4):** robbin-req (R-W anchor when Tron-relayed) → robbin-architect (diagnosed; identifies analogous DetailViews needing same fix) → robbin-expert (impl in-flight; rule-pair (a)+(b); (c) per architect) → robbin-tester (each affected DetailView: source-affordance routes to source file/line; /scenario affordance unchanged; SW-active per strict-bar 2b)
+  **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL likely required (DetailView bundle hash change).
+  **v4 uuids:** task `383938b1-…`; req-uuid R-W `f230df9d-…`.
+  **Follows:** R17.24 (source-location IOR `model.source`) · T177 (/scenario?ior= resolver — DIFFERENT affordance, no conflict).
 
 ### Phase 35 — Tron R-S (SW auto-activation reliability — recurring stale-cache root fix)
 
