@@ -395,6 +395,8 @@ The "Browse source" link in the DetailView (the IOR source field rendered as a c
 
 [requirement:uuid:e5f6a7b8-9c0d-1e2f-3a4b-w00000000001]
 
-When a user clicks a task `.scenario.json` file in the scenario/sprints.json/ tree (the speaking-name symlink tree), the destination MUST be the rendered markdown view of that task's source `.md` file (via `/md/<path>.md`), NOT the raw file browser directory listing. The scenario JSON contains `model.source.file` or the task's slug — the click handler must resolve to `/md/scrum.pmo/sprints/<sprint>/<task-slug>.md` which renders the full task detail (title, status checklist, implementation, ACs) as in picture 3. This is a refinement of R-V2 — "Browse source" and "click scenario JSON" must both resolve to the rendered view of the underlying source file.
+When a user clicks a task `.scenario.json` file in the scenario/sprints.json/ tree (the speaking-name symlink tree), the destination MUST be the rendered markdown view of that task's source `.md` file (via `/md/<path>.md`). NOT the raw file browser directory listing, NOT the /trace traceability view, NOT the /scenario scenario view. The target is the **original markdown file rendered by marked.js** — the same view as navigating to `/md/scrum.pmo/sprints/<sprint>/<task-slug>.md` directly. The scenario JSON contains `model.source.file` or the task's slug — the click handler resolves to the rendered `/md/` view of the source .md file.
+
+**Tron clarification:** "and not the traceability or scenario view!!!" — the destination is the file's OWN rendered content, not any generated/derived view.
 
 → Folds into R-V2 task (planner)
