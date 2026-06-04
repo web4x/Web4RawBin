@@ -146,11 +146,11 @@ export class RbTraceTree extends HTMLElement {
       if (!res.ok) { this.innerHTML = '<div class="tt-empty">Not found</div>'; return; }
       const data = await res.json();
       this.innerHTML = '';
-      this.appendChild(this.buildSeedNode(uuid, data.type, data.name, data.children || []));
+      this.appendChild(this.buildSeedNode(uuid, data.type, data.name, data.children || [], data.hasChildren));
     } catch { this.innerHTML = '<div class="tt-empty">Failed to load</div>'; }
   }
 
-  private buildSeedNode(uuid: string, type: string, name: string, children: { uuid: string; type: string; name: string; hasChildren: boolean }[]): HTMLElement {
+  private buildSeedNode(uuid: string, type: string, name: string, children: { uuid: string; type: string; name: string; hasChildren: boolean }[], hasChildren?: boolean): HTMLElement {
     const node = document.createElement('div');
     node.className = 'tt-node';
     const row = document.createElement('div');
@@ -159,26 +159,47 @@ export class RbTraceTree extends HTMLElement {
     item.setAttribute('ref', `${(type || 'task').toLowerCase()}:${uuid}`);
     item.setAttribute('type', (type || 'task').toLowerCase());
     item.setAttribute('title', name || uuid);
-    if (children.length > 0) item.setAttribute('has-children', '');
+    const showExpander = children.length > 0 || hasChildren === true;
+    if (showExpander) item.setAttribute('has-children', '');
     const isOpen = this.isSeedExpanded(uuid);
     if (isOpen) item.setAttribute('children-open', '');
     row.appendChild(item);
     node.appendChild(row);
-    if (children.length > 0) {
+    if (showExpander) {
       const kids = document.createElement('div');
       kids.className = 'tt-children';
       kids.style.display = isOpen ? '' : 'none';
+      let loaded = children.length > 0;
       for (const child of children) {
-        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, []));
+        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren));
       }
       node.appendChild(kids);
+      if (isOpen && !loaded) {
+        this.fetchAndRenderChildren(uuid, kids).then(() => { loaded = true; });
+      }
       item.addEventListener('toggle-children', ((e: CustomEvent) => {
         const open = e.detail.open;
         kids.style.display = open ? '' : 'none';
         this.toggleSeedExpanded(uuid, open);
+        if (open && !loaded) {
+          loaded = true;
+          this.fetchAndRenderChildren(uuid, kids);
+        }
       }) as EventListener);
     }
     return node;
+  }
+
+  private async fetchAndRenderChildren(uuid: string, container: HTMLElement): Promise<void> {
+    try {
+      const res = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      const children: { uuid: string; type: string; name: string; hasChildren: boolean }[] = data.children || [];
+      for (const child of children) {
+        container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren));
+      }
+    } catch { /* silently fail — node stays collapsed */ }
   }
 }
 
