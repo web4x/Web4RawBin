@@ -43,6 +43,7 @@ export class RbDetailView extends HTMLElement {
         <h3 class="dv-title">${esc(obj.title)}</h3>
         <code class="dv-uuid">${obj.uuid}</code>
         ${obj.status ? `<span class="dv-status">${esc(obj.status)}</span>` : ''}
+        <div class="dv-field"><a href="/scenario?ior=${obj.uuid}" class="dv-file-link" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Scenario view</a></div>
       </div>
       <div class="dv-links">${rows.join('') || '<div class="dv-empty">no links</div>'}</div>`;
 

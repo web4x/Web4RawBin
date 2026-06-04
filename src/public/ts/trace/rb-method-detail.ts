@@ -24,6 +24,7 @@ export class RbMethodDetail extends HTMLElement {
         <span class="dv-type-badge" style="background:rgba(198,40,40,0.25);color:#ef5350">Method</span>
         <h3>${esc(obj.title)}</h3>
         <code class="dv-uuid">${obj.uuid}</code>
+        <div class="dv-field"><a href="/scenario?ior=${obj.uuid}" class="dv-file-link" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Scenario view</a></div>
       </div>
       <div class="dv-links"><h4>Traceability Chain</h4>${renderLinks(this.graph, links)}</div>`;
     this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
