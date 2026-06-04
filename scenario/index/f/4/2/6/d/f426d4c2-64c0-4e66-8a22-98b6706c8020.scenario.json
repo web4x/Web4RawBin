@@ -4,7 +4,10 @@
     "uuid": "f426d4c2-64c0-4e66-8a22-98b6706c8020",
     "name": "IORResolver.resolveClass(ior): ClassLoader",
     "className": "IORResolver",
-    "methodName": "resolveClass(ior): ClassLoader"
+    "methodName": "resolveClass(ior): ClassLoader",
+    "implementations": [
+      "ior:instance:b66fdf54-04f4-4609-9ded-04c835348b32"
+    ]
   },
   "ownerIor": "ior:instance:4dfd37fd-d30f-4ec1-af8c-2647ff865ba7"
 }

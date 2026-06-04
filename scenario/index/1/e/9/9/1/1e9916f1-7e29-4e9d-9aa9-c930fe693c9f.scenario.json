@@ -4,7 +4,9 @@
     "uuid": "1e9916f1-7e29-4e9d-9aa9-c930fe693c9f",
     "name": "T64 editor layout",
     "sourceFile": "ior:file:src/public/ts/components/rb-editor-layout.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+    ]
   },
   "ownerIor": null
 }

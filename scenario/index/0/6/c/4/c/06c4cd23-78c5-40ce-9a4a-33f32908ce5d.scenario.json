@@ -4,7 +4,10 @@
     "uuid": "06c4cd23-78c5-40ce-9a4a-33f32908ce5d",
     "name": "ClassRegistry.loader): void",
     "className": "ClassRegistry",
-    "methodName": "loader): void"
+    "methodName": "loader): void",
+    "implementations": [
+      "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
+    ]
   },
   "ownerIor": "ior:instance:40475f3e-6cef-476b-9749-777888cb169c"
 }

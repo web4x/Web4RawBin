@@ -151,16 +151,26 @@ for (const m of implMarkers) {
   if (!implByFile.has(m.file)) implByFile.set(m.file, []);
   implByFile.get(m.file)!.push(m.uuid);
 }
-// Build className → source files map from impl markers
+// Build className → source files map: kebab match + grep for class/function/interface definition
 const classToFiles = new Map<string, Set<string>>();
 for (const cls of (unitsByType.get('Class') || [])) {
   const clsName = String(cls.model.name || '');
   const kebab = clsName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-  for (const file of implByFile.keys()) {
+  for (const [file, _] of implByFile) {
     const base = path.basename(file, '.ts');
     if (base === kebab || base.includes(kebab) || file.toLowerCase().includes(clsName.toLowerCase())) {
       if (!classToFiles.has(clsName)) classToFiles.set(clsName, new Set());
       classToFiles.get(clsName)!.add(file);
+    } else {
+      // Fallback: check if file contains the class/interface/function definition
+      try {
+        const content = fs.readFileSync(path.join(__dirname, '..', file), 'utf-8');
+        if (content.includes(`class ${clsName}`) || content.includes(`interface ${clsName}`) ||
+            content.includes(`function ${clsName}`) || content.includes(`export function ${clsName.charAt(0).toLowerCase() + clsName.slice(1)}`)) {
+          if (!classToFiles.has(clsName)) classToFiles.set(clsName, new Set());
+          classToFiles.get(clsName)!.add(file);
+        }
+      } catch { /* skip unreadable */ }
     }
   }
 }
@@ -183,9 +193,11 @@ for (const meth of (unitsByType.get('Method') || [])) {
 }
 console.log(`Method→Implementation links added: ${methodImplLinks}`);
 
-// Step 6: Implementation → Test (match by shared task reference in marker title, or file proximity)
+// Step 6: Implementation → Test
+// Strategy: match by shared task reference (T-number), AC reference, or component name in filename
 let implTestLinks = 0;
 const testByTaskRef = new Map<string, string[]>();
+const testByComponent = new Map<string, string[]>();
 for (const m of testMarkers) {
   const taskRefs = m.title.match(/T\d+/gi) || [];
   for (const ref of taskRefs) {
@@ -193,6 +205,10 @@ for (const m of testMarkers) {
     if (!testByTaskRef.has(key)) testByTaskRef.set(key, []);
     testByTaskRef.get(key)!.push(m.uuid);
   }
+  // Index by component name from filename (e.g., test/vitest/scenario.test.ts → "scenario")
+  const base = path.basename(m.file, '.test.ts').replace('.spec', '');
+  if (!testByComponent.has(base)) testByComponent.set(base, []);
+  testByComponent.get(base)!.push(m.uuid);
 }
 for (const m of implMarkers) {
   const implUnit = unitByUuid.get(m.uuid);
@@ -200,12 +216,26 @@ for (const m of implMarkers) {
   const implModel = implUnit.model as Record<string, unknown>;
   const tests = (implModel.tests as string[]) || [];
   if (tests.length > 0) continue;
-  const taskRefs = m.title.match(/T\d+/gi) || [];
   const matchedTests: string[] = [];
+  // Match by T-number
+  const taskRefs = m.title.match(/T\d+/gi) || [];
   for (const ref of taskRefs) {
     for (const testUuid of (testByTaskRef.get(ref.toUpperCase()) || [])) {
       const ior = `ior:instance:${testUuid}`;
       if (!matchedTests.includes(ior)) matchedTests.push(ior);
+    }
+  }
+  // Match by component name (impl file basename ↔ test file basename)
+  if (matchedTests.length === 0) {
+    const implBase = path.basename(m.file, '.ts');
+    const kebab = implBase.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    for (const [comp, testUuids] of testByComponent) {
+      if (comp === implBase || comp === kebab || implBase.includes(comp) || comp.includes(kebab)) {
+        for (const tu of testUuids) {
+          const ior = `ior:instance:${tu}`;
+          if (!matchedTests.includes(ior)) matchedTests.push(ior);
+        }
+      }
     }
   }
   if (matchedTests.length > 0) {

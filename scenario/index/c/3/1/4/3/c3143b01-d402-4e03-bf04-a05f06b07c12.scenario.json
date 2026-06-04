@@ -4,7 +4,9 @@
     "uuid": "c3143b01-d402-4e03-bf04-a05f06b07c12",
     "name": "R17.26-R17.29",
     "sourceFile": "ior:file:src/ts/scenario/trace-tree.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:108c8394-a5b6-47c8-89af-c08080808109"
+    ]
   },
   "ownerIor": null
 }

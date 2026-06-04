@@ -4,7 +4,10 @@
     "uuid": "e85f4723-cfcd-42d1-b95c-7bd984035b3c",
     "name": "ScenarioUnit.save(indexPath): void",
     "className": "ScenarioUnit",
-    "methodName": "save(indexPath): void"
+    "methodName": "save(indexPath): void",
+    "implementations": [
+      "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
+    ]
   },
   "ownerIor": "ior:instance:88dcce3a-770b-4c61-b996-02a72f5d6bef"
 }

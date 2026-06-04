@@ -4,7 +4,10 @@
     "uuid": "5b84da47-c7f4-4b01-b492-fae21be2e3cd",
     "name": "ScenarioIndex.put(uuid",
     "className": "ScenarioIndex",
-    "methodName": "put(uuid"
+    "methodName": "put(uuid",
+    "implementations": [
+      "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
+    ]
   },
   "ownerIor": "ior:instance:f9a3f8d1-93db-46aa-8ad7-c34f29905450"
 }

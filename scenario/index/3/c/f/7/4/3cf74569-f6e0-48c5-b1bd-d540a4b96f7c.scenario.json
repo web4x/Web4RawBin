@@ -4,7 +4,10 @@
     "uuid": "3cf74569-f6e0-48c5-b1bd-d540a4b96f7c",
     "name": "ScenarioUnit.any>",
     "className": "ScenarioUnit",
-    "methodName": "any>"
+    "methodName": "any>",
+    "implementations": [
+      "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
+    ]
   },
   "ownerIor": "ior:instance:e48d798c-c4ac-4bb2-9a0c-adba964250d8"
 }

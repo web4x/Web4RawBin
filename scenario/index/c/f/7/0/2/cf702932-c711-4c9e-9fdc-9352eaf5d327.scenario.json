@@ -4,7 +4,9 @@
     "uuid": "cf702932-c711-4c9e-9fdc-9352eaf5d327",
     "name": "T42 chat sheet",
     "sourceFile": "ior:file:src/public/ts/components/rb-chat-sheet.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
+    ]
   },
   "ownerIor": null
 }

@@ -4,7 +4,9 @@
     "uuid": "ddeb708a-e038-4901-a4c4-fba2cbf56d12",
     "name": "T56 avatar component",
     "sourceFile": "ior:file:src/public/ts/components/rb-avatar.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+    ]
   },
   "ownerIor": null
 }

@@ -4,7 +4,10 @@
     "uuid": "edfe9d73-674d-44c4-abfc-4b1d6ed0bf16",
     "name": "ViewTemplateRegistry.register(className",
     "className": "ViewTemplateRegistry",
-    "methodName": "register(className"
+    "methodName": "register(className",
+    "implementations": [
+      "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
+    ]
   },
   "ownerIor": "ior:instance:6a4207e4-bfd3-4f73-91a6-a6f3c8da945f"
 }

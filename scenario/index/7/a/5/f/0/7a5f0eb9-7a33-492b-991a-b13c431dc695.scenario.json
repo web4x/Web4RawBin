@@ -24,7 +24,10 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "tests": [
+      "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }
