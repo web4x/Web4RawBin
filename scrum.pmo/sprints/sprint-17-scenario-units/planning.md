@@ -37,8 +37,8 @@ prose. Then **migrate every existing sprint** to this model.
 
 ### Phase 1 — Architecture, Standards, Requirements (T124, architect + req)
 
-- [ ] ✅ [T124: Scenario-unit + IOR + class-based view architecture](./task-124-architecture.md)
-  **Status:** ✅ impl-complete CODE-side (PO 2026-06-03) — T124.1-.4 + T124.6 DONE; T124.5 gap CLOSED by expert `e714e255` v0.5.77 (FORWARD_KEYS + standard LOCKED). ⚠️ **DO NOT MARK TRACEABILITY CHAIN DONE ON CODE ALONE (PO 2026-06-03):** tester's reverify FOUND A GAP — scenario DATA only chains Req→Task→Subtask (3 deep); UC/Class/Method/Impl/Test forward arrays empty → 44 tests "chain gap" → **R-J + R-E NOT satisfied in DATA**. Closure of T124+T168 gated on **T178 data-fill** + tester 44/44 chain-reachable verify.
+- [ ] 🧪 [T124: Scenario-unit + IOR + class-based view architecture](./task-124-architecture.md)
+  **Status:** 🧪 PO-closed 2026-06-05 — CODE-side complete (T124.1-.4 + T124.6 DONE; T124.5 by `e714e255` v0.5.77) + DATA-side satisfied (T178 KEYSTONE `452f8d5d` 44/44 7-hop reachability; R-J + R-E satisfied). PO: "Close T178 + the dependent T124/T168 (deep-chain was their blocker)." Tron QA pending. Done-gate checkboxes untouched per learning #9.
   **Owner:** robbin-architect (design lead), robbin-req (requirements), robbin-planner (structure)
   **Sub-tasks (architect/req to create during refinement, following Sprint 1 task-1.x pattern):**
   - T124.1 architect — scenario-unit + IOR data model (class diagram, JSON shape, resolution rules)
@@ -307,7 +307,7 @@ Source: `bfae071` + `2be6e96` + `7e01491` (req-eng captures of compound-requirem
   **Rule-pair scope:** (a)+(b) required; (c) exempt (no new route). v4 uuids: task `d0881ad6-…`; req `ff3f06e7-…`.
 
 - [ ] 🧪 [T168: Chain order 7-step + atomic requirements as tree ROOTS](./task-168-chain-order-7-step-requirements-as-roots.md)
-  **Status:** REFINEMENT DONE — `c28c982` architect design committed (7-step canonical chain LOCKED + requirements as roots). Expert next.
+  **Status:** 🧪 PO-closed 2026-06-05 — `c28c982` architect design (7-step canonical chain LOCKED + requirements as roots) + DATA-side satisfied via T178 KEYSTONE `452f8d5d` 44/44 7-hop reachability. PO: "Close T178 + the dependent T124/T168 (deep-chain was their blocker)." Tron QA pending. Done-gate checkboxes untouched per learning #9.
   **Owners (CMM4):** robbin-req (anchor R-E verbatim + PO amendments) → robbin-architect (TraceModel walk + ViewGenerator + tree builder + standard update + Sprint 17 chain doc) → robbin-expert (impl; rule-pair (a)+(b)) → robbin-tester (chain walk + audit; TS1-TS8)
   **Rule-pair scope:** (a)+(b) required; (c) architect confirms. v4 uuids: task `c3951691-…`; req `12f6f7d1-…`.
 
@@ -388,8 +388,8 @@ PO direction 2026-06-03: /scenario shows "Not found" for some UUIDs along ior-fo
 
 PO direction 2026-06-03 — explicit GATE on the traceability chain story: T168/T124 CODE is done (`e714e255` v0.5.77), but tester reverify found scenario DATA only chains Req→Task→Subtask (3 deep); UC/Class/Method/Impl/Test forward arrays empty → 44 tests "chain gap" → R-J + R-E NOT satisfied in DATA. PO: **DO NOT mark traceability chain done on code alone.** T178 closes the data side. 4-role planner-first.
 
-- [ ] ✅ [T178: 7-step chain DATA-FILL + lazy-load-deeper-fails (KEYSTONE)](./task-178-7-step-chain-data-fill-44-tests.md)
-  **Status:** ✅ impl-shipped — expert `c6c695a4` shipped pipeline (36 Impl + 44 Test units; 397→477). Iterations: `cc152130` + `194d747c` improved heuristic (Method→Impl 30→42, Impl→Test 16→15, 9 dedicated Impl for UUID-collisions); `f306e503` v0.5.82 overlay-read fix — serves ALL forward refs from scenario index (DetailView overlays read complete forward arrays, no truncation; rule-pair (a)+(b) ✓; 836/836). **Tester reachability snapshot 2026-06-04: 36/44 (up from 0/44 baseline).** Full 44/44 still GATED on T128.4 marker retrofit (50+21 gaps) + the in-flight architect+req JOINT creation of **6 new UseCases for S14/S15 classes**. **Folded:** lazy-load-deeper-fails diagnosis bundled (T128.4 lands data → T178 confirms tree mechanism). **Companion:** T183 (7-hop CI gate spec, tester `c0f61299`).
+- [ ] 🧪 [T178: 7-step chain DATA-FILL + lazy-load-deeper-fails (KEYSTONE)](./task-178-7-step-chain-data-fill-44-tests.md)
+  **Status:** 🧪 KEYSTONE CLOSED + tester-verified 2026-06-05 — `c6c695a4` pipeline + `cc152130`/`194d747c` heuristic + `f306e503` v0.5.82 overlay-read fix + `a7c2b6b7` S17 UC→Task 24 links + `7b7859ac` 8 UC classes[] fill + **`452f8d5d` KEYSTONE: 44/44 tests 7-hop reachable from Requirement roots (PASS); lazy-load-deeper works; R-J + R-E satisfied in DATA**. 836/836 pass. Pre-S16 UC gap resolved Path A (architect created 13 UCs for S1-S14 tasks with tests). PO 2026-06-05: "T178 KEYSTONE CLOSED + tester-verified, close T178 + dependent T124/T168." Tron QA pending. Done-gate checkboxes untouched per learning #9.
   **Owners (CMM4):** robbin-req (R-Q anchor when Tron-relayed) → robbin-architect (marker-parser pipeline + linking rules per hop: PUML for UC→Class; source for Class→Method, impl:uuid: markers for Method→Impl, test:uuid: markers for Impl→Test) → robbin-expert (impl + run; rule-pair (a)+(b)) → robbin-tester (walk 44/44 tests to Requirement roots via full 7-step; no regression on T172 238/238)
   **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL exempt (data-only migration; per learning #24).
   **v4 uuids:** task `4bd33c18-…`; req-uuid R-Q `cd5dc5b7-…`.
@@ -428,25 +428,21 @@ PO direction 2026-06-04: stand up T182 as formal task — Browse-source affordan
   **Status:** ✅ impl-shipped — expert `cf6182f1` v0.5.81 (scenario-view link on ALL 7 DetailViews). Rule-pair (a)+(b)+(c) ✓ — STATIC_SHELL updated; 836/836 pass. Tester SW-active verify per strict-bar 2b pending.
   **v4 uuids:** task `383938b1-…`; req-uuid R-W `f230df9d-…`.
 
-### S17 Closure Tracking — T178/T128.4/T124/T168 chain (PO 2026-06-04 snapshot)
+### S17 Closure Tracking — T178/T128.4/T124/T168 chain (CASCADE FIRED 2026-06-05)
 
-**Snapshot 2026-06-04 (post-T183-ship):** T183 7-hop CI gate is the **auto-confirm trigger** — once it reports 44/44, T178+T124+T168 closure conditions are mechanically met.
+**🎯 CLOSURE CASCADE FIRED 2026-06-05 — T183 7-hop gate live `44/44 PASS`** (`452f8d5d` T178 KEYSTONE). Pre-S16 UC Gap resolved via **Path A** (architect chose retroactive UC creation): 13 new UCs for S1-S14 tasks + 8 UCs for S17 classes filled with classes[] links. 55 orphan impls wired to forward-chain Methods. R-J + R-E satisfied in DATA. PO 2026-06-05: T178 KEYSTONE CLOSED + tester-verified (lazy-load-deeper works). Close T178 + dependents T124/T168.
 
-**Current state of the chain (refreshed post-a7c2b6b7):**
-| Task | Symbol | Closure gate | Driver |
-|------|--------|--------------|--------|
-| **T183** | ✅ | rule-pair EXEMPT — shipped `77adf9bf`; live baseline now **2/44** (post-a7c2b6b7, up from 1/44; forward-reach 264 from 179) | Watches 44/44 forever |
-| **T128.4** | 🔧 | Architect+expert SHIPPED Step 0: T178 `a7c2b6b7` wrote 24 S17 UC→Task links + 22 bridge Impl units for orphan tests. **PARTIAL** — 7-hop lifted 1→2/44. **REMAINING BLOCKER (expert-flagged):** 91/106 tasks have NO useCases — S1-S14 tasks predate UC creation. Architect+req must create UC units for pre-S16 tasks OR architect-call Task→Method direct-link bypass. | Extended scope — see Pre-S16 UC Gap below |
-| **T178** | ✅ | impl-shipped (incl. `a7c2b6b7` Step 0). **DATA gate**: 2/44 — extends until pre-S16 UC gap resolved | Iterates until T183 hits 44/44 |
-| **T124** | ✅ code-side | DATA gate per PO 2026-06-03 — **do not mark traceability chain done on code alone** | Auto-closes when T183 hits 44/44 |
-| **T168** | 🧪 | LOCKED chain code DONE; DATA gate same as T124/T178 | Auto-closes when T183 hits 44/44 |
+**Closed state of the chain (post-cascade):**
+| Task | Symbol | Closure note |
+|------|--------|--------------|
+| **T183** | ✅ | Live 44/44 PASS (auto-confirm fired); watches 44/44 forever — regression guard active |
+| **T128.4** | ✅ | KEYSTONE done — `a7c2b6b7` Step 0 (S17 UC→Task 24 links + 22 bridge Impls) + `7b7859ac` (8 UC classes[] fill, 12/12 S17 orphan classes mapped) + `452f8d5d` (13 UCs for S1-S14 tasks-with-tests + bridge Impls; 55 orphan-impl wires) |
+| **T178** | 🧪 | KEYSTONE CLOSED `452f8d5d` 2026-06-05 — tester-verified 44/44 + lazy-load-deeper works; PO accepted close; Tron QA pending |
+| **T124** | 🧪 | DATA gate satisfied 2026-06-05 — chain end-to-end reachable; PO accepted close; Tron QA pending |
+| **T168** | 🧪 | LOCKED chain DONE + DATA gate satisfied 2026-06-05; PO accepted close; Tron QA pending |
 
-#### Pre-S16 UC Gap (discovered by `a7c2b6b7` 2026-06-04)
-**91/106 Tasks (S1-S14) have no UseCase parents** — UC discipline started at S16. Two architect-paths to resolve:
-- **Path A — retroactive UC creation:** architect+req create UseCase units for the 91 historical tasks (large; reflects honest CMM4 history).
-- **Path B — Task→Method direct-link bypass:** architect declares a Task→Method shortcut for tasks without UCs (compact; preserves chain integrity at cost of UC-as-first-class invariant).
-
-**Awaiting PO + architect call on A vs B before further closure-chain motion.**
+#### Pre-S16 UC Gap — **RESOLVED Path A** (2026-06-05)
+Architect+req chose retroactive UC creation: `452f8d5d` created 13 UseCase units for S1-S14 tasks with tests (T3, T36, T74, T79, T93, T95, T109, plus 6 more); `7b7859ac` filled 8 S17 UC classes[] arrays mapping 12/12 orphan S17 classes. All 55 orphan impls wired to Methods in the forward chain. **R-J + R-E satisfied in DATA.** Path B (Task→Method bypass) not needed — UC-as-first-class invariant preserved.
 
 **Closure trigger sequence (the moment X lands, Y auto-confirms):**
 ```
@@ -469,11 +465,11 @@ PO direction 2026-06-04: stand up T182 as formal task — Browse-source affordan
 
 PO direction 2026-06-05: T181 ✓ closed (display + tree filter forward-only); tester flagged RESIDUAL at /api/trace graph — 42 Tasks still carry backward `requirements` keys at the TraceConsistency .md-parser layer (scenario index is clean since T172). Display masks them, but the data isn't forward-only end-to-end. T184 strips them at the parser so /api/trace is forward-only at source. LOW priority (display already clean) but completes Tron's no-back-chaos principle. 4-role planner-first.
 
-- [ ] ⏳ [T184: TraceConsistency .md-parser forward-only — strip backward keys at source (R-X1)](./task-184-traceconsistency-parser-forward-only.md)
-  **Status:** ⏳ planned (planner-first scaffold 2026-06-05 — placeholder ACs; awaiting architect refinement on .md-parser code-path diagnosis + FORWARD_KEYS-at-emit design).
-  **Owners (CMM4):** robbin-req (anchor R-X1 if Tron-relayed) → robbin-architect (.md-parser diagnosis + FORWARD_KEYS-at-emit design) → robbin-expert (impl; rule-pair (a)+(b); (c) likely EXEMPT — data-pipeline only, no user surface change since display already forward-only via T181) → robbin-tester (verify /api/trace zero backward keys end-to-end; defense-in-depth intact)
+- [ ] ⏳ [T184: TraceConsistency .md-parser forward-only — strip backward keys at source (R-Y1)](./task-184-traceconsistency-parser-forward-only.md)
+  **Status:** ⏳ planned (planner-first scaffold 2026-06-05 — placeholder ACs; awaiting architect refinement on .md-parser code-path diagnosis + FORWARD_KEYS-at-emit design). **Renamed R-X1 → R-Y1 2026-06-05** — req-eng `15dd69c1` claimed R-X1+R-X2 for PUML class diagrams (different scope); planner re-labelled this requirement to avoid label collision (req:uuid unchanged).
+  **Owners (CMM4):** robbin-req (anchor R-Y1 if Tron-relayed) → robbin-architect (.md-parser diagnosis + FORWARD_KEYS-at-emit design) → robbin-expert (impl; rule-pair (a)+(b); (c) likely EXEMPT — data-pipeline only, no user surface change since display already forward-only via T181) → robbin-tester (verify /api/trace zero backward keys end-to-end; defense-in-depth intact)
   **Rule-pair scope:** (a)+(b) required; **(c) likely EXEMPT** per learning #24 (data-pipeline only) — architect confirms.
-  **v4 uuids:** task `ab0cbe5f-…`; req-uuid R-X1 `d9c419b3-…`.
+  **v4 uuids:** task `ab0cbe5f-…`; req-uuid R-Y1 `d9c419b3-…`.
   **Priority:** LOW (PO 2026-06-05 — display already clean; T184 completes the principle at the data source).
   **Follows:** T181 (DISPLAY forward-only, closed in-scope) · T172 (scenario data forward-only). **Companion:** T181 filters remain as defense-in-depth.
 
