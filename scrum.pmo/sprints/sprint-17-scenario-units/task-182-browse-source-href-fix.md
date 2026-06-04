@@ -13,13 +13,13 @@
 > diagnosed; expert implementing. (Stand-up follows the work — per learning #20
 > architect-concurrent pattern, planner reconciles structure to existing work.)
 
-## Status
-- [ ] Planned
-- [ ] In Progress
+## Status — ✅ impl-shipped (expert cf6182f1 v0.5.81 — scenario-view link on ALL 7 DetailViews)
+- [x] Planned
+- [x] In Progress
   - [x] refinement (architect diagnosis — `rb-task-detail.ts:41` href is wrong target; should use `obj.model.source` IOR or generated /md/ path)
-  - [ ] creating test cases
-  - [ ] implementing (expert in-flight per PO 2026-06-04)
-  - [ ] testing
+  - [x] creating test cases
+  - [x] implementing (expert `cf6182f1` v0.5.81 — scenario-view link applied to ALL 7 DetailViews; rule-pair (a)+(b)+(c) ✓ verified — STATIC_SHELL updated; 836/836 pass)
+  - [ ] testing (PENDING — tester SW-active per strict-bar 2b: each DetailView affordance routes correctly; /scenario unchanged for the other affordance)
 - [ ] QA Review
 - [ ] Done
 

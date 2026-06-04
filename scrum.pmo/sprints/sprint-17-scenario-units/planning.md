@@ -389,7 +389,7 @@ PO direction 2026-06-03: /scenario shows "Not found" for some UUIDs along ior-fo
 PO direction 2026-06-03 — explicit GATE on the traceability chain story: T168/T124 CODE is done (`e714e255` v0.5.77), but tester reverify found scenario DATA only chains Req→Task→Subtask (3 deep); UC/Class/Method/Impl/Test forward arrays empty → 44 tests "chain gap" → R-J + R-E NOT satisfied in DATA. PO: **DO NOT mark traceability chain done on code alone.** T178 closes the data side. 4-role planner-first.
 
 - [ ] ✅ [T178: 7-step chain DATA-FILL + lazy-load-deeper-fails (KEYSTONE)](./task-178-7-step-chain-data-fill-44-tests.md)
-  **Status:** ✅ impl-shipped — expert `c6c695a4` shipped pipeline (36 Impl + 44 Test units; 397→477). Iteration `cc152130` + `194d747c` improved heuristic: Method→Impl 30→42 links, Impl→Test 16→15 links + 9 dedicated Impl units for UUID-collisions. All data-only commits (rule-pair exempt). **Tester reachability snapshot 2026-06-04: 36/44 (up from 0/44 baseline)** — heuristic + in-flight T128.4 UC creation lifted reach. Full 44/44 still GATED on T128.4 marker retrofit (50+21 gaps) + the in-flight architect+req JOINT creation of **6 new UseCases for S14/S15 classes** (data gap: those Classes lacked UC parents). **Folded:** lazy-load-deeper-fails diagnosis bundled (T128.4 lands data → T178 confirms tree mechanism).
+  **Status:** ✅ impl-shipped — expert `c6c695a4` shipped pipeline (36 Impl + 44 Test units; 397→477). Iterations: `cc152130` + `194d747c` improved heuristic (Method→Impl 30→42, Impl→Test 16→15, 9 dedicated Impl for UUID-collisions); `f306e503` v0.5.82 overlay-read fix — serves ALL forward refs from scenario index (DetailView overlays read complete forward arrays, no truncation; rule-pair (a)+(b) ✓; 836/836). **Tester reachability snapshot 2026-06-04: 36/44 (up from 0/44 baseline).** Full 44/44 still GATED on T128.4 marker retrofit (50+21 gaps) + the in-flight architect+req JOINT creation of **6 new UseCases for S14/S15 classes**. **Folded:** lazy-load-deeper-fails diagnosis bundled (T128.4 lands data → T178 confirms tree mechanism). **Companion:** T183 (7-hop CI gate spec, tester `c0f61299`).
   **Owners (CMM4):** robbin-req (R-Q anchor when Tron-relayed) → robbin-architect (marker-parser pipeline + linking rules per hop: PUML for UC→Class; source for Class→Method, impl:uuid: markers for Method→Impl, test:uuid: markers for Impl→Test) → robbin-expert (impl + run; rule-pair (a)+(b)) → robbin-tester (walk 44/44 tests to Requirement roots via full 7-step; no regression on T172 238/238)
   **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL exempt (data-only migration; per learning #24).
   **v4 uuids:** task `4bd33c18-…`; req-uuid R-Q `cd5dc5b7-…`.
@@ -424,12 +424,19 @@ PO direction 2026-06-04: Tron live /trace shows Task DetailView rendering a `req
 
 PO direction 2026-06-04: stand up T182 as formal task — Browse-source affordance in `rb-task-detail.ts:41` currently links to `/scenario?ior=` (duplicating an existing affordance) instead of the unit's actual `model.source` (file:line). Architect diagnosed; expert implementing in-flight. Planner reconciles structure per learning #20 (work landing before formal stand-up).
 
-- [ ] ⏳ [T182: Browse-source href fix — rb-task-detail.ts:41 → obj.source (file:line)](./task-182-browse-source-href-fix.md)
-  **Status:** ⏳→🔧 expert in-flight (PO 2026-06-04). Architect diagnosed: affordance should consume `model.source` (R17.24) and build a `/md/<source-path>#L<line>` href, not `/scenario?ior=`. Same fix may apply to analogous DetailViews (Method/Class/Impl/Test).
-  **Owners (CMM4):** robbin-req (R-W anchor when Tron-relayed) → robbin-architect (diagnosed; identifies analogous DetailViews needing same fix) → robbin-expert (impl in-flight; rule-pair (a)+(b); (c) per architect) → robbin-tester (each affected DetailView: source-affordance routes to source file/line; /scenario affordance unchanged; SW-active per strict-bar 2b)
-  **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL likely required (DetailView bundle hash change).
+- [ ] ✅ [T182: Browse-source href fix — rb-task-detail.ts:41 → obj.source (file:line)](./task-182-browse-source-href-fix.md)
+  **Status:** ✅ impl-shipped — expert `cf6182f1` v0.5.81 (scenario-view link on ALL 7 DetailViews). Rule-pair (a)+(b)+(c) ✓ — STATIC_SHELL updated; 836/836 pass. Tester SW-active verify per strict-bar 2b pending.
   **v4 uuids:** task `383938b1-…`; req-uuid R-W `f230df9d-…`.
-  **Follows:** R17.24 (source-location IOR `model.source`) · T177 (/scenario?ior= resolver — DIFFERENT affordance, no conflict).
+
+### Phase 39 — 7-hop CI gate (T183 — strict-bar (1) operationalised)
+
+PO direction (implied by tester-driven stand-up + learning #27): the strict-bar (1) per-Test 7-hop reachability assertion gets a dedicated `trace:audit:strict` extension. T183 is the gate spec authored by tester `c0f61299`; expert implements; tester verifies. No-op pass after T128.4 + T178 fill; guards regression forever.
+
+- [ ] 📝 [T183: 7-hop CI gate — trace:audit:strict per-Test reachability](./task-183-7-hop-ci-gate.md)
+  **Status:** 📝 spec authored (tester `c0f61299` 2026-06-04 — gate algorithm walkUp every Test → Impl → Method → Class → UC → Task → Req; exit 1 if any unreachable; reports X/44 + per-test break table). Planner reconciled per learning #20 — Subtasks + QA Audit sections added for compliance. Awaiting expert impl; rule-pair (a)+(b) per architect declaration (test-infra; (c) likely exempt per learning #24).
+  **Owners (CMM4):** robbin-tester (spec + verify) → robbin-expert (impl script + integrate into trace:audit:strict)
+  **Follows:** T170 (CI gates baseline) · T172/T178/T128.4 (data fill — gate is no-op pass once landed) · standards Strict Verify Bar (1) + learning #27.
+  **Enables:** permanent regression guard on 7-hop chain integrity.
 
 ### Phase 35 — Tron R-S (SW auto-activation reliability — recurring stale-cache root fix)
 

@@ -107,7 +107,10 @@ UNREACHABLE TESTS:
 - **Requires:** T178 data fill to make the gate pass (gate is ready before fill)
 - **Enables:** permanent regression guard on 7-hop chain integrity
 
----
+## Subtasks
+None (atomic task — single CI gate script + integration into trace:audit:strict).
 
-*Sprint 17 — Scenario Units · CI Gate*
-*Owner: robbin-expert (impl), robbin-tester (spec + verify)*
+## QA Audit & User Feedback
+- 2026-06-04: Tester `c0f61299` authored T183 spec — 7-hop CI gate, per-Test walkUp from Test through Impl→Method→Class→UC→Task→Req. Gate exits 1 if any test unreachable; reports X/44 + per-test break table. No-op pass after T178 fill; guards regression forever. (Tester-driven stand-up per learning #20 reconcile pattern.)
+- 2026-06-04: Planner reconciled T183 — added Subtasks + QA Audit sections for Web4Articles compliance; task uuid retained (valid v4 format per learning #17). Linked to strict-bar (1) per-Test 7-hop assertion + learning #27 verify-bar CI extension. T170 follow-on per the strict-bar codification (a `trace:audit:strict` extension that fails on any depth < 7).
+- Pending: expert implements the script per the spec → tester verifies gate behaviour (TS1-TS4) → Tron QA closes the permanent regression guard.

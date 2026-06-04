@@ -96,7 +96,9 @@ None (atomic task — single architect-designed pipeline, single expert pass, si
 - 2026-06-04: Expert iterates pipeline (`cc152130` + `194d747c`) — heuristic improvements + 9 dedicated Impl units for UUID collisions; Method→Impl 30→42 links, Impl→Test 16→15 links. Both commits data-only (no version bump, rule-pair exempt per learning #24).
 - 2026-06-04: **Tester reachability snapshot: 36/44 (up from 0/44 baseline)** — heuristic + ongoing T128.4 UC-creation lifted reach without marker changes. Full 44/44 still gated on T128.4 marker retrofit (50+21 markers) on top of the in-flight UC creation.
 - 2026-06-04: **IN FLIGHT (architect + req JOINT)** — creating 6 new UseCase units for S14/S15 Classes (data gap: S14/S15 Classes lacked UseCase parents, breaking the chain at the UC hop). Tracked formally in T128.4 QA Audit; T178 closure absorbs the UC creation since it directly raises reachability.
-- Pending: architect + req finish 6 new UseCases → T128.4 marker retrofit → expert pipeline re-run → tester walks **44/44** + live /trace 7-hop expand with SW active → Tron QA closes R-J fully.
+- 2026-06-04: Expert `f306e503` v0.5.82 ships T178 overlay-read fix — serves ALL forward refs from scenario index (DetailView overlays now read complete forward arrays, no truncation). Rule-pair (a)+(b) ✓; (c) STATIC_SHELL unchanged; 836/836 pass.
+- 2026-06-04: Tester `c0f61299` authored T183 (7-hop CI gate spec) — formal companion to T178; gate is ready before fill; expert implements per the spec.
+- Pending: architect + req finish 6 new UseCases → T128.4 marker retrofit → expert pipeline re-run → tester walks **44/44** + live /trace 7-hop expand with SW active → T183 gate enabled → Tron QA closes R-J fully.
 
 ---
 
