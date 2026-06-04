@@ -409,13 +409,13 @@ When a user clicks a task `.scenario.json` file in the scenario/sprints.json/ tr
 
 ### R-X1: A PlantUML class diagram documents the traceability-tree-extends architecture.
 
-[requirement:uuid:f6a7b8c9-0d1e-2f3a-4b5c-x00000000001]
+[requirement:uuid:7b062e87-7541-4be2-ab0f-dd1f7a7c225f]
 
 A `.puml` class diagram must exist showing the Tree base class extended by RbObjectItem and RbDetailDrawer, with parent/children as IOR references. The diagram covers: Tree (base with expand/collapse/lazy-load), RbObjectItem (one tree node — icon, name, drag, expand-children), RbDetailDrawer (detail panel — open, close, swipe-dismiss), and their inheritance/composition relationships. Each class and method element in the diagram carries `[class:uuid]` and `[method:uuid]` annotations per the traceability standard.
 
 ### R-X2: A PlantUML class diagram documents the scenario-instance implementation classes.
 
-[requirement:uuid:f6a7b8c9-0d1e-2f3a-4b5c-x00000000002]
+[requirement:uuid:ec56b884-3aa5-400a-b3e2-1095ffdcbe4a]
 
 A `.puml` class diagram must exist showing ScenarioUnit, IORResolver, ClassRegistry (with ClassLoaders), and ViewTemplateRegistry — the four pillars of the scenario-instance system. The diagram covers: ScenarioUnit (ior, model, ownerIor, load, save), IORResolver (resolve, resolveClass, resolveInstance), ClassRegistry (register, get), ViewTemplateRegistry (register, renderHtml, renderMd), and their associations. Each class and method element carries `[class:uuid]` and `[method:uuid]` annotations that become the authoritative PUML source for the UC→Class→Method chain links.
 

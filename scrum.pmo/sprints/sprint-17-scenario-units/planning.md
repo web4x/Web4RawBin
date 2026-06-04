@@ -461,9 +461,19 @@ Architect+req chose retroactive UC creation: `452f8d5d` created 13 UseCase units
 
 **Critical-path note (PO 2026-06-04):** T180 (real-device unblock, Tron locked out by self-signed-cert SW block) ranks ABOVE this chain — Tron must be back on a working device before final closure can be Tron-QA'd. The closure chain mechanics are independent and can proceed in parallel with Track 2 of T180 (CDP Playwright workaround).
 
-### Phase 40 — Tron R-X (parser-layer forward-only / no-back-chaos at source)
+### Phase 41 — Tron R-X (traceability + scenario architecture PUML)
 
-PO direction 2026-06-05: T181 ✓ closed (display + tree filter forward-only); tester flagged RESIDUAL at /api/trace graph — 42 Tasks still carry backward `requirements` keys at the TraceConsistency .md-parser layer (scenario index is clean since T172). Display masks them, but the data isn't forward-only end-to-end. T184 strips them at the parser so /api/trace is forward-only at source. LOW priority (display already clean) but completes Tron's no-back-chaos principle. 4-role planner-first.
+PO direction 2026-06-05: stand up T185 RETROACTIVELY — req-eng `15dd69c1` captured R-X1 (Tree-extends PUML) + R-X2 (scenario-instance PUML) with fake-suffix uuids (planner replaced with real v4 per learning #17); architect `c11f723a` already shipped both diagrams in a single 311-line `s17-architecture.puml` + rendered SVG. Mark code-complete; tester verifies PUML renders + every `[class:uuid]` / `[method:uuid]` resolves.
+
+- [ ] ✅ [T185: PlantUML class diagrams for traceability-tree + scenario-instance architecture (R-X1 + R-X2)](./task-185-traceability-architecture-puml.md)
+  **Status:** ✅ impl-shipped (architect `c11f723a` 2026-06-05 — `diagrams/s17-architecture.puml` 311 lines + rendered `.svg`; covers TraceObject base + LOCKED 7-step typed chain + view components + scenario infrastructure with `[class:uuid]` / `[method:uuid]` annotations that feed T178 KEYSTONE 44/44 UC→Class→Method chain). Awaiting tester verification (AC3/AC6/AC8: SVG renders + every annotated UUID resolves to a scenario unit), then Tron QA.
+  **Owners (CMM4):** robbin-req `15dd69c1` (capture R-X1+R-X2; fake-suffix uuids planner-fixed) → robbin-architect `c11f723a` (ship diagram + SVG) → expert n/a (architect ships PUML directly) → robbin-tester (verify PUML/SVG + UUID resolution)
+  **Rule-pair scope:** EXEMPT per learning #24 — documentation-only deliverable, no `src/` change, no user-facing surface; no version/sw.js bumps.
+  **v4 uuids:** task `8dd36103-…`; req-uuids R-X1 `7b062e87-…`, R-X2 `ec56b884-…` (planner replaced req's fake-suffix `f6a7b8c9-…-x00000000001` / `…-x00000000002`).
+
+### Phase 40 — Tron R-Y (parser-layer forward-only / no-back-chaos at source)
+
+PO direction 2026-06-05: T181 ✓ closed (display + tree filter forward-only); tester flagged RESIDUAL at /api/trace graph — 42 Tasks still carry backward `requirements` keys at the TraceConsistency .md-parser layer (scenario index is clean since T172). Display masks them, but the data isn't forward-only end-to-end. T184 strips them at the parser so /api/trace is forward-only at source. LOW priority (display already clean) but completes Tron's no-back-chaos principle. 4-role planner-first. (Phase originally labeled R-X; renamed to R-Y when req-eng `15dd69c1` claimed R-X1/R-X2 for the PUML deliverable — see Phase 41.)
 
 - [ ] ⏳ [T184: TraceConsistency .md-parser forward-only — strip backward keys at source (R-Y1)](./task-184-traceconsistency-parser-forward-only.md)
   **Status:** ⏳ planned (planner-first scaffold 2026-06-05 — placeholder ACs; awaiting architect refinement on .md-parser code-path diagnosis + FORWARD_KEYS-at-emit design). **Renamed R-X1 → R-Y1 2026-06-05** — req-eng `15dd69c1` claimed R-X1+R-X2 for PUML class diagrams (different scope); planner re-labelled this requirement to avoid label collision (req:uuid unchanged).
