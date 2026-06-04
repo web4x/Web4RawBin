@@ -412,8 +412,8 @@ PO direction 2026-06-04: TOP PRIORITY above T178. Tron locked out of real device
 
 PO direction 2026-06-04: Tron live /trace shows Task DetailView rendering a `requirements` backward link **despite T172 stripping all back-refs from the DATA and audit reporting 0 issues**. Planner re-verified 2026-06-04: ZERO scenario units carry prohibited backward fields — the DISPLAY layer is the violator. T181 audits + fixes DetailView renderers (Task/UseCase/Class/Method/Impl/Test) so no DetailView emits a backward-direction collection. Adds a DISPLAY-side audit to T170 strict gate (per learning #27 verify-bar extension).
 
-- [ ] 📝 [T181: Strict forward-only DISPLAY — no backward links in any DetailView (Tron live /trace violation)](./task-181-display-forward-only-no-back-links.md)
-  **Status:** 📝 refinement done — architect `883ce4aa` 2026-06-05 shipped per-file render-contract design (FORWARD_KEYS filter on `obj.toJSON().links`; 6 DetailViews + 2 tree lines; Tree uses `obj.children` T175 getter; browse-source href fix included). PARTIAL impl already landed (`1a06de9f` v0.5.80) for the folded forward-only-TREE fix (`rb-trace-tree.ts:91` + `:69`). Remaining: expert applies FORWARD_KEYS to 6 DetailViews + CI DISPLAY-side audit script per architect's table. Rule-pair (a)+(b); (c) per architect.
+- [ ] 🧪 [T181: Strict forward-only DISPLAY — no backward links in any DetailView (Tron live /trace violation)](./task-181-display-forward-only-no-back-links.md)
+  **Status:** 🧪 PO-closed in-scope 2026-06-05 — `1a06de9f` v0.5.80 (folded forward-only-TREE) + `883ce4aa` architect render-contract design + `48e3d076` v0.5.83 (FORWARD_KEYS filter on all 8 DetailViews). Tester verified in-scope ACs; PO accepted close. **Residual (out-of-scope) spun off to T184**: /api/trace graph still carries backward `requirements` keys on 42 Tasks at the TraceConsistency .md-parser layer (display+tree filters mask them; principle not complete at source). Tron QA pending T181 close + T184 follow-on.
   **Owners (CMM4):** robbin-req (R-U anchor when Tron-relayed) → robbin-architect (per-DetailView audit + render-contract design + DISPLAY-side audit script design) → robbin-expert (remove back-link rendering + add CI script; rule-pair (a)+(b); (c) per architect) → robbin-tester (live /trace with SW active: every DetailView for every type emits forward-only; audit script reports zero prohibited emissions)
   **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL per architect declaration (DetailView bundle hash change likely).
   **v4 uuids:** task `41b0d724-…`; req-uuid R-U `82638acb-…`.
@@ -464,6 +464,18 @@ PO direction 2026-06-04: stand up T182 as formal task — Browse-source affordan
 ```
 
 **Critical-path note (PO 2026-06-04):** T180 (real-device unblock, Tron locked out by self-signed-cert SW block) ranks ABOVE this chain — Tron must be back on a working device before final closure can be Tron-QA'd. The closure chain mechanics are independent and can proceed in parallel with Track 2 of T180 (CDP Playwright workaround).
+
+### Phase 40 — Tron R-X (parser-layer forward-only / no-back-chaos at source)
+
+PO direction 2026-06-05: T181 ✓ closed (display + tree filter forward-only); tester flagged RESIDUAL at /api/trace graph — 42 Tasks still carry backward `requirements` keys at the TraceConsistency .md-parser layer (scenario index is clean since T172). Display masks them, but the data isn't forward-only end-to-end. T184 strips them at the parser so /api/trace is forward-only at source. LOW priority (display already clean) but completes Tron's no-back-chaos principle. 4-role planner-first.
+
+- [ ] ⏳ [T184: TraceConsistency .md-parser forward-only — strip backward keys at source (R-X1)](./task-184-traceconsistency-parser-forward-only.md)
+  **Status:** ⏳ planned (planner-first scaffold 2026-06-05 — placeholder ACs; awaiting architect refinement on .md-parser code-path diagnosis + FORWARD_KEYS-at-emit design).
+  **Owners (CMM4):** robbin-req (anchor R-X1 if Tron-relayed) → robbin-architect (.md-parser diagnosis + FORWARD_KEYS-at-emit design) → robbin-expert (impl; rule-pair (a)+(b); (c) likely EXEMPT — data-pipeline only, no user surface change since display already forward-only via T181) → robbin-tester (verify /api/trace zero backward keys end-to-end; defense-in-depth intact)
+  **Rule-pair scope:** (a)+(b) required; **(c) likely EXEMPT** per learning #24 (data-pipeline only) — architect confirms.
+  **v4 uuids:** task `ab0cbe5f-…`; req-uuid R-X1 `d9c419b3-…`.
+  **Priority:** LOW (PO 2026-06-05 — display already clean; T184 completes the principle at the data source).
+  **Follows:** T181 (DISPLAY forward-only, closed in-scope) · T172 (scenario data forward-only). **Companion:** T181 filters remain as defense-in-depth.
 
 ### Phase 39 — 7-hop CI gate (T183 — strict-bar (1) operationalised)
 
