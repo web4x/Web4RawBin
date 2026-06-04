@@ -1,0 +1,311 @@
+@startuml s17-architecture
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam defaultFontSize 8
+skinparam backgroundColor White
+skinparam linetype ortho
+
+title Sprint 17 — Scenario Units: Class Architecture\nTree hierarchy + IOR chain + TraceModel typed graph
+
+' ═══════════════════════════════════════════════════════════════
+' Tree Base (T175 — generic, reusable beyond traceability)
+' ═══════════════════════════════════════════════════════════════
+
+package "Tree (generic base)" as TREE #E8F5E9 {
+
+  abstract class "TraceObject" as TO {
+    [class:uuid:101a0b1c-2d3e-4f50-8617-a01010101101]
+    --
+    + uuid: string
+    + title: string
+    + type: ObjectType
+    + status: string
+    + sprint: string
+    # graph: TraceGraph
+    - _links: Map<string, Set<string>>
+    --
+    [method:uuid:101a0b1c-0001-4a01-a001-000000000001]
+    + get parent(): TraceObject | null
+    [method:uuid:101a0b1c-0002-4a02-a002-000000000002]
+    + get children(): TraceObject[]
+    [method:uuid:101a0b1c-0003-4a03-a003-000000000003]
+    + refs(relation): string[]
+    [method:uuid:101a0b1c-0004-4a04-a004-000000000004]
+    + addRef(relation, uuid): void
+    [method:uuid:101a0b1c-0005-4a05-a005-000000000005]
+    + ref(): ObjectRef
+    [method:uuid:101a0b1c-0006-4a06-a006-000000000006]
+    + toJSON(): FlatObject
+  }
+
+  class "TraceGraph" as TG {
+    - byUuid: Map<string, TraceObject>
+    --
+    + register(obj): void
+    + get(uuid): TraceObject
+    + all(): TraceObject[]
+    + ofType(type): TraceObject[]
+    + link(a, relation, b, inverse): void
+    + resolve(obj, relation, type): T[]
+    + toJSON(): FlatObject[]
+    .. static ..
+    + fromJSON(records): TraceGraph
+  }
+
+  TG *-- TO : owns
+}
+
+' ═══════════════════════════════════════════════════════════════
+' Typed Chain (T168 LOCKED 7-step — extends TraceObject)
+' ═══════════════════════════════════════════════════════════════
+
+package "LOCKED 7-step chain" as CHAIN #E3F2FD {
+
+  class "Requirement" as REQ {
+    + type = 'requirement'
+    + addTask(t): this
+    + get tasks(): Task[]
+  }
+
+  class "Task" as TASK {
+    + type = 'task'
+    + addUseCase(u): this
+    + get useCases(): UseCase[]
+  }
+
+  class "UseCase" as UC {
+    + type = 'usecase'
+    + addClass(c): this
+    + get classes(): TraceClass[]
+  }
+
+  class "TraceClass" as CLS {
+    + type = 'class'
+    + addMethod(m): this
+    + get methods(): Method[]
+  }
+
+  class "Method" as MTH {
+    + type = 'method'
+    + addImplementation(i): this
+    + get implementations(): Implementation[]
+  }
+
+  class "Implementation" as IMPL {
+    + type = 'implementation'
+    + addTest(t): this
+    + get tests(): Test[]
+  }
+
+  class "Test" as TST {
+    + type = 'test'
+  }
+}
+
+TO <|-- REQ
+TO <|-- TASK
+TO <|-- UC
+TO <|-- CLS
+TO <|-- MTH
+TO <|-- IMPL
+TO <|-- TST
+
+REQ -[#2E7D32]-> TASK : tasks\n(forward)
+TASK -[#2E7D32]-> UC : useCases\n(forward)
+UC -[#2E7D32]-> CLS : classes\n(forward)
+CLS -[#2E7D32]-> MTH : methods\n(forward)
+MTH -[#2E7D32]-> IMPL : implementations\n(forward)
+IMPL -[#2E7D32]-> TST : tests\n(forward)
+
+' ═══════════════════════════════════════════════════════════════
+' View Components (S14/S15/S16 — extend HTMLElement)
+' ═══════════════════════════════════════════════════════════════
+
+package "View Components (client)" as VIEWS #FFF3E0 {
+
+  class "RbTraceTree" as RTT {
+    [class:uuid:108b7283-94a5-46b7-898e-b08080808108]
+    <<rb-trace-tree>>
+    --
+    + graph: TraceGraph
+    + setGraph(graph): void
+    [method:uuid:108b7283-0001-4a01-a001-000000000001]
+    + render(): void
+    [method:uuid:108b7283-0002-4a02-a002-000000000002]
+    - nodeEl(ref, ancestry): HTMLElement
+    [method:uuid:108b7283-0003-4a03-a003-000000000003]
+    - renderSeed(uuid): Promise
+  }
+
+  class "RbObjectItem" as ROI {
+    [class:uuid:3bc876b5-594c-49f3-962b-84623de2aaff]
+    <<rb-object-item>>
+    --
+    [method:uuid:f7629f0e-6b0e-4f62-a389-e0e0e0e0e0f7]
+    + render(): void
+    [method:uuid:bac0abd4-c15d-4e26-8b37-d0d0d0d0d0ba]
+    + generateName(): string
+    [method:uuid:ee69e091-ad0a-4b19-8c28-c0c0c0c0c0ee]
+    + setIcon(): void
+    [method:uuid:0a78eab3-f3e2-4a30-9d49-b0b0b0b0b00a]
+    + drag(): void
+    [method:uuid:75e6419f-db36-4b41-8e5a-a0a0a0a0a075]
+    + collapse(): void
+  }
+
+  class "RbDetailDrawer" as RDD {
+    [class:uuid:0dd08b2f-30ba-433f-a9de-285065f3fb8e]
+    <<rb-detail-drawer>>
+    --
+    [method:uuid:d2935088-2a3b-4c4d-8e5f-f0f0f0f0f0d2]
+    + open(ref): void
+    [method:uuid:f4b0acec-cf5e-4d6f-8071-e0e0e0e0e0f4]
+    + close(): void
+    [method:uuid:9a0914b8-415c-4d6e-8f70-d0d0d0d0d09a]
+    + swipeDismiss(): void
+  }
+
+  class "RbTaskDetail" as RTD {
+    [class:uuid:4df19279-f2b8-438d-97b8-03fb37e049d5]
+    <<rb-task-detail>>
+    --
+    [method:uuid:e9e78526-d441-4e52-8f63-c0c0c0c0c0e9]
+    + render(): void
+  }
+
+  class "RbRequirementDetail" as RRD {
+    [class:uuid:5d9132cf-f49e-4d3b-bc67-5078d0d576d0]
+    <<rb-requirement-detail>>
+    --
+    [method:uuid:f2930f5e-c74a-4b5b-8c6c-b0b0b0b0b0f2]
+    + render(): void
+  }
+
+  class "RbUseCaseDetail" as RUD {
+    [class:uuid:84a94745-95b3-406c-8180-56ccef63b31b]
+    <<rb-usecase-detail>>
+    --
+    [method:uuid:00d9e37e-46e1-4f72-8083-a0a0a0a0a000]
+    + render(): void
+  }
+}
+
+RTT --> ROI : creates per node
+RTT --> RDD : opens on click
+RDD --> RTD : renders Task
+RDD --> RRD : renders Requirement
+RDD --> RUD : renders UseCase
+
+' ═══════════════════════════════════════════════════════════════
+' Scenario Infrastructure (S17 — server-side)
+' ═══════════════════════════════════════════════════════════════
+
+package "Scenario Infrastructure (server)" as INFRA #FCE4EC {
+
+  class "ScenarioUnit" as SU {
+    [class:uuid:88dcce3a-770b-4c61-b996-02a72f5d6bef]
+    --
+    [method:uuid:3cc146e5-036a-4b7b-8c8c-d0d0d0d0d03c]
+    + ior: string
+    [method:uuid:642f9bc5-487c-4d8d-8e9e-c0c0c0c0c064]
+    + load(json): this
+    + model: Record<string, any>
+    + ownerIor: string | null
+  }
+
+  class "ScenarioIndex" as SI {
+    [class:uuid:f9a3f8d1-93db-46aa-8ad7-c34f29905450]
+    --
+    [method:uuid:5b84da47-c7f0-4e01-8f12-b0b0b0b0b05b]
+    + put(uuid, scenario): void
+    [method:uuid:f180c93f-5a2e-4f3f-8040-a0a0a0a0a0f1]
+    + get(uuid): ScenarioUnit
+    [method:uuid:b9abb018-0a3d-4e4e-8f5f-909090909090]
+    + prefix(uuid): string
+  }
+
+  class "IORResolver" as IR {
+    [class:uuid:fdc768a6-8779-42e1-9e7c-775338733c09]
+    --
+    [method:uuid:926b1a00-fe50-4e61-8072-808080808092]
+    + resolve(ior): ScenarioUnit | ClassLoader
+    [method:uuid:bd6700da-a93c-4d7d-8e8e-707070707070]
+    + resolveClass(ior): ClassLoader
+    [method:uuid:e0351edf-ee2d-4e8e-8f9f-606060606060]
+    + resolveInstance(ior): ScenarioUnit
+  }
+
+  class "ClassRegistry" as CR {
+    [class:uuid:60a20d33-6b6e-4acc-b9da-2685380f23cb]
+    --
+    [method:uuid:255ecabf-396a-4b7b-8c8c-505050505025]
+    + register(name, loader): void
+    [method:uuid:607fef49-939d-4e8e-8f9f-404040404060]
+    + get(name): ClassLoader
+  }
+
+  class "ViewTemplateRegistry" as VT {
+    [class:uuid:6fdc9ac6-0cf1-4d16-86ed-7c6f68f07d2e]
+    --
+    [method:uuid:0fa1bf49-df0a-4b1b-8c2c-303030303010]
+    + register(className, tmpl): void
+    [method:uuid:b0e09fb1-839b-4c3c-8d4d-202020202020]
+    + renderHtml(scenario): string
+    [method:uuid:13231016-ce8c-4d5d-8e6e-101010101013]
+    + renderMd(scenario): string
+  }
+
+  class "SpeakingTree" as ST {
+    [class:uuid:a4f056d2-463c-4613-8f3b-d3af2069b26c]
+    --
+    [method:uuid:75f0015c-3a0a-4b1b-8c2c-f0f0f0f0f075]
+    + symlinkJson(sprint, tasks): void
+    [method:uuid:500661d4-e08e-4f1f-8020-e0e0e0e0e050]
+    + generateMd(sprint, templates): void
+  }
+
+  class "TraceConsistency" as TC {
+    [class:uuid:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9]
+    --
+    [method:uuid:055a7f68-1d9a-4b0b-8c1c-d0d0d0d0d005]
+    + auditOrphans(): Issue[]
+    [method:uuid:963b67a2-488b-4c2c-8d3d-c0c0c0c0c096]
+    + scanRepo(): {graph, coverage}
+    [method:uuid:3dc29df9-0dac-4d4d-8e5e-b0b0b0b0b03d]
+    + validate(): Issue[]
+  }
+}
+
+IR --> CR : uses
+IR --> SI : reads
+IR --> SU : instantiates
+ST --> VT : uses templates
+TC --> TG : produces graph
+
+' ═══════════════════════════════════════════════════════════════
+' IOR-based parent/children links (scenario JSON)
+' ═══════════════════════════════════════════════════════════════
+
+note bottom of TO
+  **IOR Forward Links (scenario JSON)**
+  model.tasks[] = ["ior:instance:<uuid>", ...]
+  model.useCases[] = ["ior:instance:<uuid>", ...]
+  model.classes[] = ["ior:instance:<uuid>", ...]
+  model.methods[] = ["ior:instance:<uuid>", ...]
+  model.implementations[] = ["ior:instance:<uuid>", ...]
+  model.tests[] = ["ior:instance:<uuid>", ...]
+
+  **parent/children (T175 Tree getter)**
+  get parent → walk ABOVE map + FORWARD scan
+  get children → FORWARD_KEYS[this.type] → resolve()
+end note
+
+legend bottom right
+  **LOCKED 7-step chain** (T168)
+  req → task → uc → class → method → impl → test
+  Forward-only. No backward links in display (T181).
+  Every [class:uuid] / [method:uuid] feeds the
+  UC→Class→Method chain for T178 44/44.
+endlegend
+
+@enduml
