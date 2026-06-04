@@ -428,15 +428,45 @@ PO direction 2026-06-04: stand up T182 as formal task — Browse-source affordan
   **Status:** ✅ impl-shipped — expert `cf6182f1` v0.5.81 (scenario-view link on ALL 7 DetailViews). Rule-pair (a)+(b)+(c) ✓ — STATIC_SHELL updated; 836/836 pass. Tester SW-active verify per strict-bar 2b pending.
   **v4 uuids:** task `383938b1-…`; req-uuid R-W `f230df9d-…`.
 
+### S17 Closure Tracking — T178/T128.4/T124/T168 chain (PO 2026-06-04 snapshot)
+
+**Snapshot 2026-06-04 (post-T183-ship):** T183 7-hop CI gate is the **auto-confirm trigger** — once it reports 44/44, T178+T124+T168 closure conditions are mechanically met.
+
+**Current state of the chain:**
+| Task | Symbol | Closure gate | Driver |
+|------|--------|--------------|--------|
+| **T183** | ✅ | rule-pair EXEMPT — shipped `77adf9bf`; live baseline **1/44** (works as designed) | Watches 44/44 forever |
+| **T128.4** | ⏳/🔧 | Architect+req JOINT in-flight: 6 new UseCase units for S14/S15 classes + UC→Task mapping → expert `--apply` retrofit (50 impl + 21 test markers) | **NEXT PIVOT** — closure-chain trigger |
+| **T178** | ✅ | impl-shipped; **DATA gate**: tester reachability snapshot **36/44** → blocked by T128.4 markers | Auto-closes when T128.4 lifts to 44/44 |
+| **T124** | ✅ code-side | DATA gate per PO 2026-06-03 — **do not mark traceability chain done on code alone** | Auto-closes when T183 hits 44/44 |
+| **T168** | 🧪 | LOCKED chain code DONE; DATA gate same as T124/T178 | Auto-closes when T183 hits 44/44 |
+
+**Closure trigger sequence (the moment X lands, Y auto-confirms):**
+```
+1. Architect S17 UC→Task mapping table commits
+   ↓
+2. Expert runs --apply (T128.4 marker retrofit; rule-pair likely EXEMPT — source-comment-only)
+   ↓
+3. T183 trace:audit:strict re-runs → reports 44/44 (auto-confirm)
+   ↓
+4. T178 ✅→🧪 (tester 44/44 reverify), T128.4 🔧→✅
+   ↓
+5. T124 + T168 ✅→🧪 (DATA gate satisfied; tester closes)
+   ↓
+6. Sprint 17 → Tron QA gate eligible (T129 verification opens)
+```
+
+**Critical-path note (PO 2026-06-04):** T180 (real-device unblock, Tron locked out by self-signed-cert SW block) ranks ABOVE this chain — Tron must be back on a working device before final closure can be Tron-QA'd. The closure chain mechanics are independent and can proceed in parallel with Track 2 of T180 (CDP Playwright workaround).
+
 ### Phase 39 — 7-hop CI gate (T183 — strict-bar (1) operationalised)
 
 PO direction (implied by tester-driven stand-up + learning #27): the strict-bar (1) per-Test 7-hop reachability assertion gets a dedicated `trace:audit:strict` extension. T183 is the gate spec authored by tester `c0f61299`; expert implements; tester verifies. No-op pass after T128.4 + T178 fill; guards regression forever.
 
-- [ ] 📝 [T183: 7-hop CI gate — trace:audit:strict per-Test reachability](./task-183-7-hop-ci-gate.md)
-  **Status:** 📝 spec authored (tester `c0f61299` 2026-06-04 — gate algorithm walkUp every Test → Impl → Method → Class → UC → Task → Req; exit 1 if any unreachable; reports X/44 + per-test break table). Planner reconciled per learning #20 — Subtasks + QA Audit sections added for compliance. Awaiting expert impl; rule-pair (a)+(b) per architect declaration (test-infra; (c) likely exempt per learning #24).
-  **Owners (CMM4):** robbin-tester (spec + verify) → robbin-expert (impl script + integrate into trace:audit:strict)
+- [ ] ✅ [T183: 7-hop CI gate — trace:audit:strict per-Test reachability](./task-183-7-hop-ci-gate.md)
+  **Status:** ✅ impl-shipped — expert `77adf9bf` 2026-06-04 ships gate (`scripts/trace-audit-strict.mjs` integrated into `npm run trace:audit:strict`); fixed CANONICAL_FORWARD direction; walkUp every Test → Impl → Method → Class → UC → Task → Req; exit 1 if any unreachable; reports per-Test depth + break table. **Live pre-fill baseline: 1/44** (gate works; 43 currently fail on missing T128.4 markers + T178-data gaps — by design). Rule-pair EXEMPT per learning #24 (CI tooling only, no user surface; expert self-declared "No version bump"); 836/836. Tester verification + Tron QA after T128.4 + remaining T178 data-fill land.
+  **Owners (CMM4):** robbin-tester (spec `c0f61299` + verify-after-fill) → robbin-expert (impl `77adf9bf` + integrate into `trace:audit:strict`)
   **Follows:** T170 (CI gates baseline) · T172/T178/T128.4 (data fill — gate is no-op pass once landed) · standards Strict Verify Bar (1) + learning #27.
-  **Enables:** permanent regression guard on 7-hop chain integrity.
+  **Enables:** permanent regression guard on 7-hop chain integrity. **Auto-confirms 44/44 on closure-chain unblock** (see S17 Closure Tracking below).
 
 ### Phase 35 — Tron R-S (SW auto-activation reliability — recurring stale-cache root fix)
 
