@@ -91,7 +91,7 @@ prose. Then **migrate every existing sprint** to this model.
   - T128.1 — exemplar migration: Sprint 1 task-1 + task-1.1 (Tron's preferred structural template)
   - **T128.2 ✅ shipped** — S10-S16 requirements migrated to scenario index (`f4d21b3` v0.5.64, rule-pair (a)+(b) ✓; tester pending; closes path (b) of T163 close-out trio)
   - T128.3 — batch migrate Sprints 10-16 (active, regenerate views)
-  - T128.4 — method markers retrofit (every src/ method gets `[impl:uuid:]` linking up to a Task)
+  - **T128.4 ⏳ formal stand-up (PO 2026-06-04)** — method markers retrofit; [task file](./task-128.4-method-marker-retrofit.md). Tester proved 0/44 7-hop reachable after T178 pipeline (`c6c695a4`) shipped — 50 impl markers + 21 test markers missing in src/ + test/. 4-role: architect+req map → expert markers → tester 44/44. task uuid `8b405c16-…`; req-uuid R-V `5e6c2810-…`. Rule-pair likely EXEMPT (source-comment-only). UNBLOCKS T178 closure + T124/T168 final close + strict-bar per-Test CI gate.
 
 - [ ] 🧪 [T131: File-browser symlink support (FileApi + rb-file-tree)](./task-131-file-browser-symlinks.md)
   **Status:** impl + testing DONE (aad0816 v0.5.30; tester verified 37 markers per PO 2026-05-31; 818/818) — Tron QA pending
@@ -388,8 +388,8 @@ PO direction 2026-06-03: /scenario shows "Not found" for some UUIDs along ior-fo
 
 PO direction 2026-06-03 — explicit GATE on the traceability chain story: T168/T124 CODE is done (`e714e255` v0.5.77), but tester reverify found scenario DATA only chains Req→Task→Subtask (3 deep); UC/Class/Method/Impl/Test forward arrays empty → 44 tests "chain gap" → R-J + R-E NOT satisfied in DATA. PO: **DO NOT mark traceability chain done on code alone.** T178 closes the data side. 4-role planner-first.
 
-- [ ] ⏳ [T178: 7-step chain DATA-FILL + lazy-load-deeper-fails (KEYSTONE)](./task-178-7-step-chain-data-fill-44-tests.md)
-  **Status:** ⏳ planned (planner-first scaffold 2026-06-03 — architect designs marker-parser pipeline; expert populates; tester proves 44/44 tests reach Requirement roots via full 7-step). Data-only migration; no user surface. **Folded (PO 2026-06-04):** Tron live /trace lazy-load deeper expand stops working at some depth — architect must diagnose data-vs-mechanism (run marker-parser → re-test /trace deeper; if still fails with populated data, it's a tree mechanism bug to fix in the same T178 pass).
+- [ ] ✅ [T178: 7-step chain DATA-FILL + lazy-load-deeper-fails (KEYSTONE)](./task-178-7-step-chain-data-fill-44-tests.md)
+  **Status:** ✅ impl-shipped — expert `c6c695a4` shipped `scripts/populate-forward-refs.ts` 6-step idempotent pipeline: created 36 Implementation + 44 Test units (397→477); linked 30 Method→Impl + 16 Impl→Test via heuristic matching. No version bump (data-only; rule-pair exempt per learning #24); 836/836 pass. ⚠️ **TESTER FOUND 0/44 7-hop reachable** — pipeline shipped but heuristic linking is sparse because **50 `[impl:uuid:]` + 21 `[test:uuid:]` markers missing in src/+test/**. Closure GATED on **T128.4 (formal stand-up 2026-06-04)** — marker retrofit + T178 pipeline re-run + 44/44 tester walk. **Folded (PO 2026-06-04):** lazy-load-deeper-fails diagnosis (data vs tree mechanism) bundled within T178 scope; T128.4 lands the data side, then T178 confirms mechanism is clean.
   **Owners (CMM4):** robbin-req (R-Q anchor when Tron-relayed) → robbin-architect (marker-parser pipeline + linking rules per hop: PUML for UC→Class; source for Class→Method, impl:uuid: markers for Method→Impl, test:uuid: markers for Impl→Test) → robbin-expert (impl + run; rule-pair (a)+(b)) → robbin-tester (walk 44/44 tests to Requirement roots via full 7-step; no regression on T172 238/238)
   **Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL exempt (data-only migration; per learning #24).
   **v4 uuids:** task `4bd33c18-…`; req-uuid R-Q `cd5dc5b7-…`.
