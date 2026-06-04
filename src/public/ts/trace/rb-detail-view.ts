@@ -11,6 +11,7 @@
 import { TraceGraph, refUuid, type ObjectRef } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
+import { forwardOnly } from './forward-only.js';
 
 export class RbDetailView extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -29,7 +30,7 @@ export class RbDetailView extends HTMLElement {
     const obj = this.graph?.get(refUuid(ref));
     if (!obj) { this.innerHTML = `<div class="trace-notfound">object not found: ${ref}</div>`; return; }
 
-    const links = obj.toJSON().links; // { relation: [type:uuid…] } — already route-like
+    const links = forwardOnly(obj);
     const rows: string[] = [];
     for (const [relation, refs] of Object.entries(links)) {
       for (const lref of refs) {

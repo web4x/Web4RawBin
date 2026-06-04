@@ -9,6 +9,7 @@
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
+import { forwardOnly } from './forward-only.js';
 
 export class RbUseCaseDetail extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -27,7 +28,7 @@ export class RbUseCaseDetail extends HTMLElement {
     const obj = this.graph?.get(refUuid(ref));
     if (!obj) { this.innerHTML = '<div class="dv-empty">Use case not found</div>'; return; }
 
-    const links = obj.toJSON().links;
+    const links = forwardOnly(obj);
     this.innerHTML = `
       <div class="dv-head">
         <span class="dv-type-badge dv-type-usecase">Use Case</span>

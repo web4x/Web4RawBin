@@ -5,6 +5,7 @@
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
+import { forwardOnly } from './forward-only.js';
 
 export class RbImplementationDetail extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -18,7 +19,7 @@ export class RbImplementationDetail extends HTMLElement {
     const ref = this.getAttribute('ref') || '';
     const obj = this.graph?.get(refUuid(ref));
     if (!obj) { this.innerHTML = '<div class="dv-empty">Implementation not found</div>'; return; }
-    const links = obj.toJSON().links;
+    const links = forwardOnly(obj);
     this.innerHTML = `
       <div class="dv-head">
         <span class="dv-type-badge" style="background:rgba(78,52,46,0.25);color:#a1887f">Implementation</span>
