@@ -23,7 +23,9 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:16a01141-d141-4a01-b141-000000114001"
+    ],
     "implementations": []
   },
   "ownerIor": "ior:instance:5d8ba5b6-df24-41bf-a528-31b6e8bf6356"

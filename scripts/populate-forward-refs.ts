@@ -21,6 +21,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INDEX_DIR = path.join(__dirname, '../scenario/index');
 const SRC_DIR = path.join(__dirname, '../src');
 const TEST_DIR = path.join(__dirname, '../test');
+const SPRINTS_DIR = path.join(__dirname, '../scrum.pmo/sprints');
 
 const apply = process.argv.includes('--apply');
 const idx = new ScenarioIndex(INDEX_DIR);
@@ -60,6 +61,76 @@ for (const uuid of allUuids) {
 }
 
 console.log(`\nLoaded ${allUuids.length} units: ${[...unitsByType.entries()].map(([t, us]) => `${t}=${us.length}`).join(', ')}`);
+
+// Step 0: Task → UseCase[] from PUML <<UseCase>> blocks (parse task: Tnnn → match to task slug)
+let taskUcLinks = 0;
+const taskByNum = new Map<string, ScenarioUnit[]>();
+for (const task of (unitsByType.get('Task') || [])) {
+  const slug = String(task.model.slug || task.model.name || '');
+  const numMatch = slug.match(/(?:task-?|T)(\d+(?:\.\d+)*)/i);
+  if (numMatch) {
+    const key = numMatch[1];
+    if (!taskByNum.has(key)) taskByNum.set(key, []);
+    taskByNum.get(key)!.push(task);
+  }
+}
+// Parse all PUML files for <<UseCase>> blocks with task: Tnnn
+const pumlRe = /class\s+"([^"]+)"\s+<<UseCase>>\s*\{([^}]+)\}/g;
+const ucTaskMap: { ucUuid: string; taskNum: string }[] = [];
+function walkPuml(dir: string) {
+  if (!fs.existsSync(dir)) return;
+  for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, ent.name);
+    if (ent.isDirectory()) walkPuml(full);
+    else if (ent.name.endsWith('.puml')) {
+      const text = fs.readFileSync(full, 'utf-8');
+      for (const m of text.matchAll(pumlRe)) {
+        const body = m[2];
+        const uuidM = body.match(/\[uc:uuid:([0-9a-f-]{36})\]/i);
+        const taskM = body.match(/task:\s*T(\d+)/i);
+        if (uuidM && taskM) ucTaskMap.push({ ucUuid: uuidM[1].toLowerCase(), taskNum: taskM[1] });
+      }
+    }
+  }
+}
+walkPuml(SPRINTS_DIR);
+// Also parse UC scenario units that have a task-like ownerIor
+for (const uc of (unitsByType.get('UseCase') || [])) {
+  const ownerIor = String(uc.ownerIor || '').replace('ior:instance:', '');
+  if (ownerIor) {
+    const ownerUnit = unitByUuid.get(ownerIor);
+    if (ownerUnit && ownerUnit.ior === 'ior:class:Task') {
+      ucTaskMap.push({ ucUuid: String(uc.model.uuid), taskNum: '' });
+      // Direct owner link — add UC to task's useCases
+      const taskModel = ownerUnit.model as Record<string, unknown>;
+      const ucs = (taskModel.useCases as string[]) || [];
+      const ior = `ior:instance:${uc.model.uuid}`;
+      if (!ucs.includes(ior)) {
+        ucs.push(ior);
+        taskModel.useCases = ucs;
+        if (apply) idx.put(String(taskModel.uuid), ownerUnit);
+        taskUcLinks++;
+      }
+    }
+  }
+}
+// Link PUML-derived UC→Task
+for (const { ucUuid, taskNum } of ucTaskMap) {
+  if (!taskNum) continue;
+  const tasks = taskByNum.get(taskNum) || [];
+  for (const task of tasks) {
+    const taskModel = task.model as Record<string, unknown>;
+    const ucs = (taskModel.useCases as string[]) || [];
+    const ior = `ior:instance:${ucUuid}`;
+    if (!ucs.includes(ior)) {
+      ucs.push(ior);
+      taskModel.useCases = ucs;
+      if (apply) idx.put(String(taskModel.uuid), task);
+      taskUcLinks++;
+    }
+  }
+}
+console.log(`\nTask→UseCase links added: ${taskUcLinks} (from ${ucTaskMap.length} PUML mappings)`);
 
 // Step 1: Create Implementation units from [impl:uuid:] in src/
 const implMarkers = scanMarkers(SRC_DIR, /\[impl:uuid:([0-9a-f-]{36})\]\s*(.*)/gi);
