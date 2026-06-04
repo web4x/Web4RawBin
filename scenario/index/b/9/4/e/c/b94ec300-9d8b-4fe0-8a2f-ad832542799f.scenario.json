@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "b94ec300-9d8b-4fe0-8a2f-ad832542799f",
+    "name": "lobby.newestFirst",
+    "object": "lobby",
+    "verb": "newestFirst",
+    "classes": [
+      "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+    ],
+    "tasks": []
+  },
+  "ownerIor": "ior:instance:1c6c4aa1-7201-4ca8-a8b3-d4491f52ef35"
+}

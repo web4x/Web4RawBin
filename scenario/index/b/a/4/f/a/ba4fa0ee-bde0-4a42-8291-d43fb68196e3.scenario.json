@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "ba4fa0ee-bde0-4a42-8291-d43fb68196e3",
+    "name": "avatar.rekeyFix",
+    "object": "avatar",
+    "verb": "rekeyFix",
+    "classes": [
+      "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+    ],
+    "tasks": []
+  },
+  "ownerIor": "ior:instance:109a0b1c-2d3e-4f50-8617-a09010901109"
+}

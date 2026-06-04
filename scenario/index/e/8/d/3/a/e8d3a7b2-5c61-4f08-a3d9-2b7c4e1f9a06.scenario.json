@@ -6,16 +6,16 @@
     "slug": "task-82-vcard-visibility-avatar-dry",
     "description": "",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing (robbin-tester — TS1-TS4)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing (robbin-tester \u2014 TS1-TS4)\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:20b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a51](./requirements.md) — R10.2 vCard button visibility + avatar DRY\n  - [Sprint 10 Planning](./planning.md)\n- down\n  - None (atomic task)\n- follows\n  - [T81](./task-81-member-click-vcard.md) — member-click landed (v0.4.9); T82 fixes follow-on sheet defects",
+    "traceability": "- up\n  - [requirement:uuid:20b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a51](./requirements.md) \u2014 R10.2 vCard button visibility + avatar DRY\n  - [Sprint 10 Planning](./planning.md)\n- down\n  - None (atomic task)\n- follows\n  - [T81](./task-81-member-click-vcard.md) \u2014 member-click landed (v0.4.9); T82 fixes follow-on sheet defects",
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [x] AC1: \"Download vCard\" button is VISIBLE in the joined-user sheet (readable text, distinct from \"Link Account\")\n- [x] AC2: \"Link Account\" button remains visible and unchanged\n- [x] AC3: Clicking \"Download vCard\" invokes the vCard builder (produces a .vcf blob) — behavior unchanged from existing `downloadVCard()`\n- [x] AC4: The sheet's avatar is an `<rb-avatar>` element (NOT a bare `<img>` built inline in ProfileSheet)\n- [x] AC5: The sheet avatar shows the joined user's picture (loaded from `/api/avatar/<their-token>`), or the initial-letter fallback if none\n- [x] AC6: The sheet avatar is `readonly` — tapping it does NOT open the upload/crop editor overlay\n- [x] AC7: Lobby `.btn-secondary` buttons (dark background, e.g. \"Refresh\") remain visible/unchanged — the CSS override is scoped to `.user-sheet` only\n- [x] AC8: `npm run build` succeeds; no new tsc errors in changed files (expert)\n- [x] AC9: Served bundle reflects the bump — live `/api/health` + `/api/config` now v0.5.4 (advanced past v0.5.0)\n- [x] AC10: All existing E2E specs still pass (no regression) + new test passes\n- [x] AC11: `ProfileSheet.open(profile, opts?: { isSelf?, onEdit? })` signature exists (verified in source ProfileSheet.ts:24); `{}` opts → `[Download vCard][Link Account]`; `isSelf` branch (`#us-edit`) wired by T83; ProfileSheet does NOT import ProfileEditor",
+    "acceptanceCriteria": "- [x] AC1: \"Download vCard\" button is VISIBLE in the joined-user sheet (readable text, distinct from \"Link Account\")\n- [x] AC2: \"Link Account\" button remains visible and unchanged\n- [x] AC3: Clicking \"Download vCard\" invokes the vCard builder (produces a .vcf blob) \u2014 behavior unchanged from existing `downloadVCard()`\n- [x] AC4: The sheet's avatar is an `<rb-avatar>` element (NOT a bare `<img>` built inline in ProfileSheet)\n- [x] AC5: The sheet avatar shows the joined user's picture (loaded from `/api/avatar/<their-token>`), or the initial-letter fallback if none\n- [x] AC6: The sheet avatar is `readonly` \u2014 tapping it does NOT open the upload/crop editor overlay\n- [x] AC7: Lobby `.btn-secondary` buttons (dark background, e.g. \"Refresh\") remain visible/unchanged \u2014 the CSS override is scoped to `.user-sheet` only\n- [x] AC8: `npm run build` succeeds; no new tsc errors in changed files (expert)\n- [x] AC9: Served bundle reflects the bump \u2014 live `/api/health` + `/api/config` now v0.5.4 (advanced past v0.5.0)\n- [x] AC10: All existing E2E specs still pass (no regression) + new test passes\n- [x] AC11: `ProfileSheet.open(profile, opts?: { isSelf?, onEdit? })` signature exists (verified in source ProfileSheet.ts:24); `{}` opts \u2192 `[Download vCard][Link Account]`; `isSelf` branch (`#us-edit`) wired by T83; ProfileSheet does NOT import ProfileEditor",
     "qaAudit": "- Pending PO refinement review, then Tron QA.",
     "subtasks": "None (atomic task for this sprint).",
-    "assigned": "**Owner:** robbin-expert (implement), robbin-tester (verify)\n**This file is the single source of truth.** Expert and tester work from this file alone — no chat clarification.\n\n---",
+    "assigned": "**Owner:** robbin-expert (implement), robbin-tester (verify)\n**This file is the single source of truth.** Expert and tester work from this file alone \u2014 no chat clarification.\n\n---",
     "architectDesign": "",
     "dependencies": "",
     "definitionOfDone": "",
@@ -23,7 +23,9 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:019d98ca-3495-4b01-afb8-19a3bd431a11"
+    ],
     "implementations": []
   },
   "ownerIor": "ior:instance:3844040c-dfa2-4afa-a8dd-6580047b8ec9"

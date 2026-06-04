@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "856c9b1e-fdb9-47f9-a555-6aa70159d3b1",
+    "name": "contacts.memberClick",
+    "object": "contacts",
+    "verb": "memberClick",
+    "classes": [
+      "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+    ],
+    "tasks": []
+  },
+  "ownerIor": "ior:instance:c7e2d6f1-3a84-4b29-9d05-6e1f2a8b4c70"
+}

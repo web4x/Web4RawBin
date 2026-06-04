@@ -8,7 +8,9 @@
     "tasks": [
       "ior:instance:b94d2681-54f0-47e3-a431-f3d84e469b30"
     ],
-    "classes": [],
+    "classes": [
+      "ior:instance:a4f056d2-463c-4613-8f3b-d3af2069b26c"
+    ],
     "source": {
       "file": "scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml",
       "lines": [

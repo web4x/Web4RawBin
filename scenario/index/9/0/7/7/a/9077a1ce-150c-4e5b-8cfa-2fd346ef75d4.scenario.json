@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "9077a1ce-150c-4e5b-8cfa-2fd346ef75d4",
+    "name": "server.strip",
+    "object": "server",
+    "verb": "strip",
+    "classes": [],
+    "tasks": []
+  },
+  "ownerIor": "ior:instance:01df5b22-b485-40c4-b9fc-57a85676dfa5"
+}

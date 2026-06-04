@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "387d9308-9e15-41b8-b4a0-ae10f6f04fc8",
+    "name": "editor.backButton",
+    "object": "editor",
+    "verb": "backButton",
+    "classes": [
+      "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+    ],
+    "tasks": []
+  },
+  "ownerIor": "ior:instance:f7a2c4e6-3b8d-4f10-a5c7-9e1d3f5b7a90"
+}

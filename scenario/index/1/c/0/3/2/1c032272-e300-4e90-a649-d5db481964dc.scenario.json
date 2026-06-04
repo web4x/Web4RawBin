@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "1c032272-e300-4e90-a649-d5db481964dc",
+    "name": "client.render",
+    "object": "client",
+    "verb": "render",
+    "classes": [],
+    "tasks": []
+  },
+  "ownerIor": "ior:instance:4e4f3530-db7c-479f-902b-a5aefefba3e6"
+}

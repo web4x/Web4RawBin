@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "1e18cecf-023d-4472-9842-c2f8e28abd28",
+    "name": "room.test",
+    "object": "room",
+    "verb": "test",
+    "classes": [],
+    "tasks": []
+  },
+  "ownerIor": "ior:instance:adf00ff5-d8e0-48b5-bb6e-07886064ebe4"
+}
