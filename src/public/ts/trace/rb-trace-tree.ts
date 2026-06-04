@@ -59,13 +59,13 @@ export class RbTraceTree extends HTMLElement {
     const roots = this.graph.ofType('requirement');
     this.innerHTML = '';
 
-    // Walk forward from requirement roots to find reachable set
+    // Walk forward-only from requirement roots (LOCKED chain children)
     const reachable = new Set<string>();
     const walk = (ref: string) => {
       if (reachable.has(ref)) return;
       reachable.add(ref);
       const obj = this.graph!.get(refUuid(ref));
-      if (obj) Object.values(obj.toJSON().links).flat().forEach(walk);
+      if (obj) obj.children.forEach(c => walk(c.ref()));
     };
     for (const r of roots) walk(r.ref());
 
@@ -88,7 +88,7 @@ export class RbTraceTree extends HTMLElement {
     const node = document.createElement('div');
     node.className = 'tt-node';
     const obj = this.graph!.get(refUuid(ref));
-    const childRefs = obj ? Object.values(obj.toJSON().links).flat() : [];
+    const childRefs = obj ? obj.children.map(c => c.ref()) : [];
     const hasChildren = childRefs.length > 0 && !ancestry.has(ref);
     const isOpen = this.expanded.has(ref);
 
