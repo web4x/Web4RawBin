@@ -17,11 +17,13 @@ const INDEX_DIR = path.join(__dirname, '../scenario/index');
 
 const CANONICAL_FORWARD: Record<string, string[]> = {
   Requirement: ['tasks'],
-  Task: ['useCases', 'children'],
-  UseCase: ['classes', 'tasks'],
+  Task: ['useCases', 'children', 'subtasks'],
+  UseCase: ['classes'],
   Class: ['methods'],
-  Method: [],
+  Method: ['implementations'],
+  Implementation: ['tests'],
   Sprint: ['tasks', 'requirements'],
+  Test: [],
   TraceLink: [],
 };
 
@@ -39,6 +41,7 @@ interface AuditResult {
   orphans: { uuid: string; type: string; name: string }[];
   backRefs: { uuid: string; type: string; field: string }[];
   cardinalityIssues: string[];
+  hopResults: { total: number; reachable: number; unreachable: { uuid: string; name: string; breakHop: string }[] };
 }
 
 function getType(unit: ScenarioUnit): string {
@@ -113,12 +116,56 @@ function auditAll(idx: ScenarioIndex): AuditResult {
       cardinalityIssues.push(`${uuid}: requirement.tasks not an array`);
   }
 
+  // Pass 4 (T183): 7-hop walkUp — every Test must reach a Requirement root
+  const reverseMap = new Map<string, Set<string>>();
+  for (const [uuid, unit] of units) {
+    const type = getType(unit);
+    const fwdKeys = CANONICAL_FORWARD[type] || [];
+    for (const key of fwdKeys) {
+      const refs = (unit.model as Record<string, unknown>)[key];
+      if (!Array.isArray(refs)) continue;
+      for (const ref of refs) {
+        const childUuid = resolveIor(String(ref));
+        if (!reverseMap.has(childUuid)) reverseMap.set(childUuid, new Set());
+        reverseMap.get(childUuid)!.add(uuid);
+      }
+    }
+  }
+
+  const testUnits = [...units.entries()].filter(([, u]) => getType(u) === 'Test');
+  const hopResults: { uuid: string; name: string; reachable: boolean; breakHop: string }[] = [];
+  for (const [testUuid, testUnit] of testUnits) {
+    let found = false;
+    let breakHop = '';
+    const queue: { uuid: string; hops: number }[] = [{ uuid: testUuid, hops: 0 }];
+    const seen = new Set<string>();
+    while (queue.length > 0) {
+      const { uuid: cur, hops } = queue.shift()!;
+      if (seen.has(cur)) continue;
+      seen.add(cur);
+      const u = units.get(cur);
+      if (u && getType(u) === 'Requirement') { found = true; break; }
+      if (hops >= 7) continue;
+      const parents = reverseMap.get(cur);
+      if (!parents || parents.size === 0) {
+        if (!found) breakHop = `${u ? getType(u) : '?'}→(no parent)`;
+      } else {
+        for (const p of parents) queue.push({ uuid: p, hops: hops + 1 });
+      }
+    }
+    hopResults.push({ uuid: testUuid, name: String(testUnit.model.name || testUuid), reachable: found, breakHop });
+  }
+
+  const hopReachable = hopResults.filter(r => r.reachable).length;
+  const hopUnreachable = hopResults.filter(r => !r.reachable);
+
   return {
     total: allUuids.length,
     reachable: visited.size,
     orphans,
     backRefs,
     cardinalityIssues,
+    hopResults: { total: testUnits.length, reachable: hopReachable, unreachable: hopUnreachable },
   };
 }
 
@@ -140,7 +187,16 @@ for (const b of result.backRefs.slice(0, 20)) console.log(`  - ${b.uuid.slice(0,
 console.log(`\nCardinality: ${result.cardinalityIssues.length} (${result.cardinalityIssues.length === 0 ? 'PASS' : 'FAIL'})`);
 for (const c of result.cardinalityIssues) console.log(`  - ${c}`);
 
-const totalIssues = result.orphans.length + result.backRefs.length + result.cardinalityIssues.length;
-console.log(`\n=== AUDIT ${totalIssues === 0 ? 'PASSED' : `FAILED (${totalIssues} issues)`} ===\n`);
+const hop = result.hopResults;
+const hopPass = hop.reachable === hop.total;
+console.log(`\n7-hop strict audit: ${hop.reachable}/${hop.total} tests reachable from Requirement roots (${hopPass ? 'PASS' : 'FAIL'})`);
+if (hop.unreachable.length > 0) {
+  console.log('UNREACHABLE TESTS:');
+  for (const t of hop.unreachable) console.log(`  ${t.name}  break: ${t.breakHop || 'unknown'}`);
+}
 
-if (strict && totalIssues > 0) process.exit(1);
+const totalIssues = result.orphans.length + result.backRefs.length + result.cardinalityIssues.length;
+const allPass = totalIssues === 0 && hopPass;
+console.log(`\n=== AUDIT ${allPass ? 'PASSED' : `FAILED (${totalIssues} orphan/backref/card issues + ${hop.unreachable.length} unreachable tests)`} ===\n`);
+
+if (strict && !allPass) process.exit(1);
