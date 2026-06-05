@@ -183,3 +183,4 @@ Deduplication: R18.5 covered scenario-vs-trace branching at Requirement level. R
 | R18.6 | `18f6a7b8` | TBD (bug) | Tree incremental DOM append, no full re-render |
 | R18.7 | `18a7b8c9` | TBD (bug) | Scroll position preserved on expand/collapse |
 | R18.8 | `18b8c9d0` | TBD | Browser root: Sprint → Task → covered Requirements → chain |
+| R-CHAMP | `a0b1c2d3` | standing | Champagne: leaf test verifies root requirement's intention |

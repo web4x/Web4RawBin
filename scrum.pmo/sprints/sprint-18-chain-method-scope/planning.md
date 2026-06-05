@@ -46,8 +46,10 @@ Decomposition hints (req-eng authoritative when committed; below are placeholder
     3. Expert FIX `fa921029` v0.5.89 — /trace fetches `/api/trace/sprints` (Sprint nav root R18.8); `/trace` mode=trace (UC→method singular); `/scenario` mode=scenario (fan-out); divergence at UC→Method hop. Rule-pair (a)+(b)+(c) ✓; 836/836.
     4. Tester re-authored TS `b56895b7` (corrected UC→Method narrowing model).
     5. Tester STRICT-bar RE-RUN on v0.5.89 (PO 2026-06-05): **NAV layer PASSED** (Sprint root + 1:N). **Iteration-2 BUG: UC→Method OVER-NARROWS — returns 0 children, should be 1** (TS6-TS9 partial fail on singular-narrow edge case).
-    6. Expert FIX **v0.5.90 IN FLIGHT** (uncommitted on planner-read 2026-06-05: `package.json` + `sw.js` + `src/ts/scenario/index-store.ts` modified). Tester re-runs TS6-TS9 on next redeploy.
-  - Owners (4-role iteration-2 fix cycle): req `22f43f31` → architect → expert `02c99a7e`→`fa921029`→v0.5.90 WIP → tester (1st STRICT: 3 fails; 2nd STRICT: NAV PASS + UC→Method bug; 3rd STRICT pending v0.5.90)
+    6. Expert FIX **v0.5.90 `ea240f43`** SHIPPED — ScenarioIndex legacy-path fallback for 12 old-format units; `filePath()` checks new-format first, falls back to legacy 5-char flat format. Rule-pair (a)+(b) ✓; (c) unchanged; 836/836.
+    7. Expert FIX **v0.5.91 `1307f6c1`** SHIPPED — `/api/trace/children?mode=trace` now correctly uses TRACE_FORWARD; UC `traceTree.expandChain` **returns 1 method child instead of 0 or 2** (UC→Method over-narrow bug fixed). Rule-pair (a)+(b) ✓; (c) unchanged; 836/836.
+    8. **PENDING tester STRICT-bar 3rd RE-RUN on v0.5.91 (TS6-TS9). If CLEAN: T187 🔧→🧪.** Symbol stays 🔧 per PO 2026-06-05 honest-board until tester re-runs PASS.
+  - Owners (4-role iteration-2 fix cycle): req `22f43f31` → architect → expert `02c99a7e`→`fa921029`→`ea240f43`→`1307f6c1` (3 ship cycles + 2 hotfixes) → tester (1st STRICT: 3 fails; 2nd STRICT: NAV PASS + UC→Method bug; 3rd STRICT pending v0.5.91)
 
 - [ ] ⏳ **T188** — Dogfood S17 view-gen: planning.md + task-*.md emitted from scenario.json Sprint+Task units (THIS task)
   - Unit: `scenario/index/8/a/3/1/b/8a31ba75-22b6-48ff-9532-d5da21458543.scenario.json`

@@ -101,3 +101,19 @@ This means: (1) Sprint is the root node in both browsers. (2) Tasks are first-le
 - [ ] No Task.requirements[] back-ref field is introduced — the renderer walks all Requirements and groups by their tasks[] forward link
 
 → Planner folds into T187 or new navigation-structure task
+
+---
+
+## LITERAL SOURCE — Follow-on D: Champagne intention verification (2026-06-05, NEW STANDARD)
+
+> TRON: "let the team eat its own dogfood and verify if the tests test the right thing by verifying the trace chain intention per chain. this is what its all about!!! convert eat your own dogfood into drink your own champagne and become the best programming team in the world."
+
+### R-CHAMP: For every complete chain in /trace, the leaf test verifies the behavioral intention of the root requirement.
+
+[requirement:uuid:a0b1c2d3-e4f5-6a7b-8c9d-champ0000001]
+
+Not just that the test passes — but that it tests THE RIGHT THING. Per-chain intention verification: req-eng reads the requirement, follows the chain to the test, and asks "if this test passes, can I tell Tron this requirement is satisfied?" Four verdicts: CHAMPAGNE (correct), FLAT (wrong intent), CORK (stub), EMPTY (no test).
+
+Full standard: `scrum.pmo/standards/champagne-intention-verification.md`
+
+→ Standing process (not a single task — applies to every sprint completion)
