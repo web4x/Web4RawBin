@@ -15,8 +15,8 @@
     "_r18.8Note": "NAVIGATION-layer field per architect R18.8 (562f6452): Task.coveredRequirements[] is the display denormalization for Sprint\u2192Task\u2192Reqs tree. Chain direction stays Req\u2192Task (forward). req-eng populates when R18.5 atomic Req commits.",
     "_requirementHintText": "Tron 2026-06-05: tree re-renders FULLY on each click (not lazy layer-by-layer), so in a long list it JUMPS BACK TO TOP \u2014 cumbersome. Fix: expand APPENDS child itemview levels only (no full re-render), preserve scroll position.",
     "useCases": [],
-    "status": "Impl-shipped",
-    "_shipNotes": "v0.5.88 02c99a7e (expert 2026-06-05) — seed-path uses incremental append + toggle (no full re-render); fetchAndRenderChildren appends only; scroll position preserved. Tester pre-authored 8 TS in 27ffe1b4. Rule-pair (a)+(b)+(c) all ✓; 836/836 pass.",
+    "status": "Implementing (fix cycle)",
+    "_shipNotes": "FIX-CYCLE LOG (planner honest-board correction per PO 2026-06-05 — ✅-code ≠ strict-verified):\n- v0.5.88 02c99a7e expert ship — seed-path incremental append + toggle + fetchAndRenderChildren appends only. Rule-pair (a)+(b)+(c) ✓; 836/836.\n- Tester STRICT-bar post-deploy: TS2 FAIL — tree still full innerHTML re-render → DOM identity lost (AC-forbidden).\n- Expert FIX v0.5.89 fa921029 — onToggleChildren NO LONGER calls render(); toggles the specific tt-children div directly; first expand creates children container + appends child nodes (graph path) or fetches lazily (seed path); existing DOM nodes preserved — no identity/attribute loss. Rule-pair (a)+(b)+(c) ✓; 836/836.\n- PENDING: tester STRICT-bar RE-RUN on v0.5.89 before symbol advances ⏳/🔧 → ✅ → 🧪. Honest board per PO 2026-06-05.",
     "owners": {
       "req": "robbin-req",
       "architect": "robbin-architect",

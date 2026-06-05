@@ -18,8 +18,8 @@
     ],
     "_r18.8Note": "NAVIGATION-layer field per architect R18.8 (562f6452): Task.coveredRequirements[] is the display denormalization for Sprint\u2192Task\u2192Reqs tree. Chain direction stays Req\u2192Task (forward, Requirement.tasks[]). req-eng populates this when atomic Req units commit; no back-refs introduced (Rule 9).",
     "useCases": [],
-    "status": "Impl-shipped",
-    "_shipNotes": "v0.5.88 02c99a7e (expert 2026-06-05) — T187(a) UC.method singular IOR populated on 23 UCs; T187(b) /api/trace/sprints endpoint live; T187(c) /api/trace/children?mode=trace narrows via TRACE_FORWARD; T187(d) rb-trace-tree data-mode attribute. Architect prep: 6c7ff26e populate UC.method/class + Method.implementation; 35f111a6 manual verb→method 7/7 unmatched. Tester pre-authored 10 TS in 27ffe1b4. Rule-pair (a)+(b)+(c) all ✓; 836/836 pass.",
+    "status": "Implementing (fix cycle)",
+    "_shipNotes": "FIX-CYCLE LOG (planner honest-board correction per PO 2026-06-05 — ✅-code ≠ strict-verified):\n- v0.5.88 02c99a7e expert ship — T187(a)(b)(c)(d) all 4 parts; rule-pair (a)+(b)+(c) ✓; 836/836. Architect prep 6c7ff26e + 35f111a6 (UC.method/class + verb→method matching).\n- Tester STRICT-bar post-deploy FOUND DEFECTS: TS7 FAIL (Sprint not at tree root); TS5 FAIL (no /scenario-vs-/trace fan-out difference); TS2/8 FAIL related.\n- Expert FIX v0.5.89 fa921029 — /trace fetches /api/trace/sprints as roots (Sprint nav root per R18.8); /trace uses mode=trace (UC→method singular, Method→implementation singular); /scenario uses mode=scenario (UC→classes→all methods fan-out); divergence only at UC→Method hop. Rule-pair (a)+(b)+(c) ✓; 836/836.\n- Tester re-authored TS in b56895b7 (UC→Method narrowing, not Req→Task — corrected verification model).\n- PENDING: tester STRICT-bar RE-RUN on v0.5.89 before symbol advances ⏳/🔧 → ✅ → 🧪. Honest board per PO 2026-06-05.",
     "owners": {
       "req": "robbin-req",
       "architect": "robbin-architect",
