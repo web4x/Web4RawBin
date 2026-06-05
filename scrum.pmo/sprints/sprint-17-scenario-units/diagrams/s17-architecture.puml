@@ -129,7 +129,7 @@ package "View Components (client)" as VIEWS #FFF3E0 {
     --
     + graph: TraceGraph
     + setGraph(graph): void
-    [method:uuid:108b7283-0001-4a01-a001-000000000001]
+    [method:uuid:430de69a-f7e7-409b-8233-22298d6d578c]
     + render(): void
     [method:uuid:108b7283-0002-4a02-a002-000000000002]
     - nodeEl(ref, ancestry): HTMLElement
@@ -141,15 +141,15 @@ package "View Components (client)" as VIEWS #FFF3E0 {
     [class:uuid:3bc876b5-594c-49f3-962b-84623de2aaff]
     <<rb-object-item>>
     --
-    [method:uuid:f7629f0e-6b0e-4f62-a389-e0e0e0e0e0f7]
+    [method:uuid:f7629f0e-6b0c-4c21-8166-aff7e7129f09]
     + render(): void
-    [method:uuid:bac0abd4-c15d-4e26-8b37-d0d0d0d0d0ba]
+    [method:uuid:bac0abd4-c15b-40b8-ae6c-ef265f883a27]
     + generateName(): string
-    [method:uuid:ee69e091-ad0a-4b19-8c28-c0c0c0c0c0ee]
+    [method:uuid:ee69e091-ad08-47d3-99b6-3747e4521ac0]
     + setIcon(): void
-    [method:uuid:0a78eab3-f3e2-4a30-9d49-b0b0b0b0b00a]
+    [method:uuid:0a78eab3-f3e8-4391-89c8-0b764ed28f8d]
     + drag(): void
-    [method:uuid:75e6419f-db36-4b41-8e5a-a0a0a0a0a075]
+    [method:uuid:75e6419f-db35-47e4-b31d-177c0f778ca3]
     + collapse(): void
   }
 
@@ -157,11 +157,11 @@ package "View Components (client)" as VIEWS #FFF3E0 {
     [class:uuid:0dd08b2f-30ba-433f-a9de-285065f3fb8e]
     <<rb-detail-drawer>>
     --
-    [method:uuid:d2935088-2a3b-4c4d-8e5f-f0f0f0f0f0d2]
+    [method:uuid:d2935088-2a32-41e7-afd0-4e8195471ae2]
     + open(ref): void
-    [method:uuid:f4b0acec-cf5e-4d6f-8071-e0e0e0e0e0f4]
+    [method:uuid:f4b0acec-cf50-4916-9696-e89865bca632]
     + close(): void
-    [method:uuid:9a0914b8-415c-4d6e-8f70-d0d0d0d0d09a]
+    [method:uuid:9a0914b8-4158-4b90-a898-c082cff5c737]
     + swipeDismiss(): void
   }
 
@@ -169,7 +169,7 @@ package "View Components (client)" as VIEWS #FFF3E0 {
     [class:uuid:4df19279-f2b8-438d-97b8-03fb37e049d5]
     <<rb-task-detail>>
     --
-    [method:uuid:e9e78526-d441-4e52-8f63-c0c0c0c0c0e9]
+    [method:uuid:e9e78526-d44e-4920-8ef1-c0e8f0c62fe6]
     + render(): void
   }
 
@@ -177,7 +177,7 @@ package "View Components (client)" as VIEWS #FFF3E0 {
     [class:uuid:5d9132cf-f49e-4d3b-bc67-5078d0d576d0]
     <<rb-requirement-detail>>
     --
-    [method:uuid:f2930f5e-c74a-4b5b-8c6c-b0b0b0b0b0f2]
+    [method:uuid:f2930f5e-c748-49f5-888e-2d3aaa9a9012]
     + render(): void
   }
 
@@ -185,7 +185,7 @@ package "View Components (client)" as VIEWS #FFF3E0 {
     [class:uuid:84a94745-95b3-406c-8180-56ccef63b31b]
     <<rb-usecase-detail>>
     --
-    [method:uuid:00d9e37e-46e1-4f72-8083-a0a0a0a0a000]
+    [method:uuid:00d9e37e-46ef-40d1-9e1c-7243ace69729]
     + render(): void
   }
 }
@@ -205,9 +205,9 @@ package "Scenario Infrastructure (server)" as INFRA #FCE4EC {
   class "ScenarioUnit" as SU {
     [class:uuid:88dcce3a-770b-4c61-b996-02a72f5d6bef]
     --
-    [method:uuid:3cc146e5-036a-4b7b-8c8c-d0d0d0d0d03c]
+    [method:uuid:3cc146e5-0360-4b0c-a126-d40b1e3e21a8]
     + ior: string
-    [method:uuid:642f9bc5-487c-4d8d-8e9e-c0c0c0c0c064]
+    [method:uuid:642f9bc5-487b-482d-b537-593e3ac7819d]
     + load(json): this
     + model: Record<string, any>
     + ownerIor: string | null
@@ -216,62 +216,62 @@ package "Scenario Infrastructure (server)" as INFRA #FCE4EC {
   class "ScenarioIndex" as SI {
     [class:uuid:f9a3f8d1-93db-46aa-8ad7-c34f29905450]
     --
-    [method:uuid:5b84da47-c7f0-4e01-8f12-b0b0b0b0b05b]
+    [method:uuid:5b84da47-c7f4-4b01-b492-fae21be2e3cd]
     + put(uuid, scenario): void
-    [method:uuid:f180c93f-5a2e-4f3f-8040-a0a0a0a0a0f1]
+    [method:uuid:f180c93f-5a29-4849-911b-44ba5a86698a]
     + get(uuid): ScenarioUnit
-    [method:uuid:b9abb018-0a3d-4e4e-8f5f-909090909090]
+    [method:uuid:b9abb018-0a39-41c0-9e4b-84d2d77c3b82]
     + prefix(uuid): string
   }
 
   class "IORResolver" as IR {
     [class:uuid:fdc768a6-8779-42e1-9e7c-775338733c09]
     --
-    [method:uuid:926b1a00-fe50-4e61-8072-808080808092]
+    [method:uuid:926b1a00-fe56-4a1c-924b-3c41bf9635ad]
     + resolve(ior): ScenarioUnit | ClassLoader
-    [method:uuid:bd6700da-a93c-4d7d-8e8e-707070707070]
+    [method:uuid:bd6700da-a93a-4605-93b1-eb0494b63e91]
     + resolveClass(ior): ClassLoader
-    [method:uuid:e0351edf-ee2d-4e8e-8f9f-606060606060]
+    [method:uuid:e0351edf-ee2d-4795-944f-144809b7b618]
     + resolveInstance(ior): ScenarioUnit
   }
 
   class "ClassRegistry" as CR {
     [class:uuid:60a20d33-6b6e-4acc-b9da-2685380f23cb]
     --
-    [method:uuid:255ecabf-396a-4b7b-8c8c-505050505025]
+    [method:uuid:255ecabf-3961-404c-92b1-737c209c2030]
     + register(name, loader): void
-    [method:uuid:607fef49-939d-4e8e-8f9f-404040404060]
+    [method:uuid:607fef49-9395-439e-8ee1-f21d02978447]
     + get(name): ClassLoader
   }
 
   class "ViewTemplateRegistry" as VT {
     [class:uuid:6fdc9ac6-0cf1-4d16-86ed-7c6f68f07d2e]
     --
-    [method:uuid:0fa1bf49-df0a-4b1b-8c2c-303030303010]
+    [method:uuid:0fa1bf49-df04-4389-acad-84026ed67a83]
     + register(className, tmpl): void
-    [method:uuid:b0e09fb1-839b-4c3c-8d4d-202020202020]
+    [method:uuid:b0e09fb1-8392-49fb-b398-24eac95c1b3c]
     + renderHtml(scenario): string
-    [method:uuid:13231016-ce8c-4d5d-8e6e-101010101013]
+    [method:uuid:13231016-ce87-4c16-ac1a-a1af8d1353b8]
     + renderMd(scenario): string
   }
 
   class "SpeakingTree" as ST {
     [class:uuid:a4f056d2-463c-4613-8f3b-d3af2069b26c]
     --
-    [method:uuid:75f0015c-3a0a-4b1b-8c2c-f0f0f0f0f075]
+    [method:uuid:75f0015c-3a04-4946-846b-2553c6c66cd4]
     + symlinkJson(sprint, tasks): void
-    [method:uuid:500661d4-e08e-4f1f-8020-e0e0e0e0e050]
+    [method:uuid:500661d4-e086-4ed1-b33b-0838d16bd645]
     + generateMd(sprint, templates): void
   }
 
   class "TraceConsistency" as TC {
     [class:uuid:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9]
     --
-    [method:uuid:055a7f68-1d9a-4b0b-8c1c-d0d0d0d0d005]
+    [method:uuid:055a7f68-1d98-4a95-9572-22dcb0c40712]
     + auditOrphans(): Issue[]
-    [method:uuid:963b67a2-488b-4c2c-8d3d-c0c0c0c0c096]
+    [method:uuid:963b67a2-488c-4580-b5ba-697537f02754]
     + scanRepo(): {graph, coverage}
-    [method:uuid:3dc29df9-0dac-4d4d-8e5e-b0b0b0b0b03d]
+    [method:uuid:3dc29df9-0da7-4164-8035-4e4a131e6e6b]
     + validate(): Issue[]
   }
 }
