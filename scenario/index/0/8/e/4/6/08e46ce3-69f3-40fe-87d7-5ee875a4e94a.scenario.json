@@ -1,0 +1,31 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "08e46ce3-69f3-40fe-87d7-5ee875a4e94a",
+    "id": "T190",
+    "name": "Tree lazy-render + scroll-preservation — expand APPENDS children only, no full re-render",
+    "sprint": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "requirements": [],
+    "_requirementHints": ["R18.5 (req-eng to formalize)"],
+    "_requirementHintText": "Tron 2026-06-05: tree re-renders FULLY on each click (not lazy layer-by-layer), so in a long list it JUMPS BACK TO TOP — cumbersome. Fix: expand APPENDS child itemview levels only (no full re-render), preserve scroll position.",
+    "useCases": [],
+    "status": "Planned",
+    "owners": {
+      "req": "robbin-req",
+      "architect": "robbin-architect",
+      "expert": "robbin-expert",
+      "tester": "robbin-tester"
+    },
+    "description": "T186 shipped lazy-LOAD (children fetched on demand) — that's still verified. But Tron flagged a separate atom: even though data is lazy-loaded, the DOM RENDER on click is wholesale: rb-trace-tree clears innerHTML and rebuilds the subtree, which resets scroll to top. In a long tree this is cumbersome — UX regression at the render layer, NOT the data layer.\n\nFix scope: tree expand handler must APPEND new child item-view elements into the existing parent node's children container (additive DOM mutation), NOT rebuild the whole subtree. Scroll position of the scroll container preserved across expand. Collapse can hide-not-destroy or destroy-without-reflow.\n\nDistinct task per Rule 8 (closure freeze): T186 closed in-scope for lazy-LOAD; T190 owns the lazy-RENDER + scroll-preservation atom on the same /trace + /scenario tree surface.",
+    "rulePairHints": "(a)+(b) required (user-facing tree behavior — PO confirmed); (c) likely EXEMPT (existing /trace + /scenario routes, no new shell)",
+    "owner_summary": "expert + tester (PO direction); req-eng anchors R18.5 verbatim quote; architect refines if non-trivial DOM-diff approach needed",
+    "follows": [
+      "ior:instance:8832a890-ca92-4cfc-97c9-c81dff3ea1b1",
+      "ior:instance:75db0534-28d8-4fae-bb1f-bf60ace6ae57"
+    ],
+    "_followsLabels": ["T186 R-Y1 lazy-load (closed)", "T186 R-Y2 expand-collapse (closed)"],
+    "createdAt": "2026-06-05",
+    "createdBy": "robbin-planner",
+    "scaffoldNote": "Dogfood continuation: 4th Task scenario.json unit in S18 (after T187/T188/T189). requirements[] empty pending req-eng R18.5 capture. PO confirmed scope + owners (expert + tester) + rule-pair (a)+(b)."
+  }
+}

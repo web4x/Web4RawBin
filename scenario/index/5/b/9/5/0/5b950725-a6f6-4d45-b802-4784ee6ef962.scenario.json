@@ -11,7 +11,8 @@
     "tasks": [
       "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea",
       "ior:instance:8a31ba75-22b6-48ff-9532-d5da21458543",
-      "ior:instance:a7f7f216-8389-475c-96b7-3593b185cb01"
+      "ior:instance:a7f7f216-8389-475c-96b7-3593b185cb01",
+      "ior:instance:08e46ce3-69f3-40fe-87d7-5ee875a4e94a"
     ],
     "createdAt": "2026-06-05",
     "createdBy": "robbin-planner",
