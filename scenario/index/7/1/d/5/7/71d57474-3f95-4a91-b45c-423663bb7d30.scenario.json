@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "71d57474-3f95-4a91-b45c-423663bb7d30",
+    "name": "treeRender.lazyAppend",
+    "object": "treeRender",
+    "verb": "lazyAppend",
+    "description": "Expand appends children without re-rendering full tree",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:08e46ce3-69f3-40fe-87d7-5ee875a4e94a"
+}

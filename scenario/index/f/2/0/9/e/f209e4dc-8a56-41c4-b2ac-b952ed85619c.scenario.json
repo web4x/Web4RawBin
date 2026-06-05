@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "f209e4dc-8a56-41c4-b2ac-b952ed85619c",
+    "name": "pathHeader.clickNavigate",
+    "object": "pathHeader",
+    "verb": "clickNavigate",
+    "description": "Make file-browser path header clickable for parent navigation",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:95e93fd2-de9e-4579-a857-59f69608f982"
+}

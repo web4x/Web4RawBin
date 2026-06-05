@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "ebfed7a9-c047-4961-85c0-ec29d808a7cd",
+    "name": "traceLayout.mobileCap",
+    "object": "traceLayout",
+    "verb": "mobileCap",
+    "description": "Apply mobile-first layout with hard width-cap on detail panel",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:d0881ad6-ade5-4d60-94a2-fbe5347fd4b6"
+}

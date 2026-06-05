@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "558cbb5c-b64a-4aea-9393-d513a0c544c4",
+    "name": "symlinkTree.extendClasses",
+    "object": "symlinkTree",
+    "verb": "extendClasses",
+    "description": "Extend symlink tree to all 9 scenario classes",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:bce39256-6743-406e-b090-92ea2d13cde8"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "93bfa64a-7425-44bc-9da6-6d084c4d360f",
+    "name": "requirementItem.renderTronQuote",
+    "object": "requirementItem",
+    "verb": "renderTronQuote",
+    "description": "Render Tron verbatim quote as requirement NAME",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:6da66c11-558a-4718-8ca8-0b61a664260d"
+}

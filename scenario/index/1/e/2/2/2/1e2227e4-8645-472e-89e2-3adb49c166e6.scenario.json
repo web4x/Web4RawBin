@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "1e2227e4-8645-472e-89e2-3adb49c166e6",
+    "name": "profileGate.vcardUpload",
+    "object": "profileGate",
+    "verb": "vcardUpload",
+    "description": "Show vCard upload button and drag-drop on profile gate",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:ec8e7a0f-18e4-418c-8242-4555c8106b7a"
+}

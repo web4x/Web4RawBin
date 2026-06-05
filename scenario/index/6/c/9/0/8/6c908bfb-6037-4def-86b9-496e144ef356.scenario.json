@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "6c908bfb-6037-4def-86b9-496e144ef356",
+    "name": "chainLink.iconInView",
+    "object": "chainLink",
+    "verb": "iconInView",
+    "description": "Show chain-link icon in generated MD views for symlinked scenarios",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:f0af3251-3884-4238-9159-7eeac15c46d6"
+}

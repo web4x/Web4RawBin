@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "a631f79b-0f50-4e5b-8491-2483e4299063",
+    "name": "vcard.uploadOnboarding",
+    "object": "vcard",
+    "verb": "uploadOnboarding",
+    "description": "Upload vCard for fast first-time profile setup",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:c481a2b9-b61d-4a0f-a077-690a9e2e1aa9"
+}

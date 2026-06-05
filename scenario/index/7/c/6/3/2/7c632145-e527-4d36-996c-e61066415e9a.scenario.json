@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "7c632145-e527-4d36-996c-e61066415e9a",
+    "name": "objectItem.render",
+    "object": "objectItem",
+    "verb": "render",
+    "description": "Render a draggable native-OS list item for any trace object",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:105e4f50-6172-4384-895b-e05050505105"
+}

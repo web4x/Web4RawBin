@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "1e908382-909b-4f82-82bf-f9cf19955f78",
+    "name": "traceTree.renderAllTypes",
+    "object": "traceTree",
+    "verb": "renderAllTypes",
+    "description": "Render all 7 typed classes in trace tree (not only Req/Task)",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:35ed4168-f575-4df4-9a87-43f5ca4912ab"
+}

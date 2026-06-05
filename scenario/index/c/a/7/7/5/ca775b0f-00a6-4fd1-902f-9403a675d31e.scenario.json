@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "ca775b0f-00a6-4fd1-902f-9403a675d31e",
+    "name": "offlinePage.reloadButton",
+    "object": "offlinePage",
+    "verb": "reloadButton",
+    "description": "Add reload button on Connection-Failed and Offline pages",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:9937a1f1-5674-48fb-92fe-6dc4a38089b0"
+}

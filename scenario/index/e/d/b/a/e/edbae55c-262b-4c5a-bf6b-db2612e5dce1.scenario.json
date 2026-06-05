@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "edbae55c-262b-4c5a-bf6b-db2612e5dce1",
+    "name": "statusTemplate.renderHtml",
+    "object": "statusTemplate",
+    "verb": "renderHtml",
+    "description": "Render HTML status block with correct checkbox styling",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:32af18ad-b6be-4987-b677-1507fdec0851"
+}

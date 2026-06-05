@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "24501668-89cc-4c36-ada4-35e12bc12d1e",
+    "name": "pageNav.stickyTop",
+    "object": "pageNav",
+    "verb": "stickyTop",
+    "description": "Pin pageNav output to viewport top on scroll",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:05e394aa-d21b-4aaa-88ba-611cd427c2f1"
+}

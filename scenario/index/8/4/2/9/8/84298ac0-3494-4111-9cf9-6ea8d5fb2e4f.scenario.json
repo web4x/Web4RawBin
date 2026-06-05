@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "84298ac0-3494-4111-9cf9-6ea8d5fb2e4f",
+    "name": "detailDrawer.stickyBottom",
+    "object": "detailDrawer",
+    "verb": "stickyBottom",
+    "description": "Anchor DetailsViewContainer to viewport bottom",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:bbca5514-a5c0-4a32-8be4-bf1133290c7a"
+}

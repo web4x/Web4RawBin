@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "b54a71be-384d-428f-8144-56e154e0bfdb",
+    "name": "room.create",
+    "object": "room",
+    "verb": "create",
+    "description": "Create Room.ts from GameRoom.ts",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:606277ca-dd09-4409-a460-fa91fa334893"
+}

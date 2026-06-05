@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "b06c4486-4ef1-4a56-9116-d0038e9517ee",
+    "name": "user.scenarioUnit",
+    "object": "user",
+    "verb": "scenarioUnit",
+    "description": "Represent User class as scenario-unit with ViewBus-driven updates",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:df4ea98b-b47c-4129-be73-a4047e919a6f"
+}

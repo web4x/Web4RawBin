@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "04c57f20-ca5d-4ce2-95e4-a83ea574faa5",
+    "name": "scenarioClick.lazyLoad",
+    "object": "scenarioClick",
+    "verb": "lazyLoad",
+    "description": "Click .scenario.json in file browser opens /trace with lazy-load",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:7a5f0eb9-7a33-492b-991a-b13c431dc695"
+}

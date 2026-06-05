@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "a51a9ed3-1e17-4783-94f0-4d5d8ffb53d0",
+    "name": "detailView.setBackground",
+    "object": "detailView",
+    "verb": "setBackground",
+    "description": "Set DetailsView panel to dark background",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:e7cb6434-97a2-4752-8d63-f8bea13646b6"
+}

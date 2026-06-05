@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "7093fa11-5798-4382-8b63-acad135b46a8",
+    "name": "assets.rebrand",
+    "object": "assets",
+    "verb": "rebrand",
+    "description": "Rebrand UpDown assets to RawBin",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:cfb01bc2-1119-47d6-909e-2873734f5817"
+}

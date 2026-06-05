@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "9346ddd7-673f-497b-82dc-2164b42950f8",
+    "name": "fileBrowser.symlinkSupport",
+    "object": "fileBrowser",
+    "verb": "symlinkSupport",
+    "description": "Display and follow symlinks in FileApi and rb-file-tree",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:dce1bdf8-7076-4376-a32c-9c8b08422bdc"
+}

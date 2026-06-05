@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "0e3ab859-a117-4a4a-a9a6-2374262af3da",
+    "name": "fileBrowser.fixDisplay",
+    "object": "fileBrowser",
+    "verb": "fixDisplay",
+    "description": "Fix icon order and link targets in file browser listings",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:d03a73ff-0329-47a3-8610-bf5c18053221"
+}

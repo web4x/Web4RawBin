@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "20b51daa-133a-4923-af20-49c57eb98a3f",
+    "name": "mdListing.chainIcon",
+    "object": "mdListing",
+    "verb": "chainIcon",
+    "description": "Show chain-link icon in /md/ directory listing for scenario files",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:ea70d80c-66e8-459a-af3d-74b137341303"
+}

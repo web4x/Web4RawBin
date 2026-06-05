@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "71edc345-e601-484b-a6f4-529fc3d66691",
+    "name": "breadcrumb.contrastFix",
+    "object": "breadcrumb",
+    "verb": "contrastFix",
+    "description": "Fix breadcrumb link color contrast for WCAG AA",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:0da44cbe-6f10-4fb5-a11a-6c4a7e9c17f4"
+}
