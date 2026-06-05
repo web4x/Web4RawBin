@@ -26,7 +26,9 @@
     "useCases": [
       "ior:instance:17a00203-0003-4a03-a003-000017020003"
     ],
-    "implementations": []
+    "implementations": [],
+    "sourceFile": "ior:file:src/ts/scenario/ior-resolver.ts",
+    "sourceLine": 5
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

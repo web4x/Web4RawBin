@@ -10,7 +10,7 @@ import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
-import { fetchDetailData, renderParentLink } from './detail-children.js';
+import { fetchDetailData, renderParentLink, renderSourceLink } from './detail-children.js';
 
 export class RbTaskDetail extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -58,7 +58,8 @@ export class RbTaskDetail extends HTMLElement {
   }
 
   private loadDetailData(uuid: string): void {
-    fetchDetailData(uuid).then(({ children, parent }) => {
+    fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
+      if (sourceFile) { const sh = this.querySelector('.dv-head'); if (sh) sh.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine)); }
       if (parent) {
         const head = this.querySelector('.dv-head');
         if (head) { head.insertAdjacentHTML('afterend', renderParentLink(parent)); this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid }); }); }

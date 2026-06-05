@@ -6,7 +6,8 @@
     "sourceFile": "ior:file:src/ts/scenario/ior-resolver.ts",
     "tests": [
       "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
-    ]
+    ],
+    "sourceLine": 7
   },
   "ownerIor": "ior:instance:9d5369a9-17af-4884-bfdd-f981450f3852"
 }

@@ -4,7 +4,8 @@
     "uuid": "c335d0b8-e290-4e60-b359-e6b4c51ae22a",
     "name": "T65 file tree",
     "sourceFile": "ior:file:src/public/ts/components/rb-file-tree.ts",
-    "tests": []
+    "tests": [],
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

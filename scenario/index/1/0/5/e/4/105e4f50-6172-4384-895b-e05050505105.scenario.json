@@ -29,7 +29,9 @@
     "implementations": [],
     "tests": [
       "ior:instance:105f5061-7283-4495-8a6c-f05050505106"
-    ]
+    ],
+    "sourceFile": "ior:file:src/public/ts/trace/nav.ts",
+    "sourceLine": 6
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

@@ -4,7 +4,8 @@
     "uuid": "39074a59-864f-4947-ac7b-0457bbbe172b",
     "name": "T40 header",
     "sourceFile": "ior:file:src/public/ts/components/rb-header.ts",
-    "tests": []
+    "tests": [],
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

@@ -6,7 +6,8 @@
     "sourceFile": "ior:file:src/public/ts/components/rb-chat-sheet.ts",
     "tests": [
       "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
-    ]
+    ],
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

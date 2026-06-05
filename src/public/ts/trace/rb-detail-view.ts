@@ -12,7 +12,7 @@ import { TraceGraph, refUuid, type ObjectRef } from '../../../ts/shared/TraceMod
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
-import { fetchDetailData, renderParentLink } from './detail-children.js';
+import { fetchDetailData, renderParentLink, renderSourceLink } from './detail-children.js';
 
 export class RbDetailView extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -60,7 +60,12 @@ export class RbDetailView extends HTMLElement {
     });
 
     // R18.9+R18.10: fetch ALL children + parent (scenario mode) for the detail pane
-    fetchDetailData(obj.uuid).then(({ children, parent }) => {
+    fetchDetailData(obj.uuid).then(({ children, parent, sourceFile, sourceLine }) => {
+      // R18.11+R18.12: source file link
+      if (sourceFile) {
+        const head = this.querySelector('.dv-head');
+        if (head) head.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine));
+      }
       // R18.10: render parent link
       const parentDiv = this.querySelector('.dv-head');
       if (parentDiv && parent) {

@@ -6,7 +6,8 @@
     "sourceFile": "ior:file:src/ts/scenario/classes.ts",
     "tests": [
       "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
-    ]
+    ],
+    "sourceLine": 7
   },
   "ownerIor": null
 }

@@ -29,7 +29,9 @@
     "implementations": [],
     "tests": [
       "ior:instance:14c3d4e5-f6a7-4b81-9c92-0d1e2f3a4b14"
-    ]
+    ],
+    "sourceFile": "ior:file:src/ts/server/migrate-cli.ts",
+    "sourceLine": 7
   },
   "ownerIor": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
 }

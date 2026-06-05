@@ -10,7 +10,9 @@
     "verifies": [
       "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000003",
       "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000012"
-    ]
+    ],
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "sourceLine": 3
   },
   "ownerIor": null
 }

@@ -4,7 +4,8 @@
     "uuid": "7b4d275b-861c-4ee9-b7ee-24c99d8b9cdc",
     "name": "T45 QR popup",
     "sourceFile": "ior:file:src/public/ts/components/rb-qr-popup.ts",
-    "tests": []
+    "tests": [],
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

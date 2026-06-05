@@ -608,7 +608,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const parentUnit = idx.get(ownerIor);
           if (parentUnit) parent = { uuid: ownerIor, type: (parentUnit.ior || '').split(':')[2] || '', name: String(parentUnit.model?.name || '') };
         }
-        res.end(JSON.stringify({ uuid, type, name: String(unit.model?.name || ''), children, parent }));
+        const sourceFile = String(unit.model?.sourceFile || '').replace('ior:file:', '') || undefined;
+        const sourceLine = (unit.model?.sourceLine as number) || undefined;
+        res.end(JSON.stringify({ uuid, type, name: String(unit.model?.name || ''), children, parent, sourceFile, sourceLine }));
       } catch { res.writeHead(500); res.end('{}'); }
       return;
     }

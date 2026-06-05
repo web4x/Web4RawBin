@@ -41,6 +41,12 @@ export class RbCodeEditor extends HTMLElement {
     const model = this.monaco.editor.createModel(content, lang);
     this.editor.setModel(model);
     this.editor.updateOptions({ wordWrap: lang === 'markdown' ? 'on' : 'off' });
+
+    const lineHash = location.hash.match(/^#L(\d+)$/);
+    if (lineHash) {
+      const line = parseInt(lineHash[1]);
+      setTimeout(() => { this.editor?.revealLineInCenter(line); this.editor?.setPosition({ lineNumber: line, column: 1 }); }, 100);
+    }
   }
 
   getValue(): string { return this.editor?.getValue() || ''; }

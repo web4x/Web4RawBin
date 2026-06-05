@@ -4,7 +4,8 @@
     "uuid": "b7142a01-c302-4d03-ae04-f05f06a07c11",
     "name": "T142 vCard parser",
     "sourceFile": "ior:file:src/public/ts/vcard-parse.ts",
-    "tests": []
+    "tests": [],
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

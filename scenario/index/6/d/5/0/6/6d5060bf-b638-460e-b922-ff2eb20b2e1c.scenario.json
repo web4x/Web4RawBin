@@ -6,7 +6,9 @@
     "file": "ior:file:test/e2e/editor.spec.ts",
     "requirements": [],
     "methods": [],
-    "status": "PASS"
+    "status": "PASS",
+    "sourceFile": "ior:file:test/e2e/editor.spec.ts",
+    "sourceLine": 1
   },
   "ownerIor": null
 }

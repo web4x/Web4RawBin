@@ -6,7 +6,8 @@
     "sourceFile": "ior:file:src/public/ts/app.ts",
     "tests": [
       "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
-    ]
+    ],
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:b7a439f2-0370-4992-802b-e0aef95fdf2c"
 }

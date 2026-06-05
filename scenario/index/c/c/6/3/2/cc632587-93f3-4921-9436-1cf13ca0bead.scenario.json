@@ -6,7 +6,8 @@
     "sourceFile": "ior:file:src/ts/server/UserKeys.ts",
     "tests": [
       "ior:instance:34e12488-29f0-49a1-b99c-7af85d3659e6"
-    ]
+    ],
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

@@ -6,7 +6,9 @@
     "file": "ior:file:test/vitest/trace-model.test.ts",
     "requirements": [],
     "methods": [],
-    "status": "PASS"
+    "status": "PASS",
+    "sourceFile": "ior:file:test/vitest/trace-model.test.ts",
+    "sourceLine": 30
   },
   "ownerIor": null
 }

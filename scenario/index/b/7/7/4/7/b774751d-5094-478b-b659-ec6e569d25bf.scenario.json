@@ -6,7 +6,9 @@
     "file": "ior:file:test/e2e/lobby-card-badges.spec.ts",
     "requirements": [],
     "methods": [],
-    "status": "PASS"
+    "status": "PASS",
+    "sourceFile": "ior:file:test/e2e/lobby-card-badges.spec.ts",
+    "sourceLine": 3
   },
   "ownerIor": null
 }

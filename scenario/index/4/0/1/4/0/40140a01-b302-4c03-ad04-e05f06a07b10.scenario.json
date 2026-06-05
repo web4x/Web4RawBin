@@ -4,7 +4,8 @@
     "uuid": "40140a01-b302-4c03-ad04-e05f06a07b10",
     "name": "R17.19",
     "sourceFile": "ior:file:src/ts/scenario/source-location.ts",
-    "tests": []
+    "tests": [],
+    "sourceLine": 4
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

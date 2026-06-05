@@ -6,7 +6,8 @@
     "sourceFile": "ior:file:src/ts/scenario/trace-tree.ts",
     "tests": [
       "ior:instance:108c8394-a5b6-47c8-89af-c08080808109"
-    ]
+    ],
+    "sourceLine": 5
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

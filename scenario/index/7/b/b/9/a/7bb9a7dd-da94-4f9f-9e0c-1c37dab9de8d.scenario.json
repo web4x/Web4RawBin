@@ -4,7 +4,8 @@
     "uuid": "7bb9a7dd-da94-4f9f-9e0c-1c37dab9de8d",
     "name": "T68 markdown preview",
     "sourceFile": "ior:file:src/public/ts/components/rb-preview.ts",
-    "tests": []
+    "tests": [],
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

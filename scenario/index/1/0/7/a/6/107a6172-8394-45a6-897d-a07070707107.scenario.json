@@ -29,7 +29,9 @@
     "implementations": [],
     "tests": [
       "ior:instance:107b7283-94a5-46b7-8a8e-b07070707108"
-    ]
+    ],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-view.ts",
+    "sourceLine": 9
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

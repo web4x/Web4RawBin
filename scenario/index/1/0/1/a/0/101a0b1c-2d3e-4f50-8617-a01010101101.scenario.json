@@ -37,7 +37,9 @@
       "ior:instance:e5540f15-4bf4-484a-8632-764c98aa52a9",
       "ior:instance:7601e257-afe5-4495-a7b5-b4c4bf79c6ce",
       "ior:instance:0d99b7e1-f423-48b2-8243-4fc6f8d2c6ea"
-    ]
+    ],
+    "sourceFile": "ior:file:src/ts/shared/TraceModel.ts",
+    "sourceLine": 9
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

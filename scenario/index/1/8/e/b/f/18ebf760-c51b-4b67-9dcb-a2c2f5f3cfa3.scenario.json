@@ -6,7 +6,8 @@
     "sourceFile": "ior:file:src/public/ts/components/rb-update-banner.ts",
     "tests": [
       "ior:instance:7e304eec-2c8c-4e2f-b2f0-b46bea80feb0"
-    ]
+    ],
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

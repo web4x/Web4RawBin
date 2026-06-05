@@ -6,7 +6,9 @@
     "file": "ior:file:test/vitest/profile.test.ts",
     "requirements": [],
     "methods": [],
-    "status": "PASS"
+    "status": "PASS",
+    "sourceFile": "ior:file:test/vitest/profile.test.ts",
+    "sourceLine": 3
   },
   "ownerIor": null
 }

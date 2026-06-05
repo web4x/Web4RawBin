@@ -9,7 +9,9 @@
     "status": "PASS",
     "verifies": [
       "ior:instance:5b6122fe-75f1-4a33-9b2f-63fcaeb4323f"
-    ]
+    ],
+    "sourceFile": "ior:file:test/e2e/update-banner.spec.ts",
+    "sourceLine": 3
   },
   "ownerIor": null
 }

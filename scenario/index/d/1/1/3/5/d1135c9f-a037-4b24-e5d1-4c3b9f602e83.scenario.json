@@ -4,7 +4,8 @@
     "uuid": "d1135c9f-a037-4b24-e5d1-4c3b9f602e83",
     "name": "R16.5 square SVG type icons",
     "sourceFile": "ior:file:src/public/ts/trace/icons.ts",
-    "tests": []
+    "tests": [],
+    "sourceLine": 6
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

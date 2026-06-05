@@ -6,7 +6,8 @@
     "sourceFile": "ior:file:src/public/ts/trace/nav.ts",
     "tests": [
       "ior:instance:103d3e4f-5061-4273-839a-d03030303104"
-    ]
+    ],
+    "sourceLine": 8
   },
   "ownerIor": "ior:instance:d1068f81-dc16-45a0-a52e-7a98c04208fc"
 }

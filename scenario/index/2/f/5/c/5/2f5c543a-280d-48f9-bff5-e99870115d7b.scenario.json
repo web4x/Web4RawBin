@@ -9,7 +9,9 @@
     "status": "PASS",
     "verifies": [
       "ior:instance:12a4b6c8-5d2e-4f30-9a17-3b5c7d9e1f02"
-    ]
+    ],
+    "sourceFile": "ior:file:test/e2e/editor-back.spec.ts",
+    "sourceLine": 3
   },
   "ownerIor": null
 }

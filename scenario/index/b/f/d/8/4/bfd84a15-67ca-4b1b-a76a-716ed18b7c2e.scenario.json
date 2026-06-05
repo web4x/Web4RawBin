@@ -6,7 +6,9 @@
     "file": "ior:file:test/e2e/device-enrollment.spec.ts",
     "requirements": [],
     "methods": [],
-    "status": "PASS"
+    "status": "PASS",
+    "sourceFile": "ior:file:test/e2e/device-enrollment.spec.ts",
+    "sourceLine": 1
   },
   "ownerIor": null
 }
