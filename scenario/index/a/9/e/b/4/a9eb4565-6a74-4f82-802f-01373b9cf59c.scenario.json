@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "a9eb4565-6a74-4f82-802f-01373b9cf59c",
+    "name": "Sprint 7 \u2014 Encrypted Storage",
+    "number": 7,
+    "tasks": [],
+    "requirements": []
+  }
+}
