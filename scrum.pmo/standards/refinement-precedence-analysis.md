@@ -194,20 +194,74 @@ R17.3 → T126 → UC → Class → Method → Impl → Test
 
 Each requirement is a tree ROOT. Each task hangs from exactly ONE requirement. Dependencies between tasks are scheduling metadata (`follows` / `Dependencies`), not chain links. The chain walker never sees task→req→task — only req→task→uc→...→test.
 
+## Req-Eng Decomposition Protocol (robbin-req)
+
+### The Recurring Capture Evidence
+
+The tree lazy-load requirement was captured THREE times:
+
+| Capture | Date | UUID prefix | Atomic text |
+|---------|------|-------------|-------------|
+| R-U1 | 06-04 | `c3d4e5f6` | "Tree lazy-loads children at every depth" |
+| R-V1 | 06-04 | `d4e5f6a7` | "Tree lazy-loads FORWARD-ONLY at every chain depth" |
+| R-Y1 | 06-05 | `a7b8c9d0` | "TREE view lazy-loads children on expand at every level" |
+
+R-U1 and R-Y1 are **the same behavior** — two UUIDs for one requirement. R-V1 added "forward-only" (genuinely distinct). The recurrence: partial fix → Tron re-reports → new capture → new task → partial fix → repeat.
+
+**Root cause:** The original compound source (R-E + R-F, 2026-06-02) was not exhaustively decomposed before task creation. It should have yielded 4+ atoms on day one.
+
+### Rule 9: Deduplication before creation (req-eng)
+
+**Before creating a NEW `[requirement:uuid:]`, req-eng MUST:**
+
+1. Search `compound-requirement-source-*.md` for prior captures on the same topic
+2. Search `requirements.md` across ALL sprints for existing atoms that cover the behavior
+3. **If a match exists:** annotate the EXISTING requirement with Tron's new quote. Do NOT create a new UUID.
+4. **If genuinely new behavior:** create new atomic requirement
+
+R-U1 and R-Y1 should have been ONE UUID with accumulating Tron quotes.
+
+### Rule 10: Exhaustive decomposition gate (req-eng)
+
+At capture time, req-eng must exhaust the compound source using a **verb × noun cross-product:**
+
+| | Tree panel | DetailView panel |
+|---|---|---|
+| lazy-load children | R-U1 ✓ | *(DetailView navigates, doesn't expand)* |
+| forward-only direction | R-U2 ✓ | R-U2 ✓ (same — both panels) |
+| expand/collapse all types | R-Y2 ✓ | *(not applicable)* |
+
+**Checklist for every Tron directive:**
+- [ ] List every VERB (action) in the Tron text
+- [ ] List every NOUN (component/entity) in the Tron text
+- [ ] Cross-product: does each verb apply to each noun?
+- [ ] For each cell, write the ONE acceptance criterion
+- [ ] Confirm no existing requirement already covers this behavior
+- [ ] Signal "decomposition complete" to planner (commit message or explicit message)
+
+**The gate:** Planner MUST NOT create task files for a directive until req-eng signals decomposition complete. This prevents tasks that target partial understanding.
+
+### Rule 11: Compound source is INPUT, not OUTPUT (req-eng)
+
+`compound-requirement-source-*.md` preserves Tron's literal words. It is NEVER the authoritative requirement — it is the raw input. The authoritative requirements are the atomic `[requirement:uuid:]` entries in `requirements.md`.
+
+If a compound source entry has NOT been decomposed into atoms, it is an OPEN ITEM — not a requirement. Planner cannot create tasks from it.
+
 ## Conclusion
 
 **Canonical precedence:** Compound Requirement → Atomic Requirements → Tasks → Use Cases → Classes → Methods → Implementations → Tests.
 
-**The recurrence is eliminated by separating TWO concerns:**
-1. **Chain** (traceability — why): strictly forward, requirement-rooted, each task under exactly one atomic requirement
-2. **Dependency** (scheduling — what first): DAG in `follows`/`Dependencies` metadata, explicitly NOT in the chain
+**The recurrence is eliminated by three mechanisms:**
+1. **Chain vs dependency separation** (architect — Rules 1-5): chain is forward-only, dependencies are metadata
+2. **Operational discipline** (planner — Rules 6-8): decomposition trigger, label reservation, closure freeze
+3. **Exhaustive decomposition + deduplication** (req-eng — Rules 9-11): cross-product gate, no duplicate UUIDs, compound source is input not output
 
-**Team protocol change:** req-eng ALWAYS captures the requirement BEFORE planner creates the task. No retroactive requirement creation. Bottom-up discovery creates NEW sibling requirements, not back-links.
+**Team protocol change:** Req-eng decomposes ALL atoms BEFORE planner creates tasks. Deduplication check before every new UUID. Signal "decomposition complete" explicitly.
 
 ---
 
-**Formulated by:** robbin-architect + robbin-planner (JOINT, 2026-06-05)
-**Architect contributions (chain-vs-dependency framing + 5 protocol rules):** Sections "The Problem", "First-Principles Reasoning", "Canonical Precedence", "Optimal Refinement Process" Rules 1-5, "The Recurrence Eliminated", and "Conclusion".
-**Planner contributions (operational teeth):** "Planner Protocol" sub-section with Rules 6-8 — Sprint-1 decomposition trigger, letter-block reservation + v4 uuid discipline, closure freeze. Anchored on Tron-praised Sprint-1 task-1/1.1 hierarchy and S17 collision incidents (R-X1→Y1→Z1 on T184, T174 multi-atom scope creep, T186 vs T178 PO-directed separation).
-**req-eng contribution slot:** Architect to integrate when it lands.
+**Formulated by:** robbin-architect + robbin-planner + robbin-req (JOINT, 2026-06-05)
+**Architect contributions:** Chain-vs-dependency framing + Rules 1-5. Sections: "The Problem", "First-Principles Reasoning", "Canonical Precedence", "Optimal Refinement Process".
+**Planner contributions:** Operational teeth — Rules 6-8. Sprint-1 decomposition trigger, letter-block reservation + v4 uuid discipline, closure freeze.
+**Req-eng contributions:** Decomposition protocol — Rules 9-11. Deduplication rule, exhaustive cross-product gate, compound-source-as-input doctrine. Recurring capture evidence (R-U1/R-V1/R-Y1).
 **Approved by:** (pending Tron review via robbin-po)
