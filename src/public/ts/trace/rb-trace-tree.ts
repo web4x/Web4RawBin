@@ -189,20 +189,16 @@ export class RbTraceTree extends HTMLElement {
   }
 
   private buildSeedNode(uuid: string, type: string, name: string, children: { uuid: string; type: string; name: string; hasChildren: boolean }[], hasChildren?: boolean, ancestors?: Set<string>): HTMLElement {
-    const visited = ancestors || new Set<string>();
     const node = document.createElement('div');
     node.className = 'tt-node';
-    if (visited.has(uuid)) {
-      node.innerHTML = `<div class="tt-row" style="opacity:0.4;font-size:0.75rem;padding:2px 8px">↻ cycle: ${name || uuid.slice(0, 8)}</div>`;
-      return node;
-    }
+    if (ancestors && ancestors.has(uuid)) return node;
     const row = document.createElement('div');
     row.className = 'tt-row';
     const item = document.createElement('rb-object-item');
     item.setAttribute('ref', `${(type || 'task').toLowerCase()}:${uuid}`);
     item.setAttribute('type', (type || 'task').toLowerCase());
     item.setAttribute('title', name || uuid);
-    const showExpander = (children.length > 0 || hasChildren === true) && !visited.has(uuid);
+    const showExpander = children.length > 0 || hasChildren === true;
     if (showExpander) item.setAttribute('has-children', '');
     row.appendChild(item);
     node.appendChild(row);
@@ -211,9 +207,9 @@ export class RbTraceTree extends HTMLElement {
       kids.className = 'tt-children';
       kids.style.display = 'none';
       let loaded = children.length > 0;
-      const childAncestors = new Set(visited); childAncestors.add(uuid);
+      const branchPath = new Set(ancestors || []); branchPath.add(uuid);
       for (const child of children) {
-        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, childAncestors));
+        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchPath)));
       }
       node.appendChild(kids);
       item.addEventListener('toggle-children', ((e: CustomEvent) => {
@@ -222,7 +218,7 @@ export class RbTraceTree extends HTMLElement {
         this.toggleSeedExpanded(uuid, open);
         if (open && !loaded) {
           loaded = true;
-          this.fetchAndRenderChildren(uuid, kids, childAncestors);
+          this.fetchAndRenderChildren(uuid, kids, branchPath);
         }
       }) as EventListener);
     }
@@ -230,15 +226,15 @@ export class RbTraceTree extends HTMLElement {
   }
 
   private async fetchAndRenderChildren(uuid: string, container: HTMLElement, ancestors?: Set<string>): Promise<void> {
-    const visited = ancestors || new Set<string>();
-    visited.add(uuid);
+    const branchVisited = new Set(ancestors || []);
+    branchVisited.add(uuid);
     try {
       const res = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}${this.modeParam}`);
       if (!res.ok) return;
       const data = await res.json();
       const children: { uuid: string; type: string; name: string; hasChildren: boolean }[] = data.children || [];
       for (const child of children) {
-        container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, visited));
+        container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchVisited)));
       }
     } catch { /* silently fail — node stays collapsed */ }
   }

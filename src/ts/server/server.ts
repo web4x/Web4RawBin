@@ -544,12 +544,12 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const rawUrl = req.url || '';
         const queryMode = rawUrl.includes('?') ? (new URLSearchParams(rawUrl.split('?')[1]).get('mode') || 'scenario') : 'scenario';
         const SCENARIO_FWD: Record<string, string[]> = {
-          Requirement: ['useCases'], Task: ['subtasks', 'useCases', 'children'], UseCase: ['classes'],
+          Requirement: ['tasks'], Task: ['subtasks', 'useCases', 'children'], UseCase: ['classes'],
           Class: ['methods'], Method: ['implementations'], Implementation: ['tests'],
           Sprint: ['tasks'],
         };
         const TRACE_FWD: Record<string, string[]> = {
-          Requirement: ['useCases'], Task: ['useCases', 'coveredRequirements'], UseCase: ['method'],
+          Requirement: ['tasks'], Task: ['useCases', 'coveredRequirements'], UseCase: ['method'],
           Method: ['implementation'], Implementation: ['tests'],
           Sprint: ['tasks'],
         };
