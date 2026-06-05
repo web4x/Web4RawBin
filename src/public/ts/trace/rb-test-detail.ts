@@ -6,6 +6,7 @@ import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
+import { fetchDetailData, renderParentLink, renderSourceLink } from './detail-children.js';
 
 export class RbTestDetail extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -32,6 +33,11 @@ export class RbTestDetail extends HTMLElement {
     this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
     this.querySelectorAll('.dv-link').forEach(row => {
       row.addEventListener('click', () => { const lref = (row as HTMLElement).dataset.ref!; navigate(lref.split(':')[0], 'show', { uuid: refUuid(lref) }); });
+    });
+    fetchDetailData(obj.uuid).then(({ children, parent, sourceFile, sourceLine }) => {
+      if (sourceFile) { const sh = this.querySelector('.dv-head'); if (sh) sh.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine)); }
+      if (parent) { const h = this.querySelector('.dv-head'); if (h) { h.insertAdjacentHTML('afterend', renderParentLink(parent)); this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid }); }); } }
+      if (children.length > 0) { const l = this.querySelector('.dv-links'); if (l) l.insertAdjacentHTML('afterend', `<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px"><h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5)">All children</h4>${children.map(c => `<div class="dv-link dv-sc" data-ref="${c.type.toLowerCase()}:${c.uuid}"><span class="dv-rel">${c.type}</span><span class="dv-link-title">${c.name}</span></div>`).join('')}</div>`); this.querySelectorAll('.dv-sc').forEach(row => row.addEventListener('click', () => { const r = (row as HTMLElement).dataset.ref!; navigate(r.split(':')[0], 'show', { uuid: r.split(':')[1] || '' }); })); }
     });
   }
 }

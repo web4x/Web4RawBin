@@ -8,7 +8,8 @@
     "implementations": [
       "ior:instance:5592cffb-5408-4185-b6d9-261a53163cfa"
     ],
-    "implementation": "ior:instance:5592cffb-5408-4185-b6d9-261a53163cfa"
+    "implementation": "ior:instance:5592cffb-5408-4185-b6d9-261a53163cfa",
+    "sourceFile": "ior:file:src/ts/shared/TraceModel.ts"
   },
   "ownerIor": "ior:instance:101a0b1c-2d3e-4f50-8617-a01010101101"
 }
