@@ -6,7 +6,6 @@
     "className": "RbObjectItem",
     "methodName": "render",
     "implementations": [
-      "ior:instance:105e4f50-6172-4384-895b-e05050505105",
       "ior:instance:f2c32dc3-269d-41b7-80db-5fa6d786c221",
       "ior:instance:976147f4-1940-466f-b44d-7d54f5f4c788",
       "ior:instance:77e0cee3-c036-4ede-9a6f-cfcbe71e16a2",
@@ -18,7 +17,7 @@
       "ior:instance:b30a6878-4b32-41a2-acfa-9ba22c0fd30b",
       "ior:instance:b3e1707a-3f83-4ddc-b37c-184ea5d45961"
     ],
-    "implementation": "ior:instance:105e4f50-6172-4384-895b-e05050505105"
+    "implementation": ""
   },
   "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
 }
