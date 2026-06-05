@@ -188,4 +188,7 @@ Deduplication: R18.5 covered scenario-vs-trace branching at Requirement level. R
 | R18.11 | `18e1f2a3` | T193 | Cycle guard ancestor-path-precise — preserve DAG re-convergence |
 | R18.12 | `18f2a3b4` | T193 | True-cycle nodes omitted cleanly — no visible cut artifact |
 | R18.13 | `18a3b4c5` | TBD (bug) | Chain terminates in Test — no loop back to Task/Requirement |
+| R18.14 | `18b4c5d6` | TBD (CSS bug) | Drawer shadow not rendered when drawer closed |
+| R18.15 | `18c5d6e7` | TBD (CSS bug) | Back button does not shift position on scroll/drawer change |
+| R18.16 | `18d6e7f8` | TBD (logic) | Chain includes Class between UseCase and Method — no skip |
 | R-CHAMP | `a0b1c2d3` | standing | Champagne: leaf test verifies root requirement's intention |

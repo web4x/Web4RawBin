@@ -213,3 +213,52 @@ Regardless of root cause, the INVARIANT is: every chain in /trace must follow th
 - [ ] If an Implementation has no tests, it renders as a leaf (EMPTY per champagne standard) — not as a node with Task children
 
 → New task (planner stand-up — architect diagnosing logic vs data)
+
+---
+
+## LITERAL SOURCE — Follow-on H: Drawer shadow + back button + chain skips Class (2026-06-05, screenshot BUGs)
+
+> TRON (1): "the drawer shadow is rendered with the drawer closed. it moves into the list"
+> TRON (2): "the static back button moves up"
+> TRON (3): "usecese -> method instead of usecase -> class -> method and then missing implementation test"
+
+### R18.14: Drawer shadow is not rendered when the drawer is closed.
+
+[requirement:uuid:18b4c5d6-e7f8-9a0b-1c2d-000000018014]
+
+The detail drawer's drop-shadow (or overlay) is visible even when the drawer is in its closed state. The shadow bleeds into the tree list area, visually obscuring list items. When the drawer is closed (not expanded, not showing detail content), its shadow/overlay must have `display:none` or `opacity:0` — no visual artifact in the list area.
+
+**Acceptance criteria:**
+- [ ] Drawer closed → no shadow visible in the tree/list area
+- [ ] Drawer open → shadow renders normally behind the drawer panel
+- [ ] No visual bleed from drawer into list at any scroll position
+
+### R18.15: Static back button does not shift position on scroll or drawer state change.
+
+[requirement:uuid:18c5d6e7-f890-1a2b-3c4d-000000018015]
+
+The back button (← in the header/toolbar) moves vertically ("moves up") when the drawer opens/closes or when the user scrolls. It must stay fixed in its position — anchored to the top of the viewport or the header bar, unaffected by drawer transitions or scroll events.
+
+**Acceptance criteria:**
+- [ ] Back button position is visually stable — does not shift on drawer open/close
+- [ ] Back button position does not shift on scroll
+- [ ] Back button remains accessible (tappable) at all times
+
+### R18.16: Traceability chain includes the Class level between UseCase and Method — no skip from UseCase directly to Method.
+
+[requirement:uuid:18d6e7f8-90a1-2b3c-4d5e-000000018016]
+
+The /trace tree currently shows UseCase → Method, skipping the Class level. The locked 7-step chain (R-E / T168) requires: req → task → UC → **Class** → Method → Implementation → Test. The chain walker must resolve the Class node between UseCase and Method. If the UseCase's `classes[]` links to a Class which has `methods[]`, the tree shows UC → Class → Method. If the data is missing the Class hop (UseCase has `methods[]` directly instead of `classes[]`), this is a data quality fix.
+
+Additionally: Tron notes "missing implementation test" — the chain below Method must continue to Implementation → Test (per R18.13). This links to T195 where missing impl/test data is being filled.
+
+**Deduplication check:** R18.2 covers narrowing to ONE method. R18.16 covers a different issue — the Class LEVEL is skipped entirely. Not narrowing, but a missing hop.
+
+**Acceptance criteria:**
+- [ ] /trace tree shows UC → Class → Method (not UC → Method)
+- [ ] Every Method in the chain has a parent Class node
+- [ ] If UseCase has no `classes[]` but has direct `methods[]`, the data is fixed (Class node inserted)
+- [ ] Below Method: Implementation → Test continues (per R18.13, linked to T195 data fill)
+
+→ (1)(2) → CSS bug task (planner stand-up)
+→ (3) → Chain Class-hop logic task (planner stand-up) + links to T195 (missing impl/test)
