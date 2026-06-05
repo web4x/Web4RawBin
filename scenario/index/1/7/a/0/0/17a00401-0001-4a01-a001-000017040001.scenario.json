@@ -22,7 +22,8 @@
       "repo": "Web4RawBin",
       "ior": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml?commit=1316b7e&lines=135-141"
     },
-    "class": "ior:instance:88dcce3a-770b-4c61-b996-02a72f5d6bef"
+    "class": "ior:instance:88dcce3a-770b-4c61-b996-02a72f5d6bef",
+    "method": "ior:instance:2db8e496-4f46-4fd5-98c5-4de14e9fa5f2"
   },
   "ownerIor": "ior:instance:658841dc-8feb-483f-810f-d6b4e1bb7b84"
 }

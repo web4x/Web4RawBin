@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "f7b2023e-e076-421c-a0c8-f6143d81a1c6",
+    "name": "Scenario browser renders full tree (all children); traceability browser renders tree chains with only the one traced child per node.",
+    "altId": "R18.5",
+    "tasks": [
+      "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+}

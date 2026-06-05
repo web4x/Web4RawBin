@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "c37558ec-fecb-43b6-8cc9-faf7566de647",
+    "name": "Chain through Class narrows to single requirement-fulfilling Method, its Implementation, and Test.",
+    "altId": "R18.2",
+    "tasks": [
+      "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+}

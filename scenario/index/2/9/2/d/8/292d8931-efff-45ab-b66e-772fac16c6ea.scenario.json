@@ -5,9 +5,18 @@
     "id": "T187",
     "name": "Trace-narrowing: chain walker selects ONE method per UC, not Class.methods[] fan-out",
     "sprint": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
-    "coveredRequirements": [],
-    "_requirementHints": ["R18.1", "R18.2", "R18.8 (nav-root + /api/trace/sprints — folded per PO C3+C7 2026-06-05)"],
-    "_r18.8Note": "NAVIGATION-layer field per architect R18.8 (562f6452): Task.coveredRequirements[] is the display denormalization for Sprint→Task→Reqs tree. Chain direction stays Req→Task (forward, Requirement.tasks[]). req-eng populates this when atomic Req units commit; no back-refs introduced (Rule 9).",
+    "coveredRequirements": [
+      "ior:instance:1a8b7485-ca53-4d06-8a05-02cf40541981",
+      "ior:instance:c37558ec-fecb-43b6-8cc9-faf7566de647",
+      "ior:instance:f7b2023e-e076-421c-a0c8-f6143d81a1c6",
+      "ior:instance:f7286fb5-17f0-4f63-96ee-79a744d04107"
+    ],
+    "_requirementHints": [
+      "R18.1",
+      "R18.2",
+      "R18.8 (nav-root + /api/trace/sprints \u2014 folded per PO C3+C7 2026-06-05)"
+    ],
+    "_r18.8Note": "NAVIGATION-layer field per architect R18.8 (562f6452): Task.coveredRequirements[] is the display denormalization for Sprint\u2192Task\u2192Reqs tree. Chain direction stays Req\u2192Task (forward, Requirement.tasks[]). req-eng populates this when atomic Req units commit; no back-refs introduced (Rule 9).",
     "useCases": [],
     "status": "Planned",
     "owners": {
@@ -16,7 +25,7 @@
       "expert": "robbin-expert",
       "tester": "robbin-tester"
     },
-    "description": "When the traceability chain passes through a Class node, narrow to the SINGLE method that fulfills the current requirement (the chain walks UC → THE one Method → Impl → Test). The scenario browser MUST keep showing all Class.methods[] (full object model). Add UseCase.method (singular IOR) as the authoritative narrowing edge. Two traversal verbs: 'trace' (uses UC.method, narrows) vs 'browse' (uses Class.methods[], full). Forward-only preserved per Rule 9 — no back-refs introduced. SCOPE EXTENSION 2026-06-05 (C3+C7 from architect review d7d6404a, PO-directed): T187 formally owns the R18.8 navigation-root rework that T168 AC2 originally wrote in chain-root terms. (a) Browser tree builder produces Sprint→Task as NAVIGATION ROOTS (per R18.8); chain walker still starts at atomic Requirements as CHAIN ROOTS. (b) New endpoint /api/trace/sprints returns Sprint units (navigation roots); /api/trace/roots stays returning Requirement chain-roots for backward compat — two endpoints, clear semantics (architect rec in r18-8-contradiction-review.md C7). (c) Tree client switches root fetch from /api/trace/roots to /api/trace/sprints; existing chain-root API consumers unaffected.",
+    "description": "When the traceability chain passes through a Class node, narrow to the SINGLE method that fulfills the current requirement (the chain walks UC \u2192 THE one Method \u2192 Impl \u2192 Test). The scenario browser MUST keep showing all Class.methods[] (full object model). Add UseCase.method (singular IOR) as the authoritative narrowing edge. Two traversal verbs: 'trace' (uses UC.method, narrows) vs 'browse' (uses Class.methods[], full). Forward-only preserved per Rule 9 \u2014 no back-refs introduced. SCOPE EXTENSION 2026-06-05 (C3+C7 from architect review d7d6404a, PO-directed): T187 formally owns the R18.8 navigation-root rework that T168 AC2 originally wrote in chain-root terms. (a) Browser tree builder produces Sprint\u2192Task as NAVIGATION ROOTS (per R18.8); chain walker still starts at atomic Requirements as CHAIN ROOTS. (b) New endpoint /api/trace/sprints returns Sprint units (navigation roots); /api/trace/roots stays returning Requirement chain-roots for backward compat \u2014 two endpoints, clear semantics (architect rec in r18-8-contradiction-review.md C7). (c) Tree client switches root fetch from /api/trace/roots to /api/trace/sprints; existing chain-root API consumers unaffected.",
     "ruleParaiHints": "(a)+(b) required (user-facing tree behavior); (c) likely EXEMPT (existing /trace + /scenario routes, no new shell)",
     "createdAt": "2026-06-05",
     "createdBy": "robbin-planner",

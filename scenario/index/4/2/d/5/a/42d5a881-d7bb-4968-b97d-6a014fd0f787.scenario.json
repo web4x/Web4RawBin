@@ -9,7 +9,8 @@
       "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
     ],
     "tasks": [],
-    "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+    "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
+    "method": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09"
   },
   "ownerIor": "ior:instance:ee527264-01d6-452a-9c73-b692e65a3a42"
 }

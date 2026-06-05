@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "91a1c36a-bd77-4c05-a5ac-e3f1dfbfac5b",
+    "name": "Sprint 18 authored as scenario.json units first; planning.md and task-*.md generated from those units.",
+    "altId": "R18.3",
+    "tasks": [
+      "ior:instance:8a31ba75-22b6-48ff-9532-d5da21458543"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+}

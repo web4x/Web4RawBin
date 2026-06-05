@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "f7286fb5-17f0-4f63-96ee-79a744d04107",
+    "name": "Both browsers root at Sprint then Tasks then atomic Requirements, then branch scenario-full or trace-chain.",
+    "altId": "R18.8",
+    "tasks": [
+      "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+}

@@ -3,11 +3,15 @@
   "model": {
     "uuid": "a7f7f216-8389-475c-96b7-3593b185cb01",
     "id": "T189",
-    "name": "Role skills — co-specify planner/architect/req-eng SKILL.md from precedence-analysis Rules 1-11",
+    "name": "Role skills \u2014 co-specify planner/architect/req-eng SKILL.md from precedence-analysis Rules 1-11",
     "sprint": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
-    "coveredRequirements": [],
-    "_requirementHints": ["R18.4"],
-    "_r18.8Note": "NAVIGATION-layer field per architect R18.8 (562f6452): Task.coveredRequirements[] is the display denormalization for Sprint→Task→Reqs tree. Chain direction stays Req→Task (forward). req-eng populates when atomic Req units commit.",
+    "coveredRequirements": [
+      "ior:instance:57231c0e-d7ff-4094-a139-58e3adf975af"
+    ],
+    "_requirementHints": [
+      "R18.4"
+    ],
+    "_r18.8Note": "NAVIGATION-layer field per architect R18.8 (562f6452): Task.coveredRequirements[] is the display denormalization for Sprint\u2192Task\u2192Reqs tree. Chain direction stays Req\u2192Task (forward). req-eng populates when atomic Req units commit.",
     "useCases": [],
     "status": "Planned",
     "owners": {
@@ -17,7 +21,7 @@
       "tester": "robbin-tester"
     },
     "description": "Each of the three refinement roles (planner, architect, req-eng) authors their own SKILL.md anchored on the rules they contributed to scrum.pmo/standards/refinement-precedence-analysis.md: planner Rules 6-8 + pre-flight checklist + Sprint-1 decomposition trigger; architect Rules 1-5 (chain-vs-dependency framing); req-eng Rules 9-11 (dedup, cross-product, compound-as-input). SKILL.md files survive role reboot/compact and become the durable role-protocol artifact. Lives under .claude/agents/<role>/SKILL.md per existing OOSH agent pattern.",
-    "rulePairHints": "EXEMPT — documentation/role-protocol files only, no src/ change",
+    "rulePairHints": "EXEMPT \u2014 documentation/role-protocol files only, no src/ change",
     "createdAt": "2026-06-05",
     "createdBy": "robbin-planner",
     "scaffoldNote": "requirements[] populated by req-eng after R18.4 atom uuid lands; planner SKILL.md being authored in parallel as proof-of-concept"
