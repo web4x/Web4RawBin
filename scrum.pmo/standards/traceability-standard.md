@@ -15,7 +15,7 @@ Every artifact must be traceable through the **LOCKED 7-step canonical chain** (
 Requirement → Task → UseCase(s) → Class → Method → Implementation → Test(s)
 ```
 
-- **Atomic requirements are tree ROOTS** — nothing parents them; every other object descends from a requirement.
+- **Atomic requirements are CHAIN ROOTS** — the forward-only traceability chain starts at requirements and walks to tests. In the browser tree, Sprint is the NAVIGATION ROOT; requirements appear as children of their covering Task (Sprint→Task→coveredReqs→chain). See R18.8.
 - **Forward-only**: links point DOWN the chain (no back-refs in the graph).
 - **Plural hops**: UseCase(s) and Test(s) are 1:N branching points. Implementation:Test is 1:N.
 - **Tree walk**: `/api/trace/children/<uuid>` follows FORWARD_KEYS per class type.

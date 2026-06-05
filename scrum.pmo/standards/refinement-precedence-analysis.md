@@ -192,7 +192,7 @@ R17.3 → T126 → UC → Class → Method → Impl → Test
 (three independent forward chains; dependencies are metadata, not chain links)
 ```
 
-Each requirement is a tree ROOT. Each task hangs from exactly ONE requirement. Dependencies between tasks are scheduling metadata (`follows` / `Dependencies`), not chain links. The chain walker never sees task→req→task — only req→task→uc→...→test.
+Each requirement is a CHAIN ROOT — the forward-only traceability chain starts here. In the chain, each task is reached from exactly one requirement (forward: req→task). In the browser navigation, each task DISPLAYS its covered requirements as children (Sprint→Task→coveredReqs→chain, per R18.8). Dependencies between tasks are scheduling metadata (`follows` / `Dependencies`), not chain links. The chain walker never sees task→req→task — only req→task→uc→...→test.
 
 ## Req-Eng Decomposition Protocol (robbin-req)
 

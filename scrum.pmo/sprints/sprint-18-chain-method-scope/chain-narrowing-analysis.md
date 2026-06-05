@@ -183,12 +183,14 @@ SCENARIO BROWSER (full tree — fan-out at every hop):
             → ALL Tests per impl
 
 TRACEABILITY BROWSER (chain line — ONE child per intermediate node):
-  Requirement → Tasks (1:N OK — req is root, shows its scoped tasks)
-    → UseCases (1:N OK — task scopes its own UCs)
-      → ONE Class (the UC's implementing class)
-        → ONE Method (the UC's verb-matched method)
-          → ONE Implementation (the method's impl)
-            → Tests (1:N OK — leaf level, shows all covering tests)
+  Sprint (NAVIGATION ROOT)
+    → Tasks (navigation — sprint's work items)
+      → covered Requirements (navigation — which reqs this task fulfills, per R18.8)
+        → UseCases (CHAIN starts here — 1:N OK, task-scoped)
+          → ONE Class (the UC's implementing class)
+            → ONE Method (the UC's verb-matched method)
+              → ONE Implementation (the method's impl)
+                → Tests (1:N OK — leaf level, shows all covering tests)
 ```
 
 Fan-out is acceptable at **roots** (Requirement→Tasks) and **leaves** (Impl→Tests). Intermediate hops narrow to ONE child because that's where cross-chain bleed happens (multiple UCs share a Class; a Class has methods serving different requirements).
@@ -368,7 +370,7 @@ The navigation layer is SHARED between both modes. They diverge only at the Requ
 
 ## Next Steps (Sprint 18 scope — T187/T188/T189)
 
-1. **T187:** Add singular chain links (`UC.method`, `UC.class`, `Method.implementation`); update `/api/trace/children` with `?mode=trace`; update `rb-trace-tree.ts` to pass mode
+1. **T187:** Add singular chain links (`UC.method`, `UC.class`, `Method.implementation`); update `/api/trace/children` with `?mode=trace`; update `rb-trace-tree.ts` to pass mode; **C7 rework: add `/api/trace/sprints` endpoint** returning Sprint units as navigation roots (keep `/api/trace/roots` for backward-compat requirement-chain-roots)
 2. **T188:** Create S18 as scenario.json units first; ViewGenerator emits planning.md + task-*.md
 3. **T189:** Co-specify role SKILL.md files (architect + planner + req-eng, Rules 1-11)
 4. Population pipeline: one-pass verb-matching fills singular links on existing 30 UCs
