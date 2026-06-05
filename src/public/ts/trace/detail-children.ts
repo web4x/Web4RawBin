@@ -1,6 +1,5 @@
 /**
- * R18.9 — Detail pane fetches ?mode=scenario for full object children.
- * Tree stays ?mode=trace (narrowed). Detail shows ALL children.
+ * R18.9+R18.10 — Detail pane: scenario children + parent link.
  */
 
 export interface DetailChild {
@@ -10,20 +9,34 @@ export interface DetailChild {
   hasChildren: boolean;
 }
 
-export async function fetchDetailChildren(uuid: string): Promise<DetailChild[]> {
-  try {
-    const res = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}?mode=scenario`);
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.children || [];
-  } catch { return []; }
+export interface DetailParent {
+  uuid: string;
+  type: string;
+  name: string;
 }
 
-export function renderDetailChildren(children: DetailChild[], navigate: (type: string, verb: string, params: Record<string, string>) => void): string {
-  if (children.length === 0) return '<div class="dv-empty">no children</div>';
-  return children.map(c =>
-    `<div class="dv-link" data-ref="${c.type.toLowerCase()}:${c.uuid}" data-uuid="${c.uuid}" data-type="${c.type}"><span class="dv-rel">${c.type}</span><span class="dv-link-title">${esc(c.name)}</span></div>`
-  ).join('');
+export interface DetailData {
+  children: DetailChild[];
+  parent: DetailParent | null;
+}
+
+export async function fetchDetailData(uuid: string): Promise<DetailData> {
+  try {
+    const res = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}?mode=scenario`);
+    if (!res.ok) return { children: [], parent: null };
+    const data = await res.json();
+    return { children: data.children || [], parent: data.parent || null };
+  } catch { return { children: [], parent: null }; }
+}
+
+export async function fetchDetailChildren(uuid: string): Promise<DetailChild[]> {
+  const data = await fetchDetailData(uuid);
+  return data.children;
+}
+
+export function renderParentLink(parent: DetailParent | null): string {
+  if (!parent) return '';
+  return `<div class="dv-parent" style="margin-bottom:8px"><span style="color:rgba(255,255,255,0.4);font-size:0.7rem">Parent:</span> <a href="#" class="dv-parent-link" data-uuid="${parent.uuid}" data-type="${parent.type}" style="color:#ff9800;font-size:0.8rem;text-decoration:none">${esc(parent.type)}: ${esc(parent.name)}</a></div>`;
 }
 
 function esc(s: string): string {

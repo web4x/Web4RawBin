@@ -12,7 +12,7 @@ import { TraceGraph, refUuid, type ObjectRef } from '../../../ts/shared/TraceMod
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
-import { fetchDetailChildren } from './detail-children.js';
+import { fetchDetailData, renderParentLink } from './detail-children.js';
 
 export class RbDetailView extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -59,8 +59,17 @@ export class RbDetailView extends HTMLElement {
       });
     });
 
-    // R18.9: fetch ALL children (scenario mode) for the detail pane
-    fetchDetailChildren(obj.uuid).then(children => {
+    // R18.9+R18.10: fetch ALL children + parent (scenario mode) for the detail pane
+    fetchDetailData(obj.uuid).then(({ children, parent }) => {
+      // R18.10: render parent link
+      const parentDiv = this.querySelector('.dv-head');
+      if (parentDiv && parent) {
+        parentDiv.insertAdjacentHTML('afterend', renderParentLink(parent));
+        this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid });
+        });
+      }
       const container = this.querySelector('.dv-scenario-children');
       if (!container || children.length === 0) { if (container) container.innerHTML = ''; return; }
       container.innerHTML = `<h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:4px">All children (scenario)</h4>` +

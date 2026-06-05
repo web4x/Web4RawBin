@@ -602,7 +602,13 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           return { uuid: ref, type: 'unknown', name: ref.slice(0, 8), hasChildren: false };
         }).filter(Boolean);
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
-        res.end(JSON.stringify({ uuid, type, name: String(unit.model?.name || ''), children }));
+        const ownerIor = String(unit.ownerIor || '').replace('ior:instance:', '');
+        let parent: { uuid: string; type: string; name: string } | null = null;
+        if (ownerIor) {
+          const parentUnit = idx.get(ownerIor);
+          if (parentUnit) parent = { uuid: ownerIor, type: (parentUnit.ior || '').split(':')[2] || '', name: String(parentUnit.model?.name || '') };
+        }
+        res.end(JSON.stringify({ uuid, type, name: String(unit.model?.name || ''), children, parent }));
       } catch { res.writeHead(500); res.end('{}'); }
       return;
     }
