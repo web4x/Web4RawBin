@@ -4,7 +4,9 @@
     "uuid": "b9589ec2-89fa-44b3-99a7-c7ea436d3469",
     "name": "TraceGraph",
     "file": "src/ts/shared/TraceModel.ts",
-    "methods": [],
+    "methods": [
+      "ior:instance:0887265f-6652-451b-8986-34b6a7f909b1"
+    ],
     "useCases": []
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"

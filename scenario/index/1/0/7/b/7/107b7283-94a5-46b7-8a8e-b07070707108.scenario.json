@@ -6,7 +6,10 @@
     "file": "ior:file:test/vitest/rb-detail-overview.test.ts",
     "requirements": [],
     "methods": [],
-    "status": "PASS"
+    "status": "PASS",
+    "verifies": [
+      "ior:instance:55e5f6a7-b8c9-4d04-8ab5-3f4a5b6c7d05"
+    ]
   },
   "ownerIor": null
 }
