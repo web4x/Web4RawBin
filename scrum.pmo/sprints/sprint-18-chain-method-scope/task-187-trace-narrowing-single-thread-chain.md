@@ -1,18 +1,31 @@
-[Back to Sprint 17 Planning](./planning.md)
+[Back to Sprint 18 Planning](./planning.md)
 
 # T187: Trace narrowing — single-thread chain in /trace, full fan-out in /scenario
 
-[task:uuid:b7f187c1-d2e3-4f45-a6b7-8c9d0e1f2a87]
+[task:uuid:292d8931-efff-45ab-b66e-772fac16c6ea]
+
+> Canonical source: `scenario/index/2/9/2/d/8/292d8931-efff-45ab-b66e-772fac16c6ea.scenario.json` (S18 dogfood — scenario.json first). This .md file holds tester's pre-authored Test Scenarios (TS) for execution; status is mirrored from the unit. uuid + sprint location reconciled by planner per learning #20 + #26 (was sprint-17 + fake-suffix uuid → moved to sprint-18 + real v4).
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [x] testing (scenarios pre-authored by tester)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (architect 6c7ff26e + 35f111a6)
+  - [x] creating test cases (tester 27ffe1b4 — 10 TS pre-authored)
+  - [x] implementing (expert 02c99a7e v0.5.88)
+  - [ ] testing (tester executes 10 TS — pending)
 - [ ] QA Review
 - [ ] Done
+
+## Traceability
+- up
+  - [Sprint 18 Planning](./planning.md)
+  - Sprint unit: `ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962`
+  - Atomic requirements (covered): R18.1 + R18.2 + R18.8 — req-eng `22f43f31`
+- follows
+  - T168 (closed; chain semantics preserved; R18.8 nav-root rework appended as note)
+  - T186 (closed; lazy-LOAD; this task adds chain-narrowing on top)
+- down
+  - None (atomic task — Test scenarios listed below are TS not subtasks)
 
 ## Task Description
 /trace shows a NARROWED single-thread chain: a Requirement with N tasks shows
@@ -49,6 +62,9 @@ curl -sk https://localhost:4444/api/trace/roots | node -e "..."
 # TS6: /api/trace/sprints
 curl -sk https://localhost:4444/api/trace/sprints
 ```
+
+## Subtasks
+None (atomic task — 10 TS above are test scenarios for execution, not subtasks).
 
 ## QA Audit & User Feedback
 - 2026-06-05: Tester pre-authored 10 test scenarios from PO's AC description. Ready to execute the instant expert deploys.

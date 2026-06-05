@@ -1,18 +1,31 @@
-[Back to Sprint 17 Planning](./planning.md)
+[Back to Sprint 18 Planning](./planning.md)
 
 # T190: Tree expand appends only — no full re-render, no scroll jump
 
-[task:uuid:c8a190d2-e3f4-4056-b7c8-9d0e1f2a3b90]
+[task:uuid:08e46ce3-69f3-40fe-87d7-5ee875a4e94a]
+
+> Canonical source: `scenario/index/0/8/e/4/6/08e46ce3-69f3-40fe-87d7-5ee875a4e94a.scenario.json` (S18 dogfood — scenario.json first). This .md file holds tester's pre-authored Test Scenarios (TS) for execution; status is mirrored from the unit. uuid + sprint location reconciled by planner per learning #20 + #26 (was sprint-17 + fake-suffix uuid → moved to sprint-18 + real v4).
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [x] testing (scenarios pre-authored by tester)
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (architect — incremental-append folded into seed-path)
+  - [x] creating test cases (tester 27ffe1b4 — 8 TS pre-authored)
+  - [x] implementing (expert 02c99a7e v0.5.88)
+  - [ ] testing (tester executes 8 TS — pending)
 - [ ] QA Review
 - [ ] Done
+
+## Traceability
+- up
+  - [Sprint 18 Planning](./planning.md)
+  - Sprint unit: `ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962`
+  - Atomic requirements (covered): R18.5 + R18.6 + R18.7 — req-eng `22f43f31` + `a558480b`
+- follows
+  - T186 R-Y1 (closed; lazy-LOAD verified)
+  - T186 R-Y2 (closed; expand/collapse verified)
+- down
+  - None (atomic task — 8 TS are test scenarios for execution)
 
 ## Task Description
 Expanding a tree node appends child-level DOM only — no full re-render of the
@@ -61,5 +74,10 @@ const markerSurvived = await page.evaluate(() =>
 );
 ```
 
+## Subtasks
+None (atomic task — 8 TS above are test scenarios for execution, not subtasks).
+
 ## QA Audit & User Feedback
 - 2026-06-05: Tester pre-authored 8 test scenarios from PO's AC description. Ready to execute the instant expert deploys.
+- 2026-06-05: Expert `02c99a7e` v0.5.88 shipped — seed-path incremental append + toggle (no full re-render); fetchAndRenderChildren appends only; scroll preserved. Tester strict-bar execution pending.
+- 2026-06-05: Planner reconciled (learning #20+#26): moved from sprint-17 to sprint-18 (correct sprint); fake-suffix task uuid → real v4 `08e46ce3-…` matching scenario unit; added Traceability + Subtasks sections for Web4Articles audit compliance.
