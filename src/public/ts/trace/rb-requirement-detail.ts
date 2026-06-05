@@ -10,6 +10,7 @@ import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
+import { fetchDetailChildren } from './detail-children.js';
 
 export class RbRequirementDetail extends HTMLElement {
   graph: TraceGraph | null = null;

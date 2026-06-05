@@ -12,6 +12,7 @@ import { TraceGraph, refUuid, type ObjectRef } from '../../../ts/shared/TraceMod
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
+import { fetchDetailChildren } from './detail-children.js';
 
 export class RbDetailView extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -46,7 +47,8 @@ export class RbDetailView extends HTMLElement {
         ${obj.status ? `<span class="dv-status">${esc(obj.status)}</span>` : ''}
         <div class="dv-field"><a href="/scenario?ior=${obj.uuid}" class="dv-file-link" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Scenario view</a></div>
       </div>
-      <div class="dv-links">${rows.join('') || '<div class="dv-empty">no links</div>'}</div>`;
+      <div class="dv-links">${rows.join('') || '<div class="dv-empty">no links</div>'}</div>
+      <div class="dv-scenario-children" style="border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px"><span style="color:rgba(255,255,255,0.4);font-size:0.7rem">Loading all children...</span></div>`;
 
     // click link rows → navigate to the linked object
     this.querySelectorAll('.dv-link').forEach(row => {
@@ -54,6 +56,20 @@ export class RbDetailView extends HTMLElement {
         const lref = (row as HTMLElement).dataset.ref!;
         const [type] = lref.split(':');
         navigate(type, 'show', { uuid: refUuid(lref) });
+      });
+    });
+
+    // R18.9: fetch ALL children (scenario mode) for the detail pane
+    fetchDetailChildren(obj.uuid).then(children => {
+      const container = this.querySelector('.dv-scenario-children');
+      if (!container || children.length === 0) { if (container) container.innerHTML = ''; return; }
+      container.innerHTML = `<h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:4px">All children (scenario)</h4>` +
+        children.map(c => `<div class="dv-link" data-ref="${c.type.toLowerCase()}:${c.uuid}"><span class="dv-rel">${c.type}</span><span class="dv-link-title">${c.name}</span></div>`).join('');
+      container.querySelectorAll('.dv-link').forEach(row => {
+        row.addEventListener('click', () => {
+          const lref = (row as HTMLElement).dataset.ref!;
+          navigate(lref.split(':')[0], 'show', { uuid: lref.split(':')[1] || lref });
+        });
       });
     });
 
