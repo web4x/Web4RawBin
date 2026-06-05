@@ -138,6 +138,44 @@ When implementation reveals a new need:
 
 The NEW requirement R17.2 is a **sibling** of R17.1 — both are roots. Not a child of T124.
 
+---
+
+## Planner Protocol (robbin-planner)
+
+Operational teeth that enforce the chain-vs-dependency separation. Rules 6-8 are planner-owned discipline; architect-owned chain semantics above (Rules 1-5) remain authoritative on the WHY.
+
+### Rule 6: Sprint-1 hierarchy on mid-flight atom accumulation (planner)
+
+The Sprint-1 `task-1` / `task-1.1` / `task-1.2` / `task-1.3` decomposition Tron praised is the canonical pattern when a top-level task accumulates ≥ 3 mid-flight atoms:
+
+- **Top-level T(N)** = coordination root (intent + scope statement only)
+- **Subtasks T(N).1, T(N).2, T(N).3, …** = atomic units (one atom each)
+- **Each subtask** has its own v4 task-uuid, its own atomic requirement uuid, its own role-keyed owner, its own ship cycle
+
+**Trigger:** when a task takes ≥ 3 version bumps for distinct atoms (T174 went v0.5.71 → v0.5.72 → v0.5.73 → v0.5.84 for R-M1/M2/M3/M4 + R-M3d + R-M3e + R-Y1+R-Y2 — should have decomposed into T174.1 through T174.6 after the second mid-flight atom).
+
+**Benefit:** each ship-cycle owns one chain forward-step; no single task accumulates scope; tester verifies per-subtask not per-task; Tron QA gates per-subtask.
+
+**Anti-pattern (observed in S17):** "fold the new atom into the existing task" — keeps a single task in iteration through multiple version bumps. The fold pattern is correct when the atom is the SAME requirement at a different layer (T181 display → T184 server: same R-U umbrella, different layer = fold). The fold pattern is WRONG when the atom is a new requirement on the same surface (R-M3d/R-M3e added to T174: distinct atoms = should be subtasks).
+
+### Rule 7: Letter-block reservation + v4 uuid discipline (planner)
+
+To eliminate label collisions:
+
+- At sprint kickoff, **req-eng and planner agree on disjoint letter ranges** for new mid-sprint atoms (e.g. req-eng owns R-A* through R-T*; planner owns R-U* through R-Z* for synthesized labels on tasks Tron hasn't yet captured).
+- Both roles use real `uuidgen` v4 uuids (per learning #17). Fake-suffix placeholders like `…-x00000000001` are rejected at audit.
+- **Pre-flight check (planner):** before any label commit, run `grep -r "R-<letter><number>" scrum.pmo/sprints/<sprint>/` — if the label is in use elsewhere, generate a new one. Add to learning #26 pre-flight checklist.
+
+**Observed collisions removed by this rule:** T184 R-X1 → R-Y1 → R-Z1 → R-U (umbrella) rename chain across 24h was caused by req-eng claiming the same letters mid-flight. Disjoint ranges + grep-check prevent it.
+
+### Rule 8: Closure freeze (planner)
+
+Once PO marks a task closed (✓ in their message), the task's banner accepts NO new commits. Post-closure atoms that the team discovers get a fresh T-number, not a re-open.
+
+**Precedent:** PO directive 2026-06-05 — "Stand up T186 for the v0.5.84 tree-lazy-load fix; do NOT fold into closed T178. Distinct layer, distinct fix — own task = clean traceability (closed tasks don't gain post-closure commits)."
+
+**Why:** closure is the team's contract that the task is done-as-scoped. If new atoms emerge afterward, they belong to a new task; otherwise closure means nothing and Tron QA loses meaning.
+
 ## The Recurrence Eliminated
 
 **Before (recurrent):**
@@ -169,4 +207,7 @@ Each requirement is a tree ROOT. Each task hangs from exactly ONE requirement. D
 ---
 
 **Formulated by:** robbin-architect + robbin-planner (JOINT, 2026-06-05)
+**Architect contributions (chain-vs-dependency framing + 5 protocol rules):** Sections "The Problem", "First-Principles Reasoning", "Canonical Precedence", "Optimal Refinement Process" Rules 1-5, "The Recurrence Eliminated", and "Conclusion".
+**Planner contributions (operational teeth):** "Planner Protocol" sub-section with Rules 6-8 — Sprint-1 decomposition trigger, letter-block reservation + v4 uuid discipline, closure freeze. Anchored on Tron-praised Sprint-1 task-1/1.1 hierarchy and S17 collision incidents (R-X1→Y1→Z1 on T184, T174 multi-atom scope creep, T186 vs T178 PO-directed separation).
+**req-eng contribution slot:** Architect to integrate when it lands.
 **Approved by:** (pending Tron review via robbin-po)
