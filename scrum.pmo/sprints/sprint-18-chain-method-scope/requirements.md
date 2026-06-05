@@ -191,4 +191,6 @@ Deduplication: R18.5 covered scenario-vs-trace branching at Requirement level. R
 | R18.14 | `18b4c5d6` | TBD (CSS bug) | Drawer shadow not rendered when drawer closed |
 | R18.15 | `18c5d6e7` | TBD (CSS bug) | Back button does not shift position on scroll/drawer change |
 | R18.16 | `18d6e7f8` | TBD (logic) | Chain includes Class between UseCase and Method — no skip |
+| R18.17 | `18e7f890` | TBD (bug) | Sprint list shows each sprint exactly once — no duplicates |
+| R18.18 | `18f890a1` | TBD (bug) | Sprint names include sprint number |
 | R-CHAMP | `a0b1c2d3` | standing | Champagne: leaf test verifies root requirement's intention |

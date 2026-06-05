@@ -262,3 +262,31 @@ Additionally: Tron notes "missing implementation test" — the chain below Metho
 
 → (1)(2) → CSS bug task (planner stand-up)
 → (3) → Chain Class-hop logic task (planner stand-up) + links to T195 (missing impl/test)
+
+---
+
+## LITERAL SOURCE — Follow-on I: Duplicate sprints + missing sprint numbers (2026-06-05, BUG)
+
+> TRON: "you see a fundamental duplication flaw and missing sprint numbers"
+
+### R18.17: /trace sprint list shows each sprint exactly ONCE — no duplicates.
+
+[requirement:uuid:18e7f890-a1b2-3c4d-5e6f-000000018017]
+
+The /trace browser's sprint list currently shows each sprint twice. This is either a data issue (duplicate Sprint scenario units in the index — the same duplication pattern seen with the 12 duplicate Class pairs) or a rendering issue (the sprint list query returns duplicates). Each sprint must appear exactly once in the list.
+
+**Acceptance criteria:**
+- [ ] /trace sprint list shows each sprint name exactly once
+- [ ] No duplicate Sprint scenario units in the index (or if duplicates exist in data, the renderer deduplicates)
+
+### R18.18: Sprint names in /trace include their sprint number.
+
+[requirement:uuid:18f890a1-b2c3-4d5e-6f70-000000018018]
+
+Sprint names in the /trace browser omit the sprint number (e.g. showing "Foundation" instead of "Sprint 1 — Foundation"). The Sprint scenario unit's `model.name` must include the sprint number, or the renderer must prepend it from the slug/ordering. Users need the number to identify sprints by their sequence.
+
+**Acceptance criteria:**
+- [ ] Each sprint in /trace shows its number (e.g. "Sprint 1 — Foundation", not just "Foundation")
+- [ ] Sprint ordering in the list matches sprint number order
+
+→ Bug task (planner stand-up — architect diagnosing data vs render)
