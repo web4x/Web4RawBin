@@ -2,13 +2,15 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "35c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b03",
-    "name": "R15.4 — `defaultItemView` per object for lists — like the...",
+    "name": "R15.4 \u2014 `defaultItemView` per object for lists \u2014 like the...",
     "description": "> R1 (literal): \"Object.verb usecase diagramms.\"",
     "tronQuote": "> R1 (literal): \"Object.verb usecase diagramms.\"",
     "tasks": [
       "ior:instance:104d3e4f-5061-4273-894a-d04040404104"
     ],
-    "tests": []
+    "tests": [],
+    "orphanByDesign": true,
+    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case"
   },
   "ownerIor": "ior:instance:5b3eba3f-17ce-4e3a-b143-2aef7453a739"
 }

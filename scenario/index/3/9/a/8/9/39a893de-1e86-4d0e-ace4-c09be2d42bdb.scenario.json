@@ -8,7 +8,9 @@
     "tasks": [
       "ior:instance:9a1faf02-cffd-4e74-b115-5dba87b06ad0"
     ],
-    "tests": []
+    "tests": [],
+    "orphanByDesign": true,
+    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case"
   },
   "ownerIor": "ior:instance:658841dc-8feb-483f-810f-d6b4e1bb7b84"
 }

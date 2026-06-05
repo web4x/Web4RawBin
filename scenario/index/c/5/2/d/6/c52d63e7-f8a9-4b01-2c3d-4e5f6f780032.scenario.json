@@ -2,13 +2,15 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "c52d63e7-f8a9-4b01-2c3d-4e5f6f780032",
-    "name": "R17.33: The chain order is requirement → task → usecase(s...",
-    "description": "[requirement:uuid:c52d63e7-f8a9-4b01-2c3d-4e5f6f780032]\n  → [T168](./task-168-chain-order-7-step-requirements-as-roots.md)\n\n- [ ] **R17.33: The chain order is requirement → task → usecase(s) → class → method → implementation → test(s).**",
+    "name": "R17.33: The chain order is requirement \u2192 task \u2192 usecase(s...",
+    "description": "[requirement:uuid:c52d63e7-f8a9-4b01-2c3d-4e5f6f780032]\n  \u2192 [T168](./task-168-chain-order-7-step-requirements-as-roots.md)\n\n- [ ] **R17.33: The chain order is requirement \u2192 task \u2192 usecase(s) \u2192 class \u2192 method \u2192 implementation \u2192 test(s).**",
     "tronQuote": "",
     "tasks": [
       "ior:instance:c3951691-b231-4b60-a2f8-79c9d5ef851e"
     ],
-    "tests": []
+    "tests": [],
+    "orphanByDesign": true,
+    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case"
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

@@ -2,13 +2,15 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "24b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02",
-    "name": "R14.3 — Prove migration integrity: every legacy record ma...",
+    "name": "R14.3 \u2014 Prove migration integrity: every legacy record ma...",
     "description": "> Tron: _(req to insert literal quote)_",
     "tronQuote": "> Tron: _(req to insert literal quote)_",
     "tasks": [
       "ior:instance:97b2d4f6-3c8e-4a11-8b57-2d4f6a8b9c97"
     ],
-    "tests": []
+    "tests": [],
+    "orphanByDesign": true,
+    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case"
   },
   "ownerIor": "ior:instance:651a343a-379a-4b3c-82c9-0255e9a83a68"
 }

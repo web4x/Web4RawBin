@@ -2,13 +2,15 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000004",
-    "name": "R17.5: Speaking-name tree (json) — symlink tree with huma...",
+    "name": "R17.5: Speaking-name tree (json) \u2014 symlink tree with huma...",
     "description": "> TRON: \"uuid identified instances are units in a data directory in scenario/index in which has folders from the first 5 characters of the uuid and there stores the original uuid.scenario.json.\"",
     "tronQuote": "> TRON: \"uuid identified instances are units in a data directory in scenario/index in which has folders from the first 5 characters of the uuid and there stores the original uuid.scenario.json.\"",
     "tasks": [
       "ior:instance:f96a9da3-366c-491f-b2e6-78cbb837f203"
     ],
-    "tests": []
+    "tests": [],
+    "orphanByDesign": true,
+    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case"
   },
   "ownerIor": "ior:instance:658841dc-8feb-483f-810f-d6b4e1bb7b84"
 }
