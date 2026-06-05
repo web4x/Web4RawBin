@@ -70,6 +70,7 @@ export class RbTraceTree extends HTMLElement {
         }
       }
       kids.style.display = '';
+      requestAnimationFrame(() => (node as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
     } else {
       this.expanded.delete(ref);
       const kids = node.querySelector(':scope > .tt-children') as HTMLElement;
@@ -220,6 +221,7 @@ export class RbTraceTree extends HTMLElement {
           loaded = true;
           this.fetchAndRenderChildren(uuid, kids, branchPath);
         }
+        if (open) requestAnimationFrame(() => node.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
       }) as EventListener);
     }
     return node;
