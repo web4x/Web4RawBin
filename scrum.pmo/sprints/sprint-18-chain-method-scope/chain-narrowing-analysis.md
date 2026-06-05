@@ -167,24 +167,108 @@ const TRACE_FORWARD_KEYS = {
 
 The tree walker checks the current MODE (scenario vs traceability) and uses the appropriate FORWARD_KEYS map.
 
-## Impact on LOCKED 7-Step
+## T187 WIDENED: Recursive Narrowing at EVERY Hop (Tron 2026-06-05)
 
-The 7-step chain is PRESERVED — Requirement → Task → UseCase → Class → Method → Implementation → Test. The narrowing doesn't remove Class from the chain; it changes WHERE methods come from at walk-time:
+Tron confirmed the UC→Method design and widened it: **the narrowing applies recursively at EVERY hop**, not just UC→Method. The traceability browser shows ONE child per intermediate node — a single CHAIN LINE from requirement root to test leaf.
 
-- Scenario mode: UC → Class → Class.methods[]
-- Traceability mode: UC → UC.methods[] (Class shown as context, not as the method source)
+### Two Tree Modes (full contrast)
 
-Both modes walk 7 steps. The difference is fan-out (scenario) vs narrowing (traceability).
+```
+SCENARIO BROWSER (full tree — fan-out at every hop):
+  Requirement → ALL Tasks
+    → ALL UseCases per task
+      → ALL Classes per UC
+        → ALL Methods per class
+          → ALL Implementations per method
+            → ALL Tests per impl
 
-## Next Steps (Sprint 18 scope)
+TRACEABILITY BROWSER (chain line — ONE child per intermediate node):
+  Requirement → Tasks (1:N OK — req is root, shows its scoped tasks)
+    → UseCases (1:N OK — task scopes its own UCs)
+      → ONE Class (the UC's implementing class)
+        → ONE Method (the UC's verb-matched method)
+          → ONE Implementation (the method's impl)
+            → Tests (1:N OK — leaf level, shows all covering tests)
+```
 
-1. **R18.1 + R18.2:** Add `methods[]` to UseCase scenario units; populate via verb-matching
-2. **R18.3:** Create S18 as scenario.json units first (dogfood S17 system)
-3. **R18.4:** Co-specify role SKILL.md files (architect + planner + req-eng)
-4. Update traceability walker to use `UC.methods[]` in trace mode
-5. `/api/trace` and `/api/trace/children` support both modes (query param `?mode=trace` vs `?mode=scenario`)
+Fan-out is acceptable at **roots** (Requirement→Tasks) and **leaves** (Impl→Tests). Intermediate hops narrow to ONE child because that's where cross-chain bleed happens (multiple UCs share a Class; a Class has methods serving different requirements).
+
+### Singular Chain Links (data model addition)
+
+Each intermediate node gets a SINGULAR chain-child alongside its existing PLURAL children:
+
+| Node | Scenario link (plural) | Trace link (singular) | Populated from |
+|------|------------------------|-----------------------|----------------|
+| UseCase | `classes[]` (all) | `class` (singular IOR) | Usually 1 already |
+| UseCase | *(new)* | `method` (singular IOR) | Object.verb match |
+| Method | `implementations[]` | `implementation` (singular IOR) | Usually 1:1 |
+
+Requirement→Tasks and Impl→Tests stay plural (root/leaf — no narrowing needed).
+
+### Recursive TRACE_FORWARD_KEYS
+
+```typescript
+// Scenario mode — fan-out (existing):
+const SCENARIO_FORWARD: Record<string, string> = {
+  requirement:    'tasks',
+  task:           'useCases',
+  usecase:        'classes',
+  class:          'methods',
+  method:         'implementations',
+  implementation: 'tests',
+};
+
+// Trace mode — chain line (NEW — singular at intermediate hops):
+const TRACE_FORWARD: Record<string, string> = {
+  requirement:    'tasks',            // 1:N OK (root)
+  task:           'useCases',         // 1:N OK (task-scoped)
+  usecase:        'method',           // SINGULAR — the one verb-matched method
+  method:         'implementation',   // SINGULAR — the one impl
+  implementation: 'tests',            // 1:N OK (leaf)
+};
+// Note: 'class' key absent in trace mode — Class shown as CONTEXT on the UC row,
+// not as a chain hop. The chain goes UC → method directly.
+```
+
+### Walk Contract
+
+The `/api/trace/children/<uuid>` endpoint gains a `?mode=trace` query parameter:
+
+- `?mode=scenario` (default): uses `SCENARIO_FORWARD` — all children (current behavior)
+- `?mode=trace`: uses `TRACE_FORWARD` — singular chain links at intermediate hops
+
+The tree component (`rb-trace-tree.ts`) passes the mode when fetching children. The `/trace` page uses trace mode; the `/scenario` page uses scenario mode.
+
+### Population Pipeline (extends T178)
+
+```
+For each UseCase unit:
+  1. UC.class = UC.classes[0]                              // usually 1 class
+  2. verb = UC.name.split('.')[1]                          // "put" from "index.put"
+  3. Find Method in UC.class where methodName == verb
+  4. UC.method = ior:instance:<matched-method-uuid>        // singular
+
+For each Method unit:
+  5. If Method.implementations.length == 1:
+     Method.implementation = Method.implementations[0]     // singular
+```
+
+### Impact on 7-Step Chain
+
+The 7-step is PRESERVED in both modes. The difference:
+- Scenario: walks all 7 steps with fan-out at every hop
+- Trace: walks the same 7 steps but each intermediate hop resolves to ONE child
+
+Both are valid walks of the same chain. The trace mode is a FILTERED view, not a different chain.
+
+## Next Steps (Sprint 18 scope — T187/T188/T189)
+
+1. **T187:** Add singular chain links (`UC.method`, `UC.class`, `Method.implementation`); update `/api/trace/children` with `?mode=trace`; update `rb-trace-tree.ts` to pass mode
+2. **T188:** Create S18 as scenario.json units first; ViewGenerator emits planning.md + task-*.md
+3. **T189:** Co-specify role SKILL.md files (architect + planner + req-eng, Rules 1-11)
+4. Population pipeline: one-pass verb-matching fills singular links on existing 30 UCs
 
 ---
 
-**Formulated by:** robbin-architect (2026-06-05)
-**Pending:** robbin-req atomic decomposition + robbin-planner S18 scenario.json structure
+**Formulated by:** robbin-architect (2026-06-05, widened per Tron confirmation)
+**Joint with:** robbin-planner (T187-T189 decomposition, UC.method singular proposal) + robbin-req (pending atomic decomposition)
