@@ -191,6 +191,67 @@ Tron's directive contains 4 verbs and 4 nouns:
   - [ ] UseCases open at their PUML declaration line
   - [ ] Units without line info open at the top of the file (graceful fallback)
 
+- [ ] **R18.24: Detail-view Traceability-Chain section shows the narrowed single-thread chain, not all children.**
+  [requirement:uuid:18f6a7b8-c9d0-1e2f-3a4b-000000018024]
+  > TRON: "Traceability Chain = All children but they should not."
+
+  The detail pane's "Traceability Chain" section currently renders ALL children (same as the full-object inspector). It must instead render ONLY the narrowed chain — the single traced thread from the current requirement root to the test leaf. The full-object view (R18.20) shows all children; the Traceability Chain section shows the one-child-per-level narrowed path.
+
+  **Acceptance criteria:**
+  - [ ] Detail "Traceability Chain" section shows one child per level (narrowed, not all)
+  - [ ] Detail object inspector (R18.20) still shows all children (unchanged)
+  - [ ] The two sections are visually distinct in the detail pane
+
+- [ ] **R18.25: Tree narrowed chain continues past Method through Implementation to Test — not stopping at Method.**
+  [requirement:uuid:18a7b8c9-d0e1-2f3a-4b5c-000000018025]
+  > TRON: "tree shows the tracability chain but also broken ...only till method...not deeper to impl and test"
+
+  The /trace tree currently stops the chain at Method — it does not expand to show Implementation → Test(s). The chain must render the full 7-step depth. This is the tree-UI manifestation of R18.13 (chain terminates in Test).
+
+  **Acceptance criteria:**
+  - [ ] Expanding a Method in /trace shows its Implementation children
+  - [ ] Expanding an Implementation shows its Test children
+  - [ ] The full chain req→task→UC→class→method→impl→test is expandable in the tree
+
+- [ ] **R18.26: Source link on ALL types — not just Implementation.**
+  [requirement:uuid:18b8c9d0-e1f2-3a4b-5c6d-000000018026]
+  > TRON: "here you see impl has a src link, but ALL types should have it."
+
+  Every scenario type must show a source link in its detail view: UseCase → its `.puml` file; Class/Method/Implementation → its `.ts` source; Test → its test file; Requirement/Task → its `.md` or scenario source. Currently only Implementation shows the link.
+
+  **Acceptance criteria:**
+  - [ ] UseCase detail shows source link to .puml file
+  - [ ] Class detail shows source link to .ts file
+  - [ ] Method detail shows source link to .ts file
+  - [ ] Test detail shows source link to test .ts file
+  - [ ] Requirement detail shows source link to .md file
+  - [ ] Task detail shows source link to .md file
+
+- [ ] **R18.27: Browse-File link opens the file-browser FOLDER with the target file HIGHLIGHTED — not Monaco directly.**
+  [requirement:uuid:18c9d0e1-f2a3-4b5c-6d7e-000000018027]
+  > TRON: "it should NOT open directly in the monaco editor, BUT in the browser folder (2nd picture), with the file highlighted."
+
+  **REVISES R18.22.** The link target is `/md/<directory>/` (the folder containing the file), with a query or hash parameter that highlights the specific file in the listing. The user then clicks to open in Monaco. The link does NOT go directly to `/edit/<file>`.
+
+  **Acceptance criteria:**
+  - [ ] Browse-File link navigates to `/md/<parent-dir>/` (folder view)
+  - [ ] The target file is visually highlighted in the folder listing
+  - [ ] User can click the highlighted file to open in Monaco
+  - [ ] Link does NOT open Monaco directly
+
+- [ ] **R18.28: Line info carried through file-browser to Monaco so editor opens at the correct line.**
+  [requirement:uuid:18d0e1f2-a3b4-5c6d-7e8f-000000018028]
+  > TRON: "the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file."
+
+  **REVISES R18.23.** The line parameter (`?line=42`) is on the file-browser link AND survives through to the Monaco editor. When the user opens a file from the browser listing, the editor receives the line and scrolls to it. Method → method declaration line. UseCase → its line in the .puml file.
+
+  **Acceptance criteria:**
+  - [ ] File-browser link includes line parameter
+  - [ ] Opening the file in Monaco from the browser preserves the line parameter
+  - [ ] Monaco scrolls to the specified line
+  - [ ] Method opens at function declaration line
+  - [ ] UseCase opens at PUML declaration line
+
 ---
 
 ## Decomposition Completeness Confirmation
@@ -244,6 +305,11 @@ Deduplication: R18.5 covered scenario-vs-trace branching at Requirement level. R
 | R18.19 | `18a1b2c3` | TBD (migration) | Sprint numbers zero-padded 2-digit (01-09, 10-18) |
 | R18.20 | `18b2c3d4` | TBD | Detail+Scenario views show ALL methods/children (full object, all types) |
 | R18.21 | `18c3d4e5` | TBD | 'Parent' link above Scenario-view link → ownerIor |
-| R18.22 | `18d4e5f6` | TBD | 'Browse File' link below Scenario-view → file browser (Monaco) |
-| R18.23 | `18e5f6a7` | TBD | Browse-File link carries line info → Monaco opens at correct line |
+| R18.22 | `18d4e5f6` | **REVISED** | ~~Browse File → Monaco~~ → Browse File opens file-browser FOLDER with file highlighted (R18.26) |
+| R18.23 | `18e5f6a7` | **REVISED** | ~~Monaco opens at line~~ → line carried through browser→editor (R18.28) |
+| R18.24 | `18f6a7b8` | TBD | Detail Traceability-Chain section shows narrowed single thread, not all children |
+| R18.25 | `18a7b8c9` | TBD (bug) | Tree chain continues Method → Impl → Test (not stopping at Method) |
+| R18.26 | `18b8c9d0` | TBD | Source link on ALL types (UC→.puml, Class/Method→.ts, Req/Task→.md) |
+| R18.27 | `18c9d0e1` | TBD | Browse-File opens file-browser FOLDER with file HIGHLIGHTED, not Monaco |
+| R18.28 | `18d0e1f2` | TBD | Line info carried through browser→editor so Monaco opens at correct line |
 | R-CHAMP | `a0b1c2d3` | standing | Champagne: leaf test verifies root requirement's intention |

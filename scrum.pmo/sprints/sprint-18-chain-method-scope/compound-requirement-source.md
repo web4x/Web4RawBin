@@ -312,3 +312,40 @@ Applies to: Sprint scenario unit `model.name`, speaking-name symlink tree direct
 - [ ] Existing Sprint scenario units re-migrated with padded names
 
 → Sprint-migration task (planner folds into dedup/rename task)
+
+---
+
+## LITERAL SOURCE — Follow-on C: Detail-view full-methods + Parent/Browse-File links (2026-06-05)
+
+> TRON: "on this picture we see the beautiful traceability. BUT on the details view, i want to see ALL methods, not just the traced one. the same on the ScenarioView. for all types. above the scenario view link i want a 'Parent' link. and below it i want to see a Browse File Link, that jumps to the corresponding file in the Browser. there i can open it in the monacco editor. add line information to the link, so that eg on a method or usecase the monacco editor can open at the correct line"
+
+### Decomposition hints (req: confirm against literal)
+- R18.9: Detail view (right pane) shows ALL methods/children of the object (full object), NOT just the traced one — applies to BOTH detail view AND scenario view, for ALL types. (Tree narrowing to one method is correct + unchanged; the DETAIL pane shows the complete object.)
+- R18.10: "Parent" link ABOVE the "Scenario view" link in the detail pane → navigates to the ownerIor parent instance.
+- R18.11: "Browse File" link BELOW the "Scenario view" link → jumps to the corresponding file in the FILE BROWSER (where it can be opened in the Monaco editor).
+- R18.12: The Browse-File link carries LINE information so the Monaco editor opens at the correct line (e.g. a Method or UseCase opens at its source line).
+
+---
+
+## LITERAL SOURCE — Follow-on D: Source links on ALL types + open file-browser-with-highlight (not Monaco direct) (2026-06-05)
+
+> TRON: "here you see impl has a src link, but ALL types should have it. it should NOT open directly in the monaco editor, BUT in the browser folder (2nd picture), with the file highlighted. then i can open the editor. the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file."
+
+### Decomposition hints (req: confirm against literal)
+- R18.13: SOURCE LINK ON ALL TYPES — currently only Implementation shows the src link; EVERY type must have one linking to its source artifact: UseCase → its .puml file; Class/Method/Implementation → its .ts source; Test → its test file; Requirement/Task → its .md (or scenario). Not just Impl.
+- R18.14: Browse-File link opens the FILE BROWSER folder view (/md/<dir>/) with the target file HIGHLIGHTED — it must NOT open Monaco directly. The user opens the editor from the browser.
+- R18.15: The link CARRIES the line so the line survives browser→editor: when the user opens the file in the editor, it jumps to the correct line — a Method jumps to the method's line; a UseCase jumps to its line in the .puml file. (Revises R18.11/R18.12: target = browser-with-highlight, line preserved through to editor.)
+
+---
+
+## LITERAL SOURCE — Follow-on E: Detail traceability-chain section + tree chain depth (2026-06-05, BUG)
+
+> TRON: "Traceability Chain = All children but they should not. tree shows the tracability chain but also broken ...only till method...not deeper to impl and test"
+
+### R18.24: Detail-view Traceability-Chain section shows the narrowed single-thread chain, not all children.
+
+The detail pane's "Traceability Chain" section currently shows ALL children (same as the full-object view). It must show ONLY the narrowed chain: the single traced thread from the current requirement root to the test leaf. ALL children belong in the detail view's object inspector (R18.20); the Traceability Chain section is the NARROWED view (one child per level).
+
+### R18.25: Tree narrowed chain continues past Method through Implementation to Test — not stopping at Method.
+
+The /trace tree currently stops the chain at Method level — it does not expand further to show Implementation → Test(s). The chain must continue the full 7-step depth: req → task → UC → class → method → **impl → test**. This is the same gap as R18.13 (chain terminates in Test) but specifically about the tree UI not rendering the last two levels.
