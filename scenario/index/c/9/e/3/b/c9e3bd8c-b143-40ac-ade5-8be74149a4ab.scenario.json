@@ -6,7 +6,10 @@
     "file": "ior:file:test/e2e/room-order.spec.ts",
     "requirements": [],
     "methods": [],
-    "status": "PASS"
+    "status": "PASS",
+    "verifies": [
+      "ior:instance:67bde18f-76f9-43cd-abea-77c2ad7134f9"
+    ]
   },
   "ownerIor": null
 }

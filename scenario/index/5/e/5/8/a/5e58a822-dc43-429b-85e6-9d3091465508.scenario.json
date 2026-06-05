@@ -6,7 +6,12 @@
     "file": "ior:file:test/e2e/contacts-ui.spec.ts",
     "requirements": [],
     "methods": [],
-    "status": "PASS"
+    "status": "PASS",
+    "verifies": [
+      "ior:instance:10a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f40",
+      "ior:instance:30c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b62",
+      "ior:instance:20b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a51"
+    ]
   },
   "ownerIor": null
 }

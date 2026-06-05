@@ -6,7 +6,11 @@
     "file": "ior:file:test/vitest/scenario.test.ts",
     "requirements": [],
     "methods": [],
-    "status": "PASS"
+    "status": "PASS",
+    "verifies": [
+      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000003",
+      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000012"
+    ]
   },
   "ownerIor": null
 }

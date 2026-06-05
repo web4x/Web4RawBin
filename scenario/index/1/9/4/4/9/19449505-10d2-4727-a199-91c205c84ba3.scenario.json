@@ -6,7 +6,10 @@
     "file": "ior:file:test/vitest/avatar-keyless-upload.test.ts",
     "requirements": [],
     "methods": [],
-    "status": "PASS"
+    "status": "PASS",
+    "verifies": [
+      "ior:instance:b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e"
+    ]
   },
   "ownerIor": null
 }
