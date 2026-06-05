@@ -261,6 +261,111 @@ The 7-step is PRESERVED in both modes. The difference:
 
 Both are valid walks of the same chain. The trace mode is a FILTERED view, not a different chain.
 
+## T187 ROOT-STRUCTURE: Sprint→Task→Covered-Reqs→Chain (Tron R18.8, 2026-06-05)
+
+Tron directive: BOTH browsers root at **Sprint (list of tasks)** at top → Task → the atomic requirements that Task COVERS → THEN scenario tree (full) or traceability chain (narrowed) from each requirement down to tests.
+
+### Three Layers (reconciled with forward-only chain)
+
+The display tree has THREE distinct layers — each with its own semantics:
+
+```
+LAYER 1 — NAVIGATION (organizational)
+  Sprint
+    └── Task         "what work was planned/done"
+
+LAYER 2 — COVERAGE (which reqs does this task address)
+    └── Task
+         └── Requirement(s)    "what atomic reqs does this task fulfill"
+
+LAYER 3 — CHAIN (forward-only traceability, per LOCKED 7-step)
+         └── Requirement
+              └── UseCase → Class → Method → Impl → Test
+```
+
+### Reconciliation: Coverage ≠ Backward Chain Link
+
+`Task.coveredRequirements[]` is a NAVIGATION field, NOT a chain reversal:
+
+| Link | Direction | Purpose | Layer |
+|------|-----------|---------|-------|
+| Requirement → Task | Forward (chain) | "this req is implemented by this task" | Chain |
+| Task → coveredRequirements[] | Display (navigation) | "this task addresses these reqs" | Navigation |
+| Sprint → Tasks | Display (navigation) | "this sprint contains these tasks" | Navigation |
+
+The chain's forward direction remains: Req → Task → UC → ... → Test.
+The navigation tree starts ABOVE the chain: Sprint → Task → covered Reqs → chain.
+
+`Task.coveredRequirements[]` is the COVERAGE view — it answers "what did this task accomplish?" for the human browsing the sprint. It does NOT violate forward-only because it's a NAVIGATION concern, not a CHAIN concern. Same separation as chain-vs-dependency (Rule 3).
+
+### Three Concerns (extended from precedence analysis)
+
+| Concern | Semantics | Link direction | Where stored |
+|---------|-----------|----------------|-------------|
+| **Chain** | WHY does this code exist? | Forward-only (Req→...→Test) | `FORWARD_KEYS` |
+| **Dependency** | WHAT must be built first? | DAG (`follows`/`Dependencies`) | Task metadata |
+| **Navigation** | HOW does the human browse? | Display (Sprint→Task→coveredReqs) | `NAVIGATION_KEYS` |
+
+### Full Tree Structure (both modes)
+
+```
+SCENARIO BROWSER (full tree):
+  Sprint
+    └── Task
+         └── Requirement (covered)
+              └── UC → ALL Classes → ALL Methods → ALL Impls → ALL Tests
+
+TRACEABILITY BROWSER (chain line):
+  Sprint
+    └── Task
+         └── Requirement (covered)
+              └── UC → ONE Method → ONE Impl → Tests
+```
+
+Both start at Sprint. Both navigate through Task to covered requirements. They diverge at the chain: scenario fans out, trace narrows.
+
+### Data Model: Task.coveredRequirements[]
+
+```json
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "...",
+    "name": "T124.3: Scenario index storage",
+    "useCases": ["ior:instance:<UC-uuid>"],
+    "coveredRequirements": ["ior:instance:<R17.4-uuid>"]
+  }
+}
+```
+
+Population: for each Task, find all Requirements whose `tasks[]` includes this Task UUID. Write as `Task.coveredRequirements[]`. This is a ONE-TIME population (same T178 pipeline pattern).
+
+### NAVIGATION_KEYS (new, alongside FORWARD_KEYS)
+
+```typescript
+const NAVIGATION_KEYS: Record<string, string> = {
+  sprint:  'tasks',                  // Sprint → its Tasks
+  task:    'coveredRequirements',    // Task → its covered Requirements
+};
+// After reaching a Requirement, switch to FORWARD_KEYS (chain) or TRACE_FORWARD (narrowed)
+```
+
+### /api/trace/children Updated Contract
+
+```
+/api/trace/children/<uuid>?mode=scenario
+  Sprint → tasks (NAVIGATION)
+  Task → coveredRequirements (NAVIGATION)
+  Requirement → tasks... → classes... → methods... (SCENARIO_FORWARD — fan-out)
+
+/api/trace/children/<uuid>?mode=trace
+  Sprint → tasks (NAVIGATION)
+  Task → coveredRequirements (NAVIGATION)
+  Requirement → useCases... → method (singular)... → impl (singular)... → tests (TRACE_FORWARD — narrows)
+```
+
+The navigation layer is SHARED between both modes. They diverge only at the Requirement → downstream chain.
+
 ## Next Steps (Sprint 18 scope — T187/T188/T189)
 
 1. **T187:** Add singular chain links (`UC.method`, `UC.class`, `Method.implementation`); update `/api/trace/children` with `?mode=trace`; update `rb-trace-tree.ts` to pass mode
