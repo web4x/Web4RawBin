@@ -541,7 +541,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const unit = idx.get(uuid);
         if (!unit) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{}'); return; }
         const type = (unit.ior || '').split(':')[2] || '';
-        const queryMode = (filepath.includes('?') ? new URLSearchParams(filepath.split('?')[1]).get('mode') : null) || 'scenario';
+        const rawUrl = req.url || '';
+        const queryMode = rawUrl.includes('?') ? (new URLSearchParams(rawUrl.split('?')[1]).get('mode') || 'scenario') : 'scenario';
         const SCENARIO_FWD: Record<string, string[]> = {
           Requirement: ['tasks'], Task: ['subtasks', 'useCases', 'children'], UseCase: ['classes'],
           Class: ['methods'], Method: ['implementations'], Implementation: ['tests'],
