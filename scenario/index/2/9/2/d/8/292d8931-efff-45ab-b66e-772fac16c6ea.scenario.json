@@ -18,7 +18,8 @@
     ],
     "_r18.8Note": "NAVIGATION-layer field per architect R18.8 (562f6452): Task.coveredRequirements[] is the display denormalization for Sprint\u2192Task\u2192Reqs tree. Chain direction stays Req\u2192Task (forward, Requirement.tasks[]). req-eng populates this when atomic Req units commit; no back-refs introduced (Rule 9).",
     "useCases": [],
-    "status": "Planned",
+    "status": "Impl-shipped",
+    "_shipNotes": "v0.5.88 02c99a7e (expert 2026-06-05) — T187(a) UC.method singular IOR populated on 23 UCs; T187(b) /api/trace/sprints endpoint live; T187(c) /api/trace/children?mode=trace narrows via TRACE_FORWARD; T187(d) rb-trace-tree data-mode attribute. Architect prep: 6c7ff26e populate UC.method/class + Method.implementation; 35f111a6 manual verb→method 7/7 unmatched. Tester pre-authored 10 TS in 27ffe1b4. Rule-pair (a)+(b)+(c) all ✓; 836/836 pass.",
     "owners": {
       "req": "robbin-req",
       "architect": "robbin-architect",

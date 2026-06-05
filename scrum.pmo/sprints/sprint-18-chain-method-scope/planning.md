@@ -37,16 +37,16 @@ Decomposition hints (req-eng authoritative when committed; below are placeholder
 
 ## Tasks (planner-authored as Task scenario.json units)
 
-- [ ] ⏳ **T187** — Trace-narrowing + R18.8 nav-root rework + `/api/trace/sprints` endpoint
+- [ ] ✅ **T187** — Trace-narrowing + R18.8 nav-root rework + `/api/trace/sprints` endpoint
   - Unit: `scenario/index/2/9/2/d/8/292d8931-efff-45ab-b66e-772fac16c6ea.scenario.json`
-  - Hints: R18.1 + R18.2 + **R18.8 (PO-folded 2026-06-05 — C3 nav-root + C7 endpoint from architect contradiction review `d7d6404a`)**
-  - Scope:
-    - (a) Chain walker selects ONE method per UC (`UC.method` singular IOR) — not `Class.methods[]` fan-out (R18.1+R18.2)
-    - (b) Browser tree builder produces Sprint→Task as NAVIGATION ROOTS per R18.8; chain walker still starts at atomic Requirements as CHAIN ROOTS — owns the reworked AC2 wording T168 carries as append-only note
-    - (c) New endpoint `/api/trace/sprints` returns Sprint units (nav roots); `/api/trace/roots` stays returning Requirement chain-roots for backward compat — two endpoints, clear semantics (architect rec)
-    - (d) Tree client switches root fetch from `/api/trace/roots` to `/api/trace/sprints`
-  - Owners: req (anchor R18.1+R18.2+R18.8) → architect (UC.method singular + nav-root + endpoint design) → expert (impl; rule-pair (a)+(b); (c) likely EXEMPT — extends existing routes/bundles) → tester (verify both endpoints + browser nav root + chain narrowing in one pass)
-  - Status: ⏳ planned (scaffolded; `coveredRequirements[]` pending req-eng atomic Req commits)
+  - Hints: R18.1 + R18.2 + R18.8 (PO-folded 2026-06-05 — C3 nav-root + C7 endpoint from architect contradiction review `d7d6404a`)
+  - Scope (all 4 parts shipped):
+    - (a) Chain walker selects ONE method per UC (`UC.method` singular IOR) — 23 UCs populated ✓
+    - (b) Browser tree builder produces Sprint→Task as NAVIGATION ROOTS per R18.8 ✓
+    - (c) New endpoint `/api/trace/sprints` live — Sprint nav roots sorted by number ✓; `/api/trace/roots` stays for chain roots ✓
+    - (d) `rb-trace-tree` reads `data-mode` attribute, passes modeParam to children fetch; `/api/trace/children?mode=trace` uses TRACE_FORWARD (narrows) ✓
+  - **Status:** ✅ impl-shipped — expert `02c99a7e` v0.5.88 (4-part scope all shipped). Rule-pair (a) v0.5.88 ✓ + (b) rawbin-v0.5.88 ✓ + (c) STATIC_SHELL auto-updated ✓. Prep commits: architect `6c7ff26e` (populate UC.method/class + Method.implementation singular) + `35f111a6` (manual verb→method 7/7 unmatched UCs). Tester pre-authored 10 TS in `27ffe1b4`. 836/836 pass. Tester strict-bar execution + Tron QA pending.
+  - Owners (4-role complete): req `22f43f31` (R18.1+R18.2+R18.8 atomic units) → architect `6c7ff26e`+`35f111a6` → expert `02c99a7e` → tester `27ffe1b4` (TS authored; execution next)
 
 - [ ] ⏳ **T188** — Dogfood S17 view-gen: planning.md + task-*.md emitted from scenario.json Sprint+Task units (THIS task)
   - Unit: `scenario/index/8/a/3/1/b/8a31ba75-22b6-48ff-9532-d5da21458543.scenario.json`
@@ -60,11 +60,11 @@ Decomposition hints (req-eng authoritative when committed; below are placeholder
   - Owners: req → architect (architect SKILL.md from Rules 1-5) → planner (planner SKILL.md from Rules 6-8 — **PARTIAL: extended `.claude/agents/robbin-planner/SKILL.md` 2026-06-05**) → req-eng (req-eng SKILL.md from Rules 9-11) → tester (verify SKILL.md files survive reboot + cover all rules)
   - Status: ⏳ planned — planner's SKILL.md extension landed in this commit; architect + req-eng SKILL.md sections pending
 
-- [ ] ⏳ **T190** — Tree lazy-render + scroll-preservation — expand APPENDS children only (no full re-render)
+- [ ] ✅ **T190** — Tree lazy-render + scroll-preservation — expand APPENDS children only (no full re-render)
   - Unit: `scenario/index/0/8/e/4/6/08e46ce3-69f3-40fe-87d7-5ee875a4e94a.scenario.json`
-  - Hints: R18.5 (req-eng to formalize); follows T186 R-Y1+R-Y2 (closed in-scope for lazy-LOAD; T190 owns lazy-RENDER + scroll-preservation atom — distinct per Rule 8 closure freeze)
-  - Owners: req (anchor R18.5 Tron quote) → architect (DOM-diff approach if non-trivial) → **robbin-expert (impl; rule-pair (a)+(b)) — PO-directed owner** → **robbin-tester (verify scroll preserved + tree appends children only) — PO-directed owner**
-  - Status: ⏳ planned — Tron 2026-06-05 via PO: "tree re-renders FULLY on each click ... JUMPS BACK TO TOP — cumbersome. Fix: expand APPENDS child itemview levels only (no full re-render), preserve scroll position."
+  - Hints: R18.5 + R18.6 + R18.7 (req-eng formalized in `22f43f31` + `a558480b`); follows T186 R-Y1+R-Y2 (closed in-scope for lazy-LOAD; T190 owns lazy-RENDER + scroll-preservation atom — distinct per Rule 8 closure freeze)
+  - **Status:** ✅ impl-shipped — expert `02c99a7e` v0.5.88: seed-path uses incremental append + toggle (no full re-render); `fetchAndRenderChildren` appends only; scroll position preserved. Tester pre-authored 8 TS in `27ffe1b4`. Rule-pair (a)+(b)+(c) all ✓. 836/836 pass. Tester strict-bar execution + Tron QA pending.
+  - Owners (4-role complete): req `22f43f31`+`a558480b` → architect (incremental-append design — folded into seed-path) → expert `02c99a7e` → tester `27ffe1b4` (TS authored; execution next)
 
 ## Definition of Done
 - [ ] R18.1+R18.2: `/trace` Class node renders ONE method per current UC (narrowed); `/scenario` Class node renders ALL methods (full); same data, two traversal verbs.
