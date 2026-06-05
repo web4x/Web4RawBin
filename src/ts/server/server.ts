@@ -592,12 +592,18 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           Sprint: ['Task'],
         };
         const allowedTypes = EXPECTED_CHILD_TYPE[type] || [];
+        const ucMethodIor = type === 'UseCase' ? String((unit.model as Record<string, unknown>).method || '').replace('ior:instance:', '') : '';
         const children = childRefs.filter(ref => ref !== uuid).map(ref => {
           const child = idx.get(ref);
           if (child) {
             const ct = (child.ior || '').split(':')[2] || '';
             if (allowedTypes.length > 0 && !allowedTypes.includes(ct)) return null;
-            return { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: true };
+            const entry: Record<string, unknown> = { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: true };
+            if (queryMode === 'trace' && type === 'UseCase' && ct === 'Class' && ucMethodIor) {
+              const meth = idx.get(ucMethodIor);
+              if (meth) entry.chainMethod = { uuid: ucMethodIor, type: 'Method', name: String(meth.model?.name || '') };
+            }
+            return entry;
           }
           return { uuid: ref, type: 'unknown', name: ref.slice(0, 8), hasChildren: false };
         }).filter(Boolean);

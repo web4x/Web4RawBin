@@ -189,7 +189,7 @@ export class RbTraceTree extends HTMLElement {
     } catch { this.innerHTML = '<div class="tt-empty">Failed to load</div>'; }
   }
 
-  private buildSeedNode(uuid: string, type: string, name: string, children: { uuid: string; type: string; name: string; hasChildren: boolean }[], hasChildren?: boolean, ancestors?: Set<string>): HTMLElement {
+  private buildSeedNode(uuid: string, type: string, name: string, children: { uuid: string; type: string; name: string; hasChildren: boolean; chainMethod?: { uuid: string; type: string; name: string } }[], hasChildren?: boolean, ancestors?: Set<string>, chainMethod?: { uuid: string; type: string; name: string }): HTMLElement {
     const node = document.createElement('div');
     node.className = 'tt-node';
     if (ancestors && ancestors.has(uuid)) return node;
@@ -210,7 +210,7 @@ export class RbTraceTree extends HTMLElement {
       let loaded = children.length > 0;
       const branchPath = new Set(ancestors || []); branchPath.add(uuid);
       for (const child of children) {
-        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchPath)));
+        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchPath), (child as any).chainMethod));
       }
       node.appendChild(kids);
       item.addEventListener('toggle-children', ((e: CustomEvent) => {
@@ -219,7 +219,11 @@ export class RbTraceTree extends HTMLElement {
         this.toggleSeedExpanded(uuid, open);
         if (open && !loaded) {
           loaded = true;
-          this.fetchAndRenderChildren(uuid, kids, branchPath);
+          if (chainMethod) {
+            kids.appendChild(this.buildSeedNode(chainMethod.uuid, chainMethod.type, chainMethod.name, [], true, new Set(branchPath)));
+          } else {
+            this.fetchAndRenderChildren(uuid, kids, branchPath);
+          }
         }
         if (open) requestAnimationFrame(() => node.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
       }) as EventListener);
@@ -234,9 +238,9 @@ export class RbTraceTree extends HTMLElement {
       const res = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}${this.modeParam}`);
       if (!res.ok) return;
       const data = await res.json();
-      const children: { uuid: string; type: string; name: string; hasChildren: boolean }[] = data.children || [];
+      const children = data.children || [];
       for (const child of children) {
-        container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchVisited)));
+        container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchVisited), (child as any).chainMethod));
       }
     } catch { /* silently fail — node stays collapsed */ }
   }

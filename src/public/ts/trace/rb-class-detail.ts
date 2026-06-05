@@ -25,7 +25,6 @@ export class RbClassDetail extends HTMLElement {
     const obj = this.graph?.get(refUuid(ref));
     if (!obj) { this.innerHTML = '<div class="dv-empty">Class not found</div>'; return; }
 
-    const links = forwardOnly(obj);
     this.innerHTML = `
       <div class="dv-head">
         <span class="dv-type-badge" style="background:rgba(106,27,154,0.25);color:#ab47bc">Class</span>
@@ -34,9 +33,17 @@ export class RbClassDetail extends HTMLElement {
         <div class="dv-field"><a href="/scenario?ior=${obj.uuid}" class="dv-file-link" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Scenario view</a></div>
       </div>
       <div class="dv-links">
-        <h4>Traceability Chain</h4>
-        ${renderLinks(this.graph, links)}
+        <h4>Traceability Chain (narrowed)</h4>
+        <div class="dv-chain-loading" style="color:rgba(255,255,255,0.4);font-size:0.75rem">Loading...</div>
       </div>`;
+    fetch(`/api/trace/children/${encodeURIComponent(obj.uuid)}?mode=trace`).then(r => r.json()).then(data => {
+      const chain = this.querySelector('.dv-chain-loading');
+      if (!chain) return;
+      const children = data.children || [];
+      if (children.length === 0) { chain.textContent = 'no narrowed children'; return; }
+      chain.outerHTML = children.map((c: any) => `<div class="dv-link" data-ref="${c.type.toLowerCase()}:${c.uuid}"><span class="dv-rel">${c.type}</span><span class="dv-link-title">${esc(c.name)}</span></div>`).join('');
+      this.querySelectorAll('.dv-links .dv-link').forEach(row => row.addEventListener('click', () => { const r = (row as HTMLElement).dataset.ref!; navigate(r.split(':')[0], 'show', { uuid: r.split(':')[1] || '' }); }));
+    }).catch(() => { const c = this.querySelector('.dv-chain-loading'); if (c) c.textContent = 'failed to load'; });
 
     this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
     this.querySelectorAll('.dv-link').forEach(row => {
