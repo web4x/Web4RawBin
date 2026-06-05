@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "b863be74-3a7e-47db-ab87-2ff7b7e9365b",
+    "name": "traceChain.treeRework",
+    "object": "traceChain",
+    "verb": "treeRework",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:75628241-9157-4385-a7f0-f4f7a3142737"
+}

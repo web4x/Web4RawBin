@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "774033af-7b43-46bd-9e32-848dd0d16f82",
+    "name": "mdPreview.renderList",
+    "object": "mdPreview",
+    "verb": "renderList",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:c2118a07-d18e-4e1b-b9a2-5f8e2c1f0d77"
+}

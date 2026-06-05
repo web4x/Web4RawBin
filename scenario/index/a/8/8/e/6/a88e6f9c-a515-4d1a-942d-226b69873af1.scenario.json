@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "a88e6f9c-a515-4d1a-942d-226b69873af1",
+    "name": "traceLink.scenarioUnit",
+    "object": "traceLink",
+    "verb": "scenarioUnit",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:306f1ca2-0e9e-4071-a653-994262904463"
+}

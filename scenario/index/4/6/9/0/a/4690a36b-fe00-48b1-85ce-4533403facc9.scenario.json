@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "4690a36b-fe00-48b1-85ce-4533403facc9",
+    "name": "migration.sprintToScenario",
+    "object": "migration",
+    "verb": "sprintToScenario",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:d0f39414-dfb4-4944-ac1b-56dcad0a66fe"
+}

@@ -5,10 +5,10 @@
     "name": "R17.26: Traceability is a TREE, not a chain",
     "description": "> TRON: \"in scenario/sprints.md/usecase/ <file>.md add a chain link symbol before the edit to link to the original ln file in scenario/sprints.json/\u2026\"",
     "tronQuote": "> TRON: \"in scenario/sprints.md/usecase/ <file>.md add a chain link symbol before the edit to link to the original ln file in scenario/sprints.json/\u2026\"",
-    "tasks": [],
-    "tests": [],
-    "orphanByDesign": true,
-    "orphanReason": "orphan-requirement: no tasks linked"
+    "tasks": [
+      "ior:instance:75628241-9157-4385-a7f0-f4f7a3142737"
+    ],
+    "tests": []
   },
   "ownerIor": "ior:instance:658841dc-8feb-483f-810f-d6b4e1bb7b84"
 }

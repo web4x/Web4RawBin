@@ -17,9 +17,11 @@
       "R18.8 (nav-root + /api/trace/sprints \u2014 folded per PO C3+C7 2026-06-05)"
     ],
     "_r18.8Note": "NAVIGATION-layer field per architect R18.8 (562f6452): Task.coveredRequirements[] is the display denormalization for Sprint\u2192Task\u2192Reqs tree. Chain direction stays Req\u2192Task (forward, Requirement.tasks[]). req-eng populates this when atomic Req units commit; no back-refs introduced (Rule 9).",
-    "useCases": [],
-    "status": "Implementing (fix cycle — iteration 2)",
-    "_shipNotes": "FIX-CYCLE LOG (planner honest-board per PO 2026-06-05):\n- v0.5.88 02c99a7e first ship — 4-part scope claimed; rule-pair ✓; 836/836.\n- Tester STRICT 1st run FOUND DEFECTS: TS7 FAIL (Sprint not at tree root); TS5 FAIL (no fan-out diff); TS2/8 related.\n- Expert FIX v0.5.89 fa921029 — /trace fetches /api/trace/sprints (Sprint nav root R18.8); /trace mode=trace (UC→method singular); /scenario mode=scenario (fan-out). Rule-pair (a)+(b)+(c) ✓; 836/836.\n- Tester re-authored TS in b56895b7 (corrected UC→Method narrowing model).\n- Tester STRICT-bar RE-RUN on v0.5.89: NAV layer PASSED (Sprint root + 1:N). **Iteration-2 BUG: UC→Method OVER-NARROWS — returns 0 children, should be 1** (TS6-TS9 partial fail on the singular-narrow edge case).\n- Expert FIX v0.5.90 IN FLIGHT (uncommitted on planner-read 2026-06-05: package.json+sw.js+src/ts/scenario/index-store.ts modified). Tester re-runs TS6-TS9 on next redeploy.\n- SYMBOL stays 🔧 (fix cycle iteration 2) per PO 2026-06-05. Done-gate checkboxes untouched per learning #9.",
+    "useCases": [
+      "ior:instance:cdd9137b-c83d-4323-a537-94467964397b"
+    ],
+    "status": "Implementing (fix cycle \u2014 iteration 2)",
+    "_shipNotes": "FIX-CYCLE LOG (planner honest-board per PO 2026-06-05):\n- v0.5.88 02c99a7e first ship \u2014 4-part scope claimed; rule-pair \u2713; 836/836.\n- Tester STRICT 1st run FOUND DEFECTS: TS7 FAIL (Sprint not at tree root); TS5 FAIL (no fan-out diff); TS2/8 related.\n- Expert FIX v0.5.89 fa921029 \u2014 /trace fetches /api/trace/sprints (Sprint nav root R18.8); /trace mode=trace (UC\u2192method singular); /scenario mode=scenario (fan-out). Rule-pair (a)+(b)+(c) \u2713; 836/836.\n- Tester re-authored TS in b56895b7 (corrected UC\u2192Method narrowing model).\n- Tester STRICT-bar RE-RUN on v0.5.89: NAV layer PASSED (Sprint root + 1:N). **Iteration-2 BUG: UC\u2192Method OVER-NARROWS \u2014 returns 0 children, should be 1** (TS6-TS9 partial fail on the singular-narrow edge case).\n- Expert FIX v0.5.90 IN FLIGHT (uncommitted on planner-read 2026-06-05: package.json+sw.js+src/ts/scenario/index-store.ts modified). Tester re-runs TS6-TS9 on next redeploy.\n- SYMBOL stays \ud83d\udd27 (fix cycle iteration 2) per PO 2026-06-05. Done-gate checkboxes untouched per learning #9.",
     "owners": {
       "req": "robbin-req",
       "architect": "robbin-architect",

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "cdd9137b-c83d-4323-a537-94467964397b",
+    "name": "traceNarrow.classMethodScope",
+    "object": "traceNarrow",
+    "verb": "classMethodScope",
+    "classes": []
+  },
+  "ownerIor": "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
+}
