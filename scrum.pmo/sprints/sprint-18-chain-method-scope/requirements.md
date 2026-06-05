@@ -121,6 +121,28 @@ Tron's directive contains 4 verbs and 4 nouns:
   - [ ] Scroll position preserved after collapse
   - [ ] User does not need to scroll back to find the node they just interacted with
 
+- [ ] **R18.8: Both browsers root at Sprint → Tasks → atomic Requirements, then branch scenario-full or trace-chain from each Requirement.**
+  [requirement:uuid:18b8c9d0-e1f2-4a3b-5c6d-000000018008]
+  > TRON: "from my perspective the sprint.json with list of tasks should be in both cases the top. each task holding all atomic requirements covered as children and then either scenario tree or traceability chain from the atomic requirements down to the tests."
+
+  Tree root structure for BOTH /scenario and /trace:
+  ```
+  Sprint (top)
+    └── Task
+          └── Requirement (atomic reqs this task covers)
+                └── /scenario: full tree | /trace: single chain
+  ```
+
+  The renderer walks `Requirement.tasks[]` (forward) and groups requirements under their tasks for display. NO `Task.requirements[]` back-ref is introduced — forward-only data model preserved.
+
+  **Acceptance criteria:**
+  - [ ] Both browsers root at Sprint node
+  - [ ] Tasks are first-level children of Sprint
+  - [ ] Atomic Requirements appear as children of their covering Task
+  - [ ] From each Requirement, the chain continues per /scenario (full) or /trace (narrowed)
+  - [ ] No Task.requirements[] back-ref field introduced in the data model
+  - [ ] Grouping derived at render time by walking all Requirement.tasks[] arrays
+
 ---
 
 ## Decomposition Completeness Confirmation
@@ -132,14 +154,20 @@ Nouns: scenario browser, traceability browser, method/class, sprint/task as scen
 
 **Follow-on A (R18.5):**
 Verb: "widen." Noun: scenario-vs-trace distinction at EVERY level.
-Deduplication: R18.1/R18.2 covered Class→Method only. R18.5 widens to all nodes. Genuinely new — NOT a duplicate.
+Deduplication: R18.1/R18.2 covered Class→Method only. R18.5 widens to all nodes. Genuinely new.
 
 **Follow-on B (R18.6 + R18.7):**
 Verbs: "render on each click fully" (anti-pattern → fix), "jumps back to top" (bug → fix).
 Nouns: tree, itemview levels, scroll position.
 Deduplication: R-Y1/R-Y2 covered lazy-LOAD (data fetch). R18.6/R18.7 cover lazy-RENDER (DOM manipulation) + scroll preservation. Different layer — genuinely new.
 
-**Decomposition COMPLETE for all 3 sources.** Planner may create tasks.
+**Follow-on C (R18.8):**
+Verb: "should be the top" (root structure). Noun: Sprint→Task→Requirements.
+Deduplication: R18.5 covered scenario-vs-trace branching at Requirement level. R18.8 specifies the ROOT ABOVE that — Sprint→Task→Req. Different concern (tree root vs tree branch). Genuinely new.
+
+**NOTE — potential contradiction with R-E chain direction:** R-E says chain is req→task (forward). R18.8 says DISPLAY is Sprint→Task→Req (inverted for navigation). These are compatible: the DATA MODEL stays forward-only (Requirement.tasks[]). The RENDERER groups by task for display. Architect to reconcile in implementation — see compound-source architect note.
+
+**Decomposition COMPLETE for all 4 sources.** Planner may create tasks.
 
 ---
 
@@ -154,3 +182,4 @@ Deduplication: R-Y1/R-Y2 covered lazy-LOAD (data fetch). R18.6/R18.7 cover lazy-
 | R18.5 | `18e5f6a7` | T187 | Widen scenario=full-tree vs trace=chain to ALL levels |
 | R18.6 | `18f6a7b8` | TBD (bug) | Tree incremental DOM append, no full re-render |
 | R18.7 | `18a7b8c9` | TBD (bug) | Scroll position preserved on expand/collapse |
+| R18.8 | `18b8c9d0` | TBD | Browser root: Sprint → Task → covered Requirements → chain |

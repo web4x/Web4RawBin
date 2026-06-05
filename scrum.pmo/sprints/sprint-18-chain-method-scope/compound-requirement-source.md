@@ -67,3 +67,37 @@ After expanding or collapsing a tree node, the scroll position of the tree conta
 - [ ] Performance: expand/collapse is instant (no perceptible delay from re-render)
 
 → New bug task (planner stand-up)
+
+---
+
+## LITERAL SOURCE — Follow-on C: Browser root structure (2026-06-05)
+
+> TRON: "from my perspective the sprint.json with list of tasks should be in both cases the top. each task holding all atomic requirements covered as children and then either scenario tree or traceability chain from the atomic requirements down to the tests."
+
+### R18.8: Both /scenario and /trace browsers root at Sprint → Tasks → atomic Requirements, then branch scenario-full or trace-chain from each Requirement down to Tests.
+
+[requirement:uuid:18b8c9d0-e1f2-4a3b-5c6d-000000018008]
+
+The tree root structure for BOTH browsers is:
+
+```
+Sprint (top — list of tasks)
+  └── Task (each task in the sprint)
+        └── Requirement (atomic requirements this task COVERS — as children)
+              └── [/scenario]: full tree (UC → Class → all Methods → Impl → Tests)
+                  [/trace]: single chain (UC → Class → 1 Method → 1 Impl → N Tests)
+```
+
+This means: (1) Sprint is the root node in both browsers. (2) Tasks are first-level children. (3) Each Task shows the atomic requirements it covers as second-level children. (4) From each Requirement, the tree branches into either full scenario tree or narrowed trace chain.
+
+**ARCHITECT NOTE:** "Task covers requirements" (Task showing Requirements as children in the navigation view) is a NAVIGATION relationship — the tree shows which requirements a task is responsible for. This is DISTINCT from the forward traceability chain (Requirement.tasks[] → forward link). The chain direction is still Requirement → Task. But the TREE DISPLAY inverts this for navigation: Sprint → Task → its Requirements → then forward from each Requirement. The data model does NOT change — no back-refs added. The tree renderer walks Requirement.tasks[] and groups by task for display purposes.
+
+**Acceptance criteria:**
+- [ ] Both /scenario and /trace trees root at Sprint
+- [ ] First-level children are Tasks of that sprint
+- [ ] Second-level children (under each Task) are the atomic Requirements the task covers
+- [ ] From each Requirement, the tree continues with the scenario or trace chain
+- [ ] The data model remains forward-only (Requirement.tasks[] is the source of truth for grouping)
+- [ ] No Task.requirements[] back-ref field is introduced — the renderer walks all Requirements and groups by their tasks[] forward link
+
+→ Planner folds into T187 or new navigation-structure task
