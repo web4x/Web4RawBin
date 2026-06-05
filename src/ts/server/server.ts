@@ -73,9 +73,14 @@ const MAX_MEMBERS_PER_ROOM = parseInt(envVars['MAX_MEMBERS_PER_ROOM'] || '50');
 const IS_PRODUCTION = envVars['NODE_ENV'] === 'production' || process.env.NODE_ENV === 'production';
 const BASE_DOMAIN = envVars['BASE_DOMAIN'] || '';
 const PUBLIC_DIR = path.join(__dirname, '../../public');
-const CERT_DIR = path.join(__dirname, '.certs');
-const CERT_FILE = path.join(CERT_DIR, 'cert.pem');
-const KEY_FILE = path.join(CERT_DIR, 'key.pem');
+const SELF_SIGNED_DIR = path.join(__dirname, '.certs');
+const LE_DOMAIN = envVars['LE_DOMAIN'] || 'home.donges.it';
+const LE_CERT = `/etc/letsencrypt/live/${LE_DOMAIN}/fullchain.pem`;
+const LE_KEY = `/etc/letsencrypt/live/${LE_DOMAIN}/privkey.pem`;
+const hasLeCert = fsSync.existsSync(LE_CERT) && fsSync.existsSync(LE_KEY);
+const CERT_DIR = hasLeCert ? path.dirname(LE_CERT) : SELF_SIGNED_DIR;
+const CERT_FILE = hasLeCert ? LE_CERT : path.join(SELF_SIGNED_DIR, 'cert.pem');
+const KEY_FILE = hasLeCert ? LE_KEY : path.join(SELF_SIGNED_DIR, 'key.pem');
 
 const MIME_TYPES: Record<string, string> = {
   '.html': 'text/html', '.css': 'text/css', '.js': 'application/javascript',
@@ -990,10 +995,12 @@ fetch('/api/config').then(r=>r.json()).then(c=>{document.getElementById('ver').t
 // --- SSL ---
 
 async function generateCertificate(): Promise<boolean> {
-  if (fsSync.existsSync(CERT_FILE) && fsSync.existsSync(KEY_FILE)) return true;
+  if (hasLeCert) { addLog(`SSL: Let's Encrypt cert (${LE_DOMAIN})`); return true; }
+  if (fsSync.existsSync(CERT_FILE) && fsSync.existsSync(KEY_FILE)) { addLog('SSL: self-signed cert'); return true; }
   try {
-    await fs.mkdir(CERT_DIR, { recursive: true });
+    await fs.mkdir(SELF_SIGNED_DIR, { recursive: true });
     await execAsync(`openssl req -x509 -newkey rsa:2048 -nodes -sha256 -days 365 -keyout "${KEY_FILE}" -out "${CERT_FILE}" -subj "/CN=localhost" 2>/dev/null`);
+    addLog('SSL: generated new self-signed cert');
     return true;
   } catch { return false; }
 }
