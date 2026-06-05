@@ -2,6 +2,7 @@
  * Task 3.3: Room.ts unit tests
  * [test:uuid:f7abd9f6-bbd1-4614-9280-19696c506de1] T3 Room.ts unit tests
  * [verifies:uuid:b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e] R-R1 room unit
+ * [verifies:uuid:4428b21f-8317-4340-a670-aa3b14582d4f] S1 Foundation room tests
  * Tests Room class and RoomManager against interfaces from task-3-room-ts.md
  *
  * Interfaces under test:

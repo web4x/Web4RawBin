@@ -17,6 +17,9 @@
  * [verifies:uuid:bebee55d-7d39-4f0c-b7de-d56e72d01363] R17.18 traceability as units
  * [verifies:uuid:b2237873-39b9-4154-9624-f809a9ca4983] R16.4 chain data fix
  * [verifies:uuid:7e4f8a2b-c3d5-4e6f-9a1b-2c3d4e5f6a25] R17.26 traceability is a tree
+ * [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000007] R17.8 views from flat JSON
+ * [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000011] R17.12 all files are IOR units
+ * [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000014] R17.15 collaborative planning
  */
 
 import { describe, it, expect } from 'vitest';
