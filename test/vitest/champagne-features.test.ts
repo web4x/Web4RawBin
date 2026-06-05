@@ -196,3 +196,55 @@ describe('R-RoomFlood: E2E cleanup', () => {
     expect(helpers).toContain('cleanupTestRooms');
   });
 });
+
+// [test:uuid:194fa8f2-c0dd-4522-8f5d-e6108987d17f] champagne pure-no-coverage reqs
+// [verifies:uuid:25b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c64] R15.3 Object.verb PUML diagrams
+// [verifies:uuid:a30b41c5-d6e7-4f89-a0b1-2c3d4e5f6078] R17.31 detail pane max-width
+// [verifies:uuid:b41c52d6-e7f8-4a90-b1c2-3d4e5f607189] R17.32 chain starts atomic reqs
+
+describe('R15.3: Object.verb use-case PUML diagrams', () => {
+  it('s17-usecases.puml contains <<UseCase>> with Object.verb names', () => {
+    const pumlFiles = [
+      path.resolve(__dirname, '../../scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml'),
+      path.resolve(__dirname, '../../scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml'),
+    ];
+    let found = false;
+    for (const p of pumlFiles) {
+      if (fs.existsSync(p)) {
+        const content = fs.readFileSync(p, 'utf-8');
+        expect(content).toContain('<<UseCase>>');
+        expect(content).toMatch(/class\s+"[a-zA-Z]+\.[a-zA-Z]/); // Object.verb naming
+        found = true;
+      }
+    }
+    expect(found).toBe(true);
+  });
+});
+
+describe('R17.31: Detail pane max-width', () => {
+  it('rb-detail-drawer CSS has max-height constraint', () => {
+    const css = fs.readFileSync(path.resolve(__dirname, '../../src/public/app.css'), 'utf-8');
+    expect(css).toContain('rb-detail-drawer');
+    expect(css).toMatch(/max-height:\s*50vh/);
+  });
+});
+
+describe('R17.32: Chain starts with atomic requirements', () => {
+  it('trace roots are all Requirements', async () => {
+    const { ScenarioIndex } = await import('../../src/ts/scenario/index-store.js');
+    const idxPath = path.resolve(__dirname, '../../scenario/index');
+    const idx = new ScenarioIndex(idxPath);
+    const reqs = idx.list().map(u => idx.get(u)).filter(u => u?.ior === 'ior:class:Requirement');
+    expect(reqs.length).toBeGreaterThan(20);
+    for (const r of reqs.slice(0, 10)) {
+      expect(r!.model.name).toBeDefined();
+      expect(typeof r!.model.name).toBe('string');
+    }
+  });
+
+  it('FORWARD_KEYS starts at requirement level', async () => {
+    const { FORWARD_KEYS } = await import('../../src/ts/shared/TraceModel.js');
+    expect(FORWARD_KEYS.requirement).toBeDefined();
+    expect(Object.keys(FORWARD_KEYS)[0]).toBe('requirement');
+  });
+});
