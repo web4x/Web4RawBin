@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "fda3b1b3-bff7-4522-9e6e-e41d0b27f1a7",
+    "name": "PageNav.stickyTop",
+    "className": "PageNav",
+    "methodName": "stickyTop",
+    "implementations": [
+      "ior:instance:525f3d9e-9e75-4f9c-8f6e-8c7de00087c3"
+    ],
+    "implementation": "ior:instance:525f3d9e-9e75-4f9c-8f6e-8c7de00087c3"
+  },
+  "ownerIor": "ior:instance:409c52a9-e852-4360-98ae-ca2a0b095714"
+}

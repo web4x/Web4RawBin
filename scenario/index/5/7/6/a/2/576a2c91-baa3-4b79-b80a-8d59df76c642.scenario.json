@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "576a2c91-baa3-4b79-b80a-8d59df76c642",
+    "name": "PathHeader.clickNavigate impl",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

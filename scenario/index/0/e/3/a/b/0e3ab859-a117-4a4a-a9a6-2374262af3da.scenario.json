@@ -6,7 +6,11 @@
     "object": "fileBrowser",
     "verb": "fixDisplay",
     "description": "Fix icon order and link targets in file browser listings",
-    "classes": []
+    "classes": [
+      "ior:instance:e4c9c03c-37b3-4fc5-85f2-d34697d6aaa1"
+    ],
+    "class": "ior:instance:e4c9c03c-37b3-4fc5-85f2-d34697d6aaa1",
+    "method": "ior:instance:635545cd-c483-4cfe-a385-b57fafc768ac"
   },
   "ownerIor": "ior:instance:d03a73ff-0329-47a3-8610-bf5c18053221"
 }

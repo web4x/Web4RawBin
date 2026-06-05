@@ -6,7 +6,11 @@
     "object": "traceLayout",
     "verb": "mobileCap",
     "description": "Apply mobile-first layout with hard width-cap on detail panel",
-    "classes": []
+    "classes": [
+      "ior:instance:d7df88da-5fbd-4580-a54d-4c772f676e2e"
+    ],
+    "class": "ior:instance:d7df88da-5fbd-4580-a54d-4c772f676e2e",
+    "method": "ior:instance:d07a4908-c274-483d-b527-15c11fcdf268"
   },
   "ownerIor": "ior:instance:d0881ad6-ade5-4d60-94a2-fbe5347fd4b6"
 }

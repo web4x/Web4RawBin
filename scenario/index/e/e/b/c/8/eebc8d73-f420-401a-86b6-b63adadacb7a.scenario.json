@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "eebc8d73-f420-401a-86b6-b63adadacb7a",
+    "name": "OfflinePage",
+    "methods": [
+      "ior:instance:8ff0accb-0b33-4935-8045-86bdf2261d6d"
+    ],
+    "method": "ior:instance:8ff0accb-0b33-4935-8045-86bdf2261d6d"
+  },
+  "ownerIor": null
+}

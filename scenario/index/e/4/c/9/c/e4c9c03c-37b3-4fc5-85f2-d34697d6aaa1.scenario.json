@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "e4c9c03c-37b3-4fc5-85f2-d34697d6aaa1",
+    "name": "FileBrowser",
+    "methods": [
+      "ior:instance:635545cd-c483-4cfe-a385-b57fafc768ac"
+    ],
+    "method": "ior:instance:635545cd-c483-4cfe-a385-b57fafc768ac"
+  },
+  "ownerIor": null
+}

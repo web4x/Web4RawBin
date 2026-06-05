@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "43cc8d76-c20c-4a75-aa7e-0821d716a3c6",
+    "name": "ScenarioClick.lazyLoad impl",
+    "sourceFile": "ior:file:src/public/ts/scenario-view.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "bf440a63-a97e-4a25-bd22-cb0fe4faf8d8",
+    "name": "VCard",
+    "methods": [
+      "ior:instance:0fc2b48d-ba59-4211-b5a1-fb1f3018e220"
+    ],
+    "method": "ior:instance:0fc2b48d-ba59-4211-b5a1-fb1f3018e220"
+  },
+  "ownerIor": null
+}

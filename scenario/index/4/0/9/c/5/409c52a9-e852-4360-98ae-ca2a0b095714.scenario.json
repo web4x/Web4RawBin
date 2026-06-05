@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "409c52a9-e852-4360-98ae-ca2a0b095714",
+    "name": "PageNav",
+    "methods": [
+      "ior:instance:fda3b1b3-bff7-4522-9e6e-e41d0b27f1a7"
+    ],
+    "method": "ior:instance:fda3b1b3-bff7-4522-9e6e-e41d0b27f1a7"
+  },
+  "ownerIor": null
+}

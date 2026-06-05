@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "2f6f8617-251c-4e92-8acf-55245cac779d",
+    "name": "Breadcrumb.contrastFix",
+    "className": "Breadcrumb",
+    "methodName": "contrastFix",
+    "implementations": [
+      "ior:instance:f2891a7e-bb6b-4513-a357-57729e7a8701"
+    ],
+    "implementation": "ior:instance:f2891a7e-bb6b-4513-a357-57729e7a8701"
+  },
+  "ownerIor": "ior:instance:3e2bd407-160a-408f-9961-9e99784cd6a9"
+}

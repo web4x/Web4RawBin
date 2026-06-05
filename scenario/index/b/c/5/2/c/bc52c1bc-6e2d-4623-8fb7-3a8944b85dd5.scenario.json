@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "bc52c1bc-6e2d-4623-8fb7-3a8944b85dd5",
+    "name": "VCard.uploadOnboarding impl",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

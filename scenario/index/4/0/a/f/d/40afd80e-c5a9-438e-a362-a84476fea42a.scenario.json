@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "40afd80e-c5a9-438e-a362-a84476fea42a",
+    "name": "PathHeader.clickNavigate",
+    "className": "PathHeader",
+    "methodName": "clickNavigate",
+    "implementations": [
+      "ior:instance:576a2c91-baa3-4b79-b80a-8d59df76c642"
+    ],
+    "implementation": "ior:instance:576a2c91-baa3-4b79-b80a-8d59df76c642"
+  },
+  "ownerIor": "ior:instance:31cad114-891a-4e2e-b924-90a77669e363"
+}

@@ -6,7 +6,11 @@
     "object": "offlinePage",
     "verb": "reloadButton",
     "description": "Add reload button on Connection-Failed and Offline pages",
-    "classes": []
+    "classes": [
+      "ior:instance:eebc8d73-f420-401a-86b6-b63adadacb7a"
+    ],
+    "class": "ior:instance:eebc8d73-f420-401a-86b6-b63adadacb7a",
+    "method": "ior:instance:8ff0accb-0b33-4935-8045-86bdf2261d6d"
   },
   "ownerIor": "ior:instance:9937a1f1-5674-48fb-92fe-6dc4a38089b0"
 }

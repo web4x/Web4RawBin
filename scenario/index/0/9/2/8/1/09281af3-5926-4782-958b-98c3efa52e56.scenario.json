@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "09281af3-5926-4782-958b-98c3efa52e56",
+    "name": "ChainLink",
+    "methods": [
+      "ior:instance:f832807d-5ced-4240-a39f-1e31e26c81bf"
+    ],
+    "method": "ior:instance:f832807d-5ced-4240-a39f-1e31e26c81bf"
+  },
+  "ownerIor": null
+}

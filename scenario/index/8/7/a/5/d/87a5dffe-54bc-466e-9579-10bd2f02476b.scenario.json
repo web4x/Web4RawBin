@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "87a5dffe-54bc-466e-9579-10bd2f02476b",
+    "name": "MdListing.chainIcon",
+    "className": "MdListing",
+    "methodName": "chainIcon",
+    "implementations": [
+      "ior:instance:81567694-3a0a-496e-a8e5-941258d512a5"
+    ],
+    "implementation": "ior:instance:81567694-3a0a-496e-a8e5-941258d512a5"
+  },
+  "ownerIor": "ior:instance:a7a3aa7d-9902-47aa-bc61-043335b7d402"
+}

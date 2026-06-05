@@ -6,7 +6,11 @@
     "object": "room",
     "verb": "create",
     "description": "Create Room.ts from GameRoom.ts",
-    "classes": []
+    "classes": [
+      "ior:instance:0a27064f-3758-49e9-baf9-fefa1c6f327e"
+    ],
+    "class": "ior:instance:0a27064f-3758-49e9-baf9-fefa1c6f327e",
+    "method": "ior:instance:81c44474-9e78-498f-b4ad-0fc43d480432"
   },
   "ownerIor": "ior:instance:606277ca-dd09-4409-a460-fa91fa334893"
 }

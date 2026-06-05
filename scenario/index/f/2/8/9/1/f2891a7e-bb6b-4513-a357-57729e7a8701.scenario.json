@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f2891a7e-bb6b-4513-a357-57729e7a8701",
+    "name": "Breadcrumb.contrastFix impl",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

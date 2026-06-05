@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "0eaea43c-5440-495e-88be-72e83f0db38a",
+    "name": "UserScenario",
+    "methods": [
+      "ior:instance:c9a4d6ef-6f1e-403e-8132-76522377ee44"
+    ],
+    "method": "ior:instance:c9a4d6ef-6f1e-403e-8132-76522377ee44"
+  },
+  "ownerIor": null
+}

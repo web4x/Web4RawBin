@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "5b6e33b7-a095-4109-a616-e179116651ba",
+    "name": "Assets.rebrand",
+    "className": "Assets",
+    "methodName": "rebrand",
+    "implementations": [
+      "ior:instance:e8d226f6-d8e2-4a8d-9db9-2edd5bb33bfb"
+    ],
+    "implementation": "ior:instance:e8d226f6-d8e2-4a8d-9db9-2edd5bb33bfb"
+  },
+  "ownerIor": "ior:instance:819aacf9-323d-4d38-9b08-d5f0ec11de76"
+}

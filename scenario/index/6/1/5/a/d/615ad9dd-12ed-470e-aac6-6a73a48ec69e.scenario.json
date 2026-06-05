@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "615ad9dd-12ed-470e-aac6-6a73a48ec69e",
+    "name": "ScenarioClick.lazyLoad",
+    "className": "ScenarioClick",
+    "methodName": "lazyLoad",
+    "implementations": [
+      "ior:instance:43cc8d76-c20c-4a75-aa7e-0821d716a3c6"
+    ],
+    "implementation": "ior:instance:43cc8d76-c20c-4a75-aa7e-0821d716a3c6"
+  },
+  "ownerIor": "ior:instance:ab93afb6-b2c2-44cd-b6b0-d7fe1c2b5e4b"
+}

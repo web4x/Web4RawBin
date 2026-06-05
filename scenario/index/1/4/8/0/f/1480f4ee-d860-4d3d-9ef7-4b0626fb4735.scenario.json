@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "1480f4ee-d860-4d3d-9ef7-4b0626fb4735",
+    "name": "ProfileGate",
+    "methods": [
+      "ior:instance:febcf068-1280-4d93-b32e-c41d2a8d99a2"
+    ],
+    "method": "ior:instance:febcf068-1280-4d93-b32e-c41d2a8d99a2"
+  },
+  "ownerIor": null
+}

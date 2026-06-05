@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "0a27064f-3758-49e9-baf9-fefa1c6f327e",
+    "name": "RoomManager",
+    "methods": [
+      "ior:instance:81c44474-9e78-498f-b4ad-0fc43d480432"
+    ],
+    "method": "ior:instance:81c44474-9e78-498f-b4ad-0fc43d480432"
+  },
+  "ownerIor": null
+}

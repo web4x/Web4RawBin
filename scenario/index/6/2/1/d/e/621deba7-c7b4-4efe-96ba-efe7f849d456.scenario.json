@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "621deba7-c7b4-4efe-96ba-efe7f849d456",
+    "name": "TraceLayout.mobileCap impl",
+    "sourceFile": "ior:file:src/public/app.css",
+    "tests": []
+  },
+  "ownerIor": null
+}

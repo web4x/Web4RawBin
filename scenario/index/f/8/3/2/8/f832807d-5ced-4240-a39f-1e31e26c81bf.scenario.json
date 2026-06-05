@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "f832807d-5ced-4240-a39f-1e31e26c81bf",
+    "name": "ChainLink.iconInView",
+    "className": "ChainLink",
+    "methodName": "iconInView",
+    "implementations": [
+      "ior:instance:e06e0fc0-d220-494d-a23d-04a7a99109c4"
+    ],
+    "implementation": "ior:instance:e06e0fc0-d220-494d-a23d-04a7a99109c4"
+  },
+  "ownerIor": "ior:instance:09281af3-5926-4782-958b-98c3efa52e56"
+}

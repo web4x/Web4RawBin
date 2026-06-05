@@ -6,7 +6,11 @@
     "object": "scenarioClick",
     "verb": "lazyLoad",
     "description": "Click .scenario.json in file browser opens /trace with lazy-load",
-    "classes": []
+    "classes": [
+      "ior:instance:ab93afb6-b2c2-44cd-b6b0-d7fe1c2b5e4b"
+    ],
+    "class": "ior:instance:ab93afb6-b2c2-44cd-b6b0-d7fe1c2b5e4b",
+    "method": "ior:instance:615ad9dd-12ed-470e-aac6-6a73a48ec69e"
   },
   "ownerIor": "ior:instance:7a5f0eb9-7a33-492b-991a-b13c431dc695"
 }

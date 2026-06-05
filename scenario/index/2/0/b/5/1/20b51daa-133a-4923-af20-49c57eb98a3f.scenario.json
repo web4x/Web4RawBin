@@ -6,7 +6,11 @@
     "object": "mdListing",
     "verb": "chainIcon",
     "description": "Show chain-link icon in /md/ directory listing for scenario files",
-    "classes": []
+    "classes": [
+      "ior:instance:a7a3aa7d-9902-47aa-bc61-043335b7d402"
+    ],
+    "class": "ior:instance:a7a3aa7d-9902-47aa-bc61-043335b7d402",
+    "method": "ior:instance:87a5dffe-54bc-466e-9579-10bd2f02476b"
   },
   "ownerIor": "ior:instance:ea70d80c-66e8-459a-af3d-74b137341303"
 }

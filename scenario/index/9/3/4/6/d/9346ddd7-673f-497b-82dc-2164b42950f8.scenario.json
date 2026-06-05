@@ -6,7 +6,11 @@
     "object": "fileBrowser",
     "verb": "symlinkSupport",
     "description": "Display and follow symlinks in FileApi and rb-file-tree",
-    "classes": []
+    "classes": [
+      "ior:instance:609204de-0743-43c7-a2c7-08e8abcbdf78"
+    ],
+    "class": "ior:instance:609204de-0743-43c7-a2c7-08e8abcbdf78",
+    "method": "ior:instance:c6ce5d1e-ab54-41b8-814d-01909df7071f"
   },
   "ownerIor": "ior:instance:dce1bdf8-7076-4376-a32c-9c8b08422bdc"
 }

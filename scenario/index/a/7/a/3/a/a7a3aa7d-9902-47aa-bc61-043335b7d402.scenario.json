@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "a7a3aa7d-9902-47aa-bc61-043335b7d402",
+    "name": "MdListing",
+    "methods": [
+      "ior:instance:87a5dffe-54bc-466e-9579-10bd2f02476b"
+    ],
+    "method": "ior:instance:87a5dffe-54bc-466e-9579-10bd2f02476b"
+  },
+  "ownerIor": null
+}

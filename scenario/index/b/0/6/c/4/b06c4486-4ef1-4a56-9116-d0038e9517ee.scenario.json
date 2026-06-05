@@ -6,7 +6,11 @@
     "object": "user",
     "verb": "scenarioUnit",
     "description": "Represent User class as scenario-unit with ViewBus-driven updates",
-    "classes": []
+    "classes": [
+      "ior:instance:0eaea43c-5440-495e-88be-72e83f0db38a"
+    ],
+    "class": "ior:instance:0eaea43c-5440-495e-88be-72e83f0db38a",
+    "method": "ior:instance:c9a4d6ef-6f1e-403e-8132-76522377ee44"
   },
   "ownerIor": "ior:instance:df4ea98b-b47c-4129-be73-a4047e919a6f"
 }

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e8d226f6-d8e2-4a8d-9db9-2edd5bb33bfb",
+    "name": "Assets.rebrand impl",
+    "sourceFile": "ior:file:src/public/app.css",
+    "tests": []
+  },
+  "ownerIor": null
+}

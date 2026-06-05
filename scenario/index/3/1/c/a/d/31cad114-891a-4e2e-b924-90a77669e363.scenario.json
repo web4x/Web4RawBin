@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "31cad114-891a-4e2e-b924-90a77669e363",
+    "name": "PathHeader",
+    "methods": [
+      "ior:instance:40afd80e-c5a9-438e-a362-a84476fea42a"
+    ],
+    "method": "ior:instance:40afd80e-c5a9-438e-a362-a84476fea42a"
+  },
+  "ownerIor": null
+}

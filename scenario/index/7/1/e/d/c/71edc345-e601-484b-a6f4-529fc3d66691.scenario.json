@@ -6,7 +6,11 @@
     "object": "breadcrumb",
     "verb": "contrastFix",
     "description": "Fix breadcrumb link color contrast for WCAG AA",
-    "classes": []
+    "classes": [
+      "ior:instance:3e2bd407-160a-408f-9961-9e99784cd6a9"
+    ],
+    "class": "ior:instance:3e2bd407-160a-408f-9961-9e99784cd6a9",
+    "method": "ior:instance:2f6f8617-251c-4e92-8acf-55245cac779d"
   },
   "ownerIor": "ior:instance:0da44cbe-6f10-4fb5-a11a-6c4a7e9c17f4"
 }

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "fa5357ff-cb48-47d2-a90c-15888eb7a6b9",
+    "name": "ProfileGate.vcardUpload impl",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

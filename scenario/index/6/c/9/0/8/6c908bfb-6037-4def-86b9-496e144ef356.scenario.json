@@ -6,7 +6,11 @@
     "object": "chainLink",
     "verb": "iconInView",
     "description": "Show chain-link icon in generated MD views for symlinked scenarios",
-    "classes": []
+    "classes": [
+      "ior:instance:09281af3-5926-4782-958b-98c3efa52e56"
+    ],
+    "class": "ior:instance:09281af3-5926-4782-958b-98c3efa52e56",
+    "method": "ior:instance:f832807d-5ced-4240-a39f-1e31e26c81bf"
   },
   "ownerIor": "ior:instance:f0af3251-3884-4238-9159-7eeac15c46d6"
 }

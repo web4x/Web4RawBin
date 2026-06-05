@@ -6,7 +6,11 @@
     "object": "pageNav",
     "verb": "stickyTop",
     "description": "Pin pageNav output to viewport top on scroll",
-    "classes": []
+    "classes": [
+      "ior:instance:409c52a9-e852-4360-98ae-ca2a0b095714"
+    ],
+    "class": "ior:instance:409c52a9-e852-4360-98ae-ca2a0b095714",
+    "method": "ior:instance:fda3b1b3-bff7-4522-9e6e-e41d0b27f1a7"
   },
   "ownerIor": "ior:instance:05e394aa-d21b-4aaa-88ba-611cd427c2f1"
 }

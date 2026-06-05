@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "3e2bd407-160a-408f-9961-9e99784cd6a9",
+    "name": "Breadcrumb",
+    "methods": [
+      "ior:instance:2f6f8617-251c-4e92-8acf-55245cac779d"
+    ],
+    "method": "ior:instance:2f6f8617-251c-4e92-8acf-55245cac779d"
+  },
+  "ownerIor": null
+}

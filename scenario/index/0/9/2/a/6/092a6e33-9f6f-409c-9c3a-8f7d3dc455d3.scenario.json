@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "092a6e33-9f6f-409c-9c3a-8f7d3dc455d3",
+    "name": "FileBrowser.symlinkSupport impl",
+    "sourceFile": "ior:file:src/ts/server/FileApi.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}
