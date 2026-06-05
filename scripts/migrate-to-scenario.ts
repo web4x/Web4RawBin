@@ -329,18 +329,17 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
         const classUuid = crypto.randomUUID();
         const methodIors: string[] = [];
         for (const ml of methodLines) {
-          const methods = ml.replace(/^\s*\+\s*/, '').split(',').map(s => s.trim()).filter(Boolean);
-          for (const mName of methods) {
-            const mUuid = crypto.randomUUID();
-            const methodUnit: ScenarioUnit = {
-              ior: 'ior:class:Method',
-              model: { uuid: mUuid, name: `${className}.${mName}`, className, methodName: mName },
-              ownerIor: `ior:instance:${classUuid}`,
-            };
-            idx.put(mUuid, methodUnit);
-            methodUuids.push(mUuid);
-            methodIors.push(`ior:instance:${mUuid}`);
-          }
+          const mName = ml.replace(/^\s*\+\s*/, '').trim();
+          if (!mName) continue;
+          const mUuid = crypto.randomUUID();
+          const methodUnit: ScenarioUnit = {
+            ior: 'ior:class:Method',
+            model: { uuid: mUuid, name: `${className}.${mName}`, className, methodName: mName },
+            ownerIor: `ior:instance:${classUuid}`,
+          };
+          idx.put(mUuid, methodUnit);
+          methodUuids.push(mUuid);
+          methodIors.push(`ior:instance:${mUuid}`);
         }
         const classUnit: ScenarioUnit = {
           ior: 'ior:class:Class',
