@@ -4,7 +4,11 @@
     "uuid": "aed37375-3dfb-4434-81b0-f5ec7bbad7de",
     "name": "TraceObject.refs",
     "className": "TraceObject",
-    "methodName": "refs"
+    "methodName": "refs",
+    "implementations": [
+      "ior:instance:8af72680-6d5b-482b-bbea-1740cd425293"
+    ],
+    "implementation": "ior:instance:8af72680-6d5b-482b-bbea-1740cd425293"
   },
   "ownerIor": "ior:instance:101a0b1c-2d3e-4f50-8617-a01010101101"
 }

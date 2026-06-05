@@ -5,8 +5,10 @@
     "name": "ClassRegistry.get(name): ClassLoader",
     "className": "ClassRegistry",
     "methodName": "get(name): ClassLoader",
-    "implementations": [],
-    "implementation": ""
+    "implementations": [
+      "ior:instance:c37ebdba-1310-4f6a-9a35-2a2d5d43084d"
+    ],
+    "implementation": "ior:instance:c37ebdba-1310-4f6a-9a35-2a2d5d43084d"
   },
   "ownerIor": "ior:instance:60a20d33-6b6e-4acc-b9da-2685380f23cb"
 }

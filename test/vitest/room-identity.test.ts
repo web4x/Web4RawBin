@@ -1,6 +1,7 @@
 /**
  * T74: Room Identity — persistent rooms with SSH keys
  * [test:uuid:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f] T74 room identity SSH keys
+ * [verifies:uuid:b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e] R-R1 room identity unit
  * Tests UC-RM.1: room directory creation, SSH tree, permissions, room.json.
  * Uses temp dirs with real RSA-2048 keys.
  */

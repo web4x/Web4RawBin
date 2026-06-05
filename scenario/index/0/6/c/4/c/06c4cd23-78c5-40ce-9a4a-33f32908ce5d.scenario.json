@@ -5,8 +5,10 @@
     "name": "ClassRegistry.loader): void",
     "className": "ClassRegistry",
     "methodName": "loader): void",
-    "implementations": [],
-    "implementation": ""
+    "implementations": [
+      "ior:instance:7de1d230-8174-4ea5-b1e9-7b52bb6e63e8"
+    ],
+    "implementation": "ior:instance:7de1d230-8174-4ea5-b1e9-7b52bb6e63e8"
   },
   "ownerIor": "ior:instance:40475f3e-6cef-476b-9749-777888cb169c"
 }

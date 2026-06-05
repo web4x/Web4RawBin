@@ -4,6 +4,7 @@
  * generated-region markers preserve manual content.
  *
  * [test:uuid:102c3d4e-5f60-4071-8293-c02020202103] AC2/AC3/AC4/AC6
+ * [verifies:uuid:a1e2f3d4-b5c6-4d7e-8f90-1a2b3c4d5e26] R17.26 trace consistency
  */
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'node:fs';

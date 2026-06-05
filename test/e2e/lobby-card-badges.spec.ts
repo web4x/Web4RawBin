@@ -1,6 +1,7 @@
 /**
  * T78 (v0.4.8): Lobby room cards show full UUID, a "💾 Persistent" badge, and owner attribution.
  * [test:uuid:b774751d-5094-478b-b659-ec6e569d25bf] T78 lobby card badges
+ * [verifies:uuid:b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e] R-R1 lobby badges
  * Verifies the rendered DOM (RoomBrowser.ts:122-134) on a card the viewer owns.
  */
 import { test, expect, Page } from '@playwright/test';

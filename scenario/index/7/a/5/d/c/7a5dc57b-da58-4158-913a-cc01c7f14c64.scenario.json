@@ -5,8 +5,10 @@
     "name": "ScenarioUnit.save(indexPath): void",
     "className": "ScenarioUnit",
     "methodName": "save(indexPath): void",
-    "implementations": [],
-    "implementation": ""
+    "implementations": [
+      "ior:instance:e362c116-710c-47b3-ac7e-ecc1b8ea58e4"
+    ],
+    "implementation": "ior:instance:e362c116-710c-47b3-ac7e-ecc1b8ea58e4"
   },
   "ownerIor": "ior:instance:e48d798c-c4ac-4bb2-9a0c-adba964250d8"
 }

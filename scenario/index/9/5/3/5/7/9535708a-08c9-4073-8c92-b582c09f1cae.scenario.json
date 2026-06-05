@@ -5,8 +5,10 @@
     "name": "ScenarioUnit.load(json): this",
     "className": "ScenarioUnit",
     "methodName": "load(json): this",
-    "implementations": [],
-    "implementation": ""
+    "implementations": [
+      "ior:instance:4b458ad6-a795-4cc3-a622-541f633bc985"
+    ],
+    "implementation": "ior:instance:4b458ad6-a795-4cc3-a622-541f633bc985"
   },
   "ownerIor": "ior:instance:e48d798c-c4ac-4bb2-9a0c-adba964250d8"
 }

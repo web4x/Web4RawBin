@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f2463281-f786-44be-9f81-0f594e7b87f1",
+    "name": "ViewTemplateRegistry.register(className impl",
+    "sourceFile": "ior:file:src/ts/scenario/templates.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

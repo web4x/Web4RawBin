@@ -1,4 +1,5 @@
 // [impl:uuid:1b854ba5-65b9-4a2d-a16c-b288388f42b7] T63 editor entry
+// [impl:uuid:e362c116-710c-47b3-ac7e-ecc1b8ea58e4] ScenarioUnit.save(indexPath): void
 import './components/rb-update-banner.js';
 import './components/rb-editor-layout.js';
 import type { RbEditorLayout } from './components/rb-editor-layout.js';

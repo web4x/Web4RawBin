@@ -8,6 +8,7 @@
  *
  * [impl:uuid:101a0b1c-2d3e-4f50-8617-a01010101101] R15.1 typed object model
  */
+// [impl:uuid:87c9007a-2144-4030-a5ac-cd48f518bb2b] TraceObject.parent
 
 export type ObjectType =
   | 'requirement' | 'task' | 'usecase' | 'class' | 'method' | 'implementation' | 'test';

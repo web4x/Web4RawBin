@@ -5,8 +5,10 @@
     "name": "ViewTemplateRegistry.register(className",
     "className": "ViewTemplateRegistry",
     "methodName": "register(className",
-    "implementations": [],
-    "implementation": ""
+    "implementations": [
+      "ior:instance:1d2024fb-f7be-4bd8-b452-b154b0150ee3"
+    ],
+    "implementation": "ior:instance:1d2024fb-f7be-4bd8-b452-b154b0150ee3"
   },
   "ownerIor": "ior:instance:6fdc9ac6-0cf1-4d16-86ed-7c6f68f07d2e"
 }

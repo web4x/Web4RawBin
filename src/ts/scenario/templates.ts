@@ -4,6 +4,7 @@
  *
  * [impl:uuid:20cca741-0a93-4d93-8a51-9c72bdb77d92] R17.6
  */
+// [impl:uuid:1d2024fb-f7be-4bd8-b452-b154b0150ee3] ViewTemplateRegistry.register(className
 import { type ScenarioUnit } from './types.js';
 
 export interface ViewTemplate {

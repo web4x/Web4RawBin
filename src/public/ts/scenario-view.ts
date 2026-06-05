@@ -5,6 +5,7 @@
  *
  * [impl:uuid:7a5f0eb9-7a33-492b-991a-b13c431dc695] R-M3
  */
+// [impl:uuid:4b458ad6-a795-4cc3-a622-541f633bc985] ScenarioUnit.load(json): this
 import { TraceRouter, viewRegistry, deserialize } from './trace/index.js';
 import './trace/rb-trace-tree.js';
 import './trace/rb-detail-drawer.js';

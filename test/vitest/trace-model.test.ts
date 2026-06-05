@@ -4,6 +4,7 @@
  * graph traversal across the full chain, and flat-JSON round-trip.
  *
  * [test:uuid:101b2c3d-4e5f-4061-8273-b01010101102] AC1-AC4 typed object model
+ * [verifies:uuid:a1e2f3d4-b5c6-4d7e-8f90-1a2b3c4d5e26] R17.26 traceability tree
  */
 import { describe, it, expect, beforeEach } from 'vitest';
 import {

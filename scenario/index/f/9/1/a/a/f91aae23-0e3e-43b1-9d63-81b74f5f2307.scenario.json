@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f91aae23-0e3e-43b1-9d63-81b74f5f2307",
+    "name": "ClassRegistry.register(name impl",
+    "sourceFile": "ior:file:src/ts/scenario/classes.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

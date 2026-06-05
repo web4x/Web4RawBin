@@ -4,6 +4,7 @@
  *
  * [impl:uuid:20cca741-0a93-4d93-8a51-9c72bdb77d92] R17.3
  */
+// [impl:uuid:7de1d230-8174-4ea5-b1e9-7b52bb6e63e8] ClassRegistry.loader): void
 import { type ScenarioUnit, type ClassLoader, iorClass } from './types.js';
 import { TraceLinkLoader } from './trace-link.js';
 

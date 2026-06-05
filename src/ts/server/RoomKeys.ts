@@ -1,4 +1,5 @@
 // [impl:uuid:07474cf1-9581-4ae3-8a00-3931f4297da4] T74 room SSH keys
+// [impl:uuid:c37ebdba-1310-4f6a-9a35-2a2d5d43084d] ClassRegistry.get(name): ClassLoader
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';

@@ -1,4 +1,5 @@
 // [test:uuid:e906138a-581d-4c07-8198-eedaf0e20af4] T79 room identity E2E
+// [verifies:uuid:b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e] R-R1 room identity
 import { test, expect } from '@playwright/test';
 import { ensureLobby, cleanupTestRooms, cleanupTestUsers } from './helpers';
 import fs from 'node:fs';

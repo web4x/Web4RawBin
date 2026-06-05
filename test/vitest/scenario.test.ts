@@ -1,6 +1,7 @@
 /**
  * T125 — Scenario-unit foundation tests (AC6: ≥1 test per sub-task).
  * [test:uuid:5a125001-b002-4c03-9d04-e05f06a07b08] T125 scenario-unit primitives
+ * [verifies:uuid:cb93f0db-0e42-4795-b41f-2e125120f259] R17.1 scenario JSON unit
  *
  * @vitest-environment node
  */

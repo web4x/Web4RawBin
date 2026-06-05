@@ -5,8 +5,10 @@
     "name": "ViewTemplateRegistry.renderHtml(scenario): string",
     "className": "ViewTemplateRegistry",
     "methodName": "renderHtml(scenario): string",
-    "implementations": [],
-    "implementation": ""
+    "implementations": [
+      "ior:instance:4850d457-d435-4d0a-9b77-7a62437ba458"
+    ],
+    "implementation": "ior:instance:4850d457-d435-4d0a-9b77-7a62437ba458"
   },
   "ownerIor": "ior:instance:6a4207e4-bfd3-4f73-91a6-a6f3c8da945f"
 }

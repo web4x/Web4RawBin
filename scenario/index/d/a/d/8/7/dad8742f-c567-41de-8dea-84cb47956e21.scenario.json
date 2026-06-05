@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "dad8742f-c567-41de-8dea-84cb47956e21",
+    "name": "IORResolver.resolveClass(ior): ClassLoader impl",
+    "sourceFile": "ior:file:src/ts/scenario/ior-resolver.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

@@ -4,6 +4,7 @@
  *
  * [impl:uuid:b66fdf54-04f4-4609-9ded-04c835348b32] R17.12
  */
+// [impl:uuid:9b96ae64-dfbc-4cdf-b62c-4394b647c6b9] IORResolver.resolve(ior): ScenarioUnit | ClassLoader
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseIor, type ScenarioUnit } from './types.js';

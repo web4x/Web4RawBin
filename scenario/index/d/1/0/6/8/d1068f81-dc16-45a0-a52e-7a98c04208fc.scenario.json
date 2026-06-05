@@ -4,7 +4,11 @@
     "uuid": "d1068f81-dc16-45a0-a52e-7a98c04208fc",
     "name": "TraceRouter.navigate",
     "className": "TraceRouter",
-    "methodName": "navigate"
+    "methodName": "navigate",
+    "implementations": [
+      "ior:instance:8a6c772d-ebcd-4c69-bc40-5174fcb71bc6"
+    ],
+    "implementation": "ior:instance:8a6c772d-ebcd-4c69-bc40-5174fcb71bc6"
   },
   "ownerIor": "ior:instance:740385cb-ce33-4216-a857-a5b63d35abb5"
 }

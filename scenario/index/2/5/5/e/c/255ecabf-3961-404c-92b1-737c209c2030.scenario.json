@@ -5,8 +5,10 @@
     "name": "ClassRegistry.register(name",
     "className": "ClassRegistry",
     "methodName": "register(name",
-    "implementations": [],
-    "implementation": ""
+    "implementations": [
+      "ior:instance:68acc46a-8321-4074-8e91-edbf7c3ee3a5"
+    ],
+    "implementation": "ior:instance:68acc46a-8321-4074-8e91-edbf7c3ee3a5"
   },
   "ownerIor": "ior:instance:60a20d33-6b6e-4acc-b9da-2685380f23cb"
 }

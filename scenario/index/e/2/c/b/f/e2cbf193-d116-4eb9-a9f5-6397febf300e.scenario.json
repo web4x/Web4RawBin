@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e2cbf193-d116-4eb9-a9f5-6397febf300e",
+    "name": "TraceObject.addRef impl",
+    "sourceFile": "ior:file:src/ts/shared/TraceModel.ts",
+    "tests": [
+      "ior:instance:101b2c3d-4e5f-4061-8273-b01010101102"
+    ]
+  },
+  "ownerIor": null
+}

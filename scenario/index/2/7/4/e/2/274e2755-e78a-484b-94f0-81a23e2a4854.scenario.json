@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "274e2755-e78a-484b-94f0-81a23e2a4854",
+    "name": "ClassRegistry.get(name): ClassLoader impl",
+    "sourceFile": "ior:file:src/ts/server/RoomKeys.ts",
+    "tests": [
+      "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+    ]
+  },
+  "ownerIor": null
+}

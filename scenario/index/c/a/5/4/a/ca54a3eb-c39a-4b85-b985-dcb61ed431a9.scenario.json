@@ -5,8 +5,10 @@
     "name": "IORResolver.resolveInstance(ior): ScenarioUnit",
     "className": "IORResolver",
     "methodName": "resolveInstance(ior): ScenarioUnit",
-    "implementations": [],
-    "implementation": ""
+    "implementations": [
+      "ior:instance:04a1dea7-58f6-4b40-983f-fe13bd32b01a"
+    ],
+    "implementation": "ior:instance:04a1dea7-58f6-4b40-983f-fe13bd32b01a"
   },
   "ownerIor": "ior:instance:4dfd37fd-d30f-4ec1-af8c-2647ff865ba7"
 }

@@ -1,6 +1,7 @@
 /**
  * T94 (v0.5.4): PWA version update banner fires again.
  * [test:uuid:916b8bb0-08ef-4287-98f0-031ddf004723] T94 PWA update banner
+ * [verifies:uuid:67bde18f-76f9-43cd-abea-77c2ad7134f9] R-V1 version update
  * Root cause was a frozen startup version; fix = per-request getVersion() so /api/config always
  * reports the on-disk version. This spec drives a version mismatch in the browser and asserts
  * rb-update-banner (shadow DOM) shows "Update Now" (AC1/AC6), that clicking it stores the new

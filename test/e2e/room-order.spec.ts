@@ -1,4 +1,5 @@
 // [test:uuid:c9e3bd8c-b143-40ac-ade5-8be74149a4ab] T95 lobby ordering E2E
+// [verifies:uuid:b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e] R-R1 room ordering
 import { test, expect, Page } from '@playwright/test';
 import { ensureLobby, cleanupTestRooms, cleanupTestUsers } from './helpers';
 

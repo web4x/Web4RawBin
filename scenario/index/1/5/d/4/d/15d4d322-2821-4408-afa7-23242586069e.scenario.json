@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "15d4d322-2821-4408-afa7-23242586069e",
+    "name": "ScenarioUnit.save(indexPath): void impl",
+    "sourceFile": "ior:file:src/public/ts/edit.ts",
+    "tests": [
+      "ior:instance:c4179894-e662-41e8-a0d1-f94089f6576a",
+      "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+      "ior:instance:6d5060bf-b638-460e-b922-ff2eb20b2e1c",
+      "ior:instance:2f5c543a-280d-48f9-bff5-e99870115d7b"
+    ]
+  },
+  "ownerIor": null
+}
