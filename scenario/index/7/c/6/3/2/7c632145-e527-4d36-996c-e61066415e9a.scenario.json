@@ -6,7 +6,11 @@
     "object": "objectItem",
     "verb": "render",
     "description": "Render a draggable native-OS list item for any trace object",
-    "classes": []
+    "classes": [
+      "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+    ],
+    "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
+    "method": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09"
   },
   "ownerIor": "ior:instance:105e4f50-6172-4384-895b-e05050505105"
 }

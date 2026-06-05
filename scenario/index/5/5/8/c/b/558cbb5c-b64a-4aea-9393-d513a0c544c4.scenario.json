@@ -6,7 +6,10 @@
     "object": "symlinkTree",
     "verb": "extendClasses",
     "description": "Extend symlink tree to all 9 scenario classes",
-    "classes": []
+    "classes": [
+      "ior:instance:c8060ced-11f7-4fc1-bbc6-5c7683cf6463"
+    ],
+    "class": "ior:instance:c8060ced-11f7-4fc1-bbc6-5c7683cf6463"
   },
   "ownerIor": "ior:instance:bce39256-6743-406e-b090-92ea2d13cde8"
 }

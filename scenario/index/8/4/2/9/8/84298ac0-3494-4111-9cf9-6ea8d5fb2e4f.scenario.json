@@ -6,7 +6,10 @@
     "object": "detailDrawer",
     "verb": "stickyBottom",
     "description": "Anchor DetailsViewContainer to viewport bottom",
-    "classes": []
+    "classes": [
+      "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"
+    ],
+    "class": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"
   },
   "ownerIor": "ior:instance:bbca5514-a5c0-4a32-8be4-bf1133290c7a"
 }

@@ -6,7 +6,10 @@
     "object": "detailView",
     "verb": "setBackground",
     "description": "Set DetailsView panel to dark background",
-    "classes": []
+    "classes": [
+      "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
+    ],
+    "class": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
   },
   "ownerIor": "ior:instance:e7cb6434-97a2-4752-8d63-f8bea13646b6"
 }

@@ -6,7 +6,10 @@
     "object": "treeRender",
     "verb": "lazyAppend",
     "description": "Expand appends children without re-rendering full tree",
-    "classes": []
+    "classes": [
+      "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e"
+    ],
+    "class": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e"
   },
   "ownerIor": "ior:instance:08e46ce3-69f3-40fe-87d7-5ee875a4e94a"
 }
