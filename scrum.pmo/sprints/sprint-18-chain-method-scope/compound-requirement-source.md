@@ -117,3 +117,39 @@ Not just that the test passes — but that it tests THE RIGHT THING. Per-chain i
 Full standard: `scrum.pmo/standards/champagne-intention-verification.md`
 
 → Standing process (not a single task — applies to every sprint completion)
+
+---
+
+## LITERAL SOURCE — Follow-on E: Eliminate chain cycles + lazy-load one layer (2026-06-05, BUG)
+
+> TRON: "these cases [T123↔R16.4 infinite cycle in trace tree] have to completely be eliminated. also lazy loading just the next layer would prevent the issue here."
+
+### R18.9: Chain cycles are completely eliminated — forward-only traversal with cycle guard.
+
+[requirement:uuid:18c9d0e1-f2a3-4b5c-6d7e-000000018009]
+
+The trace tree currently exhibits infinite cycles when a Task and Requirement reference each other (T123↔R16.4 observed). ALL cycles in the traceability chain must be eliminated. The chain walker must enforce strict forward-only traversal: requirement → task → UC → class → method → impl → test. A visited-set cycle guard must prevent any node from being expanded twice in the same chain path. If a cycle is detected, the node renders as a leaf with a cycle indicator — it does NOT recurse.
+
+**Deduplication check:** R-F (data quality, zero backward chaos) and B18 (forward-only) cover the DATA direction. R18.9 covers the RUNTIME traversal — the tree walker must guard against cycles even if the data has them. Different layer — genuinely new.
+
+**Acceptance criteria:**
+- [ ] No infinite expansion in the trace tree (T123↔R16.4 cycle resolved)
+- [ ] Visited-set guard: a node appearing twice in the same path stops expansion
+- [ ] Cycle detected → node rendered as leaf with visual indicator (e.g. ⟳ icon)
+- [ ] Forward-only chain types enforced: requirement can only expand to tasks, task to UCs, etc.
+
+### R18.10: Tree lazy-loads only the NEXT layer per expand — not the full subtree.
+
+[requirement:uuid:18d0e1f2-a3b4-5c6d-7e8f-000000018010]
+
+Each expand click loads ONLY the immediate children of the clicked node — one layer deep. It does NOT recursively load grandchildren or the full subtree. This prevents the cycle issue (a cycle cannot recurse if only one layer loads at a time) and keeps the tree responsive. The user must explicitly click to expand each successive level.
+
+**Deduplication check:** R18.6 covers DOM append (no full re-render). R-Y1/R-V1 cover lazy-load data fetch at every depth. R18.10 is the DEPTH LIMIT per expand — only one layer, not recursive. Complements R18.6 and R-Y1 but is a distinct constraint.
+
+**Acceptance criteria:**
+- [ ] Expanding a node fetches and renders only its immediate children (depth=1)
+- [ ] Grandchildren are NOT fetched until the user expands a child node
+- [ ] Even if data contains deep nesting, only one layer appears per click
+- [ ] Combined with R18.9 cycle guard: cycles cannot recurse because only one layer loads
+
+→ New bug task (planner stand-up — cycle elimination + single-layer lazy-load)
