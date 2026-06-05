@@ -20,7 +20,12 @@ export class ScenarioIndex {
   }
 
   filePath(uuid: string): string {
-    return path.join(this.basePath, this.prefixPath(uuid), `${uuid}.scenario.json`);
+    const newPath = path.join(this.basePath, this.prefixPath(uuid), `${uuid}.scenario.json`);
+    if (fs.existsSync(newPath)) return newPath;
+    const hex = uuid.replace(/-/g, '').slice(0, 5);
+    const legacyPath = path.join(this.basePath, hex, `${uuid}.scenario.json`);
+    if (fs.existsSync(legacyPath)) return legacyPath;
+    return newPath;
   }
 
   put(uuid: string, scenario: ScenarioUnit): void {
