@@ -185,3 +185,31 @@ When a true cycle IS detected (a node is its own ancestor), the cyclic node is s
 - [ ] If a node has BOTH legitimate children AND a cyclic child, only the legitimate children render
 
 → T193 (new task — T192 closed per Rule 8 closure freeze)
+
+---
+
+## LITERAL SOURCE — Follow-on G: Chain must end in Test, not loop to Task (2026-06-05, BUG)
+
+> TRON: "the picture shows where the traceability goes wrongly into tasks. double check if this a logic or data quality issue. all chains must end in a test."
+
+### R18.13: Every traceability chain terminates in a Test — no chain may end on or loop back into a Task or Requirement.
+
+[requirement:uuid:18a3b4c5-d6e7-8f90-1a2b-000000018013]
+
+The /trace tree shows chains that go from Method→Implementation and then back INTO Tasks or Requirements instead of continuing to Tests. This is either: (a) a LOGIC bug — the chain walker follows a wrong forward-link type (e.g. Implementation has a `tasks[]` field that it shouldn't follow), or (b) a DATA QUALITY bug — Implementation units have incorrect forward references pointing to Task IORs instead of Test IORs. Architect is diagnosing which.
+
+Regardless of root cause, the INVARIANT is: every chain in /trace must follow the locked 7-step order (requirement → task → UC → class → method → implementation → test) and TERMINATE at a Test leaf. No chain may:
+- End on a Method or Implementation without reaching a Test
+- Loop back to a Task or Requirement from a deeper level
+- Show Task nodes below the Method level
+- Show Requirement nodes below the Task level
+
+**Deduplication check:** R18.9 covers cycle guard (ancestor-path). R18.13 covers a different bug — not a cycle but a WRONG-TYPE child (Implementation showing Tasks as children instead of Tests). The chain walker must enforce TYPE ORDER, not just cycle detection.
+
+**Acceptance criteria:**
+- [ ] No Task or Requirement nodes appear below Method level in /trace
+- [ ] Every chain that reaches an Implementation continues to at least one Test
+- [ ] The chain walker enforces type order: at the Implementation level, ONLY `tests[]` is followed — never `tasks[]` or `requirements[]`
+- [ ] If an Implementation has no tests, it renders as a leaf (EMPTY per champagne standard) — not as a node with Task children
+
+→ New task (planner stand-up — architect diagnosing logic vs data)

@@ -187,4 +187,5 @@ Deduplication: R18.5 covered scenario-vs-trace branching at Requirement level. R
 | R18.10 | `18d0e1f2` | TBD (bug) | Tree loads only NEXT layer per expand — no recursive subtree |
 | R18.11 | `18e1f2a3` | T193 | Cycle guard ancestor-path-precise — preserve DAG re-convergence |
 | R18.12 | `18f2a3b4` | T193 | True-cycle nodes omitted cleanly — no visible cut artifact |
+| R18.13 | `18a3b4c5` | TBD (bug) | Chain terminates in Test — no loop back to Task/Requirement |
 | R-CHAMP | `a0b1c2d3` | standing | Champagne: leaf test verifies root requirement's intention |
