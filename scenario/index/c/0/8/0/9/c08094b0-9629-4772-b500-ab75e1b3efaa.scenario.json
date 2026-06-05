@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "c08094b0-9629-4772-b500-ab75e1b3efaa",
+    "name": "RbListOverview.searchAndFilter",
+    "className": "RbListOverview",
+    "methodName": "searchAndFilter"
+  },
+  "ownerIor": "ior:instance:d48dc6bc-fe32-4df4-8f22-b8ba8f9d3323"
+}

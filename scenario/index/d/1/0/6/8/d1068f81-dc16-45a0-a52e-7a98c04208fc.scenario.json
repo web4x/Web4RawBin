@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "d1068f81-dc16-45a0-a52e-7a98c04208fc",
+    "name": "TraceRouter.navigate",
+    "className": "TraceRouter",
+    "methodName": "navigate"
+  },
+  "ownerIor": "ior:instance:740385cb-ce33-4216-a857-a5b63d35abb5"
+}

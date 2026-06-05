@@ -5,8 +5,12 @@
     "name": "room.test",
     "object": "room",
     "verb": "test",
-    "classes": [],
-    "tasks": []
+    "classes": [
+      "ior:instance:2ac73bc3-89c9-416d-94c1-b365e05816f5"
+    ],
+    "tasks": [],
+    "class": "ior:instance:2ac73bc3-89c9-416d-94c1-b365e05816f5",
+    "method": "ior:instance:804593fc-adba-4087-97fd-471835c2aa40"
   },
   "ownerIor": "ior:instance:adf00ff5-d8e0-48b5-bb6e-07886064ebe4"
 }

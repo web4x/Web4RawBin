@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "8a6e057f-f5ec-4d99-878c-ba42fc792f23",
+    "name": "ServerStrip",
+    "methods": [
+      "ior:instance:0e984fe1-7f0e-4dfd-9d0b-c83eae2c0cec"
+    ]
+  }
+}

@@ -4,7 +4,9 @@
     "uuid": "740385cb-ce33-4216-a857-a5b63d35abb5",
     "name": "TraceRouter",
     "file": "src/public/ts/trace/TraceRouter.ts",
-    "methods": [],
+    "methods": [
+      "ior:instance:d1068f81-dc16-45a0-a52e-7a98c04208fc"
+    ],
     "useCases": []
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"

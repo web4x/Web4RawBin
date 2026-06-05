@@ -12,7 +12,8 @@
       "commit": "2ab12654",
       "ior": "ior:file:src/public/ts/trace/rb-detail-view.ts?commit=2ab12654"
     },
-    "class": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
+    "class": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07",
+    "method": "ior:instance:a4271cb8-467d-4004-8e41-c5fe972fb3a8"
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
 }

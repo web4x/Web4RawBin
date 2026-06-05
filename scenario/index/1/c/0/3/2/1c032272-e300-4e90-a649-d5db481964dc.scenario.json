@@ -5,8 +5,12 @@
     "name": "client.render",
     "object": "client",
     "verb": "render",
-    "classes": [],
-    "tasks": []
+    "classes": [
+      "ior:instance:3df1a3e8-a93e-4d48-92fc-2cfe64852a6b"
+    ],
+    "tasks": [],
+    "class": "ior:instance:3df1a3e8-a93e-4d48-92fc-2cfe64852a6b",
+    "method": "ior:instance:a6f34fc6-670c-4f5f-ba9a-0b4de6fe8799"
   },
   "ownerIor": "ior:instance:4e4f3530-db7c-479f-902b-a5aefefba3e6"
 }

@@ -4,7 +4,9 @@
     "uuid": "66625aa7-4de6-4972-b731-f4e23a552480",
     "name": "MigrateToScenario",
     "file": "scripts/migrate-to-scenario.ts",
-    "methods": [],
+    "methods": [
+      "ior:instance:ef16193a-5533-4237-8b83-b040f706db29"
+    ],
     "useCases": []
   },
   "ownerIor": "ior:instance:658841dc-8feb-483f-810f-d6b"
