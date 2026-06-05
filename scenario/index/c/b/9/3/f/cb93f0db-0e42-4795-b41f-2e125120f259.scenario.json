@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "cb93f0db-0e42-4795-b41f-2e125120f259",
-    "name": "R17.2: IOR — universal reference handle",
+    "name": "R17.2: IOR \u2014 universal reference handle",
     "description": "> TRON: \"each instance becomes the same scenario json format where just the class model attributes varies. the json has { ior, model, ownerIor }\"",
     "tronQuote": "> TRON: \"each instance becomes the same scenario json format where just the class model attributes varies. the json has { ior, model, ownerIor }\"",
     "tasks": [
@@ -10,5 +10,5 @@
     ],
     "tests": []
   },
-  "ownerIor": "ior:instance:658841dc-8feb-483f-810f-d6b4e1bb7b84"
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

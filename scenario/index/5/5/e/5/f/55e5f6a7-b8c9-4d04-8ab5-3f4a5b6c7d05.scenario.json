@@ -2,13 +2,13 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "55e5f6a7-b8c9-4d04-8ab5-3f4a5b6c7d05",
-    "name": "R15.6 — Task DetailViews + planning Overview that is ALWA...",
-    "description": "> R4 (literal): ListOverview with search → extensible to remoteSearch.",
-    "tronQuote": "> R4 (literal): ListOverview with search → extensible to remoteSearch.",
+    "name": "R15.6 \u2014 Task DetailViews + planning Overview that is ALWA...",
+    "description": "> R4 (literal): ListOverview with search \u2192 extensible to remoteSearch.",
+    "tronQuote": "> R4 (literal): ListOverview with search \u2192 extensible to remoteSearch.",
     "tasks": [
       "ior:instance:106f5061-7283-4495-896c-f06060606106"
     ],
     "tests": []
   },
-  "ownerIor": "ior:instance:5b3eba3f-17ce-4e3a-b143-2aef7453a739"
+  "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

@@ -2,19 +2,19 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "a9341bae-656e-4e87-ab50-c9a17a7c9222",
-    "name": "T114: Tree-item — OS drag-and-drop",
+    "name": "T114: Tree-item \u2014 OS drag-and-drop",
     "slug": "task-114-tree-item-drag",
     "description": "Make the tree-item **draggable** so the user can perform **OS-specific** drag-and-drop\nof the item (native HTML5 drag with appropriate dataTransfer payload; architect defines\nthe drop semantics/targets).",
     "status": "In Progress",
-    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only \u2014 never checked by planner/sync.",
     "remainingIssues": "",
-    "traceability": "`[task:uuid:a9341bae-656e-4e87-ab50-c9a17a7c9222]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.6** (OS drag-and-drop)\n- down\n  - None (atomic task)\n- chain (req → usecase → puml → class/method)\n  - **requirement:** R16.6\n  - **use case:** objectItem.drag [uc:uuid:16a01141-d141-4a01-b141-000000114001]\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 2 package)\n  - **class/method:** `rb-object-item.ts` → `RbObjectItem.onDragStart()` (existing T105, verify after redesign)",
+    "traceability": "`[task:uuid:a9341bae-656e-4e87-ab50-c9a17a7c9222]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) \u2192 **R16.6** (OS drag-and-drop)\n- down\n  - None (atomic task)\n- chain (req \u2192 usecase \u2192 puml \u2192 class/method)\n  - **requirement:** R16.6\n  - **use case:** objectItem.drag [uc:uuid:16a01141-d141-4a01-b141-000000114001]\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 2 package)\n  - **class/method:** `rb-object-item.ts` \u2192 `RbObjectItem.onDragStart()` (existing T105, verify after redesign)",
     "context": "Tron 2026-05-27: \"draggable so i could os specificly drag and drop the item.\"",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC1 — A tree-item can be dragged (native OS drag initiates)\n- [ ] AC2 — Drag carries a meaningful payload (item identity / type) for OS drop targets\n- [ ] AC3 — Drag does not break tap-collapse (T115) or children-expand (T115) interactions\n- [ ] `npm run build` succeeds; version + sw.js bumped; no regression",
+    "acceptanceCriteria": "- [ ] AC1 \u2014 A tree-item can be dragged (native OS drag initiates)\n- [ ] AC2 \u2014 Drag carries a meaningful payload (item identity / type) for OS drop targets\n- [ ] AC3 \u2014 Drag does not break tap-collapse (T115) or children-expand (T115) interactions\n- [ ] `npm run build` succeeds; version + sw.js bumped; no regression",
     "qaAudit": "- 2026-05-27: Planned from compound source R16.6. Awaiting architect design, then Tron QA.",
-    "subtasks": "None (atomic task).\n\n---\n\n*Sprint 16 — Traceability UX & DetailViews*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 5 (Phase 2 — tree-item drag)*",
+    "subtasks": "None (atomic task).\n\n---\n\n*Sprint 16 \u2014 Traceability UX & DetailViews*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 5 (Phase 2 \u2014 tree-item drag)*",
     "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** tree-item redesign (T112/T113 establish the item)\n- **Enables:** None",
@@ -28,5 +28,5 @@
     ],
     "implementations": []
   },
-  "ownerIor": "ior:instance:5d8ba5b6-df24-41bf-a528-31b6e8bf6356"
+  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

@@ -2,19 +2,19 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50",
-    "name": "T110: DetailViewContainer — Google-Maps-style detail drawer",
+    "name": "T110: DetailViewContainer \u2014 Google-Maps-style detail drawer",
     "slug": "task-110-detailview-container",
-    "description": "Create a dedicated **DetailViewContainer** — a drawer-like detail area (like the\nroom chat's drawer / Google-Maps detail drawer) on /trace. It holds specialized\nDetailViews (see T111). Clicking a tree item shows that item's details inside the\ncontainer. (Exact files/lines pending architect design.)",
+    "description": "Create a dedicated **DetailViewContainer** \u2014 a drawer-like detail area (like the\nroom chat's drawer / Google-Maps detail drawer) on /trace. It holds specialized\nDetailViews (see T111). Clicking a tree item shows that item's details inside the\ncontainer. (Exact files/lines pending architect design.)",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (req + architect)\n  - [x] creating test cases\n  - [x] implementing\n  - [ ] testing (tester — independent verification pending)\n- [ ] QA Review\n- [ ] Done\n\n> Sync per PO 2026-05-28: T110 shipped by expert (rb-detail-drawer + drawer\n> integration, build clean, 791 tests pass). Testing handed to robbin-tester.\n> QA Review + Done remain TRON's gate.\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (req + architect)\n  - [x] creating test cases\n  - [x] implementing\n  - [ ] testing (tester \u2014 independent verification pending)\n- [ ] QA Review\n- [ ] Done\n\n> Sync per PO 2026-05-28: T110 shipped by expert (rb-detail-drawer + drawer\n> integration, build clean, 791 tests pass). Testing handed to robbin-tester.\n> QA Review + Done remain TRON's gate.\n\n> QA Review + Done are TRON's gate only \u2014 never checked by planner/sync.",
     "remainingIssues": "",
-    "traceability": "`[task:uuid:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.1** (DetailViewContainer)\n- down\n  - None (atomic task)\n- chain (req → usecase → puml → class/method)\n  - **requirement:** R16.1\n  - **use case:** detailDrawer.open [uc:uuid:16a01001-d001-4a01-b001-000000110001], detailDrawer.close [uc:uuid:16a01002-d002-4a02-b002-000000110002], detailDrawer.swipeDismiss [uc:uuid:16a01003-d003-4a03-b003-000000110003]\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 1 package)\n  - **class/method:** `src/public/ts/trace/rb-detail-drawer.ts` → `RbDetailDrawer.open()`, `close()`, `swipeDismiss()`",
-    "context": "Tron 2026-05-27 (verbatim in compound-requirement-source.md): \"the chat in the room\nhas a drawer like detail area like in google maps. create a dedicated\nDetailViewContainer that can contain specialized DetailViews … show the details\nthere when i click on the items on the traceability tree.\"",
+    "traceability": "`[task:uuid:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) \u2192 **R16.1** (DetailViewContainer)\n- down\n  - None (atomic task)\n- chain (req \u2192 usecase \u2192 puml \u2192 class/method)\n  - **requirement:** R16.1\n  - **use case:** detailDrawer.open [uc:uuid:16a01001-d001-4a01-b001-000000110001], detailDrawer.close [uc:uuid:16a01002-d002-4a02-b002-000000110002], detailDrawer.swipeDismiss [uc:uuid:16a01003-d003-4a03-b003-000000110003]\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 1 package)\n  - **class/method:** `src/public/ts/trace/rb-detail-drawer.ts` \u2192 `RbDetailDrawer.open()`, `close()`, `swipeDismiss()`",
+    "context": "Tron 2026-05-27 (verbatim in compound-requirement-source.md): \"the chat in the room\nhas a drawer like detail area like in google maps. create a dedicated\nDetailViewContainer that can contain specialized DetailViews \u2026 show the details\nthere when i click on the items on the traceability tree.\"",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC1 — A drawer-style container exists on /trace, modeled on the room chat drawer\n- [ ] AC2 — Clicking a traceability tree item shows its details in the container\n- [ ] AC3 — Container hosts pluggable DetailViews (integration point for T111)\n- [ ] `npm run build` succeeds; version + sw.js bumped; no regression",
+    "acceptanceCriteria": "- [ ] AC1 \u2014 A drawer-style container exists on /trace, modeled on the room chat drawer\n- [ ] AC2 \u2014 Clicking a traceability tree item shows its details in the container\n- [ ] AC3 \u2014 Container hosts pluggable DetailViews (integration point for T111)\n- [ ] `npm run build` succeeds; version + sw.js bumped; no regression",
     "qaAudit": "- 2026-05-27: Planned from compound source R16.1. Awaiting req split + architect design, then Tron QA.",
-    "subtasks": "None (atomic task).\n\n---\n\n*Sprint 16 — Traceability UX & DetailViews*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 1 (Phase 1 — drawer foundation)*",
+    "subtasks": "None (atomic task).\n\n---\n\n*Sprint 16 \u2014 Traceability UX & DetailViews*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 1 (Phase 1 \u2014 drawer foundation)*",
     "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** None (Phase 1 foundation)\n- **Enables:** T111 (typed views render inside this container)",
@@ -30,5 +30,5 @@
     ],
     "implementations": []
   },
-  "ownerIor": "ior:instance:5d8ba5b6-df24-41bf-a528-31b6e8bf6356"
+  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }
