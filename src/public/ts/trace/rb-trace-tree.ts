@@ -41,9 +41,34 @@ export class RbTraceTree extends HTMLElement {
     if (!item) return;
     const ref = item.getAttribute('ref') || '';
     if (!ref) return;
-    if (e.detail.open) this.expanded.add(ref); else this.expanded.delete(ref);
+    const node = item.closest('.tt-node');
+    if (!node) return;
+    if (e.detail.open) {
+      this.expanded.add(ref);
+      let kids = node.querySelector(':scope > .tt-children') as HTMLElement;
+      if (!kids) {
+        kids = document.createElement('div');
+        kids.className = 'tt-children';
+        node.appendChild(kids);
+        if (this.graph) {
+          const obj = this.graph.get(refUuid(ref));
+          if (obj) {
+            const ancestry = new Set<string>();
+            for (const cref of obj.children.map(c => c.ref())) {
+              kids.appendChild(this.nodeEl(cref, ancestry));
+            }
+          }
+        } else {
+          this.fetchAndRenderChildren(refUuid(ref), kids);
+        }
+      }
+      kids.style.display = '';
+    } else {
+      this.expanded.delete(ref);
+      const kids = node.querySelector(':scope > .tt-children') as HTMLElement;
+      if (kids) kids.style.display = 'none';
+    }
     this.persist();
-    this.render();
   };
 
   setGraph(graph: TraceGraph, brokenUuids: string[] = []): void {
@@ -122,6 +147,8 @@ export class RbTraceTree extends HTMLElement {
       const nextAncestry = new Set(ancestry); nextAncestry.add(ref);
       for (const cref of childRefs) kids.appendChild(this.nodeEl(cref, nextAncestry));
       node.appendChild(kids);
+    } else if (hasChildren) {
+      item.setAttribute('has-children', '');
     }
     return node;
   }

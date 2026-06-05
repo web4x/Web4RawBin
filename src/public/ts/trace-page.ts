@@ -1,9 +1,8 @@
 /**
- * T108 (relocated) — standalone Traceability browser page (docs top-nav choice, peer to
- * browser/App). Mounts rb-trace-tree + a detail pane off GET /api/trace. Reuses the whole
- * T103-T108 trace layer; no rebuild of components.
+ * T108+T187 — Traceability browser page. Sprint→Task navigation roots (R18.8)
+ * with mode=trace narrowing. Uses lazy-load seed tree (no full graph preload).
  *
- * [impl:uuid:108b7283-94a5-46b7-898e-b08080808108] R15.7 traceability browser (docs nav)
+ * [impl:uuid:108b7283-94a5-46b7-898e-b08080808108] R15.7+R18.8
  */
 import { TraceRouter, viewRegistry, deserialize } from './trace/index.js';
 import './trace/rb-trace-tree.js';
@@ -15,20 +14,31 @@ const detailMount = document.getElementById('trace-detail');
 async function load(): Promise<void> {
   if (!treeMount || !detailMount) return;
   try {
-    const res = await fetch('/api/trace');
-    if (!res.ok) throw new Error(`/api/trace ${res.status}`);
-    const data = await res.json();
-    const graph = deserialize(data.objects || []);
-    const tree = document.createElement('rb-trace-tree') as HTMLElement & { setGraph(g: unknown, broken: string[]): void };
+    // Fetch graph for DetailViews + router
+    const traceRes = await fetch('/api/trace');
+    const traceData = await traceRes.json();
+    const graph = deserialize(traceData.objects || []);
+
+    // Fetch Sprint nav roots
+    const sprintRes = await fetch('/api/trace/sprints');
+    const sprints: { uuid: string; type: string; name: string; hasChildren: boolean }[] = await sprintRes.json();
+
     treeMount.innerHTML = '';
-    treeMount.appendChild(tree);
-    tree.setGraph(graph, data.broken || []);
-    // T110+T167: detail drawer — inside .trace-page for desktop split layout
+
+    // Build Sprint root nodes as seed trees with mode=trace
+    for (const sprint of sprints) {
+      const tree = document.createElement('rb-trace-tree') as HTMLElement & { setGraph(g: unknown, broken: string[]): void };
+      tree.setAttribute('data-seed-ior', sprint.uuid);
+      tree.setAttribute('data-mode', 'trace');
+      treeMount.appendChild(tree);
+      (tree as any).graph = graph;
+    }
+
+    // Detail drawer
     const drawer = document.createElement('rb-detail-drawer');
     const tracePage = document.querySelector('.trace-page');
     (tracePage || document.body).appendChild(drawer);
 
-    // node click → navigate → DetailView renders inside the drawer
     const router = new TraceRouter(graph as never, viewRegistry(drawer), detailMount);
     router.start();
   } catch (e) {
