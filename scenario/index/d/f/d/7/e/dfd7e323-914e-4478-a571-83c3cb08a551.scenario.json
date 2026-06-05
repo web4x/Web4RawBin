@@ -4,7 +4,9 @@
     "uuid": "dfd7e323-914e-4478-a571-83c3cb08a551",
     "name": "MdPreview.renderList impl",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+    ]
   },
   "ownerIor": null
 }

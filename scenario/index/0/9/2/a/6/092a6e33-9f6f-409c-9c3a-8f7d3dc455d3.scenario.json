@@ -4,7 +4,9 @@
     "uuid": "092a6e33-9f6f-409c-9c3a-8f7d3dc455d3",
     "name": "FileBrowser.symlinkSupport impl",
     "sourceFile": "ior:file:src/ts/server/FileApi.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:2e017c2e-1f28-47d0-b457-a6a45dc8c547"
+    ]
   },
   "ownerIor": null
 }

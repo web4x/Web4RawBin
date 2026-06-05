@@ -4,7 +4,9 @@
     "uuid": "e420b8b7-fa4a-4b95-8279-c9a45feadc14",
     "name": "SpeakingTree.generateMd(sprint impl",
     "sourceFile": "ior:file:src/ts/scenario/generator.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+    ]
   },
   "ownerIor": null
 }

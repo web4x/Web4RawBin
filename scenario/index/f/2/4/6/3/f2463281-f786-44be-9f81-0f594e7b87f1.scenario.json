@@ -4,7 +4,9 @@
     "uuid": "f2463281-f786-44be-9f81-0f594e7b87f1",
     "name": "ViewTemplateRegistry.register(className impl",
     "sourceFile": "ior:file:src/ts/scenario/templates.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+    ]
   },
   "ownerIor": null
 }

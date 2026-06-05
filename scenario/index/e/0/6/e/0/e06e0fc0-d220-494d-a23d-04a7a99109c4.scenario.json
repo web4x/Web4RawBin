@@ -4,7 +4,9 @@
     "uuid": "e06e0fc0-d220-494d-a23d-04a7a99109c4",
     "name": "ChainLink.iconInView impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-task-detail.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:105f5061-7283-4495-8a6c-f05050505106"
+    ]
   },
   "ownerIor": null
 }

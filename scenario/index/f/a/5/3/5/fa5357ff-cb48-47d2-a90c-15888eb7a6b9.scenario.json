@@ -4,7 +4,9 @@
     "uuid": "fa5357ff-cb48-47d2-a90c-15888eb7a6b9",
     "name": "ProfileGate.vcardUpload impl",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+    ]
   },
   "ownerIor": null
 }

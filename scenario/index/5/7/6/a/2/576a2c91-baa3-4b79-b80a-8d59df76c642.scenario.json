@@ -4,7 +4,9 @@
     "uuid": "576a2c91-baa3-4b79-b80a-8d59df76c642",
     "name": "PathHeader.clickNavigate impl",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+    ]
   },
   "ownerIor": null
 }

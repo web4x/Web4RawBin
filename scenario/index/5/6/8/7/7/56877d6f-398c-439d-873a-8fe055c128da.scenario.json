@@ -4,7 +4,9 @@
     "uuid": "56877d6f-398c-439d-873a-8fe055c128da",
     "name": "ClassRegistry.loader): void impl",
     "sourceFile": "ior:file:src/ts/scenario/classes.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+    ]
   },
   "ownerIor": null
 }

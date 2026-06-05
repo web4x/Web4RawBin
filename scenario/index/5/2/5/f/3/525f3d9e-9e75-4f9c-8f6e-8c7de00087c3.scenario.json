@@ -4,7 +4,9 @@
     "uuid": "525f3d9e-9e75-4f9c-8f6e-8c7de00087c3",
     "name": "PageNav.stickyTop impl",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+    ]
   },
   "ownerIor": null
 }

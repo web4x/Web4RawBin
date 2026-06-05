@@ -4,7 +4,9 @@
     "uuid": "04a1dea7-58f6-4b40-983f-fe13bd32b01a",
     "name": "IORResolver.resolveInstance(ior): ScenarioUnit impl",
     "sourceFile": "ior:file:src/ts/scenario/ior-resolver.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+    ]
   },
   "ownerIor": null
 }
