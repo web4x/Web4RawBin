@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e5540f15-4bf4-484a-8632-764c98aa52a9",
+    "name": "TraceObject.addRef",
+    "className": "TraceObject",
+    "methodName": "addRef"
+  },
+  "ownerIor": "ior:instance:101a0b1c-2d3e-4f50-8617-a01010101101"
+}

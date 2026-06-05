@@ -24,17 +24,17 @@ package "Tree (generic base)" as TREE #E8F5E9 {
     # graph: TraceGraph
     - _links: Map<string, Set<string>>
     --
-    [method:uuid:101a0b1c-0001-4a01-a001-000000000001]
+    [method:uuid:0887265f-6652-451b-8986-34b6a7f909b1]
     + get parent(): TraceObject | null
-    [method:uuid:101a0b1c-0002-4a02-a002-000000000002]
+    [method:uuid:66484695-b395-4415-a676-299f67d8318b]
     + get children(): TraceObject[]
-    [method:uuid:101a0b1c-0003-4a03-a003-000000000003]
+    [method:uuid:aed37375-3dfb-4434-81b0-f5ec7bbad7de]
     + refs(relation): string[]
-    [method:uuid:101a0b1c-0004-4a04-a004-000000000004]
+    [method:uuid:e5540f15-4bf4-484a-8632-764c98aa52a9]
     + addRef(relation, uuid): void
-    [method:uuid:101a0b1c-0005-4a05-a005-000000000005]
+    [method:uuid:7601e257-afe5-4495-a7b5-b4c4bf79c6ce]
     + ref(): ObjectRef
-    [method:uuid:101a0b1c-0006-4a06-a006-000000000006]
+    [method:uuid:0d99b7e1-f423-48b2-8243-4fc6f8d2c6ea]
     + toJSON(): FlatObject
   }
 
@@ -131,9 +131,9 @@ package "View Components (client)" as VIEWS #FFF3E0 {
     + setGraph(graph): void
     [method:uuid:430de69a-f7e7-409b-8233-22298d6d578c]
     + render(): void
-    [method:uuid:108b7283-0002-4a02-a002-000000000002]
+    [method:uuid:32ae650c-d936-4696-89cd-8f9369fdc52e]
     - nodeEl(ref, ancestry): HTMLElement
-    [method:uuid:108b7283-0003-4a03-a003-000000000003]
+    [method:uuid:cd3ad57b-7314-4da6-88d0-1113ab508100]
     - renderSeed(uuid): Promise
   }
 
