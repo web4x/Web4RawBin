@@ -40,12 +40,14 @@ Decomposition hints (req-eng authoritative when committed; below are placeholder
 - [ ] 🔧 **T187** — Trace-narrowing + R18.8 nav-root rework + `/api/trace/sprints` endpoint (FIX CYCLE)
   - Unit: `scenario/index/2/9/2/d/8/292d8931-efff-45ab-b66e-772fac16c6ea.scenario.json`
   - Hints: R18.1 + R18.2 + R18.8 (PO-folded 2026-06-05 — C3 nav-root + C7 endpoint from architect contradiction review `d7d6404a`)
-  - **Status:** 🔧 implementing (fix cycle in flight; PO honest-board correction 2026-06-05 — ✅-code ≠ strict-verified):
-    1. v0.5.88 `02c99a7e` first ship (4-part scope claimed complete; rule-pair ✓; 836/836)
-    2. Tester STRICT-bar post-deploy FOUND DEFECTS: **TS7 FAIL** (Sprint not at tree root); **TS5 FAIL** (no /scenario-vs-/trace fan-out difference); **TS2/TS8** related fails.
-    3. Expert FIX `fa921029` v0.5.89 — /trace fetches `/api/trace/sprints` as roots (Sprint nav root per R18.8); `/trace` uses `mode=trace` (UC→method singular, Method→implementation singular); `/scenario` uses `mode=scenario` (full fan-out); divergence only at UC→Method hop per architect clarification. Rule-pair (a) v0.5.89 ✓ + (b) rawbin-v0.5.89 ✓ + (c) STATIC_SHELL auto ✓; 836/836.
-    4. Tester re-authored TS in `b56895b7` (UC→Method narrowing model). **PENDING: tester STRICT-bar RE-RUN on v0.5.89 before symbol advances 🔧 → ✅ → 🧪.**
-  - Owners (4-role active fix cycle): req `22f43f31` → architect `6c7ff26e`+`35f111a6` → expert `02c99a7e` (v0.5.88) → tester `27ffe1b4` STRICT-bar (found 3 fails) → expert `fa921029` (v0.5.89 fix) → tester `b56895b7` (TS re-authored, re-run pending)
+  - **Status:** 🔧 implementing (fix cycle ITERATION 2 in flight per PO 2026-06-05):
+    1. v0.5.88 `02c99a7e` first ship (4-part scope claimed; rule-pair ✓; 836/836).
+    2. Tester STRICT 1st run FOUND DEFECTS: **TS7 FAIL** (Sprint not at tree root); **TS5 FAIL** (no /scenario-vs-/trace fan-out difference); TS2/TS8 related fails.
+    3. Expert FIX `fa921029` v0.5.89 — /trace fetches `/api/trace/sprints` (Sprint nav root R18.8); `/trace` mode=trace (UC→method singular); `/scenario` mode=scenario (fan-out); divergence at UC→Method hop. Rule-pair (a)+(b)+(c) ✓; 836/836.
+    4. Tester re-authored TS `b56895b7` (corrected UC→Method narrowing model).
+    5. Tester STRICT-bar RE-RUN on v0.5.89 (PO 2026-06-05): **NAV layer PASSED** (Sprint root + 1:N). **Iteration-2 BUG: UC→Method OVER-NARROWS — returns 0 children, should be 1** (TS6-TS9 partial fail on singular-narrow edge case).
+    6. Expert FIX **v0.5.90 IN FLIGHT** (uncommitted on planner-read 2026-06-05: `package.json` + `sw.js` + `src/ts/scenario/index-store.ts` modified). Tester re-runs TS6-TS9 on next redeploy.
+  - Owners (4-role iteration-2 fix cycle): req `22f43f31` → architect → expert `02c99a7e`→`fa921029`→v0.5.90 WIP → tester (1st STRICT: 3 fails; 2nd STRICT: NAV PASS + UC→Method bug; 3rd STRICT pending v0.5.90)
 
 - [ ] ⏳ **T188** — Dogfood S17 view-gen: planning.md + task-*.md emitted from scenario.json Sprint+Task units (THIS task)
   - Unit: `scenario/index/8/a/3/1/b/8a31ba75-22b6-48ff-9532-d5da21458543.scenario.json`
@@ -59,14 +61,14 @@ Decomposition hints (req-eng authoritative when committed; below are placeholder
   - Owners: req → architect (architect SKILL.md from Rules 1-5) → planner (planner SKILL.md from Rules 6-8 — **PARTIAL: extended `.claude/agents/robbin-planner/SKILL.md` 2026-06-05**) → req-eng (req-eng SKILL.md from Rules 9-11) → tester (verify SKILL.md files survive reboot + cover all rules)
   - Status: ⏳ planned — planner's SKILL.md extension landed in this commit; architect + req-eng SKILL.md sections pending
 
-- [ ] 🔧 **T190** — Tree lazy-render + scroll-preservation (FIX CYCLE)
+- [ ] 🧪 **T190** — Tree lazy-render + scroll-preservation (TESTER-VERIFIED STRICT)
   - Unit: `scenario/index/0/8/e/4/6/08e46ce3-69f3-40fe-87d7-5ee875a4e94a.scenario.json`
   - Hints: R18.5 + R18.6 + R18.7 (req-eng formalized in `22f43f31` + `a558480b`); follows T186 R-Y1+R-Y2 (closed in-scope for lazy-LOAD; T190 owns lazy-RENDER + scroll-preservation atom — distinct per Rule 8 closure freeze)
-  - **Status:** 🔧 implementing (fix cycle in flight; PO honest-board correction 2026-06-05):
-    1. v0.5.88 `02c99a7e` first ship (seed-path incremental append claimed; rule-pair ✓; 836/836)
-    2. Tester STRICT-bar post-deploy: **TS2 FAIL** — tree still full innerHTML re-render → DOM identity lost (AC-forbidden).
-    3. Expert FIX `fa921029` v0.5.89 — `onToggleChildren` NO LONGER calls `render()`; toggles the specific `tt-children` div directly; first expand creates children container + appends child nodes (graph path) or fetches lazily (seed path); existing DOM nodes preserved — no identity/attribute loss. Rule-pair (a)+(b)+(c) ✓; 836/836.
-    4. **PENDING: tester STRICT-bar RE-RUN on v0.5.89 before symbol advances 🔧 → ✅ → 🧪.**
+  - **Status:** 🧪 strict-verified — PO 2026-06-05 confirmed: tester STRICT-bar RE-RUN on v0.5.89 **FULLY PASS 8/8** (append-only confirmed, DOM identity survives, scroll preserved). Done-gate checkboxes untouched per learning #9. Tron QA pending.
+  - Fix-cycle history:
+    1. v0.5.88 `02c99a7e` first ship — TS2 FAIL (full innerHTML re-render → DOM identity lost).
+    2. Expert FIX `fa921029` v0.5.89 — `onToggleChildren` no-render; toggles `tt-children` div directly; first expand creates children container + appends child nodes; existing DOM preserved.
+    3. Tester STRICT-bar RE-RUN on v0.5.89 — **PASS 8/8** ✓ (PO 2026-06-05).
   - Owners (4-role active fix cycle): req `22f43f31`+`a558480b` → architect (incremental-append folded into seed-path) → expert `02c99a7e` (v0.5.88) → tester `27ffe1b4` STRICT-bar (TS2 FAIL) → expert `fa921029` (v0.5.89 fix) → tester re-run pending
 
 ## Definition of Done
