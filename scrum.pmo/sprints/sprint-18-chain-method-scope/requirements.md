@@ -193,4 +193,5 @@ Deduplication: R18.5 covered scenario-vs-trace branching at Requirement level. R
 | R18.16 | `18d6e7f8` | TBD (logic) | Chain includes Class between UseCase and Method — no skip |
 | R18.17 | `18e7f890` | TBD (bug) | Sprint list shows each sprint exactly once — no duplicates |
 | R18.18 | `18f890a1` | TBD (bug) | Sprint names include sprint number |
+| R18.19 | `18a1b2c3` | TBD (migration) | Sprint numbers zero-padded 2-digit (01-09, 10-18) |
 | R-CHAMP | `a0b1c2d3` | standing | Champagne: leaf test verifies root requirement's intention |
