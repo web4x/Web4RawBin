@@ -4,7 +4,9 @@
     "uuid": "621deba7-c7b4-4efe-96ba-efe7f849d456",
     "name": "TraceLayout.mobileCap impl",
     "sourceFile": "ior:file:src/public/app.css",
-    "tests": []
+    "tests": [
+      "ior:instance:108c8394-a5b6-47c8-89af-c08080808109"
+    ]
   },
   "ownerIor": null
 }

@@ -4,7 +4,9 @@
     "uuid": "8a6c772d-ebcd-4c69-bc40-5174fcb71bc6",
     "name": "TraceRouter.navigate impl",
     "sourceFile": "ior:file:src/public/ts/trace/nav.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:103d3e4f-5061-4273-839a-d03030303104"
+    ]
   },
   "ownerIor": null
 }
