@@ -143,6 +143,54 @@ Tron's directive contains 4 verbs and 4 nouns:
   - [ ] No Task.requirements[] back-ref field introduced in the data model
   - [ ] Grouping derived at render time by walking all Requirement.tasks[] arrays
 
+- [ ] **R18.20: Detail view and Scenario view show ALL methods/children of the object — for ALL types — not just the traced one.**
+  [requirement:uuid:18b2c3d4-e5f6-7a8b-9c0d-000000018020]
+  > TRON: "on the details view, i want to see ALL methods, not just the traced one. the same on the ScenarioView. for all types."
+
+  The tree narrowing (R18.5) applies only to the TREE panel — the trace chain shows one child per node. But the DETAIL VIEW (right pane) and the SCENARIO VIEW must show the COMPLETE object: all methods of a class, all tasks of a requirement, all UCs of a task. This applies to every type (Requirement, Task, UseCase, Class, Method, Implementation, Test). The detail pane is the full object inspector; the tree is the chain navigator.
+
+  **Acceptance criteria:**
+  - [ ] Detail view for a Class shows ALL its methods (not just the chain-traced one)
+  - [ ] Scenario view for a Class shows ALL its methods
+  - [ ] This applies to all 7 types uniformly
+  - [ ] Tree narrowing (R18.5) is unchanged — only the tree narrows, detail/scenario show everything
+
+- [ ] **R18.21: 'Parent' link above the Scenario-view link navigates to the ownerIor parent instance.**
+  [requirement:uuid:18c3d4e5-f6a7-8b9c-0d1e-000000018021]
+  > TRON: "above the scenario view link i want a 'Parent' link"
+
+  The detail pane shows a "Parent" link positioned ABOVE the existing "Scenario view" link. Clicking it navigates to the instance's `ownerIor` — the parent that owns this unit (e.g. a Task's parent is its Sprint, a Method's parent is its Class, a UseCase's parent is its Task).
+
+  **Acceptance criteria:**
+  - [ ] "Parent" link appears above "Scenario view" in the detail pane
+  - [ ] Click navigates to the ownerIor instance's detail view
+  - [ ] If ownerIor is null/missing, "Parent" link is not shown
+
+- [ ] **R18.22: 'Browse File' link below the Scenario-view link jumps to the file in the file browser where it can be opened in the Monaco editor.**
+  [requirement:uuid:18d4e5f6-a7b8-9c0d-1e2f-000000018022]
+  > TRON: "below it i want to see a Browse File Link, that jumps to the corresponding file in the Browser. there i can open it in the monacco editor."
+
+  The detail pane shows a "Browse File" link positioned BELOW the "Scenario view" link. Clicking it navigates to the file browser (`/md/` or `/edit/`) at the file path from `model.source.file` (or the unit's source markdown path). From there the user can open the file in the Monaco editor.
+
+  **Acceptance criteria:**
+  - [ ] "Browse File" link appears below "Scenario view" in the detail pane
+  - [ ] Click navigates to the file browser at the correct file path
+  - [ ] File is openable in Monaco editor from the browser
+  - [ ] If model.source.file is missing, "Browse File" link is not shown
+
+- [ ] **R18.23: Browse-File link carries line information so the Monaco editor opens at the correct line for a method or usecase.**
+  [requirement:uuid:18e5f6a7-b8c9-0d1e-2f3a-000000018023]
+  > TRON: "add line information to the link, so that eg on a method or usecase the monacco editor can open at the correct line"
+
+  The "Browse File" link includes line information from `model.source.lines` (e.g. `?line=42` or `#L42`). When the Monaco editor opens the file, it scrolls to and highlights the specified line. For Methods and UseCases that have source line ranges, the editor opens at the start line of the declaration.
+
+  **Acceptance criteria:**
+  - [ ] Browse File link includes line parameter (e.g. `/edit/src/ts/server/Room.ts?line=71`)
+  - [ ] Monaco editor scrolls to and highlights the specified line on open
+  - [ ] Methods open at their function declaration line
+  - [ ] UseCases open at their PUML declaration line
+  - [ ] Units without line info open at the top of the file (graceful fallback)
+
 ---
 
 ## Decomposition Completeness Confirmation
@@ -194,4 +242,8 @@ Deduplication: R18.5 covered scenario-vs-trace branching at Requirement level. R
 | R18.17 | `18e7f890` | TBD (bug) | Sprint list shows each sprint exactly once — no duplicates |
 | R18.18 | `18f890a1` | TBD (bug) | Sprint names include sprint number |
 | R18.19 | `18a1b2c3` | TBD (migration) | Sprint numbers zero-padded 2-digit (01-09, 10-18) |
+| R18.20 | `18b2c3d4` | TBD | Detail+Scenario views show ALL methods/children (full object, all types) |
+| R18.21 | `18c3d4e5` | TBD | 'Parent' link above Scenario-view link → ownerIor |
+| R18.22 | `18d4e5f6` | TBD | 'Browse File' link below Scenario-view → file browser (Monaco) |
+| R18.23 | `18e5f6a7` | TBD | Browse-File link carries line info → Monaco opens at correct line |
 | R-CHAMP | `a0b1c2d3` | standing | Champagne: leaf test verifies root requirement's intention |
