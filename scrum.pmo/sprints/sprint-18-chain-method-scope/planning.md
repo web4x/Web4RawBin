@@ -37,11 +37,16 @@ Decomposition hints (req-eng authoritative when committed; below are placeholder
 
 ## Tasks (planner-authored as Task scenario.json units)
 
-- [ ] ⏳ **T187** — Trace-narrowing: chain walker selects ONE method per UC, not Class.methods[] fan-out
+- [ ] ⏳ **T187** — Trace-narrowing + R18.8 nav-root rework + `/api/trace/sprints` endpoint
   - Unit: `scenario/index/2/9/2/d/8/292d8931-efff-45ab-b66e-772fac16c6ea.scenario.json`
-  - Hints: R18.1 + R18.2 (req-eng fills `requirements[]`)
-  - Owners: req (anchor) → architect (UC.method singular IOR design) → expert (impl; rule-pair (a)+(b)) → tester
-  - Status: ⏳ planned (scaffolded; requirements[] pending req-eng commit)
+  - Hints: R18.1 + R18.2 + **R18.8 (PO-folded 2026-06-05 — C3 nav-root + C7 endpoint from architect contradiction review `d7d6404a`)**
+  - Scope:
+    - (a) Chain walker selects ONE method per UC (`UC.method` singular IOR) — not `Class.methods[]` fan-out (R18.1+R18.2)
+    - (b) Browser tree builder produces Sprint→Task as NAVIGATION ROOTS per R18.8; chain walker still starts at atomic Requirements as CHAIN ROOTS — owns the reworked AC2 wording T168 carries as append-only note
+    - (c) New endpoint `/api/trace/sprints` returns Sprint units (nav roots); `/api/trace/roots` stays returning Requirement chain-roots for backward compat — two endpoints, clear semantics (architect rec)
+    - (d) Tree client switches root fetch from `/api/trace/roots` to `/api/trace/sprints`
+  - Owners: req (anchor R18.1+R18.2+R18.8) → architect (UC.method singular + nav-root + endpoint design) → expert (impl; rule-pair (a)+(b); (c) likely EXEMPT — extends existing routes/bundles) → tester (verify both endpoints + browser nav root + chain narrowing in one pass)
+  - Status: ⏳ planned (scaffolded; `coveredRequirements[]` pending req-eng atomic Req commits)
 
 - [ ] ⏳ **T188** — Dogfood S17 view-gen: planning.md + task-*.md emitted from scenario.json Sprint+Task units (THIS task)
   - Unit: `scenario/index/8/a/3/1/b/8a31ba75-22b6-48ff-9532-d5da21458543.scenario.json`

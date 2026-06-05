@@ -245,6 +245,20 @@ STATIC_SHELL (c): exempt.
 ## Subtasks
 None at parent level (architect may split if scope warrants).
 
+## Append-only rework note (PO 2026-06-05, R18.8 reconciliation — Rule 8 closure freeze: body NOT edited)
+
+**Architect contradiction review `d7d6404a`, planner-applied `<this commit>`:**
+
+T168 body remains the authoritative spec for CHAIN semantics. R18.8 (Tron 2026-06-05) introduced a NAVIGATION layer ABOVE the chain — Sprint→Task→coveredReqs→chain — without changing chain direction. The chain root remains atomic Requirement (T168 AC2 wording stands for chain semantics).
+
+**Wording clarification carried forward to T187 (not edited in this closed T168 body):**
+
+> Chain walker starts from atomic requirements as **CHAIN ROOTS**. Browser tree builder produces Sprint→Task as **NAVIGATION ROOTS**; requirements appear under their covering tasks for display. The chain direction (forward Req→Task→…→Test) is unchanged. The navigation layer is a display denormalization (Task.coveredRequirements[]); no back-refs added.
+
+**Why append-only:** Rule 8 (closure freeze, refinement-precedence-analysis.md) — closed tasks don't gain body edits; post-closure clarifications go into QA-audit / append notes. The reworked AC2 wording lives in T187 (S18) which formally owns the R18.8 navigation-root rework.
+
+**Companion:** T187 (S18 trace-narrowing + nav-root + /api/trace/sprints endpoint per C7).
+
 ---
 
 *Sprint 17 — Scenario Units / IOR Data Model & Class Views · Phase 28 (canonical chain enforcement)*

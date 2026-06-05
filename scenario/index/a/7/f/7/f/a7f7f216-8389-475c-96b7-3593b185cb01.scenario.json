@@ -5,8 +5,9 @@
     "id": "T189",
     "name": "Role skills — co-specify planner/architect/req-eng SKILL.md from precedence-analysis Rules 1-11",
     "sprint": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
-    "requirements": [],
+    "coveredRequirements": [],
     "_requirementHints": ["R18.4"],
+    "_r18.8Note": "NAVIGATION-layer field per architect R18.8 (562f6452): Task.coveredRequirements[] is the display denormalization for Sprint→Task→Reqs tree. Chain direction stays Req→Task (forward). req-eng populates when atomic Req units commit.",
     "useCases": [],
     "status": "Planned",
     "owners": {
