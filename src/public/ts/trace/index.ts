@@ -128,7 +128,8 @@ const DETAIL_TAG: Partial<Record<ObjectType, string>> = {
  *  T111: specialized DetailViews per type (task/requirement/usecase), generic fallback for rest. */
 export function viewRegistry(drawer?: HTMLElement): VerbRegistry {
   const reg = new VerbRegistry();
-  for (const type of TRACE_TYPES) {
+  const allTypes = [...TRACE_TYPES, 'sprint' as ObjectType];
+  for (const type of allTypes) {
     const tag = DETAIL_TAG[type] || 'rb-detail-view';
     reg.register(type, 'show', drawer ? drawerShowHandler(drawer, tag) : mountShowHandler(tag));
     reg.register(type, 'list', listOverviewHandler(type));
@@ -155,16 +156,19 @@ function mountShowHandler(tagName: string): VerbHandler {
 /** T110+T111: render a typed DetailView inside the drawer; set drawer ref to open it. */
 function drawerShowHandler(drawer: HTMLElement, tagName: string): VerbHandler {
   return (ctx: VerbContext) => {
-    const { obj, graph } = ctx;
-    if (!obj) { drawer.removeAttribute('ref'); return; }
+    const { obj, graph, params } = ctx;
+    const uuid = params.uuid || '';
+    const ref = obj ? obj.ref() : `${params.uuid ? 'unknown:' + params.uuid : ''}`;
+    if (!obj && !uuid) { drawer.removeAttribute('ref'); return; }
     for (const child of [...drawer.children]) {
       if (!child.classList.contains('drawer-handle')) child.remove();
     }
     const el = document.createElement(tagName) as HTMLElement & { graph: TraceGraph };
     el.graph = graph;
-    el.setAttribute('ref', obj.ref());
+    el.setAttribute('ref', obj ? obj.ref() : `unknown:${uuid}`);
+    if (uuid) el.setAttribute('uuid', uuid);
     drawer.appendChild(el);
-    drawer.setAttribute('ref', obj.ref());
+    drawer.setAttribute('ref', obj ? obj.ref() : `unknown:${uuid}`);
   };
 }
 
