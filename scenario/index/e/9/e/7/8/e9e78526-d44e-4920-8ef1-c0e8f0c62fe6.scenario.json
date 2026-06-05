@@ -7,7 +7,8 @@
     "methodName": "render",
     "implementations": [
       "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61"
-    ]
+    ],
+    "implementation": "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61"
   },
   "ownerIor": "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5"
 }

@@ -11,7 +11,8 @@
       "file": "src/public/ts/trace/rb-list-overview.ts",
       "commit": "2ab12654",
       "ior": "ior:file:src/public/ts/trace/rb-list-overview.ts?commit=2ab12654"
-    }
+    },
+    "class": "ior:instance:d48dc6bc-fe32-4df4-8f22-b8ba8f9d3323"
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
 }

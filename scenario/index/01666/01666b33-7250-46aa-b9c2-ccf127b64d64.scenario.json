@@ -11,7 +11,8 @@
       "file": "scripts/migrate-to-scenario.ts",
       "commit": "2ab12654",
       "ior": "ior:file:scripts/migrate-to-scenario.ts?commit=2ab12654"
-    }
+    },
+    "class": "ior:instance:66625aa7-4de6-4972-b731-f4e23a552480"
   },
   "ownerIor": "ior:instance:658841dc-8feb-483f-810f-d6b"
 }

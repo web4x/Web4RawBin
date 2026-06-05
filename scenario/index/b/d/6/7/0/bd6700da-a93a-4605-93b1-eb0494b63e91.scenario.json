@@ -7,7 +7,8 @@
     "methodName": "resolveClass(ior): ClassLoader",
     "implementations": [
       "ior:instance:b66fdf54-04f4-4609-9ded-04c835348b32"
-    ]
+    ],
+    "implementation": "ior:instance:b66fdf54-04f4-4609-9ded-04c835348b32"
   },
   "ownerIor": "ior:instance:fdc768a6-8779-42e1-9e7c-775338733c09"
 }

@@ -7,7 +7,8 @@
     "methodName": "open",
     "implementations": [
       "ior:instance:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50"
-    ]
+    ],
+    "implementation": "ior:instance:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50"
   },
   "ownerIor": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"
 }

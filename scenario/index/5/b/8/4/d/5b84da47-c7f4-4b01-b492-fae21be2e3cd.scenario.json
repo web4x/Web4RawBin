@@ -7,7 +7,8 @@
     "methodName": "put(uuid",
     "implementations": [
       "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
-    ]
+    ],
+    "implementation": "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
   },
   "ownerIor": "ior:instance:f9a3f8d1-93db-46aa-8ad7-c34f29905450"
 }

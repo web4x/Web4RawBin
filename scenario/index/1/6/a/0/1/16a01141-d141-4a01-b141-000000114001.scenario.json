@@ -20,7 +20,9 @@
       "commit": "d87e826",
       "repo": "Web4RawBin",
       "ior": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml?commit=d87e826&lines=94-100"
-    }
+    },
+    "class": "ior:instance:311ff74e-7024-4827-a9ee-d9a09c22c1b0",
+    "method": "ior:instance:0ab3b64a-a93e-4a74-80e6-744c5c0fc7c4"
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

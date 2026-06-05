@@ -7,7 +7,8 @@
     "methodName": "renderHtml(scenario): string",
     "implementations": [
       "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
-    ]
+    ],
+    "implementation": "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
   },
   "ownerIor": "ior:instance:6fdc9ac6-0cf1-4d16-86ed-7c6f68f07d2e"
 }

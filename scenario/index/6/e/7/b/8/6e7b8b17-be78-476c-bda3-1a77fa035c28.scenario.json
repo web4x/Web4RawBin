@@ -7,7 +7,8 @@
     "methodName": "ownerIor: string | null",
     "implementations": [
       "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
-    ]
+    ],
+    "implementation": "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
   },
   "ownerIor": "ior:instance:88dcce3a-770b-4c61-b996-02a72f5d6bef"
 }

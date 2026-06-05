@@ -8,7 +8,8 @@
     "classes": [
       "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
     ],
-    "tasks": []
+    "tasks": [],
+    "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
   },
   "ownerIor": "ior:instance:ee527264-01d6-452a-9c73-b692e65a3a42"
 }

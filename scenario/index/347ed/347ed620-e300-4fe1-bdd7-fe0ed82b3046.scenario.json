@@ -12,7 +12,8 @@
       "file": "src/public/ts/trace/rb-trace-tree.ts",
       "commit": "2ab12654",
       "ior": "ior:file:src/public/ts/trace/rb-trace-tree.ts?commit=2ab12654"
-    }
+    },
+    "class": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e"
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
 }
