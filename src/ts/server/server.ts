@@ -579,18 +579,27 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const graphObj = graph.get(uuid);
             if (graphObj) {
               const links = graphObj.toJSON().links || {};
-              childRefs = Object.values(links).flat().map((r: string) => r.replace(/^[a-z]+:/, ''));
+              for (const key of (fwdKeys[type] || [])) {
+                if (links[key]) for (const r of links[key]) childRefs.push(r.replace(/^[a-z]+:/, ''));
+              }
             }
           } catch { /* scanRepo fallback failed — empty children */ }
         }
-        const children = childRefs.map(ref => {
+        const EXPECTED_CHILD_TYPE: Record<string, string[]> = {
+          Requirement: ['Task'], Task: ['Task', 'UseCase'], UseCase: ['Class', 'Method'],
+          Class: ['Method'], Method: ['Implementation'], Implementation: ['Test'],
+          Sprint: ['Task'],
+        };
+        const allowedTypes = EXPECTED_CHILD_TYPE[type] || [];
+        const children = childRefs.filter(ref => ref !== uuid).map(ref => {
           const child = idx.get(ref);
           if (child) {
             const ct = (child.ior || '').split(':')[2] || '';
+            if (allowedTypes.length > 0 && !allowedTypes.includes(ct)) return null;
             return { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: true };
           }
           return { uuid: ref, type: 'unknown', name: ref.slice(0, 8), hasChildren: false };
-        });
+        }).filter(Boolean);
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify({ uuid, type, name: String(unit.model?.name || ''), children }));
       } catch { res.writeHead(500); res.end('{}'); }
