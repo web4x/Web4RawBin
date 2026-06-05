@@ -6,9 +6,7 @@
     "file": "",
     "methods": [
       "ior:instance:76eda98d-2454-4ede-b128-d752668b2c55",
-      "ior:instance:99d8389c-d6cd-4c82-a35b-54c8d874bfe1",
-      "ior:instance:a40eec5b-636c-4e18-9526-01e0f1bfdcc8",
-      "ior:instance:a5837b3b-4cc4-47e1-a57e-c4e85281bd97"
+      "ior:instance:a40eec5b-636c-4e18-9526-01e0f1bfdcc8"
     ],
     "useCases": [],
     "method": "ior:instance:76eda98d-2454-4ede-b128-d752668b2c55"

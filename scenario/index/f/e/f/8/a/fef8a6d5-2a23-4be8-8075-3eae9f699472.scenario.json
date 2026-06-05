@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "fef8a6d5-2a23-4be8-8075-3eae9f699472",
+    "name": "SpeakingTree.generateMd(sprint impl",
+    "sourceFile": "ior:file:src/ts/scenario/generator.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

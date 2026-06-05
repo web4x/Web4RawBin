@@ -5,6 +5,10 @@
  *
  * [impl:uuid:6315a667-59c4-420b-90db-f60bca2d315d] R17.7-R17.10
  */
+// [impl:uuid:fef8a6d5-2a23-4be8-8075-3eae9f699472] SpeakingTree.generateMd(sprint
+// [impl:uuid:e420b8b7-fa4a-4b95-8279-c9a45feadc14] SpeakingTree.generateMd(sprint
+// [impl:uuid:b539d1d8-5cc9-488e-bb18-160ee73f5a56] SpeakingTree.symlinkJson(sprint
+// [impl:uuid:1b3f2848-785c-46c9-9a42-4abbf8bfbe3a] SpeakingTree.symlinkJson(sprint
 import fs from 'node:fs';
 import path from 'node:path';
 import { type ScenarioUnit } from './types.js';

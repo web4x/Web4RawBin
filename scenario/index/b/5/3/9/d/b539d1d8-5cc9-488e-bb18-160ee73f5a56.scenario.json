@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b539d1d8-5cc9-488e-bb18-160ee73f5a56",
+    "name": "SpeakingTree.symlinkJson(sprint impl",
+    "sourceFile": "ior:file:src/ts/scenario/generator.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

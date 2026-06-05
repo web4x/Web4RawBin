@@ -6,10 +6,8 @@
     "file": "",
     "methods": [
       "ior:instance:c2ab4e27-b143-48fb-ba8d-0e5251aaa5b5",
-      "ior:instance:b97de01a-88a1-4bd1-922d-d0f07c3be048",
       "ior:instance:87e56c4b-b1bd-4369-a011-2e83bb2521b3",
-      "ior:instance:a8c7258b-e96d-45d8-aad3-24c2a6840d5a",
-      "ior:instance:2db8e496-4f46-4fd5-98c5-4de14e9fa5f2"
+      "ior:instance:a8c7258b-e96d-45d8-aad3-24c2a6840d5a"
     ],
     "useCases": [],
     "method": "ior:instance:c2ab4e27-b143-48fb-ba8d-0e5251aaa5b5"

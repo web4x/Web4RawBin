@@ -4,7 +4,9 @@
     "uuid": "ef16193a-5533-4237-8b83-b040f706db29",
     "name": "MigrateToScenario.convertLegacy",
     "className": "MigrateToScenario",
-    "methodName": "convertLegacy"
+    "methodName": "convertLegacy",
+    "orphanByDesign": true,
+    "orphanReason": "completed-migration: one-shot migration script"
   },
   "ownerIor": "ior:instance:66625aa7-4de6-4972-b731-f4e23a552480"
 }

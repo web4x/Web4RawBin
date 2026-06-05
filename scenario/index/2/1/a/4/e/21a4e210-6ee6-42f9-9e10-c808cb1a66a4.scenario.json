@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "21a4e210-6ee6-42f9-9e10-c808cb1a66a4",
+    "name": "RoomTest impl",
+    "tests": [
+      "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+    ]
+  },
+  "ownerIor": null
+}
