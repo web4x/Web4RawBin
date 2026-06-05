@@ -544,17 +544,17 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const rawUrl = req.url || '';
         const queryMode = rawUrl.includes('?') ? (new URLSearchParams(rawUrl.split('?')[1]).get('mode') || 'scenario') : 'scenario';
         const SCENARIO_FWD: Record<string, string[]> = {
-          Requirement: ['tasks'], Task: ['subtasks', 'useCases', 'children'], UseCase: ['classes'],
+          Requirement: ['useCases'], Task: ['subtasks', 'useCases', 'children'], UseCase: ['classes'],
           Class: ['methods'], Method: ['implementations'], Implementation: ['tests'],
-          Sprint: ['tasks', 'requirements'],
+          Sprint: ['tasks'],
         };
-        // T187: trace mode — singular chain links at intermediate hops
         const TRACE_FWD: Record<string, string[]> = {
-          Requirement: ['tasks'], Task: ['useCases', 'coveredRequirements'], UseCase: ['method'],
+          Requirement: ['useCases'], Task: ['useCases', 'coveredRequirements'], UseCase: ['method'],
           Method: ['implementation'], Implementation: ['tests'],
           Sprint: ['tasks'],
         };
         const fwdKeys = queryMode === 'trace' ? TRACE_FWD : SCENARIO_FWD;
+        // T192: server-side cycle guard — skip children that are the node itself
         let childRefs: string[] = [];
         for (const key of (fwdKeys[type] || [])) {
           const val = (unit.model as Record<string, unknown>)[key];
@@ -568,6 +568,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             if (/^[0-9a-f]{8}-/.test(clean)) childRefs.push(clean);
           }
         }
+        childRefs = childRefs.filter(ref => ref !== uuid);
         // Fallback: if scenario index has no forward UUID arrays, consult scanRepo graph
         if (childRefs.length === 0) {
           try {
