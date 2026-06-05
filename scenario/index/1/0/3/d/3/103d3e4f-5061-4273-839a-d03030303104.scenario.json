@@ -6,7 +6,10 @@
     "file": "ior:file:test/vitest/trace-routing.test.ts",
     "requirements": [],
     "methods": [],
-    "status": "PASS"
+    "status": "PASS",
+    "verifies": [
+      "ior:instance:25b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02"
+    ]
   },
   "ownerIor": null
 }
