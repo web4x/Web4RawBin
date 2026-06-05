@@ -498,6 +498,24 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
+    // T187: /api/trace/sprints — Sprint navigation roots (Sprint→Tasks)
+    if (filepath === '/api/trace/sprints') {
+      try {
+        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        const idx = new ScenarioIndex(scenarioDir);
+        const sprints = idx.list().map(uuid => {
+          const u = idx.get(uuid);
+          if (!u || u.ior !== 'ior:class:Sprint') return null;
+          const tasks = (u.model.tasks as string[]) || [];
+          return { uuid, type: 'Sprint', name: String(u.model?.name || ''), number: u.model?.number || 0, hasChildren: tasks.length > 0 };
+        }).filter(Boolean);
+        sprints.sort((a: any, b: any) => (a.number || 0) - (b.number || 0));
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+        res.end(JSON.stringify(sprints));
+      } catch { res.writeHead(500); res.end('[]'); }
+      return;
+    }
+
     // T173: /api/trace/roots — Requirement roots for lazy tree
     if (filepath === '/api/trace/roots') {
       try {
@@ -523,16 +541,29 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const unit = idx.get(uuid);
         if (!unit) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{}'); return; }
         const type = (unit.ior || '').split(':')[2] || '';
-        const FORWARD_KEYS: Record<string, string[]> = {
+        const queryMode = (filepath.includes('?') ? new URLSearchParams(filepath.split('?')[1]).get('mode') : null) || 'scenario';
+        const SCENARIO_FWD: Record<string, string[]> = {
           Requirement: ['tasks'], Task: ['subtasks', 'useCases', 'children'], UseCase: ['classes'],
           Class: ['methods'], Method: ['implementations'], Implementation: ['tests'],
           Sprint: ['tasks', 'requirements'],
         };
+        // T187: trace mode — singular chain links at intermediate hops
+        const TRACE_FWD: Record<string, string[]> = {
+          Requirement: ['tasks'], Task: ['useCases', 'coveredRequirements'], UseCase: ['method'],
+          Method: ['implementation'], Implementation: ['tests'],
+          Sprint: ['tasks'],
+        };
+        const fwdKeys = queryMode === 'trace' ? TRACE_FWD : SCENARIO_FWD;
         let childRefs: string[] = [];
-        for (const key of (FORWARD_KEYS[type] || [])) {
-          const refs = (unit.model as Record<string, unknown>)[key];
-          if (Array.isArray(refs)) for (const r of refs) {
-            const clean = String(r).replace('ior:instance:', '');
+        for (const key of (fwdKeys[type] || [])) {
+          const val = (unit.model as Record<string, unknown>)[key];
+          if (Array.isArray(val)) {
+            for (const r of val) {
+              const clean = String(r).replace('ior:instance:', '');
+              if (/^[0-9a-f]{8}-/.test(clean)) childRefs.push(clean);
+            }
+          } else if (typeof val === 'string') {
+            const clean = val.replace('ior:instance:', '');
             if (/^[0-9a-f]{8}-/.test(clean)) childRefs.push(clean);
           }
         }

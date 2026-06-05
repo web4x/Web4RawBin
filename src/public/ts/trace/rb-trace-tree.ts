@@ -20,6 +20,10 @@ export class RbTraceTree extends HTMLElement {
   private expanded = new Set<string>();
   private unsub: (() => void) | null = null;
 
+  private get mode(): string { return this.getAttribute('data-mode') || 'scenario'; }
+  private get childrenUrl(): string { return `/api/trace/children/`; }
+  private get modeParam(): string { return this.mode === 'trace' ? '?mode=trace' : ''; }
+
   connectedCallback(): void {
     this.classList.add('trace-tree');
     try { this.expanded = new Set(JSON.parse(localStorage.getItem(LS_KEY) || '[]')); } catch { /* ignore */ }
@@ -142,7 +146,7 @@ export class RbTraceTree extends HTMLElement {
     const uuid = rawUuid.replace(/^ior:instance:/, '').replace(/\.scenario\.json$/, '').trim();
     this.innerHTML = '<div class="tt-empty">Loading…</div>';
     try {
-      const res = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}`);
+      const res = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}${this.modeParam}`);
       if (!res.ok) { this.innerHTML = '<div class="tt-empty">Not found</div>'; return; }
       const data = await res.json();
       this.innerHTML = '';
@@ -192,7 +196,7 @@ export class RbTraceTree extends HTMLElement {
 
   private async fetchAndRenderChildren(uuid: string, container: HTMLElement): Promise<void> {
     try {
-      const res = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}`);
+      const res = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}${this.modeParam}`);
       if (!res.ok) return;
       const data = await res.json();
       const children: { uuid: string; type: string; name: string; hasChildren: boolean }[] = data.children || [];
