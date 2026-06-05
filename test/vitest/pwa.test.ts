@@ -2,6 +2,7 @@
  * Task 31 + T32 + T33: PWA, Caching, and Reconnect tests
  * [test:uuid:24cc252b-d276-4ab6-9a5a-981825332a17] T31+T32+T33 PWA caching reconnect
  * [verifies:uuid:67bde18f-76f9-43cd-abea-77c2ad7134f9] R-V1 PWA caching
+ * [verifies:uuid:5b6122fe-75f4-4d22-8a93-b9d381c7f269] FLAG-PWA device update
  * T31: sw.js, manifest.json, icons, app.html PWA integration
  * T32: Cache-Control headers, source map blocking in production
  * T33: RawBinClient reconnect, messageQueue, queue/replay

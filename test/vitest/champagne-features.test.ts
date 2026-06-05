@@ -201,6 +201,7 @@ describe('R-RoomFlood: E2E cleanup', () => {
 // [verifies:uuid:25b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c64] R15.3 Object.verb PUML diagrams
 // [verifies:uuid:a30b41c5-d6e7-4f89-a0b1-2c3d4e5f6078] R17.31 detail pane max-width
 // [verifies:uuid:b41c52d6-e7f8-4a90-b1c2-3d4e5f607189] R17.32 chain starts atomic reqs
+// [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000013] R17.13 method traceability
 
 describe('R15.3: Object.verb use-case PUML diagrams', () => {
   it('s17-usecases.puml contains <<UseCase>> with Object.verb names', () => {

@@ -125,6 +125,7 @@ describe('SpeakingTree.generateMd — MD views from templates', () => {
 
 describe('ViewGenerator round-trip', () => {
   // [verifies:uuid:cb93f0db-0e42-4795-b41f-2e125120f259] R17.1 scenario JSON unit
+// [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000004] R17.4 UUID prefix index
   it('generateOne produces MD+HTML for a known unit', async () => {
     const { ViewGenerator } = await import('../../src/ts/scenario/generator.js');
     const { ScenarioIndex } = await import('../../src/ts/scenario/index-store.js');

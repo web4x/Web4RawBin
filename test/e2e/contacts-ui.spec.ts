@@ -3,6 +3,7 @@
  * [test:uuid:5e58a822-dc43-429b-85e6-9d3091465508] T81+T82+T83 contacts UI
  * [verifies:uuid:10a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f40] R10.2 vCard download
  * [verifies:uuid:30c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b62] R10.3 self-click profile
+ * [verifies:uuid:20b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a51] R10.3 self-click profile
  * sheet, NOT ProfileEditor). Verified against CURRENT behavior (v0.5.3+): T83 INVERTS the old T81
  * TS3 (self-tap → ProfileEditor); self-tap now opens `.user-sheet` with an Edit button.
  */

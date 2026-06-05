@@ -4,6 +4,7 @@
  * [verifies:uuid:cb93f0db-0e42-4795-b41f-2e125120f259] R17.1 scenario JSON unit
  * [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000016] R17.17 task status state-machine
  * [verifies:uuid:9dedeb00-6038-4c43-bcd4-efab99792be1] R17.24 source location on UC
+ * [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000017] R17.16 HTML status renders
  *
  * @vitest-environment node
  */
