@@ -126,6 +126,67 @@ EMPTY: N      (no test at chain leaf)
 
 ---
 
+## Intention Declaration: How a Test Declares Its Verified Requirement
+
+### The Problem: Structural Walk ≠ Intention
+
+96% of chains show FLAT because the structural walk (requirement → task → UC → shared-class → all-methods → all-impls → all-tests) fans out through shared classes. A Class like `RbObjectItem` is reached by 9 different requirements — all 9 chains reach all of RbObjectItem's tests, but each test only INTENDS to verify ONE requirement.
+
+**Structural reachability is NOT intention.** A test is reachable from a requirement via the shared-class graph. But the test was WRITTEN to verify a specific requirement. The structural path is accidental; the intention is deliberate.
+
+### The Solution: Explicit `model.verifies` Field
+
+Each Test scenario unit declares which requirement(s) it INTENDS to verify:
+
+```json
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "...",
+    "name": "T13 room lifecycle",
+    "file": "ior:file:test/e2e/room-lifecycle.spec.ts",
+    "verifies": [
+      "ior:instance:<requirement-uuid>"
+    ]
+  }
+}
+```
+
+`model.verifies[]` is an array of Requirement IOR references. This is the INTENTION truth — the test author explicitly declares "this test verifies R-R1" by adding R-R1's IOR to `verifies[]`.
+
+### How It Changes Champagne Verification
+
+**Before (structural):** Walk the chain from requirement to test via classes. Every test reachable via the graph is "in scope." Result: massive fan-out, 96% false-positive chains.
+
+**After (intentional):** A chain is CHAMPAGNE only if the leaf test's `model.verifies[]` includes the root requirement's IOR. The structural path still exists (for completeness auditing), but the CHAMPAGNE verdict requires explicit declaration.
+
+```
+Chain: R18.1 → T187 → UC → Class → Method → Impl → Test
+  Test.verifies = ["ior:instance:<R18.1-uuid>"]  → CHAMPAGNE ✅
+  Test.verifies = ["ior:instance:<R15.4-uuid>"]  → FLAT ❌ (tests a different requirement)
+  Test.verifies = []                              → CORK 🍾 (no declaration = unverified intention)
+```
+
+### Rules for `model.verifies[]`
+
+1. **Explicit, not inferred.** The field is set by the tester (or req-eng during champagne review), not auto-generated from the structural graph.
+2. **Atomic.** Each IOR in `verifies[]` points to ONE atomic requirement. A test that verifies two requirements lists both.
+3. **Forward-only.** `verifies[]` is a TEST field pointing to requirements — NOT a requirement field pointing to tests. The test declares "I verify this requirement." The requirement does NOT declare "this test verifies me."
+4. **Source of truth.** `model.verifies[]` is the ONLY input for the CHAMPAGNE verdict. Structural reachability is supplementary (for finding EMPTY chains — tests that no chain reaches at all).
+5. **Annotation in source.** The `[test:uuid]` comment in the test file should include the requirement reference: `// [test:uuid:xxx] verifies R18.1`
+
+### Migration Path
+
+**Current state:** 44 tests, 8 reference a requirement in their name, 0 have `model.verifies[]`.
+
+**Step 1:** Req-eng + tester jointly annotate each test with its intended requirement(s). For the 8 that already name a requirement (R15.4, R15.5, R15.6, R15.7, R14.1/R14.2, AC1-AC4, AC1-AC5, AC2/AC3/AC4/AC6) — add `verifies[]` IOR from the name.
+
+**Step 2:** For the 36 task-named tests (T13, T3, T4, ...) — req-eng reads the test, reads the task, identifies which atomic requirement the test actually targets, and adds `verifies[]`.
+
+**Step 3:** Re-run champagne with `verifies[]` as the truth. Target: every test declares at least one requirement.
+
+---
+
 ## When to Run Champagne Verification
 
 1. **Sprint completion** — before reporting to Tron, verify every chain in the sprint
