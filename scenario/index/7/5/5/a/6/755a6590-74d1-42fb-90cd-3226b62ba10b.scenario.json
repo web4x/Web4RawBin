@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "755a6590-74d1-42fb-90cd-3226b62ba10b",
+    "name": "TraceLink",
+    "methods": [
+      "ior:instance:838bab78-e346-4101-96a0-624a2ead7cde"
+    ],
+    "method": "ior:instance:838bab78-e346-4101-96a0-624a2ead7cde"
+  },
+  "ownerIor": null
+}

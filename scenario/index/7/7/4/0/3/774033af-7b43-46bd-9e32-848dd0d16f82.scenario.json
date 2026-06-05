@@ -5,7 +5,11 @@
     "name": "mdPreview.renderList",
     "object": "mdPreview",
     "verb": "renderList",
-    "classes": []
+    "classes": [
+      "ior:instance:77f2c618-d7fe-46fd-9f1c-853e72e532b0"
+    ],
+    "class": "ior:instance:77f2c618-d7fe-46fd-9f1c-853e72e532b0",
+    "method": "ior:instance:72852d83-febe-45f8-af98-0b3aa1b70e6a"
   },
   "ownerIor": "ior:instance:c2118a07-d18e-4e1b-b9a2-5f8e2c1f0d77"
 }

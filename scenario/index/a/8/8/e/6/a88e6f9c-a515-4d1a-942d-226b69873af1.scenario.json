@@ -5,7 +5,11 @@
     "name": "traceLink.scenarioUnit",
     "object": "traceLink",
     "verb": "scenarioUnit",
-    "classes": []
+    "classes": [
+      "ior:instance:755a6590-74d1-42fb-90cd-3226b62ba10b"
+    ],
+    "class": "ior:instance:755a6590-74d1-42fb-90cd-3226b62ba10b",
+    "method": "ior:instance:838bab78-e346-4101-96a0-624a2ead7cde"
   },
   "ownerIor": "ior:instance:306f1ca2-0e9e-4071-a653-994262904463"
 }

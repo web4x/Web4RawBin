@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "79923f04-dd5f-4155-8c49-3e61365726f1",
+    "name": "TraceChain.treeRework impl",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
+    "tests": [
+      "ior:instance:108c8394-a5b6-47c8-89af-c08080808109"
+    ]
+  },
+  "ownerIor": null
+}

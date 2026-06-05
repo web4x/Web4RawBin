@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "e74bc487-743f-4b0c-9966-1078b3e5a9cf",
+    "name": "TraceNarrow",
+    "methods": [
+      "ior:instance:674fc9b0-98de-40e4-8287-54908f979065"
+    ],
+    "method": "ior:instance:674fc9b0-98de-40e4-8287-54908f979065"
+  },
+  "ownerIor": null
+}

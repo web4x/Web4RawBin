@@ -5,7 +5,11 @@
     "name": "traceChain.treeRework",
     "object": "traceChain",
     "verb": "treeRework",
-    "classes": []
+    "classes": [
+      "ior:instance:b4824ba0-c1ca-451d-81da-94f7bb558046"
+    ],
+    "class": "ior:instance:b4824ba0-c1ca-451d-81da-94f7bb558046",
+    "method": "ior:instance:9a20a3f9-67c6-42e4-bd0a-919f92e79217"
   },
   "ownerIor": "ior:instance:75628241-9157-4385-a7f0-f4f7a3142737"
 }

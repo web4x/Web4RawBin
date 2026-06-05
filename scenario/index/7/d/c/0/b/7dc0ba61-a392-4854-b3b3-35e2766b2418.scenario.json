@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7dc0ba61-a392-4854-b3b3-35e2766b2418",
+    "name": "TraceLink.scenarioUnit impl",
+    "sourceFile": "ior:file:src/ts/scenario/types.ts",
+    "tests": [
+      "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+    ]
+  },
+  "ownerIor": null
+}

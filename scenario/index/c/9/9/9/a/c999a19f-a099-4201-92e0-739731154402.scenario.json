@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c999a19f-a099-4201-92e0-739731154402",
+    "name": "MdPreview.renderList impl",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "tests": [
+      "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+    ]
+  },
+  "ownerIor": null
+}

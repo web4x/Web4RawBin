@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "674fc9b0-98de-40e4-8287-54908f979065",
+    "name": "TraceNarrow.classMethodScope",
+    "className": "TraceNarrow",
+    "methodName": "classMethodScope",
+    "implementations": [
+      "ior:instance:d7ac0a32-520f-41f5-9cf4-ddcab3ff08f8"
+    ],
+    "implementation": "ior:instance:d7ac0a32-520f-41f5-9cf4-ddcab3ff08f8"
+  },
+  "ownerIor": "ior:instance:e74bc487-743f-4b0c-9966-1078b3e5a9cf"
+}

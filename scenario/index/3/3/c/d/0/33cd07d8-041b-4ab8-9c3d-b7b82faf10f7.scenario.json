@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "33cd07d8-041b-4ab8-9c3d-b7b82faf10f7",
+    "name": "ReqAudit",
+    "methods": [
+      "ior:instance:688c10c8-9aa1-463b-b35a-af08b1bc4e84"
+    ],
+    "method": "ior:instance:688c10c8-9aa1-463b-b35a-af08b1bc4e84"
+  },
+  "ownerIor": null
+}

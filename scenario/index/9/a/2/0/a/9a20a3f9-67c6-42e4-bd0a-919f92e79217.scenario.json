@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "9a20a3f9-67c6-42e4-bd0a-919f92e79217",
+    "name": "TraceChain.treeRework",
+    "className": "TraceChain",
+    "methodName": "treeRework",
+    "implementations": [
+      "ior:instance:79923f04-dd5f-4155-8c49-3e61365726f1"
+    ],
+    "implementation": "ior:instance:79923f04-dd5f-4155-8c49-3e61365726f1"
+  },
+  "ownerIor": "ior:instance:b4824ba0-c1ca-451d-81da-94f7bb558046"
+}

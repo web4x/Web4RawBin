@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "53cb55ce-1f29-4cad-bff9-c0e18fa7cf2e",
+    "name": "ReqAudit.formalizeQuotes impl",
+    "sourceFile": "ior:file:src/ts/server/TraceConsistency.ts",
+    "tests": [
+      "ior:instance:102c3d4e-5f60-4071-8293-c02020202103"
+    ]
+  },
+  "ownerIor": null
+}
