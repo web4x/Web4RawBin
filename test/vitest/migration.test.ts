@@ -4,7 +4,7 @@
  * owner-ref rewrite, remap table, idempotency, legacy left untouched.
  *
  * [test:uuid:14c3d4e5-f6a7-4b81-9c92-0d1e2f3a4b14] R14.1/R14.2
- * [verifies:uuid:14a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f50] R14.2 legacy migration
+ * [verifies:uuid:14a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01] R14.2 legacy migration
  */
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'node:fs';

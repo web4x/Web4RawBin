@@ -4,8 +4,8 @@
  * [test:uuid:dc891c35-a906-4270-9082-8b492ff61668] T191 champagne feature tests
  * [verifies:uuid:35c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b64] R15.4 defaultItemView per object
  * [verifies:uuid:45d4e5f6-a7b8-4c90-8d01-2e3f4a5b6c75] R15.5 ListOverview search
- * [verifies:uuid:55e5f6a7-b8c9-4d01-8e12-3f4a5b6c7d86] R15.6 Task DetailViews
- * [verifies:uuid:65f6a7b8-c9d0-4e12-8f23-4a5b6c7d8e96] R15.7 traceability browser
+ * [verifies:uuid:55e5f6a7-b8c9-4d04-8ab5-3f4a5b6c7d05] R15.6 Task DetailViews
+ * [verifies:uuid:65f6a7b8-c9d0-4e15-9bc6-4a5b6c7d8e06] R15.7 traceability browser
  * [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000004] R17.4 UUID prefix index
  * [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000008] R17.8 views generated from JSON
  * [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000009] R17.9 planning.md generated
@@ -198,9 +198,9 @@ describe('R-RoomFlood: E2E cleanup', () => {
 });
 
 // [test:uuid:194fa8f2-c0dd-4522-8f5d-e6108987d17f] champagne pure-no-coverage reqs
-// [verifies:uuid:25b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c64] R15.3 Object.verb PUML diagrams
-// [verifies:uuid:a30b41c5-d6e7-4f89-a0b1-2c3d4e5f6078] R17.31 detail pane max-width
-// [verifies:uuid:b41c52d6-e7f8-4a90-b1c2-3d4e5f607189] R17.32 chain starts atomic reqs
+// [verifies:uuid:25b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02] R15.3 Object.verb PUML diagrams
+// [verifies:uuid:a30b41c5-d6e7-4f89-0a1b-2c3d4e5f6730] R17.31 detail pane max-width
+// [verifies:uuid:b41c52d6-e7f8-4a90-1b2c-3d4e5f677031] R17.32 chain starts atomic reqs
 // [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000013] R17.13 method traceability
 
 describe('R15.3: Object.verb use-case PUML diagrams', () => {
