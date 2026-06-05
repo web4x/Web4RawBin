@@ -14,6 +14,11 @@ export type ObjectType =
 
 const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
+export const FORWARD_KEYS: Record<string, string> = {
+  requirement: 'tasks', task: 'useCases', usecase: 'classes',
+  class: 'methods', method: 'implementations', implementation: 'tests',
+};
+
 export function isUuidV4(s: string): boolean {
   return typeof s === 'string' && UUID_V4.test(s);
 }
@@ -137,9 +142,8 @@ export abstract class TraceObject {
 
   /** T175 Tree: children in the LOCKED chain */
   get children(): TraceObject[] {
-    const FORWARD: Record<string, string> = { requirement: 'tasks', task: 'useCases', usecase: 'classes', class: 'methods', method: 'implementations', implementation: 'tests' };
     const BELOW: Partial<Record<ObjectType, ObjectType>> = { requirement: 'task', task: 'usecase', usecase: 'class', class: 'method', method: 'implementation', implementation: 'test' };
-    const fwd = FORWARD[this.type];
+    const fwd = FORWARD_KEYS[this.type];
     const below = BELOW[this.type];
     if (!fwd || !below) return [];
     return this.graph.resolve(this, fwd, below);

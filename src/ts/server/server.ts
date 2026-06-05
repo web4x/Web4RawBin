@@ -20,7 +20,7 @@ import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, ve
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
-import { makeObject, type ObjectType } from '../shared/TraceModel.js';
+import { makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry } from '../scenario/index.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
@@ -477,8 +477,14 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             }
           }
         } catch { /* scenario index not available — use scanRepo titles */ }
+        const forwardOnlyObjects = graph.toJSON().map((obj: FlatObject) => {
+          const fwdKey = FORWARD_KEYS[obj.type];
+          const links: Record<string, string[]> = {};
+          if (fwdKey && obj.links[fwdKey]) links[fwdKey] = obj.links[fwdKey];
+          return { ...obj, links };
+        });
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
-        res.end(JSON.stringify({ objects: graph.toJSON(), broken, issueCount: issues.length }));
+        res.end(JSON.stringify({ objects: forwardOnlyObjects, broken, issueCount: issues.length }));
       } catch (e: any) {
         addLog(`/api/trace error: ${e?.message || e}`);
         res.writeHead(500, { 'Content-Type': 'application/json' });
