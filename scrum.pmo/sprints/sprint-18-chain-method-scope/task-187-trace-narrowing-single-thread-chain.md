@@ -28,43 +28,42 @@
   - None (atomic task — Test scenarios listed below are TS not subtasks)
 
 ## Task Description
-/trace shows a NARROWED single-thread chain: a Requirement with N tasks shows
-only 1 in /trace; a UC shows one method→impl→test thread. /scenario still fans
-out the full tree. Sprint and Task are nav-roots. /api/trace/sprints endpoint.
+/trace shows a NARROWED single-thread chain starting at UC→Method:
+UC.method (ONE singular) → Method.implementation (singular) → tests.
+/scenario shows FULL fan-out: UC.classes[]→Class.methods[] (ALL).
+NAV layer (Sprint→Tasks→coveredReqs→UCs) is IDENTICAL in both modes — all children, 1:N OK.
+Sprint is a root-level nav-root. /api/trace/sprints endpoint.
 
-## Test Scenarios (tester pre-authored — run on deploy)
+## Test Scenarios (tester re-authored `b56895b7` — corrected per architect 2026-06-05)
+
+### NAV layer (identical in /trace and /scenario — ALL children, 1:N OK)
 
 | TS | Action | Expected | Method |
 |----|--------|----------|--------|
-| TS1 | GET /api/trace/roots | Returns Requirement roots (not Sprint/Task); count matches known req count | curl |
-| TS2 | Pick a Requirement with N>1 tasks in scenario index. GET /api/trace/children/<req-uuid> | Returns EXACTLY 1 task child (narrowed), not N | curl + node |
-| TS3 | Walk Req→Task→UC in /api/trace/children | UC shows exactly 1 class child (narrowed single thread) | curl chain |
-| TS4 | Continue UC→Class→Method→Impl→Test | Single thread all the way to Test leaf | curl chain |
-| TS5 | Same Requirement on /scenario?ior=<uuid> — expand tree | Shows ALL N tasks (full fan-out, not narrowed) | Playwright |
-| TS6 | GET /api/trace/sprints (new endpoint) | Returns Sprint objects as nav-roots | curl |
-| TS7 | Sprint and Task appear as nav-roots in /trace tree | Sprint/Task items visible at root level of tree | Playwright |
-| TS8 | /trace narrowed chain vs /scenario full tree — same Req | /trace: 1 task child; /scenario: N task children. Counts differ. | curl + Playwright |
-| TS9 | Regression: 44/44 7-hop still reachable | walkUp from all Tests reaches Req root | node index walk |
-| TS10 | Regression: 836/836 vitest | Full suite green | vitest |
+| TS1 | /api/trace/roots | Returns Sprint-level or Task-level nav-roots | curl |
+| TS2 | Sprint in /trace tree at root level | Sprint items visible as expandable root nodes | Playwright |
+| TS3 | Expand Sprint → children | Shows Tasks (all of them, 1:N) | Playwright |
+| TS4 | Expand Task → children | Shows coveredReqs AND/OR UCs (all, 1:N) | Playwright |
+| TS5 | /api/trace/sprints | Returns Sprint objects | curl |
 
-## Pre-authored verification script (run on deploy)
+### DIVERGENCE layer (UC→Method: narrowed in /trace, full in /scenario)
 
-```bash
-# TS1: roots
-curl -sk https://localhost:4444/api/trace/roots | node -e "..."
+| TS | Action | Expected | Method |
+|----|--------|----------|--------|
+| TS6 | /trace: expand a UC with N>1 classes | UC shows ONE method child (narrowed singular UC.method) — NOT all classes→all methods | Playwright |
+| TS7 | /trace: continue from that Method | Method shows ONE implementation (singular) → then tests | Playwright chain |
+| TS8 | /scenario same UC (by IOR): expand | UC shows ALL classes[] → each Class shows ALL methods[] (full fan-out) | Playwright |
+| TS9 | Compare /trace vs /scenario child count at UC level | /trace: 1 method child; /scenario: N class children with M methods each. Counts differ. | Playwright both |
 
-# TS2: narrowed — Req with N tasks shows 1
-# Find a Req with >1 task in index, then check /api/trace/children returns 1
+### Regression
 
-# TS5: /scenario full fan-out
-# Playwright: goto /scenario?ior=<same-req>, expand, count task children > 1
-
-# TS6: /api/trace/sprints
-curl -sk https://localhost:4444/api/trace/sprints
-```
+| TS | Action | Expected | Method |
+|----|--------|----------|--------|
+| TS10 | 44/44 7-hop reachable | walkUp from all Tests reaches Req root | node index walk |
+| TS11 | 836/836 vitest | Full suite green | vitest |
 
 ## Subtasks
-None (atomic task — 10 TS above are test scenarios for execution, not subtasks).
+None (atomic task — 11 TS above are test scenarios for execution, not subtasks).
 
 ## QA Audit & User Feedback
 - 2026-06-05: Tester pre-authored 10 test scenarios from PO's AC description. Ready to execute the instant expert deploys.
