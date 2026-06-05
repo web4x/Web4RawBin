@@ -19,3 +19,51 @@
 
 ## Process
 - Tron-assigned: architect + req-eng + planner ANALYZE the all-methods (scenario) vs one-method (traceability) difference together, then PLAN Sprint 18 — scenario.json units first, MDs generated. Co-specify role Skills. Report conclusion to Tron via PO.
+
+---
+
+## LITERAL SOURCE — Follow-on A: Widen scenario vs trace distinction (2026-06-05)
+
+> TRON: "widen it to the scenario browser as a tree but the traceability browser as tree chains with only one child traced"
+
+### R18.5: Scenario browser renders a full tree (all children at every node); traceability browser renders tree CHAINS with only the one traced child per node.
+
+[requirement:uuid:18e5f6a7-b8c9-4d04-8ab5-000000018005]
+
+The scenario-vs-trace distinction from R18.1 (method scope) WIDENS to the entire tree, not just the Class→Method level. At EVERY node in the traceability browser, only the ONE child that is in the current requirement's traced chain is shown — not all children. The scenario browser continues to show the full tree with all children. This means: a Requirement in /trace shows only the one Task in this chain (not all tasks it links to). That Task shows only the one UseCase in this chain. That UseCase shows only the one Class. That Class shows only the one Method. The chain is a single thread from root to leaf. The scenario browser remains a full tree.
+
+**Acceptance criteria:**
+- [ ] /scenario tree: every node shows ALL its forward children (unchanged)
+- [ ] /trace tree: every node shows ONLY the one child that continues the traced chain to a Test
+- [ ] A Requirement with 3 Tasks shows 1 Task in /trace (the one in the current chain)
+- [ ] The trace chain is a single thread: req → 1 task → 1 UC → 1 class → 1 method → 1 impl → N tests
+
+→ T187 (widen scope)
+
+---
+
+## LITERAL SOURCE — Follow-on B: Tree re-renders fully on click / scroll jumps to top (2026-06-05, BUG)
+
+> TRON: "the tree is rendered on each click fully and not lazy by layer on expand, only adding itemview levels. in the long list it always jumps back to the top. thats cumbersome"
+
+### R18.6: Tree expands by APPENDING child item-view levels to the existing DOM — no full re-render.
+
+[requirement:uuid:18f6a7b8-c9d0-4e15-9bc6-000000018006]
+
+Currently, expanding a tree node causes the entire tree to re-render (full innerHTML replacement or equivalent). This must change to incremental DOM append: clicking expand on a node inserts child `<rb-object-item>` elements BELOW that node in the existing DOM. No other nodes are touched. No full tree rebuild. This is the standard lazy-render pattern: each expand adds one layer of children, preserving all existing rendered nodes.
+
+### R18.7: Tree preserves scroll position on expand/collapse — no jump to top.
+
+[requirement:uuid:18a7b8c9-d0e1-4f26-8cd7-000000018007]
+
+After expanding or collapsing a tree node, the scroll position of the tree container MUST remain at the same visual position. The user must not be forced to scroll back down to find the node they just expanded. If the expand causes the tree to grow taller, the scroll position stays at the expanded node. If it causes the tree to shrink (collapse), the scroll stays at or near the collapsed node.
+
+**Acceptance criteria (R18.6 + R18.7 combined):**
+- [ ] Expanding a node appends children below it without re-rendering sibling/parent nodes
+- [ ] Collapsing a node removes children without re-rendering sibling/parent nodes
+- [ ] Scroll position is preserved after expand (user does not jump to top)
+- [ ] Scroll position is preserved after collapse
+- [ ] In a tree with 100+ nodes, expanding node #50 does not cause visible flicker or re-layout of nodes #1-#49
+- [ ] Performance: expand/collapse is instant (no perceptible delay from re-render)
+
+→ New bug task (planner stand-up)

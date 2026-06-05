@@ -87,14 +87,59 @@ Tron's directive contains 4 verbs and 4 nouns:
 
 ---
 
+- [ ] **R18.5: Scenario browser renders a full tree (all children); traceability browser renders tree chains with only the one traced child per node.**
+  [requirement:uuid:18e5f6a7-b8c9-4d04-8ab5-000000018005]
+  > TRON: "widen it to the scenario browser as a tree but the traceability browser as tree chains with only one child traced"
+
+  Widens R18.1 from Class→Method scope to the ENTIRE tree. At every node in /trace, only the ONE child in the current chain is shown. /scenario shows all children. The trace chain becomes a single thread from requirement root to test leaf.
+
+  **Acceptance criteria:**
+  - [ ] /scenario: every node shows ALL forward children
+  - [ ] /trace: every node shows ONLY the one child continuing the chain
+  - [ ] Requirement with 3 Tasks shows 1 Task in /trace
+  - [ ] Chain is single-thread: req → 1 task → 1 UC → 1 class → 1 method → 1 impl → N tests
+
+- [ ] **R18.6: Tree expands by appending child item-view levels — no full re-render.**
+  [requirement:uuid:18f6a7b8-c9d0-4e15-9bc6-000000018006]
+  > TRON: "the tree is rendered on each click fully and not lazy by layer on expand, only adding itemview levels"
+
+  Expanding a node must INSERT child `<rb-object-item>` elements below the clicked node in the existing DOM. No full tree re-render. No innerHTML replacement of the tree container. Incremental append only.
+
+  **Acceptance criteria:**
+  - [ ] Expanding appends children below node without re-rendering siblings/parents
+  - [ ] Collapsing removes children without re-rendering siblings/parents
+  - [ ] In a 100+ node tree, expanding node #50 causes no flicker on nodes #1-#49
+
+- [ ] **R18.7: Tree preserves scroll position on expand/collapse — no jump to top.**
+  [requirement:uuid:18a7b8c9-d0e1-4f26-8cd7-000000018007]
+  > TRON: "in the long list it always jumps back to the top. thats cumbersome"
+
+  After expand or collapse, the scroll position of the tree container stays at the same visual position. The user is NOT scrolled to the top.
+
+  **Acceptance criteria:**
+  - [ ] Scroll position preserved after expand
+  - [ ] Scroll position preserved after collapse
+  - [ ] User does not need to scroll back to find the node they just interacted with
+
+---
+
 ## Decomposition Completeness Confirmation
 
-**Verbs in Tron text:** "have" (methods), "needs to be only exactly the one" (narrow), "start to plan" (author), "co-specify" (codify)
-**Nouns:** scenario browser, traceability browser, method/class, sprint/task as scenario.json, role skills
-**Cross-product exhausted:** 4 cells filled, 12 cells empty (verb doesn't apply to noun). No missing atoms.
-**Deduplication:** No existing requirement covers "scenario shows all, trace shows one." Checked R-U1/R-V1/R-Y1 (lazy-load depth, different topic), R-E (chain order, different topic).
+**Original directive (R18.1-R18.4):**
+Verbs: "have" (methods), "needs to be only exactly the one" (narrow), "start to plan" (author), "co-specify" (codify).
+Nouns: scenario browser, traceability browser, method/class, sprint/task as scenario.json, role skills.
+4 atoms. Deduplication: no prior coverage.
 
-**Decomposition COMPLETE.** Planner may create tasks.
+**Follow-on A (R18.5):**
+Verb: "widen." Noun: scenario-vs-trace distinction at EVERY level.
+Deduplication: R18.1/R18.2 covered Class→Method only. R18.5 widens to all nodes. Genuinely new — NOT a duplicate.
+
+**Follow-on B (R18.6 + R18.7):**
+Verbs: "render on each click fully" (anti-pattern → fix), "jumps back to top" (bug → fix).
+Nouns: tree, itemview levels, scroll position.
+Deduplication: R-Y1/R-Y2 covered lazy-LOAD (data fetch). R18.6/R18.7 cover lazy-RENDER (DOM manipulation) + scroll preservation. Different layer — genuinely new.
+
+**Decomposition COMPLETE for all 3 sources.** Planner may create tasks.
 
 ---
 
@@ -106,3 +151,6 @@ Tron's directive contains 4 verbs and 4 nouns:
 | R18.2 | `18b2c3d4` | TBD | Chain-through-Class narrowing to single method thread |
 | R18.3 | `18c3d4e5` | TBD | Scenario.json-first sprint authoring |
 | R18.4 | `18d4e5f6` | TBD | Role SKILL.md co-specification |
+| R18.5 | `18e5f6a7` | T187 | Widen scenario=full-tree vs trace=chain to ALL levels |
+| R18.6 | `18f6a7b8` | TBD (bug) | Tree incremental DOM append, no full re-render |
+| R18.7 | `18a7b8c9` | TBD (bug) | Scroll position preserved on expand/collapse |

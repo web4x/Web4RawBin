@@ -31,6 +31,7 @@ Decomposition hints (req-eng authoritative when committed; below are placeholder
 | R18.2 | Chain narrows at Class→Method: UC → THE one Method → Impl → Test (not fan-out to every Class.method) | (req-eng) |
 | R18.3 | Sprint 18 born as scenario.json units FIRST; planning.md + task-*.md GENERATED (dogfood R17.7-R17.10 view-gen) | (req-eng) |
 | R18.4 | Three roles co-specify their refinement protocols as SKILL.md files from Rules 1-11 | (req-eng) |
+| R18.5 | Tree expand APPENDS children only (no full re-render); scroll position preserved across click — Tron 2026-06-05 | (req-eng) |
 
 > Per precedence Rule 1: requirements precede tasks. Task units below scaffold with empty `requirements[]` IOR slots that req-eng fills when atomic Requirement units commit.
 
