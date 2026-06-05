@@ -1,10 +1,10 @@
 # Tron QA Batch — S16 + S17 tester-verified tasks awaiting QA (2026-06-05)
 
 **Prepared by:** robbin-planner, on PO direction 2026-06-05
-**Total tester-verified (🧪) tasks awaiting Tron QA:** **28**
+**Total tester-verified (🧪) tasks awaiting Tron QA:** **29** (was 28; +T179 strict-bar 2b verified 2026-06-05)
 - **S16:** 1 (T121)
-- **S17:** 27 (T124–T185)
-**Bonus ready-for-QA (✅ impl-shipped, no strict tester-verify yet):** 33 (S16: 11 · S17: 22)
+- **S17:** 28 (T124–T185 + T179)
+**Bonus ready-for-QA (✅ impl-shipped, no strict tester-verify yet):** 32 (S16: 11 · S17: 21)
 **Closure-chain status:** S17 cascade FIRED 2026-06-05 (T178 KEYSTONE `452f8d5d` live 44/44 7-hop). T184/T185 PO-confirmed tester-verified strict 2026-06-05. T180 Track 2 shipped (`9c32626b`) unblocks T179 AC11-13 headless verify; T180 Track 1 LE cert still awaits Tron DNS action (CRITICAL-PATH for real-device QA).
 
 ---
@@ -47,6 +47,7 @@
 | **T181** | Strict forward-only DISPLAY — no backward links in any DetailView | `48e3d076` v0.5.83 |
 | **T184** | Forward-only API emit — strip backward keys at server (R-U umbrella with T181) | **`1e210b9d` v0.5.85** |
 | **T185** | PlantUML class diagrams for traceability-tree + scenario-instance architecture (R-X1+R-X2) | `c11f723a` + `f103929f` + `71a600be` + `cc1851f9` |
+| **T179** | SW reliability — auto-activation + STATIC_SHELL build-manifest derivation (strict-bar 2b verified) | `886f9815` v0.5.79 + **`5be49819` v0.5.86** (AC11-13 SW E2E 4/4 + 836/836) |
 | **T129** | Traceability gate — every method traces to a task AND a requirement (S17 verification gate) | `f487c2f` |
 
 ---
@@ -54,7 +55,7 @@
 ## ✅ IMPL-SHIPPED (bonus — ready for Tron QA after light tester re-verify) — 33
 
 ### S16 (11): T110, T111, T112, T113, T114, T115, T116, T117, T120, T122, T123
-### S17 (22): T145, T146, T147, T148, T149, T150, T151, T152, T153, T154, T155, T156, T158, T159, T160, T161, T166, T173, T179, T182, T183, T186
+### S17 (21): T145, T146, T147, T148, T149, T150, T151, T152, T153, T154, T155, T156, T158, T159, T160, T161, T166, T173, T182, T183, T186 (T179 promoted to strict-verified above)
 
 (See `sprint-1[67]-*/planning.md` for full status lines + key commits per task. Most have clear impl-shipped commit hashes in their status notes.)
 
@@ -77,8 +78,8 @@
 
 ## Remaining S17 open (NOT in this QA batch)
 
-- **T180 Track 1** — Let's Encrypt cert for `home.donges.it` (Tron DNS action required; CRITICAL-PATH #1 for Tron real-device QA on iPhone). Track 2 shipped (`9c32626b` CDP cert bypass for headless tests).
-- **T179 AC11-13** — Headless SW-active verification (now unblocked by T180 Track 2; tester re-verify scheduled).
+- **T180 Track 1** — Let's Encrypt cert for `home.donges.it`. **Pre-stage SHIPPED `bb828692` v0.5.87** (server.ts auto-detects real LE cert + falls back to self-signed). Final step: **Tron DNS-01 certbot action** (one-liner needs Tron DNS API access / host shell). CRITICAL-PATH #1 for Tron real-device QA on iPhone. Track 2 shipped (`9c32626b` CDP cert bypass for headless tests).
+- **T179 AC11-13** — **NOW STRICT-VERIFIED** (`5be49819` v0.5.86 — 4/4 SW E2E + 836/836; Tron 404-repro returns 200 with SW active). Moved into strict 🧪 batch above (line for T179).
 - **T129 verification gate** — S17 verification gate; gate PASSED on `f487c2f` per planner-tester sync but re-verify post-cascade may be sensible.
 
 ---
