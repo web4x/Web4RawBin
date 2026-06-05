@@ -153,3 +153,35 @@ Each expand click loads ONLY the immediate children of the clicked node — one 
 - [ ] Combined with R18.9 cycle guard: cycles cannot recurse because only one layer loads
 
 → New bug task (planner stand-up — cycle elimination + single-layer lazy-load)
+
+---
+
+## LITERAL SOURCE — Follow-on F: Cycle guard too aggressive + visible cut artifact (2026-06-05, BUG)
+
+> TRON: "cycle stopped but also correct children got cut out. user does not want to see the cut out cycle."
+
+### R18.11: Cycle guard is ancestor-path-precise — only break true ancestor cycles, preserve all legitimate children including DAG re-convergence.
+
+[requirement:uuid:18e1f2a3-b4c5-6d7e-8f90-000000018011]
+
+The R18.9 cycle guard uses a visited-set that is too broad: it cuts ANY node that has been seen before, including legitimate DAG re-convergence (a Class reached from two different UseCases is a valid repeated node, not a cycle). The guard must track only the CURRENT ANCESTOR PATH (root → ... → parent → this node), not a global visited set. A node is a true cycle ONLY if it appears as its OWN ancestor in the current expansion path. A node that appears in a SIBLING branch is legitimate re-convergence and must NOT be cut.
+
+**Acceptance criteria:**
+- [ ] A Class appearing under two different UseCases is shown in BOTH (DAG re-convergence preserved)
+- [ ] A Requirement appearing as its own descendant (req→task→...→req) IS cut (true cycle broken)
+- [ ] The cycle check compares against the ancestor stack, not a global set
+- [ ] Expanding the same node in two different branches shows children in both
+
+### R18.12: True-cycle nodes are omitted cleanly — no visible cut artifact shown to the user.
+
+[requirement:uuid:18f2a3b4-c5d6-7e8f-9a0b-000000018012]
+
+When a true cycle IS detected (a node is its own ancestor), the cyclic node is simply NOT rendered — no ⟳ icon, no "cycle detected" label, no placeholder. The tree silently terminates at the parent. The user sees a normal leaf node with no indication that a cycle was suppressed. Tron: "user does not want to see the cut out cycle."
+
+**Acceptance criteria:**
+- [ ] True-cycle nodes are omitted entirely from the rendered tree
+- [ ] No cycle icon, label, or placeholder visible to the user
+- [ ] Parent node of a suppressed cycle appears as a normal leaf (no expand arrow if its only children would be cyclic)
+- [ ] If a node has BOTH legitimate children AND a cyclic child, only the legitimate children render
+
+→ T193 (new task — T192 closed per Rule 8 closure freeze)

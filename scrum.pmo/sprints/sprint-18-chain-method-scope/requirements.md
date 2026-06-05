@@ -185,4 +185,6 @@ Deduplication: R18.5 covered scenario-vs-trace branching at Requirement level. R
 | R18.8 | `18b8c9d0` | TBD | Browser root: Sprint → Task → covered Requirements → chain |
 | R18.9 | `18c9d0e1` | TBD (bug) | Chain cycles eliminated — forward-only + visited-set guard |
 | R18.10 | `18d0e1f2` | TBD (bug) | Tree loads only NEXT layer per expand — no recursive subtree |
+| R18.11 | `18e1f2a3` | T193 | Cycle guard ancestor-path-precise — preserve DAG re-convergence |
+| R18.12 | `18f2a3b4` | T193 | True-cycle nodes omitted cleanly — no visible cut artifact |
 | R-CHAMP | `a0b1c2d3` | standing | Champagne: leaf test verifies root requirement's intention |
