@@ -5,8 +5,10 @@
     "name": "RbDetailDrawer.open",
     "className": "RbDetailDrawer",
     "methodName": "open",
-    "implementations": [],
-    "implementation": ""
+    "implementations": [
+      "ior:instance:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50"
+    ],
+    "implementation": "ior:instance:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50"
   },
   "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
 }

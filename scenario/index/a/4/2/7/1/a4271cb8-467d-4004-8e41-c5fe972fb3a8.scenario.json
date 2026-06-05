@@ -4,7 +4,11 @@
     "uuid": "a4271cb8-467d-4004-8e41-c5fe972fb3a8",
     "name": "RbDetailView.renderObject",
     "className": "RbDetailView",
-    "methodName": "renderObject"
+    "methodName": "renderObject",
+    "implementations": [
+      "ior:instance:107a6172-8394-45a6-897d-a07070707107"
+    ],
+    "implementation": "ior:instance:107a6172-8394-45a6-897d-a07070707107"
   },
   "ownerIor": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
 }
