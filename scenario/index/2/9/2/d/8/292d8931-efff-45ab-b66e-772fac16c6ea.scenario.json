@@ -1,0 +1,24 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "292d8931-efff-45ab-b66e-772fac16c6ea",
+    "id": "T187",
+    "name": "Trace-narrowing: chain walker selects ONE method per UC, not Class.methods[] fan-out",
+    "sprint": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "requirements": [],
+    "_requirementHints": ["R18.1", "R18.2"],
+    "useCases": [],
+    "status": "Planned",
+    "owners": {
+      "req": "robbin-req",
+      "architect": "robbin-architect",
+      "expert": "robbin-expert",
+      "tester": "robbin-tester"
+    },
+    "description": "When the traceability chain passes through a Class node, narrow to the SINGLE method that fulfills the current requirement (the chain walks UC → THE one Method → Impl → Test). The scenario browser MUST keep showing all Class.methods[] (full object model). Add UseCase.method (singular IOR) as the authoritative narrowing edge. Two traversal verbs: 'trace' (uses UC.method, narrows) vs 'browse' (uses Class.methods[], full). Forward-only preserved per Rule 9 — no back-refs introduced.",
+    "ruleParaiHints": "(a)+(b) required (user-facing tree behavior); (c) likely EXEMPT (existing /trace + /scenario routes, no new shell)",
+    "createdAt": "2026-06-05",
+    "createdBy": "robbin-planner",
+    "scaffoldNote": "requirements[] populated by req-eng after R18.1+R18.2 atom uuids land in compound source"
+  }
+}
