@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "afdff224-216a-44cd-b9f9-874882c8df1e",
+    "name": "TraceConsistency.scanRepo impl",
+    "tests": [
+      "ior:instance:102c3d4e-5f60-4071-8293-c02020202103"
+    ]
+  },
+  "ownerIor": null
+}

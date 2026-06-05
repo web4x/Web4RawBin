@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7c7ac4b1-b214-448a-9c01-ba94363395d2",
+    "name": "ScenarioIndex.get(uuid): ScenarioUnit impl",
+    "tests": [
+      "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+    ]
+  },
+  "ownerIor": null
+}

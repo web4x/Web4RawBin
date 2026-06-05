@@ -6,9 +6,9 @@
     "className": "RbDetailView",
     "methodName": "renderObject",
     "implementations": [
-      "ior:instance:107a6172-8394-45a6-897d-a07070707107"
+      "ior:instance:d608bf73-c520-48c3-8b6c-7eaa5cbe31ae"
     ],
-    "implementation": "ior:instance:107a6172-8394-45a6-897d-a07070707107"
+    "implementation": "ior:instance:d608bf73-c520-48c3-8b6c-7eaa5cbe31ae"
   },
   "ownerIor": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
 }

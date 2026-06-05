@@ -6,9 +6,9 @@
     "className": "RbDetailDrawer",
     "methodName": "open",
     "implementations": [
-      "ior:instance:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50"
+      "ior:instance:72f829a3-773f-4344-b464-6aae8a0402e9"
     ],
-    "implementation": "ior:instance:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50"
+    "implementation": "ior:instance:72f829a3-773f-4344-b464-6aae8a0402e9"
   },
   "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
 }

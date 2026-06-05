@@ -6,7 +6,11 @@
     "className": "MigrateToScenario",
     "methodName": "convertLegacy",
     "orphanByDesign": true,
-    "orphanReason": "completed-migration: one-shot migration script"
+    "orphanReason": "completed-migration: one-shot migration script",
+    "implementation": "ior:instance:72748f3a-05cd-49fa-b5e1-404fef48a6c3",
+    "implementations": [
+      "ior:instance:72748f3a-05cd-49fa-b5e1-404fef48a6c3"
+    ]
   },
   "ownerIor": "ior:instance:66625aa7-4de6-4972-b731-f4e23a552480"
 }

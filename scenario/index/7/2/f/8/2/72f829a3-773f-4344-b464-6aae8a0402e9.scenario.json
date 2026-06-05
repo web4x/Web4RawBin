@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "72f829a3-773f-4344-b464-6aae8a0402e9",
+    "name": "RbDetailDrawer.open impl",
+    "tests": [
+      "ior:instance:105f5061-7283-4495-8a6c-f05050505106"
+    ]
+  },
+  "ownerIor": null
+}

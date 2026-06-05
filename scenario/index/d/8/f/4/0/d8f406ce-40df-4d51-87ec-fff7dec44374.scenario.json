@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d8f406ce-40df-4d51-87ec-fff7dec44374",
+    "name": "RbTraceTree.nodeEl impl",
+    "tests": [
+      "ior:instance:108c8394-a5b6-47c8-89af-c08080808109"
+    ]
+  },
+  "ownerIor": null
+}

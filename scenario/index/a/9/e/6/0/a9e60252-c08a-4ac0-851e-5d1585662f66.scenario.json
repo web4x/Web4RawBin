@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a9e60252-c08a-4ac0-851e-5d1585662f66",
+    "name": "RbTraceTree.renderSeed impl",
+    "tests": [
+      "ior:instance:108c8394-a5b6-47c8-89af-c08080808109"
+    ]
+  },
+  "ownerIor": null
+}

@@ -6,9 +6,9 @@
     "className": "TraceConsistency",
     "methodName": "validate",
     "implementations": [
-      "ior:instance:102b1c2d-3e4f-4051-9728-b02020202102"
+      "ior:instance:ada13130-df78-4de9-9128-f754436dba8d"
     ],
-    "implementation": "ior:instance:102b1c2d-3e4f-4051-9728-b02020202102"
+    "implementation": "ior:instance:ada13130-df78-4de9-9128-f754436dba8d"
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
 }

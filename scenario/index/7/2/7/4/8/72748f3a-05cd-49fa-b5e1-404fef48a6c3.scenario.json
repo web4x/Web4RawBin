@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "72748f3a-05cd-49fa-b5e1-404fef48a6c3",
+    "name": "MigrateToScenario impl",
+    "sourceFile": "ior:file:scripts/migrate-to-scenario.ts",
+    "tests": [
+      "ior:instance:14c3d4e5-f6a7-4b81-9c92-0d1e2f3a4b14"
+    ]
+  },
+  "ownerIor": null
+}
