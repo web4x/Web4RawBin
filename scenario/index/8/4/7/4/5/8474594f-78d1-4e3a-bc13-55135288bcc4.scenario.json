@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "8474594f-78d1-4e3a-bc13-55135288bcc4",
+    "name": "RbObjectItem.onClickDelegate",
+    "className": "RbObjectItem",
+    "methodName": "onClickDelegate",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
+    "sourceLine": 62
+  },
+  "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+}
