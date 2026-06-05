@@ -10,7 +10,8 @@
       "ior:instance:b561f886-0a85-429d-95f9-32840fd02dbc",
       "ior:instance:fe794e35-6688-4d54-a48d-f77f07266e9c"
     ],
-    "useCases": []
+    "useCases": [],
+    "method": "ior:instance:edfe9d73-674d-44c4-abfc-4b1d6ed0bf16"
   },
   "ownerIor": "ior:instance:658841dc-8feb-483f-810f-d6b4e1bb7b84"
 }

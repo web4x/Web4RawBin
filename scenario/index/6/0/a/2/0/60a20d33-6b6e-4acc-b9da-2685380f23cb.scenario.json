@@ -9,7 +9,8 @@
       "ior:instance:cd5db899-2aea-4c47-8fe1-6ca47100215c",
       "ior:instance:607fef49-9395-439e-8ee1-f21d02978447"
     ],
-    "useCases": []
+    "useCases": [],
+    "method": "ior:instance:255ecabf-3961-404c-92b1-737c209c2030"
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }
