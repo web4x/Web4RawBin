@@ -261,13 +261,13 @@ rb-detail-drawer {
   position: fixed; bottom: 0; left: 0; right: 0;
   max-height: 50vh; max-width: 480px; background: #1a1a2e; color: #e0e0e0;
   border-radius: 16px 16px 0 0;
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+  box-shadow: none;
   transform: translateY(100%); transition: transform 0.25s ease-out;
   z-index: 100; overflow-y: auto; overflow-x: hidden; padding: 16px;
-  word-break: break-word;
+  word-break: break-word; visibility: hidden;
 }
 rb-detail-drawer pre, rb-detail-drawer code { overflow-x: auto; max-width: 100%; }
-rb-detail-drawer[open] { transform: translateY(0); }
+rb-detail-drawer[open] { transform: translateY(0); box-shadow: 0 -4px 20px rgba(0,0,0,0.4); visibility: visible; }
 @media (max-width: 480px) {
   rb-detail-drawer { max-width: none; max-height: 60vh; }
 }

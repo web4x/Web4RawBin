@@ -549,7 +549,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           Sprint: ['tasks'],
         };
         const TRACE_FWD: Record<string, string[]> = {
-          Requirement: ['tasks'], Task: ['useCases', 'coveredRequirements'], UseCase: ['method'],
+          Requirement: ['tasks'], Task: ['useCases', 'coveredRequirements'],
+          UseCase: ['class'], Class: ['method'],
           Method: ['implementation'], Implementation: ['tests'],
           Sprint: ['tasks'],
         };
