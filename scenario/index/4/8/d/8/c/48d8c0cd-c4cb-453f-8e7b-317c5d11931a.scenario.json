@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "48d8c0cd-c4cb-453f-8e7b-317c5d11931a",
+    "name": "R18.28: Line info carried through file-browser to Monaco so editor opens at the correct line. (inferred from literal)",
+    "description": "(inferred from literal)\n\n> TRON: \"here you see impl has a src link, but ALL types should have it. it should NOT open directly in the monaco editor, BUT in the browser folder (2nd picture), with the file highlighted. then i can open the editor. the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file.\"\n\n### Decomposition hints (req: confirm against literal)\n- R18.15: The link CARRIES the line so the line survives browser→editor: when the user opens the file in the editor, it jumps to the correct line — a Method jumps to the method's line; a UseCase jumps to its line in the .puml file. (Revises R18.11/R18.12: target = browser-with-highlight, line preserved through to editor.)\n\n**REVISES R18.23.** The line parameter (`?line=42`) is on the file-browser link AND survives through to the Monaco editor. When the user opens a file from the browser listing, the editor receives the line and scrolls to it. Method → method declaration line. UseCase → its line in the .puml file.\n\n**Acceptance criteria:**\n- [ ] File-browser link includes line parameter\n- [ ] Opening the file in Monaco from the browser preserves the line parameter\n- [ ] Monaco scrolls to the specified line\n- [ ] Method opens at function declaration line\n- [ ] UseCase opens at PUML declaration line\n\n(Decomposition hint R18.15 in Follow-on D was renumbered to R18.28 per the planner's R18.20-onward block. This requirement is inferred from the Follow-on D literal source block at line 330-337 of compound-requirement-source.md plus the explicit AC list in requirements.md line 242-253.)",
+    "tronQuote": "> TRON: \"here you see impl has a src link, but ALL types should have it. it should NOT open directly in the monaco editor, BUT in the browser folder (2nd picture), with the file highlighted. then i can open the editor. the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/compound-requirement-source.md",
+    "sourceLine": 337
+  }
+}
