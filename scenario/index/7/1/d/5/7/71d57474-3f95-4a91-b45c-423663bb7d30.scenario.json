@@ -11,7 +11,12 @@
     ],
     "class": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e",
     "sourceFile": "ior:file:scenario/index/7/1/d/5/7/71d57474-3f95-4a91-b45c-423663bb7d30.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "source": {
+      "file": "scenario/index/7/1/d/5/7/71d57474-3f95-4a91-b45c-423663bb7d30.scenario.json",
+      "commit": "6394960d",
+      "ior": "ior:file:scenario/index/7/1/d/5/7/71d57474-3f95-4a91-b45c-423663bb7d30.scenario.json?commit=6394960d"
+    }
   },
   "ownerIor": "ior:instance:08e46ce3-69f3-40fe-87d7-5ee875a4e94a"
 }
