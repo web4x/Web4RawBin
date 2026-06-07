@@ -44,6 +44,31 @@ Pick ONE:
 
 I have NOT created any historical task units autonomously — too much interpretive content to author without role specialization. Awaiting your call.
 
+### PO DECISION 2026-06-07: (b) DEFER
+
+> "Don't author the 50-70 historical S2-S9 Task units now — not blocking active work. Clear the Sprint-no-children verify flag with a 'by-design — S2-S9 historical task-unit migration deferred' note in the task file + the S18/verify board. Re-openable as a dedicated migration sprint if Tron wants full historical completeness." — robbin-po
+
+**Rationale (PO):** S2-S9 are closed/QA-approved sprints. Their empty `tasks[]` on the Sprint scenario unit does NOT block any active S17/S18 work. The verify flag (`Sprint-no-children`) is downgraded from FAIL to **by-design / deferred** for S2-S9 specifically. Active sprints (S10+) must continue to have populated Sprint.tasks[] — the deferral applies ONLY to the historical S1-S9 range.
+
+**Re-open condition:** Tron explicitly requests full historical completeness (e.g., for a chain audit or trace-tree completeness pass). At that point, a dedicated migration sprint covers S2-S9 (and S1 if needed) using the same wave-batch pattern used for R18.9-R18.28 + T191-T199. Estimate: ~50-70 Task units + ~20-40 Subtask units; multiple batches over a session.
+
+### Verify-flag adjustment
+
+**`Sprint-no-children` flag (last tester run):** 8 Sprints flagged (S2-S9). Per PO decision (b):
+- S2-S9: **DEFERRED — by-design** (historical task-unit migration not in scope)
+- S10+ (if any): real FAIL — must be backfilled (none currently flagged; spot-checks pass)
+
+The audit tooling (`scripts/trace-audit-strict.mjs` etc.) should treat S1-S9 empty `tasks[]` as orphan-by-design analogous to TraceLink units. If the gate currently FAILs on this, architect should add the allowlist hook so the gate doesn't block on historical Sprint emptiness.
+
+### Decision commit
+- PO direction received 2026-06-07 via otmux (post `7a88d664` planner status report)
+- This task file updated with the decision + rationale
+- Pointer back to PO: planner pane → robbin-po one-line "decision recorded"
+
+### Follow-on (planner-tracked, NOT immediate)
+- If S2-S9 historical migration is later requested, this file becomes the entry point for the new sprint's scoping doc.
+- The "(c) bounded" option (tasks-with-tests only) remains viable as a middle path if full migration is too large.
+
 ## Commits in this work
 - `2276be51` (architect) R18.19 zero-pad applied — 9 Sprint units renamed
 - `bc11d861` (planner) S18 dogfood COMPLETE — Sprint.tasks=11 + Sprint.requirements=20; generator emits 11 task md
