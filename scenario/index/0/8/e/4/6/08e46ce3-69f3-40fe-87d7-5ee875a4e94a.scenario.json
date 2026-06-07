@@ -47,6 +47,7 @@
     "createdBy": "robbin-planner",
     "scaffoldNote": "Dogfood continuation: 4th Task scenario.json unit in S18 (after T187/T188/T189). requirements[] empty pending req-eng R18.5 capture. PO confirmed scope + owners (expert + tester) + rule-pair (a)+(b).",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/task-190-tree-expand-append-no-rerender.md",
-    "sourceLine": 5
+    "sourceLine": 5,
+    "slug": "t190-tree-lazy-render-scroll-preservation-append-only"
   }
 }

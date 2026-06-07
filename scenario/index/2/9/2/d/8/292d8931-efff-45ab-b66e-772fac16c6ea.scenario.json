@@ -46,6 +46,7 @@
     "createdBy": "robbin-planner",
     "scaffoldNote": "requirements[] populated by req-eng after R18.1+R18.2 atom uuids land in compound source",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/task-187-trace-narrowing-single-thread-chain.md",
-    "sourceLine": 5
+    "sourceLine": 5,
+    "slug": "t187-trace-narrowing-chain-walker-one-method-per-uc"
   }
 }
