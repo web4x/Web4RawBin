@@ -29,7 +29,26 @@ export class RbDetailView extends HTMLElement {
     this.clearSubs();
     const ref = this.getAttribute('ref') || '';
     const obj = this.graph?.get(refUuid(ref));
-    if (!obj) { this.innerHTML = `<div class="trace-notfound">object not found: ${ref}</div>`; return; }
+    if (!obj) {
+      this.innerHTML = `<div class="dv-head"><span class="dv-type">${ref.split(':')[0] || '?'}</span><h3 class="dv-title">Loading...</h3><code class="dv-uuid">${refUuid(ref)}</code></div><div class="dv-scenario-children"><span style="color:rgba(255,255,255,0.4);font-size:0.7rem">Loading...</span></div>`;
+      fetchDetailData(refUuid(ref)).then(({ children, parent, sourceFile, sourceLine }) => {
+        const head = this.querySelector('.dv-head');
+        if (head) {
+          const name = children.length > 0 ? (parent?.name || refUuid(ref)) : refUuid(ref);
+          head.querySelector('.dv-title')!.textContent = parent?.name || name;
+        }
+        if (sourceFile && head) head.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine));
+        if (parent && head) {
+          head.insertAdjacentHTML('afterend', renderParentLink(parent));
+          this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid }); });
+        }
+        const container = this.querySelector('.dv-scenario-children');
+        if (!container || children.length === 0) { if (container) container.innerHTML = '<div class="dv-empty">no children</div>'; return; }
+        container.innerHTML = `<h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:4px">Children</h4>` + children.map(c => `<div class="dv-link" data-ref="${c.type.toLowerCase()}:${c.uuid}"><span class="dv-rel">${c.type}</span><span class="dv-link-title">${c.name}</span></div>`).join('');
+        container.querySelectorAll('.dv-link').forEach(row => { row.addEventListener('click', () => { const lref = (row as HTMLElement).dataset.ref!; navigate(lref.split(':')[0], 'show', { uuid: lref.split(':')[1] || lref }); }); });
+      });
+      return;
+    }
 
     const links = forwardOnly(obj);
     const rows: string[] = [];

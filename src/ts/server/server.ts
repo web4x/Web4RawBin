@@ -615,8 +615,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const parentUnit = idx.get(ownerIor);
           if (parentUnit) parent = { uuid: ownerIor, type: (parentUnit.ior || '').split(':')[2] || '', name: String(parentUnit.model?.name || '') };
         }
-        const sourceFile = String(unit.model?.sourceFile || '').replace('ior:file:', '') || undefined;
-        const sourceLine = (unit.model?.sourceLine as number) || undefined;
+        const rawSource = String(unit.model?.sourceFile || '').replace('ior:file:', '');
+        const sourceFile = (rawSource && !rawSource.includes('.scenario.json')) ? rawSource : undefined;
+        const sourceLine = sourceFile ? ((unit.model?.sourceLine as number) || undefined) : undefined;
         res.end(JSON.stringify({ uuid, type, name: String(unit.model?.name || ''), children, parent, sourceFile, sourceLine }));
       } catch { res.writeHead(500); res.end('{}'); }
       return;
