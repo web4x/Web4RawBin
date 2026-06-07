@@ -319,11 +319,11 @@ Applies to: Sprint scenario unit `model.name`, speaking-name symlink tree direct
 
 > TRON: "on this picture we see the beautiful traceability. BUT on the details view, i want to see ALL methods, not just the traced one. the same on the ScenarioView. for all types. above the scenario view link i want a 'Parent' link. and below it i want to see a Browse File Link, that jumps to the corresponding file in the Browser. there i can open it in the monacco editor. add line information to the link, so that eg on a method or usecase the monacco editor can open at the correct line"
 
-### Decomposition hints (req: confirm against literal)
-- R18.9: Detail view (right pane) shows ALL methods/children of the object (full object), NOT just the traced one — applies to BOTH detail view AND scenario view, for ALL types. (Tree narrowing to one method is correct + unchanged; the DETAIL pane shows the complete object.)
-- R18.10: "Parent" link ABOVE the "Scenario view" link in the detail pane → navigates to the ownerIor parent instance.
-- R18.11: "Browse File" link BELOW the "Scenario view" link → jumps to the corresponding file in the FILE BROWSER (where it can be opened in the Monaco editor).
-- R18.12: The Browse-File link carries LINE information so the Monaco editor opens at the correct line (e.g. a Method or UseCase opens at its source line).
+### Decomposition — CANONICAL numbers (reconciled by req-eng 2026-06-07)
+- **R18.20**: Detail view (right pane) shows ALL methods/children of the object (full object), NOT just the traced one — applies to BOTH detail view AND scenario view, for ALL types. *(Originally hinted as R18.9 — renumbered to avoid collision with R18.9 cycle guard.)*
+- **R18.21**: "Parent" link ABOVE the "Scenario view" link in the detail pane → navigates to the ownerIor parent instance. *(Originally R18.10 → renumbered.)*
+- **R18.22**: "Browse File" link BELOW the "Scenario view" link → file browser. *(Originally R18.11 → renumbered. REVISED by R18.27: target is folder-with-highlight, not Monaco direct.)*
+- **R18.23**: Browse-File link carries LINE information → editor opens at correct line. *(Originally R18.12 → renumbered. REVISED by R18.28: line carried through browser→editor.)*
 
 ---
 
@@ -331,10 +331,10 @@ Applies to: Sprint scenario unit `model.name`, speaking-name symlink tree direct
 
 > TRON: "here you see impl has a src link, but ALL types should have it. it should NOT open directly in the monaco editor, BUT in the browser folder (2nd picture), with the file highlighted. then i can open the editor. the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file."
 
-### Decomposition hints (req: confirm against literal)
-- R18.13: SOURCE LINK ON ALL TYPES — currently only Implementation shows the src link; EVERY type must have one linking to its source artifact: UseCase → its .puml file; Class/Method/Implementation → its .ts source; Test → its test file; Requirement/Task → its .md (or scenario). Not just Impl.
-- R18.14: Browse-File link opens the FILE BROWSER folder view (/md/<dir>/) with the target file HIGHLIGHTED — it must NOT open Monaco directly. The user opens the editor from the browser.
-- R18.15: The link CARRIES the line so the line survives browser→editor: when the user opens the file in the editor, it jumps to the correct line — a Method jumps to the method's line; a UseCase jumps to its line in the .puml file. (Revises R18.11/R18.12: target = browser-with-highlight, line preserved through to editor.)
+### Decomposition — CANONICAL numbers (reconciled by req-eng 2026-06-07)
+- **R18.26**: SOURCE LINK ON ALL TYPES — every type shows source link to its artifact. *(Originally hinted as R18.13 — renumbered to avoid collision with R18.13 chain-terminates-in-Test.)*
+- **R18.27**: Browse-File link opens the FILE BROWSER folder view (/md/\<dir\>/) with the target file HIGHLIGHTED — not Monaco direct. REVISES R18.22. *(Originally R18.14 → renumbered to avoid collision with R18.14 drawer shadow.)*
+- **R18.28**: Line info carried through browser→editor. REVISES R18.23. *(Originally R18.15 → renumbered to avoid collision with R18.15 back button.)*
 
 ---
 
