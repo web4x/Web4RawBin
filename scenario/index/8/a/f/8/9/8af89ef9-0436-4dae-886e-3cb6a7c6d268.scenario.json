@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "8af89ef9-0436-4dae-886e-3cb6a7c6d268",
+    "name": "R18.19: Sprint numbers are zero-padded 2-digit (01-09, 10-18) for correct lexicographic ordering.",
+    "description": "## LITERAL SOURCE — Follow-on J: Zero-padded sprint numbers for sort (2026-06-05)\n\n> TRON: \"to sort the sprints correctly do 01 - 09 and then 10,11\"\n\n### R18.19: Sprint numbers are zero-padded 2-digit (01-09, 10-18) for correct lexicographic ordering.\n\n[requirement:uuid:18a1b2c3-d4e5-6f70-8190-000000018019]\n\nSprint names/slugs must use 2-digit zero-padded numbers so string-based sorting produces numeric order. \"Sprint 01\", \"Sprint 02\", ... \"Sprint 09\", \"Sprint 10\", \"Sprint 11\", ... \"Sprint 18\". Without zero-padding, lexicographic sort puts \"Sprint 1\" before \"Sprint 10\" before \"Sprint 2\" — wrong order.\n\nApplies to: Sprint scenario unit `model.name`, speaking-name symlink tree directory names, and any sorted display in /trace or /scenario.\n\n**Acceptance criteria:**\n- [ ] Sprint names use 2-digit numbers: \"Sprint 01 — Foundation\" through \"Sprint 18 — ...\"\n- [ ] Lexicographic sort of sprint names produces correct numeric order\n- [ ] Speaking-name tree uses zero-padded slug: `sprint-01-rawbin-foundation/`\n- [ ] Existing Sprint scenario units re-migrated with padded names\n\n→ Sprint-migration task (planner folds into dedup/rename task)",
+    "tronQuote": "> TRON: \"to sort the sprints correctly do 01 - 09 and then 10,11\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/compound-requirement-source.md",
+    "sourceLine": 300
+  }
+}
