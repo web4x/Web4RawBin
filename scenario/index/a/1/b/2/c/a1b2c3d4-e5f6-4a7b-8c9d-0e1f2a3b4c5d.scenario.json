@@ -8,7 +8,9 @@
     "tasks": [
       "ior:instance:b2e72ab1-0111-420b-b82b-387a3b339567"
     ],
-    "tests": []
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/task-91-avatar-persist.md",
+    "sourceLine": 50
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
 }

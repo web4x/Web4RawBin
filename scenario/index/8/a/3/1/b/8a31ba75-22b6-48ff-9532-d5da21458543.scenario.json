@@ -6,7 +6,8 @@
     "name": "Dogfood S17 view-gen: planning.md + task-*.md emitted from scenario.json Sprint+Task units",
     "sprint": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
     "coveredRequirements": [
-      "ior:instance:91a1c36a-bd77-4c05-a5ac-e3f1dfbfac5b"
+      "ior:instance:91a1c36a-bd77-4c05-a5ac-e3f1dfbfac5b",
+      "ior:instance:e575ebf0-812a-4345-95f4-f69e54410efb"
     ],
     "_requirementHints": [
       "R18.3"

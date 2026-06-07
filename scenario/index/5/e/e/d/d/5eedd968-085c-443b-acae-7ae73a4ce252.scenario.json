@@ -25,7 +25,7 @@
     "requirements": [],
     "useCases": [],
     "implementations": [],
-    "sourceFile": "ior:file:src/public/ts/trace/rb-implementation-detail.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-test-detail.ts",
     "sourceLine": 3
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"

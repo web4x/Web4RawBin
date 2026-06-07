@@ -1,0 +1,51 @@
+{
+  "ior": "ior:class:Skill",
+  "model": {
+    "uuid": "c96f4fa2-62e1-4fa0-99dd-a88e7aef6a01",
+    "name": "chain.walk",
+    "description": "Walk the traceability chain from any node (up/down/both). Returns ordered steps with type, name, relation, depth.",
+    "object": "chain",
+    "verb": "walk",
+    "parameters": [
+      {
+        "name": "startIor",
+        "type": "ior:instance",
+        "required": true,
+        "description": "Starting node IOR"
+      },
+      {
+        "name": "direction",
+        "type": "enum:down|up|both",
+        "required": false,
+        "description": "Walk direction (default: both)"
+      },
+      {
+        "name": "maxDepth",
+        "type": "number",
+        "required": false,
+        "description": "Max hops (default: 10)"
+      }
+    ],
+    "returns": {
+      "type": "ChainStep[]",
+      "description": "[{ior, type, name, relation, depth}]"
+    },
+    "impl": "ior:file:src/ts/scenario/skills.ts?function=walkChain",
+    "requirement": "R17.18",
+    "roles": [
+      "robbin-tester",
+      "robbin-architect",
+      "robbin-expert"
+    ],
+    "examples": [
+      {
+        "input": {
+          "startIor": "ior:instance:<req-uuid>",
+          "direction": "down"
+        },
+        "output": "Steps: Requirement\u2192Task\u2192UC\u2192Class\u2192Method\u2192Impl\u2192Test"
+      }
+    ]
+  },
+  "ownerIor": null
+}

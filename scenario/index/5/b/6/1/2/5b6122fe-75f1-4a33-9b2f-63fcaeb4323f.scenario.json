@@ -8,7 +8,9 @@
     "tasks": [
       "ior:instance:428edbf7-ae00-4979-a3b7-3e32eecdc496"
     ],
-    "tests": []
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/requirements.md",
+    "sourceLine": 32
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
 }

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "6e360425-b20b-4c33-acff-cc967bec1b47",
+    "name": "REVISED: Browse File link opens file-browser folder with file highlighted, not Monaco directly.",
+    "altId": "R18.22",
+    "tasks": [
+      "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+}

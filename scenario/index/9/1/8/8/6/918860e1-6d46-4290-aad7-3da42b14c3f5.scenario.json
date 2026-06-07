@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "918860e1-6d46-4290-aad7-3da42b14c3f5",
+    "name": "Parent link above the Scenario-view link navigates to the ownerIor parent instance.",
+    "altId": "R18.21",
+    "tasks": [
+      "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+}

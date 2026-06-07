@@ -1,0 +1,50 @@
+{
+  "ior": "ior:class:Skill",
+  "model": {
+    "uuid": "0644dcf2-e879-412a-9ab0-da3cfcf22dea",
+    "name": "quote.capture",
+    "description": "Capture a Tron directive as an atomic Requirement scenario unit. Deduplicates by text hash.",
+    "object": "quote",
+    "verb": "capture",
+    "parameters": [
+      {
+        "name": "text",
+        "type": "string",
+        "required": true,
+        "description": "Verbatim Tron quote"
+      },
+      {
+        "name": "sprintIor",
+        "type": "ior:instance",
+        "required": true,
+        "description": "Sprint to own the requirement"
+      },
+      {
+        "name": "taskIor",
+        "type": "ior:instance",
+        "required": false,
+        "description": "Optional task to link via TraceLink"
+      }
+    ],
+    "returns": {
+      "type": "SkillResult",
+      "description": "{ior, unit, links[]}"
+    },
+    "impl": "ior:file:src/ts/scenario/skills.ts?function=captureQuote",
+    "requirement": "R17.18",
+    "roles": [
+      "robbin-req",
+      "robbin-po"
+    ],
+    "examples": [
+      {
+        "input": {
+          "text": "the items should have a name attribute",
+          "sprintIor": "ior:instance:sprint-16"
+        },
+        "output": "Requirement unit created + deduped on repeat"
+      }
+    ]
+  },
+  "ownerIor": null
+}

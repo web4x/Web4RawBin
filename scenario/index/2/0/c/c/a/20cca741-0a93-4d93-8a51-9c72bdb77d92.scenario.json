@@ -31,8 +31,8 @@
       "ior:instance:17a00105-0005-4a05-a005-000017010005"
     ],
     "implementations": [],
-    "sourceFile": "ior:file:src/ts/scenario/index.ts",
-    "sourceLine": 3
+    "sourceFile": "ior:file:src/ts/scenario/classes.ts",
+    "sourceLine": 5
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

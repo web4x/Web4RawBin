@@ -23,7 +23,9 @@
       "ior": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml?commit=1316b7e&lines=62-69"
     },
     "class": "ior:instance:c8060ced-11f7-4fc1-bbc6-5c7683cf6463",
-    "method": "ior:instance:76eda98d-2454-4ede-b128-d752668b2c55"
+    "method": "ior:instance:76eda98d-2454-4ede-b128-d752668b2c55",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-124.3-architect-storage-layout.md",
+    "sourceLine": 33
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

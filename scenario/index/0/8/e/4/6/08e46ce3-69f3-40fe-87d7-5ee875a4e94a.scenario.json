@@ -7,7 +7,14 @@
     "sprint": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
     "coveredRequirements": [
       "ior:instance:37147d5d-bdb6-4011-a433-2af6b5ad68b4",
-      "ior:instance:43af9197-cfa5-4da0-9d94-ff8a32d16570"
+      "ior:instance:43af9197-cfa5-4da0-9d94-ff8a32d16570",
+      "ior:instance:a674bb4d-2601-4331-b82b-6428a0ded81e",
+      "ior:instance:54185841-cd2f-4fa4-9760-cfa7f8400b99",
+      "ior:instance:d04d2e83-fccd-43a0-b13f-8c6710cf326e",
+      "ior:instance:3eeea41e-a3e2-4dc5-b1ac-21402f5b3995",
+      "ior:instance:574f9ac1-8471-4d26-bd29-2c1dfbeefb6f",
+      "ior:instance:9de73675-833c-427b-b996-e9ab589a1fd4",
+      "ior:instance:7918528f-0f4f-4948-b86d-9047aaea5b35"
     ],
     "_requirementHints": [
       "R18.5 (req-eng to formalize)"
@@ -38,6 +45,8 @@
     ],
     "createdAt": "2026-06-05",
     "createdBy": "robbin-planner",
-    "scaffoldNote": "Dogfood continuation: 4th Task scenario.json unit in S18 (after T187/T188/T189). requirements[] empty pending req-eng R18.5 capture. PO confirmed scope + owners (expert + tester) + rule-pair (a)+(b)."
+    "scaffoldNote": "Dogfood continuation: 4th Task scenario.json unit in S18 (after T187/T188/T189). requirements[] empty pending req-eng R18.5 capture. PO confirmed scope + owners (expert + tester) + rule-pair (a)+(b).",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/task-190-tree-expand-append-no-rerender.md",
+    "sourceLine": 5
   }
 }

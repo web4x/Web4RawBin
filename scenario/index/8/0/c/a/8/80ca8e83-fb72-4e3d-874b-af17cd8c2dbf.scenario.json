@@ -10,7 +10,9 @@
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case"
+    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/requirements.md",
+    "sourceLine": 43
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
 }

@@ -22,7 +22,9 @@
       "ior": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml?commit=1316b7e&lines=143-149"
     },
     "class": "ior:instance:a4f056d2-463c-4613-8f3b-d3af2069b26c",
-    "method": "ior:instance:75f0015c-3a04-4946-846b-2553c6c66cd4"
+    "method": "ior:instance:75f0015c-3a04-4946-846b-2553c6c66cd4",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml",
+    "sourceLine": 144
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

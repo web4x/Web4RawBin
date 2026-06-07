@@ -26,7 +26,9 @@
     "useCases": [
       "ior:instance:16a01171-d171-4a01-b171-000000117001"
     ],
-    "implementations": []
+    "implementations": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-117-usecase-as-class.md",
+    "sourceLine": 5
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

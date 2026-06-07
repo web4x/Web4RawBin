@@ -8,7 +8,7 @@
     "methods": [],
     "status": "PASS",
     "sourceFile": "ior:file:test/vitest/trace-model.test.ts",
-    "sourceLine": 30
+    "sourceLine": 6
   },
   "ownerIor": null
 }

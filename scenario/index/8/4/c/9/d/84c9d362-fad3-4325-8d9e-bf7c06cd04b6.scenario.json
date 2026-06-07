@@ -26,7 +26,9 @@
     "useCases": [
       "ior:instance:6dffeb33-d8a6-4879-b66f-89d979a1d481"
     ],
-    "implementations": []
+    "implementations": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/task-93-multi-room-lobby.md",
+    "sourceLine": 5
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
 }

@@ -10,7 +10,9 @@
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case"
+    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-15-traceability-browser/requirements.md",
+    "sourceLine": 32
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

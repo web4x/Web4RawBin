@@ -26,7 +26,9 @@
     "useCases": [
       "ior:instance:1e908382-909b-4f82-82bf-f9cf19955f78"
     ],
-    "implementations": []
+    "implementations": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-165-tree-renders-all-7-typed-classes.md",
+    "sourceLine": 5
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

@@ -10,7 +10,9 @@
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case"
+    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-14-legacy-migration/requirements.md",
+    "sourceLine": 37
   },
   "ownerIor": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
 }

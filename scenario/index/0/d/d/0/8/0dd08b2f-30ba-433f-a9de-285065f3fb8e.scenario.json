@@ -10,7 +10,9 @@
       "ior:instance:9a0914b8-4158-4b90-a898-c082cff5c737"
     ],
     "useCases": [],
-    "method": "ior:instance:d2935088-2a32-41e7-afd0-4e8195471ae2"
+    "method": "ior:instance:d2935088-2a32-41e7-afd0-4e8195471ae2",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml",
+    "sourceLine": 157
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

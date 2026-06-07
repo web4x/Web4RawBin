@@ -22,7 +22,9 @@
       "ior": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml?commit=d87e826&lines=141-147"
     },
     "class": "ior:instance:fbd7573d-af75-4ddd-8a29-336e06239c78",
-    "method": "ior:instance:415c9e2d-8e89-4019-851a-4e7a57de48ee"
+    "method": "ior:instance:415c9e2d-8e89-4019-851a-4e7a57de48ee",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-117-usecase-as-class.md",
+    "sourceLine": 31
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

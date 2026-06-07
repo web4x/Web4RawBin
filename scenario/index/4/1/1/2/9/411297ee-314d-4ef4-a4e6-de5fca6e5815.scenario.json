@@ -1,0 +1,76 @@
+{
+  "ior": "ior:class:Skill",
+  "model": {
+    "uuid": "411297ee-314d-4ef4-a4e6-de5fca6e5815",
+    "name": "task.propose",
+    "description": "Propose a new Task linked to a Requirement. Creates Task at Planned state + emits TraceLinks.",
+    "object": "task",
+    "verb": "propose",
+    "parameters": [
+      {
+        "name": "requirementIor",
+        "type": "ior:instance",
+        "required": true,
+        "description": "Requirement this task implements"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "description": "Task name"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": true,
+        "description": "Task description"
+      },
+      {
+        "name": "sprintIor",
+        "type": "ior:instance",
+        "required": true,
+        "description": "Sprint to own the task"
+      },
+      {
+        "name": "assigned",
+        "type": "string",
+        "required": false,
+        "description": "Assigned agent role"
+      },
+      {
+        "name": "effort",
+        "type": "string",
+        "required": false,
+        "description": "Effort estimate (S/M/L)"
+      },
+      {
+        "name": "acceptanceCriteria",
+        "type": "string[]",
+        "required": false,
+        "description": "AC list"
+      }
+    ],
+    "returns": {
+      "type": "SkillResult",
+      "description": "{ior, unit, links[]}"
+    },
+    "impl": "ior:file:src/ts/scenario/skills.ts?function=proposeTask",
+    "requirement": "R17.18",
+    "roles": [
+      "robbin-planner",
+      "robbin-po"
+    ],
+    "examples": [
+      {
+        "input": {
+          "requirementIor": "ior:instance:<req-uuid>",
+          "name": "T999: Fix bug",
+          "description": "Fix the rendering",
+          "sprintIor": "ior:instance:<sprint>"
+        },
+        "output": "Task at Planned + 2 TraceLinks"
+      }
+    ]
+  },
+  "ownerIor": null
+}

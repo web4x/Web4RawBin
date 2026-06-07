@@ -22,7 +22,9 @@
       "ior": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml?commit=d87e826&lines=15-21"
     },
     "class": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0",
-    "method": "ior:instance:8615d646-8ad4-4d31-bcf4-99fbaa0bd911"
+    "method": "ior:instance:8615d646-8ad4-4d31-bcf4-99fbaa0bd911",
+    "sourceFile": "ior:file:test/vitest/trace-consistency.test.ts",
+    "sourceLine": 124
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

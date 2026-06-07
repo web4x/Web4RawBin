@@ -24,7 +24,9 @@
       "ior": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml?commit=1316b7e&lines=112-118"
     },
     "class": "ior:instance:5d9132cf-f49e-4d3b-bc67-5078d0d576d0",
-    "method": "ior:instance:f2930f5e-c748-49f5-888e-2d3aaa9a9012"
+    "method": "ior:instance:f2930f5e-c748-49f5-888e-2d3aaa9a9012",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-124.2-architect-view-templates.md",
+    "sourceLine": 33
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

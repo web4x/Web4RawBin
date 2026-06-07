@@ -26,7 +26,9 @@
     "useCases": [
       "ior:instance:ebfed7a9-c047-4961-85c0-ec29d808a7cd"
     ],
-    "implementations": []
+    "implementations": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-167-trace-mobile-first-layout-width-cap.md",
+    "sourceLine": 5
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

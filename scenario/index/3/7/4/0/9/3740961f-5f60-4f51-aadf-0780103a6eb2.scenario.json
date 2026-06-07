@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "3740961f-5f60-4f51-aadf-0780103a6eb2",
+    "name": "Browse-File link opens the file-browser FOLDER with the target file HIGHLIGHTED \u2014 not Monaco directly.",
+    "altId": "R18.27",
+    "tasks": [
+      "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+}

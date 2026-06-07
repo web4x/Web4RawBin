@@ -3,12 +3,14 @@
   "model": {
     "uuid": "b41c52d6-e7f8-4a90-1b2c-3d4e5f677031",
     "name": "R17.32: The traceability chain starts with atomic require...",
-    "description": "[requirement:uuid:b41c52d6-e7f8-4a90-1b2c-3d4e5f677031]\n  → [T167](./task-167-trace-mobile-first-layout-width-cap.md)\n\n### From T168 (R-E: chain order + roots)\n\n- [ ] **R17.32: The traceability chain starts with atomic requirements as roots.**",
+    "description": "[requirement:uuid:b41c52d6-e7f8-4a90-1b2c-3d4e5f677031]\n  \u2192 [T167](./task-167-trace-mobile-first-layout-width-cap.md)\n\n### From T168 (R-E: chain order + roots)\n\n- [ ] **R17.32: The traceability chain starts with atomic requirements as roots.**",
     "tronQuote": "",
     "tasks": [
       "ior:instance:d0881ad6-ade5-4d60-94a2-fbe5347fd4b6"
     ],
-    "tests": []
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
+    "sourceLine": 200
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

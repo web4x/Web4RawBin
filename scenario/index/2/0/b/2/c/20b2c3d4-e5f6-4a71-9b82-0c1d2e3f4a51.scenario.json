@@ -2,13 +2,15 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "20b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a51",
-    "name": "R10.3 — Tapping your OWN member item opens the read-only ...",
+    "name": "R10.3 \u2014 Tapping your OWN member item opens the read-only ...",
     "description": "> Tron (iPhone test): \"vCard button is missing; the picture isn't the avatar component.\"",
     "tronQuote": "> Tron (iPhone test): \"vCard button is missing; the picture isn't the avatar component.\"",
     "tasks": [
       "ior:instance:e8d3a7b2-5c61-4f08-a3d9-2b7c4e1f9a06"
     ],
-    "tests": []
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-10-contacts-ui/requirements.md",
+    "sourceLine": 20
   },
   "ownerIor": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab"
 }

@@ -34,8 +34,8 @@
       "ior:instance:32ae650c-d936-4696-89cd-8f9369fdc52e",
       "ior:instance:cd3ad57b-7314-4da6-88d0-1113ab508100"
     ],
-    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
-    "sourceLine": 9
+    "sourceFile": "ior:file:src/public/ts/trace-page.ts",
+    "sourceLine": 5
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

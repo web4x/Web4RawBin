@@ -28,8 +28,8 @@
     "tests": [
       "ior:instance:102c3d4e-5f60-4071-8293-c02020202103"
     ],
-    "sourceFile": "ior:file:src/ts/server/TraceConsistency.ts",
-    "sourceLine": 9
+    "sourceFile": "ior:file:src/ts/server/trace-cli.ts",
+    "sourceLine": 6
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

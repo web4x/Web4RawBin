@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "3eeea41e-a3e2-4dc5-b1ac-21402f5b3995",
+    "name": "True-cycle nodes are omitted cleanly \u2014 no visible cut artifact shown to the user.",
+    "altId": "R18.12",
+    "tasks": [
+      "ior:instance:08e46ce3-69f3-40fe-87d7-5ee875a4e94a"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+}

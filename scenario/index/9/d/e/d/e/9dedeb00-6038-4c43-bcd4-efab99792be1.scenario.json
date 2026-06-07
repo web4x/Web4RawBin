@@ -36,7 +36,9 @@
       "ior:instance:57c1f23f-dbac-4b49-a7a2-e0651a986c3f",
       "ior:instance:5eedd968-085c-443b-acae-7ae73a4ce252"
     ],
-    "tests": []
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
+    "sourceLine": 138
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

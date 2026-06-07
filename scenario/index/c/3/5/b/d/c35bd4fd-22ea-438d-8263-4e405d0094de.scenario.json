@@ -1,0 +1,51 @@
+{
+  "ior": "ior:class:Skill",
+  "model": {
+    "uuid": "c35bd4fd-22ea-438d-8263-4e405d0094de",
+    "name": "task.transition",
+    "description": "Transition a Task through its lifecycle FSM. 6 verbs: startRefinement, startCreatingTestCases, startImplementing, startTesting, requestQAReview, tronApprove.",
+    "object": "task",
+    "verb": "transition",
+    "parameters": [
+      {
+        "name": "taskIor",
+        "type": "ior:instance",
+        "required": true,
+        "description": "Task to transition"
+      },
+      {
+        "name": "verb",
+        "type": "enum:startRefinement|startCreatingTestCases|startImplementing|startTesting|requestQAReview|tronApprove",
+        "required": true,
+        "description": "FSM transition verb"
+      },
+      {
+        "name": "tronCommitRef",
+        "type": "string",
+        "required": false,
+        "description": "Required for tronApprove \u2014 commit SHA"
+      }
+    ],
+    "returns": {
+      "type": "SkillResult",
+      "description": "{ior, unit, links[]}"
+    },
+    "impl": "ior:file:src/ts/scenario/skills.ts?function=statusTransition",
+    "requirement": "R17.15",
+    "roles": [
+      "robbin-po",
+      "robbin-expert",
+      "robbin-tester"
+    ],
+    "examples": [
+      {
+        "input": {
+          "taskIor": "ior:instance:<task-uuid>",
+          "verb": "startImplementing"
+        },
+        "output": "Task status \u2192 Implementing"
+      }
+    ]
+  },
+  "ownerIor": null
+}

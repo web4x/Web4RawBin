@@ -26,7 +26,9 @@
     "useCases": [
       "ior:instance:16a01161-d161-4a01-b161-000000116001"
     ],
-    "implementations": []
+    "implementations": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-116-chain-review.md",
+    "sourceLine": 5
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

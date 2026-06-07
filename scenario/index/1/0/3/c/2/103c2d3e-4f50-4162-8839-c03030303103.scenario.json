@@ -30,8 +30,8 @@
     "tests": [
       "ior:instance:103d3e4f-5061-4273-839a-d03030303104"
     ],
-    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-view.ts",
-    "sourceLine": 8
+    "sourceFile": "ior:file:src/public/ts/trace/ViewBus.ts",
+    "sourceLine": 9
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

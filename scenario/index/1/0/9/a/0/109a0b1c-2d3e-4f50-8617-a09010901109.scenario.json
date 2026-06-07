@@ -26,7 +26,9 @@
     "useCases": [
       "ior:instance:ba4fa0ee-bde0-4a42-8291-d43fb68196e3"
     ],
-    "implementations": []
+    "implementations": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/task-109-avatar-recurrence-fix.md",
+    "sourceLine": 5
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
 }
