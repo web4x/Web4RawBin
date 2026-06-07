@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "3a88164d-2213-47c3-b2b7-8f31bdff8917",
+    "name": "R18.10: Tree lazy-loads only the NEXT layer per expand — not the full subtree.",
+    "description": "> TRON: \"these cases [T123↔R16.4 infinite cycle in trace tree] have to completely be eliminated. also lazy loading just the next layer would prevent the issue here.\"\n\nEach expand click loads ONLY the immediate children of the clicked node — one layer deep. It does NOT recursively load grandchildren or the full subtree. This prevents the cycle issue (a cycle cannot recurse if only one layer loads at a time) and keeps the tree responsive. The user must explicitly click to expand each successive level.\n\n**Deduplication check:** R18.6 covers DOM append (no full re-render). R-Y1/R-V1 cover lazy-load data fetch at every depth. R18.10 is the DEPTH LIMIT per expand — only one layer, not recursive. Complements R18.6 and R-Y1 but is a distinct constraint.\n\n**Acceptance criteria:**\n- [ ] Expanding a node fetches and renders only its immediate children (depth=1)\n- [ ] Grandchildren are NOT fetched until the user expands a child node\n- [ ] Even if data contains deep nesting, only one layer appears per click\n- [ ] Combined with R18.9 cycle guard: cycles cannot recurse because only one layer loads",
+    "tronQuote": "> TRON: \"these cases [T123↔R16.4 infinite cycle in trace tree] have to completely be eliminated. also lazy loading just the next layer would prevent the issue here.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/compound-requirement-source.md",
+    "sourceLine": 141
+  }
+}
