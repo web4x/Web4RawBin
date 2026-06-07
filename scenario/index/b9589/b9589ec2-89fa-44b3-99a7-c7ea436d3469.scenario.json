@@ -7,7 +7,9 @@
     "methods": [
       "ior:instance:0887265f-6652-451b-8986-34b6a7f909b1"
     ],
-    "useCases": []
+    "useCases": [],
+    "sourceFile": "ior:file:src/ts/shared/TraceModel.ts",
+    "sourceLine": 46
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
 }

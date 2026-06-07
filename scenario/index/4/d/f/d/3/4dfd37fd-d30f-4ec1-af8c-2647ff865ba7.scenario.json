@@ -11,8 +11,8 @@
     ],
     "useCases": [],
     "method": "ior:instance:9d5369a9-17af-4884-bfdd-f981450f3852",
-    "sourceFile": "ior:file:scenario/index/4/d/f/d/3/4dfd37fd-d30f-4ec1-af8c-2647ff865ba7.scenario.json",
-    "sourceLine": 1
+    "sourceFile": "ior:file:src/ts/scenario/ior-resolver.ts",
+    "sourceLine": 26
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

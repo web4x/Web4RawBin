@@ -8,7 +8,9 @@
       "ior:instance:5009f929-a3a4-4db7-bf53-8ef1d991f1a2"
     ],
     "useCases": [],
-    "method": "ior:instance:5009f929-a3a4-4db7-bf53-8ef1d991f1a2"
+    "method": "ior:instance:5009f929-a3a4-4db7-bf53-8ef1d991f1a2",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-requirement-detail.ts",
+    "sourceLine": 15
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

@@ -10,7 +10,9 @@
       "ior:instance:fdc81fce-802f-4bd8-879b-d905311a887b"
     ],
     "useCases": [],
-    "method": "ior:instance:8615d646-8ad4-4d31-bcf4-99fbaa0bd911"
+    "method": "ior:instance:8615d646-8ad4-4d31-bcf4-99fbaa0bd911",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "sourceLine": 10
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }
