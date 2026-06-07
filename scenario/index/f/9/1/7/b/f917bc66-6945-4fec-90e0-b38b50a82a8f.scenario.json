@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "f917bc66-6945-4fec-90e0-b38b50a82a8f",
+    "name": "R18.17: /trace sprint list shows each sprint exactly ONCE — no duplicates.",
+    "description": "> TRON: \"you see a fundamental duplication flaw and missing sprint numbers\"\n\nThe /trace browser's sprint list currently shows each sprint twice. This is either a data issue (duplicate Sprint scenario units in the index — the same duplication pattern seen with the 12 duplicate Class pairs) or a rendering issue (the sprint list query returns duplicates). Each sprint must appear exactly once in the list.\n\n**Acceptance criteria:**\n- [ ] /trace sprint list shows each sprint name exactly once\n- [ ] No duplicate Sprint scenario units in the index (or if duplicates exist in data, the renderer deduplicates)",
+    "tronQuote": "> TRON: \"you see a fundamental duplication flaw and missing sprint numbers\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/compound-requirement-source.md",
+    "sourceLine": 272
+  }
+}
