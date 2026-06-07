@@ -349,3 +349,15 @@ The detail pane's "Traceability Chain" section currently shows ALL children (sam
 ### R18.25: Tree narrowed chain continues past Method through Implementation to Test — not stopping at Method.
 
 The /trace tree currently stops the chain at Method level — it does not expand further to show Implementation → Test(s). The chain must continue the full 7-step depth: req → task → UC → class → method → **impl → test**. This is the same gap as R18.13 (chain terminates in Test) but specifically about the tree UI not rendering the last two levels.
+
+---
+
+## EVIDENCE — Tron-provided screenshots (2026-06-05)
+
+Process (Tron directive): every picture Tron provides is recorded here + referenced in the corresponding task. (Binaries: drop in ./evidence/ — chat-pasted images have no repo path; descriptions recorded until binaries land.)
+
+- **E1** /trace sprint list — duplication flaw (each sprint listed 2x) + missing sprint numbers. → drove T198 dedup + numbered/zero-padded names + S2-S9 migration.
+- **E2** /trace RbObjectItem detail — "Traceability Chain = All children" (both show all 7 methods; chain should be narrowed) + tree chain stops at Method (not Impl/Test). → R18 narrowing bugs B1+B2.
+- **E3** /scenario Implementation detail — has a src link, but ALL types should; link should open file-browser-with-highlight (not Monaco direct) + carry line. → R18.13-15.
+- **E4** /md file-browser folder view (target of the Browse-File link). → R18.14 highlight param.
+- **E5** earlier S16: /trace tree + DetailViewContainer drawer (Google-Maps style). → S16 T110.
