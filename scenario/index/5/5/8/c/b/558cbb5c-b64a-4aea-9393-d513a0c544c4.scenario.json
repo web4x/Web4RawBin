@@ -9,7 +9,9 @@
     "classes": [
       "ior:instance:c8060ced-11f7-4fc1-bbc6-5c7683cf6463"
     ],
-    "class": "ior:instance:c8060ced-11f7-4fc1-bbc6-5c7683cf6463"
+    "class": "ior:instance:c8060ced-11f7-4fc1-bbc6-5c7683cf6463",
+    "sourceFile": "ior:file:scenario/index/5/5/8/c/b/558cbb5c-b64a-4aea-9393-d513a0c544c4.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:bce39256-6743-406e-b090-92ea2d13cde8"
 }

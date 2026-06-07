@@ -1,0 +1,29 @@
+{
+  "ior": "ior:class:Skill",
+  "model": {
+    "uuid": "c61bc892-3d10-4f51-9400-d62e249d0ada",
+    "name": "ship.staticShell",
+    "object": "ship",
+    "verb": "staticShell",
+    "description": "Rule #67: New SPA route or changed bundle hash → update sw.js STATIC_SHELL. build.mjs auto-injects hashed names.",
+    "parameters": [
+      {
+        "name": "route",
+        "type": "string",
+        "required": false,
+        "description": "New route path if adding one"
+      }
+    ],
+    "returns": {
+      "type": "void"
+    },
+    "impl": "ior:file:build.mjs?function=autoInjectStaticShell",
+    "requirement": "R17.18",
+    "roles": [
+      "robbin-expert"
+    ],
+    "sourceFile": "ior:file:scenario/index/c/6/1/b/c/c61bc892-3d10-4f51-9400-d62e249d0ada.scenario.json",
+    "sourceLine": 1
+  },
+  "ownerIor": null
+}

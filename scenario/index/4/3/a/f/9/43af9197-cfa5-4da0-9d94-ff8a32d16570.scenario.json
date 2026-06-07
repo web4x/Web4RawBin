@@ -2,12 +2,14 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "43af9197-cfa5-4da0-9d94-ff8a32d16570",
-    "name": "Tree preserves scroll position on expand/collapse \u2014 no jump to top.",
+    "name": "Tree preserves scroll position on expand/collapse — no jump to top.",
     "altId": "R18.7",
     "tasks": [
       "ior:instance:08e46ce3-69f3-40fe-87d7-5ee875a4e94a"
     ],
-    "tests": []
+    "tests": [],
+    "sourceFile": "ior:file:scenario/index/4/3/a/f/9/43af9197-cfa5-4da0-9d94-ff8a32d16570.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

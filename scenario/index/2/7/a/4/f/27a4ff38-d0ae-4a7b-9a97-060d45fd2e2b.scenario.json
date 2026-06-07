@@ -5,7 +5,9 @@
     "name": "TraceConsistency.scanRepo impl",
     "tests": [
       "ior:instance:102c3d4e-5f60-4071-8293-c02020202103"
-    ]
+    ],
+    "sourceFile": "ior:file:scenario/index/2/7/a/4/f/27a4ff38-d0ae-4a7b-9a97-060d45fd2e2b.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:963b67a2-488c-4580-b5ba-697537f02754"
 }

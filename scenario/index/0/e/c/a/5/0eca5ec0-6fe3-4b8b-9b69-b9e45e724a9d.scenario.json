@@ -1,0 +1,29 @@
+{
+  "ior": "ior:class:Skill",
+  "model": {
+    "uuid": "0eca5ec0-6fe3-4b8b-9b69-b9e45e724a9d",
+    "name": "ship.versionBump",
+    "object": "ship",
+    "verb": "versionBump",
+    "description": "Rule #66: Every user-facing surface change bumps package.json version + sw.js CACHE_NAME. build.mjs auto-stamps CACHE_NAME.",
+    "parameters": [
+      {
+        "name": "version",
+        "type": "string",
+        "required": true,
+        "description": "New semver version"
+      }
+    ],
+    "returns": {
+      "type": "void"
+    },
+    "impl": "ior:file:build.mjs?function=stampCacheName",
+    "requirement": "R17.18",
+    "roles": [
+      "robbin-expert"
+    ],
+    "sourceFile": "ior:file:scenario/index/0/e/c/a/5/0eca5ec0-6fe3-4b8b-9b69-b9e45e724a9d.scenario.json",
+    "sourceLine": 1
+  },
+  "ownerIor": null
+}

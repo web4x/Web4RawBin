@@ -5,7 +5,9 @@
     "name": "TraceConsistency.validate impl",
     "tests": [
       "ior:instance:102c3d4e-5f60-4071-8293-c02020202103"
-    ]
+    ],
+    "sourceFile": "ior:file:scenario/index/0/4/3/1/b/0431ba2a-623f-437d-af3b-9ae6e2188d8e.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:e6a2d67f-0f6e-4394-be50-5a6a068bcd03"
 }

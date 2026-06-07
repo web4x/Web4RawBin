@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "2370d3b3-f0ee-4865-855f-f47880e8c6b3",
-    "name": "Sprint 17 \u2014 Scenario Units",
+    "name": "Sprint 17 — Scenario Units",
     "number": 17,
     "goal": "",
     "status": "In Progress",
@@ -58,7 +58,9 @@
       "ior:instance:75628241-9157-4385-a7f0-f4f7a3142737",
       "ior:instance:7a5f0eb9-7a33-492b-991a-b13c431dc695"
     ],
-    "requirements": []
+    "requirements": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/planning.md",
+    "sourceLine": 1
   },
   "ownerIor": null
 }

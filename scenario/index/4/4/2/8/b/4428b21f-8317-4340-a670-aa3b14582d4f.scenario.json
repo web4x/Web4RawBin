@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "4428b21f-8317-4340-a670-aa3b14582d4f",
-    "name": "S1 Foundation \u2014 Bootstrap RawBin team and server",
+    "name": "S1 Foundation — Bootstrap RawBin team and server",
     "description": "Clone ud-team, strip game logic, rebrand as RawBin. Pre-traceability era requirement (synthetic, created by T172 for chain completeness).",
     "tasks": [
       "ior:instance:01df5b22-b485-40c4-b9fc-57a85676dfa5",
@@ -17,7 +17,9 @@
       "ior:instance:2fa531f7-871a-4f4d-9c0a-8f7bae3492e1",
       "ior:instance:2dd5e06c-646a-493d-958a-c835ddaa4f5c"
     ],
-    "tests": []
+    "tests": [],
+    "sourceFile": "ior:file:scenario/index/4/4/2/8/b/4428b21f-8317-4340-a670-aa3b14582d4f.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
 }

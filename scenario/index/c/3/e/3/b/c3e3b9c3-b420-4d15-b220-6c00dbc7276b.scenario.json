@@ -3,6 +3,8 @@
   "model": {
     "uuid": "c3e3b9c3-b420-4d15-b220-6c00dbc7276b",
     "name": "AppClient",
-    "methods": []
+    "methods": [],
+    "sourceFile": "ior:file:scenario/index/c/3/e/3/b/c3e3b9c3-b420-4d15-b220-6c00dbc7276b.scenario.json",
+    "sourceLine": 1
   }
 }

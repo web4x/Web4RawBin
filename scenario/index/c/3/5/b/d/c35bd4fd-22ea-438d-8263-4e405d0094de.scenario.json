@@ -23,7 +23,7 @@
         "name": "tronCommitRef",
         "type": "string",
         "required": false,
-        "description": "Required for tronApprove \u2014 commit SHA"
+        "description": "Required for tronApprove — commit SHA"
       }
     ],
     "returns": {
@@ -43,9 +43,11 @@
           "taskIor": "ior:instance:<task-uuid>",
           "verb": "startImplementing"
         },
-        "output": "Task status \u2192 Implementing"
+        "output": "Task status → Implementing"
       }
-    ]
+    ],
+    "sourceFile": "ior:file:scenario/index/c/3/5/b/d/c35bd4fd-22ea-438d-8263-4e405d0094de.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": null
 }

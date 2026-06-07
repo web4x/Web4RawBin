@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Skill",
+  "model": {
+    "uuid": "61c07075-7afd-42fa-b7c2-8f43ce6e097d",
+    "name": "rule.compoundIsInput",
+    "object": "rule",
+    "verb": "compoundIsInput",
+    "description": "Rule 11: Compound source is INPUT, not OUTPUT. compound-requirement-source*.md is raw input; requirements.md is authoritative.",
+    "parameters": [],
+    "returns": {
+      "type": "void"
+    },
+    "impl": "ior:file:scrum.pmo/standards/refinement-precedence-analysis.md?section=Rule11",
+    "requirement": "R-CHAMP",
+    "roles": [
+      "robbin-req"
+    ],
+    "sourceFile": "ior:file:scenario/index/6/1/c/0/7/61c07075-7afd-42fa-b7c2-8f43ce6e097d.scenario.json",
+    "sourceLine": 1
+  },
+  "ownerIor": null
+}

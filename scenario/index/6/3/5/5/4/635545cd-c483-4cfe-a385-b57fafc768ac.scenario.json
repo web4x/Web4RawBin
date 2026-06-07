@@ -8,7 +8,9 @@
     "implementations": [
       "ior:instance:750f7175-f462-4d6e-9f64-4b86a6c1b7fa"
     ],
-    "implementation": "ior:instance:750f7175-f462-4d6e-9f64-4b86a6c1b7fa"
+    "implementation": "ior:instance:750f7175-f462-4d6e-9f64-4b86a6c1b7fa",
+    "sourceFile": "ior:file:scenario/index/6/3/5/5/4/635545cd-c483-4cfe-a385-b57fafc768ac.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:e4c9c03c-37b3-4fc5-85f2-d34697d6aaa1"
 }

@@ -5,7 +5,9 @@
     "name": "impl-bridge: T47 file encryption",
     "tests": [
       "ior:instance:490c3106-4b8d-4d9f-8d43-da2e3a91b1d3"
-    ]
+    ],
+    "sourceFile": "ior:file:scenario/index/6/f/a/b/2/6fab203e-9554-472f-8f75-cafebec000de.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

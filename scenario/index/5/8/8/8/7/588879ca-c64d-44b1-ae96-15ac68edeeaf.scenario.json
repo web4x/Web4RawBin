@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Skill",
+  "model": {
+    "uuid": "588879ca-c64d-44b1-ae96-15ac68edeeaf",
+    "name": "rule.depsNotChainLinks",
+    "object": "rule",
+    "verb": "depsNotChainLinks",
+    "description": "Rule 3: Task dependencies are NOT chain links. Chain = WHY (forward-only). Dependency = WHAT builds first (scheduling metadata).",
+    "parameters": [],
+    "returns": {
+      "type": "void"
+    },
+    "impl": "ior:file:scrum.pmo/standards/refinement-precedence-analysis.md?section=Rule3",
+    "requirement": "R-CHAMP",
+    "roles": [
+      "robbin-architect",
+      "robbin-planner"
+    ],
+    "sourceFile": "ior:file:scenario/index/5/8/8/8/7/588879ca-c64d-44b1-ae96-15ac68edeeaf.scenario.json",
+    "sourceLine": 1
+  },
+  "ownerIor": null
+}

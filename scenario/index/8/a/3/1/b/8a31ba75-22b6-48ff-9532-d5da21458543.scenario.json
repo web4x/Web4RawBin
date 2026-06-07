@@ -12,7 +12,7 @@
     "_requirementHints": [
       "R18.3"
     ],
-    "_r18.8Note": "NAVIGATION-layer field per architect R18.8 (562f6452): Task.coveredRequirements[] is the display denormalization for Sprint\u2192Task\u2192Reqs tree. Chain direction stays Req\u2192Task (forward). req-eng populates when atomic Req units commit.",
+    "_r18.8Note": "NAVIGATION-layer field per architect R18.8 (562f6452): Task.coveredRequirements[] is the display denormalization for Sprint→Task→Reqs tree. Chain direction stays Req→Task (forward). req-eng populates when atomic Req units commit.",
     "useCases": [],
     "status": "Planned",
     "owners": {
@@ -21,10 +21,12 @@
       "expert": "robbin-expert",
       "tester": "robbin-tester"
     },
-    "description": "Bootstrap: this task IS the dogfood \u2014 Sprint 18 itself is being authored as scenario.json units (this file, the Sprint unit 5b950725-..., the other Task units, the Requirement units when req-eng commits them, and the UseCase/Class/Method units when architect commits them). T126 ViewGenerator (R17.7-R17.10) emits scrum.pmo/sprints/sprint-18-chain-method-scope/planning.md + task-187-*.md + task-188-*.md + task-189-*.md from the scenario units. The .md files become generated views, not hand-authored source. Verifies the S17 model can author a sprint end-to-end from units.",
-    "rulePairHints": "(c) EXEMPT \u2014 view-generation tooling, no new HTML route; (a)+(b) needed if ViewGenerator emits to a routed asset",
+    "description": "Bootstrap: this task IS the dogfood — Sprint 18 itself is being authored as scenario.json units (this file, the Sprint unit 5b950725-..., the other Task units, the Requirement units when req-eng commits them, and the UseCase/Class/Method units when architect commits them). T126 ViewGenerator (R17.7-R17.10) emits scrum.pmo/sprints/sprint-18-chain-method-scope/planning.md + task-187-*.md + task-188-*.md + task-189-*.md from the scenario units. The .md files become generated views, not hand-authored source. Verifies the S17 model can author a sprint end-to-end from units.",
+    "rulePairHints": "(c) EXEMPT — view-generation tooling, no new HTML route; (a)+(b) needed if ViewGenerator emits to a routed asset",
     "createdAt": "2026-06-05",
     "createdBy": "robbin-planner",
-    "scaffoldNote": "requirements[] populated by req-eng after R18.3 atom uuid lands"
+    "scaffoldNote": "requirements[] populated by req-eng after R18.3 atom uuid lands",
+    "sourceFile": "ior:file:scenario/index/8/a/3/1/b/8a31ba75-22b6-48ff-9532-d5da21458543.scenario.json",
+    "sourceLine": 1
   }
 }

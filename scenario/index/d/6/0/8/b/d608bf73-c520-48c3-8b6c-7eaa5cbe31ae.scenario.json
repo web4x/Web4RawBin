@@ -5,7 +5,9 @@
     "name": "RbDetailView.renderObject impl",
     "tests": [
       "ior:instance:107b7283-94a5-46b7-8a8e-b07070707108"
-    ]
+    ],
+    "sourceFile": "ior:file:scenario/index/d/6/0/8/b/d608bf73-c520-48c3-8b6c-7eaa5cbe31ae.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:a4271cb8-467d-4004-8e41-c5fe972fb3a8"
 }

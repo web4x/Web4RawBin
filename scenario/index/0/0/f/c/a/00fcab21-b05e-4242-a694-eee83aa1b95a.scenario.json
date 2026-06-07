@@ -2,9 +2,11 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "00fcab21-b05e-4242-a694-eee83aa1b95a",
-    "name": "Sprint 8 \u2014 Monaco Editor",
+    "name": "Sprint 8 — Monaco Editor",
     "number": 8,
     "tasks": [],
-    "requirements": []
+    "requirements": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-8-monaco-editor/planning.md",
+    "sourceLine": 1
   }
 }

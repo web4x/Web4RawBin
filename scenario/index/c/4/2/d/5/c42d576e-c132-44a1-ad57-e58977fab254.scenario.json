@@ -10,7 +10,9 @@
     "direction": "bidirectional",
     "label": "requirement:9dedeb00 implements task:82ec736c",
     "createdAt": "2026-06-02T07:59:50.493Z",
-    "createdBy": "migrate-to-scenario.ts"
+    "createdBy": "migrate-to-scenario.ts",
+    "sourceFile": "ior:file:scenario/index/c/4/2/d/5/c42d576e-c132-44a1-ad57-e58977fab254.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": null
 }

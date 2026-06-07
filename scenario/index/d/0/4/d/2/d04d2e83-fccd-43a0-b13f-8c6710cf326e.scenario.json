@@ -2,12 +2,14 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d04d2e83-fccd-43a0-b13f-8c6710cf326e",
-    "name": "Cycle guard is ancestor-path-precise \u2014 only break true ancestor cycles, preserve DAG re-convergence.",
+    "name": "Cycle guard is ancestor-path-precise — only break true ancestor cycles, preserve DAG re-convergence.",
     "altId": "R18.11",
     "tasks": [
       "ior:instance:08e46ce3-69f3-40fe-87d7-5ee875a4e94a"
     ],
-    "tests": []
+    "tests": [],
+    "sourceFile": "ior:file:scenario/index/d/0/4/d/2/d04d2e83-fccd-43a0-b13f-8c6710cf326e.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

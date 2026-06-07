@@ -5,7 +5,9 @@
     "name": "RbTraceTree.renderSeed impl",
     "tests": [
       "ior:instance:108c8394-a5b6-47c8-89af-c08080808109"
-    ]
+    ],
+    "sourceFile": "ior:file:scenario/index/a/9/e/6/0/a9e60252-c08a-4ac0-851e-5d1585662f66.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:cd3ad57b-7314-4da6-88d0-1113ab508100"
 }

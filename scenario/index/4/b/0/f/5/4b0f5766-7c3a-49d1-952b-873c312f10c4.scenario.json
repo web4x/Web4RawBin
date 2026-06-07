@@ -8,7 +8,9 @@
     "implementations": [
       "ior:instance:2ac9ea1b-ce69-4861-b5c9-a6bcc28be268"
     ],
-    "implementation": "ior:instance:2ac9ea1b-ce69-4861-b5c9-a6bcc28be268"
+    "implementation": "ior:instance:2ac9ea1b-ce69-4861-b5c9-a6bcc28be268",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "sourceLine": 41
   },
   "ownerIor": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"
 }

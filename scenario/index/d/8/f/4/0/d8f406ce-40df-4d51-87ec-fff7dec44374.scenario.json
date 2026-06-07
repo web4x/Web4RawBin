@@ -5,7 +5,9 @@
     "name": "RbTraceTree.nodeEl impl",
     "tests": [
       "ior:instance:108c8394-a5b6-47c8-89af-c08080808109"
-    ]
+    ],
+    "sourceFile": "ior:file:scenario/index/d/8/f/4/0/d8f406ce-40df-4d51-87ec-fff7dec44374.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:32ae650c-d936-4696-89cd-8f9369fdc52e"
 }

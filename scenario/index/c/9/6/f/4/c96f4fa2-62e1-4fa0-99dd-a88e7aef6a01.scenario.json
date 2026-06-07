@@ -43,9 +43,11 @@
           "startIor": "ior:instance:<req-uuid>",
           "direction": "down"
         },
-        "output": "Steps: Requirement\u2192Task\u2192UC\u2192Class\u2192Method\u2192Impl\u2192Test"
+        "output": "Steps: Requirement→Task→UC→Class→Method→Impl→Test"
       }
-    ]
+    ],
+    "sourceFile": "ior:file:scenario/index/c/9/6/f/4/c96f4fa2-62e1-4fa0-99dd-a88e7aef6a01.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": null
 }

@@ -8,7 +8,9 @@
     "implementations": [
       "ior:instance:bc52c1bc-6e2d-4623-8fb7-3a8944b85dd5"
     ],
-    "implementation": "ior:instance:bc52c1bc-6e2d-4623-8fb7-3a8944b85dd5"
+    "implementation": "ior:instance:bc52c1bc-6e2d-4623-8fb7-3a8944b85dd5",
+    "sourceFile": "ior:file:src/public/ts/vcard-parse.ts",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:bf440a63-a97e-4a25-bd22-cb0fe4faf8d8"
 }

@@ -6,7 +6,9 @@
     "methods": [
       "ior:instance:838bab78-e346-4101-96a0-624a2ead7cde"
     ],
-    "method": "ior:instance:838bab78-e346-4101-96a0-624a2ead7cde"
+    "method": "ior:instance:838bab78-e346-4101-96a0-624a2ead7cde",
+    "sourceFile": "ior:file:src/ts/scenario/trace-link.ts",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:a88e6f9c-a515-4d1a-942d-226b69873af1"
 }

@@ -5,7 +5,9 @@
     "name": "impl-bridge: vCard photo fix",
     "tests": [
       "ior:instance:40f20e19-71a5-47ff-9391-75661b520ed2"
-    ]
+    ],
+    "sourceFile": "ior:file:scenario/index/9/4/b/f/9/94bf95c2-9f73-4147-b2fe-e9e52a2d73f6.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

@@ -9,7 +9,9 @@
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case"
+    "orphanReason": "infra-process: all tasks are infrastructure/process — no user-facing use case",
+    "sourceFile": "ior:file:scenario/index/f/7/b/2/0/f7b2023e-e076-421c-a0c8-f6143d81a1c6.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

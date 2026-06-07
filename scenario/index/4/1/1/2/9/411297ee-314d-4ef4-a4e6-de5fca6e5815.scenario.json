@@ -70,7 +70,9 @@
         },
         "output": "Task at Planned + 2 TraceLinks"
       }
-    ]
+    ],
+    "sourceFile": "ior:file:scenario/index/4/1/1/2/9/411297ee-314d-4ef4-a4e6-de5fca6e5815.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": null
 }

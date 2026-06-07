@@ -9,7 +9,9 @@
       "ior:instance:755a6590-74d1-42fb-90cd-3226b62ba10b"
     ],
     "class": "ior:instance:755a6590-74d1-42fb-90cd-3226b62ba10b",
-    "method": "ior:instance:838bab78-e346-4101-96a0-624a2ead7cde"
+    "method": "ior:instance:838bab78-e346-4101-96a0-624a2ead7cde",
+    "sourceFile": "ior:file:scenario/index/a/8/8/e/6/a88e6f9c-a515-4d1a-942d-226b69873af1.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:306f1ca2-0e9e-4071-a653-994262904463"
 }

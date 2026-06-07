@@ -5,7 +5,9 @@
     "name": "RbDetailDrawer.open impl",
     "tests": [
       "ior:instance:105f5061-7283-4495-8a6c-f05050505106"
-    ]
+    ],
+    "sourceFile": "ior:file:scenario/index/7/2/f/8/2/72f829a3-773f-4344-b464-6aae8a0402e9.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:d2935088-2a32-41e7-afd0-4e8195471ae2"
 }

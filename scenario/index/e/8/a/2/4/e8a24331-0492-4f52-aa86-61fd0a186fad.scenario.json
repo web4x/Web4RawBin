@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Skill",
+  "model": {
+    "uuid": "e8a24331-0492-4f52-aa86-61fd0a186fad",
+    "name": "rule.exhaustiveDecompositionGate",
+    "object": "rule",
+    "verb": "exhaustiveDecompositionGate",
+    "description": "Rule 10: Exhaustive decomposition gate. Verb x noun cross-product checklist. Planner blocks until req-eng signals complete.",
+    "parameters": [],
+    "returns": {
+      "type": "void"
+    },
+    "impl": "ior:file:scrum.pmo/standards/refinement-precedence-analysis.md?section=Rule10",
+    "requirement": "R-CHAMP",
+    "roles": [
+      "robbin-req",
+      "robbin-planner"
+    ],
+    "sourceFile": "ior:file:scenario/index/e/8/a/2/4/e8a24331-0492-4f52-aa86-61fd0a186fad.scenario.json",
+    "sourceLine": 1
+  },
+  "ownerIor": null
+}

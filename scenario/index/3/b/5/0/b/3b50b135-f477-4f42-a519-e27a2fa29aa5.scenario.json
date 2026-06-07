@@ -5,7 +5,9 @@
     "name": "impl-bridge: T109 avatar preserve on rekey",
     "tests": [
       "ior:instance:d9da24e7-c11b-4ba5-85b1-ad568afcc14f"
-    ]
+    ],
+    "sourceFile": "ior:file:scenario/index/3/b/5/0/b/3b50b135-f477-4f42-a519-e27a2fa29aa5.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09"
 }

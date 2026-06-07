@@ -8,7 +8,9 @@
     "implementations": [
       "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61"
     ],
-    "implementation": "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61"
+    "implementation": "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-requirement-detail.ts",
+    "sourceLine": 13
   },
   "ownerIor": "ior:instance:5d9132cf-f49e-4d3b-bc67-5078d0d576d0"
 }

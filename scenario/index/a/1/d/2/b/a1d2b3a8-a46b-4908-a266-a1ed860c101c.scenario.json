@@ -13,6 +13,8 @@
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] implementing\n  - [x] testing\n- [ ] QA Review\n- [ ] Done",
     "description": "Root cause (architect): Requirement:['tasks'] + Task:['coveredRequirements'] created a 2-hop cycle (R16.4 <-> T123). Per R18.8, Task sits ABOVE Requirement in the nav layer — Requirement's forward chain goes to UseCases, not Tasks.\n\nFix 1: Requirement:['tasks'] -> ['useCases'] in BOTH SCENARIO_FWD and TRACE_FWD. Also removed Sprint:['requirements'] (Sprints own Tasks in nav layer).\n\nFix 2: server-side self-cycle filter — childRefs excludes the parent UUID. Combined with the v0.5.92 client-side cycle guard + one-layer lazy-load, this closes the immediate cycle channel. 836/836 pass.\n\nCovers R18.9 (cycle elimination). NOTE: the Req->useCases edge introduced here is subsequently REVERTED in T193 after empirical 0-children regression — see T193 BUG1.",
     "qaAudit": "2026-06-05 6bd58dc1 v0.5.93 T192: break Req→Task 2-cycle + server cycle guard",
-    "subtasks": "None (atomic task)."
+    "subtasks": "None (atomic task).",
+    "sourceFile": "ior:file:scenario/index/a/1/d/2/b/a1d2b3a8-a46b-4908-a266-a1ed860c101c.scenario.json",
+    "sourceLine": 1
   }
 }

@@ -2,9 +2,11 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "afb010c8-1402-42ff-bba8-9859e9c36962",
-    "name": "Sprint 5 \u2014 PWA & Offline",
+    "name": "Sprint 5 — PWA & Offline",
     "number": 5,
     "tasks": [],
-    "requirements": []
+    "requirements": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-5-pwa-offline/planning.md",
+    "sourceLine": 1
   }
 }

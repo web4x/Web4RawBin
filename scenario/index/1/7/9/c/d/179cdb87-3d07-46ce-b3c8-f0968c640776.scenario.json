@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Skill",
+  "model": {
+    "uuid": "179cdb87-3d07-46ce-b3c8-f0968c640776",
+    "name": "rule.reqBeforeTask",
+    "object": "rule",
+    "verb": "reqBeforeTask",
+    "description": "Rule 1: Requirements ALWAYS precede tasks. Req-eng captures + commits requirement BEFORE planner creates task.",
+    "parameters": [],
+    "returns": {
+      "type": "void"
+    },
+    "impl": "ior:file:scrum.pmo/standards/refinement-precedence-analysis.md?section=Rule1",
+    "requirement": "R-CHAMP",
+    "roles": [
+      "robbin-req",
+      "robbin-planner"
+    ],
+    "sourceFile": "ior:file:scenario/index/1/7/9/c/d/179cdb87-3d07-46ce-b3c8-f0968c640776.scenario.json",
+    "sourceLine": 1
+  },
+  "ownerIor": null
+}

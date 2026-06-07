@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Skill",
+  "model": {
+    "uuid": "2a44accd-f394-4247-95d7-b244f180c25c",
+    "name": "rule.letterBlockReservation",
+    "object": "rule",
+    "verb": "letterBlockReservation",
+    "description": "Rule 7: Letter-block reservation + v4 UUID discipline. Disjoint label ranges for req-eng vs planner. Grep pre-flight check.",
+    "parameters": [],
+    "returns": {
+      "type": "void"
+    },
+    "impl": "ior:file:scrum.pmo/standards/refinement-precedence-analysis.md?section=Rule7",
+    "requirement": "R-CHAMP",
+    "roles": [
+      "robbin-req",
+      "robbin-planner"
+    ],
+    "sourceFile": "ior:file:scenario/index/2/a/4/4/a/2a44accd-f394-4247-95d7-b244f180c25c.scenario.json",
+    "sourceLine": 1
+  },
+  "ownerIor": null
+}

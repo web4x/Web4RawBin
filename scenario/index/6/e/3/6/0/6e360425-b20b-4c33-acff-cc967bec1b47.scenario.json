@@ -7,7 +7,9 @@
     "tasks": [
       "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
     ],
-    "tests": []
+    "tests": [],
+    "sourceFile": "ior:file:scenario/index/6/e/3/6/0/6e360425-b20b-4c33-acff-cc967bec1b47.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

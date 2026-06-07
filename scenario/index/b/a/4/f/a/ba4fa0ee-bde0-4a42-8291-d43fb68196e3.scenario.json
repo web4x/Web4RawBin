@@ -10,7 +10,9 @@
     ],
     "tasks": [],
     "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
-    "method": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09"
+    "method": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09",
+    "sourceFile": "ior:file:scenario/index/b/a/4/f/a/ba4fa0ee-bde0-4a42-8291-d43fb68196e3.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:109a0b1c-2d3e-4f50-8617-a09010901109"
 }

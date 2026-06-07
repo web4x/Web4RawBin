@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Skill",
+  "model": {
+    "uuid": "051019cc-e876-4ce0-ad09-202b5dee0fde",
+    "name": "rule.closureFreeze",
+    "object": "rule",
+    "verb": "closureFreeze",
+    "description": "Rule 8: Closed tasks accept NO new commits. Post-closure atoms get fresh T-number.",
+    "parameters": [],
+    "returns": {
+      "type": "void"
+    },
+    "impl": "ior:file:scrum.pmo/standards/refinement-precedence-analysis.md?section=Rule8",
+    "requirement": "R-CHAMP",
+    "roles": [
+      "robbin-planner",
+      "robbin-po"
+    ],
+    "sourceFile": "ior:file:scenario/index/0/5/1/0/1/051019cc-e876-4ce0-ad09-202b5dee0fde.scenario.json",
+    "sourceLine": 1
+  },
+  "ownerIor": null
+}

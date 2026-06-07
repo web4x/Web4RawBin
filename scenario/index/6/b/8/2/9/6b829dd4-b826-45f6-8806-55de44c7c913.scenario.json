@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Skill",
+  "model": {
+    "uuid": "6b829dd4-b826-45f6-8806-55de44c7c913",
+    "name": "rule.deduplicateBeforeCreate",
+    "object": "rule",
+    "verb": "deduplicateBeforeCreate",
+    "description": "Rule 9: Deduplication before creation. Search existing requirements before creating new UUID. Annotate existing if match.",
+    "parameters": [],
+    "returns": {
+      "type": "void"
+    },
+    "impl": "ior:file:scrum.pmo/standards/refinement-precedence-analysis.md?section=Rule9",
+    "requirement": "R-CHAMP",
+    "roles": [
+      "robbin-req"
+    ],
+    "sourceFile": "ior:file:scenario/index/6/b/8/2/9/6b829dd4-b826-45f6-8806-55de44c7c913.scenario.json",
+    "sourceLine": 1
+  },
+  "ownerIor": null
+}

@@ -2,9 +2,11 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "9e1952d5-f4a6-4947-9ac6-d063ffb6b385",
-    "name": "Sprint 6 \u2014 Web Components",
+    "name": "Sprint 6 — Web Components",
     "number": 6,
     "tasks": [],
-    "requirements": []
+    "requirements": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-6-web-components/planning.md",
+    "sourceLine": 1
   }
 }

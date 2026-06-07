@@ -44,7 +44,9 @@
         },
         "output": "Requirement unit created + deduped on repeat"
       }
-    ]
+    ],
+    "sourceFile": "ior:file:scenario/index/0/6/4/4/d/0644dcf2-e879-412a-9ab0-da3cfcf22dea.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": null
 }

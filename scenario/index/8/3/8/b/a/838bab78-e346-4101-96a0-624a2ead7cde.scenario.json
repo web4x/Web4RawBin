@@ -8,7 +8,9 @@
     "implementations": [
       "ior:instance:7dc0ba61-a392-4854-b3b3-35e2766b2418"
     ],
-    "implementation": "ior:instance:7dc0ba61-a392-4854-b3b3-35e2766b2418"
+    "implementation": "ior:instance:7dc0ba61-a392-4854-b3b3-35e2766b2418",
+    "sourceFile": "ior:file:src/ts/scenario/trace-link.ts",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:755a6590-74d1-42fb-90cd-3226b62ba10b"
 }

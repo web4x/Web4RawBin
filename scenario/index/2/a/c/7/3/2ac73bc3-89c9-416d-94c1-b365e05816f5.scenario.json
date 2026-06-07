@@ -6,7 +6,9 @@
     "methods": [
       "ior:instance:804593fc-adba-4087-97fd-471835c2aa40"
     ],
-    "method": "ior:instance:804593fc-adba-4087-97fd-471835c2aa40"
+    "method": "ior:instance:804593fc-adba-4087-97fd-471835c2aa40",
+    "sourceFile": "ior:file:scenario/index/2/a/c/7/3/2ac73bc3-89c9-416d-94c1-b365e05816f5.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:1e18cecf-023d-4472-9842-c2f8e28abd28"
 }

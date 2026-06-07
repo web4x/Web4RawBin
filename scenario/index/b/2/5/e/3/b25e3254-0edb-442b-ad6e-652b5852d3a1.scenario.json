@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Skill",
+  "model": {
+    "uuid": "b25e3254-0edb-442b-ad6e-652b5852d3a1",
+    "name": "rule.compoundDecomposeOnce",
+    "object": "rule",
+    "verb": "compoundDecomposeOnce",
+    "description": "Rule 2: Compound decomposition happens ONCE upfront. Req-eng decomposes ALL atoms in ONE pass before task creation.",
+    "parameters": [],
+    "returns": {
+      "type": "void"
+    },
+    "impl": "ior:file:scrum.pmo/standards/refinement-precedence-analysis.md?section=Rule2",
+    "requirement": "R-CHAMP",
+    "roles": [
+      "robbin-req"
+    ],
+    "sourceFile": "ior:file:scenario/index/b/2/5/e/3/b25e3254-0edb-442b-ad6e-652b5852d3a1.scenario.json",
+    "sourceLine": 1
+  },
+  "ownerIor": null
+}

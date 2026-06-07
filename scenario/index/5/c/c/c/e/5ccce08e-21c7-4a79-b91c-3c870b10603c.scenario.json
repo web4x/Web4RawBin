@@ -5,7 +5,9 @@
     "name": "impl-bridge: T176 R-O module exec proof",
     "tests": [
       "ior:instance:76a00001-0001-4a01-a001-000176010001"
-    ]
+    ],
+    "sourceFile": "ior:file:scenario/index/5/c/c/c/e/5ccce08e-21c7-4a79-b91c-3c870b10603c.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

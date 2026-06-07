@@ -1,0 +1,24 @@
+{
+  "ior": "ior:class:Skill",
+  "model": {
+    "uuid": "6901f944-d300-4f65-86aa-eb4ba9f782b9",
+    "name": "rule.bottomUpCreatesNewReqs",
+    "object": "rule",
+    "verb": "bottomUpCreatesNewReqs",
+    "description": "Rule 5: Bottom-up discovery creates NEW sibling requirements, not back-links. Expert reports need → req-eng captures new R → planner creates new T.",
+    "parameters": [],
+    "returns": {
+      "type": "void"
+    },
+    "impl": "ior:file:scrum.pmo/standards/refinement-precedence-analysis.md?section=Rule5",
+    "requirement": "R-CHAMP",
+    "roles": [
+      "robbin-expert",
+      "robbin-req",
+      "robbin-planner"
+    ],
+    "sourceFile": "ior:file:scenario/index/6/9/0/1/f/6901f944-d300-4f65-86aa-eb4ba9f782b9.scenario.json",
+    "sourceLine": 1
+  },
+  "ownerIor": null
+}

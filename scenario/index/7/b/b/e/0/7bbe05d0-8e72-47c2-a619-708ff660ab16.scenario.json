@@ -64,7 +64,9 @@
       "ior:instance:5b438bb9-1602-4890-9c09-407606a28d6c",
       "ior:instance:94bf95c2-9f73-4147-b2fe-e9e52a2d73f6"
     ],
-    "implementation": "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61"
+    "implementation": "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-task-detail.ts",
+    "sourceLine": 13
   },
   "ownerIor": "ior:instance:f09de66b-34af-47a1-8d0b-8b0c0e9f689f"
 }

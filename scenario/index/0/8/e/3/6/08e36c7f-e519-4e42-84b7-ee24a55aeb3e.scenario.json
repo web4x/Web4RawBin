@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "08e36c7f-e519-4e42-84b7-ee24a55aeb3e",
+    "name": "traceRouter.navigate",
+    "description": "Parse hash route and render matching object view",
+    "classes": [
+      "ior:instance:740385cb-ce33-4216-a857-a5b63d35abb5"
+    ],
+    "source": {
+      "file": "src/public/ts/trace/TraceRouter.ts",
+      "commit": "2ab12654",
+      "ior": "ior:file:src/public/ts/trace/TraceRouter.ts?commit=2ab12654"
+    },
+    "class": "ior:instance:740385cb-ce33-4216-a857-a5b63d35abb5",
+    "method": "ior:instance:d1068f81-dc16-45a0-a52e-7a98c04208fc",
+    "sourceFile": "ior:file:scenario/index/08e36/08e36c7f-e519-4e42-84b7-ee24a55aeb3e.scenario.json",
+    "sourceLine": 1
+  },
+  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
+}

@@ -10,7 +10,9 @@
       "ior:instance:ca54a3eb-c39a-4b85-b985-dcb61ed431a9"
     ],
     "useCases": [],
-    "method": "ior:instance:9d5369a9-17af-4884-bfdd-f981450f3852"
+    "method": "ior:instance:9d5369a9-17af-4884-bfdd-f981450f3852",
+    "sourceFile": "ior:file:scenario/index/4/d/f/d/3/4dfd37fd-d30f-4ec1-af8c-2647ff865ba7.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

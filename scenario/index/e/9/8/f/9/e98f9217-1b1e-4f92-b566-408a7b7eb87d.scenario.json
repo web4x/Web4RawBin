@@ -5,7 +5,9 @@
     "name": "impl-bridge: T7 user profile",
     "tests": [
       "ior:instance:ba9ffcd6-f8ae-49db-ba78-61c72e496226"
-    ]
+    ],
+    "sourceFile": "ior:file:scenario/index/e/9/8/f/9/e98f9217-1b1e-4f92-b566-408a7b7eb87d.scenario.json",
+    "sourceLine": 1
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }
