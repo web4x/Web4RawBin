@@ -324,7 +324,9 @@ function trackClient(req: http.IncomingMessage): void {
 async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {
   trackClient(req);
   try {
-    let filepath = (req.url || '/').split('?')[0];
+    const rawUrl = req.url || '/';
+    let filepath = rawUrl.split('?')[0];
+    const urlParams = new URLSearchParams(rawUrl.includes('?') ? rawUrl.split('?')[1] : '');
 
     // API: bug status update
     if (req.method === 'POST' && filepath === '/api/bug-status') {
@@ -541,8 +543,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const unit = idx.get(uuid);
         if (!unit) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{}'); return; }
         const type = (unit.ior || '').split(':')[2] || '';
-        const rawUrl = req.url || '';
-        const queryMode = rawUrl.includes('?') ? (new URLSearchParams(rawUrl.split('?')[1]).get('mode') || 'scenario') : 'scenario';
+        const queryMode = urlParams.get('mode') || 'scenario';
         const SCENARIO_FWD: Record<string, string[]> = {
           Requirement: ['tasks'], Task: ['subtasks', 'useCases', 'children'], UseCase: ['classes'],
           Class: ['methods'], Method: ['implementations'], Implementation: ['tests'],
@@ -758,7 +759,14 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       try {
         const entries = fsSync.readdirSync(dirPath, { withFileTypes: true });
         const editExts = new Set(['.md', '.sh', '.puml', '.ts', '.css', '.json', '.html', '.env', '.mjs']);
-        const editIcon = (name: string) => editExts.has(path.extname(name)) ? ` <a href="/edit/${relPath}${name}" style="opacity:0.5;text-decoration:none;font-size:0.8em" title="Edit">✏️</a>` : '';
+        const highlightFile = urlParams.get('highlight') || '';
+        const highlightLine = urlParams.get('line') || '';
+        const editIcon = (name: string) => {
+          if (!editExts.has(path.extname(name))) return '';
+          const lineHash = (name === highlightFile && highlightLine) ? `#L${highlightLine}` : '';
+          return ` <a href="/edit/${relPath}${name}${lineHash}" style="opacity:0.5;text-decoration:none;font-size:0.8em" title="Edit">✏️</a>`;
+        };
+        const isHighlighted = (name: string) => name === highlightFile;
         const symlinkIcon = (e: any) => { if (!e.isSymbolicLink()) return ''; try { const target = fsSync.readlinkSync(path.join(dirPath, e.name)); const abs = path.resolve(dirPath, target); const mdRel = path.relative(PROJECT_ROOT, abs); return ` <a href="/edit/${mdRel}" style="text-decoration:none;font-size:0.8em" title="→ ${target}">🔗</a>`; } catch { return ' 🔗'; } };
         const scenarioLink = (e: any) => {
           if (!relPath.startsWith('scenario/sprints.md/') || !e.name.endsWith('.md')) return '';
@@ -781,10 +789,10 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const isFileOrLink = (e: any) => e.isFile() || e.isSymbolicLink();
         const isDir = (e: any) => { if (e.isDirectory()) return true; if (e.isSymbolicLink()) { try { return fsSync.statSync(path.join(dirPath, e.name)).isDirectory(); } catch { return false; } } return false; };
         const dirs = entries.filter(e => isDir(e) && !e.name.startsWith('.')).map(e => `<li>📁 <a href="/md/${relPath}${e.name}/">${e.name}/</a>${symlinkIcon(e)}</li>`);
-        const mds = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.md')).map(e => `<li>📄 <a href="/md/${relPath}${e.name}">${e.name}</a>${inSprintsMd ? scenarioLink(e) : symlinkIcon(e)}${editIcon(e.name)}</li>`);
-        const svgs = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.svg')).map(e => `<li>🖼 <a href="/md/${relPath}${e.name}">${e.name}</a>${symlinkIcon(e)}</li>`);
-        const jsons = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.json')).map(e => `<li>📋 <a href="${jsonHref(e)}">${e.name}</a>${symlinkIcon(e)}${editIcon(e.name)}</li>`);
-        const others = entries.filter(e => isFileOrLink(e) && !e.name.endsWith('.md') && !e.name.endsWith('.svg') && !e.name.endsWith('.json') && !e.name.startsWith('.')).map(e => `<li>${e.name}${symlinkIcon(e)}${editIcon(e.name)}</li>`);
+        const mds = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.md')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>📄 <a href="/md/${relPath}${e.name}">${e.name}</a>${inSprintsMd ? scenarioLink(e) : symlinkIcon(e)}${editIcon(e.name)}</li>`);
+        const svgs = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.svg')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>🖼 <a href="/md/${relPath}${e.name}">${e.name}</a>${symlinkIcon(e)}</li>`);
+        const jsons = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.json')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>📋 <a href="${jsonHref(e)}">${e.name}</a>${symlinkIcon(e)}${editIcon(e.name)}</li>`);
+        const others = entries.filter(e => isFileOrLink(e) && !e.name.endsWith('.md') && !e.name.endsWith('.svg') && !e.name.endsWith('.json') && !e.name.startsWith('.')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>${e.name}${symlinkIcon(e)}${editIcon(e.name)}</li>`);
         res.writeHead(200, { 'Content-Type': 'text/html' });
         res.end(`${pageHead(relPath || '/')}<style>${MD_CSS}</style>${pageNav('/md/', 'Browse')}<div style="max-width:700px;margin:0 auto;padding:0 20px">${breadcrumb(relPath)}<ul>${dirs.join('')}${mds.join('')}${svgs.join('')}${jsons.join('')}${others.join('')}</ul></div></body></html>`);
       } catch { res.writeHead(404); res.end('Directory not found'); }
