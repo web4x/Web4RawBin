@@ -6,7 +6,8 @@
     "description": "> R4 (literal): ListOverview with search \u2192 extensible to remoteSearch.",
     "tronQuote": "> R4 (literal): ListOverview with search \u2192 extensible to remoteSearch.",
     "tasks": [
-      "ior:instance:106f5061-7283-4495-896c-f06060606106"
+      "ior:instance:106f5061-7283-4495-896c-f06060606106",
+      "ior:instance:471b9c4a-378f-4e56-a990-28f82a998b80"
     ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-15-traceability-browser/requirements.md",
