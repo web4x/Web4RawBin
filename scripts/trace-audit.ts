@@ -27,6 +27,14 @@ const CANONICAL_FORWARD: Record<string, string[]> = {
   TraceLink: [],
 };
 
+/**
+ * Orphan-by-design types: excluded from reachability audit.
+ * - TraceLink: edge metadata, not a chain node
+ * - Sprint: navigation container; S01-S09 have empty tasks[] (deferred historical
+ *   migration, PO decision — see task-planner-s2-s9-backfill.md)
+ */
+const ORPHAN_BY_DESIGN_TYPES = new Set(['TraceLink', 'Sprint']);
+
 const BACK_REF_FIELDS: Record<string, string[]> = {
   Task: ['requirements'],
   UseCase: ['requirements'],
@@ -84,7 +92,7 @@ function auditAll(idx: ScenarioIndex): AuditResult {
   const orphans: AuditResult['orphans'] = [];
   for (const [uuid, unit] of units) {
     const type = getType(unit);
-    if (type === 'TraceLink' || type === 'Sprint') continue;
+    if (ORPHAN_BY_DESIGN_TYPES.has(type)) continue;
     if (!visited.has(uuid)) {
       orphans.push({ uuid, type, name: String(unit.model.name || uuid) });
     }
