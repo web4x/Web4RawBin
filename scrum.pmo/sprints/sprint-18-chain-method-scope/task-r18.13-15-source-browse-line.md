@@ -14,6 +14,18 @@
 - [ ] QA Review
 - [ ] Done
 
+## Traceability
+- up
+  - [Sprint 18 Planning](./planning.md)
+  - [compound-requirement-source.md](./compound-requirement-source.md) — Follow-on D/E (R18.13 source link on all types, R18.14 Browse-File → /md/?highlight=, R18.15 line param → /edit#L)
+- related
+  - R18.11 (prior Browse File behavior — direct /edit/ for impl/test) preserved as regression (TS16)
+- down
+  - None (atomic task — three sub-features (R18.13/14/15) share the same source-link rendering surface; one coordinated fix)
+
+## Subtasks
+None (atomic task per the three closely-coupled requirements R18.13/14/15; tester pre-authored 17 test scenarios cover all three).
+
 ## Test Scenarios (tester pre-authored — run on deploy)
 
 ### R18.13: Source link on ALL 7 typed detail views
