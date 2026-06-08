@@ -10,9 +10,7 @@
     "sourceFile": "ior:file:scripts/migrate-to-scenario.ts",
     "sourceLine": 1,
     "parent": "ior:instance:4690a36b-fe00-48b1-85ce-4533403facc9",
-    "unitLinks": [
-      "ior:instance:8c296fa6-a726-4dad-b550-47192cb92328"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:4690a36b-fe00-48b1-85ce-4533403facc9"
 }

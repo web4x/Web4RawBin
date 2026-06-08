@@ -9,10 +9,7 @@
       "ior:instance:5e58a822-dc43-429b-85e6-9d3091465508"
     ],
     "parent": "ior:instance:bac0abd4-c15b-40b8-ae6c-ef265f883a27",
-    "unitLinks": [
-      "ior:instance:105f5061-7283-4495-8a6c-f05050505106",
-      "ior:instance:5e58a822-dc43-429b-85e6-9d3091465508"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:bac0abd4-c15b-40b8-ae6c-ef265f883a27"
 }

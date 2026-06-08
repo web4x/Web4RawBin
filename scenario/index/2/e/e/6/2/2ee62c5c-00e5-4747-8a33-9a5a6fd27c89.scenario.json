@@ -24,11 +24,7 @@
     "qaAudit": "2026-06-05 8f4250c5 T195 Phase A: link T124's 9 existing UCs from s17-usecases.puml\n2026-06-05 947fd38a T195 Phase B+C: Impl→Test + Method→Impl link pipeline\n2026-06-05 5572c103 T195: real [impl:uuid] markers + Impl→Test links + untested-code audit\n2026-06-05 de7cc337 T195 close-out: delete 20 parse-artifact Methods + real SpeakingTree markers\n2026-06-05 afdde0a7 T195 PARSER FIX: method-name extraction treats each + line as ONE method\n2026-06-05 434e57fe T195 Phase A: 24 genuine Object.verb UCs created + 11 artifact requirements deleted\n2026-06-05 f83238b1 T195: populate UC.class+method on 8 new feature UCs (16 flagged for expert)\n2026-06-05 9394cff2 T195: 16 Class+Method+Impl units for feature UCs (0 classless UCs remain)\n2026-06-05 b0c8d8a5 T195: mark 36 infra/process/orphan requirements orphan-by-design\n2026-06-05 0585659f T195: 36 Impl→Test links via source→test component mapping\n2026-06-05 0da2ce0c T195: link 3 declaring tests to chain Impls (struct-mismatch champagne lift)\n2026-06-05 8f3ee321 T195 champagne: fix 22 stale Task→Impl refs + R14.2/R15.6/R15.7 chain closure\n2026-06-05 d8e9a69a T195: add verifies[] for 4 feature reqs (R17.31, R17.32, R15.3, R15.6) → champagne lift\n2026-06-05 60607ffd T195: un-orphan 6 reqs + create UCs for chain breaks (R18.1/R-ED1/R17.14/R17.18/R17.20/R17.26)\n2026-06-05 c3e92295 T195: wire 6 architect UCs — Class→Method→Impl→Test chains\n2026-06-05 3840049c T195: fix contacts UC verb→method mapping — .render fallback → .onClickDelegate",
     "subtasks": "None (atomic task).",
     "unitLinks": [
-      "sprints.json/sprint-18-chain-method-scope/task/t195-object-verb-uc-population-chain-wiring.json",
-      "ior:instance:b55fe0f5-816c-4c48-bb43-9f7e8918e7c8",
-      "ior:instance:c16ab068-d95e-4d02-9533-f9100768299c",
-      "ior:instance:ad721573-cc8a-4819-8f54-251cc4fe258e",
-      "ior:instance:cacdf662-c514-48ba-88b7-2864c058e64b"
+      "sprints.json/sprint-18-chain-method-scope/task/t195-object-verb-uc-population-chain-wiring.json"
     ],
     "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
   },

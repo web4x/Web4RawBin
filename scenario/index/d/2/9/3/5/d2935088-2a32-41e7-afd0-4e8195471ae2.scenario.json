@@ -12,8 +12,7 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "sourceLine": 11,
     "unitLinks": [
-      "sprints.json/sprint-16-traceability-ux/method/rbdetaildrawer-open.json",
-      "ior:instance:72f829a3-773f-4344-b464-6aae8a0402e9"
+      "sprints.json/sprint-16-traceability-ux/method/rbdetaildrawer-open.json"
     ],
     "parent": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
   },

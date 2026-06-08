@@ -30,10 +30,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/task-118-e2e-cleanup.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-13-stability/task/task-118-e2e-cleanup.json",
-      "ior:instance:774033af-7b43-46bd-9e32-848dd0d16f82"
+      "sprints.json/sprint-13-stability/task/task-118-e2e-cleanup.json"
     ],
-    "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
+    "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
+    "coveredRequirements": [
+      "ior:instance:c32974c5-dd10-45a7-b5dd-0d711b412fdc"
+    ]
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
 }

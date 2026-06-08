@@ -30,7 +30,10 @@
     "unitLinks": [
       "sprints.json/sprint-13-stability/task/task-100-test-data-isolation.json"
     ],
-    "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
+    "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
+    "coveredRequirements": [
+      "ior:instance:80ca8e83-fb72-4e3d-874b-af17cd8c2dbf"
+    ]
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
 }

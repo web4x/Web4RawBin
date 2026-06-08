@@ -30,7 +30,10 @@
     "unitLinks": [
       "sprints.json/sprint-15-traceability-browser/task/task-104-object-verb-diagrams.json"
     ],
-    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
+    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
+    "coveredRequirements": [
+      "ior:instance:35c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b03"
+    ]
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

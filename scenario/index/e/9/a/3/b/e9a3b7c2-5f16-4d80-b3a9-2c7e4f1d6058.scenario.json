@@ -30,8 +30,7 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-10-contacts-ui/task-83-self-click-profile.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-10-contacts-ui/task/task-83-self-click-profile.json",
-      "ior:instance:9de1160b-7fb1-4f29-ae8e-e8b02aa4b31c"
+      "sprints.json/sprint-10-contacts-ui/task/task-83-self-click-profile.json"
     ],
     "parent": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab"
   },

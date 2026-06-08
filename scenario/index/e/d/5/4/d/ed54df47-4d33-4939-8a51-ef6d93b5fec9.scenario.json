@@ -9,9 +9,7 @@
     "sourceFile": "ior:file:src/public/ts/trace/TraceRouter.ts",
     "sourceLine": 63,
     "parent": "ior:instance:b9abb018-0a39-41c0-9e4b-84d2d77c3b82",
-    "unitLinks": [
-      "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:b9abb018-0a39-41c0-9e4b-84d2d77c3b82"
 }

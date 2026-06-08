@@ -30,10 +30,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-120-detailsview-black-bg.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-16-traceability-ux/task/task-120-detailsview-black-bg.json",
-      "ior:instance:a51a9ed3-1e17-4783-94f0-4d5d8ffb53d0"
+      "sprints.json/sprint-16-traceability-ux/task/task-120-detailsview-black-bg.json"
     ],
-    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
+    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
+    "coveredRequirements": [
+      "ior:instance:20be0ac2-3a4b-41ef-b744-72354c90d62f"
+    ]
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

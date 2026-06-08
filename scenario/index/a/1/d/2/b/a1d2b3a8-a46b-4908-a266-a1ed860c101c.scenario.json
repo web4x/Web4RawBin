@@ -17,8 +17,7 @@
     "sourceFile": "ior:file:scenario/index/a/1/d/2/b/a1d2b3a8-a46b-4908-a266-a1ed860c101c.scenario.json",
     "sourceLine": 1,
     "unitLinks": [
-      "sprints.json/sprint-18-chain-method-scope/task/t192-break-req-task-2-cycle-server-cycle-guard.json",
-      "ior:instance:f3ee66eb-c18e-4cc2-9ed4-236a940e00c5"
+      "sprints.json/sprint-18-chain-method-scope/task/t192-break-req-task-2-cycle-server-cycle-guard.json"
     ],
     "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
   },

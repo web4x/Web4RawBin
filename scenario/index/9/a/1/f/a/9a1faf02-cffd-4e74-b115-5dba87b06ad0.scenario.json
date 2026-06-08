@@ -30,7 +30,10 @@
     "unitLinks": [
       "sprints.json/sprint-17-scenario-units/task/task-138-skill-set-scenarios.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "coveredRequirements": [
+      "ior:instance:39a893de-1e86-4d0e-ace4-c09be2d42bdb"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

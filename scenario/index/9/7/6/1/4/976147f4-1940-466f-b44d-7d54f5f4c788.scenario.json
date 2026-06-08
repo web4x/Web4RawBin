@@ -11,11 +11,7 @@
     "sourceFile": "ior:file:test/e2e/update-banner.spec.ts",
     "sourceLine": 2,
     "parent": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09",
-    "unitLinks": [
-      "ior:instance:916b8bb0-08ef-4287-98f0-031ddf004723",
-      "ior:instance:5e58a822-dc43-429b-85e6-9d3091465508",
-      "ior:instance:106a6172-8394-44a6-9b7d-061616161607"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09"
 }

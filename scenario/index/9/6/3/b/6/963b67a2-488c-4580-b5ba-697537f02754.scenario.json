@@ -12,8 +12,7 @@
     "sourceFile": "ior:file:src/ts/server/TraceConsistency.ts",
     "sourceLine": 42,
     "unitLinks": [
-      "sprints.json/sprint-16-traceability-ux/method/traceconsistency-scanrepo.json",
-      "ior:instance:27a4ff38-d0ae-4a7b-9a97-060d45fd2e2b"
+      "sprints.json/sprint-16-traceability-ux/method/traceconsistency-scanrepo.json"
     ],
     "parent": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
   },

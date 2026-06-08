@@ -12,9 +12,7 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-usecase-detail.ts",
     "sourceLine": 15,
     "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
-    "unitLinks": [
-      "ior:instance:430de69a-f7e7-409b-8233-22298d6d578c"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

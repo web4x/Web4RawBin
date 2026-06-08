@@ -30,10 +30,13 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-132-html-status-template-fix.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-132-html-status-template-fix.json",
-      "ior:instance:edbae55c-262b-4c5a-bf6b-db2612e5dce1"
+      "sprints.json/sprint-17-scenario-units/task/task-132-html-status-template-fix.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "coveredRequirements": [
+      "ior:instance:3b6cce5a-581c-4325-88b2-b9d381c7f268",
+      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000016"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

@@ -30,10 +30,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-10-contacts-ui/task-81-member-click-vcard.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-10-contacts-ui/task/task-81-member-click-vcard.json",
-      "ior:instance:856c9b1e-fdb9-47f9-a555-6aa70159d3b1"
+      "sprints.json/sprint-10-contacts-ui/task/task-81-member-click-vcard.json"
     ],
-    "parent": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab"
+    "parent": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab",
+    "coveredRequirements": [
+      "ior:instance:10a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f40"
+    ]
   },
   "ownerIor": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab"
 }

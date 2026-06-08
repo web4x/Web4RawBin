@@ -12,9 +12,7 @@
     "sourceFile": "ior:file:src/public/ts/RoomBrowser.ts",
     "sourceLine": 40,
     "parent": "ior:instance:3df1a3e8-a93e-4d48-92fc-2cfe64852a6b",
-    "unitLinks": [
-      "ior:instance:ef863349-470d-420b-b933-8339951bb501"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:3df1a3e8-a93e-4d48-92fc-2cfe64852a6b"
 }

@@ -30,7 +30,10 @@
     "unitLinks": [
       "sprints.json/sprint-1-rawbin-foundation/task/task-2-rawbin-architecture-definition.json"
     ],
-    "parent": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
+    "parent": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2",
+    "coveredRequirements": [
+      "ior:instance:4428b21f-8317-4340-a670-aa3b14582d4f"
+    ]
   },
   "ownerIor": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
 }

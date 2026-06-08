@@ -30,7 +30,12 @@
     "unitLinks": [
       "sprints.json/sprint-17-scenario-units/task/task-169-data-quality-audit-remigrate-complete-tree.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "coveredRequirements": [
+      "ior:instance:a96b07c1-d2e3-4f45-6a7b-8c9d0e120036",
+      "ior:instance:b07c18d2-e3f4-4a56-7b8c-9d0e1f230037",
+      "ior:instance:c18d29e3-f4a5-4b67-8c9d-0e1f2a340038"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

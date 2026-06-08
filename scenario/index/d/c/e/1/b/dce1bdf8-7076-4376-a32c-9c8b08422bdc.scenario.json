@@ -30,10 +30,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-131-file-browser-symlinks.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-131-file-browser-symlinks.json",
-      "ior:instance:9346ddd7-673f-497b-82dc-2164b42950f8"
+      "sprints.json/sprint-17-scenario-units/task/task-131-file-browser-symlinks.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "coveredRequirements": [
+      "ior:instance:cb93f0db-0e42-4795-b41f-2e125120f259"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

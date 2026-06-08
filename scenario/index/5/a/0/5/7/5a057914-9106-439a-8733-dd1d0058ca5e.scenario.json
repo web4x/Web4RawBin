@@ -11,9 +11,7 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "sourceLine": 17,
     "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b",
-    "unitLinks": [
-      "ior:instance:32ae650c-d936-4696-89cd-8f9369fdc52e"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
 }

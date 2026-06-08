@@ -18,15 +18,7 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
     "sourceLine": 14,
     "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
-    "unitLinks": [
-      "ior:instance:c4876ca6-2af0-416f-bb96-e5400137abf1",
-      "ior:instance:9983a1e1-5d34-424a-9766-2db85d5faf88",
-      "ior:instance:81d1c3a4-18b9-4478-b4e9-83b6c3b827cf",
-      "ior:instance:0ab3b64a-a93e-4a74-80e6-744c5c0fc7c4",
-      "ior:instance:a48cc8af-488d-443f-ba01-d33568bb8920",
-      "ior:instance:0560e3e6-d948-44f4-9df0-198d7e53c1ee",
-      "ior:instance:60f103fa-d843-4f30-adbd-b3b45f66617e"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

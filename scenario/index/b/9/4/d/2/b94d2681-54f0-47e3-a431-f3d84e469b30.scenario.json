@@ -32,12 +32,13 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-128-migration.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-128-migration.json",
-      "ior:instance:17a00401-0001-4a01-a001-000017040001",
-      "ior:instance:17a00402-0002-4a02-a002-000017040002",
-      "ior:instance:17a00403-0003-4a03-a003-000017040003"
+      "sprints.json/sprint-17-scenario-units/task/task-128-migration.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "coveredRequirements": [
+      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000005",
+      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000014"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

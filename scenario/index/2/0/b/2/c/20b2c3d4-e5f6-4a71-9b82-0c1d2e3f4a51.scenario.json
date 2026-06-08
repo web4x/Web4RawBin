@@ -12,9 +12,7 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-10-contacts-ui/requirements.md",
     "sourceLine": 20,
     "parent": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab",
-    "unitLinks": [
-      "ior:instance:e8d3a7b2-5c61-4f08-a3d9-2b7c4e1f9a06"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab"
 }

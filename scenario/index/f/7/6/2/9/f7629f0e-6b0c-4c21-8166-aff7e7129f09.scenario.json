@@ -21,17 +21,7 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
     "sourceLine": 6,
     "unitLinks": [
-      "sprints.json/sprint-16-traceability-ux/method/rbobjectitem-render.json",
-      "ior:instance:f2c32dc3-269d-41b7-80db-5fa6d786c221",
-      "ior:instance:976147f4-1940-466f-b44d-7d54f5f4c788",
-      "ior:instance:77e0cee3-c036-4ede-9a6f-cfcbe71e16a2",
-      "ior:instance:624fda5d-5535-486e-b01e-b08571b4c44a",
-      "ior:instance:c85d54d4-1af3-43b3-8ae2-638ce46302a2",
-      "ior:instance:d7ef4453-d06e-4b33-99b4-02c216647036",
-      "ior:instance:3b50b135-f477-4f42-a519-e27a2fa29aa5",
-      "ior:instance:e1983179-5f03-4265-954e-8f004a358af7",
-      "ior:instance:b30a6878-4b32-41a2-acfa-9ba22c0fd30b",
-      "ior:instance:b3e1707a-3f83-4ddc-b37c-184ea5d45961"
+      "sprints.json/sprint-16-traceability-ux/method/rbobjectitem-render.json"
     ],
     "parent": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
   },

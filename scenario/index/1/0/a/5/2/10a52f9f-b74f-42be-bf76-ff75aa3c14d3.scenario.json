@@ -20,9 +20,7 @@
     "qaAudit": "2026-06-05 8680cea3 T197 architect: strip 132 wrong-type Task UUIDs from Method.implementation fields\n2026-06-05 ebf11114 T197 follow-up: fix 6 orphan methods (UC.method ∉ UC.class.methods[])",
     "subtasks": "None (atomic task).",
     "unitLinks": [
-      "sprints.json/sprint-18-chain-method-scope/task/t197-orphan-method-wrong-type-uuid-cleanup.json",
-      "ior:instance:7d59b620-5870-41fe-9a4a-e82d8ab50372",
-      "ior:instance:b55fe0f5-816c-4c48-bb43-9f7e8918e7c8"
+      "sprints.json/sprint-18-chain-method-scope/task/t197-orphan-method-wrong-type-uuid-cleanup.json"
     ],
     "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
   },

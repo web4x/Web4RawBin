@@ -30,10 +30,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-161-requirement-name-renders-tron-quote-not-speaky.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-161-requirement-name-renders-tron-quote-not-speaky.json",
-      "ior:instance:93bfa64a-7425-44bc-9da6-6d084c4d360f"
+      "sprints.json/sprint-17-scenario-units/task/task-161-requirement-name-renders-tron-quote-not-speaky.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "coveredRequirements": [
+      "ior:instance:9dedeb00-6038-4c43-bcd4-efab99792be1"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

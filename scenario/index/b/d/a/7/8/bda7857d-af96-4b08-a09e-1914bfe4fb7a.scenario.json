@@ -17,8 +17,7 @@
     "sourceFile": "ior:file:scenario/index/b/d/a/7/8/bda7857d-af96-4b08-a09e-1914bfe4fb7a.scenario.json",
     "sourceLine": 1,
     "unitLinks": [
-      "sprints.json/sprint-18-chain-method-scope/task/t194-forward-only-fallback-type-check-child-filter.json",
-      "ior:instance:7d59b620-5870-41fe-9a4a-e82d8ab50372"
+      "sprints.json/sprint-18-chain-method-scope/task/t194-forward-only-fallback-type-check-child-filter.json"
     ],
     "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
   },

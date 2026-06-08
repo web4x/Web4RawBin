@@ -22,10 +22,7 @@
     "qaAudit": "2026-06-05 a56fc4e5 T198: create 8 Sprint scenario units for S2-S9 (nav containers)\n2026-06-05 32e29be9 T198 architect: dedupe 9 Sprint units + rename all 10 with numbers + repoint 94 refs\n2026-06-05 51404b24 v0.5.97 T198: min-size on tree items + scroll-into-view on expand",
     "subtasks": "None (atomic task).",
     "unitLinks": [
-      "sprints.json/sprint-18-chain-method-scope/task/t198-sprint-scenario-units-catalogue-cleanup.json",
-      "ior:instance:f917bc66-6945-4fec-90e0-b38b50a82a8f",
-      "ior:instance:8c19e98b-227b-48aa-8aa3-ea60c6189c16",
-      "ior:instance:8af89ef9-0436-4dae-886e-3cb6a7c6d268"
+      "sprints.json/sprint-18-chain-method-scope/task/t198-sprint-scenario-units-catalogue-cleanup.json"
     ],
     "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
   },

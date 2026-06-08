@@ -30,10 +30,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-122-detailview-sticky-bottom.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-16-traceability-ux/task/task-122-detailview-sticky-bottom.json",
-      "ior:instance:84298ac0-3494-4111-9cf9-6ea8d5fb2e4f"
+      "sprints.json/sprint-16-traceability-ux/task/task-122-detailview-sticky-bottom.json"
     ],
-    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
+    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
+    "coveredRequirements": [
+      "ior:instance:bca276d9-8ff6-4234-a562-19e15e4ab8fb"
+    ]
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

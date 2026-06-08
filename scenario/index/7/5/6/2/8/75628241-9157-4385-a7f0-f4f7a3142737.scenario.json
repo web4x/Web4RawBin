@@ -30,10 +30,14 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-171-untraced-closure-r17-26-linkback.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-171-untraced-closure-r17-26-linkback.json",
-      "ior:instance:b863be74-3a7e-47db-ab87-2ff7b7e9365b"
+      "sprints.json/sprint-17-scenario-units/task/task-171-untraced-closure-r17-26-linkback.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "coveredRequirements": [
+      "ior:instance:7e4f8a2b-c3d5-4e6f-9a1b-2c3d4e5f6a25",
+      "ior:instance:b6dc7ed8-e9f0-4a12-3b4c-5d6e7f890043",
+      "ior:instance:c7ed8fe9-f0a1-4b23-4c5d-6e7f8a900044"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

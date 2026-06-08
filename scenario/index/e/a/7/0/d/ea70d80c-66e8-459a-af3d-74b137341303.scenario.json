@@ -30,10 +30,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-147-md-listing-chain-link-icon.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-147-md-listing-chain-link-icon.json",
-      "ior:instance:20b51daa-133a-4923-af20-49c57eb98a3f"
+      "sprints.json/sprint-17-scenario-units/task/task-147-md-listing-chain-link-icon.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "coveredRequirements": [
+      "ior:instance:9dedeb00-6038-4c43-bcd4-efab99792be1"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

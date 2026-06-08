@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "86e3077a-3fda-4c0a-a120-f6811d6252e1",
-    "name": "Sprint 12 \u2014 Editor Fixes",
+    "name": "Sprint 12 — Editor Fixes",
     "number": 12,
     "goal": "",
     "status": "In Progress",
@@ -13,8 +13,7 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-12-editor-fixes/planning.md",
     "sourceLine": 1,
     "unitLinks": [
-      "sprints.json/sprint-12-editor-fixes/sprint.json",
-      "ior:instance:f7a2c4e6-3b8d-4f10-a5c7-9e1d3f5b7a90"
+      "sprints.json/sprint-12-editor-fixes/sprint.json"
     ]
   },
   "ownerIor": null

@@ -14,8 +14,7 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
     "sourceLine": 214,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/requirement/r17-35-one-implementation-can-have-multiple-tests-1-n-c.json",
-      "ior:instance:c3951691-b231-4b60-a2f8-79c9d5ef851e"
+      "sprints.json/sprint-17-scenario-units/requirement/r17-35-one-implementation-can-have-multiple-tests-1-n-c.json"
     ],
     "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
   },

@@ -9,9 +9,7 @@
     ],
     "sourceLine": 10,
     "parent": "ior:instance:75f0015c-3a04-4946-846b-2553c6c66cd4",
-    "unitLinks": [
-      "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:75f0015c-3a04-4946-846b-2553c6c66cd4"
 }

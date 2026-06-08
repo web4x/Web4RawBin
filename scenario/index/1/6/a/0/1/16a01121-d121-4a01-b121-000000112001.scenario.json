@@ -26,10 +26,7 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-112-tree-item-name-desc.md",
     "sourceLine": 30,
     "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
-    "unitLinks": [
-      "ior:instance:311ff74e-7024-4827-a9ee-d9a09c22c1b0",
-      "ior:instance:c4876ca6-2af0-416f-bb96-e5400137abf1"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

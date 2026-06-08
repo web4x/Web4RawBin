@@ -9,9 +9,7 @@
     "sourceFile": "ior:file:scenario/index/d/9/6/a/e/d96ae23b-802f-4452-b8b1-90b11dd6e84e.scenario.json",
     "sourceLine": 1,
     "parent": "ior:instance:f4b0acec-cf50-4916-9696-e89865bca632",
-    "unitLinks": [
-      "ior:instance:105f5061-7283-4495-8a6c-f05050505106"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:f4b0acec-cf50-4916-9696-e89865bca632"
 }

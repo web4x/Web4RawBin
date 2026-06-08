@@ -30,10 +30,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-123-pagenav-sticky-top.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-16-traceability-ux/task/task-123-pagenav-sticky-top.json",
-      "ior:instance:24501668-89cc-4c36-ada4-35e12bc12d1e"
+      "sprints.json/sprint-16-traceability-ux/task/task-123-pagenav-sticky-top.json"
     ],
-    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
+    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
+    "coveredRequirements": [
+      "ior:instance:b2237873-39b9-4154-9624-f809a9ca4983"
+    ]
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

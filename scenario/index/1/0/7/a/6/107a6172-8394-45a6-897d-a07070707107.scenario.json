@@ -33,10 +33,12 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-overview.ts",
     "sourceLine": 11,
     "unitLinks": [
-      "sprints.json/sprint-15-traceability-browser/task/task-107-detail-overview-views.json",
-      "ior:instance:81aa3984-44f7-4b92-805d-c6e7ddc992fe"
+      "sprints.json/sprint-15-traceability-browser/task/task-107-detail-overview-views.json"
     ],
-    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
+    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
+    "coveredRequirements": [
+      "ior:instance:65f6a7b8-c9d0-4e15-9bc6-4a5b6c7d8e06"
+    ]
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

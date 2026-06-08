@@ -30,10 +30,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-150-breadcrumb-link-contrast.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-150-breadcrumb-link-contrast.json",
-      "ior:instance:71edc345-e601-484b-a6f4-529fc3d66691"
+      "sprints.json/sprint-17-scenario-units/task/task-150-breadcrumb-link-contrast.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "coveredRequirements": [
+      "ior:instance:9dedeb00-6038-4c43-bcd4-efab99792be1"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

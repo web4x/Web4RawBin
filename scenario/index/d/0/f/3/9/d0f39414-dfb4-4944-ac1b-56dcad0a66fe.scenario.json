@@ -30,10 +30,13 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-134-traceability-as-units.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-134-traceability-as-units.json",
-      "ior:instance:4690a36b-fe00-48b1-85ce-4533403facc9"
+      "sprints.json/sprint-17-scenario-units/task/task-134-traceability-as-units.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "coveredRequirements": [
+      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000013",
+      "ior:instance:dd8709c3-f076-431e-a4be-64a875cb8888"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

@@ -14,10 +14,7 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml",
     "sourceLine": 217,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/class/scenarioindex.json",
-      "ior:instance:5b84da47-c7f4-4b01-b492-fae21be2e3cd",
-      "ior:instance:f180c93f-5a29-4849-911b-44ba5a86698a",
-      "ior:instance:b9abb018-0a39-41c0-9e4b-84d2d77c3b82"
+      "sprints.json/sprint-17-scenario-units/class/scenarioindex.json"
     ],
     "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
   },

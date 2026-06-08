@@ -12,9 +12,7 @@
     "sourceFile": "ior:file:src/ts/scenario/templates.ts",
     "sourceLine": 15,
     "parent": "ior:instance:6a4207e4-bfd3-4f73-91a6-a6f3c8da945f",
-    "unitLinks": [
-      "ior:instance:7419fa9c-22b4-4cce-808f-376cb22b09fe"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:6a4207e4-bfd3-4f73-91a6-a6f3c8da945f"
 }

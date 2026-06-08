@@ -12,8 +12,7 @@
     "sourceFile": "ior:file:src/ts/scenario/classes.ts",
     "sourceLine": 32,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/method/classregistry-get-name-classloader.json",
-      "ior:instance:c37ebdba-1310-4f6a-9a35-2a2d5d43084d"
+      "sprints.json/sprint-17-scenario-units/method/classregistry-get-name-classloader.json"
     ],
     "parent": "ior:instance:60a20d33-6b6e-4acc-b9da-2685380f23cb"
   },

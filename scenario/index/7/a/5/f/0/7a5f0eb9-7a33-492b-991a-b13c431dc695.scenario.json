@@ -33,8 +33,7 @@
     "sourceFile": "ior:file:src/public/ts/scenario-view.ts",
     "sourceLine": 6,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-173-file-browser-scenario-click-to-trace.json",
-      "ior:instance:04c57f20-ca5d-4ce2-95e4-a83ea574faa5"
+      "sprints.json/sprint-17-scenario-units/task/task-173-file-browser-scenario-click-to-trace.json"
     ],
     "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
   },

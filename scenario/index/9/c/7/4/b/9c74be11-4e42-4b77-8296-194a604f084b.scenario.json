@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "9c74be11-4e42-4b77-8296-194a604f084b",
-    "name": "Sprint 13 \u2014 Stability",
+    "name": "Sprint 13 — Stability",
     "number": 13,
     "goal": "",
     "status": "In Progress",
@@ -29,25 +29,7 @@
     ],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/planning.md",
     "sourceLine": 1,
-    "unitLinks": [
-      "ior:instance:a0b1c2d3-e4f5-4061-8273-849500000100",
-      "ior:instance:109a0b1c-2d3e-4f50-8617-a09010901109",
-      "ior:instance:c2118a07-d18e-4e1b-b9a2-5f8e2c1f0d77",
-      "ior:instance:6461b45e-3b73-4023-bc66-f753662ff798",
-      "ior:instance:c481a2b9-b61d-4a0f-a077-690a9e2e1aa9",
-      "ior:instance:b2e72ab1-0111-420b-b82b-387a3b339567",
-      "ior:instance:ee527264-01d6-452a-9c73-b692e65a3a42",
-      "ior:instance:84c9d362-fad3-4325-8d9e-bf7c06cd04b6",
-      "ior:instance:428edbf7-ae00-4979-a3b7-3e32eecdc496",
-      "ior:instance:1c6c4aa1-7201-4ca8-a8b3-d4491f52ef35",
-      "ior:instance:67bde18f-76f9-43cd-abea-77c2ad7134f9",
-      "ior:instance:80ca8e83-fb72-4e3d-874b-af17cd8c2dbf",
-      "ior:instance:a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
-      "ior:instance:c32974c5-dd10-45a7-b5dd-0d711b412fdc",
-      "ior:instance:b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
-      "ior:instance:b2dfe117-d591-4715-ba62-07b13a8433c0",
-      "ior:instance:5b6122fe-75f1-4a33-9b2f-63fcaeb4323f"
-    ]
+    "unitLinks": []
   },
   "ownerIor": null
 }

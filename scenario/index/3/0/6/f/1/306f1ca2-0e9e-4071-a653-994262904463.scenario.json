@@ -30,10 +30,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-133-task-state-machine.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-133-task-state-machine.json",
-      "ior:instance:a88e6f9c-a515-4d1a-942d-226b69873af1"
+      "sprints.json/sprint-17-scenario-units/task/task-133-task-state-machine.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "coveredRequirements": [
+      "ior:instance:bebee55d-7d39-4f0c-b7de-d56e72d01363"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

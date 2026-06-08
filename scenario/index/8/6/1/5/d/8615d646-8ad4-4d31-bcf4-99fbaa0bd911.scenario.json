@@ -12,9 +12,7 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "sourceLine": 11,
     "parent": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0",
-    "unitLinks": [
-      "ior:instance:1e58b93a-5245-4e7e-9783-fe2d40d9f42d"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"
 }

@@ -12,9 +12,7 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
     "sourceLine": 5,
     "parent": "ior:instance:311ff74e-7024-4827-a9ee-d9a09c22c1b0",
-    "unitLinks": [
-      "ior:instance:f2c32dc3-269d-41b7-80db-5fa6d786c221"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:311ff74e-7024-4827-a9ee-d9a09c22c1b0"
 }

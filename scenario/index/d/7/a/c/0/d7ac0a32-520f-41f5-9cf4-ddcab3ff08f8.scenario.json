@@ -8,9 +8,7 @@
       "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
     ],
     "parent": "ior:instance:674fc9b0-98de-40e4-8287-54908f979065",
-    "unitLinks": [
-      "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:674fc9b0-98de-40e4-8287-54908f979065"
 }

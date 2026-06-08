@@ -18,10 +18,7 @@
       "ior": "ior:file:scenario/index/4/0/3/a/2/403a2422-f88d-4689-a4a0-86196ae4da34.scenario.json?commit=6394960d"
     },
     "parent": "ior:instance:2c314fbb-6e07-4917-ac34-81f8ce987fcb",
-    "unitLinks": [
-      "ior:instance:33cd07d8-041b-4ab8-9c3d-b7b82faf10f7",
-      "ior:instance:688c10c8-9aa1-463b-b35a-af08b1bc4e84"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:2c314fbb-6e07-4917-ac34-81f8ce987fcb"
 }

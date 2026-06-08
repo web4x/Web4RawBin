@@ -33,7 +33,10 @@
     "unitLinks": [
       "sprints.json/sprint-14-legacy-migration/task/task-97-migrate-userdirs.json"
     ],
-    "parent": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
+    "parent": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297",
+    "coveredRequirements": [
+      "ior:instance:24b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02"
+    ]
   },
   "ownerIor": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
 }

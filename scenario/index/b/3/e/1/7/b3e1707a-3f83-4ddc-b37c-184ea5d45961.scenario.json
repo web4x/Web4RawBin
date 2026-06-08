@@ -9,9 +9,7 @@
     "sourceFile": "ior:file:test/vitest/avatar-preserve.test.ts",
     "sourceLine": 81,
     "parent": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09",
-    "unitLinks": [
-      "ior:instance:3615a349-01ac-4816-ac6d-c343ff1d3050"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09"
 }

@@ -12,8 +12,7 @@
     "sourceFile": "ior:file:src/ts/scenario/templates.ts",
     "sourceLine": 15,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/method/viewtemplateregistry-rendermd-scenario-string.json",
-      "ior:instance:9b286116-ad01-4a01-9884-3bfe5892d7d0"
+      "sprints.json/sprint-17-scenario-units/method/viewtemplateregistry-rendermd-scenario-string.json"
     ],
     "parent": "ior:instance:6fdc9ac6-0cf1-4d16-86ed-7c6f68f07d2e"
   },

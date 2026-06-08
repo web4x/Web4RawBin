@@ -30,10 +30,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-1-rawbin-foundation/task-4-strip-server.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-1-rawbin-foundation/task/task-4-strip-server.json",
-      "ior:instance:9077a1ce-150c-4e5b-8cfa-2fd346ef75d4"
+      "sprints.json/sprint-1-rawbin-foundation/task/task-4-strip-server.json"
     ],
-    "parent": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
+    "parent": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2",
+    "coveredRequirements": [
+      "ior:instance:4428b21f-8317-4340-a670-aa3b14582d4f"
+    ]
   },
   "ownerIor": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
 }

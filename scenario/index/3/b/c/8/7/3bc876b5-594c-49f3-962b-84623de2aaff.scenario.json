@@ -19,15 +19,7 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml",
     "sourceLine": 141,
     "unitLinks": [
-      "sprints.json/sprint-16-traceability-ux/class/rbobjectitem.json",
-      "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09",
-      "ior:instance:bac0abd4-c15b-40b8-ae6c-ef265f883a27",
-      "ior:instance:ee69e091-ad08-47d3-99b6-3747e4521ac0",
-      "ior:instance:0a78eab3-f3e8-4391-89c8-0b764ed28f8d",
-      "ior:instance:75e6419f-db35-47e4-b31d-177c0f778ca3",
-      "ior:instance:4b36dabd-4f56-433d-a01a-1625ca7a4693",
-      "ior:instance:f2134e76-33ac-44fd-84ca-0c68b54f4a95",
-      "ior:instance:8474594f-78d1-4e3a-bc13-55135288bcc4"
+      "sprints.json/sprint-16-traceability-ux/class/rbobjectitem.json"
     ],
     "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
   },

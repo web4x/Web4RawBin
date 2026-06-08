@@ -12,11 +12,7 @@
       "ior:instance:675cc8e3-0646-4fb7-a6a5-b2c8400747c6"
     ],
     "requirements": [],
-    "unitLinks": [
-      "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea",
-      "ior:instance:08e46ce3-69f3-40fe-87d7-5ee875a4e94a",
-      "ior:instance:675cc8e3-0646-4fb7-a6a5-b2c8400747c6"
-    ]
+    "unitLinks": []
   },
   "ownerIor": null
 }

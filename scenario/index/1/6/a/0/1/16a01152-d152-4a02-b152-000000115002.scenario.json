@@ -26,10 +26,7 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-115-tree-item-collapse-expand.md",
     "sourceLine": 30,
     "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
-    "unitLinks": [
-      "ior:instance:311ff74e-7024-4827-a9ee-d9a09c22c1b0",
-      "ior:instance:0560e3e6-d948-44f4-9df0-198d7e53c1ee"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

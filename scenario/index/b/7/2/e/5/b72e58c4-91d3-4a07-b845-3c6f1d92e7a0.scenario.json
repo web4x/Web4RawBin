@@ -32,12 +32,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-124.2-architect-view-templates.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-124.2-architect-view-templates.json",
-      "ior:instance:17a00202-0002-4a02-a002-000017020002",
-      "ior:instance:17a00301-0001-4a01-a001-000017030001",
-      "ior:instance:17a00302-0002-4a02-a002-000017030002"
+      "sprints.json/sprint-17-scenario-units/task/task-124.2-architect-view-templates.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "coveredRequirements": [
+      "ior:instance:9dedeb00-6038-4c43-bcd4-efab99792be1"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

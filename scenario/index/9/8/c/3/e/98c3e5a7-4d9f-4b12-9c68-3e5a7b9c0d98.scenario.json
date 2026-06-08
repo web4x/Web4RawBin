@@ -30,7 +30,10 @@
     "unitLinks": [
       "sprints.json/sprint-14-legacy-migration/task/task-98-verify.json"
     ],
-    "parent": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
+    "parent": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297",
+    "coveredRequirements": [
+      "ior:instance:34c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b03"
+    ]
   },
   "ownerIor": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
 }

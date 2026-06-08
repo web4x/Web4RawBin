@@ -23,13 +23,33 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:cdd9137b-c83d-4323-a537-94467964397b"
+    ],
     "implementations": [],
     "sprint": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
     "unitLinks": [
       "sprints.json/sprint-18-chain-method-scope/task/task-187-trace-narrowing-single-thread-chain.json"
     ],
-    "parent": "ior:instance:8662d51e-a7e8-4815-ab0a-396197533cdb"
+    "parent": "ior:instance:8662d51e-a7e8-4815-ab0a-396197533cdb",
+    "coveredRequirements": [
+      "ior:instance:10b13805-482d-4e12-a66c-995fb93dcaa6",
+      "ior:instance:19ec998f-8674-44a0-b861-50df637db7b0",
+      "ior:instance:1a8b7485-ca53-4d06-8a05-02cf40541981",
+      "ior:instance:3740961f-5f60-4f51-aadf-0780103a6eb2",
+      "ior:instance:68bdef75-3c65-4f7e-bca6-029c4c502bae",
+      "ior:instance:6e360425-b20b-4c33-acff-cc967bec1b47",
+      "ior:instance:80b929af-09cc-43d0-a660-4a25756c9849",
+      "ior:instance:84c46168-7671-431a-8b85-e43db3cbb0b6",
+      "ior:instance:918860e1-6d46-4290-aad7-3da42b14c3f5",
+      "ior:instance:a8774061-3231-436f-a552-316f7574b4f6",
+      "ior:instance:b21fcb99-2906-4f22-8ab8-4f6647d9ce79",
+      "ior:instance:c37558ec-fecb-43b6-8cc9-faf7566de647",
+      "ior:instance:c9de63d7-61d4-4d14-a8cd-20f9e9b98a26",
+      "ior:instance:df10141a-4d8a-4647-885e-a54ca44a9da8",
+      "ior:instance:f7286fb5-17f0-4f63-96ee-79a744d04107",
+      "ior:instance:f7b2023e-e076-421c-a0c8-f6143d81a1c6"
+    ]
   },
   "ownerIor": "ior:instance:8662d51e-a7e8-4815-ab0a-396197533cdb"
 }

@@ -11,9 +11,7 @@
     "sourceFile": "ior:file:src/ts/shared/TraceModel.ts",
     "sourceLine": 46,
     "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b",
-    "unitLinks": [
-      "ior:instance:0887265f-6652-451b-8986-34b6a7f909b1"
-    ]
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
 }

@@ -37,10 +37,12 @@
     "sourceFile": "ior:file:src/public/ts/trace-page.ts",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-15-traceability-browser/task/task-108-traceability-browser.json",
-      "ior:instance:347ed620-e300-4fe1-bdd7-fe0ed82b3046"
+      "sprints.json/sprint-15-traceability-browser/task/task-108-traceability-browser.json"
     ],
-    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
+    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
+    "coveredRequirements": [
+      "ior:instance:65f6a7b8-c9d0-4e15-9bc6-4a5b6c7d8e06"
+    ]
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

@@ -30,8 +30,7 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/task-130-md-preview-hierarchical-lists.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-13-stability/task/task-130-md-preview-hierarchical-lists.json",
-      "ior:instance:68cf9c45-0e1a-4c86-80d2-cc701e74ddfe"
+      "sprints.json/sprint-13-stability/task/task-130-md-preview-hierarchical-lists.json"
     ],
     "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
   },
