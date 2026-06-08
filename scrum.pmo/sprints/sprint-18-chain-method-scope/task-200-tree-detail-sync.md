@@ -11,7 +11,7 @@
 > committed (adoption-note pattern, learnings #17 + #20).
 
 ## Status
-- [x] ⏳ Planned
+- [x] Planned
 - [ ] In Progress
   - [ ] refinement (req-eng anchors verbatim Tron quote + architect designs sync semantics)
   - [ ] creating test cases
