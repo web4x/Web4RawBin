@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "92ed98b8-77dc-45c3-bd4a-73aaf6d94ee1",
+    "name": "Tree item shows typed SVG icon",
+    "altId": "R16.7",
+    "description": "Each tree item displays a square SVG type icon from a free icon library, visually distinguishing scenario types.",
+    "tronQuote": "> TRON (via R15.4 refinement): \"defaultItemView for lists\" \u2014 icon requirement per architect design.",
+    "tasks": [
+      "ior:instance:09dd41a7-8712-4012-ba05-1d34f6d94e07"
+    ],
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
+}

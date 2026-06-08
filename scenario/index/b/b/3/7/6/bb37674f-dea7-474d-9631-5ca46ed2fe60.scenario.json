@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "bb37674f-dea7-474d-9631-5ca46ed2fe60",
+    "name": "Editor back button navigates to parent",
+    "altId": "R12.1",
+    "description": "The Monaco editor back button navigates to the parent directory of the current file, not always to /app.",
+    "tronQuote": "> TRON: \"the monaco editor has a back button on the top header, but it goes always to app and not to the directory in which the current edited file is. thats a bug.\"",
+    "tasks": [
+      "ior:instance:f7a2c4e6-3b8d-4f10-a5c7-9e1d3f5b7a90"
+    ],
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:86e3077a-3fda-4c0a-a120-f6811d6252e1"
+}

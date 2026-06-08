@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "41c49f04-ba9e-4317-b783-17cc0e63fd25",
+    "name": "Detail drawer with swipe dismiss",
+    "altId": "R16.5",
+    "description": "DetailViewContainer renders as a Google-Maps-style detail drawer with open, close, and swipe-dismiss interactions.",
+    "tronQuote": "> TRON (via R15.6 refinement): \"browser includes traceability to tasks as DetailViews\" \u2014 drawer pattern specified by architect.",
+    "tasks": [
+      "ior:instance:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50"
+    ],
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
+}

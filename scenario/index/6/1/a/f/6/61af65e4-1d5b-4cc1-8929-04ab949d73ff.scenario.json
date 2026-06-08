@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "61af65e4-1d5b-4cc1-8929-04ab949d73ff",
+    "name": "Scenario JSON click opens trace tree",
+    "altId": "R17.48",
+    "description": "Clicking a .scenario.json file opens the /trace tree view with that scenario as the entry point, lazy-loading its children.",
+    "tronQuote": "> TRON (via R-K1/compound-source): \"clicking on r10.2 shows the second screenshot... lazy load the children tasks.\"",
+    "tasks": [
+      "ior:instance:7a5f0eb9-7a33-492b-991a-b13c431dc695"
+    ],
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

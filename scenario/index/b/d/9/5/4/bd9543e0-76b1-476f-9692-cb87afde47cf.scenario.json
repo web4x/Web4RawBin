@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "bd9543e0-76b1-476f-9692-cb87afde47cf",
+    "name": "Tree item supports OS drag-and-drop",
+    "altId": "R16.8",
+    "description": "Tree items support native OS drag-and-drop interaction for reordering or cross-view transfer.",
+    "tronQuote": "> TRON (R15.4 literal): \"draggable native-os support.\"",
+    "tasks": [
+      "ior:instance:a9341bae-656e-4e87-ab50-c9a17a7c9222"
+    ],
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
+}

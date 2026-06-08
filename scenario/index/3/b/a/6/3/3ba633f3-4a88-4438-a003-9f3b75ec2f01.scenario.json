@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "3ba633f3-4a88-4438-a003-9f3b75ec2f01",
+    "name": "Tree item collapse/expand with children",
+    "altId": "R16.9",
+    "description": "Tree items support tap-icon collapse/expand toggling, with \">\" indicator loading children on first expand.",
+    "tronQuote": "> TRON (via R15.7 refinement): \"navigable tree graph\" \u2014 collapse/expand per architect design.",
+    "tasks": [
+      "ior:instance:f1157eb1-c259-4d46-a7f3-6e5db1824a05"
+    ],
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
+}

@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "251e2086-ebac-459f-b485-1a9fd0c13d63",
+    "name": "Self-click opens profile sheet",
+    "altId": "R10.4",
+    "description": "Clicking your own member item in a room opens the read-only profile sheet, not the profile editor.",
+    "tronQuote": "> TRON: \"when i am in a room clicking on my users item, i want the profile to open. not the profile editor.\"",
+    "tasks": [
+      "ior:instance:e9a3b7c2-5f16-4d80-b3a9-2c7e4f1d6058"
+    ],
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab"
+}
