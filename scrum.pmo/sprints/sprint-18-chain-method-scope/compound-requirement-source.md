@@ -392,3 +392,13 @@ Every scenario unit MUST have: (1) a valid `ownerIor` field pointing to its pare
 - [ ] `trace-cli audit` reports 0 ownerIor violations, 0 missing unitLinks[]
 
 → Planner stand-up
+
+---
+
+## LITERAL SOURCE — Follow-on I: model.parent IOR (2026-06-08)
+
+> TRON: "all scenario models should have a model.parent ior."
+
+**Folded into R18.32** (deduplication Rule 9 — same integrity concern). R18.32 already requires valid ownerIor; this Tron quote adds: the model object itself carries a `parent` IOR field (not just the top-level ownerIor). Updated R18.32 description + AC accordingly.
+
+→ Same task as R18.32

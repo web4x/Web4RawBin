@@ -4,8 +4,8 @@
     "uuid": "40756631-bfe9-4cdc-8d6d-ce6bcc6e7965",
     "name": "Every unit has valid ownerIor and unitLinks[]",
     "altId": "R18.32",
-    "description": "Every scenario unit MUST have a valid ownerIor field pointing to its parent/owner unit AND a unitLinks[] field present per the schema.",
-    "tronQuote": "> TRON: \"I found scenarios without owners and without unitLists [unitLinks].\"",
+    "description": "Every scenario unit MUST have a valid ownerIor field AND model.parent IOR pointing to its parent/owner unit, AND a unitLinks[] field present per the schema.",
+    "tronQuote": "> TRON: \"I found scenarios without owners and without unitLists [unitLinks].\"\n> TRON: \"all scenario models should have a model.parent ior.\"",
     "tasks": [],
     "tests": [],
     "unitLinks": []
