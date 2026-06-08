@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b64a9d54-545f-4f25-b110-209421cec8e2",
+    "name": "Detail navigation syncs tree selection",
+    "altId": "R18.33",
+    "description": "Navigating within DetailView syncs the tree overview \u2014 selected scenario scrolled into view and ancestor path auto-expanded.",
+    "tronQuote": "> TRON: \"when i navigate within the details view, the state of the tree overview does not follow\u2026 last selected scenario should be scrolled into view and expanded so much that its visible.\"",
+    "tasks": [],
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+}

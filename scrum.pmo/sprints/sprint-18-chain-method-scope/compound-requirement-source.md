@@ -402,3 +402,24 @@ Every scenario unit MUST have: (1) a valid `ownerIor` field pointing to its pare
 **Folded into R18.32** (deduplication Rule 9 — same integrity concern). R18.32 already requires valid ownerIor; this Tron quote adds: the model object itself carries a `parent` IOR field (not just the top-level ownerIor). Updated R18.32 description + AC accordingly.
 
 → Same task as R18.32
+
+---
+
+## LITERAL SOURCE — Follow-on J: Tree↔DetailView state sync (2026-06-08)
+
+> TRON: "when i navigate within the details view, the state of the tree overview does not follow… last selected scenario should be scrolled into view and expanded so much that its visible."
+
+### R18.33: Detail navigation syncs tree — selected scenario scrolled into view and ancestor-expanded.
+
+[requirement:uuid:18d0e1f2-a3b4-5c6d-7e8f-000000018033]
+
+When the user navigates within the DetailView (clicking a linked scenario, a chain row, or any in-drawer navigation), the /trace tree overview MUST sync its state: (1) the newly-selected scenario's tree node is scrolled into view, (2) its ancestor path is auto-expanded so the node is visible, (3) the node is visually highlighted as the current selection. The tree and detail view maintain bidirectional UI sync — selecting in tree shows detail (already works), selecting in detail scrolls+expands tree (this requirement).
+
+**Acceptance criteria:**
+- [ ] Clicking a scenario link in DetailView scrolls the tree to that node
+- [ ] The node's ancestor path is auto-expanded if collapsed
+- [ ] The selected node is visually highlighted in the tree
+- [ ] Scroll-into-view uses smooth scroll, not jump
+- [ ] Works at all chain depths (clicking a Test in detail → tree expands req→task→UC→class→method→impl→test path)
+
+→ Planner stand-up (with coveredRequirements + useCases pre-wired at standup — no backfill)
