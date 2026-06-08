@@ -5,7 +5,7 @@
     "name": "Detail navigation syncs tree selection",
     "altId": "R18.33",
     "description": "Navigating within DetailView syncs the tree overview \u2014 selected scenario scrolled into view and ancestor path auto-expanded.",
-    "tronQuote": "> TRON: \"when i navigate within the details view, the state of the tree overview does not follow\u2026 last selected scenario should be scrolled into view and expanded so much that its visible.\"",
+    "tronQuote": "> TRON: \"when i navigate within the details view, the state of the tree overview does not follow\u2026 last selected scenario should be scrolled into view and expanded so much that its visible.\"\n> TRON (sequencing): \"after this is done do the tree overview sync with the navigation in the details.\"",
     "tasks": [],
     "tests": [],
     "unitLinks": []

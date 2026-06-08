@@ -423,3 +423,16 @@ When the user navigates within the DetailView (clicking a linked scenario, a cha
 - [ ] Works at all chain depths (clicking a Test in detail → tree expands req→task→UC→class→method→impl→test path)
 
 → Planner stand-up (with coveredRequirements + useCases pre-wired at standup — no backfill)
+
+---
+
+## LITERAL SOURCE — Follow-on K: Tree sync sequencing (2026-06-08)
+
+> TRON: "after this is done do the tree overview sync with the navigation in the details."
+
+**Deduplication (Rule 9): This IS R18.33** — same behavior, same Tron complaint. Tron is adding a SEQUENCING directive: tree↔detail sync must be done AFTER the 6-step chain-correction lands. No new UUID created.
+
+R18.33 quote annotated with this follow-up:
+> TRON (sequencing): "after this is done do the tree overview sync with the navigation in the details."
+
+**Task path:** R18.33 → T200/#78 (tree↔detail bidirectional sync). SEQUENCED: blocked by chain-correction completion. Planner enforces via Dependencies field.
