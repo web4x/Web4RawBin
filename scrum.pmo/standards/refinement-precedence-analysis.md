@@ -14,7 +14,7 @@ Requirement R17.1 → Task T124 → ... but T124 depends on T125 which traces to
 R17.2 → T125 → ... but T125 subtasks trace back to R17.1 requirements
 ```
 
-This creates a **DAG with back-edges** instead of a clean tree. The chain walker encounters the same requirement from multiple task paths, and tasks that depend on other tasks' requirements. The LOCKED 7-step chain (T168) demands forward-only — but the REFINEMENT PROCESS that creates the artifacts isn't forward-only.
+This creates a **DAG with back-edges** instead of a clean tree. The chain walker encounters the same requirement from multiple task paths, and tasks that depend on other tasks' requirements. The LOCKED 6-step chain demands forward-only (corrected 2026-06-08; was 7-step with Task in chain) — but the REFINEMENT PROCESS that creates the artifacts isn't forward-only.
 
 ## First-Principles Reasoning: What Begets What?
 

@@ -34,7 +34,7 @@ Requirement → UseCase → Class → Method → Implementation → Test
 
 **Answers:** "Which code exists because of this requirement?"
 
-This is the LOCKED 7-step chain. It traces the CODE PATH forward from a requirement through the components that implement it. Fan-out through shared classes is CORRECT here — it shows all code affected by the requirement.
+This is the LOCKED 6-step chain. It traces the CODE PATH forward from a requirement through the components that implement it. Fan-out through shared classes is CORRECT here — it shows all code affected by the requirement.
 
 **This is NOT broken.** The structural chain does what it's designed to do.
 
@@ -54,7 +54,7 @@ A test verifies a requirement's intention ONLY if it EXPLICITLY DECLARES that re
 
 A requirement is **champagne-verified** iff there exists at least ONE test that satisfies BOTH:
 
-1. **Structurally reachable** — the test is reachable from this requirement via the 7-step chain (code traceability ✓)
+1. **Structurally reachable** — the test is reachable from this requirement via the 6-step chain (code traceability ✓)
 2. **Declares this requirement** — the test's `verifies[]` field includes this requirement's UUID or AC identifier (intention ✓)
 
 Both conditions must hold. Neither alone is sufficient:
@@ -152,7 +152,7 @@ Champagne Summary:
 
 | Concept | Before | After |
 |---------|--------|-------|
-| Structural chain | 7-step forward-only | UNCHANGED — still shows code path |
+| Structural chain | 6-step forward-only (Req→UC→Class→Method→Impl→Test) | UNCHANGED — still shows code path |
 | Shared-class fan-out | Treated as intention | Correctly categorized as code-dependency |
 | Champagne criterion | Structural reachability alone | Structural + intentional (both required) |
 | Test.verifies[] | Didn't exist | NEW — declares which requirement the test intends to verify |

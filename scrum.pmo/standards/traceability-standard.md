@@ -22,7 +22,7 @@ Requirement → UseCase(s) → Class → Method → Implementation → Test(s)
 - **Plural hops**: UseCase(s) and Test(s) are 1:N branching points. Implementation:Test is 1:N.
 - **Tree walk**: `/api/trace/children/<uuid>` follows FORWARD_KEYS per class type.
 - **Navigation walk**: Sprint→Task→coveredRequirements uses NAVIGATION_KEYS (separate from chain).
-- **Chain audit**: every Test node must be reachable from a Requirement root via the 7-step chain.
+- **Chain audit**: every Test node must be reachable from a Requirement root via the 6-step chain.
 
 ### UUID marker chain
 
