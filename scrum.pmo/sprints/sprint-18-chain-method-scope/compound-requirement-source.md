@@ -361,3 +361,34 @@ Process (Tron directive): every picture Tron provides is recorded here + referen
 - **E3** /scenario Implementation detail — has a src link, but ALL types should; link should open file-browser-with-highlight (not Monaco direct) + carry line. → R18.13-15.
 - **E4** /md file-browser folder view (target of the Browse-File link). → R18.14 highlight param.
 - **E5** earlier S16: /trace tree + DetailViewContainer drawer (Google-Maps style). → S16 T110.
+
+---
+
+## LITERAL SOURCE — Follow-on D: unitLinks[] + Unit lifecycle (always-consistent symlinks) (2026-06-08)
+
+> TRON: "ok thats exactly right but the symlinks are fundamental part of the game. make sure they are always generated. extend the scenarios with an attribute unitLinks[] with a list of iors to the linked instances and add to the unit class the lifecycle methods to always keep this lust consistent with the state on disk. so add link, removeLink and so on."
+
+### Decomposition hints (req: confirm against literal)
+- R18.29: Symlinks are FUNDAMENTAL and must ALWAYS be generated/maintained — never a missable batch step (the S18 sprints.json gap must be structurally impossible).
+- R18.30: Extend the scenario unit with attribute `unitLinks[]` = a list of IORs to the linked instances (the symlinks this unit should have on disk).
+- R18.31: Add to the Unit class LIFECYCLE METHODS that keep `unitLinks[]` consistent with the on-disk symlink state: `addLink(ior)`, `removeLink(ior)`, and the full set (e.g. syncLinks/rebuildLinks). Each method updates `unitLinks[]` AND the on-disk symlink atomically so the two never diverge.
+
+---
+
+## LITERAL SOURCE — Follow-on H: Orphan owners + missing unitLinks (2026-06-08)
+
+> TRON: "I found scenarios without owners and without unitLists [unitLinks]."
+
+### R18.32: Every scenario unit has valid ownerIor and unitLinks[].
+
+[requirement:uuid:18c9d0e1-f2a3-4b5c-6d7e-000000018032]
+
+Every scenario unit MUST have: (1) a valid `ownerIor` field pointing to its parent/owner unit (Sprint owns Tasks, Task owns UseCases, etc.), and (2) a `unitLinks[]` field present (per R18.30 schema). Measured gaps on 768 units: 184 have no real ownerIor (39 missing the field entirely, 145 empty/null), 501 are missing the unitLinks[] field. Both must be populated — ownerIor from the chain hierarchy, unitLinks[] initialized to empty array at minimum.
+
+**Acceptance criteria:**
+- [ ] Zero units with missing ownerIor field (currently 39)
+- [ ] Zero units with empty/null ownerIor (currently 145)
+- [ ] Zero units missing unitLinks[] field (currently 501)
+- [ ] `trace-cli audit` reports 0 ownerIor violations, 0 missing unitLinks[]
+
+→ Planner stand-up
