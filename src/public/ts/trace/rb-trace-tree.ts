@@ -19,6 +19,7 @@ export class RbTraceTree extends HTMLElement {
   brokenUuids = new Set<string>();
   private expanded = new Set<string>();
   private unsub: (() => void) | null = null;
+  private pendingReveal: string | null = null;
 
   private get mode(): string { return this.getAttribute('data-mode') || 'scenario'; }
   private get childrenUrl(): string { return `/api/trace/children/`; }
@@ -120,6 +121,7 @@ export class RbTraceTree extends HTMLElement {
       this.appendChild(hdr);
       for (const obj of orphans) this.appendChild(this.nodeEl(obj.ref(), new Set()));
     }
+    if (this.pendingReveal) { const u = this.pendingReveal; this.pendingReveal = null; requestAnimationFrame(() => this.revealNode(u)); }
   }
 
   /** Build a node row (rb-object-item with built-in expander) and, if expanded, its children. */
@@ -234,6 +236,7 @@ export class RbTraceTree extends HTMLElement {
   }
 
   async revealNode(uuid: string): Promise<void> {
+    if (!this.querySelector('.tt-node')) { this.pendingReveal = uuid; return; }
     const existing = this.querySelector(`rb-object-item[ref*=":${uuid}"]`);
     if (existing) {
       this.highlightNode(existing as HTMLElement);
