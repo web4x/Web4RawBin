@@ -12,7 +12,10 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
     "sourceLine": 17,
     "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
-    "unitLinks": []
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:edbae55c-262b-4c5a-bf6b-db2612e5dce1"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

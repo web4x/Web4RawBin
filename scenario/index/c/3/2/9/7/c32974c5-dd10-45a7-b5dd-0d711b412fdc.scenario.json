@@ -12,7 +12,10 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/requirements.md",
     "sourceLine": 52,
     "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
-    "unitLinks": []
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:774033af-7b43-46bd-9e32-848dd0d16f82"
+    ]
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
 }

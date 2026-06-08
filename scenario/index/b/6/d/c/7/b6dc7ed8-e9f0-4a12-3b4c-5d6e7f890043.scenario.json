@@ -16,7 +16,10 @@
     "unitLinks": [
       "sprints.json/sprint-17-scenario-units/requirement/r17-44-r17-26-links-forward-to-its-implementing-tasks-t1.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "useCases": [
+      "ior:instance:b863be74-3a7e-47db-ab87-2ff7b7e9365b"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

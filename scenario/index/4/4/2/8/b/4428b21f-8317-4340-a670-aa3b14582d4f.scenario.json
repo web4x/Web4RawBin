@@ -21,7 +21,14 @@
     "sourceFile": "ior:file:scenario/index/4/4/2/8/b/4428b21f-8317-4340-a670-aa3b14582d4f.scenario.json",
     "sourceLine": 1,
     "parent": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2",
-    "unitLinks": []
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:9077a1ce-150c-4e5b-8cfa-2fd346ef75d4",
+      "ior:instance:1c032272-e300-4e90-a649-d5db481964dc",
+      "ior:instance:b54a71be-384d-428f-8144-56e154e0bfdb",
+      "ior:instance:1e18cecf-023d-4472-9842-c2f8e28abd28",
+      "ior:instance:7093fa11-5798-4382-8b63-acad135b46a8"
+    ]
   },
   "ownerIor": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
 }

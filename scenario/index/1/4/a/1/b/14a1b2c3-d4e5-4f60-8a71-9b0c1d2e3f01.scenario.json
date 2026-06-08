@@ -12,7 +12,10 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-14-legacy-migration/requirements.md",
     "sourceLine": 25,
     "parent": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297",
-    "unitLinks": []
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:01666b33-7250-46aa-b9c2-ccf127b64d64"
+    ]
   },
   "ownerIor": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
 }

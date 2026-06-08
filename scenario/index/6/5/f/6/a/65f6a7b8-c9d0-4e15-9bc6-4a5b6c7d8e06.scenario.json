@@ -13,7 +13,11 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-15-traceability-browser/requirements.md",
     "sourceLine": 48,
     "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
-    "unitLinks": []
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:81aa3984-44f7-4b92-805d-c6e7ddc992fe",
+      "ior:instance:347ed620-e300-4fe1-bdd7-fe0ed82b3046"
+    ]
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

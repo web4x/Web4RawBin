@@ -13,7 +13,10 @@
     "tronQuote": "> TRON: \"here you see impl has a src link, but ALL types should have it. it should NOT open directly in the monaco editor, BUT in the browser folder (2nd picture), with the file highlighted. then i can open the editor. the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file.\"",
     "description": "Browse-File link opens the file-browser FOLDER (/md/<dir>/) with the target file HIGHLIGHTED. NOT Monaco directly. REVISES R18.22.",
     "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
-    "unitLinks": []
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:cdd9137b-c83d-4323-a537-94467964397b"
+    ]
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

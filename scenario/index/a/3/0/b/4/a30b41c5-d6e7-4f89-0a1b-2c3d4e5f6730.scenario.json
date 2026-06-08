@@ -14,7 +14,10 @@
     "unitLinks": [
       "sprints.json/sprint-17-scenario-units/requirement/r17-31-the-right-detail-pane-has-a-hard-max-width-equal.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "useCases": [
+      "ior:instance:ebfed7a9-c047-4961-85c0-ec29d808a7cd"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

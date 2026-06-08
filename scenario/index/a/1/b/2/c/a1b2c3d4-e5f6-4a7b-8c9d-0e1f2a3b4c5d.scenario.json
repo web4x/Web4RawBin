@@ -12,7 +12,10 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/task-91-avatar-persist.md",
     "sourceLine": 50,
     "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
-    "unitLinks": []
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:cd1ebb36-60a9-481c-a6a3-3e9c652719bd"
+    ]
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
 }

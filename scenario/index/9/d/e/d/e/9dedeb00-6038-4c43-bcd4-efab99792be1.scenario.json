@@ -40,7 +40,28 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
     "sourceLine": 138,
     "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
-    "unitLinks": []
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:71edc345-e601-484b-a6f4-529fc3d66691",
+      "ior:instance:93bfa64a-7425-44bc-9da6-6d084c4d360f",
+      "ior:instance:f209e4dc-8a56-41c4-b2ac-b952ed85619c",
+      "ior:instance:ca775b0f-00a6-4fd1-902f-9403a675d31e",
+      "ior:instance:17a00202-0002-4a02-a002-000017020002",
+      "ior:instance:17a00301-0001-4a01-a001-000017030001",
+      "ior:instance:17a00302-0002-4a02-a002-000017030002",
+      "ior:instance:558cbb5c-b64a-4aea-9393-d513a0c544c4",
+      "ior:instance:17a00104-0004-4a04-a004-000017010004",
+      "ior:instance:17a00105-0005-4a05-a005-000017010005",
+      "ior:instance:17a00201-0001-4a01-a001-000017020001",
+      "ior:instance:0e3ab859-a117-4a4a-a9a6-2374262af3da",
+      "ior:instance:b06c4486-4ef1-4a56-9116-d0038e9517ee",
+      "ior:instance:17a00101-0001-4a01-a001-000017010001",
+      "ior:instance:17a00102-0002-4a02-a002-000017010002",
+      "ior:instance:17a00103-0003-4a03-a003-000017010003",
+      "ior:instance:20b51daa-133a-4923-af20-49c57eb98a3f",
+      "ior:instance:1e2227e4-8645-472e-89e2-3adb49c166e6",
+      "ior:instance:6c908bfb-6037-4def-86b9-496e144ef356"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

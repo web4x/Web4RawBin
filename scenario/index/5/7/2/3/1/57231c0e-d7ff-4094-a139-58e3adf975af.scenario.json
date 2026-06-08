@@ -13,7 +13,10 @@
     "sourceFile": "ior:file:scenario/index/5/7/2/3/1/57231c0e-d7ff-4094-a139-58e3adf975af.scenario.json",
     "sourceLine": 1,
     "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
-    "unitLinks": []
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:89aff659-834d-4deb-bbf1-fe6dd1fb3719"
+    ]
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }
