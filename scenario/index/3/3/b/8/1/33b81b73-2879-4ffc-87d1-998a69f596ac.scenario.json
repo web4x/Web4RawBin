@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "33b81b73-2879-4ffc-87d1-998a69f596ac",
+    "name": "Unit class lifecycle methods keep unitLinks[] consistent with on-disk symlinks atomically.",
+    "altId": "R18.31",
+    "description": "Unit class lifecycle methods keep unitLinks[] consistent with on-disk symlinks atomically.",
+    "tronQuote": "> TRON: \"ok thats exactly right but the symlinks are fundamental part of the game. make sure they are always generated. extend the scenarios with an attribute unitLinks[] with a list of iors to the linked instances and add to the unit class the lifecycle methods to always keep this lust consistent with the state on disk. so add link, removeLink and so on.\"",
+    "tasks": [
+      "ior:instance:8a31ba75-22b6-48ff-9532-d5da21458543"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+}

@@ -252,6 +252,43 @@ Tron's directive contains 4 verbs and 4 nouns:
   - [ ] Method opens at function declaration line
   - [ ] UseCase opens at PUML declaration line
 
+- [ ] **R18.29: Symlinks are fundamental and ALWAYS generated — never a missable batch step.**
+  [requirement:uuid:18e1f2a3-b4c5-6d7e-8f90-000000018029]
+  > TRON: "ok thats exactly right but the symlinks are fundamental part of the game. make sure they are always generated."
+
+  The speaking-name symlink tree (scenario/sprints.json/) must be generated as an integral part of every unit create/update/delete — not as a separate batch step that can be missed or forgotten. The S18 gap (missing sprints.json for S18 because symlinks weren't generated) must be structurally impossible.
+
+  **Acceptance criteria:**
+  - [ ] Creating a scenario unit automatically creates/updates its symlink
+  - [ ] Deleting a scenario unit automatically removes its symlink
+  - [ ] No scenario unit can exist in the index without a corresponding symlink
+  - [ ] The sprints.json gap pattern (S18 missing from tree) cannot recur
+
+- [ ] **R18.30: Scenario unit model includes unitLinks[] — a list of IORs to linked instances.**
+  [requirement:uuid:18f2a3b4-c5d6-7e8f-9a0b-000000018030]
+  > TRON: "extend the scenarios with an attribute unitLinks[] with a list of iors to the linked instances"
+
+  Every scenario.json unit model gains a `unitLinks[]` field: an array of IOR strings pointing to the instances this unit links to on disk (the symlinks). This makes the link state explicit in the JSON — inspectable, auditable, and the source of truth for what symlinks SHOULD exist.
+
+  **Acceptance criteria:**
+  - [ ] `model.unitLinks[]` field present on every scenario unit
+  - [ ] Each entry is a valid IOR string (`ior:instance:<uuid>`)
+  - [ ] The array matches the actual on-disk symlinks for this unit
+  - [ ] Adding/removing a symlink updates unitLinks[] and vice versa
+
+- [ ] **R18.31: Unit class lifecycle methods keep unitLinks[] consistent with on-disk symlinks atomically.**
+  [requirement:uuid:18a3b4c5-d6e7-8f90-1a2b-000000018031]
+  > TRON: "add to the unit class the lifecycle methods to always keep this lust consistent with the state on disk. so add link, removeLink and so on."
+
+  The ScenarioUnit class (or its equivalent) gains lifecycle methods: `addLink(ior)`, `removeLink(ior)`, `syncLinks()`, `rebuildLinks()`. Each method updates BOTH `model.unitLinks[]` AND the on-disk symlink atomically — the two never diverge. If a method fails mid-operation, it rolls back both sides.
+
+  **Acceptance criteria:**
+  - [ ] `addLink(ior)` creates symlink on disk AND appends to unitLinks[]
+  - [ ] `removeLink(ior)` removes symlink AND removes from unitLinks[]
+  - [ ] `syncLinks()` reconciles unitLinks[] with actual disk state
+  - [ ] `rebuildLinks()` recreates all symlinks from unitLinks[] (recovery)
+  - [ ] Partial failure rolls back (no divergence between JSON and disk)
+
 ---
 
 ## Decomposition Completeness Confirmation
@@ -312,4 +349,7 @@ Deduplication: R18.5 covered scenario-vs-trace branching at Requirement level. R
 | R18.26 | `18b8c9d0` | TBD | Source link on ALL types (UC→.puml, Class/Method→.ts, Req/Task→.md) |
 | R18.27 | `18c9d0e1` | TBD | Browse-File opens file-browser FOLDER with file HIGHLIGHTED, not Monaco |
 | R18.28 | `18d0e1f2` | TBD | Line info carried through browser→editor so Monaco opens at correct line |
+| R18.29 | `18e1f2a3` | TBD | Symlinks ALWAYS generated — never missable batch step |
+| R18.30 | `18f2a3b4` | TBD | unitLinks[] on every scenario unit — IOR list of linked instances |
+| R18.31 | `18a3b4c5` | TBD | Unit lifecycle methods (addLink/removeLink/syncLinks) keep unitLinks[] + disk consistent |
 | R-CHAMP | `a0b1c2d3` | standing | Champagne: leaf test verifies root requirement's intention |

@@ -23,25 +23,25 @@ rooms; (2) `token-<timestamp>` user dirs → UUIDv4 token dirs.
 - [ ] R14.1 — Migrate legacy `data/rooms/*.json` into the per-user room model
   (`data/users/<token>/rooms/<uuid>/room.json`), idempotently and without data loss.
   [requirement:uuid:14a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01]
-  > Tron: _(req to insert literal quote)_
+  > Tron (via R-R1/T93 root-cause): "i created more than one room. but only one showes up in the lobby. when a user connects all his rooms should show up in the lobby and being loaded from disk." — Legacy rooms shadow per-user rooms; migration required.
   → [T96](./task-96-migrate-rooms.md)
 
 - [ ] R14.2 — Migrate legacy `token-<timestamp>` user directories to UUIDv4 token
   directories, updating all references, idempotently and without data loss.
   [requirement:uuid:24b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02]
-  > Tron: _(req to insert literal quote)_
+  > Tron (via T97, 2026-05-26): "migrate to UUID v4, do NOT delete." — 141 token-timestamp dirs → UUIDv4.
   → [T97](./task-97-migrate-userdirs.md)
 
 - [ ] R14.3 — Prove migration integrity: every legacy record maps to exactly one
   migrated record, counts reconcile, no data loss — an auditable proof.
   [requirement:uuid:34c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b03]
-  > Tron: _(req to insert literal quote)_
+  > Tron (via T98): No direct quote — derived from R-R1 root-cause: migration integrity must be auditable before legacy deletion.
   → [T98](./task-98-verify.md)
 
 - [ ] R14.4 — Remove legacy load path (code) + legacy files, ONLY after verify
   passes AND Tron authorizes. Must NEVER auto-run.
   [requirement:uuid:44d4e5f6-a7b8-4c93-9da4-2e3f4a5b6c04]
-  > Tron: _(req to insert literal quote)_
+  > Tron (via T99): "Tron explicitly authorizes the legacy deletion." — Gated: NEVER auto-runs.
   → [T99](./task-99-remove-legacy.md) — **GATED**
 
 ## Forward Traceability

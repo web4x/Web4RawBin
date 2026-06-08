@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "675cc8e3-0646-4fb7-a6a5-b2c8400747c6",
+    "name": "R18.13-15: Source link on all types + Browse-File → /md/ + line param → /edit#L",
+    "slug": "task-r18.13-15-source-browse-line",
+    "description": "",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [x] testing (scenarios pre-authored by tester 2026-06-07)\n- [ ] QA Review\n- [ ] Done",
+    "remainingIssues": "",
+    "traceability": "",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "",
+    "qaAudit": "- 2026-06-07: Tester pre-authored 17 test scenarios from R18.13-15 ACs. Ready to execute on expert deploy.",
+    "subtasks": "",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:8662d51e-a7e8-4815-ab0a-396197533cdb"
+}

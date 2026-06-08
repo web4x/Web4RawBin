@@ -2,52 +2,29 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "08e46ce3-69f3-40fe-87d7-5ee875a4e94a",
-    "id": "T190",
-    "name": "Tree lazy-render + scroll-preservation \u2014 expand APPENDS children only, no full re-render",
-    "sprint": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
-    "coveredRequirements": [
-      "ior:instance:37147d5d-bdb6-4011-a433-2af6b5ad68b4",
-      "ior:instance:43af9197-cfa5-4da0-9d94-ff8a32d16570",
-      "ior:instance:a674bb4d-2601-4331-b82b-6428a0ded81e",
-      "ior:instance:54185841-cd2f-4fa4-9760-cfa7f8400b99",
-      "ior:instance:d04d2e83-fccd-43a0-b13f-8c6710cf326e",
-      "ior:instance:3eeea41e-a3e2-4dc5-b1ac-21402f5b3995",
-      "ior:instance:574f9ac1-8471-4d26-bd29-2c1dfbeefb6f",
-      "ior:instance:9de73675-833c-427b-b996-e9ab589a1fd4",
-      "ior:instance:7918528f-0f4f-4948-b86d-9047aaea5b35"
-    ],
-    "_requirementHints": [
-      "R18.5 (req-eng to formalize)"
-    ],
-    "_r18.8Note": "NAVIGATION-layer field per architect R18.8 (562f6452): Task.coveredRequirements[] is the display denormalization for Sprint\u2192Task\u2192Reqs tree. Chain direction stays Req\u2192Task (forward). req-eng populates when R18.5 atomic Req commits.",
-    "_requirementHintText": "Tron 2026-06-05: tree re-renders FULLY on each click (not lazy layer-by-layer), so in a long list it JUMPS BACK TO TOP \u2014 cumbersome. Fix: expand APPENDS child itemview levels only (no full re-render), preserve scroll position.",
-    "useCases": [
-      "ior:instance:71d57474-3f95-4a91-b45c-423663bb7d30"
-    ],
-    "status": "Tester-verified strict",
-    "_shipNotes": "FIX-CYCLE LOG (planner honest-board per PO 2026-06-05):\n- v0.5.88 02c99a7e first ship; rule-pair \u2713; 836/836.\n- Tester STRICT-bar 1st run: TS2 FAIL \u2014 tree still full innerHTML re-render \u2192 DOM identity lost.\n- Expert FIX v0.5.89 fa921029 \u2014 onToggleChildren no-render; toggles tt-children div directly; first expand creates children container + appends child nodes (graph path) or fetches lazily (seed path); existing DOM preserved. Rule-pair (a)+(b)+(c) \u2713; 836/836.\n- Tester STRICT-bar RE-RUN on v0.5.89: **FULLY PASS 8/8** \u2014 append-only confirmed, DOM identity survives, scroll preserved. PO 2026-06-05 confirmed strict-verified.\n- Symbol advance: \ud83d\udd27 \u2192 \ud83e\uddea (tester-verified strict; Tron QA pending). Done-gate checkboxes untouched per learning #9.",
-    "owners": {
-      "req": "robbin-req",
-      "architect": "robbin-architect",
-      "expert": "robbin-expert",
-      "tester": "robbin-tester"
-    },
-    "description": "T186 shipped lazy-LOAD (children fetched on demand) \u2014 that's still verified. But Tron flagged a separate atom: even though data is lazy-loaded, the DOM RENDER on click is wholesale: rb-trace-tree clears innerHTML and rebuilds the subtree, which resets scroll to top. In a long tree this is cumbersome \u2014 UX regression at the render layer, NOT the data layer.\n\nFix scope: tree expand handler must APPEND new child item-view elements into the existing parent node's children container (additive DOM mutation), NOT rebuild the whole subtree. Scroll position of the scroll container preserved across expand. Collapse can hide-not-destroy or destroy-without-reflow.\n\nDistinct task per Rule 8 (closure freeze): T186 closed in-scope for lazy-LOAD; T190 owns the lazy-RENDER + scroll-preservation atom on the same /trace + /scenario tree surface.",
-    "rulePairHints": "(a)+(b) required (user-facing tree behavior \u2014 PO confirmed); (c) likely EXEMPT (existing /trace + /scenario routes, no new shell)",
-    "owner_summary": "expert + tester (PO direction); req-eng anchors R18.5 verbatim quote; architect refines if non-trivial DOM-diff approach needed",
-    "follows": [
-      "ior:instance:8832a890-ca92-4cfc-97c9-c81dff3ea1b1",
-      "ior:instance:75db0534-28d8-4fae-bb1f-bf60ace6ae57"
-    ],
-    "_followsLabels": [
-      "T186 R-Y1 lazy-load (closed)",
-      "T186 R-Y2 expand-collapse (closed)"
-    ],
-    "createdAt": "2026-06-05",
-    "createdBy": "robbin-planner",
-    "scaffoldNote": "Dogfood continuation: 4th Task scenario.json unit in S18 (after T187/T188/T189). requirements[] empty pending req-eng R18.5 capture. PO confirmed scope + owners (expert + tester) + rule-pair (a)+(b).",
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/task-190-tree-expand-append-no-rerender.md",
-    "sourceLine": 5,
-    "slug": "t190-tree-lazy-render-scroll-preservation-append-only"
-  }
+    "name": "T190: Tree expand appends only — no full re-render, no scroll jump",
+    "slug": "task-190-tree-expand-append-no-rerender",
+    "description": "Expanding a tree node appends child-level DOM only — no full re-render of the\ntree. Scroll position preserved (no jump-to-top). In a 100+ node tree,\nexpanding node #50 must not re-layout nodes #1-49.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — incremental-append folded into seed-path)\n  - [x] creating test cases (tester 27ffe1b4 — 8 TS pre-authored)\n  - [x] implementing (expert 02c99a7e v0.5.88)\n  - [ ] testing (tester executes 8 TS — pending)\n- [ ] QA Review\n- [ ] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 18 Planning](./planning.md)\n  - Sprint unit: `ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962`\n  - Atomic requirements (covered): R18.5 + R18.6 + R18.7 — req-eng `22f43f31` + `a558480b`\n- follows\n  - T186 R-Y1 (closed; lazy-LOAD verified)\n  - T186 R-Y2 (closed; expand/collapse verified)\n- down\n  - None (atomic task — 8 TS are test scenarios for execution)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "",
+    "qaAudit": "- 2026-06-05: Tester pre-authored 8 test scenarios from PO's AC description. Ready to execute the instant expert deploys.\n- 2026-06-05: Expert `02c99a7e` v0.5.88 shipped — seed-path incremental append + toggle (no full re-render); fetchAndRenderChildren appends only; scroll preserved. Tester strict-bar execution pending.\n- 2026-06-05: Planner reconciled (learning #20+#26): moved from sprint-17 to sprint-18 (correct sprint); fake-suffix task uuid → real v4 `08e46ce3-…` matching scenario unit; added Traceability + Subtasks sections for Web4Articles audit compliance.",
+    "subtasks": "None (atomic task — 8 TS above are test scenarios for execution, not subtasks).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:8662d51e-a7e8-4815-ab0a-396197533cdb"
 }

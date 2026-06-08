@@ -2,51 +2,29 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "292d8931-efff-45ab-b66e-772fac16c6ea",
-    "id": "T187",
-    "name": "Trace-narrowing: chain walker selects ONE method per UC, not Class.methods[] fan-out",
-    "sprint": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
-    "coveredRequirements": [
-      "ior:instance:1a8b7485-ca53-4d06-8a05-02cf40541981",
-      "ior:instance:c37558ec-fecb-43b6-8cc9-faf7566de647",
-      "ior:instance:f7b2023e-e076-421c-a0c8-f6143d81a1c6",
-      "ior:instance:f7286fb5-17f0-4f63-96ee-79a744d04107",
-      "ior:instance:68bdef75-3c65-4f7e-bca6-029c4c502bae",
-      "ior:instance:df10141a-4d8a-4647-885e-a54ca44a9da8",
-      "ior:instance:10b13805-482d-4e12-a66c-995fb93dcaa6",
-      "ior:instance:19ec998f-8674-44a0-b861-50df637db7b0",
-      "ior:instance:84c46168-7671-431a-8b85-e43db3cbb0b6",
-      "ior:instance:918860e1-6d46-4290-aad7-3da42b14c3f5",
-      "ior:instance:6e360425-b20b-4c33-acff-cc967bec1b47",
-      "ior:instance:80b929af-09cc-43d0-a660-4a25756c9849",
-      "ior:instance:c9de63d7-61d4-4d14-a8cd-20f9e9b98a26",
-      "ior:instance:a8774061-3231-436f-a552-316f7574b4f6",
-      "ior:instance:3740961f-5f60-4f51-aadf-0780103a6eb2",
-      "ior:instance:b21fcb99-2906-4f22-8ab8-4f6647d9ce79"
-    ],
-    "_requirementHints": [
-      "R18.1",
-      "R18.2",
-      "R18.8 (nav-root + /api/trace/sprints \u2014 folded per PO C3+C7 2026-06-05)"
-    ],
-    "_r18.8Note": "NAVIGATION-layer field per architect R18.8 (562f6452): Task.coveredRequirements[] is the display denormalization for Sprint\u2192Task\u2192Reqs tree. Chain direction stays Req\u2192Task (forward, Requirement.tasks[]). req-eng populates this when atomic Req units commit; no back-refs introduced (Rule 9).",
-    "useCases": [
-      "ior:instance:cdd9137b-c83d-4323-a537-94467964397b"
-    ],
-    "status": "Implementing (fix cycle \u2014 iteration 2)",
-    "_shipNotes": "FIX-CYCLE LOG (planner honest-board per PO 2026-06-05):\n- v0.5.88 02c99a7e first ship \u2014 4-part scope claimed; rule-pair \u2713; 836/836.\n- Tester STRICT 1st run FOUND DEFECTS: TS7 FAIL (Sprint not at tree root); TS5 FAIL (no fan-out diff); TS2/8 related.\n- Expert FIX v0.5.89 fa921029 \u2014 /trace fetches /api/trace/sprints (Sprint nav root R18.8); /trace mode=trace (UC\u2192method singular); /scenario mode=scenario (fan-out). Rule-pair (a)+(b)+(c) \u2713; 836/836.\n- Tester re-authored TS in b56895b7 (corrected UC\u2192Method narrowing model).\n- Tester STRICT-bar RE-RUN on v0.5.89: NAV layer PASSED (Sprint root + 1:N). **Iteration-2 BUG: UC\u2192Method OVER-NARROWS \u2014 returns 0 children, should be 1** (TS6-TS9 partial fail on the singular-narrow edge case).\n- Expert FIX v0.5.90 IN FLIGHT (uncommitted on planner-read 2026-06-05: package.json+sw.js+src/ts/scenario/index-store.ts modified). Tester re-runs TS6-TS9 on next redeploy.\n- SYMBOL stays \ud83d\udd27 (fix cycle iteration 2) per PO 2026-06-05. Done-gate checkboxes untouched per learning #9.",
-    "owners": {
-      "req": "robbin-req",
-      "architect": "robbin-architect",
-      "expert": "robbin-expert",
-      "tester": "robbin-tester"
-    },
-    "description": "When the traceability chain passes through a Class node, narrow to the SINGLE method that fulfills the current requirement (the chain walks UC \u2192 THE one Method \u2192 Impl \u2192 Test). The scenario browser MUST keep showing all Class.methods[] (full object model). Add UseCase.method (singular IOR) as the authoritative narrowing edge. Two traversal verbs: 'trace' (uses UC.method, narrows) vs 'browse' (uses Class.methods[], full). Forward-only preserved per Rule 9 \u2014 no back-refs introduced. SCOPE EXTENSION 2026-06-05 (C3+C7 from architect review d7d6404a, PO-directed): T187 formally owns the R18.8 navigation-root rework that T168 AC2 originally wrote in chain-root terms. (a) Browser tree builder produces Sprint\u2192Task as NAVIGATION ROOTS (per R18.8); chain walker still starts at atomic Requirements as CHAIN ROOTS. (b) New endpoint /api/trace/sprints returns Sprint units (navigation roots); /api/trace/roots stays returning Requirement chain-roots for backward compat \u2014 two endpoints, clear semantics (architect rec in r18-8-contradiction-review.md C7). (c) Tree client switches root fetch from /api/trace/roots to /api/trace/sprints; existing chain-root API consumers unaffected.",
-    "ruleParaiHints": "(a)+(b) required (user-facing tree behavior); (c) likely EXEMPT (existing /trace + /scenario routes, no new shell)",
-    "createdAt": "2026-06-05",
-    "createdBy": "robbin-planner",
-    "scaffoldNote": "requirements[] populated by req-eng after R18.1+R18.2 atom uuids land in compound source",
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/task-187-trace-narrowing-single-thread-chain.md",
-    "sourceLine": 5,
-    "slug": "t187-trace-narrowing-chain-walker-one-method-per-uc"
-  }
+    "name": "T187: Trace narrowing — single-thread chain in /trace, full fan-out in /scenario",
+    "slug": "task-187-trace-narrowing-single-thread-chain",
+    "description": "/trace shows a NARROWED single-thread chain starting at UC→Method:\nUC.method (ONE singular) → Method.implementation (singular) → tests.\n/scenario shows FULL fan-out: UC.classes[]→Class.methods[] (ALL).\nNAV layer (Sprint→Tasks→coveredReqs→UCs) is IDENTICAL in both modes — all children, 1:N OK.\nSprint is a root-level nav-root. /api/trace/sprints endpoint.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect 6c7ff26e + 35f111a6)\n  - [x] creating test cases (tester 27ffe1b4 — 10 TS pre-authored)\n  - [x] implementing (expert 02c99a7e v0.5.88)\n  - [ ] testing (tester executes 10 TS — pending)\n- [ ] QA Review\n- [ ] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 18 Planning](./planning.md)\n  - Sprint unit: `ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962`\n  - Atomic requirements (covered): R18.1 + R18.2 + R18.8 — req-eng `22f43f31`\n- follows\n  - T168 (closed; chain semantics preserved; R18.8 nav-root rework appended as note)\n  - T186 (closed; lazy-LOAD; this task adds chain-narrowing on top)\n- down\n  - None (atomic task — Test scenarios listed below are TS not subtasks)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "",
+    "qaAudit": "- 2026-06-05: Tester pre-authored 10 test scenarios from PO's AC description. Ready to execute the instant expert deploys.",
+    "subtasks": "None (atomic task — 11 TS above are test scenarios for execution, not subtasks).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:8662d51e-a7e8-4815-ab0a-396197533cdb"
 }

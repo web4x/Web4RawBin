@@ -7,7 +7,10 @@
     "sprint": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
     "coveredRequirements": [
       "ior:instance:91a1c36a-bd77-4c05-a5ac-e3f1dfbfac5b",
-      "ior:instance:e575ebf0-812a-4345-95f4-f69e54410efb"
+      "ior:instance:e575ebf0-812a-4345-95f4-f69e54410efb",
+      "ior:instance:ced67f02-66a4-46fa-a15f-2b89e380495a",
+      "ior:instance:c98023d1-4cb9-4039-9d56-22f92f17f3f8",
+      "ior:instance:33b81b73-2879-4ffc-87d1-998a69f596ac"
     ],
     "_requirementHints": [
       "R18.3"
