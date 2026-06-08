@@ -615,6 +615,23 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const parentUnit = idx.get(ownerIor);
           if (parentUnit) parent = { uuid: ownerIor, type: (parentUnit.ior || '').split(':')[2] || '', name: String(parentUnit.model?.name || '') };
         }
+        if (!parent) {
+          const FWD_SCAN: Record<string, string[]> = { Requirement: ['tasks','useCases'], Task: ['useCases','children','subtasks','coveredRequirements'], UseCase: ['classes'], Class: ['methods'], Method: ['implementations'], Implementation: ['tests'], Sprint: ['tasks','requirements'] };
+          for (const pUuid of idx.list()) {
+            if (parent) break;
+            const pUnit = idx.get(pUuid);
+            if (!pUnit) continue;
+            const pType = (pUnit.ior || '').split(':')[2] || '';
+            for (const key of (FWD_SCAN[pType] || [])) {
+              const arr = (pUnit.model as Record<string, unknown>)[key];
+              if (!Array.isArray(arr)) continue;
+              if (arr.some(r => String(r).replace('ior:instance:', '') === uuid)) {
+                parent = { uuid: pUuid, type: pType, name: String(pUnit.model?.name || '') };
+                break;
+              }
+            }
+          }
+        }
         const rawSource = String(unit.model?.sourceFile || '').replace('ior:file:', '');
         const sourceFile = (rawSource && !rawSource.includes('.scenario.json')) ? rawSource : undefined;
         const sourceLine = sourceFile ? ((unit.model?.sourceLine as number) || undefined) : undefined;

@@ -236,33 +236,49 @@ export class RbTraceTree extends HTMLElement {
   }
 
   async revealNode(uuid: string): Promise<void> {
-    if (!this.querySelector('.tt-node')) { this.pendingReveal = uuid; return; }
-    const existing = this.querySelector(`rb-object-item[ref*=":${uuid}"]`);
+    const seed = this.getAttribute('data-seed-ior') || 'graph';
+    console.log(`[revealNode] uuid=${uuid} seed=${seed} hasNodes=${!!this.querySelector('.tt-node')}`);
+    if (!this.querySelector('.tt-node')) { this.pendingReveal = uuid; console.log(`[revealNode] QUEUED`); return; }
+    const selector = `rb-object-item[ref*=":${uuid}"]`;
+    const existing = this.querySelector(selector);
     if (existing) {
+      console.log(`[revealNode] FOUND ref=${existing.getAttribute('ref')}`);
       this.highlightNode(existing as HTMLElement);
       return;
     }
+    console.log(`[revealNode] NOT in DOM, fetching ancestors...`);
     const path = await this.fetchAncestorPath(uuid);
-    if (path.length === 0) return;
+    console.log(`[revealNode] path=[${path.join(',')}] len=${path.length}`);
+    if (path.length === 0) { console.log(`[revealNode] EMPTY path`); return; }
+    const rootInTree = this.querySelector(`rb-object-item[ref*=":${path[0]}"]`);
+    console.log(`[revealNode] pathRoot=${path[0]} inTree=${!!rootInTree} rootRef=${rootInTree?.getAttribute('ref')}`);
+    if (!rootInTree) { console.log(`[revealNode] SKIP — root not in this tree`); return; }
     for (let i = 0; i < path.length; i++) {
-      const ancestorUuid = path[i];
-      const item = this.querySelector(`rb-object-item[ref*=":${ancestorUuid}"]`) as HTMLElement;
-      if (!item) continue;
+      const aUuid = path[i];
+      const item = this.querySelector(`rb-object-item[ref*=":${aUuid}"]`) as HTMLElement;
+      console.log(`[revealNode] step[${i}] ancestor=${aUuid} found=${!!item} ref=${item?.getAttribute('ref')} open=${item?.hasAttribute('children-open')}`);
+      if (!item) { console.log(`[revealNode] BREAK — not in DOM`); break; }
       if (!item.hasAttribute('children-open')) {
         item.dispatchEvent(new CustomEvent('toggle-children', { bubbles: true, detail: { open: true } }));
         const nextUuid = i < path.length - 1 ? path[i + 1] : uuid;
+        console.log(`[revealNode] expanded, waiting for next=${nextUuid}`);
         await this.waitForNode(nextUuid);
+        const appeared = !!this.querySelector(`rb-object-item[ref*=":${nextUuid}"]`);
+        console.log(`[revealNode] next appeared=${appeared}`);
       }
     }
-    const target = this.querySelector(`rb-object-item[ref*=":${uuid}"]`);
+    const target = this.querySelector(selector);
+    console.log(`[revealNode] FINAL target=${!!target} ref=${target?.getAttribute('ref')}`);
     if (target) this.highlightNode(target as HTMLElement);
+    else console.log(`[revealNode] FAIL — target never appeared`);
   }
 
   private waitForNode(uuid: string, timeout = 5000): Promise<void> {
     return new Promise(resolve => {
+      const sel = `rb-object-item[ref*=":${uuid}"]`;
       const check = () => {
-        if (this.querySelector(`rb-object-item[ref*=":${uuid}"]`)) { resolve(); return; }
-        if ((performance.now() - start) > timeout) { resolve(); return; }
+        if (this.querySelector(sel)) { resolve(); return; }
+        if ((performance.now() - start) > timeout) { console.log(`[waitForNode] TIMEOUT uuid=${uuid}`); resolve(); return; }
         requestAnimationFrame(check);
       };
       const start = performance.now();
@@ -279,13 +295,14 @@ export class RbTraceTree extends HTMLElement {
       seen.add(current);
       try {
         const res = await fetch(`/api/trace/children/${encodeURIComponent(current)}${this.modeParam}`);
-        if (!res.ok) break;
+        if (!res.ok) { console.log(`[fetchAncestorPath] ${res.status} for ${current}`); break; }
         const data = await res.json();
         const parentUuid = data.parent?.uuid;
+        console.log(`[fetchAncestorPath] ${current} (${data.type}) → parent=${parentUuid || 'NULL'}`);
         if (!parentUuid) break;
         path.unshift(parentUuid);
         current = parentUuid;
-      } catch { break; }
+      } catch (e) { console.log(`[fetchAncestorPath] ERR`, e); break; }
     }
     return path;
   }
