@@ -27,8 +27,10 @@ The test verifies that RbObjectItem renders. It does NOT verify that chain-data-
 ### 1. Code Traceability (structural chain — EXISTING)
 
 ```
-Requirement → Task → UseCase → Class → Method → Implementation → Test
+Requirement → UseCase → Class → Method → Implementation → Test
 ```
+
+(6-step chain; Task is navigation, not chain — corrected 2026-06-08)
 
 **Answers:** "Which code exists because of this requirement?"
 

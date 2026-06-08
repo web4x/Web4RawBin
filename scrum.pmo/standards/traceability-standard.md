@@ -5,20 +5,23 @@
 
 ## Purpose
 
-Every artifact must be traceable through the **LOCKED 7-step canonical chain** (T168, R-E). UUID tags and IOR references are the mechanism. This document defines the chain, where each UUID lives, and how they cross-reference.
+Every artifact must be traceable through the **LOCKED 6-step canonical chain** (corrected 2026-06-08; was 7-step with Task in chain — Task is NAVIGATION, not chain). UUID tags and IOR references are the mechanism. This document defines the chain, where each UUID lives, and how they cross-reference.
 
-## The Traceability Chain — LOCKED 7-Step (T168)
+## The Traceability Chain — LOCKED 6-Step
 
-**Canonical chain order** (Tron directive R-E, PO amendments 2026-06-02):
+**Canonical chain order** (corrected 2026-06-08 per Tron audit):
 
 ```
-Requirement → Task → UseCase(s) → Class → Method → Implementation → Test(s)
+Requirement → UseCase(s) → Class → Method → Implementation → Test(s)
 ```
 
-- **Atomic requirements are CHAIN ROOTS** — the forward-only traceability chain starts at requirements and walks to tests. In the browser tree, Sprint is the NAVIGATION ROOT; requirements appear as children of their covering Task (Sprint→Task→coveredReqs→chain). See R18.8.
+**Task is NOT in the chain.** Task is in the NAVIGATION layer: Sprint → Task → coveredRequirements → [chain starts at Requirement].
+
+- **Atomic requirements are CHAIN ROOTS** — the forward-only traceability chain starts at requirements (Requirement.useCases[]) and walks to tests. In the browser tree, Sprint is the NAVIGATION ROOT; requirements appear as children of their covering Task (Sprint→Task→coveredReqs→chain). See R18.8.
 - **Forward-only**: links point DOWN the chain (no back-refs in the graph).
 - **Plural hops**: UseCase(s) and Test(s) are 1:N branching points. Implementation:Test is 1:N.
 - **Tree walk**: `/api/trace/children/<uuid>` follows FORWARD_KEYS per class type.
+- **Navigation walk**: Sprint→Task→coveredRequirements uses NAVIGATION_KEYS (separate from chain).
 - **Chain audit**: every Test node must be reachable from a Requirement root via the 7-step chain.
 
 ### UUID marker chain
@@ -135,7 +138,7 @@ it('creates room directory', () => {
 
 ## Cross-Reference Rules
 
-1. **Every requirement MUST link forward** to at least one task via `tasks[]`
+1. **Every requirement MUST link forward** to at least one UseCase via `useCases[]` (chain). Requirements also have `tasks[]` for navigation (which tasks cover this requirement) but `tasks[]` is NOT a chain link.
 2. ~~**Every task MUST link up** to a requirement~~ **REMOVED (T159/B18)** — tasks do NOT store back-refs to requirements. Forward chain FROM requirements is the sole truth.
 3. ~~**Every subtask MUST link up** to both a requirement AND its parent task~~ **REMOVED (T159/B18)** — same principle. Subtasks are reached via `task.subtasks[]` forward array.
 4. **PlantUML elements SHOULD carry UUIDs** for elements that map 1:1 to requirements or tasks
@@ -299,14 +302,14 @@ This serves the raw scenario JSON via the existing `/md/` file browser, letting 
 
 A task or sprint is **not "verified"** until BOTH of the following are asserted:
 
-### (1) FULL semantic chain — per-Test 7-hop reachability
+### (1) FULL semantic chain — per-Test 6-hop reachability
 
 The chain must be asserted **end-to-end at the individual Test level**, not as
 a node-count proxy. Every Test instance MUST be reachable from a Requirement
-root via the **full 7-step canonical chain**:
+root via the **full 6-step canonical chain** (corrected 2026-06-08; Task is navigation, not chain):
 
 ```
-requirement → task → usecase(s) → class → method → implementation → test
+requirement → usecase(s) → class → method → implementation → test
 ```
 
 A "metrics-pass" of total reachable nodes (e.g. 238/238 units) is NOT sufficient

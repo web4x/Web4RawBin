@@ -55,7 +55,7 @@ T124 depends-on T125 (implementation dependency, not chain dependency)
 ```
 
 The recurrence is a **conflation of two relationships:**
-1. **Chain relationship** (forward-only): Requirement → Task → UC → Class → ... → Test
+1. **Chain relationship** (forward-only): Requirement → UseCase → Class → Method → Implementation → Test (6-step; Task is NAVIGATION, not chain — corrected 2026-06-08)
 2. **Dependency relationship** (DAG, can be cyclic): T124 depends-on T125, T125 depends-on T126
 
 These are DIFFERENT link types. The chain is for traceability (WHY does this code exist?). The dependency is for scheduling (WHAT must be built first?).
@@ -122,8 +122,8 @@ After planner creates a task file:
 
 1. Architect reads the task's requirement + scope
 2. Architect defines Object.verb use cases in PUML
-3. Each UC links to its parent Task in the PUML annotation (`T124.3 / T125`)
-4. The chain is: Requirement → Task → UseCase (forward-only)
+3. Each UC links to its Requirement via Requirement.useCases[] (chain forward)
+4. The chain is: Requirement → UseCase (forward-only, 6-step; Task is navigation, not chain — corrected 2026-06-08)
 
 **Never: architect creates a UC that spawns a new requirement.**
 
@@ -192,7 +192,7 @@ R17.3 → T126 → UC → Class → Method → Impl → Test
 (three independent forward chains; dependencies are metadata, not chain links)
 ```
 
-Each requirement is a CHAIN ROOT — the forward-only traceability chain starts here. In the chain, each task is reached from exactly one requirement (forward: req→task). In the browser navigation, each task DISPLAYS its covered requirements as children (Sprint→Task→coveredReqs→chain, per R18.8). Dependencies between tasks are scheduling metadata (`follows` / `Dependencies`), not chain links. The chain walker never sees task→req→task — only req→task→uc→...→test.
+Each requirement is a CHAIN ROOT — the forward-only traceability chain starts here and goes directly to UseCases (Requirement.useCases[]). Task is NOT in the chain — it is a NAVIGATION node (Sprint→Task→coveredReqs, per R18.8). Dependencies between tasks are scheduling metadata (`follows` / `Dependencies`), not chain links. The chain walker sees only req→uc→class→method→impl→test (6-step, corrected 2026-06-08).
 
 ## Req-Eng Decomposition Protocol (robbin-req)
 
@@ -249,7 +249,9 @@ If a compound source entry has NOT been decomposed into atoms, it is an OPEN ITE
 
 ## Conclusion
 
-**Canonical precedence:** Compound Requirement → Atomic Requirements → Tasks → Use Cases → Classes → Methods → Implementations → Tests.
+**Canonical REFINEMENT precedence** (creation order): Compound Requirement → Atomic Requirements → Tasks → Use Cases → Classes → Methods → Implementations → Tests.
+
+**Canonical CHAIN** (traceability, forward-only, 6-step — corrected 2026-06-08): Requirement → UseCase → Class → Method → Implementation → Test. Task is NAVIGATION, not chain.
 
 **The recurrence is eliminated by three mechanisms:**
 1. **Chain vs dependency separation** (architect — Rules 1-5): chain is forward-only, dependencies are metadata
