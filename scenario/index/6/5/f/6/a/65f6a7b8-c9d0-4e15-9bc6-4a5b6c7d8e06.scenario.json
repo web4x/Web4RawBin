@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "65f6a7b8-c9d0-4e15-9bc6-4a5b6c7d8e06",
-    "name": "R15.7 \u2014 Traceability BROWSER next to the file browser in ...",
+    "name": "R15.7 — Traceability BROWSER next to the file browser in ...",
     "description": "> R2 (literal): browser includes traceability to tasks as DetailViews and planning as Overview, always consistent.",
     "tronQuote": "> R2 (literal): browser includes traceability to tasks as DetailViews and planning as Overview, always consistent.",
     "tasks": [
@@ -11,7 +11,12 @@
     ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-15-traceability-browser/requirements.md",
-    "sourceLine": 48
+    "sourceLine": 48,
+    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
+    "unitLinks": [
+      "ior:instance:107a6172-8394-45a6-897d-a07070707107",
+      "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
+    ]
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

@@ -16,7 +16,9 @@
       "robbin-architect"
     ],
     "sourceFile": "ior:file:scenario/index/4/a/7/4/d/4a74d507-2c3a-46f6-a26f-fd9aff5b62a5.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": null,
+    "unitLinks": []
   },
   "ownerIor": null
 }

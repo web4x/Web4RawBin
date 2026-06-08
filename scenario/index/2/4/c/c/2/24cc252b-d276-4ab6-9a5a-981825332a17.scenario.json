@@ -8,7 +8,9 @@
     "methods": [],
     "status": "PASS",
     "sourceFile": "ior:file:test/vitest/pwa.test.ts",
-    "sourceLine": 3
+    "sourceLine": 3,
+    "parent": "ior:instance:bbd18e1c-82f0-4438-8618-f66715731212",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:bbd18e1c-82f0-4438-8618-f66715731212"
 }

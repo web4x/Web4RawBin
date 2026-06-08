@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "25b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02",
-    "name": "R15.3 \u2014 Object.verb use-case diagrams (Object=noun, verb=...",
+    "name": "R15.3 — Object.verb use-case diagrams (Object=noun, verb=...",
     "description": "> R1 (literal): Object.verb; methods as routes w/ method anchor + query params; flat-JSON state w/ references; MVC view updates; no protocols.",
     "tronQuote": "> R1 (literal): Object.verb; methods as routes w/ method anchor + query params; flat-JSON state w/ references; MVC view updates; no protocols.",
     "tasks": [
@@ -10,7 +10,11 @@
     ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-15-traceability-browser/requirements.md",
-    "sourceLine": 27
+    "sourceLine": 27,
+    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
+    "unitLinks": [
+      "ior:instance:103c2d3e-4f50-4162-8839-c03030303103"
+    ]
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

@@ -5,7 +5,9 @@
     "name": "R16.2 RequirementDetailView",
     "sourceFile": "ior:file:src/public/ts/trace/rb-usecase-detail.ts",
     "tests": [],
-    "sourceLine": 7
+    "sourceLine": 7,
+    "parent": "ior:instance:5009f929-a3a4-4db7-bf53-8ef1d991f1a2",
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:5009f929-a3a4-4db7-bf53-8ef1d991f1a2"
 }

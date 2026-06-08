@@ -25,7 +25,12 @@
     "class": "ior:instance:c8060ced-11f7-4fc1-bbc6-5c7683cf6463",
     "method": "ior:instance:a40eec5b-636c-4e18-9526-01e0f1bfdcc8",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-124.3-architect-storage-layout.md",
-    "sourceLine": 33
+    "sourceLine": 33,
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "unitLinks": [
+      "ior:instance:c8060ced-11f7-4fc1-bbc6-5c7683cf6463",
+      "ior:instance:a40eec5b-636c-4e18-9526-01e0f1bfdcc8"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

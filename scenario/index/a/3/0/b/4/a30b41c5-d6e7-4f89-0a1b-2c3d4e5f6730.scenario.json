@@ -12,8 +12,10 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
     "sourceLine": 196,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/requirement/r17-31-the-right-detail-pane-has-a-hard-max-width-equal.json"
-    ]
+      "sprints.json/sprint-17-scenario-units/requirement/r17-31-the-right-detail-pane-has-a-hard-max-width-equal.json",
+      "ior:instance:d0881ad6-ade5-4d60-94a2-fbe5347fd4b6"
+    ],
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

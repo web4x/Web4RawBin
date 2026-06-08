@@ -18,7 +18,9 @@
       "robbin-planner"
     ],
     "sourceFile": "ior:file:scenario/index/6/9/0/1/f/6901f944-d300-4f65-86aa-eb4ba9f782b9.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": null,
+    "unitLinks": []
   },
   "ownerIor": null
 }

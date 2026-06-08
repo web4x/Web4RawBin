@@ -8,7 +8,9 @@
     "methods": [],
     "status": "PASS",
     "sourceFile": "ior:file:test/e2e/device-enrollment.spec.ts",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": "ior:instance:dc3a706d-9ea7-4baa-93f5-e7ec3f1d0fa0",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:dc3a706d-9ea7-4baa-93f5-e7ec3f1d0fa0"
 }

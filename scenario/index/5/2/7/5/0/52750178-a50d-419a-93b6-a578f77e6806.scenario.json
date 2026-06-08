@@ -8,7 +8,9 @@
     "methods": [],
     "status": "PASS",
     "sourceFile": "ior:file:test/e2e/new-user.spec.ts",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": "ior:instance:f6909425-8807-4ccc-832d-35c9ed50bd96",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:f6909425-8807-4ccc-832d-35c9ed50bd96"
 }

@@ -2,16 +2,21 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "55e5f6a7-b8c9-4d04-8ab5-3f4a5b6c7d05",
-    "name": "R15.6 \u2014 Task DetailViews + planning Overview that is ALWA...",
-    "description": "> R4 (literal): ListOverview with search \u2192 extensible to remoteSearch.",
-    "tronQuote": "> R4 (literal): ListOverview with search \u2192 extensible to remoteSearch.",
+    "name": "R15.6 — Task DetailViews + planning Overview that is ALWA...",
+    "description": "> R4 (literal): ListOverview with search → extensible to remoteSearch.",
+    "tronQuote": "> R4 (literal): ListOverview with search → extensible to remoteSearch.",
     "tasks": [
       "ior:instance:106f5061-7283-4495-896c-f06060606106",
       "ior:instance:471b9c4a-378f-4e56-a990-28f82a998b80"
     ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-15-traceability-browser/requirements.md",
-    "sourceLine": 43
+    "sourceLine": 43,
+    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
+    "unitLinks": [
+      "ior:instance:106f5061-7283-4495-896c-f06060606106",
+      "ior:instance:471b9c4a-378f-4e56-a990-28f82a998b80"
+    ]
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

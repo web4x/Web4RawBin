@@ -10,7 +10,11 @@
     ],
     "implementation": "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61",
     "sourceFile": "ior:file:src/public/ts/trace/rb-usecase-detail.ts",
-    "sourceLine": 20
+    "sourceLine": 20,
+    "parent": "ior:instance:cd70a713-a8f2-4d6b-bd8a-cb48c143cef5",
+    "unitLinks": [
+      "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61"
+    ]
   },
   "ownerIor": "ior:instance:cd70a713-a8f2-4d6b-bd8a-cb48c143cef5"
 }

@@ -11,7 +11,11 @@
     "sourceFile": "ior:file:scenario/index/9/1/8/8/6/918860e1-6d46-4290-aad7-3da42b14c3f5.scenario.json",
     "sourceLine": 1,
     "tronQuote": "> TRON: \"on this picture we see the beautiful traceability. BUT on the details view, i want to see ALL methods, not just the traced one. the same on the ScenarioView. for all types. above the scenario view link i want a 'Parent' link. and below it i want to see a Browse File Link, that jumps to the corresponding file in the Browser. there i can open it in the monacco editor. add line information to the link, so that eg on a method or usecase the monacco editor can open at the correct line\"",
-    "description": "\"Parent\" link above Scenario-view link navigates to the ownerIor parent instance."
+    "description": "\"Parent\" link above Scenario-view link navigates to the ownerIor parent instance.",
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "unitLinks": [
+      "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
+    ]
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

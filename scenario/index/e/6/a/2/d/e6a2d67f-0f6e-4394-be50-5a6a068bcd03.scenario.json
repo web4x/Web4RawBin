@@ -10,7 +10,11 @@
     ],
     "implementation": "ior:instance:0431ba2a-623f-437d-af3b-9ae6e2188d8e",
     "sourceFile": "ior:file:src/ts/server/TraceConsistency.ts",
-    "sourceLine": 234
+    "sourceLine": 234,
+    "parent": "ior:instance:fbd7573d-af75-4ddd-8a29-336e06239c78",
+    "unitLinks": [
+      "ior:instance:0431ba2a-623f-437d-af3b-9ae6e2188d8e"
+    ]
   },
   "ownerIor": "ior:instance:fbd7573d-af75-4ddd-8a29-336e06239c78"
 }

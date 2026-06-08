@@ -15,7 +15,12 @@
     "class": "ior:instance:d48dc6bc-fe32-4df4-8f22-b8ba8f9d3323",
     "method": "ior:instance:c08094b0-9629-4772-b500-ab75e1b3efaa",
     "sourceFile": "ior:file:scenario/index/5a3cc/5a3ccdac-9a18-421e-9116-68467c29e0db.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b",
+    "unitLinks": [
+      "ior:instance:d48dc6bc-fe32-4df4-8f22-b8ba8f9d3323",
+      "ior:instance:c08094b0-9629-4772-b500-ab75e1b3efaa"
+    ]
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
 }

@@ -6,7 +6,9 @@
     "className": "RbObjectItem",
     "methodName": "onClickDelegate",
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
-    "sourceLine": 62
+    "sourceLine": 62,
+    "parent": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
 }

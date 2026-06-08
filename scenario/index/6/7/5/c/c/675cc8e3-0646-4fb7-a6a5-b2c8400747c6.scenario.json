@@ -24,7 +24,9 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:8662d51e-a7e8-4815-ab0a-396197533cdb",
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:8662d51e-a7e8-4815-ab0a-396197533cdb"
 }

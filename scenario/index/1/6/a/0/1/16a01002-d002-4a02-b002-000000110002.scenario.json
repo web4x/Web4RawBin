@@ -24,7 +24,12 @@
     "class": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0",
     "method": "ior:instance:4b0f5766-7c3a-49d1-952b-873c312f10c4",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-110-detailview-container.md",
-    "sourceLine": 34
+    "sourceLine": 34,
+    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
+    "unitLinks": [
+      "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0",
+      "ior:instance:4b0f5766-7c3a-49d1-952b-873c312f10c4"
+    ]
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

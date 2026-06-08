@@ -8,7 +8,9 @@
     "methods": [],
     "status": "PASS",
     "sourceFile": "ior:file:test/e2e/lobby-card-badges.spec.ts",
-    "sourceLine": 3
+    "sourceLine": 3,
+    "parent": "ior:instance:d55124c4-0de0-45bc-9fb8-8375cad61de7",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:d55124c4-0de0-45bc-9fb8-8375cad61de7"
 }

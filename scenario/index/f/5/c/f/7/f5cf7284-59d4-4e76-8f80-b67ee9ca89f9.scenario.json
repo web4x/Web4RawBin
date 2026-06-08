@@ -14,8 +14,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml",
     "sourceLine": 268,
     "unitLinks": [
-      "sprints.json/sprint-16-traceability-ux/class/traceconsistency.json"
-    ]
+      "sprints.json/sprint-16-traceability-ux/class/traceconsistency.json",
+      "ior:instance:055a7f68-1d98-4a95-9572-22dcb0c40712",
+      "ior:instance:963b67a2-488c-4580-b5ba-697537f02754",
+      "ior:instance:3dc29df9-0da7-4164-8035-4e4a131e6e6b"
+    ],
+    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

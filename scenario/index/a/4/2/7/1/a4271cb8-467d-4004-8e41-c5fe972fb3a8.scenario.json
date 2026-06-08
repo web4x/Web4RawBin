@@ -10,7 +10,11 @@
     ],
     "implementation": "ior:instance:d608bf73-c520-48c3-8b6c-7eaa5cbe31ae",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-view.ts",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07",
+    "unitLinks": [
+      "ior:instance:d608bf73-c520-48c3-8b6c-7eaa5cbe31ae"
+    ]
   },
   "ownerIor": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
 }

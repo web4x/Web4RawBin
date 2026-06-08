@@ -30,8 +30,10 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-10-contacts-ui/task-82-vcard-visibility-avatar-dry.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-10-contacts-ui/task/task-82-vcard-visibility-avatar-dry.json"
-    ]
+      "sprints.json/sprint-10-contacts-ui/task/task-82-vcard-visibility-avatar-dry.json",
+      "ior:instance:019d98ca-3495-4b01-afb8-19a3bd431a11"
+    ],
+    "parent": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab"
   },
   "ownerIor": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab"
 }

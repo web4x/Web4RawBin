@@ -6,6 +6,10 @@
     "sourceFile": "ior:file:src/public/ts/scenario-view.ts",
     "tests": [
       "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+    ],
+    "parent": "ior:instance:615ad9dd-12ed-470e-aac6-6a73a48ec69e",
+    "unitLinks": [
+      "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
     ]
   },
   "ownerIor": "ior:instance:615ad9dd-12ed-470e-aac6-6a73a48ec69e"

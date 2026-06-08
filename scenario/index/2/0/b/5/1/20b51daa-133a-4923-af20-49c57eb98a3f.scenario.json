@@ -17,7 +17,12 @@
       "file": "scenario/index/2/0/b/5/1/20b51daa-133a-4923-af20-49c57eb98a3f.scenario.json",
       "commit": "6394960d",
       "ior": "ior:file:scenario/index/2/0/b/5/1/20b51daa-133a-4923-af20-49c57eb98a3f.scenario.json?commit=6394960d"
-    }
+    },
+    "parent": "ior:instance:ea70d80c-66e8-459a-af3d-74b137341303",
+    "unitLinks": [
+      "ior:instance:a7a3aa7d-9902-47aa-bc61-043335b7d402",
+      "ior:instance:87a5dffe-54bc-466e-9579-10bd2f02476b"
+    ]
   },
   "ownerIor": "ior:instance:ea70d80c-66e8-459a-af3d-74b137341303"
 }

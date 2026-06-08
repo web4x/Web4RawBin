@@ -26,7 +26,14 @@
     "class": "ior:instance:5d9132cf-f49e-4d3b-bc67-5078d0d576d0",
     "method": "ior:instance:f2930f5e-c748-49f5-888e-2d3aaa9a9012",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-124.2-architect-view-templates.md",
-    "sourceLine": 33
+    "sourceLine": 33,
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "unitLinks": [
+      "ior:instance:84a94745-95b3-406c-8180-56ccef63b31b",
+      "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5",
+      "ior:instance:5d9132cf-f49e-4d3b-bc67-5078d0d576d0",
+      "ior:instance:f2930f5e-c748-49f5-888e-2d3aaa9a9012"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

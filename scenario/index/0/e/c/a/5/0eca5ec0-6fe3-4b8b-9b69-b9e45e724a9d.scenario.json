@@ -23,7 +23,9 @@
       "robbin-expert"
     ],
     "sourceFile": "ior:file:scenario/index/0/e/c/a/5/0eca5ec0-6fe3-4b8b-9b69-b9e45e724a9d.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": null,
+    "unitLinks": []
   },
   "ownerIor": null
 }

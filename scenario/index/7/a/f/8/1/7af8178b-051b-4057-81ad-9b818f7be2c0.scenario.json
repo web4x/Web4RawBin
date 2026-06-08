@@ -12,7 +12,13 @@
     "useCases": [],
     "method": "ior:instance:8615d646-8ad4-4d31-bcf4-99fbaa0bd911",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
-    "sourceLine": 10
+    "sourceLine": 10,
+    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
+    "unitLinks": [
+      "ior:instance:8615d646-8ad4-4d31-bcf4-99fbaa0bd911",
+      "ior:instance:4b0f5766-7c3a-49d1-952b-873c312f10c4",
+      "ior:instance:fdc81fce-802f-4bd8-879b-d905311a887b"
+    ]
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

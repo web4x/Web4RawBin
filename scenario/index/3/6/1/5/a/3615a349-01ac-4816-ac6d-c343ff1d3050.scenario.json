@@ -11,7 +11,9 @@
       "ior:instance:67bde18f-76f9-43cd-abea-77c2ad7134f9"
     ],
     "sourceFile": "ior:file:test/vitest/avatar-rekey.test.ts",
-    "sourceLine": 3
+    "sourceLine": 3,
+    "parent": "ior:instance:b3e1707a-3f83-4ddc-b37c-184ea5d45961",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:b3e1707a-3f83-4ddc-b37c-184ea5d45961"
 }

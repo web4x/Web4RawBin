@@ -4,7 +4,9 @@
     "uuid": "e8d226f6-d8e2-4a8d-9db9-2edd5bb33bfb",
     "name": "Assets.rebrand impl",
     "sourceFile": "ior:file:src/public/app.css",
-    "tests": []
+    "tests": [],
+    "parent": "ior:instance:5b6e33b7-a095-4109-a616-e179116651ba",
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:5b6e33b7-a095-4109-a616-e179116651ba"
 }

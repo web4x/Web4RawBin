@@ -10,7 +10,11 @@
     ],
     "implementation": "ior:instance:dad8742f-c567-41de-8dea-84cb47956e21",
     "sourceFile": "ior:file:src/ts/scenario/ior-resolver.ts",
-    "sourceLine": 26
+    "sourceLine": 26,
+    "parent": "ior:instance:4dfd37fd-d30f-4ec1-af8c-2647ff865ba7",
+    "unitLinks": [
+      "ior:instance:dad8742f-c567-41de-8dea-84cb47956e21"
+    ]
   },
   "ownerIor": "ior:instance:4dfd37fd-d30f-4ec1-af8c-2647ff865ba7"
 }

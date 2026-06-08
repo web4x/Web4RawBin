@@ -8,7 +8,9 @@
     "methods": [],
     "status": "PASS",
     "sourceFile": "ior:file:test/vitest/chat.test.ts",
-    "sourceLine": 3
+    "sourceLine": 3,
+    "parent": "ior:instance:cf702932-c711-4c9e-9fdc-9352eaf5d327",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:cf702932-c711-4c9e-9fdc-9352eaf5d327"
 }

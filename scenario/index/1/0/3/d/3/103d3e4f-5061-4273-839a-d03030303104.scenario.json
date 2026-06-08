@@ -11,7 +11,9 @@
       "ior:instance:25b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02"
     ],
     "sourceFile": "ior:file:test/vitest/trace-routing.test.ts",
-    "sourceLine": 6
+    "sourceLine": 6,
+    "parent": "ior:instance:c17f249c-dff3-4ba9-83bf-0d09d4d167ac",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:c17f249c-dff3-4ba9-83bf-0d09d4d167ac"
 }

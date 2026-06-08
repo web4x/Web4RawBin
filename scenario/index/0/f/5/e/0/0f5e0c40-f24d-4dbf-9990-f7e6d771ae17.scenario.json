@@ -10,7 +10,11 @@
     ],
     "implementation": "ior:instance:f91aae23-0e3e-43b1-9d63-81b74f5f2307",
     "sourceFile": "ior:file:src/ts/scenario/classes.ts",
-    "sourceLine": 32
+    "sourceLine": 32,
+    "parent": "ior:instance:40475f3e-6cef-476b-9749-777888cb169c",
+    "unitLinks": [
+      "ior:instance:f91aae23-0e3e-43b1-9d63-81b74f5f2307"
+    ]
   },
   "ownerIor": "ior:instance:40475f3e-6cef-476b-9749-777888cb169c"
 }

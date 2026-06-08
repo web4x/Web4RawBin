@@ -14,8 +14,10 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
     "sourceLine": 256,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/requirement/r17-44-r17-26-links-forward-to-its-implementing-tasks-t1.json"
-    ]
+      "sprints.json/sprint-17-scenario-units/requirement/r17-44-r17-26-links-forward-to-its-implementing-tasks-t1.json",
+      "ior:instance:75628241-9157-4385-a7f0-f4f7a3142737"
+    ],
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

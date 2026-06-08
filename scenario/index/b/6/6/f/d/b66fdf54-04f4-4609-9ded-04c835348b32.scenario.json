@@ -30,8 +30,10 @@
     "sourceFile": "ior:file:src/ts/scenario/ior-resolver.ts",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-127-navigation.json"
-    ]
+      "sprints.json/sprint-17-scenario-units/task/task-127-navigation.json",
+      "ior:instance:17a00203-0003-4a03-a003-000017020003"
+    ],
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

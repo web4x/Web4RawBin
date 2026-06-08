@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "3b6cce5a-581c-4325-88b2-b9d381c7f268",
-    "name": "R17.3: Class-based instances \u2014 typed classes with uniform...",
+    "name": "R17.3: Class-based instances — typed classes with uniform...",
     "description": "> TRON: \"the data shall be in uuid.scenario.json that contains an ior [internet object reference], that can load the class Task to process the file and create the views.\"",
     "tronQuote": "> TRON: \"the data shall be in uuid.scenario.json that contains an ior [internet object reference], that can load the class Task to process the file and create the views.\"",
     "tasks": [
@@ -10,7 +10,11 @@
     ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
-    "sourceLine": 17
+    "sourceLine": 17,
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "unitLinks": [
+      "ior:instance:32af18ad-b6be-4987-b677-1507fdec0851"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

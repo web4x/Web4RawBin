@@ -32,7 +32,8 @@
     "sourceLine": 6,
     "unitLinks": [
       "sprints.json/sprint-15-traceability-browser/task/task-102-matrix-consistency-engine.json"
-    ]
+    ],
+    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

@@ -14,7 +14,9 @@
       "ior:instance:b41c52d6-e7f8-4a90-1b2c-3d4e5f677031"
     ],
     "sourceFile": "ior:file:test/vitest/rb-trace-tree.test.ts",
-    "sourceLine": 6
+    "sourceLine": 6,
+    "parent": "ior:instance:f1b4b429-5819-4adf-8da2-92f6e0a8dd7e",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:f1b4b429-5819-4adf-8da2-92f6e0a8dd7e"
 }

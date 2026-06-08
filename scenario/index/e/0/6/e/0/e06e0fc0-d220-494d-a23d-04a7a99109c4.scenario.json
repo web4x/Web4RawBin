@@ -6,6 +6,10 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-task-detail.ts",
     "tests": [
       "ior:instance:105f5061-7283-4495-8a6c-f05050505106"
+    ],
+    "parent": "ior:instance:f832807d-5ced-4240-a39f-1e31e26c81bf",
+    "unitLinks": [
+      "ior:instance:105f5061-7283-4495-8a6c-f05050505106"
     ]
   },
   "ownerIor": "ior:instance:f832807d-5ced-4240-a39f-1e31e26c81bf"

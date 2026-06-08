@@ -30,8 +30,10 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-1-rawbin-foundation/task-3.4-test-alignment.md",
     "sourceLine": 3,
     "unitLinks": [
-      "sprints.json/sprint-1-rawbin-foundation/task/task-3.4-test-alignment.json"
-    ]
+      "sprints.json/sprint-1-rawbin-foundation/task/task-3.4-test-alignment.json",
+      "ior:instance:1e18cecf-023d-4472-9842-c2f8e28abd28"
+    ],
+    "parent": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
   },
   "ownerIor": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
 }

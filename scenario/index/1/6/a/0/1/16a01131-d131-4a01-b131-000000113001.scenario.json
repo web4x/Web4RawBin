@@ -24,7 +24,12 @@
     "class": "ior:instance:311ff74e-7024-4827-a9ee-d9a09c22c1b0",
     "method": "ior:instance:81d1c3a4-18b9-4478-b4e9-83b6c3b827cf",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-113-tree-item-icon.md",
-    "sourceLine": 30
+    "sourceLine": 30,
+    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
+    "unitLinks": [
+      "ior:instance:311ff74e-7024-4827-a9ee-d9a09c22c1b0",
+      "ior:instance:81d1c3a4-18b9-4478-b4e9-83b6c3b827cf"
+    ]
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

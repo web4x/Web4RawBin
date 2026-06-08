@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "cb93f0db-0e42-4795-b41f-2e125120f259",
-    "name": "R17.2: IOR \u2014 universal reference handle",
+    "name": "R17.2: IOR — universal reference handle",
     "description": "> TRON: \"each instance becomes the same scenario json format where just the class model attributes varies. the json has { ior, model, ownerIor }\"",
     "tronQuote": "> TRON: \"each instance becomes the same scenario json format where just the class model attributes varies. the json has { ior, model, ownerIor }\"",
     "tasks": [
@@ -10,7 +10,11 @@
     ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
-    "sourceLine": 12
+    "sourceLine": 12,
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "unitLinks": [
+      "ior:instance:dce1bdf8-7076-4376-a32c-9c8b08422bdc"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

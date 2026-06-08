@@ -10,7 +10,11 @@
     "useCases": [],
     "method": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16",
     "sourceFile": "ior:file:src/public/ts/trace/rb-task-detail.ts",
-    "sourceLine": 15
+    "sourceLine": 15,
+    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
+    "unitLinks": [
+      "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
+    ]
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

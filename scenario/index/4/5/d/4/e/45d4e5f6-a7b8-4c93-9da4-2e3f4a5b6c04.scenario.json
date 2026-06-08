@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "45d4e5f6-a7b8-4c93-9da4-2e3f4a5b6c04",
-    "name": "R15.5 \u2014 `ListOverview` with search over listed objects, e...",
+    "name": "R15.5 — `ListOverview` with search over listed objects, e...",
     "description": "> R3 (literal): defaultItemView for lists, similar to lobby room entry, draggable native-os support.",
     "tronQuote": "> R3 (literal): defaultItemView for lists, similar to lobby room entry, draggable native-os support.",
     "tasks": [
@@ -10,7 +10,11 @@
     ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-15-traceability-browser/requirements.md",
-    "sourceLine": 38
+    "sourceLine": 38,
+    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
+    "unitLinks": [
+      "ior:instance:105e4f50-6172-4384-895b-e05050505105"
+    ]
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

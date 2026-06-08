@@ -33,8 +33,10 @@
     "sourceFile": "ior:file:src/public/ts/trace/ViewBus.ts",
     "sourceLine": 9,
     "unitLinks": [
-      "sprints.json/sprint-15-traceability-browser/task/task-103-object-verb-routing.json"
-    ]
+      "sprints.json/sprint-15-traceability-browser/task/task-103-object-verb-routing.json",
+      "ior:instance:08e36c7f-e519-4e42-84b7-ee24a55aeb3e"
+    ],
+    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

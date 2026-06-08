@@ -9,7 +9,11 @@
       "ior:instance:d8f406ce-40df-4d51-87ec-fff7dec44374"
     ],
     "implementation": "ior:instance:d8f406ce-40df-4d51-87ec-fff7dec44374",
-    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts"
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
+    "parent": "ior:instance:108b7283-94a5-46b7-898e-b08080808108",
+    "unitLinks": [
+      "ior:instance:d8f406ce-40df-4d51-87ec-fff7dec44374"
+    ]
   },
   "ownerIor": "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
 }

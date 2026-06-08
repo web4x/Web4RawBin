@@ -7,7 +7,11 @@
       "ior:instance:105f5061-7283-4495-8a6c-f05050505106"
     ],
     "sourceFile": "ior:file:scenario/index/3/9/e/0/a/39e0ab19-3de9-405b-ac47-1b054db2f63c.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": "ior:instance:9a0914b8-4158-4b90-a898-c082cff5c737",
+    "unitLinks": [
+      "ior:instance:105f5061-7283-4495-8a6c-f05050505106"
+    ]
   },
   "ownerIor": "ior:instance:9a0914b8-4158-4b90-a898-c082cff5c737"
 }

@@ -10,7 +10,11 @@
     ],
     "implementation": "ior:instance:e420b8b7-fa4a-4b95-8279-c9a45feadc14",
     "sourceFile": "ior:file:scenario/index/a/4/0/e/e/a40eec5b-636c-4e18-9526-01e0f1bfdcc8.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": "ior:instance:c8060ced-11f7-4fc1-bbc6-5c7683cf6463",
+    "unitLinks": [
+      "ior:instance:e420b8b7-fa4a-4b95-8279-c9a45feadc14"
+    ]
   },
   "ownerIor": "ior:instance:c8060ced-11f7-4fc1-bbc6-5c7683cf6463"
 }

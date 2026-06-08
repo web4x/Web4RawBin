@@ -29,7 +29,8 @@
     "sourceLine": 5,
     "unitLinks": [
       "sprints.json/sprint-14-legacy-migration/task/task-99-remove-legacy.json"
-    ]
+    ],
+    "parent": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
   },
   "ownerIor": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
 }

@@ -11,7 +11,9 @@
       "ior:instance:14a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01"
     ],
     "sourceFile": "ior:file:test/vitest/migration.test.ts",
-    "sourceLine": 6
+    "sourceLine": 6,
+    "parent": "ior:instance:72748f3a-05cd-49fa-b5e1-404fef48a6c3",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:72748f3a-05cd-49fa-b5e1-404fef48a6c3"
 }

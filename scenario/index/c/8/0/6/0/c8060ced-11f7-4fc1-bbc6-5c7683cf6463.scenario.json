@@ -11,7 +11,12 @@
     "useCases": [],
     "method": "ior:instance:76eda98d-2454-4ede-b128-d752668b2c55",
     "sourceFile": "ior:file:src/ts/scenario/generator.ts",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "unitLinks": [
+      "ior:instance:76eda98d-2454-4ede-b128-d752668b2c55",
+      "ior:instance:a40eec5b-636c-4e18-9526-01e0f1bfdcc8"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

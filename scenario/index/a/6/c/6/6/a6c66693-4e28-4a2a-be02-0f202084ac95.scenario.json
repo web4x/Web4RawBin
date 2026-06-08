@@ -29,7 +29,8 @@
     "sourceLine": 5,
     "unitLinks": [
       "sprints.json/sprint-16-traceability-ux/task/task-121-chain-data-fix.json"
-    ]
+    ],
+    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

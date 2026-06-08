@@ -6,6 +6,10 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "tests": [
       "ior:instance:108c8394-a5b6-47c8-89af-c08080808109"
+    ],
+    "parent": "ior:instance:9a20a3f9-67c6-42e4-bd0a-919f92e79217",
+    "unitLinks": [
+      "ior:instance:108c8394-a5b6-47c8-89af-c08080808109"
     ]
   },
   "ownerIor": "ior:instance:9a20a3f9-67c6-42e4-bd0a-919f92e79217"

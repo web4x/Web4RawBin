@@ -6,6 +6,10 @@
     "sourceFile": "ior:file:src/ts/scenario/ior-resolver.ts",
     "tests": [
       "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+    ],
+    "parent": "ior:instance:ca54a3eb-c39a-4b85-b985-dcb61ed431a9",
+    "unitLinks": [
+      "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
     ]
   },
   "ownerIor": "ior:instance:ca54a3eb-c39a-4b85-b985-dcb61ed431a9"

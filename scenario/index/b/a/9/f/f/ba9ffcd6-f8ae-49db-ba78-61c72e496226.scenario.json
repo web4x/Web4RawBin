@@ -8,7 +8,9 @@
     "methods": [],
     "status": "PASS",
     "sourceFile": "ior:file:test/vitest/profile.test.ts",
-    "sourceLine": 3
+    "sourceLine": 3,
+    "parent": "ior:instance:e98f9217-1b1e-4f92-b566-408a7b7eb87d",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:e98f9217-1b1e-4f92-b566-408a7b7eb87d"
 }

@@ -14,8 +14,10 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
     "sourceLine": 250,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/requirement/r17-43-all-50-untraced-scenario-units-are-linked-to-a-re.json"
-    ]
+      "sprints.json/sprint-17-scenario-units/requirement/r17-43-all-50-untraced-scenario-units-are-linked-to-a-re.json",
+      "ior:instance:6cf46cd1-5f65-4474-a023-1b54b56adb06"
+    ],
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

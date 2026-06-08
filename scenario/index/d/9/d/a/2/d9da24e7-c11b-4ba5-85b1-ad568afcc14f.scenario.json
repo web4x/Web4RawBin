@@ -11,7 +11,9 @@
       "ior:instance:67bde18f-76f9-43cd-abea-77c2ad7134f9"
     ],
     "sourceFile": "ior:file:test/vitest/avatar-preserve.test.ts",
-    "sourceLine": 3
+    "sourceLine": 3,
+    "parent": "ior:instance:3b50b135-f477-4f42-a519-e27a2fa29aa5",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:3b50b135-f477-4f42-a519-e27a2fa29aa5"
 }

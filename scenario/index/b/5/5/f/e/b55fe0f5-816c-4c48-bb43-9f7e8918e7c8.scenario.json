@@ -11,6 +11,8 @@
     "sourceLine": 247,
     "unitLinks": [
       "sprints.json/sprint-18-chain-method-scope/requirement/r18-16-traceability-chain-includes-the-class-level-between-usecase-and-method-no.json"
-    ]
-  }
+    ],
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+  },
+  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

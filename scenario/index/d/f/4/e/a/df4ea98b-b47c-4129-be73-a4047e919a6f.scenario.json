@@ -30,8 +30,10 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-145-user-scenario-viewbus.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-145-user-scenario-viewbus.json"
-    ]
+      "sprints.json/sprint-17-scenario-units/task/task-145-user-scenario-viewbus.json",
+      "ior:instance:b06c4486-4ef1-4a56-9116-d0038e9517ee"
+    ],
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

@@ -8,7 +8,9 @@
     "methods": [],
     "status": "PASS",
     "sourceFile": "ior:file:test/e2e/mobile-viewport.spec.ts",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": "ior:instance:c518166d-4eb0-4435-8589-5a6a99f434f1",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:c518166d-4eb0-4435-8589-5a6a99f434f1"
 }

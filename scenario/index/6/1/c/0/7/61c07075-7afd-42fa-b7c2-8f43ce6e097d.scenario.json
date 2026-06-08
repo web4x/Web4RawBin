@@ -16,7 +16,9 @@
       "robbin-req"
     ],
     "sourceFile": "ior:file:scenario/index/6/1/c/0/7/61c07075-7afd-42fa-b7c2-8f43ce6e097d.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": null,
+    "unitLinks": []
   },
   "ownerIor": null
 }

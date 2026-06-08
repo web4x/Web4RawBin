@@ -41,8 +41,10 @@
     "sourceFile": "ior:file:src/ts/shared/TraceModel.ts",
     "sourceLine": 9,
     "unitLinks": [
-      "sprints.json/sprint-15-traceability-browser/task/task-101-object-model.json"
-    ]
+      "sprints.json/sprint-15-traceability-browser/task/task-101-object-model.json",
+      "ior:instance:f5abd427-4a1d-4824-ae65-9038de6031d3"
+    ],
+    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

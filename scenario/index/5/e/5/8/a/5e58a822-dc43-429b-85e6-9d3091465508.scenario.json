@@ -13,7 +13,9 @@
       "ior:instance:20b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a51"
     ],
     "sourceFile": "ior:file:test/e2e/contacts-ui.spec.ts",
-    "sourceLine": 3
+    "sourceLine": 3,
+    "parent": "ior:instance:f2c32dc3-269d-41b7-80db-5fa6d786c221",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:f2c32dc3-269d-41b7-80db-5fa6d786c221"
 }

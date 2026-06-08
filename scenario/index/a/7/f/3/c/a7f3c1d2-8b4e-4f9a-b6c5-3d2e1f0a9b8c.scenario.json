@@ -32,8 +32,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-1-rawbin-foundation/task-1-team-bootstrap.md",
     "sourceLine": 4,
     "unitLinks": [
-      "sprints.json/sprint-1-rawbin-foundation/task/task-1-team-bootstrap.json"
-    ]
+      "sprints.json/sprint-1-rawbin-foundation/task/task-1-team-bootstrap.json",
+      "ior:instance:2fa531f7-871a-4f4d-9c0a-8f7bae3492e1",
+      "ior:instance:2dd5e06c-646a-493d-958a-c835ddaa4f5c",
+      "ior:instance:771a4a9a-e44f-44ef-9200-960ad64fdc55"
+    ],
+    "parent": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
   },
   "ownerIor": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
 }

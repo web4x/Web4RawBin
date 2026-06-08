@@ -5,7 +5,9 @@
     "name": "R17.16",
     "sourceFile": "ior:file:src/ts/scenario/trace-link.ts",
     "tests": [],
-    "sourceLine": 5
+    "sourceLine": 5,
+    "parent": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16",
+    "unitLinks": []
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

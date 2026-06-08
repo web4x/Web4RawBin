@@ -23,7 +23,9 @@
       "robbin-tester"
     ],
     "sourceFile": "ior:file:scenario/index/3/9/d/3/0/39d30faa-a34d-4d53-89c5-b4cf0921c145.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": null,
+    "unitLinks": []
   },
   "ownerIor": null
 }

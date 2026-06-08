@@ -24,7 +24,12 @@
     "class": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9",
     "method": "ior:instance:055a7f68-1d98-4a95-9572-22dcb0c40712",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml",
-    "sourceLine": 152
+    "sourceLine": 152,
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "unitLinks": [
+      "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9",
+      "ior:instance:055a7f68-1d98-4a95-9572-22dcb0c40712"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

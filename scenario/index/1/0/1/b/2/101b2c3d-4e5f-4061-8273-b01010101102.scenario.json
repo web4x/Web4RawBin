@@ -8,7 +8,9 @@
     "methods": [],
     "status": "PASS",
     "sourceFile": "ior:file:test/vitest/trace-model.test.ts",
-    "sourceLine": 6
+    "sourceLine": 6,
+    "parent": "ior:instance:e2cbf193-d116-4eb9-a9f5-6397febf300e",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:e2cbf193-d116-4eb9-a9f5-6397febf300e"
 }

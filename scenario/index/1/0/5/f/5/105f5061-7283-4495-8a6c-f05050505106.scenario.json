@@ -11,7 +11,9 @@
       "ior:instance:35c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b03"
     ],
     "sourceFile": "ior:file:test/vitest/rb-object-item.test.ts",
-    "sourceLine": 6
+    "sourceLine": 6,
+    "parent": "ior:instance:f2c32dc3-269d-41b7-80db-5fa6d786c221",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:f2c32dc3-269d-41b7-80db-5fa6d786c221"
 }

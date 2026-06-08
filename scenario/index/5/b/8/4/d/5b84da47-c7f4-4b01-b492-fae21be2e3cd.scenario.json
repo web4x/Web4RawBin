@@ -12,8 +12,10 @@
     "sourceFile": "ior:file:src/ts/scenario/index-store.ts",
     "sourceLine": 12,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/method/scenarioindex-put-uuid.json"
-    ]
+      "sprints.json/sprint-17-scenario-units/method/scenarioindex-put-uuid.json",
+      "ior:instance:0698aa47-2888-4388-9ecd-ac2d7e01ff0b"
+    ],
+    "parent": "ior:instance:f9a3f8d1-93db-46aa-8ad7-c34f29905450"
   },
   "ownerIor": "ior:instance:f9a3f8d1-93db-46aa-8ad7-c34f29905450"
 }

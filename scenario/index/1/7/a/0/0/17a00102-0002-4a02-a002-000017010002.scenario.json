@@ -27,7 +27,14 @@
     "class": "ior:instance:4dfd37fd-d30f-4ec1-af8c-2647ff865ba7",
     "method": "ior:instance:f426d4c2-64c0-4e66-8a22-98b6706c8020",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-124.1-architect-data-model.md",
-    "sourceLine": 33
+    "sourceLine": 33,
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "unitLinks": [
+      "ior:instance:40475f3e-6cef-476b-9749-777888cb169c",
+      "ior:instance:4dfd37fd-d30f-4ec1-af8c-2647ff865ba7",
+      "ior:instance:60a20d33-6b6e-4acc-b9da-2685380f23cb",
+      "ior:instance:f426d4c2-64c0-4e66-8a22-98b6706c8020"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

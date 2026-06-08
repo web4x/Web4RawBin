@@ -10,7 +10,11 @@
     ],
     "implementation": "ior:instance:bbf5c4b1-7411-4e7e-b8f6-7cd525ad7222",
     "sourceFile": "ior:file:src/ts/scenario/index-store.ts",
-    "sourceLine": 12
+    "sourceLine": 12,
+    "parent": "ior:instance:c8bdae18-88e1-4829-813b-0e5ecc21c56c",
+    "unitLinks": [
+      "ior:instance:bbf5c4b1-7411-4e7e-b8f6-7cd525ad7222"
+    ]
   },
   "ownerIor": "ior:instance:c8bdae18-88e1-4829-813b-0e5ecc21c56c"
 }

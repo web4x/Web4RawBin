@@ -6,6 +6,10 @@
     "sourceFile": "ior:file:src/ts/shared/TraceModel.ts",
     "tests": [
       "ior:instance:101b2c3d-4e5f-4061-8273-b01010101102"
+    ],
+    "parent": "ior:instance:0d99b7e1-f423-48b2-8243-4fc6f8d2c6ea",
+    "unitLinks": [
+      "ior:instance:101b2c3d-4e5f-4061-8273-b01010101102"
     ]
   },
   "ownerIor": "ior:instance:0d99b7e1-f423-48b2-8243-4fc6f8d2c6ea"

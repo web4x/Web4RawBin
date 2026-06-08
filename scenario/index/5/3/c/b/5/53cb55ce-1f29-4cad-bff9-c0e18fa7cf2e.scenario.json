@@ -6,6 +6,10 @@
     "sourceFile": "ior:file:src/ts/server/TraceConsistency.ts",
     "tests": [
       "ior:instance:102c3d4e-5f60-4071-8293-c02020202103"
+    ],
+    "parent": "ior:instance:688c10c8-9aa1-463b-b35a-af08b1bc4e84",
+    "unitLinks": [
+      "ior:instance:102c3d4e-5f60-4071-8293-c02020202103"
     ]
   },
   "ownerIor": "ior:instance:688c10c8-9aa1-463b-b35a-af08b1bc4e84"

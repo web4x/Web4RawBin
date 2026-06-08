@@ -47,7 +47,9 @@
       }
     ],
     "sourceFile": "ior:file:scenario/index/c/3/5/b/d/c35bd4fd-22ea-438d-8263-4e405d0094de.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": null,
+    "unitLinks": []
   },
   "ownerIor": null
 }

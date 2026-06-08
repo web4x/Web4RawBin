@@ -12,8 +12,10 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-task-detail.ts",
     "sourceLine": 13,
     "unitLinks": [
-      "sprints.json/sprint-16-traceability-ux/method/rbtaskdetail-render.json"
-    ]
+      "sprints.json/sprint-16-traceability-ux/method/rbtaskdetail-render.json",
+      "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61"
+    ],
+    "parent": "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5"
   },
   "ownerIor": "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5"
 }

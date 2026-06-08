@@ -12,7 +12,9 @@
       "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000012"
     ],
     "sourceFile": "ior:file:test/vitest/scenario.test.ts",
-    "sourceLine": 3
+    "sourceLine": 3,
+    "parent": "ior:instance:fef8a6d5-2a23-4be8-8075-3eae9f699472",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:fef8a6d5-2a23-4be8-8075-3eae9f699472"
 }

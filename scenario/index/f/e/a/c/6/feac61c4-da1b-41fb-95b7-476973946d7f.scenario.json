@@ -11,7 +11,9 @@
       "ior:instance:67bde18f-76f9-43cd-abea-77c2ad7134f9"
     ],
     "sourceFile": "ior:file:test/e2e/multi-room-lobby.spec.ts",
-    "sourceLine": 3
+    "sourceLine": 3,
+    "parent": "ior:instance:b30a6878-4b32-41a2-acfa-9ba22c0fd30b",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:b30a6878-4b32-41a2-acfa-9ba22c0fd30b"
 }

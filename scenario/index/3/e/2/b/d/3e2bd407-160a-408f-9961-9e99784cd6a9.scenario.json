@@ -8,7 +8,11 @@
     ],
     "method": "ior:instance:2f6f8617-251c-4e92-8acf-55245cac779d",
     "sourceFile": "ior:file:scenario/index/3/e/2/b/d/3e2bd407-160a-408f-9961-9e99784cd6a9.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": "ior:instance:71edc345-e601-484b-a6f4-529fc3d66691",
+    "unitLinks": [
+      "ior:instance:2f6f8617-251c-4e92-8acf-55245cac779d"
+    ]
   },
   "ownerIor": "ior:instance:71edc345-e601-484b-a6f4-529fc3d66691"
 }

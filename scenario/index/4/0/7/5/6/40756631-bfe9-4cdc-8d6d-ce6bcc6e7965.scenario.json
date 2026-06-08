@@ -8,7 +8,8 @@
     "tronQuote": "> TRON: \"I found scenarios without owners and without unitLists [unitLinks].\"\n> TRON: \"all scenario models should have a model.parent ior.\"",
     "tasks": [],
     "tests": [],
-    "unitLinks": []
+    "unitLinks": [],
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

@@ -11,7 +11,11 @@
     "orphanByDesign": true,
     "orphanReason": "infra-process: all tasks are infrastructure/process — no user-facing use case",
     "sourceFile": "ior:file:scenario/index/5/7/2/3/1/57231c0e-d7ff-4094-a139-58e3adf975af.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "unitLinks": [
+      "ior:instance:a7f7f216-8389-475c-96b7-3593b185cb01"
+    ]
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

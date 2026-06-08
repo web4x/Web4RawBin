@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "3740961f-5f60-4f51-aadf-0780103a6eb2",
-    "name": "Browse-File link opens the file-browser FOLDER with the target file HIGHLIGHTED \u2014 not Monaco directly.",
+    "name": "Browse-File link opens the file-browser FOLDER with the target file HIGHLIGHTED — not Monaco directly.",
     "altId": "R18.27",
     "tasks": [
       "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
@@ -11,7 +11,11 @@
     "sourceFile": "ior:file:scenario/index/3/7/4/0/9/3740961f-5f60-4f51-aadf-0780103a6eb2.scenario.json",
     "sourceLine": 1,
     "tronQuote": "> TRON: \"here you see impl has a src link, but ALL types should have it. it should NOT open directly in the monaco editor, BUT in the browser folder (2nd picture), with the file highlighted. then i can open the editor. the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file.\"",
-    "description": "Browse-File link opens the file-browser FOLDER (/md/<dir>/) with the target file HIGHLIGHTED. NOT Monaco directly. REVISES R18.22."
+    "description": "Browse-File link opens the file-browser FOLDER (/md/<dir>/) with the target file HIGHLIGHTED. NOT Monaco directly. REVISES R18.22.",
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "unitLinks": [
+      "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
+    ]
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

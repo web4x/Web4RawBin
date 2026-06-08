@@ -29,7 +29,8 @@
     "sourceLine": 5,
     "unitLinks": [
       "sprints.json/sprint-11-traceability/task/task-119-test-traceability.json"
-    ]
+    ],
+    "parent": "ior:instance:d56c45de-bde0-4f11-bece-c6e8f461bf84"
   },
   "ownerIor": "ior:instance:d56c45de-bde0-4f11-bece-c6e8f461bf84"
 }

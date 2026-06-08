@@ -14,8 +14,10 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
     "sourceLine": 218,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/requirement/r17-36-every-scenario-unit-is-reachable-from-a-requireme.json"
-    ]
+      "sprints.json/sprint-17-scenario-units/requirement/r17-36-every-scenario-unit-is-reachable-from-a-requireme.json",
+      "ior:instance:c3951691-b231-4b60-a2f8-79c9d5ef851e"
+    ],
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

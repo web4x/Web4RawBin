@@ -8,7 +8,9 @@
     "methods": [],
     "status": "PASS",
     "sourceFile": "ior:file:test/vitest/avatar.test.ts",
-    "sourceLine": 3
+    "sourceLine": 3,
+    "parent": "ior:instance:ddeb708a-e038-4901-a4c4-fba2cbf56d12",
+    "unitLinks": []
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:ddeb708a-e038-4901-a4c4-fba2cbf56d12"
 }

@@ -10,7 +10,11 @@
     ],
     "implementation": "ior:instance:c1a1c58b-68b3-4ddd-a564-1f5fc76c5c02",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "parent": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0",
+    "unitLinks": [
+      "ior:instance:c1a1c58b-68b3-4ddd-a564-1f5fc76c5c02"
+    ]
   },
   "ownerIor": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"
 }

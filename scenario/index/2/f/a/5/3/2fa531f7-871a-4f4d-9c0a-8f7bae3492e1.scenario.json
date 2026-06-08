@@ -29,7 +29,8 @@
     "sourceLine": 4,
     "unitLinks": [
       "sprints.json/sprint-1-rawbin-foundation/task/task-1.1-agent-trainer-clone-ud-team.json"
-    ]
+    ],
+    "parent": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
   },
   "ownerIor": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
 }

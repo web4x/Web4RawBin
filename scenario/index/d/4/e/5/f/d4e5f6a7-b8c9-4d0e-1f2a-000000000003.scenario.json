@@ -2,15 +2,19 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000003",
-    "name": "R17.4: Index by UUID prefix \u2014 scenario/index/<first-5>/<u...",
-    "description": "> TRON: \"the templates should be like the html registered view for the classes Requirement, Task, UseCase \u2026 each Task and requirement shall have its own md, html view strictly from the view templates.\"",
-    "tronQuote": "> TRON: \"the templates should be like the html registered view for the classes Requirement, Task, UseCase \u2026 each Task and requirement shall have its own md, html view strictly from the view templates.\"",
+    "name": "R17.4: Index by UUID prefix — scenario/index/<first-5>/<u...",
+    "description": "> TRON: \"the templates should be like the html registered view for the classes Requirement, Task, UseCase … each Task and requirement shall have its own md, html view strictly from the view templates.\"",
+    "tronQuote": "> TRON: \"the templates should be like the html registered view for the classes Requirement, Task, UseCase … each Task and requirement shall have its own md, html view strictly from the view templates.\"",
     "tasks": [
       "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
     ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
-    "sourceLine": 22
+    "sourceLine": 22,
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "unitLinks": [
+      "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

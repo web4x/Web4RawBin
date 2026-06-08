@@ -14,8 +14,10 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
     "sourceLine": 260,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/requirement/r17-45-every-link-in-the-scenario-index-traverses-the-ca.json"
-    ]
+      "sprints.json/sprint-17-scenario-units/requirement/r17-45-every-link-in-the-scenario-index-traverses-the-ca.json",
+      "ior:instance:75628241-9157-4385-a7f0-f4f7a3142737"
+    ],
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

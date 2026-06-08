@@ -30,8 +30,10 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-141-chain-link-icon-symlinks.md",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-141-chain-link-icon-symlinks.json"
-    ]
+      "sprints.json/sprint-17-scenario-units/task/task-141-chain-link-icon-symlinks.json",
+      "ior:instance:6c908bfb-6037-4def-86b9-496e144ef356"
+    ],
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

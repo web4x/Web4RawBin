@@ -12,8 +12,10 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
     "sourceLine": 5,
     "unitLinks": [
-      "sprints.json/sprint-16-traceability-ux/method/rbobjectitem-drag.json"
-    ]
+      "sprints.json/sprint-16-traceability-ux/method/rbobjectitem-drag.json",
+      "ior:instance:f2c32dc3-269d-41b7-80db-5fa6d786c221"
+    ],
+    "parent": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
   },
   "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
 }
