@@ -4,28 +4,39 @@
 
 [task:uuid:f84b551a-ab73-4a73-a9d7-a938b350ebdf]
 
-> **PO direction 2026-06-08:** New feature task; req-eng capturing. Stand it up
-> APPLYING the new per-cycle pre-gate (commit `780bb36`): `coveredRequirements[]`
-> + `useCases[]` populated AT standup — first live test of the Planner↔Architect
-> Sync Rule prevention. Real v4 uuids; placeholders where req/architect not yet
-> committed (adoption-note pattern, learnings #17 + #20).
+> **PO direction 2026-06-08 (stand-up):** New feature task; req-eng capturing.
+> Stand it up APPLYING the new per-cycle pre-gate (commit `780bb36`):
+> `coveredRequirements[]` + `useCases[]` populated AT standup.
+>
+> **PO direction 2026-06-08 (release):** T201 6-step chain-correction CLOSED
+> (verified through Layer 5, v0.5.109 `84908ea4`). T200 RELEASED from sequencing
+> block — architect quick-designs the detail→tree sync mechanism, expert builds,
+> tester standing by. Per req's deduplication note (compound-source line 438 +
+> commit `18ae221e`), **R18.33 IS T200**; placeholder canonicalized below.
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement (req-eng anchors verbatim Tron quote + architect designs sync semantics)
+- [x] In Progress
+  - [x] refinement (req-eng canonicalized R18.33 verbatim Tron quote 2026-06-08; architect to quick-design sync semantics on release)
   - [ ] creating test cases
-  - [ ] implementing (expert — tree-state ↔ drawer-state binding; URL `?ior=` already exists per T173 — extend for bi-directional)
-  - [ ] testing (tester — verify both directions: click-tree-→drawer + chain-click-in-drawer-→tree-scroll/expand)
+  - [ ] implementing (expert — tree-state ↔ drawer-state binding; URL `?ior=` already exists per T173 — extend for bi-directional, focus on detail→tree per R18.33)
+  - [ ] testing (tester standing by — verify both directions: click-tree→drawer + chain-click-in-drawer→tree-scroll+expand+highlight)
 - [ ] QA Review
 - [ ] Done
 
 > QA Review + Done are TRON's gate only. Never checked by planner/sync.
 
-## Pre-gate triple-check (applied at stand-up 2026-06-08)
-**(a) Chain wiring:** `coveredRequirements[]` + `useCases[]` BOTH populated below (with planner-generated v4 placeholders per learnings #17, adoption-note per #20). ✓
-**(b) Rule-pair (#15/#16):** scope = user-facing UI (tree + drawer behavior on `/trace`). AC8 captures (a) `package.json` + (b) `sw.js` CACHE_NAME bump for the impl commit; (c) STATIC_SHELL exempt (reuses `/trace` with `?ior=`, no new route). ✓
-**(c) Tron-QA gate (#9/#10):** QA Review + Done unchecked. Will remain so until an explicit "QA approved by Tron" commit. ✓
+## Pre-gate triple-check
+**At stand-up 2026-06-08:**
+- (a) Chain wiring: `coveredRequirements[]` + `useCases[]` BOTH populated with planner-generated v4 placeholders per learnings #17, adoption-note per #20. ✓
+- (b) Rule-pair (#15/#16): scope = user-facing UI on `/trace`; AC8 captures (a) `package.json` + (b) `sw.js` CACHE_NAME bump at impl-shipped; (c) STATIC_SHELL exempt. ✓
+- (c) Tron-QA gate (#9/#10): QA Review + Done unchecked. ✓
+
+**At release 2026-06-08 (post-T201):**
+- (a) `coveredRequirements[]` CANONICALIZED — placeholder `c8064a94-…` replaced with R18.33's canonical req:uuid `b64a9d54-545f-4f25-b110-209421cec8e2` (real v4, owned by Sprint 18). `useCases[]` placeholder remains pending architect quick-design. ✓ (planner side)
+- (b) Rule-pair still applies; unchanged.
+- (c) Tron-QA gate still untouched.
+- Dependency T201 satisfied (PO-verified, v0.5.109 `84908ea4` Layer 5 complete) → T200 RELEASED from sequencing block.
 
 ## Traceability
 
@@ -34,7 +45,9 @@
 - up
   - [Sprint 18 Planning](./planning.md)
   - **coveredRequirements[]** — `Task.coveredRequirements[]` populated (planner pre-gate enforcement):
-    - **R-tree-detail-sync** (planner placeholder, req-eng to canonicalize): `[requirement:uuid:c8064a94-cfae-47ff-9ea7-4897f43c08bd]` — Tron directive (PO relay 2026-06-08): "tree↔detail sync" — selecting a node in the /trace tree updates the detail drawer to that instance AND navigating within the detail (e.g. clicking a chain link) reflects back into the tree (scroll/expand/highlight). req-eng to anchor the verbatim quote when capture lands; planner adopts or replaces uuid then.
+    - **R18.33 — Detail navigation syncs tree selection** `[requirement:uuid:b64a9d54-545f-4f25-b110-209421cec8e2]` (canonical, req-eng emit; was planner placeholder `c8064a94-…` 2026-06-08 at stand-up, canonicalized on release 2026-06-08)
+      - Tron verbatim (compound-source line 412): "when i navigate within the details view, the state of the tree overview does not follow… last selected scenario should be scrolled into view and expanded so much that its visible."
+      - Tron sequencing (Follow-on K): "after this is done [chain-correction] do the tree overview sync with the navigation in the details." → blocked-by T201; SATISFIED 2026-06-08.
 - chain (req → task → useCase → class → method → implementation → test) — **architect supplies useCases[] at design; planner enforces it's non-empty before 📝→✅**
   - **useCases[]** (planner placeholder, architect to canonicalize):
     - `[usecase:uuid:dbc9ad5f-9c02-413b-a81a-3fcb28a09d48]` — likely `trace.tree.syncToDetail` / `trace.detail.syncToTree` (or a unified `selection.sync` UC). Architect to design + assign canonical UC IORs; planner adopts/replaces during 📝 sync.
@@ -126,5 +139,6 @@ None (atomic — single coordinated bi-directional binding per architect's desig
 ---
 
 **Sprint:** Sprint 18 — Chain Method-Scope & Role Skills
-**Requirement:** R-tree-detail-sync (placeholder, req-eng canonicalizing)
+**Requirement:** R18.33 — Detail navigation syncs tree selection (canonical req:uuid b64a9d54-545f-4f25-b110-209421cec8e2)
 **Priority:** HIGH — Tron device usability on the now-complete 7-class /trace tree
+**Blocked-by:** T201 6-step chain correction — SATISFIED 2026-06-08 (v0.5.109 `84908ea4` Layer 5 complete, PO-verified) → T200 RELEASED
