@@ -3,8 +3,8 @@
   "model": {
     "uuid": "14a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01",
     "name": "R14.2 \u2014 Migrate legacy `token-<timestamp>` user directori...",
-    "description": "> Tron: _(req to insert literal quote)_",
-    "tronQuote": "> Tron: _(req to insert literal quote)_",
+    "description": "Migrate legacy data/rooms/*.json into the per-user room model, idempotently and without data loss.",
+    "tronQuote": "> Tron (via R-R1/T93 root-cause): \"i created more than one room. but only one showes up in the lobby. when a user connects all his rooms should show up in the lobby and being loaded from disk.\" \u2014 Legacy rooms shadow per-user rooms; migration required.",
     "tasks": [
       "ior:instance:96a1c3e5-2b7d-4f10-9a46-1c3e5f7a9b96"
     ],

@@ -3,8 +3,8 @@
   "model": {
     "uuid": "34c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b03",
     "name": "R14.4 \u2014 Remove legacy load path (code) + legacy files, ON...",
-    "description": "> Tron: _(req to insert literal quote)_",
-    "tronQuote": "> Tron: _(req to insert literal quote)_",
+    "description": "Prove migration integrity: every legacy record maps to exactly one migrated record, counts reconcile, no data loss.",
+    "tronQuote": "> Tron (via T98): No direct quote \u2014 derived from R-R1 root-cause: migration integrity must be auditable before legacy deletion.",
     "tasks": [
       "ior:instance:98c3e5a7-4d9f-4b12-9c68-3e5a7b9c0d98"
     ],
