@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rawbin-v0.5.107';
+const CACHE_NAME = 'rawbin-v0.5.108';
 
 const STATIC_SHELL = [
   '/app',
@@ -8,9 +8,9 @@ const STATIC_SHELL = [
   '/icon-192.png',
   '/icon-512.png',
   '/trace',
-  '/dist/trace-page-ISX4WRTO.js',
+  '/dist/trace-page-MGD6YZ6F.js',
   '/scenario',
-  '/dist/scenario-view-2NPLBC37.js',
+  '/dist/scenario-view-2HHXI3M5.js',
   '/dist/app-PMIKRTJL.js',
 ];
 

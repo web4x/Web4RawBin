@@ -16,7 +16,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INDEX_DIR = path.join(__dirname, '../scenario/index');
 
 const CANONICAL_FORWARD: Record<string, string[]> = {
-  Requirement: ['tasks'],
+  Requirement: ['useCases'],
   Task: ['useCases', 'children', 'subtasks'],
   UseCase: ['classes'],
   Class: ['methods'],

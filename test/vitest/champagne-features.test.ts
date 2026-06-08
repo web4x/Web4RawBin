@@ -170,7 +170,7 @@ describe('R17.18: Traceability links as scenario units', () => {
 describe('R17.26: Traceability is a TREE', () => {
   it('TraceModel FORWARD_KEYS defines 7-step chain', async () => {
     const { FORWARD_KEYS } = await import('../../src/ts/shared/TraceModel.js');
-    expect(FORWARD_KEYS.requirement).toBe('tasks');
+    expect(FORWARD_KEYS.requirement).toBe('useCases');
     expect(FORWARD_KEYS.task).toBe('useCases');
     expect(FORWARD_KEYS.usecase).toBe('classes');
     expect(FORWARD_KEYS.class).toBe('methods');

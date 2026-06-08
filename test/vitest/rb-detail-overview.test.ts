@@ -6,7 +6,7 @@
  * [test:uuid:107b7283-94a5-46b7-8a8e-b07070707108] R15.6
  */
 import { describe, it, expect, afterEach, vi } from 'vitest';
-import { TraceGraph, Requirement, Task } from '../../src/ts/shared/TraceModel.js';
+import { TraceGraph, Requirement, Task, UseCase } from '../../src/ts/shared/TraceModel.js';
 import { RbDetailView } from '../../src/public/ts/trace/rb-detail-view.js';
 import { RbOverview } from '../../src/public/ts/trace/rb-overview.js';
 import { ViewBus } from '../../src/public/ts/trace/ViewBus.js';
@@ -26,7 +26,11 @@ function seed() {
   const t1 = new Task(g, T1, 'Alpha'); t1.sprint = 'sprint-15'; t1.status = 'Planned';
   const t2 = new Task(g, T2, 'Bravo'); t2.sprint = 'sprint-15'; t2.status = 'Done';
   r.addTask(t1); r.addTask(t2);
-  return { g, r, t1, t2 };
+  const uc1 = new UseCase(g, '30c3d4e5-f6a7-4b81-8c92-1d2e3f4a5b01', 'UC Alpha');
+  const uc2 = new UseCase(g, '30c3d4e5-f6a7-4b81-8c92-1d2e3f4a5b02', 'UC Bravo');
+  g.link(r, 'useCases', uc1, 'requirements');
+  g.link(r, 'useCases', uc2, 'requirements');
+  return { g, r, t1, t2, uc1, uc2 };
 }
 
 describe('T107 rb-detail-view', () => {
@@ -40,11 +44,11 @@ describe('T107 rb-detail-view', () => {
     document.body.appendChild(el);
     expect(el.querySelector('.dv-title')!.textContent).toBe('R15.6');
     const rows = el.querySelectorAll('.dv-link');
-    expect(rows.length).toBe(2); // 2 task links
+    expect(rows.length).toBe(2); // 2 usecase links (chain: Req→UC)
     const navSpy = vi.fn();
     setActiveRouter({ navigate: navSpy });
     (rows[0] as HTMLElement).click();
-    expect(navSpy).toHaveBeenCalledWith('task', 'show', { uuid: expect.stringMatching(/^[0-9a-f-]{36}$/) });
+    expect(navSpy).toHaveBeenCalledWith('usecase', 'show', { uuid: expect.stringMatching(/^[0-9a-f-]{36}$/) });
   });
 
   it('re-renders on ViewBus.notify(ref) after a title change (AC3)', () => {

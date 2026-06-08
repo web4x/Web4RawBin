@@ -16,7 +16,7 @@ export type ObjectType =
 const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export const FORWARD_KEYS: Record<string, string> = {
-  requirement: 'tasks', task: 'useCases', usecase: 'classes',
+  requirement: 'useCases', task: 'useCases', usecase: 'classes',
   class: 'methods', method: 'implementations', implementation: 'tests',
 };
 
@@ -129,8 +129,8 @@ export abstract class TraceObject {
 
   /** T175 Tree: parent in the LOCKED chain (forward-only scan) */
   get parent(): TraceObject | null {
-    const ABOVE: Partial<Record<ObjectType, ObjectType>> = { task: 'requirement', usecase: 'task', class: 'usecase', method: 'class', implementation: 'method', test: 'implementation' };
-    const FORWARD: Record<string, string> = { requirement: 'tasks', task: 'useCases', usecase: 'classes', class: 'methods', method: 'implementations', implementation: 'tests' };
+    const ABOVE: Partial<Record<ObjectType, ObjectType>> = { usecase: 'requirement', class: 'usecase', method: 'class', implementation: 'method', test: 'implementation' };
+    const FORWARD: Record<string, string> = { requirement: 'useCases', task: 'useCases', usecase: 'classes', class: 'methods', method: 'implementations', implementation: 'tests' };
     const above = ABOVE[this.type];
     if (!above) return null;
     const fwd = FORWARD[above];
@@ -143,7 +143,7 @@ export abstract class TraceObject {
 
   /** T175 Tree: children in the LOCKED chain */
   get children(): TraceObject[] {
-    const BELOW: Partial<Record<ObjectType, ObjectType>> = { requirement: 'task', task: 'usecase', usecase: 'class', class: 'method', method: 'implementation', implementation: 'test' };
+    const BELOW: Partial<Record<ObjectType, ObjectType>> = { requirement: 'usecase', task: 'usecase', usecase: 'class', class: 'method', method: 'implementation', implementation: 'test' };
     const fwd = FORWARD_KEYS[this.type];
     const below = BELOW[this.type];
     if (!fwd || !below) return [];

@@ -526,7 +526,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const roots = idx.list().map(uuid => {
           const u = idx.get(uuid);
           if (!u || u.ior !== 'ior:class:Requirement') return null;
-          return { uuid, type: 'Requirement', name: String(u.model?.name || ''), hasChildren: Array.isArray(u.model?.tasks) && (u.model.tasks as string[]).length > 0 };
+          return { uuid, type: 'Requirement', name: String(u.model?.name || ''), hasChildren: (Array.isArray(u.model?.useCases) && (u.model.useCases as string[]).length > 0) || (Array.isArray(u.model?.tasks) && (u.model.tasks as string[]).length > 0) };
         }).filter(Boolean);
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify(roots));
@@ -545,12 +545,12 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const type = (unit.ior || '').split(':')[2] || '';
         const queryMode = urlParams.get('mode') || 'scenario';
         const SCENARIO_FWD: Record<string, string[]> = {
-          Requirement: ['tasks'], Task: ['subtasks', 'useCases', 'coveredRequirements', 'children'], UseCase: ['classes'],
+          Requirement: ['useCases'], Task: ['subtasks', 'useCases', 'coveredRequirements', 'children'], UseCase: ['classes'],
           Class: ['methods'], Method: ['implementations'], Implementation: ['tests'],
           Sprint: ['tasks'],
         };
         const TRACE_FWD: Record<string, string[]> = {
-          Requirement: ['tasks'], Task: ['useCases', 'coveredRequirements'],
+          Requirement: ['useCases'], Task: ['useCases', 'coveredRequirements'],
           UseCase: ['class'], Class: ['method'],
           Method: ['implementation'], Implementation: ['tests'],
           Sprint: ['tasks'],
@@ -588,7 +588,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           } catch { /* scanRepo fallback failed — empty children */ }
         }
         const EXPECTED_CHILD_TYPE: Record<string, string[]> = {
-          Requirement: ['Task'], Task: ['Task', 'UseCase', 'Requirement'], UseCase: ['Class', 'Method'],
+          Requirement: ['UseCase', 'Task'], Task: ['Task', 'UseCase', 'Requirement'], UseCase: ['Class', 'Method'],
           Class: ['Method'], Method: ['Implementation'], Implementation: ['Test'],
           Sprint: ['Task'],
         };

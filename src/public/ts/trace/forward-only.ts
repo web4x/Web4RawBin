@@ -7,7 +7,7 @@
 import type { TraceObject } from '../../../ts/shared/TraceModel.js';
 
 const FORWARD_KEYS: Record<string, string[]> = {
-  requirement: ['tasks'],
+  requirement: ['useCases'],
   task: ['useCases'],
   usecase: ['classes'],
   class: ['methods'],
