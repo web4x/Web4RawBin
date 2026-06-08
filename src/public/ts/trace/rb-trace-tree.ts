@@ -30,10 +30,12 @@ export class RbTraceTree extends HTMLElement {
     this.render();
     this.unsub = ViewBus.subscribe('graph', () => this.render());
     this.addEventListener('toggle-children', this.onToggleChildren as EventListener);
+    window.addEventListener('hashchange', this.onHashChange);
   }
   disconnectedCallback(): void {
     this.unsub?.(); this.unsub = null;
     this.removeEventListener('toggle-children', this.onToggleChildren as EventListener);
+    window.removeEventListener('hashchange', this.onHashChange);
   }
 
   private onToggleChildren = (e: CustomEvent): void => {
@@ -230,6 +232,63 @@ export class RbTraceTree extends HTMLElement {
     }
     return node;
   }
+
+  async revealNode(uuid: string): Promise<void> {
+    const existing = this.querySelector(`rb-object-item[ref*=":${uuid}"]`);
+    if (existing) {
+      this.highlightNode(existing as HTMLElement);
+      return;
+    }
+    const path = await this.fetchAncestorPath(uuid);
+    if (path.length === 0) return;
+    for (const ancestorUuid of path) {
+      const item = this.querySelector(`rb-object-item[ref*=":${ancestorUuid}"]`) as HTMLElement;
+      if (!item) continue;
+      if (!item.hasAttribute('children-open')) {
+        item.click();
+        item.dispatchEvent(new CustomEvent('toggle-children', { bubbles: true, detail: { open: true } }));
+        await new Promise(r => setTimeout(r, 150));
+      }
+    }
+    await new Promise(r => setTimeout(r, 200));
+    const target = this.querySelector(`rb-object-item[ref*=":${uuid}"]`);
+    if (target) this.highlightNode(target as HTMLElement);
+  }
+
+  private async fetchAncestorPath(uuid: string): Promise<string[]> {
+    const path: string[] = [];
+    let current = uuid;
+    const seen = new Set<string>();
+    for (let i = 0; i < 10; i++) {
+      if (seen.has(current)) break;
+      seen.add(current);
+      try {
+        const res = await fetch(`/api/trace/children/${encodeURIComponent(current)}${this.modeParam}`);
+        if (!res.ok) break;
+        const data = await res.json();
+        const parentUuid = data.parent?.uuid;
+        if (!parentUuid) break;
+        path.unshift(parentUuid);
+        current = parentUuid;
+      } catch { break; }
+    }
+    return path;
+  }
+
+  private highlightNode(el: HTMLElement): void {
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const node = el.closest('.tt-node');
+    if (node) {
+      node.classList.add('tt-highlighted');
+      setTimeout(() => node.classList.remove('tt-highlighted'), 2000);
+    }
+  }
+
+  private onHashChange = (): void => {
+    const hash = location.hash.replace('#', '');
+    const m = hash.match(/uuid=([0-9a-f-]{36})/i);
+    if (m) this.revealNode(m[1]);
+  };
 
   private async fetchAndRenderChildren(uuid: string, container: HTMLElement, ancestors?: Set<string>): Promise<void> {
     const branchVisited = new Set(ancestors || []);

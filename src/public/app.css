@@ -112,6 +112,8 @@ rb-object-item[children-open] .oi-expand { transform: rotate(90deg); }
 .tt-row rb-object-item { flex: 1; margin-bottom: 4px; }
 .tt-children { margin-left: 14px; border-left: 1px solid #3c3c3c; padding-left: 4px; }
 .tt-warn { flex-shrink: 0; }
+.tt-highlighted { outline: 2px solid #ff9800; border-radius: 8px; animation: tt-highlight-fade 2s ease-out forwards; }
+@keyframes tt-highlight-fade { 0% { outline-color: #ff9800; } 100% { outline-color: transparent; } }
 .tt-empty { color: #888; padding: 8px; font-size: 0.8rem; }
 .tt-detail { margin-top: 8px; padding: 8px; border-top: 1px solid #3c3c3c; }
 .room-status { display: flex; align-items: center; gap: 6px; }
