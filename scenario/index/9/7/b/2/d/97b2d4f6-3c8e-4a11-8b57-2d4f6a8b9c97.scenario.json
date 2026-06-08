@@ -2,22 +2,22 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "97b2d4f6-3c8e-4a11-8b57-2d4f6a8b9c97",
-    "name": "T97: Migrate token-<timestamp> User Dirs → UUIDv4",
+    "name": "T97: Migrate token-<timestamp> User Dirs \u2192 UUIDv4",
     "slug": "task-97-migrate-userdirs",
-    "description": "Migrate legacy `token-<timestamp>` user directories to UUIDv4 token directories,\nupdating ALL references (profiles.json, devices.json, room owner tokens, .ssh paths).\nIdempotent; no data loss. Old token is mapped → new UUIDv4 consistently everywhere.\n_(Architect designs the reference-rewrite + ordering; req confirms requirement text.)_",
+    "description": "Migrate legacy `token-<timestamp>` user directories to UUIDv4 token directories,\nupdating ALL references (profiles.json, devices.json, room owner tokens, .ssh paths).\nIdempotent; no data loss. Old token is mapped \u2192 new UUIDv4 consistently everywhere.\n_(Architect designs the reference-rewrite + ordering; req confirms requirement text.)_",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [ ] testing (tester — T98 verify)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [ ] testing (tester \u2014 T98 verify)\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:24b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02](./requirements.md) — R14.2 migrate user dirs to UUIDv4\n  - [Sprint 14 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R14.2 in [requirements.md](./requirements.md)\n  - **use case:** migrate-userdirs workflow (architect — diagrams/migration-workflow.puml)\n  - **puml:** [diagrams/migration-workflow.puml](./diagrams/migration-workflow.puml) (pending architect)\n  - **class/method:** UserKeys/token-dir handling; profiles.json + devices.json token refs; per-user rooms paths",
+    "traceability": "- up\n  - [requirement:uuid:24b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02](./requirements.md) \u2014 R14.2 migrate user dirs to UUIDv4\n  - [Sprint 14 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R14.2 in [requirements.md](./requirements.md)\n  - **use case:** migrate-userdirs workflow (architect \u2014 diagrams/migration-workflow.puml)\n  - **puml:** [diagrams/migration-workflow.puml](./diagrams/migration-workflow.puml) (pending architect)\n  - **class/method:** UserKeys/token-dir handling; profiles.json + devices.json token refs; per-user rooms paths",
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC1: Every `token-<timestamp>` dir is copied to a fresh UUIDv4 dir (141 → 141 new UUID dirs)\n- [ ] AC2: In each copied dir, ALL `rooms/*/room.json` `ownerToken` (+ any `creatorId`/`creatorToken`) rewritten from the old token to the new UUID — zero `token-` strings remain in the copies (171 refs rewritten)\n- [ ] AC3: A persisted remap table `data/migration/token-remap.json` (old→new) is produced for T98\n- [ ] AC4: profiles.json correctly handled — no-op on current data (0 token-* profiles); defensive rekey+redirect branch present for any future token-* profile\n- [ ] AC5: Idempotent — re-run is a no-op; already-UUID dirs untouched\n- [ ] AC6: No data loss — copy-then-verify; original token-* dirs left intact (removal deferred to T99, gated)\n- [ ] `npm run build` + version bump",
-    "qaAudit": "- 2026-05-26: Tron directive — legacy data migration. Quote pending req.",
-    "subtasks": "None (atomic task).\n\n---\n*Sprint 14 — Legacy Data Migration*\n*Owner: robbin-architect (design), robbin-expert (implement), robbin-tester (verify)*\n*Priority: 1 (migrate phase)*",
+    "acceptanceCriteria": "- [ ] AC1: Every `token-<timestamp>` dir is copied to a fresh UUIDv4 dir (141 \u2192 141 new UUID dirs)\n- [ ] AC2: In each copied dir, ALL `rooms/*/room.json` `ownerToken` (+ any `creatorId`/`creatorToken`) rewritten from the old token to the new UUID \u2014 zero `token-` strings remain in the copies (171 refs rewritten)\n- [ ] AC3: A persisted remap table `data/migration/token-remap.json` (old\u2192new) is produced for T98\n- [ ] AC4: profiles.json correctly handled \u2014 no-op on current data (0 token-* profiles); defensive rekey+redirect branch present for any future token-* profile\n- [ ] AC5: Idempotent \u2014 re-run is a no-op; already-UUID dirs untouched\n- [ ] AC6: No data loss \u2014 copy-then-verify; original token-* dirs left intact (removal deferred to T99, gated)\n- [ ] `npm run build` + version bump",
+    "qaAudit": "- 2026-05-26: Tron directive \u2014 legacy data migration. Quote pending req.",
+    "subtasks": "None (atomic task).\n\n---\n*Sprint 14 \u2014 Legacy Data Migration*\n*Owner: robbin-architect (design), robbin-expert (implement), robbin-tester (verify)*\n*Priority: 1 (migrate phase)*",
     "assigned": "",
     "architectDesign": "",
-    "dependencies": "- **Requires:** None (can run alongside T96)\n- **Enables:** T98 (verify), T99 (remove — gated)",
+    "dependencies": "- **Requires:** None (can run alongside T96)\n- **Enables:** T98 (verify), T99 (remove \u2014 gated)",
     "definitionOfDone": "- [ ] All AC met; chain links resolve\n- [ ] Tests pass, build clean\n- [ ] Tron QA approved",
     "implementation": "",
     "testScenarios": "",
@@ -36,7 +36,9 @@
     "parent": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297",
     "coveredRequirements": [
       "ior:instance:24b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02"
-    ]
+    ],
+    "orphanByDesign": true,
+    "orphanReason": "process/infra/tooling task \u2014 no user-facing feature"
   },
   "ownerIor": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
 }

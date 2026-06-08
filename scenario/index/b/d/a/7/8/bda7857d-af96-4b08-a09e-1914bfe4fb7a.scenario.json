@@ -11,7 +11,7 @@
     ],
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] implementing\n  - [x] testing\n- [ ] QA Review\n- [ ] Done",
-    "description": "Three fixes ensuring the chain walks forward-only and terminates correctly at Test (R18.13):\n\nFix 1: scanRepo fallback (line 582) now iterates fwdKeys[type] only, instead of Object.values(links).flat(). This prevents backward refs from leaking into the children response — same bug class as T181.\n\nFix 2: EXPECTED_CHILD_TYPE invariant — children are filtered by the allowed type per parent (Req->Task, Task->UseCase, UC->Class/Method, Class->Method, Method->Implementation, Impl->Test, Sprint->Task). Wrong-type children are silently dropped. Structurally prevents higher-type nodes from appearing below Method.\n\nFix 3: Method.implementation singular already populated (0 remaining).\n\nNet effect: chain forward-only, no leakage, and chain terminates cleanly at Test. 836/836 pass.",
+    "description": "Three fixes ensuring the chain walks forward-only and terminates correctly at Test (R18.13):\n\nFix 1: scanRepo fallback (line 582) now iterates fwdKeys[type] only, instead of Object.values(links).flat(). This prevents backward refs from leaking into the children response \u2014 same bug class as T181.\n\nFix 2: EXPECTED_CHILD_TYPE invariant \u2014 children are filtered by the allowed type per parent (Req->Task, Task->UseCase, UC->Class/Method, Class->Method, Method->Implementation, Impl->Test, Sprint->Task). Wrong-type children are silently dropped. Structurally prevents higher-type nodes from appearing below Method.\n\nFix 3: Method.implementation singular already populated (0 remaining).\n\nNet effect: chain forward-only, no leakage, and chain terminates cleanly at Test. 836/836 pass.",
     "qaAudit": "2026-06-05 1f2f6dcc v0.5.95 T194: forward-only fallback + type-check child filter",
     "subtasks": "None (atomic task).",
     "sourceFile": "ior:file:scenario/index/b/d/a/7/8/bda7857d-af96-4b08-a09e-1914bfe4fb7a.scenario.json",
@@ -19,7 +19,9 @@
     "unitLinks": [
       "sprints.json/sprint-18-chain-method-scope/task/t194-forward-only-fallback-type-check-child-filter.json"
     ],
-    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "orphanByDesign": true,
+    "orphanReason": "process/infra/tooling task \u2014 no user-facing feature"
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

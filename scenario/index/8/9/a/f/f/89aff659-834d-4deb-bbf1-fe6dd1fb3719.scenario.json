@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "89aff659-834d-4deb-bbf1-fe6dd1fb3719",
+    "name": "roleSkill.coSpecify",
+    "object": "roleSkill",
+    "verb": "coSpecify"
+  },
+  "ownerIor": "ior:instance:a7f7f216-8389-475c-96b7-3593b185cb01"
+}

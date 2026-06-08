@@ -2,19 +2,19 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "c3f6e1b4-0d52-4a89-9e37-5f0a4b9c2d63",
-    "name": "T87: Batch 1 — Active Sprints (8, 9, 10) Full Chain",
+    "name": "T87: Batch 1 \u2014 Active Sprints (8, 9, 10) Full Chain",
     "slug": "task-87-batch-active",
-    "description": "Wire the full forward chain (req→usecase→puml→class/method) into every task of\nSprints 8 (Monaco Editor), 9 (Room Identity), 10 (Contacts UI).\n\n- Sprints 8,9: already have requirements.md + diagrams — add per-task chain links.\n- Sprint 10: author requirements.md + use cases; link T81-T83 to PUML + class/method.",
+    "description": "Wire the full forward chain (req\u2192usecase\u2192puml\u2192class/method) into every task of\nSprints 8 (Monaco Editor), 9 (Room Identity), 10 (Contacts UI).\n\n- Sprints 8,9: already have requirements.md + diagrams \u2014 add per-task chain links.\n- Sprint 10: author requirements.md + use cases; link T81-T83 to PUML + class/method.",
     "status": "Planned",
     "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [Sprint 11 Planning](./planning.md)\n- down\n  - None (atomic task)\n- follows\n  - [T86](./task-86-traceability-index.md) — consumes the matrix",
-    "context": "Sprints 8,9 are the closest to standard (have req + diagrams). Sprint 10 is active —\nstandardize as it develops so it sets the example.",
+    "traceability": "- up\n  - [Sprint 11 Planning](./planning.md)\n- down\n  - None (atomic task)\n- follows\n  - [T86](./task-86-traceability-index.md) \u2014 consumes the matrix",
+    "context": "Sprints 8,9 are the closest to standard (have req + diagrams). Sprint 10 is active \u2014\nstandardize as it develops so it sets the example.",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] Every task in Sprints 8,9,10 has a resolving req→usecase→puml→class/method chain\n- [ ] Sprint 10 requirements.md + use cases authored\n- [ ] No closed-task checkbox state changed (chain links only; Tron-gated)",
+    "acceptanceCriteria": "- [ ] Every task in Sprints 8,9,10 has a resolving req\u2192usecase\u2192puml\u2192class/method chain\n- [ ] Sprint 10 requirements.md + use cases authored\n- [ ] No closed-task checkbox state changed (chain links only; Tron-gated)",
     "qaAudit": "- Pending T86, then Tron QA.",
-    "subtasks": "None (atomic task).\n\n---\n*Sprint 11 — Traceability Standardization*\n*Owner: robbin-req (chain), robbin-planner (links)*\n*Priority: 3 (HIGH — recent sprints, lowest risk)*",
+    "subtasks": "None (atomic task).\n\n---\n*Sprint 11 \u2014 Traceability Standardization*\n*Owner: robbin-req (chain), robbin-planner (links)*\n*Priority: 3 (HIGH \u2014 recent sprints, lowest risk)*",
     "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** T86 (matrix)\n- **Enables:** T90 (verification)",
@@ -30,7 +30,9 @@
     "unitLinks": [
       "sprints.json/sprint-11-traceability/task/task-87-batch-active.json"
     ],
-    "parent": "ior:instance:d56c45de-bde0-4f11-bece-c6e8f461bf84"
+    "parent": "ior:instance:d56c45de-bde0-4f11-bece-c6e8f461bf84",
+    "orphanByDesign": true,
+    "orphanReason": "process/infra task \u2014 no user-facing requirement"
   },
   "ownerIor": "ior:instance:d56c45de-bde0-4f11-bece-c6e8f461bf84"
 }

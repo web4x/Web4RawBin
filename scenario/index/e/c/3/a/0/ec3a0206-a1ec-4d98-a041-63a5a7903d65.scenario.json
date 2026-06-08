@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "ec3a0206-a1ec-4d98-a041-63a5a7903d65",
+    "name": "viewGen.dogfood",
+    "object": "viewGen",
+    "verb": "dogfood"
+  },
+  "ownerIor": "ior:instance:8a31ba75-22b6-48ff-9532-d5da21458543"
+}

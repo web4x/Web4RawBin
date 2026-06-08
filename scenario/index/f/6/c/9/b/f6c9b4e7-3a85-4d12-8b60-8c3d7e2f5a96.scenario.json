@@ -4,7 +4,7 @@
     "uuid": "f6c9b4e7-3a85-4d12-8b60-8c3d7e2f5a96",
     "name": "T90: Traceability Verification + Audit Gate",
     "slug": "task-90-traceability-verify",
-    "description": "Add a chain-resolution verification: for every task, confirm its\nreq→usecase→puml→class/method links resolve to real artifacts. Extend or wrap the\n`sprint audit` (`components/OOSH/dev.claude/sprint`) so broken/missing chain links\nare flagged like other Web4Articles compliance warnings.",
+    "description": "Add a chain-resolution verification: for every task, confirm its\nreq\u2192usecase\u2192puml\u2192class/method links resolve to real artifacts. Extend or wrap the\n`sprint audit` (`components/OOSH/dev.claude/sprint`) so broken/missing chain links\nare flagged like other Web4Articles compliance warnings.",
     "status": "Planned",
     "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
@@ -14,7 +14,7 @@
     "role": "",
     "acceptanceCriteria": "- [ ] Chain-resolution check implemented (every link target exists)\n- [ ] `sprint audit` (or a companion) reports chain coverage + broken links\n- [ ] 89/89 tasks chain-complete and resolving\n- [ ] Check runnable in the planner's 15-min monitoring loop",
     "qaAudit": "- Pending T87-T89, then Tron QA.",
-    "subtasks": "None (atomic task).\n\n---\n*Sprint 11 — Traceability Standardization*\n*Owner: robbin-tester + robbin-planner*\n*Priority: 6 (verification — last)*",
+    "subtasks": "None (atomic task).\n\n---\n*Sprint 11 \u2014 Traceability Standardization*\n*Owner: robbin-tester + robbin-planner*\n*Priority: 6 (verification \u2014 last)*",
     "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** T87, T88, T89 (chains must exist to verify)\n- **Enables:** ongoing planner monitoring (drift detection)",
@@ -30,7 +30,9 @@
     "unitLinks": [
       "sprints.json/sprint-11-traceability/task/task-90-traceability-verify.json"
     ],
-    "parent": "ior:instance:d56c45de-bde0-4f11-bece-c6e8f461bf84"
+    "parent": "ior:instance:d56c45de-bde0-4f11-bece-c6e8f461bf84",
+    "orphanByDesign": true,
+    "orphanReason": "process/infra task \u2014 no user-facing requirement"
   },
   "ownerIor": "ior:instance:d56c45de-bde0-4f11-bece-c6e8f461bf84"
 }

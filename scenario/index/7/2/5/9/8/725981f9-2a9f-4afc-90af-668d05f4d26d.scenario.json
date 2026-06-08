@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "725981f9-2a9f-4afc-90af-668d05f4d26d",
+    "name": "sourceLink.browse",
+    "object": "sourceLink",
+    "verb": "browse"
+  },
+  "ownerIor": "ior:instance:675cc8e3-0646-4fb7-a6a5-b2c8400747c6"
+}

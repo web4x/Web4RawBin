@@ -37,7 +37,9 @@
     "parent": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2",
     "coveredRequirements": [
       "ior:instance:4428b21f-8317-4340-a670-aa3b14582d4f"
-    ]
+    ],
+    "orphanByDesign": true,
+    "orphanReason": "process/infra/tooling task \u2014 no user-facing feature"
   },
   "ownerIor": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
 }
