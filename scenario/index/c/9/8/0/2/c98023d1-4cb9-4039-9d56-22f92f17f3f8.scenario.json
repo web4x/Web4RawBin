@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "c98023d1-4cb9-4039-9d56-22f92f17f3f8",
-    "name": "Scenario unit model includes unitLinks[] \u2014 a list of IORs to linked instances.",
+    "name": "Unit model carries unitLinks[] array",
     "altId": "R18.30",
     "description": "Scenario unit model includes unitLinks[] \u2014 a list of IORs to linked instances.",
     "tronQuote": "> TRON: \"ok thats exactly right but the symlinks are fundamental part of the game. make sure they are always generated. extend the scenarios with an attribute unitLinks[] with a list of iors to the linked instances and add to the unit class the lifecycle methods to always keep this lust consistent with the state on disk. so add link, removeLink and so on.\"",
