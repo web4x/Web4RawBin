@@ -96,6 +96,7 @@ Browse the requirement → use case → PUML → class/method → test chain:
 
 - **[Traceability Matrix](./scrum.pmo/traceability-matrix.md)** — browsable per-task chain-coverage index (all tasks, S1-9 + active)
 - [Traceability Standard](./scrum.pmo/standards/traceability-standard.md) — the UUID chain convention (req/uc/class/impl/test tags)
+- [Scenario Data Pipeline](./scrum.pmo/standards/scenario-data-pipeline.md) — how scenario units flow from compound source → index → views/symlinks → planning.md (T188 dogfood)
 - [Sprint 1 Traceability Audit](./scrum.pmo/standards/sprint-1-traceability-audit.md)
 - [Sprints 2-9 Traceability Audit](./scrum.pmo/standards/sprints-2-9-traceability-audit.md)
 - [Sprints Overview](./scrum.pmo/sprints/sprints.overview.md) — all sprints: status + task counts
