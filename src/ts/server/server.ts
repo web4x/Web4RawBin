@@ -545,7 +545,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const type = (unit.ior || '').split(':')[2] || '';
         const queryMode = urlParams.get('mode') || 'scenario';
         const SCENARIO_FWD: Record<string, string[]> = {
-          Requirement: ['tasks'], Task: ['subtasks', 'useCases', 'children'], UseCase: ['classes'],
+          Requirement: ['tasks'], Task: ['subtasks', 'useCases', 'coveredRequirements', 'children'], UseCase: ['classes'],
           Class: ['methods'], Method: ['implementations'], Implementation: ['tests'],
           Sprint: ['tasks'],
         };
@@ -588,7 +588,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           } catch { /* scanRepo fallback failed — empty children */ }
         }
         const EXPECTED_CHILD_TYPE: Record<string, string[]> = {
-          Requirement: ['Task'], Task: ['Task', 'UseCase'], UseCase: ['Class', 'Method'],
+          Requirement: ['Task'], Task: ['Task', 'UseCase', 'Requirement'], UseCase: ['Class', 'Method'],
           Class: ['Method'], Method: ['Implementation'], Implementation: ['Test'],
           Sprint: ['Task'],
         };
