@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "a4b96c49-f670-4645-bee6-573dee20d5c2",
-    "name": "Sprint 01 — Rawbin Foundation",
+    "name": "Sprint 01 \u2014 Rawbin Foundation",
     "number": 1,
     "goal": "",
     "status": "Done",
@@ -35,8 +35,7 @@
       "ior:instance:01df5b22-b485-40c4-b9fc-57a85676dfa5",
       "ior:instance:4e4f3530-db7c-479f-902b-a5aefefba3e6",
       "ior:instance:cfb01bc2-1119-47d6-909e-2873734f5817"
-    ],
-    "parent": null
+    ]
   },
   "ownerIor": null
 }

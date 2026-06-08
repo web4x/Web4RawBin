@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
-    "name": "Sprint 16 — Traceability Ux",
+    "name": "Sprint 16 \u2014 Traceability Ux",
     "number": 16,
     "goal": "",
     "status": "In Progress",
@@ -28,7 +28,6 @@
     ],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/planning.md",
     "sourceLine": 1,
-    "parent": null,
     "unitLinks": [
       "ior:instance:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50",
       "ior:instance:471b9c4a-378f-4e56-a990-28f82a998b80",

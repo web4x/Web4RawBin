@@ -2,13 +2,12 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "7f004379-b327-4853-bc2f-947bd4e781d8",
-    "name": "Sprint 02 — Identity & SSH",
+    "name": "Sprint 02 \u2014 Identity & SSH",
     "number": 2,
     "tasks": [],
     "requirements": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-2-identity-ssh/planning.md",
     "sourceLine": 1,
-    "parent": null,
     "unitLinks": []
   },
   "ownerIor": null

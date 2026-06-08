@@ -2,13 +2,12 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "29d92990-3512-48c8-8648-e08ee757bb57",
-    "name": "Sprint 03 — E2E Hardening",
+    "name": "Sprint 03 \u2014 E2E Hardening",
     "number": 3,
     "tasks": [],
     "requirements": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-3-e2e-hardening/planning.md",
     "sourceLine": 1,
-    "parent": null,
     "unitLinks": []
   },
   "ownerIor": null

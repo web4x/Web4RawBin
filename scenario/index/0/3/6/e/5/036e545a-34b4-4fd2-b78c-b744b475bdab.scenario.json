@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "036e545a-34b4-4fd2-b78c-b744b475bdab",
-    "name": "Sprint 10 — Contacts Ui",
+    "name": "Sprint 10 \u2014 Contacts Ui",
     "number": 10,
     "goal": "",
     "status": "In Progress",
@@ -18,7 +18,6 @@
     ],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-10-contacts-ui/planning.md",
     "sourceLine": 1,
-    "parent": null,
     "unitLinks": [
       "ior:instance:c7e2d6f1-3a84-4b29-9d05-6e1f2a8b4c70",
       "ior:instance:e8d3a7b2-5c61-4f08-a3d9-2b7c4e1f9a06",
