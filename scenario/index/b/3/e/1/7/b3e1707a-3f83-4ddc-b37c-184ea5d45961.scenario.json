@@ -6,8 +6,8 @@
     "tests": [
       "ior:instance:3615a349-01ac-4816-ac6d-c343ff1d3050"
     ],
-    "sourceFile": "ior:file:scenario/index/b/3/e/1/7/b3e1707a-3f83-4ddc-b37c-184ea5d45961.scenario.json",
-    "sourceLine": 1
+    "sourceFile": "ior:file:test/vitest/avatar-preserve.test.ts",
+    "sourceLine": 81
   },
   "ownerIor": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09"
 }

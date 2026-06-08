@@ -9,8 +9,8 @@
       "ior:instance:68acc46a-8321-4074-8e91-edbf7c3ee3a5"
     ],
     "implementation": "ior:instance:68acc46a-8321-4074-8e91-edbf7c3ee3a5",
-    "sourceFile": "ior:file:scenario/index/2/5/5/e/c/255ecabf-3961-404c-92b1-737c209c2030.scenario.json",
-    "sourceLine": 1,
+    "sourceFile": "ior:file:src/ts/scenario/classes.ts",
+    "sourceLine": 32,
     "unitLinks": [
       "sprints.json/sprint-17-scenario-units/method/classregistry-register-name.json"
     ]

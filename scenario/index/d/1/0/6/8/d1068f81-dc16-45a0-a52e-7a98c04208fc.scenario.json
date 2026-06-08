@@ -9,8 +9,8 @@
       "ior:instance:8a6c772d-ebcd-4c69-bc40-5174fcb71bc6"
     ],
     "implementation": "ior:instance:8a6c772d-ebcd-4c69-bc40-5174fcb71bc6",
-    "sourceFile": "ior:file:scenario/index/d/1/0/6/8/d1068f81-dc16-45a0-a52e-7a98c04208fc.scenario.json",
-    "sourceLine": 1
+    "sourceFile": "ior:file:src/public/ts/trace/TraceRouter.ts",
+    "sourceLine": 73
   },
   "ownerIor": "ior:instance:740385cb-ce33-4216-a857-a5b63d35abb5"
 }

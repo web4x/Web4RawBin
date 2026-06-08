@@ -9,8 +9,8 @@
       "ior:instance:4850d457-d435-4d0a-9b77-7a62437ba458"
     ],
     "implementation": "ior:instance:4850d457-d435-4d0a-9b77-7a62437ba458",
-    "sourceFile": "ior:file:scenario/index/b/5/6/1/f/b561f886-0a85-429d-95f9-32840fd02dbc.scenario.json",
-    "sourceLine": 1
+    "sourceFile": "ior:file:src/ts/scenario/templates.ts",
+    "sourceLine": 15
   },
   "ownerIor": "ior:instance:6a4207e4-bfd3-4f73-91a6-a6f3c8da945f"
 }

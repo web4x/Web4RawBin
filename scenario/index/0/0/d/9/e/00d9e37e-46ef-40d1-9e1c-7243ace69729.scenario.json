@@ -9,8 +9,8 @@
       "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61"
     ],
     "implementation": "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61",
-    "sourceFile": "ior:file:scenario/index/0/0/d/9/e/00d9e37e-46ef-40d1-9e1c-7243ace69729.scenario.json",
-    "sourceLine": 1,
+    "sourceFile": "ior:file:src/public/ts/trace/rb-usecase-detail.ts",
+    "sourceLine": 20,
     "unitLinks": [
       "sprints.json/sprint-16-traceability-ux/method/rbusecasedetail-render.json"
     ]

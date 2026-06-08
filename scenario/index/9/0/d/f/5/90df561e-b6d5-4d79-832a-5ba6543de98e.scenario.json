@@ -9,8 +9,8 @@
       "ior:instance:afdff224-216a-44cd-b9f9-874882c8df1e"
     ],
     "implementation": "ior:instance:afdff224-216a-44cd-b9f9-874882c8df1e",
-    "sourceFile": "ior:file:scenario/index/9/0/d/f/5/90df561e-b6d5-4d79-832a-5ba6543de98e.scenario.json",
-    "sourceLine": 1
+    "sourceFile": "ior:file:src/ts/server/TraceConsistency.ts",
+    "sourceLine": 42
   },
   "ownerIor": "ior:instance:fbd7573d-af75-4ddd-8a29-336e06239c78"
 }

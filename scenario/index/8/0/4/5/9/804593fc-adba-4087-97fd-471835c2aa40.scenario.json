@@ -9,8 +9,8 @@
       "ior:instance:21a4e210-6ee6-42f9-9e10-c808cb1a66a4"
     ],
     "implementation": "ior:instance:21a4e210-6ee6-42f9-9e10-c808cb1a66a4",
-    "sourceFile": "ior:file:scenario/index/8/0/4/5/9/804593fc-adba-4087-97fd-471835c2aa40.scenario.json",
-    "sourceLine": 1
+    "sourceFile": "ior:file:src/public/ts/DeviceEnrollDialog.ts",
+    "sourceLine": 48
   },
   "ownerIor": "ior:instance:2ac73bc3-89c9-416d-94c1-b365e05816f5"
 }

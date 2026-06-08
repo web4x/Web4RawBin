@@ -9,8 +9,8 @@
       "ior:instance:c37ebdba-1310-4f6a-9a35-2a2d5d43084d"
     ],
     "implementation": "ior:instance:c37ebdba-1310-4f6a-9a35-2a2d5d43084d",
-    "sourceFile": "ior:file:scenario/index/6/0/7/f/e/607fef49-9395-439e-8ee1-f21d02978447.scenario.json",
-    "sourceLine": 1,
+    "sourceFile": "ior:file:src/ts/scenario/classes.ts",
+    "sourceLine": 32,
     "unitLinks": [
       "sprints.json/sprint-17-scenario-units/method/classregistry-get-name-classloader.json"
     ]

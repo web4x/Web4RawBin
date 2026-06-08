@@ -11,8 +11,8 @@
     "tasks": [],
     "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
     "method": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09",
-    "sourceFile": "ior:file:scenario/index/6/d/f/f/e/6dffeb33-d8a6-4879-b66f-89d979a1d481.scenario.json",
-    "sourceLine": 1,
+    "sourceFile": "ior:file:test/e2e/mobile-viewport.spec.ts",
+    "sourceLine": 12,
     "source": {
       "file": "scenario/index/6/d/f/f/e/6dffeb33-d8a6-4879-b66f-89d979a1d481.scenario.json",
       "commit": "6394960d",

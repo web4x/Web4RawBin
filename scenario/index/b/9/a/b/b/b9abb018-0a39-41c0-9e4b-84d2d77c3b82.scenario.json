@@ -9,8 +9,8 @@
       "ior:instance:ed54df47-4d33-4939-8a51-ef6d93b5fec9"
     ],
     "implementation": "ior:instance:ed54df47-4d33-4939-8a51-ef6d93b5fec9",
-    "sourceFile": "ior:file:scenario/index/b/9/a/b/b/b9abb018-0a39-41c0-9e4b-84d2d77c3b82.scenario.json",
-    "sourceLine": 1,
+    "sourceFile": "ior:file:src/ts/scenario/index-store.ts",
+    "sourceLine": 12,
     "unitLinks": [
       "sprints.json/sprint-17-scenario-units/method/scenarioindex-prefix-uuid-string.json"
     ]

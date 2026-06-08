@@ -9,8 +9,8 @@
       "ior:instance:27a4ff38-d0ae-4a7b-9a97-060d45fd2e2b"
     ],
     "implementation": "ior:instance:27a4ff38-d0ae-4a7b-9a97-060d45fd2e2b",
-    "sourceFile": "ior:file:scenario/index/9/6/3/b/6/963b67a2-488c-4580-b5ba-697537f02754.scenario.json",
-    "sourceLine": 1,
+    "sourceFile": "ior:file:src/ts/server/TraceConsistency.ts",
+    "sourceLine": 42,
     "unitLinks": [
       "sprints.json/sprint-16-traceability-ux/method/traceconsistency-scanrepo.json"
     ]

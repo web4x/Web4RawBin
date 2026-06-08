@@ -6,8 +6,8 @@
     "tests": [
       "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
     ],
-    "sourceFile": "ior:file:scenario/index/e/d/5/4/d/ed54df47-4d33-4939-8a51-ef6d93b5fec9.scenario.json",
-    "sourceLine": 1
+    "sourceFile": "ior:file:src/public/ts/trace/TraceRouter.ts",
+    "sourceLine": 63
   },
   "ownerIor": "ior:instance:b9abb018-0a39-41c0-9e4b-84d2d77c3b82"
 }

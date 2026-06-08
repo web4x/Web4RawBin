@@ -6,8 +6,8 @@
     "tests": [
       "ior:instance:2f5c543a-280d-48f9-bff5-e99870115d7b"
     ],
-    "sourceFile": "ior:file:scenario/index/c/8/5/d/5/c85d54d4-1af3-43b3-8ae2-638ce46302a2.scenario.json",
-    "sourceLine": 1
+    "sourceFile": "ior:file:test/e2e/editor-back.spec.ts",
+    "sourceLine": 2
   },
   "ownerIor": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09"
 }

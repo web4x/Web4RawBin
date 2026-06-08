@@ -6,8 +6,8 @@
     "tests": [
       "ior:instance:b774751d-5094-478b-b659-ec6e569d25bf"
     ],
-    "sourceFile": "ior:file:scenario/index/d/5/5/1/2/d55124c4-0de0-45bc-9fb8-8375cad61de7.scenario.json",
-    "sourceLine": 1
+    "sourceFile": "ior:file:test/e2e/lobby-card-badges.spec.ts",
+    "sourceLine": 2
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
 }

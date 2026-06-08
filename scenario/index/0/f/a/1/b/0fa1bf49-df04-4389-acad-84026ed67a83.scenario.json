@@ -9,8 +9,8 @@
       "ior:instance:1d2024fb-f7be-4bd8-b452-b154b0150ee3"
     ],
     "implementation": "ior:instance:1d2024fb-f7be-4bd8-b452-b154b0150ee3",
-    "sourceFile": "ior:file:scenario/index/0/f/a/1/b/0fa1bf49-df04-4389-acad-84026ed67a83.scenario.json",
-    "sourceLine": 1,
+    "sourceFile": "ior:file:src/ts/scenario/templates.ts",
+    "sourceLine": 15,
     "unitLinks": [
       "sprints.json/sprint-17-scenario-units/method/viewtemplateregistry-register-classname.json"
     ]

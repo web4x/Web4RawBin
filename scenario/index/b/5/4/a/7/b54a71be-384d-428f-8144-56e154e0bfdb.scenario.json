@@ -11,8 +11,8 @@
     ],
     "class": "ior:instance:0a27064f-3758-49e9-baf9-fefa1c6f327e",
     "method": "ior:instance:81c44474-9e78-498f-b4ad-0fc43d480432",
-    "sourceFile": "ior:file:scenario/index/b/5/4/a/7/b54a71be-384d-428f-8144-56e154e0bfdb.scenario.json",
-    "sourceLine": 1,
+    "sourceFile": "ior:file:src/public/ts/RoomBrowser.ts",
+    "sourceLine": 147,
     "source": {
       "file": "scenario/index/b/5/4/a/7/b54a71be-384d-428f-8144-56e154e0bfdb.scenario.json",
       "commit": "6394960d",

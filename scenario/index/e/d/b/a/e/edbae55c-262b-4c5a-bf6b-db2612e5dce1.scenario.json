@@ -11,8 +11,8 @@
     ],
     "class": "ior:instance:6fdc9ac6-0cf1-4d16-86ed-7c6f68f07d2e",
     "method": "ior:instance:b0e09fb1-8392-49fb-b398-24eac95c1b3c",
-    "sourceFile": "ior:file:scenario/index/e/d/b/a/e/edbae55c-262b-4c5a-bf6b-db2612e5dce1.scenario.json",
-    "sourceLine": 1,
+    "sourceFile": "ior:file:src/ts/scenario/generator.ts",
+    "sourceLine": 59,
     "source": {
       "file": "scenario/index/e/d/b/a/e/edbae55c-262b-4c5a-bf6b-db2612e5dce1.scenario.json",
       "commit": "6394960d",

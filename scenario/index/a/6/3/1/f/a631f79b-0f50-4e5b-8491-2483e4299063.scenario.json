@@ -11,8 +11,8 @@
     ],
     "class": "ior:instance:bf440a63-a97e-4a25-bd22-cb0fe4faf8d8",
     "method": "ior:instance:0fc2b48d-ba59-4211-b5a1-fb1f3018e220",
-    "sourceFile": "ior:file:scenario/index/a/6/3/1/f/a631f79b-0f50-4e5b-8491-2483e4299063.scenario.json",
-    "sourceLine": 1,
+    "sourceFile": "ior:file:test/e2e/contacts-ui.spec.ts",
+    "sourceLine": 90,
     "source": {
       "file": "scenario/index/a/6/3/1/f/a631f79b-0f50-4e5b-8491-2483e4299063.scenario.json",
       "commit": "6394960d",

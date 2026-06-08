@@ -6,8 +6,8 @@
     "tests": [
       "ior:instance:feac61c4-da1b-41fb-95b7-476973946d7f"
     ],
-    "sourceFile": "ior:file:scenario/index/b/3/0/a/6/b30a6878-4b32-41a2-acfa-9ba22c0fd30b.scenario.json",
-    "sourceLine": 1
+    "sourceFile": "ior:file:test/e2e/multi-room-lobby.spec.ts",
+    "sourceLine": 2
   },
   "ownerIor": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09"
 }

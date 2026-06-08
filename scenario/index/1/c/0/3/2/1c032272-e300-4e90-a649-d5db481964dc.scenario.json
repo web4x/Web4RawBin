@@ -11,8 +11,8 @@
     "tasks": [],
     "class": "ior:instance:3df1a3e8-a93e-4d48-92fc-2cfe64852a6b",
     "method": "ior:instance:a6f34fc6-670c-4f5f-ba9a-0b4de6fe8799",
-    "sourceFile": "ior:file:scenario/index/1/c/0/3/2/1c032272-e300-4e90-a649-d5db481964dc.scenario.json",
-    "sourceLine": 1,
+    "sourceFile": "ior:file:src/public/ts/app.ts",
+    "sourceLine": 9,
     "source": {
       "file": "scenario/index/1/c/0/3/2/1c032272-e300-4e90-a649-d5db481964dc.scenario.json",
       "commit": "6394960d",
