@@ -8,6 +8,9 @@
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/compound-requirement-source.md",
-    "sourceLine": 195
+    "sourceLine": 195,
+    "unitLinks": [
+      "sprints.json/sprint-18-chain-method-scope/requirement/r18-13-every-traceability-chain-terminates-in-a-test-no-chain-may-end-on-or-loop.json"
+    ]
   }
 }

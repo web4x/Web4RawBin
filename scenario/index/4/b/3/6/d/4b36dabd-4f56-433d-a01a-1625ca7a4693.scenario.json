@@ -10,7 +10,10 @@
     ],
     "implementation": "",
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
-    "sourceLine": 65
+    "sourceLine": 65,
+    "unitLinks": [
+      "sprints.json/sprint-16-traceability-ux/method/rbobjectitem-expand.json"
+    ]
   },
   "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
 }

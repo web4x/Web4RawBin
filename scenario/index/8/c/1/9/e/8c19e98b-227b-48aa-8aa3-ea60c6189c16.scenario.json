@@ -8,6 +8,9 @@
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/compound-requirement-source.md",
-    "sourceLine": 282
+    "sourceLine": 282,
+    "unitLinks": [
+      "sprints.json/sprint-18-chain-method-scope/requirement/r18-18-sprint-names-in-trace-include-their-sprint-number.json"
+    ]
   }
 }

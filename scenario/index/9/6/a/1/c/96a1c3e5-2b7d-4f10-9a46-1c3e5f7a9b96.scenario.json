@@ -2,22 +2,22 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "96a1c3e5-2b7d-4f10-9a46-1c3e5f7a9b96",
-    "name": "T96: Migrate Legacy data/rooms \u2192 Per-User Room Model",
+    "name": "T96: Migrate Legacy data/rooms → Per-User Room Model",
     "slug": "task-96-migrate-rooms",
     "description": "Migrate legacy `data/rooms/*.json` into `data/users/<token>/rooms/<uuid>/room.json`.\nIdempotent (safe to re-run); no data loss. Each legacy room mapped to its owner's\nper-user dir. Rooms already present per-user are skipped (no duplication).\n_(Architect designs the safe/idempotent algorithm; req confirms requirement text.)_",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [ ] testing (tester \u2014 T98 verify)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [ ] testing (tester — T98 verify)\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:14a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01](./requirements.md) \u2014 R14.1 migrate legacy rooms\n  - [Sprint 14 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R14.1 in [requirements.md](./requirements.md)\n  - **use case:** migrate-rooms workflow (architect \u2014 diagrams/migration-workflow.puml)\n  - **puml:** [diagrams/migration-workflow.puml](./diagrams/migration-workflow.puml) (pending architect)\n  - **class/method:** server.ts roomManager.loadFromDisk / scanAllRooms; Room.fromPersisted\n- context\n  - T93 root cause (27ef9c6): legacy data/rooms shadows per-user scan at startup",
+    "traceability": "- up\n  - [requirement:uuid:14a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01](./requirements.md) — R14.1 migrate legacy rooms\n  - [Sprint 14 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R14.1 in [requirements.md](./requirements.md)\n  - **use case:** migrate-rooms workflow (architect — diagrams/migration-workflow.puml)\n  - **puml:** [diagrams/migration-workflow.puml](./diagrams/migration-workflow.puml) (pending architect)\n  - **class/method:** server.ts roomManager.loadFromDisk / scanAllRooms; Room.fromPersisted\n- context\n  - T93 root cause (27ef9c6): legacy data/rooms shadows per-user scan at startup",
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC1: Every legacy `data/rooms/<id>.json` whose `<id>` already exists per-user is SKIPPED \u2014 the per-user copy is NEVER overwritten (no schema regression). [239/239 today]\n- [ ] AC2: A genuine legacy-only room (id absent from all per-user dirs) is copied forward; with no resolvable owner it is quarantined under `data/users/_unowned/rooms/<id>/` and REPORTED (count + ids) \u2014 never silently dropped, never deleted. [0 today]\n- [ ] AC3: Idempotent \u2014 re-running migrates nothing new, creates no duplicates, mutates no existing per-user room.json\n- [ ] AC4: No data loss \u2014 legacy `data/rooms/*.json` files left UNTOUCHED (copy, not move; deletion is T99, gated)\n- [ ] AC5: Per-room outcome logged: migrated | skipped(already-per-user) | orphan-quarantined; summary counts emitted\n- [ ] AC6: Migration adds NO new code dependence on the flat `data/rooms/` dir\n- [ ] `npm run build` + version bump",
-    "qaAudit": "- 2026-05-26: Tron directive \u2014 legacy data migration. Quote pending req.",
-    "subtasks": "None (atomic task).\n\n---\n*Sprint 14 \u2014 Legacy Data Migration*\n*Owner: robbin-architect (design), robbin-expert (implement), robbin-tester (verify)*\n*Priority: 1 (migrate phase)*",
+    "acceptanceCriteria": "- [ ] AC1: Every legacy `data/rooms/<id>.json` whose `<id>` already exists per-user is SKIPPED — the per-user copy is NEVER overwritten (no schema regression). [239/239 today]\n- [ ] AC2: A genuine legacy-only room (id absent from all per-user dirs) is copied forward; with no resolvable owner it is quarantined under `data/users/_unowned/rooms/<id>/` and REPORTED (count + ids) — never silently dropped, never deleted. [0 today]\n- [ ] AC3: Idempotent — re-running migrates nothing new, creates no duplicates, mutates no existing per-user room.json\n- [ ] AC4: No data loss — legacy `data/rooms/*.json` files left UNTOUCHED (copy, not move; deletion is T99, gated)\n- [ ] AC5: Per-room outcome logged: migrated | skipped(already-per-user) | orphan-quarantined; summary counts emitted\n- [ ] AC6: Migration adds NO new code dependence on the flat `data/rooms/` dir\n- [ ] `npm run build` + version bump",
+    "qaAudit": "- 2026-05-26: Tron directive — legacy data migration. Quote pending req.",
+    "subtasks": "None (atomic task).\n\n---\n*Sprint 14 — Legacy Data Migration*\n*Owner: robbin-architect (design), robbin-expert (implement), robbin-tester (verify)*\n*Priority: 1 (migrate phase)*",
     "assigned": "",
     "architectDesign": "",
-    "dependencies": "- **Requires:** None\n- **Enables:** T98 (verify), T99 (remove \u2014 gated)",
+    "dependencies": "- **Requires:** None\n- **Enables:** T98 (verify), T99 (remove — gated)",
     "definitionOfDone": "- [ ] All AC met; chain links resolve\n- [ ] Tests pass, build clean\n- [ ] Tron QA approved",
     "implementation": "",
     "testScenarios": "",
@@ -31,7 +31,10 @@
       "ior:instance:14c3d4e5-f6a7-4b81-9c92-0d1e2f3a4b14"
     ],
     "sourceFile": "ior:file:src/ts/server/Migration.ts",
-    "sourceLine": 12
+    "sourceLine": 12,
+    "unitLinks": [
+      "sprints.json/sprint-14-legacy-migration/task/task-96-migrate-rooms.json"
+    ]
   },
   "ownerIor": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
 }

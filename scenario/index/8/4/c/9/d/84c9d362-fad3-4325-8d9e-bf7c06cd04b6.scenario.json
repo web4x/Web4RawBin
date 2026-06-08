@@ -8,12 +8,12 @@
     "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] implementing (expert)\n  - [x] testing (tester)\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:67bde18f-76f9-43cd-abea-77c2ad7134f9](./requirements.md) \u2014 R-R1: All rooms appear in lobby\n  - [Sprint 13 Planning](./planning.md)\n  - Sprint 9 UC-RM.2 (room.persist) + UC-RM.4 (room.advertise) \u2014 these specified the behavior that is now failing\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R-R1 in [requirements.md](./requirements.md)\n  - **use case:** UC-RM.2 room.persist, UC-RM.4 room.advertise (Sprint 9 requirements)\n  - **class/method:** `RoomManager.loadFromDisk()` in Room.ts, `server.ts` IDENTIFY handler (room advertise logic), `server.ts` WS connect (room list broadcast)",
+    "traceability": "- up\n  - [requirement:uuid:67bde18f-76f9-43cd-abea-77c2ad7134f9](./requirements.md) — R-R1: All rooms appear in lobby\n  - [Sprint 13 Planning](./planning.md)\n  - Sprint 9 UC-RM.2 (room.persist) + UC-RM.4 (room.advertise) — these specified the behavior that is now failing\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R-R1 in [requirements.md](./requirements.md)\n  - **use case:** UC-RM.2 room.persist, UC-RM.4 room.advertise (Sprint 9 requirements)\n  - **class/method:** `RoomManager.loadFromDisk()` in Room.ts, `server.ts` IDENTIFY handler (room advertise logic), `server.ts` WS connect (room list broadcast)",
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [x] AC1: Creating 3 rooms \u2192 all 3 appear in lobby room list\n- [x] AC2: After server restart \u2192 all 3 rooms reload from disk\n- [x] AC3: After owner reconnects \u2192 all 3 rooms appear in ROOM_LIST\n- [x] AC4: Other users see all 3 rooms in their lobby (when owner connected)\n- [x] AC5: Deleting one room leaves the other 2 visible\n- [x] AC6: Room count in lobby matches actual rooms on disk for each user (subset invariant on shared server)",
-    "qaAudit": "- 2026-05-26: Tron directive \u2014 \"i created more than one room. but only one shows up in the lobby\u2026 all his rooms should show up\u2026 loaded from disk.\" Awaiting architect refinement, then Tron QA.\n- 2026-05-26: robbin-expert added Measured Evidence section above from the v0.4.10 deploy verification.",
+    "acceptanceCriteria": "- [x] AC1: Creating 3 rooms → all 3 appear in lobby room list\n- [x] AC2: After server restart → all 3 rooms reload from disk\n- [x] AC3: After owner reconnects → all 3 rooms appear in ROOM_LIST\n- [x] AC4: Other users see all 3 rooms in their lobby (when owner connected)\n- [x] AC5: Deleting one room leaves the other 2 visible\n- [x] AC6: Room count in lobby matches actual rooms on disk for each user (subset invariant on shared server)",
+    "qaAudit": "- 2026-05-26: Tron directive — \"i created more than one room. but only one shows up in the lobby… all his rooms should show up… loaded from disk.\" Awaiting architect refinement, then Tron QA.\n- 2026-05-26: robbin-expert added Measured Evidence section above from the v0.4.10 deploy verification.",
     "subtasks": "None (atomic task).",
     "assigned": "",
     "architectDesign": "",
@@ -28,7 +28,10 @@
     ],
     "implementations": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/task-93-multi-room-lobby.md",
-    "sourceLine": 5
+    "sourceLine": 5,
+    "unitLinks": [
+      "sprints.json/sprint-13-stability/task/task-93-multi-room-lobby.json"
+    ]
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
 }

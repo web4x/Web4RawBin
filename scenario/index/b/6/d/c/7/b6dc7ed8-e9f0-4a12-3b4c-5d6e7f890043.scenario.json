@@ -3,16 +3,19 @@
   "model": {
     "uuid": "b6dc7ed8-e9f0-4a12-3b4c-5d6e7f890043",
     "name": "R17.44: R17.26 links forward to its implementing tasks T1...",
-    "description": "[requirement:uuid:b6dc7ed8-e9f0-4a12-3b4c-5d6e7f890043]\n  \u2192 [T171](./task-171-untraced-closure-link-50-r1726-link-back.md)\n\n- [ ] **R17.44: R17.26 links forward to its implementing tasks T165 and T166.**",
+    "description": "[requirement:uuid:b6dc7ed8-e9f0-4a12-3b4c-5d6e7f890043]\n  → [T171](./task-171-untraced-closure-link-50-r1726-link-back.md)\n\n- [ ] **R17.44: R17.26 links forward to its implementing tasks T165 and T166.**",
     "tronQuote": "",
     "tasks": [
       "ior:instance:75628241-9157-4385-a7f0-f4f7a3142737"
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case",
+    "orphanReason": "infra-process: all tasks are infrastructure/process — no user-facing use case",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
-    "sourceLine": 256
+    "sourceLine": 256,
+    "unitLinks": [
+      "sprints.json/sprint-17-scenario-units/requirement/r17-44-r17-26-links-forward-to-its-implementing-tasks-t1.json"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

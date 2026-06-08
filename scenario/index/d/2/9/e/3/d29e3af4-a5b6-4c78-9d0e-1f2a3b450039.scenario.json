@@ -3,16 +3,19 @@
   "model": {
     "uuid": "d29e3af4-a5b6-4c78-9d0e-1f2a3b450039",
     "name": "R17.40: A rule-pair CI gate enforces package.json + sw.js...",
-    "description": "[requirement:uuid:d29e3af4-a5b6-4c78-9d0e-1f2a3b450039]\n  \u2192 [T170](./task-170-diligent-plan-no-stop-sustain.md)\n\n- [ ] **R17.40: A rule-pair CI gate enforces package.json + sw.js bumps in every user-facing commit.**",
+    "description": "[requirement:uuid:d29e3af4-a5b6-4c78-9d0e-1f2a3b450039]\n  → [T170](./task-170-diligent-plan-no-stop-sustain.md)\n\n- [ ] **R17.40: A rule-pair CI gate enforces package.json + sw.js bumps in every user-facing commit.**",
     "tronQuote": "",
     "tasks": [
       "ior:instance:6cf46cd1-5f65-4474-a023-1b54b56adb06"
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case",
+    "orphanReason": "infra-process: all tasks are infrastructure/process — no user-facing use case",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
-    "sourceLine": 238
+    "sourceLine": 238,
+    "unitLinks": [
+      "sprints.json/sprint-17-scenario-units/requirement/r17-40-a-rule-pair-ci-gate-enforces-package-json-sw-js.json"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

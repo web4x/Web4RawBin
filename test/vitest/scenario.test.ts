@@ -86,6 +86,34 @@ describe('T125.3: ScenarioIndex storage', () => {
   it('has returns false for missing UUID', () => {
     expect(idx.has('00000000-0000-4000-8000-000000000000')).toBe(false);
   });
+
+  it('R18.29: addLink creates symlink + persists unitLinks[]', () => {
+    const uuid = 'a7f3c1d2-8b4e-4f9a-b6c5-3d2e1f0a9b8c';
+    idx.put(uuid, { ior: 'ior:class:Task', model: { uuid, name: 'T1' }, ownerIor: null });
+    const linkPath = 'sprints.json/sprint-1/task/task-1.scenario.json';
+    idx.addLink(uuid, linkPath);
+    const reloaded = idx.get(uuid);
+    expect((reloaded!.model as any).unitLinks).toContain(linkPath);
+    const symlinkFull = path.join(idx.scenarioRoot, linkPath);
+    expect(fs.existsSync(symlinkFull)).toBe(true);
+  });
+
+  it('R18.30: removeLink removes symlink + updates unitLinks[]', () => {
+    const uuid = 'a7f3c1d2-8b4e-4f9a-b6c5-3d2e1f0a9b8c';
+    const linkPath = 'sprints.json/sprint-1/task/task-1.scenario.json';
+    idx.put(uuid, { ior: 'ior:class:Task', model: { uuid, name: 'T1', unitLinks: [linkPath] }, ownerIor: null });
+    idx.removeLink(uuid, linkPath);
+    const reloaded = idx.get(uuid);
+    expect((reloaded!.model as any).unitLinks).not.toContain(linkPath);
+    expect(fs.existsSync(path.join(idx.scenarioRoot, linkPath))).toBe(false);
+  });
+
+  it('R18.31: put() auto-syncs symlinks when unitLinks[] present', () => {
+    const uuid = 'b72e58c4-91d3-4a07-b845-3c6f1d92e7a0';
+    const linkPath = 'sprints.json/sprint-2/task/task-7.scenario.json';
+    idx.put(uuid, { ior: 'ior:class:Task', model: { uuid, name: 'T7', unitLinks: [linkPath] }, ownerIor: null });
+    expect(fs.existsSync(path.join(idx.scenarioRoot, linkPath))).toBe(true);
+  });
 });
 
 describe('T125.4: ViewTemplateRegistry', () => {

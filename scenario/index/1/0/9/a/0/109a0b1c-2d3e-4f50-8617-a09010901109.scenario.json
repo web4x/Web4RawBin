@@ -2,22 +2,22 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "109a0b1c-2d3e-4f50-8617-a09010901109",
-    "name": "T109: Avatar Recurrence Fix \u2014 Decrypt-Exception Overwrite + Rekey Re-encrypt",
+    "name": "T109: Avatar Recurrence Fix — Decrypt-Exception Overwrite + Rekey Re-encrypt",
     "slug": "task-109-avatar-recurrence-fix",
     "description": "",
     "status": "Planned",
     "statusChecklist": "",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d](./requirements.md) \u2014 R-A1: Avatar must persist (satisfied by T91 + T109 together)\n  - [Sprint 13 Planning](./planning.md)\n  - Tron directive 2026-05-26 (\"keeps breaking to fallback\")\n- down\n  - None (atomic task)\n- completes\n  - [T91](./task-91-avatar-persist.md) \u2014 T91 closed the STRING-desync overwrite; T109 closes the decrypt-EXCEPTION overwrite + rekey re-encrypt. R-A1 done only when BOTH verify.\n- chain\n  - **requirement:** R-A1 in [requirements.md](./requirements.md)\n  - **class/method:** server.ts `ensureAvatar` catch path + `GET /api/avatar` decrypt; UserKeys identity rekey \u2192 re-encrypt `files/*`\n- relates\n  - DISJOINT from S14: token-* dirs (T97) have 0 avatars/keys; the ~118 real avatars are on already-UUID dirs T97 never touches \u2192 migration can't fix or worsen it. (T97 should still add: re-encrypt files/* on identity rekey.)",
+    "traceability": "- up\n  - [requirement:uuid:a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d](./requirements.md) — R-A1: Avatar must persist (satisfied by T91 + T109 together)\n  - [Sprint 13 Planning](./planning.md)\n  - Tron directive 2026-05-26 (\"keeps breaking to fallback\")\n- down\n  - None (atomic task)\n- completes\n  - [T91](./task-91-avatar-persist.md) — T91 closed the STRING-desync overwrite; T109 closes the decrypt-EXCEPTION overwrite + rekey re-encrypt. R-A1 done only when BOTH verify.\n- chain\n  - **requirement:** R-A1 in [requirements.md](./requirements.md)\n  - **class/method:** server.ts `ensureAvatar` catch path + `GET /api/avatar` decrypt; UserKeys identity rekey → re-encrypt `files/*`\n- relates\n  - DISJOINT from S14: token-* dirs (T97) have 0 avatars/keys; the ~118 real avatars are on already-UUID dirs T97 never touches → migration can't fix or worsen it. (T97 should still add: re-encrypt files/* on identity rekey.)",
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC1: decrypt EXCEPTION in `ensureAvatar` NEVER overwrites avatar.enc with a default (no data loss)\n- [ ] AC2: present-but-undecryptable avatar.enc is left intact + logged (recoverable)\n- [ ] AC3: on identity rekey, files/* (avatar.enc) are re-encrypted with the new key \u2192 stay decryptable\n- [ ] AC4: after rekey + reconnect, the user's real avatar still serves (no fallback)\n- [ ] AC5: no avatar.enc is destroyed across regen/redirect/reconnect cycles\n- [ ] `npm run build` + version bump",
-    "qaAudit": "- 2026-05-26: Tron \u2014 \"app keeps breaking the profile picture to the fallback\" (post-T91 recurrence). New task per PO; expert fix landed v0.5.9 (75053e4); tester verification pending.",
-    "subtasks": "None (atomic task).\n\n---\n*Sprint 13 \u2014 Stability (Core Workflow Fixes)*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: HIGH \u2014 actively destroying avatars (permanent loss) until verified*",
+    "acceptanceCriteria": "- [ ] AC1: decrypt EXCEPTION in `ensureAvatar` NEVER overwrites avatar.enc with a default (no data loss)\n- [ ] AC2: present-but-undecryptable avatar.enc is left intact + logged (recoverable)\n- [ ] AC3: on identity rekey, files/* (avatar.enc) are re-encrypted with the new key → stay decryptable\n- [ ] AC4: after rekey + reconnect, the user's real avatar still serves (no fallback)\n- [ ] AC5: no avatar.enc is destroyed across regen/redirect/reconnect cycles\n- [ ] `npm run build` + version bump",
+    "qaAudit": "- 2026-05-26: Tron — \"app keeps breaking the profile picture to the fallback\" (post-T91 recurrence). New task per PO; expert fix landed v0.5.9 (75053e4); tester verification pending.",
+    "subtasks": "None (atomic task).\n\n---\n*Sprint 13 — Stability (Core Workflow Fixes)*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: HIGH — actively destroying avatars (permanent loss) until verified*",
     "assigned": "",
     "architectDesign": "",
-    "dependencies": "- **Requires:** T91 (string-desync fix) \u2014 T109 completes R-A1\n- **Enables:** R-A1 done (with T91)",
+    "dependencies": "- **Requires:** T91 (string-desync fix) — T109 completes R-A1\n- **Enables:** R-A1 done (with T91)",
     "definitionOfDone": "- [ ] AC met; chain resolves; no avatar destroyed on decrypt-exception or rekey\n- [ ] Tests pass, build clean\n- [ ] Tron QA approved (R-A1 declared done only with T91+T109)",
     "implementation": "",
     "testScenarios": "",
@@ -28,7 +28,10 @@
     ],
     "implementations": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/task-109-avatar-recurrence-fix.md",
-    "sourceLine": 5
+    "sourceLine": 5,
+    "unitLinks": [
+      "sprints.json/sprint-13-stability/task/task-109-avatar-recurrence-fix.json"
+    ]
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
 }

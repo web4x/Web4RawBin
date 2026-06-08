@@ -10,7 +10,10 @@
     ],
     "implementation": "ior:instance:60568fac-fa40-46b4-be26-318308142304",
     "sourceFile": "ior:file:scenario/index/9/2/6/b/1/926b1a00-fe56-4a1c-924b-3c41bf9635ad.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "unitLinks": [
+      "sprints.json/sprint-17-scenario-units/method/iorresolver-resolve-ior-scenariounit-classloader.json"
+    ]
   },
   "ownerIor": "ior:instance:fdc768a6-8779-42e1-9e7c-775338733c09"
 }

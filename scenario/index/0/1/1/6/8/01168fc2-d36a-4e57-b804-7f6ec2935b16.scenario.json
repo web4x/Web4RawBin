@@ -2,22 +2,22 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "01168fc2-d36a-4e57-b804-7f6ec2935b16",
-    "name": "T116: Traceability-chain review \u2014 every method traces to its requirement",
+    "name": "T116: Traceability-chain review — every method traces to its requirement",
     "slug": "task-116-chain-review",
-    "description": "Review the full traceability chain \u2014 **requirement \u2192 task \u2192 use cases \u2192 classes\n(objects/nouns) \u2192 methods (verbs)** \u2014 and ensure **EVERY method (verb) traces back to\nits originating requirement**. Produce/refresh the chain index (matrix) and flag any\nmethod with no requirement ancestor. Depends on UseCases being first-class (T117).",
+    "description": "Review the full traceability chain — **requirement → task → use cases → classes\n(objects/nouns) → methods (verbs)** — and ensure **EVERY method (verb) traces back to\nits originating requirement**. Produce/refresh the chain index (matrix) and flag any\nmethod with no requirement ancestor. Depends on UseCases being first-class (T117).",
     "status": "In Progress",
-    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only \u2014 never checked by planner/sync.",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
     "remainingIssues": "",
-    "traceability": "`[task:uuid:01168fc2-d36a-4e57-b804-7f6ec2935b16]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) \u2192 **R16.9** (chain review)\n  - [traceability-standard.md](../../standards/traceability-standard.md)\n- down\n  - None (atomic task)\n- chain (req \u2192 usecase \u2192 puml \u2192 class/method)\n  - **requirement:** R16.9\n  - **use case:** traceChain.auditOrphans [uc:uuid:16a01161-d161-4a01-b161-000000116001]\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 3 package)\n  - **class/method:** `TraceConsistency.ts` \u2192 `auditOrphans()` (scanner extension)\n  - This task IS the chain-integrity audit: requirement \u2192 task \u2192 use case \u2192 class (noun) \u2192 method (verb)",
+    "traceability": "`[task:uuid:01168fc2-d36a-4e57-b804-7f6ec2935b16]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.9** (chain review)\n  - [traceability-standard.md](../../standards/traceability-standard.md)\n- down\n  - None (atomic task)\n- chain (req → usecase → puml → class/method)\n  - **requirement:** R16.9\n  - **use case:** traceChain.auditOrphans [uc:uuid:16a01161-d161-4a01-b161-000000116001]\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 3 package)\n  - **class/method:** `TraceConsistency.ts` → `auditOrphans()` (scanner extension)\n  - This task IS the chain-integrity audit: requirement → task → use case → class (noun) → method (verb)",
     "context": "Tron 2026-05-27: \"review the traceability chain: requirement-> task, use casees,\nclasses (objects nouns), methods (verbs) and make sure i can trace back each method\n(verbs) to its original requirement.\"",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC1 \u2014 Chain documented req \u2192 task \u2192 use case \u2192 class \u2192 method end-to-end\n- [ ] AC2 \u2014 Every method maps to \u22651 requirement; orphans (method with no requirement) are reported\n- [ ] AC3 \u2014 The /trace browser reflects the complete chain (method nodes reachable from requirement roots)\n- [ ] AC4 \u2014 Matrix `scrum.pmo/traceability-matrix.md` updated; standard satisfied\n- [ ] `npm run build` succeeds; no regression",
+    "acceptanceCriteria": "- [ ] AC1 — Chain documented req → task → use case → class → method end-to-end\n- [ ] AC2 — Every method maps to ≥1 requirement; orphans (method with no requirement) are reported\n- [ ] AC3 — The /trace browser reflects the complete chain (method nodes reachable from requirement roots)\n- [ ] AC4 — Matrix `scrum.pmo/traceability-matrix.md` updated; standard satisfied\n- [ ] `npm run build` succeeds; no regression",
     "qaAudit": "- 2026-05-27: Planned from compound source R16.9. Awaiting architect design (after T117), then Tron QA.",
-    "subtasks": "None (atomic task).\n\n---\n\n*Sprint 16 \u2014 Traceability UX & DetailViews*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 7 (Phase 3 \u2014 chain integrity)*",
+    "subtasks": "None (atomic task).\n\n---\n\n*Sprint 16 — Traceability UX & DetailViews*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 7 (Phase 3 — chain integrity)*",
     "assigned": "",
     "architectDesign": "",
-    "dependencies": "- **Requires:** T117 (UseCase as first-class PUML instances \u2014 needed for the UC link in the chain)\n- **Enables:** complete, auditable traceability",
+    "dependencies": "- **Requires:** T117 (UseCase as first-class PUML instances — needed for the UC link in the chain)\n- **Enables:** complete, auditable traceability",
     "definitionOfDone": "- [ ] All AC met; chain complete + links resolve\n- [ ] Tests pass, build clean\n- [ ] Tron QA approved",
     "implementation": "",
     "testScenarios": "",
@@ -28,7 +28,10 @@
     ],
     "implementations": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-116-chain-review.md",
-    "sourceLine": 5
+    "sourceLine": 5,
+    "unitLinks": [
+      "sprints.json/sprint-16-traceability-ux/task/task-116-chain-review.json"
+    ]
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

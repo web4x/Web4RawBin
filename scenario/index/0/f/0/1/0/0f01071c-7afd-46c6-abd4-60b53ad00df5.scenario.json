@@ -12,7 +12,10 @@
     "createdAt": "2026-06-02T07:59:48.688Z",
     "createdBy": "migrate-to-scenario.ts",
     "sourceFile": "ior:file:scenario/index/0/f/0/1/0/0f01071c-7afd-46c6-abd4-60b53ad00df5.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "unitLinks": [
+      "sprints.json/sprint-14-legacy-migration/tracelink/0f01071c-7afd-46c6-abd4-60b53ad00df5.json"
+    ]
   },
   "ownerIor": null
 }

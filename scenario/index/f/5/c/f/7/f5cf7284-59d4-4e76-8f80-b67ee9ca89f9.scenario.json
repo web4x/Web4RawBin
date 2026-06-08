@@ -12,7 +12,10 @@
     "useCases": [],
     "method": "ior:instance:055a7f68-1d98-4a95-9572-22dcb0c40712",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml",
-    "sourceLine": 268
+    "sourceLine": 268,
+    "unitLinks": [
+      "sprints.json/sprint-16-traceability-ux/class/traceconsistency.json"
+    ]
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

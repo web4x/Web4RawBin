@@ -2,19 +2,19 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "d4a7f2c5-1e63-4b90-8f48-6a1b5c0d3e74",
-    "name": "T88: Batch 2 \u2014 Sprints 5-7 Chain Backfill",
+    "name": "T88: Batch 2 — Sprints 5-7 Chain Backfill",
     "slug": "task-88-batch-mid",
     "description": "Backfill the forward chain for Sprints 5 (PWA Offline), 6 (Web Components),\n7 (Encrypted Storage). Author requirements.md / use-case stubs where missing\n(Sprint 7 has diagrams; 5,6 may need them), link PUML + class/method.",
     "status": "Planned",
     "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
     "traceability": "- up\n  - [Sprint 11 Planning](./planning.md)\n- down\n  - None (atomic task)\n- follows\n  - [T87](./task-87-batch-active.md)",
-    "context": "Closed/QA-approved sprints. DELIBERATE remediation \u2014 changes tracked in THIS task,\nreviewed, Tron-gated. Never silent inline edits.",
+    "context": "Closed/QA-approved sprints. DELIBERATE remediation — changes tracked in THIS task,\nreviewed, Tron-gated. Never silent inline edits.",
     "intention": "",
     "role": "",
     "acceptanceCriteria": "- [ ] Sprints 5,6,7 tasks have resolving forward chains\n- [ ] Missing requirements.md/use-case artifacts authored\n- [ ] Closed-task Status checkboxes unchanged (chain links only)",
     "qaAudit": "- Pending T87, then Tron QA.",
-    "subtasks": "None (atomic task).\n\n---\n*Sprint 11 \u2014 Traceability Standardization*\n*Owner: robbin-req (chain), robbin-planner (links)*\n*Priority: 4 (MEDIUM \u2014 closed sprints, moderate risk)*",
+    "subtasks": "None (atomic task).\n\n---\n*Sprint 11 — Traceability Standardization*\n*Owner: robbin-req (chain), robbin-planner (links)*\n*Priority: 4 (MEDIUM — closed sprints, moderate risk)*",
     "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** T86 (matrix), T87 (pattern proven on active sprints)\n- **Enables:** T90",
@@ -26,7 +26,10 @@
     "useCases": [],
     "implementations": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-11-traceability/task-88-batch-mid.md",
-    "sourceLine": 5
+    "sourceLine": 5,
+    "unitLinks": [
+      "sprints.json/sprint-11-traceability/task/task-88-batch-mid.json"
+    ]
   },
   "ownerIor": "ior:instance:d56c45de-bde0-4f11-bece-c6e8f461bf84"
 }

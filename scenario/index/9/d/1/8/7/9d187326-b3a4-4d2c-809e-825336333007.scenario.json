@@ -8,6 +8,9 @@
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/compound-requirement-source.md",
-    "sourceLine": 163
+    "sourceLine": 163,
+    "unitLinks": [
+      "sprints.json/sprint-18-chain-method-scope/requirement/r18-11-cycle-guard-is-ancestor-path-precise-only-break-true-ancestor-cycles-pres.json"
+    ]
   }
 }

@@ -2,12 +2,15 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "884bad43-cb48-4cea-9f47-3fe3aa0439b6",
-    "name": "R18.26: Source link on ALL types \u2014 not just Implementation. (inferred from literal)",
-    "description": "> TRON: \"here you see impl has a src link, but ALL types should have it. it should NOT open directly in the monaco editor, BUT in the browser folder (2nd picture), with the file highlighted. then i can open the editor. the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file.\"\n\n### Decomposition hints (req: confirm against literal)\n- R18.13: SOURCE LINK ON ALL TYPES \u2014 currently only Implementation shows the src link; EVERY type must have one linking to its source artifact: UseCase \u2192 its .puml file; Class/Method/Implementation \u2192 its .ts source; Test \u2192 its test file; Requirement/Task \u2192 its .md (or scenario). Not just Impl.\n\nEvery scenario type must show a source link in its detail view: UseCase \u2192 its `.puml` file; Class/Method/Implementation \u2192 its `.ts` source; Test \u2192 its test file; Requirement/Task \u2192 its `.md` or scenario source. Currently only Implementation shows the link.\n\n**Acceptance criteria:**\n- [ ] UseCase detail shows source link to .puml file\n- [ ] Class detail shows source link to .ts file\n- [ ] Method detail shows source link to .ts file\n- [ ] Test detail shows source link to test .ts file\n- [ ] Requirement detail shows source link to .md file\n- [ ] Task detail shows source link to .md file",
+    "name": "R18.26: Source link on ALL types — not just Implementation. (inferred from literal)",
+    "description": "> TRON: \"here you see impl has a src link, but ALL types should have it. it should NOT open directly in the monaco editor, BUT in the browser folder (2nd picture), with the file highlighted. then i can open the editor. the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file.\"\n\n### Decomposition hints (req: confirm against literal)\n- R18.13: SOURCE LINK ON ALL TYPES — currently only Implementation shows the src link; EVERY type must have one linking to its source artifact: UseCase → its .puml file; Class/Method/Implementation → its .ts source; Test → its test file; Requirement/Task → its .md (or scenario). Not just Impl.\n\nEvery scenario type must show a source link in its detail view: UseCase → its `.puml` file; Class/Method/Implementation → its `.ts` source; Test → its test file; Requirement/Task → its `.md` or scenario source. Currently only Implementation shows the link.\n\n**Acceptance criteria:**\n- [ ] UseCase detail shows source link to .puml file\n- [ ] Class detail shows source link to .ts file\n- [ ] Method detail shows source link to .ts file\n- [ ] Test detail shows source link to test .ts file\n- [ ] Requirement detail shows source link to .md file\n- [ ] Task detail shows source link to .md file",
     "tronQuote": "> TRON: \"here you see impl has a src link, but ALL types should have it. it should NOT open directly in the monaco editor, BUT in the browser folder (2nd picture), with the file highlighted. then i can open the editor. the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file.\"",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/compound-requirement-source.md",
-    "sourceLine": 335
+    "sourceLine": 335,
+    "unitLinks": [
+      "sprints.json/sprint-18-chain-method-scope/requirement/r18-26-source-link-on-all-types-not-just-implementation-inferred-from-literal.json"
+    ]
   }
 }

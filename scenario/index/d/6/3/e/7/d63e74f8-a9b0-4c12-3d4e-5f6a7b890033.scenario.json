@@ -3,16 +3,19 @@
   "model": {
     "uuid": "d63e74f8-a9b0-4c12-3d4e-5f6a7b890033",
     "name": "R17.34: Implementation traces finally to test.",
-    "description": "[requirement:uuid:d63e74f8-a9b0-4c12-3d4e-5f6a7b890033]\n  \u2192 [T168](./task-168-chain-order-7-step-requirements-as-roots.md)\n\n- [ ] **R17.34: Implementation traces finally to test.**",
+    "description": "[requirement:uuid:d63e74f8-a9b0-4c12-3d4e-5f6a7b890033]\n  → [T168](./task-168-chain-order-7-step-requirements-as-roots.md)\n\n- [ ] **R17.34: Implementation traces finally to test.**",
     "tronQuote": "",
     "tasks": [
       "ior:instance:c3951691-b231-4b60-a2f8-79c9d5ef851e"
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case",
+    "orphanReason": "infra-process: all tasks are infrastructure/process — no user-facing use case",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
-    "sourceLine": 210
+    "sourceLine": 210,
+    "unitLinks": [
+      "sprints.json/sprint-17-scenario-units/requirement/r17-34-implementation-traces-finally-to-test.json"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

@@ -15,6 +15,9 @@
     "qaAudit": "2026-06-05 6bd58dc1 v0.5.93 T192: break Req→Task 2-cycle + server cycle guard",
     "subtasks": "None (atomic task).",
     "sourceFile": "ior:file:scenario/index/a/1/d/2/b/a1d2b3a8-a46b-4908-a266-a1ed860c101c.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "unitLinks": [
+      "sprints.json/sprint-18-chain-method-scope/task/t192-break-req-task-2-cycle-server-cycle-guard.json"
+    ]
   }
 }

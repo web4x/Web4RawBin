@@ -4,7 +4,7 @@
     "uuid": "771a4a9a-e44f-44ef-9200-960ad64fdc55",
     "name": "Task 1.3: Agent-Trainer - Verify Inherited Knowledge",
     "slug": "task-1.3-trainer-verify-inherited-knowledge",
-    "description": "Verify each robbinTeam agent inherited knowledge from its ud-team source.\n\n### Verification Questions (send to each agent)\n1. \"State your role, team, working directory, and what project you serve.\"\n2. \"What OOSH scripts do you know? Name 3 with their purpose.\"\n3. \"What is the WODA pattern?\"\n\n### Pass Criteria\n- Agent knows its role and team (robbinTeam)\n- Agent has OOSH framework knowledge (inherited from ud-team)\n- Agent can reference WODA, MVC, or other team patterns\n- If agent answers like a blank session \u2192 FAIL, report to SM\n\n### Corrections\n- If agent doesn't know team name: correct to robbinTeam\n- If agent doesn't know project: correct to Web4RawBin (Robbin AI server management)\n- If agent has no inherited knowledge: task 1.2 failed, escalate to SM",
+    "description": "Verify each robbinTeam agent inherited knowledge from its ud-team source.\n\n### Verification Questions (send to each agent)\n1. \"State your role, team, working directory, and what project you serve.\"\n2. \"What OOSH scripts do you know? Name 3 with their purpose.\"\n3. \"What is the WODA pattern?\"\n\n### Pass Criteria\n- Agent knows its role and team (robbinTeam)\n- Agent has OOSH framework knowledge (inherited from ud-team)\n- Agent can reference WODA, MVC, or other team patterns\n- If agent answers like a blank session → FAIL, report to SM\n\n### Corrections\n- If agent doesn't know team name: correct to robbinTeam\n- If agent doesn't know project: correct to Web4RawBin (Robbin AI server management)\n- If agent has no inherited knowledge: task 1.2 failed, escalate to SM",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",
@@ -26,7 +26,10 @@
     "useCases": [],
     "implementations": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-1-rawbin-foundation/task-1.3-trainer-verify-inherited-knowledge.md",
-    "sourceLine": 4
+    "sourceLine": 4,
+    "unitLinks": [
+      "sprints.json/sprint-1-rawbin-foundation/task/task-1.3-trainer-verify-inherited-knowledge.json"
+    ]
   },
   "ownerIor": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
 }

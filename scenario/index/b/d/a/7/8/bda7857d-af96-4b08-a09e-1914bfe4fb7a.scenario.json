@@ -15,6 +15,9 @@
     "qaAudit": "2026-06-05 1f2f6dcc v0.5.95 T194: forward-only fallback + type-check child filter",
     "subtasks": "None (atomic task).",
     "sourceFile": "ior:file:scenario/index/b/d/a/7/8/bda7857d-af96-4b08-a09e-1914bfe4fb7a.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "unitLinks": [
+      "sprints.json/sprint-18-chain-method-scope/task/t194-forward-only-fallback-type-check-child-filter.json"
+    ]
   }
 }

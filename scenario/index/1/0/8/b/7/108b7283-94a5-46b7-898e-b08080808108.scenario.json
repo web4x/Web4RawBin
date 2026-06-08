@@ -2,19 +2,19 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "108b7283-94a5-46b7-898e-b08080808108",
-    "name": "T108: Traceability Browser \u2014 tree-navigable graph in Documentation",
+    "name": "T108: Traceability Browser — tree-navigable graph in Documentation",
     "slug": "task-108-traceability-browser",
     "description": "Add a traceability browser NEXT TO the file browser in the Documentation, letting users\nnavigate the traceability graph as a TREE. It integrates the\n`defaultItemView`/`ListOverview`/`DetailView`/`Overview` components into a single\nbrowsing experience over the typed object graph. This is the sprint capstone.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [ ] testing (tester \u2014 rb-trace-tree.test.ts + e2e)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [ ] testing (tester — rb-trace-tree.test.ts + e2e)\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:75a7b8c9-d0e1-4f26-8cd7-5b6c7d8e9f07](./requirements.md) \u2014 R15.7 traceability browser\n  - [Sprint 15 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R15.7 in [requirements.md](./requirements.md)\n  - **use case:** traceability.browse (tree) \u2014 diagrams/object-verb-usecases.puml\n  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)\n  - **class/method:** /docs traceability browser + tree graph (integrates item/list/detail/overview)",
+    "traceability": "- up\n  - [requirement:uuid:75a7b8c9-d0e1-4f26-8cd7-5b6c7d8e9f07](./requirements.md) — R15.7 traceability browser\n  - [Sprint 15 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R15.7 in [requirements.md](./requirements.md)\n  - **use case:** traceability.browse (tree) — diagrams/object-verb-usecases.puml\n  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)\n  - **class/method:** /docs traceability browser + tree graph (integrates item/list/detail/overview)",
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC1: A `<rb-trace-tree>` traceability browser renders NEXT TO the existing `<rb-file-tree>` file browser in the `/edit` Documentation UI (sibling panel or toggle)\n- [ ] AC2: The graph is navigable as a TREE \u2014 expand/collapse `requirement\u2192task\u2192useCase\u2192class\u2192method\u2192test` chain nodes; node rows reuse T105 `<rb-object-item>`; expand state persisted\n- [ ] AC3: Integrates T105 defaultItemView (node rows), T106 ListOverview (search/flat toggle), T107 DetailView + Overview (detail/planning panes)\n- [ ] AC4: Selecting a node calls `TraceRouter.navigate(type,'show',{uuid})` \u2192 opens its DetailView; tree highlight + detail stay consistent via T103 ViewBus\n- [ ] AC5: Tree built from the T102 consistency-validated graph (`GET /api/trace` = scanRepo\u2192`graph.toJSON()`); broken/dangling nodes shown WITH a warning marker (not silently dropped)\n- [ ] AC6: Tests cover tree render, expand/collapse navigation, node-select\u2192detail, and integration of the four view components\n- [ ] `npm run build` + version bump",
+    "acceptanceCriteria": "- [ ] AC1: A `<rb-trace-tree>` traceability browser renders NEXT TO the existing `<rb-file-tree>` file browser in the `/edit` Documentation UI (sibling panel or toggle)\n- [ ] AC2: The graph is navigable as a TREE — expand/collapse `requirement→task→useCase→class→method→test` chain nodes; node rows reuse T105 `<rb-object-item>`; expand state persisted\n- [ ] AC3: Integrates T105 defaultItemView (node rows), T106 ListOverview (search/flat toggle), T107 DetailView + Overview (detail/planning panes)\n- [ ] AC4: Selecting a node calls `TraceRouter.navigate(type,'show',{uuid})` → opens its DetailView; tree highlight + detail stay consistent via T103 ViewBus\n- [ ] AC5: Tree built from the T102 consistency-validated graph (`GET /api/trace` = scanRepo→`graph.toJSON()`); broken/dangling nodes shown WITH a warning marker (not silently dropped)\n- [ ] AC6: Tests cover tree render, expand/collapse navigation, node-select→detail, and integration of the four view components\n- [ ] `npm run build` + version bump",
     "qaAudit": "- 2026-05-26: Tron directive (Sprint 15 R1-R4). Quote in requirements.tron-literal.md.",
-    "subtasks": "None (atomic task).\n\n---\n*Sprint 15 \u2014 Traceability Browser & Object Model*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 4 (capstone)*",
+    "subtasks": "None (atomic task).\n\n---\n*Sprint 15 — Traceability Browser & Object Model*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 4 (capstone)*",
     "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** T102, T105, T106, T107\n- **Enables:** None (sprint capstone)",
@@ -35,7 +35,10 @@
       "ior:instance:cd3ad57b-7314-4da6-88d0-1113ab508100"
     ],
     "sourceFile": "ior:file:src/public/ts/trace-page.ts",
-    "sourceLine": 5
+    "sourceLine": 5,
+    "unitLinks": [
+      "sprints.json/sprint-15-traceability-browser/task/task-108-traceability-browser.json"
+    ]
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

@@ -10,7 +10,10 @@
     ],
     "implementation": "ior:instance:1864c7bd-bfb2-4865-be41-1ae2d0ea909f",
     "sourceFile": "ior:file:scenario/index/0/5/5/a/7/055a7f68-1d98-4a95-9572-22dcb0c40712.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "unitLinks": [
+      "sprints.json/sprint-16-traceability-ux/method/traceconsistency-auditorphans.json"
+    ]
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
 }

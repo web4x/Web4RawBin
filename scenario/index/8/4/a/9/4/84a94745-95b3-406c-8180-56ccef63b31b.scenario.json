@@ -10,7 +10,10 @@
     "useCases": [],
     "method": "ior:instance:00d9e37e-46ef-40d1-9e1c-7243ace69729",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml",
-    "sourceLine": 185
+    "sourceLine": 185,
+    "unitLinks": [
+      "sprints.json/sprint-16-traceability-ux/class/rbusecasedetail.json"
+    ]
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

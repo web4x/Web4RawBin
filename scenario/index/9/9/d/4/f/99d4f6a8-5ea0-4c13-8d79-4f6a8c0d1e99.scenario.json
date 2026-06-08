@@ -2,22 +2,22 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "99d4f6a8-5ea0-4c13-8d79-4f6a8c0d1e99",
-    "name": "T99: Remove Legacy Load Path + Files \u2014 \u26d4 GATED",
+    "name": "T99: Remove Legacy Load Path + Files — ⛔ GATED",
     "slug": "task-99-remove-legacy",
-    "description": "After the gate clears: remove the legacy load path in server.ts (so per-user\nbecomes the sole source of truth), delete legacy `data/rooms/*.json` and any\nmigrated-away `token-<timestamp>` dirs. Destructive \u2014 keep a one-shot backup\n(tar) before deletion per architect's design.\n_(Architect designs the safe-delete + backup; expert executes ONLY post-gate.)_",
+    "description": "After the gate clears: remove the legacy load path in server.ts (so per-user\nbecomes the sole source of truth), delete legacy `data/rooms/*.json` and any\nmigrated-away `token-<timestamp>` dirs. Destructive — keep a one-shot backup\n(tar) before deletion per architect's design.\n_(Architect designs the safe-delete + backup; expert executes ONLY post-gate.)_",
     "status": "Planned",
     "statusChecklist": "",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:44d4e5f6-a7b8-4c93-9da4-2e3f4a5b6c04](./requirements.md) \u2014 R14.4 remove legacy (gated)\n  - [Sprint 14 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R14.4 in [requirements.md](./requirements.md)\n  - **use case:** remove-legacy (architect \u2014 diagrams/migration-workflow.puml)\n  - **puml:** [diagrams/migration-workflow.puml](./diagrams/migration-workflow.puml) (pending architect)\n  - **class/method:** server.ts legacy roomManager.loadFromDisk removal; delete data/rooms/, legacy token dirs\n- gated-by\n  - [T98](./task-98-verify.md) verification PASS \u2014 AND Tron authorization",
+    "traceability": "- up\n  - [requirement:uuid:44d4e5f6-a7b8-4c93-9da4-2e3f4a5b6c04](./requirements.md) — R14.4 remove legacy (gated)\n  - [Sprint 14 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R14.4 in [requirements.md](./requirements.md)\n  - **use case:** remove-legacy (architect — diagrams/migration-workflow.puml)\n  - **puml:** [diagrams/migration-workflow.puml](./diagrams/migration-workflow.puml) (pending architect)\n  - **class/method:** server.ts legacy roomManager.loadFromDisk removal; delete data/rooms/, legacy token dirs\n- gated-by\n  - [T98](./task-98-verify.md) verification PASS — AND Tron authorization",
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC0 (GATE): T98 PASS committed AND Tron authorization recorded in QA Audit \u2014 verified before ANY other AC\n- [ ] AC1: Legacy roomManager.loadFromDisk path removed; per-user scan is sole source of truth\n- [ ] AC2: data/rooms/ legacy files removed (after backup tar)\n- [ ] AC3: Migrated-away token-<timestamp> dirs removed (after backup)\n- [ ] AC4: Server starts clean; /api/health room count == per-user count (no legacy inflation)\n- [ ] AC5: Full suite green; no regression\n- [ ] `npm run build` + version bump + sw.js cache",
-    "qaAudit": "- 2026-05-26: Tron directive \u2014 legacy delete must be GATED on verify PASS + Tron authorization; never auto-run. Quote pending req.\n- GATE LOG (fill at gate time): [ ] T98 PASS commit: ____ \u00b7 [ ] Tron authorization: ____",
-    "subtasks": "None (atomic task).\n\n---\n*Sprint 14 \u2014 Legacy Data Migration*\n*Owner: robbin-architect (safe-delete design), robbin-expert (execute POST-GATE only), robbin-tester (verify)*\n*Priority: 3 (delete phase \u2014 GATED, runs last)*",
+    "acceptanceCriteria": "- [ ] AC0 (GATE): T98 PASS committed AND Tron authorization recorded in QA Audit — verified before ANY other AC\n- [ ] AC1: Legacy roomManager.loadFromDisk path removed; per-user scan is sole source of truth\n- [ ] AC2: data/rooms/ legacy files removed (after backup tar)\n- [ ] AC3: Migrated-away token-<timestamp> dirs removed (after backup)\n- [ ] AC4: Server starts clean; /api/health room count == per-user count (no legacy inflation)\n- [ ] AC5: Full suite green; no regression\n- [ ] `npm run build` + version bump + sw.js cache",
+    "qaAudit": "- 2026-05-26: Tron directive — legacy delete must be GATED on verify PASS + Tron authorization; never auto-run. Quote pending req.\n- GATE LOG (fill at gate time): [ ] T98 PASS commit: ____ · [ ] Tron authorization: ____",
+    "subtasks": "None (atomic task).\n\n---\n*Sprint 14 — Legacy Data Migration*\n*Owner: robbin-architect (safe-delete design), robbin-expert (execute POST-GATE only), robbin-tester (verify)*\n*Priority: 3 (delete phase — GATED, runs last)*",
     "assigned": "",
     "architectDesign": "",
-    "dependencies": "- **Requires:** T98 PASS + Tron authorization (HARD GATE \u2014 see top)\n- **Enables:** None (sprint close)",
+    "dependencies": "- **Requires:** T98 PASS + Tron authorization (HARD GATE — see top)\n- **Enables:** None (sprint close)",
     "definitionOfDone": "- [ ] Gate satisfied + recorded; all AC met; chain links resolve\n- [ ] Backup taken; tests pass; build clean\n- [ ] Tron QA approved",
     "implementation": "",
     "testScenarios": "",
@@ -26,7 +26,10 @@
     "useCases": [],
     "implementations": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-14-legacy-migration/task-99-remove-legacy.md",
-    "sourceLine": 5
+    "sourceLine": 5,
+    "unitLinks": [
+      "sprints.json/sprint-14-legacy-migration/task/task-99-remove-legacy.json"
+    ]
   },
   "ownerIor": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
 }

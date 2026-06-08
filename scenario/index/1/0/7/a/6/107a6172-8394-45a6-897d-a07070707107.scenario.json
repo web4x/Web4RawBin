@@ -6,15 +6,15 @@
     "slug": "task-107-detail-overview-views",
     "description": "Build a `DetailView` per task object (`rb-detail-view`) and an `Overview` rendering of\nplanning (`rb-overview`) that stays consistent with the underlying objects via live MVC.\nThe planning overview must always reflect the current typed object graph, never a stale\nsnapshot.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [ ] testing (tester \u2014 run rb-detail-overview.test.ts, jsdom)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [ ] testing (tester — run rb-detail-overview.test.ts, jsdom)\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:65f6a7b8-c9d0-4e15-9bc6-4a5b6c7d8e06](./requirements.md) \u2014 R15.6 DetailViews + Overview\n  - [Sprint 15 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R15.6 in [requirements.md](./requirements.md)\n  - **use case:** task.detail / planning.overview \u2014 diagrams/object-verb-usecases.puml\n  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)\n  - **class/method:** rb-detail-view, rb-overview components",
+    "traceability": "- up\n  - [requirement:uuid:65f6a7b8-c9d0-4e15-9bc6-4a5b6c7d8e06](./requirements.md) — R15.6 DetailViews + Overview\n  - [Sprint 15 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R15.6 in [requirements.md](./requirements.md)\n  - **use case:** task.detail / planning.overview — diagrams/object-verb-usecases.puml\n  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)\n  - **class/method:** rb-detail-view, rb-overview components",
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC1: `<rb-detail-view ref=\u2026>` renders a single object's full detail (title/type/uuid/status) + its typed links as clickable rows that `TraceRouter.navigate` to the linked object (chain-navigable both directions)\n- [ ] AC2: `<rb-overview>` renders planning across Task objects \u2014 grouped by sprint with per-status rollup + a row per task (reusing T105 `<rb-object-item>`)\n- [ ] AC3: Both subscribe to the T103 ViewBus \u2014 object/link change updates the view without reload (always consistent)\n- [ ] AC4: The Overview is COMPUTED from the live typed graph every render (no hand-maintained duplicate, no cached snapshot) \u2014 drift structurally impossible\n- [ ] AC5: `rb-detail-view` is the registered `show` verb handler; `rb-overview` the `planning.overview`/`task.list` handler (T103 VerbRegistry)\n- [ ] AC6: Tests cover detail render + link-row navigation, overview rollup correctness, and live consistency on object/status change\n- [ ] `npm run build` + version bump",
+    "acceptanceCriteria": "- [ ] AC1: `<rb-detail-view ref=…>` renders a single object's full detail (title/type/uuid/status) + its typed links as clickable rows that `TraceRouter.navigate` to the linked object (chain-navigable both directions)\n- [ ] AC2: `<rb-overview>` renders planning across Task objects — grouped by sprint with per-status rollup + a row per task (reusing T105 `<rb-object-item>`)\n- [ ] AC3: Both subscribe to the T103 ViewBus — object/link change updates the view without reload (always consistent)\n- [ ] AC4: The Overview is COMPUTED from the live typed graph every render (no hand-maintained duplicate, no cached snapshot) — drift structurally impossible\n- [ ] AC5: `rb-detail-view` is the registered `show` verb handler; `rb-overview` the `planning.overview`/`task.list` handler (T103 VerbRegistry)\n- [ ] AC6: Tests cover detail render + link-row navigation, overview rollup correctness, and live consistency on object/status change\n- [ ] `npm run build` + version bump",
     "qaAudit": "- 2026-05-26: Tron directive (Sprint 15 R1-R4). Quote in requirements.tron-literal.md.",
-    "subtasks": "None (atomic task).\n\n---\n*Sprint 15 \u2014 Traceability Browser & Object Model*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 3 (view components)*",
+    "subtasks": "None (atomic task).\n\n---\n*Sprint 15 — Traceability Browser & Object Model*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 3 (view components)*",
     "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** T103\n- **Enables:** T108",
@@ -31,7 +31,10 @@
       "ior:instance:107b7283-94a5-46b7-8a8e-b07070707108"
     ],
     "sourceFile": "ior:file:src/public/ts/trace/rb-overview.ts",
-    "sourceLine": 11
+    "sourceLine": 11,
+    "unitLinks": [
+      "sprints.json/sprint-15-traceability-browser/task/task-107-detail-overview-views.json"
+    ]
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

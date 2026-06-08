@@ -6,15 +6,15 @@
     "slug": "task-164-dirty-model-name-remigration",
     "description": "",
     "status": "In Progress",
-    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (architect design \u2014 this document)\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (architect design — this document)\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [Sprint 17 Planning](./planning.md)\n  - Follow-on to T161 (speaky names) + T163 (title source switch)\n- down\n  - None (atomic)\n- follows\n  - [T161](./task-161-requirement-name-renders-tron-quote-not-speaky.md) \u2014 `737c841` v0.5.57\n  - [T163](./task-163-api-trace-title-source-switch.md) \u2014 `f138aa0` v0.5.61",
-    "context": "T163 switched `/api/trace` to read `model.name` from scenario index. But 9 scenarios still have dirty `model.name` values \u2014 the migration parser (`scripts/migrate-to-scenario.ts`) stored raw MD heading text into `model.name`.\n\n### Dirty Inventory (9 scenarios)\n\n| UUID (short) | Current dirty model.name | Expected clean name |\n|---|---|---|\n| d4e5...0010 | `## Navigation & Traceability (original directive)` | `Navigation and traceability` |\n| d4e5...0013 | `## Migration (original directive)` | `Migration` |\n| d4e5...0014 | `## Process (original directive)` | `Process` |\n| d4e5...0003 | `## Storage Layout (original directive)` | `Storage layout` |\n| d4e5...0006 | `## Views & Templates (original directive)` | `Views and templates` |\n| d4e5...0015 | `---` | `REQ-d4e5f6a7` (auto-name from uuid) |\n| 9dedeb00 | `## Extension 3 (2026-05-31)` | `Extension 3` |\n| 7e4f8a2b | `## Extension 4 (2026-05-31 \u2014 traceability is a TREE)` | `Extension 4` |\n| dd8709c3 | `## Extension 2 (2026-05-31)` | `Extension 2` |",
+    "traceability": "- up\n  - [Sprint 17 Planning](./planning.md)\n  - Follow-on to T161 (speaky names) + T163 (title source switch)\n- down\n  - None (atomic)\n- follows\n  - [T161](./task-161-requirement-name-renders-tron-quote-not-speaky.md) — `737c841` v0.5.57\n  - [T163](./task-163-api-trace-title-source-switch.md) — `f138aa0` v0.5.61",
+    "context": "T163 switched `/api/trace` to read `model.name` from scenario index. But 9 scenarios still have dirty `model.name` values — the migration parser (`scripts/migrate-to-scenario.ts`) stored raw MD heading text into `model.name`.\n\n### Dirty Inventory (9 scenarios)\n\n| UUID (short) | Current dirty model.name | Expected clean name |\n|---|---|---|\n| d4e5...0010 | `## Navigation & Traceability (original directive)` | `Navigation and traceability` |\n| d4e5...0013 | `## Migration (original directive)` | `Migration` |\n| d4e5...0014 | `## Process (original directive)` | `Process` |\n| d4e5...0003 | `## Storage Layout (original directive)` | `Storage layout` |\n| d4e5...0006 | `## Views & Templates (original directive)` | `Views and templates` |\n| d4e5...0015 | `---` | `REQ-d4e5f6a7` (auto-name from uuid) |\n| 9dedeb00 | `## Extension 3 (2026-05-31)` | `Extension 3` |\n| 7e4f8a2b | `## Extension 4 (2026-05-31 — traceability is a TREE)` | `Extension 4` |\n| dd8709c3 | `## Extension 2 (2026-05-31)` | `Extension 2` |",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC1 \u2014 All 9 dirty scenarios have clean `model.name` (no `##`, no `---`, no `> `)\n- [ ] AC2 \u2014 `cleanModelName()` handles: `## Heading` \u2192 `Heading`, `---` \u2192 uuid fallback, `## X (date)` \u2192 `X`\n- [ ] AC3 \u2014 `firstLine()` skips `##`, `---`, `**R` prefixed lines (defensive for any caller)\n- [ ] AC4 \u2014 Re-migration is idempotent (running twice = same result)\n- [ ] AC5 \u2014 `/trace` browser shows clean names for all 9 formerly-dirty requirements\n- [ ] AC6 \u2014 No regression on T161/T163 (speaky names + title source switch)\n- [ ] AC7 \u2014 Rule-pair (a)+(b): version + CACHE_NAME bump",
-    "qaAudit": "- 2026-06-02: PO directed planner stand-up; architect created this file concurrently with a more accurate 9-scenario inventory (vs PO's earlier 3-unit estimate). Planner reconciled per learning #12 \u2014 architect's content authoritative, planner fixed the uuid (was non-v4, violated learning #17) and added required Subtasks + QA Audit sections for Web4Articles compliance. Path (b) \u2014 12 unmigrated S10-S16 reqs \u2014 remains separate as **T128.2**. Awaiting expert impl \u2192 tester verify (target: 9/9 clean + T163 41/41 minus the T128.2 batch) \u2192 Tron QA.",
-    "subtasks": "None (atomic task; (a) re-migration script + (c) firstLine() harden land in one commit-set).\n\n---\n\n**Architect:** robbin-architect @ web4team:0.0\n**Sprint:** Sprint 17 \u2014 Scenario Units",
+    "acceptanceCriteria": "- [ ] AC1 — All 9 dirty scenarios have clean `model.name` (no `##`, no `---`, no `> `)\n- [ ] AC2 — `cleanModelName()` handles: `## Heading` → `Heading`, `---` → uuid fallback, `## X (date)` → `X`\n- [ ] AC3 — `firstLine()` skips `##`, `---`, `**R` prefixed lines (defensive for any caller)\n- [ ] AC4 — Re-migration is idempotent (running twice = same result)\n- [ ] AC5 — `/trace` browser shows clean names for all 9 formerly-dirty requirements\n- [ ] AC6 — No regression on T161/T163 (speaky names + title source switch)\n- [ ] AC7 — Rule-pair (a)+(b): version + CACHE_NAME bump",
+    "qaAudit": "- 2026-06-02: PO directed planner stand-up; architect created this file concurrently with a more accurate 9-scenario inventory (vs PO's earlier 3-unit estimate). Planner reconciled per learning #12 — architect's content authoritative, planner fixed the uuid (was non-v4, violated learning #17) and added required Subtasks + QA Audit sections for Web4Articles compliance. Path (b) — 12 unmigrated S10-S16 reqs — remains separate as **T128.2**. Awaiting expert impl → tester verify (target: 9/9 clean + T163 41/41 minus the T128.2 batch) → Tron QA.",
+    "subtasks": "None (atomic task; (a) re-migration script + (c) firstLine() harden land in one commit-set).\n\n---\n\n**Architect:** robbin-architect @ web4team:0.0\n**Sprint:** Sprint 17 — Scenario Units",
     "assigned": "",
     "architectDesign": "",
     "dependencies": "",
@@ -26,7 +26,10 @@
     "useCases": [],
     "implementations": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-164-dirty-model-name-remigration.md",
-    "sourceLine": 5
+    "sourceLine": 5,
+    "unitLinks": [
+      "sprints.json/sprint-17-scenario-units/task/task-164-dirty-model-name-remigration.json"
+    ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

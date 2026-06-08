@@ -10,7 +10,10 @@
     ],
     "implementation": "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61",
     "sourceFile": "ior:file:scenario/index/0/0/d/9/e/00d9e37e-46ef-40d1-9e1c-7243ace69729.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "unitLinks": [
+      "sprints.json/sprint-16-traceability-ux/method/rbusecasedetail-render.json"
+    ]
   },
   "ownerIor": "ior:instance:84a94745-95b3-406c-8180-56ccef63b31b"
 }

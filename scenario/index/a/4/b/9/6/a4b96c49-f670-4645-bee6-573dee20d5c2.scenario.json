@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "a4b96c49-f670-4645-bee6-573dee20d5c2",
-    "name": "Sprint 01 \u2014 Rawbin Foundation",
+    "name": "Sprint 01 — Rawbin Foundation",
     "number": 1,
     "goal": "",
     "status": "Done",
@@ -21,7 +21,10 @@
     ],
     "requirements": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-1-rawbin-foundation/planning.md",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "unitLinks": [
+      "sprints.json/sprint-1-rawbin-foundation/sprint.json"
+    ]
   },
   "ownerIor": null
 }

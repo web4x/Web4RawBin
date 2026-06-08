@@ -10,7 +10,10 @@
     ],
     "implementation": "ior:instance:ada13130-df78-4de9-9128-f754436dba8d",
     "sourceFile": "ior:file:scenario/index/3/d/c/2/9/3dc29df9-0da7-4164-8035-4e4a131e6e6b.scenario.json",
-    "sourceLine": 1
+    "sourceLine": 1,
+    "unitLinks": [
+      "sprints.json/sprint-16-traceability-ux/method/traceconsistency-validate.json"
+    ]
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
 }

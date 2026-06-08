@@ -2,22 +2,22 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "c2118a07-d18e-4e1b-b9a2-5f8e2c1f0d77",
-    "name": "T118: E2E test cleanup \u2014 cleanupTestUsers + per-spec afterAll + backfill purge",
+    "name": "T118: E2E test cleanup — cleanupTestUsers + per-spec afterAll + backfill purge",
     "slug": "task-118-e2e-cleanup",
     "description": "",
     "status": "In Progress",
-    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only \u2014 never checked by planner/sync.",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
     "remainingIssues": "",
-    "traceability": "`[task:uuid:c2118a07-d18e-4e1b-b9a2-5f8e2c1f0d77]`\n\n- up\n  - [Sprint 13 Planning](./planning.md)\n  - **requirement:** `[requirement:uuid:c32974c5-dd10-45a7-b5dd-0d711b412fdc]` \u2014 \"E2E test runs must not flood `data/` with orphan users or rooms; every spec that creates user/room state must clean it up after the run.\" (Tron directive 2026-05-29, promoted from B2 in [backlog.md](../../backlog.md).)\n  - **promoted from:** B2 in [backlog.md](../../backlog.md) (2026-05-29)\n- down\n  - None (atomic task)\n- follows\n  - [T100: Test Data Isolation \u2014 DATA_DIR override](./task-100-test-data-isolation.md) \u2014 vitest side; T118 is the E2E cousin\n- chain (req \u2192 usecase \u2192 puml \u2192 class/method)\n  - **requirement:** r118-e2e-cleanup (Tron 2026-05-29)\n  - **use case:** UC-cleanupTestUsers, UC-cleanupTestRooms (existing T100), UC-e2eAfterAll (per-spec hook); add to S13 PUML\n  - **puml:** [diagrams/sprint13-usecases.puml](./diagrams/sprint13-usecases.puml) (if present; else architect adds new entries)\n  - **class/method:** `test/e2e/helpers.ts` \u2192 `cleanupTestUsers(pattern)`; per-spec `test.afterAll(() => cleanupTestUsers(<pattern>))`",
+    "traceability": "`[task:uuid:c2118a07-d18e-4e1b-b9a2-5f8e2c1f0d77]`\n\n- up\n  - [Sprint 13 Planning](./planning.md)\n  - **requirement:** `[requirement:uuid:c32974c5-dd10-45a7-b5dd-0d711b412fdc]` — \"E2E test runs must not flood `data/` with orphan users or rooms; every spec that creates user/room state must clean it up after the run.\" (Tron directive 2026-05-29, promoted from B2 in [backlog.md](../../backlog.md).)\n  - **promoted from:** B2 in [backlog.md](../../backlog.md) (2026-05-29)\n- down\n  - None (atomic task)\n- follows\n  - [T100: Test Data Isolation — DATA_DIR override](./task-100-test-data-isolation.md) — vitest side; T118 is the E2E cousin\n- chain (req → usecase → puml → class/method)\n  - **requirement:** r118-e2e-cleanup (Tron 2026-05-29)\n  - **use case:** UC-cleanupTestUsers, UC-cleanupTestRooms (existing T100), UC-e2eAfterAll (per-spec hook); add to S13 PUML\n  - **puml:** [diagrams/sprint13-usecases.puml](./diagrams/sprint13-usecases.puml) (if present; else architect adds new entries)\n  - **class/method:** `test/e2e/helpers.ts` → `cleanupTestUsers(pattern)`; per-spec `test.afterAll(() => cleanupTestUsers(<pattern>))`",
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC1 \u2014 `cleanupTestUsers(pattern)` helper exists in `test/e2e/helpers.ts`, honors `DATA_DIR`, refuses unbounded patterns\n- [ ] AC2 \u2014 All 8 ensureLobby-using specs have `test.afterAll` calling `cleanupTestUsers` (+ `cleanupTestRooms` where rooms were created) with spec-specific regex\n- [ ] AC3 \u2014 Backfill dry-run report lists matched test users and explicitly shows the 3 real owners as preserved\n- [ ] AC4 \u2014 Backfill apply reduces `data/users/` to the 3 real owners + intentional fixtures only; no real-user dir touched\n- [ ] AC5 \u2014 Full E2E suite (`npm run test:e2e`) \u2192 `data/users/` count after the run equals the count before the run (zero net add)\n- [ ] AC6 \u2014 `npm run build` succeeds; full vitest + playwright suite passes; no regression on T100 (vitest isolation still works)\n- [ ] AC7 \u2014 Real owner accounts (Marcel Donges's Room, Admins's Room, Marcel Surface Mini per S14 audit) untouched by both helper and backfill",
+    "acceptanceCriteria": "- [ ] AC1 — `cleanupTestUsers(pattern)` helper exists in `test/e2e/helpers.ts`, honors `DATA_DIR`, refuses unbounded patterns\n- [ ] AC2 — All 8 ensureLobby-using specs have `test.afterAll` calling `cleanupTestUsers` (+ `cleanupTestRooms` where rooms were created) with spec-specific regex\n- [ ] AC3 — Backfill dry-run report lists matched test users and explicitly shows the 3 real owners as preserved\n- [ ] AC4 — Backfill apply reduces `data/users/` to the 3 real owners + intentional fixtures only; no real-user dir touched\n- [ ] AC5 — Full E2E suite (`npm run test:e2e`) → `data/users/` count after the run equals the count before the run (zero net add)\n- [ ] AC6 — `npm run build` succeeds; full vitest + playwright suite passes; no regression on T100 (vitest isolation still works)\n- [ ] AC7 — Real owner accounts (Marcel Donges's Room, Admins's Room, Marcel Surface Mini per S14 audit) untouched by both helper and backfill",
     "qaAudit": "- 2026-05-29: Promoted from backlog B2 (planner-filed; Tron-triaged via PO). Awaiting refinement + impl, then Tron QA.",
-    "subtasks": "None (atomic task).\n\n---\n\n*Sprint 13 \u2014 Stability*\n*Owner: robbin-expert (helper + spec wiring), robbin-tester (verify; prod-data preserved)*\n*Priority: 8 (test-infra hygiene \u2014 sustains the gate)*",
-    "assigned": "**Owner:** robbin-expert (helper + per-spec wiring), robbin-tester (verify; prod-data preserved)\n**This file is the single source of truth.** Expert and tester work from this file alone \u2014 no chat clarification.",
+    "subtasks": "None (atomic task).\n\n---\n\n*Sprint 13 — Stability*\n*Owner: robbin-expert (helper + spec wiring), robbin-tester (verify; prod-data preserved)*\n*Priority: 8 (test-infra hygiene — sustains the gate)*",
+    "assigned": "**Owner:** robbin-expert (helper + per-spec wiring), robbin-tester (verify; prod-data preserved)\n**This file is the single source of truth.** Expert and tester work from this file alone — no chat clarification.",
     "architectDesign": "",
-    "dependencies": "- **Requires:** T100 (DATA_DIR override \u2014 helpers honor it)\n- **Enables:** sustainable E2E hygiene; precondition for any future E2E expansion",
+    "dependencies": "- **Requires:** T100 (DATA_DIR override — helpers honor it)\n- **Enables:** sustainable E2E hygiene; precondition for any future E2E expansion",
     "definitionOfDone": "- [ ] All AC met; traceability chain complete + links resolve\n- [ ] Tests pass, build clean\n- [ ] `data/users/` baseline restored to real owners + intentional fixtures only\n- [ ] Tron QA approved",
     "implementation": "",
     "testScenarios": "File: `test/vitest/e2e-cleanup.test.ts` (new) + manual E2E run verification.\n\n| Test | Action | Expected |\n|------|--------|----------|\n| TS1 | Call `cleanupTestUsers(/^E2E-/)` on a tmp DATA_DIR seeded with 3 `E2E-*` users + 1 `Real-*` user | Returns 3; only `Real-*` dir remains |\n| TS2 | Call `cleanupTestUsers(/.*/)` | Throws / returns 0 (unbounded-pattern guard) |\n| TS3 | Backfill `--report` against real `data/` | Output includes `preserved` list with the 3 owner names; matched-count > 0 |\n| TS4 | Manual: count `data/users/` before E2E, run full E2E, count after | Equal (zero net add) |\n| TS5 | Manual: after backfill apply, restart server | `/api/health` rooms=3; live owners load; nothing degraded |",
@@ -28,7 +28,10 @@
     ],
     "implementations": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/task-118-e2e-cleanup.md",
-    "sourceLine": 5
+    "sourceLine": 5,
+    "unitLinks": [
+      "sprints.json/sprint-13-stability/task/task-118-e2e-cleanup.json"
+    ]
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
 }

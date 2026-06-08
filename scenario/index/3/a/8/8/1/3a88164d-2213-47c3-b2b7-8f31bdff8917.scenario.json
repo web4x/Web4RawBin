@@ -8,6 +8,9 @@
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/compound-requirement-source.md",
-    "sourceLine": 141
+    "sourceLine": 141,
+    "unitLinks": [
+      "sprints.json/sprint-18-chain-method-scope/requirement/r18-10-tree-lazy-loads-only-the-next-layer-per-expand-not-the-full-subtree.json"
+    ]
   }
 }

@@ -1,16 +1,20 @@
 /**
- * T125.3 — ScenarioIndex: UUID-prefix storage layer.
+ * T125.3 + R18.29-31 — ScenarioIndex: UUID-prefix storage + atomic symlinks.
  * Canonical store at scenario/index/<c1>/<c2>/<c3>/<c4>/<c5>/<uuid>.scenario.json
- * where c1-c5 are the first 5 hex chars of the UUID (hyphens stripped).
+ * model.unitLinks[] declares symlinks; put() auto-syncs them on every write.
  *
- * [impl:uuid:20cca741-0a93-4d93-8a51-9c72bdb77d92] R17.4
+ * [impl:uuid:20cca741-0a93-4d93-8a51-9c72bdb77d92] R17.4 + R18.29-31
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { type ScenarioUnit } from './types.js';
 
 export class ScenarioIndex {
-  constructor(private basePath: string) {}
+  readonly scenarioRoot: string;
+
+  constructor(private basePath: string) {
+    this.scenarioRoot = path.dirname(basePath);
+  }
 
   prefixPath(uuid: string): string {
     if (!uuid || typeof uuid !== 'string') return '';
@@ -32,6 +36,10 @@ export class ScenarioIndex {
     const dir = path.join(this.basePath, this.prefixPath(uuid));
     fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(path.join(dir, `${uuid}.scenario.json`), JSON.stringify(scenario, null, 2));
+    const links = (scenario.model as Record<string, unknown>).unitLinks;
+    if (Array.isArray(links) && links.length > 0) {
+      this.syncLinks(uuid);
+    }
   }
 
   get(uuid: string): ScenarioUnit | null {
@@ -51,10 +59,60 @@ export class ScenarioIndex {
   }
 
   remove(uuid: string): boolean {
+    const unit = this.get(uuid);
+    if (unit) {
+      const links = (unit.model as Record<string, unknown>).unitLinks;
+      if (Array.isArray(links)) {
+        for (const lp of links) this.removeSymlinkDisk(String(lp));
+      }
+    }
     const fp = this.filePath(uuid);
     if (!fs.existsSync(fp)) return false;
     fs.rmSync(fp);
     return true;
+  }
+
+  addLink(uuid: string, linkPath: string): void {
+    const unit = this.get(uuid);
+    if (!unit) return;
+    const links: string[] = ((unit.model as Record<string, unknown>).unitLinks as string[]) || [];
+    if (!links.includes(linkPath)) links.push(linkPath);
+    (unit.model as Record<string, unknown>).unitLinks = links;
+    this.put(uuid, unit);
+  }
+
+  removeLink(uuid: string, linkPath: string): void {
+    const unit = this.get(uuid);
+    if (!unit) return;
+    const links: string[] = (((unit.model as Record<string, unknown>).unitLinks as string[]) || []).filter(l => l !== linkPath);
+    (unit.model as Record<string, unknown>).unitLinks = links;
+    const dir = path.join(this.basePath, this.prefixPath(uuid));
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, `${uuid}.scenario.json`), JSON.stringify(unit, null, 2));
+    this.removeSymlinkDisk(linkPath);
+  }
+
+  syncLinks(uuid: string): void {
+    const unit = this.get(uuid);
+    if (!unit) return;
+    const declared = (unit.model as Record<string, unknown>).unitLinks;
+    if (!Array.isArray(declared)) return;
+    for (const linkPath of declared) {
+      this.ensureSymlinkDisk(uuid, String(linkPath));
+    }
+  }
+
+  private ensureSymlinkDisk(uuid: string, linkPath: string): void {
+    const fullPath = path.join(this.scenarioRoot, linkPath);
+    const target = path.relative(path.dirname(fullPath), this.filePath(uuid));
+    fs.mkdirSync(path.dirname(fullPath), { recursive: true });
+    try { fs.unlinkSync(fullPath); } catch {}
+    fs.symlinkSync(target, fullPath);
+  }
+
+  private removeSymlinkDisk(linkPath: string): void {
+    const fullPath = path.join(this.scenarioRoot, linkPath);
+    try { fs.unlinkSync(fullPath); } catch {}
   }
 
   private walkForScenarios(dir: string): string[] {
