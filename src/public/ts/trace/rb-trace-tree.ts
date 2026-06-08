@@ -244,18 +244,30 @@ export class RbTraceTree extends HTMLElement {
     }
     const path = await this.fetchAncestorPath(uuid);
     if (path.length === 0) return;
-    for (const ancestorUuid of path) {
+    for (let i = 0; i < path.length; i++) {
+      const ancestorUuid = path[i];
       const item = this.querySelector(`rb-object-item[ref*=":${ancestorUuid}"]`) as HTMLElement;
       if (!item) continue;
       if (!item.hasAttribute('children-open')) {
-        item.click();
         item.dispatchEvent(new CustomEvent('toggle-children', { bubbles: true, detail: { open: true } }));
-        await new Promise(r => setTimeout(r, 150));
+        const nextUuid = i < path.length - 1 ? path[i + 1] : uuid;
+        await this.waitForNode(nextUuid);
       }
     }
-    await new Promise(r => setTimeout(r, 200));
     const target = this.querySelector(`rb-object-item[ref*=":${uuid}"]`);
     if (target) this.highlightNode(target as HTMLElement);
+  }
+
+  private waitForNode(uuid: string, timeout = 5000): Promise<void> {
+    return new Promise(resolve => {
+      const check = () => {
+        if (this.querySelector(`rb-object-item[ref*=":${uuid}"]`)) { resolve(); return; }
+        if ((performance.now() - start) > timeout) { resolve(); return; }
+        requestAnimationFrame(check);
+      };
+      const start = performance.now();
+      check();
+    });
   }
 
   private async fetchAncestorPath(uuid: string): Promise<string[]> {
