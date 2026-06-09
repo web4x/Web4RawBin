@@ -27,7 +27,8 @@
       "ior:instance:cacdf662-c514-48ba-88b7-2864c058e64b",
       "ior:instance:884bad43-cb48-4cea-9f47-3fe3aa0439b6",
       "ior:instance:72f4ac57-6430-4195-a9c8-493010ed43ac",
-      "ior:instance:48d8c0cd-c4cb-453f-8e7b-317c5d11931a"
+      "ior:instance:48d8c0cd-c4cb-453f-8e7b-317c5d11931a",
+      "ior:instance:4d525a4d-5094-4288-9607-3d300efceeca"
     ],
     "tasks": [
       "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea",
@@ -42,7 +43,8 @@
       "ior:instance:10a52f9f-b74f-42be-bf76-ff75aa3c14d3",
       "ior:instance:6b0b0cec-ca60-4e02-bb42-0b4212568d45",
       "ior:instance:bef36fd2-aa7c-4766-8001-db2b69452d61",
-      "ior:instance:675cc8e3-0646-4fb7-a6a5-b2c8400747c6"
+      "ior:instance:675cc8e3-0646-4fb7-a6a5-b2c8400747c6",
+      "ior:instance:8a303a65-d8c1-4aa3-885e-e10e5c3f00ca"
     ],
     "createdAt": "2026-06-05",
     "createdBy": "robbin-planner",

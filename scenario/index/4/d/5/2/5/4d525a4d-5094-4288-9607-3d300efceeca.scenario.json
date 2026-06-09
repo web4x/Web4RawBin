@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Requirement",
+  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+  "model": {
+    "uuid": "4d525a4d-5094-4288-9607-3d300efceeca",
+    "name": "R-placeholder (T202 sibling of R18.13): Shared Class must use UC.chainMethod, not global Class.methods[]",
+    "altId": "R-placeholder-T202",
+    "description": "PLANNER PLACEHOLDER unit per learning #38 (placeholder-then-canonicalize). req-eng to capture the verbatim Tron quote and finalize as canonical R18.x. Semantic: when a Class is shared by multiple UseCases, the traceability tree expander MUST resolve the visible Method via the active UC.chainMethod, not via the global Class.methods[] fan-out. Sibling of canonical R18.13 (Every chain terminates in Test). Fix scope: /api/trace/children accepts UC chainMethod context; the expander reads UC.method, not global Class.method.",
+    "status": "Planned",
+    "tasks": [
+      "ior:instance:8a303a65-d8c1-4aa3-885e-e10e5c3f00ca"
+    ],
+    "useCases": [],
+    "placeholder": true,
+    "placeholderNote": "Created 2026-06-09 by robbin-planner during T202 stand-up. req-eng (CMM4 role 1) to canonicalize: capture verbatim Tron quote, assign real R18.x altId, refine description from the source quote, replace this placeholder uuid with the canonical one in T202.coveredRequirements[]."
+  }
+}
