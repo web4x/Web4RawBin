@@ -353,6 +353,76 @@ html,body{margin:0;padding:0;width:100%;height:100%;background:white;overflow:hi
 - AC8 (defect 3 — crispness) — At any zoom level, text and lines in the SVG render as crisp vector strokes (no raster blur). Compare against the source SVG opened in a desktop browser at the same scale — visual fidelity equivalent.
 - AC9 (defect 4 — no snap-back, iPhone) — On iPhone Safari and Chrome/iPhone, after a pan gesture lifts off (touchend), the SVG stays where the user placed it. It does NOT snap back to a 100%-width fit. Pan + zoom state persists across consecutive touch sequences until double-tap reset.
 
+## Defect 4 re-diagnosed (v0.5.117) — still snap-back after inline-SVG fix
+
+### Tron's hunch: "looks like a hardcode 100% width issue"
+
+Half right. There IS a hardcoded fit-to-stage path running on `touchend`. It is **not** a CSS rule (none found — see audit below). It is a **JS handler that programmatically re-fits the SVG on every iOS-emitted `resize` event**.
+
+### Root cause (final, server.ts lines 893 + 897 in the `/svg-viewer` JS)
+
+```javascript
+const reset = () => {
+  sw = stage.clientWidth; sh = stage.clientHeight;
+  scale = Math.min(sw / iw, sh / ih);   // ← contain-fit recomputed (snap-back)
+  tx = (sw - iw * scale) / 2;
+  ty = (sh - ih * scale) / 2;
+  apply();
+};
+// ...
+window.addEventListener('resize', reset);   // ← OFFENDER
+```
+
+Why this fires on iPhone touchend: iOS Safari's Visual Viewport reshapes whenever the dynamic URL/tab bar shows or hides. Lifting a finger after a pan is one of the touch states that triggers iOS to settle the URL bar back into view, which **emits a `resize` event on the iframe's window**. Our `resize` listener calls `reset()` → recomputes `scale = Math.min(sw/iw, sh/ih)`. For a wide PUML SVG (iw=2302) on a narrow phone stage (sw≈375), that equals `sw/iw ≈ 0.16`. The SVG is re-fit to ~16% of natural size, centered, replacing the user's zoom+pan. That **is** the "snaps back to 100% width and gets unreadable small" symptom.
+
+Desktop doesn't show it because desktop browsers don't reshape the URL bar on mouse-up; `resize` only fires on actual window resizes.
+
+Why the explicit `width="iw"`/`height="ih"` attrs+style on the inline `<svg>` (prior fix) didn't help: those pin the layout box correctly. But the JS handler bypasses the layout box — it writes a new `scale` straight into the transform matrix. Layout-box pinning is irrelevant when JS is overwriting the visual transform.
+
+### Audit — no CSS width:100% on the SVG (Tron's "hardcode 100%" was JS, not CSS)
+
+| Surface | Contains a width:100%/max-width rule for svg? |
+|---------|----------------------------------------------|
+| `/svg-viewer` inline `<style>` (server.ts:849–851) | No. `#stage>svg` sets position/transform/will-change only — no width/height. |
+| Injected PUML SVG's own attributes | Has `width="2302px"`, `height="1893px"`, inline `style="width:2302px;height:1893px;..."`. Pixel dims, larger than stage. Cannot cause a snap-back to stage-width. |
+| `/svg-viewer` does not link `/app.css` | app.css can't apply inside the iframe. |
+| Outer `/md/*.svg` page (server.ts:922) | Loads `/app.css` but only the outer page; iframe content is isolated CSS-wise. |
+
+Result: no CSS rule applies width:100% to the `<svg>`. The snap-back path is the JS `reset()` triggered by iOS `resize` events on touchend.
+
+### Fix
+
+Replace the unconditional `window.resize → reset()` with a "preserve zoom on resize" handler. `reset()` is kept for **intentional** user resets only (double-tap, double-click).
+
+```javascript
+// REMOVE:
+window.addEventListener('resize', reset);
+
+// REPLACE WITH:
+let lastSw = sw, lastSh = sh;
+window.addEventListener('resize', () => {
+  const newSw = stage.clientWidth, newSh = stage.clientHeight;
+  if (newSw === lastSw && newSh === lastSh) return;
+  // Keep the user's zoom (scale unchanged). Shift centering proportionally
+  // so the visible center stays roughly the same. No scale recompute → no snap-back.
+  tx += (newSw - lastSw) / 2;
+  ty += (newSh - lastSh) / 2;
+  lastSw = newSw; lastSh = newSh;
+  sw = newSw; sh = newSh;
+  apply();
+});
+```
+
+### Why this is the complete D4 fix
+
+- iOS `resize` after `touchend` no longer triggers a scale change → no snap-back. The user's pan+zoom state persists across the touch-end → resize → re-paint sequence.
+- Real orientation flips or window resizes still adjust the visible center proportionally; no jarring jump.
+- Double-tap (touch) and double-click (mouse) still invoke `reset()` directly → contain-fit. Intentional user reset is the only path to refit.
+
+### Defect 3 status (per PO direction)
+
+Tron flagged D3 (blur) as acceptable worst-case and deprioritized as optional polish. The inline-SVG fix from `1f2524d8` is already in place and was a no-cost improvement that came with the D4 attempt. Leave the inline-SVG approach in (no regression to `<img>`); ship the D4 resize-handler fix on top.
+
 ## Sanitization (security)
 
 The `src` query parameter is reflected into HTML. Must be:
