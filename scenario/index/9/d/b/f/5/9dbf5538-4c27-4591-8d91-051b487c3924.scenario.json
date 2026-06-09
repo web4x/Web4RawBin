@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9dbf5538-4c27-4591-8d91-051b487c3924",
+    "name": "T188 champagne — sprint-md round-trip (regen→check idempotent, hand-edit→drift)",
+    "file": "ior:file:scripts/generate-sprint-md.ts",
+    "requirements": [],
+    "methods": [],
+    "implementations": ["ior:instance:ee738f5f-ad04-4435-a38b-ccf1d124332f"],
+    "verifies": ["ior:instance:91a1c36a-bd77-4c05-a5ac-e3f1dfbfac5b"],
+    "status": "GREEN",
+    "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
+    "sourceLine": 1,
+    "parent": "ior:instance:ee738f5f-ad04-4435-a38b-ccf1d124332f",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ee738f5f-ad04-4435-a38b-ccf1d124332f"
+}
