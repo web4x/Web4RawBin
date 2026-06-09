@@ -1,7 +1,31 @@
+[Back to Sprint 18 Planning](./planning.md)
+
 # R18.34 — SVG viewer with scoped pinch/pan (cross-browser)
+[task:uuid:bef36fd2-aa7c-4766-8001-db2b69452d61]
 
 **Author:** robbin-architect
-**Status:** Design (corrected — cross-browser scope) — expert implements, Tron verifies on iPhone + Mac
+**Owners (CMM4):** robbin-req (R18.34 capture, c66ad3fd) → robbin-architect (cross-browser design, b3e8799c+1f2524d8) → robbin-expert (impl through v0.5.120) → robbin-tester (verify on iPhone + Mac, pending)
+
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (architect — D1→D4 PDCA across b3e8799c + 1f2524d8 + 7422733c)
+  - [x] creating test cases (architect Acceptance Criteria section)
+  - [x] implementing (expert — v0.5.114 → v0.5.116 → v0.5.117 → v0.5.118 → v0.5.119 → v0.5.120)
+  - [ ] testing (tester — verify on iPhone + Mac per architect's cross-browser design)
+- [ ] QA Review
+- [ ] Done
+
+> QA Review + Done are TRON's gate only — never checked by planner/sync.
+
+## Traceability
+- up
+  - [Sprint 18 Planning](./planning.md)
+  - [Sprint 18](../../../scenario/sprints.json/sprint-18-chain-method-scope/sprint.json) `[ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962]`
+  - **R18.34** `[requirement:uuid:042bab1a-46ff-4a92-8494-102b9ad928ac]` — "SVG renders in fullscreen iframe natively" (Tron verbatim, captured by robbin-req in c66ad3fd)
+- down
+  - None (atomic task)
+- scenario unit: `scenario/index/b/e/f/3/6/bef36fd2-aa7c-4766-8001-db2b69452d61.scenario.json` (req-eng 39af520a — chain wiring `coveredRequirements ↔ Requirement.tasks`)
 
 ## Context — Why earlier designs were wrong
 
@@ -423,6 +447,119 @@ window.addEventListener('resize', () => {
 
 Tron flagged D3 (blur) as acceptable worst-case and deprioritized as optional polish. The inline-SVG fix from `1f2524d8` is already in place and was a no-cost improvement that came with the D4 attempt. Leave the inline-SVG approach in (no regression to `<img>`); ship the D4 resize-handler fix on top.
 
+## Defect 4 — full audit (Tron: intermittent snap-back persists after onViewport fix)
+
+### Exhaustive listener + caller enumeration
+
+Audit of shipped `/svg-viewer` JS (server.ts lines 853–905). All listeners attached and whether each can change `scale`:
+
+| # | Target | Event | Handler | Touches `scale`? |
+|---|--------|-------|---------|-----------------|
+| L1 | `#stage` | `touchstart` | record mode/state | no |
+| L2 | `#stage` | `touchmove` | pan or pinch — writes `scale` on pinch | **yes (intentional pinch)** |
+| L3 | `#stage` | `touchend` | `mode='idle'` | no |
+| L4 | `#stage` | `touchcancel` | `mode='idle'` | no |
+| L5 | `#stage` | `wheel` | ctrl: zoom; else: pan — writes `scale` on Ctrl+wheel | **yes (intentional trackpad pinch / Ctrl+wheel)** |
+| L6 | `#stage` | `mousedown` | begin drag | no |
+| L7 | `window` | `mousemove` | translate while dragging | no |
+| L8 | `window` | `mouseup` | end drag | no |
+| L9 | `#stage` | `touchend` (2nd listener) | double-tap detector → `reset()` if gap < 300 ms and `changedTouches.length===1` | **yes via `reset()`** |
+| L10 | `#stage` | `dblclick` | `reset()` | **yes via `reset()`** |
+| L11 | `window` | `resize` | `onViewport()` — shifts `tx/ty` only, **no** scale change | no |
+| L12 | `window` | `orientationchange` | `setTimeout(onViewport, 300)` | no |
+| L13 | `window.visualViewport` | `resize` | `onViewport()` | no |
+
+Direct `scale` writes: L2 (pinch), L5 (Ctrl+wheel), `reset()`, and the initial bootstrap.
+
+Callers of `reset()`: L9 (double-tap heuristic) and L10 (dblclick).
+
+### The intermittent root cause — L9 misfires on fast pinch-release
+
+```javascript
+let lastTap = 0;
+stage.addEventListener('touchend', e => {
+  const now = Date.now();
+  if (now - lastTap < 300 && e.changedTouches.length === 1) reset();
+  lastTap = now;
+});
+```
+
+A two-finger pinch fires `touchend` **twice**: once when the first finger lifts (`changedTouches=[A]`, length 1), once when the second finger lifts (`changedTouches=[B]`, length 1). The two events can be < 300 ms apart for a fast pinch release. Result: the second touchend sees `now - lastTap < 300` AND `changedTouches.length===1` → `reset()` fires → user's pinch is snapped back to contain-fit.
+
+This matches Tron's "intermittent — sometimes holds after pinch, then snap-back reoccurs": depends entirely on the millisecond gap between finger releases. Slow release → no snap-back. Fast release → snap-back.
+
+It also explains the rarer single-finger snap-back: a quick double-tap on the stage (e.g., user trying to recenter, or an inadvertent second tap) triggers the same path correctly — but the bar is just "any two touchends within 300 ms with single-touch changedTouches."
+
+### Secondary issues found in the audit
+
+These are not the dominant snap-back but were exposed by the trace:
+
+- **`save()` runs inside `apply()`** (every paint). Every pan-frame writes to `sessionStorage`. Functionally fine; just chatty.
+- **`reset()` calls `sessionStorage.removeItem(KEY)` then immediately calls `apply()`** which re-saves the new (contain-fit) state. The remove is a no-op. Cosmetic.
+- **iOS iframe remount restores state correctly** (sessionStorage key includes `src`). Edge case: if remount completes before iOS settles the new viewport, `lastSw/lastSh` are captured at stale dims; the next `onViewport()` then receives the settling delta as if it were a resize. Result is a one-time tx/ty centering adjustment — feels like a small jump, not a snap-back. Acceptable for now.
+
+### Fix — distinguish a real double-tap from a pinch-release
+
+Tap = single finger touching down and lifting in one short event with no other fingers around. The standard test is: at every `touchstart` with exactly 1 touch, record `tapStart=now`. At every `touchend` where `e.touches.length===0` AND the just-ended sequence had 1 touch AND elapsed < 250 ms, it's a tap. Two such taps within 300 ms = double-tap.
+
+Replace L9 with:
+
+```javascript
+// Real double-tap: two single-finger taps in a row, NEVER a pinch-release.
+// A "tap" requires (a) a touchstart with exactly 1 touch, (b) a touchend that drops
+// touches.length to 0, (c) short duration, (d) no movement bigger than 'slop'.
+let tapStart = 0, tapStartX = 0, tapStartY = 0, tapMoved = false, lastTapAt = 0;
+const TAP_MAX_MS = 250, TAP_SLOP_PX = 10, DTAP_MAX_GAP_MS = 300;
+
+stage.addEventListener('touchstart', e => {
+  if (e.touches.length === 1) {
+    tapStart = Date.now();
+    tapStartX = e.touches[0].clientX;
+    tapStartY = e.touches[0].clientY;
+    tapMoved = false;
+  } else {
+    // Multi-touch: not a tap candidate
+    tapStart = 0;
+    tapMoved = true;
+  }
+}, { passive: false });
+
+stage.addEventListener('touchmove', e => {
+  if (!tapStart || tapMoved) return;
+  const t = e.touches[0];
+  if (!t) return;
+  if (Math.hypot(t.clientX - tapStartX, t.clientY - tapStartY) > TAP_SLOP_PX) tapMoved = true;
+}, { passive: false });
+
+stage.addEventListener('touchend', e => {
+  // Only consider this a tap if ALL fingers lifted (touches.length === 0)
+  // AND the prior touchstart was single-finger AND no significant move AND short duration.
+  if (e.touches.length !== 0 || !tapStart || tapMoved) { tapStart = 0; return; }
+  const dur = Date.now() - tapStart;
+  tapStart = 0;
+  if (dur > TAP_MAX_MS) return;
+  const now = Date.now();
+  if (now - lastTapAt < DTAP_MAX_GAP_MS) { reset(); lastTapAt = 0; }
+  else { lastTapAt = now; }
+});
+```
+
+This handler will NOT fire on pinch release because during a pinch `e.touches.length` is 2 (the second finger is still down) when the first finger's `touchend` fires; then when the second lifts, `tapStart` was cleared at the multi-touch `touchstart`, so the candidate flag is off.
+
+### Acceptance — verify there is NO other path
+
+After applying the fix above, the only paths that change `scale` are:
+
+- L2 pinch (intentional)
+- L5 Ctrl+wheel (intentional)
+- L9 real double-tap (intentional, via `reset()`)
+- L10 dblclick (intentional, via `reset()`)
+- Initial bootstrap (one-shot)
+
+L11 (`resize`), L12 (`orientationchange`), L13 (`visualViewport.resize`) never call `reset()` and never write `scale` — they only shift `tx/ty` via `onViewport()`.
+
+That is the closed set. Tester verifies by adding a `console.log` at the top of `reset()` and the `apply()` site; instrument the device build, reproduce the symptom, confirm `reset()` fires only on a real double-tap or dblclick.
+
 ## Sanitization (security)
 
 The `src` query parameter is reflected into HTML. Must be:
@@ -450,3 +587,18 @@ Crispness check (AC8): zoom to 5× and inspect text in the diagram. It must rema
 Snap-back check (AC9): pinch-zoom to 3×, pan with one finger, lift off, wait 2 seconds. SVG must remain where placed at 3×.
 
 Tron final check on iPhone + Mac.
+
+## Subtasks
+None (atomic task — D1-D4 PDCA rounds folded into a single task per learning #20).
+
+## QA Audit & User Feedback
+- 2026-06-09: Tron verbatim (captured by robbin-req in c66ad3fd) — "we need to optimize the svg view. … iframe that basically covers most of the screen and if i pan zoom, the svg in the iframe gets panned zoomed not the whole page." + clarification "it just should show the svg in the iframe and fall back to standard panning and zooming of it as the default page functionality."
+- 2026-06-09: Architect (b3e8799c) D1 — initial cross-browser design (corrected from iOS-only assumption when Tron reproduced on Chrome/desktop-Mac).
+- 2026-06-09: Expert v0.5.114 (87dfee3b) — first iframe + aspect-ratio attempt. Defects surfaced on device.
+- 2026-06-09: Expert v0.5.116 (f1f7bd51) — cross-browser pinch/pan per architect's design.
+- 2026-06-09: Architect (1f2524d8) Defects 3+4 — inline-SVG + pinned layout box kills blur + snap-back.
+- 2026-06-09: Expert v0.5.117 (2e71a312) D3+D4 inline-SVG; same-version hotfix 7422733c root-caused window.resize→reset.
+- 2026-06-09: Expert v0.5.118 (5513c08f) — preserve zoom on iOS URL-bar resize.
+- 2026-06-09: Expert v0.5.119 (df4d1831) — cache-bust bump for D4 verification.
+- 2026-06-09: Expert v0.5.120 (acacd044) D4 belt-and-braces — persist view + orientationchange + visualViewport.
+- Pending: tester independent verification on iPhone Safari + Chrome/iPhone + Chrome/Mac per architect's 3-platform test plan. Then Tron QA.
