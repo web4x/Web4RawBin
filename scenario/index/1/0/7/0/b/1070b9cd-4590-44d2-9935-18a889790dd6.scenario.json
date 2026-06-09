@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "1070b9cd-4590-44d2-9935-18a889790dd6",
+    "name": "T190 champagne — tree expand appends only (no full re-render, scroll preserved, DOM identity)",
+    "file": "ior:file:test/e2e/tree-append-only.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "implementations": ["ior:instance:d8f406ce-40df-4d51-87ec-fff7dec44374"],
+    "verifies": ["ior:instance:37147d5d-bdb6-4011-a433-2af6b5ad68b4"],
+    "status": "GREEN",
+    "sourceFile": "ior:file:test/e2e/tree-append-only.spec.ts",
+    "sourceLine": 1,
+    "parent": "ior:instance:d8f406ce-40df-4d51-87ec-fff7dec44374",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:d8f406ce-40df-4d51-87ec-fff7dec44374"
+}
