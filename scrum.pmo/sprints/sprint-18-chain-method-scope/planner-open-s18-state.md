@@ -11,14 +11,14 @@
 
 **Sprint 18.tasks[] = 13 total** (Sprint canonical IOR `ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962`) — count updated 2026-06-09 after dedup reconcile (anomaly #1 resolved, surfaced previously-hidden task `675cc8e3`).
 - **7 🏁 Done** (Tron-QA-approved, status=Done in scenario)
-- **6 OPEN** (status=Planned or In Progress; of these, 2 are Tron-blocked: SVG + T189)
+- **6 OPEN** (status=Planned or In Progress; of these, 2 are Tron-blocked: SVG + T189; 1 is triage-blocked: `675cc8e3` source-link)
 - **+1 sub-track:** hand-written `task-planner-s2-s9-backfill.md` (decision-only, no scenario unit)
 
 ## OPEN — Blocked on Tron (awaiting QA, no role work)
 
 | Task | uuid | status | What's pending |
 |------|------|--------|----------------|
-| SVG viewer fullscreen iframe + native zoom | `bef36fd2` | In Progress | Impl shipped v0.5.114 → v0.5.121 (D1-D4 + R18.34.B pinch-commit); rule-pair (a)+(b) ✓ across all version commits; **tester 3-platform verify pending (iPhone Safari + Chrome/iPhone + Chrome/Mac)**; then Tron QA |
+| SVG viewer fullscreen iframe + native zoom | `bef36fd2` | In Progress 🧪 | **Architect chain wired (`38653299`)**: UC `c27d67d8 svgViewer.pinchZoom` + Class `7dd2f3c3 SvgViewer` (sourceFile=server.ts:843) + Method `4a4591ca SvgViewer.onPinchEnd` (lines 880-881) + Impl `094c18a4` touchend+touchcancel apply() flush. **Tester champagne PASS (`82ddae97`)**: Test `10c2e3ca` 2-touch pinch (touchstart→move→end no pan), 2/2 PASS; chain Impl→Test wired (Impl.tests[]=[Test], Test.verifies[]=[Req042bab1a R18.34]). Impl shipped v0.5.114 → v0.5.121; rule-pair (a)+(b) ✓. **Only Tron iPhone+Mac device re-verify remains.** |
 | T189 Role skills SKILL.md | `a7f7f216` | In Progress | **🧪 testing-hop DONE 2026-06-09 per skill-expert via PO**: code chain complete (45/45 tests reach Req roots), UseCase `89aff659` linked, R18.13 captured, 19 Skill units done as orphan-by-design (Skill is metadata type outside the 6-step code chain — accepted, analogous to TraceLink per learning #34). Tron QA pending. Scenario status synced 2026-06-09 (was Planned, now In Progress; statusChecklist testing[x]). |
 | S2-S9 backfill (decision-only, hand-written .md) | `03fb4511` | (no scenario) | PO decision (b) DEFER recorded 2026-06-07; QA Review awaits Tron acknowledgement; no role work |
 
@@ -31,7 +31,7 @@
 | T187 trace-narrowing chain walker | `292d8931` | In Progress | **architect/expert** | Continuation of T187 (ownerIor anomaly flagged — points at S18-dup `396197533cdb`, not canonical `5b950725-…`; recommend reconcile to canonical before further work). Statuschecklist sync needed once impl state is recorded in the architect's task .md. |
 | T190 tree expand append-only | `08e46ce3` | In Progress | **architect/expert** | Same anomaly as T187 (ownerIor points at S18-dup `396197533cdb`). Reconcile owner first; then continuation. |
 | T188 dogfood view-gen | `8a31ba75` | Planned | **req + architect** | Net-new task, no refinement yet. Generator already exists (`scripts/generate-sprint-md.ts`). Scope: planning.md + task-*.md emitted from scenario.json Sprint+Task units (per task name). Req captures the formal directive verbatim, architect designs the round-trip (regen + integrity check); expert implements; tester verifies a known sprint regen matches scenarios. |
-| R18.13-15 Source link on all types + Browse-File → /md/ + line param → /edit#L | `675cc8e3` | Planned | **architect + expert** | Surfaced 2026-06-09 by anomaly #1 reconcile (was hidden under dup Sprint unit). 6 coveredRequirements already wired (R18.13/14/15 atomic split). Refinement scope: source-code hyperlinks on every Object node type (Class/Method/Implementation/Test) in /trace + DetailView; file browser link → `/md/<path>`; `?L=<line>` param → `/edit#L<line>` jump. Architect designs the link-emit pattern; expert implements; tester verifies the round-trip on real units. |
+| `675cc8e3` Source link on all types + Browse-File → /md/ + line param → /edit#L | `675cc8e3` | Planned | **req-eng FIRST, then architect + expert** | **TRIAGE 2026-06-09 (planner): NAME MISLEADS — this task is NOT about R18.13/14/15.** Its `coveredRequirements[]` carries 6 STALE entries that are 3 distinct duplicate scenario units (no `altId`, 0 task back-refs) of R18.13/14/15 — these dups don't match the task's actual source-link feature scope. The CANONICAL R18.13 (`68bdef75` altId=R18.13 "test-chain-termination") is owned by **T187** (tester executing per PO); canonical R18.14 (`574f9ac1` "drawer shadow when closed") + R18.15 (`9de73675` "back-button no shift") are owned by **T190** (tester executing per PO). So PO's "R18.13 done by skill-expert" maps to T187's chain-termination work, not this task. **Actual `675cc8e3` scope:** source-code hyperlinks UI feature — needs req-eng to capture a fresh Tron directive (an R-? atomic req) for the source-link feature, then re-wire `coveredRequirements` to it; architect designs the link-emit pattern; expert implements; tester verifies. **Decision needed (PO):** (a) accept triage and have req-eng capture the source-link req; OR (b) rename the task to clearly reflect "source-link UI feature" and drop the misleading R18.13-15 prefix; OR (c) declare it covered by T187+T190 and delete `675cc8e3`. |
 
 ## ANOMALIES (planner-flagged, decision needed)
 
@@ -40,6 +40,18 @@
 2. **SVG task statusChecklist drift (now FIXED).** Scenario JSON `model.statusChecklist` was literal markdown with all checkboxes unchecked, while `model.status="In Progress"` and architect's task .md reflected impl-shipped. Synced 2026-06-09 to match reality: planned[x] + in-progress[x] + refinement[x] + creating-test-cases[x] + implementing[x] + testing[ ] + QA[ ] + Done[ ].
 
 3. **R18.34.B chain wired this cycle.** SVG task `coveredRequirements[]` now includes both R18.34 (042bab1a) AND R18.34.B (6ee95023). R18.34.B.tasks[] reciprocates with SVG task IOR. Loop closed both directions per learning #38.
+
+4. **NEW 2026-06-09: Duplicate R18.13/14/15 requirement scenario units.** Three orphan dups: `7d59b620` (mirrors R18.13 canonical `68bdef75`), `a0abb37d` (mirrors R18.14 `574f9ac1`), `b1299650` (mirrors R18.15 `9de73675`). Distinguishing features:
+   - Canonical: `altId=R18.x`, **1 task back-ref** (to T187 or T190), **2 useCases** linked.
+   - Duplicates: no `altId`, **0 task back-refs**, only 1 useCase, name has "R18.x:" prefix.
+   - All 6 (3 canon + 3 dup) live in canonical Sprint 18 (`ownerIor` matches).
+   - The 3 dups are ONLY referenced by `675cc8e3`'s `coveredRequirements[]` (the misleading-name task). After PO triage decision on `675cc8e3`, recommend **deleting the 3 dup requirement units** (analogous to the Sprint dup reconcile).
+
+5. **NEW 2026-06-09: T187 + T190 + T188 timeline catch-up.**
+   - **T187** (`292d8931`) — In Progress, owns canonical R18.13. PO confirms tester executing.
+   - **T190** (`08e46ce3`) — In Progress, owns canonical R18.14 + R18.15. PO confirms tester executing.
+   - **T188** (`8a31ba75`) — req anchor LANDED `ea1d9b2a` (R18.3 verbatim Tron quote captured); 5 coveredRequirements + 1 useCase wired by req. Scenario `status` still "Planned" but architect refinement can start. Move from "awaiting req" → "📝 refining (architect)" once architect engages.
+   - Hotfix `522c919e` v0.5.122 — expert R18.8 missed location fix (`/api/trace SCENARIO_FORWARD requirement→useCases`). Not a task closure, but a defect-fix iteration.
 
 ## Rule-pair audit (R18.34 chain impl commits)
 
@@ -64,10 +76,11 @@
 
 ## Recommended re-task (idle agents)
 
-- **architect** — UC `svgViewer.pinchZoom AC9.1` + Class `SvgViewer` + Method `SvgViewer.onPinchEnd` (R18.34.B chain) ; refine R18.13-15 source-link task `675cc8e3` (newly surfaced; 6 reqs already wired). T187/T190 owner reconcile is DONE 2026-06-09.
+- **architect** — SVG R18.34.B chain DONE in `38653299` (UC `c27d67d8` + Class `7dd2f3c3` + Method `4a4591ca` + Impl `094c18a4`). Pending: refine `675cc8e3` source-link feature AFTER req-eng captures the fresh req (see anomaly #4 + R18.13-15 triage).
 - **req-eng** — refine T188 (dogfood view-gen) and T189 (role skills SKILL.md) by capturing the originating Tron directives verbatim as Requirement units; both are status=Planned with no req anchor yet
 - **expert** — standby; v0.5.121 is the current ship line. Watch tester verify; assist if a D5 surfaces.
-- **tester** — primary: SVG R18.34/R18.34.B 3-platform verify per architect's plan + R18.34.B champagne test (pinch→release, no pan, zoom persists)
+- **tester** — SVG R18.34.B champagne DONE in `82ddae97` (Test `10c2e3ca` 2/2 PASS). Primary remaining: T187 + T190 verification (PO confirms in flight); SVG 3-platform device re-verify is Tron's gate (not a planner-routable role).
+- **req-eng** — capture the SOURCE-LINK fresh atomic Tron directive for `675cc8e3` (its current 6 reqs are stale R18.13/14/15 dups — anomaly #4). T188 (`8a31ba75`) req anchor LANDED `ea1d9b2a` R18.3 — net new actionable next-hop is architect refinement.
 
 ## Cross-references
 
