@@ -12,7 +12,9 @@
     "coveredRequirements": [
       "ior:instance:042bab1a-46ff-4a92-8494-102b9ad928ac"
     ],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:c27d67d8-c6ef-45be-b88b-5631370abe7e"
+    ],
     "subtasks": [],
     "unitLinks": []
   },

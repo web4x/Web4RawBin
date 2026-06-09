@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "094c18a4-77a7-4208-a6a7-6a049e4e332e",
+    "name": "SvgViewer.onPinchEnd touchend+touchcancel apply() flush",
+    "className": "SvgViewer",
+    "methodName": "onPinchEnd",
+    "description": "Replace touchend/touchcancel handlers to call apply() after setting mode='idle', flushing the last pinch scale value to the screen. Eliminates the 'zoom only commits after pan' defect (R18.34.B).",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLineStart": 880,
+    "sourceLineEnd": 881,
+    "tests": [],
+    "parent": "ior:instance:4a4591ca-3806-4034-b9c1-def621c9b452"
+  },
+  "ownerIor": "ior:instance:4a4591ca-3806-4034-b9c1-def621c9b452"
+}

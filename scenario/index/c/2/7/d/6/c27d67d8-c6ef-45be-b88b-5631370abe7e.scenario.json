@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "c27d67d8-c6ef-45be-b88b-5631370abe7e",
+    "name": "svgViewer.pinchZoom",
+    "object": "svgViewer",
+    "verb": "pinchZoom",
+    "description": "User pinches the SVG inside /svg-viewer to zoom in/out; lifting both fingers leaves the SVG displayed at the reached scale (no additional gesture required to commit). Cross-browser: iOS/Android touch + desktop trackpad pinch + Ctrl+wheel.",
+    "class": "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e",
+    "method": "ior:instance:4a4591ca-3806-4034-b9c1-def621c9b452",
+    "classes": [
+      "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e"
+    ],
+    "parent": "ior:instance:042bab1a-46ff-4a92-8494-102b9ad928ac"
+  },
+  "ownerIor": "ior:instance:042bab1a-46ff-4a92-8494-102b9ad928ac"
+}

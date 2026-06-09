@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "7dd2f3c3-a55d-47d2-bc52-21f244a9971e",
+    "name": "SvgViewer",
+    "description": "The IIFE module in the /svg-viewer endpoint (server.ts:843). Handles fetching the SVG, inlining it into the stage, and managing the pan/zoom gesture lifecycle (touch + wheel + mouse + dbltap).",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 843,
+    "methods": [
+      "ior:instance:4a4591ca-3806-4034-b9c1-def621c9b452"
+    ],
+    "method": "ior:instance:4a4591ca-3806-4034-b9c1-def621c9b452",
+    "parent": "ior:instance:c27d67d8-c6ef-45be-b88b-5631370abe7e"
+  },
+  "ownerIor": "ior:instance:c27d67d8-c6ef-45be-b88b-5631370abe7e"
+}
