@@ -1,38 +1,15 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T162: MD artifacts (`##` headings) leak into requirement titles
 
 [task:uuid:7efe9b40-c7fe-407e-9cba-869261b8dcad]
 
-## Status — ⚠️ SUPERSEDED by T163 (2026-06-02, PO direction)
+## Status
 - [ ] Planned
 - [ ] In Progress
-  - [ ] refinement (req → architect)
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
 - [ ] Done
-
-> **SUPERSEDED by [T163](./task-163-api-trace-title-source-switch.md):** Same
-> MD-artifact symptom, but tester's clearer report (via PO 2026-06-02) identifies
-> the root cause as `/api/trace` using `scanRepo firstLine()` instead of the
-> already-clean scenario index `model.name` (T161). T162 proposed hardening
-> `firstLine()` to strip MD — wrong layer. T163 switches the data source, which
-> is the correct architectural fix. This file is preserved for traceability;
-> no work proceeds here. If `firstLine()` turns out to need hardening for OTHER
-> consumers, a new task would be opened — not this one.
-
-> QA Review + Done are TRON's gate only — never checked by planner/sync.
-
-## Assigned
-**Owners (CMM4 4-role, per learnings #18) — sequence req → architect → expert → tester:**
-1. **robbin-req** — anchor the verbatim tester TS6 finding from T161 verification; confirm the bug surfaces beyond Requirement (UseCase/Task/Class/Method/Test/TraceLink/View if they parse the same way)
-2. **robbin-architect** — diagnose where the leak happens (likely the `firstLine()` helper in TraceConsistency.ts T161 touched, or upstream parsing that hands content to it); decide the strip rule (skip blank lines AND Markdown heading-prefix lines like `## `, `### `, `# `, leading `>`); specify scope (Requirement only vs all typed scenarios) and emit the fix design
-3. **robbin-expert** — implement per architect's design; rule-pair (a)+(b)
-4. **robbin-tester** — re-run T161 TS6 + adjacent regression on Requirement-name rendering across migrated units; verify no MD-artifact titles surface in `/trace`, `/md/scenarios/sprints.md/...`, or chain-link anchors
-
-**This file is the single source of truth.** No chat clarification.
 
 ## Traceability
 
@@ -77,6 +54,7 @@ T161 closed the blockquote-leak class of bug but not the heading-leak class. Tes
 - One-helper change keeps the fix DRY across all typed-scenario title rendering
 
 ## Acceptance Criteria
+
 - [ ] AC1 — A requirement whose first non-blank source line is `## Title Here` renders title `Title Here` (no `##` / leading whitespace)
 - [ ] AC2 — Same for `###`, `# ` (any heading level)
 - [ ] AC3 — Existing T161 behaviour preserved: blockquote prefixes still skipped; speaky names still chosen over raw Tron quotes
@@ -85,31 +63,14 @@ T161 closed the blockquote-leak class of bug but not the heading-leak class. Tes
 - [ ] AC6 — **Rule-pair (a)+(b) [learning #15+#16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set; (c) STATIC_SHELL exempt (no new route)
 - [ ] AC7 — Tester re-runs T161 TS6 + a new TS targeting `###` / `# ` cases; all PASS
 
-## Test Scenarios
-File: extend `test/vitest/trace-consistency.test.ts` (T161's test file) or add a sibling.
-
-| Test | Input first speaky line | Expected title |
-|------|------------------------|----------------|
-| TS1 | `## Lobby user name refresh` | `Lobby user name refresh` |
-| TS2 | `### Inner heading` | `Inner heading` |
-| TS3 | `# Top heading` | `Top heading` |
-| TS4 | `> Quoted text` | T161 behaviour (skip blockquote, take next speaky line) |
-| TS5 | Plain `Some plain title` | `Some plain title` (unchanged) |
-| TS6 | Mixed: blank + `>` + `## Real title` | `Real title` |
-| TS7 (visual) | `/trace` + `/md/scenarios/sprints.md/requirement/<sample>.md` | No MD prefix visible in any tree-item or chain-link anchor |
-
 ## Dependencies
+
 - **Requires:** T161 (shipped 737c841 — same helper area)
 - **Coordinate-with:** T126 (templates that render the title), T141 (chain-link anchor rendering)
 - **Enables:** clean title rendering across all migrated typed scenarios
 
-## Drive Plan (planner-coordinated, CMM4 4-role)
-1. **robbin-req** anchors the verbatim tester TS6 finding here; clarifies whether the requirement is "strip MD heading prefix on titles" or the broader "strip ALL MD artifacts" (heading + blockquote + emphasis); closes scope with PO.
-2. **robbin-architect** diagnoses (likely TraceConsistency.ts `firstLine()` area touched by T161); designs the strip rule + scope across typed scenarios; writes the Design section.
-3. **robbin-expert** implements per the design in one commit-set; carries the rule-pair (a)+(b).
-4. **robbin-tester** runs TS1–TS7 + visual sweep on `/trace` and `/md/scenarios/sprints.md/...`; commits the verification report into this file's QA Audit section.
-
 ## Definition of Done
+
 - [ ] All AC met
 - [ ] Rule-pair (a)+(b) ✓
 - [ ] No regression on T161 / T160 / T159
@@ -117,9 +78,11 @@ File: extend `test/vitest/trace-consistency.test.ts` (T161's test file) or add a
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - 2026-06-02: PO directed planner to stand up T162 immediately — minor follow-up to T161, surfaced by tester TS6. CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC6 + DoD (learnings #15+#16). Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
 
 ## Subtasks
+
 None (atomic task; small scope).
 
 ---

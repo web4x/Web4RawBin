@@ -1,6 +1,5 @@
 <!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
 
-
 [Back to Planning](./planning.md)
 
 # Orphan-method + wrong-type-UUID cleanup in Method.implementation chain

@@ -1,4 +1,6 @@
-[Back to Sprint 16 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T115: Tree-item — tap-icon collapse/expand + ">" children expander
 
@@ -32,6 +34,7 @@
   - **class/method:** `rb-object-item.ts` → `RbObjectItem.collapse()`, `expand()`, `expandChildren()` + `toggle-children` event dispatch
 
 ## Task Description
+
 Two distinct interactions on the tree-item:
 - **Tap the icon** (R16.7): first tap **collapses** the item to just the quadratic icon
   (T113); tap again **expands** to show name + description (T112).
@@ -41,12 +44,14 @@ Two distinct interactions on the tree-item:
 These are separate from OS drag (T114) — distinguish tap vs drag.
 
 ## Context
+
 Tron 2026-05-27: "taping the icon once will collapse the item view just into the
 quadratic item, taping again will make the item expand to show name and description.
 on rhe right side the icon will have a ">" like icon if the item has children and
 clicking on it will expand the tree."
 
 ## Acceptance Criteria
+
 - [ ] AC1 — Tapping the left icon collapses the item to icon-only
 - [ ] AC2 — Tapping again expands to name + description
 - [ ] AC3 — A ">" expander shows on the right ONLY when the item has children
@@ -54,29 +59,7 @@ clicking on it will expand the tree."
 - [ ] AC5 — Icon-tap (collapse) is distinguishable from drag (T114) and from ">" (children)
 - [ ] `npm run build` succeeds; version + sw.js bumped; no regression
 
-## Architect Design — robbin-architect
-
-### State machine for rb-object-item
-
-```
-Item states:
-  EXPANDED   — icon + name + description visible (default)
-  COLLAPSED  — icon only (32x32 square), name+desc hidden
-
-Transitions:
-  EXPANDED + tap-icon → COLLAPSED  (add [collapsed] attribute)
-  COLLAPSED + tap-icon → EXPANDED  (remove [collapsed] attribute)
-  
-Children expansion (separate from item collapse):
-  CLOSED   — children hidden, "›" shows on right
-  OPEN     — children visible, "›" rotates to "⌄"
-
-Transitions:
-  CLOSED + click-expander → OPEN   (add [children-open] attribute)
-  OPEN + click-expander → CLOSED   (remove [children-open] attribute)
-```
-
-### Implementation
+## Implementation
 
 **Icon tap vs drag distinction:** Use a 200ms timer. On `pointerdown` on `.oi-icon`, start timer. If `pointerup` within 200ms AND no movement (< 5px) → it's a tap → toggle collapsed. If drag starts (T114 `dragstart` fires) → cancel timer, it's a drag.
 
@@ -123,18 +106,22 @@ rb-object-item[children-open] .oi-expand { transform: rotate(90deg); }
 `rb-trace-tree.ts` listens for `toggle-children` events and shows/hides the child `<div>` that contains nested `rb-object-item` elements. The `has-children` attribute on `rb-object-item` is set by the tree builder when the TraceModel object has outgoing links.
 
 ## Dependencies
+
 - **Requires:** T112 (name+desc to show on expand), T113 (square icon for collapsed state)
 - **Enables:** None
 
 ## Definition of Done
+
 - [ ] All AC met; traceability chain complete + links resolve
 - [ ] Tests pass, build clean
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - 2026-05-27: Planned from compound source R16.7+R16.8. Awaiting architect design, then Tron QA.
 
 ## Subtasks
+
 None (atomic task).
 
 ---

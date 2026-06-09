@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T144: File-browser display fixes — icon order + link targets (B5, 3 fixes)
 
@@ -15,15 +17,6 @@
 - [ ] Done
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
-
-## Assigned
-**Owners (CMM4 4-role, per learnings #18) — sequence req → architect → expert → tester:**
-1. **robbin-req** — confirm the verbatim Tron quote captured in `2bfb64f` / backlog B5 is anchored here; no scope drift
-2. **robbin-architect** — design the 3 fixes: icon-order swap in the file-browser renderer; link target resolution for 🔗 (→ `scenario/index/<prefix>/<uuid>.scenario.json`, the symlink target); .json filename click resolution (→ `scenarios/sprints.md/<class>/<speaking-name>.md`)
-3. **robbin-expert** — implement per architect's design in `server.ts` `/md/` listing renderer + `rb-file-tree` component
-4. **robbin-tester** — visual + click-through verification across all 3 fixes on live `/md/scenarios/...`
-
-**This file is the single source of truth.** No chat clarification.
 
 ## Traceability
 
@@ -96,6 +89,7 @@ visually present but functionally broken.
 - One server route handler or filename-click rewrite for `.json` → MD view (B5(c))
 
 ## Acceptance Criteria
+
 - [ ] **AC1 (B5(a) — icon order):** In `/md/scenarios/...` listings, every row that has both icons shows them in order `🔗 ✏️` (link first, edit second)
 - [ ] **AC2 (B5(b) — 🔗 clickable + target):** Clicking 🔗 navigates to the symlink target = `scenario/index/<prefix>/<uuid>.scenario.json` (canonical JSON unit), not back to the symlink directory
 - [ ] **AC3 (B5(c) — .json click → MD view):** Clicking a `.json` filename in a `scenarios/sprints.json/...` listing navigates to the corresponding `scenarios/sprints.md/<class>/<speaking-name>.md` view; no 404
@@ -104,30 +98,14 @@ visually present but functionally broken.
 - [ ] AC6 — `npm run build` succeeds; all existing tests pass (no regression on T131 / T141)
 - [ ] AC7 — **Rule-pair (a)+(b) [learning #15+#16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing impl (no STATIC_SHELL change expected — no new route, but architect to confirm)
 
-## Test Scenarios
-File: `test/vitest/file-browser-display.test.ts` (new) + visual on `/md/scenarios/sprints.json/...` and `/md/scenarios/sprints.md/...`.
-
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 (B5a) | Render `/md/scenarios/sprints.json/task/` listing | Each row shows `🔗 ✏️`, link icon left of edit |
-| TS2 (B5b) | Click 🔗 on a symlink row | Browser navigates to `/md/scenario/index/<prefix>/<uuid>.scenario.json` (the canonical target) — verify URL + 200 response |
-| TS3 (B5c) | Click a `.json` filename in `sprints.json/task/` listing | Browser navigates to `/md/scenarios/sprints.md/task/<speaking-name>.md` — verify URL + 200 + rendered MD |
-| TS4 | Repeat TS1–TS3 across `sprints.json/requirement/`, `sprints.json/usecase/` | All 3 fixes consistent across all class trees |
-| TS5 | Regression: existing T131 symlink visibility on `/md/` | Still renders; markers + symlinks intact |
-| TS6 | Rule-pair post-bump | New CACHE_NAME activates; fixes reach Tron's iPhone |
-
 ## Dependencies
+
 - **Requires:** T131 (file-browser symlinks present), T141 (chain-link icon precedent), T126 (speaking-name MD views B5(c) resolves to)
 - **Coordinate-with:** T143 (R17.27 "every element a link" — T144 is one instance of that broader rework)
 - **Enables:** functional navigation of the scenario symlink tree
 
-## Drive Plan (planner-coordinated, CMM4 4-role)
-1. **robbin-req** confirms the verbatim Tron quote in `2bfb64f` backlog.md is anchored here without drift; closes any scope ambiguity with PO.
-2. **robbin-architect** designs the 3 fixes (renderer order + anchor href resolver + `.json`→MD view route handler); decides whether `rb-file-tree` mirrors server-side rendering; writes the Design section.
-3. **robbin-expert** implements per the design in one commit-set; carries the rule-pair (a)+(b).
-4. **robbin-tester** runs TS1–TS6 + visual sweep; commits the verification report into the QA Audit section.
-
 ## Definition of Done
+
 - [ ] All AC met (all 3 sub-fixes B5(a)+B5(b)+B5(c) verified)
 - [ ] Rule-pair (a)+(b) ✓
 - [ ] No regression on T131 / T141 (icon visibility, symlink markers, chain-link presence)
@@ -135,6 +113,7 @@ File: `test/vitest/file-browser-display.test.ts` (new) + visual on `/md/scenario
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 ### T144 Verification Report — robbin-tester 2026-06-01
 
 **Tested on:** `/md/scenario/sprints.json/sprint-2-identity-ssh/` + `/md/scenario/sprints.json/sprint-17-scenario-units/`
@@ -156,104 +135,8 @@ File: `test/vitest/file-browser-display.test.ts` (new) + visual on `/md/scenario
 
 - 2026-05-31: PO directed planner to stand up T144 immediately (no further reminder). Source: `2bfb64f` (req-eng B5 captured Tron's 3-in-1 directive into backlog). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17) — composite B5 uuid kept as req formalized + 3 sub-fix uuids generated for AC-level traceability; rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Awaiting req-eng confirmation → architect design → expert impl → tester verify → Tron QA.
 
-## Design (robbin-architect, 2026-06-01)
-
-### Location
-`src/ts/server/server.ts` lines 579-586 — the `/md/` directory listing renderer.
-
-Five `.map()` calls build HTML `<li>` entries for dirs, mds, svgs, jsons, others. Each appends icons inline. The pattern per entry type:
-
-```
-Current (lines 582-586):
-  dirs:   📁 <a href>name/</a>{symlink ? ' 🔗' : ''}
-  mds:    📄 <a href>name</a>{editIcon}{symlink ? ' 🔗' : ''}
-  jsons:  📋 <a href>name</a>{editIcon}{symlink ? ' 🔗' : ''}
-  others: name{editIcon}{symlink ? ' 🔗' : ''}
-```
-
-### Fix B5(a): Icon order swap — ✏️🔗 → 🔗✏️
-
-**Current:** `editIcon(e.name)` emitted BEFORE `e.isSymbolicLink() ? ' 🔗' : ''`
-**Fix:** Swap the two fragments. For each entry type that has both, emit symlink icon first, then edit icon.
-
-Lines to change (mds, jsons, others):
-```typescript
-// BEFORE (line 583 example):
-.map(e => `<li>📄 <a href=...>${e.name}</a>${editIcon(e.name)}${e.isSymbolicLink() ? ' 🔗' : ''}</li>`)
-
-// AFTER:
-.map(e => `<li>📄 <a href=...>${e.name}</a>${symlinkIcon(e, relPath)}${editIcon(e.name)}</li>`)
-```
-
-### Fix B5(b): 🔗 becomes clickable anchor to symlink target
-
-**Current:** `' 🔗'` is a plain text glyph — not an anchor.
-**Fix:** Replace the glyph with an `<a>` whose href is the resolved symlink target path.
-
-New helper function (add near line 579):
-```typescript
-const symlinkIcon = (e: any, relDir: string) => {
-  if (!e.isSymbolicLink()) return '';
-  try {
-    const target = fsSync.readlinkSync(path.join(dirPath, e.name));
-    // Resolve to absolute, then make project-relative
-    const abs = path.resolve(dirPath, target);
-    const projRel = path.relative(PROJECT_ROOT, abs);
-    // Use /edit/ route (not /md/) — /md/ 404s on .scenario.json, /edit/ works
-    return ` <a href="/edit/${projRel}" style="text-decoration:none;font-size:0.8em" title="Symlink → ${target}">🔗</a>`;
-  } catch {
-    return ' 🔗';  // fallback: unresolvable symlink = plain glyph
-  }
-};
-```
-
-**AC2 fix decision (2026-06-01, per tester report 65cc351):**
-Option A chosen: 🔗 href uses `/edit/` not `/md/`. Rationale:
-- `/edit/` already returns 200 for `.scenario.json` (Monaco renders JSON)
-- `/md/` returns 404 for `.scenario.json` (no handler)
-- Adding a JSON viewer to `/md/` = scope creep for a B5 cosmetic fix
-- The 🔗 purpose is "show canonical scenario" — `/edit/` serves that
-```
-
-This resolves the symlink to its target (e.g., `../../scenario/index/d/0/3/a/7/d03a73ff-....scenario.json`) and constructs an absolute `/md/` path to it.
-
-### Fix B5(c): .json filename click → MD view instead of 404
-
-**Current:** `<a href="/md/${relPath}${e.name}">${e.name}</a>` — links to the raw `.json` path which returns 404 if no handler exists.
-**Fix:** For `.json` files in `scenarios/sprints.json/` trees, rewrite the href to the corresponding `.md` view.
-
-Modify the jsons map (line 585):
-```typescript
-const jsonHref = (e: any) => {
-  // If we're inside a sprints.json/<class>/ directory, resolve to sprints.md/<class>/<speaking-name>.md
-  const jsonMatch = relPath.match(/^scenarios\/sprints\.json\/([^/]+)\//);
-  if (jsonMatch && e.name.endsWith('.scenario.json')) {
-    const classDir = jsonMatch[1];  // e.g., "task"
-    const speakingName = e.name.replace('.scenario.json', '.md');
-    return `/md/scenarios/sprints.md/${classDir}/${speakingName}`;
-  }
-  return `/md/${relPath}${e.name}`;  // default: direct link
-};
-
-const jsons = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.json'))
-  .map(e => `<li>📋 <a href="${jsonHref(e)}">${e.name}</a>${symlinkIcon(e, relPath)}${editIcon(e.name)}</li>`);
-```
-
-### Touchpoints Summary
-
-| Fix | File | Line(s) | Change |
-|-----|------|---------|--------|
-| B5(a) | server.ts | 582-586 | Swap order: symlinkIcon before editIcon in all 5 entry maps |
-| B5(b) | server.ts | new helper ~579 | `symlinkIcon()` function: resolves symlink target, wraps 🔗 in `<a>` |
-| B5(c) | server.ts | 585 | `jsonHref()` function: rewrites `.json` paths in `sprints.json/` to `sprints.md/` |
-
-### rb-file-tree impact
-`rb-file-tree.ts` is a client-side Web Component used in the `/edit/` route. The `/md/` directory listing is **server-side rendered HTML** (lines 582-588). These fixes are server-side only — no change to `rb-file-tree.ts` needed. AC5 passes by default.
-
-### No new routes
-No STATIC_SHELL change. The `/md/` handler already serves both `.json` and `.md` files — we're only changing the `<a href>` targets in the listing HTML, not adding new route handlers.
-
 ## Subtasks
+
 None (atomic task; 3 fixes are sub-ACs, not sub-tasks).
 
 ---

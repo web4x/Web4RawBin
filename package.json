@@ -1,6 +1,6 @@
 {
   "name": "rawbin",
-  "version": "0.5.122",
+  "version": "0.5.123",
   "description": "RawBin — AI Server Management Interface",
   "type": "module",
   "scripts": {
@@ -16,7 +16,8 @@
     "trace:audit:strict": "tsx scripts/trace-audit.ts --strict",
     "rule-pair:check": "tsx scripts/rule-pair-check.ts",
     "rule-pair:strict": "tsx scripts/rule-pair-check.ts --strict",
-    "ci:gates": "npm run trace:audit:strict && npm run rule-pair:strict",
+    "check:sprint-md": "tsx scripts/generate-sprint-md.ts --check --all",
+    "ci:gates": "npm run trace:audit:strict && npm run rule-pair:strict && npm run check:sprint-md",
     "migrate": "tsx src/ts/server/migrate-cli.ts all",
     "migrate:rooms": "tsx src/ts/server/migrate-cli.ts rooms",
     "migrate:userdirs": "tsx src/ts/server/migrate-cli.ts userdirs",

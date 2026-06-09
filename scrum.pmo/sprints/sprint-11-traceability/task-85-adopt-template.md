@@ -1,4 +1,6 @@
-[Back to Sprint 11 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T85: Adopt Web4Articles Task Template + Traceability Conventions
 
@@ -15,6 +17,7 @@
 - [ ] Done
 
 ## Traceability
+
 - up
   - [Sprint 11 Planning](./planning.md)
   - Tron directive 2026-05-25 (adopt Web4Articles planning standard)
@@ -22,6 +25,7 @@
   - None (atomic task — foundation for T86-T90)
 
 ## Task Description
+
 Upgrade RawBin's task template to the Web4Articles standard and document the
 forward-traceability convention so all FUTURE tasks comply immediately.
 
@@ -32,38 +36,32 @@ forward-traceability convention so all FUTURE tasks comply immediately.
   how req↔usecase↔puml↔class/method link, and the up/down/chain/changes sections.
 
 ## Context
+
 Tron: adopt the Web4Articles planning standard. Reference:
 `/Users/Shared/Workspaces/2cuGitHub/Web4Articles/scrum.pmo/sprints/`.
 
 ## Acceptance Criteria
+
 - [x] task-template.md reflects Web4Articles structure (VERIFIED 2026-05-26)
 - [x] traceability-standard.md published — at `scrum.pmo/standards/traceability-standard.md` (robbin-req, committed 33de99f)
 - [x] Future tasks created from the template pass `sprint audit` (S10 T81-83, S12 T84, S13 T91-94 all authored to standard, audit 0 issues)
 
-## Verification Findings (planner, 2026-05-26)
-Template ⟷ standard agreement check:
-- Template's forward chain (req→usecase→puml→class/method) is a subset of the
-  standard's full chain (Tron→requirement→task→uc→puml→method→test). COMPATIBLE —
-  template covers the task-file-authored portion; standard adds the endpoints
-  (Tron quote at top, test:uuid in test files) which the template's Test Scenarios
-  + Context sections already accommodate.
-- Standard lives at `scrum.pmo/standards/traceability-standard.md` (not the root
-  path the template's prose originally referenced). Both docs now point consistently.
-- Recent sprints authored from the template (S10/S12/S13) all pass audit → template
-  is fit for purpose. Remaining: Tron QA sign-off.
-
 ## Dependencies
+
 - **Requires:** None
 - **Enables:** T86 (index), T87-T89 (batches use the standard)
 
 ## Definition of Done
+
 - [ ] Template + standard doc published
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - 2026-05-25: Tron directive to adopt Web4Articles standard. Template upgraded; standard doc pending.
 
 ## Subtasks
+
 None (atomic task).
 
 ---

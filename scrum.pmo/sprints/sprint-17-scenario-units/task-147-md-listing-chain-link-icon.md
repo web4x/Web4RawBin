@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T147: Chain-link icon in `/md/` directory listing for `scenarios/sprints.md/` subtrees (symmetric UX with `.json` side)
 
@@ -17,15 +19,6 @@
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
 > **Tron plan-ahead-only directive:** no agent kick-off yet (file is staged for
 > req-eng to anchor the literal Tron quote; then architect, then expert, then tester).
-
-## Assigned
-**Owners (CMM4 4-role, per learnings #18) — sequence req → architect → expert → tester:**
-1. **robbin-req** — capture the verbatim Tron quote for this directive (the `.md`-side symmetric icon directive); replace the planner-suggested `requirement:uuid` below with req's canonical one if different; confirm the icon legend matches Tron's literal (📋 🔗 ✏️ vs any variation)
-2. **robbin-architect** — design the renderer change: add chain-link 🔗 (and edit ✏️, and the leading 📋 row-type icon — per T144's symmetric .json scheme) to every row in `/md/scenarios/sprints.md/<class>/...` listings; resolve href targets (🔗 → `scenario/index/<prefix>/<uuid>.scenario.json` canonical; ✏️ → `/edit/` route); ensure ordering matches T144 (🔗 BEFORE ✏️); decide whether `rb-file-tree` mirrors the new icons; update `scrum.pmo/standards/traceability-standard.md` if the icon legend belongs there
-3. **robbin-expert** — implement per architect's design in `server.ts` `/md/` directory listing renderer + `rb-file-tree` if mirrored; carry rule-pair (a)+(b) in the impl commit-set
-4. **robbin-tester** — visual + click-through verification on `/md/scenarios/sprints.md/<class>/` listings across multiple sprints (S17 + S16) and classes (task / requirement / usecase); regression on T144 `.json` side (still works, ordering still `🔗 ✏️`)
-
-**This file is the single source of truth.** No chat clarification.
 
 ## Traceability
 
@@ -91,6 +84,7 @@ same three icons, same order, same behaviors.
   Tron's quote leaves room; or uses class-specific icons like in T113)
 
 ## Acceptance Criteria
+
 - [ ] **AC1 — Icon presence:** Every row in a `/md/scenarios/sprints.md/<class>/`
   listing shows `📋 🔗 ✏️` (or architect-finalized symmetric set) in that order
 - [ ] **AC2 — 🔗 target:** Clicking 🔗 navigates to the canonical
@@ -114,32 +108,14 @@ same three icons, same order, same behaviors.
 - [ ] **AC10 — All 4 roles committed work in this file** (req anchor +
   architect design + expert impl + tester verify)
 
-## Test Scenarios
-File: `test/vitest/md-listing-icons.test.ts` (new — sibling to T144's `file-browser-display.test.ts`) + visual on `/md/scenarios/sprints.md/<class>/`.
-
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 | Render `/md/scenarios/sprints.md/task/` listing | Each row shows `📋 🔗 ✏️` (or architect-finalized symmetric set); 🔗 left of ✏️ |
-| TS2 | Click 🔗 on any `.md` row | Browser navigates to canonical `/md/scenario/index/<prefix>/<uuid>.scenario.json` — 200 + JSON content |
-| TS3 | Click ✏️ on any `.md` row | Browser navigates to `/edit/<path-to-md-file>` — Monaco editor opens with the file |
-| TS4 | Repeat TS1–TS3 across `sprints.md/requirement/`, `sprints.md/usecase/` | All consistent across class trees |
-| TS5 | Side-by-side: `.json` and `.md` listings of the same class | Same icon scheme, same order |
-| TS6 | Regression: T144 `.json` side still works | `📋 🔗 ✏️` order; 🔗 → `.scenario.json`; `.json` click → `.md` view |
-| TS7 | Regression: T141 chain-link icons inside `.md` views | Unchanged |
-| TS8 | Rule-pair post-bump | New CACHE_NAME activates; new icons visible on Tron's device |
-
 ## Dependencies
+
 - **Requires:** T144 (icon order + 🔗 helper + click-through pattern on the `.json` side — T147 reuses), T141 (chain-link helper), T126 (generates the `.md` views T147 lists into), T131 (symlink file-browser baseline)
 - **Coordinate-with:** T143 (R17.27 "every typed reference a clickable link" — T147 is the directory-listing instance), T146 (NAME-first format — T147 may use NAMEs as row labels)
 - **Enables:** symmetric `.json` / `.md` navigation; completes the R17.27 surface in the file-browser
 
-## Drive Plan (planner-coordinated, CMM4 4-role)
-1. **robbin-req** captures the verbatim Tron quote for this directive into the Traceability block above; anchors / replaces the planner-suggested `requirement:uuid` with req's canonical one; closes any scope ambiguity with PO
-2. **robbin-architect** designs the renderer change (reuses T144 helpers); finalizes the 📋 glyph (class-specific? generic?); decides `rb-file-tree` mirroring; updates `standards/traceability-standard.md` if icon legend belongs there; writes the Design section here
-3. **robbin-expert** implements per the design in one commit-set; carries the rule-pair (a)+(b)
-4. **robbin-tester** runs TS1–TS8 + side-by-side visual on multiple classes; commits the verification report into the QA Audit section here
-
 ## Definition of Done
+
 - [ ] All AC met (AC1–AC10)
 - [ ] Rule-pair (a)+(b) ✓; (c) STATIC_SHELL if applicable
 - [ ] No regression on T144 / T141 / T126
@@ -147,67 +123,12 @@ File: `test/vitest/md-listing-icons.test.ts` (new — sibling to T144's `file-br
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - 2026-06-01: PO directed planner to stand up T147 immediately (Tron plan-ahead-only — no agent kick-off). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC9 + DoD (learnings #15+#16).
 - 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:ef503b38` with req's canonical `requirement:uuid:d8e9f0a1` (from B8 capture, commit `f3cc50c`). Verbatim Tron quote anchored. Planner summary was accurate — Tron's literal confirms: 🔗 + ✏️ on `.md` side same as `.json` side, explicitly names UseCase files (chain-tracemethodtoreq.md, index-get.md, index-put.md, ior-resolveclass.md) + "everything else in scenario/sprints.md". Ready for architect.
 
-## Design (robbin-architect, 2026-06-01)
-
-### Current state (server.ts line 585)
-`.md` listing already has `symlinkIcon` (🔗 for symlinks) + `editIcon` (✏️). But generated `.md` views in `scenario/sprints.md/<class>/` are NOT symlinks — they're real files. So no 🔗 appears. Users can't navigate from a `.md` view back to its scenario JSON.
-
-### The `.md` ↔ `.json` relationship
-```
-scenario/sprints.md/task/task-124-architecture.md        ← human view (by class)
-scenario/sprints.json/sprint-17-.../task-124-architecture.json  ← scenario data (by sprint)
-```
-Same speaking-name slug, different extension, different directory tree.
-
-### Fix: `scenarioLink` helper
-
-New helper (add near line 579):
-```typescript
-const scenarioLink = (e: any) => {
-  if (!relPath.startsWith('scenario/sprints.md/') || !e.name.endsWith('.md')) return '';
-  const slug = e.name.replace('.md', '');
-  const sprintsJsonDir = path.join(PROJECT_ROOT, 'scenario', 'sprints.json');
-  try {
-    for (const sprint of fsSync.readdirSync(sprintsJsonDir)) {
-      const jsonPath = path.join(sprintsJsonDir, sprint, `${slug}.json`);
-      if (fsSync.existsSync(jsonPath)) {
-        return ` <a href="/edit/scenario/sprints.json/${sprint}/${slug}.json" style="text-decoration:none;font-size:0.8em" title="Scenario JSON">🔗</a>`;
-      }
-    }
-  } catch {}
-  return '';
-};
-```
-
-**🔗 target:** `/edit/` route (per T144 AC2 decision — `/md/` 404s on `.json`).
-
-### Updated `.md` row (line 585)
-
-```typescript
-const inSprintsMd = relPath.startsWith('scenario/sprints.md/');
-const mds = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.md'))
-  .map(e => `<li>📄 <a href="/md/${relPath}${e.name}">${e.name}</a>${inSprintsMd ? scenarioLink(e) : symlinkIcon(e)}${editIcon(e.name)}</li>`);
-```
-
-In `sprints.md/` paths: `scenarioLink` (→ JSON) replaces `symlinkIcon` (redundant — generated files aren't symlinks). Outside `sprints.md/`: `symlinkIcon` as before.
-
-Icon order per row: `📄 [filename] 🔗 ✏️` — same order as T144 `.json` side.
-
-### rb-file-tree: NO change
-`rb-file-tree.ts` is the `/edit/` route's code editor tree. The `/md/` listing is server-rendered. Independent surfaces. No mirroring needed.
-
-### No new routes, no STATIC_SHELL change.
-
-### Touchpoints
-| File | Line | Change |
-|------|------|--------|
-| `server.ts` | ~579 | Add `scenarioLink` helper |
-| `server.ts` | ~585 | `.md` row uses `scenarioLink` in `sprints.md/` |
-
 ## Subtasks
+
 None (one helper + one line change).
 
 ---

@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T153: T152 follow-up — populate `model.classes` + `model.requirement` on UseCases
 
@@ -19,15 +21,6 @@
 > where applicable) AND `model.requirement` set (non-null where applicable);
 > counts must match PUML refs exactly. Mismatch = hard FAIL (same gate pattern
 > as T152's AC5 and T151's AC5).
-
-## Assigned
-**Owners (CMM4 4-role, per learnings #18) — sequence req → architect → expert → tester:**
-1. **robbin-req** — capture the verbatim Tron quote (T152 follow-up directive); replace the planner-suggested `requirement:uuid` below with req's canonical one; confirm which UC fields remain gaps (per T152's audit, likely `model.classes[]` + `model.requirement` are the residual empties)
-2. **robbin-architect** — design the population rule for the residual fields (which PUML constructs encode class refs? note + relation? actor stereotype?); decide the inverse-resolver if a UC's `requirement` must be picked from multiple parsed refs; design the per-UC audit (classes-count and requirement-presence per UC); update `scrum.pmo/standards/traceability-standard.md` UseCase shape spec to reference this completion pass
-3. **robbin-expert** — implement the population script per architect's design (extends T152's data-quality script, or new pass); runs dry-run, produces the per-UC audit table; runs apply pass after PO sign-off; carry rule-pair (a)+(b) in the impl commit-set
-4. **robbin-tester** — verify per-UC: `model.classes[]` populated where PUML carries class refs (non-empty where applicable) AND `model.requirement` set per architect's resolver; counts match PUML refs; spot-check ≥5 UCs round-trip; chain audit (`trace-cli`) clean; T126 ViewGenerator regenerates UC `.md` views showing populated classes + requirement edges
-
-**This file is the single source of truth.** No chat clarification.
 
 ## Traceability
 
@@ -90,43 +83,8 @@ fields with the same per-UC audit discipline that T152 introduced.
 - Per-UC audit table reports classes-count match + requirement-presence
 - T126 regenerates UC view to include classes + requirement edges
 
-## Design (robbin-architect, 2026-06-01 — adopted from stub `task-153-uc-class-req-refs.md`; T-153 collision resolved)
-
-### Source data in PUML
-- **S17 class refs** — arrow lines (`"unit.load" --> SU : implements`); alias map parsed from `class "Name" as ALIAS` (SU→ScenarioUnit, IR→IORResolver, CR→ClassRegistry, SI→ScenarioIndex, ST→SpeakingTree, VT→ViewTemplateRegistry)
-- **S16 class refs** — `object:` field inside UC blocks IS the class name
-- **S17 requirement refs** — free-form `R17.X + R17.Y` lines inside UC blocks (split on `+` / `/` / `,`)
-- **S16 requirement refs** — structured `requirement: R16.X` field
-
-### Parsing (extends T152's `fixUcDataQuality()`)
-```typescript
-function parseClassRefs(pumlText, ucName, aliasMap): string[]   // S17 arrows
-function parseAliasMap(pumlText): Map<alias, className>         // skip <<UseCase>>
-function parseS16ObjectAsClass(ucBlock): string | null          // object: field
-function parseReqRefs(ucBlock, reqIndex): string | string[]     // structured + free-form
-function resolveReqRef(rNum, reqIndex): string                  // R17.X → ior:instance:<uuid> or label
-```
-
-### Schema decision
-`model.requirement: null` (singular, deprecated for back-compat) **stays**; new `model.requirements: []` (plural array) added to `UseCaseLoader` defaults — consistent with `tasks[]` / `classes[]`. T153 populates `model.requirements[]` (multi-ref) AND keeps `model.requirement` populated with the primary requirement per architect's resolver.
-
-### Expected outcomes (S17 spot-check)
-| UC | model.classes[] | model.requirements |
-|----|----------------|--------------------|
-| unit.load | [ScenarioUnit, IORResolver] | [ior:instance:R17.1, ior:instance:R17.2] |
-| ior.resolveClass | [IORResolver, ClassRegistry] | [ior:instance:R17.2] |
-| index.put | [ScenarioIndex] | [ior:instance:R17.4] |
-| view.renderHtml | [ViewTemplateRegistry] | [ior:instance:R17.7, ior:instance:R17.8] |
-
-### Touchpoints
-| File | Change |
-|------|--------|
-| `scripts/migrate-to-scenario.ts` | Extend `fixUcDataQuality()` with class + req parsers |
-| `src/ts/scenario/classes.ts` | `UseCaseLoader`: add `requirements: []` default |
-
-No new routes, no STATIC_SHELL change.
-
 ## Acceptance Criteria
+
 - [ ] AC1 (Extraction rule — classes) — Architect-finalized rule for which
   PUML constructs encode a UC's class refs (note / relation / stereotype);
   documented in `scrum.pmo/standards/traceability-standard.md`
@@ -166,34 +124,14 @@ No new routes, no STATIC_SHELL change.
   (no new route — architect to confirm)
 - [ ] AC14 — All 4 roles committed work in this file
 
-## Test Scenarios
-File: `test/vitest/uc-classes-requirement.test.ts` (new — extends T152's `uc-data-quality.test.ts` pattern) + per-UC evidence table committed to QA Audit.
-
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 (classes per UC) | Dry-run; emit per-UC table `UC → PUML-classes-count → model.classes-count` | Every row: counts match |
-| TS2 (requirement per UC) | Dry-run; report each UC's PUML requirement refs vs `model.requirement` | Every UC with ≥1 PUML req ref has non-null `model.requirement` per resolver |
-| TS3 (classes extraction unit test) | Architect's rule on fixture PUML with known class refs | All refs extracted |
-| TS4 (requirement resolver unit test) | Architect's resolver on synthetic UC with multiple req refs | Yields the architect-specified `model.requirement` |
-| TS5 (idempotence) | Apply twice | Second run reports 0 changes |
-| TS6 (round-trip ≥5 UCs) | Compare PUML class+req refs vs JSON across 5+ UCs | All match |
-| TS7 (T126 regenerates) | View a UC `.md` post-pass | Shows class + requirement edges; clickable per T143 |
-| TS8 (broken-link audit) | `trace-cli` | 0 broken UC-class / UC-req links; orphans ≤ baseline |
-| TS9 (regression) | Visual + click-through across T117/T126/T143/T149/T151/T152 | No change for other surfaces |
-| TS10 (rule-pair post-bump) | New CACHE_NAME activates | Richer UC views on Tron's device |
-
 ## Dependencies
+
 - **Requires:** T152 (UC data-quality script + per-UC audit pattern — T153 extends both), T117 (UC PUML class), T126 (ViewGenerator + UC template), T134 (TraceLink class), T143 (chain tree), T149 (universal symlinks), T151 (JSON arrays shape)
 - **Coordinate-with:** T146 (NAME-first format — class + requirement refs use NAMEs in templates)
 - **Enables:** UC nodes are FULLY first-class data; templates filter / group by class; UC's primary-requirement link is canonical
 
-## Drive Plan (planner-coordinated, CMM4 4-role)
-1. **robbin-req** captures the verbatim Tron quote into the Traceability block above; anchors / replaces the planner-suggested `requirement:uuid`; confirms the residual-field list (classes + requirement singular)
-2. **robbin-architect** designs: classes-extraction rule; requirement-singular resolver; per-UC audit extensions; standard update; writes Design section here
-3. **robbin-expert** implements (extends T152 script or new pass); dry-run; commits per-UC table as evidence; apply pass after PO sign-off; carries rule-pair (a)+(b)
-4. **robbin-tester** runs TS1–TS10 + ≥5-UC round-trip + regression; commits verification report into QA Audit
-
 ## Definition of Done
+
 - [ ] All AC met (AC1–AC14) — especially AC3 (classes populated where PUML has refs, zero failures), AC4 (requirement populated where PUML has ≥1 req ref, zero failures), AC5 (count match per UC, zero mismatches)
 - [ ] Rule-pair (a)+(b) ✓; (c) STATIC_SHELL if applicable
 - [ ] No regression on T117 / T126 / T134 / T143 / T149 / T151 / T152
@@ -201,10 +139,12 @@ File: `test/vitest/uc-classes-requirement.test.ts` (new — extends T152's `uc-d
 - [ ] Tron QA approved (with per-UC count + requirement-presence evidence)
 
 ## QA Audit & User Feedback
+
 - 2026-06-01: PO directed planner to stand up T153 as T152 follow-up. CMM4 4-role (#18); real v4 uuids (#17); rule-pair (a)+(b) in AC13 + DoD (#15+#16).
 - 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:7eb4cc80` with req's canonical `requirement:uuid:d4e5f6a7...0b14` (from B14 capture, commit `5b90ac4`). Verbatim Tron quote anchored. Tron acknowledges T152 progress ("quality much better") but classes[] + requirement still empty = "traceability therefore broken". Ready for architect.
 
 ## Subtasks
+
 None at parent level (architect may split T153.x if scope warrants — coordinate with planner first).
 
 ---

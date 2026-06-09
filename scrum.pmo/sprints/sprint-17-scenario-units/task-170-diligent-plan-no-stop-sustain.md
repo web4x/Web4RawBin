@@ -1,29 +1,15 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T170: Diligent plan + no-stop sustain (cadence + quality gates)
 
 [task:uuid:6cf46cd1-5f65-4474-a023-1b54b56adb06]
 
-## Status — 🧪 tester-VERIFIED (PO 2026-06-03; closes R-D+R-G with T167)
-- [x] Planned
-- [x] In Progress
-  - [x] refinement (req → architect — **`6486399` req anchor + `72e685d` architect design: 3 CI gates for no-stop sustain**)
-  - [x] creating test cases
-  - [x] implementing
-  - [x] testing (PO 2026-06-03 per #69 trust-tester-PASS-over-sync-lag: "T167+T170 VERIFIED... closes R-D+R-G")
-- [ ] QA Review
+## Status
+- [ ] Planned
+- [ ] In Progress
 - [ ] Done
-
-> Sync per rule #11: `72e685d` lands the design; refinement [x]. Expert next.
-
-## Assigned
-**Owners (CMM4 4-role, per learnings #18) — planner-first per PO direction 2026-06-02:**
-1. **robbin-req** — anchor the verbatim Tron R-G quote from `compound-requirement-source-2.md` (completion via `bfae071` + `2be6e96` + `7e01491`); confirm what "no-stop sustain" operationally means (continuous CMM4 cadence; rule-pair always applied; audit gate always green)
-2. **robbin-architect** — design the sustain mechanism: cadence rules; the data-quality gate (T169) integrated into CI; the rule-pair gate (#15+#16) integrated into CI; the chain-order gate (T168) integrated into CI; how planner cadence keeps the board honest without stopping the work
-3. **robbin-expert** — implement the CI gates + any tooling per architect's design; rule-pair (a)+(b)
-4. **robbin-tester** — verify the gates fire on violations (negative tests) and pass on clean state (positive tests); regression on shipped work
-
-**This file is the single source of truth.** No chat clarification.
 
 ## Traceability
 
@@ -94,6 +80,7 @@ rules are good; making them enforced removes manual-discipline gaps.
   the gates do the enforcement
 
 ## Acceptance Criteria
+
 - [ ] AC1 — Data-quality gate runs in CI (or pre-commit) and fails the build on T169 audit violations
 - [ ] AC2 — Rule-pair gate (#15+#16) runs in CI and fails when an impl commit on a user-facing surface lacks package.json + sw.js bumps in the same commit-set
 - [ ] AC3 — Chain-order gate runs in CI and fails on T168 canonical-chain violations
@@ -105,33 +92,14 @@ rules are good; making them enforced removes manual-discipline gaps.
 - [ ] AC9 — `npm run build` succeeds; all existing tests pass
 - [ ] AC10 — **Rule-pair (a)+(b) [#15+#16]:** package.json bump + sw.js CACHE_NAME bump in the SAME commit-set; (c) STATIC_SHELL exempt
 
-## Test Scenarios
-File: `test/vitest/ci-gates.test.ts` (new) + CI workflow updates.
-
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 | CI run on current clean state | All 3 gates pass |
-| TS2 | Add an orphan scenario unit, push | Data-quality gate fails (T169 audit) |
-| TS3 | Push an impl commit on a user-facing surface without bumps | Rule-pair gate fails |
-| TS4 | Push a back-ref into a scenario unit | Chain-order gate fails |
-| TS5 | Fix the violation, re-push | Gate passes |
-| TS6 | Gate output is actionable | Violation message + file + remediation hint present |
-| TS7 (regression) | Shipped tasks pass all gates | Yes |
-| TS8 | Sustain doc updated | Planner cadence rules documented |
-| TS9 | Rule-pair post-bump | New CACHE_NAME activates |
-
 ## Dependencies
+
 - **Requires:** T169 (data-quality audit — gate-1's underlying tool), T168 (chain-order rule — gate-3's underlying rule)
 - **Coordinate-with:** T167 (visual surface only stable when sustain gates hold)
 - **Enables:** ongoing sustained quality without manual planner sweeps
 
-## Drive Plan (planner-coordinated, CMM4 4-role)
-1. **robbin-req** anchors verbatim Tron R-G quote from compound-source-2.
-2. **robbin-architect** designs the 3 CI gates + sustain doc; coordinates with T168/T169 architect; writes Design section.
-3. **robbin-expert** implements per design (CI workflow + gate scripts); carries rule-pair (a)+(b).
-4. **robbin-tester** runs TS1-TS9 + CI dry-runs; commits verification to QA Audit section.
-
 ## Definition of Done
+
 - [ ] All AC met
 - [ ] Rule-pair (a)+(b) ✓
 - [ ] 3 CI gates wired (data-quality / rule-pair / chain-order)
@@ -141,182 +109,13 @@ File: `test/vitest/ci-gates.test.ts` (new) + CI workflow updates.
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - 2026-06-02: PO directed planner-first stand-up of T170 (R-G from compound-source-2 via `bfae071` + `2be6e96` + `7e01491`). T170 makes the standing rules self-enforcing via CI gates so the planner's monitoring loop becomes light. CMM4 4-role; real v4 uuids; rule-pair (a)+(b) in AC10+DoD. Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
 - 2026-06-02: robbin-req anchored verbatim Tron R-G quote in traceability section.
 
-## Design (Architect — robbin-architect, 2026-06-02)
-
-### Three CI Gates
-
-#### Gate 1: Data-Quality (T169 audit)
-
-Wires `scripts/trace-audit.ts --strict` into the build pipeline.
-
-```json
-// package.json scripts:
-{
-  "trace:audit": "tsx scripts/trace-audit.ts",
-  "trace:audit:ci": "tsx scripts/trace-audit.ts --strict",
-  "pretest": "npm run trace:audit:ci"
-}
-```
-
-Runs as `pretest` hook — every `npm test` / `npm run build` triggers the audit. Fails on any orphan, back-ref, or cardinality violation. Output: audit report with file paths + remediation hints.
-
-Alternative: GitHub Actions step:
-```yaml
-- name: Trace data-quality gate
-  run: npm run trace:audit:ci
-```
-
-#### Gate 2: Rule-Pair (#15+#16)
-
-Validates that commits touching user-facing files also bump `package.json` version + `src/public/sw.js` CACHE_NAME.
-
-```typescript
-// scripts/rule-pair-check.ts
-function checkRulePair(): { pass: boolean; violations: string[] } {
-  // 1. Get files changed in current commit (or commit range)
-  const changed = execSync('git diff --name-only HEAD~1 HEAD').toString().split('\n');
-  
-  // 2. Identify user-facing changes
-  const userFacing = changed.filter(f => 
-    f.startsWith('src/public/') || 
-    f.includes('/templates') || 
-    f.includes('/trace/')
-  );
-  
-  if (userFacing.length === 0) return { pass: true, violations: [] };
-  
-  // 3. Check bumps in same commit
-  const hasPkgBump = changed.includes('package.json');
-  const hasSwBump = changed.includes('src/public/sw.js');
-  
-  const violations: string[] = [];
-  if (!hasPkgBump) violations.push('package.json version not bumped (rule-pair (a))');
-  if (!hasSwBump) violations.push('src/public/sw.js CACHE_NAME not bumped (rule-pair (b))');
-  
-  return { pass: violations.length === 0, violations };
-}
-```
-
-```json
-// package.json scripts:
-{
-  "rule-pair:check": "tsx scripts/rule-pair-check.ts"
-}
-```
-
-Wire as pre-push hook or GitHub Actions step.
-
-#### Gate 3: Chain-Order (T168 canonical)
-
-Validates the 7-step canonical chain is intact — no skipped hops, no wrong-order links.
-
-```typescript
-// Integrated into trace-audit.ts as pass 4:
-function auditChainOrder(index: ScenarioIndex): AuditResult {
-  const issues: string[] = [];
-  
-  for (const uuid of index.list()) {
-    const unit = index.get(uuid);
-    if (!unit) continue;
-    const type = unit.model.chainType;
-    const allowed = CANONICAL_WALK[type];
-    if (!allowed) continue;
-    
-    // Check: unit only has forward links to allowed next-hop types
-    const links = unit.model;
-    for (const key of Object.keys(links)) {
-      if (Array.isArray(links[key]) && links[key].length > 0) {
-        // Verify each ref points to the correct next-hop type
-        for (const ref of links[key]) {
-          const target = index.get(ref);
-          if (target) {
-            const expectedTypes = CANONICAL_NEXT[type]; // e.g. requirement → ['task']
-            if (!expectedTypes.includes(target.model.chainType)) {
-              issues.push(`${uuid} (${type}) links to ${ref} (${target.model.chainType}) — expected ${expectedTypes.join('|')}`);
-            }
-          }
-        }
-      }
-    }
-  }
-  
-  return { pass: issues.length === 0, issues };
-}
-```
-
-### Sustain Cadence Documentation
-
-Add to planner SKILL.md or sprint doc:
-
-```markdown
-## Sustain Cadence (T170)
-- CI gates run on every `npm test` / push
-- Gates: data-quality (T169), rule-pair (#15+#16), chain-order (T168)
-- Gate failure = build failure — must fix before merge
-- Planner monitors: 15-min check → 30-min → 60-min back-off (only if no gate violations)
-- No manual sweep needed — gates catch regressions automatically
-- Gate violations surface in CI logs with file + rule + fix hint
-```
-
-### Gate Output Format (all 3 gates)
-
-```
-=== CI Quality Gates ===
-Gate 1 (data-quality): PASS (119 units, 0 orphans, 0 back-refs)
-Gate 2 (rule-pair): PASS (no user-facing changes without bumps)
-Gate 3 (chain-order): PASS (0 chain violations)
-=== ALL GATES PASSED ===
-```
-
-On failure:
-```
-Gate 1 (data-quality): FAIL
-  - uuid-1 (class: GameRoom): orphan — no path to requirement root
-  Fix: add GameRoom to a UseCase's classes[] array
-Gate 2 (rule-pair): FAIL
-  - package.json version not bumped (rule-pair (a))
-  Fix: bump version in package.json
-=== 2 GATE FAILURES — BUILD BLOCKED ===
-```
-
-### Files to Create/Modify
-
-| File | Action |
-|------|--------|
-| `scripts/rule-pair-check.ts` | CREATE — rule-pair gate |
-| `scripts/trace-audit.ts` | MODIFY — add chain-order pass (pass 4) |
-| `package.json` | Add `rule-pair:check` + `pretest` scripts; bump version |
-| `src/public/sw.js` | Bump CACHE_NAME |
-| `.github/workflows/ci.yml` (if exists) | Add gate steps |
-| Planner SKILL.md or sprint doc | Document sustain cadence |
-
-STATIC_SHELL (c): exempt.
-
 ## Subtasks
+
 None at parent level (architect may split T170.x if scope warrants).
-
-## Follow-on Extension — STRICT VERIFY BAR (PO directive 2026-06-03)
-
-The 3 CI gates landed by T170 (`trace:audit:strict`, `rule-pair:check`,
-`chain-order`) are the foundation; PO has now codified the **strict-verify-bar**
-in `scrum.pmo/standards/traceability-standard.md` (see "Strict Verify Bar"
-section). This requires extending `trace:audit:strict` with an additional
-assertion: **per-Test 7-hop reachability** — for every Test in the scenario
-index, `walkUp(test).length === 7` and the walk terminates at a Requirement.
-CI MUST fail on any depth `< 7`.
-
-**Sequencing:** T178 (R-Q chain DATA-fill KEYSTONE) lands the per-instance
-forward arrays first. The CI-gate extension is wired AFTER T178 ships, otherwise
-the gate would fail immediately on the existing 44-test chain gap. Once T178
-data lands + tester proves 44/44 7-hop reachable, the extended gate locks in
-the bar permanently (no future "metrics-pass-but-gapped" regression).
-
-**Owner of the extension:** robbin-architect designs the depth assertion;
-robbin-expert extends the script; robbin-tester runs the gate against the
-post-T178 graph and confirms ZERO sub-7-hop tests.
 
 ---
 

@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T137: req + planner LEARN scenarios for planning + update SKILL.md
 
@@ -15,12 +17,6 @@
 - [ ] Done
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
-
-## Assigned (CMM4 4-role per learnings #18)
-1. **robbin-req** — captures verbatim Tron quote; learns the scenario-unit model for requirement authoring; updates req-eng SKILL.md
-2. **robbin-architect** — peer-reviews req's + planner's SKILL.md updates for chain integrity
-3. **robbin-expert** — n/a (no impl) OR provides a scaffold script if req/planner want one
-4. **robbin-tester** — verifies new SKILL.md content aligns with T125 class semantics + T128 migration behavior; verifies updated planner workflow produces a generated planning.md
 
 ## Traceability
 
@@ -52,6 +48,7 @@
     - Both adopt the scenario-unit workflow
 
 ## Task Description
+
 Today: req-eng authors `requirements.md` markdown by hand. Planner authors
 `planning.md` markdown by hand (with at-a-glance symbols I maintain). Tron's
 S17 vision lands these as **scenario units** — every Requirement is a
@@ -74,14 +71,8 @@ update their SKILL.md so future work flows through scenarios.
 - requirements.md becomes a generated view of all Requirement units owned by the Sprint
 - **Anchor** Tron quotes by capturing into scenario JSON, not just markdown
 
-## Architect Design (TO FILL during refinement)
-Architect: review the role-delta lists above against T125 class semantics
-+ T128.1 migration output + T133 FSM. Flag any chain-resolution issues
-(e.g., if planner writes a Task scenario but doesn't run the migration
-back to markdown, T128.x batches will fight). Approve or adjust the
-delta lists.
-
 ## Acceptance Criteria
+
 - [ ] AC1 — Planner SKILL.md updated with a "scenario-unit workflow" section explaining read/write/walk/stand-up via scenarios (replaces hand-authored markdown)
 - [ ] AC2 — Planner learnings.md adds entry #19 (planner uses scenarios) — already captured in this stand-up; T137 confirms and refines
 - [ ] AC3 — req-eng SKILL.md updated with the equivalent scenario-unit workflow for requirement authoring
@@ -90,34 +81,23 @@ delta lists.
 - [ ] AC6 — No regression: existing planning.md hand-edits still committable (we don't break the world during transition; T128.3 active-batch migration will replace those over time)
 - [ ] AC7 — rule-pair: SKILL.md changes are docs-only — no version bump required
 
-## Test Scenarios
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 | Read updated planner SKILL.md | "scenario-unit workflow" section present |
-| TS2 | Read updated req-eng SKILL.md | Equivalent section present |
-| TS3 | Stand up a sample Task via the workflow | Generated planning.md entry includes the at-a-glance symbol + status |
-| TS4 | Reboot conversation; ask planner to describe workflow | SKILL.md content reproduced correctly |
-| TS5 | trace-cli check post-stand-up | No new orphans |
-
 ## Dependencies
+
 - **Requires:** T125 (must understand the class model), T126 (must understand generated views), T133 (Task verbs for the new write path)
 - **Enables:** Future work uses scenarios as the planning unit; T128.3 active migration becomes seamless
 
-## Drive Plan (planner-coordinated, CMM4)
-1. **req-eng + planner** (JOINT learning pass) — read T124-T128 in the new scenario form (eat own dog food); each writes a deltas list
-2. **architect** peer-reviews the delta lists
-3. **planner** updates planner SKILL.md + learnings #19; **req-eng** updates req-eng SKILL.md
-4. **tester** runs TS1-TS5 (last test = chain check)
-
 ## Definition of Done
+
 - [ ] All AC met
 - [ ] Both SKILL.md files updated + committed
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - 2026-05-31: Tron via PO directed S17 2nd extension. PO directive: planner uses scenarios for planning; planning.md becomes a generated view. CMM4 4-role enforced.
 
 ## Subtasks
+
 None (atomic role self-improvement; SKILL.md edits are the deliverable).
 
 ---

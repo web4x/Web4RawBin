@@ -1,6 +1,5 @@
 <!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
 
-
 [Back to Planning](./planning.md)
 
 # Sprint scenario units + sprint catalogue cleanup (dedupe + numbered rename)

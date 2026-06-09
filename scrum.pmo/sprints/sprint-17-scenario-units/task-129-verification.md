@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T129: Traceability gate — every method traces to a task AND a requirement
 
@@ -15,9 +17,6 @@
 - [ ] Done
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
-
-## Assigned
-**Owners:** robbin-tester (verify), robbin-planner (audit + sign-off)
 
 ## Traceability
 
@@ -39,6 +38,7 @@
   - T128 migration must be complete (or in documented partial state)
 
 ## Task Description
+
 Sprint 17's closing gate. Verifies the migration produced a clean,
 fully-traceable graph and that every method can be walked back to a task AND a
 requirement (R17.13).
@@ -62,6 +62,7 @@ requirement (R17.13).
 - Web4Articles compliance: every task has Status + Traceability + Acceptance Criteria + QA Audit sections (template adoption verified in the generated views)
 
 ## Acceptance Criteria
+
 - [ ] AC1 — `npm run trace:check` clean (or documented allowlist) on the migrated graph
 - [ ] AC2 — 5+ end-to-end chain walks pass (T129.2 sample report committed in this file)
 - [ ] AC3 — `sprint audit` returns 0-issue across all migrated sprints (T129.3)
@@ -72,15 +73,18 @@ requirement (R17.13).
 - [ ] AC8 — Final report committed in this file's QA Audit section, ready for Tron QA review
 
 ## Dependencies
+
 - **Requires:** T128 (migration; can run in parallel with T128.4 for partial verification)
 - **Enables:** Sprint 17 close + Tron QA approval
 
 ## Definition of Done
+
 - [ ] All AC met; sub-tasks T129.1-T129.3 committed
 - [ ] Chain integrity proven by tooling + sample
 - [ ] Tron QA approved → Sprint 17 closes
 
 ## QA Audit & User Feedback
+
 - 2026-05-30: Planned — sprint-closing gate, runs after T128. Tester walks the chain; planner runs the audit; Tron approves to close S17.
 
 ### T129 Verification Report — robbin-tester 2026-05-31
@@ -115,6 +119,7 @@ requirement (R17.13).
 **AC7 — 818/818 vitest, 29 files, v0.5.30. PASS.**
 
 ## Subtasks
+
 T129.1, T129.2, T129.3 — created by tester+planner during execution.
 
 ---

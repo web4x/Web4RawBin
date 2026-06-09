@@ -1,6 +1,5 @@
 <!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
 
-
 [Back to Planning](./planning.md)
 
 # Champagne lift: Test.verifies[] pipeline + structural verification annotations

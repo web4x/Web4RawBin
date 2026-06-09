@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T143: Traceability chain → TREE rework (R17.26–R17.29)
 
@@ -15,15 +17,6 @@
 - [ ] Done
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
-
-## Assigned
-**Owners (CMM4 4-role, per learnings #18) — sequence req → architect → expert → tester:**
-1. **robbin-req** — anchor the verbatim Tron quote(s) under each R17.26–R17.29 below; reconcile with `ac8c8e7` formalization
-2. **robbin-architect** — design the tree-shaped traceability model (multi-parent / multi-child edges across Requirement/UseCase/Task/Class/Method/Test/View units); decide template + ViewGenerator changes; specify "every element a link" rendering; specify "all typed scenarios" coverage gaps to migrate; produce the "sharpen planning + rework tasks" plan (R17.29)
-3. **robbin-expert** — implement per architect's design (TraceLink/TraceModel tree extensions, template updates, planner-view regeneration)
-4. **robbin-tester** — chain-walk verification, visual on `/trace` + `/md/scenarios/sprints.md/`, regression on existing migrated units
-
-**This file is the single source of truth.** No chat clarification.
 
 ## Traceability
 
@@ -113,6 +106,7 @@ formalized by req-eng in `ac8c8e7`) re-shapes traceability:
   T143 workstream for R17.29).
 
 ## Acceptance Criteria
+
 - [ ] AC1 — `TraceModel` supports multi-parent + multi-child edges; chain
   walks (`walkUp`/`walkDown`) become tree walks
 - [ ] AC2 — Generated views (HTML + MD) render every typed reference as a
@@ -131,31 +125,14 @@ formalized by req-eng in `ac8c8e7`) re-shapes traceability:
 - [ ] AC8 — chain audit (`trace-cli`) reports 0 compliance failures across
   all sprint-17 units after the rework
 
-## Test Scenarios
-File: `test/vitest/trace-tree.test.ts` (new) + `test/e2e/trace-tree.spec.ts` (new) + visual on `/trace` and `/md/scenarios/sprints.md/`.
-
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 | `walkUp` from a method that serves 2 use cases | Both UCs returned (multi-parent) |
-| TS2 | `walkDown` from a requirement with 3 child tasks | All 3 tasks returned (multi-child) |
-| TS3 | Render any migrated view; click every chain link | All resolve; no 404, no bare text |
-| TS4 | Run migration-coverage audit (architect-defined script) | 0 untyped refs |
-| TS5 | Render generated planning.md view for sprint-17 | Parent/child tree visible; symbols match FSM state |
-| TS6 | Re-render T141 / T134 / T126 / T124.x against new templates | No broken links; chain audit clean |
-| TS7 | Rule-pair post-bump | New CACHE_NAME activates; tree view reaches device |
-
 ## Dependencies
+
 - **Requires:** T134 (TraceLink unit — generalize), T126 (ViewGenerator + templates — extend), T128.x (migration coverage — extend per R17.28), T141 (chain-link rendering — generalize to "every element a link")
 - **Coordinate-with:** T133 (FSM symbols for planning view), T140 (source-location IOR rendering)
 - **Enables:** R17.26–R17.29 satisfied; future traceability work (S18+) builds on the tree model
 
-## Drive Plan (planner-coordinated, CMM4 4-role)
-1. **robbin-req** anchors the verbatim Tron quotes (from `df09df2`) under each of R17.26–R17.29 in the Traceability block above; closes any ambiguity with PO before architect starts.
-2. **robbin-architect** designs: TraceModel/TraceLink tree extensions; template + ViewGenerator changes (every-element-a-link); migration-coverage audit script; "rework refined task files" plan (R17.29); decides scope split (single-PR vs T143.x sub-tasks); writes the Design section here.
-3. **robbin-expert** implements per the design; single commit-set carries the rule-pair (a)+(b) (+ STATIC_SHELL if any new route).
-4. **robbin-tester** runs TS1–TS7 + chain audit + visual sweep; commits the verification report into the QA Audit section of this file.
-
 ## Definition of Done
+
 - [ ] All AC met
 - [ ] Rule-pair (a)+(b) ✓; (c) STATIC_SHELL if applicable
 - [ ] Chain audit: 0 failures across sprint-17 units
@@ -163,6 +140,7 @@ File: `test/vitest/trace-tree.test.ts` (new) + `test/e2e/trace-tree.spec.ts` (ne
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 ### T143 Verification Report — robbin-tester 2026-06-01
 
 **Tested on:** task-124-architecture.html (task w/ children), sprint-scenario-units.html (sprint), unit-load.html (usecase)
@@ -190,142 +168,8 @@ File: `test/vitest/trace-tree.test.ts` (new) + `test/e2e/trace-tree.spec.ts` (ne
 
 - 2026-05-31: PO directed planner to stand up T143 immediately (no further reminder). Sources: `df09df2` (Tron capture) + `ac8c8e7` (req formalization R17.26–R17.29). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Awaiting req-eng verbatim anchor → architect design → expert impl → tester verify → Tron QA.
 
-## Design (robbin-architect, 2026-06-01)
-
-### Current Model: Linear Chain
-
-`trace-link.ts` stores edges as `{from, to, fromType, toType, relation}`. `renderChainSection()` in `templates.ts` reads flat arrays from model fields and renders each as `🔗 <8-char-uuid>` — bare text (MD) or dead `<a>` with no href (HTML). Violates R17.27.
-
-### Target: Tree of Typed Links
-
-#### 1. TraceLink model — NO schema change needed
-`createTraceLink()` already stores `from`, `to`, `fromType`, `toType`, `relation`, `direction: 'bidirectional'`. These ARE graph edges. The tree emerges from traversal.
-
-#### 2. New module: `src/ts/scenario/trace-tree.ts`
-
-```typescript
-export interface TraceNode {
-  uuid: string;
-  type: string;           // 'requirement'|'task'|'usecase'|'class'|'method'|'test'
-  name: string;           // speaking name from scenario model
-  relation: string;       // edge label to parent
-  children: TraceNode[];
-}
-
-export function buildTraceTree(rootUuid: string, allLinks: ScenarioUnit[], allUnits: Map<string, ScenarioUnit>): TraceNode
-export function walkUp(uuid: string, allLinks: ScenarioUnit[], allUnits: Map<string, ScenarioUnit>): TraceNode[]
-export function walkDown(uuid: string, allLinks: ScenarioUnit[], allUnits: Map<string, ScenarioUnit>): TraceNode[]
-```
-
-Multi-parent (walkUp returns N parents), multi-child (walkDown returns N children).
-
-#### 3. Fix R17.27 — every element a clickable link
-
-Replace `renderChainLinkMd`/`renderChainLinkHtml` (lines 56-63 in templates.ts):
-
-```typescript
-// BEFORE (dead):
-renderChainLinkHtml(ior) → '<a class="chain-link">🔗 uuid8</a>'  // no href!
-
-// AFTER (live, speaking name):
-renderTreeNodeHtml(node) → '<a href="/md/scenarios/sprints.md/{type}/{name}.md" class="chain-link">🔗 {name}</a>'
-renderTreeNodeMd(node)   → '[🔗 {name}](scenarios/sprints.json/{type}/{uuid}.scenario.json)'
-```
-
-#### 4. Tree HTML — nested `<ul><li>`
-
-```typescript
-export function renderTraceTreeHtml(root: TraceNode): string {
-  const renderNode = (n: TraceNode): string => {
-    const link = renderTreeNodeHtml(n);
-    const rel = n.relation ? `<span class="sv-relation">${n.relation}</span> ` : '';
-    if (!n.children.length) return `<li>${rel}${link}</li>`;
-    return `<li>${rel}${link}<ul>${n.children.map(renderNode).join('')}</ul></li>`;
-  };
-  return `<div class="sv-section sv-trace-tree"><h3>Traceability</h3><ul class="sv-tree">${root.children.map(renderNode).join('')}</ul></div>`;
-}
-```
-
-MD equivalent: indented `- relation: [🔗 name](href)` lists.
-
-#### 5. Template signature — add RenderContext
-
-Current templates receive only `model`. Tree rendering needs access to all links + units:
-
-```typescript
-interface RenderContext {
-  allLinks: ScenarioUnit[];
-  allUnits: Map<string, ScenarioUnit>;
-}
-// All 7+1 template signatures:
-toHtml(model, ctx?: RenderContext): string;
-toMd(model, ctx?: RenderContext): string;
-```
-
-Backward-compatible: without ctx, falls back to flat chain.
-
-#### 6. planning.md generator — tree-shaped task nesting
-
-Parent-child from TraceLink `contains`/`follows`. Symbols from FSM (T133):
-```markdown
-- 🏁 [T124: Data Model](./task-124.md)
-  - ✅ [T124.1: spec](./task-124.1.md) (implements)
-  - ✅ [T124.2: templates](./task-124.2.md) (implements)
-- 📝 [T143: Tree rework](./task-143.md)
-  - ⏳ [T144: File-browser](./task-144.md) (follows)
-```
-
-### Touchpoints
-
-| Component | File | Change |
-|-----------|------|--------|
-| NEW | `src/ts/scenario/trace-tree.ts` | TraceNode, build/walkUp/walkDown, render tree HTML+MD |
-| MODIFY | `src/ts/scenario/templates.ts` | Replace renderChainSection → renderTraceTree; add RenderContext to 8 templates |
-| MODIFY | `src/ts/scenario/index.ts` | Export trace-tree |
-| MODIFY | server.ts `/trace` handler | Pass RenderContext |
-| MODIFY | ViewGenerator | Tree nesting + FSM symbols |
-| NO CHANGE | `trace-link.ts` | Model already graph-capable |
-
-### Scope: single commit-set, no sub-tasks
-
-### AC2 Fix: speaking-name href resolution (2026-06-01, per tester 6e2a532)
-
-**Bug:** `speakSlug()` in trace-tree.ts re-derives the slug from `TraceNode.name`, but `generator.ts:speakingName()` uses `model.slug` first (if present), then falls back to the same slugify. The generated filenames (e.g. `task-124.1-architect-data-model.md`) come from the generator's `speakingName()` — trace-tree's `speakSlug()` may produce a different result (e.g. `task-124-1-architect-data-model.md` without the dot).
-
-**Root cause:** `TraceNode` doesn't carry `model.slug`. The tree builder has access to the full unit via `allUnits.get(uuid)` but only copies `model.name`, losing `model.slug`.
-
-**Fix — 3 changes in trace-tree.ts:**
-
-1. Add `slug` field to `TraceNode`:
-```typescript
-export interface TraceNode {
-  uuid: string;
-  type: string;
-  name: string;
-  slug: string;      // NEW — from model.slug || speakSlug(model.name)
-  relation: string;
-  children: TraceNode[];
-}
-```
-
-2. Populate `slug` in `buildTraceTree` and `walkDown` from unit model:
-```typescript
-// In buildTraceTree (line 22) and walkDown (line 43):
-slug: (unit?.model.slug as string) || speakSlug((unit?.model.name as string) || ''),
-```
-
-3. Use `n.slug` (not `speakSlug(n.name)`) in both renderers:
-```typescript
-// renderNodeHtml (line 78):
-const href = `/md/scenario/sprints.md/${n.type}/${n.slug}.md`;
-
-// renderNodeMd (line 90):
-const line = `${indent}- ${rel}[🔗 ${n.name}](../sprints.md/${n.type}/${n.slug}.md)`;
-```
-
-**Result:** href matches exactly what `generator.ts:speakingName()` wrote to disk. No 404.
-
 ## Subtasks
+
 None (single commit-set as designed).
 
 ---

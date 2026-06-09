@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T145: User class as scenario-unit + ViewBus-driven view updates (fixes lobby/room name stale)
 
@@ -15,15 +17,6 @@
 - [ ] Done
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
-
-## Assigned
-**Owners (CMM4 4-role, per learnings #18) — sequence req → architect → expert → tester:**
-1. **robbin-req** — anchor the verbatim Tron quote (B6 in `scrum.pmo/backlog.md`); split into a bug-AC (stale name in lobby + on first room enter) and an architecture-AC (User → scenario model + ViewBus) if it helps clarity; confirm no scope drift; formalize the `requirement:uuid` link below
-2. **robbin-architect** — design User as a scenario class on par with Requirement/UseCase/Task/Class/Method/Test/TraceLink: scenario JSON schema, ClassLoader, ScenarioIndex membership, ViewBus subscription pattern, View template, FSM (if applicable — likely simpler than Task FSM since User is data-shaped not workflow-shaped); decide how ProfileEditor/RoomBrowser/RoomView/rb-member-badge become Views in the ViewBus model; specify the back-fill / migration of existing user JSONs to the scenario-unit form (T128.x pattern)
-3. **robbin-expert** — implement per architect's design: new User scenario class + loader + index + template + view-bus wiring; mutate via `model.user` only; migrate existing user JSONs; remove the special-case refresh paths that exist today; carry rule-pair (a)+(b) in the impl commit-set
-4. **robbin-tester** — verify the stale-name bug fixed across all surfaces (lobby name input, in-room member badge, profile sheet, vCard re-export); chain audit shows User as first-class scenario unit; regression on Sprint 9 (room identity) + Sprint 17 (other scenario classes)
-
-**This file is the single source of truth.** No chat clarification.
 
 ## Traceability
 
@@ -97,6 +90,7 @@ problems in one directive.
 - Migrate existing user JSONs to the scenario-unit form (T128.x pattern)
 
 ## Acceptance Criteria
+
 - [ ] AC1 — User is a scenario unit with `[user:uuid:v4]` identity (or
   `class=User` in scenario JSON); ClassLoader + ScenarioIndex + ViewTemplate
   registered alongside Requirement/Task/UseCase/Class/Method/Test/TraceLink
@@ -122,32 +116,14 @@ problems in one directive.
 - [ ] AC9 — All 4 roles committed work in this file (req anchor + architect
   design + expert impl + tester verify)
 
-## Test Scenarios
-File: `test/vitest/user-scenario.test.ts` (new) + `test/e2e/user-name-refresh.spec.ts` (new) + visual.
-
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 | Open lobby; edit profile name; save | Lobby name input updates immediately (no reload) |
-| TS2 | Open lobby; edit profile name; immediately enter a room | In-room member badge shows new name (no reload) |
-| TS3 | Upload vCard with new name | Lobby + room views show new name |
-| TS4 | Two clients in a room; client A renames; client B sees the badge update | Cross-client propagation via existing room WS + ViewBus (architect decides scope; may defer to follow-on) |
-| TS5 | Chain audit | User class first-class; no orphans; tree audit clean |
-| TS6 | Sprint 9 regression: open an existing room | Owner name renders correctly |
-| TS7 | S17 scenario class regression | Other classes (Requirement/Task/UC/etc.) unaffected |
-| TS8 | Rule-pair post-bump | New CACHE_NAME activates; refresh reaches Tron's device |
-
 ## Dependencies
+
 - **Requires:** T125 (foundation: Unit + IOR + ClassLoaders + ScenarioIndex + ViewTemplateRegistry), T126 (templates — adds an 8th), T136 (Req+UC migration pattern — T145 follows for User), T143 (chain → tree — User joins as a new class node)
 - **Coordinate-with:** T146 (requirement format reform may overlap on the User scenario's documentation surface)
 - **Enables:** future User-related data changes propagate automatically; eliminates the bug class
 
-## Drive Plan (planner-coordinated, CMM4 4-role)
-1. **robbin-req** anchors B6's verbatim Tron quote here (already pasted above — req confirms); splits bug-AC vs architecture-AC if useful; closes any scope ambiguity with PO
-2. **robbin-architect** designs: User scenario JSON schema; UserLoader; index membership; template; ViewBus subscription pattern across the 4 view bindings (RoomBrowser, RoomView, rb-member-badge, ProfileSheet/Editor); back-fill migration plan; whether User has a simple FSM or is data-shaped; writes the Design section here
-3. **robbin-expert** implements per the design in one commit-set; carries rule-pair (a)+(b)
-4. **robbin-tester** runs TS1–TS8 + visual + S9/S17 regression; commits the verification report into the QA Audit section
-
 ## Definition of Done
+
 - [ ] All AC met (AC1–AC9)
 - [ ] Rule-pair (a)+(b) ✓; (c) STATIC_SHELL if applicable
 - [ ] No regression on S9 or S17
@@ -155,94 +131,12 @@ File: `test/vitest/user-scenario.test.ts` (new) + `test/e2e/user-name-refresh.sp
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - 2026-06-01: PO directed planner to lift T145 from backlog packet (B6) per Web4Articles + 4-role + real v4 uuids. CMM4 4-role engagement enforced (learnings #18); rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Coordinate with req + architect for design refinement. Awaiting req-eng anchor confirmation → architect design → expert impl → tester verify → Tron QA.
 - 2026-06-01 **robbin-req (refinement):** B6 verbatim confirmed at lines 37-41 — matches backlog.md verbatim exactly. `requirement:uuid:f7a8b9c0` at line 35 confirmed. Bug-AC (AC2: stale name) and architecture-AC (AC1: User as scenario unit, AC3: ViewBus-only updates) are already cleanly separated — no split needed. Scope note: AC4 (chain audit shows User first-class) requires `/md/scenarios/sprints.md/user/` path — architect to confirm whether User units get their own class folder or live under the sprint's units. No scope drift detected. Req refinement complete — ready for architect.
 
-## Design (robbin-architect, 2026-06-01)
-
-### 1. User as 8th scenario class
-
-Add to `src/ts/scenario/classes.ts`:
-```typescript
-export const UserLoader = loader('User', {
-  displayName: '', token: '', avatarHash: '', deviceId: '',
-  sshPubKey: '', createdAt: '', updatedAt: '',
-});
-```
-Register in `ClassRegistry.boot()` alongside the existing 7+TraceLink.
-
-### 2. ViewBus — new module
-
-New file: `src/public/ts/ViewBus.ts`
-```typescript
-type Listener = (model: Record<string, unknown>) => void;
-
-class ViewBus {
-  private subs = new Map<string, Set<Listener>>();
-
-  subscribe(classType: string, uuid: string, listener: Listener): () => void {
-    const key = `${classType}:${uuid}`;
-    if (!this.subs.has(key)) this.subs.set(key, new Set());
-    this.subs.get(key)!.add(listener);
-    return () => this.subs.get(key)?.delete(listener);
-  }
-
-  publish(classType: string, uuid: string, model: Record<string, unknown>): void {
-    const key = `${classType}:${uuid}`;
-    for (const fn of this.subs.get(key) ?? []) fn(model);
-  }
-}
-
-export const viewBus = new ViewBus();
-```
-Lightweight singleton pub/sub. No framework dependency.
-
-### 3. Four view bindings
-
-| View | File | After T145 |
-|------|------|------------|
-| **Lobby name** | `RoomBrowser.ts` | `viewBus.subscribe('User', uuid, m => nameInput.value = m.displayName)` |
-| **Room badge** | `rb-member-badge.ts` | `viewBus.subscribe('User', uuid, m => this.name = m.displayName)` |
-| **Profile editor** | `ProfileEditor.ts` | `viewBus.publish('User', uuid, updatedModel)` on save |
-| **Chat name** | `RoomView.ts` | `viewBus.subscribe('User', uuid, m => badge.name = m.displayName)` |
-
-### 4. Save flow
-```
-ProfileEditor.onSave()
-  → scenarioIndex.get(userUuid).model = { ...updated }
-  → viewBus.publish('User', uuid, model)
-  → all 4 views update. Zero special-case refresh.
-```
-
-### 5. User scenario JSON
-```json
-{ "ior": "ior:class:User",
-  "model": { "uuid": "<v4>", "name": "donges", "displayName": "Marcel Donges",
-    "token": "<token>", "avatarHash": "<sha256>", "deviceId": "<v4>",
-    "sshPubKey": "ssh-ed25519 ...", "createdAt": "...", "updatedAt": "..." },
-  "ownerIor": null }
-```
-No FSM — data-shaped, not workflow-shaped.
-
-### 6. Migration
-Existing `data/users/<token>/profile.json` → scenario envelope → `scenario/index/<prefix>/<uuid>.scenario.json` + symlink at `scenario/sprints.json/user/<speaking-name>.scenario.json`. Original profile.json untouched (backward compat).
-
-User units get own class folder: `scenario/sprints.json/user/` and `scenario/sprints.md/user/` (AC4 confirmed — same as requirement/task/usecase/class/method/test).
-
-### 7. 8th template
-```typescript
-export const UserTemplate: ViewTemplate = {
-  toHtml(m) { return `<div class="sv-user"><h3>${esc(m.displayName)}</h3><code>${esc(m.token?.slice(0,8))}</code></div>`; },
-  toMd(m) { return `# ${m.displayName}\nToken: \`${m.token?.slice(0,8)}\`\n`; },
-};
-```
-
-### 8. Cross-client (TS4)
-Existing PROFILE_UPDATED WebSocket broadcast → receiving client calls `viewBus.publish('User', uuid, newModel)`. No new WS message type.
-
-### No new routes, no STATIC_SHELL change.
-
 ## Subtasks
+
 None (single commit-set).
 
 ---

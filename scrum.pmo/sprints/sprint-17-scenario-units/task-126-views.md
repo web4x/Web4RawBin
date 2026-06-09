@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T126: Generated views — planning.md, sprints.md, per-instance .md/.html
 
@@ -15,9 +17,6 @@
 - [ ] Done
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
-
-## Assigned
-**Owner:** robbin-expert (implement), robbin-tester (verify)
 
 ## Traceability
 
@@ -43,6 +42,7 @@
   - T128 migration (migrated sprints produce generated views)
 
 ## Task Description
+
 Turn the registered per-class templates (T125.4) into actual generated content
 filling every existing planning + per-task surface.
 
@@ -62,6 +62,7 @@ template ever invokes class methods; templates read only the `model` flat JSON.
 4. **404 page:** when a speaking-name URL resolves to no file, render a "Not Found" page with `← Back to Sprint Overview` + `← All Sprints` links (parent always derivable: task → sprint, sprint → overview).
 
 ## Acceptance Criteria
+
 - [ ] AC1 — `regenerate-views` command emits `planning.md` for at least one migrated sprint from its Task instances (no hand-edited prose left)
 - [ ] AC2 — `scenarios/sprints.md/<speaking-name>/...` tree generated, mirroring `scenarios/sprints.json/`
 - [ ] AC3 — Each of the 7 classes has a registered HTML + MD template; sample views render correctly
@@ -70,19 +71,23 @@ template ever invokes class methods; templates read only the `model` flat JSON.
 - [ ] AC6 — `npm run build` succeeds; full suite passes; **version + sw.js bumped per #15**; **STATIC_SHELL entry per #16 if a new /views or /md route is introduced** (architect to decide in T124.2 — flag in commit)
 
 ## Dependencies
+
 - **Requires:** T125 (foundation primitives + templates)
 - **Enables:** T127 (nav into views), T128 (migrated sprints land via these generators)
 
 ## Definition of Done
+
 - [ ] All AC met; sub-tasks T126.1-T126.3 committed
 - [ ] Rule-pair #15 + #16 verified (route introduction call documented in commit)
 - [ ] Tests pass, build clean
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - 2026-05-30: Planned — awaiting T125, then expert implementation per T124.2 view-template design.
 
 ## Subtasks
+
 T126.1, T126.2, T126.3 — files created by expert during refinement.
 
 ---

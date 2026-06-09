@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T125: Scenario-unit primitives + class system + storage
 
@@ -15,10 +17,6 @@
 - [ ] Done
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
-
-## Assigned
-**Owner:** robbin-expert (implement), robbin-tester (verify)
-**This file is the single source of truth.** Sub-task files (T125.1-T125.4) created by expert during refinement.
 
 ## Traceability
 
@@ -44,6 +42,7 @@
   - T126 generated views, T127 navigation, T128 migration
 
 ## Task Description
+
 Implement the scenario-unit primitives, the 7-class system over the uniform
 `{ior, model, ownerIor}` wrapper, the storage layout, and the view template
 engine. Architect's design (T124) is authoritative — this task converts it
@@ -56,6 +55,7 @@ into running code.
 - T125.4 ships the view template engine: registers per-class HTML + MD renderers; emits views from flat JSON (no class methods in the template path — purely functional rendering); wires live-update on JSON change.
 
 ## Acceptance Criteria
+
 - [ ] AC1 — `Unit` base + `IOR.resolve(ior)` work end-to-end (round-trip serialize/parse/load)
 - [ ] AC2 — All 7 classes instantiable as `{ior, model, ownerIor}`; `ownerIor` resolves to the parent (e.g. Task.ownerIor → Sprint)
 - [ ] AC3 — `scenario/index/<5char>/<uuid>.scenario.json` write+read works; one round-trip preserves bytes
@@ -65,18 +65,22 @@ into running code.
 - [ ] AC7 — `npm run build` succeeds; full suite passes; **version + sw.js bumped per #15**; **STATIC_SHELL untouched** per #16 (T125 introduces no new SPA route — server-side + tooling only)
 
 ## Dependencies
+
 - **Requires:** T124 (architecture + standards)
 - **Enables:** T126 views, T127 nav, T128 migration, T129 verify
 
 ## Definition of Done
+
 - [ ] All AC met; sub-tasks T125.1-T125.4 committed
 - [ ] Tests pass, build clean; rule-pair #15/#16 verified
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - 2026-05-30: Planned — awaiting T124 refinement, then expert implementation per architect design.
 
 ## Subtasks
+
 T125.1, T125.2, T125.3, T125.4 — files created by expert during refinement.
 
 ---

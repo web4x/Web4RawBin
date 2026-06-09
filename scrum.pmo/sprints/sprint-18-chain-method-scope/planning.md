@@ -1,6 +1,5 @@
 <!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
 
-
 [Back to Sprints](../sprints.overview.md)
 
 # Sprint 18 Planning — Sprint 18 — Chain Method-Scope & Role Skills
@@ -13,10 +12,10 @@ Narrow the traceability chain at Class→Method to the ONE method that fulfills 
 
 ## Tasks
 
-- [ ] [Trace-narrowing: chain walker selects ONE method per UC, not Class.methods[] fan-out](./t187-trace-narrowing-chain-walker-one-method-per-uc.md)
+- [ ] [T187: Trace narrowing — single-thread chain in /trace, full fan-out in /scenario](./task-187-trace-narrowing-single-thread-chain.md)
 - [ ] [Dogfood S17 view-gen: planning.md + task-*.md emitted from scenario.json Sprint+Task units](./t188-dogfood-view-gen-planning-md-from-scenario-units.md)
 - [ ] [Role skills — co-specify planner/architect/req-eng SKILL.md from precedence-analysis Rules 1-11](./t189-role-skills-co-specify-planner-architect-req-eng.md)
-- [ ] [Tree lazy-render + scroll-preservation — expand APPENDS children only, no full re-render](./t190-tree-lazy-render-scroll-preservation-append-only.md)
+- [ ] [T190: Tree expand appends only — no full re-render, no scroll jump](./task-190-tree-expand-append-no-rerender.md)
 - [x] [Champagne lift: Test.verifies[] pipeline + structural verification annotations](./t191-champagne-test-verifies-pipeline-structural-annotations.md)
 - [x] [Break Req->Task 2-cycle + server-side cycle guard](./t192-break-req-task-2-cycle-server-cycle-guard.md)
 - [x] [Revert Req->tasks + per-branch visited Set + invisible cycle nodes](./t193-revert-req-tasks-per-branch-visited-invisible-cycle.md)
@@ -24,3 +23,5 @@ Narrow the traceability chain at Class→Method to the ONE method that fulfills 
 - [x] [Object.verb UC population + Class/Method/Impl chain wiring (multi-phase epic)](./t195-object-verb-uc-population-chain-wiring.md)
 - [x] [Orphan-method + wrong-type-UUID cleanup in Method.implementation chain](./t197-orphan-method-wrong-type-uuid-cleanup.md)
 - [x] [Sprint scenario units + sprint catalogue cleanup (dedupe + numbered rename)](./t198-sprint-scenario-units-catalogue-cleanup.md)
+- [ ] [SVG viewer: fullscreen iframe + native zoom](./svg-fullscreen-iframe-native-zoom.md)
+- [ ] [T202: Class.method-per-UC narrowing — shared Class picks wrong method](./class-method-per-uc-narrowing-shared-class-wrong-method.md)

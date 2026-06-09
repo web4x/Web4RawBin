@@ -1,46 +1,15 @@
-[Back to README](../../README.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
 
-# Sprint 12 Planning — Editor Fixes
+[Back to Sprints](../sprints.overview.md)
+
+# Sprint 12 Planning — Sprint 12 — Editor Fixes
 
 ## Sprint Goal
-Fix confirmed Monaco editor bugs from Tron's usage (Sprint 8 editor follow-ups).
-Small, focused UI/editor fix sprint — separate from contacts-ui (Sprint 10) and
-traceability (Sprint 11).
 
-## Why This Sprint
-The Monaco editor shipped in Sprint 8. Tron's real-world use surfaced editor
-navigation bugs that are neither contacts (Sprint 10) nor traceability (Sprint 11)
-scope. This sprint collects confirmed editor defects. All tasks follow the
-approved [traceability standard](../../standards/traceability-standard.md).
 
-## Task List
 
-> **Progress legend** (at-a-glance per task; `[ ]` stays = Tron's Done gate):
-> ⏳ planned · 📝 designed (refinement-done) · 🔧 implementing · ✅ impl-shipped · 🧪 testing · 🏁 Tron-QA-done
+**Status:** In Progress
 
-- [ ] 🧪 [T84: Editor back button navigates to parent directory, not /app](./task-84-editor-back-button.md)
-  **Status:** impl + testing DONE (24482f7 v0.4.10; tester 4/4, 6db4ba3) — Tron QA pending
-  **Owner:** robbin-expert (implement), robbin-tester (verify)
-  - `rb-editor-toolbar.ts:36` hardcodes `<a href="/app">` — derive parent dir from `this._path`
-  - Relabel "← App" → "← Back"; keep `📂` root-browse button
-  - 6 AC; e2e editor-back.spec.ts
+## Tasks
 
-## Sprint Totals
-| Metric | Value |
-|--------|-------|
-| Tasks | 1 (T84) — opening |
-| Tron QA-approved (Done) | 0/1 |
-| Tested, awaiting Tron QA | 1 (T84 — tester 4/4) |
-
-## Definition of Done
-- [ ] Editor back button goes to parent dir of current file (all AC)
-- [ ] Version bumped + sw.js cache (PWA update reaches device)
-- [ ] No regression in Sprint 8 editor
-- [ ] Tron QA approved
-
----
-**Product Owner:** robbin-po (robbinTeam:0.0)
-**Planner:** robbin-planner (robbinTeam:1.0)
-**Tron:** research (iphone:0.0)
-**Created:** 2026-05-25
-**Sprint:** Sprint 12 — Editor Fixes
+- [ ] [T84: Editor Back Button Navigates to Parent Directory, Not /app](./task-84-editor-back-button.md)

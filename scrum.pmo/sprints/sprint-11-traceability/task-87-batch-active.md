@@ -1,4 +1,6 @@
-[Back to Sprint 11 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T87: Batch 1 — Active Sprints (8, 9, 10) Full Chain
 
@@ -15,6 +17,7 @@
 - [ ] Done
 
 ## Traceability
+
 - up
   - [Sprint 11 Planning](./planning.md)
 - down
@@ -23,6 +26,7 @@
   - [T86](./task-86-traceability-index.md) — consumes the matrix
 
 ## Task Description
+
 Wire the full forward chain (req→usecase→puml→class/method) into every task of
 Sprints 8 (Monaco Editor), 9 (Room Identity), 10 (Contacts UI).
 
@@ -30,26 +34,32 @@ Sprints 8 (Monaco Editor), 9 (Room Identity), 10 (Contacts UI).
 - Sprint 10: author requirements.md + use cases; link T81-T83 to PUML + class/method.
 
 ## Context
+
 Sprints 8,9 are the closest to standard (have req + diagrams). Sprint 10 is active —
 standardize as it develops so it sets the example.
 
 ## Acceptance Criteria
+
 - [ ] Every task in Sprints 8,9,10 has a resolving req→usecase→puml→class/method chain
 - [ ] Sprint 10 requirements.md + use cases authored
 - [ ] No closed-task checkbox state changed (chain links only; Tron-gated)
 
 ## Dependencies
+
 - **Requires:** T86 (matrix)
 - **Enables:** T90 (verification)
 
 ## Definition of Done
+
 - [ ] Sprints 8,9,10 chain-complete
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - Pending T86, then Tron QA.
 
 ## Subtasks
+
 None (atomic task).
 
 ---

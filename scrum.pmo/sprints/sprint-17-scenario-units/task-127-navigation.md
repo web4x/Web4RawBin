@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T127: File-browser ↔ traceability-browser navigation + IOR universal handler
 
@@ -15,9 +17,6 @@
 - [ ] Done
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
-
-## Assigned
-**Owner:** robbin-expert (implement), robbin-tester (verify)
 
 ## Traceability
 
@@ -40,6 +39,7 @@
   - End-to-end UX: tap a file in `/md/`, jump to its trace node; tap a trace node, jump to its file. Any IOR resolves to its view.
 
 ## Task Description
+
 Two integrations that complete the nav loop on `/trace` + `/md/`:
 
 **T127.1 — cross-nav between browsers:**
@@ -52,6 +52,7 @@ Two integrations that complete the nav loop on `/trace` + `/md/`:
 - A "Resolve IOR" endpoint (or client-side resolver) takes an IOR and returns `{ filePath, class, htmlView, mdView }`.
 
 ## Acceptance Criteria
+
 - [ ] AC1 — From a Task tree node on `/trace`, "Open file" navigates to the corresponding `/md/.../task-N-*.md` (or its generated view)
 - [ ] AC2 — From a `/md/` rendered task file, "Open in trace" navigates to `/trace` with the right DetailView open
 - [ ] AC3 — Calling `IOR.resolve(ior)` on any repo file (md/ts/puml/json) returns `{filePath, class?, view?}` with appropriate fallbacks for non-scenario files
@@ -60,19 +61,23 @@ Two integrations that complete the nav loop on `/trace` + `/md/`:
 - [ ] AC6 — At least one playwright E2E covers the round-trip /trace → /md/ → /trace
 
 ## Dependencies
+
 - **Requires:** T125 (IOR primitive), T126 (generated views are the targets)
 - **Enables:** complete user nav loop; precondition for migrated sprints being usable
 
 ## Definition of Done
+
 - [ ] All AC met; sub-tasks T127.1, T127.2 committed
 - [ ] Rule-pair #15 + #16 verified (route introduction call documented in commit)
 - [ ] Tests pass, build clean
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - 2026-05-30: Planned — awaiting T125+T126, then expert implementation.
 
 ## Subtasks
+
 T127.1, T127.2 — files created by expert during refinement.
 
 ---

@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T159: Forward-only traceability chain — refactor (remove back-refs)
 
@@ -20,15 +22,6 @@
 > trace back to requirements. multiple requirements can be addressed in the same
 > task, but from the task ist goes into subtasks and use cases never back to
 > requirements." **OVERRIDES T155 bidirectional closure direction-wise.**
-
-## Assigned
-**Owners (CMM4 4-role, per learnings #18) — sequence req → architect → expert → tester:**
-1. **robbin-req** — capture the verbatim Tron quote (already in B18 backlog above); replace the planner-suggested `requirement:uuid` if req-eng has a canonical one; confirm the exact forward-chain shape: requirement → tasks → (subtasks ∪ useCases) → classes → methods; confirm no other reverse refs persist (e.g. tests-to-requirement direction, source-location IORs)
-2. **robbin-architect** — re-design the data model: drop `task.links.up`-pointing-to-requirement, drop `useCase.requirement` + `useCase.requirements[]`, drop any other reverse-closure; specify the canonical forward shape per class (Task / UseCase / Class / Method) with explicit "no upward back-ref" rule; design the migration that strips back-refs from existing JSON scenarios (idempotent + dry-run + per-class counts); update `scrum.pmo/standards/traceability-standard.md` with the forward-only chain spec
-3. **robbin-expert** — implement per architect's design: (i) update LoaderDefaults to drop back-ref fields (or mark them deprecated for removal next bump); (ii) refactor T155's `fixUcDataQuality()` / closure logic to be FORWARD-ONLY; (iii) one-shot migration to strip back-refs from existing scenarios; (iv) per-class audit table (before-back-refs / after-back-refs / target=0); carry rule-pair (a)+(b) in the impl commit-set
-4. **robbin-tester** — verify per-class: zero back-refs remain post-migration; T143 tree walks `walkDown` (forward) work; `walkUp` (if present) is removed OR documented as derived-only (computed from forward edges, not stored); T158 chain-walk renders forward-only; T151–T155 + T126 regression intact (forward arrays unchanged, only back-refs gone)
-
-**This file is the single source of truth.** No chat clarification.
 
 ## Traceability
 
@@ -100,6 +93,7 @@ its back-ref INPUT must be replaced by forward parsing from
 - Standard documents the forward-only chain explicitly
 
 ## Acceptance Criteria
+
 - [ ] AC1 (Standard spec) — `scrum.pmo/standards/traceability-standard.md` documents the forward-only chain: `Requirement → Task → (Subtask ∪ UseCase) → Class → Method`; explicit "no back-refs" rule per class
 - [ ] AC2 (LoaderDefaults) — Task / UseCase / Class / Method Loaders drop back-ref fields (`links.up` to a parent type, `requirement`, `requirements[]`, etc.). Forward fields (`subtasks[]`, `useCases[]`, `classes[]`, `methods[]`) retained
 - [ ] AC3 (Migration — strip back-refs) — One-shot migration removes back-ref fields from every existing scenario JSON; per-class audit table reports before-count (back-refs present) → after-count (zero). Mismatch = hard FAIL.
@@ -114,34 +108,14 @@ its back-ref INPUT must be replaced by forward parsing from
 - [ ] AC12 — **Rule-pair (a)+(b) [learnings #15 + #16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing impl (T126 view regeneration reaches Tron's device). (c) STATIC_SHELL: likely exempt (no new route — architect to confirm)
 - [ ] AC13 — All 4 roles committed work in this file
 
-## Test Scenarios
-File: `test/vitest/forward-only-chain.test.ts` (new) + per-class evidence table committed to QA Audit.
-
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 (per-class strip count) | Dry-run audit emits per-class table `class → back-ref-before → back-ref-after` | Every row: after-count = 0 |
-| TS2 (forward edges retained) | Compare `requirement.tasks[]` / `task.subtasks[]` / `task.useCases[]` / `useCase.classes[]` / `class.methods[]` before/after | Counts unchanged (semantic-identical) |
-| TS3 (idempotence) | Apply strip twice | Second run reports 0 changes |
-| TS4 (validator) | `trace-cli` no-back-refs check across all scenarios | Pass — 0 back-refs surfaced |
-| TS5 (T143 walk) | `walkDown` from a Requirement | Same forward path as pre-T159 |
-| TS6 (T126 regenerates) | View a Requirement / Task / UC / Class / Method `.md` | No reverse edges rendered; forward edges intact |
-| TS7 (T155 refactor — forward-only input) | `fixUcDataQuality()` runs against fixture `requirements.md` (forward bullets only, no task back-refs) | Same `requirement.tasks[]` output |
-| TS8 (spot-check ≥5) | Pick 5 scenarios across classes; check no `parent` / `requirement` / `links.up` field | All clean |
-| TS9 (regression) | T126 / T143 / T149 / T151 forward / T154 forward | All unchanged |
-| TS10 (rule-pair post-bump) | New CACHE_NAME activates | Forward-only views on Tron's device |
-
 ## Dependencies
+
 - **Requires:** T151 (JSON model shape), T143 (tree forward semantics), T126 (templates regenerate)
 - **Supersedes / corrects:** T152 / T153 / T155 (back-ref artifacts to remove)
 - **Coordinate-with / blocks:** T158 (browser depends on forward-only data; T158's design refines per this constraint)
 
-## Drive Plan (planner-coordinated, CMM4 4-role)
-1. **robbin-req** captures the verbatim Tron quote (already in B18); anchors / replaces planner-suggested `requirement:uuid` with canonical
-2. **robbin-architect** re-designs the data model + writes the strip migration + standard update; writes Design section here
-3. **robbin-expert** implements: Loader defaults + migration + T155 refactor; dry-run + audit table; apply pass after PO sign-off; rule-pair (a)+(b)
-4. **robbin-tester** runs TS1–TS10 + ≥5-class spot-check + regression; commits verification report into QA Audit
-
 ## Definition of Done
+
 - [ ] All AC met (AC1–AC13) — especially AC3 (strip per-class, zero back-refs) and AC5 (validator clean)
 - [ ] Rule-pair (a)+(b) ✓; (c) STATIC_SHELL if applicable
 - [ ] No regression on T126 / T143 / T149 / T151 / T154 forward arrays
@@ -149,9 +123,11 @@ File: `test/vitest/forward-only-chain.test.ts` (new) + per-class evidence table 
 - [ ] Tron QA approved (with per-class strip-count evidence)
 
 ## QA Audit & User Feedback
+
 - 2026-06-01: PO promoted backlog B18 → T159 with explicit Tron verbatim quote (forward-only chain correction). Supersedes T155 bidirectional direction. CMM4 4-role enforced (#18); real v4 uuids (#17); rule-pair (a)+(b) baked into AC12 + DoD (#15+#16). T158 ACs to be refined in parallel to depend on T159's forward-only data. Awaiting architect re-design → expert refactor + migration → tester per-class verify → Tron QA.
 
 ## Subtasks
+
 None at parent level (architect may split T159.x per class if scope warrants — coordinate with planner first).
 
 ---

@@ -1,16 +1,10 @@
-[Back to Sprint 13 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T91: Avatar Persistence — Must Not Revert to Default
 
 [task:uuid:b2e72ab1-0111-420b-b82b-387a3b339567]
-
-> **Scope note (PO 2026-05-26):** T91 (string-desync, 5/5) + **[T109](./task-109-avatar-recurrence-fix.md)**
-> (decrypt-exception + rekey re-encrypt, 6/6+6/6) TOGETHER satisfy the avatar-persist
-> requirement R-A1 — both now tester-verified; R-A1 met (pending only Tron QA).
-
-## Tron Requirement (literal)
-
-> TRON DIRECTIVE: "my avatar picture disappeared. its back to default."
 
 ## Status
 - [x] Planned
@@ -21,31 +15,8 @@
 - [ ] QA Review
 - [ ] Done
 
-## Implementation (robbin-expert, 2026-05-26, v0.4.11)
-Rewrote `ensureAvatar()` (server.ts) to trust the on-disk `avatar.enc` FILE, not the `profile.avatar` STRING:
-- Gate the default fetch on `fileExists(token, 'avatar')` (not the string). If the file exists and decrypts to a non-SVG (real upload): restore `profile.avatar = /api/avatar/<token>` + saveProfiles only if desynced, then `return` — NEVER overwrite (AC4/AC5). Fixes the "back to default" desync.
-- SVG-fallback upgrade path preserved: if stored avatar is `image/svg+xml`, fall through to re-fetch a real photo.
-- Decrypt failure (corrupt) → fall through to fetch a fresh default (only when no usable avatar.enc).
-- AC1/AC2/AC3 (persist across reload/restart/reconnect): the string is now reconstructed from the file on every IDENTIFY, so a cleared/desynced string self-corrects instead of clobbering the upload.
-- tsc clean, build v0.4.11, sw.js cache rawbin-v0.4.11. Bundled with T92 (same avatar subsystem) — commit reported to PO.
-
-## Diagram
-[avatar-workflow.svg](./diagrams/avatar-workflow.svg) ([source](./diagrams/avatar-workflow.puml)) — UC-AV6 (restore, not reset) is the T91 target node.
-
-## Root-Cause Findings (robbin-architect, 2026-05-26 — evidence-backed)
-
-**CONFIRMED root cause: `ensureAvatar()` (server.ts:776-805) gates the default-avatar fetch on the `profile.avatar` STRING, not on the on-disk `avatar.enc` FILE — and `encryptFile(token, ..., 'avatar')` at line 801 OVERWRITES the existing `avatar.enc`.**
-
-Trace:
-- IDENTIFY (server.ts:1053): backfill fires when `!profile.avatar || !profile.avatar.startsWith('/api/avatar/')`.
-- `ensureAvatar` (line 779): only returns early (keeps avatar) if `profile.avatar` is already an `/api/avatar/` URL AND it decrypts to a non-SVG. Otherwise falls through to line 787+ → fetches a NEW default → **line 801 overwrites `avatar.enc`** → the user's uploaded photo is destroyed on disk and `profile.avatar` reset.
-- So whenever `profile.avatar` desyncs from the on-disk file (empty/cleared while `avatar.enc` still holds the real upload), the backfill replaces the real photo with a default. This is the "back to default" Tron saw.
-
-Secondary: line 782 — if a prior avatar was an initials-SVG fallback (`image/svg+xml`), ensureAvatar intentionally re-fetches; harmless unless it clobbers a later real upload due to the same string-vs-file gap.
-
-**Fix direction (drives AC4/AC5):** before fetching a default, check `fileExists(token, 'avatar')`. If the encrypted avatar exists, RESTORE `profile.avatar = /api/avatar/<token>` (+ saveProfiles) and return — NEVER overwrite an existing `avatar.enc` with a default. Only fetch a default when no `avatar.enc` exists.
-
 ## Traceability
+
 - up
   - [requirement:uuid:a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d](./requirements.md) — R-A1: Avatar must persist
   - [Sprint 13 Planning](./planning.md)
@@ -68,37 +39,17 @@ Secondary: line 782 — if a prior avatar was an initials-SVG fallback (`image/s
 4. Is there a race between IDENTIFY backfill (async) and the client reading the profile?
 
 ## Acceptance Criteria
+
 - [x] AC1: Uploaded avatar persists across page reload
 - [x] AC2: Uploaded avatar persists across server restart
 - [x] AC3: Uploaded avatar persists across new WS connections (reconnect)
 - [x] AC4: Default avatar assignment only happens when NO avatar.enc exists for the user
 - [x] AC5: `data/users/<token>/files/avatar.enc` is not overwritten by backfill when it already contains an upload
 
-## Test Results (robbin-tester, 2026-05-26) — PASS (AC4/AC5 proven; AC1-AC3 emergent + recommend live E2E)
-Code review of shipped `ensureAvatar` (server.ts:792-834) CONFIRMS the fix: line 799 gates the
-default-fetch on `fileExists(token,'avatar')` (the FILE, not the string); for a real upload (non-SVG)
-it restores `profile.avatar` and RETURNS at line 809 — never reaching the `encryptFile(...,'avatar')`
-overwrite at line 829. SVG-fallback (line 811) and decrypt-failure (line 812) correctly fall through
-to re-fetch. Matches the architect's fix direction exactly.
-
-Test: `test/vitest/avatar-persist.test.ts` (5/5 PASS, 197ms) — verifies the guard's REAL decision
-inputs against the real UserKeys+UserCrypto:
-| AC | Check | Result |
-|----|-------|--------|
-| AC5 | real upload → `fileExists && mime!='image/svg+xml'` (protect predicate) | TRUE → backfill returns, no overwrite ✓ |
-| AC5 | reading/decrypting avatar.enc | sha256 unchanged; decrypt == original upload ✓ |
-| upgrade | initials-SVG fallback → protect predicate | FALSE → falls through to re-fetch real photo ✓ |
-| AC4 | no avatar.enc → protect predicate | FALSE → default-fetch is the only reachable path ✓ |
-| AC1/AC3 | 3× repeated "reconnect" checks on a real upload | stays protected, avatar.enc byte-identical each time ✓ |
-
-- **AC1/AC2/AC3** are emergent from AC4/AC5: the on-disk file is the source of truth, GET /api/avatar
-  decrypts and serves it, and ensureAvatar never overwrites it on IDENTIFY. AC2 (server restart) +
-  the live reconnect path run through the HTTP/WS layer not exercised here — recommend ONE live
-  reconnect+restart curl check (upload → reconnect/restart → curl /api/avatar/<token> bytes identical)
-  as belt-and-suspenders before Tron QA. Self-heal/guard correctness is decisively proven.
-- No regression: full Playwright suite 21/21 (T80).
 ## QA Audit & User Feedback
+
 - 2026-05-26: Tron directive — "my avatar picture disappeared. its back to default." Fixed v0.4.11 (ensureAvatar guards on file, not string); tester-verified (avatar-persist 5/5 + 21/21 Playwright). Awaiting Tron QA.
 
 ## Subtasks
+
 None (atomic task).

@@ -9,9 +9,11 @@
 
 ## Summary
 
-**Sprint 18.tasks[] = 13 total** (Sprint canonical IOR `ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962`) — count updated 2026-06-09 after dedup reconcile (anomaly #1 resolved, surfaced previously-hidden task `675cc8e3`).
+**Sprint 18.tasks[] = 13 total** (Sprint canonical IOR `ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962`) — updated 2026-06-09 after the second-wave reconcile (675cc8e3 disposed as redundant; T202 stood up; T187 testing-hop done; anomaly #4 resolved).
 - **7 🏁 Done** (Tron-QA-approved, status=Done in scenario)
-- **6 OPEN** (status=Planned or In Progress; of these, 2 are Tron-blocked: SVG + T189; 1 is triage-blocked: `675cc8e3` source-link)
+- **6 OPEN** (status=Planned or In Progress)
+  - 3 Tron-blocked: SVG (R18.34/B), T189, T187 (testing-hop done 2026-06-09 per PO — 10/10 TS GREEN on real WebKit)
+  - 3 actionable: T190, T188 (req-anchor LANDED, architect refinement next), T202 (just stood up — req-eng canonicalize placeholder first)
 - **+1 sub-track:** hand-written `task-planner-s2-s9-backfill.md` (decision-only, no scenario unit)
 
 ## OPEN — Blocked on Tron (awaiting QA, no role work)
@@ -20,6 +22,7 @@
 |------|------|--------|----------------|
 | SVG viewer fullscreen iframe + native zoom | `bef36fd2` | In Progress 🧪 | **Architect chain wired (`38653299`)**: UC `c27d67d8 svgViewer.pinchZoom` + Class `7dd2f3c3 SvgViewer` (sourceFile=server.ts:843) + Method `4a4591ca SvgViewer.onPinchEnd` (lines 880-881) + Impl `094c18a4` touchend+touchcancel apply() flush. **Tester champagne PASS (`82ddae97`)**: Test `10c2e3ca` 2-touch pinch (touchstart→move→end no pan), 2/2 PASS; chain Impl→Test wired (Impl.tests[]=[Test], Test.verifies[]=[Req042bab1a R18.34]). Impl shipped v0.5.114 → v0.5.121; rule-pair (a)+(b) ✓. **Only Tron iPhone+Mac device re-verify remains.** |
 | T189 Role skills SKILL.md | `a7f7f216` | In Progress | **🧪 testing-hop DONE 2026-06-09 per skill-expert via PO**: code chain complete (45/45 tests reach Req roots), UseCase `89aff659` linked, R18.13 captured, 19 Skill units done as orphan-by-design (Skill is metadata type outside the 6-step code chain — accepted, analogous to TraceLink per learning #34). Tron QA pending. Scenario status synced 2026-06-09 (was Planned, now In Progress; statusChecklist testing[x]). |
+| T187 Trace narrowing — chain walker selects ONE method per UC | `292d8931` | In Progress | **🧪 testing-hop DONE 2026-06-09 per PO**: tester 10/10 TS GREEN on real WebKit engine with architect's corrected UC→Class→Method narrowing expectations; R18.34.B verified on same run. statusChecklist testing[x] sync'd. Follow-on per-UC Class.method bug tracked separately as T202. Tron QA pending. |
 | S2-S9 backfill (decision-only, hand-written .md) | `03fb4511` | (no scenario) | PO decision (b) DEFER recorded 2026-06-07; QA Review awaits Tron acknowledgement; no role work |
 
 ## OPEN — Actionable now (role work to assign)

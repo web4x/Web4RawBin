@@ -1,30 +1,15 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T168: Chain order 7-step + atomic requirements as tree ROOTS
 
 [task:uuid:c3951691-b231-4b60-a2f8-79c9d5ef851e]
 
-## Status — 🧪 tester-verified-via-downstream (PO 2026-06-03: T172 238/238 IS the implicit T168 verification)
-- [x] Planned
-- [x] In Progress
-  - [x] refinement (req → architect — **`c28c982` architect design committed: 7-step canonical chain LOCKED + requirements as roots**)
-  - [x] creating test cases
-  - [x] implementing (deliverables realized across downstream tasks: T126 ViewGenerator template chain-render; T169 audit + tree-builder atomic-req roots; T171 back-ref strip + matrix; T172 5-step forward-ref + strict-direction validator + 238/238 reachability. **T168-close shipped by expert `e714e255` v0.5.77** — Implementation:['tests'] added to FORWARD_KEYS completing 7-step canonical chain; `traceability-standard.md` rewritten LOCKED 7-step with atomic-req roots; rule-pair (a)+(b)+(c) ✓; 836/836 pass.)
-  - [x] testing (PO 2026-06-03 per #69: T172 238/238 chain reachability IS the implicit T168 verification — chain spec is live + enforced at the CODE level. ⚠️ **R-J + R-E full DATA satisfaction GATED on T178** — scenario DATA only chains 3 deep (Req→Task→Subtask); UC/Class/Method/Impl/Test forward arrays empty → 44 tests "chain gap". T178 data-fill closes the DATA side. T168 stays 🧪 here for the code/spec verification; full R-J/R-E closure tracked in T178.)
-- [ ] QA Review
+## Status
+- [ ] Planned
+- [ ] In Progress
 - [ ] Done
-
-> Sync per rule #11 (committed reality): `c28c982` lands the design;
-> refinement box checked. Expert next. QA Review + Done remain Tron's gate.
-
-## Assigned
-**Owners (CMM4 4-role, per learnings #18) — planner-first per PO direction 2026-06-02:**
-1. **robbin-req** — anchor the verbatim Tron R-E quote from `compound-requirement-source-2.md` (Tron completion); confirm the 7-step canonical chain order: **requirement → task → usecase(s) → class → method → implementation → test(s)** (PO amendment 2026-06-02 extended chain to test as final node)
-2. **robbin-architect** — design the canonical chain enforcement: `TraceModel` walk order, ViewGenerator template chain-rendering, tree builder root-set selection (atomic requirements only), validator update; update `scrum.pmo/standards/traceability-standard.md` to reflect the 7-step order + roots-are-atomic-requirements rule; update Sprint 17 chain documentation
-3. **robbin-expert** — implement per design (model walk + template + tree builder + validator); rule-pair (a)+(b)
-4. **robbin-tester** — verify chain walk order in `/api/trace`, `/trace` UI, generated MD views, and chain audit; ensure every tree root is an atomic requirement; ensure every test node is reachable from a requirement root via the 7-step chain
-
-**This file is the single source of truth.** No chat clarification.
 
 ## Traceability
 
@@ -99,6 +84,7 @@ atomic requirements is the rule for "every instance is reachable from a req"
 - Chain audit confirms every test node has a path back to a requirement
 
 ## Acceptance Criteria
+
 - [ ] AC1 — `TraceModel.walkDown(requirement)` follows the canonical 7-step order: req → task → usecase(s) → class → method → implementation → test(s); 1:N branches at usecase and test hops are walked correctly
 - [ ] AC1b — `Implementation.tests[]` IOR array surfaces in scenario index + `/api/trace` graph; 1:N cardinality enforced in model
 - [ ] AC2 — Tree builder for `/trace` produces ROOTS = atomic requirements only (no other types appear as roots)
@@ -110,32 +96,14 @@ atomic requirements is the rule for "every instance is reachable from a req"
 - [ ] AC8 — `npm run build` succeeds; all existing tests pass
 - [ ] AC9 — **Rule-pair (a)+(b) [#15+#16]:** package.json bump + sw.js CACHE_NAME bump in same commit-set; (c) STATIC_SHELL — architect confirms (likely exempt)
 
-## Test Scenarios
-File: extend `test/vitest/trace-model.test.ts` + `test/e2e/trace-chain.spec.ts`.
-
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 | `walkDown` from a sample requirement | Visits in order req → task → uc → class → method → impl → test (skipping types that don't exist for that req) |
-| TS2 | Enumerate `/trace` tree roots | All roots are atomic requirements; no other types |
-| TS3 | Pick a test node, walk up | Reaches a requirement root via the canonical reverse chain |
-| TS4 | Inspect `traceability-standard.md` | Documents 7-step order + roots rule |
-| TS5 | Chain audit run | 0 orphan tests (every test reachable from a req via 7-step chain) |
-| TS6 | Generated MD view of a UseCase | Chain rendered in canonical order |
-| TS7 (regression) | T134/T143/T160/T161/T163/T165/T166 behavior | Unchanged |
-| TS8 | Rule-pair post-bump | New CACHE_NAME activates |
-
 ## Dependencies
+
 - **Requires:** T134 (TraceLink units), T160 (forward-only repopulation), T165/T166 (7-class tree surface), T143 (tree direction)
 - **Coordinate-with:** T169 (data-quality audit + remigrate — uses T168's canonical order as the audit rule), T167 (mobile layout — visual surface)
 - **Enables:** R-F audit (T169) has a canonical rule to audit against
 
-## Drive Plan (planner-coordinated, CMM4 4-role)
-1. **robbin-req** anchors verbatim Tron R-E quote + PO amendment when Tron completes the cut sentence.
-2. **robbin-architect** designs the enforcement (model + templates + validator); updates `traceability-standard.md`; writes Design section.
-3. **robbin-expert** implements per design; carries rule-pair (a)+(b).
-4. **robbin-tester** runs TS1-TS8 + chain audit; commits verification to QA Audit section.
-
 ## Definition of Done
+
 - [ ] All AC met
 - [ ] Rule-pair (a)+(b) ✓
 - [ ] Standard + Sprint 17 chain doc updated
@@ -145,119 +113,13 @@ File: extend `test/vitest/trace-model.test.ts` + `test/e2e/trace-chain.spec.ts`.
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - 2026-06-02: PO directed planner-first stand-up of T168 (R-E from compound-source-2 Tron completion + PO chain-to-test amendment same day). CMM4 4-role; real v4 uuids; rule-pair (a)+(b) in AC9+DoD. Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
 - 2026-06-02: robbin-req anchored verbatim Tron R-E quote + both amendments in traceability section.
 
-## Design (Architect — robbin-architect, 2026-06-02)
-
-### The 7-Step Canonical Chain (LOCKED)
-
-```
-requirement → task → usecase(s) → class → method → implementation → test(s)
-    ROOT        1:1      1:N        1:1    1:N         1:1            1:N
-```
-
-| Step | Type | Cardinality | Forward field | LEAF? |
-|------|------|-------------|---------------|-------|
-| 1 | requirement | ROOT | `tasks[]` | NO |
-| 2 | task | 1:1 from req | `useCases[]`, `subtasks[]` | NO |
-| 3 | usecase | 1:N from task | `classes[]` | NO |
-| 4 | class | 1:1 from UC | `methods[]` | NO |
-| 5 | method | 1:N from class | `implementations[]` | NO |
-| 6 | implementation | 1:1 from method | `tests[]` (NEW) | NO |
-| 7 | test | 1:N from impl | — | YES (LEAF) |
-
-Plural hops: task→usecase(s), class→method(s), implementation→test(s).
-
-### Tree Root Rule
-
-Atomic requirements are the ONLY tree roots:
-```typescript
-const roots = this.graph.ofType('requirement');
-// NO fallback to graph.all()
-```
-
-### Canonical Walk Order
-
-Replace unordered link walk with canonical order:
-```typescript
-const CANONICAL_WALK: Record<string, string[]> = {
-  requirement:    ['tasks'],
-  task:           ['subtasks', 'useCases'],
-  usecase:        ['classes'],
-  class:          ['methods'],
-  method:         ['implementations'],
-  implementation: ['tests'],
-  test:           [],
-};
-
-function orderedChildRefs(obj: TraceObject): string[] {
-  const order = CANONICAL_WALK[obj.type] || [];
-  return order.flatMap(key => obj.toJSON().links[key] || []);
-}
-```
-
-Replace `Object.values(obj.toJSON().links).flat()` in `nodeEl()` with `orderedChildRefs(obj)`.
-
-### Implementation.tests[] — New IOR Array
-
-```typescript
-// TraceModel.ts ImplementationObject — NEW field:
-tests: string[] = [];  // 1:N IOR refs to TestObject UUIDs
-```
-
-Scenario JSON:
-```json
-{ "model": { "chainType": "implementation", "tests": ["uuid-1", "uuid-2"] } }
-```
-
-### Validator: auditCanonicalChain()
-
-1. Every tree root is type `requirement`
-2. Every requirement reaches at least one `test` via 7-step walk
-3. Walk follows CANONICAL_WALK order (no skipped hops)
-
-### Standard Update (traceability-standard.md)
-
-1. Replace 6-step chain (lines 12-27) with 7-step canonical
-2. Replace "Bidirectional Verification" (lines 134-148) with forward-only (T159)
-3. Replace "Cross-Reference Rules" (lines 124-131) — remove "task MUST link up" (T159 violation)
-4. Add Implementation.tests[] to tag format table
-5. Add cardinality at plural hops
-
-### R-A Diagnosis Collision Note
-
-My earlier R-A diagnosis (HTML task-status checklist — renderStatusHtml emojis + missing CSS) was queued for T167, but planner reassigned T167 to R-D (mobile-first). R-A overlaps T132. NOT committing R-A to T167. Awaiting planner's T-number assignment.
-
-### Files to Modify
-
-| File | Change |
-|------|--------|
-| `src/ts/shared/TraceModel.ts` | CANONICAL_WALK, Implementation.tests[], orderedChildRefs() |
-| `src/public/ts/trace/rb-trace-tree.ts` | orderedChildRefs() in nodeEl(); lock roots |
-| `src/ts/server/TraceConsistency.ts` | auditCanonicalChain() |
-| `scrum.pmo/standards/traceability-standard.md` | 7-step chain, forward-only, Implementation.tests[] |
-| `diagrams/s17-usecases.puml` | Add UC_CHAIN |
-| `package.json` + `sw.js` | Rule-pair (a)+(b) |
-
-STATIC_SHELL (c): exempt.
-
 ## Subtasks
+
 None at parent level (architect may split if scope warrants).
-
-## Append-only rework note (PO 2026-06-05, R18.8 reconciliation — Rule 8 closure freeze: body NOT edited)
-
-**Architect contradiction review `d7d6404a`, planner-applied `<this commit>`:**
-
-T168 body remains the authoritative spec for CHAIN semantics. R18.8 (Tron 2026-06-05) introduced a NAVIGATION layer ABOVE the chain — Sprint→Task→coveredReqs→chain — without changing chain direction. The chain root remains atomic Requirement (T168 AC2 wording stands for chain semantics).
-
-**Wording clarification carried forward to T187 (not edited in this closed T168 body):**
-
-> Chain walker starts from atomic requirements as **CHAIN ROOTS**. Browser tree builder produces Sprint→Task as **NAVIGATION ROOTS**; requirements appear under their covering tasks for display. The chain direction (forward Req→Task→…→Test) is unchanged. The navigation layer is a display denormalization (Task.coveredRequirements[]); no back-refs added.
-
-**Why append-only:** Rule 8 (closure freeze, refinement-precedence-analysis.md) — closed tasks don't gain body edits; post-closure clarifications go into QA-audit / append notes. The reworked AC2 wording lives in T187 (S18) which formally owns the R18.8 navigation-root rework.
-
-**Companion:** T187 (S18 trace-narrowing + nav-root + /api/trace/sprints endpoint per C7).
 
 ---
 

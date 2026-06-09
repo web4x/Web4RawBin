@@ -1,131 +1,21 @@
-[Back to README](../../README.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
 
-# Sprint 11 Planning — Traceability Standardization
+[Back to Sprints](../sprints.overview.md)
+
+# Sprint 11 Planning — Sprint 11 — Traceability
 
 ## Sprint Goal
-Bring RawBin's **Sprints 1-9** task files up to the approved
-[Traceability Standard](../../standards/traceability-standard.md): every task
-carries the full chain **Tron→requirement→task→use case→PUML→class/method→test**,
-anchored by `task:uuid`. Done in deliberate, QA-gated batches — NOT ad-hoc inline
-edits to signed-off sprints. (Sprint 10 made compliant separately as active work;
-Sprint 11 itself uses the standard natively.)
 
-**Scope:** Sprints 1-9 (89→ existing tasks, minus Sprint 10 handled live).
-**Standard:** approved `scrum.pmo/standards/traceability-standard.md` (robbin-req).
-**Audit split:** req-eng completed the Sprint 1 audit (the pattern); req audits
-Sprints 2-9 within this sprint; planner wires links + keeps planning coherent.
 
-## Why This Sprint (Tron directive 2026-05-25)
-Adopt the Web4Articles planning standard
-(`/Users/Shared/Workspaces/2cuGitHub/Web4Articles/scrum.pmo/sprints/`). Future
-tasks use the upgraded template immediately; existing tasks are remediated here
-as tracked, reviewed work so closed/QA-approved sprints are touched deliberately
-(auditable, Tron-gated), never by silent inline churn.
 
-## Baseline Gap Analysis (planner, 2026-05-25)
-89 task files across 10 sprints. Current coverage:
+**Status:** In Progress
 
-| Chain link | Coverage | Note |
-|------------|----------|------|
-| `task:uuid` tag | 89/89 ✅ | already complete — not the gap |
-| → requirements.md link | 20/89 | only Sprints 8,9 have requirements.md |
-| → use case (UC-) | 19/89 | |
-| → PUML / diagrams | 6/89 | only 4 sprints have diagrams/ |
-| → class/method (src .ts) | 15/89 | |
+## Tasks
 
-The gap is the **forward chain depth**, not UUIDs. Sprints 1,3,4,5,6,10 lack a
-requirements.md entirely.
-
-## Web4Articles Standard (reference)
-- `[task:uuid:...]` immediately under the title (RawBin: ✅ present)
-- Hierarchical Status checklist (RawBin: ✅ in use)
-- Traceability: up / down + **forward chain** req→usecase→puml→class/method with UUIDs
-- Intention (Why / Problems / How), Dependencies (Requires / Enables), Definition of Done
-- Template adopted at `scrum.pmo/templates/task-template.md` (upgraded 2026-05-25)
-
-## Task List
-
-> **Progress legend** (at-a-glance per task; `[ ]` stays = Tron's Done gate):
-> ⏳ planned · 📝 designed (refinement-done) · 🔧 implementing · ✅ impl-shipped · 🧪 testing · 🏁 Tron-QA-done
-
-- [ ] ✅ [T85: Adopt Web4Articles task template + traceability conventions doc](./task-85-adopt-template.md)
-  **Status:** impl-done (verified 2026-05-26) — testing + Tron QA pending · **Owner:** planner + req-eng
-  - standard (req) + upgraded template (planner) DONE; verified compatible; S10/S12/S13 authored from it pass audit
-
-- [ ] ✅ [T86: Traceability index — map all Sprint 1-9 tasks to chain coverage](./task-86-traceability-index.md)
-  **Status:** impl-done (2026-05-26) — testing + Tron QA pending · **Owner:** planner + req-eng
-  - Published `scrum.pmo/traceability-matrix.md` — 86 tasks (S1-9), per-link coverage
-  - Findings: uuid 86/86; req/uc only S8-9; requirements.md missing S1-7; puml 5/86
-  - Batch order set: T87=S8,9 · T88=S5,6,7 · T89=S1-4 (+ Sprint-1 dup reconcile)
-
-- [ ] ⏳ [T87: Batch 1 — recent sprints (8, 9) full chain](./task-87-batch-active.md)
-  **Status:** PLANNED · **Owner:** req-eng (chain + audit), planner (links)
-  - Sprints 8,9 already have requirements.md + diagrams — add requirement:uuid tags + wire each task's forward chain
-  - (Sprint 10 already made compliant as active work — requirements.md + T81-T83 up→requirement links done)
-  - QA-gated: Tron reviews before Done
-
-- [ ] ⏳ [T88: Batch 2 — Sprints 5-7 chain backfill](./task-88-batch-mid.md)
-  **Status:** PLANNED · **Owner:** req-eng (chain), planner (links)
-  - Sprints 5,6,7 — backfill requirements.md/use cases where missing, link PUML + code
-  - DELIBERATE: these are closed/QA'd — changes tracked here, reviewed, not inline churn
-
-- [ ] ⏳ [T89: Batch 3 — Sprints 1-4 chain backfill](./task-89-batch-foundation.md)
-  **Status:** PLANNED · **Owner:** req-eng (chain), planner (links)
-  - Oldest sprints — retroactively author requirements.md + use-case stubs as tracked work
-  - Reconcile the deferred Sprint 1 duplicate task-2 files as part of this batch
-  - Highest risk (signed-off) — smallest sub-batches, Tron-gated per sprint
-
-- [ ] ⏳ [T90: Traceability verification + audit gate](./task-90-traceability-verify.md)
-  **Status:** PLANNED · **Owner:** tester + planner
-  - Add a chain-resolution check: every task's req→usecase→puml→class/method links resolve
-  - Extend (or wrap) the `sprint audit` to flag broken/missing chain links
-  - Target: 89/89 tasks chain-complete
-
-- [ ] ✅ [T119: Test traceability — `[test:uuid:]` markers + trace-cli Pass 6 + chain validation](./task-119-test-traceability.md)
-  **Status:** impl-shipped (ac4a6d2 Pass 6 parser + 28 vitest markers; a242530 all 14 e2e markers) — testing (robbin-tester chain-complete verify) + Tron QA pending
-  **Rule-pair:** test-infra exception per task AC8 (server.ts trace endpoint now exposes Test nodes — borderline user-facing; expert exercised AC8 latitude); STATIC_SHELL exempt (no new route)
-  **Owner:** robbin-architect (retrofit design), robbin-expert (Pass 6 + marker rollout), robbin-tester (chain-complete verify), with robbin-req formalizing the requirement first
-  - Marker convention `[test:uuid:]` for every test file (file-level; case-level where multi-AC)
-  - trace-cli Pass 6 parser + `validate()` `orphanTests` check
-  - Standard + matrix + s16-usecases.puml extended to include the **test** node
-  - Closes the chain end-to-end (req→uc→puml→class/method→**test**); precondition for T90's full audit gate
-
-## Dependency Graph
-```
-T85 (template + standard doc) ─→ T86 (index/matrix) ─┬─→ T87 (batch active 8-10)
-                                                      ├─→ T88 (batch mid 5-7)
-                                                      └─→ T89 (batch foundation 1-4)
-                                                              │
-                                          T90 (verify) ←──────┘
-```
-
-## Sprint Totals
-| Metric | Value |
-|--------|-------|
-| Tasks | 7 (T85-T90, T119) |
-| Tron QA-approved (Done) | 0/6 |
-| Planned | 6 |
-| Scope | 89 existing task files, 10 sprints |
-
-## Definition of Done
-- [ ] Web4Articles-aligned task-template.md adopted for future tasks (T85)
-- [ ] traceability-standard.md + traceability-matrix.md published (T85, T86)
-- [ ] All 89 tasks carry req→usecase→puml→class/method chain (T87-T89)
-- [ ] Chain-resolution audit passes 89/89 (T90)
-- [ ] No closed/QA sprint rewritten inline — all via tracked, Tron-gated batches
-- [ ] Sprint 1 duplicate task-2 reconciled (in T89)
-
-## Guardrails (Tron directive)
-- FUTURE tasks: use upgraded template immediately
-- CLOSED/QA tasks: remediate ONLY through T87-T89 batches, reviewed + Tron-gated
-- Never silent inline edits to signed-off sprints
-- QA Review + Done remain Tron's gate
-
----
-
-**Product Owner:** robbin-po (robbinTeam:0.0)
-**Planner:** robbin-planner (robbinTeam:1.0)
-**Req-eng:** robbin-req (robbinTeam:1.1)
-**Tron:** research (iphone:0.0)
-**Created:** 2026-05-25
-**Sprint:** Sprint 11 — Traceability Standardization
+- [ ] [T119: Test traceability — `[test:uuid:]` markers + trace-cli Pass 6 + chain validation](./task-119-test-traceability.md)
+- [ ] [T85: Adopt Web4Articles Task Template + Traceability Conventions](./task-85-adopt-template.md)
+- [ ] [T86: Traceability Index — Map All 89 Tasks to Chain Coverage](./task-86-traceability-index.md)
+- [ ] [T87: Batch 1 — Active Sprints (8, 9, 10) Full Chain](./task-87-batch-active.md)
+- [ ] [T88: Batch 2 — Sprints 5-7 Chain Backfill](./task-88-batch-mid.md)
+- [ ] [T89: Batch 3 — Sprints 1-4 Chain Backfill + Sprint-1 Dup Reconcile](./task-89-batch-foundation.md)
+- [ ] [T90: Traceability Verification + Audit Gate](./task-90-traceability-verify.md)

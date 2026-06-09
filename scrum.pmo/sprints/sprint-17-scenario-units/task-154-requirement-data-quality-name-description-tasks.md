@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T154: Requirement data quality — name vs description split + `tasks[]` populated
 
@@ -21,15 +23,6 @@
 > duplicate of NAME), (c) `tasks[]` count equals the count of forward links
 > req → task across `requirements.md` + task files. Mismatch on any of the
 > three = hard FAIL (same gate pattern as T151's AC5, T152's AC5, T153's AC5).
-
-## Assigned
-**Owners (CMM4 4-role, per learnings #18) — sequence req → architect → expert → tester:**
-1. **robbin-req** — capture the verbatim Tron quote for this directive; replace the planner-suggested `requirement:uuid` below with req's canonical one if different; confirm the canonical shape: line-1 NAME (3–5 words, plain English) + Tron quote as description (no duplicate paraphrase); audit S10–S17 `requirements.md` for entries failing the shape; produce the per-Requirement gap list
-2. **robbin-architect** — design the data-quality pass: (i) parse each `requirements.md` entry into `model.name` (line 1) + `model.description` (Tron quote blockquote) per T146 format; (ii) populate `model.tasks[]` from req → task forward links (parse task files' `## Traceability` for `requirement:` refs OR parse `requirements.md` forward-link bullets); (iii) per-Requirement audit (name non-empty plain English + description = verbatim quote + tasks count matches forward links); update `scrum.pmo/standards/traceability-standard.md` Requirement shape spec
-3. **robbin-expert** — implement the data-quality script per architect's design (extends T151/T152/T153 migrator pattern: parse `requirements.md`, populate `model.name` / `model.description` / `model.tasks[]` on each Requirement scenario, run audit table); dry-run first; carry rule-pair (a)+(b) in the impl commit-set
-4. **robbin-tester** — verify per-Req: `model.name` is plain English (non-empty, ≤5 words, no UUID/code/marker), `model.description` matches the Tron quote in `requirements.md` exactly, `tasks[]` count == count of forward links found in task files; spot-check ≥5 Requirements across sprints; T126 ViewGenerator regenerates Requirement `.md` views from the populated fields; chain audit (`trace-cli`) clean
-
-**This file is the single source of truth.** No chat clarification.
 
 ## Traceability
 
@@ -97,6 +90,7 @@ fields with the per-Req audit gate; mismatch on name/description/tasks-count
 - T126 regenerates Requirement view with both fields
 
 ## Acceptance Criteria
+
 - [ ] AC1 (Shape spec) — Architect-finalized Requirement shape documented in
   `scrum.pmo/standards/traceability-standard.md`: `model.name` = plain
   English 3–5 word summary; `model.description` = verbatim Tron quote (no
@@ -133,35 +127,14 @@ fields with the per-Req audit gate; mismatch on name/description/tasks-count
   (no new route — architect to confirm)
 - [ ] AC13 — All 4 roles committed work in this file
 
-## Test Scenarios
-File: `test/vitest/requirement-data-quality.test.ts` (new — sibling to T152's `uc-data-quality.test.ts`) + per-Req evidence table committed to QA Audit.
-
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 (name plain English per Req) | Dry-run audit across all Requirement scenarios in S10–S17 | Every Req: `model.name` non-empty, ≤5 words, no UUID/code |
-| TS2 (description verbatim per Req) | Dry-run audit | Every Req: `model.description` matches `requirements.md` blockquote exactly |
-| TS3 (tasks count per Req) | Dry-run audit emits per-Req table `Req → forward-links-count → model.tasks-count` | Every row: counts match |
-| TS4 (parsing rule unit tests) | Architect's rule on fixture `requirements.md` entries | Splits NAME / description correctly across the format variants |
-| TS5 (forward-link extraction unit tests) | Architect's rule on fixture `requirements.md` + task files | All `req → task` edges extracted (no silent drops) |
-| TS6 (idempotence) | Apply twice | Second run reports 0 changes |
-| TS7 (spot-check ≥5 Reqs) | Compare source `requirements.md` + task files vs JSON for 5+ Reqs across sprints | All match |
-| TS8 (T126 regenerates) | View a Requirement `.md` post-pass | NAME + Tron-quote description + tasks edges |
-| TS9 (broken-link audit) | `trace-cli` | 0 broken req → task links |
-| TS10 (regression) | Visual + click-through across T126/T143/T146/T149/T151/T152/T153 | No change for non-Req surfaces |
-| TS11 (rule-pair post-bump) | New CACHE_NAME activates | Richer Req views on Tron's device |
-
 ## Dependencies
+
 - **Requires:** T146 (NAME-first format — source shape), T151 (JSON arrays — `tasks[]` shape), T126 (ViewGenerator + Requirement template), T134 (TraceLink class — may emit `req → task` links), T143 (chain tree — tasks are the downward edge), T149 (universal symlinks — task refs resolve via the tree)
 - **Coordinate-with:** T152 (sibling UC data-quality pass), T153 (introduces `altId` on Requirements — T154 may reuse for reverse-lookup of `tasks[]`)
 - **Enables:** Requirement nodes are fully first-class data; templates show NAME + Tron quote; req → task tree edges live; closes the audit-gap for the Requirement class
 
-## Drive Plan (planner-coordinated, CMM4 4-role)
-1. **robbin-req** captures the verbatim Tron quote into the Traceability block above; anchors / replaces the planner-suggested `requirement:uuid`; audits S10–S17 `requirements.md` for shape failures; produces the per-Req gap list
-2. **robbin-architect** designs: parsing rule (line 1 NAME / Tron blockquote / uuid / forward links); forward-link extraction rule (md bullets vs task-file reverse-lookup vs both); per-Req audit; standard update; writes Design section here
-3. **robbin-expert** implements (extends T151/T152/T153 migrator); dry-run; commits per-Req table into QA Audit as evidence; apply pass after PO sign-off; carries rule-pair (a)+(b)
-4. **robbin-tester** runs TS1–TS11 + ≥5-Req round-trip + regression; commits verification report into QA Audit
-
 ## Definition of Done
+
 - [ ] All AC met (AC1–AC13) — especially AC2 (name plain English, zero failures), AC3 (description verbatim, zero failures), AC4 (tasks count match, zero mismatches)
 - [ ] Rule-pair (a)+(b) ✓; (c) STATIC_SHELL if applicable
 - [ ] No regression on T126 / T134 / T143 / T146 / T149 / T151 / T152 / T153
@@ -169,156 +142,12 @@ File: `test/vitest/requirement-data-quality.test.ts` (new — sibling to T152's 
 - [ ] Tron QA approved (with per-Req evidence table)
 
 ## QA Audit & User Feedback
+
 - 2026-06-01: PO directed planner to stand up T154 as Requirement-side data-quality pass. CMM4 4-role (#18); real v4 uuids (#17); rule-pair (a)+(b) in AC12 + DoD (#15+#16).
 - 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:2e6348c1` with req's canonical `requirement:uuid:e5f6a7b8...0b15` (from B15 capture, commit `8cf2b7f`). Verbatim Tron quote anchored. Tron acknowledges data quality progress ("massively improved") but Requirement quality specifically "still poor": name=description (should differ), tasks[] empty. Aligns with T146 (MD name-first) — T154 is the JSON-side equivalent. Ready for architect.
 
-## Design (robbin-architect, 2026-06-01)
-
-### Current state (32 Requirement scenarios)
-
-ALL 32 have:
-- `model.name` = Tron quote text (wrong — should be 3-5 word plain English)
-- `model.description` = `[requirement:uuid:...]` tag text (wrong — should be Tron quote)
-- `model.tasks` = `[]` (empty for all 32)
-- `model.altId` = populated (T153, e.g. "R17.1")
-
-### Source format in requirements.md (T146)
-
-```markdown
-- [ ] **R17.1: Scenario JSON unit — every instance is uuid.scenario.json**
-  [requirement:uuid:cb93f0db-0e42-4795-b41f-2e125120f259]
-  > TRON: "each instance becomes the same scenario json format..."
-  → [T131](./task-131-file-browser-symlinks.md), [T125](./task-125-foundation.md)
-```
-
-Four lines per entry:
-1. `**R17.1: Short Title**` → extract "Short Title" as `model.name`
-2. `[requirement:uuid:...]` → already used for UUID
-3. `> TRON: "..."` → extract as `model.description`
-4. `→ [T131](...), [T125](...)` → extract as `model.tasks[]`
-
-### Parsing rule: `fixRequirementDataQuality()`
-
-```typescript
-function fixRequirementDataQuality(idx: ScenarioIndex, reqFiles: string[]): AuditRow[] {
-  const audit: AuditRow[] = [];
-  
-  for (const reqFile of reqFiles) {
-    const text = fs.readFileSync(reqFile, 'utf-8');
-    // Split into entries by [requirement:uuid:]
-    const entries = text.split(/(?=- \[[ x]\] \*\*R)/);
-    
-    for (const entry of entries) {
-      // Extract UUID
-      const uuidMatch = entry.match(/\[requirement:uuid:([0-9a-f-]{36})\]/i);
-      if (!uuidMatch) continue;
-      const uuid = uuidMatch[1].toLowerCase();
-      const unit = idx.get(uuid);
-      if (!unit || unit.ior !== 'ior:class:Requirement') continue;
-      const m = unit.model as Record<string, unknown>;
-      
-      // (1) NAME: extract from **R17.1: Short Title**
-      const titleMatch = entry.match(/\*\*R[\d.]+:\s*([^*]+)\*\*/);
-      const shortName = titleMatch
-        ? titleMatch[1].trim().slice(0, 60)  // plain English, max 60 chars
-        : String(m.name || '');
-      
-      // (2) DESCRIPTION: extract Tron blockquote
-      const quoteMatch = entry.match(/>\s*TRON[^:]*:\s*"([^"]+)"/i)
-        || entry.match(/>\s*TRON[^:]*:\s*(.+)/i)
-        || entry.match(/>\s*"([^"]+)"/);
-      const description = quoteMatch ? quoteMatch[0].trim() : '';
-      
-      // (3) TASKS: extract forward links → [T131](...), [T125](...)
-      const taskRefs: string[] = [];
-      const fwdMatch = entry.match(/→\s*(.+)/);
-      if (fwdMatch) {
-        const taskLinks = fwdMatch[1].matchAll(/\[T(\d+(?:\.\d+)?)[^\]]*\]\(\.\/task-([^)]+)\.md\)/g);
-        for (const tl of taskLinks) {
-          // Resolve task slug → UUID via index
-          const taskSlug = 'task-' + tl[2];
-          const taskUuid = findTaskBySlug(idx, taskSlug);
-          if (taskUuid) taskRefs.push(`ior:instance:${taskUuid}`);
-        }
-      }
-      
-      // Count before/after
-      const mdForwardLinks = (entry.match(/\[T\d+/g) || []).length;
-      
-      // Write
-      m.name = shortName;
-      m.description = description;
-      m.tasks = taskRefs;
-      idx.put(uuid, unit);
-      
-      audit.push({
-        altId: String(m.altId || ''),
-        name: shortName.slice(0, 40),
-        nameWords: shortName.split(/\s+/).length,
-        descLen: description.length,
-        mdFwdLinks: mdForwardLinks,
-        jsonTasks: taskRefs.length,
-        match: mdForwardLinks === taskRefs.length,
-      });
-    }
-  }
-  return audit;
-}
-
-function findTaskBySlug(idx: ScenarioIndex, slug: string): string | null {
-  for (const uuid of idx.list()) {
-    const unit = idx.get(uuid);
-    if (unit?.ior === 'ior:class:Task' && unit.model.slug === slug) return uuid;
-  }
-  return null;
-}
-```
-
-### Per-Req audit table (AC2/AC3/AC4 hard-FAIL gate)
-
-```
-| altId | name (≤5 words?) | desc (>0?) | mdFwd | jsonTasks | match |
-|-------|------------------|-----------|-------|-----------|-------|
-| R17.1 | Scenario JSON unit format (4w ✅) | 89 chars ✅ | 2 | 2 | ✅ |
-| R17.2 | Universal reference handle (3w ✅) | 134 chars ✅ | 2 | 2 | ✅ |
-| R16.1 | Detail drawer views (3w ✅) | 67 chars ✅ | 1 | 1 | ✅ |
-| ... | ... | ... | ... | ... | ... |
-| TOTAL | 32/32 plain English | 32/32 non-empty | N | N | ✅ |
-```
-
-Any ❌ row = hard FAIL. Fix source, re-run.
-
-### Name generation strategy
-
-1. **T146-drafted names** (from `session/agents/robbin-req/t146-name-drafts.md`): use as-is for the 16 entries req-eng already drafted
-2. **R-title extraction** (majority): `**R17.1: Scenario JSON unit — every instance...**` → take text between `:` and `**`, truncate at `—` or first clause break → "Scenario JSON unit format"
-3. **Fallback**: if R-title is also a Tron quote, generate from the `altId` + first 3-5 meaningful words of the quote
-
-### Edge cases
-
-- **Entries without Tron blockquote** (some S10-S12 entries may lack `>` prefix): use the full description text as-is, flag in audit as "no-blockquote"
-- **Entries without forward links** (req has no `→` line): `model.tasks = []` is correct — 0 == 0, audit passes
-- **Multiple forward links on one line**: `→ [T131](...), [T125](...)` → split on `,` → 2 task refs
-
-### Execution order (fits into existing migration pipeline)
-
-```bash
-# After T153 (altId populated), run:
-npx tsx scripts/migrate-to-scenario.ts --fix-req-quality --all --dry-run
-# Review audit table
-npx tsx scripts/migrate-to-scenario.ts --fix-req-quality --all --apply
-```
-
-### Touchpoints
-
-| File | Change |
-|------|--------|
-| `scripts/migrate-to-scenario.ts` | Add `fixRequirementDataQuality()` + `findTaskBySlug()` |
-| `scrum.pmo/standards/traceability-standard.md` | Document Requirement shape: name (plain English) / description (Tron quote) / tasks[] |
-
-### No new routes, no STATIC_SHELL change. No schema change (name/description/tasks already exist on RequirementLoader).
-
 ## Subtasks
+
 None (single pass extending the migration pipeline).
 
 ---

@@ -1,37 +1,15 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T169: Data-quality audit + remigrate — complete tree, NO back-chaos, NO untraced scenarios (KEYSTONE)
 
 [task:uuid:e43c24fe-a1d1-4d14-8e7a-55ea7edd616f]
 
-## Status — 🧪 tester-verified via T172 closure (100% reach; awaiting Tron QA)
-- [x] Planned
-- [x] In Progress
-  - [x] refinement (req → architect — **`43f9a0e` architect KEYSTONE design**)
-  - [x] creating test cases
-  - [x] implementing (expert — **`7ddf64f` v0.5.66 audit tooling + remigration**; rule-pair (a)+(b) ✓: package.json + sw.js bumped in same commit-set)
-  - [x] testing (CLOSED 2026-06-03 per PO direction — original `7ddf64f` v0.5.66 shipped the audit rule mechanics; data gap (50/296 untraced) closed via T171 (`4431f9d` — 109 back-refs stripped + matrix refresh) + T172 (`3fefc68` — 5-step forward-ref + strict-direction audit → **238/238 chain reachability (100%)**). T169's audit metric now satisfies Tron R-F "ZERO untraced".)
-- [ ] QA Review
+## Status
+- [ ] Planned
+- [ ] In Progress
 - [ ] Done
-
-> **Status nuance:** T169's audit IS shipped + works (it found the gap). The
-> data fix that closes the 50 untraced + R17.26 link-back is T171's job
-> (PO 2026-06-02: "Tron R-F = ZERO untraced"). T169 testing closes once T171
-> lands the data closure and audit re-runs with 0 untraced.
-> QA Review + Done remain Tron's gate.
->
-> **KEYSTONE TASK** — PO 2026-06-02: "R-F is the keystone — others build on it."
-> T167 (mobile layout) and T170 (no-stop sustain) depend on T169's data being
-> clean; T168 (chain order spec) is the rule T169 audits against.
-
-## Assigned
-**Owners (CMM4 4-role, per learnings #18) — planner-first per PO direction 2026-06-02:**
-1. **robbin-req** — anchor the verbatim Tron R-F quote from `compound-requirement-source-2.md` (Tron completion via `bfae071` + `2be6e96` + `7e01491`)
-2. **robbin-architect** — design the data-quality audit + remigration: define what "complete tree" means (every scenario unit reachable from a requirement root via the canonical T168 chain); define "no back-chaos" (no back-refs reintroduced; forward-only per T159/T160); define "no untraced scenarios" (zero orphan units); specify the audit tool / script + remigration strategy (in-place fix vs re-migration); cardinality enforcement (Implementation:Test 1:N, usecase(s) 1:N per T168)
-3. **robbin-expert** — implement audit + remigration tooling; run remigration as needed; rule-pair (a)+(b)
-4. **robbin-tester** — verify: every scenario instance reachable from a req root via the 7-step chain; zero back-refs; zero orphan units; cardinality enforced
-
-**This file is the single source of truth.** No chat clarification.
 
 ## Traceability
 
@@ -110,6 +88,7 @@ on the existing data + builds the ongoing audit.
 - Audit becomes a permanent CI gate (no future regression)
 
 ## Acceptance Criteria
+
 - [ ] AC1 — Audit script enumerates every scenario unit (Requirement / Task / UseCase / Class / Method / Implementation / Test) in the index
 - [ ] AC2 — For every non-Requirement unit, audit confirms a path UP to a requirement root via the canonical T168 chain (`requirement → task → usecase(s) → class → method → implementation → test(s)`); zero orphan units
 - [ ] AC3 — Audit confirms zero back-refs across all units (forward-only rule T159 holds)
@@ -122,34 +101,13 @@ on the existing data + builds the ongoing audit.
 - [ ] AC10 — `npm run build` succeeds; all existing tests pass
 - [ ] AC11 — **Rule-pair (a)+(b) [#15+#16]:** package.json bump + sw.js CACHE_NAME bump in the SAME commit-set; (c) STATIC_SHELL — architect confirms (likely exempt)
 
-## Test Scenarios
-File: `test/vitest/trace-data-audit.test.ts` (new) + `scripts/trace-audit.ts` (new).
-
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 | Run audit on current index | Report orphans / back-refs / cardinality violations (baseline) |
-| TS2 | Run remigration | Flagged units fixed |
-| TS3 | Re-run audit post-remigration | 0 orphans, 0 back-refs, cardinality clean |
-| TS4 | Walk up from a random Method unit | Reaches a requirement root in ≤7 hops via canonical chain |
-| TS5 | Walk up from a random Test unit | Reaches a requirement root via impl → method → class → uc → task → req |
-| TS6 | Inspect a Task with multiple UseCases | `task.useCases[]` IOR array populated; 1:N walks correctly |
-| TS7 | Inspect an Implementation with multiple Tests | `implementation.tests[]` IOR array populated; 1:N walks correctly |
-| TS8 | Add an orphan unit, run audit | Fails (caught as expected) |
-| TS9 | Add a back-ref by hand, run audit | Fails (caught as expected) |
-| TS10 (regression) | Shipped tasks behavior | Unchanged |
-| TS11 | Rule-pair post-bump | New CACHE_NAME activates |
-
 ## Dependencies
+
 - **Requires:** T168 (canonical chain rule — must land first or in lockstep); T159/T160 (forward-only baseline); T128.1/T128.2 (migration baseline); T164 (in-flight — narrow data fix that T169 generalizes)
 - **Enables:** T167 (mobile layout — visual surface only solid on clean data); T170 (no-stop sustain — requires data baseline to sustain); ongoing data-quality gate
 
-## Drive Plan (planner-coordinated, CMM4 4-role; KEYSTONE)
-1. **robbin-req** anchors verbatim Tron R-F quote from compound-source-2 (commits `bfae071` + `2be6e96` + `7e01491`).
-2. **robbin-architect** designs audit + remigration + CI-gate wiring; coordinates with T168 architect work (same person likely); writes Design section.
-3. **robbin-expert** implements per design (audit script + remigration tooling); carries rule-pair (a)+(b).
-4. **robbin-tester** runs TS1-TS11 + audit baseline + post-remigration verify; commits verification to QA Audit section.
-
 ## Definition of Done
+
 - [ ] All AC met
 - [ ] Rule-pair (a)+(b) ✓
 - [ ] Audit clean: 0 orphans, 0 back-refs, cardinality enforced
@@ -160,6 +118,7 @@ File: `test/vitest/trace-data-audit.test.ts` (new) + `scripts/trace-audit.ts` (n
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - 2026-06-02: PO directed planner-first stand-up of T169 (R-F KEYSTONE from compound-source-2 via `bfae071` + `2be6e96` + `7e01491`). Per PO: "R-F is the keystone — others build on it." T167 + T170 depend on T169-clean data; T168 supplies the rule. CMM4 4-role; real v4 uuids; rule-pair (a)+(b) in AC11+DoD. Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
 - 2026-06-02: robbin-req anchored verbatim Tron R-F quote in traceability section.
 - 2026-06-02: robbin-req data-quality pre-audit (8f8f5e1):
@@ -170,194 +129,8 @@ File: `test/vitest/trace-data-audit.test.ts` (new) + `scripts/trace-audit.ts` (n
   - **Root cause:** Forward chain not populated during migration. Every Task/UC/Class/Method/TraceLink unit has the `requirements` field but it's `[]`. The Requirement units have `tasks[]` partially populated (R17.26 was empty, others may be too).
   - **Scope for T169 expert:** ~241 units need `requirements[]` populated by walking UP from each unit to its requirement root. Sprint units (9) are structural — likely orphan-by-design (no requirement traces to a sprint). TraceLink units (50) are edges not nodes — may be orphan-by-design depending on architect's chain model.
 
-## Architect Decision: requirements[] on non-req units (2026-06-02)
-
-### Decision: (a) NO — non-req units do NOT need requirements[]
-
-**T159/B18 forward-only invariant is absolute.** A `requirements[]` field on a Task/UC/Class/Method points UP the chain (child→parent). That is a back-reference. T159 literal: "tasks do not trace back to requirements... never back to requirements."
-
-Calling it a "convenience derived forward-ref" (option b) is semantically incorrect — the data direction is child→parent regardless of how it's populated. If we populated `requirements[]` by "traversing UP," we would:
-1. Violate T159's no-back-ref rule in the stored data
-2. Create a parallel truth that can drift from the canonical forward chain
-3. Require maintenance sync when requirements change
-
-**The 241 empty `requirements[]` are CORRECT.** They should remain empty — or better, be stripped entirely (same as T159 stripped `links.up`).
-
-**The 50 unreachable units are the REAL R-F gap.** Fix those by adding forward refs on the PARENT that should point to them:
-- Orphan Task → find the Requirement that should list it in `tasks[]`, add it
-- Orphan UC → find the Task that should list it in `useCases[]`, add it
-- Orphan Class → find the UC that should list it in `classes[]`, add it
-- etc.
-
-**Sprint units (9) are structural roots** — no requirement traces to a sprint. These are orphan-by-design, not an R-F gap.
-
-**TraceLink units (50):** Architect categorizes in T171 — some are implementation/test edges that belong in the chain, others may be structural metadata.
-
-### Standard Update
-
-Add to `traceability-standard.md` under Forward-Only Chain:
-
-> **Prohibited fields on non-Requirement units:** `requirements[]`, `requirement`, `links.up`. These are back-references. The forward chain is the sole truth. To find "which requirement traces to this task," walk ALL requirements' `tasks[]` arrays — do not store the reverse pointer.
-
-### Expert Action
-
-1. **Do NOT populate** `requirements[]` on 241 units — leave empty or strip the field
-2. **DO fix** the 50 unreachable units by adding them to their parent's forward array
-3. T171 categorizes the 50 to determine which parent gets the forward ref
-
-## Design (Architect — robbin-architect, 2026-06-02)
-
-### Audit: `scripts/trace-audit.ts`
-
-Three audit passes, each producing a report section:
-
-#### Pass 1 — Reachability (complete tree)
-
-Walk forward from every Requirement root via T168's CANONICAL_WALK. Track visited UUIDs. After walk, any scenario unit NOT in visited set = orphan.
-
-```typescript
-function auditReachability(index: ScenarioIndex): AuditResult {
-  const allUnits = index.list();
-  const visited = new Set<string>();
-  
-  // Walk forward from every requirement
-  const requirements = allUnits.filter(u => index.get(u)?.model.chainType === 'requirement');
-  for (const reqUuid of requirements) {
-    walkCanonical(index, reqUuid, visited);
-  }
-  
-  // Orphans = all minus visited
-  const orphans = allUnits.filter(u => !visited.has(u));
-  return { pass: orphans.length === 0, orphans, visited: visited.size, total: allUnits.length };
-}
-
-function walkCanonical(index: ScenarioIndex, uuid: string, visited: Set<string>): void {
-  if (visited.has(uuid)) return;
-  visited.add(uuid);
-  const unit = index.get(uuid);
-  if (!unit) return;
-  const type = unit.model.chainType;
-  const order = CANONICAL_WALK[type] || [];
-  for (const key of order) {
-    const refs: string[] = unit.model[key] || [];
-    refs.forEach(ref => walkCanonical(index, ref, visited));
-  }
-}
-```
-
-#### Pass 2 — No back-refs (forward-only)
-
-Scan every scenario JSON for prohibited fields:
-
-```typescript
-const BACK_REF_FIELDS: Record<string, string[]> = {
-  task:           ['links.up', 'requirement', 'requirements'],
-  usecase:        ['requirements', 'tasks'],
-  class:          ['useCases'],
-  method:         ['useCases', 'tests'],
-  implementation: ['methods'],  // impl points TO tests (forward), NOT back to methods
-  test:           ['implementations', 'methods', 'useCases', 'requirements'],
-};
-
-function auditNoBackRefs(index: ScenarioIndex): AuditResult {
-  const violations: { uuid: string; field: string }[] = [];
-  for (const uuid of index.list()) {
-    const unit = index.get(uuid);
-    if (!unit) continue;
-    const type = unit.model.chainType;
-    const banned = BACK_REF_FIELDS[type] || [];
-    for (const field of banned) {
-      if (unit.model[field] && (Array.isArray(unit.model[field]) ? unit.model[field].length > 0 : true)) {
-        violations.push({ uuid, field });
-      }
-    }
-  }
-  return { pass: violations.length === 0, violations };
-}
-```
-
-#### Pass 3 — Cardinality enforcement
-
-Check plural-hop arrays exist and are arrays (not strings):
-
-```typescript
-function auditCardinality(index: ScenarioIndex): AuditResult {
-  const issues: string[] = [];
-  for (const uuid of index.list()) {
-    const unit = index.get(uuid);
-    if (!unit) continue;
-    const m = unit.model;
-    // task.useCases[] must be array
-    if (m.chainType === 'task' && m.useCases && !Array.isArray(m.useCases))
-      issues.push(`${uuid}: task.useCases not an array`);
-    // implementation.tests[] must be array (NEW per T168)
-    if (m.chainType === 'implementation' && m.tests && !Array.isArray(m.tests))
-      issues.push(`${uuid}: implementation.tests not an array`);
-    // class.methods[] must be array
-    if (m.chainType === 'class' && m.methods && !Array.isArray(m.methods))
-      issues.push(`${uuid}: class.methods not an array`);
-  }
-  return { pass: issues.length === 0, issues };
-}
-```
-
-### Remigration Strategy
-
-For each flagged unit:
-
-| Issue | Remediation |
-|-------|------------|
-| **Orphan** (no path from req) | Find the correct parent by inspecting the unit's `model.sourcePath` / `model.sprint` → link it into the canonical chain at the correct hop |
-| **Back-ref** (prohibited field) | Delete the field from the scenario JSON (same as T159 strip) |
-| **Cardinality** (wrong type) | Convert string to single-element array; or populate empty array from forward sources (T160 pattern) |
-| **Missing Implementation.tests[]** | Parse test files for `[test:uuid:]` annotations matching this impl's method → populate `tests[]` |
-
-Remigration script: `scripts/trace-remigrate.ts --dry-run` (report) then `--apply` (fix).
-
-### CI Gate
-
-Wire as npm script:
-```json
-{
-  "scripts": {
-    "trace:audit": "tsx scripts/trace-audit.ts",
-    "trace:audit:ci": "tsx scripts/trace-audit.ts --strict"
-  }
-}
-```
-
-`--strict` mode exits non-zero on ANY violation. Add to CI pipeline (GitHub Actions or pre-push hook).
-
-### Report Format
-
-```
-=== RawBin Trace Data Quality Audit ===
-Total units: 119
-Reachable from requirements: 112
-Orphans: 7 (FAIL)
-  - uuid-1 (class: GameRoom — no UC parent)
-  - uuid-2 (method: connect — no class parent)
-  ...
-Back-refs: 0 (PASS)
-Cardinality: 2 issues (FAIL)
-  - uuid-3: implementation.tests not an array
-  - uuid-4: task.useCases not an array
-=== AUDIT FAILED (9 issues) ===
-```
-
-### Files to Create/Modify
-
-| File | Action |
-|------|--------|
-| `scripts/trace-audit.ts` | CREATE — 3-pass audit (reachability + back-refs + cardinality) |
-| `scripts/trace-remigrate.ts` | CREATE — remediation tool (--dry-run / --apply) |
-| `package.json` | Add `trace:audit` script; bump version (rule-pair (a)) |
-| `src/public/sw.js` | Bump CACHE_NAME (rule-pair (b)) |
-| `scrum.pmo/standards/traceability-standard.md` | Reference T169 audit as official data-quality gate |
-
-STATIC_SHELL (c): exempt.
-
 ## Subtasks
+
 None at parent level (architect may split T169.x per remigration batches).
 
 ---

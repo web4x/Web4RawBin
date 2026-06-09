@@ -1,36 +1,15 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T163: /api/trace requirement title source — switch from scanRepo firstLine() to scenario index `model.name`
 
 [task:uuid:57c1f23f-dbac-4b49-a7a2-e0651a986c3f]
 
-## Status — ⚠️ PARTIAL (26/41) — close-out split across T164 (a)+(c) and T128.2 (b)
-- [x] Planned
-- [x] In Progress
-  - [x] refinement (req → architect)
-  - [x] creating test cases
-  - [x] implementing (expert — `f138aa0` v0.5.61 — /api/trace title source switched from scanRepo firstLine() → scenario index model.name; rule-pair (a)+(b) ✓ in same commit-set. Consumer-side of the MD-leak closed.)
-  - [ ] testing (robbin-tester — partial: 26/41 clean; remaining 15 split into 3 close-out paths below)
-- [ ] QA Review
+## Status
+- [ ] Planned
+- [ ] In Progress
 - [ ] Done
-
-> **PO correction 2026-06-02:** T163 is impl-shipped but PARTIAL on verification —
-> 26/41 units clean. The data-source switch is correct; the residue is split:
-> - **(a) 3 dirty `model.name` units** (sourced from `## Extension 2/3/4` blocks):
->   re-migrate → folded into [T164](./task-164-t163-close-out-remigrate-firstline-harden.md)
-> - **(b) 12 unmigrated S10-S16 reqs** to the scenario index → **T128.2** (separate broader migration task)
-> - **(c) `firstLine()` fallback harden** (defense-in-depth): folded into [T164](./task-164-t163-close-out-remigrate-firstline-harden.md)
->
-> T163 closes (✅) once both T164 + T128.2 land. QA Review + Done remain Tron's gate.
-
-## Assigned
-**Owners (CMM4 4-role, per learnings #18) — sequence req → architect → expert → tester:**
-1. **robbin-req** — anchor the verbatim tester finding (/api/trace requirement-title source is the wrong data path); confirm scope (requirement titles; sibling-class implications)
-2. **robbin-architect** — design the data-source switch: `/api/trace` requirement title field must read **scenario index `model.name`** (T161-clean) instead of computing via `scanRepo firstLine()` over raw source. Same pattern as T160 (which switched `/api/trace` to scenario index for forward-refs). Confirm scope across typed classes (UseCase/Task/Class/Method/Test/TraceLink/View) — fix at the endpoint, not per-class.
-3. **robbin-expert** — implement per architect's design in one commit-set; rule-pair (a)+(b)
-4. **robbin-tester** — re-verify the TS6 finding on `/trace` requirement items (no MD artifacts in titles), sibling-class smoke, regression on T160's forward-ref repopulation
-
-**This file is the single source of truth.** No chat clarification.
 
 ## Traceability
 
@@ -79,94 +58,8 @@ T161 fixed the data; `/api/trace` doesn't read it. The browser sees MD-prefixed 
 - Apply same pattern across other typed classes if the endpoint computes their titles the same wrong way (architect scopes)
 - Removes the parallel derivation path
 
-## Design (Architect — robbin-architect, 2026-06-02)
-
-### Root Cause
-
-`src/ts/server/server.ts` `/api/trace` handler (line ~424-440) calls `scanRepo()` from `TraceConsistency.ts`. `scanRepo()` walks `scrum.pmo/sprints/*/requirements.md` and uses `firstLine()` to extract requirement titles from raw markdown. `firstLine()` returns the first non-blank line of the requirement block — which may be a `##` heading, a `>` blockquote, or other MD syntax.
-
-T161 (shipped `737c841` v0.5.57) fixed `model.name` in the **scenario index** to hold clean speaky names. But `/api/trace` never reads the scenario index for titles — it computes its own via `firstLine()`, bypassing T161's fix entirely.
-
-This is the same pattern T160 fixed for forward-refs: two parallel data paths (MD parse vs scenario index), endpoint using the wrong one.
-
-### Fix: Title Source Switch
-
-**Single change in `/api/trace` handler:** When building the response JSON for a Requirement (or any typed scenario), read `model.name` from the scenario index instead of computing via `firstLine()`.
-
-#### Code Change (server.ts /api/trace handler)
-
-```typescript
-// BEFORE (current — line ~430):
-const requirements = scanRepo(sprintsDir, srcDir, testDir);
-// scanRepo internally calls firstLine() → raw MD → leaked prefixes
-
-// AFTER:
-import { ScenarioIndex } from './ScenarioIndex.js';
-
-app.get('/api/trace', async (req, res) => {
-  const index = new ScenarioIndex(scenarioDir);
-  const scenarios = await index.loadAll();  // or index.loadByChainType('requirement')
-  
-  const traceData = scenarios.map(s => ({
-    uuid: s.model.uuid,
-    chainType: s.model.chainType,
-    title: s.model.name,           // ← T161-clean speaky name
-    description: s.model.description,
-    // ... forward arrays from T160 ...
-    tasks: s.model.tasks || [],
-    useCases: s.model.useCases || [],
-    classes: s.model.classes || [],
-    methods: s.model.methods || [],
-  }));
-  
-  res.setHeader('Cache-Control', 'no-cache');
-  res.json(traceData);
-});
-```
-
-**Key:** `title: s.model.name` reads the scenario index — NOT `firstLine()`. T161 already ensured `model.name` is clean (speaky, no `>`, no `##`).
-
-#### Scope: All Typed Classes (not just Requirement)
-
-The same `scanRepo` path derives titles for ALL chain types. The switch applies to:
-
-| chainType | Current title source | New title source |
-|-----------|---------------------|-----------------|
-| requirement | `firstLine()` on requirements.md block | `model.name` from scenario index |
-| task | `firstLine()` on task file | `model.name` from scenario index |
-| usecase | `firstLine()` on UC entry | `model.name` from scenario index |
-| class | computed from source path | `model.name` from scenario index |
-| method | computed from AST | `model.name` from scenario index |
-| test | computed from test file | `model.name` from scenario index |
-
-All titles come from `model.name` — single derivation path. DRY restored.
-
-#### `firstLine()` — NOT removed
-
-`firstLine()` in `TraceConsistency.ts` stays as-is. It may have other callers (migration scripts, CLI tools). T163 only changes the `/api/trace` consumer. If `firstLine()` has no other callers after T163, it becomes dead code — future cleanup.
-
-### Files to Modify
-
-| File | Change |
-|------|--------|
-| `src/ts/server/server.ts` (~line 424-440) | Replace `scanRepo()` title derivation with `ScenarioIndex` `model.name` read |
-| `package.json` | Bump version (rule-pair (a)) |
-| `src/public/sw.js` | Bump CACHE_NAME (rule-pair (b)) |
-
-**3 files only.** Minimal change — sister pattern to T160.
-
-### AC Mapping
-
-| AC | Design Answer |
-|----|---------------|
-| AC1 | `/api/trace` reads `model.name` from scenario index — code change above |
-| AC2 | `model.name` is T161-clean → no MD prefixes in response → no MD prefixes in browser |
-| AC3 | Switch applies to ALL typed classes (table above) — same `model.name` source |
-| AC4 | Single derivation path: scenario index `model.name` only. `firstLine()` no longer called from `/api/trace` |
-| AC5 | T160 forward-ref data path unchanged. `firstLine()` remains for other callers |
-| AC7 | Rule-pair (a)+(b): version + CACHE_NAME bump in same commit |
-
 ## Acceptance Criteria
+
 - [ ] AC1 — `/api/trace` requirement-title responses read from scenario index `model.name`, NOT `scanRepo firstLine()`
 - [ ] AC2 — `/trace` Requirement tree-items + chain-link anchors show speaky names with **NO MD heading prefixes** (`##` / `###` / `# `) and **NO blockquote prefixes**
 - [ ] AC3 — Sibling typed classes (UseCase/Task/Class/Method/Test/TraceLink/View) audited: if `/api/trace` computes their titles via the same derived path, the switch applies there too (architect scopes)
@@ -175,31 +68,14 @@ All titles come from `model.name` — single derivation path. DRY restored.
 - [ ] AC6 — `npm run build` succeeds; all existing tests pass (no regression on T159 / T160 / T161)
 - [ ] AC7 — **Rule-pair (a)+(b) [learning #15+#16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set; (c) STATIC_SHELL exempt (no new route)
 
-## Test Scenarios
-File: extend `test/vitest/api-trace.test.ts` or sibling.
-
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 | GET /api/trace, inspect Requirement entries | Every `title` (or equivalent field) matches its scenario index `model.name` exactly |
-| TS2 | Sample a Requirement whose source first line is `## Heading text` | Returned title is the speaky `model.name`, no `##` |
-| TS3 | Sample a Requirement whose source first line is `> TRON DIRECTIVE: ...` | Returned title is the speaky `model.name`, no blockquote prefix |
-| TS4 | Visual: open `/trace`, inspect Requirement tree-items + chain-link anchors | No MD prefixes visible anywhere |
-| TS5 (regression T160) | Forward-refs in /api/trace response still populated correctly | T160 behavior intact |
-| TS6 (regression T161) | Direct unit test of `firstLine()` in TraceConsistency.ts | Still returns speaky line for non-`/api/trace` callers (T161 fix not regressed) |
-| TS7 (architect-scoped) | Sibling typed classes: titles via /api/trace clean | No MD prefixes if architect extended the switch |
-
 ## Dependencies
+
 - **Requires:** T161 (shipped — scenario index `model.name` is clean), T160 (shipped — pattern reference for /api/trace data-source switch)
 - **Coordinate-with:** T162 (SUPERSEDED — same symptom, different root cause; T163 replaces it)
 - **Enables:** clean /trace title rendering across all typed-scenario classes
 
-## Drive Plan (planner-coordinated, CMM4 4-role)
-1. **robbin-req** anchors the verbatim tester finding here; clarifies sibling-class scope with PO if needed.
-2. **robbin-architect** diagnoses the /api/trace title-derivation code path; designs the switch to `model.name`; scopes sibling classes; writes the Design section.
-3. **robbin-expert** implements per the design in one commit-set; carries the rule-pair (a)+(b).
-4. **robbin-tester** runs TS1–TS7 + visual sweep on `/trace`; commits the verification report into this file's QA Audit section.
-
 ## Definition of Done
+
 - [ ] All AC met
 - [ ] Rule-pair (a)+(b) ✓
 - [ ] No regression on T159 / T160 / T161
@@ -207,9 +83,11 @@ File: extend `test/vitest/api-trace.test.ts` or sibling.
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - 2026-06-02: PO directed planner to stand up T163 immediately. Sister to T160 (same /api/trace data-source switch pattern). SUPERSEDES T162 — same MD-artifact symptom but the correct root cause is the wrong data source (not a strip-rule gap in `firstLine()`). CMM4 4-role engagement enforced (learnings #18); real v4 uuids (learning #17); rule-pair (a)+(b) baked into AC7 + DoD (learnings #15+#16). Awaiting req-eng anchor → architect design → expert impl → tester verify → Tron QA.
 
 ## Subtasks
+
 None (atomic task; single endpoint change).
 
 ---

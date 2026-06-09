@@ -1,24 +1,22 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T124: Scenario-unit + IOR + class-based view architecture
 
 [task:uuid:f96a9da3-366c-491f-b2e6-78cbb837f203]
 
-## Status — ✅ CODE-complete; testing GATED on T178 data-fill + 44/44 chain-reach (PO 2026-06-03: do NOT mark chain done on code alone)
-- [x] Planned
-- [x] In Progress
-  - [x] refinement (architect + req JOINT — Tron-assigned)
-  - [x] creating test cases
-  - [x] implementing (PO 2026-06-03: T124.1-.4 + T124.6 DONE. **T124.5 gap CLOSED by expert `e714e255` v0.5.77** — FORWARD_KEYS Implementation:['tests'] completes 7-step chain + `traceability-standard.md` rewritten LOCKED 7-step with atomic-req roots; rule-pair (a)+(b)+(c) ✓; 836/836 pass.)
-  - [ ] testing (⚠️ **GATED on T178** — tester's reverify on post-`e714e255` FOUND A GAP: scenario DATA only chains Req→Task→Subtask (3 deep); UC/Class/Method/Impl/Test forward arrays empty → 44 tests "chain gap" → R-J + R-E NOT satisfied in DATA. T178 is the data-fill KEYSTONE; T124+T168 fold to 🧪 only after T178 ships + tester proves 44/44 tests chain-reachable via the full 7-step.)
+## Status
+- [ ] Planned
+- [ ] In Progress
+  - [ ] refinement (architect + req JOINT — Tron-assigned)
+  - [ ] creating test cases
+  - [ ] implementing
+  - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
-
-## Assigned
-**Owners (Tron-assigned JOINT):** robbin-architect (design lead), robbin-req (requirements lead), robbin-planner (structure).
-**This file is the single source of truth.** Sub-task files (T124.1-T124.6) are authored by the owning role during refinement — planner does NOT pre-author them.
 
 ## Traceability
 
@@ -46,6 +44,7 @@
   - T128 migration strategy
 
 ## Task Description
+
 Design the scenario-unit + IOR + class-based view architecture and formalize the
 requirements. Two-track JOINT refinement (architect + req-eng), with planner
 maintaining structure:
@@ -71,6 +70,7 @@ maintaining structure:
 - Symbol maintenance on T124 itself (⏳→📝 when refinement done, etc.)
 
 ## Acceptance Criteria
+
 - [ ] AC1 — `requirements.md` exists in `sprint-17-scenario-units/` with R17.1-R17.15 each carrying a proper v4 `requirement:uuid` (no invented `r17-*` strings; learnings #17)
 - [ ] AC2 — Architect design committed in T124.1-T124.3 + T124.6 sub-task files (data model, view templates, storage layout, PUML)
 - [ ] AC3 — `traceability-standard.md` updated to include IOR + scenario-unit + the canonical chain
@@ -78,29 +78,24 @@ maintaining structure:
 - [ ] AC5 — Planning.md reflects the refinement state (T124 ⏳→📝); architect+req sign off
 - [ ] AC6 — No client surface change in this parent — version bump deferred to T125 impl (per #15; T124 is documentation-only, exempt)
 
-## Test Scenarios
-This is a refinement/design task; verification is review-based.
-
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 | trace-cli on the new `requirements.md` | 15 requirement units emitted, all v4-valid (learnings #17) |
-| TS2 | trace-cli on `s17-usecases.puml` | UseCase instances emit; UCs linked to T124 + downstream tasks |
-| TS3 | Review pass by PO + Tron | Design covers R17.1-R17.15 with no orphan requirement |
-
 ## Dependencies
+
 - **Requires:** None (foundation refinement)
 - **Coordinate-with:** T117 (UseCase-as-PUML-class machinery — design re-uses it)
 - **Enables:** T125 (foundation impl), T128 (migration uses the class model)
 
 ## Definition of Done
+
 - [ ] All AC met; sub-task files T124.1-T124.6 committed
 - [ ] Architect + req sign-off in this file's QA Audit section
 - [ ] Tron QA approved (refinement phase only — implementation starts under T125)
 
 ## QA Audit & User Feedback
+
 - 2026-05-30: Tron directive — collaborative architect+req+planner plan. Source: compound-requirement-source.md verbatim. Awaiting JOINT refinement, then Tron QA on the design.
 
 ## Subtasks
+
 T124.1 (architect), T124.2 (architect), T124.3 (architect), T124.4 (req-eng), T124.5 (req-eng), T124.6 (architect). Sub-task files created BY their owning role during refinement.
 
 ---

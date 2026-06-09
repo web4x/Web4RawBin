@@ -1,4 +1,6 @@
-[Back to Sprint 11 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T89: Batch 3 — Sprints 1-4 Chain Backfill + Sprint-1 Dup Reconcile
 
@@ -15,6 +17,7 @@
 - [ ] Done
 
 ## Traceability
+
 - up
   - [Sprint 11 Planning](./planning.md)
 - down
@@ -25,6 +28,7 @@
   - Sprint 1 deferred cleanup: duplicate task-2 files (see sprint-1-rawbin-foundation/planning.md "Known Cleanup")
 
 ## Task Description
+
 Backfill the forward chain for the oldest sprints — 1 (Foundation), 2 (Identity/SSH),
 3 (E2E Hardening), 4 (Traceability). Retroactively author requirements.md +
 use-case stubs (none exist for 1,3,4). Reconcile the duplicate Sprint 1 task-2
@@ -32,28 +36,34 @@ files (`task-2-rawbin-architecture-definition.md` vs `task-2-rawbin-architecture
 — determine canonical, merge/remove the other deliberately.
 
 ## Context
+
 Highest-risk batch: all signed-off long ago. Smallest sub-batches, per-sprint
 Tron gate. This is the sanctioned path to touch these files (vs silent inline edits).
 
 ## Acceptance Criteria
+
 - [ ] Sprints 1,2,3,4 tasks have resolving forward chains
 - [ ] requirements.md/use-case stubs authored for 1,3,4
 - [ ] Sprint 1 duplicate task-2 reconciled (one canonical file)
 - [ ] Each sprint's changes Tron-gated before its sub-batch is Done
 
 ## Dependencies
+
 - **Requires:** T86 (matrix), T88 (pattern)
 - **Enables:** T90
 
 ## Definition of Done
+
 - [ ] Sprints 1-4 chain-complete
 - [ ] Sprint 1 dup resolved
 - [ ] Tron QA approved (per-sprint sub-gate)
 
 ## QA Audit & User Feedback
+
 - Pending T88, then Tron QA.
 
 ## Subtasks
+
 None (atomic task — may split per-sprint sub-batches during refinement).
 
 ---

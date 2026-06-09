@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T157: Profile gate — Upload vCard for fast onboarding (button + native drag-and-drop)
 
@@ -17,15 +19,6 @@
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
 > **Multi-platform AC (Tron 2026-06-01):** native drag-and-drop must work on
 > iOS, Android, AND Windows — not just one platform.
-
-## Assigned
-**Owners (CMM4 4-role, per learnings #18) — sequence req → architect → expert → tester:**
-1. **robbin-req** — B3 captured in backlog ✓ (verbatim Tron quote + canonical `requirement:uuid:a3b4c5d6-…`). Additional req work: clarify scope of vCard V3.0 fields to import (FN → name, TEL → phone, URL → url, PHOTO → avatar — confirm these are the four); confirm desired behavior when fields already filled (overwrite vs preserve); confirm whether ProfileEditor opens with the imported fields pre-filled (user can review/edit before saving) OR auto-saves
-2. **robbin-architect** — design: (i) "Upload vCard" button placement at TOP of first-time-connect profile gate (above existing fields); (ii) hidden `<input type="file" accept=".vcf,text/vcard">` triggered by button; (iii) native HTML5 drag-and-drop handlers (`dragover`, `drop`) on the gate form — emit visual hint (overlay + highlight); (iv) **vCard V3.0 parser** (new — current code only EXPORTS vCards in ProfileSheet.downloadVCard); parse FN/TEL/URL/PHOTO; (v) multi-platform notes: iOS share-sheet path, Android drag, Windows drag; (vi) decide upload-vs-drop merge logic; update `scrum.pmo/standards/traceability-standard.md` if a parser convention is added
-3. **robbin-expert** — implement per architect's design in `src/public/ts/ProfileEditor.ts` (gate mode); add the V3.0 vCard parser as a new helper (architect names file — likely `src/public/ts/vcard-parser.ts`); wire button + drag-drop; carry rule-pair (a)+(b) in the impl commit-set
-4. **robbin-tester** — verify on **all three platforms** (iOS Safari, Android Chrome, Windows desktop): button-upload populates fields; native drag-drop populates fields; existing field-editing unaffected; vCard PHOTO → avatar URL roundtrip works; regression: ProfileEditor non-gate mode unchanged
-
-**This file is the single source of truth.** No chat clarification.
 
 ## Traceability
 
@@ -80,6 +73,7 @@ drag-and-drop API, mobile share-sheet / file-drop handling.
 - User reviews + edits before submitting (architect-confirmed UX)
 
 ## Acceptance Criteria
+
 - [ ] AC1 (Upload button) — "Upload vCard" button at the TOP of the first-time-connect profile gate (above name/phone/URL fields)
 - [ ] AC2 (File picker) — Clicking the button opens a file picker filtered to `.vcf` / `text/vcard`
 - [ ] AC3 (Drag-and-drop) — Dropping a `.vcf` file onto the gate form populates fields; visual hint (overlay + highlight) appears during dragover
@@ -94,35 +88,14 @@ drag-and-drop API, mobile share-sheet / file-drop handling.
 - [ ] AC12 — **Rule-pair (a)+(b) [learnings #15 + #16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing impl. (c) STATIC_SHELL: likely exempt (no new route — architect confirms)
 - [ ] AC13 — All 4 roles committed work in this file
 
-## Test Scenarios
-File: `test/vitest/vcard-parser.test.ts` (new — V3.0 parser unit tests) + multi-platform manual + Playwright visual.
-
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 (parser unit) | Parse fixture `.vcf` with FN/TEL/URL/PHOTO | All four fields extracted correctly |
-| TS2 (parser unit edge) | Malformed `.vcf`, V2.1, missing fields | Graceful — fields that exist populate; missing ones leave the form blank |
-| TS3 (upload button) | Click Upload vCard → select fixture file | name/phone/url/avatar pre-fill in the gate form |
-| TS4 (drag-drop desktop) | Drag fixture `.vcf` onto the gate form (Windows / macOS) | Fields populate; visual hint appears during dragover |
-| TS5 (iOS) | iOS Safari: tap Upload vCard → share sheet → select `.vcf` from Files | Fields populate |
-| TS6 (Android) | Android Chrome: tap Upload vCard → file picker → select `.vcf` | Fields populate |
-| TS7 (review-before-save) | After import, user edits a field and submits | Submitted profile reflects the edit, not the imported value |
-| TS8 (avatar pipeline) | Import vCard with PHOTO | PHOTO data flows through T50 POST `/api/avatar` (encrypted-at-rest) |
-| TS9 (regression — non-gate mode) | Existing profile edit (post-onboarding) | Unchanged — no Upload button in non-gate mode (architect decides) |
-| TS10 (regression — vCard export) | Existing T11 `ProfileSheet.downloadVCard` | Still works; the new parser doesn't break the exporter |
-| TS11 (rule-pair post-bump) | New CACHE_NAME activates | Onboarding gate gains Upload + drag-drop on Tron's device |
-
 ## Dependencies
+
 - **Requires:** existing ProfileEditor gate mode, existing T50 `/api/avatar` upload endpoint (for the PHOTO field)
 - **Coordinate-with:** T11 (vCard exporter — the parser is its symmetric counterpart), T48/T56 (avatar pipeline)
 - **Enables:** fast onboarding from existing contact cards
 
-## Drive Plan (planner-coordinated, CMM4 4-role)
-1. **robbin-req** confirms the four-field scope (FN/TEL/URL/PHOTO), review-before-save UX, and multi-platform scope
-2. **robbin-architect** designs: gate-mode button placement + drag-drop handlers + V3.0 parser + PHOTO-to-T50 pipeline; writes Design section here
-3. **robbin-expert** implements per the design in one commit-set; carries rule-pair (a)+(b)
-4. **robbin-tester** verifies on iOS / Android / Windows + parser unit tests + regression
-
 ## Definition of Done
+
 - [ ] All AC met (AC1–AC13) — especially AC6/AC7/AC8 (multi-platform)
 - [ ] Rule-pair (a)+(b) ✓; (c) STATIC_SHELL if applicable
 - [ ] No regression on ProfileEditor edit-mode, T11 exporter, T48/T56 avatar pipeline
@@ -130,44 +103,12 @@ File: `test/vitest/vcard-parser.test.ts` (new — V3.0 parser unit tests) + mult
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - 2026-06-01: PO directed planner to stand up T157 from backlog B3. CMM4 4-role (#18); real v4 uuids (#17); rule-pair (a)+(b) in AC12 + DoD (#15+#16). Multi-platform iOS/Android/Windows hard requirement per Tron.
 - 2026-06-01 **robbin-req (anchor confirm):** B3 verbatim already in traceability block (line 39, canonical uuid:a3b4c5d6). Full 3-fragment Tron quote present (upload button + initialize from card + native OS drag-and-drop iOS/Android/Windows). Chain section updated with full uuid. Note: B3 uuid was flagged by planner as invalid v4 (4th-group variant `0c1d` outside `[89ab]`) — functional but trace-cli may drop it. Consider regenerating via uuidgen if it causes issues. Ready for architect.
 
-## Design (robbin-architect, 2026-06-01)
-
-### FINDING: Already implemented
-
-Code audit reveals T157 is **already fully implemented** in the current codebase:
-
-**ProfileEditor.ts (lines 48-52, 92-113, 159-176):**
-- `📇 Import vCard` button (line 49) — positioned at top of gate form ✅
-- Hidden `<input type="file" accept=".vcf,text/vcard">` (line 50) ✅
-- Drag-drop hint text (line 51) ✅
-- Button click → triggers file input (lines 92-93) ✅
-- File input change → `parseVCard(await file.text())` → `applyVCard(vcf)` (lines 95-100) ✅
-- Drag-drop handlers: `dragover` (line 104), `drop` (lines 108-113) ✅
-- `applyVCard()` populates FN→name, TEL→phone, URL→url, PHOTO→avatar (lines 159-169) ✅
-
-**vcard-parse.ts** — V3.0 parser exists:
-- Imported at ProfileEditor.ts line 5: `import { parseVCard, type VCardData } from './vcard-parse.js'`
-- Parses FN, TEL, URL, PHOTO fields ✅
-
-### What's left: tester verification only
-
-The implementation exists. What's needed is **multi-platform testing** per Tron's directive:
-1. iOS Safari — button upload + share-sheet drop
-2. Android Chrome — button upload + drag-drop
-3. Windows Edge/Chrome — button upload + native drag-drop
-4. Verify PHOTO → avatar roundtrip (blob upload via rb-avatar.uploadBlob)
-5. Verify fields pre-fill (user reviews before saving) — confirmed by line 159-169 logic
-
-### Architect recommendation
-
-Mark T157 as **implementing: DONE** (already in codebase). Move directly to **testing** phase. Tester runs TS1-TS8 across all three platforms.
-
-### No design changes needed. No new code. No rule-pair (already shipped).
-
 ## Subtasks
+
 None (testing only — implementation already present).
 
 ---

@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T128: Migrate all existing sprints/tasks/requirements to scenario-unit model
 
@@ -15,9 +17,6 @@
 - [ ] Done
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
-
-## Assigned
-**Owners:** robbin-planner (structure + coordination), robbin-req (requirement units), robbin-expert (migration tooling), robbin-tester (verify)
 
 ## Traceability
 
@@ -42,6 +41,7 @@
   - T129 verification
 
 ## Task Description
+
 One-shot migration of every existing sprint (S1-S16) and the closed/QA history
 into the scenario-unit model. Strategy:
 
@@ -68,6 +68,7 @@ into the scenario-unit model. Strategy:
   orphanMethods=0 (or matches documented waiver).
 
 ## Acceptance Criteria
+
 - [ ] AC1 — Sprint 1 task-1 + task-1.1 migrated via T128.1; views generated; symlink tree resolves; PO/Tron approves the exemplar
 - [ ] AC2 — Sprints 2-9 migrated via T128.2 (artifact mode); their indexed units exist in `scenario/index/`; legacy markdown preserved under `.legacy/`
 - [ ] AC3 — Sprints 10-16 migrated via T128.3 (regenerated views); their `planning.md` + per-task files are now generated views (no hand-edited prose)
@@ -76,27 +77,24 @@ into the scenario-unit model. Strategy:
 - [ ] AC6 — `sprint audit` (Web4Articles compliance) passes 0-issue across all migrated sprints
 - [ ] AC7 — `npm run build` succeeds; full vitest + playwright pass; rule-pair #15 + #16 verified
 
-## Drive Plan (planner-coordinated)
-1. T128.1 exemplar BEFORE the batch passes — Tron sign-off on the structure before scaling.
-2. T128.2 closed sprints (low risk — artifact mode).
-3. T128.3 active sprints (review each `planning.md` regeneration vs current).
-4. T128.4 method markers (parallel-OK once T128.1 is signed off).
-5. Each sub-task is its own commit; planner maintains symbols on every cycle.
-
 ## Dependencies
+
 - **Requires:** T125 (foundation), T126 (views), T127 (nav), and T121 clean uuid base (already done)
 - **Enables:** T129 verification
 
 ## Definition of Done
+
 - [ ] All AC met; sub-tasks T128.1-T128.4 committed
 - [ ] Every migrated sprint passes sprint audit + trace:check
 - [ ] Legacy markdown preserved under `.legacy/` (closed sprints) or replaced by generated views (active sprints)
 - [ ] Tron QA approved (per-batch gates; final approval after T129)
 
 ## QA Audit & User Feedback
+
 - 2026-05-30: Planned — exemplar first (T128.1, Tron sign-off), then closed batch, then active batch, then method markers. PO/Tron gate per batch.
 
 ## Subtasks
+
 T128.1, T128.2, T128.3, T128.4 — created by planner+req+expert during execution.
 
 ---

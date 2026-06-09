@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T156: Reload button on Connection-Failed + Offline pages
 
@@ -15,15 +17,6 @@
 - [ ] Done
 
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
-
-## Assigned
-**Owners (CMM4 4-role, per learnings #18) — sequence req → architect → expert → tester:**
-1. **robbin-req** — B4 captured in backlog ✓ (verbatim Tron quote + canonical `requirement:uuid:c5d6e7f8-…`). Additional req work: confirm both surfaces (Connection-Failed page + You-Are-Offline page) need the same button shape; clarify button label ("Reload" / "Retry" / "Refresh") and any iOS-safe-area considerations
-2. **robbin-architect** — design the button: HTML markup + CSS + `onclick="location.reload()"`; decide if the existing `<button class="retry" onclick="location.reload()">Retry</button>` on the offline page is sufficient (per backlog note) or needs alignment with the Connection-Failed addition; specify the connection-failed insertion point (`app.ts` ~line 81 error HTML); update `scrum.pmo/standards/traceability-standard.md` if a new error-page styling convention is added
-3. **robbin-expert** — implement per architect's design: add the button to `app.ts` connection-failed error HTML; verify (or align) the existing offline page button; possibly mirror in `edit.ts` if it has its own error path; carry rule-pair (a)+(b) in the impl commit-set
-4. **robbin-tester** — visual + functional verification: trigger Connection-Failed (kill server / break WS); reload button visible + clickable + invokes `location.reload()`; same on the offline page; verify on iPhone (safe-area-inset-bottom respected); regression: existing pages unchanged
-
-**This file is the single source of truth.** No chat clarification.
 
 ## Traceability
 
@@ -73,6 +66,7 @@ verify it works and add the equivalent to Connection-Failed.
 - Architect-finalized button shape applies to both
 
 ## Acceptance Criteria
+
 - [ ] AC1 — Connection-Failed page (`app.ts`) shows a clickable reload button
 - [ ] AC2 — Clicking the button invokes `location.reload()` (page refreshes)
 - [ ] AC3 — Offline page (`sw.js` OFFLINE_HTML) reload button verified working (or replaced if not)
@@ -83,31 +77,14 @@ verify it works and add the equivalent to Connection-Failed.
 - [ ] AC8 — **Rule-pair (a)+(b) [learnings #15 + #16]:** `package.json` "version" bumped AND `src/public/sw.js` CACHE_NAME bumped in the SAME commit-set as the user-facing impl. (c) STATIC_SHELL: exempt (no new route)
 - [ ] AC9 — All 4 roles committed work in this file
 
-## Test Scenarios
-File: visual + functional (no automated test typically needed for a single button; architect/tester decides if a Playwright snapshot adds value).
-
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 | Kill the WS server; load `/app` | Connection-Failed page renders with reload button |
-| TS2 | Click the reload button | `location.reload()` fires; page refreshes |
-| TS3 | Go offline (devtools "Offline"); navigate the PWA | Offline page renders with reload (retry) button |
-| TS4 | Click the offline page reload button | Page refreshes |
-| TS5 | iPhone visual: bottom safe-area respected on both pages | Button not hidden behind home indicator |
-| TS6 | Regression: existing routes load normally with server up | No change to any successful path |
-| TS7 | Rule-pair post-bump | New CACHE_NAME activates; updated buttons visible on Tron's device |
-
 ## Dependencies
+
 - **Requires:** None (small standalone UI fix)
 - **Coordinate-with:** None
 - **Enables:** users have an in-page recovery action on both error surfaces
 
-## Drive Plan (planner-coordinated, CMM4 4-role)
-1. **robbin-req** confirms scope: both surfaces, button label, mobile safe-area considerations; updates the Traceability block above if any clarification
-2. **robbin-architect** designs: button markup + CSS + onclick handler; decides if existing offline retry button is fine or needs restyle; writes Design section here
-3. **robbin-expert** implements in one commit-set; carries rule-pair (a)+(b)
-4. **robbin-tester** runs TS1–TS7 + visual on iPhone if available; commits verification report into QA Audit
-
 ## Definition of Done
+
 - [ ] All AC met
 - [ ] Rule-pair (a)+(b) ✓; (c) exempt
 - [ ] No regression
@@ -115,61 +92,12 @@ File: visual + functional (no automated test typically needed for a single butto
 - [ ] Tron QA approved
 
 ## QA Audit & User Feedback
+
 - 2026-06-01: PO directed planner to stand up T156 from backlog B4. CMM4 4-role (#18); real v4 uuids (#17); rule-pair (a)+(b) in AC8 + DoD (#15+#16).
 - 2026-06-01 **robbin-req (anchor confirm):** B4 verbatim already in traceability block (lines 37-38, canonical uuid:c5d6e7f8). Both Tron quotes present ("add a reload button..." + "same on the you are offline page"). Chain section updated with full uuid. Note: sw.js offline page already has a Retry button — T156 scope is primarily the app.ts connection-failed page. Ready for architect.
 
-## Design (robbin-architect, 2026-06-01)
-
-### Current state
-
-**Connection-Failed (app.ts line 82):**
-```typescript
-container.innerHTML = '<div class="error"><h2>Connection Failed</h2><p>Could not connect to server. Please refresh.</p></div>';
-```
-No button. Text says "Please refresh" but no clickable affordance.
-
-**Offline page (sw.js line 18-20):**
-```html
-.retry{padding:12px 32px;background:white;color:#667eea;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer}
-<button class="retry" onclick="location.reload()">Retry</button>
-```
-Already has a styled Retry button. ✅
-
-### Fix: add reload button to app.ts connection-failed
-
-```typescript
-// BEFORE (line 82):
-container.innerHTML = '<div class="error"><h2>Connection Failed</h2><p>Could not connect to server. Please refresh.</p></div>';
-
-// AFTER:
-container.innerHTML = '<div class="error"><h2>Connection Failed</h2><p>Could not connect to server.</p><button onclick="location.reload()" style="margin-top:16px;padding:12px 32px;background:white;color:#667eea;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer">Retry</button></div>';
-```
-
-**Style matches sw.js `.retry` class** — same padding, background, color, border-radius, font. Inline style (not a class) because app.ts error HTML is a one-shot string, not using a stylesheet. Consistent with the offline page button.
-
-### Also check edit.ts
-
-```bash
-grep -n 'Connection Failed\|connection.*fail' src/public/ts/edit.ts
-```
-
-If edit.ts has a similar error path, add the same button. If not, no change.
-
-### iOS safe-area
-
-The button is inside a centered `<div class="error">` which already has margin/padding. No additional `env(safe-area-inset-bottom)` needed — the button isn't at the bottom edge.
-
-### Touchpoints
-
-| File | Line | Change |
-|------|------|--------|
-| `src/public/ts/app.ts` | 82 | Add `<button onclick="location.reload()">Retry</button>` to connection-failed HTML |
-| `src/public/ts/edit.ts` | TBD | Same if it has a connection-failed path |
-| `src/public/sw.js` | — | No change (already has Retry button) |
-
-### No new routes, no STATIC_SHELL change.
-
 ## Subtasks
+
 None (one line change + optional edit.ts mirror).
 
 ---

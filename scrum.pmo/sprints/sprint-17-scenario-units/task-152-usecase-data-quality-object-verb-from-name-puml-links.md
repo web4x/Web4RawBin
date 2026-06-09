@@ -1,4 +1,6 @@
-[Back to Sprint 17 Planning](./planning.md)
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
 
 # T152: UseCase data quality — derive object/verb from name + populate tasks/classes/requirement links from PUML
 
@@ -17,15 +19,6 @@
 > QA Review + Done are TRON's gate only — never checked by planner/sync.
 > **Diligence directive (PO 2026-06-01):** per-UC audit count required —
 > object/verb non-empty AND links count match PUML refs.
-
-## Assigned
-**Owners (CMM4 4-role, per learnings #18) — sequence req → architect → expert → tester:**
-1. **robbin-req** — capture the verbatim Tron quote for this directive; replace the planner-suggested `requirement:uuid` below with req's canonical one if different; confirm the derivation rule for `object` + `verb` from a UC name (canonical separator? e.g. `Object.verb` dot-form OR `verb-object` slug-form — Tron's literal authoritative)
-2. **robbin-architect** — design the UseCase data-quality pass: (i) derive `model.object` + `model.verb` per UC by parsing the UC `name` (specify the exact rule, edge cases for multi-dot / hyphens / missing separator); (ii) parse each PUML diagram referenced by a UC, extract the typed refs (tasks, classes, requirements) from PUML actors/notes/relations, and populate the UC's JSON arrays (`model.links.tasks[]`, `model.links.classes[]`, `model.chain.requirement`, etc.); (iii) design the per-UC audit (object/verb non-empty + links count == count of PUML refs for that UC); update `scrum.pmo/standards/traceability-standard.md` to record the UseCase data shape
-3. **robbin-expert** — implement the data-quality script per architect's design (parses UC names, parses linked PUML, populates JSON arrays); runs dry-run, produces the per-UC audit table; runs apply pass after PO sign-off; carry rule-pair (a)+(b) in the impl commit-set
-4. **robbin-tester** — verify per-UC: object/verb non-empty for every UC scenario; links count matches PUML refs exactly (zero mismatches); spot-check ≥5 UCs round-trip (UC name → derived object/verb; PUML ref → JSON array entry); chain audit (`trace-cli`) clean across all UC units; T126 ViewGenerator regenerates UC `.md` views from the populated arrays
-
-**This file is the single source of truth.** No chat clarification.
 
 ## Traceability
 
@@ -94,56 +87,8 @@ from the PUML refs; (c) audit per-UC that both are present and counts match.
 - Per-UC audit: `object` and `verb` non-empty AND `links` count ==
   `PUML refs` count for that UC
 
-## Design (robbin-architect, 2026-06-01 — adopted from `b741d50` pre-design; impl 1b62d75)
-
-### Derivation rule — `deriveObjectVerb(name)`
-```typescript
-function deriveObjectVerb(name: string): { object: string; verb: string } {
-  const lastDot = name.lastIndexOf('.');
-  if (lastDot === -1) return { object: name, verb: '' };
-  return {
-    object: name.slice(0, lastDot),   // 'ior' from 'ior.resolveClass'
-    verb: name.slice(lastDot + 1),    // 'resolveClass' from 'ior.resolveClass'
-  };
-}
-```
-Applied to all 15 existing S17 UCs + future UCs where object/verb are empty.
-**Audit evidence (15 UCs split cleanly, zero ambiguity):** unit.load → unit/load, ior.resolveClass → ior/resolveClass, ior.resolveInstance, index.put, index.get, view.renderHtml, view.renderMd, view.liveUpdate, tree.generateMd, tree.navigate, tree.symlinkJson, migrate.sprintToScenario, migrate.preserveHierarchy, planning.generate, chain.traceMethodToReq.
-
-### PUML extraction — two formats supported
-
-**S17 free-form** (existing `s17-usecases.puml`):
-```
-class "unit.load" <<UseCase>> {
-    [uc:uuid:17a00101-...]
-    R17.1 + R17.2              ← requirement refs (split on +, /, ,)
-    T124.1 / T125              ← task refs (split on /, ,)
-    Read scenario JSON...      ← description (ignored for refs)
-}
-```
-Parse rules:
-- Lines matching `R\d+\.\d+` → `model.chain.requirement` / `model.links.requirements[]`
-- Lines matching `T\d+(?:\.\d+)?` → `model.links.tasks[]`
-
-**S16 structured fields** (also S16 17 UCs migrated by this task):
-```
-class "detailDrawer.open" <<UseCase>> {
-    [uc:uuid:16a01001-...]
-    requirement: R16.1
-    task: T110
-    object: RbDetailDrawer
-    verb: open
-}
-```
-Parse rules: `key: value` lines map directly to `model.<key>` fields.
-
-### Two-part fix landed in `1b62d75` v0.5.49
-- **Part 1** auto-derives object/verb across all 15 S17 UCs (`deriveObjectVerb`)
-- **Part 2** parses both PUML formats; populates `model.links.tasks[]`, `model.links.requirements[]` (+ S16 `classes` / `requirement` / `object` / `verb`); migrates the 17 S16 UCs into the scenario index alongside S17
-
-Per-UC audit table evidence to be committed by tester in QA Audit (AC5 hard-FAIL gate).
-
 ## Acceptance Criteria
+
 - [ ] AC1 (Derivation rule) — Architect-finalized rule documented in
   `scrum.pmo/standards/traceability-standard.md`: how `object` + `verb` are
   derived from a UC `name` (separator, edge cases: multi-dot, hyphen,
@@ -186,34 +131,14 @@ Per-UC audit table evidence to be committed by tester in QA Audit (AC5 hard-FAIL
 - [ ] AC14 — All 4 roles committed work in this file (req anchor +
   architect design + expert impl + tester per-UC verify)
 
-## Test Scenarios
-File: `test/vitest/uc-data-quality.test.ts` (new) + per-UC evidence table committed to QA Audit.
-
-| Test | Action | Expected |
-|------|--------|----------|
-| TS1 (object/verb per UC) | Dry-run audit across all UC scenarios in the index | Every UC: `object` non-empty, `verb` non-empty |
-| TS2 (count match per UC) | Dry-run audit emits per-UC table `UC → PUML-refs-count → JSON-array-count` per relation type | Every row: PUML count == JSON count |
-| TS3 (derivation rule unit tests) | Architect's rule applied to synthetic names: `Object.verb`, `Object.verb.method`, `verb-only`, `object-only` | Each yields the architect-specified outcome (object/verb split or controlled "missing" indicator) |
-| TS4 (PUML extraction rule unit tests) | Architect's rule applied to a fixture PUML with known refs | All refs extracted; UC instance → tasks / classes / requirement edges populated |
-| TS5 (idempotence) | Apply data-quality pass; run again | Second run reports 0 changes |
-| TS6 (round-trip spot-check ≥5 UCs) | Compare PUML refs vs JSON arrays for 5+ UCs across different objects | All match; no silent drops |
-| TS7 (T126 regenerates) | Run ViewGenerator post-pass; open a UC `.md` view | Shows `object` + `verb` in template + populated links as chain bullets |
-| TS8 (broken-link audit) | `trace-cli` chain audit | 0 broken UC links; orphans ≤ baseline |
-| TS9 (regression) | Visual + click-through on T126 / T141 / T144 / T147 / T149 / T146 / T151 surfaces | No behavioral change for non-UC paths |
-| TS10 (rule-pair post-bump) | New CACHE_NAME activates; richer UC views visible on Tron's device | ✓ |
-
 ## Dependencies
+
 - **Requires:** T117 (UseCase as PUML class — provides the source data), T126 (ViewGenerator + UC template), T134 (TraceLink class — architect decides if arrays inline objects or TraceLink-unit references), T143 (chain tree — UC node's edges go live), T149 (universal symlinks — UC ref resolution), T151 (JSON model arrays — the shape T152 populates)
 - **Coordinate-with:** T146 (NAME-first format — UC `name` line consistent with the derivation rule), T141 (chain-link rendering — UC anchors resolve via populated arrays)
 - **Enables:** UC nodes are full first-class data; templates filter / group by object/verb; chain audits enforce UC data quality going forward
 
-## Drive Plan (planner-coordinated, CMM4 4-role)
-1. **robbin-req** captures the verbatim Tron quote into the Traceability block above; anchors / replaces the planner-suggested `requirement:uuid` with req's canonical one; closes any scope ambiguity (separator rule, PUML extraction surface)
-2. **robbin-architect** designs: derivation rule (with edge cases); PUML extraction rule; per-UC audit; standard update; writes Design section here
-3. **robbin-expert** implements the data-quality script; runs dry-run; commits the per-UC audit table into QA Audit; after PO sign-off, runs the apply pass; carries rule-pair (a)+(b)
-4. **robbin-tester** runs TS1–TS10 + ≥5-UC round-trip + regression; commits verification report into QA Audit
-
 ## Definition of Done
+
 - [ ] All AC met (AC1–AC14) — especially AC2 (object/verb non-empty per UC, zero failures) and AC5 (count match per UC, zero mismatches)
 - [ ] Rule-pair (a)+(b) ✓; (c) STATIC_SHELL if applicable
 - [ ] No regression on T117 / T126 / T134 / T143 / T149 / T151
@@ -221,10 +146,12 @@ File: `test/vitest/uc-data-quality.test.ts` (new) + per-UC evidence table commit
 - [ ] Tron QA approved (with per-UC count + object/verb evidence table)
 
 ## QA Audit & User Feedback
+
 - 2026-06-01: PO directed planner to stand up T152 with per-UC audit count gate. CMM4 4-role engagement enforced (learnings #18); real v4 uuids (#17); rule-pair (a)+(b) baked into AC13 + DoD (#15+#16).
 - 2026-06-01 **robbin-req (anchor):** Replaced planner-suggested `requirement:uuid:010deb5a` with req's canonical `requirement:uuid:c3d4e5f6...0b13` (from B13 capture, commit `0fff8be`). Verbatim Tron quote anchored. Tron's key phrase: "bad data quality" — object+verb derivable from name but not populated, traceability arrays empty. Same T151 discipline (no info loss, count gate). Ready for architect.
 
 ## Subtasks
+
 None at parent level (architect may split T152.x per derivation-rule vs PUML-extraction if scope warrants — coordinate with planner first).
 
 ---

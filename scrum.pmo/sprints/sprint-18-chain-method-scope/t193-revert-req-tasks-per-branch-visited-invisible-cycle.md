@@ -1,6 +1,5 @@
 <!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
 
-
 [Back to Planning](./planning.md)
 
 # Revert Req->tasks + per-branch visited Set + invisible cycle nodes
