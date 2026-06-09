@@ -4,6 +4,8 @@
     "uuid": "91a1c36a-bd77-4c05-a5ac-e3f1dfbfac5b",
     "name": "Sprint 18 authored as scenario.json units first; planning.md and task-*.md generated from those units.",
     "altId": "R18.3",
+    "tronQuote": "> TRON (R18.3 source, 2026-06-05): \"start to plan a new sprint as scenario.json first and then generate the sprint and task mds from it.\"\n> CONTEXT (full compound source — covers R18.1-R18.4): \"i agree. lets add another perspective. classes have All methods in the traceability chain. this is very good for the overall scenario browser! but on the traceability browser it needs to be only exactly the one method, that fulfills the current requirement town to the test that tests it. let the three analyze also this difference and start to plan a new sprint as scenario.json first and then generate the sprint and task mds from it. let them try to co-specify this as Skills for their roles.\"\n> SOURCE: scrum.pmo/sprints/sprint-18-chain-method-scope/compound-requirement-source.md lines 8-9",
+    "description": "T188 chain root. Verbatim atomic: \"start to plan a new sprint as scenario.json first and then generate the sprint and task mds from it.\" This requirement dogfoods the S17 view-generation system — Sprint 18's planning.md + task-*.md MUST be emitted from the Sprint+Task scenario.json units (generator: scripts/generate-sprint-md.ts), not hand-authored. Verifies R17.7-R17.10 view generation works end-to-end on a real sprint.",
     "tasks": [
       "ior:instance:8a31ba75-22b6-48ff-9532-d5da21458543"
     ],
