@@ -461,7 +461,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const SCENARIO_FORWARD: Record<string, string[]> = {
             class: ['methods'], method: ['implementations'], implementation: ['tests'],
             usecase: ['classes'], task: ['useCases', 'children', 'subtasks'],
-            requirement: ['tasks'], sprint: ['tasks', 'requirements'],
+            requirement: ['useCases'], sprint: ['tasks', 'requirements'],
           };
           for (const uuid of idx.list()) {
             const unit = idx.get(uuid);
