@@ -465,9 +465,14 @@ R18.33 quote annotated with this follow-up:
 
 ---
 
-## LITERAL SOURCE — R18.35 Shared-Class UC-scoped method resolution (2026-06-09, bottom-up defect)
+## DISCOVERY SOURCE — R18.35 Shared-Class UC-scoped method resolution (2026-06-09, bottom-up team defect)
 
-> DEFECT (PO captured, 2026-06-09): "When a Class is shared by multiple UseCases, the trace tree must show the method belonging to THE EXPANDING UseCase (UC.method), not a single global Class.method (last-verb-match-wins picks wrong method)."
+**NOT a Tron literal.** Bottom-up defect discovered by architect + tester. Per PO clarification 2026-06-09: cite team discovery + diagnosis commit, NOT a non-existent Tron quote.
+
+**Diagnosis commit:** `4be5dcdd` (2026-06-05) — "S18 architect: narrowing bugs diagnosis + R18.13-15 source-link design"
+> ARCHITECT (4be5dcdd): "Narrowing bug 2: Class.method is GLOBAL (last UC's verb), not per-UC-context. Fix: server returns chainMethod hint from UC; client uses it on Class expand."
+
+**Defect description (canonicalized atomic):** "When a Class is shared by multiple UseCases, the trace tree must show the method belonging to THE EXPANDING UseCase (UC.method), not a single global Class.method (last-verb-match-wins picks wrong method)."
 
 ### Precedence
 
@@ -481,7 +486,8 @@ R18.33 quote annotated with this follow-up:
   - **altId:** R18.35
   - **sibling-of:** R18.2 (`c37558ec-fecb-43b6-8cc9-faf7566de647`)
   - **Atomic invariant:** every Class node in the trace tree renders in the context of its expanding ancestor UseCase; the displayed Method is the one wired to THAT UC's chain. UC-blind heuristics (last-verb-match-wins, alphabetic-first) are PROHIBITED for shared Classes.
-  - **Task:** none yet — planner stands up as T187 follow-on (PO directive)
+  - **Task:** **T202** `8a303a65-d8c1-4aa3-885e-e10e5c3f00ca` (planner-stood, PO canonicalization 2026-06-09 swapped placeholder `4d525a4d` → R18.35 `cd5b1611`)
+  - **Supersedes:** placeholder `4d525a4d-5094-4288-9607-3d300efceeca` (R-placeholder-T202, marked superseded)
 
 ### Chain propagation plan
 
