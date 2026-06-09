@@ -839,25 +839,57 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       } catch { /* not a symlink or broken — fall through */ }
     }
 
-    // SVG viewer: aspect-ratio-aware + pinch-zoom, served in iframe
+    // R18.34 SVG viewer — explicit in-iframe gesture handling (touch + wheel + mouse + dbltap)
     if (filepath === '/svg-viewer' || filepath === '/svg-viewer/') {
       const src = urlParams.get('src') || '';
+      if (!src.startsWith('/md/raw/') || src.includes('..')) { res.writeHead(400); res.end('Invalid src'); return; }
       res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache' });
-      res.end(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#1a1a2e;overflow:hidden;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center}
-#c{overflow:auto;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
-#c svg{background:white;border-radius:8px;touch-action:none;transform-origin:0 0}</style></head><body>
-<div id="c"></div>
-<script>
-(async()=>{const r=await fetch(${JSON.stringify(src)});const t=await r.text();const c=document.getElementById('c');c.innerHTML=t;
-const svg=c.querySelector('svg');if(!svg)return;
-const vb=svg.getAttribute('viewBox');const w=parseFloat(svg.getAttribute('width')||'0');const h=parseFloat(svg.getAttribute('height')||'0');
-const ar=w&&h?w/h:vb?parseFloat(vb.split(/\\s+/)[2])/parseFloat(vb.split(/\\s+/)[3]):1;
-if(ar>1.5){svg.style.height='100%';svg.style.width='auto'}else{svg.style.width='100%';svg.style.height='auto'}
-let scale=1;let ox=0;let oy=0;let dist0=0;
-svg.addEventListener('touchstart',e=>{if(e.touches.length===2){dist0=Math.hypot(e.touches[1].clientX-e.touches[0].clientX,e.touches[1].clientY-e.touches[0].clientY);e.preventDefault()}},{passive:false});
-svg.addEventListener('touchmove',e=>{if(e.touches.length===2&&dist0){const d=Math.hypot(e.touches[1].clientX-e.touches[0].clientX,e.touches[1].clientY-e.touches[0].clientY);scale=Math.max(0.5,Math.min(5,scale*(d/dist0)));dist0=d;svg.style.transform='scale('+scale+')';e.preventDefault()}},{passive:false});
-svg.addEventListener('touchend',()=>{dist0=0});
+      res.end(`<!DOCTYPE html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<style>html,body{margin:0;padding:0;width:100%;height:100%;background:white;overflow:hidden;touch-action:none}
+#stage{width:100%;height:100%;overflow:hidden;touch-action:none;position:relative}
+#stage>img{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform;max-width:none;max-height:none;display:block}</style>
+</head><body><div id="stage"></div><script>
+(async()=>{
+const src=new URLSearchParams(location.search).get('src');
+if(!src)return;
+const stage=document.getElementById('stage');
+const img=new Image();img.src=src;img.alt='diagram';stage.appendChild(img);
+await new Promise(r=>img.complete?r():img.addEventListener('load',r,{once:true}));
+let sw=stage.clientWidth,sh=stage.clientHeight;
+const iw=img.naturalWidth||img.width,ih=img.naturalHeight||img.height;
+let scale=Math.min(sw/iw,sh/ih);let tx=(sw-iw*scale)/2;let ty=(sh-ih*scale)/2;
+const apply=()=>{img.style.transform='matrix('+scale+',0,0,'+scale+','+tx+','+ty+')'};
+apply();
+let mode='idle',startTx=0,startTy=0,startX=0,startY=0,startScale=1,startDist=0,startMidX=0,startMidY=0;
+const dist=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
+const mid=(a,b)=>({x:(a.clientX+b.clientX)/2,y:(a.clientY+b.clientY)/2});
+stage.addEventListener('touchstart',e=>{e.preventDefault();
+if(e.touches.length===1){mode='pan';startTx=tx;startTy=ty;startX=e.touches[0].clientX;startY=e.touches[0].clientY}
+else if(e.touches.length>=2){mode='pinch';startScale=scale;startTx=tx;startTy=ty;startDist=dist(e.touches[0],e.touches[1]);const m=mid(e.touches[0],e.touches[1]);startMidX=m.x;startMidY=m.y}
+},{passive:false});
+stage.addEventListener('touchmove',e=>{e.preventDefault();
+if(mode==='pan'&&e.touches.length===1){tx=startTx+(e.touches[0].clientX-startX);ty=startTy+(e.touches[0].clientY-startY);apply()}
+else if(mode==='pinch'&&e.touches.length>=2){const d=dist(e.touches[0],e.touches[1]);const f=d/startDist;const ns=Math.max(0.1,Math.min(20,startScale*f));
+tx=startMidX-(startMidX-startTx)*(ns/startScale);ty=startMidY-(startMidY-startTy)*(ns/startScale);scale=ns;apply()}
+},{passive:false});
+stage.addEventListener('touchend',()=>{mode='idle'},{passive:false});
+stage.addEventListener('touchcancel',()=>{mode='idle'},{passive:false});
+stage.addEventListener('wheel',e=>{
+if(e.ctrlKey){e.preventDefault();const rect=stage.getBoundingClientRect();const cx=e.clientX-rect.left;const cy=e.clientY-rect.top;
+const f=Math.exp(-e.deltaY*0.01);const ns=Math.max(0.1,Math.min(20,scale*f));
+tx=cx-(cx-tx)*(ns/scale);ty=cy-(cy-ty)*(ns/scale);scale=ns;apply()}
+else{e.preventDefault();tx-=e.deltaX;ty-=e.deltaY;apply()}
+},{passive:false});
+let dragging=false;
+stage.addEventListener('mousedown',e=>{if(e.button!==0)return;dragging=true;startTx=tx;startTy=ty;startX=e.clientX;startY=e.clientY;e.preventDefault()});
+window.addEventListener('mousemove',e=>{if(!dragging)return;tx=startTx+(e.clientX-startX);ty=startTy+(e.clientY-startY);apply()});
+window.addEventListener('mouseup',()=>{dragging=false});
+const reset=()=>{sw=stage.clientWidth;sh=stage.clientHeight;scale=Math.min(sw/iw,sh/ih);tx=(sw-iw*scale)/2;ty=(sh-ih*scale)/2;apply()};
+let lastTap=0;
+stage.addEventListener('touchend',e=>{const now=Date.now();if(now-lastTap<300&&e.changedTouches.length===1)reset();lastTap=now});
+stage.addEventListener('dblclick',e=>{e.preventDefault();reset()});
+window.addEventListener('resize',reset);
 })();
 </script></body></html>`);
       return;
@@ -880,8 +912,11 @@ svg.addEventListener('touchend',()=>{dist0=0});
       const svgFile = path.join(PROJECT_ROOT, relPath);
       if (!fsSync.existsSync(svgFile)) { res.writeHead(404); res.end('SVG not found'); return; }
       const dirPath = path.dirname(relPath);
+      const title = path.basename(relPath, '.svg');
+      // R18.34: override pageHead viewport to lock outer page (no native pinch on /md/*.svg)
+      const lockedHead = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>${title} — RawBin</title><link rel="stylesheet" href="/app.css"><script type="module" src="${getBannerScript()}"></script><style>html,body{margin:0;padding:0;overflow:hidden;height:100vh}</style></head><body><rb-update-banner></rb-update-banner>`;
       res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache' });
-      res.end(`${pageHead(path.basename(relPath, '.svg'))}${pageNav('/md/' + dirPath + '/', 'Back')}<iframe src="/svg-viewer?src=${encodeURIComponent('/md/raw/' + relPath)}" style="width:100%;height:calc(100vh - 60px);border:none;border-radius:8px"></iframe></body></html>`);
+      res.end(`${lockedHead}${pageNav('/md/' + dirPath + '/', 'Back')}<iframe src="/svg-viewer?src=${encodeURIComponent('/md/raw/' + relPath)}" style="width:100vw;height:calc(100vh - 60px - env(safe-area-inset-top));border:none;display:block;background:white"></iframe></body></html>`);
       return;
     }
     if (filepath.startsWith('/md/') && filepath.endsWith('.puml')) {
