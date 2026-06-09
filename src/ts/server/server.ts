@@ -863,8 +863,12 @@ const ih=parseFloat(svg.getAttribute('height')||(vb?vb.split(/\\s+/)[3]:'0'))||1
 svg.setAttribute('width',String(iw));svg.setAttribute('height',String(ih));
 svg.style.width=iw+'px';svg.style.height=ih+'px';
 let sw=stage.clientWidth,sh=stage.clientHeight;
+// R18.34 D4 persist: restore view across script re-execution (iOS iframe remount on orientation)
+const KEY='svg-view:'+src;
 let scale=Math.min(sw/iw,sh/ih);let tx=(sw-iw*scale)/2;let ty=(sh-ih*scale)/2;
-const apply=()=>{svg.style.transform='matrix('+scale+',0,0,'+scale+','+tx+','+ty+')'};
+try{const s=sessionStorage.getItem(KEY);if(s){const j=JSON.parse(s);if(typeof j.scale==='number'&&typeof j.tx==='number'&&typeof j.ty==='number'){scale=j.scale;tx=j.tx;ty=j.ty}}}catch(e){}
+const save=()=>{try{sessionStorage.setItem(KEY,JSON.stringify({scale,tx,ty}))}catch(e){}};
+const apply=()=>{svg.style.transform='matrix('+scale+',0,0,'+scale+','+tx+','+ty+')';save()};
 apply();
 let mode='idle',startTx=0,startTy=0,startX=0,startY=0,startScale=1,startDist=0,startMidX=0,startMidY=0;
 const dist=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
@@ -890,14 +894,17 @@ let dragging=false;
 stage.addEventListener('mousedown',e=>{if(e.button!==0)return;dragging=true;startTx=tx;startTy=ty;startX=e.clientX;startY=e.clientY;e.preventDefault()});
 window.addEventListener('mousemove',e=>{if(!dragging)return;tx=startTx+(e.clientX-startX);ty=startTy+(e.clientY-startY);apply()});
 window.addEventListener('mouseup',()=>{dragging=false});
-const reset=()=>{sw=stage.clientWidth;sh=stage.clientHeight;scale=Math.min(sw/iw,sh/ih);tx=(sw-iw*scale)/2;ty=(sh-ih*scale)/2;apply()};
+const reset=()=>{sw=stage.clientWidth;sh=stage.clientHeight;scale=Math.min(sw/iw,sh/ih);tx=(sw-iw*scale)/2;ty=(sh-ih*scale)/2;try{sessionStorage.removeItem(KEY)}catch(e){}apply()};
 let lastTap=0;
 stage.addEventListener('touchend',e=>{const now=Date.now();if(now-lastTap<300&&e.changedTouches.length===1)reset();lastTap=now});
 stage.addEventListener('dblclick',e=>{e.preventDefault();reset()});
-// R18.34 D4 fix: iOS Safari fires resize on URL-bar settle after touchend.
-// PRESERVE zoom — only shift tx/ty proportionally, NEVER recompute scale.
+// R18.34 D4 fix: PRESERVE zoom on viewport changes — only shift tx/ty, NEVER recompute scale.
+// Covers: iOS URL-bar settle (resize), orientation change (orientationchange), iOS visualViewport (URL-bar/keyboard).
 let lastSw=sw,lastSh=sh;
-window.addEventListener('resize',()=>{const newSw=stage.clientWidth,newSh=stage.clientHeight;if(newSw===lastSw&&newSh===lastSh)return;tx+=(newSw-lastSw)/2;ty+=(newSh-lastSh)/2;lastSw=newSw;lastSh=newSh;sw=newSw;sh=newSh;apply()});
+const onViewport=()=>{const newSw=stage.clientWidth,newSh=stage.clientHeight;if(newSw===lastSw&&newSh===lastSh)return;tx+=(newSw-lastSw)/2;ty+=(newSh-lastSh)/2;lastSw=newSw;lastSh=newSh;sw=newSw;sh=newSh;apply()};
+window.addEventListener('resize',onViewport);
+window.addEventListener('orientationchange',()=>{setTimeout(onViewport,300)});
+if(window.visualViewport)window.visualViewport.addEventListener('resize',onViewport);
 })();
 </script></body></html>`);
       return;
