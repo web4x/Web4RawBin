@@ -6,7 +6,9 @@
     "altId": "R18.34",
     "description": "SVG diagrams at /md/<path>.svg render inside an iframe covering most of the viewport. Pan/zoom uses the browser native/default page zoom inside the iframe \u2014 no custom JS. The iframe isolation scopes zoom to the SVG, keeping the outer page static.",
     "tronQuote": "> TRON: \"we need to optimize the svg view. the structure is right but i want a iframe that basically covers most of the screen and if i pan zoom, the svg in the iframe gets panned zoomed not the whole page.\"\n> TRON (clarification): \"it just should show the svg in the iframe and fall back to standard panning and zooming of it as the default page functionality.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:bef36fd2-aa7c-4766-8001-db2b69452d61"
+    ],
     "tests": [],
     "unitLinks": []
   },
