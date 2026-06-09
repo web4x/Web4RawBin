@@ -839,6 +839,30 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       } catch { /* not a symlink or broken — fall through */ }
     }
 
+    // SVG viewer: aspect-ratio-aware + pinch-zoom, served in iframe
+    if (filepath === '/svg-viewer' || filepath === '/svg-viewer/') {
+      const src = urlParams.get('src') || '';
+      res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache' });
+      res.end(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#1a1a2e;overflow:hidden;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center}
+#c{overflow:auto;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+#c svg{background:white;border-radius:8px;touch-action:none;transform-origin:0 0}</style></head><body>
+<div id="c"></div>
+<script>
+(async()=>{const r=await fetch(${JSON.stringify(src)});const t=await r.text();const c=document.getElementById('c');c.innerHTML=t;
+const svg=c.querySelector('svg');if(!svg)return;
+const vb=svg.getAttribute('viewBox');const w=parseFloat(svg.getAttribute('width')||'0');const h=parseFloat(svg.getAttribute('height')||'0');
+const ar=w&&h?w/h:vb?parseFloat(vb.split(/\\s+/)[2])/parseFloat(vb.split(/\\s+/)[3]):1;
+if(ar>1.5){svg.style.height='100%';svg.style.width='auto'}else{svg.style.width='100%';svg.style.height='auto'}
+let scale=1;let ox=0;let oy=0;let dist0=0;
+svg.addEventListener('touchstart',e=>{if(e.touches.length===2){dist0=Math.hypot(e.touches[1].clientX-e.touches[0].clientX,e.touches[1].clientY-e.touches[0].clientY);e.preventDefault()}},{passive:false});
+svg.addEventListener('touchmove',e=>{if(e.touches.length===2&&dist0){const d=Math.hypot(e.touches[1].clientX-e.touches[0].clientX,e.touches[1].clientY-e.touches[0].clientY);scale=Math.max(0.5,Math.min(5,scale*(d/dist0)));dist0=d;svg.style.transform='scale('+scale+')';e.preventDefault()}},{passive:false});
+svg.addEventListener('touchend',()=>{dist0=0});
+})();
+</script></body></html>`);
+      return;
+    }
+
     if (filepath.startsWith('/md/raw/') && filepath.endsWith('.svg')) {
       const relPath = filepath.slice(8);
       if (relPath.includes('..')) { res.writeHead(403); res.end('Forbidden'); return; }
@@ -857,7 +881,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       if (!fsSync.existsSync(svgFile)) { res.writeHead(404); res.end('SVG not found'); return; }
       const dirPath = path.dirname(relPath);
       res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache' });
-      res.end(`${pageHead(path.basename(relPath, '.svg'))}${pageNav('/md/' + dirPath + '/', 'Back')}<div style="max-width:100%;padding:16px;text-align:center"><object data="/md/raw/${relPath}" type="image/svg+xml" style="max-width:100%;background:white;border-radius:8px"></object></div></body></html>`);
+      res.end(`${pageHead(path.basename(relPath, '.svg'))}${pageNav('/md/' + dirPath + '/', 'Back')}<iframe src="/svg-viewer?src=${encodeURIComponent('/md/raw/' + relPath)}" style="width:100%;height:calc(100vh - 60px);border:none;border-radius:8px"></iframe></body></html>`);
       return;
     }
     if (filepath.startsWith('/md/') && filepath.endsWith('.puml')) {
