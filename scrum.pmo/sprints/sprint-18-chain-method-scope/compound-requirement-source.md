@@ -462,3 +462,33 @@ R18.33 quote annotated with this follow-up:
 4. **Method** — `SvgViewer.onPinchEnd` (architect to create)
 5. **Implementation** — expert touchend apply() fix (in parallel)
 6. **Test** — champagne test: pinch → release (no pan) → applied zoom persists on the SVG element
+
+---
+
+## LITERAL SOURCE — R18.35 Shared-Class UC-scoped method resolution (2026-06-09, bottom-up defect)
+
+> DEFECT (PO captured, 2026-06-09): "When a Class is shared by multiple UseCases, the trace tree must show the method belonging to THE EXPANDING UseCase (UC.method), not a single global Class.method (last-verb-match-wins picks wrong method)."
+
+### Precedence
+
+- **Rule 5** (chain-vs-dependency framing): bottom-up discovery of a missing constraint yields a NEW sibling requirement, NOT a back-link to existing R18.2.
+- R18.35 is a sibling of R18.2, not a child. R18.2 narrows Class → single Method per requirement; R18.35 specifies the *resolution context* when the same Class participates in multiple UC chains.
+
+### Decomposition
+
+- **R18.35**: Shared Class — trace tree shows the expanding UseCase's method, not a globally-resolved Class.method
+  - **uuid:** `cd5b1611-7c37-4c47-840d-2ed6188258fb`
+  - **altId:** R18.35
+  - **sibling-of:** R18.2 (`c37558ec-fecb-43b6-8cc9-faf7566de647`)
+  - **Atomic invariant:** every Class node in the trace tree renders in the context of its expanding ancestor UseCase; the displayed Method is the one wired to THAT UC's chain. UC-blind heuristics (last-verb-match-wins, alphabetic-first) are PROHIBITED for shared Classes.
+  - **Task:** none yet — planner stands up as T187 follow-on (PO directive)
+
+### Chain propagation plan
+
+1. **R18.35** ← THIS (chain root, sibling of R18.2)
+2. **Task** — T187 follow-on (planner stand-up): UC-scoped Class.method resolution
+3. **UseCase** — architect to identify (likely `trace.expandClassUnderUseCase` or similar) — covered by R18.35
+4. **Class** — `/api/trace/children` route handler (architect designs UC chainMethod context parameter)
+5. **Method** — `getChildrenForClassUnderUseCase(classRef, ucChainContext)` — architect names
+6. **Implementation** — expert wires the per-UC method resolution at the /api/trace/children endpoint
+7. **Test** — champagne: shared Class C participates in UC-A and UC-B chains; expanding C under UC-A returns UC-A.method; expanding C under UC-B returns UC-B.method; never the same global Class.method for both
