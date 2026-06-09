@@ -12,6 +12,18 @@
     "tests": [],
     "unitLinks": [
       "ior:instance:042bab1a-46ff-4a92-8494-102b9ad928ac"
+    ],
+    "status": "in-progress",
+    "verificationHistory": [
+      {
+        "date": "2026-06-10",
+        "hop": "testing → in-progress (re-opened)",
+        "reason": "device-acceptance FAILED per learning #27",
+        "tronVerbatim": "still only working on pinch-pan-release, a pan too much",
+        "verificationContext": "Real-device repro post-v0.5.121 still requires pan to commit zoom — atomic invariant UNMET (pinch→release alone should commit). Architect instrumenting real device next.",
+        "buildAtFailure": "v0.5.121",
+        "reportedVia": "robbin-po"
+      }
     ]
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
