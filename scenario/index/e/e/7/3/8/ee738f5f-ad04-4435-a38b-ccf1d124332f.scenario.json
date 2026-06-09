@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ee738f5f-ad04-4435-a38b-ccf1d124332f",
+    "name": "SprintMdGenerator.checkRoundTrip --check mode + CI script",
+    "className": "SprintMdGenerator",
+    "methodName": "checkRoundTrip",
+    "description": "Add --check flag to generate-sprint-md.ts: write to temp dir, diff against sprints/<sprint>/, exit non-zero on any byte difference. Add npm script check:sprint-md. Wire to CI gate. Audit + add explicit sorts to generateTaskMd/generatePlanningMd for determinism.",
+    "sourceFile": "scripts/generate-sprint-md.ts",
+    "tests": [],
+    "parent": "ior:instance:3108e643-ee8b-4211-bc59-c4e782586a70"
+  },
+  "ownerIor": "ior:instance:3108e643-ee8b-4211-bc59-c4e782586a70"
+}

@@ -4,7 +4,12 @@
     "uuid": "ec3a0206-a1ec-4d98-a041-63a5a7903d65",
     "name": "viewGen.dogfood",
     "object": "viewGen",
-    "verb": "dogfood"
+    "verb": "dogfood",
+    "class": "ior:instance:efbaa376-b0bb-4e1e-8269-4959d941e96b",
+    "method": "ior:instance:3108e643-ee8b-4211-bc59-c4e782586a70",
+    "classes": [
+      "ior:instance:efbaa376-b0bb-4e1e-8269-4959d941e96b"
+    ]
   },
   "ownerIor": "ior:instance:8a31ba75-22b6-48ff-9532-d5da21458543"
 }

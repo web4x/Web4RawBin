@@ -6,7 +6,7 @@
     "slug": "task-187-trace-narrowing-single-thread-chain",
     "description": "/trace shows a NARROWED single-thread chain starting at UC\u2192Method:\nUC.method (ONE singular) \u2192 Method.implementation (singular) \u2192 tests.\n/scenario shows FULL fan-out: UC.classes[]\u2192Class.methods[] (ALL).\nNAV layer (Sprint\u2192Tasks\u2192coveredReqs\u2192UCs) is IDENTICAL in both modes \u2014 all children, 1:N OK.\nSprint is a root-level nav-root. /api/trace/sprints endpoint.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect 6c7ff26e + 35f111a6)\n  - [x] creating test cases (tester 27ffe1b4 \u2014 10 TS pre-authored)\n  - [x] implementing (expert 02c99a7e v0.5.88)\n  - [ ] testing (tester executes 10 TS \u2014 pending)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect \u2014 chain narrowing design)\n  - [x] creating test cases\n  - [x] implementing (expert \u2014 chain walker selects ONE method per UC)\n  - [x] testing (tester \u2014 10/10 TS GREEN on real WebKit engine; architect corrected UC\u2192Class\u2192Method narrowing expectations; R18.34.B verified)\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
     "traceability": "- up\n  - [Sprint 18 Planning](./planning.md)\n  - Sprint unit: `ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962`\n  - Atomic requirements (covered): R18.1 + R18.2 + R18.8 \u2014 req-eng `22f43f31`\n- follows\n  - T168 (closed; chain semantics preserved; R18.8 nav-root rework appended as note)\n  - T186 (closed; lazy-LOAD; this task adds chain-narrowing on top)\n- down\n  - None (atomic task \u2014 Test scenarios listed below are TS not subtasks)",
     "context": "",

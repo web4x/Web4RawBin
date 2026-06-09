@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "efbaa376-b0bb-4e1e-8269-4959d941e96b",
+    "name": "SprintMdGenerator",
+    "description": "scripts/generate-sprint-md.ts \u2014 emits planning.md + per-task .md into scrum.pmo/sprints/<sprint>/ from scenario units. Round-trip: --check mode regenerates to temp + diffs against current \u2192 CI gate. Determinism: sorted units, LF newlines, no timestamps.",
+    "sourceFile": "scripts/generate-sprint-md.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:3108e643-ee8b-4211-bc59-c4e782586a70"
+    ],
+    "method": "ior:instance:3108e643-ee8b-4211-bc59-c4e782586a70",
+    "parent": "ior:instance:ec3a0206-a1ec-4d98-a041-63a5a7903d65"
+  },
+  "ownerIor": "ior:instance:ec3a0206-a1ec-4d98-a041-63a5a7903d65"
+}

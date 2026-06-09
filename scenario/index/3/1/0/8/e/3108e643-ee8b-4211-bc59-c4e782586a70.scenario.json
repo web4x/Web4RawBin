@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "3108e643-ee8b-4211-bc59-c4e782586a70",
+    "name": "SprintMdGenerator.checkRoundTrip",
+    "className": "SprintMdGenerator",
+    "methodName": "checkRoundTrip",
+    "description": "Regenerate planning.md + task-*.md into a temp dir, then byte-compare against scrum.pmo/sprints/<sprint>/. Exit 0 = sync; exit non-zero = drift (hand-edit OR generator non-determinism). Wired as npm run check:sprint-md and CI gate.",
+    "sourceFile": "scripts/generate-sprint-md.ts",
+    "implementation": "ior:instance:ee738f5f-ad04-4435-a38b-ccf1d124332f",
+    "implementations": [
+      "ior:instance:ee738f5f-ad04-4435-a38b-ccf1d124332f"
+    ],
+    "parent": "ior:instance:efbaa376-b0bb-4e1e-8269-4959d941e96b"
+  },
+  "ownerIor": "ior:instance:efbaa376-b0bb-4e1e-8269-4959d941e96b"
+}
