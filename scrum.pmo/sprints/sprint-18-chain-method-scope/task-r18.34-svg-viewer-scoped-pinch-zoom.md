@@ -228,6 +228,119 @@ Implement pinch+pan via touch events on the SVG container, applied via `transfor
 
 The existing `/md/raw/*.svg` raw-bytes route (line 842–851) is unchanged — the iframe `<img>` fetches the SVG through it.
 
+## Defects 3 & 4 (Tron on device, Chrome iPhone + Mac, v0.5.116) — and the fix
+
+### Defect 3 — Blur on zoom-in
+
+> "it starts to get blurry as if it was a png and not an svg"
+
+**Root cause.** The earlier design used `<img src=svg>` and zoomed with `transform: matrix(scale,...)`. When the browser scales an `<img>` element via CSS transform, it **upsamples the raster the image was decoded to at the layout size**. Even though the source is SVG, the browser rasterized it once at the `<img>`'s box size; CSS transform then stretches that bitmap. Result: classic raster blur on zoom-in.
+
+SVGs stay crisp only when the **vector** is what's being scaled, not a snapshot. Two ways to achieve this:
+
+| Approach | Crispness | Notes |
+|----------|-----------|-------|
+| **Inline `<svg>` in the DOM**, scale via CSS transform on the `<svg>` element | ✅ crisp | Browser re-rasterizes the vector on every paint at the current transform-induced scale. This is the standard SVG-zoom pattern. |
+| Inline `<svg>`, scale via `viewBox` manipulation | ✅ crisp | Mathematically equivalent on screen; preferred when zoom is paired with vector hit-testing. We don't need hit-testing — CSS transform is simpler. |
+| `<img>` with `transform: scale()` | ❌ blurs | Raster upsampling. |
+| `<img>` with `width/height` set to the zoomed pixel size (no transform) | ✅ crisp | Triggers re-rasterization, but causes layout thrash and breaks our anchored-zoom math. Not preferred. |
+
+**Decision: inline the SVG** into the page (fetch the raw bytes and `innerHTML` them into the stage) and scale via `transform: matrix(...)` on the root `<svg>` element. Vector stays crisp at any zoom.
+
+### Defect 4 — iPhone snap-back after pan
+
+> "immediately after pan it snaps back to 100% width and gets unreadable small"
+
+**Root cause.** With `<img src=svg>` and no explicit `width/height` attributes on the `<img>`, the image's layout box is governed by the stage's flex/block layout. On iOS Safari, the touch sequence (touchstart → touchmove → touchend) ends with a layout/paint pass that re-applies the layout-time width. Because we only changed `transform` (visual) and never the layout box, anything that causes a relayout re-anchors the transform reference frame at the **current layout box** of the image — which is the stage width (we have `width:100%` on stage and no fixed width on the `<img>`). The transform we computed was relative to the natural intrinsic size; after relayout, the same transform matrix produces a different visual size, snapping the image back toward stage-width.
+
+Why doesn't desktop show this? Desktop browsers don't run the same Visual Viewport / orientation reflow path on `touchend`; pointer/mouse events don't trigger it. iOS specifically reflows opportunistically around touch ends.
+
+**The fix.** Same as Defect 3 — switch to **inline SVG** with explicit `width` and `height` attributes set to the SVG's intrinsic viewBox dims on insert. The element's layout box becomes a stable rectangle in the natural coordinate system; `transform` then operates against that stable box, and iOS reflow won't change the transform reference. This eliminates the snap-back.
+
+**Belt-and-braces.** Pin the SVG with `position:absolute; left:0; top:0; width:<iw>px; height:<ih>px;` so the layout box is explicit numeric pixels, not a percentage. Any reflow now resolves to the same box → transform stays correct.
+
+### Combined fix code (replaces the `<img>` block in the earlier design)
+
+Replace the load section (lines ~78–93 of the earlier code) with:
+
+```javascript
+const stage = document.getElementById('stage');
+const src = new URLSearchParams(location.search).get('src');
+if (!src) return;
+
+// Fetch the raw SVG bytes
+const res = await fetch(src);
+if (!res.ok) { stage.textContent = 'Failed to load SVG'; return; }
+let svgText = await res.text();
+
+// Strip XML prolog if present (we're injecting into HTML)
+svgText = svgText.replace(/^[\s\S]*?(?=<svg)/i, '');
+
+// Inject into the stage
+stage.innerHTML = svgText;
+const svg = stage.querySelector('svg');
+if (!svg) { stage.textContent = 'Not a valid SVG'; return; }
+
+// Determine intrinsic dims (viewBox preferred — most PUML SVGs have it)
+let iw, ih;
+const vb = svg.getAttribute('viewBox');
+if (vb) {
+  const parts = vb.trim().split(/[\s,]+/).map(Number);
+  iw = parts[2]; ih = parts[3];
+} else {
+  iw = parseFloat(svg.getAttribute('width')) || svg.getBBox().width || 800;
+  ih = parseFloat(svg.getAttribute('height')) || svg.getBBox().height || 600;
+}
+
+// Pin the layout box to natural pixel dims and put it at the top-left of the stage.
+// This stops iOS reflow from re-anchoring the transform.
+svg.setAttribute('width',  String(iw));
+svg.setAttribute('height', String(ih));
+svg.style.cssText = 'position:absolute;left:0;top:0;width:' + iw + 'px;height:' + ih + 'px;' +
+                    'transform-origin:0 0;will-change:transform;display:block;max-width:none;max-height:none';
+
+// Replace every `apply = () => img.style.transform = ...`  with `svg.style.transform = ...`
+// and every `iw/ih` reference (already named).
+const sw = stage.clientWidth, sh = stage.clientHeight;
+let scale = Math.min(sw / iw, sh / ih);
+let tx = (sw - iw * scale) / 2;
+let ty = (sh - ih * scale) / 2;
+const apply = () => { svg.style.transform = 'matrix(' + scale + ',0,0,' + scale + ',' + tx + ',' + ty + ')'; };
+apply();
+```
+
+The remainder of the script (touch, wheel, mouse, reset handlers) is unchanged — they all operate on `scale/tx/ty` and call `apply()`. They now scale the inline SVG (crisp) instead of the raster `<img>` (blurry).
+
+### CSS adjustment
+
+Remove the `img { ... }` rule. The stage CSS stays:
+
+```css
+html,body{margin:0;padding:0;width:100%;height:100%;background:white;overflow:hidden;touch-action:none}
+#stage{width:100%;height:100%;overflow:hidden;touch-action:none;position:relative}
+#stage svg{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform;display:block;max-width:none;max-height:none}
+```
+
+### Why this fixes both defects
+
+- **Crispness:** the browser re-rasterizes the inline `<svg>` on every paint at the transform-induced scale. There's no intermediate bitmap to upsample. AC3+AC7 still pass.
+- **No snap-back:** the `<svg>`'s layout box is pinned to `<iw>px × <ih>px` via inline style. Any iOS reflow on `touchend` resolves to the same box. `transform` continues to map that stable box to the visual position we set. AC4 passes.
+
+### Trade-offs
+
+- **Inline injection** of arbitrary repository SVGs into our page DOM. The SVGs in `scrum.pmo/sprints/*/diagrams/` are author-controlled (committed by team, reviewed in PRs). XSS risk is the same as any other content the team commits to the repo. We do not accept user-uploaded SVGs here.
+- **Memory:** Each visit downloads and parses the SVG into DOM nodes. PUML-generated SVGs are 50–500 KB and a few thousand nodes — fine for desktop and modern phones.
+- If a future SVG comes from untrusted source, sanitize with DOMPurify before injecting. Not needed for the current scope.
+
+## Per-file fix table (updated)
+
+| File | Line | Change |
+|------|------|--------|
+| `src/ts/server/server.ts` | (new, before 853) | `/svg-viewer` GET handler. Returns the HTML + JS in this doc (fetch-and-inject inline SVG variant, full gesture matrix). Validate the `src` param starts with `/md/raw/` and contains no `..` |
+| `src/ts/server/server.ts` | 853–861 | Replace the `/md/*.svg` HTML wrapper: override viewport with `maximum-scale=1,user-scalable=no`, swap `<object>` for `<iframe src='/svg-viewer?src=/md/raw/...'>` filling the viewport |
+
+`/md/raw/*.svg` (line 842–851) is unchanged — the iframe fetches through it.
+
 ## Acceptance Criteria (cross-browser)
 
 - AC1 — Open any `/md/*.svg`. The SVG fills the viewport (no thin strip) on iPhone Safari, Chrome/iPhone, Chrome/macOS, Chrome/Windows, Safari/macOS, Firefox.
@@ -237,6 +350,8 @@ The existing `/md/raw/*.svg` raw-bytes route (line 842–851) is unchanged — t
 - AC5 (wheel pan) — Plain scroll-wheel / two-finger swipe (no ctrl) → SVG translates. Outer page does NOT scroll.
 - AC6 (reset) — Double-tap (touch) or double-click (mouse) → SVG resets to contain-fit at center.
 - AC7 — Wide landscape PUML diagrams (e.g., `s17-architecture.svg`) and tall portrait diagrams both render legibly at initial load on portrait and landscape orientations.
+- AC8 (defect 3 — crispness) — At any zoom level, text and lines in the SVG render as crisp vector strokes (no raster blur). Compare against the source SVG opened in a desktop browser at the same scale — visual fidelity equivalent.
+- AC9 (defect 4 — no snap-back, iPhone) — On iPhone Safari and Chrome/iPhone, after a pan gesture lifts off (touchend), the SVG stays where the user placed it. It does NOT snap back to a 100%-width fit. Pan + zoom state persists across consecutive touch sequences until double-tap reset.
 
 ## Sanitization (security)
 
@@ -257,8 +372,11 @@ The example above uses `URLSearchParams` client-side to read `location.search` �
 ## Verification
 
 Tester loads `/md/scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.svg` on:
-1. iPhone Safari — confirms AC1, AC2, AC4 (touch), AC6 (double-tap), AC7
-2. Chrome / macOS with trackpad — confirms AC1, AC3 (trackpad pinch), AC4 (mouse drag), AC5 (wheel pan), AC6 (double-click), AC7
-3. Chrome / iPhone — confirms AC1, AC2, AC4, AC6, AC7 (regression vs Safari/iPhone)
+1. iPhone Safari — confirms AC1, AC2 (pinch), AC4 (touch pan), AC6 (double-tap), AC7, AC8 (crisp at 5×), AC9 (no snap-back after pan-release)
+2. Chrome / iPhone — same AC set as Safari/iPhone (regression check)
+3. Chrome / macOS with trackpad — confirms AC1, AC3 (trackpad pinch), AC4 (mouse drag), AC5 (wheel pan), AC6 (double-click), AC7, AC8
+
+Crispness check (AC8): zoom to 5× and inspect text in the diagram. It must remain sharp vector strokes, not blurry raster.
+Snap-back check (AC9): pinch-zoom to 3×, pan with one finger, lift off, wait 2 seconds. SVG must remain where placed at 3×.
 
 Tron final check on iPhone + Mac.
