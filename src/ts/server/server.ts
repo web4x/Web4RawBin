@@ -894,7 +894,10 @@ const reset=()=>{sw=stage.clientWidth;sh=stage.clientHeight;scale=Math.min(sw/iw
 let lastTap=0;
 stage.addEventListener('touchend',e=>{const now=Date.now();if(now-lastTap<300&&e.changedTouches.length===1)reset();lastTap=now});
 stage.addEventListener('dblclick',e=>{e.preventDefault();reset()});
-window.addEventListener('resize',reset);
+// R18.34 D4 fix: iOS Safari fires resize on URL-bar settle after touchend.
+// PRESERVE zoom — only shift tx/ty proportionally, NEVER recompute scale.
+let lastSw=sw,lastSh=sh;
+window.addEventListener('resize',()=>{const newSw=stage.clientWidth,newSh=stage.clientHeight;if(newSw===lastSw&&newSh===lastSh)return;tx+=(newSw-lastSw)/2;ty+=(newSh-lastSh)/2;lastSw=newSw;lastSh=newSh;sw=newSw;sh=newSh;apply()});
 })();
 </script></body></html>`);
       return;
