@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "6ee95023-5639-4eb7-86cc-916ebb418e7e",
+    "name": "Pinch release commits SVG zoom without additional gesture",
+    "altId": "R18.34.B",
+    "description": "Releasing the pinch (lifting both fingers) MUST leave the SVG displayed at the zoom level reached during the pinch — no additional gesture is required to commit the scale.",
+    "tronQuote": "> TRON (R18.34 refinement source): \"its really pinch-pan-release THEN it works, but why the additional pan. total counter intuitive. just pinch-release should simply work. why complex?\"\n> ARCHITECT (R18.34.B atomic, verbatim 2026-06-09): \"Releasing the pinch (lifting both fingers) MUST leave the SVG displayed at the zoom level reached during the pinch — no additional gesture is required to commit the scale.\"",
+    "tasks": [
+      "ior:instance:bef36fd2-aa7c-4766-8001-db2b69452d61"
+    ],
+    "tests": [],
+    "unitLinks": [
+      "ior:instance:042bab1a-46ff-4a92-8494-102b9ad928ac"
+    ]
+  },
+  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+}
