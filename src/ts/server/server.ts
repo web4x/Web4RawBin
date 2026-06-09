@@ -848,18 +848,23 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <style>html,body{margin:0;padding:0;width:100%;height:100%;background:white;overflow:hidden;touch-action:none}
 #stage{width:100%;height:100%;overflow:hidden;touch-action:none;position:relative}
-#stage>img{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform;max-width:none;max-height:none;display:block}</style>
+#stage>svg{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform;display:block;max-width:none;max-height:none}</style>
 </head><body><div id="stage"></div><script>
 (async()=>{
 const src=new URLSearchParams(location.search).get('src');
 if(!src)return;
 const stage=document.getElementById('stage');
-const img=new Image();img.src=src;img.alt='diagram';stage.appendChild(img);
-await new Promise(r=>img.complete?r():img.addEventListener('load',r,{once:true}));
+const res=await fetch(src);const text=(await res.text()).replace(/^\\s*<\\?xml[^?]*\\?>\\s*/,'').replace(/^\\s*<!DOCTYPE[^>]*>\\s*/,'');
+stage.innerHTML=text;
+const svg=stage.querySelector('svg');if(!svg)return;
+const vb=svg.getAttribute('viewBox');
+const iw=parseFloat(svg.getAttribute('width')||(vb?vb.split(/\\s+/)[2]:'0'))||300;
+const ih=parseFloat(svg.getAttribute('height')||(vb?vb.split(/\\s+/)[3]:'0'))||150;
+svg.setAttribute('width',String(iw));svg.setAttribute('height',String(ih));
+svg.style.width=iw+'px';svg.style.height=ih+'px';
 let sw=stage.clientWidth,sh=stage.clientHeight;
-const iw=img.naturalWidth||img.width,ih=img.naturalHeight||img.height;
 let scale=Math.min(sw/iw,sh/ih);let tx=(sw-iw*scale)/2;let ty=(sh-ih*scale)/2;
-const apply=()=>{img.style.transform='matrix('+scale+',0,0,'+scale+','+tx+','+ty+')'};
+const apply=()=>{svg.style.transform='matrix('+scale+',0,0,'+scale+','+tx+','+ty+')'};
 apply();
 let mode='idle',startTx=0,startTy=0,startX=0,startY=0,startScale=1,startDist=0,startMidX=0,startMidY=0;
 const dist=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
