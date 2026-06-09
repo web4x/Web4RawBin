@@ -2,6 +2,7 @@
 
 **Source:** Tron directive 2026-06-05 (via robbin-po).
 **Authors:** robbin-architect + robbin-planner (JOINT reasoning).
+**Pair with:** [project-state-is-scenarios.md](./project-state-is-scenarios.md) (Tron 2026-06-09 — scenario units ARE the project state; canonical planning workflow uses scenario units in the owning sprint, no floating tasks).
 **Context:** Tron observes recurring task→req→task→req dependencies in the traceability chain. This analysis establishes the canonical PRECEDENCE of refinement artifacts — what begets what, forward-only, no recurrence.
 
 ---
