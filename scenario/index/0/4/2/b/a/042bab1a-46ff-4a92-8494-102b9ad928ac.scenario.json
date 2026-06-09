@@ -10,11 +10,25 @@
       "ior:instance:bef36fd2-aa7c-4766-8001-db2b69452d61"
     ],
     "tests": [],
-    "unitLinks": [
-      "ior:instance:6ee95023-5639-4eb7-86cc-916ebb418e7e"
-    ],
+    "unitLinks": [],
     "useCases": [
       "ior:instance:c27d67d8-c6ef-45be-b88b-5631370abe7e"
+    ],
+    "refinedBy": [
+      "ior:instance:6ee95023-5639-4eb7-86cc-916ebb418e7e"
+    ],
+    "refinedByNote": "Refined by R18.34.B (6ee95023, commit-on-release atomic).",
+    "_backfillNotes": [
+      {
+        "date": "2026-06-10",
+        "by": "robbin-req",
+        "action": "Pass C \u2014 moved IOR refs OUT of unitLinks (T199 policy: unitLinks = symlink paths only)",
+        "movedIORs": [
+          "ior:instance:6ee95023-5639-4eb7-86cc-916ebb418e7e"
+        ],
+        "context": "#77 systemic backfill (post-T199 23907dd4 remainder). IOR semantics already live in dedicated fields (siblingOf / supersedes / refinementOf).",
+        "reqAltId": "R18.34"
+      }
     ]
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"

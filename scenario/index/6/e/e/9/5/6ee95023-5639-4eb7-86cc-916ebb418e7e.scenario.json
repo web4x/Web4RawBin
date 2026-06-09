@@ -10,19 +10,31 @@
       "ior:instance:bef36fd2-aa7c-4766-8001-db2b69452d61"
     ],
     "tests": [],
-    "unitLinks": [
-      "ior:instance:042bab1a-46ff-4a92-8494-102b9ad928ac"
-    ],
+    "unitLinks": [],
+    "refinementOf": "ior:instance:042bab1a-46ff-4a92-8494-102b9ad928ac",
+    "refinementOfNote": "Refines R18.34 (042bab1a). R18.34 = scope isolation (iframe scopes pan/zoom to SVG). R18.34.B = commit-on-release atomic constraint.",
     "status": "in-progress",
     "verificationHistory": [
       {
         "date": "2026-06-10",
-        "hop": "testing → in-progress (re-opened)",
+        "hop": "testing \u2192 in-progress (re-opened)",
         "reason": "device-acceptance FAILED per learning #27",
         "tronVerbatim": "still only working on pinch-pan-release, a pan too much",
-        "verificationContext": "Real-device repro post-v0.5.121 still requires pan to commit zoom — atomic invariant UNMET (pinch→release alone should commit). Architect instrumenting real device next.",
+        "verificationContext": "Real-device repro post-v0.5.121 still requires pan to commit zoom \u2014 atomic invariant UNMET (pinch\u2192release alone should commit). Architect instrumenting real device next.",
         "buildAtFailure": "v0.5.121",
         "reportedVia": "robbin-po"
+      }
+    ],
+    "_backfillNotes": [
+      {
+        "date": "2026-06-10",
+        "by": "robbin-req",
+        "action": "Pass C \u2014 moved IOR refs OUT of unitLinks (T199 policy: unitLinks = symlink paths only)",
+        "movedIORs": [
+          "ior:instance:042bab1a-46ff-4a92-8494-102b9ad928ac"
+        ],
+        "context": "#77 systemic backfill (post-T199 23907dd4 remainder). IOR semantics already live in dedicated fields (siblingOf / supersedes / refinementOf).",
+        "reqAltId": "R18.34.B"
       }
     ]
   },
