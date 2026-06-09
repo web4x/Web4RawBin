@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "10c2e3ca-bd66-46c9-ad53-8dea1604b484",
+    "name": "R18.34.B champagne — pinch-no-pan commits scale on release",
+    "file": "ior:file:test/e2e/svg-viewer-pinch.spec.ts",
+    "requirements": [],
+    "methods": [],
+    "implementations": ["ior:instance:094c18a4-77a7-4208-a6a7-6a049e4e332e"],
+    "verifies": ["ior:instance:042bab1a-46ff-4a92-8494-102b9ad928ac"],
+    "status": "GREEN",
+    "sourceFile": "ior:file:test/e2e/svg-viewer-pinch.spec.ts",
+    "sourceLine": 1,
+    "parent": "ior:instance:094c18a4-77a7-4208-a6a7-6a049e4e332e",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:094c18a4-77a7-4208-a6a7-6a049e4e332e"
+}

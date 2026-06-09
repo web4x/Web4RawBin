@@ -9,7 +9,7 @@
     "sourceFile": "src/ts/server/server.ts",
     "sourceLineStart": 880,
     "sourceLineEnd": 881,
-    "tests": [],
+    "tests": ["ior:instance:10c2e3ca-bd66-46c9-ad53-8dea1604b484"],
     "parent": "ior:instance:4a4591ca-3806-4034-b9c1-def621c9b452"
   },
   "ownerIor": "ior:instance:4a4591ca-3806-4034-b9c1-def621c9b452"
