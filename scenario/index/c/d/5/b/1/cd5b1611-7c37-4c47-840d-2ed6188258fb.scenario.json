@@ -5,16 +5,30 @@
     "name": "Shared Class: trace tree shows the expanding UseCase's method, not a globally-resolved Class.method",
     "altId": "R18.35",
     "description": "When a Class is referenced by multiple UseCases in the trace graph, expanding the Class under a specific UseCase MUST show the Method bound to THAT UseCase (UC.method). It MUST NOT fall back to a single global Class.method resolution (e.g. last-verb-match-wins, alphabetic-first, or any other UC-blind heuristic), because such heuristics pick the wrong method when the Class is shared. Method resolution is UC-scoped: every Class node in the trace tree is rendered in the context of its expanding ancestor UseCase, and the displayed Method is the one wired to that UC's chain. This refines R18.2 (chain-through-Class narrowing) by specifying the resolution context for the multi-UC-shared-Class case.",
-    "tronQuote": "> DEFECT (bottom-up-discovered, 2026-06-09, captured via PO): \"When a Class is shared by multiple UseCases, the trace tree must show the method belonging to THE EXPANDING UseCase (UC.method), not a single global Class.method (last-verb-match-wins picks wrong method).\"\n> PRECEDENCE: Rule 5 (chain-vs-dependency framing) — bottom-up discovery yields a NEW sibling requirement, NOT a back-link to existing R18.2.\n> CONTEXT: R18.1 separated scenario (all methods) from trace (one method). R18.2 narrowed Class to a single requirement-fulfilling Method. R18.35 specifies the resolution context when one Class serves multiple UCs.",
-    "tasks": [],
+    "discoverySource": {
+      "type": "team-discovery",
+      "discoveredBy": "robbin-architect + robbin-tester (bottom-up defect)",
+      "diagnosisCommit": "4be5dcdd",
+      "diagnosisCommitMessage": "S18 architect: narrowing bugs diagnosis + R18.13-15 source-link design",
+      "diagnosisExcerpt": "Narrowing bug 2: Class.method is GLOBAL (last UC's verb), not per-UC-context. Fix: server returns chainMethod hint from UC; client uses it on Class expand.",
+      "canonicalizedBy": "robbin-req via PO directive 2026-06-09",
+      "canonicalizationNote": "NOT a Tron literal. Per Rule 5 (chain-vs-dependency framing): bottom-up discovery yields a NEW sibling requirement (cite team discovery + diagnosis commit, NOT a Tron quote that does not exist). T202 PO clarification 2026-06-09."
+    },
+    "precedenceRule": "Rule 5 — sibling, NOT back-link, NOT child",
+    "siblingOf": "ior:instance:c37558ec-fecb-43b6-8cc9-faf7566de647",
+    "siblingNote": "Sibling of R18.2 (c37558ec). R18.2 = chain-through-Class narrowing. R18.35 = UC-scoped resolution when Class is shared by multiple UCs.",
+    "tasks": [
+      "ior:instance:8a303a65-d8c1-4aa3-885e-e10e5c3f00ca"
+    ],
     "tests": [],
     "useCases": [],
     "unitLinks": [
-      "ior:instance:c37558ec-fecb-43b6-8cc9-faf7566de647"
+      "ior:instance:c37558ec-fecb-43b6-8cc9-faf7566de647",
+      "ior:instance:4d525a4d-5094-4288-9607-3d300efceeca"
     ],
-    "_siblingOf": "ior:instance:c37558ec-fecb-43b6-8cc9-faf7566de647",
-    "_siblingNote": "Sibling of R18.2 (c37558ec). R18.2 = chain-through-Class narrowing. R18.35 = UC-scoped resolution when Class is shared by multiple UCs.",
-    "_propagationPlan": "planner stands up as T187 follow-on task → architect designs /api/trace/children passing UC chainMethod context (per-UC method resolution at expand time) → expert implements → tester verifies via champagne test (shared Class under UC-A shows UC-A.method, same Class under UC-B shows UC-B.method)"
+    "supersedes": "ior:instance:4d525a4d-5094-4288-9607-3d300efceeca",
+    "supersedesNote": "Canonicalizes the T202 planner-placeholder unit (4d525a4d). Placeholder may be deleted by planner or kept as deprecated marker — req-eng leaves disposition to planner per learning #38.",
+    "propagationPlan": "T202 → architect designs /api/trace/children with UC chainMethod context parameter → expert implements per-UC method resolution at expand time → tester champagne: shared Class under UC-A shows UC-A.method, same Class under UC-B shows UC-B.method, never the same global Class.method for both"
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

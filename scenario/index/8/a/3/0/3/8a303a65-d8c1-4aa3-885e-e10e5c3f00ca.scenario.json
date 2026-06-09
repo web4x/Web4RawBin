@@ -10,8 +10,9 @@
     "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [ ] implementing (expert)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
     "acceptanceCriteria": "- [ ] AC1: When the same Class is shared by \u22652 UseCases, expanding its node in /trace tree shows ONLY the method tied to the active UC.chainMethod (not all Class.methods[]).\n- [ ] AC2: /api/trace/children accepts/uses a UC chainMethod context parameter (or equivalent) so the expander resolves per-UC, not per-Class.\n- [ ] AC3: Tester reproduces the original defect (two UCs share a Class, current behaviour shows wrong method) and verifies the fix on real S18 chain data.\n- [ ] AC4: No regression in single-UC Class cases (T187 chain narrowing baseline preserved).\n- [ ] AC5: trace:audit:strict still passes per learning #27.\n- [ ] AC6: Rule-pair (a) package.json + (b) sw.js bump if /api/trace/children is route/bundle surface.",
     "coveredRequirements": [
-      "ior:instance:4d525a4d-5094-4288-9607-3d300efceeca"
+      "ior:instance:cd5b1611-7c37-4c47-840d-2ed6188258fb"
     ],
+    "_canonicalizationNote": "coveredRequirements[] swapped 2026-06-09 by robbin-req: placeholder 4d525a4d → canonical R18.35 cd5b1611. Per PO directive: bottom-up defect, NOT Tron literal; cite architect diagnosis commit 4be5dcdd.",
     "useCases": [],
     "subtasks": [],
     "unitLinks": [],
