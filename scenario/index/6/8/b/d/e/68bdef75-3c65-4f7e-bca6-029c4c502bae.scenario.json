@@ -2,10 +2,12 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "68bdef75-3c65-4f7e-bca6-029c4c502bae",
-    "name": "Every traceability chain terminates in a Test — no chain may end on or loop back into a Task or Requirement.",
+    "name": "Every traceability chain terminates in a Test \u2014 no chain may end on or loop back into a Task or Requirement.",
     "altId": "R18.13",
     "tasks": [
-      "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
+      "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea",
+      "ior:instance:bda7857d-af96-4b08-a09e-1914bfe4fb7a",
+      "ior:instance:10a52f9f-b74f-42be-bf76-ff75aa3c14d3"
     ],
     "tests": [],
     "sourceFile": "ior:file:scenario/index/6/8/b/d/e/68bdef75-3c65-4f7e-bca6-029c4c502bae.scenario.json",

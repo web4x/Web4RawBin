@@ -7,7 +7,7 @@
     "slug": "t194-forward-only-fallback-type-check-child-filter",
     "sprint": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
     "coveredRequirements": [
-      "ior:instance:7d59b620-5870-41fe-9a4a-e82d8ab50372"
+      "ior:instance:68bdef75-3c65-4f7e-bca6-029c4c502bae"
     ],
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] implementing\n  - [x] testing\n- [ ] QA Review\n- [ ] Done",
