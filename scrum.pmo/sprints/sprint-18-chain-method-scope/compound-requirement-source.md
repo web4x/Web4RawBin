@@ -436,3 +436,29 @@ R18.33 quote annotated with this follow-up:
 > TRON (sequencing): "after this is done do the tree overview sync with the navigation in the details."
 
 **Task path:** R18.33 → T200/#78 (tree↔detail bidirectional sync). SEQUENCED: blocked by chain-correction completion. Planner enforces via Dependencies field.
+
+---
+
+## LITERAL SOURCE — R18.34.B SVG pinch-release commit (2026-06-09)
+
+> TRON (R18.34 refinement): "its really pinch-pan-release THEN it works, but why the additional pan. total counter intuitive. just pinch-release should simply work. why complex?"
+>
+> ARCHITECT (R18.34.B atomic, verbatim 2026-06-09): "Releasing the pinch (lifting both fingers) MUST leave the SVG displayed at the zoom level reached during the pinch — no additional gesture is required to commit the scale."
+
+### Decomposition
+
+- **R18.34.B**: Pinch release commits SVG zoom without additional gesture
+  - **uuid:** `6ee95023-5639-4eb7-86cc-916ebb418e7e`
+  - **Sibling of R18.34** (`042bab1a-46ff-4a92-8494-102b9ad928ac`) — refines the scope-isolation parent with a precise commit-on-release atomic
+  - **unitLinks:** points to R18.34 for source-chain provenance
+  - **Task:** shares the SVG-viewer task (`bef36fd2-aa7c-4766-8001-db2b69452d61`)
+  - **R18.34 stays** as scope-isolation parent (iframe scopes pan/zoom to SVG); R18.34.B is the commit-on-release atomic child
+
+### Chain propagation (req → uc → class → method → impl → test)
+
+1. **R18.34.B** ← THIS (chain root)
+2. **UseCase** — `svgViewer.pinchZoom` AC9.1 (architect to wire)
+3. **Class** — `SvgViewer` (architect to create)
+4. **Method** — `SvgViewer.onPinchEnd` (architect to create)
+5. **Implementation** — expert touchend apply() fix (in parallel)
+6. **Test** — champagne test: pinch → release (no pan) → applied zoom persists on the SVG element
