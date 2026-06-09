@@ -15,7 +15,7 @@
     "useCases": [
       "ior:instance:89aff659-834d-4deb-bbf1-fe6dd1fb3719"
     ],
-    "status": "Planned",
+    "status": "In Progress",
     "owners": {
       "req": "robbin-req",
       "architect": "robbin-architect",
@@ -33,7 +33,8 @@
     "unitLinks": [
       "sprints.json/sprint-18-chain-method-scope/task/t189-role-skills-co-specify-planner-architect-req-eng.json"
     ],
-    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [x] testing (tester \u2014 verified 45/45 reach Req roots, UC 89aff659 linked, R18.13 captured, 19 Skill units done as orphan-by-design)\n- [ ] QA Review\n- [ ] Done"
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }
