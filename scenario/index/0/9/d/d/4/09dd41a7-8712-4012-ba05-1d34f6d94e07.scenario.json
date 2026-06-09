@@ -2,22 +2,22 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "09dd41a7-8712-4012-ba05-1d34f6d94e07",
-    "name": "T113: Tree-item — square SVG type icon (free icon library)",
+    "name": "T113: Tree-item \u2014 square SVG type icon (free icon library)",
     "slug": "task-113-tree-item-icon",
-    "description": "On the **left side** of each tree-item, render a catchy **quadratic (square) SVG** icon\nper type (requirement vs task). Architect chooses a good **free** icon library (e.g.\nLucide / Tabler / Feather — square, MIT/ISC) and records the choice + license here.",
+    "description": "On the **left side** of each tree-item, render a catchy **quadratic (square) SVG** icon\nper type (requirement vs task). Architect chooses a good **free** icon library (e.g.\nLucide / Tabler / Feather \u2014 square, MIT/ISC) and records the choice + license here.",
     "status": "In Progress",
-    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (architect — icon-library choice)\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement (architect \u2014 icon-library choice)\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only \u2014 never checked by planner/sync.",
     "remainingIssues": "",
-    "traceability": "`[task:uuid:09dd41a7-8712-4012-ba05-1d34f6d94e07]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) → **R16.5** (square SVG type icon)\n- down\n  - None (atomic task)\n- chain (req → usecase → puml → class/method)\n  - **requirement:** R16.5\n  - **use case:** objectItem.setIcon [uc:uuid:16a01131-d131-4a01-b131-000000113001]\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 2 package)\n  - **class/method:** `rb-object-item.ts` → `RbObjectItem` icon rendering + `trace/icons.ts` (Lucide vendored SVGs)",
-    "context": "Tron 2026-05-27: \"on the left side they should gave a catchy icon for requirement or\ntask. quadratic svgs… choose a good free library.\"",
+    "traceability": "`[task:uuid:09dd41a7-8712-4012-ba05-1d34f6d94e07]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) \u2192 **R16.5** (square SVG type icon)\n- down\n  - None (atomic task)\n- chain (req \u2192 usecase \u2192 puml \u2192 class/method)\n  - **requirement:** R16.5\n  - **use case:** objectItem.setIcon [uc:uuid:16a01131-d131-4a01-b131-000000113001]\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (Phase 2 package)\n  - **class/method:** `rb-object-item.ts` \u2192 `RbObjectItem` icon rendering + `trace/icons.ts` (Lucide vendored SVGs)",
+    "context": "Tron 2026-05-27: \"on the left side they should gave a catchy icon for requirement or\ntask. quadratic svgs\u2026 choose a good free library.\"",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [ ] AC1 — Each tree-item shows a square SVG icon on its left, distinct per type (requirement/task)\n- [ ] AC2 — Icons come from a free, appropriately-licensed library (choice + license documented here)\n- [ ] AC3 — Icons render crisply at the tree-item size (and the collapsed icon-only size, see T115)\n- [ ] `npm run build` succeeds; version + sw.js bumped; no regression",
+    "acceptanceCriteria": "- [ ] AC1 \u2014 Each tree-item shows a square SVG icon on its left, distinct per type (requirement/task)\n- [ ] AC2 \u2014 Icons come from a free, appropriately-licensed library (choice + license documented here)\n- [ ] AC3 \u2014 Icons render crisply at the tree-item size (and the collapsed icon-only size, see T115)\n- [ ] `npm run build` succeeds; version + sw.js bumped; no regression",
     "qaAudit": "- 2026-05-27: Planned from compound source R16.5. Awaiting architect icon-library choice, then Tron QA.",
-    "subtasks": "None (atomic task).\n\n---\n\n*Sprint 16 — Traceability UX & DetailViews*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 4 (Phase 2 — tree-item icon)*",
+    "subtasks": "None (atomic task).\n\n---\n\n*Sprint 16 \u2014 Traceability UX & DetailViews*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 4 (Phase 2 \u2014 tree-item icon)*",
     "assigned": "",
     "architectDesign": "",
-    "dependencies": "- **Requires:** architect icon-library decision — **DONE (Lucide, ISC)**\n- **Enables:** T115 (collapsed item = just this square icon)",
+    "dependencies": "- **Requires:** architect icon-library decision \u2014 **DONE (Lucide, ISC)**\n- **Enables:** T115 (collapsed item = just this square icon)",
     "definitionOfDone": "- [ ] All AC met; traceability chain complete + links resolve\n- [ ] Tests pass, build clean\n- [ ] Tron QA approved",
     "implementation": "",
     "testScenarios": "",
@@ -32,7 +32,21 @@
     "unitLinks": [
       "sprints.json/sprint-16-traceability-ux/task/task-113-tree-item-icon.json"
     ],
-    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
+    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
+    "coveredRequirements": [
+      "ior:instance:92ed98b8-77dc-45c3-bd4a-73aaf6d94ee1"
+    ],
+    "_backfillNotes": [
+      {
+        "date": "2026-06-10",
+        "by": "robbin-req",
+        "action": "Pass A retry \u2014 coveredRequirements[] mirrored from Requirement.tasks[] reverse-lookup",
+        "added": [
+          "92ed98b8"
+        ],
+        "context": "#77 systemic backfill (post-T199 23907dd4 remainder)"
+      }
+    ]
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }
