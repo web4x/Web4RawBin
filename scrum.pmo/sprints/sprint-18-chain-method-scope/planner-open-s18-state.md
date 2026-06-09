@@ -9,9 +9,9 @@
 
 ## Summary
 
-**Sprint 18.tasks[] = 12 total** (Sprint canonical IOR `ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962`)
+**Sprint 18.tasks[] = 13 total** (Sprint canonical IOR `ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962`) — count updated 2026-06-09 after dedup reconcile (anomaly #1 resolved, surfaced previously-hidden task `675cc8e3`).
 - **7 🏁 Done** (Tron-QA-approved, status=Done in scenario)
-- **5 OPEN** (status=Planned or In Progress)
+- **6 OPEN** (status=Planned or In Progress)
 - **+1 sub-track:** hand-written `task-planner-s2-s9-backfill.md` (decision-only, no scenario unit)
 
 ## OPEN — Blocked on Tron (awaiting QA, no role work)
@@ -31,10 +31,11 @@
 | T190 tree expand append-only | `08e46ce3` | In Progress | **architect/expert** | Same anomaly as T187 (ownerIor points at S18-dup `396197533cdb`). Reconcile owner first; then continuation. |
 | T188 dogfood view-gen | `8a31ba75` | Planned | **req + architect** | Net-new task, no refinement yet. Generator already exists (`scripts/generate-sprint-md.ts`). Scope: planning.md + task-*.md emitted from scenario.json Sprint+Task units (per task name). Req captures the formal directive verbatim, architect designs the round-trip (regen + integrity check); expert implements; tester verifies a known sprint regen matches scenarios. |
 | T189 role skills SKILL.md | `a7f7f216` | Planned | **req + architect** | Co-specify planner/architect/req-eng SKILL.md from refinement-precedence-analysis.md Rules 1-11. Req captures the Tron directive verbatim, architect designs the 3 SKILL.md updates, planner+architect+req pair-edit, tester verifies via per-cycle pre-gate application. |
+| R18.13-15 Source link on all types + Browse-File → /md/ + line param → /edit#L | `675cc8e3` | Planned | **architect + expert** | Surfaced 2026-06-09 by anomaly #1 reconcile (was hidden under dup Sprint unit). 6 coveredRequirements already wired (R18.13/14/15 atomic split). Refinement scope: source-code hyperlinks on every Object node type (Class/Method/Implementation/Test) in /trace + DetailView; file browser link → `/md/<path>`; `?L=<line>` param → `/edit#L<line>` jump. Architect designs the link-emit pattern; expert implements; tester verifies the round-trip on real units. |
 
 ## ANOMALIES (planner-flagged, decision needed)
 
-1. **Duplicate Sprint 18 scenario unit.** Two `ior:class:Sprint` units, both named "Sprint chain method scope": canonical `5b950725-a6f6-4d45-b802-4784ee6ef962` (owns 10 tasks via ownerIor) AND duplicate `396197533cdb` (owns T187 + T190). Sprint 18.tasks[] points at all 12 tasks, but ownership is split → chain audit will eventually fail per learning #27 strict-verify-bar. **Recommend:** PO decision on canonical → planner merges dup's tasks under canonical, then deletes dup.
+1. **Duplicate Sprint 18 scenario unit — RESOLVED 2026-06-09.** Dup `8662d51e-a7e8-4815-ab0a-396197533cdb` ("Sprint chain method scope") owned 3 tasks via ownerIor: T187 (`292d8931`), T190 (`08e46ce3`), and the previously-hidden R18.13-15 (`675cc8e3`). Per PO decision: re-pointed all 3 victims' `ownerIor` → canonical `5b950725-…`; added `675cc8e3` to canon `Sprint.tasks[]` (was missing — would have been orphaned); deleted dup unit file. Verified zero residual references in `scenario/index/`. Canon now owns 13 tasks (was 12; surfaced R18.13-15). Chain audit per learning #27 unblocked for T187+T190+R18.13-15.
 
 2. **SVG task statusChecklist drift (now FIXED).** Scenario JSON `model.statusChecklist` was literal markdown with all checkboxes unchecked, while `model.status="In Progress"` and architect's task .md reflected impl-shipped. Synced 2026-06-09 to match reality: planned[x] + in-progress[x] + refinement[x] + creating-test-cases[x] + implementing[x] + testing[ ] + QA[ ] + Done[ ].
 
@@ -63,7 +64,7 @@
 
 ## Recommended re-task (idle agents)
 
-- **architect** — UC `svgViewer.pinchZoom AC9.1` + Class `SvgViewer` + Method `SvgViewer.onPinchEnd` (R18.34.B chain) ; reconcile T187/T190 owner anomaly to canonical S18
+- **architect** — UC `svgViewer.pinchZoom AC9.1` + Class `SvgViewer` + Method `SvgViewer.onPinchEnd` (R18.34.B chain) ; refine R18.13-15 source-link task `675cc8e3` (newly surfaced; 6 reqs already wired). T187/T190 owner reconcile is DONE 2026-06-09.
 - **req-eng** — refine T188 (dogfood view-gen) and T189 (role skills SKILL.md) by capturing the originating Tron directives verbatim as Requirement units; both are status=Planned with no req anchor yet
 - **expert** — standby; v0.5.121 is the current ship line. Watch tester verify; assist if a D5 surfaces.
 - **tester** — primary: SVG R18.34/R18.34.B 3-platform verify per architect's plan + R18.34.B champagne test (pinch→release, no pan, zoom persists)
