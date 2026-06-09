@@ -905,8 +905,22 @@ stage.addEventListener('mousedown',e=>{if(e.button!==0)return;dragging=true;star
 window.addEventListener('mousemove',e=>{if(!dragging)return;tx=startTx+(e.clientX-startX);ty=startTy+(e.clientY-startY);apply()});
 window.addEventListener('mouseup',()=>{dragging=false});
 const reset=()=>{sw=stage.clientWidth;sh=stage.clientHeight;scale=Math.min(sw/iw,sh/ih);tx=(sw-iw*scale)/2;ty=(sh-ih*scale)/2;try{sessionStorage.removeItem(KEY)}catch(e){}apply()};
-let lastTap=0;
-stage.addEventListener('touchend',e=>{const now=Date.now();if(now-lastTap<300&&e.changedTouches.length===1)reset();lastTap=now});
+// R18.34.B proper tap detector — distinguishes real dbltap from pinch-release.
+// Requires single-finger touchstart, <10px slop, <250ms duration, full lift (touches.length===0).
+// tapStart CLEARED on any multi-touch touchstart so pinch can NEVER qualify.
+let tapStart=null,lastTapTime=0;
+stage.addEventListener('touchstart',e=>{
+  if(e.touches.length===1){tapStart={x:e.touches[0].clientX,y:e.touches[0].clientY,t:Date.now()}}
+  else{tapStart=null}
+},{passive:false});
+stage.addEventListener('touchend',e=>{
+  if(e.touches.length!==0||!tapStart||e.changedTouches.length!==1){tapStart=null;return}
+  const dx=e.changedTouches[0].clientX-tapStart.x,dy=e.changedTouches[0].clientY-tapStart.y,dur=Date.now()-tapStart.t;
+  if(Math.hypot(dx,dy)>=10||dur>=250){tapStart=null;return}
+  const now=Date.now();
+  if(now-lastTapTime<300){slog('dbltap-reset');reset();lastTapTime=0}else{lastTapTime=now}
+  tapStart=null;
+});
 stage.addEventListener('dblclick',e=>{e.preventDefault();reset()});
 // R18.34 D4 fix: PRESERVE zoom on viewport changes — only shift tx/ty, NEVER recompute scale.
 // Covers: iOS URL-bar settle (resize), orientation change (orientationchange), iOS visualViewport (URL-bar/keyboard).
