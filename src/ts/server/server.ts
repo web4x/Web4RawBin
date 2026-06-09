@@ -880,10 +880,10 @@ else if(e.touches.length>=2){mode='pinch';startScale=scale;startTx=tx;startTy=ty
 stage.addEventListener('touchmove',e=>{e.preventDefault();
 if(mode==='pan'&&e.touches.length===1){tx=startTx+(e.touches[0].clientX-startX);ty=startTy+(e.touches[0].clientY-startY);apply()}
 else if(mode==='pinch'&&e.touches.length>=2){const d=dist(e.touches[0],e.touches[1]);const f=d/startDist;const ns=Math.max(0.1,Math.min(20,startScale*f));
-tx=startMidX-(startMidX-startTx)*(ns/startScale);ty=startMidY-(startMidY-startTy)*(ns/startScale);scale=ns;apply()}
+tx=startMidX-(startMidX-startTx)*(ns/startScale);ty=startMidY-(startMidY-startTy)*(ns/startScale);scale=ns;apply();requestAnimationFrame(apply)}
 },{passive:false});
-stage.addEventListener('touchend',()=>{mode='idle'},{passive:false});
-stage.addEventListener('touchcancel',()=>{mode='idle'},{passive:false});
+stage.addEventListener('touchend',()=>{mode='idle';apply();},{passive:false});
+stage.addEventListener('touchcancel',()=>{mode='idle';apply();},{passive:false});
 stage.addEventListener('wheel',e=>{
 if(e.ctrlKey){e.preventDefault();const rect=stage.getBoundingClientRect();const cx=e.clientX-rect.left;const cy=e.clientY-rect.top;
 const f=Math.exp(-e.deltaY*0.01);const ns=Math.max(0.1,Math.min(20,scale*f));
