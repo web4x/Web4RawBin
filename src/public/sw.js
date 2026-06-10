@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rawbin-v0.5.139';
+const CACHE_NAME = 'rawbin-v0.5.140';
 
 const STATIC_SHELL = [
   '/app',
@@ -8,10 +8,10 @@ const STATIC_SHELL = [
   '/icon-192.png',
   '/icon-512.png',
   '/trace',
-  '/dist/trace-page-Y66QBNQ5.js',
+  '/dist/trace-page-AQTE2QBB.js',
   '/scenario',
-  '/dist/scenario-view-DXNYDQ7D.js',
-  '/dist/app-KUBQ6UO6.js',
+  '/dist/scenario-view-QAEX7VV7.js',
+  '/dist/app-KZALNK6Q.js',
 ];
 
 const OFFLINE_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">

@@ -203,9 +203,9 @@ export class RoomView {
       item.setAttribute('title', m.name || '?');
       item.setAttribute('name', m.name || '?');
       item.setAttribute('status', m.disconnected ? 'offline' : 'online');
-      if (m.id === this.hostId) item.setAttribute('description', 'Host');
+      if (m.id === this.hostId) item.setAttribute('description', 'Host' + (m.disconnected ? ' · Offline' : ''));
       else if (m.id === this.client.clientId) item.setAttribute('description', 'You');
-      else if (m.disconnected) item.setAttribute('description', 'Offline');
+      else item.setAttribute('description', m.disconnected ? 'Offline' : 'Online');
       ch.appendChild(item);
     }
   }
