@@ -5,20 +5,19 @@
     "id": "e32a20a7-e94e-441e-8928-8a15302eb514",
     "name": "Royal Jungle",
     "ownerToken": "0d7ee549-30eb-498d-b8d1-9c6c84be1544",
-    "maxMembers": 10,
     "isPrivate": false,
     "visibility": "public",
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781126591735,
+    "createdAt": 1781128085088,
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3TZx3yc0U1qA6ukt9dpB\nAfOW8YNyOWef6tyZBB0UgmdjHc6mYmn8MQvDQDlHxbCd54v3ZMtHsDXAC7/nY0wS\nFFg9heuuRIc3kdiZ0knxEnU8hHTz2b1jZXWrWKCsHRlawba3W8IXMfrMViEY5sn+\nBuuu6wDhYlbWwRSUksKdYO8Psj7gGgF63tcX1reXKB9Jh0DMO5UmDmRDgLzuzfqj\nLsFAmMuIlEApTMv5d19vbzWnjUUTNudh78ruS7K5ATSrqk4yVEg0bV+tOfJ90z6V\nPIiNu76ah7aclR5XEMrJynw+QQvZOdxdXWvWiPQOegTqFdB3Cn+Ibww5cNBkWAv1\n6QIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [],
+    "sourceFile": "scenario/index/e/3/2/a/2/e32a20a7-e94e-441e-8928-8a15302eb514.scenario.json",
     "unitLinks": [
       "sprints.json/rooms/0d7ee549-30eb-498d-b8d1-9c6c84be1544/e32a20a7-e94e-441e-8928-8a15302eb514.json"
-    ],
-    "sourceFile": "scenario/index/e/3/2/a/2/e32a20a7-e94e-441e-8928-8a15302eb514.scenario.json"
+    ]
   },
   "ownerIor": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544"
 }

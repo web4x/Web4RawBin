@@ -1346,7 +1346,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
         id: clientId, ws, name: memberName, avatarUrl: profileAvatar,
         playerToken: msg.playerToken || '', disconnected: false,
       };
-      const room = roomManager.createRoom(roomName, member, { maxMembers: msg.maxPlayers || 10, isPrivate: !!msg.roomKey, roomKey: msg.roomKey || '', creatorToken: creatorToken || '' });
+      const room = roomManager.createRoom(roomName, member, { isPrivate: !!msg.roomKey, roomKey: msg.roomKey || '', creatorToken: creatorToken || '' });
       if (msg.playerToken) tokenToClient.set(msg.playerToken, clientId);
 
       createRoomHome(creatorToken!, room.id);

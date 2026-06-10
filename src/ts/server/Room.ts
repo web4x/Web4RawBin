@@ -26,7 +26,6 @@ export interface RoomInfo {
   hostId: string;
   hostConnected: boolean;
   memberCount: number;
-  maxMembers: number;
   isPrivate: boolean;
   visibility: RoomVisibility;
   mode: RoomMode;
@@ -58,7 +57,6 @@ interface ChatMessage {
 }
 
 interface RoomOpts {
-  maxMembers?: number;
   isPrivate?: boolean;
   visibility?: RoomVisibility;
   mode?: RoomMode;
@@ -71,7 +69,6 @@ interface PersistedRoom {
   id: string;
   name: string;
   hostId: string;
-  maxMembers: number;
   isPrivate: boolean;
   visibility: RoomVisibility;
   mode: RoomMode;
@@ -87,7 +84,6 @@ export class Room {
   id: string;
   name: string;
   hostId: string;
-  maxMembers: number;
   isPrivate: boolean;
   visibility: RoomVisibility = 'public';
   mode: RoomMode = 'persistent';
@@ -105,7 +101,6 @@ export class Room {
   constructor(name: string, creator: RoomMember, opts?: RoomOpts) {
     this.id = opts?.id || crypto.randomUUID();
     this.name = name;
-    this.maxMembers = opts?.maxMembers || 10;
     this.isPrivate = opts?.isPrivate || false;
     this.visibility = opts?.visibility || (this.isPrivate ? 'private' : 'public');
     if (this.visibility === 'private') this.isPrivate = true;
@@ -162,7 +157,6 @@ export class Room {
       this.persist();
       return true;
     }
-    if (this.members.size >= this.maxMembers) return false;
     this.members.set(member.id, { ...member, disconnected: false });
     this.broadcast({ type: MSG.MEMBER_JOINED, member: this.memberInfo(member.id), memberCount: this.members.size });
     this.sendTo(member.id, { type: MSG.ROOM_JOINED, room: this.info(), members: this.allMemberInfo() });
@@ -218,7 +212,6 @@ export class Room {
   promoteSpectator(spectatorId: string): boolean {
     const spec = this.spectators.get(spectatorId);
     if (!spec || this.state !== 'active') return false;
-    if (this.members.size >= this.maxMembers) return false;
     this.spectators.delete(spectatorId);
     return this.addMember(spec);
   }
@@ -258,7 +251,6 @@ export class Room {
       hostId: this.hostId,
       hostConnected: this.members.has(this.hostId),
       memberCount: this.members.size,
-      maxMembers: this.maxMembers,
       isPrivate: this.isPrivate,
       visibility: this.visibility,
       mode: this.mode,
@@ -324,7 +316,7 @@ export class Room {
         const pubKey = getRoomPublicKey(this.creatorToken, this.id) || '';
         writeRoomJson(this.creatorToken, this.id, {
           id: this.id, name: this.name, ownerToken: this.creatorToken,
-          maxMembers: this.maxMembers, isPrivate: this.isPrivate, visibility: this.visibility, mode: this.mode, roomKey: this.roomKey,
+          isPrivate: this.isPrivate, visibility: this.visibility, mode: this.mode, roomKey: this.roomKey,
           state: this.state, createdAt: this.createdAt, sshKeysGenerated: !!pubKey,
           sshPublicKey: pubKey, chatHistory: this._chatHistory,
         });

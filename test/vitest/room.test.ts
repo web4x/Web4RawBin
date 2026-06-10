@@ -7,7 +7,6 @@
  *
  * Interfaces under test:
  *   RoomMember { id, ws, name, avatarUrl, playerToken, disconnected }
- *   RoomInfo   { id, name, hostId, hostConnected, memberCount, maxMembers, isPrivate, state, createdAt }
  *   RoomState  = 'active' | 'archived'
  */
 
@@ -43,7 +42,7 @@ describe('TC-3.3.1: Create room → verify RoomInfo', () => {
 
   it('creates a room with correct defaults', () => {
     const creator = makeMember({ name: 'Alice' });
-    const room = new Room('Alice\'s Room', creator, { maxMembers: 6 });
+    const room = new Room('Alice\'s Room', creator);
 
     const info: RoomInfo = room.info();
     expect(info.id).toBeDefined();
@@ -52,7 +51,6 @@ describe('TC-3.3.1: Create room → verify RoomInfo', () => {
     expect(info.hostId).toBe(creator.id);
     expect(info.hostConnected).toBe(true);
     expect(info.memberCount).toBe(1);
-    expect(info.maxMembers).toBe(6);
     expect(info.isPrivate).toBe(false);
     expect(info.state).toBe('active');
     expect(info.createdAt).toBeLessThanOrEqual(Date.now());
@@ -60,8 +58,7 @@ describe('TC-3.3.1: Create room → verify RoomInfo', () => {
 
   it('creates a private room when isPrivate=true', () => {
     const creator = makeMember({ name: 'Bob' });
-    const room = new Room('Secret Room', creator, { maxMembers: 4, isPrivate: true });
-
+    const room = new Room('Private', creator, { isPrivate: true });
     const info = room.info();
     expect(info.isPrivate).toBe(true);
   });
@@ -69,8 +66,8 @@ describe('TC-3.3.1: Create room → verify RoomInfo', () => {
   it('room id is unique across instances', () => {
     const c1 = makeMember();
     const c2 = makeMember();
-    const room1 = new Room('Room1', c1, { maxMembers: 4 });
-    const room2 = new Room('Room2', c2, { maxMembers: 4 });
+    const room1 = new Room('Room1', c1);
+    const room2 = new Room('Room2', c2);
 
     expect(room1.info().id).not.toBe(room2.info().id);
   });
@@ -82,7 +79,7 @@ describe('TC-3.3.2: Add/remove member → verify member count', () => {
 
   it('adds a member and increments count', () => {
     const creator = makeMember({ name: 'Host' });
-    const room = new Room('TestRoom', creator, { maxMembers: 4 });
+    const room = new Room('TestRoom', creator);
     expect(room.info().memberCount).toBe(1);
 
     const joiner = makeMember({ name: 'Joiner' });
@@ -92,7 +89,7 @@ describe('TC-3.3.2: Add/remove member → verify member count', () => {
 
   it('removes a member and decrements count', () => {
     const creator = makeMember({ name: 'Host' });
-    const room = new Room('TestRoom', creator, { maxMembers: 4 });
+    const room = new Room('TestRoom', creator);
     const joiner = makeMember({ name: 'Joiner' });
     room.addMember(joiner);
 
@@ -100,22 +97,9 @@ describe('TC-3.3.2: Add/remove member → verify member count', () => {
     expect(room.info().memberCount).toBe(1);
   });
 
-  it('rejects add when room is full', () => {
-    const creator = makeMember({ name: 'Host' });
-    const room = new Room('TinyRoom', creator, { maxMembers: 2 });
-    const m2 = makeMember({ name: 'Second' });
-    room.addMember(m2);
-    expect(room.info().memberCount).toBe(2);
-
-    const m3 = makeMember({ name: 'Third' });
-    const result = room.addMember(m3);
-    expect(result).toBe(false);
-    expect(room.info().memberCount).toBe(2);
-  });
-
   it('removing non-existent member is a no-op or throws', () => {
     const creator = makeMember({ name: 'Host' });
-    const room = new Room('TestRoom', creator, { maxMembers: 4 });
+    const room = new Room('TestRoom', creator);
 
     // Either no-op or throws — both acceptable, just shouldn't crash unhandled
     try {
@@ -133,7 +117,7 @@ describe('TC-3.3.3: Creator lifecycle → only creator can delete', () => {
 
   it('creator is the host on room creation', () => {
     const creator = makeMember({ name: 'Creator' });
-    const room = new Room('MyRoom', creator, { maxMembers: 4 });
+    const room = new Room('MyRoom', creator);
 
     expect(room.info().hostId).toBe(creator.id);
   });
@@ -141,7 +125,7 @@ describe('TC-3.3.3: Creator lifecycle → only creator can delete', () => {
   it('creator can delete the room', () => {
     const creator = makeMember({ name: 'Creator' });
     const manager = new RoomManager();
-    const room = manager.createRoom('MyRoom', creator, { maxMembers: 4 });
+    const room = manager.createRoom('MyRoom', creator);
     const roomId = room.info().id;
 
     const result = manager.removeRoom(roomId, creator.id);
@@ -153,7 +137,7 @@ describe('TC-3.3.3: Creator lifecycle → only creator can delete', () => {
     const creator = makeMember({ name: 'Creator' });
     const other = makeMember({ name: 'Other' });
     const manager = new RoomManager();
-    const room = manager.createRoom('MyRoom', creator, { maxMembers: 4 });
+    const room = manager.createRoom('MyRoom', creator);
     room.addMember(other);
     const roomId = room.info().id;
 
@@ -165,7 +149,7 @@ describe('TC-3.3.3: Creator lifecycle → only creator can delete', () => {
   it('setCreator transfers host to another member', () => {
     const creator = makeMember({ name: 'OldHost' });
     const newHost = makeMember({ name: 'NewHost' });
-    const room = new Room('TestRoom', creator, { maxMembers: 4 });
+    const room = new Room('TestRoom', creator);
     room.addMember(newHost);
 
     room.setCreator(newHost.id);
@@ -179,7 +163,7 @@ describe('TC-3.3.4: Archive room → state change + can\'t join', () => {
 
   it('archive() sets state to archived', () => {
     const creator = makeMember({ name: 'Host' });
-    const room = new Room('ArchiveMe', creator, { maxMembers: 4 });
+    const room = new Room('ArchiveMe', creator);
     expect(room.info().state).toBe('active');
 
     room.archive();
@@ -188,7 +172,7 @@ describe('TC-3.3.4: Archive room → state change + can\'t join', () => {
 
   it('archived room rejects new members', () => {
     const creator = makeMember({ name: 'Host' });
-    const room = new Room('ArchiveMe', creator, { maxMembers: 4 });
+    const room = new Room('ArchiveMe', creator);
     room.archive();
 
     const joiner = makeMember({ name: 'LateJoiner' });
@@ -200,7 +184,7 @@ describe('TC-3.3.4: Archive room → state change + can\'t join', () => {
   it('archive() notifies existing members', () => {
     const creator = makeMember({ name: 'Host' });
     const m2 = makeMember({ name: 'Member' });
-    const room = new Room('ArchiveMe', creator, { maxMembers: 4 });
+    const room = new Room('ArchiveMe', creator);
     room.addMember(m2);
 
     room.archive();
@@ -222,7 +206,7 @@ describe('TC-3.3.5: Broadcast → all members receive message', () => {
     const creator = makeMember({ name: 'Host' });
     const m2 = makeMember({ name: 'Alice' });
     const m3 = makeMember({ name: 'Bob' });
-    const room = new Room('BroadcastRoom', creator, { maxMembers: 4 });
+    const room = new Room('BroadcastRoom', creator);
     room.addMember(m2);
     room.addMember(m3);
 
@@ -240,7 +224,7 @@ describe('TC-3.3.5: Broadcast → all members receive message', () => {
   it('broadcast skips disconnected members (readyState !== 1)', () => {
     const creator = makeMember({ name: 'Host' });
     const disconnected = makeMember({ name: 'Ghost', ws: mockWs(false) });
-    const room = new Room('BroadcastRoom', creator, { maxMembers: 4 });
+    const room = new Room('BroadcastRoom', creator);
     room.addMember(disconnected);
 
     room.broadcast({ type: 'PING' });
@@ -252,7 +236,7 @@ describe('TC-3.3.5: Broadcast → all members receive message', () => {
   it('broadcast with exclude skips the excluded member', () => {
     const creator = makeMember({ name: 'Host' });
     const m2 = makeMember({ name: 'Other' });
-    const room = new Room('BroadcastRoom', creator, { maxMembers: 4 });
+    const room = new Room('BroadcastRoom', creator);
     room.addMember(m2);
 
     (creator.ws.send as ReturnType<typeof vi.fn>).mockClear();
@@ -270,7 +254,7 @@ describe('TC-3.3.6: Chat → chatHistory append + limit', () => {
 
   it('chat message appends to chatHistory', () => {
     const creator = makeMember({ name: 'Host' });
-    const room = new Room('ChatRoom', creator, { maxMembers: 4 });
+    const room = new Room('ChatRoom', creator);
 
     room.addChat(creator.id, creator.name, 'Hello world');
     room.addChat(creator.id, creator.name, 'Second message');
@@ -283,7 +267,7 @@ describe('TC-3.3.6: Chat → chatHistory append + limit', () => {
 
   it('chat message includes sender name and timestamp', () => {
     const creator = makeMember({ name: 'Alice' });
-    const room = new Room('ChatRoom', creator, { maxMembers: 4 });
+    const room = new Room('ChatRoom', creator);
 
     room.addChat(creator.id, creator.name, 'Hi');
 
@@ -295,7 +279,7 @@ describe('TC-3.3.6: Chat → chatHistory append + limit', () => {
 
   it('chat history respects max limit', () => {
     const creator = makeMember({ name: 'Spammer' });
-    const room = new Room('ChatRoom', creator, { maxMembers: 4 });
+    const room = new Room('ChatRoom', creator);
 
     for (let i = 0; i < 200; i++) {
       room.addChat(creator.id, creator.name, `msg-${i}`);
@@ -325,7 +309,6 @@ describe('TC-3.3.7: Per-user persistence (T99)', () => {
   it('persists to per-user dir on create when creatorToken is set', () => {
     const creator = makeMember({ name: 'Persist', playerToken: 'tok-persist' });
     const manager = new RoomManager();
-    const room = manager.createRoom('PersistRoom', creator, { maxMembers: 4, creatorToken: 'tok-persist' });
 
     expect(mockWriteRoomJson).toHaveBeenCalledTimes(1);
     const [token, roomId, data] = mockWriteRoomJson.mock.calls[0];
@@ -333,13 +316,12 @@ describe('TC-3.3.7: Per-user persistence (T99)', () => {
     expect(roomId).toBe(room.info().id);
     expect(data.name).toBe('PersistRoom');
     expect(data.ownerToken).toBe('tok-persist');
-    expect(data.maxMembers).toBe(4);
   });
 
   it('does NOT persist when creatorToken is empty', () => {
     const creator = makeMember({ name: 'Anon' });
     const manager = new RoomManager();
-    manager.createRoom('NoToken', creator, { maxMembers: 4 });
+    manager.createRoom('NoToken', creator);
 
     expect(mockWriteRoomJson).not.toHaveBeenCalled();
   });
@@ -347,7 +329,6 @@ describe('TC-3.3.7: Per-user persistence (T99)', () => {
   it('removeRoom drops in-memory entry (disk cleanup is server handler)', () => {
     const creator = makeMember({ name: 'Host' });
     const manager = new RoomManager();
-    const room = manager.createRoom('DeleteMe', creator, { maxMembers: 4, creatorToken: 'tok-del' });
     const roomId = room.info().id;
 
     const removed = manager.removeRoom(roomId, creator.id);
@@ -358,7 +339,6 @@ describe('TC-3.3.7: Per-user persistence (T99)', () => {
   it('re-persists on member change', () => {
     const creator = makeMember({ name: 'Host', playerToken: 'tok-host' });
     const manager = new RoomManager();
-    const room = manager.createRoom('UpdateMe', creator, { maxMembers: 4, creatorToken: 'tok-host' });
     mockWriteRoomJson.mockClear();
 
     const joiner = makeMember({ name: 'Joiner' });
@@ -377,7 +357,7 @@ describe('TC-3.3.8: Spectator → add/remove/promote', () => {
 
   it('adds a spectator without increasing member count', () => {
     const creator = makeMember({ name: 'Host' });
-    const room = new Room('SpecRoom', creator, { maxMembers: 4 });
+    const room = new Room('SpecRoom', creator);
     const spec = makeMember({ name: 'Watcher' });
 
     room.addSpectator(spec);
@@ -386,7 +366,7 @@ describe('TC-3.3.8: Spectator → add/remove/promote', () => {
 
   it('spectator receives broadcasts', () => {
     const creator = makeMember({ name: 'Host' });
-    const room = new Room('SpecRoom', creator, { maxMembers: 4 });
+    const room = new Room('SpecRoom', creator);
     const spec = makeMember({ name: 'Watcher' });
     room.addSpectator(spec);
 
@@ -397,7 +377,7 @@ describe('TC-3.3.8: Spectator → add/remove/promote', () => {
 
   it('removes a spectator', () => {
     const creator = makeMember({ name: 'Host' });
-    const room = new Room('SpecRoom', creator, { maxMembers: 4 });
+    const room = new Room('SpecRoom', creator);
     const spec = makeMember({ name: 'Watcher' });
     room.addSpectator(spec);
 
@@ -411,7 +391,7 @@ describe('TC-3.3.8: Spectator → add/remove/promote', () => {
 
   it('promotes spectator to member', () => {
     const creator = makeMember({ name: 'Host' });
-    const room = new Room('SpecRoom', creator, { maxMembers: 4 });
+    const room = new Room('SpecRoom', creator);
     const spec = makeMember({ name: 'PromoteMe' });
     room.addSpectator(spec);
 
@@ -420,9 +400,7 @@ describe('TC-3.3.8: Spectator → add/remove/promote', () => {
     expect(room.info().memberCount).toBe(2);
   });
 
-  it('promote fails if room is full', () => {
-    const creator = makeMember({ name: 'Host' });
-    const room = new Room('TinyRoom', creator, { maxMembers: 2 });
+    const room = new Room('TinyRoom', creator);
     const m2 = makeMember({ name: 'Second' });
     room.addMember(m2);
 
@@ -443,8 +421,8 @@ describe('TC-3.3.9: RoomManager operations', () => {
     const manager = new RoomManager();
     const c1 = makeMember({ name: 'Host1' });
     const c2 = makeMember({ name: 'Host2' });
-    manager.createRoom('Room1', c1, { maxMembers: 4 });
-    manager.createRoom('Room2', c2, { maxMembers: 4 });
+    manager.createRoom('Room1', c1);
+    manager.createRoom('Room2', c2);
 
     const rooms = manager.listRooms();
     expect(rooms.length).toBe(2);
@@ -456,7 +434,7 @@ describe('TC-3.3.9: RoomManager operations', () => {
     const manager = new RoomManager();
     const host = makeMember({ name: 'Host' });
     const joiner = makeMember({ name: 'Joiner' });
-    const room = manager.createRoom('FindMe', host, { maxMembers: 4 });
+    const room = manager.createRoom('FindMe', host);
     room.addMember(joiner);
 
     const found = manager.findMemberRoom(joiner.id);
@@ -468,7 +446,7 @@ describe('TC-3.3.9: RoomManager operations', () => {
     const manager = new RoomManager();
     const host = makeMember({ name: 'Host' });
     const spec = makeMember({ name: 'Watcher' });
-    const room = manager.createRoom('SpecFind', host, { maxMembers: 4 });
+    const room = manager.createRoom('SpecFind', host);
     room.addSpectator(spec);
 
     const found = manager.findSpectatorRoom(spec.id);
@@ -479,7 +457,7 @@ describe('TC-3.3.9: RoomManager operations', () => {
   it('cleanupStale removes rooms older than threshold', async () => {
     const manager = new RoomManager();
     const host = makeMember({ name: 'Host' });
-    manager.createRoom('OldRoom', host, { maxMembers: 4 });
+    manager.createRoom('OldRoom', host);
 
     // Cleanup with 0ms threshold should remove all
     const removed = manager.cleanupStale(0);
@@ -514,7 +492,6 @@ describe('S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)',
   it('T-persistent-retention R19.8: markDisconnected retains member as offline', () => {
     const creator = makeMember({ id: 'host' });
     const memberB = makeMember({ id: 'guest', name: 'Guest' });
-    const r = new Room('RetainRoom', creator, { mode: 'persistent', maxMembers: 4 });
     r.addMember(memberB);
     expect(r.members.size).toBe(2);
 
@@ -531,7 +508,6 @@ describe('S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)',
   it('T-persistent-retention: removeMember still prunes in live rooms', () => {
     const creator = makeMember({ id: 'host' });
     const memberB = makeMember({ id: 'guest' });
-    const r = new Room('LiveRoom', creator, { mode: 'live', maxMembers: 4 });
     r.addMember(memberB);
     expect(r.members.size).toBe(2);
 
@@ -544,7 +520,6 @@ describe('S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)',
   it('T-persistent-retention: reconnect flips disconnected=false, no dup', () => {
     const creator = makeMember({ id: 'host' });
     const memberB = makeMember({ id: 'guest', name: 'Guest' });
-    const r = new Room('ReconnRoom', creator, { mode: 'persistent', maxMembers: 4 });
     r.addMember(memberB);
     r.markDisconnected('guest');
     expect(r.members.get('guest')?.disconnected).toBe(true);

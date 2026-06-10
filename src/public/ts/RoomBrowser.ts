@@ -7,8 +7,7 @@ import { viewBus } from './ViewBus.js';
 
 interface RoomInfo {
   id: string; name: string; hostId: string; memberCount: number;
-  maxMembers: number; isPrivate: boolean; state: string;
-  creatorId?: string; ownerToken?: string; ownerName?: string; mode?: "live"|"persistent"; visibility?: "public"|"by-invite"|"private";
+    creatorId?: string; ownerToken?: string; ownerName?: string; mode?: "live"|"persistent"; visibility?: "public"|"by-invite"|"private";
 }
 
 export class RoomBrowser {
@@ -65,7 +64,6 @@ export class RoomBrowser {
         </div>
         <div class="lobby-create-form" id="create-form" style="display:none">
           <input type="text" id="room-name" placeholder="Room name..." value="${this.client.getProfile()?.name ? this.client.getProfile()!.name + "'s Room" : ''}">
-          <input type="number" id="room-max" placeholder="Max members" value="10" min="2" max="50">
           <input type="text" id="room-key" placeholder="Private key (optional)">
           <div class="lobby-create-actions">
             <button id="confirm-create-btn" class="btn btn-primary">Create</button>
@@ -105,9 +103,8 @@ export class RoomBrowser {
     document.getElementById('confirm-create-btn')?.addEventListener('click', () => {
       const defaultName = this.client.getProfile()?.name ? this.client.getProfile()!.name + "'s Room" : 'New Room';
       const name = (document.getElementById('room-name') as HTMLInputElement).value || defaultName;
-      const max = parseInt((document.getElementById('room-max') as HTMLInputElement).value) || 10;
       const key = (document.getElementById('room-key') as HTMLInputElement).value || undefined;
-      this.client.createRoom(name, this.memberName, max, key);
+      this.client.createRoom(name, this.memberName, key);
     });
     document.getElementById('refresh-rooms-btn')?.addEventListener('click', () => { this.client.listRooms(); });
     document.getElementById('join-private-btn')?.addEventListener('click', () => {
@@ -132,7 +129,6 @@ export class RoomBrowser {
         <div class="room-card" data-room-id="${room.id}">
           <div class="room-info">
             <span class="room-name">${room.isPrivate ? '🔒 ' : ''}${room.name}${ownerLabel}</span>
-            <span class="room-members">${room.memberCount}/${room.maxMembers} members</span>
             <span class="room-id">${room.id}</span>
             <span class="room-persist" title="Room lifecycle mode">${room.mode === "live" ? "⚡ Live" : "💾 Persistent"}</span>
           </div>
