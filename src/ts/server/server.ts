@@ -599,7 +599,10 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (child) {
             const ct = (child.ior || '').split(':')[2] || '';
             if (allowedTypes.length > 0 && !allowedTypes.includes(ct)) return null;
-            const entry: Record<string, unknown> = { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: true };
+            const childModel = child.model as Record<string, unknown> || {};
+            const forwardArrays = ['tasks','useCases','classes','methods','implementations','tests','children'].map(k => childModel[k]).filter(Array.isArray);
+            const childCount = forwardArrays.reduce((sum, arr) => sum + arr.length, 0);
+            const entry: Record<string, unknown> = { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: childCount > 0, childCount };
             if (queryMode === 'trace' && type === 'UseCase' && ct === 'Class' && ucMethodIor) {
               const meth = idx.get(ucMethodIor);
               if (meth) entry.chainMethod = { uuid: ucMethodIor, type: 'Method', name: String(meth.model?.name || '') };

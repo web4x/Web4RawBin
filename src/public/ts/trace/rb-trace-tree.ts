@@ -20,6 +20,8 @@ export class RbTraceTree extends HTMLElement {
   private expanded = new Set<string>();
   private unsub: (() => void) | null = null;
   private pendingReveal: string | null = null;
+  private prefetchCache = new Map<string, any[]>();
+  private prefetchInFlight = new Set<string>();
 
   private get mode(): string { return this.getAttribute('data-mode') || 'scenario'; }
   private get childrenUrl(): string { return `/api/trace/children/`; }
@@ -233,6 +235,7 @@ export class RbTraceTree extends HTMLElement {
         if (open) requestAnimationFrame(() => node.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
       }) as EventListener);
     }
+    if (showExpander) this.prefetchOneLayer(uuid);
     return node;
   }
 
@@ -323,16 +326,34 @@ export class RbTraceTree extends HTMLElement {
     if (m) this.revealNode(m[1]);
   };
 
+  private prefetchOneLayer(uuid: string): void {
+    if (this.prefetchCache.has(uuid) || this.prefetchInFlight.has(uuid)) return;
+    this.prefetchInFlight.add(uuid);
+    fetch(`${this.childrenUrl}${encodeURIComponent(uuid)}${this.modeParam}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data) { this.prefetchCache.set(uuid, data.children || []); const item = this.querySelector(`rb-object-item[ref*=":${uuid}"]`); if (item) item.setAttribute('child-count', String((data.children || []).length)); } })
+      .catch(() => {})
+      .finally(() => this.prefetchInFlight.delete(uuid));
+  }
+
   private async fetchAndRenderChildren(uuid: string, container: HTMLElement, ancestors?: Set<string>): Promise<void> {
     const branchVisited = new Set(ancestors || []);
     branchVisited.add(uuid);
     try {
-      const res = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}${this.modeParam}`);
-      if (!res.ok) return;
-      const data = await res.json();
-      const children = data.children || [];
+      let children: any[];
+      const cached = this.prefetchCache.get(uuid);
+      if (cached) {
+        children = cached;
+        this.prefetchCache.delete(uuid);
+      } else {
+        const res = await fetch(`${this.childrenUrl}${encodeURIComponent(uuid)}${this.modeParam}`);
+        if (!res.ok) return;
+        const data = await res.json();
+        children = data.children || [];
+      }
       for (const child of children) {
         container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchVisited), (child as any).chainMethod));
+        this.prefetchOneLayer(child.uuid);
       }
       const parentItem = container.parentElement?.querySelector(':scope > .tt-row rb-object-item');
       if (parentItem) parentItem.setAttribute('child-count', String(children.length));
