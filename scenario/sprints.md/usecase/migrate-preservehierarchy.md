@@ -7,4 +7,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T128: Migrate all existing sprints/tasks/requirements to scenario-unit model](../sprints.md/task/task-128-migration.md)
+- [🔗 T128: Migrate all existing sprints/tasks/requirements to scenario-unit model](../task/task-128-migration.md)
+
+**Classes:**
+- [🔗 SpeakingTree](../class/speakingtree.md)

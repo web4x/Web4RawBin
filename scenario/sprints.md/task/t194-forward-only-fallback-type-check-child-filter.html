@@ -1,0 +1,13 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>Forward-only fallback + type-check child filter</h2><code>bda7857d-af96-4b08-a09e-1914bfe4fb7a</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement</li><li class="sv-checked">✅ implementing</li><li class="sv-checked">✅ testing</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Task Description</h3><p>Three fixes ensuring the chain walks forward-only and terminates correctly at Test (R18.13):
+
+Fix 1: scanRepo fallback (line 582) now iterates fwdKeys[type] only, instead of Object.values(links).flat(). This prevents backward refs from leaking into the children response — same bug class as T181.
+
+Fix 2: EXPECTED_CHILD_TYPE invariant — children are filtered by the allowed type per parent (Req-&gt;Task, Task-&gt;UseCase, UC-&gt;Class/Method, Class-&gt;Method, Method-&gt;Implementation, Impl-&gt;Test, Sprint-&gt;Task). Wrong-type children are silently dropped. Structurally prevents higher-type nodes from appearing below Method.
+
+Fix 3: Method.implementation singular already populated (0 remaining).
+
+Net effect: chain forward-only, no leakage, and chain terminates cleanly at Test. 836/836 pass.</p></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>2026-06-05 1f2f6dcc v0.5.95 T194: forward-only fallback + type-check child filter</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task).</p></div></div>

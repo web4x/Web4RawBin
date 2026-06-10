@@ -9,4 +9,4 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T100: Test Data Isolation — DATA_DIR Override](../sprints.md/task/task-100-test-data-isolation.md)
+- [🔗 T100: Test Data Isolation — DATA_DIR Override](../task/task-100-test-data-isolation.md)

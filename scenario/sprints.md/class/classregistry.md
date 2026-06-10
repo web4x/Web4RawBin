@@ -5,6 +5,5 @@
 ## Traceability
 
 **Methods:**
-- [🔗 ClassRegistry.register(name](../sprints.md/method/classregistry-register-name.md)
-- [🔗 ClassRegistry.loader): void](../sprints.md/method/classregistry-loader-void.md)
-- [🔗 ClassRegistry.get(name): ClassLoader](../sprints.md/method/classregistry-get-name-classloader.md)
+- [🔗 ClassRegistry.register(name](../method/classregistry-register-name.md)
+- [🔗 ClassRegistry.get(name): ClassLoader](../method/classregistry-get-name-classloader.md)

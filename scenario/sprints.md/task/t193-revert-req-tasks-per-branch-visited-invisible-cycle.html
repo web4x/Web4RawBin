@@ -1,0 +1,13 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>Revert Req-&gt;tasks + per-branch visited Set + invisible cycle nodes</h2><code>1609fb4b-b0fd-4c18-acc3-c771138e427d</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement</li><li class="sv-checked">✅ implementing</li><li class="sv-checked">✅ testing</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Task Description</h3><p>Three fixes per architect, addressing fallout from the T192 edge change and the shared-Set false-cycle bug:
+
+BUG1: REVERTED Requirement:['useCases'] back to ['tasks'] — useCases[] is unpopulated on 75 Reqs, yielding 0 children in the tree. Req-&gt;tasks is the legitimate chain for the navigation layer.
+
+BUG2: visited Set is now PER BRANCH (new Set copy per child) instead of shared across siblings. Shared mutation caused false cycle stubs on DAG re-convergence — the same node reached via two sibling paths is legitimate convergence, not a cycle. This is the ancestor-path-precise guard (R18.11).
+
+BUG3: cycle stub '↻ cycle' replaced with an empty invisible node (return empty div). True ancestor-path cycles are silently dropped — the user never sees cut nodes (R18.12 clean cycle omission).
+
+Net effect: Req children restored + true ancestor-path cycles silently dropped + no infinite loop + no false stubs on DAG convergence. 836/836 pass.</p></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>2026-06-05 0e1e97ee v0.5.94 T193: revert Req→tasks + per-branch visited Set + invisible cycle</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task).</p></div></div>

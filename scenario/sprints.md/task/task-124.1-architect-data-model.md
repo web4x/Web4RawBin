@@ -16,6 +16,14 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 unit.load](../usecase/unit-load.md)
+- [🔗 ior.resolveClass](../usecase/ior-resolveclass.md)
+- [🔗 ior.resolveInstance](../usecase/ior-resolveinstance.md)
+
+
+## Traceability
+
 `[task:uuid:e83d47a1-6cf2-4b19-ae53-8f7d2c014b61]`
 
 - up

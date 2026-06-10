@@ -9,4 +9,11 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T106: ListOverview Component + Search → remoteSearch](../sprints.md/task/task-106-list-overview-search.md)
+- [🔗 T106: ListOverview Component + Search → remoteSearch](../task/task-106-list-overview-search.md)
+- [🔗 T111: Specialized DetailViews (TaskDetailView, RequirementDetailView)](../task/task-111-detail-views.md)
+
+**UseCases:**
+- [🔗 listOverview.searchAndFilter](../usecase/listoverview-searchandfilter.md)
+- [🔗 taskDetail.render](../usecase/taskdetail-render.md)
+- [🔗 requirementDetail.render](../usecase/requirementdetail-render.md)
+- [🔗 usecaseDetail.render](../usecase/usecasedetail-render.md)

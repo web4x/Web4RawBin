@@ -1,0 +1,15 @@
+<div class="sv-requirement"><h3>R18.23: Browse-File link carries LINE information so the Monaco editor opens at the correct line.</h3><details><summary>Tron directive</summary><blockquote>## LITERAL SOURCE — Follow-on C: Detail-view full-methods + Parent/Browse-File links (2026-06-05)
+
+&gt; TRON: &quot;on this picture we see the beautiful traceability. BUT on the details view, i want to see ALL methods, not just the traced one. the same on the ScenarioView. for all types. above the scenario view link i want a 'Parent' link. and below it i want to see a Browse File Link, that jumps to the corresponding file in the Browser. there i can open it in the monacco editor. add line information to the link, so that eg on a method or usecase the monacco editor can open at the correct line&quot;
+
+### Decomposition hints (req: confirm against literal)
+- R18.12 [→ R18.23]: The Browse-File link carries LINE information so the Monaco editor opens at the correct line (e.g. a Method or UseCase opens at its source line).
+
+Note: Source decomposition draft used the preliminary label &quot;R18.12&quot; which collides with the already-numbered R18.12 (true-cycle nodes omitted cleanly) at line 175. The gap-filler renumbered this to R18.23. See also R18.15 (Follow-on D, line 337) which REVISES this: line carries through browser→editor (target = browser-with-highlight, line preserved end-to-end).
+
+**Acceptance criteria :**
+- [ ] Browse-File link URL includes line-number parameter
+- [ ] For Method targets: line = method's declaration line in .ts source
+- [ ] For UseCase targets: line = UseCase's line in .puml file
+- [ ] Line survives browser → Monaco editor transition (per R18.15 revision)
+- [ ] Monaco editor opens at the correct line when user clicks through</blockquote></details></div>

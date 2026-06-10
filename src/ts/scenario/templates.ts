@@ -62,7 +62,7 @@ export function setActiveResolver(r: SlugResolver | undefined): void { _activeRe
 function renderChainLinkMd(ior: string, resolve?: SlugResolver): string {
   const uuid = ior.replace('ior:instance:', '');
   const info = resolve?.(uuid);
-  if (info) return `[🔗 ${info.name}](../sprints.md/${info.type}/${info.slug}.md)`;
+  if (info) return `[🔗 ${info.name}](../${info.type}/${info.slug}.md)`;
   return `[🔗 ${uuid.slice(0, 8)}](/scenario?ior=${encodeURIComponent(uuid)})`;
 }
 

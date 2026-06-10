@@ -1,0 +1,10 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T202: Class.method-per-UC narrowing — shared Class picks wrong method</h2><code>8a303a65-d8c1-4aa3-885e-e10e5c3f00ca</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-unchecked">⬜ Planned</li><li class="sv-unchecked">⬜ In Progress</li><ul class="sv-substeps"><li class="sv-unchecked">⬜ refinement (architect)</li><li class="sv-unchecked">⬜ creating test cases</li><li class="sv-unchecked">⬜ implementing (expert)</li><li class="sv-unchecked">⬜ testing (tester)</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Task Description</h3><p>Sibling/follow-on to T187 R18.13 (chain narrowing). When two UseCases share a Class, the /trace tree expander uses the global Class.methods[] fan-out and picks the wrong method for the active UC. Fix: /api/trace/children passes UC chainMethod context so the expander uses UC.method not global Class.method.</p></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [ ] AC1: When the same Class is shared by ≥2 UseCases, expanding its node in /trace tree shows ONLY the method tied to the active UC.chainMethod (not all Class.methods[]).
+- [ ] AC2: /api/trace/children accepts/uses a UC chainMethod context parameter (or equivalent) so the expander resolves per-UC, not per-Class.
+- [ ] AC3: Tester reproduces the original defect (two UCs share a Class, current behaviour shows wrong method) and verifies the fix on real S18 chain data.
+- [ ] AC4: No regression in single-UC Class cases (T187 chain narrowing baseline preserved).
+- [ ] AC5: trace:audit:strict still passes per learning #27.
+- [ ] AC6: Rule-pair (a) package.json + (b) sw.js bump if /api/trace/children is route/bundle surface.</pre></div>
+<div class="sv-section"><h3>Subtasks</h3><p></p></div></div>

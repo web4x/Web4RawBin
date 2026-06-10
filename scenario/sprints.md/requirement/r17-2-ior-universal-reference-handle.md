@@ -9,4 +9,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T131: File-browser symlink support (FileApi + rb-file-tree)](../sprints.md/task/task-131-file-browser-symlinks.md)
+- [🔗 T131: File-browser symlink support (FileApi + rb-file-tree)](../task/task-131-file-browser-symlinks.md)
+
+**UseCases:**
+- [🔗 fileBrowser.symlinkSupport](../usecase/filebrowser-symlinksupport.md)

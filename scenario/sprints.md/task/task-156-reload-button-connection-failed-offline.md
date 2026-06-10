@@ -16,6 +16,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 offlinePage.reloadButton](../usecase/offlinepage-reloadbutton.md)
+
+
+## Traceability
+
 `[task:uuid:9937a1f1-5674-48fb-92fe-6dc4a38089b0]`
 
 - up

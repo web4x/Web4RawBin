@@ -3,6 +3,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 traceTree.renderAllTypes](../usecase/tracetree-renderalltypes.md)
+
+
+## Traceability
+
 `[task:uuid:35ed4168-f575-4df4-9a87-43f5ca4912ab]`
 
 - up

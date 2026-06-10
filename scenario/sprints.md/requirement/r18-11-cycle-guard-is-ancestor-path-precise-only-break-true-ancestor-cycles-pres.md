@@ -1,0 +1,15 @@
+### R18.11: Cycle guard is ancestor-path-precise — only break true ancestor cycles, preserve all legitimate children including DAG re-convergence.
+
+<details><summary>Tron directive</summary>
+
+> > TRON: "cycle stopped but also correct children got cut out. user does not want to see the cut out cycle."
+> 
+> The R18.9 cycle guard uses a visited-set that is too broad: it cuts ANY node that has been seen before, including legitimate DAG re-convergence (a Class reached from two different UseCases is a valid repeated node, not a cycle). The guard must track only the CURRENT ANCESTOR PATH (root → ... → parent → this node), not a global visited set. A node is a true cycle ONLY if it appears as its OWN ancestor in the current expansion path. A node that appears in a SIBLING branch is legitimate re-convergence and must NOT be cut.
+> 
+> **Acceptance criteria:**
+> - [ ] A Class appearing under two different UseCases is shown in BOTH (DAG re-convergence preserved)
+> - [ ] A Requirement appearing as its own descendant (req→task→...→req) IS cut (true cycle broken)
+> - [ ] The cycle check compares against the ancestor stack, not a global set
+> - [ ] Expanding the same node in two different branches shows children in both
+
+</details>

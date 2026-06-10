@@ -12,4 +12,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T167: /trace mobile-first layout + hard width-cap on right (detail) pane](../sprints.md/task/task-167-trace-mobile-first-layout-width-cap.md)
+- [🔗 T167: /trace mobile-first layout + hard width-cap on right (detail) pane](../task/task-167-trace-mobile-first-layout-width-cap.md)
+
+**UseCases:**
+- [🔗 traceLayout.mobileCap](../usecase/tracelayout-mobilecap.md)

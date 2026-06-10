@@ -9,4 +9,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T123: pageNav() sticky-top fix](../sprints.md/task/task-123-pagenav-sticky-top.md)
+- [🔗 T123: pageNav() sticky-top fix](../task/task-123-pagenav-sticky-top.md)
+
+**UseCases:**
+- [🔗 pageNav.stickyTop](../usecase/pagenav-stickytop.md)

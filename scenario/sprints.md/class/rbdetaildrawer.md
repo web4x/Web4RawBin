@@ -5,6 +5,6 @@
 ## Traceability
 
 **Methods:**
-- [🔗 RbDetailDrawer.open](../sprints.md/method/rbdetaildrawer-open.md)
-- [🔗 RbDetailDrawer.close](../sprints.md/method/rbdetaildrawer-close.md)
-- [🔗 RbDetailDrawer.swipeDismiss](../sprints.md/method/rbdetaildrawer-swipedismiss.md)
+- [🔗 RbDetailDrawer.open](../method/rbdetaildrawer-open.md)
+- [🔗 RbDetailDrawer.close](../method/rbdetaildrawer-close.md)
+- [🔗 RbDetailDrawer.swipeDismiss](../method/rbdetaildrawer-swipedismiss.md)

@@ -14,6 +14,15 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 detailView.renderObject](../usecase/detailview-renderobject.md)
+
+**Tests:**
+- [🔗 R15.6](../test/r15-6.md)
+
+
+## Traceability
+
 - up
   - [requirement:uuid:65f6a7b8-c9d0-4e15-9bc6-4a5b6c7d8e06](./requirements.md) — R15.6 DetailViews + Overview
   - [Sprint 15 Planning](./planning.md)

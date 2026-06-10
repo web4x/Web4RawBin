@@ -1,0 +1,18 @@
+### R18.27: Browse-File link opens the file-browser FOLDER with the target file HIGHLIGHTED — not Monaco directly. (inferred from literal)
+
+<details><summary>Tron directive</summary>
+
+> > TRON: "here you see impl has a src link, but ALL types should have it. it should NOT open directly in the monaco editor, BUT in the browser folder (2nd picture), with the file highlighted. then i can open the editor. the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file."
+> 
+> ### Decomposition hints (req: confirm against literal)
+> - R18.14: Browse-File link opens the FILE BROWSER folder view (/md/<dir>/) with the target file HIGHLIGHTED — it must NOT open Monaco directly. The user opens the editor from the browser.
+> 
+> **REVISES R18.22.** The link target is `/md/<directory>/` (the folder containing the file), with a query or hash parameter that highlights the specific file in the listing. The user then clicks to open in Monaco. The link does NOT go directly to `/edit/<file>`.
+> 
+> **Acceptance criteria:**
+> - [ ] Browse-File link navigates to `/md/<parent-dir>/` (folder view)
+> - [ ] The target file is visually highlighted in the folder listing
+> - [ ] User can click the highlighted file to open in Monaco
+> - [ ] Link does NOT open Monaco directly
+
+</details>

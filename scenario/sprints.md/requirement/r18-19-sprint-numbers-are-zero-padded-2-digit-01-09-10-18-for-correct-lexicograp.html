@@ -1,0 +1,19 @@
+<div class="sv-requirement"><h3>R18.19: Sprint numbers are zero-padded 2-digit (01-09, 10-18) for correct lexicographic ordering.</h3><details><summary>Tron directive</summary><blockquote>## LITERAL SOURCE — Follow-on J: Zero-padded sprint numbers for sort (2026-06-05)
+
+&gt; TRON: &quot;to sort the sprints correctly do 01 - 09 and then 10,11&quot;
+
+### R18.19: Sprint numbers are zero-padded 2-digit (01-09, 10-18) for correct lexicographic ordering.
+
+[requirement:uuid:18a1b2c3-d4e5-6f70-8190-000000018019]
+
+Sprint names/slugs must use 2-digit zero-padded numbers so string-based sorting produces numeric order. &quot;Sprint 01&quot;, &quot;Sprint 02&quot;, ... &quot;Sprint 09&quot;, &quot;Sprint 10&quot;, &quot;Sprint 11&quot;, ... &quot;Sprint 18&quot;. Without zero-padding, lexicographic sort puts &quot;Sprint 1&quot; before &quot;Sprint 10&quot; before &quot;Sprint 2&quot; — wrong order.
+
+Applies to: Sprint scenario unit `model.name`, speaking-name symlink tree directory names, and any sorted display in /trace or /scenario.
+
+**Acceptance criteria:**
+- [ ] Sprint names use 2-digit numbers: &quot;Sprint 01 — Foundation&quot; through &quot;Sprint 18 — ...&quot;
+- [ ] Lexicographic sort of sprint names produces correct numeric order
+- [ ] Speaking-name tree uses zero-padded slug: `sprint-01-rawbin-foundation/`
+- [ ] Existing Sprint scenario units re-migrated with padded names
+
+→ Sprint-migration task (planner folds into dedup/rename task)</blockquote></details></div>

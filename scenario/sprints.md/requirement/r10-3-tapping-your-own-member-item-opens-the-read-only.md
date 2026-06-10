@@ -9,4 +9,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T82: vCard Button Visibility + ProfileSheet Avatar DRY](../sprints.md/task/task-82-vcard-visibility-avatar-dry.md)
+- [🔗 T82: vCard Button Visibility + ProfileSheet Avatar DRY](../task/task-82-vcard-visibility-avatar-dry.md)
+
+**UseCases:**
+- [🔗 contacts.vcardVisible](../usecase/contacts-vcardvisible.md)

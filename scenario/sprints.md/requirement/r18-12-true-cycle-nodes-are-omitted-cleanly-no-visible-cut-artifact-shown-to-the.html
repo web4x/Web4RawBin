@@ -1,0 +1,9 @@
+<div class="sv-requirement"><h3>R18.12: True-cycle nodes are omitted cleanly — no visible cut artifact shown to the user.</h3><details><summary>Tron directive</summary><blockquote>&gt; TRON: &quot;cycle stopped but also correct children got cut out. user does not want to see the cut out cycle.&quot;
+
+When a true cycle IS detected (a node is its own ancestor), the cyclic node is simply NOT rendered — no ⟳ icon, no &quot;cycle detected&quot; label, no placeholder. The tree silently terminates at the parent. The user sees a normal leaf node with no indication that a cycle was suppressed. Tron: &quot;user does not want to see the cut out cycle.&quot;
+
+**Acceptance criteria:**
+- [ ] True-cycle nodes are omitted entirely from the rendered tree
+- [ ] No cycle icon, label, or placeholder visible to the user
+- [ ] Parent node of a suppressed cycle appears as a normal leaf (no expand arrow if its only children would be cyclic)
+- [ ] If a node has BOTH legitimate children AND a cyclic child, only the legitimate children render</blockquote></details></div>

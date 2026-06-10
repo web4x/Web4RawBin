@@ -9,4 +9,9 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T107: Task DetailViews + Planning Overview (always consistent)](../sprints.md/task/task-107-detail-overview-views.md)
+- [🔗 T107: Task DetailViews + Planning Overview (always consistent)](../task/task-107-detail-overview-views.md)
+- [🔗 T108: Traceability Browser — tree-navigable graph in Documentation](../task/task-108-traceability-browser.md)
+
+**UseCases:**
+- [🔗 detailView.renderObject](../usecase/detailview-renderobject.md)
+- [🔗 traceTree.expandChain](../usecase/tracetree-expandchain.md)

@@ -9,4 +9,4 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T138: skill set on scenarios (capture-quote, propose-task, walk-chain)](../sprints.md/task/task-138-skill-set-scenarios.md)
+- [🔗 T138: skill set on scenarios (capture-quote, propose-task, walk-chain)](../task/task-138-skill-set-scenarios.md)

@@ -2,11 +2,11 @@
 
 <details><summary>Tron directive</summary>
 
-> > Tron: _(req to insert literal quote)_
+> Migrate legacy token-timestamp user directories to UUIDv4 token directories, updating all references, idempotently and without data loss.
 
 </details>
 
 ## Traceability
 
 **Tasks:**
-- [🔗 T97: Migrate token-<timestamp> User Dirs → UUIDv4](../sprints.md/task/task-97-migrate-userdirs.md)
+- [🔗 T97: Migrate token-<timestamp> User Dirs → UUIDv4](../task/task-97-migrate-userdirs.md)

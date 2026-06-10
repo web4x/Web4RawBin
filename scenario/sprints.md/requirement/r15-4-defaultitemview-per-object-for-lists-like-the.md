@@ -9,4 +9,4 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T104: Object.verb Use-Case Diagrams](../sprints.md/task/task-104-object-verb-diagrams.md)
+- [🔗 T104: Object.verb Use-Case Diagrams](../task/task-104-object-verb-diagrams.md)

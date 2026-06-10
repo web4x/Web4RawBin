@@ -14,4 +14,4 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T169: Data-quality audit + remigrate — complete tree, NO back-chaos, NO untraced scenarios (KEYSTONE)](../sprints.md/task/task-169-data-quality-audit-remigrate-complete-tree.md)
+- [🔗 T169: Data-quality audit + remigrate — complete tree, NO back-chaos, NO untraced scenarios (KEYSTONE)](../task/task-169-data-quality-audit-remigrate-complete-tree.md)

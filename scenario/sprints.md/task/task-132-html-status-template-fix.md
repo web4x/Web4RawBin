@@ -16,6 +16,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 statusTemplate.renderHtml](../usecase/statustemplate-renderhtml.md)
+
+
+## Traceability
+
 `[task:uuid:32af18ad-b6be-4987-b677-1507fdec0851]`
 
 - up

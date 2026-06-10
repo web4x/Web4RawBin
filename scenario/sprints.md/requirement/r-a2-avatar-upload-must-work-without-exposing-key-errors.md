@@ -9,4 +9,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T91: Avatar Persistence — Must Not Revert to Default](../sprints.md/task/task-91-avatar-persist.md)
+- [🔗 T91: Avatar Persistence — Must Not Revert to Default](../task/task-91-avatar-persist.md)
+
+**UseCases:**
+- [🔗 avatar.persist](../usecase/avatar-persist.md)

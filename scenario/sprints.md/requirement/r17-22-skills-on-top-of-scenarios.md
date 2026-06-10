@@ -9,4 +9,4 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T137: req + planner LEARN scenarios for planning + update SKILL.md](../sprints.md/task/task-137-req-planner-learn-scenarios.md)
+- [🔗 T137: req + planner LEARN scenarios for planning + update SKILL.md](../task/task-137-req-planner-learn-scenarios.md)

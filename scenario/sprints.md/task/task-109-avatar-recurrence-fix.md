@@ -3,6 +3,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 avatar.rekeyFix](../usecase/avatar-rekeyfix.md)
+
+
+## Traceability
+
 - up
   - [requirement:uuid:a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d](./requirements.md) — R-A1: Avatar must persist (satisfied by T91 + T109 together)
   - [Sprint 13 Planning](./planning.md)

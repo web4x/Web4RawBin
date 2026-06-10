@@ -16,10 +16,21 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 tree.generateMd](../usecase/tree-generatemd.md)
+- [🔗 index.get](../usecase/index-get.md)
+- [🔗 index.put](../usecase/index-put.md)
+- [🔗 tree.symlinkJson](../usecase/tree-symlinkjson.md)
+- [🔗 ior.resolveClass](../usecase/ior-resolveclass.md)
+- [🔗 ior.resolveInstance](../usecase/ior-resolveinstance.md)
+- [🔗 unit.load](../usecase/unit-load.md)
+- [🔗 view.renderHtml](../usecase/view-renderhtml.md)
+- [🔗 view.renderMd](../usecase/view-rendermd.md)
+
 **Children:**
-- [🔗 T124.1: Architect — Scenario-Unit + IOR Data Model](../sprints.md/task/task-124.1-architect-data-model.md)
-- [🔗 T124.2: Architect — View Template Architecture](../sprints.md/task/task-124.2-architect-view-templates.md)
-- [🔗 T124.3: Architect — Storage Layout (Index + Speaking-Name Trees)](../sprints.md/task/task-124.3-architect-storage-layout.md)
+- [🔗 T124.1: Architect — Scenario-Unit + IOR Data Model](../task/task-124.1-architect-data-model.md)
+- [🔗 T124.2: Architect — View Template Architecture](../task/task-124.2-architect-view-templates.md)
+- [🔗 T124.3: Architect — Storage Layout (Index + Speaking-Name Trees)](../task/task-124.3-architect-storage-layout.md)
 
 
 ## Traceability

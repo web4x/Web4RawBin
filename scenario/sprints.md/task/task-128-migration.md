@@ -16,6 +16,14 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 migrate.sprintToScenario](../usecase/migrate-sprinttoscenario.md)
+- [🔗 migrate.preserveHierarchy](../usecase/migrate-preservehierarchy.md)
+- [🔗 chain.traceMethodToReq](../usecase/chain-tracemethodtoreq.md)
+
+
+## Traceability
+
 `[task:uuid:b94d2681-54f0-47e3-a431-f3d84e469b30]`
 
 - up

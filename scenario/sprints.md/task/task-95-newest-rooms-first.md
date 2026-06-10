@@ -13,6 +13,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 lobby.newestFirst](../usecase/lobby-newestfirst.md)
+
+
+## Traceability
+
 - up
   - [Sprint 13 Planning](./planning.md)
   - Tron directive 2026-05-26 — newest rooms first

@@ -16,6 +16,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 migration.sprintToScenario](../usecase/migration-sprinttoscenario.md)
+
+
+## Traceability
+
 `[task:uuid:d0f39414-dfb4-4944-ac1b-56dcad0a66fe]`
 
 - up

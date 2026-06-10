@@ -3,6 +3,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 traceLayout.mobileCap](../usecase/tracelayout-mobilecap.md)
+
+
+## Traceability
+
 `[task:uuid:d0881ad6-ade5-4d60-94a2-fbe5347fd4b6]`
 
 - up

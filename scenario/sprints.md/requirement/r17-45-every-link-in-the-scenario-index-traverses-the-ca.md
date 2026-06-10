@@ -14,4 +14,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T171: Untraced-closure — link 50 untraced + R17.26 link-back to T165/T166 + traceability-matrix refresh (T143-T171)](../sprints.md/task/task-171-untraced-closure-r17-26-linkback.md)
+- [🔗 T171: Untraced-closure — link 50 untraced + R17.26 link-back to T165/T166 + traceability-matrix refresh (T143-T171)](../task/task-171-untraced-closure-r17-26-linkback.md)
+
+**UseCases:**
+- [🔗 traceChain.treeRework](../usecase/tracechain-treerework.md)

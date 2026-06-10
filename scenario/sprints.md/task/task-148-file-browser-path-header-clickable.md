@@ -16,6 +16,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 pathHeader.clickNavigate](../usecase/pathheader-clicknavigate.md)
+
+
+## Traceability
+
 `[task:uuid:95e93fd2-de9e-4579-a857-59f69608f982]`
 
 - up

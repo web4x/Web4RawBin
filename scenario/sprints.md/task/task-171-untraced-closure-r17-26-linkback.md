@@ -3,6 +3,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 traceChain.treeRework](../usecase/tracechain-treerework.md)
+
+
+## Traceability
+
 `[task:uuid:75628241-9157-4385-a7f0-f4f7a3142737]`
 
 - up

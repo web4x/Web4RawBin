@@ -7,7 +7,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T112: Tree-item — speaky name (generate if absent) + word-wrap description](../sprints.md/task/task-112-tree-item-name-desc.md)
+- [🔗 T112: Tree-item — speaky name (generate if absent) + word-wrap description](../task/task-112-tree-item-name-desc.md)
 
 **Classes:**
-- [🔗 RbObjectItem](../sprints.md/class/rbobjectitem.md)
+- [🔗 RbObjectItem](../class/rbobjectitem.md)

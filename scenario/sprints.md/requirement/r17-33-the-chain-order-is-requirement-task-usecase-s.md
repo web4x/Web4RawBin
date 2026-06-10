@@ -12,4 +12,4 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T168: Chain order 7-step + atomic requirements as tree ROOTS](../sprints.md/task/task-168-chain-order-7-step-requirements-as-roots.md)
+- [🔗 T168: Chain order 7-step + atomic requirements as tree ROOTS](../task/task-168-chain-order-7-step-requirements-as-roots.md)

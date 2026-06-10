@@ -2,11 +2,14 @@
 
 <details><summary>Tron directive</summary>
 
-> > Tron: _(req to insert literal quote)_
+> Migrate legacy data/rooms/*.json into the per-user room model, idempotently and without data loss.
 
 </details>
 
 ## Traceability
 
 **Tasks:**
-- [🔗 T96: Migrate Legacy data/rooms → Per-User Room Model](../sprints.md/task/task-96-migrate-rooms.md)
+- [🔗 T96: Migrate Legacy data/rooms → Per-User Room Model](../task/task-96-migrate-rooms.md)
+
+**UseCases:**
+- [🔗 migration.convertLegacy](../usecase/migration-convertlegacy.md)

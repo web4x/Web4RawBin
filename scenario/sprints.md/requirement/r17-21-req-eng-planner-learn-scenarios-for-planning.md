@@ -9,4 +9,4 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T136: Migration extension for Requirement + UseCase units (T128 extension)](../sprints.md/task/task-136-migration-extension-req-uc.md)
+- [🔗 T136: Migration extension for Requirement + UseCase units (T128 extension)](../task/task-136-migration-extension-req-uc.md)

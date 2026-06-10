@@ -14,6 +14,23 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 traceGraph.buildModel](../usecase/tracegraph-buildmodel.md)
+
+**Methods:**
+- [🔗 TraceObject.parent](../method/traceobject-parent.md)
+- [🔗 TraceObject.children](../method/traceobject-children.md)
+- [🔗 TraceObject.refs](../method/traceobject-refs.md)
+- [🔗 TraceObject.addRef](../method/traceobject-addref.md)
+- [🔗 TraceObject.ref](../method/traceobject-ref.md)
+- [🔗 TraceObject.toJSON](../method/traceobject-tojson.md)
+
+**Tests:**
+- [🔗 AC1-AC4 typed object model](../test/ac1-ac4-typed-object-model.md)
+
+
+## Traceability
+
 - up
   - [requirement:uuid:15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01](./requirements.md) — R15.1 typed object model
   - [Sprint 15 Planning](./planning.md)

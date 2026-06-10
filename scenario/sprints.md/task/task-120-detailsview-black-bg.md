@@ -16,6 +16,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 detailView.setBackground](../usecase/detailview-setbackground.md)
+
+
+## Traceability
+
 `[task:uuid:e7cb6434-97a2-4752-8d63-f8bea13646b6]`
 
 - up

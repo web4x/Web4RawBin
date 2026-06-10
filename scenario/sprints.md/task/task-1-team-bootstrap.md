@@ -15,9 +15,9 @@
 ## Traceability
 
 **Children:**
-- [🔗 Task 1.1: Agent-Trainer - Clone ud-team as robbinTeam](../sprints.md/task/task-1.1-agent-trainer-clone-ud-team.md)
-- [🔗 Task 1.2: Expert - Fork ud-team Agents into robbinTeam](../sprints.md/task/task-1.2-expert-fork-ud-agents.md)
-- [🔗 Task 1.3: Agent-Trainer - Verify Inherited Knowledge](../sprints.md/task/task-1.3-trainer-verify-inherited-knowledge.md)
+- [🔗 Task 1.1: Agent-Trainer - Clone ud-team as robbinTeam](../task/task-1.1-agent-trainer-clone-ud-team.md)
+- [🔗 Task 1.2: Expert - Fork ud-team Agents into robbinTeam](../task/task-1.2-expert-fork-ud-agents.md)
+- [🔗 Task 1.3: Agent-Trainer - Verify Inherited Knowledge](../task/task-1.3-trainer-verify-inherited-knowledge.md)
 
 
 ## Remaining Issues

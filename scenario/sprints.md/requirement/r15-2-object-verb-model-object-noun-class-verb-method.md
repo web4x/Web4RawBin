@@ -9,4 +9,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T101: Typed Object Model — Requirement/Test/Implementation classes + UUIDs](../sprints.md/task/task-101-object-model.md)
+- [🔗 T101: Typed Object Model — Requirement/Test/Implementation classes + UUIDs](../task/task-101-object-model.md)
+
+**UseCases:**
+- [🔗 traceGraph.buildModel](../usecase/tracegraph-buildmodel.md)

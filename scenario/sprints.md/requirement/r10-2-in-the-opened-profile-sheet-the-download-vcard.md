@@ -9,4 +9,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T81: Member Click → Profile Sheet → vCard Download](../sprints.md/task/task-81-member-click-vcard.md)
+- [🔗 T81: Member Click → Profile Sheet → vCard Download](../task/task-81-member-click-vcard.md)
+
+**UseCases:**
+- [🔗 contacts.memberClick](../usecase/contacts-memberclick.md)

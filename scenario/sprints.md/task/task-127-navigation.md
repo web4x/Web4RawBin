@@ -16,6 +16,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 tree.navigate](../usecase/tree-navigate.md)
+
+
+## Traceability
+
 `[task:uuid:b66fdf54-04f4-4609-9ded-04c835348b32]`
 
 - up

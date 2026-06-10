@@ -14,6 +14,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 editor.backButton](../usecase/editor-backbutton.md)
+
+
+## Traceability
+
 - up
   - [requirement:uuid:12a4b6c8-5d2e-4f30-9a17-3b5c7d9e1f02](./requirements.md) — R12.1 editor back → parent dir
   - [Sprint 12 Planning](./planning.md)

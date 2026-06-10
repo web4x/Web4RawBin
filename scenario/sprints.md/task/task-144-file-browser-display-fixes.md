@@ -16,6 +16,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 fileBrowser.fixDisplay](../usecase/filebrowser-fixdisplay.md)
+
+
+## Traceability
+
 `[task:uuid:d03a73ff-0329-47a3-8610-bf5c18053221]`
 
 - up

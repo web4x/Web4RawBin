@@ -7,4 +7,9 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T126: Generated views — planning.md, sprints.md, per-instance .md/.html](../sprints.md/task/task-126-views.md)
+- [🔗 T126: Generated views — planning.md, sprints.md, per-instance .md/.html](../task/task-126-views.md)
+
+**Classes:**
+- [🔗 RbUseCaseDetail](../class/rbusecasedetail.md)
+- [🔗 RbTaskDetail](../class/rbtaskdetail.md)
+- [🔗 RbRequirementDetail](../class/rbrequirementdetail.md)

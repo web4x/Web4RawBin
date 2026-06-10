@@ -9,4 +9,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T135: req-audit — formalize backlog Tron quotes req missed](../sprints.md/task/task-135-req-audit.md)
+- [🔗 T135: req-audit — formalize backlog Tron quotes req missed](../task/task-135-req-audit.md)
+
+**UseCases:**
+- [🔗 reqAudit.formalizeQuotes](../usecase/reqaudit-formalizequotes.md)

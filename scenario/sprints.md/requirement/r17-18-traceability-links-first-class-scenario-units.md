@@ -9,4 +9,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T133: Task state-machine + status methods](../sprints.md/task/task-133-task-state-machine.md)
+- [🔗 T133: Task state-machine + status methods](../task/task-133-task-state-machine.md)
+
+**UseCases:**
+- [🔗 traceLink.scenarioUnit](../usecase/tracelink-scenariounit.md)

@@ -16,6 +16,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 pageNav.stickyTop](../usecase/pagenav-stickytop.md)
+
+
+## Traceability
+
 `[task:uuid:05e394aa-d21b-4aaa-88ba-611cd427c2f1]`
 
 - up

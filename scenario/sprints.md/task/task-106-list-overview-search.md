@@ -14,6 +14,15 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 listOverview.searchAndFilter](../usecase/listoverview-searchandfilter.md)
+
+**Tests:**
+- [🔗 R15.5](../test/r15-5.md)
+
+
+## Traceability
+
 - up
   - [requirement:uuid:55e5f6a7-b8c9-4d04-8ab5-3f4a5b6c7d05](./requirements.md) — R15.5 ListOverview + search
   - [Sprint 15 Planning](./planning.md)

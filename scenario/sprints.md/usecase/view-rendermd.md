@@ -7,8 +7,8 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T124: Scenario-unit + IOR + class-based view architecture](../sprints.md/task/task-124-architecture.md)
-- [🔗 T126: Generated views — planning.md, sprints.md, per-instance .md/.html](../sprints.md/task/task-126-views.md)
+- [🔗 T124: Scenario-unit + IOR + class-based view architecture](../task/task-124-architecture.md)
+- [🔗 T126: Generated views — planning.md, sprints.md, per-instance .md/.html](../task/task-126-views.md)
 
 **Classes:**
-- [🔗 ViewTemplateRegistry](../sprints.md/class/viewtemplateregistry.md)
+- [🔗 ViewTemplateRegistry](../class/viewtemplateregistry.md)

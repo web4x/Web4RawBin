@@ -13,6 +13,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 contacts.selfClick](../usecase/contacts-selfclick.md)
+
+
+## Traceability
+
 - up
   - [requirement:uuid:30c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b62](./requirements.md) — R10.3 self-click → read-only profile sheet
   - [Sprint 10 Planning](./planning.md)

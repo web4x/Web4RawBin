@@ -5,4 +5,4 @@
 ## Traceability
 
 **Methods:**
-- [🔗 RbTaskDetail.render](../sprints.md/method/rbtaskdetail-render.md)
+- [🔗 RbTaskDetail.render](../method/rbtaskdetail-render.md)

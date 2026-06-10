@@ -7,8 +7,8 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T124: Scenario-unit + IOR + class-based view architecture](../sprints.md/task/task-124-architecture.md)
-- [🔗 T125: Scenario-unit primitives + class system + storage](../sprints.md/task/task-125-foundation.md)
+- [🔗 T124: Scenario-unit + IOR + class-based view architecture](../task/task-124-architecture.md)
+- [🔗 T125: Scenario-unit primitives + class system + storage](../task/task-125-foundation.md)
 
 **Classes:**
-- [🔗 ScenarioUnit](../sprints.md/class/scenariounit.md)
+- [🔗 ScenarioUnit](../class/scenariounit.md)

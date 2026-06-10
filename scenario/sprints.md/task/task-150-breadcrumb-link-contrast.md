@@ -16,6 +16,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 breadcrumb.contrastFix](../usecase/breadcrumb-contrastfix.md)
+
+
+## Traceability
+
 `[task:uuid:0da44cbe-6f10-4fb5-a11a-6c4a7e9c17f4]`
 
 - up

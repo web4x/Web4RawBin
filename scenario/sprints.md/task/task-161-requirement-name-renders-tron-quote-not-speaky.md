@@ -24,6 +24,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 requirementItem.renderTronQuote](../usecase/requirementitem-rendertronquote.md)
+
+
+## Traceability
+
 `[task:uuid:6da66c11-558a-4718-8ca8-0b61a664260d]`
 
 - up

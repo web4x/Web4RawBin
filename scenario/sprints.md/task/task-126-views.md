@@ -16,6 +16,17 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 tree.symlinkJson](../usecase/tree-symlinkjson.md)
+- [🔗 tree.generateMd](../usecase/tree-generatemd.md)
+- [🔗 view.renderHtml](../usecase/view-renderhtml.md)
+- [🔗 view.renderMd](../usecase/view-rendermd.md)
+- [🔗 view.liveUpdate](../usecase/view-liveupdate.md)
+- [🔗 planning.generate](../usecase/planning-generate.md)
+
+
+## Traceability
+
 `[task:uuid:6315a667-59c4-420b-90db-f60bca2d315d]`
 
 - up

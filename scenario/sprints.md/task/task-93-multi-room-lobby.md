@@ -13,6 +13,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 lobby.multiRoom](../usecase/lobby-multiroom.md)
+
+
+## Traceability
+
 - up
   - [requirement:uuid:67bde18f-76f9-43cd-abea-77c2ad7134f9](./requirements.md) — R-R1: All rooms appear in lobby
   - [Sprint 13 Planning](./planning.md)

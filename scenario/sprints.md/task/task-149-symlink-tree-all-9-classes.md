@@ -16,6 +16,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 symlinkTree.extendClasses](../usecase/symlinktree-extendclasses.md)
+
+
+## Traceability
+
 `[task:uuid:bce39256-6743-406e-b090-92ea2d13cde8]`
 
 - up

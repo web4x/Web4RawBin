@@ -7,7 +7,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T110: DetailViewContainer — Google-Maps-style detail drawer](../sprints.md/task/task-110-detailview-container.md)
+- [🔗 T110: DetailViewContainer — Google-Maps-style detail drawer](../task/task-110-detailview-container.md)
 
 **Classes:**
-- [🔗 RbDetailDrawer](../sprints.md/class/rbdetaildrawer.md)
+- [🔗 RbDetailDrawer](../class/rbdetaildrawer.md)

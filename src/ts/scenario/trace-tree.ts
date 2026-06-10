@@ -89,7 +89,7 @@ function renderNodeHtml(n: TraceNode): string {
 function renderNodeMd(n: TraceNode, depth = 0): string {
   const indent = '  '.repeat(depth);
   const rel = n.relation ? `${n.relation}: ` : '';
-  const line = `${indent}- ${rel}[🔗 ${n.name}](../sprints.md/${n.type}/${n.slug}.md)`;
+  const line = `${indent}- ${rel}[🔗 ${n.name}](../${n.type}/${n.slug}.md)`;
   const childLines = n.children.map(c => renderNodeMd(c, depth + 1));
   return [line, ...childLines].join('\n');
 }

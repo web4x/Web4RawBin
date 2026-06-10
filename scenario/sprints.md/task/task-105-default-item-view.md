@@ -14,6 +14,15 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 objectItem.render](../usecase/objectitem-render.md)
+
+**Tests:**
+- [🔗 R15.4](../test/r15-4.md)
+
+
+## Traceability
+
 - up
   - [requirement:uuid:45d4e5f6-a7b8-4c93-9da4-2e3f4a5b6c04](./requirements.md) — R15.4 defaultItemView
   - [Sprint 15 Planning](./planning.md)

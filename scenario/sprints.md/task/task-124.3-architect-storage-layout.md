@@ -16,6 +16,14 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 index.put](../usecase/index-put.md)
+- [🔗 index.get](../usecase/index-get.md)
+- [🔗 tree.symlinkJson](../usecase/tree-symlinkjson.md)
+
+
+## Traceability
+
 `[task:uuid:c93f69d5-a2e4-4b18-b956-4d7e2f03c8b1]`
 
 - up

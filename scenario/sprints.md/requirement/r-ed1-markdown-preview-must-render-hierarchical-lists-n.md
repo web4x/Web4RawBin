@@ -9,4 +9,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T118: E2E test cleanup — cleanupTestUsers + per-spec afterAll + backfill purge](../sprints.md/task/task-118-e2e-cleanup.md)
+- [🔗 T118: E2E test cleanup — cleanupTestUsers + per-spec afterAll + backfill purge](../task/task-118-e2e-cleanup.md)
+
+**UseCases:**
+- [🔗 mdPreview.renderList](../usecase/mdpreview-renderlist.md)

@@ -5,4 +5,4 @@
 ## Traceability
 
 **Methods:**
-- [🔗 RbUseCaseDetail.render](../sprints.md/method/rbusecasedetail-render.md)
+- [🔗 RbUseCaseDetail.render](../method/rbusecasedetail-render.md)

@@ -9,4 +9,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T105: defaultItemView Web Component (draggable, native-OS)](../sprints.md/task/task-105-default-item-view.md)
+- [🔗 T105: defaultItemView Web Component (draggable, native-OS)](../task/task-105-default-item-view.md)
+
+**UseCases:**
+- [🔗 objectItem.render](../usecase/objectitem-render.md)

@@ -9,4 +9,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T122: DetailsViewContainer sticky-to-bottom](../sprints.md/task/task-122-detailview-sticky-bottom.md)
+- [🔗 T122: DetailsViewContainer sticky-to-bottom](../task/task-122-detailview-sticky-bottom.md)
+
+**UseCases:**
+- [🔗 detailDrawer.stickyBottom](../usecase/detaildrawer-stickybottom.md)

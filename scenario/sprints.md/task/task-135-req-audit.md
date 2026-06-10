@@ -16,6 +16,12 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 reqAudit.formalizeQuotes](../usecase/reqaudit-formalizequotes.md)
+
+
+## Traceability
+
 `[task:uuid:2c314fbb-6e07-4917-ac34-81f8ce987fcb]`
 
 - up

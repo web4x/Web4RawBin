@@ -16,6 +16,14 @@
 
 ## Traceability
 
+**UseCases:**
+- [🔗 tree.generateMd](../usecase/tree-generatemd.md)
+- [🔗 view.renderHtml](../usecase/view-renderhtml.md)
+- [🔗 view.renderMd](../usecase/view-rendermd.md)
+
+
+## Traceability
+
 `[task:uuid:b72e58c4-91d3-4a07-b845-3c6f1d92e7a0]`
 
 - up

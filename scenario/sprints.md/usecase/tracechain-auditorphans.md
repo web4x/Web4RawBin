@@ -7,7 +7,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T116: Traceability-chain review — every method traces to its requirement](../sprints.md/task/task-116-chain-review.md)
+- [🔗 T116: Traceability-chain review — every method traces to its requirement](../task/task-116-chain-review.md)
 
 **Classes:**
-- [🔗 TraceConsistency](../sprints.md/class/traceconsistency.md)
+- [🔗 TraceConsistency](../class/traceconsistency.md)

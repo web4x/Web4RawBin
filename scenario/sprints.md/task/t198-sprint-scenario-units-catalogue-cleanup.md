@@ -1,0 +1,32 @@
+# Sprint scenario units + sprint catalogue cleanup (dedupe + numbered rename)
+[task:uuid:6b0b0cec-ca60-4e02-bb42-0b4212568d45]
+
+## Status
+
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] implementing
+  - [x] testing
+- [ ] QA Review
+- [ ] Done
+
+## Task Description
+
+Sprint catalogue rationalisation across the scenario index.
+
+Creation pass (a56fc4e5) created 8 missing Sprint scenario units for S2 through S9 so that every sprint referenced by a Task has a real navigation container (R18.17 precondition: a Sprint must exist before duplicates can be deduped against it).
+
+Architect pass (32e29be9) deduped 9 Sprint units, renamed all 10 sprints with zero-padded numbers, and repointed 94 cross-references onto the surviving canonical units. This single commit satisfies all three sprint-related navigation atoms: R18.17 (after dedupe each sprint number maps to exactly one unit), R18.18 (every sprint name now embeds its number), and R18.19 (numbers are zero-padded so lexical order matches numeric order — S02 sorts before S10).
+
+UX polish pass (51404b24, v0.5.97) added min-size on tree items and scroll-into-view on expand so the cleaned-up sprint tree is actually usable: nodes no longer collapse to zero-height and an expanded child is brought into the viewport. Does not touch the S18 Sprint unit per scope guard.
+
+## QA Audit & User Feedback
+
+2026-06-05 a56fc4e5 T198: create 8 Sprint scenario units for S2-S9 (nav containers)
+2026-06-05 32e29be9 T198 architect: dedupe 9 Sprint units + rename all 10 with numbers + repoint 94 refs
+2026-06-05 51404b24 v0.5.97 T198: min-size on tree items + scroll-into-view on expand
+
+## Subtasks
+
+None (atomic task).
