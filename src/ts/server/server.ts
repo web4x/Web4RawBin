@@ -230,9 +230,17 @@ const roomManager = new RoomManager(ROOMS_DIR);
       continue;
     }
     const placeholder: RoomMember = { id: 'dormant', ws: null as any, name: '', avatarUrl: '', playerToken: userToken, disconnected: true };
-    const room = roomManager.createRoom(data.name, placeholder, { id: roomId, maxMembers: data.maxMembers, isPrivate: data.isPrivate, visibility: (data.visibility as any) || undefined, mode: (data.mode as any) || undefined, roomKey: data.roomKey || '', creatorToken: data.ownerToken });
+    const room = roomManager.createRoom(data.name, placeholder, { id: roomId, isPrivate: data.isPrivate, visibility: (data.visibility as any) || undefined, mode: (data.mode as any) || undefined, roomKey: data.roomKey || '', creatorToken: data.ownerToken });
     room.creatorToken = data.ownerToken;
     room.members.delete('dormant');
+    if (Array.isArray((data as any).members)) {
+      for (const pm of (data as any).members) {
+        const token = String(pm.ior || '').replace('ior:instance:', '');
+        if (token && !room.members.has(token)) {
+          room.members.set(`persisted-${token.slice(0,8)}`, { id: `persisted-${token.slice(0,8)}`, ws: null as any, name: pm.name || '', avatarUrl: '', playerToken: token, disconnected: true });
+        }
+      }
+    }
     if (data.chatHistory?.length) room.loadChatHistory(data.chatHistory);
     registered++;
   }
@@ -1351,7 +1359,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       const { publicKey: roomPubKey } = generateRoomKeypair(creatorToken!, room.id);
       writeRoomJson(creatorToken!, room.id, {
         id: room.id, name: room.name, ownerToken: creatorToken!,
-        maxMembers: room.maxMembers, isPrivate: room.isPrivate, roomKey: room.roomKey,
+        isPrivate: room.isPrivate, roomKey: room.roomKey,
         state: 'active', createdAt: Date.now(), sshKeysGenerated: true,
         sshPublicKey: roomPubKey, chatHistory: [],
       });
@@ -1580,7 +1588,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
           const existing = roomManager.getRoom(roomId);
           if (existing) { if (!existing.creatorToken) existing.creatorToken = data.ownerToken; continue; }
           const placeholder: RoomMember = { id: 'dormant', ws: null as any, name: '', avatarUrl: '', playerToken: userToken, disconnected: true };
-          const room = roomManager.createRoom(data.name, placeholder, { id: roomId, maxMembers: data.maxMembers, isPrivate: data.isPrivate, visibility: (data.visibility as any) || undefined, mode: (data.mode as any) || undefined, roomKey: data.roomKey || '', creatorToken: data.ownerToken });
+          const room = roomManager.createRoom(data.name, placeholder, { id: roomId, isPrivate: data.isPrivate, visibility: (data.visibility as any) || undefined, mode: (data.mode as any) || undefined, roomKey: data.roomKey || '', creatorToken: data.ownerToken });
           room.creatorToken = data.ownerToken;
           room.members.delete('dormant');
           if (data.chatHistory?.length) room.loadChatHistory(data.chatHistory);
