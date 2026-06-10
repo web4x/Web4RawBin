@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "47971f31-dfa6-40d5-813d-b57cb9b06338",
+    "name": "test:Room.init",
+    "description": "TC-3.3.1 creates room with defaults + TC S19 persistent default",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": ["ior:instance:2ab8a3dd-4b6d-420c-bc1a-f3fac85ec9b7"],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:2ab8a3dd-4b6d-420c-bc1a-f3fac85ec9b7"
+}

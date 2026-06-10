@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "da3d0186-d8d5-4629-9c18-62026ac7dce8",
+    "name": "test:Room.memberAdd",
+    "description": "TC-3.3.2 add member + TC persistent retention dedup",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": ["ior:instance:4246c0a8-cfbf-43cd-8677-3367f3ac21d9"],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4246c0a8-cfbf-43cd-8677-3367f3ac21d9"
+}

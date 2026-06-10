@@ -6,7 +6,9 @@
     "className": "Room",
     "methodName": "memberAdd",
     "sourceFile": "ior:file:src/ts/server/Room.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:4246c0a8-cfbf-43cd-8677-3367f3ac21d9"
+    ],
     "parent": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
     "unitLinks": []
   },

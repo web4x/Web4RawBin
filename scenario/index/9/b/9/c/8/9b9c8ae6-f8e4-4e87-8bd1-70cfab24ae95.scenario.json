@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9b9c8ae6-f8e4-4e87-8bd1-70cfab24ae95",
+    "name": "test:Room.visibilityCheck",
+    "description": "TC S19 setVisibility",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": ["ior:instance:6acb7db1-3a5d-424f-8d23-921394440cf1"],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:6acb7db1-3a5d-424f-8d23-921394440cf1"
+}

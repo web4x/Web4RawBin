@@ -8,7 +8,10 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
     "sourceLine": 62,
     "parent": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
-    "unitLinks": []
+    "unitLinks": [],
+    "implementations": [
+      "ior:instance:8cc75226-527e-4c87-bed8-9885e98d46e1"
+    ]
   },
   "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
 }

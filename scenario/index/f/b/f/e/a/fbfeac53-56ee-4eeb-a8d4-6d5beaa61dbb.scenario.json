@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "fbfeac53-56ee-4eeb-a8d4-6d5beaa61dbb",
+    "name": "test:FileUnit.upload",
+    "description": "S19 T-file-unit create+sidecar+unitLinks+roundtrip",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": ["ior:instance:c546c877-9907-4f17-b61a-1157b0902765"],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:c546c877-9907-4f17-b61a-1157b0902765"
+}
