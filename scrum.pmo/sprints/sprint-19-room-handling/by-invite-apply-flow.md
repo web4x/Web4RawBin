@@ -7,11 +7,11 @@
 [task:uuid:1805f7db-f57c-4a6a-b5d2-5e413d1643a3]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (architect 5305492f singular-chain; JoinRequestFlow Class + applySend Method)
   - [ ] creating test cases
-  - [ ] implementing
+  - [ ] implementing (expert: pending)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done

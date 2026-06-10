@@ -19,3 +19,4 @@ Rooms and files become first-class scenario units like every other req/task/meth
 - [ ] [T-default-flip: PERSISTENT becomes default mode after sprint](./persistent-default-mode-flip.md)
 - [ ] [T-room-ui: drop-zone + Members/Files tree + member item views](./room-content-ui-layout.md)
 - [ ] [T-file-unit: Files become scenario units (uuid.content + scenario.json + unitLinks[])](./file-as-scenario-unit.md)
+- [ ] [T-room-ui-shared: in-room tree REUSES /trace rb-tree + rb-tree-item with Members/Files data adapters](./room-ui-shared-rb-tree-reuse-members-files-adapters.md)
