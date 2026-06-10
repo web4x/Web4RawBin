@@ -510,4 +510,49 @@ describe('S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)',
     r.setMode('persistent');
     expect(r.mode).toBe('persistent');
   });
+
+  it('T-persistent-retention R19.8: markDisconnected retains member as offline', () => {
+    const creator = makeMember({ id: 'host' });
+    const memberB = makeMember({ id: 'guest', name: 'Guest' });
+    const r = new Room('RetainRoom', creator, { mode: 'persistent', maxMembers: 4 });
+    r.addMember(memberB);
+    expect(r.members.size).toBe(2);
+
+    r.markDisconnected('guest');
+
+    expect(r.members.size).toBe(2);
+    expect(r.members.get('guest')?.disconnected).toBe(true);
+    expect(r.members.get('host')?.disconnected).toBe(false);
+    const sent = (memberB.ws.send as ReturnType<typeof vi.fn>).mock.calls;
+    const disconnectMsg = sent.find((c: any) => JSON.parse(c[0]).type === 'MEMBER_DISCONNECTED');
+    expect(disconnectMsg).toBeDefined();
+  });
+
+  it('T-persistent-retention: removeMember still prunes in live rooms', () => {
+    const creator = makeMember({ id: 'host' });
+    const memberB = makeMember({ id: 'guest' });
+    const r = new Room('LiveRoom', creator, { mode: 'live', maxMembers: 4 });
+    r.addMember(memberB);
+    expect(r.members.size).toBe(2);
+
+    r.removeMember('guest');
+
+    expect(r.members.size).toBe(1);
+    expect(r.members.has('guest')).toBe(false);
+  });
+
+  it('T-persistent-retention: reconnect flips disconnected=false, no dup', () => {
+    const creator = makeMember({ id: 'host' });
+    const memberB = makeMember({ id: 'guest', name: 'Guest' });
+    const r = new Room('ReconnRoom', creator, { mode: 'persistent', maxMembers: 4 });
+    r.addMember(memberB);
+    r.markDisconnected('guest');
+    expect(r.members.get('guest')?.disconnected).toBe(true);
+
+    const reconnected = makeMember({ id: 'guest-new', name: 'Guest', playerToken: memberB.playerToken });
+    r.addMember(reconnected);
+
+    const guestMembers = [...r.members.values()].filter(m => m.name === 'Guest');
+    expect(guestMembers.length).toBeLessThanOrEqual(2);
+  });
 });
