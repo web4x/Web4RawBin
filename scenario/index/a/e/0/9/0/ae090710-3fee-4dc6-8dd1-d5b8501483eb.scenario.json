@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "ae090710-3fee-4dc6-8dd1-d5b8501483eb",
+    "name": "T-room-ui: drop-zone + Members/Files tree + member item views",
+    "slug": "room-content-ui-layout",
+    "description": "Room content area has a drop-content-here zone, double the size of a tree-overview item view. Below it: a tree with two nodes - Members and Files. Members displayed as item views below the Members node. Singular-chain by design.",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:61c2661a-fb8a-489a-9d5d-abc4e819cf5d",
+      "ior:instance:dc2e99eb-8e31-4337-887b-8204f7588c20",
+      "ior:instance:409ea58b-763b-433e-b17d-0ea156d94355"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-planner",
+    "joint": [
+      "robbin-planner",
+      "robbin-architect"
+    ],
+    "atoms": "R19.11+R19.12+R19.13"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

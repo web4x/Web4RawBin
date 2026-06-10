@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "6c4949fa-04b8-40ee-afa8-449f71a3f2e0",
+    "name": "T-room-unit: Room IS a scenario unit + click-to-edit room editor",
+    "slug": "room-unit-as-scenario-and-editor",
+    "description": "Room becomes a first-class scenario unit. Clicking the room name opens the room config scenario editor. Singular-chain by design: ONE UseCase per Task, ONE Method per UseCase.",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:3e14d73c-1ddb-4f42-8d33-481581a8ec95",
+      "ior:instance:18ecdab4-e8d1-453f-89b2-4cae64103a80"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-planner",
+    "joint": [
+      "robbin-planner",
+      "robbin-architect"
+    ],
+    "atoms": "R19.1+R19.2"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

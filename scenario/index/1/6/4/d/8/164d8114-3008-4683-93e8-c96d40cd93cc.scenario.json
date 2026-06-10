@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "164d8114-3008-4683-93e8-c96d40cd93cc",
+    "name": "T-visibility: Room visibility modes (public/by-invite/private)",
+    "slug": "room-visibility-modes",
+    "description": "Room visibility = PUBLIC | BY-INVITE | PRIVATE(password). PRIVATE rooms listed only for owners. Singular-chain by design: ONE UseCase per Task, ONE Method per UseCase.",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:1f1849b5-b47a-4018-8bb1-cd9690884930",
+      "ior:instance:bcaa8cda-6ac6-4606-8443-8dd8ed80e673"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-planner",
+    "joint": [
+      "robbin-planner",
+      "robbin-architect"
+    ],
+    "atoms": "R19.3+R19.4"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

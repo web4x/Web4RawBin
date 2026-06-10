@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "1805f7db-f57c-4a6a-b5d2-5e413d1643a3",
+    "name": "T-apply-flow: BY-INVITE Apply button + invite-request messages",
+    "slug": "by-invite-apply-flow",
+    "description": "BY-INVITE rooms: requester sends an invite-request message into the room carrying name+uuid; the room shows an Apply button (NOT join); request can be accepted -> requester joins. PUBLIC rooms keep the join button. Singular-chain by design.",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:97bb40eb-638f-463b-b66d-e601cc0802c1",
+      "ior:instance:8bd2f61f-d229-4eec-a385-47795c753ca2"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-planner",
+    "joint": [
+      "robbin-planner",
+      "robbin-architect"
+    ],
+    "atoms": "R19.5+R19.6"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

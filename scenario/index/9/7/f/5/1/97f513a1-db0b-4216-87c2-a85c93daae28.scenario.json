@@ -29,7 +29,15 @@
       "ior:instance:c31aaa02-22ce-47f8-bf01-2a2021107257",
       "ior:instance:4a9d1728-368e-4b84-ad03-e6497669a098"
     ],
-    "tasks": [],
+    "tasks": [
+      "ior:instance:6c4949fa-04b8-40ee-afa8-449f71a3f2e0",
+      "ior:instance:164d8114-3008-4683-93e8-c96d40cd93cc",
+      "ior:instance:1805f7db-f57c-4a6a-b5d2-5e413d1643a3",
+      "ior:instance:67b2763e-57d7-4d3e-ac16-11c0f905c3dc",
+      "ior:instance:312cb103-17fe-4817-b1e9-8bffaabbbf27",
+      "ior:instance:ae090710-3fee-4dc6-8dd1-d5b8501483eb",
+      "ior:instance:834fe55b-8885-47f9-bdf9-3fb2f4fe7d40"
+    ],
     "createdAt": "2026-06-10",
     "createdBy": "robbin-po",
     "joint": [

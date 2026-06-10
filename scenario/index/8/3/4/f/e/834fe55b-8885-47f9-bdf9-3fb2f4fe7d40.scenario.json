@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "834fe55b-8885-47f9-bdf9-3fb2f4fe7d40",
+    "name": "T-file-unit: Files become scenario units (uuid.content + scenario.json + unitLinks[])",
+    "slug": "file-as-scenario-unit",
+    "description": "Files uploaded into a room are stored in the uuid index as <uuid>.content PLUS a <uuid>.scenario.json referencing the content, with unitLinks[] symlinks (e.g. in the room folder on the filesystem). Every file becomes a unique scenario unit. Singular-chain by design.",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:f1ca3cc9-a675-4a3b-9898-9e33d7876ed8"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-planner",
+    "joint": [
+      "robbin-planner",
+      "robbin-architect"
+    ],
+    "atoms": "R19.14"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
