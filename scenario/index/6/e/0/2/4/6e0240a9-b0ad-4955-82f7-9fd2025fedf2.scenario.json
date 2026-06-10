@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "6e0240a9-b0ad-4955-82f7-9fd2025fedf2",
+    "name": "T-room-editor: pencil edit icon next to room name opens room config/scenario editor",
+    "slug": "room-editor-pencil-icon-config-scenario-editor",
+    "description": "Pencil edit icon (per file-browser convention) sits next to the in-room room name. Clicking the pencil OR the name itself opens the room config/scenario editor for the room unit. Covers R19.2 (click-to-edit) and R19.2.A (pencil affordance). useCases:[] for architect singular-canonicalize per locked chain.",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert rule-pair a+b\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:18ecdab4-e8d1-453f-89b2-4cae64103a80",
+      "ior:instance:9311987c-6dcd-4b73-9d9b-74383d6e16b9"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

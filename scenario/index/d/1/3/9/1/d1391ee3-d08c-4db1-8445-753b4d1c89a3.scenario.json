@@ -1,1 +1,24 @@
-{"ior":"ior:class:Requirement","model":{"uuid":"d1391ee3-d08c-4db1-8445-753b4d1c89a3","altId":"R19.21","name":"R19.21: In-room Members/Files tree reuses the trace browser rb-tree + rb-tree-item components.","description":"The Members/Files tree inside a room MUST be rendered by the SAME rb-tree component used in /trace, and each tree item MUST be rendered by the SAME rb-tree-item component (Lucide icon, speaky name, word-wrap description, drag, tap-to-collapse/expand, > expander). The current inline tree in RoomView (T-room-ui v0.5.129, commit 529d5c42) does not satisfy this — re-implement using the shared components.","tronQuote":"> TRON: \"the in room tree should be the same as in the treacability and the items the same as the itmens there!!!\"","tasks":[],"tests":[],"sourceFile":"ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md","unitLinks":[],"parent":"ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28","refinementOf":["ior:instance:61c2661a-fb8a-489a-9d5d-abc4e819cf5d","ior:instance:dc2e99eb-8e31-4337-887b-8204f7588c20","ior:instance:409ea58b-763b-433e-b17d-0ea156d94355"],"refinementOfNote":"Refines R19.11 (drop area + tree-overview item context), R19.12 (Members/Files tree structure), R19.13 (members as item views) with a cross-cutting component-identity constraint: the room tree and items are not new components but the SAME rb-tree and rb-tree-item already used in /trace. Discovered when Tron inspected T-room-ui v0.5.129 (commit 529d5c42) and saw an inline reimplementation instead of the shared components."},"ownerIor":"ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"}
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d1391ee3-d08c-4db1-8445-753b4d1c89a3",
+    "altId": "R19.21",
+    "name": "R19.21: In-room Members/Files tree reuses the trace browser rb-tree + rb-tree-item components.",
+    "description": "The Members/Files tree inside a room MUST be rendered by the SAME rb-tree component used in /trace, and each tree item MUST be rendered by the SAME rb-tree-item component (Lucide icon, speaky name, word-wrap description, drag, tap-to-collapse/expand, > expander). The current inline tree in RoomView (T-room-ui v0.5.129, commit 529d5c42) does not satisfy this \u2014 re-implement using the shared components.",
+    "tronQuote": "> TRON: \"the in room tree should be the same as in the treacability and the items the same as the itmens there!!!\"",
+    "tasks": [
+      "ior:instance:2195d98f-eb78-47da-9048-e8553d2b8d35"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "refinementOf": [
+      "ior:instance:61c2661a-fb8a-489a-9d5d-abc4e819cf5d",
+      "ior:instance:dc2e99eb-8e31-4337-887b-8204f7588c20",
+      "ior:instance:409ea58b-763b-433e-b17d-0ea156d94355"
+    ],
+    "refinementOfNote": "Refines R19.11 (drop area + tree-overview item context), R19.12 (Members/Files tree structure), R19.13 (members as item views) with a cross-cutting component-identity constraint: the room tree and items are not new components but the SAME rb-tree and rb-tree-item already used in /trace. Discovered when Tron inspected T-room-ui v0.5.129 (commit 529d5c42) and saw an inline reimplementation instead of the shared components."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -8,7 +8,7 @@
     "status": "Planned",
     "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement architect - rb-tree + rb-tree-item reuse + adapter design\n  - [ ] creating test cases\n  - [ ] implementing expert rule-pair a+b\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
-      "ior:instance:ada9339a-05af-49d6-b565-3e226596b3b2"
+      "ior:instance:d1391ee3-d08c-4db1-8445-753b4d1c89a3"
     ],
     "useCases": [],
     "subtasks": [],

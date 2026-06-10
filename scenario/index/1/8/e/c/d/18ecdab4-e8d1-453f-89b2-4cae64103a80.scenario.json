@@ -5,7 +5,9 @@
     "name": "R19.2: Clicking the room name opens the room config scenario for editing (room editor).",
     "description": "Tron literal: \"in a room you can click on the room name and edit the room config scenario.\"",
     "tronQuote": "> TRON: \"in a room you can click on the room name and edit the room config scenario.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:6e0240a9-b0ad-4955-82f7-9fd2025fedf2"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
