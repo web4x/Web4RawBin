@@ -89,6 +89,7 @@ Individual sprints:
 - [Sprint 16 — Traceability UX & DetailViews](./scrum.pmo/sprints/sprint-16-traceability-ux/planning.md)
 - [Sprint 17 — Scenario Units / IOR Data Model & Class Views](./scrum.pmo/sprints/sprint-17-scenario-units/planning.md)
 - [Sprint 18 — Chain method-scope & role skills](./scrum.pmo/sprints/sprint-18-chain-method-scope/planning.md)
+- [Sprint 19 — Room Handling](./scrum.pmo/sprints/sprint-19-room-handling/)
 
 ## Traceability
 
