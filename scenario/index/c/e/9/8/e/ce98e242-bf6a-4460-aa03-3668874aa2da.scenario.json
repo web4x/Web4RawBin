@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "ce98e242-bf6a-4460-aa03-3668874aa2da",
+    "name": "T-persistent-dedup: Room.addMember match-by-playerToken reconnect vs reject vs insert",
+    "slug": "persistent-dedup-addmember-match-reconnect-reject-insert",
+    "description": "Room.addMember() matches by playerToken first: if match+disconnected then update entry (swap id/ws, flip disconnected=false, broadcast MEMBER_RECONNECTED); if match+connected then reject (duplicate); if no match then insert (current path). Covers R19.8.B (persistent rejoin flips existing member back to online, never adds a duplicate).",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert rule-pair a+b\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:417918a5-b2ce-45d4-8434-fd67d6abef3f"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
