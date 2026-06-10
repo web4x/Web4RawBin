@@ -1442,6 +1442,32 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       break;
     }
 
+    case MSG.ROOM_APPLY: {
+      const applyRoom = roomManager.getRoom(msg.roomId);
+      if (!applyRoom) { send({ type: MSG.ERROR, message: 'Room not found' }); break; }
+      if (applyRoom.visibility !== 'by-invite') { send({ type: MSG.ERROR, message: 'Room is not by-invite' }); break; }
+      const applicantName = msg.playerName || 'Someone';
+      const applicantToken = msg.playerToken || '';
+      applyRoom.broadcast({ type: MSG.ROOM_APPLY_RECEIVED, roomId: applyRoom.id, applicantName, applicantToken, applicantClientId: clientId });
+      addLog(`Apply request: ${applicantName} → ${applyRoom.name} (${msg.roomId.slice(0,8)})`);
+      break;
+    }
+
+    case MSG.ROOM_APPLY_ACCEPT: {
+      const acceptRoom = roomManager.getRoom(msg.roomId);
+      if (!acceptRoom) { send({ type: MSG.ERROR, message: 'Room not found' }); break; }
+      const acceptorToken = [...wsClients].find(c => c.id === clientId)?.playerToken || '';
+      const isAcceptorOwner = acceptRoom.creatorToken === acceptorToken;
+      if (!isAcceptorOwner) { send({ type: MSG.ERROR, message: 'Only the owner can accept' }); break; }
+      const targetClientId = msg.applicantClientId;
+      const targetWs = [...wsClients].find(c => c.id === targetClientId);
+      if (targetWs) {
+        targetWs.ws.send(JSON.stringify({ type: MSG.ROOM_APPLY_ACCEPTED, roomId: msg.roomId, roomName: acceptRoom.name }));
+      }
+      addLog(`Apply accepted: ${msg.applicantName || '?'} → ${acceptRoom.name}`);
+      break;
+    }
+
     case MSG.REMOVE_ROOM: {
       const room = roomManager.getRoom(msg.roomId);
       if (!room) break;

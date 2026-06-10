@@ -56,6 +56,15 @@ export class RoomView {
     this.client.on(MSG.CHAT_MESSAGE, (msg) => this.chatSheet?.addMessage(msg.senderId, msg.senderName, msg.text));
     this.client.on(MSG.ROOM_DELETED, () => this.onLeave());
     this.client.on(MSG.ROOM_CONFIG_UPDATED, (msg) => { if (msg.room) { this.roomName = msg.room.name; this.roomVisibility = msg.room.visibility || this.roomVisibility; this.roomMode = msg.room.mode || this.roomMode; this.render(); } });
+    this.client.on(MSG.ROOM_APPLY_RECEIVED, (msg) => {
+      if (this.roomId !== msg.roomId) return;
+      this.chatSheet?.addMessage('system', 'System', `${msg.applicantName} wants to join this room.`);
+      if (this.roomOwnerToken === this.client.playerToken) {
+        if (confirm(`${msg.applicantName} wants to join. Accept?`)) {
+          this.client.send({ type: MSG.ROOM_APPLY_ACCEPT, roomId: msg.roomId, applicantClientId: msg.applicantClientId, applicantName: msg.applicantName });
+        }
+      }
+    });
     this.client.on('disconnected', () => this.chatSheet?.setWsStatus('disconnected'));
     this.client.on('reconnecting', (msg) => this.chatSheet?.setWsStatus('reconnecting', msg.backoffMs ? `${Math.ceil(msg.backoffMs / 1000)}s` : undefined));
     this.client.on('reconnected', () => { this.chatSheet?.setWsStatus('connected'); this.hideOfflineBanner(); });

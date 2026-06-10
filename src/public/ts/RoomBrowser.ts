@@ -29,6 +29,9 @@ export class RoomBrowser {
     this.client.on(MSG.ROOM_LIST, (msg) => { this.rooms = msg.rooms; this.renderRoomList(); });
     this.client.on(MSG.ROOM_JOINED, (msg) => { this.onEnterRoom(msg.room.id); });
     this.client.on(MSG.ERROR, (msg) => { this.showError(msg.message); });
+    this.client.on(MSG.ROOM_APPLY_ACCEPTED, (msg) => {
+      this.client.joinRoom(msg.roomId, this.memberName);
+    });
 
     const joinId = params.get('join');
     this.client.on('welcome', () => {
@@ -135,7 +138,7 @@ export class RoomBrowser {
           </div>
           <div class="room-status">
             <span class="room-state room-state-${room.state}">${stateLabel}</span>
-            ${room.state === 'active' ? `<button class="btn btn-join" data-room="${room.id}">Join</button>` : ''}
+            ${room.state === 'active' ? (room.visibility === 'by-invite' && !isOwner ? `<button class="btn btn-apply" data-room="${room.id}">Apply</button>` : `<button class="btn btn-join" data-room="${room.id}">Join</button>`) : ''}
             ${isOwner ? `<button class="btn btn-delete" data-room="${room.id}" title="Delete room">✕</button>` : ''}
           </div>
         </div>`;
@@ -151,6 +154,14 @@ export class RoomBrowser {
         } else {
           this.client.joinRoom(roomId, this.memberName);
         }
+      });
+    });
+    list.querySelectorAll('.btn-apply').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const roomId = (btn as HTMLElement).dataset.room!;
+        this.client.send({ type: MSG.ROOM_APPLY, roomId, playerName: this.memberName, playerToken: this.client.playerToken });
+        (btn as HTMLElement).textContent = 'Applied';
+        (btn as HTMLElement).setAttribute('disabled', '');
       });
     });
     list.querySelectorAll('.btn-share').forEach(btn => {
