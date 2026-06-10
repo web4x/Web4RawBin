@@ -10,7 +10,7 @@
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "infra-process: all tasks are infrastructure/process — no user-facing use case",
+    "orphanReason": "Incident fix \u2014 one-shot, no ongoing UC (room-flood prod-pollution)",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/requirements.md",
     "sourceLine": 43,
     "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",

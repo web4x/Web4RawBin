@@ -3,12 +3,12 @@
   "model": {
     "uuid": "d8fe90a1-a1b2-4c34-5d6e-7f8a9b010045",
     "name": "R17.46: Missing traceability data is filled consistently ...",
-    "description": "[requirement:uuid:d8fe90a1-a1b2-4c34-5d6e-7f8a9b010045]\n  → [T172](./task-172-chain-direction-enforcement-missing-data-fill.md)\n\n- [ ] **R17.46: Missing traceability data is filled consistently by req-eng and architect.**",
+    "description": "[requirement:uuid:d8fe90a1-a1b2-4c34-5d6e-7f8a9b010045]\n  \u2192 [T172](./task-172-chain-direction-enforcement-missing-data-fill.md)\n\n- [ ] **R17.46: Missing traceability data is filled consistently by req-eng and architect.**",
     "tronQuote": "",
     "tasks": [],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "orphan-requirement: no tasks linked",
+    "orphanReason": "Data-fill meta \u2014 pipeline script, not UC (missing traceability data)",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
     "sourceLine": 266,
     "unitLinks": [

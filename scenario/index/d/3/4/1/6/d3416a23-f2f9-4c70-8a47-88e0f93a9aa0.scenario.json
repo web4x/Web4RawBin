@@ -21,7 +21,11 @@
       "ior:instance:e9618d93-8dbc-44b2-abd7-b1eddebce97d",
       "ior:instance:b748b4f1-44dd-480a-8e6c-45d9cb0e5ea3"
     ],
-    "splitIntoNote": "Split per PO decision 2026-06-10: R19.22.A (filesystem invariant symlink+backfill) + R19.22.B (UI link affordance next to edit pencil)."
+    "splitIntoNote": "Split per PO decision 2026-06-10: R19.22.A (filesystem invariant symlink+backfill) + R19.22.B (UI link affordance next to edit pencil).",
+    "useCases": [
+      "ior:instance:4421b0c1-9663-4250-8e1d-ce49ae1a9db3",
+      "ior:instance:9d3a0ced-7942-48eb-bb37-f66f59ac641a"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

@@ -2,15 +2,15 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "24b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02",
-    "name": "R14.3 — Prove migration integrity: every legacy record ma...",
+    "name": "R14.3 \u2014 Prove migration integrity: every legacy record ma...",
     "description": "Migrate legacy token-timestamp user directories to UUIDv4 token directories, updating all references, idempotently and without data loss.",
-    "tronQuote": "> Tron (via T97, 2026-05-26): \"migrate to UUID v4, do NOT delete.\" — 141 token-timestamp dirs to UUIDv4.",
+    "tronQuote": "> Tron (via T97, 2026-05-26): \"migrate to UUID v4, do NOT delete.\" \u2014 141 token-timestamp dirs to UUIDv4.",
     "tasks": [
       "ior:instance:97b2d4f6-3c8e-4a11-8b57-2d4f6a8b9c97"
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "infra-process: all tasks are infrastructure/process — no user-facing use case",
+    "orphanReason": "One-shot verification \u2014 migration done (prove migration integrity)",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-14-legacy-migration/requirements.md",
     "sourceLine": 31,
     "parent": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297",

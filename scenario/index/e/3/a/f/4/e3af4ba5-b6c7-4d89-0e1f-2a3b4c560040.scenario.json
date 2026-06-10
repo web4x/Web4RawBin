@@ -3,14 +3,14 @@
   "model": {
     "uuid": "e3af4ba5-b6c7-4d89-0e1f-2a3b4c560040",
     "name": "R17.41: A chain-order CI gate validates the 7-step canoni...",
-    "description": "[requirement:uuid:e3af4ba5-b6c7-4d89-0e1f-2a3b4c560040]\n  → [T170](./task-170-diligent-plan-no-stop-sustain.md)\n\n- [ ] **R17.41: A chain-order CI gate validates the 7-step canonical chain on every commit.**",
+    "description": "[requirement:uuid:e3af4ba5-b6c7-4d89-0e1f-2a3b4c560040]\n  \u2192 [T170](./task-170-diligent-plan-no-stop-sustain.md)\n\n- [ ] **R17.41: A chain-order CI gate validates the 7-step canonical chain on every commit.**",
     "tronQuote": "",
     "tasks": [
       "ior:instance:6cf46cd1-5f65-4474-a023-1b54b56adb06"
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "infra-process: all tasks are infrastructure/process — no user-facing use case",
+    "orphanReason": "CI gate meta (chain-order CI gate)",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
     "sourceLine": 242,
     "unitLinks": [

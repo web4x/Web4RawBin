@@ -3,14 +3,14 @@
   "model": {
     "uuid": "e74f85a9-b0c1-4d23-4e5f-6a7b8c900034",
     "name": "R17.35: One implementation can have multiple tests (1:N c...",
-    "description": "[requirement:uuid:e74f85a9-b0c1-4d23-4e5f-6a7b8c900034]\n  → [T168](./task-168-chain-order-7-step-requirements-as-roots.md)\n\n- [ ] **R17.35: One implementation can have multiple tests (1:N cardinality).**",
+    "description": "[requirement:uuid:e74f85a9-b0c1-4d23-4e5f-6a7b8c900034]\n  \u2192 [T168](./task-168-chain-order-7-step-requirements-as-roots.md)\n\n- [ ] **R17.35: One implementation can have multiple tests (1:N cardinality).**",
     "tronQuote": "",
     "tasks": [
       "ior:instance:c3951691-b231-4b60-a2f8-79c9d5ef851e"
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "infra-process: all tasks are infrastructure/process — no user-facing use case",
+    "orphanReason": "Cardinality rule \u2014 verified by audit (1:N impl\u2192test)",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
     "sourceLine": 214,
     "unitLinks": [

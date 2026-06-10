@@ -14,6 +14,8 @@
     "placeholder": true,
     "placeholderNote": "Created 2026-06-09 by robbin-planner during T202 stand-up. req-eng (CMM4 role 1) to canonicalize: capture verbatim Tron quote, assign real R18.x altId, refine description from the source quote, replace this placeholder uuid with the canonical one in T202.coveredRequirements[].",
     "supersededBy": "ior:instance:cd5b1611-7c37-4c47-840d-2ed6188258fb",
-    "supersededNote": "Canonicalized 2026-06-09 by robbin-req as R18.35 (cd5b1611). NOT a Tron literal — bottom-up team discovery (architect+tester defect, diagnosis commit 4be5dcdd). PO clarification: cite team-discovery, not non-existent Tron quote. T202.coveredRequirements[] swapped to R18.35. This placeholder may be deleted by planner — req-eng leaves disposition per learning #38."
+    "supersededNote": "Canonicalized 2026-06-09 by robbin-req as R18.35 (cd5b1611). NOT a Tron literal \u2014 bottom-up team discovery (architect+tester defect, diagnosis commit 4be5dcdd). PO clarification: cite team-discovery, not non-existent Tron quote. T202.coveredRequirements[] swapped to R18.35. This placeholder may be deleted by planner \u2014 req-eng leaves disposition per learning #38.",
+    "orphanByDesign": true,
+    "orphanReason": "Superseded placeholder \u2014 already supersededBy R18.35"
   }
 }

@@ -10,7 +10,7 @@
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "infra-process: all tasks are infrastructure/process — no user-facing use case",
+    "orphanReason": "Team process \u2014 no code UC (learn scenarios for planning)",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
     "sourceLine": 123,
     "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",

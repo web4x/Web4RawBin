@@ -10,7 +10,7 @@
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "infra-process: all tasks are infrastructure/process — no user-facing use case",
+    "orphanReason": "Team tooling meta (skills on top of scenarios)",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-137-req-planner-learn-scenarios.md",
     "sourceLine": 31,
     "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",

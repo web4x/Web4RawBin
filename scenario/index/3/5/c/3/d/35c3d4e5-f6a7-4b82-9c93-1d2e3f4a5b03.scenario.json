@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "35c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b03",
-    "name": "R15.4 — `defaultItemView` per object for lists — like the...",
+    "name": "R15.4 \u2014 `defaultItemView` per object for lists \u2014 like the...",
     "description": "> R1 (literal): \"Object.verb usecase diagramms.\"",
     "tronQuote": "> R1 (literal): \"Object.verb usecase diagramms.\"",
     "tasks": [
@@ -10,11 +10,14 @@
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "infra-process: all tasks are infrastructure/process — no user-facing use case",
+    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-15-traceability-browser/requirements.md",
     "sourceLine": 32,
     "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
-    "unitLinks": []
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:7c632145-e527-4d36-996c-e61066415e9a"
+    ]
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
 }

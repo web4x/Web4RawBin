@@ -9,7 +9,9 @@
     "tasks": [],
     "tests": [],
     "unitLinks": [],
-    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "orphanByDesign": true,
+    "orphanReason": "Data integrity rule \u2014 verified by audit (ownerIor + unitLinks[] valid)"
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }
