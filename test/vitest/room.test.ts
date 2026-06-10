@@ -487,3 +487,27 @@ describe('TC-3.3.9: RoomManager operations', () => {
     expect(manager.listRooms().length).toBe(0);
   });
 });
+
+describe('S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)', () => {
+  it('T-default-flip R19.10: new room defaults to mode=persistent', () => {
+    const r = new Room('r1', makeMember({ id: 'a' }));
+    expect(r.mode).toBe('persistent');
+    expect(r.info().mode).toBe('persistent');
+  });
+  it('T-visibility R19.3: setVisibility switches visibility and syncs isPrivate', () => {
+    const r = new Room('r2', makeMember({ id: 'a' }));
+    expect(r.visibility).toBe('public');
+    r.setVisibility('by-invite');
+    expect(r.visibility).toBe('by-invite');
+    expect(r.isPrivate).toBe(false);
+    r.setVisibility('private');
+    expect(r.visibility).toBe('private');
+    expect(r.isPrivate).toBe(true);
+  });
+  it('T-persistent R19.7: setMode switches between live and persistent', () => {
+    const r = new Room('r3', makeMember({ id: 'a' }), { mode: 'live' });
+    expect(r.mode).toBe('live');
+    r.setMode('persistent');
+    expect(r.mode).toBe('persistent');
+  });
+});
