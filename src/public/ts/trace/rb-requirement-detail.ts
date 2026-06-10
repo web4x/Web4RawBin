@@ -10,6 +10,7 @@ import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
+import { singularChain, renderSingularChain } from './singular-chain.js';
 import { fetchDetailData, renderParentLink, renderSourceLink } from './detail-children.js';
 
 export class RbRequirementDetail extends HTMLElement {
@@ -29,6 +30,7 @@ export class RbRequirementDetail extends HTMLElement {
     const obj = this.graph?.get(refUuid(ref));
     if (!obj) { this.innerHTML = '<div class="dv-empty">Requirement not found</div>'; return; }
 
+    const chain = this.graph ? singularChain(this.graph, obj.uuid) : [];
     const links = forwardOnly(obj);
     this.innerHTML = `
       <div class="dv-head">
@@ -41,7 +43,9 @@ export class RbRequirementDetail extends HTMLElement {
         <div class="dv-field"><a href="/scenario?ior=${obj.uuid}" class="dv-file-link" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Scenario view</a></div>
       </div>
       <div class="dv-links">
-        <h4>Traceability Chain</h4>
+        <h4>Champagne Chain</h4>
+        ${renderSingularChain(chain)}
+        <h4>Forward Links</h4>
         ${renderLinks(this.graph, links)}
       </div>`;
 
