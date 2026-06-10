@@ -120,7 +120,8 @@ export function writeRoomJson(userToken: string, roomId: string, data: RoomJsonD
     const prefix = path.join(hex[0], hex[1], hex[2], hex[3], hex[4]);
     const canonDir = path.join(scenarioDir, prefix);
     const canonPath = path.join(canonDir, `${roomId}.scenario.json`);
-    const unit = { ior: 'ior:class:Room', model: { uuid: roomId, ...data, unitLinks: [`sprints.json/rooms/${userToken}/${roomId}.json`] }, ownerIor: `ior:instance:${userToken}` };
+    const sourceFile = `scenario/index/${prefix}/${roomId}.scenario.json`;
+    const unit = { ior: 'ior:class:Room', model: { uuid: roomId, ...data, sourceFile, unitLinks: [`sprints.json/rooms/${userToken}/${roomId}.json`] }, ownerIor: `ior:instance:${userToken}` };
     try {
       mkdirSafe(canonDir);
       fs.writeFileSync(canonPath, JSON.stringify(unit, null, 2));
