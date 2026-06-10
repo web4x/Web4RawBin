@@ -1998,5 +1998,19 @@
     "sshKeyGeneratedAt": "2026-06-10T21:49:33.520Z",
     "consolidatedFrom": [],
     "bugReports": []
+  },
+  {
+    "token": "fbe42381-a6b9-4b5d-93a5-19646819edac",
+    "name": "Karina Alman",
+    "phone": "",
+    "url": "",
+    "avatar": "/api/avatar/fbe42381-a6b9-4b5d-93a5-19646819edac",
+    "avatarCrop": null,
+    "secretCode": "8931",
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
+    "sshKeyGeneratedAt": "",
+    "consolidatedFrom": [],
+    "bugReports": []
   }
 ]
