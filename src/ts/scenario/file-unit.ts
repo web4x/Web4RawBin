@@ -18,6 +18,7 @@ export interface FileUnitInput {
   extraUnitLinks?: string[];
 }
 
+// [impl:uuid:ed543211-2314-4768-af75-cf09b39a4dc7] FileUnit.upload
 // Create file scenario unit + content sidecar; put() auto-syncs unitLinks symlinks.
 export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): ScenarioUnit {
   const uuid = input.uuid || crypto.randomUUID();

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c546c877-9907-4f17-b61a-1157b0902765",
+    "name": "impl:FileUnit.upload",
+    "sourceFile": "src/ts/scenario/file-unit.ts",
+    "sourceLine": 22,
+    "methods": [
+      "ior:instance:ed543211-2314-4768-af75-cf09b39a4dc7"
+    ]
+  },
+  "ownerIor": "ior:instance:ed543211-2314-4768-af75-cf09b39a4dc7"
+}

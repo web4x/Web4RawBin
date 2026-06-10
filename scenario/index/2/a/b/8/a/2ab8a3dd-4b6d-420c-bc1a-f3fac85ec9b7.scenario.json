@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "2ab8a3dd-4b6d-420c-bc1a-f3fac85ec9b7",
+    "name": "impl:Room.init",
+    "sourceFile": "src/ts/server/Room.ts",
+    "sourceLine": 103,
+    "methods": [
+      "ior:instance:4fed4fda-5fc1-4340-a976-a473d2366513"
+    ]
+  },
+  "ownerIor": "ior:instance:4fed4fda-5fc1-4340-a976-a473d2366513"
+}

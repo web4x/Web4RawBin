@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5a397d5d-3d97-4152-8a7b-14caca1398ca",
+    "name": "impl:JoinRequestFlow.applySend",
+    "sourceFile": "src/public/ts/RoomBrowser.ts",
+    "sourceLine": 155,
+    "methods": [
+      "ior:instance:0e11cfb4-249c-4a20-baa9-932401f8e19e"
+    ]
+  },
+  "ownerIor": "ior:instance:0e11cfb4-249c-4a20-baa9-932401f8e19e"
+}
