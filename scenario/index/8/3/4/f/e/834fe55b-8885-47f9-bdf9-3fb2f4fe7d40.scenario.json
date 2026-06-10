@@ -5,8 +5,8 @@
     "name": "T-file-unit: Files become scenario units (uuid.content + scenario.json + unitLinks[])",
     "slug": "file-as-scenario-unit",
     "description": "Files uploaded into a room are stored in the uuid index as <uuid>.content PLUS a <uuid>.scenario.json referencing the content, with unitLinks[] symlinks (e.g. in the room folder on the filesystem). Every file becomes a unique scenario unit. Singular-chain by design.",
-    "status": "Planned",
-    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect 5305492f singular-chain)\n  - [x] creating test cases\n  - [x] implementing (expert 22416694 v0.5.128 createFileUnit + readFileUnitContent + FileLoader 11 classes)\n  - [x] testing (vitest 885/885)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:f1ca3cc9-a675-4a3b-9898-9e33d7876ed8"
     ],

@@ -5,8 +5,8 @@
     "name": "T-room-ui: drop-zone + Members/Files tree + member item views",
     "slug": "room-content-ui-layout",
     "description": "Room content area has a drop-content-here zone, double the size of a tree-overview item view. Below it: a tree with two nodes - Members and Files. Members displayed as item views below the Members node. Singular-chain by design.",
-    "status": "Planned",
-    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect 5305492f singular-chain; RbRoomContent Class + render Method)\n  - [ ] creating test cases\n  - [ ] implementing (expert: UI scaffolding pending \u2014 flagged remaining S19 piece)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:61c2661a-fb8a-489a-9d5d-abc4e819cf5d",
       "ior:instance:dc2e99eb-8e31-4337-887b-8204f7588c20",

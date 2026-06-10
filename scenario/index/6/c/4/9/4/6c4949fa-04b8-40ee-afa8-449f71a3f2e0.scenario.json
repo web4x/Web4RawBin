@@ -5,8 +5,8 @@
     "name": "T-room-unit: Room IS a scenario unit + click-to-edit room editor",
     "slug": "room-unit-as-scenario-and-editor",
     "description": "Room becomes a first-class scenario unit. Clicking the room name opens the room config scenario editor. Singular-chain by design: ONE UseCase per Task, ONE Method per UseCase.",
-    "status": "Planned",
-    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect 5305492f singular-chain; Room.init Method 7b9650dc)\n  - [x] creating test cases\n  - [x] implementing (expert 7d975b74 Room class extended with visibility+mode; Room IS scenario unit baseline already in place)\n  - [ ] testing (deferred \u2014 depends on UI editor in T-room-ui)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:3e14d73c-1ddb-4f42-8d33-481581a8ec95",
       "ior:instance:18ecdab4-e8d1-453f-89b2-4cae64103a80"
