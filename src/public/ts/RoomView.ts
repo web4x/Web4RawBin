@@ -10,9 +10,8 @@ import './components/rb-chat-sheet.js';
 import type { RbChatSheet } from './components/rb-chat-sheet.js';
 import './components/rb-member-list.js';
 import './components/rb-avatar.js';
-import './components/rb-tree.js';
+import './trace/rb-object-item.js';
 import type { RbMemberList } from './components/rb-member-list.js';
-import type { RbTree } from './components/rb-tree.js';
 
 interface MemberInfo {
   id: string; name: string; avatarUrl: string; playerToken: string; avatarCrop?: { scale: number; x: number; y: number } | null; disconnected?: boolean;
@@ -130,7 +129,7 @@ export class RoomView {
         <rb-header title="${this.roomName}" show-leave show-home ${isHost ? 'show-delete show-edit' : ''} show-reload show-fullscreen></rb-header>
         <div style="padding:0 16px 4px;display:flex;gap:8px;align-items:center"><a href="/scenario?ior=${this.roomId}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="View room scenario unit">📄 Scenario</a><span style="color:rgba(255,255,255,0.3);font-size:0.65rem">${this.roomId.slice(0,8)}</span></div>
         <div id="offline-banner" class="offline-banner" style="display:none">Offline — messages queued</div>
-        <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="rrc-tree"><rb-tree id="rrc-members-tree" label="Members" open></rb-tree><rb-tree id="rrc-files-tree" label="Files" open></rb-tree></div></div></div>
+        <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="trace-tree" id="rrc-tree"><div class="tt-node"><div class="tt-row" id="rrc-members-hdr"><span class="tt-chevron">▾</span><span style="font-weight:600">Members</span><span class="rrc-node-count" id="rrc-members-count">0</span></div><div class="tt-children" id="rrc-members-children"></div></div><div class="tt-node"><div class="tt-row" id="rrc-files-hdr"><span class="tt-chevron">▾</span><span style="font-weight:600">Files</span><span class="rrc-node-count" id="rrc-files-count">0</span></div><div class="tt-children" id="rrc-files-children"><div class="rrc-empty">— empty —</div></div></div></div></div></div>
       </div>`;
 
     const dz = document.getElementById("rrc-drop");
@@ -147,6 +146,20 @@ export class RoomView {
         const files = Array.from(dt.files || []);
         if (files.length > 0) dz.dispatchEvent(new CustomEvent("rb-room-files-dropped", { detail: { files }, bubbles: true }));
       });
+    }
+
+    for (const hdrId of ['rrc-members-hdr', 'rrc-files-hdr']) {
+      const hdr = document.getElementById(hdrId);
+      const children = hdr?.nextElementSibling as HTMLElement | null;
+      const chevron = hdr?.querySelector('.tt-chevron');
+      if (hdr && children && chevron) {
+        hdr.style.cursor = 'pointer';
+        hdr.addEventListener('click', () => {
+          const open = children.style.display !== 'none';
+          children.style.display = open ? 'none' : '';
+          chevron.textContent = open ? '▸' : '▾';
+        });
+      }
     }
 
     if (this.chatSheet) this.chatSheet.remove();
@@ -175,14 +188,25 @@ export class RoomView {
     popup.show(url, `Join ${this.roomName}`);
   }
 
+  // [impl:uuid:ae090710-5c3a-4e8b-b217-9f3d7c1a5e40] T-room-ui-shared R19.21
   private renderRoomTreeMembers(): void {
-    const tree = document.getElementById('rrc-members-tree') as RbTree | null;
-    if (tree) {
-      tree.setItems(this.members.map(m => ({
-        id: m.id, label: m.name || '?',
-        icon: m.disconnected ? '⚫' : '🟢',
-        badge: m.id === this.hostId ? 'host' : (m.id === this.client.clientId ? 'you' : (m.disconnected ? 'offline' : '')),
-      })));
+    const cnt = document.getElementById('rrc-members-count');
+    if (cnt) cnt.textContent = String(this.members.length);
+    const ch = document.getElementById('rrc-members-children');
+    if (!ch) return;
+    ch.innerHTML = '';
+    if (this.members.length === 0) { ch.innerHTML = '<div class="rrc-empty">— empty —</div>'; return; }
+    for (const m of this.members) {
+      const item = document.createElement('rb-object-item');
+      item.setAttribute('ref', `member:${m.playerToken}`);
+      item.setAttribute('type', 'member');
+      item.setAttribute('title', m.name || '?');
+      item.setAttribute('name', m.name || '?');
+      item.setAttribute('status', m.disconnected ? 'offline' : 'online');
+      if (m.id === this.hostId) item.setAttribute('description', 'Host');
+      else if (m.id === this.client.clientId) item.setAttribute('description', 'You');
+      else if (m.disconnected) item.setAttribute('description', 'Offline');
+      ch.appendChild(item);
     }
   }
 

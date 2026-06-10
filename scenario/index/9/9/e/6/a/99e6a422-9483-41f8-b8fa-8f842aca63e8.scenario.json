@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "99e6a422-9483-41f8-b8fa-8f842aca63e8",
+    "id": "99e6a422-9483-41f8-b8fa-8f842aca63e8",
+    "name": "Marcel Donges's Room",
+    "ownerToken": "3dca7f5e-6fca-43ba-b8e0-cde6415b2498",
+    "maxMembers": 10,
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1781117422394,
+    "sshKeysGenerated": false,
+    "sshPublicKey": "",
+    "chatHistory": [],
+    "unitLinks": [
+      "sprints.json/rooms/3dca7f5e-6fca-43ba-b8e0-cde6415b2498/99e6a422-9483-41f8-b8fa-8f842aca63e8.json"
+    ]
+  },
+  "ownerIor": "ior:instance:3dca7f5e-6fca-43ba-b8e0-cde6415b2498"
+}

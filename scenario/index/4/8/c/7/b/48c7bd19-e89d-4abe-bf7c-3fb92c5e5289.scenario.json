@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "48c7bd19-e89d-4abe-bf7c-3fb92c5e5289",
+    "id": "48c7bd19-e89d-4abe-bf7c-3fb92c5e5289",
+    "name": "Marcel Donges.DLI's Room",
+    "ownerToken": "705e1e51-9f6c-4397-bec9-396835e12ffa",
+    "maxMembers": 10,
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1781117422395,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtL03pxYbvNbMZ2QLFH2l\n3/62+MDbeF5lT5p/N1FWOJOm7xIAO1+zg1RngLRoYaJ7mFm0xcCpfXXUQQ4AQ6Ds\nO8PSYES6w7H0hkPT96/kH6vLQTyN/q1CYDsNOmGOAKryTKDr7Ed7dM11NZaNrMcy\nZgOE2ix+8nY73NGV0wmGF4K4Rj6ekqAt+Ikuej7miBimd4Xc/cS1ImkksozMDbY/\nSHHPRogtY3dVV6+Lm/U2nRUAEl83o2aKPe0ltnScoFRoQ0uGCYFSpOGvxqXQKhUj\nO6IHZYqRpF14//tKsFA/ACn+vnHnBUDz8o+FSDdFqpOOKeEHTla97uQDfDdeT75P\nQwIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "unitLinks": [
+      "sprints.json/rooms/705e1e51-9f6c-4397-bec9-396835e12ffa/48c7bd19-e89d-4abe-bf7c-3fb92c5e5289.json"
+    ]
+  },
+  "ownerIor": "ior:instance:705e1e51-9f6c-4397-bec9-396835e12ffa"
+}
