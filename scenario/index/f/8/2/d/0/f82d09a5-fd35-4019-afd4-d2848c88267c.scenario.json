@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "f82d09a5-fd35-4019-afd4-d2848c88267c",
+    "name": "Room.retainOrPrune",
+    "description": "Branch disconnect handling by room.mode: persistent calls markDisconnected (retain + offline + persist); live calls removeMember (prune). Encapsulates the mode-aware disconnect decision.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+}
