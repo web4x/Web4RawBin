@@ -3,10 +3,12 @@
   "model": {
     "uuid": "e790f0bc-590a-4b32-8df0-bfaa5db2c93c",
     "altId": "R19.28",
-    "name": "R19.28: Tree prefetch is one-layer-ahead eager — preload exactly one sublayer beyond visible, non-recursive.",
-    "description": "The tree (rb-tree in /trace and in-room) MUST use a ONE-LAYER-AHEAD eager prefetch strategy: always preload exactly one sublayer beyond what is currently visible so that every shown node's child-count badge (R19.25) is known without the user needing to expand. On expand of a node, eagerly prefetch the NEXT sublayer for ALL now-shown children — exactly one layer deep, NON-recursive. This is lazy loading with one-layer-ahead eager preloading: not fully recursive (which would load the entire tree), but not purely on-demand either (which would show unknown badge counts until clicked).",
-    "tronQuote": "> TRON: \"lets focus on the lazy loading. to know the badge and optimize ux experience, we already eager preload exactly one sub layer. and on expand the next sublayer of all shown children… but NOT recursive, just one layer… lazy but eager ahead.\"",
-    "tasks": [],
+    "name": "R19.28: Tree prefetch is one-layer-ahead eager \u2014 preload exactly one sublayer beyond visible, non-recursive.",
+    "description": "The tree (rb-tree in /trace and in-room) MUST use a ONE-LAYER-AHEAD eager prefetch strategy: always preload exactly one sublayer beyond what is currently visible so that every shown node's child-count badge (R19.25) is known without the user needing to expand. On expand of a node, eagerly prefetch the NEXT sublayer for ALL now-shown children \u2014 exactly one layer deep, NON-recursive. This is lazy loading with one-layer-ahead eager preloading: not fully recursive (which would load the entire tree), but not purely on-demand either (which would show unknown badge counts until clicked).",
+    "tronQuote": "> TRON: \"lets focus on the lazy loading. to know the badge and optimize ux experience, we already eager preload exactly one sub layer. and on expand the next sublayer of all shown children\u2026 but NOT recursive, just one layer\u2026 lazy but eager ahead.\"",
+    "tasks": [
+      "ior:instance:07c44272-0518-4bc1-81fe-ca26c39878e1"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
@@ -14,7 +16,7 @@
     "crossRef": [
       "ior:instance:6ed53825-86ce-4ec7-80d0-ce739e876992"
     ],
-    "crossRefNote": "R19.25 (child-count badge) depends on this prefetch strategy — the badge can only show a count if the sublayer is already loaded. R19.28 provides the data; R19.25 renders it."
+    "crossRefNote": "R19.25 (child-count badge) depends on this prefetch strategy \u2014 the badge can only show a count if the sublayer is already loaded. R19.28 provides the data; R19.25 renders it."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

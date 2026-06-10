@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "07c44272-0518-4bc1-81fe-ca26c39878e1",
+    "name": "T-one-layer-prefetch: server childCount + client prefetchCache + 3 non-recursive triggers",
+    "slug": "one-layer-prefetch-childcount-cache-triggers",
+    "description": "Server returns childCount per node; client prefetchCache fetches one layer ahead on 3 non-recursive triggers (expand, select, mount); badges show accurate child counts from prefetched data. Covers R19.28.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert (in flight per PO)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:e790f0bc-590a-4b32-8df0-bfaa5db2c93c"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
