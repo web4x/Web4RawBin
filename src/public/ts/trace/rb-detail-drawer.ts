@@ -1,8 +1,8 @@
 /**
  * T110 — rb-detail-drawer: Google-Maps-style bottom drawer for DetailViews.
  *
- * Slides up from the bottom when `ref` is set; swipe-down or ESC to dismiss.
- * Hosts pluggable DetailViews (T111) via default slot / direct child append.
+ * Two-part layout: .drawer-header (sticky, handle + X close) + .drawer-body
+ * (scrollable, receives detail content). Swipe-down or ESC to dismiss.
  *
  * [impl:uuid:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50] R16.1 DetailViewContainer
  */
@@ -43,12 +43,22 @@ export class RbDetailDrawer extends HTMLElement {
     this.removeAttribute('open');
   }
 
+  get body(): HTMLElement {
+    let b = this.querySelector('.drawer-body') as HTMLElement;
+    if (!b) { this.render(); b = this.querySelector('.drawer-body') as HTMLElement; }
+    return b;
+  }
+
   private render(): void {
-    if (this.querySelector('.drawer-handle')) return;
-    const handle = document.createElement('div');
-    handle.className = 'drawer-handle';
-    handle.addEventListener('click', () => this.close());
-    this.prepend(handle);
+    if (this.querySelector('.drawer-header')) return;
+    this.innerHTML = `
+      <div class="drawer-header">
+        <div class="drawer-handle"></div>
+        <button class="drawer-close" title="Close">✕</button>
+      </div>
+      <div class="drawer-body"></div>`;
+    this.querySelector('.drawer-handle')!.addEventListener('click', () => this.close());
+    this.querySelector('.drawer-close')!.addEventListener('click', () => this.close());
   }
 
   private onTouchStart = (e: TouchEvent): void => {

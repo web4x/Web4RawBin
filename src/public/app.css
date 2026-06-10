@@ -272,9 +272,14 @@ rb-detail-drawer {
   border-radius: 16px 16px 0 0;
   box-shadow: none;
   transform: translateY(100%); transition: transform 0.25s ease-out;
-  z-index: 100; overflow-y: auto; overflow-x: hidden; padding: 16px;
+  z-index: 100; overflow: hidden; display: flex; flex-direction: column;
   word-break: break-word; visibility: hidden;
 }
+.drawer-header { position: sticky; top: 0; z-index: 1; background: #1a1a2e; display: flex; align-items: center; justify-content: space-between; padding: 8px 16px 4px; flex-shrink: 0; }
+.drawer-header .drawer-handle { width: 40px; height: 4px; background: rgba(255,255,255,0.25); border-radius: 2px; cursor: grab; }
+.drawer-close { background: none; border: none; color: rgba(255,255,255,0.5); font-size: 1.2rem; cursor: pointer; padding: 4px 8px; }
+.drawer-close:hover { color: white; }
+.drawer-body { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 0 16px 16px; }
 rb-detail-drawer pre, rb-detail-drawer code { overflow-x: auto; max-width: 100%; }
 rb-detail-drawer[open] { transform: translateY(0); box-shadow: 0 -4px 20px rgba(0,0,0,0.4); visibility: visible; }
 @media (max-width: 480px) {

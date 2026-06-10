@@ -160,14 +160,13 @@ function drawerShowHandler(drawer: HTMLElement, tagName: string): VerbHandler {
     const uuid = params.uuid || '';
     const ref = obj ? obj.ref() : `${params.uuid ? 'unknown:' + params.uuid : ''}`;
     if (!obj && !uuid) { drawer.removeAttribute('ref'); return; }
-    for (const child of [...drawer.children]) {
-      if (!child.classList.contains('drawer-handle')) child.remove();
-    }
+    const body = (drawer as any).body || drawer;
+    body.innerHTML = '';
     const el = document.createElement(tagName) as HTMLElement & { graph: TraceGraph };
     el.graph = graph;
     el.setAttribute('ref', obj ? obj.ref() : `unknown:${uuid}`);
     if (uuid) el.setAttribute('uuid', uuid);
-    drawer.appendChild(el);
+    body.appendChild(el);
     drawer.setAttribute('ref', obj ? obj.ref() : `unknown:${uuid}`);
   };
 }
