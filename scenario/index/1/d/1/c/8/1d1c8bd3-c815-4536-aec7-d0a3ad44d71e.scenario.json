@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "1d1c8bd3-c815-4536-aec7-d0a3ad44d71e",
+    "name": "migration.removeLegacy",
+    "class": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9",
+    "method": "ior:instance:bb32bd3d-5404-41fe-9b92-c600a406cb81",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

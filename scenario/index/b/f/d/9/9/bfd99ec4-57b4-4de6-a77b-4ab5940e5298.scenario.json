@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "bfd99ec4-57b4-4de6-a77b-4ab5940e5298",
+    "name": "room.mountTraceTree",
+    "class": "ior:instance:792246f1-0000-0000-0000-000000000000",
+    "method": "ior:instance:777293c9-cfd4-43ea-b9fb-0fe30c94001d",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

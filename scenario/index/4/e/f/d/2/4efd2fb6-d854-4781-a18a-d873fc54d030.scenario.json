@@ -14,7 +14,10 @@
     "siblingOf": "ior:instance:3e14d73c-1ddb-4f42-8d33-481581a8ec95",
     "siblingNote": "Atomic split from R19.1 per R-I. R19.1 conveys unit shape + identity; R19.15 isolates the json-test invariant for independent test.",
     "orphanByDesign": true,
-    "orphanReason": "Data-shape rule \u2014 verified by test, not a UC (room json test)"
+    "orphanReason": "Data-shape rule \u2014 verified by test, not a UC (room json test)",
+    "useCases": [
+      "ior:instance:63f4f562-27c3-4d9c-a53a-88cd2577710a"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

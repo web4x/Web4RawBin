@@ -16,7 +16,8 @@
     "unitLinks": [
       "sprints.json/sprint-17-scenario-units/requirement/r17-41-a-chain-order-ci-gate-validates-the-7-step-canoni.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "orphanRationale": "CI gate meta (chain-order)"
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

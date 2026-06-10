@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "777293c9-cfd4-43ea-b9fb-0fe30c94001d",
+    "name": "RbRoomContent.mountTraceTree",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:792246f1-0000-0000-0000-000000000000"
+}

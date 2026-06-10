@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "b53de34c-56ab-405d-b026-f4ad39753910",
+    "name": "Migration.verifyIntegrity",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
+}

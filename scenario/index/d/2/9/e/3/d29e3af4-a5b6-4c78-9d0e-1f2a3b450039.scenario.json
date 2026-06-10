@@ -16,7 +16,8 @@
     "unitLinks": [
       "sprints.json/sprint-17-scenario-units/requirement/r17-40-a-rule-pair-ci-gate-enforces-package-json-sw-js.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "orphanRationale": "CI gate meta (rule-pair)"
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

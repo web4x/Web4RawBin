@@ -40,7 +40,8 @@
       }
     ],
     "orphanByDesign": true,
-    "orphanReason": "Architecture rule \u2014 verified by T202 chain narrowing code"
+    "orphanReason": "Architecture rule \u2014 verified by T202 chain narrowing code",
+    "orphanRationale": "Architecture rule \u2014 same as T202 (UC.chainMethod)"
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

@@ -4,7 +4,9 @@
     "uuid": "89aff659-834d-4deb-bbf1-fe6dd1fb3719",
     "name": "roleSkill.coSpecify",
     "object": "roleSkill",
-    "verb": "coSpecify"
+    "verb": "coSpecify",
+    "method": "ior:instance:ff9d3fd3-a58f-4adb-83d4-73f7701b6890",
+    "class": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
   },
   "ownerIor": "ior:instance:a7f7f216-8389-475c-96b7-3593b185cb01"
 }

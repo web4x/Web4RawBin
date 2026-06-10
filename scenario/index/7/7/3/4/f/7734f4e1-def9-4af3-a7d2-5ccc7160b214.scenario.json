@@ -16,7 +16,10 @@
     "crossRef": [
       "ior:instance:c9de63d7-61d4-4d14-a8cd-20f9e9b98a26"
     ],
-    "crossRefNote": "R18.24 (detail chain section shows narrowed single-thread) specified this same behavior. R19.34 re-asserts it because the implementation shows a flat UC list instead of the singular chain path."
+    "crossRefNote": "R18.24 (detail chain section shows narrowed single-thread) specified this same behavior. R19.34 re-asserts it because the implementation shows a flat UC list instead of the singular chain path.",
+    "useCases": [
+      "ior:instance:cd7b03bd-ba2c-4711-be57-32f43e52ff2f"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

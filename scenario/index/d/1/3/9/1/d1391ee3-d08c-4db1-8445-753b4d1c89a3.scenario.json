@@ -35,7 +35,10 @@
       "ior:instance:f732d200-601b-46b2-96c4-21c966f38b7c",
       "ior:instance:3676b612-81fb-4b93-a2b3-b660831958cc"
     ],
-    "refinedByNote": " Refined by R19.21.A which adds structural constraint: Members+Files are rb-object-item folder nodes (not bespoke headers), containing children with expand/collapse semantics. Fixes black-on-black contrast."
+    "refinedByNote": " Refined by R19.21.A which adds structural constraint: Members+Files are rb-object-item folder nodes (not bespoke headers), containing children with expand/collapse semantics. Fixes black-on-black contrast.",
+    "useCases": [
+      "ior:instance:bfd99ec4-57b4-4de6-a77b-4ab5940e5298"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

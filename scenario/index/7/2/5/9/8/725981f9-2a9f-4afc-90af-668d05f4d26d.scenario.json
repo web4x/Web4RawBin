@@ -4,7 +4,9 @@
     "uuid": "725981f9-2a9f-4afc-90af-668d05f4d26d",
     "name": "sourceLink.browse",
     "object": "sourceLink",
-    "verb": "browse"
+    "verb": "browse",
+    "method": "ior:instance:aac9e53f-a3cf-4342-aa64-e384ff18a03a",
+    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
   },
   "ownerIor": "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
 }

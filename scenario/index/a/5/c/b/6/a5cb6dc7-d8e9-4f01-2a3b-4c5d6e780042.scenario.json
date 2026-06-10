@@ -16,7 +16,8 @@
     "unitLinks": [
       "sprints.json/sprint-17-scenario-units/requirement/r17-43-all-50-untraced-scenario-units-are-linked-to-a-re.json"
     ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "orphanRationale": "One-shot backfill \u2014 done, no ongoing UC"
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

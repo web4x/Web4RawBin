@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "b4980b4a-7ed3-405a-9d1d-a08b49c70ff7",
+    "name": "RbRoomContent.folderNodeRender",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:792246f1-0000-0000-0000-000000000000"
+}

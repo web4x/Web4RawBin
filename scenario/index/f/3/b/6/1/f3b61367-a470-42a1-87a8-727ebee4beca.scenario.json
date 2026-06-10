@@ -16,7 +16,10 @@
     "refinedBy": [
       "ior:instance:417918a5-b2ce-45d4-8434-fd67d6abef3f"
     ],
-    "refinedByNote": "Refined by R19.8.B which covers the REJOIN half: reconnect = flip existing entry back to online, never add a duplicate. R19.8.A covers leave; R19.8.B covers rejoin. Together they enforce the deduplication invariant."
+    "refinedByNote": "Refined by R19.8.B which covers the REJOIN half: reconnect = flip existing entry back to online, never add a duplicate. R19.8.A covers leave; R19.8.B covers rejoin. Together they enforce the deduplication invariant.",
+    "useCases": [
+      "ior:instance:61e01080-6650-4ff1-ba50-0e2a523a2a35"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
