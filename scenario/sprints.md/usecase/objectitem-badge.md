@@ -1,0 +1,3 @@
+### objectItem.badge
+
+`.`

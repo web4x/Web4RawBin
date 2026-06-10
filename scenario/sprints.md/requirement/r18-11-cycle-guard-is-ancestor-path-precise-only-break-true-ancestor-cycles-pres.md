@@ -13,3 +13,8 @@
 > - [ ] Expanding the same node in two different branches shows children in both
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 traceTree.ancestorGuard](../usecase/tracetree-ancestorguard.md)

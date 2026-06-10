@@ -1,4 +1,4 @@
-<!-- GENERATED FROM SCENARIO UNITS - DO NOT HAND-EDIT -->
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
 
 [Back to Planning](./planning.md)
 
@@ -19,9 +19,5 @@
 ## Task Description
 
 Detail view must show the singular chain per UseCase (one method per UC) not the full Class.methods[] fan-out. NOTE: this is a regression of R18.24 (detail chain narrowing). Flag in verificationHistory. Covers R19.34.
-
-## verificationHistory
-
-- R18.24 regression: detail chain narrowing (R18.24 originally required singular chain per UC in detail views; regressed when Class.methods[] fan-out was re-introduced). R19.34 re-establishes the singular-chain invariant.
 
 ## Subtasks

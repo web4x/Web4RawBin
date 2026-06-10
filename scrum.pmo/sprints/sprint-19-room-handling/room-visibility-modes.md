@@ -8,10 +8,10 @@
 
 ## Status
 - [ ] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing (commit 7d975b74 v0.5.127 — visibility enum + setVisibility + RoomVisibility type)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done

@@ -26,7 +26,7 @@
 | Layer | Metric | Result | Notes |
 |-------|--------|--------|-------|
 | **Scenario units** | All typed objects exist as `uuid.scenario.json` | **1,033 units** | Every req, task, UC, class, method, impl, test has a scenario unit |
-| **Generated views** | `.md` + `.html` views exist per unit | **119/142 viewable** (23 missing) | 84% view coverage; missing are mostly new S19 tasks (stood up this session, generator not yet re-run) |
+| **Generated views** | `.md` + `.html` views exist per unit | **142/142 viewable** (0 missing) | ✅ 100% view coverage — S19 views generated via `regenerate-views.ts` (2098 files emitted) |
 | **Symlink tree** | `scenario/sprints.json/` navigable | **19 sprints indexed** | All sprints have `sprint.json` + requirement/ symlinks |
 | **README + overview** | Discoverable from root | **S1-S19 indexed** | sprints.overview.md + README Traceability section current |
 
@@ -88,4 +88,6 @@
 
 ---
 
-*Next scoreboard: after S19 removal tasks ship + generator re-run (views 119→142) + req→task 44-gap triage.*
+**UPDATE 2026-06-11:** Views gap CLOSED — `regenerate-views.ts` emitted 2098 files (md+html for all unit types). Views now **142/142** (was 119/142). Zero missing.
+
+*Next scoreboard: after S19 removal tasks ship + req→task 44-gap triage.*

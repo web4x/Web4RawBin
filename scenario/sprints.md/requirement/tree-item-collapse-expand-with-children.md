@@ -10,3 +10,8 @@
 
 **Tasks:**
 - [🔗 T115: Tree-item — tap-icon collapse/expand + ">" children expander](../task/task-115-tree-item-collapse-expand.md)
+
+**UseCases:**
+- [🔗 objectItem.collapse](../usecase/objectitem-collapse.md)
+- [🔗 objectItem.expand](../usecase/objectitem-expand.md)
+- [🔗 treeItem.expandChildren](../usecase/treeitem-expandchildren.md)

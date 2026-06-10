@@ -7,8 +7,8 @@
 - [x] In Progress
   - [x] refinement (architect — chain wired 38653299: UC svgViewer.pinchZoom + Class SvgViewer + Method onPinchEnd + Impl)
   - [x] creating test cases
-  - [x] implementing (expert — v0.5.114 → v0.5.121)
-  - [x] testing (tester — R18.34.B champagne 2/2 PASS 82ddae97; 3-platform device verify = Tron gate)
+  - [x] implementing (expert — v0.5.114 → v0.5.121; debug strip → v0.5.126)
+  - [x] testing (tester — R18.34.B champagne 2/2 PASS 82ddae97; R18.34.B DEVICE-ACCEPTED by Tron on v0.5.125 — snap-back gone, gate #27 cleared; tester writing corrected device-representative champagne to lock the fix)
 - [ ] QA Review
 - [ ] Done
 

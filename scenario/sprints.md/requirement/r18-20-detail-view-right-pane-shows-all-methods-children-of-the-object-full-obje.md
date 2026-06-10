@@ -18,3 +18,8 @@
 > - [ ] Tree narrowing behavior (one traced child per level) remains UNCHANGED
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 detailView.showFullObject](../usecase/detailview-showfullobject.md)

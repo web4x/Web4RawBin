@@ -23,3 +23,8 @@
 > → Sprint-migration task (planner folds into dedup/rename task)
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 sprintList.zeroPad](../usecase/sprintlist-zeropad.md)

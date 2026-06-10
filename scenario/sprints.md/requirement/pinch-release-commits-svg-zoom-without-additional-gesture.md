@@ -10,3 +10,6 @@
 
 **Tasks:**
 - [🔗 SVG viewer: fullscreen iframe + native zoom](../task/svg-fullscreen-iframe-native-zoom.md)
+
+**UseCases:**
+- [🔗 svgViewer.pinchZoom](../usecase/svgviewer-pinchzoom.md)

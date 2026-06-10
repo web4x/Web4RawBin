@@ -10,3 +10,6 @@
 
 **Tasks:**
 - [🔗 T97: Migrate token-<timestamp> User Dirs → UUIDv4](../task/task-97-migrate-userdirs.md)
+
+**UseCases:**
+- [🔗 migration.verifyIntegrity](../usecase/migration-verifyintegrity.md)

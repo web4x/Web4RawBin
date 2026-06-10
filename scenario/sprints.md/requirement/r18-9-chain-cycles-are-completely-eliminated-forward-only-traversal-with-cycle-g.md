@@ -15,3 +15,8 @@
 > - [ ] Forward-only chain types enforced: requirement can only expand to tasks, task to UCs, etc.
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 traceTree.cycleGuard](../usecase/tracetree-cycleguard.md)

@@ -17,3 +17,8 @@
 > - [ ] UseCase opens at PUML declaration line
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 fileBrowser.lineInfo](../usecase/filebrowser-lineinfo.md)

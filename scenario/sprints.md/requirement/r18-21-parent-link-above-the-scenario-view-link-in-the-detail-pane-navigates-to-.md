@@ -18,3 +18,8 @@
 > - [ ] Clicking navigates to the parent's detail view
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 detailView.parentNav](../usecase/detailview-parentnav.md)

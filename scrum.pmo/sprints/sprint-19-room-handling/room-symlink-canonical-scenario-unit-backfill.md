@@ -1,4 +1,4 @@
-<!-- GENERATED FROM SCENARIO UNITS - DO NOT HAND-EDIT -->
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
 
 [Back to Planning](./planning.md)
 
@@ -18,6 +18,6 @@
 
 ## Task Description
 
-Every data/users/<u>/rooms/<r>/room.json becomes a symlink to scenario/index/<shard>/<r>.scenario.json. One-shot backfill script converts existing standalone room.json files. After backfill, Room.persist writes to the canonical unit; the symlink resolves transparently. Covers R19.22.A (filesystem invariant).
+Every data/users/<u>/rooms/<r>/room.json becomes a symlink to scenario/index/<shard>/<r>.scenario.json. One-shot backfill script converts existing standalone room.json files. After backfill, Room.persist writes to the canonical unit; the symlink resolves transparently. Covers R19.22.A.
 
 ## Subtasks

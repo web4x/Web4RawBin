@@ -10,3 +10,6 @@
 
 **Tasks:**
 - [🔗 T83: Self-Click Opens Profile Sheet, Not Profile Editor](../task/task-83-self-click-profile.md)
+
+**UseCases:**
+- [🔗 contacts.selfClick](../usecase/contacts-selfclick.md)

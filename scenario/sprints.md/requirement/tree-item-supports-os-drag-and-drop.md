@@ -10,3 +10,6 @@
 
 **Tasks:**
 - [🔗 T114: Tree-item — OS drag-and-drop](../task/task-114-tree-item-drag.md)
+
+**UseCases:**
+- [🔗 objectItem.drag](../usecase/objectitem-drag.md)

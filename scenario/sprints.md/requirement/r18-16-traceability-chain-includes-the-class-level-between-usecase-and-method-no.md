@@ -17,3 +17,8 @@
 > - [ ] Below Method: Implementation → Test continues (per R18.13, linked to T195 data fill)
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 traceGraph.classHop](../usecase/tracegraph-classhop.md)

@@ -1,0 +1,3 @@
+### fileBrowser.lineInfo
+
+`.`

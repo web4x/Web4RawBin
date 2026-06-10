@@ -1,0 +1,1 @@
+### RbObjectItem.squareCollapse

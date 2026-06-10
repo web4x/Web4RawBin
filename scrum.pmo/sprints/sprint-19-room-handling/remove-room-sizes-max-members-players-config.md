@@ -1,4 +1,4 @@
-<!-- GENERATED FROM SCENARIO UNITS - DO NOT HAND-EDIT -->
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
 
 [Back to Planning](./planning.md)
 
@@ -7,11 +7,11 @@
 [task:uuid:e90c223d-4f81-4199-be48-13e234849e31]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement architect
+- [x] Planned
+- [x] In Progress
+  - [x] refinement architect (chain wired b49dc787)
   - [ ] creating test cases
-  - [ ] implementing expert rule-pair a+b
+  - [ ] implementing expert
   - [ ] testing
 - [ ] QA Review
 - [ ] Done

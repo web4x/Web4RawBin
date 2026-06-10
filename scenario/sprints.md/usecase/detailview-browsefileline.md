@@ -1,0 +1,3 @@
+### detailView.browseFileLine
+
+`.`

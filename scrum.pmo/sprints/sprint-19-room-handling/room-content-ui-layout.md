@@ -7,12 +7,12 @@
 [task:uuid:ae090710-3fee-4dc6-8dd1-d5b8501483eb]
 
 ## Status
-- [x] Planned
+- [ ] Planned
 - [x] In Progress
-  - [x] refinement architect 5305492f singular-chain RbRoomContent Class plus render Method
-  - [x] creating test cases
-  - [x] implementing expert 529d5c42 v0.5.129 drop-zone + Members/Files tree + member items - inline tree which T-room-ui-shared refines to reuse rb-tree+rb-tree-item
-  - [ ] testing - blocked by T-room-ui-shared refactor to shared tree
+  - [x] refinement
+  - [ ] creating test cases
+  - [x] implementing (commit 529d5c42 v0.5.129 — drop-zone + Members/Files tree + member items)
+  - [ ] testing
 - [ ] QA Review
 - [ ] Done
 

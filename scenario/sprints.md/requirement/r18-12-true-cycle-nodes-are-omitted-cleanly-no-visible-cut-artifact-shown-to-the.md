@@ -13,3 +13,8 @@
 > - [ ] If a node has BOTH legitimate children AND a cyclic child, only the legitimate children render
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 traceTree.cycleOmit](../usecase/tracetree-cycleomit.md)

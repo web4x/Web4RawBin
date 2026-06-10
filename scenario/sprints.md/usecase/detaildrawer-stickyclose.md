@@ -1,0 +1,3 @@
+### detailDrawer.stickyClose
+
+`.`

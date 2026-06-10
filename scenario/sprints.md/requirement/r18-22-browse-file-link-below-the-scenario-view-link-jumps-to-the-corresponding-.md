@@ -18,3 +18,8 @@
 > - [ ] User opens Monaco editor from the file browser (not directly)
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 detailView.browseFile](../usecase/detailview-browsefile.md)

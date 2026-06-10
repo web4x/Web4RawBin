@@ -18,3 +18,4 @@
 - [Sprint 16 — Traceability Ux](./sprint/sprint-16-traceability-ux.md) — In Progress
 - [Sprint 17 — Scenario Units](./sprint/sprint-17-scenario-units.md) — In Progress
 - [Sprint 18 — Chain Method-Scope & Role Skills](./sprint/sprint-18-chain-method-scope.md) — Planned
+- [Sprint 19 — Room Handling](./sprint/sprint-19-room-handling.md) — Planned

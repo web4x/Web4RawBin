@@ -7,11 +7,11 @@
 [task:uuid:2195d98f-eb78-47da-9048-e8553d2b8d35]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement architect - rb-tree + rb-tree-item reuse + adapter design
+- [x] Planned
+- [x] In Progress
+  - [x] refinement architect - delete components/rb-tree.ts, RoomView reuse trace/rb-object-item + rb-trace-tree + Members/Files adapters
   - [ ] creating test cases
-  - [ ] implementing expert rule-pair a+b
+  - [ ] implementing expert - REOPENED (c4ff02a5 was false reuse: built fake rb-tree.ts vs /trace rb-object-item)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done

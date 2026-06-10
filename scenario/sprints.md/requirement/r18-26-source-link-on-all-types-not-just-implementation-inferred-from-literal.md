@@ -18,3 +18,8 @@
 > - [ ] Task detail shows source link to .md file
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 detailView.sourceLink](../usecase/detailview-sourcelink.md)

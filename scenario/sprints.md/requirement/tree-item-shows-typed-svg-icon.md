@@ -10,3 +10,6 @@
 
 **Tasks:**
 - [🔗 T113: Tree-item — square SVG type icon (free icon library)](../task/task-113-tree-item-icon.md)
+
+**UseCases:**
+- [🔗 objectItem.setIcon](../usecase/objectitem-seticon.md)

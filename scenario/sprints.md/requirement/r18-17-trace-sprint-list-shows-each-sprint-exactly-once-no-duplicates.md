@@ -11,3 +11,8 @@
 > - [ ] No duplicate Sprint scenario units in the index (or if duplicates exist in data, the renderer deduplicates)
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 sprintList.dedupe](../usecase/sprintlist-dedupe.md)

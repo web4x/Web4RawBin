@@ -11,3 +11,8 @@
 > - [ ] Sprint ordering in the list matches sprint number order
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 sprintList.numberLabel](../usecase/sprintlist-numberlabel.md)

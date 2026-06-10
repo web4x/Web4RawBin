@@ -1,0 +1,27 @@
+# T-remove-room-sizes: strip maxMembers/maxPlayers/size config from model+UI+server
+[task:uuid:e90c223d-4f81-4199-be48-13e234849e31]
+
+## Status
+
+- [x] Planned
+- [x] In Progress
+  - [x] refinement architect (chain wired b49dc787)
+  - [ ] creating test cases
+  - [ ] implementing expert
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
+
+## Traceability
+
+**UseCases:**
+- [🔗 room.stripSizeLimits](../usecase/room-stripsizelimits.md)
+
+
+## Task Description
+
+Remove all maxMembers/maxPlayers/size configuration from the room data model, UI (room editor/config), and server-side enforcement. Rooms have no member/player limits. Covers R19.23.
+
+## Subtasks
+
+

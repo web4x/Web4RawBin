@@ -10,3 +10,7 @@
 
 **Tasks:**
 - [🔗 T112: Tree-item — speaky name (generate if absent) + word-wrap description](../task/task-112-tree-item-name-desc.md)
+
+**UseCases:**
+- [🔗 objectItem.renderNameDesc](../usecase/objectitem-rendernamedesc.md)
+- [🔗 objectItem.generateName](../usecase/objectitem-generatename.md)

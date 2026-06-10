@@ -10,3 +10,6 @@
 
 **Tasks:**
 - [🔗 T104: Object.verb Use-Case Diagrams](../task/task-104-object-verb-diagrams.md)
+
+**UseCases:**
+- [🔗 objectItem.render](../usecase/objectitem-render.md)

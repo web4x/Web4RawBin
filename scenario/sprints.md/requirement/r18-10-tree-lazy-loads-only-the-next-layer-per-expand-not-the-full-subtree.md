@@ -15,3 +15,8 @@
 > - [ ] Combined with R18.9 cycle guard: cycles cannot recurse because only one layer loads
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 traceTree.lazyExpand](../usecase/tracetree-lazyexpand.md)

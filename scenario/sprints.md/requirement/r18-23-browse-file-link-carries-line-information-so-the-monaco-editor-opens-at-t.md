@@ -19,3 +19,8 @@
 > - [ ] Monaco editor opens at the correct line when user clicks through
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 detailView.browseFileLine](../usecase/detailview-browsefileline.md)

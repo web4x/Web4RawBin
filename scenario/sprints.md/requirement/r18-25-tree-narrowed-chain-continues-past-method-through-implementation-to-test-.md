@@ -9,3 +9,8 @@
 > The /trace tree currently stops the chain at Method level — it does not expand further to show Implementation → Test(s). The chain must continue the full 7-step depth: req → task → UC → class → method → **impl → test**. This is the same gap as R18.13 (chain terminates in Test) but specifically about the tree UI not rendering the last two levels.
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 traceTree.chainToTest](../usecase/tracetree-chaintotest.md)

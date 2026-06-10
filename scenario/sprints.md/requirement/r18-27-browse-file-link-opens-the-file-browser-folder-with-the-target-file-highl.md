@@ -16,3 +16,8 @@
 > - [ ] Link does NOT open Monaco directly
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 fileBrowser.highlightFile](../usecase/filebrowser-highlightfile.md)

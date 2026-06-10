@@ -10,3 +10,6 @@
 
 **Tasks:**
 - [🔗 T98: Migration Integrity Verification (No Data Loss Proof)](../task/task-98-verify.md)
+
+**UseCases:**
+- [🔗 migration.removeLegacy](../usecase/migration-removelegacy.md)

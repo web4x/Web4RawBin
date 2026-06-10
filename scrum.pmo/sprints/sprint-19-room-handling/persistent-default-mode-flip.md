@@ -7,12 +7,12 @@
 [task:uuid:312cb103-17fe-4817-b1e9-8bffaabbbf27]
 
 ## Status
-- [x] Planned
+- [ ] Planned
 - [x] In Progress
-  - [x] refinement (architect 5305492f singular-chain)
-  - [x] creating test cases
-  - [x] implementing (expert 7d975b74 v0.5.127 PERSISTENT default R19.10, switchable via setMode)
-  - [x] testing (vitest 882/882)
+  - [x] refinement
+  - [ ] creating test cases
+  - [x] implementing (commit 7d975b74 v0.5.127 — default mode=persistent + setMode editor switch)
+  - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
