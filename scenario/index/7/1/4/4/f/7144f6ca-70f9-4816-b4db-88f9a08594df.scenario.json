@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "7144f6ca-70f9-4816-b4db-88f9a08594df",
+    "name": "Room.persistAsSymlink",
+    "description": "Persists room.json as symlink to canonical scenario/index unit; backfill script converts existing standalone files.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1165c293-a2b3-4c4d-8e5f-6a7b8c9d0e1f"
+}

@@ -12,7 +12,8 @@
     "methods": [
       "ior:instance:2d189279-0f36-4efc-8107-9862ae259dca",
       "ior:instance:ea02fa6d-5116-4466-82ee-81866c81a164",
-      "ior:instance:4fed4fda-5fc1-4340-a976-a473d2366513"
+      "ior:instance:4fed4fda-5fc1-4340-a976-a473d2366513",
+      "ior:instance:7144f6ca-70f9-4816-b4db-88f9a08594df"
     ],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "unitLinks": []

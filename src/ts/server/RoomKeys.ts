@@ -109,16 +109,40 @@ export interface RoomJsonData {
   chatHistory: { senderId: string; senderName: string; text: string; timestamp: number }[];
 }
 
+// [impl:uuid:7144f6ca-a1b2-4c3d-8e4f-5a6b7c8d9e0f] Room.persistAsSymlink R19.22.A
 export function writeRoomJson(userToken: string, roomId: string, data: RoomJsonData): void {
   const roomDir = getRoomDir(userToken, roomId);
   mkdirSafe(roomDir);
-  fs.writeFileSync(path.join(roomDir, 'room.json'), JSON.stringify(data, null, 2));
+  const roomJsonPath = path.join(roomDir, 'room.json');
+  const scenarioDir = path.resolve(DATA_DIR, '../scenario/index');
+  const hex = roomId.replace(/-/g, '');
+  if (hex.length >= 5) {
+    const prefix = path.join(hex[0], hex[1], hex[2], hex[3], hex[4]);
+    const canonDir = path.join(scenarioDir, prefix);
+    const canonPath = path.join(canonDir, `${roomId}.scenario.json`);
+    const unit = { ior: 'ior:class:Room', model: { uuid: roomId, ...data, unitLinks: [`sprints.json/rooms/${userToken}/${roomId}.json`] }, ownerIor: `ior:instance:${userToken}` };
+    try {
+      mkdirSafe(canonDir);
+      fs.writeFileSync(canonPath, JSON.stringify(unit, null, 2));
+      try { fs.unlinkSync(roomJsonPath); } catch {}
+      const relTarget = path.relative(roomDir, canonPath);
+      fs.symlinkSync(relTarget, roomJsonPath);
+    } catch {
+      fs.writeFileSync(roomJsonPath, JSON.stringify(data, null, 2));
+    }
+  } else {
+    fs.writeFileSync(roomJsonPath, JSON.stringify(data, null, 2));
+  }
 }
 
 export function readRoomJson(userToken: string, roomId: string): RoomJsonData | null {
   const p = path.join(getRoomDir(userToken, roomId), 'room.json');
   if (!fs.existsSync(p)) return null;
-  try { return JSON.parse(fs.readFileSync(p, 'utf-8')); } catch { return null; }
+  try {
+    const raw = JSON.parse(fs.readFileSync(p, 'utf-8'));
+    if (raw.ior && raw.model) return raw.model as RoomJsonData;
+    return raw;
+  } catch { return null; }
 }
 
 export function scanAllRooms(): { userToken: string; roomId: string; data: RoomJsonData }[] {

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "4421b0c1-9663-4250-8e1d-ce49ae1a9db3",
+    "name": "room.symlinkCanonical",
+    "description": "room.json becomes symlink to canonical scenario unit; one-shot backfill converts existing files. UC for T-room-symlink.",
+    "class": "ior:instance:1165c293-a2b3-4c4d-8e5f-6a7b8c9d0e1f",
+    "method": "ior:instance:7144f6ca-70f9-4816-b4db-88f9a08594df",
+    "tasks": ["ior:instance:755a2b09-9a50-4321-a3fe-5ff12c29034a"],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

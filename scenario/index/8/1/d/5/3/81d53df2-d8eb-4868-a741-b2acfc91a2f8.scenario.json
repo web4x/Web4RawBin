@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "81d53df2-d8eb-4868-a741-b2acfc91a2f8",
+    "name": "RbRoomDetail.scenarioLinkRender",
+    "description": "Renders UI link adjacent to edit pencil that navigates to the canonical Room scenario unit.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5a6d931a-e4f5-4321-b987-6a7b8c9d0e1f"
+}

@@ -8,7 +8,9 @@
       "ior:instance:08151f85-c057-4790-9300-5794a76cae6b"
     ],
     "methods": [
-      "ior:instance:2686a446-3d59-4a15-93f7-68f2660ec1e6"
+      "ior:instance:2686a446-3d59-4a15-93f7-68f2660ec1e6",
+      "ior:instance:6fc898ab-a933-4756-920a-3c9e4050d234",
+      "ior:instance:81d53df2-d8eb-4868-a741-b2acfc91a2f8"
     ],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "unitLinks": []
