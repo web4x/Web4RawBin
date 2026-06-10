@@ -10,7 +10,11 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
-    "altId": "R19.2"
+    "altId": "R19.2",
+    "refinedBy": [
+      "ior:instance:9311987c-6dcd-4b73-9d9b-74383d6e16b9"
+    ],
+    "refinedByNote": "Refined by R19.2.A which adds a pencil edit-icon affordance next to the room name and re-asserts that clicking opens the room config/scenario editor. Captured 2026-06-10 after T-room-ui v0.5.129 (commit 529d5c42) shipped without the room editor wired up."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

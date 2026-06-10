@@ -44,3 +44,8 @@
 ### Component-identity (refines R19.11+12+13)
 - **R19.21** (2026-06-10): the in-room Members/Files tree MUST be rendered by the SAME rb-tree component used in /trace, and items by the SAME rb-tree-item component (Lucide icon, speaky name, word-wrap description, drag, tap-to-collapse/expand, > expander). Discovered when T-room-ui v0.5.129 (commit 529d5c42) shipped an inline tree.
   > TRON: "the in room tree should be the same as in the treacability and the items the same as the itmens there!!!"
+
+### Room editor wiring + pencil affordance (refines R19.2)
+- **R19.2.A** (2026-06-10): the room name MUST carry a pencil edit icon (file-browser convention); clicking the pencil OR the name opens the room config/scenario editor. Captures BOTH the implementation-gap and the visual affordance.
+  > TRON (gap): "the app has no room config/scenario editor yet clicking on the room name in the room."
+  > TRON (addendum): "add a pencil like in the browser to see it opens an editor."
