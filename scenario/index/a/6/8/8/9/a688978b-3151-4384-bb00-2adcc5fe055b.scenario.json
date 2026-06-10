@@ -3,10 +3,12 @@
   "model": {
     "uuid": "a688978b-3151-4384-bb00-2adcc5fe055b",
     "altId": "R19.29",
-    "name": "R19.29: Tree owns badge calculation and lazy-eager prefetch as its own methods — items are dumb views the tree drives.",
-    "description": "The Tree component (rb-trace-tree) MUST own badge child-count calculation+assignment AND lazy/eager one-layer prefetch as its OWN methods/behavior operating ON its items. rb-object-item becomes a dumb view that the Tree drives — it does not self-calculate badge counts, does not self-trigger prefetch, and does not scatter these concerns across multiple trigger sites. This is an OO quality refactor: badge+prefetch logic moves FROM ad-hoc per-item/per-expand-site INTO Tree.updateBadges() and Tree.prefetchLayer() (or equivalent method names). The current scattered implementation causes a bug where some nodes (e.g. Class RbObjectItem) show badge 0 despite having a visible Method child — count inconsistent because not all trigger sites update correctly. The refactor fixes this by centralizing the source of truth.",
+    "name": "R19.29: Tree owns badge calculation and lazy-eager prefetch as its own methods \u2014 items are dumb views the tree drives.",
+    "description": "The Tree component (rb-trace-tree) MUST own badge child-count calculation+assignment AND lazy/eager one-layer prefetch as its OWN methods/behavior operating ON its items. rb-object-item becomes a dumb view that the Tree drives \u2014 it does not self-calculate badge counts, does not self-trigger prefetch, and does not scatter these concerns across multiple trigger sites. This is an OO quality refactor: badge+prefetch logic moves FROM ad-hoc per-item/per-expand-site INTO Tree.updateBadges() and Tree.prefetchLayer() (or equivalent method names). The current scattered implementation causes a bug where some nodes (e.g. Class RbObjectItem) show badge 0 despite having a visible Method child \u2014 count inconsistent because not all trigger sites update correctly. The refactor fixes this by centralizing the source of truth.",
     "tronQuote": "> TRON: \"increase the quality by more object orientation. the badges calculation and assignment and lazy eager loading must be more a method and behavior of the tree on the items as of the individual items.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:5df25620-3e44-41e5-9640-835bf83b557a"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
