@@ -99,6 +99,8 @@ Browse the requirement → use case → PUML → class/method → test chain:
 - **[Project State Is Scenarios](./scrum.pmo/standards/project-state-is-scenarios.md)** — Tron principle (2026-06-09): scenario units ARE the live project state; canonical planning workflow (find owning sprint → add scenario units → no floating tasks)
 - [Traceability Standard](./scrum.pmo/standards/traceability-standard.md) — the UUID chain convention (req/uc/class/impl/test tags)
 - [Scenario Data Pipeline](./scrum.pmo/standards/scenario-data-pipeline.md) — how scenario units flow from compound source → index → views/symlinks → planning.md (T188 dogfood)
+- [Scenario-Link Communication](./scrum.pmo/standards/scenario-link-communication.md) — Tron rule (2026-06-10): chat is pointer-only; details live in scenario units; statusChecklist edits ARE the status report
+
 - [Refinement Precedence Analysis](./scrum.pmo/standards/refinement-precedence-analysis.md) — chain-vs-navigation-vs-dependency rules; Planner↔Architect Sync Rule
 - [Sprint 1 Traceability Audit](./scrum.pmo/standards/sprint-1-traceability-audit.md)
 - [Sprints 2-9 Traceability Audit](./scrum.pmo/standards/sprints-2-9-traceability-audit.md)
