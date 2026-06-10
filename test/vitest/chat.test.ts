@@ -97,8 +97,6 @@ describe('TC-20.1: Chat message broadcast', () => {
     expect(disconnected.ws.send).not.toHaveBeenCalled();
   });
 
-  it('spectators also receive chat messages', () => {
-    const creator = makeMember({ name: 'Host' });
     const spectator = makeMember({ name: 'Watcher' });
     const room = new Room('ChatRoom', creator, { maxMembers: 4 });
     room.addSpectator(spectator);
@@ -137,8 +135,6 @@ describe('TC-20.2: Chat history on rejoin', () => {
     expect(history.messages[1].text).toBe('Second message');
   });
 
-  it('spectator receives CHAT_HISTORY on join', () => {
-    const creator = makeMember({ name: 'Host' });
     const room = new Room('ChatRoom', creator, { maxMembers: 4 });
 
     room.addChat(creator.id, 'Host', 'Before spectator');

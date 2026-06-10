@@ -43,7 +43,6 @@ const MSG = {
   CHAT_MESSAGE: 'CHAT_MESSAGE',
   SPECTATOR_JOINED: 'SPECTATOR_JOINED',
   SPECTATOR_LEFT: 'SPECTATOR_LEFT',
-  SPECTATE_JOINED: 'SPECTATE_JOINED',
   ROOM_ARCHIVED: 'ROOM_ARCHIVED',
 } as const;
 
@@ -92,7 +91,6 @@ export class Room {
   createdAt: number = Date.now();
 
   members: Map<string, RoomMember> = new Map();
-  spectators: Map<string, RoomMember> = new Map();
   private _chatHistory: ChatMessage[] = [];
   private creatorId: string = '';
   creatorToken: string = '';
@@ -188,34 +186,6 @@ export class Room {
     }
   }
 
-  // --- Spectators ---
-
-  addSpectator(member: RoomMember): void {
-    this.spectators.set(member.id, member);
-    this.sendToSpectator(member.id, {
-      type: MSG.SPECTATE_JOINED,
-      room: this.info(),
-      members: this.allMemberInfo(),
-    });
-    this.broadcastAll({ type: MSG.SPECTATOR_JOINED, name: member.name, spectatorCount: this.spectators.size });
-    if (this._chatHistory.length > 0) {
-      this.sendToSpectator(member.id, { type: MSG.CHAT_HISTORY, messages: this._chatHistory });
-    }
-  }
-
-  removeSpectator(id: string): void {
-    const spec = this.spectators.get(id);
-    this.spectators.delete(id);
-    if (spec) this.broadcastAll({ type: MSG.SPECTATOR_LEFT, spectatorCount: this.spectators.size });
-  }
-
-  promoteSpectator(spectatorId: string): boolean {
-    const spec = this.spectators.get(spectatorId);
-    if (!spec || this.state !== 'active') return false;
-    this.spectators.delete(spectatorId);
-    return this.addMember(spec);
-  }
-
   // --- Chat ---
 
   addChat(senderId: string, senderName: string, text: string): void {
@@ -244,7 +214,7 @@ export class Room {
 
   // --- Info ---
 
-  info(): RoomInfo & { spectatorCount: number; creatorId: string; ownerToken: string } {
+  info(): RoomInfo & { creatorId: string; ownerToken: string } {
     return {
       id: this.id,
       name: this.name,
@@ -256,7 +226,6 @@ export class Room {
       mode: this.mode,
       state: this.state,
       createdAt: this.createdAt,
-      spectatorCount: this.spectators.size,
       creatorId: this.creatorId,
       ownerToken: this.creatorToken,
     };
@@ -282,10 +251,6 @@ export class Room {
     this.members.forEach(m => {
       if (excludeId && m.id === excludeId) return;
       if (m.ws && m.ws.readyState === 1) m.ws.send(data);
-    });
-    this.spectators.forEach(s => {
-      if (excludeId && s.id === excludeId) return;
-      if (s.ws && s.ws.readyState === 1) s.ws.send(data);
     });
   }
 
@@ -403,7 +368,7 @@ export class RoomManager {
       if (room.creatorToken) continue;
       const age = now - room.createdAt;
       const aged = age >= maxAgeMs;
-      const empty = room.members.size === 0 && room.spectators.size === 0;
+      const empty = room.members.size === 0;
       const archived = room.state === 'archived';
       if (aged || (empty && archived)) {
         this.removeRoom(id);

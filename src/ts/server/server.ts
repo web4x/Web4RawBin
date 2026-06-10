@@ -1316,8 +1316,6 @@ function setupWebSocketServer(server: https.Server): void {
           addLog(`${clientId.slice(0,8)} left room ${room.name}`);
         }
       }
-      const specRoom = roomManager.findSpectatorRoom(clientId);
-      if (specRoom) specRoom.removeSpectator(clientId);
 
       broadcastRoomList();
     });
@@ -1405,7 +1403,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
           room.removeMember(clientId);
           if (room.members.size === 0 && !room.creatorToken) {
             setTimeout(() => {
-              if (room.members.size === 0 && room.spectators.size === 0 && !room.creatorToken) {
+              if (room.members.size === 0 && !room.creatorToken) {
                 roomManager.removeRoom(room.id);
                 broadcastRoomList();
               }
@@ -1502,42 +1500,13 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       break;
     }
 
-    case MSG.SPECTATE: {
-      const room = roomManager.getRoom(msg.roomId);
-      if (room) {
-        const specToken = [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
-        const specProfile = specToken ? userProfiles.get(specToken) : undefined;
-        const member: RoomMember = {
-          id: clientId, ws, name: msg.playerName || 'Spectator',
-          avatarUrl: specProfile?.avatar || '/icon-192.png', playerToken: specToken || '', disconnected: false,
-        };
-        room.addSpectator(member);
-        addLog(`${msg.playerName || clientId.slice(0,8)} spectating room ${room.name}`);
-      } else { send({ type: MSG.ERROR, message: 'Room not found' }); }
-      break;
-    }
 
-    case MSG.LEAVE_SPECTATE: {
-      const room = roomManager.findSpectatorRoom(clientId);
-      if (room) { room.removeSpectator(clientId); send({ type: MSG.SPECTATE_LEFT }); }
-      break;
-    }
 
-    case MSG.JOIN_ROOM_FROM_SPECTATE: {
-      const room = roomManager.findSpectatorRoom(clientId);
-      if (room) {
-        const ok = room.promoteSpectator(clientId);
-        if (!ok) send({ type: MSG.ERROR, message: 'Cannot join — room full' });
-      }
-      break;
-    }
 
     case MSG.CHAT_MESSAGE: {
-      const room = roomManager.findMemberRoom(clientId) || roomManager.findSpectatorRoom(clientId);
       if (room && msg.text && typeof msg.text === 'string') {
         const text = msg.text.slice(0, 200);
         const member = room.members.get(clientId);
-        const spec = room.spectators.get(clientId);
         const name = member?.name || spec?.name || 'Anonymous';
         room.addChat(clientId, name, text);
       }

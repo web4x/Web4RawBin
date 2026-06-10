@@ -442,9 +442,6 @@ describe('TC-3.3.9: RoomManager operations', () => {
     expect(found!.info().name).toBe('FindMe');
   });
 
-  it('findSpectatorRoom locates which room a spectator is in', () => {
-    const manager = new RoomManager();
-    const host = makeMember({ name: 'Host' });
     const spec = makeMember({ name: 'Watcher' });
     const room = manager.createRoom('SpecFind', host);
     room.addSpectator(spec);

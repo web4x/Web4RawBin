@@ -229,11 +229,8 @@ export class RawBinClient {
   removeRoom(roomId: string): void { this.send({ type: MSG.REMOVE_ROOM, roomId }); }
 
   spectateRoom(roomId: string, name: string): void {
-    this.send({ type: MSG.SPECTATE, roomId, playerName: name });
   }
-  leaveSpectate(): void { this.send({ type: MSG.LEAVE_SPECTATE }); }
   joinFromSpectate(name: string): void {
-    this.send({ type: MSG.JOIN_ROOM_FROM_SPECTATE, playerName: name });
   }
 
   sendChat(text: string): void { this.send({ type: MSG.CHAT_MESSAGE, text }); }
