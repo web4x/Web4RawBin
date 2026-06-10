@@ -1425,6 +1425,23 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       break;
     }
 
+
+    case MSG.UPDATE_ROOM_CONFIG: {
+      const cfgRoom = roomManager.getRoom(msg.roomId);
+      if (!cfgRoom) { send({ type: MSG.ERROR, message: "Room not found" }); break; }
+      const cfgToken = [...wsClients].find(c => c.id === clientId)?.playerToken || [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
+      const cfgIsOwner = cfgRoom.creatorToken ? (cfgRoom.creatorToken === cfgToken) : (cfgRoom.getCreatorId() === cfgToken);
+      if (!cfgIsOwner) { send({ type: MSG.ERROR, message: "Only the room owner can edit config" }); break; }
+      if (typeof msg.name === "string" && msg.name.trim() && msg.name.trim() !== cfgRoom.name) { cfgRoom.name = msg.name.trim().slice(0, 80); }
+      if (msg.visibility === "public" || msg.visibility === "by-invite" || msg.visibility === "private") { cfgRoom.setVisibility(msg.visibility); }
+      if (msg.mode === "live" || msg.mode === "persistent") { cfgRoom.setMode(msg.mode); }
+      (cfgRoom as any).persist();
+      cfgRoom.broadcast({ type: MSG.ROOM_CONFIG_UPDATED, room: cfgRoom.info() });
+      broadcastRoomList();
+      addLog("Room config updated: " + cfgRoom.name + " (" + msg.roomId.slice(0,8) + ") visibility=" + cfgRoom.visibility + " mode=" + cfgRoom.mode);
+      break;
+    }
+
     case MSG.REMOVE_ROOM: {
       const room = roomManager.getRoom(msg.roomId);
       if (!room) break;

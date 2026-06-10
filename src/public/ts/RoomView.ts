@@ -23,6 +23,8 @@ export class RoomView {
   private roomId = '';
   private roomName = '';
   private hostId = '';
+  private roomVisibility: 'public' | 'by-invite' | 'private' = 'public';
+  private roomMode: 'live' | 'persistent' = 'persistent';
   private members: MemberInfo[] = [];
   private profileEditor: ProfileEditor;
   private profileSheet: ProfileSheet;
@@ -38,7 +40,7 @@ export class RoomView {
     this.client.on(MSG.ROOM_JOINED, (msg) => {
       this.roomId = msg.room.id;
       this.roomName = msg.room.name;
-      this.hostId = msg.room.hostId;
+      this.hostId = msg.room.hostId; this.roomVisibility = msg.room.visibility || (msg.room.isPrivate ? 'private' : 'public'); this.roomMode = msg.room.mode || 'persistent';
       this.members = msg.members || [];
       this.render();
       if (msg.room.chatHistory?.length) this.chatSheet?.loadHistory(msg.room.chatHistory);
@@ -50,6 +52,7 @@ export class RoomView {
     this.client.on(MSG.CHAT_HISTORY, (msg) => { if (msg.messages) this.chatSheet?.loadHistory(msg.messages); });
     this.client.on(MSG.CHAT_MESSAGE, (msg) => this.chatSheet?.addMessage(msg.senderId, msg.senderName, msg.text));
     this.client.on(MSG.ROOM_DELETED, () => this.onLeave());
+    this.client.on(MSG.ROOM_CONFIG_UPDATED, (msg) => { if (msg.room) { this.roomName = msg.room.name; this.roomVisibility = msg.room.visibility || this.roomVisibility; this.roomMode = msg.room.mode || this.roomMode; this.render(); } });
     this.client.on('disconnected', () => this.chatSheet?.setWsStatus('disconnected'));
     this.client.on('reconnecting', (msg) => this.chatSheet?.setWsStatus('reconnecting', msg.backoffMs ? `${Math.ceil(msg.backoffMs / 1000)}s` : undefined));
     this.client.on('reconnected', () => { this.chatSheet?.setWsStatus('connected'); this.hideOfflineBanner(); });
@@ -58,6 +61,7 @@ export class RoomView {
 
     this.container.addEventListener('rb-leave', () => { this.client.leaveRoom(); this.onLeave(); });
     this.container.addEventListener('rb-delete', () => { if (confirm('Delete this room permanently?')) this.client.deleteRoom(this.roomId); });
+    this.container.addEventListener('rb-edit', () => this.openRoomEditor());
     this.container.addEventListener('rb-member-click', ((e: CustomEvent) => {
       const { playerToken, isSelf } = e.detail;
       if (isSelf) {
@@ -83,11 +87,32 @@ export class RoomView {
     this.members = [];
   }
 
+  private openRoomEditor(): void {
+    const overlay = document.createElement("div");
+    overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000";
+    overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.remove(); });
+    const modal = document.createElement("div");
+    modal.style.cssText = "background:#1a1a2e;color:#fff;padding:20px;border-radius:12px;max-width:400px;width:90%;max-height:80vh;overflow-y:auto";
+    const v = this.roomVisibility, m = this.roomMode;
+    modal.innerHTML = `<h3 style="margin-bottom:16px">Edit Room Config</h3><label style="display:block;margin-bottom:12px">Name<br><input id="re-name" type="text" style="width:100%;padding:8px;margin-top:4px;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:6px"></label><fieldset style="border:none;padding:0;margin-bottom:12px"><legend>Visibility</legend><label><input type="radio" name="re-vis" value="public" ${v==="public"?"checked":""}> Public</label><br><label><input type="radio" name="re-vis" value="by-invite" ${v==="by-invite"?"checked":""}> By-Invite</label><br><label><input type="radio" name="re-vis" value="private" ${v==="private"?"checked":""}> Private</label></fieldset><fieldset style="border:none;padding:0;margin-bottom:16px"><legend>Mode</legend><label><input type="radio" name="re-mode" value="live" ${m==="live"?"checked":""}> Live</label><br><label><input type="radio" name="re-mode" value="persistent" ${m==="persistent"?"checked":""}> Persistent (default)</label></fieldset><div style="display:flex;gap:8px;justify-content:flex-end"><button id="re-cancel" class="btn btn-secondary">Cancel</button><button id="re-save" class="btn btn-primary">Save</button></div>`;
+    (modal.querySelector("#re-name") as HTMLInputElement).value = this.roomName;
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+    modal.querySelector("#re-cancel")!.addEventListener("click", () => overlay.remove());
+    modal.querySelector("#re-save")!.addEventListener("click", () => {
+      const name = (modal.querySelector("#re-name") as HTMLInputElement).value.trim();
+      const vis = (modal.querySelector("input[name=re-vis]:checked") as HTMLInputElement)?.value;
+      const md = (modal.querySelector("input[name=re-mode]:checked") as HTMLInputElement)?.value;
+      this.client.send({ type: MSG.UPDATE_ROOM_CONFIG, roomId: this.roomId, name, visibility: vis, mode: md });
+      overlay.remove();
+    });
+  }
+
   private render(): void {
     const isHost = this.hostId === this.client.clientId;
     this.container.innerHTML = `
       <div class="room-view">
-        <rb-header title="${this.roomName}" show-leave show-home ${isHost ? 'show-delete' : ''} show-reload show-fullscreen></rb-header>
+        <rb-header title="${this.roomName}" show-leave show-home ${isHost ? 'show-delete show-edit' : ''} show-reload show-fullscreen></rb-header>
         <div id="offline-banner" class="offline-banner" style="display:none">Offline — messages queued</div>
         <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="rrc-tree"><div class="rrc-node" data-node="members"><div class="rrc-node-row"><span class="rrc-node-toggle">▾</span><span class="rrc-node-label">Members</span><span class="rrc-node-count" id="rrc-members-count">0</span></div><div class="rrc-node-children" id="rrc-members-children"></div></div><div class="rrc-node" data-node="files"><div class="rrc-node-row"><span class="rrc-node-toggle">▾</span><span class="rrc-node-label">Files</span><span class="rrc-node-count" id="rrc-files-count">0</span></div><div class="rrc-node-children" id="rrc-files-children"><div class="rrc-empty">— empty —</div></div></div></div></div></div>
       </div>`;
