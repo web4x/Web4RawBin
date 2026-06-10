@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "2592c3c9-24e1-4d6a-bce7-79f129b1df94",
+    "name": "FileApi",
+    "sourceFile": "ior:file:src/ts/server/FileApi.ts",
+    "methods": [
+      "ior:instance:6a52a207-f7ba-4e16-ad59-7023f76d9836",
+      "ior:instance:d979e1a6-8ec4-4ef2-af9b-c6e93ba109ee"
+    ],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
