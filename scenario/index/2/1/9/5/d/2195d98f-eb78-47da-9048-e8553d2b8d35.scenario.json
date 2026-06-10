@@ -5,8 +5,8 @@
     "name": "T-room-ui-shared: in-room tree REUSES /trace rb-tree + rb-tree-item with Members/Files data adapters",
     "slug": "room-ui-shared-rb-tree-reuse-members-files-adapters",
     "description": "Refinement of T-room-ui ae090710 - 529d5c42 v0.5.129 shipped with an inline ad-hoc tree. Tron directive: REUSE the existing /trace rb-tree + rb-tree-item components for the in-room Members/Files tree. Architect designs data adapters: Members fed from WS feed; Files from unitLinks[] of FileLoader. Expert implements the adapter layer + swaps the inline tree for rb-tree. Singular-chain by design: ONE UseCase per Task; ONE Method per UseCase (per LOCKED 7-step chain; learning #27 strict-verify-bar).",
-    "status": "Planned",
-    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement architect - rb-tree + rb-tree-item reuse + adapter design\n  - [ ] creating test cases\n  - [ ] implementing expert rule-pair a+b\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect - delete components/rb-tree.ts, RoomView reuse trace/rb-object-item + rb-trace-tree + Members/Files adapters\n  - [ ] creating test cases\n  - [ ] implementing expert - REOPENED (c4ff02a5 was false reuse: built fake rb-tree.ts vs /trace rb-object-item)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:d1391ee3-d08c-4db1-8445-753b4d1c89a3"
     ],
