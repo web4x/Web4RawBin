@@ -152,6 +152,7 @@ export class RoomBrowser {
         }
       });
     });
+  // [impl:uuid:0e11cfb4-249c-4a20-baa9-932401f8e19e] JoinRequestFlow.applySend
     list.querySelectorAll('.btn-apply').forEach(btn => {
       btn.addEventListener('click', () => {
         const roomId = (btn as HTMLElement).dataset.room!;

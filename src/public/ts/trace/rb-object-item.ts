@@ -55,6 +55,7 @@ export class RbObjectItem extends HTMLElement {
     if (dt.setDragImage) dt.setDragImage(this, 20, 20);
   };
 
+  // [impl:uuid:8474594f-78d1-4e3a-bc13-55135288bcc4] RbObjectItem.onClickDelegate
   private onClickDelegate = (e: Event): void => {
     const target = e.target as HTMLElement;
     const icon = this.querySelector('.oi-icon');
