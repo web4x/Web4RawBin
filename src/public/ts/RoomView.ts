@@ -99,6 +99,8 @@ export class RoomView {
     this.members = [];
   }
 
+  // [impl:uuid:6fc898ab-a933-4756-920a-3c9e4050d234] RbRoomDetail.editOpen R19
+  // [impl:uuid:81d53df2-d8eb-4868-a741-b2acfc91a2f8] RbRoomDetail.scenarioLinkRender R19
   private openRoomEditor(): void {
     const overlay = document.createElement("div");
     overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000";
@@ -125,6 +127,7 @@ export class RoomView {
     this.container.innerHTML = `
       <div class="room-view">
         <rb-header title="${this.roomName}" show-leave show-home ${isHost ? 'show-delete show-edit' : ''} show-reload show-fullscreen></rb-header>
+        <div style="padding:0 16px 4px;display:flex;gap:8px;align-items:center"><a href="/scenario?ior=${this.roomId}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="View room scenario unit">📄 Scenario</a><span style="color:rgba(255,255,255,0.3);font-size:0.65rem">${this.roomId.slice(0,8)}</span></div>
         <div id="offline-banner" class="offline-banner" style="display:none">Offline — messages queued</div>
         <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="rrc-tree"><rb-tree id="rrc-members-tree" label="Members" open></rb-tree><rb-tree id="rrc-files-tree" label="Files" open></rb-tree></div></div></div>
       </div>`;
