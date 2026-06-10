@@ -5,8 +5,6 @@
     "name": "RbRoomContent",
     "sourceFile": "ior:file:src/public/ts/room/rb-room-content.ts",
     "useCases": [
-      "ior:instance:30a1d896-f3cc-44e8-9036-891929efb24b",
-      "ior:instance:7fcfda02-50b7-44b5-a06a-ddd96d4f7fb3",
       "ior:instance:3c2daa94-420d-496a-abfc-5a96297d01a4"
     ],
     "methods": [

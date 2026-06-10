@@ -5,12 +5,9 @@
     "name": "RbRoomDetail",
     "sourceFile": "ior:file:src/public/ts/room/rb-room-detail.ts",
     "useCases": [
-      "ior:instance:e14946bf-c28a-4f79-8ab4-2dcbd619a85b",
-      "ior:instance:e6790cf6-ca86-430c-934f-8b89eb0827ac",
       "ior:instance:08151f85-c057-4790-9300-5794a76cae6b"
     ],
     "methods": [
-      "ior:instance:c1822b4c-2e2a-4c85-ba96-c8bc2fec6154",
       "ior:instance:2686a446-3d59-4a15-93f7-68f2660ec1e6"
     ],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
