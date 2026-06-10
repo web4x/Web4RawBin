@@ -84,7 +84,8 @@ rb-object-item:hover .oi-name { white-space: normal; word-break: break-word; }
 rb-object-item[collapsed] .oi-content { display: none; }
 rb-object-item[collapsed] .oi-expand { display: none; }
 rb-object-item[collapsed] .oi-badge { display: none; }
-rb-object-item[collapsed] { padding: 4px; gap: 0; width: 40px; min-height: 40px; }
+rb-object-item[collapsed] { width: 40px; height: 40px; min-width: 40px; min-height: 40px; padding: 4px; gap: 0; display: flex; align-items: center; justify-content: center; }
+.tt-row rb-object-item[collapsed] { flex: 0 0 40px; min-width: 40px; }
 .oi-badge { background: #e53935; color: white; font-size: 0.65rem; font-weight: 700; min-width: 18px; height: 18px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 0 4px; }
 .oi-expand { width: 24px; height: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); font-size: 1.2rem; flex-shrink: 0; transition: transform 0.2s; }
 .oi-expand:hover { color: rgba(255,255,255,0.8); }
@@ -114,7 +115,7 @@ rb-object-item[children-open] .oi-expand { transform: rotate(90deg); }
 .ov-count { color: rgba(255,255,255,0.7); font-size: 0.7rem; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 8px; }
 /* T108 rb-trace-tree (lives in the dark /edit tree panel) */
 .trace-tree { display: block; padding: 4px; }
-.tt-row { display: flex; align-items: center; gap: 4px; }
+.tt-row { display: flex; align-items: center; gap: 4px; min-height: 48px; }
 .tt-row rb-object-item { flex: 1; margin-bottom: 4px; }
 .tt-children { margin-left: 14px; border-left: 1px solid #3c3c3c; padding-left: 4px; }
 .tt-warn { flex-shrink: 0; }
