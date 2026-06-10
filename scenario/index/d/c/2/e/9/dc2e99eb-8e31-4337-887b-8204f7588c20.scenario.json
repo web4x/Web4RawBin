@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "dc2e99eb-8e31-4337-887b-8204f7588c20",
+    "name": "R19.12: Below the drop area sits a tree with exactly two nodes: Members and Files.",
+    "description": "Tron literal: \"below there is a tree with two nodes, Members and Files.\"",
+    "tronQuote": "> TRON: \"below there is a tree with two nodes, Members and Files.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

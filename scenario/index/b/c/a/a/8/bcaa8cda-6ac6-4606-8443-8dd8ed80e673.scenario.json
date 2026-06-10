@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "bcaa8cda-6ac6-4606-8443-8dd8ed80e673",
+    "name": "R19.4: PRIVATE rooms are listed only for their owners.",
+    "description": "Tron literal: \"private rooms are only listed for owners.\"",
+    "tronQuote": "> TRON: \"private rooms are only listed for owners.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

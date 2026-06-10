@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "8bd2f61f-d229-4eec-a385-47795c753ca2",
+    "name": "R19.6: PUBLIC rooms show a join button (current behaviour preserved).",
+    "description": "Derived contrast to R19.5: \"not a join button like public rooms\" implies PUBLIC keeps its existing join-button affordance.",
+    "tronQuote": "> TRON: \"the show not a join button like public rooms but an „Apply\" button.\" (PUBLIC keeps the join button — current behaviour)",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

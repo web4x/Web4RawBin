@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d6c4604a-339f-4690-8f92-7885dec8def5",
+    "name": "R19.9: Members (contacts) can be added to and removed from the room's member list.",
+    "description": "Tron literal: \"contacts can be added and temoved from the room member list.\"",
+    "tronQuote": "> TRON: \"contacts can be added and temoved from the room member list.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

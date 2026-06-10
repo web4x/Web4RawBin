@@ -1,0 +1,36 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "97f513a1-db0b-4216-87c2-a85c93daae28",
+    "name": "Sprint 19 — Room Handling",
+    "number": 19,
+    "goal": "Rooms and files become first-class scenario units like every other req/task/method. Click the room name to edit the room config scenario. Visibility = public | by-invite (Apply-flow with an invite-request message carrying the requester's name+uuid, accept→join) | private (password, listed only for owners). Lifecycle = live | persistent (persistent keeps offline members listed-as-offline so no contact is ever lost; persistent becomes default after this sprint, switchable to live in the editor). Members can be added and removed. Room content area has a drop-zone double the size of a tree-overview item view; below it a tree with two nodes — Members (member item views) and Files. Uploaded files are stored in the uuid index as uuid.content + uuid.scenario.json with unitLinks[] symlinks (e.g. into a room folder) — every file is a unique scenario unit.",
+    "status": "Planned",
+    "compoundSource": "scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "requirements": [
+      "ior:instance:3e14d73c-1ddb-4f42-8d33-481581a8ec95",
+      "ior:instance:18ecdab4-e8d1-453f-89b2-4cae64103a80",
+      "ior:instance:1f1849b5-b47a-4018-8bb1-cd9690884930",
+      "ior:instance:bcaa8cda-6ac6-4606-8443-8dd8ed80e673",
+      "ior:instance:97bb40eb-638f-463b-b66d-e601cc0802c1",
+      "ior:instance:8bd2f61f-d229-4eec-a385-47795c753ca2",
+      "ior:instance:b6b9c0ab-0f35-4801-b7f0-cd6dc3820f23",
+      "ior:instance:30dcb1a0-17b9-4fcb-9823-e71a4dc371c9",
+      "ior:instance:d6c4604a-339f-4690-8f92-7885dec8def5",
+      "ior:instance:1350d422-1133-4f04-9f9f-c0b3c4930542",
+      "ior:instance:61c2661a-fb8a-489a-9d5d-abc4e819cf5d",
+      "ior:instance:dc2e99eb-8e31-4337-887b-8204f7588c20",
+      "ior:instance:409ea58b-763b-433e-b17d-0ea156d94355",
+      "ior:instance:f1ca3cc9-a675-4a3b-9898-9e33d7876ed8"
+    ],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-po",
+    "joint": [
+      "robbin-req",
+      "robbin-planner",
+      "robbin-architect"
+    ]
+  },
+  "ownerIor": null
+}

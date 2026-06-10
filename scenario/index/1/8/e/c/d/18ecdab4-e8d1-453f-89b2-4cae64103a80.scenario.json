@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18ecdab4-e8d1-453f-89b2-4cae64103a80",
+    "name": "R19.2: Clicking the room name opens the room config scenario for editing (room editor).",
+    "description": "Tron literal: \"in a room you can click on the room name and edit the room config scenario.\"",
+    "tronQuote": "> TRON: \"in a room you can click on the room name and edit the room config scenario.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

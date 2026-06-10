@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "409ea58b-763b-433e-b17d-0ea156d94355",
+    "name": "R19.13: Members are displayed as item views below the Members node.",
+    "description": "Tron literal: \"members will be diplayes as item views below the member node.\"",
+    "tronQuote": "> TRON: \"members will be diplayes as item views below the member node.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

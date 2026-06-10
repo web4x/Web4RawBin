@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "1f1849b5-b47a-4018-8bb1-cd9690884930",
+    "name": "R19.3: Room visibility is one of three modes: PUBLIC, BY-INVITE, or PRIVATE (password-protected).",
+    "description": "Tron literal: \"rooms can be public, by invite or with private password.\"",
+    "tronQuote": "> TRON: \"rooms can be public, by invite or with private password.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
