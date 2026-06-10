@@ -256,15 +256,16 @@ export class Room {
     };
   }
 
+  // [impl:uuid:9a25adbd-b1c2-4d3e-8f4a-5b6c7d8e9f00] R19.8.A member disconnected field
   private memberInfo(id: string) {
     const m = this.members.get(id);
     if (!m) return null;
-    return { id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken };
+    return { id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken, disconnected: !!m.disconnected };
   }
 
   private allMemberInfo() {
     return [...this.members.values()].map(m => ({
-      id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken,
+      id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken, disconnected: !!m.disconnected,
     }));
   }
 

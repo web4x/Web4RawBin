@@ -15,7 +15,7 @@ import type { RbMemberList } from './components/rb-member-list.js';
 import type { RbTree } from './components/rb-tree.js';
 
 interface MemberInfo {
-  id: string; name: string; avatarUrl: string; playerToken: string; avatarCrop?: { scale: number; x: number; y: number } | null;
+  id: string; name: string; avatarUrl: string; playerToken: string; avatarCrop?: { scale: number; x: number; y: number } | null; disconnected?: boolean;
 }
 
 export class RoomView {
@@ -50,7 +50,7 @@ export class RoomView {
     });
     this.client.on(MSG.MEMBER_JOINED, (msg) => { if (msg.member) this.members.push(msg.member); this.renderMemberList(); });
     this.client.on(MSG.MEMBER_LEFT, (msg) => { this.members = this.members.filter(m => m.id !== msg.memberId); this.renderMemberList(); });
-    this.client.on(MSG.MEMBER_DISCONNECTED, () => this.renderMemberList());
+    this.client.on(MSG.MEMBER_DISCONNECTED, (msg) => { const m = this.members.find(x => x.id === msg.memberId); if (m) m.disconnected = true; this.renderMemberList(); });
     this.client.on(MSG.HOST_CHANGED, (msg) => { this.hostId = msg.hostId; this.renderMemberList(); });
     this.client.on(MSG.CHAT_HISTORY, (msg) => { if (msg.messages) this.chatSheet?.loadHistory(msg.messages); });
     this.client.on(MSG.CHAT_MESSAGE, (msg) => this.chatSheet?.addMessage(msg.senderId, msg.senderName, msg.text));
@@ -179,7 +179,8 @@ export class RoomView {
     if (tree) {
       tree.setItems(this.members.map(m => ({
         id: m.id, label: m.name || '?',
-        badge: m.id === this.hostId ? 'host' : (m.id === this.client.clientId ? 'you' : ''),
+        icon: m.disconnected ? '⚫' : '🟢',
+        badge: m.id === this.hostId ? 'host' : (m.id === this.client.clientId ? 'you' : (m.disconnected ? 'offline' : '')),
       })));
     }
   }
@@ -190,7 +191,7 @@ export class RoomView {
     if (!el) return;
     el.setMembers(this.members.map(m => ({
       id: m.id, name: m.name, avatarUrl: m.avatarUrl, avatarCrop: m.avatarCrop, playerToken: m.playerToken,
-      isHost: m.id === this.hostId, isSelf: m.id === this.client.clientId, isConnected: true,
+      isHost: m.id === this.hostId, isSelf: m.id === this.client.clientId, isConnected: !m.disconnected,
     })));
   }
 }
