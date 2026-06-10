@@ -8,7 +8,7 @@ import { viewBus } from './ViewBus.js';
 interface RoomInfo {
   id: string; name: string; hostId: string; memberCount: number;
   maxMembers: number; isPrivate: boolean; state: string;
-  creatorId?: string; ownerToken?: string; ownerName?: string;
+  creatorId?: string; ownerToken?: string; ownerName?: string; mode?: "live"|"persistent"; visibility?: "public"|"by-invite"|"private";
 }
 
 export class RoomBrowser {
@@ -131,7 +131,7 @@ export class RoomBrowser {
             <span class="room-name">${room.isPrivate ? '🔒 ' : ''}${room.name}${ownerLabel}</span>
             <span class="room-members">${room.memberCount}/${room.maxMembers} members</span>
             <span class="room-id">${room.id}</span>
-            <span class="room-persist" title="Persistent room — saved to disk with its own SSH identity">💾 Persistent</span>
+            <span class="room-persist" title="Room lifecycle mode">${room.mode === "live" ? "⚡ Live" : "💾 Persistent"}</span>
           </div>
           <div class="room-status">
             <span class="room-state room-state-${room.state}">${stateLabel}</span>

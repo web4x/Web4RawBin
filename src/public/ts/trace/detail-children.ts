@@ -43,9 +43,13 @@ export function renderParentLink(parent: DetailParent | null): string {
 
 export function renderSourceLink(sourceFile?: string, sourceLine?: number): string {
   if (!sourceFile) return '';
-  const href = sourceLine ? `/edit/${sourceFile}#L${sourceLine}` : `/edit/${sourceFile}`;
+  const parts = sourceFile.split('/');
+  const fileName = parts.pop() || sourceFile;
+  const dirPath = parts.join('/');
+  const lineParam = sourceLine ? `&line=${sourceLine}` : '';
+  const browseHref = `/md/${dirPath}/?highlight=${encodeURIComponent(fileName)}${lineParam}`;
   const label = sourceLine ? `${sourceFile}:${sourceLine}` : sourceFile;
-  return `<div class="dv-source" style="margin-bottom:6px"><a href="${href}" style="color:#42a5f5;font-size:0.75rem;text-decoration:none;font-family:monospace">📂 ${esc(label)}</a></div>`;
+  return `<div class="dv-source" style="margin-bottom:6px"><a href="${browseHref}" style="color:#42a5f5;font-size:0.75rem;text-decoration:none;font-family:monospace">📂 ${esc(label)}</a></div>`;
 }
 
 function esc(s: string): string {

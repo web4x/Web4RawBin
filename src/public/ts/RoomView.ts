@@ -23,6 +23,7 @@ export class RoomView {
   private roomId = '';
   private roomName = '';
   private hostId = '';
+  private roomOwnerToken = '';
   private roomVisibility: 'public' | 'by-invite' | 'private' = 'public';
   private roomMode: 'live' | 'persistent' = 'persistent';
   private members: MemberInfo[] = [];
@@ -40,7 +41,7 @@ export class RoomView {
     this.client.on(MSG.ROOM_JOINED, (msg) => {
       this.roomId = msg.room.id;
       this.roomName = msg.room.name;
-      this.hostId = msg.room.hostId; this.roomVisibility = msg.room.visibility || (msg.room.isPrivate ? 'private' : 'public'); this.roomMode = msg.room.mode || 'persistent';
+      this.hostId = msg.room.hostId; this.roomOwnerToken = msg.room.ownerToken || ''; this.roomVisibility = msg.room.visibility || (msg.room.isPrivate ? 'private' : 'public'); this.roomMode = msg.room.mode || 'persistent';
       this.members = msg.members || [];
       this.render();
       if (msg.room.chatHistory?.length) this.chatSheet?.loadHistory(msg.room.chatHistory);
@@ -109,7 +110,7 @@ export class RoomView {
   }
 
   private render(): void {
-    const isHost = this.hostId === this.client.clientId;
+    const isHost = this.roomOwnerToken === this.client.playerToken;
     this.container.innerHTML = `
       <div class="room-view">
         <rb-header title="${this.roomName}" show-leave show-home ${isHost ? 'show-delete show-edit' : ''} show-reload show-fullscreen></rb-header>

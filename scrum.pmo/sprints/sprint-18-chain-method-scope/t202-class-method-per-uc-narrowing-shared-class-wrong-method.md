@@ -49,12 +49,101 @@
 
 **Sibling of R18.13** (chain narrowing: every chain terminates in Test). T187 fixed the chain *narrowing* (one method per UC) but the *selection* is still wrong when a Class is shared — the wrong UC's method gets picked.
 
-## Design — robbin-architect (PENDING)
+## Design - robbin-architect (2026-06-10)
 
-To be authored by robbin-architect. Hooks:
-- `/api/trace/children/<uuid>` (introduced in T173 v0.5.68 / v0.5.69; documented in S17 scenario units) currently returns `Class.methods[]` directly when expanding a Class node. Architect to specify the **UC chainMethod context** parameter (URL query, header, or `?uc=<uuid>` etc.) that the expander passes when navigating from a UC's Class.
-- Resolver to use the active UC's `chainMethod` IOR to select the single correct Method, not the full `Class.methods[]` array.
-- Backwards compat: requests without a UC context fall back to current behaviour (won't break trace-cli / audit tooling).
+### Root cause
+
+The /api/trace/children API has no UC context when expanding a shared Class.
+
+Class scenario units carry methods[] (plural) because Class can be reused across UCs. TRACE_FWD says Class:[method] singular (server.ts:554). Lookup finds no method field, scanRepo fallback returns ALL methods (line 580-587). EXPECTED_CHILD_TYPE only restricts type not identity.
+
+Client-side narrowing via the chainMethod closure (rb-trace-tree.ts:217, 226-228) works only for one-hop UC -> Class -> Method within a single render pass. It is LOST whenever:
+
+1. fetchAndRenderChildren (rb-trace-tree.ts:325) is invoked (deep walks, restored localStorage expanded state, or any node whose parent did not pass chainMethod down).
+2. The Class is the data-seed-ior (no UC parent in scope).
+3. External callers (trace-cli, trace:audit:strict, future SDK) hit the API directly with no client closure state.
+
+S19 makes this real: Class Room (1165c293) is shared by three task-UCs - room.bootstrapAsUnit -> Room.init, room.enforceVisibility -> Room.visibilityCheck, room.maintainPersistentMembers -> Room.memberAdd. Expanding Room from any of those three chains is the exact defect surface.
+
+### Fix - server contract
+
+/api/trace/children/<uuid> accepts a new optional query parameter ?uc=<ucUuid>. When present AND mode=trace AND the resolved unit type is Class, the server narrows children using UC.method instead of Class.methods[] fan-out.
+
+Patch site: src/ts/server/server.ts /api/trace/children handler (line 537+). Insert after const fwdKeys (line 558):
+
+```typescript
+const ucParam = urlParams.get("uc") || "";
+let narrowedChildRefs: string[] | null = null;
+
+if (queryMode === "trace" && type === "Class" && ucParam) {
+  const ucUnit = idx.get(ucParam.replace(/^ior:instance:/, ""));
+  if (ucUnit && (ucUnit.ior || "") === "ior:class:UseCase") {
+    const ucMethodIor = String((ucUnit.model as Record<string, unknown>).method || "").replace(/^ior:instance:/, "");
+    if (ucMethodIor) {
+      const classMethods = (unit.model as Record<string, unknown>).methods;
+      const arr = Array.isArray(classMethods) ? classMethods.map(m => String(m).replace(/^ior:instance:/, "")) : [];
+      if (arr.includes(ucMethodIor)) narrowedChildRefs = [ucMethodIor];
+    }
+  }
+}
+
+let childRefs: string[] = narrowedChildRefs || [];
+if (narrowedChildRefs === null) {
+  // existing TRACE_FWD / SCENARIO_FWD lookup + scanRepo fallback runs unchanged
+}
+```
+
+Behavior matrix:
+
+| mode | type | ?uc= | result |
+|------|------|------|--------|
+| trace | Class | provided + UC.method in Class.methods[] | children=[UC.method] (narrowed) |
+| trace | Class | provided but mismatch | falls through to current path |
+| trace | Class | absent | current behavior - Class.methods[] fan-out (backward compat) |
+| scenario | any | any | unchanged |
+| trace | non-Class | any | unchanged |
+
+### Fix - client propagation
+
+rb-trace-tree.ts already plumbs chainMethod through buildSeedNode (line 196). Two changes:
+
+1. Thread ucContext?: string alongside chainMethod. When the parent rendered by the server is a UseCase, capture its uuid and pass to every descendant through buildSeedNode and into the toggle handler fetchAndRenderChildren call.
+
+2. Append \&uc=<ucContext> in fetchAndRenderChildren (line 325) when ucContext is set.
+
+```typescript
+private async fetchAndRenderChildren(
+  uuid: string, container: HTMLElement,
+  ancestors?: Set<string>, ucContext?: string,
+): Promise<void> {
+  const branchVisited = new Set(ancestors || []);
+  branchVisited.add(uuid);
+  const ucQuery = ucContext ? \`\&uc=\${encodeURIComponent(ucContext)}\` : "";
+  try {
+    const res = await fetch(
+      \`/api/trace/children/\${encodeURIComponent(uuid)}\${this.modeParam}\${ucQuery}\`,
+    );
+    const data = await res.json();
+    const children = data.children || [];
+    for (const child of children) {
+      container.appendChild(this.buildSeedNode(
+        child.uuid, child.type, child.name, [],
+        child.hasChildren, new Set(branchVisited),
+        (child as any).chainMethod, ucContext,
+      ));
+    }
+  } catch { /* silent */ }
+}
+```
+
+When the rendered node IS a UseCase, set ucContext = uuid for its descendants. When it is a Method/Implementation/Test, ucContext is inherited from the parent so nested expand fetches (Impl -> Test) still know which chain they belong to.
+
+### Backwards compatibility
+
+- Requests without ?uc= see no change. trace-cli, trace:audit:strict, external SDK still get full Class.methods[] fan-out. AC4 + AC5 preserved.
+- Response shape UNCHANGED - same children:[...] array, same per-child fields. Only filter behavior gated on new param.
+- Client bundle hash CHANGES - rule-pair (a) package.json + (b) sw.js CACHE_NAME bump per AC6.
+
 
 ## Acceptance Criteria
 

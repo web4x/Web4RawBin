@@ -360,6 +360,7 @@ export class RoomManager {
       .filter(r => {
         if (r.isPrivate) return false;
         if (!r.creatorToken) return true;
+        if (r.mode === 'persistent') return true;
         if (r.members.size > 0) return true;
         return connectedOwners ? connectedOwners.has(r.creatorToken) : false;
       })
