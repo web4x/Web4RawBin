@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "31fddcb6-8b5f-46e8-96f0-cbc6bd7d0db4",
+    "name": "impl:ScenarioIndex.put(uuid",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:5b84da47-c7f4-4b01-b492-fae21be2e3cd"
+    ]
+  },
+  "ownerIor": "ior:instance:5b84da47-c7f4-4b01-b492-fae21be2e3cd"
+}

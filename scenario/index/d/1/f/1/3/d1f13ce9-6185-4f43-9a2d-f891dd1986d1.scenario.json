@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d1f13ce9-6185-4f43-9a2d-f891dd1986d1",
+    "name": "impl:FileApi.highlightFile",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:6a52a207-f7ba-4e16-ad59-7023f76d9836"
+    ]
+  },
+  "ownerIor": "ior:instance:6a52a207-f7ba-4e16-ad59-7023f76d9836"
+}

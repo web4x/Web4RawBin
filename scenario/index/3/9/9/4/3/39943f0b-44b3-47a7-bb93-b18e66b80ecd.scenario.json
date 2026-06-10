@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "39943f0b-44b3-47a7-bb93-b18e66b80ecd",
+    "name": "impl:ClassRegistry.get(name): ClassLoader",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:607fef49-9395-439e-8ee1-f21d02978447"
+    ]
+  },
+  "ownerIor": "ior:instance:607fef49-9395-439e-8ee1-f21d02978447"
+}

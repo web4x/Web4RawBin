@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8efe4200-8010-43e6-88c5-dbd8a826ba85",
+    "name": "impl:PathHeader.clickNavigate",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:40afd80e-c5a9-438e-a362-a84476fea42a"
+    ]
+  },
+  "ownerIor": "ior:instance:40afd80e-c5a9-438e-a362-a84476fea42a"
+}

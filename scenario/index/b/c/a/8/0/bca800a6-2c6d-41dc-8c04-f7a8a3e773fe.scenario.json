@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "bca800a6-2c6d-41dc-8c04-f7a8a3e773fe",
+    "name": "impl:RbObjectItem.setIcon",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:81d1c3a4-18b9-4478-b4e9-83b6c3b827cf"
+    ]
+  },
+  "ownerIor": "ior:instance:81d1c3a4-18b9-4478-b4e9-83b6c3b827cf"
+}

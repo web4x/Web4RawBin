@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "81b94008-804e-4916-ba7f-a3f1e534e8eb",
+    "name": "impl:RbObjectItem.generateName",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:bac0abd4-c15b-40b8-ae6c-ef265f883a27"
+    ]
+  },
+  "ownerIor": "ior:instance:bac0abd4-c15b-40b8-ae6c-ef265f883a27"
+}

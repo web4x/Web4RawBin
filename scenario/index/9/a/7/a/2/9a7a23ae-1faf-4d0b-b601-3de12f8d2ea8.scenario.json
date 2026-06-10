@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "9a7a23ae-1faf-4d0b-b601-3de12f8d2ea8",
+    "name": "impl:MigrateToScenario.convertLegacy",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:ef16193a-5533-4237-8b83-b040f706db29"
+    ]
+  },
+  "ownerIor": "ior:instance:ef16193a-5533-4237-8b83-b040f706db29"
+}

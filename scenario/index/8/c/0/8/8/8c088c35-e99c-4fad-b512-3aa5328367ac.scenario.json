@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8c088c35-e99c-4fad-b512-3aa5328367ac",
+    "name": "impl:server.sprintZeroPad",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:5f02d53c-9ccd-41cc-9035-d56cd2b9f524"
+    ]
+  },
+  "ownerIor": "ior:instance:5f02d53c-9ccd-41cc-9035-d56cd2b9f524"
+}

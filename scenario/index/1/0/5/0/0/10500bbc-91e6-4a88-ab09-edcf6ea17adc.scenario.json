@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "10500bbc-91e6-4a88-ab09-edcf6ea17adc",
+    "name": "impl:TraceGraph.classHop",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:df40d8b3-af0f-4fb8-8dd9-442d53260ca0"
+    ]
+  },
+  "ownerIor": "ior:instance:df40d8b3-af0f-4fb8-8dd9-442d53260ca0"
+}

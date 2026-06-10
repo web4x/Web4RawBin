@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "009d36ca-7c48-4436-8442-047a14c5151c",
+    "name": "impl:RbRoomContent.linkResolve",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:3b4c5d6e-7f8a-4b9c-0d1e-2f3a4b5c6d7e"
+    ]
+  },
+  "ownerIor": "ior:instance:3b4c5d6e-7f8a-4b9c-0d1e-2f3a4b5c6d7e"
+}

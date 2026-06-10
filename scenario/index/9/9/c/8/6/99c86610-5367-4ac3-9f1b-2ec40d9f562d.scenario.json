@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "99c86610-5367-4ac3-9f1b-2ec40d9f562d",
+    "name": "impl:RbTraceTree.ancestorGuard",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:e2d6db4c-0da7-43ed-bd32-55e1b65a6992"
+    ]
+  },
+  "ownerIor": "ior:instance:e2d6db4c-0da7-43ed-bd32-55e1b65a6992"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7fe1b223-a7f2-4f8c-a31a-47b702a5d88d",
+    "name": "impl:ReqAudit.formalizeQuotes",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:688c10c8-9aa1-463b-b35a-af08b1bc4e84"
+    ]
+  },
+  "ownerIor": "ior:instance:688c10c8-9aa1-463b-b35a-af08b1bc4e84"
+}

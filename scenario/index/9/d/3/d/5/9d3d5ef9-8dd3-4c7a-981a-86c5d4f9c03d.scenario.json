@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "9d3d5ef9-8dd3-4c7a-981a-86c5d4f9c03d",
+    "name": "impl:RoomManager.create",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:81c44474-9e78-498f-b4ad-0fc43d480432"
+    ]
+  },
+  "ownerIor": "ior:instance:81c44474-9e78-498f-b4ad-0fc43d480432"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ca4b7be3-9b8d-4b32-8286-b8ac1be24a08",
+    "name": "impl:IORResolver.resolveClass(ior): ClassLoader",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:bd6700da-a93a-4605-93b1-eb0494b63e91"
+    ]
+  },
+  "ownerIor": "ior:instance:bd6700da-a93a-4605-93b1-eb0494b63e91"
+}

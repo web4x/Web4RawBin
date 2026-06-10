@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e8128e18-d99d-4f7b-bd7e-312158ea5d28",
+    "name": "impl:RbListOverview.searchAndFilter",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:c08094b0-9629-4772-b500-ab75e1b3efaa"
+    ]
+  },
+  "ownerIor": "ior:instance:c08094b0-9629-4772-b500-ab75e1b3efaa"
+}

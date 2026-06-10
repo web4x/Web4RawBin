@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5b9072ce-53bf-4687-ae16-53751579fefe",
+    "name": "impl:ViewTemplateRegistry.renderHtml(scenario): string",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:b561f886-0a85-429d-95f9-32840fd02dbc"
+    ]
+  },
+  "ownerIor": "ior:instance:b561f886-0a85-429d-95f9-32840fd02dbc"
+}

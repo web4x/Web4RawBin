@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "40c04fc7-c74d-4029-9024-f9d869d93d02",
+    "name": "impl:AppClient.render",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:a6f34fc6-670c-4f5f-ba9a-0b4de6fe8799"
+    ]
+  },
+  "ownerIor": "ior:instance:a6f34fc6-670c-4f5f-ba9a-0b4de6fe8799"
+}

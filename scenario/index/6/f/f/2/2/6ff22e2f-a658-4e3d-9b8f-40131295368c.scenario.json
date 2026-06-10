@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6ff22e2f-a658-4e3d-9b8f-40131295368c",
+    "name": "impl:SpeakingTree.symlinkJson(sprint",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:75f0015c-3a04-4946-846b-2553c6c66cd4"
+    ]
+  },
+  "ownerIor": "ior:instance:75f0015c-3a04-4946-846b-2553c6c66cd4"
+}

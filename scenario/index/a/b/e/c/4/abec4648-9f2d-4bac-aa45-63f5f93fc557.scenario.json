@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "abec4648-9f2d-4bac-aa45-63f5f93fc557",
+    "name": "impl:RbRoomContent.applyButton",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:d275e6ba-91f7-4975-859f-1fd95d291993"
+    ]
+  },
+  "ownerIor": "ior:instance:d275e6ba-91f7-4975-859f-1fd95d291993"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c3346b3b-6d2f-49aa-9089-4de2cae33e22",
+    "name": "impl:Room.acceptApply",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:ddbc51a0-760b-4726-9f87-81484833de20"
+    ]
+  },
+  "ownerIor": "ior:instance:ddbc51a0-760b-4726-9f87-81484833de20"
+}

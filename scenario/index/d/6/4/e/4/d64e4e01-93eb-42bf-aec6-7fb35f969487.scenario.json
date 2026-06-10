@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d64e4e01-93eb-42bf-aec6-7fb35f969487",
+    "name": "impl:MdPreview.renderList",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:c01ecb88-df02-4ed7-9670-2b05e129056a"
+    ]
+  },
+  "ownerIor": "ior:instance:c01ecb88-df02-4ed7-9670-2b05e129056a"
+}

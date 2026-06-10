@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b04cfaf8-6d00-4cbf-b111-8b85b6ebbfef",
+    "name": "impl:TraceNarrow.classMethodScope",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:674fc9b0-98de-40e4-8287-54908f979065"
+    ]
+  },
+  "ownerIor": "ior:instance:674fc9b0-98de-40e4-8287-54908f979065"
+}

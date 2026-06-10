@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e2c05ed9-ddce-42ee-b9c4-a5ae9b810bc6",
+    "name": "impl:TraceChain.treeRework",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:9a20a3f9-67c6-42e4-bd0a-919f92e79217"
+    ]
+  },
+  "ownerIor": "ior:instance:9a20a3f9-67c6-42e4-bd0a-919f92e79217"
+}

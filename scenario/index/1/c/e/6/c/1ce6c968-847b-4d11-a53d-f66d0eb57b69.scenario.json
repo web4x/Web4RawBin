@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "1ce6c968-847b-4d11-a53d-f66d0eb57b69",
+    "name": "impl:SprintMdGenerator.checkRoundTrip",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:3108e643-ee8b-4211-bc59-c4e782586a70"
+    ]
+  },
+  "ownerIor": "ior:instance:3108e643-ee8b-4211-bc59-c4e782586a70"
+}

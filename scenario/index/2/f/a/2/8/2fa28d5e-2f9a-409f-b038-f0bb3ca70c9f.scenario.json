@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "2fa28d5e-2f9a-409f-b038-f0bb3ca70c9f",
+    "name": "impl:server.sprintNameFormat",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:6ec7440d-31e8-4d74-be88-c5fae090cad4"
+    ]
+  },
+  "ownerIor": "ior:instance:6ec7440d-31e8-4d74-be88-c5fae090cad4"
+}

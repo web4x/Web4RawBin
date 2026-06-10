@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a078315d-548d-4f89-b94d-be5e9599e8fa",
+    "name": "impl:RbRoomDetail.editCanonical",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:1f2a3b4c-5d6e-4f7a-8b9c-0d1e2f3a4b5c"
+    ]
+  },
+  "ownerIor": "ior:instance:1f2a3b4c-5d6e-4f7a-8b9c-0d1e2f3a4b5c"
+}

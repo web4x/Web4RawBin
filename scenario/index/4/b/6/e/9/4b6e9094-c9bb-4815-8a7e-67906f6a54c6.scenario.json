@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4b6e9094-c9bb-4815-8a7e-67906f6a54c6",
+    "name": "impl:RbTraceTree.prefetchLayer",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:7b8c9d0e-1f2a-4b3c-4d5e-6f7a8b9c0d1e"
+    ]
+  },
+  "ownerIor": "ior:instance:7b8c9d0e-1f2a-4b3c-4d5e-6f7a8b9c0d1e"
+}

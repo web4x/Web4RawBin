@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "fcf6c7df-5522-4a54-addd-33cfdd8a2d2a",
+    "name": "impl:RbObjectItem.expand",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:0560e3e6-d948-44f4-9df0-198d7e53c1ee"
+    ]
+  },
+  "ownerIor": "ior:instance:0560e3e6-d948-44f4-9df0-198d7e53c1ee"
+}

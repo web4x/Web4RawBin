@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "96edf8c3-9a82-4e54-bf33-0411c4cce14e",
+    "name": "impl:ClassRegistry.register(name",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:255ecabf-3961-404c-92b1-737c209c2030"
+    ]
+  },
+  "ownerIor": "ior:instance:255ecabf-3961-404c-92b1-737c209c2030"
+}

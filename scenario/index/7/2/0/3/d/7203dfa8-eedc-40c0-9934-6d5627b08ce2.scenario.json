@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7203dfa8-eedc-40c0-9934-6d5627b08ce2",
+    "name": "impl:RbDetailDrawer.parentNav",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:d9d4eeb7-6d50-4d4d-9272-5526b8d86021"
+    ]
+  },
+  "ownerIor": "ior:instance:d9d4eeb7-6d50-4d4d-9272-5526b8d86021"
+}

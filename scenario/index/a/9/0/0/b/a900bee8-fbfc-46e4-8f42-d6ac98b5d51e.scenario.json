@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a900bee8-fbfc-46e4-8f42-d6ac98b5d51e",
+    "name": "impl:ScenarioUnit.load(json): this",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:9535708a-08c9-4073-8c92-b582c09f1cae"
+    ]
+  },
+  "ownerIor": "ior:instance:9535708a-08c9-4073-8c92-b582c09f1cae"
+}

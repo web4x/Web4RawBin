@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "54c0140f-5ab7-4413-bd9b-fe6cf2f944d1",
+    "name": "impl:OfflinePage.reloadButton",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:8ff0accb-0b33-4935-8045-86bdf2261d6d"
+    ]
+  },
+  "ownerIor": "ior:instance:8ff0accb-0b33-4935-8045-86bdf2261d6d"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0090532e-814b-4e61-b74b-88b38f571704",
+    "name": "impl:ChainLink.iconInView",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:f832807d-5ced-4240-a39f-1e31e26c81bf"
+    ]
+  },
+  "ownerIor": "ior:instance:f832807d-5ced-4240-a39f-1e31e26c81bf"
+}

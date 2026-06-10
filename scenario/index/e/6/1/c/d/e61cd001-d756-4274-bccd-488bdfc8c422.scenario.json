@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e61cd001-d756-4274-bccd-488bdfc8c422",
+    "name": "impl:RbObjectItem.badgeRender",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:1b2c3d4e-5f6a-4b7c-8d9e-0f1a2b3c4d5e"
+    ]
+  },
+  "ownerIor": "ior:instance:1b2c3d4e-5f6a-4b7c-8d9e-0f1a2b3c4d5e"
+}

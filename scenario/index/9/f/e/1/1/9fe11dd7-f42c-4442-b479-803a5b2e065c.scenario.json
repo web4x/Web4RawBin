@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "9fe11dd7-f42c-4442-b479-803a5b2e065c",
+    "name": "impl:RbObjectItem.squareCollapse",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:5f6a7b8c-9d0e-4f1a-2b3c-4d5e6f7a8b9c"
+    ]
+  },
+  "ownerIor": "ior:instance:5f6a7b8c-9d0e-4f1a-2b3c-4d5e6f7a8b9c"
+}

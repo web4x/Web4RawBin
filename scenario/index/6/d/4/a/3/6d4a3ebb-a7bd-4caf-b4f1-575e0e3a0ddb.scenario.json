@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6d4a3ebb-a7bd-4caf-b4f1-575e0e3a0ddb",
+    "name": "impl:RbTraceTree.fetchAndRenderChildren",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:aeb301b1-fa4f-4c65-9915-5271e7831ad5"
+    ]
+  },
+  "ownerIor": "ior:instance:aeb301b1-fa4f-4c65-9915-5271e7831ad5"
+}
