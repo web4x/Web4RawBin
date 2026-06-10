@@ -6,7 +6,9 @@
     "name": "R19.26: Drag is only activated when grabbing the icon element, not the whole item row.",
     "description": "rb-object-item drag MUST only initiate when the user grabs the icon element. Dragging from the name, description, or any other part of the item row MUST NOT start a drag. The draggable attribute or mousedown/touchstart handler must be scoped to the icon element only.",
     "tronQuote": "> TRON: \"drag is only activated when taking it on the icon.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:ce3c7870-d3af-41dd-b38d-a0cff59a1ff7"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "ce3c7870-d3af-41dd-b38d-a0cff59a1ff7",
+    "name": "T-icon-only-drag: drag uses icon-only ghost image",
+    "slug": "icon-only-drag-ghost-image",
+    "description": "When dragging a tree item, the drag ghost image shows only the square icon (not the full item with name+description). Covers R19.26.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert (in flight per PO)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:ad2a7074-d5dd-4076-bcb5-d06ffa0662d9"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "62adcf98-2888-45e8-b659-068ae05bea77",
+    "name": "T-icon-tap-collapse: icon tap collapses item to square width",
+    "slug": "icon-tap-collapse-square-width",
+    "description": "Tapping the tree item icon collapses it to a square (icon-only width); tapping again expands to full name+description. Covers R19.27.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert (in flight per PO)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:4603db83-167a-43a2-a06f-1f56167eb34b"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
