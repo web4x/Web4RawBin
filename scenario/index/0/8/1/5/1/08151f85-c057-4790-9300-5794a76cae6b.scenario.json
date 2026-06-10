@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "08151f85-c057-4790-9300-5794a76cae6b",
+    "name": "room.setDefaultPersistent",
+    "object": "room",
+    "verb": "setDefaultPersistent",
+    "requirements": [
+      "ior:instance:1350d422-1133-4f04-9f9f-c0b3c4930542"
+    ],
+    "tasks": [
+      "ior:instance:312cb103-17fe-4817-b1e9-8bffaabbbf27"
+    ],
+    "classes": [
+      "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431"
+    ],
+    "class": "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431",
+    "method": "ior:instance:2686a446-3d59-4a15-93f7-68f2660ec1e6",
+    "source": {
+      "file": "scrum.pmo/sprints/sprint-19-room-handling/diagrams/s19-task-chain.puml",
+      "ior": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/diagrams/s19-task-chain.puml"
+    },
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/s19-architecture-design.md",
+    "parent": "ior:instance:312cb103-17fe-4817-b1e9-8bffaabbbf27",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:312cb103-17fe-4817-b1e9-8bffaabbbf27"
+}

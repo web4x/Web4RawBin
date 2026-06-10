@@ -5,7 +5,8 @@
     "name": "FileUnit",
     "sourceFile": "ior:file:src/ts/server/FileApi.ts",
     "useCases": [
-      "ior:instance:b9e59d4a-12f0-4a98-986d-248461526d5d"
+      "ior:instance:b9e59d4a-12f0-4a98-986d-248461526d5d",
+      "ior:instance:79871ec1-2280-4556-b56f-3afcdcee64b0"
     ],
     "methods": [
       "ior:instance:ed543211-2314-4768-af75-cf09b39a4dc7"

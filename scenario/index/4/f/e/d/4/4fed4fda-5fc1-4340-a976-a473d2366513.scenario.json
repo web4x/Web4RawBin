@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "4fed4fda-5fc1-4340-a976-a473d2366513",
+    "name": "Room.init",
+    "className": "Room",
+    "methodName": "init",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "implementations": [],
+    "parent": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+}

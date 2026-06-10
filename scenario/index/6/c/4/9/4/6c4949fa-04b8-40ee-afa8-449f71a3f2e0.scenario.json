@@ -11,7 +11,9 @@
       "ior:instance:3e14d73c-1ddb-4f42-8d33-481581a8ec95",
       "ior:instance:18ecdab4-e8d1-453f-89b2-4cae64103a80"
     ],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:745f233a-d38e-4805-9d80-865b7959d39d"
+    ],
     "subtasks": [],
     "tasks": [],
     "createdAt": "2026-06-10",

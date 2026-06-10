@@ -6,7 +6,8 @@
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "useCases": [
       "ior:instance:b285fdaf-f41b-42b3-9e6d-85fcfdabd266",
-      "ior:instance:a3c10529-973f-4d79-bbd9-d6ec94ed8989"
+      "ior:instance:a3c10529-973f-4d79-bbd9-d6ec94ed8989",
+      "ior:instance:39734975-1169-433d-b243-08129ce49f7e"
     ],
     "methods": [
       "ior:instance:0e11cfb4-249c-4a20-baa9-932401f8e19e",

@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "018ff1e4-f105-49e6-ab63-c28f193133e0",
+    "name": "room.enforceVisibility",
+    "object": "room",
+    "verb": "enforceVisibility",
+    "requirements": [
+      "ior:instance:1f1849b5-b47a-4018-8bb1-cd9690884930",
+      "ior:instance:bcaa8cda-6ac6-4606-8443-8dd8ed80e673",
+      "ior:instance:8bd2f61f-d229-4eec-a385-47795c753ca2"
+    ],
+    "tasks": [
+      "ior:instance:164d8114-3008-4683-93e8-c96d40cd93cc"
+    ],
+    "classes": [
+      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+    ],
+    "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "method": "ior:instance:2d189279-0f36-4efc-8107-9862ae259dca",
+    "source": {
+      "file": "scrum.pmo/sprints/sprint-19-room-handling/diagrams/s19-task-chain.puml",
+      "ior": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/diagrams/s19-task-chain.puml"
+    },
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/s19-architecture-design.md",
+    "parent": "ior:instance:164d8114-3008-4683-93e8-c96d40cd93cc",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:164d8114-3008-4683-93e8-c96d40cd93cc"
+}

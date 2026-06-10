@@ -1,0 +1,56 @@
+@startuml s19-task-chain
+!theme plain
+title Sprint 19 Task Chain - one UC per Task, one Method per UC (locked chain)
+
+left to right direction
+
+package "T-room-unit" {
+  usecase "room.bootstrapAsUnit\nuc:745f233a\ntask:6c4949fa" as TU1
+  agent "Room.init\nclass:1165c293\nmethod:4fed4fda" as M1
+  TU1 --> M1
+}
+
+package "T-visibility" {
+  usecase "room.enforceVisibility\nuc:018ff1e4\ntask:164d8114" as TU2
+  agent "Room.visibilityCheck\nclass:1165c293\nmethod:2d189279" as M2
+  TU2 --> M2
+}
+
+package "T-apply-flow" {
+  usecase "room.applyAndAccept\nuc:39734975\ntask:1805f7db" as TU3
+  agent "JoinRequestFlow.applySend\nclass:76d7c1e0\nmethod:0e11cfb4" as M3
+  TU3 --> M3
+}
+
+package "T-persistent" {
+  usecase "room.maintainPersistentMembers\nuc:2b7b95f1\ntask:67b2763e" as TU4
+  agent "Room.memberAdd\nclass:1165c293\nmethod:ea02fa6d" as M4
+  TU4 --> M4
+}
+
+package "T-default-flip" {
+  usecase "room.setDefaultPersistent\nuc:08151f85\ntask:312cb103" as TU5
+  agent "RbRoomDetail.modeSet\nclass:5a6d931a\nmethod:2686a446" as M5
+  TU5 --> M5
+}
+
+package "T-room-ui" {
+  usecase "roomContent.composeLayout\nuc:3c2daa94\ntask:ae090710" as TU6
+  agent "RbRoomContent.render\nclass:792246f1\nmethod:9f53d391" as M6
+  TU6 --> M6
+}
+
+package "T-file-unit" {
+  usecase "file.persistAsUnit\nuc:79871ec1\ntask:834fe55b" as TU7
+  agent "FileUnit.upload\nclass:3e0ceb94\nmethod:ed543211" as M7
+  TU7 --> M7
+}
+
+note bottom
+  7 Tasks - 7 UCs - 8 Methods (Room.init new) - 6 Classes - 14 Requirements
+  Singular chain per R18.8 + locked-chain #27/#38: one UC per task, one Method per UC.
+  task.useCases[uc], uc.tasks[task], uc.class=class, uc.method=method (all singular at intermediate hops).
+  Sprint: 97f513a1
+end note
+
+@enduml
