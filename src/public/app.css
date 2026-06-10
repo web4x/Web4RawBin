@@ -61,7 +61,8 @@ body {
 /* T105+T112 rb-object-item — two-line layout: name (bold) + description (word-wrap) */
 .object-item { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 8px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px; cursor: pointer; min-height: 40px; min-width: 120px; }
 .object-item:active { background: rgba(255,255,255,0.22); }
-.oi-icon { width: 32px; height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 6px; background: var(--type-bg, rgba(255,255,255,0.1)); color: var(--type-color, rgba(255,255,255,0.6)); }
+.oi-icon { width: 32px; height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 6px; background: var(--type-bg, rgba(255,255,255,0.1)); color: var(--type-color, rgba(255,255,255,0.6)); cursor: grab; }
+.oi-icon:active { cursor: grabbing; }
 .oi-icon svg { width: 20px; height: 20px; }
 rb-object-item[type="requirement"] { --type-bg: rgba(46,125,50,0.15); --type-color: #66bb6a; }
 rb-object-item[type="task"] { --type-bg: rgba(21,101,192,0.15); --type-color: #42a5f5; }
@@ -79,10 +80,12 @@ rb-object-item:hover .oi-name { white-space: normal; word-break: break-word; }
 .trace-tree-panel { overflow-x: hidden; }
 .oi-name { color: white; font-weight: 600; font-size: 0.85rem; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .oi-desc { color: rgba(255,255,255,0.5); font-size: 0.75rem; margin: 2px 0 0; word-wrap: break-word; overflow-wrap: break-word; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-/* T115: collapse/expand + children expander */
+/* T115: collapse/expand + children expander + badge */
 rb-object-item[collapsed] .oi-content { display: none; }
 rb-object-item[collapsed] .oi-expand { display: none; }
-rb-object-item[collapsed] { padding: 4px; gap: 0; }
+rb-object-item[collapsed] .oi-badge { display: none; }
+rb-object-item[collapsed] { padding: 4px; gap: 0; width: 40px; min-height: 40px; }
+.oi-badge { background: #e53935; color: white; font-size: 0.65rem; font-weight: 700; min-width: 18px; height: 18px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 0 4px; }
 .oi-expand { width: 24px; height: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); font-size: 1.2rem; flex-shrink: 0; transition: transform 0.2s; }
 .oi-expand:hover { color: rgba(255,255,255,0.8); }
 rb-object-item[children-open] .oi-expand { transform: rotate(90deg); }

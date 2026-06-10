@@ -2,7 +2,7 @@
  * T105 — rb-object-item: the defaultItemView for ANY TraceModel object (all 7 types).
  *
  * Attribute-driven (ref/type/title/status) — T103 contract. Visual parity with the lobby
- * room entry (.room-card idiom → .object-item). Native-OS draggable (3 dataTransfer payloads).
+ * room entry (.room-card idiom → .object-item). Native-OS draggable (icon-only drag handle).
  * ViewBus-subscribed (MVC live re-render, no reload). Click → navigate(type,'show',{uuid}).
  *
  * [impl:uuid:105e4f50-6172-4384-895b-e05050505105] R15.4 defaultItemView
@@ -12,21 +12,18 @@ import { navigate } from './nav.js';
 import { TRACE_ICONS } from './icons.js';
 
 export class RbObjectItem extends HTMLElement {
-  static get observedAttributes() { return ['ref', 'type', 'title', 'status', 'name', 'description']; }
+  static get observedAttributes() { return ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count']; }
   private unsub: (() => void) | null = null;
 
   connectedCallback(): void {
-    this.setAttribute('draggable', 'true');
     this.classList.add('object-item');
     this.render();
-    this.addEventListener('dragstart', this.onDragStart);
     this.addEventListener('click', this.onClickDelegate);
     const ref = this.getAttribute('ref');
     if (ref) this.unsub = ViewBus.subscribe(ref, () => this.render());
   }
 
   disconnectedCallback(): void {
-    this.removeEventListener('dragstart', this.onDragStart);
     this.removeEventListener('click', this.onClickDelegate);
     this.unsub?.();
     this.unsub = null;
@@ -51,9 +48,9 @@ export class RbObjectItem extends HTMLElement {
     if (!dt) return;
     const hash = `#${type}.show?uuid=${uuid}`;
     const origin = (typeof location !== 'undefined' && location.origin) ? location.origin : '';
-    dt.setData('text/plain', hash);                                   // paste → navigable link
-    dt.setData('text/uri-list', `${origin}/app${hash}`);              // OS-recognizable native drag
-    dt.setData('application/rb-object-ref', `${type}:${uuid}`);       // internal drop (T107/T108 linking)
+    dt.setData('text/plain', hash);
+    dt.setData('text/uri-list', `${origin}/app${hash}`);
+    dt.setData('application/rb-object-ref', `${type}:${uuid}`);
     dt.effectAllowed = 'copyLink';
     if (dt.setDragImage) dt.setDragImage(this, 20, 20);
   };
@@ -84,13 +81,16 @@ export class RbObjectItem extends HTMLElement {
     const desc = this.getAttribute('description') || this.getAttribute('title') || '';
     const icon = TRACE_ICONS[type] || '•';
     const hasChildren = this.hasAttribute('has-children');
+    const childCount = this.getAttribute('child-count') || '0';
     this.innerHTML = `
-      <span class="oi-icon" title="${type}">${icon}</span>
+      <span class="oi-icon" title="${type}" draggable="true">${icon}</span>
       <div class="oi-content">
         <span class="oi-name">${esc(name)}</span>
         ${desc ? `<p class="oi-desc">${esc(desc)}</p>` : ''}
       </div>
-      ${hasChildren ? '<span class="oi-expand">›</span>' : ''}`;
+      ${hasChildren ? `<span class="oi-badge">${childCount}</span><span class="oi-expand">›</span>` : ''}`;
+
+    this.querySelector('.oi-icon')?.addEventListener('dragstart', this.onDragStart);
   }
 }
 

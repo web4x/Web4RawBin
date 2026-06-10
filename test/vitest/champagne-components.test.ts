@@ -59,7 +59,7 @@ describe('rb-object-item — T105/T112/T113/T114', () => {
     const icon = el.querySelector('.oi-icon');
     expect(name).toBeDefined();
     expect(icon).toBeDefined();
-    expect(el.getAttribute('draggable')).toBe('true');
+    expect(el.querySelector('.oi-icon')?.getAttribute('draggable')).toBe('true');
   });
 
   it('generates speaky name from title when name attr absent', async () => {

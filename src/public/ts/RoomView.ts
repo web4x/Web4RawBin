@@ -188,7 +188,7 @@ export class RoomView {
   // [impl:uuid:ae090710-5c3a-4e8b-b217-9f3d7c1a5e40] T-room-ui-shared R19.21
   private renderRoomTreeMembers(): void {
     const parentItem = document.querySelector('#rrc-members-node rb-object-item');
-    if (parentItem) parentItem.setAttribute('description', `${this.members.length} member${this.members.length !== 1 ? 's' : ''}`);
+    if (parentItem) { parentItem.setAttribute('description', `${this.members.length} member${this.members.length !== 1 ? 's' : ''}`); parentItem.setAttribute('child-count', String(this.members.length)); }
     const ch = document.getElementById('rrc-members-children');
     if (!ch) return;
     ch.innerHTML = '';

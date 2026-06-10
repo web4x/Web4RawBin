@@ -49,13 +49,14 @@ describe('T105 rb-object-item', () => {
     expect(el.querySelector('.oi-content')).toBeTruthy();
   });
 
-  // AC3/AC4: draggable + 3 dataTransfer payloads
+  // AC3/AC4: draggable on icon + 3 dataTransfer payloads
   it('is draggable and sets all three dataTransfer payloads (AC3/AC4)', () => {
     const el = mk('task');
-    expect(el.getAttribute('draggable')).toBe('true');
+    const icon = el.querySelector('.oi-icon')!;
+    expect(icon.getAttribute('draggable')).toBe('true');
     const store: Record<string, string> = {};
     const dt = { setData: (k: string, v: string) => { store[k] = v; }, effectAllowed: '' } as unknown as DataTransfer;
-    el.dispatchEvent(Object.assign(new Event('dragstart'), { dataTransfer: dt }));
+    icon.dispatchEvent(Object.assign(new Event('dragstart', { bubbles: true }), { dataTransfer: dt }));
     expect(store['text/plain']).toBe(`#task.show?uuid=${UUID}`);
     expect(store['text/uri-list'].endsWith(`/app#task.show?uuid=${UUID}`)).toBe(true);
     expect(store['application/rb-object-ref']).toBe(`task:${UUID}`);
