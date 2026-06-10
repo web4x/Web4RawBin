@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "f1dd0d77-edaf-4d15-b1e6-f6b0ba33867b",
+    "name": "Room.stripSizeLimits",
+    "description": "Delete maxMembers field from Room class, remove size guard from addMember, drop from info/persist/createRoom opts/Migration. Data migration: strip maxMembers from existing Room scenario units.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+}
