@@ -72,6 +72,7 @@ rb-object-item[type="implementation"] { --type-bg: rgba(78,52,46,0.15); --type-c
 rb-object-item[type="test"] { --type-bg: rgba(0,105,92,0.15); --type-color: #26a69a; }
 rb-object-item[type="member"] { --type-bg: rgba(33,150,243,0.15); --type-color: #42a5f5; }
 rb-object-item[type="file"] { --type-bg: rgba(255,152,0,0.15); --type-color: #ffa726; }
+rb-object-item[type="collection"] { --type-bg: rgba(158,158,158,0.15); --type-color: #bdbdbd; }
 .oi-content { flex: 1; min-width: 0; overflow: hidden; }
 rb-object-item { max-width: 100%; }
 rb-object-item:hover .oi-name { white-space: normal; word-break: break-word; }
@@ -335,18 +336,4 @@ rb-detail-drawer pre, rb-detail-drawer code { font-size: 0.75rem; }
 .rrc-drop-active { border-color: #4caf50; background-color: rgba(76,175,80,0.12); }
 .rrc-drop-label { font-weight: 600; }
 .rrc-drop-hint { font-size: 0.85em; opacity: 0.7; margin-top: 4px; }
-.rrc-tree { margin-top: 12px; }
-.rrc-node { margin-bottom: 8px; }
-.rrc-node-row { display: flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; padding: 4px 6px; border-radius: 6px; }
-.rrc-node-row:hover { background: rgba(255,255,255,0.04); }
-.rrc-node-toggle { display: inline-block; width: 14px; }
-.rrc-node-label { font-weight: 600; }
-.rrc-node-count { margin-left: auto; opacity: 0.5; font-size: 0.85em; }
-.rrc-node-children { padding-left: 18px; }
-.rrc-item { display: flex; align-items: center; gap: 8px; padding: 4px 8px; border-radius: 6px; }
-.rrc-item:hover { background: rgba(255,255,255,0.04); }
-.rrc-item-offline { opacity: 0.55; }
-.rrc-item-name { flex: 1; }
-.rrc-item-badge { font-size: 0.7em; padding: 1px 6px; border-radius: 8px; background: rgba(255,255,255,0.08); opacity: 0.75; }
-.rrc-empty { opacity: 0.55; font-style: italic; padding: 4px 8px; }
-.rrc .trace-tree { background: #1a1a2e; border-radius: 12px; padding: 8px; }
+.rrc .trace-tree { background: #1a1a2e; border-radius: 12px; padding: 8px; margin-top: 12px; }

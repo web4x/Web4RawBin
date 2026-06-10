@@ -129,7 +129,7 @@ export class RoomView {
         <rb-header title="${this.roomName}" show-leave show-home ${isHost ? 'show-delete show-edit' : ''} show-reload show-fullscreen></rb-header>
         <div style="padding:0 16px 4px;display:flex;gap:8px;align-items:center"><a href="/scenario?ior=${this.roomId}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="View room scenario unit">📄 Scenario</a><span style="color:rgba(255,255,255,0.3);font-size:0.65rem">${this.roomId.slice(0,8)}</span></div>
         <div id="offline-banner" class="offline-banner" style="display:none">Offline — messages queued</div>
-        <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="trace-tree" id="rrc-tree"><div class="tt-node"><div class="tt-row" id="rrc-members-hdr"><span class="tt-chevron">▾</span><span style="font-weight:600">Members</span><span class="rrc-node-count" id="rrc-members-count">0</span></div><div class="tt-children" id="rrc-members-children"></div></div><div class="tt-node"><div class="tt-row" id="rrc-files-hdr"><span class="tt-chevron">▾</span><span style="font-weight:600">Files</span><span class="rrc-node-count" id="rrc-files-count">0</span></div><div class="tt-children" id="rrc-files-children"><div class="rrc-empty">— empty —</div></div></div></div></div></div>
+        <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="trace-tree" id="rrc-tree"><div class="tt-node" id="rrc-members-node"><div class="tt-row"><rb-object-item ref="collection:members" type="collection" name="Members" description="Room members" has-children children-open></rb-object-item></div><div class="tt-children" id="rrc-members-children"></div></div><div class="tt-node" id="rrc-files-node"><div class="tt-row"><rb-object-item ref="collection:files" type="collection" name="Files" description="Room files" has-children children-open></rb-object-item></div><div class="tt-children" id="rrc-files-children"></div></div></div></div></div>
       </div>`;
 
     const dz = document.getElementById("rrc-drop");
@@ -148,18 +148,15 @@ export class RoomView {
       });
     }
 
-    for (const hdrId of ['rrc-members-hdr', 'rrc-files-hdr']) {
-      const hdr = document.getElementById(hdrId);
-      const children = hdr?.nextElementSibling as HTMLElement | null;
-      const chevron = hdr?.querySelector('.tt-chevron');
-      if (hdr && children && chevron) {
-        hdr.style.cursor = 'pointer';
-        hdr.addEventListener('click', () => {
-          const open = children.style.display !== 'none';
-          children.style.display = open ? 'none' : '';
-          chevron.textContent = open ? '▸' : '▾';
-        });
-      }
+    const treeEl = document.getElementById('rrc-tree');
+    if (treeEl) {
+      treeEl.addEventListener('toggle-children', ((e: CustomEvent) => {
+        const item = (e.target as HTMLElement).closest('rb-object-item');
+        if (!item) return;
+        const node = item.closest('.tt-node');
+        const children = node?.querySelector('.tt-children') as HTMLElement | null;
+        if (children) children.style.display = e.detail.open ? '' : 'none';
+      }) as EventListener);
     }
 
     if (this.chatSheet) this.chatSheet.remove();
@@ -190,23 +187,27 @@ export class RoomView {
 
   // [impl:uuid:ae090710-5c3a-4e8b-b217-9f3d7c1a5e40] T-room-ui-shared R19.21
   private renderRoomTreeMembers(): void {
-    const cnt = document.getElementById('rrc-members-count');
-    if (cnt) cnt.textContent = String(this.members.length);
+    const parentItem = document.querySelector('#rrc-members-node rb-object-item');
+    if (parentItem) parentItem.setAttribute('description', `${this.members.length} member${this.members.length !== 1 ? 's' : ''}`);
     const ch = document.getElementById('rrc-members-children');
     if (!ch) return;
     ch.innerHTML = '';
-    if (this.members.length === 0) { ch.innerHTML = '<div class="rrc-empty">— empty —</div>'; return; }
     for (const m of this.members) {
+      const node = document.createElement('div');
+      node.className = 'tt-node';
+      const row = document.createElement('div');
+      row.className = 'tt-row';
       const item = document.createElement('rb-object-item');
       item.setAttribute('ref', `member:${m.playerToken}`);
       item.setAttribute('type', 'member');
       item.setAttribute('title', m.name || '?');
       item.setAttribute('name', m.name || '?');
-      item.setAttribute('status', m.disconnected ? 'offline' : 'online');
       if (m.id === this.hostId) item.setAttribute('description', 'Host' + (m.disconnected ? ' · Offline' : ''));
       else if (m.id === this.client.clientId) item.setAttribute('description', 'You');
       else item.setAttribute('description', m.disconnected ? 'Offline' : 'Online');
-      ch.appendChild(item);
+      row.appendChild(item);
+      node.appendChild(row);
+      ch.appendChild(node);
     }
   }
 
