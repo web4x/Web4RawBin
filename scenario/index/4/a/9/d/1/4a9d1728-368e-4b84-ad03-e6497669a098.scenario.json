@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "4a9d1728-368e-4b84-ad03-e6497669a098",
+    "altId": "R19.20",
+    "name": "R19.20: The file scenario unit carries unitLinks[] references to its ln links in the room folder on the filesystem.",
+    "description": "Tron literal sub-clause split from R19.14 per R-I.",
+    "tronQuote": "> TRON: and unitLinks[] references to the ln links eg in the room folder on the filesystem",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "siblingOf": "ior:instance:f1ca3cc9-a675-4a3b-9898-9e33d7876ed8",
+    "siblingNote": "Atomic split from R19.14 per R-I. R19.14 covers content+scenario storage; R19.20 isolates the unitLinks[] symlink-tree requirement for independent test."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

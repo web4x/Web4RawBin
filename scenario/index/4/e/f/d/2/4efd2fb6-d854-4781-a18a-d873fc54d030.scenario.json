@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "4efd2fb6-d854-4781-a18a-d873fc54d030",
+    "altId": "R19.15",
+    "name": "R19.15: The room scenario json passes the same json test as every other scenario unit.",
+    "description": "Tron literal sub-clause split from R19.1 per R-I.",
+    "tronQuote": "> TRON: and test of the json",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "siblingOf": "ior:instance:3e14d73c-1ddb-4f42-8d33-481581a8ec95",
+    "siblingNote": "Atomic split from R19.1 per R-I. R19.1 conveys unit shape + identity; R19.15 isolates the json-test invariant for independent test."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

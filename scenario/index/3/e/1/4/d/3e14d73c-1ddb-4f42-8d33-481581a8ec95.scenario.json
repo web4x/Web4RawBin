@@ -12,7 +12,11 @@
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "altId": "R19.1",
     "refinementOf": "ior:instance:cb93f0db-0e42-4795-b41f-2e125120f259",
-    "refinementOfNote": "Refines R17.1 (Scenario JSON unit) by extending the {ior, model, ownerIor} unit shape to the Room class. Per req-eng Rule 9 dedupe 2026-06-10."
+    "refinementOfNote": "Refines R17.1 (Scenario JSON unit) by extending the {ior, model, ownerIor} unit shape to the Room class. Per req-eng Rule 9 dedupe 2026-06-10.",
+    "splitInto": [
+      "ior:instance:4efd2fb6-d854-4781-a18a-d873fc54d030"
+    ],
+    "splitNote": "Split into R19.15 per R-I. Compound parent retained as shipped form; sibling isolates the json-test clause for independent test. Annotation by req-eng 2026-06-10."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

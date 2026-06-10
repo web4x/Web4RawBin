@@ -10,7 +10,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
-    "altId": "R19.5"
+    "altId": "R19.5",
+    "splitInto": [
+      "ior:instance:e61b4760-fda7-464e-bec2-3056d6e9d93f",
+      "ior:instance:4ca31ded-1376-4fc9-8a5e-0d86e6a9183b"
+    ],
+    "splitNote": "Split into R19.16, R19.17 per R-I. Compound parent retained as shipped form; siblings isolate Apply-UI primitive (R19.16) and accept-then-join transition (R19.17) for independent test. Annotation by req-eng 2026-06-10."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

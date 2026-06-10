@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "4ca31ded-1376-4fc9-8a5e-0d86e6a9183b",
+    "altId": "R19.17",
+    "name": "R19.17: Accepting the invite-request message joins the requester to the room.",
+    "description": "Tron literal sub-clause split from R19.5 per R-I.",
+    "tronQuote": "> TRON: the message can be accepted and they join",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "siblingOf": "ior:instance:97bb40eb-638f-463b-b66d-e601cc0802c1",
+    "siblingNote": "Atomic split from R19.5 per R-I. R19.5 covers full by-invite flow; R19.17 isolates the membership transition (accept then join) for independent test."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

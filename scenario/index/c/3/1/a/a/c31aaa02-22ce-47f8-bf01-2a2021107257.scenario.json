@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "c31aaa02-22ce-47f8-bf01-2a2021107257",
+    "altId": "R19.19",
+    "name": "R19.19: The room mode can be switched from PERSISTENT to LIVE in the room editor.",
+    "description": "Tron literal sub-clause split from R19.10 per R-I.",
+    "tronQuote": "> TRON: it can be switched to live mode in the room editor",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "siblingOf": "ior:instance:1350d422-1133-4f04-9f9f-c0b3c4930542",
+    "siblingNote": "Atomic split from R19.10 per R-I. R19.10 covers the default-mode change; R19.19 isolates the editor switchability for independent test."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -12,7 +12,11 @@
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "altId": "R19.14",
     "refinementOf": "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000012",
-    "refinementOfNote": "Refines R17.12 (All files are units, referenceable via IOR) by specifying room-upload concrete mechanics: <uuid>.content + <uuid>.scenario.json + unitLinks[] -- every file is a unique unit. Per req-eng Rule 9 dedupe 2026-06-10."
+    "refinementOfNote": "Refines R17.12 (All files are units, referenceable via IOR) by specifying room-upload concrete mechanics: <uuid>.content + <uuid>.scenario.json + unitLinks[] -- every file is a unique unit. Per req-eng Rule 9 dedupe 2026-06-10.",
+    "splitInto": [
+      "ior:instance:4a9d1728-368e-4b84-ad03-e6497669a098"
+    ],
+    "splitNote": "Split into R19.20 per R-I. Compound parent retained as shipped form; sibling isolates the unitLinks[] symlink-tree requirement for independent test. Annotation by req-eng 2026-06-10."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
