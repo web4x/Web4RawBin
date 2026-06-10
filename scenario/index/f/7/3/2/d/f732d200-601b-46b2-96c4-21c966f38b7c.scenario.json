@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "f732d200-601b-46b2-96c4-21c966f38b7c",
+    "altId": "R19.21.A",
+    "name": "R19.21.A: Members and Files nodes are rb-object-item folder nodes containing child items, not bespoke section headers.",
+    "description": "The 'Members' and 'Files' nodes in the in-room tree MUST be THEMSELVES rb-object-item instances of folder/collection type — NOT bespoke section headers with custom styling. They contain member items / file items as expandable/collapsible children (folder semantics, same item model as /trace). This fixes the black-on-black contrast issue (bespoke headers become real items with proper theming) and enforces the R19.21 component-identity constraint at the structural level: every node in the room tree is an rb-object-item, including the two root folders.",
+    "tronQuote": "> TRON: \"members and folders black on black and basically they shall be themselves items and be treated like folders containing the other items.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "refinementOf": "ior:instance:d1391ee3-d08c-4db1-8445-753b4d1c89a3",
+    "refinementOfNote": "Refines R19.21 (in-room tree uses rb-tree + rb-tree-item from /trace). R19.21 established component-identity; R19.21.A adds the structural constraint that 'Members' and 'Files' themselves are rb-object-item folder nodes (not custom headers), containing child items with expand/collapse folder semantics. Also fixes the black-on-black rendering because real rb-object-items inherit proper contrast theming."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

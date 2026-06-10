@@ -30,7 +30,11 @@
         "buildAtFailure": "c4ff02a5",
         "reportedVia": "robbin-po"
       }
-    ]
+    ],
+    "refinedBy": [
+      "ior:instance:f732d200-601b-46b2-96c4-21c966f38b7c"
+    ],
+    "refinedByNote": " Refined by R19.21.A which adds structural constraint: Members+Files are rb-object-item folder nodes (not bespoke headers), containing children with expand/collapse semantics. Fixes black-on-black contrast."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
