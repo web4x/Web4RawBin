@@ -143,6 +143,7 @@ export class RbTraceTree extends HTMLElement {
     if (obj && obj.status) item.setAttribute('status', obj.status);
     if (hasChildren) {
       item.setAttribute('has-children', '');
+      item.setAttribute('child-count', String(childRefs.length));
       if (isOpen) item.setAttribute('children-open', '');
     }
     if (this.brokenUuids.has(refUuid(ref))) {
@@ -204,7 +205,7 @@ export class RbTraceTree extends HTMLElement {
     item.setAttribute('type', (type || 'task').toLowerCase());
     item.setAttribute('title', name || uuid);
     const showExpander = children.length > 0 || hasChildren === true;
-    if (showExpander) item.setAttribute('has-children', '');
+    if (showExpander) { item.setAttribute('has-children', ''); item.setAttribute('child-count', String(children.length || 0)); }
     row.appendChild(item);
     node.appendChild(row);
     if (showExpander) {
@@ -333,6 +334,8 @@ export class RbTraceTree extends HTMLElement {
       for (const child of children) {
         container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchVisited), (child as any).chainMethod));
       }
+      const parentItem = container.parentElement?.querySelector(':scope > .tt-row rb-object-item');
+      if (parentItem) parentItem.setAttribute('child-count', String(children.length));
     } catch { /* silently fail — node stays collapsed */ }
   }
 }
