@@ -10,7 +10,9 @@ import './components/rb-chat-sheet.js';
 import type { RbChatSheet } from './components/rb-chat-sheet.js';
 import './components/rb-member-list.js';
 import './components/rb-avatar.js';
+import './components/rb-tree.js';
 import type { RbMemberList } from './components/rb-member-list.js';
+import type { RbTree } from './components/rb-tree.js';
 
 interface MemberInfo {
   id: string; name: string; avatarUrl: string; playerToken: string; avatarCrop?: { scale: number; x: number; y: number } | null;
@@ -115,7 +117,7 @@ export class RoomView {
       <div class="room-view">
         <rb-header title="${this.roomName}" show-leave show-home ${isHost ? 'show-delete show-edit' : ''} show-reload show-fullscreen></rb-header>
         <div id="offline-banner" class="offline-banner" style="display:none">Offline — messages queued</div>
-        <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="rrc-tree"><div class="rrc-node" data-node="members"><div class="rrc-node-row"><span class="rrc-node-toggle">▾</span><span class="rrc-node-label">Members</span><span class="rrc-node-count" id="rrc-members-count">0</span></div><div class="rrc-node-children" id="rrc-members-children"></div></div><div class="rrc-node" data-node="files"><div class="rrc-node-row"><span class="rrc-node-toggle">▾</span><span class="rrc-node-label">Files</span><span class="rrc-node-count" id="rrc-files-count">0</span></div><div class="rrc-node-children" id="rrc-files-children"><div class="rrc-empty">— empty —</div></div></div></div></div></div>
+        <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="rrc-tree"><rb-tree id="rrc-members-tree" label="Members" open></rb-tree><rb-tree id="rrc-files-tree" label="Files" open></rb-tree></div></div></div>
       </div>`;
 
     const dz = document.getElementById("rrc-drop");
@@ -161,12 +163,13 @@ export class RoomView {
   }
 
   private renderRoomTreeMembers(): void {
-    const cnt = document.getElementById("rrc-members-count");
-    if (cnt) cnt.textContent = String(this.members.length);
-    const ch = document.getElementById("rrc-members-children");
-    if (!ch) return;
-    if (this.members.length === 0) { ch.innerHTML = "<div class=\"rrc-empty\">— empty —</div>"; return; }
-    ch.innerHTML = this.members.map(m => "<div class=\"rrc-item\" data-id=\"" + (m.id||"") + "\"><span class=\"rrc-item-name\">" + (m.name||"?") + "</span></div>").join("");
+    const tree = document.getElementById('rrc-members-tree') as RbTree | null;
+    if (tree) {
+      tree.setItems(this.members.map(m => ({
+        id: m.id, label: m.name || '?',
+        badge: m.id === this.hostId ? 'host' : (m.id === this.client.clientId ? 'you' : ''),
+      })));
+    }
   }
 
   private renderMemberList(): void {
