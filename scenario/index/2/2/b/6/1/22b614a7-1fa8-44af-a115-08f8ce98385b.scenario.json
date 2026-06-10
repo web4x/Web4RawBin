@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "22b614a7-1fa8-44af-a115-08f8ce98385b",
+    "name": "test:FileUnit.upload",
+    "file": "test/vitest/server.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:1251c42e-cf75-4d7d-8001-37bfb3f4efe1"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:1251c42e-cf75-4d7d-8001-37bfb3f4efe1"
+}

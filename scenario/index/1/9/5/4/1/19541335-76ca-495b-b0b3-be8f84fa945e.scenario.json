@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "19541335-76ca-495b-b0b3-be8f84fa945e",
+    "name": "test:Room.memberAdd",
+    "file": "test/vitest/room.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:536a5ea2-ee00-4832-9178-fa95d6fc64ae"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:536a5ea2-ee00-4832-9178-fa95d6fc64ae"
+}

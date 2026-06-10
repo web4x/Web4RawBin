@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2f85ca66-da48-40d4-8337-0d467fa0a8d7",
+    "name": "test:T142 vCard parser",
+    "file": "test/vitest/vcard-photo.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:b7142a01-c302-4d03-ae04-f05f06a07c11"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:b7142a01-c302-4d03-ae04-f05f06a07c11"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "344529b0-743e-484b-9e87-6f709b87a381",
+    "name": "test:T40 header",
+    "file": "test/vitest/champagne-components.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:39074a59-864f-4947-ac7b-0457bbbe172b"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:39074a59-864f-4947-ac7b-0457bbbe172b"
+}

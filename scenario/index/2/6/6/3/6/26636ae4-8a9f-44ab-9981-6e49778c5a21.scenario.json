@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "26636ae4-8a9f-44ab-9981-6e49778c5a21",
+    "name": "test:JoinRequestFlow.applySend",
+    "file": "test/vitest/room.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:f65121b1-c0c1-4608-ab47-6d20bce1c335"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:f65121b1-c0c1-4608-ab47-6d20bce1c335"
+}

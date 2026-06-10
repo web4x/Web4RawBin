@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "801b4eaf-bc40-4826-bab5-b143efd273fd",
+    "name": "test:RbRoomDetail.modeSet",
+    "file": "test/vitest/room.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:8038dc71-1fab-43f2-a3f8-57f26152ac11"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:8038dc71-1fab-43f2-a3f8-57f26152ac11"
+}

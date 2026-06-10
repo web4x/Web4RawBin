@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "bb21076a-3f56-4d58-adfc-e0fc7ee20bed",
+    "name": "test:Room.retainOrPrune",
+    "file": "test/vitest/room.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:8c1f2f29-c4db-4464-bb62-12405c274ce2"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:8c1f2f29-c4db-4464-bb62-12405c274ce2"
+}

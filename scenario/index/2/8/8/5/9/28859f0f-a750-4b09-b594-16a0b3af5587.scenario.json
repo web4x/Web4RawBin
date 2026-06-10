@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "28859f0f-a750-4b09-b594-16a0b3af5587",
+    "name": "test:Room.visibilityCheck",
+    "file": "test/vitest/room.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:1366045c-166a-4d9e-a077-986e4c9a5c78"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:1366045c-166a-4d9e-a077-986e4c9a5c78"
+}

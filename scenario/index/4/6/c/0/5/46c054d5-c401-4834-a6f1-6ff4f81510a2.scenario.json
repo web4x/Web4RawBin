@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "46c054d5-c401-4834-a6f1-6ff4f81510a2",
+    "name": "test:T45 QR popup",
+    "file": "test/vitest/champagne-components.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:7b4d275b-861c-4ee9-b7ee-24c99d8b9cdc"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:7b4d275b-861c-4ee9-b7ee-24c99d8b9cdc"
+}

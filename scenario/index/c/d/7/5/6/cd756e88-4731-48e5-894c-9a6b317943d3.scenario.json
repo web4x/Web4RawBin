@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "cd756e88-4731-48e5-894c-9a6b317943d3",
+    "name": "test:Assets.rebrand impl",
+    "file": "test/vitest/client.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:e8d226f6-d8e2-4a8d-9db9-2edd5bb33bfb"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:e8d226f6-d8e2-4a8d-9db9-2edd5bb33bfb"
+}

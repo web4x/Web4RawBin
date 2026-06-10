@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d57ae802-d32c-4fb4-861f-df279f109d1f",
+    "name": "test:R16.5 square SVG type icons",
+    "file": "test/vitest/rb-object-item.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:d1135c9f-a037-4b24-e5d1-4c3b9f602e83"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:d1135c9f-a037-4b24-e5d1-4c3b9f602e83"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e543aac4-708a-43d9-9e6e-9a57e3c9f1f9",
+    "name": "test:Room.init",
+    "file": "test/vitest/room.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:4dc1bd9b-6d9c-41ca-bea6-a96b7c72263b"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:4dc1bd9b-6d9c-41ca-bea6-a96b7c72263b"
+}

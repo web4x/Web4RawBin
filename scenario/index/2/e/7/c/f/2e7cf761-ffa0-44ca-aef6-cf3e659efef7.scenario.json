@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2e7cf761-ffa0-44ca-aef6-cf3e659efef7",
+    "name": "test:Room.stripSpectator",
+    "file": "test/vitest/room.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:23073248-b67d-4e82-9054-0066f5834939"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:23073248-b67d-4e82-9054-0066f5834939"
+}

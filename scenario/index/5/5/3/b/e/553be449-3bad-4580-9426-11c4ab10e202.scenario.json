@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "553be449-3bad-4580-9426-11c4ab10e202",
+    "altId": "R19.33",
+    "name": "R19.33: Detail drawer close affordance stays sticky in view, never scrolls away.",
+    "description": "BUG: the detail drawer's close affordance (nudge handle / X button) scrolls out of view when the user scrolls down in the detail content. FIX: the close affordance MUST be position:sticky or position:fixed relative to the drawer viewport so it remains visible and tappable regardless of content scroll position.",
+    "tronQuote": "> TRON: \"the details nudge to close scrolls out of the view\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

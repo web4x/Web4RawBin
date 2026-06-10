@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "4c7745e3-f4b9-438d-a99d-b7dc3f434a96",
+    "name": "test:RbRoomDetail.editOpen",
+    "file": "test/vitest/champagne-components.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:9c4b49aa-f0f2-4c9c-9a30-0cc5d17e71ae"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:9c4b49aa-f0f2-4c9c-9a30-0cc5d17e71ae"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a570f8c7-8c19-4087-aa6e-d9d7d12cb021",
+    "name": "test:R16.2 RequirementDetailView",
+    "file": "test/vitest/rb-detail-overview.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61"
+}

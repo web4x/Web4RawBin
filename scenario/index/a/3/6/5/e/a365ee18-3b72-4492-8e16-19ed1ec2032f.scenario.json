@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a365ee18-3b72-4492-8e16-19ed1ec2032f",
+    "name": "test:R17.18",
+    "file": "test/vitest/trace-routing.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:f8138a01-b202-4c03-9d04-e05f06a07b09"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:f8138a01-b202-4c03-9d04-e05f06a07b09"
+}

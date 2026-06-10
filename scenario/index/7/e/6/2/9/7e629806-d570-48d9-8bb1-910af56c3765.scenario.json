@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7e629806-d570-48d9-8bb1-910af56c3765",
+    "name": "test:T68 markdown preview",
+    "file": "test/vitest/editor.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:7bb9a7dd-da94-4f9f-9e0c-1c37dab9de8d"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:7bb9a7dd-da94-4f9f-9e0c-1c37dab9de8d"
+}

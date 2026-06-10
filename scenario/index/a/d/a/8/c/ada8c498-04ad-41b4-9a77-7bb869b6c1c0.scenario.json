@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ada8c498-04ad-41b4-9a77-7bb869b6c1c0",
+    "name": "test:R17.15",
+    "file": "test/vitest/scenario.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:a4133b09-e30a-4d74-b915-9a8fe4c060d8"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:a4133b09-e30a-4d74-b915-9a8fe4c060d8"
+}

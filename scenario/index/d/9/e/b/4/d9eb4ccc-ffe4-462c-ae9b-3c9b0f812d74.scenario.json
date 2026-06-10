@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d9eb4ccc-ffe4-462c-ae9b-3c9b0f812d74",
+    "name": "test:RbObjectItem.onClickDelegate",
+    "file": "test/vitest/rb-object-item.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:93d42a25-f106-4580-a037-e15878eac7bd"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:93d42a25-f106-4580-a037-e15878eac7bd"
+}

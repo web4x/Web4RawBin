@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2019c993-689a-4de2-8578-4157424ac964",
+    "name": "test:R17.16",
+    "file": "test/vitest/trace-consistency.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:c5134d0a-f41b-4e85-b026-0b3f1ae5b2cd"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:c5134d0a-f41b-4e85-b026-0b3f1ae5b2cd"
+}

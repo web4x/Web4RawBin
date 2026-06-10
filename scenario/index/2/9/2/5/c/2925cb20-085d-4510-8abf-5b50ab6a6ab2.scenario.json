@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2925cb20-085d-4510-8abf-5b50ab6a6ab2",
+    "name": "test:Room.stripSizeLimits",
+    "file": "test/vitest/room.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:c78255a7-244d-40b5-bfaa-ee27fd56c1df"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:c78255a7-244d-40b5-bfaa-ee27fd56c1df"
+}

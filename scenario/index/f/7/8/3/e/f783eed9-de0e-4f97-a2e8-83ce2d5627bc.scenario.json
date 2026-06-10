@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f783eed9-de0e-4f97-a2e8-83ce2d5627bc",
+    "name": "test:Room.persistAsSymlink",
+    "file": "test/vitest/room.test.ts",
+    "methods": [],
+    "implementations": [
+      "ior:instance:7af3bdc4-5032-4bc2-9974-a5be51f5a497"
+    ],
+    "status": "PASS"
+  },
+  "ownerIor": "ior:instance:7af3bdc4-5032-4bc2-9974-a5be51f5a497"
+}
