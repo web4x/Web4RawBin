@@ -265,13 +265,6 @@ export class Room {
     }
   }
 
-  private sendToSpectator(id: string, msg: object): void {
-    const s = this.spectators.get(id);
-    if (s && s.ws && s.ws.readyState === 1) {
-      s.ws.send(JSON.stringify(msg));
-    }
-  }
-
   // --- Persistence ---
 
   private persist(): void {
@@ -350,13 +343,6 @@ export class RoomManager {
   findMemberRoom(memberId: string): Room | undefined {
     for (const room of this.rooms.values()) {
       if (room.members.has(memberId)) return room;
-    }
-    return undefined;
-  }
-
-  findSpectatorRoom(spectatorId: string): Room | undefined {
-    for (const room of this.rooms.values()) {
-      if (room.spectators.has(spectatorId)) return room;
     }
     return undefined;
   }
