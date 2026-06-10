@@ -170,11 +170,13 @@ export class Room {
     this.persist();
   }
 
+  // [impl:uuid:67b2763e-1a2b-4c3d-8e4f-5a6b7c8d9e01] T-persistent-retention
   markDisconnected(id: string): void {
     const member = this.members.get(id);
     if (member) {
       member.disconnected = true;
       this.broadcast({ type: MSG.MEMBER_DISCONNECTED, memberId: id });
+      this.persist();
     }
   }
 
