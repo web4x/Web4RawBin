@@ -89,8 +89,24 @@ export class RoomView {
       <div class="room-view">
         <rb-header title="${this.roomName}" show-leave show-home ${isHost ? 'show-delete' : ''} show-reload show-fullscreen></rb-header>
         <div id="offline-banner" class="offline-banner" style="display:none">Offline — messages queued</div>
-        <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div></div>
+        <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="rrc-tree"><div class="rrc-node" data-node="members"><div class="rrc-node-row"><span class="rrc-node-toggle">▾</span><span class="rrc-node-label">Members</span><span class="rrc-node-count" id="rrc-members-count">0</span></div><div class="rrc-node-children" id="rrc-members-children"></div></div><div class="rrc-node" data-node="files"><div class="rrc-node-row"><span class="rrc-node-toggle">▾</span><span class="rrc-node-label">Files</span><span class="rrc-node-count" id="rrc-files-count">0</span></div><div class="rrc-node-children" id="rrc-files-children"><div class="rrc-empty">— empty —</div></div></div></div></div></div>
       </div>`;
+
+    const dz = document.getElementById("rrc-drop");
+    if (dz && !(dz as any).__wired) {
+      (dz as any).__wired = true;
+      dz.addEventListener("dragenter", (e) => { e.preventDefault(); dz.classList.add("rrc-drop-active"); });
+      dz.addEventListener("dragover", (e) => { e.preventDefault(); });
+      dz.addEventListener("dragleave", () => { dz.classList.remove("rrc-drop-active"); });
+      dz.addEventListener("drop", (e: Event) => {
+        e.preventDefault();
+        dz.classList.remove("rrc-drop-active");
+        const dt = (e as DragEvent).dataTransfer;
+        if (!dt) return;
+        const files = Array.from(dt.files || []);
+        if (files.length > 0) dz.dispatchEvent(new CustomEvent("rb-room-files-dropped", { detail: { files }, bubbles: true }));
+      });
+    }
 
     if (this.chatSheet) this.chatSheet.remove();
     this.chatSheet = document.createElement('rb-chat-sheet') as RbChatSheet;
@@ -118,7 +134,17 @@ export class RoomView {
     popup.show(url, `Join ${this.roomName}`);
   }
 
+  private renderRoomTreeMembers(): void {
+    const cnt = document.getElementById("rrc-members-count");
+    if (cnt) cnt.textContent = String(this.members.length);
+    const ch = document.getElementById("rrc-members-children");
+    if (!ch) return;
+    if (this.members.length === 0) { ch.innerHTML = "<div class=\"rrc-empty\">— empty —</div>"; return; }
+    ch.innerHTML = this.members.map(m => "<div class=\"rrc-item\" data-id=\"" + (m.id||"") + "\"><span class=\"rrc-item-name\">" + (m.name||"?") + "</span></div>").join("");
+  }
+
   private renderMemberList(): void {
+    this.renderRoomTreeMembers();
     const el = document.getElementById('member-list') as RbMemberList | null;
     if (!el) return;
     el.setMembers(this.members.map(m => ({

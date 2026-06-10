@@ -326,3 +326,24 @@ rb-detail-drawer pre, rb-detail-drawer code { font-size: 0.75rem; }
   .profile-overlay { align-items: center; }
   .profile-sheet { border-radius: 20px; }
 }
+
+/* T-room-ui R19.11+R19.12+R19.13: room-content drop-zone + Members/Files tree */
+.rrc { padding: 12px; }
+.rrc-drop { border: 2px dashed rgba(255,255,255,0.25); border-radius: 12px; padding: 24px; min-height: 96px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: background-color 0.15s, border-color 0.15s; }
+.rrc-drop-active { border-color: #4caf50; background-color: rgba(76,175,80,0.12); }
+.rrc-drop-label { font-weight: 600; }
+.rrc-drop-hint { font-size: 0.85em; opacity: 0.7; margin-top: 4px; }
+.rrc-tree { margin-top: 12px; }
+.rrc-node { margin-bottom: 8px; }
+.rrc-node-row { display: flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; padding: 4px 6px; border-radius: 6px; }
+.rrc-node-row:hover { background: rgba(255,255,255,0.04); }
+.rrc-node-toggle { display: inline-block; width: 14px; }
+.rrc-node-label { font-weight: 600; }
+.rrc-node-count { margin-left: auto; opacity: 0.5; font-size: 0.85em; }
+.rrc-node-children { padding-left: 18px; }
+.rrc-item { display: flex; align-items: center; gap: 8px; padding: 4px 8px; border-radius: 6px; }
+.rrc-item:hover { background: rgba(255,255,255,0.04); }
+.rrc-item-offline { opacity: 0.55; }
+.rrc-item-name { flex: 1; }
+.rrc-item-badge { font-size: 0.7em; padding: 1px 6px; border-radius: 8px; background: rgba(255,255,255,0.08); opacity: 0.75; }
+.rrc-empty { opacity: 0.55; font-style: italic; padding: 4px 8px; }
