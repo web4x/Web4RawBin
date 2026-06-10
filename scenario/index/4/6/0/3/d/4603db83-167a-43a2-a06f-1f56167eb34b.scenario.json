@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "4603db83-167a-43a2-a06f-1f56167eb34b",
+    "altId": "R19.27",
+    "name": "R19.27: Clicking the icon once collapses item width to a perfect square with the icon inside, height unchanged.",
+    "description": "When the user clicks/taps the icon of an rb-object-item once, the item MUST collapse its WIDTH to a perfect square (the icon centered inside) while keeping its HEIGHT unchanged. This is a compact/minimized view state toggled by icon-tap. A second tap on the icon restores the full-width layout (icon + name + description visible).",
+    "tronQuote": "> TRON: \"clicking the icon once shall collapse the width of the item to a perfect square with the icon inside but keep the height.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "6ed53825-86ce-4ec7-80d0-ce739e876992",
+    "altId": "R19.25",
+    "name": "R19.25: rb-object-item shows a red child-count badge left of the collapse arrow.",
+    "description": "Every rb-object-item that has children MUST display a badge left of the › expander arrow showing the number of children. The badge is a red circle/oval with the count number inside. Applies globally to rb-object-item everywhere it renders (in-room tree, /trace browser).",
+    "tronQuote": "> TRON: \"add left of the collapse arrow a badge with the amount of children — a red circle/var with the number.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

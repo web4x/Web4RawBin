@@ -51,6 +51,14 @@
   - **R19.21.B** (2026-06-10): drag preview/ghost shows the FULL item card (icon+name+description), not just the icon square. Applies to rb-object-item everywhere (/trace + in-room).
     > TRON: "the drag preview is just the icon but it should be the full item."
 
+### rb-object-item interaction specs (R19.25-R19.27)
+- **R19.25** (2026-06-10): red child-count badge left of the › expander arrow, showing N children.
+  > TRON: "add left of the collapse arrow a badge with the amount of children — a red circle/var with the number."
+- **R19.26** (2026-06-10): drag only activates when grabbing the icon element, not the whole item row.
+  > TRON: "drag is only activated when taking it on the icon."
+- **R19.27** (2026-06-10): icon-tap collapses item WIDTH to a perfect square (icon inside), height unchanged.
+  > TRON: "clicking the icon once shall collapse the width of the item to a perfect square with the icon inside but keep the height."
+
 ### Room editor wiring + pencil affordance (refines R19.2)
 - **R19.2.A** (2026-06-10): the room name MUST carry a pencil edit icon (file-browser convention); clicking the pencil OR the name opens the room config/scenario editor. Captures BOTH the implementation-gap and the visual affordance.
   > TRON (gap): "the app has no room config/scenario editor yet clicking on the room name in the room."
