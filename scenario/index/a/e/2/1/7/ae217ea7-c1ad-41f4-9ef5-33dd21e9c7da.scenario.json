@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ae217ea7-c1ad-41f4-9ef5-33dd21e9c7da",
+    "name": "impl:RbRoomDetail.scenarioLinkRender",
+    "sourceFile": "src/public/ts/RoomView.ts",
+    "sourceLine": 130,
+    "methods": [
+      "ior:instance:81d53df2-d8eb-4868-a741-b2acfc91a2f8"
+    ]
+  },
+  "ownerIor": "ior:instance:81d53df2-d8eb-4868-a741-b2acfc91a2f8"
+}

@@ -15,7 +15,10 @@
       "ior:instance:e61b4760-fda7-464e-bec2-3056d6e9d93f",
       "ior:instance:4ca31ded-1376-4fc9-8a5e-0d86e6a9183b"
     ],
-    "splitNote": "Split into R19.16, R19.17 per R-I. Compound parent retained as shipped form; siblings isolate Apply-UI primitive (R19.16) and accept-then-join transition (R19.17) for independent test. Annotation by req-eng 2026-06-10."
+    "splitNote": "Split into R19.16, R19.17 per R-I. Compound parent retained as shipped form; siblings isolate Apply-UI primitive (R19.16) and accept-then-join transition (R19.17) for independent test. Annotation by req-eng 2026-06-10.",
+    "useCases": [
+      "ior:instance:39734975-1169-433d-b243-08129ce49f7e"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

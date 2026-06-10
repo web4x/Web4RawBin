@@ -10,7 +10,12 @@
       "ior:instance:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50"
     ],
     "tests": [],
-    "unitLinks": []
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:16a01001-d001-4a01-b001-000000110001",
+      "ior:instance:16a01002-d002-4a02-b002-000000110002",
+      "ior:instance:16a01003-d003-4a03-b003-000000110003"
+    ]
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
 }

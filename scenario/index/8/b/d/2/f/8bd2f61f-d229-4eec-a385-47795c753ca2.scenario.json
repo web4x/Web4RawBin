@@ -10,7 +10,10 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
-    "altId": "R19.6"
+    "altId": "R19.6",
+    "useCases": [
+      "ior:instance:39734975-1169-433d-b243-08129ce49f7e"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

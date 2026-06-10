@@ -36,6 +36,9 @@
         "context": "#77 systemic backfill (post-T199 23907dd4 remainder). IOR semantics already live in dedicated fields (siblingOf / supersedes / refinementOf).",
         "reqAltId": "R18.34.B"
       }
+    ],
+    "useCases": [
+      "ior:instance:c27d67d8-c6ef-45be-b88b-5631370abe7e"
     ]
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"

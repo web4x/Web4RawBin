@@ -14,7 +14,10 @@
     "unitLinks": [],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "refinementOf": "ior:instance:d3416a23-f2f2-4d04-8eee-a2f3ba0cd12a",
-    "refinementOfNote": "Split from R19.22 per PO decision 2026-06-10: R19.22.A = filesystem invariant (symlink + backfill); R19.22.B = UI affordance (link to canonical unit)."
+    "refinementOfNote": "Split from R19.22 per PO decision 2026-06-10: R19.22.A = filesystem invariant (symlink + backfill); R19.22.B = UI affordance (link to canonical unit).",
+    "useCases": [
+      "ior:instance:4421b0c1-9663-4250-8e1d-ce49ae1a9db3"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

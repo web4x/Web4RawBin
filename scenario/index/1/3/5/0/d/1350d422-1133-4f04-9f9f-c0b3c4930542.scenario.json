@@ -14,7 +14,10 @@
     "splitInto": [
       "ior:instance:c31aaa02-22ce-47f8-bf01-2a2021107257"
     ],
-    "splitNote": "Split into R19.19 per R-I. Compound parent retained as shipped form; sibling isolates the editor switchability for independent test. Annotation by req-eng 2026-06-10."
+    "splitNote": "Split into R19.19 per R-I. Compound parent retained as shipped form; sibling isolates the editor switchability for independent test. Annotation by req-eng 2026-06-10.",
+    "useCases": [
+      "ior:instance:08151f85-c057-4790-9300-5794a76cae6b"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

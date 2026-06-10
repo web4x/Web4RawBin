@@ -16,7 +16,10 @@
     "splitInto": [
       "ior:instance:4a9d1728-368e-4b84-ad03-e6497669a098"
     ],
-    "splitNote": "Split into R19.20 per R-I. Compound parent retained as shipped form; sibling isolates the unitLinks[] symlink-tree requirement for independent test. Annotation by req-eng 2026-06-10."
+    "splitNote": "Split into R19.20 per R-I. Compound parent retained as shipped form; sibling isolates the unitLinks[] symlink-tree requirement for independent test. Annotation by req-eng 2026-06-10.",
+    "useCases": [
+      "ior:instance:79871ec1-2280-4556-b56f-3afcdcee64b0"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

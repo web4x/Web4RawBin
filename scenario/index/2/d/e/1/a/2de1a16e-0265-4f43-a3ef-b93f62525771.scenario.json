@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "2de1a16e-0265-4f43-a3ef-b93f62525771",
+    "name": "impl:RbRoomContent.render",
+    "sourceFile": "src/public/ts/RoomView.ts",
+    "sourceLine": 124,
+    "methods": [
+      "ior:instance:9f53d391-2238-4aaf-9241-046fed6ee811"
+    ]
+  },
+  "ownerIor": "ior:instance:9f53d391-2238-4aaf-9241-046fed6ee811"
+}
