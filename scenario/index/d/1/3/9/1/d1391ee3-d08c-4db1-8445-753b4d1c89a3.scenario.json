@@ -18,7 +18,19 @@
       "ior:instance:dc2e99eb-8e31-4337-887b-8204f7588c20",
       "ior:instance:409ea58b-763b-433e-b17d-0ea156d94355"
     ],
-    "refinementOfNote": "Refines R19.11 (drop area + tree-overview item context), R19.12 (Members/Files tree structure), R19.13 (members as item views) with a cross-cutting component-identity constraint: the room tree and items are not new components but the SAME rb-tree and rb-tree-item already used in /trace. Discovered when Tron inspected T-room-ui v0.5.129 (commit 529d5c42) and saw an inline reimplementation instead of the shared components."
+    "refinementOfNote": "Refines R19.11 (drop area + tree-overview item context), R19.12 (Members/Files tree structure), R19.13 (members as item views) with a cross-cutting component-identity constraint: the room tree and items are not new components but the SAME rb-tree and rb-tree-item already used in /trace. Discovered when Tron inspected T-room-ui v0.5.129 (commit 529d5c42) and saw an inline reimplementation instead of the shared components.",
+    "status": "in-progress",
+    "verificationHistory": [
+      {
+        "date": "2026-06-10",
+        "hop": "testing \u2192 in-progress (re-opened)",
+        "reason": "device-acceptance FAILED \u2014 Tron reports tree and item views are still not the trace browser components despite implementation commit c4ff02a5. Toggle does not work.",
+        "tronVerbatim": "the view does not toggle. the tree and item views are still not the ones from the tracability browser.",
+        "verificationContext": "R19.21 AC: in-room Members/Files tree must use the ACTUAL rb-tree + rb-tree-item components from /trace (same collapse/expand toggle, icons, drag). Expert shipped c4ff02a5 but Tron observes the components are still a lookalike, not the real shared components. Toggle broken.",
+        "buildAtFailure": "c4ff02a5",
+        "reportedVia": "robbin-po"
+      }
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
