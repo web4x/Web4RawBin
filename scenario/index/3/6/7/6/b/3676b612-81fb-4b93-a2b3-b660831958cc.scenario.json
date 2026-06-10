@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "3676b612-81fb-4b93-a2b3-b660831958cc",
+    "altId": "R19.21.B",
+    "name": "R19.21.B: Drag preview shows the full item card, not just the icon.",
+    "description": "When dragging an rb-object-item (tree item), the drag image/ghost MUST render the FULL item card (icon + speaky name + word-wrap description) — not just the icon square. Applies to rb-object-item everywhere it appears: /trace browser AND in-room Members/Files tree. This is a component-level fix on rb-object-item's dragstart handler (setDragImage must clone the full item element, not just the icon).",
+    "tronQuote": "> TRON: \"the drag preview is just the icon but it should be the full item.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "refinementOf": "ior:instance:d1391ee3-d08c-4db1-8445-753b4d1c89a3",
+    "refinementOfNote": "Refines R19.21 (in-room tree uses rb-tree + rb-tree-item from /trace). R19.21 established component-identity including drag; R19.21.B specifies the drag ghost content: full item card (icon+name+desc), not just the icon. Applies globally to rb-object-item (both /trace and in-room)."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

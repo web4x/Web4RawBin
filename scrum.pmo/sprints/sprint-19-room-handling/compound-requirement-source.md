@@ -48,6 +48,8 @@
     > TRON: "the view does not toggle. the tree and item views are still not the ones from the tracability browser."
   - **R19.21.A** (2026-06-10): 'Members' and 'Files' are THEMSELVES rb-object-item folder nodes containing child items (expand/collapse folder semantics, same item model as /trace) — NOT bespoke section headers. Fixes black-on-black contrast.
     > TRON: "members and folders black on black and basically they shall be themselves items and be treated like folders containing the other items."
+  - **R19.21.B** (2026-06-10): drag preview/ghost shows the FULL item card (icon+name+description), not just the icon square. Applies to rb-object-item everywhere (/trace + in-room).
+    > TRON: "the drag preview is just the icon but it should be the full item."
 
 ### Room editor wiring + pencil affordance (refines R19.2)
 - **R19.2.A** (2026-06-10): the room name MUST carry a pencil edit icon (file-browser convention); clicking the pencil OR the name opens the room config/scenario editor. Captures BOTH the implementation-gap and the visual affordance.
