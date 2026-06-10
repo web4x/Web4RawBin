@@ -32,7 +32,7 @@ function makeMember(overrides: Partial<RoomMember> = {}): RoomMember {
     ws: overrides.ws ?? mockWs(),
     name: overrides.name ?? 'TestUser',
     avatarUrl: overrides.avatarUrl ?? '',
-    playerToken: overrides.playerToken ?? `token-${Date.now()}`,
+    playerToken: overrides.playerToken ?? crypto.randomUUID(),
     disconnected: overrides.disconnected ?? false,
   };
 }

@@ -146,9 +146,23 @@ export class Room {
 
   // --- Members ---
 
+  // [impl:uuid:417918a5-b2c3-4d4e-9f5a-6b7c8d9e0f12] T-persistent-dedup R19.8.B
   addMember(member: RoomMember): boolean {
-    if (this.members.size >= this.maxMembers) return false;
     if (this.state !== 'active') return false;
+    const existing = member.playerToken ? [...this.members.values()].find(m => m.playerToken && m.playerToken === member.playerToken) : undefined;
+    if (existing) {
+      if (!existing.disconnected) return false;
+      this.members.delete(existing.id);
+      this.members.set(member.id, { ...member, disconnected: false });
+      this.broadcast({ type: MSG.MEMBER_RECONNECTED, member: this.memberInfo(member.id), oldMemberId: existing.id, memberCount: this.members.size });
+      this.sendTo(member.id, { type: MSG.ROOM_JOINED, room: this.info(), members: this.allMemberInfo() });
+      if (this._chatHistory.length > 0) {
+        this.sendTo(member.id, { type: MSG.CHAT_HISTORY, messages: this._chatHistory });
+      }
+      this.persist();
+      return true;
+    }
+    if (this.members.size >= this.maxMembers) return false;
     this.members.set(member.id, { ...member, disconnected: false });
     this.broadcast({ type: MSG.MEMBER_JOINED, member: this.memberInfo(member.id), memberCount: this.members.size });
     this.sendTo(member.id, { type: MSG.ROOM_JOINED, room: this.info(), members: this.allMemberInfo() });
