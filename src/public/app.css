@@ -349,3 +349,4 @@ rb-detail-drawer pre, rb-detail-drawer code { font-size: 0.75rem; }
 .rrc-item-name { flex: 1; }
 .rrc-item-badge { font-size: 0.7em; padding: 1px 6px; border-radius: 8px; background: rgba(255,255,255,0.08); opacity: 0.75; }
 .rrc-empty { opacity: 0.55; font-style: italic; padding: 4px 8px; }
+.rrc .trace-tree { background: #1a1a2e; border-radius: 12px; padding: 8px; }
