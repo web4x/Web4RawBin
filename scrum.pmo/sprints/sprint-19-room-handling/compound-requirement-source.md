@@ -67,6 +67,13 @@
 - **R19.29** (2026-06-10): Tree (rb-trace-tree) OWNS badge child-count calculation+assignment AND lazy/eager prefetch as its OWN methods operating ON items. rb-object-item is a dumb view the Tree drives. Fixes badge-0 bug (some nodes show 0 despite visible children — scattered trigger sites miss updates).
   > TRON: "increase the quality by more object orientation. the badges calculation and assignment and lazy eager loading must be more a method and behavior of the tree on the items as of the individual items."
 
+### Room navigation bugs (R19.30 + R19.31)
+- **R19.30** (2026-06-10): BUG — edit pen navigates to per-user path (empty file / File not found). MUST open the canonical scenario unit for editing.
+  > TRON: "edit pen runs into an empty file…bug."
+- **R19.31** (2026-06-10): BUG — room link → 404. MUST navigate to live room or room editor, never 404.
+  > TRON: "and the room into a 404. bug. either into the room…. or the room editor."
+  > (full context) TRON: "the link icon works into the index scenario. edit pen runs into an empty file…bug. and the room into a 404. bug. either into the room…. or the room editor."
+
 ### Room editor wiring + pencil affordance (refines R19.2)
 - **R19.2.A** (2026-06-10): the room name MUST carry a pencil edit icon (file-browser convention); clicking the pencil OR the name opens the room config/scenario editor. Captures BOTH the implementation-gap and the visual affordance.
   > TRON (gap): "the app has no room config/scenario editor yet clicking on the room name in the room."
