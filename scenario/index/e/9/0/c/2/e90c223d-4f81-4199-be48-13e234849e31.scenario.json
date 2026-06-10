@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "e90c223d-4f81-4199-be48-13e234849e31",
+    "name": "T-remove-room-sizes: strip maxMembers/maxPlayers/size config from model+UI+server",
+    "slug": "remove-room-sizes-max-members-players-config",
+    "description": "Remove all maxMembers/maxPlayers/size configuration from the room data model, UI (room editor/config), and server-side enforcement. Rooms have no member/player limits. Covers R19.23.",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert rule-pair a+b\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:17fd9704-5573-4cd0-8bfd-cf7ae303af4e"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

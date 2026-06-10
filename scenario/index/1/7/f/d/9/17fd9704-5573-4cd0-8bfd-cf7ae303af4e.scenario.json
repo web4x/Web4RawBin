@@ -1,1 +1,18 @@
-{"ior":"ior:class:Requirement","model":{"uuid":"17fd9704-5573-4cd0-8bfd-cf7ae303af4e","altId":"R19.23","name":"R19.23: Remove all room size and capacity limits — rooms are unbounded.","description":"REMOVE all room size/capacity functionality: maxMembers, maxPlayers, room-size configuration in model/UI/server validation. Rooms have no upper bound on members. Delete every code path that checks, enforces, displays, or configures room capacity.","tronQuote":"> TRON: \"remove all room sizes and the spectator functionality.\" (room-size clause)","tasks":[],"tests":[],"sourceFile":"ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md","unitLinks":[],"parent":"ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"},"ownerIor":"ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"}
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "17fd9704-5573-4cd0-8bfd-cf7ae303af4e",
+    "altId": "R19.23",
+    "name": "R19.23: Remove all room size and capacity limits \u2014 rooms are unbounded.",
+    "description": "REMOVE all room size/capacity functionality: maxMembers, maxPlayers, room-size configuration in model/UI/server validation. Rooms have no upper bound on members. Delete every code path that checks, enforces, displays, or configures room capacity.",
+    "tronQuote": "> TRON: \"remove all room sizes and the spectator functionality.\" (room-size clause)",
+    "tasks": [
+      "ior:instance:e90c223d-4f81-4199-be48-13e234849e31"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
