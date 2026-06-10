@@ -63,6 +63,10 @@
 - **R19.28** (2026-06-10): ONE-LAYER-AHEAD eager prefetch. Always preload exactly one sublayer beyond visible (badge counts known without expanding). On expand, eagerly prefetch the NEXT sublayer for all shown children — one layer, NON-recursive. Applies to /trace + in-room rb-tree.
   > TRON: "lets focus on the lazy loading. to know the badge and optimize ux experience, we already eager preload exactly one sub layer. and on expand the next sublayer of all shown children… but NOT recursive, just one layer… lazy but eager ahead."
 
+### OO quality: tree owns badge+prefetch (R19.29)
+- **R19.29** (2026-06-10): Tree (rb-trace-tree) OWNS badge child-count calculation+assignment AND lazy/eager prefetch as its OWN methods operating ON items. rb-object-item is a dumb view the Tree drives. Fixes badge-0 bug (some nodes show 0 despite visible children — scattered trigger sites miss updates).
+  > TRON: "increase the quality by more object orientation. the badges calculation and assignment and lazy eager loading must be more a method and behavior of the tree on the items as of the individual items."
+
 ### Room editor wiring + pencil affordance (refines R19.2)
 - **R19.2.A** (2026-06-10): the room name MUST carry a pencil edit icon (file-browser convention); clicking the pencil OR the name opens the room config/scenario editor. Captures BOTH the implementation-gap and the visual affordance.
   > TRON (gap): "the app has no room config/scenario editor yet clicking on the room name in the room."
