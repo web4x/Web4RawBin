@@ -2,3 +2,5 @@ node_modules/
 data/rooms/
 data/users/
 .env
+web4rawbin-pre-T118-backup-*.tar.gz
+data/migration/
