@@ -78,6 +78,12 @@
   > TRON: "sharing seems broken… sending worked, but the url in a browser was ending on the offline page on that url."
   > (full context) TRON: "the link icon works into the index scenario. edit pen runs into an empty file…bug. and the room into a 404. bug. either into the room…. or the room editor."
 
+### Detail drawer + chain display bugs (R19.33 + R19.34)
+- **R19.33** (2026-06-11): detail drawer close affordance (nudge/X handle) scrolls out of view. MUST stay sticky/fixed in the drawer viewport.
+  > TRON: "the details nudge to close scrolls out of the view"
+- **R19.34** (2026-06-11): 'Traceability Chain' section shows a flat list of many UCs instead of THE singular chain (req→uc→class→method→impl→test). The 'All children' section is acceptable. Cross-refs R18.24 (same spec, regressed).
+  > TRON: "the traceability has many use cases instead of the traceability chain to test… the All children section may be right"
+
 ### Room editor wiring + pencil affordance (refines R19.2)
 - **R19.2.A** (2026-06-10): the room name MUST carry a pencil edit icon (file-browser convention); clicking the pencil OR the name opens the room config/scenario editor. Captures BOTH the implementation-gap and the visual affordance.
   > TRON (gap): "the app has no room config/scenario editor yet clicking on the room name in the room."

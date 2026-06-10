@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "7734f4e1-def9-4af3-a7d2-5ccc7160b214",
+    "altId": "R19.34",
+    "name": "R19.34: Traceability Chain section shows the singular chain to Test, not a flat list of use cases.",
+    "description": "BUG: the detail view's 'Traceability Chain' section currently shows many use cases as a flat list instead of THE singular forward chain (req\u2192uc\u2192class\u2192method\u2192impl\u2192test) leading to a Test. FIX: the Traceability Chain section MUST render ONE narrowed chain path from the current node's requirement root down to its Test leaf \u2014 the same singular-chain the locked 6-step model defines. The separate 'All children' section listing all children/UCs is acceptable and may remain as-is. Cross-refs R18.24 (detail chain shows narrowed single-thread) which specified this same behavior \u2014 R19.34 re-asserts it as a bug report because the implementation reverted/regressed.",
+    "tronQuote": "> TRON: \"the traceability has many use cases instead of the traceability chain to test\u2026 the All children section may be right\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:c9de63d7-61d4-4d14-a8cd-20f9e9b98a26"
+    ],
+    "crossRefNote": "R18.24 (detail chain section shows narrowed single-thread) specified this same behavior. R19.34 re-asserts it because the implementation shows a flat UC list instead of the singular chain path."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
