@@ -72,6 +72,10 @@
   > TRON: "edit pen runs into an empty file…bug."
 - **R19.31** (2026-06-10): BUG — room link → 404. MUST navigate to live room or room editor, never 404.
   > TRON: "and the room into a 404. bug. either into the room…. or the room editor."
+
+### Shared room link offline bug (R19.32)
+- **R19.32** (2026-06-10): BUG — shared room link /app?join=<roomUuid> lands on offline page instead of loading the app + join flow. Likely SW routing gap.
+  > TRON: "sharing seems broken… sending worked, but the url in a browser was ending on the offline page on that url."
   > (full context) TRON: "the link icon works into the index scenario. edit pen runs into an empty file…bug. and the room into a 404. bug. either into the room…. or the room editor."
 
 ### Room editor wiring + pencil affordance (refines R19.2)
