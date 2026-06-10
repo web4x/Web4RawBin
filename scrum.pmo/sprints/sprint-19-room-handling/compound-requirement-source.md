@@ -53,3 +53,8 @@
 ### Per-user room storage as canonical symlinks (R19.22)
 - **R19.22** (2026-06-10): every data/users/<userUuid>/rooms/<roomUuid>/room.json MUST be a symlink (ln) to scenario/index/<shard>/<roomUuid>.scenario.json (the canonical Room unit). The UI MUST display a link affordance next to the edit pencil button that opens the canonical scenario unit. Aligns with R18.29-R18.31 (unitLinks lifecycle) and R19.14 / R19.20 (file unitLinks). Backfill required for existing room.json files.
   > TRON: "data/users/<uuuid>/rooms/<ruuid>/room.json is empty but should be a ln link to a uuid.scenario.json of a room in the index with a link next to the edit button. this should be true for ALL rooms."
+
+### Removal scope (R19.23 + R19.24)
+- **R19.23** (2026-06-10): REMOVE all room size/capacity limits (maxMembers, maxPlayers, room-size config in model/UI/server validation). Rooms are unbounded.
+- **R19.24** (2026-06-10): REMOVE spectator functionality entirely (isSpectator, spectator mode/role, spectator UI, spectator join flow, spectator server logic, spectator message types).
+  > TRON: "remove all room sizes and the spectator functionality."
