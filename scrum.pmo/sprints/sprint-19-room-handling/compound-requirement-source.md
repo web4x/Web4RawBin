@@ -63,3 +63,7 @@
 - **R19.8.A** (2026-06-10): when a member leaves a persistent room, the server MUST flip their status from online to offline — NOT remove them from the member list. Rejoining flips back to online. R19.8 describes the steady-state; R19.8.A makes the transition event explicit.
   > PO directive: persistent rooms must RETAIN members on leave + only toggle online/offline (Royal Jungle bug anchor).
   > Anchored on TRON: "persistent rooms add every one to the members list even if they are offline but show them as offline. but no contact gets ever lost."
+
+### Rejoin deduplication (refines R19.8.A — duplicate member bug)
+- **R19.8.B** (2026-06-10): when a member rejoins a persistent room, the server MUST find the existing member by playerToken and flip disconnected→false (online). NEVER add a duplicate entry. Members are keyed by identity (playerToken), unique always.
+  > TRON: "the deduplication of users in the members bar does not work. a user leaves and comes back and is then in twice. should never happen."

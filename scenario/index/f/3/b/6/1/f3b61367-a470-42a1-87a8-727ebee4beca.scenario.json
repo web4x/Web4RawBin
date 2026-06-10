@@ -1,1 +1,22 @@
-{"ior":"ior:class:Requirement","model":{"uuid":"f3b61367-a470-42a1-87a8-727ebee4beca","altId":"R19.8.A","name":"R19.8.A: Persistent rooms flip a leaving member to offline status instead of pruning them from the member list.","description":"When a member leaves (disconnects, navigates away, or closes the app) a persistent room, the server MUST toggle their status from online to offline — NOT remove (prune) them from the member list. The member row stays visible in the Members tree with an offline indicator. Rejoining flips the status back to online. This is the transition-event contract that R19.8 implies but does not explicitly state: R19.8 describes the steady-state (members shown as offline), R19.8.A makes the leave-event behavior explicit (flip, never prune). Royal Jungle bug anchor.","tronQuote":"> PO directive 2026-06-10: persistent rooms must RETAIN members on leave + only toggle online/offline (Royal Jungle bug anchor). Anchored on TRON: \"persistent rooms add every one to the members list even if they are offline but show them as offline. but no contact gets ever lost.\"","tasks":[],"tests":[],"sourceFile":"ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md","unitLinks":[],"parent":"ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28","refinementOf":"ior:instance:30dcb1a0-17b9-4fcb-9823-e71a4dc371c9","refinementOfNote":"Refines R19.8 (persistent offline retention). R19.8 describes the steady-state (members shown as offline). R19.8.A makes the TRANSITION explicit: leave-event = status flip (online to offline), NEVER list removal (prune). This is the behavioral contract the Royal Jungle bug violated. Also relates to R19.18 (no contact ever lost) which is the invariant; R19.8.A is the mechanism that enforces it."},"ownerIor":"ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"}
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "f3b61367-a470-42a1-87a8-727ebee4beca",
+    "altId": "R19.8.A",
+    "name": "R19.8.A: Persistent rooms flip a leaving member to offline status instead of pruning them from the member list.",
+    "description": "When a member leaves (disconnects, navigates away, or closes the app) a persistent room, the server MUST toggle their status from online to offline \u2014 NOT remove (prune) them from the member list. The member row stays visible in the Members tree with an offline indicator. Rejoining flips the status back to online. This is the transition-event contract that R19.8 implies but does not explicitly state: R19.8 describes the steady-state (members shown as offline), R19.8.A makes the leave-event behavior explicit (flip, never prune). Royal Jungle bug anchor.",
+    "tronQuote": "> PO directive 2026-06-10: persistent rooms must RETAIN members on leave + only toggle online/offline (Royal Jungle bug anchor). Anchored on TRON: \"persistent rooms add every one to the members list even if they are offline but show them as offline. but no contact gets ever lost.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "refinementOf": "ior:instance:30dcb1a0-17b9-4fcb-9823-e71a4dc371c9",
+    "refinementOfNote": "Refines R19.8 (persistent offline retention). R19.8 describes the steady-state (members shown as offline). R19.8.A makes the TRANSITION explicit: leave-event = status flip (online to offline), NEVER list removal (prune). This is the behavioral contract the Royal Jungle bug violated. Also relates to R19.18 (no contact ever lost) which is the invariant; R19.8.A is the mechanism that enforces it.",
+    "refinedBy": [
+      "ior:instance:417918a5-b2ce-45d4-8434-fd67d6abef3f"
+    ],
+    "refinedByNote": "Refined by R19.8.B which covers the REJOIN half: reconnect = flip existing entry back to online, never add a duplicate. R19.8.A covers leave; R19.8.B covers rejoin. Together they enforce the deduplication invariant."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
