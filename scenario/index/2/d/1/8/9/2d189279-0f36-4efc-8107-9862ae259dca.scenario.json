@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "2d189279-0f36-4efc-8107-9862ae259dca",
+    "name": "Room.visibilityCheck",
+    "className": "Room",
+    "methodName": "visibilityCheck",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "implementations": [],
+    "parent": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+}

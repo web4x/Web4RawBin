@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "0e11cfb4-249c-4a20-baa9-932401f8e19e",
+    "name": "JoinRequestFlow.applySend",
+    "className": "JoinRequestFlow",
+    "methodName": "applySend",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [],
+    "parent": "ior:instance:76d7c1e0-e0a8-4b69-b66f-6eb068430685",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:76d7c1e0-e0a8-4b69-b66f-6eb068430685"
+}

@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "792246f1-346e-4337-9619-b38d8641769f",
+    "name": "RbRoomContent",
+    "sourceFile": "ior:file:src/public/ts/room/rb-room-content.ts",
+    "useCases": [
+      "ior:instance:30a1d896-f3cc-44e8-9036-891929efb24b",
+      "ior:instance:7fcfda02-50b7-44b5-a06a-ddd96d4f7fb3"
+    ],
+    "methods": [
+      "ior:instance:9f53d391-2238-4aaf-9241-046fed6ee811"
+    ],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

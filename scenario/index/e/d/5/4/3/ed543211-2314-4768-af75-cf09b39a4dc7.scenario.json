@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ed543211-2314-4768-af75-cf09b39a4dc7",
+    "name": "FileUnit.upload",
+    "className": "FileUnit",
+    "methodName": "upload",
+    "sourceFile": "ior:file:src/ts/server/FileApi.ts",
+    "implementations": [],
+    "parent": "ior:instance:3e0ceb94-d08e-4e43-8855-90f3c5b13be1",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:3e0ceb94-d08e-4e43-8855-90f3c5b13be1"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "9f53d391-2238-4aaf-9241-046fed6ee811",
+    "name": "RbRoomContent.render",
+    "className": "RbRoomContent",
+    "methodName": "render",
+    "sourceFile": "ior:file:src/public/ts/room/rb-room-content.ts",
+    "implementations": [],
+    "parent": "ior:instance:792246f1-346e-4337-9619-b38d8641769f",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:792246f1-346e-4337-9619-b38d8641769f"
+}

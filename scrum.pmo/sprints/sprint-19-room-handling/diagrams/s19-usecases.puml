@@ -1,53 +1,55 @@
 @startuml s19-usecases
 !theme plain
-title Sprint 19 Room Handling UseCases
+title Sprint 19 Room Handling - UseCases (UC.method singular per R18.8)
+
+left to right direction
 
 package "Room as Scenario Unit" {
-  usecase "room.editConfig\n[uc:uuid:e14946bf-c28a-4f79-8ab4-2dcbd619a85b]\nR19.2" as UC1
+  usecase "room.editConfig\nuc:e14946bf\nR19.2" as UC1
 }
 package "Visibility + Apply-Flow" {
-  usecase "room.visibilityCheck\n[uc:uuid:a6c2cea8-1108-4c0d-9d10-adcf2a5f9e88]\nR19.3" as UC2
-  usecase "room.listForOwner\n[uc:uuid:c9a445b6-3486-420e-af03-83f6eacd787e]\nR19.4" as UC3
-  usecase "room.applyToJoin\n[uc:uuid:b285fdaf-f41b-42b3-9e6d-85fcfdabd266]\nR19.5" as UC4
-  usecase "room.acceptRequest\n[uc:uuid:a3c10529-973f-4d79-bbd9-d6ec94ed8989]\nR19.5" as UC5
-  usecase "room.joinPublic\n[uc:uuid:22c10fc8-2896-4a14-b7bd-4138f8285294]\nR19.6" as UC6
+  usecase "room.visibilityCheck\nuc:a6c2cea8\nR19.3" as UC2
+  usecase "room.listForOwner\nuc:c9a445b6\nR19.4" as UC3
+  usecase "room.applyToJoin\nuc:b285fdaf\nR19.5" as UC4
+  usecase "room.acceptRequest\nuc:a3c10529\nR19.5" as UC5
+  usecase "room.joinPublic\nuc:22c10fc8\nR19.6" as UC6
 }
 package "Live vs Persistent" {
-  usecase "room.persistMembers\n[uc:uuid:ee39ff38-8662-4055-a350-57af82dc6651]\nR19.8" as UC7
-  usecase "member.add\n[uc:uuid:05999d2e-32ef-4ef6-84d4-01f58e1d  usecase "member.add\n[uc:uuid:05999d2e-32ef-4ef6-84d4-01f58e1d  usecase "member.add\n[uc:uuid:05999d2e-32ef-4ef6-84d4-01f58e1d  usPe  usecase "member.add79  usecase "30  usecase "member.add\n[uc:u" as UC10
+  usecase "room.persistMembers\nuc:ee39ff38\nR19.8" as UC7
+  usecase "member.add\nuc:05999d2e\nR19.9" as UC8
+  usecase "member.remove\nuc:8de2683f\nR19.9" as UC9
+  usecase "room.defaultPersistent\nuc:e6790cf6\nR19.10" as UC10
 }
 package "Room UI" {
-  usecase "roomContent.renderDropZone\n[uc:uuid:30a1d896-f3cc-44e8-9036-891929efb24b]\nR19.11" as UC11
-  usecase "roomTree.renderMembersFiles\n[uc:uuid:7fcfda02-50b7-44b5-a06a-ddd96d4f7fb3]\nR19.12-13" as UC12
+  usecase "roomContent.renderDropZone\nuc:30a1d896\nR19.11" as UC11
+  usecase "roomTree.renderMembersFiles\nuc:7fcfda02\nR19.12-13" as UC12
 }
 package "File-as-Unit" {
-  usecase "file.uploadAsUnit\n[uc:uuid:b9e59d4a-12f0-4a98-986d-248461526d5d]\nR19.14" as UC13
+  usecase "file.uploadAsUnit\nuc:b9e59d4a\nR19.14" as UC13
 }
 
-class "Room\n[class:uuid:1165c293-3152-4e17-a242-8b7a03e5f3f8]" as C_Room {
-  visibilityCheck [method:uuid:2d189279-0f36-4efc-8107-9862ae259dca]
-  memberAdd [method:uuid:ea02fa6d-5116-4466-82ee-81866c81a164]
-  memberRemove [method:uuid:401d269c-aa6b-424d-8c9a-567f94f915b9]
-}
-class "RoomLoader\n[class:uuid:36effd68-664c-4193-a830-d3a774275b12]" as C_RL
-class "RbRoomDetail\n[class:uuid:5a6d931a-f4ab-4796-a295-3033323bd431]" as C_RRD {
-  render [method:uuid:c1822b4c-2e2a-4c85-ba96-c8bc2fec6154]
-  modeSet [method:uuid:2686a446-3d59-4  modeSet [method:uuid:2686a446-3d59-4  modeSet [method:uuid:2686a446-3d59-4  modeSet [method:uuid:2686a446-3d59-4  modeSet [method:u53  modeSet [method:1-  modeSet [method:uuid:2686a446-3d59-4  modeSet [method:uuid:2686a446-3d59-4  modeSet [method:uuid:26
-  applySend [method:uuid:0e11cfb4-249c-4a20-baa9-932401f8e19e]
-  accept [method:uuid:34d3d572-2970-4930-bc6c-f09bd3d53deb]
-}
-class "Filclass "Filclass "Filclass "Filclass "Filclass "Filclass "Filclass "Filclass "Filclass "Filed543211-2314-4768-af75-cf09b39a4dc7]
-}
+actor "Class.method\n(singular target)" as Actor
 
-UC1 --> C_RRD : .render
-UC2 --> C_Room : .UC2 --> C_Room : .UC2 --> C_Room : .UC2 --> C_Room C4 --> C_JRF : .applySend
-UC5 --> C_JRF : .accept
-UC7 --> C_Room : .memberAdd
-UC8 --> C_Room : .memberAdd
-UC9 --> C_Room : .memberRemove
-UC10 --> C_RRD : .modeSet
-UC11 --> C_RRC : .render
-UC12 --> C_RRC : .render
-UC13 --> C_FU : .upload
+UC1 --> Actor : RbRoomDetail.render\nclass:5a6d931a\nmethod:c1822b4c
+UC2 --> Actor : Room.visibilityCheck\nclass:1165c293\nmethod:2d189279
+UC3 --> Actor : Room.visibilityCheck\nclass:1165c293\nmethod:2d189279
+UC4 --> Actor : JoinRequestFlow.applySend\nclass:76d7c1e0\nmethod:0e11cfb4
+UC5 --> Actor : JoinRequestFlow.accept\nclass:76d7c1e0\nmethod:34d3d572
+UC6 --> Actor : Room.memberAdd\nclass:1165c293\nmethod:ea02fa6d
+UC7 --> Actor : Room.memberAdd\nclass:1165c293\nmethod:ea02fa6d
+UC8 --> Actor : Room.memberAdd\nclass:1165c293\nmethod:ea02fa6d
+UC9 --> Actor : Room.memberRemove\nclass:1165c293\nmethod:401d269c
+UC10 --> Actor : RbRoomDetail.modeSet\nclass:5a6d931a\nmethod:2686a446
+UC11 --> Actor : RbRoomContent.render\nclass:792246f1\nmethod:9f53d391
+UC12 --> Actor : RbRoomContent.render\nclass:792246f1\nmethod:9f53d391
+UC13 --> Actor : FileUnit.upload\nclass:3e0ceb94\nmethod:ed543211
+
+note bottom of Actor
+  6 Classes: Room (1165c293), RoomLoader (36effd68),
+  RbRoomDetail (5a6d931a), RbRoomContent (792246f1),
+  JoinRequestFlow (76d7c1e0), FileUnit (3e0ceb94)
+  9 Methods + 13 UCs + 14 Requirements
+  Sprint: 97f513a1
+end note
 
 @enduml

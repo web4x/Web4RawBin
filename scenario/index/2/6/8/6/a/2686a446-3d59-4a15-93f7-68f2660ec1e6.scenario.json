@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "2686a446-3d59-4a15-93f7-68f2660ec1e6",
+    "name": "RbRoomDetail.modeSet",
+    "className": "RbRoomDetail",
+    "methodName": "modeSet",
+    "sourceFile": "ior:file:src/public/ts/room/rb-room-detail.ts",
+    "implementations": [],
+    "parent": "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431"
+}

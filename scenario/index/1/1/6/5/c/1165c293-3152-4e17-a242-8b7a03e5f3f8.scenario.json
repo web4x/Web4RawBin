@@ -1,0 +1,24 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "name": "Room",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "useCases": [
+      "ior:instance:a6c2cea8-1108-4c0d-9d10-adcf2a5f9e88",
+      "ior:instance:c9a445b6-3486-420e-af03-83f6eacd787e",
+      "ior:instance:22c10fc8-2896-4a14-b7bd-4138f8285294",
+      "ior:instance:ee39ff38-8662-4055-a350-57af82dc6651",
+      "ior:instance:05999d2e-32ef-4ef6-84d4-01f58e1d50f0",
+      "ior:instance:8de2683f-144b-4dc1-a41c-3fb3c53cd3f4"
+    ],
+    "methods": [
+      "ior:instance:2d189279-0f36-4efc-8107-9862ae259dca",
+      "ior:instance:ea02fa6d-5116-4466-82ee-81866c81a164",
+      "ior:instance:401d269c-aa6b-424d-8c9a-567f94f915b9"
+    ],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

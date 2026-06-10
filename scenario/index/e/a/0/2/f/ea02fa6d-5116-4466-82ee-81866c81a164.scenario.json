@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ea02fa6d-5116-4466-82ee-81866c81a164",
+    "name": "Room.memberAdd",
+    "className": "Room",
+    "methodName": "memberAdd",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "implementations": [],
+    "parent": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+}
