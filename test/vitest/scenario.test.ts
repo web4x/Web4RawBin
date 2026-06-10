@@ -46,7 +46,7 @@ describe('T125.2: Class loaders + registry', () => {
     for (const name of ['Sprint', 'Task', 'Requirement', 'UseCase', 'Class', 'Method', 'Test']) {
       expect(reg.has(iorClass(name))).toBe(true);
     }
-    expect(reg.all().length).toBe(10);
+    expect(reg.all().length).toBe(11);
   });
 
   it('TaskLoader.create populates defaults + overrides', () => {
@@ -342,7 +342,7 @@ describe('T134: TraceLink', () => {
   it('ClassRegistry resolves TraceLink (8th class)', () => {
     const reg = new ClassRegistry();
     expect(reg.has(iorClass('TraceLink'))).toBe(true);
-    expect(reg.all().length).toBe(10);
+    expect(reg.all().length).toBe(11);
   });
 
   it('defaultTemplateRegistry renders TraceLink HTML+MD', () => {
@@ -391,5 +391,30 @@ describe('T138: Skills', () => {
     statusTransition(idx, task.ior, 'startRefinement');
     const reloaded = idx.get(task.ior.replace('ior:instance:', ''));
     expect(reloaded?.model.status).toBe('Refining');
+  });
+});
+
+// S19 T-file-unit R19.14 tests
+import { createFileUnit, readFileUnitContent } from '../../src/ts/scenario/file-unit.js';
+describe('S19 T-file-unit R19.14: files as scenario units', () => {
+  let tmp: string; let idx: ScenarioIndex;
+  beforeEach(() => { tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'fu-')); fs.mkdirSync(path.join(tmp, 'index')); idx = new ScenarioIndex(path.join(tmp, 'index')); });
+  afterEach(() => { fs.rmSync(tmp, { recursive: true, force: true }); });
+  it('creates file unit + content sidecar', () => {
+    const u = createFileUnit(idx, { name: 'hello.txt', content: 'hello world' });
+    expect(u.ior).toBe('ior:class:File');
+    expect((u.model as any).size).toBe(11);
+    expect((u.model as any).contentPath).toMatch(/.content/);
+  });
+  it('roomUuid populates unitLinks[] + ownerIor', () => {
+    const u = createFileUnit(idx, { name: 'f.md', content: 'x', roomUuid: 'abc-def' });
+    expect(u.ownerIor).toBe('ior:instance:abc-def');
+    expect((u.model as any).unitLinks).toContain('rooms/abc-def/files/' + (u.model as any).uuid + '.scenario.json');
+  });
+  it('readFileUnitContent retrieves the bytes', () => {
+    const u = createFileUnit(idx, { name: 'b.bin', content: Buffer.from([1,2,3,4]) });
+    const back = readFileUnitContent(idx, (u.model as any).uuid);
+    expect(back).not.toBeNull();
+    expect(Array.from(back!)).toEqual([1,2,3,4]);
   });
 });

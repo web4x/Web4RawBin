@@ -28,12 +28,14 @@ export const MethodLoader = loader('Method', { class: null, implementations: [],
 export const TestLoader = loader('Test', { file: null, methods: [], status: '' });
 export const UserLoader = loader('User', { displayName: '', token: '', avatarHash: '', deviceId: '', sshPubKey: '', createdAt: '', updatedAt: '' });
 export const SkillLoader = loader('Skill', { description: '', object: '', verb: '', parameters: [], returns: {}, impl: '', requirement: '', roles: [], examples: [] });
+// T-file-unit R19.14: files become unique scenario units (<uuid>.content + <uuid>.scenario.json + unitLinks[])
+export const FileLoader = loader('File', { contentPath: '', size: 0, mimeType: '', uploadedAt: '', uploaderToken: '', roomUuid: '' });
 
 export class ClassRegistry {
   private loaders = new Map<string, ClassLoader>();
 
   constructor() {
-    for (const l of [SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader, TraceLinkLoader, UserLoader, SkillLoader]) {
+    for (const l of [SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader, TraceLinkLoader, UserLoader, SkillLoader, FileLoader]) {
       this.loaders.set(l.className, l);
     }
   }
