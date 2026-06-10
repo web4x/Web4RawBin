@@ -6,7 +6,7 @@
     "slug": "persistent-default-mode-flip",
     "description": "LIVE is the current default room mode. AFTER this sprint, PERSISTENT becomes the default mode. The mode can be switched back to LIVE in the room editor. Singular-chain by design.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect 5305492f singular-chain)\n  - [x] creating test cases\n  - [x] implementing (expert 7d975b74 v0.5.127 PERSISTENT default R19.10, switchable via setMode)\n  - [x] testing (vitest 882/882)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing (commit 7d975b74 v0.5.127 \u2014 default mode=persistent + setMode editor switch)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:1350d422-1133-4f04-9f9f-c0b3c4930542"
     ],

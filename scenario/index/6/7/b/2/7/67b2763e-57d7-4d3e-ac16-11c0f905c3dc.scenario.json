@@ -6,7 +6,7 @@
     "slug": "persistent-room-mode",
     "description": "PERSISTENT room mode keeps everyone in the members list even when offline (shown as offline) so no contact is ever lost. Members can be added and removed from the room member list. Singular-chain by design.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing 7d975b74 v0.5.127 RoomMode setMode PERSISTENT default\n  - [x] testing vitest 882 of 882\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing (commit 7d975b74 v0.5.127 \u2014 mode flag + setMode + offline-member retention)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:b6b9c0ab-0f35-4801-b7f0-cd6dc3820f23",
       "ior:instance:30dcb1a0-17b9-4fcb-9823-e71a4dc371c9",

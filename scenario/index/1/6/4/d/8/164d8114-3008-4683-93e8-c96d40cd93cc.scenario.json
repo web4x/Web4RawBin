@@ -5,8 +5,8 @@
     "name": "T-visibility: Room visibility modes (public/by-invite/private)",
     "slug": "room-visibility-modes",
     "description": "Room visibility = PUBLIC | BY-INVITE | PRIVATE(password). PRIVATE rooms listed only for owners. Singular-chain by design: ONE UseCase per Task, ONE Method per UseCase.",
-    "status": "Planned",
-    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "In Progress",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing (commit 7d975b74 v0.5.127 \u2014 visibility enum + setVisibility + RoomVisibility type)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:1f1849b5-b47a-4018-8bb1-cd9690884930",
       "ior:instance:bcaa8cda-6ac6-4606-8443-8dd8ed80e673"
