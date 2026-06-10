@@ -1973,14 +1973,14 @@
   },
   {
     "token": "03bf99c6-4a38-42ec-86c7-d6293b802bf4",
-    "name": "",
+    "name": "Johannes Adler",
     "phone": "",
     "url": "",
-    "avatar": "",
+    "avatar": "/api/avatar/03bf99c6-4a38-42ec-86c7-d6293b802bf4",
     "avatarCrop": null,
     "secretCode": "4734",
-    "profileCommitted": false,
-    "sshKeysGenerated": false,
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
     "sshKeyGeneratedAt": "",
     "consolidatedFrom": [],
     "bugReports": []

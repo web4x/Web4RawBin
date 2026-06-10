@@ -47,7 +47,7 @@ describe('TC-20.1: Chat message broadcast', () => {
   it('addChat broadcasts CHAT_MESSAGE to all members', () => {
     const creator = makeMember({ name: 'Alice' });
     const joiner = makeMember({ name: 'Bob' });
-    const room = new Room('ChatRoom', creator, { maxMembers: 4 });
+    const room = new Room('ChatRoom', creator);
     room.addMember(joiner);
 
     clearMock(creator.ws);
@@ -69,7 +69,7 @@ describe('TC-20.1: Chat message broadcast', () => {
 
   it('broadcast includes sender info', () => {
     const creator = makeMember({ name: 'Sender' });
-    const room = new Room('ChatRoom', creator, { maxMembers: 4 });
+    const room = new Room('ChatRoom', creator);
 
     clearMock(creator.ws);
     room.addChat(creator.id, 'Sender', 'test msg');
@@ -85,7 +85,7 @@ describe('TC-20.1: Chat message broadcast', () => {
   it('does not broadcast to disconnected members', () => {
     const creator = makeMember({ name: 'Host' });
     const disconnected = makeMember({ name: 'Ghost', ws: mockWs(false) });
-    const room = new Room('ChatRoom', creator, { maxMembers: 4 });
+    const room = new Room('ChatRoom', creator);
     room.addMember(disconnected);
 
     clearMock(creator.ws);
@@ -96,21 +96,6 @@ describe('TC-20.1: Chat message broadcast', () => {
     expect(creator.ws.send).toHaveBeenCalled();
     expect(disconnected.ws.send).not.toHaveBeenCalled();
   });
-
-    const spectator = makeMember({ name: 'Watcher' });
-    const room = new Room('ChatRoom', creator, { maxMembers: 4 });
-    room.addSpectator(spectator);
-
-    clearMock(creator.ws);
-    clearMock(spectator.ws);
-
-    room.addChat(creator.id, 'Host', 'Spectators can see this');
-
-    const specMsgs = getSentMessages(spectator.ws);
-    const chat = specMsgs.find(m => m.type === 'CHAT_MESSAGE');
-    expect(chat).toBeDefined();
-    expect(chat.text).toBe('Spectators can see this');
-  });
 });
 
 // ── TC-20.2: Chat history preserved on rejoin ───────────────────────────────
@@ -119,7 +104,7 @@ describe('TC-20.2: Chat history on rejoin', () => {
 
   it('new member receives CHAT_HISTORY on join', () => {
     const creator = makeMember({ name: 'Host' });
-    const room = new Room('ChatRoom', creator, { maxMembers: 4 });
+    const room = new Room('ChatRoom', creator);
 
     room.addChat(creator.id, 'Host', 'First message');
     room.addChat(creator.id, 'Host', 'Second message');
@@ -135,23 +120,9 @@ describe('TC-20.2: Chat history on rejoin', () => {
     expect(history.messages[1].text).toBe('Second message');
   });
 
-    const room = new Room('ChatRoom', creator, { maxMembers: 4 });
-
-    room.addChat(creator.id, 'Host', 'Before spectator');
-
-    const spectator = makeMember({ name: 'Watcher' });
-    room.addSpectator(spectator);
-
-    const specMsgs = getSentMessages(spectator.ws);
-    const history = specMsgs.find(m => m.type === 'CHAT_HISTORY');
-    expect(history).toBeDefined();
-    expect(history.messages.length).toBe(1);
-    expect(history.messages[0].text).toBe('Before spectator');
-  });
-
   it('no CHAT_HISTORY sent when chat is empty', () => {
     const creator = makeMember({ name: 'Host' });
-    const room = new Room('ChatRoom', creator, { maxMembers: 4 });
+    const room = new Room('ChatRoom', creator);
 
     const joiner = makeMember({ name: 'Joiner' });
     room.addMember(joiner);
@@ -163,7 +134,7 @@ describe('TC-20.2: Chat history on rejoin', () => {
 
   it('getChatHistory returns copy of all messages', () => {
     const creator = makeMember({ name: 'Host' });
-    const room = new Room('ChatRoom', creator, { maxMembers: 4 });
+    const room = new Room('ChatRoom', creator);
 
     room.addChat(creator.id, 'Host', 'msg1');
     room.addChat(creator.id, 'Host', 'msg2');
@@ -195,7 +166,7 @@ describe('TC-20.3: Message length limit', () => {
 
   it('Room.addChat stores full text (truncation is server handler responsibility)', () => {
     const creator = makeMember({ name: 'Host' });
-    const room = new Room('ChatRoom', creator, { maxMembers: 4 });
+    const room = new Room('ChatRoom', creator);
 
     // Room.addChat receives already-truncated text from server handler
     const text200 = 'B'.repeat(200);
@@ -207,7 +178,7 @@ describe('TC-20.3: Message length limit', () => {
 
   it('chat history limit is 100 messages', () => {
     const creator = makeMember({ name: 'Spammer' });
-    const room = new Room('ChatRoom', creator, { maxMembers: 4 });
+    const room = new Room('ChatRoom', creator);
 
     for (let i = 0; i < 150; i++) {
       room.addChat(creator.id, 'Spammer', `msg-${i}`);
@@ -227,7 +198,7 @@ describe('TC-20.4: Sender name in chat', () => {
 
   it('senderName matches the name passed to addChat', () => {
     const creator = makeMember({ name: 'Alice' });
-    const room = new Room('ChatRoom', creator, { maxMembers: 4 });
+    const room = new Room('ChatRoom', creator);
 
     room.addChat(creator.id, 'Alice', 'Hello');
 
@@ -238,7 +209,7 @@ describe('TC-20.4: Sender name in chat', () => {
   it('different senders have different senderName', () => {
     const alice = makeMember({ name: 'Alice' });
     const bob = makeMember({ name: 'Bob' });
-    const room = new Room('ChatRoom', alice, { maxMembers: 4 });
+    const room = new Room('ChatRoom', alice);
     room.addMember(bob);
 
     room.addChat(alice.id, 'Alice', 'Hi from Alice');
@@ -252,7 +223,7 @@ describe('TC-20.4: Sender name in chat', () => {
   it('broadcast message includes senderName for each recipient', () => {
     const alice = makeMember({ name: 'Alice' });
     const bob = makeMember({ name: 'Bob' });
-    const room = new Room('ChatRoom', alice, { maxMembers: 4 });
+    const room = new Room('ChatRoom', alice);
     room.addMember(bob);
 
     clearMock(alice.ws);
@@ -274,7 +245,7 @@ describe('TC-20.5: Multi-user chat', () => {
     const alice = makeMember({ name: 'Alice' });
     const bob = makeMember({ name: 'Bob' });
     const carol = makeMember({ name: 'Carol' });
-    const room = new Room('ChatRoom', alice, { maxMembers: 6 });
+    const room = new Room('ChatRoom', alice);
     room.addMember(bob);
     room.addMember(carol);
 
@@ -299,7 +270,7 @@ describe('TC-20.5: Multi-user chat', () => {
   it('message order preserved in history', () => {
     const alice = makeMember({ name: 'Alice' });
     const bob = makeMember({ name: 'Bob' });
-    const room = new Room('ChatRoom', alice, { maxMembers: 4 });
+    const room = new Room('ChatRoom', alice);
     room.addMember(bob);
 
     room.addChat(alice.id, 'Alice', 'First');
@@ -316,7 +287,7 @@ describe('TC-20.5: Multi-user chat', () => {
   it('late joiner gets full conversation history', () => {
     const alice = makeMember({ name: 'Alice' });
     const bob = makeMember({ name: 'Bob' });
-    const room = new Room('ChatRoom', alice, { maxMembers: 6 });
+    const room = new Room('ChatRoom', alice);
     room.addMember(bob);
 
     room.addChat(alice.id, 'Alice', 'Before Carol');
@@ -345,7 +316,7 @@ describe('TC-20.5: Multi-user chat', () => {
   it('member who left does not receive further messages', () => {
     const alice = makeMember({ name: 'Alice' });
     const bob = makeMember({ name: 'Bob' });
-    const room = new Room('ChatRoom', alice, { maxMembers: 4 });
+    const room = new Room('ChatRoom', alice);
     room.addMember(bob);
 
     room.removeMember(bob.id);

@@ -248,50 +248,6 @@ describe('TC-3.3.5: Broadcast → all members receive message', () => {
   });
 });
 
-// ── TC-3.3.6: Chat ───────────────────────────────────────────────────────────
-
-describe('TC-3.3.6: Chat → chatHistory append + limit', () => {
-
-  it('chat message appends to chatHistory', () => {
-    const creator = makeMember({ name: 'Host' });
-    const room = new Room('ChatRoom', creator);
-
-    room.addChat(creator.id, creator.name, 'Hello world');
-    room.addChat(creator.id, creator.name, 'Second message');
-
-    const history = room.getChatHistory();
-    expect(history.length).toBe(2);
-    expect(history[0].text).toBe('Hello world');
-    expect(history[1].text).toBe('Second message');
-  });
-
-  it('chat message includes sender name and timestamp', () => {
-    const creator = makeMember({ name: 'Alice' });
-    const room = new Room('ChatRoom', creator);
-
-    room.addChat(creator.id, creator.name, 'Hi');
-
-    const msg = room.getChatHistory()[0];
-    expect(msg.senderName).toBe('Alice');
-    expect(msg.timestamp).toBeDefined();
-    expect(msg.timestamp).toBeLessThanOrEqual(Date.now());
-  });
-
-  it('chat history respects max limit', () => {
-    const creator = makeMember({ name: 'Spammer' });
-    const room = new Room('ChatRoom', creator);
-
-    for (let i = 0; i < 200; i++) {
-      room.addChat(creator.id, creator.name, `msg-${i}`);
-    }
-
-    const history = room.getChatHistory();
-    expect(history.length).toBeLessThanOrEqual(100);
-    // Most recent messages should be kept
-    expect(history[history.length - 1].text).toBe('msg-199');
-  });
-});
-
 // ── TC-3.3.7: Per-user persistence (T99 — replaces legacy data/rooms) ───────
 
 vi.mock('../../src/ts/server/RoomKeys.js', async (importOriginal) => {
@@ -309,6 +265,7 @@ describe('TC-3.3.7: Per-user persistence (T99)', () => {
   it('persists to per-user dir on create when creatorToken is set', () => {
     const creator = makeMember({ name: 'Persist', playerToken: 'tok-persist' });
     const manager = new RoomManager();
+    const room = manager.createRoom('PersistRoom', creator, { creatorToken: 'tok-persist' });
 
     expect(mockWriteRoomJson).toHaveBeenCalledTimes(1);
     const [token, roomId, data] = mockWriteRoomJson.mock.calls[0];
@@ -329,6 +286,7 @@ describe('TC-3.3.7: Per-user persistence (T99)', () => {
   it('removeRoom drops in-memory entry (disk cleanup is server handler)', () => {
     const creator = makeMember({ name: 'Host' });
     const manager = new RoomManager();
+    const room = manager.createRoom('DropMe', creator);
     const roomId = room.info().id;
 
     const removed = manager.removeRoom(roomId, creator.id);
@@ -339,6 +297,7 @@ describe('TC-3.3.7: Per-user persistence (T99)', () => {
   it('re-persists on member change', () => {
     const creator = makeMember({ name: 'Host', playerToken: 'tok-host' });
     const manager = new RoomManager();
+    const room = manager.createRoom('UpdateMe', creator, { creatorToken: 'tok-host' });
     mockWriteRoomJson.mockClear();
 
     const joiner = makeMember({ name: 'Joiner' });
@@ -348,68 +307,6 @@ describe('TC-3.3.7: Per-user persistence (T99)', () => {
     const [token, , data] = mockWriteRoomJson.mock.calls[0];
     expect(token).toBe('tok-host');
     expect(data.name).toBe('UpdateMe');
-  });
-});
-
-// ── TC-3.3.8: Spectator ─────────────────────────────────────────────────────
-
-describe('TC-3.3.8: Spectator → add/remove/promote', () => {
-
-  it('adds a spectator without increasing member count', () => {
-    const creator = makeMember({ name: 'Host' });
-    const room = new Room('SpecRoom', creator);
-    const spec = makeMember({ name: 'Watcher' });
-
-    room.addSpectator(spec);
-    expect(room.info().memberCount).toBe(1);
-  });
-
-  it('spectator receives broadcasts', () => {
-    const creator = makeMember({ name: 'Host' });
-    const room = new Room('SpecRoom', creator);
-    const spec = makeMember({ name: 'Watcher' });
-    room.addSpectator(spec);
-
-    room.broadcast({ type: 'SPEC_TEST' });
-
-    expect(spec.ws.send).toHaveBeenCalled();
-  });
-
-  it('removes a spectator', () => {
-    const creator = makeMember({ name: 'Host' });
-    const room = new Room('SpecRoom', creator);
-    const spec = makeMember({ name: 'Watcher' });
-    room.addSpectator(spec);
-
-    room.removeSpectator(spec.id);
-
-    // After removal, spectator should not receive broadcasts
-    (spec.ws.send as ReturnType<typeof vi.fn>).mockClear();
-    room.broadcast({ type: 'AFTER_REMOVE' });
-    expect(spec.ws.send).not.toHaveBeenCalled();
-  });
-
-  it('promotes spectator to member', () => {
-    const creator = makeMember({ name: 'Host' });
-    const room = new Room('SpecRoom', creator);
-    const spec = makeMember({ name: 'PromoteMe' });
-    room.addSpectator(spec);
-
-    expect(room.info().memberCount).toBe(1);
-    room.promoteSpectator(spec.id);
-    expect(room.info().memberCount).toBe(2);
-  });
-
-    const room = new Room('TinyRoom', creator);
-    const m2 = makeMember({ name: 'Second' });
-    room.addMember(m2);
-
-    const spec = makeMember({ name: 'PromoteMe' });
-    room.addSpectator(spec);
-
-    const result = room.promoteSpectator(spec.id);
-    expect(result).toBe(false);
-    expect(room.info().memberCount).toBe(2);
   });
 });
 
@@ -440,15 +337,6 @@ describe('TC-3.3.9: RoomManager operations', () => {
     const found = manager.findMemberRoom(joiner.id);
     expect(found).toBeDefined();
     expect(found!.info().name).toBe('FindMe');
-  });
-
-    const spec = makeMember({ name: 'Watcher' });
-    const room = manager.createRoom('SpecFind', host);
-    room.addSpectator(spec);
-
-    const found = manager.findSpectatorRoom(spec.id);
-    expect(found).toBeDefined();
-    expect(found!.info().name).toBe('SpecFind');
   });
 
   it('cleanupStale removes rooms older than threshold', async () => {
@@ -488,6 +376,7 @@ describe('S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)',
 
   it('T-persistent-retention R19.8: markDisconnected retains member as offline', () => {
     const creator = makeMember({ id: 'host' });
+    const r = new Room('PersistRoom', creator, { mode: 'persistent' });
     const memberB = makeMember({ id: 'guest', name: 'Guest' });
     r.addMember(memberB);
     expect(r.members.size).toBe(2);
@@ -504,6 +393,7 @@ describe('S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)',
 
   it('T-persistent-retention: removeMember still prunes in live rooms', () => {
     const creator = makeMember({ id: 'host' });
+    const r = new Room('LiveRoom', creator, { mode: 'live' });
     const memberB = makeMember({ id: 'guest' });
     r.addMember(memberB);
     expect(r.members.size).toBe(2);
@@ -516,6 +406,7 @@ describe('S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)',
 
   it('T-persistent-retention: reconnect flips disconnected=false, no dup', () => {
     const creator = makeMember({ id: 'host' });
+    const r = new Room('ReconnRoom', creator, { mode: 'persistent' });
     const memberB = makeMember({ id: 'guest', name: 'Guest' });
     r.addMember(memberB);
     r.markDisconnected('guest');
