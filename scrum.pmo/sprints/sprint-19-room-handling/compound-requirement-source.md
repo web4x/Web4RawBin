@@ -59,6 +59,10 @@
 - **R19.27** (2026-06-10): icon-tap collapses item WIDTH to a perfect square (icon inside), height unchanged.
   > TRON: "clicking the icon once shall collapse the width of the item to a perfect square with the icon inside but keep the height."
 
+### Tree prefetch strategy (R19.28)
+- **R19.28** (2026-06-10): ONE-LAYER-AHEAD eager prefetch. Always preload exactly one sublayer beyond visible (badge counts known without expanding). On expand, eagerly prefetch the NEXT sublayer for all shown children — one layer, NON-recursive. Applies to /trace + in-room rb-tree.
+  > TRON: "lets focus on the lazy loading. to know the badge and optimize ux experience, we already eager preload exactly one sub layer. and on expand the next sublayer of all shown children… but NOT recursive, just one layer… lazy but eager ahead."
+
 ### Room editor wiring + pencil affordance (refines R19.2)
 - **R19.2.A** (2026-06-10): the room name MUST carry a pencil edit icon (file-browser convention); clicking the pencil OR the name opens the room config/scenario editor. Captures BOTH the implementation-gap and the visual affordance.
   > TRON (gap): "the app has no room config/scenario editor yet clicking on the room name in the room."
