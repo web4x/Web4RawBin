@@ -3,13 +3,16 @@
   "model": {
     "uuid": "3e14d73c-1ddb-4f42-8d33-481581a8ec95",
     "name": "R19.1: A room is a scenario unit like every other (req/task/method) with a unique v4 uuid, the same {ior, model, ownerIor} shape, and a test of the json.",
-    "description": "Tron literal: \"a room is a scenario like every other req, task, method … scenario. unique uuid and same scenario model and test of the json.\"",
-    "tronQuote": "> TRON: \"a room is a scenario like every other req, task, method … scenario. unique uuid and same scenario model and test of the json.\"",
+    "description": "Tron literal: \"a room is a scenario like every other req, task, method \u2026 scenario. unique uuid and same scenario model and test of the json.\"",
+    "tronQuote": "> TRON: \"a room is a scenario like every other req, task, method \u2026 scenario. unique uuid and same scenario model and test of the json.\"",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
-    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "altId": "R19.1",
+    "refinementOf": "ior:instance:cb93f0db-0e42-4795-b41f-2e125120f259",
+    "refinementOfNote": "Refines R17.1 (Scenario JSON unit) by extending the {ior, model, ownerIor} unit shape to the Room class. Per req-eng Rule 9 dedupe 2026-06-10."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

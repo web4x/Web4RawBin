@@ -2,14 +2,17 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "f1ca3cc9-a675-4a3b-9898-9e33d7876ed8",
-    "name": "R19.14: Files uploaded into a room are stored in the uuid index as <uuid>.content plus a <uuid>.scenario.json that references the content and carries unitLinks[] to the ln symlinks in the room folder — every file is a unique scenario unit.",
+    "name": "R19.14: Files uploaded into a room are stored in the uuid index as <uuid>.content plus a <uuid>.scenario.json that references the content and carries unitLinks[] to the ln symlinks in the room folder \u2014 every file is a unique scenario unit.",
     "description": "Tron literal: \"files get uploaded and are stored in the uuid indes as uuid.content and a uuid.scenario.json with the reference to the content and unitLinks[] references to the ln links eg in the room folder on the filesystem. so every file becomes a unique unit.\"",
     "tronQuote": "> TRON: \"files get uploaded and are stored in the uuid indes as uuid.content and a uuid.scenario.json with the reference to the content and unitLinks[] references to the ln links eg in the room folder on the filesystem. so every file becomes a unique unit.\"",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
-    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "altId": "R19.14",
+    "refinementOf": "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000012",
+    "refinementOfNote": "Refines R17.12 (All files are units, referenceable via IOR) by specifying room-upload concrete mechanics: <uuid>.content + <uuid>.scenario.json + unitLinks[] -- every file is a unique unit. Per req-eng Rule 9 dedupe 2026-06-10."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

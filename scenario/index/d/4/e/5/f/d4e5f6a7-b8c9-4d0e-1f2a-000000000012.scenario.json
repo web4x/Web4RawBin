@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000012",
-    "name": "R17.13: Method → task → requirement traceability",
+    "name": "R17.13: Method \u2192 task \u2192 requirement traceability",
     "description": "> TRON: \"all files are units and can be referenced via ior also as a scenario.\"",
     "tronQuote": "> TRON: \"all files are units and can be referenced via ior also as a scenario.\"",
     "tasks": [
@@ -19,7 +19,11 @@
       "ior:instance:17a00103-0003-4a03-a003-000017010003",
       "ior:instance:17a00104-0004-4a04-a004-000017010004",
       "ior:instance:17a00105-0005-4a05-a005-000017010005"
-    ]
+    ],
+    "refinedBy": [
+      "ior:instance:f1ca3cc9-a675-4a3b-9898-9e33d7876ed8"
+    ],
+    "refinedByNote": "Refined by R19.14 (Sprint 19 room-upload mechanics). Tron verbatim: so every file becomes a unique unit. Annotation by req-eng 2026-06-10."
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
 }

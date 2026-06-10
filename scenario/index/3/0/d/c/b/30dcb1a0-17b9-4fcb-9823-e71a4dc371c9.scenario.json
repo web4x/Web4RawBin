@@ -2,14 +2,15 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "30dcb1a0-17b9-4fcb-9823-e71a4dc371c9",
-    "name": "R19.8: PERSISTENT rooms keep every member on the member list even when offline, shown as offline — no contact is ever lost.",
+    "name": "R19.8: PERSISTENT rooms keep every member on the member list even when offline, shown as offline \u2014 no contact is ever lost.",
     "description": "Tron literal: \"persistent rooms add every one to the members list even if they are offline but show them as offline. but no contact gets ever lost.\"",
     "tronQuote": "> TRON: \"persistent rooms add every one to the members list even if they are offline but show them as offline. but no contact gets ever lost.\"",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
-    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "altId": "R19.8"
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
