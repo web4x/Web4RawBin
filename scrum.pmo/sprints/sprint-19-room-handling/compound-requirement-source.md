@@ -78,6 +78,10 @@
   > TRON: "sharing seems broken… sending worked, but the url in a browser was ending on the offline page on that url."
   > (full context) TRON: "the link icon works into the index scenario. edit pen runs into an empty file…bug. and the room into a 404. bug. either into the room…. or the room editor."
 
+### Room model member IORs (R19.35)
+- **R19.35** (2026-06-11): Room scenario unit model MUST hold IOR references to its members as members[] (ior:instance:<memberUuid> refs, same pattern as tasks[]/useCases[]). Members become first-class linked units, not just runtime WS data.
+  > TRON: "the Room model is lacking member IORs — the model needs to hold IOR references to its members."
+
 ### Detail drawer + chain display bugs (R19.33 + R19.34)
 - **R19.33** (2026-06-11): detail drawer close affordance (nudge/X handle) scrolls out of view. MUST stay sticky/fixed in the drawer viewport.
   > TRON: "the details nudge to close scrolls out of the view"
