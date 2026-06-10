@@ -30,7 +30,9 @@
       "ior:instance:4a9d1728-368e-4b84-ad03-e6497669a098",
       "ior:instance:d1391ee3-d08c-4db1-8445-753b4d1c89a3",
       "ior:instance:9311987c-6dcd-4b73-9d9b-74383d6e16b9",
-      "ior:instance:d3416a23-f2f9-4c70-8a47-88e0f93a9aa0"
+      "ior:instance:d3416a23-f2f9-4c70-8a47-88e0f93a9aa0",
+      "ior:instance:e9618d93-8dbc-44b2-abd7-b1eddebce97d",
+      "ior:instance:b748b4f1-44dd-480a-8e6c-45d9cb0e5ea3"
     ],
     "tasks": [
       "ior:instance:6c4949fa-04b8-40ee-afa8-449f71a3f2e0",
@@ -41,7 +43,9 @@
       "ior:instance:ae090710-3fee-4dc6-8dd1-d5b8501483eb",
       "ior:instance:834fe55b-8885-47f9-bdf9-3fb2f4fe7d40",
       "ior:instance:2195d98f-eb78-47da-9048-e8553d2b8d35",
-      "ior:instance:6e0240a9-b0ad-4955-82f7-9fd2025fedf2"
+      "ior:instance:6e0240a9-b0ad-4955-82f7-9fd2025fedf2",
+      "ior:instance:755a2b09-9a50-4321-a3fe-5ff12c29034a",
+      "ior:instance:be3ea56d-ea84-4b60-ab1e-9d619d1bc90e"
     ],
     "createdAt": "2026-06-10",
     "createdBy": "robbin-po",

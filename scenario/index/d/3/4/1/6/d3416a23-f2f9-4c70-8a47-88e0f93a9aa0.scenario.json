@@ -1,1 +1,27 @@
-{"ior":"ior:class:Requirement","model":{"uuid":"d3416a23-f2f9-4c70-8a47-88e0f93a9aa0","altId":"R19.22","name":"R19.22: Every per-user room.json is a symlink to the canonical Room scenario unit, and the UI shows a link to it next to the edit button.","description":"Every data/users/<userUuid>/rooms/<roomUuid>/room.json MUST be a filesystem symlink (ln) to the canonical Room scenario unit at scenario/index/<shard>/<roomUuid>.scenario.json — never a standalone JSON file. The UI MUST also display a link affordance next to the edit pencil button that navigates to the canonical scenario unit. Aligns with the unitLinks pattern from R18.29-R18.31 (lifecycle of unitLinks symlinks) and R19.14 / R19.20 (file scenario units carry unitLinks references to their ln links on the filesystem). Backfill required for existing room.json files that are currently empty or standalone.","tronQuote":"> TRON: \"data/users/<uuuid>/rooms/<ruuid>/room.json is empty but should be a ln link to a uuid.scenario.json of a room in the index with a link next to the edit button. this should be true for ALL rooms.\"","tasks":[],"tests":[],"sourceFile":"ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md","unitLinks":[],"parent":"ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28","crossRef":["ior:instance:cb93f0db-0e42-4795-b41f-2e125120f259","ior:instance:f1ca3cc9-a675-4a3b-9898-9e33d7876ed8","ior:instance:4a9d1728-368e-4b84-ad03-e6497669a098"],"crossRefNote":"R17.1 (scenario unit shape) is the canonical-pointee referenced by every room.json symlink. R19.14 (file scenario units with unitLinks) and R19.20 (file unitLinks references to ln links) establish the symlink-as-unitLinks pattern that R19.22 extends to per-user room storage. R18.29-R18.31 lifecycle of unitLinks governs creation/move/delete consistency."},"ownerIor":"ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"}
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d3416a23-f2f9-4c70-8a47-88e0f93a9aa0",
+    "altId": "R19.22",
+    "name": "R19.22: Every per-user room.json is a symlink to the canonical Room scenario unit, and the UI shows a link to it next to the edit button.",
+    "description": "Every data/users/<userUuid>/rooms/<roomUuid>/room.json MUST be a filesystem symlink (ln) to the canonical Room scenario unit at scenario/index/<shard>/<roomUuid>.scenario.json \u2014 never a standalone JSON file. The UI MUST also display a link affordance next to the edit pencil button that navigates to the canonical scenario unit. Aligns with the unitLinks pattern from R18.29-R18.31 (lifecycle of unitLinks symlinks) and R19.14 / R19.20 (file scenario units carry unitLinks references to their ln links on the filesystem). Backfill required for existing room.json files that are currently empty or standalone.",
+    "tronQuote": "> TRON: \"data/users/<uuuid>/rooms/<ruuid>/room.json is empty but should be a ln link to a uuid.scenario.json of a room in the index with a link next to the edit button. this should be true for ALL rooms.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:cb93f0db-0e42-4795-b41f-2e125120f259",
+      "ior:instance:f1ca3cc9-a675-4a3b-9898-9e33d7876ed8",
+      "ior:instance:4a9d1728-368e-4b84-ad03-e6497669a098"
+    ],
+    "crossRefNote": "R17.1 (scenario unit shape) is the canonical-pointee referenced by every room.json symlink. R19.14 (file scenario units with unitLinks) and R19.20 (file unitLinks references to ln links) establish the symlink-as-unitLinks pattern that R19.22 extends to per-user room storage. R18.29-R18.31 lifecycle of unitLinks governs creation/move/delete consistency.",
+    "splitInto": [
+      "ior:instance:e9618d93-8dbc-44b2-abd7-b1eddebce97d",
+      "ior:instance:b748b4f1-44dd-480a-8e6c-45d9cb0e5ea3"
+    ],
+    "splitIntoNote": "Split per PO decision 2026-06-10: R19.22.A (filesystem invariant symlink+backfill) + R19.22.B (UI link affordance next to edit pencil)."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

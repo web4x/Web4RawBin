@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "755a2b09-9a50-4321-a3fe-5ff12c29034a",
+    "name": "T-room-symlink: room.json as symlink to canonical scenario unit + one-shot backfill",
+    "slug": "room-symlink-canonical-scenario-unit-backfill",
+    "description": "Every data/users/<u>/rooms/<r>/room.json becomes a symlink to scenario/index/<shard>/<r>.scenario.json. One-shot backfill script converts existing standalone room.json files. After backfill, Room.persist writes to the canonical unit; the symlink resolves transparently. Covers R19.22.A.",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert rule-pair a+b\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:e9618d93-8dbc-44b2-abd7-b1eddebce97d"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

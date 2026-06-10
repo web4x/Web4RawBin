@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "be3ea56d-ea84-4b60-ab1e-9d619d1bc90e",
+    "name": "T-room-link-affordance: link next to edit pencil opens canonical Room scenario unit",
+    "slug": "room-link-affordance-open-canonical-scenario-unit",
+    "description": "UI link (icon or text) adjacent to the room edit pencil button that navigates to the canonical Room scenario unit in the /trace tree or scenario viewer. Covers R19.22.B.",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert rule-pair a+b\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:b748b4f1-44dd-480a-8e6c-45d9cb0e5ea3"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b748b4f1-44dd-480a-8e6c-45d9cb0e5ea3",
+    "altId": "R19.22.B",
+    "name": "R19.22.B: UI link next to the edit pencil button that opens the canonical Room scenario unit.",
+    "description": "UI affordance: a clickable link (icon or text) adjacent to the room edit pencil button that navigates to the canonical Room scenario unit in the /trace tree or scenario viewer. Enables the user to inspect the room's scenario data directly from the room UI.",
+    "tronQuote": "",
+    "tasks": [
+      "ior:instance:be3ea56d-ea84-4b60-ab1e-9d619d1bc90e"
+    ],
+    "tests": [],
+    "sourceFile": "",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "refinementOf": "ior:instance:d3416a23-f2f2-4d04-8eee-a2f3ba0cd12a",
+    "refinementOfNote": "Split from R19.22 per PO decision 2026-06-10: R19.22.A = filesystem invariant; R19.22.B = UI affordance (link to canonical unit next to edit pencil)."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
