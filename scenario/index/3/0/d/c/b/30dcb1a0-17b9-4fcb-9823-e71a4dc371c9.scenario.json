@@ -5,7 +5,9 @@
     "name": "R19.8: PERSISTENT rooms keep every member on the member list even when offline, shown as offline \u2014 no contact is ever lost.",
     "description": "Tron literal: \"persistent rooms add every one to the members list even if they are offline but show them as offline. but no contact gets ever lost.\"",
     "tronQuote": "> TRON: \"persistent rooms add every one to the members list even if they are offline but show them as offline. but no contact gets ever lost.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:fa8fffc8-d75a-43b3-abaa-edb97149da92"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
@@ -14,7 +16,11 @@
     "splitInto": [
       "ior:instance:ba3fa399-750a-4201-a93d-923530f88d3d"
     ],
-    "splitNote": "Split into R19.18 per R-I. Compound parent retained as shipped form; sibling isolates the no-contact-ever-lost invariant for independent test. Annotation by req-eng 2026-06-10."
+    "splitNote": "Split into R19.18 per R-I. Compound parent retained as shipped form; sibling isolates the no-contact-ever-lost invariant for independent test. Annotation by req-eng 2026-06-10.",
+    "refinedBy": [
+      "ior:instance:f3b61367-a470-42a1-87a8-727ebee4beca"
+    ],
+    "refinedByNote": "Refined by R19.8.A which makes the leave-event transition explicit: status flip (online to offline), NEVER prune. R19.8.A is the behavioral contract the Royal Jungle bug violated."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

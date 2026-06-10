@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "fa8fffc8-d75a-43b3-abaa-edb97149da92",
+    "name": "T-persistent-retention: ws.close+LEAVE_ROOM branch on room.mode \u2014 markDisconnected vs removeMember",
+    "slug": "persistent-retention-disconnect-vs-remove-by-mode",
+    "description": "server.ts ws.close(1307) + LEAVE_ROOM(1394) must branch on room.mode: persistent rooms call Room.markDisconnected (keep member listed as offline, persist(), broadcast MEMBER_DISCONNECTED not MEMBER_LEFT); live rooms call Room.removeMember (current behaviour). Room.markDisconnected must call persist() so offline status survives restart. Covers R19.8 (persistent rooms keep every member on the member list even when offline).",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert rule-pair a+b\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:30dcb1a0-17b9-4fcb-9823-e71a4dc371c9"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

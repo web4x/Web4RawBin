@@ -58,3 +58,8 @@
 - **R19.23** (2026-06-10): REMOVE all room size/capacity limits (maxMembers, maxPlayers, room-size config in model/UI/server validation). Rooms are unbounded.
 - **R19.24** (2026-06-10): REMOVE spectator functionality entirely (isSpectator, spectator mode/role, spectator UI, spectator join flow, spectator server logic, spectator message types).
   > TRON: "remove all room sizes and the spectator functionality."
+
+### Leave-event transition: flip not prune (refines R19.8 — Royal Jungle bug)
+- **R19.8.A** (2026-06-10): when a member leaves a persistent room, the server MUST flip their status from online to offline — NOT remove them from the member list. Rejoining flips back to online. R19.8 describes the steady-state; R19.8.A makes the transition event explicit.
+  > PO directive: persistent rooms must RETAIN members on leave + only toggle online/offline (Royal Jungle bug anchor).
+  > Anchored on TRON: "persistent rooms add every one to the members list even if they are offline but show them as offline. but no contact gets ever lost."
