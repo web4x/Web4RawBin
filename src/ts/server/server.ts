@@ -551,8 +551,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         };
         const TRACE_FWD: Record<string, string[]> = {
           Requirement: ['useCases'], Task: ['useCases', 'coveredRequirements'],
-          UseCase: ['class'], Class: ['method'],
-          Method: ['implementation'], Implementation: ['tests'],
+          UseCase: ['class'], Class: ['methods'],
+          Method: ['implementations'], Implementation: ['tests'],
           Sprint: ['tasks'],
         };
         const fwdKeys = queryMode === 'trace' ? TRACE_FWD : SCENARIO_FWD;

@@ -123,6 +123,8 @@ export class RbTraceTree extends HTMLElement {
       this.appendChild(hdr);
       for (const obj of orphans) this.appendChild(this.nodeEl(obj.ref(), new Set()));
     }
+    this.computeBadges();
+    this.prefetchVisibleLayer();
     if (this.pendingReveal) { const u = this.pendingReveal; this.pendingReveal = null; requestAnimationFrame(() => this.revealNode(u)); }
   }
 
@@ -145,7 +147,6 @@ export class RbTraceTree extends HTMLElement {
     if (obj && obj.status) item.setAttribute('status', obj.status);
     if (hasChildren) {
       item.setAttribute('has-children', '');
-      item.setAttribute('child-count', String(childRefs.length));
       if (isOpen) item.setAttribute('children-open', '');
     }
     if (this.brokenUuids.has(refUuid(ref))) {
@@ -193,6 +194,8 @@ export class RbTraceTree extends HTMLElement {
       const data = await res.json();
       this.innerHTML = '';
       this.appendChild(this.buildSeedNode(uuid, data.type, data.name, data.children || [], data.hasChildren));
+      this.computeBadges();
+      this.prefetchVisibleLayer();
     } catch { this.innerHTML = '<div class="tt-empty">Failed to load</div>'; }
   }
 
@@ -207,7 +210,7 @@ export class RbTraceTree extends HTMLElement {
     item.setAttribute('type', (type || 'task').toLowerCase());
     item.setAttribute('title', name || uuid);
     const showExpander = children.length > 0 || hasChildren === true;
-    if (showExpander) { item.setAttribute('has-children', ''); item.setAttribute('child-count', String(children.length || 0)); }
+    if (showExpander) item.setAttribute('has-children', '');
     row.appendChild(item);
     node.appendChild(row);
     if (showExpander) {
@@ -235,7 +238,6 @@ export class RbTraceTree extends HTMLElement {
         if (open) requestAnimationFrame(() => node.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
       }) as EventListener);
     }
-    if (showExpander) this.prefetchOneLayer(uuid);
     return node;
   }
 
@@ -326,14 +328,33 @@ export class RbTraceTree extends HTMLElement {
     if (m) this.revealNode(m[1]);
   };
 
-  private prefetchOneLayer(uuid: string): void {
-    if (this.prefetchCache.has(uuid) || this.prefetchInFlight.has(uuid)) return;
+  computeBadges(root?: HTMLElement): void {
+    const scope = root || this;
+    scope.querySelectorAll('rb-object-item[has-children]').forEach(item => {
+      const node = item.closest('.tt-node');
+      const children = node?.querySelector(':scope > .tt-children');
+      const count = children ? children.querySelectorAll(':scope > .tt-node').length : 0;
+      const cached = this.prefetchCache.get(item.getAttribute('ref')?.split(':')[1] || '');
+      item.setAttribute('child-count', String(cached?.length ?? count));
+    });
+  }
+
+  private prefetchLayer(node: HTMLElement): Promise<void> {
+    const item = node.querySelector(':scope > .tt-row rb-object-item');
+    const uuid = item?.getAttribute('ref')?.split(':')[1] || '';
+    if (!uuid || this.prefetchCache.has(uuid) || this.prefetchInFlight.has(uuid)) return Promise.resolve();
     this.prefetchInFlight.add(uuid);
-    fetch(`${this.childrenUrl}${encodeURIComponent(uuid)}${this.modeParam}`)
+    return fetch(`${this.childrenUrl}${encodeURIComponent(uuid)}${this.modeParam}`)
       .then(r => r.ok ? r.json() : null)
-      .then(data => { if (data) { this.prefetchCache.set(uuid, data.children || []); const item = this.querySelector(`rb-object-item[ref*=":${uuid}"]`); if (item) item.setAttribute('child-count', String((data.children || []).length)); } })
+      .then(data => { if (data) { this.prefetchCache.set(uuid, data.children || []); if (item) item.setAttribute('child-count', String((data.children || []).length)); } })
       .catch(() => {})
       .finally(() => this.prefetchInFlight.delete(uuid));
+  }
+
+  prefetchVisibleLayer(root?: HTMLElement): Promise<void> {
+    const scope = root || this;
+    const nodes = [...scope.querySelectorAll('.tt-node')].filter(n => n.querySelector(':scope > .tt-row rb-object-item[has-children]'));
+    return Promise.all(nodes.map(n => this.prefetchLayer(n as HTMLElement))).then(() => {});
   }
 
   private async fetchAndRenderChildren(uuid: string, container: HTMLElement, ancestors?: Set<string>): Promise<void> {
@@ -353,10 +374,11 @@ export class RbTraceTree extends HTMLElement {
       }
       for (const child of children) {
         container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchVisited), (child as any).chainMethod));
-        this.prefetchOneLayer(child.uuid);
       }
       const parentItem = container.parentElement?.querySelector(':scope > .tt-row rb-object-item');
       if (parentItem) parentItem.setAttribute('child-count', String(children.length));
+      this.computeBadges(container);
+      this.prefetchVisibleLayer(container);
     } catch { /* silently fail — node stays collapsed */ }
   }
 }
