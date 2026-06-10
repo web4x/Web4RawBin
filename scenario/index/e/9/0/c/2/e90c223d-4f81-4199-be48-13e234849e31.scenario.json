@@ -5,8 +5,8 @@
     "name": "T-remove-room-sizes: strip maxMembers/maxPlayers/size config from model+UI+server",
     "slug": "remove-room-sizes-max-members-players-config",
     "description": "Remove all maxMembers/maxPlayers/size configuration from the room data model, UI (room editor/config), and server-side enforcement. Rooms have no member/player limits. Covers R19.23.",
-    "status": "Planned",
-    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert rule-pair a+b\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect (chain wired b49dc787)\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:17fd9704-5573-4cd0-8bfd-cf7ae303af4e"
     ],

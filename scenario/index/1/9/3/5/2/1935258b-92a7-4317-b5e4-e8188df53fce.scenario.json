@@ -4,9 +4,11 @@
     "uuid": "1935258b-92a7-4317-b5e4-e8188df53fce",
     "altId": "R19.32",
     "name": "R19.32: Shared room link loads the app and join flow, never the offline page.",
-    "description": "BUG: opening a shared room link (/app?join=<roomUuid>) in a browser lands on the 'RawBin — Offline' page instead of loading the app and triggering the join flow. Sharing (sending the link) works, but the receiving browser shows the offline fallback. FIX: the /app?join=<roomUuid> route MUST be served by the service worker as the app shell (not the offline page), the app MUST parse the ?join= query parameter on load, and MUST initiate the join/apply flow for the referenced room. The SW STATIC_SHELL must include /app or the SPA entry that handles this route.",
-    "tronQuote": "> TRON: \"sharing seems broken… sending worked, but the url in a browser was ending on the offline page on that url.\"",
-    "tasks": [],
+    "description": "BUG: opening a shared room link (/app?join=<roomUuid>) in a browser lands on the 'RawBin \u2014 Offline' page instead of loading the app and triggering the join flow. Sharing (sending the link) works, but the receiving browser shows the offline fallback. FIX: the /app?join=<roomUuid> route MUST be served by the service worker as the app shell (not the offline page), the app MUST parse the ?join= query parameter on load, and MUST initiate the join/apply flow for the referenced room. The SW STATIC_SHELL must include /app or the SPA entry that handles this route.",
+    "tronQuote": "> TRON: \"sharing seems broken\u2026 sending worked, but the url in a browser was ending on the offline page on that url.\"",
+    "tasks": [
+      "ior:instance:0608a036-7c07-4477-8746-f68cda79e915"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

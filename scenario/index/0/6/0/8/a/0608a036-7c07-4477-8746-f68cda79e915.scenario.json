@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "0608a036-7c07-4477-8746-f68cda79e915",
+    "name": "T-share-link-offline: sw.js cacheFirst ignoreSearch for /app?join=<uuid> offline navigation",
+    "slug": "share-link-offline-sw-cachefirst-ignoresearch",
+    "description": "sw.js cacheFirst with ignoreSearch for navigation requests so /app?join=<uuid> cache-hits even offline (currently misses because query string differs from cached /app). Covers R19.32.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert (in flight per PO)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:1935258b-92a7-4317-b5e4-e8188df53fce"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-10",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
