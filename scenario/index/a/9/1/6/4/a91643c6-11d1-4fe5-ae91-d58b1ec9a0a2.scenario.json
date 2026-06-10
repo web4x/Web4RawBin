@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "a91643c6-11d1-4fe5-ae91-d58b1ec9a0a2",
+    "name": "T-sticky-drawer-close: sticky close button on detail drawer",
+    "slug": "sticky-drawer-close-button",
+    "description": "Sticky close button on the detail drawer so it is always reachable regardless of scroll position. Covers R19.33.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert (in flight per PO)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:553be449-3bad-4580-9426-11c4ab10e202"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
