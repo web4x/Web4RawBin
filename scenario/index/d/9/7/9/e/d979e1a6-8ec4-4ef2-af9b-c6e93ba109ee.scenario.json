@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "d979e1a6-8ec4-4ef2-af9b-c6e93ba109ee",
+    "name": "FileApi.lineParam",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c3e3b9c3-0000-0000-0000-000000000000"
+}

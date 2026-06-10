@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "d275e6ba-91f7-4975-859f-1fd95d291993",
+    "name": "RbRoomContent.applyButton",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:792246f1-0000-0000-0000-000000000000"
+}

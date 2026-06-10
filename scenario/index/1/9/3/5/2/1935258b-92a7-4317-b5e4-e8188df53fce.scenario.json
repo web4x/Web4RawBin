@@ -17,7 +17,10 @@
       "ior:instance:97bb40eb-638f-463b-b66d-e601cc0802c1",
       "ior:instance:8bd2f61f-d229-4eec-a385-47795c753ca2"
     ],
-    "crossRefNote": "R19.5 (by-invite Apply button + invite-request message) and R19.6 (public rooms join button) define the join/apply flow that this shared link must trigger. The offline-page bug is likely a SW routing gap: /app?join=... not matched by STATIC_SHELL or fetch handler."
+    "crossRefNote": "R19.5 (by-invite Apply button + invite-request message) and R19.6 (public rooms join button) define the join/apply flow that this shared link must trigger. The offline-page bug is likely a SW routing gap: /app?join=... not matched by STATIC_SHELL or fetch handler.",
+    "useCases": [
+      "ior:instance:4c5d6e7f-8a9b-4c0d-1e2f-3a4b5c6d7e8f"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

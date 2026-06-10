@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "158ed75e-7967-4387-9821-d3bcd20000d1",
+    "name": "detailView.sourceLink",
+    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "method": "ior:instance:49fad36b-7443-47c1-a387-1fd4d3228926",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

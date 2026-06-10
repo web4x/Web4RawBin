@@ -2,8 +2,8 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "cacdf662-c514-48ba-88b7-2864c058e64b",
-    "name": "R18.25: Tree narrowed chain continues past Method through Implementation to Test — not stopping at Method.",
-    "description": "> TRON: \"Traceability Chain = All children but they should not. tree shows the tracability chain but also broken ...only till method...not deeper to impl and test\"\n\n### R18.25: Tree narrowed chain continues past Method through Implementation to Test — not stopping at Method.\n\nThe /trace tree currently stops the chain at Method level — it does not expand further to show Implementation → Test(s). The chain must continue the full 7-step depth: req → task → UC → class → method → **impl → test**. This is the same gap as R18.13 (chain terminates in Test) but specifically about the tree UI not rendering the last two levels.",
+    "name": "R18.25: Tree narrowed chain continues past Method through Implementation to Test \u2014 not stopping at Method.",
+    "description": "> TRON: \"Traceability Chain = All children but they should not. tree shows the tracability chain but also broken ...only till method...not deeper to impl and test\"\n\n### R18.25: Tree narrowed chain continues past Method through Implementation to Test \u2014 not stopping at Method.\n\nThe /trace tree currently stops the chain at Method level \u2014 it does not expand further to show Implementation \u2192 Test(s). The chain must continue the full 7-step depth: req \u2192 task \u2192 UC \u2192 class \u2192 method \u2192 **impl \u2192 test**. This is the same gap as R18.13 (chain terminates in Test) but specifically about the tree UI not rendering the last two levels.",
     "tronQuote": "> TRON: \"Traceability Chain = All children but they should not. tree shows the tracability chain but also broken ...only till method...not deeper to impl and test\"",
     "tasks": [],
     "tests": [],
@@ -12,7 +12,10 @@
     "unitLinks": [
       "sprints.json/sprint-18-chain-method-scope/requirement/r18-25-tree-narrowed-chain-continues-past-method-through-implementation-to-test-.json"
     ],
-    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "useCases": [
+      "ior:instance:b3c850e9-99a6-45f3-8bbc-c53a99c02f72"
+    ]
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

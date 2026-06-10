@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "3d4e5f6a-7b8c-4d9e-0f1a-2b3c4d5e6f7a",
+    "name": "RbObjectItem.iconDrag",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+}

@@ -12,7 +12,10 @@
     "unitLinks": [
       "sprints.json/sprint-18-chain-method-scope/requirement/r18-24-detail-view-traceability-chain-section-shows-the-narrowed-single-thread-c.json"
     ],
-    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "useCases": [
+      "ior:instance:e04dbcf1-a1b1-4da1-b871-e684237ad5a2"
+    ]
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

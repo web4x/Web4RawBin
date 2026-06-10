@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "0a1b2c3d-4e5f-4a6b-8c9d-0e1f2a3b4c5d",
+    "name": "objectItem.badge",
+    "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
+    "method": "ior:instance:1b2c3d4e-5f6a-4b7c-8d9e-0f1a2b3c4d5e",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

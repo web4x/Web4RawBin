@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "8e96674f-a194-4e3c-8d6f-0a005bcb4fc4",
+    "name": "RbTraceTree.cycleOmit",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "7d8e9f00-1a2b-4c3d-8e5f-6a7b8c9d0e1f",
+    "name": "file.unitLinks",
+    "class": "ior:instance:3e0ceb94-0000-0000-0000-000000000000",
+    "method": "ior:instance:8e9f0a1b-2c3d-4e5f-6a7b-8c9d0e1f2a3b",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

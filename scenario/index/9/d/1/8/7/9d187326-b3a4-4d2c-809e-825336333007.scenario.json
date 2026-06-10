@@ -2,8 +2,8 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "9d187326-b3a4-4d2c-809e-825336333007",
-    "name": "R18.11: Cycle guard is ancestor-path-precise — only break true ancestor cycles, preserve all legitimate children including DAG re-convergence.",
-    "description": "> TRON: \"cycle stopped but also correct children got cut out. user does not want to see the cut out cycle.\"\n\nThe R18.9 cycle guard uses a visited-set that is too broad: it cuts ANY node that has been seen before, including legitimate DAG re-convergence (a Class reached from two different UseCases is a valid repeated node, not a cycle). The guard must track only the CURRENT ANCESTOR PATH (root → ... → parent → this node), not a global visited set. A node is a true cycle ONLY if it appears as its OWN ancestor in the current expansion path. A node that appears in a SIBLING branch is legitimate re-convergence and must NOT be cut.\n\n**Acceptance criteria:**\n- [ ] A Class appearing under two different UseCases is shown in BOTH (DAG re-convergence preserved)\n- [ ] A Requirement appearing as its own descendant (req→task→...→req) IS cut (true cycle broken)\n- [ ] The cycle check compares against the ancestor stack, not a global set\n- [ ] Expanding the same node in two different branches shows children in both",
+    "name": "R18.11: Cycle guard is ancestor-path-precise \u2014 only break true ancestor cycles, preserve all legitimate children including DAG re-convergence.",
+    "description": "> TRON: \"cycle stopped but also correct children got cut out. user does not want to see the cut out cycle.\"\n\nThe R18.9 cycle guard uses a visited-set that is too broad: it cuts ANY node that has been seen before, including legitimate DAG re-convergence (a Class reached from two different UseCases is a valid repeated node, not a cycle). The guard must track only the CURRENT ANCESTOR PATH (root \u2192 ... \u2192 parent \u2192 this node), not a global visited set. A node is a true cycle ONLY if it appears as its OWN ancestor in the current expansion path. A node that appears in a SIBLING branch is legitimate re-convergence and must NOT be cut.\n\n**Acceptance criteria:**\n- [ ] A Class appearing under two different UseCases is shown in BOTH (DAG re-convergence preserved)\n- [ ] A Requirement appearing as its own descendant (req\u2192task\u2192...\u2192req) IS cut (true cycle broken)\n- [ ] The cycle check compares against the ancestor stack, not a global set\n- [ ] Expanding the same node in two different branches shows children in both",
     "tronQuote": "> TRON: \"cycle stopped but also correct children got cut out. user does not want to see the cut out cycle.\"",
     "tasks": [],
     "tests": [],
@@ -12,7 +12,10 @@
     "unitLinks": [
       "sprints.json/sprint-18-chain-method-scope/requirement/r18-11-cycle-guard-is-ancestor-path-precise-only-break-true-ancestor-cycles-pres.json"
     ],
-    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "useCases": [
+      "ior:instance:efdc9761-bdf1-4187-94d3-a8fbf4d71997"
+    ]
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

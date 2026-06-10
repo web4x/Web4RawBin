@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "6ec7440d-31e8-4d74-be88-c5fae090cad4",
+    "name": "server.sprintNameFormat",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
+}

@@ -2,8 +2,8 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "700b2e94-352d-4b81-8ca0-8112862f9f55",
-    "name": "R18.12: True-cycle nodes are omitted cleanly — no visible cut artifact shown to the user.",
-    "description": "> TRON: \"cycle stopped but also correct children got cut out. user does not want to see the cut out cycle.\"\n\nWhen a true cycle IS detected (a node is its own ancestor), the cyclic node is simply NOT rendered — no ⟳ icon, no \"cycle detected\" label, no placeholder. The tree silently terminates at the parent. The user sees a normal leaf node with no indication that a cycle was suppressed. Tron: \"user does not want to see the cut out cycle.\"\n\n**Acceptance criteria:**\n- [ ] True-cycle nodes are omitted entirely from the rendered tree\n- [ ] No cycle icon, label, or placeholder visible to the user\n- [ ] Parent node of a suppressed cycle appears as a normal leaf (no expand arrow if its only children would be cyclic)\n- [ ] If a node has BOTH legitimate children AND a cyclic child, only the legitimate children render",
+    "name": "R18.12: True-cycle nodes are omitted cleanly \u2014 no visible cut artifact shown to the user.",
+    "description": "> TRON: \"cycle stopped but also correct children got cut out. user does not want to see the cut out cycle.\"\n\nWhen a true cycle IS detected (a node is its own ancestor), the cyclic node is simply NOT rendered \u2014 no \u27f3 icon, no \"cycle detected\" label, no placeholder. The tree silently terminates at the parent. The user sees a normal leaf node with no indication that a cycle was suppressed. Tron: \"user does not want to see the cut out cycle.\"\n\n**Acceptance criteria:**\n- [ ] True-cycle nodes are omitted entirely from the rendered tree\n- [ ] No cycle icon, label, or placeholder visible to the user\n- [ ] Parent node of a suppressed cycle appears as a normal leaf (no expand arrow if its only children would be cyclic)\n- [ ] If a node has BOTH legitimate children AND a cyclic child, only the legitimate children render",
     "tronQuote": "> TRON: \"cycle stopped but also correct children got cut out. user does not want to see the cut out cycle.\"",
     "tasks": [],
     "tests": [],
@@ -12,7 +12,10 @@
     "unitLinks": [
       "sprints.json/sprint-18-chain-method-scope/requirement/r18-12-true-cycle-nodes-are-omitted-cleanly-no-visible-cut-artifact-shown-to-the.json"
     ],
-    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "useCases": [
+      "ior:instance:a04183ae-b85b-4142-8b0b-cfce7f136c96"
+    ]
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

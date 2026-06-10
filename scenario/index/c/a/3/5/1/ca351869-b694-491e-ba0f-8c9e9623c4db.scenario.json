@@ -4,8 +4,8 @@
     "uuid": "ca351869-b694-491e-ba0f-8c9e9623c4db",
     "altId": "R19.30",
     "name": "R19.30: Edit pen on a room item opens the canonical scenario unit for editing, not an empty per-user file.",
-    "description": "BUG: the edit pencil icon on a room item navigates to data/users/<token>/... which is either empty or 'File not found', producing an empty editor. FIX: the edit pen MUST open the room's CANONICAL scenario unit (scenario/index/<shard>/<roomUuid>.scenario.json) in edit mode — the same target the working link icon resolves to. This aligns with R19.2.A (pencil opens room config/scenario editor) and R19.22 (per-user room.json is a symlink to the canonical unit).",
-    "tronQuote": "> TRON: \"edit pen runs into an empty file…bug.\"",
+    "description": "BUG: the edit pencil icon on a room item navigates to data/users/<token>/... which is either empty or 'File not found', producing an empty editor. FIX: the edit pen MUST open the room's CANONICAL scenario unit (scenario/index/<shard>/<roomUuid>.scenario.json) in edit mode \u2014 the same target the working link icon resolves to. This aligns with R19.2.A (pencil opens room config/scenario editor) and R19.22 (per-user room.json is a symlink to the canonical unit).",
+    "tronQuote": "> TRON: \"edit pen runs into an empty file\u2026bug.\"",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
@@ -15,7 +15,10 @@
       "ior:instance:9311987c-6dcd-4b73-9d9b-74383d6e16b9",
       "ior:instance:d3416a23-f2f9-4c70-8a47-88e0f93a9aa0"
     ],
-    "crossRefNote": "R19.2.A (pencil opens room editor) specifies the intent; R19.22 (per-user room.json is symlink to canonical unit) specifies the filesystem invariant. R19.30 is the bug: the edit pen currently resolves the per-user path (empty/missing) instead of following the symlink or pointing at the canonical unit directly."
+    "crossRefNote": "R19.2.A (pencil opens room editor) specifies the intent; R19.22 (per-user room.json is symlink to canonical unit) specifies the filesystem invariant. R19.30 is the bug: the edit pen currently resolves the per-user path (empty/missing) instead of following the symlink or pointing at the canonical unit directly.",
+    "useCases": [
+      "ior:instance:0e1f2a3b-4c5d-4e6f-7a8b-9c0d1e2f3a4b"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

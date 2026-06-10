@@ -12,7 +12,8 @@
     "tests": [],
     "unitLinks": [],
     "useCases": [
-      "ior:instance:387d9308-9e15-41b8-b4a0-ae10f6f04fc8"
+      "ior:instance:387d9308-9e15-41b8-b4a0-ae10f6f04fc8",
+      "ior:instance:6e7f8a9b-0c1d-4e2f-3a4b-5c6d7e8f9a0b"
     ]
   },
   "ownerIor": "ior:instance:86e3077a-3fda-4c0a-a120-f6811d6252e1"

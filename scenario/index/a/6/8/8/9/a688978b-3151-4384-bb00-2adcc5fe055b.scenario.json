@@ -17,7 +17,10 @@
       "ior:instance:6ed53825-86ce-4ec7-80d0-ce739e876992",
       "ior:instance:e790f0bc-590a-4b32-8df0-bfaa5db2c93c"
     ],
-    "crossRefNote": "R19.25 (badge display) and R19.28 (one-layer-ahead prefetch) define WHAT is shown and WHEN data is fetched. R19.29 defines WHO owns it: the Tree, not the items. Centralizing badge+prefetch in the Tree also fixes the badge-0 inconsistency bug (scattered trigger sites miss some updates)."
+    "crossRefNote": "R19.25 (badge display) and R19.28 (one-layer-ahead prefetch) define WHAT is shown and WHEN data is fetched. R19.29 defines WHO owns it: the Tree, not the items. Centralizing badge+prefetch in the Tree also fixes the badge-0 inconsistency bug (scattered trigger sites miss some updates).",
+    "useCases": [
+      "ior:instance:8c9d0e1f-2a3b-4c4d-5e6f-7a8b9c0d1e2f"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

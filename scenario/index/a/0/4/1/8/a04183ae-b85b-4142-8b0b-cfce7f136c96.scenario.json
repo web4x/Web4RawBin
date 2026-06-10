@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "a04183ae-b85b-4142-8b0b-cfce7f136c96",
+    "name": "traceTree.cycleOmit",
+    "class": "ior:instance:108b7283-94a5-46b7-898e-b08080808108",
+    "method": "ior:instance:8e96674f-a194-4e3c-8d6f-0a005bcb4fc4",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

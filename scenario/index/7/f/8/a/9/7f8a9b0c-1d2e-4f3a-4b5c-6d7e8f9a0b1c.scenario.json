@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "7f8a9b0c-1d2e-4f3a-4b5c-6d7e8f9a0b1c",
+    "name": "RbEditorLayout.backNav",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c3e3b9c3-0001-0000-0000-000000000000"
+}

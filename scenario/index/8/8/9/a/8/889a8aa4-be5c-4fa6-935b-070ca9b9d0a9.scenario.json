@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "889a8aa4-be5c-4fa6-935b-070ca9b9d0a9",
+    "name": "detailView.showFullObject",
+    "class": "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5",
+    "method": "ior:instance:cfbcbb42-5642-45c1-b202-1822fefbbbeb",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

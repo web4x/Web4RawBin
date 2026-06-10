@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "65ce93ad-e5d3-45e1-90b5-a5e56b699d19",
+    "name": "traceTree.cycleGuard",
+    "class": "ior:instance:108b7283-94a5-46b7-898e-b08080808108",
+    "method": "ior:instance:92dc9f4c-1bb5-4089-939d-eef237b24fcb",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "26a79fa6-adf1-4628-9da8-5df4cc64b19b",
+    "name": "server.sprintsDedupe",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
+}

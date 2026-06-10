@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "2be4bb75-4415-4203-b1bb-2e164d7bd1c1",
+    "name": "sprintList.numberLabel",
+    "class": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9",
+    "method": "ior:instance:6ec7440d-31e8-4d74-be88-c5fae090cad4",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

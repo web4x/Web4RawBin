@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e2d6db4c-0da7-43ed-bd32-55e1b65a6992",
+    "name": "RbTraceTree.ancestorGuard",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
+}

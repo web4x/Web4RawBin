@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "cfbcbb42-5642-45c1-b202-1822fefbbbeb",
+    "name": "RbClassDetail.renderAll",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5"
+}

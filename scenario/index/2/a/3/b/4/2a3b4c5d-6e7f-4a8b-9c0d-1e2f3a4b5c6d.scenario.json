@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "2a3b4c5d-6e7f-4a8b-9c0d-1e2f3a4b5c6d",
+    "name": "room.linkResolve",
+    "class": "ior:instance:792246f1-0000-0000-0000-000000000000",
+    "method": "ior:instance:3b4c5d6e-7f8a-4b9c-0d1e-2f3a4b5c6d7e",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

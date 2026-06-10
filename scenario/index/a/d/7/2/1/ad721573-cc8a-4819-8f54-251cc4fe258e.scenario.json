@@ -2,8 +2,8 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "ad721573-cc8a-4819-8f54-251cc4fe258e",
-    "name": "R18.27: Browse-File link opens the file-browser FOLDER with the target file HIGHLIGHTED — not Monaco directly. (inferred from literal)",
-    "description": "> TRON: \"here you see impl has a src link, but ALL types should have it. it should NOT open directly in the monaco editor, BUT in the browser folder (2nd picture), with the file highlighted. then i can open the editor. the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file.\"\n\n### Decomposition hints (req: confirm against literal)\n- R18.14: Browse-File link opens the FILE BROWSER folder view (/md/<dir>/) with the target file HIGHLIGHTED — it must NOT open Monaco directly. The user opens the editor from the browser.\n\n**REVISES R18.22.** The link target is `/md/<directory>/` (the folder containing the file), with a query or hash parameter that highlights the specific file in the listing. The user then clicks to open in Monaco. The link does NOT go directly to `/edit/<file>`.\n\n**Acceptance criteria:**\n- [ ] Browse-File link navigates to `/md/<parent-dir>/` (folder view)\n- [ ] The target file is visually highlighted in the folder listing\n- [ ] User can click the highlighted file to open in Monaco\n- [ ] Link does NOT open Monaco directly",
+    "name": "R18.27: Browse-File link opens the file-browser FOLDER with the target file HIGHLIGHTED \u2014 not Monaco directly. (inferred from literal)",
+    "description": "> TRON: \"here you see impl has a src link, but ALL types should have it. it should NOT open directly in the monaco editor, BUT in the browser folder (2nd picture), with the file highlighted. then i can open the editor. the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file.\"\n\n### Decomposition hints (req: confirm against literal)\n- R18.14: Browse-File link opens the FILE BROWSER folder view (/md/<dir>/) with the target file HIGHLIGHTED \u2014 it must NOT open Monaco directly. The user opens the editor from the browser.\n\n**REVISES R18.22.** The link target is `/md/<directory>/` (the folder containing the file), with a query or hash parameter that highlights the specific file in the listing. The user then clicks to open in Monaco. The link does NOT go directly to `/edit/<file>`.\n\n**Acceptance criteria:**\n- [ ] Browse-File link navigates to `/md/<parent-dir>/` (folder view)\n- [ ] The target file is visually highlighted in the folder listing\n- [ ] User can click the highlighted file to open in Monaco\n- [ ] Link does NOT open Monaco directly",
     "tronQuote": "> TRON: \"here you see impl has a src link, but ALL types should have it. it should NOT open directly in the monaco editor, BUT in the browser folder (2nd picture), with the file highlighted. then i can open the editor. the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file.\"",
     "tasks": [],
     "tests": [],
@@ -12,7 +12,10 @@
     "unitLinks": [
       "sprints.json/sprint-18-chain-method-scope/requirement/r18-27-browse-file-link-opens-the-file-browser-folder-with-the-target-file-highl.json"
     ],
-    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "useCases": [
+      "ior:instance:a5b7650c-4cc2-4491-bc15-e786417809ed"
+    ]
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }
