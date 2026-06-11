@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 import { ScenarioIndex, type ScenarioUnit } from '../src/ts/scenario/index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const REPO = path.join(__dirname, '..');
+const REPO = path.resolve(path.join(__dirname, '..'));
 const INDEX_DIR = path.join(REPO, 'scenario/index');
 
 const args = process.argv.slice(2);
@@ -40,20 +40,22 @@ if (sinceIdx !== -1) {
   sinceDate = new Date().toISOString().slice(0, 10);
 }
 
-// --- THROUGHPUT from git ---
+// --- THROUGHPUT from git (cwd-independent: explicit -C + absolute path) ---
 function gitCount(since: string, grepPattern?: string): number {
   try {
-    const grep = grepPattern ? `| grep -i "${grepPattern}"` : '';
-    const cmd = `git -C "${REPO}" log --oneline --since="${since}" ${grep} | wc -l`;
+    if (grepPattern) {
+      const all = execSync(`git -C "${REPO}" log --oneline --since="${since}"`, { encoding: 'utf-8' });
+      return (all.match(new RegExp(grepPattern, 'gim')) || []).length;
+    }
+    const cmd = `git -C "${REPO}" log --oneline --since="${since}" | wc -l`;
     return parseInt(execSync(cmd, { encoding: 'utf-8' }).trim()) || 0;
   } catch { return 0; }
 }
 
 function gitFirstLast(since: string): { first: string; last: string } {
   try {
-    const first = execSync(`git -C "${REPO}" log --format=%aI --since="${since}" --reverse | head -1`, { encoding: 'utf-8' }).trim();
-    const last = execSync(`git -C "${REPO}" log --format=%aI --since="${since}" | head -1`, { encoding: 'utf-8' }).trim();
-    return { first, last };
+    const all = execSync(`git -C "${REPO}" log --format=%aI --since="${since}"`, { encoding: 'utf-8' }).trim().split('\n').filter(Boolean);
+    return { first: all[all.length - 1] || '', last: all[0] || '' };
   } catch { return { first: '', last: '' }; }
 }
 

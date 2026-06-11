@@ -236,18 +236,22 @@ export class Velocity {
     });
   }
 
-  private gitCount(since: string, grep?: string): number {
+  private gitCount(since: string, grepPattern?: string): number {
+    const repo = path.resolve(this.repoDir);
     try {
-      const grepPart = grep ? `| grep -i "${grep}"` : '';
-      return parseInt(execSync(`git -C "${this.repoDir}" log --oneline --since="${since}" ${grepPart} | wc -l`, { encoding: 'utf-8' }).trim()) || 0;
+      if (grepPattern) {
+        const all = execSync(`git -C "${repo}" log --oneline --since="${since}"`, { encoding: 'utf-8' });
+        return (all.match(new RegExp(grepPattern, 'gim')) || []).length;
+      }
+      return parseInt(execSync(`git -C "${repo}" log --oneline --since="${since}" | wc -l`, { encoding: 'utf-8' }).trim()) || 0;
     } catch { return 0; }
   }
 
   private gitFirstLast(since: string): { first: string; last: string } {
+    const repo = path.resolve(this.repoDir);
     try {
-      const first = execSync(`git -C "${this.repoDir}" log --format=%aI --since="${since}" --reverse | head -1`, { encoding: 'utf-8' }).trim();
-      const last = execSync(`git -C "${this.repoDir}" log --format=%aI --since="${since}" | head -1`, { encoding: 'utf-8' }).trim();
-      return { first, last };
+      const all = execSync(`git -C "${repo}" log --format=%aI --since="${since}"`, { encoding: 'utf-8' }).trim().split('\n').filter(Boolean);
+      return { first: all[all.length - 1] || '', last: all[0] || '' };
     } catch { return { first: '', last: '' }; }
   }
 }
