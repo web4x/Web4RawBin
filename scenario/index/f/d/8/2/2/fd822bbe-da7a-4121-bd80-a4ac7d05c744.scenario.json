@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "fd822bbe-da7a-4121-bd80-a4ac7d05c744",
+    "altId": "R19.43",
+    "name": "R19.43: After drop, show an upload status bar with progress.",
+    "description": "After a file is dropped into the room drop-zone, an upload STATUS BAR MUST appear showing upload progress (percentage or indeterminate spinner). The status bar remains visible until the upload completes (success or failure) and then transitions to the result state. This provides immediate visual feedback that the drop was received and work is in progress.",
+    "tronQuote": "> TRON: \"after drop show an upload statusbar\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:573d5b87-bd20-4eb6-9ec4-87896a6533bb"
+    ],
+    "crossRefNote": "R19.36 (DnD file-upload chain) defines the upload operation. R19.43 adds the progress UI feedback for it.",
+    "useCases": [
+      "ior:instance:3bfb242c-8de5-4f1d-be49-9ccee674144c"
+    ]
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

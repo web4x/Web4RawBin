@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "65151a56-5efa-448c-b790-1a0522532749",
+    "altId": "R19.44",
+    "name": "R19.44: Upload success or failure posts a corresponding RawBin system chat message.",
+    "description": "On upload completion, the system MUST post a RawBin system chat message (ownerIor = RawBin user per R19.39): on success 'Uploaded <filename>' (or equivalent with file icon); on failure 'Upload failed: <filename> \u2014 <reason>'. These are Message scenario units (R19.38) written to the room's chat thread, visible to all room members as system-generated entries.",
+    "tronQuote": "> TRON: \"a upload success or failure with the corresponding system chat messages.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:4ed793f1-94a0-4645-b4f5-b8dff74da75c",
+      "ior:instance:2d4fefed-0895-4be3-b153-505dc65eca9a",
+      "ior:instance:573d5b87-bd20-4eb6-9ec4-87896a6533bb"
+    ],
+    "crossRefNote": "R19.39 (RawBin system user) is the ownerIor. R19.38 (messages as scenario units) defines the Message shape. R19.36 (upload chain) triggers the success/failure event. R19.44 defines the chat-visible result notification.",
+    "useCases": [
+      "ior:instance:3bfb242c-8de5-4f1d-be49-9ccee674144c"
+    ]
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
