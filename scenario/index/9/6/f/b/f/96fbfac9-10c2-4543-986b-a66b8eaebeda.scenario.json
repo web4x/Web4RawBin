@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "96fbfac9-10c2-4543-986b-a66b8eaebeda",
+    "name": "ContentPreviewer.iframeSandbox impl",
+    "sourceFile": "src/public/ts/trace/content-preview.ts",
+    "sourceLine": 19,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:8410c58c-9a15-4350-8e22-4efbb535adda"
+}

@@ -480,7 +480,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
-    // [impl:uuid:31fa49b3-e8c1-4c0b-835a-8764fa33ee59] R19.68 file-access auth
+    // [impl:uuid:e872cf5c-b500-49c0-9836-b3779f33dd78] R19.68 file-access auth
     if (req.method === 'GET' && filepath.match(/^\/api\/room\/file\/[^/]+\/content$/)) {
       const fileUuid = filepath.split('/')[4];
       try {

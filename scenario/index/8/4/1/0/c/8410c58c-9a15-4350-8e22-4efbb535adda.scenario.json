@@ -5,7 +5,9 @@
     "name": "ContentPreviewer.iframeSandbox",
     "description": "Preview iframe: sandbox='allow-same-origin' (no allow-scripts). Server sets Content-Security-Policy: default-src 'none'; img-src 'self'; style-src 'unsafe-inline' on /api/file-content responses. Blocks XSS from uploaded HTML/SVG.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:96fbfac9-10c2-4543-986b-a66b8eaebeda"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e"
