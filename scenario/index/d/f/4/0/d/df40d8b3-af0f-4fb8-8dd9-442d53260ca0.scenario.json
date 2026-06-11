@@ -6,9 +6,7 @@
     "implementations": [],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented).",
-    "orphanByDesign": true,
-    "orphanRationale": "No code found in source \u2014 legacy migration/one-shot/future feature"
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
 }
