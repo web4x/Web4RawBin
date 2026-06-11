@@ -87,6 +87,12 @@
 - **R19.37** (2026-06-11): UNKNOWN drop format → log event to room chat ('Dropped [mimeType]: [name] — no handler'). Extensible dispatcher routes by mimeType: known (file) → R19.36 chain; unknown → chat log. Future handlers (vcard, mail, href) plug in via registry without modifying core.
   > TRON: "double check all drag and drop requirements and implement a fully tracable chain for dnd file upload from dropping into a room to the ln link to the file content in the room represented in the rooms file tree. on unknown drag and drop log what happened into the room chat so that we can add over time multiple drop formats like vcards, mails, href links etc."
 
+### Messages as scenario units + RawBin system user (R19.38 + R19.39)
+- **R19.38** (2026-06-11): chat Messages are first-class scenario units (ior:class:Message) with ownerIor (sender) + model.nextMessage IOR + model.prevMessage IOR (doubly-linked list for thread order).
+  > TRON: "make messages first place scenario units with clear ownerIor and a double linked list of ior to next and previous message"
+- **R19.39** (2026-06-11): a system 'RawBin' User unit exists as ownerIor for DnD unknown-drop debug/log messages (R19.37). Distinguishes system-generated from user-sent.
+  > TRON: "add a RawBin user that owns the debug messages from dnd"
+
 ### Detail drawer + chain display bugs (R19.33 + R19.34)
 - **R19.33** (2026-06-11): detail drawer close affordance (nudge/X handle) scrolls out of view. MUST stay sticky/fixed in the drawer viewport.
   > TRON: "the details nudge to close scrolls out of the view"
