@@ -18,7 +18,9 @@
       "ior:instance:3e14d73c-1ddb-4f42-8d33-481581a8ec95"
     ],
     "crossRefNote": "R19.38 (messages as doubly-linked scenario units) provides the prevMessage IOR chain that R19.40 walks for pagination. R19.1 (room as scenario unit) gets a new field: lastMessageIor.",
-    "useCases": []
+    "useCases": [
+      "ior:instance:52cfbd70-a718-4c38-b689-be6207fb8054"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
