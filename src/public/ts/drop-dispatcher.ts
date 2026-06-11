@@ -86,6 +86,7 @@ export class DropDispatcher {
     sendChat(`[drop-debug] ${file.name} (${file.type || 'unknown'}) — no handler registered`);
   }
 
+  // [impl:uuid:05ed9488-cef2-41f5-83b2-f8e046fcd77a] DropDispatcher.feedbackCycle
   async dispatch(file: File, roomId: string, playerToken: string, sendChat: (text: string) => void): Promise<{ uuid: string; name: string; size: number } | null> {
     this.state = 'uploading';
     this.statusCb?.('uploading', `Uploading ${file.name}...`);

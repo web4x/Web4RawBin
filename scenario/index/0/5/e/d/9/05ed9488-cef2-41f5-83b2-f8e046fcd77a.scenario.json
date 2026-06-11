@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "05ed9488-cef2-41f5-83b2-f8e046fcd77a",
+    "name": "DropDispatcher.feedbackCycle",
+    "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}
