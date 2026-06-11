@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "733dc384-634d-42d3-b5e5-824f0f93dd34",
+    "name": "test:R19.75 authToken",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:4c897dae-affd-4528-bbda-2f4c373c6de8"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4c897dae-affd-4528-bbda-2f4c373c6de8"
+}

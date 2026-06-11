@@ -5,7 +5,9 @@
     "name": "ContentPreviewer.authToken impl",
     "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
     "sourceLine": 6,
-    "tests": []
+    "tests": [
+      "ior:instance:733dc384-634d-42d3-b5e5-824f0f93dd34"
+    ]
   },
   "ownerIor": "ior:instance:2be7ba71-6f1e-42a5-b024-7dcbee57ccaa"
 }
