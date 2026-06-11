@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "b8da64a1-9939-4de9-b47d-73f489a8258a",
+    "name": "T-tree-room-mode: add room data-mode to rb-trace-tree with setItems API, delete RoomView duplicate",
+    "slug": "tree-room-mode-setitems-delete-roomview-duplicate",
+    "description": "R19.90: rb-trace-tree gains data-mode=room + setItems(roots: TreeNode[]). RoomView replaces all renderRoomTree*/diffRenderItems with tree.setItems([membersRoot, filesRoot]). Delete duplicate imperative tree code. iOS init fixed by construction.",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:20fc59cc-5f92-4c17-b86b-c35b837d0373"
+    ],
+    "useCases": [
+      "ior:instance:2591b56a-95b2-405b-a7ad-feb6db13daba"
+    ],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-architect"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

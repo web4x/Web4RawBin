@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "2591b56a-95b2-405b-a7ad-feb6db13daba",
+    "name": "traceTree.setItems",
+    "description": "rb-trace-tree room mode: setItems(roots) builds tree from provided data array using existing buildSeedNode (shape-compatible). No /api fetch. RoomView feeds members+files data, component handles all item lifecycle.",
+    "class": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e",
+    "method": "ior:instance:1f7d3758-61cc-47eb-a7ff-b953535ed6a2",
+    "tasks": [
+      "ior:instance:b8da64a1-9939-4de9-b47d-73f489a8258a"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

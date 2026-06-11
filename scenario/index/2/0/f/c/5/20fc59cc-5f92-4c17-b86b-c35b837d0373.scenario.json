@@ -3,10 +3,12 @@
   "model": {
     "uuid": "20fc59cc-5f92-4c17-b86b-c35b837d0373",
     "altId": "R19.90",
-    "name": "R19.90: In-room tree REUSES rb-trace-tree component — delete duplicate RoomView tree implementation.",
-    "description": "DRY + OOP audit result: the in-room tree DUPLICATES the working /trace rb-trace-tree (non-DRY: 2 tree implementations, 2 item-creation paths, 2 collapse handlers; non-OOP: RoomView owns item lifecycle it shouldn't). ROOT FIX: in-room REUSES the existing rb-trace-tree component with a new 'room' mode and a setItems(members, files) API. DELETE the duplicate RoomView renderRoomTree*/diffRenderItems/manual event delegation. rb-trace-tree already handles item init, collapse, drawer-open, drag correctly — reusing it fixes the iOS init race by construction (no more hand-rolled custom-element lifecycle in RoomView). Supersedes the approach in R19.83 (file lifecycle mirror), R19.88 (whenDefined gate), R19.88.A (innerHTML diff) — all were patches on the duplicate impl instead of eliminating the duplication.",
-    "tronQuote": "> TRON: \"no improvement on iphone — do a DRY and OOP check.\"",
-    "tasks": [],
+    "name": "R19.90: In-room tree REUSES rb-trace-tree component \u2014 delete duplicate RoomView tree implementation.",
+    "description": "DRY + OOP audit result: the in-room tree DUPLICATES the working /trace rb-trace-tree (non-DRY: 2 tree implementations, 2 item-creation paths, 2 collapse handlers; non-OOP: RoomView owns item lifecycle it shouldn't). ROOT FIX: in-room REUSES the existing rb-trace-tree component with a new 'room' mode and a setItems(members, files) API. DELETE the duplicate RoomView renderRoomTree*/diffRenderItems/manual event delegation. rb-trace-tree already handles item init, collapse, drawer-open, drag correctly \u2014 reusing it fixes the iOS init race by construction (no more hand-rolled custom-element lifecycle in RoomView). Supersedes the approach in R19.83 (file lifecycle mirror), R19.88 (whenDefined gate), R19.88.A (innerHTML diff) \u2014 all were patches on the duplicate impl instead of eliminating the duplication.",
+    "tronQuote": "> TRON: \"no improvement on iphone \u2014 do a DRY and OOP check.\"",
+    "tasks": [
+      "ior:instance:b8da64a1-9939-4de9-b47d-73f489a8258a"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
