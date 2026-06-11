@@ -58,10 +58,18 @@ architect (78 nodes) ──→ expert (75 Impl markers) ──→ tester (350 Te
 
 Architect and expert can work in parallel on different chains — architect wires UC/Class for reqs that have them missing, expert marks Impls for reqs that already have UC/Class/Method complete.
 
+## Exceptions (honest exclusions — auditable, not silent gaps)
+
+| Method uuid | Method name | Req | testException | Reason |
+|-------------|-------------|-----|---------------|--------|
+| `5d6e7f8a` | ServiceWorker.ignoreSearchNav | R19.32 | **true** | Service worker `cacheFirst` with `ignoreSearch` is not unit-testable (runs in SW context, no DOM, no vitest). Covered by share-link E2E test (Playwright navigates `/app?join=<uuid>` offline → verifies app loads). NOT counted as a silent gap — explicitly excluded from the Test-leaf-required invariant for this chain. |
+
+**Rule:** exceptions are VISIBLE here, not buried in allowlists. Each must state: which method, which req, why untestable, and what DOES cover it (E2E, manual Tron verify, etc.). SM can audit this section at any time.
+
 ## Full output
 
 The complete 770-row dispatch table is at `/tmp/chain-follow-up-full.txt` (generated this session). Regenerate anytime: `npx tsx scripts/po-chain-follow-up.ts --all`.
 
 ---
 
-*46/476 → target 476/476. No chain done until its Test leaf is real.*
+*52/482 → target 482/482 (minus documented exceptions). No chain done until its Test leaf is real or explicitly excepted above.*
