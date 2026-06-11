@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "dceda100-434b-4ef7-9af3-9a69ccfac6b2",
+    "altId": "R19.52",
+    "name": "R19.52: Detail drawer is full width — no max-width cap.",
+    "description": "The /trace detail drawer MUST be FULL WIDTH — remove the max-width:480px cap (app.css:271 or equivalent). The drawer should expand to fill the available width of its container, not be constrained to a fixed pixel width.",
+    "tronQuote": "> PO relay (Tron via planner): drawer must be FULL WIDTH (remove max-width:480px cap, app.css:271).",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
