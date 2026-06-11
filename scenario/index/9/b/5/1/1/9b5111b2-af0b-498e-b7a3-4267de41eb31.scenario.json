@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9b5111b2-af0b-498e-b7a3-4267de41eb31",
+    "name": "test:R17.24 chainIcon",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:b3020e1b-6736-4037-8b9f-47dfb0d27cee"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b3020e1b-6736-4037-8b9f-47dfb0d27cee"
+}

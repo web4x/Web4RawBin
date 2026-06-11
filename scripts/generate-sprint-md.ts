@@ -1,5 +1,5 @@
-/**
 // [test:uuid:9dbf5538-4c27-4591-8d91-051b487c3924]
+/**
  * T188 — Generate sprint planning.md + per-task .md from scenario units.
  * Writes INTO scrum.pmo/sprints/<sprint>/ replacing hand-authored files.
  * Each generated file starts with '<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->'

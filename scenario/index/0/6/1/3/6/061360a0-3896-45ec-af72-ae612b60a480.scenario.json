@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "061360a0-3896-45ec-af72-ae612b60a480",
+    "name": "test:R17.15 symlinkJson",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:7958f8bf-25de-43e2-a022-287c809d84cb"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7958f8bf-25de-43e2-a022-287c809d84cb"
+}

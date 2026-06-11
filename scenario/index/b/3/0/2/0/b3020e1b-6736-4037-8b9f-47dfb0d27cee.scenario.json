@@ -4,7 +4,9 @@
     "uuid": "b3020e1b-6736-4037-8b9f-47dfb0d27cee",
     "name": "MdListing.chainIcon",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:9b5111b2-af0b-498e-b7a3-4267de41eb31"
+    ]
   },
   "ownerIor": null
 }

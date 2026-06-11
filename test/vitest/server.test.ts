@@ -36,6 +36,7 @@
 // [test:uuid:8b8a203c-70e1-4ad4-9242-fa255b7782ee]
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+// [test:uuid:9b5111b2-af0b-498e-b7a3-4267de41eb31]
 // [test:uuid:6a5204d0-dcbf-4b1d-b8c0-eb0036825dfb]
 // [test:uuid:f9c4e91a-ce53-49e9-b022-6ba7b54af93b]
 // [test:uuid:1db382b5-932b-41b2-9865-c1e3d235fdbe]
