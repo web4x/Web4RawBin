@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d147e1fd-acca-48b0-adac-44c35be75755",
+    "name": "TraceRouter.typeDispatch R19.66",
+    "sourceFile": "src/public/ts/scenario-view.ts",
+    "sourceLine": 57,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:9b45ad1a-1854-4d0b-95df-cf73c6dddafb"
+}

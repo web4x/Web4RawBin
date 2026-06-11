@@ -54,7 +54,7 @@ if (!ior || !app) {
       });
       await waitForTree();
 
-      // [impl:uuid:9b45ad1a-1857-4e6a-b2c3-4d5e6f7a8b9c] TraceRouter.typeDispatch R19.66
+      // [impl:uuid:d147e1fd-acca-48b0-adac-44c35be75755] TraceRouter.typeDispatch R19.66
       const obj = graph.get(ior!);
       let type = obj ? obj.type : '';
       if (!type) {
