@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "124d9eec-0c46-4f45-8640-b7e14618d214",
+    "altId": "R19.46",
+    "name": "R19.46: Room file-restore is driven by the scenario's authoritative files[] IOR list, not filesystem symlink scan.",
+    "description": "Room file restoration on load MUST be driven by the Room scenario unit's authoritative model.files[] IOR references (same pattern as model.members[] per R19.35), NOT by a blind filesystem symlink scan of the room folder (which produces duplicates and orphans). The Room scenario unit holds a files[] array of ior:instance:<fileUuid> refs — one entry per unique FileUnit. Restore iterates files[] and emits one FILE_ADDED per unique file scenario unit. Dedup is by file IOR — if the IOR is already in files[], it is not added again. One upload = ONE FileUnit creation + ONE files[] append. The scenario is the source of truth; symlinks are derived artifacts.",
+    "tronQuote": "> TRON: \"now the file is restoring twice. we just need to restore the scenario, as it points to the file.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:c99083ba-1b38-474c-88d1-ca4bf5f5a2c7",
+      "ior:instance:573d5b87-bd20-4eb6-9ec4-87896a6533bb",
+      "ior:instance:f1ca3cc9-a675-4a3b-9898-9e33d7876ed8"
+    ],
+    "crossRefNote": "R19.35 (Room.members[] IOR refs) establishes the pattern — R19.46 extends it to Room.files[]. R19.36 (DnD upload chain) creates the FileUnit; R19.46 ensures that chain writes exactly ONE files[] entry. R19.14 (file stored as scenario unit) defines the FileUnit shape that files[] references."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -111,6 +111,10 @@
 - **R19.45** (2026-06-11): offline page adds a RED 'Flush PWA Cache' button next to Retry. Clears all SW caches + unregisters/re-registers SW. Recovers from stale-cache offline state.
   > TRON: "continue to get [offline page] — not in the pwa but in the browser. add next to retry a red flush pwa cache button."
 
+### Room file-restore from scenario, not symlink scan (R19.46)
+- **R19.46** (2026-06-11): file-restore driven by Room scenario's model.files[] IOR list (one entry per unique FileUnit), NOT blind symlink scan (duplicates). One upload = one FileUnit + one files[] append. Scenario is source of truth; symlinks are derived.
+  > TRON: "now the file is restoring twice. we just need to restore the scenario, as it points to the file."
+
 ### Detail drawer + chain display bugs (R19.33 + R19.34)
 - **R19.33** (2026-06-11): detail drawer close affordance (nudge/X handle) scrolls out of view. MUST stay sticky/fixed in the drawer viewport.
   > TRON: "the details nudge to close scrolls out of the view"
