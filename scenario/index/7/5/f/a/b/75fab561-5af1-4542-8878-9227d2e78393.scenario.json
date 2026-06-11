@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Device",
+  "model": {
+    "uuid": "75fab561-5af1-4542-8878-9227d2e78393",
+    "deviceId": "75fab561-5af1-4542-8878-9227d2e78393",
+    "ownerToken": "83dc7fdb-2d20-43fa-b2b7-a1e39dc1b381",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+    "ip": "::ffff:94.31.70.228",
+    "screenSize": "2560x1440",
+    "platform": "Linux x86_64",
+    "firstSeen": "2026-06-03T12:46:43.103Z",
+    "lastSeen": "2026-06-10T09:31:31.944Z",
+    "connectionCount": 64,
+    "enrolled": true,
+    "devicePublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqj1XxONTZfPehX83v6sF\nilHGbw1ut+G5MCBBLMwN8DWprhhEXcrz8HV8BXzb5jq93LErv0MVy52FuIzdirDc\nUON7lYnb6g6FKbSksruUlEQS1c4kO7sJq8sf99PuvgPyF1V0ewjkKVC2bFgHAEJm\nnYx2AY54YJbKP7qo8d5KEfLKaexvJEbwq50J499f4+KPbJKGTc/BtWVcIN0cmAe3\n1K0yYyiPIRxv/aFU1Zm8Z0zRBP152fFeQ/vHvWZggUCoZZR0HrldmgdFCI7EHR6u\nRAmKcL8MxUAcRjJb9nU+NWcOmcsjfLJOks14hsHdDD/RyRivkEa2EMaJ413vWqlO\n1QIDAQAB\n-----END PUBLIC KEY-----\n",
+    "enrolledAt": "2026-06-03T12:47:31.569Z"
+  },
+  "ownerIor": "ior:instance:83dc7fdb-2d20-43fa-b2b7-a1e39dc1b381"
+}

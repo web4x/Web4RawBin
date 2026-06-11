@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Device",
+  "model": {
+    "uuid": "d7c8e53a-bdc7-4f7e-9f24-2ab41b343f0b",
+    "deviceId": "d7c8e53a-bdc7-4f7e-9f24-2ab41b343f0b",
+    "ownerToken": "da4f8809-5bcc-46fd-8f90-9b00d7fe967f",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+    "ip": "::ffff:61.8.154.128",
+    "screenSize": "902x1443",
+    "platform": "Linux armv81",
+    "firstSeen": "2026-05-31T19:15:32.239Z",
+    "lastSeen": "2026-05-31T21:30:39.848Z",
+    "connectionCount": 14,
+    "enrolled": false,
+    "devicePublicKey": "",
+    "enrolledAt": ""
+  },
+  "ownerIor": "ior:instance:da4f8809-5bcc-46fd-8f90-9b00d7fe967f"
+}

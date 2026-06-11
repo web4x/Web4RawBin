@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Device",
+  "model": {
+    "uuid": "b04f3237-043c-40d9-8e8b-511e3525f5b8",
+    "deviceId": "b04f3237-043c-40d9-8e8b-511e3525f5b8",
+    "ownerToken": "0f9c1d09-f683-4a52-9a11-73809230e8c8",
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 26_5_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/149.0.7827.45 Mobile/15E148 Safari/604.1",
+    "ip": "::ffff:87.123.37.241",
+    "screenSize": "430x932",
+    "platform": "iPhone",
+    "firstSeen": "2026-06-07T22:24:17.717Z",
+    "lastSeen": "2026-06-08T04:04:56.589Z",
+    "connectionCount": 3,
+    "enrolled": false,
+    "devicePublicKey": "",
+    "enrolledAt": ""
+  },
+  "ownerIor": "ior:instance:0f9c1d09-f683-4a52-9a11-73809230e8c8"
+}

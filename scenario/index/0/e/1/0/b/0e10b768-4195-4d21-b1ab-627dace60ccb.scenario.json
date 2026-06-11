@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Device",
+  "model": {
+    "uuid": "0e10b768-4195-4d21-b1ab-627dace60ccb",
+    "deviceId": "0e10b768-4195-4d21-b1ab-627dace60ccb",
+    "ownerToken": "6c6ae6b9-47e1-4320-9831-2052b622a229",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+    "ip": "::1",
+    "screenSize": "375x812",
+    "platform": "MacIntel",
+    "firstSeen": "2026-05-23T13:04:08.613Z",
+    "lastSeen": "2026-05-23T13:04:08.613Z",
+    "connectionCount": 1,
+    "enrolled": false,
+    "devicePublicKey": "",
+    "enrolledAt": ""
+  },
+  "ownerIor": "ior:instance:6c6ae6b9-47e1-4320-9831-2052b622a229"
+}

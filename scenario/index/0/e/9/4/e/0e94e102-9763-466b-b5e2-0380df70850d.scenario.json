@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Device",
+  "model": {
+    "uuid": "0e94e102-9763-466b-b5e2-0380df70850d",
+    "deviceId": "0e94e102-9763-466b-b5e2-0380df70850d",
+    "ownerToken": "07f247a0-1a30-4262-b32a-c3f6e4b1d140",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+    "ip": "::1",
+    "screenSize": "375x812",
+    "platform": "MacIntel",
+    "firstSeen": "2026-05-23T13:44:48.419Z",
+    "lastSeen": "2026-05-23T13:44:48.419Z",
+    "connectionCount": 1,
+    "enrolled": true,
+    "devicePublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvIhN82Gd50DBCSo1eznQ\nsfrUzi8si10kGAWDk33BUpFmgz/ockaUIFSbThQX4ZPfbTEKcPgpdtmos9/DvdRD\nIEm9cevFpWcvykr2R61FwLKpWaJ3+Q+qChSvTnFLLwdlcuzKf4+isudZBP5bYD7H\nkEXMKj34vV2EIV0QgP2GlSE0+LVfH3INqmk/D6rH0SdU4pe805hp7oASFqs9E4xl\nS3nlil4sQz09Nkv0isotN0XRsUwLpl2meZRWcKC5W2wi6BQfimkaiAovRWhVxjdB\nJibBEjgJAjurHc1TLqFZubykxH/R3eZMP4qr+dtpAmnP6vJlwTz0H67FZG872nM4\nzQIDAQAB\n-----END PUBLIC KEY-----\n",
+    "enrolledAt": "2026-05-23T13:44:49.451Z"
+  },
+  "ownerIor": "ior:instance:07f247a0-1a30-4262-b32a-c3f6e4b1d140"
+}

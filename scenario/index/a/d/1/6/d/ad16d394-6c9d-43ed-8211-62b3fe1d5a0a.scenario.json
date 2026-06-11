@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Device",
+  "model": {
+    "uuid": "ad16d394-6c9d-43ed-8211-62b3fe1d5a0a",
+    "deviceId": "ad16d394-6c9d-43ed-8211-62b3fe1d5a0a",
+    "ownerToken": "c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5 Mobile/15E148 Safari/604.1",
+    "ip": "::ffff:87.123.36.135",
+    "screenSize": "430x932",
+    "platform": "iPhone",
+    "firstSeen": "2026-06-03T22:22:13.011Z",
+    "lastSeen": "2026-06-11T09:36:31.466Z",
+    "connectionCount": 260,
+    "enrolled": true,
+    "devicePublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAug+jY3F1EJE9fmeMr65T\nI18VL6v8Gq0rDB162he+KZPthMm093F8tGo+8pvC9awScF8Y3u8Y235qCjO3Wkgh\nTTYHq60sCrRoB4V3CW/G16Hw5lMrCDlmbSYT0X32JfzVarzcKDOfP52sQ1EYNmhQ\nkghRClGOgu9c9rKXMEJEOn8+2Ux0gqMdSMMuWqrx22krnQZnEjnZty/czKFQC/60\nSYliNCqYpaVvxAQpmcM2MLpdrGlsMj0GLJKyhhSAdAybaiUa7QWEv3Hzy6LrSWTP\n9uI5PkXdsx5noSBe8TQZ++79dSFsyf7q+lqPQngizdcVcei/B+4+9tohT6TI4RZR\nUQIDAQAB\n-----END PUBLIC KEY-----\n",
+    "enrolledAt": "2026-06-03T22:22:36.072Z"
+  },
+  "ownerIor": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6"
+}
