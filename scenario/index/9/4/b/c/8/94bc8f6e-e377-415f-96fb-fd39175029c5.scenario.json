@@ -6,7 +6,9 @@
     "description": "Server: walk prevMessage from before (or room.lastMessageIor), collect limit msgs, return oldest-first. Client: on room open fetch last 5; on scroll-up sentinel fetch next 5, prepend to DOM, restore scrollTop.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "implementations": [],
-    "tests": []
+    "tests": [
+      "ior:instance:9e1cb105-27b1-4268-b9c3-d2110563fdeb"
+    ]
   },
   "ownerIor": "ior:instance:95686685-d75c-4b18-80f8-03d753182eb3"
 }

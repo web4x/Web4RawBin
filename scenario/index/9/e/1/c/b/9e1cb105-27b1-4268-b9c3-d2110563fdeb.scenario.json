@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9e1cb105-27b1-4268-b9c3-d2110563fdeb",
+    "name": "test:R19.40.LazyLoadMessages",
+    "description": "Champagne: prevMessage backward walk, oldest-first reverse, pagination (limit=5 chunks), stop when <limit, 3-page chain integrity. 7 test cases.",
+    "sourceFile": "ior:file:test/vitest/lazy-load-messages.test.ts",
+    "implementations": ["ior:instance:94bc8f6e-e377-415f-96fb-fd39175029c5"],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:94bc8f6e-e377-415f-96fb-fd39175029c5"
+}
