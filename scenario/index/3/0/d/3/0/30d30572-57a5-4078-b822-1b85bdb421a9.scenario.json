@@ -4,7 +4,9 @@
     "uuid": "30d30572-57a5-4078-b822-1b85bdb421a9",
     "name": "SpeakingTree.extendClasses",
     "sourceFile": "src/ts/scenario/generator.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:faf7bd6e-613e-4b17-8fa1-0b2f915b8142"
+    ]
   },
   "ownerIor": null
 }

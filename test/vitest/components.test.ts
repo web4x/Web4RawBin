@@ -12,6 +12,8 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+// [test:uuid:05f6dbaf-8a8e-41b5-a5b6-f38c8fee8d80]
+// [test:uuid:b6086e8c-f138-4c42-9b98-e8173f75c56b]
 // [test:uuid:5b79cc8e-e44c-4cbb-ab54-9d9d06ab596b]
 // [test:uuid:e8a971b2-80a2-4541-b961-791cdb7f9355]
 // [test:uuid:8be26b85-43d8-4b4a-be49-081fa530b62b]

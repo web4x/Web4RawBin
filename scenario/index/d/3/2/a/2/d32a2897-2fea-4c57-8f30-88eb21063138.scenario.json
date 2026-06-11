@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d32a2897-2fea-4c57-8f30-88eb21063138",
+    "name": "test:R17.13 resolveInstance",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:bcbfa945-633a-4f62-950c-7d8d39b0dd15"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:bcbfa945-633a-4f62-950c-7d8d39b0dd15"
+}
