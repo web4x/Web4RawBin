@@ -6,7 +6,8 @@
     "description": "Room view controller \u2014 manages room UI lifecycle, member/file tree rendering, WS event handling.",
     "methods": [
       "ior:instance:d22d013a-ccc8-49b4-9106-c41114507808",
-      "ior:instance:79601135-70ea-48d9-a566-b4b53a96dfc8"
+      "ior:instance:79601135-70ea-48d9-a566-b4b53a96dfc8",
+      "ior:instance:a696ec72-fe0b-47c7-9852-af15de977226"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"

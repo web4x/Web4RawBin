@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "67abd046-fb92-4327-a9f3-00b3497c0977",
+    "name": "T-item-init-gate: await customElements.whenDefined before first tree render",
+    "slug": "item-init-gate-whendefined-before-render",
+    "description": "R19.88 fix: RoomView.enterRoom must await customElements.whenDefined('rb-object-item') before calling renderMemberList(). Eliminates CE upgrade race where items created before define() runs get no connectedCallback \u2192 no cursor, no click, no collapse, no drawer. 1-line await.",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:26b5f7c1-6a36-4bb2-bcae-cb234533afff"
+    ],
+    "useCases": [
+      "ior:instance:bdd5cd03-647b-4135-b017-6049113bd5b5"
+    ],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-architect"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

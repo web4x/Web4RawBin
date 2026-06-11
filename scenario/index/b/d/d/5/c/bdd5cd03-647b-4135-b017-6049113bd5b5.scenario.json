@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "bdd5cd03-647b-4135-b017-6049113bd5b5",
+    "name": "roomView.awaitItemUpgrade",
+    "description": "Gate first tree render on customElements.whenDefined('rb-object-item') so every dynamically-created item is guaranteed upgraded with connectedCallback.",
+    "class": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed",
+    "method": "ior:instance:a696ec72-fe0b-47c7-9852-af15de977226",
+    "tasks": [
+      "ior:instance:67abd046-fb92-4327-a9f3-00b3497c0977"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
