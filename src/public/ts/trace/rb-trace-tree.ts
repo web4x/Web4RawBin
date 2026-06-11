@@ -190,16 +190,8 @@ export class RbTraceTree extends HTMLElement {
 
     const row = document.createElement('div');
     row.className = 'tt-row';
-    const item = document.createElement('rb-object-item');
-    item.setAttribute('ref', ref);
-    item.setAttribute('type', obj ? obj.type : ref.split(':')[0]);
-    item.setAttribute('title', obj ? obj.title : ref);
-    if (obj && obj.title) item.setAttribute('description', obj.title);
-    if (obj && obj.status) item.setAttribute('status', obj.status);
-    if (hasChildren) {
-      item.setAttribute('has-children', '');
-      if (isOpen) item.setAttribute('children-open', '');
-    }
+    const item = document.createElement('rb-object-item') as any;
+    item.data = { ref, type: obj ? obj.type : ref.split(':')[0], title: obj ? obj.title : ref, ...(obj?.title ? { description: obj.title } : {}), ...(obj?.status ? { status: obj.status } : {}), ...(hasChildren ? { 'has-children': '' } : {}), ...(hasChildren && isOpen ? { 'children-open': '' } : {}) };
     if (this.brokenUuids.has(refUuid(ref))) {
       const warn = document.createElement('span');
       warn.className = 'tt-warn'; warn.title = 'traceability issue (T102)'; warn.textContent = '⚠️';
@@ -256,13 +248,9 @@ export class RbTraceTree extends HTMLElement {
     if (ancestors && ancestors.has(uuid)) return node;
     const row = document.createElement('div');
     row.className = 'tt-row';
-    const item = document.createElement('rb-object-item');
-    item.setAttribute('ref', `${(type || 'task').toLowerCase()}:${uuid}`);
-    item.setAttribute('type', (type || 'task').toLowerCase());
-    item.setAttribute('title', name || uuid);
-    if (description) item.setAttribute('description', description);
+    const item = document.createElement('rb-object-item') as any;
     const showExpander = children.length > 0 || hasChildren === true;
-    if (showExpander) item.setAttribute('has-children', '');
+    item.data = { ref: `${(type || 'task').toLowerCase()}:${uuid}`, type: (type || 'task').toLowerCase(), title: name || uuid, ...(description ? { description } : {}), ...(showExpander ? { 'has-children': '' } : {}) };
     row.appendChild(item);
     node.appendChild(row);
     if (showExpander) {
