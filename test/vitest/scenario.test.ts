@@ -8,6 +8,19 @@
  *
  * @vitest-environment node
  */
+
+// [test:uuid:9e8520f3-bf7e-4a15-b7a3-c20bd9cecd7b]
+// [test:uuid:0f85b7df-984d-4eaf-b532-b284f823bbe9]
+// [test:uuid:9aec7689-d1fc-4224-8de7-0a24db5b28e3]
+// [test:uuid:723dfe08-a205-4504-8b4c-6a5abeb7ff89]
+// [test:uuid:4e4ca4d7-a539-4f26-a190-a3f4c71d93cb]
+// [test:uuid:2ef0de37-2466-4ea1-9c60-1af60632d2ba]
+// [test:uuid:e3cf4e6d-2fc0-4b18-b163-07ca7816bed9]
+// [test:uuid:bfd01435-08e7-4ac3-a1bc-bac2b8ff7e77]
+// [test:uuid:aea14f66-b93d-4d17-81db-c9e1981e8440]
+// [test:uuid:cac609fd-7a3f-4f21-9727-56619227a99b]
+// [test:uuid:c8fadaae-1fb3-4eb8-8469-52fd9c2c5ce8]
+
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'node:fs';
 import os from 'node:os';

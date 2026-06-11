@@ -1,4 +1,5 @@
 /**
+// [test:uuid:7d6badb4-a27d-4c9d-b7f8-385fc9636e90]
  * R19.52 Full-width drawer + R19.33 Sticky close X
  * [test:uuid:0b7d18d9-247e-4261-8430-ef5fbc88ad10] R19.52 detailDrawer.fullWidth
  * [test:uuid:e59ff205-2a3f-4f4b-8e47-f5e7836d1646] R19.33 stickyClose pinned X

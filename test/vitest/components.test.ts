@@ -1,4 +1,6 @@
 /**
+// [test:uuid:6940edd5-cd1b-4392-a28a-ac7d1cc64401]
+// [test:uuid:2c502c22-a96e-4aee-b86b-2365edf62edb]
  * T39-T41: Web Component unit tests
  * [test:uuid:7e304eec-2c8c-4e2f-b2f0-b46bea80feb0] T39-T41 web components
  * T39: rb-update-banner — version check, banner DOM, click handler

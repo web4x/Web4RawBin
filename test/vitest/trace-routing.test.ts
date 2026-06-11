@@ -1,4 +1,5 @@
 /**
+// [test:uuid:b2fa3e4d-5aea-4368-a1d5-ec1793e35223]
  * T103 — Object.verb routing + MVC + flat-JSON seam tests (AC6).
  * Route resolution, attribute round-trip, ViewBus MVC propagation, serialize/deserialize fidelity.
  *

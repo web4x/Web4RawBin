@@ -7,6 +7,33 @@
 
 // [test:uuid:1b5c8ddc-8d87-4afd-b75c-23ebf99bb031] test:T64 editor layout (R12.1 backButton)
 // [test:uuid:ffab35a3-554b-4c80-ac3e-7a6216461e4a] test:Room.stripSizeLimits R19.23
+// [test:uuid:6c3405da-37fc-4e49-9d82-7fd265044d8e]
+// [test:uuid:0729010a-803d-462b-922e-bde7812004e4]
+// [test:uuid:d961a4f4-5be5-4729-b5c7-3131665a311e]
+// [test:uuid:dfc20743-9281-4aaf-abb5-473fe914d710]
+// [test:uuid:0a618ddd-0eb1-44b4-90d2-1bbf8aac5efb]
+// [test:uuid:63752257-17d1-4006-be1d-8d7f4c454748]
+// [test:uuid:163c8e76-744e-4359-8939-71b07a17777b]
+// [test:uuid:1179288e-8291-4df7-ad0f-28f78030dd97]
+// [test:uuid:6835fff4-79bb-467a-8df5-c13563563a40]
+// [test:uuid:6213634f-0210-4b0a-a68b-53e948021590]
+// [test:uuid:f64eaa20-1e66-4ec8-a25c-ba497feab9c1]
+// [test:uuid:f74dd812-7d68-433f-bef3-02e35cef14c1]
+// [test:uuid:79dc1ce0-6e9a-4e11-bc5c-ad70f4b09bb1]
+// [test:uuid:22625fdb-2a33-4648-9b26-6b6fd2fb1049]
+// [test:uuid:991f7629-0f80-476e-8b1e-e972222ce6d9]
+// [test:uuid:e41d6814-b990-4e27-9cd3-622f134da72f]
+// [test:uuid:201baea7-65fe-497e-b75e-8e2bc8ddce64]
+// [test:uuid:24be2c0c-c347-4b33-a651-ac7b5486d972]
+// [test:uuid:b78bcb98-a2b5-4669-9833-34671e097f8e]
+// [test:uuid:b5d1fc0f-fbbb-499d-ab33-3573f5ad12aa]
+// [test:uuid:3f1f3556-730f-49a6-9104-ae2d6163113c]
+// [test:uuid:8c45f71a-49a8-43a9-ac7b-fd50b63ed50b]
+// [test:uuid:802363cb-2693-4892-90b5-3da5fc70e8bf]
+// [test:uuid:ce32ecdd-c325-4421-9fd0-f6005bde217e]
+// [test:uuid:f38ec37a-90b6-4854-911b-49cb7c4f714b]
+// [test:uuid:f301f0b9-5600-4f8d-a5c4-9cf4de7abcf6]
+// [test:uuid:8b8a203c-70e1-4ad4-9242-fa255b7782ee]
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { Room, RoomManager } from '../../src/ts/server/Room.js';

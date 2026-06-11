@@ -1,4 +1,8 @@
 /**
+// [test:uuid:f0c30f5e-9686-4c34-89ba-8f5b45f28893]
+// [test:uuid:a2fe0f7e-0333-4c8f-ab77-901b4f4a0fb2]
+// [test:uuid:e11c89d0-2c3e-467e-8dd7-0ea23e1168b6]
+// [test:uuid:8682fa95-7ce2-4e21-91d8-4deb8807e563]
  * R19.14 DnD File Upload Chain — Champagne Test
  * [test:uuid:1e763397-5c56-4288-aac6-ee6f874b64a6] R19.14 end-to-end file upload chain
  *

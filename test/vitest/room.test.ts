@@ -10,6 +10,20 @@
  *   RoomState  = 'active' | 'archived'
  */
 
+// [test:uuid:11d5925a-f714-4164-a23a-97e1a8be2aed]
+// [test:uuid:1ea4eeab-948a-41f0-ae64-3ec3f48272c1]
+// [test:uuid:9d6a901d-5722-420a-8b1d-94f6d80aca96]
+// [test:uuid:de54ee76-3440-44fa-a14f-276d1587fa37]
+// [test:uuid:43c87420-1ed0-4766-8c1b-d932f775d052]
+// [test:uuid:b9fdc483-9c21-4791-ae93-369e0dd2fa69]
+// [test:uuid:324b293e-ea95-4507-91e7-d1888d7e13c0]
+// [test:uuid:bdee2812-ea6b-4202-9b8f-9986757e6f5a]
+// [test:uuid:e12ba2fd-5948-4060-b3ee-847d5a857559]
+// [test:uuid:57bc3556-a2f4-4138-a2a0-b748fa361ec4]
+// [test:uuid:30260096-824b-42c3-98e9-46ddcde01ca0]
+// [test:uuid:80a741f9-c3e7-433b-bf05-ccc68799a64b]
+// [test:uuid:aaa28037-63f3-4e44-b042-0080b4879363]
+
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { Room, RoomManager } from '../../src/ts/server/Room.js';
 import type { RoomMember, RoomInfo } from '../../src/ts/server/Room.js';

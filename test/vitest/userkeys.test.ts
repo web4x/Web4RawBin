@@ -1,4 +1,5 @@
 /**
+// [test:uuid:0279ca72-5435-4883-aed4-1b544944dbcd]
  * Task 9.7 + 10.7: SSH Key Generation + Device Key Enrollment unit tests
  * [test:uuid:34e12488-29f0-49a1-b99c-7af85d3659e6] T9+T10 SSH device key tests
  * Tests UserKeys functions: createUserHome, generateUserKeypair, hasUserKeys,

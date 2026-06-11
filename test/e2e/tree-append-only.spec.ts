@@ -1,4 +1,5 @@
 // [test:uuid:t190-tree-append-only-spec-001a-2b3c-4d5e6f708190] T190 champagne — tree expand appends only
+// [test:uuid:1070b9cd-4590-44d2-9935-18a889790dd6]
 // Chain: Task T190 (08e46ce3) → UC treeRender.lazyAppend (71d57474) → Class RbTraceTree (5a057914)
 //        → Method RbTraceTree.nodeEl (32ae650c) → Impl d8f406ce → TEST (this)
 import { test, expect } from '@playwright/test';

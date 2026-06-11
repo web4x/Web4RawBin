@@ -1,4 +1,5 @@
 // [test:uuid:b34b1801-1234-4abc-8def-svgviewer1801] R18.34.B champagne — pinch-no-pan applies zoom
+// [test:uuid:10c2e3ca-bd66-46c9-ad53-8dea1604b484]
 // Chain: R18.34 spec → uc:svgViewer.pinchZoom → class:SvgViewerStage → method:onTouchEnd → impl:/svg-viewer touchend handler → TEST
 import { test as base, expect, devices } from '@playwright/test';
 
