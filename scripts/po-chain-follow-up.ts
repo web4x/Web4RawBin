@@ -37,7 +37,7 @@ function collectFiles(dir: string, out: string[]) {
     if (ent.name === 'node_modules' || ent.name === 'dist' || ent.name.startsWith('.')) continue;
     const full = path.join(dir, ent.name);
     if (ent.isDirectory()) collectFiles(full, out);
-    else if (ent.name.endsWith('.ts')) out.push(full);
+    else if (ent.name.endsWith('.ts') || ent.name.endsWith('.js') || ent.name.endsWith('.mjs')) out.push(full);
   }
 }
 collectFiles(SRC_DIR, srcFiles);

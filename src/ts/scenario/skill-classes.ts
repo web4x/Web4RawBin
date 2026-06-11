@@ -48,7 +48,7 @@ export class Chain {
       if (ent.name === 'node_modules' || ent.name === 'dist' || ent.name.startsWith('.')) continue;
       const full = path.join(dir, ent.name);
       if (ent.isDirectory()) out.push(...this.walkFiles(full));
-      else if (ent.name.endsWith('.ts')) out.push(full);
+      else if (ent.name.endsWith('.ts') || ent.name.endsWith('.js') || ent.name.endsWith('.mjs')) out.push(full);
     }
     return out;
   }
