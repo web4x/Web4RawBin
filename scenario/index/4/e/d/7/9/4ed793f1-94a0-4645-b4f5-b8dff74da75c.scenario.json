@@ -17,7 +17,10 @@
       "ior:instance:46d49877-63c5-438b-9982-6c66a041ee44",
       "ior:instance:2d4fefed-0895-4be3-b153-505dc65eca9a"
     ],
-    "crossRefNote": "R19.37 (unknown drop \u2192 room chat log) writes the Message units. R19.38 (messages as scenario units with ownerIor) defines their shape. R19.39 defines WHO owns the system-generated ones: a dedicated RawBin User unit."
+    "crossRefNote": "R19.37 (unknown drop \u2192 room chat log) writes the Message units. R19.38 (messages as scenario units with ownerIor) defines their shape. R19.39 defines WHO owns the system-generated ones: a dedicated RawBin User unit.",
+    "useCases": [
+      "ior:instance:b7b2b9a7-1788-43cb-b987-1c192be9100d"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

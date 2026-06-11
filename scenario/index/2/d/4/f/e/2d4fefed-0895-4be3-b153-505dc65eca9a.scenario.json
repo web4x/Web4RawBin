@@ -19,7 +19,8 @@
     ],
     "crossRefNote": "R19.37 (unknown drop \u2192 room chat) will write Message units per this spec. R19.1 (room is a scenario unit) establishes the {ior, model, ownerIor} shape that Message reuses. The doubly-linked list provides thread navigation without requiring a separate index.",
     "useCases": [
-      "ior:instance:52cfbd70-a718-4c38-b689-be6207fb8054"
+      "ior:instance:52cfbd70-a718-4c38-b689-be6207fb8054",
+      "ior:instance:631bac17-31a3-45df-8aab-2ce578c26dcc"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
