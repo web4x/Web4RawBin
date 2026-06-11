@@ -117,6 +117,9 @@ export class Room {
         this.members.set(pm.id, { id: pm.id, ws: null as any, name: pm.name, avatarUrl: '', playerToken: pm.playerToken, disconnected: pm.disconnected ?? true });
       }
     }
+// [impl:uuid:c7230aa0-9e5a-428d-a8d8-6bb3877cee55] impl:Room.visibilityCheck (split for Room.canonicalDir)
+// [impl:uuid:1cef1fa1-7597-40f6-92ae-f8c2dfa83ad1] impl:Room.visibilityCheck (split for Room.visibilityCheck)
+// [impl:uuid:7c33815f-9bc9-4188-bd0b-0f66ea9225f3] impl:Room.visibilityCheck (split for Room.multiRoomLoad)
     if (opts?.persistedFiles) {
       for (const fuuid of opts.persistedFiles) this.fileUnits.add(fuuid);
     }

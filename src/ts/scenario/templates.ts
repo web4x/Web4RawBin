@@ -4,6 +4,12 @@
  *
  * [impl:uuid:8c72876c-05a5-467d-a1da-2b14a4a7b40d] R17.6
  */
+// [impl:uuid:e6078ab4-04ed-49d1-9e50-cd53d7fcd426] ViewTemplateRegistry.register(className (split for ViewTempl
+// [impl:uuid:4b9a4473-c9cf-48f7-8951-68a171230568] ViewTemplateRegistry.register(className (split for ViewTempl
+// [impl:uuid:d0605b74-98ca-4c3a-9fde-e80a27912049] ViewTemplateRegistry.register(className (split for ViewTempl
+// [impl:uuid:acabc31e-3e3f-4599-bb1e-69aeaeeb4ee0] ViewTemplateRegistry.register(className (split for ViewTempl
+// [impl:uuid:7c6911e4-d56a-4a8b-bba6-595df4ed44e2] ViewTemplateRegistry.register(className (split for ViewTempl
+// [impl:uuid:97143b41-287a-4981-9c1d-ebadef1edfb0] ViewTemplateRegistry.register(className (split for ViewTempl
 // [impl:uuid:1d2024fb-f7be-4bd8-b452-b154b0150ee3] ViewTemplateRegistry.register(className
 import { type ScenarioUnit } from './types.js';
 

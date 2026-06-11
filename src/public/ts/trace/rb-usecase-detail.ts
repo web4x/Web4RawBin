@@ -4,6 +4,7 @@
  * Shows Object.verb name prominently, originating requirement links,
  * and implementing class + method links.
  *
+// [impl:uuid:0c0ab5d2-3200-40a6-9d1f-ca9755ce6d89] R16.2 UseCaseDetailView (split for RbUseCaseDetail.render)
  * [impl:uuid:e1ad6c89-269b-47d2-96b5-1fa356cbc226] R16.2 UseCaseDetailView
  */
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';

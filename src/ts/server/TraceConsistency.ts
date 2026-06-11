@@ -39,6 +39,7 @@ const RE = {
 };
 
 /** Scan the sprint tree → typed graph (Requirement↔Task↔UseCase↔Implementation↔Test) + per-task coverage. */
+// [impl:uuid:daa81f8d-f53e-4b05-baa1-f498f7b06b5f] TraceConsistency.scanRepo impl
 // [impl:uuid:74de57ae-9289-4c48-86e1-d3a0c1d2fee1] TraceConsistency.scanRepo
 export function scanRepo(sprintsDir: string, srcDir?: string, testDir?: string): { graph: TraceGraph; coverage: TaskCoverage[] } {
   const graph = new TraceGraph();
@@ -231,6 +232,7 @@ function walkTs(dir: string): string[] {
   return out;
 }
 
+// [impl:uuid:1a5ea468-fbf4-403b-a7ee-04a0b4d9f63f] TraceConsistency.validate impl
 // [impl:uuid:c4cc0915-2857-4e48-8a71-34c7004645d6] TraceConsistency.validate
 /** Validate the chain. Returns issues (errors break consistency; warns are gaps). */
 export function validate(graph: TraceGraph, coverage: TaskCoverage[]): Issue[] {

@@ -1,5 +1,9 @@
 // T-file-unit R19.14: files become unique scenario units.
 // Storage: scenario/index/<5-deep>/<uuid>.content + <uuid>.scenario.json + unitLinks[].
+// [impl:uuid:50106c13-c538-47e5-b902-a7cb0feda61a] R19.14 (split for FileUnit.reuseByContentHash)
+// [impl:uuid:148740b9-b87c-422f-8b38-53caab1294ac] R19.14 (split for FileUnit.versionByName)
+// [impl:uuid:6ec25cdc-d6af-4361-87f7-631840c56779] R19.14 (split for FileUnit.computeContentHash)
+// [impl:uuid:6390d695-0ecc-486e-a28e-6e33451a02a1] R19.14 (split for FileUnit.dedupByContentHash)
 // [impl:uuid:36a3b677-dc4d-415c-9eee-ffc62fff0f76] R19.14
 import fs from 'node:fs';
 import path from 'node:path';

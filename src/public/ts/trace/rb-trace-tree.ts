@@ -1,3 +1,6 @@
+// [impl:uuid:ee897257-f1f8-40cd-a8ae-00c4b4b6092f] RbTraceTree.renderSeed impl
+// [impl:uuid:efb696b4-5ea9-41e2-a478-09b33f67a85b] RbTraceTree.nodeEl impl
+// [impl:uuid:c9c53769-36fc-4431-bc57-8f68192592b9] RbTraceTree.navigate impl
 /**
  * T108 — rb-trace-tree: the traceability graph as an expand/collapse TREE (sibling to the
  * file tree in /edit). Root = requirements; expanding walks the typed chain via each object's

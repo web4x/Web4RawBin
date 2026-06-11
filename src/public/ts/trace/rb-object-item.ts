@@ -5,6 +5,18 @@
  * room entry (.room-card idiom → .object-item). Native-OS draggable (icon-only drag handle).
  * ViewBus-subscribed (MVC live re-render, no reload). Click → navigate(type,'show',{uuid}).
  *
+// [impl:uuid:2b1e7d26-62fe-4d8a-8129-56c09b9d78ff] R15.4 defaultItemView (split for RbObjectItem.render)
+// [impl:uuid:2693d9cc-4a08-4f05-ba01-597b647eb7c7] R15.4 defaultItemView (split for RbObjectItem.setIcon)
+// [impl:uuid:ee80de6b-d699-4ef1-98e3-ea6f488f5686] R15.4 defaultItemView (split for RbObjectItem.setIcon)
+// [impl:uuid:ef2e4365-6b3d-4198-91e8-dff0808e0068] R15.4 defaultItemView (split for RbObjectItem.expand)
+// [impl:uuid:3fe1d2f2-6836-486a-9e42-fd3dfb4572f6] R15.4 defaultItemView (split for RbObjectItem.expandChildren
+// [impl:uuid:4a158f5c-c502-4ee3-854d-167a40cf806b] R15.4 defaultItemView (split for RbObjectItem.render)
+// [impl:uuid:db399ba7-c35b-47b4-b9ee-d995cf08bbd2] R15.4 defaultItemView (split for RbObjectItem.collapse)
+// [impl:uuid:d809105d-b683-4cab-a587-fbdfdb4de809] R15.4 defaultItemView (split for RbObjectItem.drag)
+// [impl:uuid:7611c7c4-1d12-4546-a57f-1dc60d6e61ff] R15.4 defaultItemView (split for RbObjectItem.expand)
+// [impl:uuid:0e4446d0-72b1-4f87-af17-512cc789f5ab] R15.4 defaultItemView (split for RbObjectItem.generateName)
+// [impl:uuid:0a028fb4-d3d5-476c-9dcd-977212cbaf41] R15.4 defaultItemView (split for RbObjectItem.collapse)
+// [impl:uuid:09de2e8d-7933-464e-95ff-6717c068ad91] R15.4 defaultItemView (split for RbObjectItem.expandChildren
  * [impl:uuid:b4c8bf40-6b31-4acd-ad4a-0f93d6f7326b] R15.4 defaultItemView
  */
 import { ViewBus } from './ViewBus.js';
@@ -55,6 +67,7 @@ export class RbObjectItem extends HTMLElement {
     if (dt.setDragImage) dt.setDragImage(this, 20, 20);
   };
 
+// [impl:uuid:4ffa86ed-ca7b-4e73-9371-89b113e2ae77] impl:RbObjectItem.onClickDelegate (split for RbObjectItem.on
   // [impl:uuid:8cc75226-527e-4c87-bed8-9885e98d46e1] RbObjectItem.onClickDelegate
   private onClickDelegate = (e: Event): void => {
     const target = e.target as HTMLElement;

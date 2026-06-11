@@ -259,6 +259,16 @@ const roomManager = new RoomManager(ROOMS_DIR);
 }
 
 let serverStartTime = new Date();
+// [impl:uuid:51b7a457-7dd2-48ac-8dcc-9c00e9f6caf4] Logger.logAtLevel (split for Device.createDeviceUnit)
+// [impl:uuid:2f809076-5cca-42b3-806b-7f390890fa2b] Logger.logAtLevel (split for PageNav.raiseAboveDrawer)
+// [impl:uuid:32005bc3-7bce-4214-aeb7-f50794cedca4] Logger.logAtLevel (split for Room.restoreFilesFromScenario)
+// [impl:uuid:340036b4-8689-4cdb-b18f-fbbb7d36e0c5] Logger.logAtLevel (split for Assets.avatarPersist)
+// [impl:uuid:37e9f3e2-0130-4f34-8c44-a90bc83495d4] Logger.logAtLevel (split for SvgViewer.onPinchEnd)
+// [impl:uuid:408edc8c-b6a1-4577-80a0-e35adc7f137a] Logger.logAtLevel (split for server.detailNavSync)
+// [impl:uuid:d688f96c-1144-4299-aba6-e1dd7271f704] Logger.logAtLevel (split for Assets.keylessUpload)
+// [impl:uuid:cda50b0f-be12-4e42-a436-72c4c8e0744e] Logger.logAtLevel (split for Logger.logAtLevel)
+// [impl:uuid:8298c379-38af-4b1c-b6ae-f2569425c48c] Logger.logAtLevel (split for User.createUserUnit)
+// [impl:uuid:7c4a9d74-636c-44e0-b5da-86ce7a684975] Logger.logAtLevel (split for FileUnit.uploadEndpoint)
 const serverLogs: string[] = [];
 const MAX_LOGS = 1000;
 
@@ -422,6 +432,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           allBugs.push({ token: token.slice(0, 8), name: p.name, index: i, ...b });
         });
       });
+// [impl:uuid:ae8312af-8169-41f8-9fa3-c428573be042] chat lazy-load (split for Assets.rekeyFix)
+// [impl:uuid:8c6c7f69-ae21-47a2-88a6-244bd5c3da2f] chat lazy-load (split for server.ucScopedMethodResolve)
       allBugs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
       res.end(JSON.stringify(allBugs));

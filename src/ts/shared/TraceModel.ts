@@ -8,6 +8,11 @@
  *
  * [impl:uuid:5f599846-60a1-4b9b-8bca-f9ca52719ead] R15.1 typed object model
  */
+// [impl:uuid:55e039b7-11db-4a65-9a2e-589c5b4ffc89] TraceObject.parent (split for TraceObject.children)
+// [impl:uuid:fdcf9a95-8e1a-4d80-a7c7-7656d3a126ea] TraceObject.parent (split for TraceObject.ref)
+// [impl:uuid:a87cbd22-275e-4ad2-a7f4-872ccfcb3fe8] TraceObject.parent (split for TraceObject.refs)
+// [impl:uuid:1b1f40bb-9c26-4765-b6a1-59b8398269ab] TraceObject.parent (split for TraceObject.toJSON)
+// [impl:uuid:700b6f0f-5f92-4d0e-b210-56eb433a6bbd] TraceObject.parent (split for TraceObject.addRef)
 // [impl:uuid:87c9007a-2144-4030-a5ac-cd48f518bb2b] TraceObject.parent
 
 export type ObjectType =

@@ -1,3 +1,4 @@
+// [impl:uuid:9846e4d2-b1d6-4c2e-a77d-77b33a48460d] RbRequirementDetail.renderTronQuote impl
 /**
  * T111 — rb-requirement-detail: specialized DetailView for Requirement objects.
  *
@@ -10,6 +11,7 @@ import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
+// [impl:uuid:7fcca3cf-7c87-4a3d-a64b-089c6d92cc0a] RbRequirementDetail.render impl
 // [impl:uuid:660cb423-30cd-4d32-8a3f-d7bad22f6f5e] RbRequirementDetail.render
 import { singularChain, renderSingularChain } from './singular-chain.js';
 import { fetchDetailData, renderParentLink, renderSourceLink } from './detail-children.js';

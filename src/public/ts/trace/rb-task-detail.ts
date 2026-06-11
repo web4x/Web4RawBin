@@ -10,6 +10,7 @@ import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
+// [impl:uuid:1ff4d2bb-3af9-4517-8cde-8e6fc498e887] RbTaskDetail.render impl
 // [impl:uuid:a495b735-6836-4dba-84b2-b279f2da17df] RbTaskDetail.render
 import { singularChain, renderSingularChain } from './singular-chain.js';
 import { fetchDetailData, renderParentLink, renderSourceLink } from './detail-children.js';

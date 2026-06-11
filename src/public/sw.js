@@ -8,10 +8,10 @@ const STATIC_SHELL = [
   '/icon-192.png',
   '/icon-512.png',
   '/trace',
-  '/dist/trace-page-J4ZMMOVH.js',
+  '/dist/trace-page-BYIV652N.js',
   '/scenario',
-  '/dist/scenario-view-FKCDEEZF.js',
-  '/dist/app-QQMWMPOQ.js',
+  '/dist/scenario-view-WPSLRHUX.js',
+  '/dist/app-D4DE2UMP.js',
 ];
 
 const OFFLINE_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -24,6 +24,7 @@ const OFFLINE_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta nam
 <button class="retry" onclick="location.reload()">Retry</button>
 <button class="flush" onclick="flushCache()">Flush Cache</button></div>
 <script>
+// [impl:uuid:4bb96a28-cfe7-4f0a-9a38-909a930e8345] ServiceWorker.flushAndReload implementation (split for Servi
 // [impl:uuid:79505a42-6591-4fdb-a967-2767b7df4518] ServiceWorker.flushAndReload
 async function flushCache(){const keys=await caches.keys();await Promise.all(keys.map(k=>caches.delete(k)));const regs=await navigator.serviceWorker.getRegistrations();await Promise.all(regs.map(r=>r.unregister()));await navigator.serviceWorker.register('/sw.js');location.reload();}
 </script></body></html>`;

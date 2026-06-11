@@ -35,6 +35,9 @@ export const MessageLoader = loader('Message', { text: '', timestamp: 0, senderI
 const RAWBIN_SYSTEM_UUID = '00000000-0000-4000-8000-rawb1n000000';
 
 // [impl:uuid:3ddc7da8-a38a-470c-95f7-e48e3e7757c9] ensureRawBinUser
+// [impl:uuid:6ef8bfc5-1d97-41b6-bbea-0dd52e575957] impl:ensureRawBinUser (split for ClassRegistry.register(name
+// [impl:uuid:693cd5d1-8993-4d1f-8374-a9224a18ea66] impl:ensureRawBinUser (split for ClassRegistry.get(name): Cl
+// [impl:uuid:9de8264f-fbbf-4c0c-9eff-da59d432354e] impl:ensureRawBinUser (split for ClassRegistry.get(name): Cl
 export function ensureRawBinUser(idx: { get(uuid: string): any; put(uuid: string, unit: any): void }): string {
   if (!idx.get(RAWBIN_SYSTEM_UUID)) {
     idx.put(RAWBIN_SYSTEM_UUID, { ior: 'ior:class:User', model: { uuid: RAWBIN_SYSTEM_UUID, name: 'RawBin', displayName: 'RawBin', token: RAWBIN_SYSTEM_UUID, role: 'system' }, ownerIor: null });

@@ -1,3 +1,4 @@
+// [impl:uuid:80e26c8c-5dbf-418f-bb88-fcdaa82c0d07] ScenarioIndex.canonicalShard impl
 /**
  * T125.3 + R18.29-31 — ScenarioIndex: UUID-prefix storage + atomic symlinks.
  * Canonical store at scenario/index/<c1>/<c2>/<c3>/<c4>/<c5>/<uuid>.scenario.json
@@ -9,6 +10,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { type ScenarioUnit } from './types.js';
 
+// [impl:uuid:5b584056-ebc9-43d4-a3f9-3ea371a9c2b8] ScenarioIndex.get(uuid): ScenarioUnit impl
+// [impl:uuid:4e256ada-5598-4ae0-9182-bb2e9d1729ee] ScenarioIndex.prefix(uuid): string impl
+// [impl:uuid:877ec45e-c072-4297-a034-e714abcc3259] ScenarioIndex.put(uuid impl
+// [impl:uuid:9c8e9d8c-7ef1-4096-ae96-a5892dc12c8e] ScenarioIndex.prefix(uuid): string impl
+// [impl:uuid:9c8d5ebb-0e56-4cae-b6de-c6d3ac583125] ScenarioIndex.put(uuid impl
 // [impl:uuid:f5297314-81df-42be-b7b6-fe5c2697576a] ScenarioIndex.get(uuid): ScenarioUnit
 export class ScenarioIndex {
   readonly scenarioRoot: string;

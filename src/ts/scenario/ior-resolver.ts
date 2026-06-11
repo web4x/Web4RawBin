@@ -2,8 +2,13 @@
  * T127.2 — IOR universal-reference resolver.
  * Resolves any IOR to: filePath, class (if scenario unit), view (html+md).
  *
+// [impl:uuid:bcbfa945-633a-4f62-950c-7d8d39b0dd15] R17.12 (split for IORResolver.resolveInstance(ior): Scenario
+// [impl:uuid:4b13fc8b-cc5d-40c9-a6a7-7cf061b92cca] R17.12 (split for IORResolver.resolveInstance(ior): Scenario
+// [impl:uuid:4a74b1c1-78cf-44ba-88e1-8b3fb6f6df9a] R17.12 (split for IORResolver.resolveClass(ior): ClassLoader
+// [impl:uuid:c3c95f15-db0e-4690-bc20-380f82b9fc48] R17.12 (split for IORResolver.resolveClass(ior): ClassLoader
  * [impl:uuid:664314f1-1503-4f48-9cd3-231afd198570] R17.12
  */
+// [impl:uuid:0e05da50-8dae-48fe-b4b2-361525a398c4] IORResolver.resolve(ior): ScenarioUnit | ClassLoader (split 
 // [impl:uuid:9b96ae64-dfbc-4cdf-b62c-4394b647c6b9] IORResolver.resolve(ior): ScenarioUnit | ClassLoader
 import fs from 'node:fs';
 import path from 'node:path';
