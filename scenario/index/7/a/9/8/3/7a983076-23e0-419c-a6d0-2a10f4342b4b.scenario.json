@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "7a983076-23e0-419c-a6d0-2a10f4342b4b",
+    "name": "Message.createMessageUnit",
+    "description": "Creates ior:class:Message scenario unit. Wires prev.nextMessage=new, new.prevMessage=prev, room.lastMessageIor=new. Dual-write with chatHistory[].",
+    "sourceFile": "ior:file:src/ts/scenario/message-unit.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:95686685-d75c-4b18-80f8-03d753182eb3"
+}

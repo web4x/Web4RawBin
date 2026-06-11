@@ -11,6 +11,7 @@ import type { RbChatSheet } from './components/rb-chat-sheet.js';
 import './components/rb-member-list.js';
 import './components/rb-avatar.js';
 import './trace/rb-object-item.js';
+import { dropDispatcher } from './drop-dispatcher.js';
 import type { RbMemberList } from './components/rb-member-list.js';
 
 interface MemberInfo {
@@ -96,12 +97,9 @@ export class RoomView {
     this.container.addEventListener('rb-room-files-dropped', (async (e: CustomEvent) => {
       const files: File[] = e.detail?.files || [];
       for (const file of files) {
-        const fd = new FormData();
-        fd.append('file', file);
-        fd.append('playerToken', this.client.playerToken);
         try {
-          const resp = await fetch(`/api/room/${this.roomId}/upload`, { method: 'POST', body: fd });
-          if (!resp.ok) this.chatSheet?.addMessage('system', 'System', `Upload failed: ${file.name}`);
+          const result = await dropDispatcher.dispatch(file, this.roomId, this.client.playerToken, (text) => this.chatSheet?.addMessage('system', 'System', text));
+          if (!result) this.chatSheet?.addMessage('system', 'System', `Upload failed: ${file.name}`);
         } catch { this.chatSheet?.addMessage('system', 'System', `Upload error: ${file.name}`); }
       }
     }) as EventListener);

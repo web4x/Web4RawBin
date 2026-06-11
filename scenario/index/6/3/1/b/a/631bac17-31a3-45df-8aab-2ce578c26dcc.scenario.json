@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "631bac17-31a3-45df-8aab-2ce578c26dcc",
+    "name": "message.persistAsUnit",
+    "description": "Room.addChat() dual-writes: push to chatHistory[] AND create Message scenario unit with senderIor, roomIor, prev/nextMessage doubly-linked list, kind tag.",
+    "class": "ior:instance:95686685-d75c-4b18-80f8-03d753182eb3",
+    "method": "ior:instance:7a983076-23e0-419c-a6d0-2a10f4342b4b",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

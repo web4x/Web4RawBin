@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "12c8982e-8962-41a8-b013-bf1e41a2167f",
+    "name": "User",
+    "sourceFile": "ior:file:src/ts/scenario/classes.ts",
+    "methods": [
+      "ior:instance:971e3531-fbe9-48f7-8a9b-2e51b3252cac"
+    ],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
