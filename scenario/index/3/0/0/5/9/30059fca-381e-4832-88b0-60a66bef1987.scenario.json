@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "30059fca-381e-4832-88b0-60a66bef1987",
+    "name": "room.addMemberTakeover",
+    "description": "addMember: when existing member found with disconnected=false but ws is null/closed (stale from restart or crash), force disconnected=true then proceed with reconnect path. Also handles multi-tab: new tab takes over from stale tab. Never reject a join when the 'connected' member has no live WS.",
+    "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "method": "ior:instance:f2a2129b-ae2e-45a8-854c-a4b9446f2033",
+    "classes": [
+      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

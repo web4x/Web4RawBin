@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "3ca88df7-b761-4cba-96b0-b3029dd7a043",
+    "name": "T-room-join-stale-takeover: joining from lobby must succeed (same-token takeover, never reject)",
+    "slug": "room-join-stale-takeover-same-token",
+    "description": "R19.82 fix: joining a room from the lobby must succeed even when a stale connection holds the slot. Same-token takeover \u2014 the new connection takes over the stale one instead of rejecting the join. Expert fix in flight (same-token takeover, never reject). Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27).",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing (expert \u2014 same-token takeover, never reject; in flight)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:14a5a9ca-9800-4131-a811-7ef16cd42290"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner",
+    "joint": [
+      "robbin-planner",
+      "robbin-architect",
+      "robbin-expert"
+    ],
+    "atoms": "covers R19.82 (cannot-join stale-takeover) per PO directive 2026-06-11; expert fix in flight"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
