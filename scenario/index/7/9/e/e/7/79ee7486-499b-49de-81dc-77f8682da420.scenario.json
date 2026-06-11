@@ -6,7 +6,9 @@
     "description": "server.ts SCENARIO_FWD + TRACE_FWD: add Room: ['files','members']. /api/trace/children/<roomUuid> then returns FileUnit + Member children. Room detail shows files tree + member list.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "implementations": [],
-    "tests": []
+    "tests": [
+      "ior:instance:167361bc-184b-4c4e-b938-78d76e4ba848"
+    ]
   },
   "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
 }

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3acb7a5d-1a04-4aa1-883a-4faa5bf5de12",
+    "name": "test:R19.70 scenarioBrowserLink",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:6ae25e44-904a-4fbf-9c26-18628f48a479"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:6ae25e44-904a-4fbf-9c26-18628f48a479"
+}

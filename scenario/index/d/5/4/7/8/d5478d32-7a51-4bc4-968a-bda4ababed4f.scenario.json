@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d5478d32-7a51-4bc4-968a-bda4ababed4f",
+    "name": "test:R17.24 vcardUpload",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:36a7cc6f-2178-4cee-8c4b-5206fae0ffd1"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:36a7cc6f-2178-4cee-8c4b-5206fae0ffd1"
+}

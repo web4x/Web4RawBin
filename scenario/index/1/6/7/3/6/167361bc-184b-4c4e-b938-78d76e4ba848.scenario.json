@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "167361bc-184b-4c4e-b938-78d76e4ba848",
+    "name": "test:R19.71 forwardRefs",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:79ee7486-499b-49de-81dc-77f8682da420"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:79ee7486-499b-49de-81dc-77f8682da420"
+}
