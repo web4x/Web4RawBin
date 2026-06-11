@@ -9,8 +9,8 @@
  *
  * Nothing is moved or deleted here — removal is T99 (Tron-gated). All writes are atomic (temp+rename).
  *
- * [impl:uuid:96a1c3e5-2b7d-4f10-9a46-1c3e5f7a9b96] R14.1 migrate legacy rooms
- * [impl:uuid:97b2d4f6-3c8e-4a11-8b57-2d4f6a8b9c97] R14.2 migrate user dirs to UUIDv4
+ * [impl:uuid:b571be43-05f8-4f59-bac9-0f2ac46b8b89] R14.1 migrate legacy rooms
+ * [impl:uuid:bc75b1c1-707c-443a-a2f8-2d776e9062c6] R14.2 migrate user dirs to UUIDv4
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -53,7 +53,7 @@ export interface RoomReport {
   log: string[];
 }
 
-// [impl:uuid:96a1c3e5-2b7d-4f10-9a46-1c3e5f7a9b96]
+// [impl:uuid:b571be43-05f8-4f59-bac9-0f2ac46b8b89]
 export function migrateLegacyRooms(dataDir: string): RoomReport {
   const roomsDir = path.join(dataDir, 'rooms');
   const usersDir = path.join(dataDir, 'users');
@@ -102,7 +102,7 @@ export interface UserDirReport {
   log: string[];
 }
 
-// [impl:uuid:97b2d4f6-3c8e-4a11-8b57-2d4f6a8b9c97]
+// [impl:uuid:bc75b1c1-707c-443a-a2f8-2d776e9062c6]
 export function migrateTokenDirs(dataDir: string): UserDirReport {
   const usersDir = path.join(dataDir, 'users');
   const remapPath = path.join(dataDir, 'migration', 'token-remap.json');

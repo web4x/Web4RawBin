@@ -1,6 +1,6 @@
 /**
  * T158 — rb-method-detail: specialized DetailView for Method (verb) objects.
- * [impl:uuid:5eedd968-085c-443b-acae-7ae73a4ce252] R17 full chain
+ * [impl:uuid:4b9b7203-ee0f-4d65-999f-264baf33ed01] R17 full chain
  */
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';

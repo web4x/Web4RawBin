@@ -1,6 +1,6 @@
 /**
  * T125 — Scenario-unit module barrel export.
- * [impl:uuid:20cca741-0a93-4d93-8a51-9c72bdb77d92] R17.1-R17.6
+ * [impl:uuid:8c72876c-05a5-467d-a1da-2b14a4a7b40d] R17.1-R17.6
  */
 export { type ScenarioUnit, type ClassLoader, type IORType, parseIor, iorClass, iorInstance, iorFile } from './types.js';
 export { ClassRegistry, SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader, UserLoader, FileLoader, MessageLoader, ensureRawBinUser } from './classes.js';

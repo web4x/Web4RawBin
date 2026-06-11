@@ -3,7 +3,7 @@
  *   tsx src/ts/server/trace-cli.ts check   # report-only, exits 1 on error-level drift (CI)
  *   tsx src/ts/server/trace-cli.ts fix     # regenerate the generated region in the matrix
  *
- * [impl:uuid:102b1c2d-3e4f-4051-9728-b02020202102] AC5 check (non-zero) / AC3 fix
+ * [impl:uuid:179ed2ba-ba29-4fc4-b525-fab14fb04e7c] AC5 check (non-zero) / AC3 fix
  */
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

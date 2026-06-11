@@ -3,7 +3,7 @@
  * are the addressable surface (Object.verb = OOSH-CLI command = route). Keeping verbs here,
  * OUT of the pure TraceModel, is why the shared model stays DOM- and behavior-free.
  *
- * [impl:uuid:103c2d3e-4f50-4162-8839-c03030303103] AC1 verb addressable as route
+ * [impl:uuid:9ce0b153-0c3d-4749-aa57-954b359b797d] AC1 verb addressable as route
  */
 import type { TraceGraph, TraceObject } from '../../../ts/shared/TraceModel.js';
 

@@ -5,7 +5,7 @@
  * Subscribes to ViewBus by its `ref` on connect → re-renders its region on notify (AC3);
  * unsubscribes on disconnect. Attribute change also re-renders (existing rb-* pattern).
  *
- * [impl:uuid:103c2d3e-4f50-4162-8839-c03030303103] AC2 attributes / AC3 MVC view
+ * [impl:uuid:9ce0b153-0c3d-4749-aa57-954b359b797d] AC2 attributes / AC3 MVC view
  */
 import { ViewBus } from './ViewBus.js';
 

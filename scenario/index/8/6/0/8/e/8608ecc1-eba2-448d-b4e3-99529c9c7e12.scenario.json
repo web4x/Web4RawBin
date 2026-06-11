@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8608ecc1-eba2-448d-b4e3-99529c9c7e12",
+    "name": "R15.5 ListOverview + search",
+    "sourceFile": "src/public/ts/trace/rb-list-overview.ts",
+    "sourceLine": 9,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

@@ -6,7 +6,7 @@
  * TraceGraph is the registry that rejects duplicate UUIDs and resolves references into a
  * navigable typed object graph (the req -> task -> useCase -> class -> method -> impl/test chain).
  *
- * [impl:uuid:101a0b1c-2d3e-4f50-8617-a01010101101] R15.1 typed object model
+ * [impl:uuid:5f599846-60a1-4b9b-8bca-f9ca52719ead] R15.1 typed object model
  */
 // [impl:uuid:87c9007a-2144-4030-a5ac-cd48f518bb2b] TraceObject.parent
 

@@ -4,8 +4,8 @@
  *   tsx src/ts/server/migrate-cli.ts userdirs  # T97
  *   tsx src/ts/server/migrate-cli.ts all        # T96 + T97
  *
- * [impl:uuid:96a1c3e5-2b7d-4f10-9a46-1c3e5f7a9b96]
- * [impl:uuid:97b2d4f6-3c8e-4a11-8b57-2d4f6a8b9c97]
+ * [impl:uuid:b571be43-05f8-4f59-bac9-0f2ac46b8b89]
+ * [impl:uuid:bc75b1c1-707c-443a-a2f8-2d776e9062c6]
  */
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

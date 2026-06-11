@@ -3,7 +3,7 @@
  * Each icon is a 24x24 square SVG string. Only the 7 trace-type icons are included.
  * Zero npm/CDN dependency — PWA-safe inline strings.
  *
- * [impl:uuid:d1135c9f-a037-4b24-e5d1-4c3b9f602e83] R16.5 square SVG type icons
+ * [impl:uuid:a4804ee9-eb52-4e03-9bb5-ad618ccfd180] R16.5 square SVG type icons
  */
 
 const svg = (d: string) =>

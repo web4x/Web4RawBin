@@ -3,7 +3,7 @@
  * Canonical store at scenario/index/<c1>/<c2>/<c3>/<c4>/<c5>/<uuid>.scenario.json
  * model.unitLinks[] declares symlinks; put() auto-syncs them on every write.
  *
- * [impl:uuid:20cca741-0a93-4d93-8a51-9c72bdb77d92] R17.4 + R18.29-31
+ * [impl:uuid:8c72876c-05a5-467d-a1da-2b14a4a7b40d] R17.4 + R18.29-31
  */
 import fs from 'node:fs';
 import path from 'node:path';

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "19654b84-90e4-4a89-a9a8-10221f883d25",
+    "name": "R16.1 DetailViewContainer",
+    "sourceFile": "src/public/ts/trace/rb-detail-drawer.ts",
+    "sourceLine": 7,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

@@ -6,7 +6,7 @@
  * So the DetailView IS the chain navigator (req↔task↔uc↔class↔method↔impl/test). ViewBus:
  * subscribes its own ref + each linked ref → re-renders on notify (no reload).
  *
- * [impl:uuid:107a6172-8394-45a6-897d-a07070707107] R15.6 DetailView (chain-navigable)
+ * [impl:uuid:8d98abfd-9970-4951-8344-b82828b7dac4] R15.6 DetailView (chain-navigable)
  */
 import { TraceGraph, refUuid, type ObjectRef } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';

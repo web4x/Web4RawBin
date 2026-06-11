@@ -2,7 +2,7 @@
  * T125.4 — ViewTemplateRegistry: per-class HTML+MD renderers.
  * Pure functions: template(scenario) → string. No DOM state.
  *
- * [impl:uuid:20cca741-0a93-4d93-8a51-9c72bdb77d92] R17.6
+ * [impl:uuid:8c72876c-05a5-467d-a1da-2b14a4a7b40d] R17.6
  */
 // [impl:uuid:1d2024fb-f7be-4bd8-b452-b154b0150ee3] ViewTemplateRegistry.register(className
 import { type ScenarioUnit } from './types.js';

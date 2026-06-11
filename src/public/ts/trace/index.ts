@@ -2,7 +2,7 @@
  * T103 — trace seam wiring: default verb handlers + flat-JSON serialize/deserialize wrappers.
  * T105-T108 consume this (TraceRouter + VerbRegistry + ViewBus + rb-trace-view).
  *
- * [impl:uuid:103c2d3e-4f50-4162-8839-c03030303103] AC1-AC5 seam
+ * [impl:uuid:9ce0b153-0c3d-4749-aa57-954b359b797d] AC1-AC5 seam
  */
 import {
   TraceGraph, type FlatObject, type ObjectType, refUuid,

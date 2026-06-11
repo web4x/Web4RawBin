@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a4804ee9-eb52-4e03-9bb5-ad618ccfd180",
+    "name": "R16.5 square SVG type icons",
+    "sourceFile": "src/public/ts/trace/icons.ts",
+    "sourceLine": 6,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

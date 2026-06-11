@@ -2,7 +2,7 @@
  * T108+T187 — Traceability browser page. Sprint→Task navigation roots (R18.8)
  * with mode=trace narrowing. Uses lazy-load seed tree (no full graph preload).
  *
- * [impl:uuid:108b7283-94a5-46b7-898e-b08080808108] R15.7+R18.8
+ * [impl:uuid:f2dbefd1-c76d-48cc-b397-b6d66ddbba4d] R15.7+R18.8
  */
 import { TraceRouter, viewRegistry, deserialize } from './trace/index.js';
 import './trace/rb-trace-tree.js';

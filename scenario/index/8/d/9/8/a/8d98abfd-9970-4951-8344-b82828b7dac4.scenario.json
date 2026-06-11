@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8d98abfd-9970-4951-8344-b82828b7dac4",
+    "name": "R15.6 Overview (always-consistent)",
+    "sourceFile": "src/public/ts/trace/rb-overview.ts",
+    "sourceLine": 11,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

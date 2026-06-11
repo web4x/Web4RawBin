@@ -17,13 +17,15 @@
     "members": [
       {
         "ior": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544",
-        "name": "",
+        "name": "User",
         "role": "owner",
-        "status": "online",
-        "joinedAt": 1781167993891
+        "status": "offline",
+        "joinedAt": 1781168055410
       }
     ],
-    "files": [],
+    "files": [
+      "ior:instance:5ca4b4c0-2e91-41b5-bd52-bdc8c6e01a00"
+    ],
     "lastMessageIor": null,
     "firstMessageIor": null,
     "messageCount": 0,

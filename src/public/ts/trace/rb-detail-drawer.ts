@@ -4,7 +4,7 @@
  * Two-part layout: .drawer-header (sticky, handle + X close) + .drawer-body
  * (scrollable, receives detail content). Swipe-down or ESC to dismiss.
  *
- * [impl:uuid:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50] R16.1 DetailViewContainer
+ * [impl:uuid:19654b84-90e4-4a89-a9a8-10221f883d25] R16.1 DetailViewContainer
  */
 
 export class RbDetailDrawer extends HTMLElement {

@@ -1,6 +1,6 @@
 // T-file-unit R19.14: files become unique scenario units.
 // Storage: scenario/index/<5-deep>/<uuid>.content + <uuid>.scenario.json + unitLinks[].
-// [impl:uuid:834fe55b-8885-47f9-bdf9-3fb2f4fe7d40] R19.14
+// [impl:uuid:36a3b677-dc4d-415c-9eee-ffc62fff0f76] R19.14
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e1ad6c89-269b-47d2-96b5-1fa356cbc226",
+    "name": "R16.2 UseCaseDetailView",
+    "sourceFile": "src/public/ts/trace/rb-usecase-detail.ts",
+    "sourceLine": 7,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

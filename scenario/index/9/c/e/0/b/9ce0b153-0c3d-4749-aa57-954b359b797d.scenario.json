@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "9ce0b153-0c3d-4749-aa57-954b359b797d",
+    "name": "AC3 MVC live-update",
+    "sourceFile": "src/public/ts/trace/ViewBus.ts",
+    "sourceLine": 9,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

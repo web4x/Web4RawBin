@@ -7,7 +7,7 @@
  * parse → resolve target from TraceGraph → dispatch to VerbRegistry[type.verb] → render View.
  * Bookmarkable/shareable OOSH-CLI-like URLs. Unknown route → registry.notFound (never throws).
  *
- * [impl:uuid:103c2d3e-4f50-4162-8839-c03030303103] AC1 route resolution
+ * [impl:uuid:9ce0b153-0c3d-4749-aa57-954b359b797d] AC1 route resolution
  */
 import type { TraceGraph } from '../../../ts/shared/TraceModel.js';
 import { VerbRegistry, type Navigator } from './VerbRegistry.js';

@@ -5,7 +5,7 @@
  * room entry (.room-card idiom → .object-item). Native-OS draggable (icon-only drag handle).
  * ViewBus-subscribed (MVC live re-render, no reload). Click → navigate(type,'show',{uuid}).
  *
- * [impl:uuid:105e4f50-6172-4384-895b-e05050505105] R15.4 defaultItemView
+ * [impl:uuid:b4c8bf40-6b31-4acd-ad4a-0f93d6f7326b] R15.4 defaultItemView
  */
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';

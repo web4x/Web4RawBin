@@ -3,7 +3,7 @@
  * Seeds from ONE IOR. Children start collapsed, expand on click (lazy).
  * Wires full /trace interactions: collapse/expand (T115) + DetailView (T110/T111).
  *
- * [impl:uuid:7a5f0eb9-7a33-492b-991a-b13c431dc695] R-M3
+ * [impl:uuid:a5e38244-b86a-4abd-9792-58f1a268c42c] R-M3
  */
 // [impl:uuid:4b458ad6-a795-4cc3-a622-541f633bc985] ScenarioUnit.load(json): this
 import { TraceRouter, viewRegistry, deserialize } from './trace/index.js';

@@ -6,7 +6,7 @@
  * marker-delimited region of scrum.pmo/traceability-matrix.md WITHOUT touching manual content
  * outside the markers. Idempotent; report-only `check` exits non-zero on drift (CI-usable).
  *
- * [impl:uuid:102b1c2d-3e4f-4051-9728-b02020202102] R15.1 matrix consistency + fix
+ * [impl:uuid:179ed2ba-ba29-4fc4-b525-fab14fb04e7c] R15.1 matrix consistency + fix
  */
 import fs from 'node:fs';
 import path from 'node:path';

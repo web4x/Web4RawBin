@@ -2,7 +2,7 @@
  * T125.2 — 7 class loaders (Sprint/Task/Requirement/UseCase/Class/Method/Test)
  * + ClassRegistry for IOR resolution.
  *
- * [impl:uuid:20cca741-0a93-4d93-8a51-9c72bdb77d92] R17.3
+ * [impl:uuid:8c72876c-05a5-467d-a1da-2b14a4a7b40d] R17.3
  */
 // [impl:uuid:7de1d230-8174-4ea5-b1e9-7b52bb6e63e8] ClassRegistry.loader): void
 import { type ScenarioUnit, type ClassLoader, iorClass } from './types.js';

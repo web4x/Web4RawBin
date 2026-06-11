@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f388c185-1352-45c5-9bc2-ff91417061e6",
+    "name": "R17.7-R17.10",
+    "sourceFile": "src/ts/scenario/generator.ts",
+    "sourceLine": 6,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

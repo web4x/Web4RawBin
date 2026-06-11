@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f2dbefd1-c76d-48cc-b397-b6d66ddbba4d",
+    "name": "R15.7+R18.8",
+    "sourceFile": "src/public/ts/trace-page.ts",
+    "sourceLine": 5,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

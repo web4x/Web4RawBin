@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "5ca4b4c0-2e91-41b5-bd52-bdc8c6e01a00",
+    "name": "redesign-test.txt",
+    "contentPath": "index/5/c/a/4/b/5ca4b4c0-2e91-41b5-bd52-bdc8c6e01a00.content",
+    "size": 23,
+    "mimeType": "text/plain",
+    "uploadedAt": "2026-06-11T08:54:11.884Z",
+    "uploaderToken": "0d7ee549-30eb-498d-b8d1-9c6c84be1544",
+    "roomUuid": "e32a20a7-e94e-441e-8928-8a15302eb514",
+    "unitLinks": [
+      "rooms/e32a20a7-e94e-441e-8928-8a15302eb514/files/5ca4b4c0-2e91-41b5-bd52-bdc8c6e01a00.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:e32a20a7-e94e-441e-8928-8a15302eb514"
+}

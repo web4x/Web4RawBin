@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "179ed2ba-ba29-4fc4-b525-fab14fb04e7c",
+    "name": "AC5 check (non-zero) / AC3 fix",
+    "sourceFile": "src/ts/server/trace-cli.ts",
+    "sourceLine": 6,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

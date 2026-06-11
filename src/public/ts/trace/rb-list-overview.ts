@@ -6,7 +6,7 @@
  * 300ms. Empty state on no matches. ViewBus 'graph' topic re-runs the active search on
  * add/remove. NO artificial input/result limits (Tron rule).
  *
- * [impl:uuid:106f5061-7283-4495-896c-f06060606106] R15.5 ListOverview + search
+ * [impl:uuid:8608ecc1-eba2-448d-b4e3-99529c9c7e12] R15.5 ListOverview + search
  */
 import './rb-object-item.js';
 import { ViewBus } from './ViewBus.js';

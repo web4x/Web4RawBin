@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a5e38244-b86a-4abd-9792-58f1a268c42c",
+    "name": "R-M3",
+    "sourceFile": "src/public/ts/scenario-view.ts",
+    "sourceLine": 6,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

@@ -3,7 +3,7 @@
  * Generates planning.md per sprint, per-instance views, and sprint overview.
  * Files use SPEAKING names (task-1-team-bootstrap.md, not uuid.md).
  *
- * [impl:uuid:6315a667-59c4-420b-90db-f60bca2d315d] R17.7-R17.10
+ * [impl:uuid:f388c185-1352-45c5-9bc2-ff91417061e6] R17.7-R17.10
  */
 // [impl:uuid:fef8a6d5-2a23-4be8-8075-3eae9f699472] SpeakingTree.generateMd(sprint
 // [impl:uuid:e420b8b7-fa4a-4b95-8279-c9a45feadc14] SpeakingTree.generateMd(sprint

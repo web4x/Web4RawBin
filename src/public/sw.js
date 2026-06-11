@@ -8,10 +8,10 @@ const STATIC_SHELL = [
   '/icon-192.png',
   '/icon-512.png',
   '/trace',
-  '/dist/trace-page-WX5T3H4Q.js',
+  '/dist/trace-page-3XUDODD5.js',
   '/scenario',
-  '/dist/scenario-view-NBK55IK4.js',
-  '/dist/app-O5YINOCT.js',
+  '/dist/scenario-view-LRVCN45G.js',
+  '/dist/app-PG7OUO37.js',
 ];
 
 const OFFLINE_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">

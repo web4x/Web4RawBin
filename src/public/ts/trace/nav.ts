@@ -3,7 +3,7 @@
  * holding a TraceRouter reference; the active TraceRouter registers itself via setActiveRouter
  * (in TraceRouter.start). Keeps Views pure — routing stays in the controller.
  *
- * [impl:uuid:105e4f50-6172-4384-895b-e05050505105] AC6 click→navigate
+ * [impl:uuid:b4c8bf40-6b31-4acd-ad4a-0f93d6f7326b] AC6 click→navigate
  */
 // [impl:uuid:8a6c772d-ebcd-4c69-bc40-5174fcb71bc6] TraceRouter.navigate
 import type { Navigator } from './VerbRegistry.js';

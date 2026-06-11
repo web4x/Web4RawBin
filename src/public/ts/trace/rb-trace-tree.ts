@@ -6,7 +6,7 @@
  * persisted (localStorage, like rb-file-tree). Broken/dangling nodes (T102 validate) get a
  * warning marker — shown, never hidden.
  *
- * [impl:uuid:108b7283-94a5-46b7-898e-b08080808108] R15.7 traceability browser
+ * [impl:uuid:f2dbefd1-c76d-48cc-b397-b6d66ddbba4d] R15.7 traceability browser
  */
 import './rb-object-item.js';
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';

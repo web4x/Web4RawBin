@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5f599846-60a1-4b9b-8bca-f9ca52719ead",
+    "name": "R15.1 typed object model",
+    "sourceFile": "src/ts/shared/TraceModel.ts",
+    "sourceLine": 9,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

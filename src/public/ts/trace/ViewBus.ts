@@ -6,7 +6,7 @@
  * (no full reload). This keeps the SHARED TraceModel DOM-free: the "Object does MVC" at the
  * system level through the bus, NOT via a view registry field on TraceObject.
  *
- * [impl:uuid:103c2d3e-4f50-4162-8839-c03030303103] AC3 MVC live-update
+ * [impl:uuid:9ce0b153-0c3d-4749-aa57-954b359b797d] AC3 MVC live-update
  */
 export type ViewBusListener = () => void;
 
