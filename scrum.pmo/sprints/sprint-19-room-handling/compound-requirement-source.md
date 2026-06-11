@@ -221,3 +221,8 @@
   > TRON (DRY): "this is how it is done on all other cases — should be consistent and in ONE DRY PLACE."
 - **R19.71** (2026-06-11): room scenario detail lists files[] as children (currently shows 'no children' despite having files). Room FORWARD_KEYS includes 'files'.
   > Witness: room 440ccc82 has files but detail shows 'no children'.
+
+### Identity reset / re-enrollment (R19.72)
+- **R19.72** (2026-06-11): secret-code page gets a RED 'Remove current ID data' button — wipes local identity (keypair/token/device/localStorage) for fresh re-enrollment. Includes DANGER warning text explaining irreversible consequences + confirm step.
+  > TRON: "on the page where you have to add the secret code, add a button in red — Remove current ID data — so that if a user has not remembered its generated secret they can start fully over."
+  > TRON (extend): "add a danger text explaining the consequences."

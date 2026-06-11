@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "380dc7c0-0dec-4bc4-b0a0-dafa3552b86b",
+    "altId": "R19.72",
+    "name": "R19.72: Secret-code page has a red 'Remove current ID data' button for full re-enrollment.",
+    "description": "The secret-code-entry page during FIRST-TIME ONBOARDING (initial device enrollment) MUST display a RED \"Remove current ID data\" button that wipes all local identity data: generated keypair, token, device data from localStorage, and any local SSH/profile artifacts. After wipe, the user starts fresh from the enrollment flow as a new device. This is the recovery path for a user who has lost/forgotten their generated secret code during initial setup. SCOPE: the button+danger-text are ONLY visible during first-time onboarding (the secret-code-entry step of initial enrollment) \u2014 NOT for already-enrolled/established users. A DANGER warning text MUST appear with/before the button explaining the IRREVERSIBLE consequences: wiping permanently loses the current identity/keypair/secret, all rooms+files owned by that identity become inaccessible, and the action cannot be undone. A confirm step (dialog or second-click) is recommended before executing the wipe.",
+    "tronQuote": "> TRON: \"on the page where you have to add the secret code, add a button in red \u2014 Remove current ID data \u2014 so that if a user has not remembered its generated secret they can start fully over.\"\n> TRON (extend): \"add a danger text explaining the consequences.\"\n> TRON (scope): \"only if its the secret code first time onboarding.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "useCases": [
+      "ior:instance:1df1d3ce-354f-4ba2-a440-9c0aa7b9c1ac"
+    ]
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
