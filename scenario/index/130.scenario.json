@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:User",
+  "model": {
+    "uuid": "130",
+    "name": "Marcel Donges",
+    "displayName": "Marcel Donges",
+    "token": "130",
+    "phone": "+49 8142 2917723",
+    "url": "",
+    "avatar": "/api/avatar/f91b5984-92f5-40d3-8471-dd1667c12a22",
+    "secretCode": "6535",
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
+    "bugReports": [],
+    "createdAt": "",
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:User",
+  "model": {
+    "uuid": "134",
+    "name": "UXProbe",
+    "displayName": "UXProbe",
+    "token": "134",
+    "phone": "",
+    "url": "",
+    "avatar": "/api/avatar/TESTER-UX-1781116878561",
+    "secretCode": "7914",
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
+    "bugReports": [],
+    "createdAt": "",
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

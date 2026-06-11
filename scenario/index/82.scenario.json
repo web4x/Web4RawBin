@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:User",
+  "model": {
+    "uuid": "82",
+    "name": "",
+    "displayName": "",
+    "token": "82",
+    "phone": "",
+    "url": "",
+    "avatar": "",
+    "secretCode": "7142",
+    "profileCommitted": false,
+    "sshKeysGenerated": false,
+    "bugReports": [],
+    "createdAt": "",
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

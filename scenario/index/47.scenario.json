@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:User",
+  "model": {
+    "uuid": "47",
+    "name": "Marcel Donges",
+    "displayName": "Marcel Donges",
+    "token": "47",
+    "phone": "",
+    "url": "",
+    "avatar": "",
+    "secretCode": "6773",
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
+    "bugReports": [],
+    "createdAt": "",
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

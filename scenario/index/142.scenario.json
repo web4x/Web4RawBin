@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:User",
+  "model": {
+    "uuid": "142",
+    "name": "Karina Alman",
+    "displayName": "Karina Alman",
+    "token": "142",
+    "phone": "",
+    "url": "",
+    "avatar": "/api/avatar/fbe42381-a6b9-4b5d-93a5-19646819edac",
+    "secretCode": "8931",
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
+    "bugReports": [],
+    "createdAt": "",
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

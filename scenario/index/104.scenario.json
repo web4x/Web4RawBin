@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:User",
+  "model": {
+    "uuid": "104",
+    "name": "Toronto Trinity",
+    "displayName": "Toronto Trinity",
+    "token": "104",
+    "phone": "",
+    "url": "",
+    "avatar": "/api/avatar/c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+    "secretCode": "5173",
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
+    "bugReports": [],
+    "createdAt": "",
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

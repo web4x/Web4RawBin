@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Device",
+  "model": {
+    "uuid": "201",
+    "deviceId": "201",
+    "name": "201",
+    "ownerToken": "0d7ee549-30eb-498d-b8d1-9c6c84be1544",
+    "publicKey": "",
+    "signature": "",
+    "challenge": "",
+    "enrolledAt": "",
+    "lastAuthAt": "",
+    "userAgent": "",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544"
+}

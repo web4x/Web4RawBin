@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:User",
+  "model": {
+    "uuid": "144",
+    "name": "test merge",
+    "displayName": "test merge",
+    "token": "144",
+    "phone": "",
+    "url": "",
+    "avatar": "/api/avatar/ae9a8a5e-1317-4266-be78-b15b7f547139",
+    "secretCode": "7084",
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
+    "bugReports": [],
+    "createdAt": "",
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

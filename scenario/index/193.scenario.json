@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Device",
+  "model": {
+    "uuid": "193",
+    "deviceId": "193",
+    "name": "193",
+    "ownerToken": "DEDUP-TEST-1781117508326",
+    "publicKey": "",
+    "signature": "",
+    "challenge": "",
+    "enrolledAt": "",
+    "lastAuthAt": "",
+    "userAgent": "",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:DEDUP-TEST-1781117508326"
+}

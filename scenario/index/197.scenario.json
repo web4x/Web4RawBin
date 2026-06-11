@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Device",
+  "model": {
+    "uuid": "197",
+    "deviceId": "197",
+    "name": "197",
+    "ownerToken": "366ec723-a7e3-4f1e-86f3-12b9071101de",
+    "publicKey": "",
+    "signature": "",
+    "challenge": "",
+    "enrolledAt": "2026-06-10T18:58:27.596Z",
+    "lastAuthAt": "",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:366ec723-a7e3-4f1e-86f3-12b9071101de"
+}

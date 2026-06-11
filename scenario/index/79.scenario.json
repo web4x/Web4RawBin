@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:User",
+  "model": {
+    "uuid": "79",
+    "name": "James Woodward-Caradonna",
+    "displayName": "James Woodward-Caradonna",
+    "token": "79",
+    "phone": "",
+    "url": "",
+    "avatar": "",
+    "secretCode": "4767",
+    "profileCommitted": false,
+    "sshKeysGenerated": false,
+    "bugReports": [],
+    "createdAt": "",
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

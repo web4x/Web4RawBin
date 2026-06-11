@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Device",
+  "model": {
+    "uuid": "173",
+    "deviceId": "173",
+    "name": "173",
+    "ownerToken": "cf5e95a9-09b6-4b58-851e-8e4bd34cb63b",
+    "publicKey": "",
+    "signature": "",
+    "challenge": "",
+    "enrolledAt": "",
+    "lastAuthAt": "",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cf5e95a9-09b6-4b58-851e-8e4bd34cb63b"
+}

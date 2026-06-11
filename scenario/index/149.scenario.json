@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Device",
+  "model": {
+    "uuid": "149",
+    "deviceId": "149",
+    "name": "149",
+    "ownerToken": "da966eb9-0bae-4375-8959-9182540f1289",
+    "publicKey": "",
+    "signature": "",
+    "challenge": "",
+    "enrolledAt": "",
+    "lastAuthAt": "",
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 26_5_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/148.0.7778.166 Mobile/15E148 Safari/604.1",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:da966eb9-0bae-4375-8959-9182540f1289"
+}

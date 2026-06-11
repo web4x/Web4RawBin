@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:User",
+  "model": {
+    "uuid": "143",
+    "name": "safari md",
+    "displayName": "safari md",
+    "token": "143",
+    "phone": "",
+    "url": "",
+    "avatar": "/api/avatar/65093a76-727a-48a1-ab19-771448996510",
+    "secretCode": "1223",
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
+    "bugReports": [],
+    "createdAt": "",
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

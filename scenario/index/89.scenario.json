@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:User",
+  "model": {
+    "uuid": "89",
+    "name": "Hannes Nortje",
+    "displayName": "Hannes Nortje",
+    "token": "89",
+    "phone": "",
+    "url": "",
+    "avatar": "/api/avatar/83dc7fdb-2d20-43fa-b2b7-a1e39dc1b381",
+    "secretCode": "3935",
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
+    "bugReports": [],
+    "createdAt": "",
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

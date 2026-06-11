@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:User",
+  "model": {
+    "uuid": "139",
+    "name": "Marcel Donges Studio",
+    "displayName": "Marcel Donges Studio",
+    "token": "139",
+    "phone": "+49 8142 29 177 24",
+    "url": "",
+    "avatar": "/api/avatar/366ec723-a7e3-4f1e-86f3-12b9071101de",
+    "secretCode": "7501",
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
+    "bugReports": [],
+    "createdAt": "",
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

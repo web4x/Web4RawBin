@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "95636a14-623f-4f33-b0a9-6aa13556441f",
+    "name": "dedup-test.txt",
+    "contentPath": "index/9/5/6/3/6/95636a14-623f-4f33-b0a9-6aa13556441f.content",
+    "size": 29,
+    "mimeType": "text/plain",
+    "uploadedAt": "2026-06-11T09:59:18.608Z",
+    "uploaderToken": "0d7ee549-30eb-498d-b8d1-9c6c84be1544",
+    "roomUuid": "e32a20a7-e94e-441e-8928-8a15302eb514",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e32a20a7-e94e-441e-8928-8a15302eb514"
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Device",
+  "model": {
+    "uuid": "191",
+    "deviceId": "191",
+    "name": "191",
+    "ownerToken": "TESTER-RETENTION-1781116573443",
+    "publicKey": "",
+    "signature": "",
+    "challenge": "",
+    "enrolledAt": "",
+    "lastAuthAt": "",
+    "userAgent": "",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:TESTER-RETENTION-1781116573443"
+}

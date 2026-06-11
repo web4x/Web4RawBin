@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:User",
+  "model": {
+    "uuid": "136",
+    "name": "Dedup2",
+    "displayName": "Dedup2",
+    "token": "136",
+    "phone": "",
+    "url": "",
+    "avatar": "/api/avatar/DEDUP-CLEAN-1781117529986",
+    "secretCode": "1612",
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
+    "bugReports": [],
+    "createdAt": "",
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

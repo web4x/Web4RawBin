@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:User",
+  "model": {
+    "uuid": "133",
+    "name": "RetentionProbe",
+    "displayName": "RetentionProbe",
+    "token": "133",
+    "phone": "",
+    "url": "",
+    "avatar": "/api/avatar/TESTER-RETENTION-1781116573443",
+    "secretCode": "9251",
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
+    "bugReports": [],
+    "createdAt": "",
+    "unitLinks": []
+  },
+  "ownerIor": null
+}
