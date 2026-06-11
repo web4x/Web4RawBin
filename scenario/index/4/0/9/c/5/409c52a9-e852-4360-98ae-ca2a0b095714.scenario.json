@@ -4,7 +4,8 @@
     "uuid": "409c52a9-e852-4360-98ae-ca2a0b095714",
     "name": "PageNav",
     "methods": [
-      "ior:instance:fda3b1b3-bff7-4522-9e6e-e41d0b27f1a7"
+      "ior:instance:fda3b1b3-bff7-4522-9e6e-e41d0b27f1a7",
+      "ior:instance:adde3420-6ba6-400d-9b51-ebac318ea034"
     ],
     "method": "ior:instance:fda3b1b3-bff7-4522-9e6e-e41d0b27f1a7",
     "sourceFile": "ior:file:scenario/index/4/0/9/c/5/409c52a9-e852-4360-98ae-ca2a0b095714.scenario.json",
