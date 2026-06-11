@@ -1,68 +1,57 @@
 # DnD + Message + Room Chain Scoreboard (live)
 
 **Author:** robbin-planner
-**Updated:** 2026-06-11 (CORRECTED — re-measured via Requirement.useCases[] chain, not Task.useCases[])
+**Updated:** 2026-06-11 (CORRECTED v2 — exclude GREEN chains; precise open-node classification)
 **Rule:** no chain done until its Test leaf is real.
 
-## CORRECTION NOTE
-
-Prior scoreboard (29d431c2) showed 0 UC/Class/Method across the board — **WRONG**.
-Root cause: walked `Task.useCases[]` (empty on traceability-closure tasks) instead of
-`Requirement.useCases[]` (where architect wired the chain). PO caught the contradiction
-against architect's committed IORs + SM's independent verify.
-
 ## Legend
-✓ = node exists + wired | ◻ = OPEN (needs work) | — = N/A
+✓ = node exists + wired | ◻ = OPEN | 🟢 = GREEN (end-to-end verified) | (a) = needs Impl unit | (b) = needs Method.implementations[] wiring | (c) = needs Test
 
-## Chain Table (measured via Requirement.useCases[] → UC.classes[] → Class.methods[] → Method.implementations[] → Impl.tests[])
+## GREEN Chains (EXCLUDE from open-list — SM-verified real markers + tester GREEN)
 
-| Req | Task | UC | Class | Method | Impl(marker) | Test | Next OPEN owner |
-|-----|------|----|-------|--------|---------------|------|-----------------|
-| R19.30 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ◻ | **expert** (impl:uuid marker) |
-| R19.31 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ◻ | **expert** (impl:uuid marker) |
-| R19.32 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ◻ | **expert** (impl:uuid marker) |
-| R19.33 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ◻ | **expert** (impl:uuid marker) |
-| R19.34 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ◻ | **expert** (impl:uuid marker) |
-| R19.35 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ◻ | **expert** (impl:uuid marker) |
-| R19.36 ✓ | ✓ (impl v0.5.157) | ✓ dropZone.uploadFile | ✓ DropDispatcher | ✓ uploadFile | ◻ | ◻ | **expert** (impl:uuid marker — code exists, marker missing) |
-| R19.37 ✓ | ✓ (impl v0.5.157) | ✓ | ✓ | ✓ routeUnknown | ◻ | ◻ | **expert** (impl:uuid marker — code exists, marker missing) |
-| R19.38 ✓ | ✓ | ✓ | ✓ | ✓ createMessageUnit | ◻ | ◻ | **expert** (impl:uuid marker) |
-| R19.39 ✓ | ✓ | ◻ | ◻ | ◻ | ◻ | ◻ | **architect** (UC for ensureRawBinUser) |
-| R19.40 ✓ | ◻ | ◻ | ◻ | ◻ | ◻ | ◻ | **planner** (Task unit) then **architect** (UC) |
+| Req | Status | Evidence |
+|-----|--------|----------|
+| R19.36 | 🟢 DONE | Tester 73a70971 8/8 GREEN; SM-verified real `impl:uuid:` markers; uploadFile 9905fbfa + Test 1e763397 (test:R19.14.DnDFileChain) |
+| R19.37 | 🟢 DONE | Same test run; routeUnknown 3d4ceb1d verified |
+
+**NOTE:** R19.36/37 show `Method.implementations[]=0` in scenario data — the IOR link is missing but the `[impl:uuid:]` source marker EXISTS and tester verified real behavior. Fix = **(b) wire only** (create or find the Impl unit and add its IOR to Method.implementations[] + Impl.tests[]→Test 1e763397).
+
+## Chain Table (OPEN chains only — R19.30-35, R19.38-40)
+
+| Req | Task | UC | Class | Method | Impl unit | src marker | Test | Classification |
+|-----|------|----|-------|--------|-----------|------------|------|----------------|
+| R19.30 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ? | ◻ | (a)+(b)+(c) |
+| R19.31 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ? | ◻ | (a)+(b)+(c) |
+| R19.32 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ? | ◻ | (a)+(b)+(c) |
+| R19.33 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ? | ◻ | (a)+(b)+(c) |
+| R19.34 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ? | ◻ | (a)+(b)+(c) |
+| R19.35 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ? | ◻ | (a)+(b)+(c) |
+| R19.38 ✓ | ✓ | ✓ | ✓ | ✓ createMessageUnit | ◻ | ✓ (7ba74970) | ◻ | (a)+(b)+(c) — marker exists in source |
+| R19.39 ✓ | ✓ | ◻ | ◻ | ✓ ensureRawBinUser | ◻ | ✓ (7ba74970) | ◻ | architect UC first; then (a)+(b)+(c) |
+| R19.40 ✓ | ✓ (9edbc532 NEW) | ◻ | ◻ | ✓ lazyLoadChain | ◻ | ✓ (7ba74970) | ◻ | architect UC first; then (a)+(b)+(c) |
 
 ## Summary
 
-| Node | Done | Open |
-|------|------|------|
-| Requirement | 11/11 ✓ | 0 |
-| Task | 10/11 ✓ | 1 ◻ (R19.40) |
-| UseCase | 9/11 ✓ | 2 ◻ (R19.39, R19.40) |
-| Class | 9/11 ✓ | 2 ◻ (R19.39, R19.40) |
-| Method | 9/11 ✓ | 2 ◻ (R19.39, R19.40) |
-| Impl (marker) | 0/11 | 11 ◻ — Method.implementations[] empty on ALL; code exists for R19.36/37 but no `impl:uuid` marker wired |
-| Test | 0/11 | 11 ◻ — blocked on Impl |
+| Node | Done | Open | GREEN |
+|------|------|------|-------|
+| Requirement | 11/11 ✓ | 0 | 2 🟢 |
+| Task | 11/11 ✓ | 0 (R19.40 just stood up) | 2 🟢 |
+| UseCase | 9/11 ✓ | 2 ◻ (R19.39, R19.40) | 2 🟢 |
+| Class | 9/11 ✓ | 2 ◻ (R19.39, R19.40) | 2 🟢 |
+| Method | 11/11 ✓ | 0 (all exist) | 2 🟢 |
+| Impl unit | 0/9 open | 9 ◻ | 2 🟢 (exist but Method.implementations[] link missing) |
+| Test | 0/9 open | 9 ◻ | 2 🟢 (Test 1e763397 exists; Impl.tests[] link missing) |
 
-## TRUE OPEN nodes — dispatch list
+## Precise OPEN dispatch (excluding GREEN R19.36/37)
 
-| # | Node | Req | What's needed | Owner |
-|---|------|-----|---------------|-------|
-| 1 | Task | R19.40 | Create task unit (lastMessageIor + chat lazy-load) | **planner** |
-| 2 | UC | R19.39 | Create UC for ensureRawBinUser (Method 971e3531 exists but no UC wired to req) | **architect** |
-| 3 | UC+Class+Method | R19.40 | Full chain after task stands up | **architect** |
-| 4-14 | Impl | ALL 11 | Create Implementation units + add `impl:uuid:` markers in source. For R19.36/37 code already exists in `src/public/ts/drop-dispatcher.ts` — just needs marker annotation + Impl scenario unit. For R19.30-35/38 code is shipped — needs marker + unit. | **expert** |
-| 15-25 | Test | ALL 11 | Create Test units + add `test:uuid:` markers in test files. Blocked until Impl wired. | **tester** |
+| # | What | Reqs | Owner | Notes |
+|---|------|------|-------|-------|
+| 1 | **UC creation** | R19.39, R19.40 | **architect** | R19.39 Method 971e3531 exists but no UC wired to req; R19.40 Method 94bc8f6e exists but no UC. |
+| 2 | **Impl unit creation (a)** | R19.30-35, R19.38-40 (9 chains) | **expert** | Create Implementation scenario units; R19.38/39/40 have `impl:uuid:` markers in source (7ba74970) — just need the unit; R19.30-35 need both marker + unit. |
+| 3 | **Method.implementations[] wiring (b)** | ALL 9 open + R19.36/37 (11 total) | **expert** | After Impl units exist, wire each Method.implementations[] IOR. For GREEN R19.36/37: find/create their Impl units and wire (code+Test both exist already). |
+| 4 | **Test creation (c)** | R19.30-35, R19.38-40 (9 chains) | **tester** | Create Test units + `test:uuid:` in test files. R19.36/37 already have Test 1e763397 — just needs Impl.tests[] wiring. |
 
-**Bottleneck SHIFTED:** architect has only 2 open nodes (R19.39 UC, R19.40 UC+Class+Method). The **real bottleneck is expert** — 11 Impl units + markers needed across all chains.
-
-## Architect IORs (cross-checked, all confirmed present)
-
-| Req | UC uuid | Class uuid | Method uuid | Method sourceFile |
-|-----|---------|------------|-------------|-------------------|
-| R19.36 | d2ab1540 | 3fca4816 DropDispatcher | 9905fbfa uploadFile | drop-dispatcher.ts |
-| R19.37 | (via R19.36 UC) | (via DropDispatcher) | 3d4ceb1d routeUnknown | drop-dispatcher.ts |
-| R19.38 | (wired) | (wired) | 7a983076 createMessageUnit | message-unit.ts |
-| R19.39 | ◻ MISSING | ◻ | 971e3531 ensureRawBinUser | classes.ts |
-| R19.40 | ◻ MISSING | ◻ | 94bc8f6e lazyLoadChain | server.ts |
+**Bottleneck:** expert — 9-11 Impl units + wiring. Architect has 2 UCs left.
 
 ---
 
