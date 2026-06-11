@@ -37,6 +37,7 @@ export class RoomView {
   private roomVisibility: 'public' | 'by-invite' | 'private' = 'public';
   private roomMode: 'live' | 'persistent' = 'persistent';
   private members: MemberInfo[] = [];
+  private files: { uuid: string; name: string; mimeType: string; size: number }[] = [];
   private profileEditor: ProfileEditor;
   private profileSheet: ProfileSheet;
   private chatSheet: RbChatSheet | null = null;
@@ -53,6 +54,7 @@ export class RoomView {
       this.roomName = msg.room.name;
       this.hostId = msg.room.hostId; this.roomOwnerToken = msg.room.ownerToken || ''; this.roomVisibility = msg.room.visibility || (msg.room.isPrivate ? 'private' : 'public'); this.roomMode = msg.room.mode || 'persistent';
       this.members = msg.members || [];
+      this.files = (msg.files || []).map((f: any) => ({ uuid: f.fileUuid || f.uuid, name: f.name || '', mimeType: f.mimeType || '', size: f.size || 0 }));
       this.render();
       if (msg.room.chatHistory?.length) this.chatSheet?.loadHistory(msg.room.chatHistory);
     });
@@ -77,22 +79,10 @@ export class RoomView {
     // [impl:uuid:dnd01002-b2c3-4d4e-9f5a-000000000002] FILE_ADDED handler
     this.client.on(MSG.FILE_ADDED, (msg) => {
       if (this.roomId !== msg.roomId) return;
-      const ch = document.getElementById('rrc-files-children');
-      if (ch) {
-        const node = document.createElement('div'); node.className = 'tt-node';
-        const row = document.createElement('div'); row.className = 'tt-row';
-        const item = document.createElement('rb-object-item');
-        item.setAttribute('ref', `file:${msg.fileUuid}`);
-        item.setAttribute('type', 'file');
-        item.setAttribute('name', msg.name || 'file');
-        item.setAttribute('description', `${msg.mimeType || ''} · ${msg.size || 0}B`);
-        row.appendChild(item); node.appendChild(row); ch.appendChild(node);
+      if (!this.files.some(f => f.uuid === msg.fileUuid)) {
+        this.files.push({ uuid: msg.fileUuid, name: msg.name || 'file', mimeType: msg.mimeType || '', size: msg.size || 0 });
       }
-      const filesNode = document.querySelector('#rrc-files-node rb-object-item');
-      if (filesNode) {
-        const cur = parseInt(filesNode.getAttribute('child-count') || '0');
-        filesNode.setAttribute('child-count', String(cur + 1));
-      }
+      this.renderRoomTreeFiles();
       this.chatSheet?.addMessage('system', 'System', `File uploaded: ${msg.name}`);
     });
     this.client.on('disconnected', () => this.chatSheet?.setWsStatus('disconnected'));
@@ -137,6 +127,7 @@ export class RoomView {
     this.container.innerHTML = '';
     if (this.chatSheet) { this.chatSheet.remove(); this.chatSheet = null; }
     this.members = [];
+    this.files = [];
   }
 
   // [impl:uuid:f9b579c1-7495-4f93-8dec-736a0410a69a] RbRoomDetail.editOpen R19
@@ -298,8 +289,27 @@ export class RoomView {
     }
   }
 
+  private renderRoomTreeFiles(): void {
+    const parentItem = document.querySelector('#rrc-files-node rb-object-item');
+    if (parentItem) { parentItem.setAttribute('description', `${this.files.length} file${this.files.length !== 1 ? 's' : ''}`); parentItem.setAttribute('child-count', String(this.files.length)); }
+    const ch = document.getElementById('rrc-files-children');
+    if (!ch) return;
+    ch.innerHTML = '';
+    for (const f of this.files) {
+      const node = document.createElement('div'); node.className = 'tt-node';
+      const row = document.createElement('div'); row.className = 'tt-row';
+      const item = document.createElement('rb-object-item');
+      item.setAttribute('ref', `file:${f.uuid}`);
+      item.setAttribute('type', 'file');
+      item.setAttribute('name', f.name || 'file');
+      item.setAttribute('description', `${f.mimeType || ''} · ${f.size || 0}B`);
+      row.appendChild(item); node.appendChild(row); ch.appendChild(node);
+    }
+  }
+
   private renderMemberList(): void {
     this.renderRoomTreeMembers();
+    this.renderRoomTreeFiles();
     const el = document.getElementById('member-list') as RbMemberList | null;
     if (!el) return;
     el.setMembers(this.members.map(m => ({
