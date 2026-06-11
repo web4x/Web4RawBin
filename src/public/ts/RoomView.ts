@@ -254,13 +254,9 @@ export class RoomView {
       const res = await resp.json();
       const fm = res.unit?.model || {};
       const preview = renderContentPreview(uuid, fm.mimeType || '', fm.name || uuid, this.client.playerToken);
-      const handle = drawer.querySelector('.drawer-handle');
-      for (const child of [...drawer.children]) { if (child !== handle) child.remove(); }
-      const body = document.createElement('div');
-      body.className = 'drawer-body';
       // [impl:uuid:b8714c1d-58b2-4324-93ba-da5e0f760221] R19.78 buttons above filename
+      const body = (drawer as any).body as HTMLElement;
       body.innerHTML = `${preview}<h3 style="margin:8px 0 0;font-size:0.9rem;color:white">${(fm.name || uuid).replace(/[<>]/g, '')}</h3>`;
-      drawer.appendChild(body);
       drawer.setAttribute('ref', `file:${uuid}`);
       loadTextPreview(body, uuid, this.client.playerToken);
       wireUrlActions(body);
