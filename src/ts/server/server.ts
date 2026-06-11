@@ -413,6 +413,39 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
+    // [impl:uuid:94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05] chat lazy-load
+    if (req.method === 'GET' && filepath.startsWith('/api/room/') && filepath.includes('/messages')) {
+      const parts = filepath.split('/');
+      const roomId = parts[3];
+      const room = roomManager.getRoom(roomId);
+      if (!room) { res.writeHead(404); res.end(JSON.stringify({ error: 'Room not found' })); return; }
+      const urlObj = new URL(filepath, `https://${req.headers.host || 'localhost'}`);
+      const before = urlObj.searchParams.get('before') || '';
+      const limit = Math.min(parseInt(urlObj.searchParams.get('limit') || '5') || 5, 50);
+      try {
+        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        const { ScenarioIndex } = require('../scenario/index.js');
+        const idx = new ScenarioIndex(scenarioDir);
+        const messages: any[] = [];
+        let cursor = before ? before.replace('ior:instance:', '') : (room.lastMessageIor || '').replace('ior:instance:', '');
+        while (cursor && messages.length < limit) {
+          const unit = idx.get(cursor);
+          if (!unit || unit.ior !== 'ior:class:Message') break;
+          const m = unit.model as Record<string, unknown>;
+          messages.push({ uuid: cursor, text: m.text, senderName: m.senderName, timestamp: m.timestamp, kind: m.kind, prevMessage: m.prevMessage });
+          const prev = String(m.prevMessage || '').replace('ior:instance:', '');
+          if (!prev || prev === cursor) break;
+          cursor = prev;
+        }
+        messages.reverse();
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+        res.end(JSON.stringify({ messages, hasMore: messages.length === limit }));
+      } catch (e: any) {
+        res.writeHead(500); res.end(JSON.stringify({ error: e?.message || 'Failed' }));
+      }
+      return;
+    }
+
     // [impl:uuid:dnd01001-a1b2-4c3d-8e4f-000000000001] DropDispatcher.upload R19.14
     if (req.method === 'POST' && filepath.startsWith('/api/room/') && filepath.endsWith('/upload')) {
       const parts = filepath.split('/');

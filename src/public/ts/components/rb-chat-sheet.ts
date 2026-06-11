@@ -122,6 +122,44 @@ class RbChatSheet extends HTMLElement {
       el.appendChild(this.createBubble(m.senderId, m.senderName, m.text));
     }
     el.scrollTop = el.scrollHeight;
+    this.setupLazyLoad();
+  }
+
+  roomId = '';
+  private lazyObserver: IntersectionObserver | null = null;
+  private oldestIor: string | null = null;
+  private lazyLoading = false;
+  private noMore = false;
+
+  // [impl:uuid:94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05] chat lazy-load client
+  private setupLazyLoad(): void {
+    const el = this.shadow.getElementById('messages');
+    if (!el || this.lazyObserver) return;
+    this.lazyObserver = new IntersectionObserver(async (entries) => {
+      if (!entries[0]?.isIntersecting || this.lazyLoading || this.noMore || !this.roomId) return;
+      this.lazyLoading = true;
+      try {
+        const before = this.oldestIor ? `&before=${encodeURIComponent(this.oldestIor)}` : '';
+        const resp = await fetch(`/api/room/${this.roomId}/messages?limit=5${before}`);
+        if (!resp.ok) { this.lazyLoading = false; return; }
+        const data = await resp.json();
+        const msgs = data.messages || [];
+        if (msgs.length === 0 || !data.hasMore) this.noMore = true;
+        if (msgs.length > 0) {
+          this.oldestIor = `ior:instance:${msgs[0].uuid}`;
+          const scrollH = el.scrollHeight;
+          const scrollT = el.scrollTop;
+          for (let i = msgs.length - 1; i >= 0; i--) {
+            const m = msgs[i];
+            el.prepend(this.createBubble(m.senderName === this.clientId ? this.clientId : 'other', m.senderName, m.text));
+          }
+          el.scrollTop = scrollT + (el.scrollHeight - scrollH);
+        }
+      } catch {}
+      this.lazyLoading = false;
+    }, { root: el, threshold: 0.1 });
+    const first = el.firstElementChild;
+    if (first) this.lazyObserver.observe(first);
   }
 
   setWsStatus(state: string, detail?: string): void {

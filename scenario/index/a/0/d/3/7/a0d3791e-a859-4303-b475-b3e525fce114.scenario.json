@@ -4,9 +4,11 @@
     "uuid": "a0d3791e-a859-4303-b475-b3e525fce114",
     "altId": "R19.40",
     "name": "R19.40: Room holds lastMessageIor; chat lazy-loads 5 messages at a time walking prevMessage.",
-    "description": "The Room scenario unit MUST hold a model.lastMessageIor field pointing to the most recent Message unit. The chat UI loads the last 5 messages on open (starting from lastMessageIor, walking prevMessage IORs backward). When the user scrolls up and reaches the oldest-loaded message, the UI lazy-loads the next 5 older messages (continuing to walk prevMessage). This is backward-pagination using the R19.38 doubly-linked list — no separate index or query needed, just IOR traversal.",
+    "description": "The Room scenario unit MUST hold a model.lastMessageIor field pointing to the most recent Message unit. The chat UI loads the last 5 messages on open (starting from lastMessageIor, walking prevMessage IORs backward). When the user scrolls up and reaches the oldest-loaded message, the UI lazy-loads the next 5 older messages (continuing to walk prevMessage). This is backward-pagination using the R19.38 doubly-linked list \u2014 no separate index or query needed, just IOR traversal.",
     "tronQuote": "> TRON: \"the room obviously needs to have a reference on the last message to lazy load the chat. only load the last 5 messages and continue lazyloading 5, when scrolling hits latest loaded message.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:9edbc532-4704-49f2-8e95-304eb40871d6"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

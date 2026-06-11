@@ -194,6 +194,7 @@ export class RoomView {
     if (this.chatSheet) this.chatSheet.remove();
     this.chatSheet = document.createElement('rb-chat-sheet') as RbChatSheet;
     this.chatSheet.clientIdentity = this.client.clientId;
+    this.chatSheet.roomId = this.roomId;
     document.body.appendChild(this.chatSheet);
 
     this.chatSheet.addEventListener('rb-chat-send', ((e: CustomEvent) => this.client.sendChat(e.detail.text)) as EventListener);
