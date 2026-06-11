@@ -3,7 +3,7 @@
   "model": {
     "uuid": "78beddd9-61f4-4604-bb1b-846fd98bbe60",
     "name": "PageNav.stickyTop",
-    "sourceFile": "ior:file:scenario/index/4/0/9/c/5/409c52a9-e852-4360-98ae-ca2a0b095714.scenario.json",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
     "tests": []
   },
   "ownerIor": null

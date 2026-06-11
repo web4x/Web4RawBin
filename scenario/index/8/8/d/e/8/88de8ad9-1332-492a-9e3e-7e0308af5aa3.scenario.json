@@ -3,7 +3,7 @@
   "model": {
     "uuid": "88de8ad9-1332-492a-9e3e-7e0308af5aa3",
     "name": "MdPreview.renderList",
-    "sourceFile": "ior:file:scenario/index/4/f/1/1/a/4f11ade5-468f-42f4-8f57-6bf346e1d743.scenario.json",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
     "tests": []
   },
   "ownerIor": null

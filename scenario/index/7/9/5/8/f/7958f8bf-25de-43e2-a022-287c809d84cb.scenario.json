@@ -3,7 +3,7 @@
   "model": {
     "uuid": "7958f8bf-25de-43e2-a022-287c809d84cb",
     "name": "SpeakingTree.symlinkJson(sprint",
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml",
+    "sourceFile": "ior:file:src/ts/scenario/generator.ts",
     "tests": []
   },
   "ownerIor": null

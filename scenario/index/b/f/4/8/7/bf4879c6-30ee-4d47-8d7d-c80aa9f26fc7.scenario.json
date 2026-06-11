@@ -4,7 +4,9 @@
     "uuid": "bf4879c6-30ee-4d47-8d7d-c80aa9f26fc7",
     "name": "TraceChain.treeRework",
     "sourceFile": "ior:file:scenario/index/b/4/8/2/4/b4824ba0-c1ca-451d-81da-94f7bb558046.scenario.json",
-    "tests": []
+    "tests": [],
+    "orphanByDesign": true,
+    "orphanRationale": "No real code \u2014 design-only/future feature"
   },
   "ownerIor": null
 }

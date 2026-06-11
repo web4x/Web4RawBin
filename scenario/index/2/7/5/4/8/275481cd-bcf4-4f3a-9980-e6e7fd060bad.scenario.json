@@ -3,7 +3,7 @@
   "model": {
     "uuid": "275481cd-bcf4-4f3a-9980-e6e7fd060bad",
     "name": "ScenarioClick.lazyLoad",
-    "sourceFile": "ior:file:scenario/index/a/b/9/3/a/ab93afb6-b2c2-44cd-b6b0-d7fe1c2b5e4b.scenario.json",
+    "sourceFile": "ior:file:src/public/ts/scenario-view.ts",
     "tests": []
   },
   "ownerIor": null

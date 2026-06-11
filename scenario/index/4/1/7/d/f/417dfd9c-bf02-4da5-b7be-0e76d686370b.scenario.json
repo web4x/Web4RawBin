@@ -3,7 +3,7 @@
   "model": {
     "uuid": "417dfd9c-bf02-4da5-b7be-0e76d686370b",
     "name": "UserScenario.scenarioUnit",
-    "sourceFile": "ior:file:scenario/index/0/e/a/e/a/0eaea43c-5440-495e-88be-72e83f0db38a.scenario.json",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
     "tests": []
   },
   "ownerIor": null

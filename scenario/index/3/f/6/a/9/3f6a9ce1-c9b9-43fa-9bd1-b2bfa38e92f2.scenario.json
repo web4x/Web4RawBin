@@ -4,7 +4,9 @@
     "uuid": "3f6a9ce1-c9b9-43fa-9bd1-b2bfa38e92f2",
     "name": "OfflinePage.reloadButton",
     "sourceFile": "ior:file:scenario/index/e/e/b/c/8/eebc8d73-f420-401a-86b6-b63adadacb7a.scenario.json",
-    "tests": []
+    "tests": [],
+    "orphanByDesign": true,
+    "orphanRationale": "No real code \u2014 design-only/future feature"
   },
   "ownerIor": null
 }

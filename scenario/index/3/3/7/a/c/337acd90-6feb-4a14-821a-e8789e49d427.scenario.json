@@ -3,7 +3,7 @@
   "model": {
     "uuid": "337acd90-6feb-4a14-821a-e8789e49d427",
     "name": "TraceConsistency.auditOrphans",
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml",
+    "sourceFile": "ior:file:src/ts/server/TraceConsistency.ts",
     "tests": []
   },
   "ownerIor": null

@@ -3,7 +3,7 @@
   "model": {
     "uuid": "79568421-462d-4c7a-b1d2-bd0c3c0d9d18",
     "name": "ServerStrip.strip",
-    "sourceFile": "ior:file:scenario/index/8/a/6/e/0/8a6e057f-f5ec-4d99-878c-ba42fc792f23.scenario.json",
+    "sourceFile": "ior:file:src/public/ts/RawBinClient.ts",
     "tests": []
   },
   "ownerIor": null

@@ -3,7 +3,7 @@
   "model": {
     "uuid": "5a552045-cc8d-4aaa-9d3c-d8c834f59df1",
     "name": "PathHeader.clickNavigate",
-    "sourceFile": "ior:file:scenario/index/3/1/c/a/d/31cad114-891a-4e2e-b924-90a77669e363.scenario.json",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "tests": []
   },
   "ownerIor": null

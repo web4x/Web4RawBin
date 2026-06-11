@@ -3,7 +3,7 @@
   "model": {
     "uuid": "b3020e1b-6736-4037-8b9f-47dfb0d27cee",
     "name": "MdListing.chainIcon",
-    "sourceFile": "ior:file:scenario/index/a/7/a/3/a/a7a3aa7d-9902-47aa-bc61-043335b7d402.scenario.json",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
     "tests": []
   },
   "ownerIor": null
