@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "67fd08c3-f43c-4f53-bd3e-d81d2bdebd8a",
+    "name": "RbDetailDrawer.unifiedTraceability",
+    "description": "fullChainThrough(graph, uuid): walk backward (find parent referencing this node) to Requirement root, walk forward (singularChain) to Test leaf. renderTraceabilitySection(): vertical above\u2192SELF\u2192below. Delete 7 copies of renderLinks(), remove 'Champagne Chain' jargon.",
+    "sourceFile": "ior:file:src/public/ts/trace/singular-chain.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+}

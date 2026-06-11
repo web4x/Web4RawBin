@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "f4728950-ce02-400e-8648-175bf1c8cd1b",
+    "name": "T-detailview-consolidate: all 7 type DetailViews show ONE consistent Traceability Chain section",
+    "slug": "detailview-consolidate-consistent-chain-section",
+    "description": "R19.58: All 7 type DetailViews show ONE consistent Traceability section with the real chain, not a flat method list.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:af607390-db30-4b1c-b3ac-21aba612aa60"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
