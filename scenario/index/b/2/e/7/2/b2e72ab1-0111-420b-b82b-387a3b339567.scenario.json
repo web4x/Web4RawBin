@@ -8,7 +8,7 @@
     "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] implementing (expert)\n  - [x] testing (tester — avatar-persist 5/5, string-desync scope)\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d](./requirements.md) — R-A1: Avatar must persist\n  - [Sprint 13 Planning](./planning.md)\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R-A1 in [requirements.md](./requirements.md)\n  - **class/method:** `server.ts` IDENTIFY handler (avatar backfill logic), `UserCrypto.ts` encryptFile/decryptFile, `GET /api/avatar/<token>`",
+    "traceability": "- up\n  - [requirement:uuid:64328225-56c6-4a9c-ada0-0736322c08ee](./requirements.md) — R-A1: Avatar must persist\n  - [Sprint 13 Planning](./planning.md)\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R-A1 in [requirements.md](./requirements.md)\n  - **class/method:** `server.ts` IDENTIFY handler (avatar backfill logic), `UserCrypto.ts` encryptFile/decryptFile, `GET /api/avatar/<token>`",
     "context": "",
     "intention": "",
     "role": "",
@@ -34,7 +34,7 @@
     ],
     "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
     "coveredRequirements": [
-      "ior:instance:a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d"
+      "ior:instance:64328225-56c6-4a9c-ada0-0736322c08ee"
     ]
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"

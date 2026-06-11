@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "0d45c204-ef9f-4b68-b1c8-74020bf3aa1d",
+    "name": "R17.11: File-browser \u2194 traceability-browser navigation",
+    "description": "> TRON: \"the sprint overview becomes a list of sprint items and so on for the involved classes.\"",
+    "tronQuote": "> TRON: \"the sprint overview becomes a list of sprint items and so on for the involved classes.\"",
+    "tasks": [
+      "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
+    "sourceLine": 61,
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:17a00201-0001-4a01-a001-000017020001",
+      "ior:instance:17a00202-0002-4a02-a002-000017020002",
+      "ior:instance:17a00301-0001-4a01-a001-000017030001",
+      "ior:instance:17a00302-0002-4a02-a002-000017030002",
+      "ior:instance:17a00303-0003-4a03-a003-000017030003",
+      "ior:instance:17a00304-0004-4a04-a004-000017030004"
+    ]
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

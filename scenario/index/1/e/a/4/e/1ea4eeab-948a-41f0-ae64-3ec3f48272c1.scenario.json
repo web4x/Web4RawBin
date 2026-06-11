@@ -6,10 +6,10 @@
     "description": "Bridged to test/vitest/room.test.ts covering Room.ts",
     "sourceFile": "ior:file:test/vitest/room.test.ts",
     "implementations": [
-      "ior:instance:67b2763e-1a2b-4c3d-8e4f-5a6b7c8d9e01"
+      "ior:instance:35ce5e4c-24c0-450e-905f-37eb9097c8e5"
     ],
     "status": "pass",
     "unitLinks": []
   },
-  "ownerIor": "ior:instance:67b2763e-1a2b-4c3d-8e4f-5a6b7c8d9e01"
+  "ownerIor": "ior:instance:35ce5e4c-24c0-450e-905f-37eb9097c8e5"
 }

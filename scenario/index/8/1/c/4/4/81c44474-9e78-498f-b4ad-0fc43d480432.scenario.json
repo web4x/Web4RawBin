@@ -6,8 +6,8 @@
     "className": "RoomManager",
     "methodName": "create",
     "implementations": [
-      "ior:instance:9a25adbd-b1c2-4d3e-8f4a-5b6c7d8e9f00",
-      "ior:instance:67b2763e-1a2b-4c3d-8e4f-5a6b7c8d9e01"
+      "ior:instance:35d07b43-0a94-452e-ada9-7b6d58178451",
+      "ior:instance:35ce5e4c-24c0-450e-905f-37eb9097c8e5"
     ],
     "implementation": "ior:instance:13c971e3-a40b-41af-930a-0bc2789dacd2",
     "sourceFile": "ior:file:src/ts/server/Room.ts",

@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "7622a1d7-4d43-4976-b89d-bd9f18bbccf6",
+    "name": "R14.4 \u2014 Remove legacy load path (code) + legacy files, ON...",
+    "description": "Prove migration integrity: every legacy record maps to exactly one migrated record, counts reconcile, no data loss.",
+    "tronQuote": "> Tron (via T98): No direct quote \u2014 derived from R-R1 root-cause: migration integrity must be auditable before legacy deletion.",
+    "tasks": [
+      "ior:instance:98c3e5a7-4d9f-4b12-9c68-3e5a7b9c0d98"
+    ],
+    "tests": [],
+    "orphanByDesign": true,
+    "orphanReason": "One-shot gated removal \u2014 done or pending gate (remove legacy path)",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-14-legacy-migration/requirements.md",
+    "sourceLine": 37,
+    "parent": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:1d1c8bd3-c815-4536-aec7-d0a3ad44d71e"
+    ]
+  },
+  "ownerIor": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
+}

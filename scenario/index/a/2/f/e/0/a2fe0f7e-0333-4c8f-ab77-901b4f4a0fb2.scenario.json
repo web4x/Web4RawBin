@@ -6,10 +6,10 @@
     "description": "Bridged to test/vitest/file-dnd-chain.test.ts covering drop-dispatcher.ts",
     "sourceFile": "ior:file:test/vitest/file-dnd-chain.test.ts",
     "implementations": [
-      "ior:instance:481b1a1c-c3d4-4e5f-a060-000000000012"
+      "ior:instance:0bd88871-d496-448e-84b7-7daf8bee595a"
     ],
     "status": "pass",
     "unitLinks": []
   },
-  "ownerIor": "ior:instance:481b1a1c-c3d4-4e5f-a060-000000000012"
+  "ownerIor": "ior:instance:0bd88871-d496-448e-84b7-7daf8bee595a"
 }

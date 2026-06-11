@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0bd88871-d496-448e-84b7-7daf8bee595a",
+    "name": "DropDispatcher.uploadWithProgress",
+    "sourceFile": "src/public/ts/drop-dispatcher.ts",
+    "sourceLine": 60,
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:a2fe0f7e-0333-4c8f-ab77-901b4f4a0fb2"
+    ]
+  },
+  "ownerIor": "ior:instance:9905fbfa-e41a-4177-b625-f6fee373efd2"
+}

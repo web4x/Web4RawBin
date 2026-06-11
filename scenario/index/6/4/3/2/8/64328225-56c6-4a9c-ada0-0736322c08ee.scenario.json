@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "64328225-56c6-4a9c-ada0-0736322c08ee",
+    "name": "R-A2: Avatar upload must work without exposing key errors...",
+    "description": "> TRON DIRECTIVE: \"my avatar picture disappeared. its back to default.\"",
+    "tronQuote": "> TRON DIRECTIVE: \"my avatar picture disappeared. its back to default.\"",
+    "tasks": [
+      "ior:instance:b2e72ab1-0111-420b-b82b-387a3b339567"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/task-91-avatar-persist.md",
+    "sourceLine": 50,
+    "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:cd1ebb36-60a9-481c-a6a3-3e9c652719bd"
+    ]
+  },
+  "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
+}

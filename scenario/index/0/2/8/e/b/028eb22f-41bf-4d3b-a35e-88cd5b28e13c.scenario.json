@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "028eb22f-41bf-4d3b-a35e-88cd5b28e13c",
+    "name": "Room.persistAsSymlink R19.22.A",
+    "sourceFile": "src/ts/server/RoomKeys.ts",
+    "sourceLine": 112,
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:aaa28037-63f3-4e44-b042-0080b4879363"
+    ]
+  },
+  "ownerIor": null
+}

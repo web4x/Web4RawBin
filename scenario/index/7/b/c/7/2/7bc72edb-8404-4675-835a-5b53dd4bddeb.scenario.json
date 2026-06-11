@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "7bc72edb-8404-4675-835a-5b53dd4bddeb",
+    "name": "R17.17: Task status as state-machine methods",
+    "description": "> TRON: \"the task statuses will work like that in md but not in html.\"",
+    "tronQuote": "> TRON: \"the task statuses will work like that in md but not in html.\"",
+    "tasks": [
+      "ior:instance:32af18ad-b6be-4987-b677-1507fdec0851"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
+    "sourceLine": 101,
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:edbae55c-262b-4c5a-bf6b-db2612e5dce1"
+    ]
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

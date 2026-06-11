@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "6fce2319-a763-46b5-9253-d5e9647e034d",
+    "name": "R17.6: Speaking-name tree (md) \u2014 generated md views with ...",
+    "description": "> TRON: \"under scenarios/sprints.json/ create a file tree of ln links to the json index with speaking names like in sprint 1 and task1 and task 1.1\"",
+    "tronQuote": "> TRON: \"under scenarios/sprints.json/ create a file tree of ln links to the json index with speaking names like in sprint 1 and task1 and task 1.1\"",
+    "tasks": [
+      "ior:instance:b94d2681-54f0-47e3-a431-f3d84e469b30"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
+    "sourceLine": 34,
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:17a00401-0001-4a01-a001-000017040001",
+      "ior:instance:17a00402-0002-4a02-a002-000017040002",
+      "ior:instance:17a00403-0003-4a03-a003-000017040003"
+    ]
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

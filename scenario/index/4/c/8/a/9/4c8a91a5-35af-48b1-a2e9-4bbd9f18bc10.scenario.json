@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4c8a91a5-35af-48b1-a2e9-4bbd9f18bc10",
+    "name": "T-persistent-dedup R19.8.B",
+    "sourceFile": "src/ts/server/Room.ts",
+    "sourceLine": 144,
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:9d6a901d-5722-420a-8b1d-94f6d80aca96"
+    ]
+  },
+  "ownerIor": "ior:instance:4fed4fda-5fc1-4340-a976-a473d2366513"
+}

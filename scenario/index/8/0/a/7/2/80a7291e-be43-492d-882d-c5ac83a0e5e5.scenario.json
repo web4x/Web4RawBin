@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "80a7291e-be43-492d-882d-c5ac83a0e5e5",
+    "name": "R17.12: All files are units, referenceable via IOR",
+    "description": "> TRON: \"there shall be navigation between the file browse and the traceability browser possible.\"",
+    "tronQuote": "> TRON: \"there shall be navigation between the file browse and the traceability browser possible.\"",
+    "tasks": [
+      "ior:instance:b66fdf54-04f4-4609-9ded-04c835348b32"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
+    "sourceLine": 68,
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:17a00203-0003-4a03-a003-000017020003"
+    ]
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

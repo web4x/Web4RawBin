@@ -8,8 +8,8 @@
     "methods": [],
     "status": "PASS",
     "verifies": [
-      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000003",
-      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000012"
+      "ior:instance:ea1aeef4-3603-4fe3-9d5d-5b0800f3991e",
+      "ior:instance:1ad6eba3-8b71-4476-838f-ad2af85fab0c"
     ],
     "sourceFile": "ior:file:test/vitest/scenario.test.ts",
     "sourceLine": 3,

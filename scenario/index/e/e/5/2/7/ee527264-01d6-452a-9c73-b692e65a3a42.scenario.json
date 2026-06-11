@@ -8,7 +8,7 @@
     "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] implementing (expert)\n  - [x] testing (tester)\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e](./requirements.md) — R-A2: Upload must not expose key errors\n  - [Sprint 13 Planning](./planning.md)\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R-A2 in [requirements.md](./requirements.md)\n  - **class/method:** `POST /api/avatar` handler in server.ts, `UserCrypto.encryptFile()`, `rb-avatar.ts` upload handler (line ~164)",
+    "traceability": "- up\n  - [requirement:uuid:39a189d2-a59d-4e05-a460-28cd1816c23f](./requirements.md) — R-A2: Upload must not expose key errors\n  - [Sprint 13 Planning](./planning.md)\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R-A2 in [requirements.md](./requirements.md)\n  - **class/method:** `POST /api/avatar` handler in server.ts, `UserCrypto.encryptFile()`, `rb-avatar.ts` upload handler (line ~164)",
     "context": "",
     "intention": "",
     "role": "",
@@ -34,7 +34,7 @@
     ],
     "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
     "coveredRequirements": [
-      "ior:instance:b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e"
+      "ior:instance:39a189d2-a59d-4e05-a460-28cd1816c23f"
     ]
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"

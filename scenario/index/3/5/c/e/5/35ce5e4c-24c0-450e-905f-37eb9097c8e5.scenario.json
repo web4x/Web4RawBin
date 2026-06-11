@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "35ce5e4c-24c0-450e-905f-37eb9097c8e5",
+    "name": "T-persistent-retention",
+    "sourceFile": "src/ts/server/Room.ts",
+    "sourceLine": 182,
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:1ea4eeab-948a-41f0-ae64-3ec3f48272c1"
+    ]
+  },
+  "ownerIor": "ior:instance:81c44474-9e78-498f-b4ad-0fc43d480432"
+}

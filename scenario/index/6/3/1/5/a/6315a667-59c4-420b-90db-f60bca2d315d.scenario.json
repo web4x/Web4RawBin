@@ -39,11 +39,11 @@
     ],
     "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
     "coveredRequirements": [
-      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000006",
-      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000007",
-      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000008",
-      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000009",
-      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000010"
+      "ior:instance:f829246e-43bb-452c-ac0a-2066848a3c2e",
+      "ior:instance:ddf01be4-6f25-4d32-a3f9-e3ac844a41db",
+      "ior:instance:aebefebb-83a7-4449-8788-ae54dfed8ca2",
+      "ior:instance:59b56c1d-c8a0-4d99-a06d-563269c7089e",
+      "ior:instance:0d45c204-ef9f-4b68-b1c8-74020bf3aa1d"
     ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"

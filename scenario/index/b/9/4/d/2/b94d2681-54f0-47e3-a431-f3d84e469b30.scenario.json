@@ -36,8 +36,8 @@
     ],
     "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
     "coveredRequirements": [
-      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000005",
-      "ior:instance:d4e5f6a7-b8c9-4d0e-1f2a-000000000014"
+      "ior:instance:6fce2319-a763-46b5-9253-d5e9647e034d",
+      "ior:instance:cd30f486-c5c5-44af-a454-def3daba7806"
     ]
   },
   "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"

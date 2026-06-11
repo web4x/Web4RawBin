@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "cd30f486-c5c5-44af-a454-def3daba7806",
+    "name": "R17.15: Collaborative planning \u2014 architect + req + planner",
+    "description": "> TRON: \"migrate all sprints, tasks, requirements like this with references to classes, tests and puml usecases and classes and verb/methods.\"",
+    "tronQuote": "> TRON: \"migrate all sprints, tasks, requirements like this with references to classes, tests and puml usecases and classes and verb/methods.\"",
+    "tasks": [
+      "ior:instance:b94d2681-54f0-47e3-a431-f3d84e469b30"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
+    "sourceLine": 85,
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:17a00401-0001-4a01-a001-000017040001",
+      "ior:instance:17a00402-0002-4a02-a002-000017040002",
+      "ior:instance:17a00403-0003-4a03-a003-000017040003"
+    ]
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}
