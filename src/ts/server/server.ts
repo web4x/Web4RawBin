@@ -1510,11 +1510,11 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
         if (ownerToken) {
           if (typeof DATA_DIR !== 'string') { addLog(`[files] DATA_DIR not a string: ${typeof DATA_DIR}`); break; }
           const filesDir = path.join(DATA_DIR, 'users', ownerToken, 'rooms', room.id, 'files');
-          addLog(`[files] filesDir=${filesDir} exists=${fs.existsSync(filesDir)}`);
-          if (fs.existsSync(filesDir)) {
-            const entries = fs.readdirSync(filesDir);
+          addLog(`[files] filesDir=${filesDir} exists=${fsSync.existsSync(filesDir)}`);
+          if (fsSync.existsSync(filesDir)) {
+            const entries = fsSync.readdirSync(filesDir);
             addLog(`[files] entries=${JSON.stringify(entries)}`);
-            for (const f of fs.readdirSync(filesDir)) {
+            for (const f of entries) {
               if (!f.endsWith('.scenario.json')) continue;
               const fileUuid = f.replace('.scenario.json', '');
               const scenarioDir = path.join(__dirname, '../../../scenario/index');
