@@ -13,6 +13,11 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+// [test:uuid:c219e744-c7c0-461d-a71e-8f92ed40a728]
+// [test:uuid:8d8b3fdd-d553-441f-a277-b4e98330a8cd]
+// [test:uuid:962e2e36-27e6-4fc3-b20e-888e4ec49230]
+// [test:uuid:d0f434c1-1a65-4d44-8b1f-5e5eb0fc82f1]
+// [test:uuid:3a6887d9-7467-4bf3-92be-4a967e20d6a1]
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';

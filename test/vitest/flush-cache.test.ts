@@ -4,6 +4,8 @@
  * @vitest-environment node
  */
 import { describe, it, expect } from 'vitest';
+// [test:uuid:919e6fa6-6c30-47a3-90f3-184abdb6f653]
+// [test:uuid:14304a0c-01f4-4b09-9beb-303fadad2e92]
 import fsSync from 'node:fs';
 import path from 'node:path';
 
