@@ -5,7 +5,8 @@
     "name": "Detail-view Traceability-Chain section shows the narrowed single-thread chain, not all children.",
     "altId": "R18.24",
     "tasks": [
-      "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
+      "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea",
+      "ior:instance:f6b54409-f5ce-410f-996b-5d57d0960cdb"
     ],
     "tests": [],
     "sourceFile": "ior:file:scenario/index/c/9/d/e/6/c9de63d7-61d4-4d14-a8cd-20f9e9b98a26.scenario.json",

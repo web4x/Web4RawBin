@@ -6,7 +6,9 @@
     "name": "R19.31: Room link navigates to the live room or room editor, never 404.",
     "description": "BUG: clicking the room link from a room item navigates to a 404 page. FIX: the room link MUST navigate to either the live room view (/room/<roomUuid>) or the room editor \u2014 never a 404. The route must exist and the server must serve it. If the room is not found (deleted/expired), show a proper 'room not found' message, not a generic 404.",
     "tronQuote": "> TRON: \"and the room into a 404. bug. either into the room\u2026. or the room editor.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:fda34dac-6661-4778-b1f1-ddda655ea788"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "f7c80078-9d3d-49af-80c6-5caa6c247b68",
+    "name": "T-detail-browse-line: line info carried through file-browser to Monaco editor",
+    "slug": "detail-browse-line-info-to-monaco",
+    "description": "Line info carried through file-browser to Monaco so editor opens at correct line. Already shipped. Traceability-closure task.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (traceability-closure \u2014 feature already shipped)\n  - [x] creating test cases\n  - [x] implementing (already shipped)\n  - [x] testing (already verified in production)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:80b929af-09cc-43d0-a660-4a25756c9849"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner",
+    "traceabilityClosure": true,
+    "closureNote": "Traceability-closure task: R18.23 feature already shipped and verified. This task unit exists to close the req->task chain gap, not to trigger new development."
+  },
+  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+}

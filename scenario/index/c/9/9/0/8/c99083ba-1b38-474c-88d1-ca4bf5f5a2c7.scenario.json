@@ -6,7 +6,9 @@
     "name": "R19.35: Room scenario unit model holds IOR references to its member units.",
     "description": "The Room scenario unit's model MUST hold IOR references to its members as a members[] array of ior:instance:<memberUuid> refs (same pattern as tasks[], useCases[]). Members become first-class linked scenario units \u2014 traceable and navigable from the Room unit in /trace and the room detail view \u2014 not just runtime WebSocket session data. This makes the member list persistent in the scenario graph, surviving server restarts and enabling traceability walks from Room\u2192Member.",
     "tronQuote": "> TRON: \"the Room model is lacking member IORs \u2014 the model needs to hold IOR references to its members.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:147e2f64-821d-4dd3-b746-d3e2d3177221"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

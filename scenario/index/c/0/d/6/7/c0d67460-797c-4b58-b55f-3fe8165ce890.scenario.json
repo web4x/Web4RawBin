@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "c0d67460-797c-4b58-b55f-3fe8165ce890",
+    "name": "T-room-edit-pen-canonical: edit pen on room item opens canonical scenario unit",
+    "slug": "room-edit-pen-opens-canonical-scenario",
+    "description": "Edit pen on a room item opens the canonical scenario unit editor. Already shipped this session. Traceability-closure task.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (traceability-closure \u2014 feature already shipped)\n  - [x] creating test cases\n  - [x] implementing (already shipped)\n  - [x] testing (already verified in production)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:ca351869-b694-491e-ba0f-8c9e9623c4db"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner",
+    "traceabilityClosure": true,
+    "closureNote": "Traceability-closure task: R19.30 feature already shipped and verified. This task unit exists to close the req->task chain gap, not to trigger new development."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

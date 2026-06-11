@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "147e2f64-821d-4dd3-b746-d3e2d3177221",
+    "name": "T-member-iors: room scenario unit model holds IOR references to its members",
+    "slug": "room-member-ior-references",
+    "description": "Room scenario unit model holds IOR references to its members. Already shipped this session. Traceability-closure task.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (traceability-closure \u2014 feature already shipped)\n  - [x] creating test cases\n  - [x] implementing (already shipped)\n  - [x] testing (already verified in production)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:c99083ba-1b38-474c-88d1-ca4bf5f5a2c7"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner",
+    "traceabilityClosure": true,
+    "closureNote": "Traceability-closure task: R19.35 feature already shipped and verified. This task unit exists to close the req->task chain gap, not to trigger new development."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

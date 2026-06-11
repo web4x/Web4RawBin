@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "3633f829-62ec-4bcc-bb75-5367102f3906",
+    "name": "T-detail-source-link-all: source link on ALL types (UC to .puml, Class/Method/Impl to src)",
+    "slug": "detail-source-link-all-types",
+    "description": "Source link on ALL types \u2014 UseCase to .puml, Class/Method/Impl to source file. Already shipped (08ae00f8 v0.5.106). Traceability-closure task.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (traceability-closure \u2014 feature already shipped)\n  - [x] creating test cases\n  - [x] implementing (already shipped)\n  - [x] testing (already verified in production)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:a8774061-3231-436f-a552-316f7574b4f6"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner",
+    "traceabilityClosure": true,
+    "closureNote": "Traceability-closure task: R18.26 feature already shipped and verified. This task unit exists to close the req->task chain gap, not to trigger new development."
+  },
+  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+}

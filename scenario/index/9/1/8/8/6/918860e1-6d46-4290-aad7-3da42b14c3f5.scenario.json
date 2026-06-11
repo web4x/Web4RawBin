@@ -5,7 +5,8 @@
     "name": "Parent link above the Scenario-view link navigates to the ownerIor parent instance.",
     "altId": "R18.21",
     "tasks": [
-      "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
+      "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea",
+      "ior:instance:d10070a6-9187-4f6d-8fcd-b212ffd44ce7"
     ],
     "tests": [],
     "sourceFile": "ior:file:scenario/index/9/1/8/8/6/918860e1-6d46-4290-aad7-3da42b14c3f5.scenario.json",

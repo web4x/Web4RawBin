@@ -1869,8 +1869,8 @@
     "screenSize": "1920x1200",
     "platform": "MacIntel",
     "firstSeen": "2026-06-01T07:55:54.587Z",
-    "lastSeen": "2026-06-10T23:02:01.914Z",
-    "connectionCount": 156,
+    "lastSeen": "2026-06-10T23:11:31.370Z",
+    "connectionCount": 166,
     "enrolled": true,
     "devicePublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6pBtUGbBfO2uZPNxlgA5\nVS9eONn85D2zpkt40uPGjrHup2lPLib1ctbFxmhGEtkUVsQiKVTdqwgLjOdMvpcZ\n6HrmaHJeYkuOM8VD+gsr2JVPmNXVormT9LJUkD0gjq/GUrCT7MiDP6qbv27UfUvR\nAB1AwhWsR5+Jcs21TkRwtDc04ylGVmgJa37h86rhShVhtG1RSreMxuU1htOs0pQI\nGDAgwexd4rrgb3J0hwNEkHWQw6CF1xB0O1PVYtjpHGsu8fKLAPhP4llsrOPYCLgF\nsm4rvqBt+jX9s//wbiyvlBauSsN/9Lsp2KUwyMNvR/ipkRsd7pPJoY8KX57/nuA2\nGQIDAQAB\n-----END PUBLIC KEY-----\n",
     "enrolledAt": "2026-06-01T07:57:30.225Z"
@@ -2275,8 +2275,8 @@
     "screenSize": "430x932",
     "platform": "iPhone",
     "firstSeen": "2026-06-03T22:22:13.011Z",
-    "lastSeen": "2026-06-10T23:00:21.940Z",
-    "connectionCount": 198,
+    "lastSeen": "2026-06-11T05:57:15.395Z",
+    "connectionCount": 204,
     "enrolled": true,
     "devicePublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAug+jY3F1EJE9fmeMr65T\nI18VL6v8Gq0rDB162he+KZPthMm093F8tGo+8pvC9awScF8Y3u8Y235qCjO3Wkgh\nTTYHq60sCrRoB4V3CW/G16Hw5lMrCDlmbSYT0X32JfzVarzcKDOfP52sQ1EYNmhQ\nkghRClGOgu9c9rKXMEJEOn8+2Ux0gqMdSMMuWqrx22krnQZnEjnZty/czKFQC/60\nSYliNCqYpaVvxAQpmcM2MLpdrGlsMj0GLJKyhhSAdAybaiUa7QWEv3Hzy6LrSWTP\n9uI5PkXdsx5noSBe8TQZ++79dSFsyf7q+lqPQngizdcVcei/B+4+9tohT6TI4RZR\nUQIDAQAB\n-----END PUBLIC KEY-----\n",
     "enrolledAt": "2026-06-03T22:22:36.072Z"
@@ -2611,8 +2611,8 @@
     "screenSize": "1600x900",
     "platform": "MacIntel",
     "firstSeen": "2026-06-09T09:48:13.983Z",
-    "lastSeen": "2026-06-10T23:02:03.068Z",
-    "connectionCount": 81,
+    "lastSeen": "2026-06-10T23:11:33.069Z",
+    "connectionCount": 86,
     "enrolled": true,
     "devicePublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt5ktTFXMVJ3uITsnIHGG\nugWir/5ah9M8azbWgqowoq4ZDy29FX++4FlPaCHO/e8ohHWHQl7siiYgWikTyMbe\ns2XjXbeI8lfbzAe0Q3rY25UXKlMLCLtLPok/OnKEzgiAIpuMjO9Ai/+7g3tJ2gKg\nqgWou7KMzIo4r4XNAPVNf8TTXS0eLBcarsKmSDVWCm0bcx0Z4t0OrnWLRK5r2IUC\nrFAIlPaBRwS5eDiGMhSrEAPxLbimNWfYzKJfyXdqKPIoQ3Xxa+reX7hGaWx3n+Ik\ns1yJ+ZTnvKcJUPhOFTbK1/GNR4ExQPoSu+lq8yvNyuq4p85ntDhDsBHb9vWXBiFF\nZQIDAQAB\n-----END PUBLIC KEY-----\n",
     "enrolledAt": "2026-06-09T09:48:51.206Z"
@@ -2765,8 +2765,8 @@
     "screenSize": "1920x1200",
     "platform": "MacIntel",
     "firstSeen": "2026-06-10T18:58:11.762Z",
-    "lastSeen": "2026-06-10T23:02:02.647Z",
-    "connectionCount": 36,
+    "lastSeen": "2026-06-10T23:11:32.672Z",
+    "connectionCount": 41,
     "enrolled": true,
     "devicePublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArK2GF+ilNuLJzRWLAb3l\n45OwD3Hh6QfEAQiEuWPkIv8vVhlXnck2hYb+GyU/y9e9qmkVYqUeryWa8Og4Vz8b\nKqwAvuAEvb+fjqzYZIfumDV8vZ5CdzpEQbIGnz70YT9Hm8pdKffM+1wXRSHnYk08\n0fHBNz8xqJFh9Sjmb/l4aHaatF2AxdqRanUiCuhj8F+YVo31Dq9ubpgt82mkoX3V\nOazYZTI7T3OHapYUnYCbFO1kbAmaIZ7AWBxkJMEachk8Tns4RYEPGm/qrWvvPjJE\nh9qjaoVngUS4UQ9ivTLjMjEcK/s5afIciCY2Je04J3WgZ4Qw/nr5GZ/tnzbK7jJc\nsQIDAQAB\n-----END PUBLIC KEY-----\n",
     "enrolledAt": "2026-06-10T18:58:27.596Z"
