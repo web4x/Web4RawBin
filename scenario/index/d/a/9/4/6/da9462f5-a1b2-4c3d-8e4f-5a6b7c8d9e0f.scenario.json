@@ -5,7 +5,9 @@
     "name": "RbDetailDrawer.fullWidth CSS",
     "sourceFile": "src/public/app.css",
     "sourceLine": 264,
-    "tests": [],
+    "tests": [
+      "ior:instance:a7e34f12-8b5c-4d9e-a1f2-3c4d5e6f7a89"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:da9462f5-72fd-49df-bedb-72c8b3248fc2"
