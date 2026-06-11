@@ -21,12 +21,12 @@ export function renderContentPreview(uuid: string, mimeType: string, name: strin
   if (mimeType === 'text/html') {
     return `<div class="cv-preview"><iframe src="${contentUrl}" sandbox="allow-same-origin" style="width:100%;height:400px;border:none;border-radius:8px;background:white"></iframe></div>`;
   }
-  if (mimeType.startsWith('text/') || mimeType === 'application/json') {
-    return `<div class="cv-preview cv-text-loading" data-uuid="${uuid}">Loading...</div>`;
-  }
   // [impl:uuid:cde29329-9ede-4c31-9ab8-4a853b1e4280] R19.77 URL file action buttons
   if (mimeType === 'text/uri-list' || name.endsWith('.url') || name.endsWith('.webloc')) {
     return `<div class="cv-preview cv-url-actions" data-uuid="${uuid}" data-token="${token || ''}"><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn cv-url-preview" style="flex:1">Open in preview</button><button class="btn cv-url-newtab" style="flex:1">Open in new tab</button></div><div class="cv-url-frame" style="display:none;margin-top:8px"></div></div>`;
+  }
+  if (mimeType.startsWith('text/') || mimeType === 'application/json') {
+    return `<div class="cv-preview cv-text-loading" data-uuid="${uuid}">Loading...</div>`;
   }
   return `<div class="cv-preview"><a href="${contentUrl}" download="${esc(name)}" class="cv-download">Download ${esc(name)}</a></div>`;
 }
