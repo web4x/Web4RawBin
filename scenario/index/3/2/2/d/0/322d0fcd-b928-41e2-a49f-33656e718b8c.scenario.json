@@ -10,7 +10,9 @@
     "coveredRequirements": [
       "ior:instance:8ba2d9ef-0560-4292-9b56-66552434799d"
     ],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:a696db59-2d7d-4c15-8124-f72e327a40ce"
+    ],
     "subtasks": [],
     "tasks": [],
     "createdAt": "2026-06-11",

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "d22d013a-ccc8-49b4-9106-c41114507808",
+    "name": "RoomView.renderRoomTreeFiles",
+    "description": "Renders file items in the room tree with persistent this.files[] lifecycle — mirrors renderRoomTreeMembers. Items survive re-render, support collapse-to-icon and preview-drawer click.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed"
+}
