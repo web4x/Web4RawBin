@@ -19,10 +19,23 @@ export interface FileUnitInput {
 }
 
 // [impl:uuid:c546c877-9907-4f17-b61a-1157b0902765] FileUnit.upload
-// Create file scenario unit + content sidecar; put() auto-syncs unitLinks symlinks.
+// [impl:uuid:1ae8de15-a1b2-4c3d-8e4f-5a6b7c8d9e0f] R19.51 indexByContentHash
+// Create file scenario unit + content sidecar + content-hash index for O(1) dedup.
 export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): ScenarioUnit {
-  const uuid = input.uuid || crypto.randomUUID();
   const buf = Buffer.isBuffer(input.content) ? input.content : Buffer.from(String(input.content), 'utf-8');
+  const contentHash = crypto.createHash('sha256').update(buf).digest('hex');
+
+  // O(1) dedup: check scenario/content/<hash>.file.scenario.json
+  const contentIndexDir = path.join(idx.scenarioRoot, 'content');
+  const contentIndexPath = path.join(contentIndexDir, `${contentHash}.file.scenario.json`);
+  if (fs.existsSync(contentIndexPath)) {
+    try {
+      const existing = JSON.parse(fs.readFileSync(contentIndexPath, 'utf-8'));
+      if (existing.model?.uuid) return existing;
+    } catch {}
+  }
+
+  const uuid = input.uuid || crypto.randomUUID();
   const indexFilePath = idx.filePath(uuid);
   const indexDir = path.dirname(indexFilePath);
   fs.mkdirSync(indexDir, { recursive: true });
@@ -43,11 +56,17 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): Scenar
       uploadedAt: new Date().toISOString(),
       uploaderToken: input.uploaderToken || '',
       roomUuid: input.roomUuid || '',
+      contentHash,
       unitLinks,
     },
     ownerIor: input.roomUuid ? iorInstance(input.roomUuid) : null,
   });
   idx.put(uuid, unit);
+  // Content-hash index: scenario/content/<hash>.file.scenario.json → canonical unit
+  fs.mkdirSync(contentIndexDir, { recursive: true });
+  const hashTarget = path.relative(contentIndexDir, idx.filePath(uuid));
+  try { fs.unlinkSync(contentIndexPath); } catch {}
+  fs.symlinkSync(hashTarget, contentIndexPath);
   if (input.roomUuid && input.uploaderToken) {
     const dataDir = process.env.DATA_DIR || path.join(path.dirname(idx.scenarioRoot), 'data');
     const roomFilesDir = path.join(dataDir, 'users', input.uploaderToken, 'rooms', input.roomUuid, 'files');
