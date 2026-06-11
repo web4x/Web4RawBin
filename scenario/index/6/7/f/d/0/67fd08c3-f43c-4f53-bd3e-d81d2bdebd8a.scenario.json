@@ -3,10 +3,10 @@
   "model": {
     "uuid": "67fd08c3-f43c-4f53-bd3e-d81d2bdebd8a",
     "name": "RbDetailDrawer.unifiedTraceability",
-    "description": "fullChainThrough(graph, uuid): walk backward (find parent referencing this node) to Requirement root, walk forward (singularChain) to Test leaf. renderTraceabilitySection(): vertical above\u2192SELF\u2192below. Delete 7 copies of renderLinks(), remove 'Champagne Chain' jargon.",
+    "description": "fullChainThrough(graph, uuid): walk backward (find parent referencing this node) to Requirement root, walk forward (singularChain) to Test leaf. renderTraceabilitySection(): vertical above→SELF→below. Delete 7 copies of renderLinks(), remove 'Champagne Chain' jargon.",
     "sourceFile": "ior:file:src/public/ts/trace/singular-chain.ts",
     "implementations": [
-      "ior:instance:19f0d4e0-d1e2-4f3a-8b4c-5d6e7f8a9b0c"
+      "ior:instance:21f689fb-44bc-4285-a73a-551aabfcf009"
     ],
     "tests": []
   },

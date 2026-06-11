@@ -214,7 +214,7 @@ export class RawBinClient {
     return btoa(String.fromCharCode(...new Uint8Array(signature)));
   }
 
-  // [impl:uuid:f1dd0d77-a2b3-4c4d-9e5f-6a7b8c9d0e11] Room.stripSizeLimits R19.23
+  // [impl:uuid:fff13798-5803-4994-9bfc-4bab8cbc37c4] Room.stripSizeLimits R19.23
   createRoom(name: string, memberName: string, roomKey?: string): void {
     this.send({ type: MSG.CREATE_ROOM, roomName: name, playerName: memberName, roomKey, playerToken: this.playerToken });
   }

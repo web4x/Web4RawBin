@@ -17,8 +17,6 @@ invented-suffix	10a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f40	Requirement uuid matches fa
 invented-suffix	14a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
 invented-suffix	14c3d4e5-f6a7-4b81-9c92-0d1e2f3a4b14	Test uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
 invented-suffix	15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	19f0d4e0-d1e2-4f3a-8b4c-5d6e7f8a9b0c	Implementation uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	1ae8de15-a1b2-4c3d-8e4f-5a6b7c8d9e0f	Implementation uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
 invented-suffix	1b2c3d4e-5f6a-4b7c-8d9e-0f1a2b3c4d5e	Method uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
 invented-suffix	1f2a3b4c-5d6e-4f7a-8b9c-0d1e2f3a4b5c	Method uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
 invented-suffix	20b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a51	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
@@ -34,6 +32,7 @@ invented-suffix	4c5d6e7f-8a9b-4c0d-1e2f-3a4b5c6d7e8f	UseCase uuid matches fabric
 invented-suffix	4e5f6a7b-8c9d-4e0f-1a2b-3c4d5e6f7a8b	UseCase uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
 invented-suffix	55e5f6a7-b8c9-4d04-8ab5-3f4a5b6c7d05	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
 invented-suffix	5d6e7f8a-9b0c-4d1e-2f3a-4b5c6d7e8f9a	Method uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	5f499ce4-c3d4-422a-8af5-209efa957f14	Implementation uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
 invented-suffix	5f6a7b8c-9d0e-4f1a-2b3c-4d5e6f7a8b9c	Method uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
 invented-suffix	65f6a7b8-c9d0-4e15-9bc6-4a5b6c7d8e06	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
 invented-suffix	6a7b8c9d-0e1f-4a2b-3c4d-5e6f7a8b9c0d	UseCase uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
@@ -63,12 +62,5 @@ invented-suffix	c9f56d34-7a8b-4e1f-b2c3-4d5e6f7a8b90	Test uuid matches fabricate
 invented-suffix	d8fe90a1-a1b2-4c34-5d6e-7f8a9b010045	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
 invented-suffix	e9a0f1b2-b2c3-4d45-6e7f-8a9b0c120046	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
 invented-suffix	f1a2b3c4-d5e6-4f7a-8b9c-0d1e2f3a4b5c	Implementation uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	f1dd0d77-a2b3-4c4d-9e5f-6a7b8c9d0e11	Implementation uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
 invented-suffix	f4ba5cb6-c7d8-4e90-1f2a-3b4c5d670041	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	f56b488f-a1b2-4c3d-8e4f-5a6b7c8d9e0f	Implementation uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
 invented-suffix	f85a96b0-c1d2-4e34-5f6a-7b8c9d010035	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-prefix-collision	19f0d4e0	Method:19f0d4e0-80f7-4792-9a46-d536bc5f7b7b | Implementation:19f0d4e0-d1e2-4f3a-8b4c-5d6e7f8a9b0c
-prefix-collision	1ae8de15	Method:1ae8de15-6cb2-4fe3-a78f-f25c40e57bbb | Implementation:1ae8de15-a1b2-4c3d-8e4f-5a6b7c8d9e0f
-prefix-collision	ae090710	Task:ae090710-3fee-4dc6-8dd1-d5b8501483eb | Implementation:ae090710-5c3a-4e8b-b217-9f3d7c1a5e40
-prefix-collision	f1dd0d77	Implementation:f1dd0d77-a2b3-4c4d-9e5f-6a7b8c9d0e11 | Method:f1dd0d77-edaf-4d15-b1e6-f6b0ba33867b
-prefix-collision	f56b488f	Method:f56b488f-36e8-41f6-b30a-f57d6a870751 | Implementation:f56b488f-a1b2-4c3d-8e4f-5a6b7c8d9e0f

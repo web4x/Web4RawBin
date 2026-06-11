@@ -30,6 +30,7 @@ Repo: /Users/Shared/Workspaces/2cuGitHub/Web4RawBin. Run from repo root (or cd t
 | updateMatrixRow | `<reqUuid:string>` `<matrixPath:string>` | Update one requirement's row in the traceability matrix |
 | lintMarkers | — | Lint chain markers: invented-suffix uuids, prefix collisions, shared Impls, orphan markers (catch BEFORE a re-measure) |
 | snapshotComplete | `<?dir:string>` | Write a dated COMPLETE-set snapshot and name exactly which chains flipped vs the previous snapshot |
+| renameUuid | `<oldUuid:string>` `<?newUuid:string>` | Rename a uuid VERBATIM everywhere: unit file, all referencing units, source/test markers (HARD-RULE-safe) |
 
 ## Rules
 

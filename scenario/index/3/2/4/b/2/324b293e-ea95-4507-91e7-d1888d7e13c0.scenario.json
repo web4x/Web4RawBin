@@ -6,10 +6,10 @@
     "description": "Bridged to test/vitest/room.test.ts covering RoomView.ts",
     "sourceFile": "ior:file:test/vitest/room.test.ts",
     "implementations": [
-      "ior:instance:ae090710-5c3a-4e8b-b217-9f3d7c1a5e40"
+      "ior:instance:62f77af0-c12f-41dc-9ec8-c9a421bbf659"
     ],
     "status": "pass",
     "unitLinks": []
   },
-  "ownerIor": "ior:instance:ae090710-5c3a-4e8b-b217-9f3d7c1a5e40"
+  "ownerIor": "ior:instance:62f77af0-c12f-41dc-9ec8-c9a421bbf659"
 }

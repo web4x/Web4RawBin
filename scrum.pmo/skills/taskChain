@@ -51,6 +51,11 @@ taskChain.chain.snapshotComplete() # <?dir> # Write a dated COMPLETE-set snapsho
 { private.taskChain.dispatch Chain snapshotComplete "$@"; }
 taskChain.chain.snapshotComplete.completion.dir() { private.taskChain.dispatch Chain completion snapshotComplete dir; }
 
+taskChain.chain.renameUuid() # <oldUuid> <?newUuid> # Rename a uuid VERBATIM everywhere: unit file, all referencing units, source/test markers (HARD-RULE-safe)
+{ private.taskChain.dispatch Chain renameUuid "$@"; }
+taskChain.chain.renameUuid.completion.oldUuid() { private.taskChain.dispatch Chain completion renameUuid oldUuid; }
+taskChain.chain.renameUuid.completion.newUuid() { private.taskChain.dispatch Chain completion renameUuid newUuid; }
+
 taskChain.velocity.compute() # <since> <?sprint> # Chain completion + git throughput for a window (numerator = canonical Chain.followUp)
 { private.taskChain.dispatch Velocity compute "$@"; }
 taskChain.velocity.compute.completion.since() { private.taskChain.dispatch Velocity completion compute since; }

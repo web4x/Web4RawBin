@@ -1,7 +1,7 @@
 {
   "ior": "ior:class:Implementation",
   "model": {
-    "uuid": "19f0d4e0-d1e2-4f3a-8b4c-5d6e7f8a9b0c",
+    "uuid": "21f689fb-44bc-4285-a73a-551aabfcf009",
     "name": "RbDetailDrawer.narrowChain",
     "sourceFile": "src/public/ts/trace/singular-chain.ts",
     "sourceLine": 6,

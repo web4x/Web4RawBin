@@ -1,7 +1,7 @@
 {
   "ior": "ior:class:Implementation",
   "model": {
-    "uuid": "1ae8de15-a1b2-4c3d-8e4f-5a6b7c8d9e0f",
+    "uuid": "5fdcefe4-5404-4e0a-86d4-7979ec1a425c",
     "name": "// R19.51 indexByContentHash",
     "sourceFile": "src/ts/scenario/file-unit.ts",
     "sourceLine": 22,

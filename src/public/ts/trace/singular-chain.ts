@@ -3,7 +3,7 @@
  * Walks the champagne path: Req→UC[0]→Class→Method→Impl[0]→Test[0]
  * Returns ordered array of {uuid, type, name, ref} steps.
  *
- * [impl:uuid:19f0d4e0-d1e2-4f3a-8b4c-5d6e7f8a9b0c] RbDetailDrawer.narrowChain
+ * [impl:uuid:21f689fb-44bc-4285-a73a-551aabfcf009] RbDetailDrawer.narrowChain
  */
 import { TraceGraph, refUuid, type TraceObject } from '../../../ts/shared/TraceModel.js';
 

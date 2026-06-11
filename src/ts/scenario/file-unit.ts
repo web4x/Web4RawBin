@@ -19,7 +19,7 @@ export interface FileUnitInput {
 }
 
 // [impl:uuid:c546c877-9907-4f17-b61a-1157b0902765] FileUnit.upload
-// [impl:uuid:1ae8de15-a1b2-4c3d-8e4f-5a6b7c8d9e0f] R19.51 indexByContentHash
+// [impl:uuid:5fdcefe4-5404-4e0a-86d4-7979ec1a425c] R19.51 indexByContentHash
 export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): ScenarioUnit {
   const buf = Buffer.isBuffer(input.content) ? input.content : Buffer.from(String(input.content), 'utf-8');
   const contentHash = crypto.createHash('sha256').update(buf).digest('hex');

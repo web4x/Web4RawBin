@@ -227,7 +227,7 @@ export class RoomView {
     popup.show(url, `Join ${this.roomName}`);
   }
 
-  // [impl:uuid:ae090710-5c3a-4e8b-b217-9f3d7c1a5e40] T-room-ui-shared R19.21
+  // [impl:uuid:62f77af0-c12f-41dc-9ec8-c9a421bbf659] T-room-ui-shared R19.21
   private renderRoomTreeMembers(): void {
     const parentItem = document.querySelector('#rrc-members-node rb-object-item');
     if (parentItem) { parentItem.setAttribute('description', `${this.members.length} member${this.members.length !== 1 ? 's' : ''}`); parentItem.setAttribute('child-count', String(this.members.length)); }

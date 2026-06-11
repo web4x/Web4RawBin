@@ -6,10 +6,10 @@
     "description": "Bridged to test/vitest/server.test.ts covering RawBinClient.ts",
     "sourceFile": "ior:file:test/vitest/server.test.ts",
     "implementations": [
-      "ior:instance:f1dd0d77-a2b3-4c4d-9e5f-6a7b8c9d0e11"
+      "ior:instance:fff13798-5803-4994-9bfc-4bab8cbc37c4"
     ],
     "status": "pass",
     "unitLinks": []
   },
-  "ownerIor": "ior:instance:f1dd0d77-a2b3-4c4d-9e5f-6a7b8c9d0e11"
+  "ownerIor": "ior:instance:fff13798-5803-4994-9bfc-4bab8cbc37c4"
 }

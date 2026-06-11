@@ -482,6 +482,41 @@ export class Chain {
     return out.join('\n');
   }
 
+  /** Rename a uuid VERBATIM everywhere: unit file, all referencing units, source/test markers (HARD-RULE-safe) */
+  renameUuid(oldUuid: string, newUuid?: string): RenameResult {
+    const resolved = this.resolvePrefix(oldUuid);
+    if (!resolved) return { old: oldUuid, new: '', unitsRewritten: 0, filesRewritten: 0, error: 'old uuid not found' };
+    const fresh = newUuid || crypto.randomUUID();
+    if (this.idx.has(fresh)) return { old: resolved, new: fresh, unitsRewritten: 0, filesRewritten: 0, error: 'new uuid already exists' };
+    // 1) move the unit itself
+    const unit = this.idx.get(resolved)!;
+    const json = JSON.stringify(unit).split(resolved).join(fresh);
+    this.idx.put(fresh, JSON.parse(json));
+    this.idx.remove(resolved);
+    // 2) rewrite every referencing unit (verbatim full-uuid replace)
+    let unitsRewritten = 0;
+    for (const u of this.idx.list()) {
+      if (u === fresh) continue;
+      const other = this.idx.get(u);
+      if (!other) continue;
+      const raw = JSON.stringify(other);
+      if (!raw.includes(resolved)) continue;
+      this.idx.put(u, JSON.parse(raw.split(resolved).join(fresh)));
+      unitsRewritten++;
+    }
+    // 3) rewrite source + test markers
+    let filesRewritten = 0;
+    for (const dir of [this.srcDir, this.testDir]) {
+      for (const f of this.walkFiles(dir)) {
+        const text = fs.readFileSync(f, 'utf-8');
+        if (!text.includes(resolved)) continue;
+        fs.writeFileSync(f, text.split(resolved).join(fresh));
+        filesRewritten++;
+      }
+    }
+    return { old: resolved, new: fresh, unitsRewritten, filesRewritten };
+  }
+
   /** Tab-completion candidates for a verb's parameter (OOSH c2 contract) */
   complete(verb: string, param: string): string[] {
     if (param === 'sprint') {
@@ -607,6 +642,8 @@ export interface ChainRow {
 export interface FollowUpResult { rows: ChainRow[]; complete: number; total: number; excluded: number; }
 
 export interface LintFinding { kind: string; uuid: string; detail: string; }
+
+export interface RenameResult { old: string; new: string; unitsRewritten: number; filesRewritten: number; error?: string; }
 
 export interface CompleteEntry {
   chain: string; reqUuid: string; name: string; method: string; impl: string; test: string;

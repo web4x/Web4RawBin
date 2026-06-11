@@ -1,7 +1,7 @@
 {
   "ior": "ior:class:Implementation",
   "model": {
-    "uuid": "f56b488f-a1b2-4c3d-8e4f-5a6b7c8d9e0f",
+    "uuid": "b83c2639-7c94-429e-8a98-eb5ec3d7f5d0",
     "name": "// R19.61 six missing templates",
     "sourceFile": "src/ts/scenario/templates.ts",
     "sourceLine": 264,
