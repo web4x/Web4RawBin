@@ -21,3 +21,12 @@
 
 ## Quality note (NOT a seal blocker)
 The 14 on-chain methods lack their OWN dedicated test (per-method test depth). The REQUIREMENT-completion metric (the 165 denominator, chain def = one row per Requirement, complete when it reaches a real test) is satisfied. IF the team later adopts a stricter per-method-tested standard (learning #27 7-hop per-method), those 14 become a follow-on test-depth task — but that is a NEW stricter bar, not a flaw in the current 165 seal.
+
+---
+## QUALITY FOLLOW-UP (logged per PO 2026-06-11 — NOT blocking the 165 seal)
+**Title:** Own-test-per-method (champagne depth) for 14 on-chain methods lacking a dedicated test.
+**Status:** backlog / quality — accepted by PO as a NEW stricter bar, not a 165 flaw.
+**Scope:** these 14 methods are on counted Requirement chains but their requirement completes via a tested SIBLING method; the method itself has no dedicated test (Impl.tests[] empty, no source [test:uuid:]):
+TraceConsistency.scanRepo, TraceConsistency.validate, TraceConsistency.auditOrphans, ClassRegistry.register, ClassRegistry.get, SpeakingTree.generateMd, ScenarioIndex.get, ScenarioIndex.prefix, ScenarioIndex.put, ScenarioUnit.load, RbTaskDetail.render, RbTraceTree.renderSeed, RbRequirementDetail.render (+1 dup).
+**Acceptance (when adopted):** each gets a dedicated [test:uuid:] + Impl.tests[] wire → per-method 7-hop depth (learning #27 strict-verify-bar). Owner: tester (after the team opts into the stricter bar).
+**The 16 off-chain empty-test impls** are orphan helpers — separate housekeeping (delete or wire to a req if they should be on-chain).
