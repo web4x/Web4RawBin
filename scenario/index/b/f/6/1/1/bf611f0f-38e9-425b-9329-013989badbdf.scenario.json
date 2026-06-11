@@ -10,31 +10,31 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781195821888,
+    "createdAt": 1781197918124,
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2MMkPiYlKaSqvfOI8E+Z\ndKPP/xPw8/md+YkCuwKrvunalXhqkQHVwq91w26edWUOn/QNyZfTMqxn0jpnuer/\nt81+qvKw2NMdSbw+zLXExYEnU80H5DoNGLzNywFS4lwZJWnSuIbU3jYjNE2FsKdN\n4SNqb7IA98xaWFQiRHwxEJq0hMFyDOewxUBYAi7NKpUK7QJAy7PCik+SCcjBS+za\namdiDwKhRYol1yjhoFXT0DUTB8Lu7WmaqE66D5dg1OferpnadKFOBoiY2ac2Aflc\nOOMWC4xKza+aw0p3Nu1fS1ZD6gmx+dW2bV7J7sG51AUq+8tkf1tbJ56vdHvVBgpy\nBwIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [],
     "members": [
       {
         "ior": "ior:instance:test-takeover-1781195402968",
-        "name": "TakeoverUser",
+        "name": "",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781195821888
+        "joinedAt": 1781197918124
       },
       {
         "ior": "ior:instance:test-other-1781195403105",
         "name": "OtherUser",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781195821888
+        "joinedAt": 1781197918124
       },
       {
         "ior": "ior:instance:test-takeover-1781195402968",
         "name": "",
         "role": "owner",
         "status": "online",
-        "joinedAt": 1781195821888
+        "joinedAt": 1781197918124
       }
     ],
     "files": [],

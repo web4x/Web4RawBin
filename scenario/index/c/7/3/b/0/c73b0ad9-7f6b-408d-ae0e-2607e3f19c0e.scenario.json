@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c73b0ad9-7f6b-408d-ae0e-2607e3f19c0e",
+    "name": "test:R19.86 dismissThreshold",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:79601135-70ea-48d9-a566-b4b53a96dfc8"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:79601135-70ea-48d9-a566-b4b53a96dfc8"
+}

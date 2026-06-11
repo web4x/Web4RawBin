@@ -5,7 +5,9 @@
     "name": "RoomView.openFilePreview",
     "description": "Opens ContentPreviewer drawer for a file item by UUID. Must handle all file types including url/webitem (not just type=file).",
     "implementations": [],
-    "tests": []
+    "tests": [
+      "ior:instance:c73b0ad9-7f6b-408d-ae0e-2607e3f19c0e"
+    ]
   },
   "ownerIor": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed"
 }
