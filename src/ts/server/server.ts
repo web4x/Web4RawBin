@@ -1506,9 +1506,13 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       // Send existing files to the joiner
       try {
         const ownerToken = room.creatorToken;
+        addLog(`[files] ownerToken=${ownerToken} roomId=${room.id}`);
         if (ownerToken) {
           const filesDir = path.join(DATA_DIR, 'users', ownerToken, 'rooms', room.id, 'files');
+          addLog(`[files] filesDir=${filesDir} exists=${fs.existsSync(filesDir)}`);
           if (fs.existsSync(filesDir)) {
+            const entries = fs.readdirSync(filesDir);
+            addLog(`[files] entries=${JSON.stringify(entries)}`);
             for (const f of fs.readdirSync(filesDir)) {
               if (!f.endsWith('.scenario.json')) continue;
               const fileUuid = f.replace('.scenario.json', '');

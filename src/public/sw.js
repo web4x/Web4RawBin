@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rawbin-v0.5.172';
+const CACHE_NAME = 'rawbin-v0.5.173';
 
 const STATIC_SHELL = [
   '/app',
@@ -18,9 +18,15 @@ const OFFLINE_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta nam
 <title>RawBin — Offline</title>
 <style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;color:white;text-align:center;padding:20px}
 .offline{max-width:400px}.offline h1{font-size:2rem;margin-bottom:16px}.offline p{opacity:0.7;margin-bottom:24px}
-.retry{padding:12px 32px;background:white;color:#667eea;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer}</style>
+.retry{padding:12px 32px;background:white;color:#667eea;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer}
+.flush{padding:12px 32px;background:#e53935;color:white;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:12px}</style>
 </head><body><div class="offline"><h1>You're Offline</h1><p>RawBin needs a network connection. Check your internet and try again.</p>
-<button class="retry" onclick="location.reload()">Retry</button></div></body></html>`;
+<button class="retry" onclick="location.reload()">Retry</button>
+<button class="flush" onclick="flushCache()">Flush Cache</button></div>
+<script>
+// [impl:uuid:fd5059c5-89be-42b4-a5cd-f38ab61c42d6] ServiceWorker.flushAndReload
+async function flushCache(){const keys=await caches.keys();await Promise.all(keys.map(k=>caches.delete(k)));const regs=await navigator.serviceWorker.getRegistrations();await Promise.all(regs.map(r=>r.unregister()));await navigator.serviceWorker.register('/sw.js');location.reload();}
+</script></body></html>`;
 
 self.addEventListener('message', (event) => {
   if (event.data === 'SKIP_WAITING') {
