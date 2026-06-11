@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "9e8b678b-c522-4929-90c3-d710c4893b6a",
+    "altId": "R19.42",
+    "name": "R19.42: Drop-zone has clear onDragEnter/onDragExit visual handlers.",
+    "description": "The room drop-zone MUST have clear visual feedback on drag interaction: onDragEnter highlights the drop-zone (border glow, background color change, or overlay) indicating a valid drop target; onDragLeave/onDragExit clears the highlight back to default state. The visual state transitions must be clean — no stuck highlights after exit, no flicker on child-element boundary crossing (use dragenter/dragleave counter or pointer tracking).",
+    "tronQuote": "> TRON: \"the in room drop zone ux has to be improved… clear onDropEnter / exit handlers.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:61c2661a-fb8a-489a-9d5d-abc4e819cf5d"
+    ],
+    "crossRefNote": "R19.11 (drop-zone area) defines the drop target element. R19.42 adds the visual enter/exit feedback handlers on it."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

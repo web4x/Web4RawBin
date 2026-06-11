@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "3bfb242c-8de5-4f1d-be49-9ccee674144c",
+    "name": "dropZone.feedbackCycle",
+    "description": "Full drop UX cycle: dragenter\u2192highlight (rrc-drop-active), dragleave\u2192unhighlight, drop\u2192show upload statusbar (progress %), POST completes\u2192success system Message (RawBin owner, via R19.39) or failure system Message. Reuses DropDispatcher + Message.createMessageUnit.",
+    "class": "ior:instance:3fca4816-cc22-45ea-aa59-d7b23ac19d8d",
+    "method": "ior:instance:481b1a1c-7db0-4c34-b189-4e16a37ad05b",
+    "classes": [
+      "ior:instance:3fca4816-cc22-45ea-aa59-d7b23ac19d8d"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
