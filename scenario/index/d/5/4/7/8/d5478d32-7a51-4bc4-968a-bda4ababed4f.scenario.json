@@ -5,10 +5,10 @@
     "name": "test:R17.24 vcardUpload",
     "sourceFile": "ior:file:test/vitest/server.test.ts",
     "implementations": [
-      "ior:instance:36a7cc6f-2178-4cee-8c4b-5206fae0ffd1"
+      "ior:instance:3cc5c375-5e1b-4427-aa5a-d3518c5b5c35"
     ],
     "status": "pass",
     "unitLinks": []
   },
-  "ownerIor": "ior:instance:36a7cc6f-2178-4cee-8c4b-5206fae0ffd1"
+  "ownerIor": "ior:instance:3cc5c375-5e1b-4427-aa5a-d3518c5b5c35"
 }
