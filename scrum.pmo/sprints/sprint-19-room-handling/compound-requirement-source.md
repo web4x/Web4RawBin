@@ -232,3 +232,7 @@
   > TRON (PRIORITY): "prioritize making the image and html/href preview work IN THE ROOM."
 - **R19.74** (2026-06-11): text/html file preview RENDERS in sandboxed iframe (displayed HTML page), NOT as raw <pre> source. Refines R19.64.
   > TRON: html preview must RENDER, not show source.
+
+### Preview auth token passthrough (R19.75)
+- **R19.75** (2026-06-11): ContentPreviewer must pass auth token in content URL so room members can preview. Currently iframe gets 'Forbidden: token required' because R19.68 auth gate rejects unauthenticated content requests. Interaction bug R19.68 × R19.64/74.
+  > TRON (screenshot): in-room HTML preview iframe shows 'Forbidden: token required'.
