@@ -276,3 +276,7 @@
 ### iOS preview drawer bug (R19.87)
 - **R19.87** (2026-06-11): iOS-specific — only vcard opens preview drawer; image/html/url do NOT. Desktop works. Likely iOS Safari touch event delegation issue.
   > TRON: "on desktop the url drawer works, but especially on iphone it does not — only for the vcard. all others dont open the drawer."
+
+### rb-object-item partial-init bug (R19.88)
+- **R19.88** (2026-06-11): some items miss ALL interactivity (cursor + collapse + drawer) — partial initialization. Timing-sensitive, mac vs iOS differs. Every item must fully init deterministically.
+  > TRON: "on desktop hover shows hand/finger cursor on working files; some items with no visible reason do NOT — and those also do not compact to icon or open the drawer. some kind of initialisation issue on the item. slightly differs mac browser vs ios."
