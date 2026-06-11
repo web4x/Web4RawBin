@@ -38,6 +38,7 @@ function makeMember(overrides: Partial<RoomMember> = {}): RoomMember {
 
 // ── TC-3.3.1: Create Room ────────────────────────────────────────────────────
 
+// [test:uuid:47971f31-dfa6-40d5-813d-b57cb9b06338] test:Room.init
 describe('TC-3.3.1: Create room → verify RoomInfo', () => {
 
   it('creates a room with correct defaults', () => {
@@ -75,6 +76,7 @@ describe('TC-3.3.1: Create room → verify RoomInfo', () => {
 
 // ── TC-3.3.2: Add/Remove Member ──────────────────────────────────────────────
 
+// [test:uuid:da3d0186-d8d5-4629-9c18-62026ac7dce8] test:Room.memberAdd
 describe('TC-3.3.2: Add/remove member → verify member count', () => {
 
   it('adds a member and increments count', () => {
@@ -402,6 +404,7 @@ describe('S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)',
     expect(disconnectMsg).toBeDefined();
   });
 
+  // [test:uuid:c6dfbaa6-30b9-40be-82aa-54628e547632] test:Room.retainOrPrune
   it('T-persistent-retention: removeMember still prunes in live rooms', () => {
     const creator = makeMember({ id: 'host' });
     const r = new Room('LiveRoom', creator, { mode: 'live' });
