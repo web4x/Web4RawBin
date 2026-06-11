@@ -449,8 +449,8 @@ describe('TC-40.1: Header creation', () => {
 
 describe('TC-41.6: Existing dialogs share overlay pattern', () => {
   const { readFileSync, existsSync } = require('node:fs');
-  const path = require('node:path');
-  const PROJECT_ROOT = path.resolve(__dirname, '../../');
+  const nodePath = require("node:path");
+  const PROJECT_ROOT = nodePath.resolve(__dirname, '../../');
 
   const dialogs = [
     { name: 'ProfileEditor', file: 'src/public/ts/ProfileEditor.ts' },
@@ -885,8 +885,8 @@ describe('TC-43.5: rb-member-list — setMembers renders correct count', () => {
 
 describe('TC-44.1: Server pages include rb-update-banner', () => {
   const { readFileSync } = require('node:fs');
-  const path = require('node:path');
-  const PROJECT_ROOT = path.resolve(__dirname, '../../');
+  const nodePath = require("node:path");
+  const PROJECT_ROOT = nodePath.resolve(__dirname, '../../');
   const serverTs = readFileSync(path.join(PROJECT_ROOT, 'src/ts/server/server.ts'), 'utf-8');
 
   it('server.ts has rb-update-banner tag in shared page shell', () => {
@@ -904,8 +904,8 @@ describe('TC-44.1: Server pages include rb-update-banner', () => {
 
 describe('TC-44.2: Server pages use app.css', () => {
   const { readFileSync } = require('node:fs');
-  const path = require('node:path');
-  const PROJECT_ROOT = path.resolve(__dirname, '../../');
+  const nodePath = require("node:path");
+  const PROJECT_ROOT = nodePath.resolve(__dirname, '../../');
   const serverTs = readFileSync(path.join(PROJECT_ROOT, 'src/ts/server/server.ts'), 'utf-8');
 
   it('/docs pages use shared CSS (MD_CSS variable or app.css link)', () => {
@@ -1066,8 +1066,8 @@ describe('TC-45.3: rb-qr-popup — close button', () => {
 
 describe('TC-44.3: Lobby header safe-area not killed', () => {
   const { readFileSync } = require('node:fs');
-  const path = require('node:path');
-  const PROJECT_ROOT = path.resolve(__dirname, '../../');
+  const nodePath = require("node:path");
+  const PROJECT_ROOT = nodePath.resolve(__dirname, '../../');
   const css = readFileSync(path.join(PROJECT_ROOT, 'src/public/app.css'), 'utf-8');
 
   it('rb-header base rule (not scoped) has safe-area-inset-top padding', () => {
@@ -1769,4 +1769,33 @@ describe('TC-PDCA.6: Crop attribute passed from all creation points', () => {
       expect(passesCrop).toBe(true);
     });
   }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// S19: Room editor + Apply flow (code-presence verification)
+// ═══════════════════════════════════════════════════════════════════════════
+
+// [test:uuid:5b79cc8e-e44c-4cbb-ab54-9d9d06ab596b] test:RbRoomDetail.editOpen
+describe('R19.2: editOpen — room name click opens editor', () => {
+  it('RoomView.ts contains the editOpen impl marker and click handler', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/RoomView.ts'), 'utf-8');
+    expect(src).toContain('[impl:uuid:f9b579c1-7495-4f93-8dec-736a0410a69a]');
+    expect(src).toContain('editOpen');
+  });
+});
+
+// [test:uuid:2420ff7d-e672-41ea-82e8-913105c75ace] test:JoinRequestFlow.applySend
+describe('R19.5: applySend — BY-INVITE Apply button sends invite request', () => {
+  it('RoomBrowser.ts contains the applySend impl marker and Apply button', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/RoomBrowser.ts'), 'utf-8');
+    expect(src).toContain('[impl:uuid:5a397d5d-3d97-4152-8a7b-14caca1398ca]');
+    expect(src).toContain('btn-apply');
+    expect(src).toContain('Apply');
+  });
 });
