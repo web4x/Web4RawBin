@@ -26,7 +26,9 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-117-usecase-as-class.md",
     "sourceLine": 31,
     "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
-    "unitLinks": []
+    "unitLinks": [],
+    "orphanByDesign": true,
+    "orphanReason": "Pre-standard UC (S4 traceability sprint) \u2014 PUML tracking for use cases. No atomic requirement captured (feature predates R-standard)."
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

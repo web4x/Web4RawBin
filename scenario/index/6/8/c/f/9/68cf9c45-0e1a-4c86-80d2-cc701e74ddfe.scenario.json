@@ -19,7 +19,9 @@
       "ior": "ior:file:scenario/index/6/8/c/f/9/68cf9c45-0e1a-4c86-80d2-cc701e74ddfe.scenario.json?commit=6394960d"
     },
     "parent": "ior:instance:6461b45e-3b73-4023-bc66-f753662ff798",
-    "unitLinks": []
+    "unitLinks": [],
+    "orphanByDesign": true,
+    "orphanReason": "Pre-standard UC (S7 markdown sprint) \u2014 markdown list preview rendering. No atomic requirement captured (feature predates R-standard)."
   },
   "ownerIor": "ior:instance:6461b45e-3b73-4023-bc66-f753662ff798"
 }
