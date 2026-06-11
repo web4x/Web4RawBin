@@ -485,21 +485,21 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (req.method === 'GET' && filepath.match(/^\/api\/room\/file\/[^/]+\/content$/)) {
       const fileUuid = filepath.split('/')[4];
       try {
-        // F1 auth: verify the file belongs to a room the requester can access
+        // F1 auth: fail CLOSED — require valid token + room membership
         const authToken = urlParams.get('token') || '';
+        if (!authToken) { res.writeHead(403); res.end('Forbidden: token required'); return; }
         const fileRoomUuid = (() => {
           const scenarioDir2 = path.join(__dirname, '../../../scenario/index');
           const idx2 = new ScenarioIndex(scenarioDir2);
           const fu = idx2.get(fileUuid);
           return fu ? String((fu.model as any).roomUuid || '') : '';
         })();
-        if (fileRoomUuid) {
-          const room = roomManager.getRoom(fileRoomUuid);
-          if (room && authToken && !room.members.has(authToken) && room.creatorToken !== authToken) {
-            const isMember = [...room.members.values()].some(m => m.playerToken === authToken);
-            if (!isMember) { res.writeHead(403); res.end('Forbidden'); return; }
-          }
-        }
+        if (!fileRoomUuid) { res.writeHead(403); res.end('Forbidden: file has no room'); return; }
+        const authRoom = roomManager.getRoom(fileRoomUuid);
+        if (!authRoom) { res.writeHead(403); res.end('Forbidden: room not found'); return; }
+        const isCreator = authRoom.creatorToken === authToken;
+        const isMember = [...authRoom.members.values()].some(m => m.playerToken === authToken);
+        if (!isCreator && !isMember) { res.writeHead(403); res.end('Forbidden'); return; }
         const scenarioDir = path.join(__dirname, '../../../scenario/index');
         const idx = new ScenarioIndex(scenarioDir);
         const { readFileUnitContent } = await import('../scenario/file-unit.js');
