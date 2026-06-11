@@ -174,3 +174,7 @@
 ### Drawer back-button regression (R19.57)
 - **R19.57** (2026-06-11): full-width drawer (R19.52) hides back button. Back (←) MUST stay visible+clickable above drawer. z-index or layout fix.
   > TRON: "drawer is now full width but back button hidden underneath."
+
+### DetailView consistency — traceability section consolidation (R19.58)
+- **R19.58** (2026-06-11): ALL 7 type DetailViews show ONE consistent 'Traceability' section with the REAL singular chain (req→uc→class→method→impl→test). Label = 'Traceability' (NOT 'Champagne Chain'). Current state: first 2 types show wrong flat-methods list; second 2 show correct content under wrong label. Consolidate all types to same template + correct content + user-understandable label.
+  > TRON: "the detail views became very inconsistent. the first 2 still have traceability and all children — good, but the traceability is wrong, its all methods and both are the same. all children is correct, traceability not. in the second 2 we see champagne chain — wtf, how shall a user know what that is — but THAT is the correct traceability. review and consolidate that across all types."
