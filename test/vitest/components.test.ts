@@ -2029,6 +2029,95 @@ describe('R19.84: handle drag resizes drawer to 95vh, close below 120px', () => 
 // [test:uuid:43b76bc3-4bf4-4b2a-bc16-af73b4aa82ee] R19.89 removeLocalIdentity
 // ═══════════════════════════════════════════════════════════════════════════
 
+// ═══════════════════════════════════════════════════════════════════════════
+// R19.90: diff-render preserves existing items, appends new, removes departed
+// [test:uuid:837fe19f-fcff-45df-b711-973f00f746f4] R19.90 diffRenderItems
+// Honest: jsdom guards diff-logic; Tron device (mac+iOS) = seal.
+// ═══════════════════════════════════════════════════════════════════════════
+
+describe('R19.90: diffRenderItems preserves existing nodes', () => {
+  it('existing item node is PRESERVED on re-render (same ref)', () => {
+    const container = document.createElement('div');
+    const node1 = document.createElement('div'); node1.className = 'tt-node';
+    const row1 = document.createElement('div'); row1.className = 'tt-row';
+    const item1 = document.createElement('rb-object-item');
+    item1.setAttribute('ref', 'file:abc');
+    item1.setAttribute('type', 'file');
+    item1.setAttribute('name', 'old-name');
+    row1.appendChild(item1); node1.appendChild(row1); container.appendChild(node1);
+
+    const origNode = container.querySelector('.tt-node');
+    const origItem = container.querySelector('rb-object-item');
+
+    // Simulate diffRenderItems: same ref, updated attrs
+    const existing = new Map();
+    container.querySelectorAll(':scope > .tt-node').forEach(n => {
+      const it = n.querySelector('rb-object-item');
+      const ref = it?.getAttribute('ref') || '';
+      if (ref) existing.set(ref, n);
+    });
+    const items = [{ ref: 'file:abc', attrs: { type: 'file', name: 'new-name', description: 'updated' } }];
+    const wanted = new Set(items.map(i => i.ref));
+    for (const [ref, node] of existing) { if (!wanted.has(ref)) node.remove(); }
+    for (const { ref, attrs } of items) {
+      const ex = existing.get(ref);
+      if (ex) {
+        const it = ex.querySelector('rb-object-item');
+        for (const [k, v] of Object.entries(attrs)) it.setAttribute(k, v);
+      }
+    }
+
+    expect(container.querySelector('.tt-node')).toBe(origNode);
+    expect(container.querySelector('rb-object-item')).toBe(origItem);
+    expect(container.querySelector('rb-object-item')?.getAttribute('name')).toBe('new-name');
+  });
+
+  it('new item is APPENDED, departed is REMOVED', () => {
+    const container = document.createElement('div');
+    // Start with item A
+    const n1 = document.createElement('div'); n1.className = 'tt-node';
+    const r1 = document.createElement('div'); r1.className = 'tt-row';
+    const i1 = document.createElement('rb-object-item');
+    i1.setAttribute('ref', 'file:a'); i1.setAttribute('type', 'file');
+    r1.appendChild(i1); n1.appendChild(r1); container.appendChild(n1);
+
+    // Diff-render with item B only (A departed, B new)
+    const existing = new Map();
+    container.querySelectorAll(':scope > .tt-node').forEach(n => {
+      const it = n.querySelector('rb-object-item');
+      existing.set(it?.getAttribute('ref') || '', n);
+    });
+    const items = [{ ref: 'file:b', attrs: { type: 'file', name: 'B' } }];
+    const wanted = new Set(items.map(i => i.ref));
+    for (const [ref, node] of existing) { if (!wanted.has(ref)) node.remove(); }
+    for (const { ref, attrs } of items) {
+      if (!existing.has(ref)) {
+        const node = document.createElement('div'); node.className = 'tt-node';
+        const row = document.createElement('div'); row.className = 'tt-row';
+        const item = document.createElement('rb-object-item');
+        item.setAttribute('ref', ref);
+        for (const [k, v] of Object.entries(attrs)) item.setAttribute(k, v);
+        row.appendChild(item); node.appendChild(row); container.appendChild(node);
+      }
+    }
+
+    const allItems = container.querySelectorAll('rb-object-item');
+    expect(allItems.length).toBe(1);
+    expect(allItems[0].getAttribute('ref')).toBe('file:b');
+    expect(allItems[0].getAttribute('name')).toBe('B');
+  });
+
+  it('no innerHTML nuke on container', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/RoomView.ts'), 'utf-8');
+    const fnStart = src.indexOf('diffRenderItems');
+    const fnBody = src.slice(fnStart, fnStart + 600);
+    expect(fnBody).not.toContain('.innerHTML');
+  });
+});
+
 describe('R19.89: Remove-Local-Identity button placement + click handler', () => {
   it('DeviceEnrollDialog renders de-remove-identity button', () => {
     const { readFileSync } = require('node:fs');

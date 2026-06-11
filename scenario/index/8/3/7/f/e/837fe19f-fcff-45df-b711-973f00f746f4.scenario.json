@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "837fe19f-fcff-45df-b711-973f00f746f4",
+    "name": "test:R19.90 diffRenderItems",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:39fd5bef-ad00-42af-962a-4cddf00302bc"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:39fd5bef-ad00-42af-962a-4cddf00302bc"
+}
