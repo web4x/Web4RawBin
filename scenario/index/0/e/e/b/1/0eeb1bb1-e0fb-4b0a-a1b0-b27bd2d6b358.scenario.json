@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "0eeb1bb1-e0fb-4b0a-a1b0-b27bd2d6b358",
+    "name": "file.indexByContentHash",
+    "description": "On createFileUnit: write symlink scenario/content/<sha256>.file.scenario.json \u2192 canonical FileUnit in scenario/index. On upload dedup: O(1) lookup by hash path instead of iterating room.files[]. Symlink also recorded in FileUnit.unitLinks[] (bidirectional: index\u2192content, content\u2192index).",
+    "class": "ior:instance:3e0ceb94-90f3-4c5b-b13b-e1f2a3b4c5d6",
+    "method": "ior:instance:1ae8de15-6cb2-4fe3-a78f-f25c40e57bbb",
+    "classes": [
+      "ior:instance:3e0ceb94-90f3-4c5b-b13b-e1f2a3b4c5d6"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
