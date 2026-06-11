@@ -90,6 +90,7 @@ export class Room {
   createdAt: number = Date.now();
 
   members: Map<string, RoomMember> = new Map();
+  fileUnits: Set<string> = new Set();
   private _chatHistory: ChatMessage[] = [];
   private creatorId: string = '';
   creatorToken: string = '';
@@ -187,6 +188,18 @@ export class Room {
       this.broadcast({ type: MSG.MEMBER_DISCONNECTED, memberId: id });
       this.persist();
     }
+  }
+
+  // --- Files ---
+
+  addFileUnit(uuid: string): void {
+    this.fileUnits.add(uuid);
+    this.persist();
+  }
+
+  removeFileUnit(uuid: string): void {
+    this.fileUnits.delete(uuid);
+    this.persist();
   }
 
   // --- Chat ---
@@ -299,6 +312,7 @@ export class Room {
           sshPublicKey: pubKey, chatHistory: this._chatHistory,
   // [impl:uuid:d5f0c2b4-a09e-4f80-aaf9-fa386aa57e46] Room.persistMembers R19.35
           members: [...this.members.values()].map(m => ({ ior: `ior:instance:${m.playerToken}`, name: m.name, role: m.playerToken === this.creatorToken ? 'owner' : 'member', status: m.disconnected ? 'offline' : 'online', joinedAt: Date.now() })),
+          files: [...this.fileUnits].map(uuid => `ior:instance:${uuid}`),
           lastMessageIor: this.lastMessageIor, firstMessageIor: this.firstMessageIor, messageCount: this.messageCount,
         });
       } catch {}

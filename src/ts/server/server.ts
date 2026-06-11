@@ -247,6 +247,12 @@ const roomManager = new RoomManager(ROOMS_DIR);
     room.lastMessageIor = (data as any).lastMessageIor || null;
     room.firstMessageIor = (data as any).firstMessageIor || null;
     room.messageCount = (data as any).messageCount || 0;
+    if (Array.isArray((data as any).files)) {
+      for (const fior of (data as any).files) {
+        const fuuid = String(fior).replace('ior:instance:', '');
+        if (fuuid) room.fileUnits.add(fuuid);
+      }
+    }
     console.log(`  room ${roomId.slice(0,8)}: chat=${chatCount} members=${memberCount} lastMsg=${room.lastMessageIor?.slice(0,20) || 'null'} name=${data.name}`);
     registered++;
   }
@@ -495,17 +501,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, roomUuid: roomId });
           const fileUuid = (unit.model as any).uuid;
           addLog(`[upload] unit created: ${fileUuid} contentPath=${(unit.model as any).contentPath}`);
-          // Create symlink in per-user room dir: data/users/<token>/rooms/<rid>/files/<uuid>.scenario.json
-          try {
-            const userFilesDir = path.join(__dirname, '../../../data/users', playerToken, 'rooms', roomId, 'files');
-            fs.mkdirSync(userFilesDir, { recursive: true });
-            const userLink = path.join(userFilesDir, `${fileUuid}.scenario.json`);
-            const scenarioPath = idx.filePath(fileUuid);
-            const relTarget = path.relative(userFilesDir, scenarioPath);
-            try { fs.unlinkSync(userLink); } catch {}
-            fs.symlinkSync(relTarget, userLink);
-            addLog(`[upload] user-dir symlink: ${userLink} → ${relTarget}`);
-          } catch (lnErr: any) { addLog(`[upload] user-dir symlink WARN: ${lnErr?.message}`); }
+          room.addFileUnit(fileUuid);
           room.broadcast({ type: MSG.FILE_ADDED, roomId, fileUuid, name: fileName, size: fileData.length, mimeType });
           addLog(`[upload] SUCCESS: ${fileName} (${fileData.length}b) uuid=${fileUuid} room=${roomId.slice(0,8)}`);
           res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -1505,28 +1501,19 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       addLog(`${joinName} joined room ${room.name}`);
       // [impl:uuid:c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f] file-restore on JOIN_ROOM
       try {
-        const ownerToken = room.creatorToken;
-        addLog(`[files] ownerToken=${ownerToken} roomId=${room.id} DATA_DIR=${DATA_DIR} type=${typeof DATA_DIR}`);
-        if (ownerToken) {
-          if (typeof DATA_DIR !== 'string') { addLog(`[files] DATA_DIR not a string: ${typeof DATA_DIR}`); break; }
-          const filesDir = path.join(DATA_DIR, 'users', ownerToken, 'rooms', room.id, 'files');
-          addLog(`[files] filesDir=${filesDir} exists=${fsSync.existsSync(filesDir)}`);
-          if (fsSync.existsSync(filesDir)) {
-            const entries = fsSync.readdirSync(filesDir);
-            addLog(`[files] entries=${JSON.stringify(entries)}`);
-            for (const f of entries) {
-              if (!f.endsWith('.scenario.json')) continue;
-              const fileUuid = f.replace('.scenario.json', '');
-              const scenarioDir = path.join(__dirname, '../../../scenario/index');
-              const idx = new ScenarioIndex(scenarioDir);
-              const unit = idx.get(fileUuid);
-              if (unit) {
-                const fm = unit.model as Record<string, unknown>;
-                send({ type: MSG.FILE_ADDED, roomId: room.id, fileUuid, name: fm.name || fileUuid, size: fm.size || 0, mimeType: fm.mimeType || '' });
-              }
-            }
+        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        const idx = new ScenarioIndex(scenarioDir);
+        const seen = new Set<string>();
+        for (const fuuid of room.fileUnits) {
+          if (seen.has(fuuid)) continue;
+          seen.add(fuuid);
+          const unit = idx.get(fuuid);
+          if (unit) {
+            const fm = unit.model as Record<string, unknown>;
+            send({ type: MSG.FILE_ADDED, roomId: room.id, fileUuid: fuuid, name: fm.name || fuuid, size: fm.size || 0, mimeType: fm.mimeType || '' });
           }
         }
+        addLog(`[files] restored ${seen.size} files for room ${room.id.slice(0,8)} from room.fileUnits`);
       } catch (e: any) { addLog(`[JOIN_ROOM files] FAILED: ${e?.message} ${e?.stack || ''}`); }
       broadcastRoomList();
       break;

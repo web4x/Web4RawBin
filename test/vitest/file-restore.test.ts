@@ -9,17 +9,16 @@ import fsSync from 'node:fs';
 import path from 'node:path';
 
 describe('file-restore JOIN_ROOM path', () => {
-  it('server.ts uses fsSync (not fs/promises) for file scan', () => {
+  it('server.ts uses room.fileUnits scenario-driven restore (not filesystem scan)', () => {
     const serverSrc = fsSync.readFileSync(
       path.join(__dirname, '../../src/ts/server/server.ts'), 'utf-8'
     );
     const fileRestoreBlock = serverSrc.match(/file-restore on JOIN_ROOM[\s\S]*?catch/);
     expect(fileRestoreBlock).toBeTruthy();
     const block = fileRestoreBlock![0];
-    expect(block).toContain('fsSync.existsSync');
-    expect(block).toContain('fsSync.readdirSync');
-    expect(block).not.toMatch(/(?<![a-zA-Z])fs\.existsSync/);
-    expect(block).not.toMatch(/(?<![a-zA-Z])fs\.readdirSync/);
+    expect(block).toContain('room.fileUnits');
+    expect(block).toContain('idx.get');
+    expect(block).toContain('FILE_ADDED');
   });
 
   it('FILE_ADDED message type exists', () => {

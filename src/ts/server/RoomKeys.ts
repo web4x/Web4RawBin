@@ -107,6 +107,7 @@ export interface RoomJsonData {
   sshKeysGenerated: boolean;
   sshPublicKey: string;
   chatHistory: { senderId: string; senderName: string; text: string; timestamp: number }[];
+  files?: string[];
 }
 
 // [impl:uuid:7144f6ca-a1b2-4c3d-8e4f-5a6b7c8d9e0f] Room.persistAsSymlink R19.22.A
