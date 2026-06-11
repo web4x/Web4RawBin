@@ -38,6 +38,7 @@ export class DeviceEnrollDialog {
           style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:1.5rem;text-align:center;letter-spacing:8px">
         <div id="de-error" style="display:none;color:#e74c3c;text-align:center;margin-top:8px;font-size:0.85rem"></div>
         <button class="btn btn-primary profile-save" id="de-submit" disabled style="margin-top:16px">Authorize</button>
+        <button class="btn" id="de-remove-identity" style="width:100%;margin-top:12px;background:#e53935;color:white;border:none;padding:10px;border-radius:8px;font-size:0.9rem;cursor:pointer">Remove Local Identity</button>
       </div>`;
     document.body.appendChild(this.overlay);
 
@@ -59,6 +60,17 @@ export class DeviceEnrollDialog {
 
     codeInput?.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !submitBtn.disabled) submitBtn.click();
+    });
+
+    // [impl:uuid:65af0f55-cd53-4fca-97b4-4b9684dfd76e] R19.89 removeLocalIdentity
+    document.getElementById('de-remove-identity')?.addEventListener('click', () => {
+      const confirmed = prompt('This will permanently delete your identity from this device.\nThis cannot be undone.\n\nType DELETE to confirm:');
+      if (confirmed !== 'DELETE') return;
+      const keys = Object.keys(localStorage).filter(k => k.startsWith('rawbin-'));
+      for (const k of keys) localStorage.removeItem(k);
+      try { this.client.disconnect(); } catch {}
+      this.close();
+      location.reload();
     });
 
     codeInput?.focus();

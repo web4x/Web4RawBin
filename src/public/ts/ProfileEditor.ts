@@ -65,7 +65,6 @@ export class ProfileEditor {
           <input type="text" id="pe-code" value="${initial.secretCode || ''}" pattern="[0-9]{4}" maxlength="4" placeholder="1234" inputmode="numeric">
         </div>
         <button class="btn btn-primary profile-save" id="pe-save" ${mode === 'gate' && !initial.name ? 'disabled' : ''}>${mode === 'gate' ? 'Continue' : 'Save'}</button>
-        ${mode === 'gate' ? '<button class="btn" id="pe-remove-identity" style="width:100%;margin-top:12px;background:#e53935;color:white;border:none;padding:10px;border-radius:8px;font-size:0.9rem;cursor:pointer">Remove Local Identity</button>' : ''}
       </div>`;
 
     this.avatarUrl = initial.avatar || '';
@@ -148,17 +147,6 @@ export class ProfileEditor {
         ...(secretCode ? { secretCode } : {}),
       });
       viewBus.publish('User', this.client.playerToken, { displayName: name, token: this.client.playerToken });
-    });
-
-    // [impl:uuid:25884b0c-31a3-4743-b109-9e6092dcab8e] R19.72 ProfileEditor.removeLocalIdentity
-    document.getElementById('pe-remove-identity')?.addEventListener('click', () => {
-      const confirmed = prompt('This will permanently delete your identity from this device.\nThis cannot be undone.\n\nType DELETE to confirm:');
-      if (confirmed !== 'DELETE') return;
-      const keys = Object.keys(localStorage).filter(k => k.startsWith('rawbin-'));
-      for (const k of keys) localStorage.removeItem(k);
-      try { this.client.disconnect(); } catch {}
-      this.close();
-      location.reload();
     });
 
     if (this.mode !== 'gate') {
