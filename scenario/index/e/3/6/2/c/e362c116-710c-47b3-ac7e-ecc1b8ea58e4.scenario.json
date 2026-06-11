@@ -7,7 +7,11 @@
     "sourceLine": 2,
     "unitLinks": [],
     "tests": [
-      "ior:instance:163c8e76-744e-4359-8939-71b07a17777b"
+      "ior:instance:163c8e76-744e-4359-8939-71b07a17777b",
+      "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+      "ior:instance:6d5060bf-b638-460e-b922-ff2eb20b2e1c",
+      "ior:instance:c4179894-e662-41e8-a0d1-f94089f6576a",
+      "ior:instance:2f5c543a-280d-48f9-bff5-e99870115d7b"
     ]
   },
   "ownerIor": null

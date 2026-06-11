@@ -9,9 +9,8 @@
     "uploadedAt": "2026-06-11T07:59:15.714Z",
     "uploaderToken": "0d7ee549-30eb-498d-b8d1-9c6c84be1544",
     "roomUuid": "e32a20a7-e94e-441e-8928-8a15302eb514",
-    "unitLinks": [
-      "rooms/e32a20a7-e94e-441e-8928-8a15302eb514/files/6b506a76-fdd7-47d0-aaf9-e3e28f9f50d7.scenario.json"
-    ]
+    "unitLinks": [],
+    "contentHash": "8357812b291935ff50dbb6149a8c9e6ec0c9f43f60bee85832930c58703cbaa4"
   },
   "ownerIor": "ior:instance:e32a20a7-e94e-441e-8928-8a15302eb514"
 }

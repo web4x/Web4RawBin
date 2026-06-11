@@ -5,7 +5,9 @@
     "name": "drawer-header close X pinned CSS",
     "sourceFile": "src/public/app.css",
     "sourceLine": 278,
-    "tests": [],
+    "tests": [
+      "ior:instance:c9f56d34-7a8b-4e1f-b2c3-4d5e6f7a8b90"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:3a671bfc-12c2-4922-938e-01572d90808e"
