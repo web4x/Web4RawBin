@@ -41,6 +41,15 @@ export function renderParentLink(parent: DetailParent | null): string {
   return `<div class="dv-parent" style="margin-bottom:8px"><span style="color:rgba(255,255,255,0.4);font-size:0.7rem">Parent:</span> <a href="#" class="dv-parent-link" data-uuid="${parent.uuid}" data-type="${parent.type}" style="color:#ff9800;font-size:0.8rem;text-decoration:none">${esc(parent.type)}: ${esc(parent.name)}</a></div>`;
 }
 
+// [impl:uuid:6ae25e44-904a-4fbf-9c26-18628f48a479] R19.70 scenarioBrowserLinkFromIor
+export function scenarioBrowserLinkFromIor(uuid: string): string {
+  if (!uuid) return '';
+  const hex = uuid.replace(/-/g, '');
+  const shard = `${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}`;
+  const href = `/md/scenario/index/${shard}/?highlight=${encodeURIComponent(uuid + '.scenario.json')}`;
+  return `<div class="dv-field"><a href="${href}" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Scenario</a></div>`;
+}
+
 export function renderSourceLink(sourceFile?: string, sourceLine?: number): string {
   if (!sourceFile) return '';
   const parts = sourceFile.split('/');

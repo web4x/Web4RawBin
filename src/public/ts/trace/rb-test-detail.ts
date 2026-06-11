@@ -6,7 +6,8 @@ import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
-import { fetchDetailData, renderParentLink, renderSourceLink } from './detail-children.js';
+import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
+import { scenarioBrowserLinkFromIor } from './detail-children.js';
 
 export class RbTestDetail extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -27,7 +28,7 @@ export class RbTestDetail extends HTMLElement {
         <h3>${esc(obj.title)}</h3>
         <code class="dv-uuid">${obj.uuid}</code>
         ${obj.status ? `<span class="dv-status-badge">${esc(obj.status)}</span>` : ''}
-        <div class="dv-field"><a href="/scenario?ior=${obj.uuid}" class="dv-file-link" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Scenario view</a></div>
+        ${scenarioBrowserLinkFromIor(obj.uuid)}
       </div>
       <div class="dv-links"><h4>Traceability Chain</h4>${renderLinks(this.graph, links)}</div>`;
     this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));

@@ -50,7 +50,7 @@ describe('R15.6: Task DetailView + planning overview', () => {
     const src = fs.readFileSync(path.resolve(__dirname, '../../src/public/ts/trace/rb-task-detail.ts'), 'utf-8');
     expect(src).toContain('class RbTaskDetail');
     expect(src).toContain('renderLinks');
-    expect(src).toContain('Scenario view');
+    expect(src).toContain('scenarioBrowserLinkFromIor');
   });
 
   it('generated planning.md contains task list with checkboxes', () => {

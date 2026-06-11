@@ -708,16 +708,17 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         if (!unit) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{}'); return; }
         const type = (unit.ior || '').split(':')[2] || '';
         const queryMode = urlParams.get('mode') || 'scenario';
+        // [impl:uuid:79ee7486-499b-49de-81dc-77f8682da420] R19.71 Room forward keys
         const SCENARIO_FWD: Record<string, string[]> = {
           Requirement: ['useCases'], Task: ['subtasks', 'useCases', 'coveredRequirements', 'children'], UseCase: ['classes'],
           Class: ['methods'], Method: ['implementations'], Implementation: ['tests'],
-          Sprint: ['tasks'],
+          Sprint: ['tasks'], Room: ['files', 'members'],
         };
         const TRACE_FWD: Record<string, string[]> = {
           Requirement: ['useCases'], Task: ['useCases', 'coveredRequirements'],
           UseCase: ['class'], Class: ['methods'],
           Method: ['implementations'], Implementation: ['tests'],
-          Sprint: ['tasks'],
+          Sprint: ['tasks'], Room: ['files', 'members'],
         };
         const fwdKeys = queryMode === 'trace' ? TRACE_FWD : SCENARIO_FWD;
         // T192: server-side cycle guard — skip children that are the node itself

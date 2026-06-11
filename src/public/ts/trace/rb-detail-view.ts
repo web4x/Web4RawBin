@@ -14,7 +14,7 @@ import { TraceGraph, refUuid, type ObjectRef } from '../../../ts/shared/TraceMod
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
-import { fetchDetailData, renderParentLink, renderSourceLink } from './detail-children.js';
+import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
 import { renderContentPreview, loadTextPreview } from './content-preview.js';
 
 export class RbDetailView extends HTMLElement {
@@ -42,7 +42,7 @@ export class RbDetailView extends HTMLElement {
         if (head && data) {
           head.querySelector('.dv-type')!.textContent = data.type || ref.split(':')[0] || '?';
           head.querySelector('.dv-title')!.textContent = data.name || uuid;
-          head.insertAdjacentHTML('beforeend', `<div class="dv-field"><a href="/scenario?ior=${uuid}" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Scenario</a></div>`);
+          head.insertAdjacentHTML('beforeend', `${scenarioBrowserLinkFromIor(uuid)}`);
         }
       }).catch(() => {});
       fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
@@ -74,7 +74,7 @@ export class RbDetailView extends HTMLElement {
         <h3 class="dv-title">${esc(obj.title)}</h3>
         <code class="dv-uuid">${obj.uuid}</code>
         ${obj.status ? `<span class="dv-status">${esc(obj.status)}</span>` : ''}
-        <div class="dv-field"><a href="/scenario?ior=${obj.uuid}" class="dv-file-link" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Scenario view</a></div>
+        ${scenarioBrowserLinkFromIor(obj.uuid)}
       </div>
       <div class="dv-links">${rows.join('') || '<div class="dv-empty">no links</div>'}</div>
       <div class="dv-scenario-children" style="border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px"><span style="color:rgba(255,255,255,0.4);font-size:0.7rem">Loading all children...</span></div>`;

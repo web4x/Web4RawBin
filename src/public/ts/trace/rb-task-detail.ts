@@ -13,7 +13,8 @@ import { forwardOnly } from './forward-only.js';
 // [impl:uuid:1ff4d2bb-3af9-4517-8cde-8e6fc498e887] RbTaskDetail.render impl
 // [impl:uuid:a495b735-6836-4dba-84b2-b279f2da17df] RbTaskDetail.render
 import { singularChain, renderSingularChain } from './singular-chain.js';
-import { fetchDetailData, renderParentLink, renderSourceLink } from './detail-children.js';
+import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
+import { scenarioBrowserLinkFromIor } from './detail-children.js';
 
 export class RbTaskDetail extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -44,7 +45,7 @@ export class RbTaskDetail extends HTMLElement {
         <div class="dv-field"><label>Status</label>
           <span class="dv-status-badge">${esc(obj.status || 'PLANNED')}</span></div>
         ${obj.sprint ? `<div class="dv-field"><label>Sprint</label><span>${esc(obj.sprint)}</span></div>` : ''}
-        <div class="dv-field"><a href="/scenario?ior=${obj.uuid}" class="dv-file-link" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Scenario view</a></div>
+        ${scenarioBrowserLinkFromIor(obj.uuid)}
       </div>
       <div class="dv-links">
         <h4>Champagne Chain</h4>
