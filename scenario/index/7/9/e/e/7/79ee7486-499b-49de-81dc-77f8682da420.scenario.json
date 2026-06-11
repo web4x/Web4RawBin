@@ -5,7 +5,9 @@
     "name": "Room.forwardRefs",
     "description": "server.ts SCENARIO_FWD + TRACE_FWD: add Room: ['files','members']. /api/trace/children/<roomUuid> then returns FileUnit + Member children. Room detail shows files tree + member list.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:28f244c7-1a9c-49c5-ab6c-249d906cb9a4"
+    ],
     "tests": [
       "ior:instance:167361bc-184b-4c4e-b938-78d76e4ba848"
     ]

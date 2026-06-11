@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "28f244c7-1a9c-49c5-ab6c-249d906cb9a4",
+    "name": "Room forward-refs impl",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 711,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:79ee7486-499b-49de-81dc-77f8682da420"
+}

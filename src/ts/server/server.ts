@@ -708,7 +708,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         if (!unit) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{}'); return; }
         const type = (unit.ior || '').split(':')[2] || '';
         const queryMode = urlParams.get('mode') || 'scenario';
-        // [impl:uuid:79ee7486-499b-49de-81dc-77f8682da420] R19.71 Room forward keys
+        // [impl:uuid:28f244c7-1a9c-49c5-ab6c-249d906cb9a4] R19.71 Room forward keys
         const SCENARIO_FWD: Record<string, string[]> = {
           Requirement: ['useCases'], Task: ['subtasks', 'useCases', 'coveredRequirements', 'children'], UseCase: ['classes'],
           Class: ['methods'], Method: ['implementations'], Implementation: ['tests'],

@@ -41,7 +41,7 @@ export function renderParentLink(parent: DetailParent | null): string {
   return `<div class="dv-parent" style="margin-bottom:8px"><span style="color:rgba(255,255,255,0.4);font-size:0.7rem">Parent:</span> <a href="#" class="dv-parent-link" data-uuid="${parent.uuid}" data-type="${parent.type}" style="color:#ff9800;font-size:0.8rem;text-decoration:none">${esc(parent.type)}: ${esc(parent.name)}</a></div>`;
 }
 
-// [impl:uuid:6ae25e44-904a-4fbf-9c26-18628f48a479] R19.70 scenarioBrowserLinkFromIor
+// [impl:uuid:ed71d42a-8b9c-4831-963a-973ff28d0819] R19.70 scenarioBrowserLinkFromIor
 export function scenarioBrowserLinkFromIor(uuid: string): string {
   if (!uuid) return '';
   const hex = uuid.replace(/-/g, '');

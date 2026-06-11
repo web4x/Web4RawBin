@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ed71d42a-8b9c-4831-963a-973ff28d0819",
+    "name": "scenarioBrowserLinkFromIor impl",
+    "sourceFile": "src/public/ts/trace/detail-children.ts",
+    "sourceLine": 45,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:6ae25e44-904a-4fbf-9c26-18628f48a479"
+}
