@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "44b05254-774a-481b-86ba-9a50c29662b3",
+    "name": "Marcel Samsung: really cool project",
+    "text": "really cool project",
+    "timestamp": 1781191723512,
+    "senderIor": "ior:instance:da4f8809-5bcc-46fd-8f90-9b00d7fe967f",
+    "senderName": "Marcel Samsung",
+    "roomIor": "ior:instance:440ccc82-368c-4b8c-9c8b-d8a81f9d4ae7",
+    "prevMessage": null,
+    "nextMessage": null,
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:da4f8809-5bcc-46fd-8f90-9b00d7fe967f"
+}

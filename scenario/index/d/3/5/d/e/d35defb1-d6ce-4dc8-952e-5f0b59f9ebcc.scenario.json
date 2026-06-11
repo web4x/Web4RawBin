@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "d35defb1-d6ce-4dc8-952e-5f0b59f9ebcc",
+    "name": "contentPreviewer.urlFileActions",
+    "description": "URL-file preview shows two action buttons: (a) Open in preview \u2014 inline sandboxed iframe rendering the URL content, (b) Open in new tab \u2014 window.open(url, '_blank'). Reuses ContentPreviewer (R19.64/65) dispatch.",
+    "class": "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e",
+    "method": "ior:instance:057b6b5d-5876-4d91-addf-57826ad21721",
+    "classes": [
+      "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
