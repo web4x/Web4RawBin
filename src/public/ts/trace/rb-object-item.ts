@@ -32,8 +32,17 @@ import { TRACE_ICONS } from './icons.js';
 export class RbObjectItem extends HTMLElement {
   static get observedAttributes() { return ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count']; }
   private unsub: (() => void) | null = null;
+  private _data: Record<string, string> | null = null;
+
+  set data(d: Record<string, string>) {
+    this._data = d;
+    for (const [k, v] of Object.entries(d)) this.setAttribute(k, v);
+    if (this.isConnected) this.render();
+  }
+  get data() { return this._data; }
 
   connectedCallback(): void {
+    this.upgradeProperty('data');
     this.classList.add('object-item');
     this.render();
     this.addEventListener('click', this.onClickDelegate);
@@ -45,6 +54,14 @@ export class RbObjectItem extends HTMLElement {
     this.removeEventListener('click', this.onClickDelegate);
     this.unsub?.();
     this.unsub = null;
+  }
+
+  private upgradeProperty(prop: string): void {
+    if (this.hasOwnProperty(prop)) {
+      const val = (this as any)[prop];
+      delete (this as any)[prop];
+      (this as any)[prop] = val;
+    }
   }
 
   attributeChangedCallback(name: string): void {

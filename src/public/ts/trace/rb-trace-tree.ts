@@ -40,15 +40,32 @@ export class RbTraceTree extends HTMLElement {
   private pendingReveal: string | null = null;
   private prefetchCache = new Map<string, any[]>();
   private prefetchInFlight = new Set<string>();
+  private _items: { uuid: string; type: string; name: string; children?: { uuid: string; type: string; name: string; hasChildren: boolean }[] }[] | null = null;
 
   private get mode(): string { return this.getAttribute('data-mode') || 'scenario'; }
   private get childrenUrl(): string { return `/api/trace/children/`; }
   private get modeParam(): string { return this.mode === 'trace' ? '?mode=trace' : ''; }
 
+  set items(roots: { uuid: string; type: string; name: string; children?: { uuid: string; type: string; name: string; hasChildren: boolean }[] }[]) {
+    this._items = roots;
+    if (this.isConnected) this.renderItems();
+  }
+  get items() { return this._items; }
+
+  private upgradeProperty(prop: string): void {
+    if (this.hasOwnProperty(prop)) {
+      const val = (this as any)[prop];
+      delete (this as any)[prop];
+      (this as any)[prop] = val;
+    }
+  }
+
   connectedCallback(): void {
     this.classList.add('trace-tree');
+    this.upgradeProperty('items');
+    this.upgradeProperty('graph');
     try { this.expanded = new Set(JSON.parse(localStorage.getItem(LS_KEY) || '[]')); } catch { /* ignore */ }
-    this.render();
+    if (this._items) { this.renderItems(); } else { this.render(); }
     this.unsub = ViewBus.subscribe('graph', () => this.render());
     this.addEventListener('toggle-children', this.onToggleChildren as EventListener);
     window.addEventListener('hashchange', this.onHashChange);
@@ -101,6 +118,22 @@ export class RbTraceTree extends HTMLElement {
     }
     this.persist();
   };
+
+  private renderItems(): void {
+    if (!this._items) return;
+    this.innerHTML = '';
+    for (const root of this._items) {
+      const node = this.buildSeedNode(root.uuid, root.type, root.name, root.children || [], (root.children || []).length > 0);
+      this.appendChild(node);
+      const item = node.querySelector('rb-object-item');
+      if (item && !item.hasAttribute('children-open')) {
+        item.setAttribute('children-open', '');
+        const kids = node.querySelector('.tt-children') as HTMLElement;
+        if (kids) kids.style.display = '';
+      }
+    }
+    this.computeBadges();
+  }
 
   setGraph(graph: TraceGraph, brokenUuids: string[] = []): void {
     this.graph = graph;
