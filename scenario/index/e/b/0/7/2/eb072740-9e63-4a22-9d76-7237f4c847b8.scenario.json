@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "eb072740-9e63-4a22-9d76-7237f4c847b8",
+    "name": "test:R-V1: Version update bar must appear on",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:7c33815f-9bc9-4188-bd0b-0f66ea9225f3"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7c33815f-9bc9-4188-bd0b-0f66ea9225f3"
+}

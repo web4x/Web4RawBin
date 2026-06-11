@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "714bee57-1c27-4712-b508-5835a548e8fe",
+    "name": "test:R17.11: File-browser \u2194 traceability-br",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:e6078ab4-04ed-49d1-9e50-cd53d7fcd426"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e6078ab4-04ed-49d1-9e50-cd53d7fcd426"
+}

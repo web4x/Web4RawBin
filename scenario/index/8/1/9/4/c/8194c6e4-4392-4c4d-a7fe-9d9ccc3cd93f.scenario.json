@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8194c6e4-4392-4c4d-a7fe-9d9ccc3cd93f",
+    "name": "test:RbDetailDrawer.stickyBottom (split for b53858c3)",
+    "description": "CSS .drawer-body overflow-y:auto + template structure",
+    "sourceFile": "ior:file:test/vitest/impl-coverage-batch.test.ts",
+    "implementations": [
+      "ior:instance:d0235605-5d79-4411-a6ff-c72099ffd2f9"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:d0235605-5d79-4411-a6ff-c72099ffd2f9"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "1c3acdbd-7015-4e5d-ad18-6cce9f22a9d1",
+    "name": "test:R17.18: Traceability links \u2192 first-cla",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:c5134d0a-f41b-4e85-b026-0b3f1ae5b2cd"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:c5134d0a-f41b-4e85-b026-0b3f1ae5b2cd"
+}

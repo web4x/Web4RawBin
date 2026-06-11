@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "03958fb0-a855-4d5e-a87e-d56a6e3c6003",
+    "name": "test:R17.13: Method \u2192 task \u2192 requirement",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:f5297314-81df-42be-b7b6-fe5c2697576a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f5297314-81df-42be-b7b6-fe5c2697576a"
+}

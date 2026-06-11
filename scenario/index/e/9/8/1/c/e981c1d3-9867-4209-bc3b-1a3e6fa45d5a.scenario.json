@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e981c1d3-9867-4209-bc3b-1a3e6fa45d5a",
+    "name": "test:R15.4 defaultItemView (split for 2b1e7d26)",
+    "description": "Bridged to test/vitest/components.test.ts",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:b4c8bf40-6b31-4acd-ad4a-0f93d6f7326b"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b4c8bf40-6b31-4acd-ad4a-0f93d6f7326b"
+}

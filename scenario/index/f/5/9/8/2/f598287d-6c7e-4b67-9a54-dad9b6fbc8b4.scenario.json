@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f598287d-6c7e-4b67-9a54-dad9b6fbc8b4",
+    "name": "test:R10.2 \u2014 In the opened profile sheet, t",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:4ffa86ed-ca7b-4e73-9371-89b113e2ae77"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4ffa86ed-ca7b-4e73-9371-89b113e2ae77"
+}

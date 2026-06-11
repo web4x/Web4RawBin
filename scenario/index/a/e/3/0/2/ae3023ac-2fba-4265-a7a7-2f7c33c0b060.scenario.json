@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ae3023ac-2fba-4265-a7a7-2f7c33c0b060",
+    "name": "test:T64 editor layout (split for f7c4483a)",
+    "description": "Bridged to test/vitest/server.test.ts covering rb-editor-layout.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:f7c4483a-b041-4e66-9d91-6c9ad12ed673"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f7c4483a-b041-4e66-9d91-6c9ad12ed673"
+}

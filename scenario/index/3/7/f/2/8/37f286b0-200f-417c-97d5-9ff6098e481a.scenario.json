@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "37f286b0-200f-417c-97d5-9ff6098e481a",
+    "name": "test:R17.3: Class-based instances \u2014 typed c",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:d0605b74-98ca-4c3a-9fde-e80a27912049"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:d0605b74-98ca-4c3a-9fde-e80a27912049"
+}

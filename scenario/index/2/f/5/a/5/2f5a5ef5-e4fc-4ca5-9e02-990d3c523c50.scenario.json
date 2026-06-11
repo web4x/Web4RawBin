@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2f5a5ef5-e4fc-4ca5-9e02-990d3c523c50",
+    "name": "test:R17.8: Views generated + live-updated fr",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:e6078ab4-04ed-49d1-9e50-cd53d7fcd426"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e6078ab4-04ed-49d1-9e50-cd53d7fcd426"
+}

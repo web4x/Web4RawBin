@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d9db192f-8fcd-4623-a41f-0cfba069dbcf",
+    "name": "test:R15.5 \u2014 `ListOverview` with search ove",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:2b1e7d26-62fe-4d8a-8129-56c09b9d78ff"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:2b1e7d26-62fe-4d8a-8129-56c09b9d78ff"
+}

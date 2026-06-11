@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "469b698a-b17d-48b8-af3c-439521c10f64",
+    "name": "test:TraceObject.parent (split for 55e039b7)",
+    "description": "Bridged to test/vitest/trace-model.test.ts covering TraceModel.ts",
+    "sourceFile": "ior:file:test/vitest/trace-model.test.ts",
+    "implementations": [
+      "ior:instance:87c9007a-2144-4030-a5ac-cd48f518bb2b"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:87c9007a-2144-4030-a5ac-cd48f518bb2b"
+}

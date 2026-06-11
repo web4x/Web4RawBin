@@ -6,7 +6,10 @@
     "sourceFile": "src/public/ts/trace/rb-object-item.ts",
     "sourceLine": 58,
     "tests": [
-      "ior:instance:440892b6-6399-4dd4-8116-09f6d2061126"
+      "ior:instance:36f90044-1329-4328-ab67-b388a39a84d7",
+      "ior:instance:f598287d-6c7e-4b67-9a54-dad9b6fbc8b4",
+      "ior:instance:3fd59040-83c6-48f5-9e8c-08f65cb37c35",
+      "ior:instance:507ece4a-f18f-4aab-a84b-62f667da8fef"
     ],
     "unitLinks": []
   },

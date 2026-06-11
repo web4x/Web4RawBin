@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "368b78ea-5f1a-4e00-9f24-bb733666d6bc",
+    "name": "test:R17.17: Task status as state-machine met",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:d0605b74-98ca-4c3a-9fde-e80a27912049"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:d0605b74-98ca-4c3a-9fde-e80a27912049"
+}

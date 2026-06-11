@@ -6,7 +6,12 @@
     "sourceFile": "src/ts/scenario/templates.ts",
     "sourceLine": 7,
     "tests": [
-      "ior:instance:9aec7689-d1fc-4224-8de7-0a24db5b28e3"
+      "ior:instance:ddfe1021-4429-4ee5-aea9-c296a86097cb",
+      "ior:instance:b89c2814-1ce9-4552-acc3-44854332171b",
+      "ior:instance:2f5a5ef5-e4fc-4ca5-9e02-990d3c523c50",
+      "ior:instance:a67d44e1-4fa2-480c-a1dc-8c0f52ac8687",
+      "ior:instance:891df07e-9890-4424-8d81-72eeb199d916",
+      "ior:instance:714bee57-1c27-4712-b508-5835a548e8fe"
     ],
     "unitLinks": []
   },

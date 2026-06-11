@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b89c2814-1ce9-4552-acc3-44854332171b",
+    "name": "test:R17.7: HTML view templates per class",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:e6078ab4-04ed-49d1-9e50-cd53d7fcd426"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e6078ab4-04ed-49d1-9e50-cd53d7fcd426"
+}

@@ -6,7 +6,8 @@
     "sourceFile": "src/ts/server/Room.ts",
     "sourceLine": 120,
     "tests": [
-      "ior:instance:9b9c8ae6-f8e4-4e87-8bd1-70cfab24ae95"
+      "ior:instance:9b9c8ae6-f8e4-4e87-8bd1-70cfab24ae95",
+      "ior:instance:eb072740-9e63-4a22-9d76-7237f4c847b8"
     ],
     "unitLinks": []
   },

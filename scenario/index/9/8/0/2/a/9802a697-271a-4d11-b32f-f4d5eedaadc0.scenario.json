@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9802a697-271a-4d11-b32f-f4d5eedaadc0",
+    "name": "test:ViewTemplateRegistry.register(className (split for acabc31e)",
+    "description": "Bridged to test/vitest/scenario.test.ts covering templates.ts",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:1d2024fb-f7be-4bd8-b452-b154b0150ee3"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:1d2024fb-f7be-4bd8-b452-b154b0150ee3"
+}

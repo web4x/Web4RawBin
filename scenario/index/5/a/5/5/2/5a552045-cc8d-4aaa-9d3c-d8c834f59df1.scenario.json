@@ -4,7 +4,9 @@
     "uuid": "5a552045-cc8d-4aaa-9d3c-d8c834f59df1",
     "name": "PathHeader.clickNavigate",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:440501ea-2c0c-4152-9968-77d75ace8032"
+    ]
   },
   "ownerIor": null
 }

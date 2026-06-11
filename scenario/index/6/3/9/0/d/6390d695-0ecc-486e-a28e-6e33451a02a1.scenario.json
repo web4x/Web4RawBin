@@ -6,7 +6,8 @@
     "sourceFile": "src/ts/scenario/file-unit.ts",
     "sourceLine": 3,
     "tests": [
-      "ior:instance:e11c89d0-2c3e-467e-8dd7-0ea23e1168b6"
+      "ior:instance:e11c89d0-2c3e-467e-8dd7-0ea23e1168b6",
+      "ior:instance:d0f434c1-1a65-4d44-8b1f-5e5eb0fc82f1"
     ],
     "unitLinks": []
   },

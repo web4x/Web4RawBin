@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "eb34649c-d97d-47c5-a351-e6d93d6c32a6",
+    "name": "test:R17.4: Index by UUID prefix \u2014 scenario",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:f5297314-81df-42be-b7b6-fe5c2697576a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f5297314-81df-42be-b7b6-fe5c2697576a"
+}

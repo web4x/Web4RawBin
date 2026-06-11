@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d049983b-f29f-45c2-8fe8-efe5b07ea82a",
+    "name": "test:R19.51",
+    "sourceFile": "ior:file:test/vitest/file-dnd-chain.test.ts",
+    "implementations": [
+      "ior:instance:36a3b677-dc4d-415c-9eee-ffc62fff0f76"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:36a3b677-dc4d-415c-9eee-ffc62fff0f76"
+}

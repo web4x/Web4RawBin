@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "919e6fa6-6c30-47a3-90f3-184abdb6f653",
+    "name": "test:R19.45",
+    "sourceFile": "ior:file:test/vitest/flush-cache.test.ts",
+    "implementations": [
+      "ior:instance:4bb96a28-cfe7-4f0a-9a38-909a930e8345"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4bb96a28-cfe7-4f0a-9a38-909a930e8345"
+}

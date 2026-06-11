@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "1c8b3fa7-c1de-435c-a3e3-61346563250c",
+    "name": "test:ViewTemplateRegistry.register(className (split for 1d2024fb)",
+    "description": "Bridged to test/vitest/scenario.test.ts covering templates.ts",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:1d2024fb-f7be-4bd8-b452-b154b0150ee3"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:1d2024fb-f7be-4bd8-b452-b154b0150ee3"
+}
