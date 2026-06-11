@@ -5,7 +5,9 @@
     "name": "Room.addMemberTakeover",
     "description": "Room.ts addMember: before returning false on existing+!disconnected, check existing.ws?.readyState !== WebSocket.OPEN \u2192 set existing.disconnected=true, fall through to reconnect path. 3-line guard. Fixes 'Cannot join room' after restart/crash/tab-close.",
     "sourceFile": "ior:file:src/ts/server/Room.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:84910216-c910-4eb7-a2bc-4b3b5c07c490"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"

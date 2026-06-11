@@ -167,6 +167,7 @@ export class Room {
   addMember(member: RoomMember): boolean {
     if (this.state !== 'active') return false;
     const existing = member.playerToken ? [...this.members.values()].find(m => m.playerToken && m.playerToken === member.playerToken) : undefined;
+    // [impl:uuid:84910216-c910-4eb7-a2bc-4b3b5c07c490] R19.82 addMemberTakeover
     if (existing) {
       if (existing.ws && existing.ws.readyState === 1) { try { existing.ws.close(); } catch {} }
       this.members.delete(existing.id);

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "84910216-c910-4eb7-a2bc-4b3b5c07c490",
+    "name": "Room.addMemberTakeover impl",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "sourceLine": 170,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f2a2129b-ae2e-45a8-854c-a4b9446f2033"
+}
