@@ -40,13 +40,13 @@ export class RbTraceTree extends HTMLElement {
   private pendingReveal: string | null = null;
   private prefetchCache = new Map<string, any[]>();
   private prefetchInFlight = new Set<string>();
-  private _items: { uuid: string; type: string; name: string; children?: { uuid: string; type: string; name: string; hasChildren: boolean }[] }[] | null = null;
+  private _items: { uuid: string; type: string; name: string; description?: string; children?: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean }[] }[] | null = null;
 
   private get mode(): string { return this.getAttribute('data-mode') || 'scenario'; }
   private get childrenUrl(): string { return `/api/trace/children/`; }
   private get modeParam(): string { return this.mode === 'trace' ? '?mode=trace' : ''; }
 
-  set items(roots: { uuid: string; type: string; name: string; children?: { uuid: string; type: string; name: string; hasChildren: boolean }[] }[]) {
+  set items(roots: { uuid: string; type: string; name: string; description?: string; children?: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean }[] }[]) {
     this._items = roots;
     if (this.isConnected) this.renderItems();
   }
@@ -123,7 +123,7 @@ export class RbTraceTree extends HTMLElement {
     if (!this._items) return;
     this.innerHTML = '';
     for (const root of this._items) {
-      const node = this.buildSeedNode(root.uuid, root.type, root.name, root.children || [], (root.children || []).length > 0);
+      const node = this.buildSeedNode(root.uuid, root.type, root.name, root.children || [], (root.children || []).length > 0, undefined, undefined, root.description);
       this.appendChild(node);
       const item = node.querySelector('rb-object-item');
       if (item && !item.hasAttribute('children-open')) {
@@ -250,7 +250,7 @@ export class RbTraceTree extends HTMLElement {
     } catch { this.innerHTML = '<div class="tt-empty">Failed to load</div>'; }
   }
 
-  private buildSeedNode(uuid: string, type: string, name: string, children: { uuid: string; type: string; name: string; hasChildren: boolean; chainMethod?: { uuid: string; type: string; name: string } }[], hasChildren?: boolean, ancestors?: Set<string>, chainMethod?: { uuid: string; type: string; name: string }): HTMLElement {
+  private buildSeedNode(uuid: string, type: string, name: string, children: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean; chainMethod?: { uuid: string; type: string; name: string } }[], hasChildren?: boolean, ancestors?: Set<string>, chainMethod?: { uuid: string; type: string; name: string }, description?: string): HTMLElement {
     const node = document.createElement('div');
     node.className = 'tt-node';
     if (ancestors && ancestors.has(uuid)) return node;
@@ -260,6 +260,7 @@ export class RbTraceTree extends HTMLElement {
     item.setAttribute('ref', `${(type || 'task').toLowerCase()}:${uuid}`);
     item.setAttribute('type', (type || 'task').toLowerCase());
     item.setAttribute('title', name || uuid);
+    if (description) item.setAttribute('description', description);
     const showExpander = children.length > 0 || hasChildren === true;
     if (showExpander) item.setAttribute('has-children', '');
     row.appendChild(item);
@@ -271,7 +272,7 @@ export class RbTraceTree extends HTMLElement {
       let loaded = children.length > 0;
       const branchPath = new Set(ancestors || []); branchPath.add(uuid);
       for (const child of children) {
-        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchPath), (child as any).chainMethod));
+        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchPath), (child as any).chainMethod, (child as any).description));
       }
       node.appendChild(kids);
       item.addEventListener('toggle-children', ((e: CustomEvent) => {
@@ -424,7 +425,7 @@ export class RbTraceTree extends HTMLElement {
         children = data.children || [];
       }
       for (const child of children) {
-        container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchVisited), (child as any).chainMethod));
+        container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchVisited), (child as any).chainMethod, (child as any).description));
       }
       const parentItem = container.parentElement?.querySelector(':scope > .tt-row rb-object-item');
       if (parentItem) parentItem.setAttribute('child-count', String(children.length));

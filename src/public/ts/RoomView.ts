@@ -268,10 +268,16 @@ export class RoomView {
     if (!tree) return;
     tree.items = [
       { uuid: 'members', type: 'collection', name: `Members (${this.members.length})`,
-        children: this.members.map(m => ({ uuid: m.playerToken, type: 'member', name: m.name || '?', hasChildren: false })),
+        children: this.members.map(m => ({
+          uuid: m.playerToken, type: 'member', name: m.name || '?', hasChildren: false,
+          description: m.id === this.hostId ? 'Host' + (m.disconnected ? ' · Offline' : '') : m.id === this.client.clientId ? 'You' : m.disconnected ? 'Offline' : 'Online',
+        })),
       },
       { uuid: 'files', type: 'collection', name: `Files (${this.files.length})`,
-        children: this.files.map(f => ({ uuid: f.uuid, type: 'file', name: f.name || 'file', hasChildren: false })),
+        children: this.files.map(f => ({
+          uuid: f.uuid, type: 'file', name: f.name || 'file', hasChildren: false,
+          description: `${f.mimeType || ''} ${f.size || 0}B`,
+        })),
       },
     ];
   }
