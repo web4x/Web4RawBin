@@ -170,3 +170,7 @@
 ### Legacy index shard cleanup (R19.56)
 - **R19.56** (2026-06-11): cleanup legacy multi-char index dirs (01666/, 08e36/, etc.) — migrate units to canonical single-char-per-level shards + update symlinks + remove empty legacy dirs.
   > TRON: "we need to cleanup the legacy index folder longer than one character."
+
+### Drawer back-button regression (R19.57)
+- **R19.57** (2026-06-11): full-width drawer (R19.52) hides back button. Back (←) MUST stay visible+clickable above drawer. z-index or layout fix.
+  > TRON: "drawer is now full width but back button hidden underneath."
