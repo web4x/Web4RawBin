@@ -14,7 +14,10 @@
     "unitLinks": [],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "refinementOf": "ior:instance:53820063-250e-451e-b395-69948c6eee79",
-    "refinementOfNote": "Refines R19.55 (Device as scenario unit) with the ASSOCIATION PATTERN: Device\u2194User mirrors Room\u2194User \u2014 forward IOR array, ownerIor, per-user storage dir with symlinks, unitLinks lifecycle. R19.55 defines the Device data shape; R19.55.A defines how it associates to its User."
+    "refinementOfNote": "Refines R19.55 (Device as scenario unit) with the ASSOCIATION PATTERN: Device\u2194User mirrors Room\u2194User \u2014 forward IOR array, ownerIor, per-user storage dir with symlinks, unitLinks lifecycle. R19.55 defines the Device data shape; R19.55.A defines how it associates to its User.",
+    "useCases": [
+      "ior:instance:490a59e0-6baf-4d1f-a813-a155f61b6d85"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

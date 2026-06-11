@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "36119fbe-7a2f-44f3-b19b-aa95d4c61be5",
+    "name": "User.deviceAssociation",
+    "description": "Populate User.devices[] from Device units (scan by ownerToken match). Add Device.unitLinks=['sprints.json/devices/<ownerToken>/<deviceId>.json']. Create data/users/<token>/devices/<deviceId>/device.json symlinks via shared createUserEntityLink.",
+    "sourceFile": "ior:file:scripts/migrate-users-devices.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:12c8982e-8962-41a8-b013-bf1e41a2167f"
+}

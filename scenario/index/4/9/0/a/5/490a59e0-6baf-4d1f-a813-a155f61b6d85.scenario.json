@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "490a59e0-6baf-4d1f-a813-a155f61b6d85",
+    "name": "user.deviceAssociation",
+    "description": "User.devices[] forward IOR refs (mirrors User.rooms[]). Device.ownerIor\u2192User. Per-user device dir (data/users/<uuid>/devices/) with unitLinks symlinks. Shared createUserEntityLink helper.",
+    "class": "ior:instance:12c8982e-8962-41a8-b013-bf1e41a2167f",
+    "method": "ior:instance:36119fbe-7a2f-44f3-b19b-aa95d4c61be5",
+    "classes": [
+      "ior:instance:12c8982e-8962-41a8-b013-bf1e41a2167f"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
