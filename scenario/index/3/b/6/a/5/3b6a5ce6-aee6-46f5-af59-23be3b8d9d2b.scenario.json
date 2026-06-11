@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "3b6a5ce6-aee6-46f5-af59-23be3b8d9d2b",
+    "name": "contentPreviewer.render",
+    "class": "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e",
+    "method": "ior:instance:c3efb22c-5d0d-4f7e-9502-56eec490f06d",
+    "classes": [
+      "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

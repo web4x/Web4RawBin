@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "70ec5980-f7a2-4702-a159-4f57996bd34d",
+    "name": "T-generic-previewer: generalize SVG viewer into a generic previewer for SVG/images/href",
+    "slug": "generic-previewer-svg-images-href",
+    "description": "Generalize the SVG viewer into a generic previewer for SVG, images, and href content. Covers R19.65.",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert rule-pair a+b\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:b03701b6-2105-4589-b27d-7db58b62e16c"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

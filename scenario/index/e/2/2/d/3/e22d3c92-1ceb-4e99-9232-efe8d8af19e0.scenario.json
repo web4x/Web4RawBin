@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "e22d3c92-1ceb-4e99-9232-efe8d8af19e0",
+    "name": "T-url-drop-unit: dropping a URL into a room creates a url-type scenario unit",
+    "slug": "url-drop-creates-url-type-scenario-unit",
+    "description": "Dropping a URL/link into a room creates a url-type scenario unit (like file drop creates a file unit). Covers R19.62.",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert rule-pair a+b\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:4885d7cb-b946-4759-914c-a95d2b249b64"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

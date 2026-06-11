@@ -4,8 +4,8 @@
     "uuid": "e6495d45-6d70-4e10-82d0-fdbe6ce01a0a",
     "altId": "R19.66",
     "name": "R19.66: Room Scenario button opens a Room detail view, not 'Task not found'.",
-    "description": "BUG: clicking a room's Scenario button navigates to /scenario?ior=<roomUuid> which renders 'Task not found' — the route assumes the IOR is a Task and fails when it resolves to a Room. FIX: the /scenario route MUST resolve the unit by UUID, detect its ior:class type (Room in this case), and render the appropriate DETAIL VIEW for that type. The Room detail view shows the room's scenario data (members, files, chat, config) with an action button to open the scenario editor (per R19.2/R19.2.A). This is a type-dispatch fix on the /scenario route — it must handle ALL scenario types, not just Task.",
-    "tronQuote": "> TRON: \"the in-room scenario button goes here [/scenario route] — that's not useful. at least there must be a detail view for it that then can open the scenario editor.\"",
+    "description": "BUG: clicking a room's Scenario button navigates to /scenario?ior=<roomUuid> which renders 'Task not found' \u2014 the route assumes the IOR is a Task and fails when it resolves to a Room. FIX: the /scenario route MUST resolve the unit by UUID, detect its ior:class type (Room in this case), and render the appropriate DETAIL VIEW for that type. The Room detail view shows the room's scenario data (members, files, chat, config) with an action button to open the scenario editor (per R19.2/R19.2.A). This is a type-dispatch fix on the /scenario route \u2014 it must handle ALL scenario types, not just Task.",
+    "tronQuote": "> TRON: \"the in-room scenario button goes here [/scenario route] \u2014 that's not useful. at least there must be a detail view for it that then can open the scenario editor.\"",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
@@ -15,7 +15,10 @@
       "ior:instance:9311987c-6dcd-4b73-9d9b-74383d6e16b9",
       "ior:instance:af607390-db30-4b1c-b3ac-21aba612aa60"
     ],
-    "crossRefNote": "R19.2.A (pencil opens room editor) is the action the detail view exposes. R19.58 (all 7+ type DetailViews consistent) — Room detail view is a type that must be included. The /scenario route must type-dispatch, not assume Task."
+    "crossRefNote": "R19.2.A (pencil opens room editor) is the action the detail view exposes. R19.58 (all 7+ type DetailViews consistent) \u2014 Room detail view is a type that must be included. The /scenario route must type-dispatch, not assume Task.",
+    "useCases": [
+      "ior:instance:5fd0119f-730c-4e00-b26e-4009d247643d"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "6bbac678-45ba-47cf-ad9b-70249831b4b5",
+    "name": "T-file-preview: clicking a file unit in the room tree shows a preview in the detail view",
+    "slug": "file-unit-click-preview-detail-view",
+    "description": "Clicking a file unit in the room tree shows a preview in the detail view. Covers R19.63.",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert rule-pair a+b\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:6052570f-4630-4cdf-8270-6ef29eec33df"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

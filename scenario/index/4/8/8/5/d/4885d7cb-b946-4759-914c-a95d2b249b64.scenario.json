@@ -5,8 +5,10 @@
     "altId": "R19.62",
     "name": "R19.62: Dropping a URL/link into a room creates a url-type scenario unit.",
     "description": "When a URL/link is dropped into the room drop-zone (via the R19.37 extensible dispatcher), the system MUST create a url-type FileUnit scenario unit (like a Windows .url or macOS .webloc). The unit stores the href in model.href, the page title in model.name (if extractable), and model.contentType='url'. This extends R19.37's dispatcher with a 'url' handler alongside the existing 'file' handler. The unit is stored in the scenario index and linked to the room via Room.files[] (R19.46).",
-    "tronQuote": "> TRON: \"dropped a link (Project_Sanctuary_OnePager.html URL) into room — did not work. should create something like a windows url that opens as html\"",
-    "tasks": [],
+    "tronQuote": "> TRON: \"dropped a link (Project_Sanctuary_OnePager.html URL) into room \u2014 did not work. should create something like a windows url that opens as html\"",
+    "tasks": [
+      "ior:instance:e22d3c92-1ceb-4e99-9232-efe8d8af19e0"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
@@ -15,7 +17,10 @@
       "ior:instance:46d49877-63c5-438b-9982-6c66a041ee44",
       "ior:instance:124d9eec-0c46-4f45-8640-b7e14618d214"
     ],
-    "crossRefNote": "R19.37 (extensible drop dispatcher) gains a 'url' handler. R19.46 (Room.files[] IOR list) includes url-type units."
+    "crossRefNote": "R19.37 (extensible drop dispatcher) gains a 'url' handler. R19.46 (Room.files[] IOR list) includes url-type units.",
+    "useCases": [
+      "ior:instance:a7a05f12-b5fd-4f10-af9e-3aa32b7cff04"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

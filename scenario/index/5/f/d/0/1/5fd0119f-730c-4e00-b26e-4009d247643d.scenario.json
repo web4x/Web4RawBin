@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "5fd0119f-730c-4e00-b26e-4009d247643d",
+    "name": "scenarioView.typeDispatch",
+    "description": "/scenario?ior=<uuid> resolves the unit's actual type from /api/trace/children response (type field), NOT from the graph (which only has 7 trace types). viewRegistry registers handlers for ALL types (Room, User, Device, File, Message, Skill + the 7 trace types + Sprint). Falls back to rb-detail-view for unknown types.",
+    "class": "ior:instance:740385cb-ce33-4216-a857-a5b63d35abb5",
+    "method": "ior:instance:9b45ad1a-1859-4778-83c4-f0eae462281d",
+    "classes": [
+      "ior:instance:740385cb-ce33-4216-a857-a5b63d35abb5"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

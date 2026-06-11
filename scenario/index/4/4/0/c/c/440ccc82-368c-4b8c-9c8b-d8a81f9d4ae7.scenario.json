@@ -20,21 +20,21 @@
         "name": "Marcel Donges Studio",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781175221115
+        "joinedAt": 1781175277316
       },
       {
         "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
         "name": "Toronto Trinity",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781175221115
+        "joinedAt": 1781175277316
       },
       {
         "ior": "ior:instance:ae9a8a5e-1317-4266-be78-b15b7f547139",
         "name": "test merge",
         "role": "member",
-        "status": "online",
-        "joinedAt": 1781175221115
+        "status": "offline",
+        "joinedAt": 1781175277316
       }
     ],
     "files": [

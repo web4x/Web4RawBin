@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "0fe9b0c2-1483-4c60-8f9f-9ab02c927eb2",
+    "name": "detailView.byTypeRender",
+    "class": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0",
+    "method": "ior:instance:c3164c1e-8f27-455c-b550-6433465303cc",
+    "classes": [
+      "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

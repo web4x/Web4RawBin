@@ -3,10 +3,12 @@
   "model": {
     "uuid": "8d90d7ec-0bce-439f-8180-bed4a182aace",
     "altId": "R19.64",
-    "name": "R19.64: Preview renders by content type — href in iframe, image as img, SVG in viewer.",
-    "description": "The file preview (R19.63) MUST render differently based on content type: href/url → an iframe loading the URL (the page renders inside the drawer); image (png/jpg/gif/webp) → an img element displaying the image; SVG → the existing SVG viewer (fullscreen-capable per R18.34). The preview dispatches by model.contentType or file extension. Each render mode is a handler in the generic previewer (R19.65).",
+    "name": "R19.64: Preview renders by content type \u2014 href in iframe, image as img, SVG in viewer.",
+    "description": "The file preview (R19.63) MUST render differently based on content type: href/url \u2192 an iframe loading the URL (the page renders inside the drawer); image (png/jpg/gif/webp) \u2192 an img element displaying the image; SVG \u2192 the existing SVG viewer (fullscreen-capable per R18.34). The preview dispatches by model.contentType or file extension. Each render mode is a handler in the generic previewer (R19.65).",
     "tronQuote": "> TRON: \"best case viewed in its OWN iframe loading the href = a preview in the detail drawer when the file is clicked. same for images.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:50437a26-1dfa-462c-aa94-acfb0a6cb829"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
@@ -15,7 +17,10 @@
       "ior:instance:b03701b6-2105-4589-b27d-7db58b62e16c",
       "ior:instance:6052570f-4630-4cdf-8270-6ef29eec33df"
     ],
-    "crossRefNote": "R19.65 (generic previewer) is the component. R19.63 (preview in drawer) is the container. R19.64 defines the per-type rendering rules."
+    "crossRefNote": "R19.65 (generic previewer) is the component. R19.63 (preview in drawer) is the container. R19.64 defines the per-type rendering rules.",
+    "useCases": [
+      "ior:instance:0fe9b0c2-1483-4c60-8f9f-9ab02c927eb2"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

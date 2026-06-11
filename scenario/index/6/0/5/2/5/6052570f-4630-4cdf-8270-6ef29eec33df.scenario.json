@@ -4,9 +4,11 @@
     "uuid": "6052570f-4630-4cdf-8270-6ef29eec33df",
     "altId": "R19.63",
     "name": "R19.63: Clicking a file unit in the room tree shows a preview in the detail drawer.",
-    "description": "When a user clicks/taps a file item (FileUnit) in the room's Members/Files tree, the detail drawer MUST open and show a PREVIEW of the file content. The preview is rendered by the generic previewer (R19.65) based on content type. This is the file's detail view — the drawer shows the preview above the standard scenario unit metadata.",
+    "description": "When a user clicks/taps a file item (FileUnit) in the room's Members/Files tree, the detail drawer MUST open and show a PREVIEW of the file content. The preview is rendered by the generic previewer (R19.65) based on content type. This is the file's detail view \u2014 the drawer shows the preview above the standard scenario unit metadata.",
     "tronQuote": "> TRON: \"best case viewed in its OWN iframe loading the href = a preview in the detail drawer when the file is clicked. same for images.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:6bbac678-45ba-47cf-ad9b-70249831b4b5"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
@@ -14,7 +16,10 @@
     "crossRef": [
       "ior:instance:b03701b6-2105-4589-b27d-7db58b62e16c"
     ],
-    "crossRefNote": "R19.65 (generic previewer) renders the content. R19.63 defines WHERE it appears (detail drawer on file click)."
+    "crossRefNote": "R19.65 (generic previewer) renders the content. R19.63 defines WHERE it appears (detail drawer on file click).",
+    "useCases": [
+      "ior:instance:f604fe2f-aa04-4314-b50c-caa247e1b0aa"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

@@ -5,7 +5,8 @@
     "name": "TraceRouter",
     "file": "src/public/ts/trace/TraceRouter.ts",
     "methods": [
-      "ior:instance:d1068f81-dc16-45a0-a52e-7a98c04208fc"
+      "ior:instance:d1068f81-dc16-45a0-a52e-7a98c04208fc",
+      "ior:instance:9b45ad1a-1859-4778-83c4-f0eae462281d"
     ],
     "useCases": [],
     "method": "ior:instance:d1068f81-dc16-45a0-a52e-7a98c04208fc",

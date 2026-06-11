@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "a7a05f12-b5fd-4f10-af9e-3aa32b7cff04",
+    "name": "dropZone.urlDrop",
+    "class": "ior:instance:3fca4816-cc22-45ea-aa59-d7b23ac19d8d",
+    "method": "ior:instance:352ae8e8-0136-444a-8fd1-81dcdd247a64",
+    "classes": [
+      "ior:instance:3fca4816-cc22-45ea-aa59-d7b23ac19d8d"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

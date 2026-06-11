@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "4999f5a8-0302-4e92-90d1-4f3ce5fb7f7d",
+    "name": "RbDetailDrawer.filePreview",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"
+}
