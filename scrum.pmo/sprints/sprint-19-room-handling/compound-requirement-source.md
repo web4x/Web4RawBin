@@ -188,3 +188,7 @@
 ### View template consistency — .md + .html with chain-link + edit (R19.61)
 - **R19.61** (2026-06-11): EVERY scenario type generates BOTH .md and .html view templates, each carrying chain-link (🔗) + edit (✏️) affordances. Room .html currently has NEITHER. Consistent across all types.
   > TRON: "here we see missing chain links to the scenario and the templates for room md and html have to be created. check that on all types."
+
+### Device↔User association pattern (R19.55.A, refines R19.55)
+- **R19.55.A** (2026-06-11): Device↔User mirrors Room↔User — User.devices[] forward IOR, Device.ownerIor, data/users/<uuid>/devices/ symlinks, unitLinks lifecycle (R18.29-31).
+  > TRON: "devices are like rooms associated to users."

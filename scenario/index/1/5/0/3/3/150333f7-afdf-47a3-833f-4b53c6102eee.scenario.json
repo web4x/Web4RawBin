@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "150333f7-afdf-47a3-833f-4b53c6102eee",
+    "altId": "R19.55.A",
+    "name": "R19.55.A: Device↔User association modeled like Room↔User — forward IOR array, ownerIor, per-user storage, unitLinks.",
+    "description": "The Device↔User relationship MUST be modeled identically to Room↔User: User scenario unit gets a model.devices[] forward IOR array (like model.rooms[]), Device.ownerIor points to its User unit (back-ref), per-user association uses data/users/<userUuid>/devices/ directory with symlinks to Device scenario units (same pattern as data/users/<uuid>/rooms/), and the symlinks are registered in Device.unitLinks[] (R18.29-31 always-consistent lifecycle). This makes Device association navigable, persistent, and consistent with the Room pattern.",
+    "tronQuote": "> TRON: \"devices are like rooms associated to users.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "refinementOf": "ior:instance:53820063-250e-451e-b395-69948c6eee79",
+    "refinementOfNote": "Refines R19.55 (Device as scenario unit) with the ASSOCIATION PATTERN: Device↔User mirrors Room↔User — forward IOR array, ownerIor, per-user storage dir with symlinks, unitLinks lifecycle. R19.55 defines the Device data shape; R19.55.A defines how it associates to its User."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

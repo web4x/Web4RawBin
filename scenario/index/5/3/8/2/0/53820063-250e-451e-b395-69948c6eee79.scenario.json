@@ -39,7 +39,11 @@
       },
       "newFields": [],
       "deprecates": "data/devices.json"
-    }
+    },
+    "refinedBy": [
+      "ior:instance:150333f7-afdf-47a3-833f-4b53c6102eee"
+    ],
+    "refinedByNote": "Refined by R19.55.A which adds the Device\u2194User association pattern (mirrors Room\u2194User): User.devices[] forward IOR, Device.ownerIor, per-user storage dir, unitLinks lifecycle."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
