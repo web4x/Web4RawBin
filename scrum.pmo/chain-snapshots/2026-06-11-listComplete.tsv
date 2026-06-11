@@ -1,0 +1,26 @@
+chain	reqUuid	name	method	impl	test
+FLAG: This may mean Tron's device is not receiving update...	5b6122fe-75f1-4a33-9b2f-63fcaeb4323f	FLAG: This may mean Tron's device is not receiving update...	updateBanner	79505a42	b42c8d93
+R-A2: Avatar upload must work without exposing key errors...	a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d	R-A2: Avatar upload must work without exposing key errors...	avatarPersist	94bc8f6e	dd85c4d7
+R-R1: All user rooms load from disk on connect and appear...	b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e	R-R1: All user rooms load from disk on connect and appear...	keylessUpload	94bc8f6e	dd85c4d7
+R16.3: pageNav() sticky to top	bca276d9-8ff6-4234-a562-19e15e4ab8fb	R16.3: pageNav() sticky to top	stickyBottom	d0235605	d3513d2b
+R18.34	042bab1a-46ff-4a92-8494-102b9ad928ac	SVG renders in fullscreen iframe natively	onPinchEnd	94bc8f6e	dd85c4d7
+R18.34.B	6ee95023-5639-4eb7-86cc-916ebb418e7e	Pinch release commits SVG zoom without additional gesture	onPinchEnd	94bc8f6e	dd85c4d7
+R19.30	ca351869-b694-491e-ba0f-8c9e9623c4db	R19.30: Edit pen (✏️) opens the canonical room scenario unit in EDIT mode.	editCanonical	2a29b3da	6d58883c
+R19.33	553be449-3bad-4580-9426-11c4ab10e202	R19.33: Detail drawer close affordance stays sticky in view, never scrolls away.	stickyClose	aa585fcc	859878d6
+R19.34	7734f4e1-def9-4af3-a7d2-5ccc7160b214	R19.34: Traceability Chain section shows the singular chain to Test, not a flat list of use cases.	singularChain	b4f6b903	1a22ed27
+R19.35	c99083ba-1b38-474c-88d1-ca4bf5f5a2c7	R19.35: Room scenario unit model holds IOR references to its member units.	persistMembers	d5f0c2b4	c874546a
+R19.36	573d5b87-bd20-4eb6-9ec4-87896a6533bb	R19.36: DnD file-upload chain is fully traceable from drop to ln link to room file-tree display.	uploadFile	d6ec181b	1e763397
+R19.37	46d49877-63c5-438b-9982-6c66a041ee44	R19.37: Unknown drop format logs the event to room chat as an extensible dispatcher.	routeUnknown	971bdde0	1e763397
+R19.38	2d4fefed-0895-4be3-b153-505dc65eca9a	R19.38: Chat messages are scenario units with ownerIor and a doubly-linked list of next/prev message IORs.	lazyLoadChain	94bc8f6e	dd85c4d7
+R19.39	4ed793f1-94a0-4645-b4f5-b8dff74da75c	R19.39: A system RawBin User unit owns the DnD debug/log messages.	ensureRawBinUser	7de1d230	5df331c3
+R19.40	a0d3791e-a859-4303-b475-b3e525fce114	R19.40: Room holds lastMessageIor; chat lazy-loads 5 messages at a time walking prevMessage.	lazyLoadChain	94bc8f6e	dd85c4d7
+R19.41	e0bcf6ec-3b16-483a-bdc9-a22b9ab2495b	R19.41: Server has a configurable log level that gates logging detail at runtime.	logAtLevel	7f1774c9	b543e1ad
+R19.42	9e8b678b-c522-4929-90c3-d710c4893b6a	R19.42: Drop-zone has clear onDragEnter/onDragExit visual handlers.	feedbackCycle	971bdde0	1e763397
+R19.43	fd822bbe-da7a-4121-bd80-a4ac7d05c744	R19.43: After drop, show an upload status bar with progress.	feedbackCycle	971bdde0	1e763397
+R19.44	65151a56-5efa-448c-b790-1a0522532749	R19.44: Upload success or failure posts a corresponding RawBin system chat message.	feedbackCycle	971bdde0	1e763397
+R19.45	9b468b6d-37e8-4f4e-879c-dea228b747c5	R19.45: Offline page has a red Flush PWA Cache button next to Retry.	flushAndReload	79505a42	b42c8d93
+R19.50	fe9922f0-e58f-4e26-9d5a-8c65f8b26c60	R19.50: File scenario unit has a version[] array of {version, ior} entries.	uploadEndpoint	7f1774c9	b543e1ad
+R19.52	dceda100-434b-4ef7-9af3-9a69ccfac6b2	R19.52: Detail drawer is full width — no max-width cap.	fullWidth	da9462f5	a7e34f12
+R19.54	3544a030-48cf-48f4-a08c-a376fb749f79	R19.54: Users become first-class scenario units (ior:class:User) in the scenario index.	createUserUnit	7f1774c9	b543e1ad
+R19.55	53820063-250e-451e-b395-69948c6eee79	R19.55: Devices become first-class scenario units (ior:class:Device) in the scenario index.	createDeviceUnit	94bc8f6e	dd85c4d7
+R19.57	8b823df5-0ad9-4264-b200-6a7125010654	R19.57: Full-width drawer must not cover the top-nav back button — back stays visible and clickable.	raiseAboveDrawer	7f1774c9	b543e1ad

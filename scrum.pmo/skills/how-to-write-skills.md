@@ -1,101 +1,87 @@
-# How to Write Skills (Object.verb)
+# How to Write Skills (Object.verb — one source of truth)
 
 **Audience:** All agents (PO, architect, expert, tester, planner, req)
-**Pattern:** OOSH — Object.verb
+**Pattern:** OOSH applied to TypeScript — the class IS the skill, the signature IS the doc.
 
-## Core Principle
+## Core Principle (DRY, the OOSH way)
 
-Write skills like OOSH: the **logic lives in a typed Class method**; the **script/CLI is thin dispatch**.
+In OOSH, the bash method signature comment is parsed by c2 for help AND completion —
+defined once, introspected everywhere. We apply the same model to TypeScript:
 
 ```
-scriptname method args  →  Class.method(args)
+typed Class method (logic + JSDoc + typed params)
+        │  introspected by scripts/objectVerb.ts (= c2 for TS)
+        ├─→ CLI invocation + arg mapping        (no per-skill argv parsing)
+        ├─→ help text                            (from JSDoc)
+        ├─→ Tab completion                       (from param names + complete())
+        ├─→ OOSH wrapper `taskChain`             (emitOosh — GENERATED)
+        └─→ skill docs chain.md / velocity.md    (emitDocs — GENERATED)
 ```
 
-This makes skills themselves traceable units: Class → Method → Implementation → Test — the same chain model as our scenario units.
+**Never** hand-write: argv `--flag` parsers, prose skill .md files, or OOSH wrapper
+methods. All three are generated or derived. Flags are FORBIDDEN as skill surface —
+verbs are methods (oosh-po rule). One canonical measure per metric.
 
-## The Pattern
+## Writing a new skill
 
-### 1. Class (the logic)
-
-Logic lives in `src/ts/scenario/skill-classes.ts` (or a domain-specific file). Each skill object is a class with typed methods:
+1. **Add a public method** to a class in `src/ts/scenario/skill-classes.ts`
+   (or register a new class in `scripts/objectVerb.ts` registry):
 
 ```typescript
-// src/ts/scenario/skill-classes.ts
 export class Chain {
-  constructor(private idx: ScenarioIndex, private srcDir: string, private testDir: string) {}
-
-  /** po.chainFollowUp — walk chain per Req, produce scoreboard */
-  followUp(reqUuids: string[]): { rows: ChainRow[]; complete: number; total: number; excluded: number } {
-    // ... all logic here
-  }
-
-  /** chain.wireImplNode — wire Method→Impl→Test */
-  wireImplNode(methodUuid: string, dryRun: boolean): WireResult {
-    // ... all logic here
-  }
-}
-
-export class Velocity {
-  constructor(private repoDir: string, private chain: Chain) {}
-
-  compute(since: string, sprint?: string): VelocityResult {
-    // ... sources Chain.followUp for canonical numerator
+  /** One-line description — becomes help text, OOSH signature comment, and docs */
+  listComplete(sprint?: string): CompleteEntry[] {
+    // ALL logic here. Typed params only: string, string[], number, boolean.
   }
 }
 ```
 
-### 2. Script (thin dispatch)
+Conventions the introspector relies on:
+- public method = verb; `private` methods are invisible to the CLI
+- JSDoc first line = the description (REQUIRED — missing doc = broken help, same as a missing `#` in OOSH)
+- param types limited to `string`, `string[]`, `number`, `boolean`; optional via `?`
+- return `string` for rendered output, an array of flat objects for diffable TSV, or a result object (JSON)
 
-The CLI script in `scripts/` is just argument parsing + dispatch to the class:
+2. **Add completion candidates** (if the param benefits from Tab):
 
 ```typescript
-// scripts/po-chain-follow-up.ts
-import { Chain } from '../src/ts/scenario/skill-classes.js';
-import { ScenarioIndex } from '../src/ts/scenario/index.js';
-
-const idx = new ScenarioIndex('scenario/index');
-const chain = new Chain(idx, 'src', 'test');
-
-// Parse args → dispatch
-const result = chain.followUp(reqUuids);
-// Format + print
+  complete(verb: string, param: string): string[] {
+    if (param === 'sprint') return ['S17', 'S18', 'S19'];   // one candidate per line
+    ...
+  }
 ```
 
-### 3. SKILL.md (the contract)
+3. **Re-emit the generated artifacts** (and commit them):
 
-`scrum.pmo/skills/<object>-<verb>.md` documents invocation, parameters, output format. References the Class.method as the implementation.
+```bash
+npx tsx scripts/objectVerb.ts emitOosh    # regenerates scrum.pmo/skills/taskChain
+npx tsx scripts/objectVerb.ts emitDocs    # regenerates chain.md / velocity.md
+```
 
-### 4. Scenario unit (the traceability)
+4. **Invoke**:
 
-Each skill class + method gets scenario units in the chain:
-- `ior:class:Class` → `Chain` (or `Velocity`)
-- `ior:class:Method` → `Chain.followUp`, `Chain.wireImplNode`, `Velocity.compute`
-- `ior:class:Implementation` → the `[impl:uuid:]` marker on the class method
-- `ior:class:Test` → the `[test:uuid:]` marker on the test
+```bash
+taskChain chain.listComplete --sprint S19            # OOSH (Tab-completes)
+npx tsx scripts/objectVerb.ts Chain listComplete     # direct
+```
 
-## Rules
+## Why this beats hand-rolled scripts
 
-1. **Logic in the class, not the script.** The script parses args and formats output. The class does the work.
-2. **Shared state via constructor.** Pass `ScenarioIndex`, paths, etc. via constructor — not global variables.
-3. **Composable.** `Velocity` takes `Chain` as a dependency. Don't reimplement chain-walking in velocity — call `chain.followUp()`.
-4. **Deterministic.** Same inputs → same outputs. No `Date.now()` in the logic (pass timestamps as args).
-5. **Validated before authoritative.** 3 identical runs before trusting a new metric. Document validation in the commit.
-6. **Object.verb naming.** `Chain.followUp`, `Chain.wireImplNode`, `Velocity.compute` — noun.verb, matching our UseCase naming convention.
-7. **ONE canonical measure per metric.** Chain completion has ONE canonical measure: `Chain.followUp()` via `po-chain-follow-up.ts`. **No parallel counts.** Any script that computes a completion-like number MUST either source `Chain.followUp()` or print `NON-CANONICAL` and refuse to emit a competing number. Prevention over detection.
+| Hand-rolled (before) | Object.verb (now) |
+|----------------------|-------------------|
+| `args.indexOf('--sprint')` per script | typed param, mapped generically |
+| 5 KB prose SKILL.md, drifts | generated from JSDoc, can't drift |
+| OOSH wrapper hand-written, deviates | generated canonical (`.start`, per-method completion) |
+| duplicate logic script-vs-class | ONE class, shims are 5-line delegates |
 
-## Migration checklist (for existing scripts)
+## Traceability
 
-- [ ] Extract logic from script into a class method in `skill-classes.ts`
-- [ ] Script becomes thin dispatch (arg parse → class.method → format output)
-- [ ] Class method has typed parameters + return type
-- [ ] Constructor takes dependencies (ScenarioIndex, paths)
-- [ ] SKILL.md references the Class.method
-- [ ] Scenario units created for the Class + Method
+Skills are themselves chain units: `class Chain` → `Method followUp` → impl marker
+`[impl:uuid:]` in skill-classes.ts → tests in `test/vitest/object-verb.test.ts`.
+The skill system eats its own dog food.
 
-## Examples
+## Legacy entry points (kept as thin shims, same output)
 
-| Skill | Class | Method | Script |
-|-------|-------|--------|--------|
-| po.chainFollowUp | Chain | followUp() | scripts/po-chain-follow-up.ts |
-| chain.wireImplNode | Chain | wireImplNode() | scripts/chain-wire-impl-node.ts |
-| team.velocity | Velocity | compute() | scripts/team-velocity.ts |
+`scripts/po-chain-follow-up.ts`, `scripts/team-velocity.ts`,
+`scripts/chain-wire-impl-node.ts` — preserved so existing invocations and parsers
+(Summary-line regex) keep working. They contain ZERO logic.
