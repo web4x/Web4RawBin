@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "0ce409d9-8bce-431d-a1b3-10e2b967b53e",
+    "name": "test.pdf",
+    "contentPath": "index/0/c/e/4/0/0ce409d9-8bce-431d-a1b3-10e2b967b53e.content",
+    "size": 39,
+    "mimeType": "application/pdf",
+    "uploadedAt": "2026-06-11T06:43:20.988Z",
+    "uploaderToken": "0d7ee549-30eb-498d-b8d1-9c6c84be1544",
+    "roomUuid": "e32a20a7-e94e-441e-8928-8a15302eb514",
+    "unitLinks": [
+      "rooms/e32a20a7-e94e-441e-8928-8a15302eb514/files/0ce409d9-8bce-431d-a1b3-10e2b967b53e.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:e32a20a7-e94e-441e-8928-8a15302eb514"
+}

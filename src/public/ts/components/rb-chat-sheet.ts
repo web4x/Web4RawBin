@@ -131,7 +131,7 @@ class RbChatSheet extends HTMLElement {
   private lazyLoading = false;
   private noMore = false;
 
-  // [impl:uuid:94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05] chat lazy-load client
+  // [impl:uuid:d60e4182-ad47-41b2-b659-34f23c671949] chat lazy-load client
   private setupLazyLoad(): void {
     const el = this.shadow.getElementById('messages');
     if (!el || this.lazyObserver) return;

@@ -14,7 +14,7 @@ export class DropDispatcher {
     this.handlers.set(mimePrefix, handler);
   }
 
-  // [impl:uuid:9905fbfa-a1b2-4c3d-8e4f-5a6b7c8d9e01] DropDispatcher.uploadFile
+  // [impl:uuid:d6ec181b-3e6f-4b95-9b67-196cdb137ad3] DropDispatcher.uploadFile
   async uploadFile(file: File, roomId: string, playerToken: string): Promise<{ uuid: string; name: string; size: number } | null> {
     const fd = new FormData();
     fd.append('file', file);
@@ -24,7 +24,7 @@ export class DropDispatcher {
     return resp.json();
   }
 
-  // [impl:uuid:3d4ceb1d-b2c3-4d4e-9f5a-6b7c8d9e0f02] DropDispatcher.routeUnknown
+  // [impl:uuid:971bdde0-004b-4896-bc8c-4570832f6304] DropDispatcher.routeUnknown
   async routeUnknown(file: File, roomId: string, playerToken: string, sendChat: (text: string) => void): Promise<void> {
     for (const [prefix, handler] of this.handlers) {
       if (file.type.startsWith(prefix)) {

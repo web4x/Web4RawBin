@@ -258,6 +258,7 @@ function getLogFileName(): string {
   return `rawbin-${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}.log`;
 }
 
+// [impl:uuid:7f1774c9-1f78-403e-b078-c1b21d8a6b8e] Logger.logAtLevel
 function addLog(message: string): void {
   const timestamp = new Date().toLocaleTimeString();
   const entry = `[${timestamp}] ${message}`;

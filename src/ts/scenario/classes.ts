@@ -34,7 +34,7 @@ export const MessageLoader = loader('Message', { text: '', timestamp: 0, senderI
 
 const RAWBIN_SYSTEM_UUID = '00000000-0000-4000-8000-rawb1n000000';
 
-// [impl:uuid:971e3531-b2c3-4d4e-9f5a-6b7c8d9e0f04] ensureRawBinUser
+// [impl:uuid:3ddc7da8-a38a-470c-95f7-e48e3e7757c9] ensureRawBinUser
 export function ensureRawBinUser(idx: { get(uuid: string): any; put(uuid: string, unit: any): void }): string {
   if (!idx.get(RAWBIN_SYSTEM_UUID)) {
     idx.put(RAWBIN_SYSTEM_UUID, { ior: 'ior:class:User', model: { uuid: RAWBIN_SYSTEM_UUID, name: 'RawBin', displayName: 'RawBin', token: RAWBIN_SYSTEM_UUID, role: 'system' }, ownerIor: null });
