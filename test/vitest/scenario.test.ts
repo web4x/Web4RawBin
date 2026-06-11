@@ -46,7 +46,7 @@ describe('T125.2: Class loaders + registry', () => {
     for (const name of ['Sprint', 'Task', 'Requirement', 'UseCase', 'Class', 'Method', 'Test']) {
       expect(reg.has(iorClass(name))).toBe(true);
     }
-    expect(reg.all().length).toBe(11);
+    expect(reg.all().length).toBe(12);
   });
 
   it('TaskLoader.create populates defaults + overrides', () => {
@@ -342,7 +342,7 @@ describe('T134: TraceLink', () => {
   it('ClassRegistry resolves TraceLink (8th class)', () => {
     const reg = new ClassRegistry();
     expect(reg.has(iorClass('TraceLink'))).toBe(true);
-    expect(reg.all().length).toBe(11);
+    expect(reg.all().length).toBe(12);
   });
 
   it('defaultTemplateRegistry renders TraceLink HTML+MD', () => {

@@ -30,12 +30,23 @@ export const UserLoader = loader('User', { displayName: '', token: '', avatarHas
 export const SkillLoader = loader('Skill', { description: '', object: '', verb: '', parameters: [], returns: {}, impl: '', requirement: '', roles: [], examples: [] });
 // T-file-unit R19.14: files become unique scenario units (<uuid>.content + <uuid>.scenario.json + unitLinks[])
 export const FileLoader = loader('File', { contentPath: '', size: 0, mimeType: '', uploadedAt: '', uploaderToken: '', roomUuid: '' });
+export const MessageLoader = loader('Message', { text: '', timestamp: 0, senderIor: '', senderName: '', roomIor: '', prevMessage: null, nextMessage: null, kind: 'chat' });
+
+const RAWBIN_SYSTEM_UUID = '00000000-0000-4000-8000-rawb1n000000';
+
+// [impl:uuid:971e3531-b2c3-4d4e-9f5a-6b7c8d9e0f04] ensureRawBinUser
+export function ensureRawBinUser(idx: { get(uuid: string): any; put(uuid: string, unit: any): void }): string {
+  if (!idx.get(RAWBIN_SYSTEM_UUID)) {
+    idx.put(RAWBIN_SYSTEM_UUID, { ior: 'ior:class:User', model: { uuid: RAWBIN_SYSTEM_UUID, name: 'RawBin', displayName: 'RawBin', token: RAWBIN_SYSTEM_UUID, role: 'system' }, ownerIor: null });
+  }
+  return RAWBIN_SYSTEM_UUID;
+}
 
 export class ClassRegistry {
   private loaders = new Map<string, ClassLoader>();
 
   constructor() {
-    for (const l of [SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader, TraceLinkLoader, UserLoader, SkillLoader, FileLoader]) {
+    for (const l of [SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader, TraceLinkLoader, UserLoader, SkillLoader, FileLoader, MessageLoader]) {
       this.loaders.set(l.className, l);
     }
   }

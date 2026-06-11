@@ -32,7 +32,7 @@ export class DropDispatcher {
         return;
       }
     }
-    sendChat(`Dropped [${file.type || 'unknown'}]: ${file.name} — no handler registered`);
+    sendChat(`[drop-debug] ${file.name} (${file.type || 'unknown'}) — no handler registered`);
   }
 
   async dispatch(file: File, roomId: string, playerToken: string, sendChat: (text: string) => void): Promise<{ uuid: string; name: string; size: number } | null> {

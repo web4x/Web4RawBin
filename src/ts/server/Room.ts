@@ -190,11 +190,27 @@ export class Room {
 
   // --- Chat ---
 
-  addChat(senderId: string, senderName: string, text: string): void {
+  lastMessageIor: string | null = null;
+  firstMessageIor: string | null = null;
+  messageCount: number = 0;
+
+  addChat(senderId: string, senderName: string, text: string, scenarioIdx?: any): void {
     const msg: ChatMessage = { senderId, senderName, text, timestamp: Date.now() };
     this._chatHistory.push(msg);
     if (this._chatHistory.length > 100) this._chatHistory = this._chatHistory.slice(-100);
     this.broadcastAll({ type: MSG.CHAT_MESSAGE, ...msg });
+    if (scenarioIdx) {
+      try {
+        const { createMessageUnit } = require('../scenario/message-unit.js');
+        const member = this.members.get(senderId);
+        const token = member?.playerToken || senderId;
+        const unit = createMessageUnit(scenarioIdx, { text, senderToken: token, senderName, roomUuid: this.id, kind: 'chat' }, this.lastMessageIor);
+        const uuid = (unit.model as any).uuid;
+        if (!this.firstMessageIor) this.firstMessageIor = `ior:instance:${uuid}`;
+        this.lastMessageIor = `ior:instance:${uuid}`;
+        this.messageCount++;
+      } catch {}
+    }
     this.persist();
   }
 
