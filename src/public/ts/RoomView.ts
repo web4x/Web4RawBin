@@ -1,4 +1,6 @@
 // [impl:uuid:a2dfd6e8-3d5c-419a-a743-01fcaa7ba069] T5 room view
+// [impl:uuid:e289349c-ba8d-4182-9288-9bbd7ac3ed56] RbRoomContent.render
+// [impl:uuid:3fbcebaf-2986-44d6-afd2-7ab810e824f2] RbRoomDetail.modeSet
 import { RawBinClient } from './RawBinClient.js';
 import { ProfileEditor } from './ProfileEditor.js';
 import { ProfileSheet } from './ProfileSheet.js';

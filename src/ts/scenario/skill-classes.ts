@@ -1,4 +1,5 @@
 /**
+// [impl:uuid:bebc0b1d-d3c8-4b5b-aa95-dc3a94132f44] SkillExpert.coSpecify
  * Skill classes — Object.verb pattern for team skills.
  *
  * ALL skill logic lives here, in typed Class methods (the OOSH model applied to TS).

@@ -1,4 +1,5 @@
 /**
+// [impl:uuid:30d30572-57a5-4078-b822-1b85bdb421a9] SpeakingTree.extendClasses
 // [impl:uuid:7958f8bf-25de-43e2-a022-287c809d84cb] SpeakingTree.symlinkJson(sprint
 // [impl:uuid:b9fa3577-1479-40e1-8e63-88c07c979cce] SpeakingTree.generateMd(sprint
 // [impl:uuid:7bab1a71-8d2e-4d19-bd4a-ce5547291b03] SpeakingTree.symlinkJson(sprint
