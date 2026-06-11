@@ -2023,3 +2023,41 @@ describe('R19.84: handle drag resizes drawer to 95vh, close below 120px', () => 
     expect(moveBody).toContain('this.style.height');
   });
 });
+
+// ═══════════════════════════════════════════════════════════════════════════
+// R19.89: Remove-Local-Identity button renders in DeviceEnrollDialog only
+// [test:uuid:43b76bc3-4bf4-4b2a-bc16-af73b4aa82ee] R19.89 removeLocalIdentity
+// ═══════════════════════════════════════════════════════════════════════════
+
+describe('R19.89: Remove-Local-Identity button placement + click handler', () => {
+  it('DeviceEnrollDialog renders de-remove-identity button', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/DeviceEnrollDialog.ts'), 'utf-8');
+    const lines = src.split('\n');
+    const btnLine = lines.find(l => l.includes('de-remove-identity'));
+    expect(btnLine).toBeDefined();
+    expect(btnLine).toContain('Remove Local Identity');
+  });
+
+  it('de-remove-identity click handler invokes removeLocalIdentity logic', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/DeviceEnrollDialog.ts'), 'utf-8');
+    const clickIdx = src.indexOf("de-remove-identity')?.addEventListener('click'");
+    expect(clickIdx).toBeGreaterThan(-1);
+    const handlerBlock = src.slice(clickIdx, clickIdx + 300);
+    expect(handlerBlock).toContain('localStorage');
+  });
+
+  it('ProfileEditor does NOT contain de-remove-identity', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/ProfileEditor.ts'), 'utf-8');
+    expect(src).not.toContain('de-remove-identity');
+    expect(src).not.toContain('removeLocalIdentity');
+  });
+});
