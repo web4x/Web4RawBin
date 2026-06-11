@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781162258973,
+    "createdAt": 1781163355261,
     "sshKeysGenerated": false,
     "sshPublicKey": "",
     "chatHistory": [],
@@ -20,9 +20,12 @@
         "name": "",
         "role": "owner",
         "status": "online",
-        "joinedAt": 1781162258973
+        "joinedAt": 1781163355261
       }
     ],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
     "sourceFile": "scenario/index/a/a/a/a/a/aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee.scenario.json",
     "unitLinks": [
       "sprints.json/rooms/test-tok-canon/aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee.json"

@@ -131,8 +131,8 @@ export class RoomView {
     this.members = [];
   }
 
-  // [impl:uuid:6fc898ab-a933-4756-920a-3c9e4050d234] RbRoomDetail.editOpen R19
-  // [impl:uuid:81d53df2-d8eb-4868-a741-b2acfc91a2f8] RbRoomDetail.scenarioLinkRender R19
+  // [impl:uuid:f9b579c1-7495-4f93-8dec-736a0410a69a] RbRoomDetail.editOpen R19
+  // [impl:uuid:26b81ea0-9b6c-4395-b0d8-0f49bc4d1eb4] RbRoomDetail.scenarioLinkRender R19
   private openRoomEditor(): void {
     const overlay = document.createElement("div");
     overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000";

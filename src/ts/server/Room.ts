@@ -101,7 +101,7 @@ export class Room {
     this.isPrivate = opts?.isPrivate || false;
     this.visibility = opts?.visibility || (this.isPrivate ? 'private' : 'public');
     if (this.visibility === 'private') this.isPrivate = true;
-  // [impl:uuid:4fed4fda-5fc1-4340-a976-a473d2366513] Room.init
+  // [impl:uuid:2ab8a3dd-4b6d-420c-bc1a-f3fac85ec9b7] Room.init
     this.mode = opts?.mode || 'persistent';
     this.roomKey = opts?.roomKey || '';
     this.hostId = creator.id;
@@ -117,7 +117,7 @@ export class Room {
   }
 
   // T-visibility R19.3: switch visibility (PUBLIC/BY-INVITE/PRIVATE)
-  // [impl:uuid:2d189279-0f36-4efc-8107-9862ae259dca] Room.visibilityCheck
+  // [impl:uuid:6acb7db1-3a5d-424f-8d23-921394440cf1] Room.visibilityCheck
   setVisibility(v: RoomVisibility): void {
     this.visibility = v;
     this.isPrivate = (v === 'private');
@@ -139,7 +139,7 @@ export class Room {
   }
 
   // --- Members ---
-// [impl:uuid:ea02fa6d-5116-4466-82ee-81866c81a164] Room.memberAdd
+// [impl:uuid:4246c0a8-cfbf-43cd-8677-3367f3ac21d9] Room.memberAdd
 
   // [impl:uuid:417918a5-b2c3-4d4e-9f5a-6b7c8d9e0f12] T-persistent-dedup R19.8.B
   addMember(member: RoomMember): boolean {
@@ -176,7 +176,7 @@ export class Room {
       this.broadcast({ type: MSG.HOST_CHANGED, hostId: this.hostId });
     }
     this.persist();
-  // [impl:uuid:f82d09a5-fd35-4019-afd4-d2848c88267c] Room.retainOrPrune
+  // [impl:uuid:4c21d2ee-ff20-4511-9f0e-d786f9bb90d7] Room.retainOrPrune
   }
 
   // [impl:uuid:67b2763e-1a2b-4c3d-8e4f-5a6b7c8d9e01] T-persistent-retention

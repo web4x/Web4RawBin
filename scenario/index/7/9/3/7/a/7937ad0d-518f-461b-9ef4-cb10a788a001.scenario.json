@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "7937ad0d-518f-461b-9ef4-cb10a788a001",
+    "name": "User: ROUNDTRIP-1781163074",
+    "text": "ROUNDTRIP-1781163074",
+    "timestamp": 1781163074728,
+    "senderIor": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544",
+    "senderName": "User",
+    "roomIor": "ior:instance:e32a20a7-e94e-441e-8928-8a15302eb514",
+    "prevMessage": null,
+    "nextMessage": null,
+    "kind": "chat",
+    "unitLinks": [
+      "sprints.json/rooms/e32a20a7-e94e-441e-8928-8a15302eb514/messages/7937ad0d-518f-461b-9ef4-cb10a788a001.json"
+    ]
+  },
+  "ownerIor": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544"
+}
