@@ -165,16 +165,17 @@ export class RoomView {
       </div>`;
 
     const dz = document.getElementById("rrc-drop");
-    const statusBar = document.getElementById("rrc-upload-status");
+    dropDispatcher.onStatus((state, detail) => {
+      const sb = document.getElementById("rrc-upload-status");
+      if (sb) {
+        sb.style.display = state === 'idle' ? 'none' : 'block';
+        sb.textContent = detail || '';
+        sb.className = `rrc-upload-status rrc-upload-${state}`;
+      }
+      console.log(`[upload-status] ${state}: ${detail || ''}`);
+    });
     if (dz && !(dz as any).__wired) {
       (dz as any).__wired = true;
-      dropDispatcher.onStatus((state, detail) => {
-        if (statusBar) {
-          statusBar.style.display = state === 'idle' ? 'none' : '';
-          statusBar.textContent = detail || '';
-          statusBar.className = `rrc-upload-status rrc-upload-${state}`;
-        }
-      });
       dz.addEventListener("dragenter", (e) => { e.preventDefault(); dropDispatcher.onDropEnter(dz); });
       dz.addEventListener("dragover", (e) => { e.preventDefault(); });
       dz.addEventListener("dragleave", () => { dropDispatcher.onDropExit(dz); });
