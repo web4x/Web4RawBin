@@ -153,7 +153,7 @@ export class RoomView {
     });
   }
 
-  private render(): void {
+  private async render(): Promise<void> {
     const isHost = this.roomOwnerToken === this.client.playerToken;
     this.container.innerHTML = `
       <div class="room-view">
@@ -233,6 +233,7 @@ export class RoomView {
     this.chatSheet.setWsStatus(this.client.connected ? 'connected' : 'disconnected');
     if (!this.client.isOnline()) this.showOfflineBanner();
 
+    await customElements.whenDefined('rb-object-item');
     this.renderMemberList();
   }
 

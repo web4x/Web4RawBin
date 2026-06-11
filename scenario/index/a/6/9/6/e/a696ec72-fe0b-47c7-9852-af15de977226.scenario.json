@@ -4,7 +4,9 @@
     "uuid": "a696ec72-fe0b-47c7-9852-af15de977226",
     "name": "RoomView.awaitItemUpgrade",
     "description": "In enterRoom(), await customElements.whenDefined('rb-object-item') before renderMemberList(). Guarantees CE upgrade completed so all items get connectedCallback.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:d1f40e31-9ec3-45c6-8dc0-36f815c47eb3"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed"

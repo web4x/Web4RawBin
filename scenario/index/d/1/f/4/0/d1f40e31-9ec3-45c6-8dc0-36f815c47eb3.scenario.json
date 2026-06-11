@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d1f40e31-9ec3-45c6-8dc0-36f815c47eb3",
+    "name": "RoomView.awaitItemUpgrade impl",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
+    "sourceLine": 236,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:a696ec72-fe0b-47c7-9852-af15de977226"
+}
