@@ -92,6 +92,8 @@
   > TRON: "make messages first place scenario units with clear ownerIor and a double linked list of ior to next and previous message"
 - **R19.39** (2026-06-11): a system 'RawBin' User unit exists as ownerIor for DnD unknown-drop debug/log messages (R19.37). Distinguishes system-generated from user-sent.
   > TRON: "add a RawBin user that owns the debug messages from dnd"
+- **R19.40** (2026-06-11): Room holds model.lastMessageIor (entry point). Chat lazy-loads last 5 messages, then 5 more on scroll-to-top (walking prevMessage IORs). Backward-pagination via R19.38 linked list.
+  > TRON: "the room obviously needs to have a reference on the last message to lazy load the chat. only load the last 5 messages and continue lazyloading 5, when scrolling hits latest loaded message."
 
 ### Detail drawer + chain display bugs (R19.33 + R19.34)
 - **R19.33** (2026-06-11): detail drawer close affordance (nudge/X handle) scrolls out of view. MUST stay sticky/fixed in the drawer viewport.
