@@ -284,3 +284,7 @@
 ### Remove-identity button wrong screen (R19.89, refines R19.72)
 - **R19.89** (2026-06-11): red Remove-Local-Identity button placed on ProfileEditor (wrong) — must be on DeviceEnrollDialog 'Authorize This Device' secret-code screen (where locked-out user needs it).
   > TRON: "the red button for remove identity must be here (Authorize This Device / secret-code screen)!!! someone put it into the profile editor. thats a bug."
+
+### File items innerHTML churn root cause (R19.88.A, refines R19.88)
+- **R19.88.A** (2026-06-11): R19.88 whenDefined gate did NOT fully fix — re-render innerHTML='' destroys+recreates items. DIFF/update in place instead (architect option-c). No innerHTML churn on containers with live custom elements.
+  > TRON: "desktop — still inconsistent: some file items render icon-only/dont work, the ones that work can be collapsed."

@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "3785b104-f890-473e-8d76-bee5bf010b84",
+    "altId": "R19.88.A",
+    "name": "R19.88.A: Stop destroy+recreate of file items — DIFF/update in place, no innerHTML churn.",
+    "description": "R19.88 whenDefined gate did NOT fully fix the partial-init race: re-render still destroys and recreates items via innerHTML='' churn, re-introducing the initialization race per item. FIX: stop destroy+recreate. DIFF/update existing item DOM nodes in place — match by file UUID, update changed properties, add new items, remove deleted items. Never innerHTML='' the container that holds live rb-object-item instances. This is architect option-c: reconcile the DOM like a virtual-DOM diff, preserving existing initialized custom elements.",
+    "tronQuote": "> TRON: \"desktop — still inconsistent: some file items render icon-only/dont work, the ones that work can be collapsed.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "refinementOf": "ior:instance:26b5f7c1-6a36-4bb2-bcae-cb234533afff",
+    "refinementOfNote": "Refines R19.88 (deterministic init). R19.88's whenDefined gate fixed FIRST render but re-render still destroys items (innerHTML=''). R19.88.A fixes the ROOT: stop destroy+recreate, diff/update in place. Architect option-c."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

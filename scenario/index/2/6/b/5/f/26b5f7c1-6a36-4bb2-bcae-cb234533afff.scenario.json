@@ -17,7 +17,11 @@
       "ior:instance:c639acdf-cf0a-4fa7-b8c2-4afe103fb028",
       "ior:instance:8ba2d9ef-0560-4292-9b56-66552434799d"
     ],
-    "crossRefNote": "R19.87 (iOS drawer broken) and R19.83 (file items re-render lifecycle) are likely symptoms of the same root: partial initialization. R19.88 captures the root cause \u2014 deterministic complete init for every item instance."
+    "crossRefNote": "R19.87 (iOS drawer broken) and R19.83 (file items re-render lifecycle) are likely symptoms of the same root: partial initialization. R19.88 captures the root cause \u2014 deterministic complete init for every item instance.",
+    "refinedBy": [
+      "ior:instance:3785b104-f890-473e-8d76-bee5bf010b84"
+    ],
+    "refinedByNote": "Refined by R19.88.A: whenDefined gate fixed first render but innerHTML churn on re-render re-introduces the race. R19.88.A = stop destroy+recreate, diff/update in place."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
