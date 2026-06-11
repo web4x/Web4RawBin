@@ -502,10 +502,13 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (req.method === 'POST' && filepath.startsWith('/api/room/') && filepath.endsWith('/upload')) {
       const parts = filepath.split('/');
       const roomId = parts[3];
+      const MAX_UPLOAD = 50 * 1024 * 1024; // 50MB
       const chunks: Buffer[] = [];
-      req.on('data', (chunk: Buffer) => chunks.push(chunk));
+      let totalSize = 0;
+      req.on('data', (chunk: Buffer) => { totalSize += chunk.length; if (totalSize <= MAX_UPLOAD) chunks.push(chunk); });
       req.on('end', () => {
         try {
+          if (totalSize > MAX_UPLOAD) { res.writeHead(413); res.end(JSON.stringify({ error: `File too large (max ${MAX_UPLOAD / 1024 / 1024}MB)` })); return; }
           const body = Buffer.concat(chunks);
           addLog(`[upload] received ${body.length}b for room ${roomId.slice(0,8)} content-type=${req.headers['content-type']?.slice(0,60)}`);
           const boundary = (req.headers['content-type'] || '').split('boundary=')[1];

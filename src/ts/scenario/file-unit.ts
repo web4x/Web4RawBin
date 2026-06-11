@@ -29,9 +29,10 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): Scenar
   const buf = Buffer.isBuffer(input.content) ? input.content : Buffer.from(String(input.content), 'utf-8');
   const contentHash = crypto.createHash('sha256').update(buf).digest('hex');
 
-  // O(1) dedup via content-index symlink
+  // O(1) dedup via content-index symlink (atomic lock to prevent race)
   const contentIndexLink = `content/${contentHash}.file.scenario.json`;
   const contentIndexPath = path.join(idx.scenarioRoot, contentIndexLink);
+  const lockPath = contentIndexPath + '.lock';
   if (fs.existsSync(contentIndexPath)) {
     try {
       const resolvedPath = fs.realpathSync(contentIndexPath);
@@ -43,6 +44,11 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): Scenar
     } catch (e: any) {
       console.error(`[file-unit] dedup read failed: ${e?.message}`);
     }
+  }
+  // Atomic lock: writeFileSync with wx flag fails if file exists (race guard)
+  try { fs.writeFileSync(lockPath, process.pid.toString(), { flag: 'wx' }); }
+  catch { /* another process won the race — re-check dedup */
+    try { const rp = fs.realpathSync(contentIndexPath); const ex = JSON.parse(fs.readFileSync(rp, 'utf-8')); if (ex.model?.uuid) return ex; } catch {}
   }
 
   const uuid = input.uuid || crypto.randomUUID();
@@ -79,6 +85,7 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): Scenar
     ownerIor: input.roomUuid ? iorInstance(input.roomUuid) : null,
   });
   idx.put(uuid, unit);  // syncLinks handles all symlink creation
+  try { fs.unlinkSync(lockPath); } catch {}
   console.log(`[file-unit] created: uuid=${uuid.slice(0, 8)} hash=${contentHash.slice(0, 12)} links=${unitLinks.length}`);
   return unit;
 }

@@ -9,11 +9,11 @@
 export function renderContentPreview(uuid: string, mimeType: string, name: string): string {
   const contentUrl = `/api/room/file/${uuid}/content`;
 
-  if (mimeType.startsWith('image/')) {
-    return `<div class="cv-preview"><img src="${contentUrl}" alt="${esc(name)}" style="max-width:100%;border-radius:8px"></div>`;
-  }
   if (mimeType === 'image/svg+xml') {
     return `<div class="cv-preview"><object data="${contentUrl}" type="image/svg+xml" style="max-width:100%;background:white;border-radius:8px"></object></div>`;
+  }
+  if (mimeType.startsWith('image/')) {
+    return `<div class="cv-preview"><img src="${contentUrl}" alt="${esc(name)}" style="max-width:100%;border-radius:8px"></div>`;
   }
   if (mimeType === 'application/pdf') {
     return `<div class="cv-preview"><iframe src="${contentUrl}" style="width:100%;height:400px;border:none;border-radius:8px"></iframe></div>`;
@@ -31,7 +31,11 @@ export async function loadTextPreview(container: HTMLElement, uuid: string): Pro
     const resp = await fetch(`/api/room/file/${uuid}/content`);
     if (!resp.ok) { el.textContent = 'Failed to load'; return; }
     const text = await resp.text();
-    el.innerHTML = `<pre style="max-height:300px;overflow:auto;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;font-size:0.8rem;white-space:pre-wrap">${esc(text.slice(0, 10000))}</pre>`;
+    const pre = document.createElement('pre');
+    pre.style.cssText = 'max-height:300px;overflow:auto;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;font-size:0.8rem;white-space:pre-wrap';
+    pre.textContent = text.slice(0, 10000);
+    el.innerHTML = '';
+    el.appendChild(pre);
     el.classList.remove('cv-text-loading');
   } catch { el.textContent = 'Failed to load'; }
 }
