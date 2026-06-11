@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "73297bf1-0d00-47e6-acfa-e4f5be34feb1",
+    "name": "T-move-remove-identity: re-home Remove-Local-Identity button from ProfileEditor to DeviceEnrollDialog",
+    "slug": "move-remove-identity-to-device-enroll",
+    "description": "Move the red Remove-Local-Identity button + handler (ProfileEditor L68/L154 impl 25884b0c) to DeviceEnrollDialog. Same logic, different host component. Remove from ProfileEditor gate-mode template.",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:bd9bb433-8955-4788-a785-d8add91897cb"
+    ],
+    "useCases": [
+      "ior:instance:8c1b7104-a4f3-405a-9800-1533bbfdc267"
+    ],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-architect"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "9867b252-1d7f-44ce-8f7e-f07fff0ea95a",
+    "name": "DeviceEnrollDialog",
+    "description": "Authorize This Device dialog \u2014 4-digit secret code entry for device enrollment. Now also hosts Remove-Local-Identity button.",
+    "methods": [
+      "ior:instance:7c3fa6a4-9c36-472a-9771-bdd1b1e1b9d5"
+    ]
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

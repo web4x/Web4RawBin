@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "8c1b7104-a4f3-405a-9800-1533bbfdc267",
+    "name": "deviceEnroll.removeLocalIdentity",
+    "description": "Remove-Local-Identity button + handler moved from ProfileEditor gate to DeviceEnrollDialog. Clears localStorage identity, reloads to fresh state.",
+    "class": "ior:instance:9867b252-1d7f-44ce-8f7e-f07fff0ea95a",
+    "method": "ior:instance:7c3fa6a4-9c36-472a-9771-bdd1b1e1b9d5",
+    "tasks": [
+      "ior:instance:73297bf1-0d00-47e6-acfa-e4f5be34feb1"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
