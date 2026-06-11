@@ -20,7 +20,7 @@ export class DropDispatcher {
     this.handlers.set(mimePrefix, handler);
   }
 
-  // [impl:uuid:481b1a1c-a1b2-4c3d-8e4f-5a6b7c8d9e10] DropDispatcher.enterDragZone
+  // [impl:uuid:8b400f1d-34e0-4fbf-abd5-06f0e0499b7a] DropDispatcher.enterDragZone
   onDropEnter(dz: HTMLElement): void {
     this.enterCount++;
     if (this.enterCount === 1) {
@@ -30,7 +30,7 @@ export class DropDispatcher {
     }
   }
 
-  // [impl:uuid:481b1a1c-b2c3-4d4e-9f5a-6b7c8d9e0f11] DropDispatcher.exitDragZone
+  // [impl:uuid:dcfc5fe3-ff7a-44e3-927b-2aa03197498f] DropDispatcher.exitDragZone
   onDropExit(dz: HTMLElement): void {
     this.enterCount--;
     if (this.enterCount <= 0) {
@@ -57,7 +57,7 @@ export class DropDispatcher {
     return resp.json();
   }
 
-  // [impl:uuid:481b1a1c-c3d4-4e5f-a060-000000000012] DropDispatcher.uploadWithProgress
+  // [impl:uuid:0bd88871-d496-448e-84b7-7daf8bee595a] DropDispatcher.uploadWithProgress
   uploadWithProgress(file: File, roomId: string, playerToken: string, onProgress: (pct: number) => void): Promise<{ uuid: string; name: string; size: number } | null> {
     return new Promise((resolve) => {
       const xhr = new XMLHttpRequest();

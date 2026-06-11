@@ -109,7 +109,7 @@ export interface RoomJsonData {
   files?: string[];
 }
 
-// [impl:uuid:7144f6ca-a1b2-4c3d-8e4f-5a6b7c8d9e0f] Room.persistAsSymlink R19.22.A
+// [impl:uuid:028eb22f-41bf-4d3b-a35e-88cd5b28e13c] Room.persistAsSymlink R19.22.A
 export function writeRoomJson(userToken: string, roomId: string, data: RoomJsonData): void {
   const roomDir = getRoomDir(userToken, roomId);
   mkdirSafe(roomDir);

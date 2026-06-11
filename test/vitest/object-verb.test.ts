@@ -224,8 +224,8 @@ describe('HARD RULE: shared-impl gate + lintMarkers', () => {
   it('lintMarkers flags telltale invented suffixes (HARD RULE patterns)', () => {
     const findings = chain.lintMarkers();
     // none of the fixture uuids use telltales; assert detector logic directly on a crafted unit
-    const txt = 'e9dfad4e-95a1-44b8-bc96-c6c6802b4037';
-    expect(/-(a1b2|b2c3|c3d4|d4e5|e5f6|a2b3|4c3d)-/.test(txt)).toBe(true);
+    const invented = 'e9dfad4e-a1b2-4c3d-8e4f-5a6b7c8d9e05';
+    expect(/-(a1b2|b2c3|c3d4|d4e5|e5f6|a2b3|4c3d)-/.test(invented)).toBe(true);
     expect(findings.every(f => f.uuid && f.kind && f.detail)).toBe(true);
   });
 });

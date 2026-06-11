@@ -122,7 +122,7 @@ export function fileExists(token: string, filename: string): boolean {
  * unrecoverable and skipped (counted in `lost`). Re-encryption preserves stored name,
  * original name, and mimeType, so `/api/avatar/<token>` keeps working after the rekey.
  *
- * [impl:uuid:13a4b5c6-d7e8-4f90-a1b2-c3d4e5f60097] avatar-fallback fix — re-encrypt files/* on identity rekey
+ * [impl:uuid:4c152c96-1b2a-40ad-b02d-a7a71dd30db5] avatar-fallback fix — re-encrypt files/* on identity rekey
  */
 export function rekeyUser(token: string): { reEncrypted: number; lost: number } {
   const snapshot: { name: string; data: Buffer; mimeType: string; originalName: string }[] = [];

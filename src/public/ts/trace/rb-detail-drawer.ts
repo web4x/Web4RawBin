@@ -5,7 +5,7 @@
  * (scrollable, receives detail content). Swipe-down or ESC to dismiss.
  *
  * [impl:uuid:19654b84-90e4-4a89-a9a8-10221f883d25] R16.1 DetailViewContainer
- * [impl:uuid:da9462f5-a1b2-4c3d-8e4f-5a6b7c8d9e0f] R19.52 fullWidth (CSS in app.css:264)
+ * [impl:uuid:ff684e10-e57c-45ae-97b9-8f866264c737] R19.52 fullWidth (CSS in app.css:264)
  */
 
 export class RbDetailDrawer extends HTMLElement {

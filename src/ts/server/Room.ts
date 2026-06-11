@@ -155,7 +155,7 @@ export class Room {
   // --- Members ---
 // [impl:uuid:4246c0a8-cfbf-43cd-8677-3367f3ac21d9] Room.memberAdd
 
-  // [impl:uuid:417918a5-b2c3-4d4e-9f5a-6b7c8d9e0f12] T-persistent-dedup R19.8.B
+  // [impl:uuid:4c8a91a5-35af-48b1-a2e9-4bbd9f18bc10] T-persistent-dedup R19.8.B
   addMember(member: RoomMember): boolean {
     if (this.state !== 'active') return false;
     const existing = member.playerToken ? [...this.members.values()].find(m => m.playerToken && m.playerToken === member.playerToken) : undefined;
@@ -193,7 +193,7 @@ export class Room {
   // [impl:uuid:4c21d2ee-ff20-4511-9f0e-d786f9bb90d7] Room.retainOrPrune
   }
 
-  // [impl:uuid:67b2763e-1a2b-4c3d-8e4f-5a6b7c8d9e01] T-persistent-retention
+  // [impl:uuid:35ce5e4c-24c0-450e-905f-37eb9097c8e5] T-persistent-retention
   markDisconnected(id: string): void {
     const member = this.members.get(id);
     if (member) {
@@ -275,7 +275,7 @@ export class Room {
     };
   }
 
-  // [impl:uuid:9a25adbd-b1c2-4d3e-8f4a-5b6c7d8e9f00] R19.8.A member disconnected field
+  // [impl:uuid:35d07b43-0a94-452e-ada9-7b6d58178451] R19.8.A member disconnected field
   private memberInfo(id: string) {
     const m = this.members.get(id);
     if (!m) return null;

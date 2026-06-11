@@ -320,7 +320,7 @@ function pageHead(title: string): string {
 
 function pageNav(backHref: string = '/', backLabel: string = 'Home', editPath?: string): string {
   const editLink = editPath ? ` · <a href="/edit/${editPath}" style="color:#ff9800;text-decoration:none;font-size:0.9rem">✏️ Edit</a>` : '';
-  // [impl:uuid:b57f1e2a-c3d4-4e5f-9a6b-7c8d9e0f1a2b] R19.57 pageNav z-index above drawer
+  // [impl:uuid:de0847e2-9351-4dce-80e6-70a2be803417] R19.57 pageNav z-index above drawer
   return `<div style="padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top));position:sticky;top:0;z-index:101;background:#1a1a2e"><a href="${backHref}" style="color:#ffffff;text-decoration:none;font-size:0.9rem">← ${backLabel}</a> · <a href="/app" style="color:#ffffff;text-decoration:none;font-size:0.9rem">App</a> · <a href="/trace" style="color:#ffffff;text-decoration:none;font-size:0.9rem">Traceability</a>${editLink}</div>`;
 }
 
@@ -428,7 +428,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
-    // [impl:uuid:94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05] chat lazy-load
+    // [impl:uuid:e9dfad4e-95a1-44b8-bc96-c6c6802b4037] chat lazy-load
     if (req.method === 'GET' && filepath.startsWith('/api/room/') && filepath.includes('/messages')) {
       const parts = filepath.split('/');
       const roomId = parts[3];
