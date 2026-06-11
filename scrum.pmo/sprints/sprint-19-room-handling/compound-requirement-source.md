@@ -258,3 +258,7 @@
 ### Lobby join bug — stale online-status (R19.82)
 - **R19.82** (2026-06-11): 'cannot join room' from lobby. Stale disconnected=false after restart blocks rejoin. Fix: reset all members disconnected=true on room load; join flips existing member online (R19.8.B dedup), never rejects.
   > TRON: "currently i get cannot join room errors from the lobby."
+
+### File items re-render lifecycle bug (R19.83)
+- **R19.83** (2026-06-11): file items in room tree destroyed on re-render — collapse-to-icon and preview-drawer broken (member items work). Need this.files[] + renderRoomTreeFiles() lifecycle mirror of members pattern.
+  > TRON: "file items not fully working — do not collapse to icons, do not open the preview drawer; member items work fully."
