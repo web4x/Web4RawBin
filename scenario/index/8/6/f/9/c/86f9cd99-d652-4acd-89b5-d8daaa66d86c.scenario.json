@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "86f9cd99-d652-4acd-89b5-d8daaa66d86c",
+    "name": "iframe.pinchZoom",
+    "description": "2-finger pinch on preview iframe container scales content via transform:scale. Clamp [0.25, 4.0]. Single-touch pan preserved. No snap-back.",
+    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "method": "ior:instance:c9fcf958-4ae7-4cb5-92f0-b0e45dd9f7b2",
+    "tasks": [
+      "ior:instance:3438e110-6035-4a07-840d-491583285977"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

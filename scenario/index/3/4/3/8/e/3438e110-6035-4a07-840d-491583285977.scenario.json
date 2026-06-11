@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "3438e110-6035-4a07-840d-491583285977",
+    "name": "T-iframe-pinch: 2-finger pinch scales preview iframe content (0.25x-4x)",
+    "slug": "iframe-pinch-zoom-scale-preview-content",
+    "description": "Wrap iframe in .preview-zoom-container with touch-action:none. 2-touch \u2192 capture initialPinchDist, compute scale = currentScale * (newDist/initialDist), clamp [0.25,4], apply transform:scale on iframe. No snap-back. Single-touch pan preserved.",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:b6ad2bdd-f0f4-4b53-a711-46fed46dfc06"
+    ],
+    "useCases": [
+      "ior:instance:86f9cd99-d652-4acd-89b5-d8daaa66d86c"
+    ],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

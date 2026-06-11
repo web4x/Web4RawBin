@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "62e1b2e1-8715-47e4-9fdb-8b882d0f42dc",
+    "altId": "R19.84",
+    "name": "R19.84: Drawer grab-handle drag-resizes height between min and 95vh.",
+    "description": "The drawer grab handle must drag the drawer height in real time (touchmove sets height). Clamp between 120px min and 95vh max. Swipe-dismiss preserved off-handle (body swipe-down > 80px closes). Currently swipe-dismiss only, no resize.",
+    "tronQuote": "> TRON: drawer nudge must drag-resize height, not just dismiss",
+    "tasks": [
+      "ior:instance:ec187a1f-8e12-41ea-973c-49042d15b170"
+    ],
+    "tests": [],
+    "sourceFile": "",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "ec187a1f-8e12-41ea-973c-49042d15b170",
+    "name": "T-drawer-resize: grab-handle drag sets drawer height (min 120px to 95vh)",
+    "slug": "drawer-resize-grab-handle-height-drag",
+    "description": "Replace translateY swipe-dismiss on grab handle with real height-drag. touchStart on .drawer-handle captures startY+startHeight. touchMove clamps [120, 95vh]. touchEnd < 120 = close. Off-handle swipe-dismiss preserved.",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:62e1b2e1-8715-47e4-9fdb-8b882d0f42dc"
+    ],
+    "useCases": [
+      "ior:instance:37380eff-e52b-42d6-8488-a47acd83eb6c"
+    ],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

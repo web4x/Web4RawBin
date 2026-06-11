@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b6ad2bdd-f0f4-4b53-a711-46fed46dfc06",
+    "altId": "R19.85",
+    "name": "R19.85: Iframe preview content pinch-zooms (2-finger scale 0.25x-4x).",
+    "description": "Pinch gesture on the preview iframe container must scale the iframe content (transform: scale). Pinch-in shrinks, pinch-out grows. Clamp [0.25, 4.0]. Single-touch pan preserved. No snap-back on release. Currently no scale implementation exists.",
+    "tronQuote": "> TRON: pinch must scale the preview content, not just pan",
+    "tasks": [
+      "ior:instance:3438e110-6035-4a07-840d-491583285977"
+    ],
+    "tests": [],
+    "sourceFile": "",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

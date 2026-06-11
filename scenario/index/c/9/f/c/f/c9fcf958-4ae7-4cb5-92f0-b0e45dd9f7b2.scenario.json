@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "c9fcf958-4ae7-4cb5-92f0-b0e45dd9f7b2",
+    "name": "RbDetailDrawer.iframePinchZoom",
+    "description": "2-finger touchmove on .preview-zoom-container computes scale from pinch distance ratio, applies transform:scale on iframe. Clamp [0.25, 4.0]. No snap-back on touchend.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+}
