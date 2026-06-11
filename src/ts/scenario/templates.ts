@@ -261,6 +261,88 @@ export const UserTemplate: ViewTemplate = {
   },
 };
 
+// [impl:uuid:f56b488f-a1b2-4c3d-8e4f-5a6b7c8d9e0f] R19.61 six missing templates
+function renderSourceEdit(m: Record<string, unknown>): string {
+  const sf = String(m.sourceFile || '').replace('ior:file:', '');
+  if (!sf) return '';
+  const sl = m.sourceLine ? `:${m.sourceLine}` : '';
+  return `<a href="/edit/${sf}" class="sv-source-edit" style="color:#ff9800;font-size:0.75rem;text-decoration:none">✏️ ${sf}${sl}</a>`;
+}
+
+function renderScenarioLink(uuid: string): string {
+  if (!uuid) return '';
+  return `<a href="/scenario?ior=${uuid}" style="color:#ff9800;font-size:0.75rem;text-decoration:none">🔗 Scenario</a>`;
+}
+
+export const ImplementationTemplate: ViewTemplate = {
+  renderHtml(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `<div class="sv-impl"><div class="sv-header"><span class="sv-type-badge">Implementation</span><h2>${esc(String(m.name || ''))}</h2><code>${esc(String(m.uuid || ''))}</code></div>${renderScenarioLink(String(m.uuid || ''))} ${renderSourceEdit(m)}${renderChainSection(m, 'html', _activeResolver)}</div>`;
+  },
+  renderMd(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    const sf = String(m.sourceFile || '').replace('ior:file:', '');
+    return `# ${m.name || '(untitled)'}\n\n**Source:** \`${sf}${m.sourceLine ? ':' + m.sourceLine : ''}\`\n\n${renderChainSection(m, 'md', _activeResolver)}`;
+  },
+};
+
+export const RoomTemplate: ViewTemplate = {
+  renderHtml(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    const members = Array.isArray(m.members) ? m.members.length : 0;
+    const files = Array.isArray(m.files) ? m.files.length : 0;
+    return `<div class="sv-room"><div class="sv-header"><span class="sv-type-badge">Room</span><h2>${esc(String(m.name || ''))}</h2><code>${esc(String(m.uuid || '').slice(0, 8))}</code></div>${renderScenarioLink(String(m.uuid || ''))}<div class="sv-section"><div class="sv-field"><label>Mode</label><span>${esc(String(m.mode || 'persistent'))}</span></div><div class="sv-field"><label>Visibility</label><span>${esc(String(m.visibility || 'public'))}</span></div><div class="sv-field"><label>Members</label><span>${members}</span></div><div class="sv-field"><label>Files</label><span>${files}</span></div></div></div>`;
+  },
+  renderMd(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `# ${m.name || '(untitled)'}\n\n**Mode:** ${m.mode || 'persistent'} · **Visibility:** ${m.visibility || 'public'}\n\n**Members:** ${Array.isArray(m.members) ? m.members.length : 0} · **Files:** ${Array.isArray(m.files) ? m.files.length : 0}`;
+  },
+};
+
+export const MessageTemplate: ViewTemplate = {
+  renderHtml(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `<div class="sv-message"><div class="sv-header"><span class="sv-type-badge">Message</span><strong>${esc(String(m.senderName || ''))}</strong><time>${String(m.timestamp || '')}</time></div><p>${esc(String(m.text || ''))}</p></div>`;
+  },
+  renderMd(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `**${m.senderName || '?'}** (${m.timestamp || '?'}): ${m.text || ''}`;
+  },
+};
+
+export const FileTemplate: ViewTemplate = {
+  renderHtml(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `<div class="sv-file"><div class="sv-header"><span class="sv-type-badge">File</span><h2>${esc(String(m.name || ''))}</h2><code>${esc(String(m.uuid || '').slice(0, 8))}</code></div>${renderScenarioLink(String(m.uuid || ''))}<div class="sv-section"><div class="sv-field"><label>Size</label><span>${m.size || 0} bytes</span></div><div class="sv-field"><label>Type</label><span>${esc(String(m.mimeType || ''))}</span></div>${m.contentHash ? `<div class="sv-field"><label>Hash</label><code>${String(m.contentHash).slice(0, 16)}…</code></div>` : ''}</div></div>`;
+  },
+  renderMd(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `# ${m.name || '(untitled)'}\n\n**Size:** ${m.size || 0} bytes · **Type:** ${m.mimeType || '?'}${m.contentHash ? ` · **Hash:** \`${String(m.contentHash).slice(0, 16)}…\`` : ''}`;
+  },
+};
+
+export const DeviceTemplate: ViewTemplate = {
+  renderHtml(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `<div class="sv-device"><div class="sv-header"><span class="sv-type-badge">Device</span><h2>${esc(String(m.name || m.deviceId || ''))}</h2></div><div class="sv-section"><div class="sv-field"><label>Owner</label><span>${esc(String(m.ownerToken || '').slice(0, 8))}</span></div></div></div>`;
+  },
+  renderMd(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `### ${m.name || m.deviceId || '(device)'}\n\nOwner: \`${String(m.ownerToken || '').slice(0, 8)}\``;
+  },
+};
+
+export const SkillTemplate: ViewTemplate = {
+  renderHtml(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `<div class="sv-skill"><div class="sv-header"><span class="sv-type-badge">Skill</span><h2>${esc(String(m.name || ''))}</h2></div><p>${esc(String(m.description || ''))}</p>${renderSourceEdit(m)}${renderChainSection(m, 'html', _activeResolver)}</div>`;
+  },
+  renderMd(s: ScenarioUnit): string {
+    const m = s.model as Record<string, unknown>;
+    return `# ${m.name || '(untitled)'}\n\n${m.description || ''}\n\n${renderChainSection(m, 'md', _activeResolver)}`;
+  },
+};
+
 export function defaultTemplateRegistry(): ViewTemplateRegistry {
   const reg = new ViewTemplateRegistry();
   reg.register('ior:class:Sprint', SprintTemplate);
@@ -272,5 +354,11 @@ export function defaultTemplateRegistry(): ViewTemplateRegistry {
   reg.register('ior:class:Test', TestTemplate);
   reg.register('ior:class:TraceLink', TraceLinkTemplate);
   reg.register('ior:class:User', UserTemplate);
+  reg.register('ior:class:Implementation', ImplementationTemplate);
+  reg.register('ior:class:Room', RoomTemplate);
+  reg.register('ior:class:Message', MessageTemplate);
+  reg.register('ior:class:File', FileTemplate);
+  reg.register('ior:class:Device', DeviceTemplate);
+  reg.register('ior:class:Skill', SkillTemplate);
   return reg;
 }
