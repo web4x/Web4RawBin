@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "5916cb81-68eb-46ef-b95d-4436c55df93b",
+    "name": "ContentPreviewer.touchActionFix",
+    "description": "Replace touch-action:none with touch-action:pan-y on .preview-zoom-container in renderContentPreview (lines 19, 23, 64 of content-preview.ts). Restores iOS single-finger scroll/dismiss while 2-finger pinch still works.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e"
+}

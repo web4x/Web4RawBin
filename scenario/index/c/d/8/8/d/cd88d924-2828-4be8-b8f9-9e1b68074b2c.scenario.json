@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "cd88d924-2828-4be8-b8f9-9e1b68074b2c",
+    "name": "contentPreviewer.touchActionFix",
+    "description": "Change .preview-zoom-container touch-action from none to pan-y so iOS vertical scroll/swipe/dismiss works while preserving 2-finger pinch zoom.",
+    "class": "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e",
+    "method": "ior:instance:5916cb81-68eb-46ef-b95d-4436c55df93b",
+    "tasks": [
+      "ior:instance:8cc07506-9827-4acc-9b0e-902275f11b04"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
