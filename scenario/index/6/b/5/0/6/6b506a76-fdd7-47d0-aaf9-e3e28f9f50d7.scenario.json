@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "6b506a76-fdd7-47d0-aaf9-e3e28f9f50d7",
+    "name": "Marcel Donges.vcf",
+    "contentPath": "index/6/b/5/0/6/6b506a76-fdd7-47d0-aaf9-e3e28f9f50d7.content",
+    "size": 92057,
+    "mimeType": "text/vcard",
+    "uploadedAt": "2026-06-11T07:59:15.714Z",
+    "uploaderToken": "0d7ee549-30eb-498d-b8d1-9c6c84be1544",
+    "roomUuid": "e32a20a7-e94e-441e-8928-8a15302eb514",
+    "unitLinks": [
+      "rooms/e32a20a7-e94e-441e-8928-8a15302eb514/files/6b506a76-fdd7-47d0-aaf9-e3e28f9f50d7.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:e32a20a7-e94e-441e-8928-8a15302eb514"
+}

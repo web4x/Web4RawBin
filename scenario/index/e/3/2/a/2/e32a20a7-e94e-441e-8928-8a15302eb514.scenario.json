@@ -17,10 +17,10 @@
     "members": [
       {
         "ior": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544",
-        "name": "User",
+        "name": "Marcel Donges",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781163881995
+        "joinedAt": 1781164953316
       }
     ],
     "lastMessageIor": null,

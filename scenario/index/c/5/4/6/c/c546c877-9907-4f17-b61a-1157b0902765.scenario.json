@@ -8,7 +8,9 @@
     "methods": [
       "ior:instance:ed543211-2314-4768-af75-cf09b39a4dc7"
     ],
-    "tests": []
+    "tests": [
+      "ior:instance:fbfeac53-56ee-4eeb-a8d4-6d5beaa61dbb"
+    ]
   },
   "ownerIor": "ior:instance:ed543211-2314-4768-af75-cf09b39a4dc7"
 }

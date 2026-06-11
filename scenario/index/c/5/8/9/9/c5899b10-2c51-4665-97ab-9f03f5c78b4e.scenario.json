@@ -19,8 +19,15 @@
         "ior": "ior:instance:3dca7f5e-6fca-43ba-b8e0-cde6415b2498",
         "name": "",
         "role": "owner",
+        "status": "offline",
+        "joinedAt": 1781164504731
+      },
+      {
+        "ior": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544",
+        "name": "Marcel Donges",
+        "role": "member",
         "status": "online",
-        "joinedAt": 1781163752536
+        "joinedAt": 1781164504731
       }
     ],
     "lastMessageIor": null,

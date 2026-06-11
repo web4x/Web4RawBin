@@ -20,14 +20,28 @@
         "name": "safari md",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781164135894
+        "joinedAt": 1781164743844
       },
       {
         "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
         "name": "Toronto Trinity",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781164135894
+        "joinedAt": 1781164743844
+      },
+      {
+        "ior": "ior:instance:b63c3a8a-6d86-43af-b8e2-25cbef3ea2d7",
+        "name": "Marcel Donges.IT",
+        "role": "member",
+        "status": "online",
+        "joinedAt": 1781164743844
+      },
+      {
+        "ior": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544",
+        "name": "Marcel Donges",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1781164743844
       }
     ],
     "lastMessageIor": null,
