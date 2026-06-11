@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "40a756f5-f344-4be6-89a3-946f3c3ec887",
+    "name": "T-file-version-new: different content same name registers new version",
+    "slug": "file-version-new-content-same-name",
+    "description": "R19.48: Different file content with same name registers as a unit version, not a new unit.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect (04558cf3)\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:160039ef-92a5-44d7-af1c-d9b71cdb1be0"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

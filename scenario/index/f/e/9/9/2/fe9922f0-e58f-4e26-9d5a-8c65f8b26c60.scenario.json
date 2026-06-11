@@ -6,7 +6,9 @@
     "name": "R19.50: File scenario unit has a version[] array of {version, ior} entries.",
     "description": "Every FileUnit scenario unit MUST have a model.version[] array. Each entry is {version: <number>, ior: <ior-to-content>} representing one version of the file's content. Version 1 is the initial upload. Subsequent versions (R19.48) append entries with incrementing version numbers. The latest version is the last entry. The current content symlink always points to the latest version's content file.",
     "tronQuote": "> TRON: \"add a version[] with {version,ior}.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:6f574da6-1cac-4e92-8dbd-23cdc0275edb"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

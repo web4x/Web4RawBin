@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "579e2ba3-2bb7-45f6-b557-1b5fbdbcf361",
+    "name": "T-file-dedup-reuse: identical file content reuses existing FileUnit",
+    "slug": "file-dedup-reuse-identical-content",
+    "description": "R19.47: Identical file content reuses the existing FileUnit UUID and adds another unitLink.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect (04558cf3)\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:89502cba-1085-4bf1-ac97-be9a8ba452cf"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
