@@ -1634,10 +1634,11 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
 
 
     case MSG.CHAT_MESSAGE: {
+      const room = roomManager.findMemberRoom(clientId);
       if (room && msg.text && typeof msg.text === 'string') {
         const text = msg.text.slice(0, 200);
         const member = room.members.get(clientId);
-        const name = member?.name || spec?.name || 'Anonymous';
+        const name = member?.name || 'Anonymous';
         const scenarioDir = path.join(__dirname, '../../../scenario/index');
         const chatIdx = new ScenarioIndex(scenarioDir);
         room.addChat(clientId, name, text, chatIdx);
