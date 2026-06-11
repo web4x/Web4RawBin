@@ -5,7 +5,9 @@
     "name": "ContentPreviewer.urlFileActions impl",
     "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
     "sourceLine": 28,
-    "tests": []
+    "tests": [
+      "ior:instance:3d82754c-8e2f-4989-9f29-c23d42ddb445"
+    ]
   },
   "ownerIor": "ior:instance:057b6b5d-5876-4d91-addf-57826ad21721"
 }
