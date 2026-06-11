@@ -15,7 +15,8 @@ typed Class method (logic + JSDoc + typed params)
         ├─→ help text                            (from JSDoc)
         ├─→ Tab completion                       (from param names + complete())
         ├─→ OOSH wrapper `taskChain`             (emitOosh — GENERATED)
-        └─→ skill docs chain.md / velocity.md    (emitDocs — GENERATED)
+        ├─→ skill docs chain.md / velocity.md    (emitDocs — GENERATED)
+        └─→ Claude Code skills .claude/skills/rawbin-*/SKILL.md (emitClaudeSkills — GENERATED)
 ```
 
 **Never** hand-write: argv `--flag` parsers, prose skill .md files, or OOSH wrapper
@@ -54,8 +55,9 @@ Conventions the introspector relies on:
 3. **Re-emit the generated artifacts** (and commit them):
 
 ```bash
-npx tsx scripts/objectVerb.ts emitOosh    # regenerates scrum.pmo/skills/taskChain
-npx tsx scripts/objectVerb.ts emitDocs    # regenerates chain.md / velocity.md
+npx tsx scripts/objectVerb.ts emitOosh          # regenerates scrum.pmo/skills/taskChain
+npx tsx scripts/objectVerb.ts emitDocs          # regenerates chain.md / velocity.md
+npx tsx scripts/objectVerb.ts emitClaudeSkills  # regenerates .claude/skills/rawbin-*/SKILL.md
 ```
 
 4. **Invoke**:
