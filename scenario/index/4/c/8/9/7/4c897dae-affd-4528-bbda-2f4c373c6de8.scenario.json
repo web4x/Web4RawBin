@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4c897dae-affd-4528-bbda-2f4c373c6de8",
+    "name": "ContentPreviewer.authToken impl",
+    "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
+    "sourceLine": 6,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2be7ba71-6f1e-42a5-b024-7dcbee57ccaa"
+}

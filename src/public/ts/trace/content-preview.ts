@@ -3,7 +3,7 @@
  * image → <img>, text → <pre>, PDF → <iframe>, SVG → inline viewer.
  */
 
-// [impl:uuid:a3b4c5d6-e7f8-4a9b-8c0d-1e2f3a4b5c6d] preview-auth token param
+// [impl:uuid:4c897dae-affd-4528-bbda-2f4c373c6de8] R19.75 ContentPreviewer.authToken
 export function renderContentPreview(uuid: string, mimeType: string, name: string, token?: string): string {
   const contentUrl = `/api/room/file/${uuid}/content${token ? '?token=' + encodeURIComponent(token) : ''}`;
 

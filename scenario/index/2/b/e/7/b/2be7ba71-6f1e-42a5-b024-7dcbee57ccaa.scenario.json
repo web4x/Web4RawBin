@@ -5,7 +5,9 @@
     "name": "ContentPreviewer.authToken",
     "description": "content-preview.ts: renderContentPreview(uuid, mimeType, name, token?) \u2192 contentUrl=/api/room/file/<uuid>/content?token=<token>. rb-detail-view.ts + RoomView.ts callers pass playerToken.",
     "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:4c897dae-affd-4528-bbda-2f4c373c6de8"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e"
