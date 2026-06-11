@@ -27,41 +27,36 @@
         "name": "Marcel Donges Studio",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781195821886
+        "joinedAt": 1781196475679
       },
       {
         "ior": "ior:instance:ae9a8a5e-1317-4266-be78-b15b7f547139",
         "name": "test merge",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781195821886
+        "joinedAt": 1781196475679
       },
       {
         "ior": "ior:instance:da4f8809-5bcc-46fd-8f90-9b00d7fe967f",
         "name": "Marcel Samsung",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781195821886
+        "joinedAt": 1781196475679
       },
       {
         "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
         "name": "Toronto Trinity",
         "role": "owner",
-        "status": "offline",
-        "joinedAt": 1781195821886
-      },
-      {
-        "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
-        "name": "",
-        "role": "owner",
         "status": "online",
-        "joinedAt": 1781195821886
+        "joinedAt": 1781196475679
       }
     ],
     "files": [
       "ior:instance:0c88a630-3564-42dd-a6ea-cfb7a2673f76",
       "ior:instance:6ad425c3-629e-45fc-850f-719c4b92dc28",
-      "ior:instance:8fa25430-bee4-45c5-8bd7-abb899afba4f"
+      "ior:instance:8fa25430-bee4-45c5-8bd7-abb899afba4f",
+      "ior:instance:4bfd9ddc-49c0-4956-a7f1-e0b0b075b776",
+      "ior:instance:d5e56505-8fc8-430c-9bf1-76a03affcedc"
     ],
     "lastMessageIor": null,
     "firstMessageIor": null,

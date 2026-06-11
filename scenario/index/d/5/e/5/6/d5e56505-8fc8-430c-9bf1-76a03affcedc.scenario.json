@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "d5e56505-8fc8-430c-9bf1-76a03affcedc",
+    "name": "ECOVERSE_trailer.mp4.url",
+    "contentPath": "index/d/5/e/5/6/d5e56505-8fc8-430c-9bf1-76a03affcedc.content",
+    "size": 49,
+    "mimeType": "text/uri-list",
+    "uploadedAt": "2026-06-11T16:45:39.425Z",
+    "uploaderToken": "c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+    "roomUuid": "440ccc82-368c-4b8c-9c8b-d8a81f9d4ae7",
+    "contentHash": "e361e138cb0ba5b645dfe020e1df835cbb8dbdcf1e9493514311801a7142fff5",
+    "unitLinks": [
+      "content/e361e138cb0ba5b645dfe020e1df835cbb8dbdcf1e9493514311801a7142fff5.file.scenario.json",
+      "../data/users/c117f9fc-baf3-4666-adb5-bd7c2dfadff6/rooms/440ccc82-368c-4b8c-9c8b-d8a81f9d4ae7/files/d5e56505-8fc8-430c-9bf1-76a03affcedc.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:440ccc82-368c-4b8c-9c8b-d8a81f9d4ae7"
+}

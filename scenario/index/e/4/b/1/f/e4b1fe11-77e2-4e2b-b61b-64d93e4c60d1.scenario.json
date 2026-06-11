@@ -5,7 +5,9 @@
     "name": "RoomView.renderRoomTreeFiles impl",
     "sourceFile": "ior:file:src/public/ts/RoomView.ts",
     "sourceLine": 292,
-    "tests": []
+    "tests": [
+      "ior:instance:1a2b42aa-41c6-4489-984b-31dd6668133a"
+    ]
   },
   "ownerIor": "ior:instance:d22d013a-ccc8-49b4-9106-c41114507808"
 }

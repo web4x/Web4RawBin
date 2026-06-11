@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "1a2b42aa-41c6-4489-984b-31dd6668133a",
+    "name": "test:R19.83 renderRoomTreeFiles",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:e4b1fe11-77e2-4e2b-b61b-64d93e4c60d1"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e4b1fe11-77e2-4e2b-b61b-64d93e4c60d1"
+}
