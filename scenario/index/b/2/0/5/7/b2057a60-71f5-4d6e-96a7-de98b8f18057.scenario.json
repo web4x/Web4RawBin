@@ -5,7 +5,7 @@
     "altId": "R19.75",
     "name": "R19.75: ContentPreviewer passes auth token in content URL so room members can preview files.",
     "description": "BUG: in-room HTML/image preview iframe shows 'Forbidden: token required' because the content URL (/api/file/<uuid>/content) does not include the authenticated member's token. R19.68 (room-scoped file auth) correctly rejects unauthenticated requests with 403, but the ContentPreviewer does not pass the token. FIX: the ContentPreviewer MUST include the member's auth token in the content URL (e.g. ?token=<memberToken> query param, or use a session cookie/header that the iframe inherits). Room MEMBERS see the preview; non-members still get 403. This is an interaction bug between R19.68 (auth gate) and R19.64/74 (preview rendering).",
-    "tronQuote": "> TRON (screenshot bug): in-room HTML preview iframe shows 'Forbidden: token required' — preview content URL doesn't pass auth token.",
+    "tronQuote": "> TRON (screenshot bug): in-room HTML preview iframe shows 'Forbidden: token required' \u2014 preview content URL doesn't pass auth token.",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
@@ -17,7 +17,10 @@
       "ior:instance:7d80452e-a562-4e1d-91e2-4a1ebf0cea67",
       "ior:instance:02af5fc2-2cc5-4a32-ba6c-1167a0a513d6"
     ],
-    "crossRefNote": "R19.68 (file auth — 403 for non-members) is the gate that correctly rejects. R19.64 (preview by type) and R19.74 (html in iframe) are the render path. R19.73 (in-room preview) is the context. R19.75 bridges auth + preview: pass token so authorized members get through the gate."
+    "crossRefNote": "R19.68 (file auth \u2014 403 for non-members) is the gate that correctly rejects. R19.64 (preview by type) and R19.74 (html in iframe) are the render path. R19.73 (in-room preview) is the context. R19.75 bridges auth + preview: pass token so authorized members get through the gate.",
+    "useCases": [
+      "ior:instance:29397b2e-f40e-4a4b-9aa1-d9d1cbbac899"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

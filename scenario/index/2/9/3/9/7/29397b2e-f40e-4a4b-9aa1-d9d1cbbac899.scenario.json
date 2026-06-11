@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "29397b2e-f40e-4a4b-9aa1-d9d1cbbac899",
+    "name": "contentPreviewer.authToken",
+    "description": "renderContentPreview gains token param. contentUrl appends ?token=<playerToken>. Callers (rb-detail-view, RoomView) pass playerToken. Same-origin safe. Fixes 403 on sandboxed iframe/object preview.",
+    "class": "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e",
+    "method": "ior:instance:2be7ba71-6f1e-42a5-b024-7dcbee57ccaa",
+    "classes": [
+      "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
