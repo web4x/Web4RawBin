@@ -1,57 +1,53 @@
 # DnD + Message + Room Chain Scoreboard (live)
 
 **Author:** robbin-planner
-**Updated:** 2026-06-11 (CORRECTED v2 — exclude GREEN chains; precise open-node classification)
+**Updated:** 2026-06-11 (v3 — R19.38/39 GREEN excluded; R19.30-35 per-chain source:line)
 **Rule:** no chain done until its Test leaf is real.
 
-## Legend
-✓ = node exists + wired | ◻ = OPEN | 🟢 = GREEN (end-to-end verified) | (a) = needs Impl unit | (b) = needs Method.implementations[] wiring | (c) = needs Test
-
-## GREEN Chains (EXCLUDE from open-list — SM-verified real markers + tester GREEN)
+## GREEN Chains (EXCLUDED — SM/tester verified, end-to-end real)
 
 | Req | Status | Evidence |
 |-----|--------|----------|
-| R19.36 | 🟢 DONE | Tester 73a70971 8/8 GREEN; SM-verified real `impl:uuid:` markers; uploadFile 9905fbfa + Test 1e763397 (test:R19.14.DnDFileChain) |
-| R19.37 | 🟢 DONE | Same test run; routeUnknown 3d4ceb1d verified |
+| R19.36 | 🟢 | Tester 73a70971 8/8; uploadFile 9905fbfa; Test 1e763397. Data-link (b) only. |
+| R19.37 | 🟢 | Same run; routeUnknown 3d4ceb1d. Data-link (b) only. |
+| R19.38 | 🟢 | f76a02e2 excluded per PO. createMessageUnit 7a983076. |
+| R19.39 | 🟢 | f76a02e2 excluded per PO. ensureRawBinUser 971e3531. |
+| R19.40 | 🟡 partial | Impl shipped 37c6712b; Test pending. lazyLoadChain 94bc8f6e. |
 
-**NOTE:** R19.36/37 show `Method.implementations[]=0` in scenario data — the IOR link is missing but the `[impl:uuid:]` source marker EXISTS and tester verified real behavior. Fix = **(b) wire only** (create or find the Impl unit and add its IOR to Method.implementations[] + Impl.tests[]→Test 1e763397).
+## TRUE REMAINING: R19.30-35 backfill (code shipped v0.5.149-156)
 
-## Chain Table (OPEN chains only — R19.30-35, R19.38-40)
+### Per-chain detail: Method → shipped source:line → what's needed
 
-| Req | Task | UC | Class | Method | Impl unit | src marker | Test | Classification |
-|-----|------|----|-------|--------|-----------|------------|------|----------------|
-| R19.30 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ? | ◻ | (a)+(b)+(c) |
-| R19.31 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ? | ◻ | (a)+(b)+(c) |
-| R19.32 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ? | ◻ | (a)+(b)+(c) |
-| R19.33 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ? | ◻ | (a)+(b)+(c) |
-| R19.34 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ? | ◻ | (a)+(b)+(c) |
-| R19.35 ✓ | ✓ | ✓ | ✓ | ✓ | ◻ | ? | ◻ | (a)+(b)+(c) |
-| R19.38 ✓ | ✓ | ✓ | ✓ | ✓ createMessageUnit | ◻ | ✓ (7ba74970) | ◻ | (a)+(b)+(c) — marker exists in source |
-| R19.39 ✓ | ✓ | ◻ | ◻ | ✓ ensureRawBinUser | ◻ | ✓ (7ba74970) | ◻ | architect UC first; then (a)+(b)+(c) |
-| R19.40 ✓ | ✓ (9edbc532 NEW) | ◻ | ◻ | ✓ lazyLoadChain | ◻ | ✓ (7ba74970) | ◻ | architect UC first; then (a)+(b)+(c) |
+| Req | UC | Method (uuid) | Class (ownerIor) | Source file:line | `[impl:uuid:]` marker | Impl unit | M.impls[] | Test | Status |
+|-----|-----|--------------|-------------------|------------------|----------------------|-----------|-----------|------|--------|
+| R19.30 | room.editCanonical | RbRoomDetail.editCanonical `1f2a3b4c` | RbRoomDetail | `src/ts/server/RoomKeys.ts:123` | ✓ marker EXISTS | ◻ need unit | ◻ | ◻ | **(a)+(b)+(c)** |
+| R19.31 | room.linkResolve | RbRoomContent.linkResolve `3b4c5d6e` | RbRoomContent (`src/public/ts/room/rb-room-content.ts`) | no marker found | ◻ need marker | ◻ need unit | ◻ | ◻ | **marker+(a)+(b)+(c)** |
+| R19.32 | sw.ignoreSearchNav | ServiceWorker.ignoreSearchNav `5d6e7f8a` | ServiceWorker | `src/public/sw.js:62` | ✓ marker EXISTS | ◻ need unit | ◻ | ◻ | **(a)+(b)+(c)** |
+| R19.33 | detailDrawer.stickyClose | RbDetailDrawer.stickyClose `3a671bfc` | RbDetailDrawer | `src/public/ts/trace/rb-detail-drawer.ts:53` | ✓ marker EXISTS | ◻ need unit | ◻ | ◻ | **(a)+(b)+(c)** |
+| R19.34 | detailView.singularChain | RbDetailDrawer.singularChain `e945e562` | RbDetailDrawer | `src/public/ts/trace/singular-chain.ts:25` (fn `singularChain`) — marker `19f0d4e0` exists but for `.narrowChain`, NOT for `e945e562` | ◻ need marker for `e945e562` | ◻ need unit | ◻ | ◻ | **marker+(a)+(b)+(c)** |
+| R19.35 | room.persistMembers | Room.persistMembers `2dabc43d` | Room | `src/ts/server/Room.ts:298` | ✓ marker EXISTS | ◻ need unit | ◻ | ◻ | **(a)+(b)+(c)** |
 
-## Summary
+### Summary of what each chain needs
 
-| Node | Done | Open | GREEN |
-|------|------|------|-------|
-| Requirement | 11/11 ✓ | 0 | 2 🟢 |
-| Task | 11/11 ✓ | 0 (R19.40 just stood up) | 2 🟢 |
-| UseCase | 9/11 ✓ | 2 ◻ (R19.39, R19.40) | 2 🟢 |
-| Class | 9/11 ✓ | 2 ◻ (R19.39, R19.40) | 2 🟢 |
-| Method | 11/11 ✓ | 0 (all exist) | 2 🟢 |
-| Impl unit | 0/9 open | 9 ◻ | 2 🟢 (exist but Method.implementations[] link missing) |
-| Test | 0/9 open | 9 ◻ | 2 🟢 (Test 1e763397 exists; Impl.tests[] link missing) |
+| Req | Need marker? | Need Impl unit (a) | Need M.impls[] wire (b) | Need Test (c) |
+|-----|-------------|--------------------|-----------------------|---------------|
+| R19.30 | no (✓ RoomKeys.ts:123) | **yes** | **yes** | **yes** |
+| R19.31 | **YES** (no marker for `3b4c5d6e`) | **yes** | **yes** | **yes** |
+| R19.32 | no (✓ sw.js:62) | **yes** | **yes** | **yes** |
+| R19.33 | no (✓ rb-detail-drawer.ts:53) | **yes** | **yes** | **yes** |
+| R19.34 | **YES** (marker for wrong uuid `19f0d4e0`) | **yes** | **yes** | **yes** |
+| R19.35 | no (✓ Room.ts:298) | **yes** | **yes** | **yes** |
 
-## Precise OPEN dispatch (excluding GREEN R19.36/37)
+### Dispatch
 
-| # | What | Reqs | Owner | Notes |
-|---|------|------|-------|-------|
-| 1 | **UC creation** | R19.39, R19.40 | **architect** | R19.39 Method 971e3531 exists but no UC wired to req; R19.40 Method 94bc8f6e exists but no UC. |
-| 2 | **Impl unit creation (a)** | R19.30-35, R19.38-40 (9 chains) | **expert** | Create Implementation scenario units; R19.38/39/40 have `impl:uuid:` markers in source (7ba74970) — just need the unit; R19.30-35 need both marker + unit. |
-| 3 | **Method.implementations[] wiring (b)** | ALL 9 open + R19.36/37 (11 total) | **expert** | After Impl units exist, wire each Method.implementations[] IOR. For GREEN R19.36/37: find/create their Impl units and wire (code+Test both exist already). |
-| 4 | **Test creation (c)** | R19.30-35, R19.38-40 (9 chains) | **tester** | Create Test units + `test:uuid:` in test files. R19.36/37 already have Test 1e763397 — just needs Impl.tests[] wiring. |
+| Owner | Count | What |
+|-------|-------|------|
+| **expert** | 6 Impl units + 2 markers + 6 M.impls[] wires | Create 6 Impl scenario units; add `[impl:uuid:3b4c5d6e]` at the linkResolve fn in rb-room-content.ts + `[impl:uuid:e945e562]` at singularChain in singular-chain.ts:25; wire each Method.implementations[]→Impl IOR |
+| **tester** | 6 Tests | Create 6 Test scenario units + `[test:uuid:]` markers in test files; one per chain |
 
-**Bottleneck:** expert — 9-11 Impl units + wiring. Architect has 2 UCs left.
+### Data-link-only wiring (GREEN chains — expert or architect)
+
+R19.36/37/38/39 need `Method.implementations[]` IOR wired to their existing (or to-be-found) Impl units + `Impl.tests[]` linked. R19.40 needs Test after Impl ships. These are data-link fixes, not new code.
 
 ---
 
