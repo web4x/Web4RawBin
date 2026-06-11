@@ -6,7 +6,9 @@
     "name": "R19.43: After drop, show an upload status bar with progress.",
     "description": "After a file is dropped into the room drop-zone, an upload STATUS BAR MUST appear showing upload progress (percentage or indeterminate spinner). The status bar remains visible until the upload completes (success or failure) and then transitions to the result state. This provides immediate visual feedback that the drop was received and work is in progress.",
     "tronQuote": "> TRON: \"after drop show an upload statusbar\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:1443877c-0abe-462b-b6d9-3fc3b4e6a957"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

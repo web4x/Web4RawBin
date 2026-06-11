@@ -123,6 +123,7 @@ export function writeRoomJson(userToken: string, roomId: string, data: RoomJsonD
   // [impl:uuid:2a29b3da-c0a5-4f32-b172-af8dafaa147a] RbRoomDetail.editCanonical R19.30
     const sourceFile = `scenario/index/${prefix}/${roomId}.scenario.json`;
     const unit = { ior: 'ior:class:Room', model: { uuid: roomId, ...data, sourceFile, unitLinks: [`sprints.json/rooms/${userToken}/${roomId}.json`] }, ownerIor: `ior:instance:${userToken}` };
+    if (data.chatHistory?.length > 0) console.log(`[writeRoomJson] ${roomId.slice(0,8)} writing ${data.chatHistory.length} chat messages`);
     try {
       mkdirSafe(canonDir);
       fs.writeFileSync(canonPath, JSON.stringify(unit, null, 2));

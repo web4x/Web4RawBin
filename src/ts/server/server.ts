@@ -1636,7 +1636,9 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
         const text = msg.text.slice(0, 200);
         const member = room.members.get(clientId);
         const name = member?.name || spec?.name || 'Anonymous';
-        room.addChat(clientId, name, text);
+        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        const chatIdx = new ScenarioIndex(scenarioDir);
+        room.addChat(clientId, name, text, chatIdx);
       }
       break;
     }

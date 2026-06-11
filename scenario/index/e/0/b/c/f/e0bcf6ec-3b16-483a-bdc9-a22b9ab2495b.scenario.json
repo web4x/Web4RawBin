@@ -6,7 +6,9 @@
     "name": "R19.41: Server has a configurable log level that gates logging detail at runtime.",
     "description": "The server MUST have a configurable LOG LEVEL with standard verbosity tiers (error < warn < info < debug < trace). All server logging (including the file-upload/createFileUnit diligent logging from R19.36) respects the active level \u2014 messages below the threshold are suppressed. The level MUST be settable at runtime without server restart (e.g. via admin API endpoint or WS command) AND have a persisted default (env var or config file read at startup). This enables increasing detail for debugging and decreasing for production noise.",
     "tronQuote": "> TRON: \"introduce serverside log level to increase and decrease server log details.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:1c7f8d8e-cbfd-44d8-b1fc-dfcdb1dd211b"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

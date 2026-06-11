@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "0486369a-a6f6-4728-a29f-299c81cf2305",
+    "name": "T-upload-result-message: upload success/failure posts RawBin User message",
+    "slug": "upload-result-message-rawbin-user",
+    "description": "R19.44: Upload success or failure posts a corresponding RawBin system chat message.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [x] implementing expert (shipped)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:65151a56-5efa-448c-b790-1a0522532749"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner",
+    "traceabilityClosure": true
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

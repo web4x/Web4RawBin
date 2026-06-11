@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "1c7f8d8e-cbfd-44d8-b1fc-dfcdb1dd211b",
+    "name": "T-server-log-level: configurable server log level gates logging verbosity",
+    "slug": "server-log-level-configurable-gates-logging",
+    "description": "R19.41: Server has a configurable log level that gates logging detail at runtime.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [x] implementing expert (shipped)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:e0bcf6ec-3b16-483a-bdc9-a22b9ab2495b"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner",
+    "traceabilityClosure": true
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
