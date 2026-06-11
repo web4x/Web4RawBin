@@ -15,7 +15,11 @@
     "refinementOfNote": "Refines R19.66 (Room Scenario button opens detail view). R19.66 fixed the route dispatch; R19.67 fixes the RENDERING: type label, speaky name, clickable link instead of bare uuid. Witness: room f672d29b.",
     "useCases": [
       "ior:instance:744d67f9-c19b-49c5-8c61-d14eb5531394"
-    ]
+    ],
+    "refinedBy": [
+      "ior:instance:b1aaaa0d-a3ad-43d3-ac09-b67b8d1129ec"
+    ],
+    "refinedByNote": "Refined by R19.70 which fixes WHERE the Scenario link navigates: file browser highlighting the file (DRY, one shared implementation), not self-reference."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

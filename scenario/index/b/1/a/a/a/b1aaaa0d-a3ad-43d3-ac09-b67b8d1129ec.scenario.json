@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b1aaaa0d-a3ad-43d3-ac09-b67b8d1129ec",
+    "altId": "R19.70",
+    "name": "R19.70: Scenario link navigates to file browser highlighting the scenario.json, not a self-reference.",
+    "description": "The Scenario link in the detail view MUST navigate to the FILE BROWSER (/md/) navigated to and HIGHLIGHTING the <uuid>.scenario.json file \u2014 NOT a self-reference (/scenario?ior=self), and NOT directly to Monaco (/edit/). From the highlighted file in the browser, the user clicks the existing PEN icon to open the editor. This reuses the file-browser edit pattern for consistency across the app. The scenario-link affordance MUST be ONE shared DRY implementation reused across ALL detail views (Room, File, User, Device, and all chain types) \u2014 not a per-view reimplementation. One function, one template partial, all views consume it.",
+    "tronQuote": "> TRON (original): \"the scenario link in the picture/room detail is a SELF reference but should reference the scenario MONACO EDITOR\"\n> TRON (refined): \"to be consistent we should link to the browser and highlight the file so that we can then click the pen.\"\n> TRON (DRY emphasis): \"this is how it is done on all other cases \u2014 should be consistent and in ONE DRY PLACE.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "refinementOf": "ior:instance:a99486b6-4c4c-46cb-80e6-607af73e7f7e",
+    "refinementOfNote": "Refines R19.67 (Room scenario detail rendering). R19.67 fixed type label + speaky name + clickable link; R19.70 fixes WHERE the Scenario link navigates: Monaco editor (/edit/), not self-reference (/scenario?ior=self). Applies to ALL types' detail views, not just Room."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

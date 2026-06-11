@@ -213,3 +213,11 @@
   > Expert code-review: file access endpoints serve content without checking room membership.
 - **R19.69** (2026-06-11): iframe previews of untrusted uploads use sandbox attribute (allow-same-origin, block scripts/forms/navigation). Prevents XSS from uploaded HTML.
   > Expert code-review: iframe preview loads untrusted HTML/URLs without sandbox.
+
+### Scenario link + room children (R19.70 + R19.71)
+- **R19.70** (2026-06-11, refined): Scenario link → file browser (/md/) highlighting <uuid>.scenario.json (user clicks pen to edit). NOT self-reference, NOT direct Monaco. ONE DRY shared implementation across ALL detail views.
+  > TRON: "the scenario link is a SELF reference but should reference the scenario MONACO EDITOR"
+  > TRON (refined): "to be consistent we should link to the browser and highlight the file so that we can then click the pen."
+  > TRON (DRY): "this is how it is done on all other cases — should be consistent and in ONE DRY PLACE."
+- **R19.71** (2026-06-11): room scenario detail lists files[] as children (currently shows 'no children' despite having files). Room FORWARD_KEYS includes 'files'.
+  > Witness: room 440ccc82 has files but detail shows 'no children'.
