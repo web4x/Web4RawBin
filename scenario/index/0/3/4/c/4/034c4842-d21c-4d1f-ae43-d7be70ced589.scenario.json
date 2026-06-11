@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "034c4842-d21c-4d1f-ae43-d7be70ced589",
+    "altId": "R19.80",
+    "name": "R19.80: Drawer can be sized up to 95% of viewport height.",
+    "description": "The detail drawer MUST be resizable up to 95% of the viewport height (currently capped lower). When the user drags the nudge handle upward, the drawer grows up to max-height: 95vh. This gives near-fullscreen preview space while keeping the top-nav back button visible (R19.57).",
+    "tronQuote": "> TRON: \"make it possible to size it to 95%.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:8b823df5-0ad9-4264-b200-6a7125010654"
+    ],
+    "crossRefNote": "R19.57 (back button not covered) constrains the remaining 5%. R19.80 sets the max drawer height."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

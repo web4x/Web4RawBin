@@ -244,3 +244,13 @@
 ### URL preview action buttons (R19.77)
 - **R19.77** (2026-06-11): URL file preview shows two buttons: (a) 'Open in preview' (inline sandboxed iframe), (b) 'Open in new tab' (window.open target=_blank). User chooses inline vs full-page.
   > TRON: "that worked well, but add in this case in the preview two buttons to open the url in preview or as a new tab."
+
+### Preview/drawer UX polish (R19.78-81)
+- **R19.78** (2026-06-11): action buttons ABOVE the filename (layout: nudge → buttons → name → content).
+  > TRON: "add the action buttons above the name."
+- **R19.79** (2026-06-11): drawer NUDGE/drag handle visible above action buttons — user knows drawer is resizable.
+  > TRON: "above the action buttons the drawer nudge is missing…otherwise the user does not know he can drag the size."
+- **R19.80** (2026-06-11): drawer resizable up to 95% viewport height (currently capped lower). R19.57 back button gets the remaining 5%.
+  > TRON: "make it possible to size it to 95%."
+- **R19.81** (2026-06-11): pinch-zoom works in preview iframe (pan works, pinch broken). Touch-action CSS or gesture handler needed.
+  > TRON: "pan is working well in the iframe but pinch not at all."

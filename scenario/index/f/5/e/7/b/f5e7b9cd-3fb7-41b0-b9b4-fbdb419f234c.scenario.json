@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "f5e7b9cd-3fb7-41b0-b9b4-fbdb419f234c",
+    "altId": "R19.81",
+    "name": "R19.81: Pinch-zoom works in the preview iframe, not just pan.",
+    "description": "BUG: pan gesture works in the preview iframe but pinch-zoom does nothing. FIX: the preview iframe MUST support pinch-zoom (two-finger zoom on touch devices). This may require touch-action CSS on the iframe or a gesture handler that translates pinch events into CSS transform scale on the iframe content. Both pan AND pinch must work for the preview to be usable on mobile.",
+    "tronQuote": "> TRON: \"pan is working well in the iframe but pinch not at all.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:b03701b6-2105-4589-b27d-7db58b62e16c"
+    ],
+    "crossRefNote": "R19.65 (ContentPreviewer) is the component. R19.81 adds pinch-zoom to the iframe render path alongside existing pan."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

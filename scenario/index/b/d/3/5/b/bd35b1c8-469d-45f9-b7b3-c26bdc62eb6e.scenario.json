@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "bd35b1c8-469d-45f9-b7b3-c26bdc62eb6e",
+    "altId": "R19.79",
+    "name": "R19.79: Drawer nudge/drag handle visible above action buttons so user knows drawer is resizable.",
+    "description": "The detail drawer MUST show a NUDGE (drag handle / grabber bar) ABOVE the action buttons so the user knows the drawer height is resizable by dragging. Currently the nudge is missing in the preview drawer layout. The nudge is the topmost element: nudge → action buttons → filename → preview content. Relates to R19.33 (sticky close affordance) — the nudge and close button both live in the fixed/sticky top area of the drawer.",
+    "tronQuote": "> TRON: \"above the action buttons the drawer nudge is missing…otherwise the user does not know he can drag the size.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:553be449-3bad-4580-9426-11c4ab10e202"
+    ],
+    "crossRefNote": "R19.33 (sticky close affordance) covers the close button staying visible. R19.79 adds the nudge/drag handle in the same fixed top area."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
