@@ -4,10 +4,10 @@
     "uuid": "27d71119-bfae-418b-a99d-a6985c2d7d0e",
     "name": "pageNav.backButtonVisible",
     "description": "pageNav z-index raised above detail drawer (z-index:101 vs drawer z-index:100) so back button stays visible+clickable when full-width drawer is open.",
-    "class": "ior:instance:409c52a9",
+    "class": "ior:instance:409c52a9-e852-4360-98ae-ca2a0b095714",
     "method": "ior:instance:adde3420-6ba6-400d-9b51-ebac318ea034",
     "classes": [
-      "ior:instance:409c52a9"
+      "ior:instance:409c52a9-e852-4360-98ae-ca2a0b095714"
     ],
     "tasks": [],
     "implementations": [],
