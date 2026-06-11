@@ -207,3 +207,9 @@
 ### Room scenario detail rendering (R19.67, refines R19.66)
 - **R19.67** (2026-06-11): Room scenario detail shows type 'Room' (not 'unknown'), speaky room name, and clickable [Scenario.json] link — not bare repeated uuid. Witness: f672d29b.
   > TRON: "the in-room link to scenario jumps to scenario view with a uuid in the details view but it should be clickable. shows unknown + bare uuid. make it nicer: Room <room-name> + [Scenario.json](…uuid) clickable."
+
+### Security: file-access authorization + iframe sandbox (R19.68 + R19.69)
+- **R19.68** (2026-06-11): file access is ROOM-SCOPED — only room members may read/download files. Server validates membership before serving content. 403 for non-members.
+  > Expert code-review: file access endpoints serve content without checking room membership.
+- **R19.69** (2026-06-11): iframe previews of untrusted uploads use sandbox attribute (allow-same-origin, block scripts/forms/navigation). Prevents XSS from uploaded HTML.
+  > Expert code-review: iframe preview loads untrusted HTML/URLs without sandbox.

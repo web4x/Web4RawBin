@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d989c0c4-d024-44de-b3e2-ef271c731157",
+    "altId": "R19.69",
+    "name": "R19.69: Iframe previews of untrusted uploads use sandbox attribute to prevent script execution.",
+    "description": "SECURITY: when rendering file previews in iframes (R19.64 — href/HTML content loaded via iframe), the iframe MUST carry a sandbox attribute that prevents script execution, form submission, and top-level navigation from the loaded content. Recommended: sandbox='allow-same-origin' (allows CSS/images but blocks scripts). This prevents XSS/phishing from malicious uploaded HTML files or dropped URLs. Applies to the generic previewer (R19.65) iframe render path.",
+    "discoverySource": {
+      "type": "team-discovery",
+      "discoveredBy": "robbin-expert (code-review)",
+      "diagnosisExcerpt": "Iframe preview loads untrusted uploaded HTML/URLs without sandbox — uploaded HTML can execute arbitrary scripts in the app's origin.",
+      "canonicalizedBy": "robbin-req via PO directive 2026-06-11"
+    },
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:8d90d7ec-0bce-439f-8180-bed4a182aace",
+      "ior:instance:b03701b6-2105-4589-b27d-7db58b62e16c"
+    ],
+    "crossRefNote": "R19.64 (preview by type — href in iframe) is the render path. R19.65 (generic previewer) is the component. R19.69 adds the sandbox security constraint on the iframe element."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
