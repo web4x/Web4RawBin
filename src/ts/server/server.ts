@@ -1506,8 +1506,9 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       // Send existing files to the joiner
       try {
         const ownerToken = room.creatorToken;
-        addLog(`[files] ownerToken=${ownerToken} roomId=${room.id}`);
+        addLog(`[files] ownerToken=${ownerToken} roomId=${room.id} DATA_DIR=${DATA_DIR} type=${typeof DATA_DIR}`);
         if (ownerToken) {
+          if (typeof DATA_DIR !== 'string') { addLog(`[files] DATA_DIR not a string: ${typeof DATA_DIR}`); break; }
           const filesDir = path.join(DATA_DIR, 'users', ownerToken, 'rooms', room.id, 'files');
           addLog(`[files] filesDir=${filesDir} exists=${fs.existsSync(filesDir)}`);
           if (fs.existsSync(filesDir)) {
@@ -1526,7 +1527,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
             }
           }
         }
-      } catch (e: any) { console.error(`[JOIN_ROOM files] FAILED: ${e?.message}\n${e?.stack || ''}`); }
+      } catch (e: any) { addLog(`[JOIN_ROOM files] FAILED: ${e?.message} ${e?.stack || ''}`); }
       broadcastRoomList();
       break;
     }
