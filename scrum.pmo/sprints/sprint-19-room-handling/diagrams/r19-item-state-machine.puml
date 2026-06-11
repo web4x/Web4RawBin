@@ -1,0 +1,44 @@
+@startuml r19-item-state-machine
+title rb-object-item State Machine\nListener Registration Lifecycle
+
+state "Created" as CR : createElement('rb-object-item')
+state "Plain HTMLElement" as PLAIN : define() not yet run\nNo prototype methods\nsetAttribute = DOM-only
+state "Upgraded (disconnected)" as UPG : RbObjectItem prototype\n_connected=false\nNo listeners registered
+state "Connected (initialized)" as CONN : connectedCallback ran\n.object-item class ✓\nclick listener ✓\nrender() ran ✓\n_connected=true
+state "Broken" as BROKEN #pink : appendChild'd as plain HTMLElement\nNO connectedCallback ever\nNO listeners\nNO .object-item class\nICON ONLY / DEAD
+state "Disconnected (cleanup)" as DISC : disconnectedCallback ran\nlistener removed\nunsub ViewBus
+state "Re-connected" as RECONN : connectedCallback runs AGAIN\nlistener added AGAIN\n⚠️ DOUBLE if not guarded
+
+CR --> PLAIN : define() not yet run
+CR --> UPG : define() already ran
+
+PLAIN --> BROKEN : appendChild()\n(no connectedCallback\non plain HTMLElement)
+PLAIN --> UPG : define() runs later\n(browser upgrades\nin-DOM elements)
+note right of PLAIN : KEY: if element was\nalready appendChild'd\nBEFORE define() runs,\nbrowser upgrades it\nAND fires connectedCallback
+
+UPG --> CONN : appendChild()\n→ connectedCallback()
+CONN --> DISC : removeChild() / innerHTML=''\n→ disconnectedCallback()
+DISC --> RECONN : appendChild() again\n(same element re-used)
+
+BROKEN -[#red]-> UPG : define() runs\n→ browser upgrades\n→ connectedCallback fires\n(element already in DOM)
+note left of BROKEN #yellow : WAIT — if define() runs\nwhile element is in DOM,\nbrowser DOES fire\nconnectedCallback!\nSo BROKEN→CONN should happen.\nWhy doesn't it?
+
+note bottom of BROKEN #red
+  ANSWER: innerHTML='' in renderItems()
+  DESTROYS the element BEFORE
+  define() runs. Sequence:
+  1. FILE_ADDED → renderItems() → innerHTML=''
+  2. createElement (plain) → setAttribute → appendChild
+  3. NEXT FILE_ADDED → renderItems() → innerHTML=''
+     DESTROYS the element from step 2
+  4. repeat for each FILE_ADDED
+  5. define() finally runs
+  6. Only the LAST batch's elements
+     are still in DOM to be upgraded
+
+  The intermediate items are created
+  AND DESTROYED before define() runs.
+  They never get a chance to upgrade.
+end note
+
+@enduml

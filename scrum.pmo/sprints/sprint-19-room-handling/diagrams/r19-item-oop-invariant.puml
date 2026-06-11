@@ -1,0 +1,117 @@
+@startuml r19-item-oop-invariant
+title OOP-Correct Invariant: EXACTLY-ONCE Listener Registration\nRegardless of Path or Timing
+
+skinparam class {
+  BackgroundColor<<current>> #FFCCCC
+  BackgroundColor<<fix>> #CCFFCC
+}
+
+package "CURRENT (broken)" <<current>> {
+  class "rb-trace-tree\n(renderItems)" as TT_BAD {
+    renderItems():
+      innerHTML = '' ← NUKE
+      for root of items:
+        buildSeedNode() ← setAttribute
+    --
+    ⚠️ Each tree.items= setter
+    DESTROYS + RECREATES all items
+    ⚠️ buildSeedNode uses setAttribute
+    (not .data property)
+  }
+
+  class "rb-object-item\n(attribute path)" as ITEM_BAD {
+    connectedCallback():
+      classList.add() ← cursor
+      addEventListener() ← click
+      render() ← from getAttribute
+    attributeChangedCallback():
+      if (!isConnected) return ← SKIP
+      render()
+    --
+    ⚠️ Listener ONLY from connectedCallback
+    ⚠️ If connectedCallback never fires
+    (plain HTMLElement) → permanently dead
+    ⚠️ render() reads attributes which
+    may be empty if set before upgrade
+  }
+}
+
+package "FIX (OOP invariant)" <<fix>> {
+  class "rb-trace-tree\n(diff-render)" as TT_FIX {
+    renderItems():
+      diff existing vs new data
+      UPDATE: item.data = newData
+      REMOVE: departed.remove()
+      APPEND: new item, item.data = d
+    --
+    ✅ NEVER innerHTML=''
+    ✅ Existing items preserved
+    ✅ Uses .data property setter
+    ✅ New items get .data before append
+  }
+
+  class "rb-object-item\n(property path)" as ITEM_FIX {
+    private _data: ItemData | null
+    private _initialized = false
+    --
+    set data(d: ItemData):
+      _data = d
+      if (_initialized) render()
+    connectedCallback():
+      upgradeProperty('data')
+      if (!_initialized):
+        _initialized = true
+        classList.add('object-item')
+        addEventListener('click', handler)
+      render() ← from _data field
+    disconnectedCallback():
+      // DO NOT remove listener
+      // DO NOT set _initialized=false
+      // Element may be re-appended
+    --
+    ✅ _initialized guard = EXACTLY-ONCE
+    ✅ data stored in field, not attrs
+    ✅ connectedCallback always renders
+    from field (survives upgrade)
+    ✅ Re-append safe (no double-listener)
+  }
+}
+
+note bottom of TT_FIX
+  THE INVARIANT:
+  1. Item created ONCE (createElement)
+  2. .data set ONCE (property setter stores to field)
+  3. Appended ONCE (connectedCallback fires, reads field)
+  4. Updated via .data setter (re-renders in place)
+  5. NEVER destroyed by innerHTML=''
+  6. If re-appended: connectedCallback fires but
+     _initialized=true → skip listener add → no double
+
+  ORDER-INDEPENDENT because:
+  - .data before append: stored in field, rendered on connect
+  - .data after append: rendered immediately (isConnected=true)
+  - define() before create: upgraded at createElement
+  - define() after create: upgraded at define(), connectedCallback fires
+  - All 4 permutations → same result
+end note
+
+note bottom of TT_BAD #FFCCCC
+  WHY MEMBERS WORK, FILES DON'T:
+
+  MEMBERS: created in ONE batch AFTER
+  whenDefined gate (line 231). define() has
+  run. createElement returns RbObjectItem.
+  connectedCallback fires on appendChild.
+  ALWAYS WORKS.
+
+  FILES: FILE_ADDED arrives DURING render()
+  await. Each FILE_ADDED sets tree.items =
+  [...] which calls renderItems() which does
+  innerHTML='' + fresh buildSeedNode.
+  Items created BEFORE define() → plain
+  HTMLElement. innerHTML='' destroys them
+  before define() upgrades them.
+  INCONSISTENTLY BROKEN.
+end note
+
+@enduml

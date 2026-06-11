@@ -1,0 +1,67 @@
+@startuml r19-item-lifecycle-audit
+title R19 rb-object-item Listener Lifecycle Audit\nWhy members ALWAYS work, files INCONSISTENT
+
+== SEQUENCE: Member Path (WORKS) ==
+
+participant "WS" as WS
+participant "RoomView" as RV
+participant "rb-trace-tree" as TT
+participant "buildSeedNode" as BSN
+participant "rb-object-item\n(member)" as ITEM_M
+
+WS -> RV : ROOM_JOINED (members[])
+RV -> RV : this.members = msg.members
+RV -> RV : this.render() [async]
+note right: render() is async\n→ awaits whenDefined\n→ sets innerHTML (creates <rb-trace-tree>)
+RV -> RV : await whenDefined('rb-object-item')
+note right #lightgreen: GATE: define() guaranteed\nbefore any item created
+RV -> RV : renderMemberList() → updateRoomTree()
+RV -> TT : tree.items = [{members...}]
+TT -> TT : renderItems() → innerHTML=''
+TT -> BSN : buildSeedNode(memberUuid, 'member', name, ...)
+BSN -> ITEM_M : createElement('rb-object-item')
+note right #pink: define() ALREADY ran\n→ element IS RbObjectItem
+BSN -> ITEM_M : setAttribute('ref', 'member:token')
+BSN -> ITEM_M : setAttribute('type', 'member')
+BSN -> ITEM_M : setAttribute('title', name)
+note right #pink: setAttribute NOT .data\n(self-healing bypassed)\nBUT works because\ndefine already ran
+BSN -> TT : row.appendChild(item)
+ITEM_M -> ITEM_M : connectedCallback()
+note right #lightgreen: classList.add('object-item') ✓\naddEventListener('click') ✓\nrender() from attributes ✓
+note over ITEM_M #lightgreen : FULLY INITIALIZED\n(single batch, post-gate)
+
+== SEQUENCE: File Path (BROKEN 6/8) ==
+
+WS -> RV : FILE_ADDED #1 (async, during render() await)
+RV -> RV : this.files.push(file1)
+RV -> RV : updateRoomTree()
+RV -> TT : tree.items = [{members}, {files: [file1]}]
+note right #red: render() still awaiting whenDefined!\nBut tree already in DOM (innerHTML set)\ntree.items setter: isConnected? → YES\n→ renderItems() FIRES NOW
+TT -> TT : renderItems() → innerHTML=''
+TT -> BSN : buildSeedNode(file1uuid, 'file', ...)
+BSN -> ITEM_M : createElement('rb-object-item')
+note right #red: define() MAY NOT have run yet!\n(whenDefined still pending)\n→ element MAY be plain HTMLElement
+BSN -> ITEM_M : setAttribute('ref', ...)
+BSN -> ITEM_M : setAttribute('type', 'file')
+note right #red: setAttribute on plain HTMLElement\n= just DOM attrs, no CE callback
+BSN -> TT : row.appendChild(item)
+note right #red: NO connectedCallback\n→ NO classList.add\n→ NO addEventListener\n→ DEAD ITEM
+
+WS -> RV : FILE_ADDED #2 (still during await)
+RV -> RV : this.files.push(file2)
+RV -> RV : updateRoomTree()
+RV -> TT : tree.items = [{members}, {files: [f1, f2]}]
+TT -> TT : renderItems() → innerHTML='' AGAIN
+note right #red: DESTROYS file1 item (even if it\nwas somehow initialized)\nCreates BOTH file1+file2 fresh\nSame race: may be plain HTMLElement
+
+note over RV #yellow : ...more FILE_ADDED arrive...\neach triggers tree.items = [...]\neach does innerHTML='' + fresh createElement\nRACE per item: define() timing vs render
+
+RV -> RV : whenDefined resolves
+RV -> RV : renderMemberList() → updateRoomTree()
+RV -> TT : tree.items = [{members}, {files: [all]}]
+TT -> TT : renderItems() → innerHTML='' FINAL
+note right: This LAST render creates final items\ndefine() has now run\n→ items created HERE get connectedCallback
+note right #lightgreen: Items created in this\nfinal pass: WORK
+note right #red: But this is the SAME\npath as FILE_ADDED renders\n→ only LAST batch wins
+
+@enduml
