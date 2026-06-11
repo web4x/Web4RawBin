@@ -20,32 +20,33 @@
         "name": "",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781194848197
+        "joinedAt": 1781194915173
       },
       {
         "ior": "ior:instance:ae9a8a5e-1317-4266-be78-b15b7f547139",
         "name": "test merge",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781194848197
+        "joinedAt": 1781194915173
       },
       {
         "ior": "ior:instance:da4f8809-5bcc-46fd-8f90-9b00d7fe967f",
         "name": "Marcel Samsung",
         "role": "member",
         "status": "online",
-        "joinedAt": 1781194848197
+        "joinedAt": 1781194915173
       },
       {
         "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
         "name": "Toronto Trinity",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781194848197
+        "joinedAt": 1781194915173
       }
     ],
     "files": [
-      "ior:instance:5a5309b7-55d0-444f-a6a2-ea10d495a965"
+      "ior:instance:5a5309b7-55d0-444f-a6a2-ea10d495a965",
+      "ior:instance:4bfd9ddc-49c0-4956-a7f1-e0b0b075b776"
     ],
     "lastMessageIor": null,
     "firstMessageIor": null,

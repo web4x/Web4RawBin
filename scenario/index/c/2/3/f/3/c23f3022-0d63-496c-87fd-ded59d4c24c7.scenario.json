@@ -6,7 +6,8 @@
     "sourceFile": "ior:file:src/public/app.css",
     "sourceLine": 272,
     "tests": [
-      "ior:instance:7fcf0d03-4b81-432f-8691-b5e7629bb378"
+      "ior:instance:7fcf0d03-4b81-432f-8691-b5e7629bb378",
+      "ior:instance:1453e442-7f12-4a62-873d-a77d6feac550"
     ]
   },
   "ownerIor": "ior:instance:363920d4-b0f7-47ec-ae17-31b462fd2e8c"
