@@ -254,3 +254,7 @@
   > TRON: "make it possible to size it to 95%."
 - **R19.81** (2026-06-11): pinch-zoom works in preview iframe (pan works, pinch broken). Touch-action CSS or gesture handler needed.
   > TRON: "pan is working well in the iframe but pinch not at all."
+
+### Lobby join bug — stale online-status (R19.82)
+- **R19.82** (2026-06-11): 'cannot join room' from lobby. Stale disconnected=false after restart blocks rejoin. Fix: reset all members disconnected=true on room load; join flips existing member online (R19.8.B dedup), never rejects.
+  > TRON: "currently i get cannot join room errors from the lobby."

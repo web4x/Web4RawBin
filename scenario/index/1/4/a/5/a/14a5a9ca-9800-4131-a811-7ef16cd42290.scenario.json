@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "14a5a9ca-9800-4131-a811-7ef16cd42290",
+    "altId": "R19.82",
+    "name": "R19.82: Joining a room from lobby must succeed — stale online-status must not block rejoin.",
+    "description": "BUG: 'cannot join room' errors from the lobby. Root cause: after server restart/crash, persisted members have disconnected=false (stale online-status — no live WebSocket backs it). When the same user tries to rejoin, the server sees them as 'already connected' and rejects the join. FIX: on room load (R19.59 load-before-write), reset ALL persisted members' disconnected=true (no live WS exists after restart). On join, if the member already exists in members[], flip disconnected→false (R19.8.B dedup) instead of rejecting. Never reject a join for a member that has no live WS backing their online status.",
+    "tronQuote": "> TRON: \"currently i get cannot join room errors from the lobby.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:417918a5-b2ce-45d4-8434-fd67d6abef3f",
+      "ior:instance:5a181bc4-c0bc-41d0-8cd4-f13431fd4ac4",
+      "ior:instance:f3b61367-a470-42a1-87a8-727ebee4beca"
+    ],
+    "crossRefNote": "R19.8.B (rejoin = flip not duplicate) defines the dedup behavior. R19.59 (load-before-write) is where the stale-status reset should happen. R19.8.A (leave = flip not prune) set disconnected=true on leave but restart skips the leave event."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
