@@ -168,7 +168,8 @@ export class Room {
     if (this.state !== 'active') return false;
     const existing = member.playerToken ? [...this.members.values()].find(m => m.playerToken && m.playerToken === member.playerToken) : undefined;
     if (existing) {
-      if (!existing.disconnected) return false;
+      if (!existing.disconnected && existing.ws && existing.ws.readyState === 1) return false;
+      if (!existing.disconnected) existing.disconnected = true;
       this.members.delete(existing.id);
       this.members.set(member.id, { ...member, disconnected: false });
       this.broadcast({ type: MSG.MEMBER_RECONNECTED, member: this.memberInfo(member.id), oldMemberId: existing.id, memberCount: this.members.size });
