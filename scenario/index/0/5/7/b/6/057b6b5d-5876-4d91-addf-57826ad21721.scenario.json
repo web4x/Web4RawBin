@@ -5,7 +5,9 @@
     "name": "ContentPreviewer.urlFileActions",
     "description": "content-preview.ts: for URL-type files (mimeType text/uri-list or .url/.webloc), render two buttons: 'Open in preview' (sandboxed iframe src=url) + 'Open in new tab' (window.open). Buttons styled consistently with existing preview actions.",
     "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:cde29329-9ede-4c31-9ab8-4a853b1e4280"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e"

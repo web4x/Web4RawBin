@@ -24,6 +24,10 @@ export function renderContentPreview(uuid: string, mimeType: string, name: strin
   if (mimeType.startsWith('text/') || mimeType === 'application/json') {
     return `<div class="cv-preview cv-text-loading" data-uuid="${uuid}">Loading...</div>`;
   }
+  // [impl:uuid:cde29329-9ede-4c31-9ab8-4a853b1e4280] R19.77 URL file action buttons
+  if (mimeType === 'text/uri-list' || name.endsWith('.url') || name.endsWith('.webloc')) {
+    return `<div class="cv-preview cv-url-actions" data-uuid="${uuid}" data-token="${token || ''}"><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn cv-url-preview" style="flex:1">Open in preview</button><button class="btn cv-url-newtab" style="flex:1">Open in new tab</button></div><div class="cv-url-frame" style="display:none;margin-top:8px"></div></div>`;
+  }
   return `<div class="cv-preview"><a href="${contentUrl}" download="${esc(name)}" class="cv-download">Download ${esc(name)}</a></div>`;
 }
 
@@ -41,6 +45,33 @@ export async function loadTextPreview(container: HTMLElement, uuid: string, toke
     el.appendChild(pre);
     el.classList.remove('cv-text-loading');
   } catch { el.textContent = 'Failed to load'; }
+}
+
+export function wireUrlActions(container: HTMLElement): void {
+  container.querySelectorAll('.cv-url-actions').forEach(el => {
+    const uuid = (el as HTMLElement).dataset.uuid || '';
+    const token = (el as HTMLElement).dataset.token || '';
+    const urlSrc = `/api/room/file/${uuid}/content${token ? '?token=' + encodeURIComponent(token) : ''}`;
+    el.querySelector('.cv-url-preview')?.addEventListener('click', async () => {
+      const frame = el.querySelector('.cv-url-frame') as HTMLElement;
+      if (!frame) return;
+      try {
+        const resp = await fetch(urlSrc);
+        const text = (await resp.text()).trim().split('\n').filter(l => l.startsWith('http'))[0] || '';
+        if (text) {
+          frame.style.display = '';
+          frame.innerHTML = `<iframe src="${text}" sandbox="allow-same-origin allow-scripts" style="width:100%;height:400px;border:none;border-radius:8px;background:white"></iframe>`;
+        }
+      } catch {}
+    });
+    el.querySelector('.cv-url-newtab')?.addEventListener('click', async () => {
+      try {
+        const resp = await fetch(urlSrc);
+        const text = (await resp.text()).trim().split('\n').filter(l => l.startsWith('http'))[0] || '';
+        if (text) window.open(text, '_blank');
+      } catch {}
+    });
+  });
 }
 
 function esc(s: string): string {

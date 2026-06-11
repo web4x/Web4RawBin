@@ -15,7 +15,7 @@ import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
-import { renderContentPreview, loadTextPreview } from './content-preview.js';
+import { renderContentPreview, loadTextPreview, wireUrlActions } from './content-preview.js';
 
 export class RbDetailView extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -91,6 +91,7 @@ export class RbDetailView extends HTMLElement {
             const linksEl = this.querySelector('.dv-links');
             if (linksEl) linksEl.insertAdjacentHTML('beforebegin', preview);
             loadTextPreview(this, obj.uuid, tok);
+            wireUrlActions(this);
           }
         }).catch(() => {});
       });

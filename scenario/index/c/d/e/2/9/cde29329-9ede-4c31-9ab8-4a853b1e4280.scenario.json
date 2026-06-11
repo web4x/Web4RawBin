@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "cde29329-9ede-4c31-9ab8-4a853b1e4280",
+    "name": "ContentPreviewer.urlFileActions impl",
+    "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
+    "sourceLine": 28,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:057b6b5d-5876-4d91-addf-57826ad21721"
+}
