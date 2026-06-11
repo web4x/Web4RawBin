@@ -60,11 +60,10 @@ describe('[test:uuid:8289ef98] R19.38 Message scenario unit', () => {
     expect((m.model as any).kind).toBe('drop-debug');
   });
 
-  it('TC-4: unitLinks includes rooms/<rid>/messages/ path', () => {
+  it('TC-4: unitLinks is empty (no stray room-dir symlinks)', () => {
     const m = createMessageUnit(idx, { text: 'x', senderToken: 'tok-a', senderName: 'A', roomUuid: 'room-abc' });
     const links = (m.model as any).unitLinks as string[];
-    expect(links.length).toBeGreaterThanOrEqual(1);
-    expect(links.some((l: string) => l.includes('room-abc') && l.includes('messages'))).toBe(true);
+    expect(links).toEqual([]);
   });
 
   it('TC-5: first message has prevMessage=null', () => {

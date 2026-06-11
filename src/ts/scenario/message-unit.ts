@@ -30,7 +30,7 @@ export function createMessageUnit(idx: ScenarioIndex, input: MessageInput, lastM
       prevMessage: lastMessageIor || null,
       nextMessage: null,
       kind: input.kind || 'chat',
-      unitLinks: [`sprints.json/rooms/${input.roomUuid}/messages/${uuid}.json`],
+      unitLinks: [],
     },
     ownerIor: `ior:instance:${input.senderToken}`,
   };

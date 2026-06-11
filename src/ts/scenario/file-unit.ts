@@ -31,9 +31,6 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): Scenar
   const contentPath = path.relative(idx.scenarioRoot, contentFilePath);
 
   const unitLinks: string[] = [];
-  if (input.roomUuid) {
-    unitLinks.push('rooms/' + input.roomUuid + '/files/' + uuid + '.scenario.json');
-  }
   if (input.extraUnitLinks) unitLinks.push(...input.extraUnitLinks);
   const unit: ScenarioUnit = FileLoader.create({
     ior: iorClass('File'),

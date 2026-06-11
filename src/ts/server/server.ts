@@ -321,7 +321,8 @@ function pageHead(title: string): string {
 
 function pageNav(backHref: string = '/', backLabel: string = 'Home', editPath?: string): string {
   const editLink = editPath ? ` · <a href="/edit/${editPath}" style="color:#ff9800;text-decoration:none;font-size:0.9rem">✏️ Edit</a>` : '';
-  return `<div style="padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top));position:sticky;top:0;z-index:50;background:#1a1a2e"><a href="${backHref}" style="color:#ffffff;text-decoration:none;font-size:0.9rem">← ${backLabel}</a> · <a href="/app" style="color:#ffffff;text-decoration:none;font-size:0.9rem">App</a> · <a href="/trace" style="color:#ffffff;text-decoration:none;font-size:0.9rem">Traceability</a>${editLink}</div>`;
+  // [impl:uuid:b57f1e2a-c3d4-4e5f-9a6b-7c8d9e0f1a2b] R19.57 pageNav z-index above drawer
+  return `<div style="padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top));position:sticky;top:0;z-index:101;background:#1a1a2e"><a href="${backHref}" style="color:#ffffff;text-decoration:none;font-size:0.9rem">← ${backLabel}</a> · <a href="/app" style="color:#ffffff;text-decoration:none;font-size:0.9rem">App</a> · <a href="/trace" style="color:#ffffff;text-decoration:none;font-size:0.9rem">Traceability</a>${editLink}</div>`;
 }
 
 function trackClient(req: http.IncomingMessage): void {
