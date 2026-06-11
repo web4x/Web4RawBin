@@ -5,7 +5,9 @@
     "name": "ContentPreviewer.iframePinchZoom impl",
     "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
     "sourceLine": 7,
-    "tests": []
+    "tests": [
+      "ior:instance:84222a39-56d7-4550-a2bf-b804e3791edb"
+    ]
   },
   "ownerIor": "ior:instance:7021b77e-f5a5-4448-b6fb-bd638d04cf2d"
 }

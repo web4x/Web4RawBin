@@ -5,7 +5,9 @@
     "name": "RbDetailDrawer.buttonsAboveName impl",
     "sourceFile": "ior:file:src/public/ts/RoomView.ts",
     "sourceLine": 262,
-    "tests": []
+    "tests": [
+      "ior:instance:68a81a25-8c76-42f6-9d39-269a4426c139"
+    ]
   },
   "ownerIor": "ior:instance:fa014bf5-d062-4d19-8f43-ad03641993aa"
 }

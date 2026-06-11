@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "68a81a25-8c76-42f6-9d39-269a4426c139",
+    "name": "test:R19.78 buttonsAboveFilename",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:b8714c1d-58b2-4324-93ba-da5e0f760221"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b8714c1d-58b2-4324-93ba-da5e0f760221"
+}

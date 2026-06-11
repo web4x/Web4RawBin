@@ -5,7 +5,9 @@
     "name": "RbDetailDrawer.nudgeAboveButtons impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "sourceLine": 71,
-    "tests": []
+    "tests": [
+      "ior:instance:a4f8ccb0-1f0f-4798-b21d-c4c77fce772c"
+    ]
   },
   "ownerIor": "ior:instance:779bdd6f-d919-4d69-af48-85f5c193311b"
 }

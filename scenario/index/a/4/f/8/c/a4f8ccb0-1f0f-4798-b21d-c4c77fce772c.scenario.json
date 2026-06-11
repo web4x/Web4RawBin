@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a4f8ccb0-1f0f-4798-b21d-c4c77fce772c",
+    "name": "test:R19.79 nudgeHandle",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:517b767c-dfc7-4b34-84d6-f152a163bc73"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:517b767c-dfc7-4b34-84d6-f152a163bc73"
+}

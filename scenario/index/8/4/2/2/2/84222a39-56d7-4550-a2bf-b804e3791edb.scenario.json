@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "84222a39-56d7-4550-a2bf-b804e3791edb",
+    "name": "test:R19.81 iframePinchZoom",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:7cd70c47-d2cd-4749-8bb6-18018c64bc14"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7cd70c47-d2cd-4749-8bb6-18018c64bc14"
+}

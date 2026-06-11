@@ -5,7 +5,9 @@
     "name": "RbDetailDrawer.resize95vh impl",
     "sourceFile": "ior:file:src/public/app.css",
     "sourceLine": 272,
-    "tests": []
+    "tests": [
+      "ior:instance:7fcf0d03-4b81-432f-8691-b5e7629bb378"
+    ]
   },
   "ownerIor": "ior:instance:5ecea757-b198-49f0-8d69-e7e3169f4ee7"
 }
