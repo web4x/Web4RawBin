@@ -4,7 +4,9 @@
     "uuid": "3f6a9ce1-c9b9-43fa-9bd1-b2bfa38e92f2",
     "name": "OfflinePage.reloadButton",
     "sourceFile": "src/public/sw.js",
-    "tests": [],
+    "tests": [
+      "ior:instance:1db382b5-932b-41b2-9865-c1e3d235fdbe"
+    ],
     "orphanByDesign": true,
     "orphanRationale": "No real code \u2014 design-only/future feature",
     "sourceLine": 17

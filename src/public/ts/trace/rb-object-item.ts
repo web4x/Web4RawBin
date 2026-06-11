@@ -1,4 +1,5 @@
 /**
+// [test:uuid:440892b6-6399-4dd4-8116-09f6d2061126]
 // [impl:uuid:0b57d139-2df7-4024-a725-b24f558341b6] RbObjectItem.iconDrag
 // [impl:uuid:a1e11e85-98a7-4be0-a8f4-ec54e938d329] RbObjectItem.dragGhost
 // [impl:uuid:f7b0c24a-6b0a-4548-9b0d-2b312c211fde] RbObjectItem.squareCollapse

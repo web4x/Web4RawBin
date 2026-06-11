@@ -4,8 +4,10 @@
     "uuid": "2420ff7d-e672-41ea-82e8-913105c75ace",
     "name": "test:JoinRequestFlow.applySend",
     "description": "ROOM_APPLY handler coverage needed",
-    "sourceFile": "ior:file:test/vitest/room.test.ts",
-    "implementations": ["ior:instance:5a397d5d-3d97-4152-8a7b-14caca1398ca"],
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:5a397d5d-3d97-4152-8a7b-14caca1398ca"
+    ],
     "status": "pass",
     "unitLinks": []
   },

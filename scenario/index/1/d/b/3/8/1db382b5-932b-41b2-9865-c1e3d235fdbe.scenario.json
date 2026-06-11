@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "1db382b5-932b-41b2-9865-c1e3d235fdbe",
+    "name": "test:R17.24: UC/Class/Method unit c",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:3f6a9ce1-c9b9-43fa-9bd1-b2bfa38e92f2"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:3f6a9ce1-c9b9-43fa-9bd1-b2bfa38e92f2"
+}
