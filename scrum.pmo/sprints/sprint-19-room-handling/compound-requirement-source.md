@@ -178,3 +178,9 @@
 ### DetailView consistency — traceability section consolidation (R19.58)
 - **R19.58** (2026-06-11): ALL 7 type DetailViews show ONE consistent 'Traceability' section with the REAL singular chain (req→uc→class→method→impl→test). Label = 'Traceability' (NOT 'Champagne Chain'). Current state: first 2 types show wrong flat-methods list; second 2 show correct content under wrong label. Consolidate all types to same template + correct content + user-understandable label.
   > TRON: "the detail views became very inconsistent. the first 2 still have traceability and all children — good, but the traceability is wrong, its all methods and both are the same. all children is correct, traceability not. in the second 2 we see champagne chain — wtf, how shall a user know what that is — but THAT is the correct traceability. review and consolidate that across all types."
+
+### HeartSpace loss fix — load-before-write + files backfill (R19.59 + R19.60)
+- **R19.59** (2026-06-11): Room construction persist must LOAD existing persisted scenario FIRST, merge, THEN write. Never wipe members/files/chat on restart/createRoom.
+  > PO diagnosis: construction persist wiped offline-retained members.
+- **R19.60** (2026-06-11): pre-existing rooms (before files[] pattern) backfill files[] from on-disk FileUnit symlinks so old rooms restore files on join.
+  > PO diagnosis: old rooms had FileUnits on disk but empty files[] array.

@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "fd5ab4b4-31c6-40c5-a0b1-6f72f00fd155",
+    "altId": "R19.60",
+    "name": "R19.60: Pre-existing rooms backfill files[] from on-disk FileUnits so old rooms restore files on join.",
+    "description": "Rooms created BEFORE the Room.files[] IOR pattern (R19.46) may have FileUnit scenario units on disk (in their room folder) but an empty files[] array. On room load/join, the server MUST backfill files[] by scanning for FileUnit symlinks in the room's canonical directory and adding their IORs to files[]. This one-time backfill ensures old rooms restore their files for joining members without requiring manual re-upload.",
+    "tronQuote": "> PO diagnosis (HeartSpace loss): pre-existing rooms' files[] must be backfilled from on-disk FileUnits so old rooms restore files on join.",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:124d9eec-0c46-4f45-8640-b7e14618d214",
+      "ior:instance:f1ca3cc9-a675-4a3b-9898-9e33d7876ed8"
+    ],
+    "crossRefNote": "R19.46 (Room.files[] IOR list as source of truth) is the target state. R19.14 (file as scenario unit) defines the FileUnit shape. R19.60 bridges old rooms to the new model via one-time backfill."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "5a181bc4-c0bc-41d0-8cd4-f13431fd4ac4",
+    "altId": "R19.59",
+    "name": "R19.59: Room construction persist must load persisted members/files/chat BEFORE writing — never wipe existing data.",
+    "description": "BUG (HeartSpace loss): Room.createRoom() / construction persist writes a fresh scenario unit that WIPES previously persisted members[], files[], and lastMessageIor. FIX: Room construction MUST load the existing persisted scenario unit FIRST (if it exists), merge any new construction-time fields into the loaded state, THEN persist. The load-before-write order ensures offline-retained members (R19.8/8.A), uploaded files (R19.46), and chat history (R19.40) survive server restart and Room re-creation.",
+    "tronQuote": "> PO diagnosis (HeartSpace loss): persistent rooms must NOT lose offline-retained members on restart/createRoom — Room must load persisted members/files/chat BEFORE/at construction persist. Bug: construction persist wiped members.",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:30dcb1a0-17b9-4fcb-9823-e71a4dc371c9",
+      "ior:instance:f3b61367-a470-42a1-87a8-727ebee4beca",
+      "ior:instance:124d9eec-0c46-4f45-8640-b7e14618d214",
+      "ior:instance:a0d3791e-a859-4303-b475-b3e525fce114"
+    ],
+    "crossRefNote": "R19.8 (persistent offline retention), R19.8.A (flip not prune), R19.46 (Room.files[] IOR list), R19.40 (Room.lastMessageIor) — all of these depend on persisted state surviving construction. R19.59 fixes the load-before-write bug that destroyed that state."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
