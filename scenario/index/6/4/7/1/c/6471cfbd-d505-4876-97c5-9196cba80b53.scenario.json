@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6471cfbd-d505-4876-97c5-9196cba80b53",
+    "name": "RbRoomContent.filePreview impl",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
+    "sourceLine": 217,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1608977f-c794-4b70-9d85-17c46117a46a"
+}

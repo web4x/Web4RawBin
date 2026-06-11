@@ -16,7 +16,7 @@ export function renderContentPreview(uuid: string, mimeType: string, name: strin
 // [impl:uuid:96fbfac9-10c2-4543-986b-a66b8eaebeda] R19.69 iframe sandbox
     return `<div class="cv-preview"><iframe src="${contentUrl}" sandbox="allow-same-origin" style="width:100%;height:400px;border:none;border-radius:8px"></iframe></div>`;
   }
-  // [impl:uuid:aee04064-f57d-4741-aabb-e5f8ca48736d] R19.74 HTML sandboxed iframe
+  // [impl:uuid:cf44c51c-0e38-4f9c-bbf9-b4731eb6e8ce] R19.74 HTML sandboxed iframe
   if (mimeType === 'text/html') {
     return `<div class="cv-preview"><iframe src="${contentUrl}" sandbox="allow-same-origin" style="width:100%;height:400px;border:none;border-radius:8px;background:white"></iframe></div>`;
   }

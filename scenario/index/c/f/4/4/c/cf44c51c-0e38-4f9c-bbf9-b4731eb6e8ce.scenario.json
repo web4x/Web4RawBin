@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "cf44c51c-0e38-4f9c-bbf9-b4731eb6e8ce",
+    "name": "ContentPreviewer.htmlSandboxed impl",
+    "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
+    "sourceLine": 19,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:aee04064-f57d-4741-aabb-e5f8ca48736d"
+}
