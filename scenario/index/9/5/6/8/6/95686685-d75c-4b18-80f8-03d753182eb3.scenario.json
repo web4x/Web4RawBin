@@ -5,7 +5,8 @@
     "name": "Message",
     "sourceFile": "ior:file:src/ts/scenario/message-unit.ts",
     "methods": [
-      "ior:instance:7a983076-23e0-419c-a6d0-2a10f4342b4b"
+      "ior:instance:7a983076-23e0-419c-a6d0-2a10f4342b4b",
+      "ior:instance:94bc8f6e-e377-415f-96fb-fd39175029c5"
     ],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "unitLinks": []

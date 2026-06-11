@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "94bc8f6e-e377-415f-96fb-fd39175029c5",
+    "name": "Message.lazyLoadChain",
+    "description": "Server: walk prevMessage from before (or room.lastMessageIor), collect limit msgs, return oldest-first. Client: on room open fetch last 5; on scroll-up sentinel fetch next 5, prepend to DOM, restore scrollTop.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:95686685-d75c-4b18-80f8-03d753182eb3"
+}

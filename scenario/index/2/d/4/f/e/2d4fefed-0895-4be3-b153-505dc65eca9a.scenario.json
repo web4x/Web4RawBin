@@ -17,7 +17,10 @@
       "ior:instance:46d49877-63c5-438b-9982-6c66a041ee44",
       "ior:instance:3e14d73c-1ddb-4f42-8d33-481581a8ec95"
     ],
-    "crossRefNote": "R19.37 (unknown drop \u2192 room chat) will write Message units per this spec. R19.1 (room is a scenario unit) establishes the {ior, model, ownerIor} shape that Message reuses. The doubly-linked list provides thread navigation without requiring a separate index."
+    "crossRefNote": "R19.37 (unknown drop \u2192 room chat) will write Message units per this spec. R19.1 (room is a scenario unit) establishes the {ior, model, ownerIor} shape that Message reuses. The doubly-linked list provides thread navigation without requiring a separate index.",
+    "useCases": [
+      "ior:instance:52cfbd70-a718-4c38-b689-be6207fb8054"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
