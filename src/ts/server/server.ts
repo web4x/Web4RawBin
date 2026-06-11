@@ -785,7 +785,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const rawSource = String(unit.model?.sourceFile || '').replace('ior:file:', '');
         const sourceFile = (rawSource && !rawSource.includes('.scenario.json')) ? rawSource : undefined;
         const sourceLine = sourceFile ? ((unit.model?.sourceLine as number) || undefined) : undefined;
-        res.end(JSON.stringify({ uuid, type, name: String(unit.model?.name || ''), children, parent, sourceFile, sourceLine }));
+        const extra: Record<string, unknown> = {};
+        if (type === 'Room') { extra.mode = unit.model?.mode; extra.visibility = unit.model?.visibility; extra.memberCount = Array.isArray(unit.model?.members) ? (unit.model.members as unknown[]).length : 0; extra.fileCount = Array.isArray(unit.model?.files) ? (unit.model.files as unknown[]).length : 0; }
+        res.end(JSON.stringify({ uuid, type, name: String(unit.model?.name || ''), children, parent, sourceFile, sourceLine, ...extra }));
       } catch { res.writeHead(500); res.end('{}'); }
       return;
     }

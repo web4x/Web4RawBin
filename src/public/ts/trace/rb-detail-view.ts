@@ -31,14 +31,21 @@ export class RbDetailView extends HTMLElement {
     this.clearSubs();
     const ref = this.getAttribute('ref') || '';
     const obj = this.graph?.get(refUuid(ref));
+    // [impl:uuid:4846d57e-610e-4977-a189-662074030cb1] R19.67 room-detail fallback
     if (!obj) {
-      this.innerHTML = `<div class="dv-head"><span class="dv-type">${ref.split(':')[0] || '?'}</span><h3 class="dv-title">Loading...</h3><code class="dv-uuid">${refUuid(ref)}</code></div><div class="dv-scenario-children"><span style="color:rgba(255,255,255,0.4);font-size:0.7rem">Loading...</span></div>`;
-      fetchDetailData(refUuid(ref)).then(({ children, parent, sourceFile, sourceLine }) => {
+      const uuid = refUuid(ref);
+      this.innerHTML = `<div class="dv-head"><span class="dv-type">Loading...</span><h3 class="dv-title">Loading...</h3><code class="dv-uuid">${uuid}</code></div><div class="dv-scenario-children"><span style="color:rgba(255,255,255,0.4);font-size:0.7rem">Loading...</span></div>`;
+      // Fetch the unit's own data (name, type, children) from /api/trace/children
+      fetch(`/api/trace/children/${uuid}`).then(r => r.ok ? r.json() : null).then(data => {
         const head = this.querySelector('.dv-head');
-        if (head) {
-          const name = children.length > 0 ? (parent?.name || refUuid(ref)) : refUuid(ref);
-          head.querySelector('.dv-title')!.textContent = parent?.name || name;
+        if (head && data) {
+          head.querySelector('.dv-type')!.textContent = data.type || ref.split(':')[0] || '?';
+          head.querySelector('.dv-title')!.textContent = data.name || uuid;
+          head.insertAdjacentHTML('beforeend', `<div class="dv-field"><a href="/scenario?ior=${uuid}" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Scenario</a></div>`);
         }
+      }).catch(() => {});
+      fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
+        const head = this.querySelector('.dv-head');
         if (sourceFile && head) head.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine));
         if (parent && head) {
           head.insertAdjacentHTML('afterend', renderParentLink(parent));
