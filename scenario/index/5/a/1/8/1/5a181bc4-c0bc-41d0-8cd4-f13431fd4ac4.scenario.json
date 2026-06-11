@@ -6,7 +6,9 @@
     "name": "R19.59: Room construction persist must load persisted members/files/chat BEFORE writing \u2014 never wipe existing data.",
     "description": "BUG (HeartSpace loss): Room.createRoom() / construction persist writes a fresh scenario unit that WIPES previously persisted members[], files[], and lastMessageIor. FIX: Room construction MUST load the existing persisted scenario unit FIRST (if it exists), merge any new construction-time fields into the loaded state, THEN persist. The load-before-write order ensures offline-retained members (R19.8/8.A), uploaded files (R19.46), and chat history (R19.40) survive server restart and Room re-creation.",
     "tronQuote": "> PO diagnosis (HeartSpace loss): persistent rooms must NOT lose offline-retained members on restart/createRoom \u2014 Room must load persisted members/files/chat BEFORE/at construction persist. Bug: construction persist wiped members.",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:a50628ec-75fb-49aa-915a-74f887f5b663"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

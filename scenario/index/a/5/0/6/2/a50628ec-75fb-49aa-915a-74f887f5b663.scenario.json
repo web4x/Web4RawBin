@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "a50628ec-75fb-49aa-915a-74f887f5b663",
+    "name": "T-room-load-before-write: load room from disk before persist to prevent loss",
+    "slug": "room-load-before-write-prevent-loss",
+    "description": "R19.59: Room construction persist must load persisted members/files/chat BEFORE writing \u2014 never wipe existing data.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:5a181bc4-c0bc-41d0-8cd4-f13431fd4ac4"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

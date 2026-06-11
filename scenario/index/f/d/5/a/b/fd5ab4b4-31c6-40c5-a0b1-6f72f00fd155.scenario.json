@@ -6,7 +6,9 @@
     "name": "R19.60: Pre-existing rooms backfill files[] from on-disk FileUnits so old rooms restore files on join.",
     "description": "Rooms created BEFORE the Room.files[] IOR pattern (R19.46) may have FileUnit scenario units on disk (in their room folder) but an empty files[] array. On room load/join, the server MUST backfill files[] by scanning for FileUnit symlinks in the room's canonical directory and adding their IORs to files[]. This one-time backfill ensures old rooms restore their files for joining members without requiring manual re-upload.",
     "tronQuote": "> PO diagnosis (HeartSpace loss): pre-existing rooms' files[] must be backfilled from on-disk FileUnits so old rooms restore files on join.",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:9601cfcd-c032-4055-9e3c-01de2c3ad45b"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

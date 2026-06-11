@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "9473a0be-d248-4277-80a3-9d9f1560f2cb",
+    "altId": "R19.61",
+    "name": "R19.61: Every scenario type generates both .md and .html view templates with chain-link and edit affordance.",
+    "description": "Every scenario type (Room, User, Device, File, Requirement, UseCase, Class, Method, Implementation, Test, Sprint, Task) MUST generate BOTH a .md and .html view template. Each template MUST carry: (a) a chain-link icon (🔗) linking to the scenario unit, and (b) an edit affordance (✏️) linking to edit the scenario unit. BUG: Room .html files currently have NEITHER (missing chain-link + missing edit affordance); .md templates have them. Consistent across ALL types — no type may be missing either template or either affordance.",
+    "tronQuote": "> TRON: \"here we see missing chain links to the scenario and the templates for room md and html have to be created. check that on all types.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:ca351869-b694-491e-ba0f-8c9e9623c4db",
+      "ior:instance:836c97f9-0c2a-4974-9a77-d4658296fd2e"
+    ],
+    "crossRefNote": "R19.30 (pen=edit) and R19.31 (link=view) define the two affordances. R17.25/T141 (chain-link icon convention) originally specified 🔗+✏️ on all generated views. R19.61 re-asserts it after Room type was found missing both in .html."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

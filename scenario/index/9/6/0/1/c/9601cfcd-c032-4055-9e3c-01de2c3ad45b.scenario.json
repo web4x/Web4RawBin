@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "9601cfcd-c032-4055-9e3c-01de2c3ad45b",
+    "name": "T-room-files-backfill: backfill room files[] from existing on-disk files",
+    "slug": "room-files-backfill-existing-disk",
+    "description": "R19.60: Pre-existing rooms backfill files[] from on-disk FileUnits so old rooms restore files on join.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:fd5ab4b4-31c6-40c5-a0b1-6f72f00fd155"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
