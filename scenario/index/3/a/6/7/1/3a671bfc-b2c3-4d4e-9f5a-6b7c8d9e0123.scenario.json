@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "3a671bfc-b2c3-4d4e-9f5a-6b7c8d9e0123",
+    "name": "drawer-header close X pinned CSS",
+    "sourceFile": "src/public/app.css",
+    "sourceLine": 278,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:3a671bfc-12c2-4922-938e-01572d90808e"
+}

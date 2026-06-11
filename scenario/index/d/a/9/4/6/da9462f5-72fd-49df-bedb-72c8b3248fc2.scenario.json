@@ -5,7 +5,9 @@
     "name": "RbDetailDrawer.fullWidth",
     "description": "Remove max-width:480px from rb-detail-drawer CSS. Full-width on mobile+desktop. Applies to both /trace detail drawer and /scenario detail drawer.",
     "sourceFile": "ior:file:src/public/app.css",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:da9462f5-a1b2-4c3d-8e4f-5a6b7c8d9e0f"
+    ],
     "tests": [
       "ior:instance:a7e34f12-8b5c-4d9e-a1f2-3c4d5e6f7a89"
     ]

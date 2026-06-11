@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b57f1e2a-c3d4-4e5f-9a6b-7c8d9e0f1a2b",
+    "name": "pageNav z-index above drawer",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 324,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:adde3420-9f87-4e6d-b5c4-3a2b1c0d9e8f"
+}
