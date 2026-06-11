@@ -49,3 +49,18 @@ describe('[test:uuid:c9f56d34] R19.33 stickyClose pinned X', () => {
     expect(bodyRule![0]).toContain('overflow-y: auto');
   });
 });
+
+// ── [test:uuid:7d6badb4] R19.57 pageNav z-index above drawer ──────────────
+
+describe('[test:uuid:7d6badb4] R19.57 PageNav.raiseAboveDrawer', () => {
+  const serverSrc = fsSync.readFileSync('src/ts/server/server.ts', 'utf-8');
+
+  it('pageNav z-index=101 (above drawer z-index=100)', () => {
+    expect(serverSrc).toContain('z-index:101');
+    expect(css).toContain('z-index: 100');
+  });
+
+  it('[impl:uuid:b57f1e2a] marker present', () => {
+    expect(serverSrc).toContain('[impl:uuid:b57f1e2a');
+  });
+});

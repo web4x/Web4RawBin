@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7d6badb4-a27d-4c9d-b7f8-385fc9636e90",
+    "name": "test:PageNav.raiseAboveDrawer",
+    "description": "R19.57: pageNav z-index=101 > drawer z-index=100. Back button visible over full-width drawer.",
+    "sourceFile": "ior:file:test/vitest/drawer-fullwidth-sticky.test.ts",
+    "implementations": [
+      "ior:instance:adde3420-6ba6-400d-9b51-ebac318ea034"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:adde3420-6ba6-400d-9b51-ebac318ea034"
+}
