@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c57d8b81-bea1-4379-b622-6612d96e33c8",
+    "name": "test:R15.6 RbRequirementDetail.render",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:7fcca3cf-7c87-4a3d-a64b-089c6d92cc0a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7fcca3cf-7c87-4a3d-a64b-089c6d92cc0a"
+}
