@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "d2ab1540-0799-4b7d-842f-0b1550a2485e",
+    "name": "dropZone.uploadFile",
+    "description": "Drop-zone receives file -> DropDispatcher routes to file handler -> POST /api/room/<rid>/upload -> createFileUnit -> FILE_ADDED broadcast -> Files tree updated.",
+    "class": "ior:instance:3fca4816-cc22-45ea-aa59-d7b23ac19d8d",
+    "method": "ior:instance:9905fbfa-e41a-4177-b625-f6fee373efd2",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

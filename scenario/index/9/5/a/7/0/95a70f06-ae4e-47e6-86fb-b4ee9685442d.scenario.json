@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "95a70f06-ae4e-47e6-86fb-b4ee9685442d",
+    "name": "dropZone.dispatchUnknown",
+    "description": "Drop-zone receives unknown format -> DropDispatcher.routeUnknown -> logs to room chat: 'Dropped [mimeType]: [name] \u2014 no handler'. Extensible registry pattern.",
+    "class": "ior:instance:3fca4816-cc22-45ea-aa59-d7b23ac19d8d",
+    "method": "ior:instance:3d4ceb1d-6ed6-4073-a047-cd90e6291a27",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

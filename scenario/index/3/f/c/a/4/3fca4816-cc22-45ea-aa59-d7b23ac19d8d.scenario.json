@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "3fca4816-cc22-45ea-aa59-d7b23ac19d8d",
+    "name": "DropDispatcher",
+    "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
+    "methods": [
+      "ior:instance:9905fbfa-e41a-4177-b625-f6fee373efd2",
+      "ior:instance:3d4ceb1d-6ed6-4073-a047-cd90e6291a27"
+    ],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
