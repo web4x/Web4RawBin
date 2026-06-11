@@ -211,7 +211,7 @@ export class RoomView {
         if (!item) return;
         const type = item.getAttribute('type');
         const ref = item.getAttribute('ref') || '';
-        if (type === 'file' && ref.startsWith('file:')) {
+        if ((type === 'file' || type === 'url' || type === 'webitem') && ref.startsWith('file:')) {
           e.stopPropagation();
           this.openFilePreview(ref.replace('file:', ''));
         }
@@ -244,13 +244,16 @@ export class RoomView {
       if (!resp.ok) return;
       const res = await resp.json();
       const fm = res.unit?.model || {};
+      console.log('[file-preview]', uuid, 'mime:', fm.mimeType, 'name:', fm.name);
       const preview = renderContentPreview(uuid, fm.mimeType || '', fm.name || uuid, this.client.playerToken);
       // [impl:uuid:b8714c1d-58b2-4324-93ba-da5e0f760221] R19.78 buttons above filename
       const body = (drawer as any).body as HTMLElement;
       body.innerHTML = `${preview}<h3 style="margin:8px 0 0;font-size:0.9rem;color:white">${(fm.name || uuid).replace(/[<>]/g, '')}</h3>`;
       drawer.setAttribute('ref', `file:${uuid}`);
+      drawer.setAttribute('open', '');
       loadTextPreview(body, uuid, this.client.playerToken);
       wireUrlActions(body);
+      console.log('[file-preview] drawer open:', drawer.hasAttribute('open'), 'body children:', body.children.length);
     } catch {}
   }
 

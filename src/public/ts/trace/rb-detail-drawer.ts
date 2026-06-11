@@ -81,31 +81,34 @@ export class RbDetailDrawer extends HTMLElement {
   }
 
   // [impl:uuid:01771d5b-a1b2-4c3d-8e4f-5a6b7c8d9e0f] R19.84 drawer.dragResize
+  // [impl:uuid:79601135-a1b2-4c3d-8e4f-5a6b7c8d9e03] R19.86 dismiss threshold
   private onTouchStart = (e: TouchEvent): void => {
     const handle = this.querySelector('.drawer-handle');
     const t = e.target as Node;
     this.startY = e.touches[0].clientY;
-    this.style.transition = 'none';
     if (handle && (handle.contains(t) || t === handle)) {
       this.dragging = 'resize';
       this.startHeight = this.getBoundingClientRect().height;
+      this.style.transition = 'none';
     } else {
-      this.dragging = 'dismiss';
+      this.dragging = false;
     }
   };
 
   private onTouchMove = (e: TouchEvent): void => {
-    if (!this.dragging) return;
     const touchY = e.touches[0].clientY;
+    const dy = touchY - this.startY;
     if (this.dragging === 'resize') {
       e.preventDefault();
-      const dy = this.startY - touchY;
+      const upDy = this.startY - touchY;
       const vh95 = window.innerHeight * 0.95;
-      const h = Math.min(vh95, Math.max(0, this.startHeight + dy));
+      const h = Math.min(vh95, Math.max(0, this.startHeight + upDy));
       this.style.height = `${h}px`;
-    } else {
-      const dy = touchY - this.startY;
+    } else if (this.dragging === 'dismiss') {
       if (dy > 0) { this.style.transform = `translateY(${dy}px)`; e.preventDefault(); }
+    } else if (dy > 10) {
+      this.dragging = 'dismiss';
+      this.style.transition = 'none';
     }
   };
 
