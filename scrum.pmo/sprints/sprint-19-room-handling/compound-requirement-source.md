@@ -199,3 +199,7 @@
 - **R19.64** (2026-06-11): preview renders by type — href in iframe, image as img, SVG in existing viewer.
 - **R19.65** (2026-06-11): generalize SVG viewer into generic ContentPreviewer (svg/image/href/html, extensible).
   > TRON: "dropped a link into room — did not work. should create something like a windows url that opens as html, best case viewed in its OWN iframe loading the href = a preview in the detail drawer when the file is clicked. same for images. maybe repurpose the existing svg viewer to make it generic — preview images AND href links too."
+
+### Room Scenario button type-dispatch (R19.66)
+- **R19.66** (2026-06-11): Room Scenario button → /scenario?ior=<roomUuid> renders 'Task not found' (route assumes Task). Must type-dispatch to Room detail view with action to open scenario editor.
+  > TRON: "the in-room scenario button goes here [/scenario route] — that's not useful. at least there must be a detail view for it that then can open the scenario editor."
