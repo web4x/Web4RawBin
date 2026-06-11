@@ -182,23 +182,64 @@ if (allMode) {
 
 if (reqUuids.length === 0) { console.log('Usage: npx tsx scripts/po-chain-follow-up.ts <uuid> [--all] [--sprint S19]'); process.exit(1); }
 
-console.log(`\n# Chain Follow-Up Scoreboard (${reqUuids.length} requirements)\n`);
+// Sort requirements deterministically by altId/name
+reqUuids.sort((a, b) => {
+  const ma = model(a), mb = model(b);
+  const na = String(ma?.altId || ma?.name || a), nb = String(mb?.altId || mb?.name || b);
+  return na.localeCompare(nb, undefined, { numeric: true });
+});
+
+// Check for orphanByDesign tag
+function isOrphanByDesign(reqUuid: string): boolean {
+  const m = model(reqUuid);
+  if (!m) return false;
+  const tags = String(m.tags || m.orphanByDesign || '');
+  return tags.includes('orphanByDesign') || tags.includes('orphan-by-design');
+}
+
+// Canonical denominator: one row per requirement (not per method).
+// Each req gets ONE summary row showing the FIRST break point.
+// Excluded: orphanByDesign requirements.
+const included = reqUuids.filter(u => !isOrphanByDesign(u));
+const excluded = reqUuids.length - included.length;
+
+console.log(`\n# Chain Follow-Up Scoreboard (${included.length} requirements, excluded: ${excluded} orphanByDesign)\n`);
 console.log('| Chain | Req | UC | Class | Method | Impl | Test |');
 console.log('|-------|-----|-----|-------|--------|------|------|');
 
 const allDispatch: { num: number; node: string; chain: string; action: string; owner: string }[] = [];
 let dispNum = 0;
 let completeCount = 0;
-const seen = new Set<string>();
 
-for (const uuid of reqUuids) {
+for (const uuid of included) {
   const rows = walkReq(uuid);
+  // Dedup by reqName+method deterministically
+  const seen = new Set<string>();
+  const dedupRows: typeof rows = [];
   for (const r of rows) {
-    const key = `${r.chainName}|${r.method}`;
+    const key = `${r.method}`;
     if (seen.has(key)) continue;
     seen.add(key);
+    dedupRows.push(r);
+  }
+  // One summary row per req: show the FIRST incomplete chain or the best complete one
+  const complete = dedupRows.filter(r => r.complete);
+  const incomplete = dedupRows.filter(r => !r.complete);
+
+  if (complete.length > 0 && incomplete.length === 0) {
+    // All chains for this req are complete — show one representative
+    const r = complete[0];
     console.log(`| ${r.chainName} | ${r.req} | ${r.uc} | ${r.cls} | ${r.method} | ${r.impl} | ${r.test} |`);
-    if (r.complete) completeCount++;
+    completeCount++;
+  } else if (dedupRows.length === 0) {
+    const reqM = model(uuid);
+    const reqName = String(reqM?.altId || reqM?.name || short(uuid));
+    console.log(`| ${reqName} | check | open architect | open | open | open | open |`);
+    allDispatch.push({ num: ++dispNum, node: 'UC', chain: reqName, action: 'Create UC + wire chain', owner: 'architect' });
+  } else {
+    // Show first incomplete row as the representative
+    const r = incomplete[0] || dedupRows[0];
+    console.log(`| ${r.chainName} | ${r.req} | ${r.uc} | ${r.cls} | ${r.method} | ${r.impl} | ${r.test} |`);
     for (const o of r.openNodes) {
       allDispatch.push({ num: ++dispNum, node: o.node, chain: r.chainName, action: o.action, owner: o.owner });
     }
@@ -212,5 +253,5 @@ if (allDispatch.length > 0) {
   for (const d of allDispatch) console.log(`| ${d.num} | ${d.node} | ${d.chain} | ${d.action} | **${d.owner}** |`);
 }
 
-console.log(`\n## Summary: ${completeCount}/${seen.size} chains COMPLETE`);
-if (completeCount === seen.size && seen.size > 0) console.log('ALL CHAINS CLOSED');
+console.log(`\n## Summary: ${completeCount}/${included.length} COMPLETE (excluded: ${excluded} orphanByDesign)`)
+if (completeCount === included.length && included.length > 0) console.log('ALL CHAINS CLOSED');

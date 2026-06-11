@@ -48,6 +48,14 @@ One row per chain, one column per champagne node:
 | Impl | `check <impl-uuid-short>` (real `[impl:uuid:]` in source) | `open expert <method-uuid-short>` |
 | Test | `check <test-uuid-short>` (real `[test:uuid:]` in test) | `open tester` |
 
+### Canonical denominator
+
+The scoreboard reports `COMPLETE / TOTAL (excluded: N orphanByDesign)` where:
+- **One row per Requirement** (not per method). Each Req gets ONE summary row showing its first break point or its best complete chain.
+- **EXCLUDED**: Requirements tagged `orphanByDesign` (not expected to have chains).
+- **Deterministic**: Requirements sorted by altId/name (numeric sort). Same input → same TOTAL on every run.
+- **Consistent across modes**: `--all`, `--sprint S19`, and bare UUIDs all use the same row-per-requirement logic.
+
 ### Impl-node MANDATORY rule
 
 The Implementation node is **NOT optional**. A complete champagne chain MUST have all 6 distinct nodes linked end-to-end:
