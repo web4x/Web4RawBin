@@ -4,9 +4,7 @@
     "uuid": "3cc5c375-5e1b-4427-aa5a-d3518c5b5c35",
     "name": "ChainLink.iconInView",
     "sourceFile": "src/public/ts/trace/rb-object-item.ts",
-    "tests": [
-      "ior:instance:9b5111b2-af0b-498e-b7a3-4267de41eb31"
-    ],
+    "tests": [],
     "orphanByDesign": true,
     "orphanRationale": "No real code \u2014 design-only/future feature",
     "sourceLine": 1

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "f1028183-e45e-4ab0-a6cd-4ebcaee8205c",
+    "name": "detailView.scenarioBrowserLink",
+    "description": "ONE shared scenarioBrowserLinkFromIor(uuid) resolves uuid\u2192scenario/index/<shard>/<uuid>.scenario.json\u2192/md/<shard>/?highlight=<file>. All detail views use this for the \ud83d\udcc4 link. Replaces self-ref /scenario?ior=. DRY with existing renderSourceLink pattern.",
+    "class": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07",
+    "method": "ior:instance:6ae25e44-904a-4fbf-9c26-18628f48a479",
+    "classes": [
+      "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

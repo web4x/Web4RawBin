@@ -4,10 +4,7 @@
     "uuid": "337acd90-6feb-4a14-821a-e8789e49d427",
     "name": "TraceConsistency.auditOrphans",
     "sourceFile": "ior:file:src/ts/server/TraceConsistency.ts",
-    "tests": [
-      "ior:instance:71e9d3b6-430a-470d-9fed-5c42d6ba57a0",
-      "ior:instance:061360a0-3896-45ec-af72-ae612b60a480"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

@@ -12,7 +12,10 @@
     "unitLinks": [],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "refinementOf": "ior:instance:a99486b6-4c4c-46cb-80e6-607af73e7f7e",
-    "refinementOfNote": "Refines R19.67 (Room scenario detail rendering). R19.67 fixed type label + speaky name + clickable link; R19.70 fixes WHERE the Scenario link navigates: Monaco editor (/edit/), not self-reference (/scenario?ior=self). Applies to ALL types' detail views, not just Room."
+    "refinementOfNote": "Refines R19.67 (Room scenario detail rendering). R19.67 fixed type label + speaky name + clickable link; R19.70 fixes WHERE the Scenario link navigates: Monaco editor (/edit/), not self-reference (/scenario?ior=self). Applies to ALL types' detail views, not just Room.",
+    "useCases": [
+      "ior:instance:f1028183-e45e-4ab0-a6cd-4ebcaee8205c"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

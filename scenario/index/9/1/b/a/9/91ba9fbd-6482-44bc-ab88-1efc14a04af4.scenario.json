@@ -4,7 +4,7 @@
     "uuid": "91ba9fbd-6482-44bc-ab88-1efc14a04af4",
     "altId": "R19.71",
     "name": "R19.71: Room scenario detail lists files[] as children, not 'no children'.",
-    "description": "The Room scenario detail view currently shows 'no children' even when the room has files in Room.files[] (R19.46). FIX: the detail view's children section MUST list the room's files[] IOR refs as child items (FileUnit children). The Room's FORWARD_KEYS for /api/trace/children should include 'files' (alongside 'members') so the trace walker and detail view both resolve Room→FileUnit children.",
+    "description": "The Room scenario detail view currently shows 'no children' even when the room has files in Room.files[] (R19.46). FIX: the detail view's children section MUST list the room's files[] IOR refs as child items (FileUnit children). The Room's FORWARD_KEYS for /api/trace/children should include 'files' (alongside 'members') so the trace walker and detail view both resolve Room\u2192FileUnit children.",
     "tronQuote": "> TRON (via PO): room scenario detail shows 'no children' but the room HAS files. Witness: room 440ccc82.",
     "tasks": [],
     "tests": [],
@@ -15,7 +15,10 @@
       "ior:instance:124d9eec-0c46-4f45-8640-b7e14618d214",
       "ior:instance:6052570f-4630-4cdf-8270-6ef29eec33df"
     ],
-    "crossRefNote": "R19.46 (Room.files[] IOR list) provides the children data. R19.63 (file click shows preview) depends on files being listed as children in the first place."
+    "crossRefNote": "R19.46 (Room.files[] IOR list) provides the children data. R19.63 (file click shows preview) depends on files being listed as children in the first place.",
+    "useCases": [
+      "ior:instance:985195e3-cf7e-4cca-8597-02ecefcaa22f"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

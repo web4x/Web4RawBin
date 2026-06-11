@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "6ae25e44-904a-4fbf-9c26-18628f48a479",
+    "name": "RbDetailView.scenarioBrowserLink",
+    "description": "detail-children.ts: export function scenarioBrowserLinkFromIor(uuid): computes shard path, returns /md/scenario/index/<u0>/<u1>/<u2>/<u3>/<u4>/?highlight=<uuid>.scenario.json. Replace /scenario?ior= in rb-detail-view.ts:45 + all specialized detail views' \ud83d\udcc4 links.",
+    "sourceFile": "ior:file:src/public/ts/trace/detail-children.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
+}
