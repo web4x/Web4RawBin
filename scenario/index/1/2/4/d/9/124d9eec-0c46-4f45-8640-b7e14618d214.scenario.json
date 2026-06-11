@@ -6,7 +6,9 @@
     "name": "R19.46: Room file-restore is driven by the scenario's authoritative files[] IOR list, not filesystem symlink scan.",
     "description": "Room file restoration on load MUST be driven by the Room scenario unit's authoritative model.files[] IOR references (same pattern as model.members[] per R19.35), NOT by a blind filesystem symlink scan of the room folder (which produces duplicates and orphans). The Room scenario unit holds a files[] array of ior:instance:<fileUuid> refs \u2014 one entry per unique FileUnit. Restore iterates files[] and emits one FILE_ADDED per unique file scenario unit. Dedup is by file IOR \u2014 if the IOR is already in files[], it is not added again. One upload = ONE FileUnit creation + ONE files[] append. The scenario is the source of truth; symlinks are derived artifacts.",
     "tronQuote": "> TRON: \"now the file is restoring twice. we just need to restore the scenario, as it points to the file.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:c1b45930-6a20-4e49-a11b-8560dd10b593"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
