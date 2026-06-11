@@ -27,35 +27,28 @@
         "name": "Marcel Donges Studio",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781200348688
+        "joinedAt": 1781200995622
       },
       {
         "ior": "ior:instance:da4f8809-5bcc-46fd-8f90-9b00d7fe967f",
         "name": "Marcel Samsung",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781200348688
-      },
-      {
-        "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
-        "name": "",
-        "role": "owner",
-        "status": "offline",
-        "joinedAt": 1781200348688
+        "joinedAt": 1781200995622
       },
       {
         "ior": "ior:instance:ae9a8a5e-1317-4266-be78-b15b7f547139",
         "name": "test merge",
         "role": "member",
-        "status": "offline",
-        "joinedAt": 1781200348688
+        "status": "online",
+        "joinedAt": 1781200995622
       },
       {
         "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
-        "name": "",
+        "name": "Toronto Trinity",
         "role": "owner",
-        "status": "online",
-        "joinedAt": 1781200348688
+        "status": "offline",
+        "joinedAt": 1781200995622
       }
     ],
     "files": [

@@ -4,7 +4,9 @@
     "uuid": "9e50db1a-7853-4e6a-b093-98431251d855",
     "name": "RoomView.diffRenderItems",
     "description": "Shared diff-render helper: (container, dataArray, refPrefix, attrsFn) \u2192 index existing by ref, remove departed nodes, setAttribute in-place on surviving items, createElement+append for new only.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:39fd5bef-ad00-42af-962a-4cddf00302bc"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed"

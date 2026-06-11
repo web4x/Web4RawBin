@@ -267,30 +267,45 @@ export class RoomView {
     popup.show(url, `Join ${this.roomName}`);
   }
 
+  // R19.90: diff-render — update in place, no destroy+recreate
+  private diffRenderItems(container: HTMLElement, items: { ref: string; attrs: Record<string, string> }[]): void {
+    const existing = new Map<string, HTMLElement>();
+    container.querySelectorAll(':scope > .tt-node').forEach(node => {
+      const item = node.querySelector('rb-object-item');
+      const ref = item?.getAttribute('ref') || '';
+      if (ref) existing.set(ref, node as HTMLElement);
+    });
+    const wanted = new Set(items.map(i => i.ref));
+    for (const [ref, node] of existing) { if (!wanted.has(ref)) node.remove(); }
+    for (const { ref, attrs } of items) {
+      const ex = existing.get(ref);
+      if (ex) {
+        const item = ex.querySelector('rb-object-item')!;
+        for (const [k, v] of Object.entries(attrs)) item.setAttribute(k, v);
+      } else {
+        const node = document.createElement('div'); node.className = 'tt-node';
+        const row = document.createElement('div'); row.className = 'tt-row';
+        const item = document.createElement('rb-object-item');
+        item.setAttribute('ref', ref);
+        for (const [k, v] of Object.entries(attrs)) item.setAttribute(k, v);
+        row.appendChild(item); node.appendChild(row); container.appendChild(node);
+      }
+    }
+  }
+
   // [impl:uuid:62f77af0-c12f-41dc-9ec8-c9a421bbf659] T-room-ui-shared R19.21
   private renderRoomTreeMembers(): void {
     const parentItem = document.querySelector('#rrc-members-node rb-object-item');
     if (parentItem) { parentItem.setAttribute('description', `${this.members.length} member${this.members.length !== 1 ? 's' : ''}`); parentItem.setAttribute('child-count', String(this.members.length)); }
     const ch = document.getElementById('rrc-members-children');
     if (!ch) return;
-    ch.innerHTML = '';
-    for (const m of this.members) {
-      const node = document.createElement('div');
-      node.className = 'tt-node';
-      const row = document.createElement('div');
-      row.className = 'tt-row';
-      const item = document.createElement('rb-object-item');
-      item.setAttribute('ref', `member:${m.playerToken}`);
-      item.setAttribute('type', 'member');
-      item.setAttribute('title', m.name || '?');
-      item.setAttribute('name', m.name || '?');
-      if (m.id === this.hostId) item.setAttribute('description', 'Host' + (m.disconnected ? ' · Offline' : ''));
-      else if (m.id === this.client.clientId) item.setAttribute('description', 'You');
-      else item.setAttribute('description', m.disconnected ? 'Offline' : 'Online');
-      row.appendChild(item);
-      node.appendChild(row);
-      ch.appendChild(node);
-    }
+    this.diffRenderItems(ch, this.members.map(m => ({
+      ref: `member:${m.playerToken}`,
+      attrs: {
+        type: 'member', title: m.name || '?', name: m.name || '?',
+        description: m.id === this.hostId ? 'Host' + (m.disconnected ? ' · Offline' : '') : m.id === this.client.clientId ? 'You' : m.disconnected ? 'Offline' : 'Online',
+      },
+    })));
   }
 
   // [impl:uuid:e4b1fe11-77e2-4e2b-b61b-64d93e4c60d1] R19.83 renderRoomTreeFiles
@@ -299,17 +314,10 @@ export class RoomView {
     if (parentItem) { parentItem.setAttribute('description', `${this.files.length} file${this.files.length !== 1 ? 's' : ''}`); parentItem.setAttribute('child-count', String(this.files.length)); }
     const ch = document.getElementById('rrc-files-children');
     if (!ch) return;
-    ch.innerHTML = '';
-    for (const f of this.files) {
-      const node = document.createElement('div'); node.className = 'tt-node';
-      const row = document.createElement('div'); row.className = 'tt-row';
-      const item = document.createElement('rb-object-item');
-      item.setAttribute('ref', `file:${f.uuid}`);
-      item.setAttribute('type', 'file');
-      item.setAttribute('name', f.name || 'file');
-      item.setAttribute('description', `${f.mimeType || ''} · ${f.size || 0}B`);
-      row.appendChild(item); node.appendChild(row); ch.appendChild(node);
-    }
+    this.diffRenderItems(ch, this.files.map(f => ({
+      ref: `file:${f.uuid}`,
+      attrs: { type: 'file', name: f.name || 'file', description: `${f.mimeType || ''} · ${f.size || 0}B` },
+    })));
   }
 
   private renderMemberList(): void {
