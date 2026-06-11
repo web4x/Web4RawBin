@@ -1,4 +1,5 @@
 // [impl:uuid:ef863349-470d-420b-b933-8339951bb501] T5 client app entry
+// [impl:uuid:36a7cc6f-2178-4cee-8c4b-5206fae0ffd1] ProfileGate.vcardUpload
 import { RawBinClient } from './RawBinClient.js';
 import { RoomBrowser } from './RoomBrowser.js';
 import { RoomView } from './RoomView.js';

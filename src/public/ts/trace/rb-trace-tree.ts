@@ -1,4 +1,5 @@
 // [impl:uuid:ee897257-f1f8-40cd-a8ae-00c4b4b6092f] RbTraceTree.renderSeed impl
+// [impl:uuid:5a552045-cc8d-4aaa-9d3c-d8c834f59df1] PathHeader.clickNavigate
 // [impl:uuid:bf4879c6-30ee-4d47-8d7d-c80aa9f26fc7] TraceChain.treeRework
 // [impl:uuid:7d40684c-e6b1-410c-90c7-3d80d229568b] Breadcrumb.contrastFix
 // [impl:uuid:092a5eb3-0ee6-40fd-be9d-9cdc89b3e53c] TraceLayout.mobileCap

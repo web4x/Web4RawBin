@@ -1,4 +1,5 @@
 // [impl:uuid:80e26c8c-5dbf-418f-bb88-fcdaa82c0d07] ScenarioIndex.canonicalShard impl
+// [impl:uuid:0f22ecb8-ab27-40bd-aee2-0f931bc06fb9] ScenarioUnit.load(json): this
 /**
  * T125.3 + R18.29-31 — ScenarioIndex: UUID-prefix storage + atomic symlinks.
  * Canonical store at scenario/index/<c1>/<c2>/<c3>/<c4>/<c5>/<uuid>.scenario.json

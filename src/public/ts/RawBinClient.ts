@@ -1,4 +1,5 @@
 // [impl:uuid:bbd18e1c-82f0-4438-8618-f66715731212] T5+T33 websocket client
+// [impl:uuid:79568421-462d-4c7a-b1d2-bd0c3c0d9d18] ServerStrip.strip
 import { MSG } from '../../shared/MessageTypes.js';
 
 type MessageHandler = (msg: any) => void;

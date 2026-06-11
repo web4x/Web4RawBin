@@ -1,4 +1,6 @@
 /**
+// [impl:uuid:7958f8bf-25de-43e2-a022-287c809d84cb] SpeakingTree.symlinkJson(sprint
+// [impl:uuid:b9fa3577-1479-40e1-8e63-88c07c979cce] SpeakingTree.generateMd(sprint
 // [impl:uuid:7bab1a71-8d2e-4d19-bd4a-ce5547291b03] SpeakingTree.symlinkJson(sprint
 // [impl:uuid:e80ca651-5441-4a2c-948a-1ba0b8ae0944] SpeakingTree.generateMd(sprint
  * T126 — ViewGenerator: reads scenario index, emits .md + .html views.

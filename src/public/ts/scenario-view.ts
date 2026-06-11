@@ -1,4 +1,5 @@
 /**
+// [impl:uuid:275481cd-bcf4-4f3a-9980-e6e7fd060bad] ScenarioClick.lazyLoad
  * T174 R-M3 — /scenario?ior=<uuid> single-instance focused tree view.
  * Seeds from ONE IOR. Children start collapsed, expand on click (lazy).
  * Wires full /trace interactions: collapse/expand (T115) + DetailView (T110/T111).
