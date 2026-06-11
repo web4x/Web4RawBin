@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "5d87e755-6e9b-4171-80b1-61776e7d04bc",
+    "name": "T-device-user-association: Device\u2194User association modeled like Room\u2194User",
+    "slug": "device-user-association-like-room-user",
+    "description": "R19.55.A: Device\u2194User association modeled like Room\u2194User \u2014 forward IOR array, ownerIor, per-user storage, unitLinks.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:150333f7-afdf-47a3-833f-4b53c6102eee"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
