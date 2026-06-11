@@ -3,9 +3,7 @@
   "model": {
     "uuid": "c474bc4d-f937-4b10-bb3b-5de3176636b3",
     "name": "SpeakingTree.extendClasses",
-    "implementations": [
-      "ior:instance:ea234546-7fb8-493a-a73f-05994cebc4f3"
-    ],
+    "implementations": [],
     "tests": []
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"

@@ -3,7 +3,7 @@
   "model": {
     "uuid": "780d1c20-e694-4cfe-b057-e988e6843cc4",
     "name": "migrate-to-scenario.ts:migrate",
-    "sourceFile": "",
+    "sourceFile": "ior:file:scripts/migrate-to-scenario.ts",
     "implementations": [],
     "tests": []
   },
