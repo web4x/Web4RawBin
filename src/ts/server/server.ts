@@ -487,6 +487,17 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, roomUuid: roomId });
           const fileUuid = (unit.model as any).uuid;
           addLog(`[upload] unit created: ${fileUuid} contentPath=${(unit.model as any).contentPath}`);
+          // Create symlink in per-user room dir: data/users/<token>/rooms/<rid>/files/<uuid>.scenario.json
+          try {
+            const userFilesDir = path.join(__dirname, '../../../data/users', playerToken, 'rooms', roomId, 'files');
+            fs.mkdirSync(userFilesDir, { recursive: true });
+            const userLink = path.join(userFilesDir, `${fileUuid}.scenario.json`);
+            const scenarioPath = idx.filePath(fileUuid);
+            const relTarget = path.relative(userFilesDir, scenarioPath);
+            try { fs.unlinkSync(userLink); } catch {}
+            fs.symlinkSync(relTarget, userLink);
+            addLog(`[upload] user-dir symlink: ${userLink} → ${relTarget}`);
+          } catch (lnErr: any) { addLog(`[upload] user-dir symlink WARN: ${lnErr?.message}`); }
           room.broadcast({ type: MSG.FILE_ADDED, roomId, fileUuid, name: fileName, size: fileData.length, mimeType });
           addLog(`[upload] SUCCESS: ${fileName} (${fileData.length}b) uuid=${fileUuid} room=${roomId.slice(0,8)}`);
           res.writeHead(200, { 'Content-Type': 'application/json' });

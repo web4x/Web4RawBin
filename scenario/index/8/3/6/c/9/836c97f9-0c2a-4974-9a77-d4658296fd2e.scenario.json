@@ -3,9 +3,9 @@
   "model": {
     "uuid": "836c97f9-0c2a-4974-9a77-d4658296fd2e",
     "altId": "R19.31",
-    "name": "R19.31: Room link navigates to the live room or room editor, never 404.",
-    "description": "BUG: clicking the room link from a room item navigates to a 404 page. FIX: the room link MUST navigate to either the live room view (/room/<roomUuid>) or the room editor \u2014 never a 404. The route must exist and the server must serve it. If the room is not found (deleted/expired), show a proper 'room not found' message, not a generic 404.",
-    "tronQuote": "> TRON: \"and the room into a 404. bug. either into the room\u2026. or the room editor.\"",
+    "name": "R19.31: Chain link (\ud83d\udd17) navigates to VIEW the canonical room scenario unit.",
+    "description": "INTENTION: the chain link (\ud83d\udd17) navigates to the room's CANONICAL scenario unit (scenario/index/<shard>/<roomUuid>.scenario.json) in VIEW mode \u2014 the scenario detail view or /trace browser showing the unit's data, chain, and children. Both link and pen resolve to the SAME canonical target (the room scenario unit); the link opens it for viewing/navigating, the pen opens it for editing. BUG (original): link navigated to a 404. FIX: link href must point to /md/<canonical-scenario-path> or /trace?uuid=<roomUuid>. If the room unit is not found (deleted/expired), show a 'room not found' message, not a generic 404.",
+    "tronQuote": "> TRON (original): \"and the room into a 404. bug. either into the room\u2026. or the room editor.\"\n> TRON (intention clarification): \"chain link works but there is a difference in the requirement intention between the both.\" \u2014 link = view/navigate, pen = edit.",
     "tasks": [
       "ior:instance:fda34dac-6661-4778-b1f1-ddda655ea788"
     ],

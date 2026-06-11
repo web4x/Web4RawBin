@@ -2275,8 +2275,8 @@
     "screenSize": "430x932",
     "platform": "iPhone",
     "firstSeen": "2026-06-03T22:22:13.011Z",
-    "lastSeen": "2026-06-11T06:56:42.735Z",
-    "connectionCount": 219,
+    "lastSeen": "2026-06-11T06:58:59.456Z",
+    "connectionCount": 220,
     "enrolled": true,
     "devicePublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAug+jY3F1EJE9fmeMr65T\nI18VL6v8Gq0rDB162he+KZPthMm093F8tGo+8pvC9awScF8Y3u8Y235qCjO3Wkgh\nTTYHq60sCrRoB4V3CW/G16Hw5lMrCDlmbSYT0X32JfzVarzcKDOfP52sQ1EYNmhQ\nkghRClGOgu9c9rKXMEJEOn8+2Ux0gqMdSMMuWqrx22krnQZnEjnZty/czKFQC/60\nSYliNCqYpaVvxAQpmcM2MLpdrGlsMj0GLJKyhhSAdAybaiUa7QWEv3Hzy6LrSWTP\n9uI5PkXdsx5noSBe8TQZ++79dSFsyf7q+lqPQngizdcVcei/B+4+9tohT6TI4RZR\nUQIDAQAB\n-----END PUBLIC KEY-----\n",
     "enrolledAt": "2026-06-03T22:22:36.072Z"

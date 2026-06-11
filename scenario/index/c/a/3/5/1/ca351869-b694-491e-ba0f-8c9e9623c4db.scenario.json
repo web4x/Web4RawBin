@@ -3,9 +3,9 @@
   "model": {
     "uuid": "ca351869-b694-491e-ba0f-8c9e9623c4db",
     "altId": "R19.30",
-    "name": "R19.30: Edit pen on a room item opens the canonical scenario unit for editing, not an empty per-user file.",
-    "description": "BUG: the edit pencil icon on a room item navigates to data/users/<token>/... which is either empty or 'File not found', producing an empty editor. FIX: the edit pen MUST open the room's CANONICAL scenario unit (scenario/index/<shard>/<roomUuid>.scenario.json) in edit mode \u2014 the same target the working link icon resolves to. This aligns with R19.2.A (pencil opens room config/scenario editor) and R19.22 (per-user room.json is a symlink to the canonical unit).",
-    "tronQuote": "> TRON: \"edit pen runs into an empty file\u2026bug.\"",
+    "name": "R19.30: Edit pen (\u270f\ufe0f) opens the canonical room scenario unit in EDIT mode.",
+    "description": "INTENTION: the edit pen (\u270f\ufe0f) opens the room's CANONICAL scenario unit (scenario/index/<shard>/<roomUuid>.scenario.json) in EDIT mode \u2014 the Monaco editor with the JSON content editable. Both pen and link resolve to the SAME canonical target (the room scenario unit); the pen opens it for editing, the link opens it for viewing/navigating. BUG (original): pen navigated to data/users/<token>/... (empty/missing per-user file) instead of the canonical unit. FIX: pen href must point to /edit/<canonical-scenario-path>.",
+    "tronQuote": "> TRON (original): \"edit pen runs into an empty file\u2026bug.\"\n> TRON (intention clarification): \"chain link works but there is a difference in the requirement intention between the both.\" \u2014 pen = edit, link = view/navigate.",
     "tasks": [
       "ior:instance:c0d67460-797c-4b58-b55f-3fe8165ce890"
     ],
