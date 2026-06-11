@@ -5,7 +5,9 @@
     "name": "Room forward-refs impl",
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 711,
-    "tests": [],
+    "tests": [
+      "ior:instance:73c47b4d-4e1d-4097-83bd-7f3cab9e188a"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:79ee7486-499b-49de-81dc-77f8682da420"

@@ -5,7 +5,9 @@
     "name": "scenarioBrowserLinkFromIor impl",
     "sourceFile": "src/public/ts/trace/detail-children.ts",
     "sourceLine": 45,
-    "tests": [],
+    "tests": [
+      "ior:instance:8fdf7573-7e40-4562-8826-1e06e00b2385"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:6ae25e44-904a-4fbf-9c26-18628f48a479"
