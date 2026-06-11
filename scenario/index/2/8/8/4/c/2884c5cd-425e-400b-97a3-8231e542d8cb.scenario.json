@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "2884c5cd-425e-400b-97a3-8231e542d8cb",
+    "name": "index.canonicalShard",
+    "description": "Scenario index uses canonical 5-level shard (u0/u1/u2/u3/u4). No flat multi-char legacy dirs.",
+    "class": "ior:instance:c8bdae18-88e1-4829-813b-0e5ecc21c56c",
+    "method": "ior:instance:e6168daa-2782-4fbc-b4a4-a68d5f8d8faa",
+    "classes": [
+      "ior:instance:c8bdae18-88e1-4829-813b-0e5ecc21c56c"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

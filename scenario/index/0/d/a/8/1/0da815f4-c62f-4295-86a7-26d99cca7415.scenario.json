@@ -4,10 +4,10 @@
     "uuid": "0da815f4-c62f-4295-86a7-26d99cca7415",
     "name": "file.dedupByContentHash",
     "description": "Before createFileUnit, SHA-256 hash content. Check existing Room.files[] for matching contentHash. If match, skip creation, return existing FileUnit. Prevents duplicate units for same content.",
-    "class": "ior:instance:3e0ceb94-90f3-4c5b-b13b-e1f2a3b4c5d6",
+    "class": "ior:instance:3e0ceb94-d08e-4e43-8855-90f3c5b13be1",
     "method": "ior:instance:d42ad180-9f09-404d-ab8a-45744b83efd8",
     "classes": [
-      "ior:instance:3e0ceb94-90f3-4c5b-b13b-e1f2a3b4c5d6"
+      "ior:instance:3e0ceb94-d08e-4e43-8855-90f3c5b13be1"
     ],
     "tasks": [],
     "implementations": [],

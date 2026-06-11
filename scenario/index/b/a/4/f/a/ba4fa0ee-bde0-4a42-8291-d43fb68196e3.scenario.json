@@ -6,10 +6,10 @@
     "object": "avatar",
     "verb": "rekeyFix",
     "classes": [
-      "ior:instance:819aacf9"
+      "ior:instance:819aacf9-323d-4d38-9b08-d5f0ec11de76"
     ],
     "tasks": [],
-    "class": "ior:instance:819aacf9",
+    "class": "ior:instance:819aacf9-323d-4d38-9b08-d5f0ec11de76",
     "method": "ior:instance:9357333d-6a94-44a2-a74f-c19b0cd85fd4",
     "sourceFile": "ior:file:src/public/ts/ProfileEditor.ts",
     "sourceLine": 168,

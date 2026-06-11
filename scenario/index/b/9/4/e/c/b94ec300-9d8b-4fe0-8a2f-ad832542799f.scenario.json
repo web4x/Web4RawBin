@@ -6,10 +6,10 @@
     "object": "lobby",
     "verb": "newestFirst",
     "classes": [
-      "ior:instance:d48dc6bc"
+      "ior:instance:d48dc6bc-fe32-4df4-8f22-b8ba8f9d3323"
     ],
     "tasks": [],
-    "class": "ior:instance:d48dc6bc",
+    "class": "ior:instance:d48dc6bc-fe32-4df4-8f22-b8ba8f9d3323",
     "method": "ior:instance:6a9bc473-da00-42f6-9c0b-2df5d3bcb18c",
     "sourceFile": "ior:file:test/e2e/mobile-viewport.spec.ts",
     "sourceLine": 12,

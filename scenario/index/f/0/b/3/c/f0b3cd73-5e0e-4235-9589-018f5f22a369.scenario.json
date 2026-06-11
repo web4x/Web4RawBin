@@ -4,10 +4,10 @@
     "uuid": "f0b3cd73-5e0e-4235-9589-018f5f22a369",
     "name": "file.reuseByContentHash",
     "description": "Identical file content (same SHA-256) reuses the existing FileUnit UUID. Adds another unitLink ref to the existing unit instead of creating a new unit. Content stored once.",
-    "class": "ior:instance:3e0ceb94-90f3-4c5b-b13b-e1f2a3b4c5d6",
+    "class": "ior:instance:3e0ceb94-d08e-4e43-8855-90f3c5b13be1",
     "method": "ior:instance:5397634d-2fca-442e-92d0-2957c3810928",
     "classes": [
-      "ior:instance:3e0ceb94-90f3-4c5b-b13b-e1f2a3b4c5d6"
+      "ior:instance:3e0ceb94-d08e-4e43-8855-90f3c5b13be1"
     ],
     "tasks": [],
     "implementations": [],

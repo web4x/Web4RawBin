@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "b7b31a9d-2c0f-4b9d-a5c7-6ac770013e47",
+    "name": "file.uploadEndpoint",
+    "description": "POST /api/room/<rid>/upload creates FileUnit with content hash dedup + room.files[] persist + FILE_ADDED broadcast.",
+    "class": "ior:instance:3e0ceb94-d08e-4e43-8855-90f3c5b13be1",
+    "method": "ior:instance:acbedb76-c0a6-4868-a486-eb89cea80d23",
+    "classes": [
+      "ior:instance:3e0ceb94-d08e-4e43-8855-90f3c5b13be1"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

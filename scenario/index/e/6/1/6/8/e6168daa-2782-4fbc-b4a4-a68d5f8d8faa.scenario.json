@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e6168daa-2782-4fbc-b4a4-a68d5f8d8faa",
+    "name": "ScenarioIndex.canonicalShard",
+    "sourceFile": "ior:file:src/ts/scenario/index-store.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c8bdae18-88e1-4829-813b-0e5ecc21c56c"
+}

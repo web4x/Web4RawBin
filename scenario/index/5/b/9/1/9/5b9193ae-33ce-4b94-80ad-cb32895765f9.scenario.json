@@ -4,10 +4,10 @@
     "uuid": "5b9193ae-33ce-4b94-80ad-cb32895765f9",
     "name": "file.versionByName",
     "description": "Different content with same filename registers as a version of the existing FileUnit. model.versions[] tracks content history (each entry: contentHash, contentPath, uploadedAt). Latest version is the active content.",
-    "class": "ior:instance:3e0ceb94-90f3-4c5b-b13b-e1f2a3b4c5d6",
+    "class": "ior:instance:3e0ceb94-d08e-4e43-8855-90f3c5b13be1",
     "method": "ior:instance:20a5703b-df2c-4187-80b5-ae50c6d8e50d",
     "classes": [
-      "ior:instance:3e0ceb94-90f3-4c5b-b13b-e1f2a3b4c5d6"
+      "ior:instance:3e0ceb94-d08e-4e43-8855-90f3c5b13be1"
     ],
     "tasks": [],
     "implementations": [],

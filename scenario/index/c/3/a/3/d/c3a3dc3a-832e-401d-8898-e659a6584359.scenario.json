@@ -6,10 +6,10 @@
     "object": "pwa",
     "verb": "updateBanner",
     "classes": [
-      "ior:instance:8bd3bd6b"
+      "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133"
     ],
     "tasks": [],
-    "class": "ior:instance:8bd3bd6b",
+    "class": "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133",
     "method": "ior:instance:a91d7726-d359-4eb0-98dd-8af67e04552f",
     "sourceFile": "ior:file:scenario/index/c/3/a/3/d/c3a3dc3a-832e-401d-8898-e659a6584359.scenario.json",
     "sourceLine": 1,

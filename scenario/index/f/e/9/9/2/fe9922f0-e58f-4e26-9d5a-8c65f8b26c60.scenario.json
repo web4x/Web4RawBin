@@ -16,7 +16,10 @@
     "crossRef": [
       "ior:instance:160039ef-92a5-44d7-af1c-d9b71cdb1be0"
     ],
-    "crossRefNote": "R19.48 (version-on-name-collision) writes new entries to version[]. R19.50 defines the data structure."
+    "crossRefNote": "R19.48 (version-on-name-collision) writes new entries to version[]. R19.50 defines the data structure.",
+    "useCases": [
+      "ior:instance:b7b31a9d-2c0f-4b9d-a5c7-6ac770013e47"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

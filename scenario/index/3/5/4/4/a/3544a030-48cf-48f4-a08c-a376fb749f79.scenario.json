@@ -4,7 +4,7 @@
     "uuid": "3544a030-48cf-48f4-a08c-a376fb749f79",
     "altId": "R19.54",
     "name": "R19.54: Users become first-class scenario units (ior:class:User) in the scenario index.",
-    "description": "Each User MUST be a first-class scenario unit (ior:class:User) stored at scenario/index/<shard>/<userUuid>.scenario.json with the standard {ior, model, ownerIor} shape, unitLinks[], and statusChecklist. Migrate existing data/profiles.json entries into per-user scenario units (backup-gated). After migration, code reads/writes user data via scenario units; profiles.json becomes deprecated/derived. Includes: (a) ior:class:User class definition, (b) server code reads/writes via scenario units, (c) one-time migration (backup before).",
+    "description": "Each User MUST be a first-class scenario unit (ior:class:User) stored at scenario/index/<shard>/<userUuid>.scenario.json with the standard {ior, model, ownerIor} shape. model fields mapped from profiles.json: model.name (display name), model.phone, model.url, model.avatar (path), model.avatarCrop, model.secretCode (4-digit auth code for account linking per R18 BR-011), model.profileCommitted (bool), model.sshKeysGenerated (bool), model.sshKeyGeneratedAt (ISO date), model.consolidatedFrom[] (merged account IORs), model.bugReports[] (bug report entries). ownerIor = null (User is a root entity). unitLinks[] = symlinks to per-user data dirs (data/users/<uuid>/). devices[] = IOR refs to Device units (R19.55) owned by this User. rooms[] = IOR refs to Room units the User is a member of. Migration: 145 profiles in profiles.json \u2192 145 User scenario units. Token field becomes the uuid. profiles.json becomes deprecated/derived (regeneratable from scenario units).",
     "tronQuote": "> TRON: \"users and devices still have to be converted to standard first class scenarios.\"",
     "tasks": [
       "ior:instance:0c28c7f8-d063-40b3-893a-a84f2d8c9c2d"
@@ -20,7 +20,30 @@
     "crossRefNote": "R19.1 (room as scenario unit) established the pattern. R19.35 (Room.members[] IOR refs) points to User units \u2014 R19.54 ensures those pointees actually exist as scenario units. R19.39 (RawBin system user) is also a User unit.",
     "useCases": [
       "ior:instance:164a1371-4781-45ca-9153-10000003a0d4"
-    ]
+    ],
+    "migrationSpec": {
+      "source": "data/profiles.json",
+      "entityCount": 145,
+      "keyMapping": {
+        "token": "model.uuid",
+        "name": "model.name",
+        "phone": "model.phone",
+        "url": "model.url",
+        "avatar": "model.avatar",
+        "avatarCrop": "model.avatarCrop",
+        "secretCode": "model.secretCode",
+        "profileCommitted": "model.profileCommitted",
+        "sshKeysGenerated": "model.sshKeysGenerated",
+        "sshKeyGeneratedAt": "model.sshKeyGeneratedAt",
+        "consolidatedFrom": "model.consolidatedFrom",
+        "bugReports": "model.bugReports"
+      },
+      "newFields": [
+        "devices[]",
+        "rooms[]"
+      ],
+      "deprecates": "data/profiles.json"
+    }
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
