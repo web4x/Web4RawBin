@@ -5,7 +5,9 @@
     "name": "R19.23 strip room-full",
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 1497,
-    "tests": [],
+    "tests": [
+      "ior:instance:ffab35a3-554b-4c80-ac3e-7a6216461e4a"
+    ],
     "unitLinks": []
   },
   "ownerIor": null

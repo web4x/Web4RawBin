@@ -374,6 +374,16 @@ describe('S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)',
     expect(r.mode).toBe('persistent');
   });
 
+  // [test:uuid:ffab35a3-554b-4c80-ac3e-7a6216461e4a] R19.23 rooms unbounded (no maxMembers rejection)
+  it('R19.23: addMember never rejects for room-full (unbounded)', () => {
+    const r = new Room('Unbounded', makeMember({ id: 'host' }));
+    for (let i = 0; i < 20; i++) {
+      const result = r.addMember(makeMember({ id: 'member-' + i }));
+      expect(result).toBe(true);
+    }
+    expect(r.members.size).toBe(21);
+  });
+
   // [test:uuid:c874546a-90ed-4e10-b01f-cb6ba921a0a3] R19.8+R19.35 Room.persistMembers
   it('T-persistent-retention R19.8: markDisconnected retains member as offline', () => {
     const creator = makeMember({ id: 'host' });
