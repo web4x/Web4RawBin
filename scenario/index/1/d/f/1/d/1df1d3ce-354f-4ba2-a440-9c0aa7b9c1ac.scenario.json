@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "1df1d3ce-354f-4ba2-a440-9c0aa7b9c1ac",
+    "name": "profile.removeLocalIdentity",
+    "description": "Red 'Remove current ID data' button on ProfileEditor (secret-code page). Danger warning: irreversible \u2014 identity/keypair/secret lost permanently, owned rooms/files inaccessible, no undo. Confirm step (type 'DELETE' or re-enter secret code). Wipes 12 localStorage keys (rawbin-player-id, rawbin-device-id, rawbin-device-privateKey, rawbin-device-publicKey, rawbin-device-signature, rawbin-name, rawbin-avatar, rawbin-version, rawbin-editor-layout, rawbin-editor-mode, rawbin-file-tree, rawbin-trace-expanded). Post-wipe: close WS, reload \u2192 fresh enrollment flow (new UUID, profile gate).",
+    "class": "ior:instance:1480f4ee-d860-4d3d-9ef7-4b0626fb4735",
+    "method": "ior:instance:27e289a5-e948-4a40-8eeb-52cdc10e3b0d",
+    "classes": [
+      "ior:instance:1480f4ee-d860-4d3d-9ef7-4b0626fb4735"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
