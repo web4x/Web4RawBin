@@ -1899,6 +1899,44 @@ describe('R19.86: file/url/webitem click → openFilePreview → drawer opens', 
 // [test:uuid:beea8c64-c42c-4e16-a1db-79958be53a0e] R19.84 dragResize
 // ═══════════════════════════════════════════════════════════════════════════
 
+// ═══════════════════════════════════════════════════════════════════════════
+// R19.87: CSS-GUARD — preview-zoom-container touch-action === 'pan-y'
+// [test:uuid:fdeb8b19-55ea-4291-9976-df455d5a37f4] R19.87 touchActionPanY
+// Honest: guards CSS is present. Does NOT prove iOS open (jsdom can't).
+// R19.87 stays pending-device-confirm until Tron iOS verifies.
+// ═══════════════════════════════════════════════════════════════════════════
+
+describe('R19.87: preview-zoom-container touch-action=pan-y (CSS guard)', () => {
+  it('renderContentPreview for PDF produces container with touch-action:pan-y', async () => {
+    const { renderContentPreview } = await import('../../src/public/ts/trace/content-preview.js');
+    const html = renderContentPreview('test-uuid', 'application/pdf', 'test.pdf', 'tok');
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    const container = div.querySelector('.preview-zoom-container') as HTMLElement;
+    expect(container).not.toBeNull();
+    expect(container.style.touchAction).toBe('pan-y');
+  });
+
+  it('renderContentPreview for text/html produces container with touch-action:pan-y', async () => {
+    const { renderContentPreview } = await import('../../src/public/ts/trace/content-preview.js');
+    const html = renderContentPreview('test-uuid', 'text/html', 'page.html', 'tok');
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    const container = div.querySelector('.preview-zoom-container') as HTMLElement;
+    expect(container).not.toBeNull();
+    expect(container.style.touchAction).toBe('pan-y');
+  });
+
+  it('renderContentPreview for image does NOT use zoom container (no iframe)', async () => {
+    const { renderContentPreview } = await import('../../src/public/ts/trace/content-preview.js');
+    const html = renderContentPreview('test-uuid', 'image/jpeg', 'photo.jpg', 'tok');
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    expect(div.querySelector('.preview-zoom-container')).toBeNull();
+    expect(div.querySelector('img')).not.toBeNull();
+  });
+});
+
 describe('R19.84: handle drag resizes drawer to 95vh, close below 120px', () => {
   it('drawer CSS max-height is 95vh', () => {
     const { readFileSync } = require('node:fs');
