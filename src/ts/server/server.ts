@@ -1522,7 +1522,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
             }
           }
         }
-      } catch {}
+      } catch (e: any) { console.error(`[JOIN_ROOM files] FAILED: ${e?.message}\n${e?.stack || ''}`); }
       broadcastRoomList();
       break;
     }
