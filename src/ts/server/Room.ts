@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { writeRoomJson, getRoomPublicKey, type RoomJsonData } from './RoomKeys.js';
+import { createMessageUnit } from '../scenario/message-unit.js';
 
 export interface RoomMember {
   id: string;
@@ -201,7 +202,6 @@ export class Room {
     this.broadcastAll({ type: MSG.CHAT_MESSAGE, ...msg });
     if (scenarioIdx) {
       try {
-        const { createMessageUnit } = require('../scenario/message-unit.js');
         const member = this.members.get(senderId);
         const token = member?.playerToken || senderId;
         const unit = createMessageUnit(scenarioIdx, { text, senderToken: token, senderName, roomUuid: this.id, kind: 'chat' }, this.lastMessageIor);

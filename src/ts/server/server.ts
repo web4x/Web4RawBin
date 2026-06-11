@@ -21,7 +21,7 @@ import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanU
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
-import { ScenarioIndex, IORResolver, defaultTemplateRegistry } from '../scenario/index.js';
+import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit } from '../scenario/index.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
 const execAsync = promisify(exec);
@@ -424,7 +424,6 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const limit = Math.min(parseInt(urlObj.searchParams.get('limit') || '5') || 5, 50);
       try {
         const scenarioDir = path.join(__dirname, '../../../scenario/index');
-        const { ScenarioIndex } = require('../scenario/index.js');
         const idx = new ScenarioIndex(scenarioDir);
         const messages: any[] = [];
         let cursor = before ? before.replace('ior:instance:', '') : (room.lastMessageIor || '').replace('ior:instance:', '');
@@ -483,7 +482,6 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (!room) { addLog(`[upload] ERROR: room ${roomId.slice(0,8)} not found`); res.writeHead(404); res.end(JSON.stringify({ error: 'Room not found' })); return; }
           addLog(`[upload] creating file unit...`);
           const scenarioDir = path.join(__dirname, '../../../scenario/index');
-          const { ScenarioIndex, createFileUnit } = require('../scenario/index.js');
           const idx = new ScenarioIndex(scenarioDir);
           const unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, roomUuid: roomId });
           const fileUuid = (unit.model as any).uuid;
