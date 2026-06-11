@@ -17,13 +17,13 @@
 
 | Owner | Node type | Count | Action | Tool/method |
 |-------|-----------|-------|--------|-------------|
-| **architect** | UC | 27 | Create UC + wire to Requirement.useCases[] | Manual — singular UC per req |
-| **architect** | Class | 0 | ✓ ALL WIRED (was 54; expert 269ceb32 + prior batches closed) | — |
-| **architect** | **subtotal** | **27** | | |
-| **expert** | Impl | 525 (fan-out rows; many share uuids) | Add `[impl:uuid:<uuid>]` marker at the real function in source | `chain-wire-impl-node --all-missing`; 269ceb32 fixed 6 + added 3; chains still need Test to flip COMPLETE |
-| **expert** | **subtotal** | **525** | | |
-| **tester** | Test | 537 | Create Test scenario unit + add `[test:uuid:]` marker in test file | **DISPATCH NOW** — many Impl markers landed (269ceb32); those chains' Test nodes are the bottleneck to flipping COMPLETE |
-| **tester** | **subtotal** | **537** | | |
+| **architect** | UC | 22 | Create UC + wire to Requirement.useCases[] | Manual — singular UC per req. Was 27; `2695c3c8` fixed 5 placeholder IORs. |
+| **architect** | Class | 0 | ✓ ALL WIRED | — |
+| **architect** | **subtotal** | **22** | | |
+| **expert** | Impl | 143 | Add `[impl:uuid:<uuid>]` marker at the real function in source | `chain-wire-impl-node --all-missing`; canonical count (no fan-out duplication) |
+| **expert** | **subtotal** | **143** | | |
+| **tester** | Test | 144 | Create Test scenario unit + add `[test:uuid:]` marker in test file | **DISPATCH NOW** — tester `456cb5a1` landed 5 Tests (6/6 GREEN); more Impl markers ready for Test wiring |
+| **tester** | **subtotal** | **144** | | |
 
 ## Architect: 24 UCs needed (by requirement)
 
@@ -81,4 +81,4 @@ The complete 770-row dispatch table is at `/tmp/chain-follow-up-full.txt` (gener
 
 ---
 
-*52/612 → target 612/612 (minus documented exceptions + orphan-by-design). No chain done until its Test leaf is real or explicitly excepted above.*
+*10/176 → target 176/176 (canonical, stable denominator). No chain done until its Test leaf is real or explicitly excepted above.*
