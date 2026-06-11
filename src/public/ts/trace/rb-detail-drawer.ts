@@ -53,6 +53,8 @@ export class RbDetailDrawer extends HTMLElement {
   close(): void {
     this.removeAttribute('ref');
     this.removeAttribute('open');
+    this.style.height = '';
+    this.style.maxHeight = '';
   }
 
 // [impl:uuid:b53858c3-89ba-48ee-a659-2d03a3c88e51] impl:RbDetailDrawer.stickyBottom (split for RbDetailDrawer.c
@@ -88,8 +90,9 @@ export class RbDetailDrawer extends HTMLElement {
     this.startY = e.touches[0].clientY;
     if (handle && (handle.contains(t) || t === handle)) {
       this.dragging = 'resize';
-      this.startHeight = this.getBoundingClientRect().height;
+      this.startHeight = this.offsetHeight;
       this.style.transition = 'none';
+      this.style.maxHeight = 'none';
     } else {
       this.dragging = false;
     }
@@ -100,10 +103,9 @@ export class RbDetailDrawer extends HTMLElement {
     const dy = touchY - this.startY;
     if (this.dragging === 'resize') {
       e.preventDefault();
-      const upDy = this.startY - touchY;
-      const vh95 = window.innerHeight * 0.95;
-      const h = Math.min(vh95, Math.max(0, this.startHeight + upDy));
-      this.style.height = `${h}px`;
+      const newH = this.startHeight + (this.startY - touchY);
+      const clamped = Math.min(window.innerHeight * 0.95, Math.max(120, newH));
+      this.style.height = `${clamped}px`;
     } else if (this.dragging === 'dismiss') {
       if (dy > 0) { this.style.transform = `translateY(${dy}px)`; e.preventDefault(); }
     } else if (dy > 10) {
@@ -119,7 +121,7 @@ export class RbDetailDrawer extends HTMLElement {
     this.style.transition = '';
     if (mode === 'resize') {
       const h = parseInt(this.style.height || '0');
-      if (h < 120) { this.close(); this.style.height = ''; }
+      if (h < 120) { this.close(); this.style.height = ''; this.style.maxHeight = ''; }
     } else {
       const dy = e.changedTouches[0].clientY - this.startY;
       this.style.transform = '';
