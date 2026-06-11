@@ -189,11 +189,12 @@ reqUuids.sort((a, b) => {
   return na.localeCompare(nb, undefined, { numeric: true });
 });
 
-// Check for orphanByDesign tag
+// Check for orphanByDesign flag (boolean true or string truthy)
 function isOrphanByDesign(reqUuid: string): boolean {
   const m = model(reqUuid);
   if (!m) return false;
-  const tags = String(m.tags || m.orphanByDesign || '');
+  if (m.orphanByDesign === true || m.orphanByDesign === 'true') return true;
+  const tags = String(m.tags || '');
   return tags.includes('orphanByDesign') || tags.includes('orphan-by-design');
 }
 
