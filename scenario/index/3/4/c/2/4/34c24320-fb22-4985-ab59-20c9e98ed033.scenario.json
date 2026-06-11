@@ -3,13 +3,13 @@
   "model": {
     "uuid": "34c24320-fb22-4985-ab59-20c9e98ed033",
     "name": "room.folderNodeRender",
-    "class": "ior:instance:792246f1-0000-0000-0000-000000000000",
+    "class": "ior:instance:792246f1-346e-4337-9619-b38d8641769f",
     "method": "ior:instance:b4980b4a-7ed3-405a-9d1d-a08b49c70ff7",
     "tasks": [],
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:792246f1-0000-0000-0000-000000000000"
+      "ior:instance:792246f1-346e-4337-9619-b38d8641769f"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
