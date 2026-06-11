@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "07942a94-4713-4985-b618-9d9717e86cda",
+    "name": "RbDetailView.roomScenarioDetail impl",
+    "sourceFile": "src/public/ts/trace/rb-detail-view.ts",
+    "sourceLine": 1,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:bb01d630-f0f8-4376-93a1-eca238926c87"
+}

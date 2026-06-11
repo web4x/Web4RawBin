@@ -1,4 +1,5 @@
 /**
+// [impl:uuid:766fd217-0059-441d-a012-85dcbc5e8717] User.deviceAssociation
  * User/Device migration: profiles.json → User units, devices.json → Device units.
  * [impl:uuid:971e3531-a1b2-4c3d-8e4f-5a6b7c8d9e0f] Phase1 system user
  * [impl:uuid:827ac2a0-b2c3-4d4e-9f5a-6b7c8d9e0f12] Phase2 User units

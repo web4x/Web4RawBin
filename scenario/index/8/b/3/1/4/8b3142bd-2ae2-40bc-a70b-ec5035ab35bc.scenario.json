@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8b3142bd-2ae2-40bc-a70b-ec5035ab35bc",
+    "name": "User.deviceAssociation impl",
+    "sourceFile": "scripts/migrate-users-devices.ts",
+    "sourceLine": 1,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:36119fbe-7a2e-4893-adf3-ce16acf3d50b"
+}

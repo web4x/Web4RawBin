@@ -5,7 +5,9 @@
     "name": "RbDetailView.roomScenarioDetail",
     "description": "index.ts: extend allTypes with room/user/device/file/message/skill. rb-detail-view.ts fallback: read data.name + data.type from fetchDetailData, render scenario link. Covers ALL non-trace types generically.",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-view.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:07942a94-4713-4985-b618-9d9717e86cda"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
