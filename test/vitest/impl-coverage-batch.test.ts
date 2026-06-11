@@ -55,6 +55,8 @@ describe('[test:uuid:859878d6] + [test:uuid:d3513d2b] RbDetailDrawer sticky', ()
   });
 });
 
+// ── [test:uuid:aa4b7cf3-cf99-4912-947f-4c7ddba7c553] RbDetailDrawer.narrowChain (R19.58 unifiedTraceability)
+
 // ── [test:uuid:1a22ed27-9d10-44c5-82ee-ef6ea2c0a37b] RbDetailDrawer.singularChain
 describe('[test:uuid:1a22ed27] singularChain', () => {
   it('singularChain walks refs[0] per hop, returns ordered ChainStep[]', async () => {

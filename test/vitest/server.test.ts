@@ -1,6 +1,7 @@
 /**
  * Task 4.6 + T14: Server unit tests
  * [test:uuid:3e02ab4f-0ada-429f-8351-9fff217849c3] T4+T14 server unit tests
+ * [test:uuid:1b5c8ddc-8d87-4afd-b75c-23ebf99bb031] test:T64 editor layout (R12.1 backButton)
  * Tests route dispatch, config branding, WS handlers, profile data separation.
  * Unit tests — no running server needed.
  */
