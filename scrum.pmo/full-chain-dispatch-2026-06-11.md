@@ -1,18 +1,17 @@
 # Full Chain Dispatch — 2026-06-11
 
 **Source:** `npx tsx scripts/po-chain-follow-up.ts --all`
-**Chains:** 52/612 COMPLETE (560 open) — **WHOLE PROJECT S1-S19**
-**Tool:** `chain-wire-impl-node --all-missing` available for expert batch
+**Chains:** 10/176 COMPLETE — **CANONICAL DENOMINATOR (one row per Req, deterministic)**
+**Tool:** `po-chain-follow-up.ts --all` (canonical since `2c3ac41d`) + `chain-wire-impl-node --all-missing`
 
-## Denominator reconcile
+## Denominator history + stabilization
 
-| Scope | Chains | Complete | Note |
-|-------|--------|----------|------|
-| **--all (S1-S19)** | 612 | 52 (8.5%) | Tool truth — whole project. Tron's overnight directive "fill missing traceability" applies project-wide. |
-| S19-only | 51 reqs | partial | S19 has 51 owned Requirements; subset of 612. |
-| Prior report (482) | — | — | STALE — was S19 chains before tool existed; tool counts all sprints. |
+| Date | Denominator | Complete | What changed |
+|------|-------------|----------|--------------|
+| 2026-06-11 AM | 476/482/612 | 46-52 | Unstable — fan-out rows, inconsistent scope. PO held %. |
+| 2026-06-11 `2c3ac41d` | **176** | **10** | **STABLE** — canonical: one row per Requirement, deterministic. Orphans excluded (0 orphanByDesign flagged; ~20 R17.x meta/CI pruned by architect `2695c3c8` placeholder purge). |
 
-**Driving to: 612/612** (PO to confirm vs Tron; if Tron's intent was S19-only, PO narrows scope). Until then, --all is the denominator.
+**Driving to: 176/176.** Denominator stable — PO can report % now.
 
 ## Batched Open Nodes by Owner
 

@@ -70,17 +70,20 @@ export function readFile(relPath: string): { path: string; content: string; size
   const absPath = sanitizePath(relPath);
   if (!absPath) return { error: 'Forbidden', status: 403 };
   if (!fs.existsSync(absPath)) return { error: 'Not found', status: 404 };
-  const stat = fs.statSync(absPath);
+  let realPath = absPath;
+  try { const lstat = fs.lstatSync(absPath); if (lstat.isSymbolicLink()) realPath = fs.realpathSync(absPath); } catch {}
+  const stat = fs.statSync(realPath);
   if (!stat.isFile()) return { error: 'Not a file', status: 400 };
-  const ext = path.extname(absPath).toLowerCase();
+  const ext = path.extname(realPath).toLowerCase();
   if (BINARY_EXTS.has(ext)) return { error: 'Binary file not supported', status: 415 };
   if (stat.size > 5 * 1024 * 1024) return { error: 'File too large for editor', status: 413 };
-  const content = fs.readFileSync(absPath, 'utf-8');
+  const content = fs.readFileSync(realPath, 'utf-8');
   return { path: relPath, content, size: stat.size, mtime: stat.mtime.toISOString() };
 }
 
 export function writeFile(relPath: string, content: string, expectedMtime?: string): { ok: true; mtime: string; size: number } | { error: string; status: number; conflict?: boolean; serverMtime?: string } {
-  const absPath = sanitizePath(relPath);
+  let absPath = sanitizePath(relPath);
+  if (absPath) { try { const ls = fs.lstatSync(absPath); if (ls.isSymbolicLink()) absPath = fs.realpathSync(absPath); } catch {} }
   if (!absPath) return { error: 'Forbidden', status: 403 };
   if (!fs.existsSync(absPath)) return { error: 'File not found — cannot create new files', status: 404 };
   const stat = fs.statSync(absPath);

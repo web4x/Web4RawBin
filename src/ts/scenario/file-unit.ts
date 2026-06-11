@@ -51,6 +51,14 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): Scenar
     ownerIor: input.roomUuid ? iorInstance(input.roomUuid) : null,
   });
   idx.put(uuid, unit);
+  if (input.roomUuid && input.uploaderToken) {
+    const dataDir = process.env.DATA_DIR || path.join(path.dirname(idx.scenarioRoot), 'data');
+    const roomFilesDir = path.join(dataDir, 'users', input.uploaderToken, 'rooms', input.roomUuid, 'files');
+    fs.mkdirSync(roomFilesDir, { recursive: true });
+    const roomFsLink = path.join(roomFilesDir, uuid + '.scenario.json');
+    const target = path.relative(path.dirname(roomFsLink), idx.filePath(uuid));
+    try { fs.symlinkSync(target, roomFsLink); } catch { try { fs.symlinkSync(target, roomFsLink, 'junction'); } catch {} }
+  }
   return unit;
 }
 
