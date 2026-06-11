@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "81567694-3a0a-496e-a8e5-941258d512a5",
+    "name": "impl:MdListing.chainIcon",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:87a5dffe-54bc-466e-9579-10bd2f02476b"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:87a5dffe-54bc-466e-9579-10bd2f02476b"
+}

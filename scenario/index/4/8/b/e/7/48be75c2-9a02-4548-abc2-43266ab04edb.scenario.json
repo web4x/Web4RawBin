@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "48be75c2-9a02-4548-abc2-43266ab04edb",
+    "name": "restore-test.txt",
+    "contentPath": "index/4/8/b/e/7/48be75c2-9a02-4548-abc2-43266ab04edb.content",
+    "size": 20,
+    "mimeType": "text/plain",
+    "uploadedAt": "2026-06-11T07:39:02.730Z",
+    "uploaderToken": "0d7ee549-30eb-498d-b8d1-9c6c84be1544",
+    "roomUuid": "e32a20a7-e94e-441e-8928-8a15302eb514",
+    "unitLinks": [
+      "rooms/e32a20a7-e94e-441e-8928-8a15302eb514/files/48be75c2-9a02-4548-abc2-43266ab04edb.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:e32a20a7-e94e-441e-8928-8a15302eb514"
+}

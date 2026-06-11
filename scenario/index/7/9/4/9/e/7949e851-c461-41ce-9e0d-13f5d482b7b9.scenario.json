@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7949e851-c461-41ce-9e0d-13f5d482b7b9",
+    "name": "impl:RbRoomContent.mountTraceTree",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:777293c9-cfd4-43ea-b9fb-0fe30c94001d"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:777293c9-cfd4-43ea-b9fb-0fe30c94001d"
+}

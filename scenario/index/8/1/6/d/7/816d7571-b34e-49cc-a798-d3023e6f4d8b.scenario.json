@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "816d7571-b34e-49cc-a798-d3023e6f4d8b",
+    "name": "impl:RbTraceTree.computeBadges",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:9d0e1f2a-3b4c-4d5e-6f7a-8b9c0d1e2f3a"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:9d0e1f2a-3b4c-4d5e-6f7a-8b9c0d1e2f3a"
+}

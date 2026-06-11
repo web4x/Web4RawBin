@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "2ddda0aa-abf3-47d9-9ba3-d9a1ad3e80c3",
+    "name": "impl:TraceObject.children",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:66484695-b395-4415-a676-299f67d8318b"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:66484695-b395-4415-a676-299f67d8318b"
+}

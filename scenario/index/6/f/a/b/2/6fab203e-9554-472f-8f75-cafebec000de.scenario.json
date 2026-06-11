@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6fab203e-9554-472f-8f75-cafebec000de",
+    "name": "impl:RbTaskDetail.render",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"
+}

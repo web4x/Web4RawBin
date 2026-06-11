@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "c7261729-1ce9-4a8a-8065-b8edf60c557a",
+    "name": "User: RESTORE-TEST-1781163542721",
+    "text": "RESTORE-TEST-1781163542721",
+    "timestamp": 1781163542722,
+    "senderIor": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544",
+    "senderName": "User",
+    "roomIor": "ior:instance:e32a20a7-e94e-441e-8928-8a15302eb514",
+    "prevMessage": "ior:instance:f6f751c4-d059-485c-a53a-e82caf98076f",
+    "nextMessage": null,
+    "kind": "chat",
+    "unitLinks": [
+      "sprints.json/rooms/e32a20a7-e94e-441e-8928-8a15302eb514/messages/c7261729-1ce9-4a8a-8065-b8edf60c557a.json"
+    ]
+  },
+  "ownerIor": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544"
+}

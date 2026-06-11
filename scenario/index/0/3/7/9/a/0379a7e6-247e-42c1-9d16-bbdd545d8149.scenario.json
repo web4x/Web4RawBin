@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0379a7e6-247e-42c1-9d16-bbdd545d8149",
+    "name": "impl:RbRoomContent.render",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:9f53d391-2238-4aaf-9241-046fed6ee811"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:9f53d391-2238-4aaf-9241-046fed6ee811"
+}

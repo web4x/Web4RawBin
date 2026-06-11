@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "043f9ca9-b84c-4369-886e-47b1f4e76f63",
+    "name": "impl:RbDetailDrawer.setBackground",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:5188d967-c94f-4342-a557-94876d68c149"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5188d967-c94f-4342-a557-94876d68c149"
+}

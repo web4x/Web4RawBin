@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e6d7a15f-f778-4beb-8ced-779025f319fc",
+    "name": "impl:RbTraceTree.renderAllTypes",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:01663d02-0756-4018-a708-31c7d2ceac06"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:01663d02-0756-4018-a708-31c7d2ceac06"
+}

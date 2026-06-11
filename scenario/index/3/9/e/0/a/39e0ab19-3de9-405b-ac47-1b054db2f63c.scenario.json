@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "39e0ab19-3de9-405b-ac47-1b054db2f63c",
+    "name": "impl:RbDetailDrawer.swipeDismiss",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:9a0914b8-4158-4b90-a898-c082cff5c737"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:9a0914b8-4158-4b90-a898-c082cff5c737"
+}

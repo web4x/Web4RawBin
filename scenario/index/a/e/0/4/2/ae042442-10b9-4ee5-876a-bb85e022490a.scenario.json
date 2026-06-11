@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ae042442-10b9-4ee5-876a-bb85e022490a",
+    "name": "impl:RbObjectItem.iconDrag",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:3d4e5f6a-7b8c-4d9e-0f1a-2b3c4d5e6f7a"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3d4e5f6a-7b8c-4d9e-0f1a-2b3c4d5e6f7a"
+}

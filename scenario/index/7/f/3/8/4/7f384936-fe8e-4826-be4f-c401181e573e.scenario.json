@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7f384936-fe8e-4826-be4f-c401181e573e",
+    "name": "impl:Room.stripSizeLimits",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:f1dd0d77-edaf-4d15-b1e6-f6b0ba33867b"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f1dd0d77-edaf-4d15-b1e6-f6b0ba33867b"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e8d226f6-d8e2-4a8d-9db9-2edd5bb33bfb",
+    "name": "impl:Assets.rebrand",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:5b6e33b7-a095-4109-a616-e179116651ba"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5b6e33b7-a095-4109-a616-e179116651ba"
+}

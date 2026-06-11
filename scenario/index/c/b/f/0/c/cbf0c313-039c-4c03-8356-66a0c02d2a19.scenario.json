@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "cbf0c313-039c-4c03-8356-66a0c02d2a19",
+    "name": "impl:server.sprintsDedupe",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:26a79fa6-adf1-4628-9da8-5df4cc64b19b"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:26a79fa6-adf1-4628-9da8-5df4cc64b19b"
+}

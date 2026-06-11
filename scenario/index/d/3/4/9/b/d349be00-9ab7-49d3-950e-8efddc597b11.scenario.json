@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d349be00-9ab7-49d3-950e-8efddc597b11",
+    "name": "impl:FileApi.lineParam",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:d979e1a6-8ec4-4ef2-af9b-c6e93ba109ee"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d979e1a6-8ec4-4ef2-af9b-c6e93ba109ee"
+}

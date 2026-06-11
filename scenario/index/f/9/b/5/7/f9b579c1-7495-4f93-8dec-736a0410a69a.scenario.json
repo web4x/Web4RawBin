@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f9b579c1-7495-4f93-8dec-736a0410a69a",
+    "name": "impl:RbRoomDetail.editOpen",
+    "sourceFile": "src/public/ts/RoomView.ts",
+    "sourceLine": 134,
+    "methods": [
+      "ior:instance:6fc898ab-a933-4756-920a-3c9e4050d234"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:6fc898ab-a933-4756-920a-3c9e4050d234"
+}

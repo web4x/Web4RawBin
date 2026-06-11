@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "092a6e33-9f6f-409c-9c3a-8f7d3dc455d3",
+    "name": "impl:FileBrowser.symlinkSupport",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:c6ce5d1e-ab54-41b8-814d-01909df7071f"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c6ce5d1e-ab54-41b8-814d-01909df7071f"
+}

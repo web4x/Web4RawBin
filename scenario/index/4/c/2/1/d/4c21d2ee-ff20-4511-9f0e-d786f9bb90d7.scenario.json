@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4c21d2ee-ff20-4511-9f0e-d786f9bb90d7",
+    "name": "impl:Room.retainOrPrune",
+    "sourceFile": "src/ts/server/Room.ts",
+    "sourceLine": 179,
+    "methods": [
+      "ior:instance:f82d09a5-fd35-4019-afd4-d2848c88267c"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f82d09a5-fd35-4019-afd4-d2848c88267c"
+}

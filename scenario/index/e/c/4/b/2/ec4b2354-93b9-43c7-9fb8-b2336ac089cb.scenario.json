@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ec4b2354-93b9-43c7-9fb8-b2336ac089cb",
+    "name": "impl:RbTraceTree.syncSelection",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:aada3b61-9270-4868-a702-0a2bfd0ad154"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:aada3b61-9270-4868-a702-0a2bfd0ad154"
+}

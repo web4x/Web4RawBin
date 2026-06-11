@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f45f1518-6f2a-4692-b003-25720a427a98",
+    "name": "impl:Migration.verifyIntegrity",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:b53de34c-56ab-405d-b026-f4ad39753910"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:b53de34c-56ab-405d-b026-f4ad39753910"
+}

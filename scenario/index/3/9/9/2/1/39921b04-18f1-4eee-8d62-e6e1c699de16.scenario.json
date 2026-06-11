@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "39921b04-18f1-4eee-8d62-e6e1c699de16",
+    "name": "impl:MigrateToScenario.sprintToScenario",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:8c296fa6-a726-4dad-b550-47192cb92328"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:8c296fa6-a726-4dad-b550-47192cb92328"
+}

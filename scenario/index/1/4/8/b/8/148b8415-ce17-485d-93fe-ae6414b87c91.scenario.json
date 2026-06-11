@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "148b8415-ce17-485d-93fe-ae6414b87c91",
+    "name": "impl:RbDetailDrawer.stickyClose",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:3a671bfc-12c2-4922-938e-01572d90808e"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3a671bfc-12c2-4922-938e-01572d90808e"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "60568fac-fa40-46b4-be26-318308142304",
+    "name": "impl:IORResolver.resolve(ior): ScenarioUnit | ClassLoader",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:926b1a00-fe56-4a1c-924b-3c41bf9635ad"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:926b1a00-fe56-4a1c-924b-3c41bf9635ad"
+}

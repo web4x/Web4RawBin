@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "dc23a538-b6de-44ee-9de5-d25373b4fb47",
+    "name": "impl:RbDetailDrawer.stickyBottom",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:d67af41f-0f2d-4329-a3eb-023de48187bd"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d67af41f-0f2d-4329-a3eb-023de48187bd"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0431ba2a-623f-437d-af3b-9ae6e2188d8e",
+    "name": "impl:TraceConsistency.validate",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:e6a2d67f-0f6e-4394-be50-5a6a068bcd03"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:e6a2d67f-0f6e-4394-be50-5a6a068bcd03"
+}

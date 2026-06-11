@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "af52e53a-8c8a-4982-8e6a-47e2a32e9887",
+    "name": "impl:RbDetailDrawer.narrowChain",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:19f0d4e0-80f7-4792-9a46-d536bc5f7b7b"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:19f0d4e0-80f7-4792-9a46-d536bc5f7b7b"
+}

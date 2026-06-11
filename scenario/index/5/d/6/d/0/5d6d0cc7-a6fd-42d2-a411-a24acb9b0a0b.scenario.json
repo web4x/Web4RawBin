@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5d6d0cc7-a6fd-42d2-a411-a24acb9b0a0b",
+    "name": "impl:Migration.removeLegacy",
+    "sourceFile": "",
+    "sourceLine": 0,
+    "methods": [
+      "ior:instance:bb32bd3d-5404-41fe-9b92-c600a406cb81"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:bb32bd3d-5404-41fe-9b92-c600a406cb81"
+}
