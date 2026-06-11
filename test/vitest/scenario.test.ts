@@ -339,7 +339,7 @@ describe('T134: TraceLink', () => {
     expect(unit.model.direction).toBe('bidirectional');
   });
 
-  // [test:uuid:5df331c3-b2c3-4d4e-9f5a-6b7c8d9e0f02] R19.39 RawBin system user (ClassRegistry includes Message+User)
+  // [test:uuid:5df331c3-8ca6-452d-93fc-02f8aa598fbd] R19.39 RawBin system user (ClassRegistry includes Message+User)
   it('ClassRegistry resolves TraceLink (8th class)', () => {
     const reg = new ClassRegistry();
     expect(reg.has(iorClass('TraceLink'))).toBe(true);
