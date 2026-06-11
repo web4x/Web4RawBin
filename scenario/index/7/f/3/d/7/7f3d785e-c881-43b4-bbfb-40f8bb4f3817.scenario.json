@@ -4,7 +4,9 @@
     "uuid": "7f3d785e-c881-43b4-bbfb-40f8bb4f3817",
     "name": "server.detailNavSync",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:dcc18fd3-48ca-4e9a-a8b7-23fcd05cee5f"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"

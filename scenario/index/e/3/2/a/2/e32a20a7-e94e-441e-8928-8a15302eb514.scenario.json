@@ -17,10 +17,10 @@
     "members": [
       {
         "ior": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544",
-        "name": "",
+        "name": "User",
         "role": "owner",
-        "status": "online",
-        "joinedAt": 1781162052210
+        "status": "offline",
+        "joinedAt": 1781162128883
       }
     ],
     "sourceFile": "scenario/index/e/3/2/a/2/e32a20a7-e94e-441e-8928-8a15302eb514.scenario.json",
