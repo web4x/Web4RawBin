@@ -5,7 +5,9 @@
     "name": "Room.canonicalDir",
     "description": "Room.persist() writes ONLY to data/users/<token>/rooms/<roomUuid>/. file-unit.ts + message-unit.ts symlinks go there. No scenario/rooms/ or scenario/sprints.json/rooms/messages/ strays.",
     "sourceFile": "ior:file:src/ts/server/Room.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:9a25adbd-b1c2-4d3e-8f4a-5b6c7d8e9f00"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"

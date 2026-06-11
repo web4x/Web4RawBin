@@ -4,7 +4,9 @@
     "uuid": "2dffbdab-7ffb-4933-8a38-5df6e5d6c327",
     "name": "Assets.avatarPersist",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:819aacf9"

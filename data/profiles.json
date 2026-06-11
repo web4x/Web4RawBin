@@ -2012,5 +2012,33 @@
     "sshKeyGeneratedAt": "",
     "consolidatedFrom": [],
     "bugReports": []
+  },
+  {
+    "token": "65093a76-727a-48a1-ab19-771448996510",
+    "name": "safari md",
+    "phone": "",
+    "url": "",
+    "avatar": "/api/avatar/65093a76-727a-48a1-ab19-771448996510",
+    "avatarCrop": null,
+    "secretCode": "1223",
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
+    "sshKeyGeneratedAt": "2026-06-11T07:44:20.219Z",
+    "consolidatedFrom": [],
+    "bugReports": []
+  },
+  {
+    "token": "ae9a8a5e-1317-4266-be78-b15b7f547139",
+    "name": "test merge",
+    "phone": "",
+    "url": "",
+    "avatar": "/api/avatar/ae9a8a5e-1317-4266-be78-b15b7f547139",
+    "avatarCrop": null,
+    "secretCode": "7084",
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
+    "sshKeyGeneratedAt": "2026-06-11T08:40:38.026Z",
+    "consolidatedFrom": [],
+    "bugReports": []
   }
 ]

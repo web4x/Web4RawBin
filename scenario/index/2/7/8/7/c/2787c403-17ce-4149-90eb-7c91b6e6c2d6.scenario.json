@@ -4,7 +4,9 @@
     "uuid": "2787c403-17ce-4149-90eb-7c91b6e6c2d6",
     "name": "Assets.keylessUpload",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:819aacf9"

@@ -4,7 +4,9 @@
     "uuid": "6a9bc473-da00-42f6-9c0b-2df5d3bcb18c",
     "name": "RbListOverview.newestFirst",
     "sourceFile": "ior:file:src/public/ts/trace/rb-list-overview.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:8608ecc1-eba2-448d-b4e3-99529c9c7e12"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:d48dc6bc"

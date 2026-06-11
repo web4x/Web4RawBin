@@ -4,7 +4,9 @@
     "uuid": "02c81235-e1af-4ac8-9c60-84d7fdd04ca1",
     "name": "server.ucScopedMethodResolve",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"

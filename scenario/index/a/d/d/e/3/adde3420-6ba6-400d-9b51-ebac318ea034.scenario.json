@@ -5,7 +5,9 @@
     "name": "PageNav.raiseAboveDrawer",
     "description": "server.ts pageNav() function: change z-index:50 to z-index:101 on the nav div style. One character change ensures nav always renders above the z-index:100 detail drawer.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05"
+    ],
     "tests": [
       "ior:instance:7d6badb4-a27d-4c9d-b7f8-385fc9636e90"
     ]

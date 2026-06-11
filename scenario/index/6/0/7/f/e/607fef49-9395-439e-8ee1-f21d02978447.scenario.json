@@ -5,7 +5,9 @@
     "name": "ClassRegistry.get(name): ClassLoader",
     "className": "ClassRegistry",
     "methodName": "get(name): ClassLoader",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:7de1d230-8174-4ea5-b1e9-7b52bb6e63e8"
+    ],
     "implementation": "ior:instance:c37ebdba-1310-4f6a-9a35-2a2d5d43084d",
     "sourceFile": "ior:file:src/ts/scenario/classes.ts",
     "sourceLine": 32,

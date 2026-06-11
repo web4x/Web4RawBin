@@ -5,7 +5,9 @@
     "name": "Room.restoreFilesFromScenario",
     "description": "On JOIN_ROOM: read room scenario unit model.files[], resolve each IOR via ScenarioIndex.get(), send FILE_ADDED per unit (dedup by Set). Replaces filesystem symlink scan.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"

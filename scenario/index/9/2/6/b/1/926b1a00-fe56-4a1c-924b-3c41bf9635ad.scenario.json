@@ -5,7 +5,9 @@
     "name": "IORResolver.resolve(ior): ScenarioUnit | ClassLoader",
     "className": "IORResolver",
     "methodName": "resolve(ior): ScenarioUnit | ClassLoader",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:9b96ae64-dfbc-4cdf-b62c-4394b647c6b9"
+    ],
     "implementation": "ior:instance:60568fac-fa40-46b4-be26-318308142304",
     "sourceFile": "ior:file:src/ts/scenario/ior-resolver.ts",
     "sourceLine": 26,

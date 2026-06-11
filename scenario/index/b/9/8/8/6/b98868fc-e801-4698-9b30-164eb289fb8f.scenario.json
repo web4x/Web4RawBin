@@ -4,7 +4,9 @@
     "uuid": "b98868fc-e801-4698-9b30-164eb289fb8f",
     "name": "Room.multiRoomLoad",
     "sourceFile": "ior:file:src/ts/server/Room.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:9a25adbd-b1c2-4d3e-8f4a-5b6c7d8e9f00"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:1165c293"

@@ -4,7 +4,9 @@
     "uuid": "a91d7726-d359-4eb0-98dd-8af67e04552f",
     "name": "ServiceWorker.updateBanner",
     "sourceFile": "ior:file:src/public/sw.js",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:79505a42-6591-4fdb-a967-2767b7df4518"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:8bd3bd6b"

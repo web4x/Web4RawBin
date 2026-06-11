@@ -5,7 +5,9 @@
     "name": "Device.createDeviceUnit",
     "description": "On DEVICE_ENROLL_OK: create ior:class:Device scenario unit from DeviceRecord. ownerIor=User unit. Idempotent.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:6388a348-029a-4541-9320-01d2a30974c9"

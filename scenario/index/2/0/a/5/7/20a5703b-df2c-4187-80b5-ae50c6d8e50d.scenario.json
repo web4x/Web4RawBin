@@ -5,7 +5,9 @@
     "name": "FileUnit.versionByName",
     "description": "On upload: if room.files[] has a FileUnit with same name but different contentHash, append current content to model.versions[], update contentPath+contentHash to new content. Same UUID, versioned history.",
     "sourceFile": "ior:file:src/ts/scenario/file-unit.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:c546c877-9907-4f17-b61a-1157b0902765"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:3e0ceb94-90f3-4c5b-b13b-e1f2a3b4c5d6"

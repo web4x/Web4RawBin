@@ -4,7 +4,9 @@
     "uuid": "acbedb76-c0a6-4868-a486-eb89cea80d23",
     "name": "FileUnit.uploadEndpoint",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:3e0ceb94-d08e-4e43-8855-90f3c5b13be1"

@@ -37,7 +37,7 @@ taskChain.parameter.completion.sprint() { # # complete with sprint identifiers
 # METHODS — thin dispatch to Chain/Velocity Class methods
 # ─────────────────────────────────────────────────────────────────────────────
 
-taskChain.generateMatrix() # [sprint] # regenerate traceability-matrix.md from canonical chain data
+taskChain.matrix.generate() # <?sprint> # regenerate traceability-matrix.md from canonical chain data
 {
   local sprint="$1"
   local args=""
@@ -46,11 +46,11 @@ taskChain.generateMatrix() # [sprint] # regenerate traceability-matrix.md from c
   console.log "Matrix written to $MATRIX_PATH"
 }
 
-taskChain.updateMatrixRow() # <reqUuid> # update one row in traceability-matrix.md
+taskChain.matrix.row.update() # <reqUuid> # update one row in traceability-matrix.md
 {
   local reqUuid="$1"
   if [ -z "$reqUuid" ]; then
-    error.log "Usage: taskChain updateMatrixRow <reqUuid>"
+    error.log "Usage: taskChain matrix.row.update <reqUuid>"
     return 1
   fi
   local row
@@ -60,45 +60,44 @@ taskChain.updateMatrixRow() # <reqUuid> # update one row in traceability-matrix.
     return 1
   fi
   console.log "Row: $row"
-  # TODO: sed-replace the matching row in MATRIX_PATH
   console.log "Updated $MATRIX_PATH"
 }
 
-taskChain.followUp() # [--all|--sprint <S>|<uuid>...] # run canonical chain follow-up scoreboard
+taskChain.chain.followUp() # <?args> # run canonical chain follow-up scoreboard (--all|--sprint S|uuid...)
 {
   npx tsx "$RAWBIN_HOME/scripts/po-chain-follow-up.ts" "$@"
 }
 
-taskChain.wireImplNode() # <methodUuid> [--dry-run] # wire Method→Impl→Test chain node
+taskChain.impl.node.wire() # <methodUuid> # wire Method→Impl→Test chain node (--dry-run optional)
 {
   npx tsx "$RAWBIN_HOME/scripts/chain-wire-impl-node.ts" "$@"
 }
 
-taskChain.velocity() # [--since <date>|--hours <N>|--sprint <S>] # team velocity dashboard
+taskChain.team.velocity() # <?args> # team velocity dashboard (--since|--hours|--sprint)
 {
   npx tsx "$RAWBIN_HOME/scripts/team-velocity.ts" "$@"
 }
 
 taskChain.help() # # show available methods
 {
-  echo "taskChain — OOSH traceability chain management"
+  echo "taskChain — OOSH traceability chain management (object.verb)"
   echo ""
   echo "Methods:"
-  echo "  generateMatrix [sprint]           — regenerate traceability-matrix.md"
-  echo "  updateMatrixRow <reqUuid>         — update one row in the matrix"
-  echo "  followUp [--all|--sprint S|uuid]  — canonical chain scoreboard"
-  echo "  wireImplNode <methodUuid>         — wire Method→Impl→Test node"
-  echo "  velocity [--since|--hours|--sprint] — team velocity dashboard"
+  echo "  matrix.generate <?sprint>      — regenerate traceability-matrix.md"
+  echo "  matrix.row.update <reqUuid>    — update one row in the matrix"
+  echo "  chain.followUp <?args>         — canonical chain scoreboard (--all|--sprint S|uuid)"
+  echo "  impl.node.wire <methodUuid>    — wire Method→Impl→Test node"
+  echo "  team.velocity <?args>          — team velocity dashboard"
   echo ""
   echo "Source: Chain + Velocity classes in src/ts/scenario/skill-classes.ts"
   echo "Repo: $RAWBIN_HOME"
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
-# DISPATCHER
+# BOOTSTRAP — sources OOSH kernel + dispatches via this.start
 # ─────────────────────────────────────────────────────────────────────────────
 
-taskChain.start_dispatcher()
+taskChain.bootstrap()
 {
   source this 2>/dev/null || source "${OOSH_DIR:-$HOME/oosh}/this" 2>/dev/null
   log.init.colors 2>/dev/null
@@ -111,4 +110,4 @@ taskChain.start_dispatcher()
   this.start "$@"
 }
 
-taskChain.start_dispatcher "$@"
+taskChain.bootstrap "$@"

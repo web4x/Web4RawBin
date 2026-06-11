@@ -5,7 +5,9 @@
     "name": "TraceObject.refs",
     "className": "TraceObject",
     "methodName": "refs",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:87c9007a-2144-4030-a5ac-cd48f518bb2b"
+    ],
     "implementation": "ior:instance:8af72680-6d5b-482b-bbea-1740cd425293",
     "sourceFile": "ior:file:src/ts/shared/TraceModel.ts",
     "parent": "ior:instance:101a0b1c-2d3e-4f50-8617-a01010101101",

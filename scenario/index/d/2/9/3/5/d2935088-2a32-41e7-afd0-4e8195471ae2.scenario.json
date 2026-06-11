@@ -5,7 +5,9 @@
     "name": "RbDetailDrawer.open",
     "className": "RbDetailDrawer",
     "methodName": "open",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:19654b84-90e4-4a89-a9a8-10221f883d25"
+    ],
     "implementation": "ior:instance:72f829a3-773f-4344-b464-6aae8a0402e9",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "sourceLine": 11,
