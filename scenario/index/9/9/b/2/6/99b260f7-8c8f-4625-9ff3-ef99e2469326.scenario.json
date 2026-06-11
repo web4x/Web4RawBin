@@ -1,0 +1,5 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": { "uuid": "99b260f7-8c8f-4625-9ff3-ef99e2469326", "name": "RbTraceTree.setItems impl", "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts", "sourceLine": 110, "tests": [] },
+  "ownerIor": "ior:instance:1f7d3758-61cc-47eb-a7ff-b953535ed6a2"
+}
