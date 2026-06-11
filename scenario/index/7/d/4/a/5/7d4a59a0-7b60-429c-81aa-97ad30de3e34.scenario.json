@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7d4a59a0-7b60-429c-81aa-97ad30de3e34",
+    "name": "R19.68 file-access room-scoped auth",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 484,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

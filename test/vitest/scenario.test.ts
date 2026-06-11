@@ -21,6 +21,7 @@
 // [test:uuid:c8fadaae-1fb3-4eb8-8469-52fd9c2c5ce8]
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+// [test:uuid:e8a4bc18-2747-485e-99b5-2eb4cf1afa9b]
 // [test:uuid:a9da16c9-eb1b-4ea3-a042-04ed4d90ffd7]
 // [test:uuid:8b0d044f-64ed-4fb6-a777-a38e78d3f212]
 // [test:uuid:26e640f6-d6d9-443f-a014-29fb82ab4b02]

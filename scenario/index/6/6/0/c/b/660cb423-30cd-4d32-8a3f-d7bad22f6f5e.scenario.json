@@ -5,7 +5,9 @@
     "name": "RbRequirementDetail.render impl",
     "sourceFile": "src/public/ts/trace/rb-requirement-detail.ts",
     "sourceLine": 13,
-    "tests": [],
+    "tests": [
+      "ior:instance:e8a4bc18-2747-485e-99b5-2eb4cf1afa9b"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:f2930f5e-c748-49f5-888e-2d3aaa9a9012"

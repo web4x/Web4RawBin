@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "56506094-1d3e-4a7a-86f8-9f1d11bbb73d",
+    "name": "R19.69 iframe sandbox no-scripts",
+    "sourceFile": "src/public/ts/trace/content-preview.ts",
+    "sourceLine": 19,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}
