@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "ae3d913c-73dd-40d3-bece-aaef1e457ac5",
+    "name": "?return-url=https%3A%2F%2Fecoverse.com%2Fspace%2Fqql%2F.url",
+    "contentPath": "index/a/e/3/d/9/ae3d913c-73dd-40d3-bece-aaef1e457ac5.content",
+    "size": 82,
+    "mimeType": "text/uri-list",
+    "uploadedAt": "2026-06-11T17:22:40.822Z",
+    "uploaderToken": "ae9a8a5e-1317-4266-be78-b15b7f547139",
+    "roomUuid": "440ccc82-368c-4b8c-9c8b-d8a81f9d4ae7",
+    "contentHash": "e54e6c1204a31ab10f571619a1e5703b7a4ca3b105c616bf619f5d71bc59aee3",
+    "unitLinks": [
+      "content/e54e6c1204a31ab10f571619a1e5703b7a4ca3b105c616bf619f5d71bc59aee3.file.scenario.json",
+      "../data/users/ae9a8a5e-1317-4266-be78-b15b7f547139/rooms/440ccc82-368c-4b8c-9c8b-d8a81f9d4ae7/files/ae3d913c-73dd-40d3-bece-aaef1e457ac5.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:440ccc82-368c-4b8c-9c8b-d8a81f9d4ae7"
+}

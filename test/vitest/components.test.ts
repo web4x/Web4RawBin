@@ -12,7 +12,7 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-// [test:uuid:c73b0ad9-7f6b-408d-ae0e-2607e3f19c0e]
+// [test:uuid:c73b0ad9-7f6b-408d-ae0e-2607e3f19c0e] R19.86 dismiss threshold guard
 // [test:uuid:1453e442-7f12-4a62-873d-a77d6feac550]
 // [test:uuid:68a81a25-8c76-42f6-9d39-269a4426c139]
 // [test:uuid:a4f8ccb0-1f0f-4798-b21d-c4c77fce772c]
@@ -1853,5 +1853,80 @@ describe('R19.5: applySend — BY-INVITE Apply button sends invite request', () 
     expect(src).toContain('[impl:uuid:5a397d5d-3d97-4152-8a7b-14caca1398ca]');
     expect(src).toContain('btn-apply');
     expect(src).toContain('Apply');
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// R19.86: GUARD — file/url/webitem click opens preview drawer (regression test)
+// [test:uuid:c73b0ad9-7f6b-408d-ae0e-2607e3f19c0e] R19.86 dismiss threshold guard
+// ═══════════════════════════════════════════════════════════════════════════
+
+describe('R19.86: file/url/webitem click → openFilePreview → drawer opens', () => {
+  it('RoomView click handler dispatches file/url/webitem types to openFilePreview', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/RoomView.ts'), 'utf-8');
+    expect(src).toContain("type === 'file' || type === 'url' || type === 'webitem'");
+    expect(src).toContain("ref.startsWith('file:')");
+    expect(src).toContain('openFilePreview');
+  });
+
+  it('rb-detail-drawer touchstart non-handle sets dragging=false, not dismiss', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/trace/rb-detail-drawer.ts'), 'utf-8');
+    const lines = src.split('\n');
+    const touchStartLine = lines.findIndex(l => l.includes('private onTouchStart'));
+    const touchMoveLine = lines.findIndex(l => l.includes('private onTouchMove'));
+    const touchStartBody = lines.slice(touchStartLine, touchMoveLine).join('\n');
+    expect(touchStartBody).toContain('this.dragging = false');
+    expect(touchStartBody).not.toContain("this.dragging = 'dismiss'");
+  });
+
+  it('dismiss only triggers after >10px movement threshold', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/trace/rb-detail-drawer.ts'), 'utf-8');
+    expect(src).toContain('dy > 10');
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// R19.84: GUARD — drag-resize drawer to 95vh, close below 120px
+// [test:uuid:beea8c64-c42c-4e16-a1db-79958be53a0e] R19.84 dragResize
+// ═══════════════════════════════════════════════════════════════════════════
+
+describe('R19.84: handle drag resizes drawer to 95vh, close below 120px', () => {
+  it('drawer CSS max-height is 95vh', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const css = readFileSync(nodePath.join(root, 'src/public/app.css'), 'utf-8');
+    expect(css).toContain('max-height: 95vh');
+  });
+
+  it('resize mode clamps height to [0, 95vh] and close below 120px', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/trace/rb-detail-drawer.ts'), 'utf-8');
+    expect(src).toContain("this.dragging = 'resize'");
+    expect(src).toContain('window.innerHeight * 0.95');
+    expect(src).toContain('h < 120');
+    expect(src).toContain('this.close()');
+  });
+
+  it('handle drag sets height via style.height (not transform)', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/trace/rb-detail-drawer.ts'), 'utf-8');
+    const lines = src.split('\n');
+    const moveStart = lines.findIndex(l => l.includes('private onTouchMove'));
+    const moveBody = lines.slice(moveStart, moveStart + 20).join('\n');
+    expect(moveBody).toContain('this.style.height');
   });
 });
