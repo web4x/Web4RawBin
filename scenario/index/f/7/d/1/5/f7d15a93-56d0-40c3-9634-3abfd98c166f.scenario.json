@@ -3,12 +3,12 @@
   "model": {
     "uuid": "f7d15a93-56d0-40c3-9634-3abfd98c166f",
     "altId": "R19.68",
-    "name": "R19.68: File access is room-scoped — only room members may read/download a room's files.",
+    "name": "R19.68: File access is room-scoped \u2014 only room members may read/download a room's files.",
     "description": "SECURITY: file access (read/download of uploaded FileUnits) MUST be authorized per room membership. Only authenticated members of a room may access that room's files. The server MUST validate that the requesting user's token is in the room's members[] before serving file content. Unauthenticated or non-member requests return 403. This prevents cross-room file leakage and unauthorized access to uploaded content.",
     "discoverySource": {
       "type": "team-discovery",
       "discoveredBy": "robbin-expert (code-review)",
-      "diagnosisExcerpt": "File access endpoints serve content without checking room membership — any user with the file uuid can download any room's files.",
+      "diagnosisExcerpt": "File access endpoints serve content without checking room membership \u2014 any user with the file uuid can download any room's files.",
       "canonicalizedBy": "robbin-req via PO directive 2026-06-11"
     },
     "tasks": [],
@@ -20,7 +20,10 @@
       "ior:instance:c99083ba-1b38-474c-88d1-ca4bf5f5a2c7",
       "ior:instance:124d9eec-0c46-4f45-8640-b7e14618d214"
     ],
-    "crossRefNote": "R19.35 (Room.members[] IOR refs) provides the membership check source. R19.46 (Room.files[] IOR list) identifies which files belong to which room."
+    "crossRefNote": "R19.35 (Room.members[] IOR refs) provides the membership check source. R19.46 (Room.files[] IOR list) identifies which files belong to which room.",
+    "useCases": [
+      "ior:instance:85f44adb-ac94-432d-b8cf-b23f3158abfb"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

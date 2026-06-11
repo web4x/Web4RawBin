@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "570c7fbb-896a-4508-a76f-f6dd022be716",
+    "name": "contentPreviewer.iframeSandbox",
+    "description": "File preview iframe uses sandbox attribute (sandbox='allow-same-origin') to prevent script execution from uploaded content. CSP header on preview responses.",
+    "class": "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e",
+    "method": "ior:instance:8410c58c-9a15-4350-8e22-4efbb535adda",
+    "classes": [
+      "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

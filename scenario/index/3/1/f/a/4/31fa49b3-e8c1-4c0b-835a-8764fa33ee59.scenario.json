@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "31fa49b3-e8c1-4c0b-835a-8764fa33ee59",
+    "name": "FileApi.roomScopedAccess",
+    "description": "On /api/file-content/<uuid>: resolve FileUnit.model.roomUuid, verify requesting user (playerToken) is a member of that room. 403 if not. Prevents cross-room file exfiltration.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2592c3c9-24e1-4d6a-bce7-79f129b1df94"
+}

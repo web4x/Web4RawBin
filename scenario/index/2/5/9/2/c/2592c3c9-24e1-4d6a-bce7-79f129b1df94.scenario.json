@@ -6,7 +6,8 @@
     "sourceFile": "ior:file:src/ts/server/FileApi.ts",
     "methods": [
       "ior:instance:6a52a207-f7ba-4e16-ad59-7023f76d9836",
-      "ior:instance:d979e1a6-8ec4-4ef2-af9b-c6e93ba109ee"
+      "ior:instance:d979e1a6-8ec4-4ef2-af9b-c6e93ba109ee",
+      "ior:instance:31fa49b3-e8c1-4c0b-835a-8764fa33ee59"
     ],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "unitLinks": []

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "85f44adb-ac94-432d-b8cf-b23f3158abfb",
+    "name": "fileApi.roomScopedAccess",
+    "description": "File content download (/api/file-content/<uuid>) validates the requesting user owns the room the file belongs to. Prevents cross-room file access.",
+    "class": "ior:instance:2592c3c9-24e1-4d6a-bce7-79f129b1df94",
+    "method": "ior:instance:31fa49b3-e8c1-4c0b-835a-8764fa33ee59",
+    "classes": [
+      "ior:instance:2592c3c9-24e1-4d6a-bce7-79f129b1df94"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "8410c58c-9a15-4350-8e22-4efbb535adda",
+    "name": "ContentPreviewer.iframeSandbox",
+    "description": "Preview iframe: sandbox='allow-same-origin' (no allow-scripts). Server sets Content-Security-Policy: default-src 'none'; img-src 'self'; style-src 'unsafe-inline' on /api/file-content responses. Blocks XSS from uploaded HTML/SVG.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e"
+}
