@@ -88,8 +88,20 @@ A chain is DONE **only** when ALL 6 cells show `check`:
 | UseCase missing | architect | Create UC + wire to Req.useCases[] |
 | Class missing | architect | Create Class + wire to UC.classes[] |
 | Method missing | architect | Create Method + wire to Class.methods[] |
-| Implementation missing/stub | expert | Add `[impl:uuid:]` marker in source + create/wire Impl unit |
-| Test missing/stub | tester | Add `[test:uuid:]` marker in test + create/wire Test unit |
+| Implementation missing/stub | expert | See fix-guidance below |
+| Test missing/stub | tester | Add `[test:uuid:]` marker in test + create Test unit + wire Impl.tests[] |
+
+### Fix-guidance: Implementation node (expert)
+
+When the Impl cell shows `open expert <method-uuid-short>`:
+
+1. **Find the source file** for the Method (the Class's sourceFile or the file containing the method)
+2. **Add `[impl:uuid:<new-v4>]`** comment marker on/near the method in source code
+3. **Create** an `ior:class:Implementation` scenario unit: `{ ior: "ior:class:Implementation", model: { uuid: "<new-v4>", name: "<method-name>", sourceFile: "ior:file:<path>", tests: [] }, ownerIor: null }`
+4. **Wire forward**: add `ior:instance:<impl-uuid>` to `Method.implementations[]` in the Method's scenario unit
+5. **Hand to tester**: tester then creates the Test unit + adds `[test:uuid:]` marker + wires `Impl.tests[]`
+
+**Do NOT skip the Impl node** by wiring Test directly to Method. The 6-step chain requires all 6 nodes.
 
 ## Examples
 
