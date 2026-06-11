@@ -20,7 +20,11 @@
     "crossRefNote": "R19.2.A (pencil opens room editor) is the action the detail view exposes. R19.58 (all 7+ type DetailViews consistent) \u2014 Room detail view is a type that must be included. The /scenario route must type-dispatch, not assume Task.",
     "useCases": [
       "ior:instance:5fd0119f-730c-4e00-b26e-4009d247643d"
-    ]
+    ],
+    "refinedBy": [
+      "ior:instance:a99486b6-4c4c-46cb-80e6-607af73e7f7e"
+    ],
+    "refinedByNote": "Refined by R19.67 which fixes the RENDERING: type label Room (not unknown), speaky name, clickable Scenario.json link (not bare uuid)."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

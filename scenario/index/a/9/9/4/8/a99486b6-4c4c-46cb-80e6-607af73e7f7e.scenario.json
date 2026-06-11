@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "a99486b6-4c4c-46cb-80e6-607af73e7f7e",
+    "altId": "R19.67",
+    "name": "R19.67: Room scenario detail shows type 'Room', speaky name, and clickable Scenario.json link — not bare uuid.",
+    "description": "The /scenario Room detail view (R19.66) currently shows 'unknown' as type label and renders the uuid bare and repeated without a clickable link. FIX: (1) type label = 'Room' (resolved from ior:class), (2) display the room's speaky NAME (model.name), (3) render a CLICKABLE [Scenario.json](…uuid) link to the scenario unit file — not a bare uuid string. Consistent with how other types (Task, Requirement, etc.) render in /scenario.",
+    "tronQuote": "> TRON: \"the in-room link to scenario jumps to scenario view with a uuid in the details view but it should be clickable. shows unknown + bare uuid. make it nicer: Room <room-name> + [Scenario.json](…uuid) clickable.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "refinementOf": "ior:instance:e6495d45-6d70-4e10-82d0-fdbe6ce01a0a",
+    "refinementOfNote": "Refines R19.66 (Room Scenario button opens detail view). R19.66 fixed the route dispatch; R19.67 fixes the RENDERING: type label, speaky name, clickable link instead of bare uuid. Witness: room f672d29b."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

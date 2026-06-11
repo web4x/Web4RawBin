@@ -203,3 +203,7 @@
 ### Room Scenario button type-dispatch (R19.66)
 - **R19.66** (2026-06-11): Room Scenario button → /scenario?ior=<roomUuid> renders 'Task not found' (route assumes Task). Must type-dispatch to Room detail view with action to open scenario editor.
   > TRON: "the in-room scenario button goes here [/scenario route] — that's not useful. at least there must be a detail view for it that then can open the scenario editor."
+
+### Room scenario detail rendering (R19.67, refines R19.66)
+- **R19.67** (2026-06-11): Room scenario detail shows type 'Room' (not 'unknown'), speaky room name, and clickable [Scenario.json] link — not bare repeated uuid. Witness: f672d29b.
+  > TRON: "the in-room link to scenario jumps to scenario view with a uuid in the details view but it should be clickable. shows unknown + bare uuid. make it nicer: Room <room-name> + [Scenario.json](…uuid) clickable."
