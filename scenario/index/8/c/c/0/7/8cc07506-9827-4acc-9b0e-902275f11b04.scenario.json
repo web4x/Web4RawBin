@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "8cc07506-9827-4acc-9b0e-902275f11b04",
+    "name": "T-ios-all-types-open-drawer: on iOS, all file types (not just vcard) must open the ContentPreviewer drawer",
+    "slug": "ios-all-file-types-open-preview-drawer",
+    "description": "R19.87 fix (iOS-specific): on iPhone Safari/PWA only text/vcard files open the ContentPreviewer drawer; image/html/url/webitem do not (works on desktop). Likely iOS touch-event delegation (click vs touchend, passive listeners, 300ms tap delay) on the file-item click handler. Restore drawer-open for ALL content types on iOS. Verify on real iPhone Safari + PWA. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27). Architect to design the UC.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [ ] implementing (expert)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:c639acdf-cf0a-4fa7-b8c2-4afe103fb028"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner",
+    "joint": [
+      "robbin-planner",
+      "robbin-architect",
+      "robbin-expert",
+      "robbin-tester"
+    ],
+    "atoms": "covers R19.87 per PO directive 2026-06-11; iOS-only drawer regression (only vcard opens); device-test required"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
