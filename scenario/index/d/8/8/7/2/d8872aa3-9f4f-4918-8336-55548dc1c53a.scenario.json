@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "d8872aa3-9f4f-4918-8336-55548dc1c53a",
+    "name": "offlinePage.flushCache",
+    "description": "Red 'Flush Cache' button next to Retry on the offline page. Clears all SW caches (caches.keys() + caches.delete each), unregisters SW, re-registers SW, auto-reloads. Resolves stale-cache 404s (cross-ref R19.32).",
+    "class": "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133",
+    "method": "ior:instance:fd5059c5-89be-42b4-a5cd-f38ab61c42d6",
+    "classes": [
+      "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

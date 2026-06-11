@@ -5,7 +5,8 @@
     "name": "ServiceWorker",
     "sourceFile": "ior:file:src/public/sw.js",
     "methods": [
-      "ior:instance:5d6e7f8a-9b0c-4d1e-2f3a-4b5c6d7e8f9a"
+      "ior:instance:5d6e7f8a-9b0c-4d1e-2f3a-4b5c6d7e8f9a",
+      "ior:instance:fd5059c5-89be-42b4-a5cd-f38ab61c42d6"
     ],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "unitLinks": []

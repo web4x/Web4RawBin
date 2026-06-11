@@ -4,8 +4,8 @@
     "uuid": "9b468b6d-37e8-4f4e-879c-dea228b747c5",
     "altId": "R19.45",
     "name": "R19.45: Offline page has a red Flush PWA Cache button next to Retry.",
-    "description": "The offline page ('You're Offline / Retry') MUST display a RED 'Flush PWA Cache' button next to the existing Retry button. Clicking it clears ALL service-worker caches (caches.keys() → caches.delete() for each) AND unregisters then re-registers the service worker, recovering from stale-cache offline state where the SW serves cached 404s or outdated bundles. After flush, the page auto-reloads to attempt a fresh network fetch.",
-    "tronQuote": "> TRON: \"continue to get [offline page] — not in the pwa but in the browser. add next to retry a red flush pwa cache button.\"",
+    "description": "The offline page ('You're Offline / Retry') MUST display a RED 'Flush PWA Cache' button next to the existing Retry button. Clicking it clears ALL service-worker caches (caches.keys() \u2192 caches.delete() for each) AND unregisters then re-registers the service worker, recovering from stale-cache offline state where the SW serves cached 404s or outdated bundles. After flush, the page auto-reloads to attempt a fresh network fetch.",
+    "tronQuote": "> TRON: \"continue to get [offline page] \u2014 not in the pwa but in the browser. add next to retry a red flush pwa cache button.\"",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
@@ -14,7 +14,10 @@
     "crossRef": [
       "ior:instance:1935258b-92a7-4317-b5e4-e8188df53fce"
     ],
-    "crossRefNote": "R19.32 (shared room link → offline page) identified the stale-cache offline problem. R19.45 gives the user a self-service recovery action on the offline page itself."
+    "crossRefNote": "R19.32 (shared room link \u2192 offline page) identified the stale-cache offline problem. R19.45 gives the user a self-service recovery action on the offline page itself.",
+    "useCases": [
+      "ior:instance:d8872aa3-9f4f-4918-8336-55548dc1c53a"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
