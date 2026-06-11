@@ -24,7 +24,7 @@ const OFFLINE_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta nam
 <button class="retry" onclick="location.reload()">Retry</button>
 <button class="flush" onclick="flushCache()">Flush Cache</button></div>
 <script>
-// [impl:uuid:fd5059c5-89be-42b4-a5cd-f38ab61c42d6] ServiceWorker.flushAndReload
+// [impl:uuid:79505a42-6591-4fdb-a967-2767b7df4518] ServiceWorker.flushAndReload
 async function flushCache(){const keys=await caches.keys();await Promise.all(keys.map(k=>caches.delete(k)));const regs=await navigator.serviceWorker.getRegistrations();await Promise.all(regs.map(r=>r.unregister()));await navigator.serviceWorker.register('/sw.js');location.reload();}
 </script></body></html>`;
 

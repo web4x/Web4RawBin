@@ -22,7 +22,7 @@ describe('flush PWA cache (R19.45)', () => {
     expect(swSrc).toContain('r.unregister()');
   });
 
-  it('[impl:uuid:fd5059c5] marker present', () => {
-    expect(swSrc).toContain('[impl:uuid:fd5059c5');
+  it('[impl:uuid:79505a42] marker present (Impl uuid)', () => {
+    expect(swSrc).toContain('[impl:uuid:79505a42');
   });
 });
