@@ -20,7 +20,10 @@
       "ior:instance:b2057a60-71f5-4d6e-96a7-de98b8f18057",
       "ior:instance:f7d15a93-56d0-40c3-9634-3abfd98c166f"
     ],
-    "crossRefNote": "R19.75 (token passthrough) is the MVP fix this hardens. R19.68 (room-scoped auth) is the gate. R19.76 replaces the long-lived token with a short-lived nonce — same auth semantics, no credential leakage."
+    "crossRefNote": "R19.75 (token passthrough) is the MVP fix this hardens. R19.68 (room-scoped auth) is the gate. R19.76 replaces the long-lived token with a short-lived nonce \u2014 same auth semantics, no credential leakage.",
+    "orphanByDesign": true,
+    "deferred": true,
+    "deferredNote": "DEFERRED security-debt per PO 2026-06-11: nonce hardening (replace playerToken-in-URL with short-lived preview nonce). Out of active denom, tracked backlog. Re-include when scheduled."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
