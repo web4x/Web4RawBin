@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "02af5fc2-2cc5-4a32-ba6c-1167a0a513d6",
+    "altId": "R19.73",
+    "name": "R19.73: In-room file click opens ContentPreviewer — image/html/href preview works in room context.",
+    "description": "PRIORITY: clicking a file in the IN-ROOM file tree (RoomView Members/Files tree) MUST open the ContentPreviewer (R19.65) in a detail view/drawer within the room context — image renders as img, html/href renders in sandboxed iframe, etc. Currently preview works in /trace detail but NOT on in-room file-click. REUSE the existing ContentPreviewer DRY (same component as /trace, not a reimplementation). The room tree file-click handler must invoke the same preview path that /trace uses.",
+    "tronQuote": "> TRON (PRIORITY): \"prioritize making the image and html/href preview work IN THE ROOM.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:8d90d7ec-0bce-439f-8180-bed4a182aace",
+      "ior:instance:b03701b6-2105-4589-b27d-7db58b62e16c",
+      "ior:instance:6052570f-4630-4cdf-8270-6ef29eec33df"
+    ],
+    "crossRefNote": "R19.64 (preview by type), R19.65 (ContentPreviewer component), R19.63 (file click shows preview in drawer) — all define the preview system. R19.73 ensures it works IN THE ROOM context, not just /trace. DRY reuse."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

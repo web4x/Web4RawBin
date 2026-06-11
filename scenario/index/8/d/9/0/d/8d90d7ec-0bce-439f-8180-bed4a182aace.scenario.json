@@ -20,7 +20,11 @@
     "crossRefNote": "R19.65 (generic previewer) is the component. R19.63 (preview in drawer) is the container. R19.64 defines the per-type rendering rules.",
     "useCases": [
       "ior:instance:0fe9b0c2-1483-4c60-8f9f-9ab02c927eb2"
-    ]
+    ],
+    "refinedBy": [
+      "ior:instance:7d80452e-a562-4e1d-91e2-4a1ebf0cea67"
+    ],
+    "refinedByNote": "Refined by R19.74: text/html file content renders in sandboxed iframe as rendered HTML, not raw source."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

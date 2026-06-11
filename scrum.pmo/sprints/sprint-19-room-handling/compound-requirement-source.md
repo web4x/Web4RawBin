@@ -226,3 +226,9 @@
 - **R19.72** (2026-06-11): secret-code page gets a RED 'Remove current ID data' button — wipes local identity (keypair/token/device/localStorage) for fresh re-enrollment. Includes DANGER warning text explaining irreversible consequences + confirm step.
   > TRON: "on the page where you have to add the secret code, add a button in red — Remove current ID data — so that if a user has not remembered its generated secret they can start fully over."
   > TRON (extend): "add a danger text explaining the consequences."
+
+### In-room preview PRIORITY + HTML render (R19.73 + R19.74)
+- **R19.73** (2026-06-11, PRIORITY): in-room file-click opens ContentPreviewer (DRY reuse from /trace). Image→img, html/href→sandboxed iframe. Currently works in /trace but NOT in room.
+  > TRON (PRIORITY): "prioritize making the image and html/href preview work IN THE ROOM."
+- **R19.74** (2026-06-11): text/html file preview RENDERS in sandboxed iframe (displayed HTML page), NOT as raw <pre> source. Refines R19.64.
+  > TRON: html preview must RENDER, not show source.
