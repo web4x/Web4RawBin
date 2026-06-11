@@ -6,9 +6,14 @@
     "description": "Remove all spectator code: spectators Map, addSpectator/removeSpectator/promoteSpectator/sendToSpectator/findSpectatorRoom methods, SPECTATE/LEAVE_SPECTATE/JOIN_ROOM_FROM_SPECTATE/SPECTATE_JOINED/SPECTATE_LEFT/SPECTATOR_JOINED/SPECTATOR_LEFT message types, client spectateRoom/leaveSpectate/joinFromSpectate, spectatorCount from info(). Rooms have no spectator concept.",
     "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
     "method": "ior:instance:a83cd5a4-2d3c-4113-b4cf-6148803d9f7b",
-    "tasks": ["ior:instance:787e88ab-63d8-4999-897b-19b5c17e3eb5"],
+    "tasks": [
+      "ior:instance:787e88ab-63d8-4999-897b-19b5c17e3eb5"
+    ],
     "implementations": [],
-    "tests": []
+    "tests": [],
+    "classes": [
+      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

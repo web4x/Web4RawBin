@@ -6,9 +6,14 @@
     "description": "Pencil icon or room-name click opens the room config/scenario editor. UC for T-room-editor.",
     "class": "ior:instance:5a6d931a-e4f5-4321-b987-6a7b8c9d0e1f",
     "method": "ior:instance:6fc898ab-a933-4756-920a-3c9e4050d234",
-    "tasks": ["ior:instance:6e0240a9-b0ad-4955-82f7-9fd2025fedf2"],
+    "tasks": [
+      "ior:instance:6e0240a9-b0ad-4955-82f7-9fd2025fedf2"
+    ],
     "implementations": [],
-    "tests": []
+    "tests": [],
+    "classes": [
+      "ior:instance:5a6d931a-e4f5-4321-b987-6a7b8c9d0e1f"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

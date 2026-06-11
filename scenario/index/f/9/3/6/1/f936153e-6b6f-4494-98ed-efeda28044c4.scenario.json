@@ -7,7 +7,10 @@
     "method": "ior:instance:aada3b61-9270-4868-a702-0a2bfd0ad154",
     "tasks": [],
     "implementations": [],
-    "tests": []
+    "tests": [],
+    "classes": [
+      "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
