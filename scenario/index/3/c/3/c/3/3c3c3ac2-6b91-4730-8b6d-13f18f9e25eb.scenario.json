@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "3c3c3ac2-6b91-4730-8b6d-13f18f9e25eb",
+    "name": "impl:server.sprintNameFormat",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:6ec7440d-31e8-4d74-be88-c5fae090cad4"
+    ]
+  },
+  "ownerIor": "ior:instance:6ec7440d-31e8-4d74-be88-c5fae090cad4"
+}
