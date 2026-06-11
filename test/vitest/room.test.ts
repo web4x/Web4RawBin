@@ -374,6 +374,7 @@ describe('S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)',
     expect(r.mode).toBe('persistent');
   });
 
+  // [test:uuid:c874546a-90ed-4e10-b01f-cb6ba921a0a3] R19.8+R19.35 Room.persistMembers
   it('T-persistent-retention R19.8: markDisconnected retains member as offline', () => {
     const creator = makeMember({ id: 'host' });
     const r = new Room('PersistRoom', creator, { mode: 'persistent' });

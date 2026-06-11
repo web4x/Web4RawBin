@@ -8,10 +8,10 @@ const STATIC_SHELL = [
   '/icon-192.png',
   '/icon-512.png',
   '/trace',
-  '/dist/trace-page-WHLKOUPD.js',
+  '/dist/trace-page-T5B5RXVK.js',
   '/scenario',
-  '/dist/scenario-view-HOBMPXQA.js',
-  '/dist/app-6ITPFJYC.js',
+  '/dist/scenario-view-WQVQGZMK.js',
+  '/dist/app-W2LZ3UR3.js',
 ];
 
 const OFFLINE_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -59,7 +59,7 @@ self.addEventListener('fetch', (event) => {
 });
 
 async function cacheFirst(request) {
-  // [impl:uuid:5d6e7f8a-9b0c-4d1e-2f3a-4b5c6d7e8f9a] ServiceWorker.ignoreSearchNav R19.31/32
+  // [impl:uuid:cec00d7f-9258-4ac1-8c35-3e45dce8a5a9] ServiceWorker.ignoreSearchNav R19.31/32
   const isNavigation = request.mode === 'navigate';
   const cached = await caches.match(request, isNavigation ? { ignoreSearch: true } : undefined);
   if (cached) return cached;

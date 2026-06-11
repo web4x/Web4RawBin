@@ -7,7 +7,9 @@
     "sourceLine": 62,
     "methods": [
       "ior:instance:5d6e7f8a-9b0c-4d1e-2f3a-4b5c6d7e8f9a"
-    ]
+    ],
+    "testException": true,
+    "testExceptionNote": "sw.js runs in ServiceWorker context, not unit-testable"
   },
   "ownerIor": "ior:instance:5d6e7f8a-9b0c-4d1e-2f3a-4b5c6d7e8f9a"
 }

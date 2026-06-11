@@ -28,6 +28,7 @@ function speakingName(unit: ScenarioUnit): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80);
 }
 
+// [impl:uuid:68a3d760-09fb-4b1a-96e9-f5df97282c86] SpeakingTree.extendClasses
 export class ViewGenerator {
   constructor(
     private index: ScenarioIndex,

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c874546a-90ed-4e10-b01f-cb6ba921a0a3",
+    "name": "test:Room.persistMembers",
+    "description": "Real vitest: markDisconnected retains member+persist, removeMember prunes in live, reconnect dedup. 3 test cases in room.test.ts.",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": ["ior:instance:d5f0c2b4-a09e-4f80-aaf9-fa386aa57e46"],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:d5f0c2b4-a09e-4f80-aaf9-fa386aa57e46"
+}

@@ -22,6 +22,7 @@ const SINGULAR_FORWARD: Record<string, string> = {
   implementation: 'tests',
 };
 
+// [impl:uuid:b4f6b903-bbb5-4450-9aad-ddce522bd725] RbDetailDrawer.singularChain
 export function singularChain(graph: TraceGraph, startUuid: string): ChainStep[] {
   const steps: ChainStep[] = [];
   const visited = new Set<string>();

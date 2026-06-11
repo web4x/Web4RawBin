@@ -43,6 +43,7 @@ export class RbDetailDrawer extends HTMLElement {
     this.removeAttribute('open');
   }
 
+  // [impl:uuid:d0235605-5d79-4411-a6ff-c72099ffd2f9] RbDetailDrawer.stickyBottom
   get body(): HTMLElement {
     let b = this.querySelector('.drawer-body') as HTMLElement;
     if (!b) { this.render(); b = this.querySelector('.drawer-body') as HTMLElement; }
@@ -50,7 +51,7 @@ export class RbDetailDrawer extends HTMLElement {
   }
 
   private render(): void {
-  // [impl:uuid:3a671bfc-12c2-4922-938e-01572d90808e] RbDetailDrawer.stickyClose R19.33
+  // [impl:uuid:aa585fcc-dfc1-42a8-a77d-0c0fb03ca5fd] RbDetailDrawer.stickyClose R19.33
     if (this.querySelector('.drawer-header')) return;
     this.innerHTML = `
       <div class="drawer-header">

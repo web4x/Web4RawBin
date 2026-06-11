@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "5cd55ac0-08af-42ab-87fb-61929790ce84",
+    "name": "Human_Sovereignty_Final_EDITED.pdf",
+    "contentPath": "index/5/c/d/5/5/5cd55ac0-08af-42ab-87fb-61929790ce84.content",
+    "size": 53256579,
+    "mimeType": "application/pdf",
+    "uploadedAt": "2026-06-11T06:57:20.364Z",
+    "uploaderToken": "c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+    "roomUuid": "f672d29b-47af-4032-b2b8-877cb2783169",
+    "unitLinks": [
+      "rooms/f672d29b-47af-4032-b2b8-877cb2783169/files/5cd55ac0-08af-42ab-87fb-61929790ce84.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:f672d29b-47af-4032-b2b8-877cb2783169"
+}
