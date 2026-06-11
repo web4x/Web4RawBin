@@ -1,4 +1,5 @@
 /**
+// [impl:uuid:ac1f9cfc-2fd2-423d-a48a-d1b28b656800] RbClassDetail.renderAll
  * T158 — rb-class-detail: specialized DetailView for Class (noun) objects.
  * Shows source file, methods list, use case links.
  *

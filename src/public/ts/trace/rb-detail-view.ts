@@ -14,6 +14,7 @@ import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
 import { fetchDetailData, renderParentLink, renderSourceLink } from './detail-children.js';
+import { renderContentPreview, loadTextPreview } from './content-preview.js';
 
 export class RbDetailView extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -69,6 +70,22 @@ export class RbDetailView extends HTMLElement {
       </div>
       <div class="dv-links">${rows.join('') || '<div class="dv-empty">no links</div>'}</div>
       <div class="dv-scenario-children" style="border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px"><span style="color:rgba(255,255,255,0.4);font-size:0.7rem">Loading all children...</span></div>`;
+
+    // R19.64+R19.65: file content preview for File-type objects
+    if (obj.type === 'file' || obj.type === 'File') {
+      fetchDetailData(obj.uuid).then(({ children, parent }) => {
+        const scenarioIdx = `/api/ior/ior:instance:${obj.uuid}`;
+        fetch(scenarioIdx).then(r => r.json()).then(res => {
+          if (res.unit?.model) {
+            const fm = res.unit.model;
+            const preview = renderContentPreview(obj.uuid, fm.mimeType || '', fm.name || obj.title);
+            const linksEl = this.querySelector('.dv-links');
+            if (linksEl) linksEl.insertAdjacentHTML('beforebegin', preview);
+            loadTextPreview(this, obj.uuid);
+          }
+        }).catch(() => {});
+      });
+    }
 
     // click link rows → navigate to the linked object
     this.querySelectorAll('.dv-link').forEach(row => {

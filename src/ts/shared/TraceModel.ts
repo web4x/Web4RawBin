@@ -1,4 +1,5 @@
 /**
+// [impl:uuid:7995df98-396b-4f1b-ba84-69126d7c5855] TraceGraph.classHop
  * T101 — Typed traceability Object model (Tron's Object.verb model).
  *
  * Object = noun/class; verb = method; references between objects are stored route-like

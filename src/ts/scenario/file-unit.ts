@@ -1,4 +1,5 @@
 // T-file-unit R19.14: files become unique scenario units.
+// [impl:uuid:7aea186a-1564-4bc3-902c-31d1532c346c] FileUnit.linkToRoom
 // Storage: scenario/index/<5-deep>/<uuid>.content + <uuid>.scenario.json + unitLinks[].
 // [impl:uuid:50106c13-c538-47e5-b902-a7cb0feda61a] R19.14 (split for FileUnit.reuseByContentHash)
 // [impl:uuid:148740b9-b87c-422f-8b38-53caab1294ac] R19.14 (split for FileUnit.versionByName)

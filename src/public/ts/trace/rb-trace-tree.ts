@@ -1,4 +1,14 @@
 // [impl:uuid:ee897257-f1f8-40cd-a8ae-00c4b4b6092f] RbTraceTree.renderSeed impl
+// [impl:uuid:08fdddd4-c2bf-4997-bae4-0faa9f6d8f83] RbTraceTree.renderAllTypes
+// [impl:uuid:7e43dda4-d7fd-45db-98b5-0e7a72d222c5] RbTraceTree.computeBadges
+// [impl:uuid:1e008b80-6dcc-4f5c-aa2b-a4d809057b3a] RbTraceTree.cycleOmit
+// [impl:uuid:f124b7ff-ee8e-4d00-a799-f87e1f4a1883] RbTraceTree.syncSelection
+// [impl:uuid:49cb3038-9a42-455d-b636-71b60276a155] RbTraceTree.chainToTest
+// [impl:uuid:4042da6f-e083-4564-bab7-562558b7464b] RbTraceTree.ancestorGuard
+// [impl:uuid:4846d57e-610e-4977-a189-662074030cb1] RbTraceTree.cycleGuard
+// [impl:uuid:3d3a4239-5939-4f5b-ae8d-bba2d2c086da] RbTraceTree.prefetchLayer
+// [impl:uuid:eb038984-43bb-415c-91ed-25f6db3114f9] RbTraceTree.lazyAppend
+// [impl:uuid:5d4ba96f-68f2-4f33-8b8f-636c704b2ee1] RbTraceTree.fetchAndRenderChildren
 // [impl:uuid:5a552045-cc8d-4aaa-9d3c-d8c834f59df1] PathHeader.clickNavigate
 // [impl:uuid:bf4879c6-30ee-4d47-8d7d-c80aa9f26fc7] TraceChain.treeRework
 // [impl:uuid:7d40684c-e6b1-410c-90c7-3d80d229568b] Breadcrumb.contrastFix

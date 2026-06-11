@@ -1,4 +1,8 @@
 /**
+// [impl:uuid:0b57d139-2df7-4024-a725-b24f558341b6] RbObjectItem.iconDrag
+// [impl:uuid:a1e11e85-98a7-4be0-a8f4-ec54e938d329] RbObjectItem.dragGhost
+// [impl:uuid:f7b0c24a-6b0a-4548-9b0d-2b312c211fde] RbObjectItem.squareCollapse
+// [impl:uuid:bc638f97-00a4-4756-a2e7-d0d531b2927d] RbObjectItem.badgeRender
 // [impl:uuid:3cc5c375-5e1b-4427-aa5a-d3518c5b5c35] ChainLink.iconInView
  * T105 — rb-object-item: the defaultItemView for ANY TraceModel object (all 7 types).
  *

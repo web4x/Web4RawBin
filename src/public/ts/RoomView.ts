@@ -1,4 +1,8 @@
 // [impl:uuid:a2dfd6e8-3d5c-419a-a743-01fcaa7ba069] T5 room view
+// [impl:uuid:71c283ff-5dee-4df5-be05-6fc5b743aa8a] RbRoomContent.linkResolve
+// [impl:uuid:602fecd2-6fdb-4f57-8298-830f01a802fa] RbRoomContent.folderNodeRender
+// [impl:uuid:d1bae8be-a6ca-41e8-bdf6-ee78399ef41e] RbRoomContent.applyButton
+// [impl:uuid:32578dc6-58bb-4ce1-94be-2a78a142e139] RbRoomContent.mountTraceTree
 // [impl:uuid:e289349c-ba8d-4182-9288-9bbd7ac3ed56] RbRoomContent.render
 // [impl:uuid:3fbcebaf-2986-44d6-afd2-7ab810e824f2] RbRoomDetail.modeSet
 import { RawBinClient } from './RawBinClient.js';
@@ -187,7 +191,14 @@ export class RoomView {
         const dt = (e as DragEvent).dataTransfer;
         if (!dt) return;
         const files = Array.from(dt.files || []);
-        if (files.length > 0) dz.dispatchEvent(new CustomEvent("rb-room-files-dropped", { detail: { files }, bubbles: true }));
+        if (files.length > 0) {
+          dz.dispatchEvent(new CustomEvent("rb-room-files-dropped", { detail: { files }, bubbles: true }));
+        } else {
+          const url = dt.getData('text/uri-list') || dt.getData('text/plain');
+          if (url && url.startsWith('http')) {
+            dropDispatcher.dispatchUrl(url, this.roomId, this.client.playerToken, (text) => this.chatSheet?.addMessage('system', 'System', text));
+          }
+        }
       });
     }
 

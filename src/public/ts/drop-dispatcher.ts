@@ -105,6 +105,27 @@ export class DropDispatcher {
     setTimeout(() => { if (this.state === 'complete') { this.state = 'idle'; this.statusCb?.('idle'); } }, 2000);
     return result;
   }
+
+  // [impl:uuid:b05fcdf3-0d44-4d7d-bee2-b5edc55daa3a] R19.62 DropDispatcher.urlDrop
+  async dispatchUrl(url: string, roomId: string, playerToken: string, sendChat: (text: string) => void): Promise<{ uuid: string; name: string; size: number } | null> {
+    this.state = 'uploading';
+    this.statusCb?.('uploading', `Fetching ${url}...`);
+    try {
+      const name = url.split('/').pop() || 'link';
+      const blob = new Blob([url], { type: 'text/uri-list' });
+      const file = new File([blob], `${name}.url`, { type: 'text/uri-list' });
+      const result = await this.uploadFile(file, roomId, playerToken);
+      this.state = 'complete';
+      this.statusCb?.(result ? 'complete' : 'error', result ? `Saved ${name}` : `Failed: ${url}`);
+      setTimeout(() => { if (this.state === 'complete') { this.state = 'idle'; this.statusCb?.('idle'); } }, 2000);
+      return result;
+    } catch {
+      this.state = 'idle';
+      this.statusCb?.('error', `Failed: ${url}`);
+      sendChat(`[url-drop] failed: ${url}`);
+      return null;
+    }
+  }
 }
 
 export const dropDispatcher = new DropDispatcher();
