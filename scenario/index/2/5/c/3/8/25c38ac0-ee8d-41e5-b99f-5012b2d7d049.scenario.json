@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "25c38ac0-ee8d-41e5-b99f-5012b2d7d049",
+    "name": "T-dnd-unknown-dispatcher: unknown format dropped onto room chat + extensible mimeType registry",
+    "slug": "dnd-unknown-dispatcher-room-chat-mimetype-registry",
+    "description": "When a dropped item format is unknown (not matched by any registered handler), dispatch it as a message to room chat. Extensible mimeType registry allows future handlers to claim specific formats. Covers R19.37.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:46d49877-63c5-438b-9982-6c66a041ee44"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

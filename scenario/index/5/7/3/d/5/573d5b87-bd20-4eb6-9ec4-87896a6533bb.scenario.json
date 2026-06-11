@@ -4,9 +4,11 @@
     "uuid": "573d5b87-bd20-4eb6-9ec4-87896a6533bb",
     "altId": "R19.36",
     "name": "R19.36: DnD file-upload chain is fully traceable from drop to ln link to room file-tree display.",
-    "description": "Dropping a file into the room drop-zone MUST execute a FULLY TRACEABLE chain: (1) drop event fires on the drop-zone → (2) file extracted from DataTransfer → (3) file content stored as <uuid>.content in the scenario index → (4) FileUnit scenario unit created as <uuid>.scenario.json (per R19.14) → (5) ln symlink created from the room's folder to the file unit (unitLinks per R19.20) → (6) the room's file-tree (Members/Files tree, R19.12) updates to show the new file item. Every step in this chain MUST be a traceable scenario operation — no silent side-effects, no unlinked file creation. The chain is: DropEvent → FileUnit.upload (Method) → FileUnit (Class) → Room.files[] updated → tree re-render.",
+    "description": "Dropping a file into the room drop-zone MUST execute a FULLY TRACEABLE chain: (1) drop event fires on the drop-zone \u2192 (2) file extracted from DataTransfer \u2192 (3) file content stored as <uuid>.content in the scenario index \u2192 (4) FileUnit scenario unit created as <uuid>.scenario.json (per R19.14) \u2192 (5) ln symlink created from the room's folder to the file unit (unitLinks per R19.20) \u2192 (6) the room's file-tree (Members/Files tree, R19.12) updates to show the new file item. Every step in this chain MUST be a traceable scenario operation \u2014 no silent side-effects, no unlinked file creation. The chain is: DropEvent \u2192 FileUnit.upload (Method) \u2192 FileUnit (Class) \u2192 Room.files[] updated \u2192 tree re-render.",
     "tronQuote": "> TRON: \"double check all drag and drop requirements and implement a fully tracable chain for dnd file upload from dropping into a room to the ln link to the file content in the room represented in the rooms file tree.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:7fca98ae-f32c-4160-adad-c40d09aa7188"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
@@ -17,7 +19,10 @@
       "ior:instance:4a9d1728-368e-4b84-ad03-e6497669a098",
       "ior:instance:dc2e99eb-8e31-4337-887b-8204f7588c20"
     ],
-    "crossRefNote": "R19.11 (drop-zone area), R19.14 (file stored as uuid.content + scenario.json), R19.20 (unitLinks to ln symlinks), R19.12 (Members/Files tree). R19.36 is the CHAIN connecting these — the traceable path from drop event through to tree display. Existing reqs define the endpoints; R19.36 defines the flow."
+    "crossRefNote": "R19.11 (drop-zone area), R19.14 (file stored as uuid.content + scenario.json), R19.20 (unitLinks to ln symlinks), R19.12 (Members/Files tree). R19.36 is the CHAIN connecting these \u2014 the traceable path from drop event through to tree display. Existing reqs define the endpoints; R19.36 defines the flow.",
+    "useCases": [
+      "ior:instance:d2ab1540-0799-4b7d-842f-0b1550a2485e"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "7fca98ae-f32c-4160-adad-c40d09aa7188",
+    "name": "T-dnd-file-chain: drop file onto room drop-zone uploads and creates FileUnit with ln symlinks in Files tree",
+    "slug": "dnd-file-chain-drop-upload-fileunit-ln-files-tree",
+    "description": "Dropping a file onto the room drop-zone triggers upload, creates a FileUnit scenario unit (uuid.content + uuid.scenario.json), emits ln symlinks into the Files tree node. Full chain: drop -> upload -> FileUnit -> ln -> Files-tree. Covers R19.36.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:573d5b87-bd20-4eb6-9ec4-87896a6533bb"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

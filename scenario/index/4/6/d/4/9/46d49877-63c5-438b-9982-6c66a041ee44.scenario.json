@@ -4,9 +4,11 @@
     "uuid": "46d49877-63c5-438b-9982-6c66a041ee44",
     "altId": "R19.37",
     "name": "R19.37: Unknown drop format logs the event to room chat as an extensible dispatcher.",
-    "description": "When a drop event carries a format NOT recognized by the current handler registry, the system MUST log the drop event to the room chat with the format details ('Dropped [mimeType]: [name/preview] — no handler yet'). This makes unrecognized drops visible and actionable instead of silently failing. The drop dispatcher is an extensible registry: known formats (file) route to the file-upload chain (R19.36); future formats (vcard, mail, href/links, etc.) plug in via handler registration without modifying the dispatcher core. The dispatcher routes by mimeType/DataTransfer item kind.",
+    "description": "When a drop event carries a format NOT recognized by the current handler registry, the system MUST log the drop event to the room chat with the format details ('Dropped [mimeType]: [name/preview] \u2014 no handler yet'). This makes unrecognized drops visible and actionable instead of silently failing. The drop dispatcher is an extensible registry: known formats (file) route to the file-upload chain (R19.36); future formats (vcard, mail, href/links, etc.) plug in via handler registration without modifying the dispatcher core. The dispatcher routes by mimeType/DataTransfer item kind.",
     "tronQuote": "> TRON: \"on unknown drag and drop log what happened into the room chat so that we can add over time multiple drop formats like vcards, mails, href links etc.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:25c38ac0-ee8d-41e5-b99f-5012b2d7d049"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
@@ -14,7 +16,10 @@
     "crossRef": [
       "ior:instance:573d5b87-bd20-4eb6-9ec4-87896a6533bb"
     ],
-    "crossRefNote": "R19.36 (file-upload chain) is the first known handler in this dispatcher. R19.37 covers the fallback path for all other formats + defines the extensible registry pattern."
+    "crossRefNote": "R19.36 (file-upload chain) is the first known handler in this dispatcher. R19.37 covers the fallback path for all other formats + defines the extensible registry pattern.",
+    "useCases": [
+      "ior:instance:95a70f06-ae4e-47e6-86fb-b4ee9685442d"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
