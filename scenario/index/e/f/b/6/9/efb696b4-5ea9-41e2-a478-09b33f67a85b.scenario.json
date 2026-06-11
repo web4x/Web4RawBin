@@ -5,7 +5,9 @@
     "name": "RbTraceTree.nodeEl impl",
     "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
     "sourceLine": 1,
-    "tests": [],
+    "tests": [
+      "ior:instance:e4ce14a4-1ddb-4ca1-9326-38dd31ce0eb0"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:32ae650c-d936-4696-89cd-8f9369fdc52e"

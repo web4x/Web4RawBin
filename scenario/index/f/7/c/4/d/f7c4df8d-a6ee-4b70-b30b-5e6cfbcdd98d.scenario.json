@@ -4,7 +4,9 @@
     "uuid": "f7c4df8d-a6ee-4b70-b30b-5e6cfbcdd98d",
     "name": "Assets.rebrand",
     "sourceFile": "src/public/ts/RoomBrowser.ts",
-    "tests": [],
+    "tests": [
+      "ior:instance:06bd30bf-5e95-47e4-9860-b59e41a0b9f7"
+    ],
     "orphanByDesign": true,
     "orphanRationale": "No real code \u2014 design-only/future feature",
     "sourceLine": 1

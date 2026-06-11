@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "77b264de-f078-4dd8-bb04-7b2b005d2474",
+    "name": "test:R18.13 browseSource",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:16a9d665-6772-43b8-bc55-4e0632ad8d7d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:16a9d665-6772-43b8-bc55-4e0632ad8d7d"
+}

@@ -21,6 +21,14 @@
 // [test:uuid:c8fadaae-1fb3-4eb8-8469-52fd9c2c5ce8]
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+// [test:uuid:012c731b-3f31-4728-9624-22cabfb9c4eb]
+// [test:uuid:1b0666fe-4139-46a1-b934-2730ee00425a]
+// [test:uuid:54f57f01-a33b-4985-847c-0d0ab95f0c67]
+// [test:uuid:73692db7-8f2a-47d8-b39e-f4d3450e1a2d]
+// [test:uuid:9c3047c9-e86f-4007-83b3-2038712451c0]
+// [test:uuid:f5fe2ba1-0f13-4724-b67c-7fb32f86dfd3]
+// [test:uuid:818a360e-f589-47ee-bc14-00e1dbd670db]
+// [test:uuid:95c58daf-9e05-4a54-bda7-1cce246c93ba]
 // [test:uuid:447754f1-f0b7-44ca-a55a-eb29fa214789]
 // [test:uuid:a1e9458d-aeeb-4240-b061-03505f81b5eb]
 // [test:uuid:80ff5280-dc41-4be0-84f7-0ddb6267fcf5]

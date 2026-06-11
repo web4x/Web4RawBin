@@ -5,7 +5,10 @@
     "name": "ScenarioIndex.put(uuid impl",
     "sourceFile": "src/ts/scenario/index-store.ts",
     "sourceLine": 12,
-    "tests": [],
+    "tests": [
+      "ior:instance:012c731b-3f31-4728-9624-22cabfb9c4eb",
+      "ior:instance:818a360e-f589-47ee-bc14-00e1dbd670db"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:c2ab4e27-b143-48fb-ba8d-0e5251aaa5b5"

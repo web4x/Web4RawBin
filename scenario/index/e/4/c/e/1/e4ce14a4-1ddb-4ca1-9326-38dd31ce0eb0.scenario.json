@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e4ce14a4-1ddb-4ca1-9326-38dd31ce0eb0",
+    "name": "test:R15.7 nodeEl",
+    "sourceFile": "ior:file:test/vitest/trace-model.test.ts",
+    "implementations": [
+      "ior:instance:efb696b4-5ea9-41e2-a478-09b33f67a85b"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:efb696b4-5ea9-41e2-a478-09b33f67a85b"
+}

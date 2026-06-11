@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "95c58daf-9e05-4a54-bda7-1cce246c93ba",
+    "name": "test:R17.24 renderTronQuote",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:9846e4d2-b1d6-4c2e-a77d-77b33a48460d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:9846e4d2-b1d6-4c2e-a77d-77b33a48460d"
+}

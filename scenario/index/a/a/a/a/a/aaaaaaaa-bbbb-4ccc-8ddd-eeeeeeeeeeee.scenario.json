@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781181170902,
+    "createdAt": 1781181645393,
     "sshKeysGenerated": false,
     "sshPublicKey": "",
     "chatHistory": [],
@@ -20,14 +20,14 @@
         "name": "",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781181170902
+        "joinedAt": 1781181645393
       },
       {
         "ior": "ior:instance:test-tok-canon",
         "name": "",
         "role": "owner",
         "status": "online",
-        "joinedAt": 1781181170902
+        "joinedAt": 1781181645393
       }
     ],
     "files": [],

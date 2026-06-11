@@ -5,7 +5,9 @@
     "name": "RbRequirementDetail.renderTronQuote impl",
     "sourceFile": "src/public/ts/trace/rb-requirement-detail.ts",
     "sourceLine": 1,
-    "tests": [],
+    "tests": [
+      "ior:instance:95c58daf-9e05-4a54-bda7-1cce246c93ba"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:081eed71-e112-4bed-8db4-06ad8c99db28"
