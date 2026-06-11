@@ -12,6 +12,7 @@ export const MSG = {
 
   // Client -> Server (Room interaction)
   CHAT_MESSAGE: 'CHAT_MESSAGE',
+  FILE_ADDED: 'FILE_ADDED',
 
   // Client -> Server (Identity)
   IDENTIFY: 'IDENTIFY',

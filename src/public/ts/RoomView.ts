@@ -65,12 +65,46 @@ export class RoomView {
         }
       }
     });
+    // [impl:uuid:dnd01002-b2c3-4d4e-9f5a-000000000002] FILE_ADDED handler
+    this.client.on(MSG.FILE_ADDED, (msg) => {
+      if (this.roomId !== msg.roomId) return;
+      const ch = document.getElementById('rrc-files-children');
+      if (ch) {
+        const node = document.createElement('div'); node.className = 'tt-node';
+        const row = document.createElement('div'); row.className = 'tt-row';
+        const item = document.createElement('rb-object-item');
+        item.setAttribute('ref', `file:${msg.fileUuid}`);
+        item.setAttribute('type', 'file');
+        item.setAttribute('name', msg.name || 'file');
+        item.setAttribute('description', `${msg.mimeType || ''} · ${msg.size || 0}B`);
+        row.appendChild(item); node.appendChild(row); ch.appendChild(node);
+      }
+      const filesNode = document.querySelector('#rrc-files-node rb-object-item');
+      if (filesNode) {
+        const cur = parseInt(filesNode.getAttribute('child-count') || '0');
+        filesNode.setAttribute('child-count', String(cur + 1));
+      }
+      this.chatSheet?.addMessage('system', 'System', `File uploaded: ${msg.name}`);
+    });
     this.client.on('disconnected', () => this.chatSheet?.setWsStatus('disconnected'));
     this.client.on('reconnecting', (msg) => this.chatSheet?.setWsStatus('reconnecting', msg.backoffMs ? `${Math.ceil(msg.backoffMs / 1000)}s` : undefined));
     this.client.on('reconnected', () => { this.chatSheet?.setWsStatus('connected'); this.hideOfflineBanner(); });
     this.client.on('online', () => this.hideOfflineBanner());
     this.client.on('offline', () => this.showOfflineBanner());
 
+    // [impl:uuid:dnd01003-c3d4-4e5f-a060-000000000003] DropDispatcher.route
+    this.container.addEventListener('rb-room-files-dropped', (async (e: CustomEvent) => {
+      const files: File[] = e.detail?.files || [];
+      for (const file of files) {
+        const fd = new FormData();
+        fd.append('file', file);
+        fd.append('playerToken', this.client.playerToken);
+        try {
+          const resp = await fetch(`/api/room/${this.roomId}/upload`, { method: 'POST', body: fd });
+          if (!resp.ok) this.chatSheet?.addMessage('system', 'System', `Upload failed: ${file.name}`);
+        } catch { this.chatSheet?.addMessage('system', 'System', `Upload error: ${file.name}`); }
+      }
+    }) as EventListener);
     this.container.addEventListener('rb-leave', () => { this.client.leaveRoom(); this.onLeave(); });
     this.container.addEventListener('rb-delete', () => { if (confirm('Delete this room permanently?')) this.client.deleteRoom(this.roomId); });
     this.container.addEventListener('rb-edit', () => this.openRoomEditor());

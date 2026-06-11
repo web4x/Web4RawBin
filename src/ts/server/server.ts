@@ -413,6 +413,55 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
+    // [impl:uuid:dnd01001-a1b2-4c3d-8e4f-000000000001] DropDispatcher.upload R19.14
+    if (req.method === 'POST' && filepath.startsWith('/api/room/') && filepath.endsWith('/upload')) {
+      const parts = filepath.split('/');
+      const roomId = parts[3];
+      const chunks: Buffer[] = [];
+      req.on('data', (chunk: Buffer) => chunks.push(chunk));
+      req.on('end', () => {
+        try {
+          const body = Buffer.concat(chunks);
+          const boundary = (req.headers['content-type'] || '').split('boundary=')[1];
+          if (!boundary) { res.writeHead(400); res.end(JSON.stringify({ error: 'No boundary' })); return; }
+          const parts = body.toString().split('--' + boundary);
+          let fileName = '', mimeType = 'application/octet-stream', fileData = Buffer.alloc(0), playerToken = '';
+          for (const part of parts) {
+            if (part.includes('name="playerToken"')) {
+              playerToken = part.split('\r\n\r\n')[1]?.trim().split('\r\n')[0] || '';
+            }
+            if (part.includes('name="file"')) {
+              const disp = part.match(/filename="([^"]+)"/);
+              if (disp) fileName = disp[1];
+              const ct = part.match(/Content-Type:\s*(\S+)/i);
+              if (ct) mimeType = ct[1];
+              const dataStart = part.indexOf('\r\n\r\n');
+              if (dataStart !== -1) {
+                const raw = part.slice(dataStart + 4);
+                fileData = Buffer.from(raw.replace(/\r\n$/, ''));
+              }
+            }
+          }
+          if (!playerToken || !tokenToClient.has(playerToken)) { res.writeHead(401); res.end(JSON.stringify({ error: 'Unauthenticated' })); return; }
+          const room = roomManager.getRoom(roomId);
+          if (!room) { res.writeHead(404); res.end(JSON.stringify({ error: 'Room not found' })); return; }
+          const scenarioDir = path.join(__dirname, '../../../scenario/index');
+          const { ScenarioIndex, createFileUnit } = require('../scenario/index.js');
+          const idx = new ScenarioIndex(scenarioDir);
+          const unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, roomUuid: roomId });
+          const fileUuid = (unit.model as any).uuid;
+          room.broadcast({ type: MSG.FILE_ADDED, roomId, fileUuid, name: fileName, size: fileData.length, mimeType });
+          addLog(`File uploaded: ${fileName} (${fileData.length}b) to room ${roomId.slice(0,8)} by ${playerToken.slice(0,8)}`);
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ uuid: fileUuid, name: fileName, size: fileData.length }));
+        } catch (e: any) {
+          addLog(`File upload error: ${e?.message || e}`);
+          res.writeHead(500); res.end(JSON.stringify({ error: 'Upload failed' }));
+        }
+      });
+      return;
+    }
+
     if (filepath === '/api/config') {
       const domain = BASE_DOMAIN || getLocalIP();
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });

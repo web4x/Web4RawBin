@@ -107,7 +107,7 @@ export class ScenarioIndex {
     const target = path.relative(path.dirname(fullPath), this.filePath(uuid));
     fs.mkdirSync(path.dirname(fullPath), { recursive: true });
     try { fs.unlinkSync(fullPath); } catch {}
-    fs.symlinkSync(target, fullPath);
+    try { fs.symlinkSync(target, fullPath); } catch { try { fs.symlinkSync(target, fullPath, 'junction'); } catch (e) { /* unitLinks[] in JSON stays canonical */ } }
   }
 
   private removeSymlinkDisk(linkPath: string): void {
