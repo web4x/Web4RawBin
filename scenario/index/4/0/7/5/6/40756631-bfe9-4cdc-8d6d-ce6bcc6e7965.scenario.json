@@ -12,7 +12,10 @@
     "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
     "orphanByDesign": true,
     "orphanReason": "Data integrity rule \u2014 verified by audit (ownerIor + unitLinks[] valid)",
-    "orphanRationale": "Data integrity rule \u2014 verified by audit (ownerIor/unitLinks)"
+    "orphanRationale": "Data integrity rule \u2014 verified by audit (ownerIor/unitLinks)",
+    "useCases": [
+      "ior:instance:997ea6db-b586-472e-8024-55ae7e0699f5"
+    ]
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

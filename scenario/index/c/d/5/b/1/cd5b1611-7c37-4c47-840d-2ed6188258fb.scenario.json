@@ -21,7 +21,9 @@
       "ior:instance:8a303a65-d8c1-4aa3-885e-e10e5c3f00ca"
     ],
     "tests": [],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:2c7b2a0a-bb59-47e9-a784-d317a1967821"
+    ],
     "unitLinks": [],
     "supersedes": "ior:instance:4d525a4d-5094-4288-9607-3d300efceeca",
     "supersedesNote": "Canonicalizes the T202 planner-placeholder unit (4d525a4d). Placeholder may be deleted by planner or kept as deprecated marker \u2014 req-eng leaves disposition to planner per learning #38.",

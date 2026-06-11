@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "2c7b2a0a-bb59-47e9-a784-d317a1967821",
+    "name": "traceTree.ucScopedMethod",
+    "class": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9",
+    "method": "ior:instance:02c81235-e1af-4ac8-9c60-84d7fdd04ca1",
+    "classes": [
+      "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
