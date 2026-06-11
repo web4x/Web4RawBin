@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b7ae688a-086f-44fe-9f6b-48e03f0fc83a",
+    "name": "test:R17.14 sprintToScenario",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:7e895957-3b57-443f-83b1-4236ed61915f"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7e895957-3b57-443f-83b1-4236ed61915f"
+}

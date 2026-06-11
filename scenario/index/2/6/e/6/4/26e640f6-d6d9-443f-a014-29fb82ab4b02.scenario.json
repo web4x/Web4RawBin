@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "26e640f6-d6d9-443f-a014-29fb82ab4b02",
+    "name": "test:R14.2 convertLegacy",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:d7abe1d3-d4bd-4384-8068-d3b64d450291"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:d7abe1d3-d4bd-4384-8068-d3b64d450291"
+}

@@ -4,7 +4,9 @@
     "uuid": "d7abe1d3-d4bd-4384-8068-d3b64d450291",
     "name": "MigrateToScenario.convertLegacy",
     "sourceFile": "ior:file:scripts/migrate-to-scenario.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:26e640f6-d6d9-443f-a014-29fb82ab4b02"
+    ]
   },
   "ownerIor": null
 }

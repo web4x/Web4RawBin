@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "1f38ad83-179d-4650-a88f-a70553784a17",
+    "name": "test:R19.41 Logger",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:cda50b0f-be12-4e42-a436-72c4c8e0744e"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cda50b0f-be12-4e42-a436-72c4c8e0744e"
+}

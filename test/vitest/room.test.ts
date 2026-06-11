@@ -25,6 +25,11 @@
 // [test:uuid:aaa28037-63f3-4e44-b042-0080b4879363]
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+// [test:uuid:c6dfbaa6-30b9-40be-82aa-54628e547632]
+// [test:uuid:17b688fb-1eb9-4750-8497-8317a97bee5c]
+// [test:uuid:2806c12e-3727-4050-961d-9d93fa3a5f67]
+// [test:uuid:04e74e0d-1a92-43f8-b11a-65f7c4087794]
+// [test:uuid:9dfd9b69-30b3-4030-b73d-81fe1c8f59bc]
 // [test:uuid:19541335-76ca-495b-b0b3-be8f84fa945e]
 // [test:uuid:f783eed9-de0e-4f97-a2e8-83ce2d5627bc]
 // [test:uuid:801b4eaf-bc40-4826-bab5-b143efd273fd]

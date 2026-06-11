@@ -4,7 +4,10 @@
     "uuid": "811e9fa5-75a6-4d39-a750-545aacded4f2",
     "name": "migrate-to-scenario.ts:migrate",
     "sourceFile": "scripts/migrate-to-scenario.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:1d86295e-13be-4265-a3d6-f2a84625a504",
+      "ior:instance:845cbe19-cc14-49c4-a0ae-c817dffd3639"
+    ]
   },
   "ownerIor": null
 }

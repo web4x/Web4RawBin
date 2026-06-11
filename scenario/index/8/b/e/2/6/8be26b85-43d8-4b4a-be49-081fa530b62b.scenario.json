@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8be26b85-43d8-4b4a-be49-081fa530b62b",
+    "name": "test:R16.9 tree-item collapse",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:7611c7c4-1d12-4546-a57f-1dc60d6e61ff"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7611c7c4-1d12-4546-a57f-1dc60d6e61ff"
+}

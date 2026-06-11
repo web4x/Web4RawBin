@@ -4,7 +4,9 @@
     "uuid": "7e895957-3b57-443f-83b1-4236ed61915f",
     "name": "MigrateToScenario.sprintToScenario",
     "sourceFile": "ior:file:scripts/migrate-to-scenario.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:b7ae688a-086f-44fe-9f6b-48e03f0fc83a"
+    ]
   },
   "ownerIor": null
 }

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9dfd9b69-30b3-4030-b73d-81fe1c8f59bc",
+    "name": "test:R19.67 roomScenarioDetail",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:07942a94-4713-4985-b618-9d9717e86cda"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:07942a94-4713-4985-b618-9d9717e86cda"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "1d86295e-13be-4265-a3d6-f2a84625a504",
+    "name": "test:R17.6 migrate",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:811e9fa5-75a6-4d39-a750-545aacded4f2"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:811e9fa5-75a6-4d39-a750-545aacded4f2"
+}

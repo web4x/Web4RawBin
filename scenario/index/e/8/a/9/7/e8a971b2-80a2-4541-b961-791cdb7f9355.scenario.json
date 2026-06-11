@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e8a971b2-80a2-4541-b961-791cdb7f9355",
+    "name": "test:R16.5 square SVG icons",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:c1e90fe2-ea6d-4ada-abbd-09286a75bdfd"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:c1e90fe2-ea6d-4ada-abbd-09286a75bdfd"
+}

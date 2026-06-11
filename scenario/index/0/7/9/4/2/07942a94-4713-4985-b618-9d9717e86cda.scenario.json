@@ -5,7 +5,9 @@
     "name": "RbDetailView.roomScenarioDetail impl",
     "sourceFile": "src/public/ts/trace/rb-detail-view.ts",
     "sourceLine": 1,
-    "tests": [],
+    "tests": [
+      "ior:instance:9dfd9b69-30b3-4030-b73d-81fe1c8f59bc"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:bb01d630-f0f8-4376-93a1-eca238926c87"
