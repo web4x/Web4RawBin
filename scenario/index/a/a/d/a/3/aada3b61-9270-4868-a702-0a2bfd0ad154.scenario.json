@@ -3,10 +3,12 @@
   "model": {
     "uuid": "aada3b61-9270-4868-a702-0a2bfd0ad154",
     "name": "RbTraceTree.syncSelection",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:f124b7ff-ee8e-4d00-a799-f87e1f4a1883"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
 }

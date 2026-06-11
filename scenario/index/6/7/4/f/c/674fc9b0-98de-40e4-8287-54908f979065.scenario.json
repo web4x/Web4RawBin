@@ -5,14 +5,17 @@
     "name": "TraceNarrow.classMethodScope",
     "className": "TraceNarrow",
     "methodName": "classMethodScope",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:9f495b68-d22d-41a7-85d1-9ccd78211506"
+    ],
     "implementation": "ior:instance:d7ac0a32-520f-41f5-9cf4-ddcab3ff08f8",
     "sourceFile": "ior:file:scenario/index/6/7/4/f/c/674fc9b0-98de-40e4-8287-54908f979065.scenario.json",
     "sourceLine": 1,
     "parent": "ior:instance:e74bc487-743f-4b0c-9966-1078b3e5a9cf",
     "unitLinks": [],
     "orphanByDesign": true,
-    "orphanRationale": "No code found in source \u2014 legacy migration/one-shot/future feature"
+    "orphanRationale": "No code found in source — legacy migration/one-shot/future feature",
+    "tests": []
   },
   "ownerIor": "ior:instance:e74bc487-743f-4b0c-9966-1078b3e5a9cf"
 }

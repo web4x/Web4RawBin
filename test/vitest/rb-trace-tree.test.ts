@@ -15,7 +15,7 @@ import { setActiveRouter } from '../../src/public/ts/trace/nav.js';
 if (!customElements.get('rb-trace-tree')) customElements.define('rb-trace-tree', RbTraceTree);
 if (!customElements.get('rb-object-item')) customElements.define('rb-object-item', RbObjectItem);
 
-const RU = '15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01';
+const RU = '05284ac5-131a-4e10-a2f7-7215e026e438';
 const UC1 = '20b2c3d4-e5f6-4a71-8b82-0c1d2e3f4a00';
 
 function seed(): TraceGraph {

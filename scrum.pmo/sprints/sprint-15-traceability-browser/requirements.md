@@ -15,7 +15,7 @@ each requirement carries a `[requirement:uuid]` + forward link to its task(s).
 - [ ] R15.1 — Typed Object model: `Requirement`, `Test`, `Implementation` (+ `Task`,
   `UseCase`, `Class`/`Method`) TS classes carrying UUIDs per the traceability
   standard; a TS engine that enforces traceability-matrix CONSISTENCY and FIXES drift.
-  [requirement:uuid:15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01]
+  [requirement:uuid:05284ac5-131a-4e10-a2f7-7215e026e438]
   > R1 (literal): typed classes for Requirement/Test/Implementation with UUIDs; "tracabilytimatrix consistency and fix".
   → [T101](./task-101-object-model.md), [T102](./task-102-matrix-consistency-engine.md)
 
@@ -24,7 +24,7 @@ each requirement carries a `[requirement:uuid]` + forward link to its task(s).
   attributes; web components = Views; Objects do MVC live-updates to registered
   views; serialization = flat JSON of object state with references to other objects
   (route-like), no protocols.
-  [requirement:uuid:25b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02]
+  [requirement:uuid:38f80708-d191-47bd-ada4-a710c5f1e6ed]
   > R1 (literal): Object.verb; methods as routes w/ method anchor + query params; flat-JSON state w/ references; MVC view updates; no protocols.
   → [T103](./task-103-object-verb-routing.md)
 

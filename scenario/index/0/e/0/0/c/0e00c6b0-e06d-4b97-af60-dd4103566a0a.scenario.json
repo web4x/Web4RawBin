@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "0e00c6b0-e06d-4b97-af60-dd4103566a0a",
+    "name": "RbEditorLayout.backNav",
+    "implementations": [
+      "ior:instance:f7c4483a-b041-4e66-9d91-6c9ad12ed673"
+    ],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+  },
+  "ownerIor": "ior:instance:94e7bf82-f867-4352-88b4-8c2a45bff4d4"
+}

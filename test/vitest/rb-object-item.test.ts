@@ -16,7 +16,7 @@ import { setActiveRouter } from '../../src/public/ts/trace/nav.js';
 // the component registers fine. Replicate that here: ensure registration before use.
 if (!customElements.get('rb-object-item')) customElements.define('rb-object-item', RbObjectItem);
 
-const UUID = '15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01';
+const UUID = '05284ac5-131a-4e10-a2f7-7215e026e438';
 const TYPES = ['requirement', 'task', 'usecase', 'class', 'method', 'implementation', 'test'];
 
 function mk(type: string, title = 'T', status = ''): RbObjectItem {

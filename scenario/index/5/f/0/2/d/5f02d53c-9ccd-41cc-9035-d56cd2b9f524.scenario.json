@@ -3,10 +3,12 @@
   "model": {
     "uuid": "5f02d53c-9ccd-41cc-9035-d56cd2b9f524",
     "name": "server.sprintZeroPad",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:cc549bbd-84e3-432b-a188-7c81cc6c8856"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
 }

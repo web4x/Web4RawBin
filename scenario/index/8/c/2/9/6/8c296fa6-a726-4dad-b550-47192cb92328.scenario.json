@@ -5,12 +5,15 @@
     "name": "MigrateToScenario.sprintToScenario",
     "className": "MigrateToScenario",
     "methodName": "sprintToScenario",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:7e895957-3b57-443f-83b1-4236ed61915f"
+    ],
     "implementation": "ior:instance:39921b04-18f1-4eee-8d62-e6e1c699de16",
     "sourceFile": "ior:file:scenario/index/8/c/2/9/6/8c296fa6-a726-4dad-b550-47192cb92328.scenario.json",
     "sourceLine": 1,
     "parent": "ior:instance:728b821f-71c0-4d72-8503-8d374150abe1",
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": []
   },
   "ownerIor": "ior:instance:728b821f-71c0-4d72-8503-8d374150abe1"
 }

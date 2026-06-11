@@ -5,7 +5,7 @@
     "name": "user.ensureSystemOwner",
     "description": "At server startup, ensure RawBin system User unit exists (fixed UUID 00000000-0000-4000-8000-rawbin000000). Idempotent put. Used as ownerIor for DnD debug messages and system events.",
     "class": "ior:instance:12c8982e-8962-41a8-b013-bf1e41a2167f",
-    "method": "ior:instance:971e3531-fbe9-48f7-8a9b-2e51b3252cac",
+    "method": "ior:instance:0eda72b1-2ab5-4b4a-8cd8-c5f86e0cced9",
     "tasks": [],
     "implementations": [],
     "tests": [],

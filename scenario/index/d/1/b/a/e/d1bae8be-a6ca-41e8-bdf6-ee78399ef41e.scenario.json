@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d1bae8be-a6ca-41e8-bdf6-ee78399ef41e",
+    "name": "RbRoomContent.applyButton",
+    "sourceFile": "ior:file:src/ts/server/rb-room-content.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

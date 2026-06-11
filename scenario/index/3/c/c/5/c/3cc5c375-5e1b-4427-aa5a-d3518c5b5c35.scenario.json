@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "3cc5c375-5e1b-4427-aa5a-d3518c5b5c35",
+    "name": "ChainLink.iconInView",
+    "sourceFile": "ior:file:scenario/index/0/9/2/8/1/09281af3-5926-4782-958b-98c3efa52e56.scenario.json",
+    "tests": []
+  },
+  "ownerIor": null
+}

@@ -3,10 +3,12 @@
   "model": {
     "uuid": "ddbc51a0-760b-4726-9f87-81484833de20",
     "name": "Room.acceptApply",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:5811824c-0bb1-4db4-98de-f419d915236e"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
 }

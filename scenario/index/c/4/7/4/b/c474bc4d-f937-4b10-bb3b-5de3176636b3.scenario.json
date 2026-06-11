@@ -3,10 +3,12 @@
   "model": {
     "uuid": "c474bc4d-f937-4b10-bb3b-5de3176636b3",
     "name": "SpeakingTree.extendClasses",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:30d30572-57a5-4078-b822-1b85bdb421a9"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
 }

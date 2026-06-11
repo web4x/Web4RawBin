@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "49cb3038-9a42-455d-b636-71b60276a155",
+    "name": "RbTraceTree.chainToTest",
+    "sourceFile": "ior:file:src/ts/server/rb-trace-tree.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

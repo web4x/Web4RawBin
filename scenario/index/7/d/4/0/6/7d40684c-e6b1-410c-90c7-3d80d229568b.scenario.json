@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7d40684c-e6b1-410c-90c7-3d80d229568b",
+    "name": "Breadcrumb.contrastFix",
+    "sourceFile": "ior:file:scenario/index/3/e/2/b/d/3e2bd407-160a-408f-9961-9e99784cd6a9.scenario.json",
+    "tests": []
+  },
+  "ownerIor": null
+}

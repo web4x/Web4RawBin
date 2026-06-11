@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f7b0c24a-6b0a-4548-9b0d-2b312c211fde",
+    "name": "RbObjectItem.squareCollapse",
+    "sourceFile": "ior:file:src/ts/server/rb-object-item.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

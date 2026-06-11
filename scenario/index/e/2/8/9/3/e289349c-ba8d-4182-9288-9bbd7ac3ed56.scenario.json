@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e289349c-ba8d-4182-9288-9bbd7ac3ed56",
+    "name": "RbRoomContent.render",
+    "sourceFile": "ior:file:src/public/ts/room/rb-room-content.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

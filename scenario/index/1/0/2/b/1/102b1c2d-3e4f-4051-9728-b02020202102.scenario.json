@@ -8,7 +8,7 @@
     "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect \u2014 implemented ahead of refinement per PO; architect to review scan heuristics)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [x] testing (tester \u2014 run trace-consistency.test.ts + `npm run trace:check`) \u2014 trace-consistency 10/10 PASS, 1d9d4fd; trace:check engine flags 14 repo gaps = working as intended\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01](./requirements.md) \u2014 R15.1 matrix consistency + fix\n  - [Sprint 15 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R15.1 in [requirements.md](./requirements.md)\n  - **use case:** matrix.fix (validate + repair drift) \u2014 diagrams/object-verb-usecases.puml\n  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)\n  - **class/method:** MatrixConsistency engine \u2014 validate() / report() / fix()",
+    "traceability": "- up\n  - [requirement:uuid:05284ac5-131a-4e10-a2f7-7215e026e438](./requirements.md) \u2014 R15.1 matrix consistency + fix\n  - [Sprint 15 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R15.1 in [requirements.md](./requirements.md)\n  - **use case:** matrix.fix (validate + repair drift) \u2014 diagrams/object-verb-usecases.puml\n  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)\n  - **class/method:** MatrixConsistency engine \u2014 validate() / report() / fix()",
     "context": "",
     "intention": "",
     "role": "",

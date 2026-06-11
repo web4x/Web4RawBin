@@ -3,10 +3,12 @@
   "model": {
     "uuid": "26a79fa6-adf1-4628-9da8-5df4cc64b19b",
     "name": "server.sprintsDedupe",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:07c16d73-27c9-4185-89de-ca81cc9ba01f"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
 }

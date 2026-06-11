@@ -3,10 +3,12 @@
   "model": {
     "uuid": "d275e6ba-91f7-4975-859f-1fd95d291993",
     "name": "RbRoomContent.applyButton",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:d1bae8be-a6ca-41e8-bdf6-ee78399ef41e"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:792246f1-346e-4337-9619-b38d8641769f"
 }

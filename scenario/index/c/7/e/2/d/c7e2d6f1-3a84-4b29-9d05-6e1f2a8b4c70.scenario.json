@@ -8,7 +8,7 @@
     "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing (robbin-tester — TS1/TS2/TS4/TS5; TS3 superseded by T83)\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:10a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f40](./requirements.md) — R10.1 member-click → profile sheet → vCard\n  - [Sprint 10 Planning](./planning.md)\n- down\n  - None (atomic task)",
+    "traceability": "- up\n  - [requirement:uuid:99897fb4-6876-4047-9849-bbdaa840e110](./requirements.md) — R10.1 member-click → profile sheet → vCard\n  - [Sprint 10 Planning](./planning.md)\n- down\n  - None (atomic task)",
     "context": "",
     "intention": "",
     "role": "",
@@ -34,7 +34,7 @@
     ],
     "parent": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab",
     "coveredRequirements": [
-      "ior:instance:10a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f40"
+      "ior:instance:99897fb4-6876-4047-9849-bbdaa840e110"
     ]
   },
   "ownerIor": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab"

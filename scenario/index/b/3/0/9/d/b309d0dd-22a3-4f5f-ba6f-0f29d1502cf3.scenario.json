@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b309d0dd-22a3-4f5f-ba6f-0f29d1502cf3",
+    "name": "Room.stripSpectator",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

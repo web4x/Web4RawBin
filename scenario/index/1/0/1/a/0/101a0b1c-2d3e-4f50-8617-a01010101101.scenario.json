@@ -8,7 +8,7 @@
     "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [x] testing (tester — trace-model.test.ts 8/8 PASS, 47ee53f)\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01](./requirements.md) — R15.1 typed object model\n  - [Sprint 15 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R15.1 in [requirements.md](./requirements.md)\n  - **use case:** object model (Object=noun) — diagrams/object-verb-usecases.puml\n  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)\n  - **class/method:** Requirement / Test / Implementation / Task / UseCase / Class / Method (uuid-carrying)",
+    "traceability": "- up\n  - [requirement:uuid:05284ac5-131a-4e10-a2f7-7215e026e438](./requirements.md) — R15.1 typed object model\n  - [Sprint 15 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R15.1 in [requirements.md](./requirements.md)\n  - **use case:** object model (Object=noun) — diagrams/object-verb-usecases.puml\n  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)\n  - **class/method:** Requirement / Test / Implementation / Task / UseCase / Class / Method (uuid-carrying)",
     "context": "",
     "intention": "",
     "role": "",
@@ -45,7 +45,7 @@
     ],
     "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
     "coveredRequirements": [
-      "ior:instance:15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01"
+      "ior:instance:05284ac5-131a-4e10-a2f7-7215e026e438"
     ]
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"

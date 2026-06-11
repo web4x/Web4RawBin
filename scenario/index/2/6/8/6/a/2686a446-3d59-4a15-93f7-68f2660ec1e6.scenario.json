@@ -6,11 +6,14 @@
     "className": "RbRoomDetail",
     "methodName": "modeSet",
     "sourceFile": "ior:file:src/public/ts/room/rb-room-detail.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:3fbcebaf-2986-44d6-afd2-7ab810e824f2"
+    ],
     "parent": "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431",
     "unitLinks": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented).",
+    "tests": []
   },
   "ownerIor": "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431"
 }

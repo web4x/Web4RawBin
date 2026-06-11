@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "9bd2416d-69ef-4540-8ebd-5861369db9f7",
+    "name": "editor.backNav",
+    "class": "ior:instance:94e7bf82-f867-4352-88b4-8c2a45bff4d4",
+    "method": "ior:instance:0e00c6b0-e06d-4b97-af60-dd4103566a0a",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": [
+      "ior:instance:94e7bf82-f867-4352-88b4-8c2a45bff4d4"
+    ]
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -4,7 +4,9 @@
     "uuid": "352ae8e8-0136-444a-8fd1-81dcdd247a64",
     "name": "DropDispatcher.urlDrop",
     "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:b05fcdf3-0d44-4d7d-bee2-b5edc55daa3a"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:3fca4816-cc22-45ea-aa59-d7b23ac19d8d"

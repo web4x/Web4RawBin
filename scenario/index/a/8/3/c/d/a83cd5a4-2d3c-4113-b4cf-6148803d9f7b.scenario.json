@@ -4,10 +4,12 @@
     "uuid": "a83cd5a4-2d3c-4113-b4cf-6148803d9f7b",
     "name": "Room.stripSpectator",
     "description": "Delete spectators Map, all spectator methods (add/remove/promote/sendTo/find), spectator MSG types from MessageTypes.ts, client spectator methods, spectatorCount from info(). Also strip spectator checks from ws.close and LEAVE_ROOM handlers.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:b309d0dd-22a3-4f5f-ba6f-0f29d1502cf3"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
 }

@@ -3,10 +3,12 @@
   "model": {
     "uuid": "49fad36b-7443-47c1-a387-1fd4d3228926",
     "name": "RbDetailDrawer.sourceLink",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:6cea8532-de05-4a44-b16f-457720090427"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
 }

@@ -3,10 +3,12 @@
   "model": {
     "uuid": "9d0e1f2a-3b4c-4d5e-6f7a-8b9c0d1e2f3a",
     "name": "RbTraceTree.computeBadges",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:7e43dda4-d7fd-45db-98b5-0e7a72d222c5"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
 }

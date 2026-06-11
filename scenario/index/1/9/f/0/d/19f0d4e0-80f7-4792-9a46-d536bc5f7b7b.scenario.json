@@ -3,10 +3,12 @@
   "model": {
     "uuid": "19f0d4e0-80f7-4792-9a46-d536bc5f7b7b",
     "name": "RbDetailDrawer.narrowChain",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:5c7a4443-190a-4b6a-84d6-9594b8efbe04"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
 }

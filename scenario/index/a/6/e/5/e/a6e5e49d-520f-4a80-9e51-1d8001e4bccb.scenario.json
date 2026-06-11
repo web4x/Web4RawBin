@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a6e5e49d-520f-4a80-9e51-1d8001e4bccb",
+    "name": "Room.persistAsSymlink",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

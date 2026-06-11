@@ -198,8 +198,8 @@ describe('R-RoomFlood: E2E cleanup', () => {
 });
 
 // [test:uuid:194fa8f2-c0dd-4522-8f5d-e6108987d17f] champagne pure-no-coverage reqs
-// [verifies:uuid:25b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02] R15.3 Object.verb PUML diagrams
-// [verifies:uuid:a30b41c5-d6e7-4f89-0a1b-2c3d4e5f6730] R17.31 detail pane max-width
+// [verifies:uuid:38f80708-d191-47bd-ada4-a710c5f1e6ed] R15.3 Object.verb PUML diagrams
+// [verifies:uuid:102241ef-0c2c-4c6c-bc7b-c9e46b4a7b1c] R17.31 detail pane max-width
 // [verifies:uuid:b41c52d6-e7f8-4a90-1b2c-3d4e5f677031] R17.32 chain starts atomic reqs
 // [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000013] R17.13 method traceability
 

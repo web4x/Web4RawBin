@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "50708a40-b1d4-431f-987f-0b003e94caf5",
+    "name": "RbDetailDrawer.parentNav",
+    "sourceFile": "ior:file:src/ts/server/rb-detail-drawer.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

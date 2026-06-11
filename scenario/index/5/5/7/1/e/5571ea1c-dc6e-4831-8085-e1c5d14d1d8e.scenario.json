@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "5571ea1c-dc6e-4831-8085-e1c5d14d1d8e",
+    "name": "R17.33: The chain order is requirement \u2192 task \u2192 usecase(s...",
+    "description": "[requirement:uuid:5571ea1c-dc6e-4831-8085-e1c5d14d1d8e]\n  \u2192 [T168](./task-168-chain-order-7-step-requirements-as-roots.md)\n\n- [ ] **R17.33: The chain order is requirement \u2192 task \u2192 usecase(s) \u2192 class \u2192 method \u2192 implementation \u2192 test(s).**",
+    "tronQuote": "",
+    "tasks": [
+      "ior:instance:c3951691-b231-4b60-a2f8-79c9d5ef851e"
+    ],
+    "tests": [],
+    "orphanByDesign": true,
+    "orphanReason": "Traceability rule \u2014 verified by audit script (chain order)",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
+    "sourceLine": 206,
+    "unitLinks": [
+      "sprints.json/sprint-17-scenario-units/requirement/r17-33-the-chain-order-is-requirement-task-usecase-s.json"
+    ],
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "orphanRationale": "Traceability rule \u2014 verified by audit script (chain order)"
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

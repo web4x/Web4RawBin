@@ -5,14 +5,17 @@
     "name": "MdListing.chainIcon",
     "className": "MdListing",
     "methodName": "chainIcon",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:b3020e1b-6736-4037-8b9f-47dfb0d27cee"
+    ],
     "implementation": "ior:instance:81567694-3a0a-496e-a8e5-941258d512a5",
     "sourceFile": "ior:file:scenario/index/8/7/a/5/d/87a5dffe-54bc-466e-9579-10bd2f02476b.scenario.json",
     "sourceLine": 1,
     "parent": "ior:instance:a7a3aa7d-9902-47aa-bc61-043335b7d402",
     "unitLinks": [],
     "orphanByDesign": true,
-    "orphanRationale": "No code found in source \u2014 legacy migration/one-shot/future feature"
+    "orphanRationale": "No code found in source — legacy migration/one-shot/future feature",
+    "tests": []
   },
   "ownerIor": "ior:instance:a7a3aa7d-9902-47aa-bc61-043335b7d402"
 }

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "244bbbd2-8114-4a35-8e6b-ba2713887df5",
+    "name": "TraceRouter.typeDispatch",
+    "sourceFile": "ior:file:src/public/ts/trace/TraceRouter.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

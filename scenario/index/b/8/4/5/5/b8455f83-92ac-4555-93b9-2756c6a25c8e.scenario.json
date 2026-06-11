@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b8455f83-92ac-4555-93b9-2756c6a25c8e",
+    "name": "Migration.removeLegacy",
+    "sourceFile": "ior:file:src/ts/server/migration.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

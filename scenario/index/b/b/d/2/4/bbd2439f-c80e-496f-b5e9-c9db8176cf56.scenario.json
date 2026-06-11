@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "bbd2439f-c80e-496f-b5e9-c9db8176cf56",
+    "name": "test:ServiceWorker.flushAndReload",
+    "description": "3 tests: OFFLINE_HTML flush button present, flushCache deletes caches+unregisters SW, impl:uuid:79505a42 marker in sw.js.",
+    "sourceFile": "ior:file:test/vitest/flush-cache.test.ts",
+    "implementations": [
+      "ior:instance:79505a42-6591-4fdb-a967-2767b7df4518"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:79505a42-6591-4fdb-a967-2767b7df4518"
+}

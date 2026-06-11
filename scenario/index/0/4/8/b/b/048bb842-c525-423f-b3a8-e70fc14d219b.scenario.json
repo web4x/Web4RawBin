@@ -3,10 +3,12 @@
   "model": {
     "uuid": "048bb842-c525-423f-b3a8-e70fc14d219b",
     "name": "RbDetailDrawer.browseFileLine",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:b58645af-6717-498f-a540-318d53ffae09"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
 }

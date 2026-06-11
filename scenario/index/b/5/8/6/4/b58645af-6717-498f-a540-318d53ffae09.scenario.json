@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b58645af-6717-498f-a540-318d53ffae09",
+    "name": "RbDetailDrawer.browseFileLine",
+    "sourceFile": "ior:file:src/ts/server/rb-detail-drawer.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

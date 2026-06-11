@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "32578dc6-58bb-4ce1-94be-2a78a142e139",
+    "name": "RbRoomContent.mountTraceTree",
+    "sourceFile": "ior:file:src/ts/server/rb-room-content.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

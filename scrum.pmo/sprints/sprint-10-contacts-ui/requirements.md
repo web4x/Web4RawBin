@@ -10,14 +10,14 @@ each requirement has a `[requirement:uuid]` and a forward link to its task.
 
 - [ ] R10.1 — Tapping a joined room member (name, avatar, or status dot) opens their
   read-only profile sheet with a downloadable vCard.
-  [requirement:uuid:10a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f40]
+  [requirement:uuid:99897fb4-6876-4047-9849-bbdaa840e110]
   > Tron: "clicking a joined user in a room does nothing — I want their profile/vCard."
   → [T81](./task-81-member-click-vcard.md)
 
 - [ ] R10.2 — In the opened profile sheet, the "Download vCard" button is visible
   (readable contrast on the white sheet) and the sheet's avatar uses the shared
   `rb-avatar` component (no duplicated inline `<img>`).
-  [requirement:uuid:20b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a51]
+  [requirement:uuid:b252bd78-7ee5-4ccf-8c74-818d1c6e6b4a]
   > Tron (iPhone test): "vCard button is missing; the picture isn't the avatar component."
   → [T82](./task-82-vcard-visibility-avatar-dry.md)
 

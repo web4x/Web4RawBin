@@ -8,7 +8,7 @@
     "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [x] testing (tester — run trace-routing.test.ts, jsdom) — trace-routing 11/11 PASS, 1d9d4fd\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:25b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02](./requirements.md) — R15.2 Object.verb model\n  - [Sprint 15 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R15.2 in [requirements.md](./requirements.md)\n  - **use case:** object.verb routing — diagrams/object-verb-usecases.puml\n  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)\n  - **class/method:** Object.verb router; flat-JSON serializer; MVC view registry",
+    "traceability": "- up\n  - [requirement:uuid:38f80708-d191-47bd-ada4-a710c5f1e6ed](./requirements.md) — R15.2 Object.verb model\n  - [Sprint 15 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R15.2 in [requirements.md](./requirements.md)\n  - **use case:** object.verb routing — diagrams/object-verb-usecases.puml\n  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)\n  - **class/method:** Object.verb router; flat-JSON serializer; MVC view registry",
     "context": "",
     "intention": "",
     "role": "",
@@ -37,7 +37,7 @@
     ],
     "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
     "coveredRequirements": [
-      "ior:instance:25b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02"
+      "ior:instance:38f80708-d191-47bd-ada4-a710c5f1e6ed"
     ]
   },
   "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"

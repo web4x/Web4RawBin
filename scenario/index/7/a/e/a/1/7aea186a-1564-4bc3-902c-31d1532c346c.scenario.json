@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7aea186a-1564-4bc3-902c-31d1532c346c",
+    "name": "FileUnit.linkToRoom",
+    "sourceFile": "ior:file:src/ts/server/file-unit.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

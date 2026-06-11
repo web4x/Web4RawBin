@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5a802d49-7c12-435e-b5dd-a875f8564f05",
+    "name": "FileApi.highlightFile",
+    "sourceFile": "ior:file:src/ts/server/FileApi.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

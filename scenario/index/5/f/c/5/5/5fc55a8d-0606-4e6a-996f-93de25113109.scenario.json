@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5fc55a8d-0606-4e6a-996f-93de25113109",
+    "name": "Migration.verifyIntegrity",
+    "sourceFile": "ior:file:src/ts/server/migration.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

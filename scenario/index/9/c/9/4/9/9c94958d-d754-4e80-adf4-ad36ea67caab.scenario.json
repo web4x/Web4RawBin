@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "9c94958d-d754-4e80-adf4-ad36ea67caab",
+    "name": "Room.backfillFiles",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

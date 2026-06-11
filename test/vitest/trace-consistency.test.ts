@@ -16,7 +16,7 @@ import {
   type TaskCoverage,
 } from '../../src/ts/server/TraceConsistency.js';
 
-const RU = '15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01';
+const RU = '05284ac5-131a-4e10-a2f7-7215e026e438';
 const TU = '101a0b1c-2d3e-4f50-8617-a01010101101';
 
 function cov(over: Partial<TaskCoverage> = {}): TaskCoverage {

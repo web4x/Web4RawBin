@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f7c4df8d-a6ee-4b70-b30b-5e6cfbcdd98d",
+    "name": "Assets.rebrand",
+    "sourceFile": "ior:file:scenario/index/8/1/9/a/a/819aacf9-323d-4d38-9b08-d5f0ec11de76.scenario.json",
+    "tests": []
+  },
+  "ownerIor": null
+}

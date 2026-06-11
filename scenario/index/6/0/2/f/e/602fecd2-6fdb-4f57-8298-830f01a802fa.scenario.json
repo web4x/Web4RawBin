@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "602fecd2-6fdb-4f57-8298-830f01a802fa",
+    "name": "RbRoomContent.folderNodeRender",
+    "sourceFile": "ior:file:src/ts/server/rb-room-content.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

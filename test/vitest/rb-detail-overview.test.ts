@@ -16,7 +16,7 @@ import { setActiveRouter } from '../../src/public/ts/trace/nav.js';
 if (!customElements.get('rb-detail-view')) customElements.define('rb-detail-view', RbDetailView);
 if (!customElements.get('rb-overview')) customElements.define('rb-overview', RbOverview);
 
-const RU = '15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01';
+const RU = '05284ac5-131a-4e10-a2f7-7215e026e438';
 const T1 = '101a0b1c-2d3e-4f50-8617-a01010101101';
 const T2 = '22a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f02';
 

@@ -3,10 +3,12 @@
   "model": {
     "uuid": "bb32bd3d-5404-41fe-9b92-c600a406cb81",
     "name": "Migration.removeLegacy",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:b8455f83-92ac-4555-93b9-2756c6a25c8e"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
 }

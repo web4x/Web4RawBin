@@ -6,11 +6,14 @@
     "className": "RbRoomContent",
     "methodName": "render",
     "sourceFile": "ior:file:src/public/ts/room/rb-room-content.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:e289349c-ba8d-4182-9288-9bbd7ac3ed56"
+    ],
     "parent": "ior:instance:792246f1-346e-4337-9619-b38d8641769f",
     "unitLinks": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented).",
+    "tests": []
   },
   "ownerIor": "ior:instance:792246f1-346e-4337-9619-b38d8641769f"
 }

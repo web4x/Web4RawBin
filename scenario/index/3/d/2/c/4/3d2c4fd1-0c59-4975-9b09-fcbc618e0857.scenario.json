@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "3d2c4fd1-0c59-4975-9b09-fcbc618e0857",
+    "name": "room.editCanonical",
+    "class": "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431",
+    "method": "ior:instance:d9c83e7b-254e-49d2-8e6b-f3d7f683405b",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": [
+      "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431"
+    ]
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

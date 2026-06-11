@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "05284ac5-131a-4e10-a2f7-7215e026e438",
+    "name": "R15.2 \u2014 Object.verb model: Object=noun/class; verb=method...",
+    "description": "> R1 (literal): typed classes for Requirement/Test/Implementation with UUIDs; \"tracabilytimatrix consistency and fix\".",
+    "tronQuote": "> R1 (literal): typed classes for Requirement/Test/Implementation with UUIDs; \"tracabilytimatrix consistency and fix\".",
+    "tasks": [
+      "ior:instance:101a0b1c-2d3e-4f50-8617-a01010101101"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-15-traceability-browser/requirements.md",
+    "sourceLine": 18,
+    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:f5abd427-4a1d-4824-ae65-9038de6031d3"
+    ]
+  },
+  "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
+}

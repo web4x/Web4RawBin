@@ -8,7 +8,7 @@
     "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [ ] testing (tester — T98 verify)\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:14a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01](./requirements.md) — R14.1 migrate legacy rooms\n  - [Sprint 14 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R14.1 in [requirements.md](./requirements.md)\n  - **use case:** migrate-rooms workflow (architect — diagrams/migration-workflow.puml)\n  - **puml:** [diagrams/migration-workflow.puml](./diagrams/migration-workflow.puml) (pending architect)\n  - **class/method:** server.ts roomManager.loadFromDisk / scanAllRooms; Room.fromPersisted\n- context\n  - T93 root cause (27ef9c6): legacy data/rooms shadows per-user scan at startup",
+    "traceability": "- up\n  - [requirement:uuid:91d85d5a-64d3-4520-a9fc-f2e24110b07b](./requirements.md) — R14.1 migrate legacy rooms\n  - [Sprint 14 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R14.1 in [requirements.md](./requirements.md)\n  - **use case:** migrate-rooms workflow (architect — diagrams/migration-workflow.puml)\n  - **puml:** [diagrams/migration-workflow.puml](./diagrams/migration-workflow.puml) (pending architect)\n  - **class/method:** server.ts roomManager.loadFromDisk / scanAllRooms; Room.fromPersisted\n- context\n  - T93 root cause (27ef9c6): legacy data/rooms shadows per-user scan at startup",
     "context": "",
     "intention": "",
     "role": "",
@@ -37,7 +37,7 @@
     ],
     "parent": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297",
     "coveredRequirements": [
-      "ior:instance:14a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01"
+      "ior:instance:91d85d5a-64d3-4520-a9fc-f2e24110b07b"
     ]
   },
   "ownerIor": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"

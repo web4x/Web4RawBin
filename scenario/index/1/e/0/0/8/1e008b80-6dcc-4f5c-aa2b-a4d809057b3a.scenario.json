@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "1e008b80-6dcc-4f5c-aa2b-a4d809057b3a",
+    "name": "RbTraceTree.cycleOmit",
+    "sourceFile": "ior:file:src/ts/server/rb-trace-tree.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

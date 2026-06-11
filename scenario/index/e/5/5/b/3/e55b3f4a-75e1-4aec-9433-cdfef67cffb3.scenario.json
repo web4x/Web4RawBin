@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e55b3f4a-75e1-4aec-9433-cdfef67cffb3",
+    "name": "RbRoomContent.linkResolve",
+    "implementations": [
+      "ior:instance:71c283ff-5dee-4df5-be05-6fc5b743aa8a"
+    ],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+  },
+  "ownerIor": "ior:instance:792246f1-346e-4337-9619-b38d8641769f"
+}

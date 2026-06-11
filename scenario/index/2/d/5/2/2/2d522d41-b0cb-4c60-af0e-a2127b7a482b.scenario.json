@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "2d522d41-b0cb-4c60-af0e-a2127b7a482b",
+    "name": "Tree item generates speaky name",
+    "altId": "R16.6",
+    "description": "Each tree item generates a human-readable speaky name from its model data if one is absent, with word-wrap display.",
+    "tronQuote": "> TRON (via R15.4 refinement): \"defaultItemView for lists, similar to lobby room entry\" \u2014 speaky name generation per architect design.",
+    "tasks": [
+      "ior:instance:6d2225b7-d96b-4452-8719-b3667b344816"
+    ],
+    "tests": [],
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:16a01121-d121-4a01-b121-000000112001",
+      "ior:instance:16a01122-d122-4a02-b122-000000112002"
+    ]
+  },
+  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
+}

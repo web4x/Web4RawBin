@@ -3,10 +3,12 @@
   "model": {
     "uuid": "b53de34c-56ab-405d-b026-f4ad39753910",
     "name": "Migration.verifyIntegrity",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:5fc55a8d-0606-4e6a-996f-93de25113109"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
 }

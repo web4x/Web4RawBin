@@ -8,7 +8,7 @@
     "status": "Planned",
     "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
     "remainingIssues": "",
-    "traceability": "`[task:uuid:e7cb6434-97a2-4752-8d63-f8bea13646b6]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - **requirement:** `[requirement:uuid:20be0ac2-3a4b-41ef-b744-72354c90d62f]` —\n    \"DetailsView (the drawer's typed views) must have a black background.\"\n    (Tron directive 2026-05-29; req-eng to capture the literal verbatim quote\n    in this slot.)\n- down\n  - None (atomic task)\n- follows\n  - [T110: DetailViewContainer](./task-110-detailview-container.md) — drawer\n  - [T111: Specialized DetailViews](./task-111-detail-views.md) — typed views inside the drawer\n- chain (req → usecase → puml → class/method)\n  - **requirement:** r120-detailsview-black-bg (Tron 2026-05-29)\n  - **use case:** existing UC `detailDrawer.open` / `detailDrawer.close` (T110) and the per-type `rb-*-detail` render UCs (T111); T120 changes the rendered surface, not the lifecycle\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (no PUML change required — surface-only)\n  - **class/method:** `src/public/app.css` (`rb-detail-drawer` background + `.dv-*` typography color) and/or `src/public/ts/trace/rb-detail-drawer.ts` (if scope requires an attribute / theme hook)",
+    "traceability": "`[task:uuid:e7cb6434-97a2-4752-8d63-f8bea13646b6]`\n\n- up\n  - [Sprint 16 Planning](./planning.md)\n  - **requirement:** `[requirement:uuid:9186094e-0711-4859-b245-95cb514acfb2]` —\n    \"DetailsView (the drawer's typed views) must have a black background.\"\n    (Tron directive 2026-05-29; req-eng to capture the literal verbatim quote\n    in this slot.)\n- down\n  - None (atomic task)\n- follows\n  - [T110: DetailViewContainer](./task-110-detailview-container.md) — drawer\n  - [T111: Specialized DetailViews](./task-111-detail-views.md) — typed views inside the drawer\n- chain (req → usecase → puml → class/method)\n  - **requirement:** r120-detailsview-black-bg (Tron 2026-05-29)\n  - **use case:** existing UC `detailDrawer.open` / `detailDrawer.close` (T110) and the per-type `rb-*-detail` render UCs (T111); T120 changes the rendered surface, not the lifecycle\n  - **puml:** [diagrams/s16-usecases.puml](./diagrams/s16-usecases.puml) (no PUML change required — surface-only)\n  - **class/method:** `src/public/app.css` (`rb-detail-drawer` background + `.dv-*` typography color) and/or `src/public/ts/trace/rb-detail-drawer.ts` (if scope requires an attribute / theme hook)",
     "context": "Surface-level UI change to the drawer + DetailViews shipped in S16 Phase 1\n(T110 + T111). Tron iteration after using the live `/trace` browser on device.",
     "intention": "",
     "role": "",
@@ -34,7 +34,7 @@
     ],
     "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
     "coveredRequirements": [
-      "ior:instance:20be0ac2-3a4b-41ef-b744-72354c90d62f"
+      "ior:instance:9186094e-0711-4859-b245-95cb514acfb2"
     ]
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"

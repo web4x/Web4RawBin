@@ -5,12 +5,15 @@
     "name": "FileBrowser.symlinkSupport",
     "className": "FileBrowser",
     "methodName": "symlinkSupport",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:64fa793d-53ab-4ae4-81ff-64e917c295a2"
+    ],
     "implementation": "ior:instance:092a6e33-9f6f-409c-9c3a-8f7d3dc455d3",
     "sourceFile": "ior:file:scenario/index/c/6/c/e/5/c6ce5d1e-ab54-41b8-814d-01909df7071f.scenario.json",
     "sourceLine": 1,
     "parent": "ior:instance:609204de-0743-43c7-a2c7-08e8abcbdf78",
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": []
   },
   "ownerIor": "ior:instance:609204de-0743-43c7-a2c7-08e8abcbdf78"
 }

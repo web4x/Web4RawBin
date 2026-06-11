@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "bebc0b1d-d3c8-4b5b-aa95-dc3a94132f44",
+    "name": "SkillExpert.coSpecify",
+    "sourceFile": "ior:file:src/ts/server/skill-expert.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

@@ -3,10 +3,12 @@
   "model": {
     "uuid": "8e96674f-a194-4e3c-8d6f-0a005bcb4fc4",
     "name": "RbTraceTree.cycleOmit",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:1e008b80-6dcc-4f5c-aa2b-a4d809057b3a"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
 }

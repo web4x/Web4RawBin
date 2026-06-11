@@ -1,7 +1,7 @@
 /**
  * R19.52 Full-width drawer + R19.33 Sticky close X
  * [test:uuid:a7e34f12-8b5c-4d9e-a1f2-3c4d5e6f7a89] R19.52 detailDrawer.fullWidth
- * [test:uuid:c9f56d34-7a8b-4e1f-b2c3-4d5e6f7a8b90] R19.33 stickyClose pinned X
+ * [test:uuid:e59ff205-2a3f-4f4b-8e47-f5e7836d1646] R19.33 stickyClose pinned X
  */
 import { describe, it, expect } from 'vitest';
 import fsSync from 'node:fs';

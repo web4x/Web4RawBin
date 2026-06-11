@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "12571155-110d-4d6f-91ab-5913ec94219b",
+    "name": "ScenarioUnit.load(json): this",
+    "sourceFile": "ior:file:src/ts/scenario/types.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b05fcdf3-0d44-4d7d-bee2-b5edc55daa3a",
+    "name": "DropDispatcher.urlDrop",
+    "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

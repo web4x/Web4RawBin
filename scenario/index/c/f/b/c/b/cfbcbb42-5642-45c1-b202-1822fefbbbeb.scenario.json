@@ -3,10 +3,12 @@
   "model": {
     "uuid": "cfbcbb42-5642-45c1-b202-1822fefbbbeb",
     "name": "RbClassDetail.renderAll",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:ac1f9cfc-2fd2-423d-a48a-d1b28b656800"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5"
 }

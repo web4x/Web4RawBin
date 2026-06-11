@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "64fa793d-53ab-4ae4-81ff-64e917c295a2",
+    "name": "FileBrowser.symlinkSupport",
+    "sourceFile": "ior:file:scenario/index/6/0/9/2/0/609204de-0743-43c7-a2c7-08e8abcbdf78.scenario.json",
+    "tests": []
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "d9c83e7b-254e-49d2-8e6b-f3d7f683405b",
+    "name": "RbRoomDetail.editCanonical",
+    "implementations": [
+      "ior:instance:2a29b3da-c0a5-4f32-b172-af8dafaa147a"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431"
+}

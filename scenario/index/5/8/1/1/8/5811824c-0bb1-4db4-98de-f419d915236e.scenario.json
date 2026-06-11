@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5811824c-0bb1-4db4-98de-f419d915236e",
+    "name": "Room.acceptApply",
+    "sourceFile": "ior:file:src/ts/server/room.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

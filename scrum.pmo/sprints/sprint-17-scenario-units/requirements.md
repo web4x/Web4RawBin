@@ -193,7 +193,7 @@
 ### From T167 (R-D: mobile-first + width-cap)
 
 - [ ] **R17.30: The /trace layout uses mobile-first responsive design.**
-  [requirement:uuid:a30b41c5-d6e7-4f89-0a1b-2c3d4e5f6730]
+  [requirement:uuid:102241ef-0c2c-4c6c-bc7b-c9e46b4a7b1c]
   → [T167](./task-167-trace-mobile-first-layout-width-cap.md)
 
 - [ ] **R17.31: The right detail pane has a hard max-width equal to the current window size.**
@@ -203,7 +203,7 @@
 ### From T168 (R-E: chain order + roots)
 
 - [ ] **R17.32: The traceability chain starts with atomic requirements as roots.**
-  [requirement:uuid:c52d63e7-f8a9-4b01-2c3d-4e5f6f780032]
+  [requirement:uuid:5571ea1c-dc6e-4831-8085-e1c5d14d1d8e]
   → [T168](./task-168-chain-order-7-step-requirements-as-roots.md)
 
 - [ ] **R17.33: The chain order is requirement → task → usecase(s) → class → method → implementation → test(s).**
@@ -239,7 +239,7 @@
   → [T170](./task-170-diligent-plan-no-stop-sustain.md)
 
 - [ ] **R17.40: A rule-pair CI gate enforces package.json + sw.js bumps in every user-facing commit.**
-  [requirement:uuid:e3af4ba5-b6c7-4d89-0e1f-2a3b4c560040]
+  [requirement:uuid:8534a8e5-8928-4df4-bb06-1d1bb9f66a37]
   → [T170](./task-170-diligent-plan-no-stop-sustain.md)
 
 - [ ] **R17.41: A chain-order CI gate validates the 7-step canonical chain on every commit.**
@@ -257,17 +257,17 @@
   → [T171](./task-171-untraced-closure-link-50-r1726-link-back.md)
 
 - [ ] **R17.44: R17.26 links forward to its implementing tasks T165 and T166.**
-  [requirement:uuid:c7ed8fe9-f0a1-4b23-4c5d-6e7f8a900044]
+  [requirement:uuid:24ae6d41-2165-40cd-8b4a-483e860f8923]
   → [T171](./task-171-untraced-closure-link-50-r1726-link-back.md)
 
 ### From T172 (R-H: direction enforcement + data fill)
 
 - [ ] **R17.45: Every link in the scenario index traverses the canonical chain in the forward direction only.**
-  [requirement:uuid:d8fe90a1-a1b2-4c34-5d6e-7f8a9b010045]
+  [requirement:uuid:f17b1887-07f8-4b74-8112-8fa08308afee]
   → [T172](./task-172-chain-direction-enforcement-missing-data-fill.md)
 
 - [ ] **R17.46: Missing traceability data is filled consistently by req-eng and architect.**
-  [requirement:uuid:e9a0f1b2-b2c3-4d45-6e7f-8a9b0c120046]
+  [requirement:uuid:c0328d86-d7c3-428d-885e-c382b9382674]
   → [T172](./task-172-chain-direction-enforcement-missing-data-fill.md)
 
 ### From Tron R-J (test reachability)

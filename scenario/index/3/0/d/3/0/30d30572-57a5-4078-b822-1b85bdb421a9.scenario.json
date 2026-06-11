@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "30d30572-57a5-4078-b822-1b85bdb421a9",
+    "name": "SpeakingTree.extendClasses",
+    "sourceFile": "ior:file:src/ts/server/speaking-tree.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

@@ -5,7 +5,9 @@
     "name": "Room.backfillFiles",
     "description": "Script: walk scenario/index, find all ior:class:File with model.roomUuid. Group by roomUuid. For each room: load Room scenario unit, set model.files[] = IOR refs of all File units for that room, write. Run once after deploy.",
     "sourceFile": "ior:file:scripts/backfill-room-files.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:9c94958d-d754-4e80-adf4-ad36ea67caab"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"

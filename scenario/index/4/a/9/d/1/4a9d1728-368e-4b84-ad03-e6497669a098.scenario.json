@@ -16,7 +16,7 @@
     "siblingOf": "ior:instance:f1ca3cc9-a675-4a3b-9898-9e33d7876ed8",
     "siblingNote": "Atomic split from R19.14 per R-I. R19.14 covers content+scenario storage; R19.20 isolates the unitLinks[] symlink-tree requirement for independent test.",
     "useCases": [
-      "ior:instance:7d8e9f00-1a2b-4c3d-8e5f-6a7b8c9d0e1f"
+      "ior:instance:e253fec9-6100-4694-9e32-0a734685eecb"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "97f2cf22-a595-455c-88a8-f38d37a893f7",
+    "name": "RbDetailDrawer.setBackground",
+    "sourceFile": "ior:file:src/ts/server/rb-detail-drawer.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

@@ -6,10 +6,10 @@
     "sourceFile": "src/public/sw.js",
     "sourceLine": 62,
     "methods": [
-      "ior:instance:5d6e7f8a-9b0c-4d1e-2f3a-4b5c6d7e8f9a"
+      "ior:instance:0aea0992-334e-473f-948e-afd426574a68"
     ],
     "testException": true,
     "testExceptionNote": "sw.js runs in ServiceWorker context, not unit-testable"
   },
-  "ownerIor": "ior:instance:5d6e7f8a-9b0c-4d1e-2f3a-4b5c6d7e8f9a"
+  "ownerIor": "ior:instance:0aea0992-334e-473f-948e-afd426574a68"
 }

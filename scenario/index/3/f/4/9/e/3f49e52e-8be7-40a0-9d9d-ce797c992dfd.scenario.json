@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "3f49e52e-8be7-40a0-9d9d-ce797c992dfd",
+    "name": "sw.ignoreSearchNav",
+    "class": "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133",
+    "method": "ior:instance:0aea0992-334e-473f-948e-afd426574a68",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": [
+      "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133"
+    ]
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

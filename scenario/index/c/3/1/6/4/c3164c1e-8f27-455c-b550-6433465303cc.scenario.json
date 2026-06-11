@@ -4,7 +4,9 @@
     "uuid": "c3164c1e-8f27-455c-b550-6433465303cc",
     "name": "RbDetailDrawer.byTypeRender",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:301da3f0-2a47-450a-aa19-408a8a4bad0f"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"

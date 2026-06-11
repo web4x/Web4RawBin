@@ -3,9 +3,11 @@
   "model": {
     "uuid": "9b45ad1a-1859-4778-83c4-f0eae462281d",
     "name": "TraceRouter.typeDispatch",
-    "description": "Fix scenario-view.ts:59: instead of graph.get(ior)?.type defaulting to 'task', fetch /api/trace/children/<uuid> which returns the real type (Room, User, etc). viewRegistry adds Room/User/Device/File/Message/Skill handlers \u2192 rb-detail-view (generic). DETAIL_TAG map extended with new types.",
+    "description": "Fix scenario-view.ts:59: instead of graph.get(ior)?.type defaulting to 'task', fetch /api/trace/children/<uuid> which returns the real type (Room, User, etc). viewRegistry adds Room/User/Device/File/Message/Skill handlers → rb-detail-view (generic). DETAIL_TAG map extended with new types.",
     "sourceFile": "ior:file:src/public/ts/scenario-view.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:244bbbd2-8114-4a35-8e6b-ba2713887df5"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:740385cb-ce33-4216-a857-a5b63d35abb5"

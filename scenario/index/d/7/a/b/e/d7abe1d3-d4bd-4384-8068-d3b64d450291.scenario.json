@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d7abe1d3-d4bd-4384-8068-d3b64d450291",
+    "name": "MigrateToScenario.convertLegacy",
+    "sourceFile": "ior:file:scripts/migrate-to-scenario.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

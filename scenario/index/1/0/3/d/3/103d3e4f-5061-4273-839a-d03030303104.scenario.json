@@ -8,7 +8,7 @@
     "methods": [],
     "status": "PASS",
     "verifies": [
-      "ior:instance:25b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02"
+      "ior:instance:38f80708-d191-47bd-ada4-a710c5f1e6ed"
     ],
     "sourceFile": "ior:file:test/vitest/trace-routing.test.ts",
     "sourceLine": 6,

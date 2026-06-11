@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "0aea0992-334e-473f-948e-afd426574a68",
+    "name": "ServiceWorker.ignoreSearchNav",
+    "implementations": [
+      "ior:instance:cec00d7f-9258-4ac1-8c35-3e45dce8a5a9"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133"
+}

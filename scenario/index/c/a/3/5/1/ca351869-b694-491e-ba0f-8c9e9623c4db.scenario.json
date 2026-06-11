@@ -19,7 +19,7 @@
     ],
     "crossRefNote": "R19.2.A (pencil opens room editor) specifies the intent; R19.22 (per-user room.json is symlink to canonical unit) specifies the filesystem invariant. R19.30 is the bug: the edit pen currently resolves the per-user path (empty/missing) instead of following the symlink or pointing at the canonical unit directly.",
     "useCases": [
-      "ior:instance:0e1f2a3b-4c5d-4e6f-7a8b-9c0d1e2f3a4b"
+      "ior:instance:3d2c4fd1-0c59-4975-9b09-fcbc618e0857"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"

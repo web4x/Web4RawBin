@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "102241ef-0c2c-4c6c-bc7b-c9e46b4a7b1c",
+    "name": "R17.31: The right detail pane has a hard max-width equal ...",
+    "description": "[requirement:uuid:102241ef-0c2c-4c6c-bc7b-c9e46b4a7b1c]\n  \u2192 [T167](./task-167-trace-mobile-first-layout-width-cap.md)\n\n- [ ] **R17.31: The right detail pane has a hard max-width equal to the current window size.**",
+    "tronQuote": "> Derived from Tron S17 compound directive. Requirement text is the atomic decomposition.",
+    "tasks": [
+      "ior:instance:d0881ad6-ade5-4d60-94a2-fbe5347fd4b6"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
+    "sourceLine": 196,
+    "unitLinks": [
+      "sprints.json/sprint-17-scenario-units/requirement/r17-31-the-right-detail-pane-has-a-hard-max-width-equal.json"
+    ],
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "useCases": [
+      "ior:instance:ebfed7a9-c047-4961-85c0-ec29d808a7cd"
+    ]
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

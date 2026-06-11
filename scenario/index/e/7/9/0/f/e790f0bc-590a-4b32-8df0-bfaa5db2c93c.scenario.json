@@ -18,7 +18,7 @@
     ],
     "crossRefNote": "R19.25 (child-count badge) depends on this prefetch strategy \u2014 the badge can only show a count if the sublayer is already loaded. R19.28 provides the data; R19.25 renders it.",
     "useCases": [
-      "ior:instance:6a7b8c9d-0e1f-4a2b-3c4d-5e6f7a8b9c0d"
+      "ior:instance:40a60fa9-912b-40d4-9ded-cf2b0f15cd88"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"

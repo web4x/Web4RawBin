@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6500d4d6-f328-4cac-9b21-977356f9b06c",
+    "name": "FileApi.lineParam",
+    "sourceFile": "ior:file:src/ts/server/FileApi.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

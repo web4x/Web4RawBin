@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "c0328d86-d7c3-428d-885e-c382b9382674",
+    "name": "R17.47: Every Test instance is reachable from a Requireme...",
+    "description": "[requirement:uuid:c0328d86-d7c3-428d-885e-c382b9382674]\n  \u2192 [T172](./task-172-chain-direction-enforcement-missing-data-fill.md)\n\n### From Tron R-J (test reachability)\n\n- [ ] **R17.47: Every Test instance is reachable from a Requirement root via the canonical tracking chain.**",
+    "tronQuote": "",
+    "tasks": [],
+    "tests": [],
+    "orphanByDesign": true,
+    "orphanReason": "Coverage rule \u2014 verified by champagne audit (every Test reachable from Req)",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
+    "sourceLine": 270,
+    "unitLinks": [
+      "sprints.json/sprint-17-scenario-units/requirement/r17-47-every-test-instance-is-reachable-from-a-requireme.json"
+    ],
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "orphanRationale": "Coverage rule \u2014 verified by champagne audit"
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

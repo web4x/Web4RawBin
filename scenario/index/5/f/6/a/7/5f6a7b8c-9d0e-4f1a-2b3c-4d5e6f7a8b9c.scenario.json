@@ -3,10 +3,12 @@
   "model": {
     "uuid": "5f6a7b8c-9d0e-4f1a-2b3c-4d5e6f7a8b9c",
     "name": "RbObjectItem.squareCollapse",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:f7b0c24a-6b0a-4548-9b0d-2b312c211fde"
+    ],
     "tests": [],
     "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
 }

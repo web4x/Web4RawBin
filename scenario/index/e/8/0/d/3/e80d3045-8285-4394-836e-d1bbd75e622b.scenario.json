@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e80d3045-8285-4394-836e-d1bbd75e622b",
+    "name": "FileBrowser.fixDisplay",
+    "sourceFile": "ior:file:scenario/index/e/4/c/9/c/e4c9c03c-37b3-4fc5-85f2-d34697d6aaa1.scenario.json",
+    "tests": []
+  },
+  "ownerIor": null
+}

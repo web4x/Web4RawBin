@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "9eac03a9-108a-4a85-b280-04fe9de6455f",
+    "name": "Room.validateScenarioShape",
+    "sourceFile": "ior:file:src/ts/server/room.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

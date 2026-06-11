@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b9fa3577-1479-40e1-8e63-88c07c979cce",
+    "name": "SpeakingTree.generateMd(sprint",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml",
+    "tests": []
+  },
+  "ownerIor": null
+}

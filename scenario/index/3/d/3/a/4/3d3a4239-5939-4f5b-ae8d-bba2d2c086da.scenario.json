@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "3d3a4239-5939-4f5b-ae8d-bba2d2c086da",
+    "name": "RbTraceTree.prefetchLayer",
+    "sourceFile": "ior:file:src/ts/server/rb-trace-tree.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}
