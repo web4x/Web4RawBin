@@ -6,7 +6,9 @@
     "name": "R19.45: Offline page has a red Flush PWA Cache button next to Retry.",
     "description": "The offline page ('You're Offline / Retry') MUST display a RED 'Flush PWA Cache' button next to the existing Retry button. Clicking it clears ALL service-worker caches (caches.keys() \u2192 caches.delete() for each) AND unregisters then re-registers the service worker, recovering from stale-cache offline state where the SW serves cached 404s or outdated bundles. After flush, the page auto-reloads to attempt a fresh network fetch.",
     "tronQuote": "> TRON: \"continue to get [offline page] \u2014 not in the pwa but in the browser. add next to retry a red flush pwa cache button.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:19f98828-9749-49b3-b3b8-b71ccfeb93e2"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "19f98828-9749-49b3-b3b8-b71ccfeb93e2",
+    "name": "T-flush-cache-button: offline page red Flush PWA Cache button next to Retry",
+    "slug": "flush-pwa-cache-button-offline-page",
+    "description": "Offline page has a red Flush PWA Cache button next to Retry (architect already chained UC d8872aa3). Covers R19.45.",
+    "status": "Planned",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert rule-pair a+b\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:9b468b6d-37e8-4f4e-879c-dea228b747c5"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
