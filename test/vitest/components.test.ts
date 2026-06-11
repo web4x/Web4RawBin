@@ -459,7 +459,7 @@ describe('TC-41.6: Existing dialogs share overlay pattern', () => {
   ];
 
   for (const dialog of dialogs) {
-    const filePath = path.join(PROJECT_ROOT, dialog.file);
+    const filePath = nodePath.join(PROJECT_ROOT, dialog.file);
     if (!existsSync(filePath)) continue;
     const content = readFileSync(filePath, 'utf-8');
 
@@ -887,7 +887,7 @@ describe('TC-44.1: Server pages include rb-update-banner', () => {
   const { readFileSync } = require('node:fs');
   const nodePath = require("node:path");
   const PROJECT_ROOT = nodePath.resolve(__dirname, '../../');
-  const serverTs = readFileSync(path.join(PROJECT_ROOT, 'src/ts/server/server.ts'), 'utf-8');
+  const serverTs = readFileSync(nodePath.join(PROJECT_ROOT, 'src/ts/server/server.ts'), 'utf-8');
 
   it('server.ts has rb-update-banner tag in shared page shell', () => {
     expect(serverTs).toContain('rb-update-banner');
@@ -906,7 +906,7 @@ describe('TC-44.2: Server pages use app.css', () => {
   const { readFileSync } = require('node:fs');
   const nodePath = require("node:path");
   const PROJECT_ROOT = nodePath.resolve(__dirname, '../../');
-  const serverTs = readFileSync(path.join(PROJECT_ROOT, 'src/ts/server/server.ts'), 'utf-8');
+  const serverTs = readFileSync(nodePath.join(PROJECT_ROOT, 'src/ts/server/server.ts'), 'utf-8');
 
   it('/docs pages use shared CSS (MD_CSS variable or app.css link)', () => {
     // Docs pages currently use MD_CSS inline styles — expert should link app.css
@@ -1068,7 +1068,7 @@ describe('TC-44.3: Lobby header safe-area not killed', () => {
   const { readFileSync } = require('node:fs');
   const nodePath = require("node:path");
   const PROJECT_ROOT = nodePath.resolve(__dirname, '../../');
-  const css = readFileSync(path.join(PROJECT_ROOT, 'src/public/app.css'), 'utf-8');
+  const css = readFileSync(nodePath.join(PROJECT_ROOT, 'src/public/app.css'), 'utf-8');
 
   it('rb-header base rule (not scoped) has safe-area-inset-top padding', () => {
     expect(css).toContain('env(safe-area-inset-top)');
