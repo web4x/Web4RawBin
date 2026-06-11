@@ -5,4 +5,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 SvgViewer.onPinchEnd touchend+touchcancel apply() flush](../implementation/svgviewer-onpinchend-touchend-touchcancel-apply-flush.md)
+- [🔗 094c18a4](/scenario?ior=094c18a4-77a7-4208-a6a7-6a049e4e332e)

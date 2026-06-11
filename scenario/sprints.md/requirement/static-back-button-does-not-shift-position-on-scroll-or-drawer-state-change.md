@@ -1,5 +1,11 @@
 ### Static back button does not shift position on scroll or drawer state change.
 
+<details><summary>Tron directive</summary>
+
+> Static back button does not shift position on scroll or drawer state change.
+
+</details>
+
 ## Traceability
 
 **Tasks:**

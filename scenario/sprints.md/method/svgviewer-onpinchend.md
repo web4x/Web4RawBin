@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 SvgViewer.onPinchEnd touchend+touchcancel apply() flush](../implementation/svgviewer-onpinchend-touchend-touchcancel-apply-flush.md)
+- [🔗 Logger.logAtLevel (split for SvgViewer.onPinchEnd)](../implementation/logger-logatlevel-split-for-svgviewer-onpinchend.md)

@@ -8,7 +8,7 @@
     "methods": [],
     "status": "PASS",
     "verifies": [
-      "ior:instance:35c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b03"
+      "ior:instance:501c2147-1a7f-4fc6-aafe-5c18f1c67f71"
     ],
     "sourceFile": "ior:file:test/vitest/rb-object-item.test.ts",
     "sourceLine": 6,

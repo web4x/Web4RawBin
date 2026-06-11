@@ -149,14 +149,14 @@
 ## Extension (PO-relayed, 2026-05-31)
 
 - [ ] **R17.25: Generated MD views show chain-link icon → symlink JSON source**
-  [requirement:uuid:7e4f8a2b-c3d5-4e6f-9a1b-2c3d4e5f6a25]
+  [requirement:uuid:3726f28b-66b1-44fc-b883-4000b3914596]
   > TRON: "in scenario/sprints.md/usecase/ <file>.md add a chain link symbol before the edit to link to the original ln file in scenario/sprints.json/…"
   → Task TBD (planner to stand up)
 
 ## Extension 4 (2026-05-31 — traceability is a TREE)
 
 - [ ] **R17.26: Traceability is a TREE, not a chain**
-  [requirement:uuid:a1e2f3d4-b5c6-4d7e-8f90-1a2b3c4d5e26]
+  [requirement:uuid:eca7cb3f-8346-4658-9e85-5c1e2453956b]
   > TRON: "thats basically good. but chain is actually a tree. each element should be a link. all are based on typed scenarios... sharpen that in the planning and rework the refined tasks"
   → Task TBD (planner to assign — rework all task Traceability sections)
 
@@ -197,7 +197,7 @@
   → [T167](./task-167-trace-mobile-first-layout-width-cap.md)
 
 - [ ] **R17.31: The right detail pane has a hard max-width equal to the current window size.**
-  [requirement:uuid:b41c52d6-e7f8-4a90-1b2c-3d4e5f677031]
+  [requirement:uuid:0f179ef0-a30b-4f35-80f4-a3b27d5f4ab1]
   → [T167](./task-167-trace-mobile-first-layout-width-cap.md)
 
 ### From T168 (R-E: chain order + roots)
@@ -215,13 +215,13 @@
   → [T168](./task-168-chain-order-7-step-requirements-as-roots.md)
 
 - [ ] **R17.35: One implementation can have multiple tests (1:N cardinality).**
-  [requirement:uuid:f85a96b0-c1d2-4e34-5f6a-7b8c9d010035]
+  [requirement:uuid:42b8519d-8ace-4c4f-9576-2665dd0712c5]
   → [T168](./task-168-chain-order-7-step-requirements-as-roots.md)
 
 ### From T169 (R-F: data quality — KEYSTONE)
 
 - [ ] **R17.36: Every scenario unit is reachable from a requirement root via the canonical chain.**
-  [requirement:uuid:a96b07c1-d2e3-4f45-6a7b-8c9d0e120036]
+  [requirement:uuid:a718fcd9-e07d-452c-acb2-ce2dd504c579]
   → [T169](./task-169-data-quality-audit-remigrate-complete-tree.md)
 
 - [ ] **R17.37: Zero backward-direction links exist in the traceability data.**
@@ -243,17 +243,17 @@
   → [T170](./task-170-diligent-plan-no-stop-sustain.md)
 
 - [ ] **R17.41: A chain-order CI gate validates the 7-step canonical chain on every commit.**
-  [requirement:uuid:f4ba5cb6-c7d8-4e90-1f2a-3b4c5d670041]
+  [requirement:uuid:2ee82738-250e-4e5a-a58b-31c9c800ba92]
   → [T170](./task-170-diligent-plan-no-stop-sustain.md)
 
 - [ ] **R17.42: The scrum master is re-activated for continuous monitoring.**
-  [requirement:uuid:a5cb6dc7-d8e9-4f01-2a3b-4c5d6e780042]
+  [requirement:uuid:8e451a90-2ed8-45eb-8b68-52cd0569abce]
   → [T170](./task-170-diligent-plan-no-stop-sustain.md)
 
 ### From T171 (untraced closure)
 
 - [ ] **R17.43: All 50 untraced scenario units are linked to a requirement root or explicitly marked orphan-by-design.**
-  [requirement:uuid:b6dc7ed8-e9f0-4a12-3b4c-5d6e7f890043]
+  [requirement:uuid:a246352a-c71c-4170-810d-73c49d9a458b]
   → [T171](./task-171-untraced-closure-link-50-r1726-link-back.md)
 
 - [ ] **R17.44: R17.26 links forward to its implementing tasks T165 and T166.**

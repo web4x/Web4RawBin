@@ -4,7 +4,7 @@
  *
  * [test:uuid:681e2949-181f-48cd-bcf6-f88b08887218] T191 champagne component tests
  * [verifies:uuid:45d4e5f6-a7b8-4c90-8d01-2e3f4a5b6c75] R15.5 ListOverview search
- * [verifies:uuid:65f6a7b8-c9d0-4e15-9bc6-4a5b6c7d8e06] R15.7 traceability browser
+ * [verifies:uuid:e412e965-bcdf-4d33-97df-65c00d14e9c2] R15.7 traceability browser
  * [verifies:uuid:9186094e-0711-4859-b245-95cb514acfb2] R16.1 DetailViewContainer
  * [verifies:uuid:1a8b7485-ca53-4d06-8a05-02cf40541981] R18.1 scenario browser methods
  * [verifies:uuid:37147d5d-bdb6-4011-a433-2af6b5ad68b4] R18.6 tree append expand

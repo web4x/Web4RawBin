@@ -18,5 +18,8 @@
 
 ## Traceability
 
+**Tasks:**
+- [🔗 T173: .scenario.json click → /trace tree + lazy-load (consolidates R-K1 + R-L; covers R-K2 + R-K3)](../task/task-173-file-browser-scenario-click-to-trace.md)
+
 **UseCases:**
 - [🔗 traceTree.lazyExpand](../usecase/tracetree-lazyexpand.md)

@@ -1,5 +1,5 @@
 # T102: Traceability Matrix Consistency + Fix Engine
-[task:uuid:102b1c2d-3e4f-4051-9728-b02020202102]
+[task:uuid:e06994e0-9ef1-4cf2-b24e-2d9bc70fa9c5]
 
 ## Status
 
@@ -21,7 +21,7 @@
 ## Traceability
 
 - up
-  - [requirement:uuid:15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01](./requirements.md) — R15.1 matrix consistency + fix
+  - [requirement:uuid:05284ac5-131a-4e10-a2f7-7215e026e438](./requirements.md) — R15.1 matrix consistency + fix
   - [Sprint 15 Planning](./planning.md)
   - Tron directive 2026-05-26
 - down

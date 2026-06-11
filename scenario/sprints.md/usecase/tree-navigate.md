@@ -10,5 +10,4 @@
 - [🔗 T127: File-browser ↔ traceability-browser navigation + IOR universal handler](../task/task-127-navigation.md)
 
 **Classes:**
-- [🔗 RbDetailDrawer](../class/rbdetaildrawer.md)
-- [🔗 RbObjectItem](../class/rbobjectitem.md)
+- [🔗 RbTraceTree](../class/rbtracetree.md)

@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 MdPreview.renderList impl](../implementation/mdpreview-renderlist-impl.md)
+- [🔗 MdPreview.renderList](../implementation/mdpreview-renderlist.md)

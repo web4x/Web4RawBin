@@ -1,8 +1,8 @@
 ### test:Room.persistAsSymlink
 
-**Status:** PASS · **File:** `test/vitest/room.test.ts`
+**Status:** pass · **File:** ``
 
 ## Traceability
 
 **Implementations:**
-- [🔗 impl:Room.persistAsSymlink](../implementation/impl-room-persistassymlink.md)
+- [🔗 Room.persistAsSymlink](../implementation/room-persistassymlink.md)

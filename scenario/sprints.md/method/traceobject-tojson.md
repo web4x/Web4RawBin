@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 TraceObject.toJSON impl](../implementation/traceobject-tojson-impl.md)
+- [🔗 TraceObject.parent (split for TraceObject.toJSON)](../implementation/traceobject-parent-split-for-traceobject-tojson.md)

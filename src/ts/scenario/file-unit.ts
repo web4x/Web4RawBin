@@ -47,7 +47,15 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): Scenar
   }
   // Atomic lock: writeFileSync with wx flag fails if file exists (race guard)
   try { fs.writeFileSync(lockPath, process.pid.toString(), { flag: 'wx' }); }
-  catch { /* another process won the race — re-check dedup */
+  catch {
+    // Check if lock holder is still alive (stale lock detection)
+    try {
+      const lockPid = parseInt(fs.readFileSync(lockPath, 'utf-8'));
+      if (lockPid && lockPid !== process.pid) {
+        try { process.kill(lockPid, 0); } catch { fs.unlinkSync(lockPath); /* stale — reclaim */ }
+      }
+    } catch {}
+    // Re-check dedup after potential stale reclaim
     try { const rp = fs.realpathSync(contentIndexPath); const ex = JSON.parse(fs.readFileSync(rp, 'utf-8')); if (ex.model?.uuid) return ex; } catch {}
   }
 

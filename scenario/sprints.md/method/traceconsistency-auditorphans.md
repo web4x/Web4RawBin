@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 TraceConsistency.auditOrphans impl](../implementation/traceconsistency-auditorphans-impl.md)
+- [🔗 TraceConsistency.auditOrphans](../implementation/traceconsistency-auditorphans.md)

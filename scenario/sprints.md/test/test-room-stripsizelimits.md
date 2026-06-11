@@ -5,4 +5,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 impl:Room.stripSizeLimits](../implementation/impl-room-stripsizelimits.md)
+- [🔗 c78255a7](/scenario?ior=c78255a7-244d-40b5-bfaa-ee27fd56c1df)

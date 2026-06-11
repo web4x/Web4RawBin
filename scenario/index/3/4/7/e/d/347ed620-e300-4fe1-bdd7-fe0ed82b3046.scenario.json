@@ -6,7 +6,7 @@
     "description": "Navigate traceability graph as expandable tree from requirement roots",
     "classes": [
       "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e",
-      "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
+      "ior:instance:46bc1d8e-298e-4822-a720-a9f67dab8746"
     ],
     "source": {
       "file": "src/public/ts/trace/rb-trace-tree.ts",

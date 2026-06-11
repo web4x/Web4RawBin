@@ -1,6 +1,6 @@
 ### test:Room.visibilityCheck
 
-**Status:** PASS · **File:** `test/vitest/room.test.ts`
+**Status:** pass · **File:** ``
 
 ## Traceability
 

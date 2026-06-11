@@ -2,7 +2,7 @@
   "ior": "ior:class:TraceLink",
   "model": {
     "uuid": "942dbaa5-da46-4da2-ab25-254cafc0de1a",
-    "from": "ior:instance:b41c52d6-e7f8-4a90-1b2c-3d4e5f677031",
+    "from": "ior:instance:0f179ef0-a30b-4f35-80f4-a3b27d5f4ab1",
     "to": "ior:instance:d0881ad6-ade5-4d60-94a2-fbe5347fd4b6",
     "fromType": "requirement",
     "toType": "task",

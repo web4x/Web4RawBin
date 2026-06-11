@@ -8,5 +8,8 @@
 
 ## Traceability
 
+**Tasks:**
+- [🔗 T-room-unit: Room IS a scenario unit + click-to-edit room editor](../task/room-unit-as-scenario-and-editor.md)
+
 **UseCases:**
 - [🔗 room.bootstrapAsUnit](../usecase/room-bootstrapasunit.md)

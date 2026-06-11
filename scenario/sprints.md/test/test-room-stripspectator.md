@@ -1,8 +1,8 @@
 ### test:Room.stripSpectator
 
-**Status:** PASS · **File:** `test/vitest/room.test.ts`
+**Status:** pass · **File:** ``
 
 ## Traceability
 
 **Implementations:**
-- [🔗 impl:Room.stripSpectator](../implementation/impl-room-stripspectator.md)
+- [🔗 Room.stripSpectator](../implementation/room-stripspectator.md)

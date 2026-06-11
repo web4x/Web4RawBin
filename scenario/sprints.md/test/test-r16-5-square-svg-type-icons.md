@@ -5,4 +5,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 R16.5 square SVG type icons](../implementation/r16-5-square-svg-type-icons.md)
+- [🔗 d1135c9f](/scenario?ior=d1135c9f-a037-4b24-e5d1-4c3b9f602e83)

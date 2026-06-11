@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 VCard.uploadOnboarding impl](../implementation/vcard-uploadonboarding-impl.md)
+- [🔗 T142 vCard parser](../implementation/t142-vcard-parser.md)

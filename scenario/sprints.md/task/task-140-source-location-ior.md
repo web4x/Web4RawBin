@@ -1,5 +1,5 @@
 # T140: Source-Location IOR for UC/Class/Method Scenario Units
-[task:uuid:8f3a2b4c-d5e6-4f70-a1b2-c3d4e5f60140]
+[task:uuid:5d028db6-c18f-410b-b83a-1d0136531f55]
 
 ## Status
 
@@ -15,7 +15,7 @@
 
 ## Traceability
 
-`[task:uuid:8f3a2b4c-d5e6-4f70-a1b2-c3d4e5f60140]`
+`[task:uuid:5d028db6-c18f-410b-b83a-1d0136531f55]`
 
 - up
   - [requirement:uuid:47a86209-e0bb-4142-a6ad-4fff94ff9921](./requirements.md) — R17.24: UC/Class/Method carries exact source location + git anchor

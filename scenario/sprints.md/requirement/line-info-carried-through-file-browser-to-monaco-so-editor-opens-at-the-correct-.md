@@ -10,6 +10,7 @@
 
 **Tasks:**
 - [🔗 T187: Trace narrowing — single-thread chain in /trace, full fan-out in /scenario](../task/task-187-trace-narrowing-single-thread-chain.md)
+- [🔗 T-detail-line-monaco: line info to Monaco editor at correct line](../task/detail-line-info-monaco-editor.md)
 
 **UseCases:**
 - [🔗 traceNarrow.classMethodScope](../usecase/tracenarrow-classmethodscope.md)

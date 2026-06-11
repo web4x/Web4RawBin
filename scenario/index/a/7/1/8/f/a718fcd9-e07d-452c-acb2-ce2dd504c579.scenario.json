@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "a718fcd9-e07d-452c-acb2-ce2dd504c579",
+    "name": "R17.37: Zero backward-direction links exist in the tracea...",
+    "description": "[requirement:uuid:a718fcd9-e07d-452c-acb2-ce2dd504c579]\n  → [T169](./task-169-data-quality-audit-remigrate-complete-tree.md)\n\n- [ ] **R17.37: Zero backward-direction links exist in the traceability data.**",
+    "tronQuote": "",
+    "tasks": [
+      "ior:instance:e43c24fe-a1d1-4d14-8e7a-55ea7edd616f"
+    ],
+    "tests": [],
+    "orphanByDesign": true,
+    "orphanReason": "Data rule — verified by strip-back-refs.ts (zero backward links)",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
+    "sourceLine": 224,
+    "unitLinks": [
+      "sprints.json/sprint-17-scenario-units/requirement/r17-37-zero-backward-direction-links-exist-in-the-tracea.json"
+    ],
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "orphanRationale": "Data rule — verified by strip-back-refs.ts"
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

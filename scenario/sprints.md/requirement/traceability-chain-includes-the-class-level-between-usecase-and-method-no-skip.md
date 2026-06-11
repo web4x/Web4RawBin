@@ -1,5 +1,11 @@
 ### Traceability chain includes the Class level between UseCase and Method — no skip.
 
+<details><summary>Tron directive</summary>
+
+> Traceability chain includes the Class level between UseCase and Method — no skip.
+
+</details>
+
 ## Traceability
 
 **Tasks:**

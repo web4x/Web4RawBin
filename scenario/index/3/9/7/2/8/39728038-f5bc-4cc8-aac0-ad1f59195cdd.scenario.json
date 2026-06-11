@@ -3,13 +3,13 @@
   "model": {
     "uuid": "39728038-f5bc-4cc8-aac0-ad1f59195cdd",
     "name": "traceTree.lazyExpand",
-    "class": "ior:instance:108b7283-94a5-46b7-898e-b08080808108",
+    "class": "ior:instance:46bc1d8e-298e-4822-a720-a9f67dab8746",
     "method": "ior:instance:aeb301b1-fa4f-4c65-9915-5271e7831ad5",
     "tasks": [],
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
+      "ior:instance:46bc1d8e-298e-4822-a720-a9f67dab8746"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"

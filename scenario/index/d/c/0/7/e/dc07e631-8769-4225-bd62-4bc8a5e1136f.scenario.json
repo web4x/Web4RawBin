@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "dc07e631-8769-4225-bd62-4bc8a5e1136f",
+    "name": "RbObjectItem.badgeRender",
+    "implementations": [
+      "ior:instance:bc638f97-00a4-4756-a2e7-d0d531b2927d"
+    ],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+  },
+  "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+}

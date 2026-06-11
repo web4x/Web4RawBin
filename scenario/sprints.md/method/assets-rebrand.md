@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 Assets.rebrand impl](../implementation/assets-rebrand-impl.md)
+- [🔗 Assets.rebrand](../implementation/assets-rebrand.md)

@@ -51,7 +51,7 @@ export class Chain {
       if (ent.name.startsWith('.')) continue;
       const full = path.join(dir, ent.name);
       if (ent.isDirectory()) out.push(...this.walkMd(full));
-      else if (ent.name.endsWith('.md')) out.push(full);
+      else if (ent.name.endsWith('.md') || ent.name.endsWith('.puml') || ent.name.endsWith('.svg')) out.push(full);
     }
     return out;
   }

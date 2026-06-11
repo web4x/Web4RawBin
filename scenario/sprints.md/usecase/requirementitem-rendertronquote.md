@@ -7,4 +7,4 @@
 ## Traceability
 
 **Classes:**
-- [🔗 RbObjectItem](../class/rbobjectitem.md)
+- [🔗 RbRequirementDetail](../class/rbrequirementdetail.md)

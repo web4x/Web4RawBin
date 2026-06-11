@@ -1,0 +1,15 @@
+### R19.64: Preview renders by content type — href in iframe, image as img, SVG in viewer.
+
+<details><summary>Tron directive</summary>
+
+> The file preview (R19.63) MUST render differently based on content type: href/url → an iframe loading the URL (the page renders inside the drawer); image (png/jpg/gif/webp) → an img element displaying the image; SVG → the existing SVG viewer (fullscreen-capable per R18.34). The preview dispatches by model.contentType or file extension. Each render mode is a handler in the generic previewer (R19.65).
+
+</details>
+
+## Traceability
+
+**Tasks:**
+- [🔗 T-preview-by-type: preview renders by content type (href iframe, image img, SVG)](../task/preview-renders-by-content-type.md)
+
+**UseCases:**
+- [🔗 detailView.byTypeRender](../usecase/detailview-bytyperender.md)

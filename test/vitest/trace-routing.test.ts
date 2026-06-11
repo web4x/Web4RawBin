@@ -18,7 +18,7 @@ import { RbTraceView } from '../../src/public/ts/trace/rb-trace-view.js';
 if (!customElements.get('rb-trace-view')) customElements.define('rb-trace-view', RbTraceView);
 
 const RU = '05284ac5-131a-4e10-a2f7-7215e026e438';
-const TU = '101a0b1c-2d3e-4f50-8617-a01010101101';
+const TU = '57a0c96c-ff48-4f3f-9859-291687e897a2';
 
 function seed(): TraceGraph {
   const g = new TraceGraph();

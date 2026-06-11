@@ -4,7 +4,7 @@
 
 # T106: ListOverview Component + Search → remoteSearch
 
-[task:uuid:106f5061-7283-4495-896c-f06060606106]
+[task:uuid:86617654-8510-443d-959d-343c94ab1ef0]
 
 ## Status
 - [x] Planned
@@ -19,7 +19,7 @@
 ## Traceability
 
 - up
-  - [requirement:uuid:55e5f6a7-b8c9-4d04-8ab5-3f4a5b6c7d05](./requirements.md) — R15.5 ListOverview + search
+  - [requirement:uuid:2d2ca22b-a744-4245-87a5-6562edd3b017](./requirements.md) — R15.5 ListOverview + search
   - [Sprint 15 Planning](./planning.md)
   - Tron directive 2026-05-26
 - down

@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 T5 client app entry](../implementation/t5-client-app-entry.md)
+- [🔗 T5+T77 room browser lobby](../implementation/t5-t77-room-browser-lobby.md)

@@ -6,3 +6,4 @@
 
 **Methods:**
 - [🔗 RbDetailView.renderObject](../method/rbdetailview-renderobject.md)
+- [🔗 RbDetailView.roomScenarioDetail](../method/rbdetailview-roomscenariodetail.md)

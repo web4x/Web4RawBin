@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 RoomTest impl](../implementation/roomtest-impl.md)
+- [🔗 T10 device enrollment](../implementation/t10-device-enrollment.md)

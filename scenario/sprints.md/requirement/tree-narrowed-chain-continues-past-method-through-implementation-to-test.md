@@ -1,5 +1,11 @@
 ### Tree narrowed chain continues past Method through Implementation to Test.
 
+<details><summary>Tron directive</summary>
+
+> Tree narrowed chain continues past Method through Implementation to Test.
+
+</details>
+
 ## Traceability
 
 **Tasks:**

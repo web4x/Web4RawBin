@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 ChainLink.iconInView impl](../implementation/chainlink-iconinview-impl.md)
+- [🔗 ChainLink.iconInView](../implementation/chainlink-iconinview.md)

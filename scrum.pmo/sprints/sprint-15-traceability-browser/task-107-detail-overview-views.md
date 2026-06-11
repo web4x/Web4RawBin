@@ -4,7 +4,7 @@
 
 # T107: Task DetailViews + Planning Overview (always consistent)
 
-[task:uuid:107a6172-8394-45a6-897d-a07070707107]
+[task:uuid:7c8b7c8e-a94c-458e-932a-cda72ec6bc5c]
 
 ## Status
 - [x] Planned
@@ -19,7 +19,7 @@
 ## Traceability
 
 - up
-  - [requirement:uuid:65f6a7b8-c9d0-4e15-9bc6-4a5b6c7d8e06](./requirements.md) — R15.6 DetailViews + Overview
+  - [requirement:uuid:e412e965-bcdf-4d33-97df-65c00d14e9c2](./requirements.md) — R15.6 DetailViews + Overview
   - [Sprint 15 Planning](./planning.md)
   - Tron directive 2026-05-26
 - down

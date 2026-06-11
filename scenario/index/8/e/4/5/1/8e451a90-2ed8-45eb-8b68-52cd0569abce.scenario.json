@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "8e451a90-2ed8-45eb-8b68-52cd0569abce",
+    "name": "R17.43: All 50 untraced scenario units are linked to a re...",
+    "description": "[requirement:uuid:8e451a90-2ed8-45eb-8b68-52cd0569abce]\n  → [T170](./task-170-diligent-plan-no-stop-sustain.md)\n\n### From T171 (untraced closure)\n\n- [ ] **R17.43: All 50 untraced scenario units are linked to a requirement root or explicitly marked orphan-by-design.**",
+    "tronQuote": "",
+    "tasks": [
+      "ior:instance:6cf46cd1-5f65-4474-a023-1b54b56adb06"
+    ],
+    "tests": [],
+    "orphanByDesign": true,
+    "orphanReason": "One-shot backfill — done or not, no ongoing UC (50 untraced units)",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/requirements.md",
+    "sourceLine": 250,
+    "unitLinks": [
+      "sprints.json/sprint-17-scenario-units/requirement/r17-43-all-50-untraced-scenario-units-are-linked-to-a-re.json"
+    ],
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "orphanRationale": "One-shot backfill — done, no ongoing UC"
+  },
+  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+}

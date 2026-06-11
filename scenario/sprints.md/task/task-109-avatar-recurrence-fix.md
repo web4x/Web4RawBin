@@ -1,5 +1,5 @@
 # T109: Avatar Recurrence Fix — Decrypt-Exception Overwrite + Rekey Re-encrypt
-[task:uuid:109a0b1c-2d3e-4f50-8617-a09010901109]
+[task:uuid:cd8eb61a-a182-4592-9ac1-391ce9005541]
 
 ## Traceability
 
@@ -10,7 +10,7 @@
 ## Traceability
 
 - up
-  - [requirement:uuid:a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d](./requirements.md) — R-A1: Avatar must persist (satisfied by T91 + T109 together)
+  - [requirement:uuid:64328225-56c6-4a9c-ada0-0736322c08ee](./requirements.md) — R-A1: Avatar must persist (satisfied by T91 + T109 together)
   - [Sprint 13 Planning](./planning.md)
   - Tron directive 2026-05-26 ("keeps breaking to fallback")
 - down

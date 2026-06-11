@@ -1,5 +1,11 @@
 ### Sprint names in /trace include their sprint number.
 
+<details><summary>Tron directive</summary>
+
+> Sprint names in /trace include their sprint number.
+
+</details>
+
 ## Traceability
 
 **Tasks:**

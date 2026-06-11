@@ -1,5 +1,11 @@
 ### Chain through Class narrows to single requirement-fulfilling Method, its Implementation, and Test.
 
+<details><summary>Tron directive</summary>
+
+> Chain through Class narrows to single requirement-fulfilling Method, its Implementation, and Test.
+
+</details>
+
 ## Traceability
 
 **Tasks:**

@@ -16,5 +16,8 @@
 
 ## Traceability
 
+**Tasks:**
+- [🔗 Revert Req->tasks + per-branch visited Set + invisible cycle nodes](../task/t193-revert-req-tasks-per-branch-visited-invisible-cycle.md)
+
 **UseCases:**
 - [🔗 traceTree.cycleOmit](../usecase/tracetree-cycleomit.md)

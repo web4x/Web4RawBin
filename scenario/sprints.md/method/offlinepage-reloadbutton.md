@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 OfflinePage.reloadButton impl](../implementation/offlinepage-reloadbutton-impl.md)
+- [🔗 OfflinePage.reloadButton](../implementation/offlinepage-reloadbutton.md)

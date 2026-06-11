@@ -14,7 +14,7 @@ title Sprint 17 — Scenario Units: Class Architecture\nTree hierarchy + IOR cha
 package "Tree (generic base)" as TREE #E8F5E9 {
 
   abstract class "TraceObject" as TO {
-    [class:uuid:101a0b1c-2d3e-4f50-8617-a01010101101]
+    [class:uuid:57a0c96c-ff48-4f3f-9859-291687e897a2]
     --
     + uuid: string
     + title: string
@@ -124,7 +124,7 @@ IMPL -[#2E7D32]-> TST : tests\n(forward)
 package "View Components (client)" as VIEWS #FFF3E0 {
 
   class "RbTraceTree" as RTT {
-    [class:uuid:108b7283-94a5-46b7-898e-b08080808108]
+    [class:uuid:46bc1d8e-298e-4822-a720-a9f67dab8746]
     <<rb-trace-tree>>
     --
     + graph: TraceGraph

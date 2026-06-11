@@ -3,4 +3,5 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 IORResolver.resolve(ior): ScenarioUnit | ClassLoader impl](../implementation/iorresolver-resolve-ior-scenariounit-classloader-impl.md)
+- [🔗 IORResolver.resolve(ior): ScenarioUnit | ClassLoader](../implementation/iorresolver-resolve-ior-scenariounit-classloader.md)
+- [🔗 R17.12](../implementation/r17-12.md)

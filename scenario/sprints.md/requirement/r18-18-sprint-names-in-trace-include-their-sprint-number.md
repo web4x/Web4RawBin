@@ -14,5 +14,8 @@
 
 ## Traceability
 
+**Tasks:**
+- [🔗 Sprint scenario units + sprint catalogue cleanup (dedupe + numbered rename)](../task/t198-sprint-scenario-units-catalogue-cleanup.md)
+
 **UseCases:**
 - [🔗 sprintList.numberLabel](../usecase/sprintlist-numberlabel.md)

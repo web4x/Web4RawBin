@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 MigrateToScenario impl](../implementation/migratetoscenario-impl.md)
+- [🔗 MigrateToScenario.convertLegacy](../implementation/migratetoscenario-convertlegacy.md)

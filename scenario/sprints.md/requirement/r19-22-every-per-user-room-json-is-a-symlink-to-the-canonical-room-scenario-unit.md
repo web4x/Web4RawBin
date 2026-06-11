@@ -8,6 +8,9 @@
 
 ## Traceability
 
+**Tasks:**
+- [🔗 T-room-json-symlink-and-ui: room.json symlink to canonical scenario unit + UI link](../task/room-json-symlink-canonical-plus-ui-link.md)
+
 **UseCases:**
 - [🔗 room.symlinkCanonical](../usecase/room-symlinkcanonical.md)
 - [🔗 room.linkToScenario](../usecase/room-linktoscenario.md)

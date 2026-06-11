@@ -8,5 +8,8 @@
 
 ## Traceability
 
+**Tasks:**
+- [🔗 T-room-ui-shared: in-room tree REUSES /trace rb-tree + rb-tree-item with Members/Files data adapters](../task/room-ui-shared-rb-tree-reuse-members-files-adapters.md)
+
 **UseCases:**
 - [🔗 room.folderNodeRender](../usecase/room-foldernoderender.md)

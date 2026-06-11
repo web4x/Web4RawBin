@@ -1,5 +1,5 @@
 # T101: Typed Object Model — Requirement/Test/Implementation classes + UUIDs
-[task:uuid:101a0b1c-2d3e-4f50-8617-a01010101101]
+[task:uuid:57a0c96c-ff48-4f3f-9859-291687e897a2]
 
 ## Status
 
@@ -32,7 +32,7 @@
 ## Traceability
 
 - up
-  - [requirement:uuid:15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01](./requirements.md) — R15.1 typed object model
+  - [requirement:uuid:05284ac5-131a-4e10-a2f7-7215e026e438](./requirements.md) — R15.1 typed object model
   - [Sprint 15 Planning](./planning.md)
   - Tron directive 2026-05-26
 - down

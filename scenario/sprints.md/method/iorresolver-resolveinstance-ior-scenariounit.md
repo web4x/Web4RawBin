@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 IORResolver.resolveInstance(ior): ScenarioUnit impl](../implementation/iorresolver-resolveinstance-ior-scenariounit-impl.md)
+- [🔗 R17.12 (split for IORResolver.resolveInstance(ior): ScenarioUnit)](../implementation/r17-12-split-for-iorresolver-resolveinstance-ior-scenariounit.md)

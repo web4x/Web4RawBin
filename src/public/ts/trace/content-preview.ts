@@ -16,7 +16,7 @@ export function renderContentPreview(uuid: string, mimeType: string, name: strin
     return `<div class="cv-preview"><img src="${contentUrl}" alt="${esc(name)}" style="max-width:100%;border-radius:8px"></div>`;
   }
   if (mimeType === 'application/pdf') {
-    return `<div class="cv-preview"><iframe src="${contentUrl}" style="width:100%;height:400px;border:none;border-radius:8px"></iframe></div>`;
+    return `<div class="cv-preview"><iframe src="${contentUrl}" sandbox="allow-same-origin" style="width:100%;height:400px;border:none;border-radius:8px"></iframe></div>`;
   }
   if (mimeType.startsWith('text/') || mimeType === 'application/json') {
     return `<div class="cv-preview cv-text-loading" data-uuid="${uuid}">Loading...</div>`;

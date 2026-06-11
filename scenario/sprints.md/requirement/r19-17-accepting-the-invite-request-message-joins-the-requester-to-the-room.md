@@ -8,5 +8,8 @@
 
 ## Traceability
 
+**Tasks:**
+- [🔗 T-apply-flow: BY-INVITE Apply button + invite-request messages](../task/by-invite-apply-flow.md)
+
 **UseCases:**
 - [🔗 room.acceptInvite](../usecase/room-acceptinvite.md)

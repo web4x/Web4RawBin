@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 ViewTemplateRegistry.renderMd(scenario): string impl](../implementation/viewtemplateregistry-rendermd-scenario-string-impl.md)
+- [🔗 ViewTemplateRegistry.register(className (split for ViewTemplateRegistry.renderMd(scenario): string)](../implementation/viewtemplateregistry-register-classname-split-for-viewtemplateregistry-rendermd-.md)

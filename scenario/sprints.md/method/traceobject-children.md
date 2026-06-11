@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 TraceObject.children impl](../implementation/traceobject-children-impl.md)
+- [🔗 TraceObject.parent (split for TraceObject.children)](../implementation/traceobject-parent-split-for-traceobject-children.md)

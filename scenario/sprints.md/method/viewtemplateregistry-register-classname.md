@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 ViewTemplateRegistry.register(className impl](../implementation/viewtemplateregistry-register-classname-impl.md)
+- [🔗 ViewTemplateRegistry.register(className (split for ViewTemplateRegistry.register(className)](../implementation/viewtemplateregistry-register-classname-split-for-viewtemplateregistry-register-.md)

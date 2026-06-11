@@ -5,4 +5,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 Assets.rebrand impl](../implementation/assets-rebrand-impl.md)
+- [🔗 e8d226f6](/scenario?ior=e8d226f6-d8e2-4a8d-9db9-2edd5bb33bfb)

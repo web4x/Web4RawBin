@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 ReqAudit.formalizeQuotes impl](../implementation/reqaudit-formalizequotes-impl.md)
+- [🔗 ReqAudit.formalizeQuotes](../implementation/reqaudit-formalizequotes.md)

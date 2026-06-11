@@ -4,7 +4,7 @@
 
 # T101: Typed Object Model — Requirement/Test/Implementation classes + UUIDs
 
-[task:uuid:101a0b1c-2d3e-4f50-8617-a01010101101]
+[task:uuid:57a0c96c-ff48-4f3f-9859-291687e897a2]
 
 ## Status
 - [x] Planned

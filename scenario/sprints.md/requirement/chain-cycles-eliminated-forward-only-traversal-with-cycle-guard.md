@@ -1,5 +1,11 @@
 ### Chain cycles eliminated — forward-only traversal with cycle guard.
 
+<details><summary>Tron directive</summary>
+
+> Chain cycles eliminated — forward-only traversal with cycle guard.
+
+</details>
+
 ## Traceability
 
 **Tasks:**

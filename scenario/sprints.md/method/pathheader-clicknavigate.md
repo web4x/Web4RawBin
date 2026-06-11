@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 PathHeader.clickNavigate impl](../implementation/pathheader-clicknavigate-impl.md)
+- [🔗 PathHeader.clickNavigate](../implementation/pathheader-clicknavigate.md)

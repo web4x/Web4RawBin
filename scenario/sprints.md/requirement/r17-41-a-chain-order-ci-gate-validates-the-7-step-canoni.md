@@ -2,7 +2,7 @@
 
 <details><summary>Tron directive</summary>
 
-> [requirement:uuid:e3af4ba5-b6c7-4d89-0e1f-2a3b4c560040]
+> [requirement:uuid:8534a8e5-8928-4df4-bb06-1d1bb9f66a37]
 >   → [T170](./task-170-diligent-plan-no-stop-sustain.md)
 > 
 > - [ ] **R17.41: A chain-order CI gate validates the 7-step canonical chain on every commit.**

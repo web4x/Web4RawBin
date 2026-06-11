@@ -3,7 +3,7 @@
   "model": {
     "uuid": "8f74dd1d-399f-4448-ac11-e1f9b4b199aa",
     "from": "ior:instance:80ca8e83-fb72-4e3d-874b-af17cd8c2dbf",
-    "to": "ior:instance:a0b1c2d3-e4f5-4061-8273-849500000100",
+    "to": "ior:instance:59c964f9-15c1-4d67-8c65-7a26b2e702cd",
     "fromType": "requirement",
     "toType": "task",
     "relation": "implements",

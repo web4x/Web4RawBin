@@ -2,7 +2,7 @@
 
 <details><summary>Tron directive</summary>
 
-> [requirement:uuid:a5cb6dc7-d8e9-4f01-2a3b-4c5d6e780042]
+> [requirement:uuid:8e451a90-2ed8-45eb-8b68-52cd0569abce]
 >   → [T170](./task-170-diligent-plan-no-stop-sustain.md)
 > 
 > ### From T171 (untraced closure)

@@ -29,7 +29,7 @@ each requirement carries a `[requirement:uuid]` + forward link to its task(s).
   → [T103](./task-103-object-verb-routing.md)
 
 - [ ] R15.3 — Object.verb use-case diagrams (Object=noun, verb=method).
-  [requirement:uuid:35c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b03]
+  [requirement:uuid:501c2147-1a7f-4fc6-aafe-5c18f1c67f71]
   > R1 (literal): "Object.verb usecase diagramms."
   → [T104](./task-104-object-verb-diagrams.md)
 
@@ -40,12 +40,12 @@ each requirement carries a `[requirement:uuid]` + forward link to its task(s).
   → [T105](./task-105-default-item-view.md)
 
 - [ ] R15.5 — `ListOverview` with search over listed objects, extensible to remoteSearch.
-  [requirement:uuid:55e5f6a7-b8c9-4d04-8ab5-3f4a5b6c7d05]
+  [requirement:uuid:2d2ca22b-a744-4245-87a5-6562edd3b017]
   > R4 (literal): ListOverview with search → extensible to remoteSearch.
   → [T106](./task-106-list-overview-search.md)
 
 - [ ] R15.6 — Task DetailViews + planning Overview that is ALWAYS consistent.
-  [requirement:uuid:65f6a7b8-c9d0-4e15-9bc6-4a5b6c7d8e06]
+  [requirement:uuid:e412e965-bcdf-4d33-97df-65c00d14e9c2]
   > R2 (literal): browser includes traceability to tasks as DetailViews and planning as Overview, always consistent.
   → [T107](./task-107-detail-overview-views.md)
 

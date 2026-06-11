@@ -1,6 +1,6 @@
 ### test:RbRoomDetail.editOpen
 
-**Status:** PASS · **File:** `test/vitest/champagne-components.test.ts`
+**Status:** pass · **File:** ``
 
 ## Traceability
 

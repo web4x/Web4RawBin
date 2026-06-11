@@ -7,7 +7,7 @@
 - [x] In Progress
   - [x] refinement architect
   - [ ] creating test cases
-  - [ ] implementing expert (in flight per PO)
+  - [ ] implementing expert (REOPENED — Tron screenshot: X must stay on top ALWAYS; verify .drawer-header sticky pins X above scrolling .drawer-body)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done

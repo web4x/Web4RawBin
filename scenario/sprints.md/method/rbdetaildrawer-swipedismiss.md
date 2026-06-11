@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 RbDetailDrawer.swipeDismiss impl](../implementation/rbdetaildrawer-swipedismiss-impl.md)
+- [🔗 impl:RbDetailDrawer.stickyBottom](../implementation/impl-rbdetaildrawer-stickybottom.md)

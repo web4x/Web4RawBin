@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 TraceNarrow.classMethodScope impl](../implementation/tracenarrow-classmethodscope-impl.md)
+- [🔗 TraceNarrow.classMethodScope](../implementation/tracenarrow-classmethodscope.md)

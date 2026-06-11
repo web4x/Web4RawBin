@@ -6,3 +6,4 @@
 
 **Methods:**
 - [🔗 SvgViewer.onPinchEnd](../method/svgviewer-onpinchend.md)
+- [🔗 ContentPreviewer.render](../method/contentpreviewer-render.md)

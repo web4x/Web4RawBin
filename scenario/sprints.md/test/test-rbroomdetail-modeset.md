@@ -1,8 +1,8 @@
 ### test:RbRoomDetail.modeSet
 
-**Status:** PASS · **File:** `test/vitest/room.test.ts`
+**Status:** pass · **File:** ``
 
 ## Traceability
 
 **Implementations:**
-- [🔗 impl:RbRoomDetail.modeSet](../implementation/impl-rbroomdetail-modeset.md)
+- [🔗 RbRoomDetail.modeSet](../implementation/rbroomdetail-modeset.md)

@@ -41,6 +41,7 @@ export class ScenarioIndex {
   }
 
   put(uuid: string, scenario: ScenarioUnit): void {
+    this.invalidateListCache();
     const dir = path.join(this.basePath, this.prefixPath(uuid));
     fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(path.join(dir, `${uuid}.scenario.json`), JSON.stringify(scenario, null, 2));
@@ -61,12 +62,23 @@ export class ScenarioIndex {
     return fs.existsSync(this.filePath(uuid));
   }
 
+  private _listCache: string[] | null = null;
+  private _listCacheTime = 0;
+  private static LIST_CACHE_TTL = 5000; // 5s TTL
+
   list(): string[] {
     if (!fs.existsSync(this.basePath)) return [];
-    return this.walkForScenarios(this.basePath);
+    const now = Date.now();
+    if (this._listCache && (now - this._listCacheTime) < ScenarioIndex.LIST_CACHE_TTL) return this._listCache;
+    this._listCache = this.walkForScenarios(this.basePath);
+    this._listCacheTime = now;
+    return this._listCache;
   }
 
+  invalidateListCache(): void { this._listCache = null; }
+
   remove(uuid: string): boolean {
+    this.invalidateListCache();
     const unit = this.get(uuid);
     if (unit) {
       const links = (unit.model as Record<string, unknown>).unitLinks;

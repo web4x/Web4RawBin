@@ -5,4 +5,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 impl:Room.init](../implementation/impl-room-init.md)
+- [🔗 4dc1bd9b](/scenario?ior=4dc1bd9b-6d9c-41ca-bea6-a96b7c72263b)

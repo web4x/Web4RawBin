@@ -10,6 +10,7 @@
 
 **Tasks:**
 - [🔗 T187: Trace narrowing — single-thread chain in /trace, full fan-out in /scenario](../task/task-187-trace-narrowing-single-thread-chain.md)
+- [🔗 T-detail-source-link-all: source link on ALL types (UC to .puml, Class/Method/Impl to src)](../task/detail-source-link-all-types.md)
 
 **UseCases:**
 - [🔗 traceNarrow.classMethodScope](../usecase/tracenarrow-classmethodscope.md)

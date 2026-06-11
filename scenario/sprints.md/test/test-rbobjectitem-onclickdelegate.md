@@ -5,4 +5,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 impl:RbObjectItem.onClickDelegate](../implementation/impl-rbobjectitem-onclickdelegate.md)
+- [🔗 93d42a25](/scenario?ior=93d42a25-f106-4580-a037-e15878eac7bd)

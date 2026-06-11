@@ -484,6 +484,21 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (req.method === 'GET' && filepath.match(/^\/api\/room\/file\/[^/]+\/content$/)) {
       const fileUuid = filepath.split('/')[4];
       try {
+        // F1 auth: verify the file belongs to a room the requester can access
+        const authToken = urlParams.get('token') || '';
+        const fileRoomUuid = (() => {
+          const scenarioDir2 = path.join(__dirname, '../../../scenario/index');
+          const idx2 = new ScenarioIndex(scenarioDir2);
+          const fu = idx2.get(fileUuid);
+          return fu ? String((fu.model as any).roomUuid || '') : '';
+        })();
+        if (fileRoomUuid) {
+          const room = roomManager.getRoom(fileRoomUuid);
+          if (room && authToken && !room.members.has(authToken) && room.creatorToken !== authToken) {
+            const isMember = [...room.members.values()].some(m => m.playerToken === authToken);
+            if (!isMember) { res.writeHead(403); res.end('Forbidden'); return; }
+          }
+        }
         const scenarioDir = path.join(__dirname, '../../../scenario/index');
         const idx = new ScenarioIndex(scenarioDir);
         const { readFileUnitContent } = await import('../scenario/file-unit.js');

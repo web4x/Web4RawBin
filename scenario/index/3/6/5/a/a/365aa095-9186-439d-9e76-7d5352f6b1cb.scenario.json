@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "365aa095-9186-439d-9e76-7d5352f6b1cb",
+    "name": "RbTraceTree.prefetchLayer",
+    "implementations": [
+      "ior:instance:3d3a4239-5939-4f5b-ae8d-bba2d2c086da"
+    ],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+  },
+  "ownerIor": "ior:instance:46bc1d8e-298e-4822-a720-a9f67dab8746"
+}

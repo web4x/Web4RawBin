@@ -8,5 +8,8 @@
 
 ## Traceability
 
+**Tasks:**
+- [🔗 T-room-ui: drop-zone + Members/Files tree + member item views](../task/room-content-ui-layout.md)
+
 **UseCases:**
 - [🔗 roomContent.composeLayout](../usecase/roomcontent-composelayout.md)

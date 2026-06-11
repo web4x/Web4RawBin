@@ -6,16 +6,16 @@
     "description": "> TRON DIRECTIVE (via PO 2026-05-26): E2E test runs flooded prod with test rooms; tests must use an isolated data dir, never prod.",
     "tronQuote": "> TRON DIRECTIVE (via PO 2026-05-26): E2E test runs flooded prod with test rooms; tests must use an isolated data dir, never prod.",
     "tasks": [
-      "ior:instance:a0b1c2d3-e4f5-4061-8273-849500000100"
+      "ior:instance:59c964f9-15c1-4d67-8c65-7a26b2e702cd"
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "Incident fix \u2014 one-shot, no ongoing UC (room-flood prod-pollution)",
+    "orphanReason": "Incident fix — one-shot, no ongoing UC (room-flood prod-pollution)",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/requirements.md",
     "sourceLine": 43,
     "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
     "unitLinks": [],
-    "orphanRationale": "Incident fix \u2014 one-shot prod-pollution fix"
+    "orphanRationale": "Incident fix — one-shot prod-pollution fix"
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
 }

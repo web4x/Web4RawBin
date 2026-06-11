@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 ProfileGate.vcardUpload impl](../implementation/profilegate-vcardupload-impl.md)
+- [🔗 ProfileGate.vcardUpload](../implementation/profilegate-vcardupload.md)

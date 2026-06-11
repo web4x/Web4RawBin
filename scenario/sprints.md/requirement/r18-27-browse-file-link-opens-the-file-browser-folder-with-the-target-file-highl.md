@@ -19,5 +19,8 @@
 
 ## Traceability
 
+**Tasks:**
+- [🔗 Object.verb UC population + Class/Method/Impl chain wiring (multi-phase epic)](../task/t195-object-verb-uc-population-chain-wiring.md)
+
 **UseCases:**
 - [🔗 fileBrowser.highlightFile](../usecase/filebrowser-highlightfile.md)

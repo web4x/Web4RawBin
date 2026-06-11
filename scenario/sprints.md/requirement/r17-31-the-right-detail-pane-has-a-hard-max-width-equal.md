@@ -2,7 +2,7 @@
 
 <details><summary>Tron directive</summary>
 
-> [requirement:uuid:a30b41c5-d6e7-4f89-0a1b-2c3d4e5f6730]
+> [requirement:uuid:102241ef-0c2c-4c6c-bc7b-c9e46b4a7b1c]
 >   → [T167](./task-167-trace-mobile-first-layout-width-cap.md)
 > 
 > - [ ] **R17.31: The right detail pane has a hard max-width equal to the current window size.**

@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 ClassRegistry.register(name impl](../implementation/classregistry-register-name-impl.md)
+- [🔗 impl:ensureRawBinUser (split for ClassRegistry.register(name)](../implementation/impl-ensurerawbinuser-split-for-classregistry-register-name.md)

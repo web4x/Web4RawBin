@@ -18,5 +18,8 @@
 
 ## Traceability
 
+**Tasks:**
+- [🔗 Break Req->Task 2-cycle + server-side cycle guard](../task/t192-break-req-task-2-cycle-server-cycle-guard.md)
+
 **UseCases:**
 - [🔗 traceTree.cycleGuard](../usecase/tracetree-cycleguard.md)

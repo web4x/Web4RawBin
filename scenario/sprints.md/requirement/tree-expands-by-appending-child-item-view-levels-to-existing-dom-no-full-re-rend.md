@@ -1,5 +1,11 @@
 ### Tree expands by appending child item-view levels to existing DOM — no full re-render.
 
+<details><summary>Tron directive</summary>
+
+> Tree expands by appending child item-view levels to existing DOM — no full re-render.
+
+</details>
+
 ## Traceability
 
 **Tasks:**

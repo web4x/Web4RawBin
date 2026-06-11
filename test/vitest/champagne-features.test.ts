@@ -4,8 +4,8 @@
  * [test:uuid:dc891c35-a906-4270-9082-8b492ff61668] T191 champagne feature tests
  * [verifies:uuid:35c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b64] R15.4 defaultItemView per object
  * [verifies:uuid:45d4e5f6-a7b8-4c90-8d01-2e3f4a5b6c75] R15.5 ListOverview search
- * [verifies:uuid:55e5f6a7-b8c9-4d04-8ab5-3f4a5b6c7d05] R15.6 Task DetailViews
- * [verifies:uuid:65f6a7b8-c9d0-4e15-9bc6-4a5b6c7d8e06] R15.7 traceability browser
+ * [verifies:uuid:2d2ca22b-a744-4245-87a5-6562edd3b017] R15.6 Task DetailViews
+ * [verifies:uuid:e412e965-bcdf-4d33-97df-65c00d14e9c2] R15.7 traceability browser
  * [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000004] R17.4 UUID prefix index
  * [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000008] R17.8 views generated from JSON
  * [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000009] R17.9 planning.md generated
@@ -16,7 +16,7 @@
  * [verifies:uuid:47a86209-e0bb-4142-a6ad-4fff94ff9921] R17.20 req+UC scenario units
  * [verifies:uuid:bebee55d-7d39-4f0c-b7de-d56e72d01363] R17.18 traceability as units
  * [verifies:uuid:b2237873-39b9-4154-9624-f809a9ca4983] R16.4 chain data fix
- * [verifies:uuid:7e4f8a2b-c3d5-4e6f-9a1b-2c3d4e5f6a25] R17.26 traceability is a tree
+ * [verifies:uuid:3726f28b-66b1-44fc-b883-4000b3914596] R17.26 traceability is a tree
  * [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000007] R17.8 views from flat JSON
  * [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000011] R17.12 all files are IOR units
  * [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000014] R17.15 collaborative planning
@@ -200,7 +200,7 @@ describe('R-RoomFlood: E2E cleanup', () => {
 // [test:uuid:194fa8f2-c0dd-4522-8f5d-e6108987d17f] champagne pure-no-coverage reqs
 // [verifies:uuid:38f80708-d191-47bd-ada4-a710c5f1e6ed] R15.3 Object.verb PUML diagrams
 // [verifies:uuid:102241ef-0c2c-4c6c-bc7b-c9e46b4a7b1c] R17.31 detail pane max-width
-// [verifies:uuid:b41c52d6-e7f8-4a90-1b2c-3d4e5f677031] R17.32 chain starts atomic reqs
+// [verifies:uuid:0f179ef0-a30b-4f35-80f4-a3b27d5f4ab1] R17.32 chain starts atomic reqs
 // [verifies:uuid:d4e5f6a7-b8c9-4d0e-1f2a-000000000013] R17.13 method traceability
 
 describe('R15.3: Object.verb use-case PUML diagrams', () => {

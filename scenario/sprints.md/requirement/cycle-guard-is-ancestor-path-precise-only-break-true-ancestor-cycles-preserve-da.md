@@ -1,5 +1,11 @@
 ### Cycle guard is ancestor-path-precise — only break true ancestor cycles, preserve DAG re-convergence.
 
+<details><summary>Tron directive</summary>
+
+> Cycle guard is ancestor-path-precise — only break true ancestor cycles, preserve DAG re-convergence.
+
+</details>
+
 ## Traceability
 
 **Tasks:**

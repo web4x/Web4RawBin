@@ -1,5 +1,11 @@
 ### Sprint numbers are zero-padded 2-digit (01-09, 10-18) for correct lexicographic ordering.
 
+<details><summary>Tron directive</summary>
+
+> Sprint numbers are zero-padded 2-digit (01-09, 10-18) for correct lexicographic ordering.
+
+</details>
+
 ## Traceability
 
 **Tasks:**

@@ -6,3 +6,4 @@
 
 **Methods:**
 - [🔗 RbListOverview.searchAndFilter](../method/rblistoverview-searchandfilter.md)
+- [🔗 RbListOverview.newestFirst](../method/rblistoverview-newestfirst.md)

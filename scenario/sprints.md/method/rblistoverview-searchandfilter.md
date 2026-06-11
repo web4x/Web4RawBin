@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 RbListOverview.searchAndFilter impl](../implementation/rblistoverview-searchandfilter-impl.md)
+- [🔗 R15.5 ListOverview + search (split for RbListOverview.searchAndFilter)](../implementation/r15-5-listoverview-search-split-for-rblistoverview-searchandfilter.md)

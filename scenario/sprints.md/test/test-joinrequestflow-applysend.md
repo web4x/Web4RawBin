@@ -5,4 +5,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 impl:JoinRequestFlow.applySend](../implementation/impl-joinrequestflow-applysend.md)
+- [🔗 f65121b1](/scenario?ior=f65121b1-c0c1-4608-ab47-6d20bce1c335)

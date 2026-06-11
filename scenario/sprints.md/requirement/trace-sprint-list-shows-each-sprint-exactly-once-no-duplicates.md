@@ -1,5 +1,11 @@
 ### /trace sprint list shows each sprint exactly once — no duplicates.
 
+<details><summary>Tron directive</summary>
+
+> /trace sprint list shows each sprint exactly once — no duplicates.
+
+</details>
+
 ## Traceability
 
 **Tasks:**

@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 FileBrowser.fixDisplay impl](../implementation/filebrowser-fixdisplay-impl.md)
+- [🔗 FileBrowser.fixDisplay](../implementation/filebrowser-fixdisplay.md)

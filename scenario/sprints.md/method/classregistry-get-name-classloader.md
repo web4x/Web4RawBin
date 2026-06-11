@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 ClassRegistry.get(name): ClassLoader impl](../implementation/classregistry-get-name-classloader-impl.md)
+- [🔗 impl:ensureRawBinUser (split for ClassRegistry.get(name): ClassLoader)](../implementation/impl-ensurerawbinuser-split-for-classregistry-get-name-classloader.md)

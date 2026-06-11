@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 ScenarioClick.lazyLoad impl](../implementation/scenarioclick-lazyload-impl.md)
+- [🔗 ScenarioClick.lazyLoad](../implementation/scenarioclick-lazyload.md)

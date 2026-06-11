@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 Breadcrumb.contrastFix impl](../implementation/breadcrumb-contrastfix-impl.md)
+- [🔗 Breadcrumb.contrastFix](../implementation/breadcrumb-contrastfix.md)

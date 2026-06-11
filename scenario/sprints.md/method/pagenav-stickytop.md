@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 PageNav.stickyTop impl](../implementation/pagenav-stickytop-impl.md)
+- [🔗 PageNav.stickyTop](../implementation/pagenav-stickytop.md)

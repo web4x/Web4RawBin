@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 RbDetailDrawer.open impl](../implementation/rbdetaildrawer-open-impl.md)
+- [🔗 impl:RbDetailDrawer.stickyBottom (split for RbDetailDrawer.open)](../implementation/impl-rbdetaildrawer-stickybottom-split-for-rbdetaildrawer-open.md)

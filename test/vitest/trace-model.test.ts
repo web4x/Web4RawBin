@@ -5,7 +5,7 @@
  *
  * [test:uuid:4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1] AC1-AC4 typed object model
  * [test:uuid:8edc3d29-79ee-4d7f-b2df-b48a1d68226f] test:TraceObject.parent
- * [verifies:uuid:a1e2f3d4-b5c6-4d7e-8f90-1a2b3c4d5e26] R17.26 traceability tree
+ * [verifies:uuid:eca7cb3f-8346-4658-9e85-5c1e2453956b] R17.26 traceability tree
  */
 import { describe, it, expect, beforeEach } from 'vitest';
 // [test:uuid:e4ce14a4-1ddb-4ca1-9326-38dd31ce0eb0]
@@ -20,7 +20,7 @@ import {
 // helper: distinct valid v4 UUIDs
 const U = {
   req: '05284ac5-131a-4e10-a2f7-7215e026e438',
-  task: '101a0b1c-2d3e-4f50-8617-a01010101101',
+  task: '57a0c96c-ff48-4f3f-9859-291687e897a2',
   uc: '22a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f02',
   cls: '33a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f03',
   method: '44a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f04',

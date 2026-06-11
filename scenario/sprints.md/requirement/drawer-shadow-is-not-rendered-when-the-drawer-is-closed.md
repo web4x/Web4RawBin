@@ -1,5 +1,11 @@
 ### Drawer shadow is not rendered when the drawer is closed.
 
+<details><summary>Tron directive</summary>
+
+> Drawer shadow is not rendered when the drawer is closed.
+
+</details>
+
 ## Traceability
 
 **Tasks:**

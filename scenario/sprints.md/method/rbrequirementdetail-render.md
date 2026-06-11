@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 R16.2 RequirementDetailView](../implementation/r16-2-requirementdetailview.md)
+- [🔗 RbRequirementDetail.render impl](../implementation/rbrequirementdetail-render-impl.md)

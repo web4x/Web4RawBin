@@ -8,3 +8,7 @@
 - [🔗 RbDetailDrawer.open](../method/rbdetaildrawer-open.md)
 - [🔗 RbDetailDrawer.close](../method/rbdetaildrawer-close.md)
 - [🔗 RbDetailDrawer.swipeDismiss](../method/rbdetaildrawer-swipedismiss.md)
+- [🔗 RbDetailDrawer.fullWidth](../method/rbdetaildrawer-fullwidth.md)
+- [🔗 RbDetailDrawer.unifiedTraceability](../method/rbdetaildrawer-unifiedtraceability.md)
+- [🔗 RbDetailDrawer.filePreview](../method/rbdetaildrawer-filepreview.md)
+- [🔗 RbDetailDrawer.byTypeRender](../method/rbdetaildrawer-bytyperender.md)

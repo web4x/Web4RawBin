@@ -34,8 +34,8 @@
     ],
     "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
     "coveredRequirements": [
-      "ior:instance:7e4f8a2b-c3d5-4e6f-9a1b-2c3d4e5f6a25",
-      "ior:instance:b6dc7ed8-e9f0-4a12-3b4c-5d6e7f890043",
+      "ior:instance:3726f28b-66b1-44fc-b883-4000b3914596",
+      "ior:instance:a246352a-c71c-4170-810d-73c49d9a458b",
       "ior:instance:24ae6d41-2165-40cd-8b4a-483e860f8923"
     ]
   },

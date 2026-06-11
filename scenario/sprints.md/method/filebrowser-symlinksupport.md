@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 FileBrowser.symlinkSupport impl](../implementation/filebrowser-symlinksupport-impl.md)
+- [🔗 FileBrowser.symlinkSupport](../implementation/filebrowser-symlinksupport.md)

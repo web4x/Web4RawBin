@@ -10,3 +10,6 @@
 
 **Tasks:**
 - [🔗 T202: Class.method-per-UC narrowing — shared Class picks wrong method](../task/class-method-per-uc-narrowing-shared-class-wrong-method.md)
+
+**UseCases:**
+- [🔗 traceTree.ucScopedMethod](../usecase/tracetree-ucscopedmethod.md)

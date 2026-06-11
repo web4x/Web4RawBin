@@ -1,1 +1,4 @@
-> No template for ior:class:Implementation
+# TraceConsistency.validate impl
+
+**Source:** `src/ts/server/TraceConsistency.ts:234`
+

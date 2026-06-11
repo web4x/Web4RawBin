@@ -20,5 +20,9 @@
 
 ## Traceability
 
+**Tasks:**
+- [🔗 Orphan-method + wrong-type-UUID cleanup in Method.implementation chain](../task/t197-orphan-method-wrong-type-uuid-cleanup.md)
+- [🔗 Object.verb UC population + Class/Method/Impl chain wiring (multi-phase epic)](../task/t195-object-verb-uc-population-chain-wiring.md)
+
 **UseCases:**
 - [🔗 traceGraph.classHop](../usecase/tracegraph-classhop.md)

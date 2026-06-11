@@ -4,7 +4,7 @@
  * generated-region markers preserve manual content.
  *
  * [test:uuid:ce5c47ad-dabb-44e5-a8f6-3ee506d34127] AC2/AC3/AC4/AC6
- * [verifies:uuid:a1e2f3d4-b5c6-4d7e-8f90-1a2b3c4d5e26] R17.26 trace consistency
+ * [verifies:uuid:eca7cb3f-8346-4658-9e85-5c1e2453956b] R17.26 trace consistency
  */
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'node:fs';
@@ -17,7 +17,7 @@ import {
 } from '../../src/ts/server/TraceConsistency.js';
 
 const RU = '05284ac5-131a-4e10-a2f7-7215e026e438';
-const TU = '101a0b1c-2d3e-4f50-8617-a01010101101';
+const TU = '57a0c96c-ff48-4f3f-9859-291687e897a2';
 
 function cov(over: Partial<TaskCoverage> = {}): TaskCoverage {
   return { sprint: 'sprint-15', task: 'task-101-x', uuid: TU, reqUuid: RU, req: true, uc: true, puml: true, method: true, ...over };

@@ -8,5 +8,8 @@
 
 ## Traceability
 
+**Tasks:**
+- [🔗 T-persistent: Room mode PERSISTENT + offline members + add/remove](../task/persistent-room-mode.md)
+
 **UseCases:**
 - [🔗 room.maintainPersistentMembers](../usecase/room-maintainpersistentmembers.md)

@@ -8,5 +8,8 @@
 
 ## Traceability
 
+**Tasks:**
+- [🔗 T-default-flip: PERSISTENT becomes default mode after sprint](../task/persistent-default-mode-flip.md)
+
 **UseCases:**
-- [🔗 08151f85](/scenario?ior=08151f85-0000-0000-0000-000000000000)
+- [🔗 room.setDefaultPersistent](../usecase/room-setdefaultpersistent.md)

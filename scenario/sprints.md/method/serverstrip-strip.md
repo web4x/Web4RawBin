@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 T4 server core](../implementation/t4-server-core.md)
+- [🔗 ServerStrip.strip](../implementation/serverstrip-strip.md)

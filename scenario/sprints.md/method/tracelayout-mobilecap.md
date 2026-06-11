@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 TraceLayout.mobileCap impl](../implementation/tracelayout-mobilecap-impl.md)
+- [🔗 TraceLayout.mobileCap](../implementation/tracelayout-mobilecap.md)

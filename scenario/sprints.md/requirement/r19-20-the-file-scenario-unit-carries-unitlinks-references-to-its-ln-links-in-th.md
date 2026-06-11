@@ -8,5 +8,8 @@
 
 ## Traceability
 
+**Tasks:**
+- [🔗 T-file-unit: Files become scenario units (uuid.content + scenario.json + unitLinks[])](../task/file-as-scenario-unit.md)
+
 **UseCases:**
 - [🔗 file.unitLinks](../usecase/file-unitlinks.md)

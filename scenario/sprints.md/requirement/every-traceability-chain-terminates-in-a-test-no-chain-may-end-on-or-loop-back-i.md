@@ -1,5 +1,11 @@
 ### Every traceability chain terminates in a Test — no chain may end on or loop back into a Task or Requirement.
 
+<details><summary>Tron directive</summary>
+
+> Every traceability chain terminates in a Test — no chain may end on or loop back into a Task or Requirement.
+
+</details>
+
 ## Traceability
 
 **Tasks:**

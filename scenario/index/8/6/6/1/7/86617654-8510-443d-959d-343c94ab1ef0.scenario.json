@@ -1,0 +1,44 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "86617654-8510-443d-959d-343c94ab1ef0",
+    "name": "T106: ListOverview Component + Search → remoteSearch",
+    "slug": "task-106-list-overview-search",
+    "description": "Build a `rb-list-overview` component that renders a collection of `defaultItemView`s with\na search over the listed objects. The search is designed to extend cleanly to a\n`remoteSearch` (server-side) without changing the component's public contract.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect)\n  - [x] creating test cases\n  - [x] implementing (expert)\n  - [x] testing (tester — run rb-list-overview.test.ts, jsdom) — rb-list-overview 7/7 PASS, 1d9d4fd\n- [ ] QA Review\n- [ ] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [requirement:uuid:2d2ca22b-a744-4245-87a5-6562edd3b017](./requirements.md) — R15.5 ListOverview + search\n  - [Sprint 15 Planning](./planning.md)\n  - Tron directive 2026-05-26\n- down\n  - None (atomic task)\n- chain\n  - **requirement:** R15.5 in [requirements.md](./requirements.md)\n  - **use case:** list.search / list.remoteSearch — diagrams/object-verb-usecases.puml\n  - **puml:** [diagrams/object-verb-usecases.puml](./diagrams/object-verb-usecases.puml)\n  - **class/method:** rb-list-overview component (search / remoteSearch)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [ ] AC1: `<rb-list-overview>` renders a collection as a list of T105 `<rb-object-item>`s (`setItems(refs)` or `type=` auto-list)\n- [ ] AC2: Search input filters in real time via default `LocalSearch` (title/type/uuid substring), debounced 300ms\n- [ ] AC3: Search goes through `SearchProvider` (`search(query): Promise<ObjectRef[]>`); a `RemoteSearch` provider assignable via `list.searchProvider` WITHOUT changing the component API\n- [ ] AC4: Explicit empty/no-results state when the query matches nothing\n- [ ] AC5: ViewBus live-update — items mutating re-render (T105); add/remove on the set re-runs the active search and updates the list\n- [ ] AC6: No artificial input/result limits (TRON rule)\n- [ ] AC7: Tests cover render, local filtering, provider substitution (mock RemoteSearch), empty state, live add/remove\n- [ ] `npm run build` + version bump",
+    "qaAudit": "- 2026-05-26: Tron directive (Sprint 15 R1-R4). Quote in requirements.tron-literal.md.",
+    "subtasks": "None (atomic task).\n\n---\n*Sprint 15 — Traceability Browser & Object Model*\n*Owner: robbin-expert (implement), robbin-tester (verify)*\n*Priority: 3 (view components)*",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "- **Requires:** T105\n- **Enables:** T108",
+    "definitionOfDone": "- [ ] All AC met; chain links resolve\n- [ ] Tests pass, build clean\n- [ ] Tron QA approved",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [
+      "ior:instance:5a3ccdac-9a18-421e-9116-68467c29e0db"
+    ],
+    "implementations": [],
+    "tests": [
+      "ior:instance:a2f83b59-5943-462e-b70e-bf6429ea1b90"
+    ],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-list-overview.ts",
+    "sourceLine": 9,
+    "unitLinks": [
+      "sprints.json/sprint-15-traceability-browser/task/task-106-list-overview-search.json"
+    ],
+    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
+    "coveredRequirements": [
+      "ior:instance:2d2ca22b-a744-4245-87a5-6562edd3b017"
+    ]
+  },
+  "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
+}

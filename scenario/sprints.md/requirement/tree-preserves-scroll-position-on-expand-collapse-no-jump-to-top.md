@@ -1,5 +1,11 @@
 ### Tree preserves scroll position on expand/collapse — no jump to top.
 
+<details><summary>Tron directive</summary>
+
+> Tree preserves scroll position on expand/collapse — no jump to top.
+
+</details>
+
 ## Traceability
 
 **Tasks:**

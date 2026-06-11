@@ -24,7 +24,7 @@
 ## Traceability
 
 - up
-  - [requirement:uuid:25b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02](./requirements.md) — R15.2 Object.verb model
+  - [requirement:uuid:38f80708-d191-47bd-ada4-a710c5f1e6ed](./requirements.md) — R15.2 Object.verb model
   - [Sprint 15 Planning](./planning.md)
   - Tron directive 2026-05-26
 - down

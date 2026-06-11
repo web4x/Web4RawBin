@@ -6,3 +6,4 @@
 
 **Methods:**
 - [🔗 TraceRouter.navigate](../method/tracerouter-navigate.md)
+- [🔗 TraceRouter.typeDispatch](../method/tracerouter-typedispatch.md)
