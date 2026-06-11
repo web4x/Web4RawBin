@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "4c442530-92fb-48b4-81d8-54af2ca9c866",
+    "altId": "R19.53",
+    "name": "R19.53: ONE canonical room location on disk \u2014 data/users/<uuid>/rooms/<roomUuid>/, no stray dirs.",
+    "description": "All room data MUST live under ONE canonical location: data/users/<user-uuid>/rooms/<room-uuid>/ (with files/ and messages/ subdirs). No room data outside this path. WRONG STRAYS to remove: scenario/rooms/<roomUuid>/ and scenario/sprints.json/rooms/<roomUuid>/. CORRECT (keep): scenario/sprints.md/room/*.md = generated views, these are fine. Two actions: (a) fix the CODE that writes to the stray paths (scenario/rooms/, scenario/sprints.json/rooms/) so all future writes go to the canonical data/users/ location only; (b) one-time MIGRATION of existing stray data into canonical (backup-gated).",
+    "tronQuote": "> TRON: \"rooms directories got a mess on disk. standardize it. ONE place not many. rooms should stay under data/user/rooms.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:d3416a23-f2f9-4c70-8a47-88e0f93a9aa0",
+      "ior:instance:124d9eec-0c46-4f45-8640-b7e14618d214"
+    ],
+    "crossRefNote": "R19.22 (per-user room.json = symlink to canonical scenario unit) and R19.46 (Room.files[] IOR list) both assume the canonical data/users/ path. R19.53 enforces it as the ONLY location and cleans up stray dirs."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
