@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c96d458c-af29-44c9-a309-15f689c0c0eb",
+    "name": "R19.23 strip room-full",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 1497,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

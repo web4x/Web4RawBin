@@ -5,7 +5,7 @@
     "name": "FileUnit.uploadEndpoint",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "implementations": [
-      "ior:instance:94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05"
+      "ior:instance:7f1774c9-1f78-403e-b078-c1b21d8a6b8e"
     ],
     "tests": []
   },
