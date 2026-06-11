@@ -244,7 +244,10 @@ const roomManager = new RoomManager(ROOMS_DIR);
     const chatCount = data.chatHistory?.length || 0;
     const memberCount = (data as any).members?.length || 0;
     if (chatCount > 0) room.loadChatHistory(data.chatHistory);
-    console.log(`  room ${roomId.slice(0,8)}: chat=${chatCount} members=${memberCount} name=${data.name}`);
+    room.lastMessageIor = (data as any).lastMessageIor || null;
+    room.firstMessageIor = (data as any).firstMessageIor || null;
+    room.messageCount = (data as any).messageCount || 0;
+    console.log(`  room ${roomId.slice(0,8)}: chat=${chatCount} members=${memberCount} lastMsg=${room.lastMessageIor?.slice(0,20) || 'null'} name=${data.name}`);
     registered++;
   }
   console.log(`Per-user rooms: ${registered} registered, ${backfilled} creatorToken backfilled`);
