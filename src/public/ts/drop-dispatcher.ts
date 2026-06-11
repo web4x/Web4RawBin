@@ -1,17 +1,50 @@
 /**
  * DnD Drop Dispatcher — routes dropped files by mimeType.
- * Known files → upload; unknown → chat log + extensible handler registry.
+ * State machine: IDLE→DRAGOVER→UPLOADING→COMPLETE.
  */
 
 type DropHandler = (file: File, roomId: string, playerToken: string) => Promise<void>;
+type StatusCallback = (state: string, detail?: string) => void;
 
 export class DropDispatcher {
   private handlers = new Map<string, DropHandler>();
+  private enterCount = 0;
+  state: 'idle' | 'dragover' | 'uploading' | 'complete' = 'idle';
+  private statusCb: StatusCallback | null = null;
 
   constructor(private baseUrl: string = '') {}
 
+  onStatus(cb: StatusCallback): void { this.statusCb = cb; }
+
   register(mimePrefix: string, handler: DropHandler): void {
     this.handlers.set(mimePrefix, handler);
+  }
+
+  // [impl:uuid:481b1a1c-a1b2-4c3d-8e4f-5a6b7c8d9e10] DropDispatcher.enterDragZone
+  onDropEnter(dz: HTMLElement): void {
+    this.enterCount++;
+    if (this.enterCount === 1) {
+      this.state = 'dragover';
+      dz.classList.add('rrc-drop-active');
+      this.statusCb?.('dragover', 'Drop files here');
+    }
+  }
+
+  // [impl:uuid:481b1a1c-b2c3-4d4e-9f5a-6b7c8d9e0f11] DropDispatcher.exitDragZone
+  onDropExit(dz: HTMLElement): void {
+    this.enterCount--;
+    if (this.enterCount <= 0) {
+      this.enterCount = 0;
+      this.state = 'idle';
+      dz.classList.remove('rrc-drop-active');
+      this.statusCb?.('idle');
+    }
+  }
+
+  resetDrag(dz: HTMLElement): void {
+    this.enterCount = 0;
+    this.state = 'idle';
+    dz.classList.remove('rrc-drop-active');
   }
 
   // [impl:uuid:d6ec181b-3e6f-4b95-9b67-196cdb137ad3] DropDispatcher.uploadFile
@@ -22,6 +55,24 @@ export class DropDispatcher {
     const resp = await fetch(`${this.baseUrl}/api/room/${roomId}/upload`, { method: 'POST', body: fd });
     if (!resp.ok) return null;
     return resp.json();
+  }
+
+  // [impl:uuid:481b1a1c-c3d4-4e5f-a060-000000000012] DropDispatcher.uploadWithProgress
+  uploadWithProgress(file: File, roomId: string, playerToken: string, onProgress: (pct: number) => void): Promise<{ uuid: string; name: string; size: number } | null> {
+    return new Promise((resolve) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', `${this.baseUrl}/api/room/${roomId}/upload`);
+      xhr.upload.onprogress = (e) => { if (e.lengthComputable) onProgress(Math.round(e.loaded / e.total * 100)); };
+      xhr.onload = () => {
+        try { resolve(xhr.status === 200 ? JSON.parse(xhr.responseText) : null); }
+        catch { resolve(null); }
+      };
+      xhr.onerror = () => resolve(null);
+      const fd = new FormData();
+      fd.append('file', file);
+      fd.append('playerToken', playerToken);
+      xhr.send(fd);
+    });
   }
 
   // [impl:uuid:971bdde0-004b-4896-bc8c-4570832f6304] DropDispatcher.routeUnknown
@@ -36,11 +87,20 @@ export class DropDispatcher {
   }
 
   async dispatch(file: File, roomId: string, playerToken: string, sendChat: (text: string) => void): Promise<{ uuid: string; name: string; size: number } | null> {
+    this.state = 'uploading';
+    this.statusCb?.('uploading', `Uploading ${file.name}...`);
+    let result: { uuid: string; name: string; size: number } | null = null;
     if (file.type.startsWith('image/') || file.type.startsWith('text/') || file.type.startsWith('application/')) {
-      return this.uploadFile(file, roomId, playerToken);
+      result = await this.uploadWithProgress(file, roomId, playerToken, (pct) => {
+        this.statusCb?.('uploading', `${file.name} ${pct}%`);
+      });
+    } else {
+      await this.routeUnknown(file, roomId, playerToken, sendChat);
     }
-    await this.routeUnknown(file, roomId, playerToken, sendChat);
-    return null;
+    this.state = 'complete';
+    this.statusCb?.(result ? 'complete' : 'error', result ? `Uploaded ${file.name}` : `Failed: ${file.name}`);
+    setTimeout(() => { if (this.state === 'complete') { this.state = 'idle'; this.statusCb?.('idle'); } }, 2000);
+    return result;
   }
 }
 

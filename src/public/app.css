@@ -347,4 +347,9 @@ rb-detail-drawer pre, rb-detail-drawer code { font-size: 0.75rem; }
 .rrc-drop-active { border-color: #4caf50; background-color: rgba(76,175,80,0.12); }
 .rrc-drop-label { font-weight: 600; }
 .rrc-drop-hint { font-size: 0.85em; opacity: 0.7; margin-top: 4px; }
+.rrc-upload-status { padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; margin-top: 8px; text-align: center; }
+.rrc-upload-dragover { background: rgba(76,175,80,0.15); color: #66bb6a; }
+.rrc-upload-uploading { background: rgba(33,150,243,0.15); color: #42a5f5; }
+.rrc-upload-complete { background: rgba(76,175,80,0.15); color: #66bb6a; }
+.rrc-upload-error { background: rgba(244,67,54,0.15); color: #ef5350; }
 .rrc .trace-tree { background: #1a1a2e; border-radius: 12px; padding: 8px; margin-top: 12px; }

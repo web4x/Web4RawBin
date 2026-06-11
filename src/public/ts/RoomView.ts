@@ -161,18 +161,26 @@ export class RoomView {
         <rb-header title="${this.roomName}" show-leave show-home ${isHost ? 'show-delete show-edit' : ''} show-reload show-fullscreen></rb-header>
         <div style="padding:0 16px 4px;display:flex;gap:8px;align-items:center"><a href="/scenario?ior=${this.roomId}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="View room scenario unit">📄 Scenario</a><span style="color:rgba(255,255,255,0.3);font-size:0.65rem">${this.roomId.slice(0,8)}</span></div>
         <div id="offline-banner" class="offline-banner" style="display:none">Offline — messages queued</div>
-        <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="trace-tree" id="rrc-tree"><div class="tt-node" id="rrc-members-node"><div class="tt-row"><rb-object-item ref="collection:members" type="collection" name="Members" description="Room members" has-children children-open></rb-object-item></div><div class="tt-children" id="rrc-members-children"></div></div><div class="tt-node" id="rrc-files-node"><div class="tt-row"><rb-object-item ref="collection:files" type="collection" name="Files" description="Room files" has-children children-open></rb-object-item></div><div class="tt-children" id="rrc-files-children"></div></div></div></div></div>
+        <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="rrc-upload-status" id="rrc-upload-status" style="display:none"></div><div class="trace-tree" id="rrc-tree"><div class="tt-node" id="rrc-members-node"><div class="tt-row"><rb-object-item ref="collection:members" type="collection" name="Members" description="Room members" has-children children-open></rb-object-item></div><div class="tt-children" id="rrc-members-children"></div></div><div class="tt-node" id="rrc-files-node"><div class="tt-row"><rb-object-item ref="collection:files" type="collection" name="Files" description="Room files" has-children children-open></rb-object-item></div><div class="tt-children" id="rrc-files-children"></div></div></div></div></div>
       </div>`;
 
     const dz = document.getElementById("rrc-drop");
+    const statusBar = document.getElementById("rrc-upload-status");
     if (dz && !(dz as any).__wired) {
       (dz as any).__wired = true;
-      dz.addEventListener("dragenter", (e) => { e.preventDefault(); dz.classList.add("rrc-drop-active"); });
+      dropDispatcher.onStatus((state, detail) => {
+        if (statusBar) {
+          statusBar.style.display = state === 'idle' ? 'none' : '';
+          statusBar.textContent = detail || '';
+          statusBar.className = `rrc-upload-status rrc-upload-${state}`;
+        }
+      });
+      dz.addEventListener("dragenter", (e) => { e.preventDefault(); dropDispatcher.onDropEnter(dz); });
       dz.addEventListener("dragover", (e) => { e.preventDefault(); });
-      dz.addEventListener("dragleave", () => { dz.classList.remove("rrc-drop-active"); });
+      dz.addEventListener("dragleave", () => { dropDispatcher.onDropExit(dz); });
       dz.addEventListener("drop", (e: Event) => {
         e.preventDefault();
-        dz.classList.remove("rrc-drop-active");
+        dropDispatcher.resetDrag(dz);
         const dt = (e as DragEvent).dataTransfer;
         if (!dt) return;
         const files = Array.from(dt.files || []);
