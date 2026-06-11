@@ -268,3 +268,7 @@
   > TRON: "do you see the issue with the nudge???" — dead handle, dragging does not resize.
 - **R19.85** (2026-06-11): pinch gesture SCALES preview content (CSS transform scale), not just pans. Pinch-out bigger, pinch-in smaller. Both pinch-scale + pan coexist.
   > TRON: "the pinch does not let me make the content of the preview make smaller in the iframe… only pan works. thats not enough."
+
+### URL file drawer regression (R19.86)
+- **R19.86** (2026-06-11): REGRESSION ~862868bfe — URL/webitem files no longer open ContentPreviewer drawer on click. Restore click→drawer path.
+  > TRON: "URL files do NOT open the drawer anymore."

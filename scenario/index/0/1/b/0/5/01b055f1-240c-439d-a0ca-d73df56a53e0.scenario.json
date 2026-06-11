@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "01b055f1-240c-439d-a0ca-d73df56a53e0",
+    "altId": "R19.86",
+    "name": "R19.86: URL/webitem files clicked in room must open the ContentPreviewer drawer — regression fix.",
+    "description": "REGRESSION (~862868bfe): clicking a URL/webitem file item in the in-room file tree no longer opens the ContentPreviewer/detail drawer. Previously worked (R19.73/77). FIX: restore the file-click → drawer-open path for url-type FileUnits. The click handler or event delegation for url/webitem items must invoke the same ContentPreviewer path as image/html files.",
+    "tronQuote": "> TRON: \"URL files do NOT open the drawer anymore.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:02af5fc2-2cc5-4a32-ba6c-1167a0a513d6",
+      "ior:instance:32e42144-0d04-49c9-a54d-298a4289c8c4"
+    ],
+    "crossRefNote": "R19.73 (in-room preview) and R19.77 (URL preview two buttons) both depend on the click→drawer path that regressed. R19.86 restores it."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
