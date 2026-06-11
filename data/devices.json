@@ -2863,8 +2863,8 @@
     "screenSize": "2560x1440",
     "platform": "MacIntel",
     "firstSeen": "2026-06-11T08:40:22.730Z",
-    "lastSeen": "2026-06-11T10:05:55.504Z",
-    "connectionCount": 35,
+    "lastSeen": "2026-06-11T10:31:31.807Z",
+    "connectionCount": 37,
     "enrolled": true,
     "devicePublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0Ii+xXVhuoLuqy5yPjCg\nrdLrIaZ7Uu/I1gUyMdmhZdJ16ruQwCGzmH/Tt2KEOyzKgp+nAI2OqpOPutWE7vth\nacGw6OnEr2GXvclaFOJvvF6ufsrTjO28B6dQyqxkGXwCL0pupsEFzryO7M2NcvIA\nB7zDqSUtn9syRmKiyKCO9lAwvZxtyFNEppGEF6ErV64zR5ueHaA4Bz+Q/cR3yTjY\n2JoNaTEY0jft+7wwtJkzHQYLXOTV1CDlPVF1Ac1koLBsP0rjYZZP/CMltU1goiky\nznHl4ft0jIQJHbLETEXqbKldGZ5IOLyGtEjKbKlO9tMp+4+9mNzJvfnMmekxkBon\newIDAQAB\n-----END PUBLIC KEY-----\n",
     "enrolledAt": "2026-06-11T08:40:40.619Z"
