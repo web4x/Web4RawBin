@@ -15,7 +15,9 @@
     "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
     "useCases": [
       "ior:instance:5b773d3c-b2f1-47a6-8329-60f8bf297f12"
-    ]
+    ],
+    "orphanByDesign": true,
+    "orphanReason": "Shipped feature (S18 detail-view) \u2014 implemented within umbrella task T178/T186 without a dedicated task unit. Chain complete (UC\u2192Class\u2192Method\u2192Impl exists). No ongoing work."
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }
