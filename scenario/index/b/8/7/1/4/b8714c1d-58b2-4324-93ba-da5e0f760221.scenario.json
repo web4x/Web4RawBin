@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b8714c1d-58b2-4324-93ba-da5e0f760221",
+    "name": "RbDetailDrawer.buttonsAboveName impl",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
+    "sourceLine": 262,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:fa014bf5-d062-4d19-8f43-ad03641993aa"
+}

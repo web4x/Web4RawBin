@@ -5,7 +5,9 @@
     "name": "RbDetailDrawer.buttonsAboveName",
     "description": "Preview action buttons render ABOVE the filename in the drawer body. Layout: [handle][buttons][name][preview content].",
     "sourceFile": "ior:file:src/public/ts/RoomView.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:b8714c1d-58b2-4324-93ba-da5e0f760221"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"

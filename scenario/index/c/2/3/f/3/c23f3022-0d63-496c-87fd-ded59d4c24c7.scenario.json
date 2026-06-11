@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c23f3022-0d63-496c-87fd-ded59d4c24c7",
+    "name": "RbDetailDrawer.resize95vh impl",
+    "sourceFile": "ior:file:src/public/app.css",
+    "sourceLine": 272,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5ecea757-b198-49f0-8d69-e7e3169f4ee7"
+}

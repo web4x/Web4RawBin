@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7cd70c47-d2cd-4749-8bb6-18018c64bc14",
+    "name": "ContentPreviewer.iframePinchZoom impl",
+    "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
+    "sourceLine": 7,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:7021b77e-f5a5-4448-b6fb-bd638d04cf2d"
+}

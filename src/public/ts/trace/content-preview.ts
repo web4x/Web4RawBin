@@ -4,6 +4,7 @@
  */
 
 // [impl:uuid:4c897dae-affd-4528-bbda-2f4c373c6de8] R19.75 ContentPreviewer.authToken
+// [impl:uuid:7cd70c47-d2cd-4749-8bb6-18018c64bc14] R19.81 iframe pinch-zoom
 export function renderContentPreview(uuid: string, mimeType: string, name: string, token?: string): string {
   const contentUrl = `/api/room/file/${uuid}/content${token ? '?token=' + encodeURIComponent(token) : ''}`;
 
@@ -15,11 +16,11 @@ export function renderContentPreview(uuid: string, mimeType: string, name: strin
   }
   if (mimeType === 'application/pdf') {
 // [impl:uuid:96fbfac9-10c2-4543-986b-a66b8eaebeda] R19.69 iframe sandbox
-    return `<div class="cv-preview"><iframe src="${contentUrl}" sandbox="allow-same-origin" style="width:100%;height:400px;border:none;border-radius:8px"></iframe></div>`;
+    return `<div class="cv-preview"><iframe src="${contentUrl}" sandbox="allow-same-origin" style="width:100%;height:400px;border:none;border-radius:8px;touch-action:pinch-zoom"></iframe></div>`;
   }
   // [impl:uuid:cf44c51c-0e38-4f9c-bbf9-b4731eb6e8ce] R19.74 HTML sandboxed iframe
   if (mimeType === 'text/html') {
-    return `<div class="cv-preview"><iframe src="${contentUrl}" sandbox="allow-same-origin" style="width:100%;height:400px;border:none;border-radius:8px;background:white"></iframe></div>`;
+    return `<div class="cv-preview"><iframe src="${contentUrl}" sandbox="allow-same-origin" style="width:100%;height:400px;border:none;border-radius:8px;background:white;touch-action:pinch-zoom"></iframe></div>`;
   }
   // [impl:uuid:cde29329-9ede-4c31-9ab8-4a853b1e4280] R19.77 URL file action buttons
   if (mimeType === 'text/uri-list' || name.endsWith('.url') || name.endsWith('.webloc')) {
@@ -60,7 +61,7 @@ export function wireUrlActions(container: HTMLElement): void {
         const text = (await resp.text()).trim().split('\n').filter(l => l.startsWith('http'))[0] || '';
         if (text) {
           frame.style.display = '';
-          frame.innerHTML = `<iframe src="${text}" sandbox="allow-same-origin allow-scripts" style="width:100%;height:400px;border:none;border-radius:8px;background:white"></iframe>`;
+          frame.innerHTML = `<iframe src="${text}" sandbox="allow-same-origin allow-scripts" style="width:100%;height:400px;border:none;border-radius:8px;background:white;touch-action:pinch-zoom"></iframe>`;
         }
       } catch {}
     });

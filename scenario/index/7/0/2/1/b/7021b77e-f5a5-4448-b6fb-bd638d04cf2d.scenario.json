@@ -5,7 +5,9 @@
     "name": "ContentPreviewer.iframePinchZoom",
     "description": "Preview iframe supports pinch-zoom on mobile. CSS: iframe { touch-action: pan-x pan-y pinch-zoom; } or wraps iframe in a pinch-zoom container (reuse SVG viewer pattern if applicable).",
     "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:7cd70c47-d2cd-4749-8bb6-18018c64bc14"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e"

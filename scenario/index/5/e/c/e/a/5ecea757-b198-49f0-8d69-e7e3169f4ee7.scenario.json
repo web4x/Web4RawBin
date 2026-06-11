@@ -5,7 +5,9 @@
     "name": "RbDetailDrawer.resize95vh",
     "description": "Drawer max-height increased to 95vh (was 50vh). Back button (z-index:101 pageNav) keeps visible 5%. CSS change: rb-detail-drawer { max-height: 95vh }.",
     "sourceFile": "ior:file:src/public/app.css",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:c23f3022-0d63-496c-87fd-ded59d4c24c7"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"

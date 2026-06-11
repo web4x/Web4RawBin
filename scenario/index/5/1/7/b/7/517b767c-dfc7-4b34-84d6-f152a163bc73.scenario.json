@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "517b767c-dfc7-4b34-84d6-f152a163bc73",
+    "name": "RbDetailDrawer.nudgeAboveButtons impl",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "sourceLine": 71,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:779bdd6f-d919-4d69-af48-85f5c193311b"
+}

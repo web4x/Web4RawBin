@@ -269,7 +269,8 @@ rb-member-badge { display: flex; align-items: center; gap: 4px; padding: 3px 8px
 /* T110+T120+T122+T167: Detail Drawer — dark bg, mobile=fixed bottom, desktop=static right */
 rb-detail-drawer {
   position: fixed; bottom: 0; left: 0; right: 0;
-  max-height: 50vh; background: #1a1a2e; color: #e0e0e0;
+  /* [impl:uuid:c23f3022-0d63-496c-87fd-ded59d4c24c7] R19.80 resize 95vh */
+  max-height: 95vh; background: #1a1a2e; color: #e0e0e0;
   border-radius: 16px 16px 0 0;
   box-shadow: none;
   transform: translateY(100%); transition: transform 0.25s ease-out;
@@ -285,7 +286,7 @@ rb-detail-drawer {
 rb-detail-drawer pre, rb-detail-drawer code { overflow-x: auto; max-width: 100%; }
 rb-detail-drawer[open] { transform: translateY(0); box-shadow: 0 -4px 20px rgba(0,0,0,0.4); visibility: visible; }
 @media (max-width: 480px) {
-  rb-detail-drawer { max-width: none; max-height: 60vh; }
+  rb-detail-drawer { max-width: none; max-height: 95vh; }
 }
 rb-detail-drawer .drawer-handle {
   width: 40px; height: 4px; background: rgba(255,255,255,0.25); border-radius: 2px;

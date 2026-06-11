@@ -5,7 +5,9 @@
     "name": "RbDetailDrawer.nudgeAboveButtons",
     "description": "Drawer grab handle/nudge bar renders above the action buttons. Visual order: [grab handle/nudge][buttons][name][preview]. Handle stays at very top for swipe-dismiss.",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:517b767c-dfc7-4b34-84d6-f152a163bc73"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"

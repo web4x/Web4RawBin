@@ -258,7 +258,8 @@ export class RoomView {
       for (const child of [...drawer.children]) { if (child !== handle) child.remove(); }
       const body = document.createElement('div');
       body.className = 'drawer-body';
-      body.innerHTML = `<h3 style="margin:0 0 8px;font-size:0.9rem;color:white">${(fm.name || uuid).replace(/[<>]/g, '')}</h3>${preview}`;
+      // [impl:uuid:b8714c1d-58b2-4324-93ba-da5e0f760221] R19.78 buttons above filename
+      body.innerHTML = `${preview}<h3 style="margin:8px 0 0;font-size:0.9rem;color:white">${(fm.name || uuid).replace(/[<>]/g, '')}</h3>`;
       drawer.appendChild(body);
       drawer.setAttribute('ref', `file:${uuid}`);
       loadTextPreview(body, uuid, this.client.playerToken);
