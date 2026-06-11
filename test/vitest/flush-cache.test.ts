@@ -1,6 +1,5 @@
 /**
  * Flush PWA Cache button — verifies sw.js offline page has the flush affordance
- * [test:uuid:bbd2439f-c80e-496f-b5e9-c9db8176cf56] R19.45 flush PWA cache
  *
  * @vitest-environment node
  */

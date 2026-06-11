@@ -386,7 +386,6 @@ describe('S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)',
     expect(r.info().mode).toBe('persistent');
   });
   // [test:uuid:17b688fb-1eb9-4750-8497-8317a97bee5c] test:RbRoomDetail.scenarioLinkRender R19.22.B
-  // [test:uuid:9b9c8ae6-f8e4-4e87-8bd1-70cfab24ae95] test:Room.visibilityCheck
   it('T-visibility R19.3: setVisibility switches visibility and syncs isPrivate', () => {
     const r = new Room('r2', makeMember({ id: 'a' }));
     expect(r.visibility).toBe('public');
