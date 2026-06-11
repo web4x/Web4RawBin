@@ -6,7 +6,7 @@
     "className": "RbObjectItem",
     "methodName": "render",
     "implementations": [
-      "ior:instance:b4c8bf40-6b31-4acd-ad4a-0f93d6f7326b"
+      "ior:instance:2b1e7d26-62fe-4d8a-8129-56c09b9d78ff"
     ],
     "implementation": "",
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",

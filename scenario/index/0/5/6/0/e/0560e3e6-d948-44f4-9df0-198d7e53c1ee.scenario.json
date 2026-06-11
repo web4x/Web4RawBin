@@ -6,7 +6,7 @@
     "className": "RbObjectItem",
     "methodName": "expand",
     "implementations": [
-      "ior:instance:b4c8bf40-6b31-4acd-ad4a-0f93d6f7326b"
+      "ior:instance:7611c7c4-1d12-4546-a57f-1dc60d6e61ff"
     ],
     "implementation": "",
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",

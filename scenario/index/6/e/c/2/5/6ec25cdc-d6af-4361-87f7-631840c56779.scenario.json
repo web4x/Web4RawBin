@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6ec25cdc-d6af-4361-87f7-631840c56779",
+    "name": "R19.14 (split for FileUnit.computeContentHash)",
+    "sourceFile": "src/ts/scenario/file-unit.ts",
+    "sourceLine": 3,
+    "tests": [
+      "ior:instance:e11c89d0-2c3e-467e-8dd7-0ea23e1168b6"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5afb6fc2-fe11-4935-a9c4-205750a1d8b6"
+}

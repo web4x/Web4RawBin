@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "bcbfa945-633a-4f62-950c-7d8d39b0dd15",
+    "name": "R17.12 (split for IORResolver.resolveInstance(ior): ScenarioUnit)",
+    "sourceFile": "src/ts/scenario/ior-resolver.ts",
+    "sourceLine": 5,
+    "tests": [
+      "ior:instance:1179288e-8291-4df7-ad0f-28f78030dd97"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e0351edf-ee2d-4795-944f-144809b7b618"
+}

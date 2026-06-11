@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d688f96c-1144-4299-aba6-e1dd7271f704",
+    "name": "Logger.logAtLevel (split for Assets.keylessUpload)",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 262,
+    "tests": [
+      "ior:instance:b543e1ad-9b87-4545-9a18-6b7f6286ec1f"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:2787c403-17ce-4149-90eb-7c91b6e6c2d6"
+}

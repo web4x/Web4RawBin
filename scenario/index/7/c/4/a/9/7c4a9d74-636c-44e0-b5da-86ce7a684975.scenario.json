@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7c4a9d74-636c-44e0-b5da-86ce7a684975",
+    "name": "Logger.logAtLevel (split for FileUnit.uploadEndpoint)",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 262,
+    "tests": [
+      "ior:instance:b543e1ad-9b87-4545-9a18-6b7f6286ec1f"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:acbedb76-c0a6-4868-a486-eb89cea80d23"
+}

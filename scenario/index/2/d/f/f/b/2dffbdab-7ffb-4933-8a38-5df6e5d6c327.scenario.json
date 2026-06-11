@@ -5,7 +5,7 @@
     "name": "Assets.avatarPersist",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "implementations": [
-      "ior:instance:7f1774c9-1f78-403e-b078-c1b21d8a6b8e"
+      "ior:instance:340036b4-8689-4cdb-b18f-fbbb7d36e0c5"
     ],
     "tests": []
   },

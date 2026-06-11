@@ -6,7 +6,7 @@
     "description": "On JOIN_ROOM: read room scenario unit model.files[], resolve each IOR via ScenarioIndex.get(), send FILE_ADDED per unit (dedup by Set). Replaces filesystem symlink scan.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "implementations": [
-      "ior:instance:7f1774c9-1f78-403e-b078-c1b21d8a6b8e"
+      "ior:instance:32005bc3-7bce-4214-aeb7-f50794cedca4"
     ],
     "tests": []
   },

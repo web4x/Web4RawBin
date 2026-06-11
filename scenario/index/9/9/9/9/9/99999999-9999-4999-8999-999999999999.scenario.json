@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "99999999-9999-4999-8999-999999999999",
+    "name": "fs.writeFileSync(path.join(srcDir, 's.ts'), `// shared\\n// orphan marker no unit",
+    "sourceFile": "test/vitest/object-verb.test.ts",
+    "sourceLine": 198,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

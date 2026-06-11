@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7c33815f-9bc9-4188-bd0b-0f66ea9225f3",
+    "name": "impl:Room.visibilityCheck (split for Room.multiRoomLoad)",
+    "sourceFile": "src/ts/server/Room.ts",
+    "sourceLine": 120,
+    "tests": [
+      "ior:instance:9b9c8ae6-f8e4-4e87-8bd1-70cfab24ae95"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b98868fc-e801-4698-9b30-164eb289fb8f"
+}

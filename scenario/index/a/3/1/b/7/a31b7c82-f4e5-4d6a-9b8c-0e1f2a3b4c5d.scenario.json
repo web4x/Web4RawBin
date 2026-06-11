@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a31b7c82-f4e5-4d6a-9b8c-0e1f2a3b4c5d",
+    "name": "* R19.14 file-restore on rejoin",
+    "sourceFile": "test/vitest/file-restore.test.ts",
+    "sourceLine": 3,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

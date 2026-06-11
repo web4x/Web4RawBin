@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f1dd0d77-a2b3-4c4d-9e5f-6a7b8c9d0e11",
+    "name": "// Room.stripSizeLimits R19.23",
+    "sourceFile": "src/public/ts/RawBinClient.ts",
+    "sourceLine": 217,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

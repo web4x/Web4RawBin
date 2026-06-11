@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "681e2949-181f-48cd-bcf6-f88b08887218",
+    "name": "* T191 champagne component tests",
+    "sourceFile": "test/vitest/champagne-components.test.ts",
+    "sourceLine": 5,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

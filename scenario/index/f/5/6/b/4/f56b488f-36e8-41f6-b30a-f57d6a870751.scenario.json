@@ -6,7 +6,7 @@
     "description": "Add ImplementationTemplate, RoomTemplate, MessageTemplate, FileTemplate, DeviceTemplate, SkillTemplate to templates.ts. Each: renderHtml with sv-TYPE class, h3 name, type-specific fields, renderChainSection, renderSourceEdit (\u270f\ufe0f for types with sourceFile). Register in defaultTemplateRegistry().",
     "sourceFile": "ior:file:src/ts/scenario/templates.ts",
     "implementations": [
-      "ior:instance:1d2024fb-f7be-4bd8-b452-b154b0150ee3"
+      "ior:instance:7c6911e4-d56a-4a8b-bba6-595df4ed44e2"
     ],
     "tests": []
   },

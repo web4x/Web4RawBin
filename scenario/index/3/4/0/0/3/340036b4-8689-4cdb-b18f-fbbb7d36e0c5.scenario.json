@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "340036b4-8689-4cdb-b18f-fbbb7d36e0c5",
+    "name": "Logger.logAtLevel (split for Assets.avatarPersist)",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 262,
+    "tests": [
+      "ior:instance:b543e1ad-9b87-4545-9a18-6b7f6286ec1f"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:2dffbdab-7ffb-4933-8a38-5df6e5d6c327"
+}

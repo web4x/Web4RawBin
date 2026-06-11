@@ -6,7 +6,7 @@
     "className": "RbObjectItem",
     "methodName": "setIcon",
     "implementations": [
-      "ior:instance:b4c8bf40-6b31-4acd-ad4a-0f93d6f7326b"
+      "ior:instance:2693d9cc-4a08-4f05-ba01-597b647eb7c7"
     ],
     "implementation": "",
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",

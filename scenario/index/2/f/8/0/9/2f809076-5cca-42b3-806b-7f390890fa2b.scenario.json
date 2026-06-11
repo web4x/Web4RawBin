@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "2f809076-5cca-42b3-806b-7f390890fa2b",
+    "name": "Logger.logAtLevel (split for PageNav.raiseAboveDrawer)",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 262,
+    "tests": [
+      "ior:instance:b543e1ad-9b87-4545-9a18-6b7f6286ec1f"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:adde3420-6ba6-400d-9b51-ebac318ea034"
+}

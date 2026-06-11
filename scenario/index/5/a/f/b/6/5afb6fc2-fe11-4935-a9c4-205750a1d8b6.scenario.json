@@ -6,7 +6,7 @@
     "description": "crypto.createHash('sha256').update(content).digest('hex'). Stored as model.contentHash on the FileUnit scenario unit at creation time.",
     "sourceFile": "ior:file:src/ts/scenario/file-unit.ts",
     "implementations": [
-      "ior:instance:36a3b677-dc4d-415c-9eee-ffc62fff0f76"
+      "ior:instance:6ec25cdc-d6af-4361-87f7-631840c56779"
     ],
     "tests": []
   },

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "55e039b7-11db-4a65-9a2e-589c5b4ffc89",
+    "name": "TraceObject.parent (split for TraceObject.children)",
+    "sourceFile": "src/ts/shared/TraceModel.ts",
+    "sourceLine": 11,
+    "tests": [
+      "ior:instance:8edc3d29-79ee-4d7f-b2df-b48a1d68226f"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:66484695-b395-4415-a676-299f67d8318b"
+}

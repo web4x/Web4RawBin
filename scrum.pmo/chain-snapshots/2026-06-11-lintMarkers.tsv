@@ -1,63 +1,74 @@
 kind	uuid	detail
-invented-suffix	10a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f40	Requirement uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	13a4b5c6-d7e8-4f90-a1b2-c3d4e5f60097	Implementation uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	14a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01	Requirement uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01	Requirement uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	20b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a51	Requirement uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	24b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02	Requirement uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	25b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02	Requirement uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	3676b612-81fb-4b93-a2b3-b660831958cc	Requirement uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	3a671bfc-b2c3-4d4e-9f5a-6b7c8d9e0123	Implementation uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	417918a5-b2c3-4d4e-9f5a-6b7c8d9e0f12	Implementation uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	481b1a1c-a1b2-4c3d-8e4f-5a6b7c8d9e10	Implementation uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	481b1a1c-b2c3-4d4e-9f5a-6b7c8d9e0f11	Implementation uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	481b1a1c-c3d4-4e5f-a060-000000000012	Implementation uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	67b2763e-1a2b-4c3d-8e4f-5a6b7c8d9e01	Implementation uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	7144f6ca-a1b2-4c3d-8e4f-5a6b7c8d9e0f	Implementation uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	7d8e9f00-1a2b-4c3d-8e5f-6a7b8c9d0e1f	UseCase uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	8f3a2b4c-d5e6-4f70-a1b2-c3d4e5f60140	Task uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05	Implementation uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d	Requirement uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	b42c8d93-e5f6-4a7b-8c9d-1f2a3b4c5d6e	Test uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	b57f1e2a-c3d4-4e5f-9a6b-7c8d9e0f1a2b	Implementation uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	c9f56d34-7a8b-4e1f-b2c3-4d5e6f7a8b90	Test uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	d8fe90a1-a1b2-4c34-5d6e-7f8a9b010045	Requirement uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	da9462f5-a1b2-4c3d-8e4f-5a6b7c8d9e0f	Implementation uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
-invented-suffix	e9a0f1b2-b2c3-4d45-6e7f-8a9b0c120046	Requirement uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	0a1b2c3d-4e5f-4a6b-8c9d-0e1f2a3b4c5d	UseCase uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	0e1f2a3b-4c5d-4e6f-7a8b-9c0d1e2f3a4b	UseCase uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	101a0b1c-2d3e-4f50-8617-a01010101101	Task uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	101b2c3d-4e5f-4061-8273-b01010101102	Test uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	102b1c2d-3e4f-4051-9728-b02020202102	Task uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	102c3d4e-5f60-4071-8293-c02020202103	Test uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	105f5061-7283-4495-8a6c-f05050505106	Test uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	106a6172-8394-44a6-9b7d-061616161607	Test uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	106f5061-7283-4495-896c-f06060606106	Task uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	107a6172-8394-45a6-897d-a07070707107	Task uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	107b7283-94a5-46b7-8a8e-b07070707108	Test uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	108b7283-94a5-46b7-898e-b08080808108	Task uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	108c8394-a5b6-47c8-89af-c08080808109	Test uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	109a0b1c-2d3e-4f50-8617-a09010901109	Task uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	10a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f40	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	14a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	14c3d4e5-f6a7-4b81-9c92-0d1e2f3a4b14	Test uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	15a1b2c3-d4e5-4f60-8a71-9b0c1d2e3f01	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	19f0d4e0-d1e2-4f3a-8b4c-5d6e7f8a9b0c	Implementation uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	1ae8de15-a1b2-4c3d-8e4f-5a6b7c8d9e0f	Implementation uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	1b2c3d4e-5f6a-4b7c-8d9e-0f1a2b3c4d5e	Method uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	1f2a3b4c-5d6e-4f7a-8b9c-0d1e2f3a4b5c	Method uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	20b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a51	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	24b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	25b2c3d4-e5f6-4a71-9b82-0c1d2e3f4a02	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	2a3b4c5d-6e7f-4a8b-9c0d-1e2f3a4b5c6d	UseCase uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	2c3d4e5f-6a7b-4c8d-9e0f-1a2b3c4d5e6f	UseCase uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	35c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b03	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	3676b612-81fb-4b93-a2b3-b660831958cc	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	3b4c5d6e-7f8a-4b9c-0d1e-2f3a4b5c6d7e	Method uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	3d4e5f6a-7b8c-4d9e-0f1a-2b3c4d5e6f7a	Method uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	4c5d6e7f-8a9b-4c0d-1e2f-3a4b5c6d7e8f	UseCase uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	4e5f6a7b-8c9d-4e0f-1a2b-3c4d5e6f7a8b	UseCase uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	55e5f6a7-b8c9-4d04-8ab5-3f4a5b6c7d05	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	5d6e7f8a-9b0c-4d1e-2f3a-4b5c6d7e8f9a	Method uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	5f6a7b8c-9d0e-4f1a-2b3c-4d5e6f7a8b9c	Method uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	65f6a7b8-c9d0-4e15-9bc6-4a5b6c7d8e06	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	6a7b8c9d-0e1f-4a2b-3c4d-5e6f7a8b9c0d	UseCase uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	6e7f8a9b-0c1d-4e2f-3a4b-5c6d7e8f9a0b	UseCase uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	7b8c9d0e-1f2a-4b3c-4d5e-6f7a8b9c0d1e	Method uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	7d8e9f00-1a2b-4c3d-8e5f-6a7b8c9d0e1f	UseCase uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	7e4f8a2b-c3d5-4e6f-9a1b-2c3d4e5f6a25	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	7f8a9b0c-1d2e-4f3a-4b5c-6d7e8f9a0b1c	Method uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	8e9f0a1b-2c3d-4e5f-6a7b-8c9d0e1f2a3b	Method uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	8f3a2b4c-d5e6-4f70-a1b2-c3d4e5f60140	Task uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	a0b1c2d3-e4f5-4061-8273-849500000100	Task uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	a1e2f3d4-b5c6-4d7e-8f90-1a2b3c4d5e26	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	a30b41c5-d6e7-4f89-0a1b-2c3d4e5f6730	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	a31b7c82-f4e5-4d6a-9b8c-0e1f2a3b4c5d	Test uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	a3f181b4-c5d6-4e7f-8a90-1b2c3d4e5f81	Implementation uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	a5cb6dc7-d8e9-4f01-2a3b-4c5d6e780042	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	a7e34f12-8b5c-4d9e-a1f2-3c4d5e6f7a89	Test uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	a96b07c1-d2e3-4f45-6a7b-8c9d0e120036	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	b41c52d6-e7f8-4a90-1b2c-3d4e5f677031	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	b42c8d93-e5f6-4a7b-8c9d-1f2a3b4c5d6e	Test uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	b4f180c5-d6e7-4f8a-9b01-2c3d4e5f6a80	Implementation uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	b6dc7ed8-e9f0-4a12-3b4c-5d6e7f890043	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f	Implementation uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	c52d63e7-f8a9-4b01-2c3d-4e5f6f780032	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	c7ed8fe9-f0a1-4b23-4c5d-6e7f8a900044	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	c9f56d34-7a8b-4e1f-b2c3-4d5e6f7a8b90	Test uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	d8fe90a1-a1b2-4c34-5d6e-7f8a9b010045	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	e9a0f1b2-b2c3-4d45-6e7f-8a9b0c120046	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	f1a2b3c4-d5e6-4f7a-8b9c-0d1e2f3a4b5c	Implementation uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	f1dd0d77-a2b3-4c4d-9e5f-6a7b8c9d0e11	Implementation uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	f4ba5cb6-c7d8-4e90-1f2a-3b4c5d670041	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	f56b488f-a1b2-4c3d-8e4f-5a6b7c8d9e0f	Implementation uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
+invented-suffix	f85a96b0-c1d2-4e34-5f6a-7b8c9d010035	Requirement uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)
 prefix-collision	19f0d4e0	Method:19f0d4e0-80f7-4792-9a46-d536bc5f7b7b | Implementation:19f0d4e0-d1e2-4f3a-8b4c-5d6e7f8a9b0c
-prefix-collision	3a671bfc	Method:3a671bfc-12c2-4922-938e-01572d90808e | Implementation:3a671bfc-b2c3-4d4e-9f5a-6b7c8d9e0123
-prefix-collision	417918a5	Implementation:417918a5-b2c3-4d4e-9f5a-6b7c8d9e0f12 | Requirement:417918a5-b2ce-45d4-8434-fd67d6abef3f
-prefix-collision	481b1a1c	Method:481b1a1c-7db0-4c34-b189-4e16a37ad05b | Implementation:481b1a1c-a1b2-4c3d-8e4f-5a6b7c8d9e10 | Implementation:481b1a1c-b2c3-4d4e-9f5a-6b7c8d9e0f11 | Implementation:481b1a1c-c3d4-4e5f-a060-000000000012
-prefix-collision	67b2763e	Implementation:67b2763e-1a2b-4c3d-8e4f-5a6b7c8d9e01 | Task:67b2763e-57d7-4d3e-ac16-11c0f905c3dc
-prefix-collision	7144f6ca	Method:7144f6ca-70f9-4816-b4db-88f9a08594df | Implementation:7144f6ca-a1b2-4c3d-8e4f-5a6b7c8d9e0f
-prefix-collision	94bc8f6e	Implementation:94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05 | Method:94bc8f6e-e377-415f-96fb-fd39175029c5
+prefix-collision	1ae8de15	Method:1ae8de15-6cb2-4fe3-a78f-f25c40e57bbb | Implementation:1ae8de15-a1b2-4c3d-8e4f-5a6b7c8d9e0f
 prefix-collision	ae090710	Task:ae090710-3fee-4dc6-8dd1-d5b8501483eb | Implementation:ae090710-5c3a-4e8b-b217-9f3d7c1a5e40
-prefix-collision	d4e5f6a7	Requirement:d4e5f6a7-b8c9-4d0e-1f2a-000000000003 | Requirement:d4e5f6a7-b8c9-4d0e-1f2a-000000000004 | Requirement:d4e5f6a7-b8c9-4d0e-1f2a-000000000005 | Requirement:d4e5f6a7-b8c9-4d0e-1f2a-000000000006 | Requirement:d4e5f6a7-b8c9-4d0e-1f2a-000000000007 | Requirement:d4e5f6a7-b8c9-4d0e-1f2a-000000000008 | Requirement:d4e5f6a7-b8c9-4d0e-1f2a-000000000009 | Requirement:d4e5f6a7-b8c9-4d0e-1f2a-000000000010 | Requirement:d4e5f6a7-b8c9-4d0e-1f2a-000000000011 | Requirement:d4e5f6a7-b8c9-4d0e-1f2a-000000000012 | Requirement:d4e5f6a7-b8c9-4d0e-1f2a-000000000013 | Requirement:d4e5f6a7-b8c9-4d0e-1f2a-000000000014 | Requirement:d4e5f6a7-b8c9-4d0e-1f2a-000000000015 | Requirement:d4e5f6a7-b8c9-4d0e-1f2a-000000000016
-prefix-collision	da9462f5	Method:da9462f5-72fd-49df-bedb-72c8b3248fc2 | Implementation:da9462f5-a1b2-4c3d-8e4f-5a6b7c8d9e0f
-shared-impl	e1ad6c89-269b-47d2-96b5-1fa356cbc226	referenced by 2 Methods — mint fresh uuid per method
-shared-impl	94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05	referenced by 3 Methods — mint fresh uuid per method
-shared-impl	b4c8bf40-6b31-4acd-ad4a-0f93d6f7326b	referenced by 13 Methods — mint fresh uuid per method
-shared-impl	87c9007a-2144-4030-a5ac-cd48f518bb2b	referenced by 6 Methods — mint fresh uuid per method
-shared-impl	3ddc7da8-a38a-470c-95f7-e48e3e7757c9	referenced by 4 Methods — mint fresh uuid per method
-shared-impl	1d2024fb-f7be-4bd8-b452-b154b0150ee3	referenced by 7 Methods — mint fresh uuid per method
-shared-impl	36a3b677-dc4d-415c-9eee-ffc62fff0f76	referenced by 5 Methods — mint fresh uuid per method
-shared-impl	7f1774c9-1f78-403e-b078-c1b21d8a6b8e	referenced by 11 Methods — mint fresh uuid per method
-shared-impl	6acb7db1-3a5d-424f-8d23-921394440cf1	referenced by 4 Methods — mint fresh uuid per method
-shared-impl	481b1a1c-b2c3-4d4e-9f5a-6b7c8d9e0f11	referenced by 2 Methods — mint fresh uuid per method
-shared-impl	d0235605-5d79-4411-a6ff-c72099ffd2f9	referenced by 5 Methods — mint fresh uuid per method
-shared-impl	8608ecc1-eba2-448d-b4e3-99529c9c7e12	referenced by 2 Methods — mint fresh uuid per method
-shared-impl	8cc75226-527e-4c87-bed8-9885e98d46e1	referenced by 2 Methods — mint fresh uuid per method
-shared-impl	19654b84-90e4-4a89-a9a8-10221f883d25	referenced by 2 Methods — mint fresh uuid per method
-shared-impl	9b96ae64-dfbc-4cdf-b62c-4394b647c6b9	referenced by 2 Methods — mint fresh uuid per method
-shared-impl	664314f1-1503-4f48-9cd3-231afd198570	referenced by 5 Methods — mint fresh uuid per method
-shared-impl	79505a42-6591-4fdb-a967-2767b7df4518	referenced by 2 Methods — mint fresh uuid per method
-orphan-marker	f1dd0d77-a2b3-4c4d-9e5f-6a7b8c9d0e11	[impl:uuid:] in src/public/ts/RawBinClient.ts has NO unit on disk
-orphan-marker	1ae8de15-a1b2-4c3d-8e4f-5a6b7c8d9e0f	[impl:uuid:] in src/ts/scenario/file-unit.ts has NO unit on disk
-orphan-marker	f56b488f-a1b2-4c3d-8e4f-5a6b7c8d9e0f	[impl:uuid:] in src/ts/scenario/templates.ts has NO unit on disk
-orphan-marker	79a00011-0011-4a11-a011-000179011001	[test:uuid:] in test/e2e/sw-activation.spec.ts has NO unit on disk
-orphan-marker	681e2949-181f-48cd-bcf6-f88b08887218	[test:uuid:] in test/vitest/champagne-components.test.ts has NO unit on disk
-orphan-marker	76f8fd67-d694-460b-9b13-cd2ca81407cc	[test:uuid:] in test/vitest/champagne-dedicated.test.ts has NO unit on disk
-orphan-marker	dc891c35-a906-4270-9082-8b492ff61668	[test:uuid:] in test/vitest/champagne-features.test.ts has NO unit on disk
-orphan-marker	194fa8f2-c0dd-4522-8f5d-e6108987d17f	[test:uuid:] in test/vitest/champagne-features.test.ts has NO unit on disk
-orphan-marker	a31b7c82-f4e5-4d6a-9b8c-0e1f2a3b4c5d	[test:uuid:] in test/vitest/file-restore.test.ts has NO unit on disk
-orphan-marker	7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d	[test:uuid:] in test/vitest/object-verb.test.ts has NO unit on disk
+prefix-collision	f1dd0d77	Implementation:f1dd0d77-a2b3-4c4d-9e5f-6a7b8c9d0e11 | Method:f1dd0d77-edaf-4d15-b1e6-f6b0ba33867b
+prefix-collision	f56b488f	Method:f56b488f-36e8-41f6-b30a-f57d6a870751 | Implementation:f56b488f-a1b2-4c3d-8e4f-5a6b7c8d9e0f

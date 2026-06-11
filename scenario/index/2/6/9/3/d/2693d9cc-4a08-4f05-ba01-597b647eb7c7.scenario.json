@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "2693d9cc-4a08-4f05-ba01-597b647eb7c7",
+    "name": "R15.4 defaultItemView (split for RbObjectItem.setIcon)",
+    "sourceFile": "src/public/ts/trace/rb-object-item.ts",
+    "sourceLine": 8,
+    "tests": [
+      "ior:instance:2c502c22-a96e-4aee-b86b-2365edf62edb"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:81d1c3a4-18b9-4478-b4e9-83b6c3b827cf"
+}

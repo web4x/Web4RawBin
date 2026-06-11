@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4a158f5c-c502-4ee3-854d-167a40cf806b",
+    "name": "R15.4 defaultItemView (split for RbObjectItem.render)",
+    "sourceFile": "src/public/ts/trace/rb-object-item.ts",
+    "sourceLine": 8,
+    "tests": [
+      "ior:instance:2c502c22-a96e-4aee-b86b-2365edf62edb"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:c4876ca6-2af0-416f-bb96-e5400137abf1"
+}

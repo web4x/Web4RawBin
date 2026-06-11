@@ -6,7 +6,7 @@
     "className": "ViewTemplateRegistry",
     "methodName": "renderHtml(scenario): string",
     "implementations": [
-      "ior:instance:1d2024fb-f7be-4bd8-b452-b154b0150ee3"
+      "ior:instance:d0605b74-98ca-4c3a-9fde-e80a27912049"
     ],
     "implementation": "ior:instance:43e55219-7f80-46e4-b8dc-083cf9696316",
     "sourceFile": "ior:file:src/ts/scenario/templates.ts",

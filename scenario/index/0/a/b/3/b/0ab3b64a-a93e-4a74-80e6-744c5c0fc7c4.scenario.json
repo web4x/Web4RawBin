@@ -6,7 +6,7 @@
     "className": "RbObjectItem",
     "methodName": "drag",
     "implementations": [
-      "ior:instance:b4c8bf40-6b31-4acd-ad4a-0f93d6f7326b"
+      "ior:instance:d809105d-b683-4cab-a587-fbdfdb4de809"
     ],
     "implementation": "",
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7611c7c4-1d12-4546-a57f-1dc60d6e61ff",
+    "name": "R15.4 defaultItemView (split for RbObjectItem.expand)",
+    "sourceFile": "src/public/ts/trace/rb-object-item.ts",
+    "sourceLine": 8,
+    "tests": [
+      "ior:instance:2c502c22-a96e-4aee-b86b-2365edf62edb"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:0560e3e6-d948-44f4-9df0-198d7e53c1ee"
+}

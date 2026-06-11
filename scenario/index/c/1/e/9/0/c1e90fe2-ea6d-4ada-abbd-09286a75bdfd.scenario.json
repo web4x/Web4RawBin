@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c1e90fe2-ea6d-4ada-abbd-09286a75bdfd",
+    "name": "impl:RbDetailDrawer.stickyBottom (split for RbDetailDrawer.close)",
+    "sourceFile": "src/public/ts/trace/rb-detail-drawer.ts",
+    "sourceLine": 47,
+    "tests": [
+      "ior:instance:d3513d2b-85be-46d5-8cd9-bf52ffc67bed"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4b0f5766-7c3a-49d1-952b-873c312f10c4"
+}

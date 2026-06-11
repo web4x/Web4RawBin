@@ -6,7 +6,7 @@
     "description": "On upload: hash content. If existing FileUnit with same contentHash found in room.files[], add new unitLink to that unit, skip content write. Return existing unit.",
     "sourceFile": "ior:file:src/ts/scenario/file-unit.ts",
     "implementations": [
-      "ior:instance:36a3b677-dc4d-415c-9eee-ffc62fff0f76"
+      "ior:instance:50106c13-c538-47e5-b902-a7cb0feda61a"
     ],
     "tests": []
   },

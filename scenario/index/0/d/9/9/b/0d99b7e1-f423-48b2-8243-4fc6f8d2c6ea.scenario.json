@@ -6,7 +6,7 @@
     "className": "TraceObject",
     "methodName": "toJSON",
     "implementations": [
-      "ior:instance:87c9007a-2144-4030-a5ac-cd48f518bb2b"
+      "ior:instance:1b1f40bb-9c26-4765-b6a1-59b8398269ab"
     ],
     "implementation": "ior:instance:5592cffb-5408-4185-b6d9-261a53163cfa",
     "sourceFile": "ior:file:src/ts/shared/TraceModel.ts",

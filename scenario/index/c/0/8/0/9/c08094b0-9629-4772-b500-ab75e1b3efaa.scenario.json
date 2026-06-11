@@ -6,7 +6,7 @@
     "className": "RbListOverview",
     "methodName": "searchAndFilter",
     "implementations": [
-      "ior:instance:8608ecc1-eba2-448d-b4e3-99529c9c7e12"
+      "ior:instance:03086eb9-05c8-429c-a79b-5f2f7d3e85c6"
     ],
     "implementation": "ior:instance:4d6afd0e-5826-4d21-874b-387969321523",
     "sourceFile": "ior:file:src/public/ts/trace/rb-list-overview.ts",

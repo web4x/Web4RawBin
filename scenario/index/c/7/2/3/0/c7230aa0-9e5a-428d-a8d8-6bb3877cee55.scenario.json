@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c7230aa0-9e5a-428d-a8d8-6bb3877cee55",
+    "name": "impl:Room.visibilityCheck (split for Room.canonicalDir)",
+    "sourceFile": "src/ts/server/Room.ts",
+    "sourceLine": 120,
+    "tests": [
+      "ior:instance:9b9c8ae6-f8e4-4e87-8bd1-70cfab24ae95"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b1494bad-4198-4f8e-b92a-6e7b899c49a2"
+}

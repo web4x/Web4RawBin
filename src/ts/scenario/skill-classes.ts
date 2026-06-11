@@ -414,10 +414,23 @@ export class Chain {
   lintMarkers(): LintFinding[] {
     const findings: LintFinding[] = [];
     const all = this.idx.list();
+    const SENTINEL = /^0{8}-/; // RawBin system sentinel — exempt
+    // (a) fabricated uuids: >=3 consecutive +0x11 byte steps (a1->b2->c3...) or fixed telltales
     const TELLTALE = /-(a1b2|b2c3|c3d4|d4e5|e5f6|a2b3|4c3d)-/;
-    // (a) telltale invented suffixes on units
+    const isSequentialHex = (uuid: string): boolean => {
+      const hex = uuid.replace(/-/g, '');
+      const bytes: number[] = [];
+      for (let i = 0; i < hex.length; i += 2) bytes.push(parseInt(hex.slice(i, i + 2), 16));
+      let run = 0;
+      for (let i = 1; i < bytes.length; i++) {
+        if (bytes[i] === bytes[i - 1] + 0x11) { run++; if (run >= 3) return true; }
+        else run = 0;
+      }
+      return false;
+    };
     for (const u of all) {
-      if (TELLTALE.test(u)) findings.push({ kind: 'invented-suffix', uuid: u, detail: `${this.unitType(u)} uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)` });
+      if (SENTINEL.test(u)) continue;
+      if (isSequentialHex(u) || TELLTALE.test(u)) findings.push({ kind: 'invented-suffix', uuid: u, detail: `${this.unitType(u)} uuid matches fabricated pattern (HARD RULE: uuidgen-fresh or verbatim copy only)` });
     }
     // (b) prefix-sibling families (same first-8 hex, >1 unit — minted siblings)
     const byPrefix = new Map<string, string[]>();

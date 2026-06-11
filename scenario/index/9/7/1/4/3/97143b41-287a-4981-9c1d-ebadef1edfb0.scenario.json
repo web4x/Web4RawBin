@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "97143b41-287a-4981-9c1d-ebadef1edfb0",
+    "name": "ViewTemplateRegistry.register(className (split for ViewTemplateRegistry.register(className)",
+    "sourceFile": "src/ts/scenario/templates.ts",
+    "sourceLine": 7,
+    "tests": [
+      "ior:instance:9aec7689-d1fc-4224-8de7-0a24db5b28e3"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:edfe9d73-674d-44c4-abfc-4b1d6ed0bf16"
+}

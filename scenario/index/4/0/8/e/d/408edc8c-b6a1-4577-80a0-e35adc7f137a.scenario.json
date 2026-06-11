@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "408edc8c-b6a1-4577-80a0-e35adc7f137a",
+    "name": "Logger.logAtLevel (split for server.detailNavSync)",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 262,
+    "tests": [
+      "ior:instance:b543e1ad-9b87-4545-9a18-6b7f6286ec1f"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7f3d785e-c881-43b4-bbfb-40f8bb4f3817"
+}

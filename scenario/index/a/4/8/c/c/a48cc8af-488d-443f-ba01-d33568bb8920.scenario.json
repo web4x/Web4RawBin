@@ -6,7 +6,7 @@
     "className": "RbObjectItem",
     "methodName": "collapse",
     "implementations": [
-      "ior:instance:b4c8bf40-6b31-4acd-ad4a-0f93d6f7326b"
+      "ior:instance:0a028fb4-d3d5-476c-9dcd-977212cbaf41"
     ],
     "implementation": "",
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",

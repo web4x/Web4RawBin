@@ -7,7 +7,7 @@
     "methodName": "visibilityCheck",
     "sourceFile": "ior:file:src/ts/server/Room.ts",
     "implementations": [
-      "ior:instance:6acb7db1-3a5d-424f-8d23-921394440cf1"
+      "ior:instance:1cef1fa1-7597-40f6-92ae-f8c2dfa83ad1"
     ],
     "parent": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
     "unitLinks": []

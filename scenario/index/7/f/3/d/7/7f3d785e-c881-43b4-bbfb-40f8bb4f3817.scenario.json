@@ -5,7 +5,7 @@
     "name": "server.detailNavSync",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "implementations": [
-      "ior:instance:7f1774c9-1f78-403e-b078-c1b21d8a6b8e"
+      "ior:instance:408edc8c-b6a1-4577-80a0-e35adc7f137a"
     ],
     "tests": []
   },

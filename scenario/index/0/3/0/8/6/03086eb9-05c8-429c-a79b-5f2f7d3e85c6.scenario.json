@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "03086eb9-05c8-429c-a79b-5f2f7d3e85c6",
+    "name": "R15.5 ListOverview + search (split for RbListOverview.searchAndFilter)",
+    "sourceFile": "src/public/ts/trace/rb-list-overview.ts",
+    "sourceLine": 9,
+    "tests": [
+      "ior:instance:f301f0b9-5600-4f8d-a5c4-9cf4de7abcf6"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:c08094b0-9629-4772-b500-ab75e1b3efaa"
+}

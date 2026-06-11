@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "cda50b0f-be12-4e42-a436-72c4c8e0744e",
+    "name": "Logger.logAtLevel (split for Logger.logAtLevel)",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 262,
+    "tests": [
+      "ior:instance:b543e1ad-9b87-4545-9a18-6b7f6286ec1f"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:fc2c04b2-f035-4d42-971c-14c217438cd3"
+}

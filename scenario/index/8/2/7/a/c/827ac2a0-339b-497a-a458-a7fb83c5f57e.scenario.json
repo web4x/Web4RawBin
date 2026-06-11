@@ -6,7 +6,7 @@
     "description": "On UPDATE_PROFILE (profileCommitted=true): create ior:class:User scenario unit with model from UserProfile. Idempotent (skip if exists).",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "implementations": [
-      "ior:instance:7f1774c9-1f78-403e-b078-c1b21d8a6b8e"
+      "ior:instance:8298c379-38af-4b1c-b6ae-f2569425c48c"
     ],
     "tests": []
   },

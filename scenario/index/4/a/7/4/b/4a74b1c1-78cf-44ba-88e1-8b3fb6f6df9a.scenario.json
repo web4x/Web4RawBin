@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4a74b1c1-78cf-44ba-88e1-8b3fb6f6df9a",
+    "name": "R17.12 (split for IORResolver.resolveClass(ior): ClassLoader)",
+    "sourceFile": "src/ts/scenario/ior-resolver.ts",
+    "sourceLine": 5,
+    "tests": [
+      "ior:instance:1179288e-8291-4df7-ad0f-28f78030dd97"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f426d4c2-64c0-4e66-8a22-98b6706c8020"
+}

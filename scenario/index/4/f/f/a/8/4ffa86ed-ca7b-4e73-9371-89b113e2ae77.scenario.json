@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4ffa86ed-ca7b-4e73-9371-89b113e2ae77",
+    "name": "impl:RbObjectItem.onClickDelegate (split for RbObjectItem.onClickDelegate)",
+    "sourceFile": "src/public/ts/trace/rb-object-item.ts",
+    "sourceLine": 58,
+    "tests": [
+      "ior:instance:440892b6-6399-4dd4-8116-09f6d2061126"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:8474594f-78d1-4e3a-bc13-55135288bcc4"
+}

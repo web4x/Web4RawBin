@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d809105d-b683-4cab-a587-fbdfdb4de809",
+    "name": "R15.4 defaultItemView (split for RbObjectItem.drag)",
+    "sourceFile": "src/public/ts/trace/rb-object-item.ts",
+    "sourceLine": 8,
+    "tests": [
+      "ior:instance:2c502c22-a96e-4aee-b86b-2365edf62edb"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:0ab3b64a-a93e-4a74-80e6-744c5c0fc7c4"
+}
