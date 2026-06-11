@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "6388a348-029a-4541-9320-01d2a30974c9",
+    "name": "Device",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "methods": [
+      "ior:instance:2811473d-e296-4f3d-b9be-11742d17ee0a"
+    ],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "c160a074-82f8-48d6-ae44-6c28d33cfa2d",
+    "name": "T-room-dir-standardize: ONE canonical room location data/users/<u>/rooms/<r>",
+    "slug": "room-dir-standardize-canonical-location",
+    "description": "R19.53: ONE canonical room location on disk \u2014 data/users/<uuid>/rooms/<roomUuid>/, no stray dirs.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:4c442530-92fb-48b4-81d8-54af2ca9c866"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

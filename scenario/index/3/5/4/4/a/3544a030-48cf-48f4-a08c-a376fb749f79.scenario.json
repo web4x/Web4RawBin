@@ -6,7 +6,9 @@
     "name": "R19.54: Users become first-class scenario units (ior:class:User) in the scenario index.",
     "description": "Each User MUST be a first-class scenario unit (ior:class:User) stored at scenario/index/<shard>/<userUuid>.scenario.json with the standard {ior, model, ownerIor} shape, unitLinks[], and statusChecklist. Migrate existing data/profiles.json entries into per-user scenario units (backup-gated). After migration, code reads/writes user data via scenario units; profiles.json becomes deprecated/derived. Includes: (a) ior:class:User class definition, (b) server code reads/writes via scenario units, (c) one-time migration (backup before).",
     "tronQuote": "> TRON: \"users and devices still have to be converted to standard first class scenarios.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:0c28c7f8-d063-40b3-893a-a84f2d8c9c2d"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
@@ -15,7 +17,10 @@
       "ior:instance:3e14d73c-1ddb-4f42-8d33-481581a8ec95",
       "ior:instance:c99083ba-1b38-474c-88d1-ca4bf5f5a2c7"
     ],
-    "crossRefNote": "R19.1 (room as scenario unit) established the pattern. R19.35 (Room.members[] IOR refs) points to User units — R19.54 ensures those pointees actually exist as scenario units. R19.39 (RawBin system user) is also a User unit."
+    "crossRefNote": "R19.1 (room as scenario unit) established the pattern. R19.35 (Room.members[] IOR refs) points to User units \u2014 R19.54 ensures those pointees actually exist as scenario units. R19.39 (RawBin system user) is also a User unit.",
+    "useCases": [
+      "ior:instance:164a1371-4781-45ca-9153-10000003a0d4"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

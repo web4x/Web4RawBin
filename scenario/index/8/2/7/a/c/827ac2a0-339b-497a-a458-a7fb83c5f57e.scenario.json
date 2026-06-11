@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "827ac2a0-339b-497a-a458-a7fb83c5f57e",
+    "name": "User.createUserUnit",
+    "description": "On UPDATE_PROFILE (profileCommitted=true): create ior:class:User scenario unit with model from UserProfile. Idempotent (skip if exists).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:12c8982e-8962-41a8-b013-bf1e41a2167f"
+}

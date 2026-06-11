@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "2811473d-e296-4f3d-b9be-11742d17ee0a",
+    "name": "Device.createDeviceUnit",
+    "description": "On DEVICE_ENROLL_OK: create ior:class:Device scenario unit from DeviceRecord. ownerIor=User unit. Idempotent.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:6388a348-029a-4541-9320-01d2a30974c9"
+}
