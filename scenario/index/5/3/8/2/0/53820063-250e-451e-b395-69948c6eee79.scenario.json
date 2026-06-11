@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "53820063-250e-451e-b395-69948c6eee79",
+    "altId": "R19.55",
+    "name": "R19.55: Devices become first-class scenario units (ior:class:Device) in the scenario index.",
+    "description": "Each Device MUST be a first-class scenario unit (ior:class:Device) stored at scenario/index/<shard>/<deviceUuid>.scenario.json with the standard {ior, model, ownerIor} shape (ownerIor = the User unit that owns the device), unitLinks[], and statusChecklist. Migrate existing data/devices.json entries into per-device scenario units (backup-gated). After migration, code reads/writes device data via scenario units; devices.json becomes deprecated/derived. Includes: (a) ior:class:Device class definition, (b) server code reads/writes via scenario units, (c) one-time migration (backup before).",
+    "tronQuote": "> TRON: \"users and devices still have to be converted to standard first class scenarios.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:3544a030-48cf-48f4-a08c-a376fb749f79"
+    ],
+    "crossRefNote": "R19.54 (User as scenario unit) is the sibling — same Tron directive, same pattern. Device.ownerIor points to its User unit."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

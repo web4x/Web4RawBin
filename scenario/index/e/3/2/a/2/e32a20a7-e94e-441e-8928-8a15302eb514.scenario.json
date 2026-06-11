@@ -10,22 +10,20 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781167993891,
+    "createdAt": 1781169021509,
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3TZx3yc0U1qA6ukt9dpB\nAfOW8YNyOWef6tyZBB0UgmdjHc6mYmn8MQvDQDlHxbCd54v3ZMtHsDXAC7/nY0wS\nFFg9heuuRIc3kdiZ0knxEnU8hHTz2b1jZXWrWKCsHRlawba3W8IXMfrMViEY5sn+\nBuuu6wDhYlbWwRSUksKdYO8Psj7gGgF63tcX1reXKB9Jh0DMO5UmDmRDgLzuzfqj\nLsFAmMuIlEApTMv5d19vbzWnjUUTNudh78ruS7K5ATSrqk4yVEg0bV+tOfJ90z6V\nPIiNu76ah7aclR5XEMrJynw+QQvZOdxdXWvWiPQOegTqFdB3Cn+Ibww5cNBkWAv1\n6QIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [],
     "members": [
       {
         "ior": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544",
-        "name": "User",
+        "name": "",
         "role": "owner",
-        "status": "offline",
-        "joinedAt": 1781168055410
+        "status": "online",
+        "joinedAt": 1781169021509
       }
     ],
-    "files": [
-      "ior:instance:5ca4b4c0-2e91-41b5-bd52-bdc8c6e01a00"
-    ],
+    "files": [],
     "lastMessageIor": null,
     "firstMessageIor": null,
     "messageCount": 0,

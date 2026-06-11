@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c9f56d34-7a8b-4e1f-b2c3-4d5e6f7a8b90",
+    "name": "test:stickyClose.pinnedX",
+    "description": "R19.33: sticky z-index:2 min-height:36px + overflow-y:auto body",
+    "sourceFile": "ior:file:test/vitest/drawer-fullwidth-sticky.test.ts",
+    "implementations": [
+      "ior:instance:3a671bfc-12c2-4922-938e-01572d90808e"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:3a671bfc-12c2-4922-938e-01572d90808e"
+}

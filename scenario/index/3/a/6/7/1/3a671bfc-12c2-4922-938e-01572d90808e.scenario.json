@@ -6,7 +6,9 @@
     "implementations": [
       "ior:instance:aa585fcc-dfc1-42a8-a77d-0c0fb03ca5fd"
     ],
-    "tests": []
+    "tests": [
+      "ior:instance:c9f56d34-7a8b-4e1f-b2c3-4d5e6f7a8b90"
+    ]
   },
   "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
 }
