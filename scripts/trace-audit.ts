@@ -177,15 +177,21 @@ function auditAll(idx: ScenarioIndex): AuditResult {
   };
 }
 
+// HARD REFUSE: if anyone tries to use this for completion measurement
+if (process.argv.includes('--completion') || process.argv.includes('--complete')) {
+  console.error('\n❌ REFUSED: trace-audit is NOT a completion measure.');
+  console.error('   Canonical completion: npx tsx scripts/po-chain-follow-up.ts --all');
+  console.error('   This audit checks structural quality ONLY (orphans, back-refs, cardinality).\n');
+  process.exit(1);
+}
+
 const idx = new ScenarioIndex(INDEX_DIR);
 const result = auditAll(idx);
 const strict = process.argv.includes('--strict');
 
-console.log(`\n=== RawBin Trace Data Quality Audit ===`);
-console.log(`⚠ NON-CANONICAL — for chain COMPLETION measure use: npx tsx scripts/po-chain-follow-up.ts --all`);
-console.log(`  This audit checks structural quality (orphans, back-refs, cardinality), NOT chain completion.\n`);
+console.log(`\n=== RawBin Trace Data Quality Audit (STRUCTURAL ONLY) ===`);
+console.log(`⚠ NOT a completion measure — for completion use: npx tsx scripts/po-chain-follow-up.ts --all\n`);
 console.log(`Total units: ${result.total}`);
-console.log(`Reachable from requirements/sprints: ${result.reachable} (structural reachability, NOT completion)`);
 
 console.log(`\nOrphans: ${result.orphans.length} (${result.orphans.length === 0 ? 'PASS' : 'FAIL'})`);
 for (const o of result.orphans.slice(0, 20)) console.log(`  - ${o.uuid.slice(0, 8)} (${o.type}: ${o.name})`);
@@ -199,14 +205,15 @@ for (const c of result.cardinalityIssues) console.log(`  - ${c}`);
 
 const hop = result.hopResults;
 const hopPass = hop.reachable === hop.total;
-console.log(`\n7-hop strict audit: ${hop.reachable}/${hop.total} tests reachable from Requirement roots (${hopPass ? 'PASS' : 'FAIL'})`);
+console.log(`\n7-hop structural check: ${hop.unreachable.length} tests without structural path (NOT completion — use po-chain-follow-up)`);
 if (hop.unreachable.length > 0) {
-  console.log('UNREACHABLE TESTS:');
+  console.log('Structurally unreachable tests:');
   for (const t of hop.unreachable) console.log(`  ${t.name}  break: ${t.breakHop || 'unknown'}`);
 }
 
-const totalIssues = result.orphans.length + result.backRefs.length + result.cardinalityIssues.length;
-const allPass = totalIssues === 0 && hopPass;
-console.log(`\n=== AUDIT ${allPass ? 'PASSED' : `FAILED (${totalIssues} orphan/backref/card issues + ${hop.unreachable.length} unreachable tests)`} ===\n`);
+const structuralIssues = result.orphans.length + result.backRefs.length + result.cardinalityIssues.length;
+const structuralPass = structuralIssues === 0;
+console.log(`\n=== STRUCTURAL AUDIT ${structuralPass ? 'PASSED' : `FAILED (${structuralIssues} issues)`} ===`);
+console.log(`(Completion measure: npx tsx scripts/po-chain-follow-up.ts --all)\n`);
 
-if (strict && !allPass) process.exit(1);
+if (strict && !structuralPass) process.exit(1);
