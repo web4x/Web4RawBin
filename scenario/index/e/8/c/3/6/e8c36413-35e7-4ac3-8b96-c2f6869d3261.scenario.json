@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e8c36413-35e7-4ac3-8b96-c2f6869d3261",
+    "name": "Room.loadBeforeWrite",
+    "description": "RoomOpts gains: persistedMembers, persistedFiles, persistedChat, lastMessageIor, firstMessageIor, messageCount. Constructor populates this.members/fileUnits/_chatHistory/message IORs from opts BEFORE first persist(). scanAllRooms passes data into createRoom opts.",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+}

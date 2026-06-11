@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "5080b8a8-cd1a-4a3f-9d8d-029bb2285a7f",
+    "name": "room.backfillFiles",
+    "description": "One-shot script: scan scenario/index for ior:class:File units with model.roomUuid matching each room. Add their UUIDs to room.fileUnits and persist to room.files[]. Recovers files uploaded before Room.files[] persist shipped.",
+    "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "method": "ior:instance:0a7bd183-d861-498e-96b6-a6375b7da6ea",
+    "classes": [
+      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -15,7 +15,10 @@
       "ior:instance:124d9eec-0c46-4f45-8640-b7e14618d214",
       "ior:instance:f1ca3cc9-a675-4a3b-9898-9e33d7876ed8"
     ],
-    "crossRefNote": "R19.46 (Room.files[] IOR list as source of truth) is the target state. R19.14 (file as scenario unit) defines the FileUnit shape. R19.60 bridges old rooms to the new model via one-time backfill."
+    "crossRefNote": "R19.46 (Room.files[] IOR list as source of truth) is the target state. R19.14 (file as scenario unit) defines the FileUnit shape. R19.60 bridges old rooms to the new model via one-time backfill.",
+    "useCases": [
+      "ior:instance:5080b8a8-cd1a-4a3f-9d8d-029bb2285a7f"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
