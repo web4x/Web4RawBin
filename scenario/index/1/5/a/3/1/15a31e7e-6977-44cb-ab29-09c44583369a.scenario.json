@@ -3,10 +3,11 @@
   "model": {
     "uuid": "15a31e7e-6977-44cb-ab29-09c44583369a",
     "name": "ReqAudit.formalizeQuotes",
-    "sourceFile": "ior:file:scenario/index/3/3/c/d/0/33cd07d8-041b-4ab8-9c3d-b7b82faf10f7.scenario.json",
+    "sourceFile": "src/ts/server/TraceConsistency.ts",
     "tests": [],
     "orphanByDesign": true,
-    "orphanRationale": "No real code \u2014 design-only/future feature"
+    "orphanRationale": "No real code \u2014 design-only/future feature",
+    "sourceLine": 1
   },
   "ownerIor": null
 }

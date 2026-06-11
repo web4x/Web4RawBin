@@ -1,4 +1,6 @@
 /**
+// [impl:uuid:7bab1a71-8d2e-4d19-bd4a-ce5547291b03] SpeakingTree.symlinkJson(sprint
+// [impl:uuid:e80ca651-5441-4a2c-948a-1ba0b8ae0944] SpeakingTree.generateMd(sprint
  * T126 — ViewGenerator: reads scenario index, emits .md + .html views.
  * Generates planning.md per sprint, per-instance views, and sprint overview.
  * Files use SPEAKING names (task-1-team-bootstrap.md, not uuid.md).

@@ -3,10 +3,11 @@
   "model": {
     "uuid": "3cc5c375-5e1b-4427-aa5a-d3518c5b5c35",
     "name": "ChainLink.iconInView",
-    "sourceFile": "ior:file:scenario/index/0/9/2/8/1/09281af3-5926-4782-958b-98c3efa52e56.scenario.json",
+    "sourceFile": "src/public/ts/trace/rb-object-item.ts",
     "tests": [],
     "orphanByDesign": true,
-    "orphanRationale": "No real code \u2014 design-only/future feature"
+    "orphanRationale": "No real code \u2014 design-only/future feature",
+    "sourceLine": 1
   },
   "ownerIor": null
 }

@@ -1,4 +1,9 @@
 // [impl:uuid:9fbb1f6e-ad24-45ac-bc5d-148d622f0237] T3 Room class
+// [impl:uuid:9eac03a9-108a-4a85-b280-04fe9de6455f] Room.validateScenarioShape
+// [impl:uuid:5811824c-0bb1-4db4-98de-f419d915236e] Room.acceptApply
+// [impl:uuid:9c94958d-d754-4e80-adf4-ad36ea67caab] Room.backfillFiles
+// [impl:uuid:a6e5e49d-520f-4a80-9e51-1d8001e4bccb] Room.persistAsSymlink
+// [impl:uuid:b309d0dd-22a3-4f5f-ba6f-0f29d1502cf3] Room.stripSpectator
 import { WebSocket } from 'ws';
 import crypto from 'node:crypto';
 import fs from 'node:fs';

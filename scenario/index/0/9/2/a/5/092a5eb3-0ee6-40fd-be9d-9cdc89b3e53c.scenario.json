@@ -3,10 +3,11 @@
   "model": {
     "uuid": "092a5eb3-0ee6-40fd-be9d-9cdc89b3e53c",
     "name": "TraceLayout.mobileCap",
-    "sourceFile": "ior:file:scenario/index/d/7/d/f/8/d7df88da-5fbd-4580-a54d-4c772f676e2e.scenario.json",
+    "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
     "tests": [],
     "orphanByDesign": true,
-    "orphanRationale": "No real code \u2014 design-only/future feature"
+    "orphanRationale": "No real code \u2014 design-only/future feature",
+    "sourceLine": 1
   },
   "ownerIor": null
 }

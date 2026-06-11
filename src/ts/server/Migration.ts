@@ -1,4 +1,6 @@
 /**
+// [impl:uuid:b8455f83-92ac-4555-93b9-2756c6a25c8e] Migration.removeLegacy
+// [impl:uuid:5fc55a8d-0606-4e6a-996f-93de25113109] Migration.verifyIntegrity
  * S14 — Legacy data migration (COPY-then-verify, idempotent, never-overwrite, legacy UNTOUCHED).
  *
  * T96 migrateLegacyRooms: reconcile flat data/rooms/<id>.json into the per-user model. Every id

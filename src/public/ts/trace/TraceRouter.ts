@@ -1,4 +1,5 @@
 /**
+// [impl:uuid:244bbbd2-8114-4a35-8e6b-ba2713887df5] TraceRouter.typeDispatch
  * T103 — TraceRouter (Controller): location.hash ⇄ Object.verb route.
  *
  *   #<type>.<verb>?<param>=<value>&…   e.g.  #requirement.show?uuid=15a1b2c3-…

@@ -1,4 +1,6 @@
 /**
+// [impl:uuid:15a31e7e-6977-44cb-ab29-09c44583369a] ReqAudit.formalizeQuotes
+// [impl:uuid:adaa853e-93a1-4d6d-930a-0ea96a7d9f81] TraceConsistency.auditOrphans
  * T102 — Traceability matrix consistency + fix engine.
  *
  * Scans the scrum.pmo sprint tree, builds a T101 TraceGraph (Requirement↔Task) plus per-task

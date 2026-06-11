@@ -1,4 +1,6 @@
 // [impl:uuid:cdbd3970-ba43-4efc-920d-8352d3c4daa0] T60 file API
+// [impl:uuid:6500d4d6-f328-4cac-9b21-977356f9b06c] FileApi.lineParam
+// [impl:uuid:5a802d49-7c12-435e-b5dd-a875f8564f05] FileApi.highlightFile
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

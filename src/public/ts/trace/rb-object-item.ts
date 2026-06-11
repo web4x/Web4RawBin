@@ -1,4 +1,5 @@
 /**
+// [impl:uuid:3cc5c375-5e1b-4427-aa5a-d3518c5b5c35] ChainLink.iconInView
  * T105 — rb-object-item: the defaultItemView for ANY TraceModel object (all 7 types).
  *
  * Attribute-driven (ref/type/title/status) — T103 contract. Visual parity with the lobby

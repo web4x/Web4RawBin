@@ -1,4 +1,6 @@
 /**
+// [impl:uuid:f94da2cd-e818-4f8b-be4c-b0fc30a0d689] RbDetailDrawer.filePreview
+// [impl:uuid:301da3f0-2a47-450a-aa19-408a8a4bad0f] RbDetailDrawer.byTypeRender
  * T110 — rb-detail-drawer: Google-Maps-style bottom drawer for DetailViews.
  *
  * Two-part layout: .drawer-header (sticky, handle + X close) + .drawer-body

@@ -1,4 +1,5 @@
 /**
+// [impl:uuid:12571155-110d-4d6f-91ab-5913ec94219b] ScenarioUnit.load(json): this
  * T125.1 — Scenario-unit type definitions + IOR primitives.
  *
  * [impl:uuid:8c72876c-05a5-467d-a1da-2b14a4a7b40d] R17.1+R17.2

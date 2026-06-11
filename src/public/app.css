@@ -262,7 +262,8 @@ rb-member-badge { display: flex; align-items: center; gap: 4px; padding: 3px 8px
   .trace-page { display: flex; gap: 0; height: calc(100vh - 44px); }
   .trace-tree-panel { flex: 1; min-width: 300px; overflow-y: auto; }
   /* [impl:uuid:da9462f5-a1b2-4c3d-8e4f-5a6b7c8d9e0f] R19.52 full viewport width */
-  .trace-page rb-detail-drawer { position: static !important; transform: none !important; flex: 1; min-width: 300px; flex-shrink: 0; max-height: 100vh; overflow-y: auto; border-radius: 0; border-left: 1px solid rgba(255,255,255,0.1); box-shadow: none; }
+  /* [impl:uuid:ff684e10-e57c-45ae-97b9-8f866264c737] fullWidth */
+.trace-page rb-detail-drawer { position: static !important; transform: none !important; flex: 1; min-width: 300px; flex-shrink: 0; max-height: 100vh; overflow-y: auto; border-radius: 0; border-left: 1px solid rgba(255,255,255,0.1); box-shadow: none; }
   .trace-page rb-detail-drawer[open] { transform: none !important; }
 }
 

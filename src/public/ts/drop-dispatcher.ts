@@ -1,4 +1,5 @@
 /**
+// [impl:uuid:b05fcdf3-0d44-4d7d-bee2-b5edc55daa3a] DropDispatcher.urlDrop
  * DnD Drop Dispatcher — routes dropped files by mimeType.
  * State machine: IDLE→DRAGOVER→UPLOADING→COMPLETE.
  */

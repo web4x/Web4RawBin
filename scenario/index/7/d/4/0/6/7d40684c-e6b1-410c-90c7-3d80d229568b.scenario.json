@@ -3,10 +3,11 @@
   "model": {
     "uuid": "7d40684c-e6b1-410c-90c7-3d80d229568b",
     "name": "Breadcrumb.contrastFix",
-    "sourceFile": "ior:file:scenario/index/3/e/2/b/d/3e2bd407-160a-408f-9961-9e99784cd6a9.scenario.json",
+    "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
     "tests": [],
     "orphanByDesign": true,
-    "orphanRationale": "No real code \u2014 design-only/future feature"
+    "orphanRationale": "No real code \u2014 design-only/future feature",
+    "sourceLine": 1
   },
   "ownerIor": null
 }

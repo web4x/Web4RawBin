@@ -1,4 +1,5 @@
 // [impl:uuid:1e9916f1-7e29-4e9d-9aa9-c930fe693c9f] T64 editor layout
+// [impl:uuid:f7c4483a-b041-4e66-9d91-6c9ad12ed673] RbEditorLayout.backNav
 const STORAGE_KEY = 'rawbin-editor-layout';
 const TAB_BAR_HEIGHT = 52;
 

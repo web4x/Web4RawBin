@@ -1,4 +1,5 @@
 // [impl:uuid:784f17fd-53d4-4b45-86e4-5f3391ba3fdd] T5+T77 room browser lobby
+// [impl:uuid:f7c4df8d-a6ee-4b70-b30b-5e6cfbcdd98d] Assets.rebrand
 import { RawBinClient, shareOrCopy } from './RawBinClient.js';
 import { MSG } from '../../shared/MessageTypes.js';
 import './components/rb-header.js';
