@@ -109,8 +109,11 @@ function walkReq(reqUuid: string): ChainResult[] {
         const implIors = (methM.implementations as string[]) || [];
 
         if (implIors.length === 0) {
-          results.push({ chainName: `${reqName}`, req: 'check', uc: 'check', cls: 'check', method: methName, impl: `open expert ${short(methUuid)}`, test: 'open', complete: false,
-            openNodes: [{ node: 'Impl', owner: 'expert', action: `Add [impl:uuid:] marker for ${methName}`, iorShort: short(methUuid) }] });
+          // Check for Method→Test direct (incomplete — Impl node missing)
+          const methTests = (methM.tests as string[]) || [];
+          const testNote = methTests.length > 0 ? `open (Test ${methTests.map(t => short(ior(t))).join(',')} via Method — Impl missing)` : 'open';
+          results.push({ chainName: `${reqName}`, req: 'check', uc: 'check', cls: 'check', method: methName, impl: `open expert ${short(methUuid)}`, test: testNote, complete: false,
+            openNodes: [{ node: 'Impl', owner: 'expert', action: `Create Impl unit + add [impl:uuid:] for ${methName} + wire Method.implementations[]→Impl→tests[]`, iorShort: short(methUuid) }] });
           continue;
         }
 
@@ -153,17 +156,28 @@ const allMode = args.includes('--all');
 const sprintArgIdx = args.indexOf('--sprint');
 const sprintFilter = sprintArgIdx !== -1 ? args[sprintArgIdx + 1] : null;
 
+// Resolve a bare prefix (e.g. '2d4fefed') to the full UUID in the index
+function resolvePrefix(prefix: string): string | null {
+  if (idx.has(prefix)) return prefix;
+  const all = idx.list();
+  const match = all.find(u => u.startsWith(prefix));
+  return match || null;
+}
+
 let reqUuids: string[] = [];
 if (allMode) {
   reqUuids = idx.list().filter(u => unitType(u) === 'Requirement');
 } else if (sprintFilter) {
+  // S19 → match R19. in altId/name; S17 → match R17. etc.
+  const num = sprintFilter.replace(/^S/i, '');
   reqUuids = idx.list().filter(u => {
     if (unitType(u) !== 'Requirement') return false;
     const m = model(u);
-    return m && String(m.name || m.altId || '').toUpperCase().includes(sprintFilter.toUpperCase());
+    const text = String(m?.name || '') + ' ' + String(m?.altId || '');
+    return text.includes(`R${num}.`) || text.toUpperCase().includes(sprintFilter.toUpperCase());
   });
 } else {
-  reqUuids = args.filter(a => !a.startsWith('--'));
+  reqUuids = args.filter(a => !a.startsWith('--')).map(a => resolvePrefix(a) || a);
 }
 
 if (reqUuids.length === 0) { console.log('Usage: npx tsx scripts/po-chain-follow-up.ts <uuid> [--all] [--sprint S19]'); process.exit(1); }
