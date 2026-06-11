@@ -20,14 +20,14 @@
         "name": "",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781170588623
+        "joinedAt": 1781170686735
       },
       {
-        "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
-        "name": "",
-        "role": "owner",
+        "ior": "ior:instance:366ec723-a7e3-4f1e-86f3-12b9071101de",
+        "name": "Marcel Donges Studio",
+        "role": "member",
         "status": "online",
-        "joinedAt": 1781170588623
+        "joinedAt": 1781170686735
       }
     ],
     "files": [],
