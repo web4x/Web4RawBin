@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rawbin-v0.5.186';
+const CACHE_NAME = 'rawbin-v0.5.187';
 // [impl:uuid:3f6a9ce1-c9b9-43fa-9bd1-b2bfa38e92f2] OfflinePage.reloadButton
 
 const STATIC_SHELL = [

@@ -481,6 +481,23 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
+    // [impl:uuid:4999f5a8-0309-4a1b-8c2d-3e4f5a6b7c8d] R19.63 file content serving
+    if (req.method === 'GET' && filepath.match(/^\/api\/room\/file\/[^/]+\/content$/)) {
+      const fileUuid = filepath.split('/')[4];
+      try {
+        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        const idx = new ScenarioIndex(scenarioDir);
+        const { readFileUnitContent } = await import('../scenario/file-unit.js');
+        const unit = idx.get(fileUuid);
+        const content = readFileUnitContent(idx, fileUuid);
+        if (!content || !unit) { res.writeHead(404); res.end('File not found'); return; }
+        const mimeType = (unit.model as any).mimeType || 'application/octet-stream';
+        res.writeHead(200, { 'Content-Type': mimeType, 'Content-Length': content.byteLength.toString(), 'Cache-Control': 'no-cache' });
+        res.end(content);
+      } catch (e: any) { res.writeHead(500); res.end(e?.message || 'Error'); }
+      return;
+    }
+
     // [impl:uuid:dnd01001-a1b2-4c3d-8e4f-000000000001] DropDispatcher.upload R19.14
     if (req.method === 'POST' && filepath.startsWith('/api/room/') && filepath.endsWith('/upload')) {
       const parts = filepath.split('/');
