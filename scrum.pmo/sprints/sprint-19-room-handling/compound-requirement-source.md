@@ -115,6 +115,13 @@
 - **R19.46** (2026-06-11): file-restore driven by Room scenario's model.files[] IOR list (one entry per unique FileUnit), NOT blind symlink scan (duplicates). One upload = one FileUnit + one files[] append. Scenario is source of truth; symlinks are derived.
   > TRON: "now the file is restoring twice. we just need to restore the scenario, as it points to the file."
 
+### File dedup + versioning (R19.47-50, refines R19.46)
+- **R19.47** (2026-06-11): identical content (hash match) → reuse existing FileUnit UUID + add another unitLink (no new unit). Content-addressable dedup.
+- **R19.48** (2026-06-11): different content, same name → register as a unit VERSION (new content stored, version[] appended, UUID stays).
+- **R19.49** (2026-06-11): each FileUnit stores model.contentHash (SHA-256 hex) — dedup key for R19.47, difference key for R19.48.
+- **R19.50** (2026-06-11): FileUnit gets model.version[] array of {version: N, ior: <content-ior>}. V1 = initial. Latest = last entry.
+  > TRON: "if the user dropped the same file twice and its identical to an existing content file, then register it NOT as a new UUID, but as the existing UUID and as another unitLink. if its a new file with different size but new name register it as a unit version. create a content hash for each file in the file scenario. add a version[] with {version,ior}."
+
 ### Detail drawer + chain display bugs (R19.33 + R19.34)
 - **R19.33** (2026-06-11): detail drawer close affordance (nudge/X handle) scrolls out of view. MUST stay sticky/fixed in the drawer viewport.
   > TRON: "the details nudge to close scrolls out of the view"
