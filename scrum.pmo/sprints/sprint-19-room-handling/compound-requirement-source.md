@@ -236,3 +236,7 @@
 ### Preview auth token passthrough (R19.75)
 - **R19.75** (2026-06-11): ContentPreviewer must pass auth token in content URL so room members can preview. Currently iframe gets 'Forbidden: token required' because R19.68 auth gate rejects unauthenticated content requests. Interaction bug R19.68 × R19.64/74.
   > TRON (screenshot): in-room HTML preview iframe shows 'Forbidden: token required'.
+
+### Security debt: preview nonce (R19.76, NOT blocking MVP)
+- **R19.76** (2026-06-11): HARDEN R19.75 — replace playerToken-in-URL with short-lived (60s) preview NONCE. Eliminates token leakage via access logs + browser history. Single-use or time-limited, scoped to file+room.
+  > Architect security review: playerToken-in-URL exposes credential in logs+history.
