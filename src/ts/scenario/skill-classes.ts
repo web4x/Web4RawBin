@@ -181,7 +181,7 @@ export class Chain {
           if (implIors.length === 0) {
             const methTests = (methM.tests as string[]) || [];
             const testNote = methTests.length > 0 ? `open (Test ${methTests.map(t => short(ior(t))).join(',')} via Method — Impl missing)` : 'open';
-            results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, impl: `open expert ${short(methUuid)}`, test: testNote, complete: false,
+            results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, methodUuid: methUuid, impl: `open expert ${short(methUuid)}`, test: testNote, complete: false,
               openNodes: [{ node: 'Impl', owner: 'expert', action: `Create Impl unit + add [impl:uuid:] for ${methName} + wire Method.implementations[]→Impl→tests[]`, iorShort: short(methUuid) }] });
             continue;
           }
@@ -191,7 +191,7 @@ export class Chain {
             const refCount = implRefs.get(implUuid) || 0;
             if (refCount > 1) {
               // HARD RULE: one marker = one unit = one method. Shared Impl = NEVER credited.
-              results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, impl: `open expert shared-impl(x${refCount}) ${short(implUuid)}`, test: 'open', complete: false,
+              results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, methodUuid: methUuid, impl: `open expert shared-impl(x${refCount}) ${short(implUuid)}`, test: 'open', complete: false,
                 openNodes: [{ node: 'Impl', owner: 'expert', action: `Impl ${short(implUuid)} shared by ${refCount} Methods — mint fresh uuid per method (HARD RULE: one marker=one unit=one method)`, iorShort: short(implUuid) }] });
               continue;
             }
@@ -204,7 +204,7 @@ export class Chain {
             if (!realImpl) openNodes.push({ node: 'Impl', owner: 'expert', action: `Add real [impl:uuid:${short(implUuid)}] in source`, iorShort: short(implUuid) });
 
             if (testIors.length === 0) {
-              results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, impl: implCell, test: 'open tester', complete: false,
+              results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, methodUuid: methUuid, impl: implCell, test: 'open tester', complete: false,
                 openNodes: [...openNodes, { node: 'Test', owner: 'tester', action: 'Add [test:uuid:] marker', iorShort: '' }] });
               continue;
             }
@@ -215,7 +215,7 @@ export class Chain {
               const testCell = realTest ? `check ${short(testUuid)}` : `open tester ${short(testUuid)}`;
               const complete = realImpl && realTest;
               if (!realTest) openNodes.push({ node: 'Test', owner: 'tester', action: `Verify real [test:uuid:${short(testUuid)}] in test`, iorShort: short(testUuid) });
-              results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, impl: implCell, test: testCell, complete, openNodes });
+              results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, methodUuid: methUuid, impl: implCell, test: testCell, complete, openNodes });
             }
           }
         }
@@ -232,8 +232,9 @@ export class Chain {
     const seen = new Set<string>();
     const dedupRows: ChainRow[] = [];
     for (const r of rows) {
-      if (seen.has(r.method)) continue;
-      seen.add(r.method);
+      const key = r.methodUuid || r.method; // uuid identity — display names collide (two *.render on one Req)
+      if (seen.has(key)) continue;
+      seen.add(key);
       dedupRows.push(r);
     }
     const complete = dedupRows.filter(r => r.complete);
@@ -766,6 +767,7 @@ export interface ChainRow {
   req: string; uc: string; cls: string; method: string; impl: string; test: string;
   complete: boolean;
   openNodes: OpenNode[];
+  methodUuid?: string; // dedup identity — display names collide (e.g. two *.render on one Req)
 }
 
 export interface FollowUpResult { rows: ChainRow[]; complete: number; total: number; excluded: number; }
