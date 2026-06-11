@@ -184,3 +184,7 @@
   > PO diagnosis: construction persist wiped offline-retained members.
 - **R19.60** (2026-06-11): pre-existing rooms (before files[] pattern) backfill files[] from on-disk FileUnit symlinks so old rooms restore files on join.
   > PO diagnosis: old rooms had FileUnits on disk but empty files[] array.
+
+### View template consistency — .md + .html with chain-link + edit (R19.61)
+- **R19.61** (2026-06-11): EVERY scenario type generates BOTH .md and .html view templates, each carrying chain-link (🔗) + edit (✏️) affordances. Room .html currently has NEITHER. Consistent across all types.
+  > TRON: "here we see missing chain links to the scenario and the templates for room md and html have to be created. check that on all types."
