@@ -6,7 +6,9 @@
     "description": "RoomView: click handler on rb-object-item[type=file] \u2192 fetch /api/ior \u2192 renderContentPreview(uuid,mimeType,name) in rb-detail-drawer. Impl 6471cfbd already at RoomView L217.",
     "sourceFile": "ior:file:src/public/ts/RoomView.ts",
     "implementations": [],
-    "tests": []
+    "tests": [
+      "ior:instance:7f62966c-d044-4a8b-b811-d3cf5dd74f35"
+    ]
   },
   "ownerIor": "ior:instance:792246f1-346e-4337-9619-b38d8641769f"
 }
