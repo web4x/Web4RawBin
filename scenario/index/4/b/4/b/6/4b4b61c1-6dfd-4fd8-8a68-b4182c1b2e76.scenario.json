@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "4b4b61c1-6dfd-4fd8-8a68-b4182c1b2e76",
+    "altId": "R19.91",
+    "name": "R19.91: Remove Local Identity clears ALL browser state and reloads into first-run ProfileEditor.",
+    "description": "The removeLocalIdentity handler MUST: (1) CLEAR ALL browser state that holds identity — localStorage (token, keypair, device data, name, secret), IndexedDB entries, and any cached identity in SW caches, (2) reset the app to first-run state (no token, no device, no profile), (3) reload the page which opens the ProfileEditor in new-user onboarding mode (as if visiting for the first time). Currently likely a partial clear that leaves residual state preventing a true fresh start.",
+    "tronQuote": "> TRON: \"Remove Local Identity button is now correct, but pressing it must result in removing ALL state from the browser store that brings it here, and start as if it was the first time, then reload into the profile editor again.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "refinementOf": "ior:instance:2ad3fd18-6d78-4aa2-8213-36934b0f3504",
+    "refinementOfNote": "Refines R19.89 (button placement fixed to DeviceEnrollDialog). R19.89 put the button on the right screen; R19.91 specifies what the button DOES: complete state wipe (not partial) + reload to first-run ProfileEditor. Also refines R19.72 (original button requirement)."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -292,3 +292,7 @@
 ### DRY+OOP: reuse rb-trace-tree in room, delete duplicate (R19.90)
 - **R19.90** (2026-06-11): in-room tree REUSES rb-trace-tree component (new 'room' mode + setItems). DELETE duplicate RoomView renderRoomTree*/diffRenderItems. iOS init fixed by construction. Supersedes R19.83/88/88.A patches on the duplicate impl.
   > TRON: "no improvement on iphone — do a DRY and OOP check."
+
+### Remove identity full wipe (R19.91, refines R19.89/72)
+- **R19.91** (2026-06-11): Remove Local Identity must clear ALL browser state (localStorage+IndexedDB+caches), reset to first-run, reload → ProfileEditor onboarding. Currently partial clear.
+  > TRON: "Remove Local Identity button is now correct, but pressing it must result in removing ALL state from the browser store that brings it here, and start as if it was the first time, then reload into the profile editor again."

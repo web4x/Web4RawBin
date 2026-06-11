@@ -4,7 +4,7 @@
     "uuid": "2ad3fd18-6d78-4aa2-8213-36934b0f3504",
     "altId": "R19.89",
     "name": "R19.89: Red Remove-Local-Identity button must be on DeviceEnrollDialog, not ProfileEditor.",
-    "description": "BUG: the red 'Remove current ID data' button (R19.72, impl 25884b0c) is placed on the WRONG screen — it is in the ProfileEditor (ProfileEditor.ts:68 gate mode) instead of the DeviceEnrollDialog 'Authorize This Device' secret-code screen. FIX: MOVE the button to the DeviceEnrollDialog where a locked-out user (without the secret code) actually needs the escape path. The ProfileEditor is for established users who are already authenticated — the button has no purpose there and is confusing. R19.72 specified 'the secret-code page' which is the DeviceEnrollDialog.",
+    "description": "BUG: the red 'Remove current ID data' button (R19.72, impl 25884b0c) is placed on the WRONG screen \u2014 it is in the ProfileEditor (ProfileEditor.ts:68 gate mode) instead of the DeviceEnrollDialog 'Authorize This Device' secret-code screen. FIX: MOVE the button to the DeviceEnrollDialog where a locked-out user (without the secret code) actually needs the escape path. The ProfileEditor is for established users who are already authenticated \u2014 the button has no purpose there and is confusing. R19.72 specified 'the secret-code page' which is the DeviceEnrollDialog.",
     "tronQuote": "> TRON: \"the red button for remove identity must be here (Authorize This Device / secret-code screen)!!! someone put it into the profile editor. thats a bug.\"",
     "tasks": [
       "ior:instance:9628370d-8991-4ef5-9a9a-4aaaa1bfbf59"
@@ -14,7 +14,11 @@
     "unitLinks": [],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "refinementOf": "ior:instance:380dc7c0-0dec-4bc4-b0a0-dafa3552b86b",
-    "refinementOfNote": "Refines R19.72 (red Remove ID button on secret-code page). R19.72 specified the correct screen ('the page where you have to add the secret code'). The implementation (25884b0c) placed it on ProfileEditor instead of DeviceEnrollDialog. R19.89 corrects the placement."
+    "refinementOfNote": "Refines R19.72 (red Remove ID button on secret-code page). R19.72 specified the correct screen ('the page where you have to add the secret code'). The implementation (25884b0c) placed it on ProfileEditor instead of DeviceEnrollDialog. R19.89 corrects the placement.",
+    "refinedBy": [
+      "ior:instance:4b4b61c1-6dfd-4fd8-8a68-b4182c1b2e76"
+    ],
+    "refinedByNote": "Refined by R19.91: button placement correct (R19.89), now the ACTION must be complete \u2014 clear ALL browser state + reload to first-run ProfileEditor."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
