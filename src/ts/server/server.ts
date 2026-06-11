@@ -78,7 +78,6 @@ const PORT = parseInt(process.env.PORT || envVars['PORT'] || '4000');
 const HTTPS_PORT = parseInt(process.env.HTTPS_PORT || envVars['HTTPS_PORT'] || '4444');
 const LOG_LEVEL = envVars['LOG_LEVEL'] || 'info';
 const MAX_ROOMS = parseInt(envVars['MAX_ROOMS'] || '100');
-const MAX_MEMBERS_PER_ROOM = parseInt(envVars['MAX_MEMBERS_PER_ROOM'] || '50');
 const IS_PRODUCTION = envVars['NODE_ENV'] === 'production' || process.env.NODE_ENV === 'production';
 const BASE_DOMAIN = envVars['BASE_DOMAIN'] || '';
 const PUBLIC_DIR = path.join(__dirname, '../../public');
