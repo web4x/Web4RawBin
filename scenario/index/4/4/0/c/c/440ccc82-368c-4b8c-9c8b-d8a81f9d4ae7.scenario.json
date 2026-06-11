@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781195321154,
+    "createdAt": 1781195367972,
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt6s7I/4viZ6wLTxKDJns\nXQTUzWahcY7IG5noan2pImDmwRqkrPF+Gqc3jTxDq5Y2H2ireoHI3XheLuGnxK87\nSltVJBs4q7DUr/3iPg61Xvdf+4y2g9PAXrBNRbEgXJ5TtAeOWNU0AwRdrAxfiiRj\nFzvyD6+/8UMmLrvg32urfZbtvrBGcCV6XnvzgoFTC/iLKN3RqCfTKvF4JkHma6cY\nmbogaNMBrzlrcLV4VVJmQ3AAUmSDrVpNYfWgXdaucE12kppYAZ06x9UNH/JuPkfp\nsWNc+9vCAKaSFIMzfjL1cZW6NmcN0CBziNVVkUzWB6jDZboQ5omAibryvDMQqyjq\n3wIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [
@@ -27,35 +27,35 @@
         "name": "Marcel Donges Studio",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781195321154
+        "joinedAt": 1781195367972
       },
       {
         "ior": "ior:instance:ae9a8a5e-1317-4266-be78-b15b7f547139",
         "name": "test merge",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781195321154
+        "joinedAt": 1781195367972
       },
       {
         "ior": "ior:instance:da4f8809-5bcc-46fd-8f90-9b00d7fe967f",
         "name": "Marcel Samsung",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781195321154
+        "joinedAt": 1781195367972
       },
       {
         "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
-        "name": "Toronto Trinity",
+        "name": "",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781195321154
+        "joinedAt": 1781195367972
       },
       {
         "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
         "name": "",
         "role": "owner",
         "status": "online",
-        "joinedAt": 1781195321154
+        "joinedAt": 1781195367972
       }
     ],
     "files": [

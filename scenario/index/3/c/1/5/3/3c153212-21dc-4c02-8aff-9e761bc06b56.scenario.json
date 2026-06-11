@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3c153212-21dc-4c02-8aff-9e761bc06b56",
+    "name": "test:R19.82 addMemberTakeover",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:84910216-c910-4eb7-a2bc-4b3b5c07c490"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:84910216-c910-4eb7-a2bc-4b3b5c07c490"
+}

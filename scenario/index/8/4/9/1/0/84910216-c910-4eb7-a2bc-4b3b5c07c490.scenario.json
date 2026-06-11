@@ -5,7 +5,9 @@
     "name": "Room.addMemberTakeover impl",
     "sourceFile": "ior:file:src/ts/server/Room.ts",
     "sourceLine": 170,
-    "tests": []
+    "tests": [
+      "ior:instance:3c153212-21dc-4c02-8aff-9e761bc06b56"
+    ]
   },
   "ownerIor": "ior:instance:f2a2129b-ae2e-45a8-854c-a4b9446f2033"
 }
