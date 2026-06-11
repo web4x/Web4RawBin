@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "79601135-70ea-48d9-a566-b4b53a96dfc8",
+    "name": "RoomView.openFilePreview",
+    "description": "Opens ContentPreviewer drawer for a file item by UUID. Must handle all file types including url/webitem (not just type=file).",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed"
+}

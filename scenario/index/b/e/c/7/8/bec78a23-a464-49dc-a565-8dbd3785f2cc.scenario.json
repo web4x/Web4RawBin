@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "bec78a23-a464-49dc-a565-8dbd3785f2cc",
+    "name": "T-url-preview-restore: url/webitem file click opens ContentPreviewer drawer (regression fix)",
+    "slug": "url-preview-restore-click-drawer-regression",
+    "description": "Restore url/webitem file-click to drawer-open path that regressed ~862868bfe. The click handler or type check must include url-type FileUnits. Covers R19.86.",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:01b055f1-240c-439d-a0ca-d73df56a53e0"
+    ],
+    "useCases": [
+      "ior:instance:6bd2b297-b175-4284-bb13-4b44273f91e7"
+    ],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

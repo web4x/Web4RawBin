@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "6bd2b297-b175-4284-bb13-4b44273f91e7",
+    "name": "roomView.openUrlPreview",
+    "description": "Click on url/webitem file item in room tree opens ContentPreviewer drawer. Restores regression from ~862868bfe.",
+    "class": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed",
+    "method": "ior:instance:79601135-70ea-48d9-a566-b4b53a96dfc8",
+    "tasks": [
+      "ior:instance:bec78a23-a464-49dc-a565-8dbd3785f2cc"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
