@@ -6,7 +6,6 @@
     "sourceFile": "src/ts/scenario/index-store.ts",
     "sourceLine": 12,
     "tests": [
-      "ior:instance:eb34649c-d97d-47c5-a351-e6d93d6c32a6",
       "ior:instance:03958fb0-a855-4d5e-a87e-d56a6e3c6003"
     ],
     "unitLinks": []

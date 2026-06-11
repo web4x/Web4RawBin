@@ -5,9 +5,7 @@
     "name": "RbDetailDrawer.browseSource",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "tests": [
-      "ior:instance:77b264de-f078-4dd8-bb04-7b2b005d2474",
-      "ior:instance:e24c57a9-4707-4cfe-82ed-9c26ad494f6d",
-      "ior:instance:4f9ec041-2a37-48fb-9e6c-8f5c0a8b9164"
+      "ior:instance:77b264de-f078-4dd8-bb04-7b2b005d2474"
     ]
   },
   "ownerIor": null

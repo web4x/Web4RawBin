@@ -6,7 +6,6 @@
     "sourceFile": "src/public/ts/trace/rb-object-item.ts",
     "sourceLine": 8,
     "tests": [
-      "ior:instance:701a04c4-a445-4760-8273-da3c228a2107",
       "ior:instance:e6dd7649-f982-4327-9197-9e8ecd4f6559"
     ],
     "unitLinks": []

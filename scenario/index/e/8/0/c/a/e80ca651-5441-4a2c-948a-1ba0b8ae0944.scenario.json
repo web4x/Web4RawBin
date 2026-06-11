@@ -5,11 +5,7 @@
     "name": "SpeakingTree.generateMd(sprint",
     "sourceFile": "ior:file:src/ts/scenario/generator.ts",
     "tests": [
-      "ior:instance:1b0666fe-4139-46a1-b934-2730ee00425a",
-      "ior:instance:54f57f01-a33b-4985-847c-0d0ab95f0c67",
-      "ior:instance:73692db7-8f2a-47d8-b39e-f4d3450e1a2d",
-      "ior:instance:9c3047c9-e86f-4007-83b3-2038712451c0",
-      "ior:instance:f5fe2ba1-0f13-4724-b67c-7fb32f86dfd3"
+      "ior:instance:9c3047c9-e86f-4007-83b3-2038712451c0"
     ]
   },
   "ownerIor": null
