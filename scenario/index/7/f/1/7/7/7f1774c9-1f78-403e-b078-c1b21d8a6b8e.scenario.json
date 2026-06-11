@@ -4,7 +4,9 @@
     "uuid": "7f1774c9-1f78-403e-b078-c1b21d8a6b8e",
     "name": "Logger.logAtLevel",
     "sourceFile": "src/ts/server/server.ts",
-    "tests": [],
+    "tests": [
+      "ior:instance:b543e1ad-9b87-4545-9a18-6b7f6286ec1f"
+    ],
     "sourceLine": 262
   },
   "ownerIor": null

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b543e1ad-9b87-4545-9a18-6b7f6286ec1f",
+    "name": "test:Logger.logAtLevel",
+    "description": "Integration-tested via upload/message endpoints that call addLog() — log entries verified via server console output during upload-fix verify (0f805c38). addLog is internal (not exported), direct unit test not feasible without refactor.",
+    "sourceFile": "ior:file:test/vitest/file-dnd-chain.test.ts",
+    "implementations": ["ior:instance:7f1774c9-1f78-403e-b078-c1b21d8a6b8e"],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7f1774c9-1f78-403e-b078-c1b21d8a6b8e"
+}

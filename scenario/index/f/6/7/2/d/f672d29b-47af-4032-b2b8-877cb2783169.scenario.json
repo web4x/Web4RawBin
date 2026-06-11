@@ -17,10 +17,10 @@
     "members": [
       {
         "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
-        "name": "",
+        "name": "Toronto Trinity",
         "role": "owner",
-        "status": "online",
-        "joinedAt": 1781160360650
+        "status": "offline",
+        "joinedAt": 1781160470757
       }
     ],
     "sourceFile": "scenario/index/f/6/7/2/d/f672d29b-47af-4032-b2b8-877cb2783169.scenario.json",
