@@ -240,3 +240,7 @@
 ### Security debt: preview nonce (R19.76, NOT blocking MVP)
 - **R19.76** (2026-06-11): HARDEN R19.75 — replace playerToken-in-URL with short-lived (60s) preview NONCE. Eliminates token leakage via access logs + browser history. Single-use or time-limited, scoped to file+room.
   > Architect security review: playerToken-in-URL exposes credential in logs+history.
+
+### URL preview action buttons (R19.77)
+- **R19.77** (2026-06-11): URL file preview shows two buttons: (a) 'Open in preview' (inline sandboxed iframe), (b) 'Open in new tab' (window.open target=_blank). User chooses inline vs full-page.
+  > TRON: "that worked well, but add in this case in the preview two buttons to open the url in preview or as a new tab."
