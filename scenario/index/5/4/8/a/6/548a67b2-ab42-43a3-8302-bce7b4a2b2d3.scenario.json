@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "548a67b2-ab42-43a3-8302-bce7b4a2b2d3",
+    "name": "Room.restoreFilesFromScenario",
+    "description": "On JOIN_ROOM: read room scenario unit model.files[], resolve each IOR via ScenarioIndex.get(), send FILE_ADDED per unit (dedup by Set). Replaces filesystem symlink scan.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+}

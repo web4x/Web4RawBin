@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "d42ad180-9f09-404d-ab8a-45744b83efd8",
+    "name": "FileUnit.dedupByContentHash",
+    "description": "Hash incoming content (SHA-256). Iterate room.files[] IORs, resolve each, compare model.contentHash. If match: return existing unit (skip create). Else: proceed with createFileUnit (store hash in model.contentHash).",
+    "sourceFile": "ior:file:src/ts/scenario/file-unit.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3e0ceb94-90f3-4c5b-b13b-e1f2a3b4c5d6"
+}

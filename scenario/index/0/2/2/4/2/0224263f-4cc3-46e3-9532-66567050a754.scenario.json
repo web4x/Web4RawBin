@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "0224263f-4cc3-46e3-9532-66567050a754",
+    "name": "room.restoreFilesFromScenario",
+    "description": "JOIN_ROOM restore iterates Room.model.files[] IOR refs (not filesystem scan). Dedup by IOR Set. Sends FILE_ADDED per resolved unit. Replaces readdir-based restore.",
+    "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "method": "ior:instance:548a67b2-ab42-43a3-8302-bce7b4a2b2d3",
+    "classes": [
+      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
