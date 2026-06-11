@@ -214,7 +214,7 @@ export class RoomView {
         const children = node?.querySelector('.tt-children') as HTMLElement | null;
         if (children) children.style.display = e.detail.open ? '' : 'none';
       }) as EventListener);
-      // [impl:uuid:6471cfbd-d505-4876-97c5-9196cba80b53] R19.73 in-room file preview click
+      // [impl:uuid:1608977f-c794-4b70-9d85-17c46117a46a] R19.73 in-room file preview click
       treeEl.addEventListener('click', (e) => {
         const item = (e.target as HTMLElement).closest('rb-object-item');
         if (!item) return;
