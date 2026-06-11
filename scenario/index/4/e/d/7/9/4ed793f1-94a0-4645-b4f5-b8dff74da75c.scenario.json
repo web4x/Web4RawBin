@@ -4,9 +4,11 @@
     "uuid": "4ed793f1-94a0-4645-b4f5-b8dff74da75c",
     "altId": "R19.39",
     "name": "R19.39: A system RawBin User unit owns the DnD debug/log messages.",
-    "description": "A dedicated system User scenario unit named 'RawBin' MUST exist as the ownerIor for all system-generated messages — specifically the DnD unknown-drop debug/log messages from R19.37. When the drop dispatcher encounters an unknown format and writes a Message unit to the room chat, that Message's ownerIor points to the RawBin system user (not to any human user). This distinguishes system-generated log messages from user-sent chat messages in the UI and in traceability.",
+    "description": "A dedicated system User scenario unit named 'RawBin' MUST exist as the ownerIor for all system-generated messages \u2014 specifically the DnD unknown-drop debug/log messages from R19.37. When the drop dispatcher encounters an unknown format and writes a Message unit to the room chat, that Message's ownerIor points to the RawBin system user (not to any human user). This distinguishes system-generated log messages from user-sent chat messages in the UI and in traceability.",
     "tronQuote": "> TRON: \"add a RawBin user that owns the debug messages from dnd\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:d09a42e9-72af-4e8c-9841-a02df6567955"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
@@ -15,7 +17,7 @@
       "ior:instance:46d49877-63c5-438b-9982-6c66a041ee44",
       "ior:instance:2d4fefed-0895-4be3-b153-505dc65eca9a"
     ],
-    "crossRefNote": "R19.37 (unknown drop → room chat log) writes the Message units. R19.38 (messages as scenario units with ownerIor) defines their shape. R19.39 defines WHO owns the system-generated ones: a dedicated RawBin User unit."
+    "crossRefNote": "R19.37 (unknown drop \u2192 room chat log) writes the Message units. R19.38 (messages as scenario units with ownerIor) defines their shape. R19.39 defines WHO owns the system-generated ones: a dedicated RawBin User unit."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

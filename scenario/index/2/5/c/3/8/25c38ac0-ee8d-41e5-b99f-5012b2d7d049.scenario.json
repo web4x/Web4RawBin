@@ -5,8 +5,8 @@
     "name": "T-dnd-unknown-dispatcher: unknown format dropped onto room chat + extensible mimeType registry",
     "slug": "dnd-unknown-dispatcher-room-chat-mimetype-registry",
     "description": "When a dropped item format is unknown (not matched by any registered handler), dispatch it as a message to room chat. Extensible mimeType registry allows future handlers to claim specific formats. Covers R19.37.",
-    "status": "Planned",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [x] creating test cases\n  - [x] implementing expert (6afbc901 v0.5.157)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:46d49877-63c5-438b-9982-6c66a041ee44"
     ],

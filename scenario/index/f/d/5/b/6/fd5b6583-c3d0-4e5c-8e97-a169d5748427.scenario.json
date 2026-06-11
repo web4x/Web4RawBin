@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "fd5b6583-c3d0-4e5c-8e97-a169d5748427",
+    "name": "T-message-units: ior:class:Message with ownerIor + doubly-linked room references",
+    "slug": "message-units-ior-class-ownerio-doubly-linked",
+    "description": "Chat messages become scenario units (ior:class:Message) with ownerIor pointing to the Room + doubly-linked references (room.messages[] and message.room). Covers R19.38.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:2d4fefed-0895-4be3-b153-505dc65eca9a"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
