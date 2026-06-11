@@ -82,6 +82,11 @@
 - **R19.35** (2026-06-11): Room scenario unit model MUST hold IOR references to its members as members[] (ior:instance:<memberUuid> refs, same pattern as tasks[]/useCases[]). Members become first-class linked units, not just runtime WS data.
   > TRON: "the Room model is lacking member IORs — the model needs to hold IOR references to its members."
 
+### DnD file-upload chain + extensible dispatcher (R19.36 + R19.37)
+- **R19.36** (2026-06-11): full DnD file-upload chain is FULLY TRACEABLE: drop event → file extracted → uuid.content stored → FileUnit scenario.json created (R19.14) → ln symlink into room folder (R19.20) → room file-tree updates (R19.12). Every step a traceable scenario operation.
+- **R19.37** (2026-06-11): UNKNOWN drop format → log event to room chat ('Dropped [mimeType]: [name] — no handler'). Extensible dispatcher routes by mimeType: known (file) → R19.36 chain; unknown → chat log. Future handlers (vcard, mail, href) plug in via registry without modifying core.
+  > TRON: "double check all drag and drop requirements and implement a fully tracable chain for dnd file upload from dropping into a room to the ln link to the file content in the room represented in the rooms file tree. on unknown drag and drop log what happened into the room chat so that we can add over time multiple drop formats like vcards, mails, href links etc."
+
 ### Detail drawer + chain display bugs (R19.33 + R19.34)
 - **R19.33** (2026-06-11): detail drawer close affordance (nudge/X handle) scrolls out of view. MUST stay sticky/fixed in the drawer viewport.
   > TRON: "the details nudge to close scrolls out of the view"
