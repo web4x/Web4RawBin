@@ -3,8 +3,9 @@
  * image → <img>, text → <pre>, PDF → <iframe>, SVG → inline viewer.
  */
 
-export function renderContentPreview(uuid: string, mimeType: string, name: string): string {
-  const contentUrl = `/api/room/file/${uuid}/content`;
+// [impl:uuid:a3b4c5d6-e7f8-4a9b-8c0d-1e2f3a4b5c6d] preview-auth token param
+export function renderContentPreview(uuid: string, mimeType: string, name: string, token?: string): string {
+  const contentUrl = `/api/room/file/${uuid}/content${token ? '?token=' + encodeURIComponent(token) : ''}`;
 
   if (mimeType === 'image/svg+xml') {
     return `<div class="cv-preview"><object data="${contentUrl}" type="image/svg+xml" style="max-width:100%;background:white;border-radius:8px"></object></div>`;
@@ -26,11 +27,11 @@ export function renderContentPreview(uuid: string, mimeType: string, name: strin
   return `<div class="cv-preview"><a href="${contentUrl}" download="${esc(name)}" class="cv-download">Download ${esc(name)}</a></div>`;
 }
 
-export async function loadTextPreview(container: HTMLElement, uuid: string): Promise<void> {
+export async function loadTextPreview(container: HTMLElement, uuid: string, token?: string): Promise<void> {
   const el = container.querySelector(`.cv-text-loading[data-uuid="${uuid}"]`);
   if (!el) return;
   try {
-    const resp = await fetch(`/api/room/file/${uuid}/content`);
+    const resp = await fetch(`/api/room/file/${uuid}/content${token ? '?token=' + encodeURIComponent(token) : ''}`);
     if (!resp.ok) { el.textContent = 'Failed to load'; return; }
     const text = await resp.text();
     const pre = document.createElement('pre');

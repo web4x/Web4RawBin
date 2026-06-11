@@ -253,7 +253,7 @@ export class RoomView {
       if (!resp.ok) return;
       const res = await resp.json();
       const fm = res.unit?.model || {};
-      const preview = renderContentPreview(uuid, fm.mimeType || '', fm.name || uuid);
+      const preview = renderContentPreview(uuid, fm.mimeType || '', fm.name || uuid, this.client.playerToken);
       const handle = drawer.querySelector('.drawer-handle');
       for (const child of [...drawer.children]) { if (child !== handle) child.remove(); }
       const body = document.createElement('div');
@@ -261,7 +261,7 @@ export class RoomView {
       body.innerHTML = `<h3 style="margin:0 0 8px;font-size:0.9rem;color:white">${(fm.name || uuid).replace(/[<>]/g, '')}</h3>${preview}`;
       drawer.appendChild(body);
       drawer.setAttribute('ref', `file:${uuid}`);
-      loadTextPreview(body, uuid);
+      loadTextPreview(body, uuid, this.client.playerToken);
     } catch {}
   }
 

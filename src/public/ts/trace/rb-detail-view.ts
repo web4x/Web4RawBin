@@ -86,10 +86,11 @@ export class RbDetailView extends HTMLElement {
         fetch(scenarioIdx).then(r => r.json()).then(res => {
           if (res.unit?.model) {
             const fm = res.unit.model;
-            const preview = renderContentPreview(obj.uuid, fm.mimeType || '', fm.name || obj.title);
+            const tok = localStorage.getItem('rawbin-player-id') || '';
+            const preview = renderContentPreview(obj.uuid, fm.mimeType || '', fm.name || obj.title, tok);
             const linksEl = this.querySelector('.dv-links');
             if (linksEl) linksEl.insertAdjacentHTML('beforebegin', preview);
-            loadTextPreview(this, obj.uuid);
+            loadTextPreview(this, obj.uuid, tok);
           }
         }).catch(() => {});
       });
