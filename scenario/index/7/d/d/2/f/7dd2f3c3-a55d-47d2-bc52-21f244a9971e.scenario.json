@@ -9,7 +9,8 @@
     "methods": [
       "ior:instance:4a4591ca-3806-4034-b9c1-def621c9b452",
       "ior:instance:c3efb22c-5d0d-4f7e-9502-56eec490f06d",
-      "ior:instance:8410c58c-9a15-4350-8e22-4efbb535adda"
+      "ior:instance:8410c58c-9a15-4350-8e22-4efbb535adda",
+      "ior:instance:aee04064-f57d-4741-aabb-e5f8ca48736d"
     ],
     "method": "ior:instance:4a4591ca-3806-4034-b9c1-def621c9b452",
     "parent": "ior:instance:c27d67d8-c6ef-45be-b88b-5631370abe7e"

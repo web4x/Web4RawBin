@@ -4,20 +4,23 @@
     "uuid": "7d80452e-a562-4e1d-91e2-4a1ebf0cea67",
     "altId": "R19.74",
     "name": "R19.74: text/html file preview renders in a sandboxed iframe, not as raw source.",
-    "description": "When previewing a text/html file (uploaded HTML content), the ContentPreviewer MUST render it in a SANDBOXED IFRAME that displays the rendered HTML page — NOT as raw <pre> source text. The iframe carries sandbox='allow-same-origin' per R19.69 (blocks scripts/forms/navigation). This applies both in /trace detail and in-room (R19.73). The content is served via a blob URL or /api/file/<uuid>/content so the iframe loads the actual HTML rendering.",
-    "tronQuote": "> TRON (via PO): html preview must RENDER in room — not raw source. Refines R19.64 (preview by type) + R19.73 (in-room preview).",
+    "description": "When previewing a text/html file (uploaded HTML content), the ContentPreviewer MUST render it in a SANDBOXED IFRAME that displays the rendered HTML page \u2014 NOT as raw <pre> source text. The iframe carries sandbox='allow-same-origin' per R19.69 (blocks scripts/forms/navigation). This applies both in /trace detail and in-room (R19.73). The content is served via a blob URL or /api/file/<uuid>/content so the iframe loads the actual HTML rendering.",
+    "tronQuote": "> TRON (via PO): html preview must RENDER in room \u2014 not raw source. Refines R19.64 (preview by type) + R19.73 (in-room preview).",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "refinementOf": "ior:instance:8d90d7ec-0bce-439f-8180-bed4a182aace",
-    "refinementOfNote": "Refines R19.64 (preview renders by type). R19.64 specified href→iframe; R19.74 clarifies that text/html FILE content (not just href URLs) also renders in a sandboxed iframe as rendered HTML, not raw <pre> source. Combined with R19.69 (sandbox attribute).",
+    "refinementOfNote": "Refines R19.64 (preview renders by type). R19.64 specified href\u2192iframe; R19.74 clarifies that text/html FILE content (not just href URLs) also renders in a sandboxed iframe as rendered HTML, not raw <pre> source. Combined with R19.69 (sandbox attribute).",
     "crossRef": [
       "ior:instance:02af5fc2-2cc5-4a32-ba6c-1167a0a513d6",
       "ior:instance:d989c0c4-d024-44de-b3e2-ef271c731157"
     ],
-    "crossRefNote": "R19.73 (in-room preview) ensures this works in room context. R19.69 (sandbox) provides the security constraint on the iframe."
+    "crossRefNote": "R19.73 (in-room preview) ensures this works in room context. R19.69 (sandbox) provides the security constraint on the iframe.",
+    "useCases": [
+      "ior:instance:c8e9099b-3ffb-4079-9e7e-35b18db790a9"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

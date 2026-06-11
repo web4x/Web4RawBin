@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "f20d9dff-7eda-4188-a50c-84b7862706d1",
+    "name": "roomContent.filePreview",
+    "description": "In-room file-item click opens rb-detail-drawer with ContentPreviewer. Direct click handler (no TraceRouter). Reuses content-preview.ts renderContentPreview+loadTextPreview. DRY with /trace.",
+    "class": "ior:instance:792246f1-346e-4337-9619-b38d8641769f",
+    "method": "ior:instance:1608977f-c794-4b70-9d85-17c46117a46a",
+    "classes": [
+      "ior:instance:792246f1-346e-4337-9619-b38d8641769f"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

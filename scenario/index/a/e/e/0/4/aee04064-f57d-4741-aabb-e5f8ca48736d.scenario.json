@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "aee04064-f57d-4741-aabb-e5f8ca48736d",
+    "name": "ContentPreviewer.htmlSandboxed",
+    "description": "content-preview.ts: add mimeType=text/html branch \u2192 sandboxed iframe (sandbox='allow-same-origin'). Server /api/room/file/<uuid>/content sets CSP header for text/html responses.",
+    "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e"
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "c8e9099b-3ffb-4079-9e7e-35b18db790a9",
+    "name": "contentPreviewer.htmlSandboxed",
+    "description": "text/html files render in a sandboxed iframe (sandbox='allow-same-origin', no allow-scripts). CSP on response. Shows rendered HTML instead of raw source. Extends ContentPreviewer mimeType dispatch.",
+    "class": "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e",
+    "method": "ior:instance:aee04064-f57d-4741-aabb-e5f8ca48736d",
+    "classes": [
+      "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
