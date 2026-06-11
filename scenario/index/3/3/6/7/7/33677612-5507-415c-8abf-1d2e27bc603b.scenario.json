@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "33677612-5507-415c-8abf-1d2e27bc603b",
+    "altId": "R19.51",
+    "name": "R19.51: Content-hash index at scenario/content/ with symlinks for O(1) dedup lookup on upload.",
+    "description": "A content-hash INDEX directory at scenario/content/ MUST hold symlinks named <contentHash>.file.scenario.json, each pointing to the canonical FileUnit scenario unit that stores that content. On upload: (1) compute content hash (R19.49), (2) look up scenario/content/<hash>.file.scenario.json \u2014 if the symlink exists, the file is a duplicate \u2192 reuse that FileUnit UUID + add unitLink per R19.47; if not, create the new FileUnit + add the index symlink. This gives O(1) hash-based dedup lookup without scanning the entire index. ADDITIONALLY: the content-index symlink MUST be registered in the canonical File scenario unit's unitLinks[] array (per R18.29-31 unitLinks lifecycle \u2014 always-consistent bidirectional). AC: (a) symlink exists at scenario/content/<hash>.file.scenario.json AND (b) that symlink path is listed in the FileUnit's unitLinks[].",
+    "tronQuote": "> TRON: \"under scenarios/content/ add ln links with the name <contenthash>.file.scenario.json to the original files scenario as a content hash index to query on upload.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:49a447cf-f27f-4639-aca7-4ab2b46543fb",
+      "ior:instance:89502cba-1085-4bf1-ac97-be9a8ba452cf"
+    ],
+    "crossRefNote": "R19.49 (contentHash field) provides the hash value. R19.47 (identical content reuse) defines the dedup behavior. R19.51 provides the filesystem INDEX that makes the hash-lookup O(1) instead of a full scan. R18.29-31 (unitLinks lifecycle) governs the bidirectional consistency: the content-index symlink MUST appear in the FileUnit's unitLinks[] \u2014 always-consistent."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

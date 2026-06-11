@@ -121,6 +121,8 @@
 - **R19.49** (2026-06-11): each FileUnit stores model.contentHash (SHA-256 hex) — dedup key for R19.47, difference key for R19.48.
 - **R19.50** (2026-06-11): FileUnit gets model.version[] array of {version: N, ior: <content-ior>}. V1 = initial. Latest = last entry.
   > TRON: "if the user dropped the same file twice and its identical to an existing content file, then register it NOT as a new UUID, but as the existing UUID and as another unitLink. if its a new file with different size but new name register it as a unit version. create a content hash for each file in the file scenario. add a version[] with {version,ior}."
+- **R19.51** (2026-06-11): content-hash INDEX dir at scenario/content/ — symlinks named <hash>.file.scenario.json → canonical FileUnit. O(1) dedup lookup on upload. The symlink is ALSO registered in the FileUnit's unitLinks[] (R18.29-31 bidirectional consistency).
+  > TRON: "under scenarios/content/ add ln links with the name <contenthash>.file.scenario.json to the original files scenario as a content hash index to query on upload."
 
 ### Detail drawer + chain display bugs (R19.33 + R19.34)
 - **R19.33** (2026-06-11): detail drawer close affordance (nudge/X handle) scrolls out of view. MUST stay sticky/fixed in the drawer viewport.
