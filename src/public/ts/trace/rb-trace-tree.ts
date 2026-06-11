@@ -108,15 +108,6 @@ export class RbTraceTree extends HTMLElement {
     if (this.isConnected) this.render();
   }
 
-  // R19.90+: room mode — render from pre-built data, no API fetch
-  setItems(roots: { uuid: string; type: string; name: string; children?: { uuid: string; type: string; name: string; hasChildren: boolean }[] }[]): void {
-    this.innerHTML = '';
-    for (const root of roots) {
-      this.appendChild(this.buildSeedNode(root.uuid, root.type, root.name, root.children || [], (root.children || []).length > 0));
-    }
-    this.computeBadges();
-  }
-
   private persist(): void {
     try { localStorage.setItem(LS_KEY, JSON.stringify([...this.expanded])); } catch { /* ignore */ }
   }
