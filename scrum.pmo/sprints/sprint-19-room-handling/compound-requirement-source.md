@@ -67,11 +67,13 @@
 - **R19.29** (2026-06-10): Tree (rb-trace-tree) OWNS badge child-count calculation+assignment AND lazy/eager prefetch as its OWN methods operating ON items. rb-object-item is a dumb view the Tree drives. Fixes badge-0 bug (some nodes show 0 despite visible children — scattered trigger sites miss updates).
   > TRON: "increase the quality by more object orientation. the badges calculation and assignment and lazy eager loading must be more a method and behavior of the tree on the items as of the individual items."
 
-### Room navigation bugs (R19.30 + R19.31)
-- **R19.30** (2026-06-10): BUG — edit pen navigates to per-user path (empty file / File not found). MUST open the canonical scenario unit for editing.
-  > TRON: "edit pen runs into an empty file…bug."
-- **R19.31** (2026-06-10): BUG — room link → 404. MUST navigate to live room or room editor, never 404.
-  > TRON: "and the room into a 404. bug. either into the room…. or the room editor."
+### Room navigation — intention-distinct icons (R19.30 + R19.31, refined 2026-06-11)
+- **R19.30** (refined 2026-06-11): ✏️ PEN = EDIT the canonical room scenario unit (/edit/<path>, Monaco editor). Both pen and link resolve to the SAME canonical target; pen opens it EDITABLE.
+  > TRON (original): "edit pen runs into an empty file…bug."
+  > TRON (intention): "chain link works but there is a difference in the requirement intention between the both." — pen = edit.
+- **R19.31** (refined 2026-06-11): 🔗 LINK = VIEW/NAVIGATE the canonical room scenario unit (/md/<path> or /trace?uuid=). Both pen and link resolve to the SAME canonical target; link opens it for VIEWING.
+  > TRON (original): "and the room into a 404. bug. either into the room…. or the room editor."
+  > TRON (intention): "chain link works but there is a difference in the requirement intention between the both." — link = view/navigate.
 
 ### Shared room link offline bug (R19.32)
 - **R19.32** (2026-06-10): BUG — shared room link /app?join=<roomUuid> lands on offline page instead of loading the app + join flow. Likely SW routing gap.
