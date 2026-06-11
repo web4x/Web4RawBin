@@ -209,7 +209,7 @@ export class Room {
         if (!this.firstMessageIor) this.firstMessageIor = `ior:instance:${uuid}`;
         this.lastMessageIor = `ior:instance:${uuid}`;
         this.messageCount++;
-      } catch {}
+      } catch (e: any) { console.error(`[Room.addChat] createMessageUnit FAILED: ${e?.message}\n${e?.stack || ''}`); }
     }
     this.persist();
   }
@@ -297,7 +297,7 @@ export class Room {
           isPrivate: this.isPrivate, visibility: this.visibility, mode: this.mode, roomKey: this.roomKey,
           state: this.state, createdAt: this.createdAt, sshKeysGenerated: !!pubKey,
           sshPublicKey: pubKey, chatHistory: this._chatHistory,
-  // [impl:uuid:2dabc43d-6277-4595-864a-c16dde810283] Room.persistMembers R19.35
+  // [impl:uuid:d5f0c2b4-a09e-4f80-aaf9-fa386aa57e46] Room.persistMembers R19.35
           members: [...this.members.values()].map(m => ({ ior: `ior:instance:${m.playerToken}`, name: m.name, role: m.playerToken === this.creatorToken ? 'owner' : 'member', status: m.disconnected ? 'offline' : 'online', joinedAt: Date.now() })),
         });
       } catch {}

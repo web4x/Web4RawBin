@@ -79,62 +79,18 @@ function unitType(uuid: string): string {
   return u ? u.ior.replace('ior:class:', '') : '';
 }
 
-function isOrphanByDesign(uuid: string): boolean {
-  const m = model(uuid);
-  if (!m) return false;
-  if (m.orphanByDesign === true || m.orphanByDesign === 'true') return true;
-  return String(m.tags || '').includes('orphanByDesign');
+// --- CHAIN COMPLETION: source from po-chain-follow-up (canonical, single source of truth) ---
+function getCanonicalCompletion(sprint?: string): { complete: number; total: number; excluded: number } {
+  try {
+    const sprintArg = sprint ? `--sprint ${sprint}` : '--all';
+    const out = execSync(`npx tsx "${path.join(__dirname, 'po-chain-follow-up.ts')}" ${sprintArg}`, { encoding: 'utf-8', cwd: REPO, timeout: 60000 });
+    const m = out.match(/(\d+)\/(\d+) COMPLETE \(excluded: (\d+)/);
+    if (m) return { complete: parseInt(m[1]), total: parseInt(m[2]), excluded: parseInt(m[3]) };
+  } catch {}
+  return { complete: 0, total: 0, excluded: 0 };
 }
 
-function ior(s: string): string { return String(s || '').replace('ior:instance:', ''); }
-
-function isChainComplete(reqUuid: string): boolean {
-  const reqM = model(reqUuid);
-  if (!reqM) return false;
-  const ucIors = ((reqM.useCases as string[]) || []).filter(u => unitType(ior(u)) === 'UseCase');
-  if (ucIors.length === 0) return false;
-
-  for (const ucIorStr of ucIors) {
-    const ucM = model(ior(ucIorStr));
-    if (!ucM) continue;
-    const clsIors = (ucM.classes as string[]) || [];
-    for (const clsIorStr of clsIors) {
-      const clsM = model(ior(clsIorStr));
-      if (!clsM) continue;
-      const methIors = (clsM.methods as string[]) || [];
-      for (const methIorStr of methIors) {
-        const methM = model(ior(methIorStr));
-        if (!methM) continue;
-        const implIors = (methM.implementations as string[]) || [];
-        for (const implIorStr of implIors) {
-          const implM = model(ior(implIorStr));
-          if (!implM) continue;
-          const testIors = (implM.tests as string[]) || [];
-          if (testIors.length > 0 && testIors.some(t => idx.has(ior(t)))) {
-            return true; // At least one full chain exists
-          }
-        }
-      }
-    }
-  }
-  return false;
-}
-
-// Collect requirements
-let allReqs = idx.list().filter(u => unitType(u) === 'Requirement');
-if (sprintFilter) {
-  const num = sprintFilter.replace(/^S/i, '');
-  allReqs = allReqs.filter(u => {
-    const m = model(u);
-    const text = String(m?.name || '') + ' ' + String(m?.altId || '');
-    return text.includes(`R${num}.`) || text.toUpperCase().includes(sprintFilter.toUpperCase());
-  });
-}
-
-const included = allReqs.filter(u => !isOrphanByDesign(u));
-const excluded = allReqs.length - included.length;
-const complete = included.filter(u => isChainComplete(u)).length;
-const total = included.length;
+const { complete, total, excluded } = getCanonicalCompletion(sprintFilter || undefined);
 const remaining = total - complete;
 const pct = total > 0 ? ((complete / total) * 100).toFixed(1) : '0.0';
 
