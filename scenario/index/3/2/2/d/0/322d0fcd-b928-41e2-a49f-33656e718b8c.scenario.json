@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "322d0fcd-b928-41e2-a49f-33656e718b8c",
+    "name": "T-room-file-item-rerender: file items in room tree survive re-render (mirror members lifecycle)",
+    "slug": "room-file-item-rerender-lifecycle-mirror-members",
+    "description": "R19.83 fix: file item views in the in-room tree must survive a re-render \u2014 mirror the Members item lifecycle so Files items persist/refresh correctly instead of disappearing or duplicating on re-render. Expert fix in flight. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27).",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing (expert \u2014 mirror members re-render lifecycle; in flight)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:8ba2d9ef-0560-4292-9b56-66552434799d"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner",
+    "joint": [
+      "robbin-planner",
+      "robbin-architect",
+      "robbin-expert"
+    ],
+    "atoms": "covers R19.83 (file-item re-render lifecycle, mirror members) per PO directive 2026-06-11; expert fix in flight"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
