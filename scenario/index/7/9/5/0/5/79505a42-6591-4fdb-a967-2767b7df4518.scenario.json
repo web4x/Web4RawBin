@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "79505a42-6591-4fdb-a967-2767b7df4518",
+    "name": "ServiceWorker.flushAndReload implementation",
+    "sourceFile": "src/public/sw.js",
+    "sourceLine": 27,
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:fd5059c5-89be-42b4-a5cd-f38ab61c42d6"
+}
