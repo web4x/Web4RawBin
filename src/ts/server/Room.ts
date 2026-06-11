@@ -61,6 +61,9 @@ interface RoomOpts {
   roomKey?: string;
   id?: string;
   creatorToken?: string;
+  persistedMembers?: { id: string; name: string; playerToken: string; disconnected: boolean }[];
+  persistedFiles?: string[];
+  chatHistory?: { senderId: string; senderName: string; text: string; timestamp: number }[];
 }
 
 interface PersistedRoom {
@@ -108,6 +111,16 @@ export class Room {
     this.hostId = creator.id;
     this.creatorId = creator.id;
     this.creatorToken = opts?.creatorToken || '';
+    // Load persisted members/files/chat BEFORE first persist (prevents wipe)
+    if (opts?.persistedMembers) {
+      for (const pm of opts.persistedMembers) {
+        this.members.set(pm.id, { id: pm.id, ws: null as any, name: pm.name, avatarUrl: '', playerToken: pm.playerToken, disconnected: pm.disconnected ?? true });
+      }
+    }
+    if (opts?.persistedFiles) {
+      for (const fuuid of opts.persistedFiles) this.fileUnits.add(fuuid);
+    }
+    if (opts?.chatHistory) this.loadChatHistory(opts.chatHistory);
     this.members.set(creator.id, { ...creator, disconnected: false });
   }
 

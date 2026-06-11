@@ -229,30 +229,29 @@ const roomManager = new RoomManager(ROOMS_DIR);
       if (!existing.creatorToken) { existing.creatorToken = data.ownerToken; backfilled++; }
       continue;
     }
+    // Build persisted data for constructor (prevents wipe on first persist)
+    const persistedMembers = Array.isArray((data as any).members)
+      ? (data as any).members.map((pm: any) => {
+          const token = String(pm.ior || '').replace('ior:instance:', '');
+          return { id: `persisted-${token.slice(0,8)}`, name: pm.name || '', playerToken: token, disconnected: true };
+        }).filter((m: any) => m.playerToken)
+      : [];
+    const persistedFiles = Array.isArray((data as any).files)
+      ? (data as any).files.map((f: string) => String(f).replace('ior:instance:', '')).filter(Boolean)
+      : [];
     const placeholder: RoomMember = { id: 'dormant', ws: null as any, name: '', avatarUrl: '', playerToken: userToken, disconnected: true };
-    const room = roomManager.createRoom(data.name, placeholder, { id: roomId, isPrivate: data.isPrivate, visibility: (data.visibility as any) || undefined, mode: (data.mode as any) || undefined, roomKey: data.roomKey || '', creatorToken: data.ownerToken });
+    const room = roomManager.createRoom(data.name, placeholder, {
+      id: roomId, isPrivate: data.isPrivate, visibility: (data.visibility as any) || undefined,
+      mode: (data.mode as any) || undefined, roomKey: data.roomKey || '', creatorToken: data.ownerToken,
+      persistedMembers, persistedFiles, chatHistory: data.chatHistory,
+    });
     room.creatorToken = data.ownerToken;
     room.members.delete('dormant');
-    if (Array.isArray((data as any).members)) {
-      for (const pm of (data as any).members) {
-        const token = String(pm.ior || '').replace('ior:instance:', '');
-        if (token && !room.members.has(token)) {
-          room.members.set(`persisted-${token.slice(0,8)}`, { id: `persisted-${token.slice(0,8)}`, ws: null as any, name: pm.name || '', avatarUrl: '', playerToken: token, disconnected: true });
-        }
-      }
-    }
     const chatCount = data.chatHistory?.length || 0;
-    const memberCount = (data as any).members?.length || 0;
-    if (chatCount > 0) room.loadChatHistory(data.chatHistory);
+    const memberCount = persistedMembers.length;
     room.lastMessageIor = (data as any).lastMessageIor || null;
     room.firstMessageIor = (data as any).firstMessageIor || null;
     room.messageCount = (data as any).messageCount || 0;
-    if (Array.isArray((data as any).files)) {
-      for (const fior of (data as any).files) {
-        const fuuid = String(fior).replace('ior:instance:', '');
-        if (fuuid) room.fileUnits.add(fuuid);
-      }
-    }
     console.log(`  room ${roomId.slice(0,8)}: chat=${chatCount} members=${memberCount} lastMsg=${room.lastMessageIor?.slice(0,20) || 'null'} name=${data.name}`);
     registered++;
   }
