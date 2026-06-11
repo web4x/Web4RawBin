@@ -261,21 +261,23 @@ rb-member-badge { display: flex; align-items: center; gap: 4px; padding: 3px 8px
 @media (min-width: 1025px) {
   .trace-page { display: flex; gap: 0; height: calc(100vh - 44px); }
   .trace-tree-panel { flex: 1; min-width: 300px; overflow-y: auto; }
-  .trace-page rb-detail-drawer { position: static !important; transform: none !important; max-width: 480px; width: 480px; flex-shrink: 0; max-height: 100vh; overflow-y: auto; border-radius: 0; border-left: 1px solid rgba(255,255,255,0.1); box-shadow: none; }
+  /* [impl:uuid:da9462f5-a1b2-4c3d-8e4f-5a6b7c8d9e0f] R19.52 full viewport width */
+  .trace-page rb-detail-drawer { position: static !important; transform: none !important; flex: 1; min-width: 300px; flex-shrink: 0; max-height: 100vh; overflow-y: auto; border-radius: 0; border-left: 1px solid rgba(255,255,255,0.1); box-shadow: none; }
   .trace-page rb-detail-drawer[open] { transform: none !important; }
 }
 
 /* T110+T120+T122+T167: Detail Drawer — dark bg, mobile=fixed bottom, desktop=static right */
 rb-detail-drawer {
   position: fixed; bottom: 0; left: 0; right: 0;
-  max-height: 50vh; max-width: 480px; background: #1a1a2e; color: #e0e0e0;
+  max-height: 50vh; background: #1a1a2e; color: #e0e0e0;
   border-radius: 16px 16px 0 0;
   box-shadow: none;
   transform: translateY(100%); transition: transform 0.25s ease-out;
   z-index: 100; overflow: hidden; display: flex; flex-direction: column;
   word-break: break-word; visibility: hidden;
 }
-.drawer-header { position: sticky; top: 0; z-index: 1; background: #1a1a2e; display: flex; align-items: center; justify-content: space-between; padding: 8px 16px 4px; flex-shrink: 0; }
+/* [impl:uuid:3a671bfc-b2c3-4d4e-9f5a-6b7c8d9e0123] R19.33 close X always pinned above scroll */
+.drawer-header { position: sticky; top: 0; z-index: 2; background: #1a1a2e; display: flex; align-items: center; justify-content: space-between; padding: 8px 16px 4px; flex-shrink: 0; min-height: 36px; }
 .drawer-header .drawer-handle { width: 40px; height: 4px; background: rgba(255,255,255,0.25); border-radius: 2px; cursor: grab; }
 .drawer-close { background: none; border: none; color: rgba(255,255,255,0.5); font-size: 1.2rem; cursor: pointer; padding: 4px 8px; }
 .drawer-close:hover { color: white; }
