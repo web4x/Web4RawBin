@@ -30,3 +30,12 @@ Each test was wired to its HOME impl PLUS unrelated-class impls; the unrelated i
 json-broken=0 ✓ · shared-impl=0 ✓ · **shared-test-over-credit=3 ✗** · complete=162 (inflated; honest 159).
 
 The 2 prior spans (802363cb RbUseCaseDetail, 8edfcdd6 RbDetailDrawer) are same-named-class dup artifacts — legit KEEP, not counted here (name-based classification).
+
+## Planner-assigned dedicated-test uuids (tester: mismatch-proof, create unit + `[test:uuid:<full>]`)
+| Borrowing method (impl) | NEW dedicated test uuid | un-wire from borrowed test |
+|--------------------------|--------------------------|----------------------------|
+| TraceConsistency.auditOrphans (`337acd90`) | `c63e021f-548a-4fc7-9363-ecfb3640255f` | drop 71e9d3b6 + 061360a0 from 337acd90.tests[] |
+| ProfileGate.vcardUpload (`36a7cc6f`) | `d71ca62d-c978-44e8-8fef-e9d0bb8a7f5d` | drop 9b5111b2 from 36a7cc6f.tests[] |
+| ChainLink.iconInView (`3cc5c375`) | `a947be52-e805-4bda-b278-ed51546b70f0` | drop 9b5111b2 from 3cc5c375.tests[] |
+
+Keep 71e9d3b6/061360a0 on home impl 7958f8bf (SpeakingTree.symlinkJson) and 9b5111b2 on b3020e1b (MdListing.chainIcon) so R17.6/R17.15/R17.24 stay legit. All v4, uuidgen-fresh — never invented (#46/#51).
