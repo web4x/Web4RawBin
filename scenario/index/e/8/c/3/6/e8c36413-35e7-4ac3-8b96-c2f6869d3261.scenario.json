@@ -6,7 +6,7 @@
     "description": "RoomOpts gains: persistedMembers, persistedFiles, persistedChat, lastMessageIor, firstMessageIor, messageCount. Constructor populates this.members/fileUnits/_chatHistory/message IORs from opts BEFORE first persist(). scanAllRooms passes data into createRoom opts.",
     "sourceFile": "ior:file:src/ts/server/Room.ts",
     "implementations": [
-      "ior:instance:9a25adbd-b1c2-4d3e-8f4a-5b6c7d8e9f00"
+      "ior:instance:6acb7db1-3a5d-424f-8d23-921394440cf1"
     ],
     "tests": []
   },

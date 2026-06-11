@@ -4,7 +4,9 @@
     "uuid": "f1dd0d77-edaf-4d15-b1e6-f6b0ba33867b",
     "name": "Room.stripSizeLimits",
     "description": "Delete maxMembers field from Room class, remove size guard from addMember, drop from info/persist/createRoom opts/Migration. Data migration: strip maxMembers from existing Room scenario units.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:c96d458c-af29-44c9-a309-15f689c0c0eb"
+    ],
     "tests": [],
     "designStage": true,
     "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."

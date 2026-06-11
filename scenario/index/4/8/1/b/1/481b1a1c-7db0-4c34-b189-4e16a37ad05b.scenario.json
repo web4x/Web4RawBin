@@ -6,7 +6,7 @@
     "description": "Manages the drop-zone UX state machine: idle\u2192dragover(highlight)\u2192uploading(statusbar with progress)\u2192complete(system message success/fail). Progress via XMLHttpRequest.upload.onprogress or fetch+ReadableStream. System messages owned by RawBin user (00000000-0000-4000-8000-rawbin000000).",
     "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
     "implementations": [
-      "ior:instance:971bdde0-004b-4896-bc8c-4570832f6304"
+      "ior:instance:481b1a1c-b2c3-4d4e-9f5a-6b7c8d9e0f11"
     ],
     "tests": []
   },

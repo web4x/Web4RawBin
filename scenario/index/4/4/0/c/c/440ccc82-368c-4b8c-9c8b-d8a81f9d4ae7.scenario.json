@@ -16,28 +16,32 @@
     "chatHistory": [],
     "members": [
       {
-        "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
-        "name": "",
-        "role": "owner",
-        "status": "offline",
-        "joinedAt": 1781174516435
-      },
-      {
         "ior": "ior:instance:366ec723-a7e3-4f1e-86f3-12b9071101de",
         "name": "Marcel Donges Studio",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781174516435
+        "joinedAt": 1781175221115
       },
       {
         "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
-        "name": "",
+        "name": "Toronto Trinity",
         "role": "owner",
+        "status": "offline",
+        "joinedAt": 1781175221115
+      },
+      {
+        "ior": "ior:instance:ae9a8a5e-1317-4266-be78-b15b7f547139",
+        "name": "test merge",
+        "role": "member",
         "status": "online",
-        "joinedAt": 1781174516435
+        "joinedAt": 1781175221115
       }
     ],
-    "files": [],
+    "files": [
+      "ior:instance:0c88a630-3564-42dd-a6ea-cfb7a2673f76",
+      "ior:instance:6ad425c3-629e-45fc-850f-719c4b92dc28",
+      "ior:instance:8fa25430-bee4-45c5-8bd7-abb899afba4f"
+    ],
     "lastMessageIor": null,
     "firstMessageIor": null,
     "messageCount": 0,

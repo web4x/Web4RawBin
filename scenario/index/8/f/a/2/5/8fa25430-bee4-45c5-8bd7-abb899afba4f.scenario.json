@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "8fa25430-bee4-45c5-8bd7-abb899afba4f",
+    "name": "Project_Sanctuary_OnePager.html",
+    "contentPath": "index/8/f/a/2/5/8fa25430-bee4-45c5-8bd7-abb899afba4f.content",
+    "size": 473459,
+    "mimeType": "text/html",
+    "uploadedAt": "2026-06-11T10:48:09.123Z",
+    "uploaderToken": "ae9a8a5e-1317-4266-be78-b15b7f547139",
+    "roomUuid": "440ccc82-368c-4b8c-9c8b-d8a81f9d4ae7",
+    "contentHash": "5ee31cf439f514b2a2073d7ff26d421d05a7f3207378632c1483e46875a693de",
+    "unitLinks": [
+      "content/5ee31cf439f514b2a2073d7ff26d421d05a7f3207378632c1483e46875a693de.file.scenario.json",
+      "../data/users/ae9a8a5e-1317-4266-be78-b15b7f547139/rooms/440ccc82-368c-4b8c-9c8b-d8a81f9d4ae7/files/8fa25430-bee4-45c5-8bd7-abb899afba4f.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:440ccc82-368c-4b8c-9c8b-d8a81f9d4ae7"
+}

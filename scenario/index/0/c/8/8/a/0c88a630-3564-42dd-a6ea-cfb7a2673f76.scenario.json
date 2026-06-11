@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "0c88a630-3564-42dd-a6ea-cfb7a2673f76",
+    "name": "Narciso Quijano Fraile.vcf",
+    "contentPath": "index/0/c/8/8/a/0c88a630-3564-42dd-a6ea-cfb7a2673f76.content",
+    "size": 23181,
+    "mimeType": "text/vcard",
+    "uploadedAt": "2026-06-11T10:45:10.492Z",
+    "uploaderToken": "c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+    "roomUuid": "440ccc82-368c-4b8c-9c8b-d8a81f9d4ae7",
+    "contentHash": "bf8c4aa43f6f605d9098cba23c3633fa1bd03c286f2122dc8f0b74d803439ade",
+    "unitLinks": [
+      "content/bf8c4aa43f6f605d9098cba23c3633fa1bd03c286f2122dc8f0b74d803439ade.file.scenario.json",
+      "../data/users/c117f9fc-baf3-4666-adb5-bd7c2dfadff6/rooms/440ccc82-368c-4b8c-9c8b-d8a81f9d4ae7/files/0c88a630-3564-42dd-a6ea-cfb7a2673f76.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:440ccc82-368c-4b8c-9c8b-d8a81f9d4ae7"
+}

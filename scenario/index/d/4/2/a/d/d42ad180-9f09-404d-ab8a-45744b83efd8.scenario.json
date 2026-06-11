@@ -6,7 +6,7 @@
     "description": "Hash incoming content (SHA-256). Iterate room.files[] IORs, resolve each, compare model.contentHash. If match: return existing unit (skip create). Else: proceed with createFileUnit (store hash in model.contentHash).",
     "sourceFile": "ior:file:src/ts/scenario/file-unit.ts",
     "implementations": [
-      "ior:instance:c546c877-9907-4f17-b61a-1157b0902765"
+      "ior:instance:36a3b677-dc4d-415c-9eee-ffc62fff0f76"
     ],
     "tests": []
   },
