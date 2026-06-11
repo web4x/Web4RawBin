@@ -56,3 +56,42 @@ shape-compatible with members/files collections.
 The fork is real debt: 4 DRY violations, 4 boundary breaks, divergent UX. Consolidation is
 LOW-RISK because the DOM contract is already identical and the item component already shared —
 only the tree layer needs to change ownership.
+
+## Addendum: self-healing custom-element pattern — VALIDATED (with 3 mandatory gaps closed)
+
+*PO ask 2026-06-11: property-setter buffers data, connectedCallback renders from stored state,
+zero external timing gate — robust standard vs attribute+whenDefined imperative?*
+
+### Verdict: YES — this is the established Web Components standard ("lazy properties" pattern).
+It converts temporal coupling (caller babysits readiness) into encapsulated state (component
+owns readiness). Order-independent: set data before/after connect, before/after define — all
+paths converge on the same render. The three styles coexisting today are strictly worse:
+
+| Today | Failure mode |
+|---|---|
+| `await whenDefined()` (RoomView:236) | External timing gate = temporal coupling; caller must know component internals' lifecycle |
+| `el.setGraph(g)` / `setMembers()` | TypeError if element not yet upgraded (method doesn't exist pre-upgrade) — loud but race-fragile |
+| `el.graph = g` (index.ts x4, trace-page) | WORST: pre-upgrade assignment lands as own-property that SHADOWS the class accessor — setter never fires, render never happens, NO error |
+
+### The 3 gaps that make-or-break the pattern (mandatory, not optional)
+
+1. **upgradeProperty dance in connectedCallback** — without it the pattern silently inherits
+   failure mode 3: `if (Object.hasOwn(this,'data')) { const v=this.data; delete this.data; this.data=v; }`
+   per buffered property. This is THE difference between self-healing and self-deceiving.
+2. **One source of truth per datum** — attributes for scalar/declarative config (rb-object-item's
+   ref/type/title stay attributes: parser-settable, inspectable, observedAttributes works);
+   property-setters for rich data (graph, members[], children[]). NEVER both for the same datum
+   (dual-write drift). No attribute reflection for rich data.
+3. **Idempotent render + teardown discipline** — render() from stored state must clear stale
+   subscriptions (our ViewBus unsub pattern already does this — keep), and setters should
+   no-op on same-reference reassign (pairs with the R19.90 diff: setter diffs, DOM updates in place).
+
+### Encapsulation note
+The pattern reinforces the audit's B1/B2 fixes: data flows DOWN through setters, events bubble UP
+— parents never query child internals. whenDefined retains exactly one legitimate use: app-bootstrap
+layout-dependent logic (measure/scroll after first upgraded render), never data delivery.
+
+### Migration order (matches consolidation)
+rb-trace-tree: `graph` + `collections` as buffering setters (setGraph stays as thin alias);
+rb-member-list: `members` setter (setMembers alias); delete RoomView:236 whenDefined;
+fix the 5 bare `el.graph =` sites for free (they become correct once the setter buffers).
