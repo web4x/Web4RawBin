@@ -109,7 +109,7 @@ export class Chain {
    * (UC, Class, Method, Impl, Test) combination, exactly the po-chain-follow-up
    * semantics (validated against baseline 9/154 on 2026-06-11).
    */
-  private walkReq(reqUuid: string, hasRealImpl: (u: string) => boolean, hasRealTest: (u: string) => boolean): ChainRow[] {
+  private walkReq(reqUuid: string, hasRealImpl: (u: string) => boolean, hasRealTest: (u: string) => boolean, implRefs: Map<string, number>): ChainRow[] {
     const reqM = this.model(reqUuid);
     if (!reqM) return [{ chainName: short(reqUuid), req: 'open', uc: 'open', cls: 'open', method: 'open', impl: 'open', test: 'open', complete: false, openNodes: [] }];
     const reqName = String(reqM.altId || reqM.name || short(reqUuid));
@@ -164,6 +164,13 @@ export class Chain {
 
           for (const implIorStr of implIors) {
             const implUuid = ior(implIorStr);
+            const refCount = implRefs.get(implUuid) || 0;
+            if (refCount > 1) {
+              // HARD RULE: one marker = one unit = one method. Shared Impl = NEVER credited.
+              results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, impl: `open expert shared-impl(x${refCount}) ${short(implUuid)}`, test: 'open', complete: false,
+                openNodes: [{ node: 'Impl', owner: 'expert', action: `Impl ${short(implUuid)} shared by ${refCount} Methods — mint fresh uuid per method (HARD RULE: one marker=one unit=one method)`, iorShort: short(implUuid) }] });
+              continue;
+            }
             const realImpl = hasRealImpl(implUuid);
             const implCell = realImpl ? `check ${short(implUuid)}` : `open expert ${short(implUuid)}`;
             const implM = this.model(implUuid);
@@ -196,8 +203,8 @@ export class Chain {
   }
 
   /** One summary row per req (dedup by method, first-incomplete representative) — canonical. */
-  private summarize(reqUuid: string, hasRealImpl: (u: string) => boolean, hasRealTest: (u: string) => boolean): { row: ChainRow; isComplete: boolean } {
-    const rows = this.walkReq(reqUuid, hasRealImpl, hasRealTest);
+  private summarize(reqUuid: string, hasRealImpl: (u: string) => boolean, hasRealTest: (u: string) => boolean, implRefs: Map<string, number>): { row: ChainRow; isComplete: boolean } {
+    const rows = this.walkReq(reqUuid, hasRealImpl, hasRealTest, implRefs);
     const seen = new Set<string>();
     const dedupRows: ChainRow[] = [];
     for (const r of rows) {
@@ -249,10 +256,11 @@ export class Chain {
   followUp(reqUuids: string[], sprint?: string): FollowUpResult {
     const { included, excluded } = this.resolveReqSet(reqUuids, sprint);
     const { hasRealImpl, hasRealTest } = this.markerScanners();
+    const implRefs = this.implRefCounts();
     const rows: ChainRow[] = [];
     let complete = 0;
     for (const uuid of included) {
-      const { row, isComplete } = this.summarize(uuid, hasRealImpl, hasRealTest);
+      const { row, isComplete } = this.summarize(uuid, hasRealImpl, hasRealTest, implRefs);
       rows.push(row);
       if (isComplete) complete++;
     }
@@ -263,9 +271,10 @@ export class Chain {
   listComplete(sprint?: string): CompleteEntry[] {
     const { included } = this.resolveReqSet([], sprint);
     const { hasRealImpl, hasRealTest } = this.markerScanners();
+    const implRefs = this.implRefCounts();
     const out: CompleteEntry[] = [];
     for (const uuid of included) {
-      const { row, isComplete } = this.summarize(uuid, hasRealImpl, hasRealTest);
+      const { row, isComplete } = this.summarize(uuid, hasRealImpl, hasRealTest, implRefs);
       if (!isComplete) continue;
       const m = this.model(uuid);
       out.push({
@@ -386,6 +395,78 @@ export class Chain {
       }
     }
     return { updated: false, row };
+  }
+
+  private implRefCounts(): Map<string, number> {
+    const counts = new Map<string, number>();
+    for (const u of this.idx.list()) {
+      const unit = this.idx.get(u);
+      if (!unit || unit.ior !== 'ior:class:Method') continue;
+      for (const i of ((unit.model as Record<string, unknown>).implementations as string[]) || []) {
+        const iu = ior(String(i));
+        counts.set(iu, (counts.get(iu) || 0) + 1);
+      }
+    }
+    return counts;
+  }
+
+  /** Lint chain markers: invented-suffix uuids, prefix collisions, shared Impls, orphan markers (catch BEFORE a re-measure) */
+  lintMarkers(): LintFinding[] {
+    const findings: LintFinding[] = [];
+    const all = this.idx.list();
+    const TELLTALE = /-(a1b2|b2c3|c3d4|d4e5|e5f6|a2b3|4c3d)-/;
+    // (a) telltale invented suffixes on units
+    for (const u of all) {
+      if (TELLTALE.test(u)) findings.push({ kind: 'invented-suffix', uuid: u, detail: `${this.unitType(u)} uuid matches invented pattern (HARD RULE: uuidgen-fresh or verbatim copy only)` });
+    }
+    // (b) prefix-sibling families (same first-8 hex, >1 unit — minted siblings)
+    const byPrefix = new Map<string, string[]>();
+    for (const u of all) { const p = u.slice(0, 8); if (!byPrefix.has(p)) byPrefix.set(p, []); byPrefix.get(p)!.push(u); }
+    for (const [prefix, us] of byPrefix) {
+      if (us.length > 1) findings.push({ kind: 'prefix-collision', uuid: prefix, detail: us.map(u => `${this.unitType(u)}:${u}`).join(' | ') });
+    }
+    // (c) Impls referenced by >1 Method
+    for (const [iu, n] of this.implRefCounts()) {
+      if (n > 1) findings.push({ kind: 'shared-impl', uuid: iu, detail: `referenced by ${n} Methods — mint fresh uuid per method` });
+    }
+    // (d) markers in source/test with no unit on disk
+    for (const [dir, prefix] of [[this.srcDir, 'impl'], [this.testDir, 'test']] as const) {
+      for (const f of this.walkFiles(dir)) {
+        const text = fs.readFileSync(f, 'utf-8');
+        for (const m of text.matchAll(new RegExp(`\\[${prefix}:uuid:([0-9a-f-]{36})\\]`, 'gi'))) {
+          if (!this.idx.has(m[1].toLowerCase())) findings.push({ kind: 'orphan-marker', uuid: m[1], detail: `[${prefix}:uuid:] in ${path.relative(this.srcDir + '/..', f)} has NO unit on disk` });
+        }
+      }
+    }
+    return findings;
+  }
+
+  /** Write a dated COMPLETE-set snapshot and name exactly which chains flipped vs the previous snapshot */
+  snapshotComplete(dir?: string): string {
+    const snapDir = dir || path.join(this.srcDir, '../scrum.pmo/chain-snapshots');
+    fs.mkdirSync(snapDir, { recursive: true });
+    const entries = this.listComplete();
+    const stamp = new Date().toISOString().slice(0, 16).replace(':', '-');
+    const file = path.join(snapDir, `${stamp}-listComplete.tsv`);
+    const keys = ['chain', 'reqUuid', 'name', 'method', 'impl', 'test'];
+    const tsv = [keys.join('\t'), ...entries.map(e => keys.map(k => String((e as unknown as Record<string, unknown>)[k] ?? '')).join('\t'))].join('\n');
+    const prior = fs.readdirSync(snapDir).filter(f => f.endsWith('-listComplete.tsv') && path.join(snapDir, f) !== file).sort().pop();
+    fs.writeFileSync(file, tsv);
+    const out: string[] = [`# COMPLETE-set snapshot: ${entries.length} chains -> ${path.relative(process.cwd(), file)}`];
+    if (prior) {
+      const prevLines = fs.readFileSync(path.join(snapDir, prior), 'utf-8').split('\n').slice(1).filter(Boolean);
+      const prevSet = new Set(prevLines.map(l => l.split('\t')[1]));
+      const nowSet = new Set(entries.map(e => e.reqUuid));
+      const added = entries.filter(e => !prevSet.has(e.reqUuid));
+      const removed = prevLines.filter(l => !nowSet.has(l.split('\t')[1]));
+      out.push(`vs ${prior}: +${added.length} / -${removed.length}`);
+      for (const a of added) out.push(`  + ${a.chain} (${a.reqUuid.slice(0, 8)})`);
+      for (const r of removed) out.push(`  - ${r.split('\t')[0]} (${r.split('\t')[1].slice(0, 8)})`);
+      if (added.length === 0 && removed.length === 0) out.push('  (no flips)');
+    } else {
+      out.push('(first snapshot — no prior to diff)');
+    }
+    return out.join('\n');
   }
 
   /** Tab-completion candidates for a verb's parameter (OOSH c2 contract) */
@@ -511,6 +592,8 @@ export interface ChainRow {
 }
 
 export interface FollowUpResult { rows: ChainRow[]; complete: number; total: number; excluded: number; }
+
+export interface LintFinding { kind: string; uuid: string; detail: string; }
 
 export interface CompleteEntry {
   chain: string; reqUuid: string; name: string; method: string; impl: string; test: string;

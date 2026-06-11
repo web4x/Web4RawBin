@@ -43,6 +43,14 @@ taskChain.chain.updateMatrixRow() # <reqUuid> <matrixPath> # Update one requirem
 taskChain.chain.updateMatrixRow.completion.reqUuid() { private.taskChain.dispatch Chain completion updateMatrixRow reqUuid; }
 taskChain.chain.updateMatrixRow.completion.matrixPath() { private.taskChain.dispatch Chain completion updateMatrixRow matrixPath; }
 
+taskChain.chain.lintMarkers() #  # Lint chain markers: invented-suffix uuids, prefix collisions, shared Impls, orphan markers (catch BEFORE a re-measure)
+{ private.taskChain.dispatch Chain lintMarkers "$@"; }
+taskChain.chain.lintMarkers.completion() { :; }
+
+taskChain.chain.snapshotComplete() # <?dir> # Write a dated COMPLETE-set snapshot and name exactly which chains flipped vs the previous snapshot
+{ private.taskChain.dispatch Chain snapshotComplete "$@"; }
+taskChain.chain.snapshotComplete.completion.dir() { private.taskChain.dispatch Chain completion snapshotComplete dir; }
+
 taskChain.velocity.compute() # <since> <?sprint> # Chain completion + git throughput for a window (numerator = canonical Chain.followUp)
 { private.taskChain.dispatch Velocity compute "$@"; }
 taskChain.velocity.compute.completion.since() { private.taskChain.dispatch Velocity completion compute since; }

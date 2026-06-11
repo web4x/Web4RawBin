@@ -1,0 +1,9 @@
+chain	reqUuid	name	method	impl	test
+R19.30	ca351869-b694-491e-ba0f-8c9e9623c4db	R19.30: Edit pen (✏️) opens the canonical room scenario unit in EDIT mode.	editCanonical	2a29b3da	6d58883c
+R19.33	553be449-3bad-4580-9426-11c4ab10e202	R19.33: Detail drawer close affordance stays sticky in view, never scrolls away.	stickyClose	aa585fcc	859878d6
+R19.34	7734f4e1-def9-4af3-a7d2-5ccc7160b214	R19.34: Traceability Chain section shows the singular chain to Test, not a flat list of use cases.	singularChain	b4f6b903	1a22ed27
+R19.35	c99083ba-1b38-474c-88d1-ca4bf5f5a2c7	R19.35: Room scenario unit model holds IOR references to its member units.	persistMembers	d5f0c2b4	c874546a
+R19.36	573d5b87-bd20-4eb6-9ec4-87896a6533bb	R19.36: DnD file-upload chain is fully traceable from drop to ln link to room file-tree display.	uploadFile	d6ec181b	1e763397
+R19.37	46d49877-63c5-438b-9982-6c66a041ee44	R19.37: Unknown drop format logs the event to room chat as an extensible dispatcher.	routeUnknown	971bdde0	1e763397
+R19.39	4ed793f1-94a0-4645-b4f5-b8dff74da75c	R19.39: A system RawBin User unit owns the DnD debug/log messages.	ensureRawBinUser	7de1d230	5df331c3
+R19.52	dceda100-434b-4ef7-9af3-9a69ccfac6b2	R19.52: Detail drawer is full width — no max-width cap.	fullWidth	da9462f5	a7e34f12

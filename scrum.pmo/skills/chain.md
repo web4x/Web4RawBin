@@ -12,6 +12,8 @@
 | `chain.wireAllMissing` | `<?dryRun:boolean>` | Wire ALL Methods that have no Implementation node (batch wireImplNode) |
 | `chain.generateMatrix` | `<matrixPath:string>` `<?sprint:string>` | Regenerate the full traceability matrix from canonical chain data |
 | `chain.updateMatrixRow` | `<reqUuid:string>` `<matrixPath:string>` | Update one requirement's row in the traceability matrix |
+| `chain.lintMarkers` | — | Lint chain markers: invented-suffix uuids, prefix collisions, shared Impls, orphan markers (catch BEFORE a re-measure) |
+| `chain.snapshotComplete` | `<?dir:string>` | Write a dated COMPLETE-set snapshot and name exactly which chains flipped vs the previous snapshot |
 
 ## Invocation
 ```bash

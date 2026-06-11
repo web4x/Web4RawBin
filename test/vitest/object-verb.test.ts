@@ -170,6 +170,66 @@ describe('Chain canonical semantics on a fixture index', () => {
   });
 });
 
+describe('HARD RULE: shared-impl gate + lintMarkers', () => {
+  let tmp: string;
+  let chain: Chain;
+
+  beforeAll(() => {
+    tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'objectverb-shared-'));
+    const idxDir = path.join(tmp, 'index');
+    const srcDir = path.join(tmp, 'src');
+    const testDir = path.join(tmp, 'test');
+    fs.mkdirSync(idxDir, { recursive: true }); fs.mkdirSync(srcDir, { recursive: true }); fs.mkdirSync(testDir, { recursive: true });
+    const idx = new ScenarioIndex(idxDir);
+    const SHARED_IMPL = 'aaaa1111-0000-4000-8000-000000000001';
+    const TEST_U = 'aaaa2222-0000-4000-8000-000000000002';
+    // Two reqs, two UCs, two classes, TWO methods — both methods reference the SAME Impl
+    for (const [i, req, uc, cls, meth] of [
+      [1, 'bbbb1111-0000-4000-8000-000000000011', 'cccc1111-0000-4000-8000-000000000021', 'dddd1111-0000-4000-8000-000000000031', 'eeee1111-0000-4000-8000-000000000041'],
+      [2, 'bbbb2222-0000-4000-8000-000000000012', 'cccc2222-0000-4000-8000-000000000022', 'dddd2222-0000-4000-8000-000000000032', 'eeee2222-0000-4000-8000-000000000042'],
+    ] as [number, string, string, string, string][]) {
+      idx.put(req, { ior: 'ior:class:Requirement', model: { uuid: req, altId: `R88.${i}`, name: `req ${i}`, useCases: [`ior:instance:${uc}`] }, ownerIor: null });
+      idx.put(uc, { ior: 'ior:class:UseCase', model: { uuid: uc, name: `t${i}.do`, classes: [`ior:instance:${cls}`], method: `ior:instance:${meth}` }, ownerIor: null });
+      idx.put(cls, { ior: 'ior:class:Class', model: { uuid: cls, name: `T${i}`, methods: [`ior:instance:${meth}`] }, ownerIor: null });
+      idx.put(meth, { ior: 'ior:class:Method', model: { uuid: meth, name: `T${i}.do`, implementations: [`ior:instance:${SHARED_IMPL}`] }, ownerIor: null });
+    }
+    idx.put(SHARED_IMPL, { ior: 'ior:class:Implementation', model: { uuid: SHARED_IMPL, name: 'shared', tests: [`ior:instance:${TEST_U}`] }, ownerIor: null });
+    idx.put(TEST_U, { ior: 'ior:class:Test', model: { uuid: TEST_U, name: 'shared test' }, ownerIor: null });
+    fs.writeFileSync(path.join(srcDir, 's.ts'), `// [impl:uuid:${SHARED_IMPL}] shared\n// [impl:uuid:99999999-9999-4999-8999-999999999999] orphan marker no unit\n`);
+    fs.writeFileSync(path.join(testDir, 's.test.ts'), `// [test:uuid:${TEST_U}] shared\n`);
+    chain = new Chain(new ScenarioIndex(idxDir), srcDir, testDir);
+  });
+
+  afterAll(() => { fs.rmSync(tmp, { recursive: true, force: true }); });
+
+  it('NEVER credits an Impl referenced by >1 Method (despite valid unit+marker)', () => {
+    const r = chain.followUp([]);
+    expect(r.complete).toBe(0);
+    for (const row of r.rows) {
+      expect(row.impl).toMatch(/shared-impl\(x2\)/);
+      expect(row.openNodes[0].action).toMatch(/HARD RULE/);
+    }
+  });
+
+  it('listComplete agrees with followUp.complete under the gate', () => {
+    expect(chain.listComplete().length).toBe(chain.followUp([]).complete);
+  });
+
+  it('lintMarkers flags shared-impl and orphan-marker', () => {
+    const kinds = chain.lintMarkers().map(f => f.kind);
+    expect(kinds).toContain('shared-impl');
+    expect(kinds).toContain('orphan-marker');
+  });
+
+  it('lintMarkers flags telltale invented suffixes (HARD RULE patterns)', () => {
+    const findings = chain.lintMarkers();
+    // none of the fixture uuids use telltales; assert detector logic directly on a crafted unit
+    const txt = '94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05';
+    expect(/-(a1b2|b2c3|c3d4|d4e5|e5f6|a2b3|4c3d)-/.test(txt)).toBe(true);
+    expect(findings.every(f => f.uuid && f.kind && f.detail)).toBe(true);
+  });
+});
+
 describe('registry', () => {
   it('constructs every registered object', () => {
     for (const name of Object.keys(registry)) {
