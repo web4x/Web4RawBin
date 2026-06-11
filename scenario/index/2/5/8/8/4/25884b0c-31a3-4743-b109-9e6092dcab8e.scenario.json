@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "25884b0c-31a3-4743-b109-9e6092dcab8e",
+    "name": "ProfileEditor.removeLocalIdentity impl",
+    "sourceFile": "src/public/ts/ProfileEditor.ts",
+    "sourceLine": 153,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:27e289a5-e948-4a40-8eeb-52cdc10e3b0d"
+}
