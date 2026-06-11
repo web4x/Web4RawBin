@@ -95,3 +95,60 @@ layout-dependent logic (measure/scroll after first upgraded render), never data 
 rb-trace-tree: `graph` + `collections` as buffering setters (setGraph stays as thin alias);
 rb-member-list: `members` setter (setMembers alias); delete RoomView:236 whenDefined;
 fix the 5 bare `el.graph =` sites for free (they become correct once the setter buffers).
+
+## Appendix 2 (2026-06-12): systemic rb-object-item creation/listener audit — invariant validation
+
+*PO ask: every creation path, 0x/2x listener risks, exactly-once + single-render-authority.
+Audited POST-consolidation (v0.5.214).*
+
+### Creation paths: 4 live, each item created by EXACTLY ONE path ✓
+| Path | Mode | Style |
+|---|---|---|
+| nodeEl (tree L193) | graph (/trace) | `.data` setter ✓ |
+| buildSeedNode (tree L251) | seed (/scenario) + items (room) | `.data` setter ✓ BUT adds per-item listener |
+| rb-list-overview L94 | list | setAttribute (scalars only, no expander — OK per addendum rule) |
+| rb-overview L47 | overview | template-string attrs (scalars only, no expander — OK) |
+RoomView's 5th path (static template skeleton) was DELETED by consolidation — template now has
+`<rb-trace-tree id="room-tree" data-mode="room">` and feeds `tree.items`. Data-down achieved.
+
+### Listener wiring: one CONFIRMED 2x, one LATENT 2x, zero 0x
+| Wiring | Verdict |
+|---|---|
+| item click delegate (connectedCallback, stable fn ref, removed on disconnect) | exactly-once ✓ (same-ref re-add is platform-deduped) |
+| ViewBus subscribe (unsub on disconnect, re-bind on ref change) | exactly-once ✓ |
+| dragstart on .oi-icon — wired INSIDE render() | **LATENT 2x**: safe only because render() reconstructs via innerHTML (old node dies with listener). The moment render goes update-in-place (R19.90 diff direction) this double-fires. Move to connectedCallback delegation on `this`. |
+| **toggle-children** — per-item closure (buildSeedNode L266) AND tree-level onToggleChildren (L70) | **CONFIRMED 2x** in seed+items modes: event bubbles, BOTH run. Graph mode = tree-level only ✓ |
+| 0x risks | none live (list/overview items never set has-children → no expander rendered) |
+| whenDefined (RoomView:231) | DEAD GATE post-self-healing — delete |
+| RoomView tree click listener (L201, file preview) | works, but still audit-B3 (Navigator seam bypass) |
+
+### The 2x consequences (seed/items modes)
+1. Dual display writes on same .tt-children (benign — same value).
+2. **LS_KEY pollution (real defect)**: tree-level handler persists EVERY toggled ref into
+   `rawbin-trace-expanded` (the /trace key) — room collection refs (`collection:members`) and
+   /scenario seed refs leak into /trace expand state. buildSeedNode's closure writes the correct
+   per-seed key; the tree-level write is the wrong-key duplicate.
+3. Double scrollIntoView rAF (benign).
+4. No double-fetch (tree-level skips fetch when .tt-children exists — by luck, not design).
+
+### Invariant verdict
+- **Exactly-once registration**: HOLDS for item-self listeners; **VIOLATED** for toggle-children
+  in seed/items modes (architectural 2x — two handlers registered for one event type).
+- **Single render authority**: HOLDS in graph mode; **VIOLATED** in seed/items — per-item closure
+  AND tree handler both own .tt-children mutation; lazy-load state (loaded/branchPath/chainMethod)
+  hides in closures, invisible to the component.
+
+### Recommendation (architect design)
+1. ONE toggle authority: tree-level onToggleChildren handles ALL modes. Replace per-item closures
+   with component state `WeakMap<ttNode, {loaded, branchPath, chainMethod}>` populated by
+   buildSeedNode. Delete the L266 per-item addEventListener.
+2. Per-mode persist key inside the single handler (graph→LS_KEY, seed→scenarioExpandKey,
+   items→none or per-room key). Kills the pollution.
+3. Move dragstart wiring out of render() to connectedCallback (delegation via closest('.oi-icon')).
+4. Delete RoomView:231 whenDefined.
+5. (Carry-over B3) file-preview click → Navigator seam when touched next.
+
+### Lint side-catch (skill-expert lane)
+RoomView markers `dnd01002-...` (L81) + `dnd01003-...` (L96) are INVENTED NON-HEX uuids
+('n' not hex) — invisible to scanner AND invalid. Replace with uuidgen-fresh via wireImplNode
+when expert next touches RoomView.
