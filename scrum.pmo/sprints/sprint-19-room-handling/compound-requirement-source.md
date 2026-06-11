@@ -107,6 +107,10 @@
 - **R19.41** (2026-06-11): server has a configurable LOG LEVEL (error<warn<info<debug<trace). All logging respects it. Settable at runtime without restart + persisted default via env/config.
   > TRON: "introduce serverside log level to increase and decrease server log details."
 
+### Offline page recovery (R19.45)
+- **R19.45** (2026-06-11): offline page adds a RED 'Flush PWA Cache' button next to Retry. Clears all SW caches + unregisters/re-registers SW. Recovers from stale-cache offline state.
+  > TRON: "continue to get [offline page] — not in the pwa but in the browser. add next to retry a red flush pwa cache button."
+
 ### Detail drawer + chain display bugs (R19.33 + R19.34)
 - **R19.33** (2026-06-11): detail drawer close affordance (nudge/X handle) scrolls out of view. MUST stay sticky/fixed in the drawer viewport.
   > TRON: "the details nudge to close scrolls out of the view"
