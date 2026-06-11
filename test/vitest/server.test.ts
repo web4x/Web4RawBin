@@ -335,6 +335,7 @@ describe('TC-4.6.5: Room CRUD via RoomManager', () => {
 
 // ── TC-4.6.6: Chat in room ──────────────────────────────────────────────────
 
+// [test:uuid:dd85c4d7-a1b2-4c3d-8e4f-5a6b7c8d9e01] R19.38+R19.40 chat+lazy-load chain
 describe('TC-4.6.6: Chat broadcast via Room', () => {
 
   it('addChat broadcasts CHAT_MESSAGE to all members', () => {
