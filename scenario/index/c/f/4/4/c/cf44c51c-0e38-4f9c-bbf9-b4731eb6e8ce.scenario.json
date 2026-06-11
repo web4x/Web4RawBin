@@ -5,7 +5,9 @@
     "name": "ContentPreviewer.htmlSandboxed impl",
     "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
     "sourceLine": 19,
-    "tests": []
+    "tests": [
+      "ior:instance:178f14b2-9f1e-4b42-872f-c1fb02698161"
+    ]
   },
   "ownerIor": "ior:instance:aee04064-f57d-4741-aabb-e5f8ca48736d"
 }

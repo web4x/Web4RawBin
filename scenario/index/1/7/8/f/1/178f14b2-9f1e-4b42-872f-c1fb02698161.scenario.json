@@ -5,10 +5,10 @@
     "name": "test:R19.74 htmlSandboxed",
     "sourceFile": "ior:file:test/vitest/components.test.ts",
     "implementations": [
-      "ior:instance:aee04064-f57d-4741-aabb-e5f8ca48736d"
+      "ior:instance:cf44c51c-0e38-4f9c-bbf9-b4731eb6e8ce"
     ],
     "status": "pass",
     "unitLinks": []
   },
-  "ownerIor": "ior:instance:aee04064-f57d-4741-aabb-e5f8ca48736d"
+  "ownerIor": "ior:instance:cf44c51c-0e38-4f9c-bbf9-b4731eb6e8ce"
 }
