@@ -81,6 +81,7 @@ Each skill class + method gets scenario units in the chain:
 4. **Deterministic.** Same inputs → same outputs. No `Date.now()` in the logic (pass timestamps as args).
 5. **Validated before authoritative.** 3 identical runs before trusting a new metric. Document validation in the commit.
 6. **Object.verb naming.** `Chain.followUp`, `Chain.wireImplNode`, `Velocity.compute` — noun.verb, matching our UseCase naming convention.
+7. **ONE canonical measure per metric.** Chain completion has ONE canonical measure: `Chain.followUp()` via `po-chain-follow-up.ts`. **No parallel counts.** Any script that computes a completion-like number MUST either source `Chain.followUp()` or print `NON-CANONICAL` and refuse to emit a competing number. Prevention over detection.
 
 ## Migration checklist (for existing scripts)
 

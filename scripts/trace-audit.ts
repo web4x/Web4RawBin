@@ -182,8 +182,10 @@ const result = auditAll(idx);
 const strict = process.argv.includes('--strict');
 
 console.log(`\n=== RawBin Trace Data Quality Audit ===`);
+console.log(`⚠ NON-CANONICAL — for chain COMPLETION measure use: npx tsx scripts/po-chain-follow-up.ts --all`);
+console.log(`  This audit checks structural quality (orphans, back-refs, cardinality), NOT chain completion.\n`);
 console.log(`Total units: ${result.total}`);
-console.log(`Reachable from requirements/sprints: ${result.reachable}`);
+console.log(`Reachable from requirements/sprints: ${result.reachable} (structural reachability, NOT completion)`);
 
 console.log(`\nOrphans: ${result.orphans.length} (${result.orphans.length === 0 ? 'PASS' : 'FAIL'})`);
 for (const o of result.orphans.slice(0, 20)) console.log(`  - ${o.uuid.slice(0, 8)} (${o.type}: ${o.name})`);
