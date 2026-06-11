@@ -7,6 +7,8 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+// [test:uuid:86356415-4d5f-44f7-b496-a1b5c244c9f1]
+// [test:uuid:1a2b80d0-ae33-4a66-8116-2fadd411817e]
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';

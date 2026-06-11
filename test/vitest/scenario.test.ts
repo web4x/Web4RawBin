@@ -22,6 +22,11 @@
 // [test:uuid:c8fadaae-1fb3-4eb8-8469-52fd9c2c5ce8]
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+// [test:uuid:447754f1-f0b7-44ca-a55a-eb29fa214789]
+// [test:uuid:a1e9458d-aeeb-4240-b061-03505f81b5eb]
+// [test:uuid:80ff5280-dc41-4be0-84f7-0ddb6267fcf5]
+// [test:uuid:d8b2767d-fa15-4b0d-afd7-eae1ee021934]
+// [test:uuid:5a835c64-c512-4dd9-bc6d-b025ff31c2d3]
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';

@@ -36,6 +36,23 @@
 // [test:uuid:8b8a203c-70e1-4ad4-9242-fa255b7782ee]
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+// [test:uuid:96f6eee5-b6e9-48d1-82bd-de8dabd05aeb]
+// [test:uuid:d8e97d62-2782-48ea-8de2-74b641e4fd3c]
+// [test:uuid:79da3d78-ca43-4e71-8dba-28c5adaddedc]
+// [test:uuid:79206be7-a8ae-4ff8-b7b7-3185c8442621]
+// [test:uuid:970f75e3-8737-4641-aea8-0283daa21823]
+// [test:uuid:2401bf84-ed9c-4b21-b4dc-24572e24d326]
+// [test:uuid:18092cd0-327d-4c3a-83a7-c213520044ab]
+// [test:uuid:f551ecf0-c782-4ecb-bc07-8b673cbed762]
+// [test:uuid:bde41193-d4b5-4848-9c20-ba219b9ff05d]
+// [test:uuid:f5211188-e4cb-4f26-8305-2103d32d6e79]
+// [test:uuid:54155cc3-235f-49d1-8720-506b5dc69d4c]
+// [test:uuid:2530417e-1bf2-4d36-a9e7-997094c66542]
+// [test:uuid:5d077319-2614-4b44-9a49-4f3baf2dd093]
+// [test:uuid:b2ae41d8-ff94-4914-810b-40e275b9457e]
+// [test:uuid:a34e4d49-f677-40b9-91b2-80770c73ddf0]
+// [test:uuid:cc892647-38f8-4220-960d-661d204a264a]
+// [test:uuid:ac382d91-6ef0-4918-944e-cb40ded9491a]
 import { Room, RoomManager } from '../../src/ts/server/Room.js';
 import type { RoomMember } from '../../src/ts/server/Room.js';
 import { WebSocket } from 'ws';

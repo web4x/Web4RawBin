@@ -25,6 +25,18 @@
 // [test:uuid:aaa28037-63f3-4e44-b042-0080b4879363]
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+// [test:uuid:793ab11f-e79d-4610-824a-0662c0ab5494]
+// [test:uuid:ea6ce5d8-f936-453d-a92e-4b602e7437db]
+// [test:uuid:cda50af2-3acf-43e8-9c02-613a461965ea]
+// [test:uuid:2129a8e5-d7cd-4308-9d23-64b2517e3be8]
+// [test:uuid:7638f719-a2a4-466c-be7b-fd3a59daebbe]
+// [test:uuid:3f255cc5-e768-428a-8ced-239fe6a4af5e]
+// [test:uuid:c2c91058-7194-4483-8d8e-d6af4067c0d2]
+// [test:uuid:cb3507a2-46ee-414b-810f-7d65ddb3afe0]
+// [test:uuid:f936d0f4-1971-4baa-bf85-4e75a1a3db65]
+// [test:uuid:d12f34d5-52f0-4fcd-b918-3ce2be327a4d]
+// [test:uuid:ed61e817-bc0a-4d7b-b892-e786a2cf52f0]
+// [test:uuid:e4963145-2391-4535-a3a0-9f23c2f7d1dc]
 import { Room, RoomManager } from '../../src/ts/server/Room.js';
 import type { RoomMember, RoomInfo } from '../../src/ts/server/Room.js';
 import { WebSocket } from 'ws';

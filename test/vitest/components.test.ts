@@ -13,6 +13,31 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+// [test:uuid:d25cc4c2-96a8-42a8-a06e-7c2678a8fe4a]
+// [test:uuid:3e6c0e2c-1149-46c2-bcfb-e3e19daadda1]
+// [test:uuid:50601482-070f-401e-8894-d88515deb476]
+// [test:uuid:a68880ee-7e63-4785-970e-80b1d48044d5]
+// [test:uuid:9e161bda-82d2-4ee5-aa64-d04aadb394dc]
+// [test:uuid:2ee90d4e-a2eb-4606-a958-33ca4af4e0ba]
+// [test:uuid:f5398d74-3840-441d-917d-cd4f8d752644]
+// [test:uuid:2c11b869-ca5b-439b-8c55-cf2b4137fa13]
+// [test:uuid:ae08d5ec-3ac6-4325-899a-1f4f2dee9a46]
+// [test:uuid:adb2b8aa-474e-44ce-b5a3-2b7a2dd13bd5]
+// [test:uuid:2935a949-27cc-44ee-be37-1b26987514c6]
+// [test:uuid:21aff647-8625-4d9c-9d9a-ae3d017e5cfd]
+// [test:uuid:c20ea27f-6659-4e95-9f95-985dc530d80f]
+// [test:uuid:59673fc0-9d71-488d-9fd3-5bbea5fe9dea]
+// [test:uuid:5edd2404-638a-4381-b6e5-80ec5ab4fb37]
+// [test:uuid:d75a9be1-72e8-45f5-a698-2d36424e7418]
+// [test:uuid:74a690fa-a748-4aec-8b22-f90892076ce2]
+// [test:uuid:8c3266e2-b3df-4a1a-bc7b-25ac32bba324]
+// [test:uuid:a62fd762-08ce-4bb1-8e07-da9e3aacedf3]
+// [test:uuid:b13336fd-f512-4b97-876c-23c0afa3992e]
+// [test:uuid:9c52d370-c9d1-4daf-bb7e-468bf4df4494]
+// [test:uuid:a8525098-17ca-4b73-a4f0-df917cf18426]
+// [test:uuid:3fdeb347-bcad-415a-8057-407a79a66331]
+// [test:uuid:8bbdde41-4ce5-4af4-a6e9-849cc7cb0109]
+// [test:uuid:b7cee4ce-12ec-4eaa-b8c9-f3c9baac2f2f]
 
 // ═══════════════════════════════════════════════════════════════════════════
 // T41: rb-overlay base class
