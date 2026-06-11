@@ -6,7 +6,9 @@
     "description": "Fallback handler for unrecognized drop formats. Sends WS CHAT_MESSAGE to room with format details. Registry.handlerRegister(pattern, handler) for future vcard/mail/href.",
     "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
     "implementations": [],
-    "tests": []
+    "tests": [
+      "ior:instance:1e763397-5c56-4288-aac6-ee6f874b64a6"
+    ]
   },
   "ownerIor": "ior:instance:3fca4816-cc22-45ea-aa59-d7b23ac19d8d"
 }

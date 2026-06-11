@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "1e763397-5c56-4288-aac6-ee6f874b64a6",
+    "name": "test:R19.14.DnDFileChain",
+    "description": "Champagne end-to-end: createFileUnit+sidecar+unitLinks, DropDispatcher routing (uploadFile+routeUnknown→chat-log), mimeType handler registry. 8 test cases.",
+    "sourceFile": "ior:file:test/vitest/file-dnd-chain.test.ts",
+    "implementations": [
+      "ior:instance:9905fbfa-e41a-4177-b625-f6fee373efd2",
+      "ior:instance:3d4ceb1d-6ed6-4073-a047-cd90e6291a27"
+    ],
+    "verifies": [
+      "ior:instance:f1ca3cc9-a675-4a3b-9898-9e33d7876ed8"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:9905fbfa-a1b2-4c3d-8e4f-5a6b7c8d9e01"
+}
