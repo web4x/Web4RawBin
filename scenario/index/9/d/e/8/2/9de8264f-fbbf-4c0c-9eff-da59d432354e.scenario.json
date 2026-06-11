@@ -5,9 +5,7 @@
     "name": "impl:ensureRawBinUser (split for ClassRegistry.get(name): ClassLoader)",
     "sourceFile": "src/ts/scenario/classes.ts",
     "sourceLine": 38,
-    "tests": [
-      "ior:instance:f2122854-51e0-4e5e-850e-9d86acebed3b"
-    ],
+    "tests": [],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:607fef49-9395-439e-8ee1-f21d02978447"

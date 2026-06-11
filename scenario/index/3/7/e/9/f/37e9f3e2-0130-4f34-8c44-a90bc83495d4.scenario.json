@@ -5,9 +5,7 @@
     "name": "Logger.logAtLevel (split for SvgViewer.onPinchEnd)",
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 262,
-    "tests": [
-      "ior:instance:b543e1ad-9b87-4545-9a18-6b7f6286ec1f"
-    ],
+    "tests": [],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:4a4591ca-3806-4034-b9c1-def621c9b452"

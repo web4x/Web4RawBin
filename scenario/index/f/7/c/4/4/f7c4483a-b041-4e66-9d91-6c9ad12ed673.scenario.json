@@ -4,7 +4,9 @@
     "uuid": "f7c4483a-b041-4e66-9d91-6c9ad12ed673",
     "name": "RbEditorLayout.backNav",
     "sourceFile": "ior:file:src/public/ts/components/rb-editor-layout.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:1b5c8ddc-8d87-4afd-b75c-23ebf99bb031"
+    ]
   },
   "ownerIor": null
 }

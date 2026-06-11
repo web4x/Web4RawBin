@@ -5,10 +5,7 @@
     "name": "chat lazy-load (split for Assets.rekeyFix)",
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 425,
-    "tests": [
-      "ior:instance:dd85c4d7-2fe6-4564-ba91-66a362860b0f",
-      "ior:instance:9e1cb105-27b1-4268-b9c3-d2110563fdeb"
-    ],
+    "tests": [],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:9357333d-6a94-44a2-a74f-c19b0cd85fd4"
