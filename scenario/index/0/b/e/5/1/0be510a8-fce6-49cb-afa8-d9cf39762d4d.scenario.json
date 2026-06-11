@@ -4,9 +4,11 @@
     "uuid": "0be510a8-fce6-49cb-afa8-d9cf39762d4d",
     "altId": "R19.84",
     "name": "R19.84: Drawer nudge DRAG-RESIZES the drawer height, not just swipe-dismiss.",
-    "description": "BUG: the drawer nudge handle LOOKS draggable (R19.79) but dragging it does NOT resize the drawer — it only triggers swipe-dismiss. FIX: dragging the nudge handle up/down MUST resize the drawer height (from some minimum up to 95vh per R19.80). This is a real drag-resize interaction, not just a CSS max-height. The nudge touch/mouse handler must track drag delta and update the drawer height in real-time. Swipe-dismiss remains on fast downward swipe; slow drag = resize.",
-    "tronQuote": "> TRON: \"do you see the issue with the nudge???\" — nudge is a dead handle, dragging does not resize.",
-    "tasks": [],
+    "description": "BUG: the drawer nudge handle LOOKS draggable (R19.79) but dragging it does NOT resize the drawer \u2014 it only triggers swipe-dismiss. FIX: dragging the nudge handle up/down MUST resize the drawer height (from some minimum up to 95vh per R19.80). This is a real drag-resize interaction, not just a CSS max-height. The nudge touch/mouse handler must track drag delta and update the drawer height in real-time. Swipe-dismiss remains on fast downward swipe; slow drag = resize.",
+    "tronQuote": "> TRON: \"do you see the issue with the nudge???\" \u2014 nudge is a dead handle, dragging does not resize.",
+    "tasks": [
+      "ior:instance:4c19b50f-48be-4f46-8da0-bfa02976fea9"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
@@ -15,7 +17,7 @@
       "ior:instance:bd35b1c8-469d-45f9-b7b3-c26bdc62eb6e",
       "ior:instance:034c4842-d21c-4d1f-ae43-d7be70ced589"
     ],
-    "refinementOfNote": "Refines R19.79 (nudge visible) + R19.80 (95% max). R19.79 added the visual handle; R19.84 adds the INTERACTION — drag-resize. R19.80 set max-height CSS only; R19.84 adds the real-time drag handler that changes height up to that max."
+    "refinementOfNote": "Refines R19.79 (nudge visible) + R19.80 (95% max). R19.79 added the visual handle; R19.84 adds the INTERACTION \u2014 drag-resize. R19.80 set max-height CSS only; R19.84 adds the real-time drag handler that changes height up to that max."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

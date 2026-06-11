@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "4c19b50f-48be-4f46-8da0-bfa02976fea9",
+    "name": "T-drawer-drag-resize: the drawer nudge/grab-handle must DRAG-RESIZE the drawer hei",
+    "slug": "drawer-nudge-drag-resizes-height",
+    "description": "R19.84 fix: the drawer nudge/grab-handle must DRAG-RESIZE the drawer height (not just toggle). Pointer drag on the handle adjusts drawer height live. Expert fix in flight. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27).",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing (expert \u2014 in flight)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:0be510a8-fce6-49cb-afa8-d9cf39762d4d"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner",
+    "joint": [
+      "robbin-planner",
+      "robbin-architect",
+      "robbin-expert"
+    ],
+    "atoms": "covers R19.84 per PO directive 2026-06-11; expert fix in flight"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

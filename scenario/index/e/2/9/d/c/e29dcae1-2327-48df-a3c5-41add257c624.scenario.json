@@ -4,9 +4,11 @@
     "uuid": "e29dcae1-2327-48df-a3c5-41add257c624",
     "altId": "R19.85",
     "name": "R19.85: Iframe pinch gesture SCALES the preview content, not just pans.",
-    "description": "BUG: pinch gesture in the preview iframe only PANS (translates) — it does not SCALE (zoom in/out). Pinch-out must make the content bigger; pinch-IN must make it smaller. FIX: the pinch gesture handler must apply CSS transform: scale() on the iframe content (or the iframe wrapper), not just translate. R19.81 captured the pinch-zoom requirement but the implementation only achieved pan. R19.85 re-asserts: pinch = SCALE, not pan. Both pinch-to-scale AND pan (single-finger drag) must coexist.",
-    "tronQuote": "> TRON: \"the pinch does not let me make the content of the preview make smaller in the iframe… only pan works. thats not enough.\"",
-    "tasks": [],
+    "description": "BUG: pinch gesture in the preview iframe only PANS (translates) \u2014 it does not SCALE (zoom in/out). Pinch-out must make the content bigger; pinch-IN must make it smaller. FIX: the pinch gesture handler must apply CSS transform: scale() on the iframe content (or the iframe wrapper), not just translate. R19.81 captured the pinch-zoom requirement but the implementation only achieved pan. R19.85 re-asserts: pinch = SCALE, not pan. Both pinch-to-scale AND pan (single-finger drag) must coexist.",
+    "tronQuote": "> TRON: \"the pinch does not let me make the content of the preview make smaller in the iframe\u2026 only pan works. thats not enough.\"",
+    "tasks": [
+      "ior:instance:1cbad4ef-1428-4594-9a48-b7892ab36f48"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
