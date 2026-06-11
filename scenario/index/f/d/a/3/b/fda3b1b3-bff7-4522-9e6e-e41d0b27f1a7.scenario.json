@@ -10,7 +10,9 @@
     "sourceFile": "ior:file:scenario/index/f/d/a/3/b/fda3b1b3-bff7-4522-9e6e-e41d0b27f1a7.scenario.json",
     "sourceLine": 1,
     "parent": "ior:instance:409c52a9-e852-4360-98ae-ca2a0b095714",
-    "unitLinks": []
+    "unitLinks": [],
+    "orphanByDesign": true,
+    "orphanRationale": "No code found in source \u2014 legacy migration/one-shot/future feature"
   },
   "ownerIor": "ior:instance:409c52a9-e852-4360-98ae-ca2a0b095714"
 }
