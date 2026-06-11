@@ -3,10 +3,12 @@
   "model": {
     "uuid": "3785b104-f890-473e-8d76-bee5bf010b84",
     "altId": "R19.88.A",
-    "name": "R19.88.A: Stop destroy+recreate of file items — DIFF/update in place, no innerHTML churn.",
-    "description": "R19.88 whenDefined gate did NOT fully fix the partial-init race: re-render still destroys and recreates items via innerHTML='' churn, re-introducing the initialization race per item. FIX: stop destroy+recreate. DIFF/update existing item DOM nodes in place — match by file UUID, update changed properties, add new items, remove deleted items. Never innerHTML='' the container that holds live rb-object-item instances. This is architect option-c: reconcile the DOM like a virtual-DOM diff, preserving existing initialized custom elements.",
-    "tronQuote": "> TRON: \"desktop — still inconsistent: some file items render icon-only/dont work, the ones that work can be collapsed.\"",
-    "tasks": [],
+    "name": "R19.88.A: Stop destroy+recreate of file items \u2014 DIFF/update in place, no innerHTML churn.",
+    "description": "R19.88 whenDefined gate did NOT fully fix the partial-init race: re-render still destroys and recreates items via innerHTML='' churn, re-introducing the initialization race per item. FIX: stop destroy+recreate. DIFF/update existing item DOM nodes in place \u2014 match by file UUID, update changed properties, add new items, remove deleted items. Never innerHTML='' the container that holds live rb-object-item instances. This is architect option-c: reconcile the DOM like a virtual-DOM diff, preserving existing initialized custom elements.",
+    "tronQuote": "> TRON: \"desktop \u2014 still inconsistent: some file items render icon-only/dont work, the ones that work can be collapsed.\"",
+    "tasks": [
+      "ior:instance:c524c8a0-9e40-44b8-9fc1-468674648c4f"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
