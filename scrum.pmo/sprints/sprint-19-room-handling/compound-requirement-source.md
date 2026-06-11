@@ -128,6 +128,11 @@
 - **R19.53** (2026-06-11): ONE canonical room location = data/users/<uuid>/rooms/<roomUuid>/. REMOVE strays: scenario/rooms/ + scenario/sprints.json/rooms/. KEEP: scenario/sprints.md/room/*.md (generated views = correct). Fix code + migrate existing strays (backup-gated).
   > TRON: "rooms directories got a mess on disk. standardize it. ONE place not many. rooms should stay under data/user/rooms."
 
+### User + Device as scenario units (R19.54 + R19.55)
+- **R19.54** (2026-06-11): Users become first-class scenario units (ior:class:User) in scenario/index. Migrate from profiles.json. Code reads/writes via scenario units.
+- **R19.55** (2026-06-11): Devices become first-class scenario units (ior:class:Device) in scenario/index (ownerIor=User). Migrate from devices.json.
+  > TRON: "users and devices still have to be converted to standard first class scenarios."
+
 ### Detail drawer + chain display bugs (R19.33 + R19.34)
 - **R19.33** (2026-06-11, re-confirmed): detail drawer close affordance (X button) scrolls out of view. MUST stay sticky/fixed on top always (app.css:278/280). Tron re-confirmed via planner 2026-06-11.
   > TRON: "the details nudge to close scrolls out of the view"
