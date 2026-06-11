@@ -6,7 +6,6 @@
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 1497,
     "tests": [
-      "ior:instance:ffab35a3-93e7-4fe1-bc67-eba12d5cd1f3",
       "ior:instance:ffab35a3-554b-4c80-ac3e-7a6216461e4a"
     ],
     "unitLinks": []
