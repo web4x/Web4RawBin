@@ -1,20 +1,30 @@
 # Full Chain Dispatch — 2026-06-11
 
 **Source:** `npx tsx scripts/po-chain-follow-up.ts --all`
-**Chains:** 46/476 COMPLETE (430 open)
-**Tool:** `chain-wire-impl-node --all-missing` available for expert batch (1 new Impl to create; rest = source marker placement)
+**Chains:** 52/612 COMPLETE (560 open) — **WHOLE PROJECT S1-S19**
+**Tool:** `chain-wire-impl-node --all-missing` available for expert batch
+
+## Denominator reconcile
+
+| Scope | Chains | Complete | Note |
+|-------|--------|----------|------|
+| **--all (S1-S19)** | 612 | 52 (8.5%) | Tool truth — whole project. Tron's overnight directive "fill missing traceability" applies project-wide. |
+| S19-only | 51 reqs | partial | S19 has 51 owned Requirements; subset of 612. |
+| Prior report (482) | — | — | STALE — was S19 chains before tool existed; tool counts all sprints. |
+
+**Driving to: 612/612** (PO to confirm vs Tron; if Tron's intent was S19-only, PO narrows scope). Until then, --all is the denominator.
 
 ## Batched Open Nodes by Owner
 
 | Owner | Node type | Count | Action | Tool/method |
 |-------|-----------|-------|--------|-------------|
-| **architect** | UC | 24 | Create UC + wire to Requirement.useCases[] | Manual — singular UC per req |
-| **architect** | Class | 54 | Wire Class to UC.classes[] | Manual — assign existing or new Class per UC |
-| **architect** | **subtotal** | **78** | | |
-| **expert** | Impl | 75 unique (346 fan-out rows) | Add `[impl:uuid:<uuid>]` marker at the real function in source | `chain-wire-impl-node --all-missing` for unit creation; then grep source for the function + add marker comment |
-| **expert** | **subtotal** | **75 unique** | | |
-| **tester** | Test | 350 | Create Test scenario unit + add `[test:uuid:]` marker in test file | Manual per chain; blocked on Impl |
-| **tester** | **subtotal** | **350** | | |
+| **architect** | UC | 27 | Create UC + wire to Requirement.useCases[] | Manual — singular UC per req |
+| **architect** | Class | 0 | ✓ ALL WIRED (was 54; expert 269ceb32 + prior batches closed) | — |
+| **architect** | **subtotal** | **27** | | |
+| **expert** | Impl | 525 (fan-out rows; many share uuids) | Add `[impl:uuid:<uuid>]` marker at the real function in source | `chain-wire-impl-node --all-missing`; 269ceb32 fixed 6 + added 3; chains still need Test to flip COMPLETE |
+| **expert** | **subtotal** | **525** | | |
+| **tester** | Test | 537 | Create Test scenario unit + add `[test:uuid:]` marker in test file | **DISPATCH NOW** — many Impl markers landed (269ceb32); those chains' Test nodes are the bottleneck to flipping COMPLETE |
+| **tester** | **subtotal** | **537** | | |
 
 ## Architect: 24 UCs needed (by requirement)
 
@@ -72,4 +82,4 @@ The complete 770-row dispatch table is at `/tmp/chain-follow-up-full.txt` (gener
 
 ---
 
-*52/482 → target 482/482 (minus documented exceptions). No chain done until its Test leaf is real or explicitly excepted above.*
+*52/612 → target 612/612 (minus documented exceptions + orphan-by-design). No chain done until its Test leaf is real or explicitly excepted above.*
