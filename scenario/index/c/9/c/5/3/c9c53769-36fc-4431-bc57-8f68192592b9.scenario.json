@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c9c53769-36fc-4431-bc57-8f68192592b9",
+    "name": "RbTraceTree.navigate impl",
+    "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
+    "sourceLine": 1,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:637afb30-7621-4fbd-beed-5ce7f0340b46"
+}

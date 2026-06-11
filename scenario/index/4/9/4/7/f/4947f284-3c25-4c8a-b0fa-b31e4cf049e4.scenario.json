@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4947f284-3c25-4c8a-b0fa-b31e4cf049e4",
+    "name": "RbDetailView.renderObject impl",
+    "sourceFile": "src/public/ts/trace/rb-detail-view.ts",
+    "sourceLine": 1,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a4271cb8-467d-4004-8e41-c5fe972fb3a8"
+}

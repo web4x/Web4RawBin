@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "efb696b4-5ea9-41e2-a478-09b33f67a85b",
+    "name": "RbTraceTree.nodeEl impl",
+    "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
+    "sourceLine": 1,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:32ae650c-d936-4696-89cd-8f9369fdc52e"
+}

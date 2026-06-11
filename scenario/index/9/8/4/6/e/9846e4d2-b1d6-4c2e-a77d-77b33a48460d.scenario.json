@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "9846e4d2-b1d6-4c2e-a77d-77b33a48460d",
+    "name": "RbRequirementDetail.renderTronQuote impl",
+    "sourceFile": "src/public/ts/trace/rb-requirement-detail.ts",
+    "sourceLine": 1,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:081eed71-e112-4bed-8db4-06ad8c99db28"
+}

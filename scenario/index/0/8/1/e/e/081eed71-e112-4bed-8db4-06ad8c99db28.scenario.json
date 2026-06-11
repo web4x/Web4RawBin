@@ -4,7 +4,9 @@
     "uuid": "081eed71-e112-4bed-8db4-06ad8c99db28",
     "name": "RbRequirementDetail.renderTronQuote",
     "sourceFile": "ior:file:src/public/ts/trace/rb-requirement-detail.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:9846e4d2-b1d6-4c2e-a77d-77b33a48460d"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:5d9132cf"

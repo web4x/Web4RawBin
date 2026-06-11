@@ -5,7 +5,9 @@
     "name": "TraceConsistency.validate",
     "className": "TraceConsistency",
     "methodName": "validate",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:1a5ea468-fbf4-403b-a7ee-04a0b4d9f63f"
+    ],
     "implementation": "ior:instance:0431ba2a-623f-437d-af3b-9ae6e2188d8e",
     "sourceFile": "ior:file:src/ts/server/TraceConsistency.ts",
     "sourceLine": 234,

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "80e26c8c-5dbf-418f-bb88-fcdaa82c0d07",
+    "name": "ScenarioIndex.canonicalShard impl",
+    "sourceFile": "src/ts/scenario/index-store.ts",
+    "sourceLine": 1,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e6168daa-2782-4fbc-b4a4-a68d5f8d8faa"
+}

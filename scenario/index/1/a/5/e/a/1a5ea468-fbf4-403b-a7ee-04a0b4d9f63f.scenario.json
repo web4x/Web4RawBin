@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "1a5ea468-fbf4-403b-a7ee-04a0b4d9f63f",
+    "name": "TraceConsistency.validate impl",
+    "sourceFile": "src/ts/server/TraceConsistency.ts",
+    "sourceLine": 234,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e6a2d67f-0f6e-4394-be50-5a6a068bcd03"
+}

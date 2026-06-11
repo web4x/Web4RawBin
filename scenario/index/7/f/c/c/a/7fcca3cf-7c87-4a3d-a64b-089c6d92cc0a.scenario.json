@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7fcca3cf-7c87-4a3d-a64b-089c6d92cc0a",
+    "name": "RbRequirementDetail.render impl",
+    "sourceFile": "src/public/ts/trace/rb-requirement-detail.ts",
+    "sourceLine": 13,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5009f929-a3a4-4db7-bf53-8ef1d991f1a2"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "877ec45e-c072-4297-a034-e714abcc3259",
+    "name": "ScenarioIndex.put(uuid impl",
+    "sourceFile": "src/ts/scenario/index-store.ts",
+    "sourceLine": 12,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5b84da47-c7f4-4b01-b492-fae21be2e3cd"
+}

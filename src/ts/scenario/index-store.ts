@@ -9,6 +9,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { type ScenarioUnit } from './types.js';
 
+// [impl:uuid:f5297314-81df-42be-b7b6-fe5c2697576a] ScenarioIndex.get(uuid): ScenarioUnit
 export class ScenarioIndex {
   readonly scenarioRoot: string;
 

@@ -5,7 +5,9 @@
     "name": "RbTraceTree.renderSeed",
     "className": "RbTraceTree",
     "methodName": "renderSeed",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:ee897257-f1f8-40cd-a8ae-00c4b4b6092f"
+    ],
     "implementation": "ior:instance:a9e60252-c08a-4ac0-851e-5d1585662f66",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "parent": "ior:instance:108b7283-94a5-46b7-898e-b08080808108",

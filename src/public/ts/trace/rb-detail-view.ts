@@ -1,3 +1,4 @@
+// [impl:uuid:4947f284-3c25-4c8a-b0fa-b31e4cf049e4] RbDetailView.renderObject
 /**
  * T107 — rb-detail-view: one object's full detail + its typed links as clickable chain rows.
  *

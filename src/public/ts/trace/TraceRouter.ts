@@ -70,6 +70,7 @@ export class TraceRouter implements Navigator {
     return r;
   }
 
+  // [impl:uuid:61734a59-c4c3-4181-be58-7dbc215e538d] TraceRouter.navigate
   navigate(type: string, verb = 'show', params: Record<string, string> = {}): void {
     const hash = buildHash(type, verb, params);
     if (typeof location !== 'undefined') location.hash = hash;

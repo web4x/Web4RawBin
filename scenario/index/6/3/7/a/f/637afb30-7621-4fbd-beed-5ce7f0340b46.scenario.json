@@ -4,7 +4,9 @@
     "uuid": "637afb30-7621-4fbd-beed-5ce7f0340b46",
     "name": "RbTraceTree.navigate",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:c9c53769-36fc-4431-bc57-8f68192592b9"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:5a057914"
