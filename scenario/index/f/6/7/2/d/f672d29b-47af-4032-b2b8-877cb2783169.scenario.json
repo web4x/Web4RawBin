@@ -19,8 +19,15 @@
         "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
         "name": "",
         "role": "owner",
-        "status": "online",
-        "joinedAt": 1781167993897
+        "status": "offline",
+        "joinedAt": 1781168645191
+      },
+      {
+        "ior": "ior:instance:ae9a8a5e-1317-4266-be78-b15b7f547139",
+        "name": "test merge",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1781168645191
       }
     ],
     "files": [],

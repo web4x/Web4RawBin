@@ -5,8 +5,8 @@
     "name": "T-sticky-drawer-close: sticky close button on detail drawer",
     "slug": "sticky-drawer-close-button",
     "description": "Sticky close button on the detail drawer so it is always reachable regardless of scroll position. Covers R19.33.",
-    "status": "Planned",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert (in flight per PO)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert (REOPENED \u2014 Tron screenshot: X must stay on top ALWAYS; verify .drawer-header sticky pins X above scrolling .drawer-body)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:553be449-3bad-4580-9426-11c4ab10e202"
     ],
@@ -14,7 +14,10 @@
     "subtasks": [],
     "tasks": [],
     "createdAt": "2026-06-11",
-    "createdBy": "robbin-planner"
+    "createdBy": "robbin-planner",
+    "verificationHistory": [
+      "2026-06-11 REOPENED per Tron screenshot directive: the (X) close button must stay on top ALWAYS. .drawer-header is position:sticky (app.css:278) but verify the X is pinned above the scrolling .drawer-body in all states."
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
