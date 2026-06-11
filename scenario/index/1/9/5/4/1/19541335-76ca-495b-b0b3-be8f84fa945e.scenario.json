@@ -8,7 +8,8 @@
     "implementations": [
       "ior:instance:536a5ea2-ee00-4832-9178-fa95d6fc64ae"
     ],
-    "status": "PASS"
+    "status": "PASS",
+    "sourceFile": "ior:file:test/vitest/room.test.ts"
   },
   "ownerIor": "ior:instance:536a5ea2-ee00-4832-9178-fa95d6fc64ae"
 }

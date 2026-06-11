@@ -8,7 +8,8 @@
     "implementations": [
       "ior:instance:1251c42e-cf75-4d7d-8001-37bfb3f4efe1"
     ],
-    "status": "PASS"
+    "status": "PASS",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts"
   },
   "ownerIor": "ior:instance:1251c42e-cf75-4d7d-8001-37bfb3f4efe1"
 }

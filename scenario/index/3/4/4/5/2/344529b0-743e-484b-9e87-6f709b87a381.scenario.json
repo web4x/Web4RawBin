@@ -8,7 +8,8 @@
     "implementations": [
       "ior:instance:39074a59-864f-4947-ac7b-0457bbbe172b"
     ],
-    "status": "PASS"
+    "status": "PASS",
+    "sourceFile": "ior:file:test/vitest/components.test.ts"
   },
   "ownerIor": "ior:instance:39074a59-864f-4947-ac7b-0457bbbe172b"
 }
