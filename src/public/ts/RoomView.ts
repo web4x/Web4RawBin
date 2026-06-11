@@ -19,6 +19,8 @@ import './components/rb-avatar.js';
 import './trace/rb-object-item.js';
 import { dropDispatcher } from './drop-dispatcher.js';
 import type { RbMemberList } from './components/rb-member-list.js';
+import './trace/rb-detail-drawer.js';
+import { renderContentPreview, loadTextPreview } from './trace/content-preview.js';
 
 interface MemberInfo {
   id: string; name: string; avatarUrl: string; playerToken: string; avatarCrop?: { scale: number; x: number; y: number } | null; disconnected?: boolean;
@@ -168,6 +170,7 @@ export class RoomView {
         <div style="padding:0 16px 4px;display:flex;gap:8px;align-items:center"><a href="/scenario?ior=${this.roomId}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="View room scenario unit">📄 Scenario</a><span style="color:rgba(255,255,255,0.3);font-size:0.65rem">${this.roomId.slice(0,8)}</span></div>
         <div id="offline-banner" class="offline-banner" style="display:none">Offline — messages queued</div>
         <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="rrc-upload-status" id="rrc-upload-status" style="display:none"></div><div class="trace-tree" id="rrc-tree"><div class="tt-node" id="rrc-members-node"><div class="tt-row"><rb-object-item ref="collection:members" type="collection" name="Members" description="Room members" has-children children-open></rb-object-item></div><div class="tt-children" id="rrc-members-children"></div></div><div class="tt-node" id="rrc-files-node"><div class="tt-row"><rb-object-item ref="collection:files" type="collection" name="Files" description="Room files" has-children children-open></rb-object-item></div><div class="tt-children" id="rrc-files-children"></div></div></div></div></div>
+        <rb-detail-drawer id="room-file-preview"></rb-detail-drawer>
       </div>`;
 
     const dz = document.getElementById("rrc-drop");
@@ -211,6 +214,17 @@ export class RoomView {
         const children = node?.querySelector('.tt-children') as HTMLElement | null;
         if (children) children.style.display = e.detail.open ? '' : 'none';
       }) as EventListener);
+      // [impl:uuid:6471cfbd-d505-4876-97c5-9196cba80b53] R19.73 in-room file preview click
+      treeEl.addEventListener('click', (e) => {
+        const item = (e.target as HTMLElement).closest('rb-object-item');
+        if (!item) return;
+        const type = item.getAttribute('type');
+        const ref = item.getAttribute('ref') || '';
+        if (type === 'file' && ref.startsWith('file:')) {
+          e.stopPropagation();
+          this.openFilePreview(ref.replace('file:', ''));
+        }
+      });
     }
 
     if (this.chatSheet) this.chatSheet.remove();
@@ -229,6 +243,26 @@ export class RoomView {
     if (!this.client.isOnline()) this.showOfflineBanner();
 
     this.renderMemberList();
+  }
+
+  private async openFilePreview(uuid: string): Promise<void> {
+    const drawer = document.getElementById('room-file-preview') as any;
+    if (!drawer) return;
+    try {
+      const resp = await fetch(`/api/ior/ior:instance:${uuid}`);
+      if (!resp.ok) return;
+      const res = await resp.json();
+      const fm = res.unit?.model || {};
+      const preview = renderContentPreview(uuid, fm.mimeType || '', fm.name || uuid);
+      const handle = drawer.querySelector('.drawer-handle');
+      for (const child of [...drawer.children]) { if (child !== handle) child.remove(); }
+      const body = document.createElement('div');
+      body.className = 'drawer-body';
+      body.innerHTML = `<h3 style="margin:0 0 8px;font-size:0.9rem;color:white">${(fm.name || uuid).replace(/[<>]/g, '')}</h3>${preview}`;
+      drawer.appendChild(body);
+      drawer.setAttribute('ref', `file:${uuid}`);
+      loadTextPreview(body, uuid);
+    } catch {}
   }
 
   private showOfflineBanner(): void { const el = document.getElementById('offline-banner'); if (el) el.style.display = ''; }
