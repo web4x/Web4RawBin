@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b5d1fc0f-fbbb-499d-ab33-3573f5ad12aa",
+    "name": "test:server.detailNavSync",
+    "description": "Detail nav sync verified via /scenario?ior= route resolve (existing T174 verify)",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:dcc18fd3-48ca-4e9a-a8b7-23fcd05cee5f"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:dcc18fd3-48ca-4e9a-a8b7-23fcd05cee5f"
+}

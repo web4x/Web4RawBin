@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f74dd812-7d68-433f-bef3-02e35cef14c1",
+    "name": "test:server.ucScopedMethodResolve",
+    "description": "UC-scoped method resolve verified via /api/trace/children chain walk (existing server test coverage)",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:b1751446-effd-45f2-a4e2-e70ae5a19d27"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b1751446-effd-45f2-a4e2-e70ae5a19d27"
+}

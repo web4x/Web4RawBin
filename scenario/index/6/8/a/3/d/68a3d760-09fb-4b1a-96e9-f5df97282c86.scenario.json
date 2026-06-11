@@ -3,7 +3,7 @@
   "model": {
     "uuid": "68a3d760-09fb-4b1a-96e9-f5df97282c86",
     "name": "SpeakingTree.extendClasses",
-    "sourceFile": "ior:file:src/ts/server/speaking-tree.ts",
+    "sourceFile": "ior:file:src/ts/scenario/generator.ts",
     "tests": []
   },
   "ownerIor": null
