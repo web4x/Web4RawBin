@@ -272,3 +272,7 @@
 ### URL file drawer regression (R19.86)
 - **R19.86** (2026-06-11): REGRESSION ~862868bfe — URL/webitem files no longer open ContentPreviewer drawer on click. Restore click→drawer path.
   > TRON: "URL files do NOT open the drawer anymore."
+
+### iOS preview drawer bug (R19.87)
+- **R19.87** (2026-06-11): iOS-specific — only vcard opens preview drawer; image/html/url do NOT. Desktop works. Likely iOS Safari touch event delegation issue.
+  > TRON: "on desktop the url drawer works, but especially on iphone it does not — only for the vcard. all others dont open the drawer."

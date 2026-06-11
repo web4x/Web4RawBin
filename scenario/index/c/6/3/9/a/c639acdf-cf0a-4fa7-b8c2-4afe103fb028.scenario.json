@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "c639acdf-cf0a-4fa7-b8c2-4afe103fb028",
+    "altId": "R19.87",
+    "name": "R19.87: iOS — all file types must open preview drawer, not just vcard.",
+    "description": "BUG (iOS-specific): on iPhone, only text/vcard files open the ContentPreviewer/detail drawer. Image, HTML, URL/webitem files do NOT open the drawer on iOS — they work on desktop. Root cause likely: iOS Safari touch event handling differs (click vs touchend delegation, passive listeners, or 300ms tap delay interfering with the file-item click handler). FIX: the file-click → drawer-open path must work on iOS Safari for ALL content types (image, html, url, vcard, etc.), not just vcard. Test on real iPhone Safari + PWA.",
+    "tronQuote": "> TRON: \"on desktop the url drawer works, but especially on iphone it does not — only for the vcard. all others dont open the drawer.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:01b055f1-240c-439d-a0ca-d73df56a53e0",
+      "ior:instance:02af5fc2-2cc5-4a32-ba6c-1167a0a513d6"
+    ],
+    "crossRefNote": "R19.86 (URL drawer regression) may be the same root cause on desktop, now confirmed iOS-wider. R19.73 (in-room preview) is the feature. R19.87 isolates the iOS-specific failure: only vcard works, all others broken."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
