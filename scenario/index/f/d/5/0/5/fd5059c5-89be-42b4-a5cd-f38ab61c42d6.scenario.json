@@ -6,7 +6,9 @@
     "description": "Inline script in OFFLINE_HTML: async function flushCache() { const keys = await caches.keys(); await Promise.all(keys.map(k => caches.delete(k))); const regs = await navigator.serviceWorker.getRegistrations(); await Promise.all(regs.map(r => r.unregister())); await navigator.serviceWorker.register('/sw.js'); location.reload(); }. Red button onclick=flushCache().",
     "sourceFile": "ior:file:src/public/sw.js",
     "implementations": [],
-    "tests": []
+    "tests": [
+      "ior:instance:ed935b58-cea8-4e8a-8079-e592d21ecda2"
+    ]
   },
   "ownerIor": "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133"
 }

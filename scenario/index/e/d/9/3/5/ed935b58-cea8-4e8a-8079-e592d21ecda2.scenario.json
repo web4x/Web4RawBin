@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ed935b58-cea8-4e8a-8079-e592d21ecda2",
+    "name": "test:ServiceWorker.flushAndReload",
+    "description": "Code-verified: flushCache() clears all caches + SW unregister+re-register + reload. Offline page has Retry+Flush buttons. Real offline cycle = Tron device.",
+    "sourceFile": "ior:file:src/public/sw.js",
+    "implementations": [
+      "ior:instance:fd5059c5-89be-42b4-a5cd-f38ab61c42d6"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:fd5059c5-89be-42b4-a5cd-f38ab61c42d6"
+}
