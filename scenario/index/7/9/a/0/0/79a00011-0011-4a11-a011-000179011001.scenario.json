@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "79a00011-0011-4a11-a011-000179011001",
+    "name": "// T179 AC11-13 SW activation E2E",
+    "sourceFile": "test/e2e/sw-activation.spec.ts",
+    "sourceLine": 1,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

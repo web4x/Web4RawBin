@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "194fa8f2-c0dd-4522-8f5d-e6108987d17f",
+    "name": "// champagne pure-no-coverage reqs",
+    "sourceFile": "test/vitest/champagne-features.test.ts",
+    "sourceLine": 200,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

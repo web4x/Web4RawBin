@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d",
+    "name": "* Object.verb migration (introspection, dispatch, emit, canonical chain)",
+    "sourceFile": "test/vitest/object-verb.test.ts",
+    "sourceLine": 3,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}
