@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "20fc59cc-5f92-4c17-b86b-c35b837d0373",
+    "altId": "R19.90",
+    "name": "R19.90: In-room tree REUSES rb-trace-tree component — delete duplicate RoomView tree implementation.",
+    "description": "DRY + OOP audit result: the in-room tree DUPLICATES the working /trace rb-trace-tree (non-DRY: 2 tree implementations, 2 item-creation paths, 2 collapse handlers; non-OOP: RoomView owns item lifecycle it shouldn't). ROOT FIX: in-room REUSES the existing rb-trace-tree component with a new 'room' mode and a setItems(members, files) API. DELETE the duplicate RoomView renderRoomTree*/diffRenderItems/manual event delegation. rb-trace-tree already handles item init, collapse, drawer-open, drag correctly — reusing it fixes the iOS init race by construction (no more hand-rolled custom-element lifecycle in RoomView). Supersedes the approach in R19.83 (file lifecycle mirror), R19.88 (whenDefined gate), R19.88.A (innerHTML diff) — all were patches on the duplicate impl instead of eliminating the duplication.",
+    "tronQuote": "> TRON: \"no improvement on iphone — do a DRY and OOP check.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:d1391ee3-d08c-4db1-8445-753b4d1c89a3",
+      "ior:instance:8ba2d9ef-0560-4292-9b56-66552434799d",
+      "ior:instance:26b5f7c1-6a36-4bb2-bcae-cb234533afff",
+      "ior:instance:3785b104-f890-473e-8d76-bee5bf010b84"
+    ],
+    "crossRefNote": "R19.21 (in-room tree = rb-tree from /trace) was the ORIGINAL intent. R19.83 (file lifecycle), R19.88 (init gate), R19.88.A (innerHTML diff) were patches on the duplicate impl. R19.90 is the correct solution: delete the duplicate, reuse rb-trace-tree. iOS init fixed by construction."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -288,3 +288,7 @@
 ### File items innerHTML churn root cause (R19.88.A, refines R19.88)
 - **R19.88.A** (2026-06-11): R19.88 whenDefined gate did NOT fully fix — re-render innerHTML='' destroys+recreates items. DIFF/update in place instead (architect option-c). No innerHTML churn on containers with live custom elements.
   > TRON: "desktop — still inconsistent: some file items render icon-only/dont work, the ones that work can be collapsed."
+
+### DRY+OOP: reuse rb-trace-tree in room, delete duplicate (R19.90)
+- **R19.90** (2026-06-11): in-room tree REUSES rb-trace-tree component (new 'room' mode + setItems). DELETE duplicate RoomView renderRoomTree*/diffRenderItems. iOS init fixed by construction. Supersedes R19.83/88/88.A patches on the duplicate impl.
+  > TRON: "no improvement on iphone — do a DRY and OOP check."
