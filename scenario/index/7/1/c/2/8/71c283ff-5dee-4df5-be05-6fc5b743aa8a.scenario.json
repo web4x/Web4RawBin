@@ -4,7 +4,9 @@
     "uuid": "71c283ff-5dee-4df5-be05-6fc5b743aa8a",
     "name": "RbRoomContent.linkResolve",
     "sourceFile": "ior:file:src/public/ts/RoomView.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:3f255cc5-e768-428a-8ced-239fe6a4af5e"
+    ]
   },
   "ownerIor": null
 }

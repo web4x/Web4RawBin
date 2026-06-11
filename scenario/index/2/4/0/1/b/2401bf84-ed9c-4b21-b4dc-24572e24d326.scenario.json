@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2401bf84-ed9c-4b21-b4dc-24572e24d326",
+    "name": "test:Logger.logAtLevel (split for Device.createDeviceUnit)",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:51b7a457-7dd2-48ac-8dcc-9c00e9f6caf4"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:51b7a457-7dd2-48ac-8dcc-9c00e9f6caf4"
+}

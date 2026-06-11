@@ -4,7 +4,9 @@
     "uuid": "f7b0c24a-6b0a-4548-9b0d-2b312c211fde",
     "name": "RbObjectItem.squareCollapse",
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:8bbdde41-4ce5-4af4-a6e9-849cc7cb0109"
+    ]
   },
   "ownerIor": null
 }

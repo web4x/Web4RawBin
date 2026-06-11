@@ -4,7 +4,9 @@
     "uuid": "bf4879c6-30ee-4d47-8d7d-c80aa9f26fc7",
     "name": "TraceChain.treeRework",
     "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
-    "tests": [],
+    "tests": [
+      "ior:instance:b13336fd-f512-4b97-876c-23c0afa3992e"
+    ],
     "orphanByDesign": true,
     "orphanRationale": "No real code \u2014 design-only/future feature",
     "sourceLine": 1

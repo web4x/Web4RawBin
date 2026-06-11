@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "74a690fa-a748-4aec-8b22-f90892076ce2",
+    "name": "test:RbTaskDetail.render impl",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:a495b735-6836-4dba-84b2-b279f2da17df"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a495b735-6836-4dba-84b2-b279f2da17df"
+}

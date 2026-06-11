@@ -4,7 +4,9 @@
     "uuid": "7bab1a71-8d2e-4d19-bd4a-ce5547291b03",
     "name": "SpeakingTree.symlinkJson(sprint",
     "sourceFile": "ior:file:src/ts/scenario/generator.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:80ff5280-dc41-4be0-84f7-0ddb6267fcf5"
+    ]
   },
   "ownerIor": null
 }

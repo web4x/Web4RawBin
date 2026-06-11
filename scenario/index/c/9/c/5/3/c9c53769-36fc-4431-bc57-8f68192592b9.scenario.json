@@ -5,7 +5,9 @@
     "name": "RbTraceTree.navigate impl",
     "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
     "sourceLine": 1,
-    "tests": [],
+    "tests": [
+      "ior:instance:9c52d370-c9d1-4daf-bb7e-468bf4df4494"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:637afb30-7621-4fbd-beed-5ce7f0340b46"

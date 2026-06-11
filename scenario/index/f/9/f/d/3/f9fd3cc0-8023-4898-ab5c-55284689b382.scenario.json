@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f9fd3cc0-8023-4898-ab5c-55284689b382",
+    "name": "test:TraceRouter.navigate impl",
+    "sourceFile": "ior:file:test/vitest/trace-model.test.ts",
+    "implementations": [
+      "ior:instance:61734a59-c4c3-4181-be58-7dbc215e538d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:61734a59-c4c3-4181-be58-7dbc215e538d"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "447754f1-f0b7-44ca-a55a-eb29fa214789",
+    "name": "test:ScenarioUnit.load(json): this",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:12571155-110d-4d6f-91ab-5913ec94219b"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:12571155-110d-4d6f-91ab-5913ec94219b"
+}

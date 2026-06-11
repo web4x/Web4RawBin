@@ -4,7 +4,9 @@
     "uuid": "32578dc6-58bb-4ce1-94be-2a78a142e139",
     "name": "RbRoomContent.mountTraceTree",
     "sourceFile": "ior:file:src/public/ts/RoomView.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:ea6ce5d8-f936-453d-a92e-4b602e7437db"
+    ]
   },
   "ownerIor": null
 }

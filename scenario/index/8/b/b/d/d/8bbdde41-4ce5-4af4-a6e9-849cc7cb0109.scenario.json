@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8bbdde41-4ce5-4af4-a6e9-849cc7cb0109",
+    "name": "test:RbObjectItem.squareCollapse",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:f7b0c24a-6b0a-4548-9b0d-2b312c211fde"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f7b0c24a-6b0a-4548-9b0d-2b312c211fde"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "cb3507a2-46ee-414b-810f-7d65ddb3afe0",
+    "name": "test:Room.backfillFiles",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:9c94958d-d754-4e80-adf4-ad36ea67caab"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:9c94958d-d754-4e80-adf4-ad36ea67caab"
+}

@@ -5,7 +5,9 @@
     "name": "Logger.logAtLevel (split for Assets.keylessUpload)",
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 262,
-    "tests": [],
+    "tests": [
+      "ior:instance:cc892647-38f8-4220-960d-661d204a264a"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:2787c403-17ce-4149-90eb-7c91b6e6c2d6"

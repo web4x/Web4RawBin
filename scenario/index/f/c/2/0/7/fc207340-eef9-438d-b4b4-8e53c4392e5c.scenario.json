@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "fc207340-eef9-438d-b4b4-8e53c4392e5c",
+    "name": "test:ReqAudit.formalizeQuotes",
+    "sourceFile": "ior:file:test/vitest/trace-model.test.ts",
+    "implementations": [
+      "ior:instance:15a31e7e-6977-44cb-ab29-09c44583369a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:15a31e7e-6977-44cb-ab29-09c44583369a"
+}

@@ -4,7 +4,9 @@
     "uuid": "9c94958d-d754-4e80-adf4-ad36ea67caab",
     "name": "Room.backfillFiles",
     "sourceFile": "ior:file:src/ts/server/Room.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:cb3507a2-46ee-414b-810f-7d65ddb3afe0"
+    ]
   },
   "ownerIor": null
 }

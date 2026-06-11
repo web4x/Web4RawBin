@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3fdeb347-bcad-415a-8057-407a79a66331",
+    "name": "test:RbTraceTree.syncSelection",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:f124b7ff-ee8e-4d00-a799-f87e1f4a1883"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f124b7ff-ee8e-4d00-a799-f87e1f4a1883"
+}

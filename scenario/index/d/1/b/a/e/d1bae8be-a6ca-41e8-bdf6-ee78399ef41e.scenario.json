@@ -4,7 +4,9 @@
     "uuid": "d1bae8be-a6ca-41e8-bdf6-ee78399ef41e",
     "name": "RbRoomContent.applyButton",
     "sourceFile": "ior:file:src/public/ts/RoomView.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:ed61e817-bc0a-4d7b-b892-e786a2cf52f0"
+    ]
   },
   "ownerIor": null
 }

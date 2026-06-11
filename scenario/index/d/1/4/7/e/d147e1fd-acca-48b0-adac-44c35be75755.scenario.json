@@ -5,7 +5,9 @@
     "name": "TraceRouter.typeDispatch R19.66",
     "sourceFile": "src/public/ts/scenario-view.ts",
     "sourceLine": 57,
-    "tests": [],
+    "tests": [
+      "ior:instance:5a835c64-c512-4dd9-bc6d-b025ff31c2d3"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:9b45ad1a-1854-4d0b-95df-cf73c6dddafb"

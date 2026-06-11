@@ -4,7 +4,9 @@
     "uuid": "4846d57e-610e-4977-a189-662074030cb1",
     "name": "RbTraceTree.cycleGuard",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:2c11b869-ca5b-439b-8c55-cf2b4137fa13"
+    ]
   },
   "ownerIor": null
 }

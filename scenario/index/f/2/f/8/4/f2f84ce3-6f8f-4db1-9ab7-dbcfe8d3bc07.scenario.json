@@ -5,7 +5,8 @@
     "name": "RbDetailView",
     "file": "src/public/ts/trace/rb-detail-view.ts",
     "methods": [
-      "ior:instance:a4271cb8-467d-4004-8e41-c5fe972fb3a8"
+      "ior:instance:a4271cb8-467d-4004-8e41-c5fe972fb3a8",
+      "ior:instance:bb01d630-f0f8-4376-93a1-eca238926c87"
     ],
     "useCases": [],
     "method": "ior:instance:a4271cb8-467d-4004-8e41-c5fe972fb3a8",

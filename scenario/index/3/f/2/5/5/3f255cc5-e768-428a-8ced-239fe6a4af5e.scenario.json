@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3f255cc5-e768-428a-8ced-239fe6a4af5e",
+    "name": "test:RbRoomContent.linkResolve",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:71c283ff-5dee-4df5-be05-6fc5b743aa8a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:71c283ff-5dee-4df5-be05-6fc5b743aa8a"
+}

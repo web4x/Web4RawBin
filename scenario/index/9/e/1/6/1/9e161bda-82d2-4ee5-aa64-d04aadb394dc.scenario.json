@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9e161bda-82d2-4ee5-aa64-d04aadb394dc",
+    "name": "test:RbDetailDrawer.byTypeRender",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:301da3f0-2a47-450a-aa19-408a8a4bad0f"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:301da3f0-2a47-450a-aa19-408a8a4bad0f"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a1e9458d-aeeb-4240-b061-03505f81b5eb",
+    "name": "test:ScenarioClick.lazyLoad",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:275481cd-bcf4-4f3a-9980-e6e7fd060bad"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:275481cd-bcf4-4f3a-9980-e6e7fd060bad"
+}

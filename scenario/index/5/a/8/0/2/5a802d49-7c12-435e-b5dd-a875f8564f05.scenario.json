@@ -4,7 +4,9 @@
     "uuid": "5a802d49-7c12-435e-b5dd-a875f8564f05",
     "name": "FileApi.highlightFile",
     "sourceFile": "ior:file:src/ts/server/FileApi.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:86356415-4d5f-44f7-b496-a1b5c244c9f1"
+    ]
   },
   "ownerIor": null
 }

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d8b2767d-fa15-4b0d-afd7-eae1ee021934",
+    "name": "test:ScenarioIndex.canonicalShard impl",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:80e26c8c-5dbf-418f-bb88-fcdaa82c0d07"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:80e26c8c-5dbf-418f-bb88-fcdaa82c0d07"
+}

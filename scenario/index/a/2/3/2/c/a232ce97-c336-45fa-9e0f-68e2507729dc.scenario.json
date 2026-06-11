@@ -4,7 +4,9 @@
     "uuid": "a232ce97-c336-45fa-9e0f-68e2507729dc",
     "name": "ContentPreviewer.render",
     "sourceFile": "src/ts/server/server.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:54155cc3-235f-49d1-8720-506b5dc69d4c"
+    ]
   },
   "ownerIor": null
 }

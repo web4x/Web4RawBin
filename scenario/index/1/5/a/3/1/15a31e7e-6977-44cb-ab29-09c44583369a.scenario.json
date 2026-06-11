@@ -4,7 +4,9 @@
     "uuid": "15a31e7e-6977-44cb-ab29-09c44583369a",
     "name": "ReqAudit.formalizeQuotes",
     "sourceFile": "src/ts/server/TraceConsistency.ts",
-    "tests": [],
+    "tests": [
+      "ior:instance:fc207340-eef9-438d-b4b4-8e53c4392e5c"
+    ],
     "orphanByDesign": true,
     "orphanRationale": "No real code \u2014 design-only/future feature",
     "sourceLine": 1

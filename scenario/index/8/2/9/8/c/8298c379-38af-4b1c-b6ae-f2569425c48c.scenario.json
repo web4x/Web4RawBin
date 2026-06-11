@@ -5,7 +5,9 @@
     "name": "Logger.logAtLevel (split for User.createUserUnit)",
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 262,
-    "tests": [],
+    "tests": [
+      "ior:instance:f5211188-e4cb-4f26-8305-2103d32d6e79"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:827ac2a0-339b-497a-a458-a7fb83c5f57e"

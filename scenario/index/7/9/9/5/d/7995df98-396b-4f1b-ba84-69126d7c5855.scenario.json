@@ -4,7 +4,9 @@
     "uuid": "7995df98-396b-4f1b-ba84-69126d7c5855",
     "name": "TraceGraph.classHop",
     "sourceFile": "ior:file:src/ts/shared/TraceModel.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:578163bd-f05c-43d7-824c-dd1edd5da041"
+    ]
   },
   "ownerIor": null
 }

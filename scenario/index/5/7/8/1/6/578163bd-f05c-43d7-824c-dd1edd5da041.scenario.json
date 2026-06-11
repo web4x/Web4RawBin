@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "578163bd-f05c-43d7-824c-dd1edd5da041",
+    "name": "test:TraceGraph.classHop",
+    "sourceFile": "ior:file:test/vitest/trace-model.test.ts",
+    "implementations": [
+      "ior:instance:7995df98-396b-4f1b-ba84-69126d7c5855"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7995df98-396b-4f1b-ba84-69126d7c5855"
+}

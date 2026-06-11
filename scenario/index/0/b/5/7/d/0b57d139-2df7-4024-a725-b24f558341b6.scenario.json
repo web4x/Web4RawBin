@@ -4,7 +4,9 @@
     "uuid": "0b57d139-2df7-4024-a725-b24f558341b6",
     "name": "RbObjectItem.iconDrag",
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:50601482-070f-401e-8894-d88515deb476"
+    ]
   },
   "ownerIor": null
 }

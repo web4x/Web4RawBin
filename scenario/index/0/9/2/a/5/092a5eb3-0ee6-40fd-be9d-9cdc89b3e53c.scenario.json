@@ -4,7 +4,9 @@
     "uuid": "092a5eb3-0ee6-40fd-be9d-9cdc89b3e53c",
     "name": "TraceLayout.mobileCap",
     "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
-    "tests": [],
+    "tests": [
+      "ior:instance:3e6c0e2c-1149-46c2-bcfb-e3e19daadda1"
+    ],
     "orphanByDesign": true,
     "orphanRationale": "No real code \u2014 design-only/future feature",
     "sourceLine": 1

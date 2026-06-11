@@ -4,7 +4,9 @@
     "uuid": "3d3a4239-5939-4f5b-ae8d-bba2d2c086da",
     "name": "RbTraceTree.prefetchLayer",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:2ee90d4e-a2eb-4606-a958-33ca4af4e0ba"
+    ]
   },
   "ownerIor": null
 }

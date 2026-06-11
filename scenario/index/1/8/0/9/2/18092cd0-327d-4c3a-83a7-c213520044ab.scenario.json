@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "18092cd0-327d-4c3a-83a7-c213520044ab",
+    "name": "test:PageNav.stickyTop",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:78beddd9-61f4-4604-bb1b-846fd98bbe60"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:78beddd9-61f4-4604-bb1b-846fd98bbe60"
+}

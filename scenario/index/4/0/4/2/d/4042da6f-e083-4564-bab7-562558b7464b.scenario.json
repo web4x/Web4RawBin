@@ -4,7 +4,9 @@
     "uuid": "4042da6f-e083-4564-bab7-562558b7464b",
     "name": "RbTraceTree.ancestorGuard",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:f5398d74-3840-441d-917d-cd4f8d752644"
+    ]
   },
   "ownerIor": null
 }

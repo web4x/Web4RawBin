@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a62fd762-08ce-4bb1-8e07-da9e3aacedf3",
+    "name": "test:RbObjectItem.badgeRender",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:bc638f97-00a4-4756-a2e7-d0d531b2927d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:bc638f97-00a4-4756-a2e7-d0d531b2927d"
+}

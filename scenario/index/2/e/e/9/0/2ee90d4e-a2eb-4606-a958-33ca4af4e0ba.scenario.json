@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2ee90d4e-a2eb-4606-a958-33ca4af4e0ba",
+    "name": "test:RbTraceTree.prefetchLayer",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:3d3a4239-5939-4f5b-ae8d-bba2d2c086da"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:3d3a4239-5939-4f5b-ae8d-bba2d2c086da"
+}

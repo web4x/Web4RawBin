@@ -4,7 +4,9 @@
     "uuid": "eb038984-43bb-415c-91ed-25f6db3114f9",
     "name": "RbTraceTree.lazyAppend",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:a8525098-17ca-4b73-a4f0-df917cf18426"
+    ]
   },
   "ownerIor": null
 }

@@ -5,7 +5,9 @@
     "name": "TraceRouter.navigate impl",
     "sourceFile": "src/public/ts/trace/TraceRouter.ts",
     "sourceLine": 73,
-    "tests": [],
+    "tests": [
+      "ior:instance:f9fd3cc0-8023-4898-ab5c-55284689b382"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:d1068f81-dc16-45a0-a52e-7a98c04208fc"

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ae08d5ec-3ac6-4325-899a-1f4f2dee9a46",
+    "name": "test:RbDetailView.renderObject impl",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:4947f284-3c25-4c8a-b0fa-b31e4cf049e4"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4947f284-3c25-4c8a-b0fa-b31e4cf049e4"
+}

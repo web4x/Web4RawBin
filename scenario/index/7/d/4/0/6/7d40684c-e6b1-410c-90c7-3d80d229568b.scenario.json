@@ -4,7 +4,9 @@
     "uuid": "7d40684c-e6b1-410c-90c7-3d80d229568b",
     "name": "Breadcrumb.contrastFix",
     "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
-    "tests": [],
+    "tests": [
+      "ior:instance:21aff647-8625-4d9c-9d9a-ae3d017e5cfd"
+    ],
     "orphanByDesign": true,
     "orphanRationale": "No real code \u2014 design-only/future feature",
     "sourceLine": 1

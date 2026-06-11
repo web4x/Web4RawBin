@@ -4,7 +4,9 @@
     "uuid": "7e43dda4-d7fd-45db-98b5-0e7a72d222c5",
     "name": "RbTraceTree.computeBadges",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:c20ea27f-6659-4e95-9f95-985dc530d80f"
+    ]
   },
   "ownerIor": null
 }

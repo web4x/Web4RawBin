@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5a835c64-c512-4dd9-bc6d-b025ff31c2d3",
+    "name": "test:TraceRouter.typeDispatch R19.66",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:d147e1fd-acca-48b0-adac-44c35be75755"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:d147e1fd-acca-48b0-adac-44c35be75755"
+}

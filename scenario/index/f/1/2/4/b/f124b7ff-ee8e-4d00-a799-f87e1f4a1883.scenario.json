@@ -4,7 +4,9 @@
     "uuid": "f124b7ff-ee8e-4d00-a799-f87e1f4a1883",
     "name": "RbTraceTree.syncSelection",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:3fdeb347-bcad-415a-8057-407a79a66331"
+    ]
   },
   "ownerIor": null
 }

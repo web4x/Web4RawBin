@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "50601482-070f-401e-8894-d88515deb476",
+    "name": "test:RbObjectItem.iconDrag",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:0b57d139-2df7-4024-a725-b24f558341b6"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:0b57d139-2df7-4024-a725-b24f558341b6"
+}

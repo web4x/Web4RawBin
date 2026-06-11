@@ -4,7 +4,9 @@
     "uuid": "b309d0dd-22a3-4f5f-ba6f-0f29d1502cf3",
     "name": "Room.stripSpectator",
     "sourceFile": "ior:file:src/ts/server/Room.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:d12f34d5-52f0-4fcd-b918-3ce2be327a4d"
+    ]
   },
   "ownerIor": null
 }

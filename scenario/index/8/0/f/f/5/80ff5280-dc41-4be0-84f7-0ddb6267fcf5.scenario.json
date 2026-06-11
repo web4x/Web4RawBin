@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "80ff5280-dc41-4be0-84f7-0ddb6267fcf5",
+    "name": "test:SpeakingTree.symlinkJson(sprint",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:7bab1a71-8d2e-4d19-bd4a-ce5547291b03"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7bab1a71-8d2e-4d19-bd4a-ce5547291b03"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "54155cc3-235f-49d1-8720-506b5dc69d4c",
+    "name": "test:ContentPreviewer.render",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:a232ce97-c336-45fa-9e0f-68e2507729dc"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a232ce97-c336-45fa-9e0f-68e2507729dc"
+}

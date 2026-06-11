@@ -5,7 +5,9 @@
     "name": "Logger.logAtLevel (split for Assets.avatarPersist)",
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 262,
-    "tests": [],
+    "tests": [
+      "ior:instance:79206be7-a8ae-4ff8-b7b7-3185c8442621"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:2dffbdab-7ffb-4933-8a38-5df6e5d6c327"

@@ -4,7 +4,9 @@
     "uuid": "97f2cf22-a595-455c-88a8-f38d37a893f7",
     "name": "RbDetailDrawer.setBackground",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:59673fc0-9d71-488d-9fd3-5bbea5fe9dea"
+    ]
   },
   "ownerIor": null
 }

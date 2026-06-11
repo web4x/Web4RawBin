@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "744d67f9-c19b-49c5-8c61-d14eb5531394",
+    "name": "detailView.roomScenarioDetail",
+    "description": "Room scenario detail shows 'Room' type + model.name + clickable Scenario.json link. Fix: (a) register room/user/device/file/message/skill in viewRegistry allTypes. (b) rb-detail-view fallback uses /api/trace/children response data (name, type) not graph. (c) Add scenario link in fallback path.",
+    "class": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07",
+    "method": "ior:instance:bb01d630-f0f8-4376-93a1-eca238926c87",
+    "classes": [
+      "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -5,7 +5,9 @@
     "name": "RbTaskDetail.render impl",
     "sourceFile": "src/public/ts/trace/rb-task-detail.ts",
     "sourceLine": 13,
-    "tests": [],
+    "tests": [
+      "ior:instance:74a690fa-a748-4aec-8b22-f90892076ce2"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16"

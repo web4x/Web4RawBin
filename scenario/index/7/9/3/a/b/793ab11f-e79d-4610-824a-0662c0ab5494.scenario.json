@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "793ab11f-e79d-4610-824a-0662c0ab5494",
+    "name": "test:Logger.logAtLevel (split for Room.restoreFilesFromScenario)",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:32005bc3-7bce-4214-aeb7-f50794cedca4"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:32005bc3-7bce-4214-aeb7-f50794cedca4"
+}

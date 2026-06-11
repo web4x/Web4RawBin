@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "adb2b8aa-474e-44ce-b5a3-2b7a2dd13bd5",
+    "name": "test:RbTraceTree.chainToTest",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:49cb3038-9a42-455d-b636-71b60276a155"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:49cb3038-9a42-455d-b636-71b60276a155"
+}

@@ -9,7 +9,10 @@
       "ior:instance:0aea0992-334e-473f-948e-afd426574a68"
     ],
     "testException": true,
-    "testExceptionNote": "sw.js runs in ServiceWorker context, not unit-testable"
+    "testExceptionNote": "sw.js runs in ServiceWorker context, not unit-testable",
+    "tests": [
+      "ior:instance:a34e4d49-f677-40b9-91b2-80770c73ddf0"
+    ]
   },
   "ownerIor": "ior:instance:0aea0992-334e-473f-948e-afd426574a68"
 }

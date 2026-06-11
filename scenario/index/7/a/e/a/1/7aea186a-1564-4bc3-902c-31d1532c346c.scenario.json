@@ -4,7 +4,9 @@
     "uuid": "7aea186a-1564-4bc3-902c-31d1532c346c",
     "name": "FileUnit.linkToRoom",
     "sourceFile": "ior:file:src/ts/scenario/file-unit.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:c2c91058-7194-4483-8d8e-d6af4067c0d2"
+    ]
   },
   "ownerIor": null
 }

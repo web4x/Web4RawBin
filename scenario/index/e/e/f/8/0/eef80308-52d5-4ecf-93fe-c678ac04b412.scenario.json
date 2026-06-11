@@ -4,7 +4,9 @@
     "uuid": "eef80308-52d5-4ecf-93fe-c678ac04b412",
     "name": "server.sprintNameFormat",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:ac382d91-6ef0-4918-944e-cb40ded9491a"
+    ]
   },
   "ownerIor": null
 }

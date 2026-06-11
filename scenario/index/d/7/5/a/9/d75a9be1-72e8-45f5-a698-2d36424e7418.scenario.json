@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d75a9be1-72e8-45f5-a698-2d36424e7418",
+    "name": "test:RbObjectItem.dragGhost",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:a1e11e85-98a7-4be0-a8f4-ec54e938d329"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a1e11e85-98a7-4be0-a8f4-ec54e938d329"
+}

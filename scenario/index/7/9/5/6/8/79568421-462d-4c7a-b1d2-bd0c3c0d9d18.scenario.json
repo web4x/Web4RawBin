@@ -4,7 +4,9 @@
     "uuid": "79568421-462d-4c7a-b1d2-bd0c3c0d9d18",
     "name": "ServerStrip.strip",
     "sourceFile": "ior:file:src/public/ts/RawBinClient.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:f551ecf0-c782-4ecb-bc07-8b673cbed762"
+    ]
   },
   "ownerIor": null
 }

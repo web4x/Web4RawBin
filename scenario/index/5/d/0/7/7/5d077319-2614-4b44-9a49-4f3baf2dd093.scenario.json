@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5d077319-2614-4b44-9a49-4f3baf2dd093",
+    "name": "test:DropDispatcher.urlDrop",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:b05fcdf3-0d44-4d7d-bee2-b5edc55daa3a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b05fcdf3-0d44-4d7d-bee2-b5edc55daa3a"
+}

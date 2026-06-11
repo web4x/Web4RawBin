@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f5398d74-3840-441d-917d-cd4f8d752644",
+    "name": "test:RbTraceTree.ancestorGuard",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:4042da6f-e083-4564-bab7-562558b7464b"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4042da6f-e083-4564-bab7-562558b7464b"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2935a949-27cc-44ee-be37-1b26987514c6",
+    "name": "test:RbTraceTree.fetchAndRenderChildren",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:5d4ba96f-68f2-4f33-8b8f-636c704b2ee1"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5d4ba96f-68f2-4f33-8b8f-636c704b2ee1"
+}

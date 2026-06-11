@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "96f6eee5-b6e9-48d1-82bd-de8dabd05aeb",
+    "name": "test:server.sprintsDedupe",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:07c16d73-27c9-4185-89de-ca81cc9ba01f"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:07c16d73-27c9-4185-89de-ca81cc9ba01f"
+}

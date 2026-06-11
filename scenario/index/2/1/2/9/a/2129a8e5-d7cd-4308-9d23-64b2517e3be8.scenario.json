@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2129a8e5-d7cd-4308-9d23-64b2517e3be8",
+    "name": "test:Room.acceptApply",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:5811824c-0bb1-4db4-98de-f419d915236e"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5811824c-0bb1-4db4-98de-f419d915236e"
+}

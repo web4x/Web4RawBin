@@ -4,7 +4,9 @@
     "uuid": "3fbcebaf-2986-44d6-afd2-7ab810e824f2",
     "name": "RbRoomDetail.modeSet",
     "sourceFile": "src/public/ts/RoomView.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:cda50af2-3acf-43e8-9c02-613a461965ea"
+    ]
   },
   "ownerIor": null
 }

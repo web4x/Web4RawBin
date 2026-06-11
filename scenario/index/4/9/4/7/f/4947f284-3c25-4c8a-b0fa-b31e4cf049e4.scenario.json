@@ -5,7 +5,9 @@
     "name": "RbDetailView.renderObject impl",
     "sourceFile": "src/public/ts/trace/rb-detail-view.ts",
     "sourceLine": 1,
-    "tests": [],
+    "tests": [
+      "ior:instance:ae08d5ec-3ac6-4325-899a-1f4f2dee9a46"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:a4271cb8-467d-4004-8e41-c5fe972fb3a8"

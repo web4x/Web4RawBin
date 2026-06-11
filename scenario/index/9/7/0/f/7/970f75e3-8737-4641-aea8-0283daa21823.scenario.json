@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "970f75e3-8737-4641-aea8-0283daa21823",
+    "name": "test:Logger.logAtLevel (split for SvgViewer.onPinchEnd)",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:37e9f3e2-0130-4f34-8c44-a90bc83495d4"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:37e9f3e2-0130-4f34-8c44-a90bc83495d4"
+}

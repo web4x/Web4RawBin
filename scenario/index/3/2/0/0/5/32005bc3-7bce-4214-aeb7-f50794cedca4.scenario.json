@@ -5,7 +5,9 @@
     "name": "Logger.logAtLevel (split for Room.restoreFilesFromScenario)",
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 262,
-    "tests": [],
+    "tests": [
+      "ior:instance:793ab11f-e79d-4610-824a-0662c0ab5494"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:548a67b2-ab42-43a3-8302-bce7b4a2b2d3"

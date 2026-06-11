@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b2ae41d8-ff94-4914-810b-40e275b9457e",
+    "name": "test:server.sprintZeroPad",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:cc549bbd-84e3-432b-a188-7c81cc6c8856"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cc549bbd-84e3-432b-a188-7c81cc6c8856"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ea6ce5d8-f936-453d-a92e-4b602e7437db",
+    "name": "test:RbRoomContent.mountTraceTree",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:32578dc6-58bb-4ce1-94be-2a78a142e139"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:32578dc6-58bb-4ce1-94be-2a78a142e139"
+}

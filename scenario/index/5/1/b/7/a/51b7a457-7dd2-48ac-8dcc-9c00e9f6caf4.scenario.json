@@ -5,7 +5,9 @@
     "name": "Logger.logAtLevel (split for Device.createDeviceUnit)",
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 262,
-    "tests": [],
+    "tests": [
+      "ior:instance:2401bf84-ed9c-4b21-b4dc-24572e24d326"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:2811473d-e296-4f3d-b9be-11742d17ee0a"

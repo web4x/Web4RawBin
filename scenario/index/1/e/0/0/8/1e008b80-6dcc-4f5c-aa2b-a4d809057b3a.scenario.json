@@ -4,7 +4,9 @@
     "uuid": "1e008b80-6dcc-4f5c-aa2b-a4d809057b3a",
     "name": "RbTraceTree.cycleOmit",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:a68880ee-7e63-4785-970e-80b1d48044d5"
+    ]
   },
   "ownerIor": null
 }

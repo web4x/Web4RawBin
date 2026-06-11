@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a34e4d49-f677-40b9-91b2-80770c73ddf0",
+    "name": "test:impl:ServiceWorker.ignoreSearchNav",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:cec00d7f-9258-4ac1-8c35-3e45dce8a5a9"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cec00d7f-9258-4ac1-8c35-3e45dce8a5a9"
+}

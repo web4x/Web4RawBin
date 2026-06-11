@@ -4,7 +4,9 @@
     "uuid": "a6e5e49d-520f-4a80-9e51-1d8001e4bccb",
     "name": "Room.persistAsSymlink",
     "sourceFile": "ior:file:src/ts/server/Room.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:f936d0f4-1971-4baa-bf85-4e75a1a3db65"
+    ]
   },
   "ownerIor": null
 }

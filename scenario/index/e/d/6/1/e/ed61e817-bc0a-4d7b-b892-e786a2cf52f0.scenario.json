@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ed61e817-bc0a-4d7b-b892-e786a2cf52f0",
+    "name": "test:RbRoomContent.applyButton",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:d1bae8be-a6ca-41e8-bdf6-ee78399ef41e"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:d1bae8be-a6ca-41e8-bdf6-ee78399ef41e"
+}

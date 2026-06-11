@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f551ecf0-c782-4ecb-bc07-8b673cbed762",
+    "name": "test:ServerStrip.strip",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:79568421-462d-4c7a-b1d2-bd0c3c0d9d18"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:79568421-462d-4c7a-b1d2-bd0c3c0d9d18"
+}

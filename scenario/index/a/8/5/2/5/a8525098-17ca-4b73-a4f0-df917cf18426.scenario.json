@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a8525098-17ca-4b73-a4f0-df917cf18426",
+    "name": "test:RbTraceTree.lazyAppend",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:eb038984-43bb-415c-91ed-25f6db3114f9"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:eb038984-43bb-415c-91ed-25f6db3114f9"
+}

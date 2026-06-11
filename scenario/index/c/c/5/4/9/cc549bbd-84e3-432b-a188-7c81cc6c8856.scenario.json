@@ -4,7 +4,9 @@
     "uuid": "cc549bbd-84e3-432b-a188-7c81cc6c8856",
     "name": "server.sprintZeroPad",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:b2ae41d8-ff94-4914-810b-40e275b9457e"
+    ]
   },
   "ownerIor": null
 }

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "bde41193-d4b5-4848-9c20-ba219b9ff05d",
+    "name": "test:Logger.logAtLevel (split for FileUnit.uploadEndpoint)",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:7c4a9d74-636c-44e0-b5da-86ce7a684975"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7c4a9d74-636c-44e0-b5da-86ce7a684975"
+}

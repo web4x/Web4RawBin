@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2530417e-1bf2-4d36-a9e7-997094c66542",
+    "name": "test:chat lazy-load (split for Assets.rekeyFix)",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:ae8312af-8169-41f8-9fa3-c428573be042"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ae8312af-8169-41f8-9fa3-c428573be042"
+}

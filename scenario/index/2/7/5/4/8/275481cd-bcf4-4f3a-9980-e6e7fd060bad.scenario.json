@@ -4,7 +4,9 @@
     "uuid": "275481cd-bcf4-4f3a-9980-e6e7fd060bad",
     "name": "ScenarioClick.lazyLoad",
     "sourceFile": "ior:file:src/public/ts/scenario-view.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:a1e9458d-aeeb-4240-b061-03505f81b5eb"
+    ]
   },
   "ownerIor": null
 }

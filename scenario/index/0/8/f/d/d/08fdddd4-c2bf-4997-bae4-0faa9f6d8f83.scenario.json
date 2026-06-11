@@ -4,7 +4,9 @@
     "uuid": "08fdddd4-c2bf-4997-bae4-0faa9f6d8f83",
     "name": "RbTraceTree.renderAllTypes",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:d25cc4c2-96a8-42a8-a06e-7c2678a8fe4a"
+    ]
   },
   "ownerIor": null
 }

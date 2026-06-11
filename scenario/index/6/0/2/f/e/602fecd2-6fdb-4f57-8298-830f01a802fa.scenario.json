@@ -4,7 +4,9 @@
     "uuid": "602fecd2-6fdb-4f57-8298-830f01a802fa",
     "name": "RbRoomContent.folderNodeRender",
     "sourceFile": "ior:file:src/public/ts/RoomView.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:7638f719-a2a4-466c-be7b-fd3a59daebbe"
+    ]
   },
   "ownerIor": null
 }

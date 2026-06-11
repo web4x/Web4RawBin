@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8c3266e2-b3df-4a1a-bc7b-25ac32bba324",
+    "name": "test:RbClassDetail.renderAll",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:ac1f9cfc-2fd2-423d-a48a-d1b28b656800"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ac1f9cfc-2fd2-423d-a48a-d1b28b656800"
+}

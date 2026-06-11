@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "bb01d630-f0f8-4376-93a1-eca238926c87",
+    "name": "RbDetailView.roomScenarioDetail",
+    "description": "index.ts: extend allTypes with room/user/device/file/message/skill. rb-detail-view.ts fallback: read data.name + data.type from fetchDetailData, render scenario link. Covers ALL non-trace types generically.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-view.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
+}

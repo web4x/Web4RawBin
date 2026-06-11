@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c20ea27f-6659-4e95-9f95-985dc530d80f",
+    "name": "test:RbTraceTree.computeBadges",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:7e43dda4-d7fd-45db-98b5-0e7a72d222c5"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7e43dda4-d7fd-45db-98b5-0e7a72d222c5"
+}

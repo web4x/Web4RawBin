@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b13336fd-f512-4b97-876c-23c0afa3992e",
+    "name": "test:TraceChain.treeRework",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:bf4879c6-30ee-4d47-8d7d-c80aa9f26fc7"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:bf4879c6-30ee-4d47-8d7d-c80aa9f26fc7"
+}

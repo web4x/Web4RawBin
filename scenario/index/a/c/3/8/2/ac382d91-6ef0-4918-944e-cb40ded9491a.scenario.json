@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ac382d91-6ef0-4918-944e-cb40ded9491a",
+    "name": "test:server.sprintNameFormat",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:eef80308-52d5-4ecf-93fe-c678ac04b412"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:eef80308-52d5-4ecf-93fe-c678ac04b412"
+}

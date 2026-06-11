@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2c11b869-ca5b-439b-8c55-cf2b4137fa13",
+    "name": "test:RbTraceTree.cycleGuard",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:4846d57e-610e-4977-a189-662074030cb1"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4846d57e-610e-4977-a189-662074030cb1"
+}

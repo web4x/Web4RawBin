@@ -4,7 +4,9 @@
     "uuid": "5811824c-0bb1-4db4-98de-f419d915236e",
     "name": "Room.acceptApply",
     "sourceFile": "ior:file:src/ts/server/room.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:2129a8e5-d7cd-4308-9d23-64b2517e3be8"
+    ]
   },
   "ownerIor": null
 }

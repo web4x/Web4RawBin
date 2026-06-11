@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "21aff647-8625-4d9c-9d9a-ae3d017e5cfd",
+    "name": "test:Breadcrumb.contrastFix",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:7d40684c-e6b1-410c-90c7-3d80d229568b"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7d40684c-e6b1-410c-90c7-3d80d229568b"
+}

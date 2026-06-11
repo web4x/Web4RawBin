@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9c52d370-c9d1-4daf-bb7e-468bf4df4494",
+    "name": "test:RbTraceTree.navigate impl",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:c9c53769-36fc-4431-bc57-8f68192592b9"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:c9c53769-36fc-4431-bc57-8f68192592b9"
+}

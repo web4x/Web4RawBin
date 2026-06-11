@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "86356415-4d5f-44f7-b496-a1b5c244c9f1",
+    "name": "test:FileApi.highlightFile",
+    "sourceFile": "ior:file:test/vitest/fileapi.test.ts",
+    "implementations": [
+      "ior:instance:5a802d49-7c12-435e-b5dd-a875f8564f05"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5a802d49-7c12-435e-b5dd-a875f8564f05"
+}

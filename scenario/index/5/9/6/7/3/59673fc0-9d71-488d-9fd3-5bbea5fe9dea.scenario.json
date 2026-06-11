@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "59673fc0-9d71-488d-9fd3-5bbea5fe9dea",
+    "name": "test:RbDetailDrawer.setBackground",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:97f2cf22-a595-455c-88a8-f38d37a893f7"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:97f2cf22-a595-455c-88a8-f38d37a893f7"
+}

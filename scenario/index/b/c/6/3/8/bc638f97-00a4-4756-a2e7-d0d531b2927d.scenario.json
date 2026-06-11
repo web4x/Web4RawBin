@@ -4,7 +4,9 @@
     "uuid": "bc638f97-00a4-4756-a2e7-d0d531b2927d",
     "name": "RbObjectItem.badgeRender",
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:a62fd762-08ce-4bb1-8e07-da9e3aacedf3"
+    ]
   },
   "ownerIor": null
 }
