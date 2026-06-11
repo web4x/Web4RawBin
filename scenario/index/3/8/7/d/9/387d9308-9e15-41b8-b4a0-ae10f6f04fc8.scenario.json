@@ -6,11 +6,11 @@
     "object": "editor",
     "verb": "backButton",
     "classes": [
-      "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+      "ior:instance:94e7bf82"
     ],
     "tasks": [],
-    "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
-    "method": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09",
+    "class": "ior:instance:94e7bf82",
+    "method": "ior:instance:b96baaec-7753-4140-9c2f-3d59e527542f",
     "sourceFile": "ior:file:src/public/ts/components/rb-editor-layout.ts",
     "sourceLine": 82,
     "source": {

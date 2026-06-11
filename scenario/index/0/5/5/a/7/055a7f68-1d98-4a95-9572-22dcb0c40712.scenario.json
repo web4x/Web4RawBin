@@ -5,9 +5,7 @@
     "name": "TraceConsistency.auditOrphans",
     "className": "TraceConsistency",
     "methodName": "auditOrphans",
-    "implementations": [
-      "ior:instance:1864c7bd-bfb2-4865-be41-1ae2d0ea909f"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:1864c7bd-bfb2-4865-be41-1ae2d0ea909f",
     "sourceFile": "ior:file:scenario/index/0/5/5/a/7/055a7f68-1d98-4a95-9572-22dcb0c40712.scenario.json",
     "sourceLine": 1,

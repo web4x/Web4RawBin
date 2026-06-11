@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "2787c403-17ce-4149-90eb-7c91b6e6c2d6",
+    "name": "Assets.keylessUpload",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:819aacf9"
+}

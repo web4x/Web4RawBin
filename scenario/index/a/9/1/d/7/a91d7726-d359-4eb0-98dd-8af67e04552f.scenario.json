@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "a91d7726-d359-4eb0-98dd-8af67e04552f",
+    "name": "ServiceWorker.updateBanner",
+    "sourceFile": "ior:file:src/public/sw.js",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:8bd3bd6b"
+}

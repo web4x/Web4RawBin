@@ -5,9 +5,7 @@
     "name": "TraceLink.scenarioUnit",
     "className": "TraceLink",
     "methodName": "scenarioUnit",
-    "implementations": [
-      "ior:instance:7dc0ba61-a392-4854-b3b3-35e2766b2418"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:7dc0ba61-a392-4854-b3b3-35e2766b2418",
     "sourceFile": "ior:file:src/ts/scenario/trace-link.ts",
     "sourceLine": 1,

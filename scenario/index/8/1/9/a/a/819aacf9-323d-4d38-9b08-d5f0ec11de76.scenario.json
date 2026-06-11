@@ -4,7 +4,10 @@
     "uuid": "819aacf9-323d-4d38-9b08-d5f0ec11de76",
     "name": "Assets",
     "methods": [
-      "ior:instance:5b6e33b7-a095-4109-a616-e179116651ba"
+      "ior:instance:5b6e33b7-a095-4109-a616-e179116651ba",
+      "ior:instance:2787c403-17ce-4149-90eb-7c91b6e6c2d6",
+      "ior:instance:9357333d-6a94-44a2-a74f-c19b0cd85fd4",
+      "ior:instance:2dffbdab-7ffb-4933-8a38-5df6e5d6c327"
     ],
     "method": "ior:instance:5b6e33b7-a095-4109-a616-e179116651ba",
     "sourceFile": "ior:file:scenario/index/8/1/9/a/a/819aacf9-323d-4d38-9b08-d5f0ec11de76.scenario.json",

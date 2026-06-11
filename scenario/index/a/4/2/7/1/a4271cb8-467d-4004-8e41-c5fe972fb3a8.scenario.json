@@ -5,9 +5,7 @@
     "name": "RbDetailView.renderObject",
     "className": "RbDetailView",
     "methodName": "renderObject",
-    "implementations": [
-      "ior:instance:d608bf73-c520-48c3-8b6c-7eaa5cbe31ae"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:d608bf73-c520-48c3-8b6c-7eaa5cbe31ae",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-view.ts",
     "sourceLine": 1,

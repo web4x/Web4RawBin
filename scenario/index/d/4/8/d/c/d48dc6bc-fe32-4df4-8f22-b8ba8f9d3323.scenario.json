@@ -5,7 +5,8 @@
     "name": "RbListOverview",
     "file": "src/public/ts/trace/rb-list-overview.ts",
     "methods": [
-      "ior:instance:c08094b0-9629-4772-b500-ab75e1b3efaa"
+      "ior:instance:c08094b0-9629-4772-b500-ab75e1b3efaa",
+      "ior:instance:6a9bc473-da00-42f6-9c0b-2df5d3bcb18c"
     ],
     "useCases": [],
     "method": "ior:instance:c08094b0-9629-4772-b500-ab75e1b3efaa",

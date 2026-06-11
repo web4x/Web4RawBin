@@ -5,9 +5,7 @@
     "name": "ScenarioUnit.load(json): this",
     "className": "ScenarioUnit",
     "methodName": "load(json): this",
-    "implementations": [
-      "ior:instance:4b458ad6-a795-4cc3-a622-541f633bc985"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:4b458ad6-a795-4cc3-a622-541f633bc985",
     "sourceFile": "ior:file:scenario/index/9/5/3/5/7/9535708a-08c9-4073-8c92-b582c09f1cae.scenario.json",
     "sourceLine": 1,

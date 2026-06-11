@@ -5,7 +5,10 @@
     "name": "server.ucScopedMethodResolve",
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 267,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:f74dd812-7d68-433f-bef3-02e35cef14c1"
+    ]
   },
   "ownerIor": null
 }

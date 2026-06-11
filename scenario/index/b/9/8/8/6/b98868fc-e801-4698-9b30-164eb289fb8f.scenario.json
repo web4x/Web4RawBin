@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "b98868fc-e801-4698-9b30-164eb289fb8f",
+    "name": "Room.multiRoomLoad",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1165c293"
+}

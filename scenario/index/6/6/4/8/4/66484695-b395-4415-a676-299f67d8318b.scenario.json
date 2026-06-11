@@ -5,9 +5,7 @@
     "name": "TraceObject.children",
     "className": "TraceObject",
     "methodName": "children",
-    "implementations": [
-      "ior:instance:2ddda0aa-abf3-47d9-9ba3-d9a1ad3e80c3"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:2ddda0aa-abf3-47d9-9ba3-d9a1ad3e80c3",
     "sourceFile": "ior:file:src/ts/shared/TraceModel.ts",
     "parent": "ior:instance:101a0b1c-2d3e-4f50-8617-a01010101101",

@@ -5,9 +5,7 @@
     "name": "FileBrowser.symlinkSupport",
     "className": "FileBrowser",
     "methodName": "symlinkSupport",
-    "implementations": [
-      "ior:instance:092a6e33-9f6f-409c-9c3a-8f7d3dc455d3"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:092a6e33-9f6f-409c-9c3a-8f7d3dc455d3",
     "sourceFile": "ior:file:scenario/index/c/6/c/e/5/c6ce5d1e-ab54-41b8-814d-01909df7071f.scenario.json",
     "sourceLine": 1,

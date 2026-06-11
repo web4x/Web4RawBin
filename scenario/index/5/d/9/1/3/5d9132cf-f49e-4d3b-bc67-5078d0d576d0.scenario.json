@@ -5,7 +5,8 @@
     "name": "RbRequirementDetail",
     "file": "src/public/ts/trace/rb-requirement-detail.ts",
     "methods": [
-      "ior:instance:f2930f5e-c748-49f5-888e-2d3aaa9a9012"
+      "ior:instance:f2930f5e-c748-49f5-888e-2d3aaa9a9012",
+      "ior:instance:081eed71-e112-4bed-8db4-06ad8c99db28"
     ],
     "useCases": [],
     "method": "ior:instance:f2930f5e-c748-49f5-888e-2d3aaa9a9012",

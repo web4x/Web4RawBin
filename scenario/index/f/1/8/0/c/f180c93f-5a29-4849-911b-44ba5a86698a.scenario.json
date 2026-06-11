@@ -5,9 +5,7 @@
     "name": "ScenarioIndex.get(uuid): ScenarioUnit",
     "className": "ScenarioIndex",
     "methodName": "get(uuid): ScenarioUnit",
-    "implementations": [
-      "ior:instance:e628b9fb-4818-4c24-9942-cec00becc8b7"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:e628b9fb-4818-4c24-9942-cec00becc8b7",
     "sourceFile": "ior:file:src/ts/scenario/index-store.ts",
     "sourceLine": 12,

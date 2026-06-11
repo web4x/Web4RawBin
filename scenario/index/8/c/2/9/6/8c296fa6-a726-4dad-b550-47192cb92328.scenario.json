@@ -5,9 +5,7 @@
     "name": "MigrateToScenario.sprintToScenario",
     "className": "MigrateToScenario",
     "methodName": "sprintToScenario",
-    "implementations": [
-      "ior:instance:39921b04-18f1-4eee-8d62-e6e1c699de16"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:39921b04-18f1-4eee-8d62-e6e1c699de16",
     "sourceFile": "ior:file:scenario/index/8/c/2/9/6/8c296fa6-a726-4dad-b550-47192cb92328.scenario.json",
     "sourceLine": 1,

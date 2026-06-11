@@ -5,7 +5,10 @@
     "name": "T45 QR popup",
     "sourceFile": "src/public/ts/components/rb-qr-popup.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:46c054d5-c401-4834-a6f1-6ff4f81510a2"
+    ]
   },
   "ownerIor": null
 }

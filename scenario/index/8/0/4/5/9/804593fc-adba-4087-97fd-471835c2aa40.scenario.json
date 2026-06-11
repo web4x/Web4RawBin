@@ -5,9 +5,7 @@
     "name": "RoomTest.test",
     "className": "RoomTest",
     "methodName": "test",
-    "implementations": [
-      "ior:instance:21a4e210-6ee6-42f9-9e10-c808cb1a66a4"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:21a4e210-6ee6-42f9-9e10-c808cb1a66a4",
     "sourceFile": "ior:file:src/public/ts/DeviceEnrollDialog.ts",
     "sourceLine": 48,

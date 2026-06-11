@@ -5,9 +5,7 @@
     "name": "TraceObject.addRef",
     "className": "TraceObject",
     "methodName": "addRef",
-    "implementations": [
-      "ior:instance:e2cbf193-d116-4eb9-a9f5-6397febf300e"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:e2cbf193-d116-4eb9-a9f5-6397febf300e",
     "sourceFile": "ior:file:src/ts/shared/TraceModel.ts",
     "parent": "ior:instance:101a0b1c-2d3e-4f50-8617-a01010101101",

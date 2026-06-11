@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "2dffbdab-7ffb-4933-8a38-5df6e5d6c327",
+    "name": "Assets.avatarPersist",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:819aacf9"
+}

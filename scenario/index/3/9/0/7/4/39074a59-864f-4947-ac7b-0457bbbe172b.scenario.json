@@ -5,7 +5,10 @@
     "name": "T40 header",
     "sourceFile": "src/public/ts/components/rb-header.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:344529b0-743e-484b-9e87-6f709b87a381"
+    ]
   },
   "ownerIor": null
 }

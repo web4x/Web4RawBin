@@ -5,9 +5,7 @@
     "name": "RbDetailDrawer.swipeDismiss",
     "className": "RbDetailDrawer",
     "methodName": "swipeDismiss",
-    "implementations": [
-      "ior:instance:39e0ab19-3de9-405b-ac47-1b054db2f63c"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:39e0ab19-3de9-405b-ac47-1b054db2f63c",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "sourceLine": 1,

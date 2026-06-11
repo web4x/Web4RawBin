@@ -5,9 +5,7 @@
     "name": "ProfileGate.vcardUpload",
     "className": "ProfileGate",
     "methodName": "vcardUpload",
-    "implementations": [
-      "ior:instance:fa5357ff-cb48-47d2-a90c-15888eb7a6b9"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:fa5357ff-cb48-47d2-a90c-15888eb7a6b9",
     "sourceFile": "ior:file:scenario/index/f/e/b/c/f/febcf068-1280-4d93-b32e-c41d2a8d99a2.scenario.json",
     "sourceLine": 1,

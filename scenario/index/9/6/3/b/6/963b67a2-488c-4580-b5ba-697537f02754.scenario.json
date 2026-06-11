@@ -5,9 +5,7 @@
     "name": "TraceConsistency.scanRepo",
     "className": "TraceConsistency",
     "methodName": "scanRepo",
-    "implementations": [
-      "ior:instance:27a4ff38-d0ae-4a7b-9a97-060d45fd2e2b"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:27a4ff38-d0ae-4a7b-9a97-060d45fd2e2b",
     "sourceFile": "ior:file:src/ts/server/TraceConsistency.ts",
     "sourceLine": 42,

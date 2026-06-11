@@ -5,7 +5,10 @@
     "name": "server.detailNavSync",
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 268,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:b5d1fc0f-fbbb-499d-ab33-3573f5ad12aa"
+    ]
   },
   "ownerIor": null
 }

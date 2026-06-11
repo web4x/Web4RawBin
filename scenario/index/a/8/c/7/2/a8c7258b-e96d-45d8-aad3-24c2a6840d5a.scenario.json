@@ -5,9 +5,7 @@
     "name": "ScenarioIndex.prefix(uuid): string",
     "className": "ScenarioIndex",
     "methodName": "prefix(uuid): string",
-    "implementations": [
-      "ior:instance:93583612-eed1-475c-a464-05ba047a8e68"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:93583612-eed1-475c-a464-05ba047a8e68",
     "sourceFile": "ior:file:src/ts/scenario/index-store.ts",
     "sourceLine": 12,

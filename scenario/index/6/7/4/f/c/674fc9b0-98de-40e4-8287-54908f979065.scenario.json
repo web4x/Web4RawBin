@@ -5,9 +5,7 @@
     "name": "TraceNarrow.classMethodScope",
     "className": "TraceNarrow",
     "methodName": "classMethodScope",
-    "implementations": [
-      "ior:instance:d7ac0a32-520f-41f5-9cf4-ddcab3ff08f8"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:d7ac0a32-520f-41f5-9cf4-ddcab3ff08f8",
     "sourceFile": "ior:file:scenario/index/6/7/4/f/c/674fc9b0-98de-40e4-8287-54908f979065.scenario.json",
     "sourceLine": 1,

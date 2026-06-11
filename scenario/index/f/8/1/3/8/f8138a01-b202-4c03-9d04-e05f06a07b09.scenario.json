@@ -5,7 +5,10 @@
     "name": "R17.18",
     "sourceFile": "src/ts/scenario/skills.ts",
     "sourceLine": 5,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:a365ee18-3b72-4492-8e16-19ed1ec2032f"
+    ]
   },
   "ownerIor": null
 }

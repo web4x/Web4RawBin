@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "b96baaec-7753-4140-9c2f-3d59e527542f",
+    "name": "RbEditorLayout.backButton",
+    "sourceFile": "ior:file:src/public/ts/components/rb-editor-layout.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:94e7bf82"
+}

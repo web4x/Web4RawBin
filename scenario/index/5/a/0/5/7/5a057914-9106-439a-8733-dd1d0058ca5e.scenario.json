@@ -5,7 +5,8 @@
     "name": "RbTraceTree",
     "file": "src/public/ts/trace/rb-trace-tree.ts",
     "methods": [
-      "ior:instance:32ae650c-d936-4696-89cd-8f9369fdc52e"
+      "ior:instance:32ae650c-d936-4696-89cd-8f9369fdc52e",
+      "ior:instance:637afb30-7621-4fbd-beed-5ce7f0340b46"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",

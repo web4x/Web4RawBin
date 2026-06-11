@@ -5,7 +5,10 @@
     "name": "T142 vCard parser",
     "sourceFile": "src/public/ts/vcard-parse.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:2f85ca66-da48-40d4-8337-0d467fa0a8d7"
+    ]
   },
   "ownerIor": null
 }

@@ -5,7 +5,10 @@
     "name": "T43 member list",
     "sourceFile": "src/public/ts/components/rb-member-list.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:287416e2-ea01-49fa-bfc9-d97411d136c1"
+    ]
   },
   "ownerIor": null
 }

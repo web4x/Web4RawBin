@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "9357333d-6a94-44a2-a74f-c19b0cd85fd4",
+    "name": "Assets.rekeyFix",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:819aacf9"
+}

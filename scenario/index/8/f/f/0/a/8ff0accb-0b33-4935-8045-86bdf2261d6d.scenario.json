@@ -5,9 +5,7 @@
     "name": "OfflinePage.reloadButton",
     "className": "OfflinePage",
     "methodName": "reloadButton",
-    "implementations": [
-      "ior:instance:b2e861b6-9b03-4196-8954-0fcd14bebb08"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:b2e861b6-9b03-4196-8954-0fcd14bebb08",
     "sourceFile": "ior:file:scenario/index/8/f/f/0/a/8ff0accb-0b33-4935-8045-86bdf2261d6d.scenario.json",
     "sourceLine": 1,

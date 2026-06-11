@@ -5,7 +5,10 @@
     "name": "T43 member badge",
     "sourceFile": "src/public/ts/components/rb-member-badge.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:b09e2986-8320-4943-8aae-d76d2ce58604"
+    ]
   },
   "ownerIor": null
 }

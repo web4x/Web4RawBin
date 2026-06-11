@@ -7,10 +7,10 @@
     "verb": "renderTronQuote",
     "description": "Render Tron verbatim quote as requirement NAME",
     "classes": [
-      "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+      "ior:instance:5d9132cf"
     ],
-    "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
-    "method": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09",
+    "class": "ior:instance:5d9132cf",
+    "method": "ior:instance:081eed71-e112-4bed-8db4-06ad8c99db28",
     "sourceFile": "ior:file:scenario/index/9/3/b/f/a/93bfa64a-7425-44bc-9da6-6d084c4d360f.scenario.json",
     "sourceLine": 1,
     "source": {

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "6a9bc473-da00-42f6-9c0b-2df5d3bcb18c",
+    "name": "RbListOverview.newestFirst",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-list-overview.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d48dc6bc"
+}

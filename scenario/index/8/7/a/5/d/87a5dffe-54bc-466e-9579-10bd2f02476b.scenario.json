@@ -5,9 +5,7 @@
     "name": "MdListing.chainIcon",
     "className": "MdListing",
     "methodName": "chainIcon",
-    "implementations": [
-      "ior:instance:81567694-3a0a-496e-a8e5-941258d512a5"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:81567694-3a0a-496e-a8e5-941258d512a5",
     "sourceFile": "ior:file:scenario/index/8/7/a/5/d/87a5dffe-54bc-466e-9579-10bd2f02476b.scenario.json",
     "sourceLine": 1,

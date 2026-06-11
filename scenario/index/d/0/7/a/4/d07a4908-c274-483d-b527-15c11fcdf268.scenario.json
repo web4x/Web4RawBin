@@ -5,9 +5,7 @@
     "name": "TraceLayout.mobileCap",
     "className": "TraceLayout",
     "methodName": "mobileCap",
-    "implementations": [
-      "ior:instance:621deba7-c7b4-4efe-96ba-efe7f849d456"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:621deba7-c7b4-4efe-96ba-efe7f849d456",
     "sourceFile": "ior:file:scenario/index/d/0/7/a/4/d07a4908-c274-483d-b527-15c11fcdf268.scenario.json",
     "sourceLine": 1,

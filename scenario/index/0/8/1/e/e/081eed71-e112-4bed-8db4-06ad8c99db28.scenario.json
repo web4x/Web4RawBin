@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "081eed71-e112-4bed-8db4-06ad8c99db28",
+    "name": "RbRequirementDetail.renderTronQuote",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-requirement-detail.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5d9132cf"
+}

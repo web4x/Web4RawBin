@@ -5,9 +5,7 @@
     "name": "RbRequirementDetail.render",
     "className": "RbRequirementDetail",
     "methodName": "render",
-    "implementations": [
-      "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61",
     "sourceFile": "ior:file:src/public/ts/trace/rb-requirement-detail.ts",
     "sourceLine": 13,

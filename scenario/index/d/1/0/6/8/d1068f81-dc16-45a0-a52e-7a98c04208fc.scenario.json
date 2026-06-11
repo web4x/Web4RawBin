@@ -5,9 +5,7 @@
     "name": "TraceRouter.navigate",
     "className": "TraceRouter",
     "methodName": "navigate",
-    "implementations": [
-      "ior:instance:8a6c772d-ebcd-4c69-bc40-5174fcb71bc6"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:8a6c772d-ebcd-4c69-bc40-5174fcb71bc6",
     "sourceFile": "ior:file:src/public/ts/trace/TraceRouter.ts",
     "sourceLine": 73,

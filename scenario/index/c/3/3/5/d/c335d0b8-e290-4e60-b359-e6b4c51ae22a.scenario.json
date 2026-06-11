@@ -5,7 +5,10 @@
     "name": "T65 file tree",
     "sourceFile": "src/public/ts/components/rb-file-tree.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:f764ea0d-2587-4f63-9649-12ba5b95fdb8"
+    ]
   },
   "ownerIor": null
 }

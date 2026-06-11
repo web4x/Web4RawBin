@@ -5,7 +5,10 @@
     "name": "R17.15",
     "sourceFile": "src/ts/scenario/task-fsm.ts",
     "sourceLine": 5,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:ada8c498-04ad-41b4-9a77-7bb869b6c1c0"
+    ]
   },
   "ownerIor": null
 }

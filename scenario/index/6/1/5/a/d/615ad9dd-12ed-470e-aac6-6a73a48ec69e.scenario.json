@@ -5,9 +5,7 @@
     "name": "ScenarioClick.lazyLoad",
     "className": "ScenarioClick",
     "methodName": "lazyLoad",
-    "implementations": [
-      "ior:instance:43cc8d76-c20c-4a75-aa7e-0821d716a3c6"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:43cc8d76-c20c-4a75-aa7e-0821d716a3c6",
     "sourceFile": "ior:file:scenario/index/6/1/5/a/d/615ad9dd-12ed-470e-aac6-6a73a48ec69e.scenario.json",
     "sourceLine": 1,

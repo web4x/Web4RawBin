@@ -5,9 +5,7 @@
     "name": "ServerStrip.strip",
     "className": "ServerStrip",
     "methodName": "strip",
-    "implementations": [
-      "ior:instance:e94199c4-5c74-458e-92ad-2e75f8bc2926"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:e94199c4-5c74-458e-92ad-2e75f8bc2926",
     "sourceFile": "ior:file:scenario/index/0/e/9/8/4/0e984fe1-7f0e-4dfd-9d0b-c83eae2c0cec.scenario.json",
     "sourceLine": 1,

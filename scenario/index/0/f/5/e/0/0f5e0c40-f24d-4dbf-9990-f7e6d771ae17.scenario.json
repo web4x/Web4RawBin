@@ -5,9 +5,7 @@
     "name": "ClassRegistry.register(name",
     "className": "ClassRegistry",
     "methodName": "register(name",
-    "implementations": [
-      "ior:instance:f91aae23-0e3e-43b1-9d63-81b74f5f2307"
-    ],
+    "implementations": [],
     "implementation": "ior:instance:f91aae23-0e3e-43b1-9d63-81b74f5f2307",
     "sourceFile": "ior:file:src/ts/scenario/classes.ts",
     "sourceLine": 32,
