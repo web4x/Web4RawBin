@@ -74,11 +74,13 @@ export class Chain {
     for (const f of this.walkFiles(this.testDir)) testContent.set(f, fs.readFileSync(f, 'utf-8'));
 
     const hasRealImpl = (uuid: string) => {
+      if (!this.idx.has(uuid)) return false; // Impl UNIT must exist on disk
       const re = new RegExp(`\\[impl:uuid:${uuid}\\]`, 'i');
       for (const [, c] of srcContent) if (re.test(c)) return true;
       return false;
     };
     const hasRealTest = (uuid: string) => {
+      if (!this.idx.has(uuid)) return false; // Test UNIT must exist on disk
       const re = new RegExp(`\\[test:uuid:${uuid}\\]`, 'i');
       for (const [, c] of testContent) if (re.test(c)) return true;
       return false;

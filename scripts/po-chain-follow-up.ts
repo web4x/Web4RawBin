@@ -49,12 +49,14 @@ for (const f of srcFiles) srcContent.set(f, fs.readFileSync(f, 'utf-8'));
 for (const f of testFiles) testContent.set(f, fs.readFileSync(f, 'utf-8'));
 
 function hasRealImplMarker(uuid: string): boolean {
+  if (!idx.has(uuid)) return false; // Impl UNIT must exist on disk
   const re = new RegExp(`\\[impl:uuid:${uuid}\\]`, 'i');
   for (const [, content] of srcContent) { if (re.test(content)) return true; }
   return false;
 }
 
 function hasRealTestMarker(uuid: string): boolean {
+  if (!idx.has(uuid)) return false; // Test UNIT must exist on disk
   const re = new RegExp(`\\[test:uuid:${uuid}\\]`, 'i');
   for (const [, content] of testContent) { if (re.test(content)) return true; }
   return false;
