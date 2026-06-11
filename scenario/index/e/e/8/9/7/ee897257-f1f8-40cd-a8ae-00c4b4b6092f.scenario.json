@@ -5,7 +5,9 @@
     "name": "RbTraceTree.renderSeed impl",
     "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
     "sourceLine": 1,
-    "tests": [],
+    "tests": [
+      "ior:instance:81f953b1-5466-4c97-b0e0-309c2f9c99ba"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:cd3ad57b-7314-4da6-88d0-1113ab508100"

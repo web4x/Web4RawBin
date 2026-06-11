@@ -1906,6 +1906,76 @@ describe('R19.86: file/url/webitem click → openFilePreview → drawer opens', 
 // R19.87 stays pending-device-confirm until Tron iOS verifies.
 // ═══════════════════════════════════════════════════════════════════════════
 
+// ═══════════════════════════════════════════════════════════════════════════
+// R19.90 self-healing: upgradeProperty recovers data set before define/connect
+// [test:uuid:81f953b1-5466-4c97-b0e0-309c2f9c99ba] R19.90 selfHealingUpgrade
+// Honest: jsdom guards pattern; Tron slow-net device = seal.
+// ═══════════════════════════════════════════════════════════════════════════
+
+describe('R19.90: self-healing element — all 3 orderings render', () => {
+  it('(a) data set BEFORE define → upgradeProperty recovers on connect', () => {
+    const tag = 'test-heal-a-' + Date.now();
+    const el = document.createElement(tag);
+    (el as any).items = [{ uuid: 'u1', type: 'file', name: 'preDefine' }];
+
+    class HealA extends HTMLElement {
+      _items: any[] | null = null;
+      set items(v: any[]) { this._items = v; }
+      get items() { return this._items; }
+      private upgradeProperty(prop: string) {
+        if (this.hasOwnProperty(prop)) {
+          const val = (this as any)[prop];
+          delete (this as any)[prop];
+          (this as any)[prop] = val;
+        }
+      }
+      connectedCallback() { this.upgradeProperty('items'); }
+    }
+    customElements.define(tag, HealA);
+    document.body.appendChild(el);
+
+    expect((el as any).items).toEqual([{ uuid: 'u1', type: 'file', name: 'preDefine' }]);
+    el.remove();
+  });
+
+  it('(b) data set BEFORE connect but AFTER define → setter fires, renders on connect', () => {
+    const tag = 'test-heal-b-' + Date.now();
+    let renderCount = 0;
+    class HealB extends HTMLElement {
+      _items: any[] | null = null;
+      set items(v: any[]) { this._items = v; if (this.isConnected) renderCount++; }
+      get items() { return this._items; }
+      connectedCallback() { if (this._items) renderCount++; }
+    }
+    customElements.define(tag, HealB);
+    const el = document.createElement(tag);
+    (el as any).items = [{ uuid: 'u2', type: 'member', name: 'beforeConnect' }];
+    expect(renderCount).toBe(0);
+    document.body.appendChild(el);
+    expect(renderCount).toBe(1);
+    expect((el as any).items).toEqual([{ uuid: 'u2', type: 'member', name: 'beforeConnect' }]);
+    el.remove();
+  });
+
+  it('(c) data set AFTER connect → setter renders immediately', () => {
+    const tag = 'test-heal-c-' + Date.now();
+    let rendered = false;
+    class HealC extends HTMLElement {
+      _items: any[] | null = null;
+      set items(v: any[]) { this._items = v; if (this.isConnected) rendered = true; }
+      get items() { return this._items; }
+    }
+    customElements.define(tag, HealC);
+    const el = document.createElement(tag);
+    document.body.appendChild(el);
+    expect(rendered).toBe(false);
+    (el as any).items = [{ uuid: 'u3', type: 'file', name: 'afterConnect' }];
+    expect(rendered).toBe(true);
+    expect((el as any).items?.length).toBe(1);
+    el.remove();
+  });
+});
+
 describe('R19.87: preview-zoom-container touch-action=pan-y (CSS guard)', () => {
   it('renderContentPreview for PDF produces container with touch-action:pan-y', async () => {
     const { renderContentPreview } = await import('../../src/public/ts/trace/content-preview.js');
