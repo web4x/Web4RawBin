@@ -3,10 +3,10 @@
   "model": {
     "uuid": "8e96674f-a194-4e3c-8d6f-0a005bcb4fc4",
     "name": "RbTraceTree.cycleOmit",
-    "implementations": [
-      "ior:instance:5746dd74-de21-4770-b9d5-573d16a9f29c"
-    ],
-    "tests": []
+    "implementations": [],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
 }

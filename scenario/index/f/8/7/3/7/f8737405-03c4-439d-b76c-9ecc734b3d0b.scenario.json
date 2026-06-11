@@ -3,10 +3,10 @@
   "model": {
     "uuid": "f8737405-03c4-439d-b76c-9ecc734b3d0b",
     "name": "RbTraceTree.chainToTest",
-    "implementations": [
-      "ior:instance:52938cb9-e726-4082-a4e2-77a9a92eacc4"
-    ],
-    "tests": []
+    "implementations": [],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
 }

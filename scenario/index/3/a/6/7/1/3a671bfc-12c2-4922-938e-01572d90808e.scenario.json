@@ -4,7 +4,6 @@
     "uuid": "3a671bfc-12c2-4922-938e-01572d90808e",
     "name": "RbDetailDrawer.stickyClose",
     "implementations": [
-      "ior:instance:148b8415-ce17-485d-93fe-ae6414b87c91",
       "ior:instance:aa585fcc-dfc1-42a8-a77d-0c0fb03ca5fd"
     ],
     "tests": []

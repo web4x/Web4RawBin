@@ -3,10 +3,10 @@
   "model": {
     "uuid": "ff9d3fd3-a58f-4adb-83d4-73f7701b6890",
     "name": "SkillExpert.coSpecify",
-    "implementations": [
-      "ior:instance:0a168455-91ed-4eda-9c29-f082c94cc87a"
-    ],
-    "tests": []
+    "implementations": [],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
 }

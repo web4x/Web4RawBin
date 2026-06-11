@@ -3,10 +3,10 @@
   "model": {
     "uuid": "1b2c3d4e-5f6a-4b7c-8d9e-0f1a2b3c4d5e",
     "name": "RbObjectItem.badgeRender",
-    "implementations": [
-      "ior:instance:40b396bb-f20d-442e-a86c-bc1137539310"
-    ],
-    "tests": []
+    "implementations": [],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
 }

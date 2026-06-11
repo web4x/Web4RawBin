@@ -3,10 +3,10 @@
   "model": {
     "uuid": "9e30524f-007b-44e9-bb1d-0d334c4682fb",
     "name": "RbTraceTree.lazyAppend",
-    "implementations": [
-      "ior:instance:f9e4738f-80b2-40ac-851e-b5e145751956"
-    ],
-    "tests": []
+    "implementations": [],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
 }

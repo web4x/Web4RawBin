@@ -3,10 +3,10 @@
   "model": {
     "uuid": "b4980b4a-7ed3-405a-9d1d-a08b49c70ff7",
     "name": "RbRoomContent.folderNodeRender",
-    "implementations": [
-      "ior:instance:0e6a4876-5a8f-4119-b4a0-b2ceeb7b0238"
-    ],
-    "tests": []
+    "implementations": [],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:792246f1-346e-4337-9619-b38d8641769f"
 }

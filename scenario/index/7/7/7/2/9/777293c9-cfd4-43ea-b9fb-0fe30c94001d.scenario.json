@@ -3,10 +3,10 @@
   "model": {
     "uuid": "777293c9-cfd4-43ea-b9fb-0fe30c94001d",
     "name": "RbRoomContent.mountTraceTree",
-    "implementations": [
-      "ior:instance:7949e851-c461-41ce-9e0d-13f5d482b7b9"
-    ],
-    "tests": []
+    "implementations": [],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:792246f1-346e-4337-9619-b38d8641769f"
 }

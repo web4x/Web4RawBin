@@ -3,10 +3,10 @@
   "model": {
     "uuid": "aeb301b1-fa4f-4c65-9915-5271e7831ad5",
     "name": "RbTraceTree.fetchAndRenderChildren",
-    "implementations": [
-      "ior:instance:e16a3812-4a2a-472f-85ba-373733cd6b25"
-    ],
-    "tests": []
+    "implementations": [],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
 }

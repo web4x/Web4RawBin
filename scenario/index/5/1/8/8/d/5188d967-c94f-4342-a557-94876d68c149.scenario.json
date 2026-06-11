@@ -3,10 +3,10 @@
   "model": {
     "uuid": "5188d967-c94f-4342-a557-94876d68c149",
     "name": "RbDetailDrawer.setBackground",
-    "implementations": [
-      "ior:instance:043f9ca9-b84c-4369-886e-47b1f4e76f63"
-    ],
-    "tests": []
+    "implementations": [],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
 }

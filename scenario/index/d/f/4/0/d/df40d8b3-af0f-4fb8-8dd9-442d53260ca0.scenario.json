@@ -3,10 +3,10 @@
   "model": {
     "uuid": "df40d8b3-af0f-4fb8-8dd9-442d53260ca0",
     "name": "TraceGraph.classHop",
-    "implementations": [
-      "ior:instance:de8ee90b-caf1-4f49-9352-8621efdbf0ae"
-    ],
-    "tests": []
+    "implementations": [],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
 }

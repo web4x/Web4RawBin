@@ -3,10 +3,10 @@
   "model": {
     "uuid": "91512ade-1baa-432d-b3e9-67852d61aa2f",
     "name": "migrate-to-scenario.ts:migrate",
-    "implementations": [
-      "ior:instance:780d1c20-e694-4cfe-b057-e988e6843cc4"
-    ],
-    "tests": []
+    "implementations": [],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
 }

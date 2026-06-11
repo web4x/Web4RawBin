@@ -3,10 +3,10 @@
   "model": {
     "uuid": "7b8c9d0e-1f2a-4b3c-4d5e-6f7a8b9c0d1e",
     "name": "RbTraceTree.prefetchLayer",
-    "implementations": [
-      "ior:instance:f46d1158-707e-44da-a143-3f95bdda40a0"
-    ],
-    "tests": []
+    "implementations": [],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
 }

@@ -3,10 +3,10 @@
   "model": {
     "uuid": "3b4c5d6e-7f8a-4b9c-0d1e-2f3a4b5c6d7e",
     "name": "RbRoomContent.linkResolve",
-    "implementations": [
-      "ior:instance:8fc37bf8-3fd2-46f5-a112-2e61c56dd0e1"
-    ],
-    "tests": []
+    "implementations": [],
+    "tests": [],
+    "designStage": true,
+    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 \u2014 no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
   },
   "ownerIor": "ior:instance:792246f1-346e-4337-9619-b38d8641769f"
 }
