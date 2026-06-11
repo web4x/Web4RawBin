@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3f1f3556-730f-49a6-9104-ae2d6163113c",
+    "name": "test:AC3 MVC live-update",
+    "description": "Bridged to test/vitest/server.test.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:9ce0b153-0c3d-4749-aa57-954b359b797d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:9ce0b153-0c3d-4749-aa57-954b359b797d"
+}

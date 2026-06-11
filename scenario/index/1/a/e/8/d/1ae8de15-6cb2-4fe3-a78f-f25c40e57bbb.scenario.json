@@ -5,7 +5,9 @@
     "name": "FileUnit.indexByContentHash",
     "description": "After idx.put(): compute contentHash, write symlink at scenario/content/<hash>.file.scenario.json \u2192 idx.filePath(uuid). Add 'content/<hash>.file.scenario.json' to unitLinks[]. On dedup check: fs.existsSync(scenario/content/<hash>.file.scenario.json) \u2192 O(1), readlink \u2192 resolve canonical FileUnit UUID.",
     "sourceFile": "ior:file:src/ts/scenario/file-unit.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:36a3b677-dc4d-415c-9eee-ffc62fff0f76"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:3e0ceb94-90f3-4c5b-b13b-e1f2a3b4c5d6"

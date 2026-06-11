@@ -5,7 +5,10 @@
     "name": "R17.3",
     "sourceFile": "src/ts/scenario/classes.ts",
     "sourceLine": 5,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:f64eaa20-1e66-4ec8-a25c-ba497feab9c1"
+    ]
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:971e3531-fbe9-48f7-8a9b-2e51b3252cac"
 }

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "6213634f-0210-4b0a-a68b-53e948021590",
+    "name": "test:R17 full chain",
+    "description": "Bridged to test/vitest/server.test.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:4b9b7203-ee0f-4d65-999f-264baf33ed01"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4b9b7203-ee0f-4d65-999f-264baf33ed01"
+}

@@ -5,7 +5,10 @@
     "name": "R15.4 defaultItemView",
     "sourceFile": "src/public/ts/trace/rb-object-item.ts",
     "sourceLine": 8,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:2c502c22-a96e-4aee-b86b-2365edf62edb"
+    ]
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:f7629f0e-6b0c-4c21-8166-aff7e7129f09"
 }

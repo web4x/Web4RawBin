@@ -7,7 +7,8 @@
     "methodName": "upload",
     "sourceFile": "ior:file:src/ts/server/FileApi.ts",
     "implementations": [
-      "ior:instance:c546c877-9907-4f17-b61a-1157b0902765"
+      "ior:instance:c546c877-9907-4f17-b61a-1157b0902765",
+      "ior:instance:cdbd3970-ba43-4efc-920d-8352d3c4daa0"
     ],
     "parent": "ior:instance:3e0ceb94-d08e-4e43-8855-90f3c5b13be1",
     "unitLinks": []

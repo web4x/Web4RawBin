@@ -5,7 +5,10 @@
     "name": "R16.1 DetailViewContainer",
     "sourceFile": "src/public/ts/trace/rb-detail-drawer.ts",
     "sourceLine": 7,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:8edfcdd6-248c-46f8-bdfa-c2d8709be716"
+    ]
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:8615d646-8ad4-4d31-bcf4-99fbaa0bd911"
 }

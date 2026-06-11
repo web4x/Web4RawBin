@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "0a618ddd-0eb1-44b4-90d2-1bbf8aac5efb",
+    "name": "test:R15.7+R18.8",
+    "description": "Bridged to test/vitest/server.test.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:f2dbefd1-c76d-48cc-b397-b6d66ddbba4d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f2dbefd1-c76d-48cc-b397-b6d66ddbba4d"
+}

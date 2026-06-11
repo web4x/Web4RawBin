@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "6835fff4-79bb-467a-8df5-c13563563a40",
+    "name": "test:AC5 check (non-zero) / AC3 fix",
+    "description": "Bridged to test/vitest/server.test.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:179ed2ba-ba29-4fc4-b525-fab14fb04e7c"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:179ed2ba-ba29-4fc4-b525-fab14fb04e7c"
+}

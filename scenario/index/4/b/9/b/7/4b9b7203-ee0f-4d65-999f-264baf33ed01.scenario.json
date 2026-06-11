@@ -5,7 +5,10 @@
     "name": "R17 full chain",
     "sourceFile": "src/public/ts/trace/rb-test-detail.ts",
     "sourceLine": 3,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:6213634f-0210-4b0a-a68b-53e948021590"
+    ]
   },
   "ownerIor": null
 }

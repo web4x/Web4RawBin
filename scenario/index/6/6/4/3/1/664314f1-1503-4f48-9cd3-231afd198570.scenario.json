@@ -5,7 +5,10 @@
     "name": "R17.12",
     "sourceFile": "src/ts/scenario/ior-resolver.ts",
     "sourceLine": 5,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:1179288e-8291-4df7-ad0f-28f78030dd97"
+    ]
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:9d5369a9-17af-4884-bfdd-f981450f3852"
 }

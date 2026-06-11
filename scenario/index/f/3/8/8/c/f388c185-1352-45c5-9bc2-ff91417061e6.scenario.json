@@ -5,7 +5,10 @@
     "name": "R17.7-R17.10",
     "sourceFile": "src/ts/scenario/generator.ts",
     "sourceLine": 6,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:4e4ca4d7-a539-4f26-a190-a3f4c71d93cb"
+    ]
   },
   "ownerIor": null
 }

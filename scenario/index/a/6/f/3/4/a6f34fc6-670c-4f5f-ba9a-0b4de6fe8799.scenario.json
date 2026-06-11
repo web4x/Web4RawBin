@@ -5,7 +5,9 @@
     "name": "AppClient.render",
     "className": "AppClient",
     "methodName": "render",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:784f17fd-53d4-4b45-86e4-5f3391ba3fdd"
+    ],
     "implementation": "ior:instance:ef863349-470d-420b-b933-8339951bb501",
     "sourceFile": "ior:file:src/public/ts/RoomBrowser.ts",
     "sourceLine": 40,

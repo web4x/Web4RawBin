@@ -5,7 +5,10 @@
     "name": "R14.1 migrate legacy rooms",
     "sourceFile": "src/ts/server/Migration.ts",
     "sourceLine": 12,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:30260096-824b-42c3-98e9-46ddcde01ca0"
+    ]
   },
   "ownerIor": null
 }

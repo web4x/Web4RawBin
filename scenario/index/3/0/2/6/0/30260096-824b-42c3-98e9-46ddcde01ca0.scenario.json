@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "30260096-824b-42c3-98e9-46ddcde01ca0",
+    "name": "test:R14.1 migrate legacy rooms",
+    "description": "Bridged to test/vitest/room.test.ts",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:b571be43-05f8-4f59-bac9-0f2ac46b8b89"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b571be43-05f8-4f59-bac9-0f2ac46b8b89"
+}

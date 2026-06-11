@@ -5,7 +5,10 @@
     "name": "R16.2 UseCaseDetailView",
     "sourceFile": "src/public/ts/trace/rb-usecase-detail.ts",
     "sourceLine": 7,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:802363cb-2693-4892-90b5-3da5fc70e8bf"
+    ]
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:00d9e37e-46ef-40d1-9e1c-7243ace69729"
 }

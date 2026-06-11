@@ -5,7 +5,10 @@
     "name": "R16.5 square SVG type icons",
     "sourceFile": "src/public/ts/trace/icons.ts",
     "sourceLine": 6,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:24be2c0c-c347-4b33-a651-ac7b5486d972"
+    ]
   },
   "ownerIor": null
 }

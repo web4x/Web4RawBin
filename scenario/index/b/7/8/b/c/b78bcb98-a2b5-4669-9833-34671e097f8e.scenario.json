@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b78bcb98-a2b5-4669-9833-34671e097f8e",
+    "name": "test:R15.6 Overview (always-consistent)",
+    "description": "Bridged to test/vitest/server.test.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:8d98abfd-9970-4951-8344-b82828b7dac4"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:8d98abfd-9970-4951-8344-b82828b7dac4"
+}

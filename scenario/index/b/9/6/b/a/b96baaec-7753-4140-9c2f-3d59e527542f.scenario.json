@@ -4,7 +4,9 @@
     "uuid": "b96baaec-7753-4140-9c2f-3d59e527542f",
     "name": "RbEditorLayout.backButton",
     "sourceFile": "ior:file:src/public/ts/components/rb-editor-layout.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:1e9916f1-7e29-4e9d-9aa9-c930fe693c9f"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:94e7bf82"

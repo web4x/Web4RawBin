@@ -5,7 +5,10 @@
     "name": "R-M3",
     "sourceFile": "src/public/ts/scenario-view.ts",
     "sourceLine": 6,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:9e8520f3-bf7e-4a15-b7a3-c20bd9cecd7b"
+    ]
   },
   "ownerIor": null
 }

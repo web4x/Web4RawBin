@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "43c87420-1ed0-4766-8c1b-d932f775d052",
+    "name": "test:R14.2 migrate user dirs to UUIDv4",
+    "description": "Bridged to test/vitest/room.test.ts",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:bc75b1c1-707c-443a-a2f8-2d776e9062c6"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:bc75b1c1-707c-443a-a2f8-2d776e9062c6"
+}

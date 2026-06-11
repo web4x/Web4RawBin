@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9e8520f3-bf7e-4a15-b7a3-c20bd9cecd7b",
+    "name": "test:R-M3",
+    "description": "Bridged to test/vitest/scenario.test.ts",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:a5e38244-b86a-4abd-9792-58f1a268c42c"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a5e38244-b86a-4abd-9792-58f1a268c42c"
+}

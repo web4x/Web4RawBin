@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8edfcdd6-248c-46f8-bdfa-c2d8709be716",
+    "name": "test:R16.1 DetailViewContainer",
+    "description": "Bridged to test/vitest/impl-coverage-batch.test.ts",
+    "sourceFile": "ior:file:test/vitest/impl-coverage-batch.test.ts",
+    "implementations": [
+      "ior:instance:19654b84-90e4-4a89-a9a8-10221f883d25"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:19654b84-90e4-4a89-a9a8-10221f883d25"
+}

@@ -5,7 +5,10 @@
     "name": "R15.1 typed object model",
     "sourceFile": "src/ts/shared/TraceModel.ts",
     "sourceLine": 9,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:8c45f71a-49a8-43a9-ac7b-fd50b63ed50b"
+    ]
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:0887265f-6652-451b-8986-34b6a7f909b1"
 }

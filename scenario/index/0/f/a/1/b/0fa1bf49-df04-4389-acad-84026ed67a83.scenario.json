@@ -5,7 +5,9 @@
     "name": "ViewTemplateRegistry.register(className",
     "className": "ViewTemplateRegistry",
     "methodName": "register(className",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:1d2024fb-f7be-4bd8-b452-b154b0150ee3"
+    ],
     "implementation": "ior:instance:1d2024fb-f7be-4bd8-b452-b154b0150ee3",
     "sourceFile": "ior:file:src/ts/scenario/templates.ts",
     "sourceLine": 15,
