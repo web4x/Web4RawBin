@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2c2bd7d1-93e9-4554-9af0-656ed48750fa",
+    "name": "test:R19.69 iframeSandbox",
+    "sourceFile": "ior:file:test/vitest/components.test.ts",
+    "implementations": [
+      "ior:instance:96fbfac9-10c2-4543-986b-a66b8eaebeda"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:96fbfac9-10c2-4543-986b-a66b8eaebeda"
+}

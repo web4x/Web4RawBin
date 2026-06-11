@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f9c4e91a-ce53-49e9-b022-6ba7b54af93b",
+    "name": "test:R19.68 roomScopedAccess",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:e872cf5c-b500-49c0-9836-b3779f33dd78"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e872cf5c-b500-49c0-9836-b3779f33dd78"
+}

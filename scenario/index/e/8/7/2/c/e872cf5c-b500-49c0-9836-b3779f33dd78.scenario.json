@@ -5,7 +5,9 @@
     "name": "FileApi.roomScopedAccess impl",
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 483,
-    "tests": [],
+    "tests": [
+      "ior:instance:f9c4e91a-ce53-49e9-b022-6ba7b54af93b"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:31fa49b3-e8c1-4c0b-835a-8764fa33ee59"

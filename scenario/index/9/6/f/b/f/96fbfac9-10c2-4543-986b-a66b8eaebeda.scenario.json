@@ -5,7 +5,9 @@
     "name": "ContentPreviewer.iframeSandbox impl",
     "sourceFile": "src/public/ts/trace/content-preview.ts",
     "sourceLine": 19,
-    "tests": [],
+    "tests": [
+      "ior:instance:2c2bd7d1-93e9-4554-9af0-656ed48750fa"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:8410c58c-9a15-4350-8e22-4efbb535adda"

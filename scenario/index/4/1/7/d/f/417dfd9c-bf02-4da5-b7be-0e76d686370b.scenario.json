@@ -4,7 +4,9 @@
     "uuid": "417dfd9c-bf02-4da5-b7be-0e76d686370b",
     "name": "UserScenario.scenarioUnit",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:6a5204d0-dcbf-4b1d-b8c0-eb0036825dfb"
+    ]
   },
   "ownerIor": null
 }
