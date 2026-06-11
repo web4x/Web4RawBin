@@ -4,7 +4,9 @@
     "uuid": "7c3fa6a4-9c36-472a-9771-bdd1b1e1b9d5",
     "name": "DeviceEnrollDialog.removeLocalIdentity",
     "description": "Red button in DeviceEnrollDialog that clears localStorage identity data and reloads. Moved from ProfileEditor gate-mode (was impl 25884b0c).",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:65af0f55-cd53-4fca-97b4-4b9684dfd76e"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:9867b252-1d7f-44ce-8f7e-f07fff0ea95a"

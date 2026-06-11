@@ -1937,6 +1937,61 @@ describe('R19.87: preview-zoom-container touch-action=pan-y (CSS guard)', () => 
   });
 });
 
+// ═══════════════════════════════════════════════════════════════════════════
+// R19.88: BEHAVIORAL — whenDefined gate → created items are upgraded instances
+// [test:uuid:6a03bcb6-7719-4125-8f63-265a6479cf68] R19.88 whenDefinedUpgrade
+// Honest: jsdom guards upgrade-gate present; Tron device = seal.
+// ═══════════════════════════════════════════════════════════════════════════
+
+describe('R19.88: render awaits whenDefined → items are upgraded', () => {
+  it('render() awaits whenDefined before its renderMemberList call', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/RoomView.ts'), 'utf-8');
+    const whenDefIdx = src.indexOf("whenDefined('rb-object-item')");
+    expect(whenDefIdx).toBeGreaterThan(-1);
+    const afterWhenDef = src.indexOf('this.renderMemberList()', whenDefIdx);
+    expect(afterWhenDef).toBeGreaterThan(whenDefIdx);
+  });
+
+  it('rb-object-item defined via customElements.define upgrades on createElement', () => {
+    class MockRbObjectItem extends HTMLElement {
+      upgraded = false;
+      connectedCallback() { this.upgraded = true; }
+    }
+    if (!customElements.get('rb-object-item-test')) {
+      customElements.define('rb-object-item-test', MockRbObjectItem);
+    }
+    const el = document.createElement('rb-object-item-test');
+    document.body.appendChild(el);
+    expect(el).toBeInstanceOf(MockRbObjectItem);
+    expect(el.upgraded).toBe(true);
+    el.remove();
+  });
+
+  it('createElement before define produces HTMLElement, whenDefined+upgrade fixes it', async () => {
+    const tag = 'rb-test-upgrade-' + Date.now();
+    const el = document.createElement(tag);
+    expect(el).not.toBeInstanceOf(HTMLDivElement);
+    document.body.appendChild(el);
+
+    class UpgradedEl extends HTMLElement {
+      wasUpgraded = false;
+      connectedCallback() { this.wasUpgraded = true; }
+    }
+    customElements.define(tag, UpgradedEl);
+    await customElements.whenDefined(tag);
+
+    const el2 = document.createElement(tag);
+    document.body.appendChild(el2);
+    expect(el2).toBeInstanceOf(UpgradedEl);
+    expect(el2.wasUpgraded).toBe(true);
+    el.remove();
+    el2.remove();
+  });
+});
+
 describe('R19.84: handle drag resizes drawer to 95vh, close below 120px', () => {
   it('drawer CSS max-height is 95vh', () => {
     const { readFileSync } = require('node:fs');

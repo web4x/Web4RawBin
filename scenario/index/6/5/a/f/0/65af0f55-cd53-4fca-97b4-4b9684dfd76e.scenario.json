@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "65af0f55-cd53-4fca-97b4-4b9684dfd76e",
+    "name": "DeviceEnrollDialog.removeLocalIdentity impl",
+    "sourceFile": "ior:file:src/public/ts/DeviceEnrollDialog.ts",
+    "sourceLine": 65,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:7c3fa6a4-9c36-472a-9771-bdd1b1e1b9d5"
+}
