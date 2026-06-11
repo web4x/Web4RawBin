@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8a7248be-f838-4c13-83a7-5ee39c1a82c1",
+    "name": "impl:RbRequirementDetail.render",
+    "sourceFile": "src/public/ts/trace/rb-test-detail.ts",
+    "sourceLine": 15,
+    "methods": [
+      "ior:instance:f2930f5e-c748-49f5-888e-2d3aaa9a9012"
+    ]
+  },
+  "ownerIor": "ior:instance:f2930f5e-c748-49f5-888e-2d3aaa9a9012"
+}

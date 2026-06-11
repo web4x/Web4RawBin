@@ -3,7 +3,9 @@
   "model": {
     "uuid": "ff9d3fd3-a58f-4adb-83d4-73f7701b6890",
     "name": "SkillExpert.coSpecify",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:0a168455-91ed-4eda-9c29-f082c94cc87a"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8f6cdf8e-a6f2-490c-a4de-718a846d6270",
+    "name": "impl:RbObjectItem.dragGhost",
+    "sourceFile": "src/public/ts/trace/rb-object-item.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:19499830-2e59-4afb-8718-78327212bbec"
+    ]
+  },
+  "ownerIor": "ior:instance:19499830-2e59-4afb-8718-78327212bbec"
+}

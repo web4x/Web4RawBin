@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "97f7a785-a736-40e6-a61a-a0fd94cef59c",
+    "name": "impl:FileUnit.linkToRoom",
+    "sourceFile": "src/ts/scenario/file-unit.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:8e9f0a1b-2c3d-4e5f-6a7b-8c9d0e1f2a3b"
+    ]
+  },
+  "ownerIor": "ior:instance:8e9f0a1b-2c3d-4e5f-6a7b-8c9d0e1f2a3b"
+}

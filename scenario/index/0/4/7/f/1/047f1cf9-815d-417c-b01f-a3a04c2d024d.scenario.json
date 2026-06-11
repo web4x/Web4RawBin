@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "047f1cf9-815d-417c-b01f-a3a04c2d024d",
+    "name": "impl:RbTraceTree.lazyAppend",
+    "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:9e30524f-007b-44e9-bb1d-0d334c4682fb"
+    ]
+  },
+  "ownerIor": "ior:instance:9e30524f-007b-44e9-bb1d-0d334c4682fb"
+}

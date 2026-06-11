@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ea95a4aa-42c0-4aaf-b236-14b9c85c5a73",
+    "name": "impl:RbTraceTree.syncSelection",
+    "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:aada3b61-9270-4868-a702-0a2bfd0ad154"
+    ]
+  },
+  "ownerIor": "ior:instance:aada3b61-9270-4868-a702-0a2bfd0ad154"
+}

@@ -3,7 +3,9 @@
   "model": {
     "uuid": "497e70fe-f4e1-4a68-b51c-139e310c2d0f",
     "name": "RbDetailDrawer.browseFile",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:b1893b0d-3d7d-476e-80e3-31d2f06d4a0a"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"

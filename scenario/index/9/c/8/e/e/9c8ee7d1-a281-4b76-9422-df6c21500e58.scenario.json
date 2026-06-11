@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "9c8ee7d1-a281-4b76-9422-df6c21500e58",
+    "name": "RbTraceTree.cycleGuard",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
+}

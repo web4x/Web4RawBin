@@ -6,7 +6,9 @@
     "className": "RbRoomDetail",
     "methodName": "modeSet",
     "sourceFile": "ior:file:src/public/ts/room/rb-room-detail.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:d3491428-d77c-4d91-aa81-dfbf03c297bd"
+    ],
     "parent": "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431",
     "unitLinks": []
   },

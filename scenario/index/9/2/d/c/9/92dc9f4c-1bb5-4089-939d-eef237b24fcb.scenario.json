@@ -3,7 +3,9 @@
   "model": {
     "uuid": "92dc9f4c-1bb5-4089-939d-eef237b24fcb",
     "name": "RbTraceTree.cycleGuard",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:9c8ee7d1-a281-4b76-9422-df6c21500e58"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:108b7283-94a5-46b7-898e-b08080808108"

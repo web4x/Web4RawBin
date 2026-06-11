@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "be7cfbd8-75ab-402a-a020-6e542667b2ab",
+    "name": "impl:RbDetailDrawer.parentNav",
+    "sourceFile": "src/public/ts/trace/rb-detail-drawer.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:d9d4eeb7-6d50-4d4d-9272-5526b8d86021"
+    ]
+  },
+  "ownerIor": "ior:instance:d9d4eeb7-6d50-4d4d-9272-5526b8d86021"
+}

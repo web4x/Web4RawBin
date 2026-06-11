@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f866c678-ee3a-4820-8660-576106460612",
+    "name": "impl:SvgViewer.onPinchEnd",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:4a4591ca-3806-4034-b9c1-def621c9b452"
+    ]
+  },
+  "ownerIor": "ior:instance:4a4591ca-3806-4034-b9c1-def621c9b452"
+}

@@ -3,7 +3,9 @@
   "model": {
     "uuid": "cfbcbb42-5642-45c1-b202-1822fefbbbeb",
     "name": "RbClassDetail.renderAll",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:c7c1936c-422f-4e6d-a2c4-e2100af443c3"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5"

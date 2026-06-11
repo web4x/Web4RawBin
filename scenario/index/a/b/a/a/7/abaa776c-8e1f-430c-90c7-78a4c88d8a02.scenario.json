@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "abaa776c-8e1f-430c-90c7-78a4c88d8a02",
+    "name": "impl:RbObjectItem.expandChildren",
+    "sourceFile": "src/public/ts/trace/rb-object-item.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:f2134e76-33ac-44fd-84ca-0c68b54f4a95"
+    ]
+  },
+  "ownerIor": "ior:instance:f2134e76-33ac-44fd-84ca-0c68b54f4a95"
+}

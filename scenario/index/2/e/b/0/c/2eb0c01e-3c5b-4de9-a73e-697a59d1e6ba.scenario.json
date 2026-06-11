@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "2eb0c01e-3c5b-4de9-a73e-697a59d1e6ba",
+    "name": "impl:SprintMdGenerator.checkRoundTrip",
+    "sourceFile": "scripts/regenerate-views.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:3108e643-ee8b-4211-bc59-c4e782586a70"
+    ]
+  },
+  "ownerIor": "ior:instance:3108e643-ee8b-4211-bc59-c4e782586a70"
+}

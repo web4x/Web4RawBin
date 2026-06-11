@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ba1e6140-77c8-4e15-a9bf-75af63a6911b",
+    "name": "impl:RbDetailDrawer.open",
+    "sourceFile": "src/public/ts/trace/rb-object-item.ts",
+    "sourceLine": 70,
+    "methods": [
+      "ior:instance:d2935088-2a32-41e7-afd0-4e8195471ae2"
+    ]
+  },
+  "ownerIor": "ior:instance:d2935088-2a32-41e7-afd0-4e8195471ae2"
+}

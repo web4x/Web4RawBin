@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d3491428-d77c-4d91-aa81-dfbf03c297bd",
+    "name": "RbRoomDetail.modeSet",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431"
+}

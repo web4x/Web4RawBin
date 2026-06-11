@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0065842a-39c7-4c09-ae24-0136da8d337e",
+    "name": "impl:FileBrowser.fixDisplay",
+    "sourceFile": "src/ts/server/FileApi.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:635545cd-c483-4cfe-a385-b57fafc768ac"
+    ]
+  },
+  "ownerIor": "ior:instance:635545cd-c483-4cfe-a385-b57fafc768ac"
+}

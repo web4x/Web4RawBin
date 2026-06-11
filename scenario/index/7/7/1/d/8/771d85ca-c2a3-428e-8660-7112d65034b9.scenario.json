@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "771d85ca-c2a3-428e-8660-7112d65034b9",
+    "name": "impl:ClassRegistry.get(name): ClassLoader",
+    "sourceFile": "src/public/ts/ViewBus.ts",
+    "sourceLine": 10,
+    "methods": [
+      "ior:instance:607fef49-9395-439e-8ee1-f21d02978447"
+    ]
+  },
+  "ownerIor": "ior:instance:607fef49-9395-439e-8ee1-f21d02978447"
+}

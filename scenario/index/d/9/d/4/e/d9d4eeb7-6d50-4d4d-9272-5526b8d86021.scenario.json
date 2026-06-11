@@ -3,7 +3,9 @@
   "model": {
     "uuid": "d9d4eeb7-6d50-4d4d-9272-5526b8d86021",
     "name": "RbDetailDrawer.parentNav",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:cf186410-da1f-4893-a7fe-c5f348533d0e"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"

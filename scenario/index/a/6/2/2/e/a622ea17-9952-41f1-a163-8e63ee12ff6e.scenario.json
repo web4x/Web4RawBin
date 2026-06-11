@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a622ea17-9952-41f1-a163-8e63ee12ff6e",
+    "name": "impl:IORResolver.resolve(ior): ScenarioUnit | ClassLoader",
+    "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
+    "sourceLine": 283,
+    "methods": [
+      "ior:instance:926b1a00-fe56-4a1c-924b-3c41bf9635ad"
+    ]
+  },
+  "ownerIor": "ior:instance:926b1a00-fe56-4a1c-924b-3c41bf9635ad"
+}

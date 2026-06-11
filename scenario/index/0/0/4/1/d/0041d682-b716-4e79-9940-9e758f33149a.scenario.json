@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0041d682-b716-4e79-9940-9e758f33149a",
+    "name": "impl:ViewTemplateRegistry.register(className",
+    "sourceFile": "src/public/ts/trace/VerbRegistry.ts",
+    "sourceLine": 28,
+    "methods": [
+      "ior:instance:0fa1bf49-df04-4389-acad-84026ed67a83"
+    ]
+  },
+  "ownerIor": "ior:instance:0fa1bf49-df04-4389-acad-84026ed67a83"
+}

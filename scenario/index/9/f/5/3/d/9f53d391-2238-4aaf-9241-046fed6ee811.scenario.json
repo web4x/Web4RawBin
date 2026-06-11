@@ -6,7 +6,9 @@
     "className": "RbRoomContent",
     "methodName": "render",
     "sourceFile": "ior:file:src/public/ts/room/rb-room-content.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:0379a7e6-247e-42c1-9d16-bbdd545d8149"
+    ],
     "parent": "ior:instance:792246f1-346e-4337-9619-b38d8641769f",
     "unitLinks": []
   },

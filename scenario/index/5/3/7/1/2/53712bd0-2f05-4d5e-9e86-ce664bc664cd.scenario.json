@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "53712bd0-2f05-4d5e-9e86-ce664bc664cd",
+    "name": "impl:TraceRouter.navigate",
+    "sourceFile": "src/public/ts/trace/rb-test-detail.ts",
+    "sourceLine": 35,
+    "methods": [
+      "ior:instance:d1068f81-dc16-45a0-a52e-7a98c04208fc"
+    ]
+  },
+  "ownerIor": "ior:instance:d1068f81-dc16-45a0-a52e-7a98c04208fc"
+}

@@ -3,7 +3,9 @@
   "model": {
     "uuid": "19f0d4e0-80f7-4792-9a46-d536bc5f7b7b",
     "name": "RbDetailDrawer.narrowChain",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:af52e53a-8c8a-4982-8e6a-47e2a32e9887"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"

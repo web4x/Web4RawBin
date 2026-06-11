@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8e935ec6-5e1e-4d80-9c62-228b5200c73a",
+    "name": "impl:RbObjectItem.collapse",
+    "sourceFile": "src/public/ts/trace/rb-object-item.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:a48cc8af-488d-443f-ba01-d33568bb8920"
+    ]
+  },
+  "ownerIor": "ior:instance:a48cc8af-488d-443f-ba01-d33568bb8920"
+}

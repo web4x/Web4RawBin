@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8c2eabda-55d0-4b39-9ced-a67328b57140",
+    "name": "RbEditorLayout.backNav",
+    "sourceFile": "ior:file:src/public/ts/components/rb-editor-layout.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:94e7bf82-f867-4352-88b4-8c2a45bff4d4"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f12ab96c-d1ae-4676-a66f-9c7472cf3589",
+    "name": "impl:PathHeader.clickNavigate",
+    "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:40afd80e-c5a9-438e-a362-a84476fea42a"
+    ]
+  },
+  "ownerIor": "ior:instance:40afd80e-c5a9-438e-a362-a84476fea42a"
+}

@@ -3,7 +3,9 @@
   "model": {
     "uuid": "ae9c1952-6d9a-4d1d-a972-106a7099ca02",
     "name": "Room.validateScenarioShape",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:8dc24c07-7677-41a1-b1a6-49d847ef0285"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"

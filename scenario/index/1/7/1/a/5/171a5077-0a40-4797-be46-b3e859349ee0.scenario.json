@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "171a5077-0a40-4797-be46-b3e859349ee0",
+    "name": "impl:TraceConsistency.scanRepo",
+    "sourceFile": "src/ts/server/trace-cli.ts",
+    "sourceLine": 23,
+    "methods": [
+      "ior:instance:963b67a2-488c-4580-b5ba-697537f02754"
+    ]
+  },
+  "ownerIor": "ior:instance:963b67a2-488c-4580-b5ba-697537f02754"
+}

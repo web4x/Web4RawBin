@@ -4,7 +4,9 @@
     "uuid": "a83cd5a4-2d3c-4113-b4cf-6148803d9f7b",
     "name": "Room.stripSpectator",
     "description": "Delete spectators Map, all spectator methods (add/remove/promote/sendTo/find), spectator MSG types from MessageTypes.ts, client spectator methods, spectatorCount from info(). Also strip spectator checks from ws.close and LEAVE_ROOM handlers.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:92a4d818-2830-43fe-abf2-f27d136f7cf7"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"

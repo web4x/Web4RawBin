@@ -3,7 +3,9 @@
   "model": {
     "uuid": "5f6a7b8c-9d0e-4f1a-2b3c-4d5e6f7a8b9c",
     "name": "RbObjectItem.squareCollapse",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:706928ec-d6c1-4c1e-add1-0f3910f92c62"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"

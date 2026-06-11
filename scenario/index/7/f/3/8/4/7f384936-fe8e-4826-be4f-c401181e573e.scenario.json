@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7f384936-fe8e-4826-be4f-c401181e573e",
+    "name": "Room.stripSizeLimits",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+}

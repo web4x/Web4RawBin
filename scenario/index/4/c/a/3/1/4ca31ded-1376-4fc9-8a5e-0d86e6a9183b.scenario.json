@@ -6,7 +6,9 @@
     "name": "R19.17: Accepting the invite-request message joins the requester to the room.",
     "description": "Tron literal sub-clause split from R19.5 per R-I.",
     "tronQuote": "> TRON: the message can be accepted and they join",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:1805f7db-f57c-4a6a-b5d2-5e413d1643a3"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

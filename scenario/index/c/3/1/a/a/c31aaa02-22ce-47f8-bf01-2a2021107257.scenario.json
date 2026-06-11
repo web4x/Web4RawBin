@@ -6,7 +6,9 @@
     "name": "R19.19: The room mode can be switched from PERSISTENT to LIVE in the room editor.",
     "description": "Tron literal sub-clause split from R19.10 per R-I.",
     "tronQuote": "> TRON: it can be switched to live mode in the room editor",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:312cb103-17fe-4817-b1e9-8bffaabbbf27"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

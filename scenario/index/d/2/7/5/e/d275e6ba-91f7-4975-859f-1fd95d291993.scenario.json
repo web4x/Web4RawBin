@@ -3,7 +3,9 @@
   "model": {
     "uuid": "d275e6ba-91f7-4975-859f-1fd95d291993",
     "name": "RbRoomContent.applyButton",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:cf0a5f53-540e-40b3-9f5b-cb1c0c04e5f7"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:792246f1-0000-0000-0000-000000000000"

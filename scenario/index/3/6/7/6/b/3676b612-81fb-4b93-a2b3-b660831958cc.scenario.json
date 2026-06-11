@@ -6,7 +6,9 @@
     "name": "R19.21.B: Drag preview shows the full item card, not just the icon.",
     "description": "When dragging an rb-object-item (tree item), the drag image/ghost MUST render the FULL item card (icon + speaky name + word-wrap description) \u2014 not just the icon square. Applies to rb-object-item everywhere it appears: /trace browser AND in-room Members/Files tree. This is a component-level fix on rb-object-item's dragstart handler (setDragImage must clone the full item element, not just the icon).",
     "tronQuote": "> TRON: \"the drag preview is just the icon but it should be the full item.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:2195d98f-eb78-47da-9048-e8553d2b8d35"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

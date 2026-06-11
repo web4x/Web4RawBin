@@ -3,7 +3,9 @@
   "model": {
     "uuid": "5f02d53c-9ccd-41cc-9035-d56cd2b9f524",
     "name": "server.sprintZeroPad",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:6ecbfc60-d169-4597-b371-c09ced9d762b"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"

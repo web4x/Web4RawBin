@@ -3,7 +3,9 @@
   "model": {
     "uuid": "91512ade-1baa-432d-b3e9-67852d61aa2f",
     "name": "migrate-to-scenario.ts:migrate",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:780d1c20-e694-4cfe-b057-e988e6843cc4"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"

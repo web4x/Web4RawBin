@@ -3,7 +3,9 @@
   "model": {
     "uuid": "d67af41f-0f2d-4329-a3eb-023de48187bd",
     "name": "RbDetailDrawer.stickyBottom",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:dc23a538-b6de-44ee-9de5-d25373b4fb47"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"

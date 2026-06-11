@@ -6,7 +6,9 @@
     "name": "R19.8.A: Persistent rooms flip a leaving member to offline status instead of pruning them from the member list.",
     "description": "When a member leaves (disconnects, navigates away, or closes the app) a persistent room, the server MUST toggle their status from online to offline \u2014 NOT remove (prune) them from the member list. The member row stays visible in the Members tree with an offline indicator. Rejoining flips the status back to online. This is the transition-event contract that R19.8 implies but does not explicitly state: R19.8 describes the steady-state (members shown as offline), R19.8.A makes the leave-event behavior explicit (flip, never prune). Royal Jungle bug anchor.",
     "tronQuote": "> PO directive 2026-06-10: persistent rooms must RETAIN members on leave + only toggle online/offline (Royal Jungle bug anchor). Anchored on TRON: \"persistent rooms add every one to the members list even if they are offline but show them as offline. but no contact gets ever lost.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:fa8fffc8-8e2e-4b8c-a79b-8e7c1d1c8f0e"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

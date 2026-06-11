@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4e64e63a-08d6-4354-a444-5351c937b6b3",
+    "name": "impl:Room.persistMembers",
+    "sourceFile": "src/ts/server/Room.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:2dabc43d-6277-4595-864a-c16dde810283"
+    ]
+  },
+  "ownerIor": "ior:instance:2dabc43d-6277-4595-864a-c16dde810283"
+}

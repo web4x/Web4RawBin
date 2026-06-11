@@ -3,7 +3,9 @@
   "model": {
     "uuid": "d979e1a6-8ec4-4ef2-af9b-c6e93ba109ee",
     "name": "FileApi.lineParam",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:d349be00-9ab7-49d3-950e-8efddc597b11"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:2592c3c9-24e1-4d6a-bce7-79f129b1df94"

@@ -4,7 +4,9 @@
     "uuid": "6fc898ab-a933-4756-920a-3c9e4050d234",
     "name": "RbRoomDetail.editOpen",
     "description": "Opens the room config/scenario editor when pencil icon or room name is clicked.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:f9b579c1-7495-4f93-8dec-736a0410a69a"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:5a6d931a-e4f5-4321-b987-6a7b8c9d0e1f"

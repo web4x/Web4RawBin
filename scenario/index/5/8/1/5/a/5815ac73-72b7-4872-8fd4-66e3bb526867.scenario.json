@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5815ac73-72b7-4872-8fd4-66e3bb526867",
+    "name": "impl:RbDetailDrawer.singularChain",
+    "sourceFile": "src/public/ts/trace/rb-usecase-detail.ts",
+    "sourceLine": 33,
+    "methods": [
+      "ior:instance:e945e562-9cb4-4543-97d2-3865441f838c"
+    ]
+  },
+  "ownerIor": "ior:instance:e945e562-9cb4-4543-97d2-3865441f838c"
+}

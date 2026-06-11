@@ -6,7 +6,9 @@
     "name": "R19.16: BY-INVITE rooms show an Apply button instead of a join button.",
     "description": "Tron literal sub-clause split from R19.5 per R-I.",
     "tronQuote": "> TRON: the show not a join button like public rooms but an Apply button",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:1805f7db-f57c-4a6a-b5d2-5e413d1643a3"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

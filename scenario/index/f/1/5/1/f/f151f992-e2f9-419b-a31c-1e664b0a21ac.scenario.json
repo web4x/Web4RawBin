@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f151f992-e2f9-419b-a31c-1e664b0a21ac",
+    "name": "impl:TraceConsistency.auditOrphans",
+    "sourceFile": "src/ts/server/TraceConsistency.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:415c9e2d-8e89-4019-851a-4e7a57de48ee"
+    ]
+  },
+  "ownerIor": "ior:instance:415c9e2d-8e89-4019-851a-4e7a57de48ee"
+}

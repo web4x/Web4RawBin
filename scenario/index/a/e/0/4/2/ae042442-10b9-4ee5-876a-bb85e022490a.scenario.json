@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ae042442-10b9-4ee5-876a-bb85e022490a",
+    "name": "RbObjectItem.iconDrag",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+}

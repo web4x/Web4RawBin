@@ -3,7 +3,9 @@
   "model": {
     "uuid": "3a671bfc-12c2-4922-938e-01572d90808e",
     "name": "RbDetailDrawer.stickyClose",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:148b8415-ce17-485d-93fe-ae6414b87c91"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"

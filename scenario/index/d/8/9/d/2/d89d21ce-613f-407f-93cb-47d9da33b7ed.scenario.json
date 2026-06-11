@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d89d21ce-613f-407f-93cb-47d9da33b7ed",
+    "name": "impl:PageNav.stickyTop",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:fda3b1b3-bff7-4522-9e6e-e41d0b27f1a7"
+    ]
+  },
+  "ownerIor": "ior:instance:fda3b1b3-bff7-4522-9e6e-e41d0b27f1a7"
+}

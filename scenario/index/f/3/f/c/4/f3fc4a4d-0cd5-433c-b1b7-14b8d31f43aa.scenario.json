@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f3fc4a4d-0cd5-433c-b1b7-14b8d31f43aa",
+    "name": "impl:ScenarioIndex.get(uuid): ScenarioUnit",
+    "sourceFile": "src/public/ts/ViewBus.ts",
+    "sourceLine": 10,
+    "methods": [
+      "ior:instance:87e56c4b-b1bd-4369-a011-2e83bb2521b3"
+    ]
+  },
+  "ownerIor": "ior:instance:87e56c4b-b1bd-4369-a011-2e83bb2521b3"
+}

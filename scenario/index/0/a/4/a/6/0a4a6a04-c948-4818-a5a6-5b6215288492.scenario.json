@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0a4a6a04-c948-4818-a5a6-5b6215288492",
+    "name": "impl:ScenarioUnit.load(json): this",
+    "sourceFile": "src/public/ts/trace/rb-task-detail.ts",
+    "sourceLine": 61,
+    "methods": [
+      "ior:instance:642f9bc5-487b-482d-b537-593e3ac7819d"
+    ]
+  },
+  "ownerIor": "ior:instance:642f9bc5-487b-482d-b537-593e3ac7819d"
+}

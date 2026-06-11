@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4189d982-c1fd-44c1-811e-d9768bbb13fe",
+    "name": "impl:TraceNarrow.classMethodScope",
+    "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:674fc9b0-98de-40e4-8287-54908f979065"
+    ]
+  },
+  "ownerIor": "ior:instance:674fc9b0-98de-40e4-8287-54908f979065"
+}

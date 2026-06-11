@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e16a3812-4a2a-472f-85ba-373733cd6b25",
+    "name": "RbTraceTree.fetchAndRenderChildren",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:108b7283-94a5-46b7-898e-b08080808108"
+}

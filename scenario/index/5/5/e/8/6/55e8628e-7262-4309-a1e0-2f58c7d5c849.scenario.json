@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "55e8628e-7262-4309-a1e0-2f58c7d5c849",
+    "name": "impl:SpeakingTree.extendClasses",
+    "sourceFile": "src/ts/scenario/generator.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:c474bc4d-f937-4b10-bb3b-5de3176636b3"
+    ]
+  },
+  "ownerIor": "ior:instance:c474bc4d-f937-4b10-bb3b-5de3176636b3"
+}

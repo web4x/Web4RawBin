@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7949e851-c461-41ce-9e0d-13f5d482b7b9",
+    "name": "RbRoomContent.mountTraceTree",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:792246f1-0000-0000-0000-000000000000"
+}

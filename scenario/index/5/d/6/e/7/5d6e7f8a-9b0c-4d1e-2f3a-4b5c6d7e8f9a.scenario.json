@@ -3,7 +3,9 @@
   "model": {
     "uuid": "5d6e7f8a-9b0c-4d1e-2f3a-4b5c6d7e8f9a",
     "name": "ServiceWorker.ignoreSearchNav",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:69568826-b8ff-4a47-8e9d-7ea0469891c6"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133"

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c3d8efcc-dce1-4c08-b341-63403cd316a6",
+    "name": "impl:RbRoomContent.linkResolve",
+    "sourceFile": "src/public/ts/RoomView.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:3b4c5d6e-7f8a-4b9c-0d1e-2f3a4b5c6d7e"
+    ]
+  },
+  "ownerIor": "ior:instance:3b4c5d6e-7f8a-4b9c-0d1e-2f3a4b5c6d7e"
+}

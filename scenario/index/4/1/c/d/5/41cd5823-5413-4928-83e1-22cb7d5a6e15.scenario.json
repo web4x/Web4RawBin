@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "41cd5823-5413-4928-83e1-22cb7d5a6e15",
+    "name": "RbRoomDetail.editCanonical",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431"
+}

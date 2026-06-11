@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "62875e65-76db-421a-a442-276fa812e9fd",
+    "name": "impl:TraceConsistency.validate",
+    "sourceFile": "src/ts/server/trace-cli.ts",
+    "sourceLine": 24,
+    "methods": [
+      "ior:instance:e6a2d67f-0f6e-4394-be50-5a6a068bcd03"
+    ]
+  },
+  "ownerIor": "ior:instance:e6a2d67f-0f6e-4394-be50-5a6a068bcd03"
+}

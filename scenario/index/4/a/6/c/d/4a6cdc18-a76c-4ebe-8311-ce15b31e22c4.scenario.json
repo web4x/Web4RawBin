@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4a6cdc18-a76c-4ebe-8311-ce15b31e22c4",
+    "name": "impl:ChainLink.iconInView",
+    "sourceFile": "src/public/ts/trace/singular-chain.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:f832807d-5ced-4240-a39f-1e31e26c81bf"
+    ]
+  },
+  "ownerIor": "ior:instance:f832807d-5ced-4240-a39f-1e31e26c81bf"
+}

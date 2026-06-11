@@ -6,7 +6,9 @@
     "name": "R19.21.A: Members and Files nodes are rb-object-item folder nodes containing child items, not bespoke section headers.",
     "description": "The 'Members' and 'Files' nodes in the in-room tree MUST be THEMSELVES rb-object-item instances of folder/collection type \u2014 NOT bespoke section headers with custom styling. They contain member items / file items as expandable/collapsible children (folder semantics, same item model as /trace). This fixes the black-on-black contrast issue (bespoke headers become real items with proper theming) and enforces the R19.21 component-identity constraint at the structural level: every node in the room tree is an rb-object-item, including the two root folders.",
     "tronQuote": "> TRON: \"members and folders black on black and basically they shall be themselves items and be treated like folders containing the other items.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:2195d98f-eb78-47da-9048-e8553d2b8d35"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

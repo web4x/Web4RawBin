@@ -3,7 +3,9 @@
   "model": {
     "uuid": "2dabc43d-6277-4595-864a-c16dde810283",
     "name": "Room.persistMembers",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:6ba255ba-8d05-4d25-ab29-307dcddafba4"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"

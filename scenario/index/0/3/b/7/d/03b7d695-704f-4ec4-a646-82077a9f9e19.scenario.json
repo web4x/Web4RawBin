@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "03b7d695-704f-4ec4-a646-82077a9f9e19",
+    "name": "impl:RbTraceTree.computeBadges",
+    "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
+    "sourceLine": 126,
+    "methods": [
+      "ior:instance:9d0e1f2a-3b4c-4d5e-6f7a-8b9c0d1e2f3a"
+    ]
+  },
+  "ownerIor": "ior:instance:9d0e1f2a-3b4c-4d5e-6f7a-8b9c0d1e2f3a"
+}

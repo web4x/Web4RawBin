@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8a28a2e0-6239-46f7-9e6b-45f1d6308724",
+    "name": "impl:RbDetailDrawer.swipeDismiss",
+    "sourceFile": "src/public/ts/trace/rb-detail-drawer.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:fdc81fce-802f-4bd8-879b-d905311a887b"
+    ]
+  },
+  "ownerIor": "ior:instance:fdc81fce-802f-4bd8-879b-d905311a887b"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6686b26b-4eb9-4d8d-a06a-68eba4edc272",
+    "name": "impl:ScenarioIndex.prefix(uuid): string",
+    "sourceFile": "src/ts/server/RoomKeys.ts",
+    "sourceLine": 120,
+    "methods": [
+      "ior:instance:b9abb018-0a39-41c0-9e4b-84d2d77c3b82"
+    ]
+  },
+  "ownerIor": "ior:instance:b9abb018-0a39-41c0-9e4b-84d2d77c3b82"
+}

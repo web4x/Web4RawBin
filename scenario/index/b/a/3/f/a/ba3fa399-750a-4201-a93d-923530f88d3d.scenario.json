@@ -6,7 +6,9 @@
     "name": "R19.18: No contact is ever lost from a room member list.",
     "description": "Tron literal sub-clause split from R19.8 per R-I.",
     "tronQuote": "> TRON: but no contact gets ever lost",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:fa8fffc8-8e2e-4b8c-a79b-8e7c1d1c8f0e"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

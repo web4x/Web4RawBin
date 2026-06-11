@@ -3,7 +3,9 @@
   "model": {
     "uuid": "6a52a207-f7ba-4e16-ad59-7023f76d9836",
     "name": "FileApi.highlightFile",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:83f55939-4bb3-4b77-ba6b-0e5861e86c18"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:2592c3c9-24e1-4d6a-bce7-79f129b1df94"

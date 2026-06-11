@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b2d2acd9-f53e-4e5f-9d2f-9c429dc415b4",
+    "name": "impl:RbRoomContent.folderNodeRender",
+    "sourceFile": "src/public/ts/RoomView.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:b4980b4a-7ed3-405a-9d1d-a08b49c70ff7"
+    ]
+  },
+  "ownerIor": "ior:instance:b4980b4a-7ed3-405a-9d1d-a08b49c70ff7"
+}

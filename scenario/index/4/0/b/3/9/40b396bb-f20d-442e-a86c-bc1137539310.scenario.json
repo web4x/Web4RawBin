@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "40b396bb-f20d-442e-a86c-bc1137539310",
+    "name": "RbObjectItem.badgeRender",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+}

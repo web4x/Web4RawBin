@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "96b33794-47a8-4691-a00d-6688c3a1ae48",
+    "name": "impl:TraceLayout.mobileCap",
+    "sourceFile": "src/public/ts/trace-page.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:d07a4908-c274-483d-b527-15c11fcdf268"
+    ]
+  },
+  "ownerIor": "ior:instance:d07a4908-c274-483d-b527-15c11fcdf268"
+}

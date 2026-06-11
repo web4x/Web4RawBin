@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "23b24b14-42d2-4a72-a662-cdaffa04c88f",
+    "name": "impl:RbRoomContent.applyButton",
+    "sourceFile": "src/public/ts/RoomView.ts",
+    "sourceLine": 1,
+    "methods": [
+      "ior:instance:d275e6ba-91f7-4975-859f-1fd95d291993"
+    ]
+  },
+  "ownerIor": "ior:instance:d275e6ba-91f7-4975-859f-1fd95d291993"
+}

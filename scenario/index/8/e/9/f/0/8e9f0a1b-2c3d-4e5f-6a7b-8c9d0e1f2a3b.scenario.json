@@ -3,7 +3,9 @@
   "model": {
     "uuid": "8e9f0a1b-2c3d-4e5f-6a7b-8c9d0e1f2a3b",
     "name": "FileUnit.linkToRoom",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:8e0afb58-c242-48f2-9a2f-197ef9761c14"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:3e0ceb94-0000-0000-0000-000000000000"

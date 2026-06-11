@@ -3,7 +3,9 @@
   "model": {
     "uuid": "1f2a3b4c-5d6e-4f7a-8b9c-0d1e2f3a4b5c",
     "name": "RbRoomDetail.editCanonical",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:41cd5823-5413-4928-83e1-22cb7d5a6e15"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431"

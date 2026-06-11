@@ -3,7 +3,9 @@
   "model": {
     "uuid": "19499830-2e59-4afb-8718-78327212bbec",
     "name": "RbObjectItem.dragGhost",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:9114532e-5567-40b2-bbdd-6045613cbe7c"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"

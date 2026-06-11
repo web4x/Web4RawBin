@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e082e52b-afb8-4100-baae-f0324cb3d8c9",
+    "name": "impl:ScenarioIndex.put(uuid",
+    "sourceFile": "src/public/ts/trace/rb-list-overview.ts",
+    "sourceLine": 70,
+    "methods": [
+      "ior:instance:c2ab4e27-b143-48fb-ba8d-0e5251aaa5b5"
+    ]
+  },
+  "ownerIor": "ior:instance:c2ab4e27-b143-48fb-ba8d-0e5251aaa5b5"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8355f5ac-17fb-4c68-b51b-6172783c605d",
+    "name": "impl:RbObjectItem.generateName",
+    "sourceFile": "src/public/ts/trace/rb-object-item.ts",
+    "sourceLine": 80,
+    "methods": [
+      "ior:instance:bac0abd4-c15b-40b8-ae6c-ef265f883a27"
+    ]
+  },
+  "ownerIor": "ior:instance:bac0abd4-c15b-40b8-ae6c-ef265f883a27"
+}
