@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781159304118,
+    "createdAt": 1781159490954,
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyIwUrVYTVIlhifZYp0M7\ndp3cq7Yhp5+VCGD35KTPqzh/gIBM6ULox8VAcD49ND6ppgdpLASC4r4PmtB08pGJ\n8ulGgnNCWqIXbTPkbTcTzJKa3FIUk+QwKA4XLphB7x2I7HkFCt56HSJEL30VteTQ\n6S0EmhwaVknUKYjs2t1fJHkP8UXCFyrUN7D8EVnjwIy3OXhikZTvs5hn+lN1gjpm\nx9vtmJ/m7cmnsmi//HuyLw9YxJKSjj/yptqLK8eWNQJ4o5UGCYlnruIX4drJl2+l\ngVYIz40jKmUu4sKqPQexG+0MU33jiNdlFqm1I9plPumZfDRy47eoChOR9pWAivdC\nUQIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [],
@@ -20,7 +20,7 @@
         "name": "",
         "role": "owner",
         "status": "online",
-        "joinedAt": 1781159304118
+        "joinedAt": 1781159490954
       }
     ],
     "sourceFile": "scenario/index/f/e/4/d/5/fe4d5664-ffc4-4ecd-a3c0-c4732e5bd35b.scenario.json",

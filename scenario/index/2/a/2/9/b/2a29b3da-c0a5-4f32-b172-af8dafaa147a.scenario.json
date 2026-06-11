@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "2a29b3da-c0a5-4f32-b172-af8dafaa147a",
+    "name": "impl:RbRoomDetail.editCanonical",
+    "sourceFile": "src/ts/server/RoomKeys.ts",
+    "sourceLine": 123,
+    "methods": [
+      "ior:instance:1f2a3b4c-5d6e-4f7a-8b9c-0d1e2f3a4b5c"
+    ]
+  },
+  "ownerIor": "ior:instance:1f2a3b4c-5d6e-4f7a-8b9c-0d1e2f3a4b5c"
+}

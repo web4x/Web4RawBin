@@ -120,6 +120,7 @@ export function writeRoomJson(userToken: string, roomId: string, data: RoomJsonD
     const prefix = path.join(hex[0], hex[1], hex[2], hex[3], hex[4]);
     const canonDir = path.join(scenarioDir, prefix);
     const canonPath = path.join(canonDir, `${roomId}.scenario.json`);
+  // [impl:uuid:1f2a3b4c-5d6e-4f7a-8b9c-0d1e2f3a4b5c] RbRoomDetail.editCanonical R19.30
     const sourceFile = `scenario/index/${prefix}/${roomId}.scenario.json`;
     const unit = { ior: 'ior:class:Room', model: { uuid: roomId, ...data, sourceFile, unitLinks: [`sprints.json/rooms/${userToken}/${roomId}.json`] }, ownerIor: `ior:instance:${userToken}` };
     try {

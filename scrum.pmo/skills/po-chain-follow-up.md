@@ -48,9 +48,29 @@ One row per chain, one column per champagne node:
 | Impl | `check <impl-uuid-short>` (real `[impl:uuid:]` in source) | `open expert <method-uuid-short>` |
 | Test | `check <test-uuid-short>` (real `[test:uuid:]` in test) | `open tester` |
 
+### Impl-node MANDATORY rule
+
+The Implementation node is **NOT optional**. A complete champagne chain MUST have all 6 distinct nodes linked end-to-end:
+
+```
+Req → UC → Class → Method → **Impl** → Test
+```
+
+**Method→Test direct (Method.tests[], implementations[]=empty) is INCOMPLETE.** The Impl unit must:
+1. **EXIST** as a distinct `ior:class:Implementation` scenario unit
+2. Be **REFERENCED** by `Method.implementations[]` (forward link)
+3. **REFERENCE** the Test via `Impl.tests[]` (forward link)
+4. Have a **REAL** `[impl:uuid:<uuid>]` marker in source code (not a stub/bridge)
+
+If a Test appears to be wired but the Impl node is missing or Method.implementations[] is empty, the chain is INCOMPLETE — the skill flags Impl as `open expert`.
+
 ### Chain DONE rule
 
-A chain is DONE **only** when its Test cell shows `check <uuid>` — meaning a real `[test:uuid:]` marker exists in a test file AND the Test scenario unit is wired to an Implementation that has a real `[impl:uuid:]` marker.
+A chain is DONE **only** when ALL 6 cells show `check`:
+- Req `check` + UC `check` + Class `check` + Method `<name>` + Impl `check <impl-uuid>` + Test `check <test-uuid>`
+- The Impl cell requires a real `[impl:uuid:]` marker in source AND the Implementation scenario unit wired in `Method.implementations[]`
+- The Test cell requires a real `[test:uuid:]` marker in test AND the Test scenario unit wired in `Impl.tests[]`
+- Any missing Impl = chain INCOMPLETE even if the Test exists
 
 ## Steps
 

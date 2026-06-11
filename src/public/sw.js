@@ -8,9 +8,9 @@ const STATIC_SHELL = [
   '/icon-192.png',
   '/icon-512.png',
   '/trace',
-  '/dist/trace-page-XLDM4WN6.js',
+  '/dist/trace-page-WHLKOUPD.js',
   '/scenario',
-  '/dist/scenario-view-JNM245K2.js',
+  '/dist/scenario-view-HOBMPXQA.js',
   '/dist/app-CLA5P23X.js',
 ];
 
@@ -59,6 +59,7 @@ self.addEventListener('fetch', (event) => {
 });
 
 async function cacheFirst(request) {
+  // [impl:uuid:5d6e7f8a-9b0c-4d1e-2f3a-4b5c6d7e8f9a] ServiceWorker.ignoreSearchNav R19.31/32
   const isNavigation = request.mode === 'navigate';
   const cached = await caches.match(request, isNavigation ? { ignoreSearch: true } : undefined);
   if (cached) return cached;

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b4f6b903-bbb5-4450-9aad-ddce522bd725",
+    "name": "impl:RbDetailDrawer.singularChain",
+    "sourceFile": "src/public/ts/trace/singular-chain.ts",
+    "sourceLine": 21,
+    "methods": [
+      "ior:instance:e945e562-9cb4-4543-97d2-3865441f838c"
+    ]
+  },
+  "ownerIor": "ior:instance:e945e562-9cb4-4543-97d2-3865441f838c"
+}

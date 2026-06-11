@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "aa585fcc-dfc1-42a8-a77d-0c0fb03ca5fd",
+    "name": "impl:RbDetailDrawer.stickyClose",
+    "sourceFile": "src/public/ts/trace/rb-detail-drawer.ts",
+    "sourceLine": 53,
+    "methods": [
+      "ior:instance:3a671bfc-12c2-4922-938e-01572d90808e"
+    ]
+  },
+  "ownerIor": "ior:instance:3a671bfc-12c2-4922-938e-01572d90808e"
+}

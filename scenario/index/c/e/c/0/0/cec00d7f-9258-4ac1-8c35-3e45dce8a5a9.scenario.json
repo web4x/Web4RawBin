@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "cec00d7f-9258-4ac1-8c35-3e45dce8a5a9",
+    "name": "impl:ServiceWorker.ignoreSearchNav",
+    "sourceFile": "src/public/sw.js",
+    "sourceLine": 62,
+    "methods": [
+      "ior:instance:5d6e7f8a-9b0c-4d1e-2f3a-4b5c6d7e8f9a"
+    ]
+  },
+  "ownerIor": "ior:instance:5d6e7f8a-9b0c-4d1e-2f3a-4b5c6d7e8f9a"
+}

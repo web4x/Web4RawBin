@@ -50,6 +50,7 @@ export class RbDetailDrawer extends HTMLElement {
   }
 
   private render(): void {
+  // [impl:uuid:3a671bfc-12c2-4922-938e-01572d90808e] RbDetailDrawer.stickyClose R19.33
     if (this.querySelector('.drawer-header')) return;
     this.innerHTML = `
       <div class="drawer-header">
