@@ -27,17 +27,21 @@ const hoursIdx = args.indexOf('--hours');
 const sprintIdx = args.indexOf('--sprint');
 const sprintFilter = sprintIdx !== -1 ? args[sprintIdx + 1] : null;
 
-// Determine period
+// Determine period — default: last 24 hours (never ambiguous early-in-day)
 let sinceDate: string;
+let windowLabel: string;
 if (sinceIdx !== -1) {
   sinceDate = args[sinceIdx + 1];
+  windowLabel = `--since ${sinceDate}`;
 } else if (hoursIdx !== -1) {
   const h = parseFloat(args[hoursIdx + 1]);
   const d = new Date(Date.now() - h * 3600_000);
   sinceDate = d.toISOString().slice(0, 19);
+  windowLabel = `last ${h}h`;
 } else {
-  // Default: today (UTC midnight)
-  sinceDate = new Date().toISOString().slice(0, 10);
+  const d = new Date(Date.now() - 24 * 3600_000);
+  sinceDate = d.toISOString().slice(0, 19);
+  windowLabel = 'last 24h (default)';
 }
 
 // --- THROUGHPUT from git (cwd-independent: explicit -C + absolute path) ---
@@ -102,6 +106,7 @@ const bumpsPerHr = hoursElapsed > 0 ? (versionBumps / hoursElapsed).toFixed(1) :
 const velocityPerHr = hoursElapsed > 0 ? (complete / hoursElapsed).toFixed(2) : '0.00';
 
 console.log(`\n# Team Velocity Dashboard`);
+console.log(`Window: ${windowLabel}`);
 console.log(`Period: ${first || sinceDate} → ${last || 'now'} (${hoursElapsed.toFixed(1)}h)`);
 if (sprintFilter) console.log(`Scope: ${sprintFilter}`);
 
