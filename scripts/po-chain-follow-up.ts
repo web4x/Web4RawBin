@@ -1,8 +1,9 @@
 /**
  * po.chainFollowUp — PO chain scoreboard tool.
  *
- * Walks the 6-step champagne chain per Requirement and produces a dispatch table.
- * Distinguishes REAL [impl:uuid:]/[test:uuid:] markers from stubs.
+ * Walks the 6-step champagne chain per Requirement. Emits canonical table:
+ * | Chain | Req | UC | Class | Method | Impl | Test |
+ * check = done, open <owner> <ior-short> = gap. REAL marker = scanned from source.
  *
  * Usage:
  *   npx tsx scripts/po-chain-follow-up.ts <uuid> [<uuid> ...]
@@ -23,168 +24,179 @@ const TEST_DIR = path.join(__dirname, '../test');
 
 const idx = new ScenarioIndex(INDEX_DIR);
 
-function resolveIor(ior: string): string {
-  return String(ior || '').replace('ior:instance:', '').replace('ior:file:', '');
-}
+function ior(s: string): string { return String(s || '').replace('ior:instance:', '').replace('ior:file:', ''); }
+function short(uuid: string): string { return uuid.slice(0, 8); }
+function model(uuid: string): Record<string, unknown> | null { const u = idx.get(uuid); return u ? u.model as Record<string, unknown> : null; }
+function unitType(uuid: string): string { const u = idx.get(uuid); return u ? u.ior.replace('ior:class:', '') : ''; }
 
-function getModel(uuid: string): Record<string, unknown> | null {
-  const u = idx.get(uuid);
-  return u ? u.model as Record<string, unknown> : null;
-}
-
-function hasRealMarker(dir: string, pattern: RegExp): boolean {
-  try {
-    return walkFiles(dir).some(f => {
-      try { return pattern.test(fs.readFileSync(f, 'utf-8')); } catch { return false; }
-    });
-  } catch { return false; }
-}
-
-function walkFiles(dir: string): string[] {
-  const out: string[] = [];
-  if (!fs.existsSync(dir)) return out;
+const srcFiles: string[] = [];
+const testFiles: string[] = [];
+function collectFiles(dir: string, out: string[]) {
+  if (!fs.existsSync(dir)) return;
   for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
     if (ent.name === 'node_modules' || ent.name === 'dist' || ent.name.startsWith('.')) continue;
     const full = path.join(dir, ent.name);
-    if (ent.isDirectory()) out.push(...walkFiles(full));
+    if (ent.isDirectory()) collectFiles(full, out);
     else if (ent.name.endsWith('.ts')) out.push(full);
   }
-  return out;
+}
+collectFiles(SRC_DIR, srcFiles);
+collectFiles(TEST_DIR, testFiles);
+
+const srcContent = new Map<string, string>();
+const testContent = new Map<string, string>();
+for (const f of srcFiles) srcContent.set(f, fs.readFileSync(f, 'utf-8'));
+for (const f of testFiles) testContent.set(f, fs.readFileSync(f, 'utf-8'));
+
+function hasRealImplMarker(uuid: string): boolean {
+  const re = new RegExp(`\\[impl:uuid:${uuid}\\]`, 'i');
+  for (const [, content] of srcContent) { if (re.test(content)) return true; }
+  return false;
 }
 
-interface ChainNode { type: string; uuid: string; name: string; done: boolean; realMarker?: boolean; }
-interface ChainRow { req: ChainNode; ucs: ChainNode[]; classes: ChainNode[]; methods: ChainNode[]; impls: ChainNode[]; tests: ChainNode[]; }
+function hasRealTestMarker(uuid: string): boolean {
+  const re = new RegExp(`\\[test:uuid:${uuid}\\]`, 'i');
+  for (const [, content] of testContent) { if (re.test(content)) return true; }
+  return false;
+}
 
-function walkReqChain(reqUuid: string): ChainRow {
-  const reqModel = getModel(reqUuid);
-  const reqName = String(reqModel?.altId || reqModel?.name || reqUuid.slice(0, 8));
-  const row: ChainRow = {
-    req: { type: 'Requirement', uuid: reqUuid, name: reqName, done: !!reqModel },
-    ucs: [], classes: [], methods: [], impls: [], tests: [],
-  };
-  if (!reqModel) return row;
+interface ChainResult {
+  chainName: string;
+  req: string; uc: string; cls: string; method: string; impl: string; test: string;
+  complete: boolean;
+  openNodes: { node: string; owner: string; action: string; iorShort: string }[];
+}
 
-  const ucIors = (reqModel.useCases as string[]) || (reqModel.tasks as string[]) || [];
-  // Walk through useCases (direct from Requirement per 6-step chain)
-  for (const ucIor of ucIors) {
-    const ucUuid = resolveIor(ucIor);
-    const ucModel = getModel(ucUuid);
-    if (!ucModel) continue;
-    const ucType = idx.get(ucUuid)?.ior.replace('ior:class:', '') || '';
-    if (ucType !== 'UseCase') continue;
-    row.ucs.push({ type: 'UseCase', uuid: ucUuid, name: String(ucModel.name || ''), done: true });
+function walkReq(reqUuid: string): ChainResult[] {
+  const reqM = model(reqUuid);
+  if (!reqM) return [{ chainName: short(reqUuid), req: 'open', uc: 'open', cls: 'open', method: 'open', impl: 'open', test: 'open', complete: false, openNodes: [] }];
+  const reqName = String(reqM.altId || reqM.name || short(reqUuid));
+  const ucIors = ((reqM.useCases as string[]) || []).filter(u => unitType(ior(u)) === 'UseCase');
 
-    for (const clsIor of ((ucModel.classes as string[]) || [])) {
-      const clsUuid = resolveIor(clsIor);
-      const clsModel = getModel(clsUuid);
-      if (!clsModel) { row.classes.push({ type: 'Class', uuid: clsUuid, name: '?', done: false }); continue; }
-      row.classes.push({ type: 'Class', uuid: clsUuid, name: String(clsModel.name || ''), done: true });
+  if (ucIors.length === 0) {
+    return [{ chainName: reqName, req: 'check', uc: 'open architect', cls: 'open', method: 'open', impl: 'open', test: 'open', complete: false,
+      openNodes: [{ node: 'UC', owner: 'architect', action: 'Create UC + wire to Req', iorShort: short(reqUuid) }] }];
+  }
 
-      for (const methIor of ((clsModel.methods as string[]) || [])) {
-        const methUuid = resolveIor(methIor);
-        const methModel = getModel(methUuid);
-        if (!methModel) { row.methods.push({ type: 'Method', uuid: methUuid, name: '?', done: false }); continue; }
-        row.methods.push({ type: 'Method', uuid: methUuid, name: String(methModel.name || ''), done: true });
+  const results: ChainResult[] = [];
+  for (const ucIorStr of ucIors) {
+    const ucUuid = ior(ucIorStr);
+    const ucM = model(ucUuid);
+    if (!ucM) continue;
+    const clsIors = (ucM.classes as string[]) || [];
+    if (clsIors.length === 0) {
+      results.push({ chainName: `${reqName}`, req: 'check', uc: 'check', cls: 'open architect', method: 'open', impl: 'open', test: 'open', complete: false,
+        openNodes: [{ node: 'Class', owner: 'architect', action: 'Wire Class to UC', iorShort: short(ucUuid) }] });
+      continue;
+    }
 
-        for (const implIor of ((methModel.implementations as string[]) || [])) {
-          const implUuid = resolveIor(implIor);
-          const implModel = getModel(implUuid);
-          if (!implModel) { row.impls.push({ type: 'Implementation', uuid: implUuid, name: '?', done: false }); continue; }
-          const realImpl = hasRealMarker(SRC_DIR, new RegExp(`\\[impl:uuid:${implUuid}\\]`, 'i'));
-          row.impls.push({ type: 'Implementation', uuid: implUuid, name: String(implModel.name || ''), done: true, realMarker: realImpl });
+    for (const clsIorStr of clsIors) {
+      const clsUuid = ior(clsIorStr);
+      const clsM = model(clsUuid);
+      if (!clsM) continue;
+      const methIors = (clsM.methods as string[]) || [];
+      if (methIors.length === 0) {
+        results.push({ chainName: `${reqName}`, req: 'check', uc: 'check', cls: 'check', method: 'open architect', impl: 'open', test: 'open', complete: false,
+          openNodes: [{ node: 'Method', owner: 'architect', action: 'Wire Method to Class', iorShort: short(clsUuid) }] });
+        continue;
+      }
 
-          for (const testIor of ((implModel.tests as string[]) || [])) {
-            const testUuid = resolveIor(testIor);
-            const testModel = getModel(testUuid);
-            if (!testModel) { row.tests.push({ type: 'Test', uuid: testUuid, name: '?', done: false }); continue; }
-            const realTest = hasRealMarker(TEST_DIR, new RegExp(`\\[test:uuid:${testUuid}\\]`, 'i'));
-            row.tests.push({ type: 'Test', uuid: testUuid, name: String(testModel.name || ''), done: true, realMarker: realTest });
+      for (const methIorStr of methIors) {
+        const methUuid = ior(methIorStr);
+        const methM = model(methUuid);
+        if (!methM) continue;
+        const methName = String(methM.name || '').split('.').pop() || short(methUuid);
+        const implIors = (methM.implementations as string[]) || [];
+
+        if (implIors.length === 0) {
+          results.push({ chainName: `${reqName}`, req: 'check', uc: 'check', cls: 'check', method: methName, impl: `open expert ${short(methUuid)}`, test: 'open', complete: false,
+            openNodes: [{ node: 'Impl', owner: 'expert', action: `Add [impl:uuid:] marker for ${methName}`, iorShort: short(methUuid) }] });
+          continue;
+        }
+
+        for (const implIorStr of implIors) {
+          const implUuid = ior(implIorStr);
+          const realImpl = hasRealImplMarker(implUuid);
+          const implCell = realImpl ? `check ${short(implUuid)}` : `open expert ${short(implUuid)}`;
+          const implM = model(implUuid);
+          const testIors = implM ? ((implM.tests as string[]) || []) : [];
+          const openNodes: ChainResult['openNodes'] = [];
+
+          if (!realImpl) openNodes.push({ node: 'Impl', owner: 'expert', action: `Add real [impl:uuid:${short(implUuid)}] in source`, iorShort: short(implUuid) });
+
+          if (testIors.length === 0) {
+            results.push({ chainName: `${reqName}`, req: 'check', uc: 'check', cls: 'check', method: methName, impl: implCell, test: 'open tester', complete: false,
+              openNodes: [...openNodes, { node: 'Test', owner: 'tester', action: 'Add [test:uuid:] marker', iorShort: '' }] });
+            continue;
+          }
+
+          for (const testIorStr of testIors) {
+            const testUuid = ior(testIorStr);
+            const realTest = hasRealTestMarker(testUuid);
+            const testCell = realTest ? `check ${short(testUuid)}` : `open tester ${short(testUuid)}`;
+            const complete = realImpl && realTest;
+            if (!realTest) openNodes.push({ node: 'Test', owner: 'tester', action: `Verify real [test:uuid:${short(testUuid)}] in test`, iorShort: short(testUuid) });
+            results.push({ chainName: `${reqName}`, req: 'check', uc: 'check', cls: 'check', method: methName, impl: implCell, test: testCell, complete, openNodes });
           }
         }
       }
     }
   }
 
-  return row;
-}
-
-function mark(nodes: ChainNode[]): string {
-  if (nodes.length === 0) return '◻';
-  const allDone = nodes.every(n => n.done && (n.realMarker === undefined || n.realMarker));
-  return allDone ? '✓' : '◻';
-}
-
-function nextOwner(row: ChainRow): string {
-  if (row.ucs.length === 0) return 'architect (UC)';
-  if (row.classes.length === 0 || row.classes.some(n => !n.done)) return 'architect (Class)';
-  if (row.methods.length === 0 || row.methods.some(n => !n.done)) return 'architect (Method)';
-  if (row.impls.length === 0 || row.impls.some(n => !n.done || !n.realMarker)) return 'expert (impl marker)';
-  if (row.tests.length === 0 || row.tests.some(n => !n.done || !n.realMarker)) return 'tester (test marker)';
-  return '✓ COMPLETE';
+  return results.length > 0 ? results : [{ chainName: reqName, req: 'check', uc: 'open architect', cls: 'open', method: 'open', impl: 'open', test: 'open', complete: false,
+    openNodes: [{ node: 'UC', owner: 'architect', action: 'Create UC', iorShort: short(reqUuid) }] }];
 }
 
 // --- Main ---
-
 const args = process.argv.slice(2);
 const allMode = args.includes('--all');
-const sprintIdx = args.indexOf('--sprint');
-const sprintFilter = sprintIdx !== -1 ? args[sprintIdx + 1] : null;
+const sprintArgIdx = args.indexOf('--sprint');
+const sprintFilter = sprintArgIdx !== -1 ? args[sprintArgIdx + 1] : null;
 
 let reqUuids: string[] = [];
-
 if (allMode) {
-  reqUuids = idx.list().filter(uuid => {
-    const u = idx.get(uuid);
-    return u?.ior === 'ior:class:Requirement';
-  });
+  reqUuids = idx.list().filter(u => unitType(u) === 'Requirement');
 } else if (sprintFilter) {
-  reqUuids = idx.list().filter(uuid => {
-    const u = idx.get(uuid);
-    if (u?.ior !== 'ior:class:Requirement') return false;
-    const name = String(u.model.name || u.model.altId || '');
-    return name.toUpperCase().includes(sprintFilter.toUpperCase());
+  reqUuids = idx.list().filter(u => {
+    if (unitType(u) !== 'Requirement') return false;
+    const m = model(u);
+    return m && String(m.name || m.altId || '').toUpperCase().includes(sprintFilter.toUpperCase());
   });
 } else {
   reqUuids = args.filter(a => !a.startsWith('--'));
 }
 
-if (reqUuids.length === 0) {
-  console.log('Usage: npx tsx scripts/po-chain-follow-up.ts <uuid> [--all] [--sprint S19]');
-  process.exit(1);
-}
+if (reqUuids.length === 0) { console.log('Usage: npx tsx scripts/po-chain-follow-up.ts <uuid> [--all] [--sprint S19]'); process.exit(1); }
 
 console.log(`\n# Chain Follow-Up Scoreboard (${reqUuids.length} requirements)\n`);
-console.log('| Req | UC | Class | Method | Impl(marker) | Test | Next OPEN owner |');
-console.log('|-----|----|-------|--------|---------------|------|-----------------|');
+console.log('| Chain | Req | UC | Class | Method | Impl | Test |');
+console.log('|-------|-----|-----|-------|--------|------|------|');
 
-const dispatch: { num: number; node: string; req: string; action: string; owner: string }[] = [];
-let num = 0;
+const allDispatch: { num: number; node: string; chain: string; action: string; owner: string }[] = [];
+let dispNum = 0;
+let completeCount = 0;
+const seen = new Set<string>();
 
 for (const uuid of reqUuids) {
-  const row = walkReqChain(uuid);
-  const owner = nextOwner(row);
-  console.log(`| ${row.req.name} ${mark([row.req])} | ${mark(row.ucs)} | ${mark(row.classes)} | ${mark(row.methods)} | ${mark(row.impls)} | ${mark(row.tests)} | ${owner === '✓ COMPLETE' ? '✓' : `**${owner}**`} |`);
-
-  if (row.ucs.length === 0) dispatch.push({ num: ++num, node: 'UC', req: row.req.name, action: 'Create UseCase + wire to Req', owner: 'architect' });
-  if (row.classes.some(n => !n.done)) dispatch.push({ num: ++num, node: 'Class', req: row.req.name, action: 'Create Class + wire to UC', owner: 'architect' });
-  if (row.methods.some(n => !n.done)) dispatch.push({ num: ++num, node: 'Method', req: row.req.name, action: 'Create Method + wire to Class', owner: 'architect' });
-  for (const impl of row.impls.filter(n => !n.done || !n.realMarker)) {
-    dispatch.push({ num: ++num, node: 'Impl', req: row.req.name, action: `Add [impl:uuid:${impl.uuid.slice(0,8)}] marker in source`, owner: 'expert' });
-  }
-  if (row.impls.length > 0 && row.impls.every(n => n.done) && (row.tests.length === 0 || row.tests.some(n => !n.done || !n.realMarker))) {
-    dispatch.push({ num: ++num, node: 'Test', req: row.req.name, action: 'Add [test:uuid:] marker in test file', owner: 'tester' });
+  const rows = walkReq(uuid);
+  for (const r of rows) {
+    const key = `${r.chainName}|${r.method}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    console.log(`| ${r.chainName} | ${r.req} | ${r.uc} | ${r.cls} | ${r.method} | ${r.impl} | ${r.test} |`);
+    if (r.complete) completeCount++;
+    for (const o of r.openNodes) {
+      allDispatch.push({ num: ++dispNum, node: o.node, chain: r.chainName, action: o.action, owner: o.owner });
+    }
   }
 }
 
-if (dispatch.length > 0) {
+if (allDispatch.length > 0) {
   console.log('\n## Dispatch List\n');
-  console.log('| # | Node | Req | Action | Owner |');
-  console.log('|---|------|-----|--------|-------|');
-  for (const d of dispatch) {
-    console.log(`| ${d.num} | ${d.node} | ${d.req} | ${d.action} | **${d.owner}** |`);
-  }
+  console.log('| # | Node | Chain | Action | Owner |');
+  console.log('|---|------|-------|--------|-------|');
+  for (const d of allDispatch) console.log(`| ${d.num} | ${d.node} | ${d.chain} | ${d.action} | **${d.owner}** |`);
 }
 
-const complete = reqUuids.filter(uuid => nextOwner(walkReqChain(uuid)) === '✓ COMPLETE').length;
-console.log(`\n## Summary: ${complete}/${reqUuids.length} chains COMPLETE`);
-if (complete === reqUuids.length) console.log('🎉 ALL CHAINS CLOSED');
+console.log(`\n## Summary: ${completeCount}/${seen.size} chains COMPLETE`);
+if (completeCount === seen.size && seen.size > 0) console.log('ALL CHAINS CLOSED');
