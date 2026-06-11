@@ -280,3 +280,7 @@
 ### rb-object-item partial-init bug (R19.88)
 - **R19.88** (2026-06-11): some items miss ALL interactivity (cursor + collapse + drawer) — partial initialization. Timing-sensitive, mac vs iOS differs. Every item must fully init deterministically.
   > TRON: "on desktop hover shows hand/finger cursor on working files; some items with no visible reason do NOT — and those also do not compact to icon or open the drawer. some kind of initialisation issue on the item. slightly differs mac browser vs ios."
+
+### Remove-identity button wrong screen (R19.89, refines R19.72)
+- **R19.89** (2026-06-11): red Remove-Local-Identity button placed on ProfileEditor (wrong) — must be on DeviceEnrollDialog 'Authorize This Device' secret-code screen (where locked-out user needs it).
+  > TRON: "the red button for remove identity must be here (Authorize This Device / secret-code screen)!!! someone put it into the profile editor. thats a bug."

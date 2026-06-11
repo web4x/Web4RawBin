@@ -13,7 +13,11 @@
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "useCases": [
       "ior:instance:1df1d3ce-354f-4ba2-a440-9c0aa7b9c1ac"
-    ]
+    ],
+    "refinedBy": [
+      "ior:instance:2ad3fd18-6d78-4aa2-8213-36934b0f3504"
+    ],
+    "refinedByNote": "Refined by R19.89: button was placed on ProfileEditor instead of DeviceEnrollDialog. R19.89 corrects the screen placement."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
