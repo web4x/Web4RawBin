@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b03701b6-2105-4589-b27d-7db58b62e16c",
+    "altId": "R19.65",
+    "name": "R19.65: Generalize SVG viewer into a generic previewer for SVG, images, and href/HTML links.",
+    "description": "The existing SVG fullscreen viewer (R18.34) MUST be generalized into a generic content previewer component that handles multiple content types: SVG (existing behavior), images (png/jpg/gif/webp), and href/HTML links (iframe). The component dispatches by content type to the appropriate renderer. This is the Object.verb pattern: ContentPreviewer.render(unit) where the unit's contentType determines the render strategy. Extensible for future types (pdf, video, etc.).",
+    "tronQuote": "> TRON: \"maybe repurpose the existing svg viewer to make it generic — preview images AND href links too.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:6052570f-4630-4cdf-8270-6ef29eec33df",
+      "ior:instance:8d90d7ec-0bce-439f-8180-bed4a182aace"
+    ],
+    "crossRefNote": "R19.63 (preview in detail drawer) is where the previewer renders. R19.64 (per-type rules) defines what each type looks like. R19.65 is the COMPONENT itself — the generalized viewer."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

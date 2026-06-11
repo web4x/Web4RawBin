@@ -192,3 +192,10 @@
 ### Device↔User association pattern (R19.55.A, refines R19.55)
 - **R19.55.A** (2026-06-11): Device↔User mirrors Room↔User — User.devices[] forward IOR, Device.ownerIor, data/users/<uuid>/devices/ symlinks, unitLinks lifecycle (R18.29-31).
   > TRON: "devices are like rooms associated to users."
+
+### URL drop + file preview + generic previewer (R19.62-65)
+- **R19.62** (2026-06-11): dropping a URL/link into room creates a url-type scenario unit (model.href, contentType='url'). Extends R19.37 dispatcher with 'url' handler.
+- **R19.63** (2026-06-11): clicking a file unit in room tree opens preview in the detail drawer.
+- **R19.64** (2026-06-11): preview renders by type — href in iframe, image as img, SVG in existing viewer.
+- **R19.65** (2026-06-11): generalize SVG viewer into generic ContentPreviewer (svg/image/href/html, extensible).
+  > TRON: "dropped a link into room — did not work. should create something like a windows url that opens as html, best case viewed in its OWN iframe loading the href = a preview in the detail drawer when the file is clicked. same for images. maybe repurpose the existing svg viewer to make it generic — preview images AND href links too."
