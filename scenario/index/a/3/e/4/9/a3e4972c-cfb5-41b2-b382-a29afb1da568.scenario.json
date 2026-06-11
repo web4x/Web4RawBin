@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a3e4972c-cfb5-41b2-b382-a29afb1da568",
+    "name": "impl:createMessageUnit",
+    "sourceFile": "src/ts/scenario/message-unit.ts",
+    "sourceLine": 19,
+    "methods": [
+      "ior:instance:7a983076-a1b2-4c3d-8e4f-5a6b7c8d9e03"
+    ]
+  },
+  "ownerIor": "ior:instance:7a983076-a1b2-4c3d-8e4f-5a6b7c8d9e03"
+}

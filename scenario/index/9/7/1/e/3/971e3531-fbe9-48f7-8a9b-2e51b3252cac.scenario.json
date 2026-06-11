@@ -6,7 +6,9 @@
     "description": "Idempotent: if scenario index lacks 00000000-0000-4000-8000-rawbin000000, create ior:class:User unit with name=RawBin, role=system. Called at server startup.",
     "sourceFile": "ior:file:src/ts/scenario/classes.ts",
     "implementations": [],
-    "tests": []
+    "tests": [
+      "ior:instance:f2122854-51e0-4e5e-850e-9d86acebed3b"
+    ]
   },
   "ownerIor": "ior:instance:12c8982e-8962-41a8-b013-bf1e41a2167f"
 }

@@ -6,7 +6,9 @@
     "description": "Creates ior:class:Message scenario unit. Wires prev.nextMessage=new, new.prevMessage=prev, room.lastMessageIor=new. Dual-write with chatHistory[].",
     "sourceFile": "ior:file:src/ts/scenario/message-unit.ts",
     "implementations": [],
-    "tests": []
+    "tests": [
+      "ior:instance:8289ef98-6aba-49a2-be74-89e95658f1a7"
+    ]
   },
   "ownerIor": "ior:instance:95686685-d75c-4b18-80f8-03d753182eb3"
 }

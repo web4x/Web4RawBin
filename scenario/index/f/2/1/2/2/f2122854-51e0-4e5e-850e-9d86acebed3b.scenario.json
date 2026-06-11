@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f2122854-51e0-4e5e-850e-9d86acebed3b",
+    "name": "test:R19.39.RawBinSystemUser",
+    "description": "Champagne: ensureRawBinUser idempotent (UUID 00000000-...-rawb1n000000), drop-debug Message ownerIor=RawBin. 3 test cases.",
+    "sourceFile": "ior:file:test/vitest/message-rawbin.test.ts",
+    "implementations": ["ior:instance:971e3531-fbe9-48f7-8a9b-2e51b3252cac"],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:971e3531-fbe9-48f7-8a9b-2e51b3252cac"
+}

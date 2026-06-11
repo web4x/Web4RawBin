@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8289ef98-6aba-49a2-be74-89e95658f1a7",
+    "name": "test:R19.38.MessageUnit",
+    "description": "Champagne: createMessageUnit ior:class:Message, ownerIor=sender, doubly-linked prev/next (3-msg chain verified), kind tag, unitLinks rooms/<rid>/messages/. 6 test cases.",
+    "sourceFile": "ior:file:test/vitest/message-rawbin.test.ts",
+    "implementations": ["ior:instance:7a983076-23e0-419c-a6d0-2a10f4342b4b"],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7a983076-23e0-419c-a6d0-2a10f4342b4b"
+}
