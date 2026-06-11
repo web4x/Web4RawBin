@@ -6,7 +6,9 @@
     "name": "R19.57: Full-width drawer must not cover the top-nav back button \u2014 back stays visible and clickable.",
     "description": "BUG (regression from R19.52 full-width drawer): the detail drawer now covers/hides the top-nav back button (\u2190). FIX: the back button MUST stay visible and clickable above the drawer at all times. The drawer's z-index or layout must not overlap the top navigation bar. Either the drawer starts below the top-nav, or the top-nav has a higher z-index than the drawer.",
     "tronQuote": "> TRON: \"drawer is now full width but back button hidden underneath.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:fb629eb7-f20f-42a9-8dab-31e35a719c46"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
