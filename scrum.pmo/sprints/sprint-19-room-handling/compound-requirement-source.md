@@ -125,9 +125,14 @@
   > TRON: "under scenarios/content/ add ln links with the name <contenthash>.file.scenario.json to the original files scenario as a content hash index to query on upload."
 
 ### Detail drawer + chain display bugs (R19.33 + R19.34)
-- **R19.33** (2026-06-11): detail drawer close affordance (nudge/X handle) scrolls out of view. MUST stay sticky/fixed in the drawer viewport.
+- **R19.33** (2026-06-11, re-confirmed): detail drawer close affordance (X button) scrolls out of view. MUST stay sticky/fixed on top always (app.css:278/280). Tron re-confirmed via planner 2026-06-11.
   > TRON: "the details nudge to close scrolls out of the view"
+  > TRON (re-confirmed via planner): (X) close button must STAY ON TOP ALWAYS / sticky above scrolling body.
 - **R19.34** (2026-06-11): 'Traceability Chain' section shows a flat list of many UCs instead of THE singular chain (req→uc→class→method→impl→test). The 'All children' section is acceptable. Cross-refs R18.24 (same spec, regressed).
+
+### Detail drawer full width (R19.52)
+- **R19.52** (2026-06-11): detail drawer is FULL WIDTH — remove max-width:480px cap (app.css:271).
+  > PO relay (Tron via planner): drawer must be FULL WIDTH.
   > TRON: "the traceability has many use cases instead of the traceability chain to test… the All children section may be right"
 
 ### Room editor wiring + pencil affordance (refines R19.2)
