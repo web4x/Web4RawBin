@@ -57,7 +57,8 @@ describe('[test:uuid:1e763397] R19.14 DnD file chain', () => {
     const m = u.model as Record<string, unknown>;
     expect(u.ownerIor).toBe(`ior:instance:${roomId}`);
     const links = m.unitLinks as string[];
-    expect(links).toEqual([]);
+    expect(links.some((l: string) => l.startsWith('content/'))).toBe(true);
+    expect(m.contentHash).toBeTruthy();
   });
 
   it('TC-4: uploaderToken stored in model', () => {

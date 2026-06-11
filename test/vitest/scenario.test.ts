@@ -406,10 +406,12 @@ describe('S19 T-file-unit R19.14: files as scenario units', () => {
     expect((u.model as any).size).toBe(11);
     expect((u.model as any).contentPath).toMatch(/.content/);
   });
-  it('roomUuid sets ownerIor (no stray unitLinks)', () => {
+  it('roomUuid sets ownerIor + content-index unitLink', () => {
     const u = createFileUnit(idx, { name: 'f.md', content: 'x', roomUuid: 'abc-def' });
     expect(u.ownerIor).toBe('ior:instance:abc-def');
-    expect((u.model as any).unitLinks).toEqual([]);
+    const links = (u.model as any).unitLinks as string[];
+    expect(links.some((l: string) => l.startsWith('content/'))).toBe(true);
+    expect((u.model as any).contentHash).toBeTruthy();
   });
   it('readFileUnitContent retrieves the bytes', () => {
     const u = createFileUnit(idx, { name: 'b.bin', content: Buffer.from([1,2,3,4]) });

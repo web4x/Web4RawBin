@@ -20,19 +20,24 @@ export interface FileUnitInput {
 
 // [impl:uuid:c546c877-9907-4f17-b61a-1157b0902765] FileUnit.upload
 // [impl:uuid:1ae8de15-a1b2-4c3d-8e4f-5a6b7c8d9e0f] R19.51 indexByContentHash
-// Create file scenario unit + content sidecar + content-hash index for O(1) dedup.
 export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): ScenarioUnit {
   const buf = Buffer.isBuffer(input.content) ? input.content : Buffer.from(String(input.content), 'utf-8');
   const contentHash = crypto.createHash('sha256').update(buf).digest('hex');
 
-  // O(1) dedup: check scenario/content/<hash>.file.scenario.json
-  const contentIndexDir = path.join(idx.scenarioRoot, 'content');
-  const contentIndexPath = path.join(contentIndexDir, `${contentHash}.file.scenario.json`);
+  // O(1) dedup via content-index symlink
+  const contentIndexLink = `content/${contentHash}.file.scenario.json`;
+  const contentIndexPath = path.join(idx.scenarioRoot, contentIndexLink);
   if (fs.existsSync(contentIndexPath)) {
     try {
-      const existing = JSON.parse(fs.readFileSync(contentIndexPath, 'utf-8'));
-      if (existing.model?.uuid) return existing;
-    } catch {}
+      const resolvedPath = fs.realpathSync(contentIndexPath);
+      const existing = JSON.parse(fs.readFileSync(resolvedPath, 'utf-8'));
+      if (existing.model?.uuid) {
+        console.log(`[file-unit] dedup hit: hash=${contentHash.slice(0, 12)} → uuid=${existing.model.uuid.slice(0, 8)}`);
+        return existing;
+      }
+    } catch (e: any) {
+      console.error(`[file-unit] dedup read failed: ${e?.message}`);
+    }
   }
 
   const uuid = input.uuid || crypto.randomUUID();
@@ -43,8 +48,15 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): Scenar
   fs.writeFileSync(contentFilePath, buf);
   const contentPath = path.relative(idx.scenarioRoot, contentFilePath);
 
-  const unitLinks: string[] = [];
+  // Build unitLinks: content-index + room-FS link (all via syncLinks)
+  const unitLinks: string[] = [contentIndexLink];
+  if (input.roomUuid && input.uploaderToken) {
+    const dataDir = process.env.DATA_DIR || path.join(path.dirname(idx.scenarioRoot), 'data');
+    const roomFsLink = path.join('..', 'data', 'users', input.uploaderToken, 'rooms', input.roomUuid, 'files', uuid + '.scenario.json');
+    unitLinks.push(roomFsLink);
+  }
   if (input.extraUnitLinks) unitLinks.push(...input.extraUnitLinks);
+
   const unit: ScenarioUnit = FileLoader.create({
     ior: iorClass('File'),
     model: {
@@ -61,20 +73,8 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): Scenar
     },
     ownerIor: input.roomUuid ? iorInstance(input.roomUuid) : null,
   });
-  idx.put(uuid, unit);
-  // Content-hash index: scenario/content/<hash>.file.scenario.json → canonical unit
-  fs.mkdirSync(contentIndexDir, { recursive: true });
-  const hashTarget = path.relative(contentIndexDir, idx.filePath(uuid));
-  try { fs.unlinkSync(contentIndexPath); } catch {}
-  fs.symlinkSync(hashTarget, contentIndexPath);
-  if (input.roomUuid && input.uploaderToken) {
-    const dataDir = process.env.DATA_DIR || path.join(path.dirname(idx.scenarioRoot), 'data');
-    const roomFilesDir = path.join(dataDir, 'users', input.uploaderToken, 'rooms', input.roomUuid, 'files');
-    fs.mkdirSync(roomFilesDir, { recursive: true });
-    const roomFsLink = path.join(roomFilesDir, uuid + '.scenario.json');
-    const target = path.relative(path.dirname(roomFsLink), idx.filePath(uuid));
-    try { fs.symlinkSync(target, roomFsLink); } catch { try { fs.symlinkSync(target, roomFsLink, 'junction'); } catch {} }
-  }
+  idx.put(uuid, unit);  // syncLinks handles all symlink creation
+  console.log(`[file-unit] created: uuid=${uuid.slice(0, 8)} hash=${contentHash.slice(0, 12)} links=${unitLinks.length}`);
   return unit;
 }
 
@@ -88,4 +88,3 @@ export function readFileUnitContent(idx: ScenarioIndex, uuid: string): Buffer | 
   if (!fs.existsSync(full)) return null;
   return fs.readFileSync(full);
 }
-
