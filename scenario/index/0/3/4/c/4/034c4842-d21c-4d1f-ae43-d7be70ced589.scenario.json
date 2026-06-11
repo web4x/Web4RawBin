@@ -17,6 +17,9 @@
     "crossRefNote": "R19.57 (back button not covered) constrains the remaining 5%. R19.80 sets the max drawer height.",
     "useCases": [
       "ior:instance:363920d4-b0f7-47ec-ae17-31b462fd2e8c"
+    ],
+    "refinedBy": [
+      "ior:instance:0be510a8-fce6-49cb-afa8-d9cf39762d4d"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"

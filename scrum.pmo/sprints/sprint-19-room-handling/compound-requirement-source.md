@@ -262,3 +262,9 @@
 ### File items re-render lifecycle bug (R19.83)
 - **R19.83** (2026-06-11): file items in room tree destroyed on re-render — collapse-to-icon and preview-drawer broken (member items work). Need this.files[] + renderRoomTreeFiles() lifecycle mirror of members pattern.
   > TRON: "file items not fully working — do not collapse to icons, do not open the preview drawer; member items work fully."
+
+### Nudge drag-resize + pinch-scale (R19.84 + R19.85, refines R19.79/80 + R19.81)
+- **R19.84** (2026-06-11): nudge drag RESIZES drawer height (not just swipe-dismiss). Real-time drag handler, min to 95vh. Slow drag = resize, fast swipe = dismiss.
+  > TRON: "do you see the issue with the nudge???" — dead handle, dragging does not resize.
+- **R19.85** (2026-06-11): pinch gesture SCALES preview content (CSS transform scale), not just pans. Pinch-out bigger, pinch-in smaller. Both pinch-scale + pan coexist.
+  > TRON: "the pinch does not let me make the content of the preview make smaller in the iframe… only pan works. thats not enough."

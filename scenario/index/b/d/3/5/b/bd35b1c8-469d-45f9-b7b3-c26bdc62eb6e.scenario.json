@@ -17,6 +17,9 @@
     "crossRefNote": "R19.33 (sticky close affordance) covers the close button staying visible. R19.79 adds the nudge/drag handle in the same fixed top area.",
     "useCases": [
       "ior:instance:ccbf5736-934f-46ca-9904-7a131f1a3c1e"
+    ],
+    "refinedBy": [
+      "ior:instance:0be510a8-fce6-49cb-afa8-d9cf39762d4d"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
