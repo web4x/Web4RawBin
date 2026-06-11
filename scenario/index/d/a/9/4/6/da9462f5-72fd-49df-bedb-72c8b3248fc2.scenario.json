@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "da9462f5-72fd-49df-bedb-72c8b3248fc2",
+    "name": "RbDetailDrawer.fullWidth",
+    "description": "Remove max-width:480px from rb-detail-drawer CSS. Full-width on mobile+desktop. Applies to both /trace detail drawer and /scenario detail drawer.",
+    "sourceFile": "ior:file:src/public/app.css",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+}
