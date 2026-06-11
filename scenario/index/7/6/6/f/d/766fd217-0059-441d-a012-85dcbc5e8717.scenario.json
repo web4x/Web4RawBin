@@ -3,7 +3,7 @@
   "model": {
     "uuid": "766fd217-0059-441d-a012-85dcbc5e8717",
     "name": "User.deviceAssociation impl",
-    "sourceFile": "scripts/migrate-users-devices.ts",
+    "sourceFile": "ior:file:scripts/migrate-users-devices.ts",
     "sourceLine": 1,
     "tests": [
       "ior:instance:04e74e0d-1a92-43f8-b11a-65f7c4087794"
