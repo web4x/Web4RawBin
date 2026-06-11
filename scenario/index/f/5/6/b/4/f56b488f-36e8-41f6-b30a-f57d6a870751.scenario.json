@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "f56b488f-36e8-41f6-b30a-f57d6a870751",
+    "name": "ViewTemplateRegistry.registerAllTypes",
+    "description": "Add ImplementationTemplate, RoomTemplate, MessageTemplate, FileTemplate, DeviceTemplate, SkillTemplate to templates.ts. Each: renderHtml with sv-TYPE class, h3 name, type-specific fields, renderChainSection, renderSourceEdit (\u270f\ufe0f for types with sourceFile). Register in defaultTemplateRegistry().",
+    "sourceFile": "ior:file:src/ts/scenario/templates.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:6fdc9ac6-0cf1-4d16-86ed-7c6f68f07d2e"
+}

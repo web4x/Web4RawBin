@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "06058dca-b2a8-4af5-a75c-400b4aa27a30",
+    "name": "viewTemplate.registerAllTypes",
+    "description": "Add 6 missing templates (Implementation, Room, Message, File, Device, Skill) to ViewTemplateRegistry. Each renders renderHtml+renderMd with chain section + \ud83d\udd17 scenario-link + \u270f\ufe0f edit affordance. Consistent pattern across all 15 types.",
+    "class": "ior:instance:6fdc9ac6-0cf1-4d16-86ed-7c6f68f07d2e",
+    "method": "ior:instance:f56b488f-36e8-41f6-b30a-f57d6a870751",
+    "classes": [
+      "ior:instance:6fdc9ac6-0cf1-4d16-86ed-7c6f68f07d2e"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

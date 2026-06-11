@@ -7,7 +7,8 @@
     "methods": [
       "ior:instance:0fa1bf49-df04-4389-acad-84026ed67a83",
       "ior:instance:b0e09fb1-8392-49fb-b398-24eac95c1b3c",
-      "ior:instance:13231016-ce87-4c16-ac1a-a1af8d1353b8"
+      "ior:instance:13231016-ce87-4c16-ac1a-a1af8d1353b8",
+      "ior:instance:f56b488f-36e8-41f6-b30a-f57d6a870751"
     ],
     "useCases": [],
     "method": "ior:instance:0fa1bf49-df04-4389-acad-84026ed67a83",
