@@ -5,7 +5,9 @@
     "name": "R18.25: Tree narrowed chain continues past Method through Implementation to Test \u2014 not stopping at Method.",
     "description": "> TRON: \"Traceability Chain = All children but they should not. tree shows the tracability chain but also broken ...only till method...not deeper to impl and test\"\n\n### R18.25: Tree narrowed chain continues past Method through Implementation to Test \u2014 not stopping at Method.\n\nThe /trace tree currently stops the chain at Method level \u2014 it does not expand further to show Implementation \u2192 Test(s). The chain must continue the full 7-step depth: req \u2192 task \u2192 UC \u2192 class \u2192 method \u2192 **impl \u2192 test**. This is the same gap as R18.13 (chain terminates in Test) but specifically about the tree UI not rendering the last two levels.",
     "tronQuote": "> TRON: \"Traceability Chain = All children but they should not. tree shows the tracability chain but also broken ...only till method...not deeper to impl and test\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:2ee62c5c-00e5-4747-8a33-9a5a6fd27c89"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/compound-requirement-source.md",
     "sourceLine": 349,

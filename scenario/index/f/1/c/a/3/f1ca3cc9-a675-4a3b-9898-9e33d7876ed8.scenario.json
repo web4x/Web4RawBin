@@ -5,7 +5,9 @@
     "name": "R19.14: Files uploaded into a room are stored in the uuid index as <uuid>.content plus a <uuid>.scenario.json that references the content and carries unitLinks[] to the ln symlinks in the room folder \u2014 every file is a unique scenario unit.",
     "description": "Tron literal: \"files get uploaded and are stored in the uuid indes as uuid.content and a uuid.scenario.json with the reference to the content and unitLinks[] references to the ln links eg in the room folder on the filesystem. so every file becomes a unique unit.\"",
     "tronQuote": "> TRON: \"files get uploaded and are stored in the uuid indes as uuid.content and a uuid.scenario.json with the reference to the content and unitLinks[] references to the ln links eg in the room folder on the filesystem. so every file becomes a unique unit.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:834fe55b-8885-47f9-bdf9-3fb2f4fe7d40"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

@@ -5,7 +5,9 @@
     "name": "R19.4: PRIVATE rooms are listed only for their owners.",
     "description": "Tron literal: \"private rooms are only listed for owners.\"",
     "tronQuote": "> TRON: \"private rooms are only listed for owners.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:164d8114-3008-4683-93e8-c96d40cd93cc"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

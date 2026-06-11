@@ -5,7 +5,9 @@
     "name": "R19.7: Each room has a lifecycle mode of either LIVE or PERSISTENT.",
     "description": "Tron literal: \"rooms can be live or persistent.\"",
     "tronQuote": "> TRON: \"rooms can be live or persistent.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:67b2763e-57d7-4d3e-ac16-11c0f905c3dc"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

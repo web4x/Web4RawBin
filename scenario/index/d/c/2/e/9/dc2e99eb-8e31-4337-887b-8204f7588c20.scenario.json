@@ -5,7 +5,9 @@
     "name": "R19.12: Below the drop area sits a tree with exactly two nodes: Members and Files.",
     "description": "Tron literal: \"below there is a tree with two nodes, Members and Files.\"",
     "tronQuote": "> TRON: \"below there is a tree with two nodes, Members and Files.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:ae090710-3fee-4dc6-8dd1-d5b8501483eb"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

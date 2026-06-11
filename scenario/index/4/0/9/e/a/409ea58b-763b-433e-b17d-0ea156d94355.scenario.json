@@ -5,7 +5,9 @@
     "name": "R19.13: Members are displayed as item views below the Members node.",
     "description": "Tron literal: \"members will be diplayes as item views below the member node.\"",
     "tronQuote": "> TRON: \"members will be diplayes as item views below the member node.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:ae090710-3fee-4dc6-8dd1-d5b8501483eb"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

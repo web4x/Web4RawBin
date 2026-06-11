@@ -5,7 +5,9 @@
     "name": "R19.5: BY-INVITE rooms show an 'Apply' button instead of a join button; clicking it posts an invite-request message into the room with the requester's name and uuid, and an owner accepting that message joins the requester.",
     "description": "Tron literal: \"by invite rooms send a invite request as a message into the room with the requesters name and uuid. the show not a join button like public rooms but an \u201eApply\" button. the message can be accepted and they join.\"",
     "tronQuote": "> TRON: \"by invite rooms send a invite request as a message into the room with the requesters name and uuid. the show not a join button like public rooms but an \u201eApply\" button. the message can be accepted and they join.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:1805f7db-f57c-4a6a-b5d2-5e413d1643a3"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

@@ -5,7 +5,9 @@
     "name": "R19.11: The room content area gets a 'drop content here' drop area double the size of a tree-overview item view.",
     "description": "Tron literal: \"the room content area gets a drop content here area double the size of an item view in the tree overview.\"",
     "tronQuote": "> TRON: \"the room content area gets a drop content here area double the size of an item view in the tree overview.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:ae090710-3fee-4dc6-8dd1-d5b8501483eb"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

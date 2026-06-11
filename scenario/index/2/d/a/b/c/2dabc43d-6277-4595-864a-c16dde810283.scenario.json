@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "2dabc43d-6277-4595-864a-c16dde810283",
+    "name": "Room.persistMembers",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+}

@@ -5,7 +5,9 @@
     "name": "R19.1: A room is a scenario unit like every other (req/task/method) with a unique v4 uuid, the same {ior, model, ownerIor} shape, and a test of the json.",
     "description": "Tron literal: \"a room is a scenario like every other req, task, method \u2026 scenario. unique uuid and same scenario model and test of the json.\"",
     "tronQuote": "> TRON: \"a room is a scenario like every other req, task, method \u2026 scenario. unique uuid and same scenario model and test of the json.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:6c4949fa-04b8-40ee-afa8-449f71a3f2e0"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

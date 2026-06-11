@@ -4,8 +4,8 @@
     "uuid": "c99083ba-1b38-474c-88d1-ca4bf5f5a2c7",
     "altId": "R19.35",
     "name": "R19.35: Room scenario unit model holds IOR references to its member units.",
-    "description": "The Room scenario unit's model MUST hold IOR references to its members as a members[] array of ior:instance:<memberUuid> refs (same pattern as tasks[], useCases[]). Members become first-class linked scenario units — traceable and navigable from the Room unit in /trace and the room detail view — not just runtime WebSocket session data. This makes the member list persistent in the scenario graph, surviving server restarts and enabling traceability walks from Room→Member.",
-    "tronQuote": "> TRON: \"the Room model is lacking member IORs — the model needs to hold IOR references to its members.\"",
+    "description": "The Room scenario unit's model MUST hold IOR references to its members as a members[] array of ior:instance:<memberUuid> refs (same pattern as tasks[], useCases[]). Members become first-class linked scenario units \u2014 traceable and navigable from the Room unit in /trace and the room detail view \u2014 not just runtime WebSocket session data. This makes the member list persistent in the scenario graph, surviving server restarts and enabling traceability walks from Room\u2192Member.",
+    "tronQuote": "> TRON: \"the Room model is lacking member IORs \u2014 the model needs to hold IOR references to its members.\"",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
@@ -15,7 +15,10 @@
       "ior:instance:30dcb1a0-17b9-4fcb-9823-e71a4dc371c9",
       "ior:instance:3e14d73c-1ddb-4f42-8d33-481581a8ec95"
     ],
-    "crossRefNote": "R19.8 (persistent rooms retain offline members) defines the retention behavior; R19.35 ensures the retained members are IOR-linked in the scenario model, not just runtime state. R19.1 (room is a scenario unit) establishes the {ior, model, ownerIor} shape that R19.35 extends with members[]."
+    "crossRefNote": "R19.8 (persistent rooms retain offline members) defines the retention behavior; R19.35 ensures the retained members are IOR-linked in the scenario model, not just runtime state. R19.1 (room is a scenario unit) establishes the {ior, model, ownerIor} shape that R19.35 extends with members[].",
+    "useCases": [
+      "ior:instance:f7a2ed01-208f-4678-b9dc-948030fe2d7b"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

@@ -5,7 +5,9 @@
     "name": "R18.9: Chain cycles are completely eliminated \u2014 forward-only traversal with cycle guard.",
     "description": "> TRON: \"these cases [T123\u2194R16.4 infinite cycle in trace tree] have to completely be eliminated. also lazy loading just the next layer would prevent the issue here.\"\n\nThe trace tree currently exhibits infinite cycles when a Task and Requirement reference each other (T123\u2194R16.4 observed). ALL cycles in the traceability chain must be eliminated. The chain walker must enforce strict forward-only traversal: requirement \u2192 task \u2192 UC \u2192 class \u2192 method \u2192 impl \u2192 test. A visited-set cycle guard must prevent any node from being expanded twice in the same chain path. If a cycle is detected, the node renders as a leaf with a cycle indicator \u2014 it does NOT recurse.\n\n**Deduplication check:** R-F (data quality, zero backward chaos) and B18 (forward-only) cover the DATA direction. R18.9 covers the RUNTIME traversal \u2014 the tree walker must guard against cycles even if the data has them. Different layer \u2014 genuinely new.\n\n**Acceptance criteria:**\n- [ ] No infinite expansion in the trace tree (T123\u2194R16.4 cycle resolved)\n- [ ] Visited-set guard: a node appearing twice in the same path stops expansion\n- [ ] Cycle detected \u2192 node rendered as leaf with visual indicator (e.g. \u27f3 icon)\n- [ ] Forward-only chain types enforced: requirement can only expand to tasks, task to UCs, etc.",
     "tronQuote": "> TRON: \"these cases [T123\u2194R16.4 infinite cycle in trace tree] have to completely be eliminated. also lazy loading just the next layer would prevent the issue here.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:a1d2b3a8-a46b-4908-a266-a1ed860c101c"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/compound-requirement-source.md",
     "sourceLine": 127,

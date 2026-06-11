@@ -5,7 +5,10 @@
     "name": "R18.16: Traceability chain includes the Class level between UseCase and Method \u2014 no skip from UseCase directly to Method.",
     "description": "> TRON (3): \"usecese -> method instead of usecase -> class -> method and then missing implementation test\"\n\nThe /trace tree currently shows UseCase \u2192 Method, skipping the Class level. The locked 7-step chain (R-E / T168) requires: req \u2192 task \u2192 UC \u2192 **Class** \u2192 Method \u2192 Implementation \u2192 Test. The chain walker must resolve the Class node between UseCase and Method. If the UseCase's `classes[]` links to a Class which has `methods[]`, the tree shows UC \u2192 Class \u2192 Method. If the data is missing the Class hop (UseCase has `methods[]` directly instead of `classes[]`), this is a data quality fix.\n\nAdditionally: Tron notes \"missing implementation test\" \u2014 the chain below Method must continue to Implementation \u2192 Test (per R18.13). This links to T195 where missing impl/test data is being filled.\n\n**Deduplication check:** R18.2 covers narrowing to ONE method. R18.16 covers a different issue \u2014 the Class LEVEL is skipped entirely. Not narrowing, but a missing hop.\n\n**Acceptance criteria:**\n- [ ] /trace tree shows UC \u2192 Class \u2192 Method (not UC \u2192 Method)\n- [ ] Every Method in the chain has a parent Class node\n- [ ] If UseCase has no `classes[]` but has direct `methods[]`, the data is fixed (Class node inserted)\n- [ ] Below Method: Implementation \u2192 Test continues (per R18.13, linked to T195 data fill)",
     "tronQuote": "> TRON (3): \"usecese -> method instead of usecase -> class -> method and then missing implementation test\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:10a52f9f-b74f-42be-bf76-ff75aa3c14d3",
+      "ior:instance:2ee62c5c-00e5-4747-8a33-9a5a6fd27c89"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-18-chain-method-scope/compound-requirement-source.md",
     "sourceLine": 247,

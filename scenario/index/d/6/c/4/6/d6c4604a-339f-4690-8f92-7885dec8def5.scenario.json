@@ -5,7 +5,9 @@
     "name": "R19.9: Members (contacts) can be added to and removed from the room's member list.",
     "description": "Tron literal: \"contacts can be added and temoved from the room member list.\"",
     "tronQuote": "> TRON: \"contacts can be added and temoved from the room member list.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:67b2763e-57d7-4d3e-ac16-11c0f905c3dc"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
