@@ -1493,7 +1493,8 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
         playerToken: msg.playerToken || '', disconnected: false,
       };
       const joined = room.addMember(member);
-      if (!joined) { send({ type: MSG.ERROR, message: 'Room is full' }); break; }
+      // [impl:uuid:28354412-a1b2-4c3d-8e4f-5a6b7c8d9e0f] R19.23 no room-full
+      if (!joined) { send({ type: MSG.ERROR, message: 'Cannot join room' }); break; }
       if (msg.playerToken && room.getCreatorId() === msg.playerToken) {
         room.setCreator(clientId);
         room.broadcast({ type: MSG.HOST_CHANGED, hostId: clientId });

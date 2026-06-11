@@ -75,7 +75,6 @@ export function migrateLegacyRooms(dataDir: string): RoomReport {
       id: flat.id || id,
       name: flat.name || '(legacy room)',
       ownerToken: '_unowned',
-      maxMembers: flat.maxMembers || 10,
       isPrivate: !!flat.isPrivate,
       roomKey: flat.roomKey || '',
       state: flat.state || 'active',

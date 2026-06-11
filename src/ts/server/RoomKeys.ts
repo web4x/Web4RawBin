@@ -97,7 +97,6 @@ export interface RoomJsonData {
   id: string;
   name: string;
   ownerToken: string;
-  maxMembers: number;
   isPrivate: boolean;
   visibility?: string;
   mode?: string;
