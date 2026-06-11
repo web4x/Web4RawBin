@@ -5,7 +5,10 @@
     "name": "T60 file API",
     "sourceFile": "src/ts/server/FileApi.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+    ]
   },
   "ownerIor": null
 }

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "aaa28037-63f3-4e44-b042-0080b4879363",
+    "name": "test:Room.persistAsSymlink R19.22.A",
+    "description": "Bridged to test/vitest/room.test.ts covering RoomKeys.ts",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:7144f6ca-a1b2-4c3d-8e4f-5a6b7c8d9e0f"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7144f6ca-a1b2-4c3d-8e4f-5a6b7c8d9e0f"
+}

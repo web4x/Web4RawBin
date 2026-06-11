@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "201baea7-65fe-497e-b75e-8e2bc8ddce64",
+    "name": "test:T63 editor entry",
+    "description": "Bridged to test/vitest/server.test.ts covering edit.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:1b854ba5-65b9-4a2d-a16c-b288388f42b7"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:1b854ba5-65b9-4a2d-a16c-b288388f42b7"
+}

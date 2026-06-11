@@ -1,0 +1,24 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "49a447cf-f27f-4639-aca7-4ab2b46543fb",
+    "altId": "R19.49",
+    "name": "R19.49: Each file scenario unit stores a content hash.",
+    "description": "Every FileUnit scenario unit MUST store a model.contentHash field \u2014 a cryptographic hash (e.g. SHA-256 hex) of the file's binary content computed at upload time. This hash is the dedup key for R19.47 (identical content reuse) and the difference detector for R19.48 (version-on-name-collision). The hash is immutable for a given content version.",
+    "tronQuote": "> TRON: \"create a content hash for each file in the file scenario.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:89502cba-1085-4bf1-ac97-be9a8ba452cf",
+      "ior:instance:160039ef-92a5-44d7-af1c-d9b71cdb1be0"
+    ],
+    "crossRefNote": "R19.47 (identical content reuse) and R19.48 (version-on-name-collision) both depend on contentHash as their decision key.",
+    "useCases": [
+      "ior:instance:1dabd60a-0ddd-4b00-8433-152b719a2875"
+    ]
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -5,7 +5,10 @@
     "name": "T5+T33 websocket client",
     "sourceFile": "src/public/ts/RawBinClient.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:dfc20743-9281-4aaf-abb5-473fe914d710"
+    ]
   },
   "ownerIor": null
 }

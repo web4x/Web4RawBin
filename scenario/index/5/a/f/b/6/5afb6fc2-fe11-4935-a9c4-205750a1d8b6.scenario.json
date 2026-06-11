@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "5afb6fc2-fe11-4935-a9c4-205750a1d8b6",
+    "name": "FileUnit.computeContentHash",
+    "description": "crypto.createHash('sha256').update(content).digest('hex'). Stored as model.contentHash on the FileUnit scenario unit at creation time.",
+    "sourceFile": "ior:file:src/ts/scenario/file-unit.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3e0ceb94-90f3-4c5b-b13b-e1f2a3b4c5d6"
+}

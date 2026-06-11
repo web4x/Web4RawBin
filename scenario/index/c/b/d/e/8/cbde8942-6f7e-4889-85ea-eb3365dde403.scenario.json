@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "cbde8942-6f7e-4889-85ea-eb3365dde403",
+    "name": "test:avatar-fallback fix — re-encrypt files/*",
+    "description": "Bridged to test/vitest/crypto.test.ts covering UserCrypto.ts",
+    "sourceFile": "ior:file:test/vitest/crypto.test.ts",
+    "implementations": [
+      "ior:instance:13a4b5c6-d7e8-4f90-a1b2-c3d4e5f60097"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:13a4b5c6-d7e8-4f90-a1b2-c3d4e5f60097"
+}

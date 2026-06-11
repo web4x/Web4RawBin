@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "name": "test:T9 user SSH keys",
+    "description": "Bridged to test/vitest/userkeys.test.ts covering UserKeys.ts",
+    "sourceFile": "ior:file:test/vitest/userkeys.test.ts",
+    "implementations": [
+      "ior:instance:cc632587-93f3-4921-9436-1cf13ca0bead"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cc632587-93f3-4921-9436-1cf13ca0bead"
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e3cf4e6d-2fc0-4b18-b163-07ca7816bed9",
+    "name": "test:SpeakingTree.symlinkJson(sprint",
+    "description": "Bridged to test/vitest/scenario.test.ts covering generator.ts",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:b539d1d8-5cc9-488e-bb18-160ee73f5a56"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b539d1d8-5cc9-488e-bb18-160ee73f5a56"
+}

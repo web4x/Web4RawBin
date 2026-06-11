@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f38ec37a-90b6-4854-911b-49cb7c4f714b",
+    "name": "test:T42 chat sheet",
+    "description": "Bridged to test/vitest/server.test.ts covering rb-chat-sheet.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:cf702932-c711-4c9e-9fdc-9352eaf5d327"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cf702932-c711-4c9e-9fdc-9352eaf5d327"
+}

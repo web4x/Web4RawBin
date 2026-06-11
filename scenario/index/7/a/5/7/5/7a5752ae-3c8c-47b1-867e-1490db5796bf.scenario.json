@@ -5,7 +5,10 @@
     "name": "T10 device enrollment",
     "sourceFile": "src/public/ts/DeviceEnrollDialog.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:22625fdb-2a33-4648-9b26-6b6fd2fb1049"
+    ]
   },
   "ownerIor": null
 }

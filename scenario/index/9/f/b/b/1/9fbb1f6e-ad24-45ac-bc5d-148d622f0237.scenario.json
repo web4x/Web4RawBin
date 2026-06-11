@@ -5,7 +5,10 @@
     "name": "T3 Room class",
     "sourceFile": "src/ts/server/Room.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:57bc3556-a2f4-4138-a2a0-b748fa361ec4"
+    ]
   },
   "ownerIor": null
 }

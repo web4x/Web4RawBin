@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "79dc1ce0-6e9a-4e11-bc5c-ad70f4b09bb1",
+    "name": "test:T39 update banner",
+    "description": "Bridged to test/vitest/server.test.ts covering rb-update-banner.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:18ebf760-c51b-4b67-9dcb-a2c2f5f3cfa3"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:18ebf760-c51b-4b67-9dcb-a2c2f5f3cfa3"
+}

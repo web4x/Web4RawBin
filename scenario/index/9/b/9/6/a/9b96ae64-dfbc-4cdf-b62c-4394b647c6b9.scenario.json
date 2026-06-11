@@ -5,7 +5,10 @@
     "name": "IORResolver.resolve(ior): ScenarioUnit | ClassLoader",
     "sourceFile": "src/ts/scenario/ior-resolver.ts",
     "sourceLine": 7,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:0f85b7df-984d-4eaf-b532-b284f823bbe9"
+    ]
   },
   "ownerIor": null
 }

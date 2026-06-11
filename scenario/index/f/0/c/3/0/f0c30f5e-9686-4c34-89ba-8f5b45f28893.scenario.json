@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f0c30f5e-9686-4c34-89ba-8f5b45f28893",
+    "name": "test:DropDispatcher.enterDragZone",
+    "description": "Bridged to test/vitest/file-dnd-chain.test.ts covering drop-dispatcher.ts",
+    "sourceFile": "ior:file:test/vitest/file-dnd-chain.test.ts",
+    "implementations": [
+      "ior:instance:481b1a1c-a1b2-4c3d-8e4f-5a6b7c8d9e10"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:481b1a1c-a1b2-4c3d-8e4f-5a6b7c8d9e10"
+}

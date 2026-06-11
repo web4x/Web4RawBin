@@ -5,7 +5,10 @@
     "name": "R-U forward-only display",
     "sourceFile": "src/public/ts/trace/forward-only.ts",
     "sourceLine": 5,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:c8fadaae-1fb3-4eb8-8469-52fd9c2c5ce8"
+    ]
   },
   "ownerIor": null
 }

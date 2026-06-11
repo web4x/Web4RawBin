@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "163c8e76-744e-4359-8939-71b07a17777b",
+    "name": "test:ScenarioUnit.save(indexPath): void",
+    "description": "Bridged to test/vitest/server.test.ts covering edit.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:e362c116-710c-47b3-ac7e-ecc1b8ea58e4"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e362c116-710c-47b3-ac7e-ecc1b8ea58e4"
+}

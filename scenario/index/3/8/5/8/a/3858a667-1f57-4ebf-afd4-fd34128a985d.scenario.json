@@ -5,7 +5,10 @@
     "name": "T70 editor toolbar",
     "sourceFile": "src/public/ts/components/rb-editor-toolbar.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:d961a4f4-5be5-4729-b5c7-3131665a311e"
+    ]
   },
   "ownerIor": null
 }

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ce32ecdd-c325-4421-9fd0-f6005bde217e",
+    "name": "test:T4 server core",
+    "description": "Bridged to test/vitest/server.test.ts covering server.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:e94199c4-5c74-458e-92ad-2e75f8bc2926"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e94199c4-5c74-458e-92ad-2e75f8bc2926"
+}

@@ -5,7 +5,10 @@
     "name": "T56 avatar component",
     "sourceFile": "src/public/ts/components/rb-avatar.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:991f7629-0f80-476e-8b1e-e972222ce6d9"
+    ]
   },
   "ownerIor": null
 }

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2ef0de37-2466-4ea1-9c60-1af60632d2ba",
+    "name": "test:skill-classes",
+    "description": "Bridged to test/vitest/scenario.test.ts covering skill-classes.ts",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:f1a2b3c4-d5e6-4f7a-8b9c-0d1e2f3a4b5c"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f1a2b3c4-d5e6-4f7a-8b9c-0d1e2f3a4b5c"
+}

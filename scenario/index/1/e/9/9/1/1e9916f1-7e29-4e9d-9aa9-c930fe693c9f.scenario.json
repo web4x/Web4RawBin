@@ -5,7 +5,10 @@
     "name": "T64 editor layout",
     "sourceFile": "src/public/ts/components/rb-editor-layout.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:1b5c8ddc-8d87-4afd-b75c-23ebf99bb031"
+    ]
   },
   "ownerIor": null
 }

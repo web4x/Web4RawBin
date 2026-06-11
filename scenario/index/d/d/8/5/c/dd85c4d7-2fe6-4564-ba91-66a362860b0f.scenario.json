@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "dd85c4d7-2fe6-4564-ba91-66a362860b0f",
+    "name": "test:chat lazy-load",
+    "description": "Bridged to test/vitest/server.test.ts covering server.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:94bc8f6e-a1b2-4c3d-8e4f-5a6b7c8d9e05"
+}

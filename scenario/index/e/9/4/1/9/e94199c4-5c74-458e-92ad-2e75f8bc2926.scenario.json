@@ -5,7 +5,10 @@
     "name": "T4 server core",
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 3,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:ce32ecdd-c325-4421-9fd0-f6005bde217e"
+    ]
   },
   "ownerIor": null
 }

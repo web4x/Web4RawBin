@@ -1,0 +1,24 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "160039ef-92a5-44d7-af1c-d9b71cdb1be0",
+    "altId": "R19.48",
+    "name": "R19.48: Different file content with same name registers as a unit version, not a new unit.",
+    "description": "When a user drops a file whose content hash (R19.49) does NOT match any existing FileUnit but whose name matches an existing file in the room, the system MUST register it as a new VERSION of the existing FileUnit \u2014 not as a separate unit. The new content is stored as a new <uuid>.content, and the FileUnit's version[] array (R19.50) gains a new entry {version: N+1, ior: <new-content-ior>}. The FileUnit UUID stays the same; Room.files[] is unchanged. This is version-on-name-collision.",
+    "tronQuote": "> TRON: \"if its a new file with different size but new name register it as a unit version.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:49a447cf-f27f-4639-aca7-4ab2b46543fb",
+      "ior:instance:fe9922f0-e58f-4e26-9d5a-8c65f8b26c60"
+    ],
+    "crossRefNote": "R19.49 (content hash) detects the content difference. R19.50 (version[] array) stores the version history.",
+    "useCases": [
+      "ior:instance:5b9193ae-33ce-4b94-80ad-cb32895765f9"
+    ]
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

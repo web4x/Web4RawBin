@@ -1,0 +1,24 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "89502cba-1085-4bf1-ac97-be9a8ba452cf",
+    "altId": "R19.47",
+    "name": "R19.47: Identical file content reuses the existing FileUnit UUID and adds another unitLink.",
+    "description": "When a user drops a file whose content hash (R19.49) matches an EXISTING FileUnit in the index, the system MUST NOT create a new UUID/scenario unit. Instead it reuses the existing FileUnit's UUID and adds another unitLink (symlink) from the new location to that existing unit. The Room.files[] IOR list (R19.46) is not duplicated \u2014 the existing IOR is already there. This is content-addressable dedup: same content = same unit, multiple symlinks.",
+    "tronQuote": "> TRON: \"if the user dropped the same file twice and its identical to an existing content file, then register it NOT as a new UUID, but as the existing UUID and as another unitLink.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:49a447cf-f27f-4639-aca7-4ab2b46543fb",
+      "ior:instance:124d9eec-0c46-4f45-8640-b7e14618d214"
+    ],
+    "crossRefNote": "R19.49 (content hash) provides the match key. R19.46 (Room.files[] IOR dedup) ensures the room doesn't double-list the file.",
+    "useCases": [
+      "ior:instance:f0b3cd73-5e0e-4235-9589-018f5f22a369"
+    ]
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

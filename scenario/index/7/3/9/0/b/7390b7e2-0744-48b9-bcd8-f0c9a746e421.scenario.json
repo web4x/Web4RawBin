@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "name": "test:T60 file API",
+    "description": "Bridged to test/vitest/fileapi.test.ts covering FileApi.ts",
+    "sourceFile": "ior:file:test/vitest/fileapi.test.ts",
+    "implementations": [
+      "ior:instance:cdbd3970-ba43-4efc-920d-8352d3c4daa0"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cdbd3970-ba43-4efc-920d-8352d3c4daa0"
+}

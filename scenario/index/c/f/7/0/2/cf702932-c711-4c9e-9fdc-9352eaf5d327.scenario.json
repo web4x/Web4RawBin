@@ -5,7 +5,10 @@
     "name": "T42 chat sheet",
     "sourceFile": "src/public/ts/components/rb-chat-sheet.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:f38ec37a-90b6-4854-911b-49cb7c4f714b"
+    ]
   },
   "ownerIor": null
 }

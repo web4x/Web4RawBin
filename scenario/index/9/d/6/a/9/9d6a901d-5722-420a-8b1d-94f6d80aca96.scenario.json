@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9d6a901d-5722-420a-8b1d-94f6d80aca96",
+    "name": "test:T-persistent-dedup R19.8.B",
+    "description": "Bridged to test/vitest/room.test.ts covering Room.ts",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:417918a5-b2c3-4d4e-9f5a-6b7c8d9e0f12"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:417918a5-b2c3-4d4e-9f5a-6b7c8d9e0f12"
+}

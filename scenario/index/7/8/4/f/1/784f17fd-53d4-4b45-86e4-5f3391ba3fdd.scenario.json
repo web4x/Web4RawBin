@@ -5,7 +5,10 @@
     "name": "T5+T77 room browser lobby",
     "sourceFile": "src/public/ts/RoomBrowser.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:bdee2812-ea6b-4202-9b8f-9986757e6f5a"
+    ]
   },
   "ownerIor": null
 }

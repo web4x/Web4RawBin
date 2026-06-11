@@ -5,7 +5,10 @@
     "name": "T39 update banner",
     "sourceFile": "src/public/ts/components/rb-update-banner.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:79dc1ce0-6e9a-4e11-bc5c-ad70f4b09bb1"
+    ]
   },
   "ownerIor": null
 }

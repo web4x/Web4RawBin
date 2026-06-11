@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "1dabd60a-0ddd-4b00-8433-152b719a2875",
+    "name": "file.storeContentHash",
+    "description": "Every FileUnit scenario unit stores model.contentHash (SHA-256 of content). Computed on createFileUnit, persisted in the unit. Used by dedup (R19.47) and versioning (R19.48).",
+    "class": "ior:instance:3e0ceb94-90f3-4c5b-b13b-e1f2a3b4c5d6",
+    "method": "ior:instance:5afb6fc2-fe11-4935-a9c4-205750a1d8b6",
+    "classes": [
+      "ior:instance:3e0ceb94-90f3-4c5b-b13b-e1f2a3b4c5d6"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

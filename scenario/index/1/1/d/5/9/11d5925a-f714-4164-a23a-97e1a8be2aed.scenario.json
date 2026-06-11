@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "11d5925a-f714-4164-a23a-97e1a8be2aed",
+    "name": "test:R19.8.A member disconnected field",
+    "description": "Bridged to test/vitest/room.test.ts covering Room.ts",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:9a25adbd-b1c2-4d3e-8f4a-5b6c7d8e9f00"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:9a25adbd-b1c2-4d3e-8f4a-5b6c7d8e9f00"
+}

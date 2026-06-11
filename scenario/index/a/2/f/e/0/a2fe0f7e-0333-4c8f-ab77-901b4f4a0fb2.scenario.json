@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a2fe0f7e-0333-4c8f-ab77-901b4f4a0fb2",
+    "name": "test:DropDispatcher.uploadWithProgress",
+    "description": "Bridged to test/vitest/file-dnd-chain.test.ts covering drop-dispatcher.ts",
+    "sourceFile": "ior:file:test/vitest/file-dnd-chain.test.ts",
+    "implementations": [
+      "ior:instance:481b1a1c-c3d4-4e5f-a060-000000000012"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:481b1a1c-c3d4-4e5f-a060-000000000012"
+}

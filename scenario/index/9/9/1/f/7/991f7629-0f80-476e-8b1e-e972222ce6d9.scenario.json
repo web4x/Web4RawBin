@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "991f7629-0f80-476e-8b1e-e972222ce6d9",
+    "name": "test:T56 avatar component",
+    "description": "Bridged to test/vitest/server.test.ts covering rb-avatar.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:ddeb708a-e038-4901-a4c4-fba2cbf56d12"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ddeb708a-e038-4901-a4c4-fba2cbf56d12"
+}

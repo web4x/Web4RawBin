@@ -5,7 +5,10 @@
     "name": "RbDetailDrawer.narrowChain",
     "sourceFile": "src/public/ts/trace/singular-chain.ts",
     "sourceLine": 6,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:aa4b7cf3-cf99-4912-947f-4c7ddba7c553"
+    ]
   },
   "ownerIor": null
 }

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "5397634d-2fca-442e-92d0-2957c3810928",
+    "name": "FileUnit.reuseByContentHash",
+    "description": "On upload: hash content. If existing FileUnit with same contentHash found in room.files[], add new unitLink to that unit, skip content write. Return existing unit.",
+    "sourceFile": "ior:file:src/ts/scenario/file-unit.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3e0ceb94-90f3-4c5b-b13b-e1f2a3b4c5d6"
+}

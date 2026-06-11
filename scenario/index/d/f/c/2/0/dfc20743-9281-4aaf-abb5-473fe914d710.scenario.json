@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "dfc20743-9281-4aaf-abb5-473fe914d710",
+    "name": "test:T5+T33 websocket client",
+    "description": "Bridged to test/vitest/server.test.ts covering RawBinClient.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:bbd18e1c-82f0-4438-8618-f66715731212"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:bbd18e1c-82f0-4438-8618-f66715731212"
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "6c3405da-37fc-4e49-9d82-7fd265044d8e",
+    "name": "test:T41 overlay base",
+    "description": "Bridged to test/vitest/server.test.ts covering rb-overlay.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:e8d95f47-0a17-4d64-b653-338584dcc6fd"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e8d95f47-0a17-4d64-b653-338584dcc6fd"
+}

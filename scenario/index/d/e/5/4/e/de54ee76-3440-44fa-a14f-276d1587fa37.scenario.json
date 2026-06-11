@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "de54ee76-3440-44fa-a14f-276d1587fa37",
+    "name": "test:T74 room SSH keys",
+    "description": "Bridged to test/vitest/room.test.ts covering RoomKeys.ts",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:07474cf1-9581-4ae3-8a00-3931f4297da4"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:07474cf1-9581-4ae3-8a00-3931f4297da4"
+}

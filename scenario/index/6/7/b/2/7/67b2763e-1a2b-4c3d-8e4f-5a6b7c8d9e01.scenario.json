@@ -5,7 +5,10 @@
     "name": "T-persistent-retention",
     "sourceFile": "src/ts/server/Room.ts",
     "sourceLine": 182,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:1ea4eeab-948a-41f0-ae64-3ec3f48272c1"
+    ]
   },
   "ownerIor": null
 }

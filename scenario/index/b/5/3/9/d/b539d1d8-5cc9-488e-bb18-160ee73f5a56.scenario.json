@@ -5,7 +5,10 @@
     "name": "SpeakingTree.symlinkJson(sprint",
     "sourceFile": "src/ts/scenario/generator.ts",
     "sourceLine": 10,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:e3cf4e6d-2fc0-4b18-b163-07ca7816bed9"
+    ]
   },
   "ownerIor": null
 }

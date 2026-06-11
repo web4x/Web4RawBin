@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "57bc3556-a2f4-4138-a2a0-b748fa361ec4",
+    "name": "test:T3 Room class",
+    "description": "Bridged to test/vitest/room.test.ts covering Room.ts",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:9fbb1f6e-ad24-45ac-bc5d-148d622f0237"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:9fbb1f6e-ad24-45ac-bc5d-148d622f0237"
+}

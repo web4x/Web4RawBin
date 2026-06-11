@@ -5,7 +5,10 @@
     "name": "T9 user SSH keys",
     "sourceFile": "src/ts/server/UserKeys.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+    ]
   },
   "ownerIor": null
 }

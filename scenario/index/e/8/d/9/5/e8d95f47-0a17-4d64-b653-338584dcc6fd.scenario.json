@@ -5,7 +5,10 @@
     "name": "T41 overlay base",
     "sourceFile": "src/public/ts/components/rb-overlay.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:6c3405da-37fc-4e49-9d82-7fd265044d8e"
+    ]
   },
   "ownerIor": null
 }

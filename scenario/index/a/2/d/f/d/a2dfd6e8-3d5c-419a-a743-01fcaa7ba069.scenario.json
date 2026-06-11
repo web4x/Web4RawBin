@@ -5,7 +5,10 @@
     "name": "T5 room view",
     "sourceFile": "src/public/ts/RoomView.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:e12ba2fd-5948-4060-b3ee-847d5a857559"
+    ]
   },
   "ownerIor": null
 }

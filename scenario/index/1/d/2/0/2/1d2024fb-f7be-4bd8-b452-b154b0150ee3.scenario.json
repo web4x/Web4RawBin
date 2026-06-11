@@ -5,7 +5,10 @@
     "name": "ViewTemplateRegistry.register(className",
     "sourceFile": "src/ts/scenario/templates.ts",
     "sourceLine": 7,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:9aec7689-d1fc-4224-8de7-0a24db5b28e3"
+    ]
   },
   "ownerIor": null
 }

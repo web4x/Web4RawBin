@@ -5,7 +5,10 @@
     "name": "ClassRegistry.loader): void",
     "sourceFile": "src/ts/scenario/classes.ts",
     "sourceLine": 7,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:5df331c3-8ca6-452d-93fc-02f8aa598fbd"
+    ]
   },
   "ownerIor": null
 }

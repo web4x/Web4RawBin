@@ -5,7 +5,10 @@
     "name": "TraceRouter.navigate",
     "sourceFile": "src/public/ts/trace/nav.ts",
     "sourceLine": 8,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:b2fa3e4d-5aea-4368-a1d5-ec1793e35223"
+    ]
   },
   "ownerIor": null
 }

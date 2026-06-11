@@ -5,7 +5,10 @@
     "name": "T63 editor entry",
     "sourceFile": "src/public/ts/edit.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:201baea7-65fe-497e-b75e-8e2bc8ddce64"
+    ]
   },
   "ownerIor": null
 }

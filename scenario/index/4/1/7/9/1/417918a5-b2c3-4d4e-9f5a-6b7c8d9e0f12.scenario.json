@@ -5,7 +5,10 @@
     "name": "T-persistent-dedup R19.8.B",
     "sourceFile": "src/ts/server/Room.ts",
     "sourceLine": 144,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:9d6a901d-5722-420a-8b1d-94f6d80aca96"
+    ]
   },
   "ownerIor": null
 }

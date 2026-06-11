@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "324b293e-ea95-4507-91e7-d1888d7e13c0",
+    "name": "test:T-room-ui-shared R19.21",
+    "description": "Bridged to test/vitest/room.test.ts covering RoomView.ts",
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "implementations": [
+      "ior:instance:ae090710-5c3a-4e8b-b217-9f3d7c1a5e40"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ae090710-5c3a-4e8b-b217-9f3d7c1a5e40"
+}

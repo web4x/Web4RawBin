@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "fe9922f0-e58f-4e26-9d5a-8c65f8b26c60",
+    "altId": "R19.50",
+    "name": "R19.50: File scenario unit has a version[] array of {version, ior} entries.",
+    "description": "Every FileUnit scenario unit MUST have a model.version[] array. Each entry is {version: <number>, ior: <ior-to-content>} representing one version of the file's content. Version 1 is the initial upload. Subsequent versions (R19.48) append entries with incrementing version numbers. The latest version is the last entry. The current content symlink always points to the latest version's content file.",
+    "tronQuote": "> TRON: \"add a version[] with {version,ior}.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:160039ef-92a5-44d7-af1c-d9b71cdb1be0"
+    ],
+    "crossRefNote": "R19.48 (version-on-name-collision) writes new entries to version[]. R19.50 defines the data structure."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

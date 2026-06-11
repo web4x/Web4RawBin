@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "0729010a-803d-462b-922e-bde7812004e4",
+    "name": "test:T5 client app entry",
+    "description": "Bridged to test/vitest/server.test.ts covering app.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:ef863349-470d-420b-b933-8339951bb501"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ef863349-470d-420b-b933-8339951bb501"
+}

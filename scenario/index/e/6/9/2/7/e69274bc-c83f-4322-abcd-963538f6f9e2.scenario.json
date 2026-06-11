@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "name": "test:T8 profile editor",
+    "description": "Bridged to test/vitest/profile.test.ts covering ProfileEditor.ts",
+    "sourceFile": "ior:file:test/vitest/profile.test.ts",
+    "implementations": [
+      "ior:instance:5b438bb9-1602-4890-9c09-407606a28d6c"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5b438bb9-1602-4890-9c09-407606a28d6c"
+}

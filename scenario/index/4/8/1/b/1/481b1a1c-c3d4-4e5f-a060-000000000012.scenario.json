@@ -5,7 +5,10 @@
     "name": "DropDispatcher.uploadWithProgress",
     "sourceFile": "src/public/ts/drop-dispatcher.ts",
     "sourceLine": 60,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:a2fe0f7e-0333-4c8f-ab77-901b4f4a0fb2"
+    ]
   },
   "ownerIor": null
 }

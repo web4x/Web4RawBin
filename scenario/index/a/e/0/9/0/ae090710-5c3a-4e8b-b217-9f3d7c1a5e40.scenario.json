@@ -5,7 +5,10 @@
     "name": "T-room-ui-shared R19.21",
     "sourceFile": "src/public/ts/RoomView.ts",
     "sourceLine": 230,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:324b293e-ea95-4507-91e7-d1888d7e13c0"
+    ]
   },
   "ownerIor": null
 }

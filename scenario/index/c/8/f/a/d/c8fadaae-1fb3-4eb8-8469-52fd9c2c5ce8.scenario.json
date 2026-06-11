@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c8fadaae-1fb3-4eb8-8469-52fd9c2c5ce8",
+    "name": "test:R-U forward-only display",
+    "description": "Bridged to test/vitest/scenario.test.ts covering forward-only.ts",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:a3f181b4-c5d6-4e7f-8a90-1b2c3d4e5f81"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a3f181b4-c5d6-4e7f-8a90-1b2c3d4e5f81"
+}

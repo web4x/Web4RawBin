@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d961a4f4-5be5-4729-b5c7-3131665a311e",
+    "name": "test:T70 editor toolbar",
+    "description": "Bridged to test/vitest/server.test.ts covering rb-editor-toolbar.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:3858a667-1f57-4ebf-afd4-fd34128a985d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:3858a667-1f57-4ebf-afd4-fd34128a985d"
+}

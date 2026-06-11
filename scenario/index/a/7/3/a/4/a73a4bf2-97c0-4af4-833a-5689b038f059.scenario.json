@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a73a4bf2-97c0-4af4-833a-5689b038f059",
+    "name": "test:T81 profile sheet",
+    "description": "Bridged to test/vitest/profile.test.ts covering ProfileSheet.ts",
+    "sourceFile": "ior:file:test/vitest/profile.test.ts",
+    "implementations": [
+      "ior:instance:3bbd5f2b-eb9c-4c48-9cf7-f6424d0b1ec2"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:3bbd5f2b-eb9c-4c48-9cf7-f6424d0b1ec2"
+}

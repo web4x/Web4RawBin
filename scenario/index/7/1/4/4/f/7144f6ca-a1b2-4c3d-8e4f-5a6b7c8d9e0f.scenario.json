@@ -5,7 +5,10 @@
     "name": "Room.persistAsSymlink R19.22.A",
     "sourceFile": "src/ts/server/RoomKeys.ts",
     "sourceLine": 112,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:aaa28037-63f3-4e44-b042-0080b4879363"
+    ]
   },
   "ownerIor": null
 }

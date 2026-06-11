@@ -5,7 +5,10 @@
     "name": "T66 code editor",
     "sourceFile": "src/public/ts/components/rb-code-editor.ts",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:e41d6814-b990-4e27-9cd3-622f134da72f"
+    ]
   },
   "ownerIor": null
 }

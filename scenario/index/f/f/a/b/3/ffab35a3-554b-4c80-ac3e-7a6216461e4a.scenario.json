@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ffab35a3-554b-4c80-ac3e-7a6216461e4a",
+    "name": "test:Room.stripSizeLimits R19.23",
+    "description": "Bridged to test/vitest/server.test.ts covering RawBinClient.ts",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:f1dd0d77-a2b3-4c4d-9e5f-6a7b8c9d0e11"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f1dd0d77-a2b3-4c4d-9e5f-6a7b8c9d0e11"
+}

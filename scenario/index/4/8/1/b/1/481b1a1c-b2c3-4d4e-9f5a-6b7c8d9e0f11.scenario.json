@@ -5,7 +5,10 @@
     "name": "DropDispatcher.exitDragZone",
     "sourceFile": "src/public/ts/drop-dispatcher.ts",
     "sourceLine": 33,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:8682fa95-7ce2-4e21-91d8-4deb8807e563"
+    ]
   },
   "ownerIor": null
 }

@@ -5,7 +5,10 @@
     "name": "chat lazy-load",
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 425,
-    "unitLinks": []
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:dd85c4d7-2fe6-4564-ba91-66a362860b0f"
+    ]
   },
   "ownerIor": null
 }

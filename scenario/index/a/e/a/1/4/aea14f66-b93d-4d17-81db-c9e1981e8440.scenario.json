@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "aea14f66-b93d-4d17-81db-c9e1981e8440",
+    "name": "test:ScenarioUnit.load(json): this",
+    "description": "Bridged to test/vitest/scenario.test.ts covering scenario-view.ts",
+    "sourceFile": "ior:file:test/vitest/scenario.test.ts",
+    "implementations": [
+      "ior:instance:4b458ad6-a795-4cc3-a622-541f633bc985"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4b458ad6-a795-4cc3-a622-541f633bc985"
+}
