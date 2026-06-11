@@ -23,6 +23,31 @@ Repo: /Users/Shared/Workspaces/2cuGitHub/Web4RawBin. Run from repo root (or cd t
 | compute | `<since:string>` `<?sprint:string>` | Chain completion + git throughput for a window (numerator = canonical Chain.followUp) |
 | dashboard | `<?since:string>` `<?hours:number>` `<?sprint:string>` | Team velocity dashboard (markdown) — window via since (ISO) or hours (number), default last 24h |
 
+## Learning OOSH & this skill (Tab is the manual)
+
+This skill follows the OOSH Object.verb model — learn OOSH itself from `~/oosh/docs/`
+(`first-principles.md`, `command-creation.md`, `completion-system.md`, `oosh-architecture.md`).
+
+You do NOT need docs to learn the skill: **Tab completion IS the documentation**.
+The c2 engine reads the method signatures directly (DRY — code is the doc), so in any
+OOSH shell just type the script name and explore:
+
+```bash
+taskChain <Tab><Tab>            # lists every Object.verb method
+taskChain velocity.<Tab><Tab>      # narrows to this object's verbs
+taskChain velocity.<verb> <Tab>    # completes the next parameter's candidates
+```
+
+To learn or verify it interactively the way a human user would, drive a REAL bash
+shell in a tmux pane via otmux (the canonical OOSH completion-testing pattern):
+
+```bash
+otmux new skillLearn                          # fresh session with an OOSH bash
+otmux send skillLearn 'taskChain ' Tab Tab    # send a literal Tab keypress
+otmux pane.capture skillLearn 20              # read what completion offered
+otmux kill skillLearn                         # clean up
+```
+
 ## Rules
 
 - ONE canonical completion measure: Chain.followUp — never produce a competing count.
