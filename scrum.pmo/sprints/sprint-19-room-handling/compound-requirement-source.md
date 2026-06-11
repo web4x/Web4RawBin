@@ -95,6 +95,10 @@
 - **R19.40** (2026-06-11): Room holds model.lastMessageIor (entry point). Chat lazy-loads last 5 messages, then 5 more on scroll-to-top (walking prevMessage IORs). Backward-pagination via R19.38 linked list.
   > TRON: "the room obviously needs to have a reference on the last message to lazy load the chat. only load the last 5 messages and continue lazyloading 5, when scrolling hits latest loaded message."
 
+### Server log level (R19.41)
+- **R19.41** (2026-06-11): server has a configurable LOG LEVEL (error<warn<info<debug<trace). All logging respects it. Settable at runtime without restart + persisted default via env/config.
+  > TRON: "introduce serverside log level to increase and decrease server log details."
+
 ### Detail drawer + chain display bugs (R19.33 + R19.34)
 - **R19.33** (2026-06-11): detail drawer close affordance (nudge/X handle) scrolls out of view. MUST stay sticky/fixed in the drawer viewport.
   > TRON: "the details nudge to close scrolls out of the view"
