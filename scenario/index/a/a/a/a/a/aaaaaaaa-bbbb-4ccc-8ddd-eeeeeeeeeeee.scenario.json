@@ -5,14 +5,24 @@
     "id": "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee",
     "name": "Canon",
     "ownerToken": "test-tok-canon",
-    "maxMembers": 10,
     "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1,
+    "createdAt": 1781161663028,
     "sshKeysGenerated": false,
     "sshPublicKey": "",
     "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:test-tok-canon",
+        "name": "",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1781161663028
+      }
+    ],
     "sourceFile": "scenario/index/a/a/a/a/a/aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee.scenario.json",
     "unitLinks": [
       "sprints.json/rooms/test-tok-canon/aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee.json"

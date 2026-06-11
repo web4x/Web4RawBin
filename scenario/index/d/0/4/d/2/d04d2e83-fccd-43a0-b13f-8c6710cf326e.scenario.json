@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "d04d2e83-fccd-43a0-b13f-8c6710cf326e",
-    "name": "Cycle guard is ancestor-path-precise — only break true ancestor cycles, preserve DAG re-convergence.",
+    "name": "Cycle guard is ancestor-path-precise \u2014 only break true ancestor cycles, preserve DAG re-convergence.",
     "altId": "R18.11",
     "tasks": [
       "ior:instance:08e46ce3-69f3-40fe-87d7-5ee875a4e94a"
@@ -14,7 +14,9 @@
     "unitLinks": [],
     "useCases": [
       "ior:instance:71d57474-3f95-4a91-b45c-423663bb7d30"
-    ]
+    ],
+    "description": "Cycle guard is ancestor-path-precise \u2014 only break true ancestor cycles, preserve DAG re-convergence.",
+    "tronQuote": "> Derived from Tron S18 compound directive (T128 migration). Requirement text is the atomic decomposition of the original compound."
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

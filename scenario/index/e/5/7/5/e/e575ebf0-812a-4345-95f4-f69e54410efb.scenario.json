@@ -14,7 +14,9 @@
     "unitLinks": [],
     "useCases": [
       "ior:instance:ec3a0206-a1ec-4d98-a041-63a5a7903d65"
-    ]
+    ],
+    "description": "Sprint numbers are zero-padded 2-digit (01-09, 10-18) for correct lexicographic ordering.",
+    "tronQuote": "> Derived from Tron S18 compound directive (T128 migration). Requirement text is the atomic decomposition of the original compound."
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

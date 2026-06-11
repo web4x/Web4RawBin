@@ -241,7 +241,10 @@ const roomManager = new RoomManager(ROOMS_DIR);
         }
       }
     }
-    if (data.chatHistory?.length) room.loadChatHistory(data.chatHistory);
+    const chatCount = data.chatHistory?.length || 0;
+    const memberCount = (data as any).members?.length || 0;
+    if (chatCount > 0) room.loadChatHistory(data.chatHistory);
+    console.log(`  room ${roomId.slice(0,8)}: chat=${chatCount} members=${memberCount} name=${data.name}`);
     registered++;
   }
   console.log(`Per-user rooms: ${registered} registered, ${backfilled} creatorToken backfilled`);
@@ -1495,6 +1498,26 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
         room.broadcast({ type: MSG.HOST_CHANGED, hostId: clientId });
       }
       addLog(`${joinName} joined room ${room.name}`);
+      // Send existing files to the joiner
+      try {
+        const ownerToken = room.creatorToken;
+        if (ownerToken) {
+          const filesDir = path.join(DATA_DIR, 'users', ownerToken, 'rooms', room.id, 'files');
+          if (fs.existsSync(filesDir)) {
+            for (const f of fs.readdirSync(filesDir)) {
+              if (!f.endsWith('.scenario.json')) continue;
+              const fileUuid = f.replace('.scenario.json', '');
+              const scenarioDir = path.join(__dirname, '../../../scenario/index');
+              const idx = new ScenarioIndex(scenarioDir);
+              const unit = idx.get(fileUuid);
+              if (unit) {
+                const fm = unit.model as Record<string, unknown>;
+                send({ type: MSG.FILE_ADDED, roomId: room.id, fileUuid, name: fm.name || fileUuid, size: fm.size || 0, mimeType: fm.mimeType || '' });
+              }
+            }
+          }
+        }
+      } catch {}
       broadcastRoomList();
       break;
     }

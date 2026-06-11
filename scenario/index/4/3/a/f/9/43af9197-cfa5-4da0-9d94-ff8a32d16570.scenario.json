@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "43af9197-cfa5-4da0-9d94-ff8a32d16570",
-    "name": "Tree preserves scroll position on expand/collapse — no jump to top.",
+    "name": "Tree preserves scroll position on expand/collapse \u2014 no jump to top.",
     "altId": "R18.7",
     "tasks": [
       "ior:instance:08e46ce3-69f3-40fe-87d7-5ee875a4e94a"
@@ -14,7 +14,9 @@
     "unitLinks": [],
     "useCases": [
       "ior:instance:71d57474-3f95-4a91-b45c-423663bb7d30"
-    ]
+    ],
+    "description": "Tree preserves scroll position on expand/collapse \u2014 no jump to top.",
+    "tronQuote": "> Derived from Tron S18 compound directive (T128 migration). Requirement text is the atomic decomposition of the original compound."
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

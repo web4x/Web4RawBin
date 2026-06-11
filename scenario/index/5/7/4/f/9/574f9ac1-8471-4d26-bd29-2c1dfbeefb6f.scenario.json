@@ -15,7 +15,9 @@
     "useCases": [
       "ior:instance:71d57474-3f95-4a91-b45c-423663bb7d30",
       "ior:instance:725981f9-2a9f-4afc-90af-668d05f4d26d"
-    ]
+    ],
+    "description": "Drawer shadow is not rendered when the drawer is closed.",
+    "tronQuote": "> Derived from Tron S18 compound directive (T128 migration). Requirement text is the atomic decomposition of the original compound."
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

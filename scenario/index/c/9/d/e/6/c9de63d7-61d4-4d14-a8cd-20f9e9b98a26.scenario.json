@@ -15,7 +15,9 @@
     "unitLinks": [],
     "useCases": [
       "ior:instance:cdd9137b-c83d-4323-a537-94467964397b"
-    ]
+    ],
+    "description": "Detail-view Traceability-Chain section shows the narrowed single-thread chain, not all children.",
+    "tronQuote": "> Derived from Tron S18 compound directive (T128 migration). Requirement text is the atomic decomposition of the original compound."
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

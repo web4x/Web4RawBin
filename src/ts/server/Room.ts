@@ -290,6 +290,8 @@ export class Room {
     if (this.creatorToken) {
       try {
         const pubKey = getRoomPublicKey(this.creatorToken, this.id) || '';
+        const chatLen = this._chatHistory.length;
+        if (chatLen > 0) console.log(`[Room.persist] ${this.id.slice(0,8)} chatHistory=${chatLen}`);
         writeRoomJson(this.creatorToken, this.id, {
           id: this.id, name: this.name, ownerToken: this.creatorToken,
           isPrivate: this.isPrivate, visibility: this.visibility, mode: this.mode, roomKey: this.roomKey,
