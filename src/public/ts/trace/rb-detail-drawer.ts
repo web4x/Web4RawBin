@@ -21,7 +21,8 @@
 export class RbDetailDrawer extends HTMLElement {
   static get observedAttributes() { return ['ref', 'open']; }
   private startY = 0;
-  private dragging = false;
+  private startHeight = 0;
+  private dragging: 'resize' | 'dismiss' | false = false;
 
   connectedCallback(): void {
     this.render();
@@ -79,32 +80,48 @@ export class RbDetailDrawer extends HTMLElement {
     this.querySelector('.drawer-close')!.addEventListener('click', () => this.close());
   }
 
+  // [impl:uuid:01771d5b-a1b2-4c3d-8e4f-5a6b7c8d9e0f] R19.84 drawer.dragResize
   private onTouchStart = (e: TouchEvent): void => {
-    const rect = this.getBoundingClientRect();
-    const touchY = e.touches[0].clientY;
-    if (touchY - rect.top < 60) {
-      this.dragging = true;
-      this.startY = touchY;
-      this.style.transition = 'none';
+    const handle = this.querySelector('.drawer-handle');
+    const t = e.target as Node;
+    this.startY = e.touches[0].clientY;
+    this.style.transition = 'none';
+    if (handle && (handle.contains(t) || t === handle)) {
+      this.dragging = 'resize';
+      this.startHeight = this.getBoundingClientRect().height;
+    } else {
+      this.dragging = 'dismiss';
     }
   };
 
   private onTouchMove = (e: TouchEvent): void => {
     if (!this.dragging) return;
-    const dy = e.touches[0].clientY - this.startY;
-    if (dy > 0) {
-      this.style.transform = `translateY(${dy}px)`;
+    const touchY = e.touches[0].clientY;
+    if (this.dragging === 'resize') {
       e.preventDefault();
+      const dy = this.startY - touchY;
+      const vh95 = window.innerHeight * 0.95;
+      const h = Math.min(vh95, Math.max(0, this.startHeight + dy));
+      this.style.height = `${h}px`;
+    } else {
+      const dy = touchY - this.startY;
+      if (dy > 0) { this.style.transform = `translateY(${dy}px)`; e.preventDefault(); }
     }
   };
 
   private onTouchEnd = (e: TouchEvent): void => {
     if (!this.dragging) return;
+    const mode = this.dragging;
     this.dragging = false;
-    const dy = e.changedTouches[0].clientY - this.startY;
     this.style.transition = '';
-    this.style.transform = '';
-    if (dy > 80) this.close();
+    if (mode === 'resize') {
+      const h = parseInt(this.style.height || '0');
+      if (h < 120) { this.close(); this.style.height = ''; }
+    } else {
+      const dy = e.changedTouches[0].clientY - this.startY;
+      this.style.transform = '';
+      if (dy > 80) this.close();
+    }
   };
 
   private onKeyDown = (e: KeyboardEvent): void => {

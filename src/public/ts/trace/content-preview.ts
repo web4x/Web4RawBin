@@ -16,11 +16,11 @@ export function renderContentPreview(uuid: string, mimeType: string, name: strin
   }
   if (mimeType === 'application/pdf') {
 // [impl:uuid:96fbfac9-10c2-4543-986b-a66b8eaebeda] R19.69 iframe sandbox
-    return `<div class="cv-preview"><iframe src="${contentUrl}" sandbox="allow-same-origin" style="width:100%;height:400px;border:none;border-radius:8px;touch-action:pinch-zoom"></iframe></div>`;
+    return `<div class="cv-preview"><div class="preview-zoom-container" style="overflow:hidden;touch-action:none"><iframe src="${contentUrl}" sandbox="allow-same-origin" style="width:100%;height:400px;border:none;border-radius:8px;touch-action:pinch-zoom"></iframe></div></div>`;
   }
   // [impl:uuid:cf44c51c-0e38-4f9c-bbf9-b4731eb6e8ce] R19.74 HTML sandboxed iframe
   if (mimeType === 'text/html') {
-    return `<div class="cv-preview"><iframe src="${contentUrl}" sandbox="allow-same-origin" style="width:100%;height:400px;border:none;border-radius:8px;background:white;touch-action:pinch-zoom"></iframe></div>`;
+    return `<div class="cv-preview"><div class="preview-zoom-container" style="overflow:hidden;touch-action:none"><iframe src="${contentUrl}" sandbox="allow-same-origin" style="width:100%;height:400px;border:none;border-radius:8px;background:white;touch-action:pinch-zoom"></iframe></div></div>`;
   }
   // [impl:uuid:cde29329-9ede-4c31-9ab8-4a853b1e4280] R19.77 URL file action buttons
   if (mimeType === 'text/uri-list' || name.endsWith('.url') || name.endsWith('.webloc')) {
