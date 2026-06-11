@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ef863349-470d-420b-b933-8339951bb501",
+    "name": "T5 client app entry",
+    "sourceFile": "src/public/ts/app.ts",
+    "sourceLine": 1,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

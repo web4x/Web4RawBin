@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e362c116-710c-47b3-ac7e-ecc1b8ea58e4",
+    "name": "ScenarioUnit.save(indexPath): void",
+    "sourceFile": "src/public/ts/edit.ts",
+    "sourceLine": 2,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

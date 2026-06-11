@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "dcc18fd3-48ca-4e9a-a8b7-23fcd05cee5f",
+    "name": "server.detailNavSync",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 268,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

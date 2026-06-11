@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a2dfd6e8-3d5c-419a-a743-01fcaa7ba069",
+    "name": "T5 room view",
+    "sourceFile": "src/public/ts/RoomView.ts",
+    "sourceLine": 1,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

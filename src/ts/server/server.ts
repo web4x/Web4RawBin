@@ -1503,7 +1503,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
         room.broadcast({ type: MSG.HOST_CHANGED, hostId: clientId });
       }
       addLog(`${joinName} joined room ${room.name}`);
-      // Send existing files to the joiner
+      // [impl:uuid:c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f] file-restore on JOIN_ROOM
       try {
         const ownerToken = room.creatorToken;
         addLog(`[files] ownerToken=${ownerToken} roomId=${room.id} DATA_DIR=${DATA_DIR} type=${typeof DATA_DIR}`);

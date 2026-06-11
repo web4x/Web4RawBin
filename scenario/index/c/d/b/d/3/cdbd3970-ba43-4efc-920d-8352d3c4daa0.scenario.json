@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "cdbd3970-ba43-4efc-920d-8352d3c4daa0",
+    "name": "T60 file API",
+    "sourceFile": "src/ts/server/FileApi.ts",
+    "sourceLine": 1,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

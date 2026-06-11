@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5b438bb9-1602-4890-9c09-407606a28d6c",
+    "name": "T8 profile editor",
+    "sourceFile": "src/public/ts/ProfileEditor.ts",
+    "sourceLine": 1,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

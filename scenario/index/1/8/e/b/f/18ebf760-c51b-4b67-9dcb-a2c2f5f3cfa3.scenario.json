@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "18ebf760-c51b-4b67-9dcb-a2c2f5f3cfa3",
+    "name": "T39 update banner",
+    "sourceFile": "src/public/ts/components/rb-update-banner.ts",
+    "sourceLine": 1,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

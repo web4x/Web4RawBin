@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b7142a01-c302-4d03-ae04-f05f06a07c11",
+    "name": "T142 vCard parser",
+    "sourceFile": "src/public/ts/vcard-parse.ts",
+    "sourceLine": 1,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

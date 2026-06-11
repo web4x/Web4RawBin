@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "40140a01-b302-4c03-ad04-e05f06a07b10",
+    "name": "R17.19",
+    "sourceFile": "src/ts/scenario/source-location.ts",
+    "sourceLine": 4,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

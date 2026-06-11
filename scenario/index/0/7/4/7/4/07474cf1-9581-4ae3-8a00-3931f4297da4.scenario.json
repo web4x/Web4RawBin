@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "07474cf1-9581-4ae3-8a00-3931f4297da4",
+    "name": "T74 room SSH keys",
+    "sourceFile": "src/ts/server/RoomKeys.ts",
+    "sourceLine": 1,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

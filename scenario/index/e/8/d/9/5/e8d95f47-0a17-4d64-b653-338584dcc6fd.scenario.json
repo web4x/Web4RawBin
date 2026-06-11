@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e8d95f47-0a17-4d64-b653-338584dcc6fd",
+    "name": "T41 overlay base",
+    "sourceFile": "src/public/ts/components/rb-overlay.ts",
+    "sourceLine": 1,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

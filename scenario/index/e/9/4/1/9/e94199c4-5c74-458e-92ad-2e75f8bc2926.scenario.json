@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e94199c4-5c74-458e-92ad-2e75f8bc2926",
+    "name": "T4 server core",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 3,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

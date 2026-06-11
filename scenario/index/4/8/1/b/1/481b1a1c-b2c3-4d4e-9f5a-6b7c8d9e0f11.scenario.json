@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "481b1a1c-b2c3-4d4e-9f5a-6b7c8d9e0f11",
+    "name": "DropDispatcher.exitDragZone",
+    "sourceFile": "src/public/ts/drop-dispatcher.ts",
+    "sourceLine": 33,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

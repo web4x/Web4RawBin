@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "9a25adbd-b1c2-4d3e-8f4a-5b6c7d8e9f00",
+    "name": "R19.8.A member disconnected field",
+    "sourceFile": "src/ts/server/Room.ts",
+    "sourceLine": 252,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

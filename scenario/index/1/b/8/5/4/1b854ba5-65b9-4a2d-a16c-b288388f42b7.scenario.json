@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "1b854ba5-65b9-4a2d-a16c-b288388f42b7",
+    "name": "T63 editor entry",
+    "sourceFile": "src/public/ts/edit.ts",
+    "sourceLine": 1,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

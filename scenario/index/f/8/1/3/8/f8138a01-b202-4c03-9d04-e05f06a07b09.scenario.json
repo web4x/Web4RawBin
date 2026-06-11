@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f8138a01-b202-4c03-9d04-e05f06a07b09",
+    "name": "R17.18",
+    "sourceFile": "src/ts/scenario/skills.ts",
+    "sourceLine": 5,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

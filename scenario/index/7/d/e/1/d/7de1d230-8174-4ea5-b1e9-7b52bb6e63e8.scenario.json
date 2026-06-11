@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7de1d230-8174-4ea5-b1e9-7b52bb6e63e8",
+    "name": "ClassRegistry.loader): void",
+    "sourceFile": "src/ts/scenario/classes.ts",
+    "sourceLine": 7,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

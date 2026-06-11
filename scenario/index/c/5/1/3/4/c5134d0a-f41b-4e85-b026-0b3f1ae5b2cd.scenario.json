@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c5134d0a-f41b-4e85-b026-0b3f1ae5b2cd",
+    "name": "R17.16",
+    "sourceFile": "src/ts/scenario/trace-link.ts",
+    "sourceLine": 5,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

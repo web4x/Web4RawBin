@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7a5752ae-3c8c-47b1-867e-1490db5796bf",
+    "name": "T10 device enrollment",
+    "sourceFile": "src/public/ts/DeviceEnrollDialog.ts",
+    "sourceLine": 1,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

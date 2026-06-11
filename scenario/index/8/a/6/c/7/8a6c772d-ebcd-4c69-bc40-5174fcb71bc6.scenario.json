@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8a6c772d-ebcd-4c69-bc40-5174fcb71bc6",
+    "name": "TraceRouter.navigate",
+    "sourceFile": "src/public/ts/trace/nav.ts",
+    "sourceLine": 8,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

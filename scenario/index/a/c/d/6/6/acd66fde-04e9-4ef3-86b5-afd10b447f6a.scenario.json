@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "acd66fde-04e9-4ef3-86b5-afd10b447f6a",
+    "name": "T66 code editor",
+    "sourceFile": "src/public/ts/components/rb-code-editor.ts",
+    "sourceLine": 1,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

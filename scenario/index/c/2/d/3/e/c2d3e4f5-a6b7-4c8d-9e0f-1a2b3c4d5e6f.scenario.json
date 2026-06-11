@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f",
+    "name": "file-restore on JOIN_ROOM",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 1506,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}
