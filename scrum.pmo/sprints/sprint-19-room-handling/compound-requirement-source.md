@@ -166,3 +166,7 @@
 ### Rejoin deduplication (refines R19.8.A — duplicate member bug)
 - **R19.8.B** (2026-06-10): when a member rejoins a persistent room, the server MUST find the existing member by playerToken and flip disconnected→false (online). NEVER add a duplicate entry. Members are keyed by identity (playerToken), unique always.
   > TRON: "the deduplication of users in the members bar does not work. a user leaves and comes back and is then in twice. should never happen."
+
+### Legacy index shard cleanup (R19.56)
+- **R19.56** (2026-06-11): cleanup legacy multi-char index dirs (01666/, 08e36/, etc.) — migrate units to canonical single-char-per-level shards + update symlinks + remove empty legacy dirs.
+  > TRON: "we need to cleanup the legacy index folder longer than one character."
