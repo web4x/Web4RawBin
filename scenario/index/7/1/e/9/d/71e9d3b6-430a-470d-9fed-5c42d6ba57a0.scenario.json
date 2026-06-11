@@ -5,10 +5,10 @@
     "name": "test:R17.6 symlinkJson",
     "sourceFile": "ior:file:test/vitest/scenario.test.ts",
     "implementations": [
-      "ior:instance:7958f8bf-25de-43e2-a022-287c809d84cb"
+      "ior:instance:337acd90-6feb-4a14-821a-e8789e49d427"
     ],
     "status": "pass",
     "unitLinks": []
   },
-  "ownerIor": "ior:instance:7958f8bf-25de-43e2-a022-287c809d84cb"
+  "ownerIor": "ior:instance:337acd90-6feb-4a14-821a-e8789e49d427"
 }
