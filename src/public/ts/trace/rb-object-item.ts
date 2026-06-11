@@ -33,6 +33,7 @@ export class RbObjectItem extends HTMLElement {
   static get observedAttributes() { return ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count']; }
   private unsub: (() => void) | null = null;
   private _data: Record<string, string> | null = null;
+  private _initialized = false;
 
   set data(d: Record<string, string>) {
     this._data = d;
@@ -45,13 +46,15 @@ export class RbObjectItem extends HTMLElement {
     this.upgradeProperty('data');
     this.classList.add('object-item');
     this.render();
-    this.addEventListener('click', this.onClickDelegate);
+    if (!this._initialized) {
+      this._initialized = true;
+      this.addEventListener('click', this.onClickDelegate);
+    }
     const ref = this.getAttribute('ref');
-    if (ref) this.unsub = ViewBus.subscribe(ref, () => this.render());
+    if (ref && !this.unsub) this.unsub = ViewBus.subscribe(ref, () => this.render());
   }
 
   disconnectedCallback(): void {
-    this.removeEventListener('click', this.onClickDelegate);
     this.unsub?.();
     this.unsub = null;
   }

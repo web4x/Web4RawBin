@@ -43,6 +43,7 @@ export class RbTraceTree extends HTMLElement {
   private _items: { uuid: string; type: string; name: string; description?: string; children?: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean }[] }[] | null = null;
 
   private get mode(): string { return this.getAttribute('data-mode') || 'scenario'; }
+  private get lsKey(): string { return this.mode === 'room' ? 'rawbin-room-expanded' : LS_KEY; }
   private get childrenUrl(): string { return `/api/trace/children/`; }
   private get modeParam(): string { return this.mode === 'trace' ? '?mode=trace' : ''; }
 
@@ -64,7 +65,7 @@ export class RbTraceTree extends HTMLElement {
     this.classList.add('trace-tree');
     this.upgradeProperty('items');
     this.upgradeProperty('graph');
-    try { this.expanded = new Set(JSON.parse(localStorage.getItem(LS_KEY) || '[]')); } catch { /* ignore */ }
+    try { this.expanded = new Set(JSON.parse(localStorage.getItem(this.lsKey) || '[]')); } catch { /* ignore */ }
     if (this._items) { this.renderItems(); } else { this.render(); }
     this.unsub = ViewBus.subscribe('graph', () => this.render());
     this.addEventListener('toggle-children', this.onToggleChildren as EventListener);
@@ -121,17 +122,54 @@ export class RbTraceTree extends HTMLElement {
 
   private renderItems(): void {
     if (!this._items) return;
-    this.innerHTML = '';
+    const existingRoots = new Map<string, HTMLElement>();
+    this.querySelectorAll(':scope > .tt-node').forEach(n => {
+      const item = n.querySelector('rb-object-item');
+      const ref = item?.getAttribute('ref') || '';
+      if (ref) existingRoots.set(ref, n as HTMLElement);
+    });
+    const wantedRefs = new Set<string>();
     for (const root of this._items) {
-      const node = this.buildSeedNode(root.uuid, root.type, root.name, root.children || [], (root.children || []).length > 0, undefined, undefined, root.description);
-      this.appendChild(node);
-      const item = node.querySelector('rb-object-item');
-      if (item && !item.hasAttribute('children-open')) {
-        item.setAttribute('children-open', '');
-        const kids = node.querySelector('.tt-children') as HTMLElement;
-        if (kids) kids.style.display = '';
+      const ref = `${(root.type || 'task').toLowerCase()}:${root.uuid}`;
+      wantedRefs.add(ref);
+      const ex = existingRoots.get(ref);
+      if (ex) {
+        const item = ex.querySelector('rb-object-item') as any;
+        if (item) item.data = { ref, type: (root.type || 'task').toLowerCase(), title: root.name, ...(root.description ? { description: root.description } : {}), 'has-children': (root.children || []).length > 0 ? '' : undefined };
+        const kids = ex.querySelector('.tt-children') as HTMLElement;
+        if (kids && root.children) {
+          const existingChildren = new Map<string, HTMLElement>();
+          kids.querySelectorAll(':scope > .tt-node').forEach(cn => {
+            const ci = cn.querySelector('rb-object-item');
+            const cr = ci?.getAttribute('ref') || '';
+            if (cr) existingChildren.set(cr, cn as HTMLElement);
+          });
+          const wantedChildren = new Set<string>();
+          for (const child of root.children) {
+            const cref = `${(child.type || 'task').toLowerCase()}:${child.uuid}`;
+            wantedChildren.add(cref);
+            const cex = existingChildren.get(cref);
+            if (cex) {
+              const ci = cex.querySelector('rb-object-item') as any;
+              if (ci) ci.data = { ref: cref, type: (child.type || 'task').toLowerCase(), title: child.name, ...(child.description ? { description: child.description } : {}) };
+            } else {
+              kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, undefined, undefined, child.description));
+            }
+          }
+          for (const [cr, cn] of existingChildren) { if (!wantedChildren.has(cr)) cn.remove(); }
+        }
+      } else {
+        const node = this.buildSeedNode(root.uuid, root.type, root.name, root.children || [], (root.children || []).length > 0, undefined, undefined, root.description);
+        this.appendChild(node);
+        const item = node.querySelector('rb-object-item');
+        if (item && !item.hasAttribute('children-open')) {
+          item.setAttribute('children-open', '');
+          const kids = node.querySelector('.tt-children') as HTMLElement;
+          if (kids) kids.style.display = '';
+        }
       }
     }
+    for (const [ref, n] of existingRoots) { if (!wantedRefs.has(ref)) n.remove(); }
     this.computeBadges();
   }
 
@@ -142,7 +180,7 @@ export class RbTraceTree extends HTMLElement {
   }
 
   private persist(): void {
-    try { localStorage.setItem(LS_KEY, JSON.stringify([...this.expanded])); } catch { /* ignore */ }
+    try { localStorage.setItem(this.lsKey, JSON.stringify([...this.expanded])); } catch { /* ignore */ }
   }
 
   render(): void {
@@ -264,6 +302,7 @@ export class RbTraceTree extends HTMLElement {
       }
       node.appendChild(kids);
       item.addEventListener('toggle-children', ((e: CustomEvent) => {
+        e.stopPropagation();
         const open = e.detail.open;
         kids.style.display = open ? '' : 'none';
         this.toggleSeedExpanded(uuid, open);

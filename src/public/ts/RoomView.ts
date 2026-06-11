@@ -78,7 +78,7 @@ export class RoomView {
         }
       }
     });
-    // [impl:uuid:dnd01002-b2c3-4d4e-9f5a-000000000002] FILE_ADDED handler
+    // [impl:uuid:e3fad3ac-a09f-4a4c-88ce-78e0ca273cc0] FILE_ADDED handler
     this.client.on(MSG.FILE_ADDED, (msg) => {
       if (this.roomId !== msg.roomId) return;
       if (!this.files.some(f => f.uuid === msg.fileUuid)) {
@@ -93,7 +93,7 @@ export class RoomView {
     this.client.on('online', () => this.hideOfflineBanner());
     this.client.on('offline', () => this.showOfflineBanner());
 
-    // [impl:uuid:dnd01003-c3d4-4e5f-a060-000000000003] DropDispatcher.route
+    // [impl:uuid:1a938c60-876d-4e74-bf4c-5b3af6a155b4] DropDispatcher.route
     this.container.addEventListener('rb-room-files-dropped', (async (e: CustomEvent) => {
       const files: File[] = e.detail?.files || [];
       for (const file of files) {
