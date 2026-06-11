@@ -92,11 +92,16 @@ function walkReq(reqUuid: string): ChainResult[] {
       continue;
     }
 
+    // UC.method → specific method (preferred over Class.methods[0])
+    const ucMethodIor = String((ucM as Record<string, unknown>).method || '');
+    const ucMethodUuid = ucMethodIor ? ior(ucMethodIor) : '';
+
     for (const clsIorStr of clsIors) {
       const clsUuid = ior(clsIorStr);
       const clsM = model(clsUuid);
       if (!clsM) continue;
-      const methIors = (clsM.methods as string[]) || [];
+      // Use UC.method if set, otherwise fall back to Class.methods[]
+      const methIors = ucMethodUuid ? [ucMethodIor] : ((clsM.methods as string[]) || []);
       if (methIors.length === 0) {
         results.push({ chainName: `${reqName}`, req: 'check', uc: 'check', cls: 'check', method: 'open architect', impl: 'open', test: 'open', complete: false,
           openNodes: [{ node: 'Method', owner: 'architect', action: 'Wire Method to Class', iorShort: short(clsUuid) }] });

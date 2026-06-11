@@ -145,10 +145,13 @@ export class Chain {
     for (const ucIorStr of ucIors) {
       const ucM = this.model(ior(ucIorStr));
       if (!ucM) continue;
+      const ucMethodIor = String((ucM as Record<string, unknown>).method || '');
+      const ucMethodUuid = ucMethodIor ? ior(ucMethodIor) : '';
       for (const clsIorStr of ((ucM.classes as string[]) || [])) {
         const clsM = this.model(ior(clsIorStr));
         if (!clsM) continue;
-        for (const methIorStr of ((clsM.methods as string[]) || [])) {
+        const methIors = ucMethodUuid ? [ucMethodIor] : ((clsM.methods as string[]) || []);
+        for (const methIorStr of methIors) {
           const methM = this.model(ior(methIorStr));
           if (!methM) continue;
           const methName = String(methM.name || '').split('.').pop() || short(ior(methIorStr));
@@ -176,12 +179,14 @@ export class Chain {
     for (const ucIorStr of ucIors) {
       const ucM = this.model(ior(ucIorStr));
       if (!ucM) continue;
+      const ucMethodIor = String((ucM as Record<string, unknown>).method || '');
+      const ucMethodUuid = ucMethodIor ? ior(ucMethodIor) : '';
       const clsIors = (ucM.classes as string[]) || [];
       if (clsIors.length === 0) return { chainName: reqName, req: 'check', uc: 'check', cls: 'open architect', method: 'open', impl: 'open', test: 'open', complete: false };
       for (const clsIorStr of clsIors) {
         const clsM = this.model(ior(clsIorStr));
         if (!clsM) continue;
-        const methIors = (clsM.methods as string[]) || [];
+        const methIors = ucMethodUuid ? [ucMethodIor] : ((clsM.methods as string[]) || []);
         if (methIors.length === 0) return { chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: 'open architect', impl: 'open', test: 'open', complete: false };
         for (const methIorStr of methIors) {
           const methM = this.model(ior(methIorStr));
