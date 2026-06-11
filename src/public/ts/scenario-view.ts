@@ -54,9 +54,16 @@ if (!ior || !app) {
       });
       await waitForTree();
 
-      // Determine type from the graph object (reliable, not from /api/trace/children)
+      // [impl:uuid:9b45ad1a-1857-4e6a-b2c3-4d5e6f7a8b9c] TraceRouter.typeDispatch R19.66
       const obj = graph.get(ior!);
-      const type = obj ? obj.type : 'task';
+      let type = obj ? obj.type : '';
+      if (!type) {
+        try {
+          const resp = await fetch(`/api/trace/children/${ior}`);
+          if (resp.ok) { const data = await resp.json(); type = data.type?.toLowerCase() || 'task'; }
+          else { type = 'task'; }
+        } catch { type = 'task'; }
+      }
       router.navigate(type, 'show', { uuid: ior! });
 
       const rootItem = tree.querySelector('rb-object-item');
