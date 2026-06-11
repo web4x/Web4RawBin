@@ -73,11 +73,16 @@ export class Chain {
     return [this.srcDir, path.join(this.srcDir, '../scripts')];
   }
 
+  /** Roots for [test:uuid:] markers: test/ + scripts/ (tooling tests live there too). */
+  private testRoots(): string[] {
+    return [this.testDir, path.join(this.srcDir, '../scripts')];
+  }
+
   private markerScanners(): { hasRealImpl: (u: string) => boolean; hasRealTest: (u: string) => boolean } {
     const srcContent: string[] = [];
     const testContent: string[] = [];
     for (const root of this.implRoots()) for (const f of this.walkFiles(root)) srcContent.push(fs.readFileSync(f, 'utf-8'));
-    for (const f of this.walkFiles(this.testDir)) testContent.push(fs.readFileSync(f, 'utf-8'));
+    for (const root of this.testRoots()) for (const f of this.walkFiles(root)) testContent.push(fs.readFileSync(f, 'utf-8'));
     const hasRealImpl = (uuid: string) => {
       if (!this.idx.has(uuid)) return false; // Impl UNIT must exist on disk
       const re = new RegExp(`\\[impl:uuid:${uuid}\\]`, 'i');
@@ -462,7 +467,7 @@ export class Chain {
       if (n > 1) findings.push({ kind: 'shared-impl', uuid: iu, detail: `referenced by ${n} Methods — mint fresh uuid per method` });
     }
     // (d) markers in source/test with no unit on disk
-    for (const [dir, prefix] of [...this.implRoots().map(r => [r, 'impl'] as const), [this.testDir, 'test'] as const]) {
+    for (const [dir, prefix] of [...this.implRoots().map(r => [r, 'impl'] as const), ...this.testRoots().map(r => [r, 'test'] as const)]) {
       for (const f of this.walkFiles(dir)) {
         const text = fs.readFileSync(f, 'utf-8');
         for (const m of text.matchAll(new RegExp(`\\[${prefix}:uuid:([0-9a-f-]{36})\\]`, 'gi'))) {
