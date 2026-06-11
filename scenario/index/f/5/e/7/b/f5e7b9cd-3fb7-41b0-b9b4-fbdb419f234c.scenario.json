@@ -14,7 +14,10 @@
     "crossRef": [
       "ior:instance:b03701b6-2105-4589-b27d-7db58b62e16c"
     ],
-    "crossRefNote": "R19.65 (ContentPreviewer) is the component. R19.81 adds pinch-zoom to the iframe render path alongside existing pan."
+    "crossRefNote": "R19.65 (ContentPreviewer) is the component. R19.81 adds pinch-zoom to the iframe render path alongside existing pan.",
+    "useCases": [
+      "ior:instance:988b66cb-44d4-4207-bc90-cb9b7055fa95"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

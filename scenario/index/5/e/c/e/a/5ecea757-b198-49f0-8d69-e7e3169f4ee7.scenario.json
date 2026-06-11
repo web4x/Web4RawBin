@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "5ecea757-b198-49f0-8d69-e7e3169f4ee7",
+    "name": "RbDetailDrawer.resize95vh",
+    "description": "Drawer max-height increased to 95vh (was 50vh). Back button (z-index:101 pageNav) keeps visible 5%. CSS change: rb-detail-drawer { max-height: 95vh }.",
+    "sourceFile": "ior:file:src/public/app.css",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"
+}

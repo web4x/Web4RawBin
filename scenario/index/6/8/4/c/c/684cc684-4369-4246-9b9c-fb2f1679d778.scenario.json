@@ -4,13 +4,16 @@
     "uuid": "684cc684-4369-4246-9b9c-fb2f1679d778",
     "altId": "R19.78",
     "name": "R19.78: Action buttons render ABOVE the filename, not below.",
-    "description": "The ContentPreviewer action buttons (e.g. 'Open in preview' / 'Open in new tab' per R19.77) MUST render ABOVE the filename/name label, not below it. Layout order top-to-bottom: drawer nudge → action buttons → filename → preview content.",
+    "description": "The ContentPreviewer action buttons (e.g. 'Open in preview' / 'Open in new tab' per R19.77) MUST render ABOVE the filename/name label, not below it. Layout order top-to-bottom: drawer nudge \u2192 action buttons \u2192 filename \u2192 preview content.",
     "tronQuote": "> TRON: \"add the action buttons above the name.\"",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
-    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "useCases": [
+      "ior:instance:1a61ea80-05cb-48f8-b61c-21b71a68d7cb"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

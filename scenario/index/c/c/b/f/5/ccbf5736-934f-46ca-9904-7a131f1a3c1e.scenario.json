@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "ccbf5736-934f-46ca-9904-7a131f1a3c1e",
+    "name": "drawer.nudgeAboveButtons",
+    "description": "Drawer grab handle/nudge bar renders above the action buttons. Visual order: [grab handle/nudge][buttons][name][preview]. Handle stays at very top for swipe-dismiss.",
+    "class": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0",
+    "method": "ior:instance:779bdd6f-d919-4d69-af48-85f5c193311b",
+    "classes": [
+      "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

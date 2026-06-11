@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "7021b77e-f5a5-4448-b6fb-bd638d04cf2d",
+    "name": "ContentPreviewer.iframePinchZoom",
+    "description": "Preview iframe supports pinch-zoom on mobile. CSS: iframe { touch-action: pan-x pan-y pinch-zoom; } or wraps iframe in a pinch-zoom container (reuse SVG viewer pattern if applicable).",
+    "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:7dd2f3c3-a55d-47d2-bc52-21f244a9971e"
+}

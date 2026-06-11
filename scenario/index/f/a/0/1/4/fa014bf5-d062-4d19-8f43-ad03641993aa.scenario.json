@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "fa014bf5-d062-4d19-8f43-ad03641993aa",
+    "name": "RbDetailDrawer.buttonsAboveName",
+    "description": "Preview action buttons render ABOVE the filename in the drawer body. Layout: [handle][buttons][name][preview content].",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"
+}
