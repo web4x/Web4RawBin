@@ -1,9 +1,6 @@
 /**
  * R19.63-65 Content previewer — renders file content by MIME type.
  * image → <img>, text → <pre>, PDF → <iframe>, SVG → inline viewer.
- *
- * [impl:uuid:c3efb22c-5d03-4a14-821a-e8789e49d427] ContentPreviewer.render
- * [impl:uuid:c3164c1e-8f2a-4b3c-9d4e-5f6a7b8c9d0e] RbDetailDrawer.byTypeRender
  */
 
 export function renderContentPreview(uuid: string, mimeType: string, name: string): string {
