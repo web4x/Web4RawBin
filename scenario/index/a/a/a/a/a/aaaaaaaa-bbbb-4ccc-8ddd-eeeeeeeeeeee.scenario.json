@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee",
+    "id": "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee",
+    "name": "Canon",
+    "ownerToken": "test-tok-canon",
+    "maxMembers": 10,
+    "isPrivate": false,
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1,
+    "sshKeysGenerated": false,
+    "sshPublicKey": "",
+    "chatHistory": [],
+    "sourceFile": "scenario/index/a/a/a/a/a/aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/test-tok-canon/aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee.json"
+    ]
+  },
+  "ownerIor": "ior:instance:test-tok-canon"
+}

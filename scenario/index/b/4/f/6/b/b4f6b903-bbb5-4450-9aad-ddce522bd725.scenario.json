@@ -7,6 +7,9 @@
     "sourceLine": 21,
     "methods": [
       "ior:instance:e945e562-9cb4-4543-97d2-3865441f838c"
+    ],
+    "tests": [
+      "ior:instance:1a22ed27-9d10-44c5-82ee-ef6ea2c0a37b"
     ]
   },
   "ownerIor": "ior:instance:e945e562-9cb4-4543-97d2-3865441f838c"
