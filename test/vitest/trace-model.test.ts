@@ -4,6 +4,7 @@
  * graph traversal across the full chain, and flat-JSON round-trip.
  *
  * [test:uuid:4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1] AC1-AC4 typed object model
+ * [test:uuid:8edc3d29-79ee-4d7f-b2df-b48a1d68226f] test:TraceObject.parent
  * [verifies:uuid:a1e2f3d4-b5c6-4d7e-8f90-1a2b3c4d5e26] R17.26 traceability tree
  */
 import { describe, it, expect, beforeEach } from 'vitest';

@@ -34,6 +34,7 @@ describe('[test:uuid:6d58883c] RbRoomDetail.editCanonical', () => {
 // ── [test:uuid:859878d6-4b1a-450b-8d23-a50cbf6ee83a] RbDetailDrawer.stickyClose
 // ── [test:uuid:d3513d2b-85be-46d5-8cd9-bf52ffc67bed] RbDetailDrawer.stickyBottom
 // HTMLElement requires jsdom — verify CSS contract instead (structural check)
+// [test:uuid:8edfcdd6-248c-46f8-bdfa-c2d8709be716] test:R16.1 DetailViewContainer
 describe('[test:uuid:859878d6] + [test:uuid:d3513d2b] RbDetailDrawer sticky', () => {
   it('drawer CSS defines .drawer-header sticky + .drawer-body scrollable + .drawer-close', async () => {
     const fs = await import('node:fs');
