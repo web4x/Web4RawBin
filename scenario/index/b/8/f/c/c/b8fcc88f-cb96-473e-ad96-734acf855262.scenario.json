@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b8fcc88f-cb96-473e-ad96-734acf855262",
+    "name": "test:R19.72 removeLocalIdentity",
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "implementations": [
+      "ior:instance:25884b0c-31a3-4743-b109-9e6092dcab8e"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:25884b0c-31a3-4743-b109-9e6092dcab8e"
+}
