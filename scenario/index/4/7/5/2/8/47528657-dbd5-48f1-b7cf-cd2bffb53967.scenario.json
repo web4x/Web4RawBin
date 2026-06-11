@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "47528657-dbd5-48f1-b7cf-cd2bffb53967",
+    "name": "R15.4",
+    "file": "ior:file:test/vitest/rb-object-item.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS",
+    "verifies": [
+      "ior:instance:35c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b03"
+    ],
+    "sourceFile": "ior:file:test/vitest/rb-object-item.test.ts",
+    "sourceLine": 6,
+    "parent": "ior:instance:f2c32dc3-269d-41b7-80db-5fa6d786c221",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f2c32dc3-269d-41b7-80db-5fa6d786c221"
+}

@@ -1,6 +1,6 @@
 /**
  * File-restore on JOIN_ROOM — verifies fsSync usage + FILE_ADDED sent
- * [test:uuid:a31b7c82-f4e5-4d6a-9b8c-0e1f2a3b4c5d] R19.14 file-restore on rejoin
+ * [test:uuid:7a9f9cf3-d4a0-4553-a199-eb0c086b7a8d] R19.14 file-restore on rejoin
  *
  * @vitest-environment node
  */

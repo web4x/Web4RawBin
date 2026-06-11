@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "dc43dd7a-7c82-46a0-a8c1-916b6e686ce9",
+    "name": "skill-classes",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "sourceLine": 10,
+    "unitLinks": [],
+    "tests": [
+      "ior:instance:2ef0de37-2466-4ea1-9c60-1af60632d2ba"
+    ]
+  },
+  "ownerIor": null
+}

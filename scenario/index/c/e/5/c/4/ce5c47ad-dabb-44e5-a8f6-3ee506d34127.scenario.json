@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ce5c47ad-dabb-44e5-a8f6-3ee506d34127",
+    "name": "AC2/AC3/AC4/AC6",
+    "file": "ior:file:test/vitest/trace-consistency.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS",
+    "sourceFile": "ior:file:test/vitest/trace-consistency.test.ts",
+    "sourceLine": 6,
+    "parent": "ior:instance:ec6214d4-6db9-48cd-b081-964e5d1af7ba",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ec6214d4-6db9-48cd-b081-964e5d1af7ba"
+}

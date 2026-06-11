@@ -3,7 +3,7 @@
  * broken-node warning marker, node-select → navigate (DetailView).
  *
  * @vitest-environment jsdom
- * [test:uuid:108c8394-a5b6-47c8-89af-c08080808109] R15.7
+ * [test:uuid:4da22329-6cfc-467a-b7c0-778e0996eed1] R15.7
  */
 import { describe, it, expect, afterEach, vi } from 'vitest';
 import { TraceGraph, Requirement, Task, UseCase } from '../../src/ts/shared/TraceModel.js';

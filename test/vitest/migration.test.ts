@@ -3,7 +3,7 @@
  * Proves: skip-already-per-user (never overwrite), orphan quarantine, token-dir copy +
  * owner-ref rewrite, remap table, idempotency, legacy left untouched.
  *
- * [test:uuid:14c3d4e5-f6a7-4b81-9c92-0d1e2f3a4b14] R14.1/R14.2
+ * [test:uuid:09d73a15-1496-4020-bcf1-b6a65a2bde6f] R14.1/R14.2
  * [verifies:uuid:91d85d5a-64d3-4520-a9fc-f2e24110b07b] R14.2 legacy migration
  */
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';

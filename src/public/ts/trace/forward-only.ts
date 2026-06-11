@@ -2,7 +2,7 @@
  * T181 — Forward-only link filter for DetailViews.
  * Filters obj.toJSON().links to only forward keys per LOCKED 7-step chain.
  *
- * [impl:uuid:a3f181b4-c5d6-4e7f-8a90-1b2c3d4e5f81] R-U forward-only display
+ * [impl:uuid:84e8383c-6b8a-43a5-b725-2c3b1bf833ab] R-U forward-only display
  */
 import type { TraceObject } from '../../../ts/shared/TraceModel.js';
 

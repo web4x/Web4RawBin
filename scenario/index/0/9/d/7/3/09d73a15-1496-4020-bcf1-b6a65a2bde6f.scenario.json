@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "09d73a15-1496-4020-bcf1-b6a65a2bde6f",
+    "name": "R14.1/R14.2",
+    "file": "ior:file:test/vitest/migration.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS",
+    "verifies": [
+      "ior:instance:91d85d5a-64d3-4520-a9fc-f2e24110b07b"
+    ],
+    "sourceFile": "ior:file:test/vitest/migration.test.ts",
+    "sourceLine": 6,
+    "parent": "ior:instance:72748f3a-05cd-49fa-b5e1-404fef48a6c3",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:72748f3a-05cd-49fa-b5e1-404fef48a6c3"
+}

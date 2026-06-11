@@ -6,10 +6,10 @@
     "description": "Bridged to test/vitest/scenario.test.ts covering skill-classes.ts",
     "sourceFile": "ior:file:test/vitest/scenario.test.ts",
     "implementations": [
-      "ior:instance:f1a2b3c4-d5e6-4f7a-8b9c-0d1e2f3a4b5c"
+      "ior:instance:dc43dd7a-7c82-46a0-a8c1-916b6e686ce9"
     ],
     "status": "pass",
     "unitLinks": []
   },
-  "ownerIor": "ior:instance:f1a2b3c4-d5e6-4f7a-8b9c-0d1e2f3a4b5c"
+  "ownerIor": "ior:instance:dc43dd7a-7c82-46a0-a8c1-916b6e686ce9"
 }

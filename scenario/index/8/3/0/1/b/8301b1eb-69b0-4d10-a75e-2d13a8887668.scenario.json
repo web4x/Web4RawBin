@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8301b1eb-69b0-4d10-a75e-2d13a8887668",
+    "name": "* T180 Track 2",
+    "sourceFile": "test/e2e/fixtures.ts",
+    "sourceLine": 8,
+    "tests": [],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

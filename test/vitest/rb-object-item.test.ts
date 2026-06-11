@@ -3,7 +3,7 @@
  * render-per-type, draggable + 3 dataTransfer payloads, ViewBus live re-render, click→navigate.
  *
  * @vitest-environment jsdom
- * [test:uuid:105f5061-7283-4495-8a6c-f05050505106] R15.4
+ * [test:uuid:47528657-dbd5-48f1-b7cf-cd2bffb53967] R15.4
  */
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { RbObjectItem } from '../../src/public/ts/trace/rb-object-item.js';

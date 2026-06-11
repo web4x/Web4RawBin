@@ -3,7 +3,7 @@
  * overview rollup correctness, live consistency (computed-from-graph, no stale snapshot).
  *
  * @vitest-environment jsdom
- * [test:uuid:107b7283-94a5-46b7-8a8e-b07070707108] R15.6
+ * [test:uuid:747f4bab-17c2-4274-9349-b5b9e9478df7] R15.6
  */
 import { describe, it, expect, afterEach, vi } from 'vitest';
 import { TraceGraph, Requirement, Task, UseCase } from '../../src/ts/shared/TraceModel.js';

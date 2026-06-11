@@ -3,7 +3,7 @@
  * empty state, live add/remove via ViewBus 'graph'. Uses runSearch() directly for determinism.
  *
  * @vitest-environment jsdom
- * [test:uuid:106a6172-8394-44a6-9b7d-061616161607] R15.5
+ * [test:uuid:a2f83b59-5943-462e-b70e-bf6429ea1b90] R15.5
  */
 import { describe, it, expect, afterEach } from 'vitest';
 import { TraceGraph, Requirement, Task } from '../../src/ts/shared/TraceModel.js';

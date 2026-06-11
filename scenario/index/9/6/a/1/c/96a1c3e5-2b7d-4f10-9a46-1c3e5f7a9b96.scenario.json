@@ -28,7 +28,7 @@
     ],
     "implementations": [],
     "tests": [
-      "ior:instance:14c3d4e5-f6a7-4b81-9c92-0d1e2f3a4b14"
+      "ior:instance:09d73a15-1496-4020-bcf1-b6a65a2bde6f"
     ],
     "sourceFile": "ior:file:src/ts/server/Migration.ts",
     "sourceLine": 12,

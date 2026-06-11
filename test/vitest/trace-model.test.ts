@@ -3,7 +3,7 @@
  * Covers: construction, v4 UUID validation, duplicate rejection, typed bidirectional
  * graph traversal across the full chain, and flat-JSON round-trip.
  *
- * [test:uuid:101b2c3d-4e5f-4061-8273-b01010101102] AC1-AC4 typed object model
+ * [test:uuid:4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1] AC1-AC4 typed object model
  * [verifies:uuid:a1e2f3d4-b5c6-4d7e-8f90-1a2b3c4d5e26] R17.26 traceability tree
  */
 import { describe, it, expect, beforeEach } from 'vitest';
@@ -27,7 +27,7 @@ describe('T101 TraceModel', () => {
   let g: TraceGraph;
   beforeEach(() => { g = new TraceGraph(); });
 
-  // [test:uuid:101b2c3d-4e5f-4061-8273-b01010101102] AC4 UUID validation
+  // [test:uuid:4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1] AC4 UUID validation
   describe('UUID validation (AC4)', () => {
     it('accepts a valid v4 UUID on construction', () => {
       const r = new Requirement(g, U.req, 'R15.1');

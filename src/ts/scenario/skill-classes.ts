@@ -12,7 +12,7 @@
  *  - param types limited to: string, string[], number, boolean (optional via `?` or default)
  *  - `complete(verb, param)` returns Tab-completion candidates for a param
  *
- * [impl:uuid:f1a2b3c4-d5e6-4f7a-8b9c-0d1e2f3a4b5c] skill-classes
+ * [impl:uuid:dc43dd7a-7c82-46a0-a8c1-916b6e686ce9] skill-classes
  */
 import { execSync } from 'node:child_process';
 import crypto from 'node:crypto';
@@ -41,6 +41,18 @@ export class Chain {
   private unitType(uuid: string): string {
     const u = this.idx.get(uuid);
     return u ? u.ior.replace('ior:class:', '') : '';
+  }
+
+  private walkMd(dir: string): string[] {
+    const out: string[] = [];
+    if (!fs.existsSync(dir)) return out;
+    for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (ent.name.startsWith('.')) continue;
+      const full = path.join(dir, ent.name);
+      if (ent.isDirectory()) out.push(...this.walkMd(full));
+      else if (ent.name.endsWith('.md')) out.push(full);
+    }
+    return out;
   }
 
   private walkFiles(dir: string): string[] {
@@ -505,15 +517,17 @@ export class Chain {
       this.idx.put(u, JSON.parse(raw.split(resolved).join(fresh)));
       unitsRewritten++;
     }
-    // 3) rewrite source + test markers
+    // 3) rewrite source + test markers AND scrum.pmo md cross-references (NOT chain-snapshots — history)
     let filesRewritten = 0;
-    for (const dir of [this.srcDir, this.testDir]) {
-      for (const f of this.walkFiles(dir)) {
-        const text = fs.readFileSync(f, 'utf-8');
-        if (!text.includes(resolved)) continue;
-        fs.writeFileSync(f, text.split(resolved).join(fresh));
-        filesRewritten++;
-      }
+    const docsDir = path.join(this.srcDir, '../scrum.pmo');
+    const mdFiles = fs.existsSync(docsDir)
+      ? this.walkMd(docsDir).filter(f => !f.includes('chain-snapshots'))
+      : [];
+    for (const f of [...this.walkFiles(this.srcDir), ...this.walkFiles(this.testDir), ...mdFiles]) {
+      const text = fs.readFileSync(f, 'utf-8');
+      if (!text.includes(resolved)) continue;
+      fs.writeFileSync(f, text.split(resolved).join(fresh));
+      filesRewritten++;
     }
     return { old: resolved, new: fresh, unitsRewritten, filesRewritten };
   }

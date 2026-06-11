@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+// [impl:uuid:07c16d73-27c9-4185-89de-ca81cc9ba01f] server.sprintsDedupe
+// [impl:uuid:a232ce97-c336-45fa-9e0f-68e2507729dc] ContentPreviewer.render
+// [impl:uuid:cc549bbd-84e3-432b-a188-7c81cc6c8856] server.sprintZeroPad
+// [impl:uuid:eef80308-52d5-4ecf-93fe-c678ac04b412] server.sprintNameFormat
 
 // [impl:uuid:e94199c4-5c74-458e-92ad-2e75f8bc2926] T4 server core
 import https from 'node:https';
@@ -1512,7 +1516,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
         room.broadcast({ type: MSG.HOST_CHANGED, hostId: clientId });
       }
       addLog(`${joinName} joined room ${room.name}`);
-      // [impl:uuid:c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f] file-restore on JOIN_ROOM
+      // [impl:uuid:25b1a3ee-d97f-4525-b482-e203794fb47f] file-restore on JOIN_ROOM
       try {
         const scenarioDir = path.join(__dirname, '../../../scenario/index');
         const idx = new ScenarioIndex(scenarioDir);
