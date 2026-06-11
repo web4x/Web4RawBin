@@ -20,42 +20,35 @@
         "name": "Toronto Trinity",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781174516429
+        "joinedAt": 1781180242390
       },
       {
         "ior": "ior:instance:366ec723-a7e3-4f1e-86f3-12b9071101de",
         "name": "Marcel Donges Studio",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781174516429
+        "joinedAt": 1781180242390
       },
       {
         "ior": "ior:instance:b63c3a8a-6d86-43af-b8e2-25cbef3ea2d7",
         "name": "Marcel Donges.IT",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781174516429
+        "joinedAt": 1781180242390
       },
       {
         "ior": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544",
         "name": "User",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781174516429
+        "joinedAt": 1781180242390
       },
       {
         "ior": "ior:instance:ae9a8a5e-1317-4266-be78-b15b7f547139",
         "name": "test merge",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781174516429
-      },
-      {
-        "ior": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544",
-        "name": "",
-        "role": "owner",
-        "status": "online",
-        "joinedAt": 1781174516429
+        "joinedAt": 1781180242390
       }
     ],
     "files": [

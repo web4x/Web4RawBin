@@ -20,14 +20,14 @@
         "name": "",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781174516437
+        "joinedAt": 1781180257519
       },
       {
-        "ior": "ior:instance:f4798dae-cfab-4a43-b8db-c548e893a120",
-        "name": "",
-        "role": "owner",
+        "ior": "ior:instance:ae9a8a5e-1317-4266-be78-b15b7f547139",
+        "name": "test merge",
+        "role": "member",
         "status": "online",
-        "joinedAt": 1781174516437
+        "joinedAt": 1781180257519
       }
     ],
     "files": [],

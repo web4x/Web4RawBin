@@ -3,7 +3,7 @@
   "model": {
     "uuid": "5d4ba96f-68f2-4f33-8b8f-636c704b2ee1",
     "name": "RbTraceTree.fetchAndRenderChildren",
-    "sourceFile": "ior:file:src/ts/server/rb-trace-tree.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "tests": []
   },
   "ownerIor": null

@@ -3,7 +3,7 @@
   "model": {
     "uuid": "ac1f9cfc-2fd2-423d-a48a-d1b28b656800",
     "name": "RbClassDetail.renderAll",
-    "sourceFile": "ior:file:src/ts/server/rb-class-detail.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-class-detail.ts",
     "tests": []
   },
   "ownerIor": null

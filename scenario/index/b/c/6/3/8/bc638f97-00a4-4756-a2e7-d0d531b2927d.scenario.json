@@ -3,7 +3,7 @@
   "model": {
     "uuid": "bc638f97-00a4-4756-a2e7-d0d531b2927d",
     "name": "RbObjectItem.badgeRender",
-    "sourceFile": "ior:file:src/ts/server/rb-object-item.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
     "tests": []
   },
   "ownerIor": null

@@ -3,7 +3,7 @@
   "model": {
     "uuid": "71c283ff-5dee-4df5-be05-6fc5b743aa8a",
     "name": "RbRoomContent.linkResolve",
-    "sourceFile": "ior:file:src/ts/server/rb-room-content.ts",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
     "tests": []
   },
   "ownerIor": null

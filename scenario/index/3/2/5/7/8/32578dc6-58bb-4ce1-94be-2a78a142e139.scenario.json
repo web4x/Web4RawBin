@@ -3,7 +3,7 @@
   "model": {
     "uuid": "32578dc6-58bb-4ce1-94be-2a78a142e139",
     "name": "RbRoomContent.mountTraceTree",
-    "sourceFile": "ior:file:src/ts/server/rb-room-content.ts",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
     "tests": []
   },
   "ownerIor": null

@@ -3,7 +3,7 @@
   "model": {
     "uuid": "7e43dda4-d7fd-45db-98b5-0e7a72d222c5",
     "name": "RbTraceTree.computeBadges",
-    "sourceFile": "ior:file:src/ts/server/rb-trace-tree.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "tests": []
   },
   "ownerIor": null

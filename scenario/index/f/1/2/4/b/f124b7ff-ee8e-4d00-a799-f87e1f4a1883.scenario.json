@@ -3,7 +3,7 @@
   "model": {
     "uuid": "f124b7ff-ee8e-4d00-a799-f87e1f4a1883",
     "name": "RbTraceTree.syncSelection",
-    "sourceFile": "ior:file:src/ts/server/rb-trace-tree.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "tests": []
   },
   "ownerIor": null

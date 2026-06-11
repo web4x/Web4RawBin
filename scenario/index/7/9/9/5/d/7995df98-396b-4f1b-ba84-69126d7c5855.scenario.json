@@ -3,7 +3,7 @@
   "model": {
     "uuid": "7995df98-396b-4f1b-ba84-69126d7c5855",
     "name": "TraceGraph.classHop",
-    "sourceFile": "ior:file:src/ts/server/trace-graph.ts",
+    "sourceFile": "ior:file:src/ts/shared/TraceModel.ts",
     "tests": []
   },
   "ownerIor": null

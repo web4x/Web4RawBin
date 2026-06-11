@@ -3,7 +3,7 @@
   "model": {
     "uuid": "4042da6f-e083-4564-bab7-562558b7464b",
     "name": "RbTraceTree.ancestorGuard",
-    "sourceFile": "ior:file:src/ts/server/rb-trace-tree.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "tests": []
   },
   "ownerIor": null

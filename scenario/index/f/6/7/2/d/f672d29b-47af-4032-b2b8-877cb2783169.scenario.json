@@ -20,21 +20,28 @@
         "name": "Marcel Donges.IT",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781174597030
-      },
-      {
-        "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
-        "name": "User",
-        "role": "owner",
-        "status": "offline",
-        "joinedAt": 1781174597030
+        "joinedAt": 1781180299822
       },
       {
         "ior": "ior:instance:ae9a8a5e-1317-4266-be78-b15b7f547139",
         "name": "test merge",
         "role": "member",
-        "status": "offline",
-        "joinedAt": 1781174597030
+        "status": "online",
+        "joinedAt": 1781180299822
+      },
+      {
+        "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+        "name": "Toronto Trinity",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1781180299822
+      },
+      {
+        "ior": "ior:instance:0a3dd214-9ee8-4a7e-af00-bd2e1e501ec9",
+        "name": "Felix Wittke",
+        "role": "member",
+        "status": "online",
+        "joinedAt": 1781180299822
       }
     ],
     "files": [

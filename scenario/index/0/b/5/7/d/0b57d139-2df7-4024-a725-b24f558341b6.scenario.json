@@ -3,7 +3,7 @@
   "model": {
     "uuid": "0b57d139-2df7-4024-a725-b24f558341b6",
     "name": "RbObjectItem.iconDrag",
-    "sourceFile": "ior:file:src/ts/server/rb-object-item.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
     "tests": []
   },
   "ownerIor": null

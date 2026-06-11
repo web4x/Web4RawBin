@@ -3,7 +3,7 @@
   "model": {
     "uuid": "4846d57e-610e-4977-a189-662074030cb1",
     "name": "RbTraceTree.cycleGuard",
-    "sourceFile": "ior:file:src/ts/server/rb-trace-tree.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "tests": []
   },
   "ownerIor": null

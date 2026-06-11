@@ -3,7 +3,7 @@
   "model": {
     "uuid": "a1e11e85-98a7-4be0-a8f4-ec54e938d329",
     "name": "RbObjectItem.dragGhost",
-    "sourceFile": "ior:file:src/ts/server/rb-object-item.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
     "tests": []
   },
   "ownerIor": null

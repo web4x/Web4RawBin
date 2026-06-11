@@ -3,7 +3,7 @@
   "model": {
     "uuid": "602fecd2-6fdb-4f57-8298-830f01a802fa",
     "name": "RbRoomContent.folderNodeRender",
-    "sourceFile": "ior:file:src/ts/server/rb-room-content.ts",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
     "tests": []
   },
   "ownerIor": null
