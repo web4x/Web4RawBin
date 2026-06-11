@@ -24,6 +24,13 @@ describe('objectVerb introspection (c2 for TypeScript)', () => {
     expect(verb('Velocity', 'compute')).toBeTruthy();
   });
 
+  it('finds the T138 Scenario verbs + Rules + Audit (full coverage of the skills inventory)', () => {
+    for (const v of ['captureQuote', 'proposeTask', 'walkChain', 'statusTransition']) expect(verb('Scenario', v), `Scenario.${v}`).toBeTruthy();
+    expect(verb('Rules', 'list')).toBeTruthy();
+    expect(verb('Rules', 'show')).toBeTruthy();
+    for (const v of ['strict', 'rulePair', 'sprintMd']) expect(verb('Audit', v), `Audit.${v}`).toBeTruthy();
+  });
+
   it('excludes private methods and constructor', () => {
     expect(sigs.find(s => s.verb === 'constructor')).toBeUndefined();
     expect(sigs.find(s => s.verb === 'walkReq')).toBeUndefined();

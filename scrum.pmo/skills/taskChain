@@ -67,6 +67,53 @@ taskChain.velocity.dashboard.completion.since() { private.taskChain.dispatch Vel
 taskChain.velocity.dashboard.completion.hours() { private.taskChain.dispatch Velocity completion dashboard hours; }
 taskChain.velocity.dashboard.completion.sprint() { private.taskChain.dispatch Velocity completion dashboard sprint; }
 
+taskChain.scenario.captureQuote() # <text> <sprintIor> <?taskIor> # Capture a verbatim Tron quote as a scenario unit linked to its sprint (and optional task)
+{ private.taskChain.dispatch Scenario captureQuote "$@"; }
+taskChain.scenario.captureQuote.completion.text() { private.taskChain.dispatch Scenario completion captureQuote text; }
+taskChain.scenario.captureQuote.completion.sprintIor() { private.taskChain.dispatch Scenario completion captureQuote sprintIor; }
+taskChain.scenario.captureQuote.completion.taskIor() { private.taskChain.dispatch Scenario completion captureQuote taskIor; }
+
+taskChain.scenario.proposeTask() # <requirementIor> <name> <description> <sprintIor> <?assigned> <?effort> # Propose a new Task unit under a requirement (name + description + sprint)
+{ private.taskChain.dispatch Scenario proposeTask "$@"; }
+taskChain.scenario.proposeTask.completion.requirementIor() { private.taskChain.dispatch Scenario completion proposeTask requirementIor; }
+taskChain.scenario.proposeTask.completion.name() { private.taskChain.dispatch Scenario completion proposeTask name; }
+taskChain.scenario.proposeTask.completion.description() { private.taskChain.dispatch Scenario completion proposeTask description; }
+taskChain.scenario.proposeTask.completion.sprintIor() { private.taskChain.dispatch Scenario completion proposeTask sprintIor; }
+taskChain.scenario.proposeTask.completion.assigned() { private.taskChain.dispatch Scenario completion proposeTask assigned; }
+taskChain.scenario.proposeTask.completion.effort() { private.taskChain.dispatch Scenario completion proposeTask effort; }
+
+taskChain.scenario.walkChain() # <startIor> <?direction> <?maxDepth> # Walk the chain from a unit (down/up/both, depth-limited) — returns flat steps
+{ private.taskChain.dispatch Scenario walkChain "$@"; }
+taskChain.scenario.walkChain.completion.startIor() { private.taskChain.dispatch Scenario completion walkChain startIor; }
+taskChain.scenario.walkChain.completion.direction() { private.taskChain.dispatch Scenario completion walkChain direction; }
+taskChain.scenario.walkChain.completion.maxDepth() { private.taskChain.dispatch Scenario completion walkChain maxDepth; }
+
+taskChain.scenario.statusTransition() # <taskIor> <verb> <?tronCommitRef> # Transition a Task through its FSM (startRefinement|startCreatingTestCases|startImplementing|startTesting|requestQAReview|tronApprove)
+{ private.taskChain.dispatch Scenario statusTransition "$@"; }
+taskChain.scenario.statusTransition.completion.taskIor() { private.taskChain.dispatch Scenario completion statusTransition taskIor; }
+taskChain.scenario.statusTransition.completion.verb() { private.taskChain.dispatch Scenario completion statusTransition verb; }
+taskChain.scenario.statusTransition.completion.tronCommitRef() { private.taskChain.dispatch Scenario completion statusTransition tronCommitRef; }
+
+taskChain.rules.list() #  # List all team protocol rules (rule-*, ship-*, verify-*) with their one-line hooks
+{ private.taskChain.dispatch Rules list "$@"; }
+taskChain.rules.list.completion() { :; }
+
+taskChain.rules.show() # <name> # Show one rule's full text by name (Tab-completes over all rules)
+{ private.taskChain.dispatch Rules show "$@"; }
+taskChain.rules.show.completion.name() { private.taskChain.dispatch Rules completion show name; }
+
+taskChain.audit.strict() #  # Structural trace audit, strict mode (orphans, back-refs, cardinality) — dispatches trace:audit:strict
+{ private.taskChain.dispatch Audit strict "$@"; }
+taskChain.audit.strict.completion() { :; }
+
+taskChain.audit.rulePair() #  # Ship rule-pair gate #66/#67 (version bump + STATIC_SHELL) — dispatches rule-pair:strict
+{ private.taskChain.dispatch Audit rulePair "$@"; }
+taskChain.audit.rulePair.completion() { :; }
+
+taskChain.audit.sprintMd() #  # Sprint markdown consistency check — dispatches check:sprint-md
+{ private.taskChain.dispatch Audit sprintMd "$@"; }
+taskChain.audit.sprintMd.completion() { :; }
+
 taskChain.help() # # list all objects and verbs (introspected)
 { private.taskChain.dispatch list; }
 

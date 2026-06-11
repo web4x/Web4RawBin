@@ -19,7 +19,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { Chain, Velocity } from '../src/ts/scenario/skill-classes.js';
+import { Chain, Velocity, Scenario, Rules, Audit } from '../src/ts/scenario/skill-classes.js';
 import { ScenarioIndex } from '../src/ts/scenario/index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -37,6 +37,9 @@ export const registry: Record<string, () => SkillInstance> = {
     const chain = new Chain(new ScenarioIndex(path.join(REPO, 'scenario/index')), path.join(REPO, 'src'), path.join(REPO, 'test'));
     return new Velocity(REPO, chain) as unknown as SkillInstance;
   },
+  Scenario: () => new Scenario(new ScenarioIndex(path.join(REPO, 'scenario/index'))) as unknown as SkillInstance,
+  Rules: () => new Rules(path.join(REPO, 'scrum.pmo/skills')) as unknown as SkillInstance,
+  Audit: () => new Audit(REPO) as unknown as SkillInstance,
 };
 
 // --- Introspection: scan class signatures + JSDoc from source (c2-style) ---
@@ -240,7 +243,13 @@ export function emitClaudeSkillText(object: string): string {
     ? 'Web4RawBin traceability chain operations — the CANONICAL completion measure. Use when measuring chain completion (scoreboard/followUp), listing or diffing the COMPLETE set (listComplete/snapshotComplete), wiring Method-Impl-Test nodes (wireImplNode/wireAllMissing), linting markers for invented-suffix/shared-impl violations (lintMarkers), or regenerating the traceability matrix (generateMatrix).'
     : object === 'Velocity'
       ? 'Web4RawBin team velocity dashboard — chain completion + git throughput per time window. Use when reporting team velocity, commits/hr, version bumps, or projecting time-to-complete.'
-      : `Web4RawBin ${object} skill (Object.verb).`;
+      : object === 'Scenario'
+        ? 'Web4RawBin scenario-unit skills (T138) — capture verbatim Tron quotes as units (captureQuote), propose Task units under requirements (proposeTask), walk the chain from any unit (walkChain), drive Task FSM transitions (statusTransition).'
+        : object === 'Rules'
+          ? 'Web4RawBin team protocol rules — Tab-discoverable rulebook. Use to list all rule-*/ship-*/verify-* protocol rules (list) or read one in full (show), e.g. ship-versionBump #66, verify-7hopGate #27.'
+          : object === 'Audit'
+            ? 'Web4RawBin CI gates as verbs — structural trace audit (strict), ship rule-pair #66/#67 gate (rulePair), sprint markdown consistency (sprintMd). NOT the completion measure — use rawbin-chain for completion.'
+            : `Web4RawBin ${object} skill (Object.verb).`;
   out.push(`description: ${purpose}`);
   out.push('---');
   out.push('');

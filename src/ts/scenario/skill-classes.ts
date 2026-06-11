@@ -19,6 +19,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { ScenarioIndex } from './index.js';
+import { captureQuote as t138CaptureQuote, proposeTask as t138ProposeTask, walkChain as t138WalkChain, statusTransition as t138StatusTransition, type TaskVerb, type ChainStep } from './skills.js';
 
 // --- Shared helpers ---
 
@@ -626,6 +627,109 @@ export class Velocity {
       return { first: all[all.length - 1] || '', last: all[0] || '' };
     } catch { return { first: '', last: '' }; }
   }
+}
+
+// --- Scenario class (T138 skills — finally exposed as Object.verb) ---
+
+export class Scenario {
+  constructor(private idx: ScenarioIndex) {}
+
+  /** Capture a verbatim Tron quote as a scenario unit linked to its sprint (and optional task) */
+  captureQuote(text: string, sprintIor: string, taskIor?: string): { ior: string; links: string[] } {
+    const r = t138CaptureQuote(this.idx, text, sprintIor, taskIor);
+    return { ior: r.ior, links: r.links };
+  }
+
+  /** Propose a new Task unit under a requirement (name + description + sprint) */
+  proposeTask(requirementIor: string, name: string, description: string, sprintIor: string, assigned?: string, effort?: string): { ior: string; links: string[] } {
+    const r = t138ProposeTask(this.idx, requirementIor, { name, description, sprintIor, assigned, effort });
+    return { ior: r.ior, links: r.links };
+  }
+
+  /** Walk the chain from a unit (down/up/both, depth-limited) — returns flat steps */
+  walkChain(startIor: string, direction?: string, maxDepth?: number): ChainStep[] {
+    const dir = (direction === 'down' || direction === 'up') ? direction : 'both';
+    return t138WalkChain(this.idx, startIor, dir, maxDepth ?? 10);
+  }
+
+  /** Transition a Task through its FSM (startRefinement|startCreatingTestCases|startImplementing|startTesting|requestQAReview|tronApprove) */
+  statusTransition(taskIor: string, verb: string, tronCommitRef?: string): { ior: string; links: string[] } {
+    const r = t138StatusTransition(this.idx, taskIor, verb as TaskVerb, tronCommitRef ? { tronCommitRef } : undefined);
+    return { ior: r.ior, links: r.links };
+  }
+
+  /** Tab-completion candidates for a verb's parameter (OOSH c2 contract) */
+  complete(verb: string, param: string): string[] {
+    if (param === 'verb') return ['startRefinement', 'startCreatingTestCases', 'startImplementing', 'startTesting', 'requestQAReview', 'tronApprove'];
+    if (param === 'direction') return ['down', 'up', 'both'];
+    if (param === 'sprintIor' ) return this.idx.list().filter(u => { const x = this.idx.get(u); return x?.ior === 'ior:class:Sprint'; });
+    if (param === 'requirementIor') return this.idx.list().filter(u => { const x = this.idx.get(u); return x?.ior === 'ior:class:Requirement'; });
+    if (param === 'taskIor' || param === 'startIor') return this.idx.list().filter(u => { const x = this.idx.get(u); return x?.ior === 'ior:class:Task'; });
+    return [];
+  }
+}
+
+// --- Rules class (team protocol rules, Tab-discoverable) ---
+
+export class Rules {
+  constructor(private skillsDir: string) {}
+
+  private ruleFiles(): string[] {
+    if (!fs.existsSync(this.skillsDir)) return [];
+    return fs.readdirSync(this.skillsDir).filter(f => /^(rule|ship|verify)-.*\.md$/.test(f)).sort();
+  }
+
+  /** List all team protocol rules (rule-*, ship-*, verify-*) with their one-line hooks */
+  list(): { name: string; title: string; hook: string }[] {
+    return this.ruleFiles().map(f => {
+      const text = fs.readFileSync(path.join(this.skillsDir, f), 'utf-8');
+      const lines = text.split('\n');
+      const title = (lines.find(l => l.startsWith('#')) || '').replace(/^#+\s*/, '');
+      const hook = lines.find(l => l.trim() && !l.startsWith('#'))?.trim() || '';
+      return { name: f.replace(/\.md$/, ''), title, hook: hook.slice(0, 110) };
+    });
+  }
+
+  /** Show one rule's full text by name (Tab-completes over all rules) */
+  show(name: string): string {
+    const f = path.join(this.skillsDir, `${name.replace(/\.md$/, '')}.md`);
+    if (!fs.existsSync(f)) return `Unknown rule '${name}'. Run: rules.list`;
+    return fs.readFileSync(f, 'utf-8');
+  }
+
+  /** Tab-completion candidates for a verb's parameter (OOSH c2 contract) */
+  complete(verb: string, param: string): string[] {
+    if (param === 'name') return this.ruleFiles().map(f => f.replace(/\.md$/, ''));
+    return [];
+  }
+}
+
+// --- Audit class (CI gates as verbs — thin dispatch to the gate scripts) ---
+
+export class Audit {
+  constructor(private repoDir: string) {}
+
+  private npmRun(script: string): string {
+    try {
+      const out = execSync(`npm run ${script}`, { encoding: 'utf-8', cwd: path.resolve(this.repoDir), timeout: 300000 });
+      return `PASS — ${script}\n${out}`;
+    } catch (e) {
+      const err = e as { stdout?: string; stderr?: string };
+      return `FAIL — ${script}\n${err.stdout || ''}${err.stderr || ''}`;
+    }
+  }
+
+  /** Structural trace audit, strict mode (orphans, back-refs, cardinality) — dispatches trace:audit:strict */
+  strict(): string { return this.npmRun('trace:audit:strict'); }
+
+  /** Ship rule-pair gate #66/#67 (version bump + STATIC_SHELL) — dispatches rule-pair:strict */
+  rulePair(): string { return this.npmRun('rule-pair:strict'); }
+
+  /** Sprint markdown consistency check — dispatches check:sprint-md */
+  sprintMd(): string { return this.npmRun('check:sprint-md'); }
+
+  /** Tab-completion candidates for a verb's parameter (OOSH c2 contract) */
+  complete(): string[] { return []; }
 }
 
 // --- Types ---
