@@ -3,8 +3,10 @@
   "model": {
     "uuid": "d22d013a-ccc8-49b4-9106-c41114507808",
     "name": "RoomView.renderRoomTreeFiles",
-    "description": "Renders file items in the room tree with persistent this.files[] lifecycle — mirrors renderRoomTreeMembers. Items survive re-render, support collapse-to-icon and preview-drawer click.",
-    "implementations": [],
+    "description": "Renders file items in the room tree with persistent this.files[] lifecycle \u2014 mirrors renderRoomTreeMembers. Items survive re-render, support collapse-to-icon and preview-drawer click.",
+    "implementations": [
+      "ior:instance:e4b1fe11-77e2-4e2b-b61b-64d93e4c60d1"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed"

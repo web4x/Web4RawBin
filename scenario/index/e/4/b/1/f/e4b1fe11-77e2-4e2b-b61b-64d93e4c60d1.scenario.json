@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e4b1fe11-77e2-4e2b-b61b-64d93e4c60d1",
+    "name": "RoomView.renderRoomTreeFiles impl",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
+    "sourceLine": 292,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d22d013a-ccc8-49b4-9106-c41114507808"
+}

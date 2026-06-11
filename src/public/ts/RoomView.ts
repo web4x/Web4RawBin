@@ -289,6 +289,7 @@ export class RoomView {
     }
   }
 
+  // [impl:uuid:e4b1fe11-77e2-4e2b-b61b-64d93e4c60d1] R19.83 renderRoomTreeFiles
   private renderRoomTreeFiles(): void {
     const parentItem = document.querySelector('#rrc-files-node rb-object-item');
     if (parentItem) { parentItem.setAttribute('description', `${this.files.length} file${this.files.length !== 1 ? 's' : ''}`); parentItem.setAttribute('child-count', String(this.files.length)); }
