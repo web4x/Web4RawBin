@@ -5,7 +5,6 @@
  *   npx tsx scripts/migrate-chain-to-json.ts --dry-run
  *   npx tsx scripts/migrate-chain-to-json.ts --apply
  *
- * [impl:uuid:51151a01-b302-4c03-ad04-e05f06a07d14] R17.30
  */
 import fs from 'node:fs';
 import path from 'node:path';

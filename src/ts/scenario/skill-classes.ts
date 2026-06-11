@@ -68,10 +68,15 @@ export class Chain {
     return out;
   }
 
+  /** Real-code roots for [impl:uuid:] markers: src/ + scripts/ (tooling code is real code). */
+  private implRoots(): string[] {
+    return [this.srcDir, path.join(this.srcDir, '../scripts')];
+  }
+
   private markerScanners(): { hasRealImpl: (u: string) => boolean; hasRealTest: (u: string) => boolean } {
     const srcContent: string[] = [];
     const testContent: string[] = [];
-    for (const f of this.walkFiles(this.srcDir)) srcContent.push(fs.readFileSync(f, 'utf-8'));
+    for (const root of this.implRoots()) for (const f of this.walkFiles(root)) srcContent.push(fs.readFileSync(f, 'utf-8'));
     for (const f of this.walkFiles(this.testDir)) testContent.push(fs.readFileSync(f, 'utf-8'));
     const hasRealImpl = (uuid: string) => {
       if (!this.idx.has(uuid)) return false; // Impl UNIT must exist on disk
@@ -457,7 +462,7 @@ export class Chain {
       if (n > 1) findings.push({ kind: 'shared-impl', uuid: iu, detail: `referenced by ${n} Methods — mint fresh uuid per method` });
     }
     // (d) markers in source/test with no unit on disk
-    for (const [dir, prefix] of [[this.srcDir, 'impl'], [this.testDir, 'test']] as const) {
+    for (const [dir, prefix] of [...this.implRoots().map(r => [r, 'impl'] as const), [this.testDir, 'test'] as const]) {
       for (const f of this.walkFiles(dir)) {
         const text = fs.readFileSync(f, 'utf-8');
         for (const m of text.matchAll(new RegExp(`\\[${prefix}:uuid:([0-9a-f-]{36})\\]`, 'gi'))) {
@@ -524,7 +529,7 @@ export class Chain {
     const mdFiles = fs.existsSync(docsDir)
       ? this.walkMd(docsDir).filter(f => !f.includes('chain-snapshots'))
       : [];
-    for (const f of [...this.walkFiles(this.srcDir), ...this.walkFiles(this.testDir), ...mdFiles]) {
+    for (const f of [...this.implRoots().flatMap(r => this.walkFiles(r)), ...this.walkFiles(this.testDir), ...mdFiles]) {
       const text = fs.readFileSync(f, 'utf-8');
       if (!text.includes(resolved)) continue;
       fs.writeFileSync(f, text.split(resolved).join(fresh));

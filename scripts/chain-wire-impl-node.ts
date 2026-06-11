@@ -11,7 +11,6 @@
  *   npx tsx scripts/chain-wire-impl-node.ts <method-uuid> [--dry-run]
  *   npx tsx scripts/chain-wire-impl-node.ts --all-missing [--dry-run]
  *
- * [impl:uuid:d4e5f6a7-b8c9-4d0e-9f1a-2b3c4d5e6f7a] chain.wireImplNode
  */
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

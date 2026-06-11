@@ -10,7 +10,6 @@
  *   npx tsx scripts/populate-forward-refs.ts --dry-run
  *   npx tsx scripts/populate-forward-refs.ts --apply
  *
- * [impl:uuid:4bd33c18-a707-4ca3-8c87-9cc1a5c2f516] R-Q
  */
 import fs from 'node:fs';
 import path from 'node:path';

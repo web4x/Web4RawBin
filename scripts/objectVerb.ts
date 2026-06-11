@@ -14,7 +14,6 @@
  *   npx tsx scripts/objectVerb.ts emitOosh   # regenerate scrum.pmo/skills/taskChain
  *   npx tsx scripts/objectVerb.ts emitDocs   # regenerate scrum.pmo/skills/<object>.md
  *
- * [impl:uuid:bf29a301-c4d5-4e6f-9a7b-8c0d1e2f3a4b] po.chainFollowUp (canonical dispatch)
  */
 import fs from 'node:fs';
 import path from 'node:path';

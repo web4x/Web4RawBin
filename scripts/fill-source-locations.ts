@@ -5,7 +5,6 @@
  *   npx tsx scripts/fill-source-locations.ts --dry-run
  *   npx tsx scripts/fill-source-locations.ts --apply
  *
- * [impl:uuid:675cc8e3-0646-4fb7-a6a5-b2c8400747c6] R18.13
  */
 import fs from 'node:fs';
 import path from 'node:path';

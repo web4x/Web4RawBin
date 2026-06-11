@@ -12,7 +12,6 @@
  *   npx tsx scripts/po-chain-follow-up.ts --all
  *   npx tsx scripts/po-chain-follow-up.ts --sprint S19
  *
- * [impl:uuid:bf29a301-c4d5-4e6f-9a7b-8c0d1e2f3a4b] po.chainFollowUp
  */
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
