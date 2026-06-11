@@ -13,7 +13,6 @@ import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
 import { singularChain, renderSingularChain } from './singular-chain.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
-import { scenarioBrowserLinkFromIor } from './detail-children.js';
 
 export class RbUseCaseDetail extends HTMLElement {
   graph: TraceGraph | null = null;

@@ -15,7 +15,6 @@ import { forwardOnly } from './forward-only.js';
 // [impl:uuid:660cb423-30cd-4d32-8a3f-d7bad22f6f5e] RbRequirementDetail.render
 import { singularChain, renderSingularChain } from './singular-chain.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
-import { scenarioBrowserLinkFromIor } from './detail-children.js';
 
 export class RbRequirementDetail extends HTMLElement {
   graph: TraceGraph | null = null;

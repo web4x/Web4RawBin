@@ -7,7 +7,6 @@ import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
-import { scenarioBrowserLinkFromIor } from './detail-children.js';
 
 export class RbTestDetail extends HTMLElement {
   graph: TraceGraph | null = null;
