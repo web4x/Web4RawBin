@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "c524c8a0-9e40-44b8-9fc1-468674648c4f",
+    "name": "T-diff-render: replace innerHTML='' nuke with diff-render in renderRoomTreeMembers/Files",
+    "slug": "diff-render-replace-innerhtml-nuke",
+    "description": "R19.88.A fix: stop innerHTML='' destroy+recreate. diffRenderItems() indexes existing by ref, removes departed, updates attrs in-place (preserves connectedCallback state), appends only new. Shared helper for both members + files. Zero innerHTML='' on live rb-object-item containers.",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:3785b104-f890-473e-8d76-bee5bf010b84"
+    ],
+    "useCases": [
+      "ior:instance:c5419a86-050b-48f9-a797-1faf22ccc586"
+    ],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-architect"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
