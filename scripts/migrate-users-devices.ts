@@ -1,9 +1,6 @@
 /**
 // [impl:uuid:766fd217-0059-441d-a012-85dcbc5e8717] User.deviceAssociation
  * User/Device migration: profiles.json → User units, devices.json → Device units.
- * [impl:uuid:971e3531-a1b2-4c3d-8e4f-5a6b7c8d9e0f] Phase1 system user
- * [impl:uuid:827ac2a0-b2c3-4d4e-9f5a-6b7c8d9e0f12] Phase2 User units
- * [impl:uuid:2811473d-c3d4-4e5f-a060-7b8c9d0e1f23] Phase3 Device units
  *
  * Usage: npx tsx scripts/migrate-users-devices.ts
  */

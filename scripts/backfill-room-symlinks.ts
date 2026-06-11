@@ -6,7 +6,6 @@
  *   npx tsx scripts/backfill-room-symlinks.ts --report
  *   npx tsx scripts/backfill-room-symlinks.ts --apply
  *
- * [impl:uuid:7144f6ca-a1b2-4c3d-8e4f-5a6b7c8d9e0f] R19.22.A
  */
 import fs from 'node:fs';
 import path from 'node:path';

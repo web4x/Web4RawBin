@@ -261,7 +261,6 @@ rb-member-badge { display: flex; align-items: center; gap: 4px; padding: 3px 8px
 @media (min-width: 1025px) {
   .trace-page { display: flex; gap: 0; height: calc(100vh - 44px); }
   .trace-tree-panel { flex: 1; min-width: 300px; overflow-y: auto; }
-  /* [impl:uuid:da9462f5-a1b2-4c3d-8e4f-5a6b7c8d9e0f] R19.52 full viewport width */
   /* [impl:uuid:ff684e10-e57c-45ae-97b9-8f866264c737] fullWidth */
 .trace-page rb-detail-drawer { position: static !important; transform: none !important; flex: 1; min-width: 300px; flex-shrink: 0; max-height: 100vh; overflow-y: auto; border-radius: 0; border-left: 1px solid rgba(255,255,255,0.1); box-shadow: none; }
   .trace-page rb-detail-drawer[open] { transform: none !important; }
@@ -278,7 +277,6 @@ rb-detail-drawer {
   word-break: break-word; visibility: hidden;
 // [impl:uuid:1dae7316-28c5-480e-81c4-fc2874fa8c5d] drawer-header close X pinned CSS
 }
-/* [impl:uuid:3a671bfc-b2c3-4d4e-9f5a-6b7c8d9e0123] R19.33 close X always pinned above scroll */
 .drawer-header { position: sticky; top: 0; z-index: 2; background: #1a1a2e; display: flex; align-items: center; justify-content: space-between; padding: 8px 16px 4px; flex-shrink: 0; min-height: 36px; }
 .drawer-header .drawer-handle { width: 40px; height: 4px; background: rgba(255,255,255,0.25); border-radius: 2px; cursor: grab; }
 .drawer-close { background: none; border: none; color: rgba(255,255,255,0.5); font-size: 1.2rem; cursor: pointer; padding: 4px 8px; }
