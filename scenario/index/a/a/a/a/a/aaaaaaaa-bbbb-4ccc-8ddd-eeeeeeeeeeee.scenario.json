@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781161994348,
+    "createdAt": 1781162052218,
     "sshKeysGenerated": false,
     "sshPublicKey": "",
     "chatHistory": [],
@@ -20,7 +20,7 @@
         "name": "",
         "role": "owner",
         "status": "online",
-        "joinedAt": 1781161994348
+        "joinedAt": 1781162052218
       }
     ],
     "sourceFile": "scenario/index/a/a/a/a/a/aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee.scenario.json",
