@@ -4,7 +4,8 @@
     "uuid": "2dabc43d-6277-4595-864a-c16dde810283",
     "name": "Room.persistMembers",
     "implementations": [
-      "ior:instance:6ba255ba-8d05-4d25-ab29-307dcddafba4"
+      "ior:instance:6ba255ba-8d05-4d25-ab29-307dcddafba4",
+      "ior:instance:d5f0c2b4-a09e-4f80-aaf9-fa386aa57e46"
     ],
     "tests": []
   },

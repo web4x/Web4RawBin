@@ -4,7 +4,8 @@
     "uuid": "1f2a3b4c-5d6e-4f7a-8b9c-0d1e2f3a4b5c",
     "name": "RbRoomDetail.editCanonical",
     "implementations": [
-      "ior:instance:41cd5823-5413-4928-83e1-22cb7d5a6e15"
+      "ior:instance:41cd5823-5413-4928-83e1-22cb7d5a6e15",
+      "ior:instance:2a29b3da-c0a5-4f32-b172-af8dafaa147a"
     ],
     "tests": []
   },

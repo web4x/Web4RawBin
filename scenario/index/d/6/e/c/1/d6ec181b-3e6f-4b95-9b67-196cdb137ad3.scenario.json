@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d6ec181b-3e6f-4b95-9b67-196cdb137ad3",
+    "name": "impl:DropDispatcher.uploadFile",
+    "sourceFile": "src/public/ts/drop-dispatcher.ts",
+    "sourceLine": 17,
+    "methods": [
+      "ior:instance:9905fbfa-e41a-4177-b625-f6fee373efd2"
+    ]
+  },
+  "ownerIor": "ior:instance:9905fbfa-e41a-4177-b625-f6fee373efd2"
+}

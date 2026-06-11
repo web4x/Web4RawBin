@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "fc2c04b2-f035-4d42-971c-14c217438cd3",
+    "name": "Logger.logAtLevel",
+    "description": "log.error(msg)/warn/info/debug/trace \u2014 gate on currentLevel. setLevel(n) changes at runtime. Wraps addLog + console + file append. Upload chain emits at debug: drop received, file extracted, createFileUnit called, unit written, symlink created, FILE_ADDED broadcast.",
+    "sourceFile": "ior:file:src/ts/server/logger.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:76443e28-b08c-4c8d-9d54-bbbf1de54ac6"
+}

@@ -455,9 +455,10 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       req.on('end', () => {
         try {
           const body = Buffer.concat(chunks);
+          addLog(`[upload] received ${body.length}b for room ${roomId.slice(0,8)} content-type=${req.headers['content-type']?.slice(0,60)}`);
           const boundary = (req.headers['content-type'] || '').split('boundary=')[1];
-          if (!boundary) { res.writeHead(400); res.end(JSON.stringify({ error: 'No boundary' })); return; }
-          const parts = body.toString().split('--' + boundary);
+          if (!boundary) { addLog(`[upload] ERROR: no boundary in content-type`); res.writeHead(400); res.end(JSON.stringify({ error: 'No boundary' })); return; }
+          const parts = body.toString('binary').split('--' + boundary);
           let fileName = '', mimeType = 'application/octet-stream', fileData = Buffer.alloc(0), playerToken = '';
           for (const part of parts) {
             if (part.includes('name="playerToken"')) {
@@ -471,24 +472,28 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
               const dataStart = part.indexOf('\r\n\r\n');
               if (dataStart !== -1) {
                 const raw = part.slice(dataStart + 4);
-                fileData = Buffer.from(raw.replace(/\r\n$/, ''));
+                const trimmed = raw.replace(/\r\n$/, '');
+                fileData = Buffer.from(trimmed, 'binary');
               }
             }
           }
-          if (!playerToken || !tokenToClient.has(playerToken)) { res.writeHead(401); res.end(JSON.stringify({ error: 'Unauthenticated' })); return; }
+          addLog(`[upload] parsed: file=${fileName} mime=${mimeType} size=${fileData.length}b token=${playerToken.slice(0,8)}`);
+          if (!playerToken || !tokenToClient.has(playerToken)) { addLog(`[upload] ERROR: auth failed token=${playerToken.slice(0,8)}`); res.writeHead(401); res.end(JSON.stringify({ error: 'Unauthenticated' })); return; }
           const room = roomManager.getRoom(roomId);
-          if (!room) { res.writeHead(404); res.end(JSON.stringify({ error: 'Room not found' })); return; }
+          if (!room) { addLog(`[upload] ERROR: room ${roomId.slice(0,8)} not found`); res.writeHead(404); res.end(JSON.stringify({ error: 'Room not found' })); return; }
+          addLog(`[upload] creating file unit...`);
           const scenarioDir = path.join(__dirname, '../../../scenario/index');
           const { ScenarioIndex, createFileUnit } = require('../scenario/index.js');
           const idx = new ScenarioIndex(scenarioDir);
           const unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, roomUuid: roomId });
           const fileUuid = (unit.model as any).uuid;
+          addLog(`[upload] unit created: ${fileUuid} contentPath=${(unit.model as any).contentPath}`);
           room.broadcast({ type: MSG.FILE_ADDED, roomId, fileUuid, name: fileName, size: fileData.length, mimeType });
-          addLog(`File uploaded: ${fileName} (${fileData.length}b) to room ${roomId.slice(0,8)} by ${playerToken.slice(0,8)}`);
+          addLog(`[upload] SUCCESS: ${fileName} (${fileData.length}b) uuid=${fileUuid} room=${roomId.slice(0,8)}`);
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ uuid: fileUuid, name: fileName, size: fileData.length }));
         } catch (e: any) {
-          addLog(`File upload error: ${e?.message || e}`);
+          addLog(`[upload] ERROR: ${e?.message || e}\n${e?.stack || ''}`);
           res.writeHead(500); res.end(JSON.stringify({ error: 'Upload failed' }));
         }
       });

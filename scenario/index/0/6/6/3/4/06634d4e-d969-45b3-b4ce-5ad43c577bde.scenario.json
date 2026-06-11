@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "06634d4e-d969-45b3-b4ce-5ad43c577bde",
+    "name": "server.leveledLog",
+    "description": "Leveled logger (error/warn/info/debug/trace = 0-4). LOG_LEVEL env var sets default. Runtime setter via POST /api/log-level or TUI key. log.error/warn/info/debug/trace gate on current level. Replace 85 ad-hoc addLog/console.log calls in server.ts. Upload/createFileUnit logs at debug/trace for Tron diagnosis.",
+    "class": "ior:instance:76443e28-b08c-4c8d-9d54-bbbf1de54ac6",
+    "method": "ior:instance:fc2c04b2-f035-4d42-971c-14c217438cd3",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
