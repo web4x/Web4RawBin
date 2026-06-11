@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "9628370d-8991-4ef5-9a9a-4aaaa1bfbf59",
+    "name": "T-move-remove-id-to-enroll: relocate red Remove-Local-Identity button ProfileEditor → DeviceEnrollDialog secret-code screen",
+    "slug": "move-remove-identity-to-device-enroll",
+    "description": "R19.89 fix: the red 'Remove current ID data' button (R19.72, impl 25884b0c) is on the WRONG screen — ProfileEditor.ts:68 (gate mode) instead of the DeviceEnrollDialog 'Authorize This Device' secret-code screen. MOVE it to DeviceEnrollDialog, where a locked-out user without the secret code actually needs the escape path. Remove it from ProfileEditor (established/authenticated users — no purpose there). R19.72's 'secret-code page' = DeviceEnrollDialog. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27). Architect to design the UC.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [ ] implementing (expert)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:2ad3fd18-6d78-4aa2-8213-36934b0f3504"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-11",
+    "createdBy": "robbin-planner",
+    "joint": [
+      "robbin-planner",
+      "robbin-architect",
+      "robbin-expert",
+      "robbin-tester"
+    ],
+    "atoms": "covers R19.89 per PO directive 2026-06-11; relocate R19.72 red button (impl 25884b0c) from ProfileEditor to DeviceEnrollDialog secret-code screen"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
