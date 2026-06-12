@@ -138,7 +138,15 @@ export class RbTraceTree extends HTMLElement {
         console.log(`[renderItems] PATH-A(update) ref=${ref} children=${(root.children||[]).length}`);
         const item = ex.querySelector('rb-object-item') as any;
         if (item) item.data = { ref, type: (root.type || 'task').toLowerCase(), title: root.name, ...(root.description ? { description: root.description } : {}), 'has-children': (root.children || []).length > 0 ? '' : undefined };
-        const kids = ex.querySelector('.tt-children') as HTMLElement;
+        let kids = ex.querySelector('.tt-children') as HTMLElement;
+        if (!kids && root.children && root.children.length > 0) {
+          kids = document.createElement('div');
+          kids.className = 'tt-children';
+          kids.style.display = '';
+          ex.appendChild(kids);
+          if (item) { item.setAttribute('has-children', ''); item.setAttribute('children-open', ''); }
+          console.log(`[renderItems] PATH-A created missing .tt-children for ref=${ref}`);
+        }
         if (kids && root.children) {
           const existingChildren = new Map<string, HTMLElement>();
           kids.querySelectorAll(':scope > .tt-node').forEach(cn => {
