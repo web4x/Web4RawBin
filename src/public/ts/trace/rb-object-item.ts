@@ -35,9 +35,17 @@ export class RbObjectItem extends HTMLElement {
   private _data: Record<string, string> | null = null;
   private _initialized = false;
 
+  private static readonly DATA_ATTRS = ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count', 'has-children', 'children-open'];
+
   set data(d: Record<string, string>) {
     this._data = d;
-    for (const [k, v] of Object.entries(d)) this.setAttribute(k, v);
+    for (const [k, v] of Object.entries(d)) {
+      if (v === undefined || v === null) { this.removeAttribute(k); continue; }
+      this.setAttribute(k, String(v));
+    }
+    for (const attr of RbObjectItem.DATA_ATTRS) {
+      if (!(attr in d)) this.removeAttribute(attr);
+    }
     if (this.isConnected) this.render();
   }
   get data() { return this._data; }

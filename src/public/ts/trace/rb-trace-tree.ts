@@ -137,7 +137,7 @@ export class RbTraceTree extends HTMLElement {
       if (ex) {
         console.log(`[renderItems] PATH-A(update) ref=${ref} children=${(root.children||[]).length}`);
         const item = ex.querySelector('rb-object-item') as any;
-        if (item) item.data = { ref, type: (root.type || 'task').toLowerCase(), title: root.name, ...(root.description ? { description: root.description } : {}), 'has-children': (root.children || []).length > 0 ? '' : undefined };
+        if (item) item.data = { ref, type: (root.type || 'task').toLowerCase(), title: root.name, ...(root.description ? { description: root.description } : {}), ...((root.children || []).length > 0 ? { 'has-children': '' } : {}) };
         let kids = ex.querySelector('.tt-children') as HTMLElement;
         if (!kids && root.children && root.children.length > 0) {
           kids = document.createElement('div');
