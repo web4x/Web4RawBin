@@ -265,7 +265,8 @@ export class RoomView {
   // R19.90: consolidated room tree via rb-trace-tree .items property
   private updateRoomTree(): void {
     const tree = document.getElementById('room-tree') as RbTraceTree | null;
-    if (!tree) return;
+    if (!tree) { console.log('[updateRoomTree] NO tree element'); return; }
+    console.log(`[updateRoomTree] members=${this.members.length} files=${this.files.length} tree.isConnected=${tree.isConnected}`);
     tree.items = [
       { uuid: 'members', type: 'collection', name: `Members (${this.members.length})`,
         children: this.members.map(m => ({

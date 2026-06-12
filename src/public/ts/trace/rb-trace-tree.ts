@@ -121,7 +121,8 @@ export class RbTraceTree extends HTMLElement {
   };
 
   private renderItems(): void {
-    if (!this._items) return;
+    if (!this._items) { console.log('[renderItems] no _items'); return; }
+    console.log(`[renderItems] roots=${this._items.length} isConnected=${this.isConnected} children=[${this._items.map(r => `${r.type}:${(r.children||[]).length}`).join(',')}]`);
     const existingRoots = new Map<string, HTMLElement>();
     this.querySelectorAll(':scope > .tt-node').forEach(n => {
       const item = n.querySelector('rb-object-item');
@@ -134,6 +135,7 @@ export class RbTraceTree extends HTMLElement {
       wantedRefs.add(ref);
       const ex = existingRoots.get(ref);
       if (ex) {
+        console.log(`[renderItems] PATH-A(update) ref=${ref} children=${(root.children||[]).length}`);
         const item = ex.querySelector('rb-object-item') as any;
         if (item) item.data = { ref, type: (root.type || 'task').toLowerCase(), title: root.name, ...(root.description ? { description: root.description } : {}), 'has-children': (root.children || []).length > 0 ? '' : undefined };
         const kids = ex.querySelector('.tt-children') as HTMLElement;
@@ -159,6 +161,7 @@ export class RbTraceTree extends HTMLElement {
           for (const [cr, cn] of existingChildren) { if (!wantedChildren.has(cr)) cn.remove(); }
         }
       } else {
+        console.log(`[renderItems] PATH-B(new) ref=${ref} children=${(root.children||[]).length}`);
         const node = this.buildSeedNode(root.uuid, root.type, root.name, root.children || [], (root.children || []).length > 0, undefined, undefined, root.description);
         this.appendChild(node);
         const item = node.querySelector('rb-object-item');
@@ -288,7 +291,9 @@ export class RbTraceTree extends HTMLElement {
     row.className = 'tt-row';
     const item = document.createElement('rb-object-item') as any;
     const showExpander = children.length > 0 || hasChildren === true;
-    item.data = { ref: `${(type || 'task').toLowerCase()}:${uuid}`, type: (type || 'task').toLowerCase(), title: name || uuid, ...(description ? { description } : {}), ...(showExpander ? { 'has-children': '' } : {}) };
+    const itemRef = `${(type || 'task').toLowerCase()}:${uuid}`;
+    item.data = { ref: itemRef, type: (type || 'task').toLowerCase(), title: name || uuid, ...(description ? { description } : {}), ...(showExpander ? { 'has-children': '' } : {}) };
+    console.log(`[buildSeedNode] ref=${itemRef} children=${children.length} hasChildren=${hasChildren}`);
     row.appendChild(item);
     node.appendChild(row);
     if (showExpander) {
