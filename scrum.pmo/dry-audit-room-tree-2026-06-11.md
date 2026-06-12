@@ -152,3 +152,39 @@ RoomView's 5th path (static template skeleton) was DELETED by consolidation — 
 RoomView markers `dnd01002-...` (L81) + `dnd01003-...` (L96) are INVENTED NON-HEX uuids
 ('n' not hex) — invisible to scanner AND invalid. Replace with uuidgen-fresh via wireImplNode
 when expert next touches RoomView.
+
+## Appendix 3 (2026-06-12): collapse-state persistence trace — LS hypothesis REFUTED, real mechanism named
+
+*PO ask: could stale/cross-mode LS cause first file item icon-only on accumulated device, expanded on fresh test?*
+
+### Where each state lives (traced, exhaustive)
+| State | Written by | Read by | LS? |
+|---|---|---|---|
+| `collapsed` (icon-only 40x40) | icon tap ONLY (rb-object-item onClickDelegate L104 toggleAttribute) | CSS `[collapsed]` rules | **NEVER persisted, NEVER restored** |
+| `children-open` graph mode | tree onToggleChildren → this.expanded → persist(lsKey) | connectedCallback reads lsKey into this.expanded; nodeEl applies isOpen | yes: LS_KEY (/trace), 'rawbin-room-expanded' (room — expert's per-mode key, good) |
+| `children-open` seed/items | per-item closure → toggleSeedExpanded('rawbin-scenario-expanded-<seed>') | **NOBODY — isSeedExpanded() defined, ZERO call sites** | write-only (half-dead persistence) |
+
+### Verdict on the LS hypothesis: REFUTED for icon-only
+No code path reads localStorage into `collapsed`. renderItems (room mode) never reads
+this.expanded or isSeedExpanded — stored expand state CANNOT influence room item rendering
+at all. A polluted LS entry can only affect /trace graph mode (children-open, not icon-collapse).
+
+### The REAL mechanism for device-only + first-item icon-only
+1. Icon tap = collapse toggle (T115) — and the icon is ALSO the drag handle (a6503fc4
+   icon-only drag) and sits beside the tap-to-preview area. One accidental icon tap on the
+   first file (the most-touched item) → `collapsed` set.
+2. renderItems PATH-A (diff reuse) keeps that SAME DOM node alive across every
+   FILE_ADDED/member update, and the data setter SETS attrs but NEVER REMOVES attrs absent
+   from data → `collapsed` survives every re-render indefinitely.
+3. Fresh test env: no tap history → expanded. DEVICE-ONLY ✓ FIRST-ITEM ✓ survives-updates ✓.
+4. **Discriminating test**: does the symptom survive a page RELOAD? collapsed is DOM-only —
+   reload clears it. Survives reload → different cause, escalate; gone after reload → confirmed.
+
+### Two adjacent defects found during trace
+- **D-A3a**: data setter one-way attribute application — `set data()` never clears stale
+  attributes (collapsed, has-children, status…) on reused nodes. Diff-reuse made this live.
+  Fix: setter diffs against previous data keys, removeAttribute for absent ones (EXCEPT
+  user-interaction attrs like collapsed — decide policy explicitly).
+- **D-A3b**: PATH-A root update sets `'has-children': cond ? '' : undefined` —
+  setAttribute(k, undefined) coerces to the string "undefined" → attribute stays PRESENT
+  when children drop to 0. Expander/badge ghost on emptied collections.
