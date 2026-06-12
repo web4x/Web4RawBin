@@ -35,7 +35,7 @@ export class RbObjectItem extends HTMLElement {
   private _data: Record<string, string> | null = null;
   private _initialized = false;
 
-  private static readonly DATA_ATTRS = ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count', 'has-children', 'children-open'];
+  private static readonly DATA_ATTRS = ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count', 'has-children', 'children-open', 'collapsed'];
 
   set data(d: Record<string, string>) {
     this._data = d;
