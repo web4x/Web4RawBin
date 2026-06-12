@@ -106,3 +106,43 @@ export async function ensureLobby(page: Page, name: string): Promise<void> {
     await memberNameInput.evaluate(el => el.dispatchEvent(new Event('change')));
   }
 }
+
+/**
+ * Create a room and enter it — returns { roomId, playerToken }.
+ * Caller is in the lobby (call ensureLobby first).
+ */
+export async function ensureRoom(page: Page, roomName: string): Promise<{ roomId: string; playerToken: string }> {
+  await page.click('#create-room-btn');
+  await page.waitForTimeout(400);
+  const nameInput = page.locator('#room-name');
+  if (await nameInput.isVisible({ timeout: 2000 }).catch(() => false)) {
+    await nameInput.fill(roomName);
+  }
+  await page.click('#confirm-create-btn');
+  await page.waitForSelector('.room-view', { timeout: 15000 });
+  await page.waitForTimeout(1000);
+  const playerToken = await page.evaluate(() => localStorage.getItem('rawbin-player-id') || '');
+  const roomId = await page.evaluate(() => (window as any).__rawbinClient?._roomId || '');
+  return { roomId, playerToken };
+}
+
+/**
+ * Upload a real file to a room via the server's /api/room/<id>/upload endpoint.
+ * Uses the page's fetch (same origin, same cookies) with the playerToken from localStorage.
+ * Triggers a real FILE_ADDED WS broadcast — the exact production path.
+ */
+export async function uploadTestFile(page: Page, roomId: string, fileName: string, content: string, mimeType = 'text/plain'): Promise<string> {
+  const fileUuid = await page.evaluate(async ({ roomId, fileName, content, mimeType }) => {
+    const token = localStorage.getItem('rawbin-player-id') || '';
+    const blob = new Blob([content], { type: mimeType });
+    const form = new FormData();
+    form.append('file', blob, fileName);
+    form.append('playerToken', token);
+    const resp = await fetch(`/api/room/${roomId}/upload`, { method: 'POST', body: form });
+    if (!resp.ok) throw new Error(`Upload failed: ${resp.status}`);
+    const data = await resp.json();
+    return data.fileUuid || '';
+  }, { roomId, fileName, content, mimeType });
+  await page.waitForTimeout(500);
+  return fileUuid;
+}
