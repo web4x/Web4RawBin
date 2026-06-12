@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "b476df5f-1eb8-44ca-9125-42b16e052a0c",
+    "name": "T-longpress-collapse: icon collapse via 500ms long-press, single-tap absorbed",
+    "slug": "longpress-collapse-icon-500ms-single-tap-absorbed",
+    "description": "R19.92 impl spec:\n\n1. Add private fields to RbObjectItem:\n   private _collapseTimer: number | null = null;\n   private _collapseStartXY: [number, number] = [0, 0];\n\n2. In connectedCallback (after _initialized guard):\n   this.querySelector('.oi-icon')?.addEventListener('touchstart', this.onIconTouchStart, { passive: true });\n   this.querySelector('.oi-icon')?.addEventListener('touchmove', this.onIconTouchCancel, { passive: true });\n   this.querySelector('.oi-icon')?.addEventListener('touchend', this.onIconTouchCancel);\n\n3. onIconTouchStart = (e: TouchEvent): void => {\n   const t = e.touches[0];\n   this._collapseStartXY = [t.clientX, t.clientY];\n   this._collapseTimer = window.setTimeout(() => {\n     this._collapseTimer = null;\n     this.toggleAttribute('collapsed');\n     if (navigator.vibrate) navigator.vibrate(50);\n   }, 500);\n};\n\n4. onIconTouchCancel = (): void => {\n   if (this._collapseTimer !== null) {\n     clearTimeout(this._collapseTimer);\n     this._collapseTimer = null;\n   }\n};\n\n5. In onClickDelegate, REMOVE the icon-click \u2192 collapse branch (lines 110-113). Icon click now does nothing (absorbed). The expander branch (lines 115-119) and navigate fallback (lines 121-122) stay.\n\n6. In disconnectedCallback: this.onIconTouchCancel() to clear any pending timer.\n\n7. dragstart on .oi-icon: add this.onIconTouchCancel() at start of onDragStart to cancel collapse timer if drag begins.\n\nRESULT: single-tap on icon = no action. Long-press 500ms = collapse + haptic. Drag = unaffected (touchmove/dragstart cancel timer). Scroll = unaffected (touchmove cancels timer).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:b5688a42-279a-46d5-83f2-01da581890e5"
+    ],
+    "useCases": [
+      "ior:instance:9ab1bddf-388d-4393-80b3-f0bc96428b6a"
+    ],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-12",
+    "createdBy": "robbin-architect"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b5688a42-279a-46d5-83f2-01da581890e5",
+    "altId": "R19.92",
+    "name": "R19.92: Icon collapse = long-press (500ms), not single-tap \u2014 prevent accidental collapse on touch devices.",
+    "description": "The .oi-icon single-tap collapse is overloaded with drag-handle on the same element. On iOS, accidental touches during scroll/jitter fire click \u2192 random collapse. FIX: collapse on icon requires 500ms long-press (touchstart timer, touchmove/touchend/dragstart cancel). Single-tap on icon = no action. Drag unaffected. Matches iOS long-press convention.",
+    "tronQuote": "> TRON (via PO): icon gesture overloaded \u2014 accidental touch collapses items on device",
+    "tasks": [
+      "ior:instance:b476df5f-1eb8-44ca-9125-42b16e052a0c"
+    ],
+    "tests": [],
+    "sourceFile": "",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

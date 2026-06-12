@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "7dce454e-8c3e-4417-8854-e425d6011f24",
+    "name": "RbObjectItem.longPressCollapse",
+    "description": "touchstart on .oi-icon starts 500ms timer. Timer fires = toggleAttribute collapsed + vibrate(50). touchmove/touchend/dragstart = clearTimeout. Replaces single-click collapse.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+}

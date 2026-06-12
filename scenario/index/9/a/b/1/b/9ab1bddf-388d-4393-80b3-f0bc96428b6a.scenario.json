@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "9ab1bddf-388d-4393-80b3-f0bc96428b6a",
+    "name": "objectItem.longPressCollapse",
+    "description": "Icon long-press (500ms) toggles collapsed state. Single-tap absorbed. touchmove/dragstart cancel timer. Prevents accidental collapse on touch devices.",
+    "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
+    "method": "ior:instance:7dce454e-8c3e-4417-8854-e425d6011f24",
+    "tasks": [
+      "ior:instance:b476df5f-1eb8-44ca-9125-42b16e052a0c"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
