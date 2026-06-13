@@ -188,3 +188,65 @@ at all. A polluted LS entry can only affect /trace graph mode (children-open, no
 - **D-A3b**: PATH-A root update sets `'has-children': cond ? '' : undefined` —
   setAttribute(k, undefined) coerces to the string "undefined" → attribute stays PRESENT
   when children drop to 0. Expander/badge ghost on emptied collections.
+
+## Appendix 4 (2026-06-13): iOS Safari click-eligibility audit — RADICAL review
+
+*PO ask: mobile-first app, bugs are iPhone-only. Do delegated click handlers on dynamically-created
+tree elements work on iOS Safari given the cursor:pointer click-eligibility rule?*
+
+### The iOS Safari rule (not speculation — WebKit source + Apple docs)
+iOS Safari does NOT fire synthesized `click` events from touch-taps on elements that fail ALL of:
+(a) `cursor: pointer` (CSS), (b) `onclick` attr/property, (c) native clickable element (a/button/input/select).
+A bare `<div>` with `addEventListener('click')` alone = NO TAP ON iOS unless (a/b/c) met.
+
+### Audit: every rb-object-item click path vs the rule
+
+| Element | click listener | cursor CSS | iOS eligible? | Touch fallback? |
+|---|---|---|---|---|
+| `rb-object-item` (custom element, .object-item) | `this.addEventListener('click', onClickDelegate)` (L60) | **cursor: pointer** ✓ (app.css L62) | ✓ | touchend (L61) — DOUBLE HANDLING via `_touchHandled` guard |
+| `.oi-icon` (child span) | delegation via onClickDelegate `icon.contains(target)` | **cursor: grab** ✗ (not pointer) | **FAILS iOS click eligibility** | touchend onTouchTap (L117) — **THIS IS WHY THE TOUCH HANDLER EXISTS** |
+| `.oi-expand` (child span) | delegation via onClickDelegate `expander.contains(target)` | **cursor: pointer** ✓ (app.css L90) | ✓ | touchend (L111) — REDUNDANT with click |
+| `.oi-content`, `.oi-name`, `.oi-desc` (child divs/spans) | delegation — falls through to navigate | inherit cursor:pointer from parent | ✓ (inherits) | not needed |
+
+### oi-icon: the STRUCTURAL iOS defect (present today, masked by workaround)
+`.oi-icon` has `cursor: grab` (drag affordance) — not `pointer`. On iOS:
+- `click` event NEVER fires from a tap on the icon
+- `onClickDelegate` icon branch (L131-134) = DEAD CODE on iOS
+- Icon collapse ONLY works via the `touchend` → `onTouchTap` (L106-122) fallback
+- That fallback was added SPECIFICALLY to work around this (learnings: "icon = collapse toggle AND drag handle")
+- BUT: the touchend handler does NOT `e.preventDefault()` (passive:true) → iOS may still
+  synthesize a delayed click that hits `onClickDelegate` where `_touchHandled` is already
+  false (reset on prior click) → POTENTIAL DOUBLE-FIRE on slow taps
+
+### The `_touchHandled` guard timing analysis
+```
+touchend fires → onTouchTap → _touchHandled=true → toggleAttribute('collapsed')
+~300ms later: iOS synthesized click → onClickDelegate → _touchHandled true? → skip
+```
+Works IF the click arrives in the same event-loop turn. BUT:
+- iOS 300ms click delay (fast-tap disabled by `touch-action:manipulation` ✓ on .object-item)
+- `touch-action:manipulation` on `.oi-icon`? **NOT SET** — only on `.object-item` (parent)
+  and `.oi-expand`. Missing on the icon itself.
+
+### Risk verdict
+| Risk | Severity | Status |
+|---|---|---|
+| Icon collapse: click dead on iOS, touchend is sole path | MASKED | working via touchend — fragile |
+| Potential double-toggle on slow icon tap (300ms click + touchend) | LOW | touch-action:manipulation on parent likely suppresses, but icon itself lacks it |
+| File-preview click listener (RoomView L198-218, on tree el) | SAFE | delegates to rb-object-item which has cursor:pointer; treeEl click catches after bubble |
+
+### Recommendation
+1. **Add `cursor: pointer` to `.oi-icon`** — the icon tap IS a click action (collapse), drag
+   already uses dragstart which doesn't need grab cursor for functionality. Makes iOS click
+   fire → onClickDelegate icon branch becomes live → touchend becomes the redundant one
+   (not the sole path). Then delete touch handler (clean, not workaround).
+2. OR: lean into touch-ONLY for icon (explicit intent: icon tap = touch gesture, not click
+   action) — then remove the dead click delegation for icon, add `touch-action: manipulation`
+   to `.oi-icon`, make touchend non-passive so it can preventDefault (kill ghost click).
+3. Add `touch-action: manipulation` to `.oi-icon` regardless (belt-and-braces for the 300ms).
+
+### All other dynamically-created tree elements: PASS
+- `.oi-expand`: cursor:pointer ✓, touch-action:manipulation ✓, iOS eligible ✓
+- `.dv-link` rows: cursor:pointer ✓, iOS eligible ✓ (click wired per render)
+- `.drawer-close`: cursor:pointer ✓, is a `<button>` ✓
+- `rb-member-badge`: cursor:pointer ✓
