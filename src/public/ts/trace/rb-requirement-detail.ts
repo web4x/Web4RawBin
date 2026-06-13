@@ -69,11 +69,14 @@ export class RbRequirementDetail extends HTMLElement {
   }
 }
 
+const CHAIN_TYPES = new Set(['requirement', 'usecase', 'class', 'method', 'implementation', 'test', 'bug', 'changerequest']);
 function renderLinks(graph: TraceGraph | null, links: Record<string, string[]>): string {
   const rows: string[] = [];
   for (const [relation, refs] of Object.entries(links)) {
     for (const lref of refs) {
       const lobj = graph?.get(refUuid(lref));
+      const ltype = lref.split(':')[0];
+      if (!CHAIN_TYPES.has(ltype)) continue;
       rows.push(`<div class="dv-link" data-ref="${lref}"><span class="dv-rel">${relation}</span><span class="dv-link-title">${esc(lobj?.title || lref)}</span></div>`);
     }
   }
