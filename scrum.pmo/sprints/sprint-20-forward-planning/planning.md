@@ -25,6 +25,9 @@ This reverses the S19 anti-pattern that produced 24 chain-debt reqs (R19.83-102)
 - [ ] ⏳ R19.100 — per-room file-render inversion (existing task `51d53769`). S20 drives test-first full chain.
 - [ ] [⏳ T-room-create-folder-actions (R19.102)](../../../scenario/index/4/2/8/1/9/42819b8b-02f6-4104-8b6c-e0156783e38f.scenario.json) — task `42819b8b`, chain designed-ahead + E2E written first.
 
+### Forward S20 requirements (test-first chains)
+- [ ] [📝 T-detail-drawer-grab-bar (R20.2)](../../../scenario/index/f/e/8/c/4/fe8c43a5-cd15-4aed-ac5b-97df558d8fea.scenario.json) — task `fe8c43a5`. Default detail drawer nudge → wide grab-bar (DRY with chat drawer). Chain canonicalized (architect 0979045): UC detailDrawer.showGrabBar `3dc386fd` → Class RbDetailDrawer `0dd08b2f` → Method renderGrabBar `32384f12`; [PUML](./diagrams/r20-2-grab-bar-chain.puml). Next: tester RED grab-bar-match E2E **first**, then expert impl.
+
 ### Backfill tracking
 - [ ] [🔧 T-s19-champagne-backfill-tracking](../../../scenario/index/4/5/0/c/b/450cb98a-4234-4f2c-9c9c-3c561750fb13.scenario.json) — task `450cb98a`. Tracks tonight's **22:07 scheduled** radical backfill of S19 v0.5.x chain-debt; planner re-scores det-3x + ground-truths each flip + reports honest count. Baseline 173/198.
 
