@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "853d0c81-4157-45ab-80e1-7a3dc05d6895",
+    "altId": "BUG2",
+    "name": "BUG2: Short tap accumulates selection instead of switching to single-select.",
+    "description": "BUG in delivered R20.6c+d: (1) short tap accumulates selection instead of SWITCHING \u2014 tapSingleSelect must clear() then select (result: size===1). (2) long-press does NOT toggle OFF \u2014 if item already selected, long-press should REMOVE it from selection (toggle off). Currently long-press only adds, never removes. FIX both: tap=clear+select(1), long-press=toggle(add if absent, remove if present).",
+    "tronQuote": "> TRON: \"clicking short on one after the other just selects the next ONE single selection (it switches) only long press adds to selection.\"\n> TRON (toggle-off): \"and long press also toggles off the selection.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:c1dbd4c3-35b4-41e7-ac35-ed476b1b0cb6",
+      "ior:instance:300a8952-2545-41e2-b974-1560fc9e46be"
+    ],
+    "crossRefNote": "R20.6c (tap\u2192single-select) is the requirement this bug violates. R20.6d (long-press\u2192multi-select toggle) is the ONLY path to accumulate selection. BUG2 = tapSingleSelect doesn't clear prior.",
+    "intendedChain": {
+      "useCase": "selectionModel.tapSwitches \u2014 short tap clears+selects ONE, never accumulates",
+      "class": "SelectionModel",
+      "method": "tapSingleSelect \u2014 must call clear() before select(ior)",
+      "test": "RED: (1) tap A \u2192 selection=[A]. Tap B \u2192 assert selection=[B] (size 1, A gone). Currently FAILS (accumulates). (2) long-press A \u2192 selection=[A]. Long-press A again \u2192 assert selection=[] (A removed, toggled off). Currently FAILS (A stays)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
