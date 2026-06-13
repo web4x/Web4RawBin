@@ -468,6 +468,7 @@ describe('S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)',
     expect(r.members.has('guest')).toBe(false);
   });
 
+  // [test:uuid:cb539804-d28e-4f08-9b25-b29c0f6dc8a5] R19.8.B Room.rejoinDedup — same playerToken swaps ws, no dup
   it('T-persistent-retention: reconnect flips disconnected=false, no dup', () => {
     const creator = makeMember({ id: 'host' });
     const r = new Room('ReconnRoom', creator, { mode: 'persistent' });
