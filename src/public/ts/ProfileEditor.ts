@@ -150,7 +150,6 @@ export class ProfileEditor {
       viewBus.publish('User', this.client.playerToken, { displayName: name, token: this.client.playerToken });
     });
 
-    // [impl:uuid:351fc983-0969-462a-95b1-3f258b40e682] R19.72 removeLocalIdentity (moved to DeviceEnrollDialog R19.89)
     if (this.mode !== 'gate') {
       this.overlay?.addEventListener('click', (e) => {
         if (e.target === this.overlay) this.close();
