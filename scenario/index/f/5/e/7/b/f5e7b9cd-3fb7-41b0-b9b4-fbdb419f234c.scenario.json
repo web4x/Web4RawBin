@@ -21,7 +21,8 @@
     "refinedBy": [
       "ior:instance:e29dcae1-2327-48df-a3c5-41add257c624"
     ],
-    "refinedByNote": "Refined by R19.85: pinch must SCALE (CSS transform scale), not just pan. R19.81 was incomplete (pan only)."
+    "refinedByNote": "Refined by R19.85: pinch must SCALE (CSS transform scale), not just pan. R19.81 was incomplete (pan only).",
+    "functionalDone": true
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

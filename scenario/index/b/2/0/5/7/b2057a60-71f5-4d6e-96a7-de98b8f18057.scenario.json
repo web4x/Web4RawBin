@@ -20,7 +20,8 @@
     "crossRefNote": "R19.68 (file auth \u2014 403 for non-members) is the gate that correctly rejects. R19.64 (preview by type) and R19.74 (html in iframe) are the render path. R19.73 (in-room preview) is the context. R19.75 bridges auth + preview: pass token so authorized members get through the gate.",
     "useCases": [
       "ior:instance:29397b2e-f40e-4a4b-9aa1-d9d1cbbac899"
-    ]
+    ],
+    "functionalDone": true
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
