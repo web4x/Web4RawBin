@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "09611d71-f2b2-4fab-9961-def94165c470",
+    "name": "RbDetailView.renderSingularChain",
+    "description": "Render Traceability Chain section: walk forward-only from this node using FORWARD_KEYS but narrow Class\u2192Method to UC.method (singular, not methods[] fan-out). renderLinks filters to chain-relevant nodes only.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5"
+}

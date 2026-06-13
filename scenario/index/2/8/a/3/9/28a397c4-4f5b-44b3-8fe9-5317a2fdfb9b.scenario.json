@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "28a397c4-4f5b-44b3-8fe9-5317a2fdfb9b",
+    "name": "detailView.singularChainSection",
+    "description": "Traceability Chain section shows ONLY the traced-chain nodes for this item's UC context (req\u2192uc\u2192class\u2192method\u2192impl\u2192test). NOT all Class.methods[] fan-out. Uses UC.method hint to narrow Class children to the single chain-relevant method. Generic across all 7+ detail types.",
+    "class": "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5",
+    "method": "ior:instance:09611d71-f2b2-4fab-9961-def94165c470",
+    "tasks": [
+      "ior:instance:f3e0b558-116b-4659-8de7-efa0322451ac"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

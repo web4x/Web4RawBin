@@ -1,0 +1,44 @@
+@startuml r20-5-detail-view-sections-chain
+!theme plain
+title R20.5 — Detail View Traceability Sections (3 UCs, singular chains)
+
+left to right direction
+
+package "T-singular-chain-detail" {
+
+  package "(A) Singular Chain" {
+    usecase "detailView.singularChainSection\nuc:28a397c4\ntask:f3e0b558" as UCA
+    agent "RbDetailView.renderSingularChain\nclass:f2f84ce3\nmethod:09611d71" as MA
+    UCA --> MA
+  }
+
+  package "(B) All Children" {
+    usecase "detailView.allChildrenSection\nuc:ff90115d\ntask:f3e0b558" as UCB
+    agent "RbDetailView.renderAllChildren\nclass:f2f84ce3\nmethod:bfbc0874" as MB
+    UCB --> MB
+  }
+
+  package "(C) Superseded Links" {
+    usecase "detailView.supersededLinks\nuc:843c9fdf\ntask:f3e0b558" as UCC
+    agent "RbDetailView.renderSupersededLinks\nclass:f2f84ce3\nmethod:31c6e25e" as MC
+    UCC --> MC
+  }
+}
+
+note bottom
+  UNIVERSAL across ALL detail-view types (not per-type).
+  (A) Traceability Chain: ONLY chain nodes per UC context
+      (narrow Class->Method to UC.method, not methods[] fan-out)
+  (B) All Children: union of ALL model array-relationships
+      (full forward adjacency, separate from chain)
+  (C) Superseded: refinementOf/supersededBy/supersedes links
+      (dedup traceability — which req replaced which)
+
+  RED Tests:
+  - (A) Class detail shows 1 method (chain-relevant), not all methods
+  - (B) Class detail "All Children" shows all methods
+  - (C) Refined req shows supersededBy link to parent
+  Sprint: 64af2638
+end note
+
+@enduml

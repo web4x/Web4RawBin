@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "843c9fdf-eff8-40f7-a05b-a4c7032cbde1",
+    "name": "detailView.supersededLinks",
+    "description": "Dedup traceability: detail view surfaces supersededBy/supersedes links. When a requirement is superseded (refinementOf/supersededBy), show the supersession chain in the detail view so the user sees which req replaced which.",
+    "class": "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5",
+    "method": "ior:instance:31c6e25e-c65e-4039-ad01-f0dd87978ed1",
+    "tasks": [
+      "ior:instance:f3e0b558-116b-4659-8de7-efa0322451ac"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

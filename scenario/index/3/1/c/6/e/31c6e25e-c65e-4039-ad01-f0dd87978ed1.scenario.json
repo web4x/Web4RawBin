@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "31c6e25e-c65e-4039-ad01-f0dd87978ed1",
+    "name": "RbDetailView.renderSupersededLinks",
+    "description": "Render supersededBy/supersedes section: read model.refinementOf, model.supersededBy, model.supersedes arrays. Render as linked rb-object-item nodes with supersession arrows/labels.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5"
+}

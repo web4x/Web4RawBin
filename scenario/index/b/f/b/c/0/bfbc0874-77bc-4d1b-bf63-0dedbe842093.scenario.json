@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "bfbc0874-77bc-4d1b-bf63-0dedbe842093",
+    "name": "RbDetailView.renderAllChildren",
+    "description": "Render All Children section: iterate ALL forward array fields on model, resolve each IOR, render as rb-object-item list. No chain narrowing \u2014 shows full adjacency.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5"
+}
