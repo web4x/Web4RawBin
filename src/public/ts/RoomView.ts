@@ -5,7 +5,6 @@
 // [impl:uuid:d1bae8be-a6ca-41e8-bdf6-ee78399ef41e] RbRoomContent.applyButton
 // [impl:uuid:32578dc6-58bb-4ce1-94be-2a78a142e139] RbRoomContent.mountTraceTree
 // [impl:uuid:e289349c-ba8d-4182-9288-9bbd7ac3ed56] RbRoomContent.render
-// [impl:uuid:e13591d9-6d3c-4d65-8b00-90c98f8c6951] R19.92 seedIorTree (split)
 // [impl:uuid:3fbcebaf-2986-44d6-afd2-7ab810e824f2] RbRoomDetail.modeSet
 import { RawBinClient } from './RawBinClient.js';
 import { ProfileEditor } from './ProfileEditor.js';
@@ -78,6 +77,7 @@ export class RoomView {
       }
     });
     // [impl:uuid:e3fad3ac-a09f-4a4c-88ce-78e0ca273cc0] FILE_ADDED handler
+    // [impl:uuid:e4b1fe11-77e2-4e2b-b61b-64d93e4c60d1] R19.83 renderRoomTreeFiles (tree.renderSeed on FILE_ADDED)
     this.client.on(MSG.FILE_ADDED, (msg) => {
       if (this.roomId !== msg.roomId) return;
       const tree = document.getElementById('room-tree') as any;
@@ -153,6 +153,7 @@ export class RoomView {
 
   private async render(): Promise<void> {
     const isHost = this.roomOwnerToken === this.client.playerToken;
+    // [impl:uuid:e13591d9-6d3c-4d65-8b00-90c98f8c6951] R19.92 seedIorTree (data-seed-ior in template)
     this.container.innerHTML = `
       <div class="room-view">
         <rb-header title="${this.roomName}" show-leave show-home ${isHost ? 'show-delete show-edit' : ''} show-reload show-fullscreen></rb-header>
@@ -287,8 +288,6 @@ export class RoomView {
     overlay.textContent = lines.join('\n');
   }
 
-  // [impl:uuid:e4b1fe11-77e2-4e2b-b61b-64d93e4c60d1] R19.83 renderRoomTreeFiles
-  // [impl:uuid:934cb609-dada-436c-ae8f-400244a062a3] R19.88.A diffRenderItems (split, superseded by setItems)
   private renderMemberList(): void {
     const el = document.getElementById('member-list') as RbMemberList | null;
     if (!el) return;
