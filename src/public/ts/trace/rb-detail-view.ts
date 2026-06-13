@@ -16,6 +16,7 @@ import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
 import { renderContentPreview, loadTextPreview, wireUrlActions } from './content-preview.js';
+import { renderSupersededSection, renderAllChildrenSection } from './detail-superseded.js';
 
 export class RbDetailView extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -131,36 +132,10 @@ export class RbDetailView extends HTMLElement {
           navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid });
         });
       }
-      // [impl:uuid:bfbc0874-a1b2-4c3d-8e4f-5a6b7c8d9e06] R20.5 renderAllChildren
       const container = this.querySelector('.dv-scenario-children');
-      if (!container || children.length === 0) { if (container) container.innerHTML = ''; }
-      else {
-        container.innerHTML = `<h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:4px">All Children</h4>` +
-          children.map(c => `<div class="dv-link dv-child-link" data-ref="${c.type.toLowerCase()}:${c.uuid}"><span class="dv-rel">${c.type}</span><span class="dv-link-title">${c.name}</span></div>`).join('');
-        container.querySelectorAll('.dv-child-link').forEach(row => {
-          row.addEventListener('click', () => {
-            const lref = (row as HTMLElement).dataset.ref!;
-            navigate(lref.split(':')[0], 'show', { uuid: lref.split(':')[1] || lref });
-          });
-        });
-      }
-      // [impl:uuid:31c6e25e-c65e-4039-ad01-f0dd87978ed1] R20.5 renderSupersededLinks
-      fetch(`/api/ior/ior:instance:${obj.uuid}`).then(r => r.json()).then(iorData => {
-        const model = iorData.unit?.model || {};
-        const toArr = (v: unknown): string[] => !v ? [] : Array.isArray(v) ? v : [String(v)];
-        const supersededBy = [...toArr(model.supersededBy), ...toArr(model.refinementOf)];
-        const supersedes = toArr(model.supersedes);
-        if (supersededBy.length > 0 || supersedes.length > 0) {
-          const secEl = document.createElement('div');
-          secEl.style.cssText = 'border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px';
-          const lines: string[] = [];
-          if (supersededBy.length > 0) lines.push(`<h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:4px">Superseded by</h4>` + supersededBy.map((ref: string) => { const uuid = ref.replace('ior:instance:', ''); return `<div class="dv-link dv-sup-link" data-ref="requirement:${uuid}"><span class="dv-rel">supersededBy</span><span class="dv-link-title">${uuid.slice(0,8)}</span></div>`; }).join(''));
-          if (supersedes.length > 0) lines.push(`<h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:4px">Supersedes</h4>` + supersedes.map((ref: string) => { const uuid = ref.replace('ior:instance:', ''); return `<div class="dv-link dv-sup-link" data-ref="requirement:${uuid}"><span class="dv-rel">supersedes</span><span class="dv-link-title">${uuid.slice(0,8)}</span></div>`; }).join(''));
-          secEl.innerHTML = lines.join('');
-          this.appendChild(secEl);
-          secEl.querySelectorAll('.dv-sup-link').forEach(row => { row.addEventListener('click', () => { const lref = (row as HTMLElement).dataset.ref!; navigate(lref.split(':')[0], 'show', { uuid: lref.split(':')[1] || lref }); }); });
-        }
-      }).catch(() => {});
+      if (container) container.innerHTML = '';
+      renderAllChildrenSection(this, children);
+      renderSupersededSection(this, obj.uuid);
     });
 
     // MVC: re-render on this object OR any linked object changing

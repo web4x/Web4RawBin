@@ -12,6 +12,7 @@ import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
 import { singularChain, renderSingularChain } from './singular-chain.js';
+import { renderSupersededSection, renderAllChildrenSection } from './detail-superseded.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
 
 export class RbUseCaseDetail extends HTMLElement {
