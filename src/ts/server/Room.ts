@@ -110,21 +110,21 @@ export class Room {
     this.isPrivate = opts?.isPrivate || false;
     this.visibility = opts?.visibility || (this.isPrivate ? 'private' : 'public');
     if (this.visibility === 'private') this.isPrivate = true;
+    this.init(creator, opts);
+  }
+
   // [impl:uuid:2ab8a3dd-4b6d-420c-bc1a-f3fac85ec9b7] Room.init
+  private init(creator: RoomMember, opts?: RoomOpts & { persistedMembers?: any[]; persistedFiles?: string[]; chatHistory?: any[] }): void {
     this.mode = opts?.mode || 'persistent';
     this.roomKey = opts?.roomKey || '';
     this.hostId = creator.id;
     this.creatorId = creator.id;
     this.creatorToken = opts?.creatorToken || '';
-    // Load persisted members/files/chat BEFORE first persist (prevents wipe)
     if (opts?.persistedMembers) {
       for (const pm of opts.persistedMembers) {
         this.members.set(pm.id, { id: pm.id, ws: null as any, name: pm.name, avatarUrl: '', playerToken: pm.playerToken, disconnected: pm.disconnected ?? true });
       }
     }
-// [impl:uuid:c7230aa0-9e5a-428d-a8d8-6bb3877cee55] impl:Room.visibilityCheck (split for Room.canonicalDir)
-// [impl:uuid:1cef1fa1-7597-40f6-92ae-f8c2dfa83ad1] impl:Room.visibilityCheck (split for Room.visibilityCheck)
-// [impl:uuid:7c33815f-9bc9-4188-bd0b-0f66ea9225f3] impl:Room.visibilityCheck (split for Room.multiRoomLoad)
     if (opts?.persistedFiles) {
       for (const fuuid of opts.persistedFiles) this.fileUnits.add(fuuid);
     }
@@ -199,7 +199,15 @@ export class Room {
       this.broadcast({ type: MSG.HOST_CHANGED, hostId: this.hostId });
     }
     this.persist();
+  }
+
   // [impl:uuid:4c21d2ee-ff20-4511-9f0e-d786f9bb90d7] Room.retainOrPrune
+  retainOrPrune(memberId: string): void {
+    if (this.mode === 'persistent') {
+      this.markDisconnected(memberId);
+    } else {
+      this.removeMember(memberId);
+    }
   }
 
   // [impl:uuid:35ce5e4c-24c0-450e-905f-37eb9097c8e5] T-persistent-retention

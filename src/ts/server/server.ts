@@ -1501,14 +1501,9 @@ function setupWebSocketServer(server: https.Server): void {
 
       const room = roomManager.findMemberRoom(clientId);
       if (room) {
-        if (room.mode === 'persistent') {
-          room.markDisconnected(clientId);
-          addLog(`${clientId.slice(0,8)} disconnected from persistent room ${room.name}`);
-        } else {
-          room.removeMember(clientId);
-          if (room.members.size === 0 && !room.creatorToken) roomManager.removeRoom(room.id);
-          addLog(`${clientId.slice(0,8)} left room ${room.name}`);
-        }
+        room.retainOrPrune(clientId);
+        if (room.mode !== 'persistent' && room.members.size === 0 && !room.creatorToken) roomManager.removeRoom(room.id);
+        addLog(`${clientId.slice(0,8)} ${room.mode === 'persistent' ? 'disconnected from' : 'left'} room ${room.name}`);
       }
 
       broadcastRoomList();
@@ -1608,18 +1603,14 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
     case MSG.LEAVE_ROOM: {
       const room = roomManager.findMemberRoom(clientId);
       if (room) {
-        if (room.mode === 'persistent') {
-          room.markDisconnected(clientId);
-        } else {
-          room.removeMember(clientId);
-          if (room.members.size === 0 && !room.creatorToken) {
-            setTimeout(() => {
-              if (room.members.size === 0 && !room.creatorToken) {
-                roomManager.removeRoom(room.id);
-                broadcastRoomList();
-              }
-            }, 10 * 60 * 1000);
-          }
+        room.retainOrPrune(clientId);
+        if (room.mode !== 'persistent' && room.members.size === 0 && !room.creatorToken) {
+          setTimeout(() => {
+            if (room.members.size === 0 && !room.creatorToken) {
+              roomManager.removeRoom(room.id);
+              broadcastRoomList();
+            }
+          }, 10 * 60 * 1000);
         }
         send({ type: MSG.ROOM_LEFT });
         broadcastRoomList();
