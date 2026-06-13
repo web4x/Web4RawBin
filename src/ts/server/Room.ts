@@ -161,7 +161,7 @@ export class Room {
   }
 
   // --- Members ---
-// [impl:uuid:4246c0a8-cfbf-43cd-8677-3367f3ac21d9] Room.memberAdd
+// [impl:uuid:4246c0a8-cfbf-43cd-8677-3367f3ac21d9] Room.addMember
 
   addMember(member: RoomMember): boolean {
     if (this.state !== 'active') return false;
