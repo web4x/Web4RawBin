@@ -12,7 +12,9 @@
     "tests": [],
     "sourceFile": "",
     "unitLinks": [],
-    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "supersededBy": "ior:instance:300a8952-2545-41e2-b974-1560fc9e46be",
+    "supersededNote": "Superseded by R20.6d (long-press = toggle multi-select). R19.92 defined long-press for icon-collapse; R20.6d redefines long-press as selection toggle (SelectionModel takes precedence)."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

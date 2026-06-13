@@ -3,8 +3,8 @@
   "model": {
     "uuid": "71a8954e-a2b6-4b8e-936f-825646aa76aa",
     "altId": "R19.92",
-    "name": "R19.92: In-room file items use the same data path as /trace — not bespoke WS feed.",
-    "description": "The /trace traceability browser renders the room's files perfectly (first two pictures). The in-room file tree does NOT. ROOT CAUSE: in-room uses a bespoke WS feed for file items instead of the same scenario-unit data path that /trace uses. FIX: in-room file items MUST use the SAME data path as /trace — load FileUnit scenario units from the scenario index (Room.files[] IOR → fetch unit → render rb-object-item), not a separate WS message feed. This is the DRY principle from R19.90 applied to the DATA layer, not just the component layer.",
+    "name": "R19.92: In-room file items use the same data path as /trace \u2014 not bespoke WS feed.",
+    "description": "The /trace traceability browser renders the room's files perfectly (first two pictures). The in-room file tree does NOT. ROOT CAUSE: in-room uses a bespoke WS feed for file items instead of the same scenario-unit data path that /trace uses. FIX: in-room file items MUST use the SAME data path as /trace \u2014 load FileUnit scenario units from the scenario index (Room.files[] IOR \u2192 fetch unit \u2192 render rb-object-item), not a separate WS message feed. This is the DRY principle from R19.90 applied to the DATA layer, not just the component layer.",
     "tronQuote": "> TRON: \"in the first two pictures the files perfectly work. why not IN the rooms the same way... finally fix the in room file items\"",
     "tasks": [
       "ior:instance:4aa7e19d-3ada-4023-b1dd-8c6211af0328"

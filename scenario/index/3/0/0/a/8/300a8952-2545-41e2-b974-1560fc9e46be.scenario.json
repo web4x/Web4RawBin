@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "300a8952-2545-41e2-b974-1560fc9e46be",
+    "altId": "R20.6d",
+    "name": "R20.6d: Long-press toggles add/remove from selection array (multi-select).",
+    "description": "Long-pressing an item toggles it IN or OUT of the SelectionModel selection array. If not selected, adds it. If already selected, removes it. This enables multi-select without clearing existing selection.",
+    "tronQuote": "> TRON: \"create a selection model globally for the app. if nothing is selected currently, the default details drawer shows the chat in room. if a item view is clicked in the middle, its the selected item. if its clicked loooong its added to the selection array. the item view get highlighted as selected and active as css. dragging one drags all. long press toggles being in the selection or removed from the selection. this will completely dedup the multiple drawer implementations and consolidate the requirements related. the css highlight on the default drawer is just awkward. remove it as in the chat. keep the x to close the drawer.\" (atomic: R20.6d)",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "intendedChain": {
+      "useCase": "selectionModel.toggleSelect \u2014 long-press item \u2192 add/remove from selection[]",
+      "class": "SelectionModel + RbObjectItem",
+      "method": "onLongPress \u2192 toggleSelect(ior)",
+      "test": "RED: long-press A \u2192 selection=[A]. Long-press B \u2192 selection=[A,B]. Long-press A again \u2192 selection=[B] (A removed)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

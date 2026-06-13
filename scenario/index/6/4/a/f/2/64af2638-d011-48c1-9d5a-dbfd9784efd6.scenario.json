@@ -2,9 +2,9 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "64af2638-d011-48c1-9d5a-dbfd9784efd6",
-    "name": "Sprint 20 — Radical Forward Planning (Traceability-First)",
+    "name": "Sprint 20 \u2014 Radical Forward Planning (Traceability-First)",
     "number": 20,
-    "goal": "Apply the S19 marathon lesson FORWARD: chains are built BEFORE/WITH implementation, never functional-first-then-backfill. DISCIPLINE: every requirement gets its FULL chain (Req→UseCase→Class→Method→Implementation→Test) DESIGNED, and the Test written FIRST (or with the impl) — nothing ships chain-open. Carry forward S19 open follow-ons as proper S20 chains (R19.99 broken-link, R19.100 render-inversion, R19.102 create-folder-actions), each designed-ahead. Track tonight's scheduled (22:07) radical backfill of S19 v0.5.x chain-debt.",
+    "goal": "Apply the S19 marathon lesson FORWARD: chains are built BEFORE/WITH implementation, never functional-first-then-backfill. DISCIPLINE: every requirement gets its FULL chain (Req\u2192UseCase\u2192Class\u2192Method\u2192Implementation\u2192Test) DESIGNED, and the Test written FIRST (or with the impl) \u2014 nothing ships chain-open. Carry forward S19 open follow-ons as proper S20 chains (R19.99 broken-link, R19.100 render-inversion, R19.102 create-folder-actions), each designed-ahead. Track tonight's scheduled (22:07) radical backfill of S19 v0.5.x chain-debt.",
     "status": "Planned",
     "compoundSource": "scrum.pmo/sprints/sprint-20-forward-planning/compound-requirement-source.md",
     "requirements": [
@@ -16,7 +16,15 @@
       "ior:instance:ea212274-22c0-4987-9bb2-99262b22f550",
       "ior:instance:7734f4e1-def9-4af3-a7d2-5ccc7160b214",
       "ior:instance:b04fc9af-19ca-46d6-b4bd-c16663df1212",
-      "ior:instance:2d5f151e-c7a1-4599-a467-176ee6723b68"
+      "ior:instance:2d5f151e-c7a1-4599-a467-176ee6723b68",
+      "ior:instance:2ad98e53-fa9d-4d20-b259-24f91f66e47a",
+      "ior:instance:4bc97fdc-d9a1-4104-9a09-f697abe9f98a",
+      "ior:instance:c1dbd4c3-35b4-41e7-ac35-ed476b1b0cb6",
+      "ior:instance:300a8952-2545-41e2-b974-1560fc9e46be",
+      "ior:instance:697965f7-c1da-4b68-9c8e-43e962a251d0",
+      "ior:instance:66a40392-ae1f-4fa6-91f2-e277deff5400",
+      "ior:instance:7cda92d6-3b75-41de-ad8f-b33df2dc21f6",
+      "ior:instance:d6305209-43cb-4155-af45-0a9cf0daaf31"
     ],
     "tasks": [
       "ior:instance:450cb98a-4234-4f2c-9c9c-3c561750fb13",

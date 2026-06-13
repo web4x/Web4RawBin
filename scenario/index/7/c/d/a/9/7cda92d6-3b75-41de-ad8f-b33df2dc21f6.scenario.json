@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "7cda92d6-3b75-41de-ad8f-b33df2dc21f6",
+    "altId": "R20.6g",
+    "name": "R20.6g: Consolidate multiple drawer implementations into one via SelectionModel.",
+    "description": "CONSOLIDATE: chat drawer and details drawer are currently 3 SEPARATE drawer instances (trace-page L38, scenario-view L38, RoomView L160) with no global selection \u2014 each has its own drawer.ref. RoomView BYPASSES VerbRegistry (own click listener L198) and writes drawer.body.innerHTML directly (parallel path). Fresh detail-view per show (no reuse/diff, attr leaks). UNIFY all 3 drawer sites + RoomView bypass+direct-write into ONE selection-driven drawer path: central selectedItem observable (SelectionModel) drives a single drawer. Delete duplicate drawer code. ONE DRY drawer renders chat/detail/summary based on SelectionModel state.",
+    "tronQuote": "> TRON: \"create a selection model globally for the app. if nothing is selected currently, the default details drawer shows the chat in room. if a item view is clicked in the middle, its the selected item. if its clicked loooong its added to the selection array. the item view get highlighted as selected and active as css. dragging one drags all. long press toggles being in the selection or removed from the selection. this will completely dedup the multiple drawer implementations and consolidate the requirements related. the css highlight on the default drawer is just awkward. remove it as in the chat. keep the x to close the drawer.\" (atomic: R20.6g)",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "intendedChain": {
+      "useCase": "drawer.consolidate \u2014 one drawer renders chat/detail/summary based on selection state",
+      "class": "RbDetailDrawer (unified)",
+      "method": "render \u2192 switch(selectionModel.state) { chat/detail/summary }",
+      "test": "RED: assert only ONE drawer class exists (not separate chat+detail). Selection empty \u2192 chat. Selection=[A] \u2192 detail. Selection=[A,B] \u2192 summary."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

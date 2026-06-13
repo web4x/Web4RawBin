@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "697965f7-c1da-4b68-9c8e-43e962a251d0",
+    "altId": "R20.6e",
+    "name": "R20.6e: Selected items get CSS selected+active highlight.",
+    "description": "Every item in SelectionModel.selection gets a CSS class (e.g. .rb-selected + .rb-active) that visually highlights it as selected. Unselected items have no highlight.",
+    "tronQuote": "> TRON: \"create a selection model globally for the app. if nothing is selected currently, the default details drawer shows the chat in room. if a item view is clicked in the middle, its the selected item. if its clicked loooong its added to the selection array. the item view get highlighted as selected and active as css. dragging one drags all. long press toggles being in the selection or removed from the selection. this will completely dedup the multiple drawer implementations and consolidate the requirements related. the css highlight on the default drawer is just awkward. remove it as in the chat. keep the x to close the drawer.\" (atomic: R20.6e)",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "intendedChain": {
+      "useCase": "itemView.highlightSelected \u2014 selection change \u2192 CSS class toggle on each item",
+      "class": "RbObjectItem",
+      "method": "onSelectionChange \u2192 classList.toggle('rb-selected')",
+      "test": "RED: select item A \u2192 A has .rb-selected class. Deselect A \u2192 class removed. Multi-select A+B \u2192 both have class."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

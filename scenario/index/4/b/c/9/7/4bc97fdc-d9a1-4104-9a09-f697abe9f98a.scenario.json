@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "4bc97fdc-d9a1-4104-9a09-f697abe9f98a",
+    "altId": "R20.6b",
+    "name": "R20.6b: Nothing selected \u2192 default drawer shows in-room CHAT.",
+    "description": "When SelectionModel.selection is empty (nothing selected), the default details drawer renders the in-room CHAT view. Chat is the default/fallback content of the drawer.",
+    "tronQuote": "> TRON: \"create a selection model globally for the app. if nothing is selected currently, the default details drawer shows the chat in room. if a item view is clicked in the middle, its the selected item. if its clicked loooong its added to the selection array. the item view get highlighted as selected and active as css. dragging one drags all. long press toggles being in the selection or removed from the selection. this will completely dedup the multiple drawer implementations and consolidate the requirements related. the css highlight on the default drawer is just awkward. remove it as in the chat. keep the x to close the drawer.\" (atomic: R20.6b)",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "intendedChain": {
+      "useCase": "drawer.showChat \u2014 empty selection triggers chat view in drawer",
+      "class": "RbDetailDrawer",
+      "method": "renderDefault / onSelectionChange (empty \u2192 chat)",
+      "test": "RED: clear selection \u2192 assert drawer shows chat content (messages), NOT empty/blank. Currently FAILS (shows empty or last selected item)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
