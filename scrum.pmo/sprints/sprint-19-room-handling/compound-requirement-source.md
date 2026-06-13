@@ -318,3 +318,7 @@
 ### Members collection lost in seed-ior consolidation (R19.101)
 - **R19.101** (2026-06-13): REGRESSION — in-room tree lost Members when consolidated to seed-ior (only Files render). Restore BOTH Members + Files via same seed-ior path without regressing files.
   > PO relay: in-room tree LOST Members collection when consolidated to seed-ior.
+
+### Room tree user actions — create folder (R19.102, design-ahead)
+- **R19.102** (2026-06-13): room tree supports user actions — create new folder (scenario unit, nestable) to organize content. Family: create/move/rename/delete folder. After R19.101 lands.
+  > TRON: "prepare for actions like create new folder in the room UX."
