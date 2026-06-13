@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "db568edc-dd4e-406f-a840-19b4deba5dc1",
+    "name": "RoomFolder",
+    "description": "Folder = scenario unit (ior:class:Folder or type=collection) that is a child of Room. Holds file units as children (nestable). Rendered by rb-trace-tree as a collection node with expand/collapse. Actions: create, rename, move-file-into, delete.",
+    "methods": [
+      "ior:instance:447b8250-3b6a-4333-9c7b-de3308845e3d"
+    ]
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

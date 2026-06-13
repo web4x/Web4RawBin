@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "519de141-448d-48d4-9ae5-f6fb78a1304a",
+    "name": "SystemTester",
+    "description": "Zero-pollution-by-construction test harness. ONE systemTester identity + ONE persistent system test room. All E2E specs use this identity. No cleanup needed \u2014 no pollution created.",
+    "methods": [
+      "ior:instance:f1d0d8b9-73d8-471a-82de-c661c9211573"
+    ]
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "447b8250-3b6a-4333-9c7b-de3308845e3d",
+    "name": "RoomFolder.createAndManage",
+    "description": "Server API: POST /api/room/<roomId>/folder (create). PUT /api/room/<roomId>/folder/<folderId> (rename). DELETE /api/room/<roomId>/folder/<folderId>. POST /api/room/<roomId>/folder/<folderId>/move (move file into folder). Folder scenario unit: ior:class:Folder, model.children=[] (file IORs), ownerIor=Room IOR. Room.files[] updated to include folder IOR. /api/trace/children for Folder type returns its children.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:db568edc-dd4e-406f-a840-19b4deba5dc1"
+}

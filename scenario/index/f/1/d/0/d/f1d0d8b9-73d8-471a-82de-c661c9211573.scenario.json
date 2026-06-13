@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "f1d0d8b9-73d8-471a-82de-c661c9211573",
+    "name": "SystemTester.useSystemIdentity",
+    "description": "useSystemTesterIdentity(): returns fixed token/UUID for all specs. useSystemTestRoom(): returns/creates the ONE persistent test room. Both idempotent \u2014 call N times, same result. No cleanup on teardown.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:519de141-448d-48d4-9ae5-f6fb78a1304a"
+}

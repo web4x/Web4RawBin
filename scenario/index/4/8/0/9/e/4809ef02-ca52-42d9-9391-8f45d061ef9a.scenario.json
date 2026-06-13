@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "4809ef02-ca52-42d9-9391-8f45d061ef9a",
+    "name": "roomFolder.createAndManage",
+    "description": "R19.102: User creates folder in room tree (scenario unit, child of Room). Move files into folder (re-parent file unit). Rename/delete folder. Folder renders as collection node in seed-tree. Server: Room.files[] can contain folder IORs; /api/trace/children walks folder.children[] recursively.",
+    "class": "ior:instance:db568edc-dd4e-406f-a840-19b4deba5dc1",
+    "method": "ior:instance:447b8250-3b6a-4333-9c7b-de3308845e3d",
+    "tasks": [
+      "ior:instance:42819b8b-02f6-4104-8b6c-e0156783e38f"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

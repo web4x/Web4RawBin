@@ -2,15 +2,17 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "42819b8b-02f6-4104-8b6c-e0156783e38f",
-    "name": "T-room-create-folder-actions: room tree user actions — create new folder to organize content",
+    "name": "T-room-create-folder-actions: room tree user actions \u2014 create new folder to organize content",
     "slug": "room-tree-create-folder-actions",
-    "description": "R19.102 (S20 carry-forward, TRACEABILITY-FIRST): room tree supports user actions — create a new folder to organize content. S20 DISCIPLINE: full chain (Req→UC→Class→Method→Impl→Test) DESIGNED first; the E2E Test is written FIRST (or with impl) so this never ships chain-open. Architect designs UC→Class→Method ahead of impl; tester defines the RED→GREEN E2E (create folder → folder node appears in tree → file can be moved into it → persists). In-room UX → real Playwright + screenshot gate (anti-false-green standard).",
+    "description": "R19.102 (S20 carry-forward, TRACEABILITY-FIRST): room tree supports user actions \u2014 create a new folder to organize content. S20 DISCIPLINE: full chain (Req\u2192UC\u2192Class\u2192Method\u2192Impl\u2192Test) DESIGNED first; the E2E Test is written FIRST (or with impl) so this never ships chain-open. Architect designs UC\u2192Class\u2192Method ahead of impl; tester defines the RED\u2192GREEN E2E (create folder \u2192 folder node appears in tree \u2192 file can be moved into it \u2192 persists). In-room UX \u2192 real Playwright + screenshot gate (anti-false-green standard).",
     "status": "Planned",
-    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement (architect — design FULL chain ahead)\n  - [ ] creating test cases (tester — write E2E FIRST)\n  - [ ] implementing (expert — against the designed chain + test)\n  - [ ] testing (tester — RED→GREEN E2E)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement (architect \u2014 design FULL chain ahead)\n  - [ ] creating test cases (tester \u2014 write E2E FIRST)\n  - [ ] implementing (expert \u2014 against the designed chain + test)\n  - [ ] testing (tester \u2014 RED\u2192GREEN E2E)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:754be820-0697-4ce8-8d7a-824484c47c69"
     ],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:4809ef02-ca52-42d9-9391-8f45d061ef9a"
+    ],
     "subtasks": [],
     "tasks": [],
     "createdAt": "2026-06-13",
