@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "27192c2c-07ab-4cd7-8eb7-8376ca7e469c",
+    "name": "fileItem.openDrawer",
+    "description": "R20.1: URL file item click in room tree opens ContentPreviewer drawer. Named method handles the click-to-drawer path for all file types including url/webitem.",
+    "class": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed",
+    "classes": [
+      "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed"
+    ],
+    "method": "ior:instance:d3074cf6-aaed-4884-8b85-345b66080528",
+    "tasks": [
+      "ior:instance:77122058-be05-4b22-9a0b-32973ee40a87"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a46744ed-8cc8-4ad0-97a3-948376b7a7a8",
+    "name": "FILE_ADDED message type",
+    "file": "ior:file:test/e2e/file-restore.test.ts",
+    "sourceLine": 25,
+    "verifies": [
+      "ior:instance:e3fad3ac"
+    ],
+    "status": "pass"
+  },
+  "ownerIor": "ior:instance:e3fad3ac"
+}

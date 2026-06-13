@@ -4,13 +4,15 @@
     "uuid": "77122058-be05-4b22-9a0b-32973ee40a87",
     "name": "T-url-file-opens-drawer: click url-type file item opens ContentPreviewer drawer (regression fix)",
     "slug": "url-file-item-opens-preview-drawer",
-    "description": "R20.1 (S20, traceability-first): REGRESSION — clicking a .url/.html.url file item in the room tree does NOT open the ContentPreviewer drawer (likely 862868bfe partial-commit broke the .url path during R19.84/85 iframe-zoom half-wire). FIX: restore the url-type file-click → drawer-open. intendedChain (for architect to canonicalize into REAL named-method units + PUML): UC fileItem.openDrawer (click url-type item → drawer opens with preview buttons); Class RbObjectItem or RbRoomContent; Method onFileClick/openPreviewDrawer (real NAMED METHOD, marker IN body per SM strict ruling); Test RED: click .url file item → assert drawer opens + two buttons visible (currently FAILS). S20 DISCIPLINE: full chain designed + Test FIRST; named-method impl required (no inline/closure/template); in-room UX → Playwright+screenshot. Architect attaches useCases[]/Class hop (single-owner standard).",
+    "description": "R20.1 (S20, traceability-first): REGRESSION \u2014 clicking a .url/.html.url file item in the room tree does NOT open the ContentPreviewer drawer (likely 862868bfe partial-commit broke the .url path during R19.84/85 iframe-zoom half-wire). FIX: restore the url-type file-click \u2192 drawer-open. intendedChain (for architect to canonicalize into REAL named-method units + PUML): UC fileItem.openDrawer (click url-type item \u2192 drawer opens with preview buttons); Class RbObjectItem or RbRoomContent; Method onFileClick/openPreviewDrawer (real NAMED METHOD, marker IN body per SM strict ruling); Test RED: click .url file item \u2192 assert drawer opens + two buttons visible (currently FAILS). S20 DISCIPLINE: full chain designed + Test FIRST; named-method impl required (no inline/closure/template); in-room UX \u2192 Playwright+screenshot. Architect attaches useCases[]/Class hop (single-owner standard).",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect — UC/Class/named-Method + PUML)\n  - [ ] creating test cases (tester — RED drawer-opens E2E FIRST)\n  - [ ] implementing (expert — named method + marker-in-body)\n  - [ ] testing (tester — RED→GREEN E2E + screenshot)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect \u2014 UC/Class/named-Method + PUML)\n  - [ ] creating test cases (tester \u2014 RED drawer-opens E2E FIRST)\n  - [ ] implementing (expert \u2014 named method + marker-in-body)\n  - [ ] testing (tester \u2014 RED\u2192GREEN E2E + screenshot)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:c81c9194-0ae2-4671-818f-35a9b3907295"
     ],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:27192c2c-07ab-4cd7-8eb7-8376ca7e469c"
+    ],
     "subtasks": [],
     "tasks": [],
     "createdAt": "2026-06-13",

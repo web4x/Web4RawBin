@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e3fad3ac-a09f-4a4c-88ce-78e0ca273cc0",
+    "name": "FILE_ADDED handler",
+    "description": "RoomView FILE_ADDED event handler (inline callback, not a named method).",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
+    "sourceLine": 77,
+    "tests": [
+      "ior:instance:a46744ed-8cc8-4ad0-97a3-948376b7a7a8"
+    ],
+    "functionalDone": true,
+    "champagneChainable": false,
+    "note": "Inline event handler \u2014 per SM ruling, not a valid named method for champagne chain"
+  },
+  "ownerIor": "ior:instance:952a16b9-f090-4eeb-9dd0-e69e8a0eed1d"
+}

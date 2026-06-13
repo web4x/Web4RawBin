@@ -5,7 +5,9 @@
     "name": "SelectionModel.init",
     "description": "Singleton constructor. Private selected = new Set<string>(). Public select(ref), deselect(ref), toggle(ref), clear(), getSelected(). Dispatches selection-changed on document after every mutation.",
     "implementations": [],
-    "tests": []
+    "tests": [
+      "ior:instance:7cba34a6-03ab-41db-9ac2-d0e76d1d6f71"
+    ]
   },
   "ownerIor": "ior:instance:b57b8838-7342-468b-84d6-1a8c0b4b152b"
 }
