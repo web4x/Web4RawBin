@@ -5,6 +5,7 @@
 // [impl:uuid:d1bae8be-a6ca-41e8-bdf6-ee78399ef41e] RbRoomContent.applyButton
 // [impl:uuid:32578dc6-58bb-4ce1-94be-2a78a142e139] RbRoomContent.mountTraceTree
 // [impl:uuid:e289349c-ba8d-4182-9288-9bbd7ac3ed56] RbRoomContent.render
+// [impl:uuid:e13591d9-6d3c-4d65-8b00-90c98f8c6951] R19.92 seedIorTree (split)
 // [impl:uuid:3fbcebaf-2986-44d6-afd2-7ab810e824f2] RbRoomDetail.modeSet
 import { RawBinClient } from './RawBinClient.js';
 import { ProfileEditor } from './ProfileEditor.js';
@@ -223,10 +224,12 @@ export class RoomView {
     this.chatSheet.setWsStatus(this.client.connected ? 'connected' : 'disconnected');
     if (!this.client.isOnline()) this.showOfflineBanner();
 
+    // [impl:uuid:d64f6288-1402-4a88-8f33-e58bcd80a785] R19.88 awaitItemUpgrade (split)
     await customElements.whenDefined('rb-object-item');
     this.renderMemberList();
   }
 
+  // [impl:uuid:852101d1-ec42-478a-bc73-59ddff7feb49] R19.86 openFilePreview (split)
   private async openFilePreview(uuid: string): Promise<void> {
     const drawer = document.getElementById('room-file-preview') as any;
     if (!drawer) return;
@@ -284,6 +287,8 @@ export class RoomView {
     overlay.textContent = lines.join('\n');
   }
 
+  // [impl:uuid:e4b1fe11-77e2-4e2b-b61b-64d93e4c60d1] R19.83 renderRoomTreeFiles
+  // [impl:uuid:934cb609-dada-436c-ae8f-400244a062a3] R19.88.A diffRenderItems (split, superseded by setItems)
   private renderMemberList(): void {
     const el = document.getElementById('member-list') as RbMemberList | null;
     if (!el) return;

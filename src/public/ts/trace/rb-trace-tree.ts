@@ -49,6 +49,7 @@ export class RbTraceTree extends HTMLElement {
   private get childrenUrl(): string { return `/api/trace/children/`; }
   private get modeParam(): string { return this.mode === 'trace' ? '?mode=trace' : ''; }
 
+  // [impl:uuid:c5b331a7-d844-4cea-a7a4-1e5eebceec37] R19.90 setItems (split)
   set items(roots: { uuid: string; type: string; name: string; description?: string; children?: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean }[] }[]) {
     this._items = roots;
     if (this.isConnected) this.renderItems();
