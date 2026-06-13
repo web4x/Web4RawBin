@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "92f4ced4-fab4-4b90-bd1f-37621eb8cd54",
+    "name": "RbHeader.showBuildVersion impl",
+    "description": "Build-time version string rendered in rb-header component.",
+    "sourceFile": "ior:file:src/public/ts/components/rb-header.ts",
+    "sourceLine": 2,
+    "sourceMarker": "ebac5838-a1b2-4c3d-8e4f-5a6b7c8d9e06",
+    "tests": [
+      "ior:instance:5f9b6f14-8e75-4f8a-a3c1-ec1e5b6c3a49"
+    ]
+  },
+  "ownerIor": "ior:instance:ebac5838-34fe-43ee-826f-776277be7ad8"
+}

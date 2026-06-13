@@ -5,7 +5,7 @@
     "name": "RbHeader.showBuildVersion",
     "description": "Render BUILD_VERSION constant (from esbuild define or import.meta) in header. NOT /api/config \u2014 must be the bundle's compiled-in version so stale cache shows old version.",
     "implementations": [
-      "ior:instance:ebac5838-a1b2-4c3d-8e4f-5a6b7c8d9e06"
+      "ior:instance:92f4ced4-fab4-4b90-bd1f-37621eb8cd54"
     ],
     "tests": []
   },
