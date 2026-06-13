@@ -35,3 +35,12 @@ They are MULTI-METHOD reqs. Their editOpen/memberAdd legs ARE complete + correct
 - Champagne floor = 21 STILL CORRECT and FINAL (R19.2/R19.8 genuinely have an open leg).
 - There is NO planner data re-wire that climbs +2. The climb for R19.2/R19.8 needs the OTHER method-leg's real impl (expert) and/or a Class.method chain-scope narrowing (architect) — NOT my lane.
 - **Do not execute the re-wire** proposed earlier — it would be a no-op/harmful (the targets are already wired). Premise retracted.
+
+---
+## CORRECTED CLIMB BACKLOG — R19.2 / R19.8 (PO-accepted 2026-06-14; 21 unchanged)
+Multi-method reqs; the editOpen/memberAdd legs are DONE. The OTHER method-leg is the blocker.
+| req | done leg (wired+tested) | open leg → owner |
+|---|---|---|
+| R19.2 | editOpen: method 6fc898ab → impl f9b579c1 (RoomView.ts:134) + test 5b79cc8e | 2nd method-leg open → **EXPERT** (real named-method impl + marker-in-body) and/or **ARCHITECT** (Class.method chain-scope narrowing, T187/T202-class) |
+| R19.8 | memberAdd: method ea02fa6d → impl 4246c0a8 (Room.ts:164) + test da3d0186 | 2nd method-leg open → **EXPERT** + **ARCHITECT** (same) |
+NOT planner lane (no data re-wire). Each = +1 champagne when its open leg lands a strict-valid named-method impl + full chain. Floor stays 21 until then.
