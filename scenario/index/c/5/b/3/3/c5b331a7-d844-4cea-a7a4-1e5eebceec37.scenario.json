@@ -5,9 +5,7 @@
     "name": "RbTraceTree.setItems impl (split)",
     "sourceFile": "src/public/ts/trace/rb-trace-tree.ts",
     "sourceLine": 1,
-    "tests": [
-      "ior:instance:837fe19f-fcff-45df-b711-973f00f746f4"
-    ]
+    "tests": []
   },
   "ownerIor": "ior:instance:1f7d3758-61cc-47eb-a7ff-b953535ed6a2"
 }
