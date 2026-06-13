@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7f5a8bb4-e90c-447d-8a53-e12f46af668c",
+    "name": "click link row navigates to target",
+    "file": "ior:file:test/e2e/rb-detail-overview.test.ts",
+    "sourceLine": 40,
+    "verifies": [
+      "ior:instance:b3adefdd-a9f7-4507-b75b-0b77e897184c"
+    ],
+    "status": "pass"
+  },
+  "ownerIor": "ior:instance:b3adefdd-a9f7-4507-b75b-0b77e897184c"
+}

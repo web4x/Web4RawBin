@@ -5,7 +5,9 @@
     "name": "RbRoomContent.linkResolve impl (split)",
     "sourceFile": "ior:file:src/public/ts/RoomView.ts",
     "sourceLine": 0,
-    "tests": []
+    "tests": [
+      "ior:instance:7f5a8bb4-e90c-447d-8a53-e12f46af668c"
+    ]
   },
   "ownerIor": "ior:instance:e55b3f4a-75e1-4aec-9433-cdfef67cffb3"
 }

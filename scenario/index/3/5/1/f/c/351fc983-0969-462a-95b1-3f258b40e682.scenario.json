@@ -5,7 +5,9 @@
     "name": "ProfileEditor.removeLocalIdentity impl (at DeviceEnrollDialog:66)",
     "sourceFile": "ior:file:src/public/ts/DeviceEnrollDialog.ts",
     "sourceLine": 66,
-    "tests": []
+    "tests": [
+      "ior:instance:bbaa4292-5f91-45f8-bb20-7cec8b2bf0e1"
+    ]
   },
   "ownerIor": "ior:instance:27e289a5-e948-4a40-8eeb-52cdc10e3b0d"
 }

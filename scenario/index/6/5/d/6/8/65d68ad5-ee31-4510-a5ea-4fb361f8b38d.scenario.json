@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "65d68ad5-ee31-4510-a5ea-4fb361f8b38d",
+    "name": "UPDATE_PROFILE returns token/uuid",
+    "file": "ior:file:test/e2e/profile.test.ts",
+    "sourceLine": 108,
+    "verifies": [
+      "ior:instance:5b438bb9-1602-4890-9c09-407606a28d6c"
+    ],
+    "status": "pass"
+  },
+  "ownerIor": "ior:instance:5b438bb9-1602-4890-9c09-407606a28d6c"
+}

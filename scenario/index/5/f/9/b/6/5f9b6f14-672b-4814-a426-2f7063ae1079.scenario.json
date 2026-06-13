@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5f9b6f14-672b-4814-a426-2f7063ae1079",
+    "name": "/api/health returns version field",
+    "file": "ior:file:test/e2e/server.test.ts",
+    "sourceLine": 615,
+    "verifies": [
+      "ior:instance:92f4ced4-fab4-4b90-bd1f-37621eb8cd54"
+    ],
+    "status": "pass"
+  },
+  "ownerIor": "ior:instance:92f4ced4-fab4-4b90-bd1f-37621eb8cd54"
+}
