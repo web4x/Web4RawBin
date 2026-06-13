@@ -1873,6 +1873,27 @@ describe('R19.86: file/url/webitem click → openFilePreview → drawer opens', 
     expect(src).toContain('openFilePreview');
   });
 
+  // [test:uuid:d233c661-a292-486a-b709-c03474b835de] R20.1 RoomView.openPreviewDrawer — openFilePreview method + drawer ref
+  it('RoomView.openFilePreview references room-file-preview drawer', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/RoomView.ts'), 'utf-8');
+    expect(src).toContain('openFilePreview');
+    expect(src).toContain('room-file-preview');
+  });
+
+  // [test:uuid:27c1de6c-2047-4f61-a5cf-1e6504da0b3d] R20.2 rb-detail-drawer.renderGrabBar — grab-bar header rendered
+  it('rb-detail-drawer renders drawer-header with drawer-handle-bar', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/trace/rb-detail-drawer.ts'), 'utf-8');
+    expect(src).toContain('drawer-header');
+    expect(src).toContain('drawer-handle-bar');
+    expect(src).toContain('drawer-close');
+  });
+
   it('rb-detail-drawer touchstart non-handle sets dragging=false, not dismiss', () => {
     const { readFileSync } = require('node:fs');
     const nodePath = require("node:path");
