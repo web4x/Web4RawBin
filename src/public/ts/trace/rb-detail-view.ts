@@ -80,30 +80,8 @@ export class RbDetailView extends HTMLElement {
       </div>
       <div class="dv-links">${rows.join('') || '<div class="dv-empty">no links</div>'}</div>`;
 
-    // [impl:uuid:4ce43a9a-a1b2-4c3d-8e4f-5a6b7c8d9e05] R19.93 file detail preview button
     if (obj.type === 'file' || obj.type === 'File') {
-      fetchDetailData(obj.uuid).then(({ children, parent }) => {
-        const scenarioIdx = `/api/ior/ior:instance:${obj.uuid}`;
-        fetch(scenarioIdx).then(r => r.json()).then(res => {
-          if (res.unit?.model) {
-            const fm = res.unit.model;
-            const tok = localStorage.getItem('rawbin-player-id') || '';
-            const previewBtn = document.createElement('button');
-            previewBtn.className = 'btn';
-            previewBtn.style.cssText = 'width:100%;margin:8px 0;padding:8px;background:#667eea;color:white;border:none;border-radius:8px;cursor:pointer;font-size:0.85rem';
-            previewBtn.textContent = `Preview ${fm.name || obj.title}`;
-            const linksEl = this.querySelector('.dv-links');
-            if (linksEl) linksEl.insertAdjacentElement('beforebegin', previewBtn);
-            previewBtn.addEventListener('click', () => {
-              const preview = renderContentPreview(obj.uuid, fm.mimeType || '', fm.name || obj.title, tok);
-              previewBtn.insertAdjacentHTML('afterend', preview);
-              loadTextPreview(this, obj.uuid, tok);
-              wireUrlActions(this);
-              previewBtn.remove();
-            });
-          }
-        }).catch(() => {});
-      });
+      this.createFilePreviewButton(obj.uuid, obj.title);
     }
 
     // click link rows → navigate to the linked object
@@ -139,6 +117,30 @@ export class RbDetailView extends HTMLElement {
     this.unsubs.push(ViewBus.subscribe(obj.ref(), () => this.render()));
     const linked = new Set<ObjectRef>(Object.values(links).flat());
     for (const lref of linked) this.unsubs.push(ViewBus.subscribe(lref, () => this.render()));
+  }
+
+  // [impl:uuid:1a5ad916-33ba-4829-80c4-44efd8756c35] R19.93 createFilePreviewButton
+  private createFilePreviewButton(uuid: string, title: string): void {
+    fetchDetailData(uuid).then(() => {
+      fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.json()).then(res => {
+        if (!res.unit?.model) return;
+        const fm = res.unit.model;
+        const tok = localStorage.getItem('rawbin-player-id') || '';
+        const previewBtn = document.createElement('button');
+        previewBtn.className = 'btn';
+        previewBtn.style.cssText = 'width:100%;margin:8px 0;padding:8px;background:#667eea;color:white;border:none;border-radius:8px;cursor:pointer;font-size:0.85rem';
+        previewBtn.textContent = `Preview ${fm.name || title}`;
+        const linksEl = this.querySelector('.dv-links');
+        if (linksEl) linksEl.insertAdjacentElement('beforebegin', previewBtn);
+        previewBtn.addEventListener('click', () => {
+          const preview = renderContentPreview(uuid, fm.mimeType || '', fm.name || title, tok);
+          previewBtn.insertAdjacentHTML('afterend', preview);
+          loadTextPreview(this, uuid, tok);
+          wireUrlActions(this);
+          previewBtn.remove();
+        });
+      }).catch(() => {});
+    });
   }
 }
 
