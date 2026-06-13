@@ -1,0 +1,39 @@
+@startuml r20-4-bug-changerequest-chain
+!theme plain
+title R20.4 — Bug + ChangeRequest OOP Extensions of Requirement
+
+left to right direction
+
+package "T-bug-changerequest-oop-extensions" {
+  usecase "requirement.classifyType\nuc:64be6334\ntask:b1c93799" as UC
+  agent "Requirement.classifyType\nclass:14831116\nmethod:fcf6dae1" as M
+  UC --> M
+}
+
+package "Class Hierarchy" {
+  class "Requirement\nclass:14831116\nicon: circle-check (green)" as REQ
+  class "Bug\nclass:935b5733\nior:class:Bug\nicon: circle-alert (red)" as BUG
+  class "ChangeRequest\nclass:b1cf768a\nior:class:ChangeRequest\nicon: arrow-up-circle (blue)" as CR
+
+  REQ <|-- BUG : extends
+  REQ <|-- CR : extends
+}
+
+note bottom
+  Implementation (4 files):
+  1. classes.ts: BugLoader + ChangeRequestLoader
+     (clone RequirementLoader defaults: useCases[], tasks[], tests[])
+  2. ClassRegistry: register('Bug', BugLoader) + register('ChangeRequest', ChangeRequestLoader)
+  3. icons.ts: TRACE_ICONS['bug'] = Lucide circle-alert
+                TRACE_ICONS['changerequest'] = Lucide arrow-up-circle
+  4. app.css: rb-object-item[type="bug"] { --type-bg: red }
+             rb-object-item[type="changerequest"] { --type-bg: blue }
+  5. SCENARIO_FWD + TRACE_FWD: Bug: ['useCases'], ChangeRequest: ['useCases']
+
+  RED Test: create Bug unit (ior:class:Bug) -> assert icon != Requirement icon
+            create ChangeRequest -> assert distinct icon
+            both trace full 6-step chain (Req->UC->Class->Method->Impl->Test)
+  Sprint: 64af2638
+end note
+
+@enduml

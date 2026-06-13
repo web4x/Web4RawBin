@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "14831116-66ca-42b7-a350-8564178e678b",
+    "name": "Requirement",
+    "description": "Base requirement class. Bug and ChangeRequest extend this. Forward arrays: useCases[], tasks[], tests[]. Icon: circle-check (green).",
+    "methods": [
+      "ior:instance:fcf6dae1-69c7-418d-a68a-6fca1d0a9137"
+    ],
+    "subtypes": [
+      "ior:instance:935b5733-84b7-4c7b-b0ca-6a908c3972c1",
+      "ior:instance:b1cf768a-ad0c-432a-bc01-ea0927a6f9ec"
+    ]
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

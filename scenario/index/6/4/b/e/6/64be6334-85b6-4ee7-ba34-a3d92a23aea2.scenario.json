@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "64be6334-85b6-4ee7-ba34-a3d92a23aea2",
+    "name": "requirement.classifyType",
+    "description": "Resolve Requirement subtypes (Bug, ChangeRequest) via ior:class. ClassRegistry has own loaders per subtype (same defaults as Requirement). TRACE_ICONS + app.css have per-type entries. rb-object-item resolves icon from type string (bug/changerequest). FORWARD_KEYS treat Bug/ChangeRequest identically to Requirement (useCases[], tasks[]).",
+    "class": "ior:instance:14831116-66ca-42b7-a350-8564178e678b",
+    "method": "ior:instance:fcf6dae1-69c7-418d-a68a-6fca1d0a9137",
+    "tasks": [
+      "ior:instance:b1c93799-9fd6-4c8a-b006-f8e0822d128a"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

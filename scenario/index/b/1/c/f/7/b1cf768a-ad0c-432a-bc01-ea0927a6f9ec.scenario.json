@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "b1cf768a-ad0c-432a-bc01-ea0927a6f9ec",
+    "name": "ChangeRequest",
+    "description": "ChangeRequest extends Requirement. ior:class:ChangeRequest. Same forward arrays. Own loader in ClassRegistry. Distinct icon: arrow-up-circle (blue). Distinct CSS: --type-bg blue.",
+    "extends": "ior:instance:14831116-66ca-42b7-a350-8564178e678b",
+    "methods": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
