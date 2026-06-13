@@ -1,5 +1,5 @@
 // [impl:uuid:39074a59-864f-4947-ac7b-0457bbbe172b] T40 header
-// [impl:uuid:ebac5838-a1b2-4c3d-8e4f-5a6b7c8d9e06] R19.94 build-time version
+// [impl:uuid:92f4ced4-fab4-4b90-bd1f-37621eb8cd54] R19.94 showBuildVersion
 declare const __BUILD_VERSION__: string;
 const BUILD_VER = typeof __BUILD_VERSION__ !== 'undefined' ? __BUILD_VERSION__ : '?';
 const ATTRS = ['title', 'show-home', 'show-leave', 'show-edit', 'show-delete', 'show-reload', 'show-fullscreen'] as const;
