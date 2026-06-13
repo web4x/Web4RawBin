@@ -15,7 +15,9 @@
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "refinementOf": "ior:instance:26b5f7c1-6a36-4bb2-bcae-cb234533afff",
     "refinementOfNote": "Refines R19.88 (deterministic per-item init). R19.88 whenDefined gate + R19.88.A diff-render did not fully close the desktop-Chrome first-N-icon-only case; R19.97 = case-5 queueMicrotask defer to avoid paint-interleave. Architect-diagnosed; req-eng to confirm/canonicalize.",
-    "needsReqCanonicalization": true
+    "needsReqCanonicalization": true,
+    "orphanByDesign": true,
+    "orphanByDesignNote": "R19.97 (case-5 queueMicrotask) SUPERSEDED-BY-CONSTRUCTION: the DocumentFragment render fix eliminates the paint-interleave race entirely, so the queueMicrotask approach is no longer needed. Deprecated; excluded from active canonical denominator per PO 2026-06-13."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
