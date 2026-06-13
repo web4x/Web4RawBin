@@ -3,19 +3,21 @@
   "model": {
     "uuid": "c1dbd4c3-35b4-41e7-ac35-ed476b1b0cb6",
     "altId": "R20.6c",
-    "name": "R20.6c: Tap item middle \u2192 single-select, shown in details drawer.",
+    "name": "R20.6c: Tap item middle → single-select, shown in details drawer.",
     "description": "Tapping/clicking an item view in the middle area sets it as the SINGLE selected item in SelectionModel (replacing any previous selection). The details drawer shows that item's detail view.",
     "tronQuote": "> TRON: \"create a selection model globally for the app. if nothing is selected currently, the default details drawer shows the chat in room. if a item view is clicked in the middle, its the selected item. if its clicked loooong its added to the selection array. the item view get highlighted as selected and active as css. dragging one drags all. long press toggles being in the selection or removed from the selection. this will completely dedup the multiple drawer implementations and consolidate the requirements related. the css highlight on the default drawer is just awkward. remove it as in the chat. keep the x to close the drawer.\" (atomic: R20.6c)",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:7047d04f-3226-46ff-a058-39f53f9aed58"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "intendedChain": {
-      "useCase": "selectionModel.singleSelect \u2014 tap item \u2192 selection=[item], drawer shows item detail",
+      "useCase": "selectionModel.singleSelect — tap item → selection=[item], drawer shows item detail",
       "class": "SelectionModel + RbObjectItem",
-      "method": "onTap \u2192 singleSelect(ior)",
-      "test": "RED: tap item A \u2192 selection=[A], drawer shows A. Tap item B \u2192 selection=[B], drawer shows B (A deselected)."
+      "method": "onTap → singleSelect(ior)",
+      "test": "RED: tap item A → selection=[A], drawer shows A. Tap item B → selection=[B], drawer shows B (A deselected)."
     }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

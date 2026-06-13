@@ -2,9 +2,9 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "64af2638-d011-48c1-9d5a-dbfd9784efd6",
-    "name": "Sprint 20 \u2014 Radical Forward Planning (Traceability-First)",
+    "name": "Sprint 20 — Radical Forward Planning (Traceability-First)",
     "number": 20,
-    "goal": "Apply the S19 marathon lesson FORWARD: chains are built BEFORE/WITH implementation, never functional-first-then-backfill. DISCIPLINE: every requirement gets its FULL chain (Req\u2192UseCase\u2192Class\u2192Method\u2192Implementation\u2192Test) DESIGNED, and the Test written FIRST (or with the impl) \u2014 nothing ships chain-open. Carry forward S19 open follow-ons as proper S20 chains (R19.99 broken-link, R19.100 render-inversion, R19.102 create-folder-actions), each designed-ahead. Track tonight's scheduled (22:07) radical backfill of S19 v0.5.x chain-debt.",
+    "goal": "Apply the S19 marathon lesson FORWARD: chains are built BEFORE/WITH implementation, never functional-first-then-backfill. DISCIPLINE: every requirement gets its FULL chain (Req→UseCase→Class→Method→Implementation→Test) DESIGNED, and the Test written FIRST (or with the impl) — nothing ships chain-open. Carry forward S19 open follow-ons as proper S20 chains (R19.99 broken-link, R19.100 render-inversion, R19.102 create-folder-actions), each designed-ahead. Track tonight's scheduled (22:07) radical backfill of S19 v0.5.x chain-debt.",
     "status": "Planned",
     "compoundSource": "scrum.pmo/sprints/sprint-20-forward-planning/compound-requirement-source.md",
     "requirements": [
@@ -34,7 +34,8 @@
       "ior:instance:b1c93799-9fd6-4c8a-b006-f8e0822d128a",
       "ior:instance:d43fce61-58aa-4de8-a7d1-996953c7e48c",
       "ior:instance:56cc23b5-aca1-49f5-9037-e2c58110643c",
-      "ior:instance:18ee26a2-bff1-43ab-8ecf-1665a56b96d1"
+      "ior:instance:18ee26a2-bff1-43ab-8ecf-1665a56b96d1",
+      "ior:instance:7047d04f-3226-46ff-a058-39f53f9aed58"
     ],
     "discipline": "traceability-first: design full chain + write Test first/with-impl; no chain-open ships. Standards: in-room-ux-e2e-test-standard.md, task-unit-single-owner-standard.md.",
     "carriedForwardNote": "R19.99 (task eff42eff) + R19.100 (task 51d53769) carry their existing S19 tasks; S20 drives their FULL test-first chain to genuine champagne. R19.102 gets a fresh S20 task (42819b8b).",

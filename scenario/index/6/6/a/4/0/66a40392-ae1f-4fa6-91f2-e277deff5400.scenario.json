@@ -3,19 +3,21 @@
   "model": {
     "uuid": "66a40392-ae1f-4fa6-91f2-e277deff5400",
     "altId": "R20.6f",
-    "name": "R20.6f: Drag one selected item \u2192 drags ALL selected items.",
+    "name": "R20.6f: Drag one selected item → drags ALL selected items.",
     "description": "When dragging a selected item, ALL items in the current selection move together (multi-drag). The drag preview shows the count or all selected items. Single-select drag = single item drag (current behavior).",
     "tronQuote": "> TRON: \"create a selection model globally for the app. if nothing is selected currently, the default details drawer shows the chat in room. if a item view is clicked in the middle, its the selected item. if its clicked loooong its added to the selection array. the item view get highlighted as selected and active as css. dragging one drags all. long press toggles being in the selection or removed from the selection. this will completely dedup the multiple drawer implementations and consolidate the requirements related. the css highlight on the default drawer is just awkward. remove it as in the chat. keep the x to close the drawer.\" (atomic: R20.6f)",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:7047d04f-3226-46ff-a058-39f53f9aed58"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "intendedChain": {
-      "useCase": "selectionModel.dragAll \u2014 drag selected item \u2192 all selection[] items dragged",
+      "useCase": "selectionModel.dragAll — drag selected item → all selection[] items dragged",
       "class": "RbObjectItem + SelectionModel",
-      "method": "onDragStart \u2192 dragSelection(selection[])",
-      "test": "RED: select A+B (long-press), drag A \u2192 both A+B in DataTransfer. Drop \u2192 both moved."
+      "method": "onDragStart → dragSelection(selection[])",
+      "test": "RED: select A+B (long-press), drag A → both A+B in DataTransfer. Drop → both moved."
     }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

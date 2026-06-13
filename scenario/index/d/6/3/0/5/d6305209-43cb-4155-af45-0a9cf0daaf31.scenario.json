@@ -6,16 +6,18 @@
     "name": "R20.6h: Remove awkward CSS highlight on default drawer, keep X close.",
     "description": "The default drawer has an awkward CSS highlight that doesn't match the chat drawer style. REMOVE this highlight (match the clean chat style). KEEP the X close button on the drawer.",
     "tronQuote": "> TRON: \"create a selection model globally for the app. if nothing is selected currently, the default details drawer shows the chat in room. if a item view is clicked in the middle, its the selected item. if its clicked loooong its added to the selection array. the item view get highlighted as selected and active as css. dragging one drags all. long press toggles being in the selection or removed from the selection. this will completely dedup the multiple drawer implementations and consolidate the requirements related. the css highlight on the default drawer is just awkward. remove it as in the chat. keep the x to close the drawer.\" (atomic: R20.6h)",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:7047d04f-3226-46ff-a058-39f53f9aed58"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "intendedChain": {
-      "useCase": "drawer.cleanStyle \u2014 remove highlight, match chat, keep X",
+      "useCase": "drawer.cleanStyle — remove highlight, match chat, keep X",
       "class": "RbDetailDrawer",
-      "method": "CSS cleanup \u2014 remove highlight class/border, keep .close-btn",
-      "test": "RED: open default drawer \u2192 assert NO highlight border/background on the drawer chrome (matches chat). Assert X close button present and functional."
+      "method": "CSS cleanup — remove highlight class/border, keep .close-btn",
+      "test": "RED: open default drawer → assert NO highlight border/background on the drawer chrome (matches chat). Assert X close button present and functional."
     }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
