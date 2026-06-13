@@ -127,6 +127,7 @@ afterEach(() => {
 });
 
 // ── TC-60.1: readDir returns entries with name+type+size+ext ────────────────
+// [test:uuid:f9a7db87-53e4-4803-8740-771fde162281] R17.24 FileBrowser.fixDisplay — readDir entry format (dedicated, not shared)
 
 describe('TC-60.1: readDir entry format', () => {
 
