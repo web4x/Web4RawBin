@@ -51,11 +51,9 @@ export class RbObjectItem extends HTMLElement {
   }
   get data() { return this._data; }
 
-  // [impl:uuid:76bbedda-a1b2-4c3d-8e4f-5a6b7c8d9e08] R20.3 initCollapsed
   connectedCallback(): void {
     this.upgradeProperty('data');
     this.classList.add('object-item');
-    if (!this.hasAttribute('collapsed') && !this.hasAttribute('children-open')) this.setAttribute('collapsed', '');
     this.render();
     if (!this._initialized) {
       this._initialized = true;
