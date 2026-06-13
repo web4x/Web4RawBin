@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "aee56fad-9536-4b34-8f7a-95285c3dfc02",
+    "name": "selectionModel.tapSwitches",
+    "description": "BUG2 fix: tap must clear()+select(1) \u2014 not accumulate. Long-press must toggle off (remove from selection if already selected). R20.6c tap was additive (didn't clear). R20.6d long-press only added, never removed.",
+    "class": "ior:instance:b57b8838-7342-468b-84d6-1a8c0b4b152b",
+    "method": "ior:instance:6b21088e-b6ba-44a8-83d8-bc4d8c249dcd",
+    "tasks": [
+      "ior:instance:1fac9d23-6647-45e5-a0a5-458bc1892974"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

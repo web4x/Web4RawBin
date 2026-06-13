@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "6b21088e-b6ba-44a8-83d8-bc4d8c249dcd",
+    "name": "SelectionModel.tapSwitchToggle",
+    "description": "select(ref): clear() all, then add(ref). Tap = exclusive single-select. toggle(ref): if selected.has(ref) delete(ref) else add(ref). Long-press = additive toggle. Both dispatch selection-changed.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:b57b8838-7342-468b-84d6-1a8c0b4b152b"
+}

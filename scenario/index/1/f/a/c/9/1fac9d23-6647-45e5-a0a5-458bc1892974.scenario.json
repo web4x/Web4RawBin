@@ -4,13 +4,15 @@
     "uuid": "1fac9d23-6647-45e5-a0a5-458bc1892974",
     "name": "T-selection-tap-switch-longpress-toggle: tap clears+selects ONE, long-press toggles off",
     "slug": "selection-tap-switch-longpress-toggle-off",
-    "description": "BUG2 (S20, Bug — in delivered R20.6c+d): (1) short tap ACCUMULATES selection instead of SWITCHING — tapSingleSelect must clear() then select (result size===1). (2) long-press does NOT toggle OFF — if item already selected, long-press must REMOVE it (toggle off); currently only adds. FIX both: tap = clear+select(1); long-press = toggle (add if absent, remove if present). intendedChain (for architect): UC selectionModel.tapSwitches; Class SelectionModel; Method tapSingleSelect (call clear() before select(ior)) + the long-press toggle path; Test RED: (1) tap A→[A], tap B→assert [B] size 1 (A gone), currently FAILS (accumulates); (2) long-press A→[A], long-press A again→assert [] (toggled off), currently FAILS (A stays). S20 DISCIPLINE: full chain designed + Test FIRST; UI → Playwright+screenshot gate; nothing ships chain-open. STRICT ORDER: this is NEXT. RELEASE → v0.6.8 + git tag.",
+    "description": "BUG2 (S20, Bug \u2014 in delivered R20.6c+d): (1) short tap ACCUMULATES selection instead of SWITCHING \u2014 tapSingleSelect must clear() then select (result size===1). (2) long-press does NOT toggle OFF \u2014 if item already selected, long-press must REMOVE it (toggle off); currently only adds. FIX both: tap = clear+select(1); long-press = toggle (add if absent, remove if present). intendedChain (for architect): UC selectionModel.tapSwitches; Class SelectionModel; Method tapSingleSelect (call clear() before select(ior)) + the long-press toggle path; Test RED: (1) tap A\u2192[A], tap B\u2192assert [B] size 1 (A gone), currently FAILS (accumulates); (2) long-press A\u2192[A], long-press A again\u2192assert [] (toggled off), currently FAILS (A stays). S20 DISCIPLINE: full chain designed + Test FIRST; UI \u2192 Playwright+screenshot gate; nothing ships chain-open. STRICT ORDER: this is NEXT. RELEASE \u2192 v0.6.8 + git tag.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect — canonicalize UC/Class/Method + PUML)\n  - [ ] creating test cases (tester — RED tap-switch + longpress-toggle E2E FIRST)\n  - [ ] implementing (expert — SelectionModel.tapSingleSelect clear+select; long-press toggle)\n  - [ ] testing (tester — RED→GREEN E2E + screenshot)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect \u2014 canonicalize UC/Class/Method + PUML)\n  - [ ] creating test cases (tester \u2014 RED tap-switch + longpress-toggle E2E FIRST)\n  - [ ] implementing (expert \u2014 SelectionModel.tapSingleSelect clear+select; long-press toggle)\n  - [ ] testing (tester \u2014 RED\u2192GREEN E2E + screenshot)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:853d0c81-4157-45ab-80e1-7a3dc05d6895"
     ],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:aee56fad-9536-4b34-8f7a-95285c3dfc02"
+    ],
     "subtasks": [],
     "tasks": [],
     "createdAt": "2026-06-13",
