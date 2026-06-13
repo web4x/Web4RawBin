@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "76bbedda-17d4-4d98-957d-6172e1752d12",
+    "name": "RbObjectItem.initCollapsed",
+    "description": "Set collapsed=true as default in connectedCallback before render(). Render reads collapsed attr \u2014 when true, shows icon-only (square). No auto-expand. User click toggles.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+}
