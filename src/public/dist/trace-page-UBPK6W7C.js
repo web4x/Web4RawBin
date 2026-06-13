@@ -34,7 +34,7 @@ var Ne=Object.defineProperty;var Pe=(o,i,e)=>i in o?Ne(o,i,{enumerable:!0,config
         ${T(t.uuid)}
       </div>
       <div class="dv-links">
-        <h4>Champagne Chain</h4>
+        <h4>Traceability Chain</h4>
         ${H(s)}
         <h4>Forward Links</h4>
         ${Je(this.graph,r)}
@@ -49,7 +49,7 @@ var Ne=Object.defineProperty;var Pe=(o,i,e)=>i in o?Ne(o,i,{enumerable:!0,config
         ${T(t.uuid)}
       </div>
       <div class="dv-links">
-        <h4>Champagne Chain</h4>
+        <h4>Traceability Chain</h4>
         ${H(s)}
         <h4>Forward Links</h4>
         ${We(this.graph,r)}
@@ -64,7 +64,7 @@ var Ne=Object.defineProperty;var Pe=(o,i,e)=>i in o?Ne(o,i,{enumerable:!0,config
         ${T(t.uuid)}
       </div>
       <div class="dv-links">
-        <h4>Champagne Chain</h4>
+        <h4>Traceability Chain</h4>
         ${H(s)}
         <h4>Forward Links</h4>
         ${Ze(this.graph,r)}
@@ -101,4 +101,4 @@ var Ne=Object.defineProperty;var Pe=(o,i,e)=>i in o?Ne(o,i,{enumerable:!0,config
         ${T(t.uuid)}
       </div>
       <div class="dv-links"><h4>Traceability Chain</h4>${et(this.graph,s)}</div>`,this.unsubs.push(f.subscribe(e,()=>this.render())),this.querySelectorAll(".dv-link").forEach(r=>{r.addEventListener("click",()=>{let n=r.dataset.ref;m(n.split(":")[0],"show",{uuid:p(n)})})}),y(t.uuid).then(({children:r,parent:n,sourceFile:a,sourceLine:c})=>{if(a){let d=this.querySelector(".dv-head");d&&d.insertAdjacentHTML("beforeend",k(a,c))}if(n){let d=this.querySelector(".dv-head");d&&(d.insertAdjacentHTML("afterend",w(n)),this.querySelector(".dv-parent-link")?.addEventListener("click",h=>{h.preventDefault(),m(n.type.toLowerCase(),"show",{uuid:n.uuid})}))}C(this,r),L(this,t.uuid)})}};function et(o,i){let e=[];for(let[t,s]of Object.entries(i))for(let r of s){let n=o?.get(p(r));e.push(`<div class="dv-link" data-ref="${r}"><span class="dv-rel">${t}</span><span class="dv-link-title">${He(n?.title||r)}</span></div>`)}return e.join("")||'<div class="dv-empty">no links</div>'}function He(o){return o.replace(/[&<>"]/g,i=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[i])}typeof customElements<"u"&&!customElements.get("rb-implementation-detail")&&customElements.define("rb-implementation-detail",te);var tt=["requirement","task","usecase","class","method","implementation","test","room","user","device","file","message","skill","bug","changerequest"];function Re(o){return N.fromJSON(o)}function st(o){let{graph:i,obj:e,params:t}=o;if(!e||!t.to||!t.relation||!t.inverse)return;let s=i.get(p(t.to));s&&(i.link(e,t.relation,s,t.inverse),f.notify(e.ref()),f.notify(s.ref()))}var rt={task:"rb-task-detail",requirement:"rb-requirement-detail",usecase:"rb-usecase-detail",class:"rb-class-detail",method:"rb-method-detail",test:"rb-test-detail",implementation:"rb-implementation-detail"};function Oe(o){let i=new q,e=[...tt,"sprint"];for(let t of e){let s=rt[t]||"rb-detail-view";i.register(t,"show",o?nt(o,s):it(s)),i.register(t,"list",ot(t)),i.register(t,"link",st)}return i.register("task","list",qe),i.register("planning","overview",qe),i}function it(o){return i=>{let{obj:e,graph:t,mount:s}=i;if(!e){s.innerHTML='<div class="trace-notfound">object not found</div>';return}let r=document.createElement(o);r.graph=t,r.setAttribute("ref",e.ref()),s.innerHTML="",s.appendChild(r)}}function nt(o,i){return e=>{let{obj:t,graph:s,params:r}=e,n=r.uuid||"",a=t?t.ref():`${r.uuid?"unknown:"+r.uuid:""}`;if(!t&&!n){o.removeAttribute("ref");return}let c=o.body||o;c.innerHTML="";let d=document.createElement(i);d.graph=s,d.setAttribute("ref",t?t.ref():`unknown:${n}`),n&&d.setAttribute("uuid",n),c.appendChild(d),o.setAttribute("ref",t?t.ref():`unknown:${n}`)}}function qe(o){let i=document.createElement("rb-overview");i.graph=o.graph,o.mount.innerHTML="",o.mount.appendChild(i)}function ot(o){return({graph:i,mount:e})=>{let t=document.createElement("rb-list-overview");t.graph=i,e.innerHTML="",e.appendChild(t),t.setItems(i.ofType(o).map(s=>s.ref()))}}var se=document.getElementById("trace-tree"),Ie=document.getElementById("trace-detail");async function at(){if(!(!se||!Ie))try{let i=await(await fetch("/api/trace")).json(),e=Re(i.objects||[]),s=await(await fetch("/api/trace/sprints")).json();se.innerHTML="";for(let c of s){let d=document.createElement("rb-trace-tree");d.setAttribute("data-seed-ior",c.uuid),d.setAttribute("data-mode","trace"),se.appendChild(d),d.graph=e}let r=document.createElement("rb-detail-drawer");(document.querySelector(".trace-page")||document.body).appendChild(r),new R(e,Oe(r),Ie).start()}catch(o){se.innerHTML='<div style="color:#888;padding:20px">Failed to load traceability graph</div>',console.warn("trace load failed",o)}}at();
-//# sourceMappingURL=trace-page-52SVPTKI.js.map
+//# sourceMappingURL=trace-page-UBPK6W7C.js.map

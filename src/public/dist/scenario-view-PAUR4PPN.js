@@ -34,7 +34,7 @@ var Pe=Object.defineProperty;var Ne=(o,i,e)=>i in o?Pe(o,i,{enumerable:!0,config
         ${T(t.uuid)}
       </div>
       <div class="dv-links">
-        <h4>Champagne Chain</h4>
+        <h4>Traceability Chain</h4>
         ${q(s)}
         <h4>Forward Links</h4>
         ${Je(this.graph,r)}
@@ -49,7 +49,7 @@ var Pe=Object.defineProperty;var Ne=(o,i,e)=>i in o?Pe(o,i,{enumerable:!0,config
         ${T(t.uuid)}
       </div>
       <div class="dv-links">
-        <h4>Champagne Chain</h4>
+        <h4>Traceability Chain</h4>
         ${q(s)}
         <h4>Forward Links</h4>
         ${We(this.graph,r)}
@@ -64,7 +64,7 @@ var Pe=Object.defineProperty;var Ne=(o,i,e)=>i in o?Pe(o,i,{enumerable:!0,config
         ${T(t.uuid)}
       </div>
       <div class="dv-links">
-        <h4>Champagne Chain</h4>
+        <h4>Traceability Chain</h4>
         ${q(s)}
         <h4>Forward Links</h4>
         ${Ze(this.graph,r)}
@@ -101,4 +101,4 @@ var Pe=Object.defineProperty;var Ne=(o,i,e)=>i in o?Pe(o,i,{enumerable:!0,config
         ${T(t.uuid)}
       </div>
       <div class="dv-links"><h4>Traceability Chain</h4>${et(this.graph,s)}</div>`,this.unsubs.push(m.subscribe(e,()=>this.render())),this.querySelectorAll(".dv-link").forEach(r=>{r.addEventListener("click",()=>{let n=r.dataset.ref;g(n.split(":")[0],"show",{uuid:p(n)})})}),y(t.uuid).then(({children:r,parent:n,sourceFile:a,sourceLine:d})=>{if(a){let c=this.querySelector(".dv-head");c&&c.insertAdjacentHTML("beforeend",k(a,d))}if(n){let c=this.querySelector(".dv-head");c&&(c.insertAdjacentHTML("afterend",w(n)),this.querySelector(".dv-parent-link")?.addEventListener("click",h=>{h.preventDefault(),g(n.type.toLowerCase(),"show",{uuid:n.uuid})}))}C(this,r),L(this,t.uuid)})}};function et(o,i){let e=[];for(let[t,s]of Object.entries(i))for(let r of s){let n=o?.get(p(r));e.push(`<div class="dv-link" data-ref="${r}"><span class="dv-rel">${t}</span><span class="dv-link-title">${qe(n?.title||r)}</span></div>`)}return e.join("")||'<div class="dv-empty">no links</div>'}function qe(o){return o.replace(/[&<>"]/g,i=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[i])}typeof customElements<"u"&&!customElements.get("rb-implementation-detail")&&customElements.define("rb-implementation-detail",re);var tt=["requirement","task","usecase","class","method","implementation","test","room","user","device","file","message","skill","bug","changerequest"];function Oe(o){return D.fromJSON(o)}function st(o){let{graph:i,obj:e,params:t}=o;if(!e||!t.to||!t.relation||!t.inverse)return;let s=i.get(p(t.to));s&&(i.link(e,t.relation,s,t.inverse),m.notify(e.ref()),m.notify(s.ref()))}var rt={task:"rb-task-detail",requirement:"rb-requirement-detail",usecase:"rb-usecase-detail",class:"rb-class-detail",method:"rb-method-detail",test:"rb-test-detail",implementation:"rb-implementation-detail"};function Ie(o){let i=new R,e=[...tt,"sprint"];for(let t of e){let s=rt[t]||"rb-detail-view";i.register(t,"show",o?nt(o,s):it(s)),i.register(t,"list",ot(t)),i.register(t,"link",st)}return i.register("task","list",Re),i.register("planning","overview",Re),i}function it(o){return i=>{let{obj:e,graph:t,mount:s}=i;if(!e){s.innerHTML='<div class="trace-notfound">object not found</div>';return}let r=document.createElement(o);r.graph=t,r.setAttribute("ref",e.ref()),s.innerHTML="",s.appendChild(r)}}function nt(o,i){return e=>{let{obj:t,graph:s,params:r}=e,n=r.uuid||"",a=t?t.ref():`${r.uuid?"unknown:"+r.uuid:""}`;if(!t&&!n){o.removeAttribute("ref");return}let d=o.body||o;d.innerHTML="";let c=document.createElement(i);c.graph=s,c.setAttribute("ref",t?t.ref():`unknown:${n}`),n&&c.setAttribute("uuid",n),d.appendChild(c),o.setAttribute("ref",t?t.ref():`unknown:${n}`)}}function Re(o){let i=document.createElement("rb-overview");i.graph=o.graph,o.mount.innerHTML="",o.mount.appendChild(i)}function ot(o){return({graph:i,mount:e})=>{let t=document.createElement("rb-list-overview");t.graph=i,e.innerHTML="",e.appendChild(t),t.setItems(i.ofType(o).map(s=>s.ref()))}}var at=new URLSearchParams(window.location.search),dt=at.get("ior")||"",I=dt.replace(/^ior:instance:/,"").replace(/\.scenario\.json$/,"").trim()||null,M=document.getElementById("scenario-app");if(!I||!M)M&&(M.innerHTML='<div style="color:#888;padding:20px">Missing ?ior= parameter. <a href="/trace" style="color:#667eea">Open full trace</a></div>');else{async function o(){try{let e=await(await fetch("/api/trace")).json(),t=Oe(e.objects||[]),s=document.createElement("div");s.className="trace-tree-panel";let r=document.createElement("rb-trace-tree");r.setAttribute("data-seed-ior",I),s.appendChild(r);let n=document.createElement("rb-detail-drawer");M.innerHTML="",M.appendChild(s),M.appendChild(n);let a=document.createElement("div"),d=new O(t,Ie(n),a);d.start(),await new Promise(v=>{let b=()=>{if(r.querySelector("rb-object-item")){v();return}requestAnimationFrame(b)};b()});let h=t.get(I),u=h?h.type:"";if(!u)try{let v=await fetch(`/api/trace/children/${I}`);v.ok?u=(await v.json()).type?.toLowerCase()||"task":u="task"}catch{u="task"}d.navigate(u,"show",{uuid:I});let f=r.querySelector("rb-object-item");f&&f.scrollIntoView({behavior:"smooth",block:"center"})}catch{M.innerHTML='<div style="color:#888;padding:20px">Failed to load scenario. <a href="/trace" style="color:#667eea">Open full trace</a></div>'}}o()}
-//# sourceMappingURL=scenario-view-B6INBUUI.js.map
+//# sourceMappingURL=scenario-view-PAUR4PPN.js.map

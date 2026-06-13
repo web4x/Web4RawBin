@@ -45,7 +45,7 @@ export class RbUseCaseDetail extends HTMLElement {
         ${scenarioBrowserLinkFromIor(obj.uuid)}
       </div>
       <div class="dv-links">
-        <h4>Champagne Chain</h4>
+        <h4>Traceability Chain</h4>
         ${renderSingularChain(chain)}
         <h4>Forward Links</h4>
         ${renderLinks(this.graph, links)}
