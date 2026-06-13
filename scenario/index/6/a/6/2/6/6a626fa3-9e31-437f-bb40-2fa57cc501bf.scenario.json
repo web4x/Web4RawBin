@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6a626fa3-9e31-437f-bb40-2fa57cc501bf",
+    "name": "SelectionModel.select impl",
+    "description": "SelectionModel.select() method \u2014 clear + add + dispatch selection-changed.",
+    "sourceFile": "ior:file:src/public/ts/trace/selection-model.ts",
+    "sourceLine": 8,
+    "sourceMarker": "10f3d3d4-4451-4b8e-a88c-1f99cfa40086",
+    "tests": [
+      "ior:instance:7cba34a6-03ab-41db-9ac2-d0e76d1d6f71"
+    ]
+  },
+  "ownerIor": "ior:instance:10f3d3d4-4451-4b8e-a88c-1f99cfa40086"
+}
