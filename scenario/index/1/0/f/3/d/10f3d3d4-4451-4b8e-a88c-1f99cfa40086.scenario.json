@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "10f3d3d4-4451-4b8e-a88c-1f99cfa40086",
+    "name": "SelectionModel.init",
+    "description": "Singleton constructor. Private selected = new Set<string>(). Public select(ref), deselect(ref), toggle(ref), clear(), getSelected(). Dispatches selection-changed on document after every mutation.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:b57b8838-7342-468b-84d6-1a8c0b4b152b"
+}

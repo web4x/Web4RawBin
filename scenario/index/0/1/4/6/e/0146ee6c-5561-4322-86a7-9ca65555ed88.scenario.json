@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "0146ee6c-5561-4322-86a7-9ca65555ed88",
+    "name": "RbObjectItem.longPressMultiSelect",
+    "description": "Replace longPressCollapse (R19.92) with selectionModel.toggle(ref). 500ms timer unchanged. Toggle adds/removes from selection set. Item gets/loses [selected] attr. Icon-only (collapsed attr) no longer triggered by long-press.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+}

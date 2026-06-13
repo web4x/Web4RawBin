@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e76330fe-e29d-4587-b113-a1ed940ce62c",
+    "name": "RbDetailDrawer.removeDefaultHighlight",
+    "description": "Remove the initial open-highlight animation/flash. Drawer starts with transform:translateY(calc(100%-52px)) in chat-peek mode. No [open] attr on load. X close button preserved.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+}

@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "7d0a2205-5076-4b2d-a615-56d0ed1878d5",
+    "name": "drawer.removeDefaultHighlight",
+    "description": "R20.6h: remove the awkward default-drawer open-highlight (the drawer peek that flashes on load). Keep the X close button. Drawer starts in chat-mode (0 selected) without a visual flash.",
+    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "method": "ior:instance:e76330fe-e29d-4587-b113-a1ed940ce62c",
+    "tasks": [
+      "ior:instance:7047d04f-3226-46ff-a058-39f53f9aed58"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "39ad12f3-315e-403d-9722-c73a7c1c5a29",
+    "name": "drawer.selectionDriven",
+    "description": "R20.6g: consolidate 3 drawer paths (chat-sheet, detail-drawer, file-preview) into 1 selection-driven drawer. SelectionModel count drives content: 0=chat, 1=detail/preview, N=multi-detail. RoomView no longer owns drawer switching \u2014 SelectionModel events do. Direct-write drawer body from selection handler (S1/S2/D1/D2/D3 from req).",
+    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "method": "ior:instance:94f6e1f8-84a8-4ca5-9a44-6108ef6201bc",
+    "tasks": [
+      "ior:instance:7047d04f-3226-46ff-a058-39f53f9aed58"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

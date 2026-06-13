@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "bbc32bf3-ea35-4592-bbac-04085b7500f2",
+    "name": "objectItem.dragAllSelected",
+    "description": "R20.6f: dragging one selected item drags ALL selected items. onDragStart serializes selectionModel.getSelected() into dataTransfer (application/rb-object-refs = JSON array of refs). Drop target receives the batch.",
+    "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
+    "method": "ior:instance:5ac05259-20b4-4120-84d5-c1920d6b22da",
+    "tasks": [
+      "ior:instance:7047d04f-3226-46ff-a058-39f53f9aed58"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

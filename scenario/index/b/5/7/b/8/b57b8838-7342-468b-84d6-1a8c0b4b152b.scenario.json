@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "b57b8838-7342-468b-84d6-1a8c0b4b152b",
+    "name": "SelectionModel",
+    "description": "App-wide selection singleton. Holds selected-items array, emits selection-changed events. Drives drawer content (0 selected\u2192chat, 1\u2192detail, N\u2192multi-detail). Decouples item selection from drawer rendering.",
+    "methods": [
+      "ior:instance:10f3d3d4-4451-4b8e-a88c-1f99cfa40086",
+      "ior:instance:c3c70517-b56c-4765-94ae-cb677601f99c"
+    ]
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

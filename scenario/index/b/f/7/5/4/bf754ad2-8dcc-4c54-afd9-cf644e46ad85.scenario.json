@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "bf754ad2-8dcc-4c54-afd9-cf644e46ad85",
+    "name": "objectItem.tapSingleSelect",
+    "description": "R20.6c: single tap on item content (name/desc area) \u2192 selectionModel.select(ref) (clears previous, selects this one). Drawer shows detail view for the single selected item. Replaces navigate() for in-room context.",
+    "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
+    "method": "ior:instance:5cdfac82-0549-4a98-929a-cd4288929de7",
+    "tasks": [
+      "ior:instance:7047d04f-3226-46ff-a058-39f53f9aed58"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

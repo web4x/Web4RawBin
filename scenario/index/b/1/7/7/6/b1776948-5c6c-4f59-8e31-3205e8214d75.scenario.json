@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "b1776948-5c6c-4f59-8e31-3205e8214d75",
+    "name": "objectItem.selectedCSS",
+    "description": "R20.6e: rb-object-item[selected] gets distinct visual (border highlight, background tint). rb-object-item[active] = the last-tapped item (detail shown). CSS-only, no JS logic.",
+    "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
+    "method": "ior:instance:1f44dc44-f502-491f-b8cc-396fe38542e8",
+    "tasks": [
+      "ior:instance:7047d04f-3226-46ff-a058-39f53f9aed58"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

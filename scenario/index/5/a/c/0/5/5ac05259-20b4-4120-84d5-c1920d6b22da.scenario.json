@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "5ac05259-20b4-4120-84d5-c1920d6b22da",
+    "name": "RbObjectItem.dragAllSelected",
+    "description": "onDragStart: if this item is [selected], serialize all selected refs as JSON array in application/rb-object-refs dataTransfer. Ghost image = count badge overlay.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+}

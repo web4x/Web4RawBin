@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "2250545b-9259-414c-a5d9-7b9e4a3d5f91",
+    "name": "selectionModel.singleton",
+    "description": "R20.6a: SelectionModel is a singleton class. Holds Set<ref> of selected items. Emits 'selection-changed' CustomEvent on document. Any component subscribes. No direct coupling between items and drawer.",
+    "class": "ior:instance:b57b8838-7342-468b-84d6-1a8c0b4b152b",
+    "method": "ior:instance:10f3d3d4-4451-4b8e-a88c-1f99cfa40086",
+    "tasks": [
+      "ior:instance:7047d04f-3226-46ff-a058-39f53f9aed58"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

@@ -109,14 +109,22 @@ AFTER user taps › on Members:
 | Gesture | Target | Toggles | From → To |
 |---------|--------|---------|-----------|
 | **Tap › expander** | `.oi-expand` span | `children-open` attr | COLLAPSED ↔ EXPANDED |
-| **Long-press icon** (500ms) | `.oi-icon` span | `collapsed` attr | COLLAPSED/EXPANDED ↔ ICON-ONLY |
-| **Tap item card** (name/desc area) | `.oi-content` | Navigate / open drawer | — (not a state toggle) |
+| **Tap item card** (name/desc area) | `.oi-content` | `selected` attr (single-select) | Selects this item, deselects others → drawer shows detail |
+| **Long-press item** (500ms) | any area | `selected` attr (multi-toggle) | Adds/removes item from selection (additive, no clear) |
+| **Icon drag** | `.oi-icon` span | — | Drag selected items (if multiple selected, drags all) |
 
 ### Gesture details
 
 - **Expander tap:** `toggleAttribute('children-open')` → dispatches `toggle-children` CustomEvent → tree handler shows/hides `.tt-children`. Only present on items with `has-children`.
-- **Icon long-press:** 500ms touchstart timer → `toggleAttribute('collapsed')`. touchmove/touchend/dragstart cancel the timer (prevents accidental collapse during scroll/drag).
-- **Icon drag:** dragstart on `.oi-icon` (draggable="true"). Does NOT trigger collapse (dragstart cancels the long-press timer).
+- **Tap content:** `selectionModel.select(ref)` → clears previous, selects this one. Drawer shows detail view.
+- **Long-press (500ms):** `selectionModel.toggle(ref)` → additive multi-select. touchmove/touchend/dragstart cancel the timer.
+- **Icon drag:** dragstart on `.oi-icon` (draggable="true"). If item is [selected], drags ALL selected items via `application/rb-object-refs` JSON array.
+
+### ICON-ONLY state (state 3) — DEPRECATED per R20.6d
+
+State 3 (icon-only compact square) is **deprecated**. Long-press is reassigned from icon-only toggle to selection-toggle (R20.6d). The `collapsed` attribute and its CSS rules remain in code for backward compatibility but are no longer triggered by any gesture. Icon-only may be removed in a future sprint.
+
+**If icon-only is needed in the future**, it must use a NEW gesture (e.g., double-tap icon, or a menu action) — NOT long-press (which is now selection).
 
 ### Cursor CSS
 
@@ -131,11 +139,7 @@ AFTER user taps › on Members:
 ## State Transitions
 
 ```
-                    long-press icon
-    ┌──────────────────────────────────────┐
-    │                                      │
-    ▼                                      │
- ICON-ONLY ──── long-press icon ────► COLLAPSED (default)
+                                      COLLAPSED (default)
                                           │
                                     tap › │
                                           ▼
@@ -144,7 +148,17 @@ AFTER user taps › on Members:
                                     tap › │
                                           ▼
                                       COLLAPSED
+
+
+  Selection (orthogonal to collapse/expand):
+
+  UNSELECTED ──── tap content ────► SELECTED (single, clears others)
+  UNSELECTED ──── long-press ─────► SELECTED (additive, keeps others)
+  SELECTED   ──── long-press ─────► UNSELECTED (toggle off)
+  SELECTED   ──── tap content ────► SELECTED (single, clears others)
 ```
+
+ICON-ONLY (state 3) is **deprecated** — no gesture triggers it. See note above.
 
 ---
 

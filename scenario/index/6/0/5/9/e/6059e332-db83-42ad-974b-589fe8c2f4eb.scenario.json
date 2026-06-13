@@ -1,0 +1,36 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "6059e332-db83-42ad-974b-589fe8c2f4eb",
+    "id": "6059e332-db83-42ad-974b-589fe8c2f4eb",
+    "name": "DeFED.net Room",
+    "ownerToken": "c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+    "isPrivate": false,
+    "visibility": "by-invite",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1781374164980,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzsG8EnL/LCltbtIVqZ/n\nnA8J0YS+y8igi4fM2LNMjf5bMxneoq8hzgEsm1+TPJDAPQqATI8byN+v1K8rO9Be\nR2n9E6ymm2ltXAHokpwhs95bKMsEtgipKLGBWTmAi68RkNZkw2RCvBWjsxfKt6gI\nrX0YXfWdypsJTQYcQlU7ieTp/N851Y8eBYW2gI2QJGTYj/hwcajHZP8nMbYNf75k\n909JHPB48nohrl3YOL198Rkjcq01FzSjV7sL4BAvQjK008+fFoYoFGQn/8emargf\nJEp/cyxvgxrXXW2IAfIIYgiNIVGx6zmcCjPPek/4ss85yV9ByYqFgoGXAJg7aQaf\nKQIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+        "name": "Toronto Trinity",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1781374666464
+      }
+    ],
+    "files": [],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/6/0/5/9/e/6059e332-db83-42ad-974b-589fe8c2f4eb.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/c117f9fc-baf3-4666-adb5-bd7c2dfadff6/6059e332-db83-42ad-974b-589fe8c2f4eb.json"
+    ]
+  },
+  "ownerIor": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6"
+}

@@ -1,0 +1,70 @@
+@startuml r20-6-selection-model-chain
+!theme plain
+skinparam defaultFontSize 8
+title R20.6 — SelectionModel + 8 Atomics (singular chains)
+
+left to right direction
+
+package "T-selection-model" {
+
+  package "(a) Singleton" {
+    usecase "selectionModel.singleton\nuc:2250545b" as UCa
+    agent "SelectionModel.init\nclass:b57b8838\nmethod:10f3d3d4" as Ma
+    UCa --> Ma
+  }
+
+  package "(b) Empty→Chat" {
+    usecase "selectionModel.emptyShowsChat\nuc:842cffe0" as UCb
+    agent "SelectionModel.onEmptyShowChat\nclass:b57b8838\nmethod:c3c70517" as Mb
+    UCb --> Mb
+  }
+
+  package "(c) Tap→Single" {
+    usecase "objectItem.tapSingleSelect\nuc:bf754ad2" as UCc
+    agent "RbObjectItem.tapSingleSelect\nclass:3bc876b5\nmethod:5cdfac82" as Mc
+    UCc --> Mc
+  }
+
+  package "(d) Long-press→Multi" {
+    usecase "objectItem.longPressMultiSelect\nuc:c0bbed4c" as UCd
+    agent "RbObjectItem.longPressMultiSelect\nclass:3bc876b5\nmethod:0146ee6c" as Md
+    UCd --> Md
+  }
+
+  package "(e) Selected CSS" {
+    usecase "objectItem.selectedCSS\nuc:b1776948" as UCe
+    agent "RbObjectItem.selectedCSS\nclass:3bc876b5\nmethod:1f44dc44" as Me
+    UCe --> Me
+  }
+
+  package "(f) Drag All" {
+    usecase "objectItem.dragAllSelected\nuc:bbc32bf3" as UCf
+    agent "RbObjectItem.dragAllSelected\nclass:3bc876b5\nmethod:5ac05259" as Mf
+    UCf --> Mf
+  }
+
+  package "(g) Consolidate Drawers" {
+    usecase "drawer.selectionDriven\nuc:39ad12f3" as UCg
+    agent "RbDetailDrawer.selectionDriven\nclass:0dd08b2f\nmethod:94f6e1f8" as Mg
+    UCg --> Mg
+  }
+
+  package "(h) Remove Highlight" {
+    usecase "drawer.removeDefaultHighlight\nuc:7d0a2205" as UCh
+    agent "RbDetailDrawer.removeDefaultHighlight\nclass:0dd08b2f\nmethod:e76330fe" as Mh
+    UCh --> Mh
+  }
+}
+
+note bottom
+  3 Classes: SelectionModel (NEW b57b8838),
+  RbObjectItem (3bc876b5), RbDetailDrawer (0dd08b2f)
+
+  R20.6d: long-press REASSIGNED from icon-only to
+  selection-toggle. Icon-only (state 3) DEPRECATED.
+  item-view-states-standard.md updated.
+
+  Task: 7047d04f | Sprint: 64af2638 | Release: v0.6.7
+end note
+
+@enduml

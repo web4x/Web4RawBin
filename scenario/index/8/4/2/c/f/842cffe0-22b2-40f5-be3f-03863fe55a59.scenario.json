@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "842cffe0-22b2-40f5-be3f-03863fe55a59",
+    "name": "selectionModel.emptyShowsChat",
+    "description": "R20.6b: when selection is empty (0 items), the drawer shows the chat sheet (default state). Selection-changed listener checks count===0 \u2192 drawer renders chat content.",
+    "class": "ior:instance:b57b8838-7342-468b-84d6-1a8c0b4b152b",
+    "method": "ior:instance:c3c70517-b56c-4765-94ae-cb677601f99c",
+    "tasks": [
+      "ior:instance:7047d04f-3226-46ff-a058-39f53f9aed58"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
