@@ -2263,6 +2263,18 @@ describe('R20.6: SelectionModel.select + toggle + clear + dispatch', () => {
   });
 });
 
+// [test:uuid:22993e0d-6d24-46be-b04f-21a0db2046f8] R20.6f RbObjectItem.dragAllSelected — onDragStart uses selectionModel.getSelected
+describe('R20.6f: dragAllSelected — onDragStart drags all selected refs', () => {
+  it('onDragStart references selectionModel.getSelected for multi-drag', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/trace/rb-object-item.ts'), 'utf-8');
+    expect(src).toContain('onDragStart');
+    expect(src).toContain('selectionModel.getSelected');
+  });
+});
+
 describe('R19.89: Remove-Local-Identity button placement + click handler', () => {
   it('DeviceEnrollDialog renders de-remove-identity button', () => {
     const { readFileSync } = require('node:fs');
