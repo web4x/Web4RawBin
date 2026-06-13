@@ -5,7 +5,7 @@
 class SelectionModelImpl {
   private selected = new Set<string>();
 
-  // [impl:uuid:10f3d3d4-4451-4b8e-a88c-1f99cfa40086] SelectionModel.select
+  // [impl:uuid:6a626fa3-9e31-437f-bb40-2fa57cc501bf] SelectionModel.select
   select(ref: string): void { this.selected.add(ref); this.dispatch(); }
   deselect(ref: string): void { this.selected.delete(ref); this.dispatch(); }
   toggle(ref: string): void { if (this.selected.has(ref)) this.selected.delete(ref); else this.selected.add(ref); this.dispatch(); }
