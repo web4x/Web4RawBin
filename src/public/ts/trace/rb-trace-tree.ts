@@ -298,9 +298,8 @@ export class RbTraceTree extends HTMLElement {
       if (!res.ok) { this.innerHTML = '<div class="tt-empty">Not found</div>'; return; }
       const data = await res.json();
       if (ctrl.signal.aborted) return;
-      this.innerHTML = '';
+      const frag = document.createDocumentFragment();
       const rootNode = this.buildSeedNode(uuid, data.type, data.name, data.children || [], data.hasChildren);
-      this.appendChild(rootNode);
       const rootItem = rootNode.querySelector(':scope > .tt-row > rb-object-item');
       const rootKids = rootNode.querySelector(':scope > .tt-children') as HTMLElement;
       if (rootItem && rootKids) {
@@ -311,6 +310,9 @@ export class RbTraceTree extends HTMLElement {
           if (ci && ck) { ci.setAttribute('children-open', ''); ck.style.display = ''; }
         });
       }
+      frag.appendChild(rootNode);
+      this.innerHTML = '';
+      this.appendChild(frag);
       this.computeBadges();
       this.prefetchVisibleLayer();
       this._seedAbort = null;
