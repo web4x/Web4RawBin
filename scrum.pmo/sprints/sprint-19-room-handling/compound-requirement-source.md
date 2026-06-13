@@ -301,3 +301,11 @@
 - **R19.92** (2026-06-13): in-room file items use SAME data path as /trace (scenario-unit fetch from Room.files[] IOR), not bespoke WS feed. DRY on data layer (R19.90 was component layer).
 - **R19.93** (2026-06-13): file detail view gets a PREVIEW button to open ContentPreviewer (currently missing — has Scenario/Parent but no preview).
   > TRON: "in the first two pictures the files perfectly work. why not IN the rooms the same way. add on the file details view a preview button and finally fix the in room file items"
+
+### Version header + main-route cache reset + profile UUID (R19.94-96)
+- **R19.94** (2026-06-13): version string (v0.5.x · rawbin) in app header on ALL screens — small, undisturbing, visible on screenshots.
+  > TRON: "add version to the header small undisturbing so you see it on all screenshots"
+- **R19.95** (2026-06-13): RED Reset PWA Cache button on / main route (same as R19.45 offline page, available when app loads).
+  > TRON: "add to the / main route a red reset pwa cache button"
+- **R19.96** (2026-06-13): BUG — profile no longer shows user UUID. Restore UUID display.
+  > TRON: "the profile does not show my uuid as a user anymore"

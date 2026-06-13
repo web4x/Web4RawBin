@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "a5e4fb82-f717-43b0-bcdd-2c73904c5599",
+    "altId": "R19.94",
+    "name": "R19.94: App header shows version string on all screens — small, undisturbing.",
+    "description": "The app HEADER MUST display the current version (e.g. 'v0.5.x · rawbin') on ALL screens. The version text is small and undisturbing (low contrast, small font) so it doesn't dominate the UI but is always visible — especially useful on screenshots for bug reports and QA.",
+    "tronQuote": "> TRON: \"add version to the header small undisturbing so you see it on all screenshots\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
