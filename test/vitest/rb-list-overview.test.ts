@@ -32,6 +32,7 @@ function items(el: RbListOverview): string[] {
 describe('T106 rb-list-overview', () => {
   afterEach(() => { document.body.innerHTML = ''; });
 
+  // [test:uuid:7147ca60-adc0-479f-8923-e319baad83d0] R19.90 RbTraceTree.setItems — dedicated (renders items via setter)
   it('renders one rb-object-item per ref via setItems (AC1)', async () => {
     const g = graph();
     const el = document.createElement('rb-list-overview') as RbListOverview;

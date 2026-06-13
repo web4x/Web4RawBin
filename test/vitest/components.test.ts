@@ -2102,8 +2102,8 @@ describe('R19.84: handle drag resizes drawer to 95vh, close below 120px', () => 
 // ═══════════════════════════════════════════════════════════════════════════
 
 // ═══════════════════════════════════════════════════════════════════════════
-// R19.90: diff-render preserves existing items, appends new, removes departed
-// [test:uuid:837fe19f-fcff-45df-b711-973f00f746f4] R19.90 diffRenderItems
+// R19.88.A: diff-render preserves existing items, appends new, removes departed
+// [test:uuid:f825f9fe-9818-48dc-8183-8362dd1ac01f] R19.88.A diffRenderItems — dedicated (un-shared from 837fe19f)
 // Honest: jsdom guards diff-logic; Tron device (mac+iOS) = seal.
 // ═══════════════════════════════════════════════════════════════════════════
 
