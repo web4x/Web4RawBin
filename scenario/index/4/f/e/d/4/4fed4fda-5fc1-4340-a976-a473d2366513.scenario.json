@@ -7,9 +7,7 @@
     "methodName": "init",
     "sourceFile": "ior:file:src/ts/server/Room.ts",
     "implementations": [
-      "ior:instance:2ab8a3dd-4b6d-420c-bc1a-f3fac85ec9b7",
-      "ior:instance:9fbb1f6e-ad24-45ac-bc5d-148d622f0237",
-      "ior:instance:4c8a91a5-35af-48b1-a2e9-4bbd9f18bc10"
+      "ior:instance:2ab8a3dd-4b6d-420c-bc1a-f3fac85ec9b7"
     ],
     "parent": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
     "unitLinks": []
