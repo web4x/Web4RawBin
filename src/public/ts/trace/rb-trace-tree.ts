@@ -303,7 +303,14 @@ export class RbTraceTree extends HTMLElement {
       this.appendChild(rootNode);
       const rootItem = rootNode.querySelector(':scope > .tt-row > rb-object-item');
       const rootKids = rootNode.querySelector(':scope > .tt-children') as HTMLElement;
-      if (rootItem && rootKids) { rootItem.setAttribute('children-open', ''); rootKids.style.display = ''; }
+      if (rootItem && rootKids) {
+        rootItem.setAttribute('children-open', ''); rootKids.style.display = '';
+        rootKids.querySelectorAll(':scope > .tt-node').forEach(cn => {
+          const ci = cn.querySelector(':scope > .tt-row > rb-object-item');
+          const ck = cn.querySelector(':scope > .tt-children') as HTMLElement;
+          if (ci && ck) { ci.setAttribute('children-open', ''); ck.style.display = ''; }
+        });
+      }
       this.computeBadges();
       this.prefetchVisibleLayer();
       this._seedAbort = null;
