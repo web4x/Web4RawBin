@@ -63,6 +63,7 @@ export class DeviceEnrollDialog {
     });
 
     // [impl:uuid:65af0f55-cd53-4fca-97b4-4b9684dfd76e] R19.89 removeLocalIdentity
+    // [impl:uuid:351fc983-0969-462a-95b1-3f258b40e682] R19.72 removeLocalIdentity (own impl)
     document.getElementById('de-remove-identity')?.addEventListener('click', () => {
       const confirmed = prompt('This will permanently delete your identity from this device.\nThis cannot be undone.\n\nType DELETE to confirm:');
       if (confirmed !== 'DELETE') return;
