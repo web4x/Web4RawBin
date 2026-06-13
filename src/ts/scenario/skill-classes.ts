@@ -100,6 +100,7 @@ export class Chain {
     const m = this.model(uuid);
     if (!m) return false;
     if (m.orphanByDesign === true || m.orphanByDesign === 'true') return true;
+    if (m.supersededBy) return true; // T-TOOL-1: superseded reqs are not separate chains
     return String(m.tags || '').includes('orphanByDesign');
   }
 
@@ -473,6 +474,24 @@ export class Chain {
         const text = fs.readFileSync(f, 'utf-8');
         for (const m of text.matchAll(new RegExp(`\\[${prefix}:uuid:([0-9a-f-]{36})\\]`, 'gi'))) {
           if (!this.idx.has(m[1].toLowerCase())) findings.push({ kind: 'orphan-marker', uuid: m[1], detail: `[${prefix}:uuid:] in ${path.relative(this.srcDir + '/..', f)} has NO unit on disk` });
+        }
+      }
+    }
+    // (e) T-TOOL-2: superseded reqs that still have complete chains = parallel-chain inflation
+    const { hasRealImpl, hasRealTest } = this.markerScanners();
+    const implRefs = this.implRefCounts();
+    for (const uuid of this.idx.list()) {
+      if (this.unitType(uuid) !== 'Requirement') continue;
+      const m = this.model(uuid);
+      const supersedes = (m?.supersedes as string[]) || [];
+      for (const supIor of supersedes) {
+        const supUuid = ior(supIor);
+        const supM = this.model(supUuid);
+        if (!supM?.supersededBy) continue;
+        const supRows = this.walkReq(supUuid, hasRealImpl, hasRealTest, implRefs);
+        if (supRows.some(r => r.complete)) {
+          findings.push({ kind: 'parallel-chain', uuid: supUuid,
+            detail: `superseded by ${short(uuid)} but still has a complete chain — retire or orphanByDesign` });
         }
       }
     }
