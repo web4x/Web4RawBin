@@ -329,8 +329,7 @@ export class RbTraceTree extends HTMLElement {
       let loaded = children.length > 0;
       const branchPath = new Set(ancestors || []); branchPath.add(uuid);
       for (const child of children) {
-        const childOpen = shouldStartOpen && (child.type === 'collection' || (child as any).children?.length > 0);
-        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, (child as any).children || [], child.hasChildren, new Set(branchPath), (child as any).chainMethod, (child as any).description, childOpen));
+        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, (child as any).children || [], child.hasChildren, new Set(branchPath), (child as any).chainMethod, (child as any).description, shouldStartOpen));
       }
       node.appendChild(kids);
       item.addEventListener('toggle-children', ((e: CustomEvent) => {
