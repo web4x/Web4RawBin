@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ebac5838-34fe-43ee-826f-776277be7ad8",
+    "name": "RbHeader.showBuildVersion",
+    "description": "Render BUILD_VERSION constant (from esbuild define or import.meta) in header. NOT /api/config \u2014 must be the bundle's compiled-in version so stale cache shows old version.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:15c9f4ba-ed81-4073-b42b-6826d5cab634"
+}

@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "cd997cf4-217d-419b-bc6a-3b2c7db5960f",
+    "name": "header.showBuildVersion",
+    "description": "Header shows build-time version constant (compiled into JS bundle, NOT from /api/config). Stale cached bundle shows its OLD version \u2014 makes stale-SW instantly visible.",
+    "class": "ior:instance:15c9f4ba-ed81-4073-b42b-6826d5cab634",
+    "method": "ior:instance:ebac5838-34fe-43ee-826f-776277be7ad8",
+    "tasks": [
+      "ior:instance:0189ffbd-ef0a-4c8e-930c-d588061fe456"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

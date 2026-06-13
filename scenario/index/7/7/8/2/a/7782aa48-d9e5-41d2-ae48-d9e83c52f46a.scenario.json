@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "7782aa48-d9e5-41d2-ae48-d9e83c52f46a",
+    "name": "profileEditor.showUserUuid",
+    "description": "Profile page shows the user's UUID \u2014 restore the missing display field from profile model.",
+    "class": "ior:instance:cb9f4e58-6f31-405f-90bd-c0c83d58df40",
+    "method": "ior:instance:53952c69-7744-4b39-9b1f-9ea07a49d27e",
+    "tasks": [
+      "ior:instance:b0576d79-cee9-4710-bbe6-c1cec8622f60"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

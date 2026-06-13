@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "15c9f4ba-ed81-4073-b42b-6826d5cab634",
+    "name": "RbHeader",
+    "description": "App header component \u2014 title, nav, version display.",
+    "methods": [
+      "ior:instance:ebac5838-34fe-43ee-826f-776277be7ad8"
+    ]
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

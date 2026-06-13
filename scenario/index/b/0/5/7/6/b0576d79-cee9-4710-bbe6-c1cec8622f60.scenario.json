@@ -4,13 +4,15 @@
     "uuid": "b0576d79-cee9-4710-bbe6-c1cec8622f60",
     "name": "T-profile-uuid-restore: restore the user's UUID display on the profile page",
     "slug": "profile-page-uuid-display-restore",
-    "description": "R19.96 fix (PRIORITY 3): the profile page no longer shows the user's UUID (regression) — it used to display it for sharing / account linking. RESTORE the UUID display in the profile view: show the full UUID (or short form with copy-to-clipboard) so users can identify their account and share it for account linking. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27). Architect attaches useCases[]/chain (single-owner standard). User-facing UI → prefer E2E/screenshot verification.",
+    "description": "R19.96 fix (PRIORITY 3): the profile page no longer shows the user's UUID (regression) \u2014 it used to display it for sharing / account linking. RESTORE the UUID display in the profile view: show the full UUID (or short form with copy-to-clipboard) so users can identify their account and share it for account linking. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27). Architect attaches useCases[]/chain (single-owner standard). User-facing UI \u2192 prefer E2E/screenshot verification.",
     "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [ ] implementing (expert)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:5c325047-f190-4528-a975-df14fe5a6f18"
     ],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:7782aa48-d9e5-41d2-ae48-d9e83c52f46a"
+    ],
     "subtasks": [],
     "tasks": [],
     "createdAt": "2026-06-13",
