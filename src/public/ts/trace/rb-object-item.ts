@@ -61,12 +61,8 @@ export class RbObjectItem extends HTMLElement {
       this._initialized = true;
       this.addEventListener('click', this.onClickDelegate);
       this.addEventListener('touchend', this.onTouchTap, { passive: true });
-      // [impl:uuid:0146ee6c-5561-4322-86a7-9ca65555ed88] R20.6 longPressMultiSelect
       this.addEventListener('touchstart', () => {
-        this._longPressTimer = setTimeout(() => {
-          const { ref } = this.parts();
-          if (ref) { selectionModel.toggle(ref); this.syncSelected(); this._touchHandled = true; }
-        }, 500);
+        this._longPressTimer = setTimeout(() => this.longPressToggle(), 500);
       }, { passive: true });
       this.addEventListener('touchend', () => { if (this._longPressTimer) { clearTimeout(this._longPressTimer); this._longPressTimer = null; } }, { passive: true });
       this.addEventListener('touchmove', () => { if (this._longPressTimer) { clearTimeout(this._longPressTimer); this._longPressTimer = null; } }, { passive: true });
@@ -77,6 +73,13 @@ export class RbObjectItem extends HTMLElement {
     this.syncSelected();
   }
 
+  // [impl:uuid:cc1dcd0e-93b2-43d5-80bb-b162cd685403] RbObjectItem.handleTapSelect
+  handleTapSelect(): void {
+    const { ref } = this.parts();
+    if (ref) { selectionModel.clear(); selectionModel.select(ref); this.syncSelected(); }
+  }
+
+  // [impl:uuid:4256aef7-3aee-432f-bab0-70dfc3c26e7a] RbObjectItem.simulateLongPress
   simulateLongPress(): void {
     const { ref } = this.parts();
     if (ref) { selectionModel.toggle(ref); this.syncSelected(); }
@@ -113,7 +116,7 @@ export class RbObjectItem extends HTMLElement {
     return { type, uuid, ref };
   }
 
-  // [impl:uuid:5ac05259-a1b2-4c3d-8e4f-5a6b7c8d9e09] R20.6 dragAllSelected
+  // [impl:uuid:5ac05259-20b4-4120-84d5-c1920d6b22da] R20.6f dragAllSelected
   private onDragStart = (e: DragEvent): void => {
     const { type, uuid, ref } = this.parts();
     const dt = e.dataTransfer;
@@ -147,6 +150,12 @@ export class RbObjectItem extends HTMLElement {
     }
   };
 
+  // [impl:uuid:4256aef7-7580-4410-a0f3-987987d71cfd] R20.6d longPressToggle
+  private longPressToggle(): void {
+    const { ref } = this.parts();
+    if (ref) { selectionModel.toggle(ref); this.syncSelected(); this._touchHandled = true; }
+  }
+
 // [impl:uuid:4ffa86ed-ca7b-4e73-9371-89b113e2ae77] impl:RbObjectItem.onClickDelegate (split for RbObjectItem.on
   // [impl:uuid:8cc75226-527e-4c87-bed8-9885e98d46e1] RbObjectItem.onClickDelegate
   private onClickDelegate = (e: Event): void => {
@@ -165,13 +174,7 @@ export class RbObjectItem extends HTMLElement {
       this.dispatchEvent(new CustomEvent('toggle-children', { bubbles: true, detail: { open } }));
       return;
     }
-    // [impl:uuid:6b21088e-a1b2-4c3d-8e4f-5a6b7c8d9e0b] BUG2 tapSwitchToggle
-    const { ref } = this.parts();
-    if (ref) {
-      selectionModel.clear();
-      selectionModel.select(ref);
-      this.syncSelected();
-    }
+    this.handleTapSelect();
   };
 
   render(): void {
