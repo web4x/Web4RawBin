@@ -1,0 +1,5 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {"uuid": "351fc983-0969-462a-95b1-3f258b40e682", "name": "ProfileEditor.removeLocalIdentity impl (moved to DeviceEnrollDialog R19.89)", "sourceFile": "ior:file:src/public/ts/ProfileEditor.ts", "sourceLine": 154, "tests": []},
+  "ownerIor": "ior:instance:27e289a5-e948-4a40-8eeb-52cdc10e3b0d"
+}

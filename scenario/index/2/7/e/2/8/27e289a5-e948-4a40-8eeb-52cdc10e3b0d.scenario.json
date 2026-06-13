@@ -6,7 +6,7 @@
     "description": "ProfileEditor.ts: red button below secret-code field. onClick: show danger modal with warning text + confirm input (type DELETE or re-enter 4-digit secret). On confirm: for each of 12 rawbin-* keys: localStorage.removeItem(key). Then ws.close(), location.reload(). New session generates fresh playerToken+deviceId UUIDs \u2192 profile gate (uncommitted).",
     "sourceFile": "ior:file:src/public/ts/ProfileEditor.ts",
     "implementations": [
-      "ior:instance:65af0f55-cd53-4fca-97b4-4b9684dfd76e"
+      "ior:instance:351fc983-0969-462a-95b1-3f258b40e682"
     ],
     "tests": []
   },
