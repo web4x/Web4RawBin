@@ -6,11 +6,13 @@
     "name": "R20.2: Default detail drawer nudge becomes the wide grab-bar from the chat drawer.",
     "description": "The default DetailViewContainer (rb-detail-drawer) nudge is a tiny grey stub pill + X button (BAD UX — not discoverable as a drag handle). The chat drawer has a WIDE GRAB-BAR that is the correct reference. FIX: the default detail drawer nudge MUST render the SAME wide grab-bar as the chat drawer — visually identical, functionally identical (drag-resize per R19.84). One DRY nudge/grab-bar component shared across both drawers.",
     "tronQuote": "> TRON: \"the second image has the chat drawer nudge. the first image shows the bad nudge in the default detail container. fix it with full traceability.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:fe8c43a5-cd15-4aed-ac5b-97df558d8fea"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
-    "parent": null,
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "intendedChain": {
       "useCase": "detailDrawer.showGrabBar — default detail drawer renders the wide grab-bar (matching chat drawer), not the stub+X",
       "class": "RbDetailDrawer",
@@ -24,5 +26,5 @@
     ],
     "crossRefNote": "R19.84 (nudge drag-resizes drawer) defined the interaction. R19.79 (nudge visible) added the visual handle. R20.2 fixes the VISUAL: the default drawer's nudge must match the chat drawer's wide grab-bar, not be a stub pill."
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
