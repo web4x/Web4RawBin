@@ -299,17 +299,7 @@ export class RbTraceTree extends HTMLElement {
       const data = await res.json();
       if (ctrl.signal.aborted) return;
       const frag = document.createDocumentFragment();
-      const rootNode = this.buildSeedNode(uuid, data.type, data.name, data.children || [], data.hasChildren);
-      const rootItem = rootNode.querySelector(':scope > .tt-row > rb-object-item');
-      const rootKids = rootNode.querySelector(':scope > .tt-children') as HTMLElement;
-      if (rootItem && rootKids) {
-        rootItem.setAttribute('children-open', ''); rootKids.style.display = '';
-        rootKids.querySelectorAll(':scope > .tt-node').forEach(cn => {
-          const ci = cn.querySelector(':scope > .tt-row > rb-object-item');
-          const ck = cn.querySelector(':scope > .tt-children') as HTMLElement;
-          if (ci && ck) { ci.setAttribute('children-open', ''); ck.style.display = ''; }
-        });
-      }
+      const rootNode = this.buildSeedNode(uuid, data.type, data.name, data.children || [], data.hasChildren, undefined, undefined, undefined, true);
       frag.appendChild(rootNode);
       this.innerHTML = '';
       this.appendChild(frag);
@@ -319,7 +309,7 @@ export class RbTraceTree extends HTMLElement {
     } catch (e: any) { if (e?.name !== 'AbortError') { this.innerHTML = '<div class="tt-empty">Failed to load</div>'; this._seedAbort = null; } }
   }
 
-  private buildSeedNode(uuid: string, type: string, name: string, children: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean; chainMethod?: { uuid: string; type: string; name: string } }[], hasChildren?: boolean, ancestors?: Set<string>, chainMethod?: { uuid: string; type: string; name: string }, description?: string): HTMLElement {
+  private buildSeedNode(uuid: string, type: string, name: string, children: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean; chainMethod?: { uuid: string; type: string; name: string } }[], hasChildren?: boolean, ancestors?: Set<string>, chainMethod?: { uuid: string; type: string; name: string }, description?: string, shouldStartOpen?: boolean): HTMLElement {
     const node = document.createElement('div');
     node.className = 'tt-node';
     if (ancestors && ancestors.has(uuid)) return node;
@@ -328,18 +318,19 @@ export class RbTraceTree extends HTMLElement {
     const item = document.createElement('rb-object-item') as any;
     const showExpander = children.length > 0 || hasChildren === true;
     const itemRef = `${(type || 'task').toLowerCase()}:${uuid}`;
-    item.data = { ref: itemRef, type: (type || 'task').toLowerCase(), title: name || uuid, ...(description ? { description } : {}), ...(showExpander ? { 'has-children': '' } : {}) };
+    item.data = { ref: itemRef, type: (type || 'task').toLowerCase(), title: name || uuid, ...(description ? { description } : {}), ...(showExpander ? { 'has-children': '' } : {}), ...(shouldStartOpen && showExpander ? { 'children-open': '' } : {}) };
     console.log(`[buildSeedNode] ref=${itemRef} children=${children.length} hasChildren=${hasChildren}`);
     row.appendChild(item);
     node.appendChild(row);
     if (showExpander) {
       const kids = document.createElement('div');
       kids.className = 'tt-children';
-      kids.style.display = 'none';
+      kids.style.display = shouldStartOpen ? '' : 'none';
       let loaded = children.length > 0;
       const branchPath = new Set(ancestors || []); branchPath.add(uuid);
       for (const child of children) {
-        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, (child as any).children || [], child.hasChildren, new Set(branchPath), (child as any).chainMethod, (child as any).description));
+        const childOpen = shouldStartOpen && (child.type === 'collection' || (child as any).children?.length > 0);
+        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, (child as any).children || [], child.hasChildren, new Set(branchPath), (child as any).chainMethod, (child as any).description, childOpen));
       }
       node.appendChild(kids);
       item.addEventListener('toggle-children', ((e: CustomEvent) => {
