@@ -4,7 +4,9 @@
     "uuid": "53952c69-7744-4b39-9b1f-9ea07a49d27e",
     "name": "ProfileEditor.showUserUuid",
     "description": "Render the user's UUID (from profile.uuid or playerToken) in the profile page template.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:5b438bb9-1602-4890-9c09-407606a28d6c"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:cb9f4e58-6f31-405f-90bd-c0c83d58df40"
