@@ -4,7 +4,10 @@
     "uuid": "01771d5b-9195-4680-99ac-334266d85aa0",
     "name": "RbDetailDrawer.dragResize",
     "description": "Handle touchmove on .drawer-handle to resize drawer height. startHeight - dy, clamped [120, 95vh]. Below 120 = close.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:01771d5b-a1b2-4c3d-8e4f-5a6b7c8d9e0f",
+      "ior:instance:c23f3022-0d63-496c-87fd-ded59d4c24c7"
+    ],
     "tests": [
       "ior:instance:beea8c64-c42c-4e16-a1db-79958be53a0e"
     ]

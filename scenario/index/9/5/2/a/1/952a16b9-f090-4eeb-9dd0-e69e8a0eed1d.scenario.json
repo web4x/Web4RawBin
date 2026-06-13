@@ -4,7 +4,9 @@
     "uuid": "952a16b9-f090-4eeb-9dd0-e69e8a0eed1d",
     "name": "RoomView.renderAllFiles",
     "description": "Ensure identical files render across all rooms without per-room filtering.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:e3fad3ac-a09f-4a4c-88ce-78e0ca273cc0"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed"

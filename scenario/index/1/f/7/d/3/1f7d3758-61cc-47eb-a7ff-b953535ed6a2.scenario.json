@@ -4,7 +4,9 @@
     "uuid": "1f7d3758-61cc-47eb-a7ff-b953535ed6a2",
     "name": "RbTraceTree.setItems",
     "description": "Public method for room mode: accepts TreeNode[] roots, clears tree, builds nodes via buildSeedNode (already shape-compatible), computes badges. No fetch \u2014 data provided by caller.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:ee897257-f1f8-40cd-a8ae-00c4b4b6092f"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e"

@@ -5,7 +5,8 @@
     "name": "RbDetailDrawer.filePreviewButton",
     "description": "Render a Preview button in byTypeRender for FileUnit type. On click, invoke ContentPreviewer (renderContentPreview + loadTextPreview + wireUrlActions) for the file UUID.",
     "implementations": [
-      "ior:instance:371a655e-0e55-408a-8963-495dd091b953"
+      "ior:instance:371a655e-0e55-408a-8963-495dd091b953",
+      "ior:instance:f94da2cd-e818-4f8b-be4c-b0fc30a0d689"
     ],
     "tests": []
   },
