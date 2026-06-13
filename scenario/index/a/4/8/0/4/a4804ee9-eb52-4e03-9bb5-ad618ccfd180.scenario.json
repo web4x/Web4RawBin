@@ -6,9 +6,7 @@
     "sourceFile": "src/public/ts/trace/icons.ts",
     "sourceLine": 6,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:24be2c0c-c347-4b33-a651-ac7b5486d972"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

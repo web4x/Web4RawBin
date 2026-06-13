@@ -6,9 +6,7 @@
     "sourceFile": "src/ts/server/trace-cli.ts",
     "sourceLine": 6,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:6835fff4-79bb-467a-8df5-c13563563a40"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

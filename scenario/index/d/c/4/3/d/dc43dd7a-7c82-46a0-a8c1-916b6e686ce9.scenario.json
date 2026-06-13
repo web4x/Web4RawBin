@@ -6,9 +6,7 @@
     "sourceFile": "src/ts/scenario/skill-classes.ts",
     "sourceLine": 10,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:2ef0de37-2466-4ea1-9c60-1af60632d2ba"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

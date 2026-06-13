@@ -6,9 +6,7 @@
     "sourceFile": "src/public/ts/RoomView.ts",
     "sourceLine": 1,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:e12ba2fd-5948-4060-b3ee-847d5a857559"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

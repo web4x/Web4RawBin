@@ -5,9 +5,7 @@
     "name": "ContentPreviewer.touchActionFix impl",
     "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
     "sourceLine": 19,
-    "tests": [
-      "ior:instance:fdeb8b19-55ea-4291-9976-df455d5a37f4"
-    ]
+    "tests": []
   },
   "ownerIor": "ior:instance:5916cb81-68eb-46ef-b95d-4436c55df93b"
 }

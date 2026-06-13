@@ -6,9 +6,7 @@
     "sourceFile": "src/ts/scenario/trace-tree.ts",
     "sourceLine": 5,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

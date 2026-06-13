@@ -6,9 +6,7 @@
     "sourceFile": "src/public/ts/components/rb-code-editor.ts",
     "sourceLine": 1,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:e41d6814-b990-4e27-9cd3-622f134da72f"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

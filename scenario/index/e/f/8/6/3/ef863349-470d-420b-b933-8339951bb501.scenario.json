@@ -6,9 +6,7 @@
     "sourceFile": "src/public/ts/app.ts",
     "sourceLine": 1,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:0729010a-803d-462b-922e-bde7812004e4"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

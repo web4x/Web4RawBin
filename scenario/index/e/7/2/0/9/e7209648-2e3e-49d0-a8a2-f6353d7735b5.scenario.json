@@ -6,9 +6,7 @@
     "sourceFile": "src/ts/shared/MessageTypes.ts",
     "sourceLine": 1,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:8b8a203c-70e1-4ad4-9242-fa255b7782ee"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

@@ -6,9 +6,7 @@
     "sourceFile": "src/ts/scenario/source-location.ts",
     "sourceLine": 4,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:e28140df-db48-4274-8641-3db7345c7ddf"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

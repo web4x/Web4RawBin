@@ -6,9 +6,7 @@
     "sourceFile": "src/ts/scenario/generator.ts",
     "sourceLine": 9,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:cac609fd-7a3f-4f21-9727-56619227a99b"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

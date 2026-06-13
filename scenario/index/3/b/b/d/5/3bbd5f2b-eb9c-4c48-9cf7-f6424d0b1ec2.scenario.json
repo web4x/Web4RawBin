@@ -6,9 +6,7 @@
     "sourceFile": "src/public/ts/ProfileSheet.ts",
     "sourceLine": 1,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:a73a4bf2-97c0-4af4-833a-5689b038f059"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

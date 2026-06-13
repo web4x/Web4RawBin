@@ -6,9 +6,7 @@
     "sourceFile": "src/public/ts/scenario-view.ts",
     "sourceLine": 8,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:aea14f66-b93d-4d17-81db-c9e1981e8440"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

@@ -6,9 +6,7 @@
     "sourceFile": "src/public/ts/components/rb-editor-toolbar.ts",
     "sourceLine": 1,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:d961a4f4-5be5-4729-b5c7-3131665a311e"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

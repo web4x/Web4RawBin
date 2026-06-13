@@ -6,9 +6,7 @@
     "sourceFile": "src/public/ts/components/rb-overlay.ts",
     "sourceLine": 1,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:6c3405da-37fc-4e49-9d82-7fd265044d8e"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

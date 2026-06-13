@@ -6,9 +6,7 @@
     "sourceFile": "src/public/ts/edit.ts",
     "sourceLine": 2,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:163c8e76-744e-4359-8939-71b07a17777b"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }

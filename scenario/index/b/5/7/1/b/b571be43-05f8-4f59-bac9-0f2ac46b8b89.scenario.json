@@ -6,9 +6,7 @@
     "sourceFile": "src/ts/server/Migration.ts",
     "sourceLine": 12,
     "unitLinks": [],
-    "tests": [
-      "ior:instance:30260096-824b-42c3-98e9-46ddcde01ca0"
-    ]
+    "tests": []
   },
   "ownerIor": null
 }
