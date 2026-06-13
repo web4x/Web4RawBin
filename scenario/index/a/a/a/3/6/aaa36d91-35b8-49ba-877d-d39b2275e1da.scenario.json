@@ -2,8 +2,8 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "aaa36d91-35b8-49ba-877d-d39b2275e1da",
-    "altId": "R19.97",
-    "name": "R19.97: One link still renders broken in md-safari room — identify and fix.",
+    "altId": "R19.99",
+    "name": "R19.99: One link still renders broken in md-safari room \u2014 identify and fix.",
     "description": "BUG (v0.5.228, desktop Chrome macOS): one link in the md-safari room still renders broken (non-clickable, wrong href, or missing target). Identify which link it is and fix. All other links in the room work.",
     "tronQuote": "> PO relay (Tron v0.5.228 desktop Chrome): one link still renders broken in md-safari room.",
     "tasks": [],

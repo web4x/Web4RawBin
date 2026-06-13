@@ -2,10 +2,10 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "ca4f8758-0267-4ae4-9723-f5b87ff8a593",
-    "altId": "R19.98",
-    "name": "R19.98: Identical files must render in ALL rooms — no per-room stale-cache inversion.",
-    "description": "BUG (v0.5.228): identical files in the SYSTEM TEST room do NOT render for Tron, while the md-safari room with the same files DOES render them. This is an inversion — the same data renders in one room but not another. Likely per-room stale cache or per-room scenario-unit load inconsistency. FIX: file rendering must be deterministic per FileUnit UUID regardless of which room displays it. If the FileUnit exists in the index and is in Room.files[], it renders. No per-room cache should suppress rendering.",
-    "tronQuote": "> PO relay (Tron v0.5.228): identical files in SYSTEM TEST room don't render while md-safari DOES — inversion, likely per-room stale cache.",
+    "altId": "R19.100",
+    "name": "R19.100: Identical files must render in ALL rooms \u2014 no per-room stale-cache inversion.",
+    "description": "BUG (v0.5.228): identical files in the SYSTEM TEST room do NOT render for Tron, while the md-safari room with the same files DOES render them. This is an inversion \u2014 the same data renders in one room but not another. Likely per-room stale cache or per-room scenario-unit load inconsistency. FIX: file rendering must be deterministic per FileUnit UUID regardless of which room displays it. If the FileUnit exists in the index and is in Room.files[], it renders. No per-room cache should suppress rendering.",
+    "tronQuote": "> PO relay (Tron v0.5.228): identical files in SYSTEM TEST room don't render while md-safari DOES \u2014 inversion, likely per-room stale cache.",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
@@ -15,7 +15,7 @@
       "ior:instance:124d9eec-0c46-4f45-8640-b7e14618d214",
       "ior:instance:71a8954e-a2b6-4b8e-936f-825646aa76aa"
     ],
-    "crossRefNote": "R19.46 (Room.files[] as source of truth) and R19.92 (same data path as /trace) — if both are correct, file rendering should be room-agnostic. R19.98 identifies a per-room inconsistency that violates this."
+    "crossRefNote": "R19.46 (Room.files[] as source of truth) and R19.92 (same data path as /trace) \u2014 if both are correct, file rendering should be room-agnostic. R19.98 identifies a per-room inconsistency that violates this."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
