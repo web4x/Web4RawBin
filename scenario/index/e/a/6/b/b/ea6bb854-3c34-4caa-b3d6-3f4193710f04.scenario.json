@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "ea6bb854-3c34-4caa-b3d6-3f4193710f04",
+    "altId": "R19.97",
+    "name": "R19.97: rb-object-item connectedCallback must defer first render (queueMicrotask) to avoid paint-interleave init race.",
+    "description": "ROOT-CAUSE (case-5, architect-diagnosed) of the OPEN desktop-Chrome 'first-N items render icon-only / not interactive' bug: in headed Chrome, the connectedCallback cascade interleaves with paint, so the first N rb-object-item instances paint before their interactive setup completes. FIX: defer the first render/setup in rb-object-item.connectedCallback via queueMicrotask (or equivalent) so the callback cascade completes before paint — every item initializes fully before it is shown. Complements R19.88 (whenDefined gate) + R19.88.A (diff-render); this addresses the headed-Chrome paint-interleave specifically.",
+    "tronQuote": "(architect-sourced root-cause refinement of R19.88 — no new Tron quote; req-eng to canonicalize header if Tron re-states. Symptom origin: R19.88 'some items render icon-only/dont work', desktop-Chrome variant.)",
+    "tasks": [
+      "ior:instance:aee9e758-bdfe-427a-aaa3-e8f00cbab48f"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "refinementOf": "ior:instance:26b5f7c1-6a36-4bb2-bcae-cb234533afff",
+    "refinementOfNote": "Refines R19.88 (deterministic per-item init). R19.88 whenDefined gate + R19.88.A diff-render did not fully close the desktop-Chrome first-N-icon-only case; R19.97 = case-5 queueMicrotask defer to avoid paint-interleave. Architect-diagnosed; req-eng to confirm/canonicalize.",
+    "needsReqCanonicalization": true
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

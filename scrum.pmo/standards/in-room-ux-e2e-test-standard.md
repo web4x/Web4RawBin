@@ -32,6 +32,8 @@ These chains may read complete via unit/source tests but are **NOT genuine** unt
 | R19.88 | per-item init gate (whenDefined) | task 67abd046 |
 | R19.88.A | tree diff-render (no innerHTML churn) | task c524c8a0 |
 | R19.90 | in-room reuses rb-trace-tree (DRY/OOP) | task b8da64a1 |
+
+**Exception — R19.97 (case-5 connectedCallback paint-interleave, task aee9e758):** NOT Playwright-gatable. Headed-Chrome paint timing between synchronous connectedCallbacks cannot be reliably reproduced in a Playwright run. **Gate = Tron real-Chrome verification + `?debug=1` overlay** (PO 2026-06-13). This is a documented exception to the Playwright rule above, not a waiver of the anti-false-green principle — the genuine gate is just human-real-browser instead of automated.
 | R19.91 | removeLocalIdentity full state wipe | task 5da32d29 |
 | R19.92 | in-room files use /trace data path | task 4aa7e19d |
 | R19.93 | preview button on file detail view | task 2668b5f0→architect 5ab2d3b9 |
