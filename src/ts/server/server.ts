@@ -721,21 +721,41 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           Sprint: ['tasks'], Room: ['files', 'members'],
         };
         const fwdKeys = queryMode === 'trace' ? TRACE_FWD : SCENARIO_FWD;
+        // Room type: build Members + Files collection children
+        if (type === 'Room') {
+          const model = unit.model as Record<string, unknown>;
+          const membersArr = Array.isArray(model.members) ? model.members : [];
+          const filesArr = Array.isArray(model.files) ? model.files : [];
+          const memberItems = membersArr.map((m: any) => ({
+            uuid: String(m.ior || m.uuid || m.token || '').replace('ior:instance:', ''),
+            type: 'Member', name: String(m.name || '?'),
+            description: String(m.status || m.role || ''), hasChildren: false,
+          }));
+          const fileItems = filesArr.map((f: any) => {
+            const fUuid = String(f).replace('ior:instance:', '');
+            const fu = idx.get(fUuid);
+            return { uuid: fUuid, type: fu ? ((fu.ior || '').split(':')[2] || 'File') : 'File', name: fu ? String(fu.model?.name || fUuid.slice(0, 8)) : fUuid.slice(0, 8), hasChildren: false };
+          });
+          const roomChildren = [
+            { uuid: 'members', type: 'collection', name: `Members (${memberItems.length})`, hasChildren: memberItems.length > 0, children: memberItems },
+            { uuid: 'files', type: 'collection', name: `Files (${fileItems.length})`, hasChildren: fileItems.length > 0, children: fileItems },
+          ];
+          res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+          const ownerIor2 = String(unit.ownerIor || '').replace('ior:instance:', '');
+          let parent2: { uuid: string; type: string; name: string } | null = null;
+          if (ownerIor2) { const pu = idx.get(ownerIor2); if (pu) parent2 = { uuid: ownerIor2, type: (pu.ior || '').split(':')[2] || '', name: String(pu.model?.name || '') }; }
+          res.end(JSON.stringify({ uuid, type, name: String(model.name || ''), hasChildren: true, children: roomChildren, parent: parent2 }));
+          return;
+        }
         // T192: server-side cycle guard — skip children that are the node itself
         let childRefs: string[] = [];
-        const syntheticChildren: { uuid: string; type: string; name: string; hasChildren: boolean }[] = [];
         for (const key of (fwdKeys[type] || [])) {
           const val = (unit.model as Record<string, unknown>)[key];
           if (Array.isArray(val)) {
             for (const r of val) {
               const raw = (typeof r === 'object' && r) ? ((r as any).ior || (r as any).uuid || '') : String(r);
               const clean = String(raw).replace('ior:instance:', '');
-              if (/^[0-9a-f]{8}-/.test(clean)) {
-                childRefs.push(clean);
-              } else if (typeof r === 'object' && r && (r as any).name) {
-                const m = r as Record<string, unknown>;
-                syntheticChildren.push({ uuid: String(m.ior || m.uuid || m.token || '').replace('ior:instance:', ''), type: 'Member', name: String(m.name || '?'), hasChildren: false });
-              }
+              if (/^[0-9a-f]{8}-/.test(clean)) childRefs.push(clean);
             }
           } else if (typeof val === 'string') {
             const clean = val.replace('ior:instance:', '');
@@ -783,7 +803,6 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           }
           return { uuid: ref, type: 'unknown', name: ref.slice(0, 8), hasChildren: false };
         }).filter(Boolean);
-        for (const sc of syntheticChildren) children.push(sc);
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         const ownerIor = String(unit.ownerIor || '').replace('ior:instance:', '');
         let parent: { uuid: string; type: string; name: string } | null = null;
