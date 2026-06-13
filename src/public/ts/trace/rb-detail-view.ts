@@ -147,8 +147,9 @@ export class RbDetailView extends HTMLElement {
       // [impl:uuid:31c6e25e-c65e-4039-ad01-f0dd87978ed1] R20.5 renderSupersededLinks
       fetch(`/api/ior/ior:instance:${obj.uuid}`).then(r => r.json()).then(iorData => {
         const model = iorData.unit?.model || {};
-        const supersededBy = model.supersededBy || model.refinementOf || [];
-        const supersedes = model.supersedes || [];
+        const toArr = (v: unknown): string[] => !v ? [] : Array.isArray(v) ? v : [String(v)];
+        const supersededBy = [...toArr(model.supersededBy), ...toArr(model.refinementOf)];
+        const supersedes = toArr(model.supersedes);
         if (supersededBy.length > 0 || supersedes.length > 0) {
           const secEl = document.createElement('div');
           secEl.style.cssText = 'border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px';

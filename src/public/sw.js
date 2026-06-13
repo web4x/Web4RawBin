@@ -10,9 +10,9 @@ const STATIC_SHELL = [
   '/icon-192.png',
   '/icon-512.png',
   '/trace',
-  '/dist/trace-page-AUQENKAW.js',
+  '/dist/trace-page-4JACKIT2.js',
   '/scenario',
-  '/dist/scenario-view-H3M44JWG.js',
+  '/dist/scenario-view-CGQXRX65.js',
   '/dist/app-JNTMWBPX.js',
 ];
 
