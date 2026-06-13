@@ -78,8 +78,7 @@ export class RbDetailView extends HTMLElement {
         ${obj.status ? `<span class="dv-status">${esc(obj.status)}</span>` : ''}
         ${scenarioBrowserLinkFromIor(obj.uuid)}
       </div>
-      <div class="dv-links">${rows.join('') || '<div class="dv-empty">no links</div>'}</div>
-      <div class="dv-scenario-children" style="border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px"><span style="color:rgba(255,255,255,0.4);font-size:0.7rem">Loading all children...</span></div>`;
+      <div class="dv-links">${rows.join('') || '<div class="dv-empty">no links</div>'}</div>`;
 
     // [impl:uuid:4ce43a9a-a1b2-4c3d-8e4f-5a6b7c8d9e05] R19.93 file detail preview button
     if (obj.type === 'file' || obj.type === 'File') {
@@ -132,8 +131,6 @@ export class RbDetailView extends HTMLElement {
           navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid });
         });
       }
-      const container = this.querySelector('.dv-scenario-children');
-      if (container) container.innerHTML = '';
       renderAllChildrenSection(this, children);
       renderSupersededSection(this, obj.uuid);
     });
