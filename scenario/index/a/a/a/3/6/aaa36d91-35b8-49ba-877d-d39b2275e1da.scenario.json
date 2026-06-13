@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "aaa36d91-35b8-49ba-877d-d39b2275e1da",
+    "altId": "R19.97",
+    "name": "R19.97: One link still renders broken in md-safari room — identify and fix.",
+    "description": "BUG (v0.5.228, desktop Chrome macOS): one link in the md-safari room still renders broken (non-clickable, wrong href, or missing target). Identify which link it is and fix. All other links in the room work.",
+    "tronQuote": "> PO relay (Tron v0.5.228 desktop Chrome): one link still renders broken in md-safari room.",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

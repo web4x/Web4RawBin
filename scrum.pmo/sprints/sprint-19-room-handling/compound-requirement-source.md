@@ -309,3 +309,8 @@
   > TRON: "add to the / main route a red reset pwa cache button"
 - **R19.96** (2026-06-13): BUG — profile no longer shows user UUID. Restore UUID display.
   > TRON: "the profile does not show my uuid as a user anymore"
+
+### Broken link + room file render inversion (R19.97 + R19.98)
+- **R19.97** (2026-06-13): one link still renders broken in md-safari room (v0.5.228 desktop Chrome). Identify + fix.
+- **R19.98** (2026-06-13): identical files render in md-safari but NOT in SYSTEM TEST room — per-room stale-cache inversion. File rendering must be deterministic per FileUnit UUID regardless of room.
+  > PO relay (Tron v0.5.228): header-regression WITHDRAWN (owner-only actions = correct behavior).
