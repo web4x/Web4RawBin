@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7147ca60-adc0-479f-8923-e319baad83d0",
+    "name": "setItems renders via setter",
+    "file": "ior:file:test/e2e/rb-list-overview.test.ts",
+    "sourceLine": 36,
+    "verifies": [
+      "ior:instance:c5b331a7"
+    ],
+    "status": "pass"
+  },
+  "ownerIor": "ior:instance:c5b331a7"
+}
