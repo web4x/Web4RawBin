@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "3542dcb3-aae6-48ac-b3a2-ac3cd2c0dded",
+    "name": "RbDetailView.chainExcludesSelf",
+    "description": "In renderTraceabilitySection / renderSingularChain: filter chain nodes to exclude (a) self-node (uuid===current), (b) non-chain types (only Requirement/UseCase/Class/Method/Implementation/Test per locked 6-step). Task, Sprint, TraceLink, Skill are navigation/metadata \u2014 never in the chain section.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5"
+}

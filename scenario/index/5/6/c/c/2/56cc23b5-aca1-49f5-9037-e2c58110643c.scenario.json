@@ -2,15 +2,17 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
-    "name": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
+    "name": "T-rename-champagne-to-traceability: 'Champagne Chain' \u2192 'Traceability Chain' in all user-facing UI",
     "slug": "rename-champagne-chain-to-traceability",
-    "description": "CR1 (S20, ChangeRequest — dogfoods R20.4): the detail-view section labeled 'Champagne Chain' uses internal measurement jargon in USER-FACING UI. RENAME to 'Traceability Chain' everywhere in the product UI; champagne/marketing terms must NOT appear in the product interface (only internal scoring/audit tools). intendedChain (for architect): UC detailView.renameChainLabel; Class RbDetailDrawer (or per-type DetailView template); Method renderTraceabilitySection (change heading string); Test RED: open any detail-view → assert heading is 'Traceability Chain' (or 'Traceability'), NOT 'Champagne Chain' (currently FAILS in some views). S20 DISCIPLINE: full chain designed + Test FIRST; UI → Playwright+screenshot gate; nothing ships chain-open. RELEASE → v0.6.5 + git tag (strict order: CR1 before BUG1).",
+    "description": "CR1 (S20, ChangeRequest \u2014 dogfoods R20.4): the detail-view section labeled 'Champagne Chain' uses internal measurement jargon in USER-FACING UI. RENAME to 'Traceability Chain' everywhere in the product UI; champagne/marketing terms must NOT appear in the product interface (only internal scoring/audit tools). intendedChain (for architect): UC detailView.renameChainLabel; Class RbDetailDrawer (or per-type DetailView template); Method renderTraceabilitySection (change heading string); Test RED: open any detail-view \u2192 assert heading is 'Traceability Chain' (or 'Traceability'), NOT 'Champagne Chain' (currently FAILS in some views). S20 DISCIPLINE: full chain designed + Test FIRST; UI \u2192 Playwright+screenshot gate; nothing ships chain-open. RELEASE \u2192 v0.6.5 + git tag (strict order: CR1 before BUG1).",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect — canonicalize UC/Class/Method + PUML)\n  - [ ] creating test cases (tester — RED heading-string E2E FIRST)\n  - [ ] implementing (expert)\n  - [ ] testing (tester — RED→GREEN E2E + screenshot)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect \u2014 canonicalize UC/Class/Method + PUML)\n  - [ ] creating test cases (tester \u2014 RED heading-string E2E FIRST)\n  - [ ] implementing (expert)\n  - [ ] testing (tester \u2014 RED\u2192GREEN E2E + screenshot)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:b04fc9af-19ca-46d6-b4bd-c16663df1212"
     ],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:e2807a7b-b72f-4030-97b6-67f73a043ae7"
+    ],
     "subtasks": [],
     "tasks": [],
     "createdAt": "2026-06-13",
@@ -22,7 +24,7 @@
       "robbin-expert",
       "robbin-tester"
     ],
-    "atoms": "covers CR1 (ChangeRequest, dogfoods R20.4); rename Champagne Chain→Traceability Chain in product UI; intendedChain carried; traceability-first, Test FIRST; release v0.6.5+tag (before BUG1)"
+    "atoms": "covers CR1 (ChangeRequest, dogfoods R20.4); rename Champagne Chain\u2192Traceability Chain in product UI; intendedChain carried; traceability-first, Test FIRST; release v0.6.5+tag (before BUG1)"
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

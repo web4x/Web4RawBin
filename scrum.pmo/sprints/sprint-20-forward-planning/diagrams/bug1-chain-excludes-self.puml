@@ -1,0 +1,26 @@
+@startuml bug1-chain-excludes-self
+!theme plain
+title BUG1 — Chain Excludes Self-Node + Non-Chain Types
+
+left to right direction
+
+package "T-chain-excludes-self-and-nonchain" {
+  usecase "detailView.chainExcludesSelf\nuc:8dc64273\ntask:18ee26a2" as UC
+  agent "RbDetailView.chainExcludesSelf\nclass:f2f84ce3\nmethod:3542dcb3" as M
+  UC --> M
+}
+
+note bottom
+  Filter rules in chain section:
+  (a) EXCLUDE self-node (uuid === current detail uuid)
+  (b) EXCLUDE non-chain types: Task, Sprint, TraceLink, Skill
+  (c) ALLOW ONLY: Requirement, UseCase, Class, Method,
+      Implementation, Test (locked 6-step)
+
+  RED Test: open Task detail → assert Task does NOT
+  appear in its own Traceability Chain section;
+  assert only chain-type nodes appear (currently FAILS).
+  Sprint: 64af2638
+end note
+
+@enduml
