@@ -36,6 +36,7 @@ function seed() {
 describe('T107 rb-detail-view', () => {
   afterEach(() => { document.body.innerHTML = ''; setActiveRouter(null); });
 
+  // [test:uuid:7f5a8bb4-e90c-447d-8a53-e12f46af668c] R19.31 RbRoomContent.linkResolve — clicking link row navigates to target
   it('renders title + typed link rows; clicking a row navigates to the linked object (AC1)', () => {
     const { g } = seed();
     const el = document.createElement('rb-detail-view') as RbDetailView;
