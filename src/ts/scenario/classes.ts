@@ -31,6 +31,9 @@ export const SkillLoader = loader('Skill', { description: '', object: '', verb: 
 // T-file-unit R19.14: files become unique scenario units (<uuid>.content + <uuid>.scenario.json + unitLinks[])
 export const FileLoader = loader('File', { contentPath: '', size: 0, mimeType: '', uploadedAt: '', uploaderToken: '', roomUuid: '' });
 export const MessageLoader = loader('Message', { text: '', timestamp: 0, senderIor: '', senderName: '', roomIor: '', prevMessage: null, nextMessage: null, kind: 'chat' });
+// [impl:uuid:76bbedda-b1c2-4d3e-9f4a-6b7c8d9e0f06] R20.4 BugLoader + ChangeRequestLoader
+export const BugLoader = loader('Bug', { description: '', priority: '', source: '', tasks: [], tests: [], useCases: [], altId: '' });
+export const ChangeRequestLoader = loader('ChangeRequest', { description: '', priority: '', source: '', tasks: [], tests: [], useCases: [], altId: '' });
 
 const RAWBIN_SYSTEM_UUID = '00000000-0000-4000-8000-rawb1n000000';
 
@@ -49,7 +52,7 @@ export class ClassRegistry {
   private loaders = new Map<string, ClassLoader>();
 
   constructor() {
-    for (const l of [SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader, TraceLinkLoader, UserLoader, SkillLoader, FileLoader, MessageLoader]) {
+    for (const l of [SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader, TraceLinkLoader, UserLoader, SkillLoader, FileLoader, MessageLoader, BugLoader, ChangeRequestLoader]) {
       this.loaders.set(l.className, l);
     }
   }

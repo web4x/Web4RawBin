@@ -46,7 +46,7 @@ import './rb-implementation-detail.js';
 
 export const TRACE_TYPES: ObjectType[] = [
   'requirement', 'task', 'usecase', 'class', 'method', 'implementation', 'test',
-  'room' as any, 'user' as any, 'device' as any, 'file' as any, 'message' as any, 'skill' as any,
+  'room' as any, 'user' as any, 'device' as any, 'file' as any, 'message' as any, 'skill' as any, 'bug' as any, 'changerequest' as any,
 ];
 
 /** AC4: flat-JSON state with route-like refs (reuses T101 graph.toJSON — no protocol). */

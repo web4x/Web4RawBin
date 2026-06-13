@@ -366,5 +366,7 @@ export function defaultTemplateRegistry(): ViewTemplateRegistry {
   reg.register('ior:class:File', FileTemplate);
   reg.register('ior:class:Device', DeviceTemplate);
   reg.register('ior:class:Skill', SkillTemplate);
+  reg.register('ior:class:Bug', RequirementTemplate);
+  reg.register('ior:class:ChangeRequest', RequirementTemplate);
   return reg;
 }

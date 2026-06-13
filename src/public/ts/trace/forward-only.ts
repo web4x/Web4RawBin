@@ -14,6 +14,8 @@ const FORWARD_KEYS: Record<string, string[]> = {
   method: ['implementations'],
   implementation: ['tests'],
   test: [],
+  bug: ['useCases', 'tasks', 'tests'],
+  changerequest: ['useCases', 'tasks', 'tests'],
 };
 
 export function forwardOnly(obj: TraceObject): Record<string, string[]> {
