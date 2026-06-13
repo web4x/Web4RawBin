@@ -20,3 +20,18 @@ The live full-chain count is authoritative. 23 was impl-marker-only on stale wir
 
 ## Recoverable (climb backlog, NOT counted now)
 R19.2 + R19.8 each have a genuine strict-valid named-member impl marker (editOpen / memberAdd) that is UNWIRED. A pure DATA re-wire (Method.implementations[] → f9b579c1 / 4246c0a8; planner lane) — no new code — would make both champagne → 21→23. Verify the mis-wired 2ab8a3dd(Room.init)/4c21d2ee(retainOrPrune) belong to their OWN reqs first.
+
+---
+## CORRECTION (planner, 2026-06-14, post data-inspection) — the "+2 re-wire" premise was WRONG
+Ownership-verify BEFORE editing (per PO mandate) overturned my recoverable-re-wire claim:
+- Method `6fc898ab` (RbRoomDetail.editOpen, R19.2) **already wires → f9b579c1** (editOpen impl, strict-marker @ RoomView.ts:134, test 5b79cc8e). COMPLETE leg. Nothing to re-wire.
+- Method `ea02fa6d` (Room.memberAdd, R19.8) **already wires → 4246c0a8** (memberAdd impl, marker @ Room.ts:164, test da3d0186). COMPLETE leg. Nothing to re-wire.
+- `2ab8a3dd` is NOT R19.2's impl — it's R19.1's `impl:Room.init`, marker sits INSIDE the Room **constructor** (Room.ts:113), strict-FAILs as mislabeled(label=init vs member=constructor).
+
+### TRUE reason R19.2/R19.8 are not champagne (corrects the doc above)
+They are MULTI-METHOD reqs. Their editOpen/memberAdd legs ARE complete + correctly wired. The live full-chain counts each req incomplete because ANOTHER method-leg in the req's chain is open (the summarize() representative surfaced a different open impl). Standalone-23 over-counted because it scores ONE impl-marker per credited row — it saw the passing editOpen/memberAdd leg and marked the whole req PASS, missing the second open leg.
+
+### Implication
+- Champagne floor = 21 STILL CORRECT and FINAL (R19.2/R19.8 genuinely have an open leg).
+- There is NO planner data re-wire that climbs +2. The climb for R19.2/R19.8 needs the OTHER method-leg's real impl (expert) and/or a Class.method chain-scope narrowing (architect) — NOT my lane.
+- **Do not execute the re-wire** proposed earlier — it would be a no-op/harmful (the targets are already wired). Premise retracted.
