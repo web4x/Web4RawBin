@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "b169e69b-3f00-43bd-b759-f12243a617ea",
+    "name": "room.fixBrokenLink",
+    "description": "Identify and fix the one broken-rendering link in md-safari room.",
+    "class": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed",
+    "method": "ior:instance:48c06b0e-a8ce-426b-8840-00f095ee66e0",
+    "tasks": [
+      "ior:instance:eff42eff-f5a4-4b19-80b7-1a89c8ab06cf"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

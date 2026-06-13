@@ -1,0 +1,36 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "17728504-5233-49df-8ba1-cb6403396ee7",
+    "id": "17728504-5233-49df-8ba1-cb6403396ee7",
+    "name": "Toronto Trinity's Private Room",
+    "ownerToken": "c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+    "isPrivate": true,
+    "visibility": "private",
+    "mode": "persistent",
+    "roomKey": "wertzu",
+    "state": "active",
+    "createdAt": 1781360640617,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAprFHjdx1+e8HDnFRCw3F\nHRWh5Q2bcn1bEL3dW1eY9b+X17L10jVWuvQFYh180H5qgPwk7xio05cw99GfDKEU\nITDsXIM+Cd9o+O8pKWHI+QAtrpD+j9h0WQYEc28TQIckHsBhGOZp/Y0u4Shpqv2j\n/bFjKa3QLhyrs66hUVOnpbej/vzqciFWGlyGp4wdn5i3UoiLTZ82hnXvht+1R6Cj\nT2CUxUo94k10+sxXrrcgmgduEVD8SCNQK9agiLIjTCmP8HwFqantg8jqQOeMtBcZ\nBr+3j+3AbXtQ3mARxwqX9GK2ZGk1GGGywKieroxQoWL3Ja9COpWOMj9cChUfHeD0\nlwIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+        "name": "Toronto Trinity",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1781360719441
+      }
+    ],
+    "files": [],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/1/7/7/2/8/17728504-5233-49df-8ba1-cb6403396ee7.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/c117f9fc-baf3-4666-adb5-bd7c2dfadff6/17728504-5233-49df-8ba1-cb6403396ee7.json"
+    ]
+  },
+  "ownerIor": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6"
+}

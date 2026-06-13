@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "952a16b9-f090-4eeb-9dd0-e69e8a0eed1d",
+    "name": "RoomView.renderAllFiles",
+    "description": "Ensure identical files render across all rooms without per-room filtering.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed"
+}

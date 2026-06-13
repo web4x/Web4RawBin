@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "9394f330-f3e1-4499-9d20-ee0820c91d23",
+    "name": "room.renderAllFiles",
+    "description": "Identical files render in ALL rooms \u2014 no per-room filtering/inversion.",
+    "class": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed",
+    "method": "ior:instance:952a16b9-f090-4eeb-9dd0-e69e8a0eed1d",
+    "tasks": [
+      "ior:instance:51d53769-c7d8-46e4-978c-99bf0af86cbc"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

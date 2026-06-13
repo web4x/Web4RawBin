@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "638dec5c-809b-43d2-bfcf-05ef5a460960",
+    "name": "server.roomCollectionChildren",
+    "description": "Server /api/trace/children Room handler builds synthetic Members+Files collection nodes with nested member/file children.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed"
+}

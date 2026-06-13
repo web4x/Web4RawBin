@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "4a25e77b-e522-4915-870a-3399bc4d793a",
+    "name": "deviceEnroll.fullStateWipe",
+    "description": "Remove Local Identity clears ALL browser state (localStorage+IndexedDB+caches) and reloads to first-run ProfileEditor. Extends removeLocalIdentity with complete wipe.",
+    "class": "ior:instance:9867b252-1d7f-44ce-8f7e-f07fff0ea95a",
+    "method": "ior:instance:7c3fa6a4-9c36-472a-9771-bdd1b1e1b9d5",
+    "tasks": [
+      "ior:instance:5da32d29-0a3b-4bb3-90a5-05ee7e0c0c82"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

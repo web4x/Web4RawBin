@@ -2,15 +2,17 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "5da32d29-1e03-44e8-b216-1a8596be1580",
-    "name": "T-remove-id-full-wipe: removeLocalIdentity clears ALL browser state → first-run → ProfileEditor",
+    "name": "T-remove-id-full-wipe: removeLocalIdentity clears ALL browser state \u2192 first-run \u2192 ProfileEditor",
     "slug": "remove-identity-full-state-wipe-first-run",
-    "description": "R19.91 fix: removeLocalIdentity MUST (1) clear ALL identity browser state — localStorage (token, keypair, device data, name, secret), IndexedDB entries, any cached identity in SW caches; (2) reset app to first-run (no token/device/profile); (3) reload → ProfileEditor in new-user onboarding mode. Currently a partial clear leaves residual state preventing a true fresh start. Refines R19.89 (button placement now correct → action must be complete). Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27). Architect to design the UC. NOTE (anti-false-green standard): Test node must be a real END-TO-END Playwright test reaching the rendered view + screenshot, not a unit/source-string test.",
+    "description": "R19.91 fix: removeLocalIdentity MUST (1) clear ALL identity browser state \u2014 localStorage (token, keypair, device data, name, secret), IndexedDB entries, any cached identity in SW caches; (2) reset app to first-run (no token/device/profile); (3) reload \u2192 ProfileEditor in new-user onboarding mode. Currently a partial clear leaves residual state preventing a true fresh start. Refines R19.89 (button placement now correct \u2192 action must be complete). Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27). Architect to design the UC. NOTE (anti-false-green standard): Test node must be a real END-TO-END Playwright test reaching the rendered view + screenshot, not a unit/source-string test.",
     "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [ ] implementing (expert)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:4b4b61c1-6dfd-4fd8-8a68-b4182c1b2e76"
     ],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:4a25e77b-e522-4915-870a-3399bc4d793a"
+    ],
     "subtasks": [],
     "tasks": [],
     "createdAt": "2026-06-13",

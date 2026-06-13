@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "c8d9ce4b-9c90-4b8e-938d-fc5119338af0",
+    "name": "traceChildren.roomCollections",
+    "description": "/api/trace/children for Room returns Members + Files as collection nodes with nested synthetic children.",
+    "class": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed",
+    "method": "ior:instance:638dec5c-809b-43d2-bfcf-05ef5a460960",
+    "tasks": [
+      "ior:instance:b2baea58-6e1a-4e33-b2e5-c91e83e5ff99"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

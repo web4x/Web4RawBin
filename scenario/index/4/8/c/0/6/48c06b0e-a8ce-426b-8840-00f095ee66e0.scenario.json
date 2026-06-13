@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "48c06b0e-a8ce-426b-8840-00f095ee66e0",
+    "name": "RoomView.fixBrokenLink",
+    "description": "Fix broken link rendering for specific file in md-safari room.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed"
+}
