@@ -45,3 +45,13 @@ All 11 were complete@seal (under the current tool) and are open NOW, every one a
 - **(b)** denom +33 = new incomplete reqs (numerator-neutral).
 - **(c) 11 real regressions** (UUIDs above) — fixable shared-impl wiring at the Impl hop, not runtime breakage.
 - The sealed-168 was HONEST; the drop to 160 is real but recoverable + fully explained.
+
+---
+## UPDATE — T-TOOL-1/2 correction: CERTIFIED 158/207 excl 44 (2026-06-13T18-01)
+Skill-expert + PO: T-TOOL-1/2 landed — **superseded reqs auto-excluded** from the canonical denominator. excl 41→44 (+3). Planner det-3x CERT (source-verified, not relayed):
+- **complete=158, total=207, excluded=44** — det-3x identical (158/158/158).
+- **+3 exclusions are genuinely superseded** (verified): R18.24 (c9de63d7) `supersededBy` 7734f4e1; R19.58 (af607390) `supersededBy` 7734f4e1; + 1 other parallel chain. Superseded ≠ open — correct to exclude (honest de-inflation, like orphanByDesign).
+- **160→158 is NOT a regression:** it's the supersession-exclusion correction (R18.24+R19.58 were counted complete; now excluded as superseded → −2 numerator). The denom 201→207 reflects new R20.x atomics.
+- **The 11 shared-impl regressions PERSIST** (R19.11/72/73 spot-confirmed open) — unchanged; still the T-s19-shared-impl-split-recovery (d43fce61) target. Fixing them recovers toward ~169/207.
+
+**CORRECTED CANONICAL BASELINE = 158/207 excl 44** (snapshot 2026-06-13T18-01). Certified det-3x; superseded-exclusions verified. Ready for SM independent seal.
