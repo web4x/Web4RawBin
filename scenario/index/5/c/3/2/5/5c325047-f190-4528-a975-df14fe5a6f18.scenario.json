@@ -6,7 +6,9 @@
     "name": "R19.96: Profile page shows the user's UUID — restore missing UUID display.",
     "description": "BUG: the profile page no longer shows the user's UUID. It used to display the UUID (for sharing / account linking). FIX: restore the UUID display in the profile view — show the user's full UUID (or short form with copy-to-clipboard) so they can identify their account and share it for account linking.",
     "tronQuote": "> TRON: \"the profile does not show my uuid as a user anymore\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:b0576d79-cee9-4710-bbe6-c1cec8622f60"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

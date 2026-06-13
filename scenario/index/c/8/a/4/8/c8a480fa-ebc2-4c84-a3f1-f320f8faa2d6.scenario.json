@@ -6,7 +6,9 @@
     "name": "R19.95: Main route (/) has a red Reset PWA Cache button.",
     "description": "The / main route MUST display a RED 'Reset PWA Cache' button that clears all service-worker caches and reloads. Same functionality as the offline page's flush button (R19.45) but available on the main route — so users can force-reset even when the app loads (not just when stuck on offline page).",
     "tronQuote": "> TRON: \"add to the / main route a red reset pwa cache button\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:ccb5e337-93be-4fa3-99f6-7d8232d307d3"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

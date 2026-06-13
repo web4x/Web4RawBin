@@ -6,7 +6,9 @@
     "name": "R19.94: App header shows version string on all screens — small, undisturbing.",
     "description": "The app HEADER MUST display the current version (e.g. 'v0.5.x · rawbin') on ALL screens. The version text is small and undisturbing (low contrast, small font) so it doesn't dominate the UI but is always visible — especially useful on screenshots for bug reports and QA.",
     "tronQuote": "> TRON: \"add version to the header small undisturbing so you see it on all screenshots\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:0189ffbd-ef0a-4c8e-930c-d588061fe456"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
