@@ -43,3 +43,15 @@ PO milestone framing: "~149 genuine + 24 chain-debt." Canonical measurement says
 
 ## Bottom line for PO/SM
 **No full-champagne 173 claim is affected — 173 is genuine and does NOT include R19.83–102.** The honest board: **173 chain-complete · 24 feature-shipped-but-chain-open (R19.83-102, architect owes UCs first) · 1 other open.** "Test-debt" understates it — they need the whole chain, not just a test. Do NOT count the 24 complete; canonical already doesn't.
+
+---
+## UPDATE — post-7f1e8b2e (architect "batch champagne-debt closure R19.83-101, 7 chains")
+Re-ran authoritative guard det-3x: **complete=173 UNCHANGED** (173/173/173). Deepest-hop walk: all 24 now reach the **UC hop** (architect added UC units — they no longer dangle) but **NONE advance past UC** to Class/Method/Impl/Test. So 7f1e8b2e advanced the chains internally (UC now exists) but produced **ZERO new genuine champagne** — the count did not move. (validate-vs-ground-truth: the commit says "closure" but the canonical count is flat.)
+
+### CATEGORIZED HONEST COUNT (X/198)
+- **(a) GENUINE champagne** (full chain Req→UC→Class→Method→Impl→Test, all committed, real markers): **173 / 198** (41 excluded orphanByDesign). **0 of these are from R19.83–102.**
+- **(b) CHAIN-DEBT** (functional shipped / in-flight, chain stops at UC — needs Class→Method→Impl→genuine Test markers): **21 units** = R19.83, 84(×2), 85(×2), 86, 87, 88, 88.A, 89(×2), 90, 91, 92(×2), 93, 94, 95, 96, 97, 101.
+- **(c) OPEN BUGS not yet fixed**: **3** = R19.99 (broken-link), R19.100 (inversion), R19.102 (folder-actions — `no-task`, not even task-wired).
+- Open total (non-excluded) = 25 = 24 (R19.83-102) + 1 (R19.72, impl-hop).
+
+**TRUE champagne = 173/198.** (b) and (c) are NOT champagne. Next genuine flip requires architect Class+Method, expert Impl + real `[impl:uuid:]` marker, tester real Test (in-room → E2E; R19.97 → Tron real-Chrome).
