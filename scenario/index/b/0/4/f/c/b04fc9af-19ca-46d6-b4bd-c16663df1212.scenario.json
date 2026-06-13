@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:ChangeRequest",
+  "model": {
+    "uuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212",
+    "altId": "CR1",
+    "name": "CR1: Rename 'Champagne Chain' label to 'Traceability Chain' in all user-facing UI.",
+    "description": "CHANGE REQUEST: the detail-view section labeled 'Champagne Chain' uses internal measurement jargon in USER-FACING UI. 'Champagne' is the team's internal quality-verification concept — users don't know what it means. RENAME to 'Traceability Chain' everywhere in the product UI. Champagne/marketing terms must NOT appear in the product interface (only in internal scoring/audit tools).",
+    "tronQuote": "> TRON: \"do you see the issues on this requirement and the need for change requests and bugs regarding traceability and stupid champagne marketing?\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:7734f4e1-def9-4af3-a7d2-5ccc7160b214"
+    ],
+    "crossRefNote": "R20.5 (universal chain-vs-children) already specified 'Traceability' as the label. CR1 is the explicit change-request to rename the existing 'Champagne Chain' label.",
+    "intendedChain": {
+      "useCase": "detailView.renameChainLabel — 'Champagne Chain' → 'Traceability Chain' in all detail-view templates",
+      "class": "RbDetailDrawer (or per-type DetailView template)",
+      "method": "renderTraceabilitySection — change the section heading string",
+      "test": "RED: open any detail-view → assert section heading is 'Traceability Chain' (or 'Traceability'), NOT 'Champagne Chain'. Currently FAILS (some views show 'Champagne Chain')."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

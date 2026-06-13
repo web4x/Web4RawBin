@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "2d5f151e-c7a1-4599-a467-176ee6723b68",
+    "altId": "BUG1",
+    "name": "BUG1: Chain section shows Task as its own chain node + mixes non-chain nodes.",
+    "description": "BUG: the Traceability Chain section in the detail-view shows the TASK as its OWN chain node (self-referential — the Task appears in its own traced chain) and mixes in non-chain nodes (all methods instead of chain-relevant only). The chain should show ONLY the singular traced path (req→uc→class→method→impl→test) — Task is NAVIGATION, not a chain node (locked 6-step standard). Ties to R20.5-A (chain shows only traced-chain nodes).",
+    "tronQuote": "> TRON: \"do you see the issues on this requirement and the need for change requests and bugs regarding traceability and stupid champagne marketing?\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:7734f4e1-def9-4af3-a7d2-5ccc7160b214"
+    ],
+    "crossRefNote": "R20.5-A (Traceability Chain = chain-only nodes) defines the correct behavior. BUG1 is the specific bug: Task self-referential in chain + non-chain nodes mixed in.",
+    "intendedChain": {
+      "useCase": "detailView.chainExcludesSelf — chain section excludes the current node (no self-reference) and shows only traced-chain nodes",
+      "class": "RbDetailDrawer (or chain-walk logic)",
+      "method": "renderTraceabilitySection — filter out self-node + non-chain nodes",
+      "test": "RED: open Task detail → assert Task does NOT appear as a node in its own Traceability Chain section. Assert only req→uc→class→method→impl→test nodes appear. Currently FAILS (Task shown as chain node + all methods mixed in)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
