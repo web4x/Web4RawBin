@@ -32,6 +32,9 @@ This reverses the S19 anti-pattern that produced 24 chain-debt reqs (R19.83-102)
 
 - [ ] [📝 T-bug-changerequest-oop-extensions (R20.4)](../../../scenario/index/b/1/c/9/3/b1c93799-9fd6-4c8a-b006-f8e0822d128a.scenario.json) — task `b1c93799`. **Release → v0.6.3 + tag.** Bug + ChangeRequest as OOP subclasses of Requirement with own icons, same 6-step chain. Chain canonicalized (architect e42b207): UC requirement.classifyType `64be6334` → Class Requirement `14831116` → Method classifyType `fcf6dae1`; Bug `935b5733` + ChangeRequest `b1cf768a` extend Requirement; [PUML](./diagrams/r20-4-bug-changerequest-chain.puml). Next: tester RED → expert impl.
 
+- [ ] [📝 CR1 — rename Champagne Chain → Traceability Chain](../../../scenario/index/5/6/c/c/2/56cc23b5-aca1-49f5-9037-e2c58110643c.scenario.json) — task `56cc23b5` (ChangeRequest, dogfoods R20.4). **Release → v0.6.5 + tag** (before BUG1). UC detailView.renameChainLabel. Champagne jargon out of product UI.
+- [ ] [📝 BUG1 — chain section excludes self-Task + non-chain nodes](../../../scenario/index/1/8/e/e/2/18ee26a2-bff1-43ab-8ecf-1665a56b96d1.scenario.json) — task `18ee26a2` (Bug, dogfoods R20.4). **Release → v0.6.6 + tag** (after CR1). UC detailView.chainExcludesSelf. Only traced req→uc→class→method→impl→test nodes; Task is navigation.
+
 ### Honest-chain recovery (regression fix)
 - [ ] [🔧 T-s19-shared-impl-split-recovery](../../../scenario/index/d/4/3/f/c/d43fce61-58aa-4de8-a7d1-996953c7e48c.scenario.json) — task `d43fce61`. Recovers the **11 shared-impl regressions** (count reconcile 168→160): SPLIT each shared Impl → own Impl unit + `[impl:uuid:]` marker per method, NEVER flip. Reqs: R19.11/12/13/21/27/31/63/69/71/72/73. Recovers ~171/201. Scoped into the 22:07 backfill (or expert if prioritized). Doc: [count-reconcile](./planner-count-reconcile-168-to-160-2026-06-13.md).
 
