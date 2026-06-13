@@ -33,7 +33,9 @@
         "reason": "Tron confirmed fixed in v0.6.0. Tester clean-room GREEN evidence.",
         "reportedVia": "robbin-po"
       }
-    ]
+    ],
+    "functionalDone": true,
+    "functionalDoneNote": "R20.1 url-file-opens-drawer: was R19.86's openFilePreview() method (shared-method, not distinct). PO-verified functionalDone (honest, dup-of-R19.86). IN denom, not 2nd champagne. 2026-06-14."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
