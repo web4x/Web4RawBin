@@ -2,6 +2,8 @@
 
 # RawBin — Sprints Overview
 
+🏆 **[Team Achievements](../achievements.md)** — milestones recognized by Tron (v0.6.0 "best version ever").
+
 Durable index of ALL sprints. Maintained by robbin-planner: every new sprint MUST
 be added here AND to the README sprint list in the same commit it is created.
 

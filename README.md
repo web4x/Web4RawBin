@@ -67,6 +67,7 @@ rawbin/
 
 Browse all sprint documentation, task files, and architecture diagrams:
 
+**[🏆 Team Achievements](./scrum.pmo/achievements.md)** — milestones recognized by Tron (v0.6.0 "best version ever" + marathon learnings)
 **[Sprints Overview](./scrum.pmo/sprints/sprints.overview.md)** — durable index of ALL sprints (S1-S14)
 **[Sprint Browser](/md/scrum.pmo/sprints/)** — dynamic in-app index
 
