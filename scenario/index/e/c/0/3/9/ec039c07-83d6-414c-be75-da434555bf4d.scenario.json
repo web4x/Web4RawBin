@@ -6,7 +6,9 @@
     "description": "connectedCallback defers render() via queueMicrotask. Prevents headed-Chrome paint interleave during connectedCallback cascade when subtree of N items connects at once. All N callbacks queue microtasks synchronously, microtask queue drains before next paint, zero intermediate icon-only frames.",
     "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
     "method": "ior:instance:3820c432-39a6-45ce-9ad0-02a9f6b2693b",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:aee9e758-bdfe-427a-aaa3-e8f00cbab48f"
+    ],
     "implementations": [],
     "tests": []
   },

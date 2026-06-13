@@ -4,13 +4,15 @@
     "uuid": "aee9e758-bdfe-427a-aaa3-e8f00cbab48f",
     "name": "T-object-item-microtask-defer: queueMicrotask in rb-object-item connectedCallback (case-5 paint-interleave fix)",
     "slug": "object-item-connectedcallback-queuemicrotask-defer",
-    "description": "R19.97 fix (case-5, architect-diagnosed): headed-Chrome connectedCallback cascade interleaves with paint → first N rb-object-item instances paint before interactive setup completes (icon-only / not interactive). FIX: defer first render/setup in rb-object-item.connectedCallback via queueMicrotask so the callback cascade finishes before paint — every item fully initialized before shown. Covers the OPEN desktop-Chrome first-N-icon-only bug; complements R19.88/88.A. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27). Architect attaches useCases[]/chain (single-owner standard). GATE EXCEPTION (PO 2026-06-13): NOT Playwright-gatable — headed-Chrome paint timing between sync connectedCallbacks can't be reliably reproduced. Gate = Tron real-Chrome + ?debug=1 overlay (anti-false-green principle held, human-real-browser gate instead of automated).",
+    "description": "R19.97 fix (case-5, architect-diagnosed): headed-Chrome connectedCallback cascade interleaves with paint \u2192 first N rb-object-item instances paint before interactive setup completes (icon-only / not interactive). FIX: defer first render/setup in rb-object-item.connectedCallback via queueMicrotask so the callback cascade finishes before paint \u2014 every item fully initialized before shown. Covers the OPEN desktop-Chrome first-N-icon-only bug; complements R19.88/88.A. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27). Architect attaches useCases[]/chain (single-owner standard). GATE EXCEPTION (PO 2026-06-13): NOT Playwright-gatable \u2014 headed-Chrome paint timing between sync connectedCallbacks can't be reliably reproduced. Gate = Tron real-Chrome + ?debug=1 overlay (anti-false-green principle held, human-real-browser gate instead of automated).",
     "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [ ] implementing (expert)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:ea6bb854-3c34-4caa-b3d6-3f4193710f04"
     ],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:ec039c07-83d6-414c-be75-da434555bf4d"
+    ],
     "subtasks": [],
     "tasks": [],
     "createdAt": "2026-06-13",
