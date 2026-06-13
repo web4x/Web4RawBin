@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "697cffe0-1bda-475d-8d67-241f8f974cb9",
+    "name": "RoomView.openPreviewDrawer impl",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
+    "sourceLine": 229,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d3074cf6-aaed-4884-8b85-345b66080528"
+}

@@ -4,7 +4,9 @@
     "uuid": "d3074cf6-aaed-4884-8b85-345b66080528",
     "name": "RoomView.openPreviewDrawer",
     "description": "Named method: receives file UUID from tree item click, fetches scenario data, renders ContentPreviewer in drawer. Handles all file types (image, html, url, vcard, pdf).",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:697cffe0-1bda-475d-8d67-241f8f974cb9"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed"

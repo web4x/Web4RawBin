@@ -1,11 +1,11 @@
 /**
  * R20.6 — SelectionModel: singleton selection state for rb-object-item.
- * [impl:uuid:10f3d3d4-4451-4b8e-a88c-1f99cfa40086] SelectionModel.init
  */
 
 class SelectionModelImpl {
   private selected = new Set<string>();
 
+  // [impl:uuid:10f3d3d4-4451-4b8e-a88c-1f99cfa40086] SelectionModel.init
   select(ref: string): void { this.selected.add(ref); this.dispatch(); }
   deselect(ref: string): void { this.selected.delete(ref); this.dispatch(); }
   toggle(ref: string): void { if (this.selected.has(ref)) this.selected.delete(ref); else this.selected.add(ref); this.dispatch(); }
