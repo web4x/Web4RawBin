@@ -26,10 +26,20 @@ This reverses the S19 anti-pattern that produced 24 chain-debt reqs (R19.83-102)
 - [ ] [⏳ T-room-create-folder-actions (R19.102)](../../../scenario/index/4/2/8/1/9/42819b8b-02f6-4104-8b6c-e0156783e38f.scenario.json) — task `42819b8b`, chain designed-ahead + E2E written first.
 
 ### Forward S20 requirements (test-first chains)
-- [ ] [📝 T-detail-drawer-grab-bar (R20.2)](../../../scenario/index/f/e/8/c/4/fe8c43a5-cd15-4aed-ac5b-97df558d8fea.scenario.json) — task `fe8c43a5`. Default detail drawer nudge → wide grab-bar (DRY with chat drawer). Chain canonicalized (architect 0979045): UC detailDrawer.showGrabBar `3dc386fd` → Class RbDetailDrawer `0dd08b2f` → Method renderGrabBar `32384f12`; [PUML](./diagrams/r20-2-grab-bar-chain.puml). Next: tester RED grab-bar-match E2E **first**, then expert impl.
+- [ ] [📝 T-detail-drawer-grab-bar (R20.2)](../../../scenario/index/f/e/8/c/4/fe8c43a5-cd15-4aed-ac5b-97df558d8fea.scenario.json) — task `fe8c43a5`. **Release → v0.6.1 + tag.** Default detail drawer nudge → wide grab-bar (DRY with chat drawer). Chain canonicalized (architect 0979045): UC detailDrawer.showGrabBar `3dc386fd` → Class RbDetailDrawer `0dd08b2f` → Method renderGrabBar `32384f12`; [PUML](./diagrams/r20-2-grab-bar-chain.puml). RED test confirmed (tester, pre-impl). Next: expert impl → tester GREEN → release v0.6.1 + tag.
 
 ### Backfill tracking
 - [ ] [🔧 T-s19-champagne-backfill-tracking](../../../scenario/index/4/5/0/c/b/450cb98a-4234-4f2c-9c9c-3c561750fb13.scenario.json) — task `450cb98a`. Tracks tonight's **22:07 scheduled** radical backfill of S19 v0.5.x chain-debt; planner re-scores det-3x + ground-truths each flip + reports honest count. Baseline 173/198.
+
+## Release Protocol (Tron 2026-06-13) — ENFORCED by planner sync
+Each **released** S20 task = **ONE patch version bump + a git tag**, monotonic:
+- R20.2 → **v0.6.1** · next released task → v0.6.2 · …
+
+A task is NOT "released" (and the planner will NOT flip it toward ✅/Done) without **both**:
+1. its **patch version bump** present in the impl commit-set (+ sw.js CACHE_NAME, user-facing — rule-pair), AND
+2. a **git tag** for that version (`git tag v0.6.x`).
+
+Planner sync gate per task: `git tag --list` shows the version AND `git log` shows the bump in the task's impl commits. Missing either → status stays pre-release; flag it.
 
 ## Forward requirements
 Coordinate with **req-eng** for forward S20 requirements (each captured verbatim → full chain designed test-first). Compound source: `compound-requirement-source.md` (to be populated as Tron directs).
