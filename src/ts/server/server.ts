@@ -723,12 +723,19 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const fwdKeys = queryMode === 'trace' ? TRACE_FWD : SCENARIO_FWD;
         // T192: server-side cycle guard — skip children that are the node itself
         let childRefs: string[] = [];
+        const syntheticChildren: { uuid: string; type: string; name: string; hasChildren: boolean }[] = [];
         for (const key of (fwdKeys[type] || [])) {
           const val = (unit.model as Record<string, unknown>)[key];
           if (Array.isArray(val)) {
             for (const r of val) {
-              const clean = String(r).replace('ior:instance:', '');
-              if (/^[0-9a-f]{8}-/.test(clean)) childRefs.push(clean);
+              const raw = (typeof r === 'object' && r) ? ((r as any).ior || (r as any).uuid || '') : String(r);
+              const clean = String(raw).replace('ior:instance:', '');
+              if (/^[0-9a-f]{8}-/.test(clean)) {
+                childRefs.push(clean);
+              } else if (typeof r === 'object' && r && (r as any).name) {
+                const m = r as Record<string, unknown>;
+                syntheticChildren.push({ uuid: String(m.ior || m.uuid || m.token || '').replace('ior:instance:', ''), type: 'Member', name: String(m.name || '?'), hasChildren: false });
+              }
             }
           } else if (typeof val === 'string') {
             const clean = val.replace('ior:instance:', '');
@@ -776,6 +783,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           }
           return { uuid: ref, type: 'unknown', name: ref.slice(0, 8), hasChildren: false };
         }).filter(Boolean);
+        for (const sc of syntheticChildren) children.push(sc);
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         const ownerIor = String(unit.ownerIor || '').replace('ior:instance:', '');
         let parent: { uuid: string; type: string; name: string } | null = null;
