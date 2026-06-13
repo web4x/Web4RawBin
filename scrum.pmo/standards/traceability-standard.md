@@ -372,3 +372,28 @@ strict-verify-bar prevents the next class of "metrics-pass-but-gapped" closures.
 
 Apply this bar to every task closure that involves traceability-chain claims.
 Audit-only / unit-test-count / node-count "verifications" do not satisfy it.
+
+## Implementation Marker Validity (SM ruling 2026-06-14)
+
+An `[impl:uuid:]` marker MUST mark a **named method body** — a function or method declaration with an identifier that the Method scenario unit names.
+
+**VALID markers (named method body):**
+```typescript
+// [impl:uuid:xxx] RbDetailDrawer.filePreview
+private async filePreview(uuid: string): Promise<void> { ... }
+```
+
+**INVALID markers (not a named method):**
+- CSS attributes: `touch-action: pan-y` — declarative, no method body
+- Template literals: `` `<rb-trace-tree data-seed-ior="${id}">` `` — declarative wiring
+- Inline expressions: `await customElements.whenDefined('rb-object-item')` — single API call
+- Anonymous closures: `(e) => { ... }` — no named method to chain to
+
+**When a behavior is NATURALLY DECLARATIVE** (CSS, template attribute, one-liner, config), it is:
+- **Functional-done** — the behavior works, shipped, tested
+- **Not champagne-chainable** — no honest Method→Impl hop exists
+- Classified as `functionalDone: true, champagneChainable: false` on the Requirement unit
+- NOT counted in the champagne score, NOT a failure — an honest category
+
+This prevents artificial method extraction solely to game the champagne count.
+The Method node in the 6-step chain is MANDATORY — markers on non-method code are incomplete.
