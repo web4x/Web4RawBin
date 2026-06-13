@@ -1,20 +1,23 @@
 @startuml r20-3-default-collapsed-chain
 !theme plain
-title R20.3 — Item Views Default Collapsed (singular chain)
+title R20.3 — Children Hidden by Default (singular chain)
 
 left to right direction
 
 package "T-item-views-default-collapsed" {
   usecase "itemView.defaultCollapsed\nuc:709c458d\ntask:767dd241" as UC
-  agent "RbObjectItem.initCollapsed\nclass:3bc876b5\nmethod:76bbedda" as M
+  agent "RbObjectItem.defaultChildrenHidden\nclass:3bc876b5\nmethod:76bbedda" as M
   UC --> M
 }
 
 note bottom
-  Universal: every rb-object-item defaults collapsed on render.
-  connectedCallback sets collapsed=true before first paint.
-  User expands by clicking. Applies to /trace AND in-room.
-  RED Test: fresh load → all items collapsed (currently FAILS).
+  Children/subtree HIDDEN by default (expander closed).
+  Item renders normally: icon + name + desc (NOT icon-only).
+  User clicks expander to show children.
+  Remove auto-expand of root/collection nodes.
+  cursor:pointer on .oi-icon for iOS tap liveness.
+  RED Test: fresh load -> all has-children items have
+  expander closed + .tt-children display:none (currently FAILS).
   Sprint: 64af2638
 end note
 
