@@ -18,6 +18,7 @@
 import { execSync } from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
+import * as ts from 'typescript';
 import path from 'node:path';
 import { ScenarioIndex } from './index.js';
 import { captureQuote as t138CaptureQuote, proposeTask as t138ProposeTask, walkChain as t138WalkChain, statusTransition as t138StatusTransition, type TaskVerb, type ChainStep } from './skills.js';
@@ -78,18 +79,103 @@ export class Chain {
     return [this.testDir, path.join(this.srcDir, '../scripts')];
   }
 
+  private static FAKE_SUFFIX = /-a1b2-4c3d|-a2b3-|-b2c3-|-4c3d-8e4f/;
+
+  /** AST strict-test: PASS iff marker heads a named member OR is in-body of a name-matching member. */
+  private buildStrictImplSet(): Set<string> {
+    const passSet = new Set<string>();
+    const MRE = /\[impl:uuid:([0-9a-f-]{8,36})\]\s*([^\n]*)/gi;
+    for (const root of this.implRoots()) {
+      for (const f of this.walkFiles(root)) {
+        const src = fs.readFileSync(f, 'utf-8');
+        if (f.endsWith('.css')) {
+          // CSS markers always fail strict — no named members
+          continue;
+        }
+        // Parse AST
+        const sf = ts.createSourceFile(f, src, ts.ScriptTarget.Latest, true,
+          /\.jsx?$/.test(f) ? ts.ScriptKind.JS : ts.ScriptKind.TS);
+        type Fn = { name: string | null; start: number; end: number; kind: string };
+        type Decl = { fullStart: number; start: number; kind: string; name: string | null };
+        const fns: Fn[] = []; const decls: Decl[] = [];
+        const visit = (n: ts.Node) => {
+          let fname: string | null = null, fkind = '';
+          if (ts.isFunctionDeclaration(n)) { fname = n.name ? n.name.text : null; fkind = 'function'; }
+          else if (ts.isMethodDeclaration(n) && ts.isIdentifier(n.name)) { fname = n.name.text; fkind = 'method'; }
+          else if ((ts.isGetAccessor(n) || ts.isSetAccessor(n)) && ts.isIdentifier(n.name)) { fname = n.name.text; fkind = 'accessor'; }
+          else if (ts.isConstructorDeclaration(n)) { fname = 'constructor'; fkind = 'ctor'; }
+          else if (ts.isPropertyDeclaration(n) && ts.isIdentifier(n.name) && n.initializer &&
+            (ts.isArrowFunction(n.initializer) || ts.isFunctionExpression(n.initializer))) { fname = n.name.text; fkind = 'field-arrow'; }
+          else if (ts.isArrowFunction(n) || ts.isFunctionExpression(n)) {
+            const p = n.parent;
+            if (p && ts.isVariableDeclaration(p) && ts.isIdentifier(p.name)) { fname = p.name.text; fkind = 'const-fn'; }
+            else { fname = null; fkind = 'anon'; }
+          }
+          if (fkind) fns.push({ name: fname, start: n.getStart(sf), end: n.getEnd(), kind: fkind });
+          let dk = '', dn: string | null = null;
+          if (ts.isFunctionDeclaration(n)) { dk = 'named-member'; dn = n.name ? n.name.text : null; }
+          else if (ts.isMethodDeclaration(n) && ts.isIdentifier(n.name)) { dk = 'named-member'; dn = n.name.text; }
+          else if ((ts.isGetAccessor(n) || ts.isSetAccessor(n)) && ts.isIdentifier(n.name)) { dk = 'named-member'; dn = n.name.text; }
+          else if (ts.isConstructorDeclaration(n)) { dk = 'named-member'; dn = 'constructor'; }
+          else if (ts.isPropertyDeclaration(n) && ts.isIdentifier(n.name)) {
+            dk = (n.initializer && (ts.isArrowFunction(n.initializer) || ts.isFunctionExpression(n.initializer))) ? 'named-member' : 'data-prop';
+            dn = n.name.text;
+          } else if (ts.isVariableStatement(n)) {
+            const hasFn = n.declarationList.declarations.some(d => d.initializer &&
+              (ts.isArrowFunction(d.initializer) || ts.isFunctionExpression(d.initializer)));
+            const id = n.declarationList.declarations[0];
+            dn = (id && ts.isIdentifier(id.name)) ? id.name.text : null;
+            dk = hasFn ? 'named-member' : 'data-const';
+          }
+          if (dk) decls.push({ fullStart: n.getFullStart(), start: n.getStart(sf), kind: dk, name: dn });
+          ts.forEachChild(n, visit);
+        };
+        visit(sf);
+
+        MRE.lastIndex = 0;
+        let m: RegExpExecArray | null;
+        while ((m = MRE.exec(src))) {
+          const uuid = m[1].toLowerCase();
+          const label = m[2] || '';
+          if (Chain.FAKE_SUFFIX.test(uuid)) continue;
+          if (/\(split for/i.test(label)) continue;
+          // (a) heads a named member declaration?
+          let headed = false;
+          for (const d of decls) {
+            if (m.index >= d.fullStart && m.index < d.start && d.kind === 'named-member' && d.name) { headed = true; passSet.add(uuid); break; }
+          }
+          if (headed) continue;
+          // heads data-const or data-prop → fail
+          let headsConst = false;
+          for (const d of decls) {
+            if (m.index >= d.fullStart && m.index < d.start && (d.kind === 'data-const' || d.kind === 'data-prop')) { headsConst = true; break; }
+          }
+          if (headsConst) continue;
+          // (b) in-body of a named member whose name matches label?
+          const labelMethod = ((label.replace(/\([^)]*\)/g, ' ').trim().split(/\s+/).filter(x => x && !/^R[-\d]/i.test(x) && !/^FLAG/i.test(x))[0] || '').split('.').pop() || '').toLowerCase();
+          let best: Fn | null = null;
+          for (const fn of fns) { if (m.index >= fn.start && m.index < fn.end) { if (!best || (fn.end - fn.start) < (best.end - best.start)) best = fn; } }
+          if (best && best.kind === 'anon') continue;
+          if (best && best.name) {
+            const mn = best.name.toLowerCase();
+            if (labelMethod && (mn === labelMethod || mn.includes(labelMethod) || labelMethod.includes(mn))) { passSet.add(uuid); continue; }
+          }
+        }
+      }
+    }
+    return passSet;
+  }
+
   private markerScanners(): { hasRealImpl: (u: string) => boolean; hasRealTest: (u: string) => boolean } {
-    const srcContent: string[] = [];
+    const strictImplSet = this.buildStrictImplSet();
     const testContent: string[] = [];
-    for (const root of this.implRoots()) for (const f of this.walkFiles(root)) srcContent.push(fs.readFileSync(f, 'utf-8'));
     for (const root of this.testRoots()) for (const f of this.walkFiles(root)) testContent.push(fs.readFileSync(f, 'utf-8'));
     const hasRealImpl = (uuid: string) => {
-      if (!this.idx.has(uuid)) return false; // Impl UNIT must exist on disk
-      const re = new RegExp(`\\[impl:uuid:${uuid}\\]`, 'i');
-      return srcContent.some(c => re.test(c));
+      if (!this.idx.has(uuid)) return false;
+      return strictImplSet.has(uuid);
     };
     const hasRealTest = (uuid: string) => {
-      if (!this.idx.has(uuid)) return false; // Test UNIT must exist on disk
+      if (!this.idx.has(uuid)) return false;
       const re = new RegExp(`\\[test:uuid:${uuid}\\]`, 'i');
       return testContent.some(c => re.test(c));
     };

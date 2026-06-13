@@ -143,7 +143,7 @@ describe('Chain canonical semantics on a fixture index', () => {
     idx.put(u.meth, { ior: 'ior:class:Method', model: { uuid: u.meth, name: 'Thing.do', implementations: [`ior:instance:${u.impl}`] }, ownerIor: null });
     idx.put(u.impl, { ior: 'ior:class:Implementation', model: { uuid: u.impl, name: 'Thing.do', tests: [`ior:instance:${u.test}`] }, ownerIor: null });
     idx.put(u.test, { ior: 'ior:class:Test', model: { uuid: u.test, name: 'thing.do test' }, ownerIor: null });
-    fs.writeFileSync(path.join(srcDir, 'thing.ts'), `// [impl:uuid:${u.impl}] Thing.do\n`);
+    fs.writeFileSync(path.join(srcDir, 'thing.ts'), `// [impl:uuid:${u.impl}] Thing.do\nfunction doThing() { return 1; }\n`);
     fs.writeFileSync(path.join(testDir, 'thing.test.ts'), `// [test:uuid:${u.test}] thing.do\n`);
     chain = new Chain(new ScenarioIndex(idxDir), srcDir, testDir);
   });
@@ -202,7 +202,7 @@ describe('HARD RULE: shared-impl gate + lintMarkers', () => {
     }
     idx.put(SHARED_IMPL, { ior: 'ior:class:Implementation', model: { uuid: SHARED_IMPL, name: 'shared', tests: [`ior:instance:${TEST_U}`] }, ownerIor: null });
     idx.put(TEST_U, { ior: 'ior:class:Test', model: { uuid: TEST_U, name: 'shared test' }, ownerIor: null });
-    fs.writeFileSync(path.join(srcDir, 's.ts'), `// [impl:uuid:${SHARED_IMPL}] shared\n// [impl:uuid:99999999-9999-4999-8999-999999999999] orphan marker no unit\n`);
+    fs.writeFileSync(path.join(srcDir, 's.ts'), `// [impl:uuid:${SHARED_IMPL}] shared\nfunction shared() {}\n// [impl:uuid:99999999-9999-4999-8999-999999999999] orphan marker no unit\nfunction orphanFn() {}\n`);
     fs.writeFileSync(path.join(testDir, 's.test.ts'), `// [test:uuid:${TEST_U}] shared\n`);
     chain = new Chain(new ScenarioIndex(idxDir), srcDir, testDir);
   });
