@@ -285,7 +285,11 @@ export class RbTraceTree extends HTMLElement {
       if (!res.ok) { this.innerHTML = '<div class="tt-empty">Not found</div>'; return; }
       const data = await res.json();
       this.innerHTML = '';
-      this.appendChild(this.buildSeedNode(uuid, data.type, data.name, data.children || [], data.hasChildren));
+      const rootNode = this.buildSeedNode(uuid, data.type, data.name, data.children || [], data.hasChildren);
+      this.appendChild(rootNode);
+      const rootItem = rootNode.querySelector(':scope > .tt-row > rb-object-item');
+      const rootKids = rootNode.querySelector(':scope > .tt-children') as HTMLElement;
+      if (rootItem && rootKids) { rootItem.setAttribute('children-open', ''); rootKids.style.display = ''; }
       this.computeBadges();
       this.prefetchVisibleLayer();
     } catch { this.innerHTML = '<div class="tt-empty">Failed to load</div>'; }

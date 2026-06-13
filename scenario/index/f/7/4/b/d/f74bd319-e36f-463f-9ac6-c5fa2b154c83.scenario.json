@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "f74bd319-e36f-463f-9ac6-c5fa2b154c83",
+    "name": "photo.jpg",
+    "contentPath": "index/f/7/4/b/d/f74bd319-e36f-463f-9ac6-c5fa2b154c83.content",
+    "size": 13,
+    "mimeType": "image/jpeg",
+    "uploadedAt": "2026-06-13T09:59:46.319Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "68d0f039-8668-4d2f-a904-2a23c5d6ecc3",
+    "contentHash": "561fe48ca5e5958fb8a6b43b8104ba49eafe1bcf6becaa16a76b1f12e0d4ca64",
+    "unitLinks": [
+      "content/561fe48ca5e5958fb8a6b43b8104ba49eafe1bcf6becaa16a76b1f12e0d4ca64.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/68d0f039-8668-4d2f-a904-2a23c5d6ecc3/files/f74bd319-e36f-463f-9ac6-c5fa2b154c83.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:68d0f039-8668-4d2f-a904-2a23c5d6ecc3"
+}

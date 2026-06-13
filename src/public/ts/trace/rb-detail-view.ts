@@ -79,7 +79,7 @@ export class RbDetailView extends HTMLElement {
       <div class="dv-links">${rows.join('') || '<div class="dv-empty">no links</div>'}</div>
       <div class="dv-scenario-children" style="border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px"><span style="color:rgba(255,255,255,0.4);font-size:0.7rem">Loading all children...</span></div>`;
 
-    // R19.64+R19.65: file content preview for File-type objects
+    // [impl:uuid:4ce43a9a-a1b2-4c3d-8e4f-5a6b7c8d9e05] R19.93 file detail preview button
     if (obj.type === 'file' || obj.type === 'File') {
       fetchDetailData(obj.uuid).then(({ children, parent }) => {
         const scenarioIdx = `/api/ior/ior:instance:${obj.uuid}`;
@@ -87,11 +87,19 @@ export class RbDetailView extends HTMLElement {
           if (res.unit?.model) {
             const fm = res.unit.model;
             const tok = localStorage.getItem('rawbin-player-id') || '';
-            const preview = renderContentPreview(obj.uuid, fm.mimeType || '', fm.name || obj.title, tok);
+            const previewBtn = document.createElement('button');
+            previewBtn.className = 'btn';
+            previewBtn.style.cssText = 'width:100%;margin:8px 0;padding:8px;background:#667eea;color:white;border:none;border-radius:8px;cursor:pointer;font-size:0.85rem';
+            previewBtn.textContent = `Preview ${fm.name || obj.title}`;
             const linksEl = this.querySelector('.dv-links');
-            if (linksEl) linksEl.insertAdjacentHTML('beforebegin', preview);
-            loadTextPreview(this, obj.uuid, tok);
-            wireUrlActions(this);
+            if (linksEl) linksEl.insertAdjacentElement('beforebegin', previewBtn);
+            previewBtn.addEventListener('click', () => {
+              const preview = renderContentPreview(obj.uuid, fm.mimeType || '', fm.name || obj.title, tok);
+              previewBtn.insertAdjacentHTML('afterend', preview);
+              loadTextPreview(this, obj.uuid, tok);
+              wireUrlActions(this);
+              previewBtn.remove();
+            });
           }
         }).catch(() => {});
       });

@@ -1,0 +1,5 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": { "uuid": "371a655e-0e55-408a-8963-495dd091b953", "name": "RbDetailDrawer.filePreviewButton impl", "sourceFile": "ior:file:src/public/ts/trace/rb-detail-view.ts", "sourceLine": 83, "tests": [] },
+  "ownerIor": "ior:instance:4ce43a9a-1722-4f34-a66f-9ee9dd22862e"
+}

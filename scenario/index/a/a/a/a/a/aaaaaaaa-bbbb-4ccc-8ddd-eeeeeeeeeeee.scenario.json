@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781325996578,
+    "createdAt": 1781344637162,
     "sshKeysGenerated": false,
     "sshPublicKey": "",
     "chatHistory": [],
@@ -20,21 +20,21 @@
         "name": "",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781325996578
+        "joinedAt": 1781344637162
       },
       {
         "ior": "ior:instance:072429e3-cd1d-4acb-bcd3-27c737f81bd2",
         "name": "SafariBug3",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781325996578
+        "joinedAt": 1781344637162
       },
       {
         "ior": "ior:instance:test-tok-canon",
         "name": "",
         "role": "owner",
         "status": "online",
-        "joinedAt": 1781325996578
+        "joinedAt": 1781344637162
       }
     ],
     "files": [],
