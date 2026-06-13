@@ -20,14 +20,21 @@
         "name": "",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781360281493
+        "joinedAt": 1781363558202
       },
       {
-        "ior": "ior:instance:3dca7f5e-6fca-43ba-b8e0-cde6415b2498",
-        "name": "",
-        "role": "owner",
-        "status": "online",
-        "joinedAt": 1781360281493
+        "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+        "name": "Toronto Trinity",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1781363558202
+      },
+      {
+        "ior": "ior:instance:a728c792-b867-4684-b051-fce44d66c7fd",
+        "name": "Marcel Donges Chrome iphone",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1781363558202
       }
     ],
     "files": [],

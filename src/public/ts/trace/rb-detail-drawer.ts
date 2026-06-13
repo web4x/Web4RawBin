@@ -70,11 +70,11 @@ export class RbDetailDrawer extends HTMLElement {
 
   private render(): void {
   // [impl:uuid:aa585fcc-dfc1-42a8-a77d-0c0fb03ca5fd] RbDetailDrawer.stickyClose R19.33
-  // [impl:uuid:517b767c-dfc7-4b34-84d6-f152a163bc73] R19.79 nudge handle above buttons
+  // [impl:uuid:0dd08b2f-a1b2-4c3d-8e4f-5a6b7c8d9e07] R20.2 renderGrabBar
     if (this.querySelector('.drawer-header')) return;
     this.innerHTML = `
       <div class="drawer-header">
-        <div class="drawer-handle" style="cursor:grab;padding:8px 0;touch-action:none"></div>
+        <div class="drawer-handle"><div class="drawer-handle-bar"></div></div>
         <button class="drawer-close" title="Close">✕</button>
       </div>
       <div class="drawer-body"></div>`;

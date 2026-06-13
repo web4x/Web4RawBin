@@ -20,11 +20,12 @@
         "name": "Toronto Trinity",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781361064854
+        "joinedAt": 1781362461570
       }
     ],
     "files": [
-      "ior:instance:47ac75d0-b303-4d6d-826c-fa8c60630c40"
+      "ior:instance:47ac75d0-b303-4d6d-826c-fa8c60630c40",
+      "ior:instance:569c4e79-a74d-4a51-b20a-0798c0e552dc"
     ],
     "lastMessageIor": null,
     "firstMessageIor": null,

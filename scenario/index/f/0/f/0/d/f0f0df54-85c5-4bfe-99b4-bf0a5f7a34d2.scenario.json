@@ -20,14 +20,14 @@
         "name": "",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781360281495
+        "joinedAt": 1781361297084
       },
       {
-        "ior": "ior:instance:ae9a8a5e-1317-4266-be78-b15b7f547139",
-        "name": "",
-        "role": "owner",
-        "status": "online",
-        "joinedAt": 1781360281495
+        "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+        "name": "Toronto Trinity",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1781361297084
       }
     ],
     "files": [
