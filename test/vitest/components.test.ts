@@ -1861,6 +1861,7 @@ describe('R19.5: applySend — BY-INVITE Apply button sends invite request', () 
 // [test:uuid:c73b0ad9-7f6b-408d-ae0e-2607e3f19c0e] R19.86 dismiss threshold guard
 // ═══════════════════════════════════════════════════════════════════════════
 
+// [test:uuid:a7eaa994-2b58-4055-b7cd-c26c4a96044a] R19.86 RoomView.openFilePreview — click dispatches to preview
 describe('R19.86: file/url/webitem click → openFilePreview → drawer opens', () => {
   it('RoomView click handler dispatches file/url/webitem types to openFilePreview', () => {
     const { readFileSync } = require('node:fs');
@@ -2062,6 +2063,7 @@ describe('R19.88: render awaits whenDefined → items are upgraded', () => {
   });
 });
 
+// [test:uuid:fda5a23e-c40a-445e-8a3e-de237cc4b988] R19.84 drawer.dragResize — CSS 95vh + resize clamp + close below 120px
 describe('R19.84: handle drag resizes drawer to 95vh, close below 120px', () => {
   it('drawer CSS max-height is 95vh', () => {
     const { readFileSync } = require('node:fs');
