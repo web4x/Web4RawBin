@@ -1883,15 +1883,15 @@ describe('R19.86: file/url/webitem click → openFilePreview → drawer opens', 
     expect(src).toContain('room-file-preview');
   });
 
-  // [test:uuid:27c1de6c-2047-4f61-a5cf-1e6504da0b3d] R20.2 rb-detail-drawer.renderGrabBar — grab-bar header rendered
-  it('rb-detail-drawer renders drawer-header with drawer-handle-bar', () => {
+  // [test:uuid:27c1de6c-2047-4f61-a5cf-1e6504da0b3d] R20.2 rb-detail-drawer.renderGrabBar — extracted named method
+  it('rb-detail-drawer has renderGrabBar() named method returning grab-bar HTML', () => {
     const { readFileSync } = require('node:fs');
     const nodePath = require("node:path");
     const root = nodePath.resolve(__dirname, '../../');
     const src = readFileSync(nodePath.join(root, 'src/public/ts/trace/rb-detail-drawer.ts'), 'utf-8');
-    expect(src).toContain('drawer-header');
+    expect(src).toContain('private renderGrabBar()');
+    expect(src).toContain('this.renderGrabBar()');
     expect(src).toContain('drawer-handle-bar');
-    expect(src).toContain('drawer-close');
   });
 
   it('rb-detail-drawer touchstart non-handle sets dragging=false, not dismiss', () => {
