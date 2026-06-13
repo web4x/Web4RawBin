@@ -2200,6 +2200,7 @@ describe('R19.89: Remove-Local-Identity button placement + click handler', () =>
     expect(btnLine).toContain('Remove Local Identity');
   });
 
+  // [test:uuid:bbaa4292-5f91-45f8-bb20-7cec8b2bf0e1] R19.72 DeviceEnrollDialog.removeLocalIdentity — click handler wired
   it('de-remove-identity click handler invokes removeLocalIdentity logic', () => {
     const { readFileSync } = require('node:fs');
     const nodePath = require("node:path");
