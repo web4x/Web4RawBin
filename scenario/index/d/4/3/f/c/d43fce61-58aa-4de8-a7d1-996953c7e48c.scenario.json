@@ -1,0 +1,35 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "d43fce61-58aa-4de8-a7d1-996953c7e48c",
+    "name": "T-s19-shared-impl-split-recovery: split 11 shared-impl regressions into own Impl+marker per method (never flip)",
+    "slug": "s19-shared-impl-split-recovery",
+    "description": "HONEST-CHAIN RECOVERY (count reconcile 168→160, PO 2026-06-13): 11 reqs that were genuine@seal regressed at the Impl hop because post-seal in-room-consolidation wired NEW methods to EXISTING impls (shared-impl, several cross-class), tripping the structural impl→1-method guard. FIX = SPLIT, NEVER FLIP: each borrowing method gets its OWN Impl unit + a real [impl:uuid:<FULL>] source marker; un-wire the shared impl from the foreign methods so every impl→exactly 1 method. Recovers the 11 originally-genuine chains (~171/201). Reqs (uuids in count-reconcile doc): R19.11 61c2661a, R19.12 dc2e99eb, R19.13 409ea58b, R19.21 d1391ee3, R19.27 4603db83, R19.31 836c97f9, R19.63 6052570f, R19.69 d989c0c4, R19.71 91ba9fbd, R19.72 380dc7c0, R19.73 02af5fc2. Shared impls: e289349c(x3), 32578dc6, f7b0c24a, 71c283ff, f94da2cd, 96fbfac9, 28f244c7, 6471cfbd; R19.72=25884b0c marker. Scoped into the 22:07 backfill (or expert if prioritized). Planner re-scores det-3x + ground-truths each restored chain (own impl + real marker, no shared-impl) before crediting — NEVER flip via re-wiring a shared marker (that was the original sin).",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (planner — 11 regressions diagnosed + split plan)\n  - [ ] creating test cases\n  - [ ] implementing (expert/backfill — split each shared impl → own Impl unit + marker per method)\n  - [ ] testing (planner re-score det-3x + ground-truth each restored chain)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:61c2661a-fb8a-489a-9d5d-abc4e819cf5d",
+      "ior:instance:dc2e99eb-8e31-4337-887b-8204f7588c20",
+      "ior:instance:409ea58b-763b-433e-b17d-0ea156d94355",
+      "ior:instance:d1391ee3-d08c-4db1-8445-753b4d1c89a3",
+      "ior:instance:4603db83-167a-43a2-a06f-1f56167eb34b",
+      "ior:instance:836c97f9-0c2a-4974-9a77-d4658296fd2e",
+      "ior:instance:6052570f-4630-4cdf-8270-6ef29eec33df",
+      "ior:instance:d989c0c4-d024-44de-b3e2-ef271c731157",
+      "ior:instance:91ba9fbd-6482-44bc-ab88-1efc14a04af4",
+      "ior:instance:380dc7c0-0dec-4bc4-b0a0-dafa3552b86b",
+      "ior:instance:02af5fc2-2cc5-4a32-ba6c-1167a0a513d6"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-13",
+    "createdBy": "robbin-planner",
+    "joint": [
+      "robbin-planner",
+      "robbin-expert"
+    ],
+    "atoms": "honest-chain recovery; split 11 shared-impl regressions (each method own Impl+marker, never flip); recovers ~171/201; scoped into 22:07 backfill; planner ground-truths each restored chain"
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

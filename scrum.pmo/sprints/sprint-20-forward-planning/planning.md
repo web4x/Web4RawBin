@@ -30,6 +30,11 @@ This reverses the S19 anti-pattern that produced 24 chain-debt reqs (R19.83-102)
 
 - [ ] [📝 T-item-views-default-collapsed (R20.3)](../../../scenario/index/7/6/7/d/d/767dd241-127e-4a3f-a491-052b91118a3d.scenario.json) — task `767dd241`. **Release → v0.6.2 + tag.** All item views default COLLAPSED on render (both /trace + in-room). Chain canonicalized (architect 83e44e6): UC itemView.defaultCollapsed `709c458d` → Class RbObjectItem `3bc876b5` → Method initCollapsed `76bbedda`; [PUML](./diagrams/r20-3-default-collapsed-chain.puml). Next: tester RED all-collapsed E2E **first**, then expert impl.
 
+- [ ] [📝 T-bug-changerequest-oop-extensions (R20.4)](../../../scenario/index/b/1/c/9/3/b1c93799-9fd6-4c8a-b006-f8e0822d128a.scenario.json) — task `b1c93799`. **Release → v0.6.3 + tag.** Bug + ChangeRequest as OOP subclasses of Requirement with own icons, same 6-step chain. Chain canonicalized (architect e42b207): UC requirement.classifyType `64be6334` → Class Requirement `14831116` → Method classifyType `fcf6dae1`; Bug `935b5733` + ChangeRequest `b1cf768a` extend Requirement; [PUML](./diagrams/r20-4-bug-changerequest-chain.puml). Next: tester RED → expert impl.
+
+### Honest-chain recovery (regression fix)
+- [ ] [🔧 T-s19-shared-impl-split-recovery](../../../scenario/index/d/4/3/f/c/d43fce61-58aa-4de8-a7d1-996953c7e48c.scenario.json) — task `d43fce61`. Recovers the **11 shared-impl regressions** (count reconcile 168→160): SPLIT each shared Impl → own Impl unit + `[impl:uuid:]` marker per method, NEVER flip. Reqs: R19.11/12/13/21/27/31/63/69/71/72/73. Recovers ~171/201. Scoped into the 22:07 backfill (or expert if prioritized). Doc: [count-reconcile](./planner-count-reconcile-168-to-160-2026-06-13.md).
+
 ### Backfill tracking
 - [ ] [🔧 T-s19-champagne-backfill-tracking](../../../scenario/index/4/5/0/c/b/450cb98a-4234-4f2c-9c9c-3c561750fb13.scenario.json) — task `450cb98a`. Tracks tonight's **22:07 scheduled** radical backfill of S19 v0.5.x chain-debt; planner re-scores det-3x + ground-truths each flip + reports honest count. Baseline 173/198.
 
