@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781345082480,
+    "createdAt": 1781358444902,
     "sshKeysGenerated": false,
     "sshPublicKey": "",
     "chatHistory": [],
@@ -20,21 +20,28 @@
         "name": "",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781345082480
+        "joinedAt": 1781358444902
       },
       {
         "ior": "ior:instance:072429e3-cd1d-4acb-bcd3-27c737f81bd2",
         "name": "SafariBug3",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781345082480
+        "joinedAt": 1781358444902
+      },
+      {
+        "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+        "name": "Toronto Trinity",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1781358444902
       },
       {
         "ior": "ior:instance:test-tok-canon",
         "name": "",
         "role": "owner",
         "status": "online",
-        "joinedAt": 1781345082480
+        "joinedAt": 1781358444902
       }
     ],
     "files": [],
