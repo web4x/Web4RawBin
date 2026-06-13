@@ -3,9 +3,9 @@
   "model": {
     "uuid": "eeeabe81-3264-4c7b-bd41-371a3db9f118",
     "altId": "R20.3",
-    "name": "R20.3: All item views default to COLLAPSED on render \u2014 always, every load.",
-    "description": "EVERYTHING defaults to COLLAPSED on render \u2014 including the Room root node itself. The full expand sequence is: tap Room \u2192 Members/Files folder nodes appear (collapsed) \u2192 tap folder \u2192 items appear (collapsed) \u2192 tap item \u2192 children appear. NO auto-expand at any level. Collapsed = children/subtree HIDDEN (expander \">\" closed), item shows full card (icon+name+desc). NOT icon-only compact (that is a separate state per item-view-states standard). iOS: oi-icon cursor:grab must not suppress tap-to-expand on iOS Safari.",
-    "tronQuote": "> TRON: \"make all itemviews by default collapsed\u2026 always.\"\n> TRON (clarification): \"collapsed means no children visible not icon only.\"\n> TRON (FINAL): default = EVERYTHING collapsed incl Room root.",
+    "name": "R20.3: All item views default to COLLAPSED on render — always, every load.",
+    "description": "EVERYTHING defaults to COLLAPSED on render — including the Room root node itself. The full expand sequence is: tap Room → Members/Files folder nodes appear (collapsed) → tap folder → items appear (collapsed) → tap item → children appear. NO auto-expand at any level. Collapsed = children/subtree HIDDEN (expander \">\" closed), item shows full card (icon+name+desc). NOT icon-only compact (that is a separate state per item-view-states standard). iOS: oi-icon cursor:grab must not suppress tap-to-expand on iOS Safari.",
+    "tronQuote": "> TRON: \"make all itemviews by default collapsed… always.\"\n> TRON (clarification): \"collapsed means no children visible not icon only.\"\n> TRON (FINAL): default = EVERYTHING collapsed incl Room root.",
     "tasks": [
       "ior:instance:767dd241-127e-4a3f-a491-052b91118a3d"
     ],
@@ -14,16 +14,18 @@
     "unitLinks": [],
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "intendedChain": {
-      "useCase": "itemView.defaultCollapsed \u2014 on fresh render all item views are collapsed",
+      "useCase": "itemView.defaultCollapsed — on fresh render all item views are collapsed",
       "class": "RbObjectItem (or rb-tree-item web component)",
-      "method": "render / initCollapsed \u2014 set collapsed=true as the default state before first paint",
+      "method": "render / initCollapsed — set collapsed=true as the default state before first paint",
       "implementation": "constructor or connectedCallback sets this.collapsed=true; render reads it; no auto-expand",
-      "test": "RED: (1) fresh page load \u2192 Room root node is collapsed (no children visible). Tap Room \u2192 Members+Files folders appear, both collapsed. Tap folder \u2192 items appear, all collapsed. Currently FAILS (some levels auto-expanded). (2) iOS Safari: tap expander on collapsed item \u2192 children appear (cursor:grab fix)."
+      "test": "RED: (1) fresh page load → Room root node is collapsed (no children visible). Tap Room → Members+Files folders appear, both collapsed. Tap folder → items appear, all collapsed. Currently FAILS (some levels auto-expanded). (2) iOS Safari: tap expander on collapsed item → children appear (cursor:grab fix)."
     },
     "crossRef": [
       "ior:instance:4603db83-167a-43a2-a06f-1f56167eb34b"
     ],
-    "crossRefNote": "R19.27 (icon-tap collapses width to square) defined the collapse interaction. R20.3 sets the DEFAULT state to collapsed \u2014 items start collapsed and user expands, not the reverse."
+    "crossRefNote": "R19.27 (icon-tap collapses width to square) defined the collapse interaction. R20.3 sets the DEFAULT state to collapsed — items start collapsed and user expands, not the reverse.",
+    "functionalDone": true,
+    "functionalDoneNote": "R20.3 default-collapsed: inline _doRenderSeed (declarative, no distinct named method per SM strict). functionalDone-not-champagne, IN denom. PO 2026-06-13."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

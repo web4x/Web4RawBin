@@ -19,7 +19,9 @@
     ],
     "crossRefNote": "R19.46 (Room.files[] as source of truth) and R19.92 (same data path as /trace) — if both are correct, file rendering should be room-agnostic. R19.98 identifies a per-room inconsistency that violates this.",
     "honestAccountingNote": "R19.100 is NOT a code fix (PO source-verified 2026-06-13): content-preview.ts:26 already routes .url above text/* correctly since v0.5.199; architect misdiagnosed a reorder. The real issue was per-room STALE CACHE. If tester confirms URL-actions on fresh v0.6.9, log as STALE-CACHE-RESOLVED (delivery), NOT a code change. Do NOT credit as new code work.",
-    "deliveryStatus": "STALE-CACHE RESOLVED on v0.6.9 (tester behavioral GREEN, badge=0.6.9, PO-confirmed 2026-06-13). DELIVERY, not a code/chain change — source (content-preview.ts:26) was correct since v0.5.199. Not counted as chain work."
+    "deliveryStatus": "STALE-CACHE RESOLVED on v0.6.9 (tester behavioral GREEN, badge=0.6.9, PO-confirmed 2026-06-13). DELIVERY, not a code/chain change — source (content-preview.ts:26) was correct since v0.5.199. Not counted as chain work.",
+    "functionalDone": true,
+    "functionalDoneNote": "R19.100 per-room render: stale-cache DELIVERY (resolved v0.6.9) + impl is FILE_ADDED handler closure (no named method). functionalDone-not-champagne, IN denom. PO 2026-06-13."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
