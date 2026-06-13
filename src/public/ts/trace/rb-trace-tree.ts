@@ -69,7 +69,9 @@ export class RbTraceTree extends HTMLElement {
     this.upgradeProperty('graph');
     try { this.expanded = new Set(JSON.parse(localStorage.getItem(this.lsKey) || '[]')); } catch { /* ignore */ }
     if (this._items) { this.renderItems(); } else { this.render(); }
-    this.unsub = ViewBus.subscribe('graph', () => this.render());
+    if (!this.getAttribute('data-seed-ior')) {
+      this.unsub = ViewBus.subscribe('graph', () => this.render());
+    }
     this.addEventListener('toggle-children', this.onToggleChildren as EventListener);
     window.addEventListener('hashchange', this.onHashChange);
   }
@@ -198,7 +200,7 @@ export class RbTraceTree extends HTMLElement {
 
   render(): void {
     const seedIor = this.getAttribute('data-seed-ior');
-    if (seedIor) { this.renderSeed(seedIor); return; }
+    if (seedIor) { if (!this._seedAbort) this.renderSeed(seedIor); return; }
     if (!this.graph) { this.innerHTML = '<div class="tt-empty">no graph</div>'; return; }
     const roots = this.graph.ofType('requirement');
     this.innerHTML = '';
@@ -304,7 +306,8 @@ export class RbTraceTree extends HTMLElement {
       if (rootItem && rootKids) { rootItem.setAttribute('children-open', ''); rootKids.style.display = ''; }
       this.computeBadges();
       this.prefetchVisibleLayer();
-    } catch (e: any) { if (e?.name !== 'AbortError') this.innerHTML = '<div class="tt-empty">Failed to load</div>'; }
+      this._seedAbort = null;
+    } catch (e: any) { if (e?.name !== 'AbortError') { this.innerHTML = '<div class="tt-empty">Failed to load</div>'; this._seedAbort = null; } }
   }
 
   private buildSeedNode(uuid: string, type: string, name: string, children: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean; chainMethod?: { uuid: string; type: string; name: string } }[], hasChildren?: boolean, ancestors?: Set<string>, chainMethod?: { uuid: string; type: string; name: string }, description?: string): HTMLElement {

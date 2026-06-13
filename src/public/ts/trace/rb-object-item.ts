@@ -53,7 +53,7 @@ export class RbObjectItem extends HTMLElement {
   connectedCallback(): void {
     this.upgradeProperty('data');
     this.classList.add('object-item');
-    this.render();
+    if (this._data) { queueMicrotask(() => this.render()); } else { this.render(); }
     if (!this._initialized) {
       this._initialized = true;
       this.addEventListener('click', this.onClickDelegate);
