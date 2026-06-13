@@ -5,7 +5,9 @@
     "name": "RbDetailDrawer.iframePinchZoom impl (split)",
     "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
     "sourceLine": 7,
-    "tests": []
+    "tests": [
+      "ior:instance:8cbd7538-c6c6-455f-8c41-49807c82ec9d"
+    ]
   },
   "ownerIor": "ior:instance:c9fcf958-4ae7-4cb5-92f0-b0e45dd9f7b2"
 }

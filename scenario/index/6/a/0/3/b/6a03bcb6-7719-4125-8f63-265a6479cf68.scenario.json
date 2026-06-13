@@ -2,13 +2,13 @@
   "ior": "ior:class:Test",
   "model": {
     "uuid": "6a03bcb6-7719-4125-8f63-265a6479cf68",
-    "name": "test:R19.88 whenDefinedUpgrade",
-    "sourceFile": "ior:file:test/vitest/components.test.ts",
-    "implementations": [
-      "ior:instance:d1f40e31-9ec3-45c6-8dc0-36f815c47eb3"
+    "name": "whenDefined upgrade gate",
+    "file": "ior:file:test/e2e/components.test.ts",
+    "sourceLine": 2013,
+    "verifies": [
+      "ior:instance:d64f6288"
     ],
-    "status": "pass",
-    "unitLinks": []
+    "status": "pass"
   },
-  "ownerIor": "ior:instance:d1f40e31-9ec3-45c6-8dc0-36f815c47eb3"
+  "ownerIor": "ior:instance:d64f6288"
 }

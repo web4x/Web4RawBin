@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "cd8ccf1a-de1a-4d9f-9c77-ef3f2540af8e",
+    "name": "RoomView data-seed-ior",
+    "file": "ior:file:test/e2e/components.test.ts",
+    "sourceLine": 2207,
+    "verifies": [
+      "ior:instance:e13591d9"
+    ],
+    "status": "pass"
+  },
+  "ownerIor": "ior:instance:e13591d9"
+}

@@ -5,7 +5,9 @@
     "name": "RbDetailDrawer.filePreviewButton impl (split)",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "sourceLine": 0,
-    "tests": []
+    "tests": [
+      "ior:instance:fb907b0b-4844-411d-995f-2231bf882317"
+    ]
   },
   "ownerIor": "ior:instance:4ce43a9a-1722-4f34-a66f-9ee9dd22862e"
 }

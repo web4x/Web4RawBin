@@ -5,7 +5,9 @@
     "name": "RoomView.seedIorTree impl (split)",
     "sourceFile": "ior:file:src/public/ts/RoomView.ts",
     "sourceLine": 0,
-    "tests": []
+    "tests": [
+      "ior:instance:cd8ccf1a-de1a-4d9f-9c77-ef3f2540af8e"
+    ]
   },
   "ownerIor": "ior:instance:fdc57ab7-4389-4beb-8719-700abde12df6"
 }

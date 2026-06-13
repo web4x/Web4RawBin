@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "fb907b0b-4844-411d-995f-2231bf882317",
+    "name": "content-preview + previewBtn",
+    "file": "ior:file:test/e2e/components.test.ts",
+    "sourceLine": 2221,
+    "verifies": [
+      "ior:instance:1a5ad916"
+    ],
+    "status": "pass"
+  },
+  "ownerIor": "ior:instance:1a5ad916"
+}

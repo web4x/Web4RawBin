@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8cbd7538-c6c6-455f-8c41-49807c82ec9d",
+    "name": "iframe sandbox allows pinch",
+    "file": "ior:file:test/e2e/components.test.ts",
+    "sourceLine": 2193,
+    "verifies": [
+      "ior:instance:ce2085b2"
+    ],
+    "status": "pass"
+  },
+  "ownerIor": "ior:instance:ce2085b2"
+}
