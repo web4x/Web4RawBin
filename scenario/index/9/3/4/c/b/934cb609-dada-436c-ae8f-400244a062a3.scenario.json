@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "934cb609-dada-436c-ae8f-400244a062a3",
+    "name": "RoomView.diffRenderItems impl (split)",
+    "sourceFile": "src/public/ts/RoomView.ts",
+    "sourceLine": 0,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:9e50db1a-7853-4e6a-b093-98431251d855"
+}

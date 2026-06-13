@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8e5db24f-4b10-45c9-9bc3-d3325728d779",
+    "name": "ContentPreviewer.touchActionFix impl (split)",
+    "sourceFile": "src/public/ts/trace/content-preview.ts",
+    "sourceLine": 19,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5916cb81-68eb-46ef-b95d-4436c55df93b"
+}

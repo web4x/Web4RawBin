@@ -5,7 +5,7 @@
     "name": "server.roomCollectionChildren",
     "description": "Server /api/trace/children Room handler builds synthetic Members+Files collection nodes with nested member/file children.",
     "implementations": [
-      "ior:instance:28f244c7-1a9c-49c5-ab6c-249d906cb9a4"
+      "ior:instance:c32e410c-e145-42cc-aa36-32bbddf3739a"
     ],
     "tests": []
   },

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c32e410c-e145-42cc-aa36-32bbddf3739a",
+    "name": "server.roomCollectionChildren impl (split)",
+    "sourceFile": "src/ts/server/server.ts",
+    "sourceLine": 711,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:638dec5c-809b-43d2-bfcf-05ef5a460960"
+}

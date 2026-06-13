@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "d4869809-d65a-46b1-a1e3-46333a20bd8d",
+    "name": "Buy the book: human-sovereignty-in-the-age-of-ai.url",
+    "contentPath": "index/d/4/8/6/9/d4869809-d65a-46b1-a1e3-46333a20bd8d.content",
+    "size": 135,
+    "mimeType": "text/uri-list",
+    "uploadedAt": "2026-06-13T18:41:32.436Z",
+    "uploaderToken": "c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+    "roomUuid": "f672d29b-47af-4032-b2b8-877cb2783169",
+    "contentHash": "c991a13a276edd9ee4ea3e0ff80088c4a157825e177606db10399d98d011afd1",
+    "unitLinks": [
+      "content/c991a13a276edd9ee4ea3e0ff80088c4a157825e177606db10399d98d011afd1.file.scenario.json",
+      "../data/users/c117f9fc-baf3-4666-adb5-bd7c2dfadff6/rooms/f672d29b-47af-4032-b2b8-877cb2783169/files/d4869809-d65a-46b1-a1e3-46333a20bd8d.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:f672d29b-47af-4032-b2b8-877cb2783169"
+}

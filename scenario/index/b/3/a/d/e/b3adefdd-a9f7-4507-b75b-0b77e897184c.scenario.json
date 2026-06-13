@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b3adefdd-a9f7-4507-b75b-0b77e897184c",
+    "name": "RbRoomContent.linkResolve impl (split)",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
+    "sourceLine": 0,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:e55b3f4a-75e1-4aec-9433-cdfef67cffb3"
+}

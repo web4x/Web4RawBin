@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "13d98e29-457f-482a-856f-39b5c67eda3f",
+    "name": "RbObjectItem.longPressCollapse impl (split)",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
+    "sourceLine": 0,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:7dce454e-8c3e-4417-8854-e425d6011f24"
+}

@@ -5,7 +5,7 @@
     "name": "RbDetailDrawer.iframePinchZoom",
     "description": "2-finger touchmove on .preview-zoom-container computes scale from pinch distance ratio, applies transform:scale on iframe. Clamp [0.25, 4.0]. No snap-back on touchend.",
     "implementations": [
-      "ior:instance:7cd70c47-d2cd-4749-8bb6-18018c64bc14"
+      "ior:instance:ce2085b2-b93c-444e-aa28-fb226bbc98fe"
     ],
     "tests": []
   },

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "852101d1-ec42-478a-bc73-59ddff7feb49",
+    "name": "RoomView.openFilePreview impl (split)",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
+    "sourceLine": 217,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:79601135-70ea-48d9-a566-b4b53a96dfc8"
+}

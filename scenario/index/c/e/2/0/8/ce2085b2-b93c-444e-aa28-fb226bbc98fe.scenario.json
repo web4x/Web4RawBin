@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ce2085b2-b93c-444e-aa28-fb226bbc98fe",
+    "name": "RbDetailDrawer.iframePinchZoom impl (split)",
+    "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
+    "sourceLine": 7,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c9fcf958-4ae7-4cb5-92f0-b0e45dd9f7b2"
+}

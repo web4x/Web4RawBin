@@ -5,8 +5,7 @@
     "name": "RoomView.seedIorTree",
     "description": "Set data-seed-ior=roomId on rb-trace-tree in template. On FILE_ADDED, re-trigger renderSeed to refresh. Delete updateRoomTree + tree.items plumbing.",
     "implementations": [
-      "ior:instance:989db762-b6a0-40a7-82c6-cc3f6178686e",
-      "ior:instance:32578dc6-58bb-4ce1-94be-2a78a142e139"
+      "ior:instance:e13591d9-6d3c-4d65-8b00-90c98f8c6951"
     ],
     "tests": []
   },
