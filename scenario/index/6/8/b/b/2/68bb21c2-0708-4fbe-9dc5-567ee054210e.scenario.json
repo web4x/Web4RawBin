@@ -1,0 +1,5 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": { "uuid": "68bb21c2-0708-4fbe-9dc5-567ee054210e", "name": "RbObjectItem.initCollapsed impl", "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts", "sourceLine": 55, "tests": [] },
+  "ownerIor": "ior:instance:76bbedda-17d4-4d98-957d-6172e1752d12"
+}

@@ -4,8 +4,8 @@
     "uuid": "eeeabe81-3264-4c7b-bd41-371a3db9f118",
     "altId": "R20.3",
     "name": "R20.3: All item views default to COLLAPSED on render \u2014 always, every load.",
-    "description": "Every item view (rb-object-item / tree item) in BOTH /trace AND in-room trees MUST default to COLLAPSED state on render \u2014 always, on every load. No item starts expanded. The user expands items by clicking/tapping. This is a universal default, not per-type or per-context. iOS SUB-POINT (skill-expert audit): the oi-icon element has cursor:grab which creates a DEAD click target on iOS Safari \u2014 the collapse-expand toggle is unreliable on iOS because the grab cursor suppresses tap events. FIX: the icon tap-to-expand must work on iOS Safari (remove or override cursor:grab on the icon for touch devices, or use touchend instead of click).",
-    "tronQuote": "> TRON: \"make all itemviews by default collapsed\u2026 always.\"",
+    "description": "Every item view (rb-object-item / tree item) in BOTH /trace AND in-room trees MUST default to COLLAPSED on render \u2014 meaning CHILDREN/subtree HIDDEN (expander \">\" closed), NOT icon-only compact shrink. The item itself still shows its full card (icon + name + description) normally. Only the children are hidden. The user taps the expander to show children. This is a universal default on every load \u2014 no tree auto-expands. iOS SUB-POINT (skill-expert audit): oi-icon cursor:grab creates a dead click target on iOS Safari \u2014 tap-to-expand unreliable. Fix: icon tap must work on iOS (override cursor:grab on touch).",
+    "tronQuote": "> TRON: \"make all itemviews by default collapsed\u2026 always.\"\n> TRON (clarification): \"collapsed means no children visible not icon only.\"",
     "tasks": [
       "ior:instance:767dd241-127e-4a3f-a491-052b91118a3d"
     ],
@@ -14,11 +14,11 @@
     "unitLinks": [],
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "intendedChain": {
-      "useCase": "itemView.defaultCollapsed \u2014 on fresh render all item views are collapsed",
+      "useCase": "itemView.defaultCollapsed \u2014 on fresh render all items show full card but children/subtree HIDDEN (expander closed)",
       "class": "RbObjectItem (or rb-tree-item web component)",
-      "method": "render / initCollapsed \u2014 set collapsed=true as the default state before first paint",
+      "method": "render / initCollapsed \u2014 children hidden by default, expander closed; NOT icon-only compact",
       "implementation": "constructor or connectedCallback sets this.collapsed=true; render reads it; no auto-expand",
-      "test": "RED: (1) on fresh page load (/trace or room), query all rb-object-item elements \u2192 assert every one has collapsed state. Currently FAILS (some expanded/mixed). (2) on iOS Safari, tap a collapsed item icon \u2192 assert it expands. Currently FAILS (cursor:grab suppresses tap on iOS)."
+      "test": "RED: (1) on fresh page load (/trace or room), all items show full card (icon+name+desc) but children subtree is hidden (expander closed). Currently FAILS (some auto-expanded). (2) on iOS Safari, tap expander on a collapsed item \u2192 children appear. Currently unreliable (cursor:grab suppresses tap)."
     },
     "crossRef": [
       "ior:instance:4603db83-167a-43a2-a06f-1f56167eb34b"
