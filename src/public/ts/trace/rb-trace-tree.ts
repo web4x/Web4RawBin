@@ -41,6 +41,8 @@ export class RbTraceTree extends HTMLElement {
   private prefetchCache = new Map<string, any[]>();
   private prefetchInFlight = new Set<string>();
   private _items: { uuid: string; type: string; name: string; description?: string; children?: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean }[] }[] | null = null;
+  private _seedRafId = 0;
+  private _seedAbort: AbortController | null = null;
 
   private get mode(): string { return this.getAttribute('data-mode') || 'scenario'; }
   private get lsKey(): string { return this.mode === 'room' ? 'rawbin-room-expanded' : LS_KEY; }
@@ -279,11 +281,21 @@ export class RbTraceTree extends HTMLElement {
 
   async renderSeed(rawUuid: string): Promise<void> {
     const uuid = rawUuid.replace(/^ior:instance:/, '').replace(/\.scenario\.json$/, '').trim();
+    cancelAnimationFrame(this._seedRafId);
+    this._seedRafId = requestAnimationFrame(() => this._doRenderSeed(uuid));
+  }
+
+  private async _doRenderSeed(uuid: string): Promise<void> {
+    if (this._seedAbort) this._seedAbort.abort();
+    const ctrl = new AbortController();
+    this._seedAbort = ctrl;
     this.innerHTML = '<div class="tt-empty">Loading…</div>';
     try {
-      const res = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}${this.modeParam}`);
+      const res = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}${this.modeParam}`, { signal: ctrl.signal });
+      if (ctrl.signal.aborted) return;
       if (!res.ok) { this.innerHTML = '<div class="tt-empty">Not found</div>'; return; }
       const data = await res.json();
+      if (ctrl.signal.aborted) return;
       this.innerHTML = '';
       const rootNode = this.buildSeedNode(uuid, data.type, data.name, data.children || [], data.hasChildren);
       this.appendChild(rootNode);
@@ -292,7 +304,7 @@ export class RbTraceTree extends HTMLElement {
       if (rootItem && rootKids) { rootItem.setAttribute('children-open', ''); rootKids.style.display = ''; }
       this.computeBadges();
       this.prefetchVisibleLayer();
-    } catch { this.innerHTML = '<div class="tt-empty">Failed to load</div>'; }
+    } catch (e: any) { if (e?.name !== 'AbortError') this.innerHTML = '<div class="tt-empty">Failed to load</div>'; }
   }
 
   private buildSeedNode(uuid: string, type: string, name: string, children: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean; chainMethod?: { uuid: string; type: string; name: string } }[], hasChildren?: boolean, ancestors?: Set<string>, chainMethod?: { uuid: string; type: string; name: string }, description?: string): HTMLElement {

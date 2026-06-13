@@ -256,6 +256,33 @@ export class RoomView {
     popup.show(url, `Join ${this.roomName}`);
   }
 
+  private renderDebugOverlay(): void {
+    if (!new URLSearchParams(location.search).has('debug')) return;
+    let overlay = document.getElementById('rb-debug-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'rb-debug-overlay';
+      overlay.style.cssText = 'position:fixed;bottom:0;left:0;right:0;max-height:40vh;overflow:auto;background:rgba(0,0,0,0.9);color:#0f0;font:10px monospace;padding:8px;z-index:9999;pointer-events:auto';
+      document.body.appendChild(overlay);
+    }
+    const standalone = (navigator as any).standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+    const safeTop = getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-top)') || '?';
+    const safeBot = getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-bottom)') || '?';
+    const items = document.querySelectorAll('#room-tree rb-object-item');
+    const lines = [`standalone=${standalone} safeTop=${safeTop} safeBot=${safeBot} items=${items.length}`];
+    items.forEach((el, i) => {
+      const r = el.getBoundingClientRect();
+      const cs = getComputedStyle(el);
+      const ref = el.getAttribute('ref') || '?';
+      const type = el.getAttribute('type') || '?';
+      const parent = el.closest('.tt-children') as HTMLElement;
+      const parentH = parent ? parent.getBoundingClientRect().height : -1;
+      const parentD = parent ? parent.style.display : '?';
+      lines.push(`[${i}] ${type}:${ref.slice(0,12)} w=${r.width.toFixed(0)} h=${r.height.toFixed(0)} d=${cs.display} v=${cs.visibility} parent.h=${parentH.toFixed(0)} parent.d=${parentD}`);
+    });
+    overlay.textContent = lines.join('\n');
+  }
+
   private renderMemberList(): void {
     const el = document.getElementById('member-list') as RbMemberList | null;
     if (!el) return;
@@ -263,5 +290,6 @@ export class RoomView {
       id: m.id, name: m.name, avatarUrl: m.avatarUrl, avatarCrop: m.avatarCrop, playerToken: m.playerToken,
       isHost: m.id === this.hostId, isSelf: m.id === this.client.clientId, isConnected: !m.disconnected,
     })));
+    setTimeout(() => this.renderDebugOverlay(), 2000);
   }
 }
