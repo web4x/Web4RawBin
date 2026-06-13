@@ -34,6 +34,7 @@ export class RbObjectItem extends HTMLElement {
   private unsub: (() => void) | null = null;
   private _data: Record<string, string> | null = null;
   private _initialized = false;
+  private _touchHandled = false;
 
   private static readonly DATA_ATTRS = ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count', 'has-children', 'children-open', 'collapsed'];
 
@@ -57,7 +58,7 @@ export class RbObjectItem extends HTMLElement {
     if (!this._initialized) {
       this._initialized = true;
       this.addEventListener('click', this.onClickDelegate);
-      this.addEventListener('touchend', this.onTouchTap);
+      this.addEventListener('touchend', this.onTouchTap, { passive: true });
     }
     const ref = this.getAttribute('ref');
     if (ref && !this.unsub) this.unsub = ViewBus.subscribe(ref, () => this.render());
@@ -103,20 +104,18 @@ export class RbObjectItem extends HTMLElement {
   };
 
   private onTouchTap = (e: TouchEvent): void => {
-    if (e.changedTouches.length !== 1) return;
-    const t = e.changedTouches[0];
-    const el = document.elementFromPoint(t.clientX, t.clientY);
-    if (!el) return;
+    if (e.changedTouches.length < 1) return;
+    const target = e.target as HTMLElement;
     const expander = this.querySelector('.oi-expand');
     const icon = this.querySelector('.oi-icon');
-    if (expander && (el === expander || expander.contains(el))) {
-      e.preventDefault();
+    if (expander && (target === expander || expander.contains(target))) {
+      this._touchHandled = true;
       const open = this.toggleAttribute('children-open');
       this.dispatchEvent(new CustomEvent('toggle-children', { bubbles: true, detail: { open } }));
       return;
     }
-    if (icon && (el === icon || icon.contains(el))) {
-      e.preventDefault();
+    if (icon && (target === icon || icon.contains(target))) {
+      this._touchHandled = true;
       this.toggleAttribute('collapsed');
       return;
     }
@@ -125,6 +124,7 @@ export class RbObjectItem extends HTMLElement {
 // [impl:uuid:4ffa86ed-ca7b-4e73-9371-89b113e2ae77] impl:RbObjectItem.onClickDelegate (split for RbObjectItem.on
   // [impl:uuid:8cc75226-527e-4c87-bed8-9885e98d46e1] RbObjectItem.onClickDelegate
   private onClickDelegate = (e: Event): void => {
+    if (this._touchHandled) { this._touchHandled = false; return; }
     const target = e.target as HTMLElement;
     const icon = this.querySelector('.oi-icon');
     const expander = this.querySelector('.oi-expand');
