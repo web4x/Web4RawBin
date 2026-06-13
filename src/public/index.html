@@ -33,11 +33,22 @@
       <a href="/profile" class="secondary">My Profile</a>
       <a href="/bug-report" class="secondary">Report a Bug</a>
       <a href="/md/README.md" class="secondary">Documentation</a>
+      <button id="reset-pwa" style="width:100%;padding:14px;background:#e53935;color:white;border:none;border-radius:10px;font-weight:600;font-size:1rem;cursor:pointer;margin-top:4px">Reset PWA Cache</button>
     </div>
     <p class="ver" id="ver"></p>
   </div>
   <script>
     fetch('/api/config').then(r=>r.json()).then(c=>{document.getElementById('ver').textContent='v'+c.version+' · '+c.branch}).catch(()=>{});
+    document.getElementById('reset-pwa').addEventListener('click', async () => {
+      try {
+        const regs = await navigator.serviceWorker.getRegistrations();
+        for (const r of regs) await r.unregister();
+        const keys = await caches.keys();
+        for (const k of keys) await caches.delete(k);
+        document.getElementById('reset-pwa').textContent = 'Cleared! Reloading...';
+        setTimeout(() => location.reload(true), 500);
+      } catch (e) { alert('Reset failed: ' + e.message); }
+    });
   </script>
 </body>
 </html>
