@@ -21,7 +21,12 @@
     "crossRefNote": "R19.8.B (rejoin = flip not duplicate) defines the dedup behavior. R19.59 (load-before-write) is where the stale-status reset should happen. R19.8.A (leave = flip not prune) set disconnected=true on leave but restart skips the leave event.",
     "useCases": [
       "ior:instance:30059fca-381e-4832-88b0-60a66bef1987"
-    ]
+    ],
+    "refinementOf": [
+      "ior:instance:417918a5-b2ce-45d4-8434-fd67d6abef3f"
+    ],
+    "tags": "orphanByDesign",
+    "duplicateOfNote": "DUPLICATE-OF-R19.8.B (architect ruling 2026-06-14): same rejoinDedup behavior, bug-angle (stale-status blocks rejoin) vs spec-angle (rejoin flips online, no dup). Never a separate method — both markers always on the rejoinDedup code block. Credited ONCE via R19.8.B (impl 4c8a91a5). Folded/excluded to avoid double-count. Stray marker 84910216 removal routed to expert."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
