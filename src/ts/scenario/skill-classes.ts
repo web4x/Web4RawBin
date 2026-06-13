@@ -138,7 +138,17 @@ export class Chain {
     const reqM = this.model(reqUuid);
     if (!reqM) return [{ chainName: short(reqUuid), req: 'open', uc: 'open', cls: 'open', method: 'open', impl: 'open', test: 'open', complete: false, openNodes: [] }];
     const reqName = String(reqM.altId || reqM.name || short(reqUuid));
-    const ucIors = ((reqM.useCases as string[]) || []).filter(u => this.unitType(ior(u)) === 'UseCase');
+    let ucIors = ((reqM.useCases as string[]) || []).filter(u => this.unitType(ior(u)) === 'UseCase');
+    // T-TOOL bridge: when Req.useCases[] empty, walk Req.tasks[]→Task.useCases[] (Task = navigation layer)
+    if (ucIors.length === 0) {
+      const taskIors = ((reqM.tasks as string[]) || []);
+      for (const tIor of taskIors) {
+        const tM = this.model(ior(tIor));
+        if (!tM) continue;
+        const tUcs = ((tM.useCases as string[]) || []).filter(u => this.unitType(ior(u)) === 'UseCase');
+        ucIors.push(...tUcs);
+      }
+    }
 
     if (ucIors.length === 0) {
       return [{ chainName: reqName, req: 'check', uc: 'open architect', cls: 'open', method: 'open', impl: 'open', test: 'open', complete: false,
