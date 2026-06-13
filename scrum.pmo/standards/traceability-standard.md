@@ -408,6 +408,22 @@ A requirement with a DISTINCT behavior MUST have its OWN Method/Impl chain, even
 
 **Rule:** when a requirement's behavior text does NOT match its UC's method name, the UC is mis-modeled. Re-model to the method that DOES the behavior the requirement describes.
 
+## Duplicate-Requirement Markers (SM ruling 2026-06-14)
+
+When two requirements are ruled SAME behavior (refinement-cluster), the duplicate req's impl marker MUST be REMOVED from source — not left as a mislabeled stray. One behavior = one marker. Stale markers with wrong labels pollute the AST strict-test and risk accidental double-credit.
+
+**The R19.82 lesson:** R19.82 (bug: stale-status blocks rejoin) and R19.8.B (spec: rejoin flips online) were the SAME operation — both markers sat on the same code block in rejoinDedup(). Marker 84910216 ("addMemberTakeover") was mislabeled (method is rejoinDedup, not addMemberTakeover) and duplicated 4c8a91a5. Removed.
+
+## Heads-Must-Name-Match Rule (SM ruling 2026-06-14)
+
+The AST strict-test's "heads" classifier (a marker on the FIRST line of a method body) MUST also verify that the marker's LABEL matches the method's NAME. A marker that heads a method but carries a DIFFERENT label (e.g., `[impl:uuid:xxx] Room.addMemberTakeover` heading `rejoinDedup()`) is INVALID — it passes the position check but fails the identity check.
+
+**Rule:** `classify(markerLine, methodName)` must assert BOTH:
+1. **Position:** marker line === method declaration line OR method declaration line + 1 (heads the body)
+2. **Name-match:** marker label contains the method name (case-insensitive substring)
+
+Failing either = strict-FAIL. This closes the loophole where a mislabeled marker could pass by position alone.
+
 ## Scorer-Explains-Per-Req Rule (SM ruling 2026-06-14)
 
 When the champagne scorer marks a requirement incomplete, it MUST emit the per-req rejection reason (which hop failed, which node, why). "21/N incomplete" without per-req detail is not actionable — the team cannot fix what it cannot see. The scorer's trace output (scripts/trace-req.ts) provides per-hop walk + strict-test result per impl. Use it before asserting a gap.
