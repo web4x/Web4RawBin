@@ -4,7 +4,9 @@
     "uuid": "94f6e1f8-84a8-4ca5-9a44-6108ef6201bc",
     "name": "RbDetailDrawer.selectionDriven",
     "description": "Listen to selection-changed on document. Switch drawer body: count=0 \u2192 render chat messages+input. count=1 \u2192 render detail view (byTypeRender) or file preview (ContentPreviewer). count>1 \u2192 render multi-select summary. RoomView bypass: drawer writes body directly, no RoomView mediation.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:e927ecfe-619c-49f2-9ee4-dc82340f6433"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"

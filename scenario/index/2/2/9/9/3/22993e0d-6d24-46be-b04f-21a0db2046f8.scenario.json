@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "22993e0d-6d24-46be-b04f-21a0db2046f8",
+    "name": "onDragStart uses selectionModel.getSelected",
+    "file": "ior:file:test/e2e/components.test.ts",
+    "sourceLine": 2266,
+    "verifies": [
+      "ior:instance:5ac05259"
+    ],
+    "status": "pass"
+  },
+  "ownerIor": "ior:instance:5ac05259"
+}

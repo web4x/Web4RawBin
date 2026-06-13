@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8c01c12c-22f2-44a6-bcdf-6bb460a0b072",
+    "name": "RbObjectItem.onDragStart impl",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
+    "sourceLine": 0,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5ac05259-20b4-4120-84d5-c1920d6b22da"
+}

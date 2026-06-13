@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4256aef7-7580-4410-a0f3-987987d71cfd",
+    "name": "RbObjectItem.simulateLongPress impl",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
+    "sourceLine": 0,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0146ee6c-5561-4322-86a7-9ca65555ed88"
+}

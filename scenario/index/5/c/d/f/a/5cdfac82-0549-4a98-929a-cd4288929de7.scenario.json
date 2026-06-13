@@ -4,7 +4,9 @@
     "uuid": "5cdfac82-0549-4a98-929a-cd4288929de7",
     "name": "RbObjectItem.tapSingleSelect",
     "description": "In onClickDelegate content-area branch: selectionModel.select(this.ref) instead of navigate(). Sets [selected] attr on this item, removes from others.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:cc1dcd0e-93b2-43d5-80bb-b162cd685403"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"

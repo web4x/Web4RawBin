@@ -4,8 +4,12 @@
     "uuid": "5ac05259-20b4-4120-84d5-c1920d6b22da",
     "name": "RbObjectItem.dragAllSelected",
     "description": "onDragStart: if this item is [selected], serialize all selected refs as JSON array in application/rb-object-refs dataTransfer. Ghost image = count badge overlay.",
-    "implementations": [],
-    "tests": []
+    "implementations": [
+      "ior:instance:8c01c12c-22f2-44a6-bcdf-6bb460a0b072"
+    ],
+    "tests": [
+      "ior:instance:22993e0d-6d24-46be-b04f-21a0db2046f8"
+    ]
   },
   "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
 }

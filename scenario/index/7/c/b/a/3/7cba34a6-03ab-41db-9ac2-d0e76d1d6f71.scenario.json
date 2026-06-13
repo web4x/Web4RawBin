@@ -2,9 +2,9 @@
   "ior": "ior:class:Test",
   "model": {
     "uuid": "7cba34a6-03ab-41db-9ac2-d0e76d1d6f71",
-    "name": "SelectionModel select/toggle/clear/dispatch",
+    "name": "SelectionModel.select + toggle/clear/dispatch",
     "file": "ior:file:test/e2e/components.test.ts",
-    "sourceLine": 2229,
+    "sourceLine": 2251,
     "verifies": [
       "ior:instance:6a626fa3-9e31-437f-bb40-2fa57cc501bf"
     ],
