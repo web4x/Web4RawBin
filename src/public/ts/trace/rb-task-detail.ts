@@ -76,6 +76,9 @@ export class RbTaskDetail extends HTMLElement {
         if (links) links.insertAdjacentHTML('afterend', `<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px"><h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5)">All children</h4>${children.map(c => `<div class="dv-link dv-sc" data-ref="${c.type.toLowerCase()}:${c.uuid}"><span class="dv-rel">${c.type}</span><span class="dv-link-title">${c.name}</span></div>`).join('')}</div>`);
         this.querySelectorAll('.dv-sc').forEach(row => row.addEventListener('click', () => { const r = (row as HTMLElement).dataset.ref!; navigate(r.split(':')[0], 'show', { uuid: r.split(':')[1] || '' }); }));
       }
+
+      renderAllChildrenSection(this, children);
+      renderSupersededSection(this, uuid);
     });
   }
 }
