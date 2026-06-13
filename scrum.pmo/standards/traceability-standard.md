@@ -397,3 +397,17 @@ private async filePreview(uuid: string): Promise<void> { ... }
 
 This prevents artificial method extraction solely to game the champagne count.
 The Method node in the 6-step chain is MANDATORY — markers on non-method code are incomplete.
+
+## Refinement-Cluster Rule (SM ruling 2026-06-14)
+
+Multiple requirements MAY share one Method/Impl ONLY when they describe ONE refined behavior-family — i.e., the requirement texts confirm they are the SAME behavior at different specificity levels (e.g., R19.8 "keep offline" + R19.8.A "persist offline state" = same retain behavior).
+
+A requirement with a DISTINCT behavior MUST have its OWN Method/Impl chain, even if the code lives in the same Class. Sharing a method across distinct behaviors is a mis-wire — it inflates one chain and orphans another.
+
+**The R19.8.B lesson:** R19.8 = "retain on disconnect" (markDisconnected). R19.8.B = "rejoin flips online, never adds duplicate" (addMember dedup). These are DISTINCT behaviors on the same Class (Room). R19.8.B was mis-wired to R19.8's UC (retainOnDisconnect) — its genuine method is addMember, not retainOrPrune. Re-modeling R19.8.B to its own UC (room.rejoinDedup → Room.memberAdd) correctly chains its genuine impl 4c8a91a5.
+
+**Rule:** when a requirement's behavior text does NOT match its UC's method name, the UC is mis-modeled. Re-model to the method that DOES the behavior the requirement describes.
+
+## Scorer-Explains-Per-Req Rule (SM ruling 2026-06-14)
+
+When the champagne scorer marks a requirement incomplete, it MUST emit the per-req rejection reason (which hop failed, which node, why). "21/N incomplete" without per-req detail is not actionable — the team cannot fix what it cannot see. The scorer's trace output (scripts/trace-req.ts) provides per-hop walk + strict-test result per impl. Use it before asserting a gap.

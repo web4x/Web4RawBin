@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "fa121190-54d0-41d6-a332-6aa5d0bc9ce3",
+    "name": "room.rejoinDedup",
+    "description": "R19.8.B: persistent rejoin flips existing member ONLINE (never adds duplicate). addMember matches by playerToken \u2014 if found+disconnected, updates existing entry instead of inserting new. Distinct behavior from retainOnDisconnect (R19.8 = keep offline, R19.8.B = rejoin flip).",
+    "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "classes": [
+      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+    ],
+    "method": "ior:instance:ea02fa6d-5116-4466-82ee-81866c81a164",
+    "tasks": [
+      "ior:instance:ce98e242-bf6a-4460-aa03-3668874aa2da"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
