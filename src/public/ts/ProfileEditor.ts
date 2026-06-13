@@ -63,6 +63,7 @@ export class ProfileEditor {
           <input type="url" id="pe-url" value="${initial.url || ''}" maxlength="200" placeholder="Website or social link...">
           <label>Secret Code (4 digits)</label>
           <input type="text" id="pe-code" value="${initial.secretCode || ''}" pattern="[0-9]{4}" maxlength="4" placeholder="1234" inputmode="numeric">
+          ${mode !== 'gate' ? `<label style="margin-top:8px">Your UUID</label><code style="display:block;padding:8px;background:rgba(0,0,0,0.05);border-radius:6px;font-size:0.75rem;word-break:break-all;user-select:all">${this.client.playerToken}</code>` : ''}
         </div>
         <button class="btn btn-primary profile-save" id="pe-save" ${mode === 'gate' && !initial.name ? 'disabled' : ''}>${mode === 'gate' ? 'Continue' : 'Save'}</button>
       </div>`;

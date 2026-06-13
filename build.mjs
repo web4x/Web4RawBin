@@ -14,6 +14,8 @@ if (fs.existsSync(distDir)) {
   }
 }
 
+const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
+
 const result = await esbuild.build({
   entryPoints: ['src/public/ts/app.ts', 'src/public/ts/edit.ts', 'src/public/ts/trace-page.ts', 'src/public/ts/scenario-view.ts', 'src/public/ts/components/rb-update-banner.ts'],
   bundle: true,
@@ -24,6 +26,7 @@ const result = await esbuild.build({
   minify: true,
   sourcemap: !isProduction,
   metafile: true,
+  define: { '__BUILD_VERSION__': JSON.stringify(pkg.version) },
 });
 
 // Find output filenames
@@ -48,7 +51,6 @@ if (bannerBasename) manifest['rb-update-banner.js'] = bannerBasename;
 fs.writeFileSync(path.join(distDir, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
 
 // Stamp CACHE_NAME + STATIC_SHELL in sw.js with current version + hashed bundles
-const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
 const swPath = 'src/public/sw.js';
 let swContent = fs.readFileSync(swPath, 'utf-8');
 swContent = swContent.replace(/const CACHE_NAME = 'rawbin-v[^']*';/, `const CACHE_NAME = 'rawbin-v${pkg.version}';`);

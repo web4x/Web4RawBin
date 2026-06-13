@@ -1,4 +1,7 @@
 // [impl:uuid:39074a59-864f-4947-ac7b-0457bbbe172b] T40 header
+// [impl:uuid:ebac5838-a1b2-4c3d-8e4f-5a6b7c8d9e06] R19.94 build-time version
+declare const __BUILD_VERSION__: string;
+const BUILD_VER = typeof __BUILD_VERSION__ !== 'undefined' ? __BUILD_VERSION__ : '?';
 const ATTRS = ['title', 'show-home', 'show-leave', 'show-edit', 'show-delete', 'show-reload', 'show-fullscreen'] as const;
 
 export class RbHeader extends HTMLElement {
@@ -19,7 +22,7 @@ export class RbHeader extends HTMLElement {
     this.innerHTML = `
       ${showLeave ? '<button class="btn btn-header" data-action="leave" title="Leave room">←</button>' : ''}
       ${showHome ? '<a href="/" class="btn btn-header" title="Home">🏠</a>' : ''}
-      <h2 class="rb-header-title">${title}</h2>
+      <h2 class="rb-header-title">${title}</h2><span style="font-size:0.55rem;opacity:0.4;margin-left:4px">v${BUILD_VER}</span>
       ${showEdit ? '<button class="btn btn-header" data-action="edit" title="Edit room config">✏️</button>' : ''}
       ${showDelete ? '<button class="btn btn-header btn-header-danger" data-action="delete" title="Delete room">🗑</button>' : ''}
       ${showReload ? '<button class="btn btn-header" data-action="reload" title="Reload">↻</button>' : ''}
