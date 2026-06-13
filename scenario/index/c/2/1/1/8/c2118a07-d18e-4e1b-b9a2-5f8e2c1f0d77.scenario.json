@@ -34,8 +34,10 @@
     ],
     "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
     "coveredRequirements": [
-      "ior:instance:c32974c5-dd10-45a7-b5dd-0d711b412fdc"
-    ]
+      "ior:instance:c32974c5-dd10-45a7-b5dd-0d711b412fdc",
+      "ior:instance:b548d481-9653-4705-a30a-c66e5c764a13"
+    ],
+    "b2PromotionNote": "B2 (recurring test-pollution) promoted into T118 (PO 2026-06-13). Fix pivots to zero-pollution-by-construction: ONE systemTester identity + ONE persistent system test room (learning #4), superseding reactive cleanupTestUsers/afterAll. Architect to canonicalize the systemTester chain."
   },
   "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
 }

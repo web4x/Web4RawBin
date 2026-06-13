@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "b548d481-9653-4705-a30a-c66e5c764a13",
+    "altId": "B2",
+    "name": "B2: Recurring test-pollution — E2E specs leak users/rooms into shared data, polluting other tests.",
+    "description": "RECURRING BUG (dogfoods ior:class:Bug, R20.4): E2E specs create users/rooms that leak into shared data and pollute other tests (flaky/order-dependent failures). Reactive cleanup (T118 cleanupTestUsers + per-spec afterAll) is whack-a-mole. ROOT FIX = ZERO-POLLUTION-BY-CONSTRUCTION (learning #4): ONE systemTester identity + ONE persistent system test room — all E2E runs operate within that single bounded identity+room, so no test ever creates stray shared state. Promotes into T118 (S13), superseding the reactive cleanup approach.",
+    "tronQuote": "(architect/PO-sourced recurring-stability bug; req-eng to canonicalize verbatim if Tron restates.)",
+    "tasks": [
+      "ior:instance:c2118a07-d18e-4e1b-b9a2-5f8e2c1f0d77"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
+    "intendedChain": {
+      "useCase": "systemTester.isolatedByConstruction — one systemTester identity + one persistent system test room; no test creates stray shared state",
+      "class": "SystemTester (or test fixture/identity module)",
+      "method": "useSystemTesterIdentity + useSystemTestRoom — bind every E2E run to the single identity+room",
+      "test": "RED: run 2 E2E specs back-to-back → assert NO stray users/rooms created in shared data beyond the one systemTester identity + one system room (currently FAILS: each spec leaks)."
+    },
+    "supersedesNote": "Zero-pollution-by-construction supersedes T118's reactive cleanupTestUsers/afterAll (req c32974c5). Reactive cleanup may stay as belt-and-suspenders but is no longer the primary mechanism.",
+    "needsReqCanonicalization": true
+  },
+  "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
+}
