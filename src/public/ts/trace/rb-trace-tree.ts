@@ -299,7 +299,8 @@ export class RbTraceTree extends HTMLElement {
       const data = await res.json();
       if (ctrl.signal.aborted) return;
       const frag = document.createDocumentFragment();
-      const rootNode = this.buildSeedNode(uuid, data.type, data.name, data.children || [], data.hasChildren, undefined, undefined, undefined, true);
+      // [impl:uuid:76bbedda-a1b2-4c3d-8e4f-5a6b7c8d9e05] R20.3 defaultChildrenHidden
+      const rootNode = this.buildSeedNode(uuid, data.type, data.name, data.children || [], data.hasChildren);
       frag.appendChild(rootNode);
       this.innerHTML = '';
       this.appendChild(frag);
