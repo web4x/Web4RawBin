@@ -139,10 +139,15 @@ export class Chain {
           const label = m[2] || '';
           if (Chain.FAKE_SUFFIX.test(uuid)) continue;
           if (/\(split for/i.test(label)) continue;
-          // (a) heads a named member declaration?
+          const labelMethod = ((label.replace(/\([^)]*\)/g, ' ').trim().split(/\s+/).filter(x => x && !/^R[-\d]/i.test(x) && !/^FLAG/i.test(x))[0] || '').split('.').pop() || '').toLowerCase();
+          // (a) heads a named member declaration — MUST also name-match
           let headed = false;
           for (const d of decls) {
-            if (m.index >= d.fullStart && m.index < d.start && d.kind === 'named-member' && d.name) { headed = true; passSet.add(uuid); break; }
+            if (m.index >= d.fullStart && m.index < d.start && d.kind === 'named-member' && d.name) {
+              const dn = d.name.toLowerCase();
+              if (labelMethod && (dn === labelMethod || dn.includes(labelMethod) || labelMethod.includes(dn))) { headed = true; passSet.add(uuid); }
+              break;
+            }
           }
           if (headed) continue;
           // heads data-const or data-prop → fail
@@ -152,7 +157,6 @@ export class Chain {
           }
           if (headsConst) continue;
           // (b) in-body of a named member whose name matches label?
-          const labelMethod = ((label.replace(/\([^)]*\)/g, ' ').trim().split(/\s+/).filter(x => x && !/^R[-\d]/i.test(x) && !/^FLAG/i.test(x))[0] || '').split('.').pop() || '').toLowerCase();
           let best: Fn | null = null;
           for (const fn of fns) { if (m.index >= fn.start && m.index < fn.end) { if (!best || (fn.end - fn.start) < (best.end - best.start)) best = fn; } }
           if (best && best.kind === 'anon') continue;
