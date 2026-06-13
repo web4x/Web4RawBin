@@ -6,7 +6,7 @@
     "slug": "detail-drawer-wide-grab-bar-dry",
     "description": "R20.2 (S20, traceability-first): the default DetailViewContainer (rb-detail-drawer) nudge is a tiny grey stub pill + X (bad UX). FIX: render the SAME wide grab-bar as the chat drawer — visually + functionally identical (drag-resize per R19.84); ONE DRY grab-bar component shared across both drawers. intendedChain (from req, for architect to canonicalize into real units + PUML): UseCase=detailDrawer.showGrabBar; Class=RbDetailDrawer; Method=renderGrabBar (replace renderNudge stub with chat-drawer wide grab-bar); Implementation=RbDetailDrawer.renderGrabBar() renders same grab-bar element as ChatDrawer, shared CSS class; Test=RED: open default detail drawer → assert grab-bar matches chat drawer (width/height/class) and is NOT stub pill+X (currently FAILS). S20 DISCIPLINE: full chain designed + Test written FIRST; in-room UX → Playwright+screenshot gate; nothing ships chain-open.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — canonicalize UC/Class/Method + PUML from intendedChain)\n  - [ ] creating test cases (tester — write RED grab-bar-match E2E FIRST)\n  - [ ] implementing (expert — against designed chain + test)\n  - [ ] testing (tester — RED→GREEN E2E + screenshot)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — canonicalize UC/Class/Method + PUML from intendedChain)\n  - [x] creating test cases (tester — write RED grab-bar-match E2E FIRST)\n  - [ ] implementing (expert — against designed chain + test)\n  - [ ] testing (tester — RED→GREEN E2E + screenshot)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:9993091a-aa45-4c4f-9c62-e4d5377ba3e8"
     ],
@@ -25,7 +25,8 @@
       "robbin-tester"
     ],
     "atoms": "covers R20.2 per req-eng request; default detail drawer wide grab-bar DRY with chat drawer; intendedChain carried for architect canonicalization + PUML; traceability-first, Test written FIRST, E2E-gated",
-    "pumlLink": "ior:file:scrum.pmo/sprints/sprint-20-forward-planning/diagrams/r20-2-grab-bar-chain.puml"
+    "pumlLink": "ior:file:scrum.pmo/sprints/sprint-20-forward-planning/diagrams/r20-2-grab-bar-chain.puml",
+    "redTest": "RED confirmed (tester, pre-impl): drawer-handle 40x16 pill + X, no wide grab-bar. Awaiting expert impl 32384f12 for GREEN re-gate."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
