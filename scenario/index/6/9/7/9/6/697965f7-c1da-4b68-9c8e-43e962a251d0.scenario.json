@@ -18,7 +18,9 @@
       "class": "RbObjectItem",
       "method": "onSelectionChange → classList.toggle('rb-selected')",
       "test": "RED: select item A → A has .rb-selected class. Deselect A → class removed. Multi-select A+B → both have class."
-    }
+    },
+    "functionalDone": true,
+    "functionalDoneNote": "R20.6e selected CSS highlight: pure CSS [selected]/[active] attrs in app.css, NO method body. Declarative. functionalDone-not-champagne, IN denom. architect-classified B 2026-06-14."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

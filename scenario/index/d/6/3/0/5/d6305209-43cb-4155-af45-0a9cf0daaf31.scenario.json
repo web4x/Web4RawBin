@@ -18,7 +18,9 @@
       "class": "RbDetailDrawer",
       "method": "CSS cleanup — remove highlight class/border, keep .close-btn",
       "test": "RED: open default drawer → assert NO highlight border/background on the drawer chrome (matches chat). Assert X close button present and functional."
-    }
+    },
+    "functionalDone": true,
+    "functionalDoneNote": "R20.6h remove default highlight: CSS/template change (removed flash animation), NO method body. Declarative. functionalDone-not-champagne, IN denom. architect-classified B 2026-06-14."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
