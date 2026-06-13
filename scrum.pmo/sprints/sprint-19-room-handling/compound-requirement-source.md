@@ -314,3 +314,7 @@
 - **R19.97** (2026-06-13): one link still renders broken in md-safari room (v0.5.228 desktop Chrome). Identify + fix.
 - **R19.98** (2026-06-13): identical files render in md-safari but NOT in SYSTEM TEST room — per-room stale-cache inversion. File rendering must be deterministic per FileUnit UUID regardless of room.
   > PO relay (Tron v0.5.228): header-regression WITHDRAWN (owner-only actions = correct behavior).
+
+### Members collection lost in seed-ior consolidation (R19.101)
+- **R19.101** (2026-06-13): REGRESSION — in-room tree lost Members when consolidated to seed-ior (only Files render). Restore BOTH Members + Files via same seed-ior path without regressing files.
+  > PO relay: in-room tree LOST Members collection when consolidated to seed-ior.
