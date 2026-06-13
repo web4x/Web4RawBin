@@ -4,8 +4,8 @@
     "uuid": "eeeabe81-3264-4c7b-bd41-371a3db9f118",
     "altId": "R20.3",
     "name": "R20.3: All item views default to COLLAPSED on render \u2014 always, every load.",
-    "description": "Every item view (rb-object-item / tree item) in BOTH /trace AND in-room trees MUST default to COLLAPSED state on render \u2014 always, on every load. No item starts expanded. The user expands items by clicking/tapping. This is a universal default, not per-type or per-context. iOS SUB-POINT (skill-expert audit): the oi-icon element has cursor:grab which creates a DEAD click target on iOS Safari \u2014 the collapse-expand toggle is unreliable on iOS because the grab cursor suppresses tap events. FIX: the icon tap-to-expand must work on iOS Safari (remove or override cursor:grab on the icon for touch devices, or use touchend instead of click).",
-    "tronQuote": "> TRON: \"make all itemviews by default collapsed\u2026 always.\"",
+    "description": "EVERYTHING defaults to COLLAPSED on render \u2014 including the Room root node itself. The full expand sequence is: tap Room \u2192 Members/Files folder nodes appear (collapsed) \u2192 tap folder \u2192 items appear (collapsed) \u2192 tap item \u2192 children appear. NO auto-expand at any level. Collapsed = children/subtree HIDDEN (expander \">\" closed), item shows full card (icon+name+desc). NOT icon-only compact (that is a separate state per item-view-states standard). iOS: oi-icon cursor:grab must not suppress tap-to-expand on iOS Safari.",
+    "tronQuote": "> TRON: \"make all itemviews by default collapsed\u2026 always.\"\n> TRON (clarification): \"collapsed means no children visible not icon only.\"\n> TRON (FINAL): default = EVERYTHING collapsed incl Room root.",
     "tasks": [
       "ior:instance:767dd241-127e-4a3f-a491-052b91118a3d"
     ],
@@ -18,7 +18,7 @@
       "class": "RbObjectItem (or rb-tree-item web component)",
       "method": "render / initCollapsed \u2014 set collapsed=true as the default state before first paint",
       "implementation": "constructor or connectedCallback sets this.collapsed=true; render reads it; no auto-expand",
-      "test": "RED: (1) on fresh page load (/trace or room), query all rb-object-item elements \u2192 assert every one has collapsed state. Currently FAILS (some expanded/mixed). (2) on iOS Safari, tap a collapsed item icon \u2192 assert it expands. Currently FAILS (cursor:grab suppresses tap on iOS)."
+      "test": "RED: (1) fresh page load \u2192 Room root node is collapsed (no children visible). Tap Room \u2192 Members+Files folders appear, both collapsed. Tap folder \u2192 items appear, all collapsed. Currently FAILS (some levels auto-expanded). (2) iOS Safari: tap expander on collapsed item \u2192 children appear (cursor:grab fix)."
     },
     "crossRef": [
       "ior:instance:4603db83-167a-43a2-a06f-1f56167eb34b"
