@@ -18,7 +18,7 @@ function findReq(tag: string): string | null {
   }
   return null;
 }
-for (const tag of ['R19.1','R19.2','R19.8','R19.8.A','R19.8.B','R19.18']) {
+for (const tag of ['R19.82']) {
   const req = findReq(tag);
   console.log(`\n===== ${tag} req=${req?.slice(0,8)} =====`);
   if (!req) { console.log('  NOT FOUND'); continue; }
