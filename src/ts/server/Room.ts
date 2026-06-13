@@ -163,7 +163,7 @@ export class Room {
   // --- Members ---
 // [impl:uuid:4246c0a8-cfbf-43cd-8677-3367f3ac21d9] Room.memberAdd
 
-  // [impl:uuid:4c8a91a5-35af-48b1-a2e9-4bbd9f18bc10] T-persistent-dedup R19.8.B
+  // [impl:uuid:4c8a91a5-35af-48b1-a2e9-4bbd9f18bc10] Room.addMember
   addMember(member: RoomMember): boolean {
     if (this.state !== 'active') return false;
     const existing = member.playerToken ? [...this.members.values()].find(m => m.playerToken && m.playerToken === member.playerToken) : undefined;
