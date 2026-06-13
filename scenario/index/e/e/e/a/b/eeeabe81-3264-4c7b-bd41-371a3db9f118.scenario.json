@@ -6,11 +6,13 @@
     "name": "R20.3: All item views default to COLLAPSED on render — always, every load.",
     "description": "Every item view (rb-object-item / tree item) in BOTH /trace AND in-room trees MUST default to COLLAPSED state on render — always, on every load. No item starts expanded. The user expands items by clicking. This is a universal default, not per-type or per-context.",
     "tronQuote": "> TRON: \"make all itemviews by default collapsed… always.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:767dd241-127e-4a3f-a491-052b91118a3d"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
-    "parent": null,
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "intendedChain": {
       "useCase": "itemView.defaultCollapsed — on fresh render all item views are collapsed",
       "class": "RbObjectItem (or rb-tree-item web component)",
@@ -23,5 +25,5 @@
     ],
     "crossRefNote": "R19.27 (icon-tap collapses width to square) defined the collapse interaction. R20.3 sets the DEFAULT state to collapsed — items start collapsed and user expands, not the reverse."
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
