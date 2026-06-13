@@ -89,6 +89,7 @@ export class RbDetailDrawer extends HTMLElement {
   private render(): void {
   // [impl:uuid:aa585fcc-dfc1-42a8-a77d-0c0fb03ca5fd] RbDetailDrawer.stickyClose R19.33
   // [impl:uuid:0dd08b2f-a1b2-4c3d-8e4f-5a6b7c8d9e07] R20.2 renderGrabBar
+  // [impl:uuid:58abb87f-90c2-478c-8c4b-a7cb953519bf] R20.2 renderGrabBar impl
     if (this.querySelector('.drawer-header')) return;
     this.innerHTML = `
       <div class="drawer-header">
