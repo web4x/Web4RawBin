@@ -3,19 +3,21 @@
   "model": {
     "uuid": "c81c9194-0ae2-4671-818f-35a9b3907295",
     "altId": "R20.1",
-    "name": "R20.1: URL files open the preview drawer on click \u2014 regression fix.",
-    "description": "REGRESSION: clicking a .url/.html.url file item in the room tree does NOT open the ContentPreviewer drawer. Likely caused by 862868bfe partial-commit (R19.84/85 iframe-zoom half-wire broke the .url inline preview\u2192drawer path). FIX: clicking a url-type FileUnit MUST open the drawer with the two-button preview (R19.77: Open in preview + Open in new tab). Test-first: RED test reproduces the failure BEFORE the fix.",
+    "name": "R20.1: URL files open the preview drawer on click — regression fix.",
+    "description": "REGRESSION: clicking a .url/.html.url file item in the room tree does NOT open the ContentPreviewer drawer. Likely caused by 862868bfe partial-commit (R19.84/85 iframe-zoom half-wire broke the .url inline preview→drawer path). FIX: clicking a url-type FileUnit MUST open the drawer with the two-button preview (R19.77: Open in preview + Open in new tab). Test-first: RED test reproduces the failure BEFORE the fix.",
     "tronQuote": "> TRON: \"url files do not open the drawer.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:77122058-be05-4b22-9a0b-32973ee40a87"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
-    "parent": null,
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "intendedChain": {
-      "useCase": "fileItem.openDrawer \u2014 click url-type item \u2192 drawer opens with preview buttons",
+      "useCase": "fileItem.openDrawer — click url-type item → drawer opens with preview buttons",
       "class": "RbObjectItem or RbRoomContent",
       "method": "onFileClick / openPreviewDrawer",
-      "test": "RED: click .url file item in room \u2192 assert drawer opens + two buttons visible. Currently FAILS (drawer does not open)."
+      "test": "RED: click .url file item in room → assert drawer opens + two buttons visible. Currently FAILS (drawer does not open)."
     },
     "crossRef": [
       "ior:instance:01b055f1-240c-439d-a0ca-d73df56a53e0",
@@ -27,11 +29,11 @@
     "verificationHistory": [
       {
         "date": "2026-06-13",
-        "hop": "in-progress \u2192 resolved",
+        "hop": "in-progress → resolved",
         "reason": "Tron confirmed fixed in v0.6.0. Tester clean-room GREEN evidence.",
         "reportedVia": "robbin-po"
       }
     ]
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

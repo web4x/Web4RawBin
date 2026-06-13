@@ -5,7 +5,7 @@
     "name": "Detail drawer with swipe dismiss",
     "altId": "R16.5",
     "description": "DetailViewContainer renders as a Google-Maps-style detail drawer with open, close, and swipe-dismiss interactions.",
-    "tronQuote": "> TRON (via R15.6 refinement): \"browser includes traceability to tasks as DetailViews\" \u2014 drawer pattern specified by architect.",
+    "tronQuote": "> TRON (via R15.6 refinement): \"browser includes traceability to tasks as DetailViews\" — drawer pattern specified by architect.",
     "tasks": [
       "ior:instance:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50"
     ],
@@ -15,7 +15,9 @@
       "ior:instance:16a01001-d001-4a01-b001-000000110001",
       "ior:instance:16a01002-d002-4a02-b002-000000110002",
       "ior:instance:16a01003-d003-4a03-b003-000000110003"
-    ]
+    ],
+    "functionalDone": true,
+    "functionalDoneNote": "R16.5: icons.ts pure data module (module-level svg() arrow + TRACE_ICONS const, NO class/method); marker is JSDoc. Declarative-by-nature like R19.85/87. functionalDone-not-champagne, IN denom. PO 2026-06-13."
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
 }
