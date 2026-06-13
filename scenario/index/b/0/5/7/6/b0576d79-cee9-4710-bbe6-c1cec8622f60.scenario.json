@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "b0576d79-cee9-4710-bbe6-c1cec8622f60",
+    "name": "T-profile-uuid-restore: restore the user's UUID display on the profile page",
+    "slug": "profile-page-uuid-display-restore",
+    "description": "R19.96 fix (PRIORITY 3): the profile page no longer shows the user's UUID (regression) — it used to display it for sharing / account linking. RESTORE the UUID display in the profile view: show the full UUID (or short form with copy-to-clipboard) so users can identify their account and share it for account linking. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27). Architect attaches useCases[]/chain (single-owner standard). User-facing UI → prefer E2E/screenshot verification.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [ ] implementing (expert)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:5c325047-f190-4528-a975-df14fe5a6f18"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-13",
+    "createdBy": "robbin-planner",
+    "joint": [
+      "robbin-planner",
+      "robbin-architect",
+      "robbin-expert",
+      "robbin-tester"
+    ],
+    "atoms": "covers R19.96 per PO directive (PRIORITY 3); restore profile-page UUID display (full or short+copy) for account linking"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

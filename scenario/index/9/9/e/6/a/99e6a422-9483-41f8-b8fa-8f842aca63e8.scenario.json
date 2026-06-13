@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781344637154,
+    "createdAt": 1781345082476,
     "sshKeysGenerated": false,
     "sshPublicKey": "",
     "chatHistory": [],
@@ -20,14 +20,14 @@
         "name": "",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781344637154
+        "joinedAt": 1781345082476
       },
       {
         "ior": "ior:instance:3dca7f5e-6fca-43ba-b8e0-cde6415b2498",
         "name": "",
         "role": "owner",
         "status": "online",
-        "joinedAt": 1781344637154
+        "joinedAt": 1781345082476
       }
     ],
     "files": [],

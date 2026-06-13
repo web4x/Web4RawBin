@@ -10,17 +10,45 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781344781715,
+    "createdAt": 1781345082479,
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwzSID60XVi0cMGVxdfoz\nplcxhAyewVz7SPjvE7HptAmZEcYvknYX4p7e7MpNz6fsMPU/b8owsmSCgFxwLd+U\n1B3YEQZtcS+9BNjqxxtAD/iaQul29lUxOvIVokl+FUH+g7Swg18jdUj1JLOR5Ot0\noiRhNP39fpyktpedc1PP+0/Mv+iKGnBY6Q54emxoWO8o0RfRTnPrW8lOIeYR5OvY\nN99tNbTp386nu+2WjzMofQQabZbl1Q0d7BUwb3H469TMnq67zKbuf3ze3fVaVbrF\nib+qyO56o4akLxMfkT/Z+GdxmuIClBn6vMDEOIt8XbPoANH3QqXRqqf0JCgUvYkW\njwIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [],
     "members": [
       {
         "ior": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
-        "name": "SystemTester",
+        "name": "",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781344809187
+        "joinedAt": 1781346643704
+      },
+      {
+        "ior": "ior:instance:e40b6b85-2128-430a-8577-8cb4d557d009",
+        "name": "SystemTester",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1781346643704
+      },
+      {
+        "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+        "name": "Toronto Trinity",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1781346643704
+      },
+      {
+        "ior": "ior:instance:fb1538b0-c6c4-41b9-a54c-1732aff1d5fa",
+        "name": "test remove local entity failed",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1781346643704
+      },
+      {
+        "ior": "ior:instance:10c74098-3228-4f70-a79a-af9ac24fb76f",
+        "name": "ScaleTest",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1781346643704
       }
     ],
     "files": [
@@ -28,7 +56,11 @@
       "ior:instance:f74bd319-e36f-463f-9ac6-c5fa2b154c83",
       "ior:instance:5a3410be-027a-481d-b394-dc0ec1b769f2",
       "ior:instance:28389b70-9686-47ba-b99f-db1c98db8b73",
-      "ior:instance:08a73e92-f773-4fde-9c23-a1a8786c7ef6"
+      "ior:instance:08a73e92-f773-4fde-9c23-a1a8786c7ef6",
+      "ior:instance:d5e56505-8fc8-430c-9bf1-76a03affcedc",
+      "ior:instance:0c88a630-3564-42dd-a6ea-cfb7a2673f76",
+      "ior:instance:5a5309b7-55d0-444f-a6a2-ea10d495a965",
+      "ior:instance:4bfd9ddc-49c0-4956-a7f1-e0b0b075b776"
     ],
     "lastMessageIor": null,
     "firstMessageIor": null,

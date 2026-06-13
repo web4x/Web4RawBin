@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "0189ffbd-ef0a-4c8e-930c-d588061fe456",
+    "name": "T-version-in-header: app header shows version string on all screens (small, undisturbing)",
+    "slug": "version-string-in-app-header",
+    "description": "R19.94 fix (PRIORITY 2): the app HEADER MUST display the current version (e.g. 'v0.5.x · rawbin') on ALL screens — small, low-contrast, undisturbing so it never dominates the UI but is always visible (useful on bug-report screenshots + QA). Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27). Architect attaches useCases[]/chain (single-owner standard). User-facing UI → prefer E2E/screenshot verification.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [ ] implementing (expert)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:a5e4fb82-f717-43b0-bcdd-2c73904c5599"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-13",
+    "createdBy": "robbin-planner",
+    "joint": [
+      "robbin-planner",
+      "robbin-architect",
+      "robbin-expert",
+      "robbin-tester"
+    ],
+    "atoms": "covers R19.94 per PO directive (PRIORITY 2); small undisturbing version string in header on all screens; aids screenshot bug reports"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

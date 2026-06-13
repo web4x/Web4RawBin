@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781344637159,
+    "createdAt": 1781345082478,
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvGe1OqacWk3BDHHyj+Zu\nINBRbVx6s1MXvezL60OuZIS5SHH4iZac9KqOmyQJqezfsfyUziknp61WoULh8Mj/\nH5iM8hGffbAzJl7disrjLq87HmMNhYgg0tSBofbXFboYppVYKFoe3RPDyqiWvml9\nx2vASfm+obaHWTpE4QoXXTDdCkwGnu9yNRdA/q7jOkpJX+yoQDhXaTphFHHFTYzt\nBwzU884dbNy1gwUbaCeiroJQiEzJ0YHhYJn9HKwKWgXDN+vrSkOEvO5mdyiXMTyb\nxktJQP60wqt/mk0qggqbkM0iobEqvKkD+CSH9c8DQIQV3ZOngpTxx3YyWBzlenSI\nKQIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [],
@@ -20,28 +20,35 @@
         "name": "",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781344702538
+        "joinedAt": 1781345082478
       },
       {
         "ior": "ior:instance:ae9a8a5e-1317-4266-be78-b15b7f547139",
         "name": "test merge",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781344702538
+        "joinedAt": 1781345082478
       },
       {
         "ior": "ior:instance:da4f8809-5bcc-46fd-8f90-9b00d7fe967f",
         "name": "Marcel Samsung",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781344702538
+        "joinedAt": 1781345082478
       },
       {
         "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
         "name": "Toronto Trinity",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781344702538
+        "joinedAt": 1781345082478
+      },
+      {
+        "ior": "ior:instance:b63c3a8a-6d86-43af-b8e2-25cbef3ea2d7",
+        "name": "",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1781345082478
       }
     ],
     "files": [
