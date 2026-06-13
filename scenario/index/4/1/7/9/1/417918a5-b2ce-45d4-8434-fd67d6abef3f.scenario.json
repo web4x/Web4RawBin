@@ -16,7 +16,7 @@
     "refinementOf": "ior:instance:f3b61367-a470-42a1-87a8-727ebee4beca",
     "refinementOfNote": "Refines R19.8.A (leave = flip not prune) with the REJOIN half: reconnect = flip existing entry back to online, never add a duplicate. R19.8.A guarantees members stay in the list on leave; R19.8.B guarantees they are found and reused on rejoin. Together they enforce the deduplication invariant that Tron observed violated (user appears twice after leave+rejoin). Also relates to R19.18 (no contact ever lost) and R19.8 (persistent offline retention steady-state).",
     "useCases": [
-      "ior:instance:61e01080-6650-4ff1-ba50-0e2a523a2a35"
+      "ior:instance:fa121190-54d0-41d6-a332-6aa5d0bc9ce3"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
