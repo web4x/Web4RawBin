@@ -1,0 +1,174 @@
+chain	reqUuid	name	method	impl	test
+FLAG: This may mean Tron's device is not receiving update...	5b6122fe-75f1-4a33-9b2f-63fcaeb4323f	FLAG: This may mean Tron's device is not receiving update...	updateBanner	79505a42	14304a0c
+R-A2: Avatar upload must work without exposing key errors...	64328225-56c6-4a9c-ada0-0736322c08ee	R-A2: Avatar upload must work without exposing key errors...	avatarPersist	340036b4	79206be7
+R-ED1: Markdown preview must render hierarchical lists (n...	c32974c5-dd10-45a7-b5dd-0d711b412fdc	R-ED1: Markdown preview must render hierarchical lists (n...	renderList	2c3612cc	d8e97d62
+R-R1: All user rooms load from disk on connect and appear...	39a189d2-a59d-4e05-a460-28cd1816c23f	R-R1: All user rooms load from disk on connect and appear...	keylessUpload	d688f96c	cc892647
+R-V1: Version update bar must appear on new version (PRIO...	67bde18f-76f9-43cd-abea-77c2ad7134f9	R-V1: Version update bar must appear on new version (PRIO...	rekeyFix	ae8312af	2530417e
+R10.2 — In the opened profile sheet, the "Download vCard"...	99897fb4-6876-4047-9849-bbdaa840e110	R10.2 — In the opened profile sheet, the "Download vCard"...	onClickDelegate	4ffa86ed	f598287d
+R10.3 — Tapping your OWN member item opens the read-only ...	b252bd78-7ee5-4ccf-8c74-818d1c6e6b4a	R10.3 — Tapping your OWN member item opens the read-only ...	onClickDelegate	4ffa86ed	f598287d
+R10.4	251e2086-ebac-459f-b485-1a9fd0c13d63	Self-click opens profile sheet	onClickDelegate	4ffa86ed	f598287d
+R12.1	bb37674f-dea7-474d-9631-5ca46ed2fe60	Editor back button navigates to parent	backButton	1e9916f1	1b5c8ddc
+R14.2 — Migrate legacy `token-<timestamp>` user directori...	91d85d5a-64d3-4520-a9fc-f2e24110b07b	R14.2 — Migrate legacy `token-<timestamp>` user directori...	convertLegacy	d7abe1d3	26e640f6
+R15.2 — Object.verb model: Object=noun/class; verb=method...	05284ac5-131a-4e10-a2f7-7215e026e438	R15.2 — Object.verb model: Object=noun/class; verb=method...	parent	87c9007a	8edc3d29
+R15.3 — Object.verb use-case diagrams (Object=noun, verb=...	38f80708-d191-47bd-ada4-a710c5f1e6ed	R15.3 — Object.verb use-case diagrams (Object=noun, verb=...	navigate	61734a59	f9fd3cc0
+R15.5 — `ListOverview` with search over listed objects, e...	50a269b8-3f8e-453e-adb1-068ba24c2a2d	R15.5 — `ListOverview` with search over listed objects, e...	render	2b1e7d26	d9db192f
+R15.6 — Task DetailViews + planning Overview that is ALWA...	2d2ca22b-a744-4245-87a5-6562edd3b017	R15.6 — Task DetailViews + planning Overview that is ALWA...	searchAndFilter	03086eb9	f301f0b9
+R15.7 — Traceability BROWSER next to the file browser in ...	e412e965-bcdf-4d33-97df-65c00d14e9c2	R15.7 — Traceability BROWSER next to the file browser in ...	renderObject	4947f284	ae08d5ec
+R16.2: DetailsViewContainer sticky to bottom	9186094e-0711-4859-b245-95cb514acfb2	R16.2: DetailsViewContainer sticky to bottom	setBackground	97f2cf22	59673fc0
+R16.3: pageNav() sticky to top	bca276d9-8ff6-4234-a562-19e15e4ab8fb	R16.3: pageNav() sticky to top	stickyBottom	868331a4	d3513d2b
+R16.4: Traceability chain data diagnosis + fix	b2237873-39b9-4154-9624-f809a9ca4983	R16.4: Traceability chain data diagnosis + fix	stickyTop	78beddd9	18092cd0
+R16.5	41c49f04-ba9e-4317-b783-17cc0e63fd25	Detail drawer with swipe dismiss	open	6d75cd49	8edfcdd6
+R16.6	2d522d41-b0cb-4c60-af0e-a2127b7a482b	Tree item generates speaky name	render	4a158f5c	1de42ff2
+R16.7	92ed98b8-77dc-45c3-bd4a-73aaf6d94ee1	Tree item shows typed SVG icon	setIcon	2693d9cc	ba73abc6
+R16.8	bd9543e0-76b1-476f-9692-cb87afde47cf	Tree item supports OS drag-and-drop	drag	d809105d	e6dd7649
+R16.9	3ba633f3-4a88-4438-a003-9f3b75ec2f01	Tree item collapse/expand with children	collapse	0a028fb4	de5aa406
+R17.2: IOR — universal reference handle	cb93f0db-0e42-4795-b41f-2e125120f259	R17.2: IOR — universal reference handle	symlinkSupport	64fa793d	1a2b80d0
+R17.3: Class-based instances — typed classes with uniform...	3b6cce5a-581c-4325-88b2-b9d381c7f268	R17.3: Class-based instances — typed classes with uniform...	renderHtml(scenario): string	d0605b74	37f286b0
+R17.4: Index by UUID prefix — scenario/index/<first-5>/<u...	ea1aeef4-3603-4fe3-9d5d-5b0800f3991e	R17.4: Index by UUID prefix — scenario/index/<first-5>/<u...	load(json): this	12571155	447754f1
+R17.6: Speaking-name tree (md) — generated md views with ...	6fce2319-a763-46b5-9253-d5e9647e034d	R17.6: Speaking-name tree (md) — generated md views with ...	ts:migrate	811e9fa5	1d86295e
+R17.7: HTML view templates per class	f829246e-43bb-452c-ac0a-2066848a3c2e	R17.7: HTML view templates per class	symlinkJson(sprint	7bab1a71	80ff5280
+R17.8: Views generated + live-updated from flat JSON	ddf01be4-6f25-4d32-a3f9-e3ac844a41db	R17.8: Views generated + live-updated from flat JSON	symlinkJson(sprint	7bab1a71	80ff5280
+R17.9: planning.md is a generated Task-overview	aebefebb-83a7-4449-8788-ae54dfed8ca2	R17.9: planning.md is a generated Task-overview	symlinkJson(sprint	7bab1a71	80ff5280
+R17.10: Sprint overview = list of sprint items	59b56c1d-c8a0-4d99-a06d-563269c7089e	R17.10: Sprint overview = list of sprint items	symlinkJson(sprint	7bab1a71	80ff5280
+R17.11: File-browser ↔ traceability-browser navigation	0d45c204-ef9f-4b68-b1c8-74020bf3aa1d	R17.11: File-browser ↔ traceability-browser navigation	symlinkJson(sprint	7bab1a71	80ff5280
+R17.12: All files are units, referenceable via IOR	80a7291e-be43-492d-882d-c5ac83a0e5e5	R17.12: All files are units, referenceable via IOR	navigate	c9c53769	9c52d370
+R17.13: Method → task → requirement traceability	1ad6eba3-8b71-4476-838f-ad2af85fab0c	R17.13: Method → task → requirement traceability	load(json): this	12571155	447754f1
+R17.14: Migrate all sprints/tasks/requirements to scenari...	1a3bcc74-7aed-4a12-a8e9-983c618f9685	R17.14: Migrate all sprints/tasks/requirements to scenari...	sprintToScenario	7e895957	b7ae688a
+R17.15: Collaborative planning — architect + req + planner	cd30f486-c5c5-44af-a454-def3daba7806	R17.15: Collaborative planning — architect + req + planner	ts:migrate	811e9fa5	1d86295e
+R17.17: Task status as state-machine methods	7bc72edb-8404-4675-835a-5b53dd4bddeb	R17.17: Task status as state-machine methods	renderHtml(scenario): string	d0605b74	37f286b0
+R17.18: Traceability links → first-class scenario units	bebee55d-7d39-4f0c-b7de-d56e72d01363	R17.18: Traceability links → first-class scenario units	scenarioUnit	c5134d0a	1c3acdbd
+R17.20: Requirement + UseCase units in scenario index	47a86209-e0bb-4142-a6ad-4fff94ff9921	R17.20: Requirement + UseCase units in scenario index	formalizeQuotes	15a31e7e	fc207340
+R17.24: UC/Class/Method unit carries exact source locatio...	9dedeb00-6038-4c43-bcd4-efab99792be1	R17.24: UC/Class/Method unit carries exact source locatio...	contrastFix	7d40684c	21aff647
+R17.26	eca7cb3f-8346-4658-9e85-5c1e2453956b	The `## Chain` / linear sequence framing (req → uc → puml...	renderAllTypes	08fdddd4	d25cc4c2
+R17.26: Traceability is a TREE, not a chain	3726f28b-66b1-44fc-b883-4000b3914596	R17.26: Traceability is a TREE, not a chain	treeRework	bf4879c6	b13336fd
+R17.31: The right detail pane has a hard max-width equal ...	102241ef-0c2c-4c6c-bc7b-c9e46b4a7b1c	R17.31: The right detail pane has a hard max-width equal ...	mobileCap	092a5eb3	3e6c0e2c
+R17.32: The traceability chain starts with atomic require...	0f179ef0-a30b-4f35-80f4-a3b27d5f4ab1	R17.32: The traceability chain starts with atomic require...	mobileCap	092a5eb3	3e6c0e2c
+R17.48	61af65e4-1d5b-4cc1-8929-04ab949d73ff	Scenario JSON click opens trace tree	lazyLoad	275481cd	a1e9458d
+R18.2	c37558ec-fecb-43b6-8cc9-faf7566de647	Chain through Class narrows to single requirement-fulfilling Method, its Implementation, and Test.	classMethodScope	9f495b68	5edd2404
+R18.6	37147d5d-bdb6-4011-a433-2af6b5ad68b4	Tree expands by appending child item-view levels to existing DOM — no full re-render.	lazyAppend	eb038984	a8525098
+R18.7	43af9197-cfa5-4da0-9d94-ff8a32d16570	Tree preserves scroll position on expand/collapse — no jump to top.	lazyAppend	eb038984	a8525098
+R18.9	a674bb4d-2601-4331-b82b-6428a0ded81e	Chain cycles eliminated — forward-only traversal with cycle guard.	lazyAppend	eb038984	a8525098
+R18.9: Chain cycles are completely eliminated — forward-only traversal with cycle guard.	f3ee66eb-c18e-4cc2-9ed4-236a940e00c5	R18.9: Chain cycles are completely eliminated — forward-only traversal with cycle guard.	cycleGuard	4846d57e	2c11b869
+R18.10	54185841-cd2f-4fa4-9760-cfa7f8400b99	Tree lazy-loads only the next layer per expand — not the full subtree.	lazyAppend	eb038984	a8525098
+R18.10: Tree lazy-loads only the NEXT layer per expand — not the full subtree.	3a88164d-2213-47c3-b2b7-8f31bdff8917	R18.10: Tree lazy-loads only the NEXT layer per expand — not the full subtree.	fetchAndRenderChildren	5d4ba96f	2935a949
+R18.11	d04d2e83-fccd-43a0-b13f-8c6710cf326e	Cycle guard is ancestor-path-precise — only break true ancestor cycles, preserve DAG re-convergence.	lazyAppend	eb038984	a8525098
+R18.11: Cycle guard is ancestor-path-precise — only break true ancestor cycles, preserve all legitimate children including DAG re-convergence.	9d187326-b3a4-4d2c-809e-825336333007	R18.11: Cycle guard is ancestor-path-precise — only break true ancestor cycles, preserve all legitimate children including DAG re-convergence.	ancestorGuard	4042da6f	f5398d74
+R18.12	3eeea41e-a3e2-4dc5-b1ac-21402f5b3995	True-cycle nodes are omitted cleanly — no visible cut artifact shown to the user.	lazyAppend	eb038984	a8525098
+R18.12: True-cycle nodes are omitted cleanly — no visible cut artifact shown to the user.	700b2e94-352d-4b81-8ca0-8112862f9f55	R18.12: True-cycle nodes are omitted cleanly — no visible cut artifact shown to the user.	cycleOmit	1e008b80	a68880ee
+R18.13	68bdef75-3c65-4f7e-bca6-029c4c502bae	Every traceability chain terminates in a Test — no chain may end on or loop back into a Task or Requirement.	classMethodScope	9f495b68	5edd2404
+R18.14	574f9ac1-8471-4d26-bd29-2c1dfbeefb6f	Drawer shadow is not rendered when the drawer is closed.	lazyAppend	eb038984	a8525098
+R18.15	9de73675-833c-427b-b996-e9ab589a1fd4	Static back button does not shift position on scroll or drawer state change.	lazyAppend	eb038984	a8525098
+R18.16	df10141a-4d8a-4647-885e-a54ca44a9da8	Traceability chain includes the Class level between UseCase and Method — no skip.	classMethodScope	9f495b68	5edd2404
+R18.16: Traceability chain includes the Class level between UseCase and Method — no skip from UseCase directly to Method.	b55fe0f5-816c-4c48-bb43-9f7e8918e7c8	R18.16: Traceability chain includes the Class level between UseCase and Method — no skip from UseCase directly to Method.	classHop	7995df98	578163bd
+R18.17	10b13805-482d-4e12-a66c-995fb93dcaa6	/trace sprint list shows each sprint exactly once — no duplicates.	classMethodScope	9f495b68	5edd2404
+R18.17: /trace sprint list shows each sprint exactly ONCE — no duplicates.	f917bc66-6945-4fec-90e0-b38b50a82a8f	R18.17: /trace sprint list shows each sprint exactly ONCE — no duplicates.	sprintsDedupe	07c16d73	96f6eee5
+R18.18	19ec998f-8674-44a0-b861-50df637db7b0	Sprint names in /trace include their sprint number.	classMethodScope	9f495b68	5edd2404
+R18.18: Sprint names in /trace include their sprint number.	8c19e98b-227b-48aa-8aa3-ea60c6189c16	R18.18: Sprint names in /trace include their sprint number.	sprintNameFormat	eef80308	ac382d91
+R18.19	e575ebf0-812a-4345-95f4-f69e54410efb	Sprint numbers are zero-padded 2-digit (01-09, 10-18) for correct lexicographic ordering.	checkRoundTrip	ee738f5f	9dbf5538
+R18.19: Sprint numbers are zero-padded 2-digit (01-09, 10-18) for correct lexicographic ordering.	8af89ef9-0436-4dae-886e-3cb6a7c6d268	R18.19: Sprint numbers are zero-padded 2-digit (01-09, 10-18) for correct lexicographic ordering.	sprintZeroPad	cc549bbd	b2ae41d8
+R18.20	84c46168-7671-431a-8b85-e43db3cbb0b6	Detail view and Scenario view show ALL methods/children of the object — for ALL types — not just the traced one.	classMethodScope	9f495b68	5edd2404
+R18.20: Detail view (right pane) shows ALL methods/children of the object (full object), not just the traced one.	c16ab068-d95e-4d02-9533-f9100768299c	R18.20: Detail view (right pane) shows ALL methods/children of the object (full object), not just the traced one.	renderAll	ac1f9cfc	8c3266e2
+R18.21	918860e1-6d46-4290-aad7-3da42b14c3f5	Parent link above the Scenario-view link navigates to the ownerIor parent instance.	classMethodScope	9f495b68	5edd2404
+R18.22	6e360425-b20b-4c33-acff-cc967bec1b47	REVISED: Browse File link opens file-browser folder with file highlighted, not Monaco directly.	classMethodScope	9f495b68	5edd2404
+R18.23	80b929af-09cc-43d0-a660-4a25756c9849	REVISED: Line info carried through file-browser to Monaco so editor opens at correct line.	classMethodScope	9f495b68	5edd2404
+R18.25	7918528f-0f4f-4948-b86d-9047aaea5b35	Tree narrowed chain continues past Method through Implementation to Test.	lazyAppend	eb038984	a8525098
+R18.25: Tree narrowed chain continues past Method through Implementation to Test — not stopping at Method.	cacdf662-c514-48ba-88b7-2864c058e64b	R18.25: Tree narrowed chain continues past Method through Implementation to Test — not stopping at Method.	chainToTest	49cb3038	adb2b8aa
+R18.26	a8774061-3231-436f-a552-316f7574b4f6	Source link on ALL types — UseCase to .puml, Class/Method/Impl to .ts, Test to test file, Req/Task to .md.	classMethodScope	9f495b68	5edd2404
+R18.27	3740961f-5f60-4f51-aadf-0780103a6eb2	Browse-File link opens the file-browser FOLDER with the target file HIGHLIGHTED — not Monaco directly.	classMethodScope	9f495b68	5edd2404
+R18.27: Browse-File link opens the file-browser FOLDER with the target file HIGHLIGHTED — not Monaco directly. (inferred from literal)	ad721573-cc8a-4819-8f54-251cc4fe258e	R18.27: Browse-File link opens the file-browser FOLDER with the target file HIGHLIGHTED — not Monaco directly. (inferred from literal)	highlightFile	5a802d49	86356415
+R18.28	b21fcb99-2906-4f22-8ab8-4f6647d9ce79	Line info carried through file-browser to Monaco so editor opens at the correct line for method/usecase.	classMethodScope	9f495b68	5edd2404
+R18.29	ced67f02-66a4-46fa-a15f-2b89e380495a	Symlinks always generated automatically	checkRoundTrip	ee738f5f	9dbf5538
+R18.30	c98023d1-4cb9-4039-9d56-22f92f17f3f8	Unit model carries unitLinks[] array	checkRoundTrip	ee738f5f	9dbf5538
+R18.31	33b81b73-2879-4ffc-87d1-998a69f596ac	Lifecycle methods keep unitLinks consistent	checkRoundTrip	ee738f5f	9dbf5538
+R18.33	b64a9d54-545f-4f25-b110-209421cec8e2	Detail navigation syncs tree selection	syncSelection	f124b7ff	3fdeb347
+R18.34	042bab1a-46ff-4a92-8494-102b9ad928ac	SVG renders in fullscreen iframe natively	onPinchEnd	37e9f3e2	970f75e3
+R18.34.B	6ee95023-5639-4eb7-86cc-916ebb418e7e	Pinch release commits SVG zoom without additional gesture	onPinchEnd	37e9f3e2	970f75e3
+R19.1	3e14d73c-1ddb-4f42-8d33-481581a8ec95	R19.1: A room is a scenario unit like every other (req/task/method) with a unique v4 uuid, the same {ior, model, ownerIor} shape, and a test of the json.	init	2ab8a3dd	47971f31
+R19.2	18ecdab4-e8d1-453f-89b2-4cae64103a80	R19.2: Clicking the room name opens the room config scenario for editing (room editor).	editOpen	f9b579c1	5b79cc8e
+R19.2.A	9311987c-6dcd-4b73-9d9b-74383d6e16b9	R19.2.A: Room name shows a pencil edit icon that opens the room config/scenario editor on click.	editOpen	f9b579c1	5b79cc8e
+R19.3	1f1849b5-b47a-4018-8bb1-cd9690884930	R19.3: Room visibility is one of three modes: PUBLIC, BY-INVITE, or PRIVATE (password-protected).	visibilityCheck	1cef1fa1	9a4f07c7
+R19.4	bcaa8cda-6ac6-4606-8443-8dd8ed80e673	R19.4: PRIVATE rooms are listed only for their owners.	visibilityCheck	1cef1fa1	9a4f07c7
+R19.5	97bb40eb-638f-463b-b66d-e601cc0802c1	R19.5: BY-INVITE rooms show an 'Apply' button instead of a join button; clicking it posts an invite-request message into the room with the requester's name and uuid, and an owner accepting that message joins the requester.	applySend	5a397d5d	2420ff7d
+R19.6	8bd2f61f-d229-4eec-a385-47795c753ca2	R19.6: PUBLIC rooms show a join button (current behaviour preserved).	applySend	5a397d5d	2420ff7d
+R19.7	b6b9c0ab-0f35-4801-b7f0-cd6dc3820f23	R19.7: Each room has a lifecycle mode of either LIVE or PERSISTENT.	memberAdd	4246c0a8	da3d0186
+R19.8	30dcb1a0-17b9-4fcb-9823-e71a4dc371c9	R19.8: PERSISTENT rooms keep every member on the member list even when offline, shown as offline — no contact is ever lost.	memberAdd	4246c0a8	da3d0186
+R19.8.A	f3b61367-a470-42a1-87a8-727ebee4beca	R19.8.A: Persistent rooms flip a leaving member to offline status instead of pruning them from the member list.	retainOrPrune	4c21d2ee	c6dfbaa6
+R19.8.B	417918a5-b2ce-45d4-8434-fd67d6abef3f	R19.8.B: Persistent rejoin flips the existing member back to online — never adds a duplicate entry.	retainOrPrune	4c21d2ee	c6dfbaa6
+R19.9	d6c4604a-339f-4690-8f92-7885dec8def5	R19.9: Members (contacts) can be added to and removed from the room's member list.	memberAdd	4246c0a8	da3d0186
+R19.10	1350d422-1133-4f04-9f9f-c0b3c4930542	R19.10: LIVE is the current default lifecycle mode; after this sprint PERSISTENT becomes the default, switchable back to LIVE in the room editor.	modeSet	3fbcebaf	cda50af2
+R19.11	61c2661a-fb8a-489a-9d5d-abc4e819cf5d	R19.11: The room content area gets a 'drop content here' drop area double the size of a tree-overview item view.	render	e289349c	e4963145
+R19.12	dc2e99eb-8e31-4337-887b-8204f7588c20	R19.12: Below the drop area sits a tree with exactly two nodes: Members and Files.	render	e289349c	e4963145
+R19.13	409ea58b-763b-433e-b17d-0ea156d94355	R19.13: Members are displayed as item views below the Members node.	render	e289349c	e4963145
+R19.14	f1ca3cc9-a675-4a3b-9898-9e33d7876ed8	R19.14: Files uploaded into a room are stored in the uuid index as <uuid>.content plus a <uuid>.scenario.json that references the content and carries unitLinks[] to the ln symlinks in the room folder — every file is a unique scenario unit.	upload	c546c877	fbfeac53
+R19.16	e61b4760-fda7-464e-bec2-3056d6e9d93f	R19.16: BY-INVITE rooms show an Apply button instead of a join button.	applyButton	d1bae8be	ed61e817
+R19.17	4ca31ded-1376-4fc9-8a5e-0d86e6a9183b	R19.17: Accepting the invite-request message joins the requester to the room.	acceptApply	5811824c	2129a8e5
+R19.18	ba3fa399-750a-4201-a93d-923530f88d3d	R19.18: No contact is ever lost from a room member list.	retainOrPrune	4c21d2ee	c6dfbaa6
+R19.19	c31aaa02-22ce-47f8-bf01-2a2021107257	R19.19: The room mode can be switched from PERSISTENT to LIVE in the room editor.	modeSet	3fbcebaf	cda50af2
+R19.20	4a9d1728-368e-4b84-ad03-e6497669a098	R19.20: The file scenario unit carries unitLinks[] references to its ln links in the room folder on the filesystem.	linkToRoom	7aea186a	c2c91058
+R19.21	d1391ee3-d08c-4db1-8445-753b4d1c89a3	R19.21: In-room Members/Files tree reuses the trace browser rb-tree + rb-tree-item components.	mountTraceTree	32578dc6	ea6ce5d8
+R19.21.A	f732d200-601b-46b2-96c4-21c966f38b7c	R19.21.A: Members and Files nodes are rb-object-item folder nodes containing child items, not bespoke section headers.	folderNodeRender	602fecd2	7638f719
+R19.21.B	f0943631-e165-4b0d-af7a-f748f5c47688	R19.21.B: Drag preview shows the full item card, not just the icon.	dragGhost	a1e11e85	d75a9be1
+R19.22	d3416a23-f2f9-4c70-8a47-88e0f93a9aa0	R19.22: Every per-user room.json is a symlink to the canonical Room scenario unit, and the UI shows a link to it next to the edit button.	persistAsSymlink	a6e5e49d	f936d0f4
+R19.22.A	e9618d93-8dbc-44b2-abd7-b1eddebce97d	R19.22.A: Every data/users/<u>/rooms/<r>/room.json is a symlink to scenario/index/<shard>/<r>.scenario.json + one-shot backfill.	persistAsSymlink	a6e5e49d	f936d0f4
+R19.22.B	b748b4f1-44dd-480a-8e6c-45d9cb0e5ea3	R19.22.B: UI link next to the edit pencil button that opens the canonical Room scenario unit.	scenarioLinkRender	26b81ea0	17b688fb
+R19.23	17fd9704-5573-4cd0-8bfd-cf7ae303af4e	R19.23: Remove all room size and capacity limits — rooms are unbounded.	stripSizeLimits	c96d458c	ffab35a3
+R19.24	7d6c95ce-c2e5-4119-b74b-c26be7dbafc6	R19.24: Remove spectator functionality entirely.	stripSpectator	b309d0dd	d12f34d5
+R19.25	6ed53825-86ce-4ec7-80d0-ce739e876992	R19.25: rb-object-item shows a red child-count badge left of the collapse arrow.	badgeRender	bc638f97	a62fd762
+R19.26	ad2a7074-d5dd-4076-bcb5-d06ffa0662d9	R19.26: Drag is only activated when grabbing the icon element, not the whole item row.	iconDrag	0b57d139	50601482
+R19.27	4603db83-167a-43a2-a06f-1f56167eb34b	R19.27: Clicking the icon once collapses item width to a perfect square with the icon inside, height unchanged.	squareCollapse	f7b0c24a	8bbdde41
+R19.28	e790f0bc-590a-4b32-8df0-bfaa5db2c93c	R19.28: Tree prefetch is one-layer-ahead eager — preload exactly one sublayer beyond visible, non-recursive.	prefetchLayer	3d3a4239	2ee90d4e
+R19.29	a688978b-3151-4384-bb00-2adcc5fe055b	R19.29: Tree owns badge calculation and lazy-eager prefetch as its own methods — items are dumb views the tree drives.	computeBadges	7e43dda4	c20ea27f
+R19.30	ca351869-b694-491e-ba0f-8c9e9623c4db	R19.30: Edit pen (✏️) opens the canonical room scenario unit in EDIT mode.	editCanonical	2a29b3da	6d58883c
+R19.32	1935258b-92a7-4317-b5e4-e8188df53fce	R19.32: Shared room link loads the app and join flow, never the offline page.	ignoreSearchNav	cec00d7f	a34e4d49
+R19.33	553be449-3bad-4580-9426-11c4ab10e202	R19.33: Detail drawer close affordance stays sticky in view, never scrolls away.	stickyClose	aa585fcc	859878d6
+R19.35	c99083ba-1b38-474c-88d1-ca4bf5f5a2c7	R19.35: Room scenario unit model holds IOR references to its member units.	persistMembers	d5f0c2b4	c874546a
+R19.36	573d5b87-bd20-4eb6-9ec4-87896a6533bb	R19.36: DnD file-upload chain is fully traceable from drop to ln link to room file-tree display.	uploadFile	d6ec181b	2806c12e
+R19.37	46d49877-63c5-438b-9982-6c66a041ee44	R19.37: Unknown drop format logs the event to room chat as an extensible dispatcher.	routeUnknown	971bdde0	1e763397
+R19.38	2d4fefed-0895-4be3-b153-505dc65eca9a	R19.38: Chat messages are scenario units with ownerIor and a doubly-linked list of next/prev message IORs.	lazyLoadChain	e9dfad4e	dd85c4d7
+R19.39	4ed793f1-94a0-4645-b4f5-b8dff74da75c	R19.39: A system RawBin User unit owns the DnD debug/log messages.	ensureRawBinUser	7de1d230	5df331c3
+R19.40	a0d3791e-a859-4303-b475-b3e525fce114	R19.40: Room holds lastMessageIor; chat lazy-loads 5 messages at a time walking prevMessage.	lazyLoadChain	e9dfad4e	dd85c4d7
+R19.41	e0bcf6ec-3b16-483a-bdc9-a22b9ab2495b	R19.41: Server has a configurable log level that gates logging detail at runtime.	logAtLevel	cda50b0f	1f38ad83
+R19.42	9e8b678b-c522-4929-90c3-d710c4893b6a	R19.42: Drop-zone has clear onDragEnter/onDragExit visual handlers.	feedbackCycle	c20ff555	8682fa95
+R19.43	fd822bbe-da7a-4121-bd80-a4ac7d05c744	R19.43: After drop, show an upload status bar with progress.	feedbackCycle	c20ff555	8682fa95
+R19.44	65151a56-5efa-448c-b790-1a0522532749	R19.44: Upload success or failure posts a corresponding RawBin system chat message.	feedbackCycle	c20ff555	8682fa95
+R19.45	9b468b6d-37e8-4f4e-879c-dea228b747c5	R19.45: Offline page has a red Flush PWA Cache button next to Retry.	flushAndReload	4bb96a28	919e6fa6
+R19.46	124d9eec-0c46-4f45-8640-b7e14618d214	R19.46: Room file-restore is driven by the scenario's authoritative files[] IOR list, not filesystem symlink scan.	restoreFilesFromScenario	32005bc3	793ab11f
+R19.47	89502cba-1085-4bf1-ac97-be9a8ba452cf	R19.47: Identical file content reuses the existing FileUnit UUID and adds another unitLink.	reuseByContentHash	50106c13	c219e744
+R19.48	160039ef-92a5-44d7-af1c-d9b71cdb1be0	R19.48: Different file content with same name registers as a unit version, not a new unit.	versionByName	148740b9	8d8b3fdd
+R19.49	49a447cf-f27f-4639-aca7-4ab2b46543fb	R19.49: Each file scenario unit stores a content hash.	computeContentHash	6ec25cdc	3a6887d9
+R19.50	fe9922f0-e58f-4e26-9d5a-8c65f8b26c60	R19.50: File scenario unit has a version[] array of {version, ior} entries.	uploadEndpoint	7c4a9d74	bde41193
+R19.51	33677612-5507-415c-8abf-1d2e27bc603b	R19.51: Content-hash index at scenario/content/ with symlinks for O(1) dedup lookup on upload.	indexByContentHash	36a3b677	962e2e36
+R19.52	dceda100-434b-4ef7-9af3-9a69ccfac6b2	R19.52: Detail drawer is full width — no max-width cap.	fullWidth	ff684e10	0b7d18d9
+R19.53	4c442530-92fb-48b4-81d8-54af2ca9c866	R19.53: ONE canonical room location on disk — data/users/<uuid>/rooms/<roomUuid>/, no stray dirs.	canonicalDir	c7230aa0	8006c588
+R19.54	3544a030-48cf-48f4-a08c-a376fb749f79	R19.54: Users become first-class scenario units (ior:class:User) in the scenario index.	createUserUnit	8298c379	f5211188
+R19.55	53820063-250e-451e-b395-69948c6eee79	R19.55: Devices become first-class scenario units (ior:class:Device) in the scenario index.	createDeviceUnit	51b7a457	2401bf84
+R19.55.A	150333f7-afdf-47a3-833f-4b53c6102eee	R19.55.A: Device↔User association modeled like Room↔User — forward IOR array, ownerIor, per-user storage, unitLinks.	deviceAssociation	766fd217	04e74e0d
+R19.56	b8db5c65-9fcf-4866-8f31-15aee864ba5d	R19.56: Cleanup legacy multi-char index shards — migrate to single-char-per-level canonical paths.	canonicalShard	80e26c8c	d8b2767d
+R19.57	8b823df5-0ad9-4264-b200-6a7125010654	R19.57: Full-width drawer must not cover the top-nav back button — back stays visible and clickable.	raiseAboveDrawer	2f809076	79da3d78
+R19.59	5a181bc4-c0bc-41d0-8cd4-f13431fd4ac4	R19.59: Room construction persist must load persisted members/files/chat BEFORE writing — never wipe existing data.	loadBeforeWrite	6acb7db1	9b9c8ae6
+R19.60	fd5ab4b4-31c6-40c5-a0b1-6f72f00fd155	R19.60: Pre-existing rooms backfill files[] from on-disk FileUnits so old rooms restore files on join.	backfillFiles	9c94958d	cb3507a2
+R19.61	9473a0be-d248-4277-80a3-9d9f1560f2cb	R19.61: Every scenario type generates both .md and .html view templates with chain-link and edit affordance.	registerAllTypes	7c6911e4	aeeb177e
+R19.62	4885d7cb-b946-4759-914c-a95d2b249b64	R19.62: Dropping a URL/link into a room creates a url-type scenario unit.	urlDrop	b05fcdf3	5d077319
+R19.63	6052570f-4630-4cdf-8270-6ef29eec33df	R19.63: Clicking a file unit in the room tree shows a preview in the detail drawer.	filePreview	f94da2cd	b7cee4ce
+R19.64	8d90d7ec-0bce-439f-8180-bed4a182aace	R19.64: Preview renders by content type — href in iframe, image as img, SVG in viewer.	byTypeRender	301da3f0	9e161bda
+R19.65	b03701b6-2105-4589-b27d-7db58b62e16c	R19.65: Generalize SVG viewer into a generic previewer for SVG, images, and href/HTML links.	render	a232ce97	54155cc3
+R19.66	e6495d45-6d70-4e10-82d0-fdbe6ce01a0a	R19.66: Room Scenario button opens a Room detail view, not 'Task not found'.	typeDispatch	d147e1fd	5a835c64
+R19.67	a99486b6-4c4c-46cb-80e6-607af73e7f7e	R19.67: Room scenario detail shows type 'Room', speaky name, and clickable Scenario.json link — not bare uuid.	roomScenarioDetail	07942a94	9dfd9b69
+R19.68	f7d15a93-56d0-40c3-9634-3abfd98c166f	R19.68: File access is room-scoped — only room members may read/download a room's files.	roomScopedAccess	e872cf5c	f9c4e91a
+R19.69	d989c0c4-d024-44de-b3e2-ef271c731157	R19.69: Iframe previews of untrusted uploads use sandbox attribute to prevent script execution.	iframeSandbox	96fbfac9	2c2bd7d1
+R19.70	b1aaaa0d-a3ad-43d3-ac09-b67b8d1129ec	R19.70: Scenario link navigates to file browser highlighting the scenario.json, not a self-reference.	scenarioBrowserLink	ed71d42a	8fdf7573
+R19.71	91ba9fbd-6482-44bc-ab88-1efc14a04af4	R19.71: Room scenario detail lists files[] as children, not 'no children'.	forwardRefs	28f244c7	73c47b4d
+R19.73	02af5fc2-2cc5-4a32-ba6c-1167a0a513d6	R19.73: In-room file click opens ContentPreviewer — image/html/href preview works in room context.	filePreview	6471cfbd	7f62966c
+R19.74	7d80452e-a562-4e1d-91e2-4a1ebf0cea67	R19.74: text/html file preview renders in a sandboxed iframe, not as raw source.	htmlSandboxed	cf44c51c	178f14b2
+R19.75	b2057a60-71f5-4d6e-96a7-de98b8f18057	R19.75: ContentPreviewer passes auth token in content URL so room members can preview files.	authToken	4c897dae	733dc384
+R19.77	32e42144-0d04-49c9-a54d-298a4289c8c4	R19.77: URL file preview shows two buttons — Open in preview (inline iframe) and Open in new tab.	urlFileActions	cde29329	3d82754c
+R19.78	684cc684-4369-4246-9b9c-fb2f1679d778	R19.78: Action buttons render ABOVE the filename, not below.	buttonsAboveName	b8714c1d	68a81a25
+R19.81	f5e7b9cd-3fb7-41b0-b9b4-fbdb419f234c	R19.81: Pinch-zoom works in the preview iframe, not just pan.	iframePinchZoom	7cd70c47	84222a39
+R19.82	14a5a9ca-9800-4131-a811-7ef16cd42290	R19.82: Joining a room from lobby must succeed — stale online-status must not block rejoin.	addMemberTakeover	84910216	3c153212
+R19.89	2ad3fd18-6d78-4aa2-8213-36934b0f3504	R19.89: Red Remove-Local-Identity button must be on DeviceEnrollDialog, not ProfileEditor.	removeLocalIdentity	65af0f55	43b76bc3
+R19.89	bd9bb433-8955-4788-a785-d8add91897cb	R19.89: Move Remove-Local-Identity button from ProfileEditor gate to DeviceEnrollDialog.	removeLocalIdentity	65af0f55	43b76bc3
+R19.91	4b4b61c1-6dfd-4fd8-8a68-b4182c1b2e76	R19.91: Remove Local Identity clears ALL browser state and reloads into first-run ProfileEditor.	removeLocalIdentity	65af0f55	43b76bc3
+R19.96	5c325047-f190-4528-a975-df14fe5a6f18	R19.96: Profile page shows the user's UUID — restore missing UUID display.	showUserUuid	5b438bb9	e69274bc
+R19.99	aaa36d91-35b8-49ba-877d-d39b2275e1da	R19.99: One link still renders broken in md-safari room — identify and fix.	fixBrokenLink	71c283ff	3f255cc5
+R20.5	7734f4e1-def9-4af3-a7d2-5ccc7160b214	R20.5: Detail-view Traceability Chain shows ONLY traced-chain nodes; All Children = union of ALL model arrays. Universal.	singularChain	b4f6b903	1a22ed27
+S1 Foundation — Bootstrap RawBin team and server	4428b21f-8317-4340-a670-aa3b14582d4f	S1 Foundation — Bootstrap RawBin team and server	strip	79568421	f551ecf0
