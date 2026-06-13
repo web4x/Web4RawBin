@@ -141,7 +141,7 @@ rb-object-item[children-open] .oi-expand { transform: rotate(90deg); }
 .lobby-error { background: rgba(231,76,60,0.2); color: #ff6b6b; text-align: center; padding: 8px; border-radius: 8px; font-size: 0.85rem; }
 
 /* Room View */
-.room-view { background: white; border-radius: 20px; overflow: hidden; min-height: calc(100vh - 32px); display: flex; flex-direction: column; }
+.room-view { background: white; border-radius: 20px; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; min-height: calc(100vh - 32px); display: flex; flex-direction: column; }
 rb-header { display: flex; align-items: center; padding: 8px 12px; padding-top: calc(8px + env(safe-area-inset-top)); background: #667eea; color: white; gap: 4px; }
 .rb-header-title { flex: 1; font-size: 1.1rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 4px; margin: 0; }
 .btn-header { background: none; border: none; color: white; font-size: 1.2rem; min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 8px; padding: 0; }
