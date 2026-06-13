@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "cb539804-d28e-4f08-9b25-b29c0f6dc8a5",
+    "name": "rejoinDedup same playerToken no dup",
+    "file": "ior:file:test/e2e/room.test.ts",
+    "sourceLine": 472,
+    "verifies": [
+      "ior:instance:4c8a91a5-35af-48b1-a2e9-4bbd9f18bc10"
+    ],
+    "status": "pass"
+  },
+  "ownerIor": "ior:instance:4c8a91a5-35af-48b1-a2e9-4bbd9f18bc10"
+}
