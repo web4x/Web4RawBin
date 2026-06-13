@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d233c661-a292-486a-b709-c03474b835de",
+    "name": "openFilePreview + room-file-preview ref",
+    "file": "ior:file:test/e2e/components.test.ts",
+    "sourceLine": 1877,
+    "verifies": [
+      "ior:instance:697cffe0"
+    ],
+    "status": "pass"
+  },
+  "ownerIor": "ior:instance:697cffe0"
+}

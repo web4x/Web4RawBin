@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "27c1de6c-2047-4f61-a5cf-1e6504da0b3d",
+    "name": "drawer-header + handle-bar + close",
+    "file": "ior:file:test/e2e/components.test.ts",
+    "sourceLine": 1887,
+    "verifies": [
+      "ior:instance:58abb87f"
+    ],
+    "status": "pass"
+  },
+  "ownerIor": "ior:instance:58abb87f"
+}

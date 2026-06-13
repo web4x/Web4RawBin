@@ -1,5 +1,13 @@
 {
   "ior": "ior:class:Implementation",
-  "model": { "uuid": "58abb87f-90c2-478c-8c4b-a7cb953519bf", "name": "RbDetailDrawer.renderGrabBar impl", "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts", "sourceLine": 73, "tests": [] },
+  "model": {
+    "uuid": "58abb87f-90c2-478c-8c4b-a7cb953519bf",
+    "name": "RbDetailDrawer.renderGrabBar impl",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "sourceLine": 73,
+    "tests": [
+      "ior:instance:27c1de6c-2047-4f61-a5cf-1e6504da0b3d"
+    ]
+  },
   "ownerIor": "ior:instance:32384f12-1bc4-4214-ba05-da252dd766b9"
 }

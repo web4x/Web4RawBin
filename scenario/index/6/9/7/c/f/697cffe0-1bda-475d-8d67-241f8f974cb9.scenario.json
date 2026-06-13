@@ -5,7 +5,9 @@
     "name": "RoomView.openPreviewDrawer impl",
     "sourceFile": "ior:file:src/public/ts/RoomView.ts",
     "sourceLine": 229,
-    "tests": []
+    "tests": [
+      "ior:instance:d233c661-a292-486a-b709-c03474b835de"
+    ]
   },
   "ownerIor": "ior:instance:d3074cf6-aaed-4884-8b85-345b66080528"
 }
