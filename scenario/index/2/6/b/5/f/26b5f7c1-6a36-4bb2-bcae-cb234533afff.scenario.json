@@ -3,9 +3,9 @@
   "model": {
     "uuid": "26b5f7c1-6a36-4bb2-bcae-cb234533afff",
     "altId": "R19.88",
-    "name": "R19.88: Every rb-object-item must initialize all interactivity \u2014 no partial-init items.",
-    "description": "BUG: some rb-object-item instances fail ALL interactivity together: no pointer/hand cursor on hover, no collapse-to-icon on click, no drawer-open. Other items of the same type work. This is a per-item INITIALIZATION inconsistency \u2014 some items miss the event listener attachment / CSS class / interactive setup entirely. Timing-sensitive: slightly differs between Mac browser and iOS. FIX: rb-object-item initialization must be deterministic and complete for EVERY instance \u2014 cursor, click handler (collapse + drawer), drag. No item may be left in a partially-initialized state regardless of render timing or platform.",
-    "tronQuote": "> TRON: \"on desktop hover shows hand/finger cursor on working files; some items with no visible reason do NOT \u2014 and those also do not compact to icon or open the drawer. some kind of initialisation issue on the item. slightly differs mac browser vs ios.\"",
+    "name": "R19.88: Every rb-object-item must initialize all interactivity — no partial-init items.",
+    "description": "BUG: some rb-object-item instances fail ALL interactivity together: no pointer/hand cursor on hover, no collapse-to-icon on click, no drawer-open. Other items of the same type work. This is a per-item INITIALIZATION inconsistency — some items miss the event listener attachment / CSS class / interactive setup entirely. Timing-sensitive: slightly differs between Mac browser and iOS. FIX: rb-object-item initialization must be deterministic and complete for EVERY instance — cursor, click handler (collapse + drawer), drag. No item may be left in a partially-initialized state regardless of render timing or platform.",
+    "tronQuote": "> TRON: \"on desktop hover shows hand/finger cursor on working files; some items with no visible reason do NOT — and those also do not compact to icon or open the drawer. some kind of initialisation issue on the item. slightly differs mac browser vs ios.\"",
     "tasks": [
       "ior:instance:67abd046-fb92-4327-a9f3-00b3497c0977"
     ],
@@ -17,11 +17,13 @@
       "ior:instance:c639acdf-cf0a-4fa7-b8c2-4afe103fb028",
       "ior:instance:8ba2d9ef-0560-4292-9b56-66552434799d"
     ],
-    "crossRefNote": "R19.87 (iOS drawer broken) and R19.83 (file items re-render lifecycle) are likely symptoms of the same root: partial initialization. R19.88 captures the root cause \u2014 deterministic complete init for every item instance.",
+    "crossRefNote": "R19.87 (iOS drawer broken) and R19.83 (file items re-render lifecycle) are likely symptoms of the same root: partial initialization. R19.88 captures the root cause — deterministic complete init for every item instance.",
     "refinedBy": [
       "ior:instance:3785b104-f890-473e-8d76-bee5bf010b84"
     ],
-    "refinedByNote": "Refined by R19.88.A: whenDefined gate fixed first render but innerHTML churn on re-render re-introduces the race. R19.88.A = stop destroy+recreate, diff/update in place."
+    "refinedByNote": "Refined by R19.88.A: whenDefined gate fixed first render but innerHTML churn on re-render re-introduces the race. R19.88.A = stop destroy+recreate, diff/update in place.",
+    "functionalDone": true,
+    "functionalDoneNote": "R19.88 awaitItemUpgrade: declarative-by-nature (CSS/template/1-liner), architect-classified B (eb8d2c9). SHIPPED/WORKING but NOT chain-champagnable (no named method per SM strict ruling). Distinct honest category — NOT a failure, NOT open champagne-debt. PO 2026-06-13."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

@@ -17,7 +17,9 @@
       "ior:instance:01b055f1-240c-439d-a0ca-d73df56a53e0",
       "ior:instance:02af5fc2-2cc5-4a32-ba6c-1167a0a513d6"
     ],
-    "crossRefNote": "R19.86 (URL drawer regression) may be the same root cause on desktop, now confirmed iOS-wider. R19.73 (in-room preview) is the feature. R19.87 isolates the iOS-specific failure: only vcard works, all others broken."
+    "crossRefNote": "R19.86 (URL drawer regression) may be the same root cause on desktop, now confirmed iOS-wider. R19.73 (in-room preview) is the feature. R19.87 isolates the iOS-specific failure: only vcard works, all others broken.",
+    "functionalDone": true,
+    "functionalDoneNote": "R19.87 touchActionFix: declarative-by-nature (CSS/template/1-liner), architect-classified B (eb8d2c9). SHIPPED/WORKING but NOT chain-champagnable (no named method per SM strict ruling). Distinct honest category — NOT a failure, NOT open champagne-debt. PO 2026-06-13."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

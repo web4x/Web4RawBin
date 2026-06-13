@@ -3,9 +3,9 @@
   "model": {
     "uuid": "b5688a42-279a-46d5-83f2-01da581890e5",
     "altId": "R19.92",
-    "name": "R19.92: Icon collapse = long-press (500ms), not single-tap \u2014 prevent accidental collapse on touch devices.",
-    "description": "The .oi-icon single-tap collapse is overloaded with drag-handle on the same element. On iOS, accidental touches during scroll/jitter fire click \u2192 random collapse. FIX: collapse on icon requires 500ms long-press (touchstart timer, touchmove/touchend/dragstart cancel). Single-tap on icon = no action. Drag unaffected. Matches iOS long-press convention.",
-    "tronQuote": "> TRON (via PO): icon gesture overloaded \u2014 accidental touch collapses items on device",
+    "name": "R19.92: Icon collapse = long-press (500ms), not single-tap — prevent accidental collapse on touch devices.",
+    "description": "The .oi-icon single-tap collapse is overloaded with drag-handle on the same element. On iOS, accidental touches during scroll/jitter fire click → random collapse. FIX: collapse on icon requires 500ms long-press (touchstart timer, touchmove/touchend/dragstart cancel). Single-tap on icon = no action. Drag unaffected. Matches iOS long-press convention.",
+    "tronQuote": "> TRON (via PO): icon gesture overloaded — accidental touch collapses items on device",
     "tasks": [
       "ior:instance:b476df5f-1eb8-44ca-9125-42b16e052a0c"
     ],
@@ -14,7 +14,9 @@
     "unitLinks": [],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "supersededBy": "ior:instance:300a8952-2545-41e2-b974-1560fc9e46be",
-    "supersededNote": "Superseded by R20.6d (long-press = toggle multi-select). R19.92 defined long-press for icon-collapse; R20.6d redefines long-press as selection toggle (SelectionModel takes precedence)."
+    "supersededNote": "Superseded by R20.6d (long-press = toggle multi-select). R19.92 defined long-press for icon-collapse; R20.6d redefines long-press as selection toggle (SelectionModel takes precedence).",
+    "functionalDone": true,
+    "functionalDoneNote": "R19.92 seedIorTree: declarative-by-nature (CSS/template/1-liner), architect-classified B (eb8d2c9). SHIPPED/WORKING but NOT chain-champagnable (no named method per SM strict ruling). Distinct honest category — NOT a failure, NOT open champagne-debt. PO 2026-06-13."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

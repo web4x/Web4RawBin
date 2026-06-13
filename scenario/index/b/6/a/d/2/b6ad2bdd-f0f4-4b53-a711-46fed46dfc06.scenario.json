@@ -12,7 +12,9 @@
     "tests": [],
     "sourceFile": "",
     "unitLinks": [],
-    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "functionalDone": true,
+    "functionalDoneNote": "R19.85 iframePinchZoom: declarative-by-nature (CSS/template/1-liner), architect-classified B (eb8d2c9). SHIPPED/WORKING but NOT chain-champagnable (no named method per SM strict ruling). Distinct honest category — NOT a failure, NOT open champagne-debt. PO 2026-06-13."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

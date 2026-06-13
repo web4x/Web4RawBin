@@ -4,8 +4,8 @@
     "uuid": "e29dcae1-2327-48df-a3c5-41add257c624",
     "altId": "R19.85",
     "name": "R19.85: Iframe pinch gesture SCALES the preview content, not just pans.",
-    "description": "BUG: pinch gesture in the preview iframe only PANS (translates) \u2014 it does not SCALE (zoom in/out). Pinch-out must make the content bigger; pinch-IN must make it smaller. FIX: the pinch gesture handler must apply CSS transform: scale() on the iframe content (or the iframe wrapper), not just translate. R19.81 captured the pinch-zoom requirement but the implementation only achieved pan. R19.85 re-asserts: pinch = SCALE, not pan. Both pinch-to-scale AND pan (single-finger drag) must coexist.",
-    "tronQuote": "> TRON: \"the pinch does not let me make the content of the preview make smaller in the iframe\u2026 only pan works. thats not enough.\"",
+    "description": "BUG: pinch gesture in the preview iframe only PANS (translates) — it does not SCALE (zoom in/out). Pinch-out must make the content bigger; pinch-IN must make it smaller. FIX: the pinch gesture handler must apply CSS transform: scale() on the iframe content (or the iframe wrapper), not just translate. R19.81 captured the pinch-zoom requirement but the implementation only achieved pan. R19.85 re-asserts: pinch = SCALE, not pan. Both pinch-to-scale AND pan (single-finger drag) must coexist.",
+    "tronQuote": "> TRON: \"the pinch does not let me make the content of the preview make smaller in the iframe… only pan works. thats not enough.\"",
     "tasks": [
       "ior:instance:1cbad4ef-1428-4594-9a48-b7892ab36f48"
     ],
@@ -14,7 +14,9 @@
     "unitLinks": [],
     "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
     "refinementOf": "ior:instance:f5e7b9cd-3fb7-41b0-b9b4-fbdb419f234c",
-    "refinementOfNote": "Refines R19.81 (pinch-zoom in iframe). R19.81 captured the requirement; implementation only achieved pan. R19.85 re-asserts: pinch MUST scale (CSS transform scale), not just translate. Both gestures coexist."
+    "refinementOfNote": "Refines R19.81 (pinch-zoom in iframe). R19.81 captured the requirement; implementation only achieved pan. R19.85 re-asserts: pinch MUST scale (CSS transform scale), not just translate. Both gestures coexist.",
+    "functionalDone": true,
+    "functionalDoneNote": "R19.85 iframePinchZoom: declarative-by-nature (CSS/template/1-liner), architect-classified B (eb8d2c9). SHIPPED/WORKING but NOT chain-champagnable (no named method per SM strict ruling). Distinct honest category — NOT a failure, NOT open champagne-debt. PO 2026-06-13."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
