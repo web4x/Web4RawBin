@@ -2247,9 +2247,9 @@ describe('R19.93: createFilePreviewButton — rb-detail-view renders preview but
   });
 });
 
-// [test:uuid:7cba34a6-03ab-41db-9ac2-d0e76d1d6f71] R20.6 SelectionModel.init — singleton + select/toggle/clear/dispatch
-describe('R20.6: SelectionModel has select/toggle/clear + dispatches selection-changed', () => {
-  it('SelectionModelImpl has select, toggle, clear, dispatch methods', () => {
+// [test:uuid:7cba34a6-03ab-41db-9ac2-d0e76d1d6f71] R20.6 SelectionModel.select — select/toggle/clear/dispatch
+describe('R20.6: SelectionModel.select + toggle + clear + dispatch', () => {
+  it('SelectionModelImpl.select() adds ref, toggle/clear mutate, dispatches selection-changed', () => {
     const { readFileSync } = require('node:fs');
     const nodePath = require("node:path");
     const root = nodePath.resolve(__dirname, '../../');
