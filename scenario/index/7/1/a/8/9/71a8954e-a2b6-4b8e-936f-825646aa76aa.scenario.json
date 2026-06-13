@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "71a8954e-a2b6-4b8e-936f-825646aa76aa",
+    "altId": "R19.92",
+    "name": "R19.92: In-room file items use the same data path as /trace — not bespoke WS feed.",
+    "description": "The /trace traceability browser renders the room's files perfectly (first two pictures). The in-room file tree does NOT. ROOT CAUSE: in-room uses a bespoke WS feed for file items instead of the same scenario-unit data path that /trace uses. FIX: in-room file items MUST use the SAME data path as /trace — load FileUnit scenario units from the scenario index (Room.files[] IOR → fetch unit → render rb-object-item), not a separate WS message feed. This is the DRY principle from R19.90 applied to the DATA layer, not just the component layer.",
+    "tronQuote": "> TRON: \"in the first two pictures the files perfectly work. why not IN the rooms the same way... finally fix the in room file items\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "crossRef": [
+      "ior:instance:20fc59cc-5f92-4c17-b86b-c35b837d0373",
+      "ior:instance:124d9eec-0c46-4f45-8640-b7e14618d214"
+    ],
+    "crossRefNote": "R19.90 (reuse rb-trace-tree component) fixed the COMPONENT layer. R19.92 fixes the DATA layer: same scenario-unit fetch path, not bespoke WS. R19.46 (Room.files[] IOR list) is the data source."
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

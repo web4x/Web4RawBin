@@ -296,3 +296,8 @@
 ### Remove identity full wipe (R19.91, refines R19.89/72)
 - **R19.91** (2026-06-11): Remove Local Identity must clear ALL browser state (localStorage+IndexedDB+caches), reset to first-run, reload → ProfileEditor onboarding. Currently partial clear.
   > TRON: "Remove Local Identity button is now correct, but pressing it must result in removing ALL state from the browser store that brings it here, and start as if it was the first time, then reload into the profile editor again."
+
+### In-room files same data path + file detail preview button (R19.92 + R19.93)
+- **R19.92** (2026-06-13): in-room file items use SAME data path as /trace (scenario-unit fetch from Room.files[] IOR), not bespoke WS feed. DRY on data layer (R19.90 was component layer).
+- **R19.93** (2026-06-13): file detail view gets a PREVIEW button to open ContentPreviewer (currently missing — has Scenario/Parent but no preview).
+  > TRON: "in the first two pictures the files perfectly work. why not IN the rooms the same way. add on the file details view a preview button and finally fix the in room file items"
