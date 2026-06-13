@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "32384f12-1bc4-4214-ba05-da252dd766b9",
+    "name": "RbDetailDrawer.renderGrabBar",
+    "description": "Replace renderNudge stub (pill+X) with the chat-drawer wide grab-bar. Shared CSS class (.drawer-handle / .chat-handle-bar). DRY: same element as ChatDrawer, one CSS source.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+}

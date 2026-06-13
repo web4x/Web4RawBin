@@ -1,0 +1,21 @@
+@startuml r20-2-grab-bar-chain
+!theme plain
+title R20.2 — Detail Drawer Grab Bar (singular chain)
+
+left to right direction
+
+package "T-detail-drawer-grab-bar" {
+  usecase "detailDrawer.showGrabBar\nuc:3dc386fd\ntask:fe8c43a5" as UC
+  agent "RbDetailDrawer.renderGrabBar\nclass:0dd08b2f\nmethod:32384f12" as M
+  UC --> M
+}
+
+note bottom
+  DRY: same grab-bar element as ChatDrawer
+  Shared CSS class (.drawer-handle / .chat-handle-bar)
+  RED Test: open detail drawer → grab-bar matches chat drawer
+  (width/height/class), NOT stub pill+X
+  Sprint: 64af2638
+end note
+
+@enduml
