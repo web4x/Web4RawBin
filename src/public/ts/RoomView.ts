@@ -226,7 +226,6 @@ export class RoomView {
   }
 
   // [impl:uuid:852101d1-ec42-478a-bc73-59ddff7feb49] R19.86 openFilePreview (split)
-  // [impl:uuid:697cffe0-1bda-475d-8d67-241f8f974cb9] R20.1 openPreviewDrawer
   private async openFilePreview(uuid: string): Promise<void> {
     const drawer = document.getElementById('room-file-preview') as any;
     if (!drawer) return;
