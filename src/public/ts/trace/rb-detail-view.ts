@@ -81,7 +81,6 @@ export class RbDetailView extends HTMLElement {
       <div class="dv-links">${rows.join('') || '<div class="dv-empty">no links</div>'}</div>`;
 
     // [impl:uuid:4ce43a9a-a1b2-4c3d-8e4f-5a6b7c8d9e05] R19.93 file detail preview button
-    // [impl:uuid:1a5ad916-33ba-4829-80c4-44efd8756c35] R19.93 filePreviewButton (split)
     if (obj.type === 'file' || obj.type === 'File') {
       fetchDetailData(obj.uuid).then(({ children, parent }) => {
         const scenarioIdx = `/api/ior/ior:instance:${obj.uuid}`;

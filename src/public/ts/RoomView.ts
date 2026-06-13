@@ -1,6 +1,4 @@
 // [impl:uuid:a2dfd6e8-3d5c-419a-a743-01fcaa7ba069] T5 room view
-// [impl:uuid:71c283ff-5dee-4df5-be05-6fc5b743aa8a] RbRoomContent.linkResolve
-// [impl:uuid:b3adefdd-a9f7-4507-b75b-0b77e897184c] R19.31 RbRoomContent.linkResolve (split)
 // [impl:uuid:602fecd2-6fdb-4f57-8298-830f01a802fa] RbRoomContent.folderNodeRender
 // [impl:uuid:d1bae8be-a6ca-41e8-bdf6-ee78399ef41e] RbRoomContent.applyButton
 // [impl:uuid:32578dc6-58bb-4ce1-94be-2a78a142e139] RbRoomContent.mountTraceTree
@@ -77,7 +75,6 @@ export class RoomView {
       }
     });
     // [impl:uuid:e3fad3ac-a09f-4a4c-88ce-78e0ca273cc0] FILE_ADDED handler
-    // [impl:uuid:e4b1fe11-77e2-4e2b-b61b-64d93e4c60d1] R19.83 renderRoomTreeFiles (tree.renderSeed on FILE_ADDED)
     this.client.on(MSG.FILE_ADDED, (msg) => {
       if (this.roomId !== msg.roomId) return;
       const tree = document.getElementById('room-tree') as any;
@@ -153,7 +150,6 @@ export class RoomView {
 
   private async render(): Promise<void> {
     const isHost = this.roomOwnerToken === this.client.playerToken;
-    // [impl:uuid:e13591d9-6d3c-4d65-8b00-90c98f8c6951] R19.92 seedIorTree (data-seed-ior in template)
     this.container.innerHTML = `
       <div class="room-view">
         <rb-header title="${this.roomName}" show-leave show-home ${isHost ? 'show-delete show-edit' : ''} show-reload show-fullscreen></rb-header>
@@ -225,7 +221,6 @@ export class RoomView {
     this.chatSheet.setWsStatus(this.client.connected ? 'connected' : 'disconnected');
     if (!this.client.isOnline()) this.showOfflineBanner();
 
-    // [impl:uuid:d64f6288-1402-4a88-8f33-e58bcd80a785] R19.88 awaitItemUpgrade (split)
     await customElements.whenDefined('rb-object-item');
     this.renderMemberList();
   }

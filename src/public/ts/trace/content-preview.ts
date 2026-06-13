@@ -5,7 +5,6 @@
 
 // [impl:uuid:4c897dae-affd-4528-bbda-2f4c373c6de8] R19.75 ContentPreviewer.authToken
 // [impl:uuid:7cd70c47-d2cd-4749-8bb6-18018c64bc14] R19.81 iframe pinch-zoom
-// [impl:uuid:ce2085b2-b93c-444e-aa28-fb226bbc98fe] R19.85 iframePinchZoom (split)
 export function renderContentPreview(uuid: string, mimeType: string, name: string, token?: string): string {
   const contentUrl = `/api/room/file/${uuid}/content${token ? '?token=' + encodeURIComponent(token) : ''}`;
 
@@ -23,7 +22,6 @@ export function renderContentPreview(uuid: string, mimeType: string, name: strin
   if (mimeType === 'text/html') {
     return `<div class="cv-preview"><div class="preview-zoom-container" style="overflow:hidden;touch-action:pan-y"><iframe src="${contentUrl}" sandbox="allow-same-origin" style="width:100%;height:400px;border:none;border-radius:8px;background:white;touch-action:pinch-zoom"></iframe></div></div>`;
   }
-  // [impl:uuid:8e5db24f-4b10-45c9-9bc3-d3325728d779] R19.87 touchActionFix (split)
 // [impl:uuid:cde29329-9ede-4c31-9ab8-4a853b1e4280] R19.77 URL file action buttons
   if (mimeType === 'text/uri-list' || name.endsWith('.url') || name.endsWith('.webloc')) {
     return `<div class="cv-preview cv-url-actions" data-uuid="${uuid}" data-token="${token || ''}"><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn cv-url-preview" style="flex:1">Open in preview</button><button class="btn cv-url-newtab" style="flex:1">Open in new tab</button></div><div class="cv-url-frame" style="display:none;margin-top:8px"></div></div>`;
