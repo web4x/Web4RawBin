@@ -10,7 +10,10 @@
       "ior:instance:7047d04f-3226-46ff-a058-39f53f9aed58"
     ],
     "implementations": [],
-    "tests": []
+    "tests": [],
+    "classes": [
+      "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+    ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

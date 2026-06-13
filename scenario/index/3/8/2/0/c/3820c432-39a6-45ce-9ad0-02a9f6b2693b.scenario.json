@@ -4,9 +4,7 @@
     "uuid": "3820c432-39a6-45ce-9ad0-02a9f6b2693b",
     "name": "RbObjectItem.deferRenderToMicrotask",
     "description": "In connectedCallback, replace direct this.render() with queueMicrotask(() => { if (this.isConnected) this.render(); }). Keeps upgradeProperty + classList + addEventListener synchronous. Only the innerHTML-setting render() is deferred to microtask.",
-    "implementations": [
-      "ior:instance:2b1e7d26-62fe-4d8a-8129-56c09b9d78ff"
-    ],
+    "implementations": [],
     "tests": []
   },
   "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"

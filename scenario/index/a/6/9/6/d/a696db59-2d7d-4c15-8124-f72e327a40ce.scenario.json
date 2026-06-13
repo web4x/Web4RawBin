@@ -3,12 +3,17 @@
   "model": {
     "uuid": "a696db59-2d7d-4c15-8124-f72e327a40ce",
     "name": "roomView.renderFileTree",
-    "description": "File items in room tree survive re-render via persistent this.files[] and renderRoomTreeFiles() — mirrors member lifecycle. Collapse-to-icon and preview-drawer work on file items identically to member items.",
+    "description": "File items in room tree survive re-render via persistent this.files[] and renderRoomTreeFiles() \u2014 mirrors member lifecycle. Collapse-to-icon and preview-drawer work on file items identically to member items.",
     "class": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed",
     "method": "ior:instance:d22d013a-ccc8-49b4-9106-c41114507808",
-    "tasks": ["ior:instance:322d0fcd-b928-41e2-a49f-33656e718b8c"],
+    "tasks": [
+      "ior:instance:322d0fcd-b928-41e2-a49f-33656e718b8c"
+    ],
     "implementations": [],
-    "tests": []
+    "tests": [],
+    "classes": [
+      "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
