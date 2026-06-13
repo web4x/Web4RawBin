@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "9993091a-aa45-4c4f-9c62-e4d5377ba3e8",
+    "altId": "R20.2",
+    "name": "R20.2: Default detail drawer nudge becomes the wide grab-bar from the chat drawer.",
+    "description": "The default DetailViewContainer (rb-detail-drawer) nudge is a tiny grey stub pill + X button (BAD UX — not discoverable as a drag handle). The chat drawer has a WIDE GRAB-BAR that is the correct reference. FIX: the default detail drawer nudge MUST render the SAME wide grab-bar as the chat drawer — visually identical, functionally identical (drag-resize per R19.84). One DRY nudge/grab-bar component shared across both drawers.",
+    "tronQuote": "> TRON: \"the second image has the chat drawer nudge. the first image shows the bad nudge in the default detail container. fix it with full traceability.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": null,
+    "intendedChain": {
+      "useCase": "detailDrawer.showGrabBar — default detail drawer renders the wide grab-bar (matching chat drawer), not the stub+X",
+      "class": "RbDetailDrawer",
+      "method": "renderGrabBar (replace renderNudge stub with the chat drawer's wide grab-bar)",
+      "implementation": "RbDetailDrawer.renderGrabBar() renders the same grab-bar element as ChatDrawer, shared CSS class",
+      "test": "RED: open default detail drawer → assert grab-bar element matches chat drawer (width, height, class) and is NOT the stub pill+X. Currently FAILS (renders stub)."
+    },
+    "crossRef": [
+      "ior:instance:0be510a8-fce6-49cb-afa8-d9cf39762d4d",
+      "ior:instance:bd35b1c8-469d-45f9-b7b3-c26bdc62eb6e"
+    ],
+    "crossRefNote": "R19.84 (nudge drag-resizes drawer) defined the interaction. R19.79 (nudge visible) added the visual handle. R20.2 fixes the VISUAL: the default drawer's nudge must match the chat drawer's wide grab-bar, not be a stub pill."
+  },
+  "ownerIor": null
+}
