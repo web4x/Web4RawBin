@@ -104,6 +104,7 @@ beforeEach(() => {
 });
 
 // ── TC-7.7.1: UPDATE_PROFILE saves all fields and returns PROFILE_UPDATED ───
+// [test:uuid:65d68ad5-ee31-4510-a5ea-4fb361f8b38d] R19.96 ProfileEditor.showUserUuid — profile returns token/uuid
 
 describe('TC-7.7.1: UPDATE_PROFILE saves and responds', () => {
 

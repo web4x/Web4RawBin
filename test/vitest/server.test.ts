@@ -611,6 +611,7 @@ function getHealthResponse(
 }
 
 // ── TC-16.1: /api/health response shape ─────────────────────────────────────
+// [test:uuid:5f9b6f14-672b-4814-a426-2f7063ae1079] R19.94 RbHeader.showBuildVersion — health returns version
 
 describe('TC-16.1: /api/health response', () => {
 
