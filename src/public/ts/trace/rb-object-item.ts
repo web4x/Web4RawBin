@@ -28,6 +28,7 @@
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { TRACE_ICONS } from './icons.js';
+import { selectionModel } from './selection-model.js';
 
 export class RbObjectItem extends HTMLElement {
   static get observedAttributes() { return ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count']; }
@@ -35,6 +36,7 @@ export class RbObjectItem extends HTMLElement {
   private _data: Record<string, string> | null = null;
   private _initialized = false;
   private _touchHandled = false;
+  private _longPressTimer: ReturnType<typeof setTimeout> | null = null;
 
   private static readonly DATA_ATTRS = ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count', 'has-children', 'children-open', 'collapsed'];
 
@@ -59,9 +61,25 @@ export class RbObjectItem extends HTMLElement {
       this._initialized = true;
       this.addEventListener('click', this.onClickDelegate);
       this.addEventListener('touchend', this.onTouchTap, { passive: true });
+      // [impl:uuid:0146ee6c-5561-4322-86a7-9ca65555ed88] R20.6 longPressMultiSelect
+      this.addEventListener('touchstart', () => {
+        this._longPressTimer = setTimeout(() => {
+          const { ref } = this.parts();
+          if (ref) { selectionModel.toggle(ref); this.syncSelected(); this._touchHandled = true; }
+        }, 500);
+      }, { passive: true });
+      this.addEventListener('touchend', () => { if (this._longPressTimer) { clearTimeout(this._longPressTimer); this._longPressTimer = null; } }, { passive: true });
+      this.addEventListener('touchmove', () => { if (this._longPressTimer) { clearTimeout(this._longPressTimer); this._longPressTimer = null; } }, { passive: true });
+      document.addEventListener('selection-changed', () => this.syncSelected());
     }
     const ref = this.getAttribute('ref');
     if (ref && !this.unsub) this.unsub = ViewBus.subscribe(ref, () => this.render());
+    this.syncSelected();
+  }
+
+  private syncSelected(): void {
+    const { ref } = this.parts();
+    this.toggleAttribute('selected', ref ? selectionModel.has(ref) : false);
   }
 
   disconnectedCallback(): void {
@@ -90,15 +108,18 @@ export class RbObjectItem extends HTMLElement {
     return { type, uuid, ref };
   }
 
+  // [impl:uuid:5ac05259-a1b2-4c3d-8e4f-5a6b7c8d9e09] R20.6 dragAllSelected
   private onDragStart = (e: DragEvent): void => {
-    const { type, uuid } = this.parts();
+    const { type, uuid, ref } = this.parts();
     const dt = e.dataTransfer;
     if (!dt) return;
+    const selected = selectionModel.getSelected();
+    const refs = selected.length > 0 && selected.includes(ref) ? selected : [ref];
     const hash = `#${type}.show?uuid=${uuid}`;
     const origin = (typeof location !== 'undefined' && location.origin) ? location.origin : '';
-    dt.setData('text/plain', hash);
+    dt.setData('text/plain', refs.length > 1 ? refs.join('\n') : hash);
     dt.setData('text/uri-list', `${origin}/app${hash}`);
-    dt.setData('application/rb-object-ref', `${type}:${uuid}`);
+    dt.setData('application/rb-object-ref', refs.join(','));
     dt.effectAllowed = 'copyLink';
     if (dt.setDragImage) dt.setDragImage(this, 20, 20);
   };
@@ -139,8 +160,13 @@ export class RbObjectItem extends HTMLElement {
       this.dispatchEvent(new CustomEvent('toggle-children', { bubbles: true, detail: { open } }));
       return;
     }
-    const { type, uuid } = this.parts();
-    if (type && uuid) navigate(type, 'show', { uuid });
+    // [impl:uuid:5cdfac82-a1b2-4c3d-8e4f-5a6b7c8d9e08] R20.6 tapSingleSelect
+    const { ref } = this.parts();
+    if (ref) {
+      if (selectionModel.size > 0) { selectionModel.toggle(ref); }
+      else { selectionModel.clear(); selectionModel.select(ref); }
+      this.syncSelected();
+    }
   };
 
   render(): void {

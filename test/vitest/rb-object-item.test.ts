@@ -74,12 +74,10 @@ describe('T105 rb-object-item', () => {
     expect(ViewBus.count(`task:${UUID}`)).toBe(0); // unsubscribed on disconnect
   });
 
-  // AC6: click → navigate(type,'show',{uuid})
-  it('click calls navigate(type, show, {uuid}) via the active router (AC6)', () => {
-    const navSpy = vi.fn();
-    setActiveRouter({ navigate: navSpy });
+  // AC6: click → selects item (R20.6 selection model)
+  it('click selects the item via selection model (AC6)', () => {
     const el = mk('requirement');
     el.dispatchEvent(new Event('click'));
-    expect(navSpy).toHaveBeenCalledWith('requirement', 'show', { uuid: UUID });
+    expect(el.hasAttribute('selected')).toBe(true);
   });
 });

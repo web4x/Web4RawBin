@@ -64,13 +64,12 @@ describe('T108 rb-trace-tree', () => {
     expect(tree.querySelector(`rb-object-item[ref="requirement:${RU}"]`)).toBeTruthy(); // not hidden
   });
 
-  it('clicking a node row navigates to its DetailView (AC4)', () => {
+  it('clicking a node row selects it (AC4, R20.6)', () => {
     const g = seed();
-    const navSpy = vi.fn();
-    setActiveRouter({ navigate: navSpy });
     const tree = document.createElement('rb-trace-tree') as RbTraceTree;
     document.body.appendChild(tree); tree.setGraph(g);
-    (tree.querySelector(`rb-object-item[ref="requirement:${RU}"]`) as HTMLElement).click();
-    expect(navSpy).toHaveBeenCalledWith('requirement', 'show', { uuid: RU });
+    const item = tree.querySelector(`rb-object-item[ref="requirement:${RU}"]`) as HTMLElement;
+    item.click();
+    expect(item.hasAttribute('selected')).toBe(true);
   });
 });

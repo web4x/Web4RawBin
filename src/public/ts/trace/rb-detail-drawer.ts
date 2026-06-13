@@ -18,18 +18,22 @@
  * [impl:uuid:ff684e10-e57c-45ae-97b9-8f866264c737] R19.52 fullWidth (CSS in app.css:264)
  */
 
+import { selectionModel } from './selection-model.js';
+
 export class RbDetailDrawer extends HTMLElement {
   static get observedAttributes() { return ['ref', 'open']; }
   private startY = 0;
   private startHeight = 0;
   private dragging: 'resize' | 'dismiss' | false = false;
 
+  // [impl:uuid:94f6e1f8-84a8-4ca5-9a44-6108ef6201bc] R20.6 selectionDriven drawer
   connectedCallback(): void {
     this.render();
     this.addEventListener('touchstart', this.onTouchStart, { passive: true });
     this.addEventListener('touchmove', this.onTouchMove, { passive: false });
     this.addEventListener('touchend', this.onTouchEnd);
     document.addEventListener('keydown', this.onKeyDown);
+    document.addEventListener('selection-changed', this.onSelectionChanged);
   }
 
   disconnectedCallback(): void {
@@ -37,7 +41,19 @@ export class RbDetailDrawer extends HTMLElement {
     this.removeEventListener('touchmove', this.onTouchMove);
     this.removeEventListener('touchend', this.onTouchEnd);
     document.removeEventListener('keydown', this.onKeyDown);
+    document.removeEventListener('selection-changed', this.onSelectionChanged);
   }
+
+  private onSelectionChanged = (e: Event): void => {
+    const selected = (e as CustomEvent).detail?.selected || [];
+    if (selected.length === 1) {
+      this.setAttribute('ref', selected[0]);
+    } else if (selected.length === 0) {
+      // [impl:uuid:c3c70517-a1b2-4c3d-8e4f-5a6b7c8d9e0a] R20.6 emptyShowsChat
+      this.removeAttribute('ref');
+      this.removeAttribute('open');
+    }
+  };
 
   attributeChangedCallback(name: string): void {
     if (name === 'ref') {
@@ -50,11 +66,13 @@ export class RbDetailDrawer extends HTMLElement {
     }
   }
 
+  // [impl:uuid:e76330fe-e29d-4587-b113-a1ed940ce62c] R20.6 removeDefaultHighlight keep-X
   close(): void {
     this.removeAttribute('ref');
     this.removeAttribute('open');
     this.style.height = '';
     this.style.maxHeight = '';
+    selectionModel.clear();
   }
 
 // [impl:uuid:b53858c3-89ba-48ee-a659-2d03a3c88e51] impl:RbDetailDrawer.stickyBottom (split for RbDetailDrawer.c

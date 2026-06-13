@@ -75,6 +75,9 @@ rb-object-item[type="file"] { --type-bg: rgba(255,152,0,0.15); --type-color: #ff
 rb-object-item[type="collection"] { --type-bg: rgba(158,158,158,0.15); --type-color: #bdbdbd; }
 rb-object-item[type="bug"] { --type-bg: rgba(229,57,53,0.15); --type-color: #ef5350; }
 rb-object-item[type="changerequest"] { --type-bg: rgba(33,150,243,0.15); --type-color: #42a5f5; }
+/* [impl:uuid:1f44dc44-f502-491f-b8cc-396fe38542e8] R20.6 selectedCSS */
+rb-object-item[selected] { border: 2px solid var(--type-color, #667eea); background: var(--type-bg, rgba(102,126,234,0.15)); }
+rb-object-item[active] { box-shadow: 0 0 0 2px white; }
 .oi-content { flex: 1; min-width: 0; overflow: hidden; }
 rb-object-item { max-width: 100%; }
 rb-object-item:hover .oi-name { white-space: normal; word-break: break-word; }
