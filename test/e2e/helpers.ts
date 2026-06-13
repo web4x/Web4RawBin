@@ -8,6 +8,10 @@ const HELPERS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DATA_BASE = process.env.E2E_DATA_DIR || path.resolve(HELPERS_DIR, '../../data');
 const DATA_USERS_DIR = path.join(DATA_BASE, 'users');
 
+// ONE fixed systemTester identity + ONE persistent system test room — reused every E2E run
+export const SYSTEM_TESTER_NAME = 'SystemTester';
+export const SYSTEM_TEST_ROOM_NAME = 'System Test Room';
+
 // Delete test-created rooms matching pattern. Scans room.json names, rmSync dirs.
 export function cleanupTestRooms(pattern: RegExp): number {
   let removed = 0;
@@ -145,4 +149,36 @@ export async function uploadTestFile(page: Page, roomId: string, fileName: strin
   }, { roomId, fileName, content, mimeType });
   await page.waitForTimeout(500);
   return fileUuid;
+}
+
+/**
+ * ONE systemTester + ONE system test room — the durable anti-pollution harness.
+ * Logs in as SYSTEM_TESTER_NAME, joins the system test room (creates it on first run).
+ * Returns { roomId, playerToken }. NEVER creates per-test rooms/users.
+ */
+export async function ensureSystemSession(page: Page): Promise<{ roomId: string; playerToken: string }> {
+  await ensureLobby(page, SYSTEM_TESTER_NAME);
+  const existingRoom = page.locator(`.room-card:has-text("${SYSTEM_TEST_ROOM_NAME}")`).first();
+  if (await existingRoom.isVisible({ timeout: 3000 }).catch(() => false)) {
+    const joinBtn = existingRoom.locator('.btn-join');
+    if (await joinBtn.isVisible({ timeout: 1000 }).catch(() => false)) {
+      await joinBtn.click();
+    } else {
+      await existingRoom.click();
+    }
+    await page.waitForSelector('.room-view', { timeout: 15000 });
+  } else {
+    await page.click('#create-room-btn');
+    await page.waitForTimeout(400);
+    const nameInput = page.locator('#room-name');
+    if (await nameInput.isVisible({ timeout: 2000 }).catch(() => false)) {
+      await nameInput.fill(SYSTEM_TEST_ROOM_NAME);
+    }
+    await page.click('#confirm-create-btn');
+    await page.waitForSelector('.room-view', { timeout: 15000 });
+  }
+  await page.waitForTimeout(1000);
+  const playerToken = await page.evaluate(() => localStorage.getItem('rawbin-player-id') || '');
+  const roomId = await page.evaluate(() => (window as any).__rawbinClient?._roomId || '');
+  return { roomId, playerToken };
 }
