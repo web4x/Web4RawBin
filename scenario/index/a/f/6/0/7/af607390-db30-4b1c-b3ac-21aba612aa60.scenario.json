@@ -20,7 +20,9 @@
     "crossRefNote": "R19.34 (singular chain not UC list) specified the same content fix for the Traceability section. R18.24 (narrowed single-thread chain in detail) originally specified it. R19.58 is the CONSOLIDATION directive: fix ALL 7 types to be consistent + rename 'Champagne Chain' to 'Traceability'.",
     "useCases": [
       "ior:instance:36fdbba4-58dd-4ab8-a711-d50718f7fc8c"
-    ]
+    ],
+    "supersededBy": "ior:instance:7734f4e1-def9-4af3-a7d2-5ccc7160b214",
+    "supersededNote": "Superseded by R20.5 (ior:instance:7734f4e1-def9-4af3-a7d2-5ccc7160b214) which is the universal canonical. R19.58 \u2014 all 7 DetailViews consistent traceability (consolidation directive, subsumed by R20.5 universal)"
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

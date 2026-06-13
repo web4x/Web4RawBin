@@ -2,24 +2,36 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "7734f4e1-def9-4af3-a7d2-5ccc7160b214",
-    "altId": "R19.34",
-    "name": "R19.34: Traceability Chain section shows the singular chain to Test, not a flat list of use cases.",
-    "description": "BUG: the detail view's 'Traceability Chain' section currently shows many use cases as a flat list instead of THE singular forward chain (req\u2192uc\u2192class\u2192method\u2192impl\u2192test) leading to a Test. FIX: the Traceability Chain section MUST render ONE narrowed chain path from the current node's requirement root down to its Test leaf \u2014 the same singular-chain the locked 6-step model defines. The separate 'All children' section listing all children/UCs is acceptable and may remain as-is. Cross-refs R18.24 (detail chain shows narrowed single-thread) which specified this same behavior \u2014 R19.34 re-asserts it as a bug report because the implementation reverted/regressed.",
-    "tronQuote": "> TRON: \"the traceability has many use cases instead of the traceability chain to test\u2026 the All children section may be right\"",
+    "altId": "R20.5",
+    "name": "R20.5: Detail-view Traceability Chain shows ONLY traced-chain nodes; All Children = union of ALL model arrays. Universal.",
+    "description": "UNIVERSAL rule for EVERY scenario type detail view (all present and future types): (A) Traceability Chain section shows ONLY nodes in an actual traced chain (req\u2192uc\u2192class\u2192METHOD \u2014 chain-relevant method only, not all class methods). (B) All Children section = UNION of ALL array-relationship fields in the model (useCases[]/tasks[]/tests[]/methods[]/implementations[]/members[]/files[]/etc). Two distinct sections, two distinct data sources, one DRY implementation across all DetailViews. (C) DEDUP TRACEABILITY: when requirements are deduplicated/merged, each duplicate carries a supersededBy/duplicateOf link to the canonical, visible in the detail-view + traceable in the chain. A deduped req is never lost \u2014 it traces to its canonical. The canonical lists its duplicates via supersedes[]. Both directions surfaced in the detail-view.",
+    "tronQuote": "> TRON (original): \"the traceability has many use cases instead of the traceability chain to test\u2026 the All children section may be right\"\n> TRON (clarification): \"traceability is the traceability chain not all methods. in all children all methods is correct if there are really no other children. children is obviously the sum of all array relationships in the model.\"\n> TRON (universal): \"this is true for ALL scenarios\"\n> TRON (dedup traceability): the traceability OF deduplicated requirements \u2014 dedup relationship must be traceable, surfaced in detail-view + chain.",
     "tasks": [
       "ior:instance:f3e0b558-116b-4659-8de7-efa0322451ac"
     ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
-    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "crossRef": [
       "ior:instance:c9de63d7-61d4-4d14-a8cd-20f9e9b98a26"
     ],
     "crossRefNote": "R18.24 (detail chain section shows narrowed single-thread) specified this same behavior. R19.34 re-asserts it because the implementation shows a flat UC list instead of the singular chain path.",
     "useCases": [
       "ior:instance:cd7b03bd-ba2c-4711-be57-32f43e52ff2f"
-    ]
+    ],
+    "intendedChain": {
+      "useCase": "detailView.renderChainVsChildren \u2014 Traceability section shows chain-only methods; All Children shows union of all model arrays",
+      "class": "RbDetailDrawer (or per-type DetailView)",
+      "method": "renderTraceabilitySection (chain-walk filtered) + renderAllChildren (union of model arrays)",
+      "implementation": "Traceability: walk req\u2192uc\u2192class\u2192method path, show only chain-relevant methods. AllChildren: Object.entries(model).filter(isArray).flatMap()",
+      "test": "RED: (1) Class with 5 methods, 1 in traced chain \u2192 Traceability shows 1, All Children shows 5. Currently FAILS (both show 5). (2) Deduped req (supersededBy set) \u2192 detail-view shows duplicateOf link to canonical. Canonical \u2192 detail-view shows supersedes[] list. Currently FAILS (no dedup links rendered)."
+    },
+    "supersedes": [
+      "ior:instance:c9de63d7-61d4-4d14-a8cd-20f9e9b98a26",
+      "ior:instance:af607390-db30-4b1c-b3ac-21aba612aa60"
+    ],
+    "supersedesNote": "R20.5 is the universal canonical. R18.24 was the S18 original (narrowed chain). R19.58 was the S19 consolidation directive (all 7 types). Both subsumed."
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
