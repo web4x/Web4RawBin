@@ -1,0 +1,22 @@
+chain	reqUuid	name	method	impl	test
+R15.3 — Object.verb use-case diagrams (Object=noun, verb=...	38f80708-d191-47bd-ada4-a710c5f1e6ed	R15.3 — Object.verb use-case diagrams (Object=noun, verb=...	navigate	61734a59	f9fd3cc0
+R19.2.A	9311987c-6dcd-4b73-9d9b-74383d6e16b9	R19.2.A: Room name shows a pencil edit icon that opens the room config/scenario editor on click.	editOpen	f9b579c1	5b79cc8e
+R19.7	b6b9c0ab-0f35-4801-b7f0-cd6dc3820f23	R19.7: Each room has a lifecycle mode of either LIVE or PERSISTENT.	memberAdd	4246c0a8	da3d0186
+R19.9	d6c4604a-339f-4690-8f92-7885dec8def5	R19.9: Members (contacts) can be added to and removed from the room's member list.	memberAdd	4246c0a8	da3d0186
+R19.14	f1ca3cc9-a675-4a3b-9898-9e33d7876ed8	R19.14: Files uploaded into a room are stored in the uuid index as <uuid>.content plus a <uuid>.scenario.json that references the content and carries unitLinks[] to the ln symlinks in the room folder — every file is a unique scenario unit.	upload	c546c877	fbfeac53
+R19.22.B	b748b4f1-44dd-480a-8e6c-45d9cb0e5ea3	R19.22.B: UI link next to the edit pencil button that opens the canonical Room scenario unit.	scenarioLinkRender	26b81ea0	17b688fb
+R19.33	553be449-3bad-4580-9426-11c4ab10e202	R19.33: Detail drawer close affordance stays sticky in view, never scrolls away.	stickyClose	aa585fcc	859878d6
+R19.35	c99083ba-1b38-474c-88d1-ca4bf5f5a2c7	R19.35: Room scenario unit model holds IOR references to its member units.	persistMembers	d5f0c2b4	c874546a
+R19.36	573d5b87-bd20-4eb6-9ec4-87896a6533bb	R19.36: DnD file-upload chain is fully traceable from drop to ln link to room file-tree display.	uploadFile	d6ec181b	2806c12e
+R19.37	46d49877-63c5-438b-9982-6c66a041ee44	R19.37: Unknown drop format logs the event to room chat as an extensible dispatcher.	routeUnknown	971bdde0	1e763397
+R19.59	5a181bc4-c0bc-41d0-8cd4-f13431fd4ac4	R19.59: Room construction persist must load persisted members/files/chat BEFORE writing — never wipe existing data.	loadBeforeWrite	6acb7db1	9b9c8ae6
+R19.62	4885d7cb-b946-4759-914c-a95d2b249b64	R19.62: Dropping a URL/link into a room creates a url-type scenario unit.	urlDrop	b05fcdf3	5d077319
+R19.70	b1aaaa0d-a3ad-43d3-ac09-b67b8d1129ec	R19.70: Scenario link navigates to file browser highlighting the scenario.json, not a self-reference.	scenarioBrowserLink	ed71d42a	8fdf7573
+R19.75	b2057a60-71f5-4d6e-96a7-de98b8f18057	R19.75: ContentPreviewer passes auth token in content URL so room members can preview files.	authToken	4c897dae	733dc384
+R19.81	f5e7b9cd-3fb7-41b0-b9b4-fbdb419f234c	R19.81: Pinch-zoom works in the preview iframe, not just pan.	iframePinchZoom	7cd70c47	84222a39
+R19.82	14a5a9ca-9800-4131-a811-7ef16cd42290	R19.82: Joining a room from lobby must succeed — stale online-status must not block rejoin.	addMemberTakeover	84910216	3c153212
+R19.86	01b055f1-240c-439d-a0ca-d73df56a53e0	R19.86: URL/webitem files clicked in room must open the ContentPreviewer drawer — regression fix.	openFilePreview	852101d1	a7eaa994
+R19.90	20fc59cc-5f92-4c17-b86b-c35b837d0373	R19.90: In-room tree REUSES rb-trace-tree component — delete duplicate RoomView tree implementation.	setItems	c5b331a7	7147ca60
+R19.93	36becf02-fd36-4a10-9b11-1bd42f832a10	R19.93: File detail view has a Preview button to open the ContentPreviewer.	filePreviewButton	1a5ad916	fb907b0b
+R20.2	9993091a-aa45-4c4f-9c62-e4d5377ba3e8	R20.2: Default detail drawer nudge becomes the wide grab-bar from the chat drawer.	renderGrabBar	58abb87f	27c1de6c
+R20.5	7734f4e1-def9-4af3-a7d2-5ccc7160b214	R20.5: Detail-view Traceability Chain shows ONLY traced-chain nodes; All Children = union of ALL model arrays. Universal.	singularChain	b4f6b903	1a22ed27
