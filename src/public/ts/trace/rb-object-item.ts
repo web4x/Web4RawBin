@@ -77,6 +77,11 @@ export class RbObjectItem extends HTMLElement {
     this.syncSelected();
   }
 
+  simulateLongPress(): void {
+    const { ref } = this.parts();
+    if (ref) { selectionModel.toggle(ref); this.syncSelected(); }
+  }
+
   private syncSelected(): void {
     const { ref } = this.parts();
     this.toggleAttribute('selected', ref ? selectionModel.has(ref) : false);
@@ -160,11 +165,11 @@ export class RbObjectItem extends HTMLElement {
       this.dispatchEvent(new CustomEvent('toggle-children', { bubbles: true, detail: { open } }));
       return;
     }
-    // [impl:uuid:5cdfac82-a1b2-4c3d-8e4f-5a6b7c8d9e08] R20.6 tapSingleSelect
+    // [impl:uuid:6b21088e-a1b2-4c3d-8e4f-5a6b7c8d9e0b] BUG2 tapSwitchToggle
     const { ref } = this.parts();
     if (ref) {
-      if (selectionModel.size > 0) { selectionModel.toggle(ref); }
-      else { selectionModel.clear(); selectionModel.select(ref); }
+      selectionModel.clear();
+      selectionModel.select(ref);
       this.syncSelected();
     }
   };
