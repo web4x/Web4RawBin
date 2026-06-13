@@ -49,7 +49,7 @@ export class RbTaskDetail extends HTMLElement {
       </div>
       <div class="dv-links">
         <h4>Traceability Chain</h4>
-        ${renderSingularChain(chain)}
+        ${renderSingularChain(chain, obj.uuid)}
         <h4>Forward Links</h4>
         ${renderLinks(this.graph, links)}
       </div>`;

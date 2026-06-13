@@ -46,10 +46,14 @@ export function singularChain(graph: TraceGraph, startUuid: string): ChainStep[]
   return steps;
 }
 
-export function renderSingularChain(steps: ChainStep[]): string {
-  if (steps.length === 0) return '<div class="dv-empty">No chain</div>';
-  return steps.map((s, i) => {
-    const arrow = i < steps.length - 1 ? '<div class="sc-arrow">↓</div>' : '';
+// [impl:uuid:3542dcb3-a1b2-4c3d-8e4f-5a6b7c8d9e07] BUG1 chainExcludesSelf
+const CHAIN_TYPES = new Set(['requirement', 'usecase', 'class', 'method', 'implementation', 'test', 'bug', 'changerequest']);
+
+export function renderSingularChain(steps: ChainStep[], selfUuid?: string): string {
+  const filtered = steps.filter(s => s.uuid !== selfUuid && CHAIN_TYPES.has(s.type.toLowerCase()));
+  if (filtered.length === 0) return '<div class="dv-empty">No chain</div>';
+  return filtered.map((s, i) => {
+    const arrow = i < filtered.length - 1 ? '<div class="sc-arrow">↓</div>' : '';
     return `<div class="sc-step dv-link" data-ref="${s.type.toLowerCase()}:${s.uuid}"><span class="dv-rel">${s.type}</span><span class="dv-link-title">${esc(s.name)}</span></div>${arrow}`;
   }).join('');
 }
