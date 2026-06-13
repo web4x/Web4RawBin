@@ -16,7 +16,9 @@
     "crossRef": [
       "ior:instance:9b468b6d-37e8-4f4e-879c-dea228b747c5"
     ],
-    "crossRefNote": "R19.45 (offline page flush button) is the same functionality. R19.95 puts it on the main route too — available when app loads, not just when offline."
+    "crossRefNote": "R19.45 (offline page flush button) is the same functionality. R19.95 puts it on the main route too — available when app loads, not just when offline.",
+    "functionalDone": true,
+    "functionalDoneNote": "R19.95 resetPwaCache: button/declarative, no named-method impl chain. functionalDone-not-champagne, IN denom. PO/expert 2026-06-14."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

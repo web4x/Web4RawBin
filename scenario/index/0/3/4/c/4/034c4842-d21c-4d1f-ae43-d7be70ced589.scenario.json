@@ -20,7 +20,9 @@
     ],
     "refinedBy": [
       "ior:instance:0be510a8-fce6-49cb-afa8-d9cf39762d4d"
-    ]
+    ],
+    "functionalDone": true,
+    "functionalDoneNote": "R19.80: declarative. functionalDone-not-champagne, IN denom. PO/expert 2026-06-14."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

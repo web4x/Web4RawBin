@@ -19,7 +19,9 @@
       "method": "icon resolution per ior:class subtype; scenario unit creation with subtype ior",
       "implementation": "ior:class:Bug + ior:class:ChangeRequest in class registry; icon-map entry per subtype; rb-object-item resolves icon from ior:class",
       "test": "RED: (1) create Bug scenario unit → assert ior=ior:class:Bug, renders with Bug icon (not Requirement icon). (2) create ChangeRequest unit → assert distinct icon. (3) both trace through Req→UC→...→Test chain. Currently FAILS (neither class exists)."
-    }
+    },
+    "functionalDone": true,
+    "functionalDoneNote": "R20.4 Bug/CR OOP types: declarative class-registry + icon-map, no distinct named method. functionalDone-not-champagne, IN denom. PO/expert 2026-06-14."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

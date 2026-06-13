@@ -18,7 +18,9 @@
       "ior:instance:71a8954e-a2b6-4b8e-936f-825646aa76aa",
       "ior:instance:f732d200-601b-46b2-96c4-21c966f38b7c"
     ],
-    "crossRefNote": "R19.90 (reuse rb-trace-tree) and R19.92 (same data path as /trace) consolidated the tree but lost Members. R19.21.A (Members+Files as folder nodes) defines the expected structure. R19.101 restores Members alongside Files without regressing."
+    "crossRefNote": "R19.90 (reuse rb-trace-tree) and R19.92 (same data path as /trace) consolidated the tree but lost Members. R19.21.A (Members+Files as folder nodes) defines the expected structure. R19.101 restores Members alongside Files without regressing.",
+    "functionalDone": true,
+    "functionalDoneNote": "R19.101 members+files: declarative seed/render. functionalDone-not-champagne, IN denom. PO/expert 2026-06-14."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
