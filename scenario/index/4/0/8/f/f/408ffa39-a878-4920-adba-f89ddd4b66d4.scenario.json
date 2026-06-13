@@ -1,0 +1,36 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "408ffa39-a878-4920-adba-f89ddd4b66d4",
+    "id": "408ffa39-a878-4920-adba-f89ddd4b66d4",
+    "name": "WebKitTester's Room",
+    "ownerToken": "f4b826ee-7cb5-4aa3-b696-e1ba7a82d665",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1781269420971,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAusgM1qy0F+XMXxjwDmV5\nbM0K6QktOFVg4OshabuSpJeNDsSNnMQ70ETk+5nTQybWQIjasN8Ol1yMdBb8Hq2x\nnF7KwRPr73OA1xJDy4nGsrV+/A2oh6Q+0IrkTF7tXtvFbyAbo9lEld7QoE8Rm3mC\nGCGMabt5xhatIfYu7++dRA7rxRG2znDbcrccqBykFXxvW+0xwZaldwowYSFM4pst\nx59yOP4zAjMIitqjBkdSh+Ks0Hg7JLZvok9JKYGeyIdB1I5AVtbSRggowDXGqpVb\nJP/RMwcznod6O0Kf72RN38vmG7qAmfLYWKJPDWJp0UaSTM3FE9P1Y77WS17XhN5g\nFQIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:f4b826ee-7cb5-4aa3-b696-e1ba7a82d665",
+        "name": "WebKitTester",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1781269427016
+      }
+    ],
+    "files": [],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/4/0/8/f/f/408ffa39-a878-4920-adba-f89ddd4b66d4.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/f4b826ee-7cb5-4aa3-b696-e1ba7a82d665/408ffa39-a878-4920-adba-f89ddd4b66d4.json"
+    ]
+  },
+  "ownerIor": "ior:instance:f4b826ee-7cb5-4aa3-b696-e1ba7a82d665"
+}

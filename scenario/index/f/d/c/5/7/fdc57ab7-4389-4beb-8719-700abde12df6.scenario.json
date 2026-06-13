@@ -4,7 +4,9 @@
     "uuid": "fdc57ab7-4389-4beb-8719-700abde12df6",
     "name": "RoomView.seedIorTree",
     "description": "Set data-seed-ior=roomId on rb-trace-tree in template. On FILE_ADDED, re-trigger renderSeed to refresh. Delete updateRoomTree + tree.items plumbing.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:989db762-b6a0-40a7-82c6-cc3f6178686e"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed"

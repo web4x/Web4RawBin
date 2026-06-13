@@ -18,7 +18,6 @@ import './components/rb-member-list.js';
 import './components/rb-avatar.js';
 import './trace/rb-object-item.js';
 import './trace/rb-trace-tree.js';
-import type { RbTraceTree } from './trace/rb-trace-tree.js';
 import { dropDispatcher } from './drop-dispatcher.js';
 import type { RbMemberList } from './components/rb-member-list.js';
 import './trace/rb-detail-drawer.js';
@@ -39,7 +38,6 @@ export class RoomView {
   private roomVisibility: 'public' | 'by-invite' | 'private' = 'public';
   private roomMode: 'live' | 'persistent' = 'persistent';
   private members: MemberInfo[] = [];
-  private files: { uuid: string; name: string; mimeType: string; size: number }[] = [];
   private profileEditor: ProfileEditor;
   private profileSheet: ProfileSheet;
   private chatSheet: RbChatSheet | null = null;
@@ -56,7 +54,6 @@ export class RoomView {
       this.roomName = msg.room.name;
       this.hostId = msg.room.hostId; this.roomOwnerToken = msg.room.ownerToken || ''; this.roomVisibility = msg.room.visibility || (msg.room.isPrivate ? 'private' : 'public'); this.roomMode = msg.room.mode || 'persistent';
       this.members = msg.members || [];
-      this.files = (msg.files || []).map((f: any) => ({ uuid: f.fileUuid || f.uuid, name: f.name || '', mimeType: f.mimeType || '', size: f.size || 0 }));
       this.render();
       if (msg.room.chatHistory?.length) this.chatSheet?.loadHistory(msg.room.chatHistory);
     });
@@ -81,10 +78,8 @@ export class RoomView {
     // [impl:uuid:e3fad3ac-a09f-4a4c-88ce-78e0ca273cc0] FILE_ADDED handler
     this.client.on(MSG.FILE_ADDED, (msg) => {
       if (this.roomId !== msg.roomId) return;
-      if (!this.files.some(f => f.uuid === msg.fileUuid)) {
-        this.files.push({ uuid: msg.fileUuid, name: msg.name || 'file', mimeType: msg.mimeType || '', size: msg.size || 0 });
-      }
-      this.updateRoomTree();
+      const tree = document.getElementById('room-tree') as any;
+      if (tree?.renderSeed) tree.renderSeed(this.roomId);
       this.chatSheet?.addMessage('system', 'System', `File uploaded: ${msg.name}`);
     });
     this.client.on('disconnected', () => this.chatSheet?.setWsStatus('disconnected'));
@@ -129,7 +124,6 @@ export class RoomView {
     this.container.innerHTML = '';
     if (this.chatSheet) { this.chatSheet.remove(); this.chatSheet = null; }
     this.members = [];
-    this.files = [];
   }
 
   // [impl:uuid:f9b579c1-7495-4f93-8dec-736a0410a69a] RbRoomDetail.editOpen R19
@@ -162,7 +156,7 @@ export class RoomView {
         <rb-header title="${this.roomName}" show-leave show-home ${isHost ? 'show-delete show-edit' : ''} show-reload show-fullscreen></rb-header>
         <div style="padding:0 16px 4px;display:flex;gap:8px;align-items:center"><a href="/scenario?ior=${this.roomId}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="View room scenario unit">📄 Scenario</a><span style="color:rgba(255,255,255,0.3);font-size:0.65rem">${this.roomId.slice(0,8)}</span></div>
         <div id="offline-banner" class="offline-banner" style="display:none">Offline — messages queued</div>
-        <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="rrc-upload-status" id="rrc-upload-status" style="display:none"></div><rb-trace-tree id="room-tree" data-mode="room"></rb-trace-tree></div></div>
+        <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="rrc-upload-status" id="rrc-upload-status" style="display:none"></div><rb-trace-tree id="room-tree" data-seed-ior="${this.roomId}"></rb-trace-tree></div></div>
         <rb-detail-drawer id="room-file-preview"></rb-detail-drawer>
       </div>`;
 
@@ -262,29 +256,7 @@ export class RoomView {
     popup.show(url, `Join ${this.roomName}`);
   }
 
-  // R19.90: consolidated room tree via rb-trace-tree .items property
-  private updateRoomTree(): void {
-    const tree = document.getElementById('room-tree') as RbTraceTree | null;
-    if (!tree) { console.log('[updateRoomTree] NO tree element'); return; }
-    console.log(`[updateRoomTree] members=${this.members.length} files=${this.files.length} tree.isConnected=${tree.isConnected}`);
-    tree.items = [
-      { uuid: 'members', type: 'collection', name: `Members (${this.members.length})`,
-        children: this.members.map(m => ({
-          uuid: m.playerToken, type: 'member', name: m.name || '?', hasChildren: false,
-          description: m.id === this.hostId ? 'Host' + (m.disconnected ? ' · Offline' : '') : m.id === this.client.clientId ? 'You' : m.disconnected ? 'Offline' : 'Online',
-        })),
-      },
-      { uuid: 'files', type: 'collection', name: `Files (${this.files.length})`,
-        children: this.files.map(f => ({
-          uuid: f.uuid, type: 'file', name: f.name || 'file', hasChildren: false,
-          description: `${f.mimeType || ''} ${f.size || 0}B`,
-        })),
-      },
-    ];
-  }
-
   private renderMemberList(): void {
-    this.updateRoomTree();
     const el = document.getElementById('member-list') as RbMemberList | null;
     if (!el) return;
     el.setMembers(this.members.map(m => ({

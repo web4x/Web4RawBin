@@ -1,0 +1,36 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "b44bfce6-e28f-444d-b190-225fb5b6e1f4",
+    "id": "b44bfce6-e28f-444d-b190-225fb5b6e1f4",
+    "name": "WKReal2's Room",
+    "ownerToken": "3dce9d42-9495-43c3-8d04-057d4d4dca52",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1781270084647,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3yWq/CJc7NwnFkSYIZ30\nG1Q4ES3Si1ExFNjgWh2WmJhHBnWOq1HsaDZVhICyQr5j/J3JPi2WsS0oVCTO8FiV\n3FSrRHglbw+1A55/6iRbB6xcww2+vLvg9L4pREw3Tjklyzzsqz9LZNy5MD6rvCYa\nEEXM4+aiUhczc4kfXRit+j/mIw0VTy02Ipj+gRlWQb2ZPPyL48izl7AspZx+FeFJ\nTIaj5Bdgdq4gHTSoZ85ovSZmM0RcTi0EwY0E6lZp7Yyh+OY5oM0drlKpssuN2fAf\n3oJmqR3j5uzqjhf+7XDQrkR9i8Wz3CRX+PCceT5Y7bEHUXlbaV3hOjC75mp3H6bU\nqQIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:3dce9d42-9495-43c3-8d04-057d4d4dca52",
+        "name": "WKReal2",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1781270086752
+      }
+    ],
+    "files": [],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/b/4/4/b/f/b44bfce6-e28f-444d-b190-225fb5b6e1f4.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/3dce9d42-9495-43c3-8d04-057d4d4dca52/b44bfce6-e28f-444d-b190-225fb5b6e1f4.json"
+    ]
+  },
+  "ownerIor": "ior:instance:3dce9d42-9495-43c3-8d04-057d4d4dca52"
+}

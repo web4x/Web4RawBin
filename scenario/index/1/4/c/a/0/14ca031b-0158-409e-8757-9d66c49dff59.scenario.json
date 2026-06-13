@@ -1,0 +1,36 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "14ca031b-0158-409e-8757-9d66c49dff59",
+    "id": "14ca031b-0158-409e-8757-9d66c49dff59",
+    "name": "WKUpload's Room",
+    "ownerToken": "e150bd50-9099-41ce-9b90-c44fa3999a75",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1781270134241,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiM6yYDyRd3ItgxC85OQP\n0JG4LoEnmcjtJxkWqOq+DEnTa674i93ai+R2EpEl/I4Fm1eAebyjJ9u6VJtPPQqT\n5u+Iho5bzRkjINjj4Vhzu0hEF0vg+ebF2FDN0XEdadh3A1Nt47+7FTXo3gnqgyXC\nqzuiRBL1uOGaLLCoL8cBNq/ge8VHvEvYWo+FSSEkHBdjZU5yqGU7fWJ3j5jfj8ER\n1pFmCn51TCxxxJgKaEufv/2oqBUyONP63PvIGrWaiK9zsqckCy+/aODqDnveQiCb\nA5qcKuTwXAMyWHxlHG4tVqBnjoeB12JI5Sv+V2O7cdBOKe4peictCePfU+oJAt1i\n9wIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:e150bd50-9099-41ce-9b90-c44fa3999a75",
+        "name": "WKUpload",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1781270136355
+      }
+    ],
+    "files": [],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/1/4/c/a/0/14ca031b-0158-409e-8757-9d66c49dff59.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/e150bd50-9099-41ce-9b90-c44fa3999a75/14ca031b-0158-409e-8757-9d66c49dff59.json"
+    ]
+  },
+  "ownerIor": "ior:instance:e150bd50-9099-41ce-9b90-c44fa3999a75"
+}

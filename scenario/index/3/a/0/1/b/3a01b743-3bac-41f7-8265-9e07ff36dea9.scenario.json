@@ -1,0 +1,41 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "3a01b743-3bac-41f7-8265-9e07ff36dea9",
+    "id": "3a01b743-3bac-41f7-8265-9e07ff36dea9",
+    "name": "PollTest's Room",
+    "ownerToken": "2947e035-0279-452a-8be0-1fabd28d2dbd",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1781270481804,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7FVQEekmv+5rA+M4QW+/\niPTwtqvoZkYG8DLtMH7G80Fvwb9EBrgphmb5YIfxGmuPPe3xdB0GA935cOM/txAq\nENx/qPCiaZsnBn9rgzHxdYR0ycUwdXo9xiPYi1AIBpdSikyuici0qYG7Y9h/sC4v\ntEShMuVAoFrzTMgd8rU8OpxF2V5A4rw3vCoLL08d9IQauKH8Y16YF45E9KthKmqq\n3BwUr4xcEt2o4zWjViBbY7C10JaXQDoGtTLWpzV10IEhRbyBeP/d2CIeUipiigdi\nnTGYMx45mxriieZZ4IMK99cPXzcowldVN5bOZy13/qNxL1VLD3yTD1zgdyXq3QCR\ndQIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:2947e035-0279-452a-8be0-1fabd28d2dbd",
+        "name": "PollTest",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1781270497617
+      }
+    ],
+    "files": [
+      "ior:instance:9a9f6985-5aad-447c-aeab-13cf038f9200",
+      "ior:instance:4886e1fe-0238-4d2a-abba-eeb3b189fbdd",
+      "ior:instance:9026ef81-f1c3-4753-bdca-0f348bd73ef2",
+      "ior:instance:e2d67ab1-b053-4ef5-a10e-5f63437d5e50"
+    ],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/3/a/0/1/b/3a01b743-3bac-41f7-8265-9e07ff36dea9.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/2947e035-0279-452a-8be0-1fabd28d2dbd/3a01b743-3bac-41f7-8265-9e07ff36dea9.json"
+    ]
+  },
+  "ownerIor": "ior:instance:2947e035-0279-452a-8be0-1fabd28d2dbd"
+}

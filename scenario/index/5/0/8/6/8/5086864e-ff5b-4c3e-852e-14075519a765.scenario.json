@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "5086864e-ff5b-4c3e-852e-14075519a765",
+    "name": "contact.vcf",
+    "contentPath": "index/5/0/8/6/8/5086864e-ff5b-4c3e-852e-14075519a765.content",
+    "size": 29,
+    "mimeType": "text/vcard",
+    "uploadedAt": "2026-06-12T13:17:04.121Z",
+    "uploaderToken": "1ddb743b-e114-4eb3-a5a9-51cdacc0ab60",
+    "roomUuid": "929f02b3-fcaf-4999-8f0f-e779583eaf68",
+    "contentHash": "ae15111002a4b97851c7e12331bd6f8f952716d61d5a2537df36842ed441e478",
+    "unitLinks": [
+      "content/ae15111002a4b97851c7e12331bd6f8f952716d61d5a2537df36842ed441e478.file.scenario.json",
+      "../data/users/1ddb743b-e114-4eb3-a5a9-51cdacc0ab60/rooms/929f02b3-fcaf-4999-8f0f-e779583eaf68/files/5086864e-ff5b-4c3e-852e-14075519a765.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:929f02b3-fcaf-4999-8f0f-e779583eaf68"
+}

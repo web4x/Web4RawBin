@@ -277,7 +277,7 @@ export class RbTraceTree extends HTMLElement {
     } catch { /* ignore */ }
   }
 
-  private async renderSeed(rawUuid: string): Promise<void> {
+  async renderSeed(rawUuid: string): Promise<void> {
     const uuid = rawUuid.replace(/^ior:instance:/, '').replace(/\.scenario\.json$/, '').trim();
     this.innerHTML = '<div class="tt-empty">Loading…</div>';
     try {

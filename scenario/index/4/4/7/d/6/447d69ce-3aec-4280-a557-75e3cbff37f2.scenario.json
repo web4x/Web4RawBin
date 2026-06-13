@@ -1,0 +1,41 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "447d69ce-3aec-4280-a557-75e3cbff37f2",
+    "id": "447d69ce-3aec-4280-a557-75e3cbff37f2",
+    "name": "GateTest's Room",
+    "ownerToken": "7073ebaf-c65d-425c-aace-c4128afa0c74",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1781270962642,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxPMd+Q3lyjNF5jItGt7D\nz8Xme+9a1z8L3weoSMTRUBAzghhYognaZHwMYdwOROI359ayLAMfdWNFb7L+PTqA\nMLW3TBKTPz0Qj7Xxnc2yN52+FAXcAB2lqgRfdFL1bcMlQN11Ek+qwc9ivA5+3Y6p\nggle1Sd7k58kNemTvrYKhQWM930JbqBQ+e6kt0oUtiNLDaMglTwxuN4CQfDUqToQ\nSQ0UBKICCXAxxsXTT0XJE37AaLPNe9py+iIvnZl7FGVusktmbSygQmmTtviKcRrm\nvvZKzH6KHsUBMASWcXmiuRlLYkfnTgfHbhEbE5CS5mVw7+EBn90LrduVxKwwo3L1\nRwIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:7073ebaf-c65d-425c-aace-c4128afa0c74",
+        "name": "GateTest",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1781270978903
+      }
+    ],
+    "files": [
+      "ior:instance:9a9f6985-5aad-447c-aeab-13cf038f9200",
+      "ior:instance:4886e1fe-0238-4d2a-abba-eeb3b189fbdd",
+      "ior:instance:9026ef81-f1c3-4753-bdca-0f348bd73ef2",
+      "ior:instance:e2d67ab1-b053-4ef5-a10e-5f63437d5e50"
+    ],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/4/4/7/d/6/447d69ce-3aec-4280-a557-75e3cbff37f2.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/7073ebaf-c65d-425c-aace-c4128afa0c74/447d69ce-3aec-4280-a557-75e3cbff37f2.json"
+    ]
+  },
+  "ownerIor": "ior:instance:7073ebaf-c65d-425c-aace-c4128afa0c74"
+}

@@ -1,0 +1,41 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "7e374f74-6ab2-4ce9-b106-87ad8713b226",
+    "id": "7e374f74-6ab2-4ce9-b106-87ad8713b226",
+    "name": "StickyTest's Room",
+    "ownerToken": "33366ee1-f551-44d5-87e8-24693d54071b",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1781270594144,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuZixtkcvFYezFQHiFZxz\n0+w0W1tB3FUwDlK5ZWuqtn1hmM3aoN+UkA69cvuaHWpwQf+OKZGVzzxw6YaWgjC3\noQ/odKrOQdWTKokRNURHWdBYQeO3Zws20n/LH22swovR952jBCQsGeAO9pZvaYlI\nf6MOIjjJcU5LNrAzfWvmjDHHUo3fBjKfYLWPztqzncgqUmzY68Skr0rpKRXP7lr1\nE+BcBnYYaNaXbj8sCsosPA/qJMfKDDwHgaX6zC/PXNSIp1bMqt0cppTYh/dX57eY\n8gTsFl1RAlosOKRXygXWNAxUOoQngapxjRWp/wdCEM/NXTzX5uHLzCOPinyoAdpp\npQIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:33366ee1-f551-44d5-87e8-24693d54071b",
+        "name": "StickyTest",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1781270611987
+      }
+    ],
+    "files": [
+      "ior:instance:17345937-31b8-446c-9c22-234c1020e75d",
+      "ior:instance:10d8b94a-e704-4f1a-b04e-d0d738f57902",
+      "ior:instance:e12fb9bb-5c9d-4781-9ffe-dd2f45fade48",
+      "ior:instance:52cd019e-d4ee-4c74-b506-1bcb902191ed"
+    ],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/7/e/3/7/4/7e374f74-6ab2-4ce9-b106-87ad8713b226.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/33366ee1-f551-44d5-87e8-24693d54071b/7e374f74-6ab2-4ce9-b106-87ad8713b226.json"
+    ]
+  },
+  "ownerIor": "ior:instance:33366ee1-f551-44d5-87e8-24693d54071b"
+}

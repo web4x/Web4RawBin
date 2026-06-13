@@ -1,0 +1,44 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "929f02b3-fcaf-4999-8f0f-e779583eaf68",
+    "id": "929f02b3-fcaf-4999-8f0f-e779583eaf68",
+    "name": "WKFinal's Room",
+    "ownerToken": "1ddb743b-e114-4eb3-a5a9-51cdacc0ab60",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1781270222026,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy4i13yiT5zKBhuIceY7V\nE5OgJoxLygVZf9LlvK7yGGjsK1wetjktn1N5IeshSw2N/rfKI8Uud73KN/GtsP/y\nURfn+o+nriINOsu9USwIA+I6MmF+QCz5h9NBilfxmTCULGEqOLiHJcFTQBlfbUL3\nQaIBWVU21OwjUkWQWwc/PH+I9zJhbsJS1qXTtG8LEd5YLf46NSCAmduZ/tGp+XEt\nS7yWd7Mst9OCQXQ9R/nPzBSC2Uoqp4vmXGQxHe/qWSKIcWFWU3djTM7S69zeges/\n4ApWVacSgjl+heaWmZJnzWnfRovxSf2nvA1K3BQsxreurLe90Tvp2jHDYt7KOW/+\niwIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:1ddb743b-e114-4eb3-a5a9-51cdacc0ab60",
+        "name": "WKFinal",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1781270238805
+      }
+    ],
+    "files": [
+      "ior:instance:5086864e-ff5b-4c3e-852e-14075519a765",
+      "ior:instance:818e67d9-da94-4a61-add4-9eaa0651ba1c",
+      "ior:instance:5a3410be-027a-481d-b394-dc0ec1b769f2",
+      "ior:instance:28389b70-9686-47ba-b99f-db1c98db8b73",
+      "ior:instance:08a73e92-f773-4fde-9c23-a1a8786c7ef6",
+      "ior:instance:76f99cd0-cfca-4d7b-8741-f3caf656707b",
+      "ior:instance:656b24e5-f8e4-4a87-8b45-fcfb8630d4fd"
+    ],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/9/2/9/f/0/929f02b3-fcaf-4999-8f0f-e779583eaf68.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/1ddb743b-e114-4eb3-a5a9-51cdacc0ab60/929f02b3-fcaf-4999-8f0f-e779583eaf68.json"
+    ]
+  },
+  "ownerIor": "ior:instance:1ddb743b-e114-4eb3-a5a9-51cdacc0ab60"
+}

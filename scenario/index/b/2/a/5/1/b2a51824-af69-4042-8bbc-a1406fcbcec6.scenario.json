@@ -1,0 +1,43 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "b2a51824-af69-4042-8bbc-a1406fcbcec6",
+    "id": "b2a51824-af69-4042-8bbc-a1406fcbcec6",
+    "name": "SafariBugTest's Room",
+    "ownerToken": "c67370cd-b74d-4f7e-b1bc-0fc62281573c",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1781269485654,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0DhcEQGhei3gRP43C4cp\nQzsDyp82nk2JvNfkw3JRa+HACJU+RmFyLsW22rQzoAzApJ+HoFbH1bjE9Y9Kbb6s\nPZNdks0A3x44T1q602naOS1FoBxHtQaj7YSZY0w4OACVimvhR7viiLLkfFbGKUB6\nKBv1SqaQCwPdcB+WRu/TVZM6S1/Kydd5giUJHts/lN5fqZ5xRDcTJovr/AqfuNIJ\nloYlr/SC4SF9RhX3EbejWiuawMS0UtMNmjjnkQONiiiEAjv3i0oIY9s4XSrx4miM\nJCSjPK3sOV5jDD8wlAlpFVGqb5I8Rgso89DqOJcgyEsRhXIRaPxXd++DrnCArzg7\nUQIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:c67370cd-b74d-4f7e-b1bc-0fc62281573c",
+        "name": "SafariBugTest",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1781269532641
+      },
+      {
+        "ior": "ior:instance:646ca586-5900-44a0-85cd-d54dd3337a8d",
+        "name": "SafariBug2",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1781269532641
+      }
+    ],
+    "files": [],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/b/2/a/5/1/b2a51824-af69-4042-8bbc-a1406fcbcec6.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/c67370cd-b74d-4f7e-b1bc-0fc62281573c/b2a51824-af69-4042-8bbc-a1406fcbcec6.json"
+    ]
+  },
+  "ownerIor": "ior:instance:c67370cd-b74d-4f7e-b1bc-0fc62281573c"
+}
