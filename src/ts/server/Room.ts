@@ -163,25 +163,27 @@ export class Room {
   // --- Members ---
 // [impl:uuid:4246c0a8-cfbf-43cd-8677-3367f3ac21d9] Room.memberAdd
 
-  // [impl:uuid:4c8a91a5-35af-48b1-a2e9-4bbd9f18bc10] Room.addMember
   addMember(member: RoomMember): boolean {
     if (this.state !== 'active') return false;
-    const existing = member.playerToken ? [...this.members.values()].find(m => m.playerToken && m.playerToken === member.playerToken) : undefined;
-    // [impl:uuid:84910216-c910-4eb7-a2bc-4b3b5c07c490] R19.82 addMemberTakeover
-    if (existing) {
-      if (existing.ws && existing.ws.readyState === 1) { try { existing.ws.close(); } catch {} }
-      this.members.delete(existing.id);
-      this.members.set(member.id, { ...member, disconnected: false });
-      this.broadcast({ type: MSG.MEMBER_RECONNECTED, member: this.memberInfo(member.id), oldMemberId: existing.id, memberCount: this.members.size });
-      this.sendTo(member.id, { type: MSG.ROOM_JOINED, room: this.info(), members: this.allMemberInfo() });
-      if (this._chatHistory.length > 0) {
-        this.sendTo(member.id, { type: MSG.CHAT_HISTORY, messages: this._chatHistory });
-      }
-      this.persist();
-      return true;
-    }
+    if (this.rejoinDedup(member)) return true;
     this.members.set(member.id, { ...member, disconnected: false });
     this.broadcast({ type: MSG.MEMBER_JOINED, member: this.memberInfo(member.id), memberCount: this.members.size });
+    this.sendTo(member.id, { type: MSG.ROOM_JOINED, room: this.info(), members: this.allMemberInfo() });
+    if (this._chatHistory.length > 0) {
+      this.sendTo(member.id, { type: MSG.CHAT_HISTORY, messages: this._chatHistory });
+    }
+    this.persist();
+    return true;
+  }
+
+  // [impl:uuid:4c8a91a5-35af-48b1-a2e9-4bbd9f18bc10] Room.rejoinDedup
+  private rejoinDedup(member: RoomMember): boolean {
+    const existing = member.playerToken ? [...this.members.values()].find(m => m.playerToken && m.playerToken === member.playerToken) : undefined;
+    if (!existing) return false;
+    if (existing.ws && existing.ws.readyState === 1) { try { existing.ws.close(); } catch {} }
+    this.members.delete(existing.id);
+    this.members.set(member.id, { ...member, disconnected: false });
+    this.broadcast({ type: MSG.MEMBER_RECONNECTED, member: this.memberInfo(member.id), oldMemberId: existing.id, memberCount: this.members.size });
     this.sendTo(member.id, { type: MSG.ROOM_JOINED, room: this.info(), members: this.allMemberInfo() });
     if (this._chatHistory.length > 0) {
       this.sendTo(member.id, { type: MSG.CHAT_HISTORY, messages: this._chatHistory });
