@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "6c3cfb82-c2c9-4048-bba6-40888e239da6",
+    "name": "Room.rejoinDedup",
+    "description": "Extract from addMember: match existing member by playerToken, close old ws, delete old entry, set new with disconnected=false, broadcast MEMBER_RECONNECTED. Returns true if rejoin handled (caller skips normal add).",
+    "implementations": [
+      "ior:instance:4c8a91a5-35af-48b1-a2e9-4bbd9f18bc10"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+}
