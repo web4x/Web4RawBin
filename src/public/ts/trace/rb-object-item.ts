@@ -57,6 +57,7 @@ export class RbObjectItem extends HTMLElement {
     if (!this._initialized) {
       this._initialized = true;
       this.addEventListener('click', this.onClickDelegate);
+      this.addEventListener('touchend', this.onTouchTap);
     }
     const ref = this.getAttribute('ref');
     if (ref && !this.unsub) this.unsub = ViewBus.subscribe(ref, () => this.render());
@@ -99,6 +100,26 @@ export class RbObjectItem extends HTMLElement {
     dt.setData('application/rb-object-ref', `${type}:${uuid}`);
     dt.effectAllowed = 'copyLink';
     if (dt.setDragImage) dt.setDragImage(this, 20, 20);
+  };
+
+  private onTouchTap = (e: TouchEvent): void => {
+    if (e.changedTouches.length !== 1) return;
+    const t = e.changedTouches[0];
+    const el = document.elementFromPoint(t.clientX, t.clientY);
+    if (!el) return;
+    const expander = this.querySelector('.oi-expand');
+    const icon = this.querySelector('.oi-icon');
+    if (expander && (el === expander || expander.contains(el))) {
+      e.preventDefault();
+      const open = this.toggleAttribute('children-open');
+      this.dispatchEvent(new CustomEvent('toggle-children', { bubbles: true, detail: { open } }));
+      return;
+    }
+    if (icon && (el === icon || icon.contains(el))) {
+      e.preventDefault();
+      this.toggleAttribute('collapsed');
+      return;
+    }
   };
 
 // [impl:uuid:4ffa86ed-ca7b-4e73-9371-89b113e2ae77] impl:RbObjectItem.onClickDelegate (split for RbObjectItem.on

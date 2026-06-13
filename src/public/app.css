@@ -59,7 +59,7 @@ body {
 .room-id { color: rgba(255,255,255,0.3); font-size: 0.6rem; font-family: monospace; }
 .room-persist { color: rgba(76,175,80,0.85); font-size: 0.65rem; font-weight: 500; margin-top: 2px; }
 /* T105+T112 rb-object-item — two-line layout: name (bold) + description (word-wrap) */
-.object-item { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 8px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px; cursor: pointer; min-height: 40px; min-width: 120px; }
+.object-item { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 8px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px; cursor: pointer; min-height: 40px; min-width: 120px; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 .object-item:active { background: rgba(255,255,255,0.22); }
 .oi-icon { width: 32px; height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 6px; background: var(--type-bg, rgba(255,255,255,0.1)); color: var(--type-color, rgba(255,255,255,0.6)); cursor: grab; }
 .oi-icon:active { cursor: grabbing; }
@@ -87,7 +87,7 @@ rb-object-item[collapsed] .oi-badge { display: none; }
 rb-object-item[collapsed] { width: 40px; height: 40px; min-width: 40px; min-height: 40px; padding: 4px; gap: 0; display: flex; align-items: center; justify-content: center; }
 .tt-row rb-object-item[collapsed] { flex: 0 0 40px; min-width: 40px; }
 .oi-badge { background: #e53935; color: white; font-size: 0.65rem; font-weight: 700; min-width: 18px; height: 18px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 0 4px; }
-.oi-expand { width: 24px; height: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); font-size: 1.2rem; flex-shrink: 0; transition: transform 0.2s; }
+.oi-expand { width: 24px; height: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); font-size: 1.2rem; flex-shrink: 0; transition: transform 0.2s; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 .oi-expand:hover { color: rgba(255,255,255,0.8); }
 rb-object-item[children-open] .oi-expand { transform: rotate(90deg); }
 /* T106 rb-list-overview */
