@@ -1,7 +1,7 @@
 // [impl:uuid:cf702932-c711-4c9e-9fdc-9352eaf5d327] T42 chat sheet
 const SHEET_CSS = `
-:host { display: block; position: fixed; bottom: 0; left: 0; right: 0; z-index: 50; }
-.sheet { background: rgba(20,20,40,0.95); color: white; border-radius: 16px 16px 0 0; transition: transform 0.3s ease; transform: translateY(calc(100% - 52px)); display: flex; flex-direction: column; max-height: 60vh; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+:host { display: block; position: fixed; bottom: 0; left: 0; right: 0; z-index: 50; pointer-events: none; }
+.sheet { background: rgba(20,20,40,0.95); color: white; border-radius: 16px 16px 0 0; transition: transform 0.3s ease; transform: translateY(calc(100% - 52px)); display: flex; flex-direction: column; max-height: 60vh; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); pointer-events: auto; }
 .sheet.expanded { transform: translateY(0); }
 .sheet.peek { transform: translateY(calc(100% - 90px)); }
 .handle { display: flex; justify-content: center; padding: 8px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
