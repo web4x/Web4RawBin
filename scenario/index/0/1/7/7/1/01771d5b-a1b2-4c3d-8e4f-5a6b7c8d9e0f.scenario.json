@@ -6,7 +6,9 @@
     "description": "Drawer grab-handle drag-resize implementation.",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "sourceLine": 85,
-    "tests": []
+    "tests": [
+      "ior:instance:fda5a23e-c40a-445e-8a3e-de237cc4b988"
+    ]
   },
   "ownerIor": "ior:instance:01771d5b-9195-4680-99ac-334266d85aa0"
 }

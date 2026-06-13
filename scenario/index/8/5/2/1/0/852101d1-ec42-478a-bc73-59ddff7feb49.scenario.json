@@ -5,7 +5,9 @@
     "name": "RoomView.openFilePreview impl (split)",
     "sourceFile": "ior:file:src/public/ts/RoomView.ts",
     "sourceLine": 217,
-    "tests": []
+    "tests": [
+      "ior:instance:a7eaa994-2b58-4055-b7cd-c26c4a96044a"
+    ]
   },
   "ownerIor": "ior:instance:79601135-70ea-48d9-a566-b4b53a96dfc8"
 }

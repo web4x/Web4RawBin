@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "fda5a23e-c40a-445e-8a3e-de237cc4b988",
+    "name": "drag resizes drawer 95vh + close <120px",
+    "file": "ior:file:test/e2e/components.test.ts",
+    "sourceLine": 2066,
+    "verifies": [
+      "ior:instance:01771d5b-a1b2-4c3d-8e4f-5a6b7c8d9e0f"
+    ],
+    "status": "pass"
+  },
+  "ownerIor": "ior:instance:01771d5b-a1b2-4c3d-8e4f-5a6b7c8d9e0f"
+}

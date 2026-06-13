@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a7eaa994-2b58-4055-b7cd-c26c4a96044a",
+    "name": "file/url/webitem click \u2192 openFilePreview",
+    "file": "ior:file:test/e2e/components.test.ts",
+    "sourceLine": 1865,
+    "verifies": [
+      "ior:instance:852101d1"
+    ],
+    "status": "pass"
+  },
+  "ownerIor": "ior:instance:852101d1"
+}
