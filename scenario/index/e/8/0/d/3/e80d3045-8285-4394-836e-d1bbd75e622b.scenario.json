@@ -4,7 +4,9 @@
     "uuid": "e80d3045-8285-4394-836e-d1bbd75e622b",
     "name": "FileBrowser.fixDisplay",
     "sourceFile": "ior:file:src/ts/server/FileApi.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:f9a7db87-53e4-4803-8740-771fde162281"
+    ]
   },
   "ownerIor": null
 }

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f9a7db87-53e4-4803-8740-771fde162281",
+    "name": "readDir entry format (dedicated)",
+    "file": "ior:file:test/e2e/fileapi.test.ts",
+    "sourceLine": 131,
+    "verifies": [
+      "ior:instance:e80d3045-8285-4394-836e-d1bbd75e622b"
+    ],
+    "status": "pass"
+  },
+  "ownerIor": "ior:instance:e80d3045-8285-4394-836e-d1bbd75e622b"
+}
