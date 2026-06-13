@@ -6,7 +6,9 @@
     "name": "R19.102: Room tree supports user actions — create new folder to organize content.",
     "description": "The in-room tree (currently auto-generated Members/Files collections) MUST support USER ACTIONS for content organization — starting with 'create new folder'. A user-created folder is a scenario unit (ior:class:Folder, nestable) within the room that can contain files and sub-folders. This is a design-ahead capture for a family of actions: create folder, move file into folder, rename folder, delete folder. The folder appears as an rb-object-item folder node in the tree (same as Members/Files per R19.21.A). After Members/Files-folder render fix (R19.101) lands.",
     "tronQuote": "> TRON: \"prepare for actions like create new folder in the room UX.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:42819b8b-02f6-4104-8b6c-e0156783e38f"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

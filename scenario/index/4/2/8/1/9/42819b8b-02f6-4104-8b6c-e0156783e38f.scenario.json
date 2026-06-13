@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "42819b8b-02f6-4104-8b6c-e0156783e38f",
+    "name": "T-room-create-folder-actions: room tree user actions — create new folder to organize content",
+    "slug": "room-tree-create-folder-actions",
+    "description": "R19.102 (S20 carry-forward, TRACEABILITY-FIRST): room tree supports user actions — create a new folder to organize content. S20 DISCIPLINE: full chain (Req→UC→Class→Method→Impl→Test) DESIGNED first; the E2E Test is written FIRST (or with impl) so this never ships chain-open. Architect designs UC→Class→Method ahead of impl; tester defines the RED→GREEN E2E (create folder → folder node appears in tree → file can be moved into it → persists). In-room UX → real Playwright + screenshot gate (anti-false-green standard).",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement (architect — design FULL chain ahead)\n  - [ ] creating test cases (tester — write E2E FIRST)\n  - [ ] implementing (expert — against the designed chain + test)\n  - [ ] testing (tester — RED→GREEN E2E)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:754be820-0697-4ce8-8d7a-824484c47c69"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-13",
+    "createdBy": "robbin-planner",
+    "joint": [
+      "robbin-planner",
+      "robbin-architect",
+      "robbin-expert",
+      "robbin-tester"
+    ],
+    "atoms": "covers R19.102 (S20 carry-forward); create-folder room-tree action; traceability-first: chain designed + E2E test written FIRST; E2E-gated"
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
