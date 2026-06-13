@@ -6,7 +6,10 @@
     "name": "R19.93: File detail view has a Preview button to open the ContentPreviewer.",
     "description": "The file DETAIL VIEW (detail drawer showing FILE scenario unit metadata: Scenario link, Parent link, etc.) currently has NO preview/open button. FIX: add a PREVIEW button (like the in-room preview buttons per R19.77) that opens the ContentPreviewer for this file — image renders as img, html in sandboxed iframe, url shows the two-button choice. The preview button appears alongside Scenario/Parent/Browse links in the detail view header.",
     "tronQuote": "> TRON: \"add on the file details view a preview button\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:5ab2d3b9-0813-4398-9b58-4d4bfddaeefc",
+      "ior:instance:2668b5f0-7c6f-48a5-9985-a916f0ca6c12"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],

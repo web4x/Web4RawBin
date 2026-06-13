@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "5ab2d3b9-0813-4398-9b58-4d4bfddaeefc",
+    "name": "T-file-detail-preview: Preview button in file detail view opens ContentPreviewer",
+    "slug": "file-detail-preview-button-content-previewer",
+    "description": "R19.93: add a Preview button to the FileUnit detail card (byTypeRender for type FileUnit in rb-detail-drawer). Button calls openFilePreview(uuid) \u2014 same ContentPreviewer path already used for tree item clicks.",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:36becf02-fd36-4a10-9b11-1bd42f832a10"
+    ],
+    "useCases": [
+      "ior:instance:f53e9159-77c9-4094-b4dc-36c4a5cebe08"
+    ],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-13",
+    "createdBy": "robbin-architect"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

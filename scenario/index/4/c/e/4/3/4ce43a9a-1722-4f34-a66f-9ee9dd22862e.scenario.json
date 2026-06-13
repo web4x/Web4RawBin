@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "4ce43a9a-1722-4f34-a66f-9ee9dd22862e",
+    "name": "RbDetailDrawer.filePreviewButton",
+    "description": "Render a Preview button in byTypeRender for FileUnit type. On click, invoke ContentPreviewer (renderContentPreview + loadTextPreview + wireUrlActions) for the file UUID.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+}

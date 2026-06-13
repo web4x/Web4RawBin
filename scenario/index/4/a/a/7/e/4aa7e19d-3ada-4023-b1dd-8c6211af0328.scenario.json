@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "4aa7e19d-3ada-4023-b1dd-8c6211af0328",
+    "name": "T-seed-ior-room: in-room tree uses data-seed-ior=roomUuid (proven /trace path)",
+    "slug": "seed-ior-room-tree-proven-trace-path",
+    "description": "R19.92: replace bespoke tree.items WS feed with data-seed-ior on rb-trace-tree. Template: <rb-trace-tree id='room-tree' data-seed-ior='${roomId}'></rb-trace-tree>. Delete updateRoomTree(), this.files[] tree plumbing. Live update on FILE_ADDED: re-trigger renderSeed. /api/trace/children already returns Room.files+members from scenario index.",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:71a8954e-a2b6-4b8e-936f-825646aa76aa"
+    ],
+    "useCases": [
+      "ior:instance:66e130b1-a2f6-4cd2-9e6d-e6c65d50b2af"
+    ],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-13",
+    "createdBy": "robbin-architect"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

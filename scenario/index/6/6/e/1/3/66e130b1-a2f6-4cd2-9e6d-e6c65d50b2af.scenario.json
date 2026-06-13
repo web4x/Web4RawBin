@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "66e130b1-a2f6-4cd2-9e6d-e6c65d50b2af",
+    "name": "roomView.seedIorTree",
+    "description": "In-room tree renders via data-seed-ior=roomUuid on rb-trace-tree. Fetches /api/trace/children (proven path). Deletes bespoke updateRoomTree/renderItems plumbing.",
+    "class": "ior:instance:b0cfac4d-825a-4f4f-84cc-f98968d67fed",
+    "method": "ior:instance:fdc57ab7-4389-4beb-8719-700abde12df6",
+    "tasks": [
+      "ior:instance:4aa7e19d-3ada-4023-b1dd-8c6211af0328"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
