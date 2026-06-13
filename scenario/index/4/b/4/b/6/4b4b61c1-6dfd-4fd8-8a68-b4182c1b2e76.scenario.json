@@ -6,7 +6,9 @@
     "name": "R19.91: Remove Local Identity clears ALL browser state and reloads into first-run ProfileEditor.",
     "description": "The removeLocalIdentity handler MUST: (1) CLEAR ALL browser state that holds identity — localStorage (token, keypair, device data, name, secret), IndexedDB entries, and any cached identity in SW caches, (2) reset the app to first-run state (no token, no device, no profile), (3) reload the page which opens the ProfileEditor in new-user onboarding mode (as if visiting for the first time). Currently likely a partial clear that leaves residual state preventing a true fresh start.",
     "tronQuote": "> TRON: \"Remove Local Identity button is now correct, but pressing it must result in removing ALL state from the browser store that brings it here, and start as if it was the first time, then reload into the profile editor again.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:5da32d29-1e03-44e8-b216-1a8596be1580"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
