@@ -4,7 +4,7 @@
     "uuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212",
     "altId": "CR1",
     "name": "CR1: Rename 'Champagne Chain' label to 'Traceability Chain' in all user-facing UI.",
-    "description": "CHANGE REQUEST: the detail-view section labeled 'Champagne Chain' uses internal measurement jargon in USER-FACING UI. 'Champagne' is the team's internal quality-verification concept — users don't know what it means. RENAME to 'Traceability Chain' everywhere in the product UI. Champagne/marketing terms must NOT appear in the product interface (only in internal scoring/audit tools).",
+    "description": "CHANGE REQUEST: the detail-view section labeled 'Champagne Chain' uses internal measurement jargon in USER-FACING UI. 'Champagne' is the team's internal quality-verification concept \u2014 users don't know what it means. RENAME to 'Traceability Chain' everywhere in the product UI. Champagne/marketing terms must NOT appear in the product interface (only in internal scoring/audit tools).",
     "tronQuote": "> TRON: \"do you see the issues on this requirement and the need for change requests and bugs regarding traceability and stupid champagne marketing?\"",
     "tasks": [],
     "tests": [],
@@ -16,11 +16,14 @@
     ],
     "crossRefNote": "R20.5 (universal chain-vs-children) already specified 'Traceability' as the label. CR1 is the explicit change-request to rename the existing 'Champagne Chain' label.",
     "intendedChain": {
-      "useCase": "detailView.renameChainLabel — 'Champagne Chain' → 'Traceability Chain' in all detail-view templates",
+      "useCase": "detailView.renameChainLabel \u2014 'Champagne Chain' \u2192 'Traceability Chain' in all detail-view templates",
       "class": "RbDetailDrawer (or per-type DetailView template)",
-      "method": "renderTraceabilitySection — change the section heading string",
-      "test": "RED: open any detail-view → assert section heading is 'Traceability Chain' (or 'Traceability'), NOT 'Champagne Chain'. Currently FAILS (some views show 'Champagne Chain')."
-    }
+      "method": "renderTraceabilitySection \u2014 change the section heading string",
+      "test": "RED: open any detail-view \u2192 assert section heading is 'Traceability Chain' (or 'Traceability'), NOT 'Champagne Chain'. Currently FAILS (some views show 'Champagne Chain')."
+    },
+    "useCases": [
+      "ior:instance:e2807a7b-b72f-4030-97b6-67f73a043ae7"
+    ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

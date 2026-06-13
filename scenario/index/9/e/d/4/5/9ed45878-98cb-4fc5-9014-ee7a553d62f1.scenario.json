@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "9ed45878-98cb-4fc5-9014-ee7a553d62f1",
+    "name": "RbDetailView.unifyChainLabel",
+    "description": "Replace 'Champagne Chain' h4 with 'Traceability Chain' in rb-usecase-detail.ts:48, rb-requirement-detail.ts:50, rb-task-detail.ts:51. Also update singular-chain.ts:3 comment. Shared constant or direct string replacement.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5"
+}

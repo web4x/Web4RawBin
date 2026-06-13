@@ -1,0 +1,30 @@
+@startuml cr1-unify-chain-label
+!theme plain
+title CR1 — Rename Champagne Chain → Traceability Chain (all detail views)
+
+left to right direction
+
+package "CR1 (ChangeRequest)" {
+  usecase "detailView.unifyChainLabel\nuc:e2807a7b\ncr:b04fc9af" as UC
+  agent "RbDetailView.unifyChainLabel\nclass:f2f84ce3\nmethod:9ed45878" as M
+  UC --> M
+}
+
+note bottom
+  Fix 3 files (Champagne → Traceability):
+  - rb-usecase-detail.ts:48
+  - rb-requirement-detail.ts:50
+  - rb-task-detail.ts:51
+  Also: singular-chain.ts:3 comment
+
+  Already correct (no change):
+  - rb-test-detail, rb-method-detail,
+    rb-implementation-detail: 'Traceability Chain'
+  - rb-class-detail: 'Traceability Chain (narrowed)'
+
+  RED Test: open req/task/UC detail → assert h4
+  text = 'Traceability Chain' (not 'Champagne Chain')
+  Sprint: 64af2638
+end note
+
+@enduml
