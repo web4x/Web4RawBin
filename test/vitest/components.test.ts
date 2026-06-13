@@ -2190,6 +2190,42 @@ describe('R19.90: diffRenderItems preserves existing nodes', () => {
   });
 });
 
+// [test:uuid:8cbd7538-c6c6-455f-8c41-49807c82ec9d] R19.85 iframePinchZoom — iframe sandbox allows pinch
+describe('R19.85: iframePinchZoom — content-preview iframe allows pinch-zoom', () => {
+  it('content-preview.ts iframe has allow-scripts + no user-scalable=no', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/trace/content-preview.ts'), 'utf-8');
+    expect(src).toContain('sandbox');
+    expect(src).not.toContain('user-scalable=no');
+  });
+});
+
+// [test:uuid:cd8ccf1a-de1a-4d9f-9c77-ef3f2540af8e] R19.92 seedIorTree — room tree uses data-seed-ior
+describe('R19.92: seedIorTree — RoomView mounts trace-tree with data-seed-ior', () => {
+  it('RoomView.ts creates rb-trace-tree with data-seed-ior attribute', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/RoomView.ts'), 'utf-8');
+    expect(src).toContain('data-seed-ior');
+    expect(src).toContain('rb-trace-tree');
+  });
+});
+
+// [test:uuid:fb907b0b-4844-411d-995f-2231bf882317] R19.93 filePreviewButton — detail view shows preview button for files
+describe('R19.93: filePreviewButton — rb-detail-view renders preview button', () => {
+  it('rb-detail-view.ts wires file preview via content-preview import + previewBtn', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/trace/rb-detail-view.ts'), 'utf-8');
+    expect(src).toContain('content-preview');
+    expect(src).toContain('previewBtn');
+  });
+});
+
 describe('R19.89: Remove-Local-Identity button placement + click handler', () => {
   it('DeviceEnrollDialog renders de-remove-identity button', () => {
     const { readFileSync } = require('node:fs');
