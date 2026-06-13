@@ -23,3 +23,19 @@ Removed from method init(4fed4fda).implementations[]: 9fbb1f6e (file-header line
 Correct AT THAT TIME (markers were mis-placed → genuinely incomplete). My finding DROVE the expert's fix (relocate markers into named methods). 21→27 is a GENUINE climb, not a reversal.
 
 ## HONEST COUNT = 27/205 excl 46 (det-3x). Was 21. +6 all genuine.
+
+---
+## CORRECTION (planner, 2026-06-14, post PO req-text scrutiny): R19.8.B is OVER-CREDIT → honest = 26
+PO demanded the 4 req texts justify the retainOrPrune cluster. They DON'T uniformly:
+- R19.8 "PERSISTENT rooms keep every member... no contact ever lost" (parent; own memberAdd+retainOrPrune legs) — GENUINE.
+- R19.8.A "leaving member → flip offline, NOT prune" — GENUINE retainOrPrune (retain-on-disconnect mechanism).
+- R19.18 "no contact is ever lost" — GENUINE refinement (the retain guarantee; same behavior as R19.8.A).
+- **R19.8.B "REJOIN flips existing member back online — NEVER adds a duplicate" — DISTINCT behavior = rejoin DEDUP (addMember), NOT retain-on-disconnect. Mis-wired to UC room.retainOnDisconnect→retainOrPrune. Its champagne off 4c21d2ee(retainOrPrune impl)+c6dfbaa6(retainOrPrune test) is OVER-CREDIT.**
+
+R19.8.B's GENUINE impl = 4c8a91a5 (heads addMember Room.ts:166, "T-persistent-dedup R19.8.B", strict-valid + own test 9d6a901d) — the one unwired from init. R19.8.B's UC is mis-modeled (named retainOnDisconnect for a rejoin behavior).
+
+### Standard position
+Chain is REQUIREMENT-ROOTED (each req → own UC→method→impl; UC/Test 1:N, middle per-req). No explicit sanction for N-reqs→1-impl. Genuine same-behavior refinements (R19.8.A+R19.18 both = retain-on-disconnect) legitimately share retainOrPrune. A DISTINCT behavior (R19.8.B rejoin-dedup) does NOT — it needs its own impl/test path.
+
+### HONEST COUNT = 26/205 excl 46 (5 genuine flips: R19.1, R19.2, R19.8, R19.8.A, R19.18; R19.8.B EXCLUDED as over-credit). Recoverable to 27 when R19.8.B's chain is re-modeled (architect: rejoin-dedup UC → addMember; planner: wire to genuine 4c8a91a5+9d6a901d). NOT champagne off retainOrPrune.
+### RECOMMEND: standard add explicit refinement-cluster rule (same-behavior reqs MAY share an impl; distinct behaviors MUST NOT).
