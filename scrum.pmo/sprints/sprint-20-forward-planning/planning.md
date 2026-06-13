@@ -28,6 +28,8 @@ This reverses the S19 anti-pattern that produced 24 chain-debt reqs (R19.83-102)
 ### Forward S20 requirements (test-first chains)
 - [ ] [📝 T-detail-drawer-grab-bar (R20.2)](../../../scenario/index/f/e/8/c/4/fe8c43a5-cd15-4aed-ac5b-97df558d8fea.scenario.json) — task `fe8c43a5`. **Release → v0.6.1 + tag.** Default detail drawer nudge → wide grab-bar (DRY with chat drawer). Chain canonicalized (architect 0979045): UC detailDrawer.showGrabBar `3dc386fd` → Class RbDetailDrawer `0dd08b2f` → Method renderGrabBar `32384f12`; [PUML](./diagrams/r20-2-grab-bar-chain.puml). RED test confirmed (tester, pre-impl). Next: expert impl → tester GREEN → release v0.6.1 + tag.
 
+- [ ] [📝 T-item-views-default-collapsed (R20.3)](../../../scenario/index/7/6/7/d/d/767dd241-127e-4a3f-a491-052b91118a3d.scenario.json) — task `767dd241`. **Release → v0.6.2 + tag.** All item views default COLLAPSED on render (both /trace + in-room). Chain canonicalized (architect 83e44e6): UC itemView.defaultCollapsed `709c458d` → Class RbObjectItem `3bc876b5` → Method initCollapsed `76bbedda`; [PUML](./diagrams/r20-3-default-collapsed-chain.puml). Next: tester RED all-collapsed E2E **first**, then expert impl.
+
 ### Backfill tracking
 - [ ] [🔧 T-s19-champagne-backfill-tracking](../../../scenario/index/4/5/0/c/b/450cb98a-4234-4f2c-9c9c-3c561750fb13.scenario.json) — task `450cb98a`. Tracks tonight's **22:07 scheduled** radical backfill of S19 v0.5.x chain-debt; planner re-scores det-3x + ground-truths each flip + reports honest count. Baseline 173/198.
 
