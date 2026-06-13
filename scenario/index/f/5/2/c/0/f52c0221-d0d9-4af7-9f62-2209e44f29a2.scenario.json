@@ -1,0 +1,5 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {"uuid": "f52c0221-d0d9-4af7-9f62-2209e44f29a2", "name": "MainRoute.resetPwaCache impl", "sourceFile": "ior:file:src/public/index.html", "sourceLine": 42, "tests": []},
+  "ownerIor": "ior:instance:4864c439-8dde-4078-84c7-b25a74e2f6a1"
+}

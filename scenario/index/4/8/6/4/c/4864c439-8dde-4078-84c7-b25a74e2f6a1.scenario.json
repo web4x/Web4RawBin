@@ -4,7 +4,9 @@
     "uuid": "4864c439-8dde-4078-84c7-b25a74e2f6a1",
     "name": "MainRoute.resetPwaCache",
     "description": "Button handler: caches.keys() \u2192 delete all \u2192 serviceWorker.getRegistrations() \u2192 unregister all \u2192 re-register /sw.js \u2192 location.reload(). Same as sw.js flushCache().",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:f52c0221-d0d9-4af7-9f62-2209e44f29a2"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:abd1d6b0-ea8d-4f5e-b471-c60ccf7eff5e"

@@ -39,6 +39,7 @@
   </div>
   <script>
     fetch('/api/config').then(r=>r.json()).then(c=>{document.getElementById('ver').textContent='v'+c.version+' · '+c.branch}).catch(()=>{});
+    // [impl:uuid:f52c0221-d0d9-4af7-9f62-2209e44f29a2] R19.95 resetPwaCache
     document.getElementById('reset-pwa').addEventListener('click', async () => {
       try {
         const regs = await navigator.serviceWorker.getRegistrations();
