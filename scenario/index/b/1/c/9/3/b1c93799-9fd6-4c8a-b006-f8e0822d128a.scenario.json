@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "b1c93799-9fd6-4c8a-b006-f8e0822d128a",
+    "name": "T-bug-changerequest-oop-extensions: Bug + ChangeRequest as Requirement subclasses with own icons",
+    "slug": "bug-changerequest-requirement-subclasses-icons",
+    "description": "R20.4 (S20, traceability-first): Bug and ChangeRequest become OOP EXTENSIONS of Requirement — ior:class:Bug extends ior:class:Requirement, ior:class:ChangeRequest extends ior:class:Requirement. They trace through the SAME 6-step chain (Req→UC→Class→Method→Impl→Test) but are distinctly typed, each a std scenario unit in the index with its OWN icon in rb-object-item (distinct from the Requirement icon). intendedChain (for architect to canonicalize + PUML): UseCase=requirement.classifyType; Class=Requirement (+ Bug/ChangeRequest subclasses); Method=icon resolution per ior:class subtype + scenario-unit creation with subtype ior; Implementation=ior:class:Bug + ior:class:ChangeRequest in class registry + icon-map entry per subtype + rb-object-item resolves icon from ior:class; Test=RED: create Bug unit→assert ior=ior:class:Bug + Bug icon; create ChangeRequest→distinct icon; both trace through full chain; currently FAILS (neither class exists). S20 DISCIPLINE: full chain designed + Test FIRST; UI → Playwright+screenshot gate; nothing ships chain-open. RELEASE → v0.6.3 + git tag. NOTE: architect designs the OOP class hierarchy + icon map.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect — OOP class design Bug/ChangeRequest extends Requirement + icon map + PUML)\n  - [ ] creating test cases (tester — write RED subtype+icon+chain E2E FIRST)\n  - [ ] implementing (expert — class registry + icon-map + rb-object-item icon resolution)\n  - [ ] testing (tester — RED→GREEN E2E + screenshot)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:ea212274-22c0-4987-9bb2-99262b22f550"
+    ],
+    "useCases": [],
+    "subtasks": [],
+    "tasks": [],
+    "createdAt": "2026-06-13",
+    "createdBy": "robbin-planner",
+    "joint": [
+      "robbin-planner",
+      "robbin-req",
+      "robbin-architect",
+      "robbin-expert",
+      "robbin-tester"
+    ],
+    "atoms": "covers R20.4 per req-eng request; Bug+ChangeRequest OOP extensions of Requirement with own icons, same 6-step chain; intendedChain carried; traceability-first, Test FIRST; release v0.6.3+tag"
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

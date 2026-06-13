@@ -6,11 +6,13 @@
     "name": "R20.4: Bug and ChangeRequest are OOP extensions of Requirement with own icons.",
     "description": "Bug and ChangeRequest become OOP EXTENSIONS (subclasses) of Requirement: ior:class:Bug extends ior:class:Requirement, ior:class:ChangeRequest extends ior:class:Requirement. They trace through the SAME 6-step chain as requirements (Req→UC→Class→Method→Impl→Test) but are distinctly typed. Each is a standard scenario unit in the index with its OWN ICON in rb-object-item (distinct from the Requirement icon). This enables tracing bug-fix chains and change-request chains with full traceability, using the existing Requirement infrastructure.",
     "tronQuote": "> TRON: \"add bug and change request as oop extension to requirement to trace these cases. obviously as std scenarios with own icons on the item view.\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:b1c93799-9fd6-4c8a-b006-f8e0822d128a"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
-    "parent": null,
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "intendedChain": {
       "useCase": "requirement.classifyType — Bug/ChangeRequest render as Requirement subtypes with distinct icons, trace through same chain",
       "class": "Requirement (+ Bug extends Requirement, ChangeRequest extends Requirement)",
@@ -19,5 +21,5 @@
       "test": "RED: (1) create Bug scenario unit → assert ior=ior:class:Bug, renders with Bug icon (not Requirement icon). (2) create ChangeRequest unit → assert distinct icon. (3) both trace through Req→UC→...→Test chain. Currently FAILS (neither class exists)."
     }
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
