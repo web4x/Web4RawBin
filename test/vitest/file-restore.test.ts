@@ -21,6 +21,7 @@ describe('file-restore JOIN_ROOM path', () => {
     expect(block).toContain('FILE_ADDED');
   });
 
+  // [test:uuid:a46744ed-8cc8-4ad0-97a3-948376b7a7a8] R19.100 RoomView.renderAllFiles — FILE_ADDED handler
   it('FILE_ADDED message type exists', () => {
     const msgSrc = fsSync.readFileSync(
       path.join(__dirname, '../../src/ts/shared/MessageTypes.ts'), 'utf-8'

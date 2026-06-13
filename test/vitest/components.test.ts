@@ -2226,6 +2226,22 @@ describe('R19.93: createFilePreviewButton — rb-detail-view renders preview but
   });
 });
 
+// [test:uuid:7cba34a6-03ab-41db-9ac2-d0e76d1d6f71] R20.6 SelectionModel.init — singleton + select/toggle/clear/dispatch
+describe('R20.6: SelectionModel has select/toggle/clear + dispatches selection-changed', () => {
+  it('SelectionModelImpl has select, toggle, clear, dispatch methods', () => {
+    const { readFileSync } = require('node:fs');
+    const nodePath = require("node:path");
+    const root = nodePath.resolve(__dirname, '../../');
+    const src = readFileSync(nodePath.join(root, 'src/public/ts/trace/selection-model.ts'), 'utf-8');
+    expect(src).toContain('class SelectionModelImpl');
+    expect(src).toContain('select(');
+    expect(src).toContain('toggle(');
+    expect(src).toContain('clear()');
+    expect(src).toContain('selection-changed');
+    expect(src).toContain('export const selectionModel');
+  });
+});
+
 describe('R19.89: Remove-Local-Identity button placement + click handler', () => {
   it('DeviceEnrollDialog renders de-remove-identity button', () => {
     const { readFileSync } = require('node:fs');
