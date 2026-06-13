@@ -2214,15 +2214,15 @@ describe('R19.92: seedIorTree — RoomView mounts trace-tree with data-seed-ior'
   });
 });
 
-// [test:uuid:fb907b0b-4844-411d-995f-2231bf882317] R19.93 filePreviewButton — detail view shows preview button for files
-describe('R19.93: filePreviewButton — rb-detail-view renders preview button', () => {
-  it('rb-detail-view.ts wires file preview via content-preview import + previewBtn', () => {
+// [test:uuid:fb907b0b-4844-411d-995f-2231bf882317] R19.93 createFilePreviewButton — extracted method at rb-detail-view.ts:122
+describe('R19.93: createFilePreviewButton — rb-detail-view renders preview button', () => {
+  it('rb-detail-view.ts has createFilePreviewButton method + content-preview import', () => {
     const { readFileSync } = require('node:fs');
     const nodePath = require("node:path");
     const root = nodePath.resolve(__dirname, '../../');
     const src = readFileSync(nodePath.join(root, 'src/public/ts/trace/rb-detail-view.ts'), 'utf-8');
+    expect(src).toContain('createFilePreviewButton');
     expect(src).toContain('content-preview');
-    expect(src).toContain('previewBtn');
   });
 });
 
