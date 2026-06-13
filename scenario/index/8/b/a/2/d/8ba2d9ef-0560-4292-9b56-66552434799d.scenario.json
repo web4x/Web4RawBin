@@ -3,9 +3,9 @@
   "model": {
     "uuid": "8ba2d9ef-0560-4292-9b56-66552434799d",
     "altId": "R19.83",
-    "name": "R19.83: File items in room tree must survive re-render \u2014 collapse-to-icon and preview-drawer work like member items.",
-    "description": "BUG: file items in the in-room tree do not collapse to icons (R19.27) and do not open the preview drawer (R19.73) \u2014 member items work fully. Root cause: re-render destroys file item DOM nodes because there is no this.files[] / renderRoomTreeFiles() mirror of the members pattern (this.members[] / renderRoomTreeMembers()). FIX: file items must be managed with the same lifecycle pattern as member items \u2014 a persistent this.files[] array and a renderRoomTreeFiles() method that preserves/updates existing file item nodes on re-render instead of destroying and recreating them. All item interactions (collapse-to-icon, preview-drawer click, drag) must work identically on file items and member items.",
-    "tronQuote": "> TRON: \"file items not fully working \u2014 do not collapse to icons, do not open the preview drawer; member items work fully.\"",
+    "name": "R19.83: File items in room tree must survive re-render — collapse-to-icon and preview-drawer work like member items.",
+    "description": "BUG: file items in the in-room tree do not collapse to icons (R19.27) and do not open the preview drawer (R19.73) — member items work fully. Root cause: re-render destroys file item DOM nodes because there is no this.files[] / renderRoomTreeFiles() mirror of the members pattern (this.members[] / renderRoomTreeMembers()). FIX: file items must be managed with the same lifecycle pattern as member items — a persistent this.files[] array and a renderRoomTreeFiles() method that preserves/updates existing file item nodes on re-render instead of destroying and recreating them. All item interactions (collapse-to-icon, preview-drawer click, drag) must work identically on file items and member items.",
+    "tronQuote": "> TRON: \"file items not fully working — do not collapse to icons, do not open the preview drawer; member items work fully.\"",
     "tasks": [
       "ior:instance:322d0fcd-b928-41e2-a49f-33656e718b8c"
     ],
@@ -17,7 +17,9 @@
       "ior:instance:4603db83-167a-43a2-a06f-1f56167eb34b",
       "ior:instance:02af5fc2-2cc5-4a32-ba6c-1167a0a513d6"
     ],
-    "crossRefNote": "R19.27 (icon-tap collapse to square) and R19.73 (in-room file preview) both fail on file items because re-render destroys them. R19.83 fixes the lifecycle so file items are persistent like member items."
+    "crossRefNote": "R19.27 (icon-tap collapse to square) and R19.73 (in-room file preview) both fail on file items because re-render destroys them. R19.83 fixes the lifecycle so file items are persistent like member items.",
+    "functionalDone": true,
+    "functionalDoneNote": "R19.83: file items render/survive via FILE_ADDED handler + tree.renderSeed (declarative handler-closure, no named-method impl per SM strict ruling). SHIPPED/WORKING. functionalDone-not-champagne, IN denom. Re-verified PO 2026-06-13."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
