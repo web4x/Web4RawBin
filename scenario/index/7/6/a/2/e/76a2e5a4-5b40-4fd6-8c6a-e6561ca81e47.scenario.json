@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "76a2e5a4-5b40-4fd6-8c6a-e6561ca81e47",
+    "altId": "BUG4",
+    "name": "BUG4: Deselect must return drawer to CHAT mode, not close it.",
+    "description": "BEHAVIOR REGRESSION (v0.6.10 drawer consolidation): room opens with chat in drawer (correct per R20.6b). Selecting an item switches to detail content (correct per R20.6c). DESELECTING (tap selected item again or selection becomes empty) CLOSES the drawer entirely instead of returning to CHAT mode. Per R20.6b: empty selection = drawer shows chat. The drawer must NEVER close on deselect — it returns to chat.",
+    "tronQuote": "> TRON: \"room opens with chat. good. selecting changes to content. deselecting does not change back to chat but closes the drawer completely.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:4bc97fdc-d9a1-4104-9a09-f697abe9f98a",
+      "ior:instance:c1dbd4c3-35b4-41e7-ac35-ed476b1b0cb6"
+    ],
+    "crossRefNote": "R20.6b (empty selection → chat) defines the correct behavior. R20.6c (tap → single-select) is the select path. BUG4 = the deselect→empty transition closes instead of reverting to chat.",
+    "intendedChain": {
+      "useCase": "drawer.deselectReturnsToChat — empty selection after deselect shows chat, never closes",
+      "class": "RbDetailDrawer + SelectionModel",
+      "method": "onSelectionChange — if selection.length===0 → renderChat(), NOT close()",
+      "test": "RED: select item A (drawer shows detail). Deselect A (tap again or long-press toggle off) → assert drawer OPEN showing chat. Currently FAILS (drawer closes)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

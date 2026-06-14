@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "8c1f37d1-414c-4b80-813e-c43df39eafb4",
+    "altId": "BUG3",
+    "name": "BUG3: CSS regression — drawer layout must be grab-bar → actions → filename BELOW, not beside.",
+    "description": "CSS REGRESSION (v0.6.10 drawer consolidation): URL-file preview drawer layout broke — filename now renders BESIDE the action buttons and wraps badly. MUST be stacked vertically: grab-bar → actions row → filename BELOW (per Tron's 'name below' reference + IMG_4004 showing correct layout). The consolidation broke the flex-direction or element order.",
+    "tronQuote": "> TRON: \"css regression. drawer bar, actions, name below [=desired/how-it-was].\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:684cc684-4369-4246-9b9c-fb2f1679d778"
+    ],
+    "crossRefNote": "R19.78 (actions above filename) defined the correct layout order. BUG3 = the consolidation regressed it.",
+    "intendedChain": {
+      "useCase": "drawer.layoutStack — grab-bar, actions, filename stacked vertically (flex-direction:column)",
+      "class": "RbDetailDrawer",
+      "method": "render — CSS flex layout: bar→actions→name→content (column, not row)",
+      "test": "RED: open URL-file preview drawer → assert filename element is BELOW actions row (offsetTop > actions.offsetTop), NOT beside. Currently FAILS (beside/wrapping)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
