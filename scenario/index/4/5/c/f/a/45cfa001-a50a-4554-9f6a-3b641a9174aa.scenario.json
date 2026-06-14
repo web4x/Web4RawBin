@@ -5,7 +5,7 @@
     "name": "renderSupersededSection impl",
     "sourceFile": "ior:file:src/public/ts/trace/detail-superseded.ts",
     "sourceLine": 15,
-    "tests": []
+    "tests": ["ior:instance:ae410763-e446-4294-ad75-a6b11a2bdc31"]
   },
   "ownerIor": "ior:instance:31c6e25e-c65e-4039-ad01-f0dd87978ed1"
 }
