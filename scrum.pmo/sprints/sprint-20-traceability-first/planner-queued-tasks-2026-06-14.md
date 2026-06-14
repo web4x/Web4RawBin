@@ -1,7 +1,11 @@
 # QUEUED tasks (Tron directive: strict-forward uninterrupted; do NOT drive now) — planner 2026-06-14
 
 ## QUEUE-1: /trace DETAIL BUG (collection + leaf detail render)
-**Owner:** architect (diagnosing root cause) → expert fix. **Status:** QUEUED (after strict-forward work).
+**Owner:** architect (root cause done) → expert fix. **Status:** QUEUED (after strict-forward work).
+**Forward-traceable bug→task→fix (req-captured, S20 bugs[], RED tests c8b31e02):**
+- BUG8 [12cf7bb5] collection-404 → QUEUE-1 fixes via renderDetailForRef collection-handling.
+- BUG9 [1b216edc] leaf-blank → QUEUE-1 fixes via remove 'file' from tagMap.
+- When Tron clears queue → expert drives RED→GREEN against these.
 **Symptom (Tron):**
 - Collection 'Files' node → drawer shows 'Loading / no children' (SHOULD show link.url child).
 - Leaf 'link.url' node → EMPTY drawer (SHOULD show file detail).
