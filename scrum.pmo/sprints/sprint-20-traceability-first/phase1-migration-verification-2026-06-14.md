@@ -36,3 +36,16 @@ None of the S29→S20 refactor nodes (`4e728c81`, `6dc43057`, `b7894ac3`, `64af2
 2. Dedupe the 9–10 duplicate Sprint nodes (supersede dups → one per sprint).
 3. Re-run `migrate-to-scenario.ts` dry-run across canonical sprints → clean **0-pending all types**.
 4. Re-verify node-delta + no new collisions → THEN planner greenlights Phase 2 (`/api/trace` switch).
+
+---
+
+## RECONCILE COMPLETE + ✅ PHASE 2 GREENLIT (planner, 2026-06-14, commit 8bd3a0ebc)
+
+PO ruling: **Option B** — Tron R18.19 (zero-pad 01-09) outranks least-breakage. Executed:
+- PADDED canonical: rich non-padded content (`sprint-N-*`) git-moved INTO `sprint-0N-*` names (sprints 01-09); all content preserved (non-padded was richer; sparse padded backed up at `.cleanup-backups/pre-dup-sprint-dirs-*`).
+- 164 refs bulk-updated `sprint-N-` → `sprint-0N-` (anchored; sprint-10..20 untouched).
+- ~21 dup/empty Sprint nodes (migration artifacts from `5569cf504`) superseded → canonical. S4/S11 renamed distinctly ("Sprint 04 — Traceability" / "Sprint 11 — Traceability Standardization").
+
+**Gate (all pass):** broken active refs=0 · duplicate active Sprint names=0 (29 distinct) · parity 0-real-missing (242 task UUIDs all present) · node 2486 stable. NOTE: `migrate-to-scenario.ts` dry-run is NOISE (re-proposes existing tasks); the **0-missing existence check** is the real parity signal. The residual `sprint-29`/`sprint-20-forward` strings are in this verification/migration-history doc + a generated view — not active links.
+
+**✅ PHASE 2 (`/api/trace` switch) GREENLIT.**
