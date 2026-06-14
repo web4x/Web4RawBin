@@ -55,7 +55,7 @@ export class RbDetailDrawer extends HTMLElement {
     } else if (selected.length === 0) {
       // [impl:uuid:c3c70517-b56c-4765-94ae-cb677601f99c] R20.6 emptyShowsChat
       this.removeAttribute('ref');
-      this.removeAttribute('open');
+      this.setMode('chat');
     }
   };
 
@@ -64,10 +64,37 @@ export class RbDetailDrawer extends HTMLElement {
       const ref = this.getAttribute('ref');
       if (ref) {
         this.setAttribute('open', '');
+        this.renderDetailForRef(ref);
       } else {
         this.removeAttribute('open');
       }
     }
+  }
+
+  private _graph: any = null;
+  set graph(g: any) { this._graph = g; }
+
+  private async renderDetailForRef(ref: string): Promise<void> {
+    const panel = this.detailPanel;
+    if (!panel || panel.dataset.currentRef === ref) return;
+    panel.dataset.currentRef = ref;
+    this.setMode('detail');
+    const colonIdx = ref.indexOf(':');
+    const type = colonIdx > 0 ? ref.slice(0, colonIdx) : 'unknown';
+    const uuid = colonIdx > 0 ? ref.slice(colonIdx + 1) : ref;
+    const tagMap: Record<string, string> = {
+      requirement: 'rb-requirement-detail', task: 'rb-task-detail', usecase: 'rb-usecase-detail',
+      class: 'rb-class-detail', method: 'rb-method-detail', implementation: 'rb-implementation-detail',
+      test: 'rb-test-detail', file: 'rb-file-detail', bug: 'rb-requirement-detail',
+      changerequest: 'rb-requirement-detail',
+    };
+    const tag = tagMap[type] || 'rb-detail-view';
+    panel.innerHTML = '';
+    const el = document.createElement(tag) as any;
+    el.setAttribute('ref', ref);
+    el.setAttribute('uuid', uuid);
+    if (this._graph) el.graph = this._graph;
+    panel.appendChild(el);
   }
 
   // [impl:uuid:e76330fe-e29d-4587-b113-a1ed940ce62c] R20.6 removeDefaultHighlight keep-X
@@ -115,7 +142,7 @@ export class RbDetailDrawer extends HTMLElement {
     this._mode = m;
     for (const [cls, active] of [['chat', m === 'chat'], ['detail', m === 'detail'], ['preview', m === 'preview']] as const) {
       const el = this.querySelector(`.drawer-panel-${cls}`) as HTMLElement;
-      if (el) el.style.display = active ? 'flex' : 'none';
+      if (el) el.style.display = active ? (cls === 'chat' ? 'flex' : 'block') : 'none';
     }
   }
 
