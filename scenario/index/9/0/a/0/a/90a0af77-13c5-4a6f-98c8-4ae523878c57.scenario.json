@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "90a0af77-13c5-4a6f-98c8-4ae523878c57",
+    "altId": "BUG6",
+    "name": "BUG6: Room detail children collections (Members, Files) are not clickable in /trace drawer.",
+    "description": "BUG (v0.6.10 /trace drawer): the room detail drawer shows Children (collection Members, collection Files) but these collection rows are NOT clickable. They MUST be clickable → clicking navigates to that collection's detail view in the drawer (tree-navigation within the detail drawer). Part of the same broken in-drawer navigation as BUG5 — renderDetailForRef was never wired to child-click events in the detail view.",
+    "tronQuote": "> TRON: \"the collections in the room detail are not clickable\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:0ec303b0-5b8c-4fca-b720-3b8e92dc166d",
+      "ior:instance:c1dbd4c3-35b4-41e7-ac35-ed476b1b0cb6"
+    ],
+    "crossRefNote": "BUG5 (drawer stuck on first item) is the same root — renderDetailForRef not wired. BUG6 is the specific case: child collection links in the detail view have no click handler. R20.6c (tap→detail) defines the selection→detail contract.",
+    "intendedChain": {
+      "useCase": "detailView.childClickNavigates — clicking a child item/collection in the detail drawer navigates to its detail",
+      "class": "RbDetailDrawer",
+      "method": "onChildClick → selectItem(childIor) → renderDetailForRef(childIor)",
+      "test": "RED: open room detail in /trace drawer → click 'Members' collection row → assert drawer switches to Members detail. Currently FAILS (not clickable / no navigation)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
