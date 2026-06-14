@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "0ec303b0-5b8c-4fca-b720-3b8e92dc166d",
+    "altId": "BUG5",
+    "name": "BUG5: Drawer detail stuck on first item — selecting different items does not switch content.",
+    "description": "BUG (v0.6.10 drawer consolidation): on /trace, selecting a DIFFERENT item does NOT update the drawer detail — it stays stuck on the first/room detail regardless of which item is selected. E.g. select link.url → drawer still shows DeFED.net Room; select Files(1) → still shows room. REQUIREMENT: drawer detail MUST switch to match the currently-selected item. Likely over-idempotent renderDetailForRef (b1dd1275) — the ref comparison thinks it's the same item and skips re-render.",
+    "tronQuote": "> TRON: \"the drawer content switch is not yet reliable\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:c1dbd4c3-35b4-41e7-ac35-ed476b1b0cb6"
+    ],
+    "crossRefNote": "R20.6c (tap→single-select→detail drawer) is the requirement this bug violates. The selection switches but the drawer content does not follow.",
+    "intendedChain": {
+      "useCase": "drawer.switchDetail — selecting a different item updates the drawer content to that item's detail",
+      "class": "RbDetailDrawer",
+      "method": "renderDetailForRef — must compare by IOR/uuid and re-render when selection changes (not skip via over-idempotent check)",
+      "test": "RED: select item A → drawer shows A detail. Select item B → assert drawer shows B detail (NOT A). Currently FAILS (stays on A/room)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
