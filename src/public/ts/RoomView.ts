@@ -239,7 +239,6 @@ export class RoomView {
       if (!resp.ok) return;
       const res = await resp.json();
       const fm = res.unit?.model || {};
-      console.log('[file-preview]', uuid, 'mime:', fm.mimeType, 'name:', fm.name);
       const preview = renderContentPreview(uuid, fm.mimeType || '', fm.name || uuid, this.client.playerToken);
       // [impl:uuid:b8714c1d-58b2-4324-93ba-da5e0f760221] R19.78 buttons above filename
       const panel = (drawer as RbDetailDrawer).previewPanel || (drawer as any).body;
