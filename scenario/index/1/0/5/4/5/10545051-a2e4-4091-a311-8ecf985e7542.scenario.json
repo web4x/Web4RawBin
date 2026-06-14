@@ -3,12 +3,12 @@
   "model": {
     "uuid": "10545051-a2e4-4091-a311-8ecf985e7542",
     "name": "T: url-drawer-regression / .url click opens drawer (BUG13)",
-    "status": "planned",
+    "status": "in-progress",
     "coveredRequirements": [
       "ior:instance:f420e98a-3d41-4c08-b5d3-936bad0fddb5"
     ],
     "useCases": [],
-    "holdNote": "HOLD (PO 2026-06-14): tester found GREEN on v0.6.35 — can NOT repro the .url-drawer regression. Awaiting Tron repro-confirm. NO fix-work/uc-mint until Tron confirms it still fails."
+    "proofNote": "TESTER PROVING on real DeFED.net data (Tron room/file from IMG_4040), DET-3x. v0.6.35 showed green in earlier check — tester re-proves on REAL data → present proof-or-fix. Team proves; Tron redirects only (no waiting on Tron). PO 2026-06-14."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
