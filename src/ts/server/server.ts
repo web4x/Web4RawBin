@@ -709,16 +709,19 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const type = (unit.ior || '').split(':')[2] || '';
         const queryMode = urlParams.get('mode') || 'scenario';
         // [impl:uuid:28f244c7-1a9c-49c5-ab6c-249d906cb9a4] R19.71 Room forward keys
+        // [impl:uuid:29730376-7832-477d-8960-98c937f8c2bb] BUG12 Bug+ChangeRequest forward keys
         const SCENARIO_FWD: Record<string, string[]> = {
           Requirement: ['useCases'], Task: ['subtasks', 'useCases', 'coveredRequirements', 'children'], UseCase: ['classes'],
           Class: ['methods'], Method: ['implementations'], Implementation: ['tests'],
           Sprint: ['tasks'], Room: ['files', 'members'],
+          Bug: ['useCases'], ChangeRequest: ['useCases'],
         };
         const TRACE_FWD: Record<string, string[]> = {
           Requirement: ['useCases'], Task: ['useCases', 'coveredRequirements'],
           UseCase: ['class'], Class: ['methods'],
           Method: ['implementations'], Implementation: ['tests'],
           Sprint: ['tasks'], Room: ['files', 'members'],
+          Bug: ['useCases'], ChangeRequest: ['useCases'],
         };
         const fwdKeys = queryMode === 'trace' ? TRACE_FWD : SCENARIO_FWD;
         // Room type: build Members + Files collection children
@@ -783,6 +786,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           Requirement: ['UseCase', 'Task'], Task: ['Task', 'UseCase', 'Requirement'], UseCase: ['Class', 'Method'],
           Class: ['Method'], Method: ['Implementation'], Implementation: ['Test'],
           Sprint: ['Task'],
+          Bug: ['UseCase', 'Task'], ChangeRequest: ['UseCase', 'Task'],
         };
         const allowedTypes = EXPECTED_CHILD_TYPE[type] || [];
         const ucMethodIor = type === 'UseCase' ? String((unit.model as Record<string, unknown>).method || '').replace('ior:instance:', '') : '';

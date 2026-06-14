@@ -3,7 +3,9 @@
   "model": {
     "uuid": "d2389829-5727-4a2d-a3b8-915067053162",
     "altId": "BUG12",
-    "name": "BUG12: Bug-type chain node shows NO children in /trace — forward-key resolver lacks Bug entry.",
+    "name": "[MERGED→BUG9 6da84135] BUG12: Bug-type chain node shows NO children in /trace — forward-key resolver lacks Bug entry.",
+    "supersededBy": "ior:instance:6da84135-fc9d-4774-b9d7-05f95da8d60c",
+    "supersededNote": "DUPLICATE of BUG9 (6da84135) — same defect: server forward-key maps (SCENARIO_FWD/TRACE_FWD/EXPECTED_CHILD_TYPE) lack Bug/ChangeRequest entries → /trace Bug nodes show no children. BUG9 is canonical (has uc d5a44c9b + method fabb5ae3 + 3-map fix + task file). Deduped by planner 2026-06-14 (PO-directed). BUG12's unique bits (test idea, IMG_4038, quote) merged into BUG9's task file.",
     "description": "BUG: in /trace, expanding a Bug-type chain node shows NO children. The chain (req→uc→class→method→impl→test) exists but doesn't render because the FORWARD_KEYS resolver has no entry for ior:class:Bug. It resolves Requirement→useCases but not Bug→useCases (Bug extends Requirement per R20.4 but the resolver doesn't inherit). FIX: add Bug (and ChangeRequest) to the FORWARD_KEYS map with the same forward keys as Requirement (useCases[], tasks[]). Tron evidence: IMG_4038.",
     "tronQuote": "> TRON: \"switched but no children\"",
     "tasks": [],
@@ -12,9 +14,10 @@
     "unitLinks": [],
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "crossRef": [
+      "ior:instance:6da84135-fc9d-4774-b9d7-05f95da8d60c",
       "ior:instance:ea212274-22c0-4987-9bb2-99262b22f550"
     ],
-    "crossRefNote": "R20.4 (Bug+ChangeRequest extend Requirement) defined the OOP subtype. BUG12 = the FORWARD_KEYS resolver doesn't recognize the subtype — needs Bug/ChangeRequest entries with same keys as Requirement.",
+    "crossRefNote": "MERGED→BUG9 (6da84135), canonical. R20.4 (Bug+ChangeRequest extend Requirement) defined the OOP subtype. BUG12 = the FORWARD_KEYS resolver doesn't recognize the subtype — needs Bug/ChangeRequest entries with same keys as Requirement. Tracked under BUG9.",
     "intendedChain": {
       "useCase": "traceChildren.resolveBugType — Bug/ChangeRequest nodes resolve children via same forward keys as Requirement",
       "class": "Server trace-children API (FORWARD_KEYS map)",
