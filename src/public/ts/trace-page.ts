@@ -26,26 +26,33 @@ async function load(): Promise<void> {
     treeMount.innerHTML = '';
 
     // [impl:uuid:062b6920-e2a6-4774-b369-afac243dc46d] R20.12 renderPinnedSprint
+    const CURRENT_SPRINT_UUID = 'current-sprint-singleton-0000-000000000001';
     const renderPinned = async () => {
       const existing = treeMount.querySelector('.pinned-sprint');
       if (existing) existing.remove();
       try {
-        const ctRes = await fetch('/api/ior/ior:instance:3c7d1853-a5ee-4c7c-9c94-04b2e4f5bbb4');
+        const ctRes = await fetch(`/api/ior/ior:instance:${CURRENT_SPRINT_UUID}`, { cache: 'no-store' });
         const ctData = await ctRes.json();
         if (ctData.unit?.model) {
           const ct = ctData.unit.model;
+          const taskName = ct.taskName || ct.name || '';
           const pinned = document.createElement('div');
           pinned.className = 'pinned-sprint';
           pinned.innerHTML = '<div class="pin-label">📌 Current Task</div>' +
-            '<div class="pin-sprint-name">' + (ct.name || '').replace(/[<>]/g, '') + '</div>' +
-            (ct.status ? '<div class="pin-task">' + ct.status + '</div>' : '');
-          const pinnedTree = document.createElement('rb-trace-tree') as any;
-          pinnedTree.setAttribute('data-seed-ior', ct.uuid || '3c7d1853-a5ee-4c7c-9c94-04b2e4f5bbb4');
-          pinnedTree.setAttribute('data-mode', 'trace');
-          pinnedTree.setAttribute('data-always-expanded', '');
-          pinned.appendChild(pinnedTree);
+            '<div class="pin-sprint-name">' + (taskName).replace(/[<>]/g, '') + '</div>' +
+            (ct.sprintName ? '<div class="pin-task">' + (ct.sprintName as string).replace(/[<>]/g, '') + '</div>' : '');
+          if (ct.chain) {
+            const chainRef = ct.chain.req || ct.chain.uc || ct.chain.method || '';
+            if (chainRef) {
+              const pinnedTree = document.createElement('rb-trace-tree') as any;
+              pinnedTree.setAttribute('data-seed-ior', chainRef);
+              pinnedTree.setAttribute('data-mode', 'trace');
+              pinnedTree.setAttribute('data-always-expanded', '');
+              pinned.appendChild(pinnedTree);
+              pinnedTree.graph = graph;
+            }
+          }
           treeMount.insertBefore(pinned, treeMount.firstChild);
-          pinnedTree.graph = graph;
         }
       } catch {}
     };
