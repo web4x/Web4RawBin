@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18d4e5f6-a7b8-9c0d-1e2f-000000018022",
+    "name": "The detail pane shows a \"Browse File\" link positioned BEL...",
+    "description": "> TRON: \"below it i want to see a Browse File Link, that jumps to the corresponding file in the Browser. there i can open it in the monacco editor.\"",
+    "tronQuote": "> TRON: \"below it i want to see a Browse File Link, that jumps to the corresponding file in the Browser. there i can open it in the monacco editor.\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

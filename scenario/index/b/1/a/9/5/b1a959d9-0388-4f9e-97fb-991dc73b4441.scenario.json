@@ -24,18 +24,7 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-1-rawbin-foundation/task-2-rawbin-architecture.md",
-    "sourceLine": 3,
-    "unitLinks": [
-      "sprints.json/sprint-1-rawbin-foundation/task/task-2-rawbin-architecture.json"
-    ],
-    "parent": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2",
-    "coveredRequirements": [
-      "ior:instance:4428b21f-8317-4340-a670-aa3b14582d4f"
-    ],
-    "orphanByDesign": true,
-    "orphanReason": "process/infra/tooling task \u2014 no user-facing feature"
+    "implementations": []
   },
-  "ownerIor": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
+  "ownerIor": "ior:instance:e89e55a1-ee4d-4282-ab0c-5d18cc799d4e"
 }

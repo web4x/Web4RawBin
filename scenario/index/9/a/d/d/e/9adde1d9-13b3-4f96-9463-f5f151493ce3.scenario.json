@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "9adde1d9-13b3-4f96-9463-f5f151493ce3",
+    "name": "ViewTemplateRegistry",
+    "file": "[class:uuid:6fdc9ac6-0cf1-4d16-86ed-7c6f68f07d2e]",
+    "methods": [
+      "ior:instance:88d8d97e-d9dd-4af0-bc4b-6f80f85835c9",
+      "ior:instance:c094e540-517a-43b1-9cf7-0802c0125e18",
+      "ior:instance:ed23b34b-1d6c-426a-a230-143f379a0f03"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

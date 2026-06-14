@@ -16,12 +16,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 vcard.uploadOnboarding](../usecase/vcard-uploadonboarding.md)
-
-
-## Traceability
-
 `[task:uuid:c481a2b9-b61d-4a0f-a077-690a9e2e1aa9]`
 
 - up

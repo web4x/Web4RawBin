@@ -8,4 +8,4 @@
 - [🔗 RbObjectItem.onClickDelegate](../method/rbobjectitem-onclickdelegate.md)
 
 **Tests:**
-- [🔗 test:RbObjectItem.onClickDelegate](../test/test-rbobjectitem-onclickdelegate.md)
+- [🔗 test:R16.6 generateName](../test/test-r16-6-generatename.md)

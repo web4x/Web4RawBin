@@ -1,0 +1,1 @@
+### SpeakingTree.generateMd(sprint, templates): void

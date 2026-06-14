@@ -1,0 +1,1 @@
+### TraceGraph.resolve(obj, relation, type): T[]

@@ -10,6 +10,3 @@
 
 **Tasks:**
 - [🔗 T134: Traceability-as-units (links as scenario.json with ln in referenced instances + MD/HTML views)](../task/task-134-traceability-as-units.md)
-
-**UseCases:**
-- [🔗 migration.sprintToScenario](../usecase/migration-sprinttoscenario.md)

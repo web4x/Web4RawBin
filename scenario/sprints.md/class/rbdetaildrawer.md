@@ -12,3 +12,6 @@
 - [🔗 RbDetailDrawer.unifiedTraceability](../method/rbdetaildrawer-unifiedtraceability.md)
 - [🔗 RbDetailDrawer.filePreview](../method/rbdetaildrawer-filepreview.md)
 - [🔗 RbDetailDrawer.byTypeRender](../method/rbdetaildrawer-bytyperender.md)
+- [🔗 RbDetailDrawer.buttonsAboveName](../method/rbdetaildrawer-buttonsabovename.md)
+- [🔗 RbDetailDrawer.nudgeAboveButtons](../method/rbdetaildrawer-nudgeabovebuttons.md)
+- [🔗 RbDetailDrawer.resize95vh](../method/rbdetaildrawer-resize95vh.md)

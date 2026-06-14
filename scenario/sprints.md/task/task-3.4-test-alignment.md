@@ -14,12 +14,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 room.test](../usecase/room-test.md)
-
-
-## Traceability
-
 - up
   - [sprint-1-rawbin-foundation Planning](./planning.md)
 - down

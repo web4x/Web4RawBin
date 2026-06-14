@@ -14,8 +14,8 @@
     "role": "",
     "acceptanceCriteria": "- [x] AC1 — Canonical index layout: `scenario/index/<5-char>/<uuid>.scenario.json`\n- [x] AC2 — Speaking-name JSON tree: `scenarios/sprints.json/<sprint>/<task>/` with ln symlinks\n- [x] AC3 — Generated MD tree: `scenarios/sprints.md/<sprint>/<task>/` with rendered views\n- [x] AC4 — File-browser ↔ traceability-browser navigation bridge documented\n- [x] AC5 — Migration path from current scrum.pmo/ layout documented\n- [ ] AC6 — PO + Tron reviewed",
     "qaAudit": "- 2026-05-30: Design authored. Awaiting PO + Tron review.",
-    "subtasks": "None (atomic sub-task).\n\n---",
-    "assigned": "**Owner:** robbin-architect (design lead)",
+    "subtasks": "None (atomic sub-task).",
+    "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** T124.1 (scenario JSON shape), T124.2 (view templates for MD generation)\n- **Enables:** T125 (implementation), T128 (migration)",
     "definitionOfDone": "- [ ] All AC met; design reviewed by PO + Tron\n- [ ] Committed with standard template sections\n- [ ] Tron QA approved",
@@ -23,21 +23,8 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:17a00104-0004-4a04-a004-000017010004",
-      "ior:instance:17a00105-0005-4a05-a005-000017010005",
-      "ior:instance:17a00201-0001-4a01-a001-000017020001"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-124.3-architect-storage-layout.md",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-124.3-architect-storage-layout.json"
-    ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
-    "coveredRequirements": [
-      "ior:instance:9dedeb00-6038-4c43-bcd4-efab99792be1"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
 }

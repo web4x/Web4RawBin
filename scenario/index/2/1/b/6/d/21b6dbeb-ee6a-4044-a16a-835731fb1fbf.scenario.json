@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "21b6dbeb-ee6a-4044-a16a-835731fb1fbf",
+    "name": "ScenarioUnit",
+    "file": "",
+    "methods": [
+      "ior:instance:82bf9099-41c4-4327-b1e6-4ca1275cfeac",
+      "ior:instance:47769dd7-caea-4872-8fdf-72afc2b41627",
+      "ior:instance:89715046-115c-46a1-ac1f-d93bcd89d127",
+      "ior:instance:2b77afcd-cd22-4c09-b56d-7040374cdf86",
+      "ior:instance:bd3444b3-b572-4b72-9220-fea0da26e5bd"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

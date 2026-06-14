@@ -1,0 +1,54 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T199: Scenario data integrity — backfill `ownerIor` + `unitLinks[]` on every unit (R18.32)</h2><code>f5b8c83e-3263-4d76-957b-4fe230e50269</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned</li><li class="sv-unchecked">⬜ In Progress</li><ul class="sv-substeps"><li class="sv-unchecked">⬜ refinement (req-eng captures R18.32 + architect assesses approach)</li><li class="sv-unchecked">⬜ creating test cases</li><li class="sv-unchecked">⬜ implementing (expert backfill)</li><li class="sv-unchecked">⬜ testing (tester verifies 0 violations)</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>`[task:uuid:f5b8c83e-3263-4d76-957b-4fe230e50269]`
+
+- up
+  - [Sprint 18 Planning](./planning.md)
+  - [compound-requirement-source.md](./compound-requirement-source.md) — Follow-on H + R18.32 &quot;Every scenario unit has valid ownerIor and unitLinks[]&quot; (Tron verbatim: &quot;I found scenarios without owners and without unitLists [unitLinks].&quot; 2026-06-08)
+  - **R18.32** `[requirement:uuid:76b16118-dc5d-4d40-a791-99c0bc1db3c5]` — placeholder; req-eng to canonicalize when emitting R18.32 as a formal Requirement scenario unit (planner generated per learning #17; req can adopt or replace)
+- down
+  - None (atomic task)
+- chain (req → task → useCase → class → method → implementation → test) — populated by req+architect during refinement</pre></div>
+<div class="sv-section"><h3>Task Description</h3><p>**Measured baseline (768 units total):**
+| Defect | Count |
+|--------|-------|
+| `ownerIor` field missing entirely | 39 |
+| `ownerIor` empty/null | 145 |
+| `unitLinks[]` field missing | 501 |
+
+**Fix:** Backfill both fields on every scenario unit so the LOCKED chain
+(`requirement → task → useCase → class → method → implementation → test`)
+has consistent parent pointers (`ownerIor`) AND consistent symlink-state
+representation (`unitLinks[]` per R18.30/R18.31).
+
+- **ownerIor** = the parent/owner unit's IOR in the LOCKED chain (Sprint owns
+  Task; Task owns UseCase; UseCase owns Class; Class owns Method; Method owns
+  Implementation; Implementation owns Test).
+- **unitLinks[]** = array of IORs to linked instances (the on-disk symlinks this
+  unit should have); initialize to `[]` at minimum, per R18.30 schema. Lifecycle
+  methods from R18.31 (`addLink`, `removeLink`, `syncLinks`) keep this consistent
+  with disk state.
+
+Architect to design the backfill approach (per-type heuristics: e.g. Task's
+ownerIor = the Sprint that lists it; UC's ownerIor = the Task referencing it;
+etc.). Expert implements per architect's design. Tester re-runs the
+`trace-cli audit` (or equivalent measurement) and confirms zero violations.</p></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>- [ ] AC1 — Zero units with missing `ownerIor` field (currently 39)
+- [ ] AC2 — Zero units with empty/null `ownerIor` (currently 145)
+- [ ] AC3 — Zero units missing `unitLinks[]` field (currently 501)
+- [ ] AC4 — `trace-cli audit` (or equivalent live measurement) reports 0 `ownerIor` violations + 0 missing `unitLinks[]`
+- [ ] AC5 — `ownerIor` values resolve via `IOR.resolve()` to an existing unit; no dangling parents
+- [ ] AC6 — `unitLinks[]` values resolve; on-disk symlinks match (R18.30/R18.31 contract)
+- [ ] AC7 — Rule-pair: (a) `package.json` bump + (b) `sw.js` CACHE_NAME bump IF user-facing surface changes (else data-only exempt — expert self-notes per learning #24)
+- [ ] AC8 — `npm run build` + full test suite pass; champagne metric `trace:audit:strict` unaffected or improved</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-06-08: Tron verbatim — &quot;I found scenarios without owners and without unitLists [unitLinks].&quot; Captured by robbin-req as R18.32 in compound-requirement-source.md Follow-on H.
+- 2026-06-08: Measurement (PO): 184 no-owner (39 missing field + 145 empty/null), 501 missing unitLinks[] of 768 units.
+- 2026-06-08: PO directive — stand up task; req capturing, architect assessing; owners expert (backfill) + tester (verify).
+- Pending: req-eng formal R18.32 capture → architect refinement → expert impl → tester verify → Tron QA.
+
+---
+
+**Sprint:** Sprint 18 — Chain Method-Scope &amp; Role Skills
+**Requirement:** R18.32 (Follow-on H, compound-requirement-source.md)
+**Priority:** HIGH — blocks audit cleanliness + R18.30/R18.31 unitLinks lifecycle correctness</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task — single coordinated backfill pass per architect's design).</p></div></div>

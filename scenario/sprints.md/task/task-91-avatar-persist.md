@@ -13,14 +13,8 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 avatar.persist](../usecase/avatar-persist.md)
-
-
-## Traceability
-
 - up
-  - [requirement:uuid:64328225-56c6-4a9c-ada0-0736322c08ee](./requirements.md) — R-A1: Avatar must persist
+  - [requirement:uuid:a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d](./requirements.md) — R-A1: Avatar must persist
   - [Sprint 13 Planning](./planning.md)
 - down
   - None (atomic task)

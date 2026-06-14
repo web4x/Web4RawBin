@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "b4f1c2a8-9e3d-4a17-bc52-1f8e7d6a0c44",
+    "name": "T80: Fix Enrollment Race — Second PROFILE_UPDATED Re-Renders Dialog",
+    "slug": "task-80-enrollment-race-fix",
+    "description": "",
+    "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 9 Planning](./planning.md)\n- down\n  - None (atomic task)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] `ProfileEditor.ts` clears `this.onSave` before invoking it (one-shot pattern)\n- [x] `device-enrollment.spec.ts` PASSES (wrong code → error, correct code → keys stored, reload auto-auths)\n- [x] `new-user.spec.ts` PASSES (not flaky — ran 3× consecutively, all green)\n- [x] Full E2E suite reaches **21/21**\n- [x] `npm run build` succeeds\n- [x] No regression: full suite green incl. profile-editor, room-lifecycle, mobile-viewport",
+    "qaAudit": "- Pending Tron QA review.\n- 2026-05-26 (robbin-tester): INDEPENDENT GATE CONFIRMED ✓ — `npx playwright test --reporter=line` against live server (HEAD 057d491) = **21/21 PASS** (1.3m, exit 0). device-enrollment(1), editor(9), mobile-viewport(1), negative-cases(1), new-user(1), profile-editor(1), room-identity(6), room-lifecycle(1). The one-shot `onSave` fix holds; device-enrollment + new-user both green (prior 2/6 room-identity failure was STALE pre-helper-fix output, not current code). Suite is the gate before Tron QA.",
+    "subtasks": "None (atomic task for this sprint).",
+    "assigned": "**Owner:** robbin-expert (implement + verify)",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:32b02448-ece6-4b47-a7ee-ea2d9401921b"
+}

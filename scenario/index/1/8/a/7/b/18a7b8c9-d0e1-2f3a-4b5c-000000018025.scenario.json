@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18a7b8c9-d0e1-2f3a-4b5c-000000018025",
+    "name": "The /trace tree currently stops the chain at Method — it ...",
+    "description": "> TRON: \"tree shows the tracability chain but also broken ...only till method...not deeper to impl and test\"",
+    "tronQuote": "> TRON: \"tree shows the tracability chain but also broken ...only till method...not deeper to impl and test\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

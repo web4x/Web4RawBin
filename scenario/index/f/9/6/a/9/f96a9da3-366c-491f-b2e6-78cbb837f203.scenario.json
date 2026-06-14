@@ -15,40 +15,20 @@
     "acceptanceCriteria": "- [ ] AC1 — `requirements.md` exists in `sprint-17-scenario-units/` with R17.1-R17.15 each carrying a proper v4 `requirement:uuid` (no invented `r17-*` strings; learnings #17)\n- [ ] AC2 — Architect design committed in T124.1-T124.3 + T124.6 sub-task files (data model, view templates, storage layout, PUML)\n- [ ] AC3 — `traceability-standard.md` updated to include IOR + scenario-unit + the canonical chain\n- [ ] AC4 — `s17-usecases.puml` exists in `diagrams/` with Phase-1 use cases as `<<UseCase>>` instances\n- [ ] AC5 — Planning.md reflects the refinement state (T124 ⏳→📝); architect+req sign off\n- [ ] AC6 — No client surface change in this parent — version bump deferred to T125 impl (per #15; T124 is documentation-only, exempt)",
     "qaAudit": "- 2026-05-30: Tron directive — collaborative architect+req+planner plan. Source: compound-requirement-source.md verbatim. Awaiting JOINT refinement, then Tron QA on the design.",
     "subtasks": "T124.1 (architect), T124.2 (architect), T124.3 (architect), T124.4 (req-eng), T124.5 (req-eng), T124.6 (architect). Sub-task files created BY their owning role during refinement.\n\n---\n\n*Sprint 17 — Scenario Units / IOR Data Model & Class Views · Phase 1*\n*Owners (JOINT): robbin-architect (design lead), robbin-req (requirements lead), robbin-planner (structure)*\n*Priority: 1 (foundation — gates everything downstream)*",
-    "assigned": "**Owners (Tron-assigned JOINT):** robbin-architect (design lead), robbin-req (requirements lead), robbin-planner (structure).\n**This file is the single source of truth.** Sub-task files (T124.1-T124.6) are authored by the owning role during refinement — planner does NOT pre-author them.",
+    "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** None (foundation refinement)\n- **Coordinate-with:** T117 (UseCase-as-PUML-class machinery — design re-uses it)\n- **Enables:** T125 (foundation impl), T128 (migration uses the class model)",
     "definitionOfDone": "- [ ] All AC met; sub-task files T124.1-T124.6 committed\n- [ ] Architect + req sign-off in this file's QA Audit section\n- [ ] Tron QA approved (refinement phase only — implementation starts under T125)",
     "implementation": "",
-    "testScenarios": "This is a refinement/design task; verification is review-based.\n\n| Test | Action | Expected |\n|------|--------|----------|\n| TS1 | trace-cli on the new `requirements.md` | 15 requirement units emitted, all v4-valid (learnings #17) |\n| TS2 | trace-cli on `s17-usecases.puml` | UseCase instances emit; UCs linked to T124 + downstream tasks |\n| TS3 | Review pass by PO + Tron | Design covers R17.1-R17.15 with no orphan requirement |",
+    "testScenarios": "",
     "children": [
       "ior:instance:e83d47a1-6cf2-4b19-ae53-8f7d2c014b61",
       "ior:instance:b72e58c4-91d3-4a07-b845-3c6f1d92e7a0",
       "ior:instance:c93f69d5-a2e4-4b18-b956-4d7e2f03c8b1"
     ],
     "requirements": [],
-    "useCases": [
-      "ior:instance:17a00202-0002-4a02-a002-000017020002",
-      "ior:instance:17a00105-0005-4a05-a005-000017010005",
-      "ior:instance:17a00104-0004-4a04-a004-000017010004",
-      "ior:instance:17a00201-0001-4a01-a001-000017020001",
-      "ior:instance:17a00102-0002-4a02-a002-000017010002",
-      "ior:instance:17a00103-0003-4a03-a003-000017010003",
-      "ior:instance:17a00101-0001-4a01-a001-000017010001",
-      "ior:instance:17a00301-0001-4a01-a001-000017030001",
-      "ior:instance:17a00302-0002-4a02-a002-000017030002"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-124-architecture.md",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-124-architecture.json"
-    ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
-    "coveredRequirements": [
-      "ior:instance:93179981-a25d-4612-9a7f-eed7bdef5a6c",
-      "ior:instance:d9b43208-2ca9-41f8-b9b3-bbe2ffc1f8f6"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
 }

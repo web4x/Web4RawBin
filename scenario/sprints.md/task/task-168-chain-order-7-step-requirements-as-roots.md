@@ -1,6 +1,13 @@
 # T168: Chain order 7-step + atomic requirements as tree ROOTS
 [task:uuid:c3951691-b231-4b60-a2f8-79c9d5ef851e]
 
+## Status
+
+- [ ] Planned
+- [ ] In Progress
+- [ ] QA Review
+- [ ] Done
+
 ## Traceability
 
 `[task:uuid:c3951691-b231-4b60-a2f8-79c9d5ef851e]`

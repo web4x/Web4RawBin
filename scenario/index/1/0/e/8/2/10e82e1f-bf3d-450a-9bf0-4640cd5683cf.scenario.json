@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "10e82e1f-bf3d-450a-9bf0-4640cd5683cf",
+    "name": "Sprint encrypted storage",
+    "number": 7,
+    "goal": "",
+    "status": "Done",
+    "tasks": [],
+    "requirements": []
+  },
+  "ownerIor": null
+}

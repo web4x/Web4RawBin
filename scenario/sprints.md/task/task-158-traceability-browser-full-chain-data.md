@@ -1,6 +1,13 @@
 # T158: Traceability browser — surface the FULL chain data (Req → Task → UC → Class → Method → Impl → Test)
 [task:uuid:5eedd968-085c-443b-acae-7ae73a4ce252]
 
+## Status
+
+- [ ] Planned
+- [ ] In Progress
+- [ ] QA Review
+- [ ] Done
+
 ## Traceability
 
 `[task:uuid:5eedd968-085c-443b-acae-7ae73a4ce252]`

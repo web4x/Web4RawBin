@@ -16,12 +16,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 user.scenarioUnit](../usecase/user-scenariounit.md)
-
-
-## Traceability
-
 `[task:uuid:df4ea98b-b47c-4129-be73-a4047e919a6f]`
 
 - up

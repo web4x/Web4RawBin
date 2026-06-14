@@ -1,6 +1,13 @@
 # T169: Data-quality audit + remigrate — complete tree, NO back-chaos, NO untraced scenarios (KEYSTONE)
 [task:uuid:e43c24fe-a1d1-4d14-8e7a-55ea7edd616f]
 
+## Status
+
+- [ ] Planned
+- [ ] In Progress
+- [ ] QA Review
+- [ ] Done
+
 ## Traceability
 
 `[task:uuid:e43c24fe-a1d1-4d14-8e7a-55ea7edd616f]`

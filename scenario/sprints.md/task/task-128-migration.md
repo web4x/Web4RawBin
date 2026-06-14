@@ -16,10 +16,8 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 migrate.sprintToScenario](../usecase/migrate-sprinttoscenario.md)
-- [🔗 migrate.preserveHierarchy](../usecase/migrate-preservehierarchy.md)
-- [🔗 chain.traceMethodToReq](../usecase/chain-tracemethodtoreq.md)
+**Children:**
+- [🔗 T128.4: Method marker retrofit — fill `[impl:uuid:]` + `[test:uuid:]` gaps so 44/44 tests are 7-hop reachable](../task/task-128.4-method-marker-retrofit.md)
 
 
 ## Traceability

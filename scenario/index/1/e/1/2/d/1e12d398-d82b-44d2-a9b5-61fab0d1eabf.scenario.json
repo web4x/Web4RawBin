@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "1e12d398-d82b-44d2-a9b5-61fab0d1eabf",
+    "name": "TraceObject.refs(relation): string[]",
+    "className": "TraceObject",
+    "methodName": "refs(relation): string[]"
+  },
+  "ownerIor": "ior:instance:fbc62e2b-9cd3-4929-93ec-a6f8a8ef7cf0"
+}

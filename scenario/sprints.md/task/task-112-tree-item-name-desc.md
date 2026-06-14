@@ -16,13 +16,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 objectItem.renderNameDesc](../usecase/objectitem-rendernamedesc.md)
-- [🔗 objectItem.generateName](../usecase/objectitem-generatename.md)
-
-
-## Traceability
-
 `[task:uuid:6d2225b7-d96b-4452-8719-b3667b344816]`
 
 - up

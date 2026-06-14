@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "b1d20baa-5692-4643-9883-1298881d919f",
+    "name": "ChainRefs",
+    "file": "req: string",
+    "methods": [],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:6a529d41-8b1d-458d-a93b-75fea853f7da"
+}

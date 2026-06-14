@@ -8,7 +8,7 @@
 
 **Requirements:**
 - [🔗 R10.2 — In the opened profile sheet, the "Download vCard"...](../requirement/r10-2-in-the-opened-profile-sheet-the-download-vcard.md)
-- [🔗 30c3d4e5](/scenario?ior=30c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b62)
+- [🔗 | Requirement | Task | Use case | PUML | Class/method |](../requirement/requirement-task-use-case-puml-class-method.md)
 - [🔗 R10.3 — Tapping your OWN member item opens the read-only ...](../requirement/r10-3-tapping-your-own-member-item-opens-the-read-only.md)
 
 **Tasks:**

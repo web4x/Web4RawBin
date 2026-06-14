@@ -1,0 +1,1 @@
+### TraceClass.type = 'class'

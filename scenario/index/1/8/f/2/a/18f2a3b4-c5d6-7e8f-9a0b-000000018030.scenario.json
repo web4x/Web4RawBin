@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18f2a3b4-c5d6-7e8f-9a0b-000000018030",
+    "name": "Every scenario.json unit model gains a `unitLinks[]` fiel...",
+    "description": "> TRON: \"extend the scenarios with an attribute unitLinks[] with a list of iors to the linked instances\"",
+    "tronQuote": "> TRON: \"extend the scenarios with an attribute unitLinks[] with a list of iors to the linked instances\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

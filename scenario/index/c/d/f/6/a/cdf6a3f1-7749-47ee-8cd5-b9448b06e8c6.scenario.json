@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "cdf6a3f1-7749-47ee-8cd5-b9448b06e8c6",
+    "name": "Sprint web components",
+    "number": 6,
+    "goal": "",
+    "status": "Done",
+    "tasks": [],
+    "requirements": []
+  },
+  "ownerIor": null
+}

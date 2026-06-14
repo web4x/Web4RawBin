@@ -1,0 +1,1 @@
+### TraceClass.addMethod(m): this

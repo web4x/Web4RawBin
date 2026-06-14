@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18e5f6a7-b8c9-4d04-8ab5-000000018005",
+    "name": "Widens R18.1 from Class→Method scope to the ENTIRE tree. ...",
+    "description": "> TRON: \"widen it to the scenario browser as a tree but the traceability browser as tree chains with only one child traced\"",
+    "tronQuote": "> TRON: \"widen it to the scenario browser as a tree but the traceability browser as tree chains with only one child traced\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

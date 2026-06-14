@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "cf09cf2b-b67f-44db-921b-87e7bb19d689",
+    "name": "T63: edit.html + edit.ts + CDN Monaco",
+    "slug": "task-63-editor-entry",
+    "description": "See [requirements.md](./requirements.md) and [architecture.md](./architecture.md) for full spec.",
+    "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 8 Planning](./planning.md)\n- down\n  - None (atomic task)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] See requirements.md for detailed AC per use case",
+    "qaAudit": "- Pending Tron QA review.",
+    "subtasks": "None (atomic task for this sprint).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:d7e73416-1068-4b33-8a5b-f406cbc6eaae"
+}

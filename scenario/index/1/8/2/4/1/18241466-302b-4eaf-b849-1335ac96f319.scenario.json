@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "18241466-302b-4eaf-b849-1335ac96f319",
+    "name": "TraceGraph.link(a, relation, b, inverse): void",
+    "className": "TraceGraph",
+    "methodName": "link(a, relation, b, inverse): void"
+  },
+  "ownerIor": "ior:instance:809e65ee-1e6e-43dc-8f9c-d87e6aafda54"
+}

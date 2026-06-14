@@ -1,0 +1,15 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>Planner: S2-S9 Sprint.tasks[] Backfill — Status</h2><code>03fb4511-acbe-4bee-b8f2-a645d136b915</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement (planner — census + scoping analysis)</li><li class="sv-checked">✅ creating test cases (decision-only task — N/A)</li><li class="sv-checked">✅ implementing (PO decision recorded — (b) DEFER)</li><li class="sv-checked">✅ testing (decision verified — no active historical migration scope)</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>- up
+  - [Sprint 18 Planning](./planning.md)
+  - PO directive 2026-06-07 (S2-S9 backfill scoping after R18.19 zero-pad)
+- related
+  - R18.19 zero-pad: architect commit `2276be51`
+  - S18 dogfood COMPLETE: planner commit `bc11d861`
+- down
+  - None (decision-only; potential future migration sprint TBD on Tron request)</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-06-07: Planner census — 117 Task scenario units total, 11 with `sprint` pointer; ZERO units exist for T7-T80 (S2-S9 historical range).
+- 2026-06-07: PO decision (b) DEFER — S2-S9 historical task-unit migration deferred; not blocking active S17/S18 work.
+- 2026-06-07: Verify-flag adjustment — `Sprint-no-children` on S2-S9 = by-design (orphan-by-design, analogous to TraceLink); active sprints S10+ keep FAIL semantic. Architect's audit-tool allowlist hook still pending.
+- Pending: re-open on explicit Tron request for full historical completeness.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (decision-only scoping task; potential future migration sprint would itself contain the subtasks for ~50-70 historical Task units).</p></div></div>

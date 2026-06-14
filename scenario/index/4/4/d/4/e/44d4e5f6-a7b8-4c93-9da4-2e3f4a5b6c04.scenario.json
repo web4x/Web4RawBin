@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "44d4e5f6-a7b8-4c93-9da4-2e3f4a5b6c04",
+    "name": "| Requirement | Task | Use case | PUML | Class/method |",
+    "description": "> Tron (via T99): \"Tron explicitly authorizes the legacy deletion.\" — Gated: NEVER auto-runs.",
+    "tronQuote": "> Tron (via T99): \"Tron explicitly authorizes the legacy deletion.\" — Gated: NEVER auto-runs.",
+    "tasks": [
+      "ior:instance:99d4f6a8-5ea0-4c13-8d79-4f6a8c0d1e99"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:e6fcd09c-27d6-4bed-937e-08bb60eb08ce"
+}

@@ -16,12 +16,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 useCase.trackInPuml](../usecase/usecase-trackinpuml.md)
-
-
-## Traceability
-
 `[task:uuid:d1f826f8-f667-45cf-ac4a-a293e41679c4]`
 
 - up

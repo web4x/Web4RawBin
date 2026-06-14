@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "68dec25a-ec4e-4655-904b-0cdff10f50ad",
+    "name": "T58: Fix Link Contrast on Sprint Overview Pages",
+    "slug": "task-58-link-contrast",
+    "description": "",
+    "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 7 Planning](./planning.md)\n- down\n  - None (atomic task)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] Links clearly readable on gradient background\n- [x] Unvisited = white, visited/hover = shiny light blue",
+    "qaAudit": "- 2026-05-24: Tron — links barely readable against new background. Unvisited=WHITE, visited/hovered=SHINY LIGHT BLUE fitting color tones.",
+    "subtasks": "None (atomic task).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:74d3060c-3e61-41ac-874d-0a0bdb768609"
+}

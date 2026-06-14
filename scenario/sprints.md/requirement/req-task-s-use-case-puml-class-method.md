@@ -9,5 +9,4 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T108: Traceability Browser — tree-navigable graph in Documentation](../sprints.md/task/task-108-traceability-browser.md)
-- [🔗 T102: Traceability Matrix Consistency + Fix Engine](../sprints.md/task/task-102-matrix-consistency-engine.md)
+- [🔗 T108: Traceability Browser — tree-navigable graph in Documentation](../task/task-108-traceability-browser.md)

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "acbe4d6e-7c2b-4318-af6c-dbda15ef6595",
+    "name": "Method",
+    "file": "",
+    "methods": [
+      "ior:instance:9b96492c-8b3c-417d-acd7-a6ea26d743b5",
+      "ior:instance:6c903979-2bd7-4f39-8c5b-afb62ed5330b",
+      "ior:instance:043e0923-69ec-4f66-94fb-77f8672c8ba5"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

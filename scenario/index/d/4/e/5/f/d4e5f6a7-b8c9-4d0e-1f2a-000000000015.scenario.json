@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000015",
+    "name": "R17.16: HTML status renders correctly",
+    "description": "> TRON: \"plan that in an collaborative action of the architect, the req agent and the planner\"",
+    "tronQuote": "> TRON: \"plan that in an collaborative action of the architect, the req agent and the planner\"",
+    "tasks": [
+      "ior:instance:f96a9da3-366c-491f-b2e6-78cbb837f203"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

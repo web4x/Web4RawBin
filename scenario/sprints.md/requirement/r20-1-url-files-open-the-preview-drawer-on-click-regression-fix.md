@@ -1,0 +1,12 @@
+### R20.1: URL files open the preview drawer on click — regression fix.
+
+<details><summary>Tron directive</summary>
+
+> REGRESSION: clicking a .url/.html.url file item in the room tree does NOT open the ContentPreviewer drawer. Likely caused by 862868bfe partial-commit (R19.84/85 iframe-zoom half-wire broke the .url inline preview→drawer path). FIX: clicking a url-type FileUnit MUST open the drawer with the two-button preview (R19.77: Open in preview + Open in new tab). Test-first: RED test reproduces the failure BEFORE the fix.
+
+</details>
+
+## Traceability
+
+**Tasks:**
+- [🔗 T-url-file-opens-drawer: click url-type file item opens ContentPreviewer drawer (regression fix)](../task/url-file-item-opens-preview-drawer.md)

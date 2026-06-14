@@ -14,12 +14,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 contacts.memberClick](../usecase/contacts-memberclick.md)
-
-
-## Traceability
-
 - up
   - [requirement:uuid:99897fb4-6876-4047-9849-bbdaa840e110](./requirements.md) — R10.1 member-click → profile sheet → vCard
   - [Sprint 10 Planning](./planning.md)

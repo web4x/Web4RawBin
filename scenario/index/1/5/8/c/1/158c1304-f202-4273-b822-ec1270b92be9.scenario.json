@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "158c1304-f202-4273-b822-ec1270b92be9",
+    "name": "RbTraceTree.setGraph(graph): void",
+    "className": "RbTraceTree",
+    "methodName": "setGraph(graph): void"
+  },
+  "ownerIor": "ior:instance:d72bf09a-c311-43d4-9a7d-ff7d246689f2"
+}

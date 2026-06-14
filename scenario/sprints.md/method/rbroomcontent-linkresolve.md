@@ -3,4 +3,4 @@
 ## Traceability
 
 **Implementations:**
-- [🔗 RbRoomContent.linkResolve](../implementation/rbroomcontent-linkresolve.md)
+- [🔗 RbRoomContent.linkResolve impl (split)](../implementation/rbroomcontent-linkresolve-impl-split.md)

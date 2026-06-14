@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "809e65ee-1e6e-43dc-8f9c-d87e6aafda54",
+    "name": "TraceGraph",
+    "file": "- byUuid: Map<string, TraceObject>",
+    "methods": [
+      "ior:instance:059067c5-906b-4382-be9a-87ff609b226c",
+      "ior:instance:ded29695-4a2e-4969-9f29-9a56a1e8b697",
+      "ior:instance:6a8e7b49-6b56-45f7-9c88-7b3e9d1cb0c1",
+      "ior:instance:10f6245f-8cb4-4fe7-a7c1-8c82ecac633e",
+      "ior:instance:18241466-302b-4eaf-b849-1335ac96f319",
+      "ior:instance:dc857829-7e4c-428c-8933-c72c6b9b8bc1",
+      "ior:instance:b4a786b1-5f74-413f-aa95-e0892c8bf1a9",
+      "ior:instance:4122cfa4-a3d2-493a-8369-b780a1a10bd7"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

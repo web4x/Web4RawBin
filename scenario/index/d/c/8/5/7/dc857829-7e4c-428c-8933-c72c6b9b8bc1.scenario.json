@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "dc857829-7e4c-428c-8933-c72c6b9b8bc1",
+    "name": "TraceGraph.resolve(obj, relation, type): T[]",
+    "className": "TraceGraph",
+    "methodName": "resolve(obj, relation, type): T[]"
+  },
+  "ownerIor": "ior:instance:809e65ee-1e6e-43dc-8f9c-d87e6aafda54"
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "d72bf09a-c311-43d4-9a7d-ff7d246689f2",
+    "name": "RbTraceTree",
+    "file": "[class:uuid:46bc1d8e-298e-4822-a720-a9f67dab8746]",
+    "methods": [
+      "ior:instance:1a1aeb5f-6d7b-4b22-a7b0-b0b16c502ab8",
+      "ior:instance:158c1304-f202-4273-b822-ec1270b92be9",
+      "ior:instance:252e9b98-84f2-4744-bd51-4cac5deb25a6"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

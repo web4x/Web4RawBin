@@ -14,12 +14,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 assets.rebrand](../usecase/assets-rebrand.md)
-
-
-## Traceability
-
 - up
   - [sprint-1-rawbin-foundation Planning](./planning.md)
 - down

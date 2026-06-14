@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "51d3b63f-4254-438b-a2b1-78513f9bb396",
+    "name": "T71: Mobile Layout — Single-Panel + Tab Bar",
+    "slug": "task-71-mobile-layout",
+    "description": "See [requirements.md](./requirements.md) and [architecture.md](./architecture.md) for full spec.",
+    "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 8 Planning](./planning.md)\n- down\n  - None (atomic task)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] See requirements.md for detailed AC per use case",
+    "qaAudit": "- Pending Tron QA review.",
+    "subtasks": "None (atomic task for this sprint).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:d7e73416-1068-4b33-8a5b-f406cbc6eaae"
+}

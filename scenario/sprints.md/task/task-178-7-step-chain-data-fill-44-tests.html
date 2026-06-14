@@ -1,0 +1,43 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T178: 7-step chain DATA-FILL — populate UC→Class→Method→Impl→Test forward refs (KEYSTONE for R-J + R-E)</h2><code>4bd33c18-a707-4ca3-8c87-9cc1a5c2f516</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-unchecked">⬜ refinement (architect designs the marker-parser pipeline + linking rules per chain hop)</li><li class="sv-unchecked">⬜ creating test cases</li><li class="sv-checked">✅ implementing</li><li class="sv-unchecked">⬜ testing</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>- up
+  - [Sprint 17 Planning](./planning.md)
+  - PO directive 2026-06-03 (Tron-relayed): data-fill 4 downstream hops so 44/44 tests chain-reachable
+  - **R-Q** `[requirement:uuid:cd5dc5b7-371e-43dc-aa34-0257407716f7]` — every Test (44/44) must be reachable via the full 7-step chain from a Requirement root (planner pre-seed; closes R-J + R-E in DATA)
+- follows
+  - T168 (`e714e255` v0.5.77 — 7-step canonical chain LOCKED in CODE; T178 closes the DATA side)
+  - T172 (`3fefc68` — 5-step forward-ref population achieved 238/238 reachability at the unit level; T178 extends to test-level reach)
+  - T117 (S16 — UseCase as class instances in PUML; PUML is one of the marker sources)
+- unblocks
+  - R-J + R-E full satisfaction in data (not just code/spec)
+  - S17 closure (Tron QA can sign off the full 7-step chain end-to-end after this lands)
+- down
+  - None (atomic task — single data-fill pass with architect-designed marker parser)</pre></div>
+<div class="sv-section"><h3>Acceptance Criteria</h3><pre>**R-Q (44/44 tests chain-reachable end-to-end):**
+- [ ] AC1 — Architect's marker-parser pipeline committed (file path + design diagram in this task file)
+- [ ] AC2 — Pipeline implementation committed by expert; runs idempotently
+- [ ] AC3 — UseCase forward arrays populated (`classes[]` non-empty for each UC that has class implementations)
+- [ ] AC4 — Class forward arrays populated (`methods[]` non-empty for each Class with declared methods)
+- [ ] AC5 — Method forward arrays populated (`implementations[]` non-empty for each Method linked via `impl:uuid:` markers)
+- [ ] AC6 — Implementation forward arrays populated (`tests[]` non-empty for each Implementation linked via `test:uuid:` markers)
+- [ ] AC7 — Tester walks 44/44 tests back to a Requirement root via the full 7-step chain; **0 chain-gap reports**
+- [ ] AC8 — R-J (&quot;every Test reachable via the chain&quot;) + R-E (&quot;chain starts with atomic requirements&quot;) satisfied in DATA, not just code/spec
+
+**Backwards-compat + ship rules:**
+- [ ] AC9 — T172's 238/238 unit reachability preserved (no regression)
+- [ ] AC10 — Existing trace-cli walk-up + walk-down still pass on the populated data
+- [ ] AC11 — Rule-pair (a) `package.json` bump + (b) `sw.js` CACHE_NAME bump; **(c) STATIC_SHELL exempt** — data-only migration, no user-surface change (architect confirms in refinement per learning #24)
+- [ ] AC12 — `npm run build` clean; full test suite passes</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-06-03: PO directs T178 stand-up — KEYSTONE for R-J. Tester finding: 7-step CODE ready but DATA only 3 deep (Req→Task→Subtask); UC→Class→Method→Impl→Test forward arrays UNPOPULATED → 44 tests all &quot;chain gap&quot; → R-J + R-E NOT satisfied in DATA. Architect designs marker-parser pipeline; expert populates; tester proves 44/44 chain-reachable.
+- 2026-06-04: PO folds Tron live-/trace **lazy-load-deeper-fails** observation into T178. Symptom: /trace tree expand stops working at some depth. **Two possible causes (architect to diagnose):** (i) empty deep DATA — exactly T178's existing scope (forward arrays unpopulated at deeper hops); (ii) tree mechanism bug — the lazy-load fetch / render code might fail even when data IS present. Architect's diagnosis must separate the two: run the marker-parser → re-test /trace deeper expand → if still fails with populated data, it's mechanism not data. Add AC to T178: &quot;Live /trace tree expands all 7 hops with SW active (strict-bar 2b); if mechanism bug separate from data, escalate as a follow-on commit within T178 scope or a tight follow-on task.&quot;
+- 2026-06-04: PO critical-path note — T180 (real CA cert + CDP workaround) ranks ABOVE T178 until shipped (Tron locked out of real device). T178 architect can still start design in parallel.
+- 2026-06-04: Expert iterates pipeline (`cc152130` + `194d747c`) — heuristic improvements + 9 dedicated Impl units for UUID collisions; Method→Impl 30→42 links, Impl→Test 16→15 links. Both commits data-only (no version bump, rule-pair exempt per learning #24).
+- 2026-06-04: **Tester reachability snapshot: 36/44 (up from 0/44 baseline)** — heuristic + ongoing T128.4 UC-creation lifted reach without marker changes. Full 44/44 still gated on T128.4 marker retrofit (50+21 markers) on top of the in-flight UC creation.
+- 2026-06-04: **IN FLIGHT (architect + req JOINT)** — creating 6 new UseCase units for S14/S15 Classes (data gap: S14/S15 Classes lacked UseCase parents, breaking the chain at the UC hop). Tracked formally in T128.4 QA Audit; T178 closure absorbs the UC creation since it directly raises reachability.
+- 2026-06-04: Expert `f306e503` v0.5.82 ships T178 overlay-read fix — serves ALL forward refs from scenario index (DetailView overlays now read complete forward arrays, no truncation). Rule-pair (a)+(b) ✓; (c) STATIC_SHELL unchanged; 836/836 pass.
+- 2026-06-04: Tester `c0f61299` authored T183 (7-hop CI gate spec) — formal companion to T178; gate is ready before fill; expert implements per the spec.
+- 2026-06-05: Architect `7b7859ac` fills classes[] on 8 UseCase units — 12/12 orphan S17 classes now UC-parented (6 empty UCs filled + 2 existing UCs extended). 0 orphan classes remain.
+- 2026-06-05: Architect `c11f723a` commits s17-architecture.puml — Tree hierarchy + IOR chain class diagram with [class:uuid]/[method:uuid] annotations feeding T178 chain.
+- 2026-06-05: **Architect T178 TREE LAZY-LOAD DIAGNOSIS (Tron live)** — see design below.
+- Pending: expert applies tree lazy-load fix + UC wiring → tester walks **44/44** + live /trace 7-hop expand with SW active → T183 gate enabled → Tron QA closes R-J fully.</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task — single architect-designed pipeline, single expert pass, single tester reverify).</p></div></div>

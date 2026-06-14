@@ -1,0 +1,3 @@
+### ChainHop
+
+**File:** `type: string`

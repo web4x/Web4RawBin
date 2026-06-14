@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "74d615fd-763c-45bf-8bee-796453cb0d82",
+    "name": "ScenarioIndex.prefix(uuid): string",
+    "className": "ScenarioIndex",
+    "methodName": "prefix(uuid): string"
+  },
+  "ownerIor": "ior:instance:13dc3fc7-1e39-490e-9889-f652ef53de1f"
+}

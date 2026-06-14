@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000016",
+    "name": "R17.17: Task status as state-machine methods",
+    "description": "> TRON: \"the task statuses will work like that in md but not in html.\"",
+    "tronQuote": "> TRON: \"the task statuses will work like that in md but not in html.\"",
+    "tasks": [
+      "ior:instance:32af18ad-b6be-4987-b677-1507fdec0851"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

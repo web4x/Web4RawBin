@@ -6,9 +6,9 @@
     "slug": "task-109-avatar-recurrence-fix",
     "description": "",
     "status": "Planned",
-    "statusChecklist": "",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [requirement:uuid:64328225-56c6-4a9c-ada0-0736322c08ee](./requirements.md) — R-A1: Avatar must persist (satisfied by T91 + T109 together)\n  - [Sprint 13 Planning](./planning.md)\n  - Tron directive 2026-05-26 (\"keeps breaking to fallback\")\n- down\n  - None (atomic task)\n- completes\n  - [T91](./task-91-avatar-persist.md) — T91 closed the STRING-desync overwrite; T109 closes the decrypt-EXCEPTION overwrite + rekey re-encrypt. R-A1 done only when BOTH verify.\n- chain\n  - **requirement:** R-A1 in [requirements.md](./requirements.md)\n  - **class/method:** server.ts `ensureAvatar` catch path + `GET /api/avatar` decrypt; UserKeys identity rekey → re-encrypt `files/*`\n- relates\n  - DISJOINT from S14: token-* dirs (T97) have 0 avatars/keys; the ~118 real avatars are on already-UUID dirs T97 never touches → migration can't fix or worsen it. (T97 should still add: re-encrypt files/* on identity rekey.)",
+    "traceability": "- up\n  - [requirement:uuid:a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d](./requirements.md) — R-A1: Avatar must persist (satisfied by T91 + T109 together)\n  - [Sprint 13 Planning](./planning.md)\n  - Tron directive 2026-05-26 (\"keeps breaking to fallback\")\n- down\n  - None (atomic task)\n- completes\n  - [T91](./task-91-avatar-persist.md) — T91 closed the STRING-desync overwrite; T109 closes the decrypt-EXCEPTION overwrite + rekey re-encrypt. R-A1 done only when BOTH verify.\n- chain\n  - **requirement:** R-A1 in [requirements.md](./requirements.md)\n  - **class/method:** server.ts `ensureAvatar` catch path + `GET /api/avatar` decrypt; UserKeys identity rekey → re-encrypt `files/*`\n- relates\n  - DISJOINT from S14: token-* dirs (T97) have 0 avatars/keys; the ~118 real avatars are on already-UUID dirs T97 never touches → migration can't fix or worsen it. (T97 should still add: re-encrypt files/* on identity rekey.)",
     "context": "",
     "intention": "",
     "role": "",
@@ -23,19 +23,8 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:ba4fa0ee-bde0-4a42-8291-d43fb68196e3"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/task-109-avatar-recurrence-fix.md",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-13-stability/task/task-109-avatar-recurrence-fix.json"
-    ],
-    "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
-    "coveredRequirements": [
-      "ior:instance:67bde18f-76f9-43cd-abea-77c2ad7134f9"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
+  "ownerIor": "ior:instance:b5c5671b-b4e7-4e4b-a311-235044cf5ede"
 }

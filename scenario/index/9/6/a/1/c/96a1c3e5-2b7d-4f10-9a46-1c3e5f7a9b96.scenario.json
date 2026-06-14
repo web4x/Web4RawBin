@@ -23,22 +23,8 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:01666b33-7250-46aa-b9c2-ccf127b64d64"
-    ],
-    "implementations": [],
-    "tests": [
-      "ior:instance:09d73a15-1496-4020-bcf1-b6a65a2bde6f"
-    ],
-    "sourceFile": "ior:file:src/ts/server/Migration.ts",
-    "sourceLine": 12,
-    "unitLinks": [
-      "sprints.json/sprint-14-legacy-migration/task/task-96-migrate-rooms.json"
-    ],
-    "parent": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297",
-    "coveredRequirements": [
-      "ior:instance:91d85d5a-64d3-4520-a9fc-f2e24110b07b"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
+  "ownerIor": "ior:instance:e6fcd09c-27d6-4bed-937e-08bb60eb08ce"
 }

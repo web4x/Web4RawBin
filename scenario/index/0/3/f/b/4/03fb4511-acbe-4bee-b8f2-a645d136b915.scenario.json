@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "03fb4511-acbe-4bee-b8f2-a645d136b915",
+    "name": "Planner: S2-S9 Sprint.tasks[] Backfill — Status",
+    "slug": "task-planner-s2-s9-backfill",
+    "description": "",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (planner — census + scoping analysis)\n  - [x] creating test cases (decision-only task — N/A)\n  - [x] implementing (PO decision recorded — (b) DEFER)\n  - [x] testing (decision verified — no active historical migration scope)\n- [ ] QA Review\n- [ ] Done\n\n> Decision-only task — outcome is the PO's (b) DEFER decision, not impl work.\n> QA Review + Done remain TRON's gate; never checked by planner/sync.",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 18 Planning](./planning.md)\n  - PO directive 2026-06-07 (S2-S9 backfill scoping after R18.19 zero-pad)\n- related\n  - R18.19 zero-pad: architect commit `2276be51`\n  - S18 dogfood COMPLETE: planner commit `bc11d861`\n- down\n  - None (decision-only; potential future migration sprint TBD on Tron request)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "",
+    "qaAudit": "- 2026-06-07: Planner census — 117 Task scenario units total, 11 with `sprint` pointer; ZERO units exist for T7-T80 (S2-S9 historical range).\n- 2026-06-07: PO decision (b) DEFER — S2-S9 historical task-unit migration deferred; not blocking active S17/S18 work.\n- 2026-06-07: Verify-flag adjustment — `Sprint-no-children` on S2-S9 = by-design (orphan-by-design, analogous to TraceLink); active sprints S10+ keep FAIL semantic. Architect's audit-tool allowlist hook still pending.\n- Pending: re-open on explicit Tron request for full historical completeness.",
+    "subtasks": "None (decision-only scoping task; potential future migration sprint would itself contain the subtasks for ~50-70 historical Task units).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

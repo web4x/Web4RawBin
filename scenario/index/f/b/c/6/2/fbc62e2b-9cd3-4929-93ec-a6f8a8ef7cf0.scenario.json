@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "fbc62e2b-9cd3-4929-93ec-a6f8a8ef7cf0",
+    "name": "TraceObject",
+    "file": "[class:uuid:57a0c96c-ff48-4f3f-9859-291687e897a2]",
+    "methods": [
+      "ior:instance:f568025d-7c2f-4fac-8298-248551d22b68",
+      "ior:instance:6eade7d9-17f2-4818-b4e9-0d98a48287ff",
+      "ior:instance:c2096e3f-f6d3-496d-9425-d50779682561",
+      "ior:instance:6fb451f2-020b-4d18-a682-aeb1901d09aa",
+      "ior:instance:592efcd7-a956-45db-9c2c-13d045edbdd7",
+      "ior:instance:5f1871d7-fa7e-459b-90f1-a1e625c633a4",
+      "ior:instance:3c28650f-23dd-4e7f-b209-284674cc2608",
+      "ior:instance:1e12d398-d82b-44d2-a9b5-61fab0d1eabf",
+      "ior:instance:95a588ee-752d-471d-927b-5444267497ff",
+      "ior:instance:ba389df4-afa6-4a5b-9fc1-2b6ca5ad48ca",
+      "ior:instance:22a51760-cd45-4f99-a4c8-472957f1c0b8"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

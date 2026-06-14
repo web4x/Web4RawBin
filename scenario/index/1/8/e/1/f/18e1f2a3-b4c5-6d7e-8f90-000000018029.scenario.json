@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18e1f2a3-b4c5-6d7e-8f90-000000018029",
+    "name": "The speaking-name symlink tree (scenario/sprints.json/) m...",
+    "description": "> TRON: \"ok thats exactly right but the symlinks are fundamental part of the game. make sure they are always generated.\"",
+    "tronQuote": "> TRON: \"ok thats exactly right but the symlinks are fundamental part of the game. make sure they are always generated.\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

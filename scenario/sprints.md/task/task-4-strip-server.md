@@ -14,12 +14,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 server.strip](../usecase/server-strip.md)
-
-
-## Traceability
-
 - up
   - [sprint-1-rawbin-foundation Planning](./planning.md)
 - down

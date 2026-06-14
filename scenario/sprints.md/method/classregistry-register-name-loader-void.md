@@ -1,0 +1,1 @@
+### ClassRegistry.register(name, loader): void

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ade1ff54-513c-4146-a889-527548b18e68",
+    "name": "TraceConsistency.auditOrphans(): Issue[]",
+    "className": "TraceConsistency",
+    "methodName": "auditOrphans(): Issue[]"
+  },
+  "ownerIor": "ior:instance:89285695-4262-4be5-aad6-637affd5f2f9"
+}

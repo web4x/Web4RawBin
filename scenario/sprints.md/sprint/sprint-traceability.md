@@ -2,15 +2,16 @@
 
 
 
-**Status:** In Progress
+**Status:** Done
 
 ## Traceability
 
 **Tasks:**
-- [🔗 T119: Test traceability — `[test:uuid:]` markers + trace-cli Pass 6 + chain validation](../sprints.md/task/task-119-test-traceability.md)
-- [🔗 T85: Adopt Web4Articles Task Template + Traceability Conventions](../sprints.md/task/task-85-adopt-template.md)
-- [🔗 T86: Traceability Index — Map All 89 Tasks to Chain Coverage](../sprints.md/task/task-86-traceability-index.md)
-- [🔗 T87: Batch 1 — Active Sprints (8, 9, 10) Full Chain](../sprints.md/task/task-87-batch-active.md)
-- [🔗 T88: Batch 2 — Sprints 5-7 Chain Backfill](../sprints.md/task/task-88-batch-mid.md)
-- [🔗 T89: Batch 3 — Sprints 1-4 Chain Backfill + Sprint-1 Dup Reconcile](../sprints.md/task/task-89-batch-foundation.md)
-- [🔗 T90: Traceability Verification + Audit Gate](../sprints.md/task/task-90-traceability-verify.md)
+- [🔗 T23: Task File Audit — Sprint 1](../task/task-23-audit-sprint-1.md)
+- [🔗 T24: Task File Audit — Sprint 2](../task/task-24-audit-sprint-2.md)
+- [🔗 T25: Task File Audit — Sprint 3](../task/task-25-audit-sprint-3.md)
+- [🔗 T26: Task Template Standardization](../task/task-26-templates.md)
+- [🔗 T27: Sprint CLI Tool (OOSH Script)](../task/task-27-sprint-cli.md)
+- [🔗 T28: Fix All Task Files — Web4Articles Template Compliance](../task/task-28-fix-task-structure.md)
+- [🔗 T29: Update OOSH Sprint Tool — Template Enforcement](../task/task-29-update-sprint-tool.md)
+- [🔗 T30: PO Process Documentation](../task/task-30-po-process-doc.md)

@@ -1,0 +1,1 @@
+### TraceClass.get methods(): Method[]

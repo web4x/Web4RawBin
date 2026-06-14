@@ -14,15 +14,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 traceRouter.navigate](../usecase/tracerouter-navigate.md)
-
-**Tests:**
-- [🔗 AC1-AC5](../test/ac1-ac5.md)
-
-
-## Traceability
-
 - up
   - [requirement:uuid:38f80708-d191-47bd-ada4-a710c5f1e6ed](./requirements.md) — R15.2 Object.verb model
   - [Sprint 15 Planning](./planning.md)

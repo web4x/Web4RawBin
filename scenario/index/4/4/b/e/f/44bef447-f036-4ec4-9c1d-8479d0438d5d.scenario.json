@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "44bef447-f036-4ec4-9c1d-8479d0438d5d",
+    "name": "T177: /scenario ior-format 'Not found' — bare-uuid vs ior:instance: prefix (completes T173 dead-end fix)",
+    "slug": "task-177-scenario-ior-format-not-found",
+    "description": "",
+    "status": "Planned",
+    "statusChecklist": "",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 17 Planning](./planning.md)\n  - PO directive 2026-06-03 (Tron-relayed via robbin-po): /scenario ior-format \"Not found\" for some UUIDs (bare vs ior:instance: prefix)\n  - **R-P** `[requirement:uuid:37e4eefc-72a6-4013-b009-248e07f8556a]` — /scenario must resolve any valid ior format (bare-uuid OR `ior:instance:<uuid>`) without \"Not found\" (planner pre-seed; req-eng to anchor verbatim when captured)\n- follows\n  - T173 (`.scenario.json` click routing → /scenario?ior= — T177 completes the dead-end fix by ensuring /scenario itself resolves the ior)\n  - T174 (/scenario route + IOR-seeded tree — T177 fixes ior lookup inside that route)\n- down\n  - None (atomic task — one lookup-normalization layer)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "**R-P (ior format normalization at /scenario):**\n- [ ] AC1 — `/scenario?ior=<bare-uuid>` resolves and renders the instance tree (no \"Not found\")\n- [ ] AC2 — `/scenario?ior=ior:instance:<uuid>` resolves identically — same instance, same tree\n- [ ] AC3 — `/api/trace/children/<bare-uuid>` returns the same payload as `/api/trace/children/ior:instance:<uuid>` for the same instance\n- [ ] AC4 — `/api/trace/ancestry/<bare-uuid>` parity with the prefixed form\n- [ ] AC5 — Architect's chosen canonicalization point documented in this file (boundary location + direction: strip-on-entry vs add-on-entry)\n- [ ] AC6 — T173 file-browser click flow (`.scenario.json` → `/scenario?ior=`) never lands on \"Not found\" for any valid scenario UUID in the index\n\n**Backwards-compat + ship rules:**\n- [ ] AC7 — `/trace` behavior UNCHANGED — full-tree mount + lazy expand unaffected\n- [ ] AC8 — `/api/trace/{roots,children,ancestry}` endpoints unchanged in behavior beyond the normalization layer\n- [ ] AC9 — Rule-pair (a) `package.json` bump + (b) `sw.js` CACHE_NAME bump; (c) STATIC_SHELL **exempt** (no new route — fixes lookup inside existing /scenario)\n- [ ] AC10 — `npm run build` clean; full test suite passes; new ior-format spec passes",
+    "qaAudit": "- 2026-06-03: PO directs T177 stand-up — \"/scenario ior-format 'Not found' for some UUIDs (bare vs ior:instance: prefix) — architect diagnosing, completes the T173 dead-end fix. 4-role.\" Planner scaffolded T177 planner-first with placeholder ACs awaiting architect diagnosis + req-eng verbatim capture (if Tron quote relayed).\n- Pending: architect diagnoses + designs the canonicalization layer → expert impls → tester verifies both ior formats resolve → Tron QA.\n\n---\n\n**Sprint:** Sprint 17 — Scenario Units\n**Phase:** 33 — R-P (ior-format normalization; completes T173 dead-end story)\n**Follows:** T173 (file-browser → /scenario?ior= routing), T174 (/scenario route + lazy tree)\n**Rule-pair scope:** (a)+(b) required; (c) STATIC_SHELL exempt (no new route).",
+    "subtasks": "None (atomic task — one canonicalization layer fix per architect's design).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

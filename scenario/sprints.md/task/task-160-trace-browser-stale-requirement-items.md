@@ -1,6 +1,13 @@
 # T160: Forward-ref REPOPULATION + browser data-freshness (T159 over-strip root cause)
 [task:uuid:6bb3758d-1e62-4e96-a310-ee38d11e8346]
 
+## Status
+
+- [ ] Planned
+- [ ] In Progress
+- [ ] QA Review
+- [ ] Done
+
 ## Traceability
 
 `[task:uuid:6bb3758d-1e62-4e96-a310-ee38d11e8346]`

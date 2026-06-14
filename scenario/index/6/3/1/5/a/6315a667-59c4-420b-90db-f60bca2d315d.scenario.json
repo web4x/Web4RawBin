@@ -15,7 +15,7 @@
     "acceptanceCriteria": "- [ ] AC1 — `regenerate-views` command emits `planning.md` for at least one migrated sprint from its Task instances (no hand-edited prose left)\n- [ ] AC2 — `scenarios/sprints.md/<speaking-name>/...` tree generated, mirroring `scenarios/sprints.json/`\n- [ ] AC3 — Each of the 7 classes has a registered HTML + MD template; sample views render correctly\n- [ ] AC4 — Live-update verified: editing a scenario.json triggers re-render of its `.md` + `.html` views\n- [ ] AC5 — vitest covers template registry + render + regenerate flows\n- [ ] AC6 — `npm run build` succeeds; full suite passes; **version + sw.js bumped per #15**; **STATIC_SHELL entry per #16 if a new /views or /md route is introduced** (architect to decide in T124.2 — flag in commit)",
     "qaAudit": "- 2026-05-30: Planned — awaiting T125, then expert implementation per T124.2 view-template design.",
     "subtasks": "T126.1, T126.2, T126.3 — files created by expert during refinement.\n\n---\n\n*Sprint 17 — Scenario Units / IOR Data Model & Class Views · Phase 3*\n*Owner: robbin-expert (impl), robbin-tester (verify)*\n*Priority: 3 (views — gates user-visible migration)*",
-    "assigned": "**Owner:** robbin-expert (implement), robbin-tester (verify)",
+    "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** T125 (foundation primitives + templates)\n- **Enables:** T127 (nav into views), T128 (migrated sprints land via these generators)",
     "definitionOfDone": "- [ ] All AC met; sub-tasks T126.1-T126.3 committed\n- [ ] Rule-pair #15 + #16 verified (route introduction call documented in commit)\n- [ ] Tests pass, build clean\n- [ ] Tron QA approved",
@@ -23,28 +23,8 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:17a00201-0001-4a01-a001-000017020001",
-      "ior:instance:17a00202-0002-4a02-a002-000017020002",
-      "ior:instance:17a00301-0001-4a01-a001-000017030001",
-      "ior:instance:17a00302-0002-4a02-a002-000017030002",
-      "ior:instance:17a00303-0003-4a03-a003-000017030003",
-      "ior:instance:17a00304-0004-4a04-a004-000017030004"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:src/ts/scenario/generator.ts",
-    "sourceLine": 6,
-    "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-126-views.json"
-    ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
-    "coveredRequirements": [
-      "ior:instance:f829246e-43bb-452c-ac0a-2066848a3c2e",
-      "ior:instance:ddf01be4-6f25-4d32-a3f9-e3ac844a41db",
-      "ior:instance:aebefebb-83a7-4449-8788-ae54dfed8ca2",
-      "ior:instance:59b56c1d-c8a0-4d99-a06d-563269c7089e",
-      "ior:instance:0d45c204-ef9f-4b68-b1c8-74020bf3aa1d"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
 }

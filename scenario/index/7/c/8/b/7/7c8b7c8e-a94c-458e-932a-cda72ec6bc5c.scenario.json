@@ -23,22 +23,8 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:81aa3984-44f7-4b92-805d-c6e7ddc992fe"
-    ],
-    "implementations": [],
-    "tests": [
-      "ior:instance:747f4bab-17c2-4274-9349-b5b9e9478df7"
-    ],
-    "sourceFile": "ior:file:src/public/ts/trace/rb-overview.ts",
-    "sourceLine": 11,
-    "unitLinks": [
-      "sprints.json/sprint-15-traceability-browser/task/task-107-detail-overview-views.json"
-    ],
-    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
-    "coveredRequirements": [
-      "ior:instance:e412e965-bcdf-4d33-97df-65c00d14e9c2"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
+  "ownerIor": "ior:instance:2ede66fe-0949-439f-a1c8-0971d55c92c8"
 }

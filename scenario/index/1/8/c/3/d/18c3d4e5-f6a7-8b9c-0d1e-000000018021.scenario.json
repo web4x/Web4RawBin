@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18c3d4e5-f6a7-8b9c-0d1e-000000018021",
+    "name": "The detail pane shows a \"Parent\" link positioned ABOVE th...",
+    "description": "> TRON: \"above the scenario view link i want a 'Parent' link\"",
+    "tronQuote": "> TRON: \"above the scenario view link i want a 'Parent' link\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

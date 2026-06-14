@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "60ca35a1-959b-444b-9b30-e9e7fe5db34b",
+    "name": "SpeakingTree.generateMd(sprint, templates): void",
+    "className": "SpeakingTree",
+    "methodName": "generateMd(sprint, templates): void"
+  },
+  "ownerIor": "ior:instance:6db16a5b-0876-4faa-9396-6c8f5b577ac5"
+}

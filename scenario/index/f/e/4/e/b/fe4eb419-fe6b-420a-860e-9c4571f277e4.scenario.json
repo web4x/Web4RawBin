@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "fe4eb419-fe6b-420a-860e-9c4571f277e4",
+    "name": "PinData",
+    "file": "sprintName: string",
+    "methods": [],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:6a529d41-8b1d-458d-a93b-75fea853f7da"
+}

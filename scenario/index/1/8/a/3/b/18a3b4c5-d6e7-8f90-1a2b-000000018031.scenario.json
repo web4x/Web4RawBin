@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18a3b4c5-d6e7-8f90-1a2b-000000018031",
+    "name": "The ScenarioUnit class (or its equivalent) gains lifecycl...",
+    "description": "> TRON: \"add to the unit class the lifecycle methods to always keep this lust consistent with the state on disk. so add link, removeLink and so on.\"",
+    "tronQuote": "> TRON: \"add to the unit class the lifecycle methods to always keep this lust consistent with the state on disk. so add link, removeLink and so on.\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

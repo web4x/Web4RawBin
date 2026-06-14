@@ -14,12 +14,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 contacts.vcardVisible](../usecase/contacts-vcardvisible.md)
-
-
-## Traceability
-
 - up
   - [requirement:uuid:b252bd78-7ee5-4ccf-8c74-818d1c6e6b4a](./requirements.md) — R10.2 vCard button visibility + avatar DRY
   - [Sprint 10 Planning](./planning.md)

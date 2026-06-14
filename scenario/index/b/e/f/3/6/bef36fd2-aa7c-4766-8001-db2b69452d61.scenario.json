@@ -2,22 +2,29 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "bef36fd2-aa7c-4766-8001-db2b69452d61",
-    "name": "SVG viewer: fullscreen iframe + native zoom",
-    "slug": "svg-fullscreen-iframe-native-zoom",
-    "description": "Replace the current <object> SVG embed (thin centered strip) with a near-fullscreen <iframe> that uses the browser's native pan/zoom. The iframe isolation scopes zoom to the SVG content \u2014 no custom JS pinch-zoom needed. Height fills the viewport (min 90vh). pageNav stays visible above.",
+    "name": "R18.34 — SVG viewer with scoped pinch/pan (cross-browser)",
+    "slug": "task-r18.34-svg-viewer-scoped-pinch-zoom",
+    "description": "",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect \u2014 chain wired 38653299: UC svgViewer.pinchZoom + Class SvgViewer + Method onPinchEnd + Impl)\n  - [x] creating test cases\n  - [x] implementing (expert \u2014 v0.5.114 \u2192 v0.5.121; debug strip \u2192 v0.5.126)\n  - [x] testing (tester \u2014 R18.34.B champagne 2/2 PASS 82ddae97; R18.34.B DEVICE-ACCEPTED by Tron on v0.5.125 \u2014 snap-back gone, gate #27 cleared; tester writing corrected device-representative champagne to lock the fix)\n- [ ] QA Review\n- [ ] Done",
-    "tronQuote": "> TRON: \"we need to optimize the svg view. the structure is right but i want a iframe that basically covers most of the screen and if i pan zoom, the svg in the iframe gets panned zoomed not the whole page.\"\n> TRON (clarification): \"it just should show the svg in the iframe and fall back to standard panning and zooming of it as the default page functionality.\"",
-    "acceptanceCriteria": "- [ ] AC1: SVG opens in an <iframe> covering most of the viewport (min 90vh height)\n- [ ] AC2: Pan/zoom uses native browser gestures scoped inside the iframe\n- [ ] AC3: Pinch-zoom on mobile zooms the SVG, not the outer /md/ page\n- [ ] AC4: No custom JS pan/zoom implementation\n- [ ] AC5: Back navigation works (pageNav visible above iframe)\n- [ ] AC6: /md/raw/<path>.svg endpoint still serves raw SVG for the iframe src",
-    "coveredRequirements": [
-      "ior:instance:042bab1a-46ff-4a92-8494-102b9ad928ac",
-      "ior:instance:6ee95023-5639-4eb7-86cc-916ebb418e7e"
-    ],
-    "useCases": [
-      "ior:instance:c27d67d8-c6ef-45be-b88b-5631370abe7e"
-    ],
-    "subtasks": [],
-    "unitLinks": []
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — D1→D4 PDCA across b3e8799c + 1f2524d8 + 7422733c)\n  - [x] creating test cases (architect Acceptance Criteria section)\n  - [x] implementing (expert — v0.5.114 → v0.5.116 → v0.5.117 → v0.5.118 → v0.5.119 → v0.5.120)\n  - [ ] testing (tester — verify on iPhone + Mac per architect's cross-browser design)\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only — never checked by planner/sync.",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 18 Planning](./planning.md)\n  - [Sprint 18](../../../scenario/sprints.json/sprint-18-chain-method-scope/sprint.json) `[ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962]`\n  - **R18.34** `[requirement:uuid:042bab1a-46ff-4a92-8494-102b9ad928ac]` — \"SVG renders in fullscreen iframe natively\" (Tron verbatim, captured by robbin-req in c66ad3fd)\n  - **R18.34.B** `[requirement:uuid:6ee95023-5639-4eb7-86cc-916ebb418e7e]` — \"Pinch release commits SVG zoom (no pan, zoom persists)\" (atomic refinement sibling of R18.34, captured by robbin-req in 83ccbd0e; bidirectional unitLinks ↔ R18.34)\n- down\n  - None (atomic task)\n- scenario unit: `scenario/index/b/e/f/3/6/bef36fd2-aa7c-4766-8001-db2b69452d61.scenario.json` (req-eng 39af520a — chain wiring `coveredRequirements ↔ Requirement.tasks`; R18.34.B added 2026-06-09 by planner)\n- pending architect units (R18.34.B chain plan per 83ccbd0e):\n  - UseCase `svgViewer.pinchZoom AC9.1` (queued)\n  - Class `SvgViewer` (queued)\n  - Method `SvgViewer.onPinchEnd` (queued)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "",
+    "qaAudit": "- 2026-06-09: Tron verbatim (captured by robbin-req in c66ad3fd) — \"we need to optimize the svg view. … iframe that basically covers most of the screen and if i pan zoom, the svg in the iframe gets panned zoomed not the whole page.\" + clarification \"it just should show the svg in the iframe and fall back to standard panning and zooming of it as the default page functionality.\"\n- 2026-06-09: Architect (b3e8799c) D1 — initial cross-browser design (corrected from iOS-only assumption when Tron reproduced on Chrome/desktop-Mac).\n- 2026-06-09: Expert v0.5.114 (87dfee3b) — first iframe + aspect-ratio attempt. Defects surfaced on device.\n- 2026-06-09: Expert v0.5.116 (f1f7bd51) — cross-browser pinch/pan per architect's design.\n- 2026-06-09: Architect (1f2524d8) Defects 3+4 — inline-SVG + pinned layout box kills blur + snap-back.\n- 2026-06-09: Expert v0.5.117 (2e71a312) D3+D4 inline-SVG; same-version hotfix 7422733c root-caused window.resize→reset.\n- 2026-06-09: Expert v0.5.118 (5513c08f) — preserve zoom on iOS URL-bar resize.\n- 2026-06-09: Expert v0.5.119 (df4d1831) — cache-bust bump for D4 verification.\n- 2026-06-09: Expert v0.5.120 (acacd044) D4 belt-and-braces — persist view + orientationchange + visualViewport.\n- 2026-06-09: req-eng captured R18.34.B (83ccbd0e + c6d47477) — atomic refinement \"pinch release commits SVG zoom\" (req:uuid 6ee95023, bidirectional unitLink with R18.34); shares this same SVG task.\n- 2026-06-09: Expert v0.5.121 (8e9e6a06) — R18.34.B pinch-commit fix: `apply()` on touchend + rAF after pinch. Rule-pair (a)+(b) ✓.\n- 2026-06-09: planner chain sync — `coveredRequirements[]` now includes both R18.34 + R18.34.B; R18.34.B.tasks[] reciprocates (loop closed both sides per learning #38).\n- Pending: architect to create UseCase `svgViewer.pinchZoom AC9.1` + Class `SvgViewer` + Method `SvgViewer.onPinchEnd` (R18.34.B chain plan per 83ccbd0e). Tester to write champagne test (pinch→release, no pan, zoom persists) + 3-platform verify (iPhone Safari + Chrome/iPhone + Chrome/Mac). Then Tron QA.",
+    "subtasks": "None (atomic task — D1-D4 PDCA rounds folded into a single task per learning #20).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
 }

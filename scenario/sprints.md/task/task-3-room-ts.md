@@ -14,9 +14,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 room.create](../usecase/room-create.md)
-
 **Children:**
 - [🔗 Task 3.4: Align Room.ts with Test Cases](../task/task-3.4-test-alignment.md)
 

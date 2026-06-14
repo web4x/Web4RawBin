@@ -15,27 +15,16 @@
     "acceptanceCriteria": "- [ ] AC1 — `pageNav()` rendered output stays anchored to the viewport top while the user scrolls the page body\n- [ ] AC2 — Works on `/trace` (rb-trace-view tree) and `/md/*` (markdown/SVG/PUML viewer) — both routes that consume pageNav today\n- [ ] AC3 — Does not interfere with the drawer (T110/T120/T122) at the bottom of `/trace`; z-index ordering stays sane\n- [ ] AC4 — Mobile (iPhone Safari) — pageNav stays at top respecting safe-area-inset-top where applicable\n- [ ] AC5 — `npm run build` succeeds; vitest + playwright pass; **(a) package.json + (b) sw.js CACHE_NAME bumped** per learnings #15. **(c) STATIC_SHELL exempt** per #16 (no new route — confirm in commit message)",
     "qaAudit": "- 2026-05-29: Tron directive — pageNav must be sticky to the top. Architect diagnosed at server.ts:293 (missing feature, not regression). Expert implementing now per PO 2026-05-29. Awaiting impl commit + tester verify, then Tron QA.",
     "subtasks": "None (atomic task — small server-side inline-CSS addition).\n\n---\n\n*Sprint 16 — Traceability UX & DetailViews · Phase 4 (Tron iteration)*\n*Owner: robbin-expert (impl), robbin-tester (verify)*\n*Priority: 10 (small UI nav fix on shared docs/trace pageNav)*",
-    "assigned": "**Owner:** robbin-expert (implement), robbin-tester (verify)\n**This file is the single source of truth.** Expert and tester work from this file alone — no chat clarification.",
+    "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** None (server-side inline CSS only)\n- **Coordinate-with:** T120 (dark drawer bg) and T122 (drawer sticky-bottom) — peer surface work; no expected conflict\n- **Enables:** consistent top-nav UX across the docs + trace routes",
     "definitionOfDone": "- [ ] All AC met; traceability chain complete + links resolve\n- [ ] Tests pass, build clean\n- [ ] (a) package.json + (b) sw.js CACHE_NAME bumped (learnings #15); (c) STATIC_SHELL exempt — no new route (learnings #16)\n- [ ] Tron QA approved",
     "implementation": "",
-    "testScenarios": "| Test | Action | Expected |\n|------|--------|----------|\n| TS1 | Open `/trace`, scroll the tree downwards | `pageNav` stays pinned to viewport top; tree content scrolls beneath it |\n| TS2 | Open a long `/md/<long-doc>.md`, scroll | `pageNav` stays pinned to viewport top |\n| TS3 | iPhone viewport (375×812) | `pageNav` sits at top, safe-area-inset-top respected, content not hidden behind it |\n| TS4 | `/trace` with drawer (T110) open + scroll tree | `pageNav` top-fixed + drawer bottom-fixed coexist without overlap or z-fight |",
+    "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:24501668-89cc-4c36-ada4-35e12bc12d1e"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-123-pagenav-sticky-top.md",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-16-traceability-ux/task/task-123-pagenav-sticky-top.json"
-    ],
-    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
-    "coveredRequirements": [
-      "ior:instance:b2237873-39b9-4154-9624-f809a9ca4983"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
+  "ownerIor": "ior:instance:170df251-99f4-4583-8ef7-9bde9d51339c"
 }

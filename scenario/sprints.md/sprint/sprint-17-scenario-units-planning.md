@@ -16,6 +16,7 @@
 - [ ] [T126: Generated views — planning.md, sprints.md, per-instance .md/.html](../task/task-126-views.md)
 - [ ] [T127: File-browser ↔ traceability-browser navigation + IOR universal handler](../task/task-127-navigation.md)
 - [ ] [T128: Migrate all existing sprints/tasks/requirements to scenario-unit model](../task/task-128-migration.md)
+  - [ ] [T128.4: Method marker retrofit — fill `[impl:uuid:]` + `[test:uuid:]` gaps so 44/44 tests are 7-hop reachable](../task/task-128.4-method-marker-retrofit.md)
 - [ ] [T129: Traceability gate — every method traces to a task AND a requirement](../task/task-129-verification.md)
 - [ ] [T131: File-browser symlink support (FileApi + rb-file-tree)](../task/task-131-file-browser-symlinks.md)
 - [ ] [T132: HTML status template fix](../task/task-132-html-status-template-fix.md)

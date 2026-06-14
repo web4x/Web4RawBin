@@ -9,7 +9,7 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 SVG viewer: fullscreen iframe + native zoom](../task/svg-fullscreen-iframe-native-zoom.md)
+- [🔗 R18.34 — SVG viewer with scoped pinch/pan (cross-browser)](../task/task-r18.34-svg-viewer-scoped-pinch-zoom.md)
 
 **UseCases:**
 - [🔗 svgViewer.pinchZoom](../usecase/svgviewer-pinchzoom.md)

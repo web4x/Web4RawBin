@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b2f3a4e5-c6d7-4e8f-9a01-2b3c4d5e6f27",
+    "name": "In BOTH task files AND generated views, every referenced ...",
+    "description": "> TRON: \"each element should be a link\"",
+    "tronQuote": "> TRON: \"each element should be a link\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

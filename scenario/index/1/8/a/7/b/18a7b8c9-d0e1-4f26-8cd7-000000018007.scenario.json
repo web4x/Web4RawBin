@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18a7b8c9-d0e1-4f26-8cd7-000000018007",
+    "name": "After expand or collapse, the scroll position of the tree...",
+    "description": "> TRON: \"in the long list it always jumps back to the top. thats cumbersome\"",
+    "tronQuote": "> TRON: \"in the long list it always jumps back to the top. thats cumbersome\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

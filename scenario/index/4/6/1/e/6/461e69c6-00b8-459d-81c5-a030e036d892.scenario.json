@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "461e69c6-00b8-459d-81c5-a030e036d892",
+    "name": "Sprint traceability",
+    "number": 4,
+    "goal": "",
+    "status": "Done",
+    "tasks": [],
+    "requirements": []
+  },
+  "ownerIor": null
+}

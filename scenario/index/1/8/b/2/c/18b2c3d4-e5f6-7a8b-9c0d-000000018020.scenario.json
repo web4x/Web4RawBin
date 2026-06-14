@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18b2c3d4-e5f6-7a8b-9c0d-000000018020",
+    "name": "The tree narrowing (R18.5) applies only to the TREE panel...",
+    "description": "> TRON: \"on the details view, i want to see ALL methods, not just the traced one. the same on the ScenarioView. for all types.\"",
+    "tronQuote": "> TRON: \"on the details view, i want to see ALL methods, not just the traced one. the same on the ScenarioView. for all types.\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

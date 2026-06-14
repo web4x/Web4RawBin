@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "231ddd76-6a6e-4a94-924e-ac3a800e7474",
+    "name": "Test",
+    "file": "",
+    "methods": [
+      "ior:instance:462263bb-0989-4776-917e-b13cd2a2a807"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

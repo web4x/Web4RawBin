@@ -10,6 +10,3 @@
 
 **Tasks:**
 - [🔗 T127: File-browser ↔ traceability-browser navigation + IOR universal handler](../task/task-127-navigation.md)
-
-**UseCases:**
-- [🔗 tree.navigate](../usecase/tree-navigate.md)

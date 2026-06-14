@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "15d9a535-d34a-4f4c-b4d3-9db58c0f0984",
+    "name": "RbUseCaseDetail",
+    "file": "[class:uuid:84a94745-95b3-406c-8180-56ccef63b31b]",
+    "methods": [
+      "ior:instance:4d954650-f352-46f5-b992-a905628c84b2"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

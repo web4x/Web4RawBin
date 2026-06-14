@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ded29695-4a2e-4969-9f29-9a56a1e8b697",
+    "name": "TraceGraph.get(uuid): TraceObject",
+    "className": "TraceGraph",
+    "methodName": "get(uuid): TraceObject"
+  },
+  "ownerIor": "ior:instance:809e65ee-1e6e-43dc-8f9c-d87e6aafda54"
+}

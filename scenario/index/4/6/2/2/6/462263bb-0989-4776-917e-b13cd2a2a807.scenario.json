@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "462263bb-0989-4776-917e-b13cd2a2a807",
+    "name": "Test.type = 'test'",
+    "className": "Test",
+    "methodName": "type = 'test'"
+  },
+  "ownerIor": "ior:instance:231ddd76-6a6e-4a94-924e-ac3a800e7474"
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "f4d47767-3145-40b5-aedc-bb33a163d814",
+    "name": "TraceClass",
+    "file": "",
+    "methods": [
+      "ior:instance:e67dba52-a60f-4d17-aede-0711e8a763d7",
+      "ior:instance:8aff46bb-6125-4863-9523-d56d3e92b543",
+      "ior:instance:96bd16c4-8b41-4771-a00b-fcd5fd937860"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

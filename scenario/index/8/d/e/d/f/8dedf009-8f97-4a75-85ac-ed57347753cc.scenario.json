@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "8dedf009-8f97-4a75-85ac-ed57347753cc",
+    "name": "Sprint pwa offline",
+    "number": 5,
+    "goal": "",
+    "status": "Done",
+    "tasks": [],
+    "requirements": []
+  },
+  "ownerIor": null
+}

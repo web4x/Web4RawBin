@@ -12,8 +12,9 @@
 - [🔗 R-A2: Avatar upload must work without exposing key errors...](../requirement/r-a2-avatar-upload-must-work-without-exposing-key-errors.md)
 - [🔗 R-ED1: Markdown preview must render hierarchical lists (n...](../requirement/r-ed1-markdown-preview-must-render-hierarchical-lists-n.md)
 - [🔗 R-R1: All user rooms load from disk on connect and appear...](../requirement/r-r1-all-user-rooms-load-from-disk-on-connect-and-appear.md)
-- [🔗 b2dfe117](/scenario?ior=b2dfe117-d591-4715-ba62-07b13a8433c0)
+- [🔗 | Requirement | UUID (short) | Task | Workflow | Priority |](../requirement/requirement-uuid-short-task-workflow-priority.md)
 - [🔗 FLAG: This may mean Tron's device is not receiving update...](../requirement/flag-this-may-mean-tron-s-device-is-not-receiving-update.md)
+- [🔗 B2: Recurring test-pollution — E2E specs leak users/rooms into shared data, polluting other tests.](../bug/b2-recurring-test-pollution-e2e-specs-leak-users-rooms-into-shared-data-pollutin.md)
 
 **Tasks:**
 - [🔗 T100: Test Data Isolation — DATA_DIR Override](../task/task-100-test-data-isolation.md)

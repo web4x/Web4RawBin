@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "db2acf40-36ec-4307-933d-6f16cd51a018",
+    "name": "Requirement.type = 'requirement'",
+    "className": "Requirement",
+    "methodName": "type = 'requirement'"
+  },
+  "ownerIor": "ior:instance:5ba78db7-9ae0-4dc6-9abe-64989345bb70"
+}

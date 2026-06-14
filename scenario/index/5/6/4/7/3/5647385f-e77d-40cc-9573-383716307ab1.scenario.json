@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "5647385f-e77d-40cc-9573-383716307ab1",
+    "name": "CurrentSprint\\nclass:43d570be\\nior:class:CurrentSprint",
+    "file": "- chain: ChainHop[]",
+    "methods": [],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:6a529d41-8b1d-458d-a93b-75fea853f7da"
+}

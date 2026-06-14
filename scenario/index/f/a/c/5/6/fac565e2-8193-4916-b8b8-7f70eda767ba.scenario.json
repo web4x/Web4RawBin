@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "fac565e2-8193-4916-b8b8-7f70eda767ba",
+    "name": "Implementation.get tests(): Test[]",
+    "className": "Implementation",
+    "methodName": "get tests(): Test[]"
+  },
+  "ownerIor": "ior:instance:d5e68dc1-3e34-4283-b8aa-47d208c2e38f"
+}

@@ -10,8 +10,3 @@
 
 **Tasks:**
 - [🔗 T128: Migrate all existing sprints/tasks/requirements to scenario-unit model](../task/task-128-migration.md)
-
-**UseCases:**
-- [🔗 migrate.sprintToScenario](../usecase/migrate-sprinttoscenario.md)
-- [🔗 migrate.preserveHierarchy](../usecase/migrate-preservehierarchy.md)
-- [🔗 chain.traceMethodToReq](../usecase/chain-tracemethodtoreq.md)

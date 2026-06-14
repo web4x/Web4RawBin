@@ -25,4 +25,4 @@
 - [🔗 Object.verb UC population + Class/Method/Impl chain wiring (multi-phase epic)](../task/t195-object-verb-uc-population-chain-wiring.md)
 
 **UseCases:**
-- [🔗 traceGraph.classHop](../usecase/tracegraph-classhop.md)
+- [🔗 94693864](/scenario?ior=94693864-cd99-4340-b8cc-040e85fcfb6c)

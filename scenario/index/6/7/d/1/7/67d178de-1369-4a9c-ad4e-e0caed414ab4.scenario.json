@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "67d178de-1369-4a9c-ad4e-e0caed414ab4",
+    "name": "Task.type = 'task'",
+    "className": "Task",
+    "methodName": "type = 'task'"
+  },
+  "ownerIor": "ior:instance:c735b078-3de4-48f5-bff7-9da62187ceea"
+}

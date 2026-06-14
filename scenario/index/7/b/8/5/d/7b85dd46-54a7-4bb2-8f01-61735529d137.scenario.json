@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "7b85dd46-54a7-4bb2-8f01-61735529d137",
+    "name": "UseCase.type = 'usecase'",
+    "className": "UseCase",
+    "methodName": "type = 'usecase'"
+  },
+  "ownerIor": "ior:instance:11e7f853-b043-4277-bc95-bf0cd744fe11"
+}

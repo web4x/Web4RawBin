@@ -1,11 +1,12 @@
 # T171: Untraced-closure — link 50 untraced + R17.26 link-back to T165/T166 + traceability-matrix refresh (T143-T171)
 [task:uuid:75628241-9157-4385-a7f0-f4f7a3142737]
 
-## Traceability
+## Status
 
-**UseCases:**
-- [🔗 traceChain.treeRework](../usecase/tracechain-treerework.md)
-
+- [ ] Planned
+- [ ] In Progress
+- [ ] QA Review
+- [ ] Done
 
 ## Traceability
 

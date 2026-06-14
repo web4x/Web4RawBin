@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "9f808797-350a-4629-9e31-0f1f623de515",
+    "name": "RbUseCaseDetail",
+    "file": "src/public/ts/trace/rb-usecase-detail.ts",
+    "methods": [
+      "ior:instance:7457b2ec-72c8-47c2-adef-a910a071a612"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:170df251-99f4-4583-8ef7-9bde9d51339c"
+}

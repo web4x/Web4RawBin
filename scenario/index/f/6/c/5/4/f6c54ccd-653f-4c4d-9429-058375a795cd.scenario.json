@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "f6c54ccd-653f-4c4d-9429-058375a795cd",
+    "name": "SpeakingTree.symlinkJson(sprint, tasks): void",
+    "className": "SpeakingTree",
+    "methodName": "symlinkJson(sprint, tasks): void"
+  },
+  "ownerIor": "ior:instance:015b1ac0-eb5d-4b4b-9749-84d3b2214421"
+}

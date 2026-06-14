@@ -1,0 +1,56 @@
+# T184: Forward-only API emit — strip backward keys at TraceConsistency source (LOW)
+[task:uuid:ab0cbe5f-d097-42c7-a1a4-82339a468ad6]
+
+## Status
+
+- [ ] Planned
+- [ ] In Progress
+  - [x] refinement (architect `e05ddd6f` — per-file fix table + FORWARD_KEYS-at-emit design)
+  - [ ] creating test cases
+  - [ ] implementing
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
+
+> QA Review + Done are TRON's gate only — never checked by planner/sync.
+
+## Traceability
+
+- up
+  - [Sprint 17 Planning](./planning.md)
+  - PO directive 2026-06-05: forward-only at source, not just display
+  - **R-U** `[requirement:uuid:82638acb-2fae-4ad9-833b-27f7b218b2b2]` (same as T181)
+- follows
+  - T181 (`883ce4aa` forward-only DISPLAY — client-side FORWARD_KEYS filter)
+  - T178 (overlay-read fix `f306e503` — serves all forward refs)
+- down
+  - None (atomic)
+
+## Acceptance Criteria
+
+- [ ] AC1 — `FORWARD_KEYS` exported from TraceModel.ts as module-level constant
+- [ ] AC2 — `/api/trace` response contains ONLY forward link keys per object type
+- [ ] AC3 — `/api/trace/children` response unaffected (already keyed by FORWARD_KEYS)
+- [ ] AC4 — Internal TraceGraph still stores bidirectional links (parent/children getters work)
+- [ ] AC5 — T181 client-side filter stays as defense-in-depth (NOT removed)
+- [ ] AC6 — `npm run build` clean; test suite passes; no regression
+
+## QA Audit & User Feedback
+
+- 2026-06-05: Tester (post-T181) flagged residual — /api/trace graph still carries backward `requirements` keys on 42 Tasks (T181 display+tree filter masks them; data isn't forward-only at source).
+- 2026-06-05: PO direction — stand up T184 (LOW priority — display already clean); 4-role planner-first.
+- 2026-06-05: Planner scaffolded `task-184-traceconsistency-parser-forward-only.md` (placeholder, R-X1 → R-Y1 → R-Z1 rename chain due to two consecutive req-eng label collisions: 15dd69c1 R-X1+R-X2, 58acb8e4 R-Y1+R-Y2).
+- 2026-06-05: Architect `e05ddd6f` shipped concurrent file `task-184-forward-only-api-emit.md` with full per-file fix table + FORWARD_KEYS-at-emit design + R-U same-as-T181 (Tron's no-backward-links principle = single requirement umbrella).
+- 2026-06-05: Planner reconciled per learning #20 — DELETED my scaffold; adopted architect's filename + content; swapped architect's fake-suffix uuid (`184a0b1c-…-a18401840184`) for my real v4 (`ab0cbe5f-d097-42c7-a1a4-82339a468ad6`); added Status sub-steps + QA Audit section for compliance; adopted architect's R-U mapping (drops the R-X/Y/Z1 chain — same requirement umbrella as T181).
+- Pending: expert impl (rule-pair (a)+(b); (c) EXEMPT per architect — server-only); tester verifies /api/trace emits forward-only end-to-end; then Tron QA.
+
+---
+
+**Sprint:** Sprint 17 — Scenario Units
+**Phase:** 40 — Tron R-U umbrella (forward-only at source; defense-in-depth with T181 display filter)
+**Priority:** LOW (PO 2026-06-05 — display already clean; completes no-back-chaos at source)
+**Follows:** T181 (client filter) · T178 (overlay-read fix)
+
+## Subtasks
+
+None (atomic).

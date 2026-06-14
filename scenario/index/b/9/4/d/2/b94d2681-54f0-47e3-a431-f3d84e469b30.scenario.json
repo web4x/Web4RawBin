@@ -15,30 +15,18 @@
     "acceptanceCriteria": "- [ ] AC1 — Sprint 1 task-1 + task-1.1 migrated via T128.1; views generated; symlink tree resolves; PO/Tron approves the exemplar\n- [ ] AC2 — Sprints 2-9 migrated via T128.2 (artifact mode); their indexed units exist in `scenario/index/`; legacy markdown preserved under `.legacy/`\n- [ ] AC3 — Sprints 10-16 migrated via T128.3 (regenerated views); their `planning.md` + per-task files are now generated views (no hand-edited prose)\n- [ ] AC4 — `[impl:uuid:]` markers added per T128.4; trace-cli reports `orphanMethods=0` (or matches documented waiver)\n- [ ] AC5 — `npm run trace:check` clean against the migrated graph\n- [ ] AC6 — `sprint audit` (Web4Articles compliance) passes 0-issue across all migrated sprints\n- [ ] AC7 — `npm run build` succeeds; full vitest + playwright pass; rule-pair #15 + #16 verified",
     "qaAudit": "- 2026-05-30: Planned — exemplar first (T128.1, Tron sign-off), then closed batch, then active batch, then method markers. PO/Tron gate per batch.",
     "subtasks": "T128.1, T128.2, T128.3, T128.4 — created by planner+req+expert during execution.\n\n---\n\n*Sprint 17 — Scenario Units / IOR Data Model & Class Views · Phase 5*\n*Owners: robbin-planner (structure), robbin-req (req units), robbin-expert (tooling), robbin-tester (verify)*\n*Priority: 5 (migration — the volume of work; gates the sprint close)*",
-    "assigned": "**Owners:** robbin-planner (structure + coordination), robbin-req (requirement units), robbin-expert (migration tooling), robbin-tester (verify)",
+    "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** T125 (foundation), T126 (views), T127 (nav), and T121 clean uuid base (already done)\n- **Enables:** T129 verification",
     "definitionOfDone": "- [ ] All AC met; sub-tasks T128.1-T128.4 committed\n- [ ] Every migrated sprint passes sprint audit + trace:check\n- [ ] Legacy markdown preserved under `.legacy/` (closed sprints) or replaced by generated views (active sprints)\n- [ ] Tron QA approved (per-batch gates; final approval after T129)",
     "implementation": "",
     "testScenarios": "",
-    "children": [],
+    "children": [
+      "ior:instance:8b405c16-8995-4aeb-8637-396abc13ab5a"
+    ],
     "requirements": [],
-    "useCases": [
-      "ior:instance:17a00401-0001-4a01-a001-000017040001",
-      "ior:instance:17a00402-0002-4a02-a002-000017040002",
-      "ior:instance:17a00403-0003-4a03-a003-000017040003"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-128-migration.md",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-128-migration.json"
-    ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
-    "coveredRequirements": [
-      "ior:instance:6fce2319-a763-46b5-9253-d5e9647e034d",
-      "ior:instance:cd30f486-c5c5-44af-a454-def3daba7806"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
 }

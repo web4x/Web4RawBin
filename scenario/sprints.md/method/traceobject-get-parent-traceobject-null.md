@@ -1,0 +1,1 @@
+### TraceObject.get parent(): TraceObject | null

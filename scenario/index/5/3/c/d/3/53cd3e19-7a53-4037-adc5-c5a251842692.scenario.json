@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "53cd3e19-7a53-4037-adc5-c5a251842692",
+    "name": "Sprint identity ssh",
+    "number": 2,
+    "goal": "",
+    "status": "Done",
+    "tasks": [],
+    "requirements": []
+  },
+  "ownerIor": null
+}

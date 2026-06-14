@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "7b0c74ba-1b95-42fa-9139-d693614c2add",
+    "name": "Sprint room identity",
+    "number": 9,
+    "goal": "",
+    "status": "Done",
+    "tasks": [],
+    "requirements": []
+  },
+  "ownerIor": null
+}

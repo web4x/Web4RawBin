@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000006",
+    "name": "R17.7: HTML view templates per class",
+    "description": "> TRON: \"in scenarios/sprints.md/ have the resulting structured md views from the templates with the same speaking names as in the sprints.json/ folder\"",
+    "tronQuote": "> TRON: \"in scenarios/sprints.md/ have the resulting structured md views from the templates with the same speaking names as in the sprints.json/ folder\"",
+    "tasks": [
+      "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

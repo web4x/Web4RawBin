@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "89285695-4262-4be5-aad6-637affd5f2f9",
+    "name": "TraceConsistency",
+    "file": "[class:uuid:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9]",
+    "methods": [
+      "ior:instance:ade1ff54-513c-4146-a889-527548b18e68",
+      "ior:instance:2bbeebc2-dbb5-4d6b-9257-6aaf36337343"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

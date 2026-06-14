@@ -24,21 +24,7 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": [],
-    "tests": [
-      "ior:instance:09d73a15-1496-4020-bcf1-b6a65a2bde6f"
-    ],
-    "sourceFile": "ior:file:src/ts/server/Migration.ts",
-    "sourceLine": 13,
-    "unitLinks": [
-      "sprints.json/sprint-14-legacy-migration/task/task-97-migrate-userdirs.json"
-    ],
-    "parent": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297",
-    "coveredRequirements": [
-      "ior:instance:3465dfd3-6fec-4b69-a643-7e379fa3e2d7"
-    ],
-    "orphanByDesign": true,
-    "orphanReason": "process/infra/tooling task — no user-facing feature"
+    "implementations": []
   },
-  "ownerIor": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
+  "ownerIor": "ior:instance:e6fcd09c-27d6-4bed-937e-08bb60eb08ce"
 }

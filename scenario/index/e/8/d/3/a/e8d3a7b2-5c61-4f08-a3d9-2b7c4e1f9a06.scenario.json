@@ -15,7 +15,7 @@
     "acceptanceCriteria": "- [x] AC1: \"Download vCard\" button is VISIBLE in the joined-user sheet (readable text, distinct from \"Link Account\")\n- [x] AC2: \"Link Account\" button remains visible and unchanged\n- [x] AC3: Clicking \"Download vCard\" invokes the vCard builder (produces a .vcf blob) — behavior unchanged from existing `downloadVCard()`\n- [x] AC4: The sheet's avatar is an `<rb-avatar>` element (NOT a bare `<img>` built inline in ProfileSheet)\n- [x] AC5: The sheet avatar shows the joined user's picture (loaded from `/api/avatar/<their-token>`), or the initial-letter fallback if none\n- [x] AC6: The sheet avatar is `readonly` — tapping it does NOT open the upload/crop editor overlay\n- [x] AC7: Lobby `.btn-secondary` buttons (dark background, e.g. \"Refresh\") remain visible/unchanged — the CSS override is scoped to `.user-sheet` only\n- [x] AC8: `npm run build` succeeds; no new tsc errors in changed files (expert)\n- [x] AC9: Served bundle reflects the bump — live `/api/health` + `/api/config` now v0.5.4 (advanced past v0.5.0)\n- [x] AC10: All existing E2E specs still pass (no regression) + new test passes\n- [x] AC11: `ProfileSheet.open(profile, opts?: { isSelf?, onEdit? })` signature exists (verified in source ProfileSheet.ts:24); `{}` opts → `[Download vCard][Link Account]`; `isSelf` branch (`#us-edit`) wired by T83; ProfileSheet does NOT import ProfileEditor",
     "qaAudit": "- Pending PO refinement review, then Tron QA.",
     "subtasks": "None (atomic task for this sprint).",
-    "assigned": "**Owner:** robbin-expert (implement), robbin-tester (verify)\n**This file is the single source of truth.** Expert and tester work from this file alone — no chat clarification.\n\n---",
+    "assigned": "",
     "architectDesign": "",
     "dependencies": "",
     "definitionOfDone": "",
@@ -23,19 +23,8 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:019d98ca-3495-4b01-afb8-19a3bd431a11"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-10-contacts-ui/task-82-vcard-visibility-avatar-dry.md",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-10-contacts-ui/task/task-82-vcard-visibility-avatar-dry.json"
-    ],
-    "parent": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab",
-    "coveredRequirements": [
-      "ior:instance:b252bd78-7ee5-4ccf-8c74-818d1c6e6b4a"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab"
+  "ownerIor": "ior:instance:a960cac8-fa84-4034-99e6-1cb0e5fff52d"
 }

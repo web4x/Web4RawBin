@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "f0b1a2c3-c3d4-4e56-7f8a-9b0c1d230047",
+    "name": "| Req | UUID (short) | Task(s) | Category |",
+    "description": "> TRON: \"each tes must be rached by a tracking chain\"",
+    "tronQuote": "> TRON: \"each tes must be rached by a tracking chain\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

@@ -18,12 +18,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 profileGate.vcardUpload](../usecase/profilegate-vcardupload.md)
-
-
-## Traceability
-
 `[task:uuid:ec8e7a0f-18e4-418c-8242-4555c8106b7a]`
 
 - up

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "b05f5d91-1555-4346-baf1-d2581d80cef2",
+    "name": "Task.addUseCase(u): this",
+    "className": "Task",
+    "methodName": "addUseCase(u): this"
+  },
+  "ownerIor": "ior:instance:c735b078-3de4-48f5-bff7-9da62187ceea"
+}

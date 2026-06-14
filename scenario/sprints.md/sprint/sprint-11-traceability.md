@@ -7,7 +7,7 @@
 ## Traceability
 
 **Requirements:**
-- [🔗 41c68a9a](/scenario?ior=41c68a9a-b27d-488e-8346-4bc7a4ce685e)
+- [🔗 | Requirement | UUID (short) | Task | Category |](../requirement/requirement-uuid-short-task-category.md)
 
 **Tasks:**
 - [🔗 T119: Test traceability — `[test:uuid:]` markers + trace-cli Pass 6 + chain validation](../task/task-119-test-traceability.md)

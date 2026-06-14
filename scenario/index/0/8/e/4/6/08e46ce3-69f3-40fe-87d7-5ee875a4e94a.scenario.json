@@ -2,19 +2,19 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "08e46ce3-69f3-40fe-87d7-5ee875a4e94a",
-    "name": "T190: Tree expand appends only \u2014 no full re-render, no scroll jump",
+    "name": "T190: Tree expand appends only — no full re-render, no scroll jump",
     "slug": "task-190-tree-expand-append-no-rerender",
-    "description": "Expanding a tree node appends child-level DOM only \u2014 no full re-render of the\ntree. Scroll position preserved (no jump-to-top). In a 100+ node tree,\nexpanding node #50 must not re-layout nodes #1-49.",
+    "description": "Expanding a tree node appends child-level DOM only — no full re-render of the\ntree. Scroll position preserved (no jump-to-top). In a 100+ node tree,\nexpanding node #50 must not re-layout nodes #1-49.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect \u2014 incremental-append folded into seed-path)\n  - [x] creating test cases (tester 27ffe1b4 \u2014 8 TS pre-authored)\n  - [x] implementing (expert 02c99a7e v0.5.88)\n  - [ ] testing (tester executes 8 TS \u2014 pending)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — incremental-append folded into seed-path)\n  - [x] creating test cases (tester 27ffe1b4 — 8 TS pre-authored)\n  - [x] implementing (expert 02c99a7e v0.5.88)\n  - [ ] testing (tester executes 8 TS — pending)\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [Sprint 18 Planning](./planning.md)\n  - Sprint unit: `ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962`\n  - Atomic requirements (covered): R18.5 + R18.6 + R18.7 \u2014 req-eng `22f43f31` + `a558480b`\n- follows\n  - T186 R-Y1 (closed; lazy-LOAD verified)\n  - T186 R-Y2 (closed; expand/collapse verified)\n- down\n  - None (atomic task \u2014 8 TS are test scenarios for execution)",
+    "traceability": "- up\n  - [Sprint 18 Planning](./planning.md)\n  - Sprint unit: `ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962`\n  - Atomic requirements (covered): R18.5 + R18.6 + R18.7 — req-eng `22f43f31` + `a558480b`\n- follows\n  - T186 R-Y1 (closed; lazy-LOAD verified)\n  - T186 R-Y2 (closed; expand/collapse verified)\n- down\n  - None (atomic task — 8 TS are test scenarios for execution)",
     "context": "",
     "intention": "",
     "role": "",
     "acceptanceCriteria": "",
-    "qaAudit": "- 2026-06-05: Tester pre-authored 8 test scenarios from PO's AC description. Ready to execute the instant expert deploys.\n- 2026-06-05: Expert `02c99a7e` v0.5.88 shipped \u2014 seed-path incremental append + toggle (no full re-render); fetchAndRenderChildren appends only; scroll preserved. Tester strict-bar execution pending.\n- 2026-06-05: Planner reconciled (learning #20+#26): moved from sprint-17 to sprint-18 (correct sprint); fake-suffix task uuid \u2192 real v4 `08e46ce3-\u2026` matching scenario unit; added Traceability + Subtasks sections for Web4Articles audit compliance.",
-    "subtasks": "None (atomic task \u2014 8 TS above are test scenarios for execution, not subtasks).",
+    "qaAudit": "- 2026-06-05: Tester pre-authored 8 test scenarios from PO's AC description. Ready to execute the instant expert deploys.\n- 2026-06-05: Expert `02c99a7e` v0.5.88 shipped — seed-path incremental append + toggle (no full re-render); fetchAndRenderChildren appends only; scroll preserved. Tester strict-bar execution pending.\n- 2026-06-05: Planner reconciled (learning #20+#26): moved from sprint-17 to sprint-18 (correct sprint); fake-suffix task uuid → real v4 `08e46ce3-…` matching scenario unit; added Traceability + Subtasks sections for Web4Articles audit compliance.",
+    "subtasks": "None (atomic task — 8 TS above are test scenarios for execution, not subtasks).",
     "assigned": "",
     "architectDesign": "",
     "dependencies": "",
@@ -23,26 +23,8 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:71d57474-3f95-4a91-b45c-423663bb7d30"
-    ],
-    "implementations": [],
-    "sprint": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
-    "unitLinks": [
-      "sprints.json/sprint-18-chain-method-scope/task/task-190-tree-expand-append-no-rerender.json"
-    ],
-    "parent": "ior:instance:8662d51e-a7e8-4815-ab0a-396197533cdb",
-    "coveredRequirements": [
-      "ior:instance:37147d5d-bdb6-4011-a433-2af6b5ad68b4",
-      "ior:instance:3eeea41e-a3e2-4dc5-b1ac-21402f5b3995",
-      "ior:instance:43af9197-cfa5-4da0-9d94-ff8a32d16570",
-      "ior:instance:54185841-cd2f-4fa4-9760-cfa7f8400b99",
-      "ior:instance:574f9ac1-8471-4d26-bd29-2c1dfbeefb6f",
-      "ior:instance:7918528f-0f4f-4948-b86d-9047aaea5b35",
-      "ior:instance:9de73675-833c-427b-b996-e9ab589a1fd4",
-      "ior:instance:a674bb4d-2601-4331-b82b-6428a0ded81e",
-      "ior:instance:d04d2e83-fccd-43a0-b13f-8c6710cf326e"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
 }

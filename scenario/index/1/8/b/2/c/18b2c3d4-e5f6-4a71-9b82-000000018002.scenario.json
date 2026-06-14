@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18b2c3d4-e5f6-4a71-9b82-000000018002",
+    "name": "The narrowing is not just at the Class→Method level — it ...",
+    "description": "> TRON: \"on the traceability browser it needs to be only exactly the one method, that fulfills the current requirement down to the test that tests it\"",
+    "tronQuote": "> TRON: \"on the traceability browser it needs to be only exactly the one method, that fulfills the current requirement down to the test that tests it\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

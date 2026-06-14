@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "9184bb2c-d69d-4636-9115-e32d0a23b927",
+    "name": "ClassRegistry",
+    "file": "[class:uuid:60a20d33-6b6e-4acc-b9da-2685380f23cb]",
+    "methods": [
+      "ior:instance:ea19db5f-4850-47d8-8c4d-3726b743e96b",
+      "ior:instance:644dbdd2-41e0-4068-86e1-3ede0c86bfab"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

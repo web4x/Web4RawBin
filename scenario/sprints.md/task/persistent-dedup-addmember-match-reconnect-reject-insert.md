@@ -12,6 +12,12 @@
 - [ ] QA Review
 - [ ] Done
 
+## Traceability
+
+**UseCases:**
+- [🔗 room.rejoinDedup](../usecase/room-rejoindedup.md)
+
+
 ## Task Description
 
 Room.addMember() matches by playerToken first: if match+disconnected then update entry (swap id/ws, flip disconnected=false, broadcast MEMBER_RECONNECTED); if match+connected then reject (duplicate); if no match then insert (current path). Covers R19.8.B (persistent rejoin flips existing member back to online, never adds a duplicate).

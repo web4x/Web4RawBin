@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18b8c9d0-e1f2-4a3b-5c6d-000000018008",
+    "name": "Tree root structure for BOTH /scenario and /trace:",
+    "description": "> TRON: \"from my perspective the sprint.json with list of tasks should be in both cases the top. each task holding all atomic requirements covered as children and then either scenario tree or traceability chain from the atomic requirements down to the tests.\"",
+    "tronQuote": "> TRON: \"from my perspective the sprint.json with list of tasks should be in both cases the top. each task holding all atomic requirements covered as children and then either scenario tree or traceability chain from the atomic requirements down to the tests.\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

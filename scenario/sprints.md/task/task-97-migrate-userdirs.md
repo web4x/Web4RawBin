@@ -14,12 +14,6 @@
 
 ## Traceability
 
-**Tests:**
-- [🔗 R14.1/R14.2](../test/r14-1-r14-2.md)
-
-
-## Traceability
-
 - up
   - [requirement:uuid:3465dfd3-6fec-4b69-a643-7e379fa3e2d7](./requirements.md) — R14.2 migrate user dirs to UUIDv4
   - [Sprint 14 Planning](./planning.md)

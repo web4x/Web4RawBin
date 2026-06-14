@@ -19,7 +19,7 @@ Narrow the traceability chain at Class→Method to the ONE method that fulfills 
 - [x] [Object.verb UC population + Class/Method/Impl chain wiring (multi-phase epic)](../task/t195-object-verb-uc-population-chain-wiring.md)
 - [x] [Orphan-method + wrong-type-UUID cleanup in Method.implementation chain](../task/t197-orphan-method-wrong-type-uuid-cleanup.md)
 - [x] [Sprint scenario units + sprint catalogue cleanup (dedupe + numbered rename)](../task/t198-sprint-scenario-units-catalogue-cleanup.md)
-- [ ] [SVG viewer: fullscreen iframe + native zoom](../task/svg-fullscreen-iframe-native-zoom.md)
+- [ ] [R18.34 — SVG viewer with scoped pinch/pan (cross-browser)](../task/task-r18.34-svg-viewer-scoped-pinch-zoom.md)
 - [ ] [T202: Class.method-per-UC narrowing — shared Class picks wrong method](../task/class-method-per-uc-narrowing-shared-class-wrong-method.md)
 - [ ] [T-detail-parent-link: parent link above scenario-view navigates to ownerIor](../task/detail-parent-link-ownerio.md)
 - [ ] [T-detail-browse-file: Browse-File link opens file-browser folder with highlight](../task/detail-browse-file-folder-highlight.md)

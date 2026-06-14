@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "b29f0e02-5d6e-4b4c-9f80-002233445566",
+    "name": "T29: Update OOSH Sprint Tool — Template Enforcement",
+    "slug": "task-29-update-sprint-tool",
+    "description": "",
+    "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 4 Planning](./planning.md)\n  - [T27: Sprint CLI Tool](./task-27-sprint-cli.md) (original tool)\n- down\n  - None (atomic task)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] `sprint status` finds all tasks across all sprints (not 0)\n- [x] `sprint audit` reports UUID, Traceability, Subtasks, dates compliance\n- [x] `sprint create` generates Web4Articles-compliant template\n- [x] `sprint fix` batch-fixes structural issues in task files\n- [x] `sprint done` adds completion date\n- [x] Tool works on RawBin scrum.pmo (SPRINT_PMO_DIR)",
+    "qaAudit": "## Subtasks\nNone (atomic task for this sprint).",
+    "subtasks": "None (atomic task for this sprint).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:8a4fdd81-9d71-449b-b58f-cb9cb3c5befd"
+}

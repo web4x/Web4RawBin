@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18f6a7b8-c9d0-4e15-9bc6-000000018006",
+    "name": "Expanding a node must INSERT child `<rb-object-item>` ele...",
+    "description": "> TRON: \"the tree is rendered on each click fully and not lazy by layer on expand, only adding itemview levels\"",
+    "tronQuote": "> TRON: \"the tree is rendered on each click fully and not lazy by layer on expand, only adding itemview levels\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "015b1ac0-eb5d-4b4b-9749-84d3b2214421",
+    "name": "SpeakingTree",
+    "file": "",
+    "methods": [
+      "ior:instance:f6c54ccd-653f-4c4d-9429-058375a795cd",
+      "ior:instance:23e5f9c9-917f-488d-9c71-9e881a2a2bc8"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

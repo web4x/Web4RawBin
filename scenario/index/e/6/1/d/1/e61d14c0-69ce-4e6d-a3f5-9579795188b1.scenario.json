@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "e61d14c0-69ce-4e6d-a3f5-9579795188b1",
+    "name": "| Requirement | UUID (short) | Task | Category |",
+    "description": "> TRON DIRECTIVE: \"The traceability chain data is very bad — diagnose what's wrong and fix it.\"",
+    "tronQuote": "> TRON DIRECTIVE: \"The traceability chain data is very bad — diagnose what's wrong and fix it.\"",
+    "tasks": [
+      "ior:instance:a6c66693-4e28-4a2a-be02-0f202084ac95"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:170df251-99f4-4583-8ef7-9bde9d51339c"
+}

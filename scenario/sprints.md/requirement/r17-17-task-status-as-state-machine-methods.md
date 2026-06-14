@@ -10,6 +10,3 @@
 
 **Tasks:**
 - [🔗 T132: HTML status template fix](../task/task-132-html-status-template-fix.md)
-
-**UseCases:**
-- [🔗 statusTemplate.renderHtml](../usecase/statustemplate-renderhtml.md)

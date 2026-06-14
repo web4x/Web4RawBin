@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "bca855a1-1cdf-42b1-9121-1ec3e5611ffb",
+    "name": "T34: One-Click Update",
+    "slug": "task-34-update-mechanism",
+    "description": "- PO: SW lifecycle skipWaiting/clientsClaim, version check on load, update available banner, one-click Update Now button.",
+    "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 5 Planning](./planning.md)\n- down\n  - None (atomic task)",
+    "context": "Sprint 5 requirement from Tron: thin internet connection, app must work offline, installable PWA with one-click update, traffic optimized via browser cache and sync.",
+    "intention": "Verified by PO — task matches Tron's directive for offline-capable PWA.",
+    "role": "",
+    "acceptanceCriteria": "- [x] TBD (refined during implementation)",
+    "qaAudit": "- Pending Tron QA review.",
+    "subtasks": "None (atomic task for this sprint).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:d24de30b-697c-4f55-bcec-1a75d2cf6497"
+}

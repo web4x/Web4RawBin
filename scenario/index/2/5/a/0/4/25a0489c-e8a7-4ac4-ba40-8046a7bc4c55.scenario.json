@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "25a0489c-e8a7-4ac4-ba40-8046a7bc4c55",
+    "name": "rb-trace-tree\\n(renderItems)",
+    "file": "renderItems():",
+    "methods": [],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:9f4ba866-19f2-45b1-b9df-29cfc6552249"
+}

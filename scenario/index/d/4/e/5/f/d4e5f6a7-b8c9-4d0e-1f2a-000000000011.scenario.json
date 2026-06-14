@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000011",
+    "name": "R17.12: All files are units, referenceable via IOR",
+    "description": "> TRON: \"there shall be navigation between the file browse and the traceability browser possible.\"",
+    "tronQuote": "> TRON: \"there shall be navigation between the file browse and the traceability browser possible.\"",
+    "tasks": [
+      "ior:instance:b66fdf54-04f4-4609-9ded-04c835348b32"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

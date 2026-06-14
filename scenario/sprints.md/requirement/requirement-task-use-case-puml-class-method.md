@@ -2,11 +2,11 @@
 
 <details><summary>Tron directive</summary>
 
-> > Tron: _(req to insert literal quote)_
+> > Tron (via T99): "Tron explicitly authorizes the legacy deletion." — Gated: NEVER auto-runs.
 
 </details>
 
 ## Traceability
 
 **Tasks:**
-- [🔗 T99: Remove Legacy Load Path + Files — ⛔ GATED](../sprints.md/task/task-99-remove-legacy.md)
+- [🔗 T99: Remove Legacy Load Path + Files — ⛔ GATED](../task/task-99-remove-legacy.md)

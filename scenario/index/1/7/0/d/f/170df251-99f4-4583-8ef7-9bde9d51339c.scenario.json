@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "170df251-99f4-4583-8ef7-9bde9d51339c",
+    "name": "Sprint traceability ux",
+    "number": 16,
+    "goal": "",
+    "status": "In Progress",
+    "tasks": [
+      "ior:instance:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50",
+      "ior:instance:471b9c4a-378f-4e56-a990-28f82a998b80",
+      "ior:instance:6d2225b7-d96b-4452-8719-b3667b344816",
+      "ior:instance:09dd41a7-8712-4012-ba05-1d34f6d94e07",
+      "ior:instance:a9341bae-656e-4e87-ab50-c9a17a7c9222",
+      "ior:instance:f1157eb1-c259-4d46-a7f3-6e5db1824a05",
+      "ior:instance:01168fc2-d36a-4e57-b804-7f6ec2935b16",
+      "ior:instance:d1f826f8-f667-45cf-ac4a-a293e41679c4",
+      "ior:instance:e7cb6434-97a2-4752-8d63-f8bea13646b6",
+      "ior:instance:a6c66693-4e28-4a2a-be02-0f202084ac95",
+      "ior:instance:bbca5514-a5c0-4a32-8be4-bf1133290c7a",
+      "ior:instance:05e394aa-d21b-4aaa-88ba-611cd427c2f1"
+    ],
+    "requirements": []
+  },
+  "ownerIor": null
+}

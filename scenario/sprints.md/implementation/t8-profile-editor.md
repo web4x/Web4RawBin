@@ -6,3 +6,4 @@
 
 **Tests:**
 - [🔗 test:T8 profile editor](../test/test-t8-profile-editor.md)
+- [🔗 UPDATE_PROFILE returns token/uuid](../test/update-profile-returns-token-uuid.md)

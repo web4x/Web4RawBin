@@ -14,19 +14,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 traceTree.expandChain](../usecase/tracetree-expandchain.md)
-
-**Methods:**
-- [🔗 RbTraceTree.nodeEl](../method/rbtracetree-nodeel.md)
-- [🔗 RbTraceTree.renderSeed](../method/rbtracetree-renderseed.md)
-
-**Tests:**
-- [🔗 R15.7](../test/r15-7.md)
-
-
-## Traceability
-
 - up
   - [requirement:uuid:75a7b8c9-d0e1-4f26-8cd7-5b6c7d8e9f07](./requirements.md) — R15.7 traceability browser
   - [Sprint 15 Planning](./planning.md)

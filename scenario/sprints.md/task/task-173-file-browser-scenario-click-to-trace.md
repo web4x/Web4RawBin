@@ -14,15 +14,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 scenarioClick.lazyLoad](../usecase/scenarioclick-lazyload.md)
-
-**Tests:**
-- [🔗 T125 scenario-unit primitives](../test/t125-scenario-unit-primitives.md)
-
-
-## Traceability
-
 - up
   - [Sprint 17 Planning](./planning.md)
   - [compound-requirement-source-2.md](./compound-requirement-source-2.md) — R-K1, R-K2, R-K3, R-L (Tron verbatim, captured by robbin-req)

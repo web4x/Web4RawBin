@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "043e0923-69ec-4f66-94fb-77f8672c8ba5",
+    "name": "Method.get implementations(): Implementation[]",
+    "className": "Method",
+    "methodName": "get implementations(): Implementation[]"
+  },
+  "ownerIor": "ior:instance:acbe4d6e-7c2b-4318-af6c-dbda15ef6595"
+}

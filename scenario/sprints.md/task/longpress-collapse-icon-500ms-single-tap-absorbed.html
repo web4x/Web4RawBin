@@ -1,0 +1,38 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T-longpress-collapse: icon collapse via 500ms long-press, single-tap absorbed</h2><code>b476df5f-1eb8-44ca-9125-42b16e052a0c</code></div>
+<div class="sv-section sv-trace-tree"><h3>Traceability</h3><div class="sv-chain-group"><h4>UseCases</h4><div class="sv-chain-item"><a href="/md/scenario/sprints.md/usecase/objectitem-longpresscollapse.md" class="chain-link">🔗 objectItem.longPressCollapse</a></div></div></div>
+<div class="sv-section"><h3>Task Description</h3><p>R19.92 impl spec:
+
+1. Add private fields to RbObjectItem:
+   private _collapseTimer: number | null = null;
+   private _collapseStartXY: [number, number] = [0, 0];
+
+2. In connectedCallback (after _initialized guard):
+   this.querySelector('.oi-icon')?.addEventListener('touchstart', this.onIconTouchStart, { passive: true });
+   this.querySelector('.oi-icon')?.addEventListener('touchmove', this.onIconTouchCancel, { passive: true });
+   this.querySelector('.oi-icon')?.addEventListener('touchend', this.onIconTouchCancel);
+
+3. onIconTouchStart = (e: TouchEvent): void =&gt; {
+   const t = e.touches[0];
+   this._collapseStartXY = [t.clientX, t.clientY];
+   this._collapseTimer = window.setTimeout(() =&gt; {
+     this._collapseTimer = null;
+     this.toggleAttribute('collapsed');
+     if (navigator.vibrate) navigator.vibrate(50);
+   }, 500);
+};
+
+4. onIconTouchCancel = (): void =&gt; {
+   if (this._collapseTimer !== null) {
+     clearTimeout(this._collapseTimer);
+     this._collapseTimer = null;
+   }
+};
+
+5. In onClickDelegate, REMOVE the icon-click → collapse branch (lines 110-113). Icon click now does nothing (absorbed). The expander branch (lines 115-119) and navigate fallback (lines 121-122) stay.
+
+6. In disconnectedCallback: this.onIconTouchCancel() to clear any pending timer.
+
+7. dragstart on .oi-icon: add this.onIconTouchCancel() at start of onDragStart to cancel collapse timer if drag begins.
+
+RESULT: single-tap on icon = no action. Long-press 500ms = collapse + haptic. Drag = unaffected (touchmove/dragstart cancel timer). Scroll = unaffected (touchmove cancels timer).</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p></p></div></div>

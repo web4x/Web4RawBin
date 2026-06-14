@@ -16,12 +16,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 objectItem.drag](../usecase/objectitem-drag.md)
-
-
-## Traceability
-
 `[task:uuid:a9341bae-656e-4e87-ab50-c9a17a7c9222]`
 
 - up

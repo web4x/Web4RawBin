@@ -13,12 +13,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 pwa.updateBanner](../usecase/pwa-updatebanner.md)
-
-
-## Traceability
-
 - up
   - [requirement:uuid:5b6122fe-75f1-4a33-9b2f-63fcaeb4323f](./requirements.md) — R-V1: Update bar must appear
   - [Sprint 13 Planning](./planning.md)

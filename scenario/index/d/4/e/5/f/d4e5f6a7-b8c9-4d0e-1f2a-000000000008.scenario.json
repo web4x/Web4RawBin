@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000008",
+    "name": "R17.9: planning.md is a generated Task-overview",
+    "description": "> TRON: \"views are purely generated and live updated from the flat json data\"",
+    "tronQuote": "> TRON: \"views are purely generated and live updated from the flat json data\"",
+    "tasks": [
+      "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

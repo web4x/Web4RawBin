@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "fd1a875f-4a55-4db1-9140-f67e9d4e4c95",
+    "name": "IORResolver.resolve(ior): ScenarioUnit | ClassLoader",
+    "className": "IORResolver",
+    "methodName": "resolve(ior): ScenarioUnit | ClassLoader"
+  },
+  "ownerIor": "ior:instance:4faa8312-9f9d-4dc6-a728-9ce800c758cc"
+}

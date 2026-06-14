@@ -10,6 +10,3 @@
 
 **Tasks:**
 - [🔗 T92: Avatar Upload — Never Expose Key Errors to User](../task/task-92-avatar-upload-ux.md)
-
-**UseCases:**
-- [🔗 avatar.keylessUpload](../usecase/avatar-keylessupload.md)

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18c3d4e5-f6a7-4b82-9c93-000000018003",
+    "name": "This sprint dogfoods the S17 scenario-unit system (R17.7-...",
+    "description": "> TRON: \"start to plan a new sprint as scenario.json first and then generate the sprint and task mds from it\"",
+    "tronQuote": "> TRON: \"start to plan a new sprint as scenario.json first and then generate the sprint and task mds from it\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

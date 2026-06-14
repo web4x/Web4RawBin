@@ -14,8 +14,8 @@
     "role": "",
     "acceptanceCriteria": "- [x] AC1 — Scenario unit JSON shape `{ior, model, ownerIor}` defined with `ior` = class loader\n- [x] AC2 — IOR format defined: `ior:class:<Name>`, `ior:instance:<uuid>`, `ior:file:<path>`\n- [x] AC3 — Loading protocol defined: read ior → resolve class → instantiate → populate model+ownerIor\n- [x] AC4 — All 7 class models defined (Sprint, Task, Requirement, UseCase, Class, Method, Test)\n- [x] AC5 — Compatibility with existing TraceModel documented\n- [ ] AC6 — PO + Tron reviewed",
     "qaAudit": "- 2026-05-30: Design authored, refined per Tron clarification (ior = class loader). Awaiting PO + Tron review.\n- 2026-05-30: Planner audit flag — missing template sections. Fixed.",
-    "subtasks": "None (atomic sub-task).\n\n---",
-    "assigned": "**Owner:** robbin-architect (design lead)",
+    "subtasks": "None (atomic sub-task).",
+    "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** None (foundation design)\n- **Enables:** T124.2 (view templates need class models), T124.3 (storage needs JSON shape), T125 (implementation)",
     "definitionOfDone": "- [ ] All AC met; design reviewed by PO + Tron\n- [ ] Committed with standard template sections\n- [ ] Tron QA approved",
@@ -23,21 +23,8 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:17a00101-0001-4a01-a001-000017010001",
-      "ior:instance:17a00102-0002-4a02-a002-000017010002",
-      "ior:instance:17a00103-0003-4a03-a003-000017010003"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-124.1-architect-data-model.md",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-124.1-architect-data-model.json"
-    ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
-    "coveredRequirements": [
-      "ior:instance:9dedeb00-6038-4c43-bcd4-efab99792be1"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
 }

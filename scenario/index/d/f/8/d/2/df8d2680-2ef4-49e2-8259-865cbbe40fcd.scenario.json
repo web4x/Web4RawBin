@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "df8d2680-2ef4-49e2-8259-865cbbe40fcd",
+    "name": "RbTaskDetail",
+    "file": "[class:uuid:4df19279-f2b8-438d-97b8-03fb37e049d5]",
+    "methods": [
+      "ior:instance:755401de-b7ec-48e8-be08-60b50d4c3a53"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

@@ -1,6 +1,13 @@
 # T170: Diligent plan + no-stop sustain (cadence + quality gates)
 [task:uuid:6cf46cd1-5f65-4474-a023-1b54b56adb06]
 
+## Status
+
+- [ ] Planned
+- [ ] In Progress
+- [ ] QA Review
+- [ ] Done
+
 ## Traceability
 
 `[task:uuid:6cf46cd1-5f65-4474-a023-1b54b56adb06]`

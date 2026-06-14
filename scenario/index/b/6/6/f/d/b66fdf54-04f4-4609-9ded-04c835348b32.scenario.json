@@ -15,7 +15,7 @@
     "acceptanceCriteria": "- [ ] AC1 — From a Task tree node on `/trace`, \"Open file\" navigates to the corresponding `/md/.../task-N-*.md` (or its generated view)\n- [ ] AC2 — From a `/md/` rendered task file, \"Open in trace\" navigates to `/trace` with the right DetailView open\n- [ ] AC3 — Calling `IOR.resolve(ior)` on any repo file (md/ts/puml/json) returns `{filePath, class?, view?}` with appropriate fallbacks for non-scenario files\n- [ ] AC4 — Mobile (iPhone) — both nav directions work; safe-area respected\n- [ ] AC5 — `npm run build` succeeds; suite passes; **version + sw.js bumped per #15**; **STATIC_SHELL entry per #16 if any new SPA route introduced**\n- [ ] AC6 — At least one playwright E2E covers the round-trip /trace → /md/ → /trace",
     "qaAudit": "- 2026-05-30: Planned — awaiting T125+T126, then expert implementation.",
     "subtasks": "T127.1, T127.2 — files created by expert during refinement.\n\n---\n\n*Sprint 17 — Scenario Units / IOR Data Model & Class Views · Phase 4*\n*Owner: robbin-expert (impl), robbin-tester (verify)*\n*Priority: 4 (navigation — gates UX usability of migrated sprints)*",
-    "assigned": "**Owner:** robbin-expert (implement), robbin-tester (verify)",
+    "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** T125 (IOR primitive), T126 (generated views are the targets)\n- **Enables:** complete user nav loop; precondition for migrated sprints being usable",
     "definitionOfDone": "- [ ] All AC met; sub-tasks T127.1, T127.2 committed\n- [ ] Rule-pair #15 + #16 verified (route introduction call documented in commit)\n- [ ] Tests pass, build clean\n- [ ] Tron QA approved",
@@ -23,19 +23,8 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:17a00203-0003-4a03-a003-000017020003"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:src/ts/scenario/ior-resolver.ts",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-127-navigation.json"
-    ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
-    "coveredRequirements": [
-      "ior:instance:80a7291e-be43-492d-882d-c5ac83a0e5e5"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
 }

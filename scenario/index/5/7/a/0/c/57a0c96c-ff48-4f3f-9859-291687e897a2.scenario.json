@@ -23,30 +23,8 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:f5abd427-4a1d-4824-ae65-9038de6031d3"
-    ],
-    "implementations": [],
-    "tests": [
-      "ior:instance:4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1"
-    ],
-    "methods": [
-      "ior:instance:0887265f-6652-451b-8986-34b6a7f909b1",
-      "ior:instance:66484695-b395-4415-a676-299f67d8318b",
-      "ior:instance:aed37375-3dfb-4434-81b0-f5ec7bbad7de",
-      "ior:instance:e5540f15-4bf4-484a-8632-764c98aa52a9",
-      "ior:instance:7601e257-afe5-4495-a7b5-b4c4bf79c6ce",
-      "ior:instance:0d99b7e1-f423-48b2-8243-4fc6f8d2c6ea"
-    ],
-    "sourceFile": "ior:file:src/ts/shared/TraceModel.ts",
-    "sourceLine": 9,
-    "unitLinks": [
-      "sprints.json/sprint-15-traceability-browser/task/task-101-object-model.json"
-    ],
-    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
-    "coveredRequirements": [
-      "ior:instance:05284ac5-131a-4e10-a2f7-7215e026e438"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
+  "ownerIor": "ior:instance:2ede66fe-0949-439f-a1c8-0971d55c92c8"
 }

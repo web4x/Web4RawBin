@@ -20,22 +20,11 @@
     "dependencies": "- **Requires:** T121 (Phase 1 diagnosis catalogue — informs the audit scope), T128.1 exemplar (model for how a properly-formalized req+task pair looks)\n- **Enables:** T124.4 closure; T129 re-verification with smaller allowlist",
     "definitionOfDone": "- [ ] All AC met; verification report in QA Audit section\n- [ ] Tron QA approved",
     "implementation": "",
-    "testScenarios": "| Test | Action | Expected |\n|------|--------|----------|\n| TS1 | `trace-cli check` post-audit on S10-S17 task set | 0 orphan-req errors |\n| TS2 | Spot-check 5 newly-formalized requirements | Each has verbatim Tron quote + v4 uuid + ↔ task-link |\n| TS3 | Spot-check 3 backlog items | Each either has a requirements.md entry or is documented as deferred |\n| TS4 | sprint audit on S10-S17 | 0 issues |\n| TS5 | Verify S1-S9 allowlist unchanged | No regression |",
+    "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:403a2422-f88d-4689-a4a0-86196ae4da34"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-135-req-audit.md",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-135-req-audit.json"
-    ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
-    "coveredRequirements": [
-      "ior:instance:47a86209-e0bb-4142-a6ad-4fff94ff9921"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
 }

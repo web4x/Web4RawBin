@@ -1,0 +1,1 @@
+### TraceGraph.link(a, relation, b, inverse): void

@@ -5,3 +5,8 @@
 > SECURITY: when rendering file previews in iframes (R19.64 — href/HTML content loaded via iframe), the iframe MUST carry a sandbox attribute that prevents script execution, form submission, and top-level navigation from the loaded content. Recommended: sandbox='allow-same-origin' (allows CSS/images but blocks scripts). This prevents XSS/phishing from malicious uploaded HTML files or dropped URLs. Applies to the generic previewer (R19.65) iframe render path.
 
 </details>
+
+## Traceability
+
+**UseCases:**
+- [🔗 contentPreviewer.iframeSandbox](../usecase/contentpreviewer-iframesandbox.md)

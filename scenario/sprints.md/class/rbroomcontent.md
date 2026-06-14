@@ -9,3 +9,4 @@
 
 **Methods:**
 - [🔗 RbRoomContent.render](../method/rbroomcontent-render.md)
+- [🔗 RbRoomContent.filePreview](../method/rbroomcontent-filepreview.md)

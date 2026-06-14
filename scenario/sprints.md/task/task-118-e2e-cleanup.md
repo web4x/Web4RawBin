@@ -16,12 +16,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 mdPreview.renderList](../usecase/mdpreview-renderlist.md)
-
-
-## Traceability
-
 `[task:uuid:c2118a07-d18e-4e1b-b9a2-5f8e2c1f0d77]`
 
 - up

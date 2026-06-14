@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "11e7f853-b043-4277-bc95-bf0cd744fe11",
+    "name": "UseCase",
+    "file": "",
+    "methods": [
+      "ior:instance:7b85dd46-54a7-4bb2-8f01-61735529d137",
+      "ior:instance:f015786c-89b1-44d1-8572-1ea5556d9c62",
+      "ior:instance:56e85d15-6e0b-462d-8dec-5c0db944aea3"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

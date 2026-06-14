@@ -15,7 +15,7 @@
     "acceptanceCriteria": "- [ ] AC1 — `Unit` base + `IOR.resolve(ior)` work end-to-end (round-trip serialize/parse/load)\n- [ ] AC2 — All 7 classes instantiable as `{ior, model, ownerIor}`; `ownerIor` resolves to the parent (e.g. Task.ownerIor → Sprint)\n- [ ] AC3 — `scenario/index/<5char>/<uuid>.scenario.json` write+read works; one round-trip preserves bytes\n- [ ] AC4 — `scenarios/sprints.json/sprint-1/task-1/task-1.1` symlink resolves to the right index file (speaking-name tree → UUID store)\n- [ ] AC5 — `TemplateRegistry.register(class, html, md)` + `view.render(unit) → {html, md}` work for at least the Task class\n- [ ] AC6 — vitest covers T125.1-T125.4 (≥1 test per sub-task)\n- [ ] AC7 — `npm run build` succeeds; full suite passes; **version + sw.js bumped per #15**; **STATIC_SHELL untouched** per #16 (T125 introduces no new SPA route — server-side + tooling only)",
     "qaAudit": "- 2026-05-30: Planned — awaiting T124 refinement, then expert implementation per architect design.",
     "subtasks": "T125.1, T125.2, T125.3, T125.4 — files created by expert during refinement.\n\n---\n\n*Sprint 17 — Scenario Units / IOR Data Model & Class Views · Phase 2*\n*Owner: robbin-expert (impl), robbin-tester (verify)*\n*Priority: 2 (foundation implementation — gates Phase 3+)*",
-    "assigned": "**Owner:** robbin-expert (implement), robbin-tester (verify)\n**This file is the single source of truth.** Sub-task files (T125.1-T125.4) created by expert during refinement.",
+    "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** T124 (architecture + standards)\n- **Enables:** T126 views, T127 nav, T128 migration, T129 verify",
     "definitionOfDone": "- [ ] All AC met; sub-tasks T125.1-T125.4 committed\n- [ ] Tests pass, build clean; rule-pair #15/#16 verified\n- [ ] Tron QA approved",
@@ -23,24 +23,8 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:17a00101-0001-4a01-a001-000017010001",
-      "ior:instance:17a00102-0002-4a02-a002-000017010002",
-      "ior:instance:17a00103-0003-4a03-a003-000017010003",
-      "ior:instance:17a00104-0004-4a04-a004-000017010004",
-      "ior:instance:17a00105-0005-4a05-a005-000017010005"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:src/ts/scenario/classes.ts",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-125-foundation.json"
-    ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
-    "coveredRequirements": [
-      "ior:instance:ea1aeef4-3603-4fe3-9d5d-5b0800f3991e",
-      "ior:instance:1ad6eba3-8b71-4476-838f-ad2af85fab0c"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
 }

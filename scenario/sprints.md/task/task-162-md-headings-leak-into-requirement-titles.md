@@ -1,6 +1,13 @@
 # T162: MD artifacts (`##` headings) leak into requirement titles
 [task:uuid:7efe9b40-c7fe-407e-9cba-869261b8dcad]
 
+## Status
+
+- [ ] Planned
+- [ ] In Progress
+- [ ] QA Review
+- [ ] Done
+
 ## Traceability
 
 `[task:uuid:7efe9b40-c7fe-407e-9cba-869261b8dcad]`

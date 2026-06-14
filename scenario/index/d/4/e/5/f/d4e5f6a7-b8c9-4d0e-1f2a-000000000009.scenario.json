@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000009",
+    "name": "R17.10: Sprint overview = list of sprint items",
+    "description": "> TRON: \"planning.md becomes an task overview from task item views as md and html views.\"",
+    "tronQuote": "> TRON: \"planning.md becomes an task overview from task item views as md and html views.\"",
+    "tasks": [
+      "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

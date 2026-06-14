@@ -12,6 +12,16 @@
 - [ ] QA Review
 - [ ] Done
 
+## Traceability
+
+**UseCases:**
+- [🔗 detailView.singularChainSection](../usecase/detailview-singularchainsection.md)
+- [🔗 detailView.allChildrenSection](../usecase/detailview-allchildrensection.md)
+- [🔗 detailView.supersededLinks](../usecase/detailview-supersededlinks.md)
+- [🔗 detailView.renderAllChildren](../usecase/detailview-renderallchildren.md)
+- [🔗 detailView.renderSuperseded](../usecase/detailview-rendersuperseded.md)
+
+
 ## Task Description
 
 Detail view must show the singular chain per UseCase (one method per UC) not the full Class.methods[] fan-out. NOTE: this is a regression of R18.24 (detail chain narrowing). Flag in verificationHistory. Covers R19.34.

@@ -12,4 +12,4 @@
 - [🔗 T-file-preview: clicking a file unit in the room tree shows a preview in the detail view](../task/file-unit-click-preview-detail-view.md)
 
 **UseCases:**
-- [🔗 file.clickPreview](../usecase/file-clickpreview.md)
+- [🔗 detailDrawer.renderFilePreview](../usecase/detaildrawer-renderfilepreview.md)

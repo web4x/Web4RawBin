@@ -5,4 +5,5 @@
 ## Traceability
 
 **Tests:**
-- [🔗 23b24a9b](/scenario?ior=23b24a9b-22c5-4311-a86b-f51f72481602)
+- [🔗 test:R17.4 resolveInstance](../test/test-r17-4-resolveinstance.md)
+- [🔗 test:R17.13 resolveInstance](../test/test-r17-13-resolveinstance.md)

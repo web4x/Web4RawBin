@@ -10,10 +10,3 @@
 
 **Tasks:**
 - [🔗 T125: Scenario-unit primitives + class system + storage](../task/task-125-foundation.md)
-
-**UseCases:**
-- [🔗 unit.load](../usecase/unit-load.md)
-- [🔗 ior.resolveClass](../usecase/ior-resolveclass.md)
-- [🔗 ior.resolveInstance](../usecase/ior-resolveinstance.md)
-- [🔗 index.put](../usecase/index-put.md)
-- [🔗 index.get](../usecase/index-get.md)

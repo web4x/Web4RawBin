@@ -15,27 +15,16 @@
     "acceptanceCriteria": "- [ ] AC1 — UseCase template chain block renders `🔗 [Speaking Name](sprints.json/...)` for every cross-reference (every existing chain edge in the migrated Sprint-1 UseCase units)\n- [ ] AC2 — Links resolve through the `scenarios/sprints.json/` symlink tree to the target's speaking-name path (T131 file-browser symlink support already makes these navigable)\n- [ ] AC3 — Broken/missing target falls back to raw IOR text — no broken links in output\n- [ ] AC4 — Architect's scope decision documented in this file: UseCase-only, or extended to all 7 (Sprint/Task/Requirement/UseCase/Class/Method/Test)\n- [ ] AC5 — If scope extends, all 7 class templates render chain links consistently (uniform icon + path format)\n- [ ] AC6 — Visual: tester opens 3 sample views on `/md/scenarios/sprints.md/usecase/...` and confirms the icon + clickable link + correct target\n- [ ] AC7 — `npm run build` succeeds; full suite passes; **rule-pair (a) package.json + (b) sw.js CACHE_NAME bumped** per learnings #15 (T126 output served via /md/ = user-facing); **(c) STATIC_SHELL exempt** per #16 (template-only change, no new route — confirm in commit)\n- [ ] AC8 — No regression: existing T132 (HTML status template) + T133 (FSM rendering) + T134 (TraceLink view) all still render correctly",
     "qaAudit": "- 2026-05-31: Tron via PO 2026-05-31 directed planning. CMM4 4-role engagement enforced (learnings #18). Real v4 uuids per #17. Awaiting req anchor + architect design.",
     "subtasks": "None (atomic task; architect may split if extend-to-all-7 is large).\n\n---\n\n*Sprint 17 — Scenario Units / IOR Data Model & Class Views · Phase 3 follow-on*\n*Owners (CMM4): robbin-req → robbin-architect → robbin-expert → robbin-tester*\n*Priority: 7 (visual legibility of chain navigation in generated views)*",
-    "assigned": "**Owners (CMM4 4-role, per learnings #18) — sequence req → architect → expert → tester:**\n1. **robbin-req** — anchor verbatim Tron quote; formalize `requirement:uuid` below\n2. **robbin-architect** — design chain-link icon rendering + symlink-href generation; decide scope (UseCase template first, then extend to all 7 templates? or single shared fragment?)\n3. **robbin-expert** — implement per architect's design across the chosen template set\n4. **robbin-tester** — visual + click-through verification on /md/ generated views\n\n**This file is the single source of truth.** No chat clarification.",
+    "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** T126 (templates + ViewGenerator), T131 (symlink visibility on /md/), T134 (TraceLink unit — chain edge source), T128.1 (migrated sample to render against)\n- **Coordinate-with:** T140 (source-location IOR — may also need chain-link rendering for class/method)\n- **Enables:** legible chain navigation in migrated views; precondition for T128.3 active-batch migration aesthetic",
     "definitionOfDone": "- [ ] All AC met\n- [ ] Rule-pair (a)+(b) ✓, (c) exempt\n- [ ] Tron QA approved",
     "implementation": "",
-    "testScenarios": "File: `test/vitest/template-chain-link.test.ts` (new).\n\n| Test | Action | Expected |\n|------|--------|----------|\n| TS1 | Render UseCase template with 3 chain refs (1 task, 1 requirement, 1 other-uc) | All 3 links emit `🔗 [Speaking Name](sprints.json/...)` |\n| TS2 | Render with a broken IOR (target not in index) | Falls back to raw IOR text; no broken link emitted |\n| TS3 | Visual: open `/md/scenarios/sprints.md/usecase/<sample-uuid>.md` on live | Chain-link icons visible; links navigate to target via symlink tree (T131 visibility holds) |\n| TS4 | If scope extended: render Task/Requirement/Class/Method/Test templates | All show consistent chain-link rendering |\n| TS5 | Rule-pair: post-bump, PWA reloads | New CACHE_NAME activates; new template visible on device |",
+    "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:6c908bfb-6037-4def-86b9-496e144ef356"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-141-chain-link-icon-symlinks.md",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-141-chain-link-icon-symlinks.json"
-    ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
-    "coveredRequirements": [
-      "ior:instance:9dedeb00-6038-4c43-bcd4-efab99792be1"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
 }

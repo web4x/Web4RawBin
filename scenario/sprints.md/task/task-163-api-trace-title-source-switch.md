@@ -1,6 +1,13 @@
 # T163: /api/trace requirement title source — switch from scanRepo firstLine() to scenario index `model.name`
 [task:uuid:57c1f23f-dbac-4b49-a7a2-e0651a986c3f]
 
+## Status
+
+- [ ] Planned
+- [ ] In Progress
+- [ ] QA Review
+- [ ] Done
+
 ## Traceability
 
 `[task:uuid:57c1f23f-dbac-4b49-a7a2-e0651a986c3f]`

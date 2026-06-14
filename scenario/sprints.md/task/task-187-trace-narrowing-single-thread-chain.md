@@ -14,13 +14,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 traceNarrow.classMethodScope](../usecase/tracenarrow-classmethodscope.md)
-- [🔗 sourceLink.browse](../usecase/sourcelink-browse.md)
-
-
-## Traceability
-
 - up
   - [Sprint 18 Planning](./planning.md)
   - Sprint unit: `ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962`

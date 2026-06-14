@@ -18,12 +18,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 mdListing.chainIcon](../usecase/mdlisting-chainicon.md)
-
-
-## Traceability
-
 `[task:uuid:ea70d80c-66e8-459a-af3d-74b137341303]`
 
 - up

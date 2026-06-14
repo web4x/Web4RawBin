@@ -14,12 +14,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 client.render](../usecase/client-render.md)
-
-
-## Traceability
-
 - up
   - [sprint-1-rawbin-foundation Planning](./planning.md)
 - down

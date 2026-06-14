@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "a150ff77-47c3-4a61-99db-833ccfe90ee4",
+    "name": "ViewTemplateRegistry",
+    "file": "",
+    "methods": [
+      "ior:instance:84440018-510b-4900-9cb4-cc2022115429",
+      "ior:instance:450fb7f5-79c9-4aec-9c33-56f1ac9d4a94",
+      "ior:instance:af4b41e9-0d0e-4102-aea7-c1a1c810a69b"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

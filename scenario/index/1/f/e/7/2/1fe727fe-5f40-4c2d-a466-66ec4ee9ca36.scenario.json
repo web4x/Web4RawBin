@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "1fe727fe-5f40-4c2d-a466-66ec4ee9ca36",
+    "name": "RbObjectItem.collapse, expand, expandChildren",
+    "className": "RbObjectItem",
+    "methodName": "collapse, expand, expandChildren"
+  },
+  "ownerIor": "ior:instance:fd49f5e1-6383-4264-8a7a-ce50b94eaa13"
+}

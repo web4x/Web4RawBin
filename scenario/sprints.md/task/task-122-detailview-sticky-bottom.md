@@ -16,12 +16,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 detailDrawer.stickyBottom](../usecase/detaildrawer-stickybottom.md)
-
-
-## Traceability
-
 `[task:uuid:bbca5514-a5c0-4a32-8be4-bf1133290c7a]`
 
 - up

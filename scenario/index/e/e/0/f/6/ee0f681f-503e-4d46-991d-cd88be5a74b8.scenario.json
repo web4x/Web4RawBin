@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ee0f681f-503e-4d46-991d-cd88be5a74b8",
+    "name": "RbObjectItem.drag(): void",
+    "className": "RbObjectItem",
+    "methodName": "drag(): void"
+  },
+  "ownerIor": "ior:instance:43fd2e62-2543-4590-bf2f-be0b97a773ff"
+}

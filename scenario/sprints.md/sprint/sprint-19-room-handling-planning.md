@@ -67,3 +67,7 @@ Rooms and files become first-class scenario units like every other req/task/meth
 - [ ] [T-generic-previewer: generalize SVG viewer into a generic previewer for SVG/images/href](../task/generic-previewer-svg-images-href.md)
 - [ ] [T-room-scenario-detail: Room Scenario button opens a Room detail view, not 'Task not found'](../task/room-scenario-detail-view-not-task-not-found.md)
 - [ ] [T-flush-cache-button: offline page red Flush PWA Cache button next to Retry](../task/flush-pwa-cache-button-offline-page.md)
+- [ ] [T-room-join-stale-takeover: joining from lobby must succeed (same-token takeover, never reject)](../task/room-join-stale-takeover-same-token.md)
+- [ ] [T-room-file-item-rerender: file items in room tree survive re-render (mirror members lifecycle)](../task/room-file-item-rerender-lifecycle-mirror-members.md)
+- [ ] [T-drawer-drag-resize: the drawer nudge/grab-handle must DRAG-RESIZE the drawer hei](../task/drawer-nudge-drag-resizes-height.md)
+- [ ] [T-iframe-pinch-scale: a pinch gesture inside the preview iframe must SCALE the pre](../task/iframe-pinch-gesture-scales-preview.md)

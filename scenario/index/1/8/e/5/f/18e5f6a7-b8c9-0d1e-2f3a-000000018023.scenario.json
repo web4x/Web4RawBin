@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18e5f6a7-b8c9-0d1e-2f3a-000000018023",
+    "name": "The \"Browse File\" link includes line information from `mo...",
+    "description": "> TRON: \"add line information to the link, so that eg on a method or usecase the monacco editor can open at the correct line\"",
+    "tronQuote": "> TRON: \"add line information to the link, so that eg on a method or usecase the monacco editor can open at the correct line\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

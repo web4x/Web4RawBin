@@ -14,12 +14,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 treeRender.lazyAppend](../usecase/treerender-lazyappend.md)
-
-
-## Traceability
-
 - up
   - [Sprint 18 Planning](./planning.md)
   - Sprint unit: `ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962`

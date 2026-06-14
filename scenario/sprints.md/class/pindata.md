@@ -1,0 +1,3 @@
+### PinData
+
+**File:** `sprintName: string`

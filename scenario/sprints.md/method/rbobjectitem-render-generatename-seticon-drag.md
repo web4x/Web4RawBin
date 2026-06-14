@@ -1,0 +1,1 @@
+### RbObjectItem.render, generateName, setIcon, drag

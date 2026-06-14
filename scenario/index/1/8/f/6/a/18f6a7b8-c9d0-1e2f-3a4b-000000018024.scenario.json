@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18f6a7b8-c9d0-1e2f-3a4b-000000018024",
+    "name": "The detail pane's \"Traceability Chain\" section currently ...",
+    "description": "> TRON: \"Traceability Chain = All children but they should not.\"",
+    "tronQuote": "> TRON: \"Traceability Chain = All children but they should not.\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

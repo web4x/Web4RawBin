@@ -14,15 +14,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 migration.convertLegacy](../usecase/migration-convertlegacy.md)
-
-**Tests:**
-- [🔗 R14.1/R14.2](../test/r14-1-r14-2.md)
-
-
-## Traceability
-
 - up
   - [requirement:uuid:91d85d5a-64d3-4520-a9fc-f2e24110b07b](./requirements.md) — R14.1 migrate legacy rooms
   - [Sprint 14 Planning](./planning.md)

@@ -15,7 +15,7 @@
     "acceptanceCriteria": "- [x] AC1: Tapping a joined member's **name** opens their profile sheet (`.user-sheet` visible)\n- [x] AC2: Tapping a joined member's **avatar** opens their profile sheet (NOT the avatar editor overlay)\n- [x] AC3: Tapping a joined member's **status dot** opens their profile sheet\n- [x] AC4: The opened sheet shows the member's name and avatar\n- [x] AC5: \"Download vCard\" button is present in the sheet and clicking it invokes the vCard builder (produces a .vcf blob)\n- [~] AC6: Tapping OWN badge opens ProfileEditor — **SUPERSEDED by [T83](./task-83-self-click-profile.md)**: self-tap now opens the read-only ProfileSheet (verified in T83 TS1). The old assertion was replaced, not kept.\n- [x] AC7: Exactly ONE `GET_USER_INFO` WS message is sent per tap (no listener stacking) — verified after navigating room→lobby→room twice (WS frame count == 1)\n- [x] AC8: Lobby avatar (RoomBrowser) and ProfileEditor avatar remain editable (tapping them opens the editor overlay — readonly NOT applied there)\n- [x] AC9: `npm run build` succeeds (expert; live server now v0.5.4, well past v0.4.9)\n- [x] AC10: All existing E2E specs still pass (no regression) + new test passes\n- [x] AC11: Served bundle reflects the bump — live `/api/health` + `/api/config` now report v0.5.4 (advanced past v0.4.9 via subsequent deploys; PWA update path exercised by T94)",
     "qaAudit": "- Pending PO refinement review, then Tron QA.",
     "subtasks": "None (atomic task for this sprint).",
-    "assigned": "**Owner:** robbin-expert (implement), robbin-tester (verify)\n**This file is the single source of truth.** Expert and tester work from this file alone — no chat clarification.\n\n---",
+    "assigned": "",
     "architectDesign": "",
     "dependencies": "",
     "definitionOfDone": "",
@@ -23,19 +23,8 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:856c9b1e-fdb9-47f9-a555-6aa70159d3b1"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-10-contacts-ui/task-81-member-click-vcard.md",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-10-contacts-ui/task/task-81-member-click-vcard.json"
-    ],
-    "parent": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab",
-    "coveredRequirements": [
-      "ior:instance:99897fb4-6876-4047-9849-bbdaa840e110"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab"
+  "ownerIor": "ior:instance:a960cac8-fa84-4034-99e6-1cb0e5fff52d"
 }

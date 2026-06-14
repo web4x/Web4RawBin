@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d4e5f6a7-b8c9-4d0e-1f2a-000000000013",
+    "name": "R17.14: Migrate all sprints/tasks/requirements to scenari...",
+    "description": "> TRON: \"each method must be traced completely back to a task and a requirement.\"",
+    "tronQuote": "> TRON: \"each method must be traced completely back to a task and a requirement.\"",
+    "tasks": [
+      "ior:instance:d0f39414-dfb4-4944-ac1b-56dcad0a66fe"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
+}

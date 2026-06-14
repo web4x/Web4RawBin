@@ -20,14 +20,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 detailDrawer.open](../usecase/detaildrawer-open.md)
-- [🔗 detailDrawer.close](../usecase/detaildrawer-close.md)
-- [🔗 detailDrawer.swipeDismiss](../usecase/detaildrawer-swipedismiss.md)
-
-
-## Traceability
-
 `[task:uuid:a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50]`
 
 - up

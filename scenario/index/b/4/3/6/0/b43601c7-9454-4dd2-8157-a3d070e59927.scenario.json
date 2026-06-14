@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "b43601c7-9454-4dd2-8157-a3d070e59927",
+    "name": "ClassRegistry.get(name): ClassLoader",
+    "className": "ClassRegistry",
+    "methodName": "get(name): ClassLoader"
+  },
+  "ownerIor": "ior:instance:fc39af25-4dbf-4656-a03f-4ea0f1d873b5"
+}

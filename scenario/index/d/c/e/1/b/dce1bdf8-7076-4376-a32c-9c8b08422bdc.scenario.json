@@ -15,27 +15,16 @@
     "acceptanceCriteria": "- [x] AC1 — `scenarios/sprints.json/sprint-1/task-1/` (the symlink tree from T128.1) is browsable in `/md/` (Tron-verifiable on live)\n- [x] AC2 — Symlinked entries show the 🔗 marker in rb-file-tree\n- [x] AC3 — Broken symlinks silently skipped (no error popup, no broken entry)\n- [x] AC4 — Symlink target type (dir/file) resolved correctly so navigation goes to the right view\n- [x] AC5 — `(a) v0.5.30 ✓ (b) sw.js rawbin-v0.5.30 ✓ (c) STATIC_SHELL exempt` (no new route) — rule-pair explicit in commit msg\n- [x] AC6 — 818/818 tests pass (build clean)\n- [x] AC7 — Tester independent verification on live: walk `scenarios/sprints.json/sprint-1/...` tree end-to-end; confirm 🔗 markers visible; confirm broken symlinks degrade gracefully (PO-confirmed 2026-05-31; 37 markers verified)",
     "qaAudit": "- 2026-05-31: Tron via PO — file-browser needs symlink support for scenarios/sprints.json/ tree.\n- 2026-05-31: aad0816 v0.5.30 — expert shipped before planner stood up the task; commit subject mis-labelled \"T39\" (T39 is an unrelated S6 task — PWA update banner). Planner retroactively stood up T131 here; corrected the T-numbering; reverse-engineered the 4-role attribution from the commit message (architect diagnosis + design described inline by expert; req-eng quote-anchor pending). Going forward: tasks MUST be stood up BEFORE impl per learnings #18 (CMM4 four-role engagement).\n- Awaiting tester independent verify, then Tron QA.",
     "subtasks": "None (atomic task — small infra fix).\n\n---\n\n*Sprint 17 — Scenario Units / IOR Data Model & Class Views · Phase 5 follow-on*\n*Owners (CMM4): robbin-req (requirement), robbin-architect (design), robbin-expert (impl — done), robbin-tester (verify — pending)*\n*Priority: 7 (browsability of T128 migration output)*",
-    "assigned": "**Owners (CMM4 4-role per learnings #18):** robbin-req (requirement), robbin-architect (diagnosis + design), robbin-expert (implement — done), robbin-tester (verify — pending)\n**This file is the single source of truth.**",
+    "assigned": "",
     "architectDesign": "",
     "dependencies": "- **Requires:** T125.3 (symlink-tree emitter) + T128.1 (live symlink content)\n- **Enables:** browsable scenarios/sprints.json/ tree → human navigation of the migrated structure",
     "definitionOfDone": "- [x] All AC met (AC7 pending tester)\n- [ ] Tester independent verification PASS\n- [x] Rule-pair (a)+(b) ✓, (c) exempt — verified in aad0816 commit msg\n- [ ] Tron QA approved",
     "implementation": "",
-    "testScenarios": "| Test | Action | Expected |\n|------|--------|----------|\n| TS1 | Open /md/ at `scenarios/sprints.json/sprint-1/` | Symlinked task-1, task-1.1 entries visible with 🔗 marker |\n| TS2 | Click a symlinked dir | Navigates into the resolved target (the index entry) |\n| TS3 | Symlink target deleted (induce broken symlink) | Entry silently absent; no error popup |\n| TS4 | rb-file-tree on a mixed dir (regular + symlinks) | All entries render; only symlinks carry 🔗 |\n| TS5 | Restart server, navigate symlink tree | Same behavior; no caching anomalies |",
+    "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:9346ddd7-673f-497b-82dc-2164b42950f8"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-131-file-browser-symlinks.md",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-17-scenario-units/task/task-131-file-browser-symlinks.json"
-    ],
-    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
-    "coveredRequirements": [
-      "ior:instance:cb93f0db-0e42-4795-b41f-2e125120f259"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+  "ownerIor": "ior:instance:f07472c5-a82e-4b30-926d-1bf9c6b38e3e"
 }

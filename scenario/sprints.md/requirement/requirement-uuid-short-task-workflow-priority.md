@@ -9,4 +9,4 @@
 ## Traceability
 
 **Tasks:**
-- [🔗 T130: md preview renders hierarchical lists (nested checkboxes) incorrectly](../sprints.md/task/task-130-md-preview-hierarchical-lists.md)
+- [🔗 T130: md preview renders hierarchical lists (nested checkboxes) incorrectly](../task/task-130-md-preview-hierarchical-lists.md)

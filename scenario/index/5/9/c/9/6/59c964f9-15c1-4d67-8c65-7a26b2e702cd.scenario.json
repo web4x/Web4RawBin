@@ -20,22 +20,11 @@
     "dependencies": "- **Requires:** None\n- **Enables:** Clean E2E going forward (prevents recurrence of the room-flood)",
     "definitionOfDone": "- [ ] All AC met; chain links resolve\n- [ ] Prod data/ proven untouched by an E2E run\n- [ ] Tests pass, build clean\n- [ ] Tron QA approved",
     "implementation": "",
-    "testScenarios": "| Test | Action | Expected |\n|------|--------|----------|\n| TS1 | Run full E2E with DATA_DIR=tmp | tmp dir gets test rooms; prod data/ unchanged |\n| TS2 | Start server with DATA_DIR unset | reads/writes current prod path (no behavior change) |",
+    "testScenarios": "",
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/task-100-test-data-isolation.md",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-13-stability/task/task-100-test-data-isolation.json"
-    ],
-    "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
-    "coveredRequirements": [
-      "ior:instance:80ca8e83-fb72-4e3d-874b-af17cd8c2dbf"
-    ],
-    "orphanByDesign": true,
-    "orphanReason": "process/infra/tooling task — no user-facing feature"
+    "implementations": []
   },
-  "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
+  "ownerIor": "ior:instance:b5c5671b-b4e7-4e4b-a311-235044cf5ede"
 }

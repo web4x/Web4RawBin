@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "2bbeebc2-dbb5-4d6b-9257-6aaf36337343",
+    "name": "TraceConsistency.scanRepo(): {graph, coverage",
+    "className": "TraceConsistency",
+    "methodName": "scanRepo(): {graph, coverage"
+  },
+  "ownerIor": "ior:instance:89285695-4262-4be5-aad6-637affd5f2f9"
+}

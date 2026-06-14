@@ -14,12 +14,6 @@
 
 ## Traceability
 
-**Tests:**
-- [🔗 AC2/AC3/AC4/AC6](../test/ac2-ac3-ac4-ac6.md)
-
-
-## Traceability
-
 - up
   - [requirement:uuid:05284ac5-131a-4e10-a2f7-7215e026e438](./requirements.md) — R15.1 matrix consistency + fix
   - [Sprint 15 Planning](./planning.md)

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "1bdbde63-6ae3-4958-9928-e17f6f36e54d",
+    "name": "Sprint e2e hardening",
+    "number": 3,
+    "goal": "",
+    "status": "Done",
+    "tasks": [],
+    "requirements": []
+  },
+  "ownerIor": null
+}

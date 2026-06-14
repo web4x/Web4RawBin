@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "f5b8c83e-3263-4d76-957b-4fe230e50269",
+    "name": "T199: Scenario data integrity — backfill `ownerIor` + `unitLinks[]` on every unit (R18.32)",
+    "slug": "task-199-scenario-data-integrity-owner-unitlinks",
+    "description": "**Measured baseline (768 units total):**\n| Defect | Count |\n|--------|-------|\n| `ownerIor` field missing entirely | 39 |\n| `ownerIor` empty/null | 145 |\n| `unitLinks[]` field missing | 501 |\n\n**Fix:** Backfill both fields on every scenario unit so the LOCKED chain\n(`requirement → task → useCase → class → method → implementation → test`)\nhas consistent parent pointers (`ownerIor`) AND consistent symlink-state\nrepresentation (`unitLinks[]` per R18.30/R18.31).\n\n- **ownerIor** = the parent/owner unit's IOR in the LOCKED chain (Sprint owns\n  Task; Task owns UseCase; UseCase owns Class; Class owns Method; Method owns\n  Implementation; Implementation owns Test).\n- **unitLinks[]** = array of IORs to linked instances (the on-disk symlinks this\n  unit should have); initialize to `[]` at minimum, per R18.30 schema. Lifecycle\n  methods from R18.31 (`addLink`, `removeLink`, `syncLinks`) keep this consistent\n  with disk state.\n\nArchitect to design the backfill approach (per-type heuristics: e.g. Task's\nownerIor = the Sprint that lists it; UC's ownerIor = the Task referencing it;\netc.). Expert implements per architect's design. Tester re-runs the\n`trace-cli audit` (or equivalent measurement) and confirms zero violations.",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement (req-eng captures R18.32 + architect assesses approach)\n  - [ ] creating test cases\n  - [ ] implementing (expert backfill)\n  - [ ] testing (tester verifies 0 violations)\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only. Never checked by planner/sync.",
+    "remainingIssues": "",
+    "traceability": "`[task:uuid:f5b8c83e-3263-4d76-957b-4fe230e50269]`\n\n- up\n  - [Sprint 18 Planning](./planning.md)\n  - [compound-requirement-source.md](./compound-requirement-source.md) — Follow-on H + R18.32 \"Every scenario unit has valid ownerIor and unitLinks[]\" (Tron verbatim: \"I found scenarios without owners and without unitLists [unitLinks].\" 2026-06-08)\n  - **R18.32** `[requirement:uuid:76b16118-dc5d-4d40-a791-99c0bc1db3c5]` — placeholder; req-eng to canonicalize when emitting R18.32 as a formal Requirement scenario unit (planner generated per learning #17; req can adopt or replace)\n- down\n  - None (atomic task)\n- chain (req → task → useCase → class → method → implementation → test) — populated by req+architect during refinement",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [ ] AC1 — Zero units with missing `ownerIor` field (currently 39)\n- [ ] AC2 — Zero units with empty/null `ownerIor` (currently 145)\n- [ ] AC3 — Zero units missing `unitLinks[]` field (currently 501)\n- [ ] AC4 — `trace-cli audit` (or equivalent live measurement) reports 0 `ownerIor` violations + 0 missing `unitLinks[]`\n- [ ] AC5 — `ownerIor` values resolve via `IOR.resolve()` to an existing unit; no dangling parents\n- [ ] AC6 — `unitLinks[]` values resolve; on-disk symlinks match (R18.30/R18.31 contract)\n- [ ] AC7 — Rule-pair: (a) `package.json` bump + (b) `sw.js` CACHE_NAME bump IF user-facing surface changes (else data-only exempt — expert self-notes per learning #24)\n- [ ] AC8 — `npm run build` + full test suite pass; champagne metric `trace:audit:strict` unaffected or improved",
+    "qaAudit": "- 2026-06-08: Tron verbatim — \"I found scenarios without owners and without unitLists [unitLinks].\" Captured by robbin-req as R18.32 in compound-requirement-source.md Follow-on H.\n- 2026-06-08: Measurement (PO): 184 no-owner (39 missing field + 145 empty/null), 501 missing unitLinks[] of 768 units.\n- 2026-06-08: PO directive — stand up task; req capturing, architect assessing; owners expert (backfill) + tester (verify).\n- Pending: req-eng formal R18.32 capture → architect refinement → expert impl → tester verify → Tron QA.\n\n---\n\n**Sprint:** Sprint 18 — Chain Method-Scope & Role Skills\n**Requirement:** R18.32 (Follow-on H, compound-requirement-source.md)\n**Priority:** HIGH — blocks audit cleanliness + R18.30/R18.31 unitLinks lifecycle correctness",
+    "subtasks": "None (atomic task — single coordinated backfill pass per architect's design).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

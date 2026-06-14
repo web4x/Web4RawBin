@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18b8c9d0-e1f2-3a4b-5c6d-000000018026",
+    "name": "Every scenario type must show a source link in its detail...",
+    "description": "> TRON: \"here you see impl has a src link, but ALL types should have it.\"",
+    "tronQuote": "> TRON: \"here you see impl has a src link, but ALL types should have it.\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

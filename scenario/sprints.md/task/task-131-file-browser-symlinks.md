@@ -16,12 +16,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 fileBrowser.symlinkSupport](../usecase/filebrowser-symlinksupport.md)
-
-
-## Traceability
-
 `[task:uuid:dce1bdf8-7076-4376-a32c-9c8b08422bdc]`
 
 - up

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "6439b23f-4efa-47f8-a2ca-2cf33bcafc2f",
+    "name": "RbObjectItem.collapse(): void",
+    "className": "RbObjectItem",
+    "methodName": "collapse(): void"
+  },
+  "ownerIor": "ior:instance:43fd2e62-2543-4590-bf2f-be0b97a773ff"
+}

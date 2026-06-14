@@ -1,11 +1,12 @@
 # T167: /trace mobile-first layout + hard width-cap on right (detail) pane
 [task:uuid:d0881ad6-ade5-4d60-94a2-fbe5347fd4b6]
 
-## Traceability
+## Status
 
-**UseCases:**
-- [🔗 traceLayout.mobileCap](../usecase/tracelayout-mobilecap.md)
-
+- [ ] Planned
+- [ ] In Progress
+- [ ] QA Review
+- [ ] Done
 
 ## Traceability
 

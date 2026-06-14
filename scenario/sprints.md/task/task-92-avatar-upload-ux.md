@@ -13,14 +13,8 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 avatar.keylessUpload](../usecase/avatar-keylessupload.md)
-
-
-## Traceability
-
 - up
-  - [requirement:uuid:39a189d2-a59d-4e05-a460-28cd1816c23f](./requirements.md) — R-A2: Upload must not expose key errors
+  - [requirement:uuid:b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e](./requirements.md) — R-A2: Upload must not expose key errors
   - [Sprint 13 Planning](./planning.md)
 - down
   - None (atomic task)

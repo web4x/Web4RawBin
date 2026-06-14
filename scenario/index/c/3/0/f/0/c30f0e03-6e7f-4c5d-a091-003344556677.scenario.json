@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "c30f0e03-6e7f-4c5d-a091-003344556677",
+    "name": "T30: PO Process Documentation",
+    "slug": "task-30-po-process-doc",
+    "description": "",
+    "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 4 Planning](./planning.md)\n- down\n  - None (atomic task)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] scrum.pmo/roles/PO/process.md exists\n- [x] Covers task creation, sprint management, CMM4 rules\n- [x] References Web4Articles as canonical source\n- [x] References the OOSH sprint tool methods",
+    "qaAudit": "## Subtasks\nNone (atomic task for this sprint).",
+    "subtasks": "None (atomic task for this sprint).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:8a4fdd81-9d71-449b-b58f-cb9cb3c5befd"
+}

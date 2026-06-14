@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "602ab275-6d4c-4c40-9279-54cf836535c4",
+    "name": "Requirement.addTask(t): this",
+    "className": "Requirement",
+    "methodName": "addTask(t): this"
+  },
+  "ownerIor": "ior:instance:5ba78db7-9ae0-4dc6-9abe-64989345bb70"
+}

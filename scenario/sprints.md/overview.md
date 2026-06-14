@@ -1,21 +1,53 @@
 # Sprint Overview
 
+- [Sprint rawbin foundation](./sprint/sprint-rawbin-foundation.md) — Done
 - [Sprint 01 — Rawbin Foundation](./sprint/sprint-01-rawbin-foundation.md) — Done
+- [Sprint rawbin foundation](./sprint/sprint-rawbin-foundation.md) — Done
+- [Sprint identity ssh](./sprint/sprint-identity-ssh.md) — Done
+- [Sprint identity ssh](./sprint/sprint-identity-ssh.md) — Done
 - [Sprint 02 — Identity & SSH](./sprint/sprint-02-identity-ssh.md) — PLANNED
+- [Sprint e2e hardening](./sprint/sprint-e2e-hardening.md) — Done
 - [Sprint 03 — E2E Hardening](./sprint/sprint-03-e2e-hardening.md) — PLANNED
+- [Sprint e2e hardening](./sprint/sprint-e2e-hardening.md) — Done
 - [Sprint 04 — Traceability](./sprint/sprint-04-traceability.md) — PLANNED
+- [Sprint traceability](./sprint/sprint-traceability.md) — Done
+- [Sprint traceability](./sprint/sprint-traceability.md) — Done
+- [Sprint pwa offline](./sprint/sprint-pwa-offline.md) — Done
 - [Sprint 05 — PWA & Offline](./sprint/sprint-05-pwa-offline.md) — PLANNED
+- [Sprint pwa offline](./sprint/sprint-pwa-offline.md) — Done
+- [Sprint web components](./sprint/sprint-web-components.md) — Done
 - [Sprint 06 — Web Components](./sprint/sprint-06-web-components.md) — PLANNED
+- [Sprint web components](./sprint/sprint-web-components.md) — Done
+- [Sprint encrypted storage](./sprint/sprint-encrypted-storage.md) — Done
+- [Sprint encrypted storage](./sprint/sprint-encrypted-storage.md) — Done
 - [Sprint 07 — Encrypted Storage](./sprint/sprint-07-encrypted-storage.md) — PLANNED
 - [Sprint 08 — Monaco Editor](./sprint/sprint-08-monaco-editor.md) — PLANNED
+- [Sprint monaco editor](./sprint/sprint-monaco-editor.md) — Done
+- [Sprint monaco editor](./sprint/sprint-monaco-editor.md) — Done
 - [Sprint 09 — Room Identity](./sprint/sprint-09-room-identity.md) — PLANNED
+- [Sprint room identity](./sprint/sprint-room-identity.md) — In Progress
+- [Sprint room identity](./sprint/sprint-room-identity.md) — Done
 - [Sprint 10 — Contacts Ui](./sprint/sprint-10-contacts-ui.md) — In Progress
+- [Sprint contacts ui](./sprint/sprint-contacts-ui.md) — In Progress
+- [Sprint traceability](./sprint/sprint-traceability.md) — In Progress
 - [Sprint 11 — Traceability](./sprint/sprint-11-traceability.md) — In Progress
+- [Sprint editor fixes](./sprint/sprint-editor-fixes.md) — In Progress
 - [Sprint 12 — Editor Fixes](./sprint/sprint-12-editor-fixes.md) — In Progress
 - [Sprint 13 — Stability](./sprint/sprint-13-stability.md) — In Progress
+- [Sprint stability](./sprint/sprint-stability.md) — In Progress
 - [Sprint 14 — Legacy Migration](./sprint/sprint-14-legacy-migration.md) — In Progress
+- [Sprint legacy migration](./sprint/sprint-legacy-migration.md) — In Progress
+- [Sprint traceability browser](./sprint/sprint-traceability-browser.md) — In Progress
 - [Sprint 15 — Traceability Browser](./sprint/sprint-15-traceability-browser.md) — In Progress
+- [Sprint traceability ux](./sprint/sprint-traceability-ux.md) — In Progress
 - [Sprint 16 — Traceability Ux](./sprint/sprint-16-traceability-ux.md) — In Progress
 - [Sprint 17 — Scenario Units](./sprint/sprint-17-scenario-units.md) — In Progress
+- [Sprint scenario units](./sprint/sprint-scenario-units.md) — In Progress
 - [Sprint 18 — Chain Method-Scope & Role Skills](./sprint/sprint-18-chain-method-scope.md) — Planned
+- [Sprint chain method scope](./sprint/sprint-chain-method-scope.md) — In Progress
 - [Sprint 19 — Room Handling](./sprint/sprint-19-room-handling.md) — Planned
+- [Sprint room handling](./sprint/sprint-room-handling.md) — Done
+- [Sprint 20 — Radical Forward Planning (Traceability-First)](./sprint/sprint-20-radical-forward-planning-traceability-first.md) — Planned
+- [Sprint traceability first](./sprint/sprint-traceability-first.md) — Done
+- [[MERGED→Sprint20] Sprint 29 — Radical Forward Planning (WIP=1)](./sprint/merged-sprint20-sprint-29-radical-forward-planning-wip-1.md) — active
+- [[MERGED→Sprint20] Sprint 29 — Drawer Detail v0.6.23](./sprint/merged-sprint20-sprint-29-drawer-detail-v0-6-23.md) — In Progress

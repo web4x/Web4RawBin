@@ -23,3 +23,6 @@
 - [🔗 Room.canonicalDir](../method/room-canonicaldir.md)
 - [🔗 Room.loadBeforeWrite](../method/room-loadbeforewrite.md)
 - [🔗 Room.backfillFiles](../method/room-backfillfiles.md)
+- [🔗 Room.forwardRefs](../method/room-forwardrefs.md)
+- [🔗 Room.addMemberTakeover](../method/room-addmembertakeover.md)
+- [🔗 Room.rejoinDedup](../method/room-rejoindedup.md)

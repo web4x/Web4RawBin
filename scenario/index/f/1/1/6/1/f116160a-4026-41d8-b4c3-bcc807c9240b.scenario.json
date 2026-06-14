@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "f116160a-4026-41d8-b4c3-bcc807c9240b",
+    "name": "T38: iOS Safe Area Inset for Room Header",
+    "slug": "task-38-ios-safe-area",
+    "description": "- PO: On iPhone 15 in standalone PWA mode, room header buttons are behind the iOS status bar (clock/battery notch). Add safe area padding.",
+    "status": "Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n- [x] QA Review\n- [x] Done",
+    "remainingIssues": "",
+    "traceability": "- up\n  - [Sprint 5 Planning](./planning.md)\n- down\n  - None (atomic task)",
+    "context": "",
+    "intention": "",
+    "role": "",
+    "acceptanceCriteria": "- [x] Room header buttons clickable on iPhone 15 in standalone PWA mode\n- [x] Lobby header buttons clickable on iPhone 15 in standalone PWA mode\n- [x] No regression on non-notch devices (padding is 0 when no inset)",
+    "qaAudit": "- 2026-05-24: Tron — iPhone 15 PWA standalone mode, header buttons unreachable behind iOS status bar. Profile confirms iPhone device.",
+    "subtasks": "None (atomic task).",
+    "assigned": "",
+    "architectDesign": "",
+    "dependencies": "",
+    "definitionOfDone": "",
+    "implementation": "",
+    "testScenarios": "",
+    "children": [],
+    "requirements": [],
+    "useCases": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:d24de30b-697c-4f55-bcec-1a75d2cf6497"
+}

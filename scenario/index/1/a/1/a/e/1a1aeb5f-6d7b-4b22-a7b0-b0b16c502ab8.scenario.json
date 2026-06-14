@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "1a1aeb5f-6d7b-4b22-a7b0-b0b16c502ab8",
+    "name": "RbTraceTree.graph: TraceGraph",
+    "className": "RbTraceTree",
+    "methodName": "graph: TraceGraph"
+  },
+  "ownerIor": "ior:instance:d72bf09a-c311-43d4-9a7d-ff7d246689f2"
+}

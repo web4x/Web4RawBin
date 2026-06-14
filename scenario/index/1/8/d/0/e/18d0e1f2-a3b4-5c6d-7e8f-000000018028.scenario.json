@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18d0e1f2-a3b4-5c6d-7e8f-000000018028",
+    "name": "REVISES R18.23. The line parameter (`?line=42`) is on the...",
+    "description": "> TRON: \"the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file.\"",
+    "tronQuote": "> TRON: \"the link shall already hold the line of the method if its a method and jump to the method in the edior. same for use case and puml file.\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "af4b41e9-0d0e-4102-aea7-c1a1c810a69b",
+    "name": "ViewTemplateRegistry.renderMd(scenario): string",
+    "className": "ViewTemplateRegistry",
+    "methodName": "renderMd(scenario): string"
+  },
+  "ownerIor": "ior:instance:a150ff77-47c3-4a61-99db-833ccfe90ee4"
+}

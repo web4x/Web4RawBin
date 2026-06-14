@@ -1,6 +1,13 @@
 # T99: Remove Legacy Load Path + Files — ⛔ GATED
 [task:uuid:99d4f6a8-5ea0-4c13-8d79-4f6a8c0d1e99]
 
+## Status
+
+- [ ] Planned
+- [ ] In Progress
+- [ ] QA Review
+- [ ] Done
+
 ## Traceability
 
 - up

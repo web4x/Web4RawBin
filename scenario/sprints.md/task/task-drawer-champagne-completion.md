@@ -1,0 +1,53 @@
+# T-CURRENT-TASK: Drawer/trace DETAIL works end-to-end (drawer champagne + pinned sprint-list) → v0.6.23
+[task:uuid:3c7d1853-a5ee-4c7c-9c94-04b2e4f5bbb4]
+
+## Traceability
+
+**Requirements:**
+- [🔗 R19.84: Drawer nudge DRAG-RESIZES the drawer height, not just swipe-dismiss.](../requirement/r19-84-drawer-nudge-drag-resizes-the-drawer-height-not-just-swipe-dismiss.md)
+- [🔗 R19.63: Clicking a file unit in the room tree shows a preview in the detail drawer.](../requirement/r19-63-clicking-a-file-unit-in-the-room-tree-shows-a-preview-in-the-detail-drawe.md)
+- [🔗 R16.3: pageNav() sticky to top](../requirement/r16-3-pagenav-sticky-to-top.md)
+- [🔗 553be449](/scenario?ior=553be449-3b4f-4d5a-8e6f-7a8b9c0d1e2f)
+- [🔗 R20.12: Current Sprint pinned at TOP of the traceability sprint-list (app view).](../requirement/r20-12-current-sprint-pinned-at-top-of-the-traceability-sprint-list-app-view.md)
+
+**UseCases:**
+- [🔗 detailDrawer.dragResize](../usecase/detaildrawer-dragresize.md)
+- [🔗 detailDrawer.renderFilePreview](../usecase/detaildrawer-renderfilepreview.md)
+
+
+## Traceability
+
+- up
+  - Tron R19.102 (IMG_4024, 'still no progress here?')
+  - Sprint 20 climb from 22
+- down
+  - 4 sub-behaviors (open/close/dragResize/filePreview)
+- chain
+  - **requirements:** R16.1/R16.2 (open), close-req, R19.84 (dragResize), R19.63 (filePreview) — architect resolves exact set + adds useCases/chain
+  - **class:** RbDetailDrawer (src/public/ts/trace/rb-detail-drawer.ts) + RbDetailView (filePreview content)
+
+## Task Description
+
+Tron R19.102 'still no progress' on RbDetailDrawer all-children: it RENDERS (BUG7 fix works) but champagne stalls at 22 because 4 behaviors are NOT genuine named-method chains. COMPLETE the 4 incomplete-genuine: (1) open (R16.1/2 DetailViewContainer) markers are SPLIT-FOR clusters -> needs genuine named method+impl+test, (2) close (real method rb-detail-drawer.ts:107 but stickyBottom SPLIT-FOR markers d0235605 -> needs genuine in-body impl+test marker), (3) dragResize (R19.84 0be510a8 'Drawer nudge DRAG-RESIZE') FAKE-SUFFIX marker 01771d5b-a1b2-4c3d-8e4f -> needs real uuid + extract drag logic to a named method, (4) filePreview (R19.63 6052570f, the preview-content render) f94da2cd open -> needs genuine named method (NOTE filePreviewBUTTON R19.93 createFilePreviewButton already champagne; this is the preview-CONTENT, distinct). NOT-IN-SCOPE (already done/not-gap): swipeDismiss R19.86 + renderGrabBar R20.2 + selectionDriven R20.5 = champagne; fullWidth R19.52 + iframePinchZoom + removeDefaultHighlight R20.6 + stickyClose R19.33 = functionalDone (CSS, correctly not champagne).
+
+## Acceptance Criteria
+
+- [ ] AC1 open: genuine named method (NOT split-for cluster) + in-body [impl:uuid] (real) + test → R16.x champagne
+- [ ] AC2 close: genuine in-body impl+test marker in close() (replace stickyBottom split-for) → champagne
+- [ ] AC3 dragResize: drag logic extracted to a NAMED method + REAL uuid marker (no -a1b2-4c3d-8e4f fake) + test → R19.84 champagne
+- [ ] AC4 filePreview: preview-content render as a genuine named method + in-body marker + test → R19.63 champagne
+- [ ] each: det-3x genuine close (planner verifies per-req-trace + name-match + marker-in-body)
+- [ ] NO split-for / NO fake-suffix / NO file-header / NO CSS-as-champagne (those stay functionalDone)
+
+## QA Audit & User Feedback
+
+- 2026-06-14: PO dispatch from planner RbDetailDrawer 11-method assessment (3 champagne / 4 functionalDone / 4 incomplete-genuine). Climb candidates = these 4.
+
+## Subtasks
+
+None.
+
+---
+*Sprint 20 — Traceability-first climb*
+*Owner: robbin-architect (extract named methods + UC/chain), robbin-expert (real in-body markers), robbin-tester (tests); planner det-3x each genuine close*
+*Priority: HIGH (Tron R19.102 no-progress)*

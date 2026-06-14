@@ -16,12 +16,6 @@
 
 ## Traceability
 
-**UseCases:**
-- [🔗 chainLink.iconInView](../usecase/chainlink-iconinview.md)
-
-
-## Traceability
-
 `[task:uuid:f0af3251-3884-4238-9159-7eeac15c46d6]`
 
 - up

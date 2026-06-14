@@ -1,0 +1,1 @@
+### ViewTemplateRegistry.register(className, tmpl): void

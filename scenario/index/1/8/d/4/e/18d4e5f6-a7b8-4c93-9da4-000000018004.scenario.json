@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18d4e5f6-a7b8-4c93-9da4-000000018004",
+    "name": "The precedence analysis (refinement-precedence-analysis.m...",
+    "description": "> TRON: \"let them try to co-specify this as Skills for their roles\"",
+    "tronQuote": "> TRON: \"let them try to co-specify this as Skills for their roles\"",
+    "tasks": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:873b04e4-0154-4433-b422-a2d5d10d1b2b"
+}

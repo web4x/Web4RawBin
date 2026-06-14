@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e893a6c3-7097-48d7-bac4-9f99910cdaf2",
+    "name": "RbObjectItem.generateName(): string",
+    "className": "RbObjectItem",
+    "methodName": "generateName(): string"
+  },
+  "ownerIor": "ior:instance:43fd2e62-2543-4590-bf2f-be0b97a773ff"
+}

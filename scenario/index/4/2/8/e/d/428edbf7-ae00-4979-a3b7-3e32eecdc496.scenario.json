@@ -23,19 +23,8 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:c3a3dc3a-832e-401d-8898-e659a6584359"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/task-94-pwa-update-banner.md",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-13-stability/task/task-94-pwa-update-banner.json"
-    ],
-    "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
-    "coveredRequirements": [
-      "ior:instance:5b6122fe-75f1-4a33-9b2f-63fcaeb4323f"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
+  "ownerIor": "ior:instance:b5c5671b-b4e7-4e4b-a311-235044cf5ede"
 }

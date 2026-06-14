@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "254df7a6-44c7-4e0a-aeb5-d45347421f6d",
+    "name": "RbDetailDrawer.swipeDismiss(): void",
+    "className": "RbDetailDrawer",
+    "methodName": "swipeDismiss(): void"
+  },
+  "ownerIor": "ior:instance:0e293e59-ccc9-484e-b6e2-46f8b326eeca"
+}

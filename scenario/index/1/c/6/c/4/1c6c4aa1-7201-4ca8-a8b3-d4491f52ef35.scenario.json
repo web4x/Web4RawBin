@@ -23,19 +23,8 @@
     "testScenarios": "",
     "children": [],
     "requirements": [],
-    "useCases": [
-      "ior:instance:b94ec300-9d8b-4fe0-8a2f-ad832542799f"
-    ],
-    "implementations": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/task-95-newest-rooms-first.md",
-    "sourceLine": 5,
-    "unitLinks": [
-      "sprints.json/sprint-13-stability/task/task-95-newest-rooms-first.json"
-    ],
-    "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
-    "coveredRequirements": [
-      "ior:instance:67bde18f-76f9-43cd-abea-77c2ad7134f9"
-    ]
+    "useCases": [],
+    "implementations": []
   },
-  "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
+  "ownerIor": "ior:instance:b5c5671b-b4e7-4e4b-a311-235044cf5ede"
 }

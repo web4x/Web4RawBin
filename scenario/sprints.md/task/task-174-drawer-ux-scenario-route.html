@@ -1,0 +1,30 @@
+<div class="sv-task"><div class="sv-header"><span class="sv-type-badge">Task</span><h2>T174: Drawer UX cleanup + /scenario route + mobile width-cap (Tron R-M1/M2/M3/M4)</h2><code>46b7eadf-d0ae-4950-9602-cc96390c3697</code></div>
+<div class="sv-section sv-status-checklist"><h3>Status</h3><ul class="sv-steps"><li class="sv-checked">✅ Planned</li><li class="sv-checked">✅ In Progress</li><ul class="sv-substeps"><li class="sv-checked">✅ refinement (architect design — this document)</li><li class="sv-unchecked">⬜ creating test cases</li><li class="sv-checked">✅ implementing</li><li class="sv-unchecked">⬜ testing</li></ul><li class="sv-unchecked">⬜ QA Review</li><li class="sv-unchecked">⬜ Done</li></ul></div>
+<div class="sv-section"><h3>Traceability</h3><pre>- up
+  - [Sprint 17 Planning](./planning.md)
+  - Tron 4 atoms (R-M1 through R-M4), via PO 2026-06-03
+- follows
+  - T110 (drawer), T167 (mobile layout + width-cap), T173 (lazy-load + /trace?ior=)</pre></div>
+<div class="sv-section"><h3>QA Audit &amp; User Feedback</h3><p>- 2026-06-03: req-eng `acae0ffe` captures Tron verbatim quotes for R-M1/M2/M3/M4 (compound source).
+- 2026-06-03: PO directs stand-up T174 covering R-M1/M2/M3/M4 (&quot;or split per planner's call&quot;).
+- 2026-06-03: Architect `483d1587` ships consolidated design (R-M1 placeholder + R-M2 touch-area + R-M3 /scenario route + R-M4 width-cap). Recommends ONE task; shared drawer/view commit surface.
+- 2026-06-03: Planner initial split scaffold ea88de12 (T174 + T175) RECONCILED — adopted architect's bundle per learning #20; my T174/T175 scaffolds removed; this file's fake-suffix uuid swapped for real v4; Subtasks + QA Audit + Requirement UUIDs sections added for audit compliance.
+- 2026-06-03: Expert `2eb4dab1` ships v0.5.71 (R-M1+M2+M3+M4). Rule-pair (a)+(b)+(c) verified ✓ ((c) STATIC_SHELL: /scenario + dist/scenario-view-5CKNEWVS.js added).
+- 2026-06-03: Tron caught R-M3 bug — `/scenario?ior=X` shows full tree, ignores `?ior=`. Architect diagnosed `4845bd8b` then `da163dc3` (2-layer root: Task ior=0 children). req-eng `f12ccec0` captured **R-M3d** new atom: drawer navigation must scroll tree to selected element.
+- 2026-06-03: PO direction — **R-M3d FOLDS into T174** (architect bundle pattern: same drawer/view surface, one fix-cycle). Expert ships single-IOR-seed + Task-children + R-M3d scroll-into-view together; tester re-verifies all in one pass. R-M3d req:uuid `8832a890-…` added.
+- 2026-06-03: Expert `d0796bf4` v0.5.72 ships fix-cycle PART 1: scenario-view.ts removes /api/trace full-graph fetch + uses data-seed-ior; rb-trace-tree.ts renderSeed() fetches /api/trace/children/&lt;uuid&gt;; scanRepo fallback for empty/string index arrays (bridges until T172 forward-ref data complete); 834/834. Rule-pair (a)+(b)+(c) ✓ verified (STATIC_SHELL trace-page-RA6MM7J4 + scenario-view-TOZZ2MDV).
+- 2026-06-03: ⚠️ Planner grep-verified — **R-M3d scroll-into-view NOT in v0.5.72** (no `scrollIntoView`/`select()` in shipped rb-trace-tree.ts/rb-object-item.ts). PO direction was &quot;ship together&quot;; expert shipped IOR-seed + Task-children but R-M3d still pending. Honest board: T174 ✅ shipped (v0.5.72), R-M3d open.
+- 2026-06-03: Tron caught ANOTHER atom — **R-M3e**: /scenario interactions dead (event wiring missing). req-eng captured `6f7614eb` (must match /trace parity); architect designed fix `54ab4f35`.
+- 2026-06-03: PO direction CONFIRMED — **R-M3e FOLDS into T174** (R-M3d precedent; same drawer/view surface). T174 NOT done until BOTH R-M3d (scroll-into-view) + R-M3e (interaction parity) ship + verify. T174 stays open. R-M3e req:uuid `a591c117-3b62-42bb-bfef-8dc49b83e868` planner-pre-seeded.
+- 2026-06-03: Expert `6ee2278f` v0.5.73 ships R-M3d + R-M3e bundled per PO direction — drawer-nav scrollIntoView({behavior:smooth, block:center}) + auto-select seeded node (R-M3d); /scenario wires TraceRouter with full graph for collapse/expand/DetailView/icon-tap parity with /trace (R-M3e). Rule-pair (a)+(b)+(c) ✓ — STATIC_SHELL scenario-view-GJ6VCIZI.js; 834/834. Expert self-declared compliance.
+- 2026-06-03: Architect `86b024ae` post-v0.5.73 diagnosis — **2 more bugs in same R-M3d/R-M3e atoms** (deeper iteration, no new atoms): (a) **R-M3d timing race**: setTimeout(100) races async renderSeed → navigate fires before tree DOM ready. Fix: emit `seed-ready` event; navigate AFTER renderSeed completes (deterministic). (b) **R-M3e all-children-visible**: renderSeed shows all 51 children (kids.style.display=''), but Tron spec says &quot;ONLY that item view THEN lazy-load children&quot;. Fix: start collapsed (display:none); store pending children; populate on first expand; cascading buildChildNode() fetches /api/trace/children/&lt;uuid&gt; per deeper expand.
+- Pending: expert fix-2 commit for the timing + collapsed-start lazy-load (rule-pair (a)+(b); (c) likely exempt — fixes existing surface). Tester one-pass re-verify R-M1..R-M4 + R-M3d + R-M3e ACs once both fixes land. Then Tron QA.
+
+---
+
+**Architect:** robbin-architect @ web4team:0.0
+**Sprint:** Sprint 17 — Scenario Units
+**Phase:** 30 — R-M (drawer UX + /scenario route)
+**Owners (CMM4):** robbin-req `acae0ffe` (verbatim capture) → robbin-architect `483d1587` (design) → robbin-expert (impl; rule-pair (a)+(b)+(c)) → robbin-tester (verify R-M1..R-M4 ACs)
+**Consolidated:** 4 atoms in 1 task (shared drawer/view commit surface — architect's call)</p></div>
+<div class="sv-section"><h3>Subtasks</h3><p>None (atomic task — architect explicitly chose ONE consolidated task: &quot;All 4 atoms touch the drawer/view layer and share the same commit surface. Splitting would create 4 version bumps for what is one coherent UX pass.&quot;)</p></div></div>
