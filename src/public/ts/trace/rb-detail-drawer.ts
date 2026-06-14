@@ -50,6 +50,7 @@ export class RbDetailDrawer extends HTMLElement {
   // [impl:uuid:e927ecfe-6fba-4a91-aa74-ed13da8e8fe4] RbDetailDrawer.onSelectionChanged
   private onSelectionChanged = (e: Event): void => {
     const selected = (e as CustomEvent).detail?.selected || [];
+    console.log('[SELCHG]', JSON.stringify(selected));
     if (selected.length === 1) {
       this.setAttribute('ref', selected[0]);
     } else if (selected.length === 0) {
@@ -75,8 +76,9 @@ export class RbDetailDrawer extends HTMLElement {
   set graph(g: any) { this._graph = g; }
 
   private async renderDetailForRef(ref: string): Promise<void> {
+    console.log('[RENDER]', ref);
     const panel = this.detailPanel;
-    if (!panel || panel.dataset.currentRef === ref) return;
+    if (!panel || panel.dataset.currentRef === ref) { console.log('[RENDER] SKIP (same ref)'); return; }
     panel.dataset.currentRef = ref;
     this.setMode('detail');
     const colonIdx = ref.indexOf(':');

@@ -76,6 +76,7 @@ export class RbObjectItem extends HTMLElement {
   // [impl:uuid:cc1dcd0e-93b2-43d5-80bb-b162cd685403] RbObjectItem.handleTapSelect
   handleTapSelect(): void {
     const { ref } = this.parts();
+    console.log('[TAP]', ref);
     if (ref) { selectionModel.replaceWith(ref); this.syncSelected(); }
   }
 
