@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "e0fcc6a3-49ac-46b5-82ad-6a2bce81ed49",
+    "name": "TracePage",
+    "description": "Traceability browser page entry \u2014 renders sprint seed trees, drawer, router.",
+    "methods": [
+      "ior:instance:91af4ca4-4bbf-4809-baa7-de181d02a01c"
+    ]
+  },
+  "ownerIor": "ior:instance:6dc43057-3928-41b9-8313-f05026bb4b46"
+}

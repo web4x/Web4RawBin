@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "6dc43057-3928-41b9-8313-f05026bb4b46",
+    "name": "Sprint 29 \u2014 Drawer Detail v0.6.23",
+    "number": 29,
+    "goal": "Drawer detail rendering + pinned current sprint",
+    "status": "In Progress",
+    "tasks": [],
+    "requirements": []
+  },
+  "ownerIor": null
+}

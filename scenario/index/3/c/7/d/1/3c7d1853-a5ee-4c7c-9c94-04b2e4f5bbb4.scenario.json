@@ -2,7 +2,7 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "3c7d1853-a5ee-4c7c-9c94-04b2e4f5bbb4",
-    "name": "T-DRAWER-CHAMPAGNE: RbDetailDrawer champagne-completion (4 incomplete-genuine methods)",
+    "name": "T-CURRENT-TASK: Drawer/trace DETAIL works end-to-end (drawer champagne + pinned sprint-list) \u2192 v0.6.23",
     "slug": "task-drawer-champagne-completion",
     "description": "Tron R19.102 'still no progress' on RbDetailDrawer all-children: it RENDERS (BUG7 fix works) but champagne stalls at 22 because 4 behaviors are NOT genuine named-method chains. COMPLETE the 4 incomplete-genuine: (1) open (R16.1/2 DetailViewContainer) markers are SPLIT-FOR clusters -> needs genuine named method+impl+test, (2) close (real method rb-detail-drawer.ts:107 but stickyBottom SPLIT-FOR markers d0235605 -> needs genuine in-body impl+test marker), (3) dragResize (R19.84 0be510a8 'Drawer nudge DRAG-RESIZE') FAKE-SUFFIX marker 01771d5b-a1b2-4c3d-8e4f -> needs real uuid + extract drag logic to a named method, (4) filePreview (R19.63 6052570f, the preview-content render) f94da2cd open -> needs genuine named method (NOTE filePreviewBUTTON R19.93 createFilePreviewButton already champagne; this is the preview-CONTENT, distinct). NOT-IN-SCOPE (already done/not-gap): swipeDismiss R19.86 + renderGrabBar R20.2 + selectionDriven R20.5 = champagne; fullWidth R19.52 + iframePinchZoom + removeDefaultHighlight R20.6 + stickyClose R19.33 = functionalDone (CSS, correctly not champagne).",
     "status": "Planned",
@@ -18,7 +18,8 @@
       "ior:instance:0be510a8-fce6-49cb-afa8-d9cf39762d4d",
       "ior:instance:6052570f-4630-4cdf-8270-6ef29eec33df",
       "ior:instance:bca276d9-8ff6-4234-a562-19e15e4ab8fb",
-      "ior:instance:553be449-3b4f-4d5a-8e6f-7a8b9c0d1e2f"
+      "ior:instance:553be449-3b4f-4d5a-8e6f-7a8b9c0d1e2f",
+      "ior:instance:0171efa2-af28-476f-ae8d-ef7e4a4549bc"
     ],
     "useCases": [
       "ior:instance:2bf41a1b-74a2-49bd-ad38-c445e898fe49",
