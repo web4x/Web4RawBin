@@ -5,7 +5,9 @@
     "name": "getActiveChain impl",
     "sourceFile": "ior:file:src/ts/scenario/CurrentSprint.ts",
     "sourceLine": 124,
-    "tests": []
+    "tests": [
+      "ior:instance:94a83fc2-c95d-470a-8083-c76fda7863ad"
+    ]
   },
   "ownerIor": "ior:instance:1f3ec50f-1fff-4767-88e9-12be32948360"
 }

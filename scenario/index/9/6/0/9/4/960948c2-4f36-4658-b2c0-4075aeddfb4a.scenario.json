@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "960948c2-4f36-4658-b2c0-4075aeddfb4a",
+    "name": "R20.13 setChain",
+    "slug": "r2013-setchain",
+    "file": "test/vitest/current-sprint.test.ts",
+    "status": "pass",
+    "implementations": ["ior:instance:e8bd1984-30c1-4591-991c-fcdc28a9164f"]
+  },
+  "ownerIor": null
+}

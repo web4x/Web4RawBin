@@ -5,7 +5,9 @@
     "name": "renderFilePreview impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-view.ts",
     "sourceLine": 136,
-    "tests": []
+    "tests": [
+      "ior:instance:22ca6dac-fde4-4751-8df1-db94422c8146"
+    ]
   },
   "ownerIor": "ior:instance:e4395c35-4087-4df8-a602-9a236c102106"
 }

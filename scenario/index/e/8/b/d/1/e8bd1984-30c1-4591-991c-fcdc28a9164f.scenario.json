@@ -5,7 +5,9 @@
     "name": "setChain impl",
     "sourceFile": "ior:file:src/ts/scenario/CurrentSprint.ts",
     "sourceLine": 93,
-    "tests": []
+    "tests": [
+      "ior:instance:960948c2-4f36-4658-b2c0-4075aeddfb4a"
+    ]
   },
   "ownerIor": "ior:instance:82870570-3a8b-47dd-8389-d6ca0470c479"
 }

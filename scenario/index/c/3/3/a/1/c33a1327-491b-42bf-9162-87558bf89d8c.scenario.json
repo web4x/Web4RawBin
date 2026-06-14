@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c33a1327-491b-42bf-9162-87558bf89d8c",
+    "name": "R20.13 advance",
+    "slug": "r2013-advance",
+    "file": "test/vitest/current-sprint.test.ts",
+    "status": "pass",
+    "implementations": ["ior:instance:2011ae78-3e09-4e85-b98f-f3423dd32500"]
+  },
+  "ownerIor": null
+}

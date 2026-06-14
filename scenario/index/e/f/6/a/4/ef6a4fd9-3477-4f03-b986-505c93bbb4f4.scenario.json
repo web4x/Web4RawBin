@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ef6a4fd9-3477-4f03-b986-505c93bbb4f4",
+    "name": "R20.11 close",
+    "slug": "r2011-close",
+    "file": "test/vitest/drawer-champagne.test.ts",
+    "status": "pass",
+    "implementations": ["ior:instance:2e4ff35c-6286-4400-a2c8-d6ebfde62638"]
+  },
+  "ownerIor": null
+}

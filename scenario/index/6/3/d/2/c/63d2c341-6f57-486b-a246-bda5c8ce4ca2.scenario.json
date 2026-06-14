@@ -5,7 +5,9 @@
     "name": "pinCurrent impl",
     "sourceFile": "ior:file:src/ts/scenario/CurrentSprint.ts",
     "sourceLine": 105,
-    "tests": []
+    "tests": [
+      "ior:instance:c3f12751-ce69-43ee-aacd-e729c968f433"
+    ]
   },
   "ownerIor": "ior:instance:342c69d8-02dc-4809-8ed4-c6f72e33cc4c"
 }

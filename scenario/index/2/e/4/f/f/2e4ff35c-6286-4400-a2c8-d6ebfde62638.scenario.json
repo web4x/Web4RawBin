@@ -5,7 +5,9 @@
     "name": "close impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "sourceLine": 109,
-    "tests": []
+    "tests": [
+      "ior:instance:ef6a4fd9-3477-4f03-b986-505c93bbb4f4"
+    ]
   },
   "ownerIor": "ior:instance:91efe513-c8f2-4cbc-801a-d808b63a7650"
 }

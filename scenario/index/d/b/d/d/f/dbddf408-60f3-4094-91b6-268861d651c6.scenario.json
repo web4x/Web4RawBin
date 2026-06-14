@@ -5,7 +5,9 @@
     "name": "openForRef impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "sourceLine": 84,
-    "tests": []
+    "tests": [
+      "ior:instance:f0d21ea3-1b05-4a2c-8d31-21c916c5030a"
+    ]
   },
   "ownerIor": "ior:instance:0a902bff-b5c3-47ef-a1b3-37fe52b4c82d"
 }

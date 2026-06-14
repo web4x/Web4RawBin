@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "94a83fc2-c95d-470a-8083-c76fda7863ad",
+    "name": "R20.13 getActiveChain",
+    "slug": "r2013-getactivechain",
+    "file": "test/vitest/current-sprint.test.ts",
+    "status": "pass",
+    "implementations": ["ior:instance:f44ae205-6b80-4f53-9d38-54050d3059f5"]
+  },
+  "ownerIor": null
+}

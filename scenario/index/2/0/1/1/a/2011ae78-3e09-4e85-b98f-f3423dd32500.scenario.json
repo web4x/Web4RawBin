@@ -5,7 +5,9 @@
     "name": "advance impl",
     "sourceFile": "ior:file:src/ts/scenario/CurrentSprint.ts",
     "sourceLine": 115,
-    "tests": []
+    "tests": [
+      "ior:instance:c33a1327-491b-42bf-9162-87558bf89d8c"
+    ]
   },
   "ownerIor": "ior:instance:ec10fad2-e8dd-4bce-b52c-ff2caeccaaf0"
 }
