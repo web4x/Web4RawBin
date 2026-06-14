@@ -61,7 +61,7 @@ export class RbDetailDrawer extends HTMLElement {
     } else if (selected.length === 0) {
       // [impl:uuid:c3c70517-b56c-4765-94ae-cb677601f99c] R20.6 emptyShowsChat
       this.removeAttribute('ref');
-      this.setMode('chat');
+      if (this.chatPanel) this.setMode('chat');
     }
   };
 
@@ -138,10 +138,6 @@ export class RbDetailDrawer extends HTMLElement {
       </div>`;
     this.querySelector('.drawer-handle')!.addEventListener('click', () => this.close());
     this.querySelector('.drawer-close')!.addEventListener('click', () => this.close());
-    const chatContainer = this.querySelector('.drawer-panel-chat') as HTMLElement;
-    if (chatContainer && !this.chatPanel) {
-      this.chatPanel = new ChatPanel(chatContainer);
-    }
   }
 
   setMode(m: 'chat' | 'detail' | 'preview'): void {
