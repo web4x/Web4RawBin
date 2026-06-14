@@ -6,7 +6,9 @@
     "description": "Set the active WIP=1 chain with full 6-step refs. Validates forward-only. Persists. Emits event.",
     "class": "ior:instance:43d570be-eb8f-45d7-a666-826e88184121",
     "method": "ior:instance:82870570-3a8b-47dd-8389-d6ca0470c479",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:15aeb43d-83da-4a02-bfcf-35ec59b3b070"
+    ],
     "implementations": [],
     "tests": []
   },
