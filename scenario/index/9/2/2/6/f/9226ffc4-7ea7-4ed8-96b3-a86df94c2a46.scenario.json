@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "9226ffc4-7ea7-4ed8-96b3-a86df94c2a46",
+    "name": "PASS: deleted room not found by scanAllRooms",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "40ecb5ba-7504-4dd0-9a01-331478dbb122",
+    "timestamp": "2026-06-14T21:16:55.960Z"
+  },
+  "ownerIor": "ior:instance:40ecb5ba-7504-4dd0-9a01-331478dbb122"
+}

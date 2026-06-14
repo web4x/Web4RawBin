@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c477e764-d350-4ad4-830b-b2d006fb1b6f",
+    "name": "PASS: returns 404 for user with no avatar",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "7de37a8d-b166-4777-bc5b-668cdb23f57a",
+    "timestamp": "2026-06-14T21:16:56.027Z"
+  },
+  "ownerIor": "ior:instance:7de37a8d-b166-4777-bc5b-668cdb23f57a"
+}

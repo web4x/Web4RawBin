@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7161ce40-090a-4d45-aa9f-d7cfb19d1393",
+    "name": "PASS: overlay has rb-overlay class",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "8f1f98a2-362d-4641-ba37-c5107621dbcd",
+    "timestamp": "2026-06-14T21:16:56.038Z"
+  },
+  "ownerIor": "ior:instance:8f1f98a2-362d-4641-ba37-c5107621dbcd"
+}

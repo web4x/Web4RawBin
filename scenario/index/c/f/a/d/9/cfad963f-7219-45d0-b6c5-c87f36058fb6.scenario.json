@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "cfad963f-7219-45d0-b6c5-c87f36058fb6",
+    "name": "PASS: shows a warning marker on a broken node, still visible (AC5)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "966393f9-1a6b-4825-b0b1-cc4f43b904d8",
+    "timestamp": "2026-06-14T21:16:56.046Z"
+  },
+  "ownerIor": "ior:instance:966393f9-1a6b-4825-b0b1-cc4f43b904d8"
+}

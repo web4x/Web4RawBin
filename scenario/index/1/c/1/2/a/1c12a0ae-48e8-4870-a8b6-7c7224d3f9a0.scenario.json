@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "1c12a0ae-48e8-4870-a8b6-7c7224d3f9a0",
+    "name": "PASS: 1MB file encrypts and decrypts correctly",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9f48642c-0b4d-4355-84ee-f7dbead5f922",
+    "timestamp": "2026-06-14T21:16:56.057Z"
+  },
+  "ownerIor": "ior:instance:9f48642c-0b4d-4355-84ee-f7dbead5f922"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a3b9d12b-7c81-42f4-acc0-f365faa0a491",
+    "name": "PASS: drawer CSS defines .drawer-header sticky + .drawer-body scrollable + .drawer-close",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "2764c36e-996b-46b8-8dac-be6acece65b3",
+    "timestamp": "2026-06-14T21:16:55.932Z"
+  },
+  "ownerIor": "ior:instance:2764c36e-996b-46b8-8dac-be6acece65b3"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ad9f5822-18e0-4f8d-8930-2ca6e858ad32",
+    "name": "PASS: onDragStart references selectionModel.getSelected for multi-drag",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "b9548596-6afe-45a8-8efb-17f32b904604",
+    "timestamp": "2026-06-14T21:16:56.077Z"
+  },
+  "ownerIor": "ior:instance:b9548596-6afe-45a8-8efb-17f32b904604"
+}

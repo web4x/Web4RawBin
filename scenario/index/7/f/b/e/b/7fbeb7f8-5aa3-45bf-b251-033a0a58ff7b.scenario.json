@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7fbeb7f8-5aa3-45bf-b251-033a0a58ff7b",
+    "name": "PASS: does not duplicate if same key added twice",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "8c3d94bd-2c5f-46a6-aff1-380ba05952d9",
+    "timestamp": "2026-06-14T21:16:56.036Z"
+  },
+  "ownerIor": "ior:instance:8c3d94bd-2c5f-46a6-aff1-380ba05952d9"
+}

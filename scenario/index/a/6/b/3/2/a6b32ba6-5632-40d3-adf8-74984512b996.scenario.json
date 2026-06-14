@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a6b32ba6-5632-40d3-adf8-74984512b996",
+    "name": "PASS: index contains scenario.json files",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "7044726c-90ff-4c46-b632-7bb1f11ca50f",
+    "timestamp": "2026-06-14T21:16:56.014Z"
+  },
+  "ownerIor": "ior:instance:7044726c-90ff-4c46-b632-7bb1f11ca50f"
+}

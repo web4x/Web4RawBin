@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7123e23b-f463-42ed-9c4f-7776427fd5e9",
+    "name": "PASS: rb-editor-layout tag used in edit.html or edit.ts",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "dee87f49-39b5-4cce-bb18-c50647de955e",
+    "timestamp": "2026-06-14T21:16:56.104Z"
+  },
+  "ownerIor": "ior:instance:dee87f49-39b5-4cce-bb18-c50647de955e"
+}

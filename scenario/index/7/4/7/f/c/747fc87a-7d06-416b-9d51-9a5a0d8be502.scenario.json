@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "747fc87a-7d06-416b-9d51-9a5a0d8be502",
+    "name": "PASS: lintMarkers flags shared-impl and orphan-marker",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "2aa7d31c-d2d8-4876-b514-6661bd75ed02",
+    "timestamp": "2026-06-14T21:16:55.937Z"
+  },
+  "ownerIor": "ior:instance:2aa7d31c-d2d8-4876-b514-6661bd75ed02"
+}

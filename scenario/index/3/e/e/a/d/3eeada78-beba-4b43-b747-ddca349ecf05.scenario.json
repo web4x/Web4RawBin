@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "3eeada78-beba-4b43-b747-ddca349ecf05",
+    "name": "PASS: TC-5: empty room (no messages) returns empty + hasMore=false",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "81bccb09-60b4-41fc-9bc6-3e374637edca",
+    "timestamp": "2026-06-14T21:16:56.029Z"
+  },
+  "ownerIor": "ior:instance:81bccb09-60b4-41fc-9bc6-3e374637edca"
+}

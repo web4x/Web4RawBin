@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "f236cd22-4560-40fc-b37a-25d04571122b",
+    "name": "PASS: images get moderate cache (max-age)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5cc1e6dc-0599-44ae-a6f7-0f9e11d5cbf2",
+    "timestamp": "2026-06-14T21:16:55.994Z"
+  },
+  "ownerIor": "ior:instance:5cc1e6dc-0599-44ae-a6f7-0f9e11d5cbf2"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "bda25791-a676-49fc-844b-6254da3a7d46",
+    "name": "PASS: addChat broadcasts CHAT_MESSAGE to all members",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "221437a0-8447-45f1-8e6b-0e9d00876c15",
+    "timestamp": "2026-06-14T21:16:55.926Z"
+  },
+  "ownerIor": "ior:instance:221437a0-8447-45f1-8e6b-0e9d00876c15"
+}

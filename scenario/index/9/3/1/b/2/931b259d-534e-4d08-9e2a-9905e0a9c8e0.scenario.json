@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "931b259d-534e-4d08-9e2a-9905e0a9c8e0",
+    "name": "PASS: manifest.json exists in src/public/",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "34d98f67-3d33-40f3-9778-aacbc3aa306d",
+    "timestamp": "2026-06-14T21:16:55.947Z"
+  },
+  "ownerIor": "ior:instance:34d98f67-3d33-40f3-9778-aacbc3aa306d"
+}

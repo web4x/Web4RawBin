@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "2ea57c72-b160-49e2-9224-cd8edc28c411",
+    "name": "PASS: AC2: clicking ",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "dc5e48ba-4f58-47da-b8d1-8008279b3466",
+    "timestamp": "2026-06-14T21:16:56.102Z"
+  },
+  "ownerIor": "ior:instance:dc5e48ba-4f58-47da-b8d1-8008279b3466"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "3576395f-f5cf-4492-93c5-903ea53fa400",
+    "name": "PASS: rb-detail-view.ts has createFilePreviewButton method + content-preview import",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e5f0d1f3-9f60-4125-b656-0e2eee5ff01a",
+    "timestamp": "2026-06-14T21:16:56.113Z"
+  },
+  "ownerIor": "ior:instance:e5f0d1f3-9f60-4125-b656-0e2eee5ff01a"
+}

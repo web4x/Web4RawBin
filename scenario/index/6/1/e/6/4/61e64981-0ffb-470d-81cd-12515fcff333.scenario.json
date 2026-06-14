@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "61e64981-0ffb-470d-81cd-12515fcff333",
+    "name": "PASS: live add/remove: removing an object drops it on re-query (AC5)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "f93aabd8-cad0-4073-883f-1a2e3eb8c5ae",
+    "timestamp": "2026-06-14T21:16:56.129Z"
+  },
+  "ownerIor": "ior:instance:f93aabd8-cad0-4073-883f-1a2e3eb8c5ae"
+}

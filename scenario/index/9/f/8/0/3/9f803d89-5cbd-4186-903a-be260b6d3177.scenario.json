@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "9f803d89-5cbd-4186-903a-be260b6d3177",
+    "name": "PASS: avatar URL is serveable (getAvatar returns data)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "561498a4-97a6-4b9a-8308-3a5549b5c1e3",
+    "timestamp": "2026-06-14T21:16:55.989Z"
+  },
+  "ownerIor": "ior:instance:561498a4-97a6-4b9a-8308-3a5549b5c1e3"
+}

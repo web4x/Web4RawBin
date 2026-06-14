@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "dafb3a4f-2d14-4f8c-9c6a-9a55d719885a",
+    "name": "PASS: rolls up tasks by sprint with per-status counts + a row per task (AC2)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "6138a46a-b974-4b46-8bba-bf8ec8344551",
+    "timestamp": "2026-06-14T21:16:55.999Z"
+  },
+  "ownerIor": "ior:instance:6138a46a-b974-4b46-8bba-bf8ec8344551"
+}

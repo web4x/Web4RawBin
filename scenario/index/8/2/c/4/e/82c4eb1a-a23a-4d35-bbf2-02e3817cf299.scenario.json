@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "82c4eb1a-a23a-4d35-bbf2-02e3817cf299",
+    "name": "PASS: addMessage adds to messages list",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "8265be6c-fdf5-44f7-b603-149020bfd8bb",
+    "timestamp": "2026-06-14T21:16:56.030Z"
+  },
+  "ownerIor": "ior:instance:8265be6c-fdf5-44f7-b603-149020bfd8bb"
+}

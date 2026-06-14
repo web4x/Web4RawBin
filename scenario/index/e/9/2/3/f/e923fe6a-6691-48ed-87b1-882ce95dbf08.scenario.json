@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "e923fe6a-6691-48ed-87b1-882ce95dbf08",
+    "name": "PASS: renderSupersededSection is imported and called in rb-requirement-detail.ts",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "cecf34c7-276f-4c21-99b0-b555481975fa",
+    "timestamp": "2026-06-14T21:16:56.091Z"
+  },
+  "ownerIor": "ior:instance:cecf34c7-276f-4c21-99b0-b555481975fa"
+}

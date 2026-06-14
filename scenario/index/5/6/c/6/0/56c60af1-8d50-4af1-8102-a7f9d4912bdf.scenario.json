@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "56c60af1-8d50-4af1-8102-a7f9d4912bdf",
+    "name": "PASS: FILE_ADDED message type exists",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "6a1af241-8282-4a7e-8184-733f4098b20c",
+    "timestamp": "2026-06-14T21:16:56.008Z"
+  },
+  "ownerIor": "ior:instance:6a1af241-8282-4a7e-8184-733f4098b20c"
+}

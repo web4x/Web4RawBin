@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7a9d39f4-b3f2-4e7e-9b6b-c764cb98dba2",
+    "name": "PASS: TC-3: roomUuid populates unitLinks[] + ownerIor",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "113fb74b-5b69-4e07-8b27-20000de59f15",
+    "timestamp": "2026-06-14T21:16:55.901Z"
+  },
+  "ownerIor": "ior:instance:113fb74b-5b69-4e07-8b27-20000de59f15"
+}

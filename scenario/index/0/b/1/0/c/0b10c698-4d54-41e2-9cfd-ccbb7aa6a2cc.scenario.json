@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0b10c698-4d54-41e2-9cfd-ccbb7aa6a2cc",
+    "name": "PASS: writes content and file on disk matches",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5148e112-e5cd-49c6-9cce-275a90796046",
+    "timestamp": "2026-06-14T21:16:55.982Z"
+  },
+  "ownerIor": "ior:instance:5148e112-e5cd-49c6-9cce-275a90796046"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ea2c4bac-99f7-4f58-8ee4-a8557cbd7505",
+    "name": "PASS: close button removes popup",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "ac40b516-50e1-41b9-84f3-97bcf7238ba7",
+    "timestamp": "2026-06-14T21:16:56.068Z"
+  },
+  "ownerIor": "ior:instance:ac40b516-50e1-41b9-84f3-97bcf7238ba7"
+}

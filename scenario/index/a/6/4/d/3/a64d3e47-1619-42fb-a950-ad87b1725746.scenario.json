@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a64d3e47-1619-42fb-a950-ad87b1725746",
+    "name": "PASS: partial update preserves other fields",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "ed97f3b5-3df8-42a7-a781-7dbbc8285fa7",
+    "timestamp": "2026-06-14T21:16:56.118Z"
+  },
+  "ownerIor": "ior:instance:ed97f3b5-3df8-42a7-a781-7dbbc8285fa7"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "e32360cb-7860-4082-b660-4eb549595020",
+    "name": "PASS: fallback is /icon-192.png",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "59f6df22-c2b5-4e45-abcb-72a8c698b55e",
+    "timestamp": "2026-06-14T21:16:55.993Z"
+  },
+  "ownerIor": "ior:instance:59f6df22-c2b5-4e45-abcb-72a8c698b55e"
+}

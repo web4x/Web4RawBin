@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b6cf228c-ac6e-4160-b97e-40729bd8516c",
+    "name": "PASS: ensureAvatar PRESERVES bytes of an undecryptable avatar — NOT overwritten with default",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e70801c6-4dd9-4b81-a492-04cb383c621a",
+    "timestamp": "2026-06-14T21:16:56.113Z"
+  },
+  "ownerIor": "ior:instance:e70801c6-4dd9-4b81-a492-04cb383c621a"
+}

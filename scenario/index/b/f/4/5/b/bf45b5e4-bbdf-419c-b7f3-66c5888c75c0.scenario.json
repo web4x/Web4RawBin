@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "bf45b5e4-bbdf-419c-b7f3-66c5888c75c0",
+    "name": "PASS: generateRegion is deterministic for the same coverage",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9e2224c4-23a9-4ded-90ff-85a4be33f2b0",
+    "timestamp": "2026-06-14T21:16:56.056Z"
+  },
+  "ownerIor": "ior:instance:9e2224c4-23a9-4ded-90ff-85a4be33f2b0"
+}

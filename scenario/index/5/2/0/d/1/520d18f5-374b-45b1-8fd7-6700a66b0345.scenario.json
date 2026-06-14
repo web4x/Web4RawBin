@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "520d18f5-374b-45b1-8fd7-6700a66b0345",
+    "name": "PASS: removeRoom by creator succeeds",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "58925b38-7ec9-4cc1-a4eb-24e4c95eccdf",
+    "timestamp": "2026-06-14T21:16:55.992Z"
+  },
+  "ownerIor": "ior:instance:58925b38-7ec9-4cc1-a4eb-24e4c95eccdf"
+}

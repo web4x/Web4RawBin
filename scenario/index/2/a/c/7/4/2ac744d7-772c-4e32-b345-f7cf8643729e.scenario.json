@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "2ac744d7-772c-4e32-b345-f7cf8643729e",
+    "name": "PASS: directories come before files",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "d704080b-7b4f-4722-9e69-1ecdffdeb96e",
+    "timestamp": "2026-06-14T21:16:56.096Z"
+  },
+  "ownerIor": "ior:instance:d704080b-7b4f-4722-9e69-1ecdffdeb96e"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "46007035-4682-437f-ad6b-057b6303af00",
+    "name": "PASS: node_modules/ root blocked",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "78afbf8c-6ba5-4b25-96b8-9e41e5c1ad21",
+    "timestamp": "2026-06-14T21:16:56.025Z"
+  },
+  "ownerIor": "ior:instance:78afbf8c-6ba5-4b25-96b8-9e41e5c1ad21"
+}

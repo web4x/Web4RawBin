@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "af825859-db84-4c0f-baae-f2735b56a360",
+    "name": "PASS: broadcast skips disconnected members (readyState !== 1)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5144c6ba-345e-4e3c-8f13-730ab7dd3dc6",
+    "timestamp": "2026-06-14T21:16:55.982Z"
+  },
+  "ownerIor": "ior:instance:5144c6ba-345e-4e3c-8f13-730ab7dd3dc6"
+}

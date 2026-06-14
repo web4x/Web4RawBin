@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "64e88fe6-6458-42cd-989e-dd3a0883c2e7",
+    "name": "PASS: returns empty array when no files",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "f80d4f47-4c76-440d-86c1-e6469746a80c",
+    "timestamp": "2026-06-14T21:16:56.128Z"
+  },
+  "ownerIor": "ior:instance:f80d4f47-4c76-440d-86c1-e6469746a80c"
+}

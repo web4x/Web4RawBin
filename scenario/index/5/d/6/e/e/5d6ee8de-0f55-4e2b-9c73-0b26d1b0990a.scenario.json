@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5d6ee8de-0f55-4e2b-9c73-0b26d1b0990a",
+    "name": "PASS: zero translate produces 0,0 percentages",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "fc14a1c6-0e1c-4c61-9b0e-fb34f7f33c57",
+    "timestamp": "2026-06-14T21:16:56.145Z"
+  },
+  "ownerIor": "ior:instance:fc14a1c6-0e1c-4c61-9b0e-fb34f7f33c57"
+}

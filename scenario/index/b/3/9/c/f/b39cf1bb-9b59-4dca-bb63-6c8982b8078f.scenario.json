@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b39cf1bb-9b59-4dca-bb63-6c8982b8078f",
+    "name": "PASS: shows delete button when showDelete=true",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e762f63d-3eaa-4147-aa6d-69effd974482",
+    "timestamp": "2026-06-14T21:16:56.114Z"
+  },
+  "ownerIor": "ior:instance:e762f63d-3eaa-4147-aa6d-69effd974482"
+}

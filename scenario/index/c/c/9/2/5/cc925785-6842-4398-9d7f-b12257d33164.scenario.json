@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "cc925785-6842-4398-9d7f-b12257d33164",
+    "name": "PASS: re-sorting already-sorted list is idempotent (stable across restart)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "f9ce1d8c-c0df-4858-990a-d3490c2fddd0",
+    "timestamp": "2026-06-14T21:16:56.129Z"
+  },
+  "ownerIor": "ior:instance:f9ce1d8c-c0df-4858-990a-d3490c2fddd0"
+}

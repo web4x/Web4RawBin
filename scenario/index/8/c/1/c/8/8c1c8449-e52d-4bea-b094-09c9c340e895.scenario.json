@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "8c1c8449-e52d-4bea-b094-09c9c340e895",
+    "name": "PASS: generateOne produces MD+HTML for a known unit",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e61fad3a-f192-4059-84b8-ee18b2b8b4bf",
+    "timestamp": "2026-06-14T21:16:56.113Z"
+  },
+  "ownerIor": "ior:instance:e61fad3a-f192-4059-84b8-ee18b2b8b4bf"
+}

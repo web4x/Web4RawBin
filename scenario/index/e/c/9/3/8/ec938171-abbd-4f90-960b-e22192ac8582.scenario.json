@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ec938171-abbd-4f90-960b-e22192ac8582",
+    "name": "PASS: rb-object-item.ts exists with render method",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "308adc99-30a1-4150-bf8f-d0f3904ed1ee",
+    "timestamp": "2026-06-14T21:16:55.942Z"
+  },
+  "ownerIor": "ior:instance:308adc99-30a1-4150-bf8f-d0f3904ed1ee"
+}

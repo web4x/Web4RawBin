@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "303cc008-849c-4a94-9830-a0c9e97fe610",
+    "name": "PASS: onClose not called if never shown",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9cb53805-b1a4-4ec4-9e86-e5e6629b2f54",
+    "timestamp": "2026-06-14T21:16:56.054Z"
+  },
+  "ownerIor": "ior:instance:9cb53805-b1a4-4ec4-9e86-e5e6629b2f54"
+}

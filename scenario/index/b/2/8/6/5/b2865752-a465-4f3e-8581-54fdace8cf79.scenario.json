@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b2865752-a465-4f3e-8581-54fdace8cf79",
+    "name": "PASS: subsequent write with returned mtime succeeds",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "0f430305-66f5-4443-bdd9-d0d360c2f766",
+    "timestamp": "2026-06-14T21:16:55.898Z"
+  },
+  "ownerIor": "ior:instance:0f430305-66f5-4443-bdd9-d0d360c2f766"
+}

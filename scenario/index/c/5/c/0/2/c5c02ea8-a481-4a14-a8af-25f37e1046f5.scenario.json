@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c5c02ea8-a481-4a14-a8af-25f37e1046f5",
+    "name": "PASS: wrong code shows error, correct code stores keys, reload auto-auths",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e112734c-0c93-4cfa-b141-dce67df5f3f6",
+    "timestamp": "2026-06-14T21:16:56.106Z"
+  },
+  "ownerIor": "ior:instance:e112734c-0c93-4cfa-b141-dce67df5f3f6"
+}

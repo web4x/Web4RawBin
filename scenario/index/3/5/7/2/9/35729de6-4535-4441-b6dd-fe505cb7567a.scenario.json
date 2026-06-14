@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "35729de6-4535-4441-b6dd-fe505cb7567a",
+    "name": "PASS: a freshly created room (max createdAt) goes to top",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "f89163f0-13ff-492d-bfbe-63e9c5992a82",
+    "timestamp": "2026-06-14T21:16:56.129Z"
+  },
+  "ownerIor": "ior:instance:f89163f0-13ff-492d-bfbe-63e9c5992a82"
+}

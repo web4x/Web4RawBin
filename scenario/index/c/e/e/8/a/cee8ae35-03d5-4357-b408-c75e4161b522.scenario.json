@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "cee8ae35-03d5-4357-b408-c75e4161b522",
+    "name": "PASS: rejects code shorter than 4 digits — keeps old code",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "180b04b4-e671-4eda-9331-5d215f086ade",
+    "timestamp": "2026-06-14T21:16:55.910Z"
+  },
+  "ownerIor": "ior:instance:180b04b4-e671-4eda-9331-5d215f086ade"
+}

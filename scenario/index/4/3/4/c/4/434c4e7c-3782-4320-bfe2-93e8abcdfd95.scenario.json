@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "434c4e7c-3782-4320-bfe2-93e8abcdfd95",
+    "name": "PASS: private_key/<token>.private_key contains same key as id_rsa",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "7b1bcd2e-8a51-4d14-89e6-80e9165efadc",
+    "timestamp": "2026-06-14T21:16:56.026Z"
+  },
+  "ownerIor": "ior:instance:7b1bcd2e-8a51-4d14-89e6-80e9165efadc"
+}

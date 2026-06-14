@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "3dfe5efc-b220-4ca3-a45d-14ec96c9bb63",
+    "name": "PASS: swapping searchProvider (mock RemoteSearch) does not change the API (AC3)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "77db04d8-6841-422b-bea0-f8f19509f872",
+    "timestamp": "2026-06-14T21:16:56.022Z"
+  },
+  "ownerIor": "ior:instance:77db04d8-6841-422b-bea0-f8f19509f872"
+}

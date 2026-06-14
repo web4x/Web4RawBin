@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "9a07ab46-0d8b-4016-8c59-05fc52c13c2f",
+    "name": "PASS: peek contains sender name and truncated text",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "930b790e-5d86-4d8b-9c06-e62e3215e382",
+    "timestamp": "2026-06-14T21:16:56.042Z"
+  },
+  "ownerIor": "ior:instance:930b790e-5d86-4d8b-9c06-e62e3215e382"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ac154981-a520-4a52-9d4c-3c51b49e9952",
+    "name": "PASS: handlePinch scales the crop transform",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "37b49518-199c-438d-bfb9-1da022f1e877",
+    "timestamp": "2026-06-14T21:16:55.949Z"
+  },
+  "ownerIor": "ior:instance:37b49518-199c-438d-bfb9-1da022f1e877"
+}

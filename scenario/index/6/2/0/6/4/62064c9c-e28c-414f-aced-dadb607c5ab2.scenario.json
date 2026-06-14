@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "62064c9c-e28c-414f-aced-dadb607c5ab2",
+    "name": "PASS: emits a verbs table with the generated banner",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e39ec40f-8a17-465c-a4e6-2901500ce3ed",
+    "timestamp": "2026-06-14T21:16:56.110Z"
+  },
+  "ownerIor": "ior:instance:e39ec40f-8a17-465c-a4e6-2901500ce3ed"
+}

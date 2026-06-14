@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "1cf90e03-7947-4035-914d-41fb295c9e54",
+    "name": "PASS: cacheProfile stores profile data",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5e65918c-fbe7-412a-b896-dc49145d6ce5",
+    "timestamp": "2026-06-14T21:16:55.996Z"
+  },
+  "ownerIor": "ior:instance:5e65918c-fbe7-412a-b896-dc49145d6ce5"
+}

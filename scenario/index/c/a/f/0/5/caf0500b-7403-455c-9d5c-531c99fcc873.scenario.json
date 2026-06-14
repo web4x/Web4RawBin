@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "caf0500b-7403-455c-9d5c-531c99fcc873",
+    "name": "PASS: T81/T82: other-member sheet — vCard visible+well-formed, #us-link present, no #us-edit, avatar readonly, 1 GET_USER_INFO/tap",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "dbbaf6fb-695f-4f58-8e78-8a5f3b0b0e3b",
+    "timestamp": "2026-06-14T21:16:56.101Z"
+  },
+  "ownerIor": "ior:instance:dbbaf6fb-695f-4f58-8e78-8a5f3b0b0e3b"
+}

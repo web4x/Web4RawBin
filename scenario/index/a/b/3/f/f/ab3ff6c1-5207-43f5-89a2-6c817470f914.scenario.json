@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ab3ff6c1-5207-43f5-89a2-6c817470f914",
+    "name": "PASS: re-renders on ViewBus.notify(ref) after a title change (AC3)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "07df83fa-d450-4576-817d-abee0884248b",
+    "timestamp": "2026-06-14T21:16:55.889Z"
+  },
+  "ownerIor": "ior:instance:07df83fa-d450-4576-817d-abee0884248b"
+}

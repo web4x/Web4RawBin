@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b406b437-554b-4e44-a473-4285a5dd3788",
+    "name": "PASS: reconnect re-establishes connection",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "fd3921b8-26b7-400c-881e-755175e65900",
+    "timestamp": "2026-06-14T21:16:56.147Z"
+  },
+  "ownerIor": "ior:instance:fd3921b8-26b7-400c-881e-755175e65900"
+}

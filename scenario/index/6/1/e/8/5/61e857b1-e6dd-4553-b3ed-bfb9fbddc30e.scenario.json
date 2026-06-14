@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "61e857b1-e6dd-4553-b3ed-bfb9fbddc30e",
+    "name": "PASS: public_keys/<token>.public_key contains same key as id_rsa.pub",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "f7cb094a-0e6f-422b-97b6-3e0a9fdf919c",
+    "timestamp": "2026-06-14T21:16:56.128Z"
+  },
+  "ownerIor": "ior:instance:f7cb094a-0e6f-422b-97b6-3e0a9fdf919c"
+}

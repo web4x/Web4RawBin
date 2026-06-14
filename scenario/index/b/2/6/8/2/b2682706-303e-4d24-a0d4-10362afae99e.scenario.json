@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b2682706-303e-4d24-a0d4-10362afae99e",
+    "name": "PASS: signature from different device key returns false",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "832665f7-621b-4261-83e2-b7528fd56dcd",
+    "timestamp": "2026-06-14T21:16:56.031Z"
+  },
+  "ownerIor": "ior:instance:832665f7-621b-4261-83e2-b7528fd56dcd"
+}

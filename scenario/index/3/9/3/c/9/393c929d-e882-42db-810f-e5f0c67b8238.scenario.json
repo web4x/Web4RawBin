@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "393c929d-e882-42db-810f-e5f0c67b8238",
+    "name": "PASS: T82 TS3: lobby #refresh-rooms-btn (.btn-secondary on dark) stays light-on-dark (scope did not leak)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "4582c3ba-5979-44b2-810a-4d56ae409460",
+    "timestamp": "2026-06-14T21:16:55.968Z"
+  },
+  "ownerIor": "ior:instance:4582c3ba-5979-44b2-810a-4d56ae409460"
+}

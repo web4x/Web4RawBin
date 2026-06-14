@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "dbbfc7be-a1ef-4f57-9b6d-90b367abb8ba",
+    "name": "PASS: pinCurrent returns PinData with sprintName+taskName",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "71c766c8-f05b-48b7-a577-20c284ae1443",
+    "timestamp": "2026-06-14T21:16:56.016Z"
+  },
+  "ownerIor": "ior:instance:71c766c8-f05b-48b7-a577-20c284ae1443"
+}

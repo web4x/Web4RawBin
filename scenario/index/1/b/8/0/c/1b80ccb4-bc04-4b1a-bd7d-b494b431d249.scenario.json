@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "1b80ccb4-bc04-4b1a-bd7d-b494b431d249",
+    "name": "PASS: drag down > 50px closes overlay",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "6bdbb111-2450-4780-b20d-47e5be734b54",
+    "timestamp": "2026-06-14T21:16:56.011Z"
+  },
+  "ownerIor": "ior:instance:6bdbb111-2450-4780-b20d-47e5be734b54"
+}

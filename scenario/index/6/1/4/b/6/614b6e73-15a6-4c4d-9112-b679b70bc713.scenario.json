@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "614b6e73-15a6-4c4d-9112-b679b70bc713",
+    "name": "PASS: icons include 192px and 512px sizes",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "10a1380c-dfb2-45d9-a080-2085c4bce0d2",
+    "timestamp": "2026-06-14T21:16:55.900Z"
+  },
+  "ownerIor": "ior:instance:10a1380c-dfb2-45d9-a080-2085c4bce0d2"
+}

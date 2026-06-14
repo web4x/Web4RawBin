@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a7279c73-fa0b-44b1-8a71-05d8e31f1078",
+    "name": "PASS: cleanupTestUsers helper exists in helpers.ts",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "1f58e798-5e15-4fbb-b980-e2f14534fca7",
+    "timestamp": "2026-06-14T21:16:55.923Z"
+  },
+  "ownerIor": "ior:instance:1f58e798-5e15-4fbb-b980-e2f14534fca7"
+}

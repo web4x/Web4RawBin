@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0cbf166c-ff89-49c9-bdf9-cdad47af2679",
+    "name": "PASS: rb-detail-drawer has renderGrabBar() named method returning grab-bar HTML",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "3cc45162-75fb-4e81-a26a-462938b2c96f",
+    "timestamp": "2026-06-14T21:16:55.955Z"
+  },
+  "ownerIor": "ior:instance:3cc45162-75fb-4e81-a26a-462938b2c96f"
+}

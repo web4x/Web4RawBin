@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7b97c948-f497-4867-9066-0fa53f1ee71b",
+    "name": "PASS: non-creator cannot delete the room",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "162d3fec-8c2b-49d2-bb11-89b73ecb3bee",
+    "timestamp": "2026-06-14T21:16:55.908Z"
+  },
+  "ownerIor": "ior:instance:162d3fec-8c2b-49d2-bb11-89b73ecb3bee"
+}

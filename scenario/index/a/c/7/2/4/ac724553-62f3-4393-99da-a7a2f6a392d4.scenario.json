@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ac724553-62f3-4393-99da-a7a2f6a392d4",
+    "name": "PASS: exports RbCodeEditor class",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "fc2cd5ad-d01b-43e9-b452-d7d5e9fc84ac",
+    "timestamp": "2026-06-14T21:16:56.146Z"
+  },
+  "ownerIor": "ior:instance:fc2cd5ad-d01b-43e9-b452-d7d5e9fc84ac"
+}

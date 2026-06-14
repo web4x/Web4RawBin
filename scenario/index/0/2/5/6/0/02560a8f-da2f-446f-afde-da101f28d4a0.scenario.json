@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "02560a8f-da2f-446f-afde-da101f28d4a0",
+    "name": "PASS: creates a private room when isPrivate=true",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "88bfbd1c-fa5b-4c7f-b17f-67bf5948d65c",
+    "timestamp": "2026-06-14T21:16:56.033Z"
+  },
+  "ownerIor": "ior:instance:88bfbd1c-fa5b-4c7f-b17f-67bf5948d65c"
+}

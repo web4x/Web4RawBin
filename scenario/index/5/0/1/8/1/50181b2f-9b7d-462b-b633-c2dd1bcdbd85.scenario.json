@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "50181b2f-9b7d-462b-b633-c2dd1bcdbd85",
+    "name": "PASS: R19.23: addMember never rejects for room-full (unbounded)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "3c758032-3151-44ed-9507-e1ae44ee995a",
+    "timestamp": "2026-06-14T21:16:55.954Z"
+  },
+  "ownerIor": "ior:instance:3c758032-3151-44ed-9507-e1ae44ee995a"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "f5570ea8-d21f-4fb4-9771-8d52303d10f5",
+    "name": "PASS: roomId matches UUID v4 pattern",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "66767c3a-4801-4727-b8e8-5fc108ca134d",
+    "timestamp": "2026-06-14T21:16:56.004Z"
+  },
+  "ownerIor": "ior:instance:66767c3a-4801-4727-b8e8-5fc108ca134d"
+}

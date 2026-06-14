@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "82234458-472b-4f86-b3d3-530f2467819b",
+    "name": "PASS: img gets size as width/height attributes",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "043b859b-a094-46cb-a8ab-212503b11c2c",
+    "timestamp": "2026-06-14T21:16:55.885Z"
+  },
+  "ownerIor": "ior:instance:043b859b-a094-46cb-a8ab-212503b11c2c"
+}

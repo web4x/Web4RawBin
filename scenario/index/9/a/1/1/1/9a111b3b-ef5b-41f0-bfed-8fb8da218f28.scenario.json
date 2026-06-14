@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "9a111b3b-ef5b-41f0-bfed-8fb8da218f28",
+    "name": "PASS: single member renders one badge",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "2ff16655-417e-4b26-a6ad-82d6f7490302",
+    "timestamp": "2026-06-14T21:16:55.941Z"
+  },
+  "ownerIor": "ior:instance:2ff16655-417e-4b26-a6ad-82d6f7490302"
+}

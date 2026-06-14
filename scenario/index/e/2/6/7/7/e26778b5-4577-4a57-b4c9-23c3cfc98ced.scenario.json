@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "e26778b5-4577-4a57-b4c9-23c3cfc98ced",
+    "name": "PASS: flags a task with no [task:uuid]",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "4ee67ae1-7376-4851-8f5e-5efc345f233d",
+    "timestamp": "2026-06-14T21:16:55.979Z"
+  },
+  "ownerIor": "ior:instance:4ee67ae1-7376-4851-8f5e-5efc345f233d"
+}

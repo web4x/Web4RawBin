@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "74bcb0af-cfaf-4c97-8f6e-4137af0e614b",
+    "name": "PASS: CREATE_ROOM handler references profile avatar not connection avatar",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "f33a5272-de0b-46ec-902c-0d4c4f0bb1da",
+    "timestamp": "2026-06-14T21:16:56.124Z"
+  },
+  "ownerIor": "ior:instance:f33a5272-de0b-46ec-902c-0d4c4f0bb1da"
+}

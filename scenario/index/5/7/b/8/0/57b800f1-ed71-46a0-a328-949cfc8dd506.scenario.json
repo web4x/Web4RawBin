@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "57b800f1-ed71-46a0-a328-949cfc8dd506",
+    "name": "PASS: show(url) stores url in qr-code data attribute",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "fc6a29ec-e702-4584-a9a4-c78d55f4553d",
+    "timestamp": "2026-06-14T21:16:56.146Z"
+  },
+  "ownerIor": "ior:instance:fc6a29ec-e702-4584-a9a4-c78d55f4553d"
+}

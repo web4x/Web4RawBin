@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "4baf8c60-4ca4-4872-b370-9acdb06fdfc5",
+    "name": "PASS: safe-area-inset-top appears in a padding-top calc for header elements",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "66d4bb5c-b74c-4130-9b86-cb936c22eec8",
+    "timestamp": "2026-06-14T21:16:56.005Z"
+  },
+  "ownerIor": "ior:instance:66d4bb5c-b74c-4130-9b86-cb936c22eec8"
+}

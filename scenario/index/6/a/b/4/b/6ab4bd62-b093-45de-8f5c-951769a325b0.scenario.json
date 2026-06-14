@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "6ab4bd62-b093-45de-8f5c-951769a325b0",
+    "name": "PASS: tronApprove requires commit ref",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "246cab52-77cb-4af5-bea4-b43da2e18b8f",
+    "timestamp": "2026-06-14T21:16:55.929Z"
+  },
+  "ownerIor": "ior:instance:246cab52-77cb-4af5-bea4-b43da2e18b8f"
+}

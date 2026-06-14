@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b5f197bf-3784-46fd-a2b1-29921366f738",
+    "name": "PASS: RoomView.ts contains the editOpen impl marker and click handler",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "b39d146d-b955-493f-ae2d-b0286997ab9a",
+    "timestamp": "2026-06-14T21:16:56.074Z"
+  },
+  "ownerIor": "ior:instance:b39d146d-b955-493f-ae2d-b0286997ab9a"
+}

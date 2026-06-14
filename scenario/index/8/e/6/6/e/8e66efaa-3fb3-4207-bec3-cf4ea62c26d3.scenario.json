@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "8e66efaa-3fb3-4207-bec3-cf4ea62c26d3",
+    "name": "PASS: scoreboard carries the canonical Summary line (parsed by downstream agents)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "3bd397bd-0e71-4a87-9011-5bc370b6d4cb",
+    "timestamp": "2026-06-14T21:16:55.954Z"
+  },
+  "ownerIor": "ior:instance:3bd397bd-0e71-4a87-9011-5bc370b6d4cb"
+}

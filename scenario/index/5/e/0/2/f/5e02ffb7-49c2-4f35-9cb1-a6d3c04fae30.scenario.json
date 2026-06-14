@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5e02ffb7-49c2-4f35-9cb1-a6d3c04fae30",
+    "name": "PASS: Bug icon distinct from Requirement icon",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "fb1e9ee7-11e7-4134-bcd4-cf4a7e9c954d",
+    "timestamp": "2026-06-14T21:16:56.144Z"
+  },
+  "ownerIor": "ior:instance:fb1e9ee7-11e7-4134-bcd4-cf4a7e9c954d"
+}

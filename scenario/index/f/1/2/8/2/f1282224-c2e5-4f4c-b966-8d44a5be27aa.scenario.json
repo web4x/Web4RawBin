@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "f1282224-c2e5-4f4c-b966-8d44a5be27aa",
+    "name": "PASS: statusTransition applies FSM verb + persists",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "32791562-3f55-4944-95e9-c8aa9de6f58a",
+    "timestamp": "2026-06-14T21:16:55.944Z"
+  },
+  "ownerIor": "ior:instance:32791562-3f55-4944-95e9-c8aa9de6f58a"
+}

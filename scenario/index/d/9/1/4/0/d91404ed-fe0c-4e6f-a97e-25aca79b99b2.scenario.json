@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "d91404ed-fe0c-4e6f-a97e-25aca79b99b2",
+    "name": "PASS: setChain stores chain refs and returns true",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e437fde1-67ce-4d2e-b2a7-49dbe6bedf6d",
+    "timestamp": "2026-06-14T21:16:56.110Z"
+  },
+  "ownerIor": "ior:instance:e437fde1-67ce-4d2e-b2a7-49dbe6bedf6d"
+}

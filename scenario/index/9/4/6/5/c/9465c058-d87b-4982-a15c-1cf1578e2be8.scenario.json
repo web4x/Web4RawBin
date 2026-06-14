@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "9465c058-d87b-4982-a15c-1cf1578e2be8",
+    "name": "PASS: 409 response includes actual server mtime",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "36094b33-ae6c-4b97-bf79-eabe738de18e",
+    "timestamp": "2026-06-14T21:16:55.948Z"
+  },
+  "ownerIor": "ior:instance:36094b33-ae6c-4b97-bf79-eabe738de18e"
+}

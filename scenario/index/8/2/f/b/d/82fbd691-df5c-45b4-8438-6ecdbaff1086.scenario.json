@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "82fbd691-df5c-45b4-8438-6ecdbaff1086",
+    "name": "PASS: data/users/.ssh private keys blocked",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "c34093ee-1795-49c9-a02d-b41d6185ef22",
+    "timestamp": "2026-06-14T21:16:56.085Z"
+  },
+  "ownerIor": "ior:instance:c34093ee-1795-49c9-a02d-b41d6185ef22"
+}

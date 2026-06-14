@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "66573f88-1513-44b0-be7a-e4fc39ab4e9f",
+    "name": "PASS: inverseRelation returns correct inverse",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "76fd2dde-f920-4226-b31b-50b715d5447e",
+    "timestamp": "2026-06-14T21:16:56.021Z"
+  },
+  "ownerIor": "ior:instance:76fd2dde-f920-4226-b31b-50b715d5447e"
+}

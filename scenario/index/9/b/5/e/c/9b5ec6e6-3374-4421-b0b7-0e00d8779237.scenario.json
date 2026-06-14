@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "9b5ec6e6-3374-4421-b0b7-0e00d8779237",
+    "name": "PASS: removes a member and decrements count",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "64378ce7-d418-41e4-bdb6-1e1701ad4fbc",
+    "timestamp": "2026-06-14T21:16:56.002Z"
+  },
+  "ownerIor": "ior:instance:64378ce7-d418-41e4-bdb6-1e1701ad4fbc"
+}

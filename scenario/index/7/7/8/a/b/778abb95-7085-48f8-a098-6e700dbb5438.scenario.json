@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "778abb95-7085-48f8-a098-6e700dbb5438",
+    "name": "PASS: multiple legacy rooms all sink, no error",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5f6587b3-bec8-4b03-b8e4-b156cfbbe825",
+    "timestamp": "2026-06-14T21:16:55.997Z"
+  },
+  "ownerIor": "ior:instance:5f6587b3-bec8-4b03-b8e4-b156cfbbe825"
+}

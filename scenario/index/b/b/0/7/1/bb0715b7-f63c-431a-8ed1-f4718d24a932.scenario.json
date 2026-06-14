@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "bb0715b7-f63c-431a-8ed1-f4718d24a932",
+    "name": "PASS: message renders with sender name in DOM",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "783131ec-135b-4ed3-8e63-5772004be716",
+    "timestamp": "2026-06-14T21:16:56.023Z"
+  },
+  "ownerIor": "ior:instance:783131ec-135b-4ed3-8e63-5772004be716"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "747995f3-f8fc-42ee-bd06-860a7a7303d1",
+    "name": "PASS: TraceModel FORWARD_KEYS defines 7-step chain",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "837cc100-3bca-4b06-971c-fe3e73e90cd3",
+    "timestamp": "2026-06-14T21:16:56.031Z"
+  },
+  "ownerIor": "ior:instance:837cc100-3bca-4b06-971c-fe3e73e90cd3"
+}

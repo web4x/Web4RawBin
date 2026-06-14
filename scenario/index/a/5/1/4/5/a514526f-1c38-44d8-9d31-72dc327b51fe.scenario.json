@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a514526f-1c38-44d8-9d31-72dc327b51fe",
+    "name": "PASS: restored room has correct id matching directory",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "f1d73610-a1ca-4f0c-8139-a69dedd1e47d",
+    "timestamp": "2026-06-14T21:16:56.122Z"
+  },
+  "ownerIor": "ior:instance:f1d73610-a1ca-4f0c-8139-a69dedd1e47d"
+}

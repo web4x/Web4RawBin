@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5dbbf1e2-e914-4ed2-b4dd-736afd16cdd1",
+    "name": "PASS: ${dialog.name} has open/show method",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e2e66c92-8344-4e81-9b6d-4f2971481b14",
+    "timestamp": "2026-06-14T21:16:56.108Z"
+  },
+  "ownerIor": "ior:instance:e2e66c92-8344-4e81-9b6d-4f2971481b14"
+}

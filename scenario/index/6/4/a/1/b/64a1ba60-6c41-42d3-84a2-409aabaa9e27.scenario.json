@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "64a1ba60-6c41-42d3-84a2-409aabaa9e27",
+    "name": "PASS: app.js.map blocked in production",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "bb247b6c-869f-49e5-b7ca-7d0a8b2bd93e",
+    "timestamp": "2026-06-14T21:16:56.078Z"
+  },
+  "ownerIor": "ior:instance:bb247b6c-869f-49e5-b7ca-7d0a8b2bd93e"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "48bac9a1-38e5-4dcc-94cc-659a279a5128",
+    "name": "PASS: HTML files get must-revalidate",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "abb9715f-bb1c-4499-ac5f-8a7b8da580f8",
+    "timestamp": "2026-06-14T21:16:56.068Z"
+  },
+  "ownerIor": "ior:instance:abb9715f-bb1c-4499-ac5f-8a7b8da580f8"
+}

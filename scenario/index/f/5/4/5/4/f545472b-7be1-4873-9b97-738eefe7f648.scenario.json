@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "f545472b-7be1-4873-9b97-738eefe7f648",
+    "name": "PASS: source references conflict or 409 handling",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "24e2178b-22ac-4801-bf30-60a8c60760c7",
+    "timestamp": "2026-06-14T21:16:55.929Z"
+  },
+  "ownerIor": "ior:instance:24e2178b-22ac-4801-bf30-60a8c60760c7"
+}

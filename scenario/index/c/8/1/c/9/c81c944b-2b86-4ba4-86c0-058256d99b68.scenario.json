@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c81c944b-2b86-4ba4-86c0-058256d99b68",
+    "name": "PASS: empty challenge returns false",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "502a7be2-bed9-48bf-bb55-472ec5191768",
+    "timestamp": "2026-06-14T21:16:55.981Z"
+  },
+  "ownerIor": "ior:instance:502a7be2-bed9-48bf-bb55-472ec5191768"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "e98bea2e-5d39-4683-98b8-d0b260e0ed72",
+    "name": "PASS: T-persistent-retention: removeMember still prunes in live rooms",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "a2aa6c20-3559-41d8-b46e-42c9880fc33c",
+    "timestamp": "2026-06-14T21:16:56.059Z"
+  },
+  "ownerIor": "ior:instance:a2aa6c20-3559-41d8-b46e-42c9880fc33c"
+}

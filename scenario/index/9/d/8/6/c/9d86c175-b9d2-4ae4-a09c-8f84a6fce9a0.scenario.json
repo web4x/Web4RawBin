@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "9d86c175-b9d2-4ae4-a09c-8f84a6fce9a0",
+    "name": "PASS: reconnecting shows orange dot",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e5e31ff6-dd67-4e31-bda5-3dca4b0a7a6f",
+    "timestamp": "2026-06-14T21:16:56.112Z"
+  },
+  "ownerIor": "ior:instance:e5e31ff6-dd67-4e31-bda5-3dca4b0a7a6f"
+}

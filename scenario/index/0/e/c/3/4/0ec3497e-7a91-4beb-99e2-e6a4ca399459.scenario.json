@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0ec3497e-7a91-4beb-99e2-e6a4ca399459",
+    "name": "PASS: starts closed",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e5819a3e-e5b5-418d-bfa3-5bd4643dfd60",
+    "timestamp": "2026-06-14T21:16:56.112Z"
+  },
+  "ownerIor": "ior:instance:e5819a3e-e5b5-418d-bfa3-5bd4643dfd60"
+}

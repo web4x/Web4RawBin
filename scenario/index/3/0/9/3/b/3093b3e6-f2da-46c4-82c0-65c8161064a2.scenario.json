@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "3093b3e6-f2da-46c4-82c0-65c8161064a2",
+    "name": "PASS: renderAllChildrenSection function is exported from detail-superseded.ts",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "2f1daf6e-99d4-4abe-8979-2744e5146a0a",
+    "timestamp": "2026-06-14T21:16:55.940Z"
+  },
+  "ownerIor": "ior:instance:2f1daf6e-99d4-4abe-8979-2744e5146a0a"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "11d4de97-3a01-4033-b478-c5d57c3c76d9",
+    "name": "PASS: PROFILE response from IDENTIFY has no game fields",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "fa082bae-5579-4ac0-9133-36117bc06bc3",
+    "timestamp": "2026-06-14T21:16:56.130Z"
+  },
+  "ownerIor": "ior:instance:fa082bae-5579-4ac0-9133-36117bc06bc3"
+}

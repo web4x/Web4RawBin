@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "259d5ad9-dfe2-4add-b43e-da124caa8b4a",
+    "name": "PASS: render() awaits whenDefined before its renderMemberList call",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9e1a53ce-6384-4f29-a1fa-6b04120a15f1",
+    "timestamp": "2026-06-14T21:16:56.055Z"
+  },
+  "ownerIor": "ior:instance:9e1a53ce-6384-4f29-a1fa-6b04120a15f1"
+}

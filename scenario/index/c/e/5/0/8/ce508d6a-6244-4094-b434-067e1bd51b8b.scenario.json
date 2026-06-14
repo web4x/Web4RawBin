@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ce508d6a-6244-4094-b434-067e1bd51b8b",
+    "name": "PASS: registerSync returns false when registration has no sync",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "b08f7cdc-6a44-4cf9-a9ca-0ea5bdf56b39",
+    "timestamp": "2026-06-14T21:16:56.071Z"
+  },
+  "ownerIor": "ior:instance:b08f7cdc-6a44-4cf9-a9ca-0ea5bdf56b39"
+}

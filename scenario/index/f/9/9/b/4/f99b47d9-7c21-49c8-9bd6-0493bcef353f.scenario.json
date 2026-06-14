@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "f99b47d9-7c21-49c8-9bd6-0493bcef353f",
+    "name": "PASS: file exists in components/",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "2ea5105b-0422-491b-9bef-f9ade0d82285",
+    "timestamp": "2026-06-14T21:16:55.940Z"
+  },
+  "ownerIor": "ior:instance:2ea5105b-0422-491b-9bef-f9ade0d82285"
+}

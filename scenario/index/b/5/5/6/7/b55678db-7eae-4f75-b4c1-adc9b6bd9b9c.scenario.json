@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b55678db-7eae-4f75-b4c1-adc9b6bd9b9c",
+    "name": "PASS: T-persistent-retention: reconnect flips disconnected=false, no dup",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5ff7b869-7661-4eab-9bbb-bfb64d191830",
+    "timestamp": "2026-06-14T21:16:55.999Z"
+  },
+  "ownerIor": "ior:instance:5ff7b869-7661-4eab-9bbb-bfb64d191830"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "f8664a68-c152-4f86-8f92-ed1dbf122334",
+    "name": "PASS: SVG initials fallback is NOT protected → ensureAvatar falls through to re-fetch a real photo",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "62174567-2a55-482a-a153-696b84be8322",
+    "timestamp": "2026-06-14T21:16:56.000Z"
+  },
+  "ownerIor": "ior:instance:62174567-2a55-482a-a153-696b84be8322"
+}

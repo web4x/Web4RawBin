@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "e78a18e9-abe5-4ef4-953b-0e93e1019dcc",
+    "name": "PASS: .drawer-close button exists in template",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "76fe98b4-388c-48d1-80c0-52442d8937b1",
+    "timestamp": "2026-06-14T21:16:56.021Z"
+  },
+  "ownerIor": "ior:instance:76fe98b4-388c-48d1-80c0-52442d8937b1"
+}

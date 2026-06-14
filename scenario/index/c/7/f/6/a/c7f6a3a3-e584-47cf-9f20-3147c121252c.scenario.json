@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c7f6a3a3-e584-47cf-9f20-3147c121252c",
+    "name": "PASS: returns DEVICE_ENROLL_FAILED for unidentified client",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "744f8c0c-4a86-40ba-b9e3-bd9b112b2e83",
+    "timestamp": "2026-06-14T21:16:56.018Z"
+  },
+  "ownerIor": "ior:instance:744f8c0c-4a86-40ba-b9e3-bd9b112b2e83"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "2279dd06-ce14-49b5-80bc-6c3fb3061846",
+    "name": "PASS: listComplete agrees with followUp.complete under the gate",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9d4714b4-7edd-4b26-b2e1-01245020318b",
+    "timestamp": "2026-06-14T21:16:56.054Z"
+  },
+  "ownerIor": "ior:instance:9d4714b4-7edd-4b26-b2e1-01245020318b"
+}

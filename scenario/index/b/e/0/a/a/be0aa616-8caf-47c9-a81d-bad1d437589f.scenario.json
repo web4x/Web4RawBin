@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "be0aa616-8caf-47c9-a81d-bad1d437589f",
+    "name": "PASS: multiple pans accumulate",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "8b22f1c6-20c2-4718-8234-d9351adcc721",
+    "timestamp": "2026-06-14T21:16:56.035Z"
+  },
+  "ownerIor": "ior:instance:8b22f1c6-20c2-4718-8234-d9351adcc721"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "9a75b64f-56f3-4f72-a1b4-47c44d7e3ef8",
+    "name": "PASS: profile fields match UserProfile interface",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "4edcf872-940e-4ef7-90b3-986c3e668a53",
+    "timestamp": "2026-06-14T21:16:55.979Z"
+  },
+  "ownerIor": "ior:instance:4edcf872-940e-4ef7-90b3-986c3e668a53"
+}

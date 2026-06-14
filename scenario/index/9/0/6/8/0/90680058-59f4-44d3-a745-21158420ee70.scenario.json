@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "90680058-59f4-44d3-a745-21158420ee70",
+    "name": "PASS: formatReport says CONSISTENT on zero issues",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "2f9ef101-681d-4f1c-aa1f-b7076e17c2d2",
+    "timestamp": "2026-06-14T21:16:55.940Z"
+  },
+  "ownerIor": "ior:instance:2f9ef101-681d-4f1c-aa1f-b7076e17c2d2"
+}

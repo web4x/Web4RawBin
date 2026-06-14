@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "9a3f0ba7-89df-4f9b-859a-396386569496",
+    "name": "PASS: open() marks store as ready",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "b6771fd0-f330-48b0-8b2f-d58ab7619ba0",
+    "timestamp": "2026-06-14T21:16:56.076Z"
+  },
+  "ownerIor": "ior:instance:b6771fd0-f330-48b0-8b2f-d58ab7619ba0"
+}

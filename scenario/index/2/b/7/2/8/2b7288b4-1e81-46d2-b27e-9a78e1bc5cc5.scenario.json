@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "2b7288b4-1e81-46d2-b27e-9a78e1bc5cc5",
+    "name": "PASS: ESC key closes drawer",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "f47141bb-ca10-4fc9-b359-82a5e242a755",
+    "timestamp": "2026-06-14T21:16:56.125Z"
+  },
+  "ownerIor": "ior:instance:f47141bb-ca10-4fc9-b359-82a5e242a755"
+}

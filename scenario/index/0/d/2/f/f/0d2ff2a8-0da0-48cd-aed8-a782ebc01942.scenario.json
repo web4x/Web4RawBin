@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0d2ff2a8-0da0-48cd-aed8-a782ebc01942",
+    "name": "PASS: rejects invalid MIME type",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e30adbc0-b620-401d-a35a-8071f62247b2",
+    "timestamp": "2026-06-14T21:16:56.109Z"
+  },
+  "ownerIor": "ior:instance:e30adbc0-b620-401d-a35a-8071f62247b2"
+}

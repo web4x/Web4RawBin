@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "efeac7cb-d50f-48dc-a2bf-807f2f61bdb4",
+    "name": "PASS: 10x repeated pinch-release-no-pan: all 10 hold (no revert)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9d5d5727-b67b-4ff1-a836-e7ffea5320a2",
+    "timestamp": "2026-06-14T21:16:56.055Z"
+  },
+  "ownerIor": "ior:instance:9d5d5727-b67b-4ff1-a836-e7ffea5320a2"
+}

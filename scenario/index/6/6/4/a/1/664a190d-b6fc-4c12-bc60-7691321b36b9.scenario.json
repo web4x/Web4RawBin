@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "664a190d-b6fc-4c12-bc60-7691321b36b9",
+    "name": "PASS: finds the T138 Scenario verbs + Rules + Audit (full coverage of the skills inventory)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "418cfce1-b7ba-4d75-91c4-4fe4392dfb7c",
+    "timestamp": "2026-06-14T21:16:55.960Z"
+  },
+  "ownerIor": "ior:instance:418cfce1-b7ba-4d75-91c4-4fe4392dfb7c"
+}

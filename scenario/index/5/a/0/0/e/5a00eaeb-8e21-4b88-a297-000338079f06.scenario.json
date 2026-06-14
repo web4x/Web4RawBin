@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5a00eaeb-8e21-4b88-a297-000338079f06",
+    "name": "PASS: disconnected owner rooms excluded from list",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "7a806b6e-f61a-4919-b8ad-3f5e0745eec6",
+    "timestamp": "2026-06-14T21:16:56.026Z"
+  },
+  "ownerIor": "ior:instance:7a806b6e-f61a-4919-b8ad-3f5e0745eec6"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "426edc43-d484-4680-9f4f-3034c31f15bb",
+    "name": "PASS: each message has unique incrementing id",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9f64f973-9194-4b93-b6a0-e9f2e986537b",
+    "timestamp": "2026-06-14T21:16:56.057Z"
+  },
+  "ownerIor": "ior:instance:9f64f973-9194-4b93-b6a0-e9f2e986537b"
+}

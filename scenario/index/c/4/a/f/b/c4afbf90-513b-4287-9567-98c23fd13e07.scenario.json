@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c4afbf90-513b-4287-9567-98c23fd13e07",
+    "name": "PASS: non-owner gets error",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "1d91c195-c1a5-4eb5-831a-3c2e71478eed",
+    "timestamp": "2026-06-14T21:16:55.921Z"
+  },
+  "ownerIor": "ior:instance:1d91c195-c1a5-4eb5-831a-3c2e71478eed"
+}

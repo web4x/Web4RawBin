@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7a80974b-73ef-4df3-b529-229cd7876293",
+    "name": "PASS: loadFile fetches from /api/files",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5a4df0b7-565f-485d-b835-f87a5aa38513",
+    "timestamp": "2026-06-14T21:16:55.994Z"
+  },
+  "ownerIor": "ior:instance:5a4df0b7-565f-485d-b835-f87a5aa38513"
+}

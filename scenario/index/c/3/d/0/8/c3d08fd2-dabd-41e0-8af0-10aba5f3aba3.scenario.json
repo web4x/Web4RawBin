@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c3d08fd2-dabd-41e0-8af0-10aba5f3aba3",
+    "name": "PASS: signature is valid for the returned device key",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "46f0d39f-e357-41e4-9b65-2785ba43dcd3",
+    "timestamp": "2026-06-14T21:16:55.971Z"
+  },
+  "ownerIor": "ior:instance:46f0d39f-e357-41e4-9b65-2785ba43dcd3"
+}

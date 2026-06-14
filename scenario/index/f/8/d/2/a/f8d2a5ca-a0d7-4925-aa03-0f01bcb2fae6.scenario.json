@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "f8d2a5ca-a0d7-4925-aa03-0f01bcb2fae6",
+    "name": "PASS: avatar.enc.meta.json exists alongside",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "bc54b9b5-6e82-467d-ba21-eae54134ec46",
+    "timestamp": "2026-06-14T21:16:56.080Z"
+  },
+  "ownerIor": "ior:instance:bc54b9b5-6e82-467d-ba21-eae54134ec46"
+}

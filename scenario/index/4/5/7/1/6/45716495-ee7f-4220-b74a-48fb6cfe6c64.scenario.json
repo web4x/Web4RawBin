@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "45716495-ee7f-4220-b74a-48fb6cfe6c64",
+    "name": "PASS: device key appears in authorized_keys after successful enrollment",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "3494cfa1-4258-4470-9c4c-5cf78a5a5db9",
+    "timestamp": "2026-06-14T21:16:55.947Z"
+  },
+  "ownerIor": "ior:instance:3494cfa1-4258-4470-9c4c-5cf78a5a5db9"
+}

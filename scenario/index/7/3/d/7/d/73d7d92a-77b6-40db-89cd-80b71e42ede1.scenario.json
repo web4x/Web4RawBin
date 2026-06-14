@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "73d7d92a-77b6-40db-89cd-80b71e42ede1",
+    "name": "PASS: T-persistent R19.7: setMode switches between live and persistent",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "607928f8-8a12-4141-8157-794132fd0ef2",
+    "timestamp": "2026-06-14T21:16:55.999Z"
+  },
+  "ownerIor": "ior:instance:607928f8-8a12-4141-8157-794132fd0ef2"
+}

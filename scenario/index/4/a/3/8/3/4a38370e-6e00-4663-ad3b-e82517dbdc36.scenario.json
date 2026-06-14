@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "4a38370e-6e00-4663-ad3b-e82517dbdc36",
+    "name": "PASS: default size is 40px",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "07e27ac7-08c8-4dfd-9148-3a46261db0ae",
+    "timestamp": "2026-06-14T21:16:55.890Z"
+  },
+  "ownerIor": "ior:instance:07e27ac7-08c8-4dfd-9148-3a46261db0ae"
+}

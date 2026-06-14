@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "d629d551-0934-4e94-897c-1c1fd56666bf",
+    "name": "PASS: room dir still exists after scan with zero members",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "b61fb2ce-379e-4335-9734-7f8ea04d0980",
+    "timestamp": "2026-06-14T21:16:56.075Z"
+  },
+  "ownerIor": "ior:instance:b61fb2ce-379e-4335-9734-7f8ea04d0980"
+}

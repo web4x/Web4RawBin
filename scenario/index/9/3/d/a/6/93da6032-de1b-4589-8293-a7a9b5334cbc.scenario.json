@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "93da6032-de1b-4589-8293-a7a9b5334cbc",
+    "name": "PASS: Room.addChat stores full text (truncation is server handler responsibility)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "a7e4df0f-d976-4ac5-8e18-a24343b50611",
+    "timestamp": "2026-06-14T21:16:56.064Z"
+  },
+  "ownerIor": "ior:instance:a7e4df0f-d976-4ac5-8e18-a24343b50611"
+}

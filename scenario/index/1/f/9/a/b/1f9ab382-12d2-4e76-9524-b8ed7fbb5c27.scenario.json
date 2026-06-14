@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "1f9ab382-12d2-4e76-9524-b8ed7fbb5c27",
+    "name": "PASS: TC-6: 3-message chain maintains full linked list",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "36287a17-1ff4-4c5d-8e0e-fd208b7d47b3",
+    "timestamp": "2026-06-14T21:16:55.948Z"
+  },
+  "ownerIor": "ior:instance:36287a17-1ff4-4c5d-8e0e-fd208b7d47b3"
+}

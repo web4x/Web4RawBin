@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "8af7eeb0-db8b-4efe-8e7e-6724ab888b64",
+    "name": "PASS: file path used as dir returns 404",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "3f508fd9-2e5c-4652-82f2-8b0340144364",
+    "timestamp": "2026-06-14T21:16:55.959Z"
+  },
+  "ownerIor": "ior:instance:3f508fd9-2e5c-4652-82f2-8b0340144364"
+}

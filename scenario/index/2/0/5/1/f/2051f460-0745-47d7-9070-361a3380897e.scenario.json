@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "2051f460-0745-47d7-9070-361a3380897e",
+    "name": "PASS: returns fallback for unknown class",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "3a4a34c8-5d41-46f6-b1f7-fed7048facd3",
+    "timestamp": "2026-06-14T21:16:55.950Z"
+  },
+  "ownerIor": "ior:instance:3a4a34c8-5d41-46f6-b1f7-fed7048facd3"
+}

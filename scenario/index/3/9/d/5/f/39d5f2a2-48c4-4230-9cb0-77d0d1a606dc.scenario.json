@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "39d5f2a2-48c4-4230-9cb0-77d0d1a606dc",
+    "name": "PASS: R18.31: put() auto-syncs symlinks when unitLinks[] present",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "74f9f98d-25f0-4f57-924b-6be32c544816",
+    "timestamp": "2026-06-14T21:16:56.018Z"
+  },
+  "ownerIor": "ior:instance:74f9f98d-25f0-4f57-924b-6be32c544816"
+}

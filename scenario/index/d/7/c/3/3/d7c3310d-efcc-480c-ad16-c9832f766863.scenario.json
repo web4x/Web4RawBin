@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "d7c3310d-efcc-480c-ad16-c9832f766863",
+    "name": "PASS: binary .enc returns 415 (not served)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "dcc0fa31-781c-48b1-8cd9-45eb80f5ed7f",
+    "timestamp": "2026-06-14T21:16:56.102Z"
+  },
+  "ownerIor": "ior:instance:dcc0fa31-781c-48b1-8cd9-45eb80f5ed7f"
+}

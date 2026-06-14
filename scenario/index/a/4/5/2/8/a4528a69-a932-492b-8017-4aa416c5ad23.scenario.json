@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a4528a69-a932-492b-8017-4aa416c5ad23",
+    "name": "PASS: is idempotent and leaves legacy files UNTOUCHED",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "4d64d0d3-c63a-4122-bd3b-e2d3aeaf1b80",
+    "timestamp": "2026-06-14T21:16:55.977Z"
+  },
+  "ownerIor": "ior:instance:4d64d0d3-c63a-4122-bd3b-e2d3aeaf1b80"
+}

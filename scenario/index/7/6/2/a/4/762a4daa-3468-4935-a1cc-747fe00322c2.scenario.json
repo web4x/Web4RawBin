@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "762a4daa-3468-4935-a1cc-747fe00322c2",
+    "name": "PASS: connected shows green dot",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "14c3e042-bf2e-45f7-988a-35ab2b3318ed",
+    "timestamp": "2026-06-14T21:16:55.903Z"
+  },
+  "ownerIor": "ior:instance:14c3e042-bf2e-45f7-988a-35ab2b3318ed"
+}

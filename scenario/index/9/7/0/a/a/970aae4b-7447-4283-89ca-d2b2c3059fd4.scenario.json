@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "970aae4b-7447-4283-89ca-d2b2c3059fd4",
+    "name": "PASS: scenario-index graph contains all pre-switch UUIDs (old ⊆ new)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "fddc251e-b411-439a-a09c-eebf03e279aa",
+    "timestamp": "2026-06-14T21:16:56.147Z"
+  },
+  "ownerIor": "ior:instance:fddc251e-b411-439a-a09c-eebf03e279aa"
+}

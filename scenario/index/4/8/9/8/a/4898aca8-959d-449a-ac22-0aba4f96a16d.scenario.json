@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "4898aca8-959d-449a-ac22-0aba4f96a16d",
+    "name": "PASS: expand shows messages and input",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "2614850a-363f-4816-bcf6-ffcb45f789d0",
+    "timestamp": "2026-06-14T21:16:55.931Z"
+  },
+  "ownerIor": "ior:instance:2614850a-363f-4816-bcf6-ffcb45f789d0"
+}

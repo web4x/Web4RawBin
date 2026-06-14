@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "eb694377-e038-4cd4-9711-47c831553ccd",
+    "name": "PASS: no mismatch when no cached version (first visit)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "0c4da51e-a4cf-4a4a-aa26-b9ad8f1fe41c",
+    "timestamp": "2026-06-14T21:16:55.896Z"
+  },
+  "ownerIor": "ior:instance:0c4da51e-a4cf-4a4a-aa26-b9ad8f1fe41c"
+}

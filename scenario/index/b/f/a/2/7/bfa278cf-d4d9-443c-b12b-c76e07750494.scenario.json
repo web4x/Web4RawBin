@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "bfa278cf-d4d9-443c-b12b-c76e07750494",
+    "name": "PASS: own room card: full UUID + 💾 Persistent badge + ",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "484016ef-b3bb-44c0-bf93-da62e28a0a6d",
+    "timestamp": "2026-06-14T21:16:55.972Z"
+  },
+  "ownerIor": "ior:instance:484016ef-b3bb-44c0-bf93-da62e28a0a6d"
+}

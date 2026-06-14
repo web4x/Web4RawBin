@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "2fe79a2e-0804-4bb8-be85-3158c3eda4ce",
+    "name": "PASS: has mb-self class for isSelf=true",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9186967d-cf95-487b-b2b6-65a4c38258b0",
+    "timestamp": "2026-06-14T21:16:56.041Z"
+  },
+  "ownerIor": "ior:instance:9186967d-cf95-487b-b2b6-65a4c38258b0"
+}

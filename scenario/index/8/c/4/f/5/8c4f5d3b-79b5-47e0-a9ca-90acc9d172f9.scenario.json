@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "8c4f5d3b-79b5-47e0-a9ca-90acc9d172f9",
+    "name": "PASS: scenario/index has 5-level UUID prefix structure",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9e03df40-2c0e-44be-9a7a-2096e3cc3201",
+    "timestamp": "2026-06-14T21:16:56.055Z"
+  },
+  "ownerIor": "ior:instance:9e03df40-2c0e-44be-9a7a-2096e3cc3201"
+}

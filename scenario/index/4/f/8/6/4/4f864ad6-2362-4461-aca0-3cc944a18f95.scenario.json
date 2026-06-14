@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "4f864ad6-2362-4461-aca0-3cc944a18f95",
+    "name": "PASS: send() delivers immediately when connected",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "a55e83e0-89b1-4adc-9179-9efd44108da1",
+    "timestamp": "2026-06-14T21:16:56.062Z"
+  },
+  "ownerIor": "ior:instance:a55e83e0-89b1-4adc-9179-9efd44108da1"
+}

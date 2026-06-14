@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "258bcde9-aa1b-4776-ad58-dae907e4bce4",
+    "name": "PASS: room with undefined createdAt sorts last",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "1b1808fc-4856-4b9c-b51c-de10a6f466e2",
+    "timestamp": "2026-06-14T21:16:55.916Z"
+  },
+  "ownerIor": "ior:instance:1b1808fc-4856-4b9c-b51c-de10a6f466e2"
+}

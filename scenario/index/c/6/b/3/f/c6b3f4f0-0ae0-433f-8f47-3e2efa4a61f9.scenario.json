@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c6b3f4f0-0ae0-433f-8f47-3e2efa4a61f9",
+    "name": "PASS: icon files are non-empty",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "ae26b392-9c79-4c5b-844d-36b39691f6cf",
+    "timestamp": "2026-06-14T21:16:56.069Z"
+  },
+  "ownerIor": "ior:instance:ae26b392-9c79-4c5b-844d-36b39691f6cf"
+}

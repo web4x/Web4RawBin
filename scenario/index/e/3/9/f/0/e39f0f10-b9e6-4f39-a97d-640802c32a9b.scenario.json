@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "e39f0f10-b9e6-4f39-a97d-640802c32a9b",
+    "name": "PASS: TC-10: log buffer respects MAX_LOGS ring-buffer semantics",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "1aca6050-0f86-45d5-91bd-087c151cfd95",
+    "timestamp": "2026-06-14T21:16:55.913Z"
+  },
+  "ownerIor": "ior:instance:1aca6050-0f86-45d5-91bd-087c151cfd95"
+}

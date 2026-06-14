@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "223e89c9-c02e-47e7-97b8-9fb2d27aff3a",
+    "name": "PASS: MD_CSS has ul/ol padding-left for nesting",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e8f25dd1-da62-4d61-95a1-7b794c636dba",
+    "timestamp": "2026-06-14T21:16:56.116Z"
+  },
+  "ownerIor": "ior:instance:e8f25dd1-da62-4d61-95a1-7b794c636dba"
+}

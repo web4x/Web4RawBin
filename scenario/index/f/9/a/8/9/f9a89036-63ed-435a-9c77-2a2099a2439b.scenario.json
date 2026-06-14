@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "f9a89036-63ed-435a-9c77-2a2099a2439b",
+    "name": "PASS: wrong admin key → 401",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "b1ab1249-c9d2-400f-9370-d8963879f25e",
+    "timestamp": "2026-06-14T21:16:56.073Z"
+  },
+  "ownerIor": "ior:instance:b1ab1249-c9d2-400f-9370-d8963879f25e"
+}

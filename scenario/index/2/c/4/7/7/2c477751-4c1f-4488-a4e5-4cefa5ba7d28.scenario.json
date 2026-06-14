@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "2c477751-4c1f-4488-a4e5-4cefa5ba7d28",
+    "name": "PASS: TC-9: log entry format matches [timestamp] message pattern",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5672dcb3-255a-49b7-9527-0a78f5545dbb",
+    "timestamp": "2026-06-14T21:16:55.989Z"
+  },
+  "ownerIor": "ior:instance:5672dcb3-255a-49b7-9527-0a78f5545dbb"
+}

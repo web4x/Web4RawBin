@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "932bdb1d-fe8a-4a60-9e13-9bb1a4a77d92",
+    "name": "PASS: quarantines a legacy-only orphan under _unowned and reports it",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5e2f897f-82e7-46d4-a65d-1e50efae522d",
+    "timestamp": "2026-06-14T21:16:55.996Z"
+  },
+  "ownerIor": "ior:instance:5e2f897f-82e7-46d4-a65d-1e50efae522d"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7c6476c8-b279-4239-8593-313dfb645766",
+    "name": "PASS: room list grows after room creation",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "40e3e3a3-11ea-48c7-85b2-addffea06b83",
+    "timestamp": "2026-06-14T21:16:55.960Z"
+  },
+  "ownerIor": "ior:instance:40e3e3a3-11ea-48c7-85b2-addffea06b83"
+}

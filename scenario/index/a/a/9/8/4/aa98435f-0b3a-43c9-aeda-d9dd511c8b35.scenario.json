@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "aa98435f-0b3a-43c9-aeda-d9dd511c8b35",
+    "name": "PASS: rawbin.sh has execute permission",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "25fd2b38-c9db-4c47-b1be-46cefa3b6180",
+    "timestamp": "2026-06-14T21:16:55.930Z"
+  },
+  "ownerIor": "ior:instance:25fd2b38-c9db-4c47-b1be-46cefa3b6180"
+}

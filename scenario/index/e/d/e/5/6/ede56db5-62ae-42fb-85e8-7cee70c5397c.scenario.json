@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ede56db5-62ae-42fb-85e8-7cee70c5397c",
+    "name": "PASS: generates speaky name from title when name attr absent",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "41b0f6aa-c218-4780-86bf-953edb678f9a",
+    "timestamp": "2026-06-14T21:16:55.961Z"
+  },
+  "ownerIor": "ior:instance:41b0f6aa-c218-4780-86bf-953edb678f9a"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "d162c5eb-890f-49a0-a63d-deefc05fec28",
+    "name": "PASS: handles missing fields gracefully",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "147aa252-e00a-4ccd-892c-f40fb10d0770",
+    "timestamp": "2026-06-14T21:16:55.903Z"
+  },
+  "ownerIor": "ior:instance:147aa252-e00a-4ccd-892c-f40fb10d0770"
+}

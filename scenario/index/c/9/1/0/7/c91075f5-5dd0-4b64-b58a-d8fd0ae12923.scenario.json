@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c91075f5-5dd0-4b64-b58a-d8fd0ae12923",
+    "name": "PASS: returns false when user has no keys",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "66bab265-15e2-46ff-9da2-d5a97d9199f0",
+    "timestamp": "2026-06-14T21:16:56.004Z"
+  },
+  "ownerIor": "ior:instance:66bab265-15e2-46ff-9da2-d5a97d9199f0"
+}

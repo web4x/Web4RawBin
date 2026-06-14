@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0b76f870-433f-47dd-98e8-3ce7cb7671b9",
+    "name": "PASS: host badge has star, self badge has (you)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "adb8af5c-54dd-462f-bdec-3ace4c5ddafe",
+    "timestamp": "2026-06-14T21:16:56.069Z"
+  },
+  "ownerIor": "ior:instance:adb8af5c-54dd-462f-bdec-3ace4c5ddafe"
+}

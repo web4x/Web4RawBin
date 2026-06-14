@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "fd89b5d5-79b2-4a82-b1a8-421d51248fb9",
+    "name": "PASS: LocalSearch filters by substring; clear returns all (AC2)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "34180ee8-9cfb-4475-bcb9-21dfec07d0b0",
+    "timestamp": "2026-06-14T21:16:55.945Z"
+  },
+  "ownerIor": "ior:instance:34180ee8-9cfb-4475-bcb9-21dfec07d0b0"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "355923a5-6156-4077-9168-a91e21e84741",
+    "name": "PASS: OFFLINE_HTML contains a flush button",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "568b18fd-4bbc-4a47-8d73-44703db8b28e",
+    "timestamp": "2026-06-14T21:16:55.990Z"
+  },
+  "ownerIor": "ior:instance:568b18fd-4bbc-4a47-8d73-44703db8b28e"
+}

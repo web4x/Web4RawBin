@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b60690ca-763d-4fc8-a66c-63192d525587",
+    "name": "PASS: empty file roundtrip",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "1fbcb81a-d12e-4fa2-a5a8-9e86b34cf281",
+    "timestamp": "2026-06-14T21:16:55.924Z"
+  },
+  "ownerIor": "ior:instance:1fbcb81a-d12e-4fa2-a5a8-9e86b34cf281"
+}

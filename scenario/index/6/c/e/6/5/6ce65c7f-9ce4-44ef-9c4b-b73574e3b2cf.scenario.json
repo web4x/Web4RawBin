@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "6ce65c7f-9ce4-44ef-9c4b-b73574e3b2cf",
+    "name": "PASS: toolbar or layout references /md/ browse link",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "48cc4787-11ba-482b-983d-6f8392d5177b",
+    "timestamp": "2026-06-14T21:16:55.973Z"
+  },
+  "ownerIor": "ior:instance:48cc4787-11ba-482b-983d-6f8392d5177b"
+}

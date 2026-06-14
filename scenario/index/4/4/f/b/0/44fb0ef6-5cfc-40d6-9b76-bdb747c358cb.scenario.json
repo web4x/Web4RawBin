@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "44fb0ef6-5cfc-40d6-9b76-bdb747c358cb",
+    "name": "PASS: (6) Save writes to disk",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e839eb6d-8317-49fc-8b59-416fe66a527a",
+    "timestamp": "2026-06-14T21:16:56.115Z"
+  },
+  "ownerIor": "ior:instance:e839eb6d-8317-49fc-8b59-416fe66a527a"
+}

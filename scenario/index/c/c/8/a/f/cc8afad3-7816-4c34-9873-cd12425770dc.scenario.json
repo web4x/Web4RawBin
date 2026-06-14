@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "cc8afad3-7816-4c34-9873-cd12425770dc",
+    "name": "PASS: chat message includes sender name",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "6cc77af2-c2e1-4218-be1f-32d45b9bf270",
+    "timestamp": "2026-06-14T21:16:56.012Z"
+  },
+  "ownerIor": "ior:instance:6cc77af2-c2e1-4218-be1f-32d45b9bf270"
+}

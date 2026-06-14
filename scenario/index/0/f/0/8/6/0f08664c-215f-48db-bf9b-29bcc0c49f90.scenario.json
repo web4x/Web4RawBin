@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0f08664c-215f-48db-bf9b-29bcc0c49f90",
+    "name": "PASS: double open replaces previous overlay",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "f280be60-e075-44cb-86e8-b7bbc517e71e",
+    "timestamp": "2026-06-14T21:16:56.123Z"
+  },
+  "ownerIor": "ior:instance:f280be60-e075-44cb-86e8-b7bbc517e71e"
+}

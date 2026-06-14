@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0afde85b-24b7-40b4-8957-2bd4d1005645",
+    "name": "PASS: src/sh/rawbin.sh exists",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "00a5b3e7-eea4-473d-ac7f-cc28b9bcc32e",
+    "timestamp": "2026-06-14T21:16:55.877Z"
+  },
+  "ownerIor": "ior:instance:00a5b3e7-eea4-473d-ac7f-cc28b9bcc32e"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5c3af149-0d7d-4171-af48-b0cffcdb431d",
+    "name": "PASS: creates id_rsa and id_rsa.pub files",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9c3cb2b5-b7b9-40ed-9d08-77bf46d3988f",
+    "timestamp": "2026-06-14T21:16:56.053Z"
+  },
+  "ownerIor": "ior:instance:9c3cb2b5-b7b9-40ed-9d08-77bf46d3988f"
+}

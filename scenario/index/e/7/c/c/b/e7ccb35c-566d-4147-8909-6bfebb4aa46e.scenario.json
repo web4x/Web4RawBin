@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "e7ccb35c-566d-4147-8909-6bfebb4aa46e",
+    "name": "PASS: rooms/ parent dir created",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "fc19ae99-e06f-402a-a724-5a708ca358cd",
+    "timestamp": "2026-06-14T21:16:56.146Z"
+  },
+  "ownerIor": "ior:instance:fc19ae99-e06f-402a-a724-5a708ca358cd"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "728216e0-a87e-454d-adec-d8ecf678ee7c",
+    "name": "PASS: sw.js is parseable JS (no syntax errors)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "1e669780-f370-4d88-a149-2f05b75e72a3",
+    "timestamp": "2026-06-14T21:16:55.922Z"
+  },
+  "ownerIor": "ior:instance:1e669780-f370-4d88-a149-2f05b75e72a3"
+}

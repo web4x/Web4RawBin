@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7f5cd622-be23-47c3-ad7f-7b21ab1df19d",
+    "name": "PASS: maps positionals to string[], named --params by name",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "4a314c69-d50c-4d1d-943c-cf5b42c47dbd",
+    "timestamp": "2026-06-14T21:16:55.974Z"
+  },
+  "ownerIor": "ior:instance:4a314c69-d50c-4d1d-943c-cf5b42c47dbd"
+}

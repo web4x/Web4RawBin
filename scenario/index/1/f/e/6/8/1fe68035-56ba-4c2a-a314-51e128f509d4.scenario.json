@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "1fe68035-56ba-4c2a-a314-51e128f509d4",
+    "name": "PASS: T83 TS3: self #us-vcard builds a vCard blob with FN:<self>",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "cdd9e71e-0685-4b52-99f8-4893a167f534",
+    "timestamp": "2026-06-14T21:16:56.090Z"
+  },
+  "ownerIor": "ior:instance:cdd9e71e-0685-4b52-99f8-4893a167f534"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0742ed43-cb94-4dd6-9bb5-9214de35d0cd",
+    "name": "PASS: uses a real 200x200 PNG (not a stub) — guards the avatar-verification lesson",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "8e75b6da-5e40-42b8-930d-5f674d46077f",
+    "timestamp": "2026-06-14T21:16:56.037Z"
+  },
+  "ownerIor": "ior:instance:8e75b6da-5e40-42b8-930d-5f674d46077f"
+}

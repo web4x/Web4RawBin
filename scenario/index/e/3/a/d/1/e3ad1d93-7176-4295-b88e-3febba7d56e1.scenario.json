@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "e3ad1d93-7176-4295-b88e-3febba7d56e1",
+    "name": "PASS: server.ts has /edit route",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "78a94c10-e212-4a6d-8de3-00dbb98e79ed",
+    "timestamp": "2026-06-14T21:16:56.025Z"
+  },
+  "ownerIor": "ior:instance:78a94c10-e212-4a6d-8de3-00dbb98e79ed"
+}

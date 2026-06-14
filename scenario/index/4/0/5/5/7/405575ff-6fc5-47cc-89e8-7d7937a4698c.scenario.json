@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "405575ff-6fc5-47cc-89e8-7d7937a4698c",
+    "name": "PASS: rejects a non-v4 UUID on construction",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "bd03c6b5-9868-49f9-902f-699fb9cd43c9",
+    "timestamp": "2026-06-14T21:16:56.080Z"
+  },
+  "ownerIor": "ior:instance:bd03c6b5-9868-49f9-902f-699fb9cd43c9"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "82a3ae5f-94ee-4586-926d-16185632cd3c",
+    "name": "PASS: TC-6: known file types route to uploadFile",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "67688fb8-5822-472c-8e7f-d27d77a2f988",
+    "timestamp": "2026-06-14T21:16:56.006Z"
+  },
+  "ownerIor": "ior:instance:67688fb8-5822-472c-8e7f-d27d77a2f988"
+}

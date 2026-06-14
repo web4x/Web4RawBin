@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7efe1997-7121-4bb0-a493-7f8c592e596a",
+    "name": "PASS: nested data/users path blocked",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "872d4e60-4b90-4be3-bac0-3bf6a786bb99",
+    "timestamp": "2026-06-14T21:16:56.032Z"
+  },
+  "ownerIor": "ior:instance:872d4e60-4b90-4be3-bac0-3bf6a786bb99"
+}

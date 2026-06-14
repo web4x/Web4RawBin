@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "49bc4c18-32b7-40e3-b28d-0a3c3de7b846",
+    "name": "PASS: id_rsa.pub contains PEM public key",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "12412101-a462-41a4-a239-5d1dcf76e9dc",
+    "timestamp": "2026-06-14T21:16:55.902Z"
+  },
+  "ownerIor": "ior:instance:12412101-a462-41a4-a239-5d1dcf76e9dc"
+}

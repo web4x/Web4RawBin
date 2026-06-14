@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "99dcf729-fb54-4d3f-8383-78a6108f1fe3",
+    "name": "PASS: ChangeRequest template registered for ior:class:ChangeRequest",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "afdff1fc-790a-4f9b-9a15-3d311b06d5c8",
+    "timestamp": "2026-06-14T21:16:56.071Z"
+  },
+  "ownerIor": "ior:instance:afdff1fc-790a-4f9b-9a15-3d311b06d5c8"
+}

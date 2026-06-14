@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "bc94413d-8164-4996-b29c-8ca813073f43",
+    "name": "PASS: app.html has no game references",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "95c73272-43d7-47ec-828b-5c2155f7544d",
+    "timestamp": "2026-06-14T21:16:56.045Z"
+  },
+  "ownerIor": "ior:instance:95c73272-43d7-47ec-828b-5c2155f7544d"
+}

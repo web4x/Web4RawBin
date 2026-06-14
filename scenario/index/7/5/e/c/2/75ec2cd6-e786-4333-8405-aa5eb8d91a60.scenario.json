@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "75ec2cd6-e786-4333-8405-aa5eb8d91a60",
+    "name": "PASS: has Update Now button",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "52690b1f-32ef-4371-a69f-fef25e8cb683",
+    "timestamp": "2026-06-14T21:16:55.984Z"
+  },
+  "ownerIor": "ior:instance:52690b1f-32ef-4371-a69f-fef25e8cb683"
+}

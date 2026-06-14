@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "3497207e-09c8-4413-b3ea-804c82c0994d",
+    "name": "PASS: UPDATE_PROFILE works without device-key auth",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "a555ab8f-519d-483e-8a87-643e509edc13",
+    "timestamp": "2026-06-14T21:16:56.062Z"
+  },
+  "ownerIor": "ior:instance:a555ab8f-519d-483e-8a87-643e509edc13"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "9128d2cd-c516-4b99-88ad-6eb9562262b2",
+    "name": "PASS: edit.html has viewport meta tag",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "6f1a741d-5dab-4ab0-9283-400b212340fd",
+    "timestamp": "2026-06-14T21:16:56.013Z"
+  },
+  "ownerIor": "ior:instance:6f1a741d-5dab-4ab0-9283-400b212340fd"
+}

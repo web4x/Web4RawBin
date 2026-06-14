@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5fad1a57-55dc-4c1f-8072-9ef4f4a25dda",
+    "name": "PASS: AC3 CORRUPT public key: encrypt throws, server regenerates + retries once → succeeds; served bytes == uploaded",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "05dbc683-f8f2-4308-a2ce-330aff3bd4a7",
+    "timestamp": "2026-06-14T21:16:55.887Z"
+  },
+  "ownerIor": "ior:instance:05dbc683-f8f2-4308-a2ce-330aff3bd4a7"
+}

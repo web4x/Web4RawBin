@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "4f1a8d79-2136-435a-9935-3cb64e8f99f3",
+    "name": "PASS: TaskLoader.create populates defaults + overrides",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "33949a8f-9a75-4fac-8cfc-5932c684b623",
+    "timestamp": "2026-06-14T21:16:55.944Z"
+  },
+  "ownerIor": "ior:instance:33949a8f-9a75-4fac-8cfc-5932c684b623"
+}

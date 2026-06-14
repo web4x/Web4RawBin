@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "57a1e954-4f0e-4c34-a9d6-5cd69d8d64a7",
+    "name": "PASS: proposeTask creates Task at Planned + emits TraceLinks",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "85267b3e-b819-4b0e-baf5-e23fed8fde93",
+    "timestamp": "2026-06-14T21:16:56.032Z"
+  },
+  "ownerIor": "ior:instance:85267b3e-b819-4b0e-baf5-e23fed8fde93"
+}

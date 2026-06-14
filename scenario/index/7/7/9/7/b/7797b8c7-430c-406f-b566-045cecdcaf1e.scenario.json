@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7797b8c7-430c-406f-b566-045cecdcaf1e",
+    "name": "PASS: default LocalSearch matches by type and uuid too",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "09e2107b-8c01-42f8-b813-c21f35bc6847",
+    "timestamp": "2026-06-14T21:16:55.895Z"
+  },
+  "ownerIor": "ior:instance:09e2107b-8c01-42f8-b813-c21f35bc6847"
+}

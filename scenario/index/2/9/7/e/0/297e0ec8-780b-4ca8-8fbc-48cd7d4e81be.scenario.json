@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "297e0ec8-780b-4ca8-8fbc-48cd7d4e81be",
+    "name": "PASS: source code references PUT method",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "960d6df5-959a-4e23-b437-bcfa2a060a50",
+    "timestamp": "2026-06-14T21:16:56.045Z"
+  },
+  "ownerIor": "ior:instance:960d6df5-959a-4e23-b437-bcfa2a060a50"
+}

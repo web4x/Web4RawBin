@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "dd6807ad-f82f-4ff1-8690-dbd4497c1dd6",
+    "name": "PASS: only explicit owner delete removes room",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9442fe62-2824-4030-b577-c2b280bf5c01",
+    "timestamp": "2026-06-14T21:16:56.043Z"
+  },
+  "ownerIor": "ior:instance:9442fe62-2824-4030-b577-c2b280bf5c01"
+}

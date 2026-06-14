@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "1bcc04d7-5750-461a-beea-1abb95a5fd26",
+    "name": "PASS: source references Save button or Cmd+S",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "c0d995a6-4b03-4208-b29d-85d9be818e8d",
+    "timestamp": "2026-06-14T21:16:56.084Z"
+  },
+  "ownerIor": "ior:instance:c0d995a6-4b03-4208-b29d-85d9be818e8d"
+}

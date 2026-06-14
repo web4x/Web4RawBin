@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "cf8e6b57-9489-40c9-8d29-8ce774efc52f",
+    "name": "PASS: invalid player token → 401",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "d49ace4e-0be3-4e84-aafa-f37cca6da7cb",
+    "timestamp": "2026-06-14T21:16:56.094Z"
+  },
+  "ownerIor": "ior:instance:d49ace4e-0be3-4e84-aafa-f37cca6da7cb"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "6a380078-1458-4a32-b645-9f4d59f5bdd8",
+    "name": "PASS: stop.sh has execute permission",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "bf235a3e-ba06-4697-abe6-4ed58b1774ac",
+    "timestamp": "2026-06-14T21:16:56.083Z"
+  },
+  "ownerIor": "ior:instance:bf235a3e-ba06-4697-abe6-4ed58b1774ac"
+}

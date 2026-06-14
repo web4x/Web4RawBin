@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7b2c7a42-8d92-45c7-8d50-b839e99bf3f0",
+    "name": "PASS: non-map files always served",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "161d4022-e112-4902-9f9b-05b65dda4114",
+    "timestamp": "2026-06-14T21:16:55.904Z"
+  },
+  "ownerIor": "ior:instance:161d4022-e112-4902-9f9b-05b65dda4114"
+}

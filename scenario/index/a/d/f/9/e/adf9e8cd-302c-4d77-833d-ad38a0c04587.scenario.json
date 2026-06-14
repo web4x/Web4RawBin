@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "adf9e8cd-302c-4d77-833d-ad38a0c04587",
+    "name": "PASS: full-width translate produces x=1",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "eeb7929e-04b0-4df1-9661-cbf2f0356af4",
+    "timestamp": "2026-06-14T21:16:56.119Z"
+  },
+  "ownerIor": "ior:instance:eeb7929e-04b0-4df1-9661-cbf2f0356af4"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "3df7c8c1-8e1f-44c2-9228-de1989dcc4a1",
+    "name": "PASS: .gitignore is excluded",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "2daa1aa3-552f-4aa8-9959-351db051e3e7",
+    "timestamp": "2026-06-14T21:16:55.939Z"
+  },
+  "ownerIor": "ior:instance:2daa1aa3-552f-4aa8-9959-351db051e3e7"
+}

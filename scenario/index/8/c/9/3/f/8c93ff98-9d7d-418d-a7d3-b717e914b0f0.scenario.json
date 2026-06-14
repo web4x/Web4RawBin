@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "8c93ff98-9d7d-418d-a7d3-b717e914b0f0",
+    "name": "PASS: is idempotent — re-run migrates nothing new, already-UUID dirs untouched",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "a90cb0b8-c53c-444a-8d2c-9e89d58d6078",
+    "timestamp": "2026-06-14T21:16:56.066Z"
+  },
+  "ownerIor": "ior:instance:a90cb0b8-c53c-444a-8d2c-9e89d58d6078"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "af051c52-5be6-4559-a163-11176b8b6b0b",
+    "name": "PASS: creates file unit + content sidecar",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e44dfa07-5ffb-4b6c-8941-f5a5a81ad1a8",
+    "timestamp": "2026-06-14T21:16:56.111Z"
+  },
+  "ownerIor": "ior:instance:e44dfa07-5ffb-4b6c-8941-f5a5a81ad1a8"
+}

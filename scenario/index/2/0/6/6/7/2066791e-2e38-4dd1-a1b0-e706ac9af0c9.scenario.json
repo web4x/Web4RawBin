@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "2066791e-2e38-4dd1-a1b0-e706ac9af0c9",
+    "name": "PASS: maps .sh to shell language",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "90a20de7-58d6-4332-b427-d87da6229efb",
+    "timestamp": "2026-06-14T21:16:56.039Z"
+  },
+  "ownerIor": "ior:instance:90a20de7-58d6-4332-b427-d87da6229efb"
+}

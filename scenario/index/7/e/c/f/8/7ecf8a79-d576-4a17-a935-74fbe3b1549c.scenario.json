@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7ecf8a79-d576-4a17-a935-74fbe3b1549c",
+    "name": "PASS: room gone from list after delete",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "91c93464-6246-41d7-a135-4672c07d5f00",
+    "timestamp": "2026-06-14T21:16:56.041Z"
+  },
+  "ownerIor": "ior:instance:91c93464-6246-41d7-a135-4672c07d5f00"
+}

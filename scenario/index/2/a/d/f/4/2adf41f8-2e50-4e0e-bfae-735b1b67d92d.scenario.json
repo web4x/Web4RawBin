@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "2adf41f8-2e50-4e0e-bfae-735b1b67d92d",
+    "name": "PASS: welcome message includes clientId and challenge",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "d335f641-e92c-4297-bec3-5c7b1eb77b83",
+    "timestamp": "2026-06-14T21:16:56.094Z"
+  },
+  "ownerIor": "ior:instance:d335f641-e92c-4297-bec3-5c7b1eb77b83"
+}

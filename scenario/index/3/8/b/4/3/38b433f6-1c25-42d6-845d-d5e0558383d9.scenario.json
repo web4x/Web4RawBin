@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "38b433f6-1c25-42d6-845d-d5e0558383d9",
+    "name": "PASS: different images produce different ETags",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "06dca02b-b5fb-4667-b94d-c7a32b9d3bbb",
+    "timestamp": "2026-06-14T21:16:55.888Z"
+  },
+  "ownerIor": "ior:instance:06dca02b-b5fb-4667-b94d-c7a32b9d3bbb"
+}

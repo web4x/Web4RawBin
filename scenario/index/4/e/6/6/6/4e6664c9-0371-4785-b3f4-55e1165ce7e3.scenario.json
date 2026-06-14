@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "4e6664c9-0371-4785-b3f4-55e1165ce7e3",
+    "name": "PASS: clicking sheet content does NOT close",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "3c3c3ca5-aeb9-4607-ab7a-12534df1d3da",
+    "timestamp": "2026-06-14T21:16:55.954Z"
+  },
+  "ownerIor": "ior:instance:3c3c3ca5-aeb9-4607-ab7a-12534df1d3da"
+}

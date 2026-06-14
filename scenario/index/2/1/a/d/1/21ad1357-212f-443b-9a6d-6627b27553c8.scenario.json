@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "21ad1357-212f-443b-9a6d-6627b27553c8",
+    "name": "PASS: RoomView.ts has no game logic",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "f57891dd-03f6-41a2-8896-006198986d10",
+    "timestamp": "2026-06-14T21:16:56.126Z"
+  },
+  "ownerIor": "ior:instance:f57891dd-03f6-41a2-8896-006198986d10"
+}

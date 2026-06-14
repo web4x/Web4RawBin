@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b3534386-1c64-4369-a89b-03b71c5507b2",
+    "name": "PASS: client has messageQueue property",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "77b1fb5c-0c60-4e7c-9621-e98dd055d329",
+    "timestamp": "2026-06-14T21:16:56.022Z"
+  },
+  "ownerIor": "ior:instance:77b1fb5c-0c60-4e7c-9621-e98dd055d329"
+}

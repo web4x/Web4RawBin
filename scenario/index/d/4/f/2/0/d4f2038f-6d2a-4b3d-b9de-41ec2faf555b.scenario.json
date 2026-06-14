@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "d4f2038f-6d2a-4b3d-b9de-41ec2faf555b",
+    "name": "PASS: dequeue-as-you-go pattern works",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "41b4c0d7-15ef-418e-a240-82f8457dd2ea",
+    "timestamp": "2026-06-14T21:16:55.961Z"
+  },
+  "ownerIor": "ior:instance:41b4c0d7-15ef-418e-a240-82f8457dd2ea"
+}

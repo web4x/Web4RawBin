@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5d843b42-9ba3-430a-a01f-1ca97653332f",
+    "name": "PASS: returns empty array when no rooms exist",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "02bb28dd-8503-4ec7-adaa-5d773c8d86bf",
+    "timestamp": "2026-06-14T21:16:55.883Z"
+  },
+  "ownerIor": "ior:instance:02bb28dd-8503-4ec7-adaa-5d773c8d86bf"
+}

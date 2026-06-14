@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "21c74c19-b34e-430c-8855-80085bcd86da",
+    "name": "PASS: getCropTransformCSS returns valid transform string",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "b97838a0-9cf5-4651-b0a1-6e98cfa5fd51",
+    "timestamp": "2026-06-14T21:16:56.077Z"
+  },
+  "ownerIor": "ior:instance:b97838a0-9cf5-4651-b0a1-6e98cfa5fd51"
+}

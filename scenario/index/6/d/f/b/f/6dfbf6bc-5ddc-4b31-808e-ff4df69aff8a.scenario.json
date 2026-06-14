@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "6dfbf6bc-5ddc-4b31-808e-ff4df69aff8a",
+    "name": "PASS: /api/trace returns objects with types",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "74d187e8-9d74-461b-a6e9-cd8d153212e5",
+    "timestamp": "2026-06-14T21:16:56.018Z"
+  },
+  "ownerIor": "ior:instance:74d187e8-9d74-461b-a6e9-cd8d153212e5"
+}

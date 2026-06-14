@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "29929589-220c-48d2-9e1c-1c3ae9e44284",
+    "name": "PASS: room id not truncated to 8 chars",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "75048d8c-e469-48f1-a4e9-356831131990",
+    "timestamp": "2026-06-14T21:16:56.019Z"
+  },
+  "ownerIor": "ior:instance:75048d8c-e469-48f1-a4e9-356831131990"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "fb65895c-2787-488a-ae61-50dcbc79dbc8",
+    "name": "PASS: createElement before define produces HTMLElement, whenDefined+upgrade fixes it",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "b4345e5e-0abd-4545-94c8-0aa504c0b6eb",
+    "timestamp": "2026-06-14T21:16:56.075Z"
+  },
+  "ownerIor": "ior:instance:b4345e5e-0abd-4545-94c8-0aa504c0b6eb"
+}

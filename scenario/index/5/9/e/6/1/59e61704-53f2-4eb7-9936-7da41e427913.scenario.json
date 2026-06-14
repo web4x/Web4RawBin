@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "59e61704-53f2-4eb7-9936-7da41e427913",
+    "name": "PASS: SSH keys intact after non-owner attempt",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "54cb0805-a828-4e0c-9a7f-0a5ba7126da1",
+    "timestamp": "2026-06-14T21:16:55.987Z"
+  },
+  "ownerIor": "ior:instance:54cb0805-a828-4e0c-9a7f-0a5ba7126da1"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "04cc327f-38d7-44bc-86af-c6cfbbc05ff3",
+    "name": "PASS: (4) Click file in tree → editor loads, URL updates",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "1aeedc41-f9f3-4f41-986f-f67bfb3b0cf8",
+    "timestamp": "2026-06-14T21:16:55.913Z"
+  },
+  "ownerIor": "ior:instance:1aeedc41-f9f3-4f41-986f-f67bfb3b0cf8"
+}

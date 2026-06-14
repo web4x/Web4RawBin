@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ad55140e-1f92-47e3-820a-b41d26dc3825",
+    "name": "PASS: subdirectory listing works",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "2536fe8f-8bda-490b-98ec-bf0219fd1eac",
+    "timestamp": "2026-06-14T21:16:55.930Z"
+  },
+  "ownerIor": "ior:instance:2536fe8f-8bda-490b-98ec-bf0219fd1eac"
+}

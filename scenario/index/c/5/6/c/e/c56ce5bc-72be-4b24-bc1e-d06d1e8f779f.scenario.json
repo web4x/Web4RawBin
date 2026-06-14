@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c56ce5bc-72be-4b24-bc1e-d06d1e8f779f",
+    "name": "PASS: prefixes the dispatch helper with private. and forbids flags",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "1be7d7ee-fbdb-451f-aba4-6fbe9388e8c1",
+    "timestamp": "2026-06-14T21:16:55.918Z"
+  },
+  "ownerIor": "ior:instance:1be7d7ee-fbdb-451f-aba4-6fbe9388e8c1"
+}

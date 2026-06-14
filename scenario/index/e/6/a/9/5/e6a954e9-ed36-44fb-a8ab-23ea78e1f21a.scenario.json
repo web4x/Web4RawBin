@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "e6a954e9-ed36-44fb-a8ab-23ea78e1f21a",
+    "name": "PASS: creates div with update-banner class",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "8745ff88-db6b-4c8b-a30c-73e1f9db70e1",
+    "timestamp": "2026-06-14T21:16:56.033Z"
+  },
+  "ownerIor": "ior:instance:8745ff88-db6b-4c8b-a30c-73e1f9db70e1"
+}

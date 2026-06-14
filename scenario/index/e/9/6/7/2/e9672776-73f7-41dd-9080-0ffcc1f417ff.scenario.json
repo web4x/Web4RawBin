@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "e9672776-73f7-41dd-9080-0ffcc1f417ff",
+    "name": "PASS: (b) data set BEFORE connect but AFTER define → setter fires, renders on connect",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "1641dc98-be3e-49ba-952b-3d4189eb1b79",
+    "timestamp": "2026-06-14T21:16:55.908Z"
+  },
+  "ownerIor": "ior:instance:1641dc98-be3e-49ba-952b-3d4189eb1b79"
+}

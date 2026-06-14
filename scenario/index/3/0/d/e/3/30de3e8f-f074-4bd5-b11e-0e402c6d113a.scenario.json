@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "30de3e8f-f074-4bd5-b11e-0e402c6d113a",
+    "name": "PASS: RoomBrowser.ts or app.html contains link to /profile",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "7f0d9e4b-2845-4501-9fa4-06cd838b9f7a",
+    "timestamp": "2026-06-14T21:16:56.028Z"
+  },
+  "ownerIor": "ior:instance:7f0d9e4b-2845-4501-9fa4-06cd838b9f7a"
+}

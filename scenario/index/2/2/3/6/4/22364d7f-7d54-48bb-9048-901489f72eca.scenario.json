@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "22364d7f-7d54-48bb-9048-901489f72eca",
+    "name": "PASS: T-default-flip R19.10: new room defaults to mode=persistent",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "1edf924a-16d0-4d27-94ff-e49b693f1ff4",
+    "timestamp": "2026-06-14T21:16:55.922Z"
+  },
+  "ownerIor": "ior:instance:1edf924a-16d0-4d27-94ff-e49b693f1ff4"
+}

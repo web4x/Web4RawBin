@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "07463288-48bb-48d2-92ae-1e5ddfd0f5b3",
+    "name": "PASS: filter logic covers binary/non-editable extensions",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "d10d6517-2802-4caf-aac9-b04466ae5969",
+    "timestamp": "2026-06-14T21:16:56.093Z"
+  },
+  "ownerIor": "ior:instance:d10d6517-2802-4caf-aac9-b04466ae5969"
+}

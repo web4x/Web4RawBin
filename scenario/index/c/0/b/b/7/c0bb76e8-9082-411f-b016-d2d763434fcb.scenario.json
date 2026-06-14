@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c0bb76e8-9082-411f-b016-d2d763434fcb",
+    "name": "PASS: app.html has manifest link tag",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9952dba2-2b22-4186-b5e0-b0768b39855d",
+    "timestamp": "2026-06-14T21:16:56.050Z"
+  },
+  "ownerIor": "ior:instance:9952dba2-2b22-4186-b5e0-b0768b39855d"
+}

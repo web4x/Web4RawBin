@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a716b717-1952-4326-b929-322f062cf852",
+    "name": "PASS: idempotent: rekey twice still yields the same avatar bytes",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e04d3d8a-ee9d-48da-8e11-08129076d4fe",
+    "timestamp": "2026-06-14T21:16:56.105Z"
+  },
+  "ownerIor": "ior:instance:e04d3d8a-ee9d-48da-8e11-08129076d4fe"
+}

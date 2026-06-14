@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c964e96a-709d-40e0-9bc3-856fd3037ca5",
+    "name": "PASS: edge: a file unrecoverable under the current key is counted lost + skipped (no throw)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "08834278-6402-476f-9e6d-432883425bc2",
+    "timestamp": "2026-06-14T21:16:55.894Z"
+  },
+  "ownerIor": "ior:instance:08834278-6402-476f-9e6d-432883425bc2"
+}

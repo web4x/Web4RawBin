@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b4543655-a84b-4c4f-bbc6-a4d44482b623",
+    "name": "PASS: real decryptable upload is protected (control): branch=protected-real, bytes unchanged",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "8ee0c688-7fcd-4110-ade9-5b0de70826c6",
+    "timestamp": "2026-06-14T21:16:56.038Z"
+  },
+  "ownerIor": "ior:instance:8ee0c688-7fcd-4110-ade9-5b0de70826c6"
+}

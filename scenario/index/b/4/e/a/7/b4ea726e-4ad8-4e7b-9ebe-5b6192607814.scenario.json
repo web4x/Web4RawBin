@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b4ea726e-4ad8-4e7b-9ebe-5b6192607814",
+    "name": "PASS: rb-detail-drawer touchstart non-handle sets dragging=false, not dismiss",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "bfe05da5-f7a3-4712-bb85-5aa144062df3",
+    "timestamp": "2026-06-14T21:16:56.083Z"
+  },
+  "ownerIor": "ior:instance:bfe05da5-f7a3-4712-bb85-5aa144062df3"
+}

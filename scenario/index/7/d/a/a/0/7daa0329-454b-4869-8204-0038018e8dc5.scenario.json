@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7daa0329-454b-4869-8204-0038018e8dc5",
+    "name": "PASS: tampered signature returns false",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "be1db556-d11f-4154-9068-97de98af376f",
+    "timestamp": "2026-06-14T21:16:56.081Z"
+  },
+  "ownerIor": "ior:instance:be1db556-d11f-4154-9068-97de98af376f"
+}

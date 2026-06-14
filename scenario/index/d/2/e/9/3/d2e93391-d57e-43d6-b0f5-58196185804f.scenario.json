@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "d2e93391-d57e-43d6-b0f5-58196185804f",
+    "name": "PASS: authorized_keys file exists after createUserHome",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "39fb5b3a-f8a4-43bb-b5a3-9159f1862d3a",
+    "timestamp": "2026-06-14T21:16:55.950Z"
+  },
+  "ownerIor": "ior:instance:39fb5b3a-f8a4-43bb-b5a3-9159f1862d3a"
+}

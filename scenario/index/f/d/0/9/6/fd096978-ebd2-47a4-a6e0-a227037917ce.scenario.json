@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "fd096978-ebd2-47a4-a6e0-a227037917ce",
+    "name": "PASS: does not broadcast to disconnected members",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "ea003db1-f7e7-421a-a15b-3b831a88526c",
+    "timestamp": "2026-06-14T21:16:56.116Z"
+  },
+  "ownerIor": "ior:instance:ea003db1-f7e7-421a-a15b-3b831a88526c"
+}

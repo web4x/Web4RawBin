@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "f276fca8-549d-42d0-980e-20fd2734cba4",
+    "name": "PASS: sw.js contains fetch event listener",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "4fa4839c-9618-4c4a-b128-d0e6dc0706d9",
+    "timestamp": "2026-06-14T21:16:55.980Z"
+  },
+  "ownerIor": "ior:instance:4fa4839c-9618-4c4a-b128-d0e6dc0706d9"
+}

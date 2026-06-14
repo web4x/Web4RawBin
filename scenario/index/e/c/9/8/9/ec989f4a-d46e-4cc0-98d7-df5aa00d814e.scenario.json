@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ec989f4a-d46e-4cc0-98d7-df5aa00d814e",
+    "name": "PASS: R19.63 renderFilePreview impl marker exists at rb-detail-view:136",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "50ad95d8-18a1-4f40-b8ec-73baad494f7c",
+    "timestamp": "2026-06-14T21:16:55.981Z"
+  },
+  "ownerIor": "ior:instance:50ad95d8-18a1-4f40-b8ec-73baad494f7c"
+}

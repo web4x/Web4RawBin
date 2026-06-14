@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "8124c9f6-fdf6-4ad9-b1f6-e205236bb5d3",
+    "name": "PASS: all rooms hidden when owner offline",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "24ec9453-9a8a-4e45-b4dc-582e6e9b718f",
+    "timestamp": "2026-06-14T21:16:55.930Z"
+  },
+  "ownerIor": "ior:instance:24ec9453-9a8a-4e45-b4dc-582e6e9b718f"
+}

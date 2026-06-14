@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "337d94f4-c77e-4bdc-8e8f-999967cee4f8",
+    "name": "PASS: has editor panel slot or section",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "48489672-162c-43d9-8e97-d9971c4509e2",
+    "timestamp": "2026-06-14T21:16:55.973Z"
+  },
+  "ownerIor": "ior:instance:48489672-162c-43d9-8e97-d9971c4509e2"
+}

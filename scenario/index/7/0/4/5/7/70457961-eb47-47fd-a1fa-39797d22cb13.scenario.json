@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "70457961-eb47-47fd-a1fa-39797d22cb13",
+    "name": "PASS: walkChain traverses from requirement down to task",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "bddb934e-507f-49a2-9376-cf28ff5fede3",
+    "timestamp": "2026-06-14T21:16:56.080Z"
+  },
+  "ownerIor": "ior:instance:bddb934e-507f-49a2-9376-cf28ff5fede3"
+}

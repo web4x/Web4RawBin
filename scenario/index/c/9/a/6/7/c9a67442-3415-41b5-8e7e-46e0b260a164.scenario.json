@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c9a67442-3415-41b5-8e7e-46e0b260a164",
+    "name": "PASS: room.json exists immediately after create",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "a45509fe-d503-4ee9-a4bf-792064035d93",
+    "timestamp": "2026-06-14T21:16:56.061Z"
+  },
+  "ownerIor": "ior:instance:a45509fe-d503-4ee9-a4bf-792064035d93"
+}

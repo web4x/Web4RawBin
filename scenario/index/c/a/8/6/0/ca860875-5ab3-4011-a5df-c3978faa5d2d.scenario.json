@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ca860875-5ab3-4011-a5df-c3978faa5d2d",
+    "name": "PASS: overlay 300px translate converts to 0-1 range",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "76bcfed2-5f90-4df2-b379-469bda820bd7",
+    "timestamp": "2026-06-14T21:16:56.020Z"
+  },
+  "ownerIor": "ior:instance:76bcfed2-5f90-4df2-b379-469bda820bd7"
+}

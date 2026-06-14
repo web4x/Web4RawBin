@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "d4ef3d83-50f4-43b6-955f-7e57f158adb3",
+    "name": "PASS: TC-4: unitLinks is empty (no stray room-dir symlinks)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "66d78a60-ae1b-4397-ad4d-12573e7d6dfa",
+    "timestamp": "2026-06-14T21:16:56.005Z"
+  },
+  "ownerIor": "ior:instance:66d78a60-ae1b-4397-ad4d-12573e7d6dfa"
+}

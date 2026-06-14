@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "6a36015c-cd68-4d67-9155-9f94d2f51ecc",
+    "name": "PASS: TraceLinkLoader.create populates defaults",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "f84f4590-02ea-45e1-8d5d-d05b2cb3570e",
+    "timestamp": "2026-06-14T21:16:56.129Z"
+  },
+  "ownerIor": "ior:instance:f84f4590-02ea-45e1-8d5d-d05b2cb3570e"
+}

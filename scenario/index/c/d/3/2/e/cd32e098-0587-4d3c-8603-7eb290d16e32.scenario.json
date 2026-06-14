@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "cd32e098-0587-4d3c-8603-7eb290d16e32",
+    "name": "PASS: version from health matches package.json version",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "14d8cddd-9d71-4df0-8313-85116c206ce0",
+    "timestamp": "2026-06-14T21:16:55.903Z"
+  },
+  "ownerIor": "ior:instance:14d8cddd-9d71-4df0-8313-85116c206ce0"
+}

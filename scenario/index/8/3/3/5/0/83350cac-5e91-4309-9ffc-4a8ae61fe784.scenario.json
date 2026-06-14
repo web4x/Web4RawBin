@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "83350cac-5e91-4309-9ffc-4a8ae61fe784",
+    "name": "PASS: defaults verb to show when omitted",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9791690c-c5e9-4266-8421-a2dbd8d324f2",
+    "timestamp": "2026-06-14T21:16:56.047Z"
+  },
+  "ownerIor": "ior:instance:9791690c-c5e9-4266-8421-a2dbd8d324f2"
+}

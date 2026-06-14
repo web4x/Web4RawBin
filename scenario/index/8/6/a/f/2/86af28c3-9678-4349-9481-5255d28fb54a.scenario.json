@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "86af28c3-9678-4349-9481-5255d28fb54a",
+    "name": "PASS: adds a member and increments count",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "6c568055-4cb3-455e-a5a3-6a3edc680300",
+    "timestamp": "2026-06-14T21:16:56.012Z"
+  },
+  "ownerIor": "ior:instance:6c568055-4cb3-455e-a5a3-6a3edc680300"
+}

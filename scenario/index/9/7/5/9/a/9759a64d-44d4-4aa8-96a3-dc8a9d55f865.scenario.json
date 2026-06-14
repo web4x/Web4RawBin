@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "9759a64d-44d4-4aa8-96a3-dc8a9d55f865",
+    "name": "PASS: (1) Create room → dir exists on disk",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "008fb7dc-0372-4684-963c-a2c7e846cb01",
+    "timestamp": "2026-06-14T21:16:55.875Z"
+  },
+  "ownerIor": "ior:instance:008fb7dc-0372-4684-963c-a2c7e846cb01"
+}

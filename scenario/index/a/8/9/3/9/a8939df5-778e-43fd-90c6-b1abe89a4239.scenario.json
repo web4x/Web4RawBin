@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a8939df5-778e-43fd-90c6-b1abe89a4239",
+    "name": "PASS: empty list shows message",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "3f1abacd-fdd4-4cf8-92d8-cd4cc8dabb06",
+    "timestamp": "2026-06-14T21:16:55.959Z"
+  },
+  "ownerIor": "ior:instance:3f1abacd-fdd4-4cf8-92d8-cd4cc8dabb06"
+}

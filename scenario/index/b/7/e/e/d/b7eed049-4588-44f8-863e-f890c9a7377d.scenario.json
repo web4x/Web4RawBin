@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b7eed049-4588-44f8-863e-f890c9a7377d",
+    "name": "PASS: enqueueMessage adds to queue and returns id",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "23e1002f-384a-4132-afbf-6e2d3ee2a1e7",
+    "timestamp": "2026-06-14T21:16:55.928Z"
+  },
+  "ownerIor": "ior:instance:23e1002f-384a-4132-afbf-6e2d3ee2a1e7"
+}

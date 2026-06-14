@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "fe38d1f6-b925-4030-8d6a-ad4b40cc458d",
+    "name": "PASS: overlay has Crop button between Upload and Close",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "46982ef3-a36c-41ed-9fd0-eb4574d14473",
+    "timestamp": "2026-06-14T21:16:55.970Z"
+  },
+  "ownerIor": "ior:instance:46982ef3-a36c-41ed-9fd0-eb4574d14473"
+}

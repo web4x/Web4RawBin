@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "28e6af7e-5625-4888-bfcf-5848fee21711",
+    "name": "PASS: TS1: Alpha, Bravo, Charlie → list shows Charlie, Bravo, Alpha",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "69323bce-f589-43d5-8b32-7403b2ef5755",
+    "timestamp": "2026-06-14T21:16:56.008Z"
+  },
+  "ownerIor": "ior:instance:69323bce-f589-43d5-8b32-7403b2ef5755"
+}

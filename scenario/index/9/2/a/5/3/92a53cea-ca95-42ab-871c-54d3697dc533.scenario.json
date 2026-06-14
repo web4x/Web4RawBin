@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "92a53cea-ca95-42ab-871c-54d3697dc533",
+    "name": "PASS: flags a dangling requirement up-link (uuid not in graph)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "ea52fd42-df0e-4f8c-bd3f-93a3feddbca1",
+    "timestamp": "2026-06-14T21:16:56.117Z"
+  },
+  "ownerIor": "ior:instance:ea52fd42-df0e-4f8c-bd3f-93a3feddbca1"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a028044c-7a0e-4d11-a0c3-dca4232f6a01",
+    "name": "PASS: (c) data set AFTER connect → setter renders immediately",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5676a865-4ffe-4223-a8f5-3829331c0a98",
+    "timestamp": "2026-06-14T21:16:55.990Z"
+  },
+  "ownerIor": "ior:instance:5676a865-4ffe-4223-a8f5-3829331c0a98"
+}

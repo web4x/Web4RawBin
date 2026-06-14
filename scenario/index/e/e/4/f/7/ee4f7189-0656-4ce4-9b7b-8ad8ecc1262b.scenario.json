@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ee4f7189-0656-4ce4-9b7b-8ad8ecc1262b",
+    "name": "PASS: hide() restores previous body overflow",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "beb3aae6-ae64-4aa4-8e7e-a41fbffc52ad",
+    "timestamp": "2026-06-14T21:16:56.082Z"
+  },
+  "ownerIor": "ior:instance:beb3aae6-ae64-4aa4-8e7e-a41fbffc52ad"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "415cc5ff-f46f-41a6-a807-238eee741b35",
+    "name": "PASS: returns DEVICE_ENROLL_FAILED with reason",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "d471fb6b-1e58-455f-a9c7-b7b0a96ca2a0",
+    "timestamp": "2026-06-14T21:16:56.094Z"
+  },
+  "ownerIor": "ior:instance:d471fb6b-1e58-455f-a9c7-b7b0a96ca2a0"
+}

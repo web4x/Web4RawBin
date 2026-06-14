@@ -613,7 +613,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const unit = idx.get(uuid);
           if (!unit) continue;
           const iorType = unit.ior.replace('ior:class:', '').toLowerCase();
-          const baseType = (iorType === 'bug' || iorType === 'changerequest') ? 'requirement' : iorType;
+          const baseType = (iorType === 'bug' || iorType === 'changerequest') ? 'requirement' : (iorType === 'testcase' || iorType === 'gate') ? 'test' : iorType;
           if (!graph.has(uuid)) {
             try { makeObject(graph, baseType as ObjectType, uuid, String(unit.model.name || '')); } catch { continue; }
           }

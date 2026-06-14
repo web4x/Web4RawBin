@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "130c77ff-fa8b-4459-957f-7c964a124113",
+    "name": "PASS: canTransition checks allowed targets",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "b5989df8-f3bc-40ea-80e6-6a7cebefacef",
+    "timestamp": "2026-06-14T21:16:56.075Z"
+  },
+  "ownerIor": "ior:instance:b5989df8-f3bc-40ea-80e6-6a7cebefacef"
+}

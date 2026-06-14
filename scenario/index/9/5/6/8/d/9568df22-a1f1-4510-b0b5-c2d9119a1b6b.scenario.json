@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "9568df22-a1f1-4510-b0b5-c2d9119a1b6b",
+    "name": "PASS: renderContentPreview for image does NOT use zoom container (no iframe)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "17cca57c-679b-49a1-8df6-897cb3b3f317",
+    "timestamp": "2026-06-14T21:16:55.910Z"
+  },
+  "ownerIor": "ior:instance:17cca57c-679b-49a1-8df6-897cb3b3f317"
+}

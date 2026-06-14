@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "fb349e9c-c3b3-49d0-b3d6-4f7c1e0627af",
+    "name": "PASS: returns false for tampered device key",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9e2c7bfa-3573-41b6-8dd3-069cb662b67f",
+    "timestamp": "2026-06-14T21:16:56.056Z"
+  },
+  "ownerIor": "ior:instance:9e2c7bfa-3573-41b6-8dd3-069cb662b67f"
+}

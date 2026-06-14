@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "26a0b808-963a-404f-a827-ea2c608973d0",
+    "name": "PASS: Bug nodes >= 14 and ChangeRequest nodes >= 1 in scenario index",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "a67e0999-0d78-4269-baf4-5f30e775e903",
+    "timestamp": "2026-06-14T21:16:56.063Z"
+  },
+  "ownerIor": "ior:instance:a67e0999-0d78-4269-baf4-5f30e775e903"
+}

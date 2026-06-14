@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c1ec94e5-1268-48c2-b947-bf614ce55e04",
+    "name": "PASS: close() is idempotent",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "fae36bac-6eee-4ba2-bfca-0c7ee04bf5a2",
+    "timestamp": "2026-06-14T21:16:56.144Z"
+  },
+  "ownerIor": "ior:instance:fae36bac-6eee-4ba2-bfca-0c7ee04bf5a2"
+}

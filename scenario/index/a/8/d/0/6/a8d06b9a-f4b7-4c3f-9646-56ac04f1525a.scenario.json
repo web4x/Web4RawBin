@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a8d06b9a-f4b7-4c3f-9646-56ac04f1525a",
+    "name": "PASS: member avatarUrl is fallback when no profile",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5f6b1d74-69a0-4b79-ae2a-ef5eb692f77a",
+    "timestamp": "2026-06-14T21:16:55.998Z"
+  },
+  "ownerIor": "ior:instance:5f6b1d74-69a0-4b79-ae2a-ef5eb692f77a"
+}

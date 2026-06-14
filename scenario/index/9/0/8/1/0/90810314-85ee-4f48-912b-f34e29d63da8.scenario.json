@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "90810314-85ee-4f48-912b-f34e29d63da8",
+    "name": "PASS: creates .enc file on disk",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "aeeb2e82-f5f9-4a6b-b7f1-187a0401e568",
+    "timestamp": "2026-06-14T21:16:56.070Z"
+  },
+  "ownerIor": "ior:instance:aeeb2e82-f5f9-4a6b-b7f1-187a0401e568"
+}

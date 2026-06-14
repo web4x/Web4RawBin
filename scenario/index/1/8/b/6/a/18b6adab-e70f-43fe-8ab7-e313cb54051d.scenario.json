@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "18b6adab-e70f-43fe-8ab7-e313cb54051d",
+    "name": "PASS: id_rsa contains PEM private key",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "2b252a42-1a8a-4c86-8562-112a4ea005b3",
+    "timestamp": "2026-06-14T21:16:55.937Z"
+  },
+  "ownerIor": "ior:instance:2b252a42-1a8a-4c86-8562-112a4ea005b3"
+}

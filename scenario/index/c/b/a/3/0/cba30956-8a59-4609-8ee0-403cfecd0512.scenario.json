@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "cba30956-8a59-4609-8ee0-403cfecd0512",
+    "name": "PASS: drawer CSS max-height is 40vh (split layout)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "309922fd-4b6f-49ed-a2f3-4e80e46207b0",
+    "timestamp": "2026-06-14T21:16:55.942Z"
+  },
+  "ownerIor": "ior:instance:309922fd-4b6f-49ed-a2f3-4e80e46207b0"
+}

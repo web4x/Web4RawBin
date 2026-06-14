@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5760046e-cb3e-47c6-a63e-22ce5c4c7095",
+    "name": "PASS: icon-192.png exists",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "3da387fb-5db7-4dc2-abf1-f79d9537e2b0",
+    "timestamp": "2026-06-14T21:16:55.956Z"
+  },
+  "ownerIor": "ior:instance:3da387fb-5db7-4dc2-abf1-f79d9537e2b0"
+}

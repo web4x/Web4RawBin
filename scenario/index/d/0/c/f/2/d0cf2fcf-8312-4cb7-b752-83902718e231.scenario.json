@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "d0cf2fcf-8312-4cb7-b752-83902718e231",
+    "name": "PASS: createTraceLink produces valid unit with from/to/relation",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "992d216d-e600-4582-8af6-fdea437bdf51",
+    "timestamp": "2026-06-14T21:16:56.050Z"
+  },
+  "ownerIor": "ior:instance:992d216d-e600-4582-8af6-fdea437bdf51"
+}

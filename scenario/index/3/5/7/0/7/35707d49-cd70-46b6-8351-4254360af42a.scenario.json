@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "35707d49-cd70-46b6-8351-4254360af42a",
+    "name": "PASS: has tree panel slot or section",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "85a28d17-6b2d-41ce-b435-18d85d28cc97",
+    "timestamp": "2026-06-14T21:16:56.032Z"
+  },
+  "ownerIor": "ior:instance:85a28d17-6b2d-41ce-b435-18d85d28cc97"
+}

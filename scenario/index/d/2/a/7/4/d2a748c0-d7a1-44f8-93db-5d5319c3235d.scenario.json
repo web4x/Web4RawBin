@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "d2a748c0-d7a1-44f8-93db-5d5319c3235d",
+    "name": "PASS: renders placeholder when no avatarUrl",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "96559000-02d9-46f9-be95-0124de1cd7ea",
+    "timestamp": "2026-06-14T21:16:56.046Z"
+  },
+  "ownerIor": "ior:instance:96559000-02d9-46f9-be95-0124de1cd7ea"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "9fb63835-f5bf-4ce8-87bc-59aad7cddfa3",
+    "name": "PASS: .git root blocked",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "375f7746-ca4b-48ca-bc83-a81fbdc655dd",
+    "timestamp": "2026-06-14T21:16:55.949Z"
+  },
+  "ownerIor": "ior:instance:375f7746-ca4b-48ca-bc83-a81fbdc655dd"
+}

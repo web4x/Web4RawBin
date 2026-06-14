@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "75e1df26-75dc-4184-9094-3b48afe47a80",
+    "name": "PASS: BUG_REPORT adds to profile bugReports",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "67683c8e-a81d-400f-b1af-24eb15ce8d56",
+    "timestamp": "2026-06-14T21:16:56.005Z"
+  },
+  "ownerIor": "ior:instance:67683c8e-a81d-400f-b1af-24eb15ce8d56"
+}

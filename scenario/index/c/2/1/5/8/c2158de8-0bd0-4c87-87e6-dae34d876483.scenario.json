@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c2158de8-0bd0-4c87-87e6-dae34d876483",
+    "name": "PASS: preview or editor source has debounce logic",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "45a65a4c-e267-4810-9de4-4fc37cab0312",
+    "timestamp": "2026-06-14T21:16:55.968Z"
+  },
+  "ownerIor": "ior:instance:45a65a4c-e267-4810-9de4-4fc37cab0312"
+}

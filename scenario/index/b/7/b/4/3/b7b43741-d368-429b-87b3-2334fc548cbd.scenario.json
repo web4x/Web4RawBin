@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b7b43741-d368-429b-87b3-2334fc548cbd",
+    "name": "PASS: nonexistent file returns 404 (no implicit create)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "73910ecb-d08b-422f-9efa-186d54e1feb1",
+    "timestamp": "2026-06-14T21:16:56.017Z"
+  },
+  "ownerIor": "ior:instance:73910ecb-d08b-422f-9efa-186d54e1feb1"
+}

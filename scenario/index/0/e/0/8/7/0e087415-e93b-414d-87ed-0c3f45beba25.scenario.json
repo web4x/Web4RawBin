@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0e087415-e93b-414d-87ed-0c3f45beba25",
+    "name": "PASS: generates sprint overview + planning.md with speaking names + nested subtasks",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "931f8111-9b08-483e-995a-1cf43b039988",
+    "timestamp": "2026-06-14T21:16:56.042Z"
+  },
+  "ownerIor": "ior:instance:931f8111-9b08-483e-995a-1cf43b039988"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "9a7c9538-cfd8-4d90-9de7-cee90c937070",
+    "name": "PASS: task MD views have content from templates",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "b12ca8d9-5f32-434f-aa06-638dcad05e98",
+    "timestamp": "2026-06-14T21:16:56.072Z"
+  },
+  "ownerIor": "ior:instance:b12ca8d9-5f32-434f-aa06-638dcad05e98"
+}

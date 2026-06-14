@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "bd8f2374-c053-48ff-af97-5ec939821c98",
+    "name": "PASS: (2) Room has .ssh/ with id_rsa",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "187c3945-75c8-455a-b17e-51a5c840849e",
+    "timestamp": "2026-06-14T21:16:55.911Z"
+  },
+  "ownerIor": "ior:instance:187c3945-75c8-455a-b17e-51a5c840849e"
+}

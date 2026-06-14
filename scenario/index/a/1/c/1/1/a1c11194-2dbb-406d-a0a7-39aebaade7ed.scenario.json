@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a1c11194-2dbb-406d-a0a7-39aebaade7ed",
+    "name": "PASS: double show() replaces previous overlay",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "056259bf-1a62-45c0-b004-efc0035a1c60",
+    "timestamp": "2026-06-14T21:16:55.886Z"
+  },
+  "ownerIor": "ior:instance:056259bf-1a62-45c0-b004-efc0035a1c60"
+}

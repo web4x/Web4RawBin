@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b70518f4-0864-4184-8a04-20494385f60e",
+    "name": "PASS: new item is APPENDED, departed is REMOVED",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "51607dea-4879-4736-a701-c8dfe601350c",
+    "timestamp": "2026-06-14T21:16:55.983Z"
+  },
+  "ownerIor": "ior:instance:51607dea-4879-4736-a701-c8dfe601350c"
+}

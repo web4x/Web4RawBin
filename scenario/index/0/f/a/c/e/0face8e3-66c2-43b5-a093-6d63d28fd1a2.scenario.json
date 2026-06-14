@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0face8e3-66c2-43b5-a093-6d63d28fd1a2",
+    "name": "PASS: mismatched mtime returns 409 with conflict:true",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5a4068df-6d29-4b90-ae56-43ed3a0f4f8a",
+    "timestamp": "2026-06-14T21:16:55.993Z"
+  },
+  "ownerIor": "ior:instance:5a4068df-6d29-4b90-ae56-43ed3a0f4f8a"
+}

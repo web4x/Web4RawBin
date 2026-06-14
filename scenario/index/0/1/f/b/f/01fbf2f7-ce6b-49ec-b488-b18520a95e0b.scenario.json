@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "01fbf2f7-ce6b-49ec-b488-b18520a95e0b",
+    "name": "PASS: AC10: ZERO 404s for app.js with SW active (Tron repro)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e8e00fa8-edc6-40f9-ab84-2de5662dcc27",
+    "timestamp": "2026-06-14T21:16:56.116Z"
+  },
+  "ownerIor": "ior:instance:e8e00fa8-edc6-40f9-ab84-2de5662dcc27"
+}

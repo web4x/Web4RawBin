@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "1f2a018e-5bd7-4138-899a-f8a561e54b1d",
+    "name": "PASS: disconnected shows red dot",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e2f82d30-90dc-4500-b6dd-d70b76765542",
+    "timestamp": "2026-06-14T21:16:56.108Z"
+  },
+  "ownerIor": "ior:instance:e2f82d30-90dc-4500-b6dd-d70b76765542"
+}

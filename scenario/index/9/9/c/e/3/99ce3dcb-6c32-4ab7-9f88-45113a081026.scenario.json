@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "99ce3dcb-6c32-4ab7-9f88-45113a081026",
+    "name": "PASS: returns devicePublicKey, devicePrivateKey, and signature",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "19b112e8-4a49-437a-b5fa-856d7013f490",
+    "timestamp": "2026-06-14T21:16:55.912Z"
+  },
+  "ownerIor": "ior:instance:19b112e8-4a49-437a-b5fa-856d7013f490"
+}

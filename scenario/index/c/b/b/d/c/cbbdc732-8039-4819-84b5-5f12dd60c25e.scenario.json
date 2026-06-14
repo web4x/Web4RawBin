@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "cbbdc732-8039-4819-84b5-5f12dd60c25e",
+    "name": "PASS: AC7: rb-update-banner element present on bundle pages /app and /edit",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "70299a7b-fc4c-419d-93be-f84027add7dd",
+    "timestamp": "2026-06-14T21:16:56.014Z"
+  },
+  "ownerIor": "ior:instance:70299a7b-fc4c-419d-93be-f84027add7dd"
+}

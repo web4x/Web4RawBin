@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "6a0746a4-71e9-4755-aebd-22ff6441e18c",
+    "name": "PASS: handlePan moves translate offsets",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "3d56ab6d-8167-4f9e-aea1-8d9070e7d98f",
+    "timestamp": "2026-06-14T21:16:55.956Z"
+  },
+  "ownerIor": "ior:instance:3d56ab6d-8167-4f9e-aea1-8d9070e7d98f"
+}

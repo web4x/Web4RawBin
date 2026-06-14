@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ae369e6c-ca3d-4ff0-bbe7-b0cbfb229f2a",
+    "name": "PASS: valid PNG upload returns 200 with avatarUrl",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "ba861b72-1c31-415a-91d0-110644d0aa74",
+    "timestamp": "2026-06-14T21:16:56.077Z"
+  },
+  "ownerIor": "ior:instance:ba861b72-1c31-415a-91d0-110644d0aa74"
+}

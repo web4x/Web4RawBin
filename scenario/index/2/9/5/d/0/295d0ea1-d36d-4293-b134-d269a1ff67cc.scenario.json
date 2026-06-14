@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "295d0ea1-d36d-4293-b134-d269a1ff67cc",
+    "name": "PASS: (5) Owner can delete room — dir removed",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "4d8255f4-e9cf-473f-9afc-faa5b9c70e11",
+    "timestamp": "2026-06-14T21:16:55.978Z"
+  },
+  "ownerIor": "ior:instance:4d8255f4-e9cf-473f-9afc-faa5b9c70e11"
+}

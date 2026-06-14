@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5163db63-d32e-4071-9bd3-2d349e469806",
+    "name": "PASS: cacheProfile overwrites previous profile",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "43d781cd-818e-4cd7-af05-cb2641bc9396",
+    "timestamp": "2026-06-14T21:16:55.963Z"
+  },
+  "ownerIor": "ior:instance:43d781cd-818e-4cd7-af05-cb2641bc9396"
+}

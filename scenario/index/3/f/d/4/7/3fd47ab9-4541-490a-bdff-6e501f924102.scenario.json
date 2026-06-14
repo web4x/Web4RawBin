@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "3fd47ab9-4541-490a-bdff-6e501f924102",
+    "name": "PASS: TRACE_ICONS has entries for all 7 types",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "c9a66832-5754-432f-a555-1eda3af59646",
+    "timestamp": "2026-06-14T21:16:56.088Z"
+  },
+  "ownerIor": "ior:instance:c9a66832-5754-432f-a555-1eda3af59646"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "f1e08833-cacc-41ac-9f65-f9587483e6a8",
+    "name": "PASS: round-trips buildHash → parseHash",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "45b36f46-caf3-4e48-85fc-18444cbad078",
+    "timestamp": "2026-06-14T21:16:55.969Z"
+  },
+  "ownerIor": "ior:instance:45b36f46-caf3-4e48-85fc-18444cbad078"
+}

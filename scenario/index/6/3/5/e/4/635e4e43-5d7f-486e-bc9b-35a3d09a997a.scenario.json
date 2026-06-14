@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "635e4e43-5d7f-486e-bc9b-35a3d09a997a",
+    "name": "PASS: setting crop updates CSS transform on img",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "2e735f80-dd9e-4a10-8085-49bab108b135",
+    "timestamp": "2026-06-14T21:16:55.939Z"
+  },
+  "ownerIor": "ior:instance:2e735f80-dd9e-4a10-8085-49bab108b135"
+}

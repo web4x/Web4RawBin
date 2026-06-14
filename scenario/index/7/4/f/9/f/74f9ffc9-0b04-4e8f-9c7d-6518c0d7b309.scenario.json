@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "74f9ffc9-0b04-4e8f-9c7d-6518c0d7b309",
+    "name": "PASS: ${dialog.name} has overlay property",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "cac7c08b-fa52-46e8-88eb-8fda90a3f720",
+    "timestamp": "2026-06-14T21:16:56.089Z"
+  },
+  "ownerIor": "ior:instance:cac7c08b-fa52-46e8-88eb-8fda90a3f720"
+}

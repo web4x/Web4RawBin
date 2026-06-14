@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "fadb0617-6e82-4ac0-a617-23277e3cf93f",
+    "name": "PASS: ProfileEditor does NOT contain de-remove-identity",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "c68ecb06-ba61-4a38-ba20-b35fad52009a",
+    "timestamp": "2026-06-14T21:16:56.087Z"
+  },
+  "ownerIor": "ior:instance:c68ecb06-ba61-4a38-ba20-b35fad52009a"
+}

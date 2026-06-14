@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "326911db-219b-4ad4-a885-8fa45f9d0f28",
+    "name": "PASS: R18.30: removeLink removes symlink + updates unitLinks[]",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "034307f4-a6d5-4717-8f81-ad10e35338bf",
+    "timestamp": "2026-06-14T21:16:55.884Z"
+  },
+  "ownerIor": "ior:instance:034307f4-a6d5-4717-8f81-ad10e35338bf"
+}

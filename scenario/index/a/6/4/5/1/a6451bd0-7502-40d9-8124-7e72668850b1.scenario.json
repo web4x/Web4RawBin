@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a6451bd0-7502-40d9-8124-7e72668850b1",
+    "name": "PASS: TS1/AC1/AC5: deep file → Back href is parent /md/.../ and navigates there",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e01f4476-68da-482f-a07c-350c0619e83e",
+    "timestamp": "2026-06-14T21:16:56.105Z"
+  },
+  "ownerIor": "ior:instance:e01f4476-68da-482f-a07c-350c0619e83e"
+}

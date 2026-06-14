@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7a931970-e803-4959-afbe-7e50869ed3aa",
+    "name": "PASS: warns on a test with no linked requirement or method",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "1df6fa85-6a92-4897-93bc-c78f7368be52",
+    "timestamp": "2026-06-14T21:16:55.921Z"
+  },
+  "ownerIor": "ior:instance:1df6fa85-6a92-4897-93bc-c78f7368be52"
+}

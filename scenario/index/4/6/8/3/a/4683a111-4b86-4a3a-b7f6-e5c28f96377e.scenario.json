@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "4683a111-4b86-4a3a-b7f6-e5c28f96377e",
+    "name": "PASS: second call returns same keys",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "61e98c90-41a2-4d39-bf0e-e8d92a663939",
+    "timestamp": "2026-06-14T21:16:56.000Z"
+  },
+  "ownerIor": "ior:instance:61e98c90-41a2-4d39-bf0e-e8d92a663939"
+}

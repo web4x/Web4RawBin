@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5fb4ff0a-86da-4746-91f1-c05af041f188",
+    "name": "PASS: public_keys/ dir exists with named copy",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "8f2567c2-10cc-4fa3-ab30-2abcf62b555a",
+    "timestamp": "2026-06-14T21:16:56.039Z"
+  },
+  "ownerIor": "ior:instance:8f2567c2-10cc-4fa3-ab30-2abcf62b555a"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c761795e-5fd6-40ad-a1f3-9c9e7979e8d4",
+    "name": "PASS: room.json has chatHistory as empty array",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "4abff2c9-b9a7-4cba-99cd-b57809e5fbd9",
+    "timestamp": "2026-06-14T21:16:55.975Z"
+  },
+  "ownerIor": "ior:instance:4abff2c9-b9a7-4cba-99cd-b57809e5fbd9"
+}

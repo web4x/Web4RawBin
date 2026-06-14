@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "08fccc02-1b66-42b3-8029-477a94307e7d",
+    "name": "PASS: renderAllChildrenSection is imported and called in rb-detail-view.ts",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "07da99c3-a38f-4990-8c41-92d76019e2e4",
+    "timestamp": "2026-06-14T21:16:55.889Z"
+  },
+  "ownerIor": "ior:instance:07da99c3-a38f-4990-8c41-92d76019e2e4"
+}

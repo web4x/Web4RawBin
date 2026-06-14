@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "36c9a0e4-e3b4-409f-a62d-45639a5b60c1",
+    "name": "PASS: node_modules/ws/index.js → 403",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "0b27da31-ccc6-4967-a745-27d77e9df6fe",
+    "timestamp": "2026-06-14T21:16:55.896Z"
+  },
+  "ownerIor": "ior:instance:0b27da31-ccc6-4967-a745-27d77e9df6fe"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "43a32c77-d689-4961-b500-10b98182ea11",
+    "name": "PASS: warns on a task with no requirement up-link",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "0438361f-5ed3-4826-8af7-336446d11cd9",
+    "timestamp": "2026-06-14T21:16:55.885Z"
+  },
+  "ownerIor": "ior:instance:0438361f-5ed3-4826-8af7-336446d11cd9"
+}

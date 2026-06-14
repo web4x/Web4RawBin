@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "3ffdca45-9525-4d5e-8dc2-d0c16ccae3ec",
+    "name": "PASS: returned mtime differs from pre-write mtime",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9ad3b2da-028f-40d8-a083-3456c7ea6e94",
+    "timestamp": "2026-06-14T21:16:56.052Z"
+  },
+  "ownerIor": "ior:instance:9ad3b2da-028f-40d8-a083-3456c7ea6e94"
+}

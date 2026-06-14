@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0c610984-2a87-4348-9fbf-5e4a0302d9d4",
+    "name": "PASS: renderSingularChain produces ↓ arrows between steps",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "a3ead249-5105-4cb9-9846-a30b985c15f5",
+    "timestamp": "2026-06-14T21:16:56.061Z"
+  },
+  "ownerIor": "ior:instance:a3ead249-5105-4cb9-9846-a30b985c15f5"
+}

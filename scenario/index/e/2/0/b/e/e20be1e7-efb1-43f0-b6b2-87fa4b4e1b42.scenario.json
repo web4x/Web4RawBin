@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "e20be1e7-efb1-43f0-b6b2-87fa4b4e1b42",
+    "name": "PASS: existing profile gets phone/url/profileCommitted defaults",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5f79459e-23cb-4772-a9b4-4ee7c837515f",
+    "timestamp": "2026-06-14T21:16:55.998Z"
+  },
+  "ownerIor": "ior:instance:5f79459e-23cb-4772-a9b4-4ee7c837515f"
+}

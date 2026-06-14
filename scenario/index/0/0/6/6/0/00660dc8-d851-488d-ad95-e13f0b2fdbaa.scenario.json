@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "00660dc8-d851-488d-ad95-e13f0b2fdbaa",
+    "name": "PASS: rejects invalid transition",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "0c0450ea-a09b-4581-a552-602fe102cd01",
+    "timestamp": "2026-06-14T21:16:55.896Z"
+  },
+  "ownerIor": "ior:instance:0c0450ea-a09b-4581-a552-602fe102cd01"
+}

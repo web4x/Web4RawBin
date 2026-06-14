@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "39acfcae-fc73-486a-9fb5-ff1da16bb188",
+    "name": "PASS: .css returns text/css",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "37526145-9258-4a4c-b4d1-e34f8777b73b",
+    "timestamp": "2026-06-14T21:16:55.948Z"
+  },
+  "ownerIor": "ior:instance:37526145-9258-4a4c-b4d1-e34f8777b73b"
+}

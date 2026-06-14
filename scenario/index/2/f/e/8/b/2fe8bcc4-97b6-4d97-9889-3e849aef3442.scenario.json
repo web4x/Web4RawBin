@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "2fe8bcc4-97b6-4d97-9889-3e849aef3442",
+    "name": "PASS: UPDATE_PROFILE returns PROFILE_UPDATED with all fields",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e43dc4e7-de47-40f5-a154-29dc151ebe5e",
+    "timestamp": "2026-06-14T21:16:56.110Z"
+  },
+  "ownerIor": "ior:instance:e43dc4e7-de47-40f5-a154-29dc151ebe5e"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5561c404-1e62-44b8-a60c-c326debb1e55",
+    "name": "PASS: RoomView click handler dispatches file/url/webitem types to openFilePreview",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "6bd54760-20e2-4386-8c1d-411fa1af3fda",
+    "timestamp": "2026-06-14T21:16:56.011Z"
+  },
+  "ownerIor": "ior:instance:6bd54760-20e2-4386-8c1d-411fa1af3fda"
+}

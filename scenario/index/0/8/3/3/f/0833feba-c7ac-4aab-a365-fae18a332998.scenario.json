@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0833feba-c7ac-4aab-a365-fae18a332998",
+    "name": "PASS: file mtime unchanged on second call",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "0257c7de-9e00-454e-8869-4505d3530be4",
+    "timestamp": "2026-06-14T21:16:55.882Z"
+  },
+  "ownerIor": "ior:instance:0257c7de-9e00-454e-8869-4505d3530be4"
+}

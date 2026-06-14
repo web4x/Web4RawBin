@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a4640d1f-5543-467e-88fc-0488dec110eb",
+    "name": "PASS: a mounted view re-renders on notify for its ref",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "73936737-c3b8-4bf7-9639-8d99c2d62d76",
+    "timestamp": "2026-06-14T21:16:56.017Z"
+  },
+  "ownerIor": "ior:instance:73936737-c3b8-4bf7-9639-8d99c2d62d76"
+}

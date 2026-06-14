@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "f24924ac-5fcd-4ac1-9ad4-3c8481c28669",
+    "name": "PASS: event with no src does not break rendering",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5621d87a-0bd0-49a6-92e1-394156a4f819",
+    "timestamp": "2026-06-14T21:16:55.989Z"
+  },
+  "ownerIor": "ior:instance:5621d87a-0bd0-49a6-92e1-394156a4f819"
+}

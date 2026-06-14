@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a5c7fdec-2b77-4ee9-bab2-c3e5dc7c49c3",
+    "name": "PASS: (a) data set BEFORE define → upgradeProperty recovers on connect",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "aec5c676-3032-4760-a22b-4449dbfe88ee",
+    "timestamp": "2026-06-14T21:16:56.070Z"
+  },
+  "ownerIor": "ior:instance:aec5c676-3032-4760-a22b-4449dbfe88ee"
+}

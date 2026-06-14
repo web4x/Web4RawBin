@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "79d0e879-2b34-4ad6-a58b-1f43e5ff0f00",
+    "name": "PASS: R18.29: addLink creates symlink + persists unitLinks[]",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "4b6682a2-7199-4da8-a1e9-767f597789a6",
+    "timestamp": "2026-06-14T21:16:55.975Z"
+  },
+  "ownerIor": "ior:instance:4b6682a2-7199-4da8-a1e9-767f597789a6"
+}

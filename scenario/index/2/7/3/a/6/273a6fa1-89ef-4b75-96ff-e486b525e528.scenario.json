@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "273a6fa1-89ef-4b75-96ff-e486b525e528",
+    "name": "PASS: README.md → allowed (200 or 404, not 403)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "059b94b3-f202-4778-9c10-cfab71cb1cd7",
+    "timestamp": "2026-06-14T21:16:55.886Z"
+  },
+  "ownerIor": "ior:instance:059b94b3-f202-4778-9c10-cfab71cb1cd7"
+}

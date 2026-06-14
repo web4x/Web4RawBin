@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "f001c0af-b47c-4ea2-9817-b321dbc2c4e0",
+    "name": "PASS: returns 404 for nonexistent user",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "ffb5d5f1-5616-49e7-9ee1-67dda4830809",
+    "timestamp": "2026-06-14T21:16:56.148Z"
+  },
+  "ownerIor": "ior:instance:ffb5d5f1-5616-49e7-9ee1-67dda4830809"
+}

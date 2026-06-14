@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "eaba7b06-8a91-4031-a581-c517bcc93927",
+    "name": "PASS: cleanupStale removes rooms older than threshold",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "fb4bd0a1-52a7-414e-b2c2-000c5f0f8b5f",
+    "timestamp": "2026-06-14T21:16:56.144Z"
+  },
+  "ownerIor": "ior:instance:fb4bd0a1-52a7-414e-b2c2-000c5f0f8b5f"
+}

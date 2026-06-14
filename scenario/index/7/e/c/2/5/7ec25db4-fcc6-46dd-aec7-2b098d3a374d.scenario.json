@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7ec25db4-fcc6-46dd-aec7-2b098d3a374d",
+    "name": "PASS: broadcast includes sender info",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "3e74b98d-69fe-44ae-8c9f-c67932707e01",
+    "timestamp": "2026-06-14T21:16:55.957Z"
+  },
+  "ownerIor": "ior:instance:3e74b98d-69fe-44ae-8c9f-c67932707e01"
+}

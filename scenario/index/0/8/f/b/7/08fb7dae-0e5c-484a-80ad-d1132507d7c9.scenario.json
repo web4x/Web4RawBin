@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "08fb7dae-0e5c-484a-80ad-d1132507d7c9",
+    "name": "PASS: is deterministic: two runs render identically",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "6e385473-9e89-4338-9af4-39fdb50b71d5",
+    "timestamp": "2026-06-14T21:16:56.012Z"
+  },
+  "ownerIor": "ior:instance:6e385473-9e89-4338-9af4-39fdb50b71d5"
+}

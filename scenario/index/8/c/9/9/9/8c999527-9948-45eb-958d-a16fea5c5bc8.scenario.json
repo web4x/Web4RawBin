@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "8c999527-9948-45eb-958d-a16fea5c5bc8",
+    "name": "PASS: server handler truncates messages to 200 chars",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "94b1fde7-f8c1-4cee-9848-db13ab569475",
+    "timestamp": "2026-06-14T21:16:56.044Z"
+  },
+  "ownerIor": "ior:instance:94b1fde7-f8c1-4cee-9848-db13ab569475"
+}

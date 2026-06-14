@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a213ecf8-c749-4fc0-87da-5605c76f7c2d",
+    "name": "PASS: parses <<UseCase>> blocks and creates UseCase objects linked to tasks",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "66c92fb1-cf27-497c-bb04-6f11df28584a",
+    "timestamp": "2026-06-14T21:16:56.004Z"
+  },
+  "ownerIor": "ior:instance:66c92fb1-cf27-497c-bb04-6f11df28584a"
+}

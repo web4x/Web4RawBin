@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ba9fe328-2185-4947-aca9-ce2b0b891eb5",
+    "name": "PASS: returns ERROR for missing token field",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "de968e89-4e63-433e-93aa-1cfa6fe13313",
+    "timestamp": "2026-06-14T21:16:56.104Z"
+  },
+  "ownerIor": "ior:instance:de968e89-4e63-433e-93aa-1cfa6fe13313"
+}

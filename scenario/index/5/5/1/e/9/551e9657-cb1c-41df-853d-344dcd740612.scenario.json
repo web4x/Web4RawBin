@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "551e9657-cb1c-41df-853d-344dcd740612",
+    "name": "PASS: has icons array with at least one icon",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "93e08ace-7ab1-423d-8dd5-b8185117678f",
+    "timestamp": "2026-06-14T21:16:56.043Z"
+  },
+  "ownerIor": "ior:instance:93e08ace-7ab1-423d-8dd5-b8185117678f"
+}

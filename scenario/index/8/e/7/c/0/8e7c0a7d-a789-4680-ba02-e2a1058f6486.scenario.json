@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "8e7c0a7d-a789-4680-ba02-e2a1058f6486",
+    "name": "PASS: AC1/AC6: version mismatch → update banner fires with ",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e72b1788-b2e0-4e7c-ba35-68d4cf22004a",
+    "timestamp": "2026-06-14T21:16:56.114Z"
+  },
+  "ownerIor": "ior:instance:e72b1788-b2e0-4e7c-ba35-68d4cf22004a"
+}

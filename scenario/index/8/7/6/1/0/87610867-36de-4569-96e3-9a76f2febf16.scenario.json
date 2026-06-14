@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "87610867-36de-4569-96e3-9a76f2febf16",
+    "name": "PASS: listRooms returns all active rooms",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "7a47bfa4-9404-4a7d-8fd3-8e59ca7e28c5",
+    "timestamp": "2026-06-14T21:16:56.025Z"
+  },
+  "ownerIor": "ior:instance:7a47bfa4-9404-4a7d-8fd3-8e59ca7e28c5"
+}

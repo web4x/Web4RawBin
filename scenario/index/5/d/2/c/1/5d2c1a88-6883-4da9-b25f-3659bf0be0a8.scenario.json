@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5d2c1a88-6883-4da9-b25f-3659bf0be0a8",
+    "name": "PASS: flipping 1 byte in ciphertext throws",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "162b722f-926e-4ef1-937e-dfdf39a51e27",
+    "timestamp": "2026-06-14T21:16:55.908Z"
+  },
+  "ownerIor": "ior:instance:162b722f-926e-4ef1-937e-dfdf39a51e27"
+}

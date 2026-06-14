@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "bebcf4dd-d828-4435-902f-5945cc6e77e8",
+    "name": "PASS: sprints.md/ contains generated view files",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5d531260-2450-4d47-bd25-3103fc971a08",
+    "timestamp": "2026-06-14T21:16:55.995Z"
+  },
+  "ownerIor": "ior:instance:5d531260-2450-4d47-bd25-3103fc971a08"
+}

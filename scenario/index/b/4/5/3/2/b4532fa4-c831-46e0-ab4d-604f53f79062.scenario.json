@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b4532fa4-c831-46e0-ab4d-604f53f79062",
+    "name": "PASS: requirement and usecase units exist in index",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "1283ef51-9128-47ab-810e-fc05210d99bb",
+    "timestamp": "2026-06-14T21:16:55.902Z"
+  },
+  "ownerIor": "ior:instance:1283ef51-9128-47ab-810e-fc05210d99bb"
+}

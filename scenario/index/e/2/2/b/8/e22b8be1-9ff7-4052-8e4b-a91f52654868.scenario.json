@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "e22b8be1-9ff7-4052-8e4b-a91f52654868",
+    "name": "PASS: new messages after reconnect go directly, not to queue",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "88dbc11f-951d-4409-99f5-824e251af19c",
+    "timestamp": "2026-06-14T21:16:56.033Z"
+  },
+  "ownerIor": "ior:instance:88dbc11f-951d-4409-99f5-824e251af19c"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "f1f9420b-ce14-4b9f-a77e-c3a89d204b27",
+    "name": "PASS: clearQueue removes all messages",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "241d2270-8d93-4a89-88a7-9b308b67b2d3",
+    "timestamp": "2026-06-14T21:16:55.929Z"
+  },
+  "ownerIor": "ior:instance:241d2270-8d93-4a89-88a7-9b308b67b2d3"
+}

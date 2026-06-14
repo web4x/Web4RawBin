@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "63bc2c5b-5774-415b-b141-2545bcaade08",
+    "name": "PASS: overwrite replaces previous avatar",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "18af99af-a95e-4cfe-bc8b-73d2894f7883",
+    "timestamp": "2026-06-14T21:16:55.911Z"
+  },
+  "ownerIor": "ior:instance:18af99af-a95e-4cfe-bc8b-73d2894f7883"
+}

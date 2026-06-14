@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ec7e7973-548a-4fe9-9651-85e24623eb4b",
+    "name": "PASS: cacheRoomState stores room data",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "3cd84d17-2c2a-43e9-a0ef-f5e1341acabd",
+    "timestamp": "2026-06-14T21:16:55.955Z"
+  },
+  "ownerIor": "ior:instance:3cd84d17-2c2a-43e9-a0ef-f5e1341acabd"
+}

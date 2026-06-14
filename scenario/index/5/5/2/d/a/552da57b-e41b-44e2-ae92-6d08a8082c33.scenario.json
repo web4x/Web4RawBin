@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "552da57b-e41b-44e2-ae92-6d08a8082c33",
+    "name": "PASS: server.ts has /api/avatar route for serving",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "163299d4-3432-4854-9860-1bb86da45ae5",
+    "timestamp": "2026-06-14T21:16:55.908Z"
+  },
+  "ownerIor": "ior:instance:163299d4-3432-4854-9860-1bb86da45ae5"
+}

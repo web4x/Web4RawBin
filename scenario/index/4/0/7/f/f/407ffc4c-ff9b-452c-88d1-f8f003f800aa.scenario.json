@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "407ffc4c-ff9b-452c-88d1-f8f003f800aa",
+    "name": "PASS: creator is the host on room creation",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "94f87523-24a5-4916-ab41-ee96b2a5e6b4",
+    "timestamp": "2026-06-14T21:16:56.044Z"
+  },
+  "ownerIor": "ior:instance:94f87523-24a5-4916-ab41-ee96b2a5e6b4"
+}

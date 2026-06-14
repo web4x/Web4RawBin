@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "06b24f5c-1490-4818-a7d1-5e4dfdbd0837",
+    "name": "PASS: .ssh/ is 700",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "2995a5ac-6856-4f1e-8959-59c925ffa09c",
+    "timestamp": "2026-06-14T21:16:55.934Z"
+  },
+  "ownerIor": "ior:instance:2995a5ac-6856-4f1e-8959-59c925ffa09c"
+}

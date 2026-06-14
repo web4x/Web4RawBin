@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c9ce7b12-0140-4459-94aa-574de90d7769",
+    "name": "PASS: planning.md files exist for multiple sprints",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "315771bd-c42f-4cdc-b2ed-2f878f8ddc50",
+    "timestamp": "2026-06-14T21:16:55.943Z"
+  },
+  "ownerIor": "ior:instance:315771bd-c42f-4cdc-b2ed-2f878f8ddc50"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0bd93c1b-3ef1-4022-b06f-dc3b7edd34f0",
+    "name": "PASS: returns 200 with image/jpeg Content-Type for JPEG",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "f64e483b-c37e-4a3a-a183-8234620768d5",
+    "timestamp": "2026-06-14T21:16:56.127Z"
+  },
+  "ownerIor": "ior:instance:f64e483b-c37e-4a3a-a183-8234620768d5"
+}

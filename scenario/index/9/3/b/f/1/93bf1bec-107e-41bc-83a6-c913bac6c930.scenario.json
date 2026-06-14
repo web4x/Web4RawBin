@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "93bf1bec-107e-41bc-83a6-c913bac6c930",
+    "name": "PASS: 24px badge: 50% offset = 12px translate",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "516d7f26-abc8-4c4f-9dfc-8f2e6a6af702",
+    "timestamp": "2026-06-14T21:16:55.983Z"
+  },
+  "ownerIor": "ior:instance:516d7f26-abc8-4c4f-9dfc-8f2e6a6af702"
+}

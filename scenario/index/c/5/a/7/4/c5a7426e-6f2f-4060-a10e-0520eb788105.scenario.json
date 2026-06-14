@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c5a7426e-6f2f-4060-a10e-0520eb788105",
+    "name": "PASS: maps boolean flags by presence and numbers by parse",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "b2f70a6d-0804-4302-a05f-72b3de91c5d9",
+    "timestamp": "2026-06-14T21:16:56.073Z"
+  },
+  "ownerIor": "ior:instance:b2f70a6d-0804-4302-a05f-72b3de91c5d9"
+}

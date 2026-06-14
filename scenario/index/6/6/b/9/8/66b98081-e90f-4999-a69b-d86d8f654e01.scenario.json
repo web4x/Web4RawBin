@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "66b98081-e90f-4999-a69b-d86d8f654e01",
+    "name": "PASS: TS3/AC2: Back button label is ",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "15f069e2-417f-4d4a-bd02-e99cdcd42d1f",
+    "timestamp": "2026-06-14T21:16:55.904Z"
+  },
+  "ownerIor": "ior:instance:15f069e2-417f-4d4a-bd02-e99cdcd42d1f"
+}

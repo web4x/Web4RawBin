@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "aac80076-f562-4ae4-9226-a7ae71684f93",
+    "name": "PASS: RoomBrowser.ts does NOT use inline <img> for avatar",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "6423e23c-1165-4a26-9c31-babaa7b6ba90",
+    "timestamp": "2026-06-14T21:16:56.001Z"
+  },
+  "ownerIor": "ior:instance:6423e23c-1165-4a26-9c31-babaa7b6ba90"
+}

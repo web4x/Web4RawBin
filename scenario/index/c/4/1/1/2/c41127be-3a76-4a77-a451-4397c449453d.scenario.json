@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c41127be-3a76-4a77-a451-4397c449453d",
+    "name": "PASS: scenario page ES module executes (CDP secure context)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "c0d44185-8af7-4f3c-9c8b-c06f46ba3413",
+    "timestamp": "2026-06-14T21:16:56.084Z"
+  },
+  "ownerIor": "ior:instance:c0d44185-8af7-4f3c-9c8b-c06f46ba3413"
+}

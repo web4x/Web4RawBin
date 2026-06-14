@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "daf8856b-08a7-451f-bc12-59b14a5a7141",
+    "name": "PASS: send() queues messages when disconnected",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "ce33dead-6064-4ffa-a9fd-14bbcacd2d28",
+    "timestamp": "2026-06-14T21:16:56.091Z"
+  },
+  "ownerIor": "ior:instance:ce33dead-6064-4ffa-a9fd-14bbcacd2d28"
+}

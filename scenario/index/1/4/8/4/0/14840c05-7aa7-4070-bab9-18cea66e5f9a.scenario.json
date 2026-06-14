@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "14840c05-7aa7-4070-bab9-18cea66e5f9a",
+    "name": "PASS: re-persists on member change",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "9bce5e67-b4f3-49c2-86c6-ec06b447f07c",
+    "timestamp": "2026-06-14T21:16:56.052Z"
+  },
+  "ownerIor": "ior:instance:9bce5e67-b4f3-49c2-86c6-ec06b447f07c"
+}

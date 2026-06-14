@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "4f3a2bb1-3c6f-4954-a4c8-6f131fff51f8",
+    "name": "PASS: warns on a use case with no linked task",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "af78f3af-c59b-433d-a8e0-613035cb2259",
+    "timestamp": "2026-06-14T21:16:56.070Z"
+  },
+  "ownerIor": "ior:instance:af78f3af-c59b-433d-a8e0-613035cb2259"
+}

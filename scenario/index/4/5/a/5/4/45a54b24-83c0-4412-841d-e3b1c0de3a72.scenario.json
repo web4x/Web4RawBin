@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "45a54b24-83c0-4412-841d-e3b1c0de3a72",
+    "name": "PASS: TC-8: registered handler intercepts matching mime prefix",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "7e78cffe-9754-4b39-b64f-9ce559858c64",
+    "timestamp": "2026-06-14T21:16:56.028Z"
+  },
+  "ownerIor": "ior:instance:7e78cffe-9754-4b39-b64f-9ce559858c64"
+}

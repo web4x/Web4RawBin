@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c1411150-aa4d-41b0-8a41-b8e2dda0d6c7",
+    "name": "PASS: append-only + scroll preserved + DOM identity preserved on Task expand",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "3aae7ef9-38c7-4216-833e-2e4303978f42",
+    "timestamp": "2026-06-14T21:16:55.952Z"
+  },
+  "ownerIor": "ior:instance:3aae7ef9-38c7-4216-833e-2e4303978f42"
+}

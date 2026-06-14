@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "6c2ac40f-6fce-4dec-a9f6-640a29f43af7",
+    "name": "PASS: .ssh/ directory exists",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "4419e5f9-1d4b-4567-9c3e-c2f4b06d9b85",
+    "timestamp": "2026-06-14T21:16:55.963Z"
+  },
+  "ownerIor": "ior:instance:4419e5f9-1d4b-4567-9c3e-c2f4b06d9b85"
+}

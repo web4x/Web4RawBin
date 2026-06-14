@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5cbeafdc-aa50-4f5a-9128-985accd442dc",
+    "name": "PASS: ownerName distinct from room name",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5ea89e87-2065-4808-9f7a-1f97b8c2df8a",
+    "timestamp": "2026-06-14T21:16:55.996Z"
+  },
+  "ownerIor": "ior:instance:5ea89e87-2065-4808-9f7a-1f97b8c2df8a"
+}

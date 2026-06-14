@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b6f74da3-3b75-4d72-8ba5-8680a871d8df",
+    "name": "PASS: parses params with types and optionality",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "cfaf8f16-c072-4eeb-a05a-ba9e55e857f2",
+    "timestamp": "2026-06-14T21:16:56.092Z"
+  },
+  "ownerIor": "ior:instance:cfaf8f16-c072-4eeb-a05a-ba9e55e857f2"
+}

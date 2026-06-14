@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "cf9e0674-7667-48bd-baff-1aeed315e0fd",
+    "name": "PASS: empty bug report returns ERROR",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "44d38081-1c1e-4d3c-9a26-8e0fa8cfb480",
+    "timestamp": "2026-06-14T21:16:55.964Z"
+  },
+  "ownerIor": "ior:instance:44d38081-1c1e-4d3c-9a26-8e0fa8cfb480"
+}

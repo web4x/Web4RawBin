@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "35888533-523f-412b-ada7-f32af9d55cc4",
+    "name": "PASS: BugLoader defined and registered in ClassRegistry",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "13a08215-d6b3-4c17-bbdc-80ab7d5d2f25",
+    "timestamp": "2026-06-14T21:16:55.902Z"
+  },
+  "ownerIor": "ior:instance:13a08215-d6b3-4c17-bbdc-80ab7d5d2f25"
+}

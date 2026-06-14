@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0b5dbf51-9bdd-4984-ac7f-7790598401fc",
+    "name": "PASS: overview.md lists sprints with status",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "fd0297cf-1a08-454a-ab21-38cb97b7655d",
+    "timestamp": "2026-06-14T21:16:56.146Z"
+  },
+  "ownerIor": "ior:instance:fd0297cf-1a08-454a-ab21-38cb97b7655d"
+}

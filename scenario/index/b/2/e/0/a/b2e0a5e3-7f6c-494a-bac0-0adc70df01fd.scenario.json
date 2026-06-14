@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "b2e0a5e3-7f6c-494a-bac0-0adc70df01fd",
+    "name": "PASS: clicking a node row selects it (AC4, R20.6)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "fd0d936e-d15c-40ec-afbf-f727d577bc3b",
+    "timestamp": "2026-06-14T21:16:56.146Z"
+  },
+  "ownerIor": "ior:instance:fd0d936e-d15c-40ec-afbf-f727d577bc3b"
+}

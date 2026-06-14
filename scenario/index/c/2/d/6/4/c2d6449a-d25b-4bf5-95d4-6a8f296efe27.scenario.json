@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c2d6449a-d25b-4bf5-95d4-6a8f296efe27",
+    "name": "PASS: dispatches mode change event or calls callback",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "95cf21c0-02a0-4063-8f27-2130fe3cb91e",
+    "timestamp": "2026-06-14T21:16:56.045Z"
+  },
+  "ownerIor": "ior:instance:95cf21c0-02a0-4063-8f27-2130fe3cb91e"
+}

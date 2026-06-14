@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0f2e5ba9-f528-48a2-abb1-eeec04956c8e",
+    "name": "PASS: dismiss only triggers after >10px movement threshold",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "e4886b6a-b86b-4232-b80d-1c9e834d58ae",
+    "timestamp": "2026-06-14T21:16:56.112Z"
+  },
+  "ownerIor": "ior:instance:e4886b6a-b86b-4232-b80d-1c9e834d58ae"
+}

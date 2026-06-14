@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ad2e86d3-0402-44e9-aed6-1ed152d49c13",
+    "name": "PASS: T83 TS1: self-tap opens read-only .user-sheet (NOT ProfileEditor) with #us-vcard + #us-edit, no #us-link",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "a8824941-7662-42ef-af12-070694a29d0f",
+    "timestamp": "2026-06-14T21:16:56.065Z"
+  },
+  "ownerIor": "ior:instance:a8824941-7662-42ef-af12-070694a29d0f"
+}

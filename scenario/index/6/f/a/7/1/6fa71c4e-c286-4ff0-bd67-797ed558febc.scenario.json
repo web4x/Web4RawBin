@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "6fa71c4e-c286-4ff0-bd67-797ed558febc",
+    "name": "PASS: binds JSDoc first line as the doc",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "03812718-726e-492f-ad84-9f06d32f41b8",
+    "timestamp": "2026-06-14T21:16:55.884Z"
+  },
+  "ownerIor": "ior:instance:03812718-726e-492f-ad84-9f06d32f41b8"
+}

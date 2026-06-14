@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "7345ba30-cf7b-422a-94e9-a99bdfbb0c6c",
+    "name": "PASS: deleted file disappears from listUserFiles",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "6ff398e3-47d6-4278-9c7f-5efda1adcd62",
+    "timestamp": "2026-06-14T21:16:56.014Z"
+  },
+  "ownerIor": "ior:instance:6ff398e3-47d6-4278-9c7f-5efda1adcd62"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "43784e48-73d9-4938-b5e9-66ffe70a9bc2",
+    "name": "PASS: TC-9: drop-debug message ownerIor = RawBin system user",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "ae705fee-d381-4c92-9a67-9a383d1f8c68",
+    "timestamp": "2026-06-14T21:16:56.069Z"
+  },
+  "ownerIor": "ior:instance:ae705fee-d381-4c92-9a67-9a383d1f8c68"
+}

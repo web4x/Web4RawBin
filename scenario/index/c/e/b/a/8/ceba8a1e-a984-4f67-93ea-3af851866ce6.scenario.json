@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "ceba8a1e-a984-4f67-93ea-3af851866ce6",
+    "name": "PASS: AC11: SW registers, activates, then all routes load with SW active",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "4c962ea6-7bdc-4fb8-ba66-18e6aa7ce723",
+    "timestamp": "2026-06-14T21:16:55.977Z"
+  },
+  "ownerIor": "ior:instance:4c962ea6-7bdc-4fb8-ba66-18e6aa7ce723"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "6337ed5e-8510-4304-8b27-3424e7591409",
+    "name": "PASS: rb-avatar applies crop from PROFILE_UPDATED",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "322a3637-653e-498b-a39c-43a1986918a4",
+    "timestamp": "2026-06-14T21:16:55.943Z"
+  },
+  "ownerIor": "ior:instance:322a3637-653e-498b-a39c-43a1986918a4"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "843f930e-5dad-4bb5-8bd2-42bc3fd40a17",
+    "name": "PASS: NEVER credits an Impl referenced by >1 Method (despite valid unit+marker)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "123a53fc-52b1-4b26-bcd6-6452fec67856",
+    "timestamp": "2026-06-14T21:16:55.901Z"
+  },
+  "ownerIor": "ior:instance:123a53fc-52b1-4b26-bcd6-6452fec67856"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a5515409-2149-4f86-aa9f-3403b6d69dc0",
+    "name": "PASS: name contains RawBin",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "8b3c1a26-4af1-4812-9389-6f8f852ca3a8",
+    "timestamp": "2026-06-14T21:16:56.035Z"
+  },
+  "ownerIor": "ior:instance:8b3c1a26-4af1-4812-9389-6f8f852ca3a8"
+}

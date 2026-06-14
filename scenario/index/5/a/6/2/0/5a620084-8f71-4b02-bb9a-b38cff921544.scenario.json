@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5a620084-8f71-4b02-bb9a-b38cff921544",
+    "name": "PASS: trace roots are all Requirements",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "bb3f8fe9-3660-4dfb-9462-9a4cb5ae68b3",
+    "timestamp": "2026-06-14T21:16:56.078Z"
+  },
+  "ownerIor": "ior:instance:bb3f8fe9-3660-4dfb-9462-9a4cb5ae68b3"
+}

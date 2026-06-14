@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "72f4ea49-a434-4cd9-9577-e62a18b8f67e",
+    "name": "PASS: different device keys produce different signatures",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5f95d8af-8343-4456-a70b-fdd07f4da0b6",
+    "timestamp": "2026-06-14T21:16:55.998Z"
+  },
+  "ownerIor": "ior:instance:5f95d8af-8343-4456-a70b-fdd07f4da0b6"
+}

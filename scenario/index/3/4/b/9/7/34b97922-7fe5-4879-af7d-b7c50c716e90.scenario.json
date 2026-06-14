@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "34b97922-7fe5-4879-af7d-b7c50c716e90",
+    "name": "PASS: getCachedRoomState returns null for unknown room",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "d1ed9056-cab1-43ff-9806-ab4d6d58ed98",
+    "timestamp": "2026-06-14T21:16:56.093Z"
+  },
+  "ownerIor": "ior:instance:d1ed9056-cab1-43ff-9806-ab4d6d58ed98"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c7aa7b26-3a5a-42e8-9dcb-60d7bd02b4f2",
+    "name": "PASS: generated planning.md contains task list with checkboxes",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5d8fbaf3-b95b-430b-8fc3-761c717030eb",
+    "timestamp": "2026-06-14T21:16:55.995Z"
+  },
+  "ownerIor": "ior:instance:5d8fbaf3-b95b-430b-8fc3-761c717030eb"
+}

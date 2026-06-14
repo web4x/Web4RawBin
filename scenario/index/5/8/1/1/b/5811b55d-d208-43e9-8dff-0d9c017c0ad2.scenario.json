@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5811b55d-d208-43e9-8dff-0d9c017c0ad2",
+    "name": "PASS: AC1/AC6: owner creates 3 rooms → all 3 (and every on-disk room) appear in owner lobby",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "c3a6d46f-013d-4195-b4fd-bdd735d66337",
+    "timestamp": "2026-06-14T21:16:56.085Z"
+  },
+  "ownerIor": "ior:instance:c3a6d46f-013d-4195-b4fd-bdd735d66337"
+}

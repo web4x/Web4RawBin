@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "f18d0a71-2a3e-43a1-8f28-bba764d0b273",
+    "name": "PASS: IDENTIFY creates device record",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "a35783ca-2f90-4cba-9176-75b43f224df4",
+    "timestamp": "2026-06-14T21:16:56.060Z"
+  },
+  "ownerIor": "ior:instance:a35783ca-2f90-4cba-9176-75b43f224df4"
+}

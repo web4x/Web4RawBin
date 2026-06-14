@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "5cf38290-6582-41df-b97b-ec48add6c723",
+    "name": "PASS: server.ts uses room.fileUnits scenario-driven restore (not filesystem scan)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "92f7a216-5d34-43e9-a0c7-1a370c06acb1",
+    "timestamp": "2026-06-14T21:16:56.042Z"
+  },
+  "ownerIor": "ior:instance:92f7a216-5d34-43e9-a0c7-1a370c06acb1"
+}

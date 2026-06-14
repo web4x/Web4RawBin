@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "a8bbc053-9711-49b8-b47d-6fd8e5358b0e",
+    "name": "PASS: trace-cli validate returns issues array",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "931dc7f6-7ca2-44d1-83ae-be5344e12aca",
+    "timestamp": "2026-06-14T21:16:56.042Z"
+  },
+  "ownerIor": "ior:instance:931dc7f6-7ca2-44d1-83ae-be5344e12aca"
+}

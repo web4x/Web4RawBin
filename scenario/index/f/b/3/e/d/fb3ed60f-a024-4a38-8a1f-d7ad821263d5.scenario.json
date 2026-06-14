@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "fb3ed60f-a024-4a38-8a1f-d7ad821263d5",
+    "name": "PASS: /docs pages use shared CSS (MD_CSS variable or app.css link)",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "648d228d-3155-4f9f-a3c4-58956a1aa1a3",
+    "timestamp": "2026-06-14T21:16:56.002Z"
+  },
+  "ownerIor": "ior:instance:648d228d-3155-4f9f-a3c4-58956a1aa1a3"
+}

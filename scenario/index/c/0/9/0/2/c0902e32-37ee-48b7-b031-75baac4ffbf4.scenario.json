@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c0902e32-37ee-48b7-b031-75baac4ffbf4",
+    "name": "PASS: dispatches rb-member-click with memberId",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "5fcd7d62-55bd-4765-96b6-06966543a3fc",
+    "timestamp": "2026-06-14T21:16:55.999Z"
+  },
+  "ownerIor": "ior:instance:5fcd7d62-55bd-4765-96b6-06966543a3fc"
+}

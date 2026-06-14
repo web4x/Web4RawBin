@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "0dfe5389-947f-446e-b0a7-6d0679cf4612",
+    "name": "PASS: all 7 class templates registered in defaultTemplateRegistry",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "c3c76d4a-297e-4b84-86ad-766c5607e978",
+    "timestamp": "2026-06-14T21:16:56.085Z"
+  },
+  "ownerIor": "ior:instance:c3c76d4a-297e-4b84-86ad-766c5607e978"
+}

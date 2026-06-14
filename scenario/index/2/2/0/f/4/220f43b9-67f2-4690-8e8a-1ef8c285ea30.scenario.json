@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "220f43b9-67f2-4690-8e8a-1ef8c285ea30",
+    "name": "PASS: [impl:uuid:da9462f5] marker present in app.css source context",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "096dc899-8584-4ab9-a0bd-f961b6f0236b",
+    "timestamp": "2026-06-14T21:16:55.894Z"
+  },
+  "ownerIor": "ior:instance:096dc899-8584-4ab9-a0bd-f961b6f0236b"
+}

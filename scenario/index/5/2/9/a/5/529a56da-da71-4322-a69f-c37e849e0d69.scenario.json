@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "529a56da-da71-4322-a69f-c37e849e0d69",
+    "name": "PASS: T-visibility R19.3: setVisibility switches visibility and syncs isPrivate",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "38c57050-3a40-4ad2-80a9-01f412e294d1",
+    "timestamp": "2026-06-14T21:16:55.949Z"
+  },
+  "ownerIor": "ior:instance:38c57050-3a40-4ad2-80a9-01f412e294d1"
+}

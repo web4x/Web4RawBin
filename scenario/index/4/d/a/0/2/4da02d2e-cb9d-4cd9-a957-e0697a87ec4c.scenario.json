@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "4da02d2e-cb9d-4cd9-a957-e0697a87ec4c",
+    "name": "PASS: sw.js exists in src/public/",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "54de2a85-8d3f-4d69-bbbd-126cb445ec07",
+    "timestamp": "2026-06-14T21:16:55.987Z"
+  },
+  "ownerIor": "ior:instance:54de2a85-8d3f-4d69-bbbd-126cb445ec07"
+}

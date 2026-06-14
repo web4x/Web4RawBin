@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c0eada56-6ed2-47fb-be09-c4bf30ff0042",
+    "name": "PASS: truncated ciphertext throws",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "511d1c17-0cd3-4b3b-a807-6403c5d202d5",
+    "timestamp": "2026-06-14T21:16:55.982Z"
+  },
+  "ownerIor": "ior:instance:511d1c17-0cd3-4b3b-a807-6403c5d202d5"
+}

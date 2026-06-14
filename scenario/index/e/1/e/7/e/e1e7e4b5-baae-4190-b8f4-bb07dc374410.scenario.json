@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "e1e7e4b5-baae-4190-b8f4-bb07dc374410",
+    "name": "PASS: profile.avatar set to /api/avatar/<token> after upload",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "35520aa0-cdb5-4ad1-af89-d918c0385990",
+    "timestamp": "2026-06-14T21:16:55.947Z"
+  },
+  "ownerIor": "ior:instance:35520aa0-cdb5-4ad1-af89-d918c0385990"
+}

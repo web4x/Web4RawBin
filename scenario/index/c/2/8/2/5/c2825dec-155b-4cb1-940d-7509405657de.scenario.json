@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "c2825dec-155b-4cb1-940d-7509405657de",
+    "name": "PASS: id_rsa has mode 600",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "27efc3bd-beb4-4028-b5d5-9c4c31d06bc2",
+    "timestamp": "2026-06-14T21:16:55.933Z"
+  },
+  "ownerIor": "ior:instance:27efc3bd-beb4-4028-b5d5-9c4c31d06bc2"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "db6287c1-4bab-40f5-8832-89c68c44c726",
+    "name": "PASS: drag down < 50px does NOT close",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "409a5962-2ac4-4fe4-b7eb-a6ee7f76fed3",
+    "timestamp": "2026-06-14T21:16:55.960Z"
+  },
+  "ownerIor": "ior:instance:409a5962-2ac4-4fe4-b7eb-a6ee7f76fed3"
+}

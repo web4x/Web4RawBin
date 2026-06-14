@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "2a0d1d0e-2193-4f65-9e07-c230d4222541",
+    "name": "PASS: toggle switches state",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "7bbe3c6b-a9da-4585-8167-a7b00ac97b01",
+    "timestamp": "2026-06-14T21:16:56.027Z"
+  },
+  "ownerIor": "ior:instance:7bbe3c6b-a9da-4585-8167-a7b00ac97b01"
+}

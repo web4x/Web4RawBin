@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "824b3033-be87-46c2-8242-6b3abbea1324",
+    "name": "PASS: shows leave button when showLeave=true",
+    "verdict": "PASS",
+    "evidence": "vitest run",
+    "testCaseUuid": "2fbce75e-ee66-47a6-a036-09bcc0fea721",
+    "timestamp": "2026-06-14T21:16:55.940Z"
+  },
+  "ownerIor": "ior:instance:2fbce75e-ee66-47a6-a036-09bcc0fea721"
+}
