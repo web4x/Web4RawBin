@@ -226,7 +226,7 @@ describe('R17.31: Detail pane max-width', () => {
   it('rb-detail-drawer CSS has max-height constraint', () => {
     const css = fs.readFileSync(path.resolve(__dirname, '../../src/public/app.css'), 'utf-8');
     expect(css).toContain('rb-detail-drawer');
-    expect(css).toMatch(/max-height:\s*95vh/);
+    expect(css).toMatch(/max-height:\s*40vh/);
   });
 });
 

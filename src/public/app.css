@@ -246,9 +246,9 @@ rb-member-badge { display: flex; align-items: center; gap: 4px; padding: 3px 8px
 .sheet-handle { text-align: center; padding: 8px 0 4px; cursor: grab; }
 .sheet-handle-bar { width: 40px; height: 4px; background: #ddd; border-radius: 2px; margin: 0 auto; }
 
-/* T167: trace-page layout — mobile-first + desktop split */
-.trace-page { display: block; min-height: calc(100vh - 44px); }
-.trace-tree-panel { overflow-y: auto; padding: 0 8px; }
+/* T167: trace-page layout — flex column (narrow) + side-by-side (wide) */
+.trace-page { display: flex; flex-direction: column; height: calc(100vh - 44px); }
+.trace-tree-panel { flex: 1; min-height: 0; overflow-y: auto; padding: 0 8px; }
 @media (min-width: 1025px) {
   .trace-page { display: flex; gap: 0; height: calc(100vh - 44px); }
   .trace-tree-panel { flex: 1; min-width: 300px; overflow-y: auto; }
@@ -257,20 +257,14 @@ rb-member-badge { display: flex; align-items: center; gap: 4px; padding: 3px 8px
   .trace-page rb-detail-drawer[open] { transform: none !important; }
 }
 
-/* T110+T120+T122+T167: Detail Drawer — dark bg, mobile=fixed bottom, desktop=static right */
+/* T110+T120+T122+T167+BUG5: Detail Drawer — static flex panel, zero overlap */
 rb-detail-drawer {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  /* [impl:uuid:c23f3022-0d63-496c-87fd-ded59d4c24c7] R19.80 resize 95vh */
-  max-height: 50vh; background: #1a1a2e; color: #e0e0e0;
+  position: static;
+  max-height: 40vh; background: #1a1a2e; color: #e0e0e0;
   border-radius: 16px 16px 0 0;
-  box-shadow: none;
-  transform: translateY(100%); transition: transform 0.25s ease-out;
-  z-index: 100; overflow: hidden; display: flex; flex-direction: column;
-  word-break: break-word; visibility: hidden; pointer-events: none;
-// [impl:uuid:1dae7316-28c5-480e-81c4-fc2874fa8c5d] drawer-header close X pinned CSS
+  overflow-y: auto; display: flex; flex-direction: column;
+  word-break: break-word; flex-shrink: 0;
 }
-rb-detail-drawer > .drawer-header { pointer-events: auto; }
-rb-detail-drawer[open] > .drawer-body { pointer-events: auto; }
 .drawer-header { position: sticky; top: 0; z-index: 2; background: #1a1a2e; display: flex; align-items: center; padding: 0; flex-shrink: 0; min-height: 36px; }
 .drawer-header .drawer-handle { flex: 1; display: flex; justify-content: center; padding: 12px 8px; cursor: grab; -webkit-tap-highlight-color: transparent; touch-action: none; }
 .drawer-header .drawer-handle-bar { width: 40px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; }
@@ -278,10 +272,7 @@ rb-detail-drawer[open] > .drawer-body { pointer-events: auto; }
 .drawer-close:hover { color: white; }
 .drawer-body { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 0 16px 16px; }
 rb-detail-drawer pre, rb-detail-drawer code { overflow-x: auto; max-width: 100%; }
-rb-detail-drawer[open] { transform: translateY(0); box-shadow: 0 -4px 20px rgba(0,0,0,0.4); visibility: visible; }
-@media (max-width: 480px) {
-  rb-detail-drawer { max-width: none; max-height: 95vh; }
-}
+rb-detail-drawer[open] { box-shadow: 0 -2px 10px rgba(0,0,0,0.3); }
 rb-detail-drawer .drawer-handle {
   width: 40px; height: 4px; background: rgba(255,255,255,0.25); border-radius: 2px;
   margin: 0 auto 12px; cursor: grab;

@@ -48,6 +48,7 @@ async function load(): Promise<void> {
     const drawer = document.createElement('rb-detail-drawer');
     const tracePage = document.querySelector('.trace-page');
     (tracePage || document.body).appendChild(drawer);
+    (drawer as any).graph = graph;
 
     const router = new TraceRouter(graph as never, viewRegistry(drawer), detailMount);
     router.start();

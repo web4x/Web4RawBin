@@ -2086,12 +2086,12 @@ describe('R19.88: render awaits whenDefined → items are upgraded', () => {
 
 // [test:uuid:fda5a23e-c40a-445e-8a3e-de237cc4b988] R19.84 drawer.dragResize — CSS 95vh + resize clamp + close below 120px
 describe('R19.84: handle drag resizes drawer to 95vh, close below 120px', () => {
-  it('drawer CSS max-height is 95vh', () => {
+  it('drawer CSS max-height is 40vh (split layout)', () => {
     const { readFileSync } = require('node:fs');
     const nodePath = require("node:path");
     const root = nodePath.resolve(__dirname, '../../');
     const css = readFileSync(nodePath.join(root, 'src/public/app.css'), 'utf-8');
-    expect(css).toContain('max-height: 95vh');
+    expect(css).toContain('max-height: 40vh');
   });
 
   it('resize mode clamps height to [0, 95vh] and close below 120px', () => {
