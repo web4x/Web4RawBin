@@ -737,8 +737,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             return { uuid: fUuid, type: fu ? ((fu.ior || '').split(':')[2] || 'File') : 'File', name: fu ? String(fu.model?.name || fUuid.slice(0, 8)) : fUuid.slice(0, 8), hasChildren: false };
           });
           const roomChildren = [
-            { uuid: 'members', type: 'collection', name: `Members (${memberItems.length})`, hasChildren: memberItems.length > 0, children: memberItems },
-            { uuid: 'files', type: 'collection', name: `Files (${fileItems.length})`, hasChildren: fileItems.length > 0, children: fileItems },
+            { uuid: 'members-' + uuid, type: 'collection', name: `Members (${memberItems.length})`, hasChildren: memberItems.length > 0, children: memberItems },
+            { uuid: 'files-' + uuid, type: 'collection', name: `Files (${fileItems.length})`, hasChildren: fileItems.length > 0, children: fileItems },
           ];
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
           const ownerIor2 = String(unit.ownerIor || '').replace('ior:instance:', '');
