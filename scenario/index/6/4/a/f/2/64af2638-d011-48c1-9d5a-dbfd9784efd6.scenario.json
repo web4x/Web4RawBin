@@ -30,8 +30,7 @@
       "ior:instance:76a2e5a4-5b40-4fd6-8c6a-e6561ca81e47",
       "ior:instance:0ec303b0-5b8c-4fca-b720-3b8e92dc166d",
       "ior:instance:90a0af77-13c5-4a6f-98c8-4ae523878c57",
-      "ior:instance:7d8f1f1f-51a4-4db9-aaf4-5c019461d006",
-      "ior:instance:2e6d691b-ddd2-4ad8-8e42-e2a69fbcda15"
+      "ior:instance:7d8f1f1f-51a4-4db9-aaf4-5c019461d006"
     ],
     "tasks": [
       "ior:instance:450cb98a-4234-4f2c-9c9c-3c561750fb13",
@@ -54,6 +53,9 @@
       "robbin-req",
       "robbin-planner",
       "robbin-architect"
+    ],
+    "bugs": [
+      "ior:instance:2e6d691b-ddd2-4ad8-8e42-e2a69fbcda15"
     ]
   },
   "ownerIor": null
