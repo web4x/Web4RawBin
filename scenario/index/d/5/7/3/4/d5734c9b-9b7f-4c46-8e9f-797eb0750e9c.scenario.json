@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d5734c9b-9b7f-4c46-8e9f-797eb0750e9c",
+    "altId": "R20.15",
+    "name": "R20.15: DRY-unify trace forward-key maps → single CHAIN_TYPE_CONFIG (eliminates BUG9-class by construction)",
+    "description": "Today 5 PARALLEL forward-key maps must be kept in sync by hand — TraceModel.FORWARD_KEYS, server SCENARIO_FWD, server TRACE_FWD, server EXPECTED_CHILD_TYPE, and client forward-only.FORWARD_KEYS. A missing entry in any one (e.g. Bug) silently breaks /trace children (this was BUG9/BUG12). DURABLE FIX: collapse all 5 into ONE shared source of truth src/ts/shared/chain-model.ts `CHAIN_TYPE_CONFIG` + derived accessors; every consumer imports it. Adding a node type (Bug/ChangeRequest/etc.) is then a single-place edit, eliminating the BUG9-class of defects BY CONSTRUCTION. Parity-regression AC: the unified config must produce IDENTICAL forward keys to the old 5 maps for every existing type. Ships AFTER the BUG9 stopgap (v0.6.31).",
+    "tronQuote": "> Architect design (PO-accepted): 5 maps → 1 CHAIN_TYPE_CONFIG, all consumers import.",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:6da84135-fc9d-4774-b9d7-05f95da8d60c",
+      "ior:instance:ea212274-22c0-4987-9bb2-99262b22f550"
+    ],
+    "crossRefNote": "DURABLE fix for the BUG9 (6da84135) / BUG12 (merged) root cause — the forward-key map drift. BUG9 is the stopgap (add Bug entries to the 5 maps, v0.6.31); R20.15 unifies them so the class of defect cannot recur. DEPENDENCY: R20.15 ships AFTER the BUG9 stopgap v0.6.31. R20.4 (ea212274, Bug+ChangeRequest extend Requirement) is the OOP rationale the unified config encodes.",
+    "intendedChain": {
+      "useCase": "chainModel.unifiedForwardKeys — single CHAIN_TYPE_CONFIG drives forward keys + expected child types for every node type; all consumers derive from it",
+      "class": "src/ts/shared/chain-model.ts (CHAIN_TYPE_CONFIG + derived accessors)",
+      "method": "getForwardKeys(type) / getExpectedChildTypes(type) — derived accessors replacing the 5 hand-synced maps",
+      "test": "PARITY: for every existing node type, unified config == old 5 maps (SCENARIO_FWD, TRACE_FWD, EXPECTED_CHILD_TYPE, TraceModel.FORWARD_KEYS, client forward-only.FORWARD_KEYS). RED before refactor proves equivalence target; GREEN after."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
