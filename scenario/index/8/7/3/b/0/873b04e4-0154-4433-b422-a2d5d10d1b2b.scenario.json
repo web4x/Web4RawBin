@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "873b04e4-0154-4433-b422-a2d5d10d1b2b",
-    "name": "Sprint chain method scope",
+    "name": "[DUP→5b950725] Sprint chain method scope",
     "number": 18,
     "goal": "",
     "status": "In Progress",
@@ -16,7 +16,9 @@
       "ior:instance:bef36fd2-aa7c-4766-8001-db2b69452d61",
       "ior:instance:abc78991-a98b-4221-8ab6-d2b8fa280502"
     ],
-    "requirements": []
+    "requirements": [],
+    "supersededBy": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "supersededNote": "Migration-created Sprint dup (5569cf504); pre-existing unit 5b950725-a6f6-4d45-b802-4784ee6ef962 is canonical. Planner reconcile 2026-06-14."
   },
   "ownerIor": null
 }

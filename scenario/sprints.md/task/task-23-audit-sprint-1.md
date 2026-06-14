@@ -15,7 +15,7 @@
 ## Traceability
 
 - up
-  - [sprint-4-traceability Planning](./planning.md)
+  - [sprint-04-traceability Planning](./planning.md)
 - down
   - None
 

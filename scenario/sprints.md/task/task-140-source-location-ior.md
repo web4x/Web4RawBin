@@ -43,11 +43,11 @@ Each UC/Class/Method unit's `model` gains a `source` field:
     "name": "room.create",
     "type": "UseCase",
     "source": {
-      "file": "scrum.pmo/sprints/sprint-9-room-identity/diagrams/use-cases.puml",
+      "file": "scrum.pmo/sprints/sprint-09-room-identity/diagrams/use-cases.puml",
       "lines": [42, 55],
       "commit": "9bf3363",
       "repo": "web4x/Web4RawBin",
-      "ior": "ior:file:scrum.pmo/sprints/sprint-9-room-identity/diagrams/use-cases.puml?commit=9bf3363&lines=42-55"
+      "ior": "ior:file:scrum.pmo/sprints/sprint-09-room-identity/diagrams/use-cases.puml?commit=9bf3363&lines=42-55"
     }
   },
   "ownerIor": "ior:scenario:uuid:<sprint-uuid>"

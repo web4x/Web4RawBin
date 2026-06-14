@@ -1,9 +1,6 @@
-<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
-
-[Back to Planning](./planning.md)
+[Back to Task 1](./task-1-team-bootstrap.md)
 
 # Task 1.3: Agent-Trainer - Verify Inherited Knowledge
-
 [task:uuid:771a4a9a-e44f-44ef-9200-960ad64fdc55]
 
 ## Status
@@ -16,15 +13,14 @@
 - [x] QA Review
 - [x] Done
 
-## Traceability
 
+## Traceability
 - up
   - [Task 1: Bootstrap robbinTeam](./task-1-team-bootstrap.md)
 - down
   - None
 
-## Task Description
-
+## Description
 Verify each robbinTeam agent inherited knowledge from its ud-team source.
 
 ### Verification Questions (send to each agent)
@@ -46,8 +42,4 @@ Verify each robbinTeam agent inherited knowledge from its ud-team source.
 ## QA Audit & User Feedback
 
 ## Subtasks
-None (atomic task).
-
-## Subtasks
-
 None (atomic task).

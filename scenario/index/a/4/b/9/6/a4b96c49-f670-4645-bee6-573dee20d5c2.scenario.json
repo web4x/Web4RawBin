@@ -20,10 +20,10 @@
       "ior:instance:cfb01bc2-1119-47d6-909e-2873734f5817"
     ],
     "requirements": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-1-rawbin-foundation/planning.md",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-01-rawbin-foundation/planning.md",
     "sourceLine": 1,
     "unitLinks": [
-      "sprints.json/sprint-1-rawbin-foundation/sprint.json"
+      "sprints.json/sprint-01-rawbin-foundation/sprint.json"
     ]
   },
   "ownerIor": null

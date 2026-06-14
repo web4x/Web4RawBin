@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "8a4fdd81-9d71-449b-b58f-cb9cb3c5befd",
-    "name": "Sprint traceability",
+    "name": "[DUP→1018cc11] Sprint 04 — Traceability",
     "number": 4,
     "goal": "",
     "status": "Done",
@@ -16,7 +16,9 @@
       "ior:instance:b29f0e02-5d6e-4b4c-9f80-002233445566",
       "ior:instance:c30f0e03-6e7f-4c5d-a091-003344556677"
     ],
-    "requirements": []
+    "requirements": [],
+    "supersededBy": "ior:instance:1018cc11-be1d-44a4-bc8d-6c96461e3647",
+    "supersededNote": "Migration-created Sprint dup (5569cf504); pre-existing unit 1018cc11-be1d-44a4-bc8d-6c96461e3647 is canonical. Planner reconcile 2026-06-14."
   },
   "ownerIor": null
 }

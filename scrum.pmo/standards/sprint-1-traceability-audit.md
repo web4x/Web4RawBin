@@ -3,7 +3,7 @@
 **Auditor:** robbin-req
 **Date:** 2026-05-25
 **Standard:** [Traceability Standard](./traceability-standard.md)
-**Scope:** All 11 task files in `sprint-1-rawbin-foundation/`
+**Scope:** All 11 task files in `sprint-01-rawbin-foundation/`
 
 ## Summary
 
@@ -39,7 +39,7 @@
 
 Sprint 1 has no `requirements.md` file. The original Tron directives that motivated the sprint are embedded in task descriptions but not formalized as requirements with UUID tags. Without requirements.md, the full traceability chain cannot start.
 
-**Remediation:** Create `sprint-1-rawbin-foundation/requirements.md` with:
+**Remediation:** Create `sprint-01-rawbin-foundation/requirements.md` with:
 - R1: Fork QnD codebase for RawBin (→ T2)
 - R2: Strip game logic, keep room/profile/chat infrastructure (→ T3, T4)
 - R3: Create Room.ts from GameRoom.ts (→ T3)

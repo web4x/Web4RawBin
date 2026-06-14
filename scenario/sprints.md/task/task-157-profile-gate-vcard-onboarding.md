@@ -29,11 +29,11 @@
 - down
   - None at parent level (architect may split T157.x per platform or per upload-vs-drop if scope warrants — coordinate with planner first)
 - follows
-  - [T7: User editor + ProfileEditor gate](../sprint-2-identity-ssh/task-7-user-editor.md) — historical ProfileEditor implementation
-  - [T11: vCard download](../sprint-2-identity-ssh/task-11-vcard.md) — vCard V3.0 EXPORT precedent (T157 introduces the IMPORT side)
-  - [T48: Default avatar assignment](../sprint-7-encrypted-storage/task-48-default-avatar.md) — avatar pipeline T157's PHOTO field feeds into
-  - [T50: POST /api/avatar upload endpoint](../sprint-7-encrypted-storage/task-50-avatar-upload.md) — upload endpoint for the imported PHOTO
-  - [T56: rb-avatar component](../sprint-7-encrypted-storage/task-56-avatar-component.md) — avatar UI affected by import
+  - [T7: User editor + ProfileEditor gate](../sprint-02-identity-ssh/task-7-user-editor.md) — historical ProfileEditor implementation
+  - [T11: vCard download](../sprint-02-identity-ssh/task-11-vcard.md) — vCard V3.0 EXPORT precedent (T157 introduces the IMPORT side)
+  - [T48: Default avatar assignment](../sprint-07-encrypted-storage/task-48-default-avatar.md) — avatar pipeline T157's PHOTO field feeds into
+  - [T50: POST /api/avatar upload endpoint](../sprint-07-encrypted-storage/task-50-avatar-upload.md) — upload endpoint for the imported PHOTO
+  - [T56: rb-avatar component](../sprint-07-encrypted-storage/task-56-avatar-component.md) — avatar UI affected by import
 - chain (req → usecase → puml → class/method) — architect to fill on refinement
   - **requirement:** B3 `[requirement:uuid:a3b4c5d6-e7f8-4a9b-0c1d-2e3f4a5b6c7d]` (req-eng confirmed)
   - **use case:** UC-TBD (architect — likely `profileGate.uploadVCard`, `profileGate.dropVCard`, `vcard.parseV3`)

@@ -34,15 +34,15 @@ The thing Tron keeps screenshotting broken. ONE focused feature, full chain to D
 
 | # | Sprint | Status | Tasks | Planning |
 |---|--------|--------|-------|----------|
-| 1 | Foundation | Done | 11 | [planning](./sprint-1-rawbin-foundation/planning.md) |
-| 2 | Identity & SSH | Done | 7 | [planning](./sprint-2-identity-ssh/planning.md) |
-| 3 | E2E & Hardening | Done | 10 | [planning](./sprint-3-e2e-hardening/planning.md) |
-| 4 | Traceability | Done | 8 | [planning](./sprint-4-traceability/planning.md) |
-| 5 | PWA & Offline | Done | 8 | [planning](./sprint-5-pwa-offline/planning.md) |
-| 6 | Web Components | Done | 8 | [planning](./sprint-6-web-components/planning.md) |
-| 7 | Encrypted Storage | Done | 13 | [planning](./sprint-7-encrypted-storage/planning.md) |
-| 8 | Monaco Editor | Done (Tron QA) | 14 | [planning](./sprint-8-monaco-editor/planning.md) |
-| 9 | Room Identity | T74-77,79,80 Tron QA Done; T78 tested→awaiting Tron QA | 7 | [planning](./sprint-9-room-identity/planning.md) |
+| 1 | Foundation | Done | 11 | [planning](./sprint-01-rawbin-foundation/planning.md) |
+| 2 | Identity & SSH | Done | 7 | [planning](./sprint-02-identity-ssh/planning.md) |
+| 3 | E2E & Hardening | Done | 10 | [planning](./sprint-03-e2e-hardening/planning.md) |
+| 4 | Traceability | Done | 8 | [planning](./sprint-04-traceability/planning.md) |
+| 5 | PWA & Offline | Done | 8 | [planning](./sprint-05-pwa-offline/planning.md) |
+| 6 | Web Components | Done | 8 | [planning](./sprint-06-web-components/planning.md) |
+| 7 | Encrypted Storage | Done | 13 | [planning](./sprint-07-encrypted-storage/planning.md) |
+| 8 | Monaco Editor | Done (Tron QA) | 14 | [planning](./sprint-08-monaco-editor/planning.md) |
+| 9 | Room Identity | T74-77,79,80 Tron QA Done; T78 tested→awaiting Tron QA | 7 | [planning](./sprint-09-room-identity/planning.md) |
 | 10 | Contacts UI | active — T81/82/83 tested, awaiting Tron QA | 3 | [planning](./sprint-10-contacts-ui/planning.md) |
 | 11 | Traceability Standardization | active — T85/86 impl-done; T87-90 planned (S1-9 remediation); T119 planned (test-traceability retrofit, Tron 2026-05-29) | 7 | [planning](./sprint-11-traceability/planning.md) |
 | 12 | Editor Fixes | active — T84 tested, awaiting Tron QA | 1 | [planning](./sprint-12-editor-fixes/planning.md) |
@@ -60,7 +60,7 @@ T85-90 (S11), T91-95 (S13), T96-99 (S14), T100 (S13), T101-108 (S15), T109 (S13)
 
 **Traceability & Standards:** [traceability matrix](../traceability-matrix.md)
 (req→uc→puml→method→test index) · [standard](../standards/traceability-standard.md) ·
-audits [S1](../standards/sprint-1-traceability-audit.md) /
+audits [S1](../standards/sprint-01-traceability-audit.md) /
 [S2-9](../standards/sprints-2-9-traceability-audit.md) ·
 [task template](../templates/task-template.md) · [backlog](../backlog.md)
 

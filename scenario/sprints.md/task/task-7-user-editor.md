@@ -21,7 +21,7 @@
 ## Traceability
 
 - up
-  - [sprint-2-identity-ssh Planning](./planning.md)
+  - [sprint-02-identity-ssh Planning](./planning.md)
 - down
   - None
 

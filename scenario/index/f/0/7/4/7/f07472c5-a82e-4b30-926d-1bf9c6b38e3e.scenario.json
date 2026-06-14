@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "f07472c5-a82e-4b30-926d-1bf9c6b38e3e",
-    "name": "Sprint scenario units",
+    "name": "[DUP→2370d3b3] Sprint scenario units",
     "number": 17,
     "goal": "",
     "status": "In Progress",
@@ -72,7 +72,9 @@
       "ior:instance:8dd36103-bbc0-48e6-ad07-f1c56fae923a",
       "ior:instance:daf76389-603e-4507-af7a-1597c2633c83"
     ],
-    "requirements": []
+    "requirements": [],
+    "supersededBy": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "supersededNote": "Migration-created Sprint dup (5569cf504); pre-existing unit 2370d3b3-f0ee-4865-855f-f47880e8c6b3 is canonical. Planner reconcile 2026-06-14."
   },
   "ownerIor": null
 }

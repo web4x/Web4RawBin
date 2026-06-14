@@ -2,14 +2,16 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "481f3a42-5b8e-46f6-bb4b-901678522461",
-    "name": "Sprint editor fixes",
+    "name": "[DUP→86e3077a] Sprint editor fixes",
     "number": 12,
     "goal": "",
     "status": "In Progress",
     "tasks": [
       "ior:instance:f7a2c4e6-3b8d-4f10-a5c7-9e1d3f5b7a90"
     ],
-    "requirements": []
+    "requirements": [],
+    "supersededBy": "ior:instance:86e3077a-3fda-4c0a-a120-f6811d6252e1",
+    "supersededNote": "Migration-created Sprint dup (5569cf504); pre-existing unit 86e3077a-3fda-4c0a-a120-f6811d6252e1 is canonical. Planner reconcile 2026-06-14."
   },
   "ownerIor": null
 }

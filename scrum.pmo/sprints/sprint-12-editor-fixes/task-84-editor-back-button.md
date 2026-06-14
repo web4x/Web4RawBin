@@ -34,8 +34,8 @@
 
 **Bug:** The "← App" back button in the Monaco editor toolbar
 (`rb-editor-toolbar.ts` line 36) is hardcoded to `/app`. When editing
-`scrum.pmo/sprints/sprint-9-room-identity/planning.md`, Back goes to `/app` (room
-lobby) instead of the parent directory `/md/scrum.pmo/sprints/sprint-9-room-identity/`.
+`scrum.pmo/sprints/sprint-09-room-identity/planning.md`, Back goes to `/app` (room
+lobby) instead of the parent directory `/md/scrum.pmo/sprints/sprint-09-room-identity/`.
 
 **Root cause:** `rb-editor-toolbar.ts:36`:
 ```typescript
@@ -48,10 +48,10 @@ The href is a static string. It must derive the parent directory from `this._pat
 const parentDir = this._path ? '/md/' + this._path.split('/').slice(0, -1).join('/') + '/' : '/md/';
 // renders: <a href="${parentDir}">← Back</a>
 ```
-For `this._path = scrum.pmo/sprints/sprint-9-room-identity/planning.md`:
-- `split('/')` → `['scrum.pmo','sprints','sprint-9-room-identity','planning.md']`
-- `slice(0,-1).join('/')` → `scrum.pmo/sprints/sprint-9-room-identity`
-- result: `/md/scrum.pmo/sprints/sprint-9-room-identity/`
+For `this._path = scrum.pmo/sprints/sprint-09-room-identity/planning.md`:
+- `split('/')` → `['scrum.pmo','sprints','sprint-09-room-identity','planning.md']`
+- `slice(0,-1).join('/')` → `scrum.pmo/sprints/sprint-09-room-identity`
+- result: `/md/scrum.pmo/sprints/sprint-09-room-identity/`
 
 Empty `this._path` (no file open) → fall back to `/md/` (browse root).
 **Label:** "← App" → "← Back". **Keep** the `📂` browse button (line 37,
@@ -63,7 +63,7 @@ Empty `this._path` (no file open) → fall back to `/md/` (browse root).
 - [x] AC2: Back button shows "← Back" (not "← App")
 - [x] AC3: No file open → goes to `/md/` (browse root) — code path: empty `_path` → `/md/` (same guard as AC6)
 - [x] AC4: `📂` browse button still goes to `/md/` (unchanged)
-- [x] AC5: Deep paths work (`scrum.pmo/sprints/sprint-9-room-identity/planning.md` → `/md/scrum.pmo/sprints/sprint-9-room-identity/`)
+- [x] AC5: Deep paths work (`scrum.pmo/sprints/sprint-09-room-identity/planning.md` → `/md/scrum.pmo/sprints/sprint-09-room-identity/`)
 - [x] AC6: Root-level files work (`README.md` → `/md/`)
 - [x] `npm run build` succeeds; version bump + sw.js cache (expert; live server now v0.5.4)
 

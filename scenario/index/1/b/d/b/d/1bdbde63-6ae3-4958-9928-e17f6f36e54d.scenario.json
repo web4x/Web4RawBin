@@ -2,12 +2,14 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "1bdbde63-6ae3-4958-9928-e17f6f36e54d",
-    "name": "Sprint e2e hardening",
+    "name": "[DUP→2aaa509c] Sprint e2e hardening",
     "number": 3,
     "goal": "",
     "status": "Done",
     "tasks": [],
-    "requirements": []
+    "requirements": [],
+    "supersededBy": "ior:instance:2aaa509c-16e4-4900-a439-ec2857f97b14",
+    "supersededNote": "Empty dup Sprint node (tasks=0), migration artifact from dup sprint dir. Merged→2aaa509c-16e4-4900-a439-ec2857f97b14 (e2e). Planner dup-sprint reconcile 2026-06-14."
   },
   "ownerIor": null
 }

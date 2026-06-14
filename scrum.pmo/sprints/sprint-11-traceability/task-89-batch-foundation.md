@@ -25,7 +25,7 @@
 - follows
   - [T88](./task-88-batch-mid.md)
 - resolves
-  - Sprint 1 deferred cleanup: duplicate task-2 files (see sprint-1-rawbin-foundation/planning.md "Known Cleanup")
+  - Sprint 1 deferred cleanup: duplicate task-2 files (see sprint-01-rawbin-foundation/planning.md "Known Cleanup")
 
 ## Task Description
 

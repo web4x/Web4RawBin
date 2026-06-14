@@ -98,7 +98,7 @@ visually present but functionally broken.
 
 ### T144 Verification Report — robbin-tester 2026-06-01
 
-**Tested on:** `/md/scenario/sprints.json/sprint-2-identity-ssh/` + `/md/scenario/sprints.json/sprint-17-scenario-units/`
+**Tested on:** `/md/scenario/sprints.json/sprint-02-identity-ssh/` + `/md/scenario/sprints.json/sprint-17-scenario-units/`
 
 | AC | Test | Result |
 |----|------|--------|

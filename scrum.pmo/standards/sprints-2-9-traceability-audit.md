@@ -3,7 +3,7 @@
 **Auditor:** robbin-req
 **Date:** 2026-05-25
 **Standard:** [Traceability Standard](./traceability-standard.md)
-**Companion:** [Sprint 1 Audit](./sprint-1-traceability-audit.md)
+**Companion:** [Sprint 1 Audit](./sprint-01-traceability-audit.md)
 **Scope:** 75 task files across 8 sprints
 
 ## Summary Table

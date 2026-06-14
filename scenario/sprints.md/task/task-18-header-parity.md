@@ -15,7 +15,7 @@
 ## Traceability
 
 - up
-  - [sprint-3-e2e-hardening Planning](./planning.md)
+  - [sprint-03-e2e-hardening Planning](./planning.md)
 - down
   - None
 

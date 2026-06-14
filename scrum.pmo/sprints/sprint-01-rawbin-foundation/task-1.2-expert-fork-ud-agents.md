@@ -1,9 +1,6 @@
-<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
-
-[Back to Planning](./planning.md)
+[Back to Task 1](./task-1-team-bootstrap.md)
 
 # Task 1.2: Expert - Fork ud-team Agents into robbinTeam
-
 [task:uuid:2dd5e06c-646a-493d-958a-c835ddaa4f5c]
 
 ## Status
@@ -16,15 +13,14 @@
 - [x] QA Review
 - [x] Done
 
-## Traceability
 
+## Traceability
 - up
   - [Task 1: Bootstrap robbinTeam](./task-1-team-bootstrap.md)
 - down
   - None
 
-## Task Description
-
+## Description
 Replace empty claudeCode sessions on robbinTeam with forks of upDownTeam agents.
 
 ### Steps
@@ -46,19 +42,14 @@ For each pane in robbinTeam:
 | 0.2 | ud-expert | robbin-expert@MacStudio |
 | 0.3 | ud-tester | robbin-tester@MacStudio |
 
-## Acceptance Criteria
-
-- [x] All 4 agents are forks (not fresh sessions)
-- [x] Each agent has inherited knowledge from its ud-team source
-- [x] cwd is /Users/Shared/Workspaces/AI/Claude/
-- [x] Pane titles: role@MacStudio (locked)
-- [x] Registry updated
 
 ## QA Audit & User Feedback
 
 ## Subtasks
 None (atomic task).
-
-## Subtasks
-
-None (atomic task).
+## Acceptance Criteria
+- [x] All 4 agents are forks (not fresh sessions)
+- [x] Each agent has inherited knowledge from its ud-team source
+- [x] cwd is /Users/Shared/Workspaces/AI/Claude/
+- [x] Pane titles: role@MacStudio (locked)
+- [x] Registry updated

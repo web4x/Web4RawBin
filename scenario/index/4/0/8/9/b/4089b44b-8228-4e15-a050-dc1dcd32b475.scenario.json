@@ -2,12 +2,14 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "4089b44b-8228-4e15-a050-dc1dcd32b475",
-    "name": "Sprint monaco editor",
+    "name": "[DUP→d7e73416] Sprint monaco editor",
     "number": 8,
     "goal": "",
     "status": "Done",
     "tasks": [],
-    "requirements": []
+    "requirements": [],
+    "supersededBy": "ior:instance:d7e73416-1068-4b33-8a5b-f406cbc6eaae",
+    "supersededNote": "Empty dup Sprint node (tasks=0), migration artifact from dup sprint dir. Merged→d7e73416-1068-4b33-8a5b-f406cbc6eaae (monaco). Planner dup-sprint reconcile 2026-06-14."
   },
   "ownerIor": null
 }

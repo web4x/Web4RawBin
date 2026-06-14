@@ -21,7 +21,7 @@
 ## Traceability
 
 - up
-  - [sprint-1-rawbin-foundation Planning](./planning.md)
+  - [sprint-01-rawbin-foundation Planning](./planning.md)
 - down
   - None
 

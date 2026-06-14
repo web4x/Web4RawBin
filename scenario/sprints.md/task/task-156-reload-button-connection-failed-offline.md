@@ -28,7 +28,7 @@
 - down
   - None (atomic task; small UI/HTML change in two error surfaces)
 - follows
-  - [T58: Link contrast on /md/ pages](../sprint-7-encrypted-storage/task-58-link-contrast.md) — historical UI-styling precedent (planning context)
+  - [T58: Link contrast on /md/ pages](../sprint-07-encrypted-storage/task-58-link-contrast.md) — historical UI-styling precedent (planning context)
   - [T150: File-browser breadcrumb link contrast (CSS)](./task-150-breadcrumb-link-contrast.md) — recent CSS sibling
 - chain (req → usecase → puml → class/method) — architect to fill on refinement
   - **requirement:** B4 `[requirement:uuid:c5d6e7f8-a9b0-4c1d-2e3f-4a5b6c7d8e90]` (req-eng confirmed)

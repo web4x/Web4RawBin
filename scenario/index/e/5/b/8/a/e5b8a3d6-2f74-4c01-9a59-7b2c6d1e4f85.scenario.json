@@ -8,7 +8,7 @@
     "status": "Planned",
     "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "remainingIssues": "",
-    "traceability": "- up\n  - [Sprint 11 Planning](./planning.md)\n- down\n  - None (atomic task)\n- follows\n  - [T88](./task-88-batch-mid.md)\n- resolves\n  - Sprint 1 deferred cleanup: duplicate task-2 files (see sprint-1-rawbin-foundation/planning.md \"Known Cleanup\")",
+    "traceability": "- up\n  - [Sprint 11 Planning](./planning.md)\n- down\n  - None (atomic task)\n- follows\n  - [T88](./task-88-batch-mid.md)\n- resolves\n  - Sprint 1 deferred cleanup: duplicate task-2 files (see sprint-01-rawbin-foundation/planning.md \"Known Cleanup\")",
     "context": "Highest-risk batch: all signed-off long ago. Smallest sub-batches, per-sprint\nTron gate. This is the sanctioned path to touch these files (vs silent inline edits).",
     "intention": "",
     "role": "",

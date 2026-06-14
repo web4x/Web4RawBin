@@ -2,12 +2,14 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "7b0c74ba-1b95-42fa-9139-d693614c2add",
-    "name": "Sprint room identity",
+    "name": "[DUP→32b02448] Sprint room identity",
     "number": 9,
     "goal": "",
     "status": "Done",
     "tasks": [],
-    "requirements": []
+    "requirements": [],
+    "supersededBy": "ior:instance:32b02448-ece6-4b47-a7ee-ea2d9401921b",
+    "supersededNote": "Empty dup Sprint node (tasks=0), migration artifact from dup sprint dir. Merged→32b02448-ece6-4b47-a7ee-ea2d9401921b (room-identity). Planner dup-sprint reconcile 2026-06-14."
   },
   "ownerIor": null
 }
