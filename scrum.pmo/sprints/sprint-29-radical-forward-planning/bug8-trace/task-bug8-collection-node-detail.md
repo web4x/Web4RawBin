@@ -1,48 +1,56 @@
-[Back to Sprint 29 Planning](../planning.md)
+# BUG8: /trace collection node detail stuck 'Loading children...'
 
-# BUG8: Collection Node Detail — 'Loading children…' on synthetic UUID 404
+[requirement:uuid:12cf7bb5] BUG8 — collection detail via parent
 
-[task:uuid:12cf7bb5-36d5-415e-92b2-75b14fb5cc23]
+## Root Cause
+
+Collection nodes (Members/Files) in the /trace tree are SYNTHETIC: the server builds them with fabricated UUIDs (members-roomUuid / files-roomUuid) that do NOT exist in the scenario index. When clicked, renderDetailForRef fetches /api/trace/children/syntheticUuid -> 404 (no scenario unit) -> stuck on "Loading children..."
+
+TWO layers:
+
+**Layer 1 (server data shape):** Server originally returned uuid:'members' (bare). Fixed to uuid:'members-roomUuid' so the client can extract the parent room UUID.
+
+**Layer 2 (client nesting mismatch):** Server returns the room's children as TWO collection WRAPPER nodes, each with Member/File items NESTED inside .children. Client renderDetailForRef filtered data.children at the TOP level (found only the 2 wrappers, type=collection, not Member/File) -> 0 matches -> "None". Fix: find the matching wrapper by UUID, read ITS .children:
+
+    // rb-detail-drawer.ts:102 -- BEFORE (broken):
+    const children = (data.children || []).filter(c => kind === 'members' ? c.type === 'Member' : c.type === 'File');
+    
+    // AFTER (fixed -- wrapper lookup):
+    const coll = (data.children || []).find(c => c.uuid === uuid);
+    const children = coll?.children || [];
+
+## Traceability Chain
+
+    [requirement:uuid:12cf7bb5]  BUG8 collection detail via parent
+      |
+    [uc:uuid:38204812-e251-438a-be74-14c3c7291d3c]  collectionDetail.resolveViaParent
+      |
+    [class:uuid:0dd08b2f]  RbDetailDrawer (canonical, 14 methods)
+      |
+    [method:uuid:0a902bff]  RbDetailDrawer.renderDetailForRef @ rb-detail-drawer.ts:84
+      |
+    [impl:uuid:36934fe3]  renderDetailForRef.collectionHandler @ rb-detail-drawer.ts:90
+      |
+    [test:uuid:pending]  tester writes RED->GREEN
+
+PUML ref: shared detail-drawer chain family
+
+## Use Case
+
+[uc:uuid:38204812-e251-438a-be74-14c3c7291d3c] collectionDetail.resolveViaParent
+
+Collection node click -> detect synthetic UUID (members-*/files-*) -> fetch PARENT room /api/trace/children -> find matching collection wrapper by UUID -> render ITS nested children (Member/File items). Falls back gracefully if wrapper not found.
+
+## Evidence
+
+- bug-loading-children-404.png -- Tron screenshot: "Loading children..." stuck
+- fix-files-22.png -- after fix: Files collection renders 22 file items
+- fix-members-50.png -- after fix: Members collection renders 50 member items
 
 ## Status
-- [ ] Planned
-- [x] In Progress
-  - [x] requirement captured
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
-
-## Requirement
-
-[requirement:uuid:12cf7bb5-36d5-415e-92b2-75b14fb5cc23]
-
-> TRON: "the collections in the room detail are not clickable" + device screenshot IMG_4037: tapping a /trace COLLECTION node (Members / Files) → detail drawer STUCK on 'Loading children…' — synthetic UUID 404s on lookup.
-
-**Root cause:** Synthetic-UUID collections (members-<roomUuid>, files-<roomUuid>) are NOT real scenario units in the index — fetch-by-uuid returns 404. The detail drawer tries to load them as units and fails.
-
-**Fix:** Collection detail MUST resolve via the PARENT Room's /api/trace/children (the Room knows its members[]/files[]), NOT by fetching the synthetic UUID as a standalone unit.
-
-## Acceptance Criteria
-- [ ] Tap Members collection in /trace → detail drawer shows member item list (not 'Loading children…')
-- [ ] Tap Files collection in /trace → detail drawer shows file item list (not 'Loading children…')
-- [ ] No 404 errors for synthetic collection UUIDs (members-*/files-*) — detected + resolved via parent
-- [ ] Same fix works in room context (BUG10 da4a27bc = same family)
-
-## Screenshots
-
-![Bug: Loading children 404](./bug-loading-children-404.png)
-
-## Traceability
-- up
-  - [requirement:uuid:12cf7bb5-36d5-415e-92b2-75b14fb5cc23] — BUG8 collection-detail-via-parent
-  - [Sprint 29 Planning](../planning.md)
-- chain
-  - UC: collectionDetail.resolveViaParent (38204812)
-  - Class: RbDetailDrawer (0dd08b2f)
-  - Method: openForRef (0a902bff)
-  - Impl: 36934fe3
-  - Test: needed
-- down
-  - None (atomic task)
+- [x] Root cause identified (2 layers: server uuid + client nesting)
+- [x] UC designed (fd31756f collectionDetail.resolveViaParent)
+- [x] Method linked (0a902bff RbDetailDrawer.renderDetailForRef)
+- [x] Impl exists (36934fe3 collectionHandler)
+- [ ] Test (tester RED->GREEN)
+- [ ] QA Review (Tron)
