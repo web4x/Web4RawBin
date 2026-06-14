@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "56f0648b-a13c-46b5-942d-c2247bae4642",
+    "name": "chainModel.unifiedForwardKeys",
+    "description": "CHAIN_TYPE_CONFIG: one Record<string, ChainTypeConfig> replaces 5 parallel maps. Derived accessors scenarioFwd/traceFwd/expectedChildTypes/primaryFwd/detailViewFwd/forwardKeysForMode. All 5 consumers delete local maps, import shared.",
+    "class": "ior:instance:a0c492d6-fd8e-4c24-89db-0c1f980d02a8",
+    "method": "ior:instance:7dc79987-d6f6-4409-90c2-bbee701ac246",
+    "classes": [
+      "ior:instance:a0c492d6-fd8e-4c24-89db-0c1f980d02a8"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

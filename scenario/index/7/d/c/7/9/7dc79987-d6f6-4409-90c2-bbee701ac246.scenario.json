@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "7dc79987-d6f6-4409-90c2-bbee701ac246",
+    "name": "ChainTypeConfig.forwardKeysForMode",
+    "description": "Derived accessors: scenarioFwd(type), traceFwd(type), expectedChildTypes(type), primaryFwd(type), detailViewFwd(type), forwardKeysForMode(type, mode). Each reads from CHAIN_TYPE_CONFIG[type]. Mode-aware: scenario vs trace returns different key sets (preserves UseCase class/classes split).",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:a0c492d6-fd8e-4c24-89db-0c1f980d02a8"
+}

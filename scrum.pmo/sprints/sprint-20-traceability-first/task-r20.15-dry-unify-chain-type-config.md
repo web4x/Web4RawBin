@@ -22,17 +22,119 @@ Collapse all 5 maps into ONE shared source of truth `src/ts/shared/chain-model.t
 
 ## Architect design
 
-> **ARCHITECT (robbinTeam2:0.4): write the full design here** — `CHAIN_TYPE_CONFIG` shape, the derived accessors (`getForwardKeys(type)`, `getExpectedChildTypes(type)`, scenario-vs-trace mode), the migration order for the 5 consumers, and the parity proof. PO accepted the 5-maps→1 design; this section is yours.
+### File: `src/ts/shared/chain-model.ts`
+
+```typescript
+export interface ChainTypeConfig {
+  scenarioForwardKeys: string[];   // replaces SCENARIO_FWD
+  traceForwardKeys: string[];      // replaces TRACE_FWD
+  expectedChildTypes: string[];    // replaces EXPECTED_CHILD_TYPE
+  primaryForwardKey: string;       // replaces TraceModel.FORWARD_KEYS (singular)
+  detailViewForwardKeys: string[]; // replaces client forward-only.ts FORWARD_KEYS
+}
+
+export const CHAIN_TYPE_CONFIG: Record<string, ChainTypeConfig> = {
+  Requirement:    { scenarioForwardKeys: ['useCases'], traceForwardKeys: ['useCases'], expectedChildTypes: ['UseCase', 'Task'], primaryForwardKey: 'useCases', detailViewForwardKeys: ['useCases'] },
+  Bug:            { scenarioForwardKeys: ['useCases', 'tasks'], traceForwardKeys: ['useCases', 'tasks'], expectedChildTypes: ['UseCase', 'Task'], primaryForwardKey: 'useCases', detailViewForwardKeys: ['useCases', 'tasks'] },
+  ChangeRequest:  { scenarioForwardKeys: ['useCases', 'tasks'], traceForwardKeys: ['useCases', 'tasks'], expectedChildTypes: ['UseCase', 'Task'], primaryForwardKey: 'useCases', detailViewForwardKeys: ['useCases', 'tasks'] },
+  Task:           { scenarioForwardKeys: ['subtasks', 'useCases', 'coveredRequirements', 'children'], traceForwardKeys: ['useCases', 'coveredRequirements'], expectedChildTypes: ['Task', 'UseCase', 'Requirement'], primaryForwardKey: 'useCases', detailViewForwardKeys: ['useCases'] },
+  UseCase:        { scenarioForwardKeys: ['classes'], traceForwardKeys: ['class'], expectedChildTypes: ['Class', 'Method'], primaryForwardKey: 'classes', detailViewForwardKeys: ['classes'] },
+  Class:          { scenarioForwardKeys: ['methods'], traceForwardKeys: ['methods'], expectedChildTypes: ['Method'], primaryForwardKey: 'methods', detailViewForwardKeys: ['methods'] },
+  Method:         { scenarioForwardKeys: ['implementations'], traceForwardKeys: ['implementations'], expectedChildTypes: ['Implementation'], primaryForwardKey: 'implementations', detailViewForwardKeys: ['implementations'] },
+  Implementation: { scenarioForwardKeys: ['tests'], traceForwardKeys: ['tests'], expectedChildTypes: ['Test'], primaryForwardKey: 'tests', detailViewForwardKeys: ['tests'] },
+  Test:           { scenarioForwardKeys: [], traceForwardKeys: [], expectedChildTypes: [], primaryForwardKey: '', detailViewForwardKeys: [] },
+  Sprint:         { scenarioForwardKeys: ['tasks'], traceForwardKeys: ['tasks'], expectedChildTypes: ['Task'], primaryForwardKey: 'tasks', detailViewForwardKeys: ['tasks'] },
+  Room:           { scenarioForwardKeys: ['files', 'members'], traceForwardKeys: ['files', 'members'], expectedChildTypes: [], primaryForwardKey: 'files', detailViewForwardKeys: ['files', 'members'] },
+};
+
+// Derived accessors (replace all 5 maps):
+export function scenarioFwd(type: string): string[] {
+  return CHAIN_TYPE_CONFIG[type]?.scenarioForwardKeys || [];
+}
+export function traceFwd(type: string): string[] {
+  return CHAIN_TYPE_CONFIG[type]?.traceForwardKeys || [];
+}
+export function expectedChildTypes(type: string): string[] {
+  return CHAIN_TYPE_CONFIG[type]?.expectedChildTypes || [];
+}
+export function primaryFwd(type: string): string {
+  return CHAIN_TYPE_CONFIG[type]?.primaryForwardKey || '';
+}
+export function detailViewFwd(type: string): string[] {
+  return CHAIN_TYPE_CONFIG[type]?.detailViewForwardKeys || [];
+}
+// Mode-aware accessor (replaces the queryMode === 'trace' ternary):
+export function forwardKeysForMode(type: string, mode: 'scenario' | 'trace'): string[] {
+  return mode === 'trace' ? traceFwd(type) : scenarioFwd(type);
+}
+```
+
+### Bug/ChangeRequest canonical value: `['useCases', 'tasks']`
+
+**Evidence (15 Bug/ChangeRequest units on disk, 2026-06-14):**
+- useCases populated: 3/15 (chain entry — Bug→UC starts the 6-step chain)
+- tasks populated: 4/15 (navigation — Bug→Task links the bug to its fixing task)
+- tests populated: 0/15 (chain walks Impl→Test instead; direct tests redundant)
+
+**Rationale:** `useCases` = chain, `tasks` = navigation. Both are load-bearing. `tests` omitted (0 populated, chain provides test access via Impl.tests[]).
+
+### Preserved discrepancy: UseCase trace=['class'] vs scenario=['classes']
+
+The UseCase traceForwardKeys=['class'] (singular — resolves UC.class field) while scenarioForwardKeys=['classes'] (plural — resolves UC.classes array). Both are correct for their modes. CHAIN_TYPE_CONFIG preserves this exactly.
+
+### 5-consumer migration order
+
+| Order | Consumer | File | Deletes | Imports |
+|-------|----------|------|---------|---------|
+| 1 | `SCENARIO_FWD` | server.ts:712 | inline map literal | `scenarioFwd(type)` |
+| 2 | `TRACE_FWD` | server.ts:717 | inline map literal | `traceFwd(type)` |
+| 3 | `EXPECTED_CHILD_TYPE` | server.ts:785 | inline map literal | `expectedChildTypes(type)` |
+| 4 | `TraceModel.FORWARD_KEYS` | src/ts/shared/TraceModel.ts:24 | exported const | `primaryFwd(type)` |
+| 5 | client `FORWARD_KEYS` | src/public/ts/trace/forward-only.ts:9 | const map | `detailViewFwd(type)` |
+
+Server consumers (1-3) migrate first (same runtime, one file). Then shared model (4). Then client (5). Each step: delete local map, import accessor, verify tests pass.
+
+### Parity proof (regression AC)
+
+```typescript
+// test/parity-chain-type-config.test.ts
+import { scenarioFwd, traceFwd, expectedChildTypes, primaryFwd, detailViewFwd } from '../../src/ts/shared/chain-model.js';
+
+// Frozen reference from v0.6.31 (the 5 maps' exact values before unification):
+const PARITY = {
+  Requirement:    { scenario: ['useCases'], trace: ['useCases'], expected: ['UseCase','Task'], primary: 'useCases', detail: ['useCases'] },
+  Bug:            { scenario: ['useCases','tasks'], trace: ['useCases','tasks'], expected: ['UseCase','Task'], primary: 'useCases', detail: ['useCases','tasks'] },
+  ChangeRequest:  { scenario: ['useCases','tasks'], trace: ['useCases','tasks'], expected: ['UseCase','Task'], primary: 'useCases', detail: ['useCases','tasks'] },
+  Task:           { scenario: ['subtasks','useCases','coveredRequirements','children'], trace: ['useCases','coveredRequirements'], expected: ['Task','UseCase','Requirement'], primary: 'useCases', detail: ['useCases'] },
+  UseCase:        { scenario: ['classes'], trace: ['class'], expected: ['Class','Method'], primary: 'classes', detail: ['classes'] },
+  Class:          { scenario: ['methods'], trace: ['methods'], expected: ['Method'], primary: 'methods', detail: ['methods'] },
+  Method:         { scenario: ['implementations'], trace: ['implementations'], expected: ['Implementation'], primary: 'implementations', detail: ['implementations'] },
+  Implementation: { scenario: ['tests'], trace: ['tests'], expected: ['Test'], primary: 'tests', detail: ['tests'] },
+  Test:           { scenario: [], trace: [], expected: [], primary: '', detail: [] },
+  Sprint:         { scenario: ['tasks'], trace: ['tasks'], expected: ['Task'], primary: 'tasks', detail: ['tasks'] },
+  Room:           { scenario: ['files','members'], trace: ['files','members'], expected: [], primary: 'files', detail: ['files','members'] },
+};
+
+for (const [type, ref] of Object.entries(PARITY)) {
+  assert.deepEqual(scenarioFwd(type), ref.scenario, type + ' scenarioFwd');
+  assert.deepEqual(traceFwd(type), ref.trace, type + ' traceFwd');
+  assert.deepEqual(expectedChildTypes(type), ref.expected, type + ' expectedChildTypes');
+  assert.equal(primaryFwd(type), ref.primary, type + ' primaryFwd');
+  assert.deepEqual(detailViewFwd(type), ref.detail, type + ' detailViewFwd');
+}
+```
+
+This test FREEZES the v0.6.31 values and asserts the unified config reproduces them EXACTLY. If any accessor yields a different value for any type, the test fails. The refactor provably changes ONLY the duplication, not the behavior.
 
 ## Traceability Chain
 
     [requirement:uuid:d5734c9b-9b7f-4c46-8e9f-797eb0750e9c]  R20.15 DRY-unify forward keys
       │
-    [uc:uuid:pending]      chainModel.unifiedForwardKeys (architect)
+    [uc:uuid:56f0648b-a13c-46b5-942d-c2247bae4642]  chainModel.unifiedForwardKeys
       │
-    [class:uuid:pending]   src/ts/shared/chain-model.ts CHAIN_TYPE_CONFIG (architect)
+    [class:uuid:a0c492d6-fd8e-4c24-89db-0c1f980d02a8]  ChainTypeConfig (src/ts/shared/chain-model.ts)
       │
-    [method:uuid:pending]  getForwardKeys / getExpectedChildTypes derived accessors (architect)
+    [method:uuid:7dc79987-d6f6-4409-90c2-bbee701ac246]  forwardKeysForMode / scenarioFwd / traceFwd / expectedChildTypes
       │
     [impl:uuid:pending]    expert — config + accessors + migrate all 5 consumers to import
       │

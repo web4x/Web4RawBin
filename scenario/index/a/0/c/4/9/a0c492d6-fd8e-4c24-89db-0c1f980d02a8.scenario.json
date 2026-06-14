@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "a0c492d6-fd8e-4c24-89db-0c1f980d02a8",
+    "name": "ChainTypeConfig",
+    "description": "Shared chain-model config: single source of truth for all forward-key maps. Eliminates 5-map duplication. src/ts/shared/chain-model.ts.",
+    "methods": [
+      "ior:instance:7dc79987-d6f6-4409-90c2-bbee701ac246"
+    ]
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
