@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "871c5cf9-c629-42f6-b43d-9c519aaf598c",
+    "altId": "BUG11",
+    "name": "BUG11: ⚠REGRESSION — URL action buttons (Open in preview / Open in new tab) do nothing on click.",
+    "description": "REGRESSION (PRIORITY): link.url leaf renders the URL-action buttons (Open in preview / Open in new tab per R19.77) BUT clicking them does NOTHING. These buttons WORKED pre-drawer-consolidation. Broke in v0.6.10-22 drawer refactor — the click handlers were not re-wired after the drawer consolidation (R20.6g). The buttons render but have no attached event listeners. FIX: re-wire the Open-in-preview (load URL in sandboxed iframe) and Open-in-new-tab (window.open target=_blank) handlers in the consolidated drawer path.",
+    "tronQuote": "> TRON (device evidence IMG_4022): URL action buttons render but clicking does NOTHING (regression from drawer consolidation).",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "priority": "HIGH",
+    "crossRef": [
+      "ior:instance:32e42144-0d04-49c9-a54d-298a4289c8c4",
+      "ior:instance:7cda92d6-3b75-41de-ad8f-b33df2dc21f6"
+    ],
+    "crossRefNote": "R19.77 (URL two-button preview) defined the working behavior. R20.6g (drawer consolidation) broke the handler wiring. BUG11 = buttons render but handlers missing after refactor.",
+    "intendedChain": {
+      "useCase": "urlPreview.actionButtonsWork — Open in preview + Open in new tab buttons have working click handlers",
+      "class": "RbDetailDrawer (consolidated) or ContentPreviewer",
+      "method": "wireUrlActions — attach click handlers for preview (iframe load) + new-tab (window.open)",
+      "test": "RED: (1) click 'Open in preview' on link.url detail → assert sandboxed iframe loads the URL. Currently FAILS (nothing happens). (2) click 'Open in new tab' → assert new tab/window opens. Currently FAILS (nothing happens)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

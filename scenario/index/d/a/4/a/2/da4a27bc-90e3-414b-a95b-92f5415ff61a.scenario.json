@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "da4a27bc-90e3-414b-a95b-92f5415ff61a",
+    "altId": "BUG10",
+    "name": "BUG10: Collection detail BLANK in room context — tap Members/Files → blank drawer.",
+    "description": "BUG: in the ROOM tree (not just /trace), tapping a collection node (Members or Files) opens the drawer but renders BLANK. Same family as BUG8 (synthetic-UUID collection not a real unit → fetch 404) but reproduces in the ROOM surface. FIX scope must cover BOTH surfaces (/trace + room). The collection detail resolver must detect synthetic UUIDs and fetch children from the parent Room regardless of which surface triggers it.",
+    "tronQuote": "> TRON (device evidence IMG_4021): collection detail blank in room context (tap Members → blank drawer).",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:12cf7bb5-36d5-415e-92b2-75b14fb5cc23"
+    ],
+    "crossRefNote": "BUG8 (same bug, /trace surface). BUG10 = same root cause reproduced in room surface. Fix must cover both.",
+    "intendedChain": {
+      "useCase": "collectionDetail.resolveInRoom — room collection detail resolves via parent Room (same as /trace fix)",
+      "class": "RbDetailDrawer",
+      "method": "renderDetailForRef — synthetic-UUID detection works in BOTH /trace and room contexts",
+      "test": "RED: in room, tap Members collection → drawer shows member items (not blank). Tap Files → shows file items. Currently FAILS (blank)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
