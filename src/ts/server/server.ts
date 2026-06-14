@@ -19,6 +19,7 @@ import { fileURLToPath } from 'node:url';
 import { exec, execFile, execFileSync } from 'node:child_process';
 import crypto from 'node:crypto';
 import { promisify } from 'node:util';
+import { scenarioFwd, traceFwd, expectedChildTypes, forwardKeysForMode } from '../shared/chain-model.js';
 import readline from 'node:readline';
 import { WebSocketServer, WebSocket } from 'ws';
 import fetch from 'node-fetch';
@@ -710,20 +711,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const queryMode = urlParams.get('mode') || 'scenario';
         // [impl:uuid:28f244c7-1a9c-49c5-ab6c-249d906cb9a4] R19.71 Room forward keys
         // [impl:uuid:29730376-7832-477d-8960-98c937f8c2bb] BUG12 Bug+ChangeRequest forward keys
-        const SCENARIO_FWD: Record<string, string[]> = {
-          Requirement: ['useCases'], Task: ['subtasks', 'useCases', 'coveredRequirements', 'children'], UseCase: ['classes'],
-          Class: ['methods'], Method: ['implementations'], Implementation: ['tests'],
-          Sprint: ['tasks'], Room: ['files', 'members'],
-          Bug: ['useCases'], ChangeRequest: ['useCases'],
-        };
-        const TRACE_FWD: Record<string, string[]> = {
-          Requirement: ['useCases'], Task: ['useCases', 'coveredRequirements'],
-          UseCase: ['class'], Class: ['methods'],
-          Method: ['implementations'], Implementation: ['tests'],
-          Sprint: ['tasks'], Room: ['files', 'members'],
-          Bug: ['useCases'], ChangeRequest: ['useCases'],
-        };
-        const fwdKeys = queryMode === 'trace' ? TRACE_FWD : SCENARIO_FWD;
+        // R20.15: unified CHAIN_TYPE_CONFIG replaces inline maps
+        const fwdKeys = forwardKeysForMode(type, queryMode as 'scenario' | 'trace');
         // Room type: build Members + Files collection children
         if (type === 'Room') {
           const model = unit.model as Record<string, unknown>;
@@ -752,7 +741,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         }
         // T192: server-side cycle guard — skip children that are the node itself
         let childRefs: string[] = [];
-        for (const key of (fwdKeys[type] || [])) {
+        for (const key of (fwdKeys)) {
           const val = (unit.model as Record<string, unknown>)[key];
           if (Array.isArray(val)) {
             for (const r of val) {
@@ -776,19 +765,14 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const graphObj = graph.get(uuid);
             if (graphObj) {
               const links = graphObj.toJSON().links || {};
-              for (const key of (fwdKeys[type] || [])) {
+              for (const key of (fwdKeys)) {
                 if (links[key]) for (const r of links[key]) childRefs.push(r.replace(/^[a-z]+:/, ''));
               }
             }
           } catch { /* scanRepo fallback failed — empty children */ }
         }
-        const EXPECTED_CHILD_TYPE: Record<string, string[]> = {
-          Requirement: ['UseCase', 'Task'], Task: ['Task', 'UseCase', 'Requirement'], UseCase: ['Class', 'Method'],
-          Class: ['Method'], Method: ['Implementation'], Implementation: ['Test'],
-          Sprint: ['Task'],
-          Bug: ['UseCase', 'Task'], ChangeRequest: ['UseCase', 'Task'],
-        };
-        const allowedTypes = EXPECTED_CHILD_TYPE[type] || [];
+        // R20.15: unified expectedChildTypes from chain-model
+        const allowedTypes = expectedChildTypes(type);
         const ucMethodIor = type === 'UseCase' ? String((unit.model as Record<string, unknown>).method || '').replace('ior:instance:', '') : '';
         const children = childRefs.filter(ref => ref !== uuid).map(ref => {
           const child = idx.get(ref);

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d4ad31f3-c33e-4311-806c-61ce2364d2ad",
+    "name": "CHAIN_TYPE_CONFIG impl",
+    "sourceFile": "ior:file:src/ts/shared/chain-model.ts",
+    "sourceLine": 15,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d5734c9b-9b7f-4c46-8e9f-797eb0750e9c"
+}

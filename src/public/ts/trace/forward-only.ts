@@ -5,22 +5,11 @@
  * [impl:uuid:84e8383c-6b8a-43a5-b725-2c3b1bf833ab] R-U forward-only display
  */
 import type { TraceObject } from '../../../ts/shared/TraceModel.js';
-
-const FORWARD_KEYS: Record<string, string[]> = {
-  requirement: ['useCases'],
-  task: ['useCases'],
-  usecase: ['classes'],
-  class: ['methods'],
-  method: ['implementations'],
-  implementation: ['tests'],
-  test: [],
-  bug: ['useCases', 'tasks', 'tests'],
-  changerequest: ['useCases', 'tasks', 'tests'],
-};
+import { clientFwd } from '../../../ts/shared/chain-model.js';
 
 export function forwardOnly(obj: TraceObject): Record<string, string[]> {
   const all = obj.toJSON().links;
-  const allowed = FORWARD_KEYS[obj.type] || [];
+  const allowed = clientFwd(obj.type);
   const result: Record<string, string[]> = {};
   for (const key of allowed) {
     if (all[key]) result[key] = all[key];
