@@ -18,3 +18,13 @@
 - 6 superseded Requirements: R19.58 (af607390), c9de63d7, R-placeholder-T202 (4d525a4d), R19.85 (b6ad2bdd), R19.89 (bd9bb433), R19.92 (b5688a42)
 
 → PO call: keep as supersession history, OR delete for full `supersededBy=0` (git=backup, quick follow-up). `[DUP]=0` already achieved.
+
+## PO RULING (2026-06-14): 7 supersessions KEPT-on-disk + filtered-from-view — VERIFIED
+Real supersession HISTORY (why BUG12=BUG9, req evolution) = the point of traceability; NOT junk. KEEP on disk, must NOT render in /trace.
+
+**Planner SOURCE-VERIFIED (not relayed):**
+- All 7 superseded units ON DISK ✓ (kept): BUG12 d2389829 + reqs af607390/c9de63d7/4d525a4d/b6ad2bdd/bd9bb433/b5688a42.
+- All 7 ABSENT from /api/trace ✓ (0 occurrences each in served data).
+- Code filter confirmed: `src/ts/scenario/skill-classes.ts:193` — `if (m.supersededBy) return true; // superseded reqs are not separate chains` (excludes supersededBy from chain/graph build).
+
+**Distinction held + proven:** junk [DUP] DELETED · meaningful supersession KEPT-on-disk + FILTERED-from-view. Filter excludes ALL supersededBy (incl these 7).
