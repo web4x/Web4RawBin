@@ -22,7 +22,8 @@
       "test": "RED: click a .url file in /trace → detail shows file metadata + preview button (not blank). Currently FAILS (blank — rb-file-detail undefined)."
     },
     "renumberNote": "Renumbered BUG9→BUG14 (collision: 6da84135 keeps BUG9 = dedup canonical w/ BUG12 merged). PO ruling 2026-06-14.",
-    "proofNote": "BUG14 = the IMG_4040 leaf-file (link.url) detail issue. TESTER PROVING on real DeFED.net data, DET-3x. Team proves; Tron redirects only. PO 2026-06-14."
+    "proofNote": "RESOLVED-BY-CONSOLIDATION (tester DET-3x + source-verified on REAL DeFED.net data, PO 2026-06-14): link.url (File unit b04ea551) resolves to its OWN File detail, NOT the parent Files collection — the .url-click/leaf-file-detail behavior is correct. Resolved by drawer-consolidation (v0.6.27-29: collection-uuid fix + renderDetailForRef rename/wrapper-lookup). NO FIX NEEDED. PROVEN, present-proof (not awaiting-Tron).",
+    "status": "Resolved"
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

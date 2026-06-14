@@ -6,7 +6,9 @@
     "name": "BUG13: .url file click in room tree does not open drawer detail — 862868bfe regression.",
     "description": "REGRESSION (862868bfe partial-commit): clicking a .url file (link.url) in the room tree should open its DRAWER detail with the URL preview/action buttons. Currently does NOT open the drawer at all. This is a re-regression in the same code path as R19.86/R20.1 (both previously fixed then re-broken by the drawer consolidation partial commit). Test-first: RED test before fix.",
     "tronQuote": "> SM flagged: 862868bfe partial-commit regression — .url file click in room tree should open drawer detail; regressed.",
-    "tasks": ["ior:instance:10545051-a2e4-4091-a311-8ecf985e7542"],
+    "tasks": [
+      "ior:instance:10545051-a2e4-4091-a311-8ecf985e7542"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
@@ -21,7 +23,9 @@
       "class": "RbDetailDrawer / SelectionModel",
       "method": "onFileClick → openForRef (drawer opens for url-type FileUnit)",
       "test": "RED: tap a .url file item in room tree → assert drawer opens + shows file detail (URL actions visible). Currently FAILS (drawer does not open)."
-    }
+    },
+    "status": "Resolved",
+    "proofNote": "RESOLVED-BY-CONSOLIDATION (tester DET-3x + source-verified on REAL DeFED.net data, PO 2026-06-14): link.url (File unit b04ea551) resolves to its OWN File detail, NOT the parent Files collection — the .url-click/leaf-file-detail behavior is correct. Resolved by drawer-consolidation (v0.6.27-29: collection-uuid fix + renderDetailForRef rename/wrapper-lookup). NO FIX NEEDED. PROVEN, present-proof (not awaiting-Tron)."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

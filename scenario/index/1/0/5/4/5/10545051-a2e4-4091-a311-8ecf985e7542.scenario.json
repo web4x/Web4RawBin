@@ -3,12 +3,12 @@
   "model": {
     "uuid": "10545051-a2e4-4091-a311-8ecf985e7542",
     "name": "T: url-drawer-regression / .url click opens drawer (BUG13)",
-    "status": "in-progress",
+    "status": "Resolved",
     "coveredRequirements": [
       "ior:instance:f420e98a-3d41-4c08-b5d3-936bad0fddb5"
     ],
     "useCases": [],
-    "proofNote": "TESTER PROVING on real DeFED.net data (Tron room/file from IMG_4040), DET-3x. v0.6.35 showed green in earlier check — tester re-proves on REAL data → present proof-or-fix. Team proves; Tron redirects only (no waiting on Tron). PO 2026-06-14."
+    "proofNote": "RESOLVED-BY-CONSOLIDATION (tester DET-3x + source-verified on REAL DeFED.net data, PO 2026-06-14): link.url (File unit b04ea551) resolves to its OWN File detail, NOT the parent Files collection — the .url-click/leaf-file-detail behavior is correct. Resolved by drawer-consolidation (v0.6.27-29: collection-uuid fix + renderDetailForRef rename/wrapper-lookup). NO FIX NEEDED. PROVEN, present-proof (not awaiting-Tron)."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
