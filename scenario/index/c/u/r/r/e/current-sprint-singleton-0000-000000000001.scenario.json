@@ -2,18 +2,18 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: BUG13: .url click opens drawer (url-drawer regression)",
+    "name": "Current: T: markdown-not-source / unit-sourced /api/trace",
     "chain": {
-      "req": "f420e98a-3d41-4c08-b5d3-936bad0fddb5",
-      "uc": "f420e98a-3d41-4c08-b5d3-936bad0fddb5",
-      "class": "f420e98a-3d41-4c08-b5d3-936bad0fddb5",
-      "method": "f420e98a-3d41-4c08-b5d3-936bad0fddb5",
-      "impl": "f420e98a-3d41-4c08-b5d3-936bad0fddb5",
-      "test": "f420e98a-3d41-4c08-b5d3-936bad0fddb5"
+      "req": "a7dcf3f8-7c01-421f-a58a-a13184796b20",
+      "uc": "e5caaa7e-5068-4170-828c-e70bb5a165d1",
+      "class": "10de8452-6506-4306-ba77-c606ee583ea2",
+      "method": "a3839bd8-ead3-497b-9327-ce86f79a27f6",
+      "impl": "",
+      "test": ""
     },
-    "activeHop": 0,
+    "activeHop": 4,
     "sprintName": "Sprint 20 — Radical Forward Planning (Traceability-First)",
-    "taskName": "BUG13: .url click opens drawer (url-drawer regression)"
+    "taskName": "T: markdown-not-source / unit-sourced /api/trace"
   },
   "ownerIor": null
 }

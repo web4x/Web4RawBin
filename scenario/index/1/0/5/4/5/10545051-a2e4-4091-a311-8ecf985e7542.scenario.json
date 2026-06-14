@@ -3,12 +3,12 @@
   "model": {
     "uuid": "10545051-a2e4-4091-a311-8ecf985e7542",
     "name": "T: url-drawer-regression / .url click opens drawer (BUG13)",
-    "status": "in-progress",
+    "status": "planned",
     "coveredRequirements": [
       "ior:instance:f420e98a-3d41-4c08-b5d3-936bad0fddb5"
     ],
     "useCases": [],
-    "focus": true
+    "holdNote": "HOLD (PO 2026-06-14): tester found GREEN on v0.6.35 — can NOT repro the .url-drawer regression. Awaiting Tron repro-confirm. NO fix-work/uc-mint until Tron confirms it still fails."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

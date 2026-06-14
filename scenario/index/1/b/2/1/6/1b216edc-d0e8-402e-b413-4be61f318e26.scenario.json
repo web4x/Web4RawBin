@@ -2,8 +2,8 @@
   "ior": "ior:class:Bug",
   "model": {
     "uuid": "1b216edc-d0e8-402e-b413-4be61f318e26",
-    "altId": "BUG9",
-    "name": "BUG9: /trace leaf file (link.url) detail renders BLANK — tagMap maps to unregistered rb-file-detail.",
+    "altId": "BUG14",
+    "name": "BUG14: /trace leaf file (link.url) detail renders BLANK — tagMap maps to unregistered rb-file-detail.",
     "description": "BUG: in /trace, clicking a LEAF file item (e.g. link.url) opens the detail drawer but it renders BLANK. Root cause: the tagMap maps file-type scenario units to 'rb-file-detail' custom element which is UNREGISTERED/nonexistent (never defined). The browser creates an unknown element that renders nothing. FIX: either (a) remove 'file' from tagMap so it falls through to the GENERIC detail view (which works for all types), OR (b) actually build and register rb-file-detail as a real custom element with ContentPreviewer integration. Option (a) is the minimal fix. Tron evidence: IMG_4018-20.",
     "tronQuote": "> TRON (device screenshot): /trace leaf file detail renders blank.",
     "tasks": [],
@@ -20,7 +20,8 @@
       "class": "Detail view resolver (tagMap / navigate())",
       "method": "tagMap resolution — remove 'file'→'rb-file-detail' (unregistered) OR register rb-file-detail",
       "test": "RED: click a .url file in /trace → detail shows file metadata + preview button (not blank). Currently FAILS (blank — rb-file-detail undefined)."
-    }
+    },
+    "renumberNote": "Renumbered BUG9→BUG14 (collision: 6da84135 keeps BUG9 = dedup canonical w/ BUG12 merged). PO ruling 2026-06-14."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
