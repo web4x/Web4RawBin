@@ -34,3 +34,8 @@
 - **Collection-fix** = BUG8 (/trace) + BUG10 (room) → renderDetailForRef handle type='collection' (extract parent-room-uuid → /api/trace/children → dv-links), BOTH surfaces.
 - **Leaf/file-fix** = BUG9 (remove 'file' from tagMap) + BUG11 (remove OLD dual-path → single selection→renderDetailForRef).
 All 4 diagnosed, RED-tested, forward-traceable, QUEUED for Tron's clear. BUG11 = PRIORITY (regression).
+
+## QUEUE-5: Landscape-responsive design (CSS-only, new feature)
+**Owner:** req capture → architect design (done) → expert. **Status:** QUEUED (when Tron prioritizes).
+**Design (architect):** CSS-only — @media (orientation:landscape) and (max-width:1024px) switches both .trace-page and .room-view from flex-direction:column → row. Tree=left, drawer=right (side-by-side). No JS. Same zero-overlap structural guarantee as portrait. Portrait unchanged.
+**Note:** interacts cleanly with all queued BUG8-11 fixes + drawer consolidation. Acceptance: landscape ≤1024px shows tree-left/drawer-right side-by-side, zero overlap; portrait unchanged.
