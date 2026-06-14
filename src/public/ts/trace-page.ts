@@ -8,6 +8,12 @@ import { TraceRouter, viewRegistry, deserialize } from './trace/index.js';
 import './trace/rb-trace-tree.js';
 import './trace/rb-detail-drawer.js';
 
+// BUG5 instrumentation — capture phase, fires before any stopPropagation
+document.addEventListener('click', (e) => {
+  const t = e.target as HTMLElement;
+  console.log('TGT', t.tagName, t.className || '', 'drawer:' + !!t.closest('rb-detail-drawer'), 'tree:' + !!t.closest('rb-trace-tree'), 'item:' + (t.closest('rb-object-item')?.getAttribute('ref') || 'none'));
+}, true);
+
 const treeMount = document.getElementById('trace-tree');
 const detailMount = document.getElementById('trace-detail');
 
