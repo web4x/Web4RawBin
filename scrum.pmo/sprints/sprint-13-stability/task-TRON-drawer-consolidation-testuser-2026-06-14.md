@@ -158,9 +158,77 @@ selection-changed event:
 - Invite button + WS status dot — moves to ChatPanel
 - All RoomView WS event handlers (ROOM_JOINED, CHAT_HISTORY, CHAT_MESSAGE, etc.)
 
+### CRITICAL FIX: ref → detail-content render (THE LIVE BUG)
+
+**Bug:** Selection sets `ref` attr → `attributeChangedCallback` sets `open` → drawer opens BUT .drawer-body is EMPTY. Zero detail-render code exists in rb-detail-drawer.ts.
+
+**Root cause:** On /trace, the TraceRouter's `drawerShowHandler()` (index.ts:158-172) creates the typed detail element (`rb-task-detail`, `rb-requirement-detail`, etc.) and appends to `drawer.body`. In-room, there's NO TraceRouter — nothing creates the detail element.
+
+**Fix: rb-detail-drawer OWNS detail rendering (self-contained, no external router needed):**
+
+```typescript
+// In rb-detail-drawer.ts attributeChangedCallback:
+attributeChangedCallback(name: string): void {
+  if (name === 'ref') {
+    const ref = this.getAttribute('ref');
+    if (ref) {
+      this.setAttribute('open', '');
+      this.renderDetailForRef(ref);  // ← NEW: render content
+    } else {
+      this.removeAttribute('open');
+    }
+  }
+}
+
+private async renderDetailForRef(ref: string): Promise<void> {
+  this.setMode('detail');
+  const panel = this.body.querySelector('.drawer-panel-detail') as HTMLElement;
+  if (!panel) return;
+  panel.innerHTML = '<div style="padding:16px;opacity:0.5">Loading...</div>';
+
+  // Parse ref → type:uuid
+  const [type, uuid] = ref.includes(':') ? [ref.split(':')[0], ref.split(':').slice(1).join(':')] : ['unknown', ref];
+
+  // Fetch scenario data from /api/trace/children (same path that works for tree)
+  try {
+    const res = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}`);
+    if (!res.ok) { panel.innerHTML = '<div style="padding:16px">Not found</div>'; return; }
+    const data = await res.json();
+
+    // Create typed detail element (same pattern as index.ts:166-170)
+    const tagMap: Record<string, string> = {
+      requirement: 'rb-requirement-detail', task: 'rb-task-detail',
+      usecase: 'rb-usecase-detail', class: 'rb-class-detail',
+      method: 'rb-method-detail', implementation: 'rb-implementation-detail',
+      test: 'rb-test-detail', file: 'rb-file-detail',
+      member: 'rb-member-detail', collection: 'rb-collection-detail',
+      bug: 'rb-requirement-detail', changerequest: 'rb-requirement-detail',
+    };
+    const tag = tagMap[type.toLowerCase()] || 'rb-detail-view';
+
+    panel.innerHTML = '';
+    const el = document.createElement(tag) as HTMLElement & { graph?: any };
+    el.setAttribute('ref', ref);
+    el.setAttribute('uuid', uuid);
+    // For in-room items without a TraceGraph: detail element fetches its own data
+    // (detail elements already handle graph-less rendering via fetchDetailData)
+    panel.appendChild(el);
+  } catch {
+    panel.innerHTML = '<div style="padding:16px">Failed to load</div>';
+  }
+}
+```
+
+**For file items (preview mode):** `renderDetailForRef` detects `type=file` → calls `setMode('preview')` + `renderContentPreview` into `.drawer-panel-preview` (existing path from openFilePreview).
+
+**For member items:** `type=member` → renders a simple member card (name, status, role) — no scenario lookup needed (data from room members array).
+
+**This makes rb-detail-drawer SELF-CONTAINED:** ref attr → fetch → render detail. No external router required. Works in /trace (TraceRouter still works as override) AND in-room (selection → ref → drawer renders).
+
 ### Gate
 
 - Playwright: join room → assert chat messages load in the drawer (not a separate overlay)
 - Playwright: send message → assert it appears in same drawer
+- Playwright: select item → assert detail content renders in drawer (NOT empty)
 - Playwright: tap file item → drawer switches to preview → tap back → chat messages still there
-- Screenshot: one drawer visible, no second overlay
+- Screenshot: one drawer visible, no second overlay, detail content populated on selection
