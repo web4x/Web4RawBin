@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "4354bf62-3363-4841-91ac-370265bc4d1d",
+    "name": "det-3x: PASS",
+    "gateType": "det-3x",
+    "verdict": "PASS",
+    "evidence": "DET-3x: testcase=1016 x3 identical runs on v0.6.37, disk=1016 match, idempotent (0 created on re-run), reconciled 959 it()+51 test()+it.each=1016",
+    "gatedItems": [
+      "ior:instance:12cf7bb5-36d5-415e-92b2-75b14fb5cc23"
+    ],
+    "timestamp": "2026-06-14T21:24:53.765Z",
+    "gatedBy": "robbin-tester"
+  },
+  "ownerIor": "ior:instance:12cf7bb5-36d5-415e-92b2-75b14fb5cc23"
+}
