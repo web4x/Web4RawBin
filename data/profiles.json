@@ -2908,5 +2908,19 @@
     "sshKeyGeneratedAt": "2026-06-13T13:46:21.776Z",
     "consolidatedFrom": [],
     "bugReports": []
+  },
+  {
+    "token": "5619c423-50a3-407d-8e72-709f852f4cc0",
+    "name": "SystemTester",
+    "phone": "",
+    "url": "",
+    "avatar": "/api/avatar/5619c423-50a3-407d-8e72-709f852f4cc0",
+    "avatarCrop": null,
+    "secretCode": "8118",
+    "profileCommitted": true,
+    "sshKeysGenerated": true,
+    "sshKeyGeneratedAt": "2026-06-14T11:16:27.520Z",
+    "consolidatedFrom": [],
+    "bugReports": []
   }
 ]

@@ -32,17 +32,23 @@ export class RbDetailDrawer extends HTMLElement {
   // [impl:uuid:94f6e1f8-84a8-4ca5-9a44-6108ef6201bc] R20.6 selectionDriven drawer
   connectedCallback(): void {
     this.render();
-    this.addEventListener('touchstart', this.onTouchStart, { passive: true });
-    this.addEventListener('touchmove', this.onTouchMove, { passive: false });
-    this.addEventListener('touchend', this.onTouchEnd);
+    const handle = this.querySelector('.drawer-handle');
+    if (handle) {
+      handle.addEventListener('touchstart', this.onTouchStart, { passive: true });
+      handle.addEventListener('touchmove', this.onTouchMove, { passive: false });
+      handle.addEventListener('touchend', this.onTouchEnd);
+    }
     document.addEventListener('keydown', this.onKeyDown);
     document.addEventListener('selection-changed', this.onSelectionChanged);
   }
 
   disconnectedCallback(): void {
-    this.removeEventListener('touchstart', this.onTouchStart);
-    this.removeEventListener('touchmove', this.onTouchMove);
-    this.removeEventListener('touchend', this.onTouchEnd);
+    const handle = this.querySelector('.drawer-handle');
+    if (handle) {
+      handle.removeEventListener('touchstart', this.onTouchStart);
+      handle.removeEventListener('touchmove', this.onTouchMove);
+      handle.removeEventListener('touchend', this.onTouchEnd);
+    }
     document.removeEventListener('keydown', this.onKeyDown);
     document.removeEventListener('selection-changed', this.onSelectionChanged);
   }
