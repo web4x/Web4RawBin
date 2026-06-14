@@ -31,7 +31,7 @@ TWO layers:
       |
     [impl:uuid:36934fe3]  renderDetailForRef.collectionHandler @ rb-detail-drawer.ts:90
       |
-    [test:uuid:pending]  tester writes RED->GREEN
+    [test:uuid:4644dd3c-952d-47a3-828f-79c2ba1c932e]  BUG8 collection-detail RED→GREEN (drawer-champagne.test.ts)
 
 PUML ref: shared detail-drawer chain family
 
@@ -52,5 +52,5 @@ Collection node click -> detect synthetic UUID (members-*/files-*) -> fetch PARE
 - [x] UC designed (fd31756f collectionDetail.resolveViaParent)
 - [x] Method linked (0a902bff RbDetailDrawer.renderDetailForRef)
 - [x] Impl exists (36934fe3 collectionHandler)
-- [ ] Test (tester RED->GREEN)
+- [x] Test [test:uuid:4644dd3c-952d-47a3-828f-79c2ba1c932e] RED→GREEN v0.6.28→v0.6.29 (Members 0→50, Files 0→22)
 - [ ] QA Review (Tron)

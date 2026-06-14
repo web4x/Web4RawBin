@@ -5,7 +5,7 @@
     "name": "renderDetailForRef.collectionHandler impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "sourceLine": 91,
-    "tests": []
+    "tests": ["ior:instance:4644dd3c-952d-47a3-828f-79c2ba1c932e"]
   },
   "ownerIor": "ior:instance:12cf7bb5-36d5-415e-92b2-75b14fb5cc23"
 }
