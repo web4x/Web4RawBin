@@ -76,7 +76,7 @@ export class RbObjectItem extends HTMLElement {
   // [impl:uuid:cc1dcd0e-93b2-43d5-80bb-b162cd685403] RbObjectItem.handleTapSelect
   handleTapSelect(): void {
     const { ref } = this.parts();
-    if (ref) { selectionModel.clear(); selectionModel.select(ref); this.syncSelected(); }
+    if (ref) { selectionModel.replaceWith(ref); this.syncSelected(); }
   }
 
   // [impl:uuid:4256aef7-3aee-432f-bab0-70dfc3c26e7a] RbObjectItem.simulateLongPress

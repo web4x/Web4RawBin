@@ -10,6 +10,7 @@ class SelectionModelImpl {
   deselect(ref: string): void { this.selected.delete(ref); this.dispatch(); }
   toggle(ref: string): void { if (this.selected.has(ref)) this.selected.delete(ref); else this.selected.add(ref); this.dispatch(); }
   clear(): void { this.selected.clear(); this.dispatch(); }
+  replaceWith(ref: string): void { this.selected.clear(); this.selected.add(ref); this.dispatch(); }
   has(ref: string): boolean { return this.selected.has(ref); }
   getSelected(): string[] { return [...this.selected]; }
   get size(): number { return this.selected.size; }
