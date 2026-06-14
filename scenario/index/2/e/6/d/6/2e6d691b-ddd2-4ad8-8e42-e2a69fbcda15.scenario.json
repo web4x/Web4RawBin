@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "2e6d691b-ddd2-4ad8-8e42-e2a69fbcda15",
+    "altId": "R20.8",
+    "name": "R20.8: Class All-Children = ALL methods + implementations; Traceability Chain = method→impl→test downstream.",
+    "description": "A CLASS scenario unit's detail view: (a) 'All Children' MUST enumerate ALL its methods[] AND all their implementations[] (currently shows only 1 method, missing the rest + impls). The FORWARD_KEYS for Class must resolve both methods AND implementations as children. (b) 'Traceability Chain' from a Class/Method node = the full downstream walk: method → implementation → test. Not just the one chain-relevant method — from the CLASS level, show the chain CONTINUING downward for each method. Screenshot evidence: Class 'Requirement' (14831116) shows only Requirement.classifyType under both sections — missing all other methods + their impls.",
+    "tronQuote": "> TRON: \"the class traceability and all children is still wrong. all children should be ALL methods and the implementations. the traceability chain should be method, impl, test… from here.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:7734f4e1-def9-4af3-a7d2-5ccc7160b214"
+    ],
+    "crossRefNote": "R20.5 (universal chain-vs-children) defines the general rule. R20.8 is the CLASS-SPECIFIC application: Class.allChildren = methods[]+implementations[]; Class.chain = method→impl→test downstream.",
+    "intendedChain": {
+      "useCase": "classDetail.resolveChildren — Class detail enumerates ALL methods + ALL impls; chain walks downstream",
+      "class": "Server trace-children API (FORWARD_KEYS for Class type)",
+      "method": "/api/trace/children for type=Class → return methods[] + implementations[]; chain-walk continues method→impl→test",
+      "test": "RED: (1) open Class 'Requirement' (14831116) detail → All Children shows ALL methods (not just 1) + all impls. Currently FAILS (shows 1). (2) Traceability Chain from Class → shows method→impl→test path for each chain-relevant method."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
