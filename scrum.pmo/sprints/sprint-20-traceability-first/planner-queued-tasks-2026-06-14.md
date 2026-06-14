@@ -20,3 +20,9 @@
 **What:** data/profiles.json has 2 STALE TEST orphan entries (no dir): E2E-webkit (4e5655bf) + test-merge (ae9a8a5e). Earlier '24/0' was transient/uncommitted; fresh read of data/profiles.json = 26 with the 2 orphans still present.
 **Fix:** prune the 2 stale entries from data/profiles.json (written+saved to file) → aggregate==profiled-dirs(23), orphans=0. Then planner re-confirms clean-seal.
 **Also (separate, later):** SystemTester x8 → consolidate to canonical ce981242 (conservative-keep now).
+
+## QUEUE-3: BUG10 [da4a27bc] — collection blank in ROOM surface (BUG8 family)
+**Owner:** expert. **Status:** QUEUED. Same root cause class as BUG8 (collection synthetic-uuid 404), second surface (in-room). intendedChain + RED captured by req. Fix likely shares BUG8's renderDetailForRef collection-handling.
+
+## QUEUE-4: BUG11 [871c5cf9] — ⚠ HIGH PRIORITY REGRESSION: URL buttons do nothing
+**Owner:** expert. **Status:** QUEUED (HIGH — regression from v0.6.10 drawer consolidation; URL button handlers LOST). intendedChain + RED captured by req. Fix: restore the URL-button click handlers dropped in the drawer-consolidation refactor. PRIORITIZE when Tron clears the queue.
