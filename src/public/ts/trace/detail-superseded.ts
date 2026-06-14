@@ -1,9 +1,6 @@
 /**
  * R20.5 — Shared detail section helpers consumed by ALL detail views.
  * renderSupersededLinks + renderAllChildrenSection.
- *
- * [impl:uuid:31c6e25e-c65e-4039-ad01-f0dd87978ed1] R20.5 renderSupersededLinks
- * [impl:uuid:bfbc0874-a1b2-4c3d-8e4f-5a6b7c8d9e06] R20.5 renderAllChildren
  */
 import { navigate } from './nav.js';
 

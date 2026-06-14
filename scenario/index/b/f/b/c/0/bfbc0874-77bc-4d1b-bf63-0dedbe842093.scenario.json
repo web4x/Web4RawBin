@@ -5,7 +5,7 @@
     "name": "RbDetailView.renderAllChildren",
     "description": "Render All Children section: iterate ALL forward array fields on model, resolve each IOR, render as rb-object-item list. No chain narrowing \u2014 shows full adjacency.",
     "implementations": [
-      "ior:instance:bfbc0874-a1b2-4c3d-8e4f-5a6b7c8d9e06"
+      "ior:instance:308008bf-70eb-4b87-82ef-d76c97590c07"
     ],
     "tests": []
   },
