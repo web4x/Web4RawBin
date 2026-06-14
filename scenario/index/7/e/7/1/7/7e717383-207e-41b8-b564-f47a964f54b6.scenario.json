@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7e717383-207e-41b8-b564-f47a964f54b6",
+    "name": "R20.5a renderAllChildrenSection",
+    "slug": "detail-sections-allchildren",
+    "file": "test/vitest/detail-sections.test.ts",
+    "status": "pass",
+    "methods": ["ior:instance:bfbc0874-77bc-4d1b-bf63-0dedbe842093"],
+    "implementations": ["ior:instance:bfbc0874-a1b2-4c3d-8e4f-5a6b7c8d9e06"]
+  },
+  "ownerIor": null
+}
