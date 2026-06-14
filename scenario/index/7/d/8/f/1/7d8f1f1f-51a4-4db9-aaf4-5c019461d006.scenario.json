@@ -3,9 +3,9 @@
   "model": {
     "uuid": "7d8f1f1f-51a4-4db9-aaf4-5c019461d006",
     "altId": "R20.7",
-    "name": "R20.7: Drawer is an OVERLAY on top of the overview — position:fixed, not embedded/split.",
-    "description": "STRUCTURAL: the drawer MUST be an OVERLAY LAYER on top of the overview page (position:fixed or absolute, z-index above overview), NOT embedded within the room page or splitting the layout. Supersedes any split-layout approach. Behaviors: (a) drawer floats on top of the overview; (b) items PARTIALLY visible (half-behind the drawer edge) are tappable on their VISIBLE exposed part → tap switches the drawer to that item's detail; (c) tapping ON the drawer overlay affects ONLY the drawer — no pass-through/click-through to the overview beneath; (d) items FULLY covered by the drawer are not tappable (acceptable — user scrolls or resizes drawer to expose them).",
-    "tronQuote": "> TRON: \"the drawer is structurally wrong. its part of the room page and not on top of the overviews page\"\n> TRON (design): \"overlay on top; you can only click an item HALF BEHIND [tap its VISIBLE part → switches]; if you click on the overlay it does NOT affect the overview.\"",
+    "name": "R20.7: Room drawer = consistent with /trace drawer + CHAT default when no selection.",
+    "description": "STRUCTURAL (reframed): the room drawer MUST behave IDENTICALLY to the (now-correct) /trace traceability-browser drawer \u2014 same structure, same selection\u2192detail behavior, same tap-to-switch, same overlay position. CONSISTENCY, not a separate/different implementation. PLUS: when NO item is selected in a room, the drawer shows the CHAT panel as default content (per R20.6b). When an item is selected \u2192 detail view (identical to /trace). /trace drawer stays unchanged (already correct). Room drawer = /trace drawer + chat-default. Supersedes the prior \"separate overlay\" framing \u2014 it is NOT a different overlay, it IS the /trace drawer reused with one behavioral addition (empty selection \u2192 chat).",
+    "tronQuote": "> TRON (original): \"the drawer is structurally wrong. its part of the room page and not on top of the overviews page\"\n> TRON (reframe): room drawer = SAME as /trace drawer (consistency) + switch to CHAT when no item selected. NOT a separate overlay \u2014 identical to the correct /trace behavior.",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
@@ -17,10 +17,10 @@
     ],
     "crossRefNote": "BUG5 (detail switch broken) + BUG4 (deselect closes) were symptoms of the structural error (drawer embedded in room page). R20.7 fixes the structure: overlay on top. Prior split approach is reverted.",
     "intendedChain": {
-      "useCase": "drawer.overlayStructure — drawer is position:fixed overlay on top of overview, not embedded",
-      "class": "RbDetailDrawer",
-      "method": "mount as overlay (position:fixed, z-index above overview, pointer-events:auto on drawer only)",
-      "test": "RED: (1) assert drawer element has position:fixed + z-index > overview. (2) tap item half-visible behind drawer edge → drawer switches to that item. (3) tap drawer body → overview does NOT receive the click (no pass-through). Currently FAILS (drawer is embedded/split in room page)."
+      "useCase": "drawer.roomConsistentWithTrace \u2014 room drawer = /trace drawer behavior + chat-default on empty selection",
+      "class": "RbDetailDrawer (shared, same instance pattern as /trace)",
+      "method": "onSelectionChange \u2014 empty\u2192renderChat (room only), selected\u2192renderDetail (same as /trace)",
+      "test": "RED: (1) room drawer position/structure matches /trace drawer (same CSS, same overlay behavior). (2) no selection in room \u2192 drawer shows chat. (3) select item \u2192 drawer shows detail (same as /trace). (4) /trace unchanged/still works."
     }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
