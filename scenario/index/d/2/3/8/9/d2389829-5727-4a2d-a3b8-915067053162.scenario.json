@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "d2389829-5727-4a2d-a3b8-915067053162",
+    "altId": "BUG12",
+    "name": "BUG12: Bug-type chain node shows NO children in /trace — forward-key resolver lacks Bug entry.",
+    "description": "BUG: in /trace, expanding a Bug-type chain node shows NO children. The chain (req→uc→class→method→impl→test) exists but doesn't render because the FORWARD_KEYS resolver has no entry for ior:class:Bug. It resolves Requirement→useCases but not Bug→useCases (Bug extends Requirement per R20.4 but the resolver doesn't inherit). FIX: add Bug (and ChangeRequest) to the FORWARD_KEYS map with the same forward keys as Requirement (useCases[], tasks[]). Tron evidence: IMG_4038.",
+    "tronQuote": "> TRON: \"switched but no children\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:ea212274-22c0-4987-9bb2-99262b22f550"
+    ],
+    "crossRefNote": "R20.4 (Bug+ChangeRequest extend Requirement) defined the OOP subtype. BUG12 = the FORWARD_KEYS resolver doesn't recognize the subtype — needs Bug/ChangeRequest entries with same keys as Requirement.",
+    "intendedChain": {
+      "useCase": "traceChildren.resolveBugType — Bug/ChangeRequest nodes resolve children via same forward keys as Requirement",
+      "class": "Server trace-children API (FORWARD_KEYS map)",
+      "method": "FORWARD_KEYS['Bug'] = FORWARD_KEYS['Requirement'] (useCases[], tasks[])",
+      "test": "RED: tap a Bug node (e.g. BUG8 12cf7bb5) in /trace → assert its UC child (38204812) renders → chain expands fully. Currently FAILS (no children)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
