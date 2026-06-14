@@ -305,3 +305,74 @@ grew (e.g. Impl wired since last reload), the pin updates automatically.
 The server hook is a 1-line addition BUT must go in the expert's rewritten unit-sourced
 /api/trace handler (Phase 2), NOT the current scanRepo-based one. Until then, the pin
 auto-derives via the CLI `focus` verb (planner calls it when WIP switches).
+
+## Per-agent realtime hop update (Tron directive 2026-06-14)
+
+Each agent updates THEIR hop's status as they work — the pin reflects who is
+working which hop in realtime.
+
+### CLI verb
+
+```bash
+# Architect starts working on UseCase
+npx tsx scripts/planner-drive.ts hop uc in-progress architect
+
+# Expert finishes Implementation
+npx tsx scripts/planner-drive.ts hop impl done expert
+
+# Tester marks test gate-proven (after det-3x + deploy green)
+npx tsx scripts/planner-drive.ts hop test gate-proven tester
+```
+
+### Role → hop ownership
+
+| Hop | Owner | When they call |
+|---|---|---|
+| req | req-eng | after capture |
+| uc | architect | designing UC |
+| class | architect | wiring class |
+| method | expert | coding the method |
+| impl | expert | marker placed + wireImplNode |
+| test | tester | test written + det-3x proven |
+
+### Pin reads per-hop state
+
+`getActiveChain()` now returns `hopState` per hop:
+
+```json
+{ "type": "impl", "uuid": "...", "status": "active",
+  "hopState": { "status": "in-progress", "owner": "expert", "updatedAt": "..." } }
+```
+
+## Task-switch gate (WIP=1 = proven-or-stay)
+
+`setFocus(<new-task>)` is BLOCKED unless:
+- The current task's test hop has status `gate-proven`, OR
+- No current task is focused (first task), OR
+- `--force` flag (escape hatch — logged, visible)
+
+**Gate-proven** means the tester has called:
+```bash
+npx tsx scripts/planner-drive.ts hop test gate-proven tester
+```
+...which they do ONLY after det-3x + deploy verification pass.
+
+### Enforcement flow
+
+```
+planner: focus <new-task>
+  → CurrentSprint.setFocus checks isGateProven()
+  → test.status !== 'gate-proven' → BLOCKED
+  → "BLOCKED: current task test hop not gate-proven. Use --force to override."
+
+tester: hop test gate-proven tester
+  → hopStates.test = {status:'gate-proven', owner:'tester', ...}
+
+planner: focus <new-task>
+  → isGateProven() = true → ALLOWED → task switches
+```
+
+### --force (escape hatch)
+`npx tsx scripts/planner-drive.ts focus <task> --force` bypasses the gate.
+Use for: hotfix override, Tron-directed task switch. The force is logged
+(persist shows no gate-proven on prior task — auditable).

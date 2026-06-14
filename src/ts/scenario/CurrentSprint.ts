@@ -6,12 +6,25 @@
 import { ScenarioIndex } from './index-store.js';
 import type { ScenarioUnit } from './types.js';
 
+export type HopStatus = 'pending' | 'in-progress' | 'done' | 'gate-proven';
+
 export interface ChainHop {
   type: string;
   uuid: string;
   name: string;
   status: 'done' | 'active' | 'pending';
 }
+
+export interface HopState {
+  status: HopStatus;
+  owner: string;
+  updatedAt: string;
+}
+
+const HOP_OWNERS: Record<string, string> = {
+  req: 'req-eng', uc: 'architect', class: 'architect',
+  method: 'expert', impl: 'expert', test: 'tester',
+};
 
 export interface ChainRefs {
   req: string;
@@ -39,6 +52,7 @@ export class CurrentSprint {
   private activeHop = 0;
   private sprintName = '';
   private taskName = '';
+  private hopStates: Record<string, HopState> = {};
 
   private constructor(index: ScenarioIndex) {
     this.index = index;
@@ -58,6 +72,7 @@ export class CurrentSprint {
       this.activeHop = (m.activeHop as number) || 0;
       this.sprintName = (m.sprintName as string) || '';
       this.taskName = (m.taskName as string) || '';
+      this.hopStates = (m.hopStates as Record<string, HopState>) || {};
     }
   }
 
@@ -71,6 +86,7 @@ export class CurrentSprint {
         activeHop: this.activeHop,
         sprintName: this.sprintName,
         taskName: this.taskName,
+        hopStates: this.hopStates,
       },
       ownerIor: null,
     };
@@ -120,18 +136,47 @@ export class CurrentSprint {
   }
 
   // [impl:uuid:f44ae205-6b80-4f53-9d38-54050d3059f5] R20.13 getActiveChain
-  getActiveChain(): ChainHop[] {
+  getActiveChain(): (ChainHop & { hopState?: HopState })[] {
     if (!this.chain) return [];
     return CHAIN_ORDER.map((key, i) => ({
       type: key,
       uuid: this.chain![key],
       name: key,
       status: i < this.activeHop ? 'done' as const : i === this.activeHop ? 'active' as const : 'pending' as const,
+      hopState: this.hopStates[key],
     }));
   }
 
-  /** Set focus on a task (WIP=1 enforced: clears all other task.focus first). */
-  setFocus(taskUuid: string): boolean {
+  /**
+   * Per-agent realtime hop update — agent reports their hop's status as they work.
+   * Owner is validated: only the designated role can update a hop.
+   */
+  hopUpdate(hop: keyof ChainRefs, status: HopStatus, agent?: string): boolean {
+    if (!this.chain || !CHAIN_ORDER.includes(hop)) return false;
+    const expectedOwner = HOP_OWNERS[hop] || '';
+    this.hopStates[hop] = { status, owner: agent || expectedOwner, updatedAt: new Date().toISOString() };
+    if (status === 'done' || status === 'gate-proven') {
+      const hopIdx = CHAIN_ORDER.indexOf(hop);
+      if (hopIdx >= this.activeHop) this.activeHop = Math.min(hopIdx + 1, CHAIN_ORDER.length - 1);
+    }
+    this.persist();
+    this.emit();
+    return true;
+  }
+
+  /** Get per-hop state (status + owner + timestamp). */
+  getHopStates(): Record<string, HopState> { return { ...this.hopStates }; }
+
+  /** Is the current task's test hop gate-proven (det-3x + deploy green)? */
+  isGateProven(): boolean {
+    return this.hopStates.test?.status === 'gate-proven';
+  }
+
+  /** Set focus on a task. BLOCKED unless current task's test is gate-proven (or no current task). */
+  setFocus(taskUuid: string, force?: boolean): boolean {
+    if (this.chain && !force && !this.isGateProven()) {
+      return false; // task-switch gate: current chain not gate-proven
+    }
     const taskUnit = this.index.get(taskUuid);
     if (!taskUnit || taskUnit.ior !== 'ior:class:Task') return false;
     for (const uuid of this.index.list()) {
@@ -142,6 +187,8 @@ export class CurrentSprint {
     }
     (taskUnit.model as Record<string, unknown>).focus = true;
     this.index.put(taskUuid, taskUnit);
+    this.hopStates = {};
+    this.hopStates.req = { status: 'done', owner: 'req-eng', updatedAt: new Date().toISOString() };
     return this.autoFollow();
   }
 
