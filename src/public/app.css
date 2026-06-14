@@ -82,6 +82,10 @@ rb-object-item[active] { box-shadow: 0 0 0 2px white; }
 rb-object-item { max-width: 100%; }
 rb-object-item:hover .oi-name { white-space: normal; word-break: break-word; }
 .trace-tree-panel { overflow-x: hidden; }
+.pinned-sprint { background: rgba(102,126,234,0.1); border: 1px solid rgba(102,126,234,0.3); border-radius: 12px; padding: 8px; margin-bottom: 12px; }
+.pin-label { font-size: 0.75rem; font-weight: 600; color: #667eea; }
+.pin-sprint-name { font-weight: 600; color: white; font-size: 0.9rem; }
+.pin-task { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 2px; }
 .oi-name { color: white; font-weight: 600; font-size: 0.85rem; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .oi-desc { color: rgba(255,255,255,0.5); font-size: 0.75rem; margin: 2px 0 0; word-wrap: break-word; overflow-wrap: break-word; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 /* T115: collapse/expand + children expander + badge */

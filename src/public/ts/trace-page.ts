@@ -25,6 +25,29 @@ async function load(): Promise<void> {
 
     treeMount.innerHTML = '';
 
+    // [impl:uuid:062b6920-e2a6-4774-b369-afac243dc46d] R20.12 renderPinnedSprint
+    if (sprints.length > 0) {
+      const current = sprints[sprints.length - 1];
+      const pinned = document.createElement('div');
+      pinned.className = 'pinned-sprint';
+      try {
+        const childRes = await fetch(`/api/trace/children/${current.uuid}`);
+        const childData = await childRes.json();
+        const wipTask = (childData.children || []).find((c: any) => c.status === 'In Progress');
+        pinned.innerHTML = '<div class="pin-label">📌 CURRENT SPRINT</div>' +
+          '<div class="pin-sprint-name">' + (current.name || '') + '</div>' +
+          (wipTask ? '<div class="pin-task">' + wipTask.name + '</div>' : '');
+      } catch {
+        pinned.innerHTML = '<div class="pin-label">📌 CURRENT SPRINT</div><div class="pin-sprint-name">' + (current.name || '') + '</div>';
+      }
+      const pinnedTree = document.createElement('rb-trace-tree') as any;
+      pinnedTree.setAttribute('data-seed-ior', current.uuid);
+      pinnedTree.setAttribute('data-mode', 'trace');
+      pinned.appendChild(pinnedTree);
+      treeMount.appendChild(pinned);
+      pinnedTree.graph = graph;
+    }
+
     // Build Sprint root nodes as seed trees with mode=trace
     for (const sprint of sprints) {
       const tree = document.createElement('rb-trace-tree') as HTMLElement & { setGraph(g: unknown, broken: string[]): void };

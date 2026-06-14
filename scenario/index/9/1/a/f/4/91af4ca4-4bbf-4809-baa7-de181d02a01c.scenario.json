@@ -4,7 +4,9 @@
     "uuid": "91af4ca4-4bbf-4809-baa7-de181d02a01c",
     "name": "TracePage.renderPinnedSprint",
     "description": "Render pinned current sprint row above sprint list. Fetches highest-number sprint from /api/trace/sprints. Fetches its children to find first In-Progress task. Renders pin-label + task subtitle + rb-trace-tree seed.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:062b6920-e2a6-4774-b369-afac243dc46d"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:e0fcc6a3-49ac-46b5-82ad-6a2bce81ed49"

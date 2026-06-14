@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "062b6920-e2a6-4774-b369-afac243dc46d",
+    "name": "renderPinnedSprint impl",
+    "sourceFile": "ior:file:src/public/ts/trace-page.ts",
+    "sourceLine": 29,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:91af4ca4-4bbf-4809-baa7-de181d02a01c"
+}
