@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "bd9bb433-8955-4788-a785-d8add91897cb",
-    "altId": "R19.89",
+    "altId": "R19.89-DELETED-DUP",
     "name": "R19.89: Move Remove-Local-Identity button from ProfileEditor gate to DeviceEnrollDialog.",
     "description": "Red Remove-Local-Identity button (ProfileEditor L68, handler L154, impl 25884b0c) is on the gate screen (profile commit). It belongs on the DeviceEnrollDialog (Authorize This Device / 4-digit secret code). Move button + handler to DeviceEnrollDialog. Logic stays identical.",
     "tronQuote": "> TRON: remove local identity button is on the wrong screen \u2014 move it to the device enroll dialog",
@@ -12,7 +12,9 @@
     "tests": [],
     "sourceFile": "",
     "unitLinks": [],
-    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "supersededBy": "ior:instance:2ad3fd18-6d78-4aa2-8213-36934b0f3504",
+    "supersededNote": "Redundant duplicate of R19.89 (2ad3fd18). Same behavior (button on DeviceEnrollDialog). Deleted from active set."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
