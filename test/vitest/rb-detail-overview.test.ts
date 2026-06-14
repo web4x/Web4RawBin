@@ -11,6 +11,7 @@ import { RbDetailView } from '../../src/public/ts/trace/rb-detail-view.js';
 import { RbOverview } from '../../src/public/ts/trace/rb-overview.js';
 import { ViewBus } from '../../src/public/ts/trace/ViewBus.js';
 import { setActiveRouter } from '../../src/public/ts/trace/nav.js';
+import { selectionModel } from '../../src/public/ts/trace/selection-model.js';
 
 // jsdom may evaluate the module before customElements attaches → ensure registration (tester pattern)
 if (!customElements.get('rb-detail-view')) customElements.define('rb-detail-view', RbDetailView);
@@ -46,10 +47,11 @@ describe('T107 rb-detail-view', () => {
     expect(el.querySelector('.dv-title')!.textContent).toBe('R15.6');
     const rows = el.querySelectorAll('.dv-link');
     expect(rows.length).toBe(2); // 2 usecase links (chain: Req→UC)
-    const navSpy = vi.fn();
-    setActiveRouter({ navigate: navSpy });
+    selectionModel.clear();
     (rows[0] as HTMLElement).click();
-    expect(navSpy).toHaveBeenCalledWith('usecase', 'show', { uuid: expect.stringMatching(/^[0-9a-f-]{36}$/) });
+    const selected = selectionModel.getSelected();
+    expect(selected.length).toBe(1);
+    expect(selected[0]).toMatch(/^usecase:[0-9a-f-]{36}$/);
   });
 
   it('re-renders on ViewBus.notify(ref) after a title change (AC3)', () => {

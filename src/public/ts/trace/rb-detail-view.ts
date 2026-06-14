@@ -13,6 +13,7 @@
 import { TraceGraph, refUuid, type ObjectRef } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
+import { selectionModel } from './selection-model.js';
 import { forwardOnly } from './forward-only.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
 import { renderContentPreview, loadTextPreview, wireUrlActions } from './content-preview.js';
@@ -51,12 +52,12 @@ export class RbDetailView extends HTMLElement {
         if (sourceFile && head) head.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine));
         if (parent && head) {
           head.insertAdjacentHTML('afterend', renderParentLink(parent));
-          this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid }); });
+          this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); selectionModel.replaceWith(`${parent.type.toLowerCase()}:${parent.uuid}`); });
         }
         const container = this.querySelector('.dv-scenario-children');
         if (!container || children.length === 0) { if (container) container.innerHTML = '<div class="dv-empty">no children</div>'; return; }
         container.innerHTML = `<h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:4px">Children</h4>` + children.map(c => `<div class="dv-link" data-ref="${c.type.toLowerCase()}:${c.uuid}"><span class="dv-rel">${c.type}</span><span class="dv-link-title">${c.name}</span></div>`).join('');
-        container.querySelectorAll('.dv-link').forEach(row => { row.addEventListener('click', () => { const lref = (row as HTMLElement).dataset.ref!; navigate(lref.split(':')[0], 'show', { uuid: lref.split(':')[1] || lref }); }); });
+        container.querySelectorAll('.dv-link').forEach(row => { row.addEventListener('click', () => { const lref = (row as HTMLElement).dataset.ref!; selectionModel.replaceWith(lref); }); });
       });
       return;
     }
@@ -89,7 +90,7 @@ export class RbDetailView extends HTMLElement {
       row.addEventListener('click', () => {
         const lref = (row as HTMLElement).dataset.ref!;
         const [type] = lref.split(':');
-        navigate(type, 'show', { uuid: refUuid(lref) });
+        selectionModel.replaceWith(lref);
       });
     });
 
@@ -106,7 +107,7 @@ export class RbDetailView extends HTMLElement {
         parentDiv.insertAdjacentHTML('afterend', renderParentLink(parent));
         this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => {
           e.preventDefault();
-          navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid });
+          selectionModel.replaceWith(`${parent.type.toLowerCase()}:${parent.uuid}`);
         });
       }
       renderAllChildrenSection(this, children);
