@@ -4,7 +4,7 @@
     "uuid": "abeee6f4-0476-4bc1-a0e5-31d91e040d2a",
     "name": "detailView.renderSuperseded",
     "description": "R20.5c: Detail view renders superseded/duplicateOf links for dedup traceability.",
-    "class": "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5",
+    "class": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07",
     "method": "ior:instance:31c6e25e-c65e-4039-ad01-f0dd87978ed1",
     "tasks": [
       "ior:instance:f3e0b558-116b-4659-8de7-efa0322451ac"
@@ -12,7 +12,7 @@
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5"
+      "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
     ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

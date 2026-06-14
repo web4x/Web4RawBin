@@ -4,7 +4,7 @@
     "uuid": "98441d03-fb7d-48a6-96ce-ab37074b79d3",
     "name": "detailView.renderAllChildren",
     "description": "R20.5a: Detail view renders ALL children section \u2014 union of ALL model forward arrays.",
-    "class": "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5",
+    "class": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07",
     "method": "ior:instance:bfbc0874-77bc-4d1b-bf63-0dedbe842093",
     "tasks": [
       "ior:instance:f3e0b558-116b-4659-8de7-efa0322451ac"
@@ -12,7 +12,7 @@
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5"
+      "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
     ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
