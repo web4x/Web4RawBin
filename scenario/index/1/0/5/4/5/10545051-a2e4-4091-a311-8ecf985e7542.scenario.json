@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "10545051-a2e4-4091-a311-8ecf985e7542",
+    "name": "T: url-drawer-regression / .url click opens drawer (BUG13)",
+    "status": "planned",
+    "coveredRequirements": [
+      "ior:instance:f420e98a-3d41-4c08-b5d3-936bad0fddb5"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
