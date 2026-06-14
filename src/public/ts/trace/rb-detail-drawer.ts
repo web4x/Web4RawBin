@@ -61,6 +61,8 @@ export class RbDetailDrawer extends HTMLElement {
     } else if (selected.length === 0) {
       // [impl:uuid:c3c70517-b56c-4765-94ae-cb677601f99c] R20.6 emptyShowsChat
       this.removeAttribute('ref');
+      const dp = this.detailPanel;
+      if (dp) dp.dataset.currentRef = '';
       if (this.chatPanel) this.setMode('chat');
     }
   };
