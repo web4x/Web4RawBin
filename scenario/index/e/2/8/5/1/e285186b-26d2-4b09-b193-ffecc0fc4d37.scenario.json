@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "e285186b-26d2-4b09-b193-ffecc0fc4d37",
+    "name": "currentSprint.getActiveChain",
+    "description": "Return ordered chain array [{type,uuid,name,status}] from Req to Test. Planner's primary read API.",
+    "class": "ior:instance:43d570be-eb8f-45d7-a666-826e88184121",
+    "method": "ior:instance:1f3ec50f-1fff-4767-88e9-12be32948360",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

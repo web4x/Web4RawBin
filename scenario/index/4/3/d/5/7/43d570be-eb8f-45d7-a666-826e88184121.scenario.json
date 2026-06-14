@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "43d570be-eb8f-45d7-a666-826e88184121",
+    "name": "CurrentSprint",
+    "description": "Dedicated typed class (ior:class:CurrentSprint). Singleton holding the active WIP=1 chain (req\u2192uc\u2192class\u2192method\u2192impl\u2192test). Real code class with real method bodies. Persisted as scenario unit. Planner drives with it, /trace pin renders from it.",
+    "methods": [
+      "ior:instance:82870570-3a8b-47dd-8389-d6ca0470c479",
+      "ior:instance:342c69d8-02dc-4809-8ed4-c6f72e33cc4c",
+      "ior:instance:ec10fad2-e8dd-4bce-b52c-ff2caeccaaf0",
+      "ior:instance:1f3ec50f-1fff-4767-88e9-12be32948360"
+    ]
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

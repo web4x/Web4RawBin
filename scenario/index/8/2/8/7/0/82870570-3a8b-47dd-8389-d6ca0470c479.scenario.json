@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "82870570-3a8b-47dd-8389-d6ca0470c479",
+    "name": "CurrentSprint.setChain",
+    "description": "Set the active WIP=1 chain. Accepts {req, task, uc, class, method, impl, test} IOR refs. Validates 6-step forward-only. Persists to scenario index as ior:class:CurrentSprint unit. Emits current-sprint-changed event.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:43d570be-eb8f-45d7-a666-826e88184121"
+}

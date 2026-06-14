@@ -1,0 +1,56 @@
+@startuml r20-13-current-sprint-class
+!theme plain
+title R20.13 — CurrentSprint Dedicated Typed Class
+
+class "CurrentSprint\nclass:43d570be\nior:class:CurrentSprint" as CS {
+  - chain: ChainHop[]
+  - sprintUuid: string
+  - taskUuid: string
+  --
+  [method:82870570] + setChain(refs: ChainRefs): void
+  [method:342c69d8] + pinCurrent(): PinData
+  [method:ec10fad2] + advance(): void
+  [method:1f3ec50f] + getActiveChain(): ChainHop[]
+}
+
+class "ChainRefs" as CR {
+  req: string
+  uc: string
+  class: string
+  method: string
+  impl: string
+  test: string
+}
+
+class "ChainHop" as CH {
+  type: string
+  uuid: string
+  name: string
+  status: 'pending' | 'done'
+}
+
+class "PinData" as PD {
+  sprintName: string
+  taskName: string
+  chainDepth: number
+  wipStatus: string
+}
+
+CS --> CR : setChain accepts
+CS --> CH : getActiveChain returns[]
+CS --> PD : pinCurrent returns
+
+note bottom of CS
+  FILE: src/ts/scenario/CurrentSprint.ts
+  SINGLETON: one active chain at a time (WIP=1)
+  PERSISTED: scenario/index as ior:class:CurrentSprint unit
+  EVENT: dispatches 'current-sprint-changed' on document
+  CONSUMERS: planner skill (driveNext/status), /trace pin-row (R20.12)
+
+  setChain: validates 6-step forward-only, persists, emits event
+  pinCurrent: read-only, returns data for /trace UI pin
+  advance: moves focus to next chain hop after completion
+  getActiveChain: ordered array Req→UC→Class→Method→Impl→Test
+end note
+
+@enduml

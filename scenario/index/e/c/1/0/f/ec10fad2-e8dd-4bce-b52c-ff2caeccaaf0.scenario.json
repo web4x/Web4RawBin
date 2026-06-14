@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ec10fad2-e8dd-4bce-b52c-ff2caeccaaf0",
+    "name": "CurrentSprint.advance",
+    "description": "Transition the chain to the next hop. E.g., after expert ships [impl:uuid], advance marks Implementation done and moves focus to Test. Updates the persisted unit. Planner calls this to drive the chain forward.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:43d570be-eb8f-45d7-a666-826e88184121"
+}
