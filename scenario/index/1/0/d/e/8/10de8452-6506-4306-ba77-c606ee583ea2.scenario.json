@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "10de8452-6506-4306-ba77-c606ee583ea2",
+    "name": "TraceGraph",
+    "description": "Trace graph model \u2014 holds all typed objects + forward links. src/ts/shared/TraceModel.ts. buildFromScenarioIndex replaces scanRepo-based construction.",
+    "methods": [
+      "ior:instance:a3839bd8-ead3-497b-9327-ce86f79a27f6"
+    ]
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
