@@ -266,9 +266,10 @@ rb-detail-drawer {
   box-shadow: none;
   transform: translateY(100%); transition: transform 0.25s ease-out;
   z-index: 100; overflow: hidden; display: flex; flex-direction: column;
-  word-break: break-word; visibility: hidden;
+  word-break: break-word; visibility: hidden; pointer-events: none;
 // [impl:uuid:1dae7316-28c5-480e-81c4-fc2874fa8c5d] drawer-header close X pinned CSS
 }
+rb-detail-drawer > * { pointer-events: auto; }
 .drawer-header { position: sticky; top: 0; z-index: 2; background: #1a1a2e; display: flex; align-items: center; padding: 0; flex-shrink: 0; min-height: 36px; }
 .drawer-header .drawer-handle { flex: 1; display: flex; justify-content: center; padding: 12px 8px; cursor: grab; -webkit-tap-highlight-color: transparent; touch-action: none; }
 .drawer-header .drawer-handle-bar { width: 40px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; }
