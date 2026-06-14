@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b97838a0-9cf5-4651-b0a1-6e98cfa5fd51",
+    "name": "getCropTransformCSS returns valid transform string",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-57.2: Overlay pinch (2-touch) and pan (1-touch)",
+    "it": "getCropTransformCSS returns valid transform string",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

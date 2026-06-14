@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "096dc899-8584-4ab9-a0bd-f961b6f0236b",
+    "name": "[impl:uuid:da9462f5] marker present in app.css source context",
+    "file": "test/vitest/drawer-fullwidth-sticky.test.ts",
+    "describe": "[test:uuid:a7e34f12] R19.52 detailDrawer.fullWidth",
+    "it": "[impl:uuid:da9462f5] marker present in app.css source context",
+    "testUuid": "7d6badb4-a27d-4c9d-b7f8-385fc9636e90",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7d6badb4-a27d-4c9d-b7f8-385fc9636e90"
+}

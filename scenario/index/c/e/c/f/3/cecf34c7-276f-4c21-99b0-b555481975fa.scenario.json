@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "cecf34c7-276f-4c21-99b0-b555481975fa",
+    "name": "renderSupersededSection is imported and called in rb-requirement-detail.ts",
+    "file": "test/vitest/detail-sections.test.ts",
+    "describe": "R20.5c renderSupersededSection",
+    "it": "renderSupersededSection is imported and called in rb-requirement-detail.ts",
+    "testUuid": "7e717383-207e-41b8-b564-f47a964f54b6",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7e717383-207e-41b8-b564-f47a964f54b6"
+}

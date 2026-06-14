@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2daa1aa3-552f-4aa8-9959-351db051e3e7",
+    "name": ".gitignore is excluded",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-60.3: Hidden file exclusion",
+    "it": ".gitignore is excluded",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

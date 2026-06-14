@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "66c92fb1-cf27-497c-bb04-6f11df28584a",
+    "name": "parses <<UseCase>> blocks and creates UseCase objects linked to tasks",
+    "file": "test/vitest/trace-consistency.test.ts",
+    "describe": "Pass 4: PUML UseCase parsing (T117)",
+    "it": "parses <<UseCase>> blocks and creates UseCase objects linked to tasks",
+    "testUuid": "ce5c47ad-dabb-44e5-a8f6-3ee506d34127",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:ce5c47ad-dabb-44e5-a8f6-3ee506d34127"
+}

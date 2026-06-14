@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "74f9f98d-25f0-4f57-924b-6be32c544816",
+    "name": "R18.31: put() auto-syncs symlinks when unitLinks[] present",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T125.3: ScenarioIndex storage",
+    "it": "R18.31: put() auto-syncs symlinks when unitLinks[] present",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "20dbfa2c-be46-4042-8e46-4db2dc76aa9e",
+    "name": "\\n",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "",
+    "it": "\\n",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

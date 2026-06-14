@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "77b1fb5c-0c60-4e7c-9621-e98dd055d329",
+    "name": "client has messageQueue property",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-33.2: Message queue",
+    "it": "client has messageQueue property",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

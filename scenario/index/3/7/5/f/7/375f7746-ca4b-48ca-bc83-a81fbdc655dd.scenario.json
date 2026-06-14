@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "375f7746-ca4b-48ca-bc83-a81fbdc655dd",
+    "name": ".git root blocked",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-62.3: Additional blocked paths",
+    "it": ".git root blocked",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

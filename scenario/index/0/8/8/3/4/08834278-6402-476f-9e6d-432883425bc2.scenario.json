@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "08834278-6402-476f-9e6d-432883425bc2",
+    "name": "edge: a file unrecoverable under the current key is counted lost + skipped (no throw)",
+    "file": "test/vitest/avatar-rekey.test.ts",
+    "describe": "Avatar survives keypair regen — rekeyUser (v0.5.9)",
+    "it": "edge: a file unrecoverable under the current key is counted lost + skipped (no throw)",
+    "testUuid": "3615a349-01ac-4816-ac6d-c343ff1d3050",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3615a349-01ac-4816-ac6d-c343ff1d3050"
+}

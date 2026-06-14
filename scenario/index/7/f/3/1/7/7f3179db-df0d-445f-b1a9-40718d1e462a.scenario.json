@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "7f3179db-df0d-445f-b1a9-40718d1e462a",
+    "name": "ETag is quoted MD5 hash",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-49.3: ETag header",
+    "it": "ETag is quoted MD5 hash",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

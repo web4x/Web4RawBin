@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "783131ec-135b-4ed3-8e63-5772004be716",
+    "name": "message renders with sender name in DOM",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-42.1: Chat sheet — addMessage renders with sender name",
+    "it": "message renders with sender name in DOM",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

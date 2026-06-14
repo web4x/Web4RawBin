@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "08482028-94d5-4028-90f9-29cae6ecb6f4",
+    "name": "returns null before key generation",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.6: getUserPublicKey returns PEM",
+    "it": "returns null before key generation",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "67eb8d6b-9b56-4f27-a5de-8482bdf5f22c",
+    "name": "has preview panel slot or section",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-64.3: three panel slots (tree/editor/preview)",
+    "it": "has preview panel slot or section",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

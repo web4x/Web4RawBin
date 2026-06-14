@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ba5f19fa-f53a-41b6-90f0-bc8ace0060c2",
+    "name": "layout has mobile breakpoint at or near 768px",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-71.1: Mobile breakpoint @media 768px",
+    "it": "layout has mobile breakpoint at or near 768px",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

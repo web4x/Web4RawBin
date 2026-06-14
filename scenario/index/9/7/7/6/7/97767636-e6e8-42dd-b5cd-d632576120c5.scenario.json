@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "97767636-e6e8-42dd-b5cd-d632576120c5",
+    "name": "show() creates overlay element",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.1: Overlay backdrop creation",
+    "it": "show() creates overlay element",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

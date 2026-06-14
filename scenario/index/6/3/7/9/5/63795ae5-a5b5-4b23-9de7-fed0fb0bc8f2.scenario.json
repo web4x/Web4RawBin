@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "63795ae5-a5b5-4b23-9de7-fed0fb0bc8f2",
+    "name": "[impl:uuid:79505a42] marker present (Impl uuid)",
+    "file": "test/vitest/flush-cache.test.ts",
+    "describe": "flush PWA cache (R19.45)",
+    "it": "[impl:uuid:79505a42] marker present (Impl uuid)",
+    "testUuid": "919e6fa6-6c30-47a3-90f3-184abdb6f653",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:919e6fa6-6c30-47a3-90f3-184abdb6f653"
+}

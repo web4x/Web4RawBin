@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "06e11520-1f90-4e80-ba97-32fe597ac1e4",
+    "name": "phone + url included when present",
+    "file": "test/vitest/vcard-photo.test.ts",
+    "describe": "vCard photo + UUID (v0.5.14)",
+    "it": "phone + url included when present",
+    "testUuid": "40f20e19-71a5-47ff-9391-75661b520ed2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:40f20e19-71a5-47ff-9391-75661b520ed2"
+}

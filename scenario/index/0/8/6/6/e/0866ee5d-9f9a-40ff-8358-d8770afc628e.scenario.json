@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0866ee5d-9f9a-40ff-8358-d8770afc628e",
+    "name": "removeRoom drops in-memory entry (disk cleanup is server handler)",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.7: Per-user persistence (T99)",
+    "it": "removeRoom drops in-memory entry (disk cleanup is server handler)",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

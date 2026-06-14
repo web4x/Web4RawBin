@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "1d139366-ae8f-404b-81a9-01b9be91ae1e",
+    "name": "app.html exists for /app route",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.1: Build output",
+    "it": "app.html exists for /app route",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

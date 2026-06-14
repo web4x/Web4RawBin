@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "55d868b8-5016-47c7-8162-60a56db9888e",
+    "name": "has Save button or save action",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-70.4: save button reference",
+    "it": "has Save button or save action",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

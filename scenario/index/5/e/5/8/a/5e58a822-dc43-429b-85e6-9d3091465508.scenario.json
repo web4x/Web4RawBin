@@ -15,7 +15,15 @@
     "sourceFile": "ior:file:test/e2e/contacts-ui.spec.ts",
     "sourceLine": 3,
     "parent": "ior:instance:f2c32dc3-269d-41b7-80db-5fa6d786c221",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:a8824941-7662-42ef-af12-070694a29d0f",
+      "ior:instance:d57aef68-3778-4cca-a3d0-4d28001c1c98",
+      "ior:instance:cdd9e71e-0685-4b52-99f8-4893a167f534",
+      "ior:instance:dbbaf6fb-695f-4f58-8e78-8a5f3b0b0e3b",
+      "ior:instance:4582c3ba-5979-44b2-810a-4d56ae409460",
+      "ior:instance:f0abb7a7-bef6-41c0-80b0-d3651e7e1df1"
+    ]
   },
   "ownerIor": "ior:instance:f2c32dc3-269d-41b7-80db-5fa6d786c221"
 }

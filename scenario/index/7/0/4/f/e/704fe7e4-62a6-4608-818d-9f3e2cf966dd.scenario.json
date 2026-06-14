@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "704fe7e4-62a6-4608-818d-9f3e2cf966dd",
+    "name": "listComplete returns exactly the complete set (count matches followUp.complete)",
+    "file": "test/vitest/object-verb.test.ts",
+    "describe": "Chain canonical semantics on a fixture index",
+    "it": "listComplete returns exactly the complete set (count matches followUp.complete)",
+    "testUuid": "7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d"
+}

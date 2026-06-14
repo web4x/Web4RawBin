@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0f430305-66f5-4443-bdd9-d0d360c2f766",
+    "name": "subsequent write with returned mtime succeeds",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-61.8: mtime changes after write",
+    "it": "subsequent write with returned mtime succeeds",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2aa7d31c-d2d8-4876-b514-6661bd75ed02",
+    "name": "lintMarkers flags shared-impl and orphan-marker",
+    "file": "test/vitest/object-verb.test.ts",
+    "describe": "HARD RULE: shared-impl gate + lintMarkers",
+    "it": "lintMarkers flags shared-impl and orphan-marker",
+    "testUuid": "7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d"
+}

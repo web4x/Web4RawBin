@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c118cee1-aee9-416b-ba50-53c9f770560e",
+    "name": "replayed signature with different challenge returns false",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-12.8.3: Invalid signature rejected",
+    "it": "replayed signature with different challenge returns false",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

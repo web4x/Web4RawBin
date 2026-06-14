@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "802ceacb-94c6-44ab-8cf3-712f0f6ea13c",
+    "name": "show after close works",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-45.3: rb-qr-popup — close button",
+    "it": "show after close works",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f9ce1d8c-c0df-4858-990a-d3490c2fddd0",
+    "name": "re-sorting already-sorted list is idempotent (stable across restart)",
+    "file": "test/vitest/room-order.test.ts",
+    "describe": "TC-95.3: Stable / no rooms dropped (AC3/AC5)",
+    "it": "re-sorting already-sorted list is idempotent (stable across restart)",
+    "testUuid": "80c16527-a6b6-4b5f-8c94-0d76e838d2b3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:80c16527-a6b6-4b5f-8c94-0d76e838d2b3"
+}

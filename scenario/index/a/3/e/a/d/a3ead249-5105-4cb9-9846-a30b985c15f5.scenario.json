@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a3ead249-5105-4cb9-9846-a30b985c15f5",
+    "name": "renderSingularChain produces ↓ arrows between steps",
+    "file": "test/vitest/impl-coverage-batch.test.ts",
+    "describe": "[test:uuid:1a22ed27] singularChain",
+    "it": "renderSingularChain produces ↓ arrows between steps",
+    "testUuid": "8a5b7618-5f72-4872-bf97-37496c4a9b8d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8a5b7618-5f72-4872-bf97-37496c4a9b8d"
+}

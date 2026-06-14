@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "44780d20-07c0-46cb-9379-c197b5fd1bd7",
+    "name": "file in nonexistent dir returns 404",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-61.7: writeFile 404 for nonexistent",
+    "it": "file in nonexistent dir returns 404",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "163299d4-3432-4854-9860-1bb86da45ae5",
+    "name": "server.ts has /api/avatar route for serving",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-53.2: No per-connection random avatar",
+    "it": "server.ts has /api/avatar route for serving",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

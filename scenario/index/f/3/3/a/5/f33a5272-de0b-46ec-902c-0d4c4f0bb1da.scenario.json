@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f33a5272-de0b-46ec-902c-0d4c4f0bb1da",
+    "name": "CREATE_ROOM handler references profile avatar not connection avatar",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-53.2: No per-connection random avatar",
+    "it": "CREATE_ROOM handler references profile avatar not connection avatar",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b401872d-9da3-4f8b-800d-8e050d6b48c2",
+    "name": "shows home button when showHome=true",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-40.1: Header creation",
+    "it": "shows home button when showHome=true",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "454282e7-c07e-4d58-99cc-71ac5d9e673b",
+    "name": "(7) Room visible when owner connected",
+    "file": "test/e2e/room-identity.spec.ts",
+    "describe": "T79: Room Identity E2E",
+    "it": "(7) Room visible when owner connected",
+    "testUuid": "e906138a-581d-4c07-8198-eedaf0e20af4",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e906138a-581d-4c07-8198-eedaf0e20af4"
+}

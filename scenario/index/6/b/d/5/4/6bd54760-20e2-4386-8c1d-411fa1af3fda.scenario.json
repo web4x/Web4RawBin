@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6bd54760-20e2-4386-8c1d-411fa1af3fda",
+    "name": "RoomView click handler dispatches file/url/webitem types to openFilePreview",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.86: file/url/webitem click → openFilePreview → drawer opens",
+    "it": "RoomView click handler dispatches file/url/webitem types to openFilePreview",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "76bcfed2-5f90-4df2-b379-469bda820bd7",
+    "name": "overlay 300px translate converts to 0-1 range",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-PDCA.4: Crop stored as percentages not pixels",
+    "it": "overlay 300px translate converts to 0-1 range",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

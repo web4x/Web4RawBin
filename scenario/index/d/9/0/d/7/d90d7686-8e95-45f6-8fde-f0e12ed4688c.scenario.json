@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d90d7686-8e95-45f6-8fde-f0e12ed4688c",
+    "name": "AC1: EMPTY profile.avatar + playerToken set → PHOTO sourced from token (TYPE=JPEG)",
+    "file": "test/vitest/vcard-photo.test.ts",
+    "describe": "vCard photo + UUID (v0.5.14)",
+    "it": "AC1: EMPTY profile.avatar + playerToken set → PHOTO sourced from token (TYPE=JPEG)",
+    "testUuid": "40f20e19-71a5-47ff-9391-75661b520ed2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:40f20e19-71a5-47ff-9391-75661b520ed2"
+}

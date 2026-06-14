@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5e4f03cc-535e-4841-abff-736769d9f414",
+    "name": "AC1/AC3 real avatar stays protected + byte-identical across repeated reconnect checks",
+    "file": "test/vitest/avatar-persist.test.ts",
+    "describe": "T91: avatar persists, never reverts to default (v0.4.11)",
+    "it": "AC1/AC3 real avatar stays protected + byte-identical across repeated reconnect checks",
+    "testUuid": "aba97062-537a-4442-805a-6e41e7705ade",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:aba97062-537a-4442-805a-6e41e7705ade"
+}

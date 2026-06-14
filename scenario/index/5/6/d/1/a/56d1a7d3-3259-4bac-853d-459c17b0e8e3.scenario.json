@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "56d1a7d3-3259-4bac-853d-459c17b0e8e3",
+    "name": "empty name keeps Continue disabled in gate",
+    "file": "test/e2e/negative-cases.spec.ts",
+    "describe": "T13.7: Negative Cases",
+    "it": "empty name keeps Continue disabled in gate",
+    "testUuid": "8eef2a80-15d0-4d9e-96bc-3678d8f36ba3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8eef2a80-15d0-4d9e-96bc-3678d8f36ba3"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "89edf1a3-bd58-4413-912e-5d882332ba20",
+    "name": "creates data/users/<token>/.ssh/ with public_keys/ and private_key/",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.1: createUserHome directory tree",
+    "it": "creates data/users/<token>/.ssh/ with public_keys/ and private_key/",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

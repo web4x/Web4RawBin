@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f89163f0-13ff-492d-bfbe-63e9c5992a82",
+    "name": "a freshly created room (max createdAt) goes to top",
+    "file": "test/vitest/room-order.test.ts",
+    "describe": "TC-95.1: Newest-first ordering (AC1/AC2)",
+    "it": "a freshly created room (max createdAt) goes to top",
+    "testUuid": "80c16527-a6b6-4b5f-8c94-0d76e838d2b3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:80c16527-a6b6-4b5f-8c94-0d76e838d2b3"
+}

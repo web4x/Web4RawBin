@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d78d1f22-2730-4efe-b6d4-3ee41aa9edd8",
+    "name": "edit.ts references rb-file-tree",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-65.3: edit.ts imports rb-file-tree",
+    "it": "edit.ts references rb-file-tree",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

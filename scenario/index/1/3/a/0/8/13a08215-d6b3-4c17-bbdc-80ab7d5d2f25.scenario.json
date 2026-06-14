@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "13a08215-d6b3-4c17-bbdc-80ab7d5d2f25",
+    "name": "BugLoader defined and registered in ClassRegistry",
+    "file": "test/vitest/classify-type.test.ts",
+    "describe": "R20.4 Requirement.classifyType — Bug + ChangeRequest subtypes",
+    "it": "BugLoader defined and registered in ClassRegistry",
+    "testUuid": "320a8790-17de-4adc-b146-1ab68eab6f17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:320a8790-17de-4adc-b146-1ab68eab6f17"
+}

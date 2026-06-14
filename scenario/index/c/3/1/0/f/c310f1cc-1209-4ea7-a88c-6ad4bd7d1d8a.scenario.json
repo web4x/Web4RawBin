@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c310f1cc-1209-4ea7-a88c-6ad4bd7d1d8a",
+    "name": "getChatHistory returns copy of all messages",
+    "file": "test/vitest/chat.test.ts",
+    "describe": "TC-20.2: Chat history on rejoin",
+    "it": "getChatHistory returns copy of all messages",
+    "testUuid": "75d1d899-8c52-48dd-a696-42f7492889e3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
+}

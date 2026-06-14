@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "aac2d6fe-bd20-4ae9-aee2-97453ed0ac2f",
+    "name": "parses #type.verb?params",
+    "file": "test/vitest/trace-routing.test.ts",
+    "describe": "parseHash / buildHash (AC1)",
+    "it": "parses #type.verb?params",
+    "testUuid": "b2fa3e4d-5aea-4368-a1d5-ec1793e35223",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:b2fa3e4d-5aea-4368-a1d5-ec1793e35223"
+}

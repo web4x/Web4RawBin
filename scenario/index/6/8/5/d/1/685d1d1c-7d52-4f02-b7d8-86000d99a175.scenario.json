@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "685d1d1c-7d52-4f02-b7d8-86000d99a175",
+    "name": "3 users all receive each others messages",
+    "file": "test/vitest/chat.test.ts",
+    "describe": "TC-20.5: Multi-user chat",
+    "it": "3 users all receive each others messages",
+    "testUuid": "75d1d899-8c52-48dd-a696-42f7492889e3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
+}

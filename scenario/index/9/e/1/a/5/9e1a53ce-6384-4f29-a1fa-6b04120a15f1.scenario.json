@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9e1a53ce-6384-4f29-a1fa-6b04120a15f1",
+    "name": "render() awaits whenDefined before its renderMemberList call",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.88: render awaits whenDefined → items are upgraded",
+    "it": "render() awaits whenDefined before its renderMemberList call",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

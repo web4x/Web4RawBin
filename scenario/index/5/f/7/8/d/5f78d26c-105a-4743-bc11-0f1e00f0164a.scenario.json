@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5f78d26c-105a-4743-bc11-0f1e00f0164a",
+    "name": "user A cannot see user B files",
+    "file": "test/vitest/crypto.test.ts",
+    "describe": "TC-47.7: listUserFiles",
+    "it": "user A cannot see user B files",
+    "testUuid": "cbde8942-6f7e-4889-85ea-eb3365dde403",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cbde8942-6f7e-4889-85ea-eb3365dde403"
+}

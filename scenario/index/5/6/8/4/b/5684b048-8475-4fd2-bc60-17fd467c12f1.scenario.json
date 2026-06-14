@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5684b048-8475-4fd2-bc60-17fd467c12f1",
+    "name": "full lifecycle: create → join → leave → delete",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.4: Room lifecycle via RoomManager",
+    "it": "full lifecycle: create → join → leave → delete",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

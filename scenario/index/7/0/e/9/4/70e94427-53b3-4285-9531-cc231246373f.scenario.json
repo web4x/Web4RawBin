@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "70e94427-53b3-4285-9531-cc231246373f",
+    "name": "happy path: Planned → Refining → Implementing → Testing → QAReview → Done",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T133: Task state machine",
+    "it": "happy path: Planned → Refining → Implementing → Testing → QAReview → Done",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

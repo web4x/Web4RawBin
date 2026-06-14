@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6cc77af2-c2e1-4218-be1f-32d45b9bf270",
+    "name": "chat message includes sender name",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.5: Chat in room",
+    "it": "chat message includes sender name",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

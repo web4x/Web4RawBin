@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6a1af241-8282-4a7e-8184-733f4098b20c",
+    "name": "FILE_ADDED message type exists",
+    "file": "test/vitest/file-restore.test.ts",
+    "describe": "file-restore JOIN_ROOM path",
+    "it": "FILE_ADDED message type exists",
+    "testUuid": "7a9f9cf3-d4a0-4553-a199-eb0c086b7a8d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7a9f9cf3-d4a0-4553-a199-eb0c086b7a8d"
+}

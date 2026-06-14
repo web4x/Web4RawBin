@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "801bb9c7-046d-4cf8-b197-182979b74425",
+    "name": "s17-usecases.puml contains <<UseCase>> with Object.verb names",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R15.3: Object.verb use-case PUML diagrams",
+    "it": "s17-usecases.puml contains <<UseCase>> with Object.verb names",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

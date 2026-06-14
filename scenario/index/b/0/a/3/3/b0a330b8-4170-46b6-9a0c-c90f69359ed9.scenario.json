@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b0a330b8-4170-46b6-9a0c-c90f69359ed9",
+    "name": "content-preview.ts iframe has allow-scripts + no user-scalable=no",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.85: iframePinchZoom — content-preview iframe allows pinch-zoom",
+    "it": "content-preview.ts iframe has allow-scripts + no user-scalable=no",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

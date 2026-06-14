@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "30baa610-e244-4f1c-aaee-8b53b5e1a5f6",
+    "name": "listRooms returns RoomInfo array",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-4.6.5: Room CRUD via RoomManager",
+    "it": "listRooms returns RoomInfo array",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

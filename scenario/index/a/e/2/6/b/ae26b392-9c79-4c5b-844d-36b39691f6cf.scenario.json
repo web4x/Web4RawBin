@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ae26b392-9c79-4c5b-844d-36b39691f6cf",
+    "name": "icon files are non-empty",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-31.3: PWA icon files",
+    "it": "icon files are non-empty",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

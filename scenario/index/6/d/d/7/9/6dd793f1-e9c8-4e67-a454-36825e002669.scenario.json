@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6dd793f1-e9c8-4e67-a454-36825e002669",
+    "name": "returns path in response",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-60.5: readFile returns content",
+    "it": "returns path in response",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

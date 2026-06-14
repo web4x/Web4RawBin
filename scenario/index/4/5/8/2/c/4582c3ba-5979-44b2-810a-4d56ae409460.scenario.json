@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4582c3ba-5979-44b2-810a-4d56ae409460",
+    "name": "T82 TS3: lobby #refresh-rooms-btn (.btn-secondary on dark) stays light-on-dark (scope did not leak)",
+    "file": "test/e2e/contacts-ui.spec.ts",
+    "describe": "Contacts UI: T81/T82/T83 (current v0.5.x behavior)",
+    "it": "T82 TS3: lobby #refresh-rooms-btn (.btn-secondary on dark) stays light-on-dark (scope did not leak)",
+    "testUuid": "5e58a822-dc43-429b-85e6-9d3091465508",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5e58a822-dc43-429b-85e6-9d3091465508"
+}

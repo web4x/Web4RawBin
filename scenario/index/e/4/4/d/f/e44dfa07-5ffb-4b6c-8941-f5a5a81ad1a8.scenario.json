@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e44dfa07-5ffb-4b6c-8941-f5a5a81ad1a8",
+    "name": "creates file unit + content sidecar",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "S19 T-file-unit R19.14: files as scenario units",
+    "it": "creates file unit + content sidecar",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

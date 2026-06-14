@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "18dc1bc3-86ba-413f-aceb-fbd2a0dfcbf5",
+    "name": "TC-7: unknown file type routes to routeUnknown → chat log",
+    "file": "test/vitest/file-dnd-chain.test.ts",
+    "describe": "[test:uuid:1e763397] DropDispatcher routing",
+    "it": "TC-7: unknown file type routes to routeUnknown → chat log",
+    "testUuid": "f0c30f5e-9686-4c34-89ba-8f5b45f28893",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f0c30f5e-9686-4c34-89ba-8f5b45f28893"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0a0cf41b-a602-4fe5-aa97-761c57203c6d",
+    "name": "createdAt=0 treated same as missing (bottom)",
+    "file": "test/vitest/room-order.test.ts",
+    "describe": "TC-95.2: Legacy rooms sink to bottom (AC4)",
+    "it": "createdAt=0 treated same as missing (bottom)",
+    "testUuid": "80c16527-a6b6-4b5f-8c94-0d76e838d2b3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:80c16527-a6b6-4b5f-8c94-0d76e838d2b3"
+}

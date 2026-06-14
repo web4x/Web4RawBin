@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "872f2052-40ae-48c6-8643-bf34f5396821",
+    "name": "renders checklist with nested substeps as HTML list",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T132: renderStatusHtml",
+    "it": "renders checklist with nested substeps as HTML list",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

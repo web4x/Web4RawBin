@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "97c849e0-c43d-46f5-8b97-6e7eae39d291",
+    "name": "unknown verb → notFound (never throws)",
+    "file": "test/vitest/trace-routing.test.ts",
+    "describe": "router resolution (AC1)",
+    "it": "unknown verb → notFound (never throws)",
+    "testUuid": "b2fa3e4d-5aea-4368-a1d5-ec1793e35223",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:b2fa3e4d-5aea-4368-a1d5-ec1793e35223"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9e4d3709-2a8d-48bb-a2f8-2616faef9bf5",
+    "name": "AC12: 2nd page load after SW install serves correct bundle (no manual clear)",
+    "file": "test/e2e/sw-activation.spec.ts",
+    "describe": "T179 AC11-13: SW activation with SW ACTIVE",
+    "it": "AC12: 2nd page load after SW install serves correct bundle (no manual clear)",
+    "testUuid": "79a00011-0011-4a11-a011-000179011001",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:79a00011-0011-4a11-a011-000179011001"
+}

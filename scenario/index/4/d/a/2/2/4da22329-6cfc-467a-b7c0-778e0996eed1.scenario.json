@@ -16,7 +16,13 @@
     "sourceFile": "ior:file:test/vitest/rb-trace-tree.test.ts",
     "sourceLine": 6,
     "parent": "ior:instance:f1b4b429-5819-4adf-8da2-92f6e0a8dd7e",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:04bcd867-1e76-4663-bad2-f56bf98b3d1a",
+      "ior:instance:adb2b31d-5fcc-4d6a-8d17-538891991750",
+      "ior:instance:966393f9-1a6b-4825-b0b1-cc4f43b904d8",
+      "ior:instance:fd0d936e-d15c-40ec-afbf-f727d577bc3b"
+    ]
   },
   "ownerIor": "ior:instance:f1b4b429-5819-4adf-8da2-92f6e0a8dd7e"
 }

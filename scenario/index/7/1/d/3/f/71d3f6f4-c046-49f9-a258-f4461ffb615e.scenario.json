@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "71d3f6f4-c046-49f9-a258-f4461ffb615e",
+    "name": "adds device public key to authorized_keys",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.4: enrollDevice full flow",
+    "it": "adds device public key to authorized_keys",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

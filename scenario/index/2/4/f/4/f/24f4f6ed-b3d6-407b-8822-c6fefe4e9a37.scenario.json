@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "24f4f6ed-b3d6-407b-8822-c6fefe4e9a37",
+    "name": "member who left does not receive further messages",
+    "file": "test/vitest/chat.test.ts",
+    "describe": "TC-20.5: Multi-user chat",
+    "it": "member who left does not receive further messages",
+    "testUuid": "75d1d899-8c52-48dd-a696-42f7492889e3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
+}

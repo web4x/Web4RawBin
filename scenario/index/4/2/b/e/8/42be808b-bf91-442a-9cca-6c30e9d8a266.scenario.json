@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "42be808b-bf91-442a-9cca-6c30e9d8a266",
+    "name": "returns ok:true, mtime, size",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-61.2: writeFile response format",
+    "it": "returns ok:true, mtime, size",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

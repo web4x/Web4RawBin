@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "28226dff-2fdc-4255-81c1-f80db37bffe9",
+    "name": "user B cannot decrypt user A file",
+    "file": "test/vitest/crypto.test.ts",
+    "describe": "TC-47.4: Wrong user token cannot decrypt",
+    "it": "user B cannot decrypt user A file",
+    "testUuid": "cbde8942-6f7e-4889-85ea-eb3365dde403",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cbde8942-6f7e-4889-85ea-eb3365dde403"
+}

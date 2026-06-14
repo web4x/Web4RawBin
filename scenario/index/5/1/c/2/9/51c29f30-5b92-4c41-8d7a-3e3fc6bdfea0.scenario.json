@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "51c29f30-5b92-4c41-8d7a-3e3fc6bdfea0",
+    "name": "IDENTIFY with existing token reconnects profile",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-4.6.4: WS IDENTIFY creates profile",
+    "it": "IDENTIFY with existing token reconnects profile",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

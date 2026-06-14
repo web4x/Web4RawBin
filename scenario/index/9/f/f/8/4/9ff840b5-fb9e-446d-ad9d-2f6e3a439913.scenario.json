@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9ff840b5-fb9e-446d-ad9d-2f6e3a439913",
+    "name": "new member receives CHAT_HISTORY on join",
+    "file": "test/vitest/chat.test.ts",
+    "describe": "TC-20.2: Chat history on rejoin",
+    "it": "new member receives CHAT_HISTORY on join",
+    "testUuid": "75d1d899-8c52-48dd-a696-42f7492889e3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ed97f3b5-3df8-42a7-a781-7dbbc8285fa7",
+    "name": "partial update preserves other fields",
+    "file": "test/vitest/profile.test.ts",
+    "describe": "TC-7.7.1: UPDATE_PROFILE saves and responds",
+    "it": "partial update preserves other fields",
+    "testUuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e69274bc-c83f-4322-abcd-963538f6f9e2"
+}

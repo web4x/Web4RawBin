@@ -6,7 +6,33 @@
     "sourceFile": "test/vitest/object-verb.test.ts",
     "sourceLine": 3,
     "tests": [],
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:63b341e1-a0c8-453b-8a49-f5eb592626f3",
+      "ior:instance:418cfce1-b7ba-4d75-91c4-4fe4392dfb7c",
+      "ior:instance:f5a9513c-bf7b-435f-adaf-6da71cb7df4b",
+      "ior:instance:cfaf8f16-c072-4eeb-a05a-ba9e55e857f2",
+      "ior:instance:03812718-726e-492f-ad84-9f06d32f41b8",
+      "ior:instance:4a314c69-d50c-4d1d-943c-cf5b42c47dbd",
+      "ior:instance:b2f70a6d-0804-4302-a05f-72b3de91c5d9",
+      "ior:instance:efa1a78b-54fc-498b-8f97-7c1288f0578a",
+      "ior:instance:49bcda0c-ee9c-4740-afd1-667759cc33a0",
+      "ior:instance:38972f1e-3f55-4040-b197-14a3d9977a17",
+      "ior:instance:b789d4f0-c555-4160-9a59-33bb4a26de3f",
+      "ior:instance:1be7d7ee-fbdb-451f-aba4-6fbe9388e8c1",
+      "ior:instance:e39ec40f-8a17-465c-a4e6-2901500ce3ed",
+      "ior:instance:4f9e93a8-8470-48e6-8b2f-69249666e91d",
+      "ior:instance:704fe7e4-62a6-4608-818d-9f3e2cf966dd",
+      "ior:instance:3bd397bd-0e71-4a87-9011-5bc370b6d4cb",
+      "ior:instance:6e385473-9e89-4338-9af4-39fdb50b71d5",
+      "ior:instance:123a53fc-52b1-4b26-bcd6-6452fec67856",
+      "ior:instance:9d4714b4-7edd-4b26-b2e1-01245020318b",
+      "ior:instance:2aa7d31c-d2d8-4876-b514-6661bd75ed02",
+      "ior:instance:9e860893-8143-49a4-b00c-175d22f0a372",
+      "ior:instance:42daea84-7d3c-4333-a400-2fd52330faf1",
+      "ior:instance:439dd272-3581-4e1e-936c-4856bf546279",
+      "ior:instance:348c8545-eeab-42f1-ab50-a6e447e5fcf3"
+    ]
   },
   "ownerIor": null
 }

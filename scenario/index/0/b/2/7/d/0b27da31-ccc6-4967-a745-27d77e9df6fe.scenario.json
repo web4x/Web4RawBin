@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0b27da31-ccc6-4967-a745-27d77e9df6fe",
+    "name": "node_modules/ws/index.js → 403",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-62.1: UC-API.5 Path sanitization — read endpoint",
+    "it": "node_modules/ws/index.js → 403",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

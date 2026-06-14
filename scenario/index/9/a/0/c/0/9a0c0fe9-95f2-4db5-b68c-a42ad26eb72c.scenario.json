@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9a0c0fe9-95f2-4db5-b68c-a42ad26eb72c",
+    "name": "edit.ts references rb-preview",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-68.5: edit.ts imports rb-preview",
+    "it": "edit.ts references rb-preview",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

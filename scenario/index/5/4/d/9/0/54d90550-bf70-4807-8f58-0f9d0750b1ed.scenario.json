@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "54d90550-bf70-4807-8f58-0f9d0750b1ed",
+    "name": "resize mode clamps height to [0, 95vh] and close below 120px",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.84: handle drag resizes drawer to 95vh, close below 120px",
+    "it": "resize mode clamps height to [0, 95vh] and close below 120px",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

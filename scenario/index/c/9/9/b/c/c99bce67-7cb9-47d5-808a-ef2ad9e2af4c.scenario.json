@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c99bce67-7cb9-47d5-808a-ef2ad9e2af4c",
+    "name": "room list entries have ownerName field",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-77.1: ROOM_LIST includes ownerName",
+    "it": "room list entries have ownerName field",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

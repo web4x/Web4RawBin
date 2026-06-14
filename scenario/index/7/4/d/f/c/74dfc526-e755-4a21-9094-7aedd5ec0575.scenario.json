@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "74dfc526-e755-4a21-9094-7aedd5ec0575",
+    "name": "event bubbles",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-56.4: rb-avatar click dispatches event",
+    "it": "event bubbles",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b7b6da5c-a5e2-4930-8816-90aa4b202f34",
+    "name": "service worker registration exists in source",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-31.4: app.html PWA integration",
+    "it": "service worker registration exists in source",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

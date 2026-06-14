@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "45a65a4c-e267-4810-9de4-4fc37cab0312",
+    "name": "preview or editor source has debounce logic",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-68.6: debounce reference exists",
+    "it": "preview or editor source has debounce logic",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

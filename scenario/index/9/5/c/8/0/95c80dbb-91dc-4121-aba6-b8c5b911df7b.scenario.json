@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "95c80dbb-91dc-4121-aba6-b8c5b911df7b",
+    "name": "returns ERROR for non-existent token",
+    "file": "test/vitest/profile.test.ts",
+    "describe": "TC-7.7.4: GET_USER_INFO unknown token",
+    "it": "returns ERROR for non-existent token",
+    "testUuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e69274bc-c83f-4322-abcd-963538f6f9e2"
+}

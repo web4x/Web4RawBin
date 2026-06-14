@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f52f4ce4-0181-4206-ab0b-f4ec2d266dfc",
+    "name": "dispatch sets state uploading→done cycle + calls statusCb",
+    "file": "test/vitest/impl-coverage-batch.test.ts",
+    "describe": "[test:uuid:8a5b7618] DropDispatcher.feedbackCycle",
+    "it": "dispatch sets state uploading→done cycle + calls statusCb",
+    "testUuid": "8a5b7618-5f72-4872-bf97-37496c4a9b8d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8a5b7618-5f72-4872-bf97-37496c4a9b8d"
+}

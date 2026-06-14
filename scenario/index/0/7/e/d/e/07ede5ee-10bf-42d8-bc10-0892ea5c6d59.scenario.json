@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "07ede5ee-10bf-42d8-bc10-0892ea5c6d59",
+    "name": "layout source references tab bar or mobile tabs",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-71.2: Tab bar references (Files/Editor/Preview)",
+    "it": "layout source references tab bar or mobile tabs",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

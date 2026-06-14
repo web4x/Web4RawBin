@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "22868ff0-52a1-45a2-af08-0b736825cd03",
+    "name": "/api/health is a known route",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-16.1: /api/health response",
+    "it": "/api/health is a known route",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "266ce5aa-ca0a-40a3-88ef-8c2090b13551",
+    "name": "edit.html has <!DOCTYPE html>",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-63.1: edit.html with Monaco CDN",
+    "it": "edit.html has <!DOCTYPE html>",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

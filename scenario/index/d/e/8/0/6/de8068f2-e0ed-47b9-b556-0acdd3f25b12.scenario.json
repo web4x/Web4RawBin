@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "de8068f2-e0ed-47b9-b556-0acdd3f25b12",
+    "name": "IDENTIFY with new token creates profile and returns PROFILE",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-4.6.4: WS IDENTIFY creates profile",
+    "it": "IDENTIFY with new token creates profile and returns PROFILE",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

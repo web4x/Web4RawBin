@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9e2224c4-23a9-4ded-90ff-85a4be33f2b0",
+    "name": "generateRegion is deterministic for the same coverage",
+    "file": "test/vitest/trace-consistency.test.ts",
+    "describe": "fixMatrix (AC3/AC4)",
+    "it": "generateRegion is deterministic for the same coverage",
+    "testUuid": "ce5c47ad-dabb-44e5-a8f6-3ee506d34127",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:ce5c47ad-dabb-44e5-a8f6-3ee506d34127"
+}

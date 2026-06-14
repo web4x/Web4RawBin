@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b43a7140-8585-426f-899a-3c58d90392c2",
+    "name": "app.ts source file exists",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.1: Build output",
+    "it": "app.ts source file exists",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

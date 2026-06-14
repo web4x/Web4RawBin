@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "92f7a216-5d34-43e9-a0c7-1a370c06acb1",
+    "name": "server.ts uses room.fileUnits scenario-driven restore (not filesystem scan)",
+    "file": "test/vitest/file-restore.test.ts",
+    "describe": "file-restore JOIN_ROOM path",
+    "it": "server.ts uses room.fileUnits scenario-driven restore (not filesystem scan)",
+    "testUuid": "7a9f9cf3-d4a0-4553-a199-eb0c086b7a8d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7a9f9cf3-d4a0-4553-a199-eb0c086b7a8d"
+}

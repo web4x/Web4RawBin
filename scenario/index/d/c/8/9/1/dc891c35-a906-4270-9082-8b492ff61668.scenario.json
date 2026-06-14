@@ -6,7 +6,31 @@
     "sourceFile": "test/vitest/champagne-features.test.ts",
     "sourceLine": 4,
     "tests": [],
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:308adc99-30a1-4150-bf8f-d0f3904ed1ee",
+      "ior:instance:efa5d1d0-f693-4622-b203-0cfdf8cbab1e",
+      "ior:instance:ac37b8ff-4088-41e4-ac32-7234d0dc0474",
+      "ior:instance:5d8fbaf3-b95b-430b-8fc3-761c717030eb",
+      "ior:instance:e7cdb869-db29-44ae-bd24-adc2ee7c4b8a",
+      "ior:instance:74d187e8-9d74-461b-a6e9-cd8d153212e5",
+      "ior:instance:9e03df40-2c0e-44be-9a7a-2096e3cc3201",
+      "ior:instance:7044726c-90ff-4c46-b632-7bb1f11ca50f",
+      "ior:instance:83ed40a2-5f0c-4ba3-9099-a4a04ed785e7",
+      "ior:instance:315771bd-c42f-4cdc-b2ed-2f878f8ddc50",
+      "ior:instance:fd0297cf-1a08-454a-ab21-38cb97b7655d",
+      "ior:instance:9bf5e46c-f82c-4631-a506-4feb2df063c8",
+      "ior:instance:e8f25dd1-da62-4d61-95a1-7b794c636dba",
+      "ior:instance:1283ef51-9128-47ab-810e-fc05210d99bb",
+      "ior:instance:7a4317ed-3915-4997-958b-306993446690",
+      "ior:instance:837cc100-3bca-4b06-971c-fe3e73e90cd3",
+      "ior:instance:931dc7f6-7ca2-44d1-83ae-be5344e12aca",
+      "ior:instance:1f58e798-5e15-4fbb-b980-e2f14534fca7",
+      "ior:instance:801bb9c7-046d-4cf8-b197-182979b74425",
+      "ior:instance:1b9bf0ee-b040-462e-b225-f51320c02c72",
+      "ior:instance:bb3f8fe9-3660-4dfb-9462-9a4cb5ae68b3",
+      "ior:instance:a62ba563-c255-4be4-9d4e-aee419433761"
+    ]
   },
   "ownerIor": null
 }

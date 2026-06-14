@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5fb27617-0bab-4fef-ae34-dbd20f95dd5c",
+    "name": ".enc returns 415",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-61.5: writeFile rejects binary extensions",
+    "it": ".enc returns 415",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

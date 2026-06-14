@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d7e00e9e-2b1e-471e-ab72-37b867a6016b",
+    "name": "maps .ts to typescript language",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-66.5: language map covers required extensions",
+    "it": "maps .ts to typescript language",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

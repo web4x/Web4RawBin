@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2789e60c-9619-4f54-96a6-820a016e34de",
+    "name": "app.ts imports RawBinClient not WebSocketClient",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.7: Client source no game references",
+    "it": "app.ts imports RawBinClient not WebSocketClient",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

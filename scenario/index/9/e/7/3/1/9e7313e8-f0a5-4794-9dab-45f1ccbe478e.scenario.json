@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9e7313e8-f0a5-4794-9dab-45f1ccbe478e",
+    "name": "rb-preview references plantuml or puml-render",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-69.2: rb-preview handles puml",
+    "it": "rb-preview references plantuml or puml-render",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

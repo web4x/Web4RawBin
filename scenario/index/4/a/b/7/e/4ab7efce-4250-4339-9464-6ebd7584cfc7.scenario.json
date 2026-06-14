@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4ab7efce-4250-4339-9464-6ebd7584cfc7",
+    "name": "\\n",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.86: file/url/webitem click → openFilePreview → drawer opens",
+    "it": "\\n",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

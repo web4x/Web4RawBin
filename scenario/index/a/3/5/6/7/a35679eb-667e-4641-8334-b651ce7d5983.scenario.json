@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a35679eb-667e-4641-8334-b651ce7d5983",
+    "name": "senderName matches the name passed to addChat",
+    "file": "test/vitest/chat.test.ts",
+    "describe": "TC-20.4: Sender name in chat",
+    "it": "senderName matches the name passed to addChat",
+    "testUuid": "75d1d899-8c52-48dd-a696-42f7492889e3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
+}

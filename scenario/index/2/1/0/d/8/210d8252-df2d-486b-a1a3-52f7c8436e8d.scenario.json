@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "210d8252-df2d-486b-a1a3-52f7c8436e8d",
+    "name": "(8) Room list syncs to second browser context",
+    "file": "test/e2e/room-identity.spec.ts",
+    "describe": "T79: Room Identity E2E",
+    "it": "(8) Room list syncs to second browser context",
+    "testUuid": "e906138a-581d-4c07-8198-eedaf0e20af4",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e906138a-581d-4c07-8198-eedaf0e20af4"
+}

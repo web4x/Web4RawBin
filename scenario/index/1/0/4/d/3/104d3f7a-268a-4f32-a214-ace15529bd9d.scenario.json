@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "104d3f7a-268a-4f32-a214-ace15529bd9d",
+    "name": "show() opens, hide() closes",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.3: show/hide lifecycle",
+    "it": "show() opens, hide() closes",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -10,7 +10,10 @@
     "sourceFile": "ior:file:test/e2e/mobile-viewport.spec.ts",
     "sourceLine": 1,
     "parent": "ior:instance:c518166d-4eb0-4435-8589-5a6a99f434f1",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:cce8a668-6a91-4ec6-8d83-a3deafe000b2"
+    ]
   },
   "ownerIor": "ior:instance:c518166d-4eb0-4435-8589-5a6a99f434f1"
 }

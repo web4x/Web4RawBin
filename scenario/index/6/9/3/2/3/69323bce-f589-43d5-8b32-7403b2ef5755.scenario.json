@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "69323bce-f589-43d5-8b32-7403b2ef5755",
+    "name": "TS1: Alpha, Bravo, Charlie → list shows Charlie, Bravo, Alpha",
+    "file": "test/e2e/room-order.spec.ts",
+    "describe": "T95: Lobby newest-first ordering",
+    "it": "TS1: Alpha, Bravo, Charlie → list shows Charlie, Bravo, Alpha",
+    "testUuid": "c9e3bd8c-b143-40ac-ade5-8be74149a4ab",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:c9e3bd8c-b143-40ac-ade5-8be74149a4ab"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "46f4f23a-a6d5-414e-aa67-b27f486820d8",
+    "name": "${dialog.name} removes overlay on close",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.6: Existing dialogs share overlay pattern",
+    "it": "${dialog.name} removes overlay on close",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

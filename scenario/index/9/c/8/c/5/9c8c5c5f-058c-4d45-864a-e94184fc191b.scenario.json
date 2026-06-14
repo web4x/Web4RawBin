@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9c8c5c5f-058c-4d45-864a-e94184fc191b",
+    "name": "restored room has correct name",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-75.4: Restored room metadata correct",
+    "it": "restored room has correct name",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

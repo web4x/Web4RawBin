@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9d4714b4-7edd-4b26-b2e1-01245020318b",
+    "name": "listComplete agrees with followUp.complete under the gate",
+    "file": "test/vitest/object-verb.test.ts",
+    "describe": "HARD RULE: shared-impl gate + lintMarkers",
+    "it": "listComplete agrees with followUp.complete under the gate",
+    "testUuid": "7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d"
+}

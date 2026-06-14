@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "dd8e9333-b736-445d-9a51-46e923629521",
+    "name": "does NOT include devices or redirectTo",
+    "file": "test/vitest/profile.test.ts",
+    "describe": "TC-7.7.3: GET_USER_INFO public subset",
+    "it": "does NOT include devices or redirectTo",
+    "testUuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e69274bc-c83f-4322-abcd-963538f6f9e2"
+}

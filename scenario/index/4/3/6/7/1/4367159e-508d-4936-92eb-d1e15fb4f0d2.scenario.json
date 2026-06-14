@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4367159e-508d-4936-92eb-d1e15fb4f0d2",
+    "name": "TC-7: ensureRawBinUser creates system user with known UUID",
+    "file": "test/vitest/message-rawbin.test.ts",
+    "describe": "[test:uuid:f2122854] R19.39 RawBin system user",
+    "it": "TC-7: ensureRawBinUser creates system user with known UUID",
+    "testUuid": "8289ef98-6aba-49a2-be74-89e95658f1a7",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8289ef98-6aba-49a2-be74-89e95658f1a7"
+}

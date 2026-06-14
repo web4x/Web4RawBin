@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c7f96fee-47ef-43ee-86e2-3067608bfb5c",
+    "name": "returns ERROR for empty token",
+    "file": "test/vitest/profile.test.ts",
+    "describe": "TC-7.7.4: GET_USER_INFO unknown token",
+    "it": "returns ERROR for empty token",
+    "testUuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e69274bc-c83f-4322-abcd-963538f6f9e2"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9cb53805-b1a4-4ec4-9e86-e5e6629b2f54",
+    "name": "onClose not called if never shown",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.3: show/hide lifecycle",
+    "it": "onClose not called if never shown",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

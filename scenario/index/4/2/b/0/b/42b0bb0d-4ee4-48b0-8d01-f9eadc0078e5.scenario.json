@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "42b0bb0d-4ee4-48b0-8d01-f9eadc0078e5",
+    "name": "false after delete",
+    "file": "test/vitest/crypto.test.ts",
+    "describe": "TC-47.9: fileExists",
+    "it": "false after delete",
+    "testUuid": "cbde8942-6f7e-4889-85ea-eb3365dde403",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cbde8942-6f7e-4889-85ea-eb3365dde403"
+}

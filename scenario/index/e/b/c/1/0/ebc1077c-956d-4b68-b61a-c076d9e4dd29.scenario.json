@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ebc1077c-956d-4b68-b61a-c076d9e4dd29",
+    "name": "creates authorized_keys file (empty)",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.1: createUserHome directory tree",
+    "it": "creates authorized_keys file (empty)",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

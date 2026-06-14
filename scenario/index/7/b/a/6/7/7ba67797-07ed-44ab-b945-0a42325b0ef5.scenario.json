@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "7ba67797-07ed-44ab-b945-0a42325b0ef5",
+    "name": "renders correct number of badges",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-43.5: rb-member-list — setMembers renders correct count",
+    "it": "renders correct number of badges",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

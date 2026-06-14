@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "53d7262e-309c-46b3-8143-cdc0ab8be019",
+    "name": "member avatarUrl is profile.avatar when set",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-53.1: Room join uses profile.avatar",
+    "it": "member avatarUrl is profile.avatar when set",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

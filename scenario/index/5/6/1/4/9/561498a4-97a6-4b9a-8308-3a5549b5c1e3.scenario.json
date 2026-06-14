@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "561498a4-97a6-4b9a-8308-3a5549b5c1e3",
+    "name": "avatar URL is serveable (getAvatar returns data)",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-52.1: Avatar URL in profile data",
+    "it": "avatar URL is serveable (getAvatar returns data)",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

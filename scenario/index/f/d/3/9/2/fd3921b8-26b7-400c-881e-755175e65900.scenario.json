@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "fd3921b8-26b7-400c-881e-755175e65900",
+    "name": "reconnect re-establishes connection",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-33.1: Reconnect method",
+    "it": "reconnect re-establishes connection",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

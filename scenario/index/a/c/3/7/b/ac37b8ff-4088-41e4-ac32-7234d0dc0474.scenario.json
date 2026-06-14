@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ac37b8ff-4088-41e4-ac32-7234d0dc0474",
+    "name": "rb-task-detail.ts has render with chain links",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R15.6: Task DetailView + planning overview",
+    "it": "rb-task-detail.ts has render with chain links",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

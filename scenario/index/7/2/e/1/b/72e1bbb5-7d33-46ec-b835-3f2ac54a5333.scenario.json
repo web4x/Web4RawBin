@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "72e1bbb5-7d33-46ec-b835-3f2ac54a5333",
+    "name": "empty signedChallenge returns false",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-12.8.5: Empty/null input handling",
+    "it": "empty signedChallenge returns false",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

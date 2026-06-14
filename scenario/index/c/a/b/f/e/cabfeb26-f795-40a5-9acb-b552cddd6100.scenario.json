@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "cabfeb26-f795-40a5-9acb-b552cddd6100",
+    "name": "roomUuid sets ownerIor + content-index unitLink",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "S19 T-file-unit R19.14: files as scenario units",
+    "it": "roomUuid sets ownerIor + content-index unitLink",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "bef599bb-39ea-408a-b7bb-0cdb7c64d381",
+    "name": "TC-8: ensureRawBinUser idempotent (2nd call returns same UUID, no dup)",
+    "file": "test/vitest/message-rawbin.test.ts",
+    "describe": "[test:uuid:f2122854] R19.39 RawBin system user",
+    "it": "TC-8: ensureRawBinUser idempotent (2nd call returns same UUID, no dup)",
+    "testUuid": "8289ef98-6aba-49a2-be74-89e95658f1a7",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8289ef98-6aba-49a2-be74-89e95658f1a7"
+}

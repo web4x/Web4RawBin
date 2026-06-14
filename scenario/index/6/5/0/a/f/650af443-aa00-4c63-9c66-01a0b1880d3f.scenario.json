@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "650af443-aa00-4c63-9c66-01a0b1880d3f",
+    "name": "different devices get different keys",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.1: generateDeviceKeypair RSA-2048",
+    "it": "different devices get different keys",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

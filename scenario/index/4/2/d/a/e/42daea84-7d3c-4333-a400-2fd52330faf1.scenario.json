@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "42daea84-7d3c-4333-a400-2fd52330faf1",
+    "name": "emits valid YAML frontmatter with name + when-to-use description",
+    "file": "test/vitest/object-verb.test.ts",
+    "describe": "emitClaudeSkills generates official Claude Code skills",
+    "it": "emits valid YAML frontmatter with name + when-to-use description",
+    "testUuid": "7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8745ff88-db6b-4c8b-a30c-73e1f9db70e1",
+    "name": "creates div with update-banner class",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-39.1: Update banner creation",
+    "it": "creates div with update-banner class",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

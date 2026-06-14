@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8c3d94bd-2c5f-46a6-aff1-380ba05952d9",
+    "name": "does not duplicate if same key added twice",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.9: addAuthorizedKey appends to file",
+    "it": "does not duplicate if same key added twice",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

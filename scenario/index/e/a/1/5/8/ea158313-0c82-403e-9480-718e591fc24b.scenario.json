@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ea158313-0c82-403e-9480-718e591fc24b",
+    "name": "TC-7: prevMessage chain integrity across 3 pages",
+    "file": "test/vitest/lazy-load-messages.test.ts",
+    "describe": "[test:uuid:9e1cb105] R19.40 lazy-load message pagination",
+    "it": "TC-7: prevMessage chain integrity across 3 pages",
+    "testUuid": "9e1cb105-27b1-4268-b9c3-d2110563fdeb",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:9e1cb105-27b1-4268-b9c3-d2110563fdeb"
+}

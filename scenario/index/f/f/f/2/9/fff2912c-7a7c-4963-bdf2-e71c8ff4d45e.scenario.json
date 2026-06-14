@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "fff2912c-7a7c-4963-bdf2-e71c8ff4d45e",
+    "name": ".drawer-header has position:sticky + z-index:2 + min-height",
+    "file": "test/vitest/drawer-fullwidth-sticky.test.ts",
+    "describe": "[test:uuid:c9f56d34] R19.33 stickyClose pinned X",
+    "it": ".drawer-header has position:sticky + z-index:2 + min-height",
+    "testUuid": "7d6badb4-a27d-4c9d-b7f8-385fc9636e90",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7d6badb4-a27d-4c9d-b7f8-385fc9636e90"
+}

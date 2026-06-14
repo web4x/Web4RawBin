@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8bcf78db-d610-4101-b924-fbe56f5e7ebe",
+    "name": "synthesized 2-touch pinch with no pan: after release, scale == pinched scale",
+    "file": "test/e2e/svg-viewer-pinch.spec.ts",
+    "describe": "R18.34.B champagne — pinch-no-pan applies zoom (svg-viewer)",
+    "it": "synthesized 2-touch pinch with no pan: after release, scale == pinched scale",
+    "testUuid": "10c2e3ca-bd66-46c9-ad53-8dea1604b484",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:10c2e3ca-bd66-46c9-ad53-8dea1604b484"
+}

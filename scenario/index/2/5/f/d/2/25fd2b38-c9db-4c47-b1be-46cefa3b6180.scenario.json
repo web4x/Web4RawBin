@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "25fd2b38-c9db-4c47-b1be-46cefa3b6180",
+    "name": "rawbin.sh has execute permission",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-16.4: rawbin.sh exists and is executable",
+    "it": "rawbin.sh has execute permission",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

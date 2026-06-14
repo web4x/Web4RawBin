@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "07df83fa-d450-4576-817d-abee0884248b",
+    "name": "re-renders on ViewBus.notify(ref) after a title change (AC3)",
+    "file": "test/vitest/rb-detail-overview.test.ts",
+    "describe": "T107 rb-detail-view",
+    "it": "re-renders on ViewBus.notify(ref) after a title change (AC3)",
+    "testUuid": "747f4bab-17c2-4274-9349-b5b9e9478df7",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:747f4bab-17c2-4274-9349-b5b9e9478df7"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "992d216d-e600-4582-8af6-fdea437bdf51",
+    "name": "createTraceLink produces valid unit with from/to/relation",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T134: TraceLink",
+    "it": "createTraceLink produces valid unit with from/to/relation",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

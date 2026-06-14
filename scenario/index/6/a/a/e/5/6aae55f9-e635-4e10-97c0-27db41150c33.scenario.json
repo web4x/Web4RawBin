@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6aae55f9-e635-4e10-97c0-27db41150c33",
+    "name": "isUuidV4 guards non-strings and bad shapes",
+    "file": "test/vitest/trace-model.test.ts",
+    "describe": "UUID validation (AC4)",
+    "it": "isUuidV4 guards non-strings and bad shapes",
+    "testUuid": "4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1"
+}

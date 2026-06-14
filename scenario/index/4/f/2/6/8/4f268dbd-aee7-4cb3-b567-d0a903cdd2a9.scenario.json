@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4f268dbd-aee7-4cb3-b567-d0a903cdd2a9",
+    "name": "RoomView.openFilePreview references room-file-preview drawer",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.86: file/url/webitem click → openFilePreview → drawer opens",
+    "it": "RoomView.openFilePreview references room-file-preview drawer",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "594c9802-5366-412c-96a0-2d52e19ec32a",
+    "name": "returns true for valid signature",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.3: verifyDeviceKey validation",
+    "it": "returns true for valid signature",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

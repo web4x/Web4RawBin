@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "441e9ea3-3069-41c1-a4b9-41d05d958889",
+    "name": "create room, chat, leave, rejoin, delete",
+    "file": "test/e2e/room-lifecycle.spec.ts",
+    "describe": "T13.3: Room Lifecycle",
+    "it": "create room, chat, leave, rejoin, delete",
+    "testUuid": "73ba7577-becc-4c43-be64-26a255872090",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:73ba7577-becc-4c43-be64-26a255872090"
+}

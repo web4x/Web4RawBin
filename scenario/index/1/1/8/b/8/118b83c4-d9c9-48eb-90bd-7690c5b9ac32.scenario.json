@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "118b83c4-d9c9-48eb-90bd-7690c5b9ac32",
+    "name": "/api/config returns version 0.1.0 and branch rawbin",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-4.6.1: Server config and branding",
+    "it": "/api/config returns version 0.1.0 and branch rawbin",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

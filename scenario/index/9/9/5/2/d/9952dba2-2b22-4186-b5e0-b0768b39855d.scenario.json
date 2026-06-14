@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9952dba2-2b22-4186-b5e0-b0768b39855d",
+    "name": "app.html has manifest link tag",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-31.4: app.html PWA integration",
+    "it": "app.html has manifest link tag",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "14c3e042-bf2e-45f7-988a-35ab2b3318ed",
+    "name": "connected shows green dot",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-42.2: Chat sheet — WS status dot",
+    "it": "connected shows green dot",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

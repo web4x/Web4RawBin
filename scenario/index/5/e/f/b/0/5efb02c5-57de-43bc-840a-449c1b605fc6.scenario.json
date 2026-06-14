@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5efb02c5-57de-43bc-840a-449c1b605fc6",
+    "name": "persists to per-user dir on create when creatorToken is set",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.7: Per-user persistence (T99)",
+    "it": "persists to per-user dir on create when creatorToken is set",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

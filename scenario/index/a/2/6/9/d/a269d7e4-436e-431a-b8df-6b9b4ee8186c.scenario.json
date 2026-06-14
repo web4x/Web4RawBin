@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a269d7e4-436e-431a-b8df-6b9b4ee8186c",
+    "name": "registerSync calls sync.register with correct tag",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.6: Background sync",
+    "it": "registerSync calls sync.register with correct tag",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

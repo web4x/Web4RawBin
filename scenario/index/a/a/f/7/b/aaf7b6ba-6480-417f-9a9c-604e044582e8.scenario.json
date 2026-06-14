@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "aaf7b6ba-6480-417f-9a9c-604e044582e8",
+    "name": "addMember sends ROOM_JOINED to joiner",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-4.6.5: Room CRUD via RoomManager",
+    "it": "addMember sends ROOM_JOINED to joiner",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

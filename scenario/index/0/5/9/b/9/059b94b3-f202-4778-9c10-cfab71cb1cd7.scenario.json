@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "059b94b3-f202-4778-9c10-cfab71cb1cd7",
+    "name": "README.md → allowed (200 or 404, not 403)",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-62.2: UC-API.5 Path sanitization — write endpoint",
+    "it": "README.md → allowed (200 or 404, not 403)",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

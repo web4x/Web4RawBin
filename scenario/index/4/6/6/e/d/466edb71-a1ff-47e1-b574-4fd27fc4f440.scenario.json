@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "466edb71-a1ff-47e1-b574-4fd27fc4f440",
+    "name": "uptime is 0 or near-0 when just started",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-16.2: Health uptime",
+    "it": "uptime is 0 or near-0 when just started",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

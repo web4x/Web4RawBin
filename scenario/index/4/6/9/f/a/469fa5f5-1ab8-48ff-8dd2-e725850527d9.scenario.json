@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "469fa5f5-1ab8-48ff-8dd2-e725850527d9",
+    "name": "unenrolled device key returns false",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-12.8.4: Unauthorized device key rejected",
+    "it": "unenrolled device key returns false",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

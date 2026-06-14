@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "182323f6-f1e9-4519-b6ea-5971aeddc13f",
+    "name": "disconnect-queue-reconnect cycle works repeatedly",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-33.4: Queue replay on reconnect",
+    "it": "disconnect-queue-reconnect cycle works repeatedly",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

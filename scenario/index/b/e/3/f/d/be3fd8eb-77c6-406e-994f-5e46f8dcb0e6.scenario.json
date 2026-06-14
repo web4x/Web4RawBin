@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "be3fd8eb-77c6-406e-994f-5e46f8dcb0e6",
+    "name": "backfilled profile can be updated normally",
+    "file": "test/vitest/profile.test.ts",
+    "describe": "TC-7.7.6: Backfill defaults",
+    "it": "backfilled profile can be updated normally",
+    "testUuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e69274bc-c83f-4322-abcd-963538f6f9e2"
+}

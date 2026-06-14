@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f280be60-e075-44cb-86e8-b7bbc517e71e",
+    "name": "double open replaces previous overlay",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-56.5: rb-avatar overlay with upload + close",
+    "it": "double open replaces previous overlay",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

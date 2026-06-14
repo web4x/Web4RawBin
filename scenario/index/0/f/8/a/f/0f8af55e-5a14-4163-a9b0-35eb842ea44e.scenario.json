@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0f8af55e-5a14-4163-a9b0-35eb842ea44e",
+    "name": "route uses POST method",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-69.1: POST /api/puml-render route in server.ts",
+    "it": "route uses POST method",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

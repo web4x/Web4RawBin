@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "1e309b05-6c5c-402e-b342-aa492ee50c9e",
+    "name": "is COMPUTED from the live graph — status change recomputes, no stale snapshot (AC4)",
+    "file": "test/vitest/rb-detail-overview.test.ts",
+    "describe": "T107 rb-overview",
+    "it": "is COMPUTED from the live graph — status change recomputes, no stale snapshot (AC4)",
+    "testUuid": "747f4bab-17c2-4274-9349-b5b9e9478df7",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:747f4bab-17c2-4274-9349-b5b9e9478df7"
+}

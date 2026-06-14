@@ -17,7 +17,7 @@
 // [impl:uuid:87c9007a-2144-4030-a5ac-cd48f518bb2b] TraceObject.parent
 
 export type ObjectType =
-  | 'requirement' | 'task' | 'usecase' | 'class' | 'method' | 'implementation' | 'test' | 'bug' | 'changerequest' | 'sprint' | 'room';
+  | 'requirement' | 'task' | 'usecase' | 'class' | 'method' | 'implementation' | 'test' | 'bug' | 'changerequest' | 'sprint' | 'room' | 'testcase' | 'gate';
 
 const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
@@ -247,6 +247,8 @@ export function makeObject(graph: TraceGraph, type: ObjectType, uuid: string, ti
     case 'changerequest': return new Requirement(graph, uuid, title);
     case 'sprint': return new Task(graph, uuid, title);
     case 'room': return new Task(graph, uuid, title);
+    case 'testcase': return new Test(graph, uuid, title);
+    case 'gate': return new Test(graph, uuid, title);
     default: throw new Error(`Unknown object type: ${type}`);
   }
 }

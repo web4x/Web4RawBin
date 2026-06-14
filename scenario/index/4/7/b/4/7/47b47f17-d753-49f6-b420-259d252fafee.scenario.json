@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "47b47f17-d753-49f6-b420-259d252fafee",
+    "name": "flushCache function deletes caches + unregisters SW",
+    "file": "test/vitest/flush-cache.test.ts",
+    "describe": "flush PWA cache (R19.45)",
+    "it": "flushCache function deletes caches + unregisters SW",
+    "testUuid": "919e6fa6-6c30-47a3-90f3-184abdb6f653",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:919e6fa6-6c30-47a3-90f3-184abdb6f653"
+}

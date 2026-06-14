@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "7a4317ed-3915-4997-958b-306993446690",
+    "name": "tracelink views exist",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R17.18: Traceability links as scenario units",
+    "it": "tracelink views exist",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

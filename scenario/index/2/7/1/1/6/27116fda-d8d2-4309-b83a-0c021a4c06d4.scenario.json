@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "27116fda-d8d2-4309-b83a-0c021a4c06d4",
+    "name": "onClose callback fires on hide",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.3: show/hide lifecycle",
+    "it": "onClose callback fires on hide",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5a045e7c-0653-4813-917b-3a33c56f715f",
+    "name": "message order preserved in history",
+    "file": "test/vitest/chat.test.ts",
+    "describe": "TC-20.5: Multi-user chat",
+    "it": "message order preserved in history",
+    "testUuid": "75d1d899-8c52-48dd-a696-42f7492889e3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
+}

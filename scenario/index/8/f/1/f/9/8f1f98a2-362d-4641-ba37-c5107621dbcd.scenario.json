@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8f1f98a2-362d-4641-ba37-c5107621dbcd",
+    "name": "overlay has rb-overlay class",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.1: Overlay backdrop creation",
+    "it": "overlay has rb-overlay class",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

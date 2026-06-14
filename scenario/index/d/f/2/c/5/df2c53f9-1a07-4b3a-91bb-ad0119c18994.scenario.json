@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "df2c53f9-1a07-4b3a-91bb-ad0119c18994",
+    "name": "profile with committed=true but empty avatar uses fallback",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-PDCA.2: PROFILE response includes non-empty avatar after commit",
+    "it": "profile with committed=true but empty avatar uses fallback",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

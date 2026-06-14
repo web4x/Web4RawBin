@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "744f8c0c-4a86-40ba-b9e3-bd9b112b2e83",
+    "name": "returns DEVICE_ENROLL_FAILED for unidentified client",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.7: DEVICE_ENROLL without SSH keys → error",
+    "it": "returns DEVICE_ENROLL_FAILED for unidentified client",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

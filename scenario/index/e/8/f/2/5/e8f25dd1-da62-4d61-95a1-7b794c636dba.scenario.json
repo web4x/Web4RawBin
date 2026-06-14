@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e8f25dd1-da62-4d61-95a1-7b794c636dba",
+    "name": "MD_CSS has ul/ol padding-left for nesting",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R-ED1: Markdown nested lists",
+    "it": "MD_CSS has ul/ol padding-left for nesting",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

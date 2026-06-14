@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f528cc1a-b9ad-4d67-b44f-a0fca675e171",
+    "name": "overview.md lists all sprints",
+    "file": "test/vitest/champagne-dedicated.test.ts",
+    "describe": "SpeakingTree.generateMd — MD views from templates",
+    "it": "overview.md lists all sprints",
+    "testUuid": "76f8fd67-d694-460b-9b13-cd2ca81407cc",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:76f8fd67-d694-460b-9b13-cd2ca81407cc"
+}

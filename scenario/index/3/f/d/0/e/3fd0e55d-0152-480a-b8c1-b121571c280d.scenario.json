@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3fd0e55d-0152-480a-b8c1-b121571c280d",
+    "name": "returned body matches saved data",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-49.1: Avatar endpoint returns image",
+    "it": "returned body matches saved data",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

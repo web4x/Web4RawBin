@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "49f5a65f-33be-406b-aec3-f8c2888206d2",
+    "name": "rekeyUser returns {reEncrypted>=1, lost:0} for a decryptable avatar",
+    "file": "test/vitest/avatar-rekey.test.ts",
+    "describe": "Avatar survives keypair regen — rekeyUser (v0.5.9)",
+    "it": "rekeyUser returns {reEncrypted>=1, lost:0} for a decryptable avatar",
+    "testUuid": "3615a349-01ac-4816-ac6d-c343ff1d3050",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3615a349-01ac-4816-ac6d-c343ff1d3050"
+}

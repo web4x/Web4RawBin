@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "bc184eb5-7e1e-4d76-9e3d-ec61ef218f95",
+    "name": "response includes ETag header",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-49.3: ETag header",
+    "it": "response includes ETag header",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

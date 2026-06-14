@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5725cb9b-7014-48db-b24c-04bd12f64c51",
+    "name": "ChangeRequestLoader defined and registered in ClassRegistry",
+    "file": "test/vitest/classify-type.test.ts",
+    "describe": "R20.4 Requirement.classifyType — Bug + ChangeRequest subtypes",
+    "it": "ChangeRequestLoader defined and registered in ClassRegistry",
+    "testUuid": "320a8790-17de-4adc-b146-1ab68eab6f17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:320a8790-17de-4adc-b146-1ab68eab6f17"
+}

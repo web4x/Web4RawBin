@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e8555722-c0ad-42d9-9e42-318979fe4d14",
+    "name": "package.json has build script",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.1: Build output",
+    "it": "package.json has build script",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

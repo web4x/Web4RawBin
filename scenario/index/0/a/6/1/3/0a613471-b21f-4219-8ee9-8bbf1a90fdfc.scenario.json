@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0a613471-b21f-4219-8ee9-8bbf1a90fdfc",
+    "name": ".env allowed (not hidden-blocked, text extension)",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-62.3: Additional blocked paths",
+    "it": ".env allowed (not hidden-blocked, text extension)",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

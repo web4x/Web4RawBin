@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f70fb2ab-0622-44a1-aa1a-b29152e57da8",
+    "name": "toArr normalizer handles string and array refinementOf",
+    "file": "test/vitest/detail-sections.test.ts",
+    "describe": "R20.5c renderSupersededSection",
+    "it": "toArr normalizer handles string and array refinementOf",
+    "testUuid": "7e717383-207e-41b8-b564-f47a964f54b6",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7e717383-207e-41b8-b564-f47a964f54b6"
+}

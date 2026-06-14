@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "1edf924a-16d0-4d27-94ff-e49b693f1ff4",
+    "name": "T-default-flip R19.10: new room defaults to mode=persistent",
+    "file": "test/vitest/room.test.ts",
+    "describe": "S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)",
+    "it": "T-default-flip R19.10: new room defaults to mode=persistent",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

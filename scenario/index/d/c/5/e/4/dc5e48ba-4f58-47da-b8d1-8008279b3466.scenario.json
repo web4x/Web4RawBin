@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "dc5e48ba-4f58-47da-b8d1-8008279b3466",
+    "name": "AC2: clicking ",
+    "file": "test/e2e/update-banner.spec.ts",
+    "describe": "T94: PWA update banner",
+    "it": "AC2: clicking ",
+    "testUuid": "916b8bb0-08ef-4287-98f0-031ddf004723",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:916b8bb0-08ef-4287-98f0-031ddf004723"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "05415ff0-4ae4-4edc-aafc-0d6322623797",
+    "name": "HTML views generated alongside MD",
+    "file": "test/vitest/champagne-dedicated.test.ts",
+    "describe": "SpeakingTree.generateMd — MD views from templates",
+    "it": "HTML views generated alongside MD",
+    "testUuid": "76f8fd67-d694-460b-9b13-cd2ca81407cc",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:76f8fd67-d694-460b-9b13-cd2ca81407cc"
+}

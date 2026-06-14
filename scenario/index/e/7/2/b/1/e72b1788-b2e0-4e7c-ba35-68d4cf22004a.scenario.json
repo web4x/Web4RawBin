@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e72b1788-b2e0-4e7c-ba35-68d4cf22004a",
+    "name": "AC1/AC6: version mismatch → update banner fires with ",
+    "file": "test/e2e/update-banner.spec.ts",
+    "describe": "T94: PWA update banner",
+    "it": "AC1/AC6: version mismatch → update banner fires with ",
+    "testUuid": "916b8bb0-08ef-4287-98f0-031ddf004723",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:916b8bb0-08ef-4287-98f0-031ddf004723"
+}

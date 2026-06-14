@@ -9,7 +9,34 @@
       "ior:instance:4c152c96-1b2a-40ad-b02d-a7a71dd30db5"
     ],
     "status": "pass",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:2e47fdff-95bb-4225-84e2-6c46fb35e87c",
+      "ior:instance:aeeb2e82-f5f9-4a6b-b7f1-187a0401e568",
+      "ior:instance:a91a0bcf-ac3c-427b-b220-40b0202f0943",
+      "ior:instance:572f7f2f-2782-49fe-938d-7eaf0cde104d",
+      "ior:instance:3ca8b4bb-dc48-4441-bb8f-e1cf4ae8e714",
+      "ior:instance:d9020a84-fda0-4f70-9a8d-e31a3cf82cbe",
+      "ior:instance:7177309a-6f0d-4a32-b761-a86668de061c",
+      "ior:instance:1fbcb81a-d12e-4fa2-a5a8-9e86b34cf281",
+      "ior:instance:9be8763b-0ca3-410b-a046-ad12fad9dee2",
+      "ior:instance:28226dff-2fdc-4255-81c1-f80db37bffe9",
+      "ior:instance:162b722f-926e-4ef1-937e-dfdf39a51e27",
+      "ior:instance:511d1c17-0cd3-4b3b-a807-6403c5d202d5",
+      "ior:instance:9f48642c-0b4d-4355-84ee-f7dbead5f922",
+      "ior:instance:0e62cd05-f8cf-4f20-aa37-525d3470551b",
+      "ior:instance:f80d4f47-4c76-440d-86c1-e6469746a80c",
+      "ior:instance:281c78df-71ea-46fd-81f0-a419a7d36908",
+      "ior:instance:fc08ad14-73bf-45af-8dfa-b47199fa17dd",
+      "ior:instance:5f78d26c-105a-4743-bc11-0f1e00f0164a",
+      "ior:instance:5ecbffaa-5609-4449-b631-2b20b6f81182",
+      "ior:instance:70bc1954-d042-4bbd-842d-c8474334fca3",
+      "ior:instance:6ff398e3-47d6-4278-9c7f-5efda1adcd62",
+      "ior:instance:cf3898ef-356e-4897-90bc-8d63271332d5",
+      "ior:instance:23e45808-e413-4d6a-9c09-8bb7af9e6fd4",
+      "ior:instance:42b0bb0d-4ee4-48b0-8d01-f9eadc0078e5",
+      "ior:instance:76040048-426c-4e63-bc85-8936e53996f8"
+    ]
   },
   "ownerIor": "ior:instance:4c152c96-1b2a-40ad-b02d-a7a71dd30db5"
 }

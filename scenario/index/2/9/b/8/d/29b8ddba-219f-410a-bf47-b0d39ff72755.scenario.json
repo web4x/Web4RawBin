@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "29b8ddba-219f-410a-bf47-b0d39ff72755",
+    "name": "clicking backdrop closes popup",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-45.2: rb-qr-popup — show creates overlay",
+    "it": "clicking backdrop closes popup",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

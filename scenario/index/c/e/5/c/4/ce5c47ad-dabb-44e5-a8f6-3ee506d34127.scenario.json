@@ -10,7 +10,23 @@
     "sourceFile": "ior:file:test/vitest/trace-consistency.test.ts",
     "sourceLine": 6,
     "parent": "ior:instance:ec6214d4-6db9-48cd-b081-964e5d1af7ba",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:a296d5a1-6d79-4cf3-9f5d-5be8c8ca5a58",
+      "ior:instance:4ee67ae1-7376-4851-8f5e-5efc345f233d",
+      "ior:instance:ea52fd42-df0e-4f8c-bd3f-93a3feddbca1",
+      "ior:instance:a8fb6445-6342-4d8c-9d72-a782848d18b7",
+      "ior:instance:0438361f-5ed3-4826-8af7-336446d11cd9",
+      "ior:instance:2f9ef101-681d-4f1c-aa1f-b7076e17c2d2",
+      "ior:instance:12966265-49d1-4eb5-83cc-6de0f07e04e6",
+      "ior:instance:81a2e62a-3134-44dd-967b-88f16ff534b9",
+      "ior:instance:f49b62d6-6791-4990-8183-f71183228fc4",
+      "ior:instance:9e2224c4-23a9-4ded-90ff-85a4be33f2b0",
+      "ior:instance:66c92fb1-cf27-497c-bb04-6f11df28584a",
+      "ior:instance:af78f3af-c59b-433d-a8e0-613035cb2259",
+      "ior:instance:43c724e2-7d2a-4215-a47c-26c2ebfc9bb2",
+      "ior:instance:1df6fa85-6a92-4897-93bc-c78f7368be52"
+    ]
   },
   "ownerIor": "ior:instance:ec6214d4-6db9-48cd-b081-964e5d1af7ba"
 }

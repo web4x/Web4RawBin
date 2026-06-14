@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b6aafcd3-2ab8-4f49-8d7e-8182137251ef",
+    "name": "content over 1MB returns 413",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-61.6: writeFile size limit",
+    "it": "content over 1MB returns 413",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

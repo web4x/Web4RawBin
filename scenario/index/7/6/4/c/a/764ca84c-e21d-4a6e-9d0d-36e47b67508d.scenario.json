@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "764ca84c-e21d-4a6e-9d0d-36e47b67508d",
+    "name": "server handles /edit/ with path parameter",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-63.4: /edit/<path> serves edit.html",
+    "it": "server handles /edit/ with path parameter",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

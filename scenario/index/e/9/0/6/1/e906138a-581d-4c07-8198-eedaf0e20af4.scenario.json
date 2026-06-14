@@ -10,7 +10,15 @@
     "sourceFile": "ior:file:test/e2e/room-identity.spec.ts",
     "sourceLine": 1,
     "parent": "ior:instance:953bdce6-6dec-4563-9276-fbca372b1a61",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:008fb7dc-0372-4684-963c-a2c7e846cb01",
+      "ior:instance:187c3945-75c8-455a-b17e-51a5c840849e",
+      "ior:instance:9b198f21-9271-400f-af0e-d45d278e1429",
+      "ior:instance:4d8255f4-e9cf-473f-9afc-faa5b9c70e11",
+      "ior:instance:454282e7-c07e-4d58-99cc-71ac5d9e673b",
+      "ior:instance:210d8252-df2d-486b-a1a3-52f7c8436e8d"
+    ]
   },
   "ownerIor": "ior:instance:953bdce6-6dec-4563-9276-fbca372b1a61"
 }

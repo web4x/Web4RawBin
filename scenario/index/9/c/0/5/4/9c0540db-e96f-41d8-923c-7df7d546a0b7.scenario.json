@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9c0540db-e96f-41d8-923c-7df7d546a0b7",
+    "name": "renders avatar image when avatarUrl provided",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-43.1: rb-member-badge — avatar rendering",
+    "it": "renders avatar image when avatarUrl provided",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

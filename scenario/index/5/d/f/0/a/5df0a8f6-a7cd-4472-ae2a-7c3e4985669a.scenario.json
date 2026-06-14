@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5df0a8f6-a7cd-4472-ae2a-7c3e4985669a",
+    "name": "rb-object-item defined via customElements.define upgrades on createElement",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.88: render awaits whenDefined → items are upgraded",
+    "it": "rb-object-item defined via customElements.define upgrades on createElement",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5672dcb3-255a-49b7-9527-0a78f5545dbb",
+    "name": "TC-9: log entry format matches [timestamp] message pattern",
+    "file": "test/vitest/file-dnd-chain.test.ts",
+    "describe": "[test:uuid:b543e1ad] R19.41 Logger.logAtLevel (integration)",
+    "it": "TC-9: log entry format matches [timestamp] message pattern",
+    "testUuid": "f0c30f5e-9686-4c34-89ba-8f5b45f28893",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f0c30f5e-9686-4c34-89ba-8f5b45f28893"
+}

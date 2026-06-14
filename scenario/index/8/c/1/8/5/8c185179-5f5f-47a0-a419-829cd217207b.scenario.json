@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8c185179-5f5f-47a0-a419-829cd217207b",
+    "name": "renderSupersededSection function is exported from detail-superseded.ts",
+    "file": "test/vitest/detail-sections.test.ts",
+    "describe": "R20.5c renderSupersededSection",
+    "it": "renderSupersededSection function is exported from detail-superseded.ts",
+    "testUuid": "7e717383-207e-41b8-b564-f47a964f54b6",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7e717383-207e-41b8-b564-f47a964f54b6"
+}

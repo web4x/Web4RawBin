@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "36287a17-1ff4-4c5d-8e0e-fd208b7d47b3",
+    "name": "TC-6: 3-message chain maintains full linked list",
+    "file": "test/vitest/message-rawbin.test.ts",
+    "describe": "[test:uuid:8289ef98] R19.38 Message scenario unit",
+    "it": "TC-6: 3-message chain maintains full linked list",
+    "testUuid": "8289ef98-6aba-49a2-be74-89e95658f1a7",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8289ef98-6aba-49a2-be74-89e95658f1a7"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "fd0d936e-d15c-40ec-afbf-f727d577bc3b",
+    "name": "clicking a node row selects it (AC4, R20.6)",
+    "file": "test/vitest/rb-trace-tree.test.ts",
+    "describe": "T108 rb-trace-tree",
+    "it": "clicking a node row selects it (AC4, R20.6)",
+    "testUuid": "4da22329-6cfc-467a-b7c0-778e0996eed1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4da22329-6cfc-467a-b7c0-778e0996eed1"
+}

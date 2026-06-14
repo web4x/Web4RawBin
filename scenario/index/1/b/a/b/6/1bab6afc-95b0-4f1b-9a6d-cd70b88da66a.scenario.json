@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "1bab6afc-95b0-4f1b-9a6d-cd70b88da66a",
+    "name": "enrich adds ownerName without dropping rooms",
+    "file": "test/vitest/room-order.test.ts",
+    "describe": "TC-95.3: Stable / no rooms dropped (AC3/AC5)",
+    "it": "enrich adds ownerName without dropping rooms",
+    "testUuid": "80c16527-a6b6-4b5f-8c94-0d76e838d2b3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:80c16527-a6b6-4b5f-8c94-0d76e838d2b3"
+}

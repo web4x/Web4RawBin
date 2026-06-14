@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8e75b6da-5e40-42b8-930d-5f674d46077f",
+    "name": "uses a real 200x200 PNG (not a stub) — guards the avatar-verification lesson",
+    "file": "test/vitest/avatar-keyless-upload.test.ts",
+    "describe": "T92 RE-FIX: avatar upload just succeeds, no key error (v0.5.1)",
+    "it": "uses a real 200x200 PNG (not a stub) — guards the avatar-verification lesson",
+    "testUuid": "19449505-10d2-4727-a199-91c205c84ba3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:19449505-10d2-4727-a199-91c205c84ba3"
+}

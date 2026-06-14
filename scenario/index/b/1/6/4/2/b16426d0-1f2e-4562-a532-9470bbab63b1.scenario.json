@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b16426d0-1f2e-4562-a532-9470bbab63b1",
+    "name": "shows version number when provided",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-39.1: Update banner creation",
+    "it": "shows version number when provided",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

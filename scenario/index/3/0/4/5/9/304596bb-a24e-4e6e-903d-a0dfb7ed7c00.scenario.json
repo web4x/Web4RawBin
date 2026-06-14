@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "304596bb-a24e-4e6e-903d-a0dfb7ed7c00",
+    "name": "app.html references app.js bundle",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.2: App HTML content",
+    "it": "app.html references app.js bundle",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

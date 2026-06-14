@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "551ab650-561e-4c06-aa5a-71f453fd22b0",
+    "name": "AC5 reading avatar.enc (the protect path) does not change the bytes",
+    "file": "test/vitest/avatar-persist.test.ts",
+    "describe": "T91: avatar persists, never reverts to default (v0.4.11)",
+    "it": "AC5 reading avatar.enc (the protect path) does not change the bytes",
+    "testUuid": "aba97062-537a-4442-805a-6e41e7705ade",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:aba97062-537a-4442-805a-6e41e7705ade"
+}

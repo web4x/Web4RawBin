@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "1641dc98-be3e-49ba-952b-3d4189eb1b79",
+    "name": "(b) data set BEFORE connect but AFTER define → setter fires, renders on connect",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.90: self-healing element — all 3 orderings render",
+    "it": "(b) data set BEFORE connect but AFTER define → setter fires, renders on connect",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

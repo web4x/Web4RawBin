@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "32791562-3f55-4944-95e9-c8aa9de6f58a",
+    "name": "statusTransition applies FSM verb + persists",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T138: Skills",
+    "it": "statusTransition applies FSM verb + persists",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

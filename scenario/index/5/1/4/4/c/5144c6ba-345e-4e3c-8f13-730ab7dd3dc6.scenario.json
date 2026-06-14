@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5144c6ba-345e-4e3c-8f13-730ab7dd3dc6",
+    "name": "broadcast skips disconnected members (readyState !== 1)",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.5: Broadcast → all members receive message",
+    "it": "broadcast skips disconnected members (readyState !== 1)",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

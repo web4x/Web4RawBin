@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "67620a53-47df-4110-87fb-64e43e7fdaf6",
+    "name": "desktop drawer has flex:1 min-width:300px (no 480px cap)",
+    "file": "test/vitest/drawer-fullwidth-sticky.test.ts",
+    "describe": "[test:uuid:a7e34f12] R19.52 detailDrawer.fullWidth",
+    "it": "desktop drawer has flex:1 min-width:300px (no 480px cap)",
+    "testUuid": "7d6badb4-a27d-4c9d-b7f8-385fc9636e90",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7d6badb4-a27d-4c9d-b7f8-385fc9636e90"
+}

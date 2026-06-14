@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6ec589cd-a25b-44e6-b60f-e0d4d1fed249",
+    "name": "AC2 DESYNCED state (flag true / key files missing): upload succeeds, served bytes == uploaded",
+    "file": "test/vitest/avatar-keyless-upload.test.ts",
+    "describe": "T92 RE-FIX: avatar upload just succeeds, no key error (v0.5.1)",
+    "it": "AC2 DESYNCED state (flag true / key files missing): upload succeeds, served bytes == uploaded",
+    "testUuid": "19449505-10d2-4727-a199-91c205c84ba3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:19449505-10d2-4727-a199-91c205c84ba3"
+}

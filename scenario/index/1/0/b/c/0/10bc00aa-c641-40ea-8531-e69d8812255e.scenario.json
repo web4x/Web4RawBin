@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "10bc00aa-c641-40ea-8531-e69d8812255e",
+    "name": "room.json gone after delete",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-76.1: Owner deletes room",
+    "it": "room.json gone after delete",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

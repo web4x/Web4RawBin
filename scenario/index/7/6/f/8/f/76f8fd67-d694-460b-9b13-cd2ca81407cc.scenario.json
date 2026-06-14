@@ -6,7 +6,20 @@
     "sourceFile": "test/vitest/champagne-dedicated.test.ts",
     "sourceLine": 5,
     "tests": [],
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:07517838-b5cc-435d-bfec-66b4a8d1a6b0",
+      "ior:instance:147aa252-e00a-4ccd-892c-f40fb10d0770",
+      "ior:instance:05daa5c1-2ead-412f-9da4-543053d67ee4",
+      "ior:instance:1eecd5ae-df3d-4e3a-9c49-84ee27f0a2d6",
+      "ior:instance:754ad49d-1f7f-4590-86cf-3c44d90c28f7",
+      "ior:instance:28899895-ee1d-4ccb-916f-34baa5f099c0",
+      "ior:instance:5d531260-2450-4d47-bd25-3103fc971a08",
+      "ior:instance:b12ca8d9-5f32-434f-aa06-638dcad05e98",
+      "ior:instance:f528cc1a-b9ad-4d67-b44f-a0fca675e171",
+      "ior:instance:05415ff0-4ae4-4edc-aafc-0d6322623797",
+      "ior:instance:e61fad3a-f192-4059-84b8-ee18b2b8b4bf"
+    ]
   },
   "ownerIor": null
 }

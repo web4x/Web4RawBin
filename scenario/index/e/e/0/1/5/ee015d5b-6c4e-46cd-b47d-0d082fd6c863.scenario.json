@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ee015d5b-6c4e-46cd-b47d-0d082fd6c863",
+    "name": "custom size sets width and height",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-56.3: rb-avatar size attribute",
+    "it": "custom size sets width and height",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "81bccb09-60b4-41fc-9bc6-3e374637edca",
+    "name": "TC-5: empty room (no messages) returns empty + hasMore=false",
+    "file": "test/vitest/lazy-load-messages.test.ts",
+    "describe": "[test:uuid:9e1cb105] R19.40 lazy-load message pagination",
+    "it": "TC-5: empty room (no messages) returns empty + hasMore=false",
+    "testUuid": "9e1cb105-27b1-4268-b9c3-d2110563fdeb",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:9e1cb105-27b1-4268-b9c3-d2110563fdeb"
+}

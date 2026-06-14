@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "1aca6050-0f86-45d5-91bd-087c151cfd95",
+    "name": "TC-10: log buffer respects MAX_LOGS ring-buffer semantics",
+    "file": "test/vitest/file-dnd-chain.test.ts",
+    "describe": "[test:uuid:b543e1ad] R19.41 Logger.logAtLevel (integration)",
+    "it": "TC-10: log buffer respects MAX_LOGS ring-buffer semantics",
+    "testUuid": "f0c30f5e-9686-4c34-89ba-8f5b45f28893",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f0c30f5e-9686-4c34-89ba-8f5b45f28893"
+}

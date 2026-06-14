@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0e660052-935c-4cda-bfe9-acb324b5a83c",
+    "name": "app.html title says RawBin",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.2: App HTML content",
+    "it": "app.html title says RawBin",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

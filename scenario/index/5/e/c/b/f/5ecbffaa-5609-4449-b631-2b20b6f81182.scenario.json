@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5ecbffaa-5609-4449-b631-2b20b6f81182",
+    "name": "removes both .enc and .meta.json",
+    "file": "test/vitest/crypto.test.ts",
+    "describe": "TC-47.8: deleteFile",
+    "it": "removes both .enc and .meta.json",
+    "testUuid": "cbde8942-6f7e-4889-85ea-eb3365dde403",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cbde8942-6f7e-4889-85ea-eb3365dde403"
+}

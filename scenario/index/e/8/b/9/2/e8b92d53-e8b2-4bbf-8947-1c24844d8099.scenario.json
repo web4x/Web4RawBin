@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e8b92d53-e8b2-4bbf-8947-1c24844d8099",
+    "name": "default name is owner",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-74.6: Default room name",
+    "it": "default name is owner",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c02a23ba-22ee-445f-a666-0999c5dc1cd9",
+    "name": "\\n",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.84: handle drag resizes drawer to 95vh, close below 120px",
+    "it": "\\n",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

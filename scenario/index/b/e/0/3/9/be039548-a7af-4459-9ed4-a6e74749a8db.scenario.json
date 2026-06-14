@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "be039548-a7af-4459-9ed4-a6e74749a8db",
+    "name": "(9) /md/README.md has Edit link",
+    "file": "test/e2e/editor.spec.ts",
+    "describe": "T73: Editor E2E",
+    "it": "(9) /md/README.md has Edit link",
+    "testUuid": "6d5060bf-b638-460e-b922-ff2eb20b2e1c",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6d5060bf-b638-460e-b922-ff2eb20b2e1c"
+}

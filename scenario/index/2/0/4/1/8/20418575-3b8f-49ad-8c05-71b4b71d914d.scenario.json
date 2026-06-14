@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "20418575-3b8f-49ad-8c05-71b4b71d914d",
+    "name": "messages queued in order",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-33.3: Queue on disconnect",
+    "it": "messages queued in order",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

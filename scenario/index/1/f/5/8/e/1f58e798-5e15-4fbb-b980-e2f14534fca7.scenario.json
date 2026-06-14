@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "1f58e798-5e15-4fbb-b980-e2f14534fca7",
+    "name": "cleanupTestUsers helper exists in helpers.ts",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R-RoomFlood: E2E cleanup",
+    "it": "cleanupTestUsers helper exists in helpers.ts",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

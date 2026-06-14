@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "dee87f49-39b5-4cce-bb18-c50647de955e",
+    "name": "rb-editor-layout tag used in edit.html or edit.ts",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-64.5: edit.html or edit.ts uses rb-editor-layout tag",
+    "it": "rb-editor-layout tag used in edit.html or edit.ts",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

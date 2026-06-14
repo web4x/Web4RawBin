@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "648d228d-3155-4f9f-a3c4-58956a1aa1a3",
+    "name": "/docs pages use shared CSS (MD_CSS variable or app.css link)",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-44.2: Server pages use app.css",
+    "it": "/docs pages use shared CSS (MD_CSS variable or app.css link)",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

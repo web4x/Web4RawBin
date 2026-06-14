@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "58925b38-7ec9-4cc1-a4eb-24e4c95eccdf",
+    "name": "removeRoom by creator succeeds",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-4.6.5: Room CRUD via RoomManager",
+    "it": "removeRoom by creator succeeds",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

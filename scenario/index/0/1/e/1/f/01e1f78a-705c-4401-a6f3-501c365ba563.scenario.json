@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "01e1f78a-705c-4401-a6f3-501c365ba563",
+    "name": "sort drops no rooms — same count out as in",
+    "file": "test/vitest/room-order.test.ts",
+    "describe": "TC-95.3: Stable / no rooms dropped (AC3/AC5)",
+    "it": "sort drops no rooms — same count out as in",
+    "testUuid": "80c16527-a6b6-4b5f-8c94-0d76e838d2b3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:80c16527-a6b6-4b5f-8c94-0d76e838d2b3"
+}

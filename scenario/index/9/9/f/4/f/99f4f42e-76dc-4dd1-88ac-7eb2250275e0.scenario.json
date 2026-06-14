@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "99f4f42e-76dc-4dd1-88ac-7eb2250275e0",
+    "name": "public_keys/ is 700",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-74.4: File permissions",
+    "it": "public_keys/ is 700",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

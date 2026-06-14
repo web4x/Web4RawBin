@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "65fe1c55-9a88-477b-ad1d-57f0ff2102e4",
+    "name": "TC-4: stop when <limit (3 messages, limit=5)",
+    "file": "test/vitest/lazy-load-messages.test.ts",
+    "describe": "[test:uuid:9e1cb105] R19.40 lazy-load message pagination",
+    "it": "TC-4: stop when <limit (3 messages, limit=5)",
+    "testUuid": "9e1cb105-27b1-4268-b9c3-d2110563fdeb",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:9e1cb105-27b1-4268-b9c3-d2110563fdeb"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "29cbf846-b080-40db-9535-87200da5e7a5",
+    "name": "broadcast sends to all connected members",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.5: Broadcast → all members receive message",
+    "it": "broadcast sends to all connected members",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9e03df40-2c0e-44be-9a7a-2096e3cc3201",
+    "name": "scenario/index has 5-level UUID prefix structure",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R17.4: UUID prefix index",
+    "it": "scenario/index has 5-level UUID prefix structure",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

@@ -6,7 +6,11 @@
     "sourceFile": "test/vitest/file-restore.test.ts",
     "sourceLine": 3,
     "tests": [],
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:92f7a216-5d34-43e9-a0c7-1a370c06acb1",
+      "ior:instance:6a1af241-8282-4a7e-8184-733f4098b20c"
+    ]
   },
   "ownerIor": null
 }

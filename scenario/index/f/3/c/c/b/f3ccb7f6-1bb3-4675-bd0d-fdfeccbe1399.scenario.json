@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f3ccb7f6-1bb3-4675-bd0d-fdfeccbe1399",
+    "name": "RoomBrowser.ts imports or references rb-avatar",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-57.1: RoomBrowser uses rb-avatar",
+    "it": "RoomBrowser.ts imports or references rb-avatar",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

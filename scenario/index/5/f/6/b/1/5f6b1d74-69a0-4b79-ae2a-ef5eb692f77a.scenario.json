@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5f6b1d74-69a0-4b79-ae2a-ef5eb692f77a",
+    "name": "member avatarUrl is fallback when no profile",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-53.1: Room join uses profile.avatar",
+    "it": "member avatarUrl is fallback when no profile",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

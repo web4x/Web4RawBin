@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9f48642c-0b4d-4355-84ee-f7dbead5f922",
+    "name": "1MB file encrypts and decrypts correctly",
+    "file": "test/vitest/crypto.test.ts",
+    "describe": "TC-47.6: Large file roundtrip",
+    "it": "1MB file encrypts and decrypts correctly",
+    "testUuid": "cbde8942-6f7e-4889-85ea-eb3365dde403",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cbde8942-6f7e-4889-85ea-eb3365dde403"
+}

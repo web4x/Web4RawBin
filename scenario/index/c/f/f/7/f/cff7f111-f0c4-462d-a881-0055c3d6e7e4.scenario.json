@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "cff7f111-f0c4-462d-a881-0055c3d6e7e4",
+    "name": "queued messages sent on reconnect",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-33.4: Queue replay on reconnect",
+    "it": "queued messages sent on reconnect",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

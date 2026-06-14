@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e39ec40f-8a17-465c-a4e6-2901500ce3ed",
+    "name": "emits a verbs table with the generated banner",
+    "file": "test/vitest/object-verb.test.ts",
+    "describe": "emitDocs generates skill docs from signatures",
+    "it": "emits a verbs table with the generated banner",
+    "testUuid": "7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d"
+}

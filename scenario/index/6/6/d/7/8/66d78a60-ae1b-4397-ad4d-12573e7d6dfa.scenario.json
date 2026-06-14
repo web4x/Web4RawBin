@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "66d78a60-ae1b-4397-ad4d-12573e7d6dfa",
+    "name": "TC-4: unitLinks is empty (no stray room-dir symlinks)",
+    "file": "test/vitest/message-rawbin.test.ts",
+    "describe": "[test:uuid:8289ef98] R19.38 Message scenario unit",
+    "it": "TC-4: unitLinks is empty (no stray room-dir symlinks)",
+    "testUuid": "8289ef98-6aba-49a2-be74-89e95658f1a7",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8289ef98-6aba-49a2-be74-89e95658f1a7"
+}

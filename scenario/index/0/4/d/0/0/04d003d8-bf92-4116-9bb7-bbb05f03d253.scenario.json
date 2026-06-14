@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "04d003d8-bf92-4116-9bb7-bbb05f03d253",
+    "name": "id_rsa is 600",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-74.4: File permissions",
+    "it": "id_rsa is 600",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

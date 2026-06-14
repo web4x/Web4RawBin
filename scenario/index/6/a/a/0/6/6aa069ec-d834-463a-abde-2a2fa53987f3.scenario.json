@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6aa069ec-d834-463a-abde-2a2fa53987f3",
+    "name": "mismatch when cached differs from server",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-39.2: Version mismatch detection",
+    "it": "mismatch when cached differs from server",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

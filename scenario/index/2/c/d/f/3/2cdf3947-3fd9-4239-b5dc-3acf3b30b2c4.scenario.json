@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2cdf3947-3fd9-4239-b5dc-3acf3b30b2c4",
+    "name": "rejects non-numeric code — keeps old code",
+    "file": "test/vitest/profile.test.ts",
+    "describe": "TC-7.7.5: secretCode validation",
+    "it": "rejects non-numeric code — keeps old code",
+    "testUuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e69274bc-c83f-4322-abcd-963538f6f9e2"
+}

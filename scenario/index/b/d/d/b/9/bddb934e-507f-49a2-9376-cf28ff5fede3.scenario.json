@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "bddb934e-507f-49a2-9376-cf28ff5fede3",
+    "name": "walkChain traverses from requirement down to task",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T138: Skills",
+    "it": "walkChain traverses from requirement down to task",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

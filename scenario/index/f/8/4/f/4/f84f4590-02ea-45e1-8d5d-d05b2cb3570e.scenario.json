@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f84f4590-02ea-45e1-8d5d-d05b2cb3570e",
+    "name": "TraceLinkLoader.create populates defaults",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T134: TraceLink",
+    "it": "TraceLinkLoader.create populates defaults",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

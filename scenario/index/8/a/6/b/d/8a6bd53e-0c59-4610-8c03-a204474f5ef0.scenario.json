@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8a6bd53e-0c59-4610-8c03-a204474f5ef0",
+    "name": "references marked for markdown rendering",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-68.4: imports marked.js",
+    "it": "references marked for markdown rendering",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

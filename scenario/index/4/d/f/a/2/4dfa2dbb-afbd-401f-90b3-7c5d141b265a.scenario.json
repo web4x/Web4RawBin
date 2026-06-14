@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4dfa2dbb-afbd-401f-90b3-7c5d141b265a",
+    "name": "id_rsa.pub contains valid PEM public key",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.2: generateUserKeypair PEM keys",
+    "it": "id_rsa.pub contains valid PEM public key",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

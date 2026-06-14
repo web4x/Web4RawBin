@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "95c73272-43d7-47ec-828b-5c2155f7544d",
+    "name": "app.html has no game references",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.2: App HTML content",
+    "it": "app.html has no game references",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

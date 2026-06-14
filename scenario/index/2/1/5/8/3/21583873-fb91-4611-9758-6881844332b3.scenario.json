@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "21583873-fb91-4611-9758-6881844332b3",
+    "name": "returns unknown for invalid IOR",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T127.2: IORResolver",
+    "it": "returns unknown for invalid IOR",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

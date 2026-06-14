@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ce33dead-6064-4ffa-a9fd-14bbcacd2d28",
+    "name": "send() queues messages when disconnected",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-33.3: Queue on disconnect",
+    "it": "send() queues messages when disconnected",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

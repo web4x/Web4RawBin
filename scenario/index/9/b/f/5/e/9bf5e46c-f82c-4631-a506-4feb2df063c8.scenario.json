@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9bf5e46c-f82c-4631-a506-4feb2df063c8",
+    "name": "server.ts pageNav renders position:sticky;top:0",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R16.3: pageNav sticky",
+    "it": "server.ts pageNav renders position:sticky;top:0",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

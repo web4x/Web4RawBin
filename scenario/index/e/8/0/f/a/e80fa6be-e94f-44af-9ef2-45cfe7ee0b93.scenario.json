@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e80fa6be-e94f-44af-9ef2-45cfe7ee0b93",
+    "name": "shows ? when no name and no src",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-56.2: rb-avatar renders fallback initial when no src",
+    "it": "shows ? when no name and no src",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

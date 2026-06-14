@@ -13,7 +13,14 @@
     "sourceFile": "ior:file:test/vitest/avatar-persist.test.ts",
     "sourceLine": 3,
     "parent": "ior:instance:e1983179-5f03-4265-954e-8f004a358af7",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:44e2258e-74fd-45e2-b8c6-5a2b67e02977",
+      "ior:instance:551ab650-561e-4c06-aa5a-71f453fd22b0",
+      "ior:instance:62174567-2a55-482a-a153-696b84be8322",
+      "ior:instance:fb495f02-a01c-4224-9377-af0dd069998f",
+      "ior:instance:5e4f03cc-535e-4841-abff-736769d9f414"
+    ]
   },
   "ownerIor": "ior:instance:e1983179-5f03-4265-954e-8f004a358af7"
 }

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e5f0d1f3-9f60-4125-b656-0e2eee5ff01a",
+    "name": "rb-detail-view.ts has createFilePreviewButton method + content-preview import",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.93: createFilePreviewButton — rb-detail-view renders preview button",
+    "it": "rb-detail-view.ts has createFilePreviewButton method + content-preview import",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

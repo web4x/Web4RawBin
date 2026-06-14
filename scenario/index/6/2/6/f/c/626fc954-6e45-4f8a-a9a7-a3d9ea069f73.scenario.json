@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "626fc954-6e45-4f8a-a9a7-a3d9ea069f73",
+    "name": "default title is Share Room",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-45.1: rb-qr-popup — renders with url",
+    "it": "default title is Share Room",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "7177309a-6f0d-4a32-b761-a86668de061c",
+    "name": "binary data roundtrip",
+    "file": "test/vitest/crypto.test.ts",
+    "describe": "TC-47.3: Encrypt-decrypt roundtrip",
+    "it": "binary data roundtrip",
+    "testUuid": "cbde8942-6f7e-4889-85ea-eb3365dde403",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cbde8942-6f7e-4889-85ea-eb3365dde403"
+}

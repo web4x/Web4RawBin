@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4f9e93a8-8470-48e6-8b2f-69249666e91d",
+    "name": "followUp: closed chain counts complete, UC-less req reports open architect",
+    "file": "test/vitest/object-verb.test.ts",
+    "describe": "Chain canonical semantics on a fixture index",
+    "it": "followUp: closed chain counts complete, UC-less req reports open architect",
+    "testUuid": "7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d"
+}

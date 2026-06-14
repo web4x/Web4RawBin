@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "44e2258e-74fd-45e2-b8c6-5a2b67e02977",
+    "name": "AC5 real uploaded avatar satisfies the protect predicate → backfill returns, never overwrites",
+    "file": "test/vitest/avatar-persist.test.ts",
+    "describe": "T91: avatar persists, never reverts to default (v0.4.11)",
+    "it": "AC5 real uploaded avatar satisfies the protect predicate → backfill returns, never overwrites",
+    "testUuid": "aba97062-537a-4442-805a-6e41e7705ade",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:aba97062-537a-4442-805a-6e41e7705ade"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "10e1b85f-5771-4975-a7f7-92152e304588",
+    "name": "works with different challenges",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-12.8.2: Valid signature verification",
+    "it": "works with different challenges",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

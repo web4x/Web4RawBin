@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5f95d8af-8343-4456-a70b-fdd07f4da0b6",
+    "name": "different device keys produce different signatures",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.2: signDeviceKey base64 signature",
+    "it": "different device keys produce different signatures",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

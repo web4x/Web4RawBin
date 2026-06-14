@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "be1db556-d11f-4154-9068-97de98af376f",
+    "name": "tampered signature returns false",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-12.8.3: Invalid signature rejected",
+    "it": "tampered signature returns false",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

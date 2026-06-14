@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "1283ef51-9128-47ab-810e-fc05210d99bb",
+    "name": "requirement and usecase units exist in index",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R17.20: Requirement + UseCase scenario units",
+    "it": "requirement and usecase units exist in index",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

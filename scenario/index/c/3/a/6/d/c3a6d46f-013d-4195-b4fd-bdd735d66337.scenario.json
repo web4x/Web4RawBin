@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c3a6d46f-013d-4195-b4fd-bdd735d66337",
+    "name": "AC1/AC6: owner creates 3 rooms → all 3 (and every on-disk room) appear in owner lobby",
+    "file": "test/e2e/multi-room-lobby.spec.ts",
+    "describe": "T93: multi-room lobby (all owner rooms load + show)",
+    "it": "AC1/AC6: owner creates 3 rooms → all 3 (and every on-disk room) appear in owner lobby",
+    "testUuid": "feac61c4-da1b-41fb-95b7-476973946d7f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:feac61c4-da1b-41fb-95b7-476973946d7f"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8f2567c2-10cc-4fa3-ab30-2abcf62b555a",
+    "name": "public_keys/ dir exists with named copy",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-74.2: SSH tree structure",
+    "it": "public_keys/ dir exists with named copy",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

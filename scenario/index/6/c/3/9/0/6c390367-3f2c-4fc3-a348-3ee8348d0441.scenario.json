@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6c390367-3f2c-4fc3-a348-3ee8348d0441",
+    "name": "TC-1: createFileUnit produces ior:class:File + .content sidecar",
+    "file": "test/vitest/file-dnd-chain.test.ts",
+    "describe": "[test:uuid:1e763397] R19.14 DnD file chain",
+    "it": "TC-1: createFileUnit produces ior:class:File + .content sidecar",
+    "testUuid": "f0c30f5e-9686-4c34-89ba-8f5b45f28893",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f0c30f5e-9686-4c34-89ba-8f5b45f28893"
+}

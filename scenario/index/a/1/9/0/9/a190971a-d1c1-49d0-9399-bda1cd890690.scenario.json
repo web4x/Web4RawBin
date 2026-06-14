@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a190971a-d1c1-49d0-9399-bda1cd890690",
+    "name": "server.ts /md/ route includes /edit/ link",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-72.1: /md/ pages have edit link to /edit/",
+    "it": "server.ts /md/ route includes /edit/ link",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

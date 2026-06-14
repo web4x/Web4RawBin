@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f80d4f47-4c76-440d-86c1-e6469746a80c",
+    "name": "returns empty array when no files",
+    "file": "test/vitest/crypto.test.ts",
+    "describe": "TC-47.7: listUserFiles",
+    "it": "returns empty array when no files",
+    "testUuid": "cbde8942-6f7e-4889-85ea-eb3365dde403",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cbde8942-6f7e-4889-85ea-eb3365dde403"
+}

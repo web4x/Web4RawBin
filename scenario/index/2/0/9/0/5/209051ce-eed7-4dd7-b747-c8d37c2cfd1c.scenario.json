@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "209051ce-eed7-4dd7-b747-c8d37c2cfd1c",
+    "name": ".png returns 415",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-61.5: writeFile rejects binary extensions",
+    "it": ".png returns 415",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

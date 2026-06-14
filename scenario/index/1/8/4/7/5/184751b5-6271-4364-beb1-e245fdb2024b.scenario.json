@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "184751b5-6271-4364-beb1-e245fdb2024b",
+    "name": "defaultTemplateRegistry renders Task HTML + MD",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T125.4: ViewTemplateRegistry",
+    "it": "defaultTemplateRegistry renders Task HTML + MD",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

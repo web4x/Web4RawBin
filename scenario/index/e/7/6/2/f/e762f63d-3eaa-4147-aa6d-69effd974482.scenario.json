@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e762f63d-3eaa-4147-aa6d-69effd974482",
+    "name": "shows delete button when showDelete=true",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-40.1: Header creation",
+    "it": "shows delete button when showDelete=true",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

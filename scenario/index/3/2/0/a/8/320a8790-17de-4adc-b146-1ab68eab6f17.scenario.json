@@ -6,8 +6,23 @@
     "slug": "classify-type-bug-cr",
     "file": "test/vitest/classify-type.test.ts",
     "status": "pass",
-    "methods": ["ior:instance:fcf6dae1-69c7-418d-a68a-6fca1d0a9137"],
-    "implementations": ["ior:instance:76bbedda-b1c2-4d3e-9f4a-6b7c8d9e0f06"]
+    "methods": [
+      "ior:instance:fcf6dae1-69c7-418d-a68a-6fca1d0a9137"
+    ],
+    "implementations": [
+      "ior:instance:76bbedda-b1c2-4d3e-9f4a-6b7c8d9e0f06"
+    ],
+    "testCases": [
+      "ior:instance:13a08215-d6b3-4c17-bbdc-80ab7d5d2f25",
+      "ior:instance:5725cb9b-7014-48db-b24c-04bd12f64c51",
+      "ior:instance:9e86e6db-ace5-43dc-a1f7-02ec442ffbf5",
+      "ior:instance:afdff1fc-790a-4f9b-9a15-3d311b06d5c8",
+      "ior:instance:fb1e9ee7-11e7-4134-bcd4-cf4a7e9c954d",
+      "ior:instance:4ce045a0-559f-4641-acc9-39bb81cf2892",
+      "ior:instance:de21a9df-bba8-4098-a2fb-c9e372ffa474",
+      "ior:instance:d6566fd4-8156-47cb-8a06-eb280d6d8db2",
+      "ior:instance:35a3f8b9-2fb0-4ce8-b076-fd887c5f528a"
+    ]
   },
   "ownerIor": null
 }

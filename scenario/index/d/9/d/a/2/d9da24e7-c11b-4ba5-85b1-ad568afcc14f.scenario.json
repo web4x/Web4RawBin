@@ -13,7 +13,15 @@
     "sourceFile": "ior:file:test/vitest/avatar-preserve.test.ts",
     "sourceLine": 3,
     "parent": "ior:instance:3b50b135-f477-4f42-a519-e27a2fa29aa5",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:52520eba-3eef-499b-98ba-2f354116d4d4",
+      "ior:instance:e70801c6-4dd9-4b81-a492-04cb383c621a",
+      "ior:instance:18115fd5-b470-49a4-bbef-f44e8afc68d5",
+      "ior:instance:d4bae8a8-692e-42a6-86a7-de948ebc2e93",
+      "ior:instance:8ee0c688-7fcd-4110-ade9-5b0de70826c6",
+      "ior:instance:14ecb91d-3671-406b-871f-14362cc0678f"
+    ]
   },
   "ownerIor": "ior:instance:3b50b135-f477-4f42-a519-e27a2fa29aa5"
 }

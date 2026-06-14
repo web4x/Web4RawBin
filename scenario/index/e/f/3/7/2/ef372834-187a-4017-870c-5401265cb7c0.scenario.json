@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ef372834-187a-4017-870c-5401265cb7c0",
+    "name": "existing item node is PRESERVED on re-render (same ref)",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.90: diffRenderItems preserves existing nodes",
+    "it": "existing item node is PRESERVED on re-render (same ref)",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "7de37a8d-b166-4777-bc5b-668cdb23f57a",
+    "name": "returns 404 for user with no avatar",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-49.2: Unknown token returns 404",
+    "it": "returns 404 for user with no avatar",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

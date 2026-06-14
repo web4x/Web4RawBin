@@ -13,7 +13,15 @@
     "sourceFile": "ior:file:test/vitest/migration.test.ts",
     "sourceLine": 6,
     "parent": "ior:instance:72748f3a-05cd-49fa-b5e1-404fef48a6c3",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:98d9430f-a28f-40b8-a9b4-819ff0515d37",
+      "ior:instance:5e2f897f-82e7-46d4-a65d-1e50efae522d",
+      "ior:instance:4d64d0d3-c63a-4122-bd3b-e2d3aeaf1b80",
+      "ior:instance:bcae2749-a289-429f-828a-90defe07a35a",
+      "ior:instance:a90cb0b8-c53c-444a-8d2c-9e89d58d6078",
+      "ior:instance:16c27dd7-f63c-45b2-991c-10bc0cddcf23"
+    ]
   },
   "ownerIor": "ior:instance:72748f3a-05cd-49fa-b5e1-404fef48a6c3"
 }

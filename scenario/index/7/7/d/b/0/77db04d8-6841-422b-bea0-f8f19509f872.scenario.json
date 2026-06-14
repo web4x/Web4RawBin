@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "77db04d8-6841-422b-bea0-f8f19509f872",
+    "name": "swapping searchProvider (mock RemoteSearch) does not change the API (AC3)",
+    "file": "test/vitest/rb-list-overview.test.ts",
+    "describe": "T106 rb-list-overview",
+    "it": "swapping searchProvider (mock RemoteSearch) does not change the API (AC3)",
+    "testUuid": "a2f83b59-5943-462e-b70e-bf6429ea1b90",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:a2f83b59-5943-462e-b70e-bf6429ea1b90"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "14d8cddd-9d71-4df0-8313-85116c206ce0",
+    "name": "version from health matches package.json version",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-16.3: Health version matches package.json",
+    "it": "version from health matches package.json version",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b63c917b-b9d2-418b-a8ef-97edbda051d0",
+    "name": "produces a non-empty base64 string",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.2: signDeviceKey base64 signature",
+    "it": "produces a non-empty base64 string",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

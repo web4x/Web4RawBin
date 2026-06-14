@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b6771fd0-f330-48b0-8b2f-d58ab7619ba0",
+    "name": "open() marks store as ready",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.1: OfflineStore initialization",
+    "it": "open() marks store as ready",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

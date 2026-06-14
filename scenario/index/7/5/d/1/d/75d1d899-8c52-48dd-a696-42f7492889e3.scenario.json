@@ -10,7 +10,25 @@
     "sourceFile": "ior:file:test/vitest/chat.test.ts",
     "sourceLine": 3,
     "parent": "ior:instance:cf702932-c711-4c9e-9fdc-9352eaf5d327",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:de06c40f-45c8-4e52-a2e3-fa0c4ac5c953",
+      "ior:instance:3e74b98d-69fe-44ae-8c9f-c67932707e01",
+      "ior:instance:ea003db1-f7e7-421a-a15b-3b831a88526c",
+      "ior:instance:9ff840b5-fb9e-446d-ad9d-2f6e3a439913",
+      "ior:instance:45ffd3ad-a56d-4d1e-a40b-39f060b3d81c",
+      "ior:instance:c310f1cc-1209-4ea7-a88c-6ad4bd7d1d8a",
+      "ior:instance:94b1fde7-f8c1-4cee-9848-db13ab569475",
+      "ior:instance:a7e4df0f-d976-4ac5-8e18-a24343b50611",
+      "ior:instance:91d785f3-62cc-4cb4-b25e-57994b83d706",
+      "ior:instance:a35679eb-667e-4641-8334-b651ce7d5983",
+      "ior:instance:94965f5f-deb3-40f9-8d6f-388272ef9160",
+      "ior:instance:a84c9077-d48b-4a37-bc75-479d05352939",
+      "ior:instance:685d1d1c-7d52-4f02-b7d8-86000d99a175",
+      "ior:instance:5a045e7c-0653-4813-917b-3a33c56f715f",
+      "ior:instance:19d6c3f1-0004-4b4a-a49b-17bd1eda48f9",
+      "ior:instance:24f4f6ed-b3d6-407b-8822-c6fefe4e9a37"
+    ]
   },
   "ownerIor": "ior:instance:cf702932-c711-4c9e-9fdc-9352eaf5d327"
 }

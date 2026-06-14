@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "fb4bd0a1-52a7-414e-b2c2-000c5f0f8b5f",
+    "name": "cleanupStale removes rooms older than threshold",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.9: RoomManager operations",
+    "it": "cleanupStale removes rooms older than threshold",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

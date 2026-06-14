@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "fb495f02-a01c-4224-9377-af0dd069998f",
+    "name": "AC4 no avatar.enc → not protected → default fetch is the only reachable path",
+    "file": "test/vitest/avatar-persist.test.ts",
+    "describe": "T91: avatar persists, never reverts to default (v0.4.11)",
+    "it": "AC4 no avatar.enc → not protected → default fetch is the only reachable path",
+    "testUuid": "aba97062-537a-4442-805a-6e41e7705ade",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:aba97062-537a-4442-805a-6e41e7705ade"
+}

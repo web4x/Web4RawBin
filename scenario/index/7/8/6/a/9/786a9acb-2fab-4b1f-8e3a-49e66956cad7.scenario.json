@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "786a9acb-2fab-4b1f-8e3a-49e66956cad7",
+    "name": "gate shown, Continue disabled, name enables it, lobby appears after flow",
+    "file": "test/e2e/new-user.spec.ts",
+    "describe": "T13.2: New User Journey",
+    "it": "gate shown, Continue disabled, name enables it, lobby appears after flow",
+    "testUuid": "52750178-a50d-419a-93b6-a578f77e6806",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:52750178-a50d-419a-93b6-a578f77e6806"
+}

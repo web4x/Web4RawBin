@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "aeeb2e82-f5f9-4a6b-b7f1-187a0401e568",
+    "name": "creates .enc file on disk",
+    "file": "test/vitest/crypto.test.ts",
+    "describe": "TC-47.1: encryptFile returns filename",
+    "it": "creates .enc file on disk",
+    "testUuid": "cbde8942-6f7e-4889-85ea-eb3365dde403",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cbde8942-6f7e-4889-85ea-eb3365dde403"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5621d87a-0bd0-49a6-92e1-394156a4f819",
+    "name": "event with no src does not break rendering",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-PDCA.1: rb-avatar listens for rb-avatar-updated and re-renders",
+    "it": "event with no src does not break rendering",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

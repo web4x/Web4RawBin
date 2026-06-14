@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ef57d4cd-48d1-469d-bf00-ae00aee8463f",
+    "name": "returns empty for empty checklist",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T132: renderStatusHtml",
+    "it": "returns empty for empty checklist",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

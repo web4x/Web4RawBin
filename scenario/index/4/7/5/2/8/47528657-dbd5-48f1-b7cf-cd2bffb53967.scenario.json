@@ -13,7 +13,14 @@
     "sourceFile": "ior:file:test/vitest/rb-object-item.test.ts",
     "sourceLine": 6,
     "parent": "ior:instance:f2c32dc3-269d-41b7-80db-5fa6d786c221",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:8f246f3a-ac08-4281-8e5e-9179f10ad72b",
+      "ior:instance:9a008e8a-bebf-4887-a4cd-515e87cdb4d6",
+      "ior:instance:106b9a41-56f4-4a5a-9033-1b709f61de9f",
+      "ior:instance:466221bf-1f7e-4330-b941-0762004aa17f",
+      "ior:instance:90500570-8361-488b-8aba-4fb17032d3d5"
+    ]
   },
   "ownerIor": "ior:instance:f2c32dc3-269d-41b7-80db-5fa6d786c221"
 }

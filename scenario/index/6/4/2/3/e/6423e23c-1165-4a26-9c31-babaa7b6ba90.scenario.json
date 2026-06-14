@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6423e23c-1165-4a26-9c31-babaa7b6ba90",
+    "name": "RoomBrowser.ts does NOT use inline <img> for avatar",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-57.1: RoomBrowser uses rb-avatar",
+    "it": "RoomBrowser.ts does NOT use inline <img> for avatar",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

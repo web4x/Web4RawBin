@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b12ca8d9-5f32-434f-aa06-638dcad05e98",
+    "name": "task MD views have content from templates",
+    "file": "test/vitest/champagne-dedicated.test.ts",
+    "describe": "SpeakingTree.generateMd — MD views from templates",
+    "it": "task MD views have content from templates",
+    "testUuid": "76f8fd67-d694-460b-9b13-cd2ca81407cc",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:76f8fd67-d694-460b-9b13-cd2ca81407cc"
+}

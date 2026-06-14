@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "931dc7f6-7ca2-44d1-83ae-be5344e12aca",
+    "name": "trace-cli validate returns issues array",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R16.4: Chain data diagnosis + fix",
+    "it": "trace-cli validate returns issues array",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

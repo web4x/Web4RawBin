@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "73936737-c3b8-4bf7-9639-8d99c2d62d76",
+    "name": "a mounted view re-renders on notify for its ref",
+    "file": "test/vitest/trace-routing.test.ts",
+    "describe": "ViewBus MVC propagation (AC3)",
+    "it": "a mounted view re-renders on notify for its ref",
+    "testUuid": "b2fa3e4d-5aea-4368-a1d5-ec1793e35223",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:b2fa3e4d-5aea-4368-a1d5-ec1793e35223"
+}

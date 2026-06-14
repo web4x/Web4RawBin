@@ -13,7 +13,19 @@
     "sourceFile": "ior:file:test/vitest/room-order.test.ts",
     "sourceLine": 3,
     "parent": "ior:instance:d7ef4453-d06e-4b33-99b4-02c216647036",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:e1924f4a-783c-4854-82c3-70e31a60e538",
+      "ior:instance:7817a87a-924e-4666-8bcd-e00f3d94ee53",
+      "ior:instance:f89163f0-13ff-492d-bfbe-63e9c5992a82",
+      "ior:instance:1b1808fc-4856-4b9c-b51c-de10a6f466e2",
+      "ior:instance:5f6587b3-bec8-4b03-b8e4-b156cfbbe825",
+      "ior:instance:0a0cf41b-a602-4fe5-aa97-761c57203c6d",
+      "ior:instance:01e1f78a-705c-4401-a6f3-501c365ba563",
+      "ior:instance:3990b578-27b9-47fa-b17c-62e98b5964cb",
+      "ior:instance:f9ce1d8c-c0df-4858-990a-d3490c2fddd0",
+      "ior:instance:1bab6afc-95b0-4f1b-9a6d-cd70b88da66a"
+    ]
   },
   "ownerIor": "ior:instance:d7ef4453-d06e-4b33-99b4-02c216647036"
 }

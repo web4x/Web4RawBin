@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a7608d13-0eec-40c7-a24c-732405a2763e",
+    "name": "authorized_keys is 600",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-74.4: File permissions",
+    "it": "authorized_keys is 600",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

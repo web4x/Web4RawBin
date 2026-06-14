@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "48cc4787-11ba-482b-983d-6f8392d5177b",
+    "name": "toolbar or layout references /md/ browse link",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-72.2: Toolbar has view/browse link to /md/",
+    "it": "toolbar or layout references /md/ browse link",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

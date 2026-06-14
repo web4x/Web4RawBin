@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9e860893-8143-49a4-b00c-175d22f0a372",
+    "name": "lintMarkers flags telltale invented suffixes (HARD RULE patterns)",
+    "file": "test/vitest/object-verb.test.ts",
+    "describe": "HARD RULE: shared-impl gate + lintMarkers",
+    "it": "lintMarkers flags telltale invented suffixes (HARD RULE patterns)",
+    "testUuid": "7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d"
+}

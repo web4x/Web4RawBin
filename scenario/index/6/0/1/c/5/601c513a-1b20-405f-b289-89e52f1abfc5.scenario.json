@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "601c513a-1b20-405f-b289-89e52f1abfc5",
+    "name": "generateAll emits .md + .html with speaking names",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T126: ViewGenerator",
+    "it": "generateAll emits .md + .html with speaking names",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

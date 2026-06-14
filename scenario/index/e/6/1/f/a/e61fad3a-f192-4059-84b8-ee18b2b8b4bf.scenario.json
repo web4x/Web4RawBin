@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e61fad3a-f192-4059-84b8-ee18b2b8b4bf",
+    "name": "generateOne produces MD+HTML for a known unit",
+    "file": "test/vitest/champagne-dedicated.test.ts",
+    "describe": "ViewGenerator round-trip",
+    "it": "generateOne produces MD+HTML for a known unit",
+    "testUuid": "76f8fd67-d694-460b-9b13-cd2ca81407cc",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:76f8fd67-d694-460b-9b13-cd2ca81407cc"
+}

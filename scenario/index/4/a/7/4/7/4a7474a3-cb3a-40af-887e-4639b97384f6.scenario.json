@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4a7474a3-cb3a-40af-887e-4639b97384f6",
+    "name": "has theme-color meta tag",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-31.5: Apple mobile web app meta tags",
+    "it": "has theme-color meta tag",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

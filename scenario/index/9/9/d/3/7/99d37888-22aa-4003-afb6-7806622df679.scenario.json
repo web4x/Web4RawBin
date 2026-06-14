@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "99d37888-22aa-4003-afb6-7806622df679",
+    "name": "owner delete removes room directory",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-76.1: Owner deletes room",
+    "it": "owner delete removes room directory",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

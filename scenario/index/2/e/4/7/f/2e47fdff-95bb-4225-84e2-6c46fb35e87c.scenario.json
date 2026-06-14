@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2e47fdff-95bb-4225-84e2-6c46fb35e87c",
+    "name": "returns a .enc filename string",
+    "file": "test/vitest/crypto.test.ts",
+    "describe": "TC-47.1: encryptFile returns filename",
+    "it": "returns a .enc filename string",
+    "testUuid": "cbde8942-6f7e-4889-85ea-eb3365dde403",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cbde8942-6f7e-4889-85ea-eb3365dde403"
+}

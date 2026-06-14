@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "45b36f46-caf3-4e48-85fc-18444cbad078",
+    "name": "round-trips buildHash → parseHash",
+    "file": "test/vitest/trace-routing.test.ts",
+    "describe": "parseHash / buildHash (AC1)",
+    "it": "round-trips buildHash → parseHash",
+    "testUuid": "b2fa3e4d-5aea-4368-a1d5-ec1793e35223",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:b2fa3e4d-5aea-4368-a1d5-ec1793e35223"
+}

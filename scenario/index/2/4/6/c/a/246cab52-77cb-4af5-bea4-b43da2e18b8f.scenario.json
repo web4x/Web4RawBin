@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "246cab52-77cb-4af5-bea4-b43da2e18b8f",
+    "name": "tronApprove requires commit ref",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T133: Task state machine",
+    "it": "tronApprove requires commit ref",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

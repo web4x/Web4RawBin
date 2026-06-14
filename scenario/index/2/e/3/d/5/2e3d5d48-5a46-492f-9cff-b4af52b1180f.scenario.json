@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2e3d5d48-5a46-492f-9cff-b4af52b1180f",
+    "name": "no duplicates in 100 calls",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-12.8.1: Challenge uniqueness",
+    "it": "no duplicates in 100 calls",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

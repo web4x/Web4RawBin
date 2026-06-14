@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "38c57050-3a40-4ad2-80a9-01f412e294d1",
+    "name": "T-visibility R19.3: setVisibility switches visibility and syncs isPrivate",
+    "file": "test/vitest/room.test.ts",
+    "describe": "S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)",
+    "it": "T-visibility R19.3: setVisibility switches visibility and syncs isPrivate",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

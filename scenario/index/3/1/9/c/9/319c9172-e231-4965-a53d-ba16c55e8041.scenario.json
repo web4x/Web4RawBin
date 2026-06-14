@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "319c9172-e231-4965-a53d-ba16c55e8041",
+    "name": "RoomBrowser.ts contains the applySend impl marker and Apply button",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.5: applySend — BY-INVITE Apply button sends invite request",
+    "it": "RoomBrowser.ts contains the applySend impl marker and Apply button",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

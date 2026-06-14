@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "89c1327e-ae6f-498e-815f-4688b4c1c387",
+    "name": "edit.ts references rb-editor-toolbar",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-70.5: edit.ts imports rb-editor-toolbar",
+    "it": "edit.ts references rb-editor-toolbar",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

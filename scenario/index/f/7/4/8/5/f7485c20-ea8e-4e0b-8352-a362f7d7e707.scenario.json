@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f7485c20-ea8e-4e0b-8352-a362f7d7e707",
+    "name": "RawBinClient.ts has no game event handlers",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.7: Client source no game references",
+    "it": "RawBinClient.ts has no game event handlers",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a555ab8f-519d-483e-8a87-643e509edc13",
+    "name": "UPDATE_PROFILE works without device-key auth",
+    "file": "test/vitest/profile.test.ts",
+    "describe": "TC-12.8.6: Backward compat — token-only IDENTIFY",
+    "it": "UPDATE_PROFILE works without device-key auth",
+    "testUuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e69274bc-c83f-4322-abcd-963538f6f9e2"
+}

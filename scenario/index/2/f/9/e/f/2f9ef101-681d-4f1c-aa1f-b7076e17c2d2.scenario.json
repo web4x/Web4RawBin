@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2f9ef101-681d-4f1c-aa1f-b7076e17c2d2",
+    "name": "formatReport says CONSISTENT on zero issues",
+    "file": "test/vitest/trace-consistency.test.ts",
+    "describe": "validate (AC2)",
+    "it": "formatReport says CONSISTENT on zero issues",
+    "testUuid": "ce5c47ad-dabb-44e5-a8f6-3ee506d34127",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:ce5c47ad-dabb-44e5-a8f6-3ee506d34127"
+}

@@ -10,7 +10,18 @@
     "sourceFile": "ior:file:test/e2e/editor.spec.ts",
     "sourceLine": 1,
     "parent": "ior:instance:e362c116-710c-47b3-ac7e-ecc1b8ea58e4",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:6f898318-b047-4538-965e-d481ac7e88fd",
+      "ior:instance:93058108-22ea-4bd1-813c-96a912858a24",
+      "ior:instance:210ac0c1-2cf0-4295-b0ff-648cf2e86957",
+      "ior:instance:1aeedc41-f9f3-4f41-986f-f67bfb3b0cf8",
+      "ior:instance:145831f4-46b1-4090-a06b-107364af3007",
+      "ior:instance:e839eb6d-8317-49fc-8b59-416fe66a527a",
+      "ior:instance:948435f6-59a8-49e1-a02a-1916246608cb",
+      "ior:instance:e0d4d161-d75a-4e4f-937b-8f5f93e0cbaf",
+      "ior:instance:be039548-a7af-4459-9ed4-a6e74749a8db"
+    ]
   },
   "ownerIor": "ior:instance:e362c116-710c-47b3-ac7e-ecc1b8ea58e4"
 }

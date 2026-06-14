@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "818c2e35-02d3-4faf-8fba-2306863e12a2",
+    "name": "no expectedMtime skips conflict check (always writes)",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-61.3: Conflict detection via expectedMtime",
+    "it": "no expectedMtime skips conflict check (always writes)",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

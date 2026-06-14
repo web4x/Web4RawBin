@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "348c8545-eeab-42f1-ab50-a6e447e5fcf3",
+    "name": "constructs every registered object",
+    "file": "test/vitest/object-verb.test.ts",
+    "describe": "registry",
+    "it": "constructs every registered object",
+    "testUuid": "7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "fe5a54b1-3846-41e2-8df6-4a53ff1e67c5",
+    "name": "returns all required fields",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-16.1: /api/health response",
+    "it": "returns all required fields",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

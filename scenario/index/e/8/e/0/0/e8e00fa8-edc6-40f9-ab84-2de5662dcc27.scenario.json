@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e8e00fa8-edc6-40f9-ab84-2de5662dcc27",
+    "name": "AC10: ZERO 404s for app.js with SW active (Tron repro)",
+    "file": "test/e2e/sw-activation.spec.ts",
+    "describe": "T179 AC11-13: SW activation with SW ACTIVE",
+    "it": "AC10: ZERO 404s for app.js with SW active (Tron repro)",
+    "testUuid": "79a00011-0011-4a11-a011-000179011001",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:79a00011-0011-4a11-a011-000179011001"
+}

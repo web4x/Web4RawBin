@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "162d3fec-8c2b-49d2-bb11-89b73ecb3bee",
+    "name": "non-creator cannot delete the room",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.3: Creator lifecycle → only creator can delete",
+    "it": "non-creator cannot delete the room",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

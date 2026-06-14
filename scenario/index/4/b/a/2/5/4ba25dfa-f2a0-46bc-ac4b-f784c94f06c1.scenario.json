@@ -10,7 +10,17 @@
     "sourceFile": "ior:file:test/vitest/trace-model.test.ts",
     "sourceLine": 6,
     "parent": "ior:instance:e2cbf193-d116-4eb9-a9f5-6397febf300e",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:52f2053b-de08-4699-a5a5-f2556c32cec0",
+      "ior:instance:bd03c6b5-9868-49f9-902f-699fb9cd43c9",
+      "ior:instance:41706e99-52f2-4b9a-87f0-53709ac45474",
+      "ior:instance:6aae55f9-e635-4e10-97c0-27db41150c33",
+      "ior:instance:d5ab8269-8060-4070-879c-cdc8eea1692f",
+      "ior:instance:f225451a-ff18-45cb-b1e9-da1e4f108b0f",
+      "ior:instance:4e9db6e0-a6a9-45d9-abf2-134ffd3d577c",
+      "ior:instance:bc4cda0c-4652-4519-864a-a1cd68562f95"
+    ]
   },
   "ownerIor": "ior:instance:e2cbf193-d116-4eb9-a9f5-6397febf300e"
 }

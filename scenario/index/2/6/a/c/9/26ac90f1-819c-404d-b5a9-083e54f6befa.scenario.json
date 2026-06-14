@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "26ac90f1-819c-404d-b5a9-083e54f6befa",
+    "name": "meta.json contains mimeType and hash",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-48.2: Avatar file storage",
+    "it": "meta.json contains mimeType and hash",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

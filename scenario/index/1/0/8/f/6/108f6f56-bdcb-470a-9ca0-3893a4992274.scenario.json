@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "108f6f56-bdcb-470a-9ca0-3893a4992274",
+    "name": "server.ts has puml-render route",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-69.1: POST /api/puml-render route in server.ts",
+    "it": "server.ts has puml-render route",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

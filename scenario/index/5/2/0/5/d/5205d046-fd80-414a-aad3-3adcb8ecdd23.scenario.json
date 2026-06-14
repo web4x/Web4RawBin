@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5205d046-fd80-414a-aad3-3adcb8ecdd23",
+    "name": "AC5: deleting one room leaves the others visible (disk + lobby)",
+    "file": "test/e2e/multi-room-lobby.spec.ts",
+    "describe": "T93: multi-room lobby (all owner rooms load + show)",
+    "it": "AC5: deleting one room leaves the others visible (disk + lobby)",
+    "testUuid": "feac61c4-da1b-41fb-95b7-476973946d7f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:feac61c4-da1b-41fb-95b7-476973946d7f"
+}

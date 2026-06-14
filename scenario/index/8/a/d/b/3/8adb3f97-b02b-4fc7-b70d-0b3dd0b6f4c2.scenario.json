@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8adb3f97-b02b-4fc7-b70d-0b3dd0b6f4c2",
+    "name": "${source.name} passes crop attribute to rb-avatar",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-PDCA.6: Crop attribute passed from all creation points",
+    "it": "${source.name} passes crop attribute to rb-avatar",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "1ae57d8a-9d2d-4989-aa33-eaa246ed80a7",
+    "name": "source references expectedMtime or mtime in save payload",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-67.2: Save handler sends expectedMtime",
+    "it": "source references expectedMtime or mtime in save payload",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

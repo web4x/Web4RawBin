@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d762e0cf-52fc-43a3-82eb-f52e7c0413fd",
+    "name": "conflict UI has overwrite and reload options",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-67.3: Conflict dialog exists",
+    "it": "conflict UI has overwrite and reload options",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

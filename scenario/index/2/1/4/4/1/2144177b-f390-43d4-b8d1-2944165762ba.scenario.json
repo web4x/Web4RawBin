@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2144177b-f390-43d4-b8d1-2944165762ba",
+    "name": "MEMBER_JOINED broadcast when someone joins",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.8: Room member events",
+    "it": "MEMBER_JOINED broadcast when someone joins",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

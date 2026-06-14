@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "da10a8e5-27e9-46a4-ab8e-866e9b65a533",
+    "name": "queue replays in FIFO order",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-33.4: Queue replay on reconnect",
+    "it": "queue replays in FIFO order",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

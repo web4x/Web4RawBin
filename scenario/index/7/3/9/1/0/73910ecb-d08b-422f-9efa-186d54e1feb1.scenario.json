@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "73910ecb-d08b-422f-9efa-186d54e1feb1",
+    "name": "nonexistent file returns 404 (no implicit create)",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-61.7: writeFile 404 for nonexistent",
+    "it": "nonexistent file returns 404 (no implicit create)",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

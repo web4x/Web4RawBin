@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "74d187e8-9d74-461b-a6e9-cd8d153212e5",
+    "name": "/api/trace returns objects with types",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R15.7: Traceability browser",
+    "it": "/api/trace returns objects with types",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e7cdb869-db29-44ae-bd24-adc2ee7c4b8a",
+    "name": "rb-trace-tree.ts has tree component with lazy-load",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R15.7: Traceability browser",
+    "it": "rb-trace-tree.ts has tree component with lazy-load",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

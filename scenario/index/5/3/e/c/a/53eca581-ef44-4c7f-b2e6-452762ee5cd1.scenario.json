@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "53eca581-ef44-4c7f-b2e6-452762ee5cd1",
+    "name": "double hide() is safe (no error)",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.3: show/hide lifecycle",
+    "it": "double hide() is safe (no error)",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

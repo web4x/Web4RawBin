@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "98215651-6559-4757-8699-3c975e10de50",
+    "name": "binary .png returns 415 (not served)",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-60.6: Content-Type mapping",
+    "it": "binary .png returns 415 (not served)",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

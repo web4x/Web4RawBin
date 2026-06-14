@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "59f6df22-c2b5-4e45-abcb-72a8c698b55e",
+    "name": "fallback is /icon-192.png",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-53.1: Room join uses profile.avatar",
+    "it": "fallback is /icon-192.png",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ea003db1-f7e7-421a-a15b-3b831a88526c",
+    "name": "does not broadcast to disconnected members",
+    "file": "test/vitest/chat.test.ts",
+    "describe": "TC-20.1: Chat message broadcast",
+    "it": "does not broadcast to disconnected members",
+    "testUuid": "75d1d899-8c52-48dd-a696-42f7492889e3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
+}

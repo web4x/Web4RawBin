@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "07e27ac7-08c8-4dfd-9148-3a46261db0ae",
+    "name": "default size is 40px",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-56.3: rb-avatar size attribute",
+    "it": "default size is 40px",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

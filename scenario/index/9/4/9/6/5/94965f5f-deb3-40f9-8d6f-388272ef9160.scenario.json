@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "94965f5f-deb3-40f9-8d6f-388272ef9160",
+    "name": "different senders have different senderName",
+    "file": "test/vitest/chat.test.ts",
+    "describe": "TC-20.4: Sender name in chat",
+    "it": "different senders have different senderName",
+    "testUuid": "75d1d899-8c52-48dd-a696-42f7492889e3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
+}

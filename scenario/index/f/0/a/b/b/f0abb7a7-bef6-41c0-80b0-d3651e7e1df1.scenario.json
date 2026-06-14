@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f0abb7a7-bef6-41c0-80b0-d3651e7e1df1",
+    "name": "T81 TS5: lobby avatar (editable, NOT readonly) opens the editor overlay",
+    "file": "test/e2e/contacts-ui.spec.ts",
+    "describe": "Contacts UI: T81/T82/T83 (current v0.5.x behavior)",
+    "it": "T81 TS5: lobby avatar (editable, NOT readonly) opens the editor overlay",
+    "testUuid": "5e58a822-dc43-429b-85e6-9d3091465508",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5e58a822-dc43-429b-85e6-9d3091465508"
+}

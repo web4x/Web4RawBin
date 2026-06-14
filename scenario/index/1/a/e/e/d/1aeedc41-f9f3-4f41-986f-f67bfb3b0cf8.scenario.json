@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "1aeedc41-f9f3-4f41-986f-f67bfb3b0cf8",
+    "name": "(4) Click file in tree → editor loads, URL updates",
+    "file": "test/e2e/editor.spec.ts",
+    "describe": "T73: Editor E2E",
+    "it": "(4) Click file in tree → editor loads, URL updates",
+    "testUuid": "6d5060bf-b638-460e-b922-ff2eb20b2e1c",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6d5060bf-b638-460e-b922-ff2eb20b2e1c"
+}

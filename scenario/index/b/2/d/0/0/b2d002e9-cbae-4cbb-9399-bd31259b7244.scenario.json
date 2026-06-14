@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b2d002e9-cbae-4cbb-9399-bd31259b7244",
+    "name": "avatarCrop defaults to identity when not set",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-PDCA.3: avatarCrop propagated via PROFILE_UPDATED",
+    "it": "avatarCrop defaults to identity when not set",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

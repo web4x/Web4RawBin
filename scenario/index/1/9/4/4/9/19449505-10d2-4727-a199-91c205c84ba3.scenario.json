@@ -13,7 +13,15 @@
     "sourceFile": "ior:file:test/vitest/avatar-keyless-upload.test.ts",
     "sourceLine": 3,
     "parent": "ior:instance:77e0cee3-c036-4ede-9a6f-cfcbe71e16a2",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:8e75b6da-5e40-42b8-930d-5f674d46077f",
+      "ior:instance:49398011-3290-4a9f-bc7a-e4248266fd93",
+      "ior:instance:6ec589cd-a25b-44e6-b60f-e0d4d1fed249",
+      "ior:instance:05dbc683-f8f2-4308-a2ce-330aff3bd4a7",
+      "ior:instance:61c6d787-85ef-4950-9531-b66d08ebda91",
+      "ior:instance:b124383e-a7d7-4401-bd80-236159a8d68a"
+    ]
   },
   "ownerIor": "ior:instance:77e0cee3-c036-4ede-9a6f-cfcbe71e16a2"
 }

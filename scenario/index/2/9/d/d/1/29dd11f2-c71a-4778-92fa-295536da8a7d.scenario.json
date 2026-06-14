@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "29dd11f2-c71a-4778-92fa-295536da8a7d",
+    "name": "profileCommitted stays false if name is empty",
+    "file": "test/vitest/profile.test.ts",
+    "describe": "TC-7.7.2: profileCommitted flag",
+    "it": "profileCommitted stays false if name is empty",
+    "testUuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e69274bc-c83f-4322-abcd-963538f6f9e2"
+}

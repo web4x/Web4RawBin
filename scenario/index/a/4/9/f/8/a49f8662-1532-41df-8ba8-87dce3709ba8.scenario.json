@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a49f8662-1532-41df-8ba8-87dce3709ba8",
+    "name": "JS files get long-lived cache (max-age)",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-32.1: Cache-Control headers",
+    "it": "JS files get long-lived cache (max-age)",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

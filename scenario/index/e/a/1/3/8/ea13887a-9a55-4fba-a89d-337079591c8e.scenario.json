@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ea13887a-9a55-4fba-a89d-337079591c8e",
+    "name": "[impl:uuid:de0847e2] marker present",
+    "file": "test/vitest/drawer-fullwidth-sticky.test.ts",
+    "describe": "[test:uuid:7d6badb4] R19.57 PageNav.raiseAboveDrawer",
+    "it": "[impl:uuid:de0847e2] marker present",
+    "testUuid": "7d6badb4-a27d-4c9d-b7f8-385fc9636e90",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7d6badb4-a27d-4c9d-b7f8-385fc9636e90"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5ff7b869-7661-4eab-9bbb-bfb64d191830",
+    "name": "T-persistent-retention: reconnect flips disconnected=false, no dup",
+    "file": "test/vitest/room.test.ts",
+    "describe": "S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)",
+    "it": "T-persistent-retention: reconnect flips disconnected=false, no dup",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

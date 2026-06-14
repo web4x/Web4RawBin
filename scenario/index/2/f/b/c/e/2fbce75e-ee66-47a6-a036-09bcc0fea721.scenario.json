@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2fbce75e-ee66-47a6-a036-09bcc0fea721",
+    "name": "shows leave button when showLeave=true",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-40.1: Header creation",
+    "it": "shows leave button when showLeave=true",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

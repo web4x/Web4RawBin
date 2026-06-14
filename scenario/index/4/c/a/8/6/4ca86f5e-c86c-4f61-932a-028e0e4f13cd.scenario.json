@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4ca86f5e-c86c-4f61-932a-028e0e4f13cd",
+    "name": "IDENTIFY populates both profiles Map and devices array",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-4.6.9: Data separation",
+    "it": "IDENTIFY populates both profiles Map and devices array",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

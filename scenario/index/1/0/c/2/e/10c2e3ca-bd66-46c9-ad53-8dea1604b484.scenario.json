@@ -6,13 +6,21 @@
     "file": "ior:file:test/e2e/svg-viewer-pinch.spec.ts",
     "requirements": [],
     "methods": [],
-    "implementations": ["ior:instance:094c18a4-77a7-4208-a6a7-6a049e4e332e"],
-    "verifies": ["ior:instance:042bab1a-46ff-4a92-8494-102b9ad928ac"],
+    "implementations": [
+      "ior:instance:094c18a4-77a7-4208-a6a7-6a049e4e332e"
+    ],
+    "verifies": [
+      "ior:instance:042bab1a-46ff-4a92-8494-102b9ad928ac"
+    ],
     "status": "GREEN",
     "sourceFile": "ior:file:test/e2e/svg-viewer-pinch.spec.ts",
     "sourceLine": 1,
     "parent": "ior:instance:094c18a4-77a7-4208-a6a7-6a049e4e332e",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:8bcf78db-d610-4101-b924-fbe56f5e7ebe",
+      "ior:instance:9d5d5727-b67b-4ff1-a836-e7ffea5320a2"
+    ]
   },
   "ownerIor": "ior:instance:094c18a4-77a7-4208-a6a7-6a049e4e332e"
 }

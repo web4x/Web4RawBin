@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "123a53fc-52b1-4b26-bcd6-6452fec67856",
+    "name": "NEVER credits an Impl referenced by >1 Method (despite valid unit+marker)",
+    "file": "test/vitest/object-verb.test.ts",
+    "describe": "HARD RULE: shared-impl gate + lintMarkers",
+    "it": "NEVER credits an Impl referenced by >1 Method (despite valid unit+marker)",
+    "testUuid": "7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c9a66832-5754-432f-a555-1eda3af59646",
+    "name": "TRACE_ICONS has entries for all 7 types",
+    "file": "test/vitest/champagne-components.test.ts",
+    "describe": "Lucide icons — T113 R16.5",
+    "it": "TRACE_ICONS has entries for all 7 types",
+    "testUuid": "681e2949-181f-48cd-bcf6-f88b08887218",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:681e2949-181f-48cd-bcf6-f88b08887218"
+}

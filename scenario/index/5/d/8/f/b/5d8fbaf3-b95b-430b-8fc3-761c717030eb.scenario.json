@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5d8fbaf3-b95b-430b-8fc3-761c717030eb",
+    "name": "generated planning.md contains task list with checkboxes",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R15.6: Task DetailView + planning overview",
+    "it": "generated planning.md contains task list with checkboxes",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

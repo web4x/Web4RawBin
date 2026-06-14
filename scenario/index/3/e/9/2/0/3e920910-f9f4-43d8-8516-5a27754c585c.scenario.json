@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3e920910-f9f4-43d8-8516-5a27754c585c",
+    "name": "BUG8 collectionDetail: renderDetailForRef handles synthetic collection UUIDs via wrapper lookup",
+    "file": "test/vitest/drawer-champagne.test.ts",
+    "describe": "v0.6.24 drawer champagne",
+    "it": "BUG8 collectionDetail: renderDetailForRef handles synthetic collection UUIDs via wrapper lookup",
+    "testUuid": "22ca6dac-fde4-4751-8df1-db94422c8146",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:22ca6dac-fde4-4751-8df1-db94422c8146"
+}

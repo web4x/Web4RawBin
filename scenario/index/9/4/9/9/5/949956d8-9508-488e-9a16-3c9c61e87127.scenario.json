@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "949956d8-9508-488e-9a16-3c9c61e87127",
+    "name": "named key copies destroyed",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-76.2: SSH keys destroyed on delete",
+    "it": "named key copies destroyed",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

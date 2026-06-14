@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8dc76a82-012f-497d-b292-f7779102aec4",
+    "name": "valid player token → 200",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-62.4: Authorization — read endpoint",
+    "it": "valid player token → 200",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

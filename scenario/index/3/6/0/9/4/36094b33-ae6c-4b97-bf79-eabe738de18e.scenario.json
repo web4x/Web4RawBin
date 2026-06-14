@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "36094b33-ae6c-4b97-bf79-eabe738de18e",
+    "name": "409 response includes actual server mtime",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-61.3: Conflict detection via expectedMtime",
+    "it": "409 response includes actual server mtime",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

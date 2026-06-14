@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a57d7e62-434d-4367-bad5-83d9f41292a7",
+    "name": "deleting nonexistent room returns error",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-76.4: Room removed from in-memory tracking",
+    "it": "deleting nonexistent room returns error",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

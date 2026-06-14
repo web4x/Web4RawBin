@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4dd9b650-7d4f-4482-bab7-4647a6e3a65a",
+    "name": "has mode toggle references",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-70.3: mode toggle (Code/Split/Preview)",
+    "it": "has mode toggle references",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}
