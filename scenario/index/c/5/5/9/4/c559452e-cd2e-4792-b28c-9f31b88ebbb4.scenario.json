@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "c559452e-cd2e-4792-b28c-9f31b88ebbb4",
+    "altId": "R20.13",
+    "name": "R20.13: CurrentSprint is a dedicated class that sets the chain and is used by planner's skill as planning+driving tool.",
+    "description": "CurrentSprint = a DEDICATED typed CLASS in the trace model (Object.verb pattern). It is MAINTAINED (kept current with the active WIP=1 work). It SETS THE CHAIN = defines the active narrow chain (req→uc→class→method→impl→test) for the current task. The PLANNER'S SKILL uses it as BOTH: (a) a PLANNING tool (define/set which chain is active — planner.setCurrentChain), and (b) a DRIVING tool (drive that chain across roles to delivery — planner.advanceChain). Methods: setChain(req,task), pinCurrent(), advance(), getActiveChain(). The class is a scenario unit (ior:class:CurrentSprint) maintained in the index.",
+    "tronQuote": "> TRON: \"the current sprint should be a dedicated class that is maintained and sets the chain by a planners skill to use it as planning and driving tool.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:0171efa2-af28-476f-ae8d-ef7e4a4549bc"
+    ],
+    "crossRefNote": "R20.12 (sprint pinned at top) is the UI manifestation. R20.13 is the CLASS/MODEL that drives it — CurrentSprint owns the data, R20.12 renders it.",
+    "intendedChain": {
+      "useCase": "currentSprint.setChain — CurrentSprint class defines and maintains the active WIP=1 chain, used by planner skill for planning+driving",
+      "class": "CurrentSprint (ior:class:CurrentSprint — dedicated typed class)",
+      "method": "setChain(req,task) / pinCurrent() / advance() / getActiveChain()",
+      "test": "RED: (1) CurrentSprint.setChain(req, task) → assert activeChain populated with req→uc→class→method→impl→test path. (2) planner skill invokes CurrentSprint.pinCurrent() → sprint-list shows it. (3) advance() transitions the chain state."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
