@@ -87,7 +87,25 @@ export class RbDetailDrawer extends HTMLElement {
     const colonIdx = ref.indexOf(':');
     const type = colonIdx > 0 ? ref.slice(0, colonIdx) : 'unknown';
     const uuid = colonIdx > 0 ? ref.slice(colonIdx + 1) : ref;
-    if (type === 'collection') return;
+    // [impl:uuid:36934fe3-c15b-4429-8aa2-48c79e674688] BUG8 collection detail via parent
+    if (type === 'collection') {
+      const parts = uuid.split('-');
+      const kind = parts[0];
+      const roomUuid = parts.slice(1).join('-');
+      if (!roomUuid) return;
+      panel.dataset.currentRef = ref;
+      this.setMode('detail');
+      panel.innerHTML = `<h3 style="color:white;margin:0 0 8px;font-size:0.9rem">${kind === 'members' ? 'Members' : 'Files'}</h3><div class="dv-loading">Loading...</div>`;
+      try {
+        const res = await fetch(`/api/trace/children/${roomUuid}`);
+        const data = await res.json();
+        const children = (data.children || []).filter((c: any) => kind === 'members' ? c.type === 'Member' || c.type === 'User' : c.type === 'File');
+        panel.innerHTML = `<h3 style="color:white;margin:0 0 8px;font-size:0.9rem">${kind === 'members' ? 'Members' : 'Files'} (${children.length})</h3>` +
+          (children.length === 0 ? '<div class="dv-empty">None</div>' :
+          children.map((c: any) => `<div class="dv-link" data-ref="${(c.type || '').toLowerCase()}:${c.uuid}"><span class="dv-rel">${c.type}</span><span class="dv-link-title">${c.name || c.uuid}</span></div>`).join(''));
+      } catch { panel.innerHTML = '<div class="dv-empty">Failed to load</div>'; }
+      return;
+    }
     panel.dataset.currentRef = ref;
     this.setMode('detail');
     const tagMap: Record<string, string> = {
