@@ -144,10 +144,25 @@ This test FREEZES the v0.6.31 values and asserts the unified config reproduces t
 
 - **Ships AFTER the BUG9 stopgap (v0.6.31).** BUG9 (`6da84135`) adds `Bug`/`ChangeRequest` to the 5 maps first (makes /trace Bug nodes work now); R20.15 then unifies so it can't drift again.
 
+## Planner Audit — canonical keys + parity carve-out (2026-06-14, PO-directed, ground-truthed v0.6.31)
+
+**CANONICAL `Bug`/`ChangeRequest` forward keys = `['useCases','tasks']`** ✓ (architect's CHAIN_TYPE_CONFIG already encodes this; evidence: of 15 Bug units, useCases 3/15 = chain entry, tasks 4/15 = nav link).
+
+⚠ **STOPGAP (BUG9, v0.6.31) is INCOMPLETE-for-nav.** Ground-truth of shipped server.ts:
+| Map | line | shipped v0.6.31 | canonical | gap |
+|-----|------|-----------------|-----------|-----|
+| SCENARIO_FWD | 717 | `Bug:['useCases']` | `['useCases','tasks']` | ⚠ tasks not fetched |
+| TRACE_FWD | 724 | `Bug:['useCases']` | `['useCases','tasks']` | ⚠ tasks not fetched |
+| EXPECTED_CHILD_TYPE | 789 | `Bug:['UseCase','Task']` | `['UseCase','Task']` | ✓ (but Task never fetched → dead allowance) |
+
+→ A Bug node's **Task children are allowed (789) but never fetched (717/724)** → they don't navigate on /trace. The stopgap made Bug→UseCase work; Bug→Task is still broken until canonical `['useCases','tasks']` lands.
+
+⚠ **PARITY-PROOF CARVE-OUT (the AC must not contradict itself):** the parity reference above uses the **corrected** `Bug/ChangeRequest:['useCases','tasks']`, which is NOT what v0.6.31 shipped (`['useCases']`). So Bug/ChangeRequest are a **DELIBERATE DIVERGENCE** — R20.15 intentionally fixes the stopgap, it does NOT reproduce it. The parity test must (a) freeze v0.6.31 for the 9 unchanged types AND (b) assert the **corrected** `['useCases','tasks']` for Bug/ChangeRequest, explicitly flagged as the fix (not a regression). Claiming "reproduces v0.6.31 EXACTLY" is wrong for these 2 rows.
+
 ## Acceptance Criteria
 
 - [ ] Single `CHAIN_TYPE_CONFIG` in `src/ts/shared/chain-model.ts`; all 5 former maps derive from it (no parallel literals remain).
-- [ ] **Parity regression (hard gate):** for EVERY existing node type, the unified config yields IDENTICAL forward keys + expected child types as the old 5 maps (SCENARIO_FWD, TRACE_FWD, EXPECTED_CHILD_TYPE, TraceModel.FORWARD_KEYS, client forward-only.FORWARD_KEYS). Automated test enumerates all types and asserts equality.
+- [ ] **Parity regression (hard gate):** for the 9 UNCHANGED node types, the unified config yields IDENTICAL keys to the old 5 maps. For **Bug/ChangeRequest**, it yields the CORRECTED `['useCases','tasks']` (deliberate fix of the v0.6.31 stopgap's missing `tasks`), asserted explicitly. Test enumerates all types.
 - [ ] Adding a node type is a one-place edit (demonstrated).
 - [ ] No /trace regression (Bug/Req/Task/UC/Class/Method/Impl/Sprint/Room all still expand correctly).
 

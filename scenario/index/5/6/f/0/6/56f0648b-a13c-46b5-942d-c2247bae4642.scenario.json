@@ -9,7 +9,9 @@
     "classes": [
       "ior:instance:a0c492d6-fd8e-4c24-89db-0c1f980d02a8"
     ],
-    "tasks": [],
+    "tasks": [
+      "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/task-r20.15-dry-unify-chain-type-config.md"
+    ],
     "implementations": [],
     "tests": []
   },
