@@ -25,4 +25,12 @@
 **Owner:** expert. **Status:** QUEUED. Same root cause class as BUG8 (collection synthetic-uuid 404), second surface (in-room). intendedChain + RED captured by req. Fix likely shares BUG8's renderDetailForRef collection-handling.
 
 ## QUEUE-4: BUG11 [871c5cf9] — ⚠ HIGH PRIORITY REGRESSION: URL buttons do nothing
-**Owner:** expert. **Status:** QUEUED (HIGH — regression from v0.6.10 drawer consolidation; URL button handlers LOST). intendedChain + RED captured by req. Fix: restore the URL-button click handlers dropped in the drawer-consolidation refactor. PRIORITIZE when Tron clears the queue.
+**Owner:** expert. **Status:** QUEUED (HIGH — regression from v0.6.10 drawer consolidation). intendedChain + RED captured by req. PRIORITIZE when Tron clears the queue.
+**Root cause (architect-diagnosed):** MODE CONFLICT — openFilePreview (OLD path) sets the preview panel AND setAttribute('ref') → that triggers renderDetailForRef (NEW path) → switches to the detail panel → preview hidden (URL action appears dead).
+**Fix (architect-recommend b, expert):** REMOVE the OLD openFilePreview path + file-tree click handler (lines ~198-207 / 235-251); route file clicks via handleTapSelect → selectionModel → renderDetailForRef → rb-detail-view (already has createFilePreviewButton + wireUrlActions @:140) = SINGLE-PATH, no mode conflict.
+**Note:** BUG10 (da4a27bc) shares BUG8's synthetic-UUID collection root, affecting BOTH /trace + room surfaces — same collection-detail-handler fix.
+
+## FIX FAMILIES (queue consolidation)
+- **Collection-fix** = BUG8 (/trace) + BUG10 (room) → renderDetailForRef handle type='collection' (extract parent-room-uuid → /api/trace/children → dv-links), BOTH surfaces.
+- **Leaf/file-fix** = BUG9 (remove 'file' from tagMap) + BUG11 (remove OLD dual-path → single selection→renderDetailForRef).
+All 4 diagnosed, RED-tested, forward-traceable, QUEUED for Tron's clear. BUG11 = PRIORITY (regression).
