@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "6da84135-fc9d-4774-b9d7-05f95da8d60c",
+    "altId": "BUG9",
+    "name": "BUG9: Bug/ChangeRequest nodes return empty children \u2014 forward keys missing from server",
+    "description": "server.ts SCENARIO_FWD + TRACE_FWD + EXPECTED_CHILD_TYPE have no Bug/ChangeRequest entries. /api/trace/children returns children:[] for Bug-type units even though useCases[] is populated. Fix: add Bug/ChangeRequest entries identical to Requirement.",
+    "tronQuote": "> TRON: switched but no children (Bug node on /trace)",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:d5a44c9b-f933-4d99-9203-a8d4d53a8c89"
+    ],
+    "sourceFile": "",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
