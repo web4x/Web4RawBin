@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "a43dbb8d-0644-46b8-b2c0-bd4604fdabac",
+    "altId": "R20.16",
+    "name": "R20.16: Test node in the chain displays its test-case STATUS (pass/fail badge).",
+    "description": "The TEST node in a /trace chain MUST display its test-case STATUS as a visible badge — pass (green ✓) or fail (red ✗) with the result count (e.g. '5/5 PASS'). Currently the Test node shows only its name with no status indication. The status data comes from the Test scenario unit's model (last-run result, or live vitest output). Screenshot evidence: test-status-IMG_4040.png.",
+    "tronQuote": "> TRON: \"i want to see the test case status on the test\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "intendedChain": {
+      "useCase": "testNode.showStatus — Test node in /trace renders pass/fail badge from test result data",
+      "class": "rb-object-item (Test-type rendering) or RbTestDetail",
+      "method": "renderTestStatus — read model.lastResult (pass/fail/count), render badge (green ✓ / red ✗ + count)",
+      "test": "RED: expand chain to Test node (e.g. 4644dd3c drawer-champagne) → assert visible pass/fail badge with count. Currently FAILS (no status shown, just name)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

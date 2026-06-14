@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b7894ac3-8767-49f0-9ce9-b3ef2b4fc3bb",
+    "altId": "R20.15",
+    "name": "R20.15: /trace shows the current task(s) (CurrentSprint WIP) correctly.",
+    "description": "/trace MUST correctly show the CURRENT TASK(S) — the active WIP=1 task from CurrentSprint. Currently broken: the current task either doesn't appear, appears in wrong position, or its chain doesn't expand. This is the prerequisite for the realtime chain view (R20.13.A) — the current task must be findable and expandable in /trace.",
+    "tronQuote": "> TRON: \"what its all about is still broken — still [want] current tasks\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:0171efa2-af28-476f-ae8d-ef7e4a4549bc",
+      "ior:instance:0665cb0a-895d-4a69-b712-8b2ec5ba3ff3"
+    ],
+    "crossRefNote": "R20.12 (pin at top) + R20.13.A (realtime tree-chain) both depend on the current task being correctly shown. R20.15 is the base: current task visible + expandable.",
+    "intendedChain": {
+      "useCase": "traceView.showCurrentTask — /trace renders the current task (from CurrentSprint) correctly, expandable",
+      "class": "RbOverview / rb-trace-tree",
+      "method": "renderCurrentTask — ensure current task node present + expandable in the sprint list/tree",
+      "test": "RED: CurrentSprint has active task → /trace shows it (findable, expandable to full chain). Currently FAILS (broken/missing)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
