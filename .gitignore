@@ -4,3 +4,10 @@ data/users/
 .env
 web4rawbin-pre-T118-backup-*.tar.gz
 data/migration/
+
+# runtime data aggregates (consistent with data/users,rooms,migration already ignored)
+data/profiles.json
+data/devices.json
+data/*.bak
+# verification screenshots (binary churn; .mjs scripts ARE committed)
+test/visual/*.png
