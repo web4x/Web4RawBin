@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "c83f86f6-1b53-4a32-8461-d448e3139cdb",
+    "altId": "R20.11",
+    "name": "R20.11: Drawer close action dismisses the drawer.",
+    "description": "The detail drawer MUST have a CLOSE ACTION that dismisses/hides the drawer entirely (e.g. tap X button, swipe-down dismiss). This is the close() method behavior — the drawer transitions from visible to hidden. Distinct from R19.33 (553be449 = the close AFFORDANCE stays STICKY, which is the CSS visual positioning of the X button, not the close ACTION itself). Method: close() (91efe513, rb-detail-drawer.ts:107).",
+    "tronQuote": "> Derived from existing drawer close UX — the ACTION of dismissing, not the CSS positioning of the button.",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:553be449-3bad-4580-9426-11c4ab10e202"
+    ],
+    "crossRefNote": "R19.33 (sticky close affordance) = CSS positioning of the X button. R20.11 = the CLOSE ACTION itself (drawer hides). Different concerns: visibility vs action.",
+    "intendedChain": {
+      "useCase": "detailDrawer.close — dismiss/hide the drawer",
+      "class": "RbDetailDrawer",
+      "method": "close() (91efe513, rb-detail-drawer.ts:107)",
+      "test": "RED: drawer open → trigger close (tap X or swipe) → assert drawer hidden/display:none."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
