@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "3c7d1853-a5ee-4c7c-9c94-04b2e4f5bbb4",
+    "name": "T-DRAWER-CHAMPAGNE: RbDetailDrawer champagne-completion (4 incomplete-genuine methods)",
+    "slug": "task-drawer-champagne-completion",
+    "description": "Tron R19.102 'still no progress' on RbDetailDrawer all-children: it RENDERS (BUG7 fix works) but champagne stalls at 22 because 4 behaviors are NOT genuine named-method chains. COMPLETE the 4 incomplete-genuine: (1) open (R16.1/2 DetailViewContainer) markers are SPLIT-FOR clusters -> needs genuine named method+impl+test, (2) close (real method rb-detail-drawer.ts:107 but stickyBottom SPLIT-FOR markers d0235605 -> needs genuine in-body impl+test marker), (3) dragResize (R19.84 0be510a8 'Drawer nudge DRAG-RESIZE') FAKE-SUFFIX marker 01771d5b-a1b2-4c3d-8e4f -> needs real uuid + extract drag logic to a named method, (4) filePreview (R19.63 6052570f, the preview-content render) f94da2cd open -> needs genuine named method (NOTE filePreviewBUTTON R19.93 createFilePreviewButton already champagne; this is the preview-CONTENT, distinct). NOT-IN-SCOPE (already done/not-gap): swipeDismiss R19.86 + renderGrabBar R20.2 + selectionDriven R20.5 = champagne; fullWidth R19.52 + iframePinchZoom + removeDefaultHighlight R20.6 + stickyClose R19.33 = functionalDone (CSS, correctly not champagne).",
+    "status": "Planned",
+    "statusChecklist": "",
+    "traceability": "- up\n  - Tron R19.102 (IMG_4024, 'still no progress here?')\n  - Sprint 20 climb from 22\n- down\n  - 4 sub-behaviors (open/close/dragResize/filePreview)\n- chain\n  - **requirements:** R16.1/R16.2 (open), close-req, R19.84 (dragResize), R19.63 (filePreview) — architect resolves exact set + adds useCases/chain\n  - **class:** RbDetailDrawer (src/public/ts/trace/rb-detail-drawer.ts) + RbDetailView (filePreview content)",
+    "acceptanceCriteria": "- [ ] AC1 open: genuine named method (NOT split-for cluster) + in-body [impl:uuid] (real) + test → R16.x champagne\n- [ ] AC2 close: genuine in-body impl+test marker in close() (replace stickyBottom split-for) → champagne\n- [ ] AC3 dragResize: drag logic extracted to a NAMED method + REAL uuid marker (no -a1b2-4c3d-8e4f fake) + test → R19.84 champagne\n- [ ] AC4 filePreview: preview-content render as a genuine named method + in-body marker + test → R19.63 champagne\n- [ ] each: det-3x genuine close (planner verifies per-req-trace + name-match + marker-in-body)\n- [ ] NO split-for / NO fake-suffix / NO file-header / NO CSS-as-champagne (those stay functionalDone)",
+    "qaAudit": "- 2026-06-14: PO dispatch from planner RbDetailDrawer 11-method assessment (3 champagne / 4 functionalDone / 4 incomplete-genuine). Climb candidates = these 4.",
+    "subtasks": "None.\n\n---\n*Sprint 20 — Traceability-first climb*\n*Owner: robbin-architect (extract named methods + UC/chain), robbin-expert (real in-body markers), robbin-tester (tests); planner det-3x each genuine close*\n*Priority: HIGH (Tron R19.102 no-progress)*",
+    "dependencies": "- **Requires:** None (genuine engineering)\n- **Enables:** champagne 22→up (each genuine method = +1)",
+    "definitionOfDone": "- [ ] 4 behaviors are genuine named-method champagne chains (or confirmed functionalDone if genuinely declarative)\n- [ ] det-3x each; per-req-trace complete; build+tests green; Tron QA",
+    "children": [],
+    "requirements": [
+      "ior:instance:0be510a8-fce6-49cb-afa8-d9cf39762d4d",
+      "ior:instance:6052570f-4630-4cdf-8270-6ef29eec33df"
+    ],
+    "useCases": [],
+    "implementations": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/task-drawer-champagne-completion.md",
+    "orphanByDesign": true,
+    "orphanReason": "climb-completion task — drives existing reqs (R16.x/R19.63/R19.84) to champagne; not a new user requirement"
+  },
+  "ownerIor": "ior:instance:64af2638-0000-0000-0000-000000000000"
+}
