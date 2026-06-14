@@ -10,7 +10,11 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
+<<<<<<< HEAD
     "createdAt": 1781470539543,
+=======
+    "createdAt": 1781470146133,
+>>>>>>> 0a0d601e28838e54f6601ce107323c1b6e3c6e0e
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApJDmY6/mNYSGSOFjhsIL\nI9Y7I1uB/EmWbe9j082aOdXjfvPYkLzn86YDnV7ToUggiRqQwrU2s5bSmgzF3R9l\nef7xu7yWx5JO98QrgjWKEBJOf7TjbDQBd8M0BflhIyL2RayX6ZMjCQKgk+AHFEAk\n5Wpwaa2+HzU3BqlURG2ZTO1Bga+Tg8itnIK/XgR4KOVpFq8W6LEkddKvCqIDtUcJ\nUc5OAVUzdMLcPdpRUn9NqUNc3QpCR/gYVTFF6wZhow/ny0pDtt7cRPhKSxYn0UXR\neTzWvKzMJVfgTl4IyzM2j1GsCRikn6BzJNmng9MeBS98bPOm+rTmHQaaQAPBCw1+\ndQIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [],
@@ -20,49 +24,77 @@
         "name": "Marcel Donges.IT",
         "role": "member",
         "status": "offline",
+<<<<<<< HEAD
         "joinedAt": 1781470539543
+=======
+        "joinedAt": 1781470146133
+>>>>>>> 0a0d601e28838e54f6601ce107323c1b6e3c6e0e
       },
       {
         "ior": "ior:instance:0a3dd214-9ee8-4a7e-af00-bd2e1e501ec9",
         "name": "Felix Wittke",
         "role": "member",
         "status": "offline",
+<<<<<<< HEAD
         "joinedAt": 1781470539543
+=======
+        "joinedAt": 1781470146133
+>>>>>>> 0a0d601e28838e54f6601ce107323c1b6e3c6e0e
       },
       {
         "ior": "ior:instance:da4f8809-5bcc-46fd-8f90-9b00d7fe967f",
         "name": "Marcel Samsung",
         "role": "member",
         "status": "offline",
+<<<<<<< HEAD
         "joinedAt": 1781470539543
+=======
+        "joinedAt": 1781470146133
+>>>>>>> 0a0d601e28838e54f6601ce107323c1b6e3c6e0e
       },
       {
         "ior": "ior:instance:ae9a8a5e-1317-4266-be78-b15b7f547139",
         "name": "test merge",
         "role": "member",
         "status": "offline",
+<<<<<<< HEAD
         "joinedAt": 1781470539543
+=======
+        "joinedAt": 1781470146133
+>>>>>>> 0a0d601e28838e54f6601ce107323c1b6e3c6e0e
       },
       {
         "ior": "ior:instance:8a2ca68f-ce60-497d-aa88-9447e13c06a1",
         "name": "Krista Kim",
         "role": "member",
         "status": "offline",
+<<<<<<< HEAD
         "joinedAt": 1781470539543
+=======
+        "joinedAt": 1781470146133
+>>>>>>> 0a0d601e28838e54f6601ce107323c1b6e3c6e0e
       },
       {
         "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
         "name": "",
         "role": "owner",
         "status": "offline",
+<<<<<<< HEAD
         "joinedAt": 1781470539543
+=======
+        "joinedAt": 1781470146133
+>>>>>>> 0a0d601e28838e54f6601ce107323c1b6e3c6e0e
       },
       {
         "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
         "name": "",
         "role": "owner",
         "status": "online",
+<<<<<<< HEAD
         "joinedAt": 1781470539543
+=======
+        "joinedAt": 1781470146133
+>>>>>>> 0a0d601e28838e54f6601ce107323c1b6e3c6e0e
       }
     ],
     "files": [
