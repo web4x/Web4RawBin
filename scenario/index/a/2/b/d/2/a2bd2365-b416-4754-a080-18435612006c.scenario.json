@@ -1,16 +1,19 @@
 {
-  "ior": "ior:class:UseCase",
-  "model": {
-    "uuid": "a2bd2365-b416-4754-a080-18435612006c",
-    "name": "currentSprint.advance",
-    "description": "Transition chain to next hop after completion. Planner calls to drive forward.",
-    "class": "ior:instance:43d570be-eb8f-45d7-a666-826e88184121",
-    "method": "ior:instance:ec10fad2-e8dd-4bce-b52c-ff2caeccaaf0",
-    "tasks": [
-      "ior:instance:15aeb43d-83da-4a02-bfcf-35ec59b3b070"
-    ],
-    "implementations": [],
-    "tests": []
-  },
-  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "a2bd2365-b416-4754-a080-18435612006c",
+  "name": "currentSprint.advance",
+  "description": "Transition chain to next hop after completion. Planner calls to drive forward.",
+  "class": "ior:instance:43d570be-eb8f-45d7-a666-826e88184121",
+  "method": "ior:instance:ec10fad2-e8dd-4bce-b52c-ff2caeccaaf0",
+  "tasks": [
+   "ior:instance:15aeb43d-83da-4a02-bfcf-35ec59b3b070"
+  ],
+  "implementations": [],
+  "tests": [],
+  "classes": [
+   "ior:instance:43d570be-eb8f-45d7-a666-826e88184121"
+  ]
+ },
+ "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

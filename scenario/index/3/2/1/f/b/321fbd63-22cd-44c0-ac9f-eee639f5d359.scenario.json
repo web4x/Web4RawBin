@@ -1,16 +1,19 @@
 {
-  "ior": "ior:class:UseCase",
-  "model": {
-    "uuid": "321fbd63-22cd-44c0-ac9f-eee639f5d359",
-    "name": "currentSprint.pinCurrent",
-    "description": "Expose current chain to /trace pin-row UI (R20.12 cross-ref). Read-only accessor.",
-    "class": "ior:instance:43d570be-eb8f-45d7-a666-826e88184121",
-    "method": "ior:instance:342c69d8-02dc-4809-8ed4-c6f72e33cc4c",
-    "tasks": [
-      "ior:instance:15aeb43d-83da-4a02-bfcf-35ec59b3b070"
-    ],
-    "implementations": [],
-    "tests": []
-  },
-  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "321fbd63-22cd-44c0-ac9f-eee639f5d359",
+  "name": "currentSprint.pinCurrent",
+  "description": "Expose current chain to /trace pin-row UI (R20.12 cross-ref). Read-only accessor.",
+  "class": "ior:instance:43d570be-eb8f-45d7-a666-826e88184121",
+  "method": "ior:instance:342c69d8-02dc-4809-8ed4-c6f72e33cc4c",
+  "tasks": [
+   "ior:instance:15aeb43d-83da-4a02-bfcf-35ec59b3b070"
+  ],
+  "implementations": [],
+  "tests": [],
+  "classes": [
+   "ior:instance:43d570be-eb8f-45d7-a666-826e88184121"
+  ]
+ },
+ "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
