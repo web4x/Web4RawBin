@@ -10,6 +10,28 @@ be added here AND to the README sprint list in the same commit it is created.
 Status legend: **Done** = all tasks Tron QA-approved · **active** = in flight
 (impl/test/QA) · **planned** = not yet started.
 
+---
+
+## 📌 CURRENT SPRINT — WIP=1 (Tron process directive 2026-06-14)
+
+**Exactly ONE feature driven end-to-end (req→uc→class→method→impl→test→DELIVERED). REPLACED only when DELIVERED via version bump (patch + sw.js cache + git tag). No parallel batch — everything else is PAUSED.**
+
+### ▶ CURRENT TASK: "Drawer/trace DETAIL works end-to-end" → target v0.6.23
+
+The thing Tron keeps screenshotting broken. ONE focused feature, full chain to DELIVERED:
+- **BUG8 + BUG10** — collection-renders-children (BOTH surfaces: /trace tree + in-room drawer)
+- **BUG9** — leaf-renders-detail
+- **BUG11** — URL-actions-work (HIGH regression)
+- **ALSO completes the RbDetailDrawer champagne chains** (same methods: handleDragResize / renderFilePreview / openForRef / close — genuine impl+test). Task unit 3c7d1853.
+
+**DELIVERY GATE:** works end-to-end (Tron screenshot OK) **AND** v0.6.23 shipped (patch bump + sw.js cache + git tag) → only THEN replace with the next CURRENT TASK.
+
+**PAUSED until this delivers** (NOT driven): 6-item queue (Q1–Q5 / the rest of BUG set beyond 8-11), standalone champagne climb (folds into THIS), all other forward work. WIP=1 strict.
+
+**Owner pipeline:** architect (UC/chain — done for champagne part) → expert (impl + bug fixes) → tester (E2E + screenshot) → planner (det-3x champagne closes + delivery-gate verify: version+sw.js+tag).
+
+---
+
 | # | Sprint | Status | Tasks | Planning |
 |---|--------|--------|-------|----------|
 | 1 | Foundation | Done | 11 | [planning](./sprint-1-rawbin-foundation/planning.md) |
