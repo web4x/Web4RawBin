@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "2ed0fefa-82a0-4f24-8462-a68755e7392b",
+    "name": "Gate",
+    "description": "Deploy/quality gate unit. Types: deploy-gate, det-3x, parity, tron-qa. Links to what it gates (Test, Task, Sprint). Fields: gateType, status (pass/fail), evidence (screenshot/log IOR), gatedAt timestamp. Chain: Test\u2192TestCase\u2192Gate OR Task\u2192Gate.",
+    "methods": [
+      "ior:instance:569198e9-4715-4066-bd2c-1749c214cabd"
+    ]
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

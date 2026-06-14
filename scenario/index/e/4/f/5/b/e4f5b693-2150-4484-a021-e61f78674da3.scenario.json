@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "e4f5b693-2150-4484-a021-e61f78674da3",
+    "name": "testCase.parseFromSource",
+    "description": "Parse describe()/it() blocks from test files \u2192 one TestCase scenario unit per it(). Link parent Test unit \u2192 TestCase children. Fields: name=it description, file=source path, line=line number, status=pass/fail/pending. Generator: parse-test-cases.ts (new pipeline script, runs after test execution).",
+    "class": "ior:instance:68f356c1-18f2-4233-80f1-f6abea6a4972",
+    "method": "ior:instance:499b453f-84f9-4eb3-b969-f039ba42cb2a",
+    "classes": [
+      "ior:instance:68f356c1-18f2-4233-80f1-f6abea6a4972"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

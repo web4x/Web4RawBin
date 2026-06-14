@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "37a27ef3-84bf-493e-9cf3-5c5f77ca8efb",
+    "name": "gate.recordVerdict",
+    "description": "Record a gate verdict as a scenario unit. Types: deploy-gate (version+tag), det-3x (3 identical runs), parity (old\u2286new), tron-qa (Tron approval). Links to gated entity (Test/Task/Sprint IOR). Status pass/fail + evidence IOR (screenshot/log). Created by tester/planner/PO at gate time.",
+    "class": "ior:instance:2ed0fefa-82a0-4f24-8462-a68755e7392b",
+    "method": "ior:instance:569198e9-4715-4066-bd2c-1749c214cabd",
+    "classes": [
+      "ior:instance:2ed0fefa-82a0-4f24-8462-a68755e7392b"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "569198e9-4715-4066-bd2c-1749c214cabd",
+    "name": "Gate.recordVerdict",
+    "description": "Create Gate scenario unit: model.gateType (deploy-gate/det-3x/parity/tron-qa), model.status (pass/fail), model.evidence (IOR to screenshot/log), model.gatedAt (ISO timestamp), model.gates (IOR array of gated entities). Persist to scenario index.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2ed0fefa-82a0-4f24-8462-a68755e7392b"
+}
