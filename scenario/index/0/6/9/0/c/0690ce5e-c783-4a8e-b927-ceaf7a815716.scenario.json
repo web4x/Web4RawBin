@@ -4,8 +4,8 @@
     "uuid": "0690ce5e-c783-4a8e-b927-ceaf7a815716",
     "altId": "R20.10",
     "name": "R20.10: Selecting a ref opens the detail drawer for that item.",
-    "description": "When a user selects an item (via tap/click per R20.6c or SelectionModel change), the detail drawer MUST open and render that item's detail view. This is the OPEN-FOR-SELECTION action — the drawer transitions from closed/chat to showing the selected item's detail. Method: openForRef (0a902bff, extracted from attributeChangedCallback).",
-    "tronQuote": "> Derived from R20.6c (tap→single-select→detail drawer) — the OPEN action specifically.",
+    "description": "When a user selects an item (via tap/click per R20.6c or SelectionModel change), the detail drawer MUST open and render that item's detail view. This is the OPEN-FOR-SELECTION action \u2014 the drawer transitions from closed/chat to showing the selected item's detail. Method: openForRef (0a902bff, extracted from attributeChangedCallback).",
+    "tronQuote": "> Derived from R20.6c (tap\u2192single-select\u2192detail drawer) \u2014 the OPEN action specifically.",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
@@ -14,13 +14,16 @@
     "crossRef": [
       "ior:instance:c1dbd4c3-35b4-41e7-ac35-ed476b1b0cb6"
     ],
-    "crossRefNote": "R20.6c (tap→single-select) defines the trigger. R20.10 is the specific OPEN action requirement — the drawer opening for the selected ref. Distinct from R16.2 (bca276d9 = CSS stickyBottom/setBackground).",
+    "crossRefNote": "R20.6c (tap\u2192single-select) defines the trigger. R20.10 is the specific OPEN action requirement \u2014 the drawer opening for the selected ref. Distinct from R16.2 (bca276d9 = CSS stickyBottom/setBackground).",
     "intendedChain": {
-      "useCase": "detailDrawer.openForRef — selection triggers drawer open with item detail",
+      "useCase": "detailDrawer.openForRef \u2014 selection triggers drawer open with item detail",
       "class": "RbDetailDrawer",
       "method": "openForRef (0a902bff)",
-      "test": "RED: select item via SelectionModel → assert drawer visible + showing that item's detail content."
-    }
+      "test": "RED: select item via SelectionModel \u2192 assert drawer visible + showing that item's detail content."
+    },
+    "useCases": [
+      "ior:instance:3d091420-0f5e-4247-9e4f-9fabd9543936"
+    ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
