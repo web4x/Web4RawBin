@@ -89,6 +89,7 @@ Individual sprints:
 - [Sprint 15 — Traceability Browser & Object Model](./scrum.pmo/sprints/sprint-15-traceability-browser/planning.md)
 - [Sprint 16 — Traceability UX & DetailViews](./scrum.pmo/sprints/sprint-16-traceability-ux/planning.md)
 - [Sprint 20 — Radical Forward Planning (Traceability-First)](./scrum.pmo/sprints/sprint-20-forward-planning/planning.md)
+- [Sprint 29 — Radical Forward Planning (WIP=1)](./scrum.pmo/sprints/sprint-29-radical-forward-planning/planning.md)
 - [Sprint 17 — Scenario Units / IOR Data Model & Class Views](./scrum.pmo/sprints/sprint-17-scenario-units/planning.md)
 - [Sprint 18 — Chain method-scope & role skills](./scrum.pmo/sprints/sprint-18-chain-method-scope/planning.md)
 - [Sprint 19 — Room Handling](./scrum.pmo/sprints/sprint-19-room-handling/)
