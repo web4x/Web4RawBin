@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "7d8f1f1f-51a4-4db9-aaf4-5c019461d006",
+    "altId": "R20.7",
+    "name": "R20.7: Drawer is an OVERLAY on top of the overview — position:fixed, not embedded/split.",
+    "description": "STRUCTURAL: the drawer MUST be an OVERLAY LAYER on top of the overview page (position:fixed or absolute, z-index above overview), NOT embedded within the room page or splitting the layout. Supersedes any split-layout approach. Behaviors: (a) drawer floats on top of the overview; (b) items PARTIALLY visible (half-behind the drawer edge) are tappable on their VISIBLE exposed part → tap switches the drawer to that item's detail; (c) tapping ON the drawer overlay affects ONLY the drawer — no pass-through/click-through to the overview beneath; (d) items FULLY covered by the drawer are not tappable (acceptable — user scrolls or resizes drawer to expose them).",
+    "tronQuote": "> TRON: \"the drawer is structurally wrong. its part of the room page and not on top of the overviews page\"\n> TRON (design): \"overlay on top; you can only click an item HALF BEHIND [tap its VISIBLE part → switches]; if you click on the overlay it does NOT affect the overview.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:0ec303b0-5b8c-4fca-b720-3b8e92dc166d",
+      "ior:instance:76a2e5a4-5b40-4fd6-8c6a-e6561ca81e47"
+    ],
+    "crossRefNote": "BUG5 (detail switch broken) + BUG4 (deselect closes) were symptoms of the structural error (drawer embedded in room page). R20.7 fixes the structure: overlay on top. Prior split approach is reverted.",
+    "intendedChain": {
+      "useCase": "drawer.overlayStructure — drawer is position:fixed overlay on top of overview, not embedded",
+      "class": "RbDetailDrawer",
+      "method": "mount as overlay (position:fixed, z-index above overview, pointer-events:auto on drawer only)",
+      "test": "RED: (1) assert drawer element has position:fixed + z-index > overview. (2) tap item half-visible behind drawer edge → drawer switches to that item. (3) tap drawer body → overview does NOT receive the click (no pass-through). Currently FAILS (drawer is embedded/split in room page)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
