@@ -186,3 +186,110 @@ Total wall-clock: ~8 minutes from Tron's bug report to chain visible on /trace.
 
 All four endpoints construct fresh `ScenarioIndex` instances or read disk directly.
 Zero caching on the read path = zero stale data = realtime by design.
+
+## Auto-follow WIP pin — design proposal (kills "pin is stale" at root)
+
+### The problem
+`setChain` is manual (planner calls `planner-drive.ts setChain <6 uuids>`).
+When WIP switches, the planner forgets → pin shows the old chain → Tron sees
+stale /trace → frustration.
+
+### Design: Task.focus marker + followUp auto-derive
+
+**Hook point**: a `focus: true` field on exactly ONE Task unit in the index.
+When a task gains focus (status flips to "In Progress" or planner marks it),
+`focus: true` is set on that task, `focus` is cleared on all others (WIP=1
+enforcement at the data layer).
+
+**Auto-derive**: `CurrentSprint.autoFollow(idx)` walks the focused task:
+1. Find the ONE task with `focus: true`
+2. Read `task.coveredRequirements[0]` → req UUID
+3. Walk the chain from req: `req.useCases[0]` → `uc.classes[0]` → `uc.method` or
+   `class.methods[0]` → `method.implementations[0]` → `impl.tests[0]`
+4. Call `setChain({req, uc, class, method, impl, test})` with the derived UUIDs
+5. `persist()` + `emit()` → pin updated, /trace reflects on reload
+
+**Who fires it**: two triggers, both automatic:
+- **Server-side**: `/api/trace` handler calls `autoFollow()` before building the
+  graph (one line: `CurrentSprint.getInstance(idx).autoFollow()`). Every /trace
+  reload gets the correct pin. Cost: ~1ms (one idx.list scan for `focus: true`).
+- **CLI-side**: `planner-drive.ts focus <task-uuid>` sets focus + calls autoFollow.
+  Replaces the manual 6-uuid setChain. The planner's action shrinks from
+  "find 6 UUIDs and paste them" to "name the task."
+
+### Implementation in CurrentSprint.ts (~25 lines)
+
+```typescript
+autoFollow(): boolean {
+  // Find focused task
+  for (const uuid of this.index.list()) {
+    const unit = this.index.get(uuid);
+    if (!unit || unit.ior !== 'ior:class:Task') continue;
+    const m = unit.model as Record<string, unknown>;
+    if (!m.focus) continue;
+    // Derive chain from task's requirement
+    const reqIors = (m.coveredRequirements as string[]) || [];
+    if (reqIors.length === 0) continue;
+    const reqUuid = ior(reqIors[0]);
+    const reqUnit = this.index.get(reqUuid);
+    if (!reqUnit) continue;
+    const reqM = reqUnit.model as Record<string, unknown>;
+    const ucUuid = ior(((reqM.useCases as string[]) || [])[0] || '');
+    if (!ucUuid) continue;
+    const ucUnit = this.index.get(ucUuid);
+    if (!ucUnit) continue;
+    const ucM = ucUnit.model as Record<string, unknown>;
+    const clsUuid = ior(((ucM.classes as string[]) || [])[0] || '');
+    const methUuid = ior(String(ucM.method || '')) || /* fallback */ '';
+    const methUnit = methUuid ? this.index.get(methUuid) : null;
+    const methM = methUnit?.model as Record<string, unknown>;
+    const implUuid = ior(((methM?.implementations as string[]) || [])[0] || '');
+    const implUnit = implUuid ? this.index.get(implUuid) : null;
+    const implM = implUnit?.model as Record<string, unknown>;
+    const testUuid = ior(((implM?.tests as string[]) || [])[0] || '');
+    return this.setChain(
+      { req: reqUuid, uc: ucUuid, class: clsUuid, method: methUuid, impl: implUuid, test: testUuid },
+      String(m.sprint || ''), String(m.name || '')
+    );
+  }
+  return false; // no focused task
+}
+```
+
+### planner-drive.ts: add `focus` verb
+
+```bash
+npx tsx scripts/planner-drive.ts focus <task-uuid>
+# Sets task.focus=true (clears others), calls autoFollow → pin updated
+```
+
+Replaces the current 6-uuid setChain workflow. One argument instead of eight.
+
+### Server hook (one line in /api/trace handler)
+
+```typescript
+// At server.ts L617, after `const idx = new ScenarioIndex(scenarioDir);`
+CurrentSprint.getInstance(idx).autoFollow();
+```
+
+Every /trace reload silently re-derives the pin. If the focused task's chain
+grew (e.g. Impl wired since last reload), the pin updates automatically.
+
+### Migration from manual setChain
+
+| Today (manual) | After (auto-follow) |
+|---|---|
+| Planner finds 6 UUIDs | Planner types task UUID |
+| `planner-drive.ts setChain <6 args>` | `planner-drive.ts focus <task-uuid>` |
+| Forgets when WIP changes → stale pin | focus marker moves with WIP → pin auto-follows |
+| setChain stays as a LOW-LEVEL API (escape hatch) | autoFollow is the default path |
+
+### Risk assessment
+- **WIP=1 enforcement**: `focus` verb clears all other task's `focus` fields before
+  setting the new one. Cannot have 2 focused tasks (same invariant as today's
+  "there's only one setChain call").
+- **Partial chains**: if the chain is incomplete (e.g. no Impl yet), autoFollow
+  sets what it can (req/uc/class/method) and leaves impl/test empty →
+  `setChain` returns false (all 6 required). Fix: accept partial chains in setChain
+  (pin shows progress-so-far, not only complete chains).
+- **No server restart**: autoFollow runs in the /api/trace request path, not at startup.
