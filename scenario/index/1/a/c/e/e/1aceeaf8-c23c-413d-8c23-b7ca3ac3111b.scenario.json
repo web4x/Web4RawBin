@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "1aceeaf8-c23c-413d-8c23-b7ca3ac3111b",
+    "name": "fileDetail.renderFileContent",
+    "description": "File leaf click opens rb-file-detail in drawer: header (File type + name + uuid) + ContentPreviewer (renderContentPreview for image/text/URL per mimeType) + parent collection link + scenario browser link. tagMap adds file: rb-file-detail.",
+    "class": "ior:instance:37103cf0-c1db-4c94-84d4-163b05f9a8dd",
+    "method": "ior:instance:9cba1b57-09d4-40f7-89e5-42ba71999015",
+    "classes": [
+      "ior:instance:37103cf0-c1db-4c94-84d4-163b05f9a8dd"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "049705bc-46a6-4aa6-b587-afcf803d9042",
+    "name": "RbObjectItem.renderTestStatus",
+    "description": "In render(): read getAttribute('status'). Normalize case-insensitive: pass/PASS/GREEN \u2192 green checkmark span. FAIL/RED \u2192 red X span. Empty \u2192 gray dash. Append after .oi-name. Server: /api/trace/children child entry adds status: String(childModel.status) at server.ts:785.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+}

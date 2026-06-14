@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "f2f5f96e-78d4-4833-906d-e931159acd12",
+    "name": "objectItem.renderTestStatus",
+    "description": "Test node in /trace chain shows pass/fail status badge. Server /api/trace/children includes model.status on child entries. rb-object-item render() adds status indicator: green checkmark (pass/PASS/GREEN), red X (FAIL/RED), gray dash (empty). Case-insensitive normalization at render time.",
+    "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
+    "method": "ior:instance:049705bc-46a6-4aa6-b587-afcf803d9042",
+    "classes": [
+      "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
