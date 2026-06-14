@@ -1,25 +1,26 @@
 {
-  "ior": "ior:class:Requirement",
-  "model": {
-    "uuid": "0171efa2-af28-476f-ae8d-ef7e4a4549bc",
-    "altId": "R20.12",
-    "name": "R20.12: Current Sprint pinned at TOP of the traceability sprint-list (app view).",
-    "description": "The app's sprint-list view (rb-overview.ts) MUST render the CURRENT SPRINT as a pinned row at the TOP (ABOVE Sprint 01), with visually distinct styling (e.g. \ud83d\udccc icon, highlight, bold). The pinned row names the current task (e.g. 'Sprint 29 \u2014 Drawer detail\u2192v0.6.23'). This is the visible manifestation of the WIP=1 model in the app \u2014 the user always sees what's active NOW at the top of the list. Currently: sprint-list shows only numeric sprints 01-14 with no current-sprint pin.",
-    "tronQuote": "> TRON (v0.6.23 screenshot): sprint-list has no Current Sprint pinned at top. Planner-relayed as Tron-direct priority.",
-    "tasks": [],
-    "tests": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
-    "unitLinks": [],
-    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
-    "intendedChain": {
-      "useCase": "sprintList.pinCurrent \u2014 sprint-list renders current sprint as pinned first row, distinct styling",
-      "class": "RbOverview (rb-overview.ts)",
-      "method": "renderSprintList \u2014 prepend pinned current-sprint row (from server /api/current-sprint or sprint-unit status=active)",
-      "test": "RED: load sprint-list view \u2192 assert FIRST child is a pinned Current-Sprint row (\ud83d\udccc, distinct class, names current task). Assert it appears ABOVE Sprint 01. Currently FAILS (no pinned row exists)."
-    },
-    "useCases": [
-      "ior:instance:5d0686e4-b8df-4d9a-b85c-d8d83cbac71e"
-    ]
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "0171efa2-af28-476f-ae8d-ef7e4a4549bc",
+  "altId": "R20.12",
+  "name": "R20.12: Current Sprint pinned at TOP of the traceability sprint-list (app view).",
+  "description": "The app's sprint-list view (rb-overview.ts) MUST render the CURRENT SPRINT as a pinned row at the TOP (ABOVE Sprint 01), with visually distinct styling (e.g. \ud83d\udccc icon, highlight, bold). The pinned row names the current task (e.g. 'Sprint 29 \u2014 Drawer detail\u2192v0.6.23'). This is the visible manifestation of the WIP=1 model in the app \u2014 the user always sees what's active NOW at the top of the list. Currently: sprint-list shows only numeric sprints 01-14 with no current-sprint pin.",
+  "tronQuote": "> TRON (v0.6.23 screenshot): sprint-list has no Current Sprint pinned at top. Planner-relayed as Tron-direct priority.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+  "unitLinks": [],
+  "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+  "intendedChain": {
+   "useCase": "sprintList.pinCurrent \u2014 sprint-list renders current sprint as pinned first row, distinct styling",
+   "class": "RbOverview (rb-overview.ts)",
+   "method": "renderSprintList \u2014 prepend pinned current-sprint row (from server /api/current-sprint or sprint-unit status=active)",
+   "test": "RED: load sprint-list view \u2192 assert FIRST child is a pinned Current-Sprint row (\ud83d\udccc, distinct class, names current task). Assert it appears ABOVE Sprint 01. Currently FAILS (no pinned row exists)."
   },
-  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+  "useCases": [
+   "ior:instance:5d0686e4-b8df-4d9a-b85c-d8d83cbac71e"
+  ],
+  "functionalDone": true
+ },
+ "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

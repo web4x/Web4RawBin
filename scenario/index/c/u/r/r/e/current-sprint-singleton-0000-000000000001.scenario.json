@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:CurrentSprint",
+  "model": {
+    "uuid": "current-sprint-singleton-0000-000000000001",
+    "name": "Current: R20.13 CurrentSprint (inaugural drive THROUGH the instrument)",
+    "chain": {
+      "req": "c559452e-cd2e-4792-b28c-9f31b88ebbb4",
+      "uc": "9754d7a9-4d95-4643-a0b1-76a33b221ce2",
+      "class": "43d570be-eb8f-45d7-a666-826e88184121",
+      "method": "82870570-3a8b-47dd-8389-d6ca0470c479",
+      "impl": "e8bd1984-30c1-4591-991c-fcdc28a9164f",
+      "test": "960948c2-4f36-4658-b2c0-4075aeddfb4a"
+    },
+    "activeHop": 0,
+    "sprintName": "Sprint 20 — Radical Forward Planning",
+    "taskName": "R20.13 CurrentSprint (inaugural drive THROUGH the instrument)"
+  },
+  "ownerIor": null
+}

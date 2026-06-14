@@ -1,3 +1,13 @@
+# CurrentSprint ADVANCE-ORDER (R20.13 — migrated from queue; planner drives WIP=1 THROUGH the live CurrentSprint instrument)
+
+DRIVING MODEL (dogfood, instrument LIVE): planner.setChain(next narrow chain) → pinCurrent feeds /trace pin-row → driveNext dispatches each role from the OPEN node → det-3x champagne gate → advance() ONLY on genuine-champagne + Tron-QA. Tool: scripts/planner-drive.ts. Skill: scrum.pmo/skills/planner-current-sprint-driving.md.
+
+ADVANCE-ORDER (WIP=1, strict-forward — Tron clears each before next):
+  [CURRENT/done] v0.6.24 delivery: R20.13(CurrentSprint LIVE)+R20.11+R20.10+R19.63 champagne (26/209). R20.12 functionalDone.
+  [next] QUEUE-1 → QUEUE-2 → QUEUE-3 → QUEUE-4(HIGH regression) → QUEUE-5(R20.9 landscape) — advance() through these as Tron clears.
+Inaugural drive PROVEN: setChain(R20.13 chain)→pinCurrent OK, getActiveChain returns 6 ordered hops.
+
+---
 # QUEUED tasks (Tron directive: strict-forward uninterrupted; do NOT drive now) — planner 2026-06-14
 
 ## QUEUE-1: /trace DETAIL BUG (collection + leaf detail render)
