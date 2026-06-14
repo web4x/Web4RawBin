@@ -26,19 +26,31 @@ async function load(): Promise<void> {
     treeMount.innerHTML = '';
 
     // [impl:uuid:062b6920-e2a6-4774-b369-afac243dc46d] R20.12 renderPinnedSprint
-    try {
-      const ctRes = await fetch('/api/ior/ior:instance:3c7d1853-a5ee-4c7c-9c94-04b2e4f5bbb4');
-      const ctData = await ctRes.json();
-      if (ctData.unit?.model) {
-        const ct = ctData.unit.model;
-        const pinned = document.createElement('div');
-        pinned.className = 'pinned-sprint';
-        pinned.innerHTML = '<div class="pin-label">📌 Current Task</div>' +
-          '<div class="pin-sprint-name">' + (ct.name || '').replace(/[<>]/g, '') + '</div>' +
-          (ct.status ? '<div class="pin-task">' + ct.status + '</div>' : '');
-        treeMount.appendChild(pinned);
-      }
-    } catch {}
+    const renderPinned = async () => {
+      const existing = treeMount.querySelector('.pinned-sprint');
+      if (existing) existing.remove();
+      try {
+        const ctRes = await fetch('/api/ior/ior:instance:3c7d1853-a5ee-4c7c-9c94-04b2e4f5bbb4');
+        const ctData = await ctRes.json();
+        if (ctData.unit?.model) {
+          const ct = ctData.unit.model;
+          const pinned = document.createElement('div');
+          pinned.className = 'pinned-sprint';
+          pinned.innerHTML = '<div class="pin-label">📌 Current Task</div>' +
+            '<div class="pin-sprint-name">' + (ct.name || '').replace(/[<>]/g, '') + '</div>' +
+            (ct.status ? '<div class="pin-task">' + ct.status + '</div>' : '');
+          const pinnedTree = document.createElement('rb-trace-tree') as any;
+          pinnedTree.setAttribute('data-seed-ior', ct.uuid || '3c7d1853-a5ee-4c7c-9c94-04b2e4f5bbb4');
+          pinnedTree.setAttribute('data-mode', 'trace');
+          pinnedTree.setAttribute('data-always-expanded', '');
+          pinned.appendChild(pinnedTree);
+          treeMount.insertBefore(pinned, treeMount.firstChild);
+          pinnedTree.graph = graph;
+        }
+      } catch {}
+    };
+    await renderPinned();
+    document.addEventListener('current-sprint-changed', () => renderPinned());
 
     // Build Sprint root nodes as seed trees with mode=trace
     for (const sprint of sprints) {

@@ -320,14 +320,16 @@ export class RbTraceTree extends HTMLElement {
     const item = document.createElement('rb-object-item') as any;
     const showExpander = children.length > 0 || hasChildren === true;
     const itemRef = `${(type || 'task').toLowerCase()}:${uuid}`;
-    item.data = { ref: itemRef, type: (type || 'task').toLowerCase(), title: name || uuid, ...(description ? { description } : {}), ...(showExpander ? { 'has-children': '' } : {}), ...(shouldStartOpen && showExpander ? { 'children-open': '' } : {}) };
+    const forceOpen = this.hasAttribute('data-always-expanded');
+    item.data = { ref: itemRef, type: (type || 'task').toLowerCase(), title: name || uuid, ...(description ? { description } : {}), ...(showExpander ? { 'has-children': '' } : {}), ...((forceOpen || shouldStartOpen) && showExpander ? { 'children-open': '' } : {}) };
     console.log(`[buildSeedNode] ref=${itemRef} children=${children.length} hasChildren=${hasChildren}`);
     row.appendChild(item);
     node.appendChild(row);
     if (showExpander) {
       const kids = document.createElement('div');
       kids.className = 'tt-children';
-      kids.style.display = shouldStartOpen ? '' : 'none';
+      const alwaysExpanded = this.hasAttribute('data-always-expanded');
+      kids.style.display = (alwaysExpanded || shouldStartOpen) ? '' : 'none';
       let loaded = children.length > 0;
       const branchPath = new Set(ancestors || []); branchPath.add(uuid);
       for (const child of children) {

@@ -31,7 +31,7 @@ import { TRACE_ICONS } from './icons.js';
 import { selectionModel } from './selection-model.js';
 
 export class RbObjectItem extends HTMLElement {
-  static get observedAttributes() { return ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count']; }
+  static get observedAttributes() { return ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count', 'assignee']; }
   private unsub: (() => void) | null = null;
   private _data: Record<string, string> | null = null;
   private _initialized = false;
@@ -190,6 +190,7 @@ export class RbObjectItem extends HTMLElement {
       <div class="oi-content">
         <span class="oi-name">${esc(name)}</span>
         ${desc ? `<p class="oi-desc">${esc(desc)}</p>` : ''}
+        ${this.getAttribute('assignee') ? `<span class="oi-assignee" style="font-size:0.65rem;color:#667eea;opacity:0.8">${esc(this.getAttribute('assignee')!)}</span>` : ''}
       </div>
       ${hasChildren ? `<span class="oi-badge">${childCount}</span><span class="oi-expand">›</span>` : ''}`;
 
