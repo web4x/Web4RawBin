@@ -4,7 +4,9 @@
     "uuid": "ec10fad2-e8dd-4bce-b52c-ff2caeccaaf0",
     "name": "CurrentSprint.advance",
     "description": "Transition the chain to the next hop. E.g., after expert ships [impl:uuid], advance marks Implementation done and moves focus to Test. Updates the persisted unit. Planner calls this to drive the chain forward.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:2011ae78-3e09-4e85-b98f-f3423dd32500"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:43d570be-eb8f-45d7-a666-826e88184121"

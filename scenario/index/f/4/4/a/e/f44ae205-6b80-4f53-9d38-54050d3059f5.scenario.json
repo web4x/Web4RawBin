@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f44ae205-6b80-4f53-9d38-54050d3059f5",
+    "name": "getActiveChain impl",
+    "sourceFile": "ior:file:src/ts/scenario/CurrentSprint.ts",
+    "sourceLine": 124,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1f3ec50f-1fff-4767-88e9-12be32948360"
+}

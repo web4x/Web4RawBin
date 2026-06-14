@@ -4,7 +4,9 @@
     "uuid": "342c69d8-02dc-4809-8ed4-c6f72e33cc4c",
     "name": "CurrentSprint.pinCurrent",
     "description": "Expose the current sprint+chain to the UI. Returns the data shape that /trace pin-row (R20.12) renders: sprint name, task name, chain depth, WIP status. Read-only accessor.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:63d2c341-6f57-486b-a246-bda5c8ce4ca2"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:43d570be-eb8f-45d7-a666-826e88184121"

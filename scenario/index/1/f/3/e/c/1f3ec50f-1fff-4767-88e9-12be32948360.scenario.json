@@ -4,7 +4,9 @@
     "uuid": "1f3ec50f-1fff-4767-88e9-12be32948360",
     "name": "CurrentSprint.getActiveChain",
     "description": "Return the full active chain as an ordered array [{type, uuid, name, status}] from Requirement through Test. Each hop has its resolved scenario unit data. The planner's driveNext/status reads this.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:f44ae205-6b80-4f53-9d38-54050d3059f5"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:43d570be-eb8f-45d7-a666-826e88184121"

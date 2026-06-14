@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e8bd1984-30c1-4591-991c-fcdc28a9164f",
+    "name": "setChain impl",
+    "sourceFile": "ior:file:src/ts/scenario/CurrentSprint.ts",
+    "sourceLine": 93,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:82870570-3a8b-47dd-8389-d6ca0470c479"
+}

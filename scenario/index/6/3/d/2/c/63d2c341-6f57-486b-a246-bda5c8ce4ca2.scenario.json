@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "63d2c341-6f57-486b-a246-bda5c8ce4ca2",
+    "name": "pinCurrent impl",
+    "sourceFile": "ior:file:src/ts/scenario/CurrentSprint.ts",
+    "sourceLine": 105,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:342c69d8-02dc-4809-8ed4-c6f72e33cc4c"
+}
