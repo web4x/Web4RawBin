@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "bf235a3e-ba06-4697-abe6-4ed58b1774ac",
+    "name": "stop.sh has execute permission",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-16.5: stop.sh exists and is executable",
+    "it": "stop.sh has execute permission",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

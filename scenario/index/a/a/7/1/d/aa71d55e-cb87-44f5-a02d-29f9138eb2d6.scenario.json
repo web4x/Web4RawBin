@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "aa71d55e-cb87-44f5-a02d-29f9138eb2d6",
+    "name": "show() sets body overflow to hidden",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.4: Body scroll prevention",
+    "it": "show() sets body overflow to hidden",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

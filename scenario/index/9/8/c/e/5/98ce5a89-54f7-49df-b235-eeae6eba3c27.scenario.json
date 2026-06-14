@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "98ce5a89-54f7-49df-b235-eeae6eba3c27",
+    "name": "fetch failure is silent — vCard still produced (without PHOTO), no throw",
+    "file": "test/vitest/vcard-photo.test.ts",
+    "describe": "vCard photo + UUID (v0.5.14)",
+    "it": "fetch failure is silent — vCard still produced (without PHOTO), no throw",
+    "testUuid": "40f20e19-71a5-47ff-9391-75661b520ed2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:40f20e19-71a5-47ff-9391-75661b520ed2"
+}

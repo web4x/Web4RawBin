@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ac40b516-50e1-41b9-84f3-97bcf7238ba7",
+    "name": "close button removes popup",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-45.3: rb-qr-popup — close button",
+    "it": "close button removes popup",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

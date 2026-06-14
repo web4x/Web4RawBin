@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3f508fd9-2e5c-4652-82f2-8b0340144364",
+    "name": "file path used as dir returns 404",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-60.7: 404 for nonexistent paths",
+    "it": "file path used as dir returns 404",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

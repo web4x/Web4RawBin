@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "53944e4c-c239-4b97-a632-a187be0a6633",
+    "name": "keys are RSA-2048 (verifiable by crypto)",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.2: generateUserKeypair PEM keys",
+    "it": "keys are RSA-2048 (verifiable by crypto)",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

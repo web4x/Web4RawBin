@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a35f9935-2988-407c-97bd-c0e92b5de144",
+    "name": "TC-2: limit=5 on 8 messages returns last 5 oldest-first + hasMore=true",
+    "file": "test/vitest/lazy-load-messages.test.ts",
+    "describe": "[test:uuid:9e1cb105] R19.40 lazy-load message pagination",
+    "it": "TC-2: limit=5 on 8 messages returns last 5 oldest-first + hasMore=true",
+    "testUuid": "9e1cb105-27b1-4268-b9c3-d2110563fdeb",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:9e1cb105-27b1-4268-b9c3-d2110563fdeb"
+}

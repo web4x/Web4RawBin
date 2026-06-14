@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "aef62f21-3c6f-4764-9d88-c729e08953c4",
+    "name": "opens on ref attribute set, closes on remove",
+    "file": "test/vitest/champagne-components.test.ts",
+    "describe": "rb-detail-drawer — T110 DetailViewContainer",
+    "it": "opens on ref attribute set, closes on remove",
+    "testUuid": "681e2949-181f-48cd-bcf6-f88b08887218",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:681e2949-181f-48cd-bcf6-f88b08887218"
+}

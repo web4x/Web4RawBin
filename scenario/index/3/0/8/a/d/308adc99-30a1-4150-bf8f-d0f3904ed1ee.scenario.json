@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "308adc99-30a1-4150-bf8f-d0f3904ed1ee",
+    "name": "rb-object-item.ts exists with render method",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R15.4: defaultItemView per object (rb-object-item)",
+    "it": "rb-object-item.ts exists with render method",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

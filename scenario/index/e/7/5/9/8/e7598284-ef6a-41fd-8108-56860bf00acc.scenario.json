@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e7598284-ef6a-41fd-8108-56860bf00acc",
+    "name": "TS2/AC6: root-level file → Back href is /md/ (guarded, no //)",
+    "file": "test/e2e/editor-back.spec.ts",
+    "describe": "T84: editor back button → parent directory",
+    "it": "TS2/AC6: root-level file → Back href is /md/ (guarded, no //)",
+    "testUuid": "2f5c543a-280d-48f9-bff5-e99870115d7b",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:2f5c543a-280d-48f9-bff5-e99870115d7b"
+}

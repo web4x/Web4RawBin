@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "77764361-9c48-4d0a-a760-c5af815c4e2e",
+    "name": "profile in Map has no device data embedded",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-4.6.9: Data separation",
+    "it": "profile in Map has no device data embedded",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

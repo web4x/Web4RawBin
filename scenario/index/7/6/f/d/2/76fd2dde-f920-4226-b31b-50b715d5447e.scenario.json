@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "76fd2dde-f920-4226-b31b-50b715d5447e",
+    "name": "inverseRelation returns correct inverse",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T134: TraceLink",
+    "it": "inverseRelation returns correct inverse",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

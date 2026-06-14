@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3cc45162-75fb-4e81-a26a-462938b2c96f",
+    "name": "rb-detail-drawer has renderGrabBar() named method returning grab-bar HTML",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.86: file/url/webitem click → openFilePreview → drawer opens",
+    "it": "rb-detail-drawer has renderGrabBar() named method returning grab-bar HTML",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

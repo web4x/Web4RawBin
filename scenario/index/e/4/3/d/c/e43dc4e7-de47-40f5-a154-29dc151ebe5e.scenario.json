@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e43dc4e7-de47-40f5-a154-29dc151ebe5e",
+    "name": "UPDATE_PROFILE returns PROFILE_UPDATED with all fields",
+    "file": "test/vitest/profile.test.ts",
+    "describe": "TC-7.7.1: UPDATE_PROFILE saves and responds",
+    "it": "UPDATE_PROFILE returns PROFILE_UPDATED with all fields",
+    "testUuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e69274bc-c83f-4322-abcd-963538f6f9e2"
+}

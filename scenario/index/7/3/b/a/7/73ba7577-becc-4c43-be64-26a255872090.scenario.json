@@ -10,7 +10,10 @@
     "sourceFile": "ior:file:test/e2e/room-lifecycle.spec.ts",
     "sourceLine": 1,
     "parent": "ior:instance:87a85986-0ef9-4bcd-bd43-34a5192d0ba0",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:441e9ea3-3069-41c1-a4b9-41d05d958889"
+    ]
   },
   "ownerIor": "ior:instance:87a85986-0ef9-4bcd-bd43-34a5192d0ba0"
 }

@@ -13,7 +13,13 @@
     "sourceFile": "ior:file:test/e2e/multi-room-lobby.spec.ts",
     "sourceLine": 3,
     "parent": "ior:instance:b30a6878-4b32-41a2-acfa-9ba22c0fd30b",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:c3a6d46f-013d-4195-b4fd-bdd735d66337",
+      "ior:instance:f293e323-27de-4f5e-88fa-975d53102ef2",
+      "ior:instance:5205d046-fd80-414a-aad3-3adcb8ecdd23",
+      "ior:instance:c645d3b6-e065-4c93-95e3-08fb461740ea"
+    ]
   },
   "ownerIor": "ior:instance:b30a6878-4b32-41a2-acfa-9ba22c0fd30b"
 }

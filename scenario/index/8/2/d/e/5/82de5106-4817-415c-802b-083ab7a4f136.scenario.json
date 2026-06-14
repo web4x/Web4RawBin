@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "82de5106-4817-415c-802b-083ab7a4f136",
+    "name": "edit.html has manifest link",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-63.5: edit.html PWA integration",
+    "it": "edit.html has manifest link",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e01f4476-68da-482f-a07c-350c0619e83e",
+    "name": "TS1/AC1/AC5: deep file → Back href is parent /md/.../ and navigates there",
+    "file": "test/e2e/editor-back.spec.ts",
+    "describe": "T84: editor back button → parent directory",
+    "it": "TS1/AC1/AC5: deep file → Back href is parent /md/.../ and navigates there",
+    "testUuid": "2f5c543a-280d-48f9-bff5-e99870115d7b",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:2f5c543a-280d-48f9-bff5-e99870115d7b"
+}

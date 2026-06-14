@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "11c04ec2-0594-44a5-bc9e-dbab2932cdfd",
+    "name": "getCachedProfile returns null when no profile cached",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.5: Profile cache",
+    "it": "getCachedProfile returns null when no profile cached",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

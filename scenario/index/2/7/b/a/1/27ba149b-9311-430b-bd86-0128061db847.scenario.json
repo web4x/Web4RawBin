@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "27ba149b-9311-430b-bd86-0128061db847",
+    "name": "guard: uses a real 200x200 PNG, not a stub",
+    "file": "test/vitest/avatar-rekey.test.ts",
+    "describe": "Avatar survives keypair regen — rekeyUser (v0.5.9)",
+    "it": "guard: uses a real 200x200 PNG, not a stub",
+    "testUuid": "3615a349-01ac-4816-ac6d-c343ff1d3050",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3615a349-01ac-4816-ac6d-c343ff1d3050"
+}

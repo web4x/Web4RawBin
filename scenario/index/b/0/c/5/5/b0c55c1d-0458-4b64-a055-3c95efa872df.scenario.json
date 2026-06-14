@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b0c55c1d-0458-4b64-a055-3c95efa872df",
+    "name": "returns name, phone, url, avatar, playerToken",
+    "file": "test/vitest/profile.test.ts",
+    "describe": "TC-7.7.3: GET_USER_INFO public subset",
+    "it": "returns name, phone, url, avatar, playerToken",
+    "testUuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e69274bc-c83f-4322-abcd-963538f6f9e2"
+}

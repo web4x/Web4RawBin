@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "119a62cb-880a-490d-9600-3ed15b9e8c1e",
+    "name": "rb-header base rule (not scoped) has safe-area-inset-top padding",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-44.3: Lobby header safe-area not killed",
+    "it": "rb-header base rule (not scoped) has safe-area-inset-top padding",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

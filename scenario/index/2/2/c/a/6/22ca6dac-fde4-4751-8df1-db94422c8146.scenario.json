@@ -6,7 +6,16 @@
     "slug": "r1963-renderfilepreview",
     "file": "test/vitest/drawer-champagne.test.ts",
     "status": "pass",
-    "implementations": ["ior:instance:71954a38-ec79-4bc6-8fd9-9cfdd9a8e1bd"]
+    "implementations": [
+      "ior:instance:71954a38-ec79-4bc6-8fd9-9cfdd9a8e1bd"
+    ],
+    "testCases": [
+      "ior:instance:50ad95d8-18a1-4f40-b8ec-73baad494f7c",
+      "ior:instance:7de35e9d-ad07-4439-a84d-d2def7d99b40",
+      "ior:instance:7cc93275-0cbb-49a6-bc4d-0b17e734a308",
+      "ior:instance:1f2f1b8d-d5ec-4b5d-93ad-883440626fc1",
+      "ior:instance:3e920910-f9f4-43d8-8516-5a27754c585c"
+    ]
   },
   "ownerIor": null
 }

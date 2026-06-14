@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "45460e2a-24b9-4b9e-9704-c02c6bc5ce81",
+    "name": "clearProfile removes cached profile",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.5: Profile cache",
+    "it": "clearProfile removes cached profile",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

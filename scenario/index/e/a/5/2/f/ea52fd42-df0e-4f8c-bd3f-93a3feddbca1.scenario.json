@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ea52fd42-df0e-4f8c-bd3f-93a3feddbca1",
+    "name": "flags a dangling requirement up-link (uuid not in graph)",
+    "file": "test/vitest/trace-consistency.test.ts",
+    "describe": "validate (AC2)",
+    "it": "flags a dangling requirement up-link (uuid not in graph)",
+    "testUuid": "ce5c47ad-dabb-44e5-a8f6-3ee506d34127",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:ce5c47ad-dabb-44e5-a8f6-3ee506d34127"
+}

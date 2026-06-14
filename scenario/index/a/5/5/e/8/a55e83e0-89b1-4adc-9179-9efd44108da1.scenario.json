@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a55e83e0-89b1-4adc-9179-9efd44108da1",
+    "name": "send() delivers immediately when connected",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-33.3: Queue on disconnect",
+    "it": "send() delivers immediately when connected",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

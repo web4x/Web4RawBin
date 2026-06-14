@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "33cba8b2-8599-48cf-a0b2-8d6609dd05dc",
+    "name": "reflects attributes into rendered DOM",
+    "file": "test/vitest/trace-routing.test.ts",
+    "describe": "rb-trace-view attribute round-trip (AC2)",
+    "it": "reflects attributes into rendered DOM",
+    "testUuid": "b2fa3e4d-5aea-4368-a1d5-ec1793e35223",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:b2fa3e4d-5aea-4368-a1d5-ec1793e35223"
+}

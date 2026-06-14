@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "41b0f6aa-c218-4780-86bf-953edb678f9a",
+    "name": "generates speaky name from title when name attr absent",
+    "file": "test/vitest/champagne-components.test.ts",
+    "describe": "rb-object-item — T105/T112/T113/T114",
+    "it": "generates speaky name from title when name attr absent",
+    "testUuid": "681e2949-181f-48cd-bcf6-f88b08887218",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:681e2949-181f-48cd-bcf6-f88b08887218"
+}

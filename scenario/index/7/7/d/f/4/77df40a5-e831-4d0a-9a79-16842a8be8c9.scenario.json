@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "77df40a5-e831-4d0a-9a79-16842a8be8c9",
+    "name": "file exists in components/",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-65.1: rb-file-tree.ts exists",
+    "it": "file exists in components/",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

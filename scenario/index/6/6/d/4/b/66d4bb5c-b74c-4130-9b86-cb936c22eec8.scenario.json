@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "66d4bb5c-b74c-4130-9b86-cb936c22eec8",
+    "name": "safe-area-inset-top appears in a padding-top calc for header elements",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-44.3: Lobby header safe-area not killed",
+    "it": "safe-area-inset-top appears in a padding-top calc for header elements",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

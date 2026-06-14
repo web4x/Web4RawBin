@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "91c63c0d-dff8-4c4a-88d4-bfb882de8c8a",
+    "name": "show(url, title) renders custom title",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-45.1: rb-qr-popup — renders with url",
+    "it": "show(url, title) renders custom title",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

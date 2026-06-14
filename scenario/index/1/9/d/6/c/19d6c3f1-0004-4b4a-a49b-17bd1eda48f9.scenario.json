@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "19d6c3f1-0004-4b4a-a49b-17bd1eda48f9",
+    "name": "late joiner gets full conversation history",
+    "file": "test/vitest/chat.test.ts",
+    "describe": "TC-20.5: Multi-user chat",
+    "it": "late joiner gets full conversation history",
+    "testUuid": "75d1d899-8c52-48dd-a696-42f7492889e3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
+}

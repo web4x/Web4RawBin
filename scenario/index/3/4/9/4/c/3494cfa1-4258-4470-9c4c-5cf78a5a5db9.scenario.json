@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3494cfa1-4258-4470-9c4c-5cf78a5a5db9",
+    "name": "device key appears in authorized_keys after successful enrollment",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.8: authorized_keys after enrollment",
+    "it": "device key appears in authorized_keys after successful enrollment",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

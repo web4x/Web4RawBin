@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3eacd161-5dc1-4899-a078-1d1841287266",
+    "name": "TC-1: createMessageUnit produces ior:class:Message with ownerIor=sender",
+    "file": "test/vitest/message-rawbin.test.ts",
+    "describe": "[test:uuid:8289ef98] R19.38 Message scenario unit",
+    "it": "TC-1: createMessageUnit produces ior:class:Message with ownerIor=sender",
+    "testUuid": "8289ef98-6aba-49a2-be74-89e95658f1a7",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8289ef98-6aba-49a2-be74-89e95658f1a7"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "7de35e9d-ad07-4439-a84d-d2def7d99b40",
+    "name": "R20.10 renderDetailForRef impl marker exists at rb-detail-drawer:83",
+    "file": "test/vitest/drawer-champagne.test.ts",
+    "describe": "v0.6.24 drawer champagne",
+    "it": "R20.10 renderDetailForRef impl marker exists at rb-detail-drawer:83",
+    "testUuid": "22ca6dac-fde4-4751-8df1-db94422c8146",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:22ca6dac-fde4-4751-8df1-db94422c8146"
+}

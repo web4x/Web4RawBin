@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3699c367-d518-4902-a1ab-d5bb8bb820bf",
+    "name": "authorized_keys exists and is empty",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-74.2: SSH tree structure",
+    "it": "authorized_keys exists and is empty",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

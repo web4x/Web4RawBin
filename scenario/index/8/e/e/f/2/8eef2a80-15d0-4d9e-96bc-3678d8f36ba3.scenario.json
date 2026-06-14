@@ -10,7 +10,10 @@
     "sourceFile": "ior:file:test/e2e/negative-cases.spec.ts",
     "sourceLine": 1,
     "parent": "ior:instance:21595663-2b5b-4eca-a954-7bb3e48b4d73",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:56d1a7d3-3259-4bac-853d-459c17b0e8e3"
+    ]
   },
   "ownerIor": "ior:instance:21595663-2b5b-4eca-a954-7bb3e48b4d73"
 }

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "adb2b31d-5fcc-4d6a-8d17-538891991750",
+    "name": "persists expand state across re-mount (AC2)",
+    "file": "test/vitest/rb-trace-tree.test.ts",
+    "describe": "T108 rb-trace-tree",
+    "it": "persists expand state across re-mount (AC2)",
+    "testUuid": "4da22329-6cfc-467a-b7c0-778e0996eed1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4da22329-6cfc-467a-b7c0-778e0996eed1"
+}

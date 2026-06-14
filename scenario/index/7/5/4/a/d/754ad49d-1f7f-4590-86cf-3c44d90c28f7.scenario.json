@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "754ad49d-1f7f-4590-86cf-3c44d90c28f7",
+    "name": "symlinks resolve to scenario/index JSON files",
+    "file": "test/vitest/champagne-dedicated.test.ts",
+    "describe": "SpeakingTree.symlinkJson — ln tree under sprints.json/",
+    "it": "symlinks resolve to scenario/index JSON files",
+    "testUuid": "76f8fd67-d694-460b-9b13-cd2ca81407cc",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:76f8fd67-d694-460b-9b13-cd2ca81407cc"
+}

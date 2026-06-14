@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "241d2270-8d93-4a89-88a7-9b308b67b2d3",
+    "name": "clearQueue removes all messages",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.2: Message queue — enqueue/read/clear",
+    "it": "clearQueue removes all messages",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "48489672-162c-43d9-8e97-d9971c4509e2",
+    "name": "has editor panel slot or section",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-64.3: three panel slots (tree/editor/preview)",
+    "it": "has editor panel slot or section",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

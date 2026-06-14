@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4fa4839c-9618-4c4a-b128-d0e6dc0706d9",
+    "name": "sw.js contains fetch event listener",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-31.1: Service Worker file",
+    "it": "sw.js contains fetch event listener",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

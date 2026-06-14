@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "cdd9e71e-0685-4b52-99f8-4893a167f534",
+    "name": "T83 TS3: self #us-vcard builds a vCard blob with FN:<self>",
+    "file": "test/e2e/contacts-ui.spec.ts",
+    "describe": "Contacts UI: T81/T82/T83 (current v0.5.x behavior)",
+    "it": "T83 TS3: self #us-vcard builds a vCard blob with FN:<self>",
+    "testUuid": "5e58a822-dc43-429b-85e6-9d3091465508",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5e58a822-dc43-429b-85e6-9d3091465508"
+}

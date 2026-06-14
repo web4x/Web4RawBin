@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e30adbc0-b620-401d-a35a-8071f62247b2",
+    "name": "rejects invalid MIME type",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-51.1: Avatar upload via API",
+    "it": "rejects invalid MIME type",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "07147ce5-8813-4b62-951f-32899fc86d5f",
+    "name": "BUG_REPORT returns BUG_REPORT_OK",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-4.6.7: Bug report handler",
+    "it": "BUG_REPORT returns BUG_REPORT_OK",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

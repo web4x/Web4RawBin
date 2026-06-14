@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "043b859b-a094-46cb-a8ab-212503b11c2c",
+    "name": "img gets size as width/height attributes",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-56.3: rb-avatar size attribute",
+    "it": "img gets size as width/height attributes",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

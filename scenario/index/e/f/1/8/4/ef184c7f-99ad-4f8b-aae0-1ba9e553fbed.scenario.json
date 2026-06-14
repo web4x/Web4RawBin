@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ef184c7f-99ad-4f8b-aae0-1ba9e553fbed",
+    "name": "list renders one View per object of the type",
+    "file": "test/vitest/trace-routing.test.ts",
+    "describe": "router resolution (AC1)",
+    "it": "list renders one View per object of the type",
+    "testUuid": "b2fa3e4d-5aea-4368-a1d5-ec1793e35223",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:b2fa3e4d-5aea-4368-a1d5-ec1793e35223"
+}

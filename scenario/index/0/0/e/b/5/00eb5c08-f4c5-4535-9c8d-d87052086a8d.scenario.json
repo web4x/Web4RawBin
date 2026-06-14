@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "00eb5c08-f4c5-4535-9c8d-d87052086a8d",
+    "name": "avatar decrypts to SAME bytes AFTER rekeyUser (no decrypt-fail, no SVG fallback)",
+    "file": "test/vitest/avatar-rekey.test.ts",
+    "describe": "Avatar survives keypair regen — rekeyUser (v0.5.9)",
+    "it": "avatar decrypts to SAME bytes AFTER rekeyUser (no decrypt-fail, no SVG fallback)",
+    "testUuid": "3615a349-01ac-4816-ac6d-c343ff1d3050",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3615a349-01ac-4816-ac6d-c343ff1d3050"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "39fb5b3a-f8a4-43bb-b5a3-9159f1862d3a",
+    "name": "authorized_keys file exists after createUserHome",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.8: authorized_keys initially empty",
+    "it": "authorized_keys file exists after createUserHome",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

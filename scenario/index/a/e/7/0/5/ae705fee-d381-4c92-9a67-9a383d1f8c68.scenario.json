@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ae705fee-d381-4c92-9a67-9a383d1f8c68",
+    "name": "TC-9: drop-debug message ownerIor = RawBin system user",
+    "file": "test/vitest/message-rawbin.test.ts",
+    "describe": "[test:uuid:f2122854] R19.39 RawBin system user",
+    "it": "TC-9: drop-debug message ownerIor = RawBin system user",
+    "testUuid": "8289ef98-6aba-49a2-be74-89e95658f1a7",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8289ef98-6aba-49a2-be74-89e95658f1a7"
+}

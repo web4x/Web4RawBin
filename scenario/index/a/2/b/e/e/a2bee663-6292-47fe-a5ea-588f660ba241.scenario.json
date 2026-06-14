@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a2bee663-6292-47fe-a5ea-588f660ba241",
+    "name": "custom DB name accepted",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.1: OfflineStore initialization",
+    "it": "custom DB name accepted",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

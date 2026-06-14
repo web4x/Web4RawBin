@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4abad6df-676c-4a43-b737-4c4ce287187f",
+    "name": "id_rsa.pub exists",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-74.2: SSH tree structure",
+    "it": "id_rsa.pub exists",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

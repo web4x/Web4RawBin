@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "93f05cca-394e-422d-97b8-49e505a7e603",
+    "name": "profileCommitted=true after UPDATE_PROFILE with non-empty name",
+    "file": "test/vitest/profile.test.ts",
+    "describe": "TC-7.7.2: profileCommitted flag",
+    "it": "profileCommitted=true after UPDATE_PROFILE with non-empty name",
+    "testUuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e69274bc-c83f-4322-abcd-963538f6f9e2"
+}

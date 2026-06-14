@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e8af1547-522b-454b-a06d-bbe84c85438a",
+    "name": "empty userToken returns false",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-12.8.5: Empty/null input handling",
+    "it": "empty userToken returns false",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

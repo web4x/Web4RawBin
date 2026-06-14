@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "66bab265-15e2-46ff-9da2-d5a97d9199f0",
+    "name": "returns false when user has no keys",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.3: verifyDeviceKey validation",
+    "it": "returns false when user has no keys",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

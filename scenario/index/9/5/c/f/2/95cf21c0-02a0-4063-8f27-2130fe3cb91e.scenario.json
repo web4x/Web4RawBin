@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "95cf21c0-02a0-4063-8f27-2130fe3cb91e",
+    "name": "dispatches mode change event or calls callback",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-70.3: mode toggle (Code/Split/Preview)",
+    "it": "dispatches mode change event or calls callback",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

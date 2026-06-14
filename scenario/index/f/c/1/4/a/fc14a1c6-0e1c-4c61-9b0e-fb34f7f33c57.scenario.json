@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "fc14a1c6-0e1c-4c61-9b0e-fb34f7f33c57",
+    "name": "zero translate produces 0,0 percentages",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-PDCA.4: Crop stored as percentages not pixels",
+    "it": "zero translate produces 0,0 percentages",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

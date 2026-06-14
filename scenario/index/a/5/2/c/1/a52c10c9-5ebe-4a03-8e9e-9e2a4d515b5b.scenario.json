@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a52c10c9-5ebe-4a03-8e9e-9e2a4d515b5b",
+    "name": "file exists in components/",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-68.1: rb-preview.ts exists",
+    "it": "file exists in components/",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

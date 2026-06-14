@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "315771bd-c42f-4cdc-b2ed-2f878f8ddc50",
+    "name": "planning.md files exist for multiple sprints",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R17.9: planning.md is generated",
+    "it": "planning.md files exist for multiple sprints",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

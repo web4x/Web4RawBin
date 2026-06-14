@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e70801c6-4dd9-4b81-a492-04cb383c621a",
+    "name": "ensureAvatar PRESERVES bytes of an undecryptable avatar — NOT overwritten with default",
+    "file": "test/vitest/avatar-preserve.test.ts",
+    "describe": "T109(a): ensureAvatar PRESERVES an undecryptable avatar.enc (v0.5.10)",
+    "it": "ensureAvatar PRESERVES bytes of an undecryptable avatar — NOT overwritten with default",
+    "testUuid": "d9da24e7-c11b-4ba5-85b1-ad568afcc14f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d9da24e7-c11b-4ba5-85b1-ad568afcc14f"
+}

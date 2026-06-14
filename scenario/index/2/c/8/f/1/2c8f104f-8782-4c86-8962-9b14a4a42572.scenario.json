@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2c8f104f-8782-4c86-8962-9b14a4a42572",
+    "name": "crop transform serializes to JSON",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-57.4: avatarCrop field in UserProfile",
+    "it": "crop transform serializes to JSON",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

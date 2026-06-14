@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "96186561-524c-4601-9dcb-9f3a6b6335c7",
+    "name": "DeviceEnrollDialog renders de-remove-identity button",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.89: Remove-Local-Identity button placement + click handler",
+    "it": "DeviceEnrollDialog renders de-remove-identity button",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

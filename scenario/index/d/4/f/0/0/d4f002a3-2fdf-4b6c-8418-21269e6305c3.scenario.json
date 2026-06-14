@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d4f002a3-2fdf-4b6c-8418-21269e6305c3",
+    "name": "ior builders produce correct format",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T125.1: Unit + IOR primitives",
+    "it": "ior builders produce correct format",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

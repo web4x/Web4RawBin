@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c4941ce1-97c4-4295-a84e-a014bb070bf9",
+    "name": "data/users/abc/.ssh/id_rsa → 403",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-62.2: UC-API.5 Path sanitization — write endpoint",
+    "it": "data/users/abc/.ssh/id_rsa → 403",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

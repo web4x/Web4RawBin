@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "326d8bdb-b85e-4015-a78d-c0cf57b1b877",
+    "name": "layout CSS or source includes safe-area-inset",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-71.3: Safe-area-inset in editor CSS",
+    "it": "layout CSS or source includes safe-area-inset",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

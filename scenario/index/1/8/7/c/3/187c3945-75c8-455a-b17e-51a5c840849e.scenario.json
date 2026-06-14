@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "187c3945-75c8-455a-b17e-51a5c840849e",
+    "name": "(2) Room has .ssh/ with id_rsa",
+    "file": "test/e2e/room-identity.spec.ts",
+    "describe": "T79: Room Identity E2E",
+    "it": "(2) Room has .ssh/ with id_rsa",
+    "testUuid": "e906138a-581d-4c07-8198-eedaf0e20af4",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e906138a-581d-4c07-8198-eedaf0e20af4"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ce07c2da-96d9-45a4-9572-9bcdcfb1a940",
+    "name": "subscribe + publish delivers model to listener",
+    "file": "test/vitest/champagne-components.test.ts",
+    "describe": "ViewBus — T145 pub/sub singleton",
+    "it": "subscribe + publish delivers model to listener",
+    "testUuid": "681e2949-181f-48cd-bcf6-f88b08887218",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:681e2949-181f-48cd-bcf6-f88b08887218"
+}

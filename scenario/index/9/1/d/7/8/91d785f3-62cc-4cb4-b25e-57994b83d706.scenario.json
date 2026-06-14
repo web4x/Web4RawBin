@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "91d785f3-62cc-4cb4-b25e-57994b83d706",
+    "name": "chat history limit is 100 messages",
+    "file": "test/vitest/chat.test.ts",
+    "describe": "TC-20.3: Message length limit",
+    "it": "chat history limit is 100 messages",
+    "testUuid": "75d1d899-8c52-48dd-a696-42f7492889e3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
+}

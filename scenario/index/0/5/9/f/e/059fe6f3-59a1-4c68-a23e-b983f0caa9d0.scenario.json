@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "059fe6f3-59a1-4c68-a23e-b983f0caa9d0",
+    "name": "handles zero overlay dimensions gracefully",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-PDCA.4: Crop stored as percentages not pixels",
+    "it": "handles zero overlay dimensions gracefully",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

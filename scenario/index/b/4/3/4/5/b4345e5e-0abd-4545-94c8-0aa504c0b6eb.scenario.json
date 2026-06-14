@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b4345e5e-0abd-4545-94c8-0aa504c0b6eb",
+    "name": "createElement before define produces HTMLElement, whenDefined+upgrade fixes it",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.88: render awaits whenDefined → items are upgraded",
+    "it": "createElement before define produces HTMLElement, whenDefined+upgrade fixes it",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

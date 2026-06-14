@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "94f87523-24a5-4916-ab41-ee96b2a5e6b4",
+    "name": "creator is the host on room creation",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.3: Creator lifecycle → only creator can delete",
+    "it": "creator is the host on room creation",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

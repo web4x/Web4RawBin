@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "cce8a668-6a91-4ec6-8d83-a3deafe000b2",
+    "name": "profile gate and room work on iPhone viewport",
+    "file": "test/e2e/mobile-viewport.spec.ts",
+    "describe": "T13.8: Mobile Viewport",
+    "it": "profile gate and room work on iPhone viewport",
+    "testUuid": "71396672-5795-47a9-8074-b314ecfe092d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:71396672-5795-47a9-8074-b314ecfe092d"
+}

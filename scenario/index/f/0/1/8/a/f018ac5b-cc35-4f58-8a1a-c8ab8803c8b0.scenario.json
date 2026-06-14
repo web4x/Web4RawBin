@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f018ac5b-cc35-4f58-8a1a-c8ab8803c8b0",
+    "name": "setCreator transfers host to another member",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.3: Creator lifecycle → only creator can delete",
+    "it": "setCreator transfers host to another member",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

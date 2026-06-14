@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a35783ca-2f90-4cba-9176-75b43f224df4",
+    "name": "IDENTIFY creates device record",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-4.6.4: WS IDENTIFY creates profile",
+    "it": "IDENTIFY creates device record",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

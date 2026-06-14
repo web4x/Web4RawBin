@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3d5901fb-041e-4782-b184-c2261576f860",
+    "name": "img has alt text from name",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-56.1: rb-avatar renders img with src",
+    "it": "img has alt text from name",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

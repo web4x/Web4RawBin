@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2187e789-f040-4487-bbd0-8095ceb2d942",
+    "name": "room info includes hostId matching creator",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.8: Room member events",
+    "it": "room info includes hostId matching creator",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "846fbe58-e2b8-4826-a525-ad1e2bab99eb",
+    "name": "references /api/files endpoint",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-65.4: component loads root directory",
+    "it": "references /api/files endpoint",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f49b62d6-6791-4990-8183-f71183228fc4",
+    "name": "repairs drift inside the region without touching content outside",
+    "file": "test/vitest/trace-consistency.test.ts",
+    "describe": "fixMatrix (AC3/AC4)",
+    "it": "repairs drift inside the region without touching content outside",
+    "testUuid": "ce5c47ad-dabb-44e5-a8f6-3ee506d34127",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:ce5c47ad-dabb-44e5-a8f6-3ee506d34127"
+}

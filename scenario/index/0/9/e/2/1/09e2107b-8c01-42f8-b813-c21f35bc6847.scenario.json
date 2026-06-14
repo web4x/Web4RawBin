@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "09e2107b-8c01-42f8-b813-c21f35bc6847",
+    "name": "default LocalSearch matches by type and uuid too",
+    "file": "test/vitest/rb-list-overview.test.ts",
+    "describe": "T106 rb-list-overview",
+    "it": "default LocalSearch matches by type and uuid too",
+    "testUuid": "a2f83b59-5943-462e-b70e-bf6429ea1b90",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:a2f83b59-5943-462e-b70e-bf6429ea1b90"
+}

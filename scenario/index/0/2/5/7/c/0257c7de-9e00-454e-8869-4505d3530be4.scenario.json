@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0257c7de-9e00-454e-8869-4505d3530be4",
+    "name": "file mtime unchanged on second call",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.7: Idempotent — calling twice does not regenerate",
+    "it": "file mtime unchanged on second call",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a8fb6445-6342-4d8c-9d72-a782848d18b7",
+    "name": "flags a requirement with no linked task",
+    "file": "test/vitest/trace-consistency.test.ts",
+    "describe": "validate (AC2)",
+    "it": "flags a requirement with no linked task",
+    "testUuid": "ce5c47ad-dabb-44e5-a8f6-3ee506d34127",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:ce5c47ad-dabb-44e5-a8f6-3ee506d34127"
+}

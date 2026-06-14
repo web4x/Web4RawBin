@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b5989df8-f3bc-40ea-80e6-6a7cebefacef",
+    "name": "canTransition checks allowed targets",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T133: Task state machine",
+    "it": "canTransition checks allowed targets",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

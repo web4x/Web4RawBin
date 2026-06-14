@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "34d98f67-3d33-40f3-9778-aacbc3aa306d",
+    "name": "manifest.json exists in src/public/",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-31.2: manifest.json PWA fields",
+    "it": "manifest.json exists in src/public/",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

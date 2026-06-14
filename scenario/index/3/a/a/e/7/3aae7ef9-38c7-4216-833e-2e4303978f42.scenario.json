@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3aae7ef9-38c7-4216-833e-2e4303978f42",
+    "name": "append-only + scroll preserved + DOM identity preserved on Task expand",
+    "file": "test/e2e/tree-append-only.spec.ts",
+    "describe": "T190: tree expand appends only — no full re-render",
+    "it": "append-only + scroll preserved + DOM identity preserved on Task expand",
+    "testUuid": "1070b9cd-4590-44d2-9935-18a889790dd6",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1070b9cd-4590-44d2-9935-18a889790dd6"
+}

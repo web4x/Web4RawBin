@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "bcae2749-a289-429f-828a-90defe07a35a",
+    "name": "copies a token-<ts> dir to a UUID dir and rewrites owner refs in the copy",
+    "file": "test/vitest/migration.test.ts",
+    "describe": "T97 migrateTokenDirs",
+    "it": "copies a token-<ts> dir to a UUID dir and rewrites owner refs in the copy",
+    "testUuid": "09d73a15-1496-4020-bcf1-b6a65a2bde6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:09d73a15-1496-4020-bcf1-b6a65a2bde6f"
+}

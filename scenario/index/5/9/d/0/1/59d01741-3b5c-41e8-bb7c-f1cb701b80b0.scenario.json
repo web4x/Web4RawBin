@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "59d01741-3b5c-41e8-bb7c-f1cb701b80b0",
+    "name": "scanAllRooms does not find deleted room",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-76.4: Room removed from in-memory tracking",
+    "it": "scanAllRooms does not find deleted room",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

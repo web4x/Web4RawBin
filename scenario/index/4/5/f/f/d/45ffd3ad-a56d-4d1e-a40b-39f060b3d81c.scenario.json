@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "45ffd3ad-a56d-4d1e-a40b-39f060b3d81c",
+    "name": "no CHAT_HISTORY sent when chat is empty",
+    "file": "test/vitest/chat.test.ts",
+    "describe": "TC-20.2: Chat history on rejoin",
+    "it": "no CHAT_HISTORY sent when chat is empty",
+    "testUuid": "75d1d899-8c52-48dd-a696-42f7492889e3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
+}

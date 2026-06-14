@@ -6,13 +6,20 @@
     "file": "ior:file:test/e2e/tree-append-only.spec.ts",
     "requirements": [],
     "methods": [],
-    "implementations": ["ior:instance:d8f406ce-40df-4d51-87ec-fff7dec44374"],
-    "verifies": ["ior:instance:37147d5d-bdb6-4011-a433-2af6b5ad68b4"],
+    "implementations": [
+      "ior:instance:d8f406ce-40df-4d51-87ec-fff7dec44374"
+    ],
+    "verifies": [
+      "ior:instance:37147d5d-bdb6-4011-a433-2af6b5ad68b4"
+    ],
     "status": "GREEN",
     "sourceFile": "ior:file:test/e2e/tree-append-only.spec.ts",
     "sourceLine": 1,
     "parent": "ior:instance:d8f406ce-40df-4d51-87ec-fff7dec44374",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:3aae7ef9-38c7-4216-833e-2e4303978f42"
+    ]
   },
   "ownerIor": "ior:instance:d8f406ce-40df-4d51-87ec-fff7dec44374"
 }

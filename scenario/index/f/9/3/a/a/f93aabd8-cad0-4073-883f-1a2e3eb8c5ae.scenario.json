@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f93aabd8-cad0-4073-883f-1a2e3eb8c5ae",
+    "name": "live add/remove: removing an object drops it on re-query (AC5)",
+    "file": "test/vitest/rb-list-overview.test.ts",
+    "describe": "T106 rb-list-overview",
+    "it": "live add/remove: removing an object drops it on re-query (AC5)",
+    "testUuid": "a2f83b59-5943-462e-b70e-bf6429ea1b90",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:a2f83b59-5943-462e-b70e-bf6429ea1b90"
+}

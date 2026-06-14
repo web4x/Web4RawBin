@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c968ec06-e8d5-4e7a-85a2-aa0b7643d78b",
+    "name": ".env is included",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-60.3: Hidden file exclusion",
+    "it": ".env is included",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

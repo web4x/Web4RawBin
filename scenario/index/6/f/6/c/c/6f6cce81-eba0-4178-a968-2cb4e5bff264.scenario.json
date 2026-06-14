@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6f6cce81-eba0-4178-a968-2cb4e5bff264",
+    "name": "clearRoomState removes specific room",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.4: Room state cache",
+    "it": "clearRoomState removes specific room",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

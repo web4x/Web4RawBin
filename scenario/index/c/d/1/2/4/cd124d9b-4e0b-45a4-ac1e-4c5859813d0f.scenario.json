@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "cd124d9b-4e0b-45a4-ac1e-4c5859813d0f",
+    "name": "same-origin request → 200",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-62.4: Authorization — read endpoint",
+    "it": "same-origin request → 200",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

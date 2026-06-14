@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "cbfe344c-b8f1-4bce-9aff-dbf4e0f9c6db",
+    "name": "app.html served with must-revalidate, not long cache",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-32.1: Cache-Control headers",
+    "it": "app.html served with must-revalidate, not long cache",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

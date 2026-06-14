@@ -13,7 +13,10 @@
     "sourceFile": "ior:file:test/e2e/room-order.spec.ts",
     "sourceLine": 1,
     "parent": "ior:instance:624fda5d-5535-486e-b01e-b08571b4c44a",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:69323bce-f589-43d5-8b32-7403b2ef5755"
+    ]
   },
   "ownerIor": "ior:instance:624fda5d-5535-486e-b01e-b08571b4c44a"
 }

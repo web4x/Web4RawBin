@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2764c36e-996b-46b8-8dac-be6acece65b3",
+    "name": "drawer CSS defines .drawer-header sticky + .drawer-body scrollable + .drawer-close",
+    "file": "test/vitest/impl-coverage-batch.test.ts",
+    "describe": "[test:uuid:859878d6] + [test:uuid:d3513d2b] RbDetailDrawer sticky",
+    "it": "drawer CSS defines .drawer-header sticky + .drawer-body scrollable + .drawer-close",
+    "testUuid": "8a5b7618-5f72-4872-bf97-37496c4a9b8d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8a5b7618-5f72-4872-bf97-37496c4a9b8d"
+}

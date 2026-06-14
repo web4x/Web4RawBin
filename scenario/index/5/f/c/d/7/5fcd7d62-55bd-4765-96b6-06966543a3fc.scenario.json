@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5fcd7d62-55bd-4765-96b6-06966543a3fc",
+    "name": "dispatches rb-member-click with memberId",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-43.4: rb-member-badge — click event",
+    "it": "dispatches rb-member-click with memberId",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

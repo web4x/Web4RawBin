@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2fcd74b2-260a-4716-be7c-8ec5b28816b1",
+    "name": "profile page HTML references /api/avatar",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-52.2: Profile page serves avatar",
+    "it": "profile page HTML references /api/avatar",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

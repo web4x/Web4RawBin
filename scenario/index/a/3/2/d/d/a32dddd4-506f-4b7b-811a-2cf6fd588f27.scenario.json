@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a32dddd4-506f-4b7b-811a-2cf6fd588f27",
+    "name": "renderContentPreview for text/html produces container with touch-action:pan-y",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.87: preview-zoom-container touch-action=pan-y (CSS guard)",
+    "it": "renderContentPreview for text/html produces container with touch-action:pan-y",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9e792852-9526-4068-a7d5-5951afad0062",
+    "name": "README.md has ext .md",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-60.1: readDir entry format",
+    "it": "README.md has ext .md",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

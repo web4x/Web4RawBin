@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "7312dd78-95ae-44be-a871-83b2515945e0",
+    "name": "server.ts or FileApi.ts has puml render endpoint",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-69.4: puml-render route in server source",
+    "it": "server.ts or FileApi.ts has puml render endpoint",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

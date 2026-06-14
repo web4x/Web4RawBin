@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "67688fb8-5822-472c-8e7f-d27d77a2f988",
+    "name": "TC-6: known file types route to uploadFile",
+    "file": "test/vitest/file-dnd-chain.test.ts",
+    "describe": "[test:uuid:1e763397] DropDispatcher routing",
+    "it": "TC-6: known file types route to uploadFile",
+    "testUuid": "f0c30f5e-9686-4c34-89ba-8f5b45f28893",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f0c30f5e-9686-4c34-89ba-8f5b45f28893"
+}

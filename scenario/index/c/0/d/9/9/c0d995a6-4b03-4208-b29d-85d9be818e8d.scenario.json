@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c0d995a6-4b03-4208-b29d-85d9be818e8d",
+    "name": "source references Save button or Cmd+S",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-67.4: Toolbar has Save button",
+    "it": "source references Save button or Cmd+S",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d471fb6b-1e58-455f-a9c7-b7b0a96ca2a0",
+    "name": "returns DEVICE_ENROLL_FAILED with reason",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.6: DEVICE_ENROLL wrong code → FAILED",
+    "it": "returns DEVICE_ENROLL_FAILED with reason",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

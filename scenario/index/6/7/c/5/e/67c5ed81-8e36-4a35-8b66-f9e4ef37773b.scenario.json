@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "67c5ed81-8e36-4a35-8b66-f9e4ef37773b",
+    "name": "broadcast with exclude skips the excluded member",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.5: Broadcast → all members receive message",
+    "it": "broadcast with exclude skips the excluded member",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

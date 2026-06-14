@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e14fd76c-7473-4805-9b8f-232cd555379a",
+    "name": "T180: service worker registers in CDP secure context",
+    "file": "test/e2e/module-exec-proof.spec.ts",
+    "describe": "T176+T180: ES module + SW registration over self-signed SSL",
+    "it": "T180: service worker registers in CDP secure context",
+    "testUuid": "76a00001-0001-4a01-a001-000176010001",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:76a00001-0001-4a01-a001-000176010001"
+}

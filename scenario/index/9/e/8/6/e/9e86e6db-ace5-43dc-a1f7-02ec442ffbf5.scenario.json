@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9e86e6db-ace5-43dc-a1f7-02ec442ffbf5",
+    "name": "Bug template registered for ior:class:Bug",
+    "file": "test/vitest/classify-type.test.ts",
+    "describe": "R20.4 Requirement.classifyType — Bug + ChangeRequest subtypes",
+    "it": "Bug template registered for ior:class:Bug",
+    "testUuid": "320a8790-17de-4adc-b146-1ab68eab6f17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:320a8790-17de-4adc-b146-1ab68eab6f17"
+}

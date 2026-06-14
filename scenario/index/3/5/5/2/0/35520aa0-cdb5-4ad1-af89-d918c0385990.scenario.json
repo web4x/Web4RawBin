@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "35520aa0-cdb5-4ad1-af89-d918c0385990",
+    "name": "profile.avatar set to /api/avatar/<token> after upload",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-52.1: Avatar URL in profile data",
+    "it": "profile.avatar set to /api/avatar/<token> after upload",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

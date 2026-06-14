@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ffcd67f2-a159-45aa-87bb-1d9ff822bf59",
+    "name": "URL contains the user token",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-48.1: Profile avatar URL",
+    "it": "URL contains the user token",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

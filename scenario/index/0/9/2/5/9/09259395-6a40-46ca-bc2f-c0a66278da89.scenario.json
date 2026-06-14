@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "09259395-6a40-46ca-bc2f-c0a66278da89",
+    "name": "${dialog.name} has close/hide method",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.6: Existing dialogs share overlay pattern",
+    "it": "${dialog.name} has close/hide method",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d01d985c-b86d-4849-8411-71d30db3de54",
+    "name": "generateOne returns md + html for a single uuid",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T126: ViewGenerator",
+    "it": "generateOne returns md + html for a single uuid",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

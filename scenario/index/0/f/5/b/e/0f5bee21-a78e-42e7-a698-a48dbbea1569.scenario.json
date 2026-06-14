@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0f5bee21-a78e-42e7-a698-a48dbbea1569",
+    "name": "any .map file blocked in production",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-32.2: Source map production blocking",
+    "it": "any .map file blocked in production",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

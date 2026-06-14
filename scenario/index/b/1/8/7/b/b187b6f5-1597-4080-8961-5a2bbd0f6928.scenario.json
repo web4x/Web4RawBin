@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b187b6f5-1597-4080-8961-5a2bbd0f6928",
+    "name": "input has maxlength=200",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-42.5: Chat sheet — 200 char input limit",
+    "it": "input has maxlength=200",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

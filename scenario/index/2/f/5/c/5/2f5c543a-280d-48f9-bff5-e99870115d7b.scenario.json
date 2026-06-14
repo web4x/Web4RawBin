@@ -13,7 +13,13 @@
     "sourceFile": "ior:file:test/e2e/editor-back.spec.ts",
     "sourceLine": 3,
     "parent": "ior:instance:e362c116-710c-47b3-ac7e-ecc1b8ea58e4",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:e01f4476-68da-482f-a07c-350c0619e83e",
+      "ior:instance:15f069e2-417f-4d4a-bd02-e99cdcd42d1f",
+      "ior:instance:e7598284-ef6a-41fd-8108-56860bf00acc",
+      "ior:instance:3bb6fc8b-a5e0-4563-abf2-c5c42545a1d7"
+    ]
   },
   "ownerIor": "ior:instance:e362c116-710c-47b3-ac7e-ecc1b8ea58e4"
 }

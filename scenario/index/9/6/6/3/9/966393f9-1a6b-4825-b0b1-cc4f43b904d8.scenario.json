@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "966393f9-1a6b-4825-b0b1-cc4f43b904d8",
+    "name": "shows a warning marker on a broken node, still visible (AC5)",
+    "file": "test/vitest/rb-trace-tree.test.ts",
+    "describe": "T108 rb-trace-tree",
+    "it": "shows a warning marker on a broken node, still visible (AC5)",
+    "testUuid": "4da22329-6cfc-467a-b7c0-778e0996eed1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4da22329-6cfc-467a-b7c0-778e0996eed1"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "106b9a41-56f4-4a5a-9033-1b709f61de9f",
+    "name": "is draggable and sets all three dataTransfer payloads (AC3/AC4)",
+    "file": "test/vitest/rb-object-item.test.ts",
+    "describe": "T105 rb-object-item",
+    "it": "is draggable and sets all three dataTransfer payloads (AC3/AC4)",
+    "testUuid": "47528657-dbd5-48f1-b7cf-cd2bffb53967",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:47528657-dbd5-48f1-b7cf-cd2bffb53967"
+}

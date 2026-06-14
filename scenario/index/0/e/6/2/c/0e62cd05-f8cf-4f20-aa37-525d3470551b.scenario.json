@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0e62cd05-f8cf-4f20-aa37-525d3470551b",
+    "name": "encrypted file size is close to original (GCM overhead minimal)",
+    "file": "test/vitest/crypto.test.ts",
+    "describe": "TC-47.6: Large file roundtrip",
+    "it": "encrypted file size is close to original (GCM overhead minimal)",
+    "testUuid": "cbde8942-6f7e-4889-85ea-eb3365dde403",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cbde8942-6f7e-4889-85ea-eb3365dde403"
+}

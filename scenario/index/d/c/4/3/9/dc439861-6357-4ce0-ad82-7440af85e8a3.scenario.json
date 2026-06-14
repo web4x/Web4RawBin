@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "dc439861-6357-4ce0-ad82-7440af85e8a3",
+    "name": "does NOT persist when creatorToken is empty",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.7: Per-user persistence (T99)",
+    "it": "does NOT persist when creatorToken is empty",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

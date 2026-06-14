@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d57aef68-3778-4cca-a3d0-4d28001c1c98",
+    "name": "T83 TS2: self #us-edit opens ProfileEditor prefilled and closes the sheet",
+    "file": "test/e2e/contacts-ui.spec.ts",
+    "describe": "Contacts UI: T81/T82/T83 (current v0.5.x behavior)",
+    "it": "T83 TS2: self #us-edit opens ProfileEditor prefilled and closes the sheet",
+    "testUuid": "5e58a822-dc43-429b-85e6-9d3091465508",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5e58a822-dc43-429b-85e6-9d3091465508"
+}

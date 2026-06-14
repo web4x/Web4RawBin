@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "42a4d354-62c8-4919-9157-9804342066ed",
+    "name": "TC-2: prevMessage/nextMessage doubly-linked (2 msgs → m2.prev=m1, m1.next=m2)",
+    "file": "test/vitest/message-rawbin.test.ts",
+    "describe": "[test:uuid:8289ef98] R19.38 Message scenario unit",
+    "it": "TC-2: prevMessage/nextMessage doubly-linked (2 msgs → m2.prev=m1, m1.next=m2)",
+    "testUuid": "8289ef98-6aba-49a2-be74-89e95658f1a7",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8289ef98-6aba-49a2-be74-89e95658f1a7"
+}

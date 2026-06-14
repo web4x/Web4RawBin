@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "15a36244-cfa2-4d65-93ba-3a135e525e1b",
+    "name": "notify re-renders only subscribed views; unsubscribe stops updates",
+    "file": "test/vitest/trace-routing.test.ts",
+    "describe": "ViewBus MVC propagation (AC3)",
+    "it": "notify re-renders only subscribed views; unsubscribe stops updates",
+    "testUuid": "b2fa3e4d-5aea-4368-a1d5-ec1793e35223",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:b2fa3e4d-5aea-4368-a1d5-ec1793e35223"
+}

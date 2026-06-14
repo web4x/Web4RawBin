@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "90500570-8361-488b-8aba-4fb17032d3d5",
+    "name": "click selects the item via selection model (AC6)",
+    "file": "test/vitest/rb-object-item.test.ts",
+    "describe": "T105 rb-object-item",
+    "it": "click selects the item via selection model (AC6)",
+    "testUuid": "47528657-dbd5-48f1-b7cf-cd2bffb53967",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:47528657-dbd5-48f1-b7cf-cd2bffb53967"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a90cb0b8-c53c-444a-8d2c-9e89d58d6078",
+    "name": "is idempotent — re-run migrates nothing new, already-UUID dirs untouched",
+    "file": "test/vitest/migration.test.ts",
+    "describe": "T97 migrateTokenDirs",
+    "it": "is idempotent — re-run migrates nothing new, already-UUID dirs untouched",
+    "testUuid": "09d73a15-1496-4020-bcf1-b6a65a2bde6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:09d73a15-1496-4020-bcf1-b6a65a2bde6f"
+}

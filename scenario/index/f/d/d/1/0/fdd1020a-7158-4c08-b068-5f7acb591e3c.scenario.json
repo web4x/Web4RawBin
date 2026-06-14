@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "fdd1020a-7158-4c08-b068-5f7acb591e3c",
+    "name": "exports RbPreview class",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-68.2: exports class RbPreview",
+    "it": "exports RbPreview class",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

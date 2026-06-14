@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "61e98c90-41a2-4d39-bf0e-e8d92a663939",
+    "name": "second call returns same keys",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.7: Idempotent — calling twice does not regenerate",
+    "it": "second call returns same keys",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

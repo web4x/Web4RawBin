@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "34890081-9bfe-40be-acf6-626902aad239",
+    "name": "RoomView.ts creates rb-trace-tree with data-seed-ior attribute",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.92: seedIorTree — RoomView mounts trace-tree with data-seed-ior",
+    "it": "RoomView.ts creates rb-trace-tree with data-seed-ior attribute",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

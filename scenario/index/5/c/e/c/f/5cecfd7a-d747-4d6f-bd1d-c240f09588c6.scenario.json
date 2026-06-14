@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5cecfd7a-d747-4d6f-bd1d-c240f09588c6",
+    "name": "multiple files all survive rekey (avatar + a second file)",
+    "file": "test/vitest/avatar-rekey.test.ts",
+    "describe": "Avatar survives keypair regen — rekeyUser (v0.5.9)",
+    "it": "multiple files all survive rekey (avatar + a second file)",
+    "testUuid": "3615a349-01ac-4816-ac6d-c343ff1d3050",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3615a349-01ac-4816-ac6d-c343ff1d3050"
+}

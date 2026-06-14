@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f846b1c0-51bb-4389-9f12-e70c362a9cfd",
+    "name": "parseIor extracts type and value",
+    "file": "test/vitest/champagne-components.test.ts",
+    "describe": "IOR resolution — R17.2",
+    "it": "parseIor extracts type and value",
+    "testUuid": "681e2949-181f-48cd-bcf6-f88b08887218",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:681e2949-181f-48cd-bcf6-f88b08887218"
+}

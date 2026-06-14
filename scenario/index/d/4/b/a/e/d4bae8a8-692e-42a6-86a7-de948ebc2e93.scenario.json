@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d4bae8a8-692e-42a6-86a7-de948ebc2e93",
+    "name": "SVG-retry path UNCHANGED: decryptable SVG fallback → re-fetches + overwrites",
+    "file": "test/vitest/avatar-preserve.test.ts",
+    "describe": "T109(a): ensureAvatar PRESERVES an undecryptable avatar.enc (v0.5.10)",
+    "it": "SVG-retry path UNCHANGED: decryptable SVG fallback → re-fetches + overwrites",
+    "testUuid": "d9da24e7-c11b-4ba5-85b1-ad568afcc14f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d9da24e7-c11b-4ba5-85b1-ad568afcc14f"
+}

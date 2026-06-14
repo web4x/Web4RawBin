@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f0a15fde-6c82-4993-bb90-a328c1bd197b",
+    "name": "archive() notifies existing members",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.4: Archive room → state change + can\\",
+    "it": "archive() notifies existing members",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

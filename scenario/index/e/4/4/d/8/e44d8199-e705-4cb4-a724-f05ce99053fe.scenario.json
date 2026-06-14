@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e44d8199-e705-4cb4-a724-f05ce99053fe",
+    "name": "uptime increases with server age",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-16.2: Health uptime",
+    "it": "uptime increases with server age",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

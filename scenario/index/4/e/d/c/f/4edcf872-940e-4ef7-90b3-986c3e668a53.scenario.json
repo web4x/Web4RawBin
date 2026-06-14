@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4edcf872-940e-4ef7-90b3-986c3e668a53",
+    "name": "profile fields match UserProfile interface",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.5: Profile cache",
+    "it": "profile fields match UserProfile interface",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

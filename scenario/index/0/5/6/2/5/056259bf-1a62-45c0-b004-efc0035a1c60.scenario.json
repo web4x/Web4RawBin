@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "056259bf-1a62-45c0-b004-efc0035a1c60",
+    "name": "double show() replaces previous overlay",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.3: show/hide lifecycle",
+    "it": "double show() replaces previous overlay",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

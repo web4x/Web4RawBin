@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f57891dd-03f6-41a2-8896-006198986d10",
+    "name": "RoomView.ts has no game logic",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.7: Client source no game references",
+    "it": "RoomView.ts has no game logic",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

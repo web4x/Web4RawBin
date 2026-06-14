@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e3754b4e-2552-4cae-8278-4729a0d69005",
+    "name": "search input has no maxlength (Tron no-limits rule, AC6)",
+    "file": "test/vitest/rb-list-overview.test.ts",
+    "describe": "T106 rb-list-overview",
+    "it": "search input has no maxlength (Tron no-limits rule, AC6)",
+    "testUuid": "a2f83b59-5943-462e-b70e-bf6429ea1b90",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:a2f83b59-5943-462e-b70e-bf6429ea1b90"
+}

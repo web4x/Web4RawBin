@@ -13,7 +13,13 @@
     "sourceFile": "ior:file:test/vitest/rb-detail-overview.test.ts",
     "sourceLine": 6,
     "parent": "ior:instance:d608bf73-c520-48c3-8b6c-7eaa5cbe31ae",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:27e7b137-b887-4cbd-8a0a-5242dd6235ff",
+      "ior:instance:07df83fa-d450-4576-817d-abee0884248b",
+      "ior:instance:6138a46a-b974-4b46-8bba-bf8ec8344551",
+      "ior:instance:1e309b05-6c5c-402e-b342-aa492ee50c9e"
+    ]
   },
   "ownerIor": "ior:instance:d608bf73-c520-48c3-8b6c-7eaa5cbe31ae"
 }

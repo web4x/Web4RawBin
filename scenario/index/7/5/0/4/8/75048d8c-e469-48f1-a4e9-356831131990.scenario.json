@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "75048d8c-e469-48f1-a4e9-356831131990",
+    "name": "room id not truncated to 8 chars",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-78.2: Room card shows full UUID",
+    "it": "room id not truncated to 8 chars",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

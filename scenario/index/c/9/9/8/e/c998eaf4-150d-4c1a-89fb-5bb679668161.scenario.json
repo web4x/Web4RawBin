@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c998eaf4-150d-4c1a-89fb-5bb679668161",
+    "name": "defaultTemplateRegistry renders TraceLink HTML+MD",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T134: TraceLink",
+    "it": "defaultTemplateRegistry renders TraceLink HTML+MD",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

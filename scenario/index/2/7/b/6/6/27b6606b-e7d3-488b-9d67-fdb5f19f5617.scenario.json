@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "27b6606b-e7d3-488b-9d67-fdb5f19f5617",
+    "name": "no innerHTML nuke on container",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.90: diffRenderItems preserves existing nodes",
+    "it": "no innerHTML nuke on container",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

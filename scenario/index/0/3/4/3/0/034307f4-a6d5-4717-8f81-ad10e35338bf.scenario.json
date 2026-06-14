@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "034307f4-a6d5-4717-8f81-ad10e35338bf",
+    "name": "R18.30: removeLink removes symlink + updates unitLinks[]",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T125.3: ScenarioIndex storage",
+    "it": "R18.30: removeLink removes symlink + updates unitLinks[]",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

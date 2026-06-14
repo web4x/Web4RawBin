@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "52f2053b-de08-4699-a5a5-f2556c32cec0",
+    "name": "accepts a valid v4 UUID on construction",
+    "file": "test/vitest/trace-model.test.ts",
+    "describe": "UUID validation (AC4)",
+    "it": "accepts a valid v4 UUID on construction",
+    "testUuid": "4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1"
+}

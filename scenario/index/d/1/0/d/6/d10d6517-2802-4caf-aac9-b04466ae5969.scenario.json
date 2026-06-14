@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d10d6517-2802-4caf-aac9-b04466ae5969",
+    "name": "filter logic covers binary/non-editable extensions",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-65.5: filtered extensions excluded from display",
+    "it": "filter logic covers binary/non-editable extensions",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

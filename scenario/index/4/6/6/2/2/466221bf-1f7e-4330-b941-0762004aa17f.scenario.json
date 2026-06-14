@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "466221bf-1f7e-4330-b941-0762004aa17f",
+    "name": "re-renders on ViewBus.notify(ref) — no reload (AC5)",
+    "file": "test/vitest/rb-object-item.test.ts",
+    "describe": "T105 rb-object-item",
+    "it": "re-renders on ViewBus.notify(ref) — no reload (AC5)",
+    "testUuid": "47528657-dbd5-48f1-b7cf-cd2bffb53967",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:47528657-dbd5-48f1-b7cf-cd2bffb53967"
+}

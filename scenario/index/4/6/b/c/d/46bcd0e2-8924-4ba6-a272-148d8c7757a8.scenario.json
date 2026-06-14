@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "46bcd0e2-8924-4ba6-a272-148d8c7757a8",
+    "name": "overlay appended to document.body",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-45.2: rb-qr-popup — show creates overlay",
+    "it": "overlay appended to document.body",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

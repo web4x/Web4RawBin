@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "7a54b298-c5be-4b2c-93af-61f79aef0f05",
+    "name": "click own name opens editor, saves phone+url, verify persisted via profile",
+    "file": "test/e2e/profile-editor.spec.ts",
+    "describe": "T13.4: Profile Editor",
+    "it": "click own name opens editor, saves phone+url, verify persisted via profile",
+    "testUuid": "c4179894-e662-41e8-a0d1-f94089f6576a",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:c4179894-e662-41e8-a0d1-f94089f6576a"
+}

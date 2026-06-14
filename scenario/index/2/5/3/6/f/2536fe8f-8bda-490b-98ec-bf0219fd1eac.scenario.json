@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2536fe8f-8bda-490b-98ec-bf0219fd1eac",
+    "name": "subdirectory listing works",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-60.1: readDir entry format",
+    "it": "subdirectory listing works",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "64378ce7-d418-41e4-bdb6-1e1701ad4fbc",
+    "name": "removes a member and decrements count",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.2: Add/remove member → verify member count",
+    "it": "removes a member and decrements count",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

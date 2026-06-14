@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "41b4c0d7-15ef-418e-a240-82f8457dd2ea",
+    "name": "dequeue-as-you-go pattern works",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.3: Queue replay on reconnect",
+    "it": "dequeue-as-you-go pattern works",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

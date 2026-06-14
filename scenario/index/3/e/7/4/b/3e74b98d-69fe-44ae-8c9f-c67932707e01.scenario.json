@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3e74b98d-69fe-44ae-8c9f-c67932707e01",
+    "name": "broadcast includes sender info",
+    "file": "test/vitest/chat.test.ts",
+    "describe": "TC-20.1: Chat message broadcast",
+    "it": "broadcast includes sender info",
+    "testUuid": "75d1d899-8c52-48dd-a696-42f7492889e3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
+}

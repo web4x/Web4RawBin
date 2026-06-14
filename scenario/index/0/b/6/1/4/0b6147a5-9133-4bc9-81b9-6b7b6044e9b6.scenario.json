@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0b6147a5-9133-4bc9-81b9-6b7b6044e9b6",
+    "name": "filters or excludes .png files",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-65.5: filtered extensions excluded from display",
+    "it": "filters or excludes .png files",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

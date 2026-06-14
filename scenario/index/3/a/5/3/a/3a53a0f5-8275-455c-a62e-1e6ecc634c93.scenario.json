@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3a53a0f5-8275-455c-a62e-1e6ecc634c93",
+    "name": "TC-1: walk backward from last message returns oldest-first",
+    "file": "test/vitest/lazy-load-messages.test.ts",
+    "describe": "[test:uuid:9e1cb105] R19.40 lazy-load message pagination",
+    "it": "TC-1: walk backward from last message returns oldest-first",
+    "testUuid": "9e1cb105-27b1-4268-b9c3-d2110563fdeb",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:9e1cb105-27b1-4268-b9c3-d2110563fdeb"
+}

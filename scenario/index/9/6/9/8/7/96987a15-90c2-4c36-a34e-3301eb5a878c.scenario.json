@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "96987a15-90c2-4c36-a34e-3301eb5a878c",
+    "name": "server.ts has rb-update-banner tag in shared page shell",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-44.1: Server pages include rb-update-banner",
+    "it": "server.ts has rb-update-banner tag in shared page shell",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

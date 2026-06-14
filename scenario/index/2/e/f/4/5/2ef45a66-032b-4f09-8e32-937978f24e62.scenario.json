@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2ef45a66-032b-4f09-8e32-937978f24e62",
+    "name": "TC-2: sidecar bytes roundtrip via readFileUnitContent",
+    "file": "test/vitest/file-dnd-chain.test.ts",
+    "describe": "[test:uuid:1e763397] R19.14 DnD file chain",
+    "it": "TC-2: sidecar bytes roundtrip via readFileUnitContent",
+    "testUuid": "f0c30f5e-9686-4c34-89ba-8f5b45f28893",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f0c30f5e-9686-4c34-89ba-8f5b45f28893"
+}

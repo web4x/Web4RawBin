@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "27e7b137-b887-4cbd-8a0a-5242dd6235ff",
+    "name": "renders title + typed link rows; clicking a row navigates to the linked object (AC1)",
+    "file": "test/vitest/rb-detail-overview.test.ts",
+    "describe": "T107 rb-detail-view",
+    "it": "renders title + typed link rows; clicking a row navigates to the linked object (AC1)",
+    "testUuid": "747f4bab-17c2-4274-9349-b5b9e9478df7",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:747f4bab-17c2-4274-9349-b5b9e9478df7"
+}

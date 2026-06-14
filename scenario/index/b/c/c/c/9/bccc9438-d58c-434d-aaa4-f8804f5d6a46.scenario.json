@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "bccc9438-d58c-434d-aaa4-f8804f5d6a46",
+    "name": "returns false for tampered signature",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.3: verifyDeviceKey validation",
+    "it": "returns false for tampered signature",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

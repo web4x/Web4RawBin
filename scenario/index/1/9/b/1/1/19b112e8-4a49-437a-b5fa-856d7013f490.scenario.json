@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "19b112e8-4a49-437a-b5fa-856d7013f490",
+    "name": "returns devicePublicKey, devicePrivateKey, and signature",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.4: enrollDevice full flow",
+    "it": "returns devicePublicKey, devicePrivateKey, and signature",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

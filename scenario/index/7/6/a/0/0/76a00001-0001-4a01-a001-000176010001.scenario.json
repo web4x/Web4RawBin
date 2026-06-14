@@ -10,7 +10,13 @@
     "sourceFile": "ior:file:test/e2e/module-exec-proof.spec.ts",
     "sourceLine": 1,
     "parent": "ior:instance:5ccce08e-21c7-4a79-b91c-3c870b10603c",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:c0d44185-8af7-4f3c-9c8b-c06f46ba3413",
+      "ior:instance:66a3c2bc-d998-4010-8b35-05e4887f3db9",
+      "ior:instance:e14fd76c-7473-4805-9b8f-232cd555379a",
+      "ior:instance:f0ca5f0c-efee-40e0-ab42-b1d30c9dc3a2"
+    ]
   },
   "ownerIor": "ior:instance:5ccce08e-21c7-4a79-b91c-3c870b10603c"
 }

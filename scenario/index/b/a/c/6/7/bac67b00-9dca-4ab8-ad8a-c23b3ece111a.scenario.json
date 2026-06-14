@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "bac67b00-9dca-4ab8-ad8a-c23b3ece111a",
+    "name": "language map includes all required extensions",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-66.5: language map covers required extensions",
+    "it": "language map includes all required extensions",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

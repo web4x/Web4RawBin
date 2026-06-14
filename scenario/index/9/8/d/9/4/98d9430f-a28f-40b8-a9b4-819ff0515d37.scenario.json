@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "98d9430f-a28f-40b8-a9b4-819ff0515d37",
+    "name": "SKIPS a legacy room already present per-user — never overwrites the authoritative copy",
+    "file": "test/vitest/migration.test.ts",
+    "describe": "T96 migrateLegacyRooms",
+    "it": "SKIPS a legacy room already present per-user — never overwrites the authoritative copy",
+    "testUuid": "09d73a15-1496-4020-bcf1-b6a65a2bde6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:09d73a15-1496-4020-bcf1-b6a65a2bde6f"
+}

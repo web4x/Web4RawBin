@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "568b18fd-4bbc-4a47-8d73-44703db8b28e",
+    "name": "OFFLINE_HTML contains a flush button",
+    "file": "test/vitest/flush-cache.test.ts",
+    "describe": "flush PWA cache (R19.45)",
+    "it": "OFFLINE_HTML contains a flush button",
+    "testUuid": "919e6fa6-6c30-47a3-90f3-184abdb6f653",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:919e6fa6-6c30-47a3-90f3-184abdb6f653"
+}

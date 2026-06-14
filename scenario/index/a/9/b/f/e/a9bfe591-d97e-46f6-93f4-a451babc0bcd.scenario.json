@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a9bfe591-d97e-46f6-93f4-a451babc0bcd",
+    "name": "renders with type icon + name + description",
+    "file": "test/vitest/champagne-components.test.ts",
+    "describe": "rb-object-item — T105/T112/T113/T114",
+    "it": "renders with type icon + name + description",
+    "testUuid": "681e2949-181f-48cd-bcf6-f88b08887218",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:681e2949-181f-48cd-bcf6-f88b08887218"
+}

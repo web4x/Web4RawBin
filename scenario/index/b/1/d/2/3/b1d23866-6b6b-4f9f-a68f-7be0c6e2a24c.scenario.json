@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b1d23866-6b6b-4f9f-a68f-7be0c6e2a24c",
+    "name": "id_rsa private key destroyed",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-76.2: SSH keys destroyed on delete",
+    "it": "id_rsa private key destroyed",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

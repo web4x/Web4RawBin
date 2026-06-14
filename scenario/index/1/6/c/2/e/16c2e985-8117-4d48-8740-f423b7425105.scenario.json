@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "16c2e985-8117-4d48-8740-f423b7425105",
+    "name": "returns entries with name and type for dirs",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-60.1: readDir entry format",
+    "it": "returns entries with name and type for dirs",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

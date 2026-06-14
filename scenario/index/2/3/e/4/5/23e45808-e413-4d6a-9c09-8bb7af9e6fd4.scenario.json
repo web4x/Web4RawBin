@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "23e45808-e413-4d6a-9c09-8bb7af9e6fd4",
+    "name": "false before any encrypt",
+    "file": "test/vitest/crypto.test.ts",
+    "describe": "TC-47.9: fileExists",
+    "it": "false before any encrypt",
+    "testUuid": "cbde8942-6f7e-4889-85ea-eb3365dde403",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cbde8942-6f7e-4889-85ea-eb3365dde403"
+}

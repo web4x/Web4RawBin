@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f53a8d2f-7397-47b1-b445-998d2dd0290d",
+    "name": "readFileUnitContent retrieves the bytes",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "S19 T-file-unit R19.14: files as scenario units",
+    "it": "readFileUnitContent retrieves the bytes",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

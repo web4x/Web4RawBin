@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "180b04b4-e671-4eda-9331-5d215f086ade",
+    "name": "rejects code shorter than 4 digits — keeps old code",
+    "file": "test/vitest/profile.test.ts",
+    "describe": "TC-7.7.5: secretCode validation",
+    "it": "rejects code shorter than 4 digits — keeps old code",
+    "testUuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e69274bc-c83f-4322-abcd-963538f6f9e2"
+}

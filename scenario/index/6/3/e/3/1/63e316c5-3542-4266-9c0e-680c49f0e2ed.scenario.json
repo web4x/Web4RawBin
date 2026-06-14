@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "63e316c5-3542-4266-9c0e-680c49f0e2ed",
+    "name": "generates 64-char hex string",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-12.8.1: Challenge uniqueness",
+    "it": "generates 64-char hex string",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

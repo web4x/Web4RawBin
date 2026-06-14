@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "572f7f2f-2782-49fe-938d-7eaf0cde104d",
+    "name": "meta.json contains originalName and mimeType",
+    "file": "test/vitest/crypto.test.ts",
+    "describe": "TC-47.1: encryptFile returns filename",
+    "it": "meta.json contains originalName and mimeType",
+    "testUuid": "cbde8942-6f7e-4889-85ea-eb3365dde403",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cbde8942-6f7e-4889-85ea-eb3365dde403"
+}

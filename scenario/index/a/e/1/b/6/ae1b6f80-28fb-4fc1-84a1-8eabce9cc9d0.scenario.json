@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ae1b6f80-28fb-4fc1-84a1-8eabce9cc9d0",
+    "name": "captureQuote creates Requirement + dedupes on repeat",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T138: Skills",
+    "it": "captureQuote creates Requirement + dedupes on repeat",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

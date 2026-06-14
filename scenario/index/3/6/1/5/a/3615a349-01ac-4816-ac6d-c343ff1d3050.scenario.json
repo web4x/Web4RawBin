@@ -13,7 +13,15 @@
     "sourceFile": "ior:file:test/vitest/avatar-rekey.test.ts",
     "sourceLine": 3,
     "parent": "ior:instance:b3e1707a-3f83-4ddc-b37c-184ea5d45961",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:27ba149b-9311-430b-bd86-0128061db847",
+      "ior:instance:00eb5c08-f4c5-4535-9c8d-d87052086a8d",
+      "ior:instance:49f5a65f-33be-406b-aec3-f8c2888206d2",
+      "ior:instance:5cecfd7a-d747-4d6f-bd1d-c240f09588c6",
+      "ior:instance:e04d3d8a-ee9d-48da-8e11-08129076d4fe",
+      "ior:instance:08834278-6402-476f-9e6d-432883425bc2"
+    ]
   },
   "ownerIor": "ior:instance:b3e1707a-3f83-4ddc-b37c-184ea5d45961"
 }

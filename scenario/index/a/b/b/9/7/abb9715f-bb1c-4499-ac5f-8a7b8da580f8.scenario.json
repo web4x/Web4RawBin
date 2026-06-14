@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "abb9715f-bb1c-4499-ac5f-8a7b8da580f8",
+    "name": "HTML files get must-revalidate",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-32.1: Cache-Control headers",
+    "it": "HTML files get must-revalidate",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

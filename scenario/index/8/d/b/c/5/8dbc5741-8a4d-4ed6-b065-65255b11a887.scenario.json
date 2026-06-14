@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8dbc5741-8a4d-4ed6-b065-65255b11a887",
+    "name": "resolves ior:class to className",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T127.2: IORResolver",
+    "it": "resolves ior:class to className",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

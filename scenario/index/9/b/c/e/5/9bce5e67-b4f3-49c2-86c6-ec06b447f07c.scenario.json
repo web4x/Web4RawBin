@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9bce5e67-b4f3-49c2-86c6-ec06b447f07c",
+    "name": "re-persists on member change",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.7: Per-user persistence (T99)",
+    "it": "re-persists on member change",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "dc125d70-c00f-4535-a382-19f4a0bb0e0f",
+    "name": "nonexistent file returns 404",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-60.7: 404 for nonexistent paths",
+    "it": "nonexistent file returns 404",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

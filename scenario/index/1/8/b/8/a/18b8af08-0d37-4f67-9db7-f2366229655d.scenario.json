@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "18b8af08-0d37-4f67-9db7-f2366229655d",
+    "name": "source references saved/Saved status feedback",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-67.5: Saved status text",
+    "it": "source references saved/Saved status feedback",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

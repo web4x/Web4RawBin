@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "cd782fcf-0a2e-4055-bec4-f92b9d6bbbf0",
+    "name": "sheet has touchstart listener when closable",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.5: Touch drag down to dismiss",
+    "it": "sheet has touchstart listener when closable",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

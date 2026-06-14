@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5148e112-e5cd-49c6-9cce-275a90796046",
+    "name": "writes content and file on disk matches",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-61.1: writeFile writes to disk",
+    "it": "writes content and file on disk matches",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

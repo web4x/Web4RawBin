@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d704080b-7b4f-4722-9e69-1ecdffdeb96e",
+    "name": "directories come before files",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-60.2: Sort order — dirs first, alphabetical",
+    "it": "directories come before files",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

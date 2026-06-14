@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "91006547-a1c1-4d9d-9cf1-255f4a355ea9",
+    "name": "multiple devices each add to authorized_keys",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.8: authorized_keys after enrollment",
+    "it": "multiple devices each add to authorized_keys",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "10a1380c-dfb2-45d9-a080-2085c4bce0d2",
+    "name": "icons include 192px and 512px sizes",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-31.2: manifest.json PWA fields",
+    "it": "icons include 192px and 512px sizes",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "23e1002f-384a-4132-afbf-6e2d3ee2a1e7",
+    "name": "enqueueMessage adds to queue and returns id",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.2: Message queue — enqueue/read/clear",
+    "it": "enqueueMessage adds to queue and returns id",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

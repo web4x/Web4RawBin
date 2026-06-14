@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "ba861b72-1c31-415a-91d0-110644d0aa74",
+    "name": "valid PNG upload returns 200 with avatarUrl",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-51.1: Avatar upload via API",
+    "it": "valid PNG upload returns 200 with avatarUrl",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

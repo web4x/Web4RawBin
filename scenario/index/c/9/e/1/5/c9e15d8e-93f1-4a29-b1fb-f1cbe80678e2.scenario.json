@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c9e15d8e-93f1-4a29-b1fb-f1cbe80678e2",
+    "name": "returns DEVICE_ENROLL_OK with keys and signature",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.5: DEVICE_ENROLL correct code → OK",
+    "it": "returns DEVICE_ENROLL_OK with keys and signature",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

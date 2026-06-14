@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "be987835-1eee-46ef-8a8e-240ba6a2eb16",
+    "name": "profile without sshKeysGenerated field still works",
+    "file": "test/vitest/profile.test.ts",
+    "describe": "TC-12.8.6: Backward compat — token-only IDENTIFY",
+    "it": "profile without sshKeysGenerated field still works",
+    "testUuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e69274bc-c83f-4322-abcd-963538f6f9e2"
+}

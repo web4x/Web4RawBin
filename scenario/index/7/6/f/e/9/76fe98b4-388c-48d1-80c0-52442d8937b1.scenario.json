@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "76fe98b4-388c-48d1-80c0-52442d8937b1",
+    "name": ".drawer-close button exists in template",
+    "file": "test/vitest/drawer-fullwidth-sticky.test.ts",
+    "describe": "[test:uuid:c9f56d34] R19.33 stickyClose pinned X",
+    "it": ".drawer-close button exists in template",
+    "testUuid": "7d6badb4-a27d-4c9d-b7f8-385fc9636e90",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7d6badb4-a27d-4c9d-b7f8-385fc9636e90"
+}

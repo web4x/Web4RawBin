@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "bc51358c-f664-48cd-83ad-bc8be2b05e1b",
+    "name": "canRegisterBackgroundSync returns false in Node (no ServiceWorkerRegistration)",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.6: Background sync",
+    "it": "canRegisterBackgroundSync returns false in Node (no ServiceWorkerRegistration)",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

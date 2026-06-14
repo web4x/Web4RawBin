@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "7e78cffe-9754-4b39-b64f-9ce559858c64",
+    "name": "TC-8: registered handler intercepts matching mime prefix",
+    "file": "test/vitest/file-dnd-chain.test.ts",
+    "describe": "[test:uuid:1e763397] DropDispatcher routing",
+    "it": "TC-8: registered handler intercepts matching mime prefix",
+    "testUuid": "f0c30f5e-9686-4c34-89ba-8f5b45f28893",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f0c30f5e-9686-4c34-89ba-8f5b45f28893"
+}

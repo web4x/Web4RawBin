@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "29d0ff60-af5f-456d-b728-ead884e8767c",
+    "name": "valid player token → 200",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-62.5: Authorization — write endpoint",
+    "it": "valid player token → 200",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "04bcd867-1e76-4663-bad2-f56bf98b3d1a",
+    "name": "renders requirement roots; expanding walks to useCases (AC2, chain correction)",
+    "file": "test/vitest/rb-trace-tree.test.ts",
+    "describe": "T108 rb-trace-tree",
+    "it": "renders requirement roots; expanding walks to useCases (AC2, chain correction)",
+    "testUuid": "4da22329-6cfc-467a-b7c0-778e0996eed1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4da22329-6cfc-467a-b7c0-778e0996eed1"
+}

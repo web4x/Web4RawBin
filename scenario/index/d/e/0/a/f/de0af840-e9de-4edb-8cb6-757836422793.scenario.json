@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "de0af840-e9de-4edb-8cb6-757836422793",
+    "name": "default crop is identity (scale 1, translate 0,0)",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-57.4: avatarCrop field in UserProfile",
+    "it": "default crop is identity (scale 1, translate 0,0)",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

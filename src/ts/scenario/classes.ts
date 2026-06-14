@@ -34,6 +34,9 @@ export const MessageLoader = loader('Message', { text: '', timestamp: 0, senderI
 // [impl:uuid:76bbedda-b1c2-4d3e-9f4a-6b7c8d9e0f06] R20.4 BugLoader + ChangeRequestLoader
 export const BugLoader = loader('Bug', { description: '', priority: '', source: '', tasks: [], tests: [], useCases: [], altId: '' });
 export const ChangeRequestLoader = loader('ChangeRequest', { description: '', priority: '', source: '', tasks: [], tests: [], useCases: [], altId: '' });
+// R20.20 TestCase + R20.21 Gate — both leaf types (no forward children)
+export const TestCaseLoader = loader('TestCase', { file: '', describe: '', it: '', testUuid: '', status: '' });
+export const GateLoader = loader('Gate', { verdict: '', evidence: '', testCaseUuid: '', timestamp: '' });
 
 const RAWBIN_SYSTEM_UUID = '00000000-0000-4000-8000-rawb1n000000';
 
@@ -52,7 +55,7 @@ export class ClassRegistry {
   private loaders = new Map<string, ClassLoader>();
 
   constructor() {
-    for (const l of [SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader, TraceLinkLoader, UserLoader, SkillLoader, FileLoader, MessageLoader, BugLoader, ChangeRequestLoader]) {
+    for (const l of [SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader, TraceLinkLoader, UserLoader, SkillLoader, FileLoader, MessageLoader, BugLoader, ChangeRequestLoader, TestCaseLoader, GateLoader]) {
       this.loaders.set(l.className, l);
     }
   }

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b9548596-6afe-45a8-8efb-17f32b904604",
+    "name": "onDragStart references selectionModel.getSelected for multi-drag",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R20.6f: dragAllSelected — onDragStart drags all selected refs",
+    "it": "onDragStart references selectionModel.getSelected for multi-drag",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

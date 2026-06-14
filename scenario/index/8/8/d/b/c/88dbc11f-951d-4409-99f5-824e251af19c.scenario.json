@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "88dbc11f-951d-4409-99f5-824e251af19c",
+    "name": "new messages after reconnect go directly, not to queue",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-33.4: Queue replay on reconnect",
+    "it": "new messages after reconnect go directly, not to queue",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

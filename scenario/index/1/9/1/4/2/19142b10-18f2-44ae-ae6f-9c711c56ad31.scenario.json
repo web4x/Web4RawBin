@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "19142b10-18f2-44ae-ae6f-9c711c56ad31",
+    "name": "offline: queue messages + cache room + cache profile → online: replay + clear",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.7: Full offline → online flow",
+    "it": "offline: queue messages + cache room + cache profile → online: replay + clear",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

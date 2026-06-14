@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "07325589-94a4-4528-a277-8f37bd46f712",
+    "name": "getQueuedMessages returns all in FIFO order",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.2: Message queue — enqueue/read/clear",
+    "it": "getQueuedMessages returns all in FIFO order",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

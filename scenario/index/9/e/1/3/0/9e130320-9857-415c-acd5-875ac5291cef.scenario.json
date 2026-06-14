@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9e130320-9857-415c-acd5-875ac5291cef",
+    "name": "data: avatar is used directly without a fetch (no token round-trip)",
+    "file": "test/vitest/vcard-photo.test.ts",
+    "describe": "vCard photo + UUID (v0.5.14)",
+    "it": "data: avatar is used directly without a fetch (no token round-trip)",
+    "testUuid": "40f20e19-71a5-47ff-9391-75661b520ed2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:40f20e19-71a5-47ff-9391-75661b520ed2"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d0d353f9-1b80-48ee-8b5f-a1ebd90c0ff7",
+    "name": "rb-detail-drawer.ts render() template includes drawer-header + drawer-body + drawer-close",
+    "file": "test/vitest/impl-coverage-batch.test.ts",
+    "describe": "[test:uuid:859878d6] + [test:uuid:d3513d2b] RbDetailDrawer sticky",
+    "it": "rb-detail-drawer.ts render() template includes drawer-header + drawer-body + drawer-close",
+    "testUuid": "8a5b7618-5f72-4872-bf97-37496c4a9b8d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8a5b7618-5f72-4872-bf97-37496c4a9b8d"
+}

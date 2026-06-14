@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "930b790e-5d86-4d8b-9c06-e62e3215e382",
+    "name": "peek contains sender name and truncated text",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-42.4: Chat sheet — peek preview on new message",
+    "it": "peek contains sender name and truncated text",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

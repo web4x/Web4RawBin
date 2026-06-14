@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e4886b6a-b86b-4232-b80d-1c9e834d58ae",
+    "name": "dismiss only triggers after >10px movement threshold",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.86: file/url/webitem click → openFilePreview → drawer opens",
+    "it": "dismiss only triggers after >10px movement threshold",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

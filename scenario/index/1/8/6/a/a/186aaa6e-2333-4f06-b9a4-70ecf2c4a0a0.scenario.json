@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "186aaa6e-2333-4f06-b9a4-70ecf2c4a0a0",
+    "name": "private_key/ directory has mode 700",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.4: File permissions 700 dirs / 600 files",
+    "it": "private_key/ directory has mode 700",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

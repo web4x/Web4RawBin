@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "66a3c2bc-d998-4010-8b35-05e4887f3db9",
+    "name": "/trace page ES module loads tree component",
+    "file": "test/e2e/module-exec-proof.spec.ts",
+    "describe": "T176+T180: ES module + SW registration over self-signed SSL",
+    "it": "/trace page ES module loads tree component",
+    "testUuid": "76a00001-0001-4a01-a001-000176010001",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:76a00001-0001-4a01-a001-000176010001"
+}

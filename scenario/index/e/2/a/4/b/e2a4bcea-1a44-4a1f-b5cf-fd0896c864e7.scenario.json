@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e2a4bcea-1a44-4a1f-b5cf-fd0896c864e7",
+    "name": "package.json build script references edit",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-63.6: Build output for editor",
+    "it": "package.json build script references edit",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e216c89c-1b47-4d56-8705-8a9d33f72eaf",
+    "name": "returns true after generateUserKeypair",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.5: hasUserKeys true after gen, false before",
+    "it": "returns true after generateUserKeypair",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

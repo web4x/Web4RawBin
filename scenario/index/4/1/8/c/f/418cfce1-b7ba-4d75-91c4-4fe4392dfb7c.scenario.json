@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "418cfce1-b7ba-4d75-91c4-4fe4392dfb7c",
+    "name": "finds the T138 Scenario verbs + Rules + Audit (full coverage of the skills inventory)",
+    "file": "test/vitest/object-verb.test.ts",
+    "describe": "objectVerb introspection (c2 for TypeScript)",
+    "it": "finds the T138 Scenario verbs + Rules + Audit (full coverage of the skills inventory)",
+    "testUuid": "7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d"
+}

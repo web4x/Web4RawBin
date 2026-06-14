@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c1c8e984-6305-4f50-9cbd-0bb8f2a45a62",
+    "name": "exports RbFileTree class",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-65.2: exports class RbFileTree",
+    "it": "exports RbFileTree class",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

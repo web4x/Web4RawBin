@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5f051b33-6a3d-40d6-b677-79f155afded0",
+    "name": "custom name overrides default",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-74.6: Default room name",
+    "it": "custom name overrides default",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

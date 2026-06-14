@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a0735255-7728-4637-9ead-33bd71c261d9",
+    "name": "has viewport meta tag with user-scalable=no",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-31.5: Apple mobile web app meta tags",
+    "it": "has viewport meta tag with user-scalable=no",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

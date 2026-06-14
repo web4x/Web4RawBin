@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "83ed40a2-5f0c-4ba3-9099-a4a04ed785e7",
+    "name": "task views are generated from templates",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R17.8: Views generated from flat JSON",
+    "it": "task views are generated from templates",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

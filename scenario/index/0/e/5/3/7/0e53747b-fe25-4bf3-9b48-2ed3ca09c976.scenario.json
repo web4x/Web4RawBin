@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0e53747b-fe25-4bf3-9b48-2ed3ca09c976",
+    "name": "shows (you) for isSelf=true",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-43.3: rb-member-badge — self indicator",
+    "it": "shows (you) for isSelf=true",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

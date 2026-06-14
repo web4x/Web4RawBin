@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9d5d5727-b67b-4ff1-a836-e7ffea5320a2",
+    "name": "10x repeated pinch-release-no-pan: all 10 hold (no revert)",
+    "file": "test/e2e/svg-viewer-pinch.spec.ts",
+    "describe": "R18.34.B champagne — pinch-no-pan applies zoom (svg-viewer)",
+    "it": "10x repeated pinch-release-no-pan: all 10 hold (no revert)",
+    "testUuid": "10c2e3ca-bd66-46c9-ad53-8dea1604b484",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:10c2e3ca-bd66-46c9-ad53-8dea1604b484"
+}

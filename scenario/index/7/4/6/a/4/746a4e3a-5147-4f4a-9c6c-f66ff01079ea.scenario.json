@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "746a4e3a-5147-4f4a-9c6c-f66ff01079ea",
+    "name": "writes TypeScript file",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-61.1: writeFile writes to disk",
+    "it": "writes TypeScript file",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

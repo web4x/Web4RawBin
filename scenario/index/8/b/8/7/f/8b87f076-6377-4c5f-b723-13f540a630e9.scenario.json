@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8b87f076-6377-4c5f-b723-13f540a630e9",
+    "name": "/edit route serves edit.html file",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-63.4: /edit/<path> serves edit.html",
+    "it": "/edit route serves edit.html file",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

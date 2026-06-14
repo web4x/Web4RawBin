@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "409a5962-2ac4-4fe4-b7eb-a6ee7f76fed3",
+    "name": "drag down < 50px does NOT close",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.5: Touch drag down to dismiss",
+    "it": "drag down < 50px does NOT close",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

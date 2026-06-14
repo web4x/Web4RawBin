@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "47a5d1d8-e703-4438-90a2-130ce4faf08b",
+    "name": "put + get round-trips a scenario unit",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T125.3: ScenarioIndex storage",
+    "it": "put + get round-trips a scenario unit",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

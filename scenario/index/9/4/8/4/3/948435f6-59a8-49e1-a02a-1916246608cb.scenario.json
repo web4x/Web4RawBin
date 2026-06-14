@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "948435f6-59a8-49e1-a02a-1916246608cb",
+    "name": "(7) Preview shows rendered markdown",
+    "file": "test/e2e/editor.spec.ts",
+    "describe": "T73: Editor E2E",
+    "it": "(7) Preview shows rendered markdown",
+    "testUuid": "6d5060bf-b638-460e-b922-ff2eb20b2e1c",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6d5060bf-b638-460e-b922-ff2eb20b2e1c"
+}

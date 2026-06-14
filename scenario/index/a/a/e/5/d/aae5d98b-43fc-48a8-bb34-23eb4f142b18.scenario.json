@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "aae5d98b-43fc-48a8-bb34-23eb4f142b18",
+    "name": "overlay has close button",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-56.5: rb-avatar overlay with upload + close",
+    "it": "overlay has close button",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

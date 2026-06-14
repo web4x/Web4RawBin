@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "1d91c195-c1a5-4eb5-831a-3c2e71478eed",
+    "name": "non-owner gets error",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-76.3: Non-owner cannot delete",
+    "it": "non-owner gets error",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

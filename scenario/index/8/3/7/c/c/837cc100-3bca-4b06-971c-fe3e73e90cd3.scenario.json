@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "837cc100-3bca-4b06-971c-fe3e73e90cd3",
+    "name": "TraceModel FORWARD_KEYS defines 7-step chain",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R17.26: Traceability is a TREE",
+    "it": "TraceModel FORWARD_KEYS defines 7-step chain",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

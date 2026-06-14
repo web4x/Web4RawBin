@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b789d4f0-c555-4160-9a59-33bb4a26de3f",
+    "name": "uses two-hash signature comments and per-method completion helpers",
+    "file": "test/vitest/object-verb.test.ts",
+    "describe": "emitOosh generates canonical OOSH (oosh-po rules)",
+    "it": "uses two-hash signature comments and per-method completion helpers",
+    "testUuid": "7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d"
+}

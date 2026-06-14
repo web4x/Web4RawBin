@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f47141bb-ca10-4fc9-b359-82a5e242a755",
+    "name": "ESC key closes drawer",
+    "file": "test/vitest/champagne-components.test.ts",
+    "describe": "rb-detail-drawer — T110 DetailViewContainer",
+    "it": "ESC key closes drawer",
+    "testUuid": "681e2949-181f-48cd-bcf6-f88b08887218",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:681e2949-181f-48cd-bcf6-f88b08887218"
+}

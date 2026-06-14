@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c5f5a845-f777-41ae-8a9b-e9503f79d160",
+    "name": "renderAllChildrenSection is imported and called in rb-requirement-detail.ts",
+    "file": "test/vitest/detail-sections.test.ts",
+    "describe": "R20.5a renderAllChildrenSection",
+    "it": "renderAllChildrenSection is imported and called in rb-requirement-detail.ts",
+    "testUuid": "7e717383-207e-41b8-b564-f47a964f54b6",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7e717383-207e-41b8-b564-f47a964f54b6"
+}

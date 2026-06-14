@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "fbbf35c5-a3c0-4092-b7f3-cf530a8be60f",
+    "name": "renders one rb-object-item per ref via setItems (AC1)",
+    "file": "test/vitest/rb-list-overview.test.ts",
+    "describe": "T106 rb-list-overview",
+    "it": "renders one rb-object-item per ref via setItems (AC1)",
+    "testUuid": "a2f83b59-5943-462e-b70e-bf6429ea1b90",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:a2f83b59-5943-462e-b70e-bf6429ea1b90"
+}

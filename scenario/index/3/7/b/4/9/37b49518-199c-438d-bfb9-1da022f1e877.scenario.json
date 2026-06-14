@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "37b49518-199c-438d-bfb9-1da022f1e877",
+    "name": "handlePinch scales the crop transform",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-57.2: Overlay pinch (2-touch) and pan (1-touch)",
+    "it": "handlePinch scales the crop transform",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

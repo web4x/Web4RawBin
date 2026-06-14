@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "7051e6a6-fce2-44d6-89c8-609d42e6999e",
+    "name": "each message has timestamp",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.2: Message queue — enqueue/read/clear",
+    "it": "each message has timestamp",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

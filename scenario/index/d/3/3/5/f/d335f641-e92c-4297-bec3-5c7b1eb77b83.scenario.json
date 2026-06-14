@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d335f641-e92c-4297-bec3-5c7b1eb77b83",
+    "name": "welcome message includes clientId and challenge",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.3: WS protocol basics",
+    "it": "welcome message includes clientId and challenge",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

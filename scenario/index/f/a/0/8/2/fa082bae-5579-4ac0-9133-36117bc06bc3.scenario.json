@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "fa082bae-5579-4ac0-9133-36117bc06bc3",
+    "name": "PROFILE response from IDENTIFY has no game fields",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-4.6.8: Profile page no game stats",
+    "it": "PROFILE response from IDENTIFY has no game fields",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

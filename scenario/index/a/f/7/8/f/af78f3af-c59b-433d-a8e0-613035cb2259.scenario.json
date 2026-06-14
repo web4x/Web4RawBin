@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "af78f3af-c59b-433d-a8e0-613035cb2259",
+    "name": "warns on a use case with no linked task",
+    "file": "test/vitest/trace-consistency.test.ts",
+    "describe": "validate UseCase chain (T116)",
+    "it": "warns on a use case with no linked task",
+    "testUuid": "ce5c47ad-dabb-44e5-a8f6-3ee506d34127",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:ce5c47ad-dabb-44e5-a8f6-3ee506d34127"
+}

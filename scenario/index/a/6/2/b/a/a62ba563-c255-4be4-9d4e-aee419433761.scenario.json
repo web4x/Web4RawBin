@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a62ba563-c255-4be4-9d4e-aee419433761",
+    "name": "FORWARD_KEYS starts at requirement level",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R17.32: Chain starts with atomic requirements",
+    "it": "FORWARD_KEYS starts at requirement level",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

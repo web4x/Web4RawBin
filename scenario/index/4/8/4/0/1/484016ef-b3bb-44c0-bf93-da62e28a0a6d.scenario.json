@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "484016ef-b3bb-44c0-bf93-da62e28a0a6d",
+    "name": "own room card: full UUID + 💾 Persistent badge + ",
+    "file": "test/e2e/lobby-card-badges.spec.ts",
+    "describe": "T78: lobby room card badges",
+    "it": "own room card: full UUID + 💾 Persistent badge + ",
+    "testUuid": "b774751d-5094-478b-b659-ec6e569d25bf",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:b774751d-5094-478b-b659-ec6e569d25bf"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6e385473-9e89-4338-9af4-39fdb50b71d5",
+    "name": "is deterministic: two runs render identically",
+    "file": "test/vitest/object-verb.test.ts",
+    "describe": "Chain canonical semantics on a fixture index",
+    "it": "is deterministic: two runs render identically",
+    "testUuid": "7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d"
+}

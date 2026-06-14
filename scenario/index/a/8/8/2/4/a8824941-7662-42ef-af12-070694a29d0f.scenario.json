@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a8824941-7662-42ef-af12-070694a29d0f",
+    "name": "T83 TS1: self-tap opens read-only .user-sheet (NOT ProfileEditor) with #us-vcard + #us-edit, no #us-link",
+    "file": "test/e2e/contacts-ui.spec.ts",
+    "describe": "Contacts UI: T81/T82/T83 (current v0.5.x behavior)",
+    "it": "T83 TS1: self-tap opens read-only .user-sheet (NOT ProfileEditor) with #us-vcard + #us-edit, no #us-link",
+    "testUuid": "5e58a822-dc43-429b-85e6-9d3091465508",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5e58a822-dc43-429b-85e6-9d3091465508"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "7bbe3c6b-a9da-4585-8167-a7b00ac97b01",
+    "name": "toggle switches state",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-42.3: Chat sheet — expand/collapse toggle",
+    "it": "toggle switches state",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

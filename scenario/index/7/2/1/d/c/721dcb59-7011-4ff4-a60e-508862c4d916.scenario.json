@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "721dcb59-7011-4ff4-a60e-508862c4d916",
+    "name": "returns DEVICE_ENROLL_FAILED when keys not generated",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.7: DEVICE_ENROLL without SSH keys → error",
+    "it": "returns DEVICE_ENROLL_FAILED when keys not generated",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

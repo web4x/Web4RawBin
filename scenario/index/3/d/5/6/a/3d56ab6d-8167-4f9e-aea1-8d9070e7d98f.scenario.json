@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3d56ab6d-8167-4f9e-aea1-8d9070e7d98f",
+    "name": "handlePan moves translate offsets",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-57.2: Overlay pinch (2-touch) and pan (1-touch)",
+    "it": "handlePan moves translate offsets",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

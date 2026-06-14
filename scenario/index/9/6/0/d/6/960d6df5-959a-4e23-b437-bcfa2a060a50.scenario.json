@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "960d6df5-959a-4e23-b437-bcfa2a060a50",
+    "name": "source code references PUT method",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-67.1: Save handler references PUT /api/files",
+    "it": "source code references PUT method",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

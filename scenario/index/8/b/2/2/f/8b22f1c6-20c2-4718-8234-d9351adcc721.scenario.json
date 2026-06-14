@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8b22f1c6-20c2-4718-8234-d9351adcc721",
+    "name": "multiple pans accumulate",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-57.2: Overlay pinch (2-touch) and pan (1-touch)",
+    "it": "multiple pans accumulate",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

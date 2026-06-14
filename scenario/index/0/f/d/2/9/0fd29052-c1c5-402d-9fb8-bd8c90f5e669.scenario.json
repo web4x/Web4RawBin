@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0fd29052-c1c5-402d-9fb8-bd8c90f5e669",
+    "name": "${dialog.name} appends to document.body",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.6: Existing dialogs share overlay pattern",
+    "it": "${dialog.name} appends to document.body",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "03e77b2e-47bd-4c61-b024-76a17b541953",
+    "name": "room.json has name field",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-74.5: room.json metadata",
+    "it": "room.json has name field",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

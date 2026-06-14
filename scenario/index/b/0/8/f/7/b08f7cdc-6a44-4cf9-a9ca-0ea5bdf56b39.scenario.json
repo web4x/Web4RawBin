@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b08f7cdc-6a44-4cf9-a9ca-0ea5bdf56b39",
+    "name": "registerSync returns false when registration has no sync",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.6: Background sync",
+    "it": "registerSync returns false when registration has no sync",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

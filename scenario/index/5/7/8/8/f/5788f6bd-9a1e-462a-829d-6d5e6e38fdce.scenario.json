@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5788f6bd-9a1e-462a-829d-6d5e6e38fdce",
+    "name": "resetToPlanned works from any state",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T133: Task state machine",
+    "it": "resetToPlanned works from any state",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

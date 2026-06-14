@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "43c724e2-7d2a-4215-a47c-26c2ebfc9bb2",
+    "name": "parses [test:uuid] markers and creates Test objects",
+    "file": "test/vitest/trace-consistency.test.ts",
+    "describe": "Pass 6: test:uuid parsing (T119)",
+    "it": "parses [test:uuid] markers and creates Test objects",
+    "testUuid": "ce5c47ad-dabb-44e5-a8f6-3ee506d34127",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:ce5c47ad-dabb-44e5-a8f6-3ee506d34127"
+}

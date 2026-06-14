@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3a4a34c8-5d41-46f6-b1f7-fed7048facd3",
+    "name": "returns fallback for unknown class",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T125.4: ViewTemplateRegistry",
+    "it": "returns fallback for unknown class",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

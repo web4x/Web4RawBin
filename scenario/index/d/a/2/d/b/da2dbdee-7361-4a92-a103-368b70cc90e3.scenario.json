@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "da2dbdee-7361-4a92-a103-368b70cc90e3",
+    "name": "adds one key to authorized_keys",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.9: addAuthorizedKey appends to file",
+    "it": "adds one key to authorized_keys",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

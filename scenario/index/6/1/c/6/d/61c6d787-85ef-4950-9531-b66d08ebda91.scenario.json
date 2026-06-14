@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "61c6d787-85ef-4950-9531-b66d08ebda91",
+    "name": "AC1 repeat upload after self-heal succeeds with a fresh image",
+    "file": "test/vitest/avatar-keyless-upload.test.ts",
+    "describe": "T92 RE-FIX: avatar upload just succeeds, no key error (v0.5.1)",
+    "it": "AC1 repeat upload after self-heal succeeds with a fresh image",
+    "testUuid": "19449505-10d2-4727-a199-91c205c84ba3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:19449505-10d2-4727-a199-91c205c84ba3"
+}

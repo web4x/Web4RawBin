@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "1df6fa85-6a92-4897-93bc-c78f7368be52",
+    "name": "warns on a test with no linked requirement or method",
+    "file": "test/vitest/trace-consistency.test.ts",
+    "describe": "validate orphan tests (T119)",
+    "it": "warns on a test with no linked requirement or method",
+    "testUuid": "ce5c47ad-dabb-44e5-a8f6-3ee506d34127",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:ce5c47ad-dabb-44e5-a8f6-3ee506d34127"
+}

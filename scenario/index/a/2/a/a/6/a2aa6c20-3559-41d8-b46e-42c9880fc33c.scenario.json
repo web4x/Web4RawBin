@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a2aa6c20-3559-41d8-b46e-42c9880fc33c",
+    "name": "T-persistent-retention: removeMember still prunes in live rooms",
+    "file": "test/vitest/room.test.ts",
+    "describe": "S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)",
+    "it": "T-persistent-retention: removeMember still prunes in live rooms",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

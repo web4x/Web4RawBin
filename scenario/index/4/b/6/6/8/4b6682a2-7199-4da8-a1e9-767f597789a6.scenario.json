@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4b6682a2-7199-4da8-a1e9-767f597789a6",
+    "name": "R18.29: addLink creates symlink + persists unitLinks[]",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T125.3: ScenarioIndex storage",
+    "it": "R18.29: addLink creates symlink + persists unitLinks[]",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "832665f7-621b-4261-83e2-b7528fd56dcd",
+    "name": "signature from different device key returns false",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-12.8.3: Invalid signature rejected",
+    "it": "signature from different device key returns false",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a0aa9dc5-2799-4f0a-8c9f-d311aeb05321",
+    "name": "shows star for isHost=true",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-43.2: rb-member-badge — host star",
+    "it": "shows star for isHost=true",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

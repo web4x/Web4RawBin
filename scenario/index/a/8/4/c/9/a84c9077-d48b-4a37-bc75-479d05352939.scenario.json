@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a84c9077-d48b-4a37-bc75-479d05352939",
+    "name": "broadcast message includes senderName for each recipient",
+    "file": "test/vitest/chat.test.ts",
+    "describe": "TC-20.4: Sender name in chat",
+    "it": "broadcast message includes senderName for each recipient",
+    "testUuid": "75d1d899-8c52-48dd-a696-42f7492889e3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
+}

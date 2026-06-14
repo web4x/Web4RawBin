@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3bb6fc8b-a5e0-4563-abf2-c5c42545a1d7",
+    "name": "TS4/AC4: 📂 browse button still goes to /md/",
+    "file": "test/e2e/editor-back.spec.ts",
+    "describe": "T84: editor back button → parent directory",
+    "it": "TS4/AC4: 📂 browse button still goes to /md/",
+    "testUuid": "2f5c543a-280d-48f9-bff5-e99870115d7b",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:2f5c543a-280d-48f9-bff5-e99870115d7b"
+}

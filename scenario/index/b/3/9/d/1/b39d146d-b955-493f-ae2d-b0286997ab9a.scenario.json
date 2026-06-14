@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b39d146d-b955-493f-ae2d-b0286997ab9a",
+    "name": "RoomView.ts contains the editOpen impl marker and click handler",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.2: editOpen — room name click opens editor",
+    "it": "RoomView.ts contains the editOpen impl marker and click handler",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

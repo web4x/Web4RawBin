@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6b61a5f1-ec67-4a27-975f-ba1c477da3a6",
+    "name": "empty rooms survive (not cleaned up)",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-75.5: Persistent rooms not auto-deleted",
+    "it": "empty rooms survive (not cleaned up)",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

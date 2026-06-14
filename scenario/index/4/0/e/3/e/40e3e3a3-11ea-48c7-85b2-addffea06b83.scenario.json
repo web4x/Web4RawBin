@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "40e3e3a3-11ea-48c7-85b2-addffea06b83",
+    "name": "room list grows after room creation",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-77.3: CREATE_ROOM triggers ROOM_LIST broadcast",
+    "it": "room list grows after room creation",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

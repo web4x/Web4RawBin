@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f580fc32-042b-46c6-9982-7e5780dff859",
+    "name": "multiple rb-avatar instances all update on event",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-PDCA.1: rb-avatar listens for rb-avatar-updated and re-renders",
+    "it": "multiple rb-avatar instances all update on event",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

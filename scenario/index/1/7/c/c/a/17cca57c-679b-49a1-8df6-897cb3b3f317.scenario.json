@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "17cca57c-679b-49a1-8df6-897cb3b3f317",
+    "name": "renderContentPreview for image does NOT use zoom container (no iframe)",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.87: preview-zoom-container touch-action=pan-y (CSS guard)",
+    "it": "renderContentPreview for image does NOT use zoom container (no iframe)",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

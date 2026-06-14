@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d5ab8269-8060-4070-879c-cdc8eea1692f",
+    "name": "constructs each of the 7 typed classes",
+    "file": "test/vitest/trace-model.test.ts",
+    "describe": "all object types construct (AC1)",
+    "it": "constructs each of the 7 typed classes",
+    "testUuid": "4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1"
+}

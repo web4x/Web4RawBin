@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "7044726c-90ff-4c46-b632-7bb1f11ca50f",
+    "name": "index contains scenario.json files",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R17.4: UUID prefix index",
+    "it": "index contains scenario.json files",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

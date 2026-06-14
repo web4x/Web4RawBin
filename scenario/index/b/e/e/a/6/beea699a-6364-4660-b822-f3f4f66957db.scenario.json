@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "beea699a-6364-4660-b822-f3f4f66957db",
+    "name": "SelectionModelImpl.select() adds ref, toggle/clear mutate, dispatches selection-changed",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R20.6: SelectionModel.select + toggle + clear + dispatch",
+    "it": "SelectionModelImpl.select() adds ref, toggle/clear mutate, dispatches selection-changed",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

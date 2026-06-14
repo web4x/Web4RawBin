@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2e735f80-dd9e-4a10-8085-49bab108b135",
+    "name": "setting crop updates CSS transform on img",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-57.5: rb-avatar applies saved crop transform",
+    "it": "setting crop updates CSS transform on img",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3cecc87d-27e2-482e-9eb4-2bd5f874059d",
+    "name": "CSS files get long-lived cache",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-32.1: Cache-Control headers",
+    "it": "CSS files get long-lived cache",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f6ead196-32d3-41dc-a01e-2a4340b2840e",
+    "name": "pageNav z-index=101 (above drawer z-index=100)",
+    "file": "test/vitest/drawer-fullwidth-sticky.test.ts",
+    "describe": "[test:uuid:7d6badb4] R19.57 PageNav.raiseAboveDrawer",
+    "it": "pageNav z-index=101 (above drawer z-index=100)",
+    "testUuid": "7d6badb4-a27d-4c9d-b7f8-385fc9636e90",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7d6badb4-a27d-4c9d-b7f8-385fc9636e90"
+}

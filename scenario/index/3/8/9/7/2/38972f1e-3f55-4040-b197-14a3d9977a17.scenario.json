@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "38972f1e-3f55-4040-b197-14a3d9977a17",
+    "name": "ends with scriptname.start ",
+    "file": "test/vitest/object-verb.test.ts",
+    "describe": "emitOosh generates canonical OOSH (oosh-po rules)",
+    "it": "ends with scriptname.start ",
+    "testUuid": "7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e1812dcc-302a-46d7-9f55-dd7615baed61",
+    "name": ".jpg file blocked (415)",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-62.3: Additional blocked paths",
+    "it": ".jpg file blocked (415)",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

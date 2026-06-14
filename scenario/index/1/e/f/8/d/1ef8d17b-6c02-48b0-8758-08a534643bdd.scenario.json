@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "1ef8d17b-6c02-48b0-8758-08a534643bdd",
+    "name": "Cache-Control header set",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-49.3: ETag header",
+    "it": "Cache-Control header set",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

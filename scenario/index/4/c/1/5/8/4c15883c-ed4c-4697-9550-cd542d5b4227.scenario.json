@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4c15883c-ed4c-4697-9550-cd542d5b4227",
+    "name": "PROFILE_UPDATED response includes avatarCrop when set",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-PDCA.3: avatarCrop propagated via PROFILE_UPDATED",
+    "it": "PROFILE_UPDATED response includes avatarCrop when set",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4d8255f4-e9cf-473f-9afc-faa5b9c70e11",
+    "name": "(5) Owner can delete room — dir removed",
+    "file": "test/e2e/room-identity.spec.ts",
+    "describe": "T79: Room Identity E2E",
+    "it": "(5) Owner can delete room — dir removed",
+    "testUuid": "e906138a-581d-4c07-8198-eedaf0e20af4",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e906138a-581d-4c07-8198-eedaf0e20af4"
+}

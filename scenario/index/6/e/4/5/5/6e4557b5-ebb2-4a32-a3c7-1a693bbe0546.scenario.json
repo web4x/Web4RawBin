@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6e4557b5-ebb2-4a32-a3c7-1a693bbe0546",
+    "name": "creates a room with correct defaults",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.1: Create room → verify RoomInfo",
+    "it": "creates a room with correct defaults",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "81c6b481-146f-43da-97d7-625c9b347854",
+    "name": "has setContent or render or update method",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-68.3: has setContent/render method",
+    "it": "has setContent or render or update method",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

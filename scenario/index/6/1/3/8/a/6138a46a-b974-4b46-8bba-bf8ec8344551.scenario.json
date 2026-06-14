@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6138a46a-b974-4b46-8bba-bf8ec8344551",
+    "name": "rolls up tasks by sprint with per-status counts + a row per task (AC2)",
+    "file": "test/vitest/rb-detail-overview.test.ts",
+    "describe": "T107 rb-overview",
+    "it": "rolls up tasks by sprint with per-status counts + a row per task (AC2)",
+    "testUuid": "747f4bab-17c2-4274-9349-b5b9e9478df7",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:747f4bab-17c2-4274-9349-b5b9e9478df7"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a3a9df52-5b48-40cb-baea-c9e64cc5dacc",
+    "name": "roomId is 36 characters (full UUID)",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-74.7: Room UUID format",
+    "it": "roomId is 36 characters (full UUID)",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

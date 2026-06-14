@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "be6ee0ce-ae18-4b6d-a3e7-c9bb139b7ae1",
+    "name": "createRoom returns room with creator as member",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-4.6.5: Room CRUD via RoomManager",
+    "it": "createRoom returns room with creator as member",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

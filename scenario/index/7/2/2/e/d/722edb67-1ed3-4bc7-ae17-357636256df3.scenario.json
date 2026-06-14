@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "722edb67-1ed3-4bc7-ae17-357636256df3",
+    "name": "returns valid PEM private key",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.1: generateDeviceKeypair RSA-2048",
+    "it": "returns valid PEM private key",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

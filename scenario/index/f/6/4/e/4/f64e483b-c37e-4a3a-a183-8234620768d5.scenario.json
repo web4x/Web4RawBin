@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f64e483b-c37e-4a3a-a183-8234620768d5",
+    "name": "returns 200 with image/jpeg Content-Type for JPEG",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-49.1: Avatar endpoint returns image",
+    "it": "returns 200 with image/jpeg Content-Type for JPEG",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

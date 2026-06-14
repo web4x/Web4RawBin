@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "12412101-a462-41a4-a239-5d1dcf76e9dc",
+    "name": "id_rsa.pub contains PEM public key",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-74.3: Valid RSA-2048 PEM keys",
+    "it": "id_rsa.pub contains PEM public key",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

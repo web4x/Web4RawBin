@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e2e66c92-8344-4e81-9b6d-4f2971481b14",
+    "name": "${dialog.name} has open/show method",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.6: Existing dialogs share overlay pattern",
+    "it": "${dialog.name} has open/show method",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

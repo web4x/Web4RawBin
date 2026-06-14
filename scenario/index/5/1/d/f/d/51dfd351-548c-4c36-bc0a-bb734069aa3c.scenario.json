@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "51dfd351-548c-4c36-bc0a-bb734069aa3c",
+    "name": "has start_url field",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-31.2: manifest.json PWA fields",
+    "it": "has start_url field",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

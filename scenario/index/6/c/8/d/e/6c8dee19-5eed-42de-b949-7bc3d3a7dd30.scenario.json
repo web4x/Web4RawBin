@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6c8dee19-5eed-42de-b949-7bc3d3a7dd30",
+    "name": "collapse hides messages and input",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-42.3: Chat sheet — expand/collapse toggle",
+    "it": "collapse hides messages and input",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0438361f-5ed3-4826-8af7-336446d11cd9",
+    "name": "warns on a task with no requirement up-link",
+    "file": "test/vitest/trace-consistency.test.ts",
+    "describe": "validate (AC2)",
+    "it": "warns on a task with no requirement up-link",
+    "testUuid": "ce5c47ad-dabb-44e5-a8f6-3ee506d34127",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:ce5c47ad-dabb-44e5-a8f6-3ee506d34127"
+}

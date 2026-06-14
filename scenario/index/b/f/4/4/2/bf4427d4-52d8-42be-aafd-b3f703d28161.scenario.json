@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "bf4427d4-52d8-42be-aafd-b3f703d28161",
+    "name": "clicking overlay backdrop calls hide",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.2: Click backdrop to close",
+    "it": "clicking overlay backdrop calls hide",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

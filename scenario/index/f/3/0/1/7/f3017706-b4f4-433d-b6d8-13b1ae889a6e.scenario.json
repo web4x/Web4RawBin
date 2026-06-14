@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f3017706-b4f4-433d-b6d8-13b1ae889a6e",
+    "name": "register + resolve works",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T125.4: ViewTemplateRegistry",
+    "it": "register + resolve works",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

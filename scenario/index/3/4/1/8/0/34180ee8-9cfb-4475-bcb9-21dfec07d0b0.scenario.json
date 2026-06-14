@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "34180ee8-9cfb-4475-bcb9-21dfec07d0b0",
+    "name": "LocalSearch filters by substring; clear returns all (AC2)",
+    "file": "test/vitest/rb-list-overview.test.ts",
+    "describe": "T106 rb-list-overview",
+    "it": "LocalSearch filters by substring; clear returns all (AC2)",
+    "testUuid": "a2f83b59-5943-462e-b70e-bf6429ea1b90",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:a2f83b59-5943-462e-b70e-bf6429ea1b90"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d0ccce1e-48c7-4adc-a9e5-25269638daaa",
+    "name": "event bubbles",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-43.4: rb-member-badge — click event",
+    "it": "event bubbles",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "bc4cda0c-4652-4519-864a-a1cd68562f95",
+    "name": "serializes to flat JSON with route-like refs and rebuilds an equivalent graph",
+    "file": "test/vitest/trace-model.test.ts",
+    "describe": "flat-JSON round-trip",
+    "it": "serializes to flat JSON with route-like refs and rebuilds an equivalent graph",
+    "testUuid": "4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1"
+}

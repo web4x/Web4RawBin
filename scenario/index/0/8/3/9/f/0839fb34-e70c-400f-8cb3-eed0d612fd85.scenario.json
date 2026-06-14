@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0839fb34-e70c-400f-8cb3-eed0d612fd85",
+    "name": "uptime is a positive number when server has been running",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-16.2: Health uptime",
+    "it": "uptime is a positive number when server has been running",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

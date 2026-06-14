@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "1b9bf0ee-b040-462e-b225-f51320c02c72",
+    "name": "rb-detail-drawer CSS has max-height constraint",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R17.31: Detail pane max-width",
+    "it": "rb-detail-drawer CSS has max-height constraint",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

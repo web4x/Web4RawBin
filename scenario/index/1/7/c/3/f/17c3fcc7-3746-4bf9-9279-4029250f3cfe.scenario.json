@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "17c3fcc7-3746-4bf9-9279-4029250f3cfe",
+    "name": "has loadDir or loadRoot or fetchDir method",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-65.4: component loads root directory",
+    "it": "has loadDir or loadRoot or fetchDir method",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

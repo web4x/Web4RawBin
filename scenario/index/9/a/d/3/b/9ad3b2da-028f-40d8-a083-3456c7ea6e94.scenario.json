@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9ad3b2da-028f-40d8-a083-3456c7ea6e94",
+    "name": "returned mtime differs from pre-write mtime",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-61.8: mtime changes after write",
+    "it": "returned mtime differs from pre-write mtime",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

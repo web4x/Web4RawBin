@@ -9,7 +9,19 @@
       "ior:instance:8b400f1d-34e0-4fbf-abd5-06f0e0499b7a"
     ],
     "status": "pass",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:6c390367-3f2c-4fc3-a348-3ee8348d0441",
+      "ior:instance:2ef45a66-032b-4f09-8e32-937978f24e62",
+      "ior:instance:113fb74b-5b69-4e07-8b27-20000de59f15",
+      "ior:instance:260a4320-a93b-4e02-af0a-e3654a82ac2a",
+      "ior:instance:d4ecf131-48fb-4a6a-8d27-b44fbf390034",
+      "ior:instance:67688fb8-5822-472c-8e7f-d27d77a2f988",
+      "ior:instance:18dc1bc3-86ba-413f-aceb-fbd2a0dfcbf5",
+      "ior:instance:7e78cffe-9754-4b39-b64f-9ce559858c64",
+      "ior:instance:5672dcb3-255a-49b7-9527-0a78f5545dbb",
+      "ior:instance:1aca6050-0f86-45d5-91bd-087c151cfd95"
+    ]
   },
   "ownerIor": "ior:instance:8b400f1d-34e0-4fbf-abd5-06f0e0499b7a"
 }

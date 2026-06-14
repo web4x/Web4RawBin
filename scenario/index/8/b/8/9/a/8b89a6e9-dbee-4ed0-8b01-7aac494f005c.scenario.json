@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8b89a6e9-dbee-4ed0-8b01-7aac494f005c",
+    "name": "identity crop at any size produces 0px translate",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-PDCA.5: Percentage crop renders correctly at any container size",
+    "it": "identity crop at any size produces 0px translate",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

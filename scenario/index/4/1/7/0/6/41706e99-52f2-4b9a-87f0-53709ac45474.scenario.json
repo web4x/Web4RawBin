@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "41706e99-52f2-4b9a-87f0-53709ac45474",
+    "name": "rejects a duplicate UUID across types",
+    "file": "test/vitest/trace-model.test.ts",
+    "describe": "UUID validation (AC4)",
+    "it": "rejects a duplicate UUID across types",
+    "testUuid": "4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1"
+}

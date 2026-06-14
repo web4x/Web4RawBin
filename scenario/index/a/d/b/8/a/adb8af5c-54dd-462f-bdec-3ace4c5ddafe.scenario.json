@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "adb8af5c-54dd-462f-bdec-3ace4c5ddafe",
+    "name": "host badge has star, self badge has (you)",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-43.5: rb-member-list — setMembers renders correct count",
+    "it": "host badge has star, self badge has (you)",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

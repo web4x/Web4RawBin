@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "fd0297cf-1a08-454a-ab21-38cb97b7655d",
+    "name": "overview.md lists sprints with status",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R17.10: Sprint overview",
+    "it": "overview.md lists sprints with status",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

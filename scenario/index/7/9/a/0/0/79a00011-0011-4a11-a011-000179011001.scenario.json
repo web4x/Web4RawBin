@@ -6,7 +6,13 @@
     "sourceFile": "test/e2e/sw-activation.spec.ts",
     "sourceLine": 1,
     "tests": [],
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:4c962ea6-7bdc-4fb8-ba66-18e6aa7ce723",
+      "ior:instance:9e4d3709-2a8d-48bb-a2f8-2616faef9bf5",
+      "ior:instance:dc1813c4-be24-445f-8211-5d3b99dde315",
+      "ior:instance:e8e00fa8-edc6-40f9-ab84-2de5662dcc27"
+    ]
   },
   "ownerIor": null
 }

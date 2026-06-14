@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "113fb74b-5b69-4e07-8b27-20000de59f15",
+    "name": "TC-3: roomUuid populates unitLinks[] + ownerIor",
+    "file": "test/vitest/file-dnd-chain.test.ts",
+    "describe": "[test:uuid:1e763397] R19.14 DnD file chain",
+    "it": "TC-3: roomUuid populates unitLinks[] + ownerIor",
+    "testUuid": "f0c30f5e-9686-4c34-89ba-8f5b45f28893",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f0c30f5e-9686-4c34-89ba-8f5b45f28893"
+}

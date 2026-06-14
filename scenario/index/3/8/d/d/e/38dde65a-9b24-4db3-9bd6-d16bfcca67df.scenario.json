@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "38dde65a-9b24-4db3-9bd6-d16bfcca67df",
+    "name": "peek shows when collapsed and message arrives",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-42.4: Chat sheet — peek preview on new message",
+    "it": "peek shows when collapsed and message arrives",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

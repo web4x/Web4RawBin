@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "1a0322da-52a3-4cfa-8d71-be23c5144ff0",
+    "name": "archived room rejects new members",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.4: Archive room → state change + can\\",
+    "it": "archived room rejects new members",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

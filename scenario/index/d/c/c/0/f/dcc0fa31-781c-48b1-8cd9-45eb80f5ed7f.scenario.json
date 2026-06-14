@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "dcc0fa31-781c-48b1-8cd9-45eb80f5ed7f",
+    "name": "binary .enc returns 415 (not served)",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-60.6: Content-Type mapping",
+    "it": "binary .enc returns 415 (not served)",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "deb3290e-cd48-4cd2-8479-c96c4bedfbb3",
+    "name": "has apple-mobile-web-app-capable meta tag",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-31.5: Apple mobile web app meta tags",
+    "it": "has apple-mobile-web-app-capable meta tag",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

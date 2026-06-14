@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "77f1d56c-dbd4-4e31-bc2b-1449950a3a09",
+    "name": "zero removals vs pre-switch baseline (if baseline exists)",
+    "file": "test/vitest/trace-parity.test.ts",
+    "describe": "Phase 2: /api/trace parity (ScenarioIndex-sourced)",
+    "it": "zero removals vs pre-switch baseline (if baseline exists)",
+    "testUuid": "f8a2b3c4-d5e6-4f78-9a0b-1c2d3e4f5a6b",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f8a2b3c4-d5e6-4f78-9a0b-1c2d3e4f5a6b"
+}

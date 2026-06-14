@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "bb300a12-4e72-40e8-a0a2-a7b183cda9ee",
+    "name": "GET_USER_INFO works for token-only users",
+    "file": "test/vitest/profile.test.ts",
+    "describe": "TC-12.8.6: Backward compat — token-only IDENTIFY",
+    "it": "GET_USER_INFO works for token-only users",
+    "testUuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e69274bc-c83f-4322-abcd-963538f6f9e2"
+}

@@ -8,7 +8,12 @@
       "ior:instance:4bb96a28-cfe7-4f0a-9a38-909a930e8345"
     ],
     "status": "pass",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:568b18fd-4bbc-4a47-8d73-44703db8b28e",
+      "ior:instance:47b47f17-d753-49f6-b420-259d252fafee",
+      "ior:instance:63795ae5-a5b5-4b23-9de7-fed0fb0bc8f2"
+    ]
   },
   "ownerIor": "ior:instance:4bb96a28-cfe7-4f0a-9a38-909a930e8345"
 }

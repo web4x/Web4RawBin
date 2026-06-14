@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "076826b1-328c-4ed2-bd2c-45aee77cd543",
+    "name": "RoomBrowser.ts has no game-specific UI",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.7: Client source no game references",
+    "it": "RoomBrowser.ts has no game-specific UI",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

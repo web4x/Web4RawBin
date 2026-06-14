@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "31a648bf-b750-4a4a-a4b4-9aea6499a8e7",
+    "name": "AC3: .vcf NOTE carries the user UUID",
+    "file": "test/vitest/vcard-photo.test.ts",
+    "describe": "vCard photo + UUID (v0.5.14)",
+    "it": "AC3: .vcf NOTE carries the user UUID",
+    "testUuid": "40f20e19-71a5-47ff-9391-75661b520ed2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:40f20e19-71a5-47ff-9391-75661b520ed2"
+}

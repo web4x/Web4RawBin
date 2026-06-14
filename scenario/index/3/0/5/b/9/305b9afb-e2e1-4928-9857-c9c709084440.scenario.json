@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "305b9afb-e2e1-4928-9857-c9c709084440",
+    "name": "non-owner cannot delete room",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.4: Room lifecycle via RoomManager",
+    "it": "non-owner cannot delete room",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

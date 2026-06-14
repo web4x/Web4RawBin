@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "85267b3e-b819-4b0e-baf5-e23fed8fde93",
+    "name": "proposeTask creates Task at Planned + emits TraceLinks",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T138: Skills",
+    "it": "proposeTask creates Task at Planned + emits TraceLinks",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

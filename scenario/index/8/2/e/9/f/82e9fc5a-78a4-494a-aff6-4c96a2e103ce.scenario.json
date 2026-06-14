@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "82e9fc5a-78a4-494a-aff6-4c96a2e103ce",
+    "name": "RawBinClient.ts source has reconnect method",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-33.1: Reconnect method",
+    "it": "RawBinClient.ts source has reconnect method",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

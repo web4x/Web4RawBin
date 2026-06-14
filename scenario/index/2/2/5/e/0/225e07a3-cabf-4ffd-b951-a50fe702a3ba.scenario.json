@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "225e07a3-cabf-4ffd-b951-a50fe702a3ba",
+    "name": "upload overwrites previous avatar",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-51.1: Avatar upload via API",
+    "it": "upload overwrites previous avatar",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "7817a87a-924e-4666-8bcd-e00f3d94ee53",
+    "name": "newest room appears first regardless of input order",
+    "file": "test/vitest/room-order.test.ts",
+    "describe": "TC-95.1: Newest-first ordering (AC1/AC2)",
+    "it": "newest room appears first regardless of input order",
+    "testUuid": "80c16527-a6b6-4b5f-8c94-0d76e838d2b3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:80c16527-a6b6-4b5f-8c94-0d76e838d2b3"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3cd84d17-2c2a-43e9-a0ef-f5e1341acabd",
+    "name": "cacheRoomState stores room data",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.4: Room state cache",
+    "it": "cacheRoomState stores room data",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

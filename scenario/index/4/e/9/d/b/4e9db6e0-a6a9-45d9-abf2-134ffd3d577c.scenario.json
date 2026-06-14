@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4e9db6e0-a6a9-45d9-abf2-134ffd3d577c",
+    "name": "typed getters filter by type and de-duplicate links",
+    "file": "test/vitest/trace-model.test.ts",
+    "describe": "navigable typed graph (AC2/AC3)",
+    "it": "typed getters filter by type and de-duplicate links",
+    "testUuid": "4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1"
+}

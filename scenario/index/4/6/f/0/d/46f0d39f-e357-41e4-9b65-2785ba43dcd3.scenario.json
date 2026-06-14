@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "46f0d39f-e357-41e4-9b65-2785ba43dcd3",
+    "name": "signature is valid for the returned device key",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.4: enrollDevice full flow",
+    "it": "signature is valid for the returned device key",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

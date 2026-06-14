@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8c74fd50-7827-45fa-8d28-0e1ff1669c4b",
+    "name": "edit.ts imports or references Monaco",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-63.2: edit.ts source file",
+    "it": "edit.ts imports or references Monaco",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

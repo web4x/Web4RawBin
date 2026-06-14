@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0b25dc2e-0495-4de9-8c59-c6fa2fba1c5c",
+    "name": "validateInput truncates to 200 chars",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-42.5: Chat sheet — 200 char input limit",
+    "it": "validateInput truncates to 200 chars",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

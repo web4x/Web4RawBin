@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "84bc8d15-9ddb-45e8-94a8-1c996861f1c6",
+    "name": "chatHistory grows when messages added and persisted",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-75.2: Chat persists to room.json",
+    "it": "chatHistory grows when messages added and persisted",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

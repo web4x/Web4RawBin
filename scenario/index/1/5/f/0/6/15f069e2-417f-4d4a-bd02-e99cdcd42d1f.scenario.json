@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "15f069e2-417f-4d4a-bd02-e99cdcd42d1f",
+    "name": "TS3/AC2: Back button label is ",
+    "file": "test/e2e/editor-back.spec.ts",
+    "describe": "T84: editor back button → parent directory",
+    "it": "TS3/AC2: Back button label is ",
+    "testUuid": "2f5c543a-280d-48f9-bff5-e99870115d7b",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:2f5c543a-280d-48f9-bff5-e99870115d7b"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "931f8111-9b08-483e-995a-1cf43b039988",
+    "name": "generates sprint overview + planning.md with speaking names + nested subtasks",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T126: ViewGenerator",
+    "it": "generates sprint overview + planning.md with speaking names + nested subtasks",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

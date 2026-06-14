@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8ee0c688-7fcd-4110-ade9-5b0de70826c6",
+    "name": "real decryptable upload is protected (control): branch=protected-real, bytes unchanged",
+    "file": "test/vitest/avatar-preserve.test.ts",
+    "describe": "T109(a): ensureAvatar PRESERVES an undecryptable avatar.enc (v0.5.10)",
+    "it": "real decryptable upload is protected (control): branch=protected-real, bytes unchanged",
+    "testUuid": "d9da24e7-c11b-4ba5-85b1-ad568afcc14f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d9da24e7-c11b-4ba5-85b1-ad568afcc14f"
+}

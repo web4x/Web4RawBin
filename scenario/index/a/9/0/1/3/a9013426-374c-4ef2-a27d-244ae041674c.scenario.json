@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "a9013426-374c-4ef2-a27d-244ae041674c",
+    "name": "writeRoomJson wraps room data in ior:class:Room scenario unit",
+    "file": "test/vitest/impl-coverage-batch.test.ts",
+    "describe": "[test:uuid:6d58883c] RbRoomDetail.editCanonical",
+    "it": "writeRoomJson wraps room data in ior:class:Room scenario unit",
+    "testUuid": "8a5b7618-5f72-4872-bf97-37496c4a9b8d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8a5b7618-5f72-4872-bf97-37496c4a9b8d"
+}

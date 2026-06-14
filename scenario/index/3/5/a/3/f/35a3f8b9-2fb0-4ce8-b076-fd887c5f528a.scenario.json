@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "35a3f8b9-2fb0-4ce8-b076-fd887c5f528a",
+    "name": "ChangeRequest model has tasks[] field for chain tracing",
+    "file": "test/vitest/classify-type.test.ts",
+    "describe": "R20.4 Requirement.classifyType — Bug + ChangeRequest subtypes",
+    "it": "ChangeRequest model has tasks[] field for chain tracing",
+    "testUuid": "320a8790-17de-4adc-b146-1ab68eab6f17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:320a8790-17de-4adc-b146-1ab68eab6f17"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "16c27dd7-f63c-45b2-991c-10bc0cddcf23",
+    "name": "defensive profile rekey is a no-op when no token-* profile exists",
+    "file": "test/vitest/migration.test.ts",
+    "describe": "T97 migrateTokenDirs",
+    "it": "defensive profile rekey is a no-op when no token-* profile exists",
+    "testUuid": "09d73a15-1496-4020-bcf1-b6a65a2bde6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:09d73a15-1496-4020-bcf1-b6a65a2bde6f"
+}

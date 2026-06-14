@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "de968e89-4e63-433e-93aa-1cfa6fe13313",
+    "name": "returns ERROR for missing token field",
+    "file": "test/vitest/profile.test.ts",
+    "describe": "TC-7.7.4: GET_USER_INFO unknown token",
+    "it": "returns ERROR for missing token field",
+    "testUuid": "e69274bc-c83f-4322-abcd-963538f6f9e2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e69274bc-c83f-4322-abcd-963538f6f9e2"
+}

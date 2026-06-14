@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2a939bfc-e043-490b-b3ec-56227a96632b",
+    "name": "dist/ contains edit JS bundle",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-63.6: Build output for editor",
+    "it": "dist/ contains edit JS bundle",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

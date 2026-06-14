@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "281c78df-71ea-46fd-81f0-a419a7d36908",
+    "name": "returns metadata for each encrypted file",
+    "file": "test/vitest/crypto.test.ts",
+    "describe": "TC-47.7: listUserFiles",
+    "it": "returns metadata for each encrypted file",
+    "testUuid": "cbde8942-6f7e-4889-85ea-eb3365dde403",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cbde8942-6f7e-4889-85ea-eb3365dde403"
+}

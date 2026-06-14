@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3b9d04ab-e332-41f7-a9bb-510e233d9adf",
+    "name": "room id is unique across instances",
+    "file": "test/vitest/room.test.ts",
+    "describe": "TC-3.3.1: Create room → verify RoomInfo",
+    "it": "room id is unique across instances",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

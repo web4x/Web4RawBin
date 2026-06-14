@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "260a4320-a93b-4e02-af0a-e3654a82ac2a",
+    "name": "TC-4: uploaderToken stored in model",
+    "file": "test/vitest/file-dnd-chain.test.ts",
+    "describe": "[test:uuid:1e763397] R19.14 DnD file chain",
+    "it": "TC-4: uploaderToken stored in model",
+    "testUuid": "f0c30f5e-9686-4c34-89ba-8f5b45f28893",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f0c30f5e-9686-4c34-89ba-8f5b45f28893"
+}

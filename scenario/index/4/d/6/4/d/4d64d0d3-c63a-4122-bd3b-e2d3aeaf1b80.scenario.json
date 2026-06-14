@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4d64d0d3-c63a-4122-bd3b-e2d3aeaf1b80",
+    "name": "is idempotent and leaves legacy files UNTOUCHED",
+    "file": "test/vitest/migration.test.ts",
+    "describe": "T96 migrateLegacyRooms",
+    "it": "is idempotent and leaves legacy files UNTOUCHED",
+    "testUuid": "09d73a15-1496-4020-bcf1-b6a65a2bde6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:09d73a15-1496-4020-bcf1-b6a65a2bde6f"
+}

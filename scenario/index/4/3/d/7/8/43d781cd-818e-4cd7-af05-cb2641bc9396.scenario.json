@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "43d781cd-818e-4cd7-af05-cb2641bc9396",
+    "name": "cacheProfile overwrites previous profile",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.5: Profile cache",
+    "it": "cacheProfile overwrites previous profile",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

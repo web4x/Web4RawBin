@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8b00baed-0d5e-4317-b552-cc2a35a438c0",
+    "name": "AC2: content-type image/svg+xml → PHOTO line still present (regex accepts svg+xml)",
+    "file": "test/vitest/vcard-photo.test.ts",
+    "describe": "vCard photo + UUID (v0.5.14)",
+    "it": "AC2: content-type image/svg+xml → PHOTO line still present (regex accepts svg+xml)",
+    "testUuid": "40f20e19-71a5-47ff-9391-75661b520ed2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:40f20e19-71a5-47ff-9391-75661b520ed2"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "18af99af-a95e-4cfe-bc8b-73d2894f7883",
+    "name": "overwrite replaces previous avatar",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-48.2: Avatar file storage",
+    "it": "overwrite replaces previous avatar",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

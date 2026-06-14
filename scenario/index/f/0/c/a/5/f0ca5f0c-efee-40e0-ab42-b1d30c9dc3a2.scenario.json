@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f0ca5f0c-efee-40e0-ab42-b1d30c9dc3a2",
+    "name": "T179 AC11: SW caches STATIC_SHELL entries",
+    "file": "test/e2e/module-exec-proof.spec.ts",
+    "describe": "T176+T180: ES module + SW registration over self-signed SSL",
+    "it": "T179 AC11: SW caches STATIC_SHELL entries",
+    "testUuid": "76a00001-0001-4a01-a001-000176010001",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:76a00001-0001-4a01-a001-000176010001"
+}

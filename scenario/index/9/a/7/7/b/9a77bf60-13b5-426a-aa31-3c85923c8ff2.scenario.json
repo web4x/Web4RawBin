@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9a77bf60-13b5-426a-aa31-3c85923c8ff2",
+    "name": ".git/config → 403",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-62.1: UC-API.5 Path sanitization — read endpoint",
+    "it": ".git/config → 403",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

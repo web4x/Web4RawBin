@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "45efd75c-1495-4f16-94cd-5167e6345565",
+    "name": "/api/config returns httpsPort 4444",
+    "file": "test/vitest/server.test.ts",
+    "describe": "TC-4.6.1: Server config and branding",
+    "it": "/api/config returns httpsPort 4444",
+    "testUuid": "3e02ab4f-0ada-429f-8351-9fff217849c3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:3e02ab4f-0ada-429f-8351-9fff217849c3"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "147aa252-e00a-4ccd-892c-f40fb10d0770",
+    "name": "handles missing fields gracefully",
+    "file": "test/vitest/champagne-dedicated.test.ts",
+    "describe": "T142: vCard parser",
+    "it": "handles missing fields gracefully",
+    "testUuid": "76f8fd67-d694-460b-9b13-cd2ca81407cc",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:76f8fd67-d694-460b-9b13-cd2ca81407cc"
+}

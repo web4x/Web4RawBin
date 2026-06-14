@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b085017e-c541-44f1-b1b3-8e2cbc1c8e9a",
+    "name": "multiple messages render in order",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-42.1: Chat sheet — addMessage renders with sender name",
+    "it": "multiple messages render in order",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

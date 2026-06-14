@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0c0450ea-a09b-4581-a552-602fe102cd01",
+    "name": "rejects invalid transition",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T133: Task state machine",
+    "it": "rejects invalid transition",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

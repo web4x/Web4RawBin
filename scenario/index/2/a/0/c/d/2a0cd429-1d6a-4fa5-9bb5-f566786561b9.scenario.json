@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2a0cd429-1d6a-4fa5-9bb5-f566786561b9",
+    "name": "ClassRegistry resolves TraceLink (8th class)",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T134: TraceLink",
+    "it": "ClassRegistry resolves TraceLink (8th class)",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

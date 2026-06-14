@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c3c76d4a-297e-4b84-86ad-766c5607e978",
+    "name": "all 7 class templates registered in defaultTemplateRegistry",
+    "file": "test/vitest/scenario.test.ts",
+    "describe": "T125.4: ViewTemplateRegistry",
+    "it": "all 7 class templates registered in defaultTemplateRegistry",
+    "testUuid": "5a125001-b002-4c03-9d04-e05f06a07b08",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08"
+}

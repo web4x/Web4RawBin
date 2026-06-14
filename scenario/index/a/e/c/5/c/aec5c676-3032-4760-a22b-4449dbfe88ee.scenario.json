@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "aec5c676-3032-4760-a22b-4449dbfe88ee",
+    "name": "(a) data set BEFORE define → upgradeProperty recovers on connect",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.90: self-healing element — all 3 orderings render",
+    "it": "(a) data set BEFORE define → upgradeProperty recovers on connect",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "b61fb2ce-379e-4335-9734-7f8ea04d0980",
+    "name": "room dir still exists after scan with zero members",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-75.5: Persistent rooms not auto-deleted",
+    "it": "room dir still exists after scan with zero members",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

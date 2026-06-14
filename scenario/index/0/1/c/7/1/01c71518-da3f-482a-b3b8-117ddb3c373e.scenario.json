@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "01c71518-da3f-482a-b3b8-117ddb3c373e",
+    "name": ".md returns text/markdown",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-60.6: Content-Type mapping",
+    "it": ".md returns text/markdown",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

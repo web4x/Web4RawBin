@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4b74718e-8f6c-4013-ac16-cfaecd5e8ab0",
+    "name": "creates header with title",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-40.1: Header creation",
+    "it": "creates header with title",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

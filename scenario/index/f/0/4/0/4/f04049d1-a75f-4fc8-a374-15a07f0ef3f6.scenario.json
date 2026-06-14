@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f04049d1-a75f-4fc8-a374-15a07f0ef3f6",
+    "name": "advance increments activeHop",
+    "file": "test/vitest/current-sprint.test.ts",
+    "describe": "R20.13 CurrentSprint",
+    "it": "advance increments activeHop",
+    "testUuid": "960948c2-4f36-4658-b2c0-4075aeddfb4a",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:960948c2-4f36-4658-b2c0-4075aeddfb4a"
+}

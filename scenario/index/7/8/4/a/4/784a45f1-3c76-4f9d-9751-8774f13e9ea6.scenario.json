@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "784a45f1-3c76-4f9d-9751-8774f13e9ea6",
+    "name": "rejects files over 500KB",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-51.1: Avatar upload via API",
+    "it": "rejects files over 500KB",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

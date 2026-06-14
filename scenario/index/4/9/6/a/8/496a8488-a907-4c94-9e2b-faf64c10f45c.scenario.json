@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "496a8488-a907-4c94-9e2b-faf64c10f45c",
+    "name": ".ssh/ directory has mode 700",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.4: File permissions 700 dirs / 600 files",
+    "it": ".ssh/ directory has mode 700",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

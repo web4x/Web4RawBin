@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "911773b7-c1d1-4cc3-84ac-5c50e568f9c2",
+    "name": "edit.ts references rb-code-editor",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-66.4: edit.ts imports rb-code-editor",
+    "it": "edit.ts references rb-code-editor",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

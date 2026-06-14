@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c2d8008f-daf6-453d-8723-18d9fd24da4d",
+    "name": "closable=false disables backdrop click",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-41.2: Click backdrop to close",
+    "it": "closable=false disables backdrop click",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

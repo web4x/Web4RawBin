@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "07517838-b5cc-435d-bfec-66b4a8d1a6b0",
+    "name": "parses FN/TEL/URL from vCard v3",
+    "file": "test/vitest/champagne-dedicated.test.ts",
+    "describe": "T142: vCard parser",
+    "it": "parses FN/TEL/URL from vCard v3",
+    "testUuid": "76f8fd67-d694-460b-9b13-cd2ca81407cc",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:76f8fd67-d694-460b-9b13-cd2ca81407cc"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "834b2e63-5316-466c-a370-0886fde48f04",
+    "name": "80px profile avatar: 50% offset = 40px translate",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-PDCA.5: Percentage crop renders correctly at any container size",
+    "it": "80px profile avatar: 50% offset = 40px translate",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

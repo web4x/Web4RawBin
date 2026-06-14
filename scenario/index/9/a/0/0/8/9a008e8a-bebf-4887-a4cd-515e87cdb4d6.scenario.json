@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9a008e8a-bebf-4887-a4cd-515e87cdb4d6",
+    "name": "uses the .object-item card idiom (AC2)",
+    "file": "test/vitest/rb-object-item.test.ts",
+    "describe": "T105 rb-object-item",
+    "it": "uses the .object-item card idiom (AC2)",
+    "testUuid": "47528657-dbd5-48f1-b7cf-cd2bffb53967",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:47528657-dbd5-48f1-b7cf-cd2bffb53967"
+}

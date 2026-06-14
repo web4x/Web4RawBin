@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "837ac63c-53d1-4bdb-8111-deff6c76475b",
+    "name": "device key from different user returns false",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-12.8.4: Unauthorized device key rejected",
+    "it": "device key from different user returns false",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

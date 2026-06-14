@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "607928f8-8a12-4141-8157-794132fd0ef2",
+    "name": "T-persistent R19.7: setMode switches between live and persistent",
+    "file": "test/vitest/room.test.ts",
+    "describe": "S19 — visibility + mode (T-visibility/T-persistent/T-default-flip)",
+    "it": "T-persistent R19.7: setMode switches between live and persistent",
+    "testUuid": "f7abd9f6-bbd1-4614-9280-19696c506de1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:f7abd9f6-bbd1-4614-9280-19696c506de1"
+}

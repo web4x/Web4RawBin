@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9f64f973-9194-4b93-b6a0-e9f2e986537b",
+    "name": "each message has unique incrementing id",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.2: Message queue — enqueue/read/clear",
+    "it": "each message has unique incrementing id",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

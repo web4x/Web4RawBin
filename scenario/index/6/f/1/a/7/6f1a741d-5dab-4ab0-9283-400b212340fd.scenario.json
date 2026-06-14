@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6f1a741d-5dab-4ab0-9283-400b212340fd",
+    "name": "edit.html has viewport meta tag",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-63.5: edit.html PWA integration",
+    "it": "edit.html has viewport meta tag",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

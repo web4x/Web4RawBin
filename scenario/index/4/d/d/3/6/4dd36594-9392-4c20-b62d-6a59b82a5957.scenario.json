@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4dd36594-9392-4c20-b62d-6a59b82a5957",
+    "name": "handle drag sets height via style.height (not transform)",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.84: handle drag resizes drawer to 95vh, close below 120px",
+    "it": "handle drag sets height via style.height (not transform)",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "fc6a29ec-e702-4584-a9a4-c78d55f4553d",
+    "name": "show(url) stores url in qr-code data attribute",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-45.1: rb-qr-popup — renders with url",
+    "it": "show(url) stores url in qr-code data attribute",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "111a4fb7-edf9-4fbc-b31e-8127c58d8116",
+    "name": "shows multiple buttons together",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-40.1: Header creation",
+    "it": "shows multiple buttons together",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

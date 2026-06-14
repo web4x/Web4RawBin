@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "27efc3bd-beb4-4028-b5d5-9c4c31d06bc2",
+    "name": "id_rsa has mode 600",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.4: File permissions 700 dirs / 600 files",
+    "it": "id_rsa has mode 600",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

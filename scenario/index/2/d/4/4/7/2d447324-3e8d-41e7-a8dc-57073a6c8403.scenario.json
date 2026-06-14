@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2d447324-3e8d-41e7-a8dc-57073a6c8403",
+    "name": "RoomBrowser.ts contains /profile and /bug-report links",
+    "file": "test/vitest/client.test.ts",
+    "describe": "TC-5.7.6: Profile and bug-report links in app",
+    "it": "RoomBrowser.ts contains /profile and /bug-report links",
+    "testUuid": "4b13ce77-8a21-4d91-861e-b77575db3074",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074"
+}

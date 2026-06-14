@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "62174567-2a55-482a-a153-696b84be8322",
+    "name": "SVG initials fallback is NOT protected → ensureAvatar falls through to re-fetch a real photo",
+    "file": "test/vitest/avatar-persist.test.ts",
+    "describe": "T91: avatar persists, never reverts to default (v0.4.11)",
+    "it": "SVG initials fallback is NOT protected → ensureAvatar falls through to re-fetch a real photo",
+    "testUuid": "aba97062-537a-4442-805a-6e41e7705ade",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:aba97062-537a-4442-805a-6e41e7705ade"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "2a4ff0db-1d41-4581-a784-50d4405057e6",
+    "name": "openOverlay creates overlay element",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-56.5: rb-avatar overlay with upload + close",
+    "it": "openOverlay creates overlay element",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

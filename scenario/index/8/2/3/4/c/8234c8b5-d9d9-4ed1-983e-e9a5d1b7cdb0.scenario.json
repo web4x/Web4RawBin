@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8234c8b5-d9d9-4ed1-983e-e9a5d1b7cdb0",
+    "name": "keypair works for encrypt/decrypt",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-74.3: Valid RSA-2048 PEM keys",
+    "it": "keypair works for encrypt/decrypt",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

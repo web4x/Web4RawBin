@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "46982ef3-a36c-41ed-9fd0-eb4574d14473",
+    "name": "overlay has Crop button between Upload and Close",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-57.3: Crop button in overlay",
+    "it": "overlay has Crop button between Upload and Close",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

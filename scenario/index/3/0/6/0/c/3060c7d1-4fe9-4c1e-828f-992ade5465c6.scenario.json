@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3060c7d1-4fe9-4c1e-828f-992ade5465c6",
+    "name": "authorized_keys is empty",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.8: authorized_keys initially empty",
+    "it": "authorized_keys is empty",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "017b0140-a4cf-4058-95b0-099e38934641",
+    "name": "registerSync returns false when no sync API available",
+    "file": "test/vitest/offline.test.ts",
+    "describe": "TC-36.6: Background sync",
+    "it": "registerSync returns false when no sync API available",
+    "testUuid": "d7682614-6a2e-4630-af7e-26258d669b81",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d7682614-6a2e-4630-af7e-26258d669b81"
+}

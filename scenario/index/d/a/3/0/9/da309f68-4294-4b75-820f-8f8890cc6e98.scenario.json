@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "da309f68-4294-4b75-820f-8f8890cc6e98",
+    "name": "edit.ts exists in src/public/ts/",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-63.2: edit.ts source file",
+    "it": "edit.ts exists in src/public/ts/",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

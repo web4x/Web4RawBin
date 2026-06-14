@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "de06c40f-45c8-4e52-a2e3-fa0c4ac5c953",
+    "name": "addChat broadcasts CHAT_MESSAGE to all members",
+    "file": "test/vitest/chat.test.ts",
+    "describe": "TC-20.1: Chat message broadcast",
+    "it": "addChat broadcasts CHAT_MESSAGE to all members",
+    "testUuid": "75d1d899-8c52-48dd-a696-42f7492889e3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:75d1d899-8c52-48dd-a696-42f7492889e3"
+}

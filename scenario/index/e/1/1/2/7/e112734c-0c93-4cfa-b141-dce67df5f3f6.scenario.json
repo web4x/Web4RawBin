@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "e112734c-0c93-4cfa-b141-dce67df5f3f6",
+    "name": "wrong code shows error, correct code stores keys, reload auto-auths",
+    "file": "test/e2e/device-enrollment.spec.ts",
+    "describe": "T13.5: Device Enrollment",
+    "it": "wrong code shows error, correct code stores keys, reload auto-auths",
+    "testUuid": "bfd84a15-67ca-4b1b-a76a-716ed18b7c2e",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:bfd84a15-67ca-4b1b-a76a-716ed18b7c2e"
+}

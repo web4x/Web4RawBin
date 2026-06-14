@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "63b341e1-a0c8-453b-8a49-f5eb592626f3",
+    "name": "finds all Chain verbs incl. resolvePrefix (lazy-JSDoc regression guard)",
+    "file": "test/vitest/object-verb.test.ts",
+    "describe": "objectVerb introspection (c2 for TypeScript)",
+    "it": "finds all Chain verbs incl. resolvePrefix (lazy-JSDoc regression guard)",
+    "testUuid": "7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "bddd90b4-8fcd-4861-8870-ba5b8d56b9f7",
+    "name": "hasAvatar false before save",
+    "file": "test/vitest/avatar.test.ts",
+    "describe": "TC-48.2: Avatar file storage",
+    "it": "hasAvatar false before save",
+    "testUuid": "1ef26996-40fa-4532-93ba-9a861da64ee1",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+}

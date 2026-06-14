@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "54de2a85-8d3f-4d69-bbbd-126cb445ec07",
+    "name": "sw.js exists in src/public/",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-31.1: Service Worker file",
+    "it": "sw.js exists in src/public/",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

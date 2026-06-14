@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "5e2f897f-82e7-46d4-a65d-1e50efae522d",
+    "name": "quarantines a legacy-only orphan under _unowned and reports it",
+    "file": "test/vitest/migration.test.ts",
+    "describe": "T96 migrateLegacyRooms",
+    "it": "quarantines a legacy-only orphan under _unowned and reports it",
+    "testUuid": "09d73a15-1496-4020-bcf1-b6a65a2bde6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:09d73a15-1496-4020-bcf1-b6a65a2bde6f"
+}

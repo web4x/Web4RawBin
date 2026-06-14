@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "40761c97-67bf-4962-b243-68fac0dc898b",
+    "name": "resolves type.verb to a handler and renders the View with attrs from the object",
+    "file": "test/vitest/trace-routing.test.ts",
+    "describe": "router resolution (AC1)",
+    "it": "resolves type.verb to a handler and renders the View with attrs from the object",
+    "testUuid": "b2fa3e4d-5aea-4368-a1d5-ec1793e35223",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:b2fa3e4d-5aea-4368-a1d5-ec1793e35223"
+}

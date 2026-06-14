@@ -13,7 +13,12 @@
     "sourceFile": "ior:file:test/e2e/update-banner.spec.ts",
     "sourceLine": 3,
     "parent": "ior:instance:976147f4-1940-466f-b44d-7d54f5f4c788",
-    "unitLinks": []
+    "unitLinks": [],
+    "testCases": [
+      "ior:instance:70299a7b-fc4c-419d-93be-f84027add7dd",
+      "ior:instance:e72b1788-b2e0-4e7c-ba35-68d4cf22004a",
+      "ior:instance:dc5e48ba-4f58-47da-b8d1-8008279b3466"
+    ]
   },
   "ownerIor": "ior:instance:976147f4-1940-466f-b44d-7d54f5f4c788"
 }

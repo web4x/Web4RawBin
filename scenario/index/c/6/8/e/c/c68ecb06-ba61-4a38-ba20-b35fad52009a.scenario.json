@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c68ecb06-ba61-4a38-ba20-b35fad52009a",
+    "name": "ProfileEditor does NOT contain de-remove-identity",
+    "file": "test/vitest/components.test.ts",
+    "describe": "R19.89: Remove-Local-Identity button placement + click handler",
+    "it": "ProfileEditor does NOT contain de-remove-identity",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

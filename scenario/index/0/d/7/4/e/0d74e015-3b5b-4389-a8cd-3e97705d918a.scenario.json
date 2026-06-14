@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "0d74e015-3b5b-4389-a8cd-3e97705d918a",
+    "name": "failed enrollment does NOT add to authorized_keys",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-10.7.8: authorized_keys after enrollment",
+    "it": "failed enrollment does NOT add to authorized_keys",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

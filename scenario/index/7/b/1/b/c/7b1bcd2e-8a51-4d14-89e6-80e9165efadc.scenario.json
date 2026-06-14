@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "7b1bcd2e-8a51-4d14-89e6-80e9165efadc",
+    "name": "private_key/<token>.private_key contains same key as id_rsa",
+    "file": "test/vitest/userkeys.test.ts",
+    "describe": "TC-9.7.3: Named copies per OOSH convention",
+    "it": "private_key/<token>.private_key contains same key as id_rsa",
+    "testUuid": "0279ca72-5435-4883-aed4-1b544944dbcd",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:0279ca72-5435-4883-aed4-1b544944dbcd"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "4419e5f9-1d4b-4567-9c3e-c2f4b06d9b85",
+    "name": ".ssh/ directory exists",
+    "file": "test/vitest/room-identity.test.ts",
+    "describe": "TC-74.2: SSH tree structure",
+    "it": ".ssh/ directory exists",
+    "testUuid": "cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:cb1b6dcf-358c-4c67-a8b0-8c94d1ba4e6f"
+}

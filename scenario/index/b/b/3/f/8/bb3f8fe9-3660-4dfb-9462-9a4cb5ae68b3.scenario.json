@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "bb3f8fe9-3660-4dfb-9462-9a4cb5ae68b3",
+    "name": "trace roots are all Requirements",
+    "file": "test/vitest/champagne-features.test.ts",
+    "describe": "R17.32: Chain starts with atomic requirements",
+    "it": "trace roots are all Requirements",
+    "testUuid": "dc891c35-a906-4270-9082-8b492ff61668",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:dc891c35-a906-4270-9082-8b492ff61668"
+}

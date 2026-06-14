@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "9b198f21-9271-400f-af0e-d45d278e1429",
+    "name": "(3) Default name includes profile name",
+    "file": "test/e2e/room-identity.spec.ts",
+    "describe": "T79: Room Identity E2E",
+    "it": "(3) Default name includes profile name",
+    "testUuid": "e906138a-581d-4c07-8198-eedaf0e20af4",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:e906138a-581d-4c07-8198-eedaf0e20af4"
+}

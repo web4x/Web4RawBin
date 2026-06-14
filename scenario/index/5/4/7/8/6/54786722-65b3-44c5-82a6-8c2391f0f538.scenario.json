@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "54786722-65b3-44c5-82a6-8c2391f0f538",
+    "name": "src/../../etc returns 403",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-61.4: writeFile path traversal blocked",
+    "it": "src/../../etc returns 403",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

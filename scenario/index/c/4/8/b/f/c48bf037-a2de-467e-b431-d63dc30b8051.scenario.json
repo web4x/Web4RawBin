@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "c48bf037-a2de-467e-b431-d63dc30b8051",
+    "name": "data/users/ root blocked",
+    "file": "test/vitest/fileapi.test.ts",
+    "describe": "TC-62.3: Additional blocked paths",
+    "it": "data/users/ root blocked",
+    "testUuid": "7390b7e2-0744-48b9-bcd8-f0c9a746e421",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "8b3c1a26-4af1-4812-9389-6f8f852ca3a8",
+    "name": "name contains RawBin",
+    "file": "test/vitest/pwa.test.ts",
+    "describe": "TC-31.2: manifest.json PWA fields",
+    "it": "name contains RawBin",
+    "testUuid": "24cc252b-d276-4ab6-9a5a-981825332a17",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+}

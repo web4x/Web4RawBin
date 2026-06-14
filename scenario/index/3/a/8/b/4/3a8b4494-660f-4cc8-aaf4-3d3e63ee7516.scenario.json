@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "3a8b4494-660f-4cc8-aaf4-3d3e63ee7516",
+    "name": "build.mjs includes edit entry point",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-63.6: Build output for editor",
+    "it": "build.mjs includes edit entry point",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

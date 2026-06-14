@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "18115fd5-b470-49a4-bbef-f44e8afc68d5",
+    "name": "preserve branch does not throw even though decrypt fails",
+    "file": "test/vitest/avatar-preserve.test.ts",
+    "describe": "T109(a): ensureAvatar PRESERVES an undecryptable avatar.enc (v0.5.10)",
+    "it": "preserve branch does not throw even though decrypt fails",
+    "testUuid": "d9da24e7-c11b-4ba5-85b1-ad568afcc14f",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:d9da24e7-c11b-4ba5-85b1-ad568afcc14f"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "d7cfe4f7-83b8-40fe-93a2-ce9d6474d343",
+    "name": "edit.html includes Monaco CDN or loader script",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-63.1: edit.html with Monaco CDN",
+    "it": "edit.html includes Monaco CDN or loader script",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

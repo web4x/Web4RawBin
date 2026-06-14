@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "90a20de7-58d6-4332-b427-d87da6229efb",
+    "name": "maps .sh to shell language",
+    "file": "test/vitest/editor.test.ts",
+    "describe": "TC-66.5: language map covers required extensions",
+    "it": "maps .sh to shell language",
+    "testUuid": "8dfbe1a7-afbf-44a4-818d-6959faab4cd2",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:8dfbe1a7-afbf-44a4-818d-6959faab4cd2"
+}

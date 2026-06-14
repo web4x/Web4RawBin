@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "70299a7b-fc4c-419d-93be-f84027add7dd",
+    "name": "AC7: rb-update-banner element present on bundle pages /app and /edit",
+    "file": "test/e2e/update-banner.spec.ts",
+    "describe": "T94: PWA update banner",
+    "it": "AC7: rb-update-banner element present on bundle pages /app and /edit",
+    "testUuid": "916b8bb0-08ef-4287-98f0-031ddf004723",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:916b8bb0-08ef-4287-98f0-031ddf004723"
+}

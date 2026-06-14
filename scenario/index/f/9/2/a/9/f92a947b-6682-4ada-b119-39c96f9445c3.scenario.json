@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "f92a947b-6682-4ada-b119-39c96f9445c3",
+    "name": "profile with committed=true and avatar set has valid avatar URL",
+    "file": "test/vitest/components.test.ts",
+    "describe": "TC-PDCA.2: PROFILE response includes non-empty avatar after commit",
+    "it": "profile with committed=true and avatar set has valid avatar URL",
+    "testUuid": "6940edd5-cd1b-4392-a28a-ac7d1cc64401",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:6940edd5-cd1b-4392-a28a-ac7d1cc64401"
+}

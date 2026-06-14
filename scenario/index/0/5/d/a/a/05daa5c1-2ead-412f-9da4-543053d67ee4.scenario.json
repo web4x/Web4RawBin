@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "05daa5c1-2ead-412f-9da4-543053d67ee4",
+    "name": "handles line folding (continuation lines)",
+    "file": "test/vitest/champagne-dedicated.test.ts",
+    "describe": "T142: vCard parser",
+    "it": "handles line folding (continuation lines)",
+    "testUuid": "76f8fd67-d694-460b-9b13-cd2ca81407cc",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:76f8fd67-d694-460b-9b13-cd2ca81407cc"
+}
