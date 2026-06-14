@@ -4,9 +4,7 @@
     "uuid": "fcf6dae1-69c7-418d-a68a-6fca1d0a9137",
     "name": "Requirement.classifyType",
     "description": "Icon + type resolution per ior:class subtype. Implementation touches 4 files: (1) classes.ts: BugLoader + ChangeRequestLoader (clone RequirementLoader defaults). (2) ClassRegistry constructor: register Bug + ChangeRequest loaders. (3) icons.ts: TRACE_ICONS['bug'] + TRACE_ICONS['changerequest']. (4) app.css: rb-object-item[type=bug] + [type=changerequest] color vars. (5) SCENARIO_FWD + TRACE_FWD: Bug/ChangeRequest entries = same as Requirement (['useCases']).",
-    "implementations": [
-      "ior:instance:76bbedda-b1c2-4d3e-9f4a-6b7c8d9e0f06"
-    ],
+    "implementations": [],
     "tests": []
   },
   "ownerIor": "ior:instance:14831116-66ca-42b7-a350-8564178e678b"
