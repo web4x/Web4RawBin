@@ -50,7 +50,8 @@
       "ior:instance:18ee26a2-bff1-43ab-8ecf-1665a56b96d1",
       "ior:instance:7047d04f-3226-46ff-a058-39f53f9aed58",
       "ior:instance:1fac9d23-6647-45e5-a0a5-458bc1892974",
-      "ior:instance:15aeb43d-83da-4a02-bfcf-35ec59b3b070"
+      "ior:instance:15aeb43d-83da-4a02-bfcf-35ec59b3b070",
+      "ior:instance:cd6a817d-a64d-4c1e-a6df-deb09f03063a"
     ],
     "discipline": "traceability-first: design full chain + write Test first/with-impl; no chain-open ships. Standards: in-room-ux-e2e-test-standard.md, task-unit-single-owner-standard.md.",
     "carriedForwardNote": "R19.99 (task eff42eff) + R19.100 (task 51d53769) carry their existing S19 tasks; S20 drives their FULL test-first chain to genuine champagne. R19.102 gets a fresh S20 task (42819b8b).",

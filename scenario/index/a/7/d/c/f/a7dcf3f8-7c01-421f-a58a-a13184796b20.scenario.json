@@ -3,20 +3,24 @@
   "model": {
     "uuid": "a7dcf3f8-7c01-421f-a58a-a13184796b20",
     "altId": "R20.19",
-    "name": "R20.19: Markdown is NOT source — /api/trace builds graph FROM scenario units, not MD.",
-    "description": "MARKDOWN IS NOT SOURCE — it is a GENERATED VIEW. /api/trace MUST build the traceability graph FROM scenario units (the index), NOT by scanning markdown files (scanRepo). Three phases: Phase1 = migrate 220 md-only chains to scenario units (done 5569cf504). Phase2 = switch /api/trace to unit-sourced graph building (parity: old results ⊆ new). Phase3 = drop scanRepo entirely. The scenario index is the source of truth; markdown is regenerated from it.",
+    "name": "R20.19: Markdown is NOT source \u2014 /api/trace builds graph FROM scenario units, not MD.",
+    "description": "MARKDOWN IS NOT SOURCE \u2014 it is a GENERATED VIEW. /api/trace MUST build the traceability graph FROM scenario units (the index), NOT by scanning markdown files (scanRepo). Three phases: Phase1 = migrate 220 md-only chains to scenario units (done 5569cf504). Phase2 = switch /api/trace to unit-sourced graph building (parity: old results \u2286 new). Phase3 = drop scanRepo entirely. The scenario index is the source of truth; markdown is regenerated from it.",
     "tronQuote": "> TRON: \"THE MARKDOWN is NO SOURCE!!! its a view!!!\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:cd6a817d-a64d-4c1e-a6df-deb09f03063a"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
-    "useCases": ["ior:instance:e5caaa7e-5068-4170-828c-e70bb5a165d1"],
+    "useCases": [
+      "ior:instance:e5caaa7e-5068-4170-828c-e70bb5a165d1"
+    ],
     "intendedChain": {
-      "useCase": "traceGraph.buildFromIndex — build trace graph from scenario index units, not md scan",
+      "useCase": "traceGraph.buildFromIndex \u2014 build trace graph from scenario index units, not md scan",
       "class": "TraceGraph",
-      "method": "buildFromScenarioIndex — walk scenario/index units, resolve forward-keys per type, build graph (replaces scanRepo)",
-      "test": "RED: /api/trace/children/<uuid> returns same results from unit-walk as from scanRepo (parity). Then: disable scanRepo → still works."
+      "method": "buildFromScenarioIndex \u2014 walk scenario/index units, resolve forward-keys per type, build graph (replaces scanRepo)",
+      "test": "RED: /api/trace/children/<uuid> returns same results from unit-walk as from scanRepo (parity). Then: disable scanRepo \u2192 still works."
     }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
