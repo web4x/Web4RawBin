@@ -48,6 +48,22 @@ describe('Phase 2: /api/trace parity (ScenarioIndex-sourced)', () => {
     expect(newUuids.size).toBeGreaterThan(2000);
   });
 
+  it('Bug nodes >= 14 and ChangeRequest nodes >= 1 in scenario index', () => {
+    const scenarioDir = path.resolve(__dirname, '../../scenario/index');
+    if (!fs.existsSync(scenarioDir)) return;
+    const idx = new ScenarioIndex(scenarioDir);
+    let bugCount = 0, crCount = 0;
+    for (const uuid of idx.list()) {
+      const unit = idx.get(uuid);
+      if (!unit) continue;
+      const t = unit.ior.replace('ior:class:', '').toLowerCase();
+      if (t === 'bug') bugCount++;
+      if (t === 'changerequest') crCount++;
+    }
+    expect(bugCount).toBeGreaterThanOrEqual(14);
+    expect(crCount).toBeGreaterThanOrEqual(1);
+  });
+
   it('zero removals vs pre-switch baseline (if baseline exists)', () => {
     const baselinePath = '/tmp/pre-switch-uuids.json';
     if (!fs.existsSync(baselinePath)) return;

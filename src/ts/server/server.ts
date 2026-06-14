@@ -608,26 +608,21 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       try {
         const scenarioDir = path.join(__dirname, '../../../scenario/index');
         const idx = new ScenarioIndex(scenarioDir);
-        const SCENARIO_FORWARD: Record<string, string[]> = {
-          class: ['methods'], method: ['implementations'], implementation: ['tests'],
-          usecase: ['classes'], task: ['useCases', 'children', 'subtasks'],
-          requirement: ['useCases', 'tasks'], sprint: ['tasks', 'requirements'],
-          bug: ['tasks'], cr: ['tasks'], room: ['members', 'files'],
-          tracelink: ['from', 'to'], file: [], user: [], skill: [],
-        };
         const graph = new TraceGraph();
         for (const uuid of idx.list()) {
           const unit = idx.get(uuid);
           if (!unit) continue;
-          const iorType = unit.ior.replace('ior:class:', '').toLowerCase() as ObjectType;
+          const iorType = unit.ior.replace('ior:class:', '').toLowerCase();
+          const baseType = (iorType === 'bug' || iorType === 'changerequest') ? 'requirement' : iorType;
           if (!graph.has(uuid)) {
-            try { makeObject(graph, iorType, uuid, String(unit.model.name || '')); } catch { continue; }
+            try { makeObject(graph, baseType as ObjectType, uuid, String(unit.model.name || '')); } catch { continue; }
           }
           const obj = graph.get(uuid);
           if (!obj) continue;
+          if (iorType !== baseType) (obj as any).type = iorType;
           if (unit.model.name) obj.title = String(unit.model.name);
           if (unit.model.status) obj.status = String(unit.model.status);
-          for (const key of (SCENARIO_FORWARD[iorType] || [])) {
+          for (const key of scenarioFwd(iorType)) {
             const refs = (unit.model as Record<string, unknown>)[key];
             if (!Array.isArray(refs)) continue;
             for (const ref of refs) {
@@ -637,9 +632,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           }
         }
         const forwardOnlyObjects = graph.toJSON().map((obj: FlatObject) => {
-          const fwdKey = FORWARD_KEYS[obj.type];
+          const fwdKeys = traceFwd(obj.type);
           const links: Record<string, string[]> = {};
-          if (fwdKey && obj.links[fwdKey]) links[fwdKey] = obj.links[fwdKey];
+          for (const k of fwdKeys) { if (obj.links[k]) links[k] = obj.links[k]; }
           return { ...obj, links };
         });
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
