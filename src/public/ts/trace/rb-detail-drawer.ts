@@ -70,7 +70,7 @@ export class RbDetailDrawer extends HTMLElement {
       const ref = this.getAttribute('ref');
       if (ref) {
         this.setAttribute('open', '');
-        this.renderDetailForRef(ref);
+        if (!ref.startsWith('file:')) this.renderDetailForRef(ref);
       } else {
         this.removeAttribute('open');
       }
@@ -84,16 +84,16 @@ export class RbDetailDrawer extends HTMLElement {
   private async renderDetailForRef(ref: string): Promise<void> {
     const panel = this.detailPanel;
     if (!panel || panel.dataset.currentRef === ref) return;
-    panel.dataset.currentRef = ref;
-    this.setMode('detail');
     const colonIdx = ref.indexOf(':');
     const type = colonIdx > 0 ? ref.slice(0, colonIdx) : 'unknown';
     const uuid = colonIdx > 0 ? ref.slice(colonIdx + 1) : ref;
+    if (type === 'collection') return;
+    panel.dataset.currentRef = ref;
+    this.setMode('detail');
     const tagMap: Record<string, string> = {
       requirement: 'rb-requirement-detail', task: 'rb-task-detail', usecase: 'rb-usecase-detail',
       class: 'rb-class-detail', method: 'rb-method-detail', implementation: 'rb-implementation-detail',
-      test: 'rb-test-detail', file: 'rb-file-detail', bug: 'rb-requirement-detail',
-      changerequest: 'rb-requirement-detail',
+      test: 'rb-test-detail',
     };
     const tag = tagMap[type] || 'rb-detail-view';
     panel.innerHTML = '';
@@ -171,7 +171,7 @@ export class RbDetailDrawer extends HTMLElement {
     return '<div class="drawer-handle"><div class="drawer-handle-bar"></div></div>';
   }
 
-  // [impl:uuid:01771d5b-a1b2-4c3d-8e4f-5a6b7c8d9e0f] R19.84 drawer.dragResize
+  // [impl:uuid:cea22d12-cdae-4c25-a1e8-4231b1d46eb1] R19.84 handleDragResize
   // [impl:uuid:79601135-a1b2-4c3d-8e4f-5a6b7c8d9e03] R19.86 dismiss threshold
   private onTouchStart = (e: TouchEvent): void => {
     const handle = this.querySelector('.drawer-handle');

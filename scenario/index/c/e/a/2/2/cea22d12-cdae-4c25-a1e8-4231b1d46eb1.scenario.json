@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "cea22d12-cdae-4c25-a1e8-4231b1d46eb1",
+    "name": "handleDragResize impl",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "sourceLine": 175,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:dc130f76-b938-497c-ba45-3b90ae8817d6"
+}
