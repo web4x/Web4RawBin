@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "dc130f76-b938-497c-ba45-3b90ae8817d6",
+    "name": "RbDetailDrawer.handleDragResize",
+    "description": "Named method extracted from onTouchStart/Move/End drag-resize logic (lines 172-214). Handles touchstart on .drawer-handle \u2192 track startY+startHeight, touchmove \u2192 clamp height [120,95vh], touchend \u2192 close if <120. Expert adds real [impl:uuid] on declaration.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+}

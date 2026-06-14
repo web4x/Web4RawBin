@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "8d5182ba-bfd1-4a58-b31b-3190bcae15e9",
+    "name": "detailDrawer.close",
+    "description": "R19.33: close the drawer \u2014 removeAttribute ref+open, reset height, clear selection. close() at rb-detail-drawer.ts:107 is a REAL named method. Expert adds genuine [impl:uuid] ON the close() declaration (replacing split-for d0235605).",
+    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "method": "ior:instance:91efe513-c8f2-4cbc-801a-d808b63a7650",
+    "tasks": [
+      "ior:instance:3c7d1853-a5ee-4c7c-9c94-04b2e4f5bbb4"
+    ],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e4395c35-4087-4df8-a602-9a236c102106",
+    "name": "RbDetailDrawer.renderFilePreview",
+    "description": "Named method for rendering file preview content (renderContentPreview + loadTextPreview + wireUrlActions). Expert extracts from openFilePreview or creates on RbDetailDrawer. Real [impl:uuid] on declaration.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+}

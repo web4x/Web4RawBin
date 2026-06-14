@@ -17,7 +17,10 @@
       "ior:instance:bd35b1c8-469d-45f9-b7b3-c26bdc62eb6e",
       "ior:instance:034c4842-d21c-4d1f-ae43-d7be70ced589"
     ],
-    "refinementOfNote": "Refines R19.79 (nudge visible) + R19.80 (95% max). R19.79 added the visual handle; R19.84 adds the INTERACTION \u2014 drag-resize. R19.80 set max-height CSS only; R19.84 adds the real-time drag handler that changes height up to that max."
+    "refinementOfNote": "Refines R19.79 (nudge visible) + R19.80 (95% max). R19.79 added the visual handle; R19.84 adds the INTERACTION \u2014 drag-resize. R19.80 set max-height CSS only; R19.84 adds the real-time drag handler that changes height up to that max.",
+    "useCases": [
+      "ior:instance:2bf41a1b-74a2-49bd-ad38-c445e898fe49"
+    ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

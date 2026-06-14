@@ -18,7 +18,8 @@
     ],
     "crossRefNote": "R19.65 (generic previewer) renders the content. R19.63 defines WHERE it appears (detail drawer on file click).",
     "useCases": [
-      "ior:instance:f604fe2f-aa04-4314-b50c-caa247e1b0aa"
+      "ior:instance:f604fe2f-aa04-4314-b50c-caa247e1b0aa",
+      "ior:instance:e3d1ff70-04ef-4402-b79e-ddad1a9654b7"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
