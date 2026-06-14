@@ -232,3 +232,45 @@ private async renderDetailForRef(ref: string): Promise<void> {
 - Playwright: select item → assert detail content renders in drawer (NOT empty)
 - Playwright: tap file item → drawer switches to preview → tap back → chat messages still there
 - Screenshot: one drawer visible, no second overlay, detail content populated on selection
+
+### SINGLE-RENDER GUARANTEE (no double-render on /trace)
+
+**Risk:** On /trace, TraceRouter's `drawerShowHandler` (index.ts:158) renders detail content into drawer.body AND sets `drawer.setAttribute('ref', ...)`. That ref change fires `attributeChangedCallback` → `renderDetailForRef()` would render AGAIN = double-render.
+
+**Fix: drawer owns rendering, router delegates.**
+
+Remove detail-rendering from `drawerShowHandler`. It becomes a thin delegate:
+
+```typescript
+// index.ts — drawerShowHandler SIMPLIFIED:
+function drawerShowHandler(drawer: HTMLElement, tagName: string): VerbHandler {
+  return (ctx: VerbContext) => {
+    const { obj, params } = ctx;
+    const uuid = params.uuid || '';
+    const ref = obj ? obj.ref() : (uuid ? `unknown:${uuid}` : '');
+    if (!ref) { drawer.removeAttribute('ref'); return; }
+    // ONLY set ref — drawer's attributeChangedCallback does the rendering
+    drawer.setAttribute('ref', ref);
+    // If graph is available, pass it to the drawer for richer rendering
+    (drawer as any)._graph = ctx.graph;
+  };
+}
+```
+
+The router sets `ref` + optionally passes graph. The drawer's `attributeChangedCallback` → `renderDetailForRef()` handles ALL rendering. ONE code path for both /trace and in-room.
+
+**renderDetailForRef guards:**
+```typescript
+private async renderDetailForRef(ref: string): Promise<void> {
+  // Guard: if panel already shows this ref, skip (idempotent)
+  const panel = this.body.querySelector('.drawer-panel-detail') as HTMLElement;
+  if (panel?.dataset.currentRef === ref) return;
+  panel.dataset.currentRef = ref;
+  // ... render ...
+}
+```
+
+**Graph-aware rendering (bonus for /trace):**
+If `this._graph` is set (TraceRouter passed it), the detail element gets `el.graph = this._graph` for richer in-memory rendering (no fetch needed). If no graph (in-room), falls back to `/api/trace/children` fetch. Same element, two data sources.
+
+**Result:** EXACTLY ONCE render per ref change, regardless of whether TraceRouter or SelectionModel triggered it.
