@@ -50,6 +50,10 @@
       "robbin-req",
       "robbin-planner",
       "robbin-architect"
+    ],
+    "bugs": [
+      "ior:instance:12cf7bb5-36d5-415e-92b2-75b14fb5cc23",
+      "ior:instance:1b216edc-d0e8-402e-b413-4be61f318e26"
     ]
   },
   "ownerIor": null
