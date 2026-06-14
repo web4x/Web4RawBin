@@ -25,10 +25,12 @@ export async function ensureSystemTester(browser: Browser): Promise<Page> {
   const context = await browser.newContext({ ignoreHTTPSErrors: true });
   const page = await context.newPage();
 
-  await page.goto(`${VERIFY_BASE_URL}/app`);
+  // Seed token BEFORE app boots — navigate to a non-app page first to set origin context
+  await page.goto(`${VERIFY_BASE_URL}/api/health`);
   await page.evaluate((token) => {
     localStorage.setItem('rawbin-player-id', token);
   }, SYSTEM_TESTER.token);
+  // NOW load the app — WS connects WITH the token already present → reuses SystemTester
   await page.goto(`${VERIFY_BASE_URL}/app`);
   await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
 
