@@ -84,6 +84,7 @@ export class RbDetailDrawer extends HTMLElement {
 
   // [impl:uuid:dbddf408-60f3-4094-91b6-268861d651c6] R20.10 renderDetailForRef
   private async renderDetailForRef(ref: string): Promise<void> {
+    this.setMode('detail');
     const panel = this.detailPanel;
     if (!panel || panel.dataset.currentRef === ref) return;
     const colonIdx = ref.indexOf(':');
@@ -96,7 +97,6 @@ export class RbDetailDrawer extends HTMLElement {
       const roomUuid = parts.slice(1).join('-');
       if (!roomUuid) return;
       panel.dataset.currentRef = ref;
-      this.setMode('detail');
       panel.innerHTML = `<h3 style="color:white;margin:0 0 8px;font-size:0.9rem">${kind === 'members' ? 'Members' : 'Files'}</h3><div class="dv-loading">Loading...</div>`;
       try {
         const res = await fetch(`/api/trace/children/${roomUuid}`);
@@ -109,7 +109,6 @@ export class RbDetailDrawer extends HTMLElement {
       return;
     }
     panel.dataset.currentRef = ref;
-    this.setMode('detail');
     const tagMap: Record<string, string> = {
       requirement: 'rb-requirement-detail', task: 'rb-task-detail', usecase: 'rb-usecase-detail',
       class: 'rb-class-detail', method: 'rb-method-detail', implementation: 'rb-implementation-detail',
