@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "1a938c60-876d-4e74-bf4c-5b3af6a155b4",
+    "name": "RoomView impl marker",
+    "sourceFile": "ior:file:src/public/ts/RoomView.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

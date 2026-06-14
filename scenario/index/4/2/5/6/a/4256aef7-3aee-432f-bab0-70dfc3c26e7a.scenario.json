@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4256aef7-3aee-432f-bab0-70dfc3c26e7a",
+    "name": "scenario-view impl marker",
+    "sourceFile": "ior:file:src/public/ts/trace/",
+    "tests": []
+  },
+  "ownerIor": null
+}

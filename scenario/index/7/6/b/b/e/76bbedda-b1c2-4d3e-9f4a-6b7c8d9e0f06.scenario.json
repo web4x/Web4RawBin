@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "76bbedda-b1c2-4d3e-9f4a-6b7c8d9e0f06",
+    "name": "classes.ts impl marker",
+    "sourceFile": "ior:file:src/ts/scenario/classes.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

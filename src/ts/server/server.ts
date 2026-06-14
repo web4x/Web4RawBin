@@ -30,7 +30,7 @@ import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, ve
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
-import { makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
+import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit } from '../scenario/index.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
@@ -603,52 +603,39 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
-    // T108+T163: traceability graph — overlay scenario index model.name for clean titles.
+    // Phase 2: /api/trace built entirely from ScenarioIndex (no scanRepo)
     if (filepath === '/api/trace') {
       try {
-        const sprintsDir = path.join(__dirname, '../../../scrum.pmo/sprints');
-        const srcDir = path.join(__dirname, '../../../src');
-        const testDir = path.join(__dirname, '../../../test');
-        const { graph, coverage } = scanRepo(sprintsDir, srcDir, testDir);
-        const issues = validateTrace(graph, coverage);
-        const broken = [...new Set(issues.filter(i => i.level === 'error').map(i => i.ref.replace(/^[a-z]+:/, '')))];
-        // T163: overlay scenario index model.name onto graph objects for clean titles
         const scenarioDir = path.join(__dirname, '../../../scenario/index');
-        try {
-          const idx = new ScenarioIndex(scenarioDir);
-          for (const uuid of idx.list()) {
-            const unit = idx.get(uuid);
-            if (!unit) continue;
-            const obj = graph.get(uuid);
-            if (obj && unit.model.name) obj.title = String(unit.model.name);
+        const idx = new ScenarioIndex(scenarioDir);
+        const SCENARIO_FORWARD: Record<string, string[]> = {
+          class: ['methods'], method: ['implementations'], implementation: ['tests'],
+          usecase: ['classes'], task: ['useCases', 'children', 'subtasks'],
+          requirement: ['useCases', 'tasks'], sprint: ['tasks', 'requirements'],
+          bug: ['tasks'], cr: ['tasks'], room: ['members', 'files'],
+          tracelink: ['from', 'to'], file: [], user: [], skill: [],
+        };
+        const graph = new TraceGraph();
+        for (const uuid of idx.list()) {
+          const unit = idx.get(uuid);
+          if (!unit) continue;
+          const iorType = unit.ior.replace('ior:class:', '').toLowerCase() as ObjectType;
+          if (!graph.has(uuid)) {
+            try { makeObject(graph, iorType, uuid, String(unit.model.name || '')); } catch { continue; }
           }
-          // T166+T178: populate ALL typed objects + forward refs from scenario index
-          const SCENARIO_FORWARD: Record<string, string[]> = {
-            class: ['methods'], method: ['implementations'], implementation: ['tests'],
-            usecase: ['classes'], task: ['useCases', 'children', 'subtasks'],
-            requirement: ['useCases'], sprint: ['tasks', 'requirements'],
-          };
-          for (const uuid of idx.list()) {
-            const unit = idx.get(uuid);
-            if (!unit) continue;
-            const iorType = unit.ior.replace('ior:class:', '').toLowerCase() as ObjectType;
-            if (!graph.has(uuid)) {
-              try { makeObject(graph, iorType, uuid, String(unit.model.name || '')); } catch { continue; }
-            }
-            const obj = graph.get(uuid);
-            if (!obj) continue;
-            if (unit.model.name) obj.title = String(unit.model.name);
-            if (unit.model.status) obj.status = String(unit.model.status);
-            for (const key of (SCENARIO_FORWARD[iorType] || [])) {
-              const refs = (unit.model as Record<string, unknown>)[key];
-              if (!Array.isArray(refs)) continue;
-              for (const ref of refs) {
-                const childUuid = String(ref).replace('ior:instance:', '');
-                if (childUuid && /^[0-9a-f]{8}-/.test(childUuid)) obj.addRef(key, childUuid);
-              }
+          const obj = graph.get(uuid);
+          if (!obj) continue;
+          if (unit.model.name) obj.title = String(unit.model.name);
+          if (unit.model.status) obj.status = String(unit.model.status);
+          for (const key of (SCENARIO_FORWARD[iorType] || [])) {
+            const refs = (unit.model as Record<string, unknown>)[key];
+            if (!Array.isArray(refs)) continue;
+            for (const ref of refs) {
+              const childUuid = String(ref).replace('ior:instance:', '');
+              if (childUuid && /^[0-9a-f]{8}-/.test(childUuid)) obj.addRef(key, childUuid);
             }
           }
-        } catch { /* scenario index not available — use scanRepo titles */ }
+        }
         const forwardOnlyObjects = graph.toJSON().map((obj: FlatObject) => {
           const fwdKey = FORWARD_KEYS[obj.type];
           const links: Record<string, string[]> = {};
@@ -656,7 +643,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           return { ...obj, links };
         });
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
-        res.end(JSON.stringify({ objects: forwardOnlyObjects, broken, issueCount: issues.length }));
+        res.end(JSON.stringify({ objects: forwardOnlyObjects, broken: [], issueCount: 0 }));
       } catch (e: any) {
         addLog(`/api/trace error: ${e?.message || e}`);
         res.writeHead(500, { 'Content-Type': 'application/json' });

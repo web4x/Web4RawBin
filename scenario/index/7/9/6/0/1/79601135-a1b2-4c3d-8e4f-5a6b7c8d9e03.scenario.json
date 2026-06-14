@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "79601135-a1b2-4c3d-8e4f-5a6b7c8d9e03",
+    "name": "rb-detail-drawer impl marker",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}
