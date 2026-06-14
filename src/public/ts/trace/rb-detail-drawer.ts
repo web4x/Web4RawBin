@@ -101,7 +101,8 @@ export class RbDetailDrawer extends HTMLElement {
       try {
         const res = await fetch(`/api/trace/children/${roomUuid}`);
         const data = await res.json();
-        const children = (data.children || []).filter((c: any) => kind === 'members' ? c.type === 'Member' || c.type === 'User' : c.type === 'File');
+        const coll = (data.children || []).find((c: any) => c.uuid === uuid);
+        const children = coll?.children || [];
         panel.innerHTML = `<h3 style="color:white;margin:0 0 8px;font-size:0.9rem">${kind === 'members' ? 'Members' : 'Files'} (${children.length})</h3>` +
           (children.length === 0 ? '<div class="dv-empty">None</div>' :
           children.map((c: any) => `<div class="dv-link" data-ref="${(c.type || '').toLowerCase()}:${c.uuid}"><span class="dv-rel">${c.type}</span><span class="dv-link-title">${c.name || c.uuid}</span></div>`).join(''));
