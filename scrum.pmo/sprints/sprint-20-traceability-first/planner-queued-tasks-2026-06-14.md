@@ -35,7 +35,11 @@
 - **Leaf/file-fix** = BUG9 (remove 'file' from tagMap) + BUG11 (remove OLD dual-path → single selection→renderDetailForRef).
 All 4 diagnosed, RED-tested, forward-traceable, QUEUED for Tron's clear. BUG11 = PRIORITY (regression).
 
-## QUEUE-5: Landscape-responsive design (CSS-only, new feature)
-**Owner:** req capture → architect design (done) → expert. **Status:** QUEUED (when Tron prioritizes).
-**Design (architect):** CSS-only — @media (orientation:landscape) and (max-width:1024px) switches both .trace-page and .room-view from flex-direction:column → row. Tree=left, drawer=right (side-by-side). No JS. Same zero-overlap structural guarantee as portrait. Portrait unchanged.
-**Note:** interacts cleanly with all queued BUG8-11 fixes + drawer consolidation. Acceptance: landscape ≤1024px shows tree-left/drawer-right side-by-side, zero overlap; portrait unchanged.
+## QUEUE-5: Landscape-responsive design — REQ R20.9 [678ed4f1]
+**Owner:** req R20.9 678ed4f1 (intendedChain defined) → architect design (done) → expert. **Status:** QUEUED (when Tron prioritizes).
+**Design (architect, PO-detailed):** CSS-only — @media (orientation:landscape) and (max-width:1024px) → .trace-page/.room-view flex-direction:row (side-by-side):
+- tree LEFT (flex:1, scroll, border-right)
+- drawer RIGHT (position:static, flex:1, max-width:50vw, FULL-height — not the 40vh-cap; grab-bar hides, as it already does at ≥1025)
+- orientation+max-width:1024 limits to NARROW landscape; desktop ≥1025 already side-by-side (unchanged); portrait UNCHANGED.
+**Interactions (all compatible):** BUG5 zero-overlap (side-by-side), BUG8-11 renderDetailForRef layout-independent, ChatPanel layout-independent.
+**Acceptance:** narrow landscape (≤1024px) shows tree-left/drawer-right side-by-side, zero overlap, drawer full-height; portrait + desktop ≥1025 unchanged.
