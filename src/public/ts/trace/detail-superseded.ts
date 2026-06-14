@@ -12,6 +12,7 @@ function toArr(v: unknown): string[] {
   return Array.isArray(v) ? v : [String(v)];
 }
 
+// [impl:uuid:45cfa001-a50a-4554-9f6a-3b641a9174aa] renderSupersededSection
 export function renderSupersededSection(container: HTMLElement, uuid: string): void {
   fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.json()).then(iorData => {
     const model = iorData.unit?.model || {};
@@ -34,6 +35,7 @@ export function renderSupersededSection(container: HTMLElement, uuid: string): v
   }).catch(() => {});
 }
 
+// [impl:uuid:308008bf-70eb-4b87-82ef-d76c97590c07] renderAllChildrenSection
 export function renderAllChildrenSection(container: HTMLElement, children: { uuid: string; type: string; name: string }[]): void {
   if (children.length === 0) return;
   const secEl = document.createElement('div');
