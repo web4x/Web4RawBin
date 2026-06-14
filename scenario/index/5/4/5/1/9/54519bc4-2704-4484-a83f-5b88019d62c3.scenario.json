@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "54519bc4-2704-4484-a83f-5b88019d62c3",
+    "name": "T: TestCase + Gate as 1st-class scenario units (R20.20 + R20.21)",
+    "status": "planned",
+    "coveredRequirements": [
+      "ior:instance:1e3f9799-943f-4716-b116-78a202301d02",
+      "ior:instance:102ab818-ca11-4272-8ee8-74b9e4d8298a"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
