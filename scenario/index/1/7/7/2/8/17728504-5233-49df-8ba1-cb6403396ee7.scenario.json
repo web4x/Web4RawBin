@@ -10,11 +10,7 @@
     "mode": "persistent",
     "roomKey": "wertzu",
     "state": "active",
-<<<<<<< HEAD
     "createdAt": 1781470539541,
-=======
-    "createdAt": 1781470146131,
->>>>>>> 0a0d601e28838e54f6601ce107323c1b6e3c6e0e
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAprFHjdx1+e8HDnFRCw3F\nHRWh5Q2bcn1bEL3dW1eY9b+X17L10jVWuvQFYh180H5qgPwk7xio05cw99GfDKEU\nITDsXIM+Cd9o+O8pKWHI+QAtrpD+j9h0WQYEc28TQIckHsBhGOZp/Y0u4Shpqv2j\n/bFjKa3QLhyrs66hUVOnpbej/vzqciFWGlyGp4wdn5i3UoiLTZ82hnXvht+1R6Cj\nT2CUxUo94k10+sxXrrcgmgduEVD8SCNQK9agiLIjTCmP8HwFqantg8jqQOeMtBcZ\nBr+3j+3AbXtQ3mARxwqX9GK2ZGk1GGGywKieroxQoWL3Ja9COpWOMj9cChUfHeD0\nlwIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [],
@@ -24,22 +20,8 @@
         "name": "",
         "role": "owner",
         "status": "offline",
-<<<<<<< HEAD
-        "joinedAt": 1781470539542
-=======
         "joinedAt": 1781470146131
->>>>>>> 0a0d601e28838e54f6601ce107323c1b6e3c6e0e
-      },
-      {
-        "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
-        "name": "",
-        "role": "owner",
-        "status": "online",
-<<<<<<< HEAD
         "joinedAt": 1781470539542
-=======
-        "joinedAt": 1781470146131
->>>>>>> 0a0d601e28838e54f6601ce107323c1b6e3c6e0e
       }
     ],
     "files": [
