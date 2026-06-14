@@ -24,6 +24,9 @@
     },
     "implementations": [
       "ior:instance:36934fe3-c15b-4429-8aa2-48c79e674688"
+    ],
+    "useCases": [
+      "ior:instance:38204812-e251-438a-be74-14c3c7291d3c"
     ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

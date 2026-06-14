@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "38204812-e251-438a-be74-14c3c7291d3c",
+    "name": "collectionDetail.resolveViaParent",
+    "description": "Synthetic collection detail fetches children from parent Room's trace-children API instead of fetching the synthetic UUID as a unit.",
+    "class": "ior:instance:TODO-RbDetailDrawer-class-uuid",
+    "method": "ior:instance:TODO-renderDetailForRef-method-uuid"
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
