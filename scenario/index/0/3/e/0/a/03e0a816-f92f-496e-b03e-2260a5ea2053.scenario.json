@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "03e0a816-f92f-496e-b03e-2260a5ea2053",
+    "altId": "R20.14",
+    "name": "R20.14: Realtime Traceability Skill — CMM3 automated: bug/req fix-chain renders on /trace in realtime, zero manual steps.",
+    "description": "Building a bug/requirement fix-chain MUST render on /trace in REALTIME as the team works — zero manual steps. A SKILL (CMM3 automated) drives this: when the team creates/advances a chain (req→UC→Class→Method→Impl→Test), the /trace view updates live without manual refresh or re-deploy. The skill orchestrates: capture req → architect UC+Class+Method → expert Impl → tester Test → each hop appears on /trace as it lands. This is the CurrentSprint.renderLiveChain (R20.13.A) driven by a skill that automates the chain-building lifecycle.",
+    "tronQuote": "> TRON (18:09): \"make it cmm3 automated as a skill… a realtime skill\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:0665cb0a-895d-4a69-b712-8b2ec5ba3ff3",
+      "ior:instance:c559452e-cd2e-4792-b28c-9f31b88ebbb4"
+    ],
+    "crossRefNote": "R20.13.A (realtime tree-chain view) is the render. R20.13 (CurrentSprint class) is the data. R20.14 is the SKILL that automates the chain-building lifecycle so it renders in realtime with zero manual steps.",
+    "intendedChain": {
+      "useCase": "realtimeTraceabilitySkill.driveChain — skill automates chain-building lifecycle, each hop renders on /trace as it lands",
+      "class": "RealtimeTraceabilitySkill (OOSH Object.verb skill class)",
+      "method": "driveChain / onChainAdvance / renderHopLive",
+      "test": "RED: skill creates a req → UC appears on /trace without manual action. Expert adds impl → /trace updates live. Currently FAILS (manual refresh needed)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
