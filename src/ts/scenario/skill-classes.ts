@@ -249,9 +249,11 @@ export class Chain {
     for (const ucIorStr of ucIors) {
       const ucUuid = ior(ucIorStr);
       const ucM = this.model(ucUuid);
+      if (reqUuid.startsWith('a97c')) console.error(`[DEBUG ${reqUuid.slice(0,8)}] ucUuid=${ucUuid.slice(0,8)} ucM=${!!ucM} classes=${JSON.stringify((ucM as any)?.classes)}`);
       if (!ucM) continue;
       const clsIors = (ucM.classes as string[]) || [];
       if (clsIors.length === 0) {
+        if (reqUuid.startsWith('a97c')) console.error(`[DEBUG ${reqUuid.slice(0,8)}] clsIors EMPTY -> open architect`);
         results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'open architect', method: 'open', impl: 'open', test: 'open', complete: false,
           openNodes: [{ node: 'Class', owner: 'architect', action: 'Wire Class to UC', iorShort: short(ucUuid) }] });
         continue;
@@ -264,8 +266,8 @@ export class Chain {
       for (const clsIorStr of clsIors) {
         const clsUuid = ior(clsIorStr);
         const clsM = this.model(clsUuid);
-        if (!clsM) continue;
-        const methIors = ucMethodUuid ? [ucMethodIor] : ((clsM.methods as string[]) || []);
+        if (!clsM && !ucMethodUuid) continue; // Class unit missing AND no direct UC.method → skip
+        const methIors = ucMethodUuid ? [ucMethodIor] : ((clsM?.methods as string[]) || []);
         if (methIors.length === 0) {
           results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: 'open architect', impl: 'open', test: 'open', complete: false,
             openNodes: [{ node: 'Method', owner: 'architect', action: 'Wire Method to Class', iorShort: short(clsUuid) }] });
