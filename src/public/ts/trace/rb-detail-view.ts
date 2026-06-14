@@ -133,6 +133,7 @@ export class RbDetailView extends HTMLElement {
         previewBtn.textContent = `Preview ${fm.name || title}`;
         const linksEl = this.querySelector('.dv-links');
         if (linksEl) linksEl.insertAdjacentElement('beforebegin', previewBtn);
+        // [impl:uuid:71954a38-ec79-4bc6-8fd9-9cfdd9a8e1bd] R19.63 renderFilePreview
         previewBtn.addEventListener('click', () => {
           const preview = renderContentPreview(uuid, fm.mimeType || '', fm.name || title, tok);
           previewBtn.insertAdjacentHTML('afterend', preview);

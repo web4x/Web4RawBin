@@ -4,7 +4,9 @@
     "uuid": "91efe513-c8f2-4cbc-801a-d808b63a7650",
     "name": "RbDetailDrawer.close",
     "description": "close() at rb-detail-drawer.ts:107. Removes ref+open attrs, resets height/maxHeight, clears selectionModel. Already a REAL named method. Expert adds genuine [impl:uuid] on the declaration line (replaces stickyBottom split-for markers).",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:2e4ff35c-6286-4400-a2c8-d6ebfde62638"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"

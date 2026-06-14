@@ -80,6 +80,7 @@ export class RbDetailDrawer extends HTMLElement {
   private _graph: any = null;
   set graph(g: any) { this._graph = g; }
 
+  // [impl:uuid:dbddf408-60f3-4094-91b6-268861d651c6] R20.10 openForRef
   private async renderDetailForRef(ref: string): Promise<void> {
     const panel = this.detailPanel;
     if (!panel || panel.dataset.currentRef === ref) return;
@@ -104,6 +105,7 @@ export class RbDetailDrawer extends HTMLElement {
   }
 
   // [impl:uuid:e76330fe-e29d-4587-b113-a1ed940ce62c] R20.6 removeDefaultHighlight keep-X
+  // [impl:uuid:2e4ff35c-6286-4400-a2c8-d6ebfde62638] R20.11 close
   close(): void {
     this.removeAttribute('ref');
     this.removeAttribute('open');

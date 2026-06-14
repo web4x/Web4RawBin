@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "dbddf408-60f3-4094-91b6-268861d651c6",
+    "name": "openForRef impl",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "sourceLine": 84,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0a902bff-b5c3-47ef-a1b3-37fe52b4c82d"
+}

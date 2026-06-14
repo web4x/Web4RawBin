@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "71954a38-ec79-4bc6-8fd9-9cfdd9a8e1bd",
+    "name": "renderFilePreview impl",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-view.ts",
+    "sourceLine": 136,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:e4395c35-4087-4df8-a602-9a236c102106"
+}

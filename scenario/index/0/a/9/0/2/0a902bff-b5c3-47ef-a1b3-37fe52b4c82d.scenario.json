@@ -4,7 +4,9 @@
     "uuid": "0a902bff-b5c3-47ef-a1b3-37fe52b4c82d",
     "name": "RbDetailDrawer.openForRef",
     "description": "Named method extracted from attributeChangedCallback: sets [open] attr + calls renderDetailForRef(ref). Expert adds [impl:uuid] on the function declaration. Currently inline in attributeChangedCallback lines 68-77.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:dbddf408-60f3-4094-91b6-268861d651c6"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
