@@ -159,15 +159,15 @@ function drawerShowHandler(drawer: HTMLElement, tagName: string): VerbHandler {
   return (ctx: VerbContext) => {
     const { obj, graph, params } = ctx;
     const uuid = params.uuid || '';
-    const ref = obj ? obj.ref() : `${params.uuid ? 'unknown:' + params.uuid : ''}`;
     if (!obj && !uuid) { drawer.removeAttribute('ref'); return; }
-    const body = (drawer as any).body || drawer;
-    body.innerHTML = '';
+    const panel = (drawer as any).detailPanel || (drawer as any).body || drawer;
+    panel.innerHTML = '';
     const el = document.createElement(tagName) as HTMLElement & { graph: TraceGraph };
     el.graph = graph;
     el.setAttribute('ref', obj ? obj.ref() : `unknown:${uuid}`);
     if (uuid) el.setAttribute('uuid', uuid);
-    body.appendChild(el);
+    panel.appendChild(el);
+    if ((drawer as any).setMode) (drawer as any).setMode('detail');
     drawer.setAttribute('ref', obj ? obj.ref() : `unknown:${uuid}`);
   };
 }

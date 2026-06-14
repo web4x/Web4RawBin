@@ -19,12 +19,15 @@
  */
 
 import { selectionModel } from './selection-model.js';
+import { ChatPanel } from './ChatPanel.js';
 
 export class RbDetailDrawer extends HTMLElement {
   static get observedAttributes() { return ['ref', 'open']; }
   private startY = 0;
   private startHeight = 0;
   private dragging: 'resize' | 'dismiss' | false = false;
+  private chatPanel: ChatPanel | null = null;
+  private _mode: 'chat' | 'detail' | 'preview' = 'chat';
 
   // [impl:uuid:94f6e1f8-84a8-4ca5-9a44-6108ef6201bc] R20.6 selectionDriven drawer
   connectedCallback(): void {
@@ -44,12 +47,13 @@ export class RbDetailDrawer extends HTMLElement {
     document.removeEventListener('selection-changed', this.onSelectionChanged);
   }
 
+  // [impl:uuid:e927ecfe-6fba-4a91-aa74-ed13da8e8fe4] RbDetailDrawer.onSelectionChanged
   private onSelectionChanged = (e: Event): void => {
     const selected = (e as CustomEvent).detail?.selected || [];
     if (selected.length === 1) {
       this.setAttribute('ref', selected[0]);
     } else if (selected.length === 0) {
-      // [impl:uuid:c3c70517-a1b2-4c3d-8e4f-5a6b7c8d9e0a] R20.6 emptyShowsChat
+      // [impl:uuid:c3c70517-b56c-4765-94ae-cb677601f99c] R20.6 emptyShowsChat
       this.removeAttribute('ref');
       this.removeAttribute('open');
     }
@@ -94,9 +98,41 @@ export class RbDetailDrawer extends HTMLElement {
         ${this.renderGrabBar()}
         <button class="drawer-close" title="Close">✕</button>
       </div>
-      <div class="drawer-body"></div>`;
+      <div class="drawer-body" style="display:flex;flex-direction:column">
+        <div class="drawer-panel-chat" style="display:flex;flex-direction:column;flex:1;min-height:0"></div>
+        <div class="drawer-panel-detail" style="display:none"></div>
+        <div class="drawer-panel-preview" style="display:none"></div>
+      </div>`;
     this.querySelector('.drawer-handle')!.addEventListener('click', () => this.close());
     this.querySelector('.drawer-close')!.addEventListener('click', () => this.close());
+    const chatContainer = this.querySelector('.drawer-panel-chat') as HTMLElement;
+    if (chatContainer && !this.chatPanel) {
+      this.chatPanel = new ChatPanel(chatContainer);
+    }
+  }
+
+  setMode(m: 'chat' | 'detail' | 'preview'): void {
+    this._mode = m;
+    for (const [cls, active] of [['chat', m === 'chat'], ['detail', m === 'detail'], ['preview', m === 'preview']] as const) {
+      const el = this.querySelector(`.drawer-panel-${cls}`) as HTMLElement;
+      if (el) el.style.display = active ? 'flex' : 'none';
+    }
+  }
+
+  get chat(): ChatPanel | null {
+    if (!this.chatPanel) {
+      const panel = this.querySelector('.drawer-panel-chat') as HTMLElement;
+      if (panel) this.chatPanel = new ChatPanel(panel);
+    }
+    return this.chatPanel;
+  }
+
+  get detailPanel(): HTMLElement {
+    return this.querySelector('.drawer-panel-detail') as HTMLElement;
+  }
+
+  get previewPanel(): HTMLElement {
+    return this.querySelector('.drawer-panel-preview') as HTMLElement;
   }
 
   // [impl:uuid:58abb87f-90c2-478c-8c4b-a7cb953519bf] R20.2 renderGrabBar

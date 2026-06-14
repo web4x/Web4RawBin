@@ -11,8 +11,6 @@ import { MSG } from '../../shared/MessageTypes.js';
 import './components/rb-header.js';
 import './components/rb-qr-popup.js';
 import type { RbQrPopup } from './components/rb-qr-popup.js';
-import './components/rb-chat-sheet.js';
-import type { RbChatSheet } from './components/rb-chat-sheet.js';
 import './components/rb-member-list.js';
 import './components/rb-avatar.js';
 import './trace/rb-object-item.js';
@@ -20,6 +18,7 @@ import './trace/rb-trace-tree.js';
 import { dropDispatcher } from './drop-dispatcher.js';
 import type { RbMemberList } from './components/rb-member-list.js';
 import './trace/rb-detail-drawer.js';
+import type { RbDetailDrawer } from './trace/rb-detail-drawer.js';
 import { renderContentPreview, loadTextPreview, wireUrlActions } from './trace/content-preview.js';
 
 interface MemberInfo {
@@ -39,7 +38,10 @@ export class RoomView {
   private members: MemberInfo[] = [];
   private profileEditor: ProfileEditor;
   private profileSheet: ProfileSheet;
-  private chatSheet: RbChatSheet | null = null;
+  private get chatSheet() {
+    const drawer = document.getElementById('room-file-preview') as RbDetailDrawer | null;
+    return drawer?.chat || null;
+  }
 
   constructor(client: RawBinClient, container: HTMLElement, onLeave: () => void) {
     this.client = client;
@@ -121,7 +123,6 @@ export class RoomView {
 
   hide(): void {
     this.container.innerHTML = '';
-    if (this.chatSheet) { this.chatSheet.remove(); this.chatSheet = null; }
     this.members = [];
   }
 
@@ -206,19 +207,23 @@ export class RoomView {
       });
     }
 
-    if (this.chatSheet) this.chatSheet.remove();
-    this.chatSheet = document.createElement('rb-chat-sheet') as RbChatSheet;
-    this.chatSheet.clientIdentity = this.client.clientId;
-    this.chatSheet.roomId = this.roomId;
-    document.body.appendChild(this.chatSheet);
-
-    this.chatSheet.addEventListener('rb-chat-send', ((e: CustomEvent) => this.client.sendChat(e.detail.text)) as EventListener);
-    this.chatSheet.addEventListener('rb-invite', () => this.showQrPopup(`${(window as any).__shareBase || location.origin}/app?join=${this.roomId}`));
-    this.chatSheet.addEventListener('rb-reconnect', async () => {
-      this.chatSheet?.setWsStatus('reconnecting');
-      try { await this.client.reconnect(); } catch { this.chatSheet?.setWsStatus('disconnected'); }
-    });
-    this.chatSheet.setWsStatus(this.client.connected ? 'connected' : 'disconnected');
+    const drawer = document.getElementById('room-file-preview') as RbDetailDrawer | null;
+    if (drawer) {
+      drawer.setAttribute('open', '');
+      drawer.setMode('chat');
+      const chat = drawer.chat;
+      if (chat) {
+        chat.clientIdentity = this.client.clientId;
+        chat.roomId = this.roomId;
+      }
+      drawer.addEventListener('rb-chat-send', ((e: CustomEvent) => this.client.sendChat(e.detail.text)) as EventListener);
+      drawer.addEventListener('rb-invite', () => this.showQrPopup(`${(window as any).__shareBase || location.origin}/app?join=${this.roomId}`));
+      drawer.addEventListener('rb-reconnect', async () => {
+        this.chatSheet?.setWsStatus('reconnecting');
+        try { await this.client.reconnect(); } catch { this.chatSheet?.setWsStatus('disconnected'); }
+      });
+      this.chatSheet?.setWsStatus(this.client.connected ? 'connected' : 'disconnected');
+    }
     if (!this.client.isOnline()) this.showOfflineBanner();
 
     await customElements.whenDefined('rb-object-item');
@@ -237,13 +242,13 @@ export class RoomView {
       console.log('[file-preview]', uuid, 'mime:', fm.mimeType, 'name:', fm.name);
       const preview = renderContentPreview(uuid, fm.mimeType || '', fm.name || uuid, this.client.playerToken);
       // [impl:uuid:b8714c1d-58b2-4324-93ba-da5e0f760221] R19.78 buttons above filename
-      const body = (drawer as any).body as HTMLElement;
-      body.innerHTML = `${preview}<h3 style="margin:8px 0 0;font-size:0.9rem;color:white">${(fm.name || uuid).replace(/[<>]/g, '')}</h3>`;
+      const panel = (drawer as RbDetailDrawer).previewPanel || (drawer as any).body;
+      panel.innerHTML = `${preview}<h3 style="margin:8px 0 0;font-size:0.9rem;color:white">${(fm.name || uuid).replace(/[<>]/g, '')}</h3>`;
+      if ((drawer as RbDetailDrawer).setMode) (drawer as RbDetailDrawer).setMode('preview');
       drawer.setAttribute('ref', `file:${uuid}`);
       drawer.setAttribute('open', '');
-      loadTextPreview(body, uuid, this.client.playerToken);
-      wireUrlActions(body);
-      console.log('[file-preview] drawer open:', drawer.hasAttribute('open'), 'body children:', body.children.length);
+      loadTextPreview(panel, uuid, this.client.playerToken);
+      wireUrlActions(panel);
     } catch {}
   }
 
