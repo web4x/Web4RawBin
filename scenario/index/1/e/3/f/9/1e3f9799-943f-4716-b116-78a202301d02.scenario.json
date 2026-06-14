@@ -6,7 +6,9 @@
     "name": "R20.20: Each describe()/it() test case = its own scenario unit (ior:class:TestCase).",
     "description": "Each describe()/it() block in a test file becomes its OWN first-class scenario unit (ior:class:TestCase) in the index. Not just a Test file-ref — individual test cases are addressable units. Links: Test → TestCase(s). Each TestCase stores: the describe/it name, file+line, last-run result (pass/fail), parent Test unit IOR. The chain extends: …→Test→TestCase(describe/it).",
     "tronQuote": "> TRON: \"trace the describe tests and the gates — add them as 1st class scenarios\"",
-    "tasks": ["ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3"],
+    "tasks": [
+      "ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
@@ -16,7 +18,10 @@
       "class": "TestCase (ior:class:TestCase — new scenario type)",
       "method": "extractTestCases — parse test file, create TestCase units per describe/it, link to parent Test",
       "test": "RED: query /api/trace/children/<testUuid> → returns TestCase children (describe/it blocks with names+status). Currently FAILS (Test has no children)."
-    }
+    },
+    "useCases": [
+      "ior:instance:e4f5b693-2150-4484-a021-e61f78674da3"
+    ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

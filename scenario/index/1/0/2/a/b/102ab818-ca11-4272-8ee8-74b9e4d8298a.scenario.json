@@ -6,7 +6,9 @@
     "name": "R20.21: Each verification gate = a scenario unit (ior:class:Gate) linked to its task/test.",
     "description": "Each verification GATE (deploy-gate, DET-3x, parity check, Tron-QA sign-off) becomes its OWN first-class scenario unit (ior:class:Gate) in the index. Links to the task/test it gates + records pass/fail status + timestamp + evidence. The chain extends: …→Test→TestCase→Gate; gates are queryable units showing what verification was applied and whether it passed. Types: deploy-gate, det-3x-gate, parity-gate, tron-qa-gate.",
     "tronQuote": "> TRON: \"trace the describe tests and the gates — add them as 1st class scenarios\"",
-    "tasks": ["ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3"],
+    "tasks": [
+      "ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
@@ -16,7 +18,10 @@
       "class": "Gate (ior:class:Gate — new scenario type)",
       "method": "createGate — on verification pass, create Gate unit with type/status/evidence/timestamp, link to gated task/test",
       "test": "RED: after DET-3x passes → /api/trace shows a Gate child linked to the task (type=det-3x, status=pass). Currently FAILS (no Gate units exist)."
-    }
+    },
+    "useCases": [
+      "ior:instance:37a27ef3-84bf-493e-9cf3-5c5f77ca8efb"
+    ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

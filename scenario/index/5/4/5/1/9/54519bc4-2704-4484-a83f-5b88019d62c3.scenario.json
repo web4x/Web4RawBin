@@ -8,7 +8,10 @@
       "ior:instance:1e3f9799-943f-4716-b116-78a202301d02",
       "ior:instance:102ab818-ca11-4272-8ee8-74b9e4d8298a"
     ],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:e4f5b693-2150-4484-a021-e61f78674da3",
+      "ior:instance:37a27ef3-84bf-493e-9cf3-5c5f77ca8efb"
+    ],
     "focus": true
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
