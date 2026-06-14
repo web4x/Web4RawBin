@@ -2,18 +2,18 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: T: markdown-not-source / unit-sourced /api/trace",
+    "name": "Current: R20.20 TestCase + R20.21 Gate — describe-tests + gates as 1st-class scenario units",
     "chain": {
-      "req": "a7dcf3f8-7c01-421f-a58a-a13184796b20",
-      "uc": "e5caaa7e-5068-4170-828c-e70bb5a165d1",
-      "class": "10de8452-6506-4306-ba77-c606ee583ea2",
-      "method": "a3839bd8-ead3-497b-9327-ce86f79a27f6",
-      "impl": "",
-      "test": ""
+      "req": "1e3f9799",
+      "uc": "102ab818",
+      "class": "1e3f9799",
+      "method": "1e3f9799",
+      "impl": "1e3f9799",
+      "test": "1e3f9799"
     },
-    "activeHop": 4,
+    "activeHop": 0,
     "sprintName": "Sprint 20 — Radical Forward Planning (Traceability-First)",
-    "taskName": "T: markdown-not-source / unit-sourced /api/trace"
+    "taskName": "R20.20 TestCase + R20.21 Gate — describe-tests + gates as 1st-class scenario units"
   },
   "ownerIor": null
 }

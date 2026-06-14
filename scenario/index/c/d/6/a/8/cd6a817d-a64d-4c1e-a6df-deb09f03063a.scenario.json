@@ -10,8 +10,7 @@
     "useCases": [
       "ior:instance:e5caaa7e-5068-4170-828c-e70bb5a165d1"
     ],
-    "gateVerdict": "TESTING GREEN (planner source-verified 2026-06-14): /api/trace serves Bug/CR from scenario units (v0.6.35, CHAIN_TYPE_CONFIG+baseType). SOURCE-VERIFY count: Bug=14 active (15 Bug-ior total, 1 superseded=BUG12 d2389829); CR=1. 0 removals. Tester reported 15 = includes the superseded BUG12; reconciled. Chain complete: req a7dcf3f8→uc e5caaa7e→class TraceGraph 10de8452→method a3839bd8→impl→test. → QA Review (Tron gate, NOT Done). ⚠ SEPARATE FINDING (not blocking R20.19): BUG9 altId COLLISION — 1b216edc (leaf-renders-detail) AND 6da84135 (forward-keys) both active = needs renumber.",
-    "focus": true
+    "gateVerdict": "TESTING GREEN (planner source-verified 2026-06-14): /api/trace serves Bug/CR from scenario units (v0.6.35, CHAIN_TYPE_CONFIG+baseType). SOURCE-VERIFY count: Bug=14 active (15 Bug-ior total, 1 superseded=BUG12 d2389829); CR=1. 0 removals. Tester reported 15 = includes the superseded BUG12; reconciled. Chain complete: req a7dcf3f8→uc e5caaa7e→class TraceGraph 10de8452→method a3839bd8→impl→test. → QA Review (Tron gate, NOT Done). ⚠ SEPARATE FINDING (not blocking R20.19): BUG9 altId COLLISION — 1b216edc (leaf-renders-detail) AND 6da84135 (forward-keys) both active = needs renumber."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
