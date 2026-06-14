@@ -4,20 +4,24 @@
     "uuid": "a97ccbab-2d41-47a8-a8cf-2d005d10b5f7",
     "altId": "R20.5a",
     "name": "R20.5a: Detail view renders ALL children section showing the union of all model array relationships.",
-    "description": "The detail view All Children section MUST render ALL children of a scenario unit — the union of all array-relationship fields in the model (methods[]/implementations[]/tests[]/useCases[]/tasks[]/members[]/files[] etc). Covers the 'All Children' half of R20.5. Method already implemented: RbDetailView.renderAllChildren (bfbc0874) at detail-superseded.ts:37.",
+    "description": "The detail view All Children section MUST render ALL children of a scenario unit \u2014 the union of all array-relationship fields in the model (methods[]/implementations[]/tests[]/useCases[]/tasks[]/members[]/files[] etc). Covers the 'All Children' half of R20.5. Method already implemented: RbDetailView.renderAllChildren (bfbc0874) at detail-superseded.ts:37.",
     "tronQuote": "> Derived from R20.5 (universal chain-vs-children): \"children is obviously the sum of all array relationships in the model.\"",
     "tasks": [],
-    "tests": ["ior:instance:7e717383-0000-0000-0000-000000000000"],
+    "tests": [
+      "ior:instance:7e717383-0000-0000-0000-000000000000"
+    ],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "refinementOf": "ior:instance:7734f4e1-def9-4af3-a7d2-5ccc7160b214",
     "refinementOfNote": "Atomic from R20.5 (All Children = union of all model arrays). R20.5a is the chain root for the renderAllChildren method.",
-    "useCases": [],
+    "useCases": [
+      "ior:instance:98441d03-fb7d-48a6-96ce-ab37074b79d3"
+    ],
     "intendedChain": {
-      "useCase": "detailView.renderAllChildren — detail shows ALL children (union of model arrays)",
+      "useCase": "detailView.renderAllChildren \u2014 detail shows ALL children (union of model arrays)",
       "class": "RbDetailView",
-      "method": "renderAllChildren (bfbc0874) — renderAllChildrenSection() @ detail-superseded.ts:37",
+      "method": "renderAllChildren (bfbc0874) \u2014 renderAllChildrenSection() @ detail-superseded.ts:37",
       "implementation": "NEEDS real Impl unit with [impl:uuid] marker IN the function body (NOT self-wire anti-pattern)",
       "test": "7e717383 'R20.5a renderAllChildrenSection' (EXISTS)"
     }

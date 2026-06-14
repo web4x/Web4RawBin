@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "45cfa001-a50a-4554-9f6a-3b641a9174aa",
+    "name": "renderSupersededSection impl",
+    "sourceFile": "ior:file:src/public/ts/trace/detail-superseded.ts",
+    "sourceLine": 15,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:31c6e25e-c65e-4039-ad01-f0dd87978ed1"
+}

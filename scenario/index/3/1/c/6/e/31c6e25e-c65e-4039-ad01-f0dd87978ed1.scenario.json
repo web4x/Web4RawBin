@@ -5,9 +5,11 @@
     "name": "RbDetailView.renderSupersededLinks",
     "description": "Render supersededBy/supersedes section: read model.refinementOf, model.supersededBy, model.supersedes arrays. Render as linked rb-object-item nodes with supersession arrows/labels.",
     "implementations": [
-      "ior:instance:31c6e25e-c65e-4039-ad01-f0dd87978ed1"
+      "ior:instance:45cfa001-a50a-4554-9f6a-3b641a9174aa"
     ],
-    "tests": ["ior:instance:ae410763-e446-4294-ad75-a6b11a2bdc31"]
+    "tests": [
+      "ior:instance:ae410763-e446-4294-ad75-a6b11a2bdc31"
+    ]
   },
   "ownerIor": "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5"
 }

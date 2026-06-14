@@ -4,20 +4,24 @@
     "uuid": "5a42764a-3e87-4777-9a26-14862f2a7c29",
     "altId": "R20.5c",
     "name": "R20.5c: Detail view renders superseded/duplicateOf links visible in the detail section.",
-    "description": "The detail view MUST render superseded links — when a unit has supersededBy or supersedes[] fields, they are shown as navigable links in the detail section. This is the dedup-traceability half of R20.5 (part C). Method already implemented: RbDetailView.renderSupersededLinks (31c6e25e) at detail-superseded.ts:15.",
+    "description": "The detail view MUST render superseded links \u2014 when a unit has supersededBy or supersedes[] fields, they are shown as navigable links in the detail section. This is the dedup-traceability half of R20.5 (part C). Method already implemented: RbDetailView.renderSupersededLinks (31c6e25e) at detail-superseded.ts:15.",
     "tronQuote": "> Derived from R20.5-C (dedup traceability): dedup relationship must be traceable, surfaced in detail-view.",
     "tasks": [],
-    "tests": ["ior:instance:ae410763-0000-0000-0000-000000000000"],
+    "tests": [
+      "ior:instance:ae410763-0000-0000-0000-000000000000"
+    ],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "refinementOf": "ior:instance:7734f4e1-def9-4af3-a7d2-5ccc7160b214",
     "refinementOfNote": "Atomic from R20.5-C (dedup traceability visible in detail-view). R20.5c is the chain root for the renderSupersededLinks method.",
-    "useCases": [],
+    "useCases": [
+      "ior:instance:abeee6f4-0476-4bc1-a0e5-31d91e040d2a"
+    ],
     "intendedChain": {
-      "useCase": "detailView.renderSuperseded — detail shows supersededBy/supersedes links as navigable entries",
+      "useCase": "detailView.renderSuperseded \u2014 detail shows supersededBy/supersedes links as navigable entries",
       "class": "RbDetailView",
-      "method": "renderSupersededLinks (31c6e25e) — renderSupersededSection() @ detail-superseded.ts:15",
+      "method": "renderSupersededLinks (31c6e25e) \u2014 renderSupersededSection() @ detail-superseded.ts:15",
       "implementation": "NEEDS real Impl unit with [impl:uuid] marker IN the function body (NOT self-wire anti-pattern)",
       "test": "ae410763 'R20.5c renderSupersededSection' (EXISTS)"
     }

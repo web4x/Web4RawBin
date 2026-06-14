@@ -3,7 +3,12 @@
   "model": {
     "uuid": "bfbc0874-a1b2-4c3d-8e4f-5a6b7c8d9e06",
     "name": "impl:RbDetailView.renderAllChildren",
-    "tests": ["ior:instance:7e717383-207e-41b8-b564-f47a964f54b6"]
+    "tests": [
+      "ior:instance:7e717383-207e-41b8-b564-f47a964f54b6"
+    ],
+    "implementations": [
+      "ior:instance:308008bf-70eb-4b87-82ef-d76c97590c07"
+    ]
   },
   "ownerIor": "ior:instance:bfbc0874-77bc-4d1b-bf63-0dedbe842093"
 }
