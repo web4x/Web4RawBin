@@ -21,8 +21,8 @@ export const CHAIN_TYPE_CONFIG: Record<string, ChainTypeConfig> = {
   Implementation: { scenarioFwd: ['tests'],                                             traceFwd: ['tests'],                       expectedChildren: ['Test'],               clientFwd: ['tests'] },
   Sprint:         { scenarioFwd: ['tasks'],                                             traceFwd: ['tasks'],                       expectedChildren: ['Task'],               clientFwd: [] },
   Room:           { scenarioFwd: ['files', 'members'],                                  traceFwd: ['files', 'members'],            expectedChildren: [],                     clientFwd: [] },
-  Bug:            { scenarioFwd: ['useCases'],                                          traceFwd: ['useCases'],                    expectedChildren: ['UseCase', 'Task'],    clientFwd: ['useCases', 'tasks', 'tests'] },
-  ChangeRequest:  { scenarioFwd: ['useCases'],                                          traceFwd: ['useCases'],                    expectedChildren: ['UseCase', 'Task'],    clientFwd: ['useCases', 'tasks', 'tests'] },
+  Bug:            { scenarioFwd: ['useCases', 'tasks'],                                  traceFwd: ['useCases', 'tasks'],           expectedChildren: ['UseCase', 'Task'],    clientFwd: ['useCases', 'tasks', 'tests'] },
+  ChangeRequest:  { scenarioFwd: ['useCases', 'tasks'],                                  traceFwd: ['useCases', 'tasks'],           expectedChildren: ['UseCase', 'Task'],    clientFwd: ['useCases', 'tasks', 'tests'] },
 };
 
 function resolve(type: string): ChainTypeConfig | undefined {
