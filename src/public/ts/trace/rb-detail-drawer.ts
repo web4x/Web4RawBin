@@ -80,7 +80,7 @@ export class RbDetailDrawer extends HTMLElement {
   private _graph: any = null;
   set graph(g: any) { this._graph = g; }
 
-  // [impl:uuid:dbddf408-60f3-4094-91b6-268861d651c6] R20.10 openForRef
+  // [impl:uuid:dbddf408-60f3-4094-91b6-268861d651c6] R20.10 renderDetailForRef
   private async renderDetailForRef(ref: string): Promise<void> {
     const panel = this.detailPanel;
     if (!panel || panel.dataset.currentRef === ref) return;

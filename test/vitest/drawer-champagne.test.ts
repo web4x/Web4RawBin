@@ -16,10 +16,10 @@ describe('v0.6.24 drawer champagne', () => {
     expect(code).toContain('renderFilePreview');
   });
 
-  it('R20.10 openForRef impl marker exists at rb-detail-drawer:83', () => {
+  it('R20.10 renderDetailForRef impl marker exists at rb-detail-drawer:83', () => {
     const code = fs.readFileSync('src/public/ts/trace/rb-detail-drawer.ts', 'utf-8');
     expect(code).toContain('[impl:uuid:dbddf408-60f3-4094-91b6-268861d651c6]');
-    expect(code).toContain('openForRef');
+    expect(code).toContain('renderDetailForRef');
   });
 
   it('R20.11 close impl exists at rb-detail-drawer:108', () => {
