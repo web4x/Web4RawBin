@@ -36,7 +36,8 @@ export const BugLoader = loader('Bug', { description: '', priority: '', source: 
 export const ChangeRequestLoader = loader('ChangeRequest', { description: '', priority: '', source: '', tasks: [], tests: [], useCases: [], altId: '' });
 // R20.20 TestCase + R20.21 Gate — both leaf types (no forward children)
 export const TestCaseLoader = loader('TestCase', { file: '', describe: '', it: '', testUuid: '', status: '' });
-export const GateLoader = loader('Gate', { verdict: '', evidence: '', testCaseUuid: '', timestamp: '' });
+// R20.21 Gate — real verification events (deploy-gate, DET-3x, parity, tron-qa). Few units, created by role at gate-time.
+export const GateLoader = loader('Gate', { gateType: '', verdict: '', evidence: '', gatedItems: [], timestamp: '', gatedBy: '' });
 
 const RAWBIN_SYSTEM_UUID = '00000000-0000-4000-8000-rawb1n000000';
 
