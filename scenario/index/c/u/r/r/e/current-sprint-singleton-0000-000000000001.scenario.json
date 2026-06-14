@@ -2,18 +2,18 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: BUG8: /trace collection node detail — Loading children 404 fix",
+    "name": "Current: BUG13: .url click opens drawer (url-drawer regression)",
     "chain": {
-      "req": "12cf7bb5-36d5-415e-92b2-75b14fb5cc23",
-      "uc": "38204812-e251-438a-be74-14c3c7291d3c",
-      "class": "0dd08b2f-30ba-433f-a9de-285065f3fb8e",
-      "method": "0a902bff-b5c3-47ef-a1b3-37fe52b4c82d",
-      "impl": "36934fe3-c15b-4429-8aa2-48c79e674688",
-      "test": "4644dd3c-952d-47a3-828f-79c2ba1c932e"
+      "req": "f420e98a-3d41-4c08-b5d3-936bad0fddb5",
+      "uc": "f420e98a-3d41-4c08-b5d3-936bad0fddb5",
+      "class": "f420e98a-3d41-4c08-b5d3-936bad0fddb5",
+      "method": "f420e98a-3d41-4c08-b5d3-936bad0fddb5",
+      "impl": "f420e98a-3d41-4c08-b5d3-936bad0fddb5",
+      "test": "f420e98a-3d41-4c08-b5d3-936bad0fddb5"
     },
     "activeHop": 0,
     "sprintName": "Sprint 20 — Radical Forward Planning (Traceability-First)",
-    "taskName": "BUG8: /trace collection node detail — Loading children 404 fix"
+    "taskName": "BUG13: .url click opens drawer (url-drawer regression)"
   },
   "ownerIor": null
 }
