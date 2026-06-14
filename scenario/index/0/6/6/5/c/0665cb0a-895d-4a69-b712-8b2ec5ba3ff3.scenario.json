@@ -1,0 +1,24 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "0665cb0a-895d-4a69-b712-8b2ec5ba3ff3",
+    "altId": "R20.13.A",
+    "name": "R20.13.A: Always-visible realtime view of the current task's full chain \u2014 status + assignee per hop, live-updated by planner skill.",
+    "description": "The app MUST show an ALWAYS-VISIBLE, ALWAYS-EXPANDED tree-chain of the CURRENT TASK \u2014 the SAME task-tree-chain renderer already used in /trace (Sprint\u2192Task\u2192Req\u2192UC\u2192Class\u2192Method\u2192Impl\u2192Test), REUSED (DRY, not a new widget), driven by CurrentSprint.getActiveChain(). Always-expanded: the pinned current-task shows its FULL chain tree (not collapsed). Realtime: current-sprint-changed event \u2192 re-render the tree. Per-hop status (done/active/pending) + assignee (role). Actualized by planner skill (setChain/advance/reassign update the data, tree reflects live). NOT a new component \u2014 the same rb-trace-tree task-chain rendering, always for the current task.",
+    "tronQuote": "> TRON: \"i want to see always the current task and its full traceability chain as you drive it with the team in realtime as data. reassigned and tracked and actualized by a planners skill.\"\n> TRON (concrete): \"the same as on the first task always for the current one as a tree chain.\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "refinementOf": "ior:instance:c559452e-cd2e-4792-b28c-9f31b88ebbb4",
+    "refinementOfNote": "Refines R20.13 (CurrentSprint class). R20.13 defined the backend class; R20.13.A adds the VISIBLE REALTIME VIEW \u2014 always-visible chain with per-hop status+assignee, live-updated by planner skill. The gap: R20.12 pin = title only; R20.13.A = full chain as data.",
+    "intendedChain": {
+      "useCase": "currentSprint.renderLiveChain \u2014 reuse the existing task-tree-chain renderer (rb-trace-tree), always-expanded for the current task, live-updated by planner skill",
+      "class": "rb-trace-tree (REUSE existing, DRY \u2014 same component as /trace task-chain)",
+      "method": "renderActiveChain() \u2014 seed rb-trace-tree with CurrentSprint.getActiveChain() task IOR, always-expanded, subscribe to current-sprint-changed for live re-render",
+      "test": "RED: (1) CurrentSprint.setChain(req,task) \u2192 view renders 6-hop chain with req\u2192uc\u2192class\u2192method\u2192impl\u2192test. (2) planner.advance() marks method=done \u2192 view updates that hop to done in realtime. (3) Each hop shows assignee role. Currently FAILS (no such view exists \u2014 only pin title)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

@@ -1,28 +1,32 @@
 {
- "ior": "ior:class:Requirement",
- "model": {
-  "uuid": "c559452e-cd2e-4792-b28c-9f31b88ebbb4",
-  "altId": "R20.13",
-  "name": "R20.13: CurrentSprint is a dedicated class that sets the chain and is used by planner's skill as planning+driving tool.",
-  "description": "CurrentSprint = a DEDICATED typed CLASS in the trace model (Object.verb pattern). It is MAINTAINED (kept current with the active WIP=1 work). It SETS THE CHAIN = defines the active narrow chain (req\u2192uc\u2192class\u2192method\u2192impl\u2192test) for the current task. The PLANNER'S SKILL uses it as BOTH: (a) a PLANNING tool (define/set which chain is active \u2014 planner.setCurrentChain), and (b) a DRIVING tool (drive that chain across roles to delivery \u2014 planner.advanceChain). Methods: setChain(req,task), pinCurrent(), advance(), getActiveChain(). The class is a scenario unit (ior:class:CurrentSprint) maintained in the index.",
-  "tronQuote": "> TRON: \"the current sprint should be a dedicated class that is maintained and sets the chain by a planners skill to use it as planning and driving tool.\"",
-  "tasks": [
-   "ior:instance:15aeb43d-83da-4a02-bfcf-35ec59b3b070"
-  ],
-  "tests": [],
-  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
-  "unitLinks": [],
-  "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
-  "crossRef": [
-   "ior:instance:0171efa2-af28-476f-ae8d-ef7e4a4549bc"
-  ],
-  "crossRefNote": "R20.12 (sprint pinned at top) is the UI manifestation. R20.13 is the CLASS/MODEL that drives it \u2014 CurrentSprint owns the data, R20.12 renders it.",
-  "intendedChain": {
-   "useCase": "currentSprint.setChain \u2014 CurrentSprint class defines and maintains the active WIP=1 chain, used by planner skill for planning+driving",
-   "class": "CurrentSprint (ior:class:CurrentSprint \u2014 dedicated typed class)",
-   "method": "setChain(req,task) / pinCurrent() / advance() / getActiveChain()",
-   "test": "RED: (1) CurrentSprint.setChain(req, task) \u2192 assert activeChain populated with req\u2192uc\u2192class\u2192method\u2192impl\u2192test path. (2) planner skill invokes CurrentSprint.pinCurrent() \u2192 sprint-list shows it. (3) advance() transitions the chain state."
-  }
- },
- "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "c559452e-cd2e-4792-b28c-9f31b88ebbb4",
+    "altId": "R20.13",
+    "name": "R20.13: CurrentSprint is a dedicated class that sets the chain and is used by planner's skill as planning+driving tool.",
+    "description": "CurrentSprint = a DEDICATED typed CLASS in the trace model (Object.verb pattern). It is MAINTAINED (kept current with the active WIP=1 work). It SETS THE CHAIN = defines the active narrow chain (req\u2192uc\u2192class\u2192method\u2192impl\u2192test) for the current task. The PLANNER'S SKILL uses it as BOTH: (a) a PLANNING tool (define/set which chain is active \u2014 planner.setCurrentChain), and (b) a DRIVING tool (drive that chain across roles to delivery \u2014 planner.advanceChain). Methods: setChain(req,task), pinCurrent(), advance(), getActiveChain(). The class is a scenario unit (ior:class:CurrentSprint) maintained in the index.",
+    "tronQuote": "> TRON: \"the current sprint should be a dedicated class that is maintained and sets the chain by a planners skill to use it as planning and driving tool.\"",
+    "tasks": [
+      "ior:instance:15aeb43d-83da-4a02-bfcf-35ec59b3b070"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:0171efa2-af28-476f-ae8d-ef7e4a4549bc"
+    ],
+    "crossRefNote": "R20.12 (sprint pinned at top) is the UI manifestation. R20.13 is the CLASS/MODEL that drives it \u2014 CurrentSprint owns the data, R20.12 renders it.",
+    "intendedChain": {
+      "useCase": "currentSprint.setChain \u2014 CurrentSprint class defines and maintains the active WIP=1 chain, used by planner skill for planning+driving",
+      "class": "CurrentSprint (ior:class:CurrentSprint \u2014 dedicated typed class)",
+      "method": "setChain(req,task) / pinCurrent() / advance() / getActiveChain()",
+      "test": "RED: (1) CurrentSprint.setChain(req, task) \u2192 assert activeChain populated with req\u2192uc\u2192class\u2192method\u2192impl\u2192test path. (2) planner skill invokes CurrentSprint.pinCurrent() \u2192 sprint-list shows it. (3) advance() transitions the chain state."
+    },
+    "refinedBy": [
+      "ior:instance:0665cb0a-895d-4a69-b712-8b2ec5ba3ff3"
+    ],
+    "refinedByNote": "Refined by R20.13.A: the VISIBLE realtime tree-chain view (reuses rb-trace-tree, always-expanded, live-updated). R20.13 = backend class; R20.13.A = the rendered view."
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
