@@ -2,12 +2,14 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "6dc43057-3928-41b9-8313-f05026bb4b46",
-    "name": "Sprint 29 \u2014 Drawer Detail v0.6.23",
+    "name": "[MERGED→Sprint20] Sprint 29 — Drawer Detail v0.6.23",
     "number": 29,
     "goal": "Drawer detail rendering + pinned current sprint",
     "status": "In Progress",
     "tasks": [],
-    "requirements": []
+    "requirements": [],
+    "supersededBy": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "supersededNote": "FICTION Sprint 29 — merged into real Sprint 20 node 64af2638 ('Sprint 20 — Radical Forward Planning (Traceability-First)'). Planner S29→S20 refactor 2026-06-14, PO/Tron-directed."
   },
   "ownerIor": null
 }

@@ -174,5 +174,5 @@ This test FREEZES the v0.6.31 values and asserts the unified config reproduces t
 - [ ] Ships after v0.6.31 stopgap
 
 ## Cross-ref
-- DURABLE fix for [BUG9 6da84135](./../sprint-29-radical-forward-planning/bug8-trace/task-bug9-bug-forward-keys.md) (+ BUG12 merged).
+- DURABLE fix for [BUG9 6da84135](./bug8-trace/task-bug9-bug-forward-keys.md) (+ BUG12 merged).
 - OOP rationale: R20.4 (`ea212274`) — Bug/ChangeRequest extend Requirement.

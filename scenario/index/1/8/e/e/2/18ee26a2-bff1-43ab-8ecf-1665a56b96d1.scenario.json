@@ -25,7 +25,7 @@
       "robbin-tester"
     ],
     "atoms": "covers BUG1 (Bug, dogfoods R20.4); chain section excludes self-node + non-chain nodes (only traced req→uc→class→method→impl→test); intendedChain carried; traceability-first, Test FIRST; release v0.6.6+tag (after CR1)",
-    "pumlLink": "ior:file:scrum.pmo/sprints/sprint-20-forward-planning/diagrams/bug1-chain-excludes-self.puml"
+    "pumlLink": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/bug1-chain-excludes-self.puml"
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

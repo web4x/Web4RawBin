@@ -1,6 +1,8 @@
+> **⚠ MERGED FROM FICTION SPRINT 29 → SPRINT 20 (S29→S20 refactor, planner 2026-06-14, Tron-directed).** 'Sprint 29' was a hallucinated fork of Sprint 20's Radical-Forward-Planning theme (real Sprint unit 64af2638). This doc preserves the genuine WIP=1 *method*; the sprint it belongs to is **Sprint 20 — Radical Forward Planning (Traceability-First)**.
+
 [Back to README](../../README.md) · [Sprints overview](../sprints.overview.md)
 
-# Sprint 29 Planning — RADICAL FORWARD PLANNING (WIP=1)
+# Sprint 20 (WIP=1 method) — Radical Forward Planning [ex-fiction-Sprint-29]
 
 ## Sprint Goal
 Deliver value as a single, continuously-flowing feature pipeline. Exactly ONE
@@ -33,7 +35,7 @@ requirement → use case → class → method → implementation → test → DE
 
 This sprint's structure IS the 📌 CURRENT SPRINT block in
 [sprints.overview.md](../sprints.overview.md) — that block is the live expression
-of Sprint 29.
+of Sprint 20 (this WIP=1 method, formerly mislabeled Sprint 29).
 
 ## Current Task (first driven)
 
@@ -68,4 +70,4 @@ PO-verify → planner delivery-gate verify → DELIVER.
 **Product Owner:** robbin-po (robbinTeam2:0.0)
 **Tron:** research
 **Created:** 2026-06-14
-**Sprint:** Sprint 29 — Radical Forward Planning (WIP=1)
+**Sprint:** Sprint 20 — Radical Forward Planning (Traceability-First); WIP=1 method (ex-fiction-29)

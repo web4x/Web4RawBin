@@ -2,8 +2,8 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "b7894ac3-8767-49f0-9ce9-b3ef2b4fc3bb",
-    "altId": "R20.15",
-    "name": "R20.15: /trace shows the current task(s) (CurrentSprint WIP) correctly.",
+    "altId": "R20.17",
+    "name": "R20.17: /trace shows the current task(s) (CurrentSprint WIP) correctly.",
     "description": "/trace MUST correctly show the CURRENT TASK(S) — the active WIP=1 task from CurrentSprint. Currently broken: the current task either doesn't appear, appears in wrong position, or its chain doesn't expand. This is the prerequisite for the realtime chain view (R20.13.A) — the current task must be findable and expandable in /trace.",
     "tronQuote": "> TRON: \"what its all about is still broken — still [want] current tasks\"",
     "tasks": [],
@@ -21,7 +21,8 @@
       "class": "RbOverview / rb-trace-tree",
       "method": "renderCurrentTask — ensure current task node present + expandable in the sprint list/tree",
       "test": "RED: CurrentSprint has active task → /trace shows it (findable, expandable to full chain). Currently FAILS (broken/missing)."
-    }
+    },
+    "renumberNote": "Renumbered R20.15→R20.17 (collision: R20.15=DRY-unify d5734c9b already). Planner 2026-06-14, PO-directed."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

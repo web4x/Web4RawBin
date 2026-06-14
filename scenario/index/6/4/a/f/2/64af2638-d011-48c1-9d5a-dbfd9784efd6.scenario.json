@@ -6,7 +6,7 @@
     "number": 20,
     "goal": "Apply the S19 marathon lesson FORWARD: chains are built BEFORE/WITH implementation, never functional-first-then-backfill. DISCIPLINE: every requirement gets its FULL chain (Req\u2192UseCase\u2192Class\u2192Method\u2192Implementation\u2192Test) DESIGNED, and the Test written FIRST (or with the impl) \u2014 nothing ships chain-open. Carry forward S19 open follow-ons as proper S20 chains (R19.99 broken-link, R19.100 render-inversion, R19.102 create-folder-actions), each designed-ahead. Track tonight's scheduled (22:07) radical backfill of S19 v0.5.x chain-debt.",
     "status": "Planned",
-    "compoundSource": "scrum.pmo/sprints/sprint-20-forward-planning/compound-requirement-source.md",
+    "compoundSource": "scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "requirements": [
       "ior:instance:aaa36d91-35b8-49ba-877d-d39b2275e1da",
       "ior:instance:ca4f8758-0267-4ae4-9723-f5b87ff8a593",

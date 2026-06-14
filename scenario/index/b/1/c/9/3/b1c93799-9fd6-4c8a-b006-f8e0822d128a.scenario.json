@@ -25,7 +25,7 @@
       "robbin-tester"
     ],
     "atoms": "covers R20.4 per req-eng request; Bug+ChangeRequest OOP extensions of Requirement with own icons, same 6-step chain; intendedChain carried; traceability-first, Test FIRST; release v0.6.3+tag",
-    "pumlLink": "ior:file:scrum.pmo/sprints/sprint-20-forward-planning/diagrams/r20-4-bug-changerequest-chain.puml"
+    "pumlLink": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/r20-4-bug-changerequest-chain.puml"
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

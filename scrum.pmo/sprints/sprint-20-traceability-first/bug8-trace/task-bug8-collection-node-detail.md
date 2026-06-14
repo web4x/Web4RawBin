@@ -23,11 +23,11 @@ Collection nodes (Members/Files) in the /trace tree are SYNTHETIC: the server bu
 
     [requirement:uuid:12cf7bb5-36d5-415e-92b2-75b14fb5cc23]  BUG8 collection detail via parent
       │
-    [task: bug8-trace/task-bug8-collection-node-detail.md]   this stitch doc (Sprint 29, WIP=1)
+    [task: bug8-trace/task-bug8-collection-node-detail.md]   this stitch doc (Sprint 20 — Radical Forward Planning, WIP=1)
       │
     [uc:uuid:38204812-e251-438a-be74-14c3c7291d3c]           collectionDetail.resolveViaParent
       │
-    [puml: sprint-20-forward-planning/diagrams/r20-5-detail-view-sections-chain.puml]
+    [puml: sprint-20-traceability-first/diagrams/r20-5-detail-view-sections-chain.puml]
       │                                                       detail-view chain family (related; no BUG8-specific PUML)
     [class:uuid:0dd08b2f-30ba-433f-a9de-285065f3fb8e]        RbDetailDrawer (canonical, 14 methods)
       │
