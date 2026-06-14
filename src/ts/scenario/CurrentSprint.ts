@@ -129,4 +129,67 @@ export class CurrentSprint {
       status: i < this.activeHop ? 'done' as const : i === this.activeHop ? 'active' as const : 'pending' as const,
     }));
   }
+
+  /** Set focus on a task (WIP=1 enforced: clears all other task.focus first). */
+  setFocus(taskUuid: string): boolean {
+    const taskUnit = this.index.get(taskUuid);
+    if (!taskUnit || taskUnit.ior !== 'ior:class:Task') return false;
+    for (const uuid of this.index.list()) {
+      const u = this.index.get(uuid);
+      if (!u || u.ior !== 'ior:class:Task') continue;
+      const m = u.model as Record<string, unknown>;
+      if (m.focus) { delete m.focus; this.index.put(uuid, u); }
+    }
+    (taskUnit.model as Record<string, unknown>).focus = true;
+    this.index.put(taskUuid, taskUnit);
+    return this.autoFollow();
+  }
+
+  /** Auto-derive the pin from the focused task's chain. Returns true if chain set. */
+  autoFollow(): boolean {
+    for (const uuid of this.index.list()) {
+      const unit = this.index.get(uuid);
+      if (!unit || unit.ior !== 'ior:class:Task') continue;
+      const m = unit.model as Record<string, unknown>;
+      if (!m.focus) continue;
+      const reqIors = (m.coveredRequirements as string[]) || [];
+      const taskIors = (m.useCases as string[]) || [];
+      const reqUuid = reqIors.length > 0 ? ior(reqIors[0]) : '';
+      if (!reqUuid) continue;
+      const reqUnit = this.index.get(reqUuid);
+      if (!reqUnit) continue;
+      const reqM = reqUnit.model as Record<string, unknown>;
+      let ucIors = (reqM.useCases as string[]) || [];
+      if (ucIors.length === 0) ucIors = taskIors;
+      const ucUuid = ucIors.length > 0 ? ior(ucIors[0]) : '';
+      if (!ucUuid) continue;
+      const ucUnit = this.index.get(ucUuid);
+      if (!ucUnit) continue;
+      const ucM = ucUnit.model as Record<string, unknown>;
+      const clsUuid = ior(((ucM.classes as string[]) || [])[0] || '');
+      const methUuid = ior(String(ucM.method || ''));
+      const methUnit = methUuid ? this.index.get(methUuid) : null;
+      const methM = methUnit?.model as Record<string, unknown> | undefined;
+      const implUuid = ior(((methM?.implementations as string[]) || [])[0] || '');
+      const implUnit = implUuid ? this.index.get(implUuid) : null;
+      const implM = implUnit?.model as Record<string, unknown> | undefined;
+      const testUuid = ior(((implM?.tests as string[]) || [])[0] || '');
+      const refs: ChainRefs = { req: reqUuid, uc: ucUuid, class: clsUuid, method: methUuid, impl: implUuid, test: testUuid };
+      const complete = CHAIN_ORDER.every(k => !!refs[k]);
+      if (complete) {
+        return this.setChain(refs, String(m.sprint || ''), String(m.name || ''));
+      }
+      this.chain = refs;
+      this.activeHop = CHAIN_ORDER.findIndex(k => !refs[k]);
+      if (this.activeHop < 0) this.activeHop = 0;
+      this.sprintName = String(m.sprint || this.sprintName);
+      this.taskName = String(m.name || this.taskName);
+      this.persist();
+      this.emit();
+      return true;
+    }
+    return false;
+  }
 }
+
+function ior(s: string): string { return String(s || '').replace('ior:instance:', '').replace('ior:file:', ''); }

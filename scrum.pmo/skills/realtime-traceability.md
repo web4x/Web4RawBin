@@ -293,3 +293,15 @@ grew (e.g. Impl wired since last reload), the pin updates automatically.
   `setChain` returns false (all 6 required). Fix: accept partial chains in setChain
   (pin shows progress-so-far, not only complete chains).
 - **No server restart**: autoFollow runs in the /api/trace request path, not at startup.
+
+## Implementation sequencing (PO-approved 2026-06-14)
+
+| Phase | What | Who | Status |
+|---|---|---|---|
+| **NOW** | `CurrentSprint.autoFollow()` + `setFocus()` in CurrentSprint.ts | skill-expert | DONE (this commit) |
+| **NOW** | `planner-drive.ts focus <task-uuid>` CLI verb | skill-expert | DONE (this commit) |
+| **Phase 2** | `/api/trace` server hook: `CurrentSprint.getInstance(idx).autoFollow()` | expert (0.2) — folds into the unit-sourced handler rewrite | COORDINATE (must land in NEW handler, not old scanRepo one) |
+
+The server hook is a 1-line addition BUT must go in the expert's rewritten unit-sourced
+/api/trace handler (Phase 2), NOT the current scanRepo-based one. Until then, the pin
+auto-derives via the CLI `focus` verb (planner calls it when WIP switches).
