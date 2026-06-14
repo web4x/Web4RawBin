@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "e5caaa7e-5068-4170-828c-e70bb5a165d1",
+    "name": "traceGraph.buildFromIndex",
+    "description": "Build the traceability graph by walking scenario index units (forward-keys per type), replacing scanRepo markdown parsing.",
+    "class": "ior:instance:f5abd427-TODO-TraceGraph-class",
+    "method": "ior:instance:a3839bd8-ead3-497b-9327-ce86f79a27f6"
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

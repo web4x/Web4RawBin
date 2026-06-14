@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "a3839bd8-ead3-497b-9327-ce86f79a27f6",
+    "name": "TraceGraph.buildFromScenarioIndex",
+    "description": "Walk scenario/index units, resolve forward-keys per ior:class type, build the trace graph. Replaces scanRepo markdown parsing.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
