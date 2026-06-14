@@ -21,6 +21,7 @@
     "migrate": "tsx src/ts/server/migrate-cli.ts all",
     "migrate:rooms": "tsx src/ts/server/migrate-cli.ts rooms",
     "migrate:userdirs": "tsx src/ts/server/migrate-cli.ts userdirs",
+    "test:guard": "if grep -rn ':4444' test/e2e/ test/playwright/ --include='*.ts' 2>/dev/null | grep -v system-tester | grep -v playwright.config | grep -v avatar-bug-repro | grep -q ':4444'; then echo 'FAIL: raw :4444 in E2E — use ensureSystemTester()' && exit 1; else echo 'PASS: no raw :4444 in E2E'; fi",
     "test:e2e": "playwright test",
     "test:e2e:editor": "playwright test test/e2e/editor.spec.ts",
     "test:e2e:rooms": "playwright test test/e2e/room-identity.spec.ts",
