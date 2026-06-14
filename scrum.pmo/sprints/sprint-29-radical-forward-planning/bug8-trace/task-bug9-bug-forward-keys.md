@@ -39,9 +39,17 @@ Same forward keys as Requirement (they extend Requirement per R20.4).
       |
     [test:uuid:pending] tester RED->GREEN: Bug node expands to show useCases on /trace
 
+## Dedupe note (planner, 2026-06-14, PO-directed)
+
+**BUG12 (d2389829) MERGED into this BUG9 — same defect.** BUG12 was a duplicate (server forward-key resolver lacks Bug entry). BUG9 is canonical (complete chain: uc d5a44c9b + method fabb5ae3 + 3-map fix). BUG12 node marked `supersededBy: 6da84135`. Unique bits from BUG12 folded in:
+- **Tron evidence:** IMG_4038 — quote *"switched but no children"*.
+- **Concrete RED test (from BUG12 intendedChain):** tap a Bug node (e.g. BUG8 `12cf7bb5`) in /trace → assert its UC child (`38204812`) renders → chain expands fully. Currently FAILS (no children). Use this as the tester's RED→GREEN.
+- **Design link:** R20.4 (`ea212274`, Bug+ChangeRequest extend Requirement) — the OOP rationale for using the same forward keys as Requirement.
+
 ## Status
 - [x] Root cause confirmed (Bug missing from SCENARIO_FWD + TRACE_FWD + EXPECTED_CHILD_TYPE)
 - [x] UC designed (d5a44c9b traceChildren.bugForwardKeys)
 - [x] Fix designed (3 lines in server.ts)
+- [x] Deduped (BUG12 d2389829 merged → superseded; canonical = BUG9)
 - [ ] Impl (expert)
-- [ ] Test (tester)
+- [ ] Test (tester — concrete RED test above)
