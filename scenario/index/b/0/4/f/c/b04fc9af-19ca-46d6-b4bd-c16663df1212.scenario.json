@@ -4,7 +4,7 @@
     "uuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212",
     "altId": "CR1",
     "name": "CR1: Rename 'Champagne Chain' label to 'Traceability Chain' in all user-facing UI.",
-    "description": "CHANGE REQUEST: the detail-view section labeled 'Champagne Chain' uses internal measurement jargon in USER-FACING UI. 'Champagne' is the team's internal quality-verification concept — users don't know what it means. RENAME to 'Traceability Chain' everywhere in the product UI. Champagne/marketing terms must NOT appear in the product interface (only in internal scoring/audit tools).",
+    "description": "CHANGE REQUEST (dogfoods R20.4 ior:class:ChangeRequest): rename every \"Champagne\" label in the product UI to \"Traceability\". Scope: (1) src/public/ts/trace/singular-chain.ts:3 \u2014 comment says \"champagne path\" \u2192 rename to \"traceability chain path\". (2) ANY detail-view section heading that renders \"Champagne Chain\" \u2192 \"Traceability Chain\" (these are generated from the singular-chain module or detail-superseded.ts template strings). (3) grep dist/ for compiled remnants and rebuild. Champagne is the team internal quality-verification concept \u2014 users must NEVER see it. Only 1 source file hit (singular-chain.ts:3); the rest are in compiled dist/ (rebuild clears). Self-standing for architect\u2192expert: rename string + rebuild + verify no \"champagne\" in rendered UI.",
     "tronQuote": "> TRON: \"do you see the issues on this requirement and the need for change requests and bugs regarding traceability and stupid champagne marketing?\"",
     "tasks": [
       "ior:instance:56cc23b5-aca1-49f5-9037-e2c58110643c"
@@ -18,10 +18,10 @@
     ],
     "crossRefNote": "R20.5 (universal chain-vs-children) already specified 'Traceability' as the label. CR1 is the explicit change-request to rename the existing 'Champagne Chain' label.",
     "intendedChain": {
-      "useCase": "detailView.renameChainLabel — 'Champagne Chain' → 'Traceability Chain' in all detail-view templates",
-      "class": "RbDetailDrawer (or per-type DetailView template)",
-      "method": "renderTraceabilitySection — change the section heading string",
-      "test": "RED: open any detail-view → assert section heading is 'Traceability Chain' (or 'Traceability'), NOT 'Champagne Chain'. Currently FAILS (some views show 'Champagne Chain')."
+      "useCase": "detailView.renameChainLabel \u2014 Champagne Chain \u2192 Traceability Chain in all UI",
+      "class": "singular-chain.ts + detail-view templates",
+      "method": "rename string constant/comment + rebuild dist",
+      "test": "RED: grep src/ for champagne (case-insensitive) \u2192 0 hits in non-test/non-standard files. Open any detail-view \u2192 heading says Traceability Chain, NOT Champagne Chain. Currently FAILS (singular-chain.ts:3 says champagne)."
     },
     "useCases": [
       "ior:instance:e2807a7b-b72f-4030-97b6-67f73a043ae7"
