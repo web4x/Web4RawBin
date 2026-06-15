@@ -3,7 +3,7 @@
   "model": {
     "uuid": "54519bc4-2704-4484-a83f-5b88019d62c3",
     "name": "T: TestCase + Gate as 1st-class scenario units (R20.20 + R20.21)",
-    "status": "QA Review",
+    "status": "in-progress",
     "coveredRequirements": [
       "ior:instance:1e3f9799-943f-4716-b116-78a202301d02",
       "ior:instance:102ab818-ca11-4272-8ee8-74b9e4d8298a"
@@ -13,7 +13,8 @@
       "ior:instance:37a27ef3-84bf-493e-9cf3-5c5f77ca8efb"
     ],
     "focus": true,
-    "gateProof": "GATE-PROVEN (tester GREEN b364112ba, det-3x): TestCase 1016 persisted+served+idempotent; Gate fakes purged, first REAL det-3x gate 4354bf62 (verdict=PASS, gatedItems→R20.20 corrected) persisted+served+semantically-real. Switch-gate isGateProven=TRUE (impl done + test gate-proven). → testing-DONE → QA-Review (Tron gate). Planner-verified 2026-06-14."
+    "gateProof": "GATE-PROVEN (tester GREEN b364112ba, det-3x): TestCase 1016 persisted+served+idempotent; Gate fakes purged, first REAL det-3x gate 4354bf62 (verdict=PASS, gatedItems→R20.20 corrected) persisted+served+semantically-real. Switch-gate isGateProven=TRUE (impl done + test gate-proven). → testing-DONE → QA-Review (Tron gate). Planner-verified 2026-06-14.",
+    "reopenNote": "REOPENED (Tron IMG_4045 2026-06-15): chain NOT wired — uc testCase.parseFromSource shows No chain/no links. Method TestCase.parseFromSource impls[]/tests[] empty; 1016 TestCase units graph-unlinked (testUuid present but no Test→TestCase link). NOT done; gate-proven was premature (chain-render gap)."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

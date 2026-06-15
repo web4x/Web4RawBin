@@ -2,33 +2,28 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: R20.3: All item views default to COLLAPSED on render",
+    "name": "Current: T: TestCase + Gate as 1st-class scenario units (R20.20 + R20.21)",
     "chain": {
-      "req": "eeeabe81-3264-4c7b-bd41-371a3db9f118",
-      "uc": "eeeabe81-3264-4c7b-bd41-371a3db9f118",
-      "class": "eeeabe81-3264-4c7b-bd41-371a3db9f118",
-      "method": "eeeabe81-3264-4c7b-bd41-371a3db9f118",
-      "impl": "eeeabe81-3264-4c7b-bd41-371a3db9f118",
-      "test": "eeeabe81-3264-4c7b-bd41-371a3db9f118"
+      "req": "1e3f9799-943f-4716-b116-78a202301d02",
+      "uc": "e4f5b693-2150-4484-a021-e61f78674da3",
+      "class": "68f356c1-18f2-4233-80f1-f6abea6a4972",
+      "method": "499b453f-84f9-4eb3-b969-f039ba42cb2a",
+      "impl": "",
+      "test": ""
     },
-    "activeHop": 0,
+    "activeHop": 4,
     "sprintName": "Sprint 20 — Radical Forward Planning (Traceability-First)",
-    "taskName": "R20.3: All item views default to COLLAPSED on render",
+    "taskName": "T: TestCase + Gate as 1st-class scenario units (R20.20 + R20.21)",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-06-14T20:53:25.285Z"
+        "updatedAt": "2026-06-15T09:54:53.669Z"
       },
-      "impl": {
+      "uc": {
         "status": "done",
-        "owner": "expert",
-        "updatedAt": "2026-06-14T21:28:21.653Z"
-      },
-      "test": {
-        "status": "gate-proven",
-        "owner": "tester",
-        "updatedAt": "2026-06-14T21:28:22.059Z"
+        "owner": "architect",
+        "updatedAt": "2026-06-15T09:55:54.136Z"
       }
     }
   },
