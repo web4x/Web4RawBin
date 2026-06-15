@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "949ee3c2-56bc-43b9-9830-b3911f361962",
+    "altId": "BUG18",
+    "name": "BUG18: clicking a FILE in a room shows the PARENT collection in the drawer, not the file detail (regression)",
+    "description": "REGRESSION (Tron screenshot): clicking a FILE in a room (e.g. 16CDAA25...jpeg in 'Jesus Munich' Files) shows the PARENT 'Files(2)' collection in the detail drawer instead of the file's OWN detail. file-detail-on-click is mis-wired to render the parent collection.",
+    "acceptanceCriteria": "Clicking a file shows the FILEs own detail (not parent collection). From file detail, click NAVIGATES to BROWSE-FILE (file browser) with the file HIGHLIGHTED, enabling the scenario MONACO editor. All pieces exist — REWIRE.",
+    "status": "In Progress",
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "sprint": "Sprint 20",
+    "tronTraced": "Screenshot regression, URGENT (PO/Tron 2026-06-15)"
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

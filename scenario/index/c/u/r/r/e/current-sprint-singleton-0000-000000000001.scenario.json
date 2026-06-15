@@ -2,18 +2,18 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: R20.22: Pinned Current Sprint = Sprint node with 3 tasks (current/last-completed/next-backlog), recursive",
+    "name": "Current: BUG18: file click shows parent collection not file detail (regression) — rewire file→detail→browse-highlight→Monaco",
     "chain": {
-      "req": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9",
-      "uc": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9",
-      "class": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9",
-      "method": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9",
-      "impl": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9",
-      "test": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9"
+      "req": "949ee3c2-56bc-43b9-9830-b3911f361962",
+      "uc": "949ee3c2-56bc-43b9-9830-b3911f361962",
+      "class": "949ee3c2-56bc-43b9-9830-b3911f361962",
+      "method": "949ee3c2-56bc-43b9-9830-b3911f361962",
+      "impl": "949ee3c2-56bc-43b9-9830-b3911f361962",
+      "test": "949ee3c2-56bc-43b9-9830-b3911f361962"
     },
-    "activeHop": 5,
+    "activeHop": 0,
     "sprintName": "Sprint 20 — Radical Forward Planning (Traceability-First)",
-    "taskName": "R20.22: Pinned Current Sprint = Sprint node with 3 tasks (current/last-completed/next-backlog), recursive",
+    "taskName": "BUG18: file click shows parent collection not file detail (regression) — rewire file→detail→browse-highlight→Monaco",
     "hopStates": {
       "req": {
         "status": "done",
