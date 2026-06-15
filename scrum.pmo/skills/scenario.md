@@ -16,3 +16,8 @@ npx tsx scripts/objectVerb.ts Scenario <verb> [args]    # direct
 ```
 
 Logic: `src/ts/scenario/skill-classes.ts` → `class Scenario`. Dispatcher: `scripts/objectVerb.ts`.
+
+## Laws enforced (team-laws.md)
+- **L1** DATA ON DISK: scenario units = sole truth, persisted via put()
+- **L2** MARKDOWN IS VIEW: units are source, .md is generated
+- **L12** IDEMPOTENT GENERATORS: regenerate-views re-runnable

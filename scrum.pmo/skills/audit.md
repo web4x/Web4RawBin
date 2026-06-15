@@ -15,3 +15,8 @@ npx tsx scripts/objectVerb.ts Audit <verb> [args]    # direct
 ```
 
 Logic: `src/ts/scenario/skill-classes.ts` → `class Audit`. Dispatcher: `scripts/objectVerb.ts`.
+
+## Laws enforced (team-laws.md)
+- **L3** GIT=BACKUP: ci:gates commit-gated, no tar
+- **L5** TEAM PROVES: audit gates = team's proof infrastructure
+- **L7** SOURCE-VERIFY: strict-marker-audit reads AST, not string-match

@@ -22,3 +22,6 @@ Rule #66: Every user-facing surface change bumps package.json version + sw.js CA
 ## Implementation
 
 `ior:file:build.mjs?function=stampCacheName`
+
+## Laws enforced (team-laws.md)
+- **L3** GIT=BACKUP: version bump committed to git, no tar

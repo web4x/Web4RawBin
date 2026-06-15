@@ -376,3 +376,12 @@ planner: focus <new-task>
 `npx tsx scripts/planner-drive.ts focus <task> --force` bypasses the gate.
 Use for: hotfix override, Tron-directed task switch. The force is logged
 (persist shows no gate-proven on prior task — auditable).
+
+## Laws enforced (team-laws.md)
+- **L1** DATA ON DISK: all endpoints read disk per-request; units = truth, no in-memory cache
+- **L2** MARKDOWN IS VIEW: chain = scenario units, not task .md files
+- **L4** COMMUNICATE VIA UNITS: chain authored as units, singleton persisted on disk
+- **L6** GATE VISIBLE GOAL: Step 6 verifies on /trace (user-visible), not just count
+- **L8** WIP=TRON PRIORITY: autoFollow tracks the focused task Tron directed
+- **L9** PROVEN-OR-STAY: setFocus blocked until test=gate-proven; per-agent hop self-mark
+- **L10** SINGLE OWNER: coordination matrix assigns each hop to one role

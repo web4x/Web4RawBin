@@ -87,3 +87,8 @@ The skill system eats its own dog food.
 `scripts/po-chain-follow-up.ts`, `scripts/team-velocity.ts`,
 `scripts/chain-wire-impl-node.ts` — preserved so existing invocations and parsers
 (Summary-line regex) keep working. They contain ZERO logic.
+
+## Laws enforced (team-laws.md)
+- **L2** MARKDOWN IS VIEW: skill docs generated from class signatures (emitDocs)
+- **L10** SINGLE OWNER: logic in typed class method, script = thin dispatch
+- **L12** IDEMPOTENT GENERATORS: emitOosh/emitDocs re-runnable without drift

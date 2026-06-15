@@ -40,3 +40,8 @@ verify-premise-before-edit · diff-full-set-after-restructure · shared-X-needs-
 
 ## Dependency
 Architect wires the 4 CurrentSprint UCs (setChain/pinCurrent/advance/getActiveChain) to planner task 15aeb43d. Expert implements the class `.ts`. Then this skill drives the WIP=1 chain live off it.
+
+## Laws enforced (team-laws.md)
+- **L4** COMMUNICATE VIA UNITS: setChain/focus writes to singleton on disk
+- **L8** WIP=TRON PRIORITY: focus verb = Tron's chosen task, not lowest-open
+- **L9** PROVEN-OR-STAY: focus blocked unless gate-proven; hop verb for self-mark

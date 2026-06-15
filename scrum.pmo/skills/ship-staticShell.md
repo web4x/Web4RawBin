@@ -22,3 +22,6 @@ Rule #67: New SPA route or changed bundle hash → update sw.js STATIC_SHELL. bu
 ## Implementation
 
 `ior:file:build.mjs?function=autoInjectStaticShell`
+
+## Laws enforced (team-laws.md)
+- **L3** GIT=BACKUP: STATIC_SHELL update committed to git

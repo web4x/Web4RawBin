@@ -22,3 +22,8 @@ Rule #27: Per-Test 7-hop strict audit. Every Test must reach a Requirement root 
 ## Implementation
 
 `ior:file:scripts/trace-audit.ts?function=auditAll`
+
+## Laws enforced (team-laws.md)
+- **L5** TEAM PROVES: 7-hop gate = team's structural proof
+- **L6** GATE VISIBLE GOAL: chain renders end-to-end, not just count
+- **L7** DET-3x: gate runs deterministic, 3 identical

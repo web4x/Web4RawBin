@@ -2,6 +2,8 @@
 
 **19 skills** registered as `ior:class:Skill` scenario units.
 
+**[Team Operating Laws](./team-laws.md)** — 12 Tron-mandated laws, each mapped to the skill(s) that enforce it.
+
 ## chain
 
 - [chain.walk](./chain-walk.md) — Walk the traceability chain from any node (up/down/both). Returns ordered steps 

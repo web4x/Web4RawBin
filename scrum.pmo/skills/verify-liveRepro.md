@@ -22,3 +22,7 @@ Rule #27 strict-bar: SW-ACTIVE live verification. Tests run WITH service worker 
 ## Implementation
 
 `ior:file:test/e2e/sw-activation.spec.ts`
+
+## Laws enforced (team-laws.md)
+- **L5** TEAM PROVES: live repro = team verifies, never waits Tron
+- **L6** GATE VISIBLE GOAL: verify the user-visible behavior, not proxy
