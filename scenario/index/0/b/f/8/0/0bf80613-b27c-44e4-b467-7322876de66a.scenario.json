@@ -4,7 +4,7 @@
     "uuid": "0bf80613-b27c-44e4-b467-7322876de66a",
     "altId": "R20.23",
     "name": "R20.23: Every scenario type shows a source file:line link in the detail view.",
-    "description": "EVERY scenario type's detail view MUST show a clickable source file:line link \u2014 the file and line where the unit is defined/implemented. This is the universal base; per-type specializations (R20.24-27) add additional links.",
+    "description": "EVERY scenario type's detail view MUST show a clickable source file:line link \u2014 the file and line where the unit is defined/implemented. This is the universal base; per-type specializations (R20.24-27) add additional links. CLICKABLE in detail drawer: clicking the source file:line link NAVIGATES to the file browser at that file+line (Monaco opens at line). Not just displayed text \u2014 actual clickable navigation.",
     "tronQuote": "> TRON: \"each type has a link to a source file:line, classes to the puml file and the resulting svg preview, same as methods to the puml AND the ts code, same as tests and gates\"",
     "tasks": [],
     "tests": [],
@@ -15,7 +15,7 @@
       "useCase": "detailView.sourceLink \u2014 every type renders a clickable source file:line",
       "class": "RbDetailDrawer / per-type detail view",
       "method": "renderSourceLinks (per-type dispatch)",
-      "test": "RED: open R20.23 detail \u2192 assert source link(s) present + clickable. Currently FAILS."
+      "test": "RED: open R20.23 detail \u2192 assert source link(s) present + clickable. Links must be CLICKABLE (navigate on click, not just text). Currently FAILS."
     }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

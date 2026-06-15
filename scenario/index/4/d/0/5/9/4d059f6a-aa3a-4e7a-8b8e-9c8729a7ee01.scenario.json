@@ -4,7 +4,7 @@
     "uuid": "4d059f6a-aa3a-4e7a-8b8e-9c8729a7ee01",
     "altId": "R20.27",
     "name": "R20.27: Gate detail links to its source/evidence.",
-    "description": "A GATE scenario unit's detail view MUST show a clickable link to its source/evidence \u2014 the verification artifact (test log, screenshot, deploy manifest, DET-3x output) that backs the gate's verdict.",
+    "description": "A GATE scenario unit's detail view MUST show a clickable link to its source/evidence \u2014 the verification artifact (test log, screenshot, deploy manifest, DET-3x output) that backs the gate's verdict. CLICKABLE in detail drawer: clicking the evidence link NAVIGATES to the verification artifact (log, screenshot, deploy manifest). Navigable, not just text.",
     "tronQuote": "> TRON: \"each type has a link to a source file:line, classes to the puml file and the resulting svg preview, same as methods to the puml AND the ts code, same as tests and gates\"",
     "tasks": [],
     "tests": [],
@@ -15,7 +15,7 @@
       "useCase": "gateDetail.evidenceLink \u2014 Gate shows link to verification evidence",
       "class": "RbDetailDrawer / per-type detail view",
       "method": "renderSourceLinks (per-type dispatch)",
-      "test": "RED: open R20.27 detail \u2192 assert source link(s) present + clickable. Currently FAILS."
+      "test": "RED: open R20.27 detail \u2192 assert source link(s) present + clickable. Links must be CLICKABLE (navigate on click, not just text). Currently FAILS."
     }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
