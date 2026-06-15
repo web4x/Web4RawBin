@@ -5,7 +5,8 @@
     "name": "RbFileDetail",
     "description": "Specialized detail view for File/FileUnit nodes. Renders file name, mimeType, size, ContentPreviewer (image/text/URL actions), parent link, scenario browser link. src/public/ts/trace/rb-file-detail.ts.",
     "methods": [
-      "ior:instance:9cba1b57-09d4-40f7-89e5-42ba71999015"
+      "ior:instance:9cba1b57-09d4-40f7-89e5-42ba71999015",
+      "ior:instance:d932447e-7791-4ed8-98d6-517f2699a5ed"
     ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

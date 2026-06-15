@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "d932447e-7791-4ed8-98d6-517f2699a5ed",
+    "name": "RbFileDetail.renderWithBrowseLink",
+    "description": "Render file detail: (1) fetch /api/trace/children/<fileUuid> for metadata. (2) Header: File type + name + mimeType + size. (3) ContentPreviewer: renderContentPreview(uuid, mimeType, name, token) for inline preview. (4) Browse link: /md/{scenarioPath}/?highlight={uuid}.scenario.json (file browser with file highlighted, uses scenarioBrowserLinkFromIor). (5) Edit link: /edit/{scenarioPath}/{uuid}.scenario.json (Monaco editor on scenario unit). (6) Source link: if model.sourceFile, link to /edit/{sourceFile}#L{line}.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:37103cf0-c1db-4c94-84d4-163b05f9a8dd"
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "fdcbb079-f8c8-489a-95bd-89516f29dd66",
+    "name": "fileDetail.showFileNotCollection",
+    "description": "BUG18: file click in room tree must open file's OWN detail, not parent collection. Root cause: tagMap has no 'file' entry \u2192 falls back to rb-detail-view (generic) \u2192 shows parent. Fix: (1) create rb-file-detail.ts component, (2) add 'file':'rb-file-detail' to tagMap in renderDetailForRef. File detail renders: header (File+name+mimeType+size), ContentPreviewer inline, browse-file link (/md/ with highlight), scenario editor link (/edit/ Monaco).",
+    "class": "ior:instance:37103cf0-c1db-4c94-84d4-163b05f9a8dd",
+    "method": "ior:instance:d932447e-7791-4ed8-98d6-517f2699a5ed",
+    "classes": [
+      "ior:instance:37103cf0-c1db-4c94-84d4-163b05f9a8dd"
+    ],
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
