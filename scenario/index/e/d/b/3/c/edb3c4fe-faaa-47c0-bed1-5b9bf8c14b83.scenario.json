@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "edb3c4fe-faaa-47c0-bed1-5b9bf8c14b83",
+    "altId": "R20.29",
+    "name": "R20.29: Trace tree renders Method→Impl→Test→Gate chain matching the detail view.",
+    "description": "The /trace TREE must render the full chain from Method downward: Method→Impl→Test→Gate — matching what the detail view traces. Currently the tree shows Method with 0 children (no Impl/Test/Gate nodes expand under it) even though the detail view traces impl. The chain must complete to a green Gate in the tree AND populate the Last-Completed slot when gated. Tron evidence: IMG_4060 (Method=0 in tree but detail shows impl).",
+    "tronQuote": "> TRON (IMG_4060): trace tree must render Method→Impl→Test→Gate matching the detail (currently Method=0 in tree but detail traces impl).",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:2e6d691b-ddd2-4ad8-8e42-e2a69fbcda15"
+    ],
+    "crossRefNote": "BUG7 (Class all-children) was a similar gap at the Class level. R20.29 is the Method level: tree must expand Method→Impl→Test→Gate.",
+    "intendedChain": {
+      "useCase": "traceTree.methodChainExpands — Method node in tree expands to show Impl→Test→Gate children",
+      "class": "rb-trace-tree / FORWARD_KEYS",
+      "method": "FORWARD_KEYS resolution for Method type must include implementations[] and continue to tests[]→gates[]",
+      "test": "RED: expand a Method node in /trace tree → assert Impl child renders, expand Impl → Test renders, expand Test → Gate renders (if exists). Currently FAILS (Method shows 0 children)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

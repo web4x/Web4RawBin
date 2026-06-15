@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d7299c88-c56f-4686-a91f-c67bf78b8930",
+    "altId": "R20.30",
+    "name": "R20.30: Traceability Chain ≠ All Children — they must show DIFFERENT content.",
+    "description": "The detail view's 'Traceability Chain' section and 'All Children' section MUST show DIFFERENT content — currently they are IDENTICAL (same nodes). Traceability Chain = the FORWARD PRIMARY chain only (req→uc→class→method→impl→test→gate — the singular traced path). All Children = ALL child nodes from all model array relationships (the union). When a node has non-chain children (e.g. a Class with 5 methods but only 1 in the traced chain), Traceability Chain shows 1, All Children shows 5. Re-assertion of R20.5 (7734f4e1) which specified this but implementation still renders identical content.",
+    "tronQuote": "> TRON (IMG_4060): Traceability Chain ≠ All Children — they must show DIFFERENT content (currently identical).",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:7734f4e1-def9-4af3-a7d2-5ccc7160b214"
+    ],
+    "crossRefNote": "R20.5 (universal chain-vs-children) defined this rule. R20.30 re-asserts it as a bug — implementation still renders both sections identically.",
+    "intendedChain": {
+      "useCase": "detailView.distinctSections — Traceability Chain shows only forward-chain nodes; All Children shows all child nodes; content differs",
+      "class": "RbDetailDrawer / detail-superseded.ts",
+      "method": "renderTraceabilitySection (chain-walk filtered) vs renderAllChildrenSection (union of arrays) — must use DIFFERENT data sources",
+      "test": "RED: open a Class with 5 methods (1 in chain) → Traceability Chain shows 1 method, All Children shows 5. Currently FAILS (both show same content)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
