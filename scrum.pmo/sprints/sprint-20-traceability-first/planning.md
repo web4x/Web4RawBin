@@ -64,3 +64,17 @@ Coordinate with **req-eng** for forward S20 requirements (each captured verbatim
 
 **Product Owner:** robbin-po (robbinTeam2:0.0) · **Tron:** TRONinterface
 **Created:** 2026-06-13 · **Sprint:** Sprint 20 — Radical Forward Planning
+
+---
+
+## R20.x Status Sync — 2026-06-15 (planner, canonical objectVerb chain-completeness)
+
+| Bucket | Reqs |
+|--------|------|
+| ✅ COMPLETE (chain proven) | R20.1 (resolved), R20.2, R20.5, R20.5a, R20.5c, R20.10, R20.11, R20.13 |
+| 🧪 QA-REVIEW (gate-proven, Tron gate) | R20.19 (markdown-not-source), R20.20 (TestCase), R20.21 (Gate) |
+| ▶ OPEN (chain incomplete) | **R20.3 (CURRENT WIP)**, R20.4, R20.6a-h, R20.7, R20.9, R20.12, R20.13.A, R20.14, R20.15, R20.16, R20.17 |
+
+- **CURRENT WIP: R20.3** "All item views default to COLLAPSED on render" — first hop = architect (create UC; req-only). Driven 2026-06-15.
+- Open nodes per req: architect-UC (R20.4/7/9/13.A/14/16/17), expert-Impl (R20.3/6a-h/12/15), tester-Test (R20.12). Drive lowest-open in sequence, no idling between WIP.
+- Tron #102: each agent self-calls `planner-drive.ts hop <hop> <status>` as they finish (planner does NOT backfill). Gate verb checks isGateProven before QA-Review.
