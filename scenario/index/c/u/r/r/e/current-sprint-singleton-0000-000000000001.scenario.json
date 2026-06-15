@@ -26,9 +26,9 @@
         "updatedAt": "2026-06-15T10:34:21.739Z"
       },
       "test": {
-        "status": "in-progress",
+        "status": "gate-proven",
         "owner": "tester",
-        "updatedAt": "2026-06-15T10:39:10.436Z"
+        "updatedAt": "2026-06-15T10:45:31.677Z"
       },
       "class": {
         "status": "done",
@@ -43,7 +43,7 @@
       "impl": {
         "status": "done",
         "owner": "expert",
-        "updatedAt": "2026-06-15T10:37:54.368Z"
+        "updatedAt": "2026-06-15T10:44:20.535Z"
       }
     },
     "slots": {

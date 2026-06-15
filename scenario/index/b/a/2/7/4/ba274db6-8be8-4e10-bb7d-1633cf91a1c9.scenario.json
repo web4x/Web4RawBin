@@ -21,7 +21,9 @@
       "class": "RbOverview / CurrentSprint",
       "method": "renderPinnedSprint — build Sprint node with 3 task children (current/last/next), each auto-expanded with full chain",
       "test": "RED: /trace sprint-list → first node is Sprint 'Current Sprint' → contains exactly 3 Task children (current active, last done, next queued) → each expands to full chain. Currently FAILS (single-task pin only)."
-    }
+    },
+    "status": "QA Review",
+    "gateProof": "GATE-PROVEN GREEN + RENDERS (tester DET-3x + planner source-verified 2026-06-15, goal=renders-not-proxy, v0.6.43 ad4b5969c): CurrentSprint pin renders as single Sprint node with 3 task children Current/Last/Next, each fully recursive (4/2/1 children); RED→GREEN children 0→3; Tron spec met. gate-proven=true, ALL hops SELF-MARKED by agents per Tron #102 (req-eng/architect/expert/tester) — planner did NOT backfill. getThreeSlots() derives current/lastCompleted/nextBacklog. STAY PINNED until Tron-done (#106)."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
