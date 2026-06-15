@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "329081ca-977e-46d0-9f7f-4a6d92b34dc3",
+    "name": "R20.20 TestCase.parseFromSource",
+    "slug": "parse-test-cases-generator",
+    "file": "test/vitest/parse-test-cases.test.ts",
+    "status": "pass",
+    "implementations": ["ior:instance:e4f5b693-c1d2-4e3f-8a5b-6c7d8e9f0a1b"]
+  },
+  "ownerIor": null
+}
