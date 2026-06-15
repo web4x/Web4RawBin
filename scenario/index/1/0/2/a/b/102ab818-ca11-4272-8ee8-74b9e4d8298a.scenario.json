@@ -4,8 +4,8 @@
     "uuid": "102ab818-ca11-4272-8ee8-74b9e4d8298a",
     "altId": "R20.21",
     "name": "R20.21: Each verification gate = a scenario unit (ior:class:Gate) linked to its task/test.",
-    "description": "Each verification GATE (deploy-gate, DET-3x, parity check, Tron-QA sign-off) becomes its OWN first-class scenario unit (ior:class:Gate) in the index. Links to the task/test it gates + records pass/fail status + timestamp + evidence. The chain extends: \u2026\u2192Test\u2192TestCase\u2192Gate; gates are queryable units showing what verification was applied and whether it passed. Types: deploy-gate, det-3x-gate, parity-gate, tron-qa-gate. BADGE: each Gate item renders with a STATUS BADGE \u2014 NEW (no verdict yet, grey/neutral), RED (verdict=FAIL), GREEN (verdict=PASS). The badge is visible on the rb-object-item in /trace tree and detail view.",
-    "tronQuote": "> TRON: \"trace the describe tests and the gates \u2014 add them as 1st class scenarios\"\n> TRON (badge): \"make the gate status visible on the gate item in the badge. NEW, Red, Green\"",
+    "description": "Each verification GATE (deploy-gate, DET-3x, parity check, Tron-QA sign-off) becomes its OWN first-class scenario unit (ior:class:Gate) in the index. Links to the task/test it gates + records pass/fail status + timestamp + evidence. The chain extends: …→Test→TestCase→Gate; gates are queryable units showing what verification was applied and whether it passed. Types: deploy-gate, det-3x-gate, parity-gate, tron-qa-gate. BADGE: each Gate item renders with a STATUS BADGE — NEW (no verdict yet, grey/neutral), RED (verdict=FAIL), GREEN (verdict=PASS). The badge is visible on the rb-object-item in /trace tree and detail view.",
+    "tronQuote": "> TRON: \"trace the describe tests and the gates — add them as 1st class scenarios\"\n> TRON (badge): \"make the gate status visible on the gate item in the badge. NEW, Red, Green\"",
     "tasks": [
       "ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3"
     ],
@@ -14,16 +14,16 @@
     "unitLinks": [],
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "intendedChain": {
-      "useCase": "gate.traceVerification \u2014 each gate is a queryable unit recording what verification was applied + pass/fail",
-      "class": "Gate (ior:class:Gate \u2014 new scenario type)",
-      "method": "createGate \u2014 on verification pass, create Gate unit with type/status/evidence/timestamp, link to gated task/test",
-      "test": "RED: (1) after DET-3x passes \u2192 /api/trace shows a Gate child linked to the task (type=det-3x, status=pass). Currently FAILS (no Gate units exist). (2) Gate item renders with status badge: NEW=grey, FAIL=red, PASS=green. Currently FAILS (no Gate rendering)."
+      "useCase": "gate.traceVerification — each gate is a queryable unit recording what verification was applied + pass/fail",
+      "class": "Gate (ior:class:Gate — new scenario type)",
+      "method": "createGate — on verification pass, create Gate unit with type/status/evidence/timestamp, link to gated task/test",
+      "test": "RED: (1) after DET-3x passes → /api/trace shows a Gate child linked to the task (type=det-3x, status=pass). Currently FAILS (no Gate units exist). (2) Gate item renders with status badge: NEW=grey, FAIL=red, PASS=green. Currently FAILS (no Gate rendering)."
     },
     "useCases": [
       "ior:instance:37a27ef3-84bf-493e-9cf3-5c5f77ca8efb"
     ],
     "status": "QA Review",
-    "gateProof": "GATE-PROVEN + CHAIN RENDERS end-to-end (v0.6.39, tester DET-3x + planner source-verified 2026-06-15; goal=renders-not-proxy). Gap from IMG_4045 CLOSED: Method parseFromSource\u2192Impl wired (e4f5b693-c1d2 parse-test-cases.ts); Test.testCases[] reverse-indexed \u2192 Test\u2192TestCase renders. gate-proven=true (agents self-marked hops per Tron #102: req-eng/architect/tester). CAVEAT (honest, Tron call #106): 74/355 Tests linked/marked \u2192 render Test\u2192TestCase; 281 legacy Tests UNMARKED (no testCases[]) \u2014 full coverage is Tron's call. SUB-NOTES: impl e4f5b693-c1d2 is a real Implementation node (file-level parse-test-cases.ts) but has NO [impl:uuid:] source marker (render-OK, not champagne-strict); Method.tests[] empty (test gate-proven via Gate unit, not method-link). STAY PINNED until Tron calls done (#106)."
+    "gateProof": "GATE-PROVEN GREEN (tester DET-3x 2026-06-15): chain continuous 6/7 req→uc→class→method→impl→test; dead-end BUG15 CLOSED (impl→test 329081ca wired); broken-links 0; gate PASS; badge renders. HONEST RESIDUALS: (1) test 329081ca testCases[] empty = 7th hop incomplete (minor); (2) BUG17 4 test-uuids scanner-invisible (Tron scope-call). → QA-Review (Tron gate #106)."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

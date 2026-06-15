@@ -16,7 +16,7 @@
       "ior:instance:37a27ef3-84bf-493e-9cf3-5c5f77ca8efb"
     ],
     "focus": true,
-    "gateProof": "GATE-PROVEN + CHAIN RENDERS end-to-end (v0.6.39, tester DET-3x + planner source-verified 2026-06-15; goal=renders-not-proxy). Gap from IMG_4045 CLOSED: Method parseFromSource→Impl wired (e4f5b693-c1d2 parse-test-cases.ts); Test.testCases[] reverse-indexed → Test→TestCase renders. gate-proven=true (agents self-marked hops per Tron #102: req-eng/architect/tester). CAVEAT (honest, Tron call #106): 74/355 Tests linked/marked → render Test→TestCase; 281 legacy Tests UNMARKED (no testCases[]) — full coverage is Tron's call. SUB-NOTES: impl e4f5b693-c1d2 is a real Implementation node (file-level parse-test-cases.ts) but has NO [impl:uuid:] source marker (render-OK, not champagne-strict); Method.tests[] empty (test gate-proven via Gate unit, not method-link). STAY PINNED until Tron calls done (#106)."
+    "gateProof": "GATE-PROVEN GREEN (tester DET-3x 2026-06-15): chain continuous 6/7 req→uc→class→method→impl→test; dead-end BUG15 CLOSED (impl→test 329081ca wired); broken-links 0; gate PASS; badge renders. HONEST RESIDUALS: (1) test 329081ca testCases[] empty = 7th hop incomplete (minor); (2) BUG17 4 test-uuids scanner-invisible (Tron scope-call). → QA-Review (Tron gate #106)."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
