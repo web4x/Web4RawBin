@@ -4,7 +4,9 @@
     "uuid": "e4f5b693-c1d2-4e3f-8a5b-6c7d8e9f0a1b",
     "name": "parse-test-cases.ts",
     "file": "scripts/parse-test-cases.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:329081ca-977e-46d0-9f7f-4a6d92b34dc3"
+    ]
   },
   "ownerIor": "ior:instance:499b453f-84f9-4eb3-b969-f039ba42cb2a"
 }
