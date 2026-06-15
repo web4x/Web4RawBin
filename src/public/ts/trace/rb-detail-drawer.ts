@@ -20,6 +20,7 @@
 
 import { selectionModel } from './selection-model.js';
 import { ChatPanel } from './ChatPanel.js';
+import './rb-file-detail.js';
 
 export class RbDetailDrawer extends HTMLElement {
   static get observedAttributes() { return ['ref', 'open']; }
@@ -72,7 +73,7 @@ export class RbDetailDrawer extends HTMLElement {
       const ref = this.getAttribute('ref');
       if (ref) {
         this.setAttribute('open', '');
-        if (!ref.startsWith('file:')) this.renderDetailForRef(ref);
+        this.renderDetailForRef(ref);
       } else {
         this.removeAttribute('open');
       }
@@ -113,7 +114,7 @@ export class RbDetailDrawer extends HTMLElement {
     const tagMap: Record<string, string> = {
       requirement: 'rb-requirement-detail', task: 'rb-task-detail', usecase: 'rb-usecase-detail',
       class: 'rb-class-detail', method: 'rb-method-detail', implementation: 'rb-implementation-detail',
-      test: 'rb-test-detail',
+      test: 'rb-test-detail', file: 'rb-file-detail',
     };
     const tag = tagMap[type] || 'rb-detail-view';
     panel.innerHTML = '';
