@@ -622,6 +622,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (iorType !== baseType) (obj as any).type = iorType;
           if (unit.model.name) obj.title = String(unit.model.name);
           if (unit.model.status) obj.status = String(unit.model.status);
+          if (iorType === 'gate' && (unit.model as any).verdict) obj.status = String((unit.model as any).verdict);
           for (const key of scenarioFwd(iorType)) {
             const refs = (unit.model as Record<string, unknown>)[key];
             if (!Array.isArray(refs)) continue;

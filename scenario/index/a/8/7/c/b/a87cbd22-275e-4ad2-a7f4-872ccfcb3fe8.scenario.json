@@ -5,9 +5,7 @@
     "name": "TraceObject.parent (split for TraceObject.refs)",
     "sourceFile": "src/ts/shared/TraceModel.ts",
     "sourceLine": 11,
-    "tests": [
-      "ior:instance:e9077047-49d2-4f33-bb68-3fd81e648b49"
-    ],
+    "tests": [],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:aed37375-3dfb-4434-81b0-f5ec7bbad7de"

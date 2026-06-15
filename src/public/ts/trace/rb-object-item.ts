@@ -185,7 +185,7 @@ export class RbObjectItem extends HTMLElement {
     const icon = TRACE_ICONS[type] || '•';
     const hasChildren = this.hasAttribute('has-children');
     const childCount = this.getAttribute('child-count') || '0';
-    const verdict = this.getAttribute('verdict') || '';
+    const verdict = this.getAttribute('verdict') || (type === 'gate' ? (this.getAttribute('status') || '') : '');
     const verdictBadge = type === 'gate' && verdict ? `<span class="oi-verdict oi-verdict-${verdict.toLowerCase()}">${verdict === 'PASS' ? '✓' : verdict === 'FAIL' ? '✕' : '○'}</span>` : '';
     this.innerHTML = `
       <span class="oi-icon" title="${type}" draggable="true">${icon}</span>

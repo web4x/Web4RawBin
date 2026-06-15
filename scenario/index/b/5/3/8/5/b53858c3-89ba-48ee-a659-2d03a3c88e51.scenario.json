@@ -5,9 +5,7 @@
     "name": "impl:RbDetailDrawer.stickyBottom (split for RbDetailDrawer.close)",
     "sourceFile": "src/public/ts/trace/rb-detail-drawer.ts",
     "sourceLine": 47,
-    "tests": [
-      "ior:instance:8194c6e4-4392-4c4d-a7fe-9d9ccc3cd93f"
-    ],
+    "tests": [],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:f4b0acec-cf50-4916-9696-e89865bca632"

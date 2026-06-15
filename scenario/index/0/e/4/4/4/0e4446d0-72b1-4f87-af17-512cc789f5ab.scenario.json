@@ -5,9 +5,7 @@
     "name": "R15.4 defaultItemView (split for RbObjectItem.generateName)",
     "sourceFile": "src/public/ts/trace/rb-object-item.ts",
     "sourceLine": 8,
-    "tests": [
-      "ior:instance:27467ec5-3f64-4151-9501-0b8c8944b4b3"
-    ],
+    "tests": [],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:bac0abd4-c15b-40b8-ae6c-ef265f883a27"
