@@ -25,52 +25,21 @@ async function load(): Promise<void> {
 
     treeMount.innerHTML = '';
 
-    // [impl:uuid:062b6920-e2a6-4774-b369-afac243dc46d] R20.12+R20.22 renderThreeSlots
+    // [impl:uuid:062b6920-e2a6-4774-b369-afac243dc46d] R20.12+R20.22 renderCurrentSprint
     const CURRENT_SPRINT_UUID = 'current-sprint-singleton-0000-000000000001';
-    const renderSlots = async () => {
-      const existing = treeMount.querySelector('.three-slots');
+    const renderCurrentSprint = () => {
+      const existing = treeMount.querySelector('.current-sprint-tree');
       if (existing) existing.remove();
-      try {
-        const ctRes = await fetch(`/api/ior/ior:instance:${CURRENT_SPRINT_UUID}`, { cache: 'no-store' });
-        const ctData = await ctRes.json();
-        if (!ctData.unit?.model) return;
-        const ct = ctData.unit.model;
-        const slots = ct.slots || {};
-        const container = document.createElement('div');
-        container.className = 'three-slots';
-
-        const labels = [
-          { slot: slots.current, label: '📌 Current', css: 'slot-current' },
-          { slot: slots.lastCompleted, label: '✅ Last Completed', css: 'slot-completed' },
-          { slot: slots.nextBacklog, label: '📋 Next Backlog', css: 'slot-backlog' },
-        ];
-
-        for (const { slot, label, css } of labels) {
-          const section = document.createElement('div');
-          section.className = `slot-section ${css}`;
-          const hdr = document.createElement('div');
-          hdr.className = 'slot-header';
-          if (slot) {
-            hdr.innerHTML = `<span class="slot-label">${label}</span><span class="slot-name">${(slot.taskName || '').replace(/[<>]/g, '')}</span>`;
-            const tree = document.createElement('rb-trace-tree') as any;
-            tree.setAttribute('data-seed-ior', slot.reqUuid || '');
-            tree.setAttribute('data-mode', 'trace');
-            tree.setAttribute('data-always-expanded', '');
-            section.appendChild(hdr);
-            section.appendChild(tree);
-            tree.graph = graph;
-          } else {
-            hdr.innerHTML = `<span class="slot-label">${label}</span><span class="slot-empty">— none —</span>`;
-            section.appendChild(hdr);
-          }
-          container.appendChild(section);
-        }
-
-        treeMount.insertBefore(container, treeMount.firstChild);
-      } catch {}
+      const tree = document.createElement('rb-trace-tree') as any;
+      tree.className = 'current-sprint-tree';
+      tree.setAttribute('data-seed-ior', CURRENT_SPRINT_UUID);
+      tree.setAttribute('data-mode', 'trace');
+      tree.setAttribute('data-always-expanded', '');
+      treeMount.insertBefore(tree, treeMount.firstChild);
+      tree.graph = graph;
     };
-    await renderSlots();
-    document.addEventListener('current-sprint-changed', () => renderSlots());
+    renderCurrentSprint();
+    document.addEventListener('current-sprint-changed', () => renderCurrentSprint());
 
     // Build Sprint root nodes as seed trees with mode=trace
     for (const sprint of sprints) {

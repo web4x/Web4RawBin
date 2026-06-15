@@ -11,7 +11,7 @@
       "impl": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9",
       "test": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9"
     },
-    "activeHop": 0,
+    "activeHop": 5,
     "sprintName": "Sprint 20 — Radical Forward Planning (Traceability-First)",
     "taskName": "R20.22: Pinned Current Sprint = Sprint node with 3 tasks (current/last-completed/next-backlog), recursive",
     "hopStates": {
@@ -26,9 +26,9 @@
         "updatedAt": "2026-06-15T10:34:21.739Z"
       },
       "test": {
-        "status": "gate-proven",
+        "status": "in-progress",
         "owner": "tester",
-        "updatedAt": "2026-06-15T10:31:55.883Z"
+        "updatedAt": "2026-06-15T10:39:10.436Z"
       },
       "class": {
         "status": "done",
@@ -43,7 +43,7 @@
       "impl": {
         "status": "done",
         "owner": "expert",
-        "updatedAt": "2026-06-15T10:30:13.086Z"
+        "updatedAt": "2026-06-15T10:37:54.368Z"
       }
     },
     "slots": {

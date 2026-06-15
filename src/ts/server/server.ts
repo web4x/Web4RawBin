@@ -613,7 +613,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const unit = idx.get(uuid);
           if (!unit) continue;
           const iorType = unit.ior.replace('ior:class:', '').toLowerCase();
-          const baseType = (iorType === 'bug' || iorType === 'changerequest') ? 'requirement' : (iorType === 'testcase' || iorType === 'gate') ? 'test' : iorType;
+          const baseType = (iorType === 'bug' || iorType === 'changerequest') ? 'requirement' : (iorType === 'testcase' || iorType === 'gate') ? 'test' : (iorType === 'currentsprint') ? 'task' : iorType;
           if (!graph.has(uuid)) {
             try { makeObject(graph, baseType as ObjectType, uuid, String(unit.model.name || '')); } catch { continue; }
           }
@@ -696,6 +696,24 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // [impl:uuid:29730376-7832-477d-8960-98c937f8c2bb] BUG12 Bug+ChangeRequest forward keys
         // R20.15: unified CHAIN_TYPE_CONFIG replaces inline maps
         const fwdKeys = forwardKeysForMode(type, queryMode as 'scenario' | 'trace');
+        // R20.22: CurrentSprint → 3 task children from slots
+        if (type === 'CurrentSprint') {
+          const model = unit.model as Record<string, unknown>;
+          const slots = (model.slots as any) || {};
+          const slotEntries: Array<{ label: string; slot: any }> = [
+            { label: '📌 Current', slot: slots.current },
+            { label: '✅ Last Completed', slot: slots.lastCompleted },
+            { label: '📋 Next Backlog', slot: slots.nextBacklog },
+          ];
+          const children = slotEntries.filter(s => s.slot?.taskUuid).map(s => {
+            const taskUnit = idx.get(s.slot.taskUuid);
+            const taskName = taskUnit ? String(taskUnit.model?.name || s.slot.taskName) : s.slot.taskName;
+            return { uuid: s.slot.taskUuid, type: 'Task', name: `${s.label}: ${taskName}`, hasChildren: true };
+          });
+          res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+          res.end(JSON.stringify({ uuid, type, name: String(model.name || 'Current Sprint'), hasChildren: children.length > 0, children }));
+          return;
+        }
         // Room type: build Members + Files collection children
         if (type === 'Room') {
           const model = unit.model as Record<string, unknown>;

@@ -26,6 +26,7 @@ export const CHAIN_TYPE_CONFIG: Record<string, ChainTypeConfig> = {
   Test:           { scenarioFwd: ['testCases'],                                          traceFwd: ['testCases'],                   expectedChildren: ['TestCase'],           clientFwd: ['testCases'] },
   TestCase:       { scenarioFwd: [],                                                     traceFwd: [],                              expectedChildren: [],                     clientFwd: [] },
   Gate:           { scenarioFwd: [],                                                     traceFwd: [],                              expectedChildren: [],                     clientFwd: [] },
+  CurrentSprint:  { scenarioFwd: [],                                                     traceFwd: [],                              expectedChildren: ['Task'],               clientFwd: [] },
 };
 
 function resolve(type: string): ChainTypeConfig | undefined {
