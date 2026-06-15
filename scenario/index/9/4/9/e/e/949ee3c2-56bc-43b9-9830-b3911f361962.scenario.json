@@ -9,7 +9,10 @@
     "status": "In Progress",
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "sprint": "Sprint 20",
-    "tronTraced": "Screenshot regression, URGENT (PO/Tron 2026-06-15)"
+    "tronTraced": "Screenshot regression, URGENT (PO/Tron 2026-06-15)",
+    "useCases": [
+      "ior:instance:fdcbb079-f8c8-489a-95bd-89516f29dd66"
+    ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

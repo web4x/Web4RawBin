@@ -2,18 +2,18 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: BUG18: file click shows parent collection not file detail (regression) — rewire file→detail→browse-highlight→Monaco",
+    "name": "Current: BUG18: file click shows parent collection not file detail — rewire (tagMap 'file' entry + rb-file-detail)",
     "chain": {
       "req": "949ee3c2-56bc-43b9-9830-b3911f361962",
-      "uc": "949ee3c2-56bc-43b9-9830-b3911f361962",
-      "class": "949ee3c2-56bc-43b9-9830-b3911f361962",
-      "method": "949ee3c2-56bc-43b9-9830-b3911f361962",
+      "uc": "fdcbb079-f8c8-489a-95bd-89516f29dd66",
+      "class": "37103cf0-c1db-4c94-84d4-163b05f9a8dd",
+      "method": "d932447e-7791-4ed8-98d6-517f2699a5ed",
       "impl": "949ee3c2-56bc-43b9-9830-b3911f361962",
       "test": "949ee3c2-56bc-43b9-9830-b3911f361962"
     },
-    "activeHop": 2,
+    "activeHop": 0,
     "sprintName": "Sprint 20 — Radical Forward Planning (Traceability-First)",
-    "taskName": "BUG18: file click shows parent collection not file detail (regression) — rewire file→detail→browse-highlight→Monaco",
+    "taskName": "BUG18: file click shows parent collection not file detail — rewire (tagMap 'file' entry + rb-file-detail)",
     "hopStates": {
       "req": {
         "status": "done",
@@ -33,12 +33,12 @@
       "class": {
         "status": "done",
         "owner": "architect",
-        "updatedAt": "2026-06-15T11:53:33.542Z"
+        "updatedAt": "2026-06-15T12:29:39.343Z"
       },
       "method": {
         "status": "done",
         "owner": "architect",
-        "updatedAt": "2026-06-15T11:53:34.693Z"
+        "updatedAt": "2026-06-15T12:29:40.925Z"
       },
       "impl": {
         "status": "done",
