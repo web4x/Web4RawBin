@@ -66,6 +66,7 @@ export class CurrentSprint {
   private sprintName = '';
   private taskName = '';
   private hopStates: Record<string, HopState> = {};
+  private nextBacklogOverride = '';
 
   private constructor(index: ScenarioIndex) {
     this.index = index;
@@ -86,6 +87,7 @@ export class CurrentSprint {
       this.sprintName = (m.sprintName as string) || '';
       this.taskName = (m.taskName as string) || '';
       this.hopStates = (m.hopStates as Record<string, HopState>) || {};
+      this.nextBacklogOverride = (m.nextBacklogOverride as string) || '';
     }
   }
 
@@ -100,6 +102,7 @@ export class CurrentSprint {
         sprintName: this.sprintName,
         taskName: this.taskName,
         hopStates: this.hopStates,
+        nextBacklogOverride: this.nextBacklogOverride,
         slots: this.getThreeSlots(),
       },
       ownerIor: null,
@@ -163,12 +166,32 @@ export class CurrentSprint {
     const completed = tasks.filter(t => !t.focus && t.reqUuid);
     const lastCompleted = completed.length > 0 ? completed[completed.length - 1] : null;
     const backlog = tasks.filter(t => !t.focus && t.reqUuid && !t.hasUcChain);
-    const nextBacklog = backlog.length > 0 ? backlog[0] : null;
+    let nextBacklog: typeof tasks[0] | null = null;
+    if (this.nextBacklogOverride) {
+      nextBacklog = tasks.find(t => t.uuid === this.nextBacklogOverride) || null;
+    }
+    if (!nextBacklog) nextBacklog = backlog.length > 0 ? backlog[0] : null;
 
     const toSlot = (t: typeof tasks[0] | null): TaskSlot | null =>
       t ? { taskUuid: t.uuid, taskName: t.name, reqUuid: t.reqUuid } : null;
 
     return { current: toSlot(current), lastCompleted: toSlot(lastCompleted), nextBacklog: toSlot(nextBacklog) };
+  }
+
+  // R20.22 override: pin a specific task as nextBacklog
+  setNextBacklog(taskUuid: string): boolean {
+    const taskUnit = this.index.get(taskUuid);
+    if (!taskUnit || taskUnit.ior !== 'ior:class:Task') return false;
+    this.nextBacklogOverride = taskUuid;
+    this.persist();
+    this.emit();
+    return true;
+  }
+
+  clearNextBacklogOverride(): void {
+    this.nextBacklogOverride = '';
+    this.persist();
+    this.emit();
   }
 
   // [impl:uuid:2011ae78-3e09-4e85-b98f-f3423dd32500] R20.13 advance

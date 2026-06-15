@@ -33,6 +33,11 @@ if (verb === 'setChain') {
   console.log('setChain ok=' + ok);
 }
 if (verb === 'advance') (cs as any).advance();
+if (verb === 'setNextBacklog') {
+  const ok = (cs as any).setNextBacklog(a[0]);
+  console.log('setNextBacklog ok=' + ok + ' taskUuid=' + a[0]);
+}
+if (verb === 'clearNextBacklog') (cs as any).clearNextBacklogOverride();
 console.log('pinCurrent:', JSON.stringify((cs as any).pinCurrent()));
 console.log('getActiveChain:');
 for (const h of (cs as any).getActiveChain()) console.log('  ' + h.status.padEnd(7) + ' ' + h.type.padEnd(7) + ' ' + h.uuid);
