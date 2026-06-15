@@ -76,3 +76,11 @@ Recovery = agent-trainer rewind. Context+learnings saved before 80%.
 Generated views (.md, symlinks, planning docs) must be re-runnable without drift.
 Template change → re-generate all → commit. Stale views = Tron sees old rendering.
 - **Skills:** scenario.md (regenerate-views), how-to-write-skills.md (emitOosh/emitDocs idempotent)
+
+## L13. RELEASE = VERSION + CACHE_NAME + GIT TAG (#108)
+A release requires ALL THREE: package.json version bump + sw.js CACHE_NAME stamp +
+monotonic `git tag v<version>` at the impl commit. 'Version bumped' ≠ released
+without the tag. Tag at release time, never batch/drift. Release gate verifies
+all 3 present before a task counts as released.
+- **Skills:** ship-versionBump.md (release recipe + gate + drift backfill),
+  ship-staticShell.md (STATIC_SHELL in same commit), audit.md (release-verify gate)

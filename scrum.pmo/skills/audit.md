@@ -16,7 +16,18 @@ npx tsx scripts/objectVerb.ts Audit <verb> [args]    # direct
 
 Logic: `src/ts/scenario/skill-classes.ts` → `class Audit`. Dispatcher: `scripts/objectVerb.ts`.
 
+## Release-verify gate (L13)
+
+A task counts as released ONLY when all 3 are present:
+```bash
+grep '"version"' package.json              # → "0.6.XX"
+grep 'CACHE_NAME' src/public/sw.js         # → rawbin-v0.6.XX
+git tag --list 'v0.6.XX'                   # → v0.6.XX (non-empty)
+```
+Missing tag = not released (drift). Backfill: `git tag v0.6.XX <commit-sha>`.
+
 ## Laws enforced (team-laws.md)
 - **L3** GIT=BACKUP: ci:gates commit-gated, no tar
 - **L5** TEAM PROVES: audit gates = team's proof infrastructure
 - **L7** SOURCE-VERIFY: strict-marker-audit reads AST, not string-match
+- **L13** RELEASE = VERSION + CACHE_NAME + TAG: all three verified before task released
