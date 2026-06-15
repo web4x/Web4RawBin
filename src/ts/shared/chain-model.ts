@@ -13,8 +13,8 @@ export interface ChainTypeConfig {
 
 // [impl:uuid:d4ad31f3-c33e-4311-806c-61ce2364d2ad] R20.15 CHAIN_TYPE_CONFIG
 export const CHAIN_TYPE_CONFIG: Record<string, ChainTypeConfig> = {
-  Requirement:    { scenarioFwd: ['useCases'],                                          traceFwd: ['useCases'],                    expectedChildren: ['UseCase', 'Task'],    clientFwd: ['useCases'] },
-  Task:           { scenarioFwd: ['subtasks', 'useCases', 'coveredRequirements', 'children'], traceFwd: ['useCases', 'coveredRequirements'], expectedChildren: ['Task', 'UseCase', 'Requirement'], clientFwd: ['useCases'] },
+  Requirement:    { scenarioFwd: ['useCases', 'gates'],                                  traceFwd: ['useCases', 'gates'],           expectedChildren: ['UseCase', 'Task', 'Gate'], clientFwd: ['useCases', 'gates'] },
+  Task:           { scenarioFwd: ['subtasks', 'useCases', 'coveredRequirements', 'children', 'gates'], traceFwd: ['useCases', 'coveredRequirements', 'gates'], expectedChildren: ['Task', 'UseCase', 'Requirement', 'Gate'], clientFwd: ['useCases', 'gates'] },
   UseCase:        { scenarioFwd: ['classes'],                                           traceFwd: ['class'],                       expectedChildren: ['Class', 'Method'],    clientFwd: ['classes'] },
   Class:          { scenarioFwd: ['methods'],                                           traceFwd: ['methods'],                     expectedChildren: ['Method'],             clientFwd: ['methods'] },
   Method:         { scenarioFwd: ['implementations'],                                   traceFwd: ['implementations'],             expectedChildren: ['Implementation'],     clientFwd: ['implementations'] },

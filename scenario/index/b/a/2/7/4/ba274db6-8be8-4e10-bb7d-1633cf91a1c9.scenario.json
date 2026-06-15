@@ -4,7 +4,7 @@
     "uuid": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9",
     "altId": "R20.22",
     "name": "R20.22: Pinned Current Sprint = Sprint node with 3 tasks (current, last completed, next backlog), fully recursive children.",
-    "description": "Refactor the pinned current task: the pin MUST be a Sprint-type node labeled 'Current Sprint' containing exactly 3 Task children: (1) CURRENT = the active WIP/focus task, (2) LAST COMPLETED = the most recently done task, (3) NEXT IN BACKLOG = the next queued task. Each of these 3 tasks FULLY RECURSIVELY loads its children in this special sprint node (the complete chain: req→UC→Class→Method→Impl→Test expands under each task). This replaces the single-task pin (R20.12) with a 3-task context window.",
+    "description": "Refactor the pinned current task: the pin MUST be a Sprint-type node labeled 'Current Sprint' containing exactly 3 Task children: (1) CURRENT = the active WIP/focus task, (2) LAST COMPLETED = the most recently done task, (3) NEXT IN BACKLOG = the next queued task. Each of these 3 tasks FULLY RECURSIVELY loads its children in this special sprint node (the complete chain: req\u2192UC\u2192Class\u2192Method\u2192Impl\u2192Test expands under each task). This replaces the single-task pin (R20.12) with a 3-task context window.",
     "tronQuote": "> TRON: \"refactor the pinned current task. it should start with a pinned item of type sprint Current Sprint then 3 tasks: current, last completed, next in backlog, and fully recursively load their children in this special sprint node\"",
     "tasks": [],
     "tests": [],
@@ -17,13 +17,16 @@
     ],
     "crossRefNote": "R20.12 (pin at top) is superseded by this 3-task refactor. R20.13 (CurrentSprint class) provides the data (getActiveChain + last completed + next backlog).",
     "intendedChain": {
-      "useCase": "currentSprint.renderPinnedContext — Sprint node 'Current Sprint' with 3 tasks, each recursively expanded",
+      "useCase": "currentSprint.renderPinnedContext \u2014 Sprint node 'Current Sprint' with 3 tasks, each recursively expanded",
       "class": "RbOverview / CurrentSprint",
-      "method": "renderPinnedSprint — build Sprint node with 3 task children (current/last/next), each auto-expanded with full chain",
-      "test": "RED: /trace sprint-list → first node is Sprint 'Current Sprint' → contains exactly 3 Task children (current active, last done, next queued) → each expands to full chain. Currently FAILS (single-task pin only)."
+      "method": "renderPinnedSprint \u2014 build Sprint node with 3 task children (current/last/next), each auto-expanded with full chain",
+      "test": "RED: /trace sprint-list \u2192 first node is Sprint 'Current Sprint' \u2192 contains exactly 3 Task children (current active, last done, next queued) \u2192 each expands to full chain. Currently FAILS (single-task pin only)."
     },
     "status": "QA Review",
-    "gateProof": "GATE-PROVEN GREEN + RENDERS (tester DET-3x + planner source-verified 2026-06-15, goal=renders-not-proxy, v0.6.43 ad4b5969c): CurrentSprint pin renders as single Sprint node with 3 task children Current/Last/Next, each fully recursive (4/2/1 children); RED→GREEN children 0→3; Tron spec met. gate-proven=true, ALL hops SELF-MARKED by agents per Tron #102 (req-eng/architect/expert/tester) — planner did NOT backfill. getThreeSlots() derives current/lastCompleted/nextBacklog. STAY PINNED until Tron-done (#106)."
+    "gateProof": "GATE-PROVEN GREEN + RENDERS (tester DET-3x + planner source-verified 2026-06-15, goal=renders-not-proxy, v0.6.43 ad4b5969c): CurrentSprint pin renders as single Sprint node with 3 task children Current/Last/Next, each fully recursive (4/2/1 children); RED\u2192GREEN children 0\u21923; Tron spec met. gate-proven=true, ALL hops SELF-MARKED by agents per Tron #102 (req-eng/architect/expert/tester) \u2014 planner did NOT backfill. getThreeSlots() derives current/lastCompleted/nextBacklog. STAY PINNED until Tron-done (#106).",
+    "gates": [
+      "ior:instance:1d897d04-2027-4b34-9013-2be7a642849c"
+    ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
