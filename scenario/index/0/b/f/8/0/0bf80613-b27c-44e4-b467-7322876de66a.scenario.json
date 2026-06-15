@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "0bf80613-b27c-44e4-b467-7322876de66a",
+    "altId": "R20.23",
+    "name": "R20.23: Every scenario type shows a source file:line link in the detail view.",
+    "description": "EVERY scenario type's detail view MUST show a clickable source file:line link \u2014 the file and line where the unit is defined/implemented. This is the universal base; per-type specializations (R20.24-27) add additional links.",
+    "tronQuote": "> TRON: \"each type has a link to a source file:line, classes to the puml file and the resulting svg preview, same as methods to the puml AND the ts code, same as tests and gates\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "intendedChain": {
+      "useCase": "detailView.sourceLink \u2014 every type renders a clickable source file:line",
+      "class": "RbDetailDrawer / per-type detail view",
+      "method": "renderSourceLinks (per-type dispatch)",
+      "test": "RED: open R20.23 detail \u2192 assert source link(s) present + clickable. Currently FAILS."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "c3d6d560-217d-4cc1-8d61-4a25ee3543f1",
+    "altId": "R20.24",
+    "name": "R20.24: Class detail links to its PUML file + rendered SVG preview.",
+    "description": "A CLASS scenario unit's detail view MUST show: (a) link to the PlantUML .puml file where the class is defined, (b) rendered SVG preview of that PUML (inline or expandable). Both clickable/navigable.",
+    "tronQuote": "> TRON: \"each type has a link to a source file:line, classes to the puml file and the resulting svg preview, same as methods to the puml AND the ts code, same as tests and gates\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "intendedChain": {
+      "useCase": "classDetail.pumlLink \u2014 Class shows puml file link + SVG preview",
+      "class": "RbDetailDrawer / per-type detail view",
+      "method": "renderSourceLinks (per-type dispatch)",
+      "test": "RED: open R20.24 detail \u2192 assert source link(s) present + clickable. Currently FAILS."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

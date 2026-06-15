@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "f5b37dcd-9885-49b3-a234-cda6c627abce",
+    "altId": "R20.25",
+    "name": "R20.25: Method detail links to PUML + TypeScript source code (file:line).",
+    "description": "A METHOD scenario unit's detail view MUST show: (a) link to the PlantUML .puml file where the method's use case is defined, (b) link to the TypeScript source code file:line where the method is implemented. Both clickable.",
+    "tronQuote": "> TRON: \"each type has a link to a source file:line, classes to the puml file and the resulting svg preview, same as methods to the puml AND the ts code, same as tests and gates\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "intendedChain": {
+      "useCase": "methodDetail.sourceLinks \u2014 Method shows puml link + ts code file:line",
+      "class": "RbDetailDrawer / per-type detail view",
+      "method": "renderSourceLinks (per-type dispatch)",
+      "test": "RED: open R20.25 detail \u2192 assert source link(s) present + clickable. Currently FAILS."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
