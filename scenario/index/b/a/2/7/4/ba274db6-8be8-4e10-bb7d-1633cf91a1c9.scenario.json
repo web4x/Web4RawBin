@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9",
+    "altId": "R20.22",
+    "name": "R20.22: Pinned Current Sprint = Sprint node with 3 tasks (current, last completed, next backlog), fully recursive children.",
+    "description": "Refactor the pinned current task: the pin MUST be a Sprint-type node labeled 'Current Sprint' containing exactly 3 Task children: (1) CURRENT = the active WIP/focus task, (2) LAST COMPLETED = the most recently done task, (3) NEXT IN BACKLOG = the next queued task. Each of these 3 tasks FULLY RECURSIVELY loads its children in this special sprint node (the complete chain: req→UC→Class→Method→Impl→Test expands under each task). This replaces the single-task pin (R20.12) with a 3-task context window.",
+    "tronQuote": "> TRON: \"refactor the pinned current task. it should start with a pinned item of type sprint Current Sprint then 3 tasks: current, last completed, next in backlog, and fully recursively load their children in this special sprint node\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:0171efa2-af28-476f-ae8d-ef7e4a4549bc",
+      "ior:instance:c559452e-cd2e-4792-b28c-9f31b88ebbb4"
+    ],
+    "crossRefNote": "R20.12 (pin at top) is superseded by this 3-task refactor. R20.13 (CurrentSprint class) provides the data (getActiveChain + last completed + next backlog).",
+    "intendedChain": {
+      "useCase": "currentSprint.renderPinnedContext — Sprint node 'Current Sprint' with 3 tasks, each recursively expanded",
+      "class": "RbOverview / CurrentSprint",
+      "method": "renderPinnedSprint — build Sprint node with 3 task children (current/last/next), each auto-expanded with full chain",
+      "test": "RED: /trace sprint-list → first node is Sprint 'Current Sprint' → contains exactly 3 Task children (current active, last done, next queued) → each expands to full chain. Currently FAILS (single-task pin only)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
