@@ -9,7 +9,31 @@
       "ior:instance:e8d226f6-d8e2-4a8d-9db9-2edd5bb33bfb"
     ],
     "status": "PASS",
-    "sourceFile": "ior:file:test/vitest/server.test.ts"
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "testCases": [
+      "ior:instance:076826b1-328c-4ed2-bd2c-45aee77cd543",
+      "ior:instance:0e660052-935c-4cda-bfe9-acb324b5a83c",
+      "ior:instance:1d139366-ae8f-404b-81a9-01b9be91ae1e",
+      "ior:instance:2144177b-f390-43d4-b8d1-2944165762ba",
+      "ior:instance:216e74d7-d49b-4c4b-b981-b5ca2352ebab",
+      "ior:instance:2187e789-f040-4487-bbd0-8095ceb2d942",
+      "ior:instance:2789e60c-9619-4f54-96a6-820a016e34de",
+      "ior:instance:2d447324-3e8d-41e7-a8dc-57073a6c8403",
+      "ior:instance:304596bb-a24e-4e6e-903d-a0dfb7ed7c00",
+      "ior:instance:305b9afb-e2e1-4928-9857-c9c709084440",
+      "ior:instance:38991600-7086-4429-91e3-b567844841bb",
+      "ior:instance:5684b048-8475-4fd2-bc60-17fd467c12f1",
+      "ior:instance:6cc77af2-c2e1-4218-be1f-32d45b9bf270",
+      "ior:instance:7f0d9e4b-2845-4501-9fa4-06cd838b9f7a",
+      "ior:instance:91c93464-6246-41d7-a135-4672c07d5f00",
+      "ior:instance:95c73272-43d7-47ec-828b-5c2155f7544d",
+      "ior:instance:b43a7140-8585-426f-899a-3c58d90392c2",
+      "ior:instance:d335f641-e92c-4297-bec3-5c7b1eb77b83",
+      "ior:instance:e1c5bc30-2488-430a-992a-1cb3f948de67",
+      "ior:instance:e8555722-c0ad-42d9-9e42-318979fe4d14",
+      "ior:instance:f57891dd-03f6-41a2-8896-006198986d10",
+      "ior:instance:f7485c20-ea8e-4e0b-8352-a362f7d7e707"
+    ]
   },
   "ownerIor": "ior:instance:e8d226f6-d8e2-4a8d-9db9-2edd5bb33bfb"
 }

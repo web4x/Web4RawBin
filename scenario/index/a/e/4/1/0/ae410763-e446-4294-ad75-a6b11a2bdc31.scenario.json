@@ -6,8 +6,20 @@
     "slug": "detail-sections-superseded",
     "file": "test/vitest/detail-sections.test.ts",
     "status": "pass",
-    "methods": ["ior:instance:31c6e25e-c65e-4039-ad01-f0dd87978ed1"],
-    "implementations": ["ior:instance:31c6e25e-c65e-4039-ad01-f0dd87978ed1"]
+    "methods": [
+      "ior:instance:31c6e25e-c65e-4039-ad01-f0dd87978ed1"
+    ],
+    "implementations": [
+      "ior:instance:31c6e25e-c65e-4039-ad01-f0dd87978ed1"
+    ],
+    "testCases": [
+      "ior:instance:07da99c3-a38f-4990-8c41-92d76019e2e4",
+      "ior:instance:2f1daf6e-99d4-4abe-8979-2744e5146a0a",
+      "ior:instance:8c185179-5f5f-47a0-a419-829cd217207b",
+      "ior:instance:c5f5a845-f777-41ae-8a9b-e9503f79d160",
+      "ior:instance:cecf34c7-276f-4c21-99b0-b555481975fa",
+      "ior:instance:f70fb2ab-0622-44a1-aa1a-b29152e57da8"
+    ]
   },
   "ownerIor": null
 }

@@ -9,7 +9,39 @@
       "ior:instance:23073248-b67d-4e82-9054-0066f5834939"
     ],
     "status": "PASS",
-    "sourceFile": "ior:file:test/vitest/room.test.ts"
+    "sourceFile": "ior:file:test/vitest/room.test.ts",
+    "testCases": [
+      "ior:instance:059eb883-7eef-4107-8788-ee99f7a328bc",
+      "ior:instance:0866ee5d-9f9a-40ff-8358-d8770afc628e",
+      "ior:instance:162d3fec-8c2b-49d2-bb11-89b73ecb3bee",
+      "ior:instance:1a0322da-52a3-4cfa-8d71-be23c5144ff0",
+      "ior:instance:1edf924a-16d0-4d27-94ff-e49b693f1ff4",
+      "ior:instance:29cbf846-b080-40db-9535-87200da5e7a5",
+      "ior:instance:38c57050-3a40-4ad2-80a9-01f412e294d1",
+      "ior:instance:3b9d04ab-e332-41f7-a9bb-510e233d9adf",
+      "ior:instance:3c758032-3151-44ed-9507-e1ae44ee995a",
+      "ior:instance:5144c6ba-345e-4e3c-8f13-730ab7dd3dc6",
+      "ior:instance:5efb02c5-57de-43bc-840a-449c1b605fc6",
+      "ior:instance:5ff7b869-7661-4eab-9bbb-bfb64d191830",
+      "ior:instance:607928f8-8a12-4141-8157-794132fd0ef2",
+      "ior:instance:64378ce7-d418-41e4-bdb6-1e1701ad4fbc",
+      "ior:instance:65164fdf-ac5f-4583-8b6d-5d2f435f1ece",
+      "ior:instance:67c5ed81-8e36-4a35-8b66-f9e4ef37773b",
+      "ior:instance:6c568055-4cb3-455e-a5a3-6a3edc680300",
+      "ior:instance:6e4557b5-ebb2-4a32-a3c7-1a693bbe0546",
+      "ior:instance:7a47bfa4-9404-4a7d-8fd3-8e59ca7e28c5",
+      "ior:instance:88bfbd1c-fa5b-4c7f-b17f-67bf5948d65c",
+      "ior:instance:94f87523-24a5-4916-ab41-ee96b2a5e6b4",
+      "ior:instance:9bce5e67-b4f3-49c2-86c6-ec06b447f07c",
+      "ior:instance:a0947b08-d6fe-47b1-bd6c-ed15b3da65da",
+      "ior:instance:a2aa6c20-3559-41d8-b46e-42c9880fc33c",
+      "ior:instance:a52b46ca-f9b4-41b5-92bf-45a0873f731e",
+      "ior:instance:dc439861-6357-4ce0-ad82-7440af85e8a3",
+      "ior:instance:e43e049d-5ae0-427c-944f-1f8d5624adfb",
+      "ior:instance:f018ac5b-cc35-4f58-8a1a-c8ab8803c8b0",
+      "ior:instance:f0a15fde-6c82-4993-bb90-a328c1bd197b",
+      "ior:instance:fb4bd0a1-52a7-414e-b2c2-000c5f0f8b5f"
+    ]
   },
   "ownerIor": "ior:instance:23073248-b67d-4e82-9054-0066f5834939"
 }

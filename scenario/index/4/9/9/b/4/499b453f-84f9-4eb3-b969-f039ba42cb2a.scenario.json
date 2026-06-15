@@ -4,7 +4,9 @@
     "uuid": "499b453f-84f9-4eb3-b969-f039ba42cb2a",
     "name": "TestCase.parseFromSource",
     "description": "Parse test file AST: find describe() blocks \u2192 find it() blocks \u2192 create TestCase scenario unit per it(). Set model.name=it description, model.file=path, model.line=line number, model.status from test results. Link parent Test.testCases[] \u2192 TestCase IOR.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:e4f5b693-c1d2-4e3f-8a5b-6c7d8e9f0a1b"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:68f356c1-18f2-4233-80f1-f6abea6a4972"

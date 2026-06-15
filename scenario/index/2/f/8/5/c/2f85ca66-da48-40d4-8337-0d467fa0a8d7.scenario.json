@@ -9,7 +9,15 @@
       "ior:instance:b7142a01-c302-4d03-ae04-f05f06a07c11"
     ],
     "status": "PASS",
-    "sourceFile": "ior:file:test/vitest/server.test.ts"
+    "sourceFile": "ior:file:test/vitest/server.test.ts",
+    "testCases": [
+      "ior:instance:06e11520-1f90-4e80-ba97-32fe597ac1e4",
+      "ior:instance:31a648bf-b750-4a4a-a4b4-9aea6499a8e7",
+      "ior:instance:8b00baed-0d5e-4317-b552-cc2a35a438c0",
+      "ior:instance:98ce5a89-54f7-49df-b235-eeae6eba3c27",
+      "ior:instance:9e130320-9857-415c-acd5-875ac5291cef",
+      "ior:instance:d90d7686-8e95-45f6-8fde-f0e12ed4688c"
+    ]
   },
   "ownerIor": "ior:instance:b7142a01-c302-4d03-ae04-f05f06a07c11"
 }

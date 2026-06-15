@@ -6,7 +6,15 @@
     "slug": "r2013-advance",
     "file": "test/vitest/current-sprint.test.ts",
     "status": "pass",
-    "implementations": ["ior:instance:2011ae78-3e09-4e85-b98f-f3423dd32500"]
+    "implementations": [
+      "ior:instance:2011ae78-3e09-4e85-b98f-f3423dd32500"
+    ],
+    "testCases": [
+      "ior:instance:71c766c8-f05b-48b7-a577-20c284ae1443",
+      "ior:instance:d8b75252-ef10-4602-8b68-952285d06a29",
+      "ior:instance:e437fde1-67ce-4d2e-b2a7-49dbe6bedf6d",
+      "ior:instance:f04049d1-a75f-4fc8-a374-15a07f0ef3f6"
+    ]
   },
   "ownerIor": null
 }
