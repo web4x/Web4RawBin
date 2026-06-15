@@ -4,7 +4,9 @@
     "uuid": "5fc55a8d-0606-4e6a-996f-93de25113109",
     "name": "Migration.verifyIntegrity",
     "sourceFile": "ior:file:src/ts/server/migration.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:09d73a15-1496-4020-bcf1-b6a65a2bde6f"
+    ]
   },
   "ownerIor": null
 }

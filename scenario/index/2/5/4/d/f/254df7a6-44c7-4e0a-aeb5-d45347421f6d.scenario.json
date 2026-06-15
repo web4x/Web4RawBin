@@ -4,7 +4,37 @@
     "uuid": "254df7a6-44c7-4e0a-aeb5-d45347421f6d",
     "name": "RbDetailDrawer.swipeDismiss(): void",
     "className": "RbDetailDrawer",
-    "methodName": "swipeDismiss(): void"
+    "methodName": "swipeDismiss(): void",
+    "implementations": [
+      "ior:instance:97f2cf22-a595-455c-88a8-f38d37a893f7",
+      "ior:instance:6cea8532-de05-4a44-b16f-457720090427",
+      "ior:instance:16a9d665-6772-43b8-bc55-4e0632ad8d7d",
+      "ior:instance:f18b2894-2ade-4af5-8069-1b242defecc7",
+      "ior:instance:b58645af-6717-498f-a540-318d53ffae09",
+      "ior:instance:50708a40-b1d4-431f-987f-0b003e94caf5",
+      "ior:instance:5c7a4443-190a-4b6a-84d6-9594b8efbe04",
+      "ior:instance:f94da2cd-e818-4f8b-be4c-b0fc30a0d689",
+      "ior:instance:301da3f0-2a47-450a-aa19-408a8a4bad0f",
+      "ior:instance:6d75cd49-72a3-42e5-aaa7-2b40b572a83b",
+      "ior:instance:19654b84-90e4-4a89-a9a8-10221f883d25",
+      "ior:instance:ff684e10-e57c-45ae-97b9-8f866264c737",
+      "ior:instance:94f6e1f8-84a8-4ca5-9a44-6108ef6201bc",
+      "ior:instance:e927ecfe-6fba-4a91-aa74-ed13da8e8fe4",
+      "ior:instance:c3c70517-b56c-4765-94ae-cb677601f99c",
+      "ior:instance:dbddf408-60f3-4094-91b6-268861d651c6",
+      "ior:instance:36934fe3-c15b-4429-8aa2-48c79e674688",
+      "ior:instance:e76330fe-e29d-4587-b113-a1ed940ce62c",
+      "ior:instance:2e4ff35c-6286-4400-a2c8-d6ebfde62638",
+      "ior:instance:b53858c3-89ba-48ee-a659-2d03a3c88e51",
+      "ior:instance:b708531d-4274-4987-b573-94fbf2e2cb88",
+      "ior:instance:c1e90fe2-ea6d-4ada-abbd-09286a75bdfd",
+      "ior:instance:868331a4-7890-4467-bb99-9aec0cb78f4b",
+      "ior:instance:d0235605-5d79-4411-a6ff-c72099ffd2f9",
+      "ior:instance:aa585fcc-dfc1-42a8-a77d-0c0fb03ca5fd",
+      "ior:instance:58abb87f-90c2-478c-8c4b-a7cb953519bf",
+      "ior:instance:cea22d12-cdae-4c25-a1e8-4231b1d46eb1",
+      "ior:instance:79601135-a1b2-4c3d-8e4f-5a6b7c8d9e03"
+    ]
   },
   "ownerIor": "ior:instance:0e293e59-ccc9-484e-b6e2-46f8b326eeca"
 }

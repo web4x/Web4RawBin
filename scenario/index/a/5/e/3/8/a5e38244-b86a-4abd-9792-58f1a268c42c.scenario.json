@@ -6,7 +6,35 @@
     "sourceFile": "src/public/ts/scenario-view.ts",
     "sourceLine": 6,
     "unitLinks": [],
-    "tests": []
+    "tests": [
+      "ior:instance:5a125001-b002-4c03-9d04-e05f06a07b08",
+      "ior:instance:9e8520f3-bf7e-4a15-b7a3-c20bd9cecd7b",
+      "ior:instance:723dfe08-a205-4504-8b4c-6a5abeb7ff89",
+      "ior:instance:2ef0de37-2466-4ea1-9c60-1af60632d2ba",
+      "ior:instance:bfd01435-08e7-4ac3-a1bc-bac2b8ff7e77",
+      "ior:instance:cac609fd-7a3f-4f21-9727-56619227a99b",
+      "ior:instance:73c47b4d-4e1d-4097-83bd-7f3cab9e188a",
+      "ior:instance:962d2a3a-3959-401d-8df8-a94fb1fcc040",
+      "ior:instance:061360a0-3896-45ec-af72-ae612b60a480",
+      "ior:instance:d32a2897-2fea-4c57-8f30-88eb21063138",
+      "ior:instance:e8a4bc18-2747-485e-99b5-2eb4cf1afa9b",
+      "ior:instance:8b0d044f-64ed-4fb6-a777-a38e78d3f212",
+      "ior:instance:1d86295e-13be-4265-a3d6-f2a84625a504",
+      "ior:instance:845cbe19-cc14-49c4-a0ae-c817dffd3639",
+      "ior:instance:a365ee18-3b72-4492-8e16-19ed1ec2032f",
+      "ior:instance:22b614a7-1fa8-44af-a115-08f8ce98385b",
+      "ior:instance:1c3acdbd-7015-4e5d-ad18-6cce9f22a9d1",
+      "ior:instance:714bee57-1c27-4712-b508-5835a548e8fe",
+      "ior:instance:012c731b-3f31-4728-9624-22cabfb9c4eb",
+      "ior:instance:54f57f01-a33b-4985-847c-0d0ab95f0c67",
+      "ior:instance:9c3047c9-e86f-4007-83b3-2038712451c0",
+      "ior:instance:818a360e-f589-47ee-bc14-00e1dbd670db",
+      "ior:instance:447754f1-f0b7-44ca-a55a-eb29fa214789",
+      "ior:instance:80ff5280-dc41-4be0-84f7-0ddb6267fcf5",
+      "ior:instance:5a835c64-c512-4dd9-bc6d-b025ff31c2d3",
+      "ior:instance:5df331c3-8ca6-452d-93fc-02f8aa598fbd",
+      "ior:instance:fbfeac53-56ee-4eeb-a8d4-6d5beaa61dbb"
+    ]
   },
   "ownerIor": null
 }

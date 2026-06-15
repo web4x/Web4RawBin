@@ -6,7 +6,9 @@
     "sourceFile": "src/public/ts/components/rb-avatar.ts",
     "sourceLine": 1,
     "unitLinks": [],
-    "tests": []
+    "tests": [
+      "ior:instance:1ef26996-40fa-4532-93ba-9a861da64ee1"
+    ]
   },
   "ownerIor": null
 }

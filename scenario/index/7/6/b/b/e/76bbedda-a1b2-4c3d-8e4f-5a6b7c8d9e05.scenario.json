@@ -4,7 +4,9 @@
     "uuid": "76bbedda-a1b2-4c3d-8e4f-5a6b7c8d9e05",
     "name": "trace-page impl marker",
     "sourceFile": "ior:file:src/public/ts/trace/",
-    "tests": []
+    "tests": [
+      "ior:instance:4da22329-6cfc-467a-b7c0-778e0996eed1"
+    ]
   },
   "ownerIor": null
 }

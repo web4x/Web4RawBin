@@ -6,7 +6,10 @@
     "sourceFile": "src/public/ts/RawBinClient.ts",
     "sourceLine": 1,
     "unitLinks": [],
-    "tests": []
+    "tests": [
+      "ior:instance:4b13ce77-8a21-4d91-861e-b77575db3074",
+      "ior:instance:24cc252b-d276-4ab6-9a5a-981825332a17"
+    ]
   },
   "ownerIor": null
 }

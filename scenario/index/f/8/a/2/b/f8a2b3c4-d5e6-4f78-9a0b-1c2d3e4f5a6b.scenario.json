@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f8a2b3c4-d5e6-4f78-9a0b-1c2d3e4f5a6b",
+    "name": "Phase 2 parity",
+    "file": "ior:file:test/vitest/trace-parity.test.ts",
+    "requirements": [],
+    "methods": [],
+    "status": "PASS"
+  },
+  "ownerIor": null
+}

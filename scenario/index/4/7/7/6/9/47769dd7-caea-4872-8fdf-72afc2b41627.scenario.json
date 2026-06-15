@@ -4,7 +4,11 @@
     "uuid": "47769dd7-caea-4872-8fdf-72afc2b41627",
     "name": "ScenarioUnit.model: Record<string, any>",
     "className": "ScenarioUnit",
-    "methodName": "model: Record<string, any>"
+    "methodName": "model: Record<string, any>",
+    "implementations": [
+      "ior:instance:12571155-110d-4d6f-91ab-5913ec94219b",
+      "ior:instance:8c72876c-05a5-467d-a1da-2b14a4a7b40d"
+    ]
   },
   "ownerIor": "ior:instance:21b6dbeb-ee6a-4044-a16a-835731fb1fbf"
 }

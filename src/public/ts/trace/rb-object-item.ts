@@ -31,7 +31,7 @@ import { TRACE_ICONS } from './icons.js';
 import { selectionModel } from './selection-model.js';
 
 export class RbObjectItem extends HTMLElement {
-  static get observedAttributes() { return ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count', 'assignee']; }
+  static get observedAttributes() { return ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count', 'assignee', 'verdict']; }
   private unsub: (() => void) | null = null;
   private _data: Record<string, string> | null = null;
   private _initialized = false;
@@ -185,10 +185,12 @@ export class RbObjectItem extends HTMLElement {
     const icon = TRACE_ICONS[type] || '•';
     const hasChildren = this.hasAttribute('has-children');
     const childCount = this.getAttribute('child-count') || '0';
+    const verdict = this.getAttribute('verdict') || '';
+    const verdictBadge = type === 'gate' && verdict ? `<span class="oi-verdict oi-verdict-${verdict.toLowerCase()}">${verdict === 'PASS' ? '✓' : verdict === 'FAIL' ? '✕' : '○'}</span>` : '';
     this.innerHTML = `
       <span class="oi-icon" title="${type}" draggable="true">${icon}</span>
       <div class="oi-content">
-        <span class="oi-name">${esc(name)}</span>
+        <span class="oi-name">${esc(name)}${verdictBadge}</span>
         ${desc ? `<p class="oi-desc">${esc(desc)}</p>` : ''}
         ${this.getAttribute('assignee') ? `<span class="oi-assignee" style="font-size:0.65rem;color:#667eea;opacity:0.8">${esc(this.getAttribute('assignee')!)}</span>` : ''}
       </div>

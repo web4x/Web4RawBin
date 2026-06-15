@@ -4,7 +4,21 @@
     "uuid": "db2acf40-36ec-4307-933d-6f16cd51a018",
     "name": "Requirement.type = 'requirement'",
     "className": "Requirement",
-    "methodName": "type = 'requirement'"
+    "methodName": "type = 'requirement'",
+    "implementations": [
+      "ior:instance:9846e4d2-b1d6-4c2e-a77d-77b33a48460d",
+      "ior:instance:e1ad6c89-269b-47d2-96b5-1fa356cbc226",
+      "ior:instance:7fcca3cf-7c87-4a3d-a64b-089c6d92cc0a",
+      "ior:instance:660cb423-30cd-4d32-8a3f-d7bad22f6f5e",
+      "ior:instance:7995df98-396b-4f1b-ba84-69126d7c5855",
+      "ior:instance:5f599846-60a1-4b9b-8bca-f9ca52719ead",
+      "ior:instance:55e039b7-11db-4a65-9a2e-589c5b4ffc89",
+      "ior:instance:fdcf9a95-8e1a-4d80-a7c7-7656d3a126ea",
+      "ior:instance:a87cbd22-275e-4ad2-a7f4-872ccfcb3fe8",
+      "ior:instance:1b1f40bb-9c26-4765-b6a1-59b8398269ab",
+      "ior:instance:700b6f0f-5f92-4d0e-b210-56eb433a6bbd",
+      "ior:instance:87c9007a-2144-4030-a5ac-cd48f518bb2b"
+    ]
   },
   "ownerIor": "ior:instance:5ba78db7-9ae0-4dc6-9abe-64989345bb70"
 }

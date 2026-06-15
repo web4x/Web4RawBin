@@ -4,7 +4,12 @@
     "uuid": "755401de-b7ec-48e8-be08-60b50d4c3a53",
     "name": "RbTaskDetail.render(): void",
     "className": "RbTaskDetail",
-    "methodName": "render(): void"
+    "methodName": "render(): void",
+    "implementations": [
+      "ior:instance:e1ad6c89-269b-47d2-96b5-1fa356cbc226",
+      "ior:instance:1ff4d2bb-3af9-4517-8cde-8e6fc498e887",
+      "ior:instance:a495b735-6836-4dba-84b2-b279f2da17df"
+    ]
   },
   "ownerIor": "ior:instance:df8d2680-2ef4-49e2-8259-865cbbe40fcd"
 }

@@ -4,7 +4,11 @@
     "uuid": "14831116-66ca-42b7-a350-8564178e678b",
     "name": "Requirement",
     "description": "Base requirement class. Bug and ChangeRequest extend this. Forward arrays: useCases[], tasks[], tests[]. Icon: circle-check (green).",
-    "methods": [],
+    "methods": [
+      "ior:instance:602ab275-6d4c-4c40-9279-54cf836535c4",
+      "ior:instance:d5bdafeb-dcee-4b76-8a83-eb6d692d7704",
+      "ior:instance:db2acf40-36ec-4307-933d-6f16cd51a018"
+    ],
     "subtypes": [
       "ior:instance:935b5733-84b7-4c7b-b0ca-6a908c3972c1",
       "ior:instance:b1cf768a-ad0c-432a-bc01-ea0927a6f9ec"

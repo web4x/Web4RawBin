@@ -5,7 +5,9 @@
     "name": "RbObjectItem.simulateLongPress impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
     "sourceLine": 0,
-    "tests": []
+    "tests": [
+      "ior:instance:47528657-dbd5-48f1-b7cf-cd2bffb53967"
+    ]
   },
   "ownerIor": "ior:instance:0146ee6c-5561-4322-86a7-9ca65555ed88"
 }

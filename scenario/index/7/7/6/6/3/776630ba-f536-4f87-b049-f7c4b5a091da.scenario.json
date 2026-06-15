@@ -4,7 +4,17 @@
     "uuid": "776630ba-f536-4f87-b049-f7c4b5a091da",
     "name": "TraceConsistency.auditOrphans, scanRepo, validate",
     "className": "TraceConsistency",
-    "methodName": "auditOrphans, scanRepo, validate"
+    "methodName": "auditOrphans, scanRepo, validate",
+    "implementations": [
+      "ior:instance:337acd90-6feb-4a14-821a-e8789e49d427",
+      "ior:instance:15a31e7e-6977-44cb-ab29-09c44583369a",
+      "ior:instance:adaa853e-93a1-4d6d-930a-0ea96a7d9f81",
+      "ior:instance:179ed2ba-ba29-4fc4-b525-fab14fb04e7c",
+      "ior:instance:daa81f8d-f53e-4b05-baa1-f498f7b06b5f",
+      "ior:instance:74de57ae-9289-4c48-86e1-d3a0c1d2fee1",
+      "ior:instance:1a5ea468-fbf4-403b-a7ee-04a0b4d9f63f",
+      "ior:instance:c4cc0915-2857-4e48-8a71-34c7004645d6"
+    ]
   },
   "ownerIor": "ior:instance:875af60f-4aa8-4629-ab05-a8e6a57b0389"
 }

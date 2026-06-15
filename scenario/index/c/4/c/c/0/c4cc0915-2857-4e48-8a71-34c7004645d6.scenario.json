@@ -5,7 +5,9 @@
     "name": "TraceConsistency.validate impl",
     "sourceFile": "src/ts/server/TraceConsistency.ts",
     "sourceLine": 234,
-    "tests": [],
+    "tests": [
+      "ior:instance:ce5c47ad-dabb-44e5-a8f6-3ee506d34127"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:3dc29df9-0da7-4164-8035-4e4a131e6e6b"

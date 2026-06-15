@@ -5,7 +5,9 @@
     "name": "TraceConsistency.scanRepo impl",
     "sourceFile": "src/ts/server/TraceConsistency.ts",
     "sourceLine": 42,
-    "tests": [],
+    "tests": [
+      "ior:instance:ce5c47ad-dabb-44e5-a8f6-3ee506d34127"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:963b67a2-488c-4580-b5ba-697537f02754"

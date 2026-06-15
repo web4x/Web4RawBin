@@ -5,7 +5,9 @@
     "name": "RbObjectItem.handleTapSelect impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-object-item.ts",
     "sourceLine": 0,
-    "tests": []
+    "tests": [
+      "ior:instance:47528657-dbd5-48f1-b7cf-cd2bffb53967"
+    ]
   },
   "ownerIor": "ior:instance:5cdfac82-0549-4a98-929a-cd4288929de7"
 }

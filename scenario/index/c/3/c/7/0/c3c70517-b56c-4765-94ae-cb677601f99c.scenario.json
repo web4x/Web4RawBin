@@ -3,8 +3,10 @@
   "model": {
     "uuid": "c3c70517-b56c-4765-94ae-cb677601f99c",
     "name": "SelectionModel.onEmptyShowChat",
-    "description": "Listener: if selected.size===0 \u2192 drawer.showChat(). Drawer switches content based on selection count.",
-    "implementations": [],
+    "description": "Listener: if selected.size===0 → drawer.showChat(). Drawer switches content based on selection count.",
+    "implementations": [
+      "ior:instance:6a626fa3-9e31-437f-bb40-2fa57cc501bf"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:b57b8838-7342-468b-84d6-1a8c0b4b152b"

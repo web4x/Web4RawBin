@@ -316,6 +316,30 @@ for (const m of implMarkers) {
 }
 console.log(`Implementation→Test links added: ${implTestLinks}`);
 
+// R20.20 architect pass: Method-derived impl→test wiring
+// For each Method: gather impls + tests, fill empty impl.tests[] from method's tests
+let methodDerivedLinks = 0;
+for (const uuid of idx.list()) {
+  const unit = unitByUuid.get(uuid) || idx.get(uuid);
+  if (!unit || unit.ior !== 'ior:class:Method') continue;
+  const mm = unit.model as Record<string, unknown>;
+  const methodImpls = ((mm.implementations as string[]) || []).map(s => String(s).replace('ior:instance:', ''));
+  const methodTests = ((mm.tests as string[]) || []).map(s => String(s).replace('ior:instance:', ''));
+  if (methodTests.length === 0 || methodImpls.length === 0) continue;
+  for (const implUuid of methodImpls) {
+    const implUnit = unitByUuid.get(implUuid) || idx.get(implUuid);
+    if (!implUnit) continue;
+    const im = implUnit.model as Record<string, unknown>;
+    const existingTests = (im.tests as string[]) || [];
+    if (existingTests.length > 0) continue;
+    const testIors = methodTests.map(t => `ior:instance:${t}`);
+    im.tests = testIors;
+    if (apply) idx.put(implUuid, implUnit);
+    methodDerivedLinks += testIors.length;
+  }
+}
+console.log(`Method-derived Impl→Test links: ${methodDerivedLinks}`);
+
 // Summary
 const total = idx.list().length;
 console.log(`\n=== Summary ===`);

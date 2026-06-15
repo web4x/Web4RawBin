@@ -4,7 +4,13 @@
     "uuid": "1583c2a4-7f35-4569-8bfc-00cc1c1355b5",
     "name": "RbRequirementDetail.render(): void",
     "className": "RbRequirementDetail",
-    "methodName": "render(): void"
+    "methodName": "render(): void",
+    "implementations": [
+      "ior:instance:9846e4d2-b1d6-4c2e-a77d-77b33a48460d",
+      "ior:instance:e1ad6c89-269b-47d2-96b5-1fa356cbc226",
+      "ior:instance:7fcca3cf-7c87-4a3d-a64b-089c6d92cc0a",
+      "ior:instance:660cb423-30cd-4d32-8a3f-d7bad22f6f5e"
+    ]
   },
   "ownerIor": "ior:instance:23c155e7-378b-46a2-8792-df632ea66235"
 }

@@ -4,7 +4,11 @@
     "uuid": "47856f41-ca00-4f2e-bc07-f6831b97c51a",
     "name": "ScenarioUnit.load(json): this",
     "className": "ScenarioUnit",
-    "methodName": "load(json): this"
+    "methodName": "load(json): this",
+    "implementations": [
+      "ior:instance:12571155-110d-4d6f-91ab-5913ec94219b",
+      "ior:instance:8c72876c-05a5-467d-a1da-2b14a4a7b40d"
+    ]
   },
   "ownerIor": "ior:instance:179310af-02bb-4164-8ac5-8b017103834b"
 }

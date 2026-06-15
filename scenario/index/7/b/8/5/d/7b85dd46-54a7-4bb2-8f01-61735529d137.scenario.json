@@ -4,7 +4,27 @@
     "uuid": "7b85dd46-54a7-4bb2-8f01-61735529d137",
     "name": "UseCase.type = 'usecase'",
     "className": "UseCase",
-    "methodName": "type = 'usecase'"
+    "methodName": "type = 'usecase'",
+    "implementations": [
+      "ior:instance:0c0ab5d2-3200-40a6-9d1f-ca9755ce6d89",
+      "ior:instance:e1ad6c89-269b-47d2-96b5-1fa356cbc226",
+      "ior:instance:337acd90-6feb-4a14-821a-e8789e49d427",
+      "ior:instance:15a31e7e-6977-44cb-ab29-09c44583369a",
+      "ior:instance:adaa853e-93a1-4d6d-930a-0ea96a7d9f81",
+      "ior:instance:179ed2ba-ba29-4fc4-b525-fab14fb04e7c",
+      "ior:instance:daa81f8d-f53e-4b05-baa1-f498f7b06b5f",
+      "ior:instance:74de57ae-9289-4c48-86e1-d3a0c1d2fee1",
+      "ior:instance:1a5ea468-fbf4-403b-a7ee-04a0b4d9f63f",
+      "ior:instance:c4cc0915-2857-4e48-8a71-34c7004645d6",
+      "ior:instance:7995df98-396b-4f1b-ba84-69126d7c5855",
+      "ior:instance:5f599846-60a1-4b9b-8bca-f9ca52719ead",
+      "ior:instance:55e039b7-11db-4a65-9a2e-589c5b4ffc89",
+      "ior:instance:fdcf9a95-8e1a-4d80-a7c7-7656d3a126ea",
+      "ior:instance:a87cbd22-275e-4ad2-a7f4-872ccfcb3fe8",
+      "ior:instance:1b1f40bb-9c26-4765-b6a1-59b8398269ab",
+      "ior:instance:700b6f0f-5f92-4d0e-b210-56eb433a6bbd",
+      "ior:instance:87c9007a-2144-4030-a5ac-cd48f518bb2b"
+    ]
   },
   "ownerIor": "ior:instance:11e7f853-b043-4277-bc95-bf0cd744fe11"
 }

@@ -4,7 +4,11 @@
     "uuid": "4d954650-f352-46f5-b992-a905628c84b2",
     "name": "RbUseCaseDetail.render(): void",
     "className": "RbUseCaseDetail",
-    "methodName": "render(): void"
+    "methodName": "render(): void",
+    "implementations": [
+      "ior:instance:0c0ab5d2-3200-40a6-9d1f-ca9755ce6d89",
+      "ior:instance:e1ad6c89-269b-47d2-96b5-1fa356cbc226"
+    ]
   },
   "ownerIor": "ior:instance:15d9a535-d34a-4f4c-b4d3-9db58c0f0984"
 }
