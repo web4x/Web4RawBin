@@ -23,7 +23,7 @@
       "uc": {
         "status": "done",
         "owner": "architect",
-        "updatedAt": "2026-06-15T10:34:21.739Z"
+        "updatedAt": "2026-06-15T11:23:40.648Z"
       },
       "test": {
         "status": "gate-proven",
@@ -33,19 +33,20 @@
       "class": {
         "status": "done",
         "owner": "architect",
-        "updatedAt": "2026-06-15T10:34:22.109Z"
+        "updatedAt": "2026-06-15T11:23:42.300Z"
       },
       "method": {
         "status": "done",
         "owner": "architect",
-        "updatedAt": "2026-06-15T10:34:22.470Z"
+        "updatedAt": "2026-06-15T11:23:43.490Z"
       },
       "impl": {
         "status": "done",
         "owner": "expert",
-        "updatedAt": "2026-06-15T10:44:20.535Z"
+        "updatedAt": "2026-06-15T11:21:33.587Z"
       }
     },
+    "nextBacklogOverride": "56cc23b5-aca1-49f5-9037-e2c58110643c",
     "slots": {
       "current": {
         "taskUuid": "54519bc4-2704-4484-a83f-5b88019d62c3",
@@ -58,9 +59,9 @@
         "reqUuid": "9993091a-aa45-4c4f-9c62-e4d5377ba3e8"
       },
       "nextBacklog": {
-        "taskUuid": "01d9fb64-20a3-449c-b421-43cf64fec919",
-        "taskName": "T-drawer-full-width: detail drawer full width — remove max-width cap",
-        "reqUuid": "dceda100-434b-4ef7-9af3-9a69ccfac6b2"
+        "taskUuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
+        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
+        "reqUuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212"
       }
     }
   },
