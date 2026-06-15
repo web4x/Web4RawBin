@@ -39,13 +39,17 @@ git tag v0.6.XX
 ## Release gate (verify before task counts as released)
 
 ```bash
-# All 3 must pass:
+# All 4 must pass:
 grep '"version"' package.json              # → "0.6.XX"
 grep 'CACHE_NAME' src/public/sw.js         # → rawbin-v0.6.XX
 git tag --list 'v0.6.XX'                   # → v0.6.XX (non-empty)
+# 4th check: tag points to the RIGHT version (existence ≠ correctness)
+git show v0.6.XX:package.json | grep '"version"'  # → "0.6.XX" (MUST MATCH)
 ```
 
 If ANY fails → not released. Fix before advancing.
+**Tag existence ≠ tag correctness** — a tag pointing to a wrong-version commit is WORSE
+than a missing tag (false confidence). Always verify the tagged commit's package.json.
 
 ## Drift backfill (when tags were missed)
 
