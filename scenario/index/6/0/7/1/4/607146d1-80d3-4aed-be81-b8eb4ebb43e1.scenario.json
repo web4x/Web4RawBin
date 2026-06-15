@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
+    "altId": "R20.28",
+    "name": "R20.28: rb-file-detail shows 'Open in preview' + 'Open in new tab' buttons — rewire existing.",
+    "description": "The file detail view (rb-file-detail) MUST render two action buttons: (1) 'Open in preview' — opens the file in the ContentPreviewer (image→show as img, html→sandboxed iframe, per R19.64/65). (2) 'Open in new tab' — opens the file content/URL in a new browser tab (window.open target=_blank). These buttons existed in the earlier file/ProfileSheet-era implementation — they must be REWIRED into the current rb-file-detail component (not built from scratch).",
+    "tronQuote": "> TRON: \"the preview buttons are missing open in preview and open in new tab\"",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+    "unitLinks": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "crossRef": [
+      "ior:instance:32e42144-0d04-49c9-a54d-298a4289c8c4",
+      "ior:instance:b03701b6-2105-4589-b27d-7db58b62e16c"
+    ],
+    "crossRefNote": "R19.77 (URL two-button preview) defined these buttons originally. R19.65 (ContentPreviewer) is the preview component. R20.28 = rewire the buttons into rb-file-detail.",
+    "intendedChain": {
+      "useCase": "fileDetail.previewButtons — rb-file-detail renders Open in preview + Open in new tab, both functional",
+      "class": "rb-file-detail (custom element)",
+      "method": "renderPreviewActions — add buttons, wire click handlers (preview→ContentPreviewer, new-tab→window.open)",
+      "test": "RED: open a .jpeg file detail → assert 'Open in preview' button present + click shows image. Assert 'Open in new tab' button present + click opens new tab. Currently FAILS (buttons missing)."
+    }
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
