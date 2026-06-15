@@ -3,9 +3,9 @@
   "model": {
     "uuid": "d7299c88-c56f-4686-a91f-c67bf78b8930",
     "altId": "R20.30",
-    "name": "R20.30: Traceability Chain ≠ All Children — they must show DIFFERENT content.",
-    "description": "The detail view's 'Traceability Chain' section and 'All Children' section MUST show DIFFERENT content — currently they are IDENTICAL (same nodes). Traceability Chain = the FORWARD PRIMARY chain only (req→uc→class→method→impl→test→gate — the singular traced path). All Children = ALL child nodes from all model array relationships (the union). When a node has non-chain children (e.g. a Class with 5 methods but only 1 in the traced chain), Traceability Chain shows 1, All Children shows 5. Re-assertion of R20.5 (7734f4e1) which specified this but implementation still renders identical content.",
-    "tronQuote": "> TRON (IMG_4060): Traceability Chain ≠ All Children — they must show DIFFERENT content (currently identical).",
+    "name": "R20.30: Traceability Chain \u2260 All Children \u2014 they must show DIFFERENT content.",
+    "description": "The detail view Traceability Chain and All Children sections DIFFER by BREADTH vs DEPTH: (1) ALL CHILDREN = ALL child nodes of the node \u2014 e.g. a CLASS shows ALL its child methods (RbDetailDrawer has 14 methods, MATCHING the class badge count \"14\"). This is BREADTH \u2014 every child, flat. (2) TRACEABILITY CHAIN = the forward CHAIN path to the CURRENT method's IMPLEMENTATION \u2014 the active-chain hop: class \u2192 current method \u2192 impl \u2192 test \u2192 gate. NOT all children \u2014 only the singular path through the chain-relevant method to its impl. This is DEPTH \u2014 one path, deep. AC: open a Class detail in a chain context \u2192 All Children lists all 14 methods (= badge count); Traceability Chain shows only the path through the CURRENT method to its impl/test/gate. They MUST differ (currently identical \u2014 both show the same content).",
+    "tronQuote": "> TRON (IMG_4060): \"Traceability Chain \u2260 All Children \u2014 they must show DIFFERENT content.\"\n> TRON (precise spec): All Children = ALL child nodes (breadth, e.g. 14 methods = badge). Traceability Chain = forward chain to current method's impl (depth, one path).",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
@@ -14,12 +14,12 @@
     "crossRef": [
       "ior:instance:7734f4e1-def9-4af3-a7d2-5ccc7160b214"
     ],
-    "crossRefNote": "R20.5 (universal chain-vs-children) defined this rule. R20.30 re-asserts it as a bug — implementation still renders both sections identically.",
+    "crossRefNote": "R20.5 (universal chain-vs-children) defined this rule. R20.30 re-asserts it as a bug \u2014 implementation still renders both sections identically.",
     "intendedChain": {
-      "useCase": "detailView.distinctSections — Traceability Chain shows only forward-chain nodes; All Children shows all child nodes; content differs",
+      "useCase": "detailView.distinctSections \u2014 Traceability Chain shows only forward-chain nodes; All Children shows all child nodes; content differs",
       "class": "RbDetailDrawer / detail-superseded.ts",
-      "method": "renderTraceabilitySection (chain-walk filtered) vs renderAllChildrenSection (union of arrays) — must use DIFFERENT data sources",
-      "test": "RED: open a Class with 5 methods (1 in chain) → Traceability Chain shows 1 method, All Children shows 5. Currently FAILS (both show same content)."
+      "method": "renderTraceabilitySection (chain-walk filtered) vs renderAllChildrenSection (union of arrays) \u2014 must use DIFFERENT data sources",
+      "test": "RED: open Class RbDetailDrawer (14 methods) in chain context \u2192 All Children lists 14 methods (= badge count). Traceability Chain shows only 1 method path (current\u2192impl\u2192test\u2192gate). They differ. Currently FAILS (both show identical content)."
     }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
