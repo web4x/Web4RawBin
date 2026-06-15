@@ -29,6 +29,21 @@
         "status": "done",
         "owner": "tester",
         "updatedAt": "2026-06-15T13:28:43.010Z"
+      },
+      "uc": {
+        "status": "done",
+        "owner": "architect",
+        "updatedAt": "2026-06-15T15:47:52.812Z"
+      },
+      "class": {
+        "status": "done",
+        "owner": "architect",
+        "updatedAt": "2026-06-15T15:47:54.661Z"
+      },
+      "method": {
+        "status": "done",
+        "owner": "architect",
+        "updatedAt": "2026-06-15T15:47:56.182Z"
       }
     },
     "nextBacklogOverride": "56cc23b5-aca1-49f5-9037-e2c58110643c",
