@@ -25,39 +25,52 @@ async function load(): Promise<void> {
 
     treeMount.innerHTML = '';
 
-    // [impl:uuid:062b6920-e2a6-4774-b369-afac243dc46d] R20.12 renderPinnedSprint
+    // [impl:uuid:062b6920-e2a6-4774-b369-afac243dc46d] R20.12+R20.22 renderThreeSlots
     const CURRENT_SPRINT_UUID = 'current-sprint-singleton-0000-000000000001';
-    const renderPinned = async () => {
-      const existing = treeMount.querySelector('.pinned-sprint');
+    const renderSlots = async () => {
+      const existing = treeMount.querySelector('.three-slots');
       if (existing) existing.remove();
       try {
         const ctRes = await fetch(`/api/ior/ior:instance:${CURRENT_SPRINT_UUID}`, { cache: 'no-store' });
         const ctData = await ctRes.json();
-        if (ctData.unit?.model) {
-          const ct = ctData.unit.model;
-          const taskName = ct.taskName || ct.name || '';
-          const pinned = document.createElement('div');
-          pinned.className = 'pinned-sprint';
-          pinned.innerHTML = '<div class="pin-label">📌 Current Task</div>' +
-            '<div class="pin-sprint-name">' + (taskName).replace(/[<>]/g, '') + '</div>' +
-            (ct.sprintName ? '<div class="pin-task">' + (ct.sprintName as string).replace(/[<>]/g, '') + '</div>' : '');
-          if (ct.chain) {
-            const chainRef = ct.chain.req || ct.chain.uc || ct.chain.method || '';
-            if (chainRef) {
-              const pinnedTree = document.createElement('rb-trace-tree') as any;
-              pinnedTree.setAttribute('data-seed-ior', chainRef);
-              pinnedTree.setAttribute('data-mode', 'trace');
-              pinnedTree.setAttribute('data-always-expanded', '');
-              pinned.appendChild(pinnedTree);
-              pinnedTree.graph = graph;
-            }
+        if (!ctData.unit?.model) return;
+        const ct = ctData.unit.model;
+        const slots = ct.slots || {};
+        const container = document.createElement('div');
+        container.className = 'three-slots';
+
+        const labels = [
+          { slot: slots.current, label: '📌 Current', css: 'slot-current' },
+          { slot: slots.lastCompleted, label: '✅ Last Completed', css: 'slot-completed' },
+          { slot: slots.nextBacklog, label: '📋 Next Backlog', css: 'slot-backlog' },
+        ];
+
+        for (const { slot, label, css } of labels) {
+          const section = document.createElement('div');
+          section.className = `slot-section ${css}`;
+          const hdr = document.createElement('div');
+          hdr.className = 'slot-header';
+          if (slot) {
+            hdr.innerHTML = `<span class="slot-label">${label}</span><span class="slot-name">${(slot.taskName || '').replace(/[<>]/g, '')}</span>`;
+            const tree = document.createElement('rb-trace-tree') as any;
+            tree.setAttribute('data-seed-ior', slot.reqUuid || '');
+            tree.setAttribute('data-mode', 'trace');
+            tree.setAttribute('data-always-expanded', '');
+            section.appendChild(hdr);
+            section.appendChild(tree);
+            tree.graph = graph;
+          } else {
+            hdr.innerHTML = `<span class="slot-label">${label}</span><span class="slot-empty">— none —</span>`;
+            section.appendChild(hdr);
           }
-          treeMount.insertBefore(pinned, treeMount.firstChild);
+          container.appendChild(section);
         }
+
+        treeMount.insertBefore(container, treeMount.firstChild);
       } catch {}
     };
-    await renderPinned();
-    document.addEventListener('current-sprint-changed', () => renderPinned());
+    await renderSlots();
+    document.addEventListener('current-sprint-changed', () => renderSlots());
 
     // Build Sprint root nodes as seed trees with mode=trace
     for (const sprint of sprints) {

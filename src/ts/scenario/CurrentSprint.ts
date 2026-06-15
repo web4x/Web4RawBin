@@ -35,11 +35,24 @@ export interface ChainRefs {
   test: string;
 }
 
+export interface TaskSlot {
+  taskUuid: string;
+  taskName: string;
+  reqUuid: string;
+}
+
+export interface ThreeSlots {
+  current: TaskSlot | null;
+  lastCompleted: TaskSlot | null;
+  nextBacklog: TaskSlot | null;
+}
+
 export interface PinData {
   sprintName: string;
   taskName: string;
   chainDepth: number;
   wipStatus: string;
+  slots: ThreeSlots;
 }
 
 const CHAIN_ORDER: (keyof ChainRefs)[] = ['req', 'uc', 'class', 'method', 'impl', 'test'];
@@ -87,6 +100,7 @@ export class CurrentSprint {
         sprintName: this.sprintName,
         taskName: this.taskName,
         hopStates: this.hopStates,
+        slots: this.getThreeSlots(),
       },
       ownerIor: null,
     };
@@ -115,14 +129,46 @@ export class CurrentSprint {
     return true;
   }
 
-  // [impl:uuid:63d2c341-6f57-486b-a246-bda5c8ce4ca2] R20.13 pinCurrent
+  // [impl:uuid:63d2c341-6f57-486b-a246-bda5c8ce4ca2] R20.13+R20.22 pinCurrent
   pinCurrent(): PinData {
     return {
       sprintName: this.sprintName,
       taskName: this.taskName,
       chainDepth: this.activeHop,
       wipStatus: this.chain ? CHAIN_ORDER[this.activeHop] || 'done' : 'none',
+      slots: this.getThreeSlots(),
     };
+  }
+
+  // [impl:uuid:d20855e7-4a1b-4c2d-8e3f-5a6b7c8d9e0f] R20.22 getThreeSlots
+  getThreeSlots(): ThreeSlots {
+    const tasks: Array<{ uuid: string; name: string; reqUuid: string; focus: boolean; testGateProven: boolean; hasUcChain: boolean; updatedAt: string }> = [];
+    for (const uuid of this.index.list()) {
+      const unit = this.index.get(uuid);
+      if (!unit || unit.ior !== 'ior:class:Task') continue;
+      const m = unit.model as Record<string, unknown>;
+      const reqIors = (m.coveredRequirements as string[]) || [];
+      const reqUuid = reqIors.length > 0 ? ior(reqIors[0]) : '';
+      const ucIors = (m.useCases as string[]) || [];
+      tasks.push({
+        uuid, name: String(m.name || ''), reqUuid,
+        focus: !!m.focus,
+        testGateProven: this.hopStates.test?.status === 'gate-proven' && !!m.focus,
+        hasUcChain: ucIors.length > 0,
+        updatedAt: String(m.updatedAt || m.statusChecklist || ''),
+      });
+    }
+
+    const current = tasks.find(t => t.focus) || null;
+    const completed = tasks.filter(t => !t.focus && t.reqUuid);
+    const lastCompleted = completed.length > 0 ? completed[completed.length - 1] : null;
+    const backlog = tasks.filter(t => !t.focus && t.reqUuid && !t.hasUcChain);
+    const nextBacklog = backlog.length > 0 ? backlog[0] : null;
+
+    const toSlot = (t: typeof tasks[0] | null): TaskSlot | null =>
+      t ? { taskUuid: t.uuid, taskName: t.name, reqUuid: t.reqUuid } : null;
+
+    return { current: toSlot(current), lastCompleted: toSlot(lastCompleted), nextBacklog: toSlot(nextBacklog) };
   }
 
   // [impl:uuid:2011ae78-3e09-4e85-b98f-f3423dd32500] R20.13 advance

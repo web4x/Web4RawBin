@@ -2,18 +2,18 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: T: TestCase + Gate as 1st-class scenario units (R20.20 + R20.21)",
+    "name": "Current: R20.22: Pinned Current Sprint = Sprint node with 3 tasks (current/last-completed/next-backlog), recursive",
     "chain": {
-      "req": "1e3f9799-943f-4716-b116-78a202301d02",
-      "uc": "e4f5b693-2150-4484-a021-e61f78674da3",
-      "class": "68f356c1-18f2-4233-80f1-f6abea6a4972",
-      "method": "499b453f-84f9-4eb3-b969-f039ba42cb2a",
-      "impl": "",
-      "test": ""
+      "req": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9",
+      "uc": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9",
+      "class": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9",
+      "method": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9",
+      "impl": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9",
+      "test": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9"
     },
-    "activeHop": 5,
+    "activeHop": 0,
     "sprintName": "Sprint 20 — Radical Forward Planning (Traceability-First)",
-    "taskName": "T: TestCase + Gate as 1st-class scenario units (R20.20 + R20.21)",
+    "taskName": "R20.22: Pinned Current Sprint = Sprint node with 3 tasks (current/last-completed/next-backlog), recursive",
     "hopStates": {
       "req": {
         "status": "done",
@@ -44,6 +44,23 @@
         "status": "done",
         "owner": "expert",
         "updatedAt": "2026-06-15T10:30:13.086Z"
+      }
+    },
+    "slots": {
+      "current": {
+        "taskUuid": "54519bc4-2704-4484-a83f-5b88019d62c3",
+        "taskName": "T: TestCase + Gate as 1st-class scenario units (R20.20 + R20.21)",
+        "reqUuid": "1e3f9799-943f-4716-b116-78a202301d02"
+      },
+      "lastCompleted": {
+        "taskUuid": "fe8c43a5-cd15-4aed-ac5b-97df558d8fea",
+        "taskName": "T-detail-drawer-grab-bar: default detail drawer nudge becomes the wide grab-bar (DRY with chat drawer)",
+        "reqUuid": "9993091a-aa45-4c4f-9c62-e4d5377ba3e8"
+      },
+      "nextBacklog": {
+        "taskUuid": "01d9fb64-20a3-449c-b421-43cf64fec919",
+        "taskName": "T-drawer-full-width: detail drawer full width — remove max-width cap",
+        "reqUuid": "dceda100-434b-4ef7-9af3-9a69ccfac6b2"
       }
     }
   },
