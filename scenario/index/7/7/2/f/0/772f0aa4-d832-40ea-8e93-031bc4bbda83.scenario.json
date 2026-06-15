@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "772f0aa4-d832-40ea-8e93-031bc4bbda83",
+    "name": "det-3x: PASS",
+    "gateType": "det-3x",
+    "verdict": "PASS",
+    "evidence": "Preview btn 85x23 + NewTab btn 125x23 visible v0.6.50, DET-3x consistent, screenshot r2028-preview-buttons.png",
+    "gatedItems": [
+      "ior:instance:607146d1-80d3-4aed-be81-b8eb4ebb43e1"
+    ],
+    "timestamp": "2026-06-15T13:28:32.347Z",
+    "gatedBy": "tester"
+  },
+  "ownerIor": "ior:instance:607146d1-80d3-4aed-be81-b8eb4ebb43e1"
+}
