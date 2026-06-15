@@ -2,56 +2,31 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: R20.28: rb-file-detail preview buttons — TRACE + GATE-VISIBLE (buttons live v0.6.49)",
+    "name": "Current: T-file-detail-preview-buttons: TRACE + GATE-VISIBLE the open-in-preview + open-in-new-tab buttons (already live v0.6.49)",
     "chain": {
       "req": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
-      "uc": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
-      "class": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
-      "method": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
-      "impl": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
-      "test": "607146d1-80d3-4aed-be81-b8eb4ebb43e1"
+      "uc": "62290aa8-48f5-41c9-b749-a7202c5c9940",
+      "class": "37103cf0-c1db-4c94-84d4-163b05f9a8dd",
+      "method": "63d58e0f-1e9c-40d8-9189-35239ae81096",
+      "impl": "",
+      "test": ""
     },
-    "activeHop": 0,
-    "sprintName": "Sprint 20 — Radical Forward Planning (Traceability-First)",
-    "taskName": "R20.28: rb-file-detail preview buttons — TRACE + GATE-VISIBLE (buttons live v0.6.49)",
+    "activeHop": 4,
+    "sprintName": "Sprint 20",
+    "taskName": "T-file-detail-preview-buttons: TRACE + GATE-VISIBLE the open-in-preview + open-in-new-tab buttons (already live v0.6.49)",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-06-15T09:54:53.669Z"
-      },
-      "uc": {
-        "status": "done",
-        "owner": "architect",
-        "updatedAt": "2026-06-15T12:29:28.100Z"
-      },
-      "test": {
-        "status": "in-progress",
-        "owner": "tester",
-        "updatedAt": "2026-06-15T12:34:22.869Z"
-      },
-      "class": {
-        "status": "done",
-        "owner": "architect",
-        "updatedAt": "2026-06-15T12:29:39.343Z"
-      },
-      "method": {
-        "status": "done",
-        "owner": "architect",
-        "updatedAt": "2026-06-15T12:29:40.925Z"
-      },
-      "impl": {
-        "status": "done",
-        "owner": "expert",
-        "updatedAt": "2026-06-15T12:32:55.879Z"
+        "updatedAt": "2026-06-15T13:16:22.296Z"
       }
     },
     "nextBacklogOverride": "56cc23b5-aca1-49f5-9037-e2c58110643c",
     "slots": {
       "current": {
-        "taskUuid": "54519bc4-2704-4484-a83f-5b88019d62c3",
-        "taskName": "T: TestCase + Gate as 1st-class scenario units (R20.20 + R20.21)",
-        "reqUuid": "1e3f9799-943f-4716-b116-78a202301d02"
+        "taskUuid": "3852fdd7-f091-47fc-8239-93433fef4dfe",
+        "taskName": "T-file-detail-preview-buttons: TRACE + GATE-VISIBLE the open-in-preview + open-in-new-tab buttons (already live v0.6.49)",
+        "reqUuid": "607146d1-80d3-4aed-be81-b8eb4ebb43e1"
       },
       "lastCompleted": {
         "taskUuid": "fe8c43a5-cd15-4aed-ac5b-97df558d8fea",

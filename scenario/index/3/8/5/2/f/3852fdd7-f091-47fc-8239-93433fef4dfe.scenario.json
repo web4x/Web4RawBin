@@ -2,16 +2,17 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "3852fdd7-f091-47fc-8239-93433fef4dfe",
-    "name": "T-file-detail-preview-buttons: TRACE + GATE-VISIBLE the open-in-preview + open-in-new-tab buttons (already live v0.6.49)",
-    "description": "Buttons ALREADY LIVE (expert v0.6.49, additive) on rb-file-detail: 👁 Open-in-preview + ↗ Open-in-new-tab. TASK = TRACE them (build the req→uc→class→method→impl→test chain) + GATE VISIBLE (tester verifies BOTH buttons RENDER + WORK on a real file, e.g. the .jpeg, screenshot). REFINE only if the gate finds issues — do NOT re-implement.",
-    "acceptanceCriteria": "Chain traced (req→...→test). Tester GATES VISIBLE: both buttons render + WORK on a real file (.jpeg) — 👁 opens in-app preview, ↗ opens /api/file-content in new tab. Screenshot proof. Refine only on gate issues.",
-    "status": "planned",
+    "name": "T-file-detail-preview-buttons: BUILD+DEPLOY+GATE-VISIBLE the open-in-preview + open-in-new-tab buttons",
+    "description": "rb-file-detail open-in-preview (👁) + open-in-new-tab (↗) buttons. SOURCE-VERIFIED state (HEAD 8ad5dde7d, planner 2026-06-15): buttons ARE in committed source rb-file-detail.ts (btn-file-preview x2, btn-file-newtab x1), working tree clean — BUT NOT VISIBLE (Tron IMG_4053; stale-bundle/#95 source-vs-deploy mismatch). So scope = BUILD + DEPLOY the committed-source buttons (+ rebuild dist to fix #95) + GATE VISIBLE. NOT re-implement-from-scratch (in source), NOT trace-only (not visible). Do NOT record live until tester SEES both buttons on a real .jpeg.",
+    "acceptanceCriteria": "Build + deploy so the LIVE site renders both buttons on rb-file-detail. Tester GATES VISIBLE: 👁 preview + ↗ new-tab render + WORK on a real .jpeg (screenshot). dist bundle matches committed source (#95 resolved). Do NOT mark done until tester sees them.",
+    "status": "In Progress",
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "sprint": "Sprint 20",
     "coveredRequirements": [
       "ior:instance:607146d1-80d3-4aed-be81-b8eb4ebb43e1"
     ],
-    "tronTraced": "Tron next-task 2026-06-15"
+    "tronTraced": "Tron next-task 2026-06-15",
+    "focus": true
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

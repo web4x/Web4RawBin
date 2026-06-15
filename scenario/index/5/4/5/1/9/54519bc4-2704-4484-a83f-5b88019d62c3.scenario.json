@@ -15,7 +15,6 @@
       "ior:instance:e4f5b693-2150-4484-a021-e61f78674da3",
       "ior:instance:37a27ef3-84bf-493e-9cf3-5c5f77ca8efb"
     ],
-    "focus": true,
     "gateProof": "GATE-PROVEN GREEN (tester DET-3x 2026-06-15): chain continuous 6/7 req→uc→class→method→impl→test; dead-end BUG15 CLOSED (impl→test 329081ca wired); broken-links 0; gate PASS; badge renders. HONEST RESIDUALS: (1) test 329081ca testCases[] empty = 7th hop incomplete (minor); (2) BUG17 4 test-uuids scanner-invisible (Tron scope-call). → QA-Review (Tron gate #106).",
     "gates": [
       "ior:instance:d1e173c7-ab72-4c6a-a844-22e7bea7db11"
