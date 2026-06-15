@@ -23,7 +23,7 @@ export const CHAIN_TYPE_CONFIG: Record<string, ChainTypeConfig> = {
   Room:           { scenarioFwd: ['files', 'members'],                                  traceFwd: ['files', 'members'],            expectedChildren: [],                     clientFwd: [] },
   Bug:            { scenarioFwd: ['useCases', 'tasks'],                                  traceFwd: ['useCases', 'tasks'],           expectedChildren: ['UseCase', 'Task'],    clientFwd: ['useCases', 'tasks', 'tests'] },
   ChangeRequest:  { scenarioFwd: ['useCases', 'tasks'],                                  traceFwd: ['useCases', 'tasks'],           expectedChildren: ['UseCase', 'Task'],    clientFwd: ['useCases', 'tasks', 'tests'] },
-  Test:           { scenarioFwd: ['testCases'],                                          traceFwd: ['testCases'],                   expectedChildren: ['TestCase'],           clientFwd: ['testCases'] },
+  Test:           { scenarioFwd: ['testCases', 'gates'],                                  traceFwd: ['testCases', 'gates'],          expectedChildren: ['TestCase', 'Gate'],   clientFwd: ['testCases', 'gates'] },
   TestCase:       { scenarioFwd: [],                                                     traceFwd: [],                              expectedChildren: [],                     clientFwd: [] },
   Gate:           { scenarioFwd: [],                                                     traceFwd: [],                              expectedChildren: [],                     clientFwd: [] },
   CurrentSprint:  { scenarioFwd: [],                                                     traceFwd: [],                              expectedChildren: ['Task'],               clientFwd: [] },

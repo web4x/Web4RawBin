@@ -185,14 +185,12 @@ export class RbObjectItem extends HTMLElement {
     const icon = TRACE_ICONS[type] || '•';
     const hasChildren = this.hasAttribute('has-children');
     const childCount = this.getAttribute('child-count') || '0';
-    const verdict = this.getAttribute('verdict') || (type === 'gate' ? (this.getAttribute('status') || '') : '');
-    const verdictBadge = type === 'gate' && verdict ? `<span class="oi-verdict oi-verdict-${verdict.toLowerCase()}">${verdict === 'PASS' ? '✓' : verdict === 'FAIL' ? '✕' : '○'}</span>` : '';
-    const taskStatus = this.getAttribute('status') || '';
-    const taskBadge = (type === 'task' || type === 'Task') && taskStatus ? `<span class="oi-task-status oi-ts-${taskStatus.toLowerCase().replace(/[^a-z]/g, '-')}">${taskStatus === 'GATE-PROVEN' ? '✓ Done' : taskStatus === 'IMPL-DONE' ? '⚡ Impl' : taskStatus === 'IN-PROGRESS' ? '⏳ WIP' : taskStatus}</span>` : '';
+    const rawStatus = (this.getAttribute('status') || '').toLowerCase();
+    const statusBadge = rawStatus ? renderStatusBadge(rawStatus) : '';
     this.innerHTML = `
       <span class="oi-icon" title="${type}" draggable="true">${icon}</span>
       <div class="oi-content">
-        <span class="oi-name">${esc(name)}${verdictBadge}${taskBadge}</span>
+        <span class="oi-name">${esc(name)}</span>${statusBadge}
         ${desc ? `<p class="oi-desc">${esc(desc)}</p>` : ''}
         ${this.getAttribute('assignee') ? `<span class="oi-assignee" style="font-size:0.65rem;color:#667eea;opacity:0.8">${esc(this.getAttribute('assignee')!)}</span>` : ''}
       </div>
@@ -211,6 +209,23 @@ function generateName(title: string | null): string {
 
 function esc(s: string): string {
   return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] as string));
+}
+
+const BADGE_MAP: Record<string, { color: string; symbol: string }> = {
+  'pass': { color: 'green', symbol: '✓' }, 'done': { color: 'green', symbol: '✓' },
+  'gate-proven': { color: 'green', symbol: '✓' }, 'resolved': { color: 'green', symbol: '✓' },
+  'fail': { color: 'red', symbol: '✕' }, 'red': { color: 'red', symbol: '✕' },
+  'in-progress': { color: 'amber', symbol: '⏳' }, 'in progress': { color: 'amber', symbol: '⏳' },
+  'active': { color: 'amber', symbol: '⏳' },
+  'impl-done': { color: 'blue', symbol: '⚡' },
+  'planned': { color: 'gray', symbol: '○' }, 'pending': { color: 'gray', symbol: '○' },
+  'qa-review': { color: 'purple', symbol: '👁' }, 'qa review': { color: 'purple', symbol: '👁' },
+};
+
+function renderStatusBadge(status: string): string {
+  const entry = BADGE_MAP[status] || BADGE_MAP[status.replace(/[^a-z ]/g, '')] || null;
+  if (!entry) return `<span class="oi-status oi-status-gray">${esc(status)}</span>`;
+  return `<span class="oi-status oi-status-${entry.color}">${entry.symbol}</span>`;
 }
 
 if (typeof customElements !== 'undefined' && !customElements.get('rb-object-item')) {
