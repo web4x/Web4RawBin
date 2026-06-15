@@ -162,7 +162,20 @@ export class CurrentSprint {
       });
     }
 
-    const current = tasks.find(t => t.focus) || null;
+    // Derive current from canonical WIP chain (not just focus-Task — WIP can be Bug/CR/any setChain'd item)
+    let current: typeof tasks[0] | null = null;
+    if (this.chain?.req) {
+      const chainReqUuid = this.chain.req;
+      current = tasks.find(t => t.reqUuid === chainReqUuid) || null;
+      if (!current) {
+        // Chain points to a non-Task (Bug, CR) — synthesize a slot from chain data
+        const chainUnit = this.index.get(chainReqUuid);
+        if (chainUnit) {
+          current = { uuid: chainReqUuid, name: this.taskName || String(chainUnit.model?.name || ''), reqUuid: chainReqUuid, focus: true, testGateProven: this.hopStates.test?.status === 'gate-proven', hasUcChain: true, updatedAt: '' };
+        }
+      }
+    }
+    if (!current) current = tasks.find(t => t.focus) || null;
     const completed = tasks.filter(t => !t.focus && t.reqUuid);
     const lastCompleted = completed.length > 0 ? completed[completed.length - 1] : null;
     const backlog = tasks.filter(t => !t.focus && t.reqUuid && !t.hasUcChain);
