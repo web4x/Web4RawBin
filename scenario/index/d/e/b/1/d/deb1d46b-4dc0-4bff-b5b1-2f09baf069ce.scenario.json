@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "deb1d46b-4dc0-4bff-b5b1-2f09baf069ce",
+    "altId": "BUG15",
+    "name": "BUG15: R20.20 chain dead-ends at impl — parse-test-cases impl has NO Test wired",
+    "description": "Method TestCase.parseFromSource → impl e4f5b693-c1d2 (parse-test-cases.ts) has tests=[] (0 tests). The uc→class→method→impl chain renders but DEAD-ENDS at impl — no impl→test link, so testCase.parseFromSource shows incomplete chain. Tron-traced gate gap.",
+    "acceptanceCriteria": "parse-test-cases impl has a wired Test (tester writes test-first); chain renders uc→class→method→impl→test end-to-end (green); Method.tests[] / impl.tests[] populated.",
+    "status": "OPEN",
+    "coveredBy": "ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3",
+    "parent": "ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3",
+    "tronTraced": "Gate-gap traced as bug (PO/Tron 2026-06-15)"
+  },
+  "ownerIor": "ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3"
+}

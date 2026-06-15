@@ -6,7 +6,10 @@
     "status": "QA Review",
     "coveredRequirements": [
       "ior:instance:1e3f9799-943f-4716-b116-78a202301d02",
-      "ior:instance:102ab818-ca11-4272-8ee8-74b9e4d8298a"
+      "ior:instance:102ab818-ca11-4272-8ee8-74b9e4d8298a",
+      "ior:instance:deb1d46b-4dc0-4bff-b5b1-2f09baf069ce",
+      "ior:instance:2f1cdf9d-ebef-43f2-9c0d-0ef4113b95a0",
+      "ior:instance:538d90e0-931b-4f7c-ae97-fcc38bdaa41a"
     ],
     "useCases": [
       "ior:instance:e4f5b693-2150-4484-a021-e61f78674da3",

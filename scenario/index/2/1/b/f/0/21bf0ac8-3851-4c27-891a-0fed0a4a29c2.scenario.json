@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "21bf0ac8-3851-4c27-891a-0fed0a4a29c2",
+    "name": "idempotent: re-run produces 0 new units",
+    "file": "test/vitest/parse-test-cases.test.ts",
+    "describe": "R20.20 parse-test-cases generator",
+    "it": "idempotent: re-run produces 0 new units",
+    "testUuid": "329081ca-977e-46d0-9f7f-4a6d92b34dc3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:329081ca-977e-46d0-9f7f-4a6d92b34dc3"
+}

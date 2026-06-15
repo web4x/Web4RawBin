@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:TestCase",
+  "model": {
+    "uuid": "6013a412-70a1-4820-99d1-26eefe08e907",
+    "name": " test/vitest/ test/e2e/ --include=",
+    "file": "test/vitest/parse-test-cases.test.ts",
+    "describe": "R20.20 parse-test-cases generator",
+    "it": " test/vitest/ test/e2e/ --include=",
+    "testUuid": "329081ca-977e-46d0-9f7f-4a6d92b34dc3",
+    "status": ""
+  },
+  "ownerIor": "ior:instance:329081ca-977e-46d0-9f7f-4a6d92b34dc3"
+}

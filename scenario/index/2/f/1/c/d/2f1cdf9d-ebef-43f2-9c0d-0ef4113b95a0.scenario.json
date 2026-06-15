@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "2f1cdf9d-ebef-43f2-9c0d-0ef4113b95a0",
+    "altId": "BUG16",
+    "name": "BUG16: Gate-status badge not rendering — verdict not wired to render path",
+    "description": "Gate.verdict field IS populated (4354bf62 verdict=PASS) but the render path did NOT wire verdict → the gate item's verdict/status attribute (rb-object-item.ts:188 reads getAttribute('verdict')||status), so the badge showed ○/none instead of the verdict. Tron-traced.",
+    "acceptanceCriteria": "Gate item renders verdict badge: PASS→✓green, FAIL→✕red, NEW→○grey, derived from Gate.verdict.",
+    "status": "Resolved",
+    "coveredBy": "ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3",
+    "parent": "ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3",
+    "tronTraced": "Gate-gap traced as bug (PO/Tron 2026-06-15)",
+    "resolution": "FIXED v0.6.41 (4f4331ee5): server.ts:625 wires Gate.verdict→status→badge renders ✓PASS green."
+  },
+  "ownerIor": "ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3"
+}

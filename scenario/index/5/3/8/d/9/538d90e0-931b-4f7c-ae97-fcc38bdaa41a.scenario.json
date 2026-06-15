@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "538d90e0-931b-4f7c-ae97-fcc38bdaa41a",
+    "altId": "BUG17",
+    "name": "BUG17: Broken impl→test links — test UUIDs not in /api/trace source scanner",
+    "description": "Test UUIDs referenced in scenario (Test nodes / impl.tests[]) had no [test:uuid:] marker in SOURCE → invisible to the /api/trace scanRepo scanner → broken/un-rendered impl→test links (14 broken). Tron-traced.",
+    "acceptanceCriteria": "All impl→test links resolve in /api/trace (test uuids source-marked or index-resolved); 0 broken links rendered.",
+    "status": "Resolved",
+    "coveredBy": "ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3",
+    "parent": "ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3",
+    "tronTraced": "Gate-gap traced as bug (PO/Tron 2026-06-15)",
+    "resolution": "FIXED v0.6.41 (4f4331ee5): 14 broken impl→test links dropped/wired. ⚠ RESIDUAL (planner source-verify, matches commit \"gap flagged\"): 4 test uuids still scanner-invisible (no [test:uuid:] source marker) — minor, flag for full coverage."
+  },
+  "ownerIor": "ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3"
+}
