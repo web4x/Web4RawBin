@@ -51,8 +51,12 @@ export class RbFileDetail extends HTMLElement {
             ${size ? `<div class="dv-field"><label>Size</label><span>${sizeLabel}</span></div>` : ''}
             ${scenarioBrowserLinkFromIor(uuid)}
             <div class="dv-field"><a href="${editHref}" class="dv-file-link" style="color:#ff9800;font-size:0.75rem;text-decoration:none">✏️ Edit scenario</a></div>
+            <div class="dv-field dv-file-actions" style="display:flex;gap:8px;margin-top:4px">
+              <button class="btn-file-preview" style="background:rgba(102,126,234,0.15);color:#667eea;border:none;padding:4px 10px;border-radius:6px;font-size:0.75rem;cursor:pointer">👁 Preview</button>
+              <a href="/api/file-content/${uuid}" target="_blank" rel="noopener" class="btn-file-newtab" style="background:rgba(255,152,0,0.15);color:#ffa726;border:none;padding:4px 10px;border-radius:6px;font-size:0.75rem;cursor:pointer;text-decoration:none;display:inline-block">↗ Open in new tab</a>
+            </div>
           </div>
-          <div id="file-preview-${uuid}" class="dv-preview"></div>
+          <div id="file-preview-${uuid}" class="dv-preview" style="display:none"></div>
           <div class="dv-links"></div>`;
 
         if (sourceFile) {
@@ -70,11 +74,26 @@ export class RbFileDetail extends HTMLElement {
           }
         }
 
-        if (mimeType.startsWith('text/') || mimeType === 'application/json' || name.endsWith('.md') || name.endsWith('.ts') || name.endsWith('.json')) {
-          this.loadTextPreview(uuid, name);
-        } else if (mimeType.startsWith('image/')) {
-          const preview = document.getElementById(`file-preview-${uuid}`);
-          if (preview) preview.innerHTML = `<div style="text-align:center;padding:12px"><img src="/api/file-content/${uuid}" style="max-width:100%;max-height:300px;border-radius:8px" alt="${esc(name)}"></div>`;
+        const previewEl = document.getElementById(`file-preview-${uuid}`);
+        const previewBtn = this.querySelector('.btn-file-preview');
+        if (previewBtn && previewEl) {
+          previewBtn.addEventListener('click', () => {
+            if (previewEl.style.display === 'none') {
+              previewEl.style.display = '';
+              if (!previewEl.dataset.loaded) {
+                previewEl.dataset.loaded = '1';
+                if (mimeType.startsWith('image/')) {
+                  previewEl.innerHTML = `<div style="text-align:center;padding:12px"><img src="/api/file-content/${uuid}" style="max-width:100%;max-height:400px;border-radius:8px" alt="${esc(name)}"></div>`;
+                } else {
+                  this.loadTextPreview(uuid, name);
+                }
+              }
+              (previewBtn as HTMLElement).textContent = '👁 Hide preview';
+            } else {
+              previewEl.style.display = 'none';
+              (previewBtn as HTMLElement).textContent = '👁 Preview';
+            }
+          });
         }
 
         if (ref) this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
