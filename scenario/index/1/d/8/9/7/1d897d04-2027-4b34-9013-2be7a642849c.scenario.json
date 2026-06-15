@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "1d897d04-2027-4b34-9013-2be7a642849c",
+    "name": "det-3x: PASS",
+    "gateType": "det-3x",
+    "verdict": "PASS",
+    "evidence": "DET-3x: R20.22 3-slot pin renders 3 children (Current 54519bc4 + LastCompleted fe8c43a5 + NextBacklog 01d9fb64), all hasChildren=true, recursive loads 4+2+1 children, 3 identical runs v0.6.43",
+    "gatedItems": [
+      "ior:instance:ba274db6-8be8-4e10-bb7d-1633cf91a1c9"
+    ],
+    "timestamp": "2026-06-15T11:48:16.470Z",
+    "gatedBy": "robbin-tester"
+  },
+  "ownerIor": "ior:instance:ba274db6-8be8-4e10-bb7d-1633cf91a1c9"
+}

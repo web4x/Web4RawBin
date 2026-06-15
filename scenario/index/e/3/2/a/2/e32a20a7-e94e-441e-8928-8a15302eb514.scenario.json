@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781524028394,
+    "createdAt": 1781524096481,
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3TZx3yc0U1qA6ukt9dpB\nAfOW8YNyOWef6tyZBB0UgmdjHc6mYmn8MQvDQDlHxbCd54v3ZMtHsDXAC7/nY0wS\nFFg9heuuRIc3kdiZ0knxEnU8hHTz2b1jZXWrWKCsHRlawba3W8IXMfrMViEY5sn+\nBuuu6wDhYlbWwRSUksKdYO8Psj7gGgF63tcX1reXKB9Jh0DMO5UmDmRDgLzuzfqj\nLsFAmMuIlEApTMv5d19vbzWnjUUTNudh78ruS7K5ATSrqk4yVEg0bV+tOfJ90z6V\nPIiNu76ah7aclR5XEMrJynw+QQvZOdxdXWvWiPQOegTqFdB3Cn+Ibww5cNBkWAv1\n6QIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [],
@@ -20,49 +20,49 @@
         "name": "Toronto Trinity",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781524028395
+        "joinedAt": 1781524096481
       },
       {
         "ior": "ior:instance:366ec723-a7e3-4f1e-86f3-12b9071101de",
         "name": "Marcel Donges Studio",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781524028395
+        "joinedAt": 1781524096481
       },
       {
         "ior": "ior:instance:b63c3a8a-6d86-43af-b8e2-25cbef3ea2d7",
         "name": "Marcel Donges.IT",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781524028395
+        "joinedAt": 1781524096481
       },
       {
         "ior": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544",
         "name": "",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781524028395
+        "joinedAt": 1781524096481
       },
       {
         "ior": "ior:instance:da4f8809-5bcc-46fd-8f90-9b00d7fe967f",
         "name": "Marcel Samsung",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781524028395
+        "joinedAt": 1781524096481
       },
       {
         "ior": "ior:instance:ae9a8a5e-1317-4266-be78-b15b7f547139",
         "name": "test merge",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781524028395
+        "joinedAt": 1781524096481
       },
       {
         "ior": "ior:instance:0d7ee549-30eb-498d-b8d1-9c6c84be1544",
         "name": "",
         "role": "owner",
         "status": "online",
-        "joinedAt": 1781524028395
+        "joinedAt": 1781524096481
       }
     ],
     "files": [

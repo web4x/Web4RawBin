@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "d1e173c7-ab72-4c6a-a844-22e7bea7db11",
+    "name": "det-3x: PASS",
+    "gateType": "det-3x",
+    "verdict": "PASS",
+    "evidence": "DET-3x: impl→test wiring 274/345 impls linked, 71 honestly empty, broken-links=0, spot-checked 3 impl→test resolve to real Tests, 3 identical runs v0.6.39",
+    "gatedItems": [
+      "ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3"
+    ],
+    "timestamp": "2026-06-15T11:48:27.514Z",
+    "gatedBy": "robbin-tester"
+  },
+  "ownerIor": "ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3"
+}

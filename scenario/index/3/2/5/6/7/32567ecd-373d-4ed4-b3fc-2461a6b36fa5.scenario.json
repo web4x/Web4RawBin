@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781524028406,
+    "createdAt": 1781524096487,
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnHPYyRrysf1Zf5paKz6j\njhRbRrg2HzYeU22P1R6iwfoxqknuFn6CubbJfNwQM6PZRF8LAwjijSZPkujtKvKB\n2a7W1lwKmQAqZtGxt24bin5ew1U8UvgZVboZvJqSoUY6F+Thy+tQ6bzmIKzvJ9QC\nCT/QuS777tcMWxobwn4lwZC0fCqmatMeLR/D+yL9RgpQc/D4OOrHMZAl0a3UF+iJ\nFaYjZg/rCWTFQc+rzrmnWKkBNE98SAYufU1DSr7KBrMAMH+hGwsuPTe8l9PKOSOf\nApg2e0TziRcoFNh+zmAVcG1I0ZLrlaBCpMCrMAGCCC8BYXZK1ImGZpjiYyaY4M3U\nEwIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [],
@@ -20,21 +20,21 @@
         "name": "test merge",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1781524028406
+        "joinedAt": 1781524096487
       },
       {
         "ior": "ior:instance:da4f8809-5bcc-46fd-8f90-9b00d7fe967f",
         "name": "",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781524028406
+        "joinedAt": 1781524096487
       },
       {
         "ior": "ior:instance:da4f8809-5bcc-46fd-8f90-9b00d7fe967f",
         "name": "",
         "role": "owner",
         "status": "online",
-        "joinedAt": 1781524028406
+        "joinedAt": 1781524096487
       }
     ],
     "files": [],
