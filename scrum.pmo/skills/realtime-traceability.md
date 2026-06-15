@@ -80,22 +80,22 @@ it('renders the wide grab-bar', () => { /* ... */ });
 
 Wire `Impl.tests[]` to point to the Test unit UUID.
 
-### Step 5 — planner drives via CurrentSprint (planner, ~10s)
+### Step 5 — planner drives via CurrentSprint 3-slot pin (planner, ~10s)
 
-```typescript
-import { CurrentSprint } from './src/ts/scenario/CurrentSprint.js';
-const cs = new CurrentSprint(idx);
-cs.setChain({
-  req: '<req-uuid>',
-  uc: '<uc-uuid>',
-  class: '<class-uuid>',
-  method: '<method-uuid>',
-  impl: '<impl-uuid>',
-  test: '<test-uuid>',
-}, 'S20', 'T-wide-grab-bar');
+```bash
+# PREFERRED: focus sets current slot + auto-derives chain from task's req
+npx tsx scripts/planner-drive.ts focus <task-uuid>
+
+# Optional: pin the NEXT task (Tron's priority, not lowest-open)
+npx tsx scripts/planner-drive.ts setNextBacklog <next-task-uuid>
 ```
 
-Or via the planner driving skill (scrum.pmo/skills/planner-current-sprint-driving.md).
+The 3-slot pin (current/lastCompleted/nextBacklog) syncs automatically:
+- **current** = the focused task's chain (auto-derived via autoFollow)
+- **lastCompleted** = most recent gate-proven task (auto)
+- **nextBacklog** = Tron's chosen next OR first task without UC chain (auto/override)
+
+See planner-current-sprint-driving.md for the full 3-slot model.
 
 ### Step 6 — verify on /trace (anyone, ~5s)
 
@@ -151,10 +151,10 @@ curl -sk https://home.donges.it:4444/api/trace | python3 -c "import json,sys; pr
 |---|---|---|---|
 | 1. Capture | req-eng (0.5) | Scenario.captureQuote | Requirement unit |
 | 2. Design | architect (0.4) | Scenario.proposeTask / manual | UC + Class + Method units |
-| 3. Implement | expert (0.2) | code + Chain.wireImplNode | source marker + Impl unit |
-| 4. Test | tester (0.6) | test code + idx.put | test marker + Test unit |
-| 5. Drive | planner (0.1) | CurrentSprint.setChain | WIP=1 singleton |
-| 6. Verify | anyone | curl + /trace reload | visual confirmation |
+| 3. Implement | expert (0.2) | code + Chain.wireImplNode + `hop impl done` | source marker + Impl unit |
+| 4. Test | tester (0.6) | test code + idx.put + `hop test gate-proven` | test marker + Test unit |
+| 5. Drive | planner (0.1) | `focus <task>` + `setNextBacklog <next>` | 3-slot pin (current/last/next) |
+| 6. Verify | anyone | curl + /trace reload | visual: pin shows 3 slots + chain |
 
 ## Known constraints
 

@@ -4,18 +4,39 @@
 
 The planner's PLANNING + DRIVING is no longer ad-hoc planning-doc editing. It is **maintaining the `CurrentSprint` class and driving the team off it.** `CurrentSprint` IS the single source of truth for the ONE active WIP=1 chain. WIP=1 becomes class-enforced, not convention.
 
+## The 3-slot pin model (R20.22)
+
+CurrentSprint maintains 3 task slots, always synced to disk:
+
+| Slot | What | Source | CLI |
+|---|---|---|---|
+| **current** | The ONE focused WIP=1 task | `task.focus: true` (exactly one) | `focus <task-uuid>` |
+| **lastCompleted** | Most recent gate-proven task | Auto-derived (last non-focused task with reqUuid) | (automatic) |
+| **nextBacklog** | Next task to work after current | Override or auto (first task without UC chain) | `setNextBacklog <uuid>` / `clearNextBacklog` |
+
+`pinCurrent()` returns all 3 slots + chain state. `/trace` renders the 3-slot pin.
+
 ## Consumer API (architect-provided — I call, never re-implement)
-- `setChain({req, uc, class, method, impl, test})` — set the WIP=1 chain with IOR refs (the full Req→Test skeleton)
-- `getActiveChain() → [{type, uuid, name, status}]` — ordered Req→Test array (read the live chain state)
-- `advance()` — move focus to the next hop after the current completes
-- `pinCurrent() → {sprintName, taskName, chainDepth, wipStatus}` — feeds the R20.12 /trace pin-row
+- `setChain({req, uc, class, method, impl, test})` — set chain with IOR refs (low-level escape hatch)
+- `focus <task-uuid>` — **PREFERRED**: set WIP, auto-derive chain from task's req → uc → chain
+- `setNextBacklog <task-uuid>` — pin a specific task as next (Tron's priority, not lowest-open)
+- `clearNextBacklog` — revert to auto-derived next
+- `hop <hop> <status> [agent]` — per-agent realtime hop update
+- `gate` — check if current task's test is gate-proven
+- `getActiveChain() → [{type, uuid, name, status, hopState}]` — live chain with per-hop state
+- `advance()` — move focus to the next hop (after gate-proven)
+- `pinCurrent() → {sprintName, taskName, chainDepth, wipStatus, slots: {current, lastCompleted, nextBacklog}}`
 - Event: `current-sprint-changed` on `document` (re-render hook)
 
 ## Planner skill layer (driveNext / status / det-3x gate — ON TOP of the API)
 
-### 1. MAINTAIN — keep CurrentSprint pointed at the real active chain
-- On taking a new WIP=1 task: `setChain({...})` with the task's full traceability skeleton (req→UC→Class→Method→Impl→Test IOR refs). This is the planner declaring the canonical chain the team works.
-- CurrentSprint is the SINGLE source — I do not maintain a parallel planning-doc work-list. The 6-item queue is the **advance-order**, not a driving surface.
+### 1. MAINTAIN — keep all 3 slots synced
+- **current**: `focus <task-uuid>` when WIP switches (Tron's priority, L8). Auto-derives chain.
+  BLOCKED by proven-or-stay gate (L9) unless `--force`.
+- **next**: `setNextBacklog <task-uuid>` when Tron signals the next priority.
+  Falls back to auto (first task without UC chain) if not overridden.
+- **last**: auto-derived — no manual action needed.
+- CurrentSprint is the SINGLE source — do not maintain a parallel planning-doc work-list.
 
 ### 2. driveNext — derive each role's next action from the OPEN node
 - `getActiveChain()` → find the first node with `status != complete`. That OPEN node's `type` dispatches the role:
