@@ -11,7 +11,7 @@
       "impl": "",
       "test": ""
     },
-    "activeHop": 4,
+    "activeHop": 5,
     "sprintName": "Sprint 20",
     "taskName": "T-file-detail-preview-buttons: TRACE + GATE-VISIBLE the open-in-preview + open-in-new-tab buttons (already live v0.6.49)",
     "hopStates": {
@@ -19,13 +19,18 @@
         "status": "done",
         "owner": "req-eng",
         "updatedAt": "2026-06-15T13:16:22.296Z"
+      },
+      "impl": {
+        "status": "done",
+        "owner": "expert",
+        "updatedAt": "2026-06-15T13:19:09.771Z"
       }
     },
     "nextBacklogOverride": "56cc23b5-aca1-49f5-9037-e2c58110643c",
     "slots": {
       "current": {
         "taskUuid": "3852fdd7-f091-47fc-8239-93433fef4dfe",
-        "taskName": "T-file-detail-preview-buttons: TRACE + GATE-VISIBLE the open-in-preview + open-in-new-tab buttons (already live v0.6.49)",
+        "taskName": "T-file-detail-preview-buttons: BUILD+DEPLOY+GATE-VISIBLE the open-in-preview + open-in-new-tab buttons",
         "reqUuid": "607146d1-80d3-4aed-be81-b8eb4ebb43e1"
       },
       "lastCompleted": {
