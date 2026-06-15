@@ -8,7 +8,9 @@
     "status": "planned",
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "sprint": "Sprint 20",
-    "coveredRequirements": [],
+    "coveredRequirements": [
+      "ior:instance:607146d1-80d3-4aed-be81-b8eb4ebb43e1"
+    ],
     "tronTraced": "Tron next-task 2026-06-15"
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

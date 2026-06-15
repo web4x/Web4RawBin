@@ -2,18 +2,18 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: BUG18: file click shows parent collection not file detail — rewire (tagMap 'file' entry + rb-file-detail)",
+    "name": "Current: R20.28: rb-file-detail preview buttons — TRACE + GATE-VISIBLE (buttons live v0.6.49)",
     "chain": {
-      "req": "949ee3c2-56bc-43b9-9830-b3911f361962",
-      "uc": "fdcbb079-f8c8-489a-95bd-89516f29dd66",
-      "class": "37103cf0-c1db-4c94-84d4-163b05f9a8dd",
-      "method": "d932447e-7791-4ed8-98d6-517f2699a5ed",
-      "impl": "949ee3c2-56bc-43b9-9830-b3911f361962",
-      "test": "949ee3c2-56bc-43b9-9830-b3911f361962"
+      "req": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
+      "uc": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
+      "class": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
+      "method": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
+      "impl": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
+      "test": "607146d1-80d3-4aed-be81-b8eb4ebb43e1"
     },
-    "activeHop": 5,
+    "activeHop": 0,
     "sprintName": "Sprint 20 — Radical Forward Planning (Traceability-First)",
-    "taskName": "BUG18: file click shows parent collection not file detail — rewire (tagMap 'file' entry + rb-file-detail)",
+    "taskName": "R20.28: rb-file-detail preview buttons — TRACE + GATE-VISIBLE (buttons live v0.6.49)",
     "hopStates": {
       "req": {
         "status": "done",
@@ -46,7 +46,7 @@
         "updatedAt": "2026-06-15T12:32:55.879Z"
       }
     },
-    "nextBacklogOverride": "3852fdd7-f091-47fc-8239-93433fef4dfe",
+    "nextBacklogOverride": "56cc23b5-aca1-49f5-9037-e2c58110643c",
     "slots": {
       "current": {
         "taskUuid": "54519bc4-2704-4484-a83f-5b88019d62c3",
@@ -59,9 +59,9 @@
         "reqUuid": "9993091a-aa45-4c4f-9c62-e4d5377ba3e8"
       },
       "nextBacklog": {
-        "taskUuid": "3852fdd7-f091-47fc-8239-93433fef4dfe",
-        "taskName": "T-file-detail-preview-buttons: open-in-preview + open-in-new-tab buttons on rb-file-detail",
-        "reqUuid": ""
+        "taskUuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
+        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
+        "reqUuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212"
       }
     }
   },
