@@ -11,7 +11,7 @@
       "impl": "949ee3c2-56bc-43b9-9830-b3911f361962",
       "test": "949ee3c2-56bc-43b9-9830-b3911f361962"
     },
-    "activeHop": 0,
+    "activeHop": 2,
     "sprintName": "Sprint 20 — Radical Forward Planning (Traceability-First)",
     "taskName": "BUG18: file click shows parent collection not file detail (regression) — rewire file→detail→browse-highlight→Monaco",
     "hopStates": {
@@ -23,7 +23,7 @@
       "uc": {
         "status": "done",
         "owner": "architect",
-        "updatedAt": "2026-06-15T11:53:31.954Z"
+        "updatedAt": "2026-06-15T12:29:28.100Z"
       },
       "test": {
         "status": "gate-proven",

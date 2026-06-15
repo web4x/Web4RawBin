@@ -27,7 +27,8 @@
     "gates": [
       "ior:instance:1d897d04-2027-4b34-9013-2be7a642849c"
     ],
-    "visibleDoneProof": "VISIBLE-DONE + GATES-GREEN — GATE-PROVEN GREEN (tester DET-3x + planner source-verified 2026-06-15, v0.6.46 universal-status-badge + v0.6.47 gates[] wired on Req/Task forward-key). BOTH halves of Tron ask VISIBLE: (1) current task green✓ done; (2) Gate nodes render green✓ PASS as tree children (Req→2 gates, Task→1). Status badge colors all working: green/amber/gray/purple. RENDER-PROOF screenshots: test/visual/v647-gates-green.png + v647-expanded.png. gate-proven=true. R20.20/21/22 + status-badge = VISIBLY DONE. present-proof sent to Tron. STAY PINNED until Tron-done (#106)."
+    "visibleDoneProof": "VISIBLE-DONE + GATES-GREEN — GATE-PROVEN GREEN (tester DET-3x + planner source-verified 2026-06-15, v0.6.46 universal-status-badge + v0.6.47 gates[] wired on Req/Task forward-key). BOTH halves of Tron ask VISIBLE: (1) current task green✓ done; (2) Gate nodes render green✓ PASS as tree children (Req→2 gates, Task→1). Status badge colors all working: green/amber/gray/purple. RENDER-PROOF screenshots: test/visual/v647-gates-green.png + v647-expanded.png. gate-proven=true. R20.20/21/22 + status-badge = VISIBLY DONE. present-proof sent to Tron. STAY PINNED until Tron-done (#106).",
+    "polishFollowUp": "R20.22 POLISH (PO 2026-06-15, SMALL follow-up — not blocking): getThreeSlots() current-slot must derive from the CANONICAL current WIP (whatever is setChain-pinned, incl a Bug), NOT just focus-Task. Consistency gap surfaced by BUG18: pinCurrent.taskName=BUG18 but slots.current still shows R20.20/21 (54519bc4). FIX: getThreeSlots current = the pinned chain task/req, fallback focus-Task. Fold in when BUG18 area is touched OR a quick separate pass after. BUG18 stays priority."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
