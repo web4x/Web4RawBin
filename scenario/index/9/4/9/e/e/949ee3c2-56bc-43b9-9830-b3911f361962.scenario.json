@@ -5,15 +5,16 @@
     "altId": "BUG18",
     "name": "BUG18: clicking a FILE in a room shows the PARENT collection in the drawer, not the file detail (regression)",
     "description": "REGRESSION (Tron screenshot): clicking a FILE in a room (e.g. 16CDAA25...jpeg in 'Jesus Munich' Files) shows the PARENT 'Files(2)' collection in the detail drawer instead of the file's OWN detail. file-detail-on-click is mis-wired to render the parent collection.",
-    "acceptanceCriteria": "Clicking a file shows the FILEs own detail (not parent collection). From file detail, click NAVIGATES to BROWSE-FILE (file browser) with the file HIGHLIGHTED, enabling the scenario MONACO editor. All pieces exist — REWIRE. [EXTENDED 2026-06-15, PO]: rb-file-detail ALSO shows OPEN-IN-PREVIEW button (👁 opens in-app preview) + OPEN-IN-NEW-TAB button (↗ /api/file-content). BUG18 not done until BOTH buttons VISIBLE + Tron-done.",
-    "status": "In Progress",
+    "acceptanceCriteria": "Clicking a file shows the FILEs own detail (not parent collection). From file detail, click NAVIGATES to BROWSE-FILE (file browser) with the file HIGHLIGHTED, enabling the scenario MONACO editor. All pieces exist — REWIRE.",
+    "status": "Done",
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "sprint": "Sprint 20",
     "tronTraced": "Screenshot regression, URGENT (PO/Tron 2026-06-15)",
     "useCases": [
       "ior:instance:fdcbb079-f8c8-489a-95bd-89516f29dd66"
     ],
-    "followOn": "CORE FIXED (Tron-confirmed file detail renders). FOLLOW-ON (same WIP, extended AC not new bug): rb-file-detail missing open-in-preview + open-in-new-tab buttons. Expert ADDING (source-verified present in rb-file-detail.ts:55 btn-file-preview 👁 + :56 btn-file-newtab ↗). WIP STAYS on BUG18 until buttons VISIBLE + Tron-done."
+    "followOn": "CORE DONE (Tron-confirmed). Follow-on (preview+new-tab buttons) MOVED to separate next task 3852fdd7-f091-47fc-8239-93433fef4dfe (Tron: make it the NEXT task).",
+    "tronDone": "Tron confirmed this is fixed — file detail renders (visually verified) 2026-06-15."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

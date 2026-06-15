@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "3852fdd7-f091-47fc-8239-93433fef4dfe",
+    "name": "T-file-detail-preview-buttons: TRACE + GATE-VISIBLE the open-in-preview + open-in-new-tab buttons (already live v0.6.49)",
+    "description": "Buttons ALREADY LIVE (expert v0.6.49, additive) on rb-file-detail: 👁 Open-in-preview + ↗ Open-in-new-tab. TASK = TRACE them (build the req→uc→class→method→impl→test chain) + GATE VISIBLE (tester verifies BOTH buttons RENDER + WORK on a real file, e.g. the .jpeg, screenshot). REFINE only if the gate finds issues — do NOT re-implement.",
+    "acceptanceCriteria": "Chain traced (req→...→test). Tester GATES VISIBLE: both buttons render + WORK on a real file (.jpeg) — 👁 opens in-app preview, ↗ opens /api/file-content in new tab. Screenshot proof. Refine only on gate issues.",
+    "status": "planned",
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "sprint": "Sprint 20",
+    "coveredRequirements": [],
+    "tronTraced": "Tron next-task 2026-06-15"
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

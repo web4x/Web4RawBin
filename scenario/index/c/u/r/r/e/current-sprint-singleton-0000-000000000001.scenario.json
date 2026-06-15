@@ -46,7 +46,7 @@
         "updatedAt": "2026-06-15T12:32:55.879Z"
       }
     },
-    "nextBacklogOverride": "56cc23b5-aca1-49f5-9037-e2c58110643c",
+    "nextBacklogOverride": "3852fdd7-f091-47fc-8239-93433fef4dfe",
     "slots": {
       "current": {
         "taskUuid": "54519bc4-2704-4484-a83f-5b88019d62c3",
@@ -59,9 +59,9 @@
         "reqUuid": "9993091a-aa45-4c4f-9c62-e4d5377ba3e8"
       },
       "nextBacklog": {
-        "taskUuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
-        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
-        "reqUuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212"
+        "taskUuid": "3852fdd7-f091-47fc-8239-93433fef4dfe",
+        "taskName": "T-file-detail-preview-buttons: open-in-preview + open-in-new-tab buttons on rb-file-detail",
+        "reqUuid": ""
       }
     }
   },
