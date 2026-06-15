@@ -787,7 +787,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const childModel = child.model as Record<string, unknown> || {};
             const forwardArrays = ['tasks','useCases','classes','methods','implementations','tests','children'].map(k => childModel[k]).filter(Array.isArray);
             const childCount = forwardArrays.reduce((sum, arr) => sum + arr.length, 0);
-            const entry: Record<string, unknown> = { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: childCount > 0, childCount, ...(childModel.assigned ? { assignee: String(childModel.assigned) } : {}) };
+            const childStatus = ct === 'Gate' ? String(childModel.verdict || childModel.status || '') : String(childModel.status || '');
+            const entry: Record<string, unknown> = { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: childCount > 0, childCount, ...(childModel.assigned ? { assignee: String(childModel.assigned) } : {}), ...(childStatus ? { status: childStatus } : {}) };
             if (queryMode === 'trace' && type === 'UseCase' && ct === 'Class' && ucMethodIor) {
               const meth = idx.get(ucMethodIor);
               if (meth) entry.chainMethod = { uuid: ucMethodIor, type: 'Method', name: String(meth.model?.name || '') };

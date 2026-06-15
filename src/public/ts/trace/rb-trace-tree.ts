@@ -311,7 +311,7 @@ export class RbTraceTree extends HTMLElement {
     } catch (e: any) { if (e?.name !== 'AbortError') { this.innerHTML = '<div class="tt-empty">Failed to load</div>'; this._seedAbort = null; } }
   }
 
-  private buildSeedNode(uuid: string, type: string, name: string, children: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean; chainMethod?: { uuid: string; type: string; name: string } }[], hasChildren?: boolean, ancestors?: Set<string>, chainMethod?: { uuid: string; type: string; name: string }, description?: string, shouldStartOpen?: boolean): HTMLElement {
+  private buildSeedNode(uuid: string, type: string, name: string, children: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean; chainMethod?: { uuid: string; type: string; name: string }; status?: string }[], hasChildren?: boolean, ancestors?: Set<string>, chainMethod?: { uuid: string; type: string; name: string }, description?: string, shouldStartOpen?: boolean, status?: string): HTMLElement {
     const node = document.createElement('div');
     node.className = 'tt-node';
     if (ancestors && ancestors.has(uuid)) return node;
@@ -321,7 +321,7 @@ export class RbTraceTree extends HTMLElement {
     const showExpander = children.length > 0 || hasChildren === true;
     const itemRef = `${(type || 'task').toLowerCase()}:${uuid}`;
     const forceOpen = this.hasAttribute('data-always-expanded');
-    item.data = { ref: itemRef, type: (type || 'task').toLowerCase(), title: name || uuid, ...(description ? { description } : {}), ...(showExpander ? { 'has-children': '' } : {}), ...((forceOpen || shouldStartOpen) && showExpander ? { 'children-open': '' } : {}) };
+    item.data = { ref: itemRef, type: (type || 'task').toLowerCase(), title: name || uuid, ...(description ? { description } : {}), ...(status ? { status } : {}), ...(showExpander ? { 'has-children': '' } : {}), ...((forceOpen || shouldStartOpen) && showExpander ? { 'children-open': '' } : {}) };
     console.log(`[buildSeedNode] ref=${itemRef} children=${children.length} hasChildren=${hasChildren}`);
     row.appendChild(item);
     node.appendChild(row);
@@ -333,7 +333,7 @@ export class RbTraceTree extends HTMLElement {
       let loaded = children.length > 0;
       const branchPath = new Set(ancestors || []); branchPath.add(uuid);
       for (const child of children) {
-        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, (child as any).children || [], child.hasChildren, new Set(branchPath), (child as any).chainMethod, (child as any).description, shouldStartOpen));
+        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, (child as any).children || [], child.hasChildren, new Set(branchPath), (child as any).chainMethod, (child as any).description, shouldStartOpen, (child as any).status));
       }
       node.appendChild(kids);
       item.addEventListener('toggle-children', ((e: CustomEvent) => {
@@ -487,7 +487,7 @@ export class RbTraceTree extends HTMLElement {
         children = data.children || [];
       }
       for (const child of children) {
-        container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchVisited), (child as any).chainMethod, (child as any).description));
+        container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchVisited), (child as any).chainMethod, (child as any).description, false, (child as any).status));
       }
       const parentItem = container.parentElement?.querySelector(':scope > .tt-row rb-object-item');
       if (parentItem) parentItem.setAttribute('child-count', String(children.length));
