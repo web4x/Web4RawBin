@@ -632,7 +632,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           }
         }
         const forwardOnlyObjects = graph.toJSON().map((obj: FlatObject) => {
-          const fwdKeys = traceFwd(obj.type);
+          const fwdKeys = scenarioFwd(obj.type);
           const links: Record<string, string[]> = {};
           for (const k of fwdKeys) { if (obj.links[k]) links[k] = obj.links[k]; }
           return { ...obj, links };
