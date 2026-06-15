@@ -3,7 +3,7 @@
   "model": {
     "uuid": "54519bc4-2704-4484-a83f-5b88019d62c3",
     "name": "T: TestCase + Gate as 1st-class scenario units (R20.20 + R20.21)",
-    "status": "in-progress",
+    "status": "QA Review",
     "coveredRequirements": [
       "ior:instance:1e3f9799-943f-4716-b116-78a202301d02",
       "ior:instance:102ab818-ca11-4272-8ee8-74b9e4d8298a"
@@ -13,8 +13,7 @@
       "ior:instance:37a27ef3-84bf-493e-9cf3-5c5f77ca8efb"
     ],
     "focus": true,
-    "gateProof": "GATE-PROVEN (tester GREEN b364112ba, det-3x): TestCase 1016 persisted+served+idempotent; Gate fakes purged, first REAL det-3x gate 4354bf62 (verdict=PASS, gatedItems→R20.20 corrected) persisted+served+semantically-real. Switch-gate isGateProven=TRUE (impl done + test gate-proven). → testing-DONE → QA-Review (Tron gate). Planner-verified 2026-06-14.",
-    "reopenNote": "REOPENED (Tron IMG_4045 2026-06-15): chain NOT wired — uc testCase.parseFromSource shows No chain/no links. Method TestCase.parseFromSource impls[]/tests[] empty; 1016 TestCase units graph-unlinked (testUuid present but no Test→TestCase link). NOT done; gate-proven was premature (chain-render gap)."
+    "gateProof": "GATE-PROVEN + CHAIN RENDERS end-to-end (v0.6.39, tester DET-3x + planner source-verified 2026-06-15; goal=renders-not-proxy). Gap from IMG_4045 CLOSED: Method parseFromSource→Impl wired (e4f5b693-c1d2 parse-test-cases.ts); Test.testCases[] reverse-indexed → Test→TestCase renders. gate-proven=true (agents self-marked hops per Tron #102: req-eng/architect/tester). CAVEAT (honest, Tron call #106): 74/355 Tests linked/marked → render Test→TestCase; 281 legacy Tests UNMARKED (no testCases[]) — full coverage is Tron's call. SUB-NOTES: impl e4f5b693-c1d2 is a real Implementation node (file-level parse-test-cases.ts) but has NO [impl:uuid:] source marker (render-OK, not champagne-strict); Method.tests[] empty (test gate-proven via Gate unit, not method-link). STAY PINNED until Tron calls done (#106)."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

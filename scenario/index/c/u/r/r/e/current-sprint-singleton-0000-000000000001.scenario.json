@@ -11,7 +11,7 @@
       "impl": "",
       "test": ""
     },
-    "activeHop": 4,
+    "activeHop": 5,
     "sprintName": "Sprint 20 — Radical Forward Planning (Traceability-First)",
     "taskName": "T: TestCase + Gate as 1st-class scenario units (R20.20 + R20.21)",
     "hopStates": {
@@ -24,6 +24,11 @@
         "status": "done",
         "owner": "architect",
         "updatedAt": "2026-06-15T09:55:54.136Z"
+      },
+      "test": {
+        "status": "gate-proven",
+        "owner": "tester",
+        "updatedAt": "2026-06-15T10:02:29.662Z"
       }
     }
   },
