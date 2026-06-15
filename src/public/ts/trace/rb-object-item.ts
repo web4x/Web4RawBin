@@ -187,10 +187,12 @@ export class RbObjectItem extends HTMLElement {
     const childCount = this.getAttribute('child-count') || '0';
     const verdict = this.getAttribute('verdict') || (type === 'gate' ? (this.getAttribute('status') || '') : '');
     const verdictBadge = type === 'gate' && verdict ? `<span class="oi-verdict oi-verdict-${verdict.toLowerCase()}">${verdict === 'PASS' ? '✓' : verdict === 'FAIL' ? '✕' : '○'}</span>` : '';
+    const taskStatus = this.getAttribute('status') || '';
+    const taskBadge = (type === 'task' || type === 'Task') && taskStatus ? `<span class="oi-task-status oi-ts-${taskStatus.toLowerCase().replace(/[^a-z]/g, '-')}">${taskStatus === 'GATE-PROVEN' ? '✓ Done' : taskStatus === 'IMPL-DONE' ? '⚡ Impl' : taskStatus === 'IN-PROGRESS' ? '⏳ WIP' : taskStatus}</span>` : '';
     this.innerHTML = `
       <span class="oi-icon" title="${type}" draggable="true">${icon}</span>
       <div class="oi-content">
-        <span class="oi-name">${esc(name)}${verdictBadge}</span>
+        <span class="oi-name">${esc(name)}${verdictBadge}${taskBadge}</span>
         ${desc ? `<p class="oi-desc">${esc(desc)}</p>` : ''}
         ${this.getAttribute('assignee') ? `<span class="oi-assignee" style="font-size:0.65rem;color:#667eea;opacity:0.8">${esc(this.getAttribute('assignee')!)}</span>` : ''}
       </div>

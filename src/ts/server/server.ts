@@ -705,10 +705,14 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             { label: '✅ Last Completed', slot: slots.lastCompleted },
             { label: '📋 Next Backlog', slot: slots.nextBacklog },
           ];
+          const hopStates = (model.hopStates as Record<string, any>) || {};
+          const isGateProven = hopStates.test?.status === 'gate-proven';
           const children = slotEntries.filter(s => s.slot?.taskUuid).map(s => {
             const taskUnit = idx.get(s.slot.taskUuid);
             const taskName = taskUnit ? String(taskUnit.model?.name || s.slot.taskName) : s.slot.taskName;
-            return { uuid: s.slot.taskUuid, type: 'Task', name: `${s.label}: ${taskName}`, hasChildren: true };
+            const isCurrent = s.label.includes('Current');
+            const status = isCurrent ? (isGateProven ? 'GATE-PROVEN' : (hopStates.impl?.status === 'done' ? 'IMPL-DONE' : 'IN-PROGRESS')) : '';
+            return { uuid: s.slot.taskUuid, type: 'Task', name: `${s.label}: ${taskName}`, hasChildren: true, status };
           });
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
           res.end(JSON.stringify({ uuid, type, name: String(model.name || 'Current Sprint'), hasChildren: children.length > 0, children }));
