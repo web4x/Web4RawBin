@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "63d58e0f-1e9c-40d8-9189-35239ae81096",
+    "name": "RbFileDetail.renderActionButtons",
+    "description": "Renders Preview + Open-in-new-tab buttons in rb-file-detail.ts:54-57. Preview: btn-file-preview click toggles ContentPreviewer in #file-preview-{uuid}. New-tab: anchor to /api/file-content/{uuid} target=_blank. Live at v0.6.49.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:37103cf0-c1db-4c94-84d4-163b05f9a8dd"
+}
