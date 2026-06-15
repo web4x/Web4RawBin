@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1781538622266,
+    "createdAt": 1781566006590,
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzWf70z6ROpbcF1VLoJPP\n+kKrimMz54Ukj7Ku5Z1ZeS8N7YdGe641OP15oVk3cGMZx/x6veqTNved0DYZTIvn\nkAVs+V6qw+p1dKtyYtn8G+8wQj5UKNrMvz2L3p2/dYP4mBTQ4fGQ6r3DFWvBEoXA\nAeOCROWUM8Fyu6RHyFyMgrqYlbRb7/MbSF3byZq5rVoM0reHZXNvzfQYG52OUExl\nIpoGOdKBD7igakpSOrw0EjcOoL3o/+SdGhWoI+Fs2fpiwkoABbIr4YIUpLbubxjT\nODrxG1Z6yXbCHxe4DtBMBM2mWpe8IX+DXsPUv8SMrVQ04dzMERTHY7F5K+ESh+jX\nMQIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [],
@@ -20,7 +20,14 @@
         "name": "Toronto Trinity",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1781560868865
+        "joinedAt": 1781566006590
+      },
+      {
+        "ior": "ior:instance:c117f9fc-baf3-4666-adb5-bd7c2dfadff6",
+        "name": "",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1781566006590
       }
     ],
     "files": [

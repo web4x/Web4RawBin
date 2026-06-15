@@ -2,7 +2,7 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: T-file-detail-preview-buttons: TRACE + GATE-VISIBLE the open-in-preview + open-in-new-tab buttons (already live v0.6.49)",
+    "name": "Current: T-file-detail-preview-buttons: BUILD+DEPLOY+GATE-VISIBLE the open-in-preview + open-in-new-tab buttons",
     "chain": {
       "req": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
       "uc": "62290aa8-48f5-41c9-b749-a7202c5c9940",
@@ -13,37 +13,17 @@
     },
     "activeHop": 5,
     "sprintName": "Sprint 20",
-    "taskName": "T-file-detail-preview-buttons: TRACE + GATE-VISIBLE the open-in-preview + open-in-new-tab buttons (already live v0.6.49)",
+    "taskName": "T-file-detail-preview-buttons: BUILD+DEPLOY+GATE-VISIBLE the open-in-preview + open-in-new-tab buttons",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-06-15T13:16:22.296Z"
-      },
-      "impl": {
-        "status": "done",
-        "owner": "expert",
-        "updatedAt": "2026-06-15T13:19:09.771Z"
+        "updatedAt": "2026-06-15T23:29:21.865Z"
       },
       "test": {
-        "status": "done",
+        "status": "gate-proven",
         "owner": "tester",
-        "updatedAt": "2026-06-15T13:28:43.010Z"
-      },
-      "uc": {
-        "status": "done",
-        "owner": "architect",
-        "updatedAt": "2026-06-15T15:47:52.812Z"
-      },
-      "class": {
-        "status": "done",
-        "owner": "architect",
-        "updatedAt": "2026-06-15T15:47:54.661Z"
-      },
-      "method": {
-        "status": "done",
-        "owner": "architect",
-        "updatedAt": "2026-06-15T15:47:56.182Z"
+        "updatedAt": "2026-06-15T23:29:39.464Z"
       }
     },
     "nextBacklogOverride": "56cc23b5-aca1-49f5-9037-e2c58110643c",

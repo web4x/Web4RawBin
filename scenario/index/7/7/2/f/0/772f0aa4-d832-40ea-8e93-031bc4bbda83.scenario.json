@@ -5,11 +5,11 @@
     "name": "det-3x: PASS",
     "gateType": "det-3x",
     "verdict": "PASS",
-    "evidence": "Preview btn 85x23 + NewTab btn 125x23 visible v0.6.50, DET-3x consistent, screenshot r2028-preview-buttons.png",
+    "evidence": "getThreeSlots current slot tracks WIP switch: DET-1 3852fdd7/607146d1, DET-2 56cc23b5/b04fc9af (after focus switch), DET-3 3852fdd7/607146d1 (switch back). Consistent. Also: focus blocked without --force when test hop incomplete (consistency guard).",
     "gatedItems": [
       "ior:instance:607146d1-80d3-4aed-be81-b8eb4ebb43e1"
     ],
-    "timestamp": "2026-06-15T13:28:32.347Z",
+    "timestamp": "2026-06-15T23:29:41.117Z",
     "gatedBy": "tester"
   },
   "ownerIor": "ior:instance:607146d1-80d3-4aed-be81-b8eb4ebb43e1"
