@@ -3,8 +3,8 @@
   "model": {
     "uuid": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
     "altId": "R20.28",
-    "name": "R20.28: rb-file-detail shows 'Open in preview' + 'Open in new tab' buttons \u2014 rewire existing.",
-    "description": "The file detail view (rb-file-detail) MUST render two action buttons: (1) 'Open in preview' \u2014 opens the file in the ContentPreviewer (image\u2192show as img, html\u2192sandboxed iframe, per R19.64/65). (2) 'Open in new tab' \u2014 opens the file content/URL in a new browser tab (window.open target=_blank). These buttons existed in the earlier file/ProfileSheet-era implementation \u2014 they must be REWIRED into the current rb-file-detail component (not built from scratch).",
+    "name": "R20.28: rb-file-detail shows 'Open in preview' + 'Open in new tab' buttons — rewire existing.",
+    "description": "The file detail view (rb-file-detail) MUST render two action buttons: (1) 'Open in preview' — opens the file in the ContentPreviewer (image→show as img, html→sandboxed iframe, per R19.64/65). (2) 'Open in new tab' — opens the file content/URL in a new browser tab (window.open target=_blank). These buttons existed in the earlier file/ProfileSheet-era implementation — they must be REWIRED into the current rb-file-detail component (not built from scratch).",
     "tronQuote": "> TRON: \"the preview buttons are missing open in preview and open in new tab\"",
     "tasks": [],
     "tests": [],
@@ -17,14 +17,16 @@
     ],
     "crossRefNote": "R19.77 (URL two-button preview) defined these buttons originally. R19.65 (ContentPreviewer) is the preview component. R20.28 = rewire the buttons into rb-file-detail.",
     "intendedChain": {
-      "useCase": "fileDetail.previewButtons \u2014 rb-file-detail renders Open in preview + Open in new tab, both functional",
+      "useCase": "fileDetail.previewButtons — rb-file-detail renders Open in preview + Open in new tab, both functional",
       "class": "rb-file-detail (custom element)",
-      "method": "renderPreviewActions \u2014 add buttons, wire click handlers (preview\u2192ContentPreviewer, new-tab\u2192window.open)",
-      "test": "RED: open a .jpeg file detail \u2192 assert 'Open in preview' button present + click shows image. Assert 'Open in new tab' button present + click opens new tab. Currently FAILS (buttons missing)."
+      "method": "renderPreviewActions — add buttons, wire click handlers (preview→ContentPreviewer, new-tab→window.open)",
+      "test": "RED: open a .jpeg file detail → assert 'Open in preview' button present + click shows image. Assert 'Open in new tab' button present + click opens new tab. Currently FAILS (buttons missing)."
     },
     "useCases": [
       "ior:instance:62290aa8-48f5-41c9-b749-a7202c5c9940"
-    ]
+    ],
+    "status": "QA Review",
+    "gateProof": "GATE-PROVEN GREEN + VISIBLE (tester DET-3x v0.6.50 + planner source-verified 2026-06-15, goal=renders-not-proxy): 👁 Preview (85x23) + ↗ Open in new tab (125x23) VISIBLE on rb-file-detail + Preview-toggles-ContentPreviewer functional. Harness RED was a post-toggle measurement artifact; DET-3x is ground truth. RELEASE: v0.6.50 deployed + tagged + sw.js CACHE_NAME rawbin-v0.6.50 → PWA update-banner pulls buttons. dist bundle has buttons (#95 RESOLVED). Screenshot: test/visual/r2028-preview-buttons.png. → QA-Review (Tron gate #106). ⚠ chain hop gate-proven=false: tester must SELF-MARK test=gate-proven + create R20.28 Gate unit (Tron #102 — planner does NOT backfill)."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

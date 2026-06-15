@@ -5,14 +5,15 @@
     "name": "T-file-detail-preview-buttons: BUILD+DEPLOY+GATE-VISIBLE the open-in-preview + open-in-new-tab buttons",
     "description": "rb-file-detail open-in-preview (👁) + open-in-new-tab (↗) buttons. SOURCE-VERIFIED state (HEAD 8ad5dde7d, planner 2026-06-15): buttons ARE in committed source rb-file-detail.ts (btn-file-preview x2, btn-file-newtab x1), working tree clean — BUT NOT VISIBLE (Tron IMG_4053; stale-bundle/#95 source-vs-deploy mismatch). So scope = BUILD + DEPLOY the committed-source buttons (+ rebuild dist to fix #95) + GATE VISIBLE. NOT re-implement-from-scratch (in source), NOT trace-only (not visible). Do NOT record live until tester SEES both buttons on a real .jpeg.",
     "acceptanceCriteria": "Build + deploy so the LIVE site renders both buttons on rb-file-detail. Tester GATES VISIBLE: 👁 preview + ↗ new-tab render + WORK on a real .jpeg (screenshot). dist bundle matches committed source (#95 resolved). Do NOT mark done until tester sees them.",
-    "status": "In Progress",
+    "status": "QA Review",
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "sprint": "Sprint 20",
     "coveredRequirements": [
       "ior:instance:607146d1-80d3-4aed-be81-b8eb4ebb43e1"
     ],
     "tronTraced": "Tron next-task 2026-06-15",
-    "focus": true
+    "focus": true,
+    "gateProof": "GATE-PROVEN GREEN + VISIBLE (tester DET-3x v0.6.50 + planner source-verified 2026-06-15, goal=renders-not-proxy): 👁 Preview (85x23) + ↗ Open in new tab (125x23) VISIBLE on rb-file-detail + Preview-toggles-ContentPreviewer functional. Harness RED was a post-toggle measurement artifact; DET-3x is ground truth. RELEASE: v0.6.50 deployed + tagged + sw.js CACHE_NAME rawbin-v0.6.50 → PWA update-banner pulls buttons. dist bundle has buttons (#95 RESOLVED). Screenshot: test/visual/r2028-preview-buttons.png. → QA-Review (Tron gate #106). ⚠ chain hop gate-proven=false: tester must SELF-MARK test=gate-proven + create R20.28 Gate unit (Tron #102 — planner does NOT backfill)."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
