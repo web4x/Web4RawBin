@@ -8,7 +8,7 @@ import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
-import { renderContentPreview, loadTextPreview, wireUrlActions } from './content-preview.js';
+import { renderContentPreview, loadTextPreview, wireUrlActions, guessMimeFromName } from './content-preview.js';
 
 export class RbFileDetail extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -33,7 +33,7 @@ export class RbFileDetail extends HTMLElement {
         if (!unit) { this.innerHTML = '<div class="dv-empty">File unit not found</div>'; return; }
         const m = unit.model || {};
         const name = m.name || uuid.slice(0, 8);
-        const mimeType = m.mimeType || '';
+        const mimeType = m.mimeType || m.contentType || guessMimeFromName(name) || '';
         const size = m.size || 0;
         const token = m.uploaderToken || '';
         const sizeLabel = size > 1024 ? `${(size / 1024).toFixed(1)} KB` : `${size} B`;

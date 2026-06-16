@@ -81,7 +81,9 @@ export class RbDetailView extends HTMLElement {
       </div>
       <div class="dv-links">${rows.join('') || '<div class="dv-empty">no links</div>'}</div>`;
 
-    if (obj.type === 'file' || obj.type === 'File') {
+    // File preview handled by rb-file-detail (tagMap routes file→rb-file-detail)
+    // Only render here as fallback if rb-file-detail is NOT in the DOM
+    if ((obj.type === 'file' || obj.type === 'File') && !this.closest('rb-file-detail')) {
       this.createFilePreviewButton(obj.uuid, obj.title);
     }
 
