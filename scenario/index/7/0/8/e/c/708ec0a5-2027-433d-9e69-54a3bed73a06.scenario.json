@@ -4,7 +4,7 @@
     "uuid": "708ec0a5-2027-433d-9e69-54a3bed73a06",
     "name": "T-vcard-enrich-store: store uploaded vcard next to avatar + downloadable + NOTE adds download-date + geolocation maps link",
     "description": "Store uploaded vCard next to the avatar; make it downloadable; enrich vCard NOTE with download-date + geolocation maps link. Minted by planner 2026-06-16 (req 0.5 rate-limited) for realtime current-task pin switch.",
-    "status": "in-progress",
+    "status": "QA Review",
     "coveredRequirements": [
       "ior:instance:f3f26cab-792e-4e65-9cf8-98d907023396"
     ],
@@ -12,7 +12,8 @@
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "sprintName": "Sprint 20",
     "focus": true,
-    "reconcileNote": "Reconciled (PO/SM 2026-06-16): canonical task; covers R20.31 (f3f26cab, full AC); the req-eng dup task + planner dup req were DELETED; sprint→Sprint-20 (was sprint-19)."
+    "reconcileNote": "Reconciled (PO/SM 2026-06-16): canonical task; covers R20.31 (f3f26cab, full AC); the req-eng dup task + planner dup req were DELETED; sprint→Sprint-20 (was sprint-19).",
+    "gateProof": "GATE-PROVEN GREEN (tester DET-3x VISIBLE v0.6.62, 2026-06-16): in-room member-drawer vCard download works on real data; wrong-surface fix (downloadVCard→shared, rb-detail-view Member/User button, playerToken via /api/ior, POST/GET /api/vcard). test hop gate-proven. RESIDUAL: real-GPS in NOTE maps link = Tron device check (synthetic mock proven). → QA-Review (Tron gate)."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
