@@ -49,14 +49,27 @@ export class RbDetailView extends HTMLElement {
           // R20.31: vCard download button for Member/User types
           const detectedType = (data.type || ref.split(':')[0] || '').toLowerCase();
           if (detectedType === 'member' || detectedType === 'user') {
-            const vcardBtn = document.createElement('button');
-            vcardBtn.className = 'btn btn-secondary';
-            vcardBtn.style.cssText = 'margin-top:8px;width:100%;font-size:0.8rem';
-            vcardBtn.textContent = '📇 Download vCard';
-            vcardBtn.addEventListener('click', () => {
-              downloadVCard({ name: data.name || uuid, playerToken: uuid });
+            // Resolve real playerToken from the unit's model (may differ from scenario uuid)
+            fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.ok ? r.json() : null).then(iorData => {
+              const model = iorData?.unit?.model || {};
+              const realToken = model.playerToken || model.token || uuid;
+              const vcardBtn = document.createElement('button');
+              vcardBtn.className = 'btn btn-secondary';
+              vcardBtn.style.cssText = 'margin-top:8px;width:100%;font-size:0.8rem';
+              vcardBtn.textContent = '📇 Download vCard';
+              vcardBtn.addEventListener('click', () => {
+                downloadVCard({ name: data.name || uuid, playerToken: realToken, phone: model.phone, url: model.url, avatar: model.avatar });
+              });
+              head!.insertAdjacentElement('afterend', vcardBtn);
+            }).catch(() => {
+              // Fallback: render button without profile enrichment
+              const vcardBtn = document.createElement('button');
+              vcardBtn.className = 'btn btn-secondary';
+              vcardBtn.style.cssText = 'margin-top:8px;width:100%;font-size:0.8rem';
+              vcardBtn.textContent = '📇 Download vCard';
+              vcardBtn.addEventListener('click', () => { downloadVCard({ name: data.name || uuid, playerToken: uuid }); });
+              head!.insertAdjacentElement('afterend', vcardBtn);
             });
-            head.insertAdjacentElement('afterend', vcardBtn);
           }
         }
       }).catch(() => {});
