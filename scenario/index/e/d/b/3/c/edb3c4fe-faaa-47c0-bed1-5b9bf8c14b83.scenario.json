@@ -3,9 +3,9 @@
   "model": {
     "uuid": "edb3c4fe-faaa-47c0-bed1-5b9bf8c14b83",
     "altId": "R20.29",
-    "name": "R20.29: Trace tree renders Method→Impl→Test→Gate chain matching the detail view.",
-    "description": "The /trace TREE must render the full chain from Method downward: Method→Impl→Test→Gate — matching what the detail view traces. Currently the tree shows Method with 0 children (no Impl/Test/Gate nodes expand under it) even though the detail view traces impl. The chain must complete to a green Gate in the tree AND populate the Last-Completed slot when gated. Tron evidence: IMG_4060 (Method=0 in tree but detail shows impl).",
-    "tronQuote": "> TRON (IMG_4060): trace tree must render Method→Impl→Test→Gate matching the detail (currently Method=0 in tree but detail traces impl).",
+    "name": "R20.29: Trace tree renders Method\u2192Impl\u2192Test\u2192Gate chain matching the detail view.",
+    "description": "The /trace TREE must render the full chain from Method downward: Method\u2192Impl\u2192Test\u2192Gate \u2014 matching what the detail view traces. Currently the tree shows Method with 0 children (no Impl/Test/Gate nodes expand under it) even though the detail view traces impl. The chain must complete to a green Gate in the tree AND populate the Last-Completed slot when gated. Tron evidence: IMG_4060 (Method=0 in tree but detail shows impl).",
+    "tronQuote": "> TRON (IMG_4060): trace tree must render Method\u2192Impl\u2192Test\u2192Gate matching the detail (currently Method=0 in tree but detail traces impl).",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
@@ -14,12 +14,26 @@
     "crossRef": [
       "ior:instance:2e6d691b-ddd2-4ad8-8e42-e2a69fbcda15"
     ],
-    "crossRefNote": "BUG7 (Class all-children) was a similar gap at the Class level. R20.29 is the Method level: tree must expand Method→Impl→Test→Gate.",
+    "crossRefNote": "BUG7 (Class all-children) was a similar gap at the Class level. R20.29 is the Method level: tree must expand Method\u2192Impl\u2192Test\u2192Gate.",
     "intendedChain": {
-      "useCase": "traceTree.methodChainExpands — Method node in tree expands to show Impl→Test→Gate children",
+      "useCase": "traceTree.methodChainExpands \u2014 Method node in tree expands to show Impl\u2192Test\u2192Gate children",
       "class": "rb-trace-tree / FORWARD_KEYS",
-      "method": "FORWARD_KEYS resolution for Method type must include implementations[] and continue to tests[]→gates[]",
-      "test": "RED: expand a Method node in /trace tree → assert Impl child renders, expand Impl → Test renders, expand Test → Gate renders (if exists). Currently FAILS (Method shows 0 children)."
+      "method": "FORWARD_KEYS resolution for Method type must include implementations[] and continue to tests[]\u2192gates[]",
+      "test": "RED: expand a Method node in /trace tree \u2192 assert Impl child renders, expand Impl \u2192 Test renders, expand Test \u2192 Gate renders (if exists). Currently FAILS (Method shows 0 children)."
+    },
+    "architectDesign": {
+      "diagnosis": "CHAIN_TYPE_CONFIG (chain-model.ts:20) shows Method.scenarioFwd=[\"implementations\"], Method.traceFwd=[\"implementations\"]. Config is CORRECT. But Method scenario units in the index have EMPTY implementations[] arrays \u2014 the forward-ref was never populated by populate-forward-refs.ts for Method\u2192Impl because [impl:uuid:] markers in source map to Implementation units whose parent is Method, but the Method unit never got its implementations[] array backfilled.",
+      "rootCause": "populate-forward-refs.ts fills Requirement.useCases, Task.useCases, UseCase.classes, Class.methods \u2014 but the Method\u2192Implementation\u2192Test\u2192Gate chain is populated by scanRepo graph linkage, NOT by the scenario pipeline. The /api/trace/children endpoint falls back to scanRepo (server.ts:764-777) when scenario index has empty arrays. So the tree CAN show them IF scanRepo finds them \u2014 but only if [impl:uuid:] markers exist in source AND the Implementation unit exists in the index.",
+      "fix": {
+        "step1_pipeline": "Extend populate-forward-refs.ts to backfill Method.implementations[] from Implementation units (Implementation.ownerIor \u2192 Method UUID). Similarly Implementation.tests[] from Test units. And Test.gates[] from Gate units.",
+        "step2_verify_data": "Run the extended pipeline. Measure: count Method units with non-empty implementations[], Implementation units with non-empty tests[], Test units with non-empty gates[].",
+        "step3_no_code_change_needed_in_tree": "rb-trace-tree already uses /api/trace/children which reads CHAIN_TYPE_CONFIG fwdKeys. Once the scenario units have populated forward arrays, the tree will render Method\u2192Impl\u2192Test\u2192Gate without any client code change."
+      },
+      "files": [
+        "scripts/populate-forward-refs.ts (extend Method/Impl/Test backfill)"
+      ],
+      "gate": "Expand Method node in /trace tree \u2192 Impl child renders. Expand Impl \u2192 Test renders. Expand Test \u2192 Gate renders. DET-3x.",
+      "status": "designed"
     }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
