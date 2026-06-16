@@ -3,9 +3,9 @@
   "model": {
     "uuid": "d7299c88-c56f-4686-a91f-c67bf78b8930",
     "altId": "R20.30",
-    "name": "R20.30: Traceability Chain \u2260 All Children \u2014 they must show DIFFERENT content.",
-    "description": "The detail view Traceability Chain and All Children sections DIFFER by BREADTH vs DEPTH: (1) ALL CHILDREN = ALL child nodes of the node \u2014 e.g. a CLASS shows ALL its child methods (RbDetailDrawer has 14 methods, MATCHING the class badge count \"14\"). This is BREADTH \u2014 every child, flat. (2) TRACEABILITY CHAIN = the forward CHAIN path to the CURRENT method's IMPLEMENTATION \u2014 the active-chain hop: class \u2192 current method \u2192 impl \u2192 test \u2192 gate. NOT all children \u2014 only the singular path through the chain-relevant method to its impl. This is DEPTH \u2014 one path, deep. AC: open a Class detail in a chain context \u2192 All Children lists all 14 methods (= badge count); Traceability Chain shows only the path through the CURRENT method to its impl/test/gate. They MUST differ (currently identical \u2014 both show the same content).",
-    "tronQuote": "> TRON (IMG_4060): \"Traceability Chain \u2260 All Children \u2014 they must show DIFFERENT content.\"\n> TRON (precise spec): All Children = ALL child nodes (breadth, e.g. 14 methods = badge). Traceability Chain = forward chain to current method's impl (depth, one path).",
+    "name": "R20.30: Traceability Chain ≠ All Children — they must show DIFFERENT content.",
+    "description": "The detail view Traceability Chain and All Children sections DIFFER by BREADTH vs DEPTH: (1) ALL CHILDREN = ALL child nodes of the node — e.g. a CLASS shows ALL its child methods (RbDetailDrawer has 14 methods, MATCHING the class badge count \"14\"). This is BREADTH — every child, flat. (2) TRACEABILITY CHAIN = the forward CHAIN path to the CURRENT method's IMPLEMENTATION — the active-chain hop: class → current method → impl → test → gate. NOT all children — only the singular path through the chain-relevant method to its impl. This is DEPTH — one path, deep. AC: open a Class detail in a chain context → All Children lists all 14 methods (= badge count); Traceability Chain shows only the path through the CURRENT method to its impl/test/gate. They MUST differ (currently identical — both show the same content).",
+    "tronQuote": "> TRON (IMG_4060): \"Traceability Chain ≠ All Children — they must show DIFFERENT content.\"\n> TRON (precise spec): All Children = ALL child nodes (breadth, e.g. 14 methods = badge). Traceability Chain = forward chain to current method's impl (depth, one path).",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
@@ -14,20 +14,20 @@
     "crossRef": [
       "ior:instance:7734f4e1-def9-4af3-a7d2-5ccc7160b214"
     ],
-    "crossRefNote": "R20.5 (universal chain-vs-children) defined this rule. R20.30 re-asserts it as a bug \u2014 implementation still renders both sections identically.",
+    "crossRefNote": "R20.5 (universal chain-vs-children) defined this rule. R20.30 re-asserts it as a bug — implementation still renders both sections identically.",
     "intendedChain": {
-      "useCase": "detailView.distinctSections \u2014 Traceability Chain shows only forward-chain nodes; All Children shows all child nodes; content differs",
+      "useCase": "detailView.distinctSections — Traceability Chain shows only forward-chain nodes; All Children shows all child nodes; content differs",
       "class": "RbDetailDrawer / detail-superseded.ts",
-      "method": "renderTraceabilitySection (chain-walk filtered) vs renderAllChildrenSection (union of arrays) \u2014 must use DIFFERENT data sources",
-      "test": "RED: open Class RbDetailDrawer (14 methods) in chain context \u2192 All Children lists 14 methods (= badge count). Traceability Chain shows only 1 method path (current\u2192impl\u2192test\u2192gate). They differ. Currently FAILS (both show identical content)."
+      "method": "renderTraceabilitySection (chain-walk filtered) vs renderAllChildrenSection (union of arrays) — must use DIFFERENT data sources",
+      "test": "RED: open Class RbDetailDrawer (14 methods) in chain context → All Children lists 14 methods (= badge count). Traceability Chain shows only 1 method path (current→impl→test→gate). They differ. Currently FAILS (both show identical content)."
     },
     "architectDesign": {
-      "diagnosis": "detail-superseded.ts:renderAllChildrenSection receives children[] from fetchDetailData (detail-children.ts) which calls /api/trace/children?mode=scenario \u2014 this returns ALL forward children per scenarioFwd keys. rb-detail-view.ts:115 renders this as \"All Children\". BUT there is NO separate \"Traceability Chain\" section. The detail view has ONLY All Children + Superseded. R20.30 demands a SECOND section showing the chain-walk (depth) vs the existing All Children (breadth).",
+      "diagnosis": "detail-superseded.ts:renderAllChildrenSection receives children[] from fetchDetailData (detail-children.ts) which calls /api/trace/children?mode=scenario — this returns ALL forward children per scenarioFwd keys. rb-detail-view.ts:115 renders this as \"All Children\". BUT there is NO separate \"Traceability Chain\" section. The detail view has ONLY All Children + Superseded. R20.30 demands a SECOND section showing the chain-walk (depth) vs the existing All Children (breadth).",
       "rootCause": "renderAllChildrenSection is the ONLY children renderer. No renderTraceabilityChainSection exists. Both \"Traceability Chain\" and \"All Children\" render the same data because there is only one section. The fix requires adding a NEW section.",
       "fix": {
         "step1_new_function": "Add renderTraceabilityChainSection(container, uuid, chainContext) to detail-superseded.ts. This function: (a) takes the current chain context (which UC/Method/Impl is the active-chain path), (b) fetches /api/trace/children?mode=trace for the node, (c) if the node is a Class, filters methods to ONLY the chain-relevant method (the one in the UC.method field of the navigated-from UC), (d) renders the filtered chain path as a separate section ABOVE All Children.",
-        "step2_chain_context_threading": "The chain context (which UC led to this Class, which Method is chain-relevant) must be threaded through navigation. When user taps UC\u2192Class in the tree, the UC.method UUID is the chain-relevant method. Store this as a data attribute on the detail view: data-chain-method=\"<uuid>\". renderTraceabilityChainSection reads it to filter.",
-        "step3_visual_distinction": "Traceability Chain section: header \"Traceability Chain\" with chain icon (\ud83d\udd17), shows ONLY the singular forward path (1 method, 1 impl, 1 test, 1 gate). All Children section: header \"All Children\" with count badge (14), shows ALL children flat. Both sections render independently \u2014 different data, different count, different heading.",
+        "step2_chain_context_threading": "The chain context (which UC led to this Class, which Method is chain-relevant) must be threaded through navigation. When user taps UC→Class in the tree, the UC.method UUID is the chain-relevant method. Store this as a data attribute on the detail view: data-chain-method=\"<uuid>\". renderTraceabilityChainSection reads it to filter.",
+        "step3_visual_distinction": "Traceability Chain section: header \"Traceability Chain\" with chain icon (🔗), shows ONLY the singular forward path (1 method, 1 impl, 1 test, 1 gate). All Children section: header \"All Children\" with count badge (14), shows ALL children flat. Both sections render independently — different data, different count, different heading.",
         "step4_wire_in_rb_detail_view": "In rb-detail-view.ts after line 115 (renderAllChildrenSection): add renderTraceabilityChainSection(this, obj.uuid, chainContext). The chainContext comes from the navigation state (SelectionModel or URL params)."
       },
       "files": [
@@ -35,10 +35,11 @@
         "rb-detail-view.ts (wire new section + thread chainContext)",
         "nav.ts or SelectionModel (thread chain context through navigation)"
       ],
-      "gate": "Open Class RbDetailDrawer (14 methods) in chain context. All Children shows 14 methods (=badge). Traceability Chain shows 1 method\u2192impl\u2192test\u2192gate. Sections DIFFER. DET-3x.",
-      "crossRef": "R20.5 (universal chain-vs-children) \u2014 this implements the rule R20.5 defined. T202 (shared-class method narrowing) \u2014 server-side ?uc= narrowing is the API-level equivalent.",
-      "status": "designed"
-    }
+      "gate": "Open Class RbDetailDrawer (14 methods) in chain context. All Children shows 14 methods (=badge). Traceability Chain shows 1 method→impl→test→gate. Sections DIFFER. DET-3x.",
+      "crossRef": "R20.5 (universal chain-vs-children) — this implements the rule R20.5 defined. T202 (shared-class method narrowing) — server-side ?uc= narrowing is the API-level equivalent.",
+      "status": "implemented"
+    },
+    "statusChecklist": "- [x] implementing (v0.6.54 87c955ba0 renderChainPathSection depth-first vs renderAllChildrenSection breadth)"
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
