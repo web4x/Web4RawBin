@@ -16,6 +16,11 @@
       "class": "RbDetailDrawer / per-type detail view",
       "method": "renderSourceLinks (per-type dispatch)",
       "test": "RED: open R20.27 detail \u2192 assert source link(s) present + clickable. Links must be CLICKABLE (navigate on click, not just text). Currently FAILS."
+    },
+    "architectDesign": {
+      "pattern": "Gate units have model.evidence (screenshot path or det-3x log). Render a clickable link: \u2705 Gate evidence \u2192 preview or /edit. If evidence is a .png \u2192 render inline image preview. If evidence is a log file \u2192 text preview.",
+      "gate": "Open a Gate detail \u2192 evidence link renders. Screenshot gates show inline image. Log gates show text preview.",
+      "status": "design-ahead-queued"
     }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

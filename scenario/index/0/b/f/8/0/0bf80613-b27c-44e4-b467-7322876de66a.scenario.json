@@ -16,6 +16,11 @@
       "class": "RbDetailDrawer / per-type detail view",
       "method": "renderSourceLinks (per-type dispatch)",
       "test": "RED: open R20.23 detail \u2192 assert source link(s) present + clickable. Links must be CLICKABLE (navigate on click, not just text). Currently FAILS."
+    },
+    "architectDesign": {
+      "pattern": "Every scenario type already has model.sourceFile (populated by fill-source-locations.ts). The detail view already calls renderSourceLink(sourceFile, sourceLine) via detail-children.ts. R20.23 is ALREADY IMPLEMENTED for types that have sourceFile populated. Gap: some types have empty sourceFile. Fix = extend fill-source-locations.ts to cover all types, OR confirm which types naturally have no source (Sprint, Room).",
+      "gate": "Open each type in detail \u2192 source link rendered if sourceFile exists. Types without source (Sprint, Room) show no link (by design).",
+      "status": "design-ahead-queued"
     }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

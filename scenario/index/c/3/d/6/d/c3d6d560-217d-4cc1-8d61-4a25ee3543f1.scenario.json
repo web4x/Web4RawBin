@@ -16,6 +16,12 @@
       "class": "RbDetailDrawer / per-type detail view",
       "method": "renderSourceLinks (per-type dispatch)",
       "test": "RED: open R20.24 detail \u2192 assert source link(s) present + clickable. Links must be CLICKABLE (navigate on click, not just text). Currently FAILS."
+    },
+    "architectDesign": {
+      "pattern": "Class units have model.source.file pointing to the .puml diagram. Add a SECOND link to the rendered SVG (same basename, .svg extension). Both clickable: PUML opens in /edit, SVG opens as preview (ContentPreviewer or new tab).",
+      "impl": "In the per-type detail rendering (rb-detail-view.ts or a dedicated rb-class-detail.ts), when sourceFile ends in .puml: render two links \u2014 (1) \u270f\ufe0f PUML source \u2192 /edit/<path>, (2) \ud83d\uddbc\ufe0f SVG preview \u2192 /api/files/<path.replace(.puml,.svg)>",
+      "gate": "Open a Class detail \u2192 PUML link + SVG preview both render and are clickable.",
+      "status": "design-ahead-queued"
     }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

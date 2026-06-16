@@ -25,7 +25,21 @@
     },
     "useCases": [
       "ior:instance:e2807a7b-b72f-4030-97b6-67f73a043ae7"
-    ]
+    ],
+    "architectDesign": {
+      "scope": "3 files: singular-chain.ts (1 comment rename), detail-superseded.ts (check for \"Champagne\" heading strings), app.css (check for .champagne class names). Then node build.mjs to rebuild dist/.",
+      "steps": [
+        "grep -rni champagne src/public/ts/ src/ts/ \u2014 identify all hits",
+        "singular-chain.ts:3 \u2014 rename comment \"champagne path\" \u2192 \"traceability chain path\"",
+        "detail-superseded.ts \u2014 check heading strings for \"Champagne\" \u2192 \"Traceability Chain\"",
+        "Any CSS class names .champagne-* \u2192 rename to .traceability-* if present",
+        "node build.mjs \u2014 rebuild both bundles",
+        "grep -rni champagne dist/ \u2014 verify 0 hits in compiled output",
+        "Tester: load /trace, open any detail \u2192 heading must say \"Traceability Chain\""
+      ],
+      "gate": "grep -rni champagne src/public/ts/ src/ts/ \u2192 0 hits (excluding test/standard files). Visual: detail-view heading = \"Traceability Chain\".",
+      "status": "design-ahead-queued"
+    }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

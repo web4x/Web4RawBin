@@ -16,6 +16,12 @@
       "class": "RbDetailDrawer / per-type detail view",
       "method": "renderSourceLinks (per-type dispatch)",
       "test": "RED: open R20.25 detail \u2192 assert source link(s) present + clickable. Links must be CLICKABLE (navigate on click, not just text). Currently FAILS."
+    },
+    "architectDesign": {
+      "pattern": "Method units have TWO source locations: (1) PUML definition (where the method is declared in the use-case diagram), (2) TypeScript implementation (where the [impl:uuid:] marker lives). Both should be linked. The existing model.source covers one; add model.implSource for the other.",
+      "impl": "Method detail renders two source links: (1) PUML file:line (from model.source), (2) TS file:line (from model.implSource or by resolving the impl unit's sourceFile). fill-source-locations.ts must populate both.",
+      "gate": "Open a Method detail \u2192 PUML link + TS code link both render. PUML \u2192 /edit, TS \u2192 /edit.",
+      "status": "design-ahead-queued"
     }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
