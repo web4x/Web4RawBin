@@ -6,7 +6,7 @@ import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
-import { renderSupersededSection, renderAllChildrenSection } from './detail-superseded.js';
+import { renderSupersededSection, renderAllChildrenSection, renderChainPathSection } from './detail-superseded.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
 
 export class RbMethodDetail extends HTMLElement {
@@ -29,7 +29,8 @@ export class RbMethodDetail extends HTMLElement {
         <code class="dv-uuid">${obj.uuid}</code>
         ${scenarioBrowserLinkFromIor(obj.uuid)}
       </div>
-      <div class="dv-links"><h4>Traceability Chain</h4>${renderLinks(this.graph, links)}</div>`;
+      </div>`;
+    renderChainPathSection(this, obj.uuid);
     this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
     this.querySelectorAll('.dv-link').forEach(row => {
       row.addEventListener('click', () => { const lref = (row as HTMLElement).dataset.ref!; navigate(lref.split(':')[0], 'show', { uuid: refUuid(lref) }); });

@@ -9,7 +9,7 @@ import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
-import { renderSupersededSection, renderAllChildrenSection } from './detail-superseded.js';
+import { renderSupersededSection, renderAllChildrenSection, renderChainPathSection } from './detail-superseded.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
 
 export class RbClassDetail extends HTMLElement {
@@ -34,18 +34,8 @@ export class RbClassDetail extends HTMLElement {
         <code class="dv-uuid">${obj.uuid}</code>
         ${scenarioBrowserLinkFromIor(obj.uuid)}
       </div>
-      <div class="dv-links">
-        <h4>Traceability Chain (narrowed)</h4>
-        <div class="dv-chain-loading" style="color:rgba(255,255,255,0.4);font-size:0.75rem">Loading...</div>
       </div>`;
-    fetch(`/api/trace/children/${encodeURIComponent(obj.uuid)}?mode=trace`).then(r => r.json()).then(data => {
-      const chain = this.querySelector('.dv-chain-loading');
-      if (!chain) return;
-      const children = data.children || [];
-      if (children.length === 0) { chain.textContent = 'no narrowed children'; return; }
-      chain.outerHTML = children.map((c: any) => `<div class="dv-link" data-ref="${c.type.toLowerCase()}:${c.uuid}"><span class="dv-rel">${c.type}</span><span class="dv-link-title">${esc(c.name)}</span></div>`).join('');
-      this.querySelectorAll('.dv-links .dv-link').forEach(row => row.addEventListener('click', () => { const r = (row as HTMLElement).dataset.ref!; navigate(r.split(':')[0], 'show', { uuid: r.split(':')[1] || '' }); }));
-    }).catch(() => { const c = this.querySelector('.dv-chain-loading'); if (c) c.textContent = 'failed to load'; });
+    renderChainPathSection(this, obj.uuid);
 
     this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
     this.querySelectorAll('.dv-link').forEach(row => {

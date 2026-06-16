@@ -32,6 +32,47 @@ export function renderSupersededSection(container: HTMLElement, uuid: string): v
   }).catch(() => {});
 }
 
+// [impl:uuid:63d58e0f-b1a2-4c3d-8e4f-5a6b7c8d9e0f] R20.30 renderChainPathSection — depth-first single path
+export function renderChainPathSection(container: HTMLElement, uuid: string): void {
+  const secEl = document.createElement('div');
+  secEl.className = 'dv-chain-path';
+  secEl.style.cssText = 'border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px';
+  secEl.innerHTML = '<h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:4px">Traceability Chain</h4><div class="dv-chain-walk" style="color:rgba(255,255,255,0.4);font-size:0.75rem">Loading chain...</div>';
+  container.appendChild(secEl);
+
+  async function walkChain(nodeUuid: string, depth: number): Promise<string> {
+    if (depth > 6) return '';
+    try {
+      const res = await fetch(`/api/trace/children/${encodeURIComponent(nodeUuid)}?mode=trace`);
+      if (!res.ok) return '';
+      const data = await res.json();
+      const children = data.children || [];
+      if (children.length === 0) return '';
+      const first = children[0];
+      const indent = '  '.repeat(depth);
+      const rest = await walkChain(first.uuid, depth + 1);
+      return `<div class="dv-link dv-chain-link" data-ref="${first.type.toLowerCase()}:${first.uuid}" style="padding-left:${depth * 12}px"><span class="dv-rel">${first.type}</span><span class="dv-link-title">${esc(first.name)}</span></div>${rest}`;
+    } catch { return ''; }
+  }
+
+  walkChain(uuid, 0).then(html => {
+    const target = secEl.querySelector('.dv-chain-walk');
+    if (!target) return;
+    if (!html) { target.textContent = 'no chain path'; return; }
+    target.outerHTML = html;
+    secEl.querySelectorAll('.dv-chain-link').forEach(row => {
+      row.addEventListener('click', () => {
+        const r = (row as HTMLElement).dataset.ref!;
+        navigate(r.split(':')[0], 'show', { uuid: r.split(':')[1] || '' });
+      });
+    });
+  });
+}
+
+function esc(s: string): string {
+  return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] as string));
+}
+
 // [impl:uuid:308008bf-70eb-4b87-82ef-d76c97590c07] renderAllChildrenSection
 export function renderAllChildrenSection(container: HTMLElement, children: { uuid: string; type: string; name: string }[]): void {
   if (children.length === 0) return;
