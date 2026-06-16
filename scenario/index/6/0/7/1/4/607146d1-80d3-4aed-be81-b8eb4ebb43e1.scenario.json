@@ -3,8 +3,8 @@
   "model": {
     "uuid": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
     "altId": "R20.28",
-    "name": "R20.28: rb-file-detail shows 'Open in preview' + 'Open in new tab' buttons — rewire existing.",
-    "description": "The file detail view (rb-file-detail) MUST render two action buttons: (1) 'Open in preview' — opens the file in the ContentPreviewer (image→show as img, html→sandboxed iframe, per R19.64/65). (2) 'Open in new tab' — opens the file content/URL in a new browser tab (window.open target=_blank). These buttons existed in the earlier file/ProfileSheet-era implementation — they must be REWIRED into the current rb-file-detail component (not built from scratch).",
+    "name": "R20.28: rb-file-detail shows 'Open in preview' + 'Open in new tab' buttons \u2014 rewire existing.",
+    "description": "The file detail view (rb-file-detail) MUST render two action buttons: (1) 'Open in preview' \u2014 opens the file in the ContentPreviewer (image\u2192show as img, html\u2192sandboxed iframe, per R19.64/65). (2) 'Open in new tab' \u2014 opens the file content/URL in a new browser tab (window.open target=_blank). These buttons existed in the earlier file/ProfileSheet-era implementation \u2014 they must be REWIRED into the current rb-file-detail component (not built from scratch).",
     "tronQuote": "> TRON: \"the preview buttons are missing open in preview and open in new tab\"",
     "tasks": [],
     "tests": [],
@@ -17,16 +17,42 @@
     ],
     "crossRefNote": "R19.77 (URL two-button preview) defined these buttons originally. R19.65 (ContentPreviewer) is the preview component. R20.28 = rewire the buttons into rb-file-detail.",
     "intendedChain": {
-      "useCase": "fileDetail.previewButtons — rb-file-detail renders Open in preview + Open in new tab, both functional",
+      "useCase": "fileDetail.previewButtons \u2014 rb-file-detail renders Open in preview + Open in new tab, both functional",
       "class": "rb-file-detail (custom element)",
-      "method": "renderPreviewActions — add buttons, wire click handlers (preview→ContentPreviewer, new-tab→window.open)",
-      "test": "RED: open a .jpeg file detail → assert 'Open in preview' button present + click shows image. Assert 'Open in new tab' button present + click opens new tab. Currently FAILS (buttons missing)."
+      "method": "renderPreviewActions \u2014 add buttons, wire click handlers (preview\u2192ContentPreviewer, new-tab\u2192window.open)",
+      "test": "RED: open a .jpeg file detail \u2192 assert 'Open in preview' button present + click shows image. Assert 'Open in new tab' button present + click opens new tab. Currently FAILS (buttons missing)."
     },
     "useCases": [
       "ior:instance:62290aa8-48f5-41c9-b749-a7202c5c9940"
     ],
-    "status": "QA Review",
-    "gateProof": "GATE-PROVEN GREEN + VISIBLE (tester DET-3x v0.6.50 + planner source-verified 2026-06-15, goal=renders-not-proxy): 👁 Preview (85x23) + ↗ Open in new tab (125x23) VISIBLE on rb-file-detail + Preview-toggles-ContentPreviewer functional. Harness RED was a post-toggle measurement artifact; DET-3x is ground truth. RELEASE: v0.6.50 deployed + tagged + sw.js CACHE_NAME rawbin-v0.6.50 → PWA update-banner pulls buttons. dist bundle has buttons (#95 RESOLVED). Screenshot: test/visual/r2028-preview-buttons.png. → QA-Review (Tron gate #106). ⚠ chain hop gate-proven=false: tester must SELF-MARK test=gate-proven + create R20.28 Gate unit (Tron #102 — planner does NOT backfill)."
+    "status": "In Progress",
+    "gateProof": "GATE-PROVEN GREEN + VISIBLE (tester DET-3x v0.6.50 + planner source-verified 2026-06-15, goal=renders-not-proxy): \ud83d\udc41 Preview (85x23) + \u2197 Open in new tab (125x23) VISIBLE on rb-file-detail + Preview-toggles-ContentPreviewer functional. Harness RED was a post-toggle measurement artifact; DET-3x is ground truth. RELEASE: v0.6.50 deployed + tagged + sw.js CACHE_NAME rawbin-v0.6.50 \u2192 PWA update-banner pulls buttons. dist bundle has buttons (#95 RESOLVED). Screenshot: test/visual/r2028-preview-buttons.png. \u2192 QA-Review (Tron gate #106). \u26a0 chain hop gate-proven=false: tester must SELF-MARK test=gate-proven + create R20.28 Gate unit (Tron #102 \u2014 planner does NOT backfill).",
+    "dryFixes_v0_6_51": {
+      "fix1_priority_metadata": {
+        "bug": "content-preview embed in rb-file-detail (line 60) calls renderContentPreview() which does mimeType dispatch \u2014 but the model.mimeType from the scenario unit may be empty/missing. When mimeType is falsy, renderContentPreview falls through to the download link (line 32), skipping image/url branches entirely. The PRIORITY metadata field (.priority or .metadata.priority) referenced by PO is NOT in the content-preview.ts dispatch at all \u2014 it has no priority-aware path.",
+        "rootCause": "rb-file-detail passes m.mimeType (line 36) from the scenario unit model. If the file was uploaded without mimeType detection (or the field name differs \u2014 e.g. contentType vs mimeType), it arrives as empty string \u2192 renderContentPreview matches nothing \u2192 download fallback.",
+        "fix": "In rb-file-detail.ts line 36: fallback chain: m.mimeType || m.contentType || guessMimeFromName(name). Add guessMimeFromName() to content-preview.ts that maps common extensions (.jpg/.jpeg\u2192image/jpeg, .png\u2192image/png, .gif\u2192image/gif, .svg\u2192image/svg+xml, .pdf\u2192application/pdf, .html\u2192text/html, .url/.webloc\u2192text/uri-list, .json\u2192application/json, .txt/.md/.ts/.js/.css\u2192text/plain).",
+        "file": "content-preview.ts (add guessMimeFromName), rb-file-detail.ts (line 36 fallback chain)"
+      },
+      "fix2_double_render_dup_buttons": {
+        "bug": "Both rb-detail-view (generic, line 143) AND rb-file-detail (specialized, line 60) call renderContentPreview for the same file UUID. If the drawer renders rb-file-detail INSIDE rb-detail-view, both fire \u2192 duplicate cv-url buttons.",
+        "rootCause": "rb-detail-view.renderFilePreview (line 142-148) inserts preview HTML after the preview-button, then removes the button. But rb-file-detail ALSO inserts preview HTML (line 60-66). If both components are in the DOM for the same file, two preview blocks render.",
+        "fix": "rb-detail-view must NOT embed content-preview when the detail is a File type. Check: if (type === \"File\" || this.querySelector(\"rb-file-detail\")) return; in the file-meta fetch path (line 118). rb-file-detail owns the preview for files exclusively.",
+        "file": "rb-detail-view.ts (line 118 area \u2014 guard the file-meta fetch+preview for type !== File)"
+      },
+      "fix3_url_open_in_new_tab_blocked": {
+        "bug": ".url file \"Open in new tab\" button does not open. window.open(text, \"_blank\") at content-preview.ts:72 is blocked by popup blocker because it runs inside an async callback (fetch then window.open).",
+        "rootCause": "Browsers block window.open() when it is NOT in the synchronous call stack of a user gesture. The click handler (line 68) is async \u2014 it awaits fetch(), THEN calls window.open(). By then the user-gesture trust has expired.",
+        "fix": "Two-phase: (1) On wireUrlActions, pre-fetch the URL content at wire time (eager load, not on click). Store the resolved URL in a data attribute. (2) On click, read the pre-resolved URL synchronously and call window.open() \u2014 no async gap. Fallback: if pre-fetch failed, use a hidden <a href target=_blank> and .click() it (anchor clicks are not popup-blocked). Alternative: use location.assign() instead of window.open() for same-tab, but PO wants new tab.",
+        "file": "content-preview.ts wireUrlActions (line 51-75) \u2014 pre-resolve URL at wire time, synchronous window.open on click"
+      },
+      "fix4_jpg_no_buttons": {
+        "bug": ".jpg files render image preview but NO action buttons (Open in preview / Open in new tab). The image path (content-preview.ts line 14-15) returns only an <img> tag \u2014 no buttons.",
+        "rootCause": "renderContentPreview image branch (line 14) returns ONLY the img element. The URL-action buttons (Open in preview / Open in new tab) are ONLY in the text/uri-list branch (line 27). Images have no equivalent action buttons.",
+        "fix": "Add universal action buttons to ALL content types (not just URL files). After the type-specific preview element, append: \"<div class=cv-actions style=display:flex;gap:8px;margin-top:8px><button class=btn cv-preview-toggle>Open in preview</button><button class=btn cv-newtab>Open in new tab</button></div>\". For images: preview-toggle hides/shows the inline img. new-tab opens the contentUrl directly. For text/pdf/html: preview-toggle shows/hides the existing preview. new-tab opens contentUrl. For url files: keep existing behavior (resolve URL first). Wire in wireUrlActions with a universal handler that checks the content type from a data attribute.",
+        "file": "content-preview.ts \u2014 refactor: every branch appends cv-actions div. wireUrlActions wires all cv-actions universally."
+      }
+    }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
