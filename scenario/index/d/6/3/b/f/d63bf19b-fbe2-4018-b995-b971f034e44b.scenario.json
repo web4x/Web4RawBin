@@ -1,0 +1,9 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "d63bf19b-fbe2-4018-b995-b971f034e44b",
+    "name": "detailView.distinctSections",
+    "description": "Detail view renders Traceability Chain (depth — singular forward chain path) distinct from All Children (breadth — all child nodes). Applies to all types."
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

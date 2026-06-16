@@ -6,7 +6,9 @@
     "name": "R20.30: Traceability Chain \u2260 All Children \u2014 they must show DIFFERENT content.",
     "description": "PRIORITIZED (Tron directive). The detail view Traceability Chain and All Children sections DIFFER by BREADTH vs DEPTH for ALL node types (Class, Method, UseCase, Requirement, Implementation, Test \u2014 every type, not just Class): (1) ALL CHILDREN = ALL child nodes of the node (breadth \u2014 every child, flat, matching badge count). (2) TRACEABILITY CHAIN = the forward CHAIN path to the CURRENT method's IMPLEMENTATION \u2014 the active-chain hop: the singular path through the chain-relevant child to its impl (depth \u2014 one path, deep). AC per type: open ANY type detail in a chain context \u2192 All Children lists ALL children (= badge); Traceability Chain shows only the singular chain path. They MUST differ. Evidence: r20.30-allchildren-eq-trace-IMG_4064.png (still RED for Class RbFileDetail).",
     "tronQuote": "> TRON (IMG_4060): \"Traceability Chain \u2260 All Children \u2014 they must show DIFFERENT content.\"\n> TRON (precise spec): All Children = ALL child nodes (breadth). Traceability Chain = forward chain to current impl (depth).\n> TRON (prioritize+generalize): \"prioritize the task to fix all children vs traceability in classes (and all other types)\"\n> TRON (full depth): \"traceability should not have only the one method but the chain down as much as it already exists\"",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:5baef26a-8331-4feb-850f-2a38e4434ce7"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
@@ -39,7 +41,10 @@
       "crossRef": "R20.5 (universal chain-vs-children) \u2014 this implements the rule R20.5 defined. T202 (shared-class method narrowing) \u2014 server-side ?uc= narrowing is the API-level equivalent.",
       "status": "implemented"
     },
-    "statusChecklist": "- [x] implementing (v0.6.54 87c955ba0 renderChainPathSection depth-first vs renderAllChildrenSection breadth)"
+    "statusChecklist": "- [x] implementing (v0.6.54 87c955ba0 renderChainPathSection depth-first vs renderAllChildrenSection breadth)",
+    "useCases": [
+      "ior:instance:d63bf19b-fbe2-4018-b995-b971f034e44b"
+    ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
