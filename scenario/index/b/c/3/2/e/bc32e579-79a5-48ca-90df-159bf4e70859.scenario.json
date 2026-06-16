@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:6439b23f-4efa-47f8-a2ca-2cf33bcafc2f",
+  "model": {
+    "uuid": "bc32e579-79a5-48ca-90df-159bf4e70859",
+    "name": "impl:RbObjectItem.collapse(): void",
+    "status": "active",
+    "sourceFile": ""
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:c46a5301-345e-4546-8f35-359da8cf6622",
+  "model": {
+    "uuid": "96a2e607-515b-48e1-b08b-66e490b45d92",
+    "name": "impl:RbObjectItem.render(): void",
+    "status": "active",
+    "sourceFile": ""
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:76bbedda-17d4-4d98-957d-6172e1752d12",
+  "model": {
+    "uuid": "c3f76ee6-9481-46e9-93ee-666dc76fce6a",
+    "name": "impl:RbObjectItem.defaultChildrenHidden",
+    "status": "active",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml"
+  }
+}

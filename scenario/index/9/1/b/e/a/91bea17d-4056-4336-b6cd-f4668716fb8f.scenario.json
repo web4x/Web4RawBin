@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:09611d71-f2b2-4fab-9961-def94165c470",
+  "model": {
+    "uuid": "91bea17d-4056-4336-b6cd-f4668716fb8f",
+    "name": "impl:RbDetailView.renderSingularChain",
+    "status": "active",
+    "sourceFile": ""
+  }
+}

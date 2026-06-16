@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:e76330fe-e29d-4587-b113-a1ed940ce62c",
+  "model": {
+    "uuid": "c1836680-d6e7-44c6-9a6a-400ec247861d",
+    "name": "impl:RbDetailDrawer.removeDefaultHighlight",
+    "status": "active",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml"
+  }
+}

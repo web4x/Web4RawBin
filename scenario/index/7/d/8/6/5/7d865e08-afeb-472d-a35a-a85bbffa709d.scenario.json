@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:3542dcb3-aae6-48ac-b3a2-ac3cd2c0dded",
+  "model": {
+    "uuid": "7d865e08-afeb-472d-a35a-a85bbffa709d",
+    "name": "impl:RbDetailView.chainExcludesSelf",
+    "status": "active",
+    "sourceFile": ""
+  }
+}

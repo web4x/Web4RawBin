@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:82afcd05-643e-43ba-ac67-95a167ea58e8",
+  "model": {
+    "uuid": "297629b3-44cc-4a43-81da-a1b93791e7e4",
+    "name": "impl:RbDetailDrawer.open(ref): void",
+    "status": "active",
+    "sourceFile": ""
+  }
+}

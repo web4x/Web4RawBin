@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:a6018182-b8ce-41a8-82d5-2fd7df039cb2",
+  "model": {
+    "uuid": "903d77ee-1564-4850-a75e-9798bb2bd3c9",
+    "name": "impl:RbObjectItem.render, generateName, setIcon, drag",
+    "status": "active",
+    "sourceFile": ""
+  }
+}
