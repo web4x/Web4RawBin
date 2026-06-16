@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "708ec0a5-2027-433d-9e69-54a3bed73a06",
+    "name": "T-vcard-enrich-store: store uploaded vcard next to avatar + downloadable + NOTE adds download-date + geolocation maps link",
+    "description": "Store uploaded vCard next to the avatar; make it downloadable; enrich vCard NOTE with download-date + geolocation maps link. Minted by planner 2026-06-16 (req 0.5 rate-limited) for realtime current-task pin switch.",
+    "status": "in-progress",
+    "coveredRequirements": [
+      "ior:instance:69aaf051-646b-4f76-9855-66a9470960ba"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "sprintName": "Sprint 19 — Room Handling",
+    "focus": true
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "69aaf051-646b-4f76-9855-66a9470960ba",
+    "altId": "R-vcard-enrich-store",
+    "name": "R-vcard-enrich-store: uploaded vCard stored next to avatar, downloadable, NOTE enriched with download-date + geolocation maps link",
+    "description": "When a user uploads a vCard, store it next to their avatar in user storage, make it downloadable, and enrich the vCard NOTE field with the download date and a geolocation maps link. Minted by planner (req rate-limited) 2026-06-16 for the live current-task pin switch.",
+    "status": "in-progress",
+    "useCases": [
+      "ior:instance:3d9daab4-b1b9-4e71-ad6a-330028434cb0"
+    ],
+    "tasks": [
+      "ior:instance:708ec0a5-2027-433d-9e69-54a3bed73a06"
+    ],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}

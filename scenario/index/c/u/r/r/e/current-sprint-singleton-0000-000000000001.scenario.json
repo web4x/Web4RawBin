@@ -2,10 +2,10 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: T: breadth-vs-depth — All Children ≠ Traceability Chain, all types (R20.30)",
+    "name": "Current: T-vcard-enrich-store: store uploaded vcard next to avatar + downloadable + NOTE adds download-date + geolocation maps link",
     "chain": {
-      "req": "d7299c88-c56f-4686-a91f-c67bf78b8930",
-      "uc": "d63bf19b-fbe2-4018-b995-b971f034e44b",
+      "req": "69aaf051-646b-4f76-9855-66a9470960ba",
+      "uc": "3d9daab4-b1b9-4e71-ad6a-330028434cb0",
       "class": "",
       "method": "",
       "impl": "",
@@ -13,20 +13,20 @@
     },
     "activeHop": 2,
     "sprintName": "Sprint 20",
-    "taskName": "T: breadth-vs-depth — All Children ≠ Traceability Chain, all types (R20.30)",
+    "taskName": "T-vcard-enrich-store: store uploaded vcard next to avatar + downloadable + NOTE adds download-date + geolocation maps link",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-06-16T14:46:47.365Z"
+        "updatedAt": "2026-06-16T18:36:03.071Z"
       }
     },
     "nextBacklogOverride": "56cc23b5-aca1-49f5-9037-e2c58110643c",
     "slots": {
       "current": {
-        "taskUuid": "5baef26a-8331-4feb-850f-2a38e4434ce7",
-        "taskName": "T: breadth-vs-depth — All Children ≠ Traceability Chain, all types (R20.30)",
-        "reqUuid": "d7299c88-c56f-4686-a91f-c67bf78b8930"
+        "taskUuid": "708ec0a5-2027-433d-9e69-54a3bed73a06",
+        "taskName": "T-vcard-enrich-store: store uploaded vcard next to avatar + downloadable + NOTE adds download-date + geolocation maps link",
+        "reqUuid": "69aaf051-646b-4f76-9855-66a9470960ba"
       },
       "lastCompleted": {
         "taskUuid": "fe8c43a5-cd15-4aed-ac5b-97df558d8fea",

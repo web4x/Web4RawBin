@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "3d9daab4-b1b9-4e71-ad6a-330028434cb0",
+    "name": "vcard.enrichAndStore — store uploaded vCard next to avatar, downloadable, NOTE += download-date + geolocation maps link",
+    "classes": [],
+    "class": null,
+    "methods": [],
+    "tests": [],
+    "implementations": [],
+    "parent": "ior:instance:69aaf051-646b-4f76-9855-66a9470960ba"
+  },
+  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+}
