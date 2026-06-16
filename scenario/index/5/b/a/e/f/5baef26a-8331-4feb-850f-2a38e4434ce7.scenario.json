@@ -9,7 +9,8 @@
     ],
     "useCases": [
       "ior:instance:d63bf19b-fbe2-4018-b995-b971f034e44b"
-    ]
+    ],
+    "focus": true
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

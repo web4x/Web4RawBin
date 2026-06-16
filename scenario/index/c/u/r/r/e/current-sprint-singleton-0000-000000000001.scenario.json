@@ -2,36 +2,31 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: T-file-detail-preview-buttons: BUILD+DEPLOY+GATE-VISIBLE the open-in-preview + open-in-new-tab buttons",
+    "name": "Current: T: breadth-vs-depth — All Children ≠ Traceability Chain, all types (R20.30)",
     "chain": {
-      "req": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
-      "uc": "62290aa8-48f5-41c9-b749-a7202c5c9940",
-      "class": "37103cf0-c1db-4c94-84d4-163b05f9a8dd",
-      "method": "63d58e0f-1e9c-40d8-9189-35239ae81096",
+      "req": "d7299c88-c56f-4686-a91f-c67bf78b8930",
+      "uc": "d63bf19b-fbe2-4018-b995-b971f034e44b",
+      "class": "",
+      "method": "",
       "impl": "",
       "test": ""
     },
-    "activeHop": 5,
+    "activeHop": 2,
     "sprintName": "Sprint 20",
-    "taskName": "T-file-detail-preview-buttons: BUILD+DEPLOY+GATE-VISIBLE the open-in-preview + open-in-new-tab buttons",
+    "taskName": "T: breadth-vs-depth — All Children ≠ Traceability Chain, all types (R20.30)",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-06-15T23:29:21.865Z"
-      },
-      "test": {
-        "status": "gate-proven",
-        "owner": "tester",
-        "updatedAt": "2026-06-15T23:29:39.464Z"
+        "updatedAt": "2026-06-16T14:46:47.365Z"
       }
     },
     "nextBacklogOverride": "56cc23b5-aca1-49f5-9037-e2c58110643c",
     "slots": {
       "current": {
-        "taskUuid": "3852fdd7-f091-47fc-8239-93433fef4dfe",
-        "taskName": "T-file-detail-preview-buttons: BUILD+DEPLOY+GATE-VISIBLE the open-in-preview + open-in-new-tab buttons",
-        "reqUuid": "607146d1-80d3-4aed-be81-b8eb4ebb43e1"
+        "taskUuid": "5baef26a-8331-4feb-850f-2a38e4434ce7",
+        "taskName": "T: breadth-vs-depth — All Children ≠ Traceability Chain, all types (R20.30)",
+        "reqUuid": "d7299c88-c56f-4686-a91f-c67bf78b8930"
       },
       "lastCompleted": {
         "taskUuid": "fe8c43a5-cd15-4aed-ac5b-97df558d8fea",
