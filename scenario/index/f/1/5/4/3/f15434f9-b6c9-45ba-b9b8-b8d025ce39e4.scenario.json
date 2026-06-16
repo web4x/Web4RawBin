@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f15434f9-b6c9-45ba-b9b8-b8d025ce39e4",
+    "name": "storeVCard POST impl",
+    "tests": [
+      "ior:instance:24bc38c5-24ae-41fe-90d3-10671bc4f6d2"
+    ],
+    "sourceLocation": "src/ts/server/server.ts:438",
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

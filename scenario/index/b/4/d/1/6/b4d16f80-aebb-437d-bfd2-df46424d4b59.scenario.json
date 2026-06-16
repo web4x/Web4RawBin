@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "b4d16f80-aebb-437d-bfd2-df46424d4b59",
+    "name": "VCard.downloadVCard — build .vcf + enrich NOTE (download-date + geolocation maps link)",
+    "implementations": [
+      "ior:instance:1745bb46-fa2d-4717-8fe1-673f596a55cb"
+    ],
+    "sourceLocation": "src/public/ts/vcard-download.ts:17"
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
