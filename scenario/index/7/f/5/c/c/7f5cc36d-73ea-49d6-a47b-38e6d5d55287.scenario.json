@@ -5,6 +5,9 @@
     "uuid": "7f5cc36d-73ea-49d6-a47b-38e6d5d55287",
     "name": "impl:RbDetailDrawer.removeDefaultHighlight",
     "status": "active",
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml"
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml",
+    "tests": [
+      "ior:instance:0b7d18d9-247e-4261-8430-ef5fbc88ad10"
+    ]
   }
 }

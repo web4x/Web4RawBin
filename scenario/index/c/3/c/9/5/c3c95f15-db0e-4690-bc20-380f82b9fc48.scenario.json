@@ -5,7 +5,9 @@
     "name": "R17.12 (split for IORResolver.resolveClass(ior): ClassLoader)",
     "sourceFile": "src/ts/scenario/ior-resolver.ts",
     "sourceLine": 5,
-    "tests": [],
+    "tests": [
+      "ior:instance:b9fdc483-9c21-4791-ae93-369e0dd2fa69"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:bd6700da-a93a-4605-93b1-eb0494b63e91"

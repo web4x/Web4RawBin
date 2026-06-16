@@ -5,6 +5,9 @@
     "uuid": "903d77ee-1564-4850-a75e-9798bb2bd3c9",
     "name": "impl:RbObjectItem.render, generateName, setIcon, drag",
     "status": "active",
-    "sourceFile": ""
+    "sourceFile": "",
+    "tests": [
+      "ior:instance:05f6dbaf-8a8e-41b5-a5b6-f38c8fee8d80"
+    ]
   }
 }

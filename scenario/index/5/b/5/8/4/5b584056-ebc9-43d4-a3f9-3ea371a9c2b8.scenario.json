@@ -5,7 +5,9 @@
     "name": "ScenarioIndex.get(uuid): ScenarioUnit impl",
     "sourceFile": "src/ts/scenario/index-store.ts",
     "sourceLine": 12,
-    "tests": [],
+    "tests": [
+      "ior:instance:0f85b7df-984d-4eaf-b532-b284f823bbe9"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:f180c93f-5a29-4849-911b-44ba5a86698a"

@@ -5,7 +5,9 @@
     "name": "server.roomCollectionChildren impl (split)",
     "sourceFile": "src/ts/server/server.ts",
     "sourceLine": 711,
-    "tests": []
+    "tests": [
+      "ior:instance:991f7629-0f80-476e-8b1e-e972222ce6d9"
+    ]
   },
   "ownerIor": "ior:instance:638dec5c-809b-43d2-bfcf-05ef5a460960"
 }

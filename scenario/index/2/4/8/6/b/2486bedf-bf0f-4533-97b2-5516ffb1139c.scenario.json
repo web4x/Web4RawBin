@@ -5,6 +5,9 @@
     "uuid": "2486bedf-bf0f-4533-97b2-5516ffb1139c",
     "name": "impl:RbDetailDrawer.open, close, swipeDismiss",
     "status": "active",
-    "sourceFile": ""
+    "sourceFile": "",
+    "tests": [
+      "ior:instance:fda5a23e-c40a-445e-8a3e-de237cc4b988"
+    ]
   }
 }

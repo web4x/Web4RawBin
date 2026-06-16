@@ -6,7 +6,9 @@
     "sourceFile": "src/public/ts/components/rb-header.ts",
     "sourceLine": 1,
     "unitLinks": [],
-    "tests": []
+    "tests": [
+      "ior:instance:344529b0-743e-484b-9e87-6f709b87a381"
+    ]
   },
   "ownerIor": null
 }

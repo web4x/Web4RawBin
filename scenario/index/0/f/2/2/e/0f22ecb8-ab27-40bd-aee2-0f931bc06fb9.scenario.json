@@ -4,7 +4,9 @@
     "uuid": "0f22ecb8-ab27-40bd-aee2-0f931bc06fb9",
     "name": "ScenarioUnit.load(json): this",
     "sourceFile": "ior:file:src/ts/scenario/index-store.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:aea14f66-b93d-4d17-81db-c9e1981e8440"
+    ]
   },
   "ownerIor": null
 }

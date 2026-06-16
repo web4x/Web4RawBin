@@ -5,6 +5,9 @@
     "uuid": "bc32e579-79a5-48ca-90df-159bf4e70859",
     "name": "impl:RbObjectItem.collapse(): void",
     "status": "active",
-    "sourceFile": ""
+    "sourceFile": "",
+    "tests": [
+      "ior:instance:163c8e76-744e-4359-8939-71b07a17777b"
+    ]
   }
 }

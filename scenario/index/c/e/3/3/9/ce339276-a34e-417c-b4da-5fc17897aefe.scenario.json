@@ -5,6 +5,9 @@
     "uuid": "ce339276-a34e-417c-b4da-5fc17897aefe",
     "name": "impl:RbObjectItem.setIcon(): void",
     "status": "active",
-    "sourceFile": ""
+    "sourceFile": "",
+    "tests": [
+      "ior:instance:163c8e76-744e-4359-8939-71b07a17777b"
+    ]
   }
 }

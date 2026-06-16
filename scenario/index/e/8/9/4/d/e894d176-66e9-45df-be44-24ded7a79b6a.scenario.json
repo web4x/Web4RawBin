@@ -5,6 +5,9 @@
     "uuid": "e894d176-66e9-45df-be44-24ded7a79b6a",
     "name": "impl:RbDetailDrawer.close(): void",
     "status": "active",
-    "sourceFile": ""
+    "sourceFile": "",
+    "tests": [
+      "ior:instance:163c8e76-744e-4359-8939-71b07a17777b"
+    ]
   }
 }

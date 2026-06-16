@@ -6,7 +6,9 @@
     "sourceFile": "src/ts/server/RoomKeys.ts",
     "sourceLine": 2,
     "unitLinks": [],
-    "tests": []
+    "tests": [
+      "ior:instance:b9fdc483-9c21-4791-ae93-369e0dd2fa69"
+    ]
   },
   "ownerIor": null
 }

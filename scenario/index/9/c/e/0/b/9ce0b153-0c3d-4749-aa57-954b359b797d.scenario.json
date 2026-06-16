@@ -6,7 +6,9 @@
     "sourceFile": "src/public/ts/trace/ViewBus.ts",
     "sourceLine": 9,
     "unitLinks": [],
-    "tests": []
+    "tests": [
+      "ior:instance:3f1f3556-730f-49a6-9104-ae2d6163113c"
+    ]
   },
   "ownerIor": null
 }

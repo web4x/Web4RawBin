@@ -4,7 +4,9 @@
     "uuid": "1a938c60-876d-4e74-bf4c-5b3af6a155b4",
     "name": "RoomView impl marker",
     "sourceFile": "ior:file:src/public/ts/RoomView.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:cd8ccf1a-de1a-4d9f-9c77-ef3f2540af8e"
+    ]
   },
   "ownerIor": null
 }
