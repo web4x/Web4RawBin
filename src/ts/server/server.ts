@@ -970,8 +970,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       if (!token || !fileExists(token, 'vcard')) { res.writeHead(404); res.end('No vCard stored'); return; }
       try {
         const { data, mimeType } = decryptFile(token, 'vcard');
-        res.writeHead(200, { 'Content-Type': mimeType || 'text/vcard', 'Cache-Control': 'no-cache, must-revalidate' });
-        res.end(data);
+        res.writeHead(200, { 'Content-Type': (mimeType || 'text/vcard') + '; charset=utf-8', 'Cache-Control': 'no-cache, must-revalidate' });
+        res.end(data.toString('utf-8'));
       } catch { res.writeHead(500); res.end('Decrypt error'); }
       return;
     }

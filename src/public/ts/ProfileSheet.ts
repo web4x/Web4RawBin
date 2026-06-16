@@ -3,6 +3,7 @@ import { RawBinClient } from './RawBinClient.js';
 import { MSG } from '../../shared/MessageTypes.js';
 import './components/rb-avatar.js';
 import { viewBus } from './ViewBus.js';
+import { downloadVCard } from './vcard-download.js';
 
 interface PublicProfile {
   name: string;
@@ -70,7 +71,7 @@ export class ProfileSheet {
     });
 
     document.getElementById('us-vcard')?.addEventListener('click', () => {
-      this.downloadVCard(profile);
+      downloadVCard(profile);
     });
 
     // T83: self-only Edit button → ProfileEditor via the onEdit callback (ProfileSheet stays
@@ -100,76 +101,4 @@ export class ProfileSheet {
     }, { passive: true });
   }
 
-  private async downloadVCard(profile: PublicProfile): Promise<void> {
-    // R20.31: try serving stored .vcf first, enrich NOTE with date+geolocation
-    // Skip stored vcard fetch if we already have local data (data: avatar = all local)
-    let vcfText: string | null = null;
-    const hasLocalData = profile.avatar?.startsWith('data:');
-    if (profile.playerToken && !hasLocalData) {
-      try {
-        const r = await fetch(`/api/vcard/${profile.playerToken}`);
-        if (r.ok) vcfText = await r.text();
-      } catch { /* no stored vcard — generate from scratch */ }
-    }
-
-    if (!vcfText) {
-      // Generate from profile data
-      const lines = ['BEGIN:VCARD', 'VERSION:3.0', `FN:${profile.name}`];
-      if (profile.phone) lines.push(`TEL:${profile.phone}`);
-      if (profile.url) lines.push(`URL:${profile.url}`);
-      const photoSrc = profile.avatar && profile.avatar.startsWith('data:')
-        ? profile.avatar
-        : (profile.playerToken ? `/api/avatar/${profile.playerToken}` : (profile.avatar || ''));
-      if (photoSrc) {
-        try {
-          let dataUrl = photoSrc;
-          if (!dataUrl.startsWith('data:')) {
-            const res = await fetch(photoSrc);
-            const buf = await res.arrayBuffer();
-            const type = res.headers.get('content-type') || 'image/jpeg';
-            dataUrl = `data:${type};base64,${bufToBase64(buf)}`;
-          }
-          const match = dataUrl.match(/^data:image\/([\w+.-]+);base64,(.+)$/);
-          if (match) lines.push(`PHOTO;ENCODING=b;TYPE=${match[1].toUpperCase()}:${match[2]}`);
-        } catch { /* silent */ }
-      }
-      lines.push(`NOTE:RawBin User${profile.playerToken ? ` — UUID: ${profile.playerToken}` : ''}`);
-      lines.push('END:VCARD');
-      vcfText = lines.join('\r\n');
-    }
-
-    // R20.31 Part C: enrich NOTE with download date + geolocation
-    const downloadDate = new Date().toISOString();
-    let geoLink = '';
-    try {
-      const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 5000 });
-      });
-      geoLink = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
-    } catch { /* denied or unavailable — graceful fallback */ }
-
-    // Append download metadata to NOTE field
-    const noteExtra = `\\nDownloaded: ${downloadDate}${geoLink ? `\\nLocation: ${geoLink}` : ''}`;
-    if (vcfText.includes('NOTE:')) {
-      vcfText = vcfText.replace(/(NOTE:[^\r\n]*)/, `$1${noteExtra}`);
-    } else {
-      vcfText = vcfText.replace('END:VCARD', `NOTE:RawBin vCard${noteExtra}\r\nEND:VCARD`);
-    }
-
-    const blob = new Blob([vcfText], { type: 'text/vcard' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `${profile.name.replace(/[^a-zA-Z0-9 ]/g, '')}.vcf`;
-    a.click();
-    URL.revokeObjectURL(a.href);
-  }
-}
-
-/** Loop-based base64 — spread `btoa(String.fromCharCode(...))` stack-overflows on >10KB buffers
- * (real JPEG avatars), which silently dropped the vCard photo. */
-function bufToBase64(buf: ArrayBuffer): string {
-  const bytes = new Uint8Array(buf);
-  let bin = '';
-  for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
-  return btoa(bin);
 }

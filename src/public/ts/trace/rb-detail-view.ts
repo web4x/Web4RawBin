@@ -17,6 +17,7 @@ import { selectionModel } from './selection-model.js';
 import { forwardOnly } from './forward-only.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
 import { renderContentPreview, loadTextPreview, wireUrlActions } from './content-preview.js';
+import { downloadVCard } from '../vcard-download.js';
 import { renderSupersededSection, renderAllChildrenSection } from './detail-superseded.js';
 
 export class RbDetailView extends HTMLElement {
@@ -45,6 +46,18 @@ export class RbDetailView extends HTMLElement {
           head.querySelector('.dv-type')!.textContent = data.type || ref.split(':')[0] || '?';
           head.querySelector('.dv-title')!.textContent = data.name || uuid;
           head.insertAdjacentHTML('beforeend', `${scenarioBrowserLinkFromIor(uuid)}`);
+          // R20.31: vCard download button for Member/User types
+          const detectedType = (data.type || ref.split(':')[0] || '').toLowerCase();
+          if (detectedType === 'member' || detectedType === 'user') {
+            const vcardBtn = document.createElement('button');
+            vcardBtn.className = 'btn btn-secondary';
+            vcardBtn.style.cssText = 'margin-top:8px;width:100%;font-size:0.8rem';
+            vcardBtn.textContent = '📇 Download vCard';
+            vcardBtn.addEventListener('click', () => {
+              downloadVCard({ name: data.name || uuid, playerToken: uuid });
+            });
+            head.insertAdjacentElement('afterend', vcardBtn);
+          }
         }
       }).catch(() => {});
       fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
