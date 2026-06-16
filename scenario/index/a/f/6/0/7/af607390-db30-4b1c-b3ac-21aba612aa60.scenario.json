@@ -4,8 +4,8 @@
     "uuid": "af607390-db30-4b1c-b3ac-21aba612aa60",
     "altId": "R19.58",
     "name": "R19.58: All 7 type DetailViews show ONE consistent Traceability section with the real chain, not a flat method list.",
-    "description": "EVERY type DetailView (all 7: Sprint, Task, Requirement, UseCase, Class, Method, Implementation, Test) MUST show ONE consistent 'Traceability' section containing the REAL singular chain (req\u2192uc\u2192class\u2192method\u2192impl\u2192test) \u2014 the content currently labeled 'Champagne Chain' in some views. The label MUST be user-understandable ('Traceability', NOT 'Champagne Chain' \u2014 users don't know what champagne means). The current inconsistency: first 2 types show 'Traceability' but with a WRONG flat all-methods list; second 2 types show 'Champagne Chain' with the CORRECT chain content. Consolidate: every type uses the same template section, same label ('Traceability'), same correct singular-chain content. 'All children' section stays as-is (separate, listing all children).",
-    "tronQuote": "> TRON: \"the detail views became very inconsistent. the first 2 still have traceability and all children \u2014 good, but the traceability is wrong, its all methods and both are the same. all children is correct, traceability not. in the second 2 we see champagne chain \u2014 wtf, how shall a user know what that is \u2014 but THAT is the correct traceability. review and consolidate that across all types.\"",
+    "description": "EVERY type DetailView (all 7: Sprint, Task, Requirement, UseCase, Class, Method, Implementation, Test) MUST show ONE consistent 'Traceability' section containing the REAL singular chain (req→uc→class→method→impl→test) — the content formerly labeled 'Champagne Chain' in some views (renamed to 'Traceability' in source, CR1 1f9324607). The label MUST be user-understandable ('Traceability', NOT 'Champagne Chain' — users don't know what champagne means). RESOLVED (2026-06-15 — by superseding R20.5 + R20.30 + CR1): the former inconsistency (first 2 types showed 'Traceability' with a WRONG flat all-methods list; second 2 showed 'Champagne Chain' with the CORRECT chain content) is FIXED — all 7 types now use the same template, same 'Traceability' label, same correct singular-chain content. Consolidate: every type uses the same template section, same label ('Traceability'), same correct singular-chain content. 'All children' section stays as-is (separate, listing all children). [SUPERSEDED by R20.5 (7734f4e1); kept on disk as history per PO ruling — current reality lives in R20.5.]",
+    "tronQuote": "> TRON: \"the detail views became very inconsistent. the first 2 still have traceability and all children — good, but the traceability is wrong, its all methods and both are the same. all children is correct, traceability not. in the second 2 we see champagne chain — wtf, how shall a user know what that is — but THAT is the correct traceability. review and consolidate that across all types.\"",
     "tasks": [
       "ior:instance:f4728950-ce02-400e-8648-175bf1c8cd1b"
     ],
@@ -22,7 +22,8 @@
       "ior:instance:36fdbba4-58dd-4ab8-a711-d50718f7fc8c"
     ],
     "supersededBy": "ior:instance:7734f4e1-def9-4af3-a7d2-5ccc7160b214",
-    "supersededNote": "Superseded by R20.5 (ior:instance:7734f4e1-def9-4af3-a7d2-5ccc7160b214) which is the universal canonical. R19.58 \u2014 all 7 DetailViews consistent traceability (consolidation directive, subsumed by R20.5 universal)"
+    "supersededNote": "Superseded by R20.5 (ior:instance:7734f4e1-def9-4af3-a7d2-5ccc7160b214) which is the universal canonical. R19.58 — all 7 DetailViews consistent traceability (consolidation directive, subsumed by R20.5 universal)",
+    "contentAccuracyNote": "Stale pre-fix state description updated to current (resolved) reality 2026-06-15. Old-label refs to Champagne Chain preserved (rename-history). R19.58 is superseded+filtered (not /trace-rendered); this is historical-accuracy."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
