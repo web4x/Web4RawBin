@@ -13,7 +13,7 @@ import { forwardOnly } from './forward-only.js';
 // [impl:uuid:1ff4d2bb-3af9-4517-8cde-8e6fc498e887] RbTaskDetail.render impl
 // [impl:uuid:a495b735-6836-4dba-84b2-b279f2da17df] RbTaskDetail.render
 import { singularChain, renderSingularChain } from './singular-chain.js';
-import { renderSupersededSection, renderAllChildrenSection } from './detail-superseded.js';
+import { renderSupersededSection, renderAllChildrenSection, renderChainPathSection } from './detail-superseded.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
 
 export class RbTaskDetail extends HTMLElement {
@@ -71,6 +71,7 @@ export class RbTaskDetail extends HTMLElement {
         const head = this.querySelector('.dv-head');
         if (head) { head.insertAdjacentHTML('afterend', renderParentLink(parent)); this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid }); }); }
       }
+      renderChainPathSection(this, uuid);
       renderAllChildrenSection(this, children);
       renderSupersededSection(this, uuid);
     });

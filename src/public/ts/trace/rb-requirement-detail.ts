@@ -14,7 +14,7 @@ import { forwardOnly } from './forward-only.js';
 // [impl:uuid:7fcca3cf-7c87-4a3d-a64b-089c6d92cc0a] RbRequirementDetail.render impl
 // [impl:uuid:660cb423-30cd-4d32-8a3f-d7bad22f6f5e] RbRequirementDetail.render
 import { singularChain, renderSingularChain } from './singular-chain.js';
-import { renderSupersededSection, renderAllChildrenSection } from './detail-superseded.js';
+import { renderSupersededSection, renderAllChildrenSection, renderChainPathSection } from './detail-superseded.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
 
 export class RbRequirementDetail extends HTMLElement {
@@ -63,6 +63,7 @@ export class RbRequirementDetail extends HTMLElement {
     fetchDetailData(obj.uuid).then(({ children, parent, sourceFile, sourceLine }) => {
       if (sourceFile) { const sh = this.querySelector(".dv-head"); if (sh) sh.insertAdjacentHTML("beforeend", renderSourceLink(sourceFile, sourceLine)); } if (parent) { const h = this.querySelector('.dv-head'); if (h) { h.insertAdjacentHTML('afterend', renderParentLink(parent)); this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid }); }); } }
 
+      renderChainPathSection(this, obj.uuid);
       renderAllChildrenSection(this, children);
       renderSupersededSection(this, obj.uuid);
     });

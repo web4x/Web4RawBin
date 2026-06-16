@@ -12,7 +12,7 @@ import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
 import { singularChain, renderSingularChain } from './singular-chain.js';
-import { renderSupersededSection, renderAllChildrenSection } from './detail-superseded.js';
+import { renderSupersededSection, renderAllChildrenSection, renderChainPathSection } from './detail-superseded.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
 
 export class RbUseCaseDetail extends HTMLElement {
@@ -61,6 +61,7 @@ export class RbUseCaseDetail extends HTMLElement {
     fetchDetailData(obj.uuid).then(({ children, parent, sourceFile, sourceLine }) => {
       if (sourceFile) { const sh = this.querySelector(".dv-head"); if (sh) sh.insertAdjacentHTML("beforeend", renderSourceLink(sourceFile, sourceLine)); } if (parent) { const h = this.querySelector('.dv-head'); if (h) { h.insertAdjacentHTML('afterend', renderParentLink(parent)); this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid }); }); } }
 
+      renderChainPathSection(this, obj.uuid);
       renderAllChildrenSection(this, children);
       renderSupersededSection(this, obj.uuid);
     });
