@@ -1,6 +1,6 @@
 /**
  * R19.34 — Singular chain walker for detail views.
- * Walks the champagne path: Req→UC[0]→Class→Method→Impl[0]→Test[0]
+ * Walks the traceability chain: Req→UC[0]→Class→Method→Impl[0]→Test[0]
  * Returns ordered array of {uuid, type, name, ref} steps.
  *
  * [impl:uuid:21f689fb-44bc-4285-a73a-551aabfcf009] RbDetailDrawer.narrowChain

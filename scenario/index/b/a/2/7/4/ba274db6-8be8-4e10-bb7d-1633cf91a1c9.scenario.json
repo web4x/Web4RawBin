@@ -4,7 +4,7 @@
     "uuid": "ba274db6-8be8-4e10-bb7d-1633cf91a1c9",
     "altId": "R20.22",
     "name": "R20.22: Pinned Current Sprint = Sprint node with 3 tasks (current, last completed, next backlog), fully recursive children.",
-    "description": "Refactor the pinned current task: the pin MUST be a Sprint-type node labeled 'Current Sprint' containing exactly 3 Task children: (1) CURRENT = the active WIP/focus task, (2) LAST COMPLETED = the most recently done task, (3) NEXT IN BACKLOG = the next queued task. Each of these 3 tasks FULLY RECURSIVELY loads its children in this special sprint node (the complete chain: req→UC→Class→Method→Impl→Test expands under each task). This replaces the single-task pin (R20.12) with a 3-task context window.",
+    "description": "Refactor the pinned current task: the pin MUST be a Sprint-type node labeled 'Current Sprint' containing exactly 3 Task children: (1) CURRENT = the active WIP/focus task, (2) LAST COMPLETED = the most recently done task, (3) NEXT IN BACKLOG = the next queued task. Each of these 3 tasks FULLY RECURSIVELY loads its children in this special sprint node (the complete chain: req\u2192UC\u2192Class\u2192Method\u2192Impl\u2192Test expands under each task). This replaces the single-task pin (R20.12) with a 3-task context window.",
     "tronQuote": "> TRON: \"refactor the pinned current task. it should start with a pinned item of type sprint Current Sprint then 3 tasks: current, last completed, next in backlog, and fully recursively load their children in this special sprint node\"",
     "tasks": [],
     "tests": [],
@@ -17,18 +17,56 @@
     ],
     "crossRefNote": "R20.12 (pin at top) is superseded by this 3-task refactor. R20.13 (CurrentSprint class) provides the data (getActiveChain + last completed + next backlog).",
     "intendedChain": {
-      "useCase": "currentSprint.renderPinnedContext — Sprint node 'Current Sprint' with 3 tasks, each recursively expanded",
+      "useCase": "currentSprint.renderPinnedContext \u2014 Sprint node 'Current Sprint' with 3 tasks, each recursively expanded",
       "class": "RbOverview / CurrentSprint",
-      "method": "renderPinnedSprint — build Sprint node with 3 task children (current/last/next), each auto-expanded with full chain",
-      "test": "RED: /trace sprint-list → first node is Sprint 'Current Sprint' → contains exactly 3 Task children (current active, last done, next queued) → each expands to full chain. Currently FAILS (single-task pin only)."
+      "method": "renderPinnedSprint \u2014 build Sprint node with 3 task children (current/last/next), each auto-expanded with full chain",
+      "test": "RED: /trace sprint-list \u2192 first node is Sprint 'Current Sprint' \u2192 contains exactly 3 Task children (current active, last done, next queued) \u2192 each expands to full chain. Currently FAILS (single-task pin only)."
     },
     "status": "QA Review",
-    "gateProof": "GATE-PROVEN GREEN + RENDERS (tester DET-3x + planner source-verified 2026-06-15, goal=renders-not-proxy, v0.6.43 ad4b5969c): CurrentSprint pin renders as single Sprint node with 3 task children Current/Last/Next, each fully recursive (4/2/1 children); RED→GREEN children 0→3; Tron spec met. gate-proven=true, ALL hops SELF-MARKED by agents per Tron #102 (req-eng/architect/expert/tester) — planner did NOT backfill. getThreeSlots() derives current/lastCompleted/nextBacklog. STAY PINNED until Tron-done (#106).",
+    "gateProof": "GATE-PROVEN GREEN + RENDERS (tester DET-3x + planner source-verified 2026-06-15, goal=renders-not-proxy, v0.6.43 ad4b5969c): CurrentSprint pin renders as single Sprint node with 3 task children Current/Last/Next, each fully recursive (4/2/1 children); RED\u2192GREEN children 0\u21923; Tron spec met. gate-proven=true, ALL hops SELF-MARKED by agents per Tron #102 (req-eng/architect/expert/tester) \u2014 planner did NOT backfill. getThreeSlots() derives current/lastCompleted/nextBacklog. STAY PINNED until Tron-done (#106).",
     "gates": [
       "ior:instance:1d897d04-2027-4b34-9013-2be7a642849c"
     ],
-    "visibleDoneProof": "VISIBLE-DONE + GATES-GREEN — GATE-PROVEN GREEN (tester DET-3x + planner source-verified 2026-06-15, v0.6.46 universal-status-badge + v0.6.47 gates[] wired on Req/Task forward-key). BOTH halves of Tron ask VISIBLE: (1) current task green✓ done; (2) Gate nodes render green✓ PASS as tree children (Req→2 gates, Task→1). Status badge colors all working: green/amber/gray/purple. RENDER-PROOF screenshots: test/visual/v647-gates-green.png + v647-expanded.png. gate-proven=true. R20.20/21/22 + status-badge = VISIBLY DONE. present-proof sent to Tron. STAY PINNED until Tron-done (#106).",
-    "polishFollowUp": "R20.22 POLISH (PO 2026-06-15, SMALL follow-up — not blocking): getThreeSlots() current-slot must derive from the CANONICAL current WIP (whatever is setChain-pinned, incl a Bug), NOT just focus-Task. Consistency gap surfaced by BUG18: pinCurrent.taskName=BUG18 but slots.current still shows R20.20/21 (54519bc4). FIX: getThreeSlots current = the pinned chain task/req, fallback focus-Task. Fold in when BUG18 area is touched OR a quick separate pass after. BUG18 stays priority."
+    "visibleDoneProof": "VISIBLE-DONE + GATES-GREEN \u2014 GATE-PROVEN GREEN (tester DET-3x + planner source-verified 2026-06-15, v0.6.46 universal-status-badge + v0.6.47 gates[] wired on Req/Task forward-key). BOTH halves of Tron ask VISIBLE: (1) current task green\u2713 done; (2) Gate nodes render green\u2713 PASS as tree children (Req\u21922 gates, Task\u21921). Status badge colors all working: green/amber/gray/purple. RENDER-PROOF screenshots: test/visual/v647-gates-green.png + v647-expanded.png. gate-proven=true. R20.20/21/22 + status-badge = VISIBLY DONE. present-proof sent to Tron. STAY PINNED until Tron-done (#106).",
+    "polishFollowUp": "R20.22 POLISH (PO 2026-06-15, SMALL follow-up \u2014 not blocking): getThreeSlots() current-slot must derive from the CANONICAL current WIP (whatever is setChain-pinned, incl a Bug), NOT just focus-Task. Consistency gap surfaced by BUG18: pinCurrent.taskName=BUG18 but slots.current still shows R20.20/21 (54519bc4). FIX: getThreeSlots current = the pinned chain task/req, fallback focus-Task. Fold in when BUG18 area is touched OR a quick separate pass after. BUG18 stays priority.",
+    "architectConsistencyReview": {
+      "reviewDate": "2026-06-16",
+      "reviewer": "robbin-architect",
+      "scope": "3-slot pin: driving-verbs \u2194 getThreeSlots \u2194 skills coherence",
+      "findings": [
+        {
+          "id": "F1-SKILL-STALE",
+          "severity": "HIGH",
+          "summary": "Planner SKILL.md (.claude/agents/robbin-planner/SKILL.md) has ZERO references to 3-slot driving verbs (focus/setNextBacklog/clearNextBacklog/hop/gate/getThreeSlots/CurrentSprint). The aligned skill doc lives in scrum.pmo/skills/planner-current-sprint-driving.md (commit b8b1f685a) but agents read .claude/agents/ at boot. The planner boots without knowledge of the 3-slot API.",
+          "fix": "Merge scrum.pmo/skills/planner-current-sprint-driving.md content into .claude/agents/robbin-planner/SKILL.md \u00a7 CurrentSprint Driving, or symlink."
+        },
+        {
+          "id": "F2-HOP-OWNER-MISMATCH",
+          "severity": "MEDIUM",
+          "summary": "CurrentSprint.ts HOP_OWNERS maps method\u2192expert. But the locked chain says method = architect (UC.method is the architect-designed singular method). The expert implements the impl, not the method scenario unit. method hop should be owner=architect, impl hop=expert.",
+          "fix": "Change HOP_OWNERS.method from \"expert\" to \"architect\" in CurrentSprint.ts:24-27."
+        },
+        {
+          "id": "F3-LAST-COMPLETED-HEURISTIC",
+          "severity": "LOW",
+          "summary": "getThreeSlots derives lastCompleted as completed[completed.length-1] \u2014 the last task in iteration order that is NOT focused. But iteration order of index.list() is UUID-prefix shard order, NOT chronological. Two tasks with adjacent UUID prefixes will appear adjacent regardless of when they completed. Should use updatedAt or a completion timestamp.",
+          "fix": "Sort completed array by updatedAt descending before picking [0]. Or add a completedAt field set on advance()."
+        },
+        {
+          "id": "F4-NEXT-BACKLOG-FILTER",
+          "severity": "LOW",
+          "summary": "nextBacklog auto-derives from tasks.filter(t => !t.focus && t.reqUuid && !t.hasUcChain) \u2014 \"first task without UC chain.\" But tasks in QA Review or Done status should NOT be backlog candidates. No status filter.",
+          "fix": "Add status filter: exclude tasks where status is \"QA Review\" or \"Done\"."
+        },
+        {
+          "id": "F5-GATE-IN-TREE-MISSING",
+          "severity": "INFO",
+          "summary": "The /api/trace/children CurrentSprint handler (server.ts:700-719) builds 3 slot children with status labels (GATE-PROVEN/IMPL-DONE/IN-PROGRESS). This is consistent with getThreeSlots. No gap here \u2014 just noting alignment is correct.",
+          "fix": "None needed."
+        }
+      ],
+      "verdict": "F1 is the critical gap \u2014 planner boots without 3-slot knowledge. F2 is a semantic correctness issue. F3/F4 are edge-case accuracy. Code logic (getThreeSlots + CurrentSprint + server endpoint) is internally consistent; the gap is skill-doc propagation."
+    }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
