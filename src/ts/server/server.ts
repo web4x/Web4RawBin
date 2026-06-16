@@ -434,6 +434,36 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
+    // R20.31: POST /api/vcard — store uploaded .vcf encrypted next to avatar
+    if (req.method === 'POST' && filepath === '/api/vcard') {
+      let body = '';
+      req.on('data', (chunk: Buffer) => body += chunk);
+      req.on('end', () => {
+        try {
+          const { playerToken, data } = JSON.parse(body);
+          if (!playerToken || !tokenToClient.has(playerToken)) { res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unauthenticated' })); return; }
+          if (!data) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Missing data' })); return; }
+          const buf = Buffer.from(data, 'base64');
+          const profile = userProfiles.get(playerToken);
+          if (!profile) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'No profile' })); return; }
+          createUserHome(playerToken);
+          generateUserKeypair(playerToken);
+          if (!profile.sshKeysGenerated) { profile.sshKeysGenerated = true; saveProfiles(); }
+          try {
+            encryptFile(playerToken, buf, 'text/vcard', 'contact.vcf', 'vcard');
+          } catch (encErr: any) {
+            addLog(`vCard POST: encrypt failed, rekeying — ${encErr?.message || encErr}`);
+            rekeyUser(playerToken);
+            encryptFile(playerToken, buf, 'text/vcard', 'contact.vcf', 'vcard');
+          }
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: true, vcardUrl: `/api/vcard/${playerToken}` }));
+          addLog(`vCard uploaded: ${playerToken.slice(0,8)} (${buf.length} bytes)`);
+        } catch (e: any) { addLog(`vCard POST error: ${e?.message || e}`); res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Upload failed' })); }
+      });
+      return;
+    }
+
     if (filepath === '/api/bugs') {
       const allBugs: any[] = [];
       userProfiles.forEach((p, token) => {
@@ -929,6 +959,18 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const { data, mimeType } = decryptFile(token, 'avatar');
         addLog(`Avatar GET: token=${token.slice(0,8)} mime=${mimeType} size=${data.length}`);
         res.writeHead(200, { 'Content-Type': mimeType, 'ETag': etag, 'Cache-Control': 'no-cache, must-revalidate' });
+        res.end(data);
+      } catch { res.writeHead(500); res.end('Decrypt error'); }
+      return;
+    }
+
+    // R20.31: GET /api/vcard/:token — serve stored .vcf
+    if (filepath.startsWith('/api/vcard/')) {
+      const token = filepath.slice('/api/vcard/'.length).split('/')[0];
+      if (!token || !fileExists(token, 'vcard')) { res.writeHead(404); res.end('No vCard stored'); return; }
+      try {
+        const { data, mimeType } = decryptFile(token, 'vcard');
+        res.writeHead(200, { 'Content-Type': mimeType || 'text/vcard', 'Cache-Control': 'no-cache, must-revalidate' });
         res.end(data);
       } catch { res.writeHead(500); res.end('Decrypt error'); }
       return;

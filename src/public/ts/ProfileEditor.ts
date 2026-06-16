@@ -97,8 +97,15 @@ export class ProfileEditor {
       const file = (e.target as HTMLInputElement).files?.[0];
       if (!file) return;
       try {
-        const vcf = parseVCard(await file.text());
+        const text = await file.text();
+        const vcf = parseVCard(text);
         this.applyVCard(vcf);
+        // R20.31: store .vcf on server
+        const token = localStorage.getItem('rawbin-player-token');
+        if (token) {
+          const b64 = btoa(unescape(encodeURIComponent(text)));
+          fetch('/api/vcard', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playerToken: token, data: b64 }) }).catch(() => {});
+        }
       } catch { this.showVCardError('Could not parse this vCard'); }
     });
     const overlay = this.overlay!;
@@ -109,9 +116,15 @@ export class ProfileEditor {
       const file = e.dataTransfer?.files[0];
       if (!file || (!file.name.endsWith('.vcf') && file.type !== 'text/vcard')) { this.showVCardError('Please drop a .vcf file'); return; }
       try {
-        const vcf = parseVCard(await file.text());
+        const text = await file.text();
+        const vcf = parseVCard(text);
         if (!vcf.fn && !vcf.tel && !vcf.url && !vcf.photo) { this.showVCardError('No profile data found'); return; }
         this.applyVCard(vcf);
+        const token = localStorage.getItem('rawbin-player-token');
+        if (token) {
+          const b64 = btoa(unescape(encodeURIComponent(text)));
+          fetch('/api/vcard', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playerToken: token, data: b64 }) }).catch(() => {});
+        }
       } catch { this.showVCardError('Could not read this file'); }
     });
 

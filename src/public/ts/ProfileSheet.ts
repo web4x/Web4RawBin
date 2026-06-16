@@ -101,32 +101,62 @@ export class ProfileSheet {
   }
 
   private async downloadVCard(profile: PublicProfile): Promise<void> {
-    const lines = ['BEGIN:VCARD', 'VERSION:3.0', `FN:${profile.name}`];
-    if (profile.phone) lines.push(`TEL:${profile.phone}`);
-    if (profile.url) lines.push(`URL:${profile.url}`);
-    // PHOTO — source from the token (the SAME source the sheet displays via rb-avatar), NOT the
-    // possibly-empty profile.avatar string. So "sheet shows a photo" ⇒ "vCard has that photo".
-    const photoSrc = profile.avatar && profile.avatar.startsWith('data:')
-      ? profile.avatar
-      : (profile.playerToken ? `/api/avatar/${profile.playerToken}` : (profile.avatar || ''));
-    if (photoSrc) {
+    // R20.31: try serving stored .vcf first, enrich NOTE with date+geolocation
+    // Skip stored vcard fetch if we already have local data (data: avatar = all local)
+    let vcfText: string | null = null;
+    const hasLocalData = profile.avatar?.startsWith('data:');
+    if (profile.playerToken && !hasLocalData) {
       try {
-        let dataUrl = photoSrc;
-        if (!dataUrl.startsWith('data:')) {
-          const res = await fetch(photoSrc);
-          const buf = await res.arrayBuffer();
-          const type = res.headers.get('content-type') || 'image/jpeg';
-          dataUrl = `data:${type};base64,${bufToBase64(buf)}`;
-        }
-        // widen subtype to [\w+.-]+ so svg+xml etc. are not dropped
-        const match = dataUrl.match(/^data:image\/([\w+.-]+);base64,(.+)$/);
-        if (match) lines.push(`PHOTO;ENCODING=b;TYPE=${match[1].toUpperCase()}:${match[2]}`);
-      } catch (e) { console.warn('vCard photo fetch failed (silent to user)', e); }
+        const r = await fetch(`/api/vcard/${profile.playerToken}`);
+        if (r.ok) vcfText = await r.text();
+      } catch { /* no stored vcard — generate from scratch */ }
     }
-    // UUID — Tron: vCard must carry the user's uuid (was missing).
-    lines.push(`NOTE:RawBin User${profile.playerToken ? ` — UUID: ${profile.playerToken}` : ''}`);
-    lines.push('END:VCARD');
-    const blob = new Blob([lines.join('\r\n')], { type: 'text/vcard' });
+
+    if (!vcfText) {
+      // Generate from profile data
+      const lines = ['BEGIN:VCARD', 'VERSION:3.0', `FN:${profile.name}`];
+      if (profile.phone) lines.push(`TEL:${profile.phone}`);
+      if (profile.url) lines.push(`URL:${profile.url}`);
+      const photoSrc = profile.avatar && profile.avatar.startsWith('data:')
+        ? profile.avatar
+        : (profile.playerToken ? `/api/avatar/${profile.playerToken}` : (profile.avatar || ''));
+      if (photoSrc) {
+        try {
+          let dataUrl = photoSrc;
+          if (!dataUrl.startsWith('data:')) {
+            const res = await fetch(photoSrc);
+            const buf = await res.arrayBuffer();
+            const type = res.headers.get('content-type') || 'image/jpeg';
+            dataUrl = `data:${type};base64,${bufToBase64(buf)}`;
+          }
+          const match = dataUrl.match(/^data:image\/([\w+.-]+);base64,(.+)$/);
+          if (match) lines.push(`PHOTO;ENCODING=b;TYPE=${match[1].toUpperCase()}:${match[2]}`);
+        } catch { /* silent */ }
+      }
+      lines.push(`NOTE:RawBin User${profile.playerToken ? ` — UUID: ${profile.playerToken}` : ''}`);
+      lines.push('END:VCARD');
+      vcfText = lines.join('\r\n');
+    }
+
+    // R20.31 Part C: enrich NOTE with download date + geolocation
+    const downloadDate = new Date().toISOString();
+    let geoLink = '';
+    try {
+      const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 5000 });
+      });
+      geoLink = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+    } catch { /* denied or unavailable — graceful fallback */ }
+
+    // Append download metadata to NOTE field
+    const noteExtra = `\\nDownloaded: ${downloadDate}${geoLink ? `\\nLocation: ${geoLink}` : ''}`;
+    if (vcfText.includes('NOTE:')) {
+      vcfText = vcfText.replace(/(NOTE:[^\r\n]*)/, `$1${noteExtra}`);
+    } else {
+      vcfText = vcfText.replace('END:VCARD', `NOTE:RawBin vCard${noteExtra}\r\nEND:VCARD`);
+    }
+
+    const blob = new Blob([vcfText], { type: 'text/vcard' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = `${profile.name.replace(/[^a-zA-Z0-9 ]/g, '')}.vcf`;
