@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d20855e7-4a1b-4c2d-8e3f-5a6b7c8d9e0f",
+    "name": "R20.22 getThreeSlots",
+    "sourceFile": "ior:file:src/ts/scenario/CurrentSprint.ts",
+    "tests": [
+      "ior:instance:960948c2-4f36-4658-b2c0-4075aeddfb4a",
+      "ior:instance:c3f12751-ce69-43ee-aacd-e729c968f433",
+      "ior:instance:c33a1327-491b-42bf-9162-87558bf89d8c",
+      "ior:instance:94a83fc2-c95d-470a-8083-c76fda7863ad"
+    ]
+  },
+  "ownerIor": null
+}

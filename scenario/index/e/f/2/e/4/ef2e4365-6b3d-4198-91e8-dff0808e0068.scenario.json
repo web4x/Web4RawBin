@@ -5,7 +5,9 @@
     "name": "R15.4 defaultItemView (split for RbObjectItem.expand)",
     "sourceFile": "src/public/ts/trace/rb-object-item.ts",
     "sourceLine": 8,
-    "tests": [],
+    "tests": [
+      "ior:instance:47528657-dbd5-48f1-b7cf-cd2bffb53967"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:4b36dabd-4f56-433d-a01a-1625ca7a4693"

@@ -340,10 +340,47 @@ for (const uuid of idx.list()) {
 }
 console.log(`Method-derived Impl→Test links: ${methodDerivedLinks}`);
 
+// Step 7 (R20.29): Test → Gate
+// Gate.ownerIor → Requirement/Task/Bug (the gated item). Test.requirements[] → same items.
+// Bridge: if a Test covers a gated item (or covers a Requirement that a Gate gates), link Test.gates[].
+let testGateLinks = 0;
+const gatesByGatedItem = new Map<string, string[]>();
+for (const gate of (unitsByType.get('Gate') || [])) {
+  const gateModel = gate.model as Record<string, unknown>;
+  const gatedItems = (gateModel.gatedItems as string[]) || [];
+  const ownerUuid = String(gate.ownerIor || '').replace('ior:instance:', '');
+  const allGated = new Set([...gatedItems.map(s => String(s).replace('ior:instance:', ''))]);
+  if (ownerUuid) allGated.add(ownerUuid);
+  for (const gatedUuid of allGated) {
+    if (!gatesByGatedItem.has(gatedUuid)) gatesByGatedItem.set(gatedUuid, []);
+    gatesByGatedItem.get(gatedUuid)!.push(String(gateModel.uuid));
+  }
+}
+for (const testUnit of (unitsByType.get('Test') || [])) {
+  const testModel = testUnit.model as Record<string, unknown>;
+  const existingGates = (testModel.gates as string[]) || [];
+  if (existingGates.length > 0) continue;
+  const testReqs = ((testModel.requirements as string[]) || []).map(s => String(s).replace('ior:instance:', ''));
+  const testMethods = ((testModel.methods as string[]) || []).map(s => String(s).replace('ior:instance:', ''));
+  const matchedGates: string[] = [];
+  for (const ref of [...testReqs, ...testMethods]) {
+    for (const gateUuid of (gatesByGatedItem.get(ref) || [])) {
+      const ior = `ior:instance:${gateUuid}`;
+      if (!matchedGates.includes(ior)) matchedGates.push(ior);
+    }
+  }
+  if (matchedGates.length > 0) {
+    testModel.gates = matchedGates;
+    if (apply) idx.put(String(testModel.uuid), testUnit);
+    testGateLinks += matchedGates.length;
+  }
+}
+console.log(`Test→Gate links added: ${testGateLinks}`);
+
 // Summary
 const total = idx.list().length;
 console.log(`\n=== Summary ===`);
 console.log(`Total units: ${total} (was ${allUuids.length})`);
 console.log(`New: ${implCreated} Implementation + ${testCreated} Test`);
-console.log(`Links: UC→Class=${ucClassLinks}, Class→Method=${classMethodLinks}, Method→Impl=${methodImplLinks}, Impl→Test=${implTestLinks}`);
+console.log(`Links: UC→Class=${ucClassLinks}, Class→Method=${classMethodLinks}, Method→Impl=${methodImplLinks}, Impl→Test=${implTestLinks}, Test→Gate=${testGateLinks}`);
 if (!apply) console.log(`\nDry run. Use --apply to write.`);

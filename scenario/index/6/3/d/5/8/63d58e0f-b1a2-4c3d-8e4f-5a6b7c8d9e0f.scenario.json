@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "63d58e0f-b1a2-4c3d-8e4f-5a6b7c8d9e0f",
+    "name": "R20.30 renderChainPathSection — depth-first single path",
+    "sourceFile": "ior:file:src/public/ts/trace/detail-superseded.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

@@ -5,7 +5,12 @@
     "name": "TraceObject.parent (split for TraceObject.children)",
     "sourceFile": "src/ts/shared/TraceModel.ts",
     "sourceLine": 11,
-    "tests": [],
+    "tests": [
+      "ior:instance:4ba25dfa-f2a0-46bc-ac4b-f784c94f06c1",
+      "ior:instance:8edc3d29-79ee-4d7f-b2df-b48a1d68226f",
+      "ior:instance:e4ce14a4-1ddb-4ca1-9326-38dd31ce0eb0",
+      "ior:instance:f9fd3cc0-8023-4898-ab5c-55284689b382"
+    ],
     "unitLinks": []
   },
   "ownerIor": "ior:instance:66484695-b395-4415-a676-299f67d8318b"
