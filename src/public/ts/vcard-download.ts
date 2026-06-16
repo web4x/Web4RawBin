@@ -1,4 +1,4 @@
-// [impl:uuid:a1b2c3d4-e5f6-4a0b-bcde-f3f26cab0001] R20.31 shared vCard download
+// [impl:uuid:1745bb46-fa2d-4717-8fe1-673f596a55cb] R20.31 downloadVCard + NOTE enrich (date+geolocation)
 export interface VCardProfile {
   name: string;
   phone?: string;

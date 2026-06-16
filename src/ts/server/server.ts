@@ -434,7 +434,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
-    // R20.31: POST /api/vcard — store uploaded .vcf encrypted next to avatar
+    // [impl:uuid:f15434f9-b6c9-45ba-b9b8-b8d025ce39e4] R20.31 storeVCard POST /api/vcard
     if (req.method === 'POST' && filepath === '/api/vcard') {
       let body = '';
       req.on('data', (chunk: Buffer) => body += chunk);
@@ -964,7 +964,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
-    // R20.31: GET /api/vcard/:token — serve stored .vcf
+    // [impl:uuid:50a26658-8fac-4fa5-aa8b-cc57ff50870a] R20.31 serveVCard GET /api/vcard/:token
     if (filepath.startsWith('/api/vcard/')) {
       const token = filepath.slice('/api/vcard/'.length).split('/')[0];
       if (!token || !fileExists(token, 'vcard')) { res.writeHead(404); res.end('No vCard stored'); return; }
