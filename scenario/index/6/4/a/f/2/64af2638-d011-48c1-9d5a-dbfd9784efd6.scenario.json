@@ -48,7 +48,8 @@
       "ior:instance:4d059f6a-aa3a-4e7a-8b8e-9c8729a7ee01",
       "ior:instance:607146d1-80d3-4aed-be81-b8eb4ebb43e1",
       "ior:instance:edb3c4fe-faaa-47c0-bed1-5b9bf8c14b83",
-      "ior:instance:d7299c88-c56f-4686-a91f-c67bf78b8930"
+      "ior:instance:d7299c88-c56f-4686-a91f-c67bf78b8930",
+      "ior:instance:f3f26cab-792e-4e65-9cf8-98d907023396"
     ],
     "tasks": [
       "ior:instance:450cb98a-4234-4f2c-9c9c-3c561750fb13",
@@ -65,7 +66,8 @@
       "ior:instance:cd6a817d-a64d-4c1e-a6df-deb09f03063a",
       "ior:instance:10545051-a2e4-4091-a311-8ecf985e7542",
       "ior:instance:54519bc4-2704-4484-a83f-5b88019d62c3",
-      "ior:instance:5baef26a-8331-4feb-850f-2a38e4434ce7"
+      "ior:instance:5baef26a-8331-4feb-850f-2a38e4434ce7",
+      "ior:instance:6961043e-c0c6-4b15-8210-bc4c0d119e2b"
     ],
     "discipline": "traceability-first: design full chain + write Test first/with-impl; no chain-open ships. Standards: in-room-ux-e2e-test-standard.md, task-unit-single-owner-standard.md.",
     "carriedForwardNote": "R19.99 (task eff42eff) + R19.100 (task 51d53769) carry their existing S19 tasks; S20 drives their FULL test-first chain to genuine champagne. R19.102 gets a fresh S20 task (42819b8b).",

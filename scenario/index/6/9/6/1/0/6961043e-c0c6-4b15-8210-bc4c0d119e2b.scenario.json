@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "6961043e-c0c6-4b15-8210-bc4c0d119e2b",
+    "name": "T: vCard enrich+store — .vcf next to avatar + download date + geolocation maps (R20.31)",
+    "status": "in-progress",
+    "coveredRequirements": [
+      "ior:instance:f3f26cab-792e-4e65-9cf8-98d907023396"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}
