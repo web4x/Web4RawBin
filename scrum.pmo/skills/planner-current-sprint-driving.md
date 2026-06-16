@@ -16,17 +16,45 @@ CurrentSprint maintains 3 task slots, always synced to disk:
 
 `pinCurrent()` returns all 3 slots + chain state. `/trace` renders the 3-slot pin.
 
-## Consumer API (architect-provided — I call, never re-implement)
-- `setChain({req, uc, class, method, impl, test})` — set chain with IOR refs (low-level escape hatch)
-- `focus <task-uuid>` — **PREFERRED**: set WIP, auto-derive chain from task's req → uc → chain
-- `setNextBacklog <task-uuid>` — pin a specific task as next (Tron's priority, not lowest-open)
-- `clearNextBacklog` — revert to auto-derived next
-- `hop <hop> <status> [agent]` — per-agent realtime hop update
-- `gate` — check if current task's test is gate-proven
-- `getActiveChain() → [{type, uuid, name, status, hopState}]` — live chain with per-hop state
-- `advance()` — move focus to the next hop (after gate-proven)
-- `pinCurrent() → {sprintName, taskName, chainDepth, wipStatus, slots: {current, lastCompleted, nextBacklog}}`
-- Event: `current-sprint-changed` on `document` (re-render hook)
+## Full drive API — `npx tsx scripts/planner-drive.ts <verb> [args]`
+
+**CRITICAL: all uuid arguments require the FULL 36-character uuid.**
+A short 8-char prefix returns a MISLEADING "BLOCKED: gate not proven" even when the
+gate IS proven (the prefix doesn't resolve to the task, so there's no current chain
+to gate-check). Always copy the full uuid verbatim — never reconstruct or truncate.
+
+| Verb | Args | Who calls | What it does |
+|---|---|---|---|
+| `focus` | `<task-uuid> [--force]` | planner (or any agent on WIP switch) | Set WIP=1 current task, auto-derive chain. BLOCKED unless gate-proven or `--force`. |
+| `hop` | `<hop> <status> [agent]` | **every agent on their own hop** | Mark hop status live. Hops: req\|uc\|class\|method\|impl\|test. Statuses: pending\|in-progress\|done\|gate-proven. |
+| `gate` | — | anyone | Check if current task's test is gate-proven. Shows per-hop states. |
+| `setNextBacklog` | `<task-uuid>` | planner | Pin a specific task as next (Tron's priority). |
+| `clearNextBacklog` | — | planner | Revert next slot to auto-derived. |
+| `setChain` | `<req> <uc> <class> <method> <impl> <test> "<sprint>" "<task>"` | escape hatch only | Low-level: set chain with 6 explicit IOR refs. |
+| `advance` | — | planner | Move activeHop forward (after gate-proven). |
+| `pin` | — | anyone | Print pinCurrent() — 3 slots + chain state. |
+
+`pinCurrent()` returns `{sprintName, taskName, chainDepth, wipStatus, slots: {current, lastCompleted, nextBacklog}}`.
+Event: `current-sprint-changed` on `document` (client re-render hook).
+
+## Per-agent realtime-set protocol (Tron directive — ALL agents)
+
+**Every agent marks its own hop as it works — the pin reflects real-time who is working what.**
+
+| When | Agent | Command |
+|---|---|---|
+| Architect starts UC design | architect | `hop uc in-progress architect` |
+| Architect finishes Class wiring | architect | `hop class done architect` |
+| Expert starts implementing | expert | `hop impl in-progress expert` |
+| Expert commits impl + marker | expert | `hop impl done expert` |
+| Tester starts writing test | tester | `hop test in-progress tester` |
+| Tester passes det-3x + deploy | tester | `hop test gate-proven tester` |
+| WIP switches (Tron priority) | planner (or agent directed) | `focus <full-36-char-task-uuid>` |
+
+**Rules:**
+1. YOUR hop, YOUR call — don't leave it for planner to backfill (#102).
+2. SM flags any hop-completion without the agent's own hop-call.
+3. Full 36-char uuid only — never prefix, never reconstruct.
 
 ## Planner skill layer (driveNext / status / det-3x gate — ON TOP of the API)
 
