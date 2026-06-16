@@ -6,7 +6,9 @@
     "name": "R20.31: vCard enrich+store — upload stores .vcf next to avatar, download adds date + geolocation maps link to NOTE.",
     "description": "THREE PARTS: (A) STORE: when a user uploads a .vcf vCard in a room, store it next to the avatar as an encrypted asset mirroring /api/avatar (server.ts:394-421 encryptFile pattern) → new category 'vcard' + POST /api/vcard endpoint, keyed by playerToken. (B) DOWNLOAD: ProfileSheet.downloadVCard (src/public/ts/ProfileSheet.ts:103-135) serves the stored vcard when one exists (instead of generating from scratch). (C) NOTE ENRICHMENT: the NOTE field (built at :127) appends: (i) DOWNLOAD DATE (ISO timestamp of when the download happens), (ii) GOOGLE MAPS LINK from the DOWNLOADER's GEOLOCATION (browser Geolocation API at download time → https://www.google.com/maps?q=LAT,LNG). Graceful fallback if geolocation denied (date still present, maps link omitted).",
     "tronQuote": "> TRON: \"on download vcard in the room you also add date and google maps location link to the notes\"\n> TRON: \"if the user uploaded a vcard store it next to the avatar and make that downloadable and add to the notes what i told you\"",
-    "tasks": ["ior:instance:6961043e-c0c6-4b15-8210-bc4c0d119e2b"],
+    "tasks": [
+      "ior:instance:708ec0a5-2027-433d-9e69-54a3bed73a06"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
@@ -16,7 +18,10 @@
       "class": "ProfileSheet (client) + server vcard endpoint",
       "method": "server: POST /api/vcard (encryptFile vcard category) + GET /api/vcard. client: downloadVCard reads stored + appends date + geolocation maps link to NOTE",
       "test": "RED: (1) upload .vcf in room → GET /api/vcard returns the stored file (not 404). (2) download member vcard → NOTE contains download date (ISO). (3) with geolocation granted → NOTE contains Google Maps link. (4) geolocation denied → NOTE has date but no maps link (no crash). Currently FAILS (no /api/vcard endpoint, no geo enrichment)."
-    }
+    },
+    "useCases": [
+      "ior:instance:3d9daab4-b1b9-4e71-ad6a-330028434cb0"
+    ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

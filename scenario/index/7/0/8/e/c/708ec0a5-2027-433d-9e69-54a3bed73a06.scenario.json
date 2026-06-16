@@ -6,12 +6,13 @@
     "description": "Store uploaded vCard next to the avatar; make it downloadable; enrich vCard NOTE with download-date + geolocation maps link. Minted by planner 2026-06-16 (req 0.5 rate-limited) for realtime current-task pin switch.",
     "status": "in-progress",
     "coveredRequirements": [
-      "ior:instance:69aaf051-646b-4f76-9855-66a9470960ba"
+      "ior:instance:f3f26cab-792e-4e65-9cf8-98d907023396"
     ],
     "useCases": [],
-    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
-    "sprintName": "Sprint 19 — Room Handling",
-    "focus": true
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "sprintName": "Sprint 20",
+    "focus": true,
+    "reconcileNote": "Reconciled (PO/SM 2026-06-16): canonical task; covers R20.31 (f3f26cab, full AC); the req-eng dup task + planner dup req were DELETED; sprint→Sprint-20 (was sprint-19)."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
