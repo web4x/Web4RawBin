@@ -6,10 +6,10 @@
     "chain": {
       "req": "f3f26cab-792e-4e65-9cf8-98d907023396",
       "uc": "3d9daab4-b1b9-4e71-ad6a-330028434cb0",
-      "class": "",
-      "method": "",
-      "impl": "",
-      "test": ""
+      "class": "d65925c0-0eed-44fd-bdcd-e1e47b8e4f66",
+      "method": "b4d16f80-aebb-437d-bfd2-df46424d4b59",
+      "impl": "1745bb46-fa2d-4f62-aef3-a5a1a8af3e63",
+      "test": "24bc38c5-24a8-427a-a02e-87cb3f3b4c15"
     },
     "activeHop": 5,
     "sprintName": "Sprint 20",
@@ -45,7 +45,7 @@
       },
       "nextBacklog": {
         "taskUuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
-        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
+        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' \u2192 'Traceability Chain' in all user-facing UI",
         "reqUuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212"
       }
     }
