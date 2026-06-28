@@ -14,10 +14,24 @@ import path from 'node:path';
 import type { ScenarioIndex } from './index-store.js';
 import type { ScenarioUnit } from './types.js';
 
-/** Strip all non-digits, return canonical `+<CountryDigits>`. '' if no digits. */
+/**
+ * Canonical E.164 `+<CountryCode><digits>`. A country code is REQUIRED so the same
+ * number always yields ONE key (the whole point of the alt-UUID dedup):
+ *   '+49 1525 384-4085' → '+4915253844085'
+ *   '004915253844085'   → '+4915253844085'   (00 = international prefix → +)
+ *   '015253844085'      → ''  (bare national, no country code → rejected)
+ */
 export function normalizePhone(raw: string): string {
   if (!raw) return '';
-  const digits = String(raw).replace(/\D/g, '');
+  const s = String(raw).trim();
+  let digits: string;
+  if (s.startsWith('+')) {
+    digits = s.slice(1).replace(/\D/g, '');
+  } else if (s.replace(/[\s\-().]/g, '').startsWith('00')) {
+    digits = s.replace(/\D/g, '').replace(/^00/, ''); // 00 international prefix → +
+  } else {
+    return ''; // national-only / no resolvable country code → reject (no bare 0152...)
+  }
   if (!digits) return '';
   return '+' + digits;
 }
