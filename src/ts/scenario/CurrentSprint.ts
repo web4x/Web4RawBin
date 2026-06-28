@@ -67,6 +67,9 @@ export class CurrentSprint {
   private taskName = '';
   private hopStates: Record<string, HopState> = {};
   private nextBacklogOverride = '';
+  private lastCompletedUuid = '';
+  private lastCompletedName = '';
+  private lastCompletedReqUuid = '';
 
   private constructor(index: ScenarioIndex) {
     this.index = index;
@@ -88,6 +91,9 @@ export class CurrentSprint {
       this.taskName = (m.taskName as string) || '';
       this.hopStates = (m.hopStates as Record<string, HopState>) || {};
       this.nextBacklogOverride = (m.nextBacklogOverride as string) || '';
+      this.lastCompletedUuid = (m.lastCompletedUuid as string) || '';
+      this.lastCompletedName = (m.lastCompletedName as string) || '';
+      this.lastCompletedReqUuid = (m.lastCompletedReqUuid as string) || '';
     }
   }
 
@@ -103,6 +109,9 @@ export class CurrentSprint {
         taskName: this.taskName,
         hopStates: this.hopStates,
         nextBacklogOverride: this.nextBacklogOverride,
+        lastCompletedUuid: this.lastCompletedUuid,
+        lastCompletedName: this.lastCompletedName,
+        lastCompletedReqUuid: this.lastCompletedReqUuid,
         slots: this.getThreeSlots(),
       },
       ownerIor: null,
@@ -138,7 +147,9 @@ export class CurrentSprint {
       sprintName: this.sprintName,
       taskName: this.taskName,
       chainDepth: this.activeHop,
-      wipStatus: this.chain ? CHAIN_ORDER[this.activeHop] || 'done' : 'none',
+      wipStatus: this.chain
+        ? (this.activeHop >= CHAIN_ORDER.length - 1 && this.hopStates.test?.status === 'gate-proven' ? 'done' : CHAIN_ORDER[this.activeHop] || 'done')
+        : 'none',
       slots: this.getThreeSlots(),
     };
   }
@@ -176,8 +187,17 @@ export class CurrentSprint {
       }
     }
     if (!current) current = tasks.find(t => t.focus) || null;
-    const completed = tasks.filter(t => !t.focus && t.reqUuid);
-    const lastCompleted = completed.length > 0 ? completed[completed.length - 1] : null;
+    let lastCompleted: typeof tasks[0] | null = null;
+    if (this.lastCompletedUuid) {
+      lastCompleted = tasks.find(t => t.uuid === this.lastCompletedUuid) || null;
+      if (!lastCompleted && this.lastCompletedName) {
+        lastCompleted = { uuid: this.lastCompletedUuid, name: this.lastCompletedName, reqUuid: this.lastCompletedReqUuid, focus: false, testGateProven: false, hasUcChain: true, updatedAt: '' };
+      }
+    }
+    if (!lastCompleted) {
+      const completed = tasks.filter(t => !t.focus && t.reqUuid);
+      lastCompleted = completed.length > 0 ? completed[completed.length - 1] : null;
+    }
     const backlog = tasks.filter(t => !t.focus && t.reqUuid && !t.hasUcChain);
     let nextBacklog: typeof tasks[0] | null = null;
     if (this.nextBacklogOverride) {
@@ -265,7 +285,14 @@ export class CurrentSprint {
       const u = this.index.get(uuid);
       if (!u || u.ior !== 'ior:class:Task') continue;
       const m = u.model as Record<string, unknown>;
-      if (m.focus) { delete m.focus; this.index.put(uuid, u); }
+      if (m.focus) {
+        this.lastCompletedUuid = uuid;
+        this.lastCompletedName = String(m.name || '');
+        const reqIors = (m.coveredRequirements as string[]) || [];
+        this.lastCompletedReqUuid = reqIors.length > 0 ? ior(reqIors[0]) : '';
+        delete m.focus;
+        this.index.put(uuid, u);
+      }
     }
     (taskUnit.model as Record<string, unknown>).focus = true;
     this.index.put(taskUuid, taskUnit);
