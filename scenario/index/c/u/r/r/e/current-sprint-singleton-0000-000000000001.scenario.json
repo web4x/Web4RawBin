@@ -2,7 +2,7 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
+    "name": "Current: T-rename-champagne-to-traceability: 'Champagne Chain' \u2192 'Traceability Chain' in all user-facing UI",
     "chain": {
       "req": "b04fc9af-19ca-46d6-b4bd-c16663df1212",
       "uc": "e2807a7b-b72f-4030-97b6-67f73a043ae7",
@@ -13,7 +13,7 @@
     },
     "activeHop": 0,
     "sprintName": "Sprint 20",
-    "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
+    "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' \u2192 'Traceability Chain' in all user-facing UI",
     "hopStates": {
       "req": {
         "status": "done",
@@ -21,24 +21,23 @@
         "updatedAt": "2026-06-28T09:36:04.684Z"
       }
     },
-    "nextBacklogOverride": "56cc23b5-aca1-49f5-9037-e2c58110643c",
-    "lastCompletedUuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
-    "lastCompletedName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
-    "lastCompletedReqUuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212",
+    "lastCompletedUuid": "708ec0a5-2027-433d-9e69-54a3bed73a06",
+    "lastCompletedName": "T-vcard-enrich-store: store uploaded vcard next to avatar + downloadable + NOTE adds download-date + geolocation maps link",
+    "lastCompletedReqUuid": "f3f26cab-792e-4e65-9cf8-98d907023396",
     "slots": {
       "current": {
         "taskUuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
-        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
+        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' \u2192 'Traceability Chain' in all user-facing UI",
         "reqUuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212"
       },
       "lastCompleted": {
         "taskUuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
-        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
+        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' \u2192 'Traceability Chain' in all user-facing UI",
         "reqUuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212"
       },
       "nextBacklog": {
         "taskUuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
-        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
+        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' \u2192 'Traceability Chain' in all user-facing UI",
         "reqUuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212"
       }
     }
