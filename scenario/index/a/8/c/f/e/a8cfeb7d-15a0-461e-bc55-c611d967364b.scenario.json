@@ -4,7 +4,7 @@
     "uuid": "a8cfeb7d-15a0-461e-bc55-c611d967364b",
     "name": "T26: Task Template Standardization",
     "slug": "task-26-templates",
-    "description": "",
+    "description": "Standardize the task-file template across the project.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",

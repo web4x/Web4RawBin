@@ -4,7 +4,7 @@
     "uuid": "c30f0e03-6e7f-4c5d-a091-003344556677",
     "name": "T30: PO Process Documentation",
     "slug": "task-30-po-process-doc",
-    "description": "",
+    "description": "Document the Product Owner process.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",
