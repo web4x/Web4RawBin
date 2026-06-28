@@ -24,8 +24,10 @@ ior:class:Profile  (the owning identity unit)
   model.addresses[]  : [ ior:instance:<Address uuid>, ... ]   // R21.7
   model.companies[]  : [ ior:instance:<Company uuid>, ... ]   // R21.8 (SHARED)
 
-ior:class:Phone    { uuid, e164:"+4915253844085", ownerIor:<Profile>, unitLinks:["alt/phone/+4915253844085.scenario.json"] }
-ior:class:Email    { uuid, address:"a@b.de",       ownerIor:<Profile>, unitLinks:["alt/email/a@b.de.scenario.json"] }
+ior:class:Phone    { uuid, e164:"+4915253844085", ownerIor:<Profile> }   // alt symlink declared on PROFILE.unitLinks[] (code is law, R21.6)
+ior:class:Email    { uuid, address:"a@b.de",       ownerIor:<Profile> }   // alt symlink declared on PROFILE.unitLinks[] (code is law, R21.6)
+ior:class:Profile  { uuid, name, secretCode, phones[], emails[], addresses[], companies[],
+                     unitLinks:["alt/phone/+4915253844085.scenario.json","alt/email/a@b.de.scenario.json"] }  // Profile OWNS the alt symlinks
 ior:class:Address  { uuid, oneLine:"DE Berlin 10115 Strasse 7", verified:false, osmLink:null, gmapsLink:null, ownerIor:<Profile> }
 ior:class:Company  { uuid, name:"Cerulean Circle", nameKey:"ceruleancircle", ownerIor:null }   // SHARED → no single owner
 ```
@@ -51,7 +53,7 @@ scenario/
 ```
 
 - The **symlink target is the PROFILE** scenario unit (Tron: "phone becomes an ln symlink … pointing to profile scenario unit. Phone numbers are alternate UUIDs.").
-- The symlink is **declared on the Phone/Email unit's `unitLinks[]`** so it self-syncs on write and self-removes on `remove()` (index-store.ts:80-93). One source of truth — the unit JSON.
+- **CODE IS LAW (R21.6 shipped):** the symlink is **declared on the PROFILE unit's `unitLinks[]`** (NOT the Phone/Email unit) — so `ensureSymlinkDisk` resolves the link target to the Profile's own file, and it self-syncs on write / self-removes on `remove()` (index-store.ts:80-93). One source of truth — the Profile unit JSON. The Phone/Email unit only carries `ownerIor` → Profile.
 
 **Normalization (the key MUST be canonical before it becomes a path):**
 - **Phone (R21.3):** `+<CountryCode><digits>` — strip everything but leading `+` and digits. `+49 1525 384-4085` → `+4915253844085`. Reject if no country code resolvable.

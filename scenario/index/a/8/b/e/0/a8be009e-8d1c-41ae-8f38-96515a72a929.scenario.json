@@ -14,7 +14,187 @@
       "ior:instance:c59356f7-d8ea-4e47-9659-efea4ef05c2c"
     ],
     "description": "Each email is an ior:class:Email scenario unit linked to its profile via the class-to-method relationship pattern; a profile may carry multiple emails, which act as alternate lookup keys with the same device-link behavior as phones.",
-    "tronQuote": "> TRON: \"ior:class:Email linked to profile via relationships (like class to method). Multiple emails per profile. Same alternate-UUID + device-link behavior as phone.\""
+    "tronQuote": "> TRON: \"ior:class:Email linked to profile via relationships (like class to method). Multiple emails per profile. Same alternate-UUID + device-link behavior as phone.\"",
+    "architectureRef": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/architecture.md#1-object-graph + #2-alternate-uuid-index + #3-device-link-on-known-key (Email unit shape, alt/email symlink, resolveKeyToProfile shared with R21.4)",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-a1",
+        "group": "unit-shape",
+        "text": "Each email is minted as an ior:class:Email scenario unit with its own v4 uuid in scenario/index."
+      },
+      {
+        "id": "AC-a2",
+        "group": "unit-shape",
+        "text": "The Email unit model carries { uuid, address (normalized), ownerIor } — the address field stores the NORMALIZED form."
+      },
+      {
+        "id": "AC-a3",
+        "group": "unit-shape",
+        "text": "ownerIor points to the owning Profile (nav parent, NOT a chain edge); the Profile carries the forward IOR in model.emails[]."
+      },
+      {
+        "id": "AC-b1",
+        "group": "relationship",
+        "text": "Profile.model.emails[] holds the forward IOR(s) to Email unit(s) (class-to-method relationship shape)."
+      },
+      {
+        "id": "AC-b2",
+        "group": "relationship",
+        "text": "A profile may carry MULTIPLE Email units, each an independent ior:class:Email with its own uuid."
+      },
+      {
+        "id": "AC-b3",
+        "group": "relationship",
+        "text": "Idempotent: linking an email whose normalized address already exists on the profile creates NO duplicate Email unit and NO duplicate entry in emails[]."
+      },
+      {
+        "id": "AC-c1",
+        "group": "normalize",
+        "text": "normalizeEmail(raw) = trim + lowercase. \"Marcel.Donges@Gmail.com\" -> \"marcel.donges@gmail.com\"."
+      },
+      {
+        "id": "AC-c2",
+        "group": "normalize",
+        "text": "normalizeEmail is deterministic and pure; the SAME implementation is shared by server and client."
+      },
+      {
+        "id": "AC-c3",
+        "group": "normalize",
+        "text": "The normalized form is what is stored as the unit address AND used as the alt-index key (one canonical value)."
+      },
+      {
+        "id": "AC-d1",
+        "group": "alt-index",
+        "text": "The alt/email/<normalizedAddress>.scenario.json symlink is declared on the PROFILE unit unitLinks[] (matches shipped R21.6 phone) and points to the Profile unit; index.put self-syncs it (ensureSymlinkDisk), remove() self-removes it."
+      },
+      {
+        "id": "AC-d2",
+        "group": "alt-index",
+        "text": "The alt/email entry resolves DIRECTLY to the owning Profile — making the email an alternate UUID for that profile (parallel to R21.3 phone)."
+      },
+      {
+        "id": "AC-d3",
+        "group": "alt-index",
+        "text": "resolveKeyToProfile(normalizedEmail) returns the owning Profile uuid (read the symlinked Profile unit model.uuid), or null on miss."
+      },
+      {
+        "id": "AC-e1",
+        "group": "mint-link",
+        "text": "EmailIndex.mintAndLink(profileUuid, rawEmail): normalize -> mint-or-reuse the Email unit (ownerIor=Profile) -> push its IOR into Profile.emails[] -> add alt/email link to Profile.unitLinks[] -> index.put."
+      },
+      {
+        "id": "AC-e2",
+        "group": "mint-link",
+        "text": "EmailIndex.mintAndLink is idempotent: calling it twice with the same email on the same profile yields exactly ONE Email unit and ONE emails[] entry and ONE alt/email symlink."
+      },
+      {
+        "id": "AC-e3",
+        "group": "mint-link",
+        "text": "EmailIndex.mintAndLink returns the Email unit IOR."
+      },
+      {
+        "id": "AC-f1",
+        "group": "device-link",
+        "text": "On IDENTIFY with an email already in the alt/email index, resolveKeyToProfile returns the existing profile and the device-link flow (R21.4) runs — NO new user is minted."
+      },
+      {
+        "id": "AC-f2",
+        "group": "device-link",
+        "text": "Email device-link is IDENTICAL to phone (R21.4): correct secret code -> a new device attaches to the existing profile; wrong/absent code -> no device, no profile merge."
+      }
+    ],
+    "testScenarios": [
+      {
+        "id": "TS1",
+        "gates": [
+          "AC-c1",
+          "AC-c2",
+          "AC-c3"
+        ],
+        "name": "normalizeEmail trim+lowercase",
+        "given": "the raw input \"  Marcel.Donges@Gmail.com \"",
+        "when": "normalizeEmail is applied",
+        "then": "returns \"marcel.donges@gmail.com\"; pure (repeat calls identical); this value is both the stored address and the alt key"
+      },
+      {
+        "id": "TS2",
+        "gates": [
+          "AC-a1",
+          "AC-a2",
+          "AC-a3"
+        ],
+        "name": "Email unit shape + owner",
+        "given": "a profile with uuid P and raw email a@B.de",
+        "when": "an Email unit is minted",
+        "then": "an ior:class:Email unit exists with model {uuid, address:\"a@b.de\", ownerIor:P}; P.model.emails[] contains the Email IOR"
+      },
+      {
+        "id": "TS3",
+        "gates": [
+          "AC-b1",
+          "AC-e1",
+          "AC-e3"
+        ],
+        "name": "mintAndLink wires Profile.emails[]",
+        "given": "profile P with empty emails[]",
+        "when": "EmailIndex.mintAndLink(P, \"a@b.de\") is called",
+        "then": "Email unit minted (ownerIor=P), P.emails[] gains its IOR, Profile.unitLinks[] gains alt/email/a@b.de..., and the call returns the Email IOR"
+      },
+      {
+        "id": "TS4",
+        "gates": [
+          "AC-b2"
+        ],
+        "name": "multiple emails per profile",
+        "given": "profile P",
+        "when": "mintAndLink(P,\"a@b.de\") then mintAndLink(P,\"c@d.de\")",
+        "then": "two distinct ior:class:Email units exist, both IORs in P.emails[]"
+      },
+      {
+        "id": "TS5",
+        "gates": [
+          "AC-b3",
+          "AC-e2"
+        ],
+        "name": "idempotent re-link",
+        "given": "profile P already linked to \"a@b.de\"",
+        "when": "mintAndLink(P,\"A@B.de\") is called again (normalizes to same key)",
+        "then": "still exactly ONE Email unit, ONE emails[] entry, ONE alt/email symlink — no duplicate"
+      },
+      {
+        "id": "TS6",
+        "gates": [
+          "AC-d1"
+        ],
+        "name": "alt symlink on Profile.unitLinks (code is law)",
+        "given": "profile P linked to \"a@b.de\"",
+        "when": "the index writes P",
+        "then": "P.model.unitLinks[] contains \"alt/email/a@b.de.scenario.json\" and the on-disk symlink resolves to P scenario file (NOT to the Email unit)"
+      },
+      {
+        "id": "TS7",
+        "gates": [
+          "AC-d2",
+          "AC-d3"
+        ],
+        "name": "resolve email -> profile",
+        "given": "profile P linked to \"a@b.de\" and an unknown \"x@y.de\"",
+        "when": "resolveKeyToProfile is called for each",
+        "then": "resolveKeyToProfile(\"a@b.de\") === P.uuid; resolveKeyToProfile(\"x@y.de\") === null"
+      },
+      {
+        "id": "TS8",
+        "gates": [
+          "AC-f1",
+          "AC-f2"
+        ],
+        "name": "email device-link on known key",
+        "given": "profile P (secretCode S) with email \"a@b.de\" in the index; a new device connects with email \"a@b.de\"",
+        "when": "IDENTIFY resolves the email -> P, prompts for code, device sends the code",
+        "then": "correct code S -> new device attached to P (no new user); wrong code -> DEVICE_ENROLL_FAILED, no device, no merge — identical to phone (R21.4)"
+      }
+    ],
+    "refinementNote": "R21.5 refined 2026-06-28 per PO directive: detailed ACs (a:unit-shape, b:relationship multi+idempotent, c:normalize, d:alt-index, e:mint-link, f:device-link) + 8 gateable test scenarios, grounded in architecture.md sections 1-3 (architect). CODE-IS-LAW reconciliation (req flag): alt/email symlink is declared on PROFILE.unitLinks[] pointing to the Profile (not the Email unit) — same as shipped R21.6 phone. Chain (parent/owner/useCases) unchanged; name/description/tronQuote unchanged."
   },
   "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
 }
