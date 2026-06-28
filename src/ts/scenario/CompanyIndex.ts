@@ -67,22 +67,38 @@ export class CompanyIndex {
     if (!fs.existsSync(fp)) return null;
     try { const u = JSON.parse(fs.readFileSync(fp, 'utf-8')); return u?.model?.uuid ? String(u.model.uuid) : null; } catch { return null; }
   }
+  private linkExists(rel: string): boolean { return fs.existsSync(this.linkFull(rel)); }
+
+  /** Alt-links for a new unit: domain always; nameKey ONLY if free (don't clobber the
+   *  recall key already owned by a same-nameKey-but-different-domain unit). */
+  private buildLinks(nameKey: string, dom: string | null): string[] {
+    const links: string[] = [];
+    if (!this.linkExists(`alt/company/${nameKey}.scenario.json`)) links.push(`alt/company/${nameKey}.scenario.json`);
+    if (dom) links.push(`alt/company-domain/${dom}.scenario.json`);
+    return links;
+  }
 
   /** mintOrReuseShared (AC-d1..d4): domain authoritative, then nameKey, else mint. */
   mintOrReuseShared(name: string, companyUuid: string, domain?: string): string | null {
     const nameKey = companyNameKey(name);
     if (!nameKey) return null;
     const dom = companyDomain(domain);
-    // Step 1: domain authoritative
-    if (dom) { const hit = this.readLinkUuid(`alt/company-domain/${dom}.scenario.json`); if (hit) return hit; }
-    // Step 2: nameKey recall
-    const nk = this.readLinkUuid(`alt/company/${nameKey}.scenario.json`); if (nk) return nk;
-    // Step 3: mint new shared unit + declare alt-links (AC-d3, AC-e1/e2, AC-f1)
-    const links = [`alt/company/${nameKey}.scenario.json`];
-    if (dom) links.push(`alt/company-domain/${dom}.scenario.json`);
+    // Step 1: domain authoritative — same domain → same unit.
+    if (dom) {
+      const hit = this.readLinkUuid(`alt/company-domain/${dom}.scenario.json`);
+      if (hit) return hit;
+      // AC-b3: a present-but-unmatched domain is POSITIVE proof of distinctness →
+      // do NOT fall through to nameKey reuse; mint a separate unit below.
+    } else {
+      // Step 2 (no domain): nameKey recall — collision dedups (Tron "do not duplicate", AC-a5).
+      const nk = this.readLinkUuid(`alt/company/${nameKey}.scenario.json`);
+      if (nk) return nk;
+    }
+    // Step 3: mint new shared unit + declare alt-links (AC-d3, AC-e1/e2, AC-f1).
+    // buildLinks keeps the existing nameKey recall key if a domain-distinct unit already owns it.
     const unit: ScenarioUnit = {
       ior: 'ior:class:Company',
-      model: { uuid: companyUuid, name: String(name).trim(), nameKey, domain: dom, aliases: [], unitLinks: links },
+      model: { uuid: companyUuid, name: String(name).trim(), nameKey, domain: dom, aliases: [], unitLinks: this.buildLinks(nameKey, dom) },
       ownerIor: null,
     };
     this.index.put(companyUuid, unit); // put() syncs the symlinks
@@ -94,9 +110,7 @@ export class CompanyIndex {
     const nameKey = companyNameKey(name);
     if (!nameKey) return null;
     const dom = companyDomain(domain);
-    const links = [`alt/company/${nameKey}.scenario.json`];
-    if (dom) links.push(`alt/company-domain/${dom}.scenario.json`);
-    const unit: ScenarioUnit = { ior: 'ior:class:Company', model: { uuid: companyUuid, name: String(name).trim(), nameKey, domain: dom, aliases: [], unitLinks: links }, ownerIor: null };
+    const unit: ScenarioUnit = { ior: 'ior:class:Company', model: { uuid: companyUuid, name: String(name).trim(), nameKey, domain: dom, aliases: [], unitLinks: this.buildLinks(nameKey, dom) }, ownerIor: null };
     this.index.put(companyUuid, unit);
     return companyUuid;
   }

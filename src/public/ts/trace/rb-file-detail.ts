@@ -8,7 +8,9 @@ import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
-import { renderContentPreview, loadTextPreview, wireUrlActions, guessMimeFromName } from './content-preview.js';
+import { guessMimeFromName } from './content-preview.js';
+import './rb-preview-pane.js';
+import type { RbPreviewPane } from './rb-preview-pane.js';
 
 export class RbFileDetail extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -42,12 +44,19 @@ export class RbFileDetail extends HTMLElement {
         const shard = `${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}`;
         const editHref = `/edit/scenario/index/${shard}/${uuid}.scenario.json`;
 
+        const contentUrl = `/api/room/file/${uuid}/content${token ? '?token=' + encodeURIComponent(token) : ''}`;
+        // R21.9 reorder: buttons TOP → 75vh preview MIDDLE → metadata BOTTOM
         this.innerHTML = `
           <div class="dv-head">
             <span class="dv-type-badge" style="background:rgba(78,52,46,0.25);color:#a1887f">File</span>
             <h3>${esc(name)}</h3>
             <code class="dv-uuid">${uuid}</code>
           </div>
+          <div class="cv-actions" style="display:flex;gap:8px;margin:8px 0;flex-wrap:wrap">
+            <button class="btn cv-newtab" style="flex:1;font-size:0.8rem">↗ New tab</button>
+            <button class="btn pz-reset" style="flex:1;font-size:0.8rem">⤢ Reset zoom</button>
+          </div>
+          <rb-preview-pane></rb-preview-pane>
           <div class="dv-fields">
             ${mimeType ? `<div class="dv-field"><label>Type</label><span>${esc(mimeType)}</span></div>` : ''}
             ${size ? `<div class="dv-field"><label>Size</label><span>${sizeLabel}</span></div>` : ''}
@@ -56,14 +65,10 @@ export class RbFileDetail extends HTMLElement {
           </div>
           <div class="dv-links"></div>`;
 
-        // Embed content-preview.ts (DRY — same buttons as room file view)
-        const previewHtml = renderContentPreview(uuid, mimeType, name, token);
-        const previewDiv = document.createElement('div');
-        previewDiv.className = 'dv-content-preview';
-        previewDiv.innerHTML = previewHtml;
-        this.querySelector('.dv-fields')?.insertAdjacentElement('afterend', previewDiv);
-        loadTextPreview(previewDiv, uuid, token);
-        wireUrlActions(previewDiv);
+        const pane = this.querySelector('rb-preview-pane') as RbPreviewPane;
+        this.fillPane(pane, uuid, mimeType, name, token, contentUrl);
+        this.querySelector('.cv-newtab')?.addEventListener('click', () => window.open(contentUrl, '_blank'));
+        this.querySelector('.pz-reset')?.addEventListener('click', () => pane.reset());
 
         if (sourceFile) {
           const sh = this.querySelector('.dv-head');
@@ -83,6 +88,26 @@ export class RbFileDetail extends HTMLElement {
         if (ref) this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
       }).catch(() => { this.innerHTML = '<div class="dv-empty">Failed to load file</div>'; });
     });
+  }
+
+  /** R21.9: build the preview element by MIME and load it into the 75vh pan/zoom pane. */
+  private fillPane(pane: RbPreviewPane, uuid: string, mimeType: string, name: string, token: string, contentUrl: string): void {
+    const imgStyle = 'display:block;max-width:100%;height:auto';
+    const frameStyle = 'width:100%;height:75vh;border:none;background:white';
+    if (mimeType === 'image/svg+xml') {
+      pane.setContent(`<object data="${contentUrl}" type="image/svg+xml" style="${imgStyle};background:white;border-radius:8px"></object>`);
+    } else if (mimeType.startsWith('image/')) {
+      pane.setContent(`<img src="${contentUrl}" alt="${esc(name)}" style="${imgStyle}">`);
+    } else if (mimeType === 'application/pdf' || mimeType === 'text/html') {
+      pane.setContent(`<iframe src="${contentUrl}" sandbox="allow-same-origin" style="${frameStyle}"></iframe>`);
+    } else if (mimeType.startsWith('text/') || mimeType === 'application/json') {
+      pane.setContent('<pre style="margin:0;padding:12px;white-space:pre-wrap;color:#e0e0e0;font-size:0.8rem">Loading…</pre>');
+      fetch(contentUrl).then(r => r.ok ? r.text() : Promise.reject()).then(txt => {
+        pane.setContent(`<pre style="margin:0;padding:12px;white-space:pre-wrap;color:#e0e0e0;font-size:0.8rem">${esc(txt.slice(0, 20000))}</pre>`);
+      }).catch(() => pane.setContent('<pre style="padding:12px;color:#a1887f">Failed to load</pre>'));
+    } else {
+      pane.setContent(`<a href="${contentUrl}" download="${esc(name)}" style="display:block;padding:24px;color:#ff9800">⬇ Download ${esc(name)}</a>`);
+    }
   }
 }
 
