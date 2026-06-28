@@ -4,7 +4,10 @@
     "uuid": "237027ad-be3a-4904-9448-abe806840087",
     "name": "PhoneIndex.registerSymlink",
     "description": "Normalized +CountryCode-digits phone registered as an ln symlink under scenario/alt/phone/ pointing to the profile unit (alternate UUID), via unitLinks[].",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:97015dcc-58d9-4417-8480-000000210003",
+      "ior:instance:4242f9be-58d9-4417-8480-000000210003"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:c18e1f8b-a89a-419a-88e9-b473a3ce8619"

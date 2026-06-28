@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "fab88cb9-58d9-4417-8480-000000210007",
+    "name": "AddressIndex.mintAndVerifyAsync impl",
+    "sourceLocation": "src/ts/scenario/AddressIndex.ts, src/ts/server/server.ts",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1b623e2c-38b4-4220-a1f8-a8c888d26865"
+}

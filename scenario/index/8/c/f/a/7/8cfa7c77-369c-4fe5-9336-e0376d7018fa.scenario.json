@@ -1,0 +1,9 @@
+{
+  "ior": "ior:class:Email",
+  "model": {
+    "uuid": "8cfa7c77-369c-4fe5-9336-e0376d7018fa",
+    "address": "r2156.eb0cb7d2.2@example.com",
+    "ownerIor": "ior:instance:3cce7ad3-fd70-408a-aa61-31f4ad2f5db3"
+  },
+  "ownerIor": "ior:instance:3cce7ad3-fd70-408a-aa61-31f4ad2f5db3"
+}

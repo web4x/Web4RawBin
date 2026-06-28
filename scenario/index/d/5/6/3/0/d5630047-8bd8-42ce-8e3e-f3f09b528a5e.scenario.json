@@ -4,7 +4,9 @@
     "uuid": "d5630047-8bd8-42ce-8e3e-f3f09b528a5e",
     "name": "Phone.mintAndLink",
     "description": "Mint ior:class:Phone unit with standardized format, link to profile via phones[]; seed Tron +4915253844085 as first Phone on WODA.prod profile.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:4242f9be-58d9-4417-8480-000000210006"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:a8326f43-69b5-4ec4-9222-bb776cc21833"

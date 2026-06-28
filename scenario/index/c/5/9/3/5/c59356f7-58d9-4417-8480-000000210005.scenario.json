@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c59356f7-58d9-4417-8480-000000210005",
+    "name": "EmailIndex.mintAndLink impl",
+    "sourceLocation": "src/ts/scenario/EmailIndex.ts, src/ts/server/server.ts",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1b9a429b-01b3-424f-8c75-d2f2c924e8b8"
+}

@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Profile",
+  "model": {
+    "uuid": "bd169757-2ca4-4885-b9f5-8f453d2aa5f4",
+    "name": "r2156-gate-01e05776",
+    "phones": [
+      "ior:instance:2e434cb2-d938-4ed7-b90f-2653ab360957",
+      "ior:instance:50f41014-3e2a-4dce-8511-283c9941bd56",
+      "ior:instance:dbba44cd-4039-4135-8786-ae8c55a85997"
+    ],
+    "emails": [
+      "ior:instance:12ae6fa9-5706-4e6e-b236-454696ef31a3",
+      "ior:instance:9f823bcc-ddf8-4b55-ad41-ea92223c682e",
+      "ior:instance:2b4dbd20-d2d8-4172-8590-16fa4c95bafc"
+    ],
+    "addresses": [],
+    "companies": [],
+    "unitLinks": [
+      "alt/phone/+499910105771.scenario.json",
+      "alt/email/r2156.01e05776.1@example.com.scenario.json",
+      "alt/phone/+499910105772.scenario.json",
+      "alt/email/r2156.01e05776.2@example.com.scenario.json",
+      "alt/phone/+499910105773.scenario.json",
+      "alt/email/r2156.01e05776.3@example.com.scenario.json"
+    ]
+  },
+  "ownerIor": null
+}

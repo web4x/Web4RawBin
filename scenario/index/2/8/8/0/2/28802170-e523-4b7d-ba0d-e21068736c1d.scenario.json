@@ -1,0 +1,9 @@
+{
+  "ior": "ior:class:Phone",
+  "model": {
+    "uuid": "28802170-e523-4b7d-ba0d-e21068736c1d",
+    "e164": "+499916103152",
+    "ownerIor": "ior:instance:0e586912-f960-4c98-bb86-45ef5397839f"
+  },
+  "ownerIor": "ior:instance:0e586912-f960-4c98-bb86-45ef5397839f"
+}
