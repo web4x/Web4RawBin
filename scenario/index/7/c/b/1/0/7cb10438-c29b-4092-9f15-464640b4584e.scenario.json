@@ -2,9 +2,9 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "7cb10438-c29b-4092-9f15-464640b4584e",
-    "name": "T23: Task File Audit — Sprint 1",
+    "name": "T23: Task File Audit \u2014 Sprint 1",
     "slug": "task-23-audit-sprint-1",
-    "description": "",
+    "description": "Audit the Sprint 1 task files for completeness and correctness.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",
