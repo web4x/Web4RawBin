@@ -207,6 +207,38 @@ function indexProfilePhone(token: string, name: string, phone: string): void {
   } catch (e: any) { addLog(`phone index error: ${e?.message || e}`); }
 }
 
+// [impl:uuid:ff91e891-57b8-4d82-b3d5-fa45219b9db1] R21.4 identity.deviceLinkOnKnownKey
+// Resolve a phone OR email to an existing profile uuid via the alt-UUID index.
+// Identical mechanism for both keys (AC5). Returns null on miss/invalid.
+function resolveKeyToProfile(phone?: string, email?: string): string | null {
+  try {
+    const scenarioDir = path.join(__dirname, '../../../scenario/index');
+    const idx = new ScenarioIndex(scenarioDir);
+    if (phone) {
+      const hit = new PhoneIndex(idx).resolveToProfile(phone);
+      if (hit) return hit;
+    }
+    if (email) {
+      const key = String(email).trim().toLowerCase();
+      if (key) {
+        const linkPath = path.join(idx.scenarioRoot, 'alt', 'email', `${key}.scenario.json`);
+        if (fsSync.existsSync(linkPath)) {
+          const unit = JSON.parse(fsSync.readFileSync(linkPath, 'utf-8'));
+          const uuid = unit?.model?.uuid;
+          if (uuid) return String(uuid);
+        }
+      }
+    }
+  } catch (e: any) { addLog(`resolveKeyToProfile error: ${e?.message || e}`); }
+  return null;
+}
+
+function maskName(name: string): string {
+  if (!name) return 'an existing user';
+  const parts = name.trim().split(/\s+/);
+  return parts.map(p => p.length <= 1 ? p : p[0] + '*'.repeat(Math.min(p.length - 1, 4))).join(' ');
+}
+
 function saveDevices(): void {
   try {
     fsSync.mkdirSync(DATA_DIR, { recursive: true });
@@ -1805,6 +1837,15 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
 
       let profile = userProfiles.get(token);
       if (!profile) {
+        // R21.4: a phone/email already in the index → device-link to the EXISTING user,
+        // do NOT mint a new profile. Challenge for that user's secret code first.
+        const knownUuid = resolveKeyToProfile(msg.phone, msg.email);
+        if (knownUuid && knownUuid !== token) {
+          const kp = userProfiles.get(knownUuid);
+          send({ type: MSG.KNOWN_KEY_CHALLENGE, profileUuid: knownUuid, maskedName: maskName(kp?.name || '') });
+          addLog(`Known-key challenge: ${token.slice(0,8)} → existing ${knownUuid.slice(0,8)}`);
+          break; // no mint, no attach — await DEVICE_ENROLL_REQUEST{profileUuid, secretCode}
+        }
         profile = { token, name: '', phone: '', url: '', avatar: '', avatarCrop: null, secretCode: generateSecretCode(), profileCommitted: false, sshKeysGenerated: false, sshKeyGeneratedAt: '', consolidatedFrom: [], bugReports: [] };
         userProfiles.set(token, profile);
       }
@@ -1996,16 +2037,29 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
     }
 
     case MSG.DEVICE_ENROLL_REQUEST: {
-      const enrollToken = [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
+      // R21.4: if msg.profileUuid is set, this is a known-key device-link — enroll the
+      // new device under the EXISTING profile (not the connecting fresh token).
+      const connectingToken = [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
+      const targetUuid = (typeof msg.profileUuid === 'string' && msg.profileUuid) ? msg.profileUuid : connectingToken;
+      const enrollToken = targetUuid;
       if (!enrollToken) { send({ type: MSG.DEVICE_ENROLL_FAILED, reason: 'Not identified' }); break; }
       const enrollProfile = userProfiles.get(enrollToken);
       if (!enrollProfile) { send({ type: MSG.DEVICE_ENROLL_FAILED, reason: 'No profile' }); break; }
       if (!enrollProfile.sshKeysGenerated) { send({ type: MSG.DEVICE_ENROLL_FAILED, reason: 'Keys not generated' }); break; }
       if (msg.secretCode !== enrollProfile.secretCode) { send({ type: MSG.DEVICE_ENROLL_FAILED, reason: 'Wrong secret code' }); break; }
+      // R21.4: device-link success — redirect the connecting fresh token to the existing
+      // profile so this device becomes that same user (no new profile, no merge).
+      const isDeviceLink = !!(typeof msg.profileUuid === 'string' && msg.profileUuid && msg.profileUuid !== connectingToken);
       const enrollClient = [...wsClients].find(c => c.id === clientId);
       const enrollDeviceId = enrollClient?.deviceId || clientId;
       const result = enrollDevice(enrollToken, enrollDeviceId);
-      const deviceRec = deviceRecords.find(d => d.ownerToken === enrollToken && d.deviceId === enrollDeviceId);
+      let deviceRec = deviceRecords.find(d => d.ownerToken === enrollToken && d.deviceId === enrollDeviceId);
+      if (!deviceRec && isDeviceLink) {
+        // R21.4: the new device was never tracked under the existing profile (IDENTIFY
+        // short-circuited at the challenge) — create its record now under the existing user.
+        deviceRec = { deviceId: enrollDeviceId, ownerToken: enrollToken, userAgent: enrollClient?.userAgent || '', ip: enrollClient?.ip || '', screenSize: '', platform: '', firstSeen: new Date().toISOString(), lastSeen: new Date().toISOString(), connectionCount: 1, enrolled: false, devicePublicKey: '', enrolledAt: '' };
+        deviceRecords.push(deviceRec);
+      }
       if (deviceRec) {
         deviceRec.enrolled = true;
         deviceRec.devicePublicKey = result.devicePublicKey;
@@ -2013,7 +2067,15 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       }
       saveDevices();
       send({ type: MSG.DEVICE_ENROLL_OK, devicePublicKey: result.devicePublicKey, devicePrivateKey: result.devicePrivateKey, signature: result.signature });
-      addLog(`Device enrolled: ${enrollToken.slice(0,8)} / ${enrollDeviceId.slice(0,8)}`);
+      addLog(`Device enrolled: ${enrollToken.slice(0,8)} / ${enrollDeviceId.slice(0,8)}${isDeviceLink ? ' (R21.4 device-link)' : ''}`);
+      if (isDeviceLink) {
+        // Adopt the existing identity on this device: redirect token + bind this client.
+        tokenToClient.set(enrollToken, clientId);
+        if (enrollClient) enrollClient.playerToken = enrollToken;
+        send({ type: MSG.TOKEN_REDIRECT, newToken: enrollToken });
+        const linkedDevices = deviceRecords.filter(d => d.ownerToken === enrollToken);
+        send({ type: MSG.PROFILE, profile: { ...enrollProfile, devices: linkedDevices }, connectedDeviceIds: [...wsClients].filter(c => c.playerToken === enrollToken && c.deviceId).map(c => c.deviceId) });
+      }
       break;
     }
 

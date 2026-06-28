@@ -91,6 +91,13 @@ export class ProfileEditor {
   private setupEvents(): void {
     document.getElementById('pe-close')?.addEventListener('click', () => this.close());
 
+    // R21.4: for a NEW (uncommitted) identity, a phone already in the index triggers a
+    // device-link challenge instead of minting a new user. Check on phone blur.
+    document.getElementById('pe-phone')?.addEventListener('blur', (e) => {
+      const phone = (e.target as HTMLInputElement).value.trim();
+      if (phone) this.client.checkKnownKey(phone, undefined);
+    });
+
     // T142: vCard import handlers
     // [impl:uuid:d1337706-80fa-48ba-a0a0-5b9cc42e2511] R21.1 profile.dropVCard — drop/import .vcf → applyVCard (photo→avatar) + POST /api/vcard (stored in user files/ alongside avatar)
     document.getElementById('pe-import-vcard')?.addEventListener('click', () => {
