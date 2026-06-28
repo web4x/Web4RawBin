@@ -14,7 +14,184 @@
       "ior:instance:fab88cb9-fd28-4271-b3b1-aff9008c3b9a"
     ],
     "description": "Each address is an ior:class:Address scenario unit linked to its profile, stored as one string ordered large-to-small (Country City PostalCode Street HouseNumber); it is saved immediately and verified against OpenStreetMap asynchronously in the background, setting a verified badge and storing links to both OpenStreetMap and Google Maps on confirmation, never blocking on creation.",
-    "tronQuote": "> TRON: \"address = one string large to small: Country City PostalCode Street HouseNumber. ior:class:Address linked to profile. Verify against OpenStreetMap on creation, store link to OpenStreetMap AND Google Maps.\" | TRON (answer #2): \"Address verification is ASYNC - save immediately, verify in background against OpenStreetMap, show a verified badge when confirmed. NOT blocking on creation.\""
+    "tronQuote": "> TRON: \"address = one string large to small: Country City PostalCode Street HouseNumber. ior:class:Address linked to profile. Verify against OpenStreetMap on creation, store link to OpenStreetMap AND Google Maps.\" | TRON (answer #2): \"Address verification is ASYNC - save immediately, verify in background against OpenStreetMap, show a verified badge when confirmed. NOT blocking on creation.\"",
+    "architectureRef": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/architecture.md#5-address-async-openstreetmap-verification (section 5, lines 105-129; unit shape line 29)",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-a1",
+        "group": "format",
+        "text": "The address is stored as ONE string field `oneLine` ordered large to small: Country City PostalCode Street HouseNumber."
+      },
+      {
+        "id": "AC-a2",
+        "group": "format",
+        "text": "Canonical example: `DE Berlin 10115 Strasse 7` \u2014 country code first, postal code third, house number last."
+      },
+      {
+        "id": "AC-a3",
+        "group": "format",
+        "text": "The five tokens appear in exactly this sequence: Country, City, PostalCode, Street, HouseNumber (no reordering, no separate fields)."
+      },
+      {
+        "id": "AC-b1",
+        "group": "unit-shape",
+        "text": "Each address is minted as an `ior:class:Address` scenario unit with its own v4 uuid in scenario/index."
+      },
+      {
+        "id": "AC-b2",
+        "group": "unit-shape",
+        "text": "The unit model carries exactly: { uuid, oneLine, verified, osmLink, gmapsLink, ownerIor }."
+      },
+      {
+        "id": "AC-b3",
+        "group": "unit-shape",
+        "text": "At creation the unit is { verified:false, osmLink:null, gmapsLink:null }."
+      },
+      {
+        "id": "AC-b4",
+        "group": "unit-shape",
+        "text": "ownerIor points to the owning Profile (nav parent, NOT a chain edge); the Profile carries the forward IOR in model.addresses[]. A profile may hold multiple Address units."
+      },
+      {
+        "id": "AC-c1",
+        "group": "async-verify",
+        "text": "Save is immediate and NEVER blocks: the unit is index.put synchronously and returned before any network call."
+      },
+      {
+        "id": "AC-c2",
+        "group": "async-verify",
+        "text": "A background VerifyJob(uuid) is enqueued off the request path (server worker), not awaited by the caller."
+      },
+      {
+        "id": "AC-c3",
+        "group": "async-verify",
+        "text": "VerifyJob queries Nominatim GET /search?q=<oneLine>&format=json&limit=1 with a descriptive User-Agent, rate-limited to <=1 req/s, cached by oneLine."
+      },
+      {
+        "id": "AC-c4",
+        "group": "async-verify",
+        "text": "On an OSM hit: unit.verified=true and links are set, then index.put \u2014 the verified badge appears on next render/push."
+      },
+      {
+        "id": "AC-c5",
+        "group": "async-verify",
+        "text": "On an OSM miss: unit stays verified=false, persists, and displays WITHOUT a badge \u2014 never deleted, never errors the UI."
+      },
+      {
+        "id": "AC-c6",
+        "group": "badge-states",
+        "text": "Badge states: UNVERIFIED (no badge) at creation and on miss; VERIFIED (badge shown) only after a confirmed OSM hit."
+      },
+      {
+        "id": "AC-d1",
+        "group": "link-storage",
+        "text": "On verification, osmLink is stored as https://www.openstreetmap.org/?mlat=<lat>&mlon=<lon>#map=18/<lat>/<lon>."
+      },
+      {
+        "id": "AC-d2",
+        "group": "link-storage",
+        "text": "On verification, gmapsLink is stored as https://www.google.com/maps?q=<lat>,<lon>."
+      },
+      {
+        "id": "AC-d3",
+        "group": "link-storage",
+        "text": "BOTH links are stored on the same unit on success; both remain null while unverified."
+      }
+    ],
+    "testScenarios": [
+      {
+        "id": "TS1",
+        "gates": [
+          "AC-a1",
+          "AC-a2",
+          "AC-a3"
+        ],
+        "name": "format large-to-small",
+        "given": "tokens Country=DE, City=Berlin, PostalCode=10115, Street=Strasse, HouseNumber=7",
+        "when": "an Address unit is minted from them",
+        "then": "unit.oneLine === 'DE Berlin 10115 Strasse 7' with tokens in Country City PostalCode Street HouseNumber order"
+      },
+      {
+        "id": "TS2",
+        "gates": [
+          "AC-b1",
+          "AC-b2",
+          "AC-b3",
+          "AC-b4"
+        ],
+        "name": "unit shape at creation",
+        "given": "a profile with uuid P",
+        "when": "mintAndVerifyAsync(oneLine) is called",
+        "then": "an ior:class:Address unit exists with {uuid, oneLine, verified:false, osmLink:null, gmapsLink:null, ownerIor:P} AND profile.model.addresses[] contains the Address IOR"
+      },
+      {
+        "id": "TS3",
+        "gates": [
+          "AC-c1",
+          "AC-c2"
+        ],
+        "name": "immediate non-blocking save",
+        "given": "Nominatim stubbed with an artificial delay",
+        "when": "mintAndVerifyAsync(oneLine) is called",
+        "then": "it returns synchronously with verified:false BEFORE the network resolves (no await on Nominatim in the request path); the VerifyJob is enqueued"
+      },
+      {
+        "id": "TS4",
+        "gates": [
+          "AC-c4",
+          "AC-d1",
+          "AC-d2",
+          "AC-d3",
+          "AC-c6"
+        ],
+        "name": "async verify HIT",
+        "given": "Nominatim stubbed to return one result with lat/lon",
+        "when": "the VerifyJob runs",
+        "then": "unit.verified===true, osmLink===https://www.openstreetmap.org/?mlat=<lat>&mlon=<lon>#map=18/<lat>/<lon>, gmapsLink===https://www.google.com/maps?q=<lat>,<lon>, and the badge renders"
+      },
+      {
+        "id": "TS5",
+        "gates": [
+          "AC-c5",
+          "AC-c6"
+        ],
+        "name": "async verify MISS",
+        "given": "Nominatim stubbed to return []",
+        "when": "the VerifyJob runs",
+        "then": "unit stays verified:false, persists in the index, renders WITHOUT a badge, and the UI shows no error"
+      },
+      {
+        "id": "TS6",
+        "gates": [
+          "AC-c6"
+        ],
+        "name": "badge state transition in UI",
+        "given": "an unverified Address unit rendered in the detail view",
+        "when": "verification succeeds and the view re-renders",
+        "then": "no badge before; verified badge present after"
+      },
+      {
+        "id": "TS7",
+        "gates": [
+          "AC-c3"
+        ],
+        "name": "rate-limit + cache",
+        "given": "two Address units with identical oneLine",
+        "when": "both are verified",
+        "then": "the second resolves from cache with no second Nominatim request; request rate stays <=1/s"
+      },
+      {
+        "id": "TS8",
+        "gates": [
+          "AC-b4"
+        ],
+        "name": "multiple addresses per profile",
+        "given": "a profile given two different addresses",
+        "when": "both are minted",
+        "then": "two distinct ior:class:Address units exist, both in profile.addresses[], each independently verifiable"
+      }
+    ],
+    "refinementNote": "R21.7 refined 2026-06-28 per PO directive: detailed ACs (a:format, b:unit-shape, c:async-verify+badge, d:link-storage) + 8 gateable test scenarios, grounded in architecture.md section 5 (architect). Chain (parent/owner/useCases) unchanged; name/description/tronQuote unchanged."
   },
   "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
 }
