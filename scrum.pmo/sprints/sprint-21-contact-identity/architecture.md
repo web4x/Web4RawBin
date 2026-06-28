@@ -90,15 +90,69 @@ server:
 
 ---
 
-## 4. Company Dedup — shared by normalized name (R21.8)
+## 4. Company Dedup — shared scenario units (R21.8)
 
-- **`nameKey = name.toLowerCase().replace(/[^a-z0-9]/g,'')`** is the dedup key. `Cerulean Circle` and `cerulean-circle` → `ceruleancircle`.
-- Reuse the alt-index: `alt/company/<nameKey>.scenario.json → <Company uuid>` declared on the Company unit's `unitLinks[]`.
-- **`mintOrReuseShared(name)`**:
-  1. `nameKey` → check `alt/company/<nameKey>.scenario.json`. Hit → return existing Company uuid (NO duplicate).
-  2. Miss → mint new `ior:class:Company`, declare its alt-link, `put()`.
-- Profile references the company by pushing its uuid into `model.companies[]`. Many profiles → same uuid (AC: shared, no duplication).
-- **UI:** company input is a type-ahead that queries `alt/company/` prefix; selecting an existing entry reuses it, free-typing a new name mints on save.
+The hard problem: recognise `Cerulean Circle` == `cerulean circle GmbH` == `CeruleanCircle` as ONE company, **without** silently merging genuinely-different companies that happen to normalize alike (`Apple Inc` ≠ a corner shop `Apple`). The design splits the problem into **recall** (normalize aggressively to *suggest* matches) and **precision** (merge only on a strong domain match or explicit user confirmation — never silently on nameKey alone).
+
+### (a) nameKey normalization algorithm — `companyNameKey(raw)`
+Deterministic, pure, server+client shared:
+```
+1. Unicode-fold:   raw.normalize('NFKD').replace(/[̀-ͯ]/g,'')   // strip diacritics: Glück→Gluck
+2. lowercase:      .toLowerCase()
+3. ampersand:      .replace(/&/g,' and ')                                  // "AT&T" ~ "AT and T"
+4. strip legal suffixes (token-wise, case-insensitive), applied repeatedly until stable:
+      gmbh, mbh, ag, se, kg, ug, ohg, e.v, ev, gbr,           // DE
+      inc, llc, l.l.c, ltd, limited, corp, corporation, co,   // US/UK
+      company, plc, lp, llp, pllc,
+      sa, sarl, sas, bv, nv, oy, ab, as, spa, srl, pty, kk,   // INTL
+      "gmbh & co kg" (handled by repeat-strip of gmbh + co + kg)
+5. strip non-alphanumerics: .replace(/[^a-z0-9]/g,'')                       // spaces, dots, dashes
+→ all three variants → "ceruleancircle"
+```
+**Tradeoff stated explicitly:** steps 4–5 maximise *recall* (collapse variants) at the cost of *precision* (two real companies can collide). nameKey is therefore the **suggestion/candidate key, NOT an auto-merge authority.** The actual identity decision uses domain + user confirmation (below).
+
+### (b) domain — the strong key (precision)
+If a company email or URL is available (from the vCard / Email units), derive `domain = registrable host` (e.g. `cerulean.circle`). **A domain match is authoritative** — same domain ⇒ same company even if names differ; different domains ⇒ keep separate even if nameKey collides. Domain beats nameKey whenever present.
+
+### (c) search / suggest UX (autocomplete, user is final arbiter)
+Company input is a **debounced type-ahead** (150 ms):
+1. Client computes `companyNameKey(typed)` and GETs `/api/company/suggest?q=<typed>` → server ranks existing units: **exact nameKey > domain match > nameKey prefix > token-overlap fuzzy (Jaccard on word-set)**, top 5.
+2. Dropdown shows each match as `Display Name · domain · N members`, plus a permanent bottom row **`➕ Create "<typed>"`**.
+3. **Selecting a suggestion** reuses that Company uuid (no new unit). **Choosing Create** mints a new unit even if a nameKey neighbour exists (user overrode — distinct company). The raw typed string is appended to the chosen unit's `aliases[]` for future fuzzy recall + audit.
+
+→ No silent merge: normalization only *ranks suggestions*; the human (or an exact domain match) decides identity.
+
+### (d) Company unit shape + shared ownership
+```jsonc
+{
+  "ior": "ior:class:Company",
+  "model": {
+    "uuid": "<v4>",
+    "name": "Cerulean Circle",                 // display = first-entered form
+    "nameKey": "ceruleancircle",               // dedup/suggest key (a)
+    "domain": "cerulean.circle",               // strong key (b), null if unknown
+    "aliases": ["cerulean circle GmbH"],       // raw variants users confirmed onto this unit
+    "unitLinks": [
+      "alt/company/ceruleancircle.scenario.json",          // nameKey symlink → THIS unit
+      "alt/company-domain/cerulean.circle.scenario.json"   // domain symlink → THIS unit (when domain known)
+    ]
+  },
+  "ownerIor": null                              // SHARED — no single owner (legitimate null)
+}
+```
+- **Shared / no owner:** a Company is owned by NO profile (`ownerIor: null`, same legitimate-null class as Skill units). Profiles reference it **forward** via `Profile.model.companies[] = [ior:instance:<company uuid>]`. Many profiles → the SAME uuid (AC: shared, no duplication).
+- **Two profiles, same company:** both push the identical uuid into their own `companies[]`. Nothing on the Company changes; there is **no back-pointer array** on Company (forward-only rule). "Who works here?" is answered by walking all profiles' `companies[]` — not by a denormalized members[] (the `N members` count in the UX is a derived/cached read, never the source of truth).
+- **Dedicated company index:** the `alt/company/<nameKey>` and `alt/company-domain/<domain>` symlinks (reusing `unitLinks[]`+`ensureSymlinkDisk`) point to the **Company unit itself** (not to a profile — unlike the phone/email alt-index which points to a Profile). These two trees ARE the dedup lookup and the autocomplete source.
+
+### `mintOrReuseShared(name, domain?)` — with race guard
+```
+key  = companyNameKey(name)
+1. if domain && exists(alt/company-domain/<domain>)  → return that unit.uuid     // strong key wins
+2. if exists(alt/company/<key>)                      → return that unit.uuid     // nameKey hit
+3. miss → mint Company{name,nameKey:key,domain,aliases:[]},
+          declare unitLinks (nameKey + domain), index.put()                       // self-syncs symlinks
+```
+**Concurrency:** two profiles minting the same new company at once both miss step 2 → duplicate. Guard: create `alt/company/<key>.scenario.json` with an **atomic `wx` (exclusive) write**; first writer wins, the loser catches EEXIST and re-reads the winner. Equivalently, serialize company mints through one in-process `mintOrReuseShared` (server is single-process today). The alt symlink existence IS the lock.
 
 ---
 
