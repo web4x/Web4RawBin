@@ -25,8 +25,7 @@
       "robbin-tester"
     ],
     "atoms": "covers CR1 (ChangeRequest, dogfoods R20.4); rename Champagne Chain→Traceability Chain in product UI; intendedChain carried; traceability-first, Test FIRST; release v0.6.5+tag (before BUG1)",
-    "pumlLink": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/cr1-unify-chain-label.puml",
-    "focus": true
+    "pumlLink": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/cr1-unify-chain-label.puml"
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
