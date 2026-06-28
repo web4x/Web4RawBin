@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "c9de63d7-61d4-4d14-a8cd-20f9e9b98a26",
-    "name": "Detail-view Traceability-Chain section shows the narrowed single-thread chain, not all children.",
+    "name": "Detail chain shows narrowed single thread",
     "altId": "R18.24",
     "tasks": [
       "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea",

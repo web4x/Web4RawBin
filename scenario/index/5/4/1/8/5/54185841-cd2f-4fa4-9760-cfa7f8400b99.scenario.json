@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "54185841-cd2f-4fa4-9760-cfa7f8400b99",
-    "name": "Tree lazy-loads only the next layer per expand \u2014 not the full subtree.",
+    "name": "Tree lazy-loads next layer only",
     "altId": "R18.10",
     "tasks": [
       "ior:instance:08e46ce3-69f3-40fe-87d7-5ee875a4e94a"

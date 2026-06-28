@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "19ec998f-8674-44a0-b861-50df637db7b0",
-    "name": "Sprint names in /trace include their sprint number.",
+    "name": "Sprint names include sprint number",
     "altId": "R18.18",
     "tasks": [
       "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
