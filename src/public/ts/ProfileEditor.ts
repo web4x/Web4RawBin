@@ -104,7 +104,7 @@ export class ProfileEditor {
         const vcf = parseVCard(text);
         this.applyVCard(vcf);
         // R20.31: store .vcf on server
-        const token = localStorage.getItem('rawbin-player-token');
+        const token = this.client.playerToken; // R21.1 fix: was localStorage('rawbin-player-token') which is never set (key is 'rawbin-player-id')
         if (token) {
           const b64 = btoa(unescape(encodeURIComponent(text)));
           fetch('/api/vcard', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playerToken: token, data: b64 }) }).catch(() => {});
@@ -123,7 +123,7 @@ export class ProfileEditor {
         const vcf = parseVCard(text);
         if (!vcf.fn && !vcf.tel && !vcf.url && !vcf.photo) { this.showVCardError('No profile data found'); return; }
         this.applyVCard(vcf);
-        const token = localStorage.getItem('rawbin-player-token');
+        const token = this.client.playerToken; // R21.1 fix: was localStorage('rawbin-player-token') which is never set (key is 'rawbin-player-id')
         if (token) {
           const b64 = btoa(unescape(encodeURIComponent(text)));
           fetch('/api/vcard', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playerToken: token, data: b64 }) }).catch(() => {});
