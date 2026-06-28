@@ -2,50 +2,43 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: T-vcard-enrich-store: store uploaded vcard next to avatar + downloadable + NOTE adds download-date + geolocation maps link",
+    "name": "Current: T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
     "chain": {
-      "req": "f3f26cab-792e-4e65-9cf8-98d907023396",
-      "uc": "3d9daab4-b1b9-4e71-ad6a-330028434cb0",
-      "class": "d65925c0-0eed-44fd-bdcd-e1e47b8e4f66",
-      "method": "b4d16f80-aebb-437d-bfd2-df46424d4b59",
-      "impl": "1745bb46-fa2d-4f62-aef3-a5a1a8af3e63",
-      "test": "24bc38c5-24a8-427a-a02e-87cb3f3b4c15"
+      "req": "b04fc9af-19ca-46d6-b4bd-c16663df1212",
+      "uc": "e2807a7b-b72f-4030-97b6-67f73a043ae7",
+      "class": "f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5",
+      "method": "9ed45878-98cb-4fc5-9014-ee7a553d62f1",
+      "impl": "4947f284-3c25-4c8a-b0fa-b31e4cf049e4",
+      "test": "ae08d5ec-3ac6-4325-899a-1f4f2dee9a46"
     },
-    "activeHop": 5,
+    "activeHop": 0,
     "sprintName": "Sprint 20",
-    "taskName": "T-vcard-enrich-store: store uploaded vcard next to avatar + downloadable + NOTE adds download-date + geolocation maps link",
+    "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-06-16T18:42:06.096Z"
-      },
-      "impl": {
-        "status": "done",
-        "owner": "expert",
-        "updatedAt": "2026-06-16T19:05:08.729Z"
-      },
-      "test": {
-        "status": "gate-proven",
-        "owner": "tester",
-        "updatedAt": "2026-06-16T19:19:04.303Z"
+        "updatedAt": "2026-06-28T09:36:04.684Z"
       }
     },
     "nextBacklogOverride": "56cc23b5-aca1-49f5-9037-e2c58110643c",
+    "lastCompletedUuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
+    "lastCompletedName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
+    "lastCompletedReqUuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212",
     "slots": {
       "current": {
-        "taskUuid": "708ec0a5-2027-433d-9e69-54a3bed73a06",
-        "taskName": "T-vcard-enrich-store: store uploaded vcard next to avatar + downloadable + NOTE adds download-date + geolocation maps link",
-        "reqUuid": "f3f26cab-792e-4e65-9cf8-98d907023396"
+        "taskUuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
+        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
+        "reqUuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212"
       },
       "lastCompleted": {
-        "taskUuid": "fe8c43a5-cd15-4aed-ac5b-97df558d8fea",
-        "taskName": "T-detail-drawer-grab-bar: default detail drawer nudge becomes the wide grab-bar (DRY with chat drawer)",
-        "reqUuid": "9993091a-aa45-4c4f-9c62-e4d5377ba3e8"
+        "taskUuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
+        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
+        "reqUuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212"
       },
       "nextBacklog": {
         "taskUuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
-        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' \u2192 'Traceability Chain' in all user-facing UI",
+        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
         "reqUuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212"
       }
     }
