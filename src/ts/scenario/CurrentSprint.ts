@@ -187,20 +187,27 @@ export class CurrentSprint {
       }
     }
     if (!current) current = tasks.find(t => t.focus) || null;
+
+    // BUG-C invariant: no UUID appears in more than one slot. A slot is null
+    // rather than a duplicate when the pool is too small.
+    const currentUuid = current?.uuid || '';
+
     let lastCompleted: typeof tasks[0] | null = null;
-    if (this.lastCompletedUuid) {
+    if (this.lastCompletedUuid && this.lastCompletedUuid !== currentUuid) {
       lastCompleted = tasks.find(t => t.uuid === this.lastCompletedUuid) || null;
       if (!lastCompleted && this.lastCompletedName) {
         lastCompleted = { uuid: this.lastCompletedUuid, name: this.lastCompletedName, reqUuid: this.lastCompletedReqUuid, focus: false, testGateProven: false, hasUcChain: true, updatedAt: '' };
       }
     }
     if (!lastCompleted) {
-      const completed = tasks.filter(t => !t.focus && t.reqUuid);
+      const completed = tasks.filter(t => !t.focus && t.reqUuid && t.uuid !== currentUuid);
       lastCompleted = completed.length > 0 ? completed[completed.length - 1] : null;
     }
-    const backlog = tasks.filter(t => !t.focus && t.reqUuid && !t.hasUcChain);
+    const lastCompletedUuid = lastCompleted?.uuid || '';
+
+    const backlog = tasks.filter(t => !t.focus && t.reqUuid && !t.hasUcChain && t.uuid !== currentUuid && t.uuid !== lastCompletedUuid);
     let nextBacklog: typeof tasks[0] | null = null;
-    if (this.nextBacklogOverride) {
+    if (this.nextBacklogOverride && this.nextBacklogOverride !== currentUuid && this.nextBacklogOverride !== lastCompletedUuid) {
       nextBacklog = tasks.find(t => t.uuid === this.nextBacklogOverride) || null;
     }
     if (!nextBacklog) nextBacklog = backlog.length > 0 ? backlog[0] : null;
