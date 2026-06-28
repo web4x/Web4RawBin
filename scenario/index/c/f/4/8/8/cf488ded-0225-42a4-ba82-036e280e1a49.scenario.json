@@ -4,7 +4,7 @@
     "uuid": "cf488ded-0225-42a4-ba82-036e280e1a49",
     "name": "T14: Integration Test Alignment",
     "slug": "task-14-integration-tests",
-    "description": "",
+    "description": "Align the integration tests with the current behaviour and interfaces.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",

@@ -4,7 +4,7 @@
     "uuid": "ce7f0047-334b-474c-ac99-897b9590a968",
     "name": "T12: SSH-Based Login (Challenge-Response)",
     "slug": "task-12-ssh-login",
-    "description": "",
+    "description": "Implement SSH-based login using a challenge-response handshake.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",

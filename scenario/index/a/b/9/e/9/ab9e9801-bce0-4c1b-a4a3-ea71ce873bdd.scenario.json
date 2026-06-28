@@ -4,7 +4,7 @@
     "uuid": "ab9e9801-bce0-4c1b-a4a3-ea71ce873bdd",
     "name": "T16: Deployment Hardening",
     "slug": "task-16-deployment",
-    "description": "",
+    "description": "Harden the deployment configuration and process.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",
