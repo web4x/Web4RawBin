@@ -92,6 +92,7 @@ export class ProfileEditor {
     document.getElementById('pe-close')?.addEventListener('click', () => this.close());
 
     // T142: vCard import handlers
+    // [impl:uuid:d1337706-80fa-48ba-a0a0-5b9cc42e2511] R21.1 profile.dropVCard — drop/import .vcf → applyVCard (photo→avatar) + POST /api/vcard (stored in user files/ alongside avatar)
     document.getElementById('pe-import-vcard')?.addEventListener('click', () => {
       (document.getElementById('pe-vcf-input') as HTMLInputElement)?.click();
     });

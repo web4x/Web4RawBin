@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d1337706-80fa-48ba-a0a0-5b9cc42e2511",
+    "name": "profile.dropVCard client drop handler",
+    "description": "ProfileEditor drop + file-input handlers: parseVCard -> applyVCard (vCard photo uploaded as avatar) + POST /api/vcard, persisting the .vcf in the user's files/ dir alongside the avatar photo (R21.1).",
+    "sourceLocation": "src/public/ts/ProfileEditor.ts",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1f796020-d825-40cb-b22c-4003eb12921e"
+}
