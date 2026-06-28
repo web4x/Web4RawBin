@@ -4,11 +4,14 @@
     "uuid": "3effa1fc-a548-4619-a3ff-fb96382eca22",
     "name": "Marcel Donges",
     "phones": [],
-    "emails": [],
+    "emails": [
+      "ior:instance:d34ac8b2-7102-4db1-b832-f744a2a6014f"
+    ],
     "addresses": [],
     "companies": [],
     "unitLinks": [
-      "alt/phone/+4915253844085.scenario.json"
+      "alt/phone/+4915253844085.scenario.json",
+      "alt/email/marcel.donges@gmail.com.scenario.json"
     ]
   },
   "ownerIor": null

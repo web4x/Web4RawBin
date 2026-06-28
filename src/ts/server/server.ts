@@ -31,7 +31,7 @@ import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanU
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
-import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone } from '../scenario/index.js';
+import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex } from '../scenario/index.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
 const execAsync = promisify(exec);
@@ -207,6 +207,23 @@ function indexProfilePhone(token: string, name: string, phone: string): void {
   } catch (e: any) { addLog(`phone index error: ${e?.message || e}`); }
 }
 
+// [impl:uuid:c59356f7-58d9-4417-8480-000000210005] R21.5 email.mintAndLink wiring
+// Mint ior:class:Email unit(s) + link into Profile.emails[] + alt/email symlink.
+// Ensures a Profile scenario unit exists (mirrors indexProfilePhone). Self-healing.
+function indexProfileEmail(token: string, name: string, emails: string[]): void {
+  try {
+    const scenarioDir = path.join(__dirname, '../../../scenario/index');
+    const idx = new ScenarioIndex(scenarioDir);
+    let unit = idx.get(token);
+    if (!unit) {
+      unit = { ior: 'ior:class:Profile', model: { uuid: token, name, phones: [], emails: [], addresses: [], companies: [], unitLinks: [] }, ownerIor: null };
+      idx.put(token, unit);
+    }
+    const ei = new EmailIndex(idx);
+    for (const e of emails) { if (e) ei.mintAndLink(token, e, crypto.randomUUID()); }
+  } catch (e: any) { addLog(`email index error: ${e?.message || e}`); }
+}
+
 // [impl:uuid:ff91e891-57b8-4d82-b3d5-fa45219b9db1] R21.4 identity.deviceLinkOnKnownKey
 // Resolve a phone OR email to an existing profile uuid via the alt-UUID index.
 // Identical mechanism for both keys (AC5). Returns null on miss/invalid.
@@ -219,15 +236,8 @@ function resolveKeyToProfile(phone?: string, email?: string): string | null {
       if (hit) return hit;
     }
     if (email) {
-      const key = String(email).trim().toLowerCase();
-      if (key) {
-        const linkPath = path.join(idx.scenarioRoot, 'alt', 'email', `${key}.scenario.json`);
-        if (fsSync.existsSync(linkPath)) {
-          const unit = JSON.parse(fsSync.readFileSync(linkPath, 'utf-8'));
-          const uuid = unit?.model?.uuid;
-          if (uuid) return String(uuid);
-        }
-      }
+      const hit = new EmailIndex(idx).resolveToProfile(email);
+      if (hit) return hit;
     }
   } catch (e: any) { addLog(`resolveKeyToProfile error: ${e?.message || e}`); }
   return null;
@@ -2002,6 +2012,11 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       if (profile.name) profile.profileCommitted = true;
       // R21.3: index the phone as an alt-UUID symlink → profile scenario unit (self-healing; never blocks save)
       if (profile.profileCommitted && profile.phone) indexProfilePhone(profile.token, profile.name, profile.phone);
+      // R21.5: index email(s) as Email units + alt-UUID symlinks (msg.email single or msg.emails[])
+      if (profile.profileCommitted) {
+        const emails: string[] = Array.isArray(msg.emails) ? msg.emails.filter((e: any) => typeof e === 'string') : (typeof msg.email === 'string' && msg.email ? [msg.email] : []);
+        if (emails.length) indexProfileEmail(profile.token, profile.name, emails);
+      }
       if (profile.profileCommitted && !profile.sshKeysGenerated) {
         createUserHome(profile.token);
         generateUserKeypair(profile.token);

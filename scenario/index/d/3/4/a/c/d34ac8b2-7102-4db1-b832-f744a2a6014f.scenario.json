@@ -1,0 +1,9 @@
+{
+  "ior": "ior:class:Email",
+  "model": {
+    "uuid": "d34ac8b2-7102-4db1-b832-f744a2a6014f",
+    "address": "marcel.donges@gmail.com",
+    "ownerIor": "ior:instance:3effa1fc-a548-4619-a3ff-fb96382eca22"
+  },
+  "ownerIor": "ior:instance:3effa1fc-a548-4619-a3ff-fb96382eca22"
+}
