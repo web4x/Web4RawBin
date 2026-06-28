@@ -111,6 +111,18 @@ Phone, Email, Address, and Company are all first-class scenario units linked to 
   - [ ] The shared company unit is reachable as a first-class node in the object graph
   → [UC-CI.8: company.mintOrReuseShared](./planning.md#uc-ci8) `[uc:uuid:a62c6e37-139f-4107-a157-1c67b3e06bfb]` *(placeholder)*
 
+- [ ] **R21.9 — In-room file detail: buttons + preview first, metadata last**
+  [requirement:uuid:21e792e0-0431-4ffd-a4d4-c8d85df23299]
+  > TRON: "the in room file details shall START with the action button and the preview pane, then the detail. reverse order. preview 75% screen size. preview needs to pan zoom its content."
+  The in-room file detail view is reordered so action buttons come first, then a pannable/zoomable preview pane at 75% of screen height, then the metadata detail last — reversed from the current order (detail on top, buttons/preview at the bottom).
+  **Acceptance criteria:**
+  - [ ] Action buttons (open-in-preview, open-in-new-tab) appear at the TOP of the file detail view
+  - [ ] The preview pane renders BELOW the buttons, sized at 75% of screen height
+  - [ ] Preview content supports pan + zoom (pinch-zoom on mobile, scroll-zoom on desktop)
+  - [ ] Metadata detail (name, size, type, scenario info) appears BELOW the preview
+  - [ ] Order is reversed from the current layout (was: detail top, buttons/preview bottom)
+  → [UC-CI.9: fileDetail.renderActionsFirst](./planning.md#uc-ci9) `[uc:uuid:5826ca42-e01a-4ab5-8cd9-67bfb02b2e67]` *(placeholder)*
+
 ---
 
 ## Traceability Matrix (Tron words → Requirement UUID → UC placeholder)
@@ -125,6 +137,7 @@ Phone, Email, Address, and Company are all first-class scenario units linked to 
 | R21.6 | Phones as scenario units (seed Tron) | 3bd63ae7-96e9-453a-a19f-fc7e1e00ab1f | 4242f9be-20c4-47c7-8035-d395413d7915 |
 | R21.7 | Addresses async-verified | 5d3b5e6e-75da-4b66-8d44-75df5f9ceb7f | fab88cb9-fd28-4271-b3b1-aff9008c3b9a |
 | R21.8 | Companies as shared units | bf6a0433-6e85-4341-92e5-79acb725e0bf | a62c6e37-139f-4107-a157-1c67b3e06bfb |
+| R21.9 | File detail: buttons+preview first | 21e792e0-0431-4ffd-a4d4-c8d85df23299 | 5826ca42-e01a-4ab5-8cd9-67bfb02b2e67 |
 
 UC nodes are **placeholders** — the architect refines them into real UseCase units (Object.verb) and wires Class → Method → Implementation → Test, per the precedence protocol (architect owns UC creation; req-eng owns the requirement roots).
 

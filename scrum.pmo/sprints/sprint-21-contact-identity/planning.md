@@ -36,6 +36,7 @@ These anchors back the forward links in requirements.md. Each is a placeholder U
 | <a id="uc-ci6"></a>UC-CI.6 | phone.mintAndLink | 4242f9be-20c4-47c7-8035-d395413d7915 | R21.6 |
 | <a id="uc-ci7"></a>UC-CI.7 | address.mintAndVerifyAsync | fab88cb9-fd28-4271-b3b1-aff9008c3b9a | R21.7 |
 | <a id="uc-ci8"></a>UC-CI.8 | company.mintOrReuseShared | a62c6e37-139f-4107-a157-1c67b3e06bfb | R21.8 |
+| <a id="uc-ci9"></a>UC-CI.9 | fileDetail.renderActionsFirst | 5826ca42-e01a-4ab5-8cd9-67bfb02b2e67 | R21.9 |
 
 ## Task Skeleton (planner to stand up)
 

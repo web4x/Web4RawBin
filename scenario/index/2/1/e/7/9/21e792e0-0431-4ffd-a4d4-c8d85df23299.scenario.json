@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "21e792e0-0431-4ffd-a4d4-c8d85df23299",
+    "name": "File detail: buttons and preview first, metadata last",
+    "altId": "R21.9",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/requirements.md",
+    "sourceLine": 115,
+    "parent": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:5826ca42-e01a-4ab5-8cd9-67bfb02b2e67"
+    ],
+    "description": "The in-room file detail view is reordered so action buttons (open-in-preview, open-in-new-tab) come first at the top, then a pan- and zoom-capable preview pane sized at 75% of screen height, then the metadata detail (name, size, type, scenario info) last - reversed from the current order where detail is on top and buttons/preview are at the bottom.",
+    "tronQuote": "> TRON: \"the in room file details shall START with the action button and the preview pane, then the detail. reverse order. preview 75% screen size. preview needs to pan zoom its content.\""
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}
