@@ -31,7 +31,7 @@ import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanU
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
-import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex } from '../scenario/index.js';
+import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex } from '../scenario/index.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
 const execAsync = promisify(exec);
@@ -287,6 +287,28 @@ function indexProfileAddress(token: string, name: string, addresses: string[]): 
       if (addrUuid) enqueueAddressVerify(addrUuid, String(line).trim().replace(/\s+/g, ' '));
     }
   } catch (e: any) { addLog(`address index error: ${e?.message || e}`); }
+}
+
+// [impl:uuid:a62c6e37-58d9-4417-8480-000000210008] R21.8 company.mintOrReuseShared wiring
+// Mint-or-reuse SHARED Company unit (dedup by domain then nameKey) + link into Profile.companies[].
+function indexProfileCompany(token: string, name: string, companies: Array<string | { name: string; domain?: string }>): void {
+  try {
+    const scenarioDir = path.join(__dirname, '../../../scenario/index');
+    const idx = new ScenarioIndex(scenarioDir);
+    let unit = idx.get(token);
+    if (!unit) {
+      unit = { ior: 'ior:class:Profile', model: { uuid: token, name, phones: [], emails: [], addresses: [], companies: [], unitLinks: [] }, ownerIor: null };
+      idx.put(token, unit);
+    }
+    const ci = new CompanyIndex(idx);
+    for (const c of companies) {
+      const cname = typeof c === 'string' ? c : c?.name;
+      const dom = typeof c === 'string' ? undefined : c?.domain;
+      if (!cname) continue;
+      const cuuid = ci.mintOrReuseShared(cname, crypto.randomUUID(), dom); // reuses existing → no dup
+      if (cuuid) ci.linkToProfile(token, cuuid);
+    }
+  } catch (e: any) { addLog(`company index error: ${e?.message || e}`); }
 }
 
 // [impl:uuid:ff91e891-57b8-4d82-b3d5-fa45219b9db1] R21.4 identity.deviceLinkOnKnownKey
@@ -1108,6 +1130,17 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       if (!profileUuid) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'not found', key: normalizePhone(raw) })); return; }
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
       res.end(JSON.stringify({ key: normalizePhone(raw), profileUuid }));
+      return;
+    }
+
+    // [impl:uuid:a62c6e37-58d9-4417-8480-000000210008] R21.8 GET /api/company/suggest?q= autocomplete
+    if (filepath === '/api/company/suggest') {
+      const q = urlParams.get('q') || '';
+      const scenarioDir = path.join(__dirname, '../../../scenario/index');
+      const suggestions = q ? new CompanyIndex(new ScenarioIndex(scenarioDir)).suggest(q, 5) : [];
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+      // AC-c2: always include a permanent "Create <typed>" bottom row
+      res.end(JSON.stringify({ suggestions, create: q ? `Create "${q}"` : null }));
       return;
     }
 
@@ -2095,6 +2128,9 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
         // R21.7: addresses — mint sync, verify async (never blocks)
         const addresses: string[] = Array.isArray(msg.addresses) ? msg.addresses.filter((a: any) => typeof a === 'string') : (typeof msg.address === 'string' && msg.address ? [msg.address] : []);
         if (addresses.length) indexProfileAddress(profile.token, profile.name, addresses);
+        // R21.8: companies — mint-or-reuse SHARED unit + link (msg.companies[] of string|{name,domain})
+        const companies = Array.isArray(msg.companies) ? msg.companies : (msg.company ? [msg.company] : []);
+        if (companies.length) indexProfileCompany(profile.token, profile.name, companies);
       }
       if (profile.profileCommitted && !profile.sshKeysGenerated) {
         createUserHome(profile.token);

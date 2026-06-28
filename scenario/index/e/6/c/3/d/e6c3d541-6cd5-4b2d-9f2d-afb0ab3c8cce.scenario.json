@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Address",
+  "model": {
+    "uuid": "e6c3d541-6cd5-4b2d-9f2d-afb0ab3c8cce",
+    "oneLine": "ZZ Nowhere51a6c43b1 00000 Nostreet51a6c43b1 0",
+    "verified": false,
+    "osmLink": null,
+    "gmapsLink": null,
+    "ownerIor": "ior:instance:9ac08e20-c12c-4424-ae79-d746645e128b"
+  },
+  "ownerIor": "ior:instance:9ac08e20-c12c-4424-ae79-d746645e128b"
+}

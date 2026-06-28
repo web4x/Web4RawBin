@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Address",
+  "model": {
+    "uuid": "bbd96457-9f1f-4c3f-a382-71b7a6b0a640",
+    "oneLine": "DE Berlin 10115 Invalidenstrasse 43",
+    "verified": true,
+    "osmLink": "https://www.openstreetmap.org/?mlat=52.5304903&mlon=13.3791152#map=18/52.5304903/13.3791152",
+    "gmapsLink": "https://www.google.com/maps?q=52.5304903,13.3791152",
+    "ownerIor": "ior:instance:77a6ed60-0813-4245-b16b-cf25a92ebe10"
+  },
+  "ownerIor": "ior:instance:77a6ed60-0813-4245-b16b-cf25a92ebe10"
+}

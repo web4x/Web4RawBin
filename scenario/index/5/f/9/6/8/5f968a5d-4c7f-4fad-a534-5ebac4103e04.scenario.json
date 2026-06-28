@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Address",
+  "model": {
+    "uuid": "5f968a5d-4c7f-4fad-a534-5ebac4103e04",
+    "oneLine": "DE Berlin 10117 Friedrichstrasse 43",
+    "verified": true,
+    "osmLink": "https://www.openstreetmap.org/?mlat=52.5074321&mlon=13.3903814#map=18/52.5074321/13.3903814",
+    "gmapsLink": "https://www.google.com/maps?q=52.5074321,13.3903814",
+    "ownerIor": "ior:instance:b228810c-ce99-4284-8a5e-4d288470515f"
+  },
+  "ownerIor": "ior:instance:b228810c-ce99-4284-8a5e-4d288470515f"
+}

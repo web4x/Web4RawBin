@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Profile",
+  "model": {
+    "uuid": "b228810c-ce99-4284-8a5e-4d288470515f",
+    "name": "r217-gate-51e51ef1",
+    "phones": [],
+    "emails": [],
+    "addresses": [
+      "ior:instance:5f968a5d-4c7f-4fad-a534-5ebac4103e04",
+      "ior:instance:1285b4a4-59ff-4085-85a0-b74b2188b230",
+      "ior:instance:5ba45a26-8ee1-4376-90c9-ea49c6ae9219"
+    ],
+    "companies": [],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}
