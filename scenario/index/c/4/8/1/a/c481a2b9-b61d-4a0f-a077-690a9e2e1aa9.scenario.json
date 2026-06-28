@@ -4,7 +4,7 @@
     "uuid": "c481a2b9-b61d-4a0f-a077-690a9e2e1aa9",
     "name": "T142: Upload-vCard onboarding gate \u2014 speed up first-time profile fill",
     "slug": "task-142-upload-vcard-onboarding",
-    "description": "",
+    "description": "Add an upload-vCard onboarding gate to speed up first-time profile fill.",
     "status": "Planned",
     "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement (req \u2192 architect)\n  - [ ] creating test cases\n  - [x] implementing\n  - [x] testing  \u2190 robbin-tester DET-3x GREEN ebec12151 (R21.1 vCard-persist, v0.6.67, 9/9; RED 404 v0.6.65 \u2192 GREEN 200)\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done are TRON's gate only \u2014 never checked by planner/sync.",
     "remainingIssues": "",
