@@ -290,16 +290,20 @@ export class CurrentSprint {
     if (!taskUnit || taskUnit.ior !== 'ior:class:Task') return false;
     for (const uuid of this.index.list()) {
       const u = this.index.get(uuid);
-      if (!u || u.ior !== 'ior:class:Task') continue;
+      if (!u) continue;
       const m = u.model as Record<string, unknown>;
-      if (m.focus) {
+      if (!m.focus) continue;
+      // BUG-D: only REAL feature Tasks rotate into lastCompleted (the "last delivered"
+      // slot). Internal/housekeeping units (ChangeRequest, Bug) clear focus but KEEP the
+      // previous lastCompleted — focus rotating past a CR/Bug must not overwrite it.
+      if (u.ior === 'ior:class:Task') {
         this.lastCompletedUuid = uuid;
         this.lastCompletedName = String(m.name || '');
         const reqIors = (m.coveredRequirements as string[]) || [];
         this.lastCompletedReqUuid = reqIors.length > 0 ? ior(reqIors[0]) : '';
-        delete m.focus;
-        this.index.put(uuid, u);
       }
+      delete m.focus;
+      this.index.put(uuid, u);
     }
     (taskUnit.model as Record<string, unknown>).focus = true;
     this.index.put(taskUuid, taskUnit);
