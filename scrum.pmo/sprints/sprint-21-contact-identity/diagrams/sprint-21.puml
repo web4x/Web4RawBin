@@ -1,0 +1,130 @@
+@startuml sprint-21-contact-identity
+title Sprint 21 — Contact Identity & Enrichment — Object Graph + Flows
+
+' ============================================================
+' Object Graph: Profile -> Phone / Email / Address / Company
+' (forward-only Class->Method relationship shape)
+' ============================================================
+package "Object Graph (scenario units)" {
+  class Profile <<ior:class:Profile>> {
+    uuid
+    name
+    secretCode
+    --
+    phones[]    : ior:instance Phone
+    emails[]    : ior:instance Email
+    addresses[] : ior:instance Address
+    companies[] : ior:instance Company
+  }
+
+  class Phone <<ior:class:Phone>> {
+    uuid
+    e164 : "+4915253844085"
+    ownerIor : Profile
+    unitLinks : ["alt/phone/+4915253844085.scenario.json"]
+  }
+  class Email <<ior:class:Email>> {
+    uuid
+    address : "a@b.de" (lowercased)
+    ownerIor : Profile
+    unitLinks : ["alt/email/a@b.de.scenario.json"]
+  }
+  class Address <<ior:class:Address>> {
+    uuid
+    oneLine : "Country City PostalCode Street HouseNumber"
+    verified : bool
+    osmLink
+    gmapsLink
+    ownerIor : Profile
+  }
+  class Company <<ior:class:Company>> {
+    uuid
+    name
+    nameKey : normalized (dedup key)
+    ownerIor : null  (SHARED)
+    unitLinks : ["alt/company/<nameKey>.scenario.json"]
+  }
+
+  Profile "1" *-- "many" Phone   : phones[]
+  Profile "1" *-- "many" Email   : emails[]
+  Profile "1" *-- "many" Address : addresses[]
+  Profile "many" o-- "1" Company : companies[] (shared, dedup by nameKey)
+}
+
+' ============================================================
+' Alternate-UUID index (reuses ScenarioIndex.unitLinks symlinks)
+' ============================================================
+package "Alternate-UUID Index (scenario/alt/)" {
+  artifact "alt/phone/<e164>.scenario.json" as AltPhone
+  artifact "alt/email/<addr>.scenario.json" as AltEmail
+  artifact "alt/company/<nameKey>.scenario.json" as AltCompany
+  database "index/<5-shards>/<uuid>.scenario.json" as Canon
+  AltPhone   ..> Canon : symlink -> Profile
+  AltEmail   ..> Canon : symlink -> Profile
+  AltCompany ..> Canon : symlink -> Company
+}
+Phone   ..> AltPhone   : declares unitLink
+Email   ..> AltEmail   : declares unitLink
+Company ..> AltCompany : declares unitLink
+
+@enduml
+
+@startuml sprint-21-device-link
+title R21.4 — Device-link on known phone/email (no new user)
+
+actor User
+participant Client
+participant Server
+database "alt/ index" as Alt
+database "Profiles" as Profiles
+
+User -> Client : connect with phone/email
+Client -> Server : IDENTIFY { playerToken?, phone?, email?, deviceId }
+Server -> Alt : resolveKeyToProfile(phone) ?? resolveKeyToProfile(email)
+alt key found (existing identity)
+  Alt --> Server : profileUuid (via symlink -> Profile unit)
+  Server -> Client : KNOWN_KEY_CHALLENGE { profileUuid, maskedName }
+  note right of Server : DO NOT mint, DO NOT attach yet
+  User -> Client : enter secret CODE
+  Client -> Server : DEVICE_ENROLL_REQUEST { profileUuid, secretCode }
+  Server -> Profiles : validate secretCode (existing check server.ts:1974)
+  alt correct code
+    Server -> Profiles : attach NEW device to EXISTING profile
+    Server -> Client : DEVICE_ENROLL_OK { device keys }
+  else wrong / absent
+    Server -> Client : DEVICE_ENROLL_FAILED
+    note right of Server : no device, no merge, no new user
+  end
+else no key match (new identity)
+  Server -> Profiles : existing IDENTIFY mint path (unchanged)
+  Server -> Client : welcome (new profile)
+end
+
+@enduml
+
+@startuml sprint-21-address-verify
+title R21.7 — Address mint + ASYNC OpenStreetMap verification
+
+participant Client
+participant Server
+queue "Verify queue" as Q
+participant Worker
+participant Nominatim as OSM
+database Index
+
+Client -> Server : create Address { oneLine }
+Server -> Index : put(Address { verified:false, osmLink:null, gmapsLink:null })
+Server -> Q : enqueue VerifyJob(uuid)
+Server --> Client : Address saved (NO badge) -- never blocks
+== background ==
+Q -> Worker : VerifyJob(uuid)
+Worker -> OSM : GET /search?q=<oneLine>&format=json&limit=1
+alt match
+  OSM --> Worker : { lat, lon }
+  Worker -> Index : put(Address { verified:true, osmLink, gmapsLink })
+  Worker --> Client : push -> badge appears
+else no match
+  note right of Worker : stays verified:false, persists, displays WITHOUT badge
+end
+
+@enduml

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "9c21f3b5-f18f-4c39-92b8-3d5264e09c8c",
+    "name": "RbFileDetail.renderActionsFirst",
+    "description": "Reorder in-room file detail: action buttons first, then a 75vh pan/zoom preview pane, then metadata last (reversed from current layout).",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:4e678ce3-3314-4ac8-b1b4-6b70d1dd2e56"
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "1f796020-d825-40cb-b22c-4003eb12921e",
+    "name": "Profile.dropVCard",
+    "description": "Dropping a .vcf onto a profile stores it alongside the avatar in the user dir; vCard fields feed the Phone/Email/Address/Company minting flows.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5ceed3bf-d212-4f8b-9f99-4862dcb6a752"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "4e678ce3-3314-4ac8-b1b4-6b70d1dd2e56",
+    "name": "RbFileDetail",
+    "description": "Sprint 21 design-ahead class for fileDetail.renderActionsFirst.",
+    "methods": [
+      "ior:instance:9c21f3b5-f18f-4c39-92b8-3d5264e09c8c"
+    ]
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

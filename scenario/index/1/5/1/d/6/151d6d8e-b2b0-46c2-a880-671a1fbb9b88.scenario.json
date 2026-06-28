@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "151d6d8e-b2b0-46c2-a880-671a1fbb9b88",
+    "name": "Address",
+    "description": "Sprint 21 design-ahead class for address.mintAndVerifyAsync.",
+    "methods": [
+      "ior:instance:1b623e2c-38b4-4220-a1f8-a8c888d26865"
+    ]
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

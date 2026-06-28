@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "dbfacb7f-2f40-4852-975b-dc308cef3b90",
+    "name": "lobby.renderName",
+    "description": "Lobby renders the real profile name on first connect by re-rendering the name+avatar block on PROFILE arrival; no fallback flash, no second reload.",
+    "class": "ior:instance:59c2d69f-9545-49f4-9eee-10866b530f0c",
+    "classes": [
+      "ior:instance:59c2d69f-9545-49f4-9eee-10866b530f0c"
+    ],
+    "method": "ior:instance:5e9eaeb4-3467-4d4d-9afe-485c8293a573",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:4f099ef2-66b6-4eba-b9e2-5b2a4c86e98b"
+}

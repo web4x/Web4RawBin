@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "a8326f43-69b5-4ec4-9222-bb776cc21833",
+    "name": "Phone",
+    "description": "Sprint 21 design-ahead class for phone.mintAndLink.",
+    "methods": [
+      "ior:instance:d5630047-8bd8-42ce-8e3e-f3f09b528a5e"
+    ]
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

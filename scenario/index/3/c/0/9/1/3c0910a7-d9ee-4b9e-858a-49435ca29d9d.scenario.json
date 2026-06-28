@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "3c0910a7-d9ee-4b9e-858a-49435ca29d9d",
+    "name": "IdentityResolver",
+    "description": "Sprint 21 design-ahead class for identity.deviceLinkOnKnownKey.",
+    "methods": [
+      "ior:instance:4e203d64-6112-44ea-ae28-04538a28d8ba"
+    ]
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

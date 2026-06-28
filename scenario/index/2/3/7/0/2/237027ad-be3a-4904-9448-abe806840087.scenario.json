@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "237027ad-be3a-4904-9448-abe806840087",
+    "name": "PhoneIndex.registerSymlink",
+    "description": "Normalized +CountryCode-digits phone registered as an ln symlink under scenario/alt/phone/ pointing to the profile unit (alternate UUID), via unitLinks[].",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c18e1f8b-a89a-419a-88e9-b473a3ce8619"
+}

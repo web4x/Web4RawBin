@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "97015dcc-de18-4625-9025-f41a49682309",
+    "name": "phone.indexAsSymlink",
+    "description": "Normalized +CountryCode-digits phone registered as an ln symlink under scenario/alt/phone/ pointing to the profile unit (alternate UUID), via unitLinks[].",
+    "class": "ior:instance:c18e1f8b-a89a-419a-88e9-b473a3ce8619",
+    "classes": [
+      "ior:instance:c18e1f8b-a89a-419a-88e9-b473a3ce8619"
+    ],
+    "method": "ior:instance:237027ad-be3a-4904-9448-abe806840087",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:144d1332-e3c8-4e37-a1ca-93904801b5c6"
+}
