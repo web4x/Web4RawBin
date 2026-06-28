@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "3bd63ae7-96e9-453a-a19f-fc7e1e00ab1f",
+    "name": "Phones as scenario units, seed Tron",
+    "altId": "R21.6",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/requirements.md",
+    "sourceLine": 77,
+    "parent": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:4242f9be-20c4-47c7-8035-d395413d7915"
+    ],
+    "description": "Each phone is an ior:class:Phone scenario unit linked to its profile via the relationship pattern, with the standardized +CountryCode-digits format enforced at creation; a profile may carry multiple phones, and Tron's phone +4915253844085 is seeded as the first Phone unit on his WODA.prod profile.",
+    "tronQuote": "> TRON: \"ior:class:Phone linked to profile. Multiple phones per profile. Standardized format enforced at creation.\" | TRON (seed answer #1): \"Seed Tron's phone +4915253844085 as the FIRST Phone unit linked to his profile on WODA.prod.\""
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

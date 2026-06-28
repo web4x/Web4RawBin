@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "efd1acb6-d9de-476b-b30f-50d7969b37fe",
+    "name": "vCard drop stores with photo",
+    "altId": "R21.1",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/requirements.md",
+    "sourceLine": 22,
+    "parent": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:9cd5cc65-58d9-4417-8480-86531ed3cf4e"
+    ],
+    "description": "Dropping a vCard onto a profile stores the .vcf file alongside the user's avatar photo in the same user directory.",
+    "tronQuote": "> TRON: \"drop vCard into profile stores .vcf alongside user avatar photo in same user dir.\""
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

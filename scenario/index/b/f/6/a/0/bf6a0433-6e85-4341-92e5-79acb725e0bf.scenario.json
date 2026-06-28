@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "bf6a0433-6e85-4341-92e5-79acb725e0bf",
+    "name": "Companies as shared scenario units",
+    "altId": "R21.8",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/requirements.md",
+    "sourceLine": 104,
+    "parent": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:a62c6e37-139f-4107-a157-1c67b3e06bfb"
+    ],
+    "description": "Each company is an ior:class:Company scenario unit; multiple profiles reference the SAME company unit (dedup by name) with no duplication, making Company a first-class shared entity in the object graph.",
+    "tronQuote": "> TRON: \"ior:class:Company. Multiple profiles reference SAME company unit, no duplication. Company is first-class entity in object graph.\""
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

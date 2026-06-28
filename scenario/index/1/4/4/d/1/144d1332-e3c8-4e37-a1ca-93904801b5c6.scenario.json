@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "144d1332-e3c8-4e37-a1ca-93904801b5c6",
+    "name": "Phone index as ln symlinks",
+    "altId": "R21.3",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/requirements.md",
+    "sourceLine": 42,
+    "parent": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:97015dcc-de18-4625-9025-f41a49682309"
+    ],
+    "description": "Each phone number is normalized to +<CountryCode><digits> (no spaces, dashes, or parentheses) and registered as an ln symlink in the index pointing to the owning profile scenario unit, making the phone an alternate UUID for that profile.",
+    "tronQuote": "> TRON: \"standardized format +CountryCode digits only (e.g. +4915253844085, no spaces/dashes/parens). Each phone becomes an ln symlink in index pointing to profile scenario unit. Phone numbers are alternate UUIDs.\""
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

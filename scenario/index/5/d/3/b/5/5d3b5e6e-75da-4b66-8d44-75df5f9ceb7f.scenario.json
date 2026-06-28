@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "5d3b5e6e-75da-4b66-8d44-75df5f9ceb7f",
+    "name": "Addresses as scenario units, async-verified",
+    "altId": "R21.7",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/requirements.md",
+    "sourceLine": 90,
+    "parent": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:fab88cb9-fd28-4271-b3b1-aff9008c3b9a"
+    ],
+    "description": "Each address is an ior:class:Address scenario unit linked to its profile, stored as one string ordered large-to-small (Country City PostalCode Street HouseNumber); it is saved immediately and verified against OpenStreetMap asynchronously in the background, setting a verified badge and storing links to both OpenStreetMap and Google Maps on confirmation, never blocking on creation.",
+    "tronQuote": "> TRON: \"address = one string large to small: Country City PostalCode Street HouseNumber. ior:class:Address linked to profile. Verify against OpenStreetMap on creation, store link to OpenStreetMap AND Google Maps.\" | TRON (answer #2): \"Address verification is ASYNC - save immediately, verify in background against OpenStreetMap, show a verified badge when confirmed. NOT blocking on creation.\""
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

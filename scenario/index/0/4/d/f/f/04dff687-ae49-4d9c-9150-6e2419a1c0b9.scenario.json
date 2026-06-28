@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "04dff687-ae49-4d9c-9150-6e2419a1c0b9",
+    "name": "Phone or email triggers device-link not new user",
+    "altId": "R21.4",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/requirements.md",
+    "sourceLine": 53,
+    "parent": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:ff91e891-57b8-4d82-b3d5-fa45219b9db1"
+    ],
+    "description": "When a connecting user supplies a phone or email already present in the index, the system does NOT create a new user; it immediately prompts for the existing user's secret CODE and, on success, creates a new DEVICE for that same user. Applies to both phone and email.",
+    "tronQuote": "> TRON: \"if connecting user provides phone or email already in index, do NOT create new user. Ask immediately for existing user secret CODE, create new DEVICE for same user. Applies to phone AND email.\""
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

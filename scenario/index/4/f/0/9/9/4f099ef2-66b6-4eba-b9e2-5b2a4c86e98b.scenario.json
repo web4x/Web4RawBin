@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "4f099ef2-66b6-4eba-b9e2-5b2a4c86e98b",
+    "name": "Lobby correct name on first load",
+    "altId": "R21.2",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/requirements.md",
+    "sourceLine": 32,
+    "parent": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:dbfacb7f-2f40-4852-975b-dc308cef3b90"
+    ],
+    "description": "The lobby renders the correct profile name immediately on connect, never blank or a default placeholder that only corrects on a second reload.",
+    "tronQuote": "> TRON: \"lobby renders correct profile name immediately on connect, not blank/default until second reload.\""
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "a8be009e-8d1c-41ae-8f38-96515a72a929",
+    "name": "Emails as scenario units",
+    "altId": "R21.5",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/requirements.md",
+    "sourceLine": 65,
+    "parent": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:c59356f7-d8ea-4e47-9659-efea4ef05c2c"
+    ],
+    "description": "Each email is an ior:class:Email scenario unit linked to its profile via the class-to-method relationship pattern; a profile may carry multiple emails, which act as alternate lookup keys with the same device-link behavior as phones.",
+    "tronQuote": "> TRON: \"ior:class:Email linked to profile via relationships (like class to method). Multiple emails per profile. Same alternate-UUID + device-link behavior as phone.\""
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}
