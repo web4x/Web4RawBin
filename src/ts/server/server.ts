@@ -31,7 +31,7 @@ import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanU
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
-import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex } from '../scenario/index.js';
+import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex } from '../scenario/index.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
 const execAsync = promisify(exec);
@@ -222,6 +222,71 @@ function indexProfileEmail(token: string, name: string, emails: string[]): void 
     const ei = new EmailIndex(idx);
     for (const e of emails) { if (e) ei.mintAndLink(token, e, crypto.randomUUID()); }
   } catch (e: any) { addLog(`email index error: ${e?.message || e}`); }
+}
+
+// [impl:uuid:fab88cb9-58d9-4417-8480-000000210007] R21.7 address async OSM verification worker
+// Background, off the request path, rate-limited <=1 req/s, cached by oneLine (AC-c2/c3/c5).
+const addrVerifyQueue: Array<{ uuid: string; oneLine: string }> = [];
+const addrVerifyCache = new Map<string, { lat: string; lon: string } | null>();
+let addrVerifyPumping = false;
+
+function enqueueAddressVerify(uuid: string, oneLine: string): void {
+  addrVerifyQueue.push({ uuid, oneLine });
+  if (!addrVerifyPumping) { addrVerifyPumping = true; setTimeout(pumpAddressVerify, 0); }
+}
+
+function pumpAddressVerify(): void {
+  const job = addrVerifyQueue.shift();
+  if (!job) { addrVerifyPumping = false; return; }
+  const finish = () => setTimeout(pumpAddressVerify, 1100); // <=1 req/s
+  const cached = addrVerifyCache.get(job.oneLine);
+  if (cached !== undefined) {
+    if (cached) { try { const sd = path.join(__dirname, '../../../scenario/index'); new AddressIndex(new ScenarioIndex(sd)).applyVerification(job.uuid, cached.lat, cached.lon); } catch {} }
+    return finish();
+  }
+  try {
+    const q = encodeURIComponent(job.oneLine);
+    const opts = { hostname: 'nominatim.openstreetmap.org', path: `/search?q=${q}&format=json&limit=1`, headers: { 'User-Agent': 'Web4RawBin/0.6 (contact-address-verify; https://prod.wo-da.de)' } };
+    https.get(opts, (r) => {
+      let body = '';
+      r.on('data', (c) => body += c);
+      r.on('end', () => {
+        try {
+          const arr = JSON.parse(body);
+          if (Array.isArray(arr) && arr[0] && arr[0].lat && arr[0].lon) {
+            const hit = { lat: String(arr[0].lat), lon: String(arr[0].lon) };
+            addrVerifyCache.set(job.oneLine, hit);
+            const sd = path.join(__dirname, '../../../scenario/index');
+            new AddressIndex(new ScenarioIndex(sd)).applyVerification(job.uuid, hit.lat, hit.lon);
+            addLog(`Address verified: ${job.uuid.slice(0,8)} (${job.oneLine.slice(0,30)})`);
+          } else {
+            addrVerifyCache.set(job.oneLine, null); // miss → stays unverified (AC-c5)
+          }
+        } catch { addrVerifyCache.set(job.oneLine, null); }
+        finish();
+      });
+    }).on('error', (e) => { addLog(`Address verify net err: ${e.message}`); finish(); });
+  } catch (e: any) { addLog(`Address verify err: ${e?.message || e}`); finish(); }
+}
+
+// Mint Address unit(s) + Profile.addresses[] (sync) then enqueue async OSM verify. Self-healing.
+function indexProfileAddress(token: string, name: string, addresses: string[]): void {
+  try {
+    const scenarioDir = path.join(__dirname, '../../../scenario/index');
+    const idx = new ScenarioIndex(scenarioDir);
+    let unit = idx.get(token);
+    if (!unit) {
+      unit = { ior: 'ior:class:Profile', model: { uuid: token, name, phones: [], emails: [], addresses: [], companies: [], unitLinks: [] }, ownerIor: null };
+      idx.put(token, unit);
+    }
+    const ai = new AddressIndex(idx);
+    for (const line of addresses) {
+      if (!line) continue;
+      const u = crypto.randomUUID();
+      const addrUuid = ai.mintAddress(token, line, u); // synchronous, no network (AC-c1)
+      if (addrUuid) enqueueAddressVerify(addrUuid, String(line).trim().replace(/\s+/g, ' '));
+    }
+  } catch (e: any) { addLog(`address index error: ${e?.message || e}`); }
 }
 
 // [impl:uuid:ff91e891-57b8-4d82-b3d5-fa45219b9db1] R21.4 identity.deviceLinkOnKnownKey
@@ -1043,6 +1108,17 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       if (!profileUuid) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'not found', key: normalizePhone(raw) })); return; }
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
       res.end(JSON.stringify({ key: normalizePhone(raw), profileUuid }));
+      return;
+    }
+
+    // [impl:uuid:fab88cb9-58d9-4417-8480-000000210007] R21.7 GET /api/address/:uuid → badge state
+    if (filepath.startsWith('/api/address/')) {
+      const uuid = decodeURIComponent(filepath.slice('/api/address/'.length).split('/')[0]);
+      const scenarioDir = path.join(__dirname, '../../../scenario/index');
+      const state = new AddressIndex(new ScenarioIndex(scenarioDir)).badgeState(uuid);
+      if (!state) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'not found' })); return; }
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+      res.end(JSON.stringify(state));
       return;
     }
 
@@ -2016,6 +2092,9 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       if (profile.profileCommitted) {
         const emails: string[] = Array.isArray(msg.emails) ? msg.emails.filter((e: any) => typeof e === 'string') : (typeof msg.email === 'string' && msg.email ? [msg.email] : []);
         if (emails.length) indexProfileEmail(profile.token, profile.name, emails);
+        // R21.7: addresses — mint sync, verify async (never blocks)
+        const addresses: string[] = Array.isArray(msg.addresses) ? msg.addresses.filter((a: any) => typeof a === 'string') : (typeof msg.address === 'string' && msg.address ? [msg.address] : []);
+        if (addresses.length) indexProfileAddress(profile.token, profile.name, addresses);
       }
       if (profile.profileCommitted && !profile.sshKeysGenerated) {
         createUserHome(profile.token);
