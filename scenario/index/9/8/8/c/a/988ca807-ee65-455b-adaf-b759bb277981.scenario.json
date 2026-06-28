@@ -4,7 +4,7 @@
     "uuid": "988ca807-ee65-455b-adaf-b759bb277981",
     "name": "T7: User Editor Dialog",
     "slug": "task-7-user-editor",
-    "description": "",
+    "description": "Build the user editor dialog for editing profile details.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",

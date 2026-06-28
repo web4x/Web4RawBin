@@ -4,7 +4,7 @@
     "uuid": "e7fbf79b-c564-4751-8144-dbfb6688946d",
     "name": "T9: SSH Key Generation on Profile Commit",
     "slug": "task-9-ssh-keys",
-    "description": "",
+    "description": "Generate the user SSH key pair when the profile is committed.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",
