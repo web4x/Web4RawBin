@@ -2,14 +2,15 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "5baef26a-8331-4feb-850f-2a38e4434ce7",
-    "name": "T: breadth-vs-depth — All Children ≠ Traceability Chain, all types (R20.30)",
+    "name": "T: breadth-vs-depth \u2014 All Children \u2260 Traceability Chain, all types (R20.30)",
     "status": "in-progress",
     "coveredRequirements": [
       "ior:instance:d7299c88-c56f-4686-a91f-c67bf78b8930"
     ],
     "useCases": [
       "ior:instance:d63bf19b-fbe2-4018-b995-b971f034e44b"
-    ]
+    ],
+    "description": "Make the detail view's Traceability Chain (DEPTH: the single narrowed chain) and All Children (BREADTH: every child) sections distinct for all unit types, per the breadth-vs-depth model. Covers R20.30."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
