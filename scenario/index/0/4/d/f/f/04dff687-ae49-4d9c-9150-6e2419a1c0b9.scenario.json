@@ -14,7 +14,128 @@
       "ior:instance:ff91e891-57b8-4d82-b3d5-fa45219b9db1"
     ],
     "description": "When a connecting user supplies a phone or email already present in the index, the system does NOT create a new user; it immediately prompts for the existing user's secret CODE and, on success, creates a new DEVICE for that same user. Applies to both phone and email.",
-    "tronQuote": "> TRON: \"if connecting user provides phone or email already in index, do NOT create new user. Ask immediately for existing user secret CODE, create new DEVICE for same user. Applies to phone AND email.\""
+    "tronQuote": "> TRON: \"if connecting user provides phone or email already in index, do NOT create new user. Ask immediately for existing user secret CODE, create new DEVICE for same user. Applies to phone AND email.\"",
+    "architectureRef": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/architecture.md#3-device-link-on-known-key (lines 65-88)",
+    "implRef": "ior:file:src/ts/server/server.ts: resolveKeyToProfile L227-244 [impl:uuid:ff91e891-...], IDENTIFY known-key branch L1848-1861, DEVICE_ENROLL_REQUEST L2054-2095, maskName L246-250",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-a1",
+        "group": "detect",
+        "text": "On IDENTIFY with phone/email when NO profile exists for the connecting token, the server consults resolveKeyToProfile(phone, email)."
+      },
+      {
+        "id": "AC-a2",
+        "group": "detect",
+        "text": "If a known profile is found (knownUuid != connecting token), the server sends KNOWN_KEY_CHALLENGE { profileUuid, maskedName } and does NOT mint a new profile or attach a device (break, await enroll)."
+      },
+      {
+        "id": "AC-a3",
+        "group": "detect",
+        "text": "If NO known key matches, a fresh profile is minted as before (unchanged new-identity path)."
+      },
+      {
+        "id": "AC-a4",
+        "group": "detect",
+        "text": "resolveKeyToProfile uses the SAME alt-index mechanism for phone and email (PhoneIndex/EmailIndex.resolveToProfile) \u2014 the rule applies to phone AND email."
+      },
+      {
+        "id": "AC-b1",
+        "group": "challenge",
+        "text": "The challenge carries a MASKED existing name (maskName, e.g. 'Marcel Donges' -> 'M***** D*****') so the user sees who they'd link to without leaking the full name."
+      },
+      {
+        "id": "AC-b2",
+        "group": "challenge",
+        "text": "DEVICE_ENROLL_REQUEST verifies msg.secretCode === existing profile.secretCode; a mismatch returns DEVICE_ENROLL_FAILED 'Wrong secret code' and enrolls nothing."
+      },
+      {
+        "id": "AC-b3",
+        "group": "challenge",
+        "text": "Enroll guards: not-identified / no-profile / keys-not-generated each return DEVICE_ENROLL_FAILED with no enroll."
+      },
+      {
+        "id": "AC-c1",
+        "group": "device-link",
+        "text": "On the correct secret code with profileUuid set (device-link), a device record is created/enrolled under the EXISTING profile (ownerToken = existing uuid), not the fresh connecting token."
+      },
+      {
+        "id": "AC-c2",
+        "group": "device-link",
+        "text": "The connecting fresh token is redirected to the existing identity: tokenToClient.set(existingUuid, clientId), client.playerToken = existingUuid, and the server sends TOKEN_REDIRECT { newToken: existingUuid }."
+      },
+      {
+        "id": "AC-c3",
+        "group": "device-link",
+        "text": "The server then sends PROFILE for the EXISTING user with its linked devices \u2014 this device becomes that same user; NO new profile is minted and NO merge/consolidation occurs."
+      }
+    ],
+    "testScenarios": [
+      {
+        "id": "TS1",
+        "gates": [
+          "AC-a1",
+          "AC-a2"
+        ],
+        "name": "known phone -> challenge, no mint",
+        "given": "an existing profile reachable by phone X, and a fresh connecting token",
+        "when": "IDENTIFY { token:fresh, phone:X } arrives",
+        "then": "KNOWN_KEY_CHALLENGE {profileUuid, maskedName} is sent AND userProfiles has no entry for the fresh token"
+      },
+      {
+        "id": "TS2",
+        "gates": [
+          "AC-a3"
+        ],
+        "name": "unknown key -> mint",
+        "given": "a phone not in the alt index",
+        "when": "IDENTIFY { token:fresh, phone:unknown } arrives",
+        "then": "a fresh profile is minted and no challenge is sent"
+      },
+      {
+        "id": "TS3",
+        "gates": [
+          "AC-a4"
+        ],
+        "name": "email path identical",
+        "given": "an existing profile reachable by email E",
+        "when": "IDENTIFY { token:fresh, email:E } arrives (no phone)",
+        "then": "KNOWN_KEY_CHALLENGE is sent \u2014 same behavior as the phone path"
+      },
+      {
+        "id": "TS4",
+        "gates": [
+          "AC-b1"
+        ],
+        "name": "masked name in challenge",
+        "given": "an existing profile named 'Marcel Donges'",
+        "when": "the challenge is built",
+        "then": "KNOWN_KEY_CHALLENGE.maskedName === maskName('Marcel Donges') (first initial + stars per word)"
+      },
+      {
+        "id": "TS5",
+        "gates": [
+          "AC-b2",
+          "AC-b3"
+        ],
+        "name": "wrong code + guards rejected",
+        "given": "a device-link enroll for an existing profile",
+        "when": "DEVICE_ENROLL_REQUEST has a wrong secretCode (or keys-not-generated)",
+        "then": "DEVICE_ENROLL_FAILED is returned and no device is enrolled"
+      },
+      {
+        "id": "TS6",
+        "gates": [
+          "AC-c1",
+          "AC-c2",
+          "AC-c3"
+        ],
+        "name": "correct code -> device-link not new user",
+        "given": "DEVICE_ENROLL_REQUEST { profileUuid:existing, secretCode:correct }",
+        "when": "the handler runs",
+        "then": "DEVICE_ENROLL_OK; a device record under the existing profile is enrolled=true; TOKEN_REDIRECT {newToken:existingUuid} sent; PROFILE for the existing user sent; NO new profile minted for the fresh token; no consolidation"
+      }
+    ],
+    "refinementNote": "R21.4 backfill 2026-06-28 per PO directive (shipped+gated). MEASURED vs server.ts (resolveKeyToProfile L227-244, IDENTIFY L1848-1861, DEVICE_ENROLL_REQUEST L2054-2095, maskName): 10 ACs (detect/challenge/device-link) + 6 TS; every AC gated. Applies to phone AND email (same mechanism). Chain + name/description/tronQuote unchanged."
   },
   "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
 }

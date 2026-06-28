@@ -14,7 +14,105 @@
       "ior:instance:97015dcc-de18-4625-9025-f41a49682309"
     ],
     "description": "Each phone number is normalized to +<CountryCode><digits> (no spaces, dashes, or parentheses) and registered as an ln symlink in the index pointing to the owning profile scenario unit, making the phone an alternate UUID for that profile.",
-    "tronQuote": "> TRON: \"standardized format +CountryCode digits only (e.g. +4915253844085, no spaces/dashes/parens). Each phone becomes an ln symlink in index pointing to profile scenario unit. Phone numbers are alternate UUIDs.\""
+    "tronQuote": "> TRON: \"standardized format +CountryCode digits only (e.g. +4915253844085, no spaces/dashes/parens). Each phone becomes an ln symlink in index pointing to profile scenario unit. Phone numbers are alternate UUIDs.\"",
+    "architectureRef": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/architecture.md#2-alternate-uuid-index (lines 40-63)",
+    "implRef": "ior:file:src/ts/scenario/PhoneIndex.ts: normalizePhone L18-23, isValidPhoneKey L26-28, registerSymlink L38-44 [impl:uuid:4242f9be-58d9-4417-8480-000000210003], resolveToProfile L80-90",
+    "crossRef": [
+      "ior:instance:3bd63ae7-96e9-453a-a19f-fc7e1e00ab1f"
+    ],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-a1",
+        "group": "normalize",
+        "text": "A phone key is normalized to +<digits> (normalizePhone strips all non-digits); isValidPhoneKey requires /^\\+\\d{6,15}$/ before the key may become a path."
+      },
+      {
+        "id": "AC-a2",
+        "group": "normalize",
+        "text": "An invalid/empty key is rejected: registerSymlink returns null and writes no symlink."
+      },
+      {
+        "id": "AC-b1",
+        "group": "symlink",
+        "text": "registerSymlink(profileUuid, rawPhone) creates alt/phone/<key>.scenario.json as a relative symlink pointing to the PROFILE's canonical scenario file (the symlink target is the PROFILE, not the Phone unit)."
+      },
+      {
+        "id": "AC-b2",
+        "group": "symlink",
+        "text": "The link is declared on the Profile's unitLinks[] (via index.addLink -> ensureSymlinkDisk), so it self-writes on put() and self-removes when the profile is removed \u2014 one source of truth (the unit JSON)."
+      },
+      {
+        "id": "AC-b3",
+        "group": "symlink",
+        "text": "registerSymlink returns null if the profile does not exist (no dangling symlink)."
+      },
+      {
+        "id": "AC-c1",
+        "group": "lookup",
+        "text": "resolveToProfile(rawPhone) normalizes the input, follows alt/phone/<key>.scenario.json, and returns the owning profile uuid \u2014 i.e. the phone number is an ALTERNATE UUID for the profile."
+      },
+      {
+        "id": "AC-c2",
+        "group": "lookup",
+        "text": "resolveToProfile returns null on an invalid key or a missing symlink (new identity)."
+      }
+    ],
+    "testScenarios": [
+      {
+        "id": "TS1",
+        "gates": [
+          "AC-a1",
+          "AC-a2"
+        ],
+        "name": "key normalize+validate",
+        "given": "raw phones",
+        "when": "normalizePhone/isValidPhoneKey run",
+        "then": "'+49 1525 384-4085' -> '+4915253844085' valid; '123' invalid (registerSymlink returns null, no link)"
+      },
+      {
+        "id": "TS2",
+        "gates": [
+          "AC-b1",
+          "AC-b2"
+        ],
+        "name": "symlink points to profile, declared on unitLinks",
+        "given": "an existing profile P",
+        "when": "registerSymlink(P, '+4915253844085')",
+        "then": "alt/phone/+4915253844085.scenario.json resolves to P's canonical file AND the linkPath is in P.unitLinks[]"
+      },
+      {
+        "id": "TS3",
+        "gates": [
+          "AC-b3"
+        ],
+        "name": "missing profile -> null",
+        "given": "a non-existent profile uuid",
+        "when": "registerSymlink is called",
+        "then": "it returns null and writes no symlink"
+      },
+      {
+        "id": "TS4",
+        "gates": [
+          "AC-c1",
+          "AC-c2"
+        ],
+        "name": "resolve phone -> profile (alt UUID)",
+        "given": "a registered alt/phone symlink for P",
+        "when": "resolveToProfile('+49 1525 384 4085')",
+        "then": "returns P; an unregistered or invalid number returns null"
+      },
+      {
+        "id": "TS5",
+        "gates": [
+          "AC-b2"
+        ],
+        "name": "self-removes on profile remove",
+        "given": "a profile P with a phone symlink",
+        "when": "P is removed from the index",
+        "then": "alt/phone/<key>.scenario.json is removed (no dangling link)"
+      }
+    ],
+    "refinementNote": "R21.3 backfill 2026-06-28 per PO directive (shipped+gated). MEASURED vs PhoneIndex.ts (normalize/registerSymlink/resolveToProfile): 7 ACs (normalize/symlink/lookup) + 5 TS; every AC gated. crossRef R21.6 (Phone unit). Symlink declared on Profile.unitLinks[] per shipped code. Chain + name/desc/tronQuote unchanged."
   },
   "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
 }
