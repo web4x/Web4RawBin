@@ -16,7 +16,7 @@ import { navigate } from './nav.js';
 import { selectionModel } from './selection-model.js';
 import { forwardOnly } from './forward-only.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
-import { renderContentPreview, loadTextPreview, wireUrlActions } from './content-preview.js';
+import { renderContentPreview, wireUrlActions } from './content-preview.js';
 import { downloadVCard } from '../vcard-download.js';
 import { renderSupersededSection, renderAllChildrenSection } from './detail-superseded.js';
 
@@ -170,8 +170,7 @@ export class RbDetailView extends HTMLElement {
   private renderFilePreview(uuid: string, mimeType: string, name: string, token: string, btn: HTMLElement): void {
     const preview = renderContentPreview(uuid, mimeType, name, token);
     btn.insertAdjacentHTML('afterend', preview);
-    loadTextPreview(this, uuid, token);
-    wireUrlActions(this);
+    wireUrlActions(this); // R21.9: toggle lazily fills the rb-preview-pane (RbPanZoom)
     btn.remove();
   }
 }

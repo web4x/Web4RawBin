@@ -9,7 +9,8 @@
  * 1-finger pan when s>1 (no page-scroll hijack at s=1, AC-d1); 2-finger pinch about midpoint
  * + pan by midpoint delta (AC-d2); double-tap toggles reset<->2x at tap point (AC-d3).
  * Listeners on the VIEWPORT only (AC-e3); e.target hit-test never elementFromPoint (AC-e2);
- * destroy() removes all listeners (AC-e4); iframe pointer-events:none during gesture (AC-e5).
+ * destroy() removes all listeners (AC-e4); iframe pointer-events:none during gesture —
+ * on BOTH touch (touchstart) and desktop drag (mousedown), restored on idle (AC-e5).
  */
 export class RbPanZoom {
   private scale = 1;
@@ -49,6 +50,7 @@ export class RbPanZoom {
       if (this.scale <= 1) return; // AC-c2: pan only when zoomed
       this.dragging = true; this.lastX = e.clientX; this.lastY = e.clientY;
       this.viewport.style.cursor = 'grabbing';
+      this.gesturing(); // AC-e5: disable iframe pointer capture on DESKTOP drag too (not just touch)
     });
     this.on('mousemove', (e) => {
       if (!this.dragging) return;

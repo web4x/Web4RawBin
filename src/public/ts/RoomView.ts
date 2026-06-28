@@ -19,7 +19,7 @@ import { dropDispatcher } from './drop-dispatcher.js';
 import type { RbMemberList } from './components/rb-member-list.js';
 import './trace/rb-detail-drawer.js';
 import type { RbDetailDrawer } from './trace/rb-detail-drawer.js';
-import { renderContentPreview, loadTextPreview, wireUrlActions } from './trace/content-preview.js';
+import { renderContentPreview, wireUrlActions } from './trace/content-preview.js';
 
 interface MemberInfo {
   id: string; name: string; avatarUrl: string; playerToken: string; avatarCrop?: { scale: number; x: number; y: number } | null; disconnected?: boolean;
@@ -246,8 +246,7 @@ export class RoomView {
       if ((drawer as RbDetailDrawer).setMode) (drawer as RbDetailDrawer).setMode('preview');
       drawer.setAttribute('ref', `file:${uuid}`);
       drawer.setAttribute('open', '');
-      loadTextPreview(panel, uuid, this.client.playerToken);
-      wireUrlActions(panel);
+      wireUrlActions(panel); // R21.9: toggle lazily fills the rb-preview-pane (RbPanZoom)
     } catch {}
   }
 
