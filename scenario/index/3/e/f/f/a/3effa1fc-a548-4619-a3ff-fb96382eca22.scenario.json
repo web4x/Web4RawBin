@@ -3,7 +3,9 @@
   "model": {
     "uuid": "3effa1fc-a548-4619-a3ff-fb96382eca22",
     "name": "Marcel Donges",
-    "phones": [],
+    "phones": [
+      "ior:instance:ff90d882-68b9-45b6-8d61-d7636af130cd"
+    ],
     "emails": [
       "ior:instance:d34ac8b2-7102-4db1-b832-f744a2a6014f"
     ],

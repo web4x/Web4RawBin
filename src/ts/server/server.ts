@@ -203,7 +203,7 @@ function indexProfilePhone(token: string, name: string, phone: string): void {
       unit = { ior: 'ior:class:Profile', model: { uuid: token, name, phones: [], emails: [], addresses: [], companies: [], unitLinks: [] }, ownerIor: null };
       idx.put(token, unit);
     }
-    new PhoneIndex(idx).registerSymlink(token, phone);
+    new PhoneIndex(idx).mintAndLink(token, phone, crypto.randomUUID()); // R21.6: Phone unit + Profile.phones[] + symlink
   } catch (e: any) { addLog(`phone index error: ${e?.message || e}`); }
 }
 
