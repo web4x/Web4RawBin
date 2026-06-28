@@ -24,7 +24,22 @@ export class RoomBrowser {
     this.onEnterRoom = onEnterRoom;
 
     const params = new URLSearchParams(window.location.search);
-    this.memberName = params.get('name') || localStorage.getItem('rawbin-name') || `User ${Math.floor(Math.random() * 1000)}`;
+    // R21.2: prefer the authoritative server profile name over a construction-time
+    // localStorage snapshot (which is empty before the profile loads → "User <rand>").
+    this.memberName = params.get('name') || this.client.getProfile()?.name || localStorage.getItem('rawbin-name') || `User ${Math.floor(Math.random() * 1000)}`;
+
+    // R21.2: lobby self-heals to the live name when the profile updates (e.g. after
+    // vCard import + save) — without this the member-name field stays stale until reload.
+    this.client.on(MSG.PROFILE_UPDATED, (msg) => {
+      const n = msg.profile?.name;
+      if (!n) return;
+      this.memberName = n;
+      localStorage.setItem('rawbin-name', n);
+      const input = document.getElementById('member-name') as HTMLInputElement | null;
+      if (input) input.value = n;
+      const av = this.container.querySelector('rb-avatar') as HTMLElement | null;
+      if (av) av.setAttribute('name', n);
+    });
 
     this.client.on(MSG.ROOM_LIST, (msg) => { this.rooms = msg.rooms; this.renderRoomList(); });
     this.client.on(MSG.ROOM_JOINED, (msg) => { this.onEnterRoom(msg.room.id); });

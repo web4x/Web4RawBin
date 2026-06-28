@@ -22,11 +22,13 @@ export class ProfileEditor {
   constructor(client: RawBinClient) {
     this.client = client;
     this.client.on(MSG.PROFILE_UPDATED, (msg) => {
+      // R21.2: always persist the canonical name (not only on the gate onSave path)
+      // so the lobby reads it on next construction even if the live update is missed.
+      if (msg.profile?.name) localStorage.setItem('rawbin-name', msg.profile.name);
       if (this.onSave && msg.profile) {
         const cb = this.onSave;
         this.onSave = null;        // clear BEFORE invoking — one-shot
         cb(msg.profile);
-        if (msg.profile.name) localStorage.setItem('rawbin-name', msg.profile.name);
       }
       this.close();
     });
