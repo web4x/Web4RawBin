@@ -188,16 +188,47 @@ VerifyJob(uuid):                        // server worker, off the request path
 
 ## 6. In-room File Detail reorder + pan/zoom (R21.9)
 
-Client-only (`src/public/ts/trace/rb-file-detail.ts`). Reverse the section order:
+Client-only (`src/public/ts/trace/rb-file-detail.ts` + `content-preview.ts`).
 
+### Measured current state
+`rb-file-detail.render()` emits **metadata first** (`.dv-fields`: Type/Size/Edit) then inserts the content-preview **after** it (line 64 `insertAdjacentElement('afterend')`). `content-preview.ts` relies on **native iframe `touch-action:pinch-zoom` at a fixed `height:400px`** (comment "R19.81 iframe pinch-zoom") — no pan, no desktop zoom, no transform control, hidden until a toggle. That is insufficient for R21.9 (pan + pinch + scroll-zoom, 75vh).
+
+### Reorder (DOM emit order)
 ```
-BEFORE: [ metadata detail ] → [ buttons + preview ]   (bottom)
-AFTER:  [ action buttons ]  → [ preview pane 75vh, pan+zoom ] → [ metadata detail ]
+BEFORE: [ metadata .dv-fields ] → [ preview+buttons ]   (preview at bottom, 400px)
+AFTER:  [ action buttons row ]  → [ .pz-viewport 75vh (pan+zoom) ] → [ metadata .dv-fields ]
+```
+- **Buttons first:** hoist the open-in-preview / open-in-new-tab actions (today inside `renderContentPreview`/`wireUrlActions`) to a top row above the preview.
+- **Metadata last:** move `.dv-fields` to AFTER the preview (change the `afterend` insert so fields follow the viewport).
+- The 75vh pane is an **in-flow** block (`height:75vh; overflow:hidden`), NOT a `position:fixed` overlay — so it cannot steal taps outside its box (avoids the BUG5 full-viewport-hit-test class entirely; bounded-element discipline satisfied by construction).
+
+### The hard part — `RbPanZoom` transform gesture handler (new, self-contained)
+A small controller attached to the `.pz-viewport` (overflow:hidden) wrapping a single `.pz-content` (img / `<pre>` / iframe). State `{ scale, tx, ty }`, applied as `transform: translate(${tx}px,${ty}px) scale(${scale}); transform-origin:0 0`. `MIN=1, MAX=8`.
+
+**Zoom-about-a-point** (keep the point under cursor/pinch-midpoint stationary) — viewport-local point `(px,py)`, factor `f = newScale/oldScale`:
+```
+tx' = px - f*(px - tx);   ty' = py - f*(py - ty);   scale' = clamp(scale*f, MIN, MAX)
 ```
 
-- **Buttons first:** open-in-preview, open-in-new-tab at the top.
-- **Preview pane:** `height: 75vh`, content in a pan/zoom container — pointer/wheel zoom on desktop, pinch on touch. Reuse the bounded-overlay discipline (height bounded, element bounds = visible bounds) so the preview never eats taps outside it.
-- **Metadata last:** name/size/type/scenario info below the preview.
+**Desktop**
+- `wheel` (passive:false → preventDefault): `f = exp(-e.deltaY * ZOOM_SPEED)`; zoom about `(e.offsetX, e.offsetY)`.
+- `mousedown→mousemove→mouseup`: pan (only when `scale>1`); `tx+=dx; ty+=dy`; cursor `grab`/`grabbing`.
+
+**Touch** (`touchstart/move/end`, passive:false)
+- **1 finger:** pan; track last point, apply `dx,dy` (meaningful only when `scale>1`, else swallow nothing → let the page scroll).
+- **2 fingers:** pinch; `f = dist/lastDist`; zoom about the **midpoint** in viewport coords; also translate by the midpoint delta so a two-finger drag pans while zooming.
+- **double-tap → toggle** reset(scale1, tx/ty 0) ↔ 2× at the tap point.
+
+**Critical correctness rules (from prior touch-gesture marathons — Learnings):**
+1. **Double-tap detector MUST require `touchend` with `touches.length===0`** plus single-finger `touchstart`, duration `<250ms`, movement `<10px`, gap `<300ms`. A pinch release fires `touchend` twice with `changedTouches.length===1` each — the naive detector misfires and snap-resets. (R18.34.B.)
+2. **Use `e.target`, never `document.elementFromPoint`** for hit-testing during touch — `elementFromPoint` returns wrong nodes when the DOM mutated mid-touch. (v0.6.0.)
+3. **Listeners scoped to `.pz-viewport` only**, not the detail/drawer root, or the handlers eat clicks elsewhere even under `pointer-events:none` (JS addEventListener ignores CSS pointer-events). (v0.6.24.)
+4. **`destroy()` removes all listeners**; `rb-file-detail` re-renders on `ViewBus` → must tear down the old controller before re-attaching, or listeners leak and stack.
+5. **Clamp `tx,ty` after every gesture** so content can't be dragged fully out of view (edge-stop when `scale>1`; recenter at `scale==1`).
+6. **iframe content:** the transform wraps the iframe; set `pointer-events:none` on the iframe while a gesture is active (re-enable on idle) so drags pan instead of being swallowed by the iframe.
+7. Reset `{scale:1,tx:0,ty:0}` whenever the previewed file changes.
+
+This `RbPanZoom` is the UC `fileDetail.renderActionsFirst` Method's core; it is content-type agnostic (img/pre/iframe) and reused by the room file view (DRY with `content-preview.ts`).
 
 ---
 
