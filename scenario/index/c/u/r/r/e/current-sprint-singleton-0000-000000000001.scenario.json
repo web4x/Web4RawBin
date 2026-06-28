@@ -2,7 +2,7 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: T-drawer-full-width: detail drawer full width — remove max-width cap",
+    "name": "Current: T-drawer-full-width: detail drawer full width \u2014 remove max-width cap",
     "chain": {
       "req": "dceda100-434b-4ef7-9af3-9a69ccfac6b2",
       "uc": "61cec7ea-1051-4b6f-8845-eac939d83d10",
@@ -13,7 +13,7 @@
     },
     "activeHop": 0,
     "sprintName": "Sprint 20",
-    "taskName": "T-drawer-full-width: detail drawer full width — remove max-width cap",
+    "taskName": "T-drawer-full-width: detail drawer full width \u2014 remove max-width cap",
     "hopStates": {
       "req": {
         "status": "done",
@@ -22,23 +22,23 @@
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
-    "lastCompletedName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
-    "lastCompletedReqUuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212",
+    "lastCompletedUuid": "708ec0a5-2027-433d-9e69-54a3bed73a06",
+    "lastCompletedName": "T-vcard-enrich-store: store uploaded vcard next to avatar + downloadable + NOTE adds download-date + geolocation maps link",
+    "lastCompletedReqUuid": "f3f26cab-792e-4e65-9cf8-98d907023396",
     "slots": {
       "current": {
         "taskUuid": "01d9fb64-20a3-449c-b421-43cf64fec919",
-        "taskName": "T-drawer-full-width: detail drawer full width — remove max-width cap",
+        "taskName": "T-drawer-full-width: detail drawer full width \u2014 remove max-width cap",
         "reqUuid": "dceda100-434b-4ef7-9af3-9a69ccfac6b2"
       },
       "lastCompleted": {
         "taskUuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
-        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
+        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' \u2192 'Traceability Chain' in all user-facing UI",
         "reqUuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212"
       },
       "nextBacklog": {
         "taskUuid": "03917f53-bafe-485e-9169-dece4d3ffec2",
-        "taskName": "T-shard-cleanup: cleanup legacy multi-char index shards — migrate to single-char",
+        "taskName": "T-shard-cleanup: cleanup legacy multi-char index shards \u2014 migrate to single-char",
         "reqUuid": "b8db5c65-9fcf-4866-8f31-15aee864ba5d"
       }
     }
