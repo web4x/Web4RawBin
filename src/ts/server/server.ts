@@ -31,7 +31,7 @@ import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanU
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
-import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit } from '../scenario/index.js';
+import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone } from '../scenario/index.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
 const execAsync = promisify(exec);
@@ -189,6 +189,22 @@ function saveProfiles(): void {
     fsSync.mkdirSync(DATA_DIR, { recursive: true });
     fsSync.writeFileSync(PROFILES_PATH, JSON.stringify([...userProfiles.values()], null, 2));
   } catch {}
+}
+
+// [impl:uuid:4242f9be-58d9-4417-8480-000000210003] R21.3 PhoneIndex.registerSymlink wiring
+// Ensure an ior:class:Profile scenario unit exists for this token, then register
+// alt/phone/<+digits> → that profile unit. Wrapped: phone-index failure never breaks profile save.
+function indexProfilePhone(token: string, name: string, phone: string): void {
+  try {
+    const scenarioDir = path.join(__dirname, '../../../scenario/index');
+    const idx = new ScenarioIndex(scenarioDir);
+    let unit = idx.get(token);
+    if (!unit) {
+      unit = { ior: 'ior:class:Profile', model: { uuid: token, name, phones: [], emails: [], addresses: [], companies: [], unitLinks: [] }, ownerIor: null };
+      idx.put(token, unit);
+    }
+    new PhoneIndex(idx).registerSymlink(token, phone);
+  } catch (e: any) { addLog(`phone index error: ${e?.message || e}`); }
 }
 
 function saveDevices(): void {
@@ -973,6 +989,18 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         res.writeHead(200, { 'Content-Type': (mimeType || 'text/vcard') + '; charset=utf-8', 'Cache-Control': 'no-cache, must-revalidate' });
         res.end(data.toString('utf-8'));
       } catch { res.writeHead(500); res.end('Decrypt error'); }
+      return;
+    }
+
+    // [impl:uuid:97015dcc-58d9-4417-8480-000000210003] R21.3 phone lookup GET /api/phone/:number → profile uuid
+    if (filepath.startsWith('/api/phone/')) {
+      const raw = decodeURIComponent(filepath.slice('/api/phone/'.length).split('/')[0]);
+      const scenarioDir = path.join(__dirname, '../../../scenario/index');
+      const phoneIdx = new PhoneIndex(new ScenarioIndex(scenarioDir));
+      const profileUuid = phoneIdx.resolveToProfile(raw);
+      if (!profileUuid) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'not found', key: normalizePhone(raw) })); return; }
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+      res.end(JSON.stringify({ key: normalizePhone(raw), profileUuid }));
       return;
     }
 
@@ -1925,12 +1953,14 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       const profile = userProfiles.get(myToken);
       if (!profile) { send({ type: MSG.ERROR, message: 'No profile' }); break; }
       if (typeof msg.name === 'string') profile.name = msg.name;
-      if (typeof msg.phone === 'string') profile.phone = msg.phone.slice(0, 30);
+      if (typeof msg.phone === 'string') profile.phone = (normalizePhone(msg.phone) || msg.phone.slice(0, 30)); // R21.3: standardize to +CountryDigits
       if (typeof msg.url === 'string') profile.url = msg.url.slice(0, 200);
       if (typeof msg.avatar === 'string' && msg.avatar.startsWith('/api/avatar/')) profile.avatar = msg.avatar;
       if (msg.avatarCrop && typeof msg.avatarCrop === 'object') profile.avatarCrop = { scale: Number(msg.avatarCrop.scale) || 1, x: Number(msg.avatarCrop.x) || 0, y: Number(msg.avatarCrop.y) || 0 };
       if (typeof msg.secretCode === 'string' && /^\d{4}$/.test(msg.secretCode)) profile.secretCode = msg.secretCode;
       if (profile.name) profile.profileCommitted = true;
+      // R21.3: index the phone as an alt-UUID symlink → profile scenario unit (self-healing; never blocks save)
+      if (profile.profileCommitted && profile.phone) indexProfilePhone(profile.token, profile.name, profile.phone);
       if (profile.profileCommitted && !profile.sshKeysGenerated) {
         createUserHome(profile.token);
         generateUserKeypair(profile.token);
