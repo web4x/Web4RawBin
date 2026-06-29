@@ -1,8 +1,14 @@
 // R22.4 gate — PNGs in /md/ file browser are clickable (🖼 <a href>) and open like SVGs.
-// Fix 9c052bd9a (server.ts:1222 isImage now matches png/jpg/gif/etc, was svg-only).
-// /md/test/visual/ has 124 PNGs. DET-3x (deterministic curl).
+// Fix 9c052bd9a (listing clickable, server.ts:1222) + 4e3c3df0d (raster-image serve handler,
+// server.ts:1366). /md/test/visual/ has 124 PNGs. DET-3x (deterministic curl).
 //   - listing renders PNG rows as `🖼 <a href="/md/test/visual/<x>.png">` (not plain text)
-//   - a PNG link resolves to image/png (opens in the /md viewer, like SVG)
+//   - a PNG link resolves to image/png 200 (opens in preview, like SVG)
+//
+// VERDICT (T22.4 unit dd0c576d):
+//   v0.6.78 (9c052bd9a) = RED — clickable but link 404 (no raster serve handler).
+//   v0.6.79 (4e3c3df0d) = GREEN DET-3x — 3 independent runs x 3 iters = 9/9; PNG link HTTP 200
+//     image/png, 124 clickable 🖼<a>. FULL RED->GREEN. Measured by robbin-tester 2026-06-29.
+//     testing hop: GREEN/CLEARED.
 
 import https from 'https';
 const HOST = 'prod.wo-da.de', PORT = 4444;
