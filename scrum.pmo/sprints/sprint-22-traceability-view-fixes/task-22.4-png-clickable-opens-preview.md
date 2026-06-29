@@ -12,13 +12,13 @@
   - [x] refinement
   - [x] creating test cases
   - [x] implementing
-  - [ ] testing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Tester DET-3x found the PNG preview links RED (404) on v0.6.78 (real bug, adddd7ae5). Expert fixed PNG links 404→200 in v0.6.79 (4e3c3df0d). Tester re-gate (DET-3x GREEN on the running /md/ test/visual listing) is PENDING — testing hop stays open until re-verified.
+RESOLVED. Tester DET-3x found PNG preview links RED (404) on v0.6.78 (adddd7ae5); expert fixed 404→200 in v0.6.79 (4e3c3df0d); tester re-gated GREEN DET-3x on v0.6.79 (9/9: 3 runs x 3 iters, PNG link HTTP 200 image/png, 124 clickable img anchors) and committed the VERDICT in 4d6474790 (test/visual/r224-clickable-png-gate.mjs). Testing hop CLEARED → QA Review (Tron gate).
 
 ## Traceability
 
@@ -43,9 +43,9 @@ Tron: "in the /md/ file browser, PNG files should be clickable and open in a pre
 ## Acceptance Criteria
 
 - [x] PNG entries in the /md/ file browser render as clickable links (like SVG entries) — impl v0.6.78 (9c052bd9a)
-- [ ] Clicking a PNG opens it in the SAME preview/viewer that SVG files use — was RED (404) v0.6.78; fix v0.6.79 (404→200); re-gate pending
+- [x] Clicking a PNG opens it in the SAME preview/viewer that SVG files use — RED (404) v0.6.78 → fix v0.6.79 (404→200) → GREEN
 - [x] SVG behaviour is unchanged (no regression)
-- [ ] Verified live (headless) on the /md/ test/visual listing — pending tester DET-3x GREEN on v0.6.79
+- [x] Verified live (headless) on the /md/ test/visual listing — tester GREEN DET-3x v0.6.79 (verdict 4d6474790; 9/9, PNG HTTP 200 image/png, 124 clickable anchors)
 
 ## Subtasks
 
