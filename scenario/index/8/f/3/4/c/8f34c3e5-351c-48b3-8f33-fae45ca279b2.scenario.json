@@ -1,0 +1,51 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "8f34c3e5-351c-48b3-8f33-fae45ca279b2",
+    "name": "YouTube URLs render as embedded iframe player",
+    "altId": "R23.2",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-23-media-preview/requirements.md",
+    "sourceLine": 26,
+    "parent": "ior:instance:4a4a5d66-d9ff-42be-8d17-201531dbb53e",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:d0d09ff8-27e1-4059-88d0-90cc20f05eb2"
+    ],
+    "description": "When a YouTube URL is discovered in a room (dropped as text/uri-list or pasted in chat), the preview automatically renders it as an embedded YouTube iframe player by extracting the video ID and rendering youtube.com/embed/<id>.",
+    "tronQuote": "> TRON: \"when a YouTube URL is discovered in the room (dropped as text/uri-list or pasted in chat), automatically render it as an EMBEDDED YouTube iframe player in the preview - extract the video ID from the URL, render as youtube.com/embed/<id>.\" (Heartspaces room: youtube.com/watch?v=a-_CuBOu6BA is there as a .url file but shows as text, not embedded.)",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1",
+        "group": "detect",
+        "text": "A YouTube URL discovered in the room (text/uri-list drop or chat paste) is detected."
+      },
+      {
+        "id": "AC-2",
+        "group": "extract",
+        "text": "The video ID is extracted from the URL (watch?v=<id>, youtu.be/<id>, and embed/<id> forms)."
+      },
+      {
+        "id": "AC-3",
+        "group": "embed",
+        "text": "The preview renders an embedded iframe at https://www.youtube.com/embed/<id> (not raw text)."
+      },
+      {
+        "id": "AC-4",
+        "group": "repro",
+        "text": "The existing Heartspaces .url (youtube.com/watch?v=a-_CuBOu6BA) renders as an embedded player, not text."
+      },
+      {
+        "id": "AC-5",
+        "group": "verify",
+        "text": "Verified live (headless): a YouTube URL in a room renders the embed."
+      }
+    ],
+    "crossRef": [
+      "ior:instance:21e792e0-0431-4ffd-a4d4-c8d85df23299"
+    ],
+    "crossRefNote": "Extends the R21.9 preview pane with YouTube URL content; relates to the .url file handling (R21.9 / room ContentPreviewer)."
+  },
+  "ownerIor": "ior:instance:4a4a5d66-d9ff-42be-8d17-201531dbb53e"
+}
