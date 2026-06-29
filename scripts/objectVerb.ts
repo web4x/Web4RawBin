@@ -46,6 +46,7 @@ export const registry: Record<string, () => SkillInstance> = {
 export interface VerbParam { name: string; type: string; optional: boolean; }
 export interface VerbSig { object: string; verb: string; params: VerbParam[]; doc: string; }
 
+// [impl:uuid:5453f58d-6dca-4aa7-89ca-9faa92badf03] R24.1 ObjectVerbEngine.introspect
 export function introspect(source?: string): VerbSig[] {
   const text = source ?? fs.readFileSync(SKILL_SOURCE, 'utf-8');
   const sigs: VerbSig[] = [];
