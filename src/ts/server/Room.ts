@@ -99,6 +99,10 @@ export class Room {
 
   members: Map<string, RoomMember> = new Map();
   fileUnits: Set<string> = new Set();
+
+  // [impl:uuid:5f0a9c2e-1b7d-4e8a-9f3c-6a1b2c3d4e5f] Room.resolveToken — collapse consolidated (redirectTo) members to PRIMARY
+  // server.ts injects the profile redirect resolver at startup; default identity (no profiles in tests).
+  static resolveToken: (token: string) => string = (t) => t;
   private _chatHistory: ChatMessage[] = [];
   private creatorId: string = '';
   creatorToken: string = '';
@@ -298,12 +302,22 @@ export class Room {
   private memberInfo(id: string) {
     const m = this.members.get(id);
     if (!m) return null;
-    return { id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken, disconnected: !!m.disconnected };
+    // expose the PRIMARY token so badges/Link-Account never carry a consolidated tombstone token
+    return { id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken ? Room.resolveToken(m.playerToken) : m.playerToken, disconnected: !!m.disconnected };
   }
 
   private allMemberInfo() {
-    return [...this.members.values()].map(m => ({
-      id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken, disconnected: !!m.disconnected,
+    // collapse members whose token redirects to the same PRIMARY (consolidated identities show once)
+    const byPrimary = new Map<string, RoomMember>();
+    for (const m of this.members.values()) {
+      const key = m.playerToken ? Room.resolveToken(m.playerToken) : m.id;
+      const existing = byPrimary.get(key);
+      if (!existing || (existing.disconnected && !m.disconnected)) byPrimary.set(key, m); // prefer a connected representative
+    }
+    return [...byPrimary.values()].map(m => ({
+      id: m.id, name: m.name, avatarUrl: m.avatarUrl,
+      playerToken: m.playerToken ? Room.resolveToken(m.playerToken) : m.playerToken,
+      disconnected: !!m.disconnected,
     }));
   }
 

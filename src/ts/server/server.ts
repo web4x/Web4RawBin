@@ -341,6 +341,8 @@ function saveDevices(): void {
 }
 
 loadProfiles();
+// Inject the redirect resolver so rooms collapse consolidated (redirectTo) members to the PRIMARY profile.
+Room.resolveToken = (token: string) => userProfiles.get(token)?.redirectTo || token;
 
 function generateSecretCode(): string {
   return String(1000 + Math.floor(Math.random() * 9000));
