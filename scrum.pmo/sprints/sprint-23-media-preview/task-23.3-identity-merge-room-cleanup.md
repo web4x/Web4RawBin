@@ -16,10 +16,6 @@
 - [ ] QA Review
 - [ ] Done
 
-## Remaining Issues
-
-PARTIAL AC coverage — flagged to PO. v0.6.84 member-dedup is GREEN (gate 549012182 / r232-heartspaces-member-dedup-gate.mjs, DET-3x): no ghost member, one canonical Marcel Donges on the primary token, retroactive cleanup proven on the real Heartspaces room. NOT covered by this gate: R23.3's link-flow ACs — Link-Account-success-with-correct-secret, wrong-code → explicit CONSOLIDATE_FAILED, and no-phantom-profile (observed 6a27140d). Recommend a follow-on link-flow gate (or split the link-flow into its own task) before Tron-Done.
-
 ## Traceability
 
   - up
@@ -44,15 +40,15 @@ Tron: "in the heartspaces are 2 marcel donges users. i tried to link accounts bu
 
 - [x] (ghost members) After a merge, tombstoned profiles (redirectTo set) are removed/redirected from every room member list — no duplicate "ghost" member — GREEN (gate 549012182: exactly 1 'Marcel Donges')
 - [x] A room with merged identities shows exactly ONE canonical member per person (Heartspaces shows one Marcel Donges, not two) — GREEN (member token === primary 8f74dfba, not a tombstone)
-- [ ] (link works) Link Account / consolidate SUCCEEDS when the entered secret code matches the target's secretCode — NOT covered by the member-dedup gate (see Remaining Issues)
-- [ ] A correct secret code never yields a silent failure; a wrong code yields an explicit CONSOLIDATE_FAILED 'Wrong secret code' — NOT covered by the member-dedup gate
-- [ ] (no phantom) The identity/link flow does NOT create a phantom empty/uncommitted profile (e.g. the observed 6a27140d) — NOT covered by the member-dedup gate
+- [x] (link works) Link Account / consolidate SUCCEEDS when the entered secret code matches the target's secretCode — GREEN (gate 23bafb1db: CORRECT secret → CONSOLIDATE_OK)
+- [x] A correct secret code never yields a silent failure; a wrong code yields an explicit CONSOLIDATE_FAILED 'Wrong secret code' — GREEN (gate 23bafb1db: WRONG secret → CONSOLIDATE_FAILED)
+- [x] (no phantom) The identity/link flow does NOT create a phantom empty/uncommitted profile (e.g. the observed 6a27140d) — GREEN (gate 23bafb1db: profile count before == after)
 - [x] Existing ghost members from past merges are reconciled (cleanup is retroactive for already-tombstoned profiles in rooms) — GREEN (Heartspaces had 2 consolidated tombstones, now 1)
 - [x] Verified live (headless) in a real room — merge 2+ profiles, room member list collapses to one canonical member — GREEN (live Heartspaces join, ROOM_JOINED.members DET-3x)
 
 ## Implementation
 
-Shipped v0.6.84 (a30315bcc, LIVE): collapse consolidated (redirectTo) members to PRIMARY in room member list — Room.ts (membership collapse) + server.ts; sw.js + version bumped (#15/#16). Tester GREEN DET-3x (verdict 549012182, gate r232-heartspaces-member-dedup-gate.mjs): member-dedup proven on real Heartspaces (1 Marcel, primary token, retroactive). RESIDUAL: link-flow ACs (Link-Account-success / wrong-code-error / no-phantom) NOT covered by this gate — see Remaining Issues; flagged to PO before Tron-Done.
+Shipped v0.6.84 (a30315bcc, LIVE): collapse consolidated (redirectTo) members to PRIMARY in room member list — Room.ts (membership collapse) + server.ts; sw.js + version bumped (#15/#16). Tester GREEN DET-3x (verdict 549012182, gate r232-heartspaces-member-dedup-gate.mjs): member-dedup proven on real Heartspaces (1 Marcel, primary token, retroactive). Link-flow now GREEN too: gate 23bafb1db (r233-link-account-gate.mjs, DET-3x) proves CORRECT-secret → CONSOLIDATE_OK, WRONG-secret → CONSOLIDATE_FAILED, and no-phantom (profile count before == after). ALL 7 ACs gated GREEN. Tron's original 'link did not work' complaint resolved.
 
 ## Subtasks
 
