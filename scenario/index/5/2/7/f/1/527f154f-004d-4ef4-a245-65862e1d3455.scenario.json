@@ -36,14 +36,31 @@
       {
         "id": "AC-4",
         "group": "generate",
-        "text": "The OOSH wrapper, skill docs, and Claude Code SKILL.md are GENERATED (emitOosh/emitDocs/emitClaudeSkill), never hand-written."
+        "text": "The OOSH wrapper, skill docs, and Claude Code SKILL.md are GENERATED (emitOoshText / emitDocsText / emitClaudeSkills), never hand-written."
       },
       {
         "id": "AC-5",
         "group": "no-flags",
         "text": "No skill exposes argv --flag parsers; verbs are methods, one canonical measure per metric."
+      },
+      {
+        "id": "AC-6",
+        "group": "completable",
+        "text": "Every Object.verb skill is Tab-completable on WODA.prod (the c2/complete() contract resolves live)."
+      },
+      {
+        "id": "AC-7",
+        "group": "ci-drift",
+        "text": "The committed OOSH wrapper is byte-equal to emitOosh output; a CI/precommit drift gate fails if they diverge (no hand-edited wrapper)."
+      },
+      {
+        "id": "AC-8",
+        "group": "ownership",
+        "text": "Each skill object has a named expert+tester owner and at least one test (no unowned skill surface)."
       }
-    ]
+    ],
+    "architectRef": "ior:file:scrum.pmo/sprints/sprint-24-traceability-skills/architecture.md (architect 76df40fbb: Pin object + planner-drive shim; per-object scripts; CI+precommit drift gate). UC objectVerb.introspectAndEmit.",
+    "refinementNote": "Refined 2026-06-29 from skill-expert AC sanity-check (verified vs objectVerb.ts/skill-classes.ts) + architect design hop (commit 76df40fbb, UCs wired, architecture.md 3 design decisions). skill-expert fixes: R24.1 emitClaudeSkills (plural verb); R24.3 dedup by methodUuid not display name (R15.6 over-credit). architect governance ACs folded in (Tab-completable, wrapper==emitOosh CI gate, owner+test, Pin-as-Object.verb, shim-parity gate)."
   },
   "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"
 }

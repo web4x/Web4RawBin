@@ -21,7 +21,7 @@
       {
         "id": "AC-1",
         "group": "followUp",
-        "text": "Chain.followUp(reqUuids, sprint?) is the single canonical completion measure - one summary row per Requirement, dedup by method/first-incomplete representative."
+        "text": "Chain.followUp(reqUuids, sprint?) is the single canonical completion measure - one summary row per Requirement, dedup by methodUuid (UUID identity), NOT display name (display names collide: two *.render on one Req = the R15.6 over-credit bug)."
       },
       {
         "id": "AC-2",
@@ -42,8 +42,15 @@
         "id": "AC-5",
         "group": "one-measure",
         "text": "There is exactly ONE completion measure (followUp); no competing/duplicate scoreboard logic."
+      },
+      {
+        "id": "AC-6",
+        "group": "one-measure-confirmed",
+        "text": "scoreboard, listComplete, generateMatrix, and Velocity ALL delegate to Chain.followUp - verified no competing count (skill-expert confirmed)."
       }
-    ]
+    ],
+    "architectRef": "ior:file:scrum.pmo/sprints/sprint-24-traceability-skills/architecture.md \u2014 UC chain.score (76df40fbb).",
+    "refinementNote": "Refined 2026-06-29 from skill-expert AC sanity-check (verified vs objectVerb.ts/skill-classes.ts) + architect design hop (commit 76df40fbb, UCs wired, architecture.md 3 design decisions). skill-expert fixes: R24.1 emitClaudeSkills (plural verb); R24.3 dedup by methodUuid not display name (R15.6 over-credit). architect governance ACs folded in (Tab-completable, wrapper==emitOosh CI gate, owner+test, Pin-as-Object.verb, shim-parity gate)."
   },
   "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"
 }

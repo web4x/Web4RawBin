@@ -42,8 +42,20 @@
         "id": "AC-5",
         "group": "advance",
         "text": "advance moves the Current pin forward only when the gate is proven; pin/status report the current pin (pinCurrent)."
+      },
+      {
+        "id": "AC-6",
+        "group": "object-verb",
+        "text": "The Pin lifecycle verbs (focus/hop/gate/setChain/advance/pin/status) are Object.verb methods on a Pin/CurrentSprint class, NOT ad-hoc argv handlers."
+      },
+      {
+        "id": "AC-7",
+        "group": "shim-parity",
+        "text": "Removal of the planner-drive shim is gated on pin-parity: the Object.verb Pin surface must reproduce planner-drive behaviour before the shim is retired."
       }
-    ]
+    ],
+    "architectRef": "ior:file:scrum.pmo/sprints/sprint-24-traceability-skills/architecture.md \u2014 UC pin.manageLifecycle (Pin object + planner-drive shim decision, 76df40fbb).",
+    "refinementNote": "Refined 2026-06-29 from skill-expert AC sanity-check (verified vs objectVerb.ts/skill-classes.ts) + architect design hop (commit 76df40fbb, UCs wired, architecture.md 3 design decisions). skill-expert fixes: R24.1 emitClaudeSkills (plural verb); R24.3 dedup by methodUuid not display name (R15.6 over-credit). architect governance ACs folded in (Tab-completable, wrapper==emitOosh CI gate, owner+test, Pin-as-Object.verb, shim-parity gate)."
   },
   "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"
 }
