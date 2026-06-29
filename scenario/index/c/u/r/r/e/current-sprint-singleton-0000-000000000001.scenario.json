@@ -2,7 +2,7 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: T21.9: File detail reorder + pan/zoom",
+    "name": "Current: T21.9",
     "chain": {
       "req": "21e792e0-0431-4ffd-a4d4-c8d85df23299",
       "uc": "5826ca42-e01a-4ab5-8cd9-67bfb02b2e67",
@@ -11,20 +11,45 @@
       "impl": "f8b113b7-29a9-400e-b3fa-f3be7e5798cf",
       "test": "27d4d8ca-2d67-480d-8eae-4f96ba3e28c6"
     },
-    "activeHop": 0,
+    "activeHop": 5,
     "sprintName": "Sprint 21",
-    "taskName": "T21.9: File detail reorder + pan/zoom",
+    "taskName": "T21.9",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-06-29T11:37:45.658Z"
+        "updatedAt": "2026-06-29T11:42:05.101Z"
+      },
+      "uc": {
+        "status": "done",
+        "owner": "architect",
+        "updatedAt": "2026-06-29T11:42:07.047Z"
+      },
+      "class": {
+        "status": "done",
+        "owner": "architect",
+        "updatedAt": "2026-06-29T11:42:07.865Z"
+      },
+      "method": {
+        "status": "done",
+        "owner": "expert",
+        "updatedAt": "2026-06-29T11:42:08.724Z"
+      },
+      "impl": {
+        "status": "done",
+        "owner": "expert",
+        "updatedAt": "2026-06-29T11:42:09.615Z"
+      },
+      "test": {
+        "status": "gate-proven",
+        "owner": "tester",
+        "updatedAt": "2026-06-29T11:42:10.459Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "01d9fb64-20a3-449c-b421-43cf64fec919",
-    "lastCompletedName": "T-drawer-full-width: detail drawer full width — remove max-width cap",
-    "lastCompletedReqUuid": "dceda100-434b-4ef7-9af3-9a69ccfac6b2",
+    "lastCompletedUuid": "842d4f01-8ba6-4917-8b9b-e99d4d70c986",
+    "lastCompletedName": "T21.8: Companies as shared dedup units",
+    "lastCompletedReqUuid": "bf6a0433-6e85-4341-92e5-79acb725e0bf",
     "slots": {
       "current": {
         "taskUuid": "f86f7003-f0fe-4b5d-97e6-528c2166a58b",
@@ -32,14 +57,14 @@
         "reqUuid": "21e792e0-0431-4ffd-a4d4-c8d85df23299"
       },
       "lastCompleted": {
+        "taskUuid": "842d4f01-8ba6-4917-8b9b-e99d4d70c986",
+        "taskName": "T21.8: Companies as shared dedup units",
+        "reqUuid": "bf6a0433-6e85-4341-92e5-79acb725e0bf"
+      },
+      "nextBacklog": {
         "taskUuid": "01d9fb64-20a3-449c-b421-43cf64fec919",
         "taskName": "T-drawer-full-width: detail drawer full width — remove max-width cap",
         "reqUuid": "dceda100-434b-4ef7-9af3-9a69ccfac6b2"
-      },
-      "nextBacklog": {
-        "taskUuid": "03917f53-bafe-485e-9169-dece4d3ffec2",
-        "taskName": "T-shard-cleanup: cleanup legacy multi-char index shards — migrate to single-char",
-        "reqUuid": "b8db5c65-9fcf-4866-8f31-15aee864ba5d"
       }
     }
   },
