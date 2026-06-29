@@ -55,10 +55,10 @@ package "Object Graph (scenario units)" {
 ' Alternate-UUID index (reuses ScenarioIndex.unitLinks symlinks)
 ' ============================================================
 package "Alternate-UUID Index (scenario/alt/)" {
-  artifact "alt/phone/<e164>.scenario.json" as AltPhone
-  artifact "alt/email/<addr>.scenario.json" as AltEmail
-  artifact "alt/company/<nameKey>.scenario.json" as AltCompany
-  database "index/<5-shards>/<uuid>.scenario.json" as Canon
+  class "alt/phone/E164.scenario.json" as AltPhone
+  class "alt/email/ADDR.scenario.json" as AltEmail
+  class "alt/company/NAMEKEY.scenario.json" as AltCompany
+  class "index/5shard/UUID.scenario.json" as Canon
   AltPhone   ..> Canon : symlink -> Profile
   AltEmail   ..> Canon : symlink -> Profile
   AltCompany ..> Canon : symlink -> Company
