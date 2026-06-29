@@ -42,9 +42,12 @@ PO 2026-06-29: formalize the scattered traceability + MD-planning TS tools as a 
 - [ ] (hop) hop <hop> <status> [agent] applies a per-agent realtime hop update over req|uc|class|method|impl|test with statuses pending|in-progress|done|gate-proven
 - [ ] (gate) gate reports whether the task-switch gate is proven (test hop gate-proven)
 - [ ] (setChain) setChain wires req/uc/class/method/impl/test + sprint + task into the pin
-- [ ] (advance) advance moves the Current pin forward only when the gate is proven; pin/status report the current pin (pinCurrent)
+- [ ] (advance) advance increments the active-hop pointer (req->uc->class->method->impl->test); pin/status report the current pin (pinCurrent). NOTE: the gate-proven block currently lives on focus/task-switch (AC-1), not advance - gating advance on gate-proven is TARGET behaviour for the formalized skill
 - [ ] (object-verb) The Pin lifecycle verbs (focus/hop/gate/setChain/advance/pin/status) are Object.verb methods on a Pin/CurrentSprint class, NOT ad-hoc argv handlers
 - [ ] (shim-parity) Removal of the planner-drive shim is gated on pin-parity: the Object.verb Pin surface must reproduce planner-drive behaviour before the shim is retired
+- [ ] (three-slot) getThreeSlots returns the 3-slot pin - current / lastCompleted / nextBacklog - the core Current-Sprint pin model
+- [ ] (backlog-slot) setNextBacklog / clearNextBacklog pin and clear the nextBacklog slot (a real planner-drive verb, part of the 3-slot pin)
+- [ ] (owner) hopUpdate records the acting agent on the hop; owner-rejection (rejecting a wrong owner) is NOT enforced today - TARGET behaviour for the formalized skill
 
 ## Subtasks
 
