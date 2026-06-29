@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "e83dc244-9a34-400d-9c71-7aba890632bb",
+    "name": "T21.4: Device-link on known phone/email",
+    "slug": "task-t21-4",
+    "description": "On IDENTIFY with a phone/email already in the alt-index, resolveKeyToProfile returns the existing profile; server sends KNOWN_KEY_CHALLENGE and (on correct secret code) attaches a NEW device to the existing profile via the existing DEVICE_ENROLL path — never mints a new user. Identical for phone and email.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:04dff687-ae49-4d9c-9150-6e2419a1c0b9"
+    ],
+    "useCases": [
+      "ior:instance:ff91e891-57b8-4d82-b3d5-fa45219b9db1"
+    ],
+    "acceptanceCriteria": "See requirement unit 04dff687-ae49-4d9c-9150-6e2419a1c0b9 (architect-refined AC + gateable test scenarios).",
+    "dependencies": "- Requires: Sprint 21 requirement + UC/Class/Method chain seeds\n- Enables: tester DET gate",
+    "definitionOfDone": "- [ ] All req ACs met; chain resolves Req->UC->Class->Method->Impl->Test\n- [ ] Tester DET gate PASS\n- [ ] Tron QA approved",
+    "qaAudit": "Shipped: v0.6.68 (email) + f420c79de (phone). Architect PDCA: PDCA R21.5: server wiring verified server.ts:1928-31.",
+    "traceability": "- up\n  - requirement:uuid:04dff687-ae49-4d9c-9150-6e2419a1c0b9 (R-unit, architect-refined AC/TS)\n  - Sprint 21 Planning\n- chain\n  - use case: uc:uuid:ff91e891-57b8-4d82-b3d5-fa45219b9db1\n- context\n  - Sprint 21 shipped without scenario-first planning (no planner on WODA.prod); tasks backfilled by architect per PO directive 2026-06-29.",
+    "subtasks": "None (atomic task).",
+    "children": [],
+    "requirements": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

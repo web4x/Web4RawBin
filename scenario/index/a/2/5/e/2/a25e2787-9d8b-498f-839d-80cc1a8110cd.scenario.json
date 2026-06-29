@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "a25e2787-9d8b-498f-839d-80cc1a8110cd",
+    "name": "T21.2: Lobby renders real name on first connect",
+    "slug": "task-t21-2",
+    "description": "RoomBrowser must show the actual profile name immediately on connect, never a blank/random fallback that only corrects on a second reload. Fix: re-render the name+avatar block on the PROFILE event (one-shot guarded), not just patch the input value; first paint uses cached profile name or a neutral skeleton. Verified headless against the running app.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:4f099ef2-66b6-4eba-b9e2-5b2a4c86e98b"
+    ],
+    "useCases": [
+      "ior:instance:dbfacb7f-2f40-4852-975b-dc308cef3b90"
+    ],
+    "acceptanceCriteria": "See requirement unit 4f099ef2-66b6-4eba-b9e2-5b2a4c86e98b (architect-refined AC + gateable test scenarios).",
+    "dependencies": "- Requires: Sprint 21 requirement + UC/Class/Method chain seeds\n- Enables: tester DET gate",
+    "definitionOfDone": "- [ ] All req ACs met; chain resolves Req->UC->Class->Method->Impl->Test\n- [ ] Tester DET gate PASS\n- [ ] Tron QA approved",
+    "qaAudit": "Shipped: pending/shipped per S21. Architect PDCA: design in architecture.md section 7 (race diagnosed).",
+    "traceability": "- up\n  - requirement:uuid:4f099ef2-66b6-4eba-b9e2-5b2a4c86e98b (R-unit, architect-refined AC/TS)\n  - Sprint 21 Planning\n- chain\n  - use case: uc:uuid:dbfacb7f-2f40-4852-975b-dc308cef3b90\n- context\n  - Sprint 21 shipped without scenario-first planning (no planner on WODA.prod); tasks backfilled by architect per PO directive 2026-06-29.",
+    "subtasks": "None (atomic task).",
+    "children": [],
+    "requirements": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

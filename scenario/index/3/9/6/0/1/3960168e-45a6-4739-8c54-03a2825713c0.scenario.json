@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "3960168e-45a6-4739-8c54-03a2825713c0",
+    "name": "T21.5: Emails as scenario units + alt-index",
+    "slug": "task-t21-5",
+    "description": "EmailIndex.mintAndLink: normalizeEmail (trim+lowercase) -> mint ior:class:Email unit (ownerIor=profile) -> push into Profile.emails[] (multiple, idempotent) -> register alt/email symlink on Profile.unitLinks[]. Known email triggers the R21.4 device-link via shared resolveKeyToProfile.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:a8be009e-8d1c-41ae-8f38-96515a72a929"
+    ],
+    "useCases": [
+      "ior:instance:c59356f7-d8ea-4e47-9659-efea4ef05c2c"
+    ],
+    "acceptanceCriteria": "See requirement unit a8be009e-8d1c-41ae-8f38-96515a72a929 (architect-refined AC + gateable test scenarios).",
+    "dependencies": "- Requires: Sprint 21 requirement + UC/Class/Method chain seeds\n- Enables: tester DET gate",
+    "definitionOfDone": "- [ ] All req ACs met; chain resolves Req->UC->Class->Method->Impl->Test\n- [ ] Tester DET gate PASS\n- [ ] Tron QA approved",
+    "qaAudit": "Shipped: v0.6.68 d4aad5081. Architect PDCA: PDCA: PASS/COMPLIANT (17 ACs).",
+    "traceability": "- up\n  - requirement:uuid:a8be009e-8d1c-41ae-8f38-96515a72a929 (R-unit, architect-refined AC/TS)\n  - Sprint 21 Planning\n- chain\n  - use case: uc:uuid:c59356f7-d8ea-4e47-9659-efea4ef05c2c\n- context\n  - Sprint 21 shipped without scenario-first planning (no planner on WODA.prod); tasks backfilled by architect per PO directive 2026-06-29.",
+    "subtasks": "None (atomic task).",
+    "children": [],
+    "requirements": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

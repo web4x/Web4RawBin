@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "18845496-084b-451d-b5f3-ad16ac3631c5",
+    "name": "T21.7: Addresses async OSM-verified",
+    "slug": "task-t21-7",
+    "description": "AddressIndex.mintAddress: store ior:class:Address { oneLine \"Country City PostalCode Street HouseNumber\", verified:false, osmLink:null, gmapsLink:null } synchronously (never blocks); server enqueues a background VerifyJob that hits Nominatim (limit=1, UA, <=1 req/s, cached by oneLine) and on a hit sets verified:true + OSM + Google Maps links.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:5d3b5e6e-75da-4b66-8d44-75df5f9ceb7f"
+    ],
+    "useCases": [
+      "ior:instance:fab88cb9-fd28-4271-b3b1-aff9008c3b9a"
+    ],
+    "acceptanceCriteria": "See requirement unit 5d3b5e6e-75da-4b66-8d44-75df5f9ceb7f (architect-refined AC + gateable test scenarios).",
+    "dependencies": "- Requires: Sprint 21 requirement + UC/Class/Method chain seeds\n- Enables: tester DET gate",
+    "definitionOfDone": "- [ ] All req ACs met; chain resolves Req->UC->Class->Method->Impl->Test\n- [ ] Tester DET gate PASS\n- [ ] Tron QA approved",
+    "qaAudit": "Shipped: v0.6.70. Architect PDCA: PDCA: PASS/COMPLIANT (17 ACs); link formats byte-matched.",
+    "traceability": "- up\n  - requirement:uuid:5d3b5e6e-75da-4b66-8d44-75df5f9ceb7f (R-unit, architect-refined AC/TS)\n  - Sprint 21 Planning\n- chain\n  - use case: uc:uuid:fab88cb9-fd28-4271-b3b1-aff9008c3b9a\n- context\n  - Sprint 21 shipped without scenario-first planning (no planner on WODA.prod); tasks backfilled by architect per PO directive 2026-06-29.",
+    "subtasks": "None (atomic task).",
+    "children": [],
+    "requirements": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

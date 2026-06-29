@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "f86f7003-f0fe-4b5d-97e6-528c2166a58b",
+    "name": "T21.9: File detail reorder + pan/zoom",
+    "slug": "task-t21-9",
+    "description": "rb-file-detail reorder: action buttons TOP -> 75vh in-flow rb-preview-pane MIDDLE -> metadata BOTTOM. RbPanZoom transform handler (translate+scale, zoom-about-point, clamp/recenter, scale[1,8]): desktop wheel-zoom/drag-pan, touch 1-finger-pan/pinch/double-tap with pinch-release guard (touches===0). DRY across room+trace surfaces; iframe pointer-events:none mid-gesture (touch+desktop).",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:21e792e0-0431-4ffd-a4d4-c8d85df23299"
+    ],
+    "useCases": [
+      "ior:instance:5826ca42-e01a-4ab5-8cd9-67bfb02b2e67"
+    ],
+    "acceptanceCriteria": "See requirement unit 21e792e0-0431-4ffd-a4d4-c8d85df23299 (architect-refined AC + gateable test scenarios).",
+    "dependencies": "- Requires: Sprint 21 requirement + UC/Class/Method chain seeds\n- Enables: tester DET gate",
+    "definitionOfDone": "- [ ] All req ACs met; chain resolves Req->UC->Class->Method->Impl->Test\n- [ ] Tester DET gate PASS\n- [ ] Tron QA approved",
+    "qaAudit": "Shipped: v0.6.73 c22083798 + DRY/e5 fix v0.6.74 2a1357a69. Architect PDCA: PDCA: f2/e5 gaps -> FIXED v0.6.74 (verified GREEN); e1 refinements optional.",
+    "traceability": "- up\n  - requirement:uuid:21e792e0-0431-4ffd-a4d4-c8d85df23299 (R-unit, architect-refined AC/TS)\n  - Sprint 21 Planning\n- chain\n  - use case: uc:uuid:5826ca42-e01a-4ab5-8cd9-67bfb02b2e67\n- context\n  - Sprint 21 shipped without scenario-first planning (no planner on WODA.prod); tasks backfilled by architect per PO directive 2026-06-29.",
+    "subtasks": "None (atomic task).",
+    "children": [],
+    "requirements": [],
+    "implementations": [],
+    "focus": true
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

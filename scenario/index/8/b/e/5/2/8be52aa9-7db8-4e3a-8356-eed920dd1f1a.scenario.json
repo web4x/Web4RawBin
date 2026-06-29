@@ -17,17 +17,10 @@
     "members": [
       {
         "ior": "ior:instance:3effa1fc-a548-4619-a3ff-fb96382eca22",
-        "name": "",
+        "name": "Marcel Donges",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1782690468861
-      },
-      {
-        "ior": "ior:instance:3effa1fc-a548-4619-a3ff-fb96382eca22",
-        "name": "",
-        "role": "owner",
-        "status": "online",
-        "joinedAt": 1782690468861
+        "joinedAt": 1782719763686
       }
     ],
     "files": [

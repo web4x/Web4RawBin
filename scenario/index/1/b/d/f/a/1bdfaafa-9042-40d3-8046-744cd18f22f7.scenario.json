@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "1bdfaafa-9042-40d3-8046-744cd18f22f7",
-    "name": "Sprint 21 \u2014 Contact Identity",
+    "name": "Sprint 21 — Contact Identity",
     "number": 21,
     "goal": "Make a profile's contact facets - phone, email, address, company - first-class scenario units in the object graph, with phone and email as alternate lookup keys that link a new device to an existing user instead of minting a duplicate. Fix the lobby first-load name, store dropped vCards beside the avatar, and seed Tron's real phone as the first Phone unit on WODA.prod. Phone/Email/Address/Company follow the class-to-method relationship pattern from the profile; Company is shared (dedup by name); Address verification is async against OpenStreetMap.",
     "status": "Planned",
@@ -18,7 +18,17 @@
       "ior:instance:bf6a0433-6e85-4341-92e5-79acb725e0bf",
       "ior:instance:21e792e0-0431-4ffd-a4d4-c8d85df23299"
     ],
-    "tasks": [],
+    "tasks": [
+      "ior:instance:0c1b375e-6a2a-4b35-bb64-b43adce88697",
+      "ior:instance:a25e2787-9d8b-498f-839d-80cc1a8110cd",
+      "ior:instance:1bae9710-c00a-4f04-a3de-0b0a98b85d16",
+      "ior:instance:e83dc244-9a34-400d-9c71-7aba890632bb",
+      "ior:instance:3960168e-45a6-4739-8c54-03a2825713c0",
+      "ior:instance:af9dc6cc-486d-4646-81fb-0e3a0cc262f4",
+      "ior:instance:18845496-084b-451d-b5f3-ad16ac3631c5",
+      "ior:instance:842d4f01-8ba6-4917-8b9b-e99d4d70c986",
+      "ior:instance:f86f7003-f0fe-4b5d-97e6-528c2166a58b"
+    ],
     "createdAt": "2026-06-28",
     "createdBy": "robbin-req",
     "joint": [
