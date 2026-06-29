@@ -20,21 +20,14 @@
         "name": "Marcel Donges",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1782753177045
+        "joinedAt": 1782754296312
       },
       {
         "ior": "ior:instance:2703628c-4de9-43da-adf8-7d4e19e6acc8",
         "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1782753177045
-      },
-      {
-        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
-        "name": "",
-        "role": "owner",
-        "status": "online",
-        "joinedAt": 1782753177045
+        "joinedAt": 1782754296312
       }
     ],
     "files": [

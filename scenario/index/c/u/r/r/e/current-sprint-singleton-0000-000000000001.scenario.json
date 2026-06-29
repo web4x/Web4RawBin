@@ -2,64 +2,39 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: T21.9",
+    "name": "Current: Task 23.2: YouTube URLs render as embedded iframe player",
     "chain": {
-      "req": "21e792e0-0431-4ffd-a4d4-c8d85df23299",
-      "uc": "5826ca42-e01a-4ab5-8cd9-67bfb02b2e67",
-      "class": "4e678ce3-3314-4ac8-b1b4-6b70d1dd2e56",
-      "method": "9c21f3b5-f18f-4c39-92b8-3d5264e09c8c",
-      "impl": "f8b113b7-29a9-400e-b3fa-f3be7e5798cf",
-      "test": "27d4d8ca-2d67-480d-8eae-4f96ba3e28c6"
+      "req": "8f34c3e5-351c-48b3-8f33-fae45ca279b2",
+      "uc": "",
+      "class": "",
+      "method": "",
+      "impl": "",
+      "test": ""
     },
-    "activeHop": 5,
-    "sprintName": "Sprint 21",
-    "taskName": "T21.9",
+    "activeHop": 1,
+    "sprintName": "Sprint 23",
+    "taskName": "Task 23.2: YouTube URLs render as embedded iframe player",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-06-29T11:42:05.101Z"
-      },
-      "uc": {
-        "status": "done",
-        "owner": "architect",
-        "updatedAt": "2026-06-29T11:42:07.047Z"
-      },
-      "class": {
-        "status": "done",
-        "owner": "architect",
-        "updatedAt": "2026-06-29T11:42:07.865Z"
-      },
-      "method": {
-        "status": "done",
-        "owner": "expert",
-        "updatedAt": "2026-06-29T11:42:08.724Z"
-      },
-      "impl": {
-        "status": "done",
-        "owner": "expert",
-        "updatedAt": "2026-06-29T11:42:09.615Z"
-      },
-      "test": {
-        "status": "gate-proven",
-        "owner": "tester",
-        "updatedAt": "2026-06-29T11:42:10.459Z"
+        "updatedAt": "2026-06-29T18:57:42.366Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "842d4f01-8ba6-4917-8b9b-e99d4d70c986",
-    "lastCompletedName": "T21.8: Companies as shared dedup units",
-    "lastCompletedReqUuid": "bf6a0433-6e85-4341-92e5-79acb725e0bf",
+    "lastCompletedUuid": "2b6be816-1213-4720-b2eb-4efc759b70b0",
+    "lastCompletedName": "Task 23.1: Audio files play in the preview (HTML5 player)",
+    "lastCompletedReqUuid": "480b40aa-c0ba-40dc-8876-823ebe3af91b",
     "slots": {
       "current": {
-        "taskUuid": "f86f7003-f0fe-4b5d-97e6-528c2166a58b",
-        "taskName": "T21.9: File detail reorder + pan/zoom",
-        "reqUuid": "21e792e0-0431-4ffd-a4d4-c8d85df23299"
+        "taskUuid": "9f599cbf-b544-4d1b-b654-a29fdd7d99a9",
+        "taskName": "Task 23.2: YouTube URLs render as embedded iframe player",
+        "reqUuid": "8f34c3e5-351c-48b3-8f33-fae45ca279b2"
       },
       "lastCompleted": {
-        "taskUuid": "842d4f01-8ba6-4917-8b9b-e99d4d70c986",
-        "taskName": "T21.8: Companies as shared dedup units",
-        "reqUuid": "bf6a0433-6e85-4341-92e5-79acb725e0bf"
+        "taskUuid": "2b6be816-1213-4720-b2eb-4efc759b70b0",
+        "taskName": "Task 23.1: Audio files play in the preview (HTML5 player)",
+        "reqUuid": "480b40aa-c0ba-40dc-8876-823ebe3af91b"
       },
       "nextBacklog": {
         "taskUuid": "01d9fb64-20a3-449c-b421-43cf64fec919",

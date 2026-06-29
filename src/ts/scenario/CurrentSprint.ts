@@ -331,8 +331,11 @@ export class CurrentSprint {
       const ucUuid = ucIors.length > 0 ? ior(ucIors[0]) : '';
       if (!ucUuid) continue;
       const ucUnit = this.index.get(ucUuid);
-      if (!ucUnit) continue;
-      const ucM = ucUnit.model as Record<string, unknown>;
+      // R23-fix (skill-expert): when the UC unit is not on disk yet, do NOT abandon the focused
+      // task and fall back to a 2-sprint-stale pin. Anchor on req and mark uc+ as PENDING (the
+      // partial branch below). ucUnit-missing => refs.uc drops to '' so activeHop lands on the
+      // uc hop. This never fabricates credit — it just keeps /trace honest about the CURRENT task.
+      const ucM = (ucUnit?.model as Record<string, unknown>) || {};
       const clsUuid = ior(((ucM.classes as string[]) || [])[0] || '');
       const methUuid = ior(String(ucM.method || ''));
       const methUnit = methUuid ? this.index.get(methUuid) : null;
@@ -341,15 +344,16 @@ export class CurrentSprint {
       const implUnit = implUuid ? this.index.get(implUuid) : null;
       const implM = implUnit?.model as Record<string, unknown> | undefined;
       const testUuid = ior(((implM?.tests as string[]) || [])[0] || '');
-      const refs: ChainRefs = { req: reqUuid, uc: ucUuid, class: clsUuid, method: methUuid, impl: implUuid, test: testUuid };
+      const refs: ChainRefs = { req: reqUuid, uc: ucUnit ? ucUuid : '', class: clsUuid, method: methUuid, impl: implUuid, test: testUuid };
       const complete = CHAIN_ORDER.every(k => !!refs[k]);
+      const taskSprint = String(m.sprintName || m.sprint || '');
       if (complete) {
-        return this.setChain(refs, String(m.sprint || ''), String(m.name || ''));
+        return this.setChain(refs, taskSprint, String(m.name || ''));
       }
       this.chain = refs;
       this.activeHop = CHAIN_ORDER.findIndex(k => !refs[k]);
       if (this.activeHop < 0) this.activeHop = 0;
-      this.sprintName = String(m.sprint || this.sprintName);
+      this.sprintName = taskSprint || this.sprintName;
       this.taskName = String(m.name || this.taskName);
       this.persist();
       this.emit();
