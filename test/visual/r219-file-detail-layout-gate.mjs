@@ -1,3 +1,4 @@
+// [test:uuid:27d4d8ca-2d67-480d-8eae-4f96ba3e28c6] R21.9 renderActionsFirst — file-detail order buttons<preview<metadata + 75vh pan/zoom
 // R21.9 FINAL gate (Sprint 21) — file-detail pan/zoom on BOTH surfaces, v0.6.74.
 // Impl c22083798/v0.6.73-74 (rb-file-detail.ts / rb-preview-pane.ts / pan-zoom.ts /
 // content-preview.ts). content-preview.ts:7 — "ROOM and TRACE share ONE pan/zoom path:

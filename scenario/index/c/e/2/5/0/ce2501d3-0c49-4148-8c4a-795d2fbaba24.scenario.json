@@ -4,7 +4,9 @@
     "uuid": "ce2501d3-0c49-4148-8c4a-795d2fbaba24",
     "name": "AddressIndex.mintAndVerifyAsync impl",
     "sourceLocation": "src/ts/scenario/AddressIndex.ts, src/ts/server/server.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:0802991c-b3af-4e70-a5bb-cdc8ddde57c0"
+    ]
   },
   "ownerIor": "ior:instance:1b623e2c-38b4-4220-a1f8-a8c888d26865"
 }

@@ -1,3 +1,4 @@
+// [test:uuid:0802991c-b3af-4e70-a5bb-cdc8ddde57c0] R21.7 mintAndVerifyAsync — address unit + async OSM verify flip + badge
 // R21.7 gate — addresses as scenario units + async OSM (Nominatim) verify, v0.6.71.
 // Impl 3cf79d5d3. Server (server.ts): committed UPDATE_PROFILE{addresses[]} ->
 // indexProfileAddress -> AddressIndex.mintAddress (SYNC, verified:false, links null,

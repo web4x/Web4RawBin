@@ -4,7 +4,9 @@
     "uuid": "801f53b3-c710-4204-91db-d71bcb773cd9",
     "name": "PhoneIndex.mintAndLink impl — Phone unit + Profile.phones[]",
     "sourceLocation": "src/ts/scenario/PhoneIndex.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:2d069fd0-ce5d-428f-a6df-01b021d0fad3"
+    ]
   },
   "ownerIor": "ior:instance:d5630047-8bd8-42ce-8e3e-f3f09b528a5e"
 }

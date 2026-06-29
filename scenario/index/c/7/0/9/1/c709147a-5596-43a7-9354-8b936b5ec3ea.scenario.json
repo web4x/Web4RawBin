@@ -4,7 +4,9 @@
     "uuid": "c709147a-5596-43a7-9354-8b936b5ec3ea",
     "name": "EmailIndex.mintAndLink impl",
     "sourceLocation": "src/ts/scenario/EmailIndex.ts, src/ts/server/server.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:1fd43df9-5703-4012-ad93-bc22da3548db"
+    ]
   },
   "ownerIor": "ior:instance:1b9a429b-01b3-424f-8c75-d2f2c924e8b8"
 }

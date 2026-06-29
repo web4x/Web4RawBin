@@ -1,3 +1,6 @@
+// [test:uuid:4c93e285-1cd5-4be2-a051-a3a1891b26ee] R21.3 registerSymlink — phone alt-symlink resolves (GET /api/phone -> token)
+// [test:uuid:1fd43df9-5703-4012-ad93-bc22da3548db] R21.5 mintAndLink — email unit minted + device-link challenge
+// [test:uuid:2d069fd0-ce5d-428f-a6df-01b021d0fad3] R21.6 mintAndLink — phone unit minted + Profile.phones[] + resolves
 // R21.5 + R21.6 gate — emails & phones as scenario units + alt-UUID index, v0.6.69.
 // R21.5 d4aad5081 (Email units) + R21.6 f420c79de (Phone units).
 //

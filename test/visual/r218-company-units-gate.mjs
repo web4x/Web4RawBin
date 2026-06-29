@@ -1,3 +1,4 @@
+// [test:uuid:1d469c7b-e3fa-4c8c-a972-26cf1ad6ba25] R21.8 mintOrReuseShared — company shared dedup + suggest + nameKey
 // R21.8 gate — companies as SHARED scenario units (ior:class:Company), v0.6.72.
 // Impl a52245de1. CompanyIndex: companyNameKey (legal-suffix strip), mintOrReuseShared
 // (dedup by domain then nameKey), suggest() autocomplete, linkToProfile -> Profile.companies[].

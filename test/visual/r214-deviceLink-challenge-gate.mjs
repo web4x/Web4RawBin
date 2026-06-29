@@ -1,3 +1,4 @@
+// [test:uuid:f494cdd4-ca11-4115-9981-108f7cf19d9a] R21.4 resolveOrEnroll — known-key -> KNOWN_KEY_CHALLENGE, no mint
 // R21.4 gate — connecting with a phone/email ALREADY in the alt-UUID index does NOT
 // mint a new user; the server challenges for the existing user's secret code instead.
 // Impl 3b6dcc83c (v0.6.67). Server: IDENTIFY -> resolveKeyToProfile(phone,email) ->

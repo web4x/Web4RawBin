@@ -4,7 +4,9 @@
     "uuid": "cc6df739-135f-46a9-a53b-e8441571abbc",
     "name": "IdentityResolver.resolveOrEnroll",
     "sourceFile": "ior:file:src/ts/server/identity-resolver.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:f494cdd4-ca11-4115-9981-108f7cf19d9a"
+    ]
   },
   "ownerIor": null
 }

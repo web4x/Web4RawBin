@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "4c93e285-1cd5-4be2-a051-a3a1891b26ee",
+    "name": "test:R21.3 registerSymlink gate",
+    "description": "Bridged to test/visual/r2156-email-phone-units-gate.mjs — phone alt-symlink resolves (GET /api/phone -> token) (DET-3x GREEN on prod)",
+    "sourceFile": "ior:file:test/visual/r2156-email-phone-units-gate.mjs",
+    "implementations": [
+      "ior:instance:f2174329-7319-4c4b-920c-b906b2439629"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f2174329-7319-4c4b-920c-b906b2439629"
+}

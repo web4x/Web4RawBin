@@ -4,7 +4,9 @@
     "uuid": "4a7d30bb-efc1-4cd4-b0eb-a284042facce",
     "name": "Company.mintOrReuseShared",
     "sourceFile": "ior:file:src/ts/server/company.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:1d469c7b-e3fa-4c8c-a972-26cf1ad6ba25"
+    ]
   },
   "ownerIor": null
 }

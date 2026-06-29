@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2d069fd0-ce5d-428f-a6df-01b021d0fad3",
+    "name": "test:R21.6 mintAndLink gate",
+    "description": "Bridged to test/visual/r2156-email-phone-units-gate.mjs — phone unit minted + Profile.phones[] + resolves (DET-3x GREEN on prod)",
+    "sourceFile": "ior:file:test/visual/r2156-email-phone-units-gate.mjs",
+    "implementations": [
+      "ior:instance:801f53b3-c710-4204-91db-d71bcb773cd9"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:801f53b3-c710-4204-91db-d71bcb773cd9"
+}
