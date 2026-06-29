@@ -1,0 +1,49 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "fc9a7079-5324-4867-95de-784666d7fc5a",
+    "name": "Chain scoring skill (measurement instruments)",
+    "altId": "R24.3",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-24-traceability-skills/requirements.md",
+    "sourceLine": 40,
+    "parent": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:4b66c336-c740-4cbf-b9b4-4cbee596fee1"
+    ],
+    "description": "Chain completion is measured by one Object.verb skill class (skill-classes.ts Chain) exposing scoreboard, followUp, listComplete, lintMarkers (and snapshotComplete): followUp is the ONE canonical completion measure (one summary row per Requirement), scoreboard renders the table + dispatch list + Summary line, listComplete emits one diffable line per complete requirement, and lintMarkers catches invented-suffix uuids / prefix collisions / shared Impls / orphan markers BEFORE a re-measure.",
+    "implRef": "ior:file:src/ts/scenario/skill-classes.ts class Chain (followUp/listComplete/scoreboard/lintMarkers/snapshotComplete/wireImplNode/generateMatrix)",
+    "poDirective": "PO directive 2026-06-29: formalize the scattered traceability + MD-planning TS tools (planner-drive.ts, objectVerb.ts, generate-sprint-md.ts, trace-cli.ts/trace-audit.ts) as a coherent OOSH-like SKILL set - pin management, chain scoring, sprint planning, traceability audit.",
+    "sourceNote": "PO-formulated main goal (not a verbatim Tron literal); formalizes existing impl. Grounded per implRef.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1",
+        "group": "followUp",
+        "text": "Chain.followUp(reqUuids, sprint?) is the single canonical completion measure - one summary row per Requirement, dedup by method/first-incomplete representative."
+      },
+      {
+        "id": "AC-2",
+        "group": "scoreboard",
+        "text": "Chain.scoreboard renders the canonical markdown: table + dispatch list + Summary line."
+      },
+      {
+        "id": "AC-3",
+        "group": "listComplete",
+        "text": "Chain.listComplete emits one diffable line per COMPLETE requirement (TSV-stable)."
+      },
+      {
+        "id": "AC-4",
+        "group": "lintMarkers",
+        "text": "Chain.lintMarkers reports invented-suffix uuids, prefix collisions, shared Impls, and orphan markers before any re-measure."
+      },
+      {
+        "id": "AC-5",
+        "group": "one-measure",
+        "text": "There is exactly ONE completion measure (followUp); no competing/duplicate scoreboard logic."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"
+}

@@ -1,0 +1,49 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "527f154f-004d-4ef4-a245-65862e1d3455",
+    "name": "Object.verb skill introspection + generation engine",
+    "altId": "R24.1",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-24-traceability-skills/requirements.md",
+    "sourceLine": 14,
+    "parent": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:b77a3494-6b43-4956-bc7e-72485470a6d4"
+    ],
+    "description": "Every skill is an Object.verb typed class method whose signature is the single source of truth: scripts/objectVerb.ts introspects it to generate CLI invocation + arg-mapping, help text (from JSDoc), Tab-completion (from param names + complete()), the OOSH wrapper, the skill docs, and the Claude Code .claude/skills SKILL.md - with NO hand-written flag parsers and NO hand-written skill prose (flags are forbidden as skill surface).",
+    "implRef": "ior:file:scripts/objectVerb.ts (introspect/mapArgs/render/helpText/emitOoshText/emitDocsText/emitClaudeSkillText) + scrum.pmo/skills/how-to-write-skills.md + src/ts/scenario/skill-classes.ts",
+    "poDirective": "PO directive 2026-06-29: formalize the scattered traceability + MD-planning TS tools (planner-drive.ts, objectVerb.ts, generate-sprint-md.ts, trace-cli.ts/trace-audit.ts) as a coherent OOSH-like SKILL set - pin management, chain scoring, sprint planning, traceability audit.",
+    "sourceNote": "PO-formulated main goal (not a verbatim Tron literal); formalizes existing impl. Grounded per implRef.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1",
+        "group": "introspect",
+        "text": "A public method on a skill class (typed params string/string[]/number/boolean) is discovered by objectVerb.introspect; private methods are invisible."
+      },
+      {
+        "id": "AC-2",
+        "group": "help",
+        "text": "Help text is derived from the JSDoc first line (missing JSDoc = broken help, rejected)."
+      },
+      {
+        "id": "AC-3",
+        "group": "complete",
+        "text": "Tab-completion candidates come from param names + the class complete(verb,param) method (OOSH c2 contract)."
+      },
+      {
+        "id": "AC-4",
+        "group": "generate",
+        "text": "The OOSH wrapper, skill docs, and Claude Code SKILL.md are GENERATED (emitOosh/emitDocs/emitClaudeSkill), never hand-written."
+      },
+      {
+        "id": "AC-5",
+        "group": "no-flags",
+        "text": "No skill exposes argv --flag parsers; verbs are methods, one canonical measure per metric."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"
+}
