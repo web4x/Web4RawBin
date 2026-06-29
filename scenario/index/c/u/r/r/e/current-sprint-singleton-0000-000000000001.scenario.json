@@ -2,45 +2,41 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 24.2: Pin management skill (CurrentSprint lifecycle)",
+    "name": "Current: Task 24.5: Traceability audit skill (chain integrity + CI gate)",
     "chain": {
-      "req": "a545f899-b733-46ac-8fc7-2ef79e401cfe",
-      "uc": "90f9bfe3-6d57-4003-be77-6ce8ade76058",
-      "class": "836ecc9c-c55a-4168-87f1-175193d7ca28",
-      "method": "c0eb9e24-b7a9-4bfb-8455-55091182d62d",
-      "impl": "c07efc21-153c-4e02-81c5-ae2e919ad03b",
-      "test": ""
+      "req": "79bc8e34-9acb-4338-bbd0-c1f7e817ca7d",
+      "uc": "099aa3ed-9e0b-44af-9333-938927f24b6f",
+      "class": "bf626dad-5fab-43f9-b847-b7e3c1ecdb5b",
+      "method": "db58f0c5-a2d9-47f8-af51-d5359a038c94",
+      "impl": "08706df5-02be-433b-b9c8-a4cb9ac7443a",
+      "test": "1b3682c8-a347-4e85-8188-f1faef3f5ae3"
     },
-    "activeHop": 5,
+    "activeHop": 0,
     "sprintName": "Sprint 24",
-    "taskName": "Task 24.2: Pin management skill (CurrentSprint lifecycle)",
+    "taskName": "Task 24.5: Traceability audit skill (chain integrity + CI gate)",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-06-29T20:57:47.858Z"
+        "updatedAt": "2026-06-29T21:45:54.225Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "8bbd1727-041e-456f-a645-67f2b2cd4bb5",
-    "lastCompletedName": "Task 24.1: Object.verb skill introspection + generation engine",
-    "lastCompletedReqUuid": "527f154f-004d-4ef4-a245-65862e1d3455",
+    "lastCompletedUuid": "1c0181ab-5aff-499f-aeff-53c839c1ad87",
+    "lastCompletedName": "Task 24.4: Sprint planning skill (scenario→MD ViewGenerator)",
+    "lastCompletedReqUuid": "9dd36e28-c666-40b8-bc1b-117aac0a7d8a",
     "slots": {
       "current": {
-        "taskUuid": "d40f1040-f7c8-4702-a31b-9b34af89df19",
-        "taskName": "Task 24.2: Pin management skill (CurrentSprint lifecycle)",
-        "reqUuid": "a545f899-b733-46ac-8fc7-2ef79e401cfe"
+        "taskUuid": "b59f4d46-bffb-435d-a376-a480a517efe6",
+        "taskName": "Task 24.5: Traceability audit skill (chain integrity + CI gate)",
+        "reqUuid": "79bc8e34-9acb-4338-bbd0-c1f7e817ca7d"
       },
       "lastCompleted": {
-        "taskUuid": "8bbd1727-041e-456f-a645-67f2b2cd4bb5",
-        "taskName": "Task 24.1: Object.verb skill introspection + generation engine",
-        "reqUuid": "527f154f-004d-4ef4-a245-65862e1d3455"
+        "taskUuid": "1c0181ab-5aff-499f-aeff-53c839c1ad87",
+        "taskName": "Task 24.4: Sprint planning skill (scenario→MD ViewGenerator)",
+        "reqUuid": "9dd36e28-c666-40b8-bc1b-117aac0a7d8a"
       },
-      "nextBacklog": {
-        "taskUuid": "1f6d9fc6-19e8-429b-959a-6581738c354f",
-        "taskName": "Task 24.3: Chain scoring skill (measurement instruments)",
-        "reqUuid": "fc9a7079-5324-4867-95de-784666d7fc5a"
-      }
+      "nextBacklog": null
     }
   },
   "ownerIor": null
