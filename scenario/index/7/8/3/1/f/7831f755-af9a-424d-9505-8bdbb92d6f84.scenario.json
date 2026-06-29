@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7831f755-af9a-424d-9505-8bdbb92d6f84",
+    "name": "RbPanZoom.doubleTapToggle",
+    "sourceFile": "src/public/ts/trace/pan-zoom.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

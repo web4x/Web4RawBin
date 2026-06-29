@@ -60,6 +60,7 @@ export class RbPanZoom {
     const endDrag = () => { this.dragging = false; this.viewport.style.cursor = this.scale > 1 ? 'grab' : 'auto'; this.idle(); };
     this.on('mouseup', endDrag);
     this.on('mouseleave', endDrag);
+    this.on('dblclick', (e) => this.doubleTapToggle(e.clientX, e.clientY)); // R22.2 mouse-parity: dblclick toggles reset<->2x (touch already has double-tap)
 
     this.on('touchstart', (e) => {
       this.gesturing();
@@ -111,6 +112,7 @@ export class RbPanZoom {
 
   private pendingDoubleTap = false;
 
+  // [impl:uuid:7831f755-af9a-424d-9505-8bdbb92d6f84] R22.2 RbPanZoom.doubleTapToggle — mouse dblclick + touch double-tap parity
   private doubleTapToggle(clientX: number, clientY: number): void { // AC-d3
     const rect = this.viewport.getBoundingClientRect();
     if (this.scale > 1) { this.reset(); }
