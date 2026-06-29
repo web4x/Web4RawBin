@@ -13,9 +13,8 @@ import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
 // [impl:uuid:7fcca3cf-7c87-4a3d-a64b-089c6d92cc0a] RbRequirementDetail.render impl
 // [impl:uuid:660cb423-30cd-4d32-8a3f-d7bad22f6f5e] RbRequirementDetail.render
-import { singularChain, renderSingularChain } from './singular-chain.js';
 import { renderSupersededSection, renderAllChildrenSection, renderChainPathSection } from './detail-superseded.js';
-import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
+import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor, scenarioBrowserHref } from './detail-children.js';
 
 export class RbRequirementDetail extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -34,7 +33,6 @@ export class RbRequirementDetail extends HTMLElement {
     const obj = this.graph?.get(refUuid(ref));
     if (!obj) { this.innerHTML = '<div class="dv-empty">Requirement not found</div>'; return; }
 
-    const chain = this.graph ? singularChain(this.graph, obj.uuid) : [];
     const links = forwardOnly(obj);
     this.innerHTML = `
       <div class="dv-head">
@@ -47,19 +45,11 @@ export class RbRequirementDetail extends HTMLElement {
         ${scenarioBrowserLinkFromIor(obj.uuid)}
       </div>
       <div class="dv-links">
-        <h4>Traceability Chain</h4>
-        ${renderSingularChain(chain, obj.uuid)}
         <h4>Forward Links</h4>
         ${renderLinks(this.graph, links)}
       </div>`;
 
     this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
-    this.querySelectorAll('.dv-link').forEach(row => {
-      row.addEventListener('click', () => {
-        const lref = (row as HTMLElement).dataset.ref!;
-        navigate(lref.split(':')[0], 'show', { uuid: refUuid(lref) });
-      });
-    });
     fetchDetailData(obj.uuid).then(({ children, parent, sourceFile, sourceLine }) => {
       if (sourceFile) { const sh = this.querySelector(".dv-head"); if (sh) sh.insertAdjacentHTML("beforeend", renderSourceLink(sourceFile, sourceLine)); } if (parent) { const h = this.querySelector('.dv-head'); if (h) { h.insertAdjacentHTML('afterend', renderParentLink(parent)); this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid }); }); } }
 
@@ -78,7 +68,7 @@ function renderLinks(graph: TraceGraph | null, links: Record<string, string[]>):
       const lobj = graph?.get(refUuid(lref));
       const ltype = lref.split(':')[0];
       if (!CHAIN_TYPES.has(ltype)) continue;
-      rows.push(`<div class="dv-link" data-ref="${lref}"><span class="dv-rel">${relation}</span><span class="dv-link-title">${esc(lobj?.title || lref)}</span></div>`);
+      rows.push(`<a class="dv-link" href="${scenarioBrowserHref(refUuid(lref))}" style="display:block;color:#ff9800;text-decoration:none"><span class="dv-rel">${relation}</span><span class="dv-link-title">${esc(lobj?.title || lref)}</span></a>`);
     }
   }
   return rows.join('') || '<div class="dv-empty">no links</div>';

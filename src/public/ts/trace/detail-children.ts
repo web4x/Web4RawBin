@@ -42,12 +42,15 @@ export function renderParentLink(parent: DetailParent | null): string {
 }
 
 // [impl:uuid:ed71d42a-8b9c-4831-963a-973ff28d0819] R19.70 scenarioBrowserLinkFromIor
-export function scenarioBrowserLinkFromIor(uuid: string): string {
-  if (!uuid) return '';
+/** R20.30 — shared /md scenario-browser URL for a unit uuid (DRY: forward-link rows + Scenario field). */
+export function scenarioBrowserHref(uuid: string): string {
   const hex = uuid.replace(/-/g, '');
   const shard = `${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}`;
-  const href = `/md/scenario/index/${shard}/?highlight=${encodeURIComponent(uuid + '.scenario.json')}`;
-  return `<div class="dv-field"><a href="${href}" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Scenario</a></div>`;
+  return `/md/scenario/index/${shard}/?highlight=${encodeURIComponent(uuid + '.scenario.json')}`;
+}
+export function scenarioBrowserLinkFromIor(uuid: string): string {
+  if (!uuid) return '';
+  return `<div class="dv-field"><a href="${scenarioBrowserHref(uuid)}" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Scenario</a></div>`;
 }
 
 export function renderSourceLink(sourceFile?: string, sourceLine?: number): string {
