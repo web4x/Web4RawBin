@@ -5,6 +5,6 @@
     "uuid": "c5859da9-4b57-4df1-b458-ea2e3d6e6b49",
     "name": "impl:RbFileDetail.renderWithBrowseLink",
     "status": "active",
-    "sourceFile": ""
+    "sourceFile": "src/public/ts/trace/rb-file-detail.ts"
   }
 }

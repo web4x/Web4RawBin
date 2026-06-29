@@ -7,7 +7,8 @@
     "implementations": [
       "ior:instance:c5859da9-4b57-4df1-b458-ea2e3d6e6b49"
     ],
-    "tests": []
+    "tests": [],
+    "sourceFile": "src/public/ts/trace/rb-file-detail.ts"
   },
   "ownerIor": "ior:instance:37103cf0-c1db-4c94-84d4-163b05f9a8dd"
 }

@@ -1362,6 +1362,18 @@ if(window.visualViewport)window.visualViewport.addEventListener('resize',onViewp
       res.end(`${lockedHead}${pageNav('/md/' + dirPath + '/', 'Back')}<iframe src="/svg-viewer?src=${encodeURIComponent('/md/raw/' + relPath)}" style="width:100vw;height:calc(100vh - 60px - env(safe-area-inset-top));border:none;display:block;background:white"></iframe></body></html>`);
       return;
     }
+    // R22.4 fix: serve raster images raw so the clickable /md image links RESOLVE (were 404 — only .svg had a handler)
+    if (filepath.startsWith('/md/') && /\.(png|jpe?g|gif|webp|bmp|ico|avif)$/i.test(filepath)) {
+      const relPath = filepath.slice(4);
+      if (relPath.includes('..')) { res.writeHead(403); res.end('Forbidden'); return; }
+      const imgFile = path.join(PROJECT_ROOT, relPath);
+      try {
+        const buf = fsSync.readFileSync(imgFile);
+        res.writeHead(200, { 'Content-Type': MIME_TYPES[path.extname(relPath).toLowerCase()] || 'application/octet-stream', 'Cache-Control': 'no-cache' });
+        res.end(buf);
+      } catch { res.writeHead(404); res.end('Image not found'); }
+      return;
+    }
     if (filepath.startsWith('/md/') && filepath.endsWith('.puml')) {
       const relPath = filepath.slice(4);
       if (relPath.includes('..')) { res.writeHead(403); res.end('Forbidden'); return; }

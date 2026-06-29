@@ -5,6 +5,6 @@
     "uuid": "3bdd9eac-1a36-481e-8ea2-6be9dee98809",
     "name": "impl:RbFileDetail.renderActionButtons",
     "status": "active",
-    "sourceFile": ""
+    "sourceFile": "src/public/ts/trace/rb-file-detail.ts"
   }
 }
