@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "828e5328-f62e-4dfe-9907-6ed2e5d00265",
+    "name": "ContentPreviewer",
+    "description": "Design-ahead class for preview.renderAudio (R23.1).",
+    "methods": [
+      "ior:instance:ccbd2bdf-a5f1-4f78-b71a-b46c81d4383f"
+    ]
+  },
+  "ownerIor": "ior:instance:4a4a5d66-d9ff-42be-8d17-201531dbb53e"
+}

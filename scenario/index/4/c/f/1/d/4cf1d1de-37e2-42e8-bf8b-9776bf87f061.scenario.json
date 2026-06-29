@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "4cf1d1de-37e2-42e8-bf8b-9776bf87f061",
+    "name": "ContentPreviewer",
+    "description": "Design-ahead class for preview.embedYouTube (R23.2).",
+    "methods": [
+      "ior:instance:efe1d17e-04b2-422d-b69d-00e5023eeb24"
+    ]
+  },
+  "ownerIor": "ior:instance:4a4a5d66-d9ff-42be-8d17-201531dbb53e"
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "edb49bb5-dd67-4d07-9aff-37c0bf44d531",
+    "name": "RbDetailView.renderChainPathSection",
+    "description": "Task/Req/UseCase detail shows ONE Traceability Chain section (the renderChainPathSection server-walk), not a duplicate inline \"No chain\"; Forward Links render as real <a href> to the targets scenario MD.",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1420a915-e9bd-402c-acd8-a0e82183de23"
+}

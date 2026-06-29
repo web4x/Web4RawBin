@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "af4e16c1-c580-4562-9d4d-109c610694f3",
+    "name": "FileBrowser.renderImageLink",
+    "description": "PNG (and all image types) are clickable in the /md file browser and open in the preview pane, same as SVG (R22.4 widened the .svg-only handling to all images).",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0cb4be1b-e2b6-46de-9656-9f87857559df"
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "ada54a0e-0eef-4f16-a393-8c30c6bdd06d",
+    "name": "panZoom.mouseParity",
+    "description": "Drawer pan/zoom reaches full mouse parity with touch: wheel=zoom (==pinch), drag=pan (==1-finger), double-CLICK=reset/2x (==double-tap, the missing dblclick handler).",
+    "class": "ior:instance:e5e3c885-7e2c-4666-8eaf-6a91489b5d43",
+    "classes": [
+      "ior:instance:e5e3c885-7e2c-4666-8eaf-6a91489b5d43"
+    ],
+    "method": "ior:instance:09db9916-2e8e-48bc-99d3-0625925d618e",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:b7000fa1-01d6-4757-a211-b24051eea7eb"
+}
