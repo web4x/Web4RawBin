@@ -50,6 +50,16 @@ export async function downloadVCard(profile: VCardProfile): Promise<void> {
     vcfText = lines.join('\r\n');
   }
 
+  // v0.6.82: a STORED vCard's NOTE holds the ORIGINAL UUID; if the current playerToken differs
+  // (device-link changed the token), append it so BOTH the original and current UUID are in the card.
+  if (vcfText && profile.playerToken && !vcfText.includes(profile.playerToken)) {
+    if (vcfText.includes('NOTE:')) {
+      vcfText = vcfText.replace(/(NOTE:[^\r\n]*)/, `$1 — RawBin UUID: ${profile.playerToken}`);
+    } else {
+      vcfText = vcfText.replace('END:VCARD', `NOTE:RawBin User — UUID: ${profile.playerToken}\r\nEND:VCARD`);
+    }
+  }
+
   // Enrich NOTE with download date + geolocation
   const downloadDate = new Date().toISOString();
   let geoLink = '';
