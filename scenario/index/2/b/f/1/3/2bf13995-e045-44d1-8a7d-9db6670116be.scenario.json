@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "2bf13995-e045-44d1-8a7d-9db6670116be",
+    "name": "Room",
+    "description": "Room membership/token resolution (R23.3). Formalizes src/ts/server/Room.ts.",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "methods": [
+      "ior:instance:1671bcb7-bae6-4591-8bd0-323bbc8066db"
+    ]
+  },
+  "ownerIor": "ior:instance:4a4a5d66-d9ff-42be-8d17-201531dbb53e"
+}
