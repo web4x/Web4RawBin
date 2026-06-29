@@ -24,7 +24,9 @@ export function renderContentPreview(uuid: string, mimeType: string, name: strin
  * R21.9 — single mime→content builder (DRY): build the preview element for `mimeType`
  * and load it into the given pan/zoom pane. Reused by the room file view, the trace
  * browser detail view, and rb-file-detail. Text/url content fetched lazily.
+ * v0.6.80: audio MIME → <audio controls>; text/uri-list YouTube URL → embedded player.
  */
+// [impl:uuid:ca54081e-42cb-4a0e-a9a6-2af559091783] R22.5 ContentPreviewer.fillPreviewPane — audio + YouTube preview
 export function fillPreviewPane(pane: RbPreviewPane, uuid: string, mimeType: string, name: string, token?: string): void {
   const contentUrl = `/api/room/file/${uuid}/content${token ? '?token=' + encodeURIComponent(token) : ''}`;
   const imgStyle = 'display:block;max-width:100%;height:auto';
@@ -37,11 +39,16 @@ export function fillPreviewPane(pane: RbPreviewPane, uuid: string, mimeType: str
     pane.setContent(`<img src="${contentUrl}" alt="${esc(name)}" style="${imgStyle}">`);
   } else if (mimeType === 'application/pdf' || mimeType === 'text/html') {
     pane.setContent(`<iframe src="${contentUrl}" sandbox="allow-same-origin" style="${frameStyle}"></iframe>`);
+  } else if (mimeType.startsWith('audio/')) {
+    // v0.6.80: native HTML5 audio player (audio/mpeg, audio/wav, audio/ogg, audio/mp4) instead of download
+    pane.setContent(`<audio controls src="${contentUrl}" style="width:100%;display:block;margin-top:40px"></audio>`);
   } else if (mimeType === 'text/uri-list' || name.endsWith('.url') || name.endsWith('.webloc')) {
     pane.setContent(`<pre style="${preStyle}">Resolving…</pre>`);
     fetch(contentUrl).then(r => r.text()).then(text => {
       const url = text.trim().split('\n').filter(l => l.startsWith('http'))[0] || '';
-      if (url) pane.setContent(`<iframe src="${esc(url)}" sandbox="allow-same-origin allow-scripts" style="${frameStyle}"></iframe>`);
+      const yt = youtubeId(url);
+      if (yt) pane.setContent(`<iframe src="https://www.youtube.com/embed/${yt}" allowfullscreen allow="autoplay" style="${frameStyle}"></iframe>`); // v0.6.80: YouTube auto-embed
+      else if (url) pane.setContent(`<iframe src="${esc(url)}" sandbox="allow-same-origin allow-scripts" style="${frameStyle}"></iframe>`);
       else pane.setContent(`<pre style="${preStyle}">No URL found</pre>`);
     }).catch(() => pane.setContent(`<pre style="${preStyle}">Failed to resolve</pre>`));
   } else if (mimeType.startsWith('text/') || mimeType === 'application/json') {
@@ -104,7 +111,14 @@ const MIME_MAP: Record<string, string> = {
   '.html': 'text/html', '.htm': 'text/html', '.url': 'text/uri-list', '.webloc': 'text/uri-list',
   '.json': 'application/json', '.txt': 'text/plain', '.md': 'text/plain',
   '.ts': 'text/plain', '.js': 'text/plain', '.css': 'text/plain',
+  '.mp3': 'audio/mpeg', '.wav': 'audio/wav', '.ogg': 'audio/ogg', '.m4a': 'audio/mp4', '.aac': 'audio/aac', '.oga': 'audio/ogg',
 };
+
+/** v0.6.80: extract a YouTube video id from watch?v=ID / youtu.be/ID / embed/ID, else null. */
+function youtubeId(url: string): string | null {
+  const m = url.match(/(?:youtube\.com\/(?:watch\?(?:[^&]*&)*v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
 
 export function guessMimeFromName(name: string): string {
   const dot = name.lastIndexOf('.');
