@@ -1,0 +1,68 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "649e9f4c-5e19-4a68-aa80-3378b1e1a9cc",
+    "name": "Comprehensive DnD logging (capture every dropped URL scheme)",
+    "altId": "R25.1",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-25-apple-dnd/requirements.md",
+    "sourceLine": 14,
+    "parent": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:5fc59adc-6a84-4426-b892-28294bbb0612"
+    ],
+    "description": "The room drop handler must log EVERYTHING about every drop, framed around URL-scheme capture: all DataTransfer.types, every DataTransfer.items entry (kind+type), DataTransfer.files, and getData() for each advertised type (text/uri-list, text/plain, text/html, text/calendar, text/x-vcard, and Apple UTIs) - then EXTRACT and log the URL SCHEME of each dropped item (mailto/webcal/calshow/maps/geo/tel/x-apple-reminder/http(s)/...). Log to BOTH chat AND server so a drop in Tron's test room is diagnosable. When no handler matches, the log must capture enough to diagnose WHICH scheme/payload was dropped - not just file.name+type (today routeUnknown logs only file.name+type, and the handler reads only dt.files + getData(uri-list||plain), so Apple URL-scheme items that are NOT File objects are invisible).",
+    "tronQuote": "> TRON: \"on apple iPhone and macOS a lot can be dragged and dropped next to files: emails, calendar entries, locations. Add logging so you see when such action fails and create scrum tasks to start to support them.\"",
+    "poClarification": "PO clarification 2026-06-29: Apple DnD items are URL SCHEMES, not files (mailto:, webcal:, calshow:, maps:, geo:, tel:, x-apple-reminder:). Goal: seamlessly support all URL formats so they open in their original app via Open-in-New-Tab - same pattern as the YouTube handler (R23.2): detect scheme -> meaningful preview -> Open-in-New-Tab launches the native app. Frame requirements around URL-SCHEME ROUTING, not file handling. R25.1 logging must capture WHICH URL schemes Apple sends on drop; future R25.x = per-scheme preview+handler (email/calendar/map/contact/reminder).",
+    "implRef": "ior:file:src/public/ts/RoomView.ts:178-187 (drop handler: reads dt.files + getData(uri-list||plain)) + src/public/ts/drop-dispatcher.ts routeUnknown:81 (logs only file.name+type) / dispatch:92 (MIME allowlist)",
+    "crossRef": [
+      "ior:instance:8f34c3e5-351c-48b3-8f33-fae45ca279b2"
+    ],
+    "crossRefNote": "R25.x per-scheme handlers follow the R23.2 YouTube pattern (detect scheme -> preview -> Open-in-New-Tab). R25.1 is the diagnostic instrument that precedes them.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-types",
+        "group": "datatransfer",
+        "text": "On every drop, log all DataTransfer.types entries."
+      },
+      {
+        "id": "AC-items",
+        "group": "datatransfer",
+        "text": "Log every DataTransfer.items entry (kind + type), including non-File items."
+      },
+      {
+        "id": "AC-files",
+        "group": "datatransfer",
+        "text": "Log every DataTransfer.files entry (name, type, size)."
+      },
+      {
+        "id": "AC-getdata",
+        "group": "payload",
+        "text": "For each advertised type, log getData(type) - the raw URL/payload (text/uri-list, text/plain, text/html, text/calendar, text/x-vcard, Apple UTIs)."
+      },
+      {
+        "id": "AC-scheme",
+        "group": "scheme",
+        "text": "Extract and log the URL SCHEME of each dropped item (mailto, webcal, calshow, maps, geo, tel, x-apple-reminder, http(s), ...) - the routing key."
+      },
+      {
+        "id": "AC-chat-server",
+        "group": "sink",
+        "text": "Log to BOTH chat (client-visible) AND server (persisted) so a drop in Tron's test room is diagnosable after the fact."
+      },
+      {
+        "id": "AC-no-handler",
+        "group": "diagnose",
+        "text": "When no handler matches the scheme/type, the log captures enough (all types + getData + extracted scheme) to diagnose WHAT was dropped - replacing today's file.name+type-only routeUnknown."
+      },
+      {
+        "id": "AC-non-file",
+        "group": "non-file",
+        "text": "Apple URL-scheme items that are NOT File objects are captured (handler reads beyond dt.files + getData(uri-list||plain))."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"
+}
