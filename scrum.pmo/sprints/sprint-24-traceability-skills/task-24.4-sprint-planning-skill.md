@@ -8,11 +8,11 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
@@ -44,6 +44,10 @@ PO 2026-06-29: formalize the scattered traceability + MD-planning TS tools as a 
 - [ ] (task-files) Task MD files are created from Task units with their coveredRequirements + chain, speaking-name slugs
 - [ ] (law100) Scenario units are the source of truth; MD is derived (law #100)
 - [ ] (drift-scope) --check (check:sprint-md) drift detection also catches EXTRA/orphan stale MD files (e.g. left by a slug rename), scoped to the GENERATED_HEADER region - not just content byte-diff of expected files
+
+## Implementation
+
+Impl on existing generate-sprint-md.ts ([test:uuid:9dbf5538]); Test hop wired d33440e1c; chain COMPLETE (32/297). Tested via the tool's INHERENT gate — the round-trip --check (check:sprint-md) which the planner runs every cycle, byte-match GREEN. No separate per-task DET-3x gate commit; flagged to PO.
 
 ## Subtasks
 

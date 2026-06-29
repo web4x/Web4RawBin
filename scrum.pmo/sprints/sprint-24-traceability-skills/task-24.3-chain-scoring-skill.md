@@ -8,11 +8,11 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
@@ -44,6 +44,10 @@ PO 2026-06-29: formalize the scattered traceability + MD-planning TS tools as a 
 - [ ] (lintMarkers) Chain.lintMarkers reports invented-suffix uuids, prefix collisions, shared Impls, and orphan markers before any re-measure
 - [ ] (one-measure) There is exactly ONE completion measure (followUp); no competing/duplicate scoreboard logic
 - [ ] (one-measure-confirmed) scoreboard, listComplete, generateMatrix, and Velocity ALL delegate to Chain.followUp - verified no competing count (skill-expert confirmed)
+
+## Implementation
+
+Impl markers 7dd6a762c (named Chain methods); Test hop wired d33440e1c; chain scores COMPLETE (28->32/297) via the Chain.followUp measure itself. Tested via the scoreboard (objectVerb Chain) + Test unit — NO separate per-task DET-3x gate commit (vs T24.1/T24.2 explicit gates); flagged to PO.
 
 ## Subtasks
 

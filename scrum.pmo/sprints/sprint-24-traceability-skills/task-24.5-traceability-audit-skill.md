@@ -8,11 +8,11 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
@@ -43,6 +43,10 @@ PO 2026-06-29: formalize the scattered traceability + MD-planning TS tools as a 
 - [ ] (strict) trace:audit:strict asserts every Test is reachable from a Requirement root via the 6-step chain and FAILS on any gap
 - [ ] (ci) trace:audit:strict is part of the ci:gates pipeline (nothing ships chain-open)
 - [ ] (walk) The audit walks the forward chain per type (FORWARD_KEYS), reporting per-Test reachable depth and offending UUIDs
+
+## Implementation
+
+Impl markers 7dd6a762c; Test hop wired d33440e1c; chain COMPLETE (32/297). Tested via the tool's INHERENT gate — trace:audit:strict in the ci:gates pipeline. No separate per-task DET-3x gate commit; flagged to PO.
 
 ## Subtasks
 

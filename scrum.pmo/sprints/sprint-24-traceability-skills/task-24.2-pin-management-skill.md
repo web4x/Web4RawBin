@@ -8,11 +8,11 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
@@ -48,6 +48,10 @@ PO 2026-06-29: formalize the scattered traceability + MD-planning TS tools as a 
 - [ ] (three-slot) getThreeSlots returns the 3-slot pin - current / lastCompleted / nextBacklog - the core Current-Sprint pin model
 - [ ] (backlog-slot) setNextBacklog / clearNextBacklog pin and clear the nextBacklog slot (a real planner-drive verb, part of the 3-slot pin)
 - [ ] (owner) hopUpdate records the acting agent on the hop; owner-rejection (rejecting a wrong owner) is NOT enforced today - TARGET behaviour for the formalized skill
+
+## Implementation
+
+Tested GREEN DET-3x — explicit gate test(v0.6.85) getThreeSlots sprint-scope c0bbecb2f; impl markers 7dd6a762c (named pin methods); chain COMPLETE (scoreboard 32/297). Formalizes planner-drive.ts/CurrentSprint. NOTE: the advance-gate, owner-rejection and shim-parity ACs are TARGET (forward) skill behaviour, NOT yet enforced today — left unchecked honestly.
 
 ## Subtasks
 

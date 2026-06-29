@@ -8,11 +8,11 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
@@ -46,6 +46,10 @@ PO 2026-06-29: formalize the scattered traceability + MD-planning TS tools as a 
 - [ ] (completable) Every Object.verb skill is Tab-completable on WODA.prod (the c2/complete() contract resolves live)
 - [ ] (ci-drift) The committed OOSH wrapper is byte-equal to emitOosh output; a CI/precommit drift gate fails if they diverge (no hand-edited wrapper)
 - [ ] (ownership) Each skill object has a named expert+tester owner and at least one test (no unowned skill surface)
+
+## Implementation
+
+Tested GREEN DET-3x — explicit gate test(T24.1) b810aa690 (r241-objectverb-gate.mjs); impl [impl:uuid:5453f58d] on named introspect(); chain scores COMPLETE (27->28/297). Formalizes existing objectVerb.ts.
 
 ## Subtasks
 
