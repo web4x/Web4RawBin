@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "2b6be816-1213-4720-b2eb-4efc759b70b0",
+    "name": "Task 23.1: Audio files play in the preview (HTML5 player)",
+    "slug": "task-23.1-audio-preview-html5-player",
+    "description": "When an audio file (mp3, wav, ogg, or m4a) is dropped or uploaded into a room, the preview pane renders an HTML5 <audio controls> player with play, pause, seek, and volume controls. Extends the room content preview (R21.9 rb-preview-pane / ContentPreviewer).",
+    "intention": "Tron: \"MP3 files must play audio in the preview... the preview pane renders an HTML5 audio player with play/pause/seek/volume. Support mp3/wav/ogg/m4a.\"",
+    "context": "Room content preview pane (ContentPreviewer / rb-preview-pane, R21.9). Audio files were not rendered as playable; this adds the HTML5 audio player surface.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "traceability": "  - up\n    - [Sprint 23 Planning](./planning.md)\n    - Requirement R23.1 `[requirement:uuid:480b40aa-c0ba-40dc-8876-823ebe3af91b]`\n  - down\n    - [UC-MP.1: preview.renderAudioPlayer](./planning.md#uc-mp1) `[uc:uuid:b9792582-755d-4f12-8476-42f134b6f4ef]`",
+    "acceptanceCriteria": "- [ ] Dropping/uploading an audio file into a room stores it and offers it in the preview\n- [ ] The preview pane renders an HTML5 `<audio controls>` player for the file\n- [ ] The player provides play/pause, seek, and volume controls\n- [ ] Supported types: mp3, wav, ogg, m4a (correct MIME/`<source>` per extension)\n- [ ] Verified live (headless) — an audio file in a room renders the player and is playable",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:480b40aa-c0ba-40dc-8876-823ebe3af91b"
+    ],
+    "useCases": [
+      "ior:instance:b9792582-755d-4f12-8476-42f134b6f4ef"
+    ],
+    "parent": "ior:instance:4a4a5d66-d9ff-42be-8d17-201531dbb53e",
+    "sprintName": "Sprint 23",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-06-29"
+  },
+  "ownerIor": null
+}
