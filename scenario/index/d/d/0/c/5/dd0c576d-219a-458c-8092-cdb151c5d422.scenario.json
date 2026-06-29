@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "dd0c576d-219a-458c-8092-cdb151c5d422",
+    "name": "Task 22.4: PNG files clickable + open in preview (same as SVG)",
+    "slug": "task-22.4-png-clickable-opens-preview",
+    "description": "In the /md/ file browser, PNG files MUST be clickable and open in the same preview/viewer that SVG files currently open in — the PNGs are not clickable today.",
+    "intention": "Tron: \"in the /md/ file browser, PNG files should be clickable and open in a preview — same behavior as SVGs currently do.\" (e.g. /md/test/visual/?highlight=r211-vcard-persist-gate.mjs)",
+    "context": "/md/ file browser listing. SVG entries are clickable and open a preview; PNG entries were inert.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "remainingIssues": "Tester DET-3x found the PNG preview links RED (404) on v0.6.78 (real bug, adddd7ae5). Expert fixed PNG links 404→200 in v0.6.79 (4e3c3df0d). Tester re-gate (DET-3x GREEN on the running /md/ test/visual listing) is PENDING — testing hop stays open until re-verified.",
+    "traceability": "  - up\n    - [Sprint 22 Planning](./planning.md)\n    - Requirement R22.4 `[requirement:uuid:c13ee707-0099-45ef-9d4d-f5541d21b2bd]`\n  - down\n    - [UC-VF.4: mdBrowser.pngOpensPreview](./planning.md#uc-vf4) `[uc:uuid:3ab76d13-2ef6-4ca2-b597-7692cb2a30f6]`",
+    "acceptanceCriteria": "- [x] PNG entries in the /md/ file browser render as clickable links (like SVG entries) — impl v0.6.78 (9c052bd9a)\n- [ ] Clicking a PNG opens it in the SAME preview/viewer that SVG files use — was RED (404) v0.6.78; fix v0.6.79 (404→200); re-gate pending\n- [x] SVG behaviour is unchanged (no regression)\n- [ ] Verified live (headless) on the /md/ test/visual listing — pending tester DET-3x GREEN on v0.6.79",
+    "subtasks": "None (atomic task).",
+    "status": "In Progress",
+    "coveredRequirements": [
+      "ior:instance:c13ee707-0099-45ef-9d4d-f5541d21b2bd"
+    ],
+    "useCases": [
+      "ior:instance:3ab76d13-2ef6-4ca2-b597-7692cb2a30f6"
+    ],
+    "parent": "ior:instance:9996b46a-66b7-4f8a-9298-cbea3c2edabf",
+    "sprintName": "Sprint 22",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-06-29"
+  },
+  "ownerIor": null
+}
