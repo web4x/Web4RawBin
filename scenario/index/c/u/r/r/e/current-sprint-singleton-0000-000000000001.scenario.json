@@ -2,23 +2,23 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 23.3: Identity merge cleans up room membership (no ghost members)",
+    "name": "Current: Task 24.1: Object.verb skill introspection + generation engine",
     "chain": {
-      "req": "75853976-72f9-464a-9f23-d35173a8b48e",
-      "uc": "fc7356af-8c3f-4f2c-bdf6-30d2a6b139f9",
-      "class": "",
-      "method": "",
-      "impl": "",
+      "req": "527f154f-004d-4ef4-a245-65862e1d3455",
+      "uc": "b77a3494-6b43-4956-bc7e-72485470a6d4",
+      "class": "dbcd870e-664e-43da-89ae-9d56514f7846",
+      "method": "750105fd-7034-448d-ad30-1c0e041e71bf",
+      "impl": "5453f58d-6dca-4aa7-89ca-9faa92badf03",
       "test": ""
     },
-    "activeHop": 2,
-    "sprintName": "Sprint 23",
-    "taskName": "Task 23.3: Identity merge cleans up room membership (no ghost members)",
+    "activeHop": 5,
+    "sprintName": "Sprint 24",
+    "taskName": "Task 24.1: Object.verb skill introspection + generation engine",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-06-29T20:39:58.516Z"
+        "updatedAt": "2026-06-29T20:42:31.143Z"
       }
     },
     "nextBacklogOverride": "",
@@ -27,14 +27,14 @@
     "lastCompletedReqUuid": "75853976-72f9-464a-9f23-d35173a8b48e",
     "slots": {
       "current": {
+        "taskUuid": "8bbd1727-041e-456f-a645-67f2b2cd4bb5",
+        "taskName": "Task 24.1: Object.verb skill introspection + generation engine",
+        "reqUuid": "527f154f-004d-4ef4-a245-65862e1d3455"
+      },
+      "lastCompleted": {
         "taskUuid": "5f282c18-fa43-4a95-be10-65694949f981",
         "taskName": "Task 23.3: Identity merge cleans up room membership (no ghost members)",
         "reqUuid": "75853976-72f9-464a-9f23-d35173a8b48e"
-      },
-      "lastCompleted": {
-        "taskUuid": "fe8c43a5-cd15-4aed-ac5b-97df558d8fea",
-        "taskName": "T-detail-drawer-grab-bar: default detail drawer nudge becomes the wide grab-bar (DRY with chat drawer)",
-        "reqUuid": "9993091a-aa45-4c4f-9c62-e4d5377ba3e8"
       },
       "nextBacklog": {
         "taskUuid": "01d9fb64-20a3-449c-b421-43cf64fec919",
