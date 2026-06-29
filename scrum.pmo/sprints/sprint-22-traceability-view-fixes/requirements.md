@@ -48,6 +48,17 @@
   - [ ] Verified live (headless) against the running app
   → [UC-VF.3: chainNode.linkToSource](./planning.md#uc-vf3) `[uc:uuid:1371923a-06f2-4c84-a1ca-75a98ef77f51]` *(placeholder)*
 
+- [ ] **R22.4 — PNG files clickable + open in preview (same as SVG)**
+  [requirement:uuid:c13ee707-0099-45ef-9d4d-f5541d21b2bd]
+  > TRON: "in the /md/ file browser, PNG files should be clickable and open in a preview — same behavior as SVGs currently do." (URL: https://prod.wo-da.de:4444/md/test/visual/?highlight=r211-vcard-persist-gate.mjs — the PNGs listed there are not clickable.)
+  In the /md/ file browser, PNG files MUST be clickable and open in the same preview/viewer that SVG files currently open in — the PNGs are not clickable today.
+  **Acceptance criteria:**
+  - [ ] PNG entries in the /md/ file browser render as clickable links (like SVG entries)
+  - [ ] Clicking a PNG opens it in the SAME preview/viewer that SVG files use
+  - [ ] SVG behaviour is unchanged (no regression)
+  - [ ] Verified live (headless) on the /md/ test/visual listing (e.g. r211-vcard-persist-gate.mjs highlight page) — the listed PNGs open in preview
+  → [UC-VF.4: mdBrowser.pngOpensPreview](./planning.md#uc-vf4) `[uc:uuid:3ab76d13-2ef6-4ca2-b597-7692cb2a30f6]` *(placeholder)*
+
 ---
 
 ## Traceability Matrix
@@ -57,6 +68,7 @@
 | R22.1 | Task detail: one chain + MD-file links | 661836fd-2db8-4863-8556-0d698c897cd5 | 4d0e454a-124a-43f7-8487-28aa61c12fbf |
 | R22.2 | Drawer pan/zoom full mouse parity | b7000fa1-01d6-4757-a211-b24051eea7eb | ada54a0e-0eef-4f16-a393-8c30c6bdd06d |
 | R22.3 | Chain nodes link to source artifacts | 2c1fd942-a6f1-414c-976f-ea7af7008201 | 1371923a-06f2-4c84-a1ca-75a98ef77f51 |
+| R22.4 | PNG clickable + opens preview (like SVG) | c13ee707-0099-45ef-9d4d-f5541d21b2bd | 3ab76d13-2ef6-4ca2-b597-7692cb2a30f6 |
 
 **R-I note (for planner/PO):** R22.1 bundles two distinct atomic behaviours — (a) dedupe the chain section, (b) repoint Forward Links to the MD file. Per the atomic-one-sentence rule these could split into R22.1 + R22.2; captured as one unit per the PO directive ("R22.1"). Flag if a split is wanted for independent tasking.
 

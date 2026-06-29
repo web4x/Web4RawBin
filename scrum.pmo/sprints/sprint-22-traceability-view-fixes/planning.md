@@ -14,6 +14,7 @@ Fix two defects in the Task detail view of the traceability browser: remove the 
 | <a id="uc-vf1"></a>UC-VF.1 | taskDetail.renderSingleChainAndMdLink | 4d0e454a-124a-43f7-8487-28aa61c12fbf | R22.1 |
 | <a id="uc-vf2"></a>UC-VF.2 | drawer.panZoomMouseParity | ada54a0e-0eef-4f16-a393-8c30c6bdd06d | R22.2 |
 | <a id="uc-vf3"></a>UC-VF.3 | chainNode.linkToSource | 1371923a-06f2-4c84-a1ca-75a98ef77f51 | R22.3 |
+| <a id="uc-vf4"></a>UC-VF.4 | mdBrowser.pngOpensPreview | 3ab76d13-2ef6-4ca2-b597-7692cb2a30f6 | R22.4 |
 
 The architect refines UC-VF.1 into a real UseCase unit (likely on the Task-detail view class, e.g. `rb-task-detail.ts`) and wires Class → Method → Implementation → Test.
 

@@ -1,0 +1,42 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "c13ee707-0099-45ef-9d4d-f5541d21b2bd",
+    "name": "PNG files clickable + open in preview (same as SVG)",
+    "altId": "R22.4",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-22-traceability-view-fixes/requirements.md",
+    "sourceLine": 52,
+    "parent": "ior:instance:9996b46a-66b7-4f8a-9298-cbea3c2edabf",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:3ab76d13-2ef6-4ca2-b597-7692cb2a30f6"
+    ],
+    "description": "In the /md/ file browser, PNG files MUST be clickable and open in the same preview/viewer that SVG files currently open in \u2014 the PNGs are not clickable today.",
+    "tronQuote": "> TRON: \"in the /md/ file browser, PNG files should be clickable and open in a preview - same behavior as SVGs currently do.\" (URL: https://prod.wo-da.de:4444/md/test/visual/?highlight=r211-vcard-persist-gate.mjs - the PNGs listed there are not clickable.)",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1",
+        "group": "clickable",
+        "text": "PNG entries in the /md/ file browser render as clickable links (like SVG entries)."
+      },
+      {
+        "id": "AC-2",
+        "group": "preview",
+        "text": "Clicking a PNG opens it in the SAME preview/viewer that SVG files use."
+      },
+      {
+        "id": "AC-3",
+        "group": "no-regression",
+        "text": "SVG behaviour is unchanged (no regression)."
+      },
+      {
+        "id": "AC-4",
+        "group": "verify",
+        "text": "Verified live (headless) on the /md/ test/visual listing \u2014 the listed PNGs open in preview."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:9996b46a-66b7-4f8a-9298-cbea3c2edabf"
+}
