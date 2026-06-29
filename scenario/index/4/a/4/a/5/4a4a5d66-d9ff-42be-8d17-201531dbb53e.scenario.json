@@ -9,7 +9,8 @@
     "compoundSource": "scrum.pmo/sprints/sprint-23-media-preview/requirements.md",
     "requirements": [
       "ior:instance:480b40aa-c0ba-40dc-8876-823ebe3af91b",
-      "ior:instance:8f34c3e5-351c-48b3-8f33-fae45ca279b2"
+      "ior:instance:8f34c3e5-351c-48b3-8f33-fae45ca279b2",
+      "ior:instance:75853976-72f9-464a-9f23-d35173a8b48e"
     ],
     "tasks": [
       "ior:instance:2b6be816-1213-4720-b2eb-4efc759b70b0",

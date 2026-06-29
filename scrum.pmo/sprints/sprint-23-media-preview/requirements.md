@@ -34,6 +34,20 @@
   - [ ] Verified live (headless) — a YouTube URL in a room renders the embed
   → [UC-MP.2: preview.renderYouTubeEmbed](./planning.md#uc-mp2) `[uc:uuid:d0d09ff8-27e1-4059-88d0-90cc20f05eb2]` *(placeholder)*
 
+- [ ] **R23.3 — Identity merge cleans up room membership (no ghost members)**
+  [requirement:uuid:75853976-72f9-464a-9f23-d35173a8b48e]
+  > TRON: "in the heartspaces are 2 marcel donges users. i tried to link accounts but it did not work though my secret number was correct."
+  When profiles are merged (Link Account / consolidate, leaving the target tombstoned with redirectTo set), the merge MUST clean up room membership so a tombstoned profile never appears as a ghost member: a room shows exactly ONE canonical member per merged identity. Link Account MUST succeed when the secret code is correct, and the flow MUST NOT create a phantom empty profile.
+  **Acceptance criteria:**
+  - [ ] **(ghost members)** After a merge, tombstoned profiles (redirectTo set) are removed/redirected from every room member list — no duplicate "ghost" member
+  - [ ] A room with merged identities shows exactly ONE canonical member per person (Heartspaces shows one Marcel Donges, not two)
+  - [ ] **(link works)** Link Account / consolidate SUCCEEDS when the entered secret code matches the target's secretCode
+  - [ ] A correct secret code never yields a silent failure; a wrong code yields an explicit CONSOLIDATE_FAILED 'Wrong secret code'
+  - [ ] **(no phantom)** The identity/link flow does NOT create a phantom empty/uncommitted profile (e.g. the observed 6a27140d)
+  - [ ] Existing ghost members from past merges are reconciled (cleanup is retroactive for already-tombstoned profiles in rooms)
+  - [ ] Verified live (headless) in a real room — merge 2+ profiles, room member list collapses to one canonical member
+  → [UC-IM.1: identityMerge.cleanupRoomMembership](./planning.md#uc-im1) `[uc:uuid:fc7356af-8c3f-4f2c-bdf6-30d2a6b139f9]` *(placeholder)*
+
 ---
 
 ## Traceability Matrix
@@ -42,6 +56,7 @@
 |-----|--------------|------------------|---------------------|
 | R23.1 | Audio files play in preview (HTML5) | 480b40aa-c0ba-40dc-8876-823ebe3af91b | b9792582-755d-4f12-8476-42f134b6f4ef |
 | R23.2 | YouTube URL → embedded iframe player | 8f34c3e5-351c-48b3-8f33-fae45ca279b2 | d0d09ff8-27e1-4059-88d0-90cc20f05eb2 |
+| R23.3 | Identity merge cleans room membership | 75853976-72f9-464a-9f23-d35173a8b48e | fc7356af-8c3f-4f2c-bdf6-30d2a6b139f9 |
 
 ---
 

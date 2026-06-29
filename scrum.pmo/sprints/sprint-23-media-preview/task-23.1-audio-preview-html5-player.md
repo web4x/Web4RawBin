@@ -46,7 +46,7 @@ Tron: "MP3 files must play audio in the preview... the preview pane renders an H
 
 ## Implementation
 
-Shipped v0.6.80 (3a02318ce, LIVE on prod): HTML5 `<audio>` preview rendered in content-preview.ts (ContentPreviewer / rb-preview-pane, R21.9); sw.js + version bumped (#15/#16). Architect design 72b582092 (single fillPreviewPane landing). Tester GREEN DET-3x (verdict 0eb5f64cc, gate r225-audio-youtube-gate.mjs) — testing hop CLEARED → QA Review (Tron gate).
+Shipped v0.6.80 (3a02318ce, LIVE on prod): HTML5 `<audio>` preview rendered in content-preview.ts (ContentPreviewer / rb-preview-pane, R21.9); sw.js + version bumped (#15/#16). Architect design 72b582092 (single fillPreviewPane landing). Tester GREEN DET-3x (verdict 0eb5f64cc, gate r225-audio-youtube-gate.mjs) — testing hop CLEARED → QA Review (Tron gate). FOLLOW-ON v0.6.81 (713e1a23c): fixed MP3/audio drop rejected — audio/ MIME added to drop-dispatcher.ts dispatch allowlist (completes R23.1 'dropping an audio file' AC); sw.js + version bumped (#15/#16).
 
 ## Subtasks
 

@@ -1,0 +1,61 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "75853976-72f9-464a-9f23-d35173a8b48e",
+    "name": "Identity merge cleans up room membership (no ghost members)",
+    "altId": "R23.3",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-23-media-preview/requirements.md",
+    "sourceLine": 38,
+    "parent": "ior:instance:4a4a5d66-d9ff-42be-8d17-201531dbb53e",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:fc7356af-8c3f-4f2c-bdf6-30d2a6b139f9"
+    ],
+    "description": "When profiles are merged (Link Account / consolidate, leaving the target tombstoned with redirectTo set), the merge MUST clean up room membership so a tombstoned profile never appears as a ghost member: a room shows exactly ONE canonical member per merged identity. Link Account MUST succeed when the secret code is correct, and the flow MUST NOT create a phantom empty profile.",
+    "tronQuote": "> TRON: \"in the heartspaces are 2 marcel donges users. i tried to link accounts but it did not work though my secret number was correct.\"",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-g1",
+        "group": "ghost-members",
+        "text": "After a merge, tombstoned profiles (redirectTo set) are removed/redirected from every room member list - no duplicate ghost member."
+      },
+      {
+        "id": "AC-g2",
+        "group": "ghost-members",
+        "text": "A room with merged identities shows exactly ONE canonical member per person (Heartspaces shows one Marcel Donges, not two)."
+      },
+      {
+        "id": "AC-l1",
+        "group": "link-works",
+        "text": "Link Account / consolidate SUCCEEDS when the entered secret code matches the target's secretCode."
+      },
+      {
+        "id": "AC-l2",
+        "group": "link-works",
+        "text": "A correct secret code never yields a silent failure; a wrong code yields an explicit CONSOLIDATE_FAILED 'Wrong secret code'."
+      },
+      {
+        "id": "AC-p1",
+        "group": "no-phantom",
+        "text": "The identity/link flow does NOT create a phantom empty/uncommitted profile (e.g. the observed 6a27140d)."
+      },
+      {
+        "id": "AC-r1",
+        "group": "retroactive",
+        "text": "Existing ghost members from past merges are reconciled (cleanup is retroactive for already-tombstoned profiles in rooms)."
+      },
+      {
+        "id": "AC-v",
+        "group": "verify",
+        "text": "Verified live (headless) in a real room: merge 2+ profiles, the room member list collapses to one canonical member."
+      }
+    ],
+    "discoveryContext": {
+      "observed": "Heartspaces room shows 2 'Marcel Donges' after merging 3 profiles into 1; Link Account failed despite correct secret code; phantom empty profile 6a27140d created.",
+      "mechanism": "CONSOLIDATE handler server.ts:2037 sets redirectTo tombstone but does not clean room membership; empty-profile create at server.ts:1980."
+    }
+  },
+  "ownerIor": "ior:instance:4a4a5d66-d9ff-42be-8d17-201531dbb53e"
+}
