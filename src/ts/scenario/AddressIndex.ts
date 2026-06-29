@@ -1,4 +1,3 @@
-// [impl:uuid:fab88cb9-58d9-4417-8480-000000210007] R21.7 address.mintAndVerifyAsync
 /**
  * R21.7 — AddressIndex: addresses as first-class scenario units, async OSM-verified.
  *
@@ -27,6 +26,7 @@ export class AddressIndex {
    * Profile.addresses[]. Synchronous, no network. Idempotent by oneLine.
    * Returns the address uuid (existing one if duplicate), or null if profile missing.
    */
+  // [impl:uuid:ce2501d3-0c49-4148-8c4a-795d2fbaba24] R21.7 AddressIndex.mintAddress
   mintAddress(profileUuid: string, oneLine: string, addrUuid: string): string | null {
     const line = String(oneLine || '').trim().replace(/\s+/g, ' ');
     if (!line) return null;

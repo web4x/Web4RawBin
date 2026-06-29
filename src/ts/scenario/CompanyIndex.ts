@@ -1,4 +1,3 @@
-// [impl:uuid:a62c6e37-58d9-4417-8480-000000210008] R21.8 company.mintOrReuseShared
 /**
  * R21.8 — CompanyIndex: companies as SHARED scenario units (ownerIor:null).
  *
@@ -79,6 +78,7 @@ export class CompanyIndex {
   }
 
   /** mintOrReuseShared (AC-d1..d4): domain authoritative, then nameKey, else mint. */
+  // [impl:uuid:4a7d30bb-efc1-4cd4-b0eb-a284042facce] R21.8 CompanyIndex.mintOrReuseShared
   mintOrReuseShared(name: string, companyUuid: string, domain?: string): string | null {
     const nameKey = companyNameKey(name);
     if (!nameKey) return null;

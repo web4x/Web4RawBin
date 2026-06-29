@@ -5,8 +5,7 @@
     "name": "PhoneIndex.registerSymlink",
     "description": "Normalized +CountryCode-digits phone registered as an ln symlink under scenario/alt/phone/ pointing to the profile unit (alternate UUID), via unitLinks[].",
     "implementations": [
-      "ior:instance:97015dcc-58d9-4417-8480-000000210003",
-      "ior:instance:4242f9be-58d9-4417-8480-000000210003"
+      "ior:instance:f2174329-7319-4c4b-920c-b906b2439629"
     ],
     "tests": []
   },

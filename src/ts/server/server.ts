@@ -191,7 +191,6 @@ function saveProfiles(): void {
   } catch {}
 }
 
-// [impl:uuid:4242f9be-58d9-4417-8480-000000210003] R21.3 PhoneIndex.registerSymlink wiring
 // Ensure an ior:class:Profile scenario unit exists for this token, then register
 // alt/phone/<+digits> → that profile unit. Wrapped: phone-index failure never breaks profile save.
 function indexProfilePhone(token: string, name: string, phone: string): void {
@@ -207,7 +206,6 @@ function indexProfilePhone(token: string, name: string, phone: string): void {
   } catch (e: any) { addLog(`phone index error: ${e?.message || e}`); }
 }
 
-// [impl:uuid:c59356f7-58d9-4417-8480-000000210005] R21.5 email.mintAndLink wiring
 // Mint ior:class:Email unit(s) + link into Profile.emails[] + alt/email symlink.
 // Ensures a Profile scenario unit exists (mirrors indexProfilePhone). Self-healing.
 function indexProfileEmail(token: string, name: string, emails: string[]): void {
@@ -224,7 +222,6 @@ function indexProfileEmail(token: string, name: string, emails: string[]): void 
   } catch (e: any) { addLog(`email index error: ${e?.message || e}`); }
 }
 
-// [impl:uuid:fab88cb9-58d9-4417-8480-000000210007] R21.7 address async OSM verification worker
 // Background, off the request path, rate-limited <=1 req/s, cached by oneLine (AC-c2/c3/c5).
 const addrVerifyQueue: Array<{ uuid: string; oneLine: string }> = [];
 const addrVerifyCache = new Map<string, { lat: string; lon: string } | null>();
@@ -289,7 +286,6 @@ function indexProfileAddress(token: string, name: string, addresses: string[]): 
   } catch (e: any) { addLog(`address index error: ${e?.message || e}`); }
 }
 
-// [impl:uuid:a62c6e37-58d9-4417-8480-000000210008] R21.8 company.mintOrReuseShared wiring
 // Mint-or-reuse SHARED Company unit (dedup by domain then nameKey) + link into Profile.companies[].
 function indexProfileCompany(token: string, name: string, companies: Array<string | { name: string; domain?: string }>): void {
   try {
@@ -314,6 +310,7 @@ function indexProfileCompany(token: string, name: string, companies: Array<strin
 // [impl:uuid:ff91e891-57b8-4d82-b3d5-fa45219b9db1] R21.4 identity.deviceLinkOnKnownKey
 // Resolve a phone OR email to an existing profile uuid via the alt-UUID index.
 // Identical mechanism for both keys (AC5). Returns null on miss/invalid.
+// [impl:uuid:cc6df739-135f-46a9-a53b-e8441571abbc] R21.4 server.resolveKeyToProfile
 function resolveKeyToProfile(phone?: string, email?: string): string | null {
   try {
     const scenarioDir = path.join(__dirname, '../../../scenario/index');
@@ -1121,8 +1118,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
-    // [impl:uuid:97015dcc-58d9-4417-8480-000000210003] R21.3 phone lookup GET /api/phone/:number → profile uuid
-    if (filepath.startsWith('/api/phone/')) {
+        if (filepath.startsWith('/api/phone/')) {
       const raw = decodeURIComponent(filepath.slice('/api/phone/'.length).split('/')[0]);
       const scenarioDir = path.join(__dirname, '../../../scenario/index');
       const phoneIdx = new PhoneIndex(new ScenarioIndex(scenarioDir));
@@ -1133,8 +1129,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
-    // [impl:uuid:a62c6e37-58d9-4417-8480-000000210008] R21.8 GET /api/company/suggest?q= autocomplete
-    if (filepath === '/api/company/suggest') {
+        if (filepath === '/api/company/suggest') {
       const q = urlParams.get('q') || '';
       const scenarioDir = path.join(__dirname, '../../../scenario/index');
       const suggestions = q ? new CompanyIndex(new ScenarioIndex(scenarioDir)).suggest(q, 5) : [];
@@ -1144,8 +1139,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
-    // [impl:uuid:fab88cb9-58d9-4417-8480-000000210007] R21.7 GET /api/address/:uuid → badge state
-    if (filepath.startsWith('/api/address/')) {
+        if (filepath.startsWith('/api/address/')) {
       const uuid = decodeURIComponent(filepath.slice('/api/address/'.length).split('/')[0]);
       const scenarioDir = path.join(__dirname, '../../../scenario/index');
       const state = new AddressIndex(new ScenarioIndex(scenarioDir)).badgeState(uuid);

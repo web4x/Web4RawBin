@@ -1,8 +1,8 @@
 {
   "ior": "ior:class:Implementation",
   "model": {
-    "uuid": "4242f9be-58d9-4417-8480-000000210006",
-    "name": "PhoneIndex.mintAndLink impl \u2014 Phone unit + Profile.phones[]",
+    "uuid": "801f53b3-c710-4204-91db-d71bcb773cd9",
+    "name": "PhoneIndex.mintAndLink impl — Phone unit + Profile.phones[]",
     "sourceLocation": "src/ts/scenario/PhoneIndex.ts",
     "tests": []
   },

@@ -99,7 +99,6 @@ export class ProfileEditor {
     });
 
     // T142: vCard import handlers
-    // [impl:uuid:d1337706-80fa-48ba-a0a0-5b9cc42e2511] R21.1 profile.dropVCard — drop/import .vcf → applyVCard (photo→avatar) + POST /api/vcard (stored in user files/ alongside avatar)
     document.getElementById('pe-import-vcard')?.addEventListener('click', () => {
       (document.getElementById('pe-vcf-input') as HTMLInputElement)?.click();
     });
@@ -180,6 +179,7 @@ export class ProfileEditor {
     }
   }
 
+  // [impl:uuid:d1337706-80fa-48ba-a0a0-5b9cc42e2511] R21.1 Profile.applyVCard — vCard drop/import → photo→avatar + POST /api/vcard
   private applyVCard(vcf: VCardData): void {
     if (vcf.fn) {
       const nameInput = document.getElementById('pe-name') as HTMLInputElement;

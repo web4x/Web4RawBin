@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f8b113b7-29a9-400e-b3fa-f3be7e5798cf",
+    "name": "RbFileDetail.renderActionsFirst",
+    "sourceFile": "ior:file:src/ts/server/rb-file-detail.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

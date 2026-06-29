@@ -1,4 +1,3 @@
-// [impl:uuid:97015dcc-58d9-4417-8480-000000210003] R21.3 phone.indexAsSymlink
 /**
  * R21.3 — PhoneIndex: phone numbers as alternate-UUID lookup keys.
  *
@@ -48,7 +47,7 @@ export class PhoneIndex {
    * Register `alt/phone/<key>.scenario.json` → the profile's canonical file.
    * Returns the normalized key on success, null if invalid or profile missing.
    */
-  // [impl:uuid:4242f9be-58d9-4417-8480-000000210003] R21.3 PhoneIndex.registerSymlink
+  // [impl:uuid:f2174329-7319-4c4b-920c-b906b2439629] R21.3 PhoneIndex.registerSymlink
   registerSymlink(profileUuid: string, rawPhone: string): string | null {
     const key = normalizePhone(rawPhone);
     if (!isValidPhoneKey(key)) return null;
@@ -63,7 +62,7 @@ export class PhoneIndex {
    * and register the alt/phone symlink. Standardized +CountryDigits enforced at creation.
    * Returns the normalized key or null.
    */
-  // [impl:uuid:4242f9be-58d9-4417-8480-000000210006] R21.6 Phone.mintAndLink
+  // [impl:uuid:801f53b3-c710-4204-91db-d71bcb773cd9] R21.6 Phone.mintAndLink
   mintAndLink(profileUuid: string, rawPhone: string, phoneUuid: string): string | null {
     const key = normalizePhone(rawPhone);
     if (!isValidPhoneKey(key)) return null;

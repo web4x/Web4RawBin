@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "cc6df739-135f-46a9-a53b-e8441571abbc",
+    "name": "IdentityResolver.resolveOrEnroll",
+    "sourceFile": "ior:file:src/ts/server/identity-resolver.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

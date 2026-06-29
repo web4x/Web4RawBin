@@ -1,4 +1,3 @@
-// [impl:uuid:c59356f7-58d9-4417-8480-000000210005] R21.5 email.mintAndLink
 /**
  * R21.5 — EmailIndex: emails as first-class scenario units + alternate-UUID keys.
  *
@@ -46,6 +45,7 @@ export class EmailIndex {
    * runtime-crypto-free), link it into Profile.emails[] (multiple supported — AC2),
    * and register the alt/email symlink. Returns the normalized key or null.
    */
+  // [impl:uuid:c709147a-5596-43a7-9354-8b936b5ec3ea] R21.5 EmailIndex.mintAndLink
   mintAndLink(profileUuid: string, rawEmail: string, emailUuid: string): string | null {
     const key = normalizeEmail(rawEmail);
     if (!isValidEmailKey(key)) return null;

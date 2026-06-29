@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4a7d30bb-efc1-4cd4-b0eb-a284042facce",
+    "name": "Company.mintOrReuseShared",
+    "sourceFile": "ior:file:src/ts/server/company.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

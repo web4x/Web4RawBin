@@ -1,4 +1,3 @@
-// [impl:uuid:5826ca42-58d9-4417-8480-000000210009] R21.9 RbPanZoom transform handler
 /**
  * R21.9 — RbPanZoom: content-type-agnostic pan/zoom controller (DRY, AC-f1/f2).
  *

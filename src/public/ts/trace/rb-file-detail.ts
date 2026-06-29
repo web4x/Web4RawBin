@@ -21,6 +21,7 @@ export class RbFileDetail extends HTMLElement {
   disconnectedCallback(): void { for (const u of this.unsubs) u(); this.unsubs = []; }
   attributeChangedCallback(): void { if (this.isConnected) this.render(); }
 
+  // [impl:uuid:f8b113b7-29a9-400e-b3fa-f3be7e5798cf] R21.9 RbFileDetail.render — actions-first reorder + 75vh pan/zoom pane
   render(): void {
     for (const u of this.unsubs) u(); this.unsubs = [];
     const ref = this.getAttribute('ref') || '';

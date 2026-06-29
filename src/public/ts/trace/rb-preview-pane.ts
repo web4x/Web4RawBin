@@ -1,4 +1,3 @@
-// [impl:uuid:5826ca42-58d9-4417-8480-000000210099] R21.9 rb-preview-pane
 /**
  * R21.9 — rb-preview-pane: a 75vh in-flow preview viewport with pan/zoom (RbPanZoom).
  * NOT position:fixed (AC-a5) — it never intercepts taps outside its box. The inner
