@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2f0f1b56-9d14-4124-b5d6-6dce3dababca",
+    "name": "test:T24.2 CurrentSprint.setFocus gate",
+    "description": "Bridged to test/visual/r242-getthreeslots-gate.mjs — pin/CurrentSprint slots from current sprint (DET-3x GREEN)",
+    "sourceFile": "ior:file:test/visual/r242-getthreeslots-gate.mjs",
+    "implementations": [
+      "ior:instance:c07efc21-153c-4e02-81c5-ae2e919ad03b"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:c07efc21-153c-4e02-81c5-ae2e919ad03b"
+}

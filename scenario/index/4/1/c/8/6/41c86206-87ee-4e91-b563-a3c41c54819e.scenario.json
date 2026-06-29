@@ -5,7 +5,9 @@
     "name": "SprintViewGenerator.generateSprint impl",
     "description": "Existing implementation in scripts/generate-sprint-md.ts.",
     "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:82ca355c-4b14-41c3-bb7c-a483b259c42d"
+    ]
   },
   "ownerIor": "ior:instance:1584807f-b315-4279-b3ad-8f9001285839"
 }

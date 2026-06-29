@@ -1,3 +1,4 @@
+// [test:uuid:f9395ad8-66df-46b5-90ac-e0bb65df2d1f] T24.3 Chain.scoreboard — chain scoreboard/followUp
 // T24.1 — objectVerb introspection engine gate. Verifies the Chain CLI commands work
 // correctly + deterministically: scoreboard / followUp / lintMarkers / emitClaudeSkills.
 // Impl 5453f58d (ObjectVerbEngine.introspect, scripts/objectVerb.ts). DET-3x.

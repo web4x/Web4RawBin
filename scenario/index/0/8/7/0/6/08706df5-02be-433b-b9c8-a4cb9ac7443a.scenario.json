@@ -5,7 +5,9 @@
     "name": "TraceAudit.check impl",
     "description": "Existing implementation in src/ts/server/trace-cli.ts.",
     "sourceFile": "ior:file:src/ts/server/trace-cli.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:1b3682c8-a347-4e85-8188-f1faef3f5ae3"
+    ]
   },
   "ownerIor": "ior:instance:db58f0c5-a2d9-47f8-af51-d5359a038c94"
 }

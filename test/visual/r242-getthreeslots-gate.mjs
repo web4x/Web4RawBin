@@ -1,3 +1,4 @@
+// [test:uuid:2f0f1b56-9d14-4124-b5d6-6dce3dababca] T24.2 CurrentSprint.setFocus — pin/CurrentSprint slots from current sprint
 // v0.6.85 getThreeSlots sprint-scope gate. Bug: nextBacklog showed a DONE Sprint-20 task
 // (T-drawer-full-width) from a global scan. FIX (f5d38bdb7/4aa2d913a): all 3 CurrentSprint
 // slots derive from the CURRENT sprint tasks[] only. Slots are persisted in singleton
