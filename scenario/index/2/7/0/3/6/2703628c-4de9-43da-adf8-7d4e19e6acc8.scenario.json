@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Profile",
+  "model": {
+    "uuid": "2703628c-4de9-43da-adf8-7d4e19e6acc8",
+    "name": "Marcel Donges",
+    "phones": [
+      "ior:instance:dedc2f6f-4f08-4765-b218-0461109a8d50"
+    ],
+    "emails": [],
+    "addresses": [],
+    "companies": [],
+    "unitLinks": [
+      "alt/phone/+4981422917723.scenario.json"
+    ]
+  },
+  "ownerIor": null
+}
