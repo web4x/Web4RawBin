@@ -89,6 +89,7 @@ export class DropDispatcher {
   }
 
   // [impl:uuid:05ed9488-cef2-41f5-83b2-f8e046fcd77a] DropDispatcher.feedbackCycle
+  // [impl:uuid:12f2331b-47d5-45df-aed7-f643e57233e6] DropDispatcher.dispatch — MIME allowlist (v0.6.81 audio/+video/)
   async dispatch(file: File, roomId: string, playerToken: string, sendChat: (text: string) => void): Promise<{ uuid: string; name: string; size: number } | null> {
     this.state = 'uploading';
     this.statusCb?.('uploading', `Uploading ${file.name}...`);
