@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "4b66c336-c740-4cbf-b9b4-4cbee596fee1",
+    "name": "chain.score",
+    "description": "Chain scoring instruments: scoreboard/followUp/listComplete/snapshotComplete + wireImplNode/wireAllMissing + generateMatrix/lintMarkers. Measurement source for the /trace scoreboard.",
+    "class": "ior:instance:0bbe576f-d527-42c7-bf80-a72c87f76767",
+    "classes": [
+      "ior:instance:0bbe576f-d527-42c7-bf80-a72c87f76767"
+    ],
+    "method": "ior:instance:edee3e37-76e2-4a0a-820e-291bfd9ef8e5",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:fc9a7079-5324-4867-95de-784666d7fc5a"
+}

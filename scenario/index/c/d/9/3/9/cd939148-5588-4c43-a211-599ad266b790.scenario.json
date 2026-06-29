@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "cd939148-5588-4c43-a211-599ad266b790",
+    "name": "Chain.scoreboard impl",
+    "description": "Existing implementation in src/ts/scenario/skill-classes.ts.",
+    "sourceFile": "ior:file:src/ts/scenario/skill-classes.ts",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:edee3e37-76e2-4a0a-820e-291bfd9ef8e5"
+}

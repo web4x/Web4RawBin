@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "836ecc9c-c55a-4168-87f1-175193d7ca28",
+    "name": "Pin",
+    "description": "Pin skill class (R24.2). Formalizes scripts/planner-drive.ts.",
+    "sourceFile": "ior:file:scripts/planner-drive.ts",
+    "methods": [
+      "ior:instance:c0eb9e24-b7a9-4bfb-8455-55091182d62d"
+    ]
+  },
+  "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"
+}

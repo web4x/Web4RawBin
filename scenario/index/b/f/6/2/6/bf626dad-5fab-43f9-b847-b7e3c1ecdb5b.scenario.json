@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "bf626dad-5fab-43f9-b847-b7e3c1ecdb5b",
+    "name": "TraceAudit",
+    "description": "TraceAudit skill class (R24.5). Formalizes src/ts/server/trace-cli.ts.",
+    "sourceFile": "ior:file:src/ts/server/trace-cli.ts",
+    "methods": [
+      "ior:instance:db58f0c5-a2d9-47f8-af51-d5359a038c94"
+    ]
+  },
+  "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"
+}

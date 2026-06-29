@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "4a606188-2812-42ef-9e13-f44e652ab4b0",
+    "name": "sprint.generateView",
+    "description": "Scenario->MD ViewGenerator: scenario units are truth, MD is the generated VIEW; generateSprint/generateTaskMd/generatePlanningMd + checkSprint (--check round-trip byte-match gate).",
+    "class": "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c",
+    "classes": [
+      "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c"
+    ],
+    "method": "ior:instance:1584807f-b315-4279-b3ad-8f9001285839",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:9dd36e28-c666-40b8-bc1b-117aac0a7d8a"
+}

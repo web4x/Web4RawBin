@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "dbcd870e-664e-43da-89ae-9d56514f7846",
+    "name": "ObjectVerbEngine",
+    "description": "ObjectVerbEngine skill class (R24.1). Formalizes scripts/objectVerb.ts.",
+    "sourceFile": "ior:file:scripts/objectVerb.ts",
+    "methods": [
+      "ior:instance:750105fd-7034-448d-ad30-1c0e041e71bf"
+    ]
+  },
+  "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"
+}

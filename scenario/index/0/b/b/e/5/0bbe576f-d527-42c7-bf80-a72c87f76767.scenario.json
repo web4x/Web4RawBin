@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "0bbe576f-d527-42c7-bf80-a72c87f76767",
+    "name": "Chain",
+    "description": "Chain skill class (R24.3). Formalizes src/ts/scenario/skill-classes.ts.",
+    "sourceFile": "ior:file:src/ts/scenario/skill-classes.ts",
+    "methods": [
+      "ior:instance:edee3e37-76e2-4a0a-820e-291bfd9ef8e5"
+    ]
+  },
+  "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"
+}

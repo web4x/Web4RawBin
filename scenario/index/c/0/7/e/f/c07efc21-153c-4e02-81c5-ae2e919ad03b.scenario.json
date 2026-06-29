@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c07efc21-153c-4e02-81c5-ae2e919ad03b",
+    "name": "Pin.focus impl",
+    "description": "Existing implementation in scripts/planner-drive.ts.",
+    "sourceFile": "ior:file:scripts/planner-drive.ts",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c0eb9e24-b7a9-4bfb-8455-55091182d62d"
+}
