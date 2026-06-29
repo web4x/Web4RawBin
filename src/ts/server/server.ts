@@ -1218,11 +1218,13 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const isDir = (e: any) => { if (e.isDirectory()) return true; if (e.isSymbolicLink()) { try { return fsSync.statSync(path.join(dirPath, e.name)).isDirectory(); } catch { return false; } } return false; };
         const dirs = entries.filter(e => isDir(e) && !e.name.startsWith('.')).map(e => `<li>📁 <a href="/md/${relPath}${e.name}/">${e.name}/</a>${symlinkIcon(e)}</li>`);
         const mds = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.md')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>📄 <a href="/md/${relPath}${e.name}">${e.name}</a>${inSprintsMd ? scenarioLink(e) : symlinkIcon(e)}${editIcon(e.name)}</li>`);
-        const svgs = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.svg')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>🖼 <a href="/md/${relPath}${e.name}">${e.name}</a>${symlinkIcon(e)}</li>`);
+        // R22.4: ALL image types clickable like SVG (was .svg-only) — PNG/JPG/GIF/etc now open in /md viewer
+        const isImage = (n: string) => /\.(svg|png|jpe?g|gif|webp|bmp|ico|avif)$/i.test(n);
+        const images = entries.filter(e => isFileOrLink(e) && isImage(e.name)).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>🖼 <a href="/md/${relPath}${e.name}">${e.name}</a>${symlinkIcon(e)}</li>`);
         const jsons = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.json')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>📋 <a href="${jsonHref(e)}">${e.name}</a>${symlinkIcon(e)}${editIcon(e.name)}</li>`);
-        const others = entries.filter(e => isFileOrLink(e) && !e.name.endsWith('.md') && !e.name.endsWith('.svg') && !e.name.endsWith('.json') && !e.name.startsWith('.')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>${e.name}${symlinkIcon(e)}${editIcon(e.name)}</li>`);
+        const others = entries.filter(e => isFileOrLink(e) && !e.name.endsWith('.md') && !isImage(e.name) && !e.name.endsWith('.json') && !e.name.startsWith('.')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>${e.name}${symlinkIcon(e)}${editIcon(e.name)}</li>`);
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(`${pageHead(relPath || '/')}<style>${MD_CSS}</style>${pageNav('/md/', 'Browse')}<div style="max-width:700px;margin:0 auto;padding:0 20px">${breadcrumb(relPath)}<ul>${dirs.join('')}${mds.join('')}${svgs.join('')}${jsons.join('')}${others.join('')}</ul></div></body></html>`);
+        res.end(`${pageHead(relPath || '/')}<style>${MD_CSS}</style>${pageNav('/md/', 'Browse')}<div style="max-width:700px;margin:0 auto;padding:0 20px">${breadcrumb(relPath)}<ul>${dirs.join('')}${mds.join('')}${images.join('')}${jsons.join('')}${others.join('')}</ul></div></body></html>`);
       } catch { res.writeHead(404); res.end('Directory not found'); }
       return;
     }
