@@ -298,6 +298,7 @@ export class CurrentSprint {
   }
 
   /** Set focus on a task. BLOCKED unless current task's test is gate-proven (or no current task). */
+  // [impl:uuid:c07efc21-153c-4e02-81c5-ae2e919ad03b] R24.2 CurrentSprint.setFocus (Pin lifecycle)
   setFocus(taskUuid: string, force?: boolean): boolean {
     if (this.chain && !force && !this.isGateProven()) {
       return false; // task-switch gate: current chain not gate-proven
