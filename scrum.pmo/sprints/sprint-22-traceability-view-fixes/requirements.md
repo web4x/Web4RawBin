@@ -22,6 +22,32 @@
   - [ ] Verified live (headless) against the running app — the Task detail view matches the corrected layout
   → [UC-VF.1: taskDetail.renderSingleChainAndMdLink](./planning.md#uc-vf1) `[uc:uuid:4d0e454a-124a-43f7-8487-28aa61c12fbf]` *(placeholder)*
 
+- [ ] **R22.2 — Drawer pan/zoom: full mouse parity (touch-first)**
+  [requirement:uuid:b7000fa1-01d6-4757-a211-b24051eea7eb]
+  > TRON: "the drawer works well on touch and it shall be touch first, but it shall also work the same way with mouse."
+  The drawer pan/zoom is touch-first (touch is the primary design surface) but MUST work identically with a mouse: mouse-drag pans (mirrors 1-finger pan), scroll-wheel zooms (mirrors pinch-zoom), and double-click resets/toggles (mirrors double-tap). Mouse mirrors the touch behaviour exactly.
+  **Acceptance criteria:**
+  - [ ] Touch remains the primary surface: 1-finger drag pans, pinch zooms, double-tap resets/toggles (unchanged)
+  - [ ] Mouse-drag pans the drawer content, identical to 1-finger pan
+  - [ ] Scroll-wheel zooms the drawer content, identical to pinch-zoom (zoom toward the pointer)
+  - [ ] Double-click resets/toggles the zoom, identical to double-tap
+  - [ ] Behaviour is identical across input types (no mouse-only or touch-only divergence in pan/zoom/reset)
+  - [ ] Verified live (headless) on both a touch surface and a mouse/pointer surface
+  → [UC-VF.2: drawer.panZoomMouseParity](./planning.md#uc-vf2) `[uc:uuid:ada54a0e-0eef-4f16-a393-8c30c6bdd06d]` *(placeholder)*
+
+- [ ] **R22.3 — Chain nodes link to their source artifacts (per type)**
+  [requirement:uuid:2c1fd942-a6f1-414c-976f-ea7af7008201]
+  > TRON: "the implementation should be a link to the source code of the Profile class. The Class Profile a link to the puml diagram and its svg. Same as the method should be a link to the source code of the method."
+  Each node in the chain detail view MUST be a clickable link to its real source artifact, by type: a Class node links to its PlantUML .puml diagram AND the rendered .svg; a Method node links to the source .ts file:line of the method; an Implementation node links to the source .ts file:line of the impl. This is the live-bug re-raise of the designed-ahead source-link specs R20.23-R20.27.
+  **Acceptance criteria:**
+  - [ ] A Class chain node links to its .puml diagram AND its rendered .svg
+  - [ ] A Method chain node links to the source .ts file:line of the method
+  - [ ] An Implementation chain node links to the source .ts file:line of the impl
+  - [ ] Every chain detail-view node renders as a clickable link to its real artifact (not raw text/IOR)
+  - [ ] Links resolve to the actual file:line / diagram (open in the browser)
+  - [ ] Verified live (headless) against the running app
+  → [UC-VF.3: chainNode.linkToSource](./planning.md#uc-vf3) `[uc:uuid:1371923a-06f2-4c84-a1ca-75a98ef77f51]` *(placeholder)*
+
 ---
 
 ## Traceability Matrix
@@ -29,6 +55,8 @@
 | Req | Concise name | Requirement UUID | UC placeholder UUID |
 |-----|--------------|------------------|---------------------|
 | R22.1 | Task detail: one chain + MD-file links | 661836fd-2db8-4863-8556-0d698c897cd5 | 4d0e454a-124a-43f7-8487-28aa61c12fbf |
+| R22.2 | Drawer pan/zoom full mouse parity | b7000fa1-01d6-4757-a211-b24051eea7eb | ada54a0e-0eef-4f16-a393-8c30c6bdd06d |
+| R22.3 | Chain nodes link to source artifacts | 2c1fd942-a6f1-414c-976f-ea7af7008201 | 1371923a-06f2-4c84-a1ca-75a98ef77f51 |
 
 **R-I note (for planner/PO):** R22.1 bundles two distinct atomic behaviours — (a) dedupe the chain section, (b) repoint Forward Links to the MD file. Per the atomic-one-sentence rule these could split into R22.1 + R22.2; captured as one unit per the PO directive ("R22.1"). Flag if a split is wanted for independent tasking.
 

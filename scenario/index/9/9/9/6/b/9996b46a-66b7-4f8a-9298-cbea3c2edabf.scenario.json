@@ -8,7 +8,9 @@
     "status": "Planned",
     "compoundSource": "scrum.pmo/sprints/sprint-22-traceability-view-fixes/requirements.md",
     "requirements": [
-      "ior:instance:661836fd-2db8-4863-8556-0d698c897cd5"
+      "ior:instance:661836fd-2db8-4863-8556-0d698c897cd5",
+      "ior:instance:b7000fa1-01d6-4757-a211-b24051eea7eb",
+      "ior:instance:2c1fd942-a6f1-414c-976f-ea7af7008201"
     ],
     "tasks": [],
     "createdAt": "2026-06-29",

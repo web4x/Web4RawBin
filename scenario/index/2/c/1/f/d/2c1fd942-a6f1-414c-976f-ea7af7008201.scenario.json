@@ -1,0 +1,58 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "2c1fd942-a6f1-414c-976f-ea7af7008201",
+    "name": "Chain nodes link to their source artifacts (per type)",
+    "altId": "R22.3",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-22-traceability-view-fixes/requirements.md",
+    "sourceLine": 39,
+    "parent": "ior:instance:9996b46a-66b7-4f8a-9298-cbea3c2edabf",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:1371923a-06f2-4c84-a1ca-75a98ef77f51"
+    ],
+    "description": "Each node in the chain detail view MUST be a clickable link to its real source artifact, by type: a Class node links to its PlantUML .puml diagram AND the rendered .svg; a Method node links to the source .ts file:line of the method; an Implementation node links to the source .ts file:line of the impl. Live-bug re-raise of the designed-ahead source-link specs R20.23-R20.27.",
+    "tronQuote": "> TRON: \"the implementation should be a link to the source code of the Profile class. The Class Profile a link to the puml diagram and its svg. Same as the method should be a link to the source code of the method.\"",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-class",
+        "group": "per-type-link",
+        "text": "A Class chain node links to its .puml diagram AND its rendered .svg."
+      },
+      {
+        "id": "AC-method",
+        "group": "per-type-link",
+        "text": "A Method chain node links to the source .ts file:line of the method."
+      },
+      {
+        "id": "AC-impl",
+        "group": "per-type-link",
+        "text": "An Implementation chain node links to the source .ts file:line of the impl."
+      },
+      {
+        "id": "AC-clickable",
+        "group": "render",
+        "text": "Every chain detail-view node renders as a clickable link to its real artifact, not raw text/IOR."
+      },
+      {
+        "id": "AC-resolve",
+        "group": "render",
+        "text": "Links resolve to the actual file:line / diagram (open in the browser)."
+      },
+      {
+        "id": "AC-v",
+        "group": "verify",
+        "text": "Verified live (headless) against the running app."
+      }
+    ],
+    "crossRef": [
+      "ior:instance:0bf80613-b27c-44e4-b467-7322876de66a",
+      "ior:instance:c3d6d560-217d-4cc1-8d61-4a25ee3543f1",
+      "ior:instance:f5b37dcd-9885-49b3-a234-cda6c627abce"
+    ],
+    "crossRefNote": "Per Rule 9 dedupe: this is the live re-raise of the designed-ahead source-link specs \u2014 R20.23 (every type source:line), R20.24 (Class -> puml + svg), R20.25 (Method -> puml + source). R22.3 is the Sprint-22 actionable for the Task-detail chain nodes; not a fresh orphan."
+  },
+  "ownerIor": "ior:instance:9996b46a-66b7-4f8a-9298-cbea3c2edabf"
+}

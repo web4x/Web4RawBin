@@ -1,0 +1,56 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b7000fa1-01d6-4757-a211-b24051eea7eb",
+    "name": "Drawer pan/zoom: full mouse parity (touch-first)",
+    "altId": "R22.2",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-22-traceability-view-fixes/requirements.md",
+    "sourceLine": 26,
+    "parent": "ior:instance:9996b46a-66b7-4f8a-9298-cbea3c2edabf",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:ada54a0e-0eef-4f16-a393-8c30c6bdd06d"
+    ],
+    "description": "The drawer pan/zoom is touch-first (touch is the primary design surface) but MUST work identically with a mouse: mouse-drag pans (mirrors 1-finger pan), scroll-wheel zooms (mirrors pinch-zoom), and double-click resets/toggles (mirrors double-tap). Mouse mirrors the touch behaviour exactly.",
+    "tronQuote": "> TRON: \"the drawer works well on touch and it shall be touch first, but it shall also work the same way with mouse.\"",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-t",
+        "group": "touch-primary",
+        "text": "Touch remains the primary surface: 1-finger drag pans, pinch zooms, double-tap resets/toggles (unchanged)."
+      },
+      {
+        "id": "AC-m1",
+        "group": "mouse-parity",
+        "text": "Mouse-drag pans the drawer content, identical to 1-finger pan."
+      },
+      {
+        "id": "AC-m2",
+        "group": "mouse-parity",
+        "text": "Scroll-wheel zooms the drawer content, identical to pinch-zoom (zoom toward the pointer)."
+      },
+      {
+        "id": "AC-m3",
+        "group": "mouse-parity",
+        "text": "Double-click resets/toggles the zoom, identical to double-tap."
+      },
+      {
+        "id": "AC-eq",
+        "group": "parity",
+        "text": "Behaviour is identical across input types \u2014 no mouse-only or touch-only divergence in pan/zoom/reset."
+      },
+      {
+        "id": "AC-v",
+        "group": "verify",
+        "text": "Verified live (headless) on both a touch surface and a mouse/pointer surface."
+      }
+    ],
+    "crossRef": [
+      "ior:instance:21e792e0-0431-4ffd-a4d4-c8d85df23299"
+    ],
+    "crossRefNote": "Extends the R21.9 rb-preview-pane / RbPanZoom pan/zoom surface with full mouse parity."
+  },
+  "ownerIor": "ior:instance:9996b46a-66b7-4f8a-9298-cbea3c2edabf"
+}
