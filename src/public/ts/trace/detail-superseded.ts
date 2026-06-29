@@ -3,6 +3,7 @@
  * renderSupersededLinks + renderAllChildrenSection.
  */
 import { navigate } from './nav.js';
+import { renderSourceLink } from './detail-children.js';
 
 function toArr(v: unknown): string[] {
   if (!v) return [];
@@ -51,7 +52,9 @@ export function renderChainPathSection(container: HTMLElement, uuid: string): vo
       const first = children[0];
       const indent = '  '.repeat(depth);
       const rest = await walkChain(first.uuid, depth + 1);
-      return `<div class="dv-link dv-chain-link" data-ref="${first.type.toLowerCase()}:${first.uuid}" style="padding-left:${depth * 12}px"><span class="dv-rel">${first.type}</span><span class="dv-link-title">${esc(first.name)}</span></div>${rest}`;
+      // R22.3: per-hop source link (Class→.puml, Method/Impl→.ts:line) on its OWN line so it doesn't hijack the row's navigate click
+      const srcLink = first.sourceFile ? `<div style="padding-left:${depth * 12 + 16}px">${renderSourceLink(first.sourceFile, first.sourceLine)}</div>` : '';
+      return `<div class="dv-link dv-chain-link" data-ref="${first.type.toLowerCase()}:${first.uuid}" style="padding-left:${depth * 12}px"><span class="dv-rel">${first.type}</span><span class="dv-link-title">${esc(first.name)}</span></div>${srcLink}${rest}`;
     } catch { return ''; }
   }
 

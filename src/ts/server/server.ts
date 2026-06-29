@@ -960,7 +960,11 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const forwardArrays = ['tasks','useCases','classes','methods','implementations','tests','children'].map(k => childModel[k]).filter(Array.isArray);
             const childCount = forwardArrays.reduce((sum, arr) => sum + arr.length, 0);
             const childStatus = ct === 'Gate' ? String(childModel.verdict || childModel.status || '') : String(childModel.status || '');
-            const entry: Record<string, unknown> = { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: childCount > 0, childCount, ...(childModel.assigned ? { assignee: String(childModel.assigned) } : {}), ...(childStatus ? { status: childStatus } : {}) };
+            // R22.3 per-child sourceFile+sourceLine (mirrors top-level logic below) — plumbing in an anon route callback, no chain Method
+            const cRawSrc = String(childModel.sourceFile || '').replace('ior:file:', '');
+            const cSrc = (cRawSrc && !cRawSrc.includes('.scenario.json')) ? cRawSrc : undefined;
+            const cLine = cSrc ? ((childModel.sourceLine as number) || undefined) : undefined;
+            const entry: Record<string, unknown> = { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: childCount > 0, childCount, ...(childModel.assigned ? { assignee: String(childModel.assigned) } : {}), ...(childStatus ? { status: childStatus } : {}), ...(cSrc ? { sourceFile: cSrc, sourceLine: cLine } : {}) };
             if (queryMode === 'trace' && type === 'UseCase' && ct === 'Class' && ucMethodIor) {
               const meth = idx.get(ucMethodIor);
               if (meth) entry.chainMethod = { uuid: ucMethodIor, type: 'Method', name: String(meth.model?.name || '') };
