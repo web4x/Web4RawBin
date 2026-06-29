@@ -38,11 +38,12 @@ PO 2026-06-29: formalize the scattered traceability + MD-planning TS tools as a 
 
 ## Acceptance Criteria
 
-- [ ] (followUp) Chain.followUp(reqUuids, sprint?) is the single canonical completion measure — one summary row per Requirement, dedup by method/first-incomplete representative
+- [ ] (followUp) Chain.followUp(reqUuids, sprint?) is the single canonical completion measure - one summary row per Requirement, dedup by methodUuid (UUID identity), NOT display name (display names collide: two *.render on one Req = the R15.6 over-credit bug)
 - [ ] (scoreboard) Chain.scoreboard renders the canonical markdown: table + dispatch list + Summary line
 - [ ] (listComplete) Chain.listComplete emits one diffable line per COMPLETE requirement (TSV-stable)
 - [ ] (lintMarkers) Chain.lintMarkers reports invented-suffix uuids, prefix collisions, shared Impls, and orphan markers before any re-measure
 - [ ] (one-measure) There is exactly ONE completion measure (followUp); no competing/duplicate scoreboard logic
+- [ ] (one-measure-confirmed) scoreboard, listComplete, generateMatrix, and Velocity ALL delegate to Chain.followUp - verified no competing count (skill-expert confirmed)
 
 ## Subtasks
 

@@ -41,8 +41,10 @@ PO 2026-06-29: formalize the scattered traceability + MD-planning TS tools as a 
 - [ ] (focus) focus <task> auto-derives the chain from the focused task; blocked if the current task test hop is not gate-proven (unless --force)
 - [ ] (hop) hop <hop> <status> [agent] applies a per-agent realtime hop update over req|uc|class|method|impl|test with statuses pending|in-progress|done|gate-proven
 - [ ] (gate) gate reports whether the task-switch gate is proven (test hop gate-proven)
-- [ ] (setChain) setChain wires req/uc/class/method/impl/test + sprint + task into the pin (rejects a partial chain)
-- [ ] (advance) advance moves the Current pin forward; pin/status report the current 3-slot pin (pinCurrent / getThreeSlots: current/lastCompleted/nextBacklog, setNextBacklog override)
+- [ ] (setChain) setChain wires req/uc/class/method/impl/test + sprint + task into the pin
+- [ ] (advance) advance moves the Current pin forward only when the gate is proven; pin/status report the current pin (pinCurrent)
+- [ ] (object-verb) The Pin lifecycle verbs (focus/hop/gate/setChain/advance/pin/status) are Object.verb methods on a Pin/CurrentSprint class, NOT ad-hoc argv handlers
+- [ ] (shim-parity) Removal of the planner-drive shim is gated on pin-parity: the Object.verb Pin surface must reproduce planner-drive behaviour before the shim is retired
 
 ## Subtasks
 
