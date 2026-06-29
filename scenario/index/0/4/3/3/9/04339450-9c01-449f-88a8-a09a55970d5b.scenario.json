@@ -14,7 +14,13 @@
       "ior:instance:9dd36e28-c666-40b8-bc1b-117aac0a7d8a",
       "ior:instance:79bc8e34-9acb-4338-bbd0-c1f7e817ca7d"
     ],
-    "tasks": [],
+    "tasks": [
+      "ior:instance:8bbd1727-041e-456f-a645-67f2b2cd4bb5",
+      "ior:instance:d40f1040-f7c8-4702-a31b-9b34af89df19",
+      "ior:instance:1f6d9fc6-19e8-429b-959a-6581738c354f",
+      "ior:instance:1c0181ab-5aff-499f-aeff-53c839c1ad87",
+      "ior:instance:b59f4d46-bffb-435d-a376-a480a517efe6"
+    ],
     "createdAt": "2026-06-29",
     "createdBy": "robbin-req",
     "joint": [

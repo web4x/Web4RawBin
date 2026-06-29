@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "d40f1040-f7c8-4702-a31b-9b34af89df19",
+    "name": "Task 24.2: Pin management skill (CurrentSprint lifecycle)",
+    "slug": "task-24.2-pin-management-skill",
+    "description": "The Current Sprint pin lifecycle is an Object.verb skill (planner-drive.ts / CurrentSprint) with verbs focus, hop, gate, setChain, advance, setNextBacklog, pin, status: focus auto-derives the chain from the focused task, hop applies a per-agent realtime hop update (req|uc|class|method|impl|test x pending|in-progress|done|gate-proven), gate checks whether the task-switch gate is proven, setChain wires a full chain, setNextBacklog pins the nextBacklog slot, and pin/status surface the 3-slot pin (current/lastCompleted/nextBacklog).",
+    "intention": "PO 2026-06-29: formalize the scattered traceability + MD-planning TS tools as a coherent OOSH-like Object.verb SKILL set — R24.2 is pin management.",
+    "context": "Impl base (formalize, do not rewrite): scripts/planner-drive.ts (focus/hop/gate/setChain/advance/setNextBacklog/pin/status) + src/ts/scenario/CurrentSprint.ts (setFocus/hopUpdate/setChain/advance/getThreeSlots/pinCurrent/isGateProven/autoFollow). PLANNER NOTE (measured): the gate-proven block lives on setFocus (task-switch), NOT advance() — advance() unconditionally increments the activeHop pointer. setFocus needs a Task uuid + a derivable chain (≥req→uc) + a sprintName ON THE TASK UNIT (autoFollow reads m.sprintName; a task lacking it leaves the pin sprintName stale). hopUpdate records agent||expectedOwner but does NOT reject a wrong owner.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "traceability": "  - up\n    - [Sprint 24 Planning](./planning.md)\n    - Requirement R24.2 `[requirement:uuid:a545f899-b733-46ac-8fc7-2ef79e401cfe]`\n  - down\n    - [UC-SK.2: skill.pin-management-skill](./planning.md#uc-sk2) `[uc:uuid:90f9bfe3-6d57-4003-be77-6ce8ade76058]`",
+    "acceptanceCriteria": "- [ ] (focus) focus <task> auto-derives the chain from the focused task; blocked if the current task test hop is not gate-proven (unless --force)\n- [ ] (hop) hop <hop> <status> [agent] applies a per-agent realtime hop update over req|uc|class|method|impl|test with statuses pending|in-progress|done|gate-proven\n- [ ] (gate) gate reports whether the task-switch gate is proven (test hop gate-proven)\n- [ ] (setChain) setChain wires req/uc/class/method/impl/test + sprint + task into the pin (rejects a partial chain)\n- [ ] (advance) advance moves the Current pin forward; pin/status report the current 3-slot pin (pinCurrent / getThreeSlots: current/lastCompleted/nextBacklog, setNextBacklog override)",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:a545f899-b733-46ac-8fc7-2ef79e401cfe"
+    ],
+    "useCases": [
+      "ior:instance:90f9bfe3-6d57-4003-be77-6ce8ade76058"
+    ],
+    "parent": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b",
+    "sprintName": "Sprint 24",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-06-29"
+  },
+  "ownerIor": null
+}
