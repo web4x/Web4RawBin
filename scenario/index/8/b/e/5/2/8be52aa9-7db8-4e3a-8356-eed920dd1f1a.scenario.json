@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1782761841021,
+    "createdAt": 1782763660424,
     "sshKeysGenerated": false,
     "sshPublicKey": "",
     "chatHistory": [],
@@ -20,28 +20,28 @@
         "name": "",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1782761841021
+        "joinedAt": 1782763660425
       },
       {
         "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
         "name": "Marcel Donges",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1782761841021
+        "joinedAt": 1782763660425
       },
       {
         "ior": "ior:instance:2703628c-4de9-43da-adf8-7d4e19e6acc8",
         "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1782761841021
+        "joinedAt": 1782763660425
       },
       {
         "ior": "ior:instance:3effa1fc-a548-4619-a3ff-fb96382eca22",
         "name": "",
         "role": "member",
         "status": "online",
-        "joinedAt": 1782761841021
+        "joinedAt": 1782763660425
       }
     ],
     "files": [
