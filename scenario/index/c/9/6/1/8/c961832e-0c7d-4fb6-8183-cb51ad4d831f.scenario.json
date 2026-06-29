@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c961832e-0c7d-4fb6-8183-cb51ad4d831f",
+    "name": "test:T24.1 ObjectVerbEngine.introspect gate",
+    "description": "Bridged to test/vitest/object-verb.test.ts + test/visual/r241-objectverb-gate.mjs — verifies Chain scoreboard/followUp/lintMarkers/emitClaudeSkills (DET-3x GREEN)",
+    "sourceFile": "ior:file:test/vitest/object-verb.test.ts",
+    "implementations": [
+      "ior:instance:5453f58d-6dca-4aa7-89ca-9faa92badf03"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5453f58d-6dca-4aa7-89ca-9faa92badf03"
+}

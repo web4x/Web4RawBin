@@ -5,7 +5,9 @@
     "name": "ObjectVerbEngine.introspect impl",
     "description": "Existing implementation in scripts/objectVerb.ts.",
     "sourceFile": "ior:file:scripts/objectVerb.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:c961832e-0c7d-4fb6-8183-cb51ad4d831f"
+    ]
   },
   "ownerIor": "ior:instance:750105fd-7034-448d-ad30-1c0e041e71bf"
 }
