@@ -2,40 +2,36 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 24.5: Traceability audit skill (chain integrity + CI gate)",
+    "name": "Current: Task 25.1: Comprehensive DnD logging (capture every dropped URL scheme)",
     "chain": {
-      "req": "79bc8e34-9acb-4338-bbd0-c1f7e817ca7d",
-      "uc": "099aa3ed-9e0b-44af-9333-938927f24b6f",
-      "class": "bf626dad-5fab-43f9-b847-b7e3c1ecdb5b",
-      "method": "db58f0c5-a2d9-47f8-af51-d5359a038c94",
-      "impl": "08706df5-02be-433b-b9c8-a4cb9ac7443a",
-      "test": "1b3682c8-a347-4e85-8188-f1faef3f5ae3"
+      "req": "649e9f4c-5e19-4a68-aa80-3378b1e1a9cc",
+      "uc": "",
+      "class": "",
+      "method": "",
+      "impl": "",
+      "test": ""
     },
-    "activeHop": 0,
-    "sprintName": "Sprint 24",
-    "taskName": "Task 24.5: Traceability audit skill (chain integrity + CI gate)",
+    "activeHop": 1,
+    "sprintName": "Sprint 25",
+    "taskName": "Task 25.1: Comprehensive DnD logging (capture every dropped URL scheme)",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-06-29T21:45:54.225Z"
+        "updatedAt": "2026-06-29T22:02:09.151Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "1c0181ab-5aff-499f-aeff-53c839c1ad87",
-    "lastCompletedName": "Task 24.4: Sprint planning skill (scenario→MD ViewGenerator)",
-    "lastCompletedReqUuid": "9dd36e28-c666-40b8-bc1b-117aac0a7d8a",
+    "lastCompletedUuid": "b59f4d46-bffb-435d-a376-a480a517efe6",
+    "lastCompletedName": "Task 24.5: Traceability audit skill (chain integrity + CI gate)",
+    "lastCompletedReqUuid": "79bc8e34-9acb-4338-bbd0-c1f7e817ca7d",
     "slots": {
       "current": {
-        "taskUuid": "b59f4d46-bffb-435d-a376-a480a517efe6",
-        "taskName": "Task 24.5: Traceability audit skill (chain integrity + CI gate)",
-        "reqUuid": "79bc8e34-9acb-4338-bbd0-c1f7e817ca7d"
+        "taskUuid": "06544a45-382b-4747-9692-0ad444e905ac",
+        "taskName": "Task 25.1: Comprehensive DnD logging (capture every dropped URL scheme)",
+        "reqUuid": "649e9f4c-5e19-4a68-aa80-3378b1e1a9cc"
       },
-      "lastCompleted": {
-        "taskUuid": "1c0181ab-5aff-499f-aeff-53c839c1ad87",
-        "taskName": "Task 24.4: Sprint planning skill (scenario→MD ViewGenerator)",
-        "reqUuid": "9dd36e28-c666-40b8-bc1b-117aac0a7d8a"
-      },
+      "lastCompleted": null,
       "nextBacklog": null
     }
   },
