@@ -42,8 +42,14 @@
         "id": "AC-5",
         "group": "law100",
         "text": "Scenario units are the source of truth; MD is derived (law #100)."
+      },
+      {
+        "id": "AC-6",
+        "group": "drift-scope",
+        "text": "--check (check:sprint-md) drift detection also catches EXTRA/orphan stale MD files (e.g. left by a slug rename), scoped to the GENERATED_HEADER region - not just content byte-diff of expected files."
       }
-    ]
+    ],
+    "measuredReviewNote": "Planner verified R24.4 ACs ACCURATE vs generate-sprint-md.ts; AC-6 added for the orphan/stale-file + GENERATED_HEADER --check nuance (folded into T24.4 context)."
   },
   "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"
 }

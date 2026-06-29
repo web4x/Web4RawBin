@@ -41,7 +41,7 @@
       {
         "id": "AC-5",
         "group": "advance",
-        "text": "advance moves the Current pin forward only when the gate is proven; pin/status report the current pin (pinCurrent)."
+        "text": "advance increments the active-hop pointer (req->uc->class->method->impl->test); pin/status report the current pin (pinCurrent). NOTE: the gate-proven block currently lives on focus/task-switch (AC-1), not advance - gating advance on gate-proven is TARGET behaviour for the formalized skill."
       },
       {
         "id": "AC-6",
@@ -52,10 +52,26 @@
         "id": "AC-7",
         "group": "shim-parity",
         "text": "Removal of the planner-drive shim is gated on pin-parity: the Object.verb Pin surface must reproduce planner-drive behaviour before the shim is retired."
+      },
+      {
+        "id": "AC-8",
+        "group": "three-slot",
+        "text": "getThreeSlots returns the 3-slot pin - current / lastCompleted / nextBacklog - the core Current-Sprint pin model."
+      },
+      {
+        "id": "AC-9",
+        "group": "backlog-slot",
+        "text": "setNextBacklog / clearNextBacklog pin and clear the nextBacklog slot (a real planner-drive verb, part of the 3-slot pin)."
+      },
+      {
+        "id": "AC-10",
+        "group": "owner",
+        "text": "hopUpdate records the acting agent on the hop; owner-rejection (rejecting a wrong owner) is NOT enforced today - TARGET behaviour for the formalized skill."
       }
     ],
     "architectRef": "ior:file:scrum.pmo/sprints/sprint-24-traceability-skills/architecture.md \u2014 UC pin.manageLifecycle (Pin object + planner-drive shim decision, 76df40fbb).",
-    "refinementNote": "Refined 2026-06-29 from skill-expert AC sanity-check (verified vs objectVerb.ts/skill-classes.ts) + architect design hop (commit 76df40fbb, UCs wired, architecture.md 3 design decisions). skill-expert fixes: R24.1 emitClaudeSkills (plural verb); R24.3 dedup by methodUuid not display name (R15.6 over-credit). architect governance ACs folded in (Tab-completable, wrapper==emitOosh CI gate, owner+test, Pin-as-Object.verb, shim-parity gate)."
+    "refinementNote": "Refined 2026-06-29 from skill-expert AC sanity-check (verified vs objectVerb.ts/skill-classes.ts) + architect design hop (commit 76df40fbb, UCs wired, architecture.md 3 design decisions). skill-expert fixes: R24.1 emitClaudeSkills (plural verb); R24.3 dedup by methodUuid not display name (R15.6 over-credit). architect governance ACs folded in (Tab-completable, wrapper==emitOosh CI gate, owner+test, Pin-as-Object.verb, shim-parity gate).",
+    "measuredReviewNote": "Refined 2026-06-29 per planner MEASURED review of CurrentSprint.ts + generate-sprint-md.ts: advance() currently increments activeHop unconditionally (gate-proven block is on focus/task-switch, NOT advance) - gate-on-advance kept as TARGET skill behaviour; added the 3-slot pin (getThreeSlots) + setNextBacklog/clearNextBacklog verbs that were missing; hopUpdate records agent but does not yet enforce owner (target). R24.4 --check scope clarified (orphan/stale files, GENERATED_HEADER)."
   },
   "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"
 }
