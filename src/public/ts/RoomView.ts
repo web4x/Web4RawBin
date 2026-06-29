@@ -180,13 +180,27 @@ export class RoomView {
         dropDispatcher.resetDrag(dz);
         const dt = (e as DragEvent).dataTransfer;
         if (!dt) return;
+        const log = (text: string) => this.chatSheet?.addMessage('system', 'System', text);
+        // v0.6.86 DnD DIAGNOSTIC: Apple drops emails/calendar/locations as scheme URLs
+        // (mailto:/webcal:/calshow:/maps:/geo:/tel:/x-apple-reminder:) in the text data, NOT as files.
+        // Dump EVERYTHING synchronously (DataTransfer is only readable during the event) so we can see
+        // exactly what Apple sends and build scheme handlers (same pattern as the YouTube embed).
+        try {
+          const types = Array.from(dt.types || []);
+          const items = Array.from(dt.items || []).map(it => `${it.kind}/${it.type || '?'}`);
+          const files = Array.from(dt.files || []).map(f => `${f.name}(${f.type || '?'},${f.size}b)`);
+          log(`[dnd-debug] types=[${types.join(', ')}] items=[${items.join(', ') || 'none'}] files=[${files.join(', ') || 'none'}]`);
+          for (const t of types) {
+            try { const v = dt.getData(t); if (v) log(`[dnd-debug] getData('${t}') = ${v.length > 800 ? v.slice(0, 800) + '…' : v}`); } catch (err) { log(`[dnd-debug] getData('${t}') threw ${(err as Error)?.message}`); }
+          }
+        } catch (err) { log(`[dnd-debug] dump failed: ${(err as Error)?.message}`); }
         const files = Array.from(dt.files || []);
         if (files.length > 0) {
           dz.dispatchEvent(new CustomEvent("rb-room-files-dropped", { detail: { files }, bubbles: true }));
         } else {
           const url = dt.getData('text/uri-list') || dt.getData('text/plain');
           if (url && url.startsWith('http')) {
-            dropDispatcher.dispatchUrl(url, this.roomId, this.client.playerToken, (text) => this.chatSheet?.addMessage('system', 'System', text));
+            dropDispatcher.dispatchUrl(url, this.roomId, this.client.playerToken, (text) => log(text));
           }
         }
       });
