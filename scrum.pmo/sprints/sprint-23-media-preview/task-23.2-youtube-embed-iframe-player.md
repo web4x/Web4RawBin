@@ -8,10 +8,10 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
@@ -43,6 +43,10 @@ Tron: "when a YouTube URL is discovered in the room... automatically render it a
 - [ ] The preview renders an embedded iframe at `https://www.youtube.com/embed/<id>` (not raw text)
 - [ ] The existing Heartspaces `.url` (youtube.com/watch?v=a-_CuBOu6BA) renders as an embedded player, not text
 - [ ] Verified live (headless) — a YouTube URL in a room renders the embed
+
+## Implementation
+
+Shipped v0.6.80 (3a02318ce, LIVE on prod): YouTube .url auto-embed in content-preview.ts (ContentPreviewer / rb-preview-pane, R21.9) — video-id extraction → youtube.com/embed/<id> iframe; sw.js + version bumped (#15/#16). Architect design 72b582092 (single fillPreviewPane landing). Tester gating now — testing hop OPEN until committed GREEN verdict (#102).
 
 ## Subtasks
 

@@ -8,10 +8,10 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
@@ -43,6 +43,10 @@ Tron: "MP3 files must play audio in the preview... the preview pane renders an H
 - [ ] The player provides play/pause, seek, and volume controls
 - [ ] Supported types: mp3, wav, ogg, m4a (correct MIME/`<source>` per extension)
 - [ ] Verified live (headless) — an audio file in a room renders the player and is playable
+
+## Implementation
+
+Shipped v0.6.80 (3a02318ce, LIVE on prod): HTML5 `<audio>` preview rendered in content-preview.ts (ContentPreviewer / rb-preview-pane, R21.9); sw.js + version bumped (#15/#16). Architect design 72b582092 (single fillPreviewPane landing). Tester gating now — testing hop OPEN until committed GREEN verdict (#102).
 
 ## Subtasks
 
