@@ -93,7 +93,7 @@ export class DropDispatcher {
     this.state = 'uploading';
     this.statusCb?.('uploading', `Uploading ${file.name}...`);
     let result: { uuid: string; name: string; size: number } | null = null;
-    if (file.type.startsWith('image/') || file.type.startsWith('text/') || file.type.startsWith('application/')) {
+    if (file.type.startsWith('image/') || file.type.startsWith('text/') || file.type.startsWith('application/') || file.type.startsWith('audio/') || file.type.startsWith('video/')) { // v0.6.81: audio/ (MP3 drop bug) + video/ for future
       result = await this.uploadWithProgress(file, roomId, playerToken, (pct) => {
         this.statusCb?.('uploading', `${file.name} ${pct}%`);
       });
