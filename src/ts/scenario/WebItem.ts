@@ -83,7 +83,7 @@ export interface WebItemInput { uuid: string; url: string; name?: string; upload
  * so the existing preview (content-preview.ts fillPreviewPane url-list branch → scheme launcher card /
  * iframe / YouTube embed) renders it with zero extra wiring. Caller supplies the v4 uuid (crypto-free).
  */
-// [impl:uuid:0ba6cc71-d5c4-4f93-b678-631dad270a7a] R25.2 WebItem.createWebItemUnit
+// [impl:uuid:1746403f-505f-4b49-8916-f499295d726b] R25.2 WebItem.createWebItemUnit
 export function createWebItemUnit(idx: ScenarioIndex, input: WebItemInput): ScenarioUnit {
   const url = (input.url || '').trim();
   const scheme = deriveScheme(url);

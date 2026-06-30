@@ -78,6 +78,7 @@ export class DropDispatcher {
   }
 
   // [impl:uuid:971bdde0-004b-4896-bc8c-4570832f6304] DropDispatcher.routeUnknown
+  // [impl:uuid:4a159912-978e-46bc-a839-5201857461c5] R25.1 DropDispatcher.routeUnknown
   async routeUnknown(file: File, roomId: string, playerToken: string, sendChat: (text: string) => void): Promise<void> {
     for (const [prefix, handler] of this.handlers) {
       if (file.type.startsWith(prefix)) {
