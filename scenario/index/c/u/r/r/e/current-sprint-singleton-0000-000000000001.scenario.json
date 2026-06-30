@@ -2,9 +2,9 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 25.2: Unified WebItem scenario unit (bookmark / .url / .webloc)",
+    "name": "Current: Task 25.3: vCard onboarding recognizes existing users (device-link, no new UUID)",
     "chain": {
-      "req": "f8097d7c-07f7-4ef5-90fc-7512b57c1bc2",
+      "req": "d0acb05d-982f-418b-a0d4-667d13435371",
       "uc": "",
       "class": "",
       "method": "",
@@ -13,30 +13,34 @@
     },
     "activeHop": 1,
     "sprintName": "Sprint 25",
-    "taskName": "Task 25.2: Unified WebItem scenario unit (bookmark / .url / .webloc)",
+    "taskName": "Task 25.3: vCard onboarding recognizes existing users (device-link, no new UUID)",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-06-30T08:15:24.362Z"
+        "updatedAt": "2026-06-30T13:58:28.581Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "06544a45-382b-4747-9692-0ad444e905ac",
-    "lastCompletedName": "Task 25.1: Comprehensive DnD logging (capture every dropped URL scheme)",
-    "lastCompletedReqUuid": "649e9f4c-5e19-4a68-aa80-3378b1e1a9cc",
+    "lastCompletedUuid": "7c526ba6-4eb6-4ad9-a52b-de715947af0e",
+    "lastCompletedName": "Task 25.2: Unified WebItem scenario unit (bookmark / .url / .webloc)",
+    "lastCompletedReqUuid": "f8097d7c-07f7-4ef5-90fc-7512b57c1bc2",
     "slots": {
       "current": {
+        "taskUuid": "d0acb05d-982f-418b-a0d4-667d13435371",
+        "taskName": "Task 25.3: vCard onboarding recognizes existing users (device-link, no new UUID)",
+        "reqUuid": "d0acb05d-982f-418b-a0d4-667d13435371"
+      },
+      "lastCompleted": {
         "taskUuid": "7c526ba6-4eb6-4ad9-a52b-de715947af0e",
         "taskName": "Task 25.2: Unified WebItem scenario unit (bookmark / .url / .webloc)",
         "reqUuid": "f8097d7c-07f7-4ef5-90fc-7512b57c1bc2"
       },
-      "lastCompleted": {
+      "nextBacklog": {
         "taskUuid": "06544a45-382b-4747-9692-0ad444e905ac",
         "taskName": "Task 25.1: Comprehensive DnD logging (capture every dropped URL scheme)",
         "reqUuid": "649e9f4c-5e19-4a68-aa80-3378b1e1a9cc"
-      },
-      "nextBacklog": null
+      }
     }
   },
   "ownerIor": null
