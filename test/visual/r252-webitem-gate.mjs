@@ -10,6 +10,10 @@
 //   (b) real image -> still File.
 // DEFERRED (flagged, NOT gated): favicon/badge ICON RENDERING in browser, folder tree,
 //   Google-bookmarks import, WebItem skill class, legacy File->WebItem migration.
+//
+// VERDICT: v0.6.88 (8ac5645d3) = RED — bare/scheme URL drop -> ior:class:File (dispatchUrl
+//   '<url>.url' naming shadowed extractUrl's bare-URL fallback). v0.6.89 (603be9b57) = GREEN
+//   DET-3x — extractUrl now falls back to bare-line extraction; bare URL -> WebItem. FULL RED->GREEN.
 
 import { chromium } from '@playwright/test';
 import fs from 'fs';
