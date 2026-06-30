@@ -16,18 +16,18 @@
     "chatHistory": [],
     "members": [
       {
-        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
-        "name": "",
-        "role": "owner",
+        "ior": "ior:instance:a695106e-585f-40ff-a633-e81b986d9fb9",
+        "name": "Marcel Donges",
+        "role": "member",
         "status": "offline",
-        "joinedAt": 1782808003995
+        "joinedAt": 1782818557718
       },
       {
         "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
-        "name": "",
+        "name": "Marcel Donges",
         "role": "owner",
-        "status": "online",
-        "joinedAt": 1782808003995
+        "status": "offline",
+        "joinedAt": 1782818557718
       }
     ],
     "files": [
