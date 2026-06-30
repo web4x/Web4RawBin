@@ -30,7 +30,7 @@
       ]
     },
     "designRef": "architect WebItem design commit 9ae3ac6f5 (WebItem - unified URL/bookmark scenario unit); expert v0.6.87 commit 018398f17 (accept ALL URI schemes on drop + scheme launcher preview)",
-    "implStatus": "in-progress (v0.6.87 live: all-scheme drop + launcher preview shipped; folder hierarchy + import .url/.webloc/bookmarks pending)",
+    "implStatus": "QA-Review (T25.2 GREEN cfdda46e6, 2026-06-30): 6/8 ACs verified GREEN \u2014 AC-model, AC-drop, AC-preview, AC-open, AC-import-url(.url), AC-import-webloc(.webloc). DEFERRED as coherent backlog (NOT a partial-failure): AC-folders (parentFolder/children) + AC-import-bookmarks (Google bookmarks HTML). PO chose per-AC marking on the unified task (no R25.2.A-E split). Revisit if folders/bookmarks get their own sprint. Per-AC completion lives on task T25.2 (single source).",
     "crossRef": [
       "ior:instance:649e9f4c-5e19-4a68-aa80-3378b1e1a9cc",
       "ior:instance:8f34c3e5-351c-48b3-8f33-fae45ca279b2"
@@ -78,7 +78,11 @@
         "text": "Import from Google bookmarks HTML yields WebItem units with folder hierarchy preserved."
       }
     ],
-    "riNote": "Compound: 1 model + 5 feature areas (drop->unit, preview, open, folders, 3 imports). Captured as one R25.2 per PO directive; available to split into R25.2.A-E for independent tasking."
+    "riNote": "Compound: 1 model + 5 feature areas (drop->unit, preview, open, folders, 3 imports). Captured as one R25.2 per PO directive; available to split into R25.2.A-E for independent tasking.",
+    "deferredAcceptanceCriteria": [
+      "AC-folders",
+      "AC-import-bookmarks"
+    ]
   },
   "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"
 }
