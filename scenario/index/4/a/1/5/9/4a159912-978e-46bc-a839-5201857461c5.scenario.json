@@ -5,7 +5,9 @@
     "name": "DropDispatcher.routeUnknown impl",
     "description": "Existing implementation in src/public/ts/drop-dispatcher.ts.",
     "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:47200918-566a-4272-9b10-399114c6e4b4"
+    ]
   },
   "ownerIor": "ior:instance:dbaedfe1-8640-4a32-87f1-fa4b274e26ed"
 }

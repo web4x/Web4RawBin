@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b0a7a27d-8205-4399-a574-c39472a409fa",
+    "name": "test:R25.2 WebItem.createAndLaunch gate",
+    "description": "Bridged to test/visual/r252-webitem-gate.mjs — bare/scheme URL + .url/.webloc drop -> WebItem + launcher card (DET-3x GREEN)",
+    "sourceFile": "ior:file:test/visual/r252-webitem-gate.mjs",
+    "implementations": [
+      "ior:instance:1746403f-505f-4b49-8916-f499295d726b"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:1746403f-505f-4b49-8916-f499295d726b"
+}

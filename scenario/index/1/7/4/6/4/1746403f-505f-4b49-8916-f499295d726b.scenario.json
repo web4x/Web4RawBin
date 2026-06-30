@@ -6,7 +6,9 @@
     "description": "DESIGN-AHEAD (not yet implemented): planned in src/public/ts/WebItem.ts; design in scrum.pmo/design-notes/r25.2-webitem-design.md.",
     "sourceFile": "ior:file:scrum.pmo/design-notes/r25.2-webitem-design.md",
     "designAhead": true,
-    "tests": []
+    "tests": [
+      "ior:instance:b0a7a27d-8205-4399-a574-c39472a409fa"
+    ]
   },
   "ownerIor": "ior:instance:35c7d530-dfc5-43d6-a6d5-9c314a91a55b"
 }
