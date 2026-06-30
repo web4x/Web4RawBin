@@ -1,0 +1,339 @@
+Return-Path: <bounce-3659302-1451-171208-marcel.donges=ceruleancircle.com@em-3659302.headfound.com>
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on
+	dd28926.kasserver.com
+X-Original-To: marcel.donges@ceruleancircle.com
+Delivered-To: m03cba11@dd28926.kasserver.com
+Authentication-Results: dd28926.kasserver.com;
+	dkim=pass (2048-bit key; unprotected) header.d=headfound.com header.i=@headfound.com header.a=rsa-sha256 header.s=acdkim1 header.b=M4BcQU5W;
+	dkim=pass (2048-bit key; unprotected) header.d=acems2.com header.i=@acems2.com header.a=rsa-sha256 header.s=acdkim1 header.b=XABReaYh;
+	dkim-atps=neutral
+X-policyd-weight:  NOT_IN_SPAMCOP=-3 CL_IP_EQ_HELO_IP=-2 (check from: .headfound. - helo: .mail28.euc1.acems2. - helo-domain: .acems2.)  FROM/MX_MATCHES_NOT_HELO(DOMAIN)=1; rate: -4
+Received: from mail28.euc1.acems2.com (mail28.euc1.acems2.com [217.8.118.28])
+	by dd28926.kasserver.com (Postfix) with ESMTPS id D3B1293A07C1
+	for <marcel.donges@ceruleancircle.com>; Mon, 29 Jun 2026 16:00:54 +0200 (CEST)
+X-KumoRef: eyJfQF8iOiJcXF8vIiwicmVjaXBpZW50IjoibWFyY2VsLmRvbmdlc0BjZXJ1bGVhbmNpcmNsZS5jb20ifQ==
+DKIM-Signature: v=1; a=rsa-sha256; d=headfound.com; s=acdkim1; c=relaxed/relaxed;
+	bh=JnHRRQG2qJNBOSzT7lyTydjW2EpEGPOGnevnR03sOF4=;
+	h=from:to:subject:date:mime-version:content-type:sender:cc:date:message-id:
+		list-unsubscribe:list-unsubscribe-post; t=1782741654; x=1783346454;
+	b=M4BcQU5WRAUxWqm3/+khKS0HYuMYil6hbiKjKluyFeNtUga2myJleJiCB9J3KfbAT94rwIq3s
+	903o7rCAP4u3/TR2njzGNO5OQOpZQDGRUB8TFE+a/qlA/XkZQUcr2aKW0RvrCD5WeKrO0Ufemkr
+	aN8I9Cw2rANcxAQfdnWmzQybXUvrbPx9JQ3IcodGVFIUuUP+OzjsRJI7OJpYRkKR3DcpaCPe+Jd
+	UkWFzR6Gs+B/sstSbDHJBdXZDdlDSnFhrwXf+ARkGSj6eFcc0J0dXCU92UTev+9zK7J/PJnj197
+	ea3NBqOE1hXGtSf5KH3LzD00ngBMGk9hech6Hf2M5caQ==;
+DKIM-Signature: v=1; a=rsa-sha256; d=acems2.com; s=acdkim1; c=relaxed/relaxed;
+	bh=JnHRRQG2qJNBOSzT7lyTydjW2EpEGPOGnevnR03sOF4=;
+	h=from:to:subject:date:mime-version:content-type:sender:cc:date:message-id:
+		list-unsubscribe:list-unsubscribe-post; t=1782741654; x=1783346454;
+	b=XABReaYhrGG6E9don0Wv1kPYzKalu7zHtbiIRjNyxXXdxq1zVRlykB5ZmgMen/ztotYwk/E7c
+	BaPX4atlIJGQMx3yPv+jfePIfaGxevR+K456x+2RQ1mw3RXPITOsr+NLRay1Wy1D2uxBZeo2fZA
+	Ccla3uGhBaJQ06juVKFau4SNjWxg44LIrV1FwXOGpzpR9mBzTNR0oUggCNTRPJp5N0kEHEV9K1W
+	5OYbMJXr6a5baQp9lIqTHUosU3QeU6NcypC9AvEkbTdCbdhhoWNX+t3azjQE6bp3Hem6bzM/JJh
+	ST1f8xbK9PL2HdhzB1YnfDIK0++sJ/sVIfeexupGZB6Q==;
+CFBL-Address: fbl-report@acems1.com; report=arf
+X-Mailer: ActiveCampaign Mailer
+Received: from service-8 (10.64.85.185)
+  by acems1.com (KumoMTA 10.64.50.203) 
+  with ESMTPS (TLSv1_3:TLS13_AES_256_GCM_SHA384)  id f1ac60ea73c211f1b37702b8b6dcd17d for <marcel.donges@ceruleancircle.com>;
+  Mon, 29 Jun 2026 14:00:54 +0000
+Date: Mon, 29 Jun 2026 14:00:54 +0000 (GMT)
+From: Sophie Janssen <sophie.janssen@headfound.com>
+To: marcel.donges@ceruleancircle.com
+Message-ID: <177715813.2327766.1782741654022@service-8>
+Subject: =?UTF-8?Q?Cerulean_Circle_Gmbh:_Haben_Sie_schon_ge?=
+ =?UTF-8?Q?nug_Bewerbungen_f=C3=BCr_Vollzeitangestellter=3F?=
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2327765_968306661.1782741654022"
+X-DKIM-Options: s=acdkim1
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+X-Virtual-Mta: camp-euc1-a-c2-26-30
+X-250ok-CID: 3659302-1451
+List-Unsubscribe: <https://mailingsolutions.activehosted.com/box.php?nl=5&c=1451&m=1190&s=71ed0b180287564281f7a7641422cf12&funcml=unsub2&luha=1>,<mailto:unsubscribe-baf4105609ce04948f42607cd9be4825-1451-71ed0b180287564281f7a7641422cf12@mail26.euc1.acems2.com>
+Feedback-ID: 3659302:activecampaign
+X-Sending-Engine: Hedwig PCS
+X-Report-Abuse: Please report abuse to abuse@activecampaign.com
+X-lid: bWFyY2VsLmRvbmdlc0BjZXJ1bGVhbmNpcmNsZS5jb20gLCBjMTQ1MSAsIG0xMTkwICwgczI1MTk1MSAsIGw1
+X-mid: bWFyY2VsLmRvbmdlc0BjZXJ1bGVhbmNpcmNsZS5jb20gLCBjMTQ1MSAsIG0xMTkwICwgczI1MTk1MQ==
+X-Spamd-Bar: /
+X-Dmarc-Test: Allow
+X-KasLoop: m03cba11
+
+------=_Part_2327765_968306661.1782741654022
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Sehr geehrter Herr Donges,<br><br>ich bin Sophie Janssen von Headfound und =
+schreibe Ihnen, weil ich denke, dass wir f=C3=BCr Cerulean Circle ein inter=
+essanter Gespr=C3=A4chspartner sein k=C3=B6nnten. Wir sind die ersten KI-ge=
+st=C3=BCtzten Recruiter Deutschlands und helfen Unternehmen, qualifizierte =
+Fachkr=C3=A4fte systematisch zu gewinnen =E2=80=93 ohne die =C3=BCblichen U=
+mwege =C3=BCber klassische Stellenanzeigen.<br><br>Was ich =C3=BCber viele =
+Unternehmen h=C3=B6re: Die richtigen Kandidaten finden ist aufwendig, zeiti=
+ntensiv und oft ergebnislos. Genau da setzen wir an. Wir nutzen Datenanalys=
+e und direkte Ansprache, um passende Talente zu identifizieren und zu gewin=
+nen. Das funktioniert deutlich schneller und zielgerichteter als traditione=
+lle Recruiting-Kan=C3=A4le.<br><br>Ich w=C3=BCrde gerne mit Ihnen ein kurze=
+s Gespr=C3=A4ch f=C3=BChren, um zu verstehen, ob und wo Cerulean Circle der=
+zeit Fachkr=C3=A4fte aufbauen m=C3=B6chte. Passt ein 20-Minuten-Call in der=
+ kommenden Woche f=C3=BCr Sie?<br><br>Beste Gr=C3=BC=C3=9Fe<br>Sophie Janss=
+en
+
+%signatursophie%
+
+Gesendet an: marcel.donges@ceruleancircle.com
+
+Ich w=C3=BCnsche keinen weiteren Kontakt. http://mailingsolutions.activehos=
+ted.com/proc.php?c=3D1451&m=3D1190&s=3D71ed0b180287564281f7a7641422cf12&d=
+=3D251951&v=3D2&nl=3D5&runid=3D2953462&act=3Dunsub
+
+Headfound GmbH, Holzmarkt 2a, 50676 K=C3=B6ln, Germany, _ds-1.1.1i_
+------=_Part_2327765_968306661.1782741654022
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">
+<meta name=3D"viewport" content=3D"width=3Ddevice-width, minimal-ui, initia=
+l-scale=3D1.0, maximum-scale=3D1.0, user-scalable=3D0;">
+<meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge">
+<meta name=3D"format-detection" content=3D"telephone=3Dno, date=3Dno, email=
+=3Dno, address=3Dno">
+<meta name=3D"x-apple-disable-message-reformatting">
+<title></title><!--[if (mso 16)]><style type=3D"text/css"> a { text-decorat=
+ion: none; } </style><![endif]--><!--[if gte mso 9]><style> sup { font-size=
+: 100% !important; } </style><![endif]--><!--[if gte mso 9]><noscript>
+<xml>
+<o:OfficeDocumentSettings>
+<o:AllowPNG></o:AllowPNG>
+<o:PixelsPerInch>96</o:PixelsPerInch>
+</o:OfficeDocumentSettings>
+</xml>
+</noscript><![endif]--><!--[if gte mso 9]><style>sup { font-size: 100% !imp=
+ortant; }</style><![endif]--><!--[if mso]><xml>
+<w:WordDocument xmlns:w=3D"urn:schemas-microsoft-com:office:word">
+<w:DontUseAdvancedTypographyReadingMail/>
+</w:WordDocument>
+</xml>
+<![endif]--><!--[if !mso]><!-- -->
+<link href=3D"https://fonts.googleapis.com/css?family=3DRoboto:400,400i,700=
+,700i" rel=3D"stylesheet"><!--<![endif]-->
+<style type=3D"text/css">#outlook a { padding:0;}.es-button { mso-style-pri=
+ority:100!important; text-decoration:none!important;}a[x-apple-data-detecto=
+rs] { color:inherit!important; text-decoration:none!important; font-size:in=
+herit!important; font-family:inherit!important; font-weight:inherit!importa=
+nt; line-height:inherit!important;}.es-desk-hidden { display:none; float:le=
+ft; overflow:hidden; width:0; max-height:0; line-height:0; mso-hide:all;}@m=
+edia only screen and (max-width:600px) {p, ul li, ol li, a { line-height:15=
+0%!important } h1, h2, h3, h1 a, h2 a, h3 a { line-height:120%!important } =
+h1 { font-size:30px!important; text-align:inherit } h2 { font-size:26px!imp=
+ortant; text-align:inherit } h3 { font-size:20px!important; text-align:inhe=
+rit }
+.es-header-body h1 a, .es-content-body h1 a, .es-footer-body h1 a { font-si=
+ze:30px!important } .es-header-body h2 a, .es-content-body h2 a, .es-footer=
+-body h2 a { font-size:26px!important } .es-header-body h3 a, .es-content-b=
+ody h3 a, .es-footer-body h3 a { font-size:20px!important } .es-menu td a {=
+ font-size:13px!important } .es-header-body p, .es-header-body ul li, .es-h=
+eader-body ol li, .es-header-body a { font-size:16px!important } .es-conten=
+t-body p, .es-content-body ul li, .es-content-body ol li, .es-content-body =
+a { font-size:16px!important } .es-footer-body p, .es-footer-body ul li, .e=
+s-footer-body ol li, .es-footer-body a { font-size:8px!important } .es-info=
+block p, .es-infoblock ul li, .es-infoblock ol li, .es-infoblock a { font-s=
+ize:13px!important } *[class=3D"gmail-fix"] { display:none!important } .es-=
+m-txt-c, .es-m-txt-c h1, .es-m-txt-c h2, .es-m-txt-c h3 { text-align:center=
+!important }
+.es-m-txt-r, .es-m-txt-r h1, .es-m-txt-r h2, .es-m-txt-r h3 { text-align:ri=
+ght!important } .es-m-txt-l, .es-m-txt-l h1, .es-m-txt-l h2, .es-m-txt-l h3=
+ { text-align:left!important } .es-m-txt-r img, .es-m-txt-c img, .es-m-txt-=
+l img { display:inline!important } .es-button-border { display:inline-block=
+!important } a.es-button, button.es-button { display:inline-block!important=
+; font-size:16px!important } .es-adaptive table, .es-left, .es-right { widt=
+h:100%!important } .ac-footer, .es-content table, .es-header table, .es-foo=
+ter table, .es-content, .es-footer, .es-header { width:100%!important; max-=
+width:600px!important } .ac-footer td, .ac-footer p, .es-adapt-td { display=
+:block!important; width:100%!important } .adapt-img { width:100%!important;=
+ height:auto!important } .es-m-p0 { padding:0px!important } .es-m-p0r { pad=
+ding-right:0px!important } .es-m-p0l { padding-left:0px!important } .es-m-p=
+0t { padding-top:0px!important }
+.es-m-p0b { padding-bottom:0!important } .es-m-p20b { padding-bottom:20px!i=
+mportant } .es-mobile-hidden, .es-hidden { display:none!important } tr.es-d=
+esk-hidden, td.es-desk-hidden, table.es-desk-hidden { width:auto!important;=
+ overflow:visible!important; float:none!important; max-height:inherit!impor=
+tant; line-height:inherit!important } tr.es-desk-hidden { display:table-row=
+!important } table.es-desk-hidden { display:table!important } td.es-desk-me=
+nu-hidden { display:table-cell!important } .es-menu td { width:1%!important=
+ } .es-adapt-td { display:block!important; width:100%!important } table.es-=
+table-not-adapt, .esd-block-html table { width:auto!important } table.es-so=
+cial { display:inline-block!important } table.es-social td { display:inline=
+-block!important } .es-desk-hidden { display:table-row!important; width:aut=
+o!important; overflow:visible!important; max-height:inherit!important }
+.es-m-margin { padding-left:10px!important; padding-right:10px!important; p=
+adding-top:10px!important; padding-bottom:0px!important } }@media screen an=
+d (max-width:384px) {.mail-message-content { width:414px!important } }</sty=
+le>
+</head>
+<body class=3D"es-wrapper-color" lang=3D"und" style=3D"font-family:roboto, =
+'helvetica neue', helvetica, arial, sans-serif;width:100%;-webkit-text-size=
+-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0;background-color:=
+inherit">
+<table class=3D"es-wrapper" width=3D"100%" cellspacing=3D"0" cellpadding=3D=
+"0" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border=
+-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;backgro=
+und-repeat:repeat;background-position:center top;height:100%;background-col=
+or:inherit">
+<tr>
+<td class=3D"es-m-margin" valign=3D"top" style=3D"padding:0;Margin:0">
+<table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-content" align=3D"le=
+ft" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border=
+-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:1=
+00%">
+<tr>
+<td align=3D"left" bgcolor=3D"#ffffff" style=3D"padding:0;Margin:0;backgrou=
+nd-color:#ffffff">
+<table bgcolor=3D"#ffffff" class=3D"es-content-body" align=3D"left" cellpad=
+ding=3D"0" cellspacing=3D"0" role=3D"none" style=3D"mso-table-lspace:0pt;ms=
+o-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-c=
+olor:transparent;width:590px">
+<tr>
+<td align=3D"left" style=3D"padding:0;Margin:0">
+<table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" role=3D"none" sty=
+le=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;bo=
+rder-spacing:0px">
+<tr>
+<td align=3D"left" valign=3D"top" style=3D"padding:0;Margin:0;width:650px">
+<table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" style=3D"mso-tabl=
+e-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0=
+px;border-radius:5px" role=3D"presentation">
+<tr>
+<td align=3D"left" style=3D"padding:0;Margin:0;padding-top:20px;padding-bot=
+tom:20px">
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:roboto, 'helvetica neue', helvet=
+ica, arial, sans-serif;line-height:21px;color:#333333;font-size:14px">Sehr =
+geehrter Herr Donges,<br><br>ich bin Sophie Janssen von Headfound und schre=
+ibe Ihnen, weil ich denke, dass wir f=C3=BCr Cerulean Circle ein interessan=
+ter Gespr=C3=A4chspartner sein k=C3=B6nnten. Wir sind die ersten KI-gest=C3=
+=BCtzten Recruiter Deutschlands und helfen Unternehmen, qualifizierte Fachk=
+r=C3=A4fte systematisch zu gewinnen =E2=80=93 ohne die =C3=BCblichen Umwege=
+ =C3=BCber klassische Stellenanzeigen.<br><br>Was ich =C3=BCber viele Unter=
+nehmen h=C3=B6re: Die richtigen Kandidaten finden ist aufwendig, zeitintens=
+iv und oft ergebnislos. Genau da setzen wir an. Wir nutzen Datenanalyse und=
+ direkte Ansprache, um passende Talente zu identifizieren und zu gewinnen. =
+Das funktioniert deutlich schneller und zielgerichteter als traditionelle R=
+ecruiting-Kan=C3=A4le.<br><br>Ich w=C3=BCrde gerne mit Ihnen ein kurzes Ges=
+pr=C3=A4ch f=C3=BChren, um zu verstehen, ob und wo Cerulean Circle derzeit =
+Fachkr=C3=A4fte aufbauen m=C3=B6chte. Passt ein 20-Minuten-Call in der komm=
+enden Woche f=C3=BCr Sie?<br><br>Beste Gr=C3=BC=C3=9Fe<br>Sophie Janssen</p=
+></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table>
+<table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-content" align=3D"le=
+ft" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border=
+-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:1=
+00%">
+<tr>
+<td align=3D"left" style=3D"padding:0;Margin:0">
+<table bgcolor=3D"#ffffff" class=3D"es-content-body" align=3D"left" cellpad=
+ding=3D"0" cellspacing=3D"0" role=3D"none" style=3D"mso-table-lspace:0pt;ms=
+o-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-c=
+olor:transparent;width:590px">
+<tr>
+<td align=3D"left" style=3D"padding:0;Margin:0;padding-top:20px">
+<table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" role=3D"none" sty=
+le=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;bo=
+rder-spacing:0px">
+<tr>
+<td align=3D"left" valign=3D"top" style=3D"padding:0;Margin:0;width:590px">
+<table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" role=3D"presentat=
+ion" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:col=
+lapse;border-spacing:0px">
+<tr>
+<td align=3D"left" style=3D"padding:0;Margin:0">
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:roboto, 'helvetica neue', helvet=
+ica, arial, sans-serif;line-height:21px;color:#333333;font-size:14px"></p>
+<div style=3D"font-family: Arial, sans-serif; text-align: left; color: #333=
+;">
+<table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"border-col=
+lapse: collapse; width: 600px;">
+<tr>
+<td style=3D"padding-right: 20px;"><img src=3D"https://cdn.prod.website-fil=
+es.com/66be11cf67ac3879ac54704f/69e0c3b3eba8637272e34360_Signatur%20Sophie%=
+20Janssen%20HF.png" alt=3D"Sophie Janssen" title=3D"Sophie Janssen" width=
+=3D"150" style=3D"display: block; margin-left: auto; margin-right: auto;"><=
+br><img src=3D"https://cdn.prod.website-files.com/66be11cf67ac3879ac54704f/=
+69e0c507f8fc3a0c688e8c38_HF%20Logo.png" alt=3D"HEADFOUND Logo" width=3D"100=
+" style=3D"display: block; margin-left: auto; margin-right: auto;"></td>
+<td style=3D"border-right: 2px solid #dfdfdf; padding-right: 20px;"></td>
+<td style=3D"padding-left: 20px; vertical-align: center;">
+<p style=3D"margin: 0; font-size: 14px; font-weight: bold; color: #000;">So=
+phie Janssen</p>
+<p style=3D"margin: 0; font-size: 12px; color: #666;">Key Account Managerin=
+</p>
+<p style=3D"margin: 0; font-size: 12px; color: #666;">Headfound GmbH</p><br=
+>
+<p style=3D"margin: 0; font-size: 12px;"><strong>E-Mail:</strong> <a href=
+=3D"mailto:sophie.janssen@headfound.com" style=3D"color: #0073e6; text-deco=
+ration: none;">sophie.janssen@headfound.com</a><br><strong>Telefon:</strong=
+> <a href=3D"tel:+4916091328750" style=3D"color: #0073e6; text-decoration: =
+none;">+49 160 91328750<br><br></a></p>
+<p style=3D"margin: 0; font-size: 12px;">Holzmarkt 2a, 50676 K=C3=B6ln |&nb=
+sp;<a href=3D"https://mailingsolutions.acemlnb.com/lt.php?x=3D4lZy~GDKIqXN5=
+s760_tHW.dw2nAik_AkkPY2YXTEJXKbDaJ6yky7xeJw1XUliUA0_ueglPDEJXWa95360NuYVPFz=
+2XIm" style=3D"color: #0073e6; text-decoration: none;">www.headfound.com</a=
+></p></td>
+</tr>
+</table>
+</div>
+<p></p></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table>
+<table class=3D"ac-footer" cellspacing=3D"0" cellpadding=3D"0" align=3D"lef=
+t" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-=
+collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:10=
+0%;background-color:inherit;background-repeat:repeat;background-position:ce=
+nter top">
+<tr>
+<td align=3D"left" class=3D"es-footer-body" style=3D"padding:0;Margin:0;bac=
+kground-color:#808080;padding-top:20px;padding-bottom:20px;background:inher=
+it;font-family:inherit;font-size:8px;color:inherit">
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:inherit;line-height:150%;color:i=
+nherit;font-size:inherit">Gesendet an: marcel.donges@ceruleancircle.com<br>=
+<br><a style=3D"-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso=
+-line-height-rule:exactly;text-decoration:underline;color:inherit;font-size=
+:inherit;font-family:inherit;font-weight:inherit" href=3D"http://mailingsol=
+utions.activehosted.com/proc.php?c=3D1451&m=3D1190&s=3D71ed0b180287564281f7=
+a7641422cf12&d=3D251951&v=3D2&nl=3D5&runid=3D2953462&act=3Dunsub" target=3D=
+"_blank">Ich w=C3=BCnsche keinen weiteren Kontakt.</a><br><br><span class=
+=3D"perstag_address" style=3D"color:inherit;font-family:inherit;font-size:i=
+nherit">Headfound GmbH, Holzmarkt 2a, 50676 K=C3=B6ln, Germany, _ds-1.1.1i_=
+ </span></p></td>
+</tr>
+</table><!-- sQVMJ2CkDjENS4_ds-1.1.1i_sQVMJ2CkDjENS4 -->
+<br>
+<img src=3D"https://mailingsolutions.acemlnb.com/lteo?x=3D5TZi05HHJnIKHhVpz=
+ty8h.Cd1XQgidb1kuszXXjEV3fK6XJ9yN9HUhOh1X8RvETwkuY4YHJ2VxmJG847-wABThSqCqNV=
+yu-hwyd0m8Y2X6PSHK.1_Mk6jx3f~7_ZvEXwluoyY5bFkrcK5O41NAoFhR7cCeAhiNfu_PZok.f=
+GJ3Wi5Xz7MgkBwOXeD6VU_d~1jucvZ2" border=3D"0" width=3D"1" height=3D"1" styl=
+e=3D"display:block;width:1px!important;min-width:1px!important;max-width:1p=
+x!important;height:1px!important;border:0;overflow:hidden;"/>
+</body>
+</html>
+------=_Part_2327765_968306661.1782741654022--
+

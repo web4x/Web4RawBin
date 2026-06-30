@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "c8dc9d0d-ad6d-4d1e-a3af-7967cccdb37d",
+    "kind": "link",
+    "name": "Cerulean Circle Gmbh: Haben Sie schon genug Bewerbungen fÃ¼r Vollzeitangestellter?",
+    "description": "",
+    "url": "message:%3C177715813.2327766.1782741654022@service-8%3E",
+    "scheme": "message",
+    "icon": "",
+    "badge": "📧",
+    "mimeType": "text/uri-list",
+    "roomUuid": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "parentFolder": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62",
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd"
+  },
+  "ownerIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62"
+}
