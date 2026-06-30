@@ -45,18 +45,17 @@
         "id": "AC-v",
         "group": "verify",
         "text": "Verified live (headless) on both a touch surface and a mouse/pointer surface."
-      },
-      {
-        "id": "AC-grab",
-        "group": "mouse-parity",
-        "text": "The drawer grab-bar / drag-handle responds to MOUSE-drag identically to touch-drag (open / resize / move the drawer) - currently touch-only. Mandated by the verbatim \"the drawer shall work the same way with mouse\" (the whole drawer, not just pan/zoom content)."
       }
     ],
     "crossRef": [
       "ior:instance:21e792e0-0431-4ffd-a4d4-c8d85df23299"
     ],
     "crossRefNote": "Extends the R21.9 rb-preview-pane / RbPanZoom pan/zoom surface with full mouse parity.",
-    "coverageNote": "2026-06-30 triage (PO): the grab-bar mouse-only bug is COVERED by this requirement's verbatim Tron intent but was not enumerated in the pan/zoom ACs; AC-grab added to make the existing intent testable (refinement, NOT a new req). The R25.2 mail-drawer-empty bug is covered by R25.2 AC-preview+AC-open (impl gap for message: scheme), not this req."
+    "coverageNote": "2026-06-30 triage: the grab-bar-mouse + X-minimize bugs moved to a DEDICATED requirement R25.4 (225b18a6, sibling) per architect diagnosis + PO. The AC-grab I briefly added here was BACKED OUT to keep single-source - R22.2 stays scoped to drawer pan/zoom CONTENT mouse-parity; R25.4 owns grab-bar drag + X-minimize.",
+    "refinedBy": [
+      "ior:instance:225b18a6-684d-4bec-9a4d-42ed4f23fd09"
+    ],
+    "refinedByNote": "R25.4 extends the R22.2 touch-first mouse-parity PRINCIPLE to the drawer chrome (grab-bar drag + X-minimize), which R22.2's content pan/zoom ACs did not cover."
   },
   "ownerIor": "ior:instance:9996b46a-66b7-4f8a-9298-cbea3c2edabf"
 }

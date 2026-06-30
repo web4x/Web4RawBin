@@ -55,6 +55,15 @@
   - [ ] **(unknown→authorize)** If neither key is known, onboarding proceeds normally with "Authorize This Device" (new profile).
   → [UC-OB.1: onboarding.vCardKnownUserDeviceLink](./planning.md#uc-ob1) `[uc:uuid:c461d975-729b-4d60-bd45-6b1a1b62be33]` *(placeholder)*
 
+- [ ] **R25.4 — Drawer interaction: grab-bar mouse parity + X-minimize**
+  [requirement:uuid:225b18a6-684d-4bec-9a4d-42ed4f23fd09]
+  > TRON (drawer): the drawer grab-bar must work the same with mouse as touch, and the X button should collapse the drawer to a minimized peek state (not close it entirely), on both touch and mouse.
+  Extends the R22.2 touch-first mouse-parity principle to the drawer CHROME (not just pan/zoom content): the grab-bar must respond to mouse drag for resize/dismiss (currently touch-only), and the X button must collapse the drawer to a MINIMIZED peek state (not full close/hide) on both touch and mouse.
+  **Acceptance criteria:**
+  - [ ] **(grab-bar)** The drawer grab-bar responds to mousedown/mousemove/mouseup for resize/dismiss — mirroring touch (currently touch-only; rb-detail-drawer.ts lines 38-40).
+  - [ ] **(x-minimize)** The X button collapses the drawer to a MINIMIZED (peek) state — NOT a full close/hide — on both touch AND mouse click (today X calls close() which hides entirely; needs a minimize()/peek state).
+  → [UC-DR.1: drawer.chromeInteraction](./planning.md#uc-dr1) `[uc:uuid:c6df9164-62f3-47a5-ae91-e9eb7cefe7b5]` *(placeholder — architect to name)*
+
 ### Deferred (Phase 3 — per-scheme preview refinements)
 - **R25.3+** per-scheme MEANINGFUL preview bodies (email preview, calendar-event preview, map preview, contact card) on top of the WebItem launcher card. Created as Tron exercises each scheme.
 
@@ -67,5 +76,6 @@
 | R25.1 | DnD logging (capture dropped URL schemes) | 649e9f4c-5e19-4a68-aa80-3378b1e1a9cc | 5fc59adc-6a84-4426-b892-28294bbb0612 |
 | R25.2 | Unified WebItem unit (bookmark/.url/.webloc) | f8097d7c-07f7-4ef5-90fc-7512b57c1bc2 | 2dc9f063-9c98-40af-9097-fd497804c008 |
 | R25.3 | vCard onboarding recognizes existing users | d0acb05d-982f-418b-a0d4-667d13435371 | c461d975-729b-4d60-bd45-6b1a1b62be33 |
+| R25.4 | Drawer grab-bar mouse parity + X-minimize | 225b18a6-684d-4bec-9a4d-42ed4f23fd09 | c6df9164-62f3-47a5-ae91-e9eb7cefe7b5 |
 
 *Captured by robbin-req 2026-06-29. Tron verbatim authoritative; PO URL-scheme clarification framed in. R25.2+ deferred to measure-first.*
