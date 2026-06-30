@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "2aded7b5-5776-468b-b4b5-74d644066d93",
+    "name": "RbDetailDrawer.onGrabBarPointer",
+    "description": "Grab-bar mousedown/mousemove/mouseup mirror the touch resize/dismiss logic (lines 38-40 currently touch-only) — full mouse parity (R22.2 sibling).",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "implementations": [
+      "ior:instance:9d095150-0c3b-42bc-9763-1d79a46383f7"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+}

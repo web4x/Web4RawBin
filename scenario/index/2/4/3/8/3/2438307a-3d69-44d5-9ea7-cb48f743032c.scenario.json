@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "2438307a-3d69-44d5-9ea7-cb48f743032c",
+    "name": "drawer.minimizeToggle",
+    "description": "X button collapses the drawer to a minimized peek state (not close), on touch and mouse.",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+    "classes": [
+      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+    ],
+    "method": "ior:instance:c777e3e1-a569-408b-a546-615aa243e003",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:225b18a6-684d-4bec-9a4d-42ed4f23fd09"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+    "name": "RbDetailDrawer",
+    "description": "Drawer chrome interaction (R25.4). Formalizes src/public/ts/trace/rb-detail-drawer.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "methods": [
+      "ior:instance:2aded7b5-5776-468b-b4b5-74d644066d93",
+      "ior:instance:c777e3e1-a569-408b-a546-615aa243e003"
+    ]
+  },
+  "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"
+}
