@@ -1,0 +1,53 @@
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
+
+# Task 25.4: Drawer interaction — grab-bar mouse parity + X-minimize
+
+[task:uuid:b9deaf57-0e85-44a4-be94-3aa68f914c67]
+
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [ ] creating test cases
+  - [ ] implementing
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
+
+## Traceability
+
+  - up
+    - [Sprint 25 Planning](./planning.md)
+    - Requirement R25.4 `[requirement:uuid:225b18a6-684d-4bec-9a4d-42ed4f23fd09]`
+  - crossRef
+    - R22.2 drawer pan/zoom mouse parity (sibling; this extends parity to the drawer chrome)
+  - down
+    - [UC-DR.1: drawer.grabBarMouseParity](./planning.md#uc-dr1) `[uc:uuid:c6df9164-62f3-47a5-ae91-e9eb7cefe7b5]`
+    - [UC-DR.2: drawer.minimizeToggle](./planning.md#uc-dr2) `[uc:uuid:2438307a-3d69-44d5-9ea7-cb48f743032c]`
+
+## Task Description
+
+Extends the R22.2 touch-first mouse-parity principle to the drawer CHROME (not just pan/zoom content): the grab-bar must respond to mouse drag (mousedown/mousemove/mouseup) for resize/dismiss — currently touch-only — and the X button must collapse the drawer to a MINIMIZED peek state (not full close/hide) on both touch AND mouse.
+
+## Context
+
+Dedicated grab-bar/chrome task that SUPERSEDES the backed-out R22.2 +AC-grab (49e58a3bb reverted) — siblingOf / refinementOf R22.2 (pan/zoom mouse parity, which stays clean at 6 ACs QA Review). Impl surface: rb-detail-drawer.ts:38-40 (grab-bar handlers, today touch-only) + the X close()→minimize()/peek state. Architect diagnosis (76332d624) + 2 UCs wired (578cc84f5): drawer.grabBarMouseParity (c6df9164) + drawer.minimizeToggle (2438307a).
+
+## Intention
+
+Tron (drawer): the grab-bar must work the same with mouse as touch, and the X button should collapse the drawer to a minimized peek state (not close it entirely), on both touch and mouse.
+
+## Acceptance Criteria
+
+- [ ] (grab-bar) The drawer grab-bar responds to mousedown/mousemove/mouseup for resize/dismiss — mirroring touch (currently touch-only; rb-detail-drawer.ts lines 38-40)
+- [ ] (x-minimize) The X button collapses the drawer to a MINIMIZED (peek) state — NOT a full close/hide — on both touch AND mouse click (today X calls close() which hides entirely; needs a minimize()/peek state)
+
+## Implementation
+
+IN FLIGHT — expert implementing (not yet committed): (1) wire mousedown/mousemove/mouseup on the drawer grab-bar mirroring the touch handlers (rb-detail-drawer.ts:38-40); (2) replace the X button's close() with a minimize()/peek state (collapse to a minimized peek, not full hide) on touch + mouse. Flip implementing[x] when the version commits (source-verified); testing[x] on a committed tester GREEN DET-3x both-input-surfaces (#102).
+
+## Subtasks
+
+None (atomic task).
