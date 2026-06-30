@@ -711,10 +711,13 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const boundary = (req.headers['content-type'] || '').split('boundary=')[1];
           if (!boundary) { addLog(`[upload] ERROR: no boundary in content-type`); res.writeHead(400); res.end(JSON.stringify({ error: 'No boundary' })); return; }
           const parts = body.toString('binary').split('--' + boundary);
-          let fileName = '', mimeType = 'application/octet-stream', fileData = Buffer.alloc(0), playerToken = '';
+          let fileName = '', mimeType = 'application/octet-stream', fileData = Buffer.alloc(0), playerToken = '', relatedFile = '';
           for (const part of parts) {
             if (part.includes('name="playerToken"')) {
               playerToken = part.split('\r\n\r\n')[1]?.trim().split('\r\n')[0] || '';
+            }
+            if (part.includes('name="relatedFile"')) { // v0.6.91: WebItem forward-ref to its source file
+              relatedFile = part.split('\r\n\r\n')[1]?.trim().split('\r\n')[0] || '';
             }
             if (part.includes('name="file"')) {
               const disp = part.match(/filename="([^"]+)"/);
@@ -744,7 +747,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (isWebItem) {
             const url = extractUrl(fileData.toString('utf-8'), fileName);
             if (url) {
-              unit = createWebItemUnit(idx, { uuid: crypto.randomUUID(), url, name: fileName, uploaderToken: playerToken, roomUuid: roomId });
+              unit = createWebItemUnit(idx, { uuid: crypto.randomUUID(), url, name: fileName, uploaderToken: playerToken, roomUuid: roomId, relatedFile: relatedFile || undefined });
               addLog(`[upload] WebItem: ${(unit.model as any).badge} ${(unit.model as any).name} (${(unit.model as any).scheme}) url=${url.slice(0,60)}`);
             }
           }

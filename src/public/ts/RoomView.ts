@@ -92,11 +92,19 @@ export class RoomView {
     // [impl:uuid:1a938c60-876d-4e74-bf4c-5b3af6a155b4] DropDispatcher.route
     this.container.addEventListener('rb-room-files-dropped', (async (e: CustomEvent) => {
       const files: File[] = e.detail?.files || [];
+      let firstFileUuid = '';
       for (const file of files) {
         try {
           const result = await dropDispatcher.dispatch(file, this.roomId, this.client.playerToken, (text) => this.chatSheet?.addMessage('system', 'System', text));
           if (!result) this.chatSheet?.addMessage('system', 'System', `Upload failed: ${file.name}`);
+          else if (!firstFileUuid) firstFileUuid = result.uuid;
         } catch { this.chatSheet?.addMessage('system', 'System', `Upload error: ${file.name}`); }
+      }
+      // v0.6.91: a drop carrying BOTH a file and a launchable scheme URL (Apple email/calendar) → mint a
+      // WebItem that FORWARD-REFERENCES the stored file (children=[file]) so the message: link knows its .eml source.
+      const schemeUrl: string = e.detail?.schemeUrl || '';
+      if (schemeUrl) {
+        try { await dropDispatcher.dispatchUrl(schemeUrl, this.roomId, this.client.playerToken, (text) => this.chatSheet?.addMessage('system', 'System', text), e.detail?.schemeName, firstFileUuid || undefined); } catch {}
       }
     }) as EventListener);
     this.container.addEventListener('rb-leave', () => { this.client.leaveRoom(); this.onLeave(); });
@@ -205,13 +213,10 @@ export class RoomView {
         }
         const hasScheme = /^[a-z][a-z0-9+.\-]*:/i.test(schemeUrl);
         if (files.length > 0) {
-          dz.dispatchEvent(new CustomEvent("rb-room-files-dropped", { detail: { files }, bubbles: true }));
-          // v0.6.90: ALSO mint a WebItem from the scheme URL so an email is BOTH archived (.eml File)
-          // AND launchable (message: WebItem → Open launches Mail.app). Name = file subject (minus ext).
-          if (hasScheme) {
-            const nm = (files[0].name || '').replace(/\.(eml|ics|vcs|msg)$/i, '').trim() || undefined;
-            dropDispatcher.dispatchUrl(schemeUrl, this.roomId, this.client.playerToken, (text) => log(text), nm);
-          }
+          // v0.6.90/91: pass the scheme URL + subject through to the upload handler, which uploads the
+          // file(s) first then mints a WebItem forward-referencing the stored file (email BOTH archived AND launchable).
+          const schemeName = hasScheme ? ((files[0].name || '').replace(/\.(eml|ics|vcs|msg)$/i, '').trim() || undefined) : undefined;
+          dz.dispatchEvent(new CustomEvent("rb-room-files-dropped", { detail: { files, schemeUrl: hasScheme ? schemeUrl : '', schemeName }, bubbles: true }));
         } else if (hasScheme) {
           dropDispatcher.dispatchUrl(schemeUrl, this.roomId, this.client.playerToken, (text) => log(text));
         }
@@ -264,10 +269,28 @@ export class RoomView {
       const resp = await fetch(`/api/ior/ior:instance:${uuid}`);
       if (!resp.ok) return;
       const res = await resp.json();
-      const fm = res.unit?.model || {};
+      const unit = res.unit || {};
+      const fm = unit.model || {};
+      const panel = (drawer as RbDetailDrawer).previewPanel || (drawer as any).body;
+      const esc2 = (s: string) => String(s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] as string));
+      // v0.6.91: a WebItem renders an Open launcher card DIRECTLY from its model (badge + url + Open
+      // button → launches Mail/Calendar/Maps) + a forward-ref to its source file (.eml/.ics) when linked.
+      if (unit.ior === 'ior:class:WebItem' && fm.url) {
+        const childUuid = String((fm.children || [])[0] || '').replace('ior:instance:', '');
+        const srcLink = childUuid ? `<div style="margin-top:18px;font-size:0.8rem"><a href="#" data-src-uuid="${childUuid}" style="color:#42a5f5;text-decoration:none">📎 Source file</a></div>` : '';
+        panel.innerHTML = `<div style="padding:32px 20px;text-align:center"><div style="font-size:3rem">${esc2(fm.badge || '🔗')}</div>`
+          + `<h3 style="color:white;margin:12px 0;font-size:0.95rem">${esc2(fm.name || fm.url)}</h3>`
+          + `<div style="word-break:break-all;color:#a1887f;font-size:0.75rem;margin-bottom:20px">${esc2(fm.url)}</div>`
+          + `<a href="${esc2(fm.url)}" target="_blank" rel="noopener" style="display:inline-block;padding:12px 28px;background:#ff9800;color:#000;border-radius:8px;text-decoration:none;font-weight:600">↗ Open</a>${srcLink}</div>`;
+        const srcEl = panel.querySelector('[data-src-uuid]');
+        if (srcEl) srcEl.addEventListener('click', (ev: Event) => { ev.preventDefault(); this.openFilePreview(childUuid); });
+        if ((drawer as RbDetailDrawer).setMode) (drawer as RbDetailDrawer).setMode('preview');
+        drawer.setAttribute('ref', `file:${uuid}`);
+        drawer.setAttribute('open', '');
+        return;
+      }
       const preview = renderContentPreview(uuid, fm.mimeType || '', fm.name || uuid, this.client.playerToken);
       // [impl:uuid:b8714c1d-58b2-4324-93ba-da5e0f760221] R19.78 buttons above filename
-      const panel = (drawer as RbDetailDrawer).previewPanel || (drawer as any).body;
       panel.innerHTML = `${preview}<h3 style="margin:8px 0 0;font-size:0.9rem;color:white">${(fm.name || uuid).replace(/[<>]/g, '')}</h3>`;
       if ((drawer as RbDetailDrawer).setMode) (drawer as RbDetailDrawer).setMode('preview');
       drawer.setAttribute('ref', `file:${uuid}`);

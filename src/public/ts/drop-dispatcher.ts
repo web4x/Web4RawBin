@@ -50,10 +50,12 @@ export class DropDispatcher {
   }
 
   // [impl:uuid:d6ec181b-3e6f-4b95-9b67-196cdb137ad3] DropDispatcher.uploadFile
-  async uploadFile(file: File, roomId: string, playerToken: string): Promise<{ uuid: string; name: string; size: number } | null> {
+  async uploadFile(file: File, roomId: string, playerToken: string, relatedFileUuid?: string): Promise<{ uuid: string; name: string; size: number } | null> {
     const fd = new FormData();
     fd.append('file', file);
     fd.append('playerToken', playerToken);
+    if (relatedFileUuid) fd.append('relatedFile', relatedFileUuid); // v0.6.91: WebItem forward-ref to its source file
+
     const resp = await fetch(`${this.baseUrl}/api/room/${roomId}/upload`, { method: 'POST', body: fd });
     if (!resp.ok) return null;
     return resp.json();
@@ -109,7 +111,7 @@ export class DropDispatcher {
   }
 
   // [impl:uuid:b05fcdf3-0d44-4d7d-bee2-b5edc55daa3a] R19.62 DropDispatcher.urlDrop
-  async dispatchUrl(url: string, roomId: string, playerToken: string, sendChat: (text: string) => void, displayName?: string): Promise<{ uuid: string; name: string; size: number } | null> {
+  async dispatchUrl(url: string, roomId: string, playerToken: string, sendChat: (text: string) => void, displayName?: string, relatedFileUuid?: string): Promise<{ uuid: string; name: string; size: number } | null> {
     this.state = 'uploading';
     this.statusCb?.('uploading', `Fetching ${url}...`);
     try {
@@ -117,7 +119,7 @@ export class DropDispatcher {
       const name = (displayName && displayName.trim()) || url.split('/').pop() || 'link';
       const blob = new Blob([url], { type: 'text/uri-list' });
       const file = new File([blob], `${name}.url`, { type: 'text/uri-list' });
-      const result = await this.uploadFile(file, roomId, playerToken);
+      const result = await this.uploadFile(file, roomId, playerToken, relatedFileUuid); // v0.6.91: link WebItem→source file
       this.state = 'complete';
       this.statusCb?.(result ? 'complete' : 'error', result ? `Saved ${name}` : `Failed: ${url}`);
       setTimeout(() => { if (this.state === 'complete') { this.state = 'idle'; this.statusCb?.('idle'); } }, 2000);

@@ -76,7 +76,7 @@ export function extractUrl(content: string, name?: string): string {
   return url;
 }
 
-export interface WebItemInput { uuid: string; url: string; name?: string; uploaderToken?: string; roomUuid?: string; parentFolder?: string; }
+export interface WebItemInput { uuid: string; url: string; name?: string; uploaderToken?: string; roomUuid?: string; parentFolder?: string; relatedFile?: string; }
 
 /**
  * Mint an ior:class:WebItem LINK unit with derived scheme/badge/favicon/name. mimeType='text/uri-list'
@@ -101,6 +101,8 @@ export function createWebItemUnit(idx: ScenarioIndex, input: WebItemInput): Scen
       mimeType: 'text/uri-list',
       roomUuid: input.roomUuid || '',   // mirrors File — the content endpoint's auth resolves the room from this
       parentFolder: input.parentFolder || (input.roomUuid ? `ior:instance:${input.roomUuid}` : null),
+      // R25.2/v0.6.91: forward reference to the source artifact (e.g. the .eml a message: WebItem came from)
+      children: input.relatedFile ? [`ior:instance:${input.relatedFile}`] : [],
       uploaderToken: input.uploaderToken || '',
     },
     ownerIor: input.roomUuid ? `ior:instance:${input.roomUuid}` : null,
