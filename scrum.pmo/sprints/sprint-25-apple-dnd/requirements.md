@@ -41,6 +41,20 @@
   - [ ] **(import bookmarks)** Import from Google bookmarks HTML yields WebItem units (with folder hierarchy preserved).
   → [UC-WI.1: webItem.createAndLaunch](./planning.md#uc-wi1) `[uc:uuid:2dc9f063-9c98-40af-9097-fd497804c008]` *(placeholder)*
 
+- [ ] **R25.3 — vCard onboarding recognizes existing users (device-link, no new UUID)**
+  [requirement:uuid:d0acb05d-982f-418b-a0d4-667d13435371]
+  > TRON: "the moment I dragged the vCard and it filled out the profile it should switch to Authorize This Device WITHOUT creating a new user UUID and profile, but asking for my existing secret code. The dialog shall ask User already exists. Unlock device with your secret code instead of Authorize This Device and then just add the device to my existing user."
+  During onboarding, the moment a dragged vCard fills the profile (phone/email), those keys are checked against the alt-UUID index BEFORE any profile is minted: if the phone/email is already known, the dialog switches from "Authorize This Device" to "User already exists. Unlock device with your secret code" — WITHOUT creating a new user UUID/profile — and on the correct secret code the device is linked to the EXISTING profile.
+  **Acceptance criteria:**
+  - [ ] **(check-on-fill)** When a vCard fills the onboarding profile, the filled phone AND email are checked against the alt-UUID index (resolveKeyToProfile) BEFORE minting any profile.
+  - [ ] **(known→switch)** If a key is FOUND, the dialog switches from "Authorize This Device" to "User already exists. Unlock device with your secret code".
+  - [ ] **(no new uuid)** No new user UUID / profile is created while a known key awaits the secret code.
+  - [ ] **(correct code→link)** On the correct secret code, the device is linked to the EXISTING profile (device-link, R21.4) — no new UUID.
+  - [ ] **(wrong code)** A wrong secret code is rejected explicitly; still no new profile.
+  - [ ] **(replaces manual)** This replaces today's behaviour (mint new profile → manual Link Account).
+  - [ ] **(unknown→authorize)** If neither key is known, onboarding proceeds normally with "Authorize This Device" (new profile).
+  → [UC-OB.1: onboarding.vCardKnownUserDeviceLink](./planning.md#uc-ob1) `[uc:uuid:c461d975-729b-4d60-bd45-6b1a1b62be33]` *(placeholder)*
+
 ### Deferred (Phase 3 — per-scheme preview refinements)
 - **R25.3+** per-scheme MEANINGFUL preview bodies (email preview, calendar-event preview, map preview, contact card) on top of the WebItem launcher card. Created as Tron exercises each scheme.
 
@@ -52,5 +66,6 @@
 |-----|--------------|------------------|---------------------|
 | R25.1 | DnD logging (capture dropped URL schemes) | 649e9f4c-5e19-4a68-aa80-3378b1e1a9cc | 5fc59adc-6a84-4426-b892-28294bbb0612 |
 | R25.2 | Unified WebItem unit (bookmark/.url/.webloc) | f8097d7c-07f7-4ef5-90fc-7512b57c1bc2 | 2dc9f063-9c98-40af-9097-fd497804c008 |
+| R25.3 | vCard onboarding recognizes existing users | d0acb05d-982f-418b-a0d4-667d13435371 | c461d975-729b-4d60-bd45-6b1a1b62be33 |
 
 *Captured by robbin-req 2026-06-29. Tron verbatim authoritative; PO URL-scheme clarification framed in. R25.2+ deferred to measure-first.*
