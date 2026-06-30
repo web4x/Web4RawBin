@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "2598da09-7b89-4939-92f6-9e916d645e3c",
+    "name": "RbWebItemDetail.render",
+    "sourceFile": "src/public/ts/trace/rb-webitem-detail.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

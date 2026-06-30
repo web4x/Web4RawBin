@@ -21,12 +21,16 @@
 import { selectionModel } from './selection-model.js';
 import { ChatPanel } from './ChatPanel.js';
 import './rb-file-detail.js';
+import './rb-webitem-detail.js';
 
 export class RbDetailDrawer extends HTMLElement {
   static get observedAttributes() { return ['ref', 'open']; }
   private startY = 0;
   private startHeight = 0;
   private dragging: 'resize' | 'dismiss' | false = false;
+  private _restoreHeight = '';      // BUG3: height to restore when expanding from minimized
+  private mouseResizing = false;    // BUG2: desktop grab-bar resize in progress
+  private mouseMoved = false;
   private chatPanel: ChatPanel | null = null;
   private _mode: 'chat' | 'detail' | 'preview' = 'chat';
 
@@ -38,6 +42,7 @@ export class RbDetailDrawer extends HTMLElement {
       handle.addEventListener('touchstart', this.onTouchStart, { passive: true });
       handle.addEventListener('touchmove', this.onTouchMove, { passive: false });
       handle.addEventListener('touchend', this.onTouchEnd);
+      handle.addEventListener('mousedown', this.onMouseDown); // BUG2: desktop resize
     }
     document.addEventListener('keydown', this.onKeyDown);
     document.addEventListener('selection-changed', this.onSelectionChanged);
@@ -49,7 +54,10 @@ export class RbDetailDrawer extends HTMLElement {
       handle.removeEventListener('touchstart', this.onTouchStart);
       handle.removeEventListener('touchmove', this.onTouchMove);
       handle.removeEventListener('touchend', this.onTouchEnd);
+      handle.removeEventListener('mousedown', this.onMouseDown);
     }
+    document.removeEventListener('mousemove', this.onMouseMove);
+    document.removeEventListener('mouseup', this.onMouseUp);
     document.removeEventListener('keydown', this.onKeyDown);
     document.removeEventListener('selection-changed', this.onSelectionChanged);
   }
@@ -114,7 +122,7 @@ export class RbDetailDrawer extends HTMLElement {
     const tagMap: Record<string, string> = {
       requirement: 'rb-requirement-detail', task: 'rb-task-detail', usecase: 'rb-usecase-detail',
       class: 'rb-class-detail', method: 'rb-method-detail', implementation: 'rb-implementation-detail',
-      test: 'rb-test-detail', file: 'rb-file-detail',
+      test: 'rb-test-detail', file: 'rb-file-detail', webitem: 'rb-webitem-detail',
     };
     const tag = tagMap[type] || 'rb-detail-view';
     panel.innerHTML = '';
@@ -159,8 +167,9 @@ export class RbDetailDrawer extends HTMLElement {
         <div class="drawer-panel-detail" style="display:none"></div>
         <div class="drawer-panel-preview" style="display:none"></div>
       </div>`;
-    this.querySelector('.drawer-handle')!.addEventListener('click', () => this.close());
-    this.querySelector('.drawer-close')!.addEventListener('click', () => this.close());
+    // BUG3: grab-bar click = peek toggle (skip the trailing click after a resize-drag); X = minimize (ESC fully closes).
+    this.querySelector('.drawer-handle')!.addEventListener('click', () => { if (this.mouseMoved) return; if (this.hasAttribute('minimized')) this.expand(); else this.minimize(); });
+    this.querySelector('.drawer-close')!.addEventListener('click', () => this.minimize());
   }
 
   setMode(m: 'chat' | 'detail' | 'preview'): void {
@@ -231,12 +240,57 @@ export class RbDetailDrawer extends HTMLElement {
     this.style.transition = '';
     if (mode === 'resize') {
       const h = parseInt(this.style.height || '0');
-      if (h < 120) { this.close(); this.style.height = ''; this.style.maxHeight = ''; }
+      if (h < 120) { this.minimize(); } // BUG3: resize-to-tiny minimizes (peek), not close
     } else {
       const dy = e.changedTouches[0].clientY - this.startY;
       this.style.transform = '';
-      if (dy > 80) this.close();
+      if (dy > 80) this.minimize(); // BUG3: swipe-down minimizes (peek), not close
     }
+  };
+
+  // BUG3: minimize to a peek bar (header only); click the bar to expand. ESC still fully closes.
+  minimize(): void {
+    if (this.hasAttribute('minimized')) return;
+    this._restoreHeight = this.style.height || `${this.offsetHeight}px`;
+    this.setAttribute('minimized', '');
+    this.style.height = ''; this.style.maxHeight = ''; this.style.transform = '';
+    const body = this.querySelector('.drawer-body') as HTMLElement | null; if (body) body.style.display = 'none';
+  }
+  expand(): void {
+    if (!this.hasAttribute('minimized')) return;
+    this.removeAttribute('minimized');
+    const body = this.querySelector('.drawer-body') as HTMLElement | null;
+    if (body) body.style.display = 'flex';
+    if (this._restoreHeight) this.style.height = this._restoreHeight;
+  }
+
+  // BUG2: desktop grab-bar resize — mirrors the touch handlers; move/up on document so the drag
+  // continues off the handle. A mousedown with no movement falls through to the grab-bar peek toggle.
+  private onMouseDown = (e: MouseEvent): void => {
+    const handle = this.querySelector('.drawer-handle');
+    if (!handle || !(handle.contains(e.target as Node) || e.target === handle)) return;
+    this.startY = e.clientY; this.startHeight = this.offsetHeight;
+    this.mouseResizing = true; this.mouseMoved = false;
+    this.style.transition = 'none'; this.style.maxHeight = 'none';
+    document.addEventListener('mousemove', this.onMouseMove);
+    document.addEventListener('mouseup', this.onMouseUp);
+    e.preventDefault();
+  };
+  private onMouseMove = (e: MouseEvent): void => {
+    if (!this.mouseResizing) return;
+    if (this.hasAttribute('minimized')) this.expand();
+    this.mouseMoved = true;
+    const newH = this.startHeight + (this.startY - e.clientY);
+    this.style.height = `${Math.min(window.innerHeight * 0.95, Math.max(120, newH))}px`;
+  };
+  private onMouseUp = (): void => {
+    if (!this.mouseResizing) return;
+    this.mouseResizing = false;
+    this.style.transition = '';
+    document.removeEventListener('mousemove', this.onMouseMove);
+    document.removeEventListener('mouseup', this.onMouseUp);
+    if (this.mouseMoved && parseInt(this.style.height || '0') <= 120) this.minimize();
+    setTimeout(() => { this.mouseMoved = false; }, 0); // reset AFTER the trailing click is processed
   };
 
   private onKeyDown = (e: KeyboardEvent): void => {
