@@ -2,9 +2,9 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 25.1: Comprehensive DnD logging (capture every dropped URL scheme)",
+    "name": "Current: Task 25.2: Unified WebItem scenario unit (bookmark / .url / .webloc)",
     "chain": {
-      "req": "649e9f4c-5e19-4a68-aa80-3378b1e1a9cc",
+      "req": "f8097d7c-07f7-4ef5-90fc-7512b57c1bc2",
       "uc": "",
       "class": "",
       "method": "",
@@ -13,25 +13,29 @@
     },
     "activeHop": 1,
     "sprintName": "Sprint 25",
-    "taskName": "Task 25.1: Comprehensive DnD logging (capture every dropped URL scheme)",
+    "taskName": "Task 25.2: Unified WebItem scenario unit (bookmark / .url / .webloc)",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-06-29T22:02:09.151Z"
+        "updatedAt": "2026-06-30T08:15:24.362Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "b59f4d46-bffb-435d-a376-a480a517efe6",
-    "lastCompletedName": "Task 24.5: Traceability audit skill (chain integrity + CI gate)",
-    "lastCompletedReqUuid": "79bc8e34-9acb-4338-bbd0-c1f7e817ca7d",
+    "lastCompletedUuid": "06544a45-382b-4747-9692-0ad444e905ac",
+    "lastCompletedName": "Task 25.1: Comprehensive DnD logging (capture every dropped URL scheme)",
+    "lastCompletedReqUuid": "649e9f4c-5e19-4a68-aa80-3378b1e1a9cc",
     "slots": {
       "current": {
+        "taskUuid": "7c526ba6-4eb6-4ad9-a52b-de715947af0e",
+        "taskName": "Task 25.2: Unified WebItem scenario unit (bookmark / .url / .webloc)",
+        "reqUuid": "f8097d7c-07f7-4ef5-90fc-7512b57c1bc2"
+      },
+      "lastCompleted": {
         "taskUuid": "06544a45-382b-4747-9692-0ad444e905ac",
         "taskName": "Task 25.1: Comprehensive DnD logging (capture every dropped URL scheme)",
         "reqUuid": "649e9f4c-5e19-4a68-aa80-3378b1e1a9cc"
       },
-      "lastCompleted": null,
       "nextBacklog": null
     }
   },
