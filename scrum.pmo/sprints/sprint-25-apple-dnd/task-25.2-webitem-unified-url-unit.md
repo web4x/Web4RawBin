@@ -12,7 +12,7 @@
   - [x] refinement
   - [x] creating test cases
   - [x] implementing
-  - [ ] testing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
@@ -38,18 +38,18 @@ Tron: "create a scenario WebItem for URLs that acts like a Google bookmark (drag
 
 ## Acceptance Criteria
 
-- [ ] (model) ior:class:WebItem has model fields: uuid, name, description, icon (favicon), badge (scheme icon), url, scheme, parentFolder (ior ref), children[]
-- [ ] (drop->unit) Dropped URLs create WebItem units, NOT bare text/uri-list files
-- [ ] (preview) The preview renders the scheme launcher card (v0.6.87) with name + icon + badge
-- [ ] (open) Open-in-New-Tab does window.open(url) → the native app handles the scheme URL
-- [ ] (folders) WebItems organise into folders via parentFolder/children[] (parent/children like the file tree)
-- [ ] (import .url) Import from Windows .url (INI format) yields WebItem units
-- [ ] (import .webloc) Import from macOS .webloc (plist) yields WebItem units
-- [ ] (import bookmarks) Import from Google bookmarks HTML yields WebItem units (with folder hierarchy preserved)
+- [x] (model) ior:class:WebItem has model fields: uuid, name, description, icon (favicon), badge (scheme icon), url, scheme, parentFolder (ior ref), children[] — GREEN: WebItem.ts model + helpers (deriveScheme/deriveBadge/deriveFavicon/deriveName) + createWebItemUnit (v0.6.88-89). NOTE deriveFavicon = lazy favicon URL (http(s) only); favicon image-render deferred
+- [x] (drop->unit) Dropped URLs create WebItem units, NOT bare text/uri-list files — GREEN DET-3x (gate r252-webitem-gate.mjs, verdict 92dca4478; bare-URL fix v0.6.89 603be9b57, full RED->GREEN)
+- [x] (preview) The preview renders the scheme launcher card (v0.6.87) with name + icon + badge — GREEN
+- [x] (open) Open-in-New-Tab does window.open(url) → the native app handles the scheme URL — GREEN (v0.6.87)
+- [ ] (folders) WebItems organise into folders via parentFolder/children[] (parent/children like the file tree) — DEFERRED (model has the fields; folder-org behaviour not yet shipped)
+- [x] (import .url) Import from Windows .url (INI format) yields WebItem units — GREEN (v0.6.88)
+- [x] (import .webloc) Import from macOS .webloc (plist) yields WebItem units — GREEN (v0.6.88)
+- [ ] (import bookmarks) Import from Google bookmarks HTML yields WebItem units (with folder hierarchy preserved) — DEFERRED
 
 ## Implementation
 
-PARTIAL — v0.6.87 (018398f17, LIVE) shipped the (preview) + (open) + accept-all-schemes ACs: RoomView.ts accepts any URI scheme on drop, content-preview.ts renders the scheme launcher card (name + icon + badge), Open-in-New-Tab → window.open(url) → native app. REMAINING impl surface (the broader WebItem ACs): the full ior:class:WebItem unit MODEL (drop→WebItem unit not bare uri-list file), folders (parentFolder/children[]), and import (.url INI / .webloc plist / Google bookmarks HTML). Architect design 9ae3ac6f5. testing hop OPEN — when tester gates, AC coverage to be checked PER-AC (preview/open likely GREEN; model/folders/import depend on remaining impl) — flagged to PO (#27 no over-claim).
+GREEN (partial, honest per-AC). Arc: v0.6.87 (018398f17) preview-launcher-card + open + accept-all-schemes → v0.6.88 (8ac5645d3) WebItem MODEL (WebItem.ts, URLs become WebItems not Files) + .url/.webloc import → tester per-AC RED on bare-URL drop (d2496c395) → v0.6.89 (603be9b57) extractUrl bare-line fallback → tester GREEN DET-3x (verdict 92dca4478, gate r252-webitem-gate.mjs, full RED→GREEN). 6/8 ACs GREEN [x] (model, drop->unit, preview, open, import .url, import .webloc). DEFERRED [ ] (PO): (folders) parentFolder/children ORG behaviour, (import bookmarks) Google bookmarks HTML. ALSO deferred per PO: favicon IMAGE-render (deriveFavicon URL helper exists), and migration of pre-existing .url/.webloc artifacts (not in the 8-AC scope). testing[x] → QA Review on the shipped scope; deferred ACs stay unchecked honest (#27). Split-trigger NOT fired — PO chose per-AC marking on the unified task (the deferred set is coherent backlog, not a partial-failure needing R25.2.A-E siblings).
 
 ## Subtasks
 
