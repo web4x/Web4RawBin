@@ -66,10 +66,14 @@ export function parseDesktop(content: string): string {
 /** Extract a URL from any dropped url-type payload (.webloc/.url/.desktop by content or name, else uri-list/bare). */
 export function extractUrl(content: string, name?: string): string {
   const n = (name || '').toLowerCase();
-  if (n.endsWith('.webloc') || /<plist/i.test(content)) return parseWebloc(content);
-  if (n.endsWith('.url') || /\[InternetShortcut\]/i.test(content)) return parseUrlFile(content);
-  if (n.endsWith('.desktop') || /\[Desktop Entry\]/i.test(content)) return parseDesktop(content);
-  return (content || '').trim().split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || '';
+  let url = '';
+  if (n.endsWith('.webloc') || /<plist/i.test(content)) url = parseWebloc(content);
+  else if (n.endsWith('.url') || /\[InternetShortcut\]/i.test(content)) url = parseUrlFile(content);
+  else if (n.endsWith('.desktop') || /\[Desktop Entry\]/i.test(content)) url = parseDesktop(content);
+  // v0.6.89: bare/uri-list fallback — ALSO when a format parser found nothing (a BARE URL the drop path
+  // names '<url>.url' has no [InternetShortcut] block → parseUrlFile='' → the content IS the url).
+  if (!url) url = (content || '').trim().split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || '';
+  return url;
 }
 
 export interface WebItemInput { uuid: string; url: string; name?: string; uploaderToken?: string; roomUuid?: string; parentFolder?: string; }
