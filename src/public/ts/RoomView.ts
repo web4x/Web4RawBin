@@ -195,16 +195,25 @@ export class RoomView {
           }
         } catch (err) { log(`[dnd-debug] dump failed: ${(err as Error)?.message}`); }
         const files = Array.from(dt.files || []);
+        // v0.6.87/90: extract any scheme URL from uri-list / plain / an html href. Apple email & calendar
+        // drops carry BOTH a file (.eml/.ics) AND a launchable scheme URL (message:/webcal:).
+        const rawUri = (dt.getData('text/uri-list') || dt.getData('text/plain') || '').trim();
+        let schemeUrl = rawUri.split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || '';
+        if (!/^[a-z][a-z0-9+.\-]*:/i.test(schemeUrl)) {
+          const hrefM = /href\s*=\s*["']([a-z][a-z0-9+.\-]*:[^"']+)["']/i.exec(dt.getData('text/html') || '');
+          schemeUrl = hrefM ? hrefM[1] : '';
+        }
+        const hasScheme = /^[a-z][a-z0-9+.\-]*:/i.test(schemeUrl);
         if (files.length > 0) {
           dz.dispatchEvent(new CustomEvent("rb-room-files-dropped", { detail: { files }, bubbles: true }));
-        } else {
-          // v0.6.87: accept ANY URI scheme, not just http — Apple drops emails/calendar/locations as
-          // mailto:/message:/calshow:/webcal:/maps:/geo:/tel:/x-apple-reminder: URLs that http-only silently dropped.
-          const raw = (dt.getData('text/uri-list') || dt.getData('text/plain') || '').trim();
-          const url = raw.split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || '';
-          if (url && /^[a-z][a-z0-9+.\-]*:/i.test(url)) {
-            dropDispatcher.dispatchUrl(url, this.roomId, this.client.playerToken, (text) => log(text));
+          // v0.6.90: ALSO mint a WebItem from the scheme URL so an email is BOTH archived (.eml File)
+          // AND launchable (message: WebItem → Open launches Mail.app). Name = file subject (minus ext).
+          if (hasScheme) {
+            const nm = (files[0].name || '').replace(/\.(eml|ics|vcs|msg)$/i, '').trim() || undefined;
+            dropDispatcher.dispatchUrl(schemeUrl, this.roomId, this.client.playerToken, (text) => log(text), nm);
           }
+        } else if (hasScheme) {
+          dropDispatcher.dispatchUrl(schemeUrl, this.roomId, this.client.playerToken, (text) => log(text));
         }
       });
     }

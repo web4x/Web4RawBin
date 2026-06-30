@@ -95,7 +95,7 @@ export class DropDispatcher {
     this.state = 'uploading';
     this.statusCb?.('uploading', `Uploading ${file.name}...`);
     let result: { uuid: string; name: string; size: number } | null = null;
-    if (file.type.startsWith('image/') || file.type.startsWith('text/') || file.type.startsWith('application/') || file.type.startsWith('audio/') || file.type.startsWith('video/')) { // v0.6.81: audio/ (MP3 drop bug) + video/ for future
+    if (file.type.startsWith('image/') || file.type.startsWith('text/') || file.type.startsWith('application/') || file.type.startsWith('audio/') || file.type.startsWith('video/') || file.type.startsWith('message/')) { // v0.6.81: audio/+video/; v0.6.90: message/ (iOS .eml email drop)
       result = await this.uploadWithProgress(file, roomId, playerToken, (pct) => {
         this.statusCb?.('uploading', `${file.name} ${pct}%`);
       });
@@ -109,11 +109,12 @@ export class DropDispatcher {
   }
 
   // [impl:uuid:b05fcdf3-0d44-4d7d-bee2-b5edc55daa3a] R19.62 DropDispatcher.urlDrop
-  async dispatchUrl(url: string, roomId: string, playerToken: string, sendChat: (text: string) => void): Promise<{ uuid: string; name: string; size: number } | null> {
+  async dispatchUrl(url: string, roomId: string, playerToken: string, sendChat: (text: string) => void, displayName?: string): Promise<{ uuid: string; name: string; size: number } | null> {
     this.state = 'uploading';
     this.statusCb?.('uploading', `Fetching ${url}...`);
     try {
-      const name = url.split('/').pop() || 'link';
+      // v0.6.90: caller may pass a display name (e.g. an email subject) → the WebItem name derives from it.
+      const name = (displayName && displayName.trim()) || url.split('/').pop() || 'link';
       const blob = new Blob([url], { type: 'text/uri-list' });
       const file = new File([blob], `${name}.url`, { type: 'text/uri-list' });
       const result = await this.uploadFile(file, roomId, playerToken);
