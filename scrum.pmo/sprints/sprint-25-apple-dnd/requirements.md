@@ -26,8 +26,23 @@
   - [ ] **(non-file path)** Apple URL-scheme items that are NOT File objects are captured (the handler reads beyond dt.files + getData(uri-list||plain)).
   → [UC-DND.1: drop.logSchemes](./planning.md#uc-dnd1) `[uc:uuid:5fc59adc-6a84-4426-b892-28294bbb0612]` *(placeholder)*
 
-### Deferred (Phase 2 — created AFTER Tron-room logs)
-- **R25.2+** per-scheme preview + Open-in-New-Tab handlers (email / calendar / map / contact / reminder), one per URL scheme the logs reveal. Modeled on R23.2 (YouTube): detect scheme -> meaningful preview -> Open-in-New-Tab launches the native app. NOT captured yet - measure first.
+- [ ] **R25.2 — Unified WebItem scenario unit (bookmark / .url / .webloc)**
+  [requirement:uuid:f8097d7c-07f7-4ef5-90fc-7512b57c1bc2]
+  > TRON: "create a scenario WebItem for URLs that acts like a Google bookmark (drag-droppable), a .url file (Windows), and a .webloc (Mac) — unified as ONE ior:class:WebItem unit."
+  A dropped URL of any scheme becomes ONE unified `ior:class:WebItem` scenario unit that plays the role of a Google bookmark, a Windows `.url`, and a macOS `.webloc`. Model: `{ uuid, name (page title/bookmark name), description, icon (favicon), badge (scheme icon 📧📅📍📞🔗), url, scheme (http/mailto/tel/maps/calshow/…), parentFolder (ior ref), children[] }`.
+  **Acceptance criteria:**
+  - [ ] **(model)** `ior:class:WebItem` has model fields: uuid, name, description, icon (favicon), badge (scheme icon), url, scheme, parentFolder (ior ref), children[].
+  - [ ] **(drop→unit)** Dropped URLs create WebItem units, NOT bare text/uri-list files.
+  - [ ] **(preview)** The preview renders the scheme launcher card (v0.6.87) with name + icon + badge.
+  - [ ] **(open)** Open-in-New-Tab does `window.open(url)` → the native app handles the scheme URL.
+  - [ ] **(folders)** WebItems organise into folders via parentFolder/children[] (parent/children like the file tree).
+  - [ ] **(import .url)** Import from Windows `.url` (INI format) yields WebItem units.
+  - [ ] **(import .webloc)** Import from macOS `.webloc` (plist) yields WebItem units.
+  - [ ] **(import bookmarks)** Import from Google bookmarks HTML yields WebItem units (with folder hierarchy preserved).
+  → [UC-WI.1: webItem.createAndLaunch](./planning.md#uc-wi1) `[uc:uuid:2dc9f063-9c98-40af-9097-fd497804c008]` *(placeholder)*
+
+### Deferred (Phase 3 — per-scheme preview refinements)
+- **R25.3+** per-scheme MEANINGFUL preview bodies (email preview, calendar-event preview, map preview, contact card) on top of the WebItem launcher card. Created as Tron exercises each scheme.
 
 ---
 
@@ -36,5 +51,6 @@
 | Req | Concise name | Requirement UUID | UC placeholder UUID |
 |-----|--------------|------------------|---------------------|
 | R25.1 | DnD logging (capture dropped URL schemes) | 649e9f4c-5e19-4a68-aa80-3378b1e1a9cc | 5fc59adc-6a84-4426-b892-28294bbb0612 |
+| R25.2 | Unified WebItem unit (bookmark/.url/.webloc) | f8097d7c-07f7-4ef5-90fc-7512b57c1bc2 | 2dc9f063-9c98-40af-9097-fd497804c008 |
 
 *Captured by robbin-req 2026-06-29. Tron verbatim authoritative; PO URL-scheme clarification framed in. R25.2+ deferred to measure-first.*

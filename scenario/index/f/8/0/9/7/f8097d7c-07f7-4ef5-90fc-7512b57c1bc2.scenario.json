@@ -1,0 +1,84 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "f8097d7c-07f7-4ef5-90fc-7512b57c1bc2",
+    "name": "Unified WebItem scenario unit (bookmark / .url / .webloc)",
+    "altId": "R25.2",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-25-apple-dnd/requirements.md",
+    "sourceLine": 30,
+    "parent": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:2dc9f063-9c98-40af-9097-fd497804c008"
+    ],
+    "description": "A dropped URL of any scheme becomes ONE unified ior:class:WebItem scenario unit - a single model that plays the role of a Google bookmark (drag-droppable), a Windows .url file, and a macOS .webloc. Model: { uuid, name (page title/bookmark name), description, icon (favicon), badge (scheme icon), url (the actual URL, any scheme), scheme (http/mailto/tel/maps/calshow/...), parentFolder (ior ref to parent folder unit), children[] (folder hierarchy) }. Dropped URLs create WebItem units (not bare text/uri-list files); the preview renders the scheme launcher card (v0.6.87) with name+icon+badge; Open-in-New-Tab does window.open(url) which hands scheme URLs to the native app; WebItems organise into folders (parent/children like the file tree); and they import from .url (Windows INI), .webloc (macOS plist), and Google bookmarks HTML.",
+    "tronQuote": "> TRON: \"create a scenario WebItem for URLs that acts like a Google bookmark (drag-droppable), a .url file (Windows), and a .webloc (Mac) - unified as ONE ior:class:WebItem unit.\"",
+    "webItemModel": {
+      "ior": "ior:class:WebItem",
+      "fields": [
+        "uuid",
+        "name (page title/bookmark name)",
+        "description",
+        "icon (favicon)",
+        "badge (scheme icon)",
+        "url",
+        "scheme",
+        "parentFolder (ior ref)",
+        "children[]"
+      ]
+    },
+    "designRef": "architect WebItem design commit 9ae3ac6f5 (WebItem - unified URL/bookmark scenario unit); expert v0.6.87 commit 018398f17 (accept ALL URI schemes on drop + scheme launcher preview)",
+    "implStatus": "in-progress (v0.6.87 live: all-scheme drop + launcher preview shipped; folder hierarchy + import .url/.webloc/bookmarks pending)",
+    "crossRef": [
+      "ior:instance:649e9f4c-5e19-4a68-aa80-3378b1e1a9cc",
+      "ior:instance:8f34c3e5-351c-48b3-8f33-fae45ca279b2"
+    ],
+    "crossRefNote": "Successor to R25.1 (DnD logging revealed the schemes); follows the R23.2 YouTube scheme->preview->open pattern, generalised to ALL URL schemes via one WebItem unit.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-model",
+        "group": "model",
+        "text": "ior:class:WebItem has model fields: uuid, name, description, icon (favicon), badge (scheme icon), url, scheme, parentFolder (ior ref), children[]."
+      },
+      {
+        "id": "AC-drop",
+        "group": "drop",
+        "text": "Dropped URLs create WebItem units, NOT bare text/uri-list files."
+      },
+      {
+        "id": "AC-preview",
+        "group": "preview",
+        "text": "The preview renders the scheme launcher card (v0.6.87) with name + icon + badge."
+      },
+      {
+        "id": "AC-open",
+        "group": "launch",
+        "text": "Open-in-New-Tab does window.open(url) so the native app handles the scheme URL."
+      },
+      {
+        "id": "AC-folders",
+        "group": "hierarchy",
+        "text": "WebItems organise into folders via parentFolder/children[] (parent/children like the file tree)."
+      },
+      {
+        "id": "AC-import-url",
+        "group": "import",
+        "text": "Import from Windows .url (INI format) yields WebItem units."
+      },
+      {
+        "id": "AC-import-webloc",
+        "group": "import",
+        "text": "Import from macOS .webloc (plist) yields WebItem units."
+      },
+      {
+        "id": "AC-import-bookmarks",
+        "group": "import",
+        "text": "Import from Google bookmarks HTML yields WebItem units with folder hierarchy preserved."
+      }
+    ],
+    "riNote": "Compound: 1 model + 5 feature areas (drop->unit, preview, open, folders, 3 imports). Captured as one R25.2 per PO directive; available to split into R25.2.A-E for independent tasking."
+  },
+  "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"
+}
