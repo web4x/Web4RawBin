@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "dbaedfe1-8640-4a32-87f1-fa4b274e26ed",
+    "name": "DropDispatcher.routeUnknown",
+    "description": "Drag-and-drop logging captures EVERY dropped URL scheme: RoomView drop handler reads dt.files + getData(uri-list||plain); drop-dispatcher.routeUnknown logs the scheme for any unrouted drop.",
+    "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
+    "implementations": [
+      "ior:instance:4a159912-978e-46bc-a839-5201857461c5"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c743ff39-d293-4250-a211-1a407c1a2efe"
+}

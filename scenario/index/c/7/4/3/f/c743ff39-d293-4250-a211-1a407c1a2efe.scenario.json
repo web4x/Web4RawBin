@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "c743ff39-d293-4250-a211-1a407c1a2efe",
+    "name": "DropDispatcher",
+    "description": "DropDispatcher (R25.1). Formalizes src/public/ts/drop-dispatcher.ts",
+    "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
+    "methods": [
+      "ior:instance:dbaedfe1-8640-4a32-87f1-fa4b274e26ed"
+    ]
+  },
+  "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"
+}

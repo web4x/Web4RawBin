@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "5fc59adc-6a84-4426-b892-28294bbb0612",
+    "name": "drop.logSchemes",
+    "description": "Drag-and-drop logging captures EVERY dropped URL scheme: RoomView drop handler reads dt.files + getData(uri-list||plain); drop-dispatcher.routeUnknown logs the scheme for any unrouted drop.",
+    "class": "ior:instance:c743ff39-d293-4250-a211-1a407c1a2efe",
+    "classes": [
+      "ior:instance:c743ff39-d293-4250-a211-1a407c1a2efe"
+    ],
+    "method": "ior:instance:dbaedfe1-8640-4a32-87f1-fa4b274e26ed",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:649e9f4c-5e19-4a68-aa80-3378b1e1a9cc"
+}

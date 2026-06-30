@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "1746403f-505f-4b49-8916-f499295d726b",
+    "name": "WebItem.createAndLaunch impl",
+    "description": "DESIGN-AHEAD (not yet implemented): planned in src/public/ts/WebItem.ts; design in scrum.pmo/design-notes/r25.2-webitem-design.md.",
+    "sourceFile": "ior:file:scrum.pmo/design-notes/r25.2-webitem-design.md",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:35c7d530-dfc5-43d6-a6d5-9c314a91a55b"
+}

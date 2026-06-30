@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "b57d2f42-0cc4-4fa4-84c6-acaebe40a48a",
+    "name": "Volker engels.ics",
+    "contentPath": "index/b/5/7/d/2/b57d2f42-0cc4-4fa4-84c6-acaebe40a48a.content",
+    "size": 1291,
+    "mimeType": "text/calendar",
+    "uploadedAt": "2026-06-29T22:01:59.641Z",
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+    "roomUuid": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "contentHash": "b3df0718ab839d72ed7109060a1b13d2e425b731075847f382db920c1bfdd1d0",
+    "unitLinks": [
+      "content/b3df0718ab839d72ed7109060a1b13d2e425b731075847f382db920c1bfdd1d0.file.scenario.json",
+      "../data/users/8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd/rooms/3231db71-d834-435a-a7f9-a801680ccd62/files/b57d2f42-0cc4-4fa4-84c6-acaebe40a48a.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62"
+}
