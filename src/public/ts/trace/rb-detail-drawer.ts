@@ -31,6 +31,7 @@ export class RbDetailDrawer extends HTMLElement {
   private _restoreHeight = '';      // BUG3: height to restore when expanding from minimized
   private mouseResizing = false;    // BUG2: desktop grab-bar resize in progress
   private mouseMoved = false;
+  private startBottom = 0;          // v0.6.95: drawer's actual bottom edge at drag-start (position-aware resize)
   private chatPanel: ChatPanel | null = null;
   private _mode: 'chat' | 'detail' | 'preview' = 'chat';
 
@@ -270,6 +271,7 @@ export class RbDetailDrawer extends HTMLElement {
     const handle = this.querySelector('.drawer-handle');
     if (!handle || !(handle.contains(e.target as Node) || e.target === handle)) return;
     this.startY = e.clientY; this.startHeight = this.offsetHeight;
+    this.startBottom = this.getBoundingClientRect().bottom; // v0.6.95: anchor to the ACTUAL bottom edge (works in any layout/position, not just a viewport-bottom sheet)
     this.mouseResizing = true; this.mouseMoved = false;
     this.style.transition = 'none'; this.style.maxHeight = 'none';
     document.addEventListener('mousemove', this.onMouseMove);
@@ -280,7 +282,9 @@ export class RbDetailDrawer extends HTMLElement {
     if (!this.mouseResizing) return;
     if (this.hasAttribute('minimized')) this.expand();
     this.mouseMoved = true;
-    const newH = this.startHeight + (this.startY - e.clientY);
+    // v0.6.95: height = distance from the cursor to the drawer's anchored bottom edge — correct in
+    // EVERY layout (was startHeight + Δ, which only held when the drawer bottom == viewport bottom → jumped after the media breakpoint repositioned it).
+    const newH = this.startBottom - e.clientY;
     this.style.height = `${Math.min(window.innerHeight * 0.95, Math.max(120, newH))}px`;
   };
   private onMouseUp = (): void => {
