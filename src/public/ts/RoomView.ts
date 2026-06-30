@@ -198,8 +198,11 @@ export class RoomView {
         if (files.length > 0) {
           dz.dispatchEvent(new CustomEvent("rb-room-files-dropped", { detail: { files }, bubbles: true }));
         } else {
-          const url = dt.getData('text/uri-list') || dt.getData('text/plain');
-          if (url && url.startsWith('http')) {
+          // v0.6.87: accept ANY URI scheme, not just http — Apple drops emails/calendar/locations as
+          // mailto:/message:/calshow:/webcal:/maps:/geo:/tel:/x-apple-reminder: URLs that http-only silently dropped.
+          const raw = (dt.getData('text/uri-list') || dt.getData('text/plain') || '').trim();
+          const url = raw.split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || '';
+          if (url && /^[a-z][a-z0-9+.\-]*:/i.test(url)) {
             dropDispatcher.dispatchUrl(url, this.roomId, this.client.playerToken, (text) => log(text));
           }
         }

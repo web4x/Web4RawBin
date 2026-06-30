@@ -45,9 +45,12 @@ export function fillPreviewPane(pane: RbPreviewPane, uuid: string, mimeType: str
   } else if (mimeType === 'text/uri-list' || name.endsWith('.url') || name.endsWith('.webloc')) {
     pane.setContent(`<pre style="${preStyle}">Resolving…</pre>`);
     fetch(contentUrl).then(r => r.text()).then(text => {
-      const url = text.trim().split('\n').filter(l => l.startsWith('http'))[0] || '';
+      // v0.6.87: first non-comment line, ANY scheme (was http-only → Apple mailto:/calshow:/maps: dropped)
+      const url = text.trim().split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || '';
       const yt = youtubeId(url);
+      const card = !yt ? schemeCard(url) : null;
       if (yt) pane.setContent(`<iframe src="https://www.youtube.com/embed/${yt}" allowfullscreen allow="autoplay" style="${frameStyle}"></iframe>`); // v0.6.80: YouTube auto-embed
+      else if (card) pane.setContent(card); // v0.6.87: non-http scheme (mailto/tel/geo/maps/calshow…) → launcher card, not a broken iframe
       else if (url) pane.setContent(`<iframe src="${esc(url)}" sandbox="allow-same-origin allow-scripts" style="${frameStyle}"></iframe>`);
       else pane.setContent(`<pre style="${preStyle}">No URL found</pre>`);
     }).catch(() => pane.setContent(`<pre style="${preStyle}">Failed to resolve</pre>`));
@@ -78,7 +81,7 @@ export function wireUrlActions(container: HTMLElement): void {
     let resolvedUrl = contentUrl;
     if (mime === 'text/uri-list' || name.endsWith('.url') || name.endsWith('.webloc')) {
       fetch(contentUrl).then(r => r.text()).then(text => {
-        const url = text.trim().split('\n').filter(l => l.startsWith('http'))[0] || '';
+        const url = text.trim().split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || ''; // v0.6.87: any scheme (mailto:/tel:/maps:…) so New tab launches the app
         if (url) resolvedUrl = url;
       }).catch(() => {});
     }
@@ -118,6 +121,31 @@ const MIME_MAP: Record<string, string> = {
 function youtubeId(url: string): string | null {
   const m = url.match(/(?:youtube\.com\/(?:watch\?(?:[^&]*&)*v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
   return m ? m[1] : null;
+}
+
+/**
+ * v0.6.87: for a NON-http(s) scheme URL (Apple DnD: mailto:/tel:/geo:/maps:/webcal:/calshow:/
+ * message:/x-apple-reminder:/facetime: …), return a launcher card (icon + label + "Open in app"
+ * link that window-opens the scheme URL → launches Mail/Calendar/Maps/Phone). Returns null for
+ * http(s) or a non-URI (those iframe/handle normally).
+ */
+function schemeCard(url: string): string | null {
+  const m = /^([a-z][a-z0-9+.\-]*):/i.exec(url);
+  if (!m) return null;
+  const s = m[1].toLowerCase();
+  if (s === 'http' || s === 'https') return null;
+  const MAP: Record<string, [string, string]> = {
+    mailto: ['📧', 'Email'], message: ['✉️', 'Mail message'],
+    tel: ['📞', 'Call'], 'facetime-audio': ['📞', 'FaceTime Audio'], facetime: ['📹', 'FaceTime'], sms: ['💬', 'Message'],
+    geo: ['📍', 'Location'], maps: ['📍', 'Map'], comgooglemaps: ['📍', 'Map'],
+    webcal: ['📅', 'Calendar'], calshow: ['📅', 'Calendar event'], 'x-apple-calevent': ['📅', 'Calendar event'],
+    'x-apple-reminder': ['✅', 'Reminder'],
+  };
+  const [icon, label] = MAP[s] || ['🔗', s];
+  return `<div style="padding:48px 24px;text-align:center"><div style="font-size:3rem">${icon}</div>`
+    + `<div style="margin:12px 0;color:#e0e0e0;font-size:1.1rem">${label}</div>`
+    + `<div style="word-break:break-all;color:#a1887f;font-size:0.8rem;margin-bottom:20px">${esc(url)}</div>`
+    + `<a href="${esc(url)}" target="_blank" rel="noopener" style="display:inline-block;padding:10px 24px;background:#ff9800;color:#000;border-radius:8px;text-decoration:none;font-weight:600">↗ Open in app</a></div>`;
 }
 
 export function guessMimeFromName(name: string): string {
