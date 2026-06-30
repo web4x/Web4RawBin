@@ -100,7 +100,7 @@ export class Room {
   members: Map<string, RoomMember> = new Map();
   fileUnits: Set<string> = new Set();
 
-  // [impl:uuid:5f0a9c2e-1b7d-4e8a-9f3c-6a1b2c3d4e5f] Room.resolveToken — collapse consolidated (redirectTo) members to PRIMARY
+  // Room.resolveToken — collapse consolidated (redirectTo) members to PRIMARY.
   // server.ts injects the profile redirect resolver at startup; default identity (no profiles in tests).
   static resolveToken: (token: string) => string = (t) => t;
   private _chatHistory: ChatMessage[] = [];
