@@ -1156,10 +1156,16 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const raw = decodeURIComponent(filepath.slice('/api/phone/'.length).split('/')[0]);
       const scenarioDir = path.join(__dirname, '../../../scenario/index');
       const phoneIdx = new PhoneIndex(new ScenarioIndex(scenarioDir));
-      const profileUuid = phoneIdx.resolveToProfile(raw);
+      const phoneIdx2 = phoneIdx;
+      let profileUuid = phoneIdx2.resolveToProfile(raw);
       if (!profileUuid) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'not found', key: normalizePhone(raw) })); return; }
+      // v0.6.93: follow a consolidated (redirectTo) profile to its PRIMARY, and return the masked name
+      // so onboarding can recognise an existing user ("Unlock device with your secret code — M••• D•••").
+      const resolved = userProfiles.get(profileUuid);
+      if (resolved?.redirectTo) profileUuid = resolved.redirectTo;
+      const maskedName = maskName(userProfiles.get(profileUuid)?.name || '');
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
-      res.end(JSON.stringify({ key: normalizePhone(raw), profileUuid }));
+      res.end(JSON.stringify({ key: normalizePhone(raw), profileUuid, maskedName }));
       return;
     }
 
