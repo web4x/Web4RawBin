@@ -721,7 +721,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             }
             if (part.includes('name="file"')) {
               const disp = part.match(/filename="([^"]+)"/);
-              if (disp) fileName = disp[1];
+              // v0.6.92: the body is read as 'binary' (Latin-1) for safe multipart split, so a UTF-8
+              // filename (e.g. "…für…") arrives mojibake'd ("…fÃ¼r…") → re-decode the bytes as UTF-8.
+              if (disp) fileName = Buffer.from(disp[1], 'binary').toString('utf-8');
               const ct = part.match(/Content-Type:\s*(\S+)/i);
               if (ct) mimeType = ct[1];
               const dataStart = part.indexOf('\r\n\r\n');
@@ -749,6 +751,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             if (url) {
               unit = createWebItemUnit(idx, { uuid: crypto.randomUUID(), url, name: fileName, uploaderToken: playerToken, roomUuid: roomId, relatedFile: relatedFile || undefined });
               addLog(`[upload] WebItem: ${(unit.model as any).badge} ${(unit.model as any).name} (${(unit.model as any).scheme}) url=${url.slice(0,60)}`);
+              // v0.6.92: the WebItem is PRIMARY; its source file (.eml) becomes its child (WebItem.children),
+              // NOT a room sibling — so demote it from the room's top-level file list (no duplicate entry).
+              if (relatedFile) { room.removeFileUnit(relatedFile); addLog(`[upload] demoted source ${relatedFile.slice(0,8)} → child of WebItem`); }
             }
           }
           if (!unit) unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, roomUuid: roomId });
@@ -996,7 +1001,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             }
             return entry;
           }
-          return { uuid: ref, type: 'unknown', name: ref.slice(0, 8), hasChildren: false };
+          return null; // v0.6.92: skip dangling refs (unit removed/missing) — never render a raw UUID as a name
         }).filter(Boolean);
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         const ownerIor = String(unit.ownerIor || '').replace('ior:instance:', '');
