@@ -31,7 +31,7 @@ import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanU
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
-import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex } from '../scenario/index.js';
+import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
 const execAsync = promisify(exec);
@@ -676,10 +676,18 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         if (!isCreator && !isMember) { res.writeHead(403); res.end('Forbidden'); return; }
         const scenarioDir = path.join(__dirname, '../../../scenario/index');
         const idx = new ScenarioIndex(scenarioDir);
-        const { readFileUnitContent } = await import('../scenario/file-unit.js');
         const unit = idx.get(fileUuid);
+        if (!unit) { res.writeHead(404); res.end('File not found'); return; }
+        // R25.2: a WebItem is a reference, not stored bytes — serve its url as text/uri-list so the
+        // existing preview (scheme launcher card / iframe / YouTube embed) renders it.
+        if (unit.ior === 'ior:class:WebItem') {
+          res.writeHead(200, { 'Content-Type': 'text/uri-list', 'Cache-Control': 'no-cache' });
+          res.end(String((unit.model as any).url || ''));
+          return;
+        }
+        const { readFileUnitContent } = await import('../scenario/file-unit.js');
         const content = readFileUnitContent(idx, fileUuid);
-        if (!content || !unit) { res.writeHead(404); res.end('File not found'); return; }
+        if (!content) { res.writeHead(404); res.end('File not found'); return; }
         const mimeType = (unit.model as any).mimeType || 'application/octet-stream';
         res.writeHead(200, { 'Content-Type': mimeType, 'Content-Length': content.byteLength.toString(), 'Cache-Control': 'no-cache', 'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'" });
         res.end(content);
@@ -725,10 +733,22 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (!playerToken || !tokenToClient.has(playerToken)) { addLog(`[upload] ERROR: auth failed token=${playerToken.slice(0,8)}`); res.writeHead(401); res.end(JSON.stringify({ error: 'Unauthenticated' })); return; }
           const room = roomManager.getRoom(roomId);
           if (!room) { addLog(`[upload] ERROR: room ${roomId.slice(0,8)} not found`); res.writeHead(404); res.end(JSON.stringify({ error: 'Room not found' })); return; }
-          addLog(`[upload] creating file unit...`);
+          addLog(`[upload] creating unit...`);
           const scenarioDir = path.join(__dirname, '../../../scenario/index');
           const idx = new ScenarioIndex(scenarioDir);
-          const unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, roomUuid: roomId });
+          // R25.2 drop-router (single dispatch point): url-types (uri-list / .url / .webloc / .desktop) → WebItem
+          // (a reference to a remote resource), NOT a File (a stored byte artifact). Everything else → File.
+          const lname = fileName.toLowerCase();
+          const isWebItem = mimeType === 'text/uri-list' || lname.endsWith('.url') || lname.endsWith('.webloc') || lname.endsWith('.desktop');
+          let unit;
+          if (isWebItem) {
+            const url = extractUrl(fileData.toString('utf-8'), fileName);
+            if (url) {
+              unit = createWebItemUnit(idx, { uuid: crypto.randomUUID(), url, name: fileName, uploaderToken: playerToken, roomUuid: roomId });
+              addLog(`[upload] WebItem: ${(unit.model as any).badge} ${(unit.model as any).name} (${(unit.model as any).scheme}) url=${url.slice(0,60)}`);
+            }
+          }
+          if (!unit) unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, roomUuid: roomId });
           const fileUuid = (unit.model as any).uuid;
           addLog(`[upload] unit created: ${fileUuid} contentPath=${(unit.model as any).contentPath}`);
           room.addFileUnit(fileUuid);

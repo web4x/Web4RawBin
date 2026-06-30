@@ -6,6 +6,7 @@ export { type ScenarioUnit, type ClassLoader, type IORType, parseIor, iorClass, 
 export { ClassRegistry, SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader, UserLoader, FileLoader, MessageLoader, ensureRawBinUser } from './classes.js';
 export { createMessageUnit, type MessageInput } from './message-unit.js';
 export { createFileUnit, readFileUnitContent, type FileUnitInput } from './file-unit.js';
+export { createWebItemUnit, extractUrl, deriveScheme, deriveBadge, deriveFavicon, deriveName, parseUrlFile, parseWebloc, parseDesktop, type WebItemInput } from './WebItem.js';
 export { ScenarioIndex } from './index-store.js';
 export { type ViewTemplate, type SlugResolver, ViewTemplateRegistry, TaskTemplate, RequirementTemplate, SprintTemplate, UseCaseTemplate, ClassTemplate, MethodTemplate, TestTemplate, defaultTemplateRegistry, renderStatusHtml, renderChainSection, setActiveResolver } from './templates.js';
 export { ViewGenerator } from './generator.js';
