@@ -14,7 +14,8 @@
     ],
     "tasks": [
       "ior:instance:06544a45-382b-4747-9692-0ad444e905ac",
-      "ior:instance:7c526ba6-4eb6-4ad9-a52b-de715947af0e"
+      "ior:instance:7c526ba6-4eb6-4ad9-a52b-de715947af0e",
+      "ior:instance:92bdca8b-6c08-459d-a540-98073b80c020"
     ],
     "createdAt": "2026-06-29",
     "createdBy": "robbin-req",
