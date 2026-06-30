@@ -1,0 +1,56 @@
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
+
+# Task 25.2: Unified WebItem scenario unit (bookmark / .url / .webloc)
+
+[task:uuid:7c526ba6-4eb6-4ad9-a52b-de715947af0e]
+
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
+
+## Traceability
+
+  - up
+    - [Sprint 25 Planning](./planning.md)
+    - Requirement R25.2 `[requirement:uuid:f8097d7c-07f7-4ef5-90fc-7512b57c1bc2]`
+  - down
+    - [UC-WI.1: webItem.createAndLaunch](./planning.md#uc-wi1) `[uc:uuid:2dc9f063-9c98-40af-9097-fd497804c008]`
+
+## Task Description
+
+A dropped URL of any scheme becomes ONE unified ior:class:WebItem scenario unit that plays the role of a Google bookmark, a Windows .url, and a macOS .webloc. Model: { uuid, name (page title/bookmark name), description, icon (favicon), badge (scheme icon), url, scheme (http/mailto/tel/maps/calshow/…), parentFolder (ior ref), children[] }. Preview renders the scheme launcher card; Open-in-New-Tab does window.open(url) so the native app handles the scheme. Imports from .url (INI), .webloc (plist), and Google bookmarks HTML.
+
+## Context
+
+designRef: architect 9ae3ac6f5 (WebItem unified URL/bookmark scenario unit) + expert v0.6.87 018398f17 (accept ALL URI schemes on drop + scheme launcher preview). Impl surface: src/public/ts/RoomView.ts (drop) + src/public/ts/trace/content-preview.ts (launcher card). Closes the orphan that 9ae3ac6f5+018398f17 had no req unit (now anchored on req f8097d7c, abaa0d0d3).
+
+## Intention
+
+Tron: "create a scenario WebItem for URLs that acts like a Google bookmark (drag-droppable), a .url file (Windows), and a .webloc (Mac) — unified as ONE ior:class:WebItem unit." S25 measure-first Phase 2: the first per-scheme handler, modeled on R23.2 (YouTube).
+
+## Acceptance Criteria
+
+- [ ] (model) ior:class:WebItem has model fields: uuid, name, description, icon (favicon), badge (scheme icon), url, scheme, parentFolder (ior ref), children[]
+- [ ] (drop->unit) Dropped URLs create WebItem units, NOT bare text/uri-list files
+- [ ] (preview) The preview renders the scheme launcher card (v0.6.87) with name + icon + badge
+- [ ] (open) Open-in-New-Tab does window.open(url) → the native app handles the scheme URL
+- [ ] (folders) WebItems organise into folders via parentFolder/children[] (parent/children like the file tree)
+- [ ] (import .url) Import from Windows .url (INI format) yields WebItem units
+- [ ] (import .webloc) Import from macOS .webloc (plist) yields WebItem units
+- [ ] (import bookmarks) Import from Google bookmarks HTML yields WebItem units (with folder hierarchy preserved)
+
+## Implementation
+
+PARTIAL — v0.6.87 (018398f17, LIVE) shipped the (preview) + (open) + accept-all-schemes ACs: RoomView.ts accepts any URI scheme on drop, content-preview.ts renders the scheme launcher card (name + icon + badge), Open-in-New-Tab → window.open(url) → native app. REMAINING impl surface (the broader WebItem ACs): the full ior:class:WebItem unit MODEL (drop→WebItem unit not bare uri-list file), folders (parentFolder/children[]), and import (.url INI / .webloc plist / Google bookmarks HTML). Architect design 9ae3ac6f5. testing hop OPEN — when tester gates, AC coverage to be checked PER-AC (preview/open likely GREEN; model/folders/import depend on remaining impl) — flagged to PO (#27 no over-claim).
+
+## Subtasks
+
+None (atomic task). NOTE: req offers an R-I split R25.2.A-E (model / drop->unit / preview+open / folders / import) for per-feature tasking if the single task proves too coarse — currently unified per PO's singular T25.2 directive + single v0.6.87 impl landing.
