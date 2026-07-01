@@ -20,35 +20,28 @@
         "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1782895636199
+        "joinedAt": 1782897895616
       },
       {
         "ior": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
         "name": "SystemTester",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1782895636199
+        "joinedAt": 1782897895616
       },
       {
         "ior": "ior:instance:37fcb752-8209-4ebe-b2e4-fd9e4a5b185d",
         "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1782895636199
+        "joinedAt": 1782897895616
       },
       {
         "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
-        "name": "",
-        "role": "owner",
-        "status": "offline",
-        "joinedAt": 1782895636199
-      },
-      {
-        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
-        "name": "",
+        "name": "Marcel Donges",
         "role": "owner",
         "status": "online",
-        "joinedAt": 1782895636199
+        "joinedAt": 1782897895616
       }
     ],
     "files": [

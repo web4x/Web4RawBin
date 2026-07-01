@@ -6,7 +6,9 @@
     "description": "DESIGN-AHEAD (scenario-first #126): base src/public/ts/drop-dispatcher.ts; expert attaches [impl:uuid] at code time.",
     "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
     "designAhead": true,
-    "tests": []
+    "tests": [
+      "ior:instance:bcda71cb-351c-4b04-8371-e01f5418142c"
+    ]
   },
   "ownerIor": "ior:instance:ea55be35-73c3-49f9-8781-9011ef9c4a14"
 }

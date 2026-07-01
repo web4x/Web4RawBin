@@ -1,3 +1,5 @@
+// [test:uuid:a8cde9fc-a227-454a-8ff3-aabb97d432b4] R25.6 scenarioLinkHref
+// [test:uuid:bcda71cb-351c-4b04-8371-e01f5418142c] R25.5 readAndRoute
 // [test:uuid:a7ae9ea8-940b-4125-a259-70b8f3b66785] R25.6 renderScenarioLink
 // [test:uuid:e4147df1-3143-4ea0-a8a4-fc277a03f1b0] R25.5 previewAndImport
 // v0.6.97 gate — R25.5 name/desc harvest + R25.6/R26.2 universal 📄 Scenario link + R26.1 clipboard

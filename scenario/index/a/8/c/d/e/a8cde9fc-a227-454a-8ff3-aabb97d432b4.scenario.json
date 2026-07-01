@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a8cde9fc-a227-454a-8ff3-aabb97d432b4",
+    "name": "test:R25.6 scenarioLinkHref gate",
+    "description": "Bridged to test/visual/r256-v0697-gate.mjs — verifies scenarioLinkHref",
+    "sourceFile": "ior:file:test/visual/r256-v0697-gate.mjs",
+    "implementations": [
+      "ior:instance:459d3aef-fa07-4968-a5d2-82185a1caf65"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:459d3aef-fa07-4968-a5d2-82185a1caf65"
+}

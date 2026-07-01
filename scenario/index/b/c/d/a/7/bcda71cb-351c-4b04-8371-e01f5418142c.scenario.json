@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "bcda71cb-351c-4b04-8371-e01f5418142c",
+    "name": "test:R25.5 readAndRoute gate",
+    "description": "Bridged to test/visual/r256-v0697-gate.mjs — verifies readAndRoute",
+    "sourceFile": "ior:file:test/visual/r256-v0697-gate.mjs",
+    "implementations": [
+      "ior:instance:eb25b473-84ba-4cb2-9dad-598efa6e1e93"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:eb25b473-84ba-4cb2-9dad-598efa6e1e93"
+}
