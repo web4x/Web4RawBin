@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "788bc972-145d-476a-877b-8fecbf037ef4",
+    "name": "Task 27.2: Class-unit dedup gated migration (one canonical Class per code class)",
+    "slug": "task-27.2-class-unit-dedup-migration",
+    "description": "Collapse the 55 duplicate Class units (23 code classes, per audit) to ONE canonical each: repoint methods (dedup by name) + rewrite every UC.class/classes/method ref to the canonical + delete the emptied duplicates. Plus the by-construction invariant: wiring a UC to a Class REUSES the existing Class node, never mints a 2nd for the same code class. Removes the N-way chain fan-out over-count + restores single-source-per-class.",
+    "intention": "PO/req 2026-07-01: prior chains minted a fresh Class per requirement -> the chain fans out through N duplicate Class nodes (over-count, broken single-source). One canonical per code class, enforced + cleaned up.",
+    "context": "Architect design RATIFIED a3fcf1196 (scrum.pmo/design-notes/r27.2-class-dedup-migration.md), from audit class-unit-dedup-audit.md. Scope: 163 Class units -> 108 (-55). CANONICAL RULE = active-chain-unit-if-exists (PROTECT: KEEP IORResolver b4eaa489 / Room 2172dc56 / RbDetailDrawer d86af73d — merge others INTO them; NOT most-methods, which would delete the protected live units) ELSE most-methods (tiebreak lowest uuid). Remap shape = R26.5 rewriteForwardRefs. My consolidate-impls-first catch = architect step-2 'keep the active-chain/has-Impl method' (impls preserved, none orphaned).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "GATED MIGRATION — expert implements scripts/migrate-class-dedup.ts (--dry-run DEFAULT, --apply only after the gate). ALGORITHM (architect a3fcf1196): per code class N>1: pick canonical C (active-chain-first) -> move methods dedup-by-name (collapse same-name, keep active-chain/has-Impl, drop dup Method units) -> rewrite refs across ALL UseCase units (UC.class/classes[]/method: remap.has(x)?canonical:keep) -> delete emptied dup Class + dropped dup Method units AFTER refs rewritten. GATE = dry-run emits per-class count table {canonical, dupsRemoved, methodsMoved, nameCollisionsCollapsed, ucClassRefsRewritten, ucMethodRefsRewritten} + totals (163->108); --apply ONLY after the 5 HARD INVARIANTS (fail=ABORT): (1) NO METHOD LOST (distinct method-names per class BEFORE==AFTER on canonical); (2) NO DANGLING UC.class (every class/classes[]/method resolves, 0 broken refs); (3) NO ORPHANED UC/Method (every Method has a Class owner; every UC still derives Req->UC->Class->Method); (4) ACTIVE CHAINS DERIVE (assert R26.1 IORResolver.resolveFederated + R25.7 Room 4 UCs + R25.4 RbDetailDrawer 2 UCs + R26.4-5 Transfer STILL derive end-to-end — the protect-active-chain gate); (5) IDEMPOTENT (re-apply = no-op, 0 dups). req 3-point verifies against the count table.",
+    "traceability": "  - up\n    - [Sprint 27 Planning](./planning.md)\n    - Requirement R27.2 `[requirement:uuid:64965538-2725-4ef2-92e7-c1be6cd58d6f]`\n  - protects (invariant 4)\n    - R26.1 IORResolver / R25.7 Room / R25.4 RbDetailDrawer / R26.4-5 Transfer active chains must still derive\n  - down\n    - [UC27.2: chain.reuseCanonicalClass](./planning.md#uc27-2) `[uc:uuid:37c52953]`",
+    "acceptanceCriteria": "- [ ] (invariant) The scenario graph holds AT MOST ONE Class unit per code class (by class name/identity); no per-req duplication\n- [ ] (reuse-on-wire) Wiring a UC to a Class REUSES the existing Class node for that code class (adds the method to it), NEVER mints a new Class unit (the R27.1 pattern)\n- [ ] (cleanup) The 55 existing duplicate Class units (23 code classes) are collapsed to one canonical each: methods repointed + every UC.class ref rewritten to the canonical + emptied duplicates removed\n- [ ] (gate) The canonical is the active-chain unit if one exists else most-methods; the collapse is dry-run + count FIRST (never silently drop a method or break a UC.class ref) + the 5 hard invariants pass before --apply\n- [ ] (invariant) After the fix, minting a chain for a NEW req on an EXISTING code class cannot create a duplicate Class unit (wiring reuses)\n- [ ] (verify) A trace audit shows exactly ONE Class unit per code class; no chain fans out through duplicate Class nodes + a CI check (1 Class unit per code-class name) so it never recurs",
+    "subtasks": "None (atomic gated-migration task). The migration is ONE gated pass over all 23 code classes / 55 dup units (not piecemeal); RbTaskDetail (4df19279 canonical) folds in here.",
+    "status": "In Progress",
+    "coveredRequirements": [
+      "ior:instance:64965538-2725-4ef2-92e7-c1be6cd58d6f"
+    ],
+    "useCases": [
+      "ior:instance:37c52953"
+    ],
+    "parent": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a",
+    "sprintName": "Sprint 27",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-01"
+  },
+  "ownerIor": null
+}
