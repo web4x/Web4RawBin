@@ -4,7 +4,9 @@
     "uuid": "5d56d674-2522-45d1-b587-64a359c225ea",
     "name": "RbDetailView.renderChainNodeSourceLink",
     "description": "Each chain node links to its source artifact by type: Class -> .puml + .svg; Method/Implementation -> .ts via /md/. Needs per-child sourceFile on /api/trace/children.",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:bd8e5d6f-d289-494b-891f-3572f62ce3c7"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:a27784f0-d996-404b-b199-01cf893bb073"

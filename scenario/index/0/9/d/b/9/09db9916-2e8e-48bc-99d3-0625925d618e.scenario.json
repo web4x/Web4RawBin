@@ -4,7 +4,9 @@
     "uuid": "09db9916-2e8e-48bc-99d3-0625925d618e",
     "name": "RbPanZoom.attachMouse",
     "description": "Drawer pan/zoom reaches full mouse parity with touch: wheel=zoom (==pinch), drag=pan (==1-finger), double-CLICK=reset/2x (==double-tap, the missing dblclick handler).",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:0564d93b-b492-4314-9dad-a53f7ea131af"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:e5e3c885-7e2c-4666-8eaf-6a91489b5d43"

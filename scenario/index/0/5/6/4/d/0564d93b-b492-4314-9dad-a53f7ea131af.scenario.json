@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0564d93b-b492-4314-9dad-a53f7ea131af",
+    "name": "RbPanZoom.attachMouse impl",
+    "description": "Shipped implementation in src/public/ts/trace/pan-zoom.ts (verified present in PDCA review). [R22.2]",
+    "sourceFile": "ior:file:src/public/ts/trace/pan-zoom.ts",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:09db9916-2e8e-48bc-99d3-0625925d618e"
+}

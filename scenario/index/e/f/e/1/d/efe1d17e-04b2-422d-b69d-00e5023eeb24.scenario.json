@@ -4,7 +4,9 @@
     "uuid": "efe1d17e-04b2-422d-b69d-00e5023eeb24",
     "name": "ContentPreviewer.embedYouTube",
     "description": "A YouTube URL (in a .url/text-uri-list file) renders as an embedded iframe player: extract the 11-char videoId and embed youtube.com/embed/<id> (NOT the X-Frame-blocked watch URL).",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:839f55f6-1c95-40ff-a824-80fa8d1274ba"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:4cf1d1de-37e2-42e8-bf8b-9776bf87f061"

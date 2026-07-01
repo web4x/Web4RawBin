@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "deed6186-139c-4fa9-bd25-eb8c29f83f75",
+    "name": "ContentPreviewer.fillPreviewPane impl",
+    "description": "Shipped implementation in src/public/ts/trace/content-preview.ts (verified present in PDCA review). [R23.1]",
+    "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:ccbd2bdf-a5f1-4f78-b71a-b46c81d4383f"
+}
