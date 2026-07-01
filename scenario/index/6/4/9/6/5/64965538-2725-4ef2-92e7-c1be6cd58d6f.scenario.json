@@ -42,7 +42,7 @@
       {
         "id": "AC-canonical",
         "group": "cleanup",
-        "text": "The canonical is the unit with the most methods / already on the active chain; the collapse is dry-run + count FIRST (never silently drop a method or break a UC.class ref)."
+        "text": "The canonical is the unit ON AN ACTIVE CHAIN if one exists (keep its uuid + UC.class refs UNCHANGED, merge the others INTO it) - protecting R26.1 IORResolver b4eaa489 / R25.7+R26.4-5 Room 2172dc56 / R25.4 RbDetailDrawer d86af73d; ELSE the most-methods unit (tiebreak: lowest uuid). The collapse is dry-run + count FIRST, never silently drop a method or break a UC.class ref."
       },
       {
         "id": "AC-by-construction",
@@ -54,7 +54,27 @@
         "group": "verify",
         "text": "A trace audit shows exactly ONE Class unit per code class; no chain fans out through duplicate Class nodes."
       }
-    ]
+    ],
+    "migrationDesignRef": "scrum.pmo/design-notes/r27.2-class-dedup-migration.md (architect a3fcf1196)",
+    "gateVerifyCriteria": {
+      "target": "Class units 163 -> 108 (-55 collapsible across 23 code classes)",
+      "hardInvariants": [
+        "1 no method lost (distinct method-names per code class BEFORE==AFTER on canonical)",
+        "2 no dangling UC.class (every UC.class/classes[]/method resolves)",
+        "3 no orphan UC/Method (every Method has Class owner; every UC still derives Req->UC->Class->Method)",
+        "4 active chains STILL derive end-to-end: R26.1(IORResolver) R25.7(Room 4 UCs) R25.4(RbDetailDrawer 2 UCs) R26.4-5(Transfer)",
+        "5 idempotent (re-apply = no-op, 0 dups remain)"
+      ],
+      "countTable": [
+        "canonical",
+        "dupsRemoved",
+        "methodsMoved",
+        "nameCollisionsCollapsed",
+        "ucClassRefsRewritten",
+        "ucMethodRefsRewritten"
+      ],
+      "gate": "--dry-run + count first; --apply only after all 5 invariants PASS. req 3-point verifies against the count table + re-measures 163->108."
+    }
   },
   "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
 }
