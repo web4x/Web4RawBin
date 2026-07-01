@@ -67,6 +67,20 @@
   → [UC27.4: graph.repairIntegrity](./planning.md#uc27-4) `[uc:uuid:f7a06e18-5237-4640-a731-0575bc965917]` *(placeholder — architect to refine; gated migration task)*
 
 
+- [ ] **R27.5 — Calibrate trace-audit orphan metric to be meaningful** *(low priority; metric is reported-only; planner schedules, likely S28)*
+  [requirement:uuid:f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc]
+  > Derived: reconciling the audit's 2207 orphans vs R27.4's 51 orphan-Methods (req read of trace-audit.ts + expert breakdown). PO ratified capture 2026-07-01.
+  Make the trace-audit orphan metric MEANINGFUL: a non-zero count should indicate real chain debt, not benign never-zero data. Add non-chain types to ORPHAN_BY_DESIGN + add Requirement->tasks / Sprint-roots to the canonical walk. Expected ~2207 -> real-chain-orphans only.
+  *(evidence: expert breakdown ~1600 benign non-chain + ~382 walk-gap + small real-51 overlap. Instrument = scripts/trace-audit.ts CANONICAL_FORWARD / ORPHAN_BY_DESIGN_TYPES.)*
+  **Acceptance criteria:**
+  - [ ] **(exempt-types)** Non-chain unit types (TestCase/Device/File/Room/Skill/Bug/Phone/Profile/WebItem/Message/Company/Email/User/Gate/CurrentSprint) are added to ORPHAN_BY_DESIGN_TYPES so they are excluded from the reachability orphan count.
+  - [ ] **(walk-gap)** CANONICAL_FORWARD adds Requirement->tasks and the walk also roots from Sprint units (Sprint->tasks/requirements), so Tasks + their subtrees are reachable — closing the ~382-unit walk-gap.
+  - [ ] **(expected)** After calibration the orphan metric drops from ~2207 to the real chain-orphans only (aligns with R27.4's METHOD-scoped count, ~0 post-R27.4).
+  - [ ] **(honest-instrument)** A non-zero orphan count now indicates REAL chain debt, not benign non-chain data; the metric becomes trustworthy enough to hard-gate.
+  - [ ] **(verify)** Re-run trace:audit post-calibration: benign non-chain data no longer counted; the number reflects only real chain-orphans.
+  → [UC27.5: traceAudit.calibrateOrphanMetric](./planning.md#uc27-5) `[uc:uuid:5ff15c57-503c-45f7-a4c0-82f7969d3646]` *(placeholder — architect to refine; Class trace-audit)*
+
+
 ---
 
 ## Traceability Matrix
@@ -77,5 +91,6 @@
 | R27.2 | One canonical Class unit per code class | 64965538-2725-4ef2-92e7-c1be6cd58d6f | 37c52953-654f-47c1-8710-b851b706849d |
 | R27.3 | Per-task MD view generation (📄 links resolve) | 4f6d6402-fc8d-4d5d-9523-7e35af641944 | 10ef702c-3141-45c9-b669-b5bed5f373b9 |
 | R27.4 | Graph integrity: dangling UC refs + orphan Methods | e205f7c3-97d8-474a-a4e6-053a7a7f30aa | f7a06e18-5237-4640-a731-0575bc965917 |
+| R27.5 | Calibrate trace-audit orphan metric (meaningful) | f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc | 5ff15c57-503c-45f7-a4c0-82f7969d3646 |
 
 *Captured by robbin-req 2026-07-01. MD-link = R22.1 (covered). statusChecklist render = R27.1 (new, v0.7.6 retroactive-chain).*
