@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "cca392d6-7cb4-4751-ae3f-9be13a99542f",
+    "name": "test:R25.7 dedupMembersOnLoad gate",
+    "description": "Bridged to test/visual/r258-v070-gate.mjs — Heartspaces shows 1 Marcel (orphan-ghost skip), DET-3x GREEN",
+    "sourceFile": "ior:file:test/visual/r258-v070-gate.mjs",
+    "implementations": [
+      "ior:instance:7899449b-9d07-4b8c-80c6-58f229ce3129"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7899449b-9d07-4b8c-80c6-58f229ce3129"
+}

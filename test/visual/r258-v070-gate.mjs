@@ -1,3 +1,4 @@
+// [test:uuid:cca392d6-7cb4-4751-ae3f-9be13a99542f] R25.7 dedupMembersOnLoad — Heartspaces 1 Marcel
 // v0.7.0 gate — R25.7 room identity dedup + 3 drop/scenario fixes. SystemTester ONLY, reuse dnd
 // room, NO pollution (item 3 drops about:blank which the guard BLOCKS -> nothing created).
 //   (1) R25.7: Heartspaces shows exactly 1 Marcel Donges (resolveToken dedup), not 3.
