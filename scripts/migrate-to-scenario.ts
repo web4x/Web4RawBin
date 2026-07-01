@@ -20,6 +20,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { ScenarioIndex, defaultTemplateRegistry, ViewGenerator, createTraceLink, extractPumlUseCaseRanges, makeSource, type ScenarioUnit } from '../src/ts/scenario/index.js';
+import { mintOrReuseClass } from '../src/ts/scenario/class-mint.js'; // R27.2 AC-canonical: single Class mint-or-reuse choke-point
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRINTS_DIR = path.join(__dirname, '../scrum.pmo/sprints');
@@ -329,28 +330,12 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
         const fileLine = body.split('\n').find(l => l.trim() && !l.trim().startsWith('+'));
         const sourcePath = fileLine?.trim() || '';
         const methodLines = body.split('\n').filter(l => l.trim().startsWith('+'));
-        // R27.2 AC-canonical (REUSE-ON-WIRE): look up an EXISTING Class unit by code-class NAME and REUSE it —
-        // NEVER mint a 2nd Class for a name that already exists (this is exactly where the 55 dups came from).
-        // Union any new methods into the existing Class (dedup by method name); mint only when none exists.
-        const existingClass = [...idx.list()].map(u => idx.get(u)).find(u => !!u && u.ior === 'ior:class:Class' && String((u.model as any).name) === className);
-        const classUuid = existingClass ? String((existingClass.model as any).uuid) : crypto.randomUUID();
-        const existingMethodIors: string[] = existingClass ? (((existingClass.model as any).methods) || []) : [];
-        const existingMethodNames = new Set(existingMethodIors.map(mi => { const mu = idx.get(String(mi).replace('ior:instance:', '')); return String((mu?.model as any)?.methodName || ''); }));
-        const methodIors: string[] = [...existingMethodIors];
-        for (const ml of methodLines) {
-          const mName = ml.replace(/^\s*\+\s*/, '').trim();
-          if (!mName || existingMethodNames.has(mName)) continue; // reuse the existing method for this name — no dup Method
-          const mUuid = crypto.randomUUID();
-          idx.put(mUuid, { ior: 'ior:class:Method', model: { uuid: mUuid, name: `${className}.${mName}`, className, methodName: mName }, ownerIor: `ior:instance:${classUuid}` });
-          methodUuids.push(mUuid);
-          methodIors.push(`ior:instance:${mUuid}`);
-        }
-        const classUnit: ScenarioUnit = existingClass
-          ? { ...existingClass, model: { ...(existingClass.model as any), methods: methodIors } }   // REUSE: union methods onto the existing Class
-          : { ior: 'ior:class:Class', model: { uuid: classUuid, name: className, file: sourcePath, methods: methodIors, useCases: [] }, ownerIor: `ior:instance:${sprintUuid}` };
-        idx.put(classUuid, classUnit);
+        // R27.2 AC-canonical: route through the single mint-or-reuse choke-point (never a 2nd Class per name).
+        const methodNames = methodLines.map(ml => ml.replace(/^\s*\+\s*/, '').trim()).filter(Boolean);
+        const { classUuid, methodUuids: newMethodUuids, reused } = mintOrReuseClass(idx, className, `ior:instance:${sprintUuid}`, sourcePath, methodNames);
+        methodUuids.push(...newMethodUuids);
         if (!classUuids.includes(classUuid)) classUuids.push(classUuid);
-        console.log(`  ${existingClass ? 'REUSED' : 'Created'} class unit: ${classUuid} — ${className} (${methodIors.length} methods)`);
+        console.log(`  ${reused ? 'REUSED' : 'Created'} class unit: ${classUuid} — ${className}`);
       }
     }
   }
