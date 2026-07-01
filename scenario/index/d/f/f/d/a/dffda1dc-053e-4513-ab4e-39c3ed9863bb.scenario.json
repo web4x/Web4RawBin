@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "dffda1dc-053e-4513-ab4e-39c3ed9863bb",
+    "name": "Room.rejoinDedup impl",
+    "description": "DESIGN-AHEAD (scenario-first #126; PO-directed 2026-07-01 for R25.7 AC-d addMemberIdempotent, UC 85f40027). Room.rejoinDedup — idempotent-by-resolved-token: on addMember, if a member already resolves to the same primary, RE-KEY that entry instead of inserting a second. base src/ts/server/Room.ts; expert attaches [impl:uuid:dffda1dc-053e-4513-ab4e-39c3ed9863bb] at code time.",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:52ed9ab9-1a51-42e9-8b72-d8d4c0b2012e"
+}

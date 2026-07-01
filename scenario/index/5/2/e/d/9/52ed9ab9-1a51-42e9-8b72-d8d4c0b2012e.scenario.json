@@ -6,7 +6,8 @@
     "description": "addMember is idempotent by RESOLVED token: if a member with the same resolveToken(playerToken) exists, re-key it (update ws/id) instead of inserting a dup; memberCount + JOIN output use allMemberInfo (resolved+deduped), not raw members.",
     "sourceFile": "ior:file:src/ts/server/Room.ts",
     "implementations": [
-      "ior:instance:96be5441-67c2-45f9-9220-a7791f5e0631"
+      "ior:instance:96be5441-67c2-45f9-9220-a7791f5e0631",
+      "ior:instance:dffda1dc-053e-4513-ab4e-39c3ed9863bb"
     ],
     "tests": []
   },
