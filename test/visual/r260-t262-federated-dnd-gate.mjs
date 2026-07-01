@@ -1,3 +1,4 @@
+// [test:uuid:19fc1a8f-3dc9-4e80-ba0d-f48f25220c2b] R26.2 buildFederatedRef
 // T26.2 v0.7.3 gate — cross-origin DnD federated-reference. Dragging an rb-object-item sets
 // DataTransfer 'application/rb-federated-ref' = { ior: ior:instance:<uuid>@<origin>, fetchUrl:
 // <origin>/api/scenario/<uuid>, originHost, type, name }. READ-ONLY (dragstart creates nothing).

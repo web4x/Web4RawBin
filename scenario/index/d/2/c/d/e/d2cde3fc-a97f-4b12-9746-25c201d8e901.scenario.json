@@ -6,7 +6,9 @@
     "description": "DESIGN-AHEAD (scenario-first #126, GREENFIELD federation — no code yet): planned src/ts/scenario/federated-ior.ts; expert attaches [impl:uuid] at code time.",
     "sourceFile": "ior:file:src/ts/scenario/federated-ior.ts",
     "designAhead": true,
-    "tests": []
+    "tests": [
+      "ior:instance:79643883-2892-4894-a0d7-7601fb3bf055"
+    ]
   },
   "ownerIor": "ior:instance:7be6b225-7067-4924-b715-08d3800fc5a0"
 }

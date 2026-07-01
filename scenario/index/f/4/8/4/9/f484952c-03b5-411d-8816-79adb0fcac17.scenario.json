@@ -6,7 +6,9 @@
     "description": "DESIGN-AHEAD (scenario-first #126, GREENFIELD federation — no code yet): planned src/public/ts/trace/drop-dispatcher.ts; expert attaches [impl:uuid] at code time.",
     "sourceFile": "ior:file:src/public/ts/trace/drop-dispatcher.ts",
     "designAhead": true,
-    "tests": []
+    "tests": [
+      "ior:instance:19fc1a8f-3dc9-4e80-ba0d-f48f25220c2b"
+    ]
   },
   "ownerIor": "ior:instance:c8a17dcc-0bba-44aa-9aac-86049ba65c31"
 }

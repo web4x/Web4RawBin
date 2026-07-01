@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "19fc1a8f-3dc9-4e80-ba0d-f48f25220c2b",
+    "name": "test:R26.2 buildFederatedRef gate",
+    "description": "Bridged to test/visual/r260-t262-federated-dnd-gate.mjs — verifies buildFederatedRef",
+    "sourceFile": "ior:file:test/visual/r260-t262-federated-dnd-gate.mjs",
+    "implementations": [
+      "ior:instance:f484952c-03b5-411d-8816-79adb0fcac17"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f484952c-03b5-411d-8816-79adb0fcac17"
+}

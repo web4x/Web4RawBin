@@ -1,3 +1,4 @@
+// [test:uuid:79643883-2892-4894-a0d7-7601fb3bf055] R26.1 resolveFederated
 // T26.1 v0.7.2 gate — federated IOR (provenance + pluggable resolver). PURE-FUNCTION tests on
 // federated-ior.ts (parseFederatedIor / isLocalOrigin / federatedIor / resolveFederated) + one
 // real-IOR HTTP read for backward-compat end-to-end. ZERO pollution (no prod writes). DET-3x.
