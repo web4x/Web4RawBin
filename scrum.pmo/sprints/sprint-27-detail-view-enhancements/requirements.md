@@ -38,6 +38,20 @@
   → [UC27.2: chain.reuseCanonicalClass](./planning.md#uc27-2) `[uc:uuid:37c52953-654f-47c1-8710-b851b706849d]` *(placeholder — architect to refine; cleanup = a gated migration task)*
 
 
+- [ ] **R27.3 — Per-task MD view generation (every 📄 link resolves, no 404)**
+  [requirement:uuid:4f6d6402-fc8d-4d5d-9523-7e35af641944]
+  > TRON (screenshot): the 📄 task links 404. FIX: generate-sprint-md emits one task-<slug>.md per task unit so every 📄 resolves; tasks must not point sourceFile at planning.md.
+  generate-sprint-md emits ONE `task-<slug>.md` per Task unit (title / ACs / statusChecklist / chain) so every task's 📄 MD link resolves 200, not 404; Task units must NOT set model.sourceFile to planning.md (which collapses all tasks into one view).
+  *(impl base: scripts/generate-sprint-md.ts (generateTaskMd/checkSprint) + rb-task-detail.ts:88 taskMdHref. Planner diagnosis: 404 when no per-task MD emitted.)*
+  **Acceptance criteria:**
+  - [ ] **(emit)** generate-sprint-md emits ONE task-<slug>.md per Task unit (title + ACs + statusChecklist + chain), not only planning.md.
+  - [ ] **(no-collapse)** Task units do NOT set model.sourceFile to planning.md (which collapses all tasks into one shared view); each task MD is its own file.
+  - [ ] **(resolve-200)** taskMdHref (rb-task-detail.ts:88) resolves to the per-task MD -> HTTP 200, never 404 (the Tron-visible bug is gone).
+  - [ ] **(roundtrip)** The per-task MD is a generated VIEW (law #100); --check (check:sprint-md) byte-match holds for the per-task files.
+  - [ ] **(verify)** Verified live: every task's 📄 link opens its own MD file.
+  → [UC27.3: sprintMd.emitPerTask](./planning.md#uc27-3) `[uc:uuid:10ef702c-3141-45c9-b669-b5bed5f373b9]` *(placeholder — architect to refine; Class generate-sprint-md/ViewGenerator)*
+
+
 ---
 
 ## Traceability Matrix
@@ -46,5 +60,6 @@
 |-----|------|------------------|---------------------|
 | R27.1 | Task detail renders status checklist visually | 90b82d00-7af1-40e9-992c-c55ca177c542 | 050c5b9a-e5f4-46da-843f-44eb2b70994e |
 | R27.2 | One canonical Class unit per code class | 64965538-2725-4ef2-92e7-c1be6cd58d6f | 37c52953-654f-47c1-8710-b851b706849d |
+| R27.3 | Per-task MD view generation (📄 links resolve) | 4f6d6402-fc8d-4d5d-9523-7e35af641944 | 10ef702c-3141-45c9-b669-b5bed5f373b9 |
 
 *Captured by robbin-req 2026-07-01. MD-link = R22.1 (covered). statusChecklist render = R27.1 (new, v0.7.6 retroactive-chain).*
