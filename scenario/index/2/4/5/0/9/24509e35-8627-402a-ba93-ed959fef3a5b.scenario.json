@@ -1,0 +1,47 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "24509e35-8627-402a-ba93-ed959fef3a5b",
+    "name": "Scenario link on ALL detail views",
+    "altId": "R25.6",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-25-apple-dnd/requirements.md",
+    "sourceLine": 83,
+    "parent": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:dc468781-714b-429d-8dff-2ee243a81e51"
+    ],
+    "description": "Every detail-view component renders a \ud83d\udcc4 Scenario link to its own underlying scenario unit, so any detail view (task, WebItem, member, file, requirement, etc.) exposes a one-click path to the unit that backs it - uniformly across ALL detail components.",
+    "tronQuote": "> TRON: every detail view shall show a \ud83d\udcc4 Scenario link to its underlying scenario unit (all detail components, uniformly).",
+    "implRef": "ior:file:src/public/ts/trace/rb-*-detail.ts (the detail-view components: rb-task-detail, rb-webitem-detail, rb-detail-drawer, member/file detail) \u2014 add a uniform \ud83d\udcc4 Scenario link to each.",
+    "crossRef": [
+      "ior:instance:2c1fd942-a6f1-414c-976f-ea7af7008201"
+    ],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-link",
+        "group": "link",
+        "text": "Every detail-view component renders a \ud83d\udcc4 Scenario link."
+      },
+      {
+        "id": "AC-target",
+        "group": "target",
+        "text": "The link resolves to the underlying scenario unit (the /scenario or /md view of that unit's uuid)."
+      },
+      {
+        "id": "AC-all",
+        "group": "universal",
+        "text": "The link appears on ALL detail components uniformly (task, WebItem, member, file, requirement, drawer, ...), not just one."
+      },
+      {
+        "id": "AC-consistent",
+        "group": "consistent",
+        "text": "The \ud83d\udcc4 Scenario affordance is placed/styled consistently across detail views."
+      }
+    ],
+    "crossRefNote": "Sibling concern to R22.3 (chain-node source links): R22.3 links chain nodes to their source artifacts; R25.6 adds a \ud83d\udcc4 Scenario link on every DETAIL view to its own unit."
+  },
+  "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"
+}
