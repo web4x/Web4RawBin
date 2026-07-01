@@ -73,6 +73,19 @@
   - [ ] **(provenance)** Always record originHost + originIor so a federated copy can attribute + re-sync later.
   → [UC26.5: federation.conflictReconcile](./planning.md#uc26-5) `[uc:uuid:1f097e01-7d45-4e8c-b403-5a5ff5f0bfe6]` *(placeholder — architect to refine)*
 
+- [ ] **R26.6 — Federation import wiring (end-to-end receive orchestration)**
+  [requirement:uuid:e289f96e-0afc-4568-9c26-16cd9b8272eb]
+  The receiver's `POST /api/federation/import` endpoint ORCHESTRATES R26.1-R26.5 into one working receive: federated-ref (R26.2) -> fetch from origin (R26.3) -> validate + recreate locally with provenance (R26.1) -> resolve children eager/lazy (R26.4) -> reconcile uuid conflict (R26.5), leaving the unit present locally with intact unitLinks.
+  *(design: federated-scenario-transfer.md 7e940cf81; Class FederationApi. NOTE: code shipped v0.7.7 BEFORE this req — a #126 slip; chain completed retroactively for traceability.)*
+  **Acceptance criteria:**
+  - [ ] **(endpoint)** The receiver exposes `POST /api/federation/import` accepting a federated reference (or fetchUrl) and returning the imported unit's local IOR.
+  - [ ] **(orchestrate)** Import sequences: fetch unit JSON from origin (R26.3) -> validate -> recreate locally with provenance (R26.1 originHost/originIor) -> resolve children per eager/lazy policy (R26.4) -> reconcile uuid conflict (R26.5) -> link the chain.
+  - [ ] **(security-gate)** Incoming JSON is validated (schema + size-cap + sanitize), NEVER executed; foreign identities never become local auth principals (per securityNote + R25.7 members-by-reference).
+  - [ ] **(result)** After import the transferred unit exists locally (recreated) with intact unitLinks + provenance, appearing in the target room/context.
+  - [ ] **(idempotent)** Re-import of the same reference is safe — it delegates to the R26.5 reconcile (no blind duplicate).
+  - [ ] **(composes)** R26.6 is the INTEGRATION that composes R26.1-R26.5 (<<include>>); the constituent capabilities live in those reqs.
+  → [UC26.6: federation.import](./planning.md#uc26-6) `[uc:uuid:32f30eee-b0c8-4fca-b4d1-9ee6a1c0cdb1]` → FederationApi.importScenario
+
 ## Cross-cutting
 
 - **Security / trust:** Cross-cutting security/trust: capability grants are signed + expiring + scoped (no ambient authority); server-federation signatures use a per-server keypair + explicit trust list (no open fetch). Never trust incoming JSON blindly — validate schema, cap size, sanitize, NEVER execute; foreign identities NEVER become local auth principals.
@@ -88,5 +101,6 @@
 | R26.3 | Server-to-server scenario fetch API (on the origin) | 05d21385-766a-426d-9045-77255d5234a0 | e205f1b0-7e8f-4b52-932c-dc9ae2350ef6 |
 | R26.4 | Lazy child resolve — structure eager, payload lazy, members by-reference | 71b44e05-555f-4db2-a485-f375cd7ad70b | 67859edd-c0a6-4cb0-8834-4d11c50e7ec1 |
 | R26.5 | Conflict reconcile — uuid already exists locally | f7e4c1cc-c2a5-423c-bbaa-d010a2d1fa79 | 1f097e01-7d45-4e8c-b403-5a5ff5f0bfe6 |
+| R26.6 | Federation import wiring (end-to-end orchestration) | e289f96e-0afc-4568-9c26-16cd9b8272eb | 32f30eee-b0c8-4fca-b4d1-9ee6a1c0cdb1 |
 
 *Captured by robbin-req 2026-07-01, grounded in architect design 7e940cf81. Greenfield federation, scenario-first (#126).*

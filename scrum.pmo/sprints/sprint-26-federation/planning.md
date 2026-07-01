@@ -15,6 +15,7 @@ The beginning of inter-server scenario exchange: dragging an item between two Ra
 | <a id="uc26-3"></a>UC26.3 | federation.scenarioFetchApi | e205f1b0-7e8f-4b52-932c-dc9ae2350ef6 | R26.3 | server |
 | <a id="uc26-4"></a>UC26.4 | federation.lazyChildResolve | 67859edd-c0a6-4cb0-8834-4d11c50e7ec1 | R26.4 | Transfer |
 | <a id="uc26-5"></a>UC26.5 | federation.conflictReconcile | 1f097e01-7d45-4e8c-b403-5a5ff5f0bfe6 | R26.5 | Transfer |
+| <a id="uc26-6"></a>UC26.6 | federation.import | 32f30eee-b0c8-4fca-b4d1-9ee6a1c0cdb1 | R26.6 | FederationApi |
 
 ## Open design decisions (architect — flag before task-build)
 
