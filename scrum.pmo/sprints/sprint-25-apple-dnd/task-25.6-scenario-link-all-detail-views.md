@@ -8,11 +8,11 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
@@ -39,10 +39,14 @@ Tron: every detail view shall show a 📄 Scenario link to its underlying scenar
 
 ## Acceptance Criteria
 
-- [ ] (link) Every detail-view component renders a 📄 Scenario link
-- [ ] (target) The link resolves to the underlying scenario unit (the /scenario or /md view of that unit's uuid)
-- [ ] (universal) The link appears on ALL detail components uniformly (task, WebItem, member, file, requirement, drawer, ...), not just one
-- [ ] (consistent) The 📄 Scenario affordance is placed/styled consistently across detail views
+- [x] (link) Every detail-view component renders a 📄 Scenario link
+- [x] (target) The link resolves to the underlying scenario unit (the /scenario or /md view of that unit's uuid)
+- [x] (universal) The link appears on ALL detail components uniformly (task, WebItem, member, file, requirement, drawer, ...), not just one
+- [x] (consistent) The 📄 Scenario affordance is placed/styled consistently across detail views
+
+## Implementation
+
+ GREEN → QA Review: impl shipped v0.6.97 (universal 📄 Scenario link, detail-children.scenarioFileHref 1bd129e0); tester GREEN DET-3x — gate 91df459ae item3 (📄 Scenario link on WebItem detail AND every detail view) + gate 414eb2ecb item3 (photo File preview renders). Covers link/target/universal/consistent. ⚠ NOTE: gates LABEL it R26.2 — R25.6≈R26.2 overlap flagged to PO (same Sprint-26 re-capture concern).
 
 ## Subtasks
 

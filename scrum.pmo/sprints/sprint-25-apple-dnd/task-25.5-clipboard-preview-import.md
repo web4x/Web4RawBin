@@ -8,11 +8,11 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
@@ -39,12 +39,16 @@ Tron: on the drop area add a click/tap listener that asks 'Upload from clipboard
 
 ## Acceptance Criteria
 
-- [ ] (listener) The drop area has a click/tap listener that opens the clipboard dialog
-- [ ] (preview) BEFORE asking yes/no, the dialog previews the clipboard content: a type icon + a content preview (the user sees WHAT is in the clipboard)
-- [ ] (confirm) The dialog asks 'Upload from clipboard?' (yes/no)
-- [ ] (read) On yes, the clipboard is read via navigator.clipboard.read / readText and its MIME types are detected (same recognition as DnD)
-- [ ] (route) Content is routed the same as drop-dispatcher: URLs -> WebItem units, images/bytes -> File, text -> file
-- [ ] (cancel) On no, nothing is imported
+- [x] (listener) The drop area has a click/tap listener that opens the clipboard dialog
+- [x] (preview) BEFORE asking yes/no, the dialog previews the clipboard content: a type icon + a content preview (the user sees WHAT is in the clipboard)
+- [x] (confirm) The dialog asks 'Upload from clipboard?' (yes/no)
+- [x] (read) On yes, the clipboard is read via navigator.clipboard.read / readText and its MIME types are detected (same recognition as DnD)
+- [x] (route) Content is routed the same as drop-dispatcher: URLs -> WebItem units, images/bytes -> File, text -> file
+- [x] (cancel) On no, nothing is imported
+
+## Implementation
+
+ GREEN → QA Review: impl shipped v0.6.97/v0.6.98 (RoomView.importFromClipboard bd080edb); tester GREEN DET-3x — gate 91df459ae item4 (tap drop-zone → preview clipboard content-type in confirm → CANCEL) covers listener/preview/confirm/cancel; gate 414eb2ecb item5 (clipboard text File name = first line) covers read/route; URL→WebItem routing proven via WebItem name-harvest. ⚠ NOTE: the gates LABEL the clipboard items R26.1 — R25.5≈R26.1 overlap flagged to PO (Sprint 26 emerging; potential re-capture of this clipboard flow, needs dedup ruling like the earlier contamination).
 
 ## Subtasks
 
