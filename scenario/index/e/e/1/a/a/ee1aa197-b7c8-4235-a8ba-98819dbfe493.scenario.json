@@ -2,11 +2,11 @@
   "ior": "ior:class:Method",
   "model": {
     "uuid": "ee1aa197-b7c8-4235-a8ba-98819dbfe493",
-    "name": "MigrateToScenario.mintOrReuseClass",
+    "name": "ClassMint.mintOrReuseClass",
     "description": "Mint-path REUSE (df0f16a32, scripts/migrate-to-scenario.ts): wiring a UC to a code class reuses the existing canonical Class unit, never mints a 2nd for the same code-class name.",
     "implementations": [
       "ior:instance:61f24d2c-7d30-49dd-89bc-1ff089c9a48e"
     ]
   },
-  "ownerIor": "ior:instance:66625aa7-4de6-4972-b731-f4e23a552480"
+  "ownerIor": "ior:instance:2bf3d075-e485-4dd8-8cf0-0cdceac6bb2e"
 }

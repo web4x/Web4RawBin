@@ -4,7 +4,7 @@
     "uuid": "61f24d2c-7d30-49dd-89bc-1ff089c9a48e",
     "name": "mintOrReuseClass impl",
     "description": "SHIPPED df0f16a32 (scripts/migrate-to-scenario.ts reuse-on-wire mint-path). Expert attaches [impl:uuid:61f24d2c-7d30-49dd-89bc-1ff089c9a48e].",
-    "sourceFile": "ior:file:scripts/migrate-to-scenario.ts",
+    "sourceFile": "ior:file:src/ts/scenario/class-mint.ts",
     "designAhead": false,
     "tests": []
   },
