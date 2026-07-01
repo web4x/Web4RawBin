@@ -5,7 +5,8 @@
     "name": "FederationApi",
     "description": "FederationApi — RawBin federation (S26). Design-ahead greenfield.",
     "methods": [
-      "ior:instance:f762297b-9445-4ea5-acd1-671d0589d4dd"
+      "ior:instance:f762297b-9445-4ea5-acd1-671d0589d4dd",
+      "ior:instance:c4506b11-deff-4ea5-8966-b54f04e7ce9c"
     ]
   },
   "ownerIor": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d"

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "c4506b11-deff-4ea5-8966-b54f04e7ce9c",
+    "name": "FederationApi.importScenario",
+    "description": "Receiver-side federation import: POST /api/federation/import — reads a federated-ref, fetches the unit/children/bytes from the origin (via R26.3), runs lazy-resolve (R26.4) + conflict-reconcile (R26.5), and lands the transfer locally. The wiring that connects T26.1-T26.5 into the drop flow (v0.7.7).",
+    "implementations": ["ior:instance:3132c189-4027-49d5-ab1b-7da4a2e4bd87"]
+  },
+  "ownerIor": "ior:instance:6456d811-858a-4342-a00d-000000000000"
+}
