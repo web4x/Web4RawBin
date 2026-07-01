@@ -1,0 +1,74 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "585b6b9c-2fa7-48e2-8fab-a7e8a31e516e",
+    "name": "Room membership dedup by resolved identity (structural, no duplicate members ever)",
+    "altId": "R25.7",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-25-apple-dnd/requirements.md",
+    "sourceLine": 97,
+    "parent": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:e03132c7-ea09-4ec3-9b6a-e685e2b0f546",
+      "ior:instance:9300a275-d78b-4758-950f-d2d70d21c8e4",
+      "ior:instance:ede1de17-a252-4566-b5bd-f3a474d6217d",
+      "ior:instance:85f40027-3b56-4a6e-94a2-c4b561f985e2"
+    ],
+    "description": "Duplicate room membership for one identity is made STRUCTURALLY IMPOSSIBLE via four enforcement points plus an immutable redirectTo: (a) room load collapses members through resolveToken so room.members holds <=1 entry per resolved identity; (b) CONSOLIDATE actively evicts the absorbed/tombstoned profile from ALL rooms (broadcasting MEMBER_LEFT + corrected count), re-keying to the primary where needed; (c) a tombstoned CONNECT resolves to the primary, sends TOKEN_REDIRECT, and adds NO new member entry, with redirectTo IMMUTABLE and restart-durable; (d) addMember is idempotent by RESOLVED token. Plus a one-time gated repair collapses the already-corrupted Heartspaces members and restores the lost tombstones. Result: a user can NEVER appear as multiple members again.",
+    "tronQuote": "> TRON: user appears as 3 members in Heartspaces \u2014 must NEVER happen again.",
+    "discoverySource": {
+      "type": "architect-diagnosis",
+      "diagnosedBy": "robbin-architect",
+      "date": "2026-07-01",
+      "designNote": "scrum.pmo/design-notes/room-identity-dedup-structural-fix.md",
+      "designCommit": "662c0cc0f",
+      "measured": "vs src/ts/server/Room.ts + server.ts HEAD; 3 root causes: CONSOLIDATE never cleans room membership, members keyed by clientId deduped only in some output paths, redirectTo not immutable/restart-durable"
+    },
+    "designRef": "scrum.pmo/design-notes/room-identity-dedup-structural-fix.md (662c0cc0f)",
+    "crossRef": [
+      "ior:instance:75853976-72f9-464a-9f23-d35173a8b48e"
+    ],
+    "crossRefNote": "Structural hardening of R23.3 (identity merge cleans up room membership). R23.3 was the behavioural clean-up; R25.7 makes duplication STRUCTURALLY IMPOSSIBLE at 4 enforcement points + immutable redirectTo. R23.3 ghost-member ACs are now enforced by R25.7's structural points.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-a",
+        "group": "room-load",
+        "text": "At room load, each persisted member's token is mapped through resolveToken and grouped by primary - room.members holds AT MOST ONE entry per resolved identity (not just one display path)."
+      },
+      {
+        "id": "AC-b",
+        "group": "consolidate-evict",
+        "text": "CONSOLIDATE, after setting redirectTo, evicts the absorbed profile from ALL rooms - removing/re-keying members that resolve to the primary and broadcasting MEMBER_LEFT + corrected memberCount (live, not only on next load)."
+      },
+      {
+        "id": "AC-c",
+        "group": "connect-redirect",
+        "text": "A tombstoned CONNECT (redirectTo set) resolves to the PRIMARY: sends TOKEN_REDIRECT and addMember UNDER the primary token - never a second member entry for the tombstone."
+      },
+      {
+        "id": "AC-immutable",
+        "group": "connect-redirect",
+        "text": "redirectTo is IMMUTABLE and restart-durable - every profile save preserves it; IDENTIFY on a redirected token redirects and never re-mints/clears it (fixes the lost-tombstone bug)."
+      },
+      {
+        "id": "AC-d",
+        "group": "idempotent",
+        "text": "Room.addMember dedups on RESOLVED token - if a member already resolves to the same primary, RE-KEY that entry instead of inserting a second."
+      },
+      {
+        "id": "AC-invariant",
+        "group": "invariant",
+        "text": "memberCount and the JOIN output use allMemberInfo() (resolved + deduped), not the raw members map - so count and lists agree with the deduped identity set."
+      },
+      {
+        "id": "AC-repair",
+        "group": "one-time-repair",
+        "text": "A one-time GATED migration (dry-run + count first, never silently drop a real member) collapses the 3 Heartspaces Marcel entries to primary 8f74dfba and restores redirectTo on 37fcb752 + 2703628c."
+      }
+    ],
+    "riNote": "4 enforcement UCs + invariant + one-time repair. The repair is an operational GATED migration task (not a UC). ACs a/b/c/immutable/d map to UC-RD.1-4; invariant folds into UC-RD.4; repair = migration task."
+  },
+  "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"
+}

@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "c7d700c6-eaf6-4ba7-9d14-bfa8700a101d",
-    "name": "Sprint 25 — Apple DnD",
+    "name": "Sprint 25 \u2014 Apple DnD",
     "number": 25,
     "goal": "Support Apple drag-and-drop items (URL schemes: mailto/webcal/calshow/maps/geo/tel/x-apple-reminder, NOT files) as URL-scheme routing on the R23.2 YouTube model (detect scheme -> preview -> Open-in-New-Tab native app). Phase 1 R25.1 = comprehensive DnD logging to reveal which schemes Apple sends; R25.2+ per-scheme handlers deferred to measure-first.",
     "status": "Planned",
@@ -13,7 +13,8 @@
       "ior:instance:d0acb05d-982f-418b-a0d4-667d13435371",
       "ior:instance:225b18a6-684d-4bec-9a4d-42ed4f23fd09",
       "ior:instance:2066ba12-6bd8-42b1-9377-25c82fd944e0",
-      "ior:instance:24509e35-8627-402a-ba93-ed959fef3a5b"
+      "ior:instance:24509e35-8627-402a-ba93-ed959fef3a5b",
+      "ior:instance:585b6b9c-2fa7-48e2-8fab-a7e8a31e516e"
     ],
     "tasks": [
       "ior:instance:06544a45-382b-4747-9692-0ad444e905ac",

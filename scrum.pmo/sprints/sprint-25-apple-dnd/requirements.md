@@ -93,6 +93,25 @@
   → AC-link/all/consistent → [UC-SL.1: detail.scenarioLink](./planning.md#uc-sl1) `[uc:uuid:dc468781-714b-429d-8dff-2ee243a81e51]`
   → AC-target → [UC-SL.2: detail.scenarioLinkResolve](./planning.md#uc-sl2) `[uc:uuid:f81594b4]`
 
+- [ ] **R25.7 — Room membership dedup by resolved identity (structural, no duplicate members ever)**
+  [requirement:uuid:585b6b9c-2fa7-48e2-8fab-a7e8a31e516e]
+  > TRON: user appears as 3 members in Heartspaces — must NEVER happen again.
+  Duplicate room membership for one identity is made STRUCTURALLY IMPOSSIBLE via four enforcement points + an immutable, restart-durable `redirectTo`.
+  *(design: scrum.pmo/design-notes/room-identity-dedup-structural-fix.md, architect 662c0cc0f, measured vs Room.ts + server.ts HEAD)*
+  **Acceptance criteria:**
+  - [ ] **(a room-load)** At room load, each persisted member's token is mapped through `resolveToken` and grouped by primary — `room.members` holds AT MOST ONE entry per resolved identity (not just in one display path).
+  - [ ] **(b consolidate-evict)** CONSOLIDATE, after setting `redirectTo`, evicts the absorbed profile from ALL rooms — removing/re-keying members that resolve to the primary and broadcasting MEMBER_LEFT + corrected memberCount (live, not only on next load).
+  - [ ] **(c connect-redirect)** A tombstoned CONNECT (redirectTo set) resolves to the PRIMARY: sends TOKEN_REDIRECT and addMember UNDER the primary token — never a second member entry for the tombstone.
+  - [ ] **(c immutable)** `redirectTo` is IMMUTABLE and restart-durable — every profile save preserves it; IDENTIFY on a redirected token redirects and never re-mints/clears it (fixes the lost-tombstone bug).
+  - [ ] **(d idempotent)** `Room.addMember` dedups on RESOLVED token — if a member already resolves to the same primary, RE-KEY that entry instead of inserting a second.
+  - [ ] **(invariant)** memberCount and the JOIN output use `allMemberInfo()` (resolved + deduped), not the raw members map — so count and lists agree with the deduped identity set.
+  - [ ] **(repair)** A one-time GATED migration (dry-run + count first, never silently drop a real member) collapses the 3 Heartspaces Marcel entries to the primary 8f74dfba and restores redirectTo on 37fcb752 + 2703628c.
+  **Use cases (architect to refine — one per enforcement point, Class Room + identity handlers):**
+  → [UC-RD.1: room.dedupMembersOnLoad](./planning.md#uc-rd1) `[uc:uuid:e03132c7-ea09-4ec3-9b6a-e685e2b0f546]` (AC-a)
+  → [UC-RD.2: consolidate.evictAbsorbedFromRooms](./planning.md#uc-rd2) `[uc:uuid:9300a275-d78b-4758-950f-d2d70d21c8e4]` (AC-b)
+  → [UC-RD.3: connect.redirectTombstoneToPrimary](./planning.md#uc-rd3) `[uc:uuid:ede1de17-a252-4566-b5bd-f3a474d6217d]` (AC-c)
+  → [UC-RD.4: room.addMemberIdempotent](./planning.md#uc-rd4) `[uc:uuid:85f40027-3b56-4a6e-94a2-c4b561f985e2]` (AC-d/invariant)
+
 ### Deferred (Phase 3 — per-scheme preview refinements)
 - **R25.3+** per-scheme MEANINGFUL preview bodies (email preview, calendar-event preview, map preview, contact card) on top of the WebItem launcher card. Created as Tron exercises each scheme.
 
@@ -108,5 +127,6 @@
 | R25.4 | Drawer grab-bar mouse parity + X-minimize | 225b18a6-684d-4bec-9a4d-42ed4f23fd09 | c6df9164 (grabBarMouseParity) + 2438307a (minimizeToggle) |
 | R25.5 | Drop-area clipboard preview + import | 2066ba12-6bd8-42b1-9377-25c82fd944e0 | 10af6d46-b5b7-46d8-8fe8-3289d8f09d72 |
 | R25.6 | Scenario link on ALL detail views | 24509e35-8627-402a-ba93-ed959fef3a5b | dc468781-714b-429d-8dff-2ee243a81e51 |
+| R25.7 | Room membership dedup by resolved identity (structural) | 585b6b9c-2fa7-48e2-8fab-a7e8a31e516e | e03132c7 + 9300a275 + ede1de17 + 85f40027 (4 UCs) |
 
 *Captured by robbin-req 2026-06-29. Tron verbatim authoritative; PO URL-scheme clarification framed in. R25.2+ deferred to measure-first.*
