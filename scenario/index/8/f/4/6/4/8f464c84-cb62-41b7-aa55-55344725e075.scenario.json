@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8f464c84-cb62-41b7-aa55-55344725e075",
+    "name": "test:R21.2 renderNameOnConnect gate",
+    "description": "Bridged to test/visual/r212-lobby-livename-gate.mjs — verifies renderNameOnConnect",
+    "sourceFile": "ior:file:test/visual/r212-lobby-livename-gate.mjs",
+    "implementations": [
+      "ior:instance:7dbff12b-98c4-42b4-9bf8-ba4fc34f6528"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7dbff12b-98c4-42b4-9bf8-ba4fc34f6528"
+}

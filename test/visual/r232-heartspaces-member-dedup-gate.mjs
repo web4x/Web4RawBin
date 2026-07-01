@@ -1,3 +1,4 @@
+// [test:uuid:a579f0f4-8035-437c-a787-6ae84174a9c3] R23.3 resolveToken
 // v0.6.84 gate — Heartspaces member list shows ONE Marcel Donges (was 2 consolidated
 // tombstones) + the Marcel badge carries the PRIMARY token (Link Account can't target a
 // tombstone). Fix a30315bcc: Room.allMemberInfo() dedups members by resolveToken(redirectTo).

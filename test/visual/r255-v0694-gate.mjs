@@ -1,3 +1,5 @@
+// [test:uuid:222969ea-e5fb-4dbd-8d40-06051e314d77] R25.4 onGrabBarPointer
+// [test:uuid:d82ebcf5-58ef-4227-b32a-7f4c3cfb5f80] R25.3 recognizeIdentity
 // v0.6.94 gate — 4 items. SystemTester ONLY. Reuse dnd room + EXISTING WebItem (no drop).
 //   (1) R25.2 BUG1: rb-webitem-detail renders the launcher card (badge + ↗ Open), not empty.
 //   (2) R25.4 BUG2: MOUSE drag on grab-bar (.drawer-handle) resizes the drawer.

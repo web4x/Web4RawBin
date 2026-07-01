@@ -5,7 +5,9 @@
     "name": "Onboarding.recognizeIdentity impl",
     "description": "Implementation in src/public/ts/ProfileEditor.ts (vCard onboarding identity recognition via R21.4 resolveKeyToProfile).",
     "sourceFile": "ior:file:src/public/ts/ProfileEditor.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:d82ebcf5-58ef-4227-b32a-7f4c3cfb5f80"
+    ]
   },
   "ownerIor": "ior:instance:152fed3e-af30-4ae3-89d6-f131778fadd3"
 }

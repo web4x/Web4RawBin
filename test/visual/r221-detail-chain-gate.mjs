@@ -1,3 +1,4 @@
+// [test:uuid:a392d306-4b01-40ff-bfc8-db74d8e1e720] R22.1 renderChainPathSection
 // R22.1 gate — detail views: ONE 'Traceability Chain' section (no duplicate 'No chain') +
 // Forward Links are clickable <a href> (orange) to the scenario MD browser. v0.6.75.
 // Fix 61b21fbf6: deleted the inline <h4>Traceability Chain>+singularChain('No chain') block

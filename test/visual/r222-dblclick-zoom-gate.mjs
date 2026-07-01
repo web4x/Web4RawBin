@@ -1,3 +1,4 @@
+// [test:uuid:4d3c2969-107b-4cde-8cca-3287b8781093] R22.2 attachMouse
 // R22.2 gate — desktop double-CLICK toggles pan/zoom like double-TAP: dblclick zooms 2x
 // at the point, dblclick again resets to 1x. Mirrors pan-zoom.ts doubleTapToggle (AC-d3)
 // onto the mouse `dblclick` event. Target: v0.6.76.

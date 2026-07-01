@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d82ebcf5-58ef-4227-b32a-7f4c3cfb5f80",
+    "name": "test:R25.3 recognizeIdentity gate",
+    "description": "Bridged to test/visual/r255-v0694-gate.mjs — verifies recognizeIdentity",
+    "sourceFile": "ior:file:test/visual/r255-v0694-gate.mjs",
+    "implementations": [
+      "ior:instance:b3c5a6f5-62c5-422f-8a81-bd750657b791"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b3c5a6f5-62c5-422f-8a81-bd750657b791"
+}

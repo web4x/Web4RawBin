@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "06d3bba5-04ed-4b82-bda2-47dbf4b20ce1",
+    "name": "test:R23.1 fillPreviewPane gate",
+    "description": "Bridged to test/visual/r225-audio-youtube-gate.mjs — verifies fillPreviewPane",
+    "sourceFile": "ior:file:test/visual/r225-audio-youtube-gate.mjs",
+    "implementations": [
+      "ior:instance:deed6186-139c-4fa9-bd25-eb8c29f83f75"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:deed6186-139c-4fa9-bd25-eb8c29f83f75"
+}

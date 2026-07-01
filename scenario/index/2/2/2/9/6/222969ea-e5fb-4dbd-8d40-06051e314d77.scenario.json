@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "222969ea-e5fb-4dbd-8d40-06051e314d77",
+    "name": "test:R25.4 onGrabBarPointer gate",
+    "description": "Bridged to test/visual/r255-v0694-gate.mjs — verifies onGrabBarPointer",
+    "sourceFile": "ior:file:test/visual/r255-v0694-gate.mjs",
+    "implementations": [
+      "ior:instance:9d095150-0c3b-42bc-9763-1d79a46383f7"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:9d095150-0c3b-42bc-9763-1d79a46383f7"
+}

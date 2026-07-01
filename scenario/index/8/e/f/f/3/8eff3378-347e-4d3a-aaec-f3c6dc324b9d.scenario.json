@@ -5,7 +5,9 @@
     "name": "FileBrowser.renderImageLink impl",
     "description": "Shipped implementation in src/ts/server/server.ts (verified present in PDCA review). [R22.4]",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:055b26f5-8f4b-41ba-a114-7f254f643531"
+    ]
   },
   "ownerIor": "ior:instance:af4e16c1-c580-4562-9d4d-109c610694f3"
 }

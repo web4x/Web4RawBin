@@ -1,3 +1,4 @@
+// [test:uuid:055b26f5-8f4b-41ba-a114-7f254f643531] R22.4 renderImageLink
 // R22.4 gate — PNGs in /md/ file browser are clickable (🖼 <a href>) and open like SVGs.
 // Fix 9c052bd9a (listing clickable, server.ts:1222) + 4e3c3df0d (raster-image serve handler,
 // server.ts:1366). /md/test/visual/ has 124 PNGs. DET-3x (deterministic curl).

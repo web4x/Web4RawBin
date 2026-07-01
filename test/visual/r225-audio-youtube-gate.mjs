@@ -1,3 +1,5 @@
+// [test:uuid:036a3f4d-b3cc-4083-bbc8-75b21d8bc72a] R23.2 embedYouTube
+// [test:uuid:06d3bba5-04ed-4b82-bda2-47dbf4b20ce1] R23.1 fillPreviewPane
 // R22.5 gate — fillPreviewPane (shared room+trace) audio + YouTube preview. v0.6.80.
 // Impl ca54081e / commit 3a02318ce. Mounts the real rb-file-detail (self-fetches /api/ior +
 // fillPreviewPane), the same shared previewer the room file view uses.

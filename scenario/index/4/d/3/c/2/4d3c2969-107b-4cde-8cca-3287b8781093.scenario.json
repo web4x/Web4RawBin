@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "4d3c2969-107b-4cde-8cca-3287b8781093",
+    "name": "test:R22.2 attachMouse gate",
+    "description": "Bridged to test/visual/r222-dblclick-zoom-gate.mjs — verifies attachMouse",
+    "sourceFile": "ior:file:test/visual/r222-dblclick-zoom-gate.mjs",
+    "implementations": [
+      "ior:instance:0564d93b-b492-4314-9dad-a53f7ea131af"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:0564d93b-b492-4314-9dad-a53f7ea131af"
+}

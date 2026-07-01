@@ -1,3 +1,4 @@
+// [test:uuid:8f464c84-cb62-41b7-aa55-55344725e075] R21.2 renderNameOnConnect
 // R21.2 gate — lobby #member-name LIVE-updates after vCard import, NO reload.
 // Fix: fb369d340 (v0.6.63). RoomBrowser subscribes to PROFILE_UPDATED and patches
 // the existing #member-name input in place (was stale 'User NNN' until reload).

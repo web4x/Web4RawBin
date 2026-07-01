@@ -6,7 +6,9 @@
     "description": "TO ADD in src/public/ts/trace/rb-detail-drawer.ts (bug-fix, not yet shipped): Grab-bar mousedown/mousemove/mouseup mirror the touch resize/dismiss logic (lines 38-40 currently touch-only) — full mouse parity (R22.2 sibling).",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "designAhead": true,
-    "tests": []
+    "tests": [
+      "ior:instance:222969ea-e5fb-4dbd-8d40-06051e314d77"
+    ]
   },
   "ownerIor": "ior:instance:2aded7b5-5776-468b-b4b5-74d644066d93"
 }

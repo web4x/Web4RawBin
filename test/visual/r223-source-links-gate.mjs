@@ -1,3 +1,4 @@
+// [test:uuid:91d0edca-9de6-4172-9d1c-8e268bb2dcb1] R22.3 renderChainNodeSourceLink
 // R22.3 gate — Traceability Chain shows a clickable 📂 source link per hop.
 // Fix 5a3e794d6: /api/trace/children returns sourceFile+sourceLine per child;
 // renderChainPathSection renders renderSourceLink (blue #42a5f5 <a href=/md/...> 📂 path:line)
