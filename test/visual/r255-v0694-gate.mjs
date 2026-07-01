@@ -1,3 +1,4 @@
+// [test:uuid:ee18399f-f40f-4b01-ad8f-b0672b6e883b] R25.4 minimize — ✕ to peek bar + grab-bar expand
 // [test:uuid:222969ea-e5fb-4dbd-8d40-06051e314d77] R25.4 onGrabBarPointer
 // [test:uuid:d82ebcf5-58ef-4227-b32a-7f4c3cfb5f80] R25.3 recognizeIdentity
 // v0.6.94 gate — 4 items. SystemTester ONLY. Reuse dnd room + EXISTING WebItem (no drop).
