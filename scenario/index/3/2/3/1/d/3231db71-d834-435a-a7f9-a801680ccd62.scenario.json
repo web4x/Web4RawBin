@@ -10,24 +10,31 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1782901962775,
+    "createdAt": 1782902875089,
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA74xNrG7jd1wLeUJfMqjK\naA7jpI9xeGbcgt/TXlNUMKwvjAs57KmxZwwFpCtxbjLe7NwQyn/r2nxgf1YJqLKB\nkeTZkbxT9/ekt/d8QsoP3horBqVlSzlO5bBVjaUNNGd0yHaqhC9e+vXszmAVpdtu\nugkQZ4EkUTtFbx0dbWxOB4ftcrPssYqpk3Ya9z2BTkKJIfwLKzcUSSO1Q+ncdNaL\nSr3sFAQ0kXRrTAWADJrXk5FKWtZIWtdd4hZRKkGvJLo6CQOGYPm/O7Oz8gLCUVq9\nyZamknoXoB731dOy6ao6rJ9pWWysq4rP6Wi3WvuhP5Ydumkcq9xBsMQyKP9aXq7F\n7wIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [],
     "members": [
       {
-        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
-        "name": "Marcel Donges",
-        "role": "owner",
-        "status": "offline",
-        "joinedAt": 1782902105370
-      },
-      {
         "ior": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
         "name": "SystemTester",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1782902105370
+        "joinedAt": 1782902875089
+      },
+      {
+        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+        "name": "Marcel Donges",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1782902875089
+      },
+      {
+        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+        "name": "",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1782902875089
       }
     ],
     "files": [
@@ -39,7 +46,8 @@
       "ior:instance:ac90d742-dcd6-4475-8d13-f1607b185d0e",
       "ior:instance:90322673-f687-46b5-85d0-9ffca09f671c",
       "ior:instance:5316df18-5d24-4325-b467-a759ae69ca9f",
-      "ior:instance:5e380e73-41d0-40ad-bdb9-d258e7c846cd"
+      "ior:instance:5e380e73-41d0-40ad-bdb9-d258e7c846cd",
+      "ior:instance:f54293d2-8034-483a-9884-8ad5abc91d88"
     ],
     "lastMessageIor": null,
     "firstMessageIor": null,

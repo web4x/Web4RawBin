@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3b96a897-6d44-41ff-b20c-d5fadaedfb3c",
+    "name": "test:R25.7 redirectTombstoneToPrimary gate",
+    "description": "Bridged to test/visual/r258-v070-gate.mjs — tombstone token redirects to primary, Heartspaces 1 Marcel (DET-3x GREEN)",
+    "sourceFile": "ior:file:test/visual/r258-v070-gate.mjs",
+    "implementations": [
+      "ior:instance:6b459f04-e326-4f8a-b375-ddb33f2d4ffb"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:6b459f04-e326-4f8a-b375-ddb33f2d4ffb"
+}
