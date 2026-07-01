@@ -36,7 +36,7 @@
       {
         "id": "AC-no-orphan",
         "group": "invariant",
-        "text": "Every Method unit is owned by a Class that lists it in methods[] - 0 orphan Methods."
+        "text": "Every Method unit is owned by a Class that lists it in methods[] - 0 UNINTENTIONAL orphan Methods. A Method carrying an explicit orphanByDesign marker whose impl has NO sourceFile is legitimately exempt (design-stage); that exempt set is currently EMPTY (all 51 have real source)."
       },
       {
         "id": "AC-repair-dangling",
@@ -46,12 +46,12 @@
       {
         "id": "AC-repair-orphan",
         "group": "cleanup",
-        "text": "The 51 orphan Methods triaged: attached to their owning Class OR pruned if truly dead - dry-run + count FIRST, never silently drop a real Method."
+        "text": "All 51 orphan Methods attach to their name-derived Class (resolver: live ownerIor Class -> UC.class of a using UC -> R27.2-canonical). All 51 carry impls with REAL sourceFiles, so 0 prune (deletes nothing). The 37 STALE orphanByDesign markers (marker asserts no-source but the impl HAS a sourceFile) are CLEARED as part of the repair. Dry-run+count FIRST; distinct Impl 431==431 (nothing deleted)."
       },
       {
         "id": "AC-by-construction",
         "group": "ci-gate",
-        "text": "trace:audit:strict (R24.5) FAILS on any dangling UC ref or orphan Method - recurrence prevented at the CI gate."
+        "text": "trace:audit:strict (R24.5) FAILS on: (a) any dangling UC ref; (b) any UNINTENTIONAL orphan Method; (c) a LYING orphanByDesign marker - asserts no-source but a real sourceFile EXISTS (self-honest marker, prevents future stale exemptions by construction, same spirit as R27.2 reuse-on-wire). Attach-on-wire AUTO-CLEARS orphanByDesign when source appears. Exemption is MARKER-KEYED: only an explicit orphanByDesign marker whose impl has NO sourceFile is exempt."
       },
       {
         "id": "AC-verify",
@@ -68,6 +68,15 @@
       },
       "orphanMethods": 51,
       "note": "0 of 12 intersect the R27.2 dup-collapse set; PO decision RbDetailView canonical = f2f84ce3-6f8f; measured full-uuid vs current disk (raw JSON + os.path.exists)."
+    },
+    "orphanScope": {
+      "total": 51,
+      "attachAll": 51,
+      "realSource": 51,
+      "staleMarkersTo\u0421lear": 37,
+      "genuineDesignAheadExempt": 0,
+      "dangling": 12,
+      "note": "PO-LOCKED 2026-07-01. All 51 orphan Methods have impls with real sourceFiles -> attach all + clear 37 stale orphanByDesign markers. Exempt set empty now; CI marker-keyed for future genuine design-stage (impl with no sourceFile). trace:audit:strict also flags lying-marker + attach-on-wire auto-clears."
     }
   },
   "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
