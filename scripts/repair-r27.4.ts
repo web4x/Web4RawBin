@@ -132,6 +132,12 @@ for (const u of idx.list()) { const x = idx.get(u); if (!x) continue; const m = 
   }
   if (ch) idx.put(u, x);
 }
+// TODO-server-class placeholder → the server Class the create-path just made (same family as server.addBugForwardKeys).
+const serverClass = liveClassByName('server');
+if (serverClass) for (const u of idx.list()) { const x = idx.get(u); if (!x || x.ior !== 'ior:class:UseCase') continue; const m = x.model as any; let ch = false;
+  if (typeof m.class === 'string' && /todo-server-class/i.test(bare(m.class))) { m.class = ii(serverClass); ch = true; }
+  if (Array.isArray(m.classes)) { const nc = m.classes.map((c: string) => /todo-server-class/i.test(bare(c)) ? ii(serverClass) : c); if (JSON.stringify(nc) !== JSON.stringify(m.classes)) { m.classes = nc; ch = true; } }
+  if (ch) idx.put(u, x); }
 // clear ALL 53 lying markers by criteria (any of the 3 fields + Impl-has-sourceFile), orphan AND attached
 for (const m of staleMarkers()) { const x = idx.get(String((m.model as any).uuid))!; for (const f of LYING_FIELDS) delete (x.model as any)[f]; delete (x.model as any).designStageNote; idx.put(String((m.model as any).uuid), x); }
 // fcf6dae1 dead-Method refs + TODO: clear the offending UC.method / class refs
