@@ -265,7 +265,7 @@ export class RoomView {
 
   // R26.1 (v0.6.97): tap the drop zone → clipboard import. READ FIRST, PREVIEW what it contains in the
   // confirm dialog, THEN route through the same path as DnD with human-readable NAMES (never raw URL/timestamp).
-  // [impl:uuid:bd080edb-3738-4a6c-ae84-51e59fff8560] R26.1 RoomView.importFromClipboard
+  // [impl:uuid:7d92ce31-5518-4398-a2b1-a000344e2ef8] R25.5 RoomView.importFromClipboard (ClipboardImport.previewAndImport)
   private async importFromClipboard(): Promise<void> {
     const log = (t: string) => this.chatSheet?.addMessage('system', 'System', t);
     const files: File[] = [];
