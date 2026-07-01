@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "33ccac7f-834b-429e-a93f-e7641ce933ea",
+    "name": "duplicateClass assertion impl",
+    "description": "SHIPPED 3e9a3556d (scripts/trace-audit.ts trace:audit:strict duplicate-Class fail). Expert attaches [impl:uuid:33ccac7f-834b-429e-a93f-e7641ce933ea].",
+    "sourceFile": "ior:file:scripts/trace-audit.ts",
+    "designAhead": false,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3fafc3da-f8ff-4ea7-a9c6-56d76270a798"
+}

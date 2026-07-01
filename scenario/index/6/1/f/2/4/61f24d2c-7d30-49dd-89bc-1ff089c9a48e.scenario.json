@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "61f24d2c-7d30-49dd-89bc-1ff089c9a48e",
+    "name": "mintOrReuseClass impl",
+    "description": "SHIPPED df0f16a32 (scripts/migrate-to-scenario.ts reuse-on-wire mint-path). Expert attaches [impl:uuid:61f24d2c-7d30-49dd-89bc-1ff089c9a48e].",
+    "sourceFile": "ior:file:scripts/migrate-to-scenario.ts",
+    "designAhead": false,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:ee1aa197-b7c8-4235-a8ba-98819dbfe493"
+}
