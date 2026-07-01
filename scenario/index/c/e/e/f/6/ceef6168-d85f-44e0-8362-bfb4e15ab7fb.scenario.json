@@ -3,12 +3,12 @@
   "model": {
     "uuid": "ceef6168-d85f-44e0-8362-bfb4e15ab7fb",
     "name": "Universal scenario link on every detail view",
-    "altId": "R26.2",
+    "altId": "R25.6",
     "tasks": [
       "ior:instance:c182d22f-3fa9-4257-827a-c1deff6e40d6"
     ],
     "tests": [],
-    "parent": "ior:instance:9e9e52b6-6846-4b02-b20d-71dd73295917",
+    "parent": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-26-clipboard-traceability/requirements.md",
     "sourceLine": 40,
     "useCases": [],

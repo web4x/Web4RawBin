@@ -4,6 +4,7 @@
  * (window.open(url) → Mail.app for message:, Maps for maps:, etc) + a forward-ref to the source file.
  */
 import { refUuid } from '../../../ts/shared/TraceModel.js';
+import { scenarioBrowserLinkFromIor } from './detail-children.js'; // R26.2: universal 📄 Scenario link
 
 function esc(s: string): string {
   return String(s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] as string));
@@ -29,7 +30,7 @@ export class RbWebItemDetail extends HTMLElement {
         + `<h3 style="color:white;margin:12px 0;font-size:0.95rem">${esc(String(m.name || url))}</h3>`
         + `<div style="word-break:break-all;color:#a1887f;font-size:0.75rem;margin-bottom:20px">${esc(url)}</div>`
         + (url ? `<a href="${esc(url)}" target="_blank" rel="noopener" style="display:inline-block;padding:12px 28px;background:#ff9800;color:#000;border-radius:8px;text-decoration:none;font-weight:600">↗ Open</a>` : '')
-        + `${src}</div>`;
+        + `${src}${scenarioBrowserLinkFromIor(uuid)}</div>`; // R26.2: link to the scenario unit on disk`
     }).catch(() => { this.innerHTML = '<div class="dv-empty">Failed to load WebItem</div>'; });
   }
 }

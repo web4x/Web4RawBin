@@ -263,10 +263,10 @@ export class RoomView {
     this.renderMemberList();
   }
 
-  // v0.6.96: tap the drop zone → import from clipboard. Reads rich content (images) + text/URLs and
-  // routes through the SAME path as DnD: images → File upload; URL/scheme → dispatchUrl → WebItem; text → .txt File.
+  // R26.1 (v0.6.97): tap the drop zone → clipboard import. READ FIRST, PREVIEW what it contains in the
+  // confirm dialog, THEN route through the same path as DnD with human-readable NAMES (never raw URL/timestamp).
+  // [impl:uuid:bd080edb-3738-4a6c-ae84-51e59fff8560] R26.1 RoomView.importFromClipboard
   private async importFromClipboard(): Promise<void> {
-    if (!confirm('Upload from clipboard?')) return;
     const log = (t: string) => this.chatSheet?.addMessage('system', 'System', t);
     const files: File[] = [];
     let text = '';
@@ -276,28 +276,58 @@ export class RoomView {
         for (const type of item.types as string[]) {
           if (type.startsWith('image/')) {
             const blob = await item.getType(type);
-            files.push(new File([blob], `clipboard-${Date.now()}.${type.split('/')[1] || 'png'}`, { type }));
+            files.push(new File([blob], `Pasted image.${type.split('/')[1] || 'png'}`, { type })); // R26.1: real name, not clipboard-<ts>
           } else if ((type === 'text/plain' || type === 'text/uri-list') && !text) {
             text = (await (await item.getType(type)).text()).trim();
           }
         }
       }
     } catch { /* clipboard.read unsupported/denied → text fallback */ }
-    if (!text) { try { text = (await navigator.clipboard.readText()).trim(); } catch {} }
+    if (!text && !files.length) { try { text = (await navigator.clipboard.readText()).trim(); } catch {} }
+    if (!text && !files.length) { log('[clipboard] nothing to import'); return; }
 
-    if (files.length > 0) {
-      this.container.dispatchEvent(new CustomEvent('rb-room-files-dropped', { detail: { files }, bubbles: true }));
-    }
+    // R26.1: show WHAT will be imported BEFORE asking.
+    if (!confirm(`Upload from clipboard?\n\n${this.clipboardPreview(files, text)}`)) return;
+
+    if (files.length > 0) this.container.dispatchEvent(new CustomEvent('rb-room-files-dropped', { detail: { files }, bubbles: true }));
     if (text) {
       const url = text.split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || '';
       if (/^[a-z][a-z0-9+.\-]*:/i.test(url)) {
-        dropDispatcher.dispatchUrl(url, this.roomId, this.client.playerToken, log); // URL/scheme → WebItem (with badge)
+        dropDispatcher.dispatchUrl(url, this.roomId, this.client.playerToken, log, this.deriveClipUrlName(url)); // R26.1: meaningful name, not the raw URL
       } else {
-        const tf = new File([text], `clipboard-${Date.now()}.txt`, { type: 'text/plain' });
+        const first = (text.split('\n')[0].trim().replace(/[\/\\:*?"<>|]/g, ' ').slice(0, 60)) || 'Clipboard text';
+        const tf = new File([text], `${first}.txt`, { type: 'text/plain' }); // R26.1: first line as name, not clipboard-<ts>
         this.container.dispatchEvent(new CustomEvent('rb-room-files-dropped', { detail: { files: [tf] }, bubbles: true }));
       }
     }
-    if (!files.length && !text) log('[clipboard] nothing to import');
+  }
+
+  // R26.1: typed one-line summary of the clipboard content for the confirm dialog.
+  private clipboardPreview(files: File[], text: string): string {
+    const parts: string[] = [];
+    for (const f of files) if (f.type.startsWith('image/')) parts.push(`🖼 Image (${f.type.split('/')[1]}, ${Math.round(f.size / 1024)} KB)`);
+    if (text) {
+      const url = text.split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || '';
+      if (/^(mailto|message):/i.test(url)) parts.push(`📧 Email: ${this.deriveClipUrlName(url)}`);
+      else if (/^[a-z][a-z0-9+.\-]*:/i.test(url)) parts.push(`🔗 URL: ${url.replace(/^https?:\/\//i, '').slice(0, 60)}`);
+      else parts.push(`📄 Text (${text.length} chars): ${text.split('\n')[0].trim().slice(0, 60)}`);
+    }
+    return parts.join('\n') || '(clipboard empty)';
+  }
+
+  // R26.1: human-readable name from a URL — brand + path hint (open.spotify.com/episode/… → "Spotify Episode").
+  private deriveClipUrlName(url: string): string {
+    try {
+      if (/^https?:/i.test(url)) {
+        const u = new URL(url);
+        const brand = u.hostname.replace(/^www\./, '').split('.')[0].replace(/^./, c => c.toUpperCase());
+        const seg = u.pathname.split('/').filter(Boolean)[0] || '';
+        return seg ? `${brand} ${seg.replace(/^./, c => c.toUpperCase())}` : brand;
+      }
+      const scheme = (url.match(/^([a-z][a-z0-9+.\-]*):/i) || [])[1] || '';
+      const rest = decodeURIComponent(url.slice(scheme.length + 1).replace(/^\/*/, ''));
+      return `${scheme}: ${rest.slice(0, 50)}`;
+    } catch { return url.slice(0, 50); }
   }
 
   // [impl:uuid:852101d1-ec42-478a-bc73-59ddff7feb49] R19.86 openFilePreview (split)

@@ -48,9 +48,18 @@ export function scenarioBrowserHref(uuid: string): string {
   const shard = `${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}`;
   return `/md/scenario/index/${shard}/?highlight=${encodeURIComponent(uuid + '.scenario.json')}`;
 }
+// R26.2: direct link to the scenario unit ON DISK (source of truth): /md/scenario/index/<shard>/<uuid>.scenario.json
+// [impl:uuid:1bd129e0-4d2b-4791-b11c-c5271dc3603c] R26.2 detail-children.scenarioFileHref
+export function scenarioFileHref(uuid: string): string {
+  if (!uuid) return '';
+  const hex = uuid.replace(/-/g, '');
+  if (hex.length < 5) return '';
+  return `/md/scenario/index/${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}/${uuid}.scenario.json`;
+}
+// R26.2: EVERY detail view renders this 📄 Scenario link — no view may lack it (source of truth).
 export function scenarioBrowserLinkFromIor(uuid: string): string {
   if (!uuid) return '';
-  return `<div class="dv-field"><a href="${scenarioBrowserHref(uuid)}" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Scenario</a></div>`;
+  return `<div class="dv-field"><a href="${scenarioFileHref(uuid)}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="Scenario unit on disk (source of truth)">📄 Scenario</a></div>`;
 }
 
 export function renderSourceLink(sourceFile?: string, sourceLine?: number): string {

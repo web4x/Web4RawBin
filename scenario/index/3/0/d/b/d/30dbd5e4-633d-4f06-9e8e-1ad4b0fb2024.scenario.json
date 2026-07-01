@@ -2,13 +2,13 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "30dbd5e4-633d-4f06-9e8e-1ad4b0fb2024",
-    "name": "Clipboard import UX — dialog preview + name harvesting",
-    "altId": "R26.1",
+    "name": "WebItem name+description harvesting + clipboard dialog preview",
+    "altId": "R25.5",
     "tasks": [
       "ior:instance:80c4787f-f3fe-4e90-892d-87daf8a7c906"
     ],
     "tests": [],
-    "parent": "ior:instance:9e9e52b6-6846-4b02-b20d-71dd73295917",
+    "parent": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-26-clipboard-traceability/requirements.md",
     "sourceLine": 1,
     "useCases": [],

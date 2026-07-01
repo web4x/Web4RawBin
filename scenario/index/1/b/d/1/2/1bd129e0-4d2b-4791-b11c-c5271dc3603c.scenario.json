@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "1bd129e0-4d2b-4791-b11c-c5271dc3603c",
+    "name": "detail-children.scenarioFileHref",
+    "sourceFile": "src/public/ts/trace/detail-children.ts",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c182d22f-3fa9-4257-827a-c1deff6e40d6"
+}

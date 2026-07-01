@@ -36,13 +36,31 @@ export function deriveFavicon(url: string): string {
 }
 
 /** display name: explicit fallback (filename minus ext) → host (http) → scheme-specific → the url. */
+// R25.5: harvest a human-readable NAME. NEVER "link" — a dragged URL is named "link.url" by the OS, so
+// a generic/junk fallback is ignored in favour of deriving from the URL. https with a path → "Brand Segment"
+// (open.spotify.com/episode/… → "Spotify Episode"); https without a path → the full hostname
+// (monumental-praline-249f71.netlify.app); at minimum the hostname/URL.
 export function deriveName(url: string, fallback?: string): string {
-  if (fallback && fallback.trim()) return fallback.trim().replace(/\.(url|webloc|desktop)$/i, '');
+  const fb = (fallback || '').trim().replace(/\.(url|webloc|desktop|txt)$/i, '');
+  if (fb && !/^(link|untitled|document|new tab|clipboard.*)$/i.test(fb)) return fb;
   const scheme = deriveScheme(url);
   if (scheme === 'mailto') return url.replace(/^mailto:/i, '').split('?')[0] || 'Email';
   if (scheme === 'tel' || scheme === 'sms') return url.replace(/^(tel|sms):/i, '') || 'Contact';
-  if (/^https?:/i.test(url)) { const h = url.replace(/^https?:\/\//i, '').split(/[/?#]/)[0]; return h || url; }
-  return url || 'Link';
+  if (scheme === 'message') return 'Email message';
+  if (/^https?:/i.test(url)) {
+    try {
+      const u = new URL(url);
+      const host = u.hostname.replace(/^www\./, '');
+      const seg = u.pathname.split('/').filter(Boolean)[0] || '';
+      if (seg && seg.length <= 20) {
+        const parts = host.split('.');
+        const brand = (parts.length >= 2 ? parts[parts.length - 2] : parts[0]).replace(/^./, c => c.toUpperCase());
+        return `${brand} ${seg.replace(/^./, c => c.toUpperCase())}`;
+      }
+      return host || url;
+    } catch { const h = url.replace(/^https?:\/\//i, '').split(/[/?#]/)[0]; return h || url; }
+  }
+  return url || scheme || 'Link';
 }
 
 /** Windows .url (INI [InternetShortcut]) → URL= value. */
@@ -93,7 +111,7 @@ export function createWebItemUnit(idx: ScenarioIndex, input: WebItemInput): Scen
       uuid: input.uuid,
       kind: 'link',
       name: deriveName(url, input.name),
-      description: '',
+      description: url, // R25.5: description = full URL (distinct from the short harvested name)
       url,
       scheme,
       icon: deriveFavicon(url),
