@@ -18,13 +18,13 @@
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-01T12:33:29.183Z"
+        "updatedAt": "2026-07-01T12:33:49.226Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "e36f7645-2e76-4e6f-a7ec-90c9f03fdfcc",
-    "lastCompletedName": "Task 26.3: Server-to-server scenario fetch API (on the origin)",
-    "lastCompletedReqUuid": "05d21385-766a-426d-9045-77255d5234a0",
+    "lastCompletedUuid": "9e94c188-89f4-4fb9-b631-f306a1213ec0",
+    "lastCompletedName": "Task 26.4: Lazy child resolve — structure eager, payload lazy, members by-reference",
+    "lastCompletedReqUuid": "71b44e05-555f-4db2-a485-f375cd7ad70b",
     "slots": {
       "current": {
         "taskUuid": "9e94c188-89f4-4fb9-b631-f306a1213ec0",
