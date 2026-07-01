@@ -22,8 +22,7 @@
     "sprintName": "Sprint 26",
     "createdBy": "robbin-planner",
     "createdAt": "2026-07-01",
-    "implementation": " impl v0.7.5 (a789a5d40, Transfer.reconcileConflict); NO committed tester GREEN yet — testing hop OPEN. Per-AC gate incl the security ACs (never blindly trust/execute foreign JSON). GREEN → QA Review: tester GREEN DET-3x (af907f925). same-origin re-drag → idempotent (noop, NOT remapped); diff-origin collision → re-mint fresh uuid + originHost/originIor provenance (remapped); contentHash dedup. 5/5 ACs.",
-    "focus": true
+    "implementation": " impl v0.7.5 (a789a5d40, Transfer.reconcileConflict); NO committed tester GREEN yet — testing hop OPEN. Per-AC gate incl the security ACs (never blindly trust/execute foreign JSON). GREEN → QA Review: tester GREEN DET-3x (af907f925). same-origin re-drag → idempotent (noop, NOT remapped); diff-origin collision → re-mint fresh uuid + originHost/originIor provenance (remapped); contentHash dedup. 5/5 ACs."
   },
   "ownerIor": null
 }

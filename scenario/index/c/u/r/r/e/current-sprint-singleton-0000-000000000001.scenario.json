@@ -2,39 +2,39 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 26.5: Conflict reconcile — uuid already exists locally",
+    "name": "Current: Task 26.6: Federation import wiring (end-to-end receive orchestration)",
     "chain": {
-      "req": "f7e4c1cc-c2a5-423c-bbaa-d010a2d1fa79",
-      "uc": "1f097e01-7d45-4e8c-b403-5a5ff5f0bfe6",
-      "class": "c4290554-9b09-4a20-8308-f161bec0d039",
-      "method": "90aabe21-df2b-40c9-a16d-60b57beebd59",
-      "impl": "8d34ad57-e1ec-4d71-8348-4efa345a07f3",
-      "test": "5ad927a9-4229-47bc-bb8c-21e52d6a923c"
+      "req": "e289f96e-0afc-4568-9c26-16cd9b8272eb",
+      "uc": "32f30eee-b0c8-4fca-b4d1-9ee6a1c0cdb1",
+      "class": "6456d811-496f-4389-80b5-3c23f7fdde73",
+      "method": "c4506b11-deff-4ea5-8966-b54f04e7ce9c",
+      "impl": "3132c189-4027-49d5-ab1b-7da4a2e4bd87",
+      "test": "638f94d3-2c51-40ae-8f43-b606e34d0ec0"
     },
     "activeHop": 0,
     "sprintName": "Sprint 26",
-    "taskName": "Task 26.5: Conflict reconcile — uuid already exists locally",
+    "taskName": "Task 26.6: Federation import wiring (end-to-end receive orchestration)",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-01T13:07:44.573Z"
+        "updatedAt": "2026-07-01T15:21:50.627Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "9e94c188-89f4-4fb9-b631-f306a1213ec0",
-    "lastCompletedName": "Task 26.4: Lazy child resolve — structure eager, payload lazy, members by-reference",
-    "lastCompletedReqUuid": "71b44e05-555f-4db2-a485-f375cd7ad70b",
+    "lastCompletedUuid": "7dd49936-1075-45ff-9eff-bd4309289b38",
+    "lastCompletedName": "Task 26.5: Conflict reconcile — uuid already exists locally",
+    "lastCompletedReqUuid": "f7e4c1cc-c2a5-423c-bbaa-d010a2d1fa79",
     "slots": {
       "current": {
+        "taskUuid": "026af82c-3668-4d94-ae01-51e5276f851b",
+        "taskName": "Task 26.6: Federation import wiring (end-to-end receive orchestration)",
+        "reqUuid": "e289f96e-0afc-4568-9c26-16cd9b8272eb"
+      },
+      "lastCompleted": {
         "taskUuid": "7dd49936-1075-45ff-9eff-bd4309289b38",
         "taskName": "Task 26.5: Conflict reconcile — uuid already exists locally",
         "reqUuid": "f7e4c1cc-c2a5-423c-bbaa-d010a2d1fa79"
-      },
-      "lastCompleted": {
-        "taskUuid": "9e94c188-89f4-4fb9-b631-f306a1213ec0",
-        "taskName": "Task 26.4: Lazy child resolve — structure eager, payload lazy, members by-reference",
-        "reqUuid": "71b44e05-555f-4db2-a485-f375cd7ad70b"
       },
       "nextBacklog": null
     }
