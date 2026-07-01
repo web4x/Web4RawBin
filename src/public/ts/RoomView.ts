@@ -180,6 +180,8 @@ export class RoomView {
     });
     if (dz && !(dz as any).__wired) {
       (dz as any).__wired = true;
+      dz.addEventListener("click", () => this.importFromClipboard()); // v0.6.96: tap the drop zone → clipboard import (same routing as DnD)
+      dz.addEventListener("keydown", (e) => { if ((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') { e.preventDefault(); this.importFromClipboard(); } });
       dz.addEventListener("dragenter", (e) => { e.preventDefault(); dropDispatcher.onDropEnter(dz); });
       dz.addEventListener("dragover", (e) => { e.preventDefault(); });
       dz.addEventListener("dragleave", () => { dropDispatcher.onDropExit(dz); });
@@ -259,6 +261,43 @@ export class RoomView {
 
     await customElements.whenDefined('rb-object-item');
     this.renderMemberList();
+  }
+
+  // v0.6.96: tap the drop zone → import from clipboard. Reads rich content (images) + text/URLs and
+  // routes through the SAME path as DnD: images → File upload; URL/scheme → dispatchUrl → WebItem; text → .txt File.
+  private async importFromClipboard(): Promise<void> {
+    if (!confirm('Upload from clipboard?')) return;
+    const log = (t: string) => this.chatSheet?.addMessage('system', 'System', t);
+    const files: File[] = [];
+    let text = '';
+    try {
+      const items = await (navigator.clipboard as any).read();
+      for (const item of items) {
+        for (const type of item.types as string[]) {
+          if (type.startsWith('image/')) {
+            const blob = await item.getType(type);
+            files.push(new File([blob], `clipboard-${Date.now()}.${type.split('/')[1] || 'png'}`, { type }));
+          } else if ((type === 'text/plain' || type === 'text/uri-list') && !text) {
+            text = (await (await item.getType(type)).text()).trim();
+          }
+        }
+      }
+    } catch { /* clipboard.read unsupported/denied → text fallback */ }
+    if (!text) { try { text = (await navigator.clipboard.readText()).trim(); } catch {} }
+
+    if (files.length > 0) {
+      this.container.dispatchEvent(new CustomEvent('rb-room-files-dropped', { detail: { files }, bubbles: true }));
+    }
+    if (text) {
+      const url = text.split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || '';
+      if (/^[a-z][a-z0-9+.\-]*:/i.test(url)) {
+        dropDispatcher.dispatchUrl(url, this.roomId, this.client.playerToken, log); // URL/scheme → WebItem (with badge)
+      } else {
+        const tf = new File([text], `clipboard-${Date.now()}.txt`, { type: 'text/plain' });
+        this.container.dispatchEvent(new CustomEvent('rb-room-files-dropped', { detail: { files: [tf] }, bubbles: true }));
+      }
+    }
+    if (!files.length && !text) log('[clipboard] nothing to import');
   }
 
   // [impl:uuid:852101d1-ec42-478a-bc73-59ddff7feb49] R19.86 openFilePreview (split)
