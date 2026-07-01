@@ -2,23 +2,23 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 26.4: Lazy child resolve — structure eager, payload lazy, members by-reference",
+    "name": "Current: Task 26.5: Conflict reconcile — uuid already exists locally",
     "chain": {
-      "req": "71b44e05-555f-4db2-a485-f375cd7ad70b",
-      "uc": "67859edd-c0a6-4cb0-8834-4d11c50e7ec1",
+      "req": "f7e4c1cc-c2a5-423c-bbaa-d010a2d1fa79",
+      "uc": "1f097e01-7d45-4e8c-b403-5a5ff5f0bfe6",
       "class": "c4290554-9b09-4a20-8308-f161bec0d039",
-      "method": "4257570e-dc89-42e6-b3e4-c0130e6a29c2",
-      "impl": "3b17aad3-0587-48f6-8da6-3eaf54a9a84d",
-      "test": ""
+      "method": "90aabe21-df2b-40c9-a16d-60b57beebd59",
+      "impl": "8d34ad57-e1ec-4d71-8348-4efa345a07f3",
+      "test": "5ad927a9-4229-47bc-bb8c-21e52d6a923c"
     },
-    "activeHop": 5,
+    "activeHop": 0,
     "sprintName": "Sprint 26",
-    "taskName": "Task 26.4: Lazy child resolve — structure eager, payload lazy, members by-reference",
+    "taskName": "Task 26.5: Conflict reconcile — uuid already exists locally",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-01T12:33:49.226Z"
+        "updatedAt": "2026-07-01T13:07:44.573Z"
       }
     },
     "nextBacklogOverride": "",
@@ -27,20 +27,16 @@
     "lastCompletedReqUuid": "71b44e05-555f-4db2-a485-f375cd7ad70b",
     "slots": {
       "current": {
+        "taskUuid": "7dd49936-1075-45ff-9eff-bd4309289b38",
+        "taskName": "Task 26.5: Conflict reconcile — uuid already exists locally",
+        "reqUuid": "f7e4c1cc-c2a5-423c-bbaa-d010a2d1fa79"
+      },
+      "lastCompleted": {
         "taskUuid": "9e94c188-89f4-4fb9-b631-f306a1213ec0",
         "taskName": "Task 26.4: Lazy child resolve — structure eager, payload lazy, members by-reference",
         "reqUuid": "71b44e05-555f-4db2-a485-f375cd7ad70b"
       },
-      "lastCompleted": {
-        "taskUuid": "e36f7645-2e76-4e6f-a7ec-90c9f03fdfcc",
-        "taskName": "Task 26.3: Server-to-server scenario fetch API (on the origin)",
-        "reqUuid": "05d21385-766a-426d-9045-77255d5234a0"
-      },
-      "nextBacklog": {
-        "taskUuid": "7dd49936-1075-45ff-9eff-bd4309289b38",
-        "taskName": "Task 26.5: Conflict reconcile — uuid already exists locally",
-        "reqUuid": "f7e4c1cc-c2a5-423c-bbaa-d010a2d1fa79"
-      }
+      "nextBacklog": null
     }
   },
   "ownerIor": null
