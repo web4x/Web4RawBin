@@ -51,7 +51,7 @@
       {
         "id": "AC-by-construction",
         "group": "ci-gate",
-        "text": "trace:audit:strict (R24.5) FAILS on: (a) any dangling UC ref; (b) any UNINTENTIONAL orphan Method; (c) a LYING orphanByDesign marker - asserts no-source but a real sourceFile EXISTS (self-honest marker, prevents future stale exemptions by construction, same spirit as R27.2 reuse-on-wire). Attach-on-wire AUTO-CLEARS orphanByDesign when source appears. Exemption is MARKER-KEYED: only an explicit orphanByDesign marker whose impl has NO sourceFile is exempt."
+        "text": "trace:audit:strict (R24.5) FAILS on: (a) any dangling UC ref; (b) any UNINTENTIONAL orphan Method - METHOD-SCOPED = Method not in any Class.methods[] (+ orphan Impls), NOT the tools BROAD all-types unreachable-from-Requirement metric (=2207, benign: Tasks+TestCase/Device/Room/File that can NEVER be 0 - stays REPORTED-only, not hard-gated); (c) a LYING orphanByDesign marker (asserts no-source but a real sourceFile EXISTS). Attach-on-wire AUTO-CLEARS orphanByDesign when source appears. Exemption MARKER-KEYED (impl-with-no-sourceFile only)."
       },
       {
         "id": "AC-verify",
@@ -77,6 +77,12 @@
       "genuineDesignAheadExempt": 0,
       "dangling": 12,
       "note": "PO-LOCKED 2026-07-01. All 51 orphan Methods have impls with real sourceFiles -> attach all + clear 37 stale orphanByDesign markers. Exempt set empty now; CI marker-keyed for future genuine design-stage (impl with no sourceFile). trace:audit:strict also flags lying-marker + attach-on-wire auto-clears."
+    },
+    "orphanTypeReconcile": {
+      "r27_4_scope": "51 orphan-Methods (Method not in any Class.methods[]) - the real defect",
+      "trace_audit_2207": "BENIGN broad metric: units unreachable from Requirement roots via CANONICAL_FORWARD edges (Requirement->useCases NOT tasks), all-types, excludes TraceLink+Sprint. ~2207 = mostly Tasks + non-chain data (TestCase/Device/Room/File) that can never be 0. NOT debt, NOT R27.4 scope.",
+      "ci_gate": "METHOD-scoped orphan (+orphan-Impls), broad-metric reported-only",
+      "confirmedBy": "req read trace-audit.ts CANONICAL_FORWARD + expert + architect + PO, 2026-07-01"
     }
   },
   "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
