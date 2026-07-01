@@ -16,8 +16,13 @@ const bare = (s: string) => String(s).replace('ior:instance:', '').split('@')[0]
 const ii = (u: string) => 'ior:instance:' + u;
 const pfx = (p: string) => [...idx.list()].find(u => u.startsWith(p)) || p;
 
-// active-chain protected canonicals (design §Explicit protected)
-const PROTECTED: Record<string, string> = { IORResolver: pfx('b4eaa489'), Room: pfx('2172dc56'), RbDetailDrawer: pfx('d86af73d') };
+// active-chain protected canonicals (design §Explicit protected + R27.2 reconciliation).
+// EXPLICIT/deterministic, never incidental-via-most-methods (correct-by-construction).
+// RbDetailView → f2f84ce3 (PO disk-measured 8 methods/21 refs; carries the live R25.6/R27.x chain;
+//   the 2179d235 renderScenarioLink method MOVES in from 2eeda38d — no name-collision on canon, survives).
+const PROTECTED: Record<string, string> = {
+  IORResolver: pfx('b4eaa489'), Room: pfx('2172dc56'), RbDetailDrawer: pfx('d86af73d'), RbDetailView: pfx('f2f84ce3'),
+};
 
 const all = [...idx.list()].map(u => idx.get(u)!).filter(Boolean);
 const classes = all.filter(u => u.ior === 'ior:class:Class');
@@ -55,7 +60,7 @@ for (const [name, group] of [...byName.entries()].sort((a, b) => a[0].localeComp
     globalClassRemap.set(d, canonical);
     for (const mIor of ((idx.get(d)!.model as any).methods || [])) {
       const mu = bare(mIor); const nm = methodName(mIor);
-      if (canonNames.has(nm)) {           // same-name → collapse onto canon's (prefer has-Impl)
+      if (canonNames.has(nm)) {           // same-name → collapse to ONE (keep the has-Impl/active-chain version).
         const keep = methodHasImpl(ii(canonNames.get(nm)!)) ? canonNames.get(nm)! : (methodHasImpl(mIor) ? mu : canonNames.get(nm)!);
         methodRemap.set(mu, keep); globalMethodRemap.set(mu, keep);
         if (keep !== mu) droppedMethods.add(mu);
@@ -110,9 +115,22 @@ const { classRefs, methodRefs } = countUcRewrites();
 console.log('\nTOTALS: classes ' + classBefore + '→' + classAfter + ' (−' + tDups + ') | methodsMoved ' + tMoved + ' | nameCollisionsCollapsed ' + tColl + ' | ucClassRefsRewritten ' + classRefs + ' | ucMethodRefsRewritten ' + methodRefs);
 console.log('TARGET assert 163→108:', classBefore === 163 && classAfter === 108 ? '✓ PASS' : `✗ (got ${classBefore}→${classAfter})`);
 
+// INV1b impl-survival: every Impl carried by a group method must remain on a SURVIVING (non-dropped) method.
+const groupClassUuids = new Set(plans.flatMap(p => [p.canonical, ...p.dups]));
+const groupMethods: string[] = [];
+for (const cu of groupClassUuids) for (const mi of (((idx.get(cu)!.model as any).methods) || [])) groupMethods.push(bare(mi));
+const implsOf = (mu: string) => (((methods.get(mu)?.model as any)?.implementations) || []).map(bare);
+const allImpls = new Set(groupMethods.flatMap(implsOf));
+const survivingImpls = new Set(groupMethods.filter(mu => !droppedMethods.has(mu)).flatMap(implsOf));
+// a collapsed (dropped) method's impls UNION onto its keeper → they survive on the canonical method
+for (const dm of droppedMethods) { const tgt = globalMethodRemap.get(dm); if (tgt && !droppedMethods.has(tgt)) for (const i of implsOf(dm)) survivingImpls.add(i); }
+const lostImpls = [...allImpls].filter(i => !survivingImpls.has(i));
+
 // invariants (dry-run gate)
 const dBefore = danglingCount(false), dAfter = danglingCount(true);
 console.log('\nHARD INVARIANTS:');
+console.log('  NOTE collapse-impls: ' + allImpls.size + ' group-method impls total;', lostImpls.length === 0 ? 'all survive on the canonical' : lostImpls.length + ' sit on collapsed same-name methods → --apply MUST UNION them onto the keeper (architect confirm): ' + lostImpls.map(i => i.slice(0, 8)));
+console.log('  INV4 R25.6 2179d235 (renderScenarioLink) survives on canonical:', survivingImpls.has('2179d235-be01-4f0b-a1cb-bcfda316a5b4') ? '✓ (no collision — method moves in intact)' : '✗ ABORT');
 console.log('  INV2 DELTA-dangling: before=' + dBefore + ' after=' + dAfter + ' →', dAfter <= dBefore ? '✓ 0-NEW (' + (dBefore - dAfter) + ' bonus-fixed)' : '✗ ' + (dAfter - dBefore) + ' NEW dangling — ABORT');
 for (const [n, u] of Object.entries(PROTECTED)) console.log('  INV4 active-chain ' + n + ' canonical ' + u.slice(0, 8) + ' kept + present:', has(u) && plans.find(p => p.name === n)?.canonical === u ? '✓' : '(no dup group / not canonical)');
 console.log('\n' + (APPLY ? 'APPLY not run in this report (gate first).' : 'DRY-RUN only — no writes. Gate → req 0.4 before --apply.'));
