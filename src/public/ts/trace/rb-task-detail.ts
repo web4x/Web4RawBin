@@ -55,7 +55,18 @@ export class RbTaskDetail extends HTMLElement {
   }
 
   private loadDetailData(uuid: string): void {
-    fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
+    Promise.all([
+      fetchDetailData(uuid),
+      fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.ok ? r.json() : null).catch(() => null),
+    ]).then(([{ children, parent, sourceFile, sourceLine }, iorData]) => {
+      // v0.7.6: task MD-file link + visual statusChecklist, from the full scenario model.
+      const model = (iorData?.unit?.model || {}) as Record<string, any>;
+      const fields = this.querySelector('.dv-fields');
+      if (fields) {
+        const mdHref = taskMdHref(model, parent?.name || model.sprintName || '');
+        if (mdHref) fields.insertAdjacentHTML('beforeend', `<div class="dv-field"><a href="${mdHref}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="Open the task markdown file">📄 Task file</a></div>`);
+        if (model.statusChecklist) fields.insertAdjacentHTML('beforeend', renderStatusChecklist(String(model.statusChecklist)));
+      }
       if (sourceFile) { const sh = this.querySelector('.dv-head'); if (sh) sh.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine)); }
       if (parent) {
         const head = this.querySelector('.dv-head');
@@ -66,6 +77,28 @@ export class RbTaskDetail extends HTMLElement {
       renderSupersededSection(this, uuid);
     });
   }
+}
+
+// v0.7.6: sprint dir = slugified sprint name ("Sprint 26 — RawBin Federation" → "sprint-26-rawbin-federation").
+function slugifySprint(name: string): string {
+  return String(name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+// v0.7.6: link to the task's MD file — model.sourceFile if present, else derive from sprint slug + task slug.
+function taskMdHref(model: Record<string, any>, sprintName: string): string {
+  if (model.sourceFile) return `/md/${String(model.sourceFile).replace(/^ior:file:/, '')}`;
+  const slug = String(model.slug || ''); const dir = slugifySprint(sprintName);
+  return (slug && dir) ? `/md/scrum.pmo/sprints/${dir}/${slug}.md` : '';
+}
+// v0.7.6: render the markdown statusChecklist ("- [x] Planned\n- [ ] In Progress\n  - [x] refinement…")
+// as a hierarchical visual checklist (☑/☐ + indentation).
+function renderStatusChecklist(md: string): string {
+  const rows = md.split('\n').filter(l => /^\s*-\s*\[[ xX]\]/.test(l)).map(l => {
+    const indent = (l.match(/^\s*/)?.[0].length || 0);
+    const done = /\[[xX]\]/.test(l);
+    const label = l.replace(/^\s*-\s*\[[ xX]\]\s*/, '').trim();
+    return `<div style="padding-left:${indent * 12}px;color:${done ? '#8bc34a' : 'rgba(255,255,255,0.55)'}">${done ? '☑' : '☐'} ${esc(label)}</div>`;
+  });
+  return rows.length ? `<div class="dv-field" style="display:block"><label>Status</label><div style="margin-top:4px;font-size:0.82rem;line-height:1.7">${rows.join('')}</div></div>` : '';
 }
 
 const CHAIN_TYPES = new Set(['requirement', 'usecase', 'class', 'method', 'implementation', 'test', 'bug', 'changerequest']);
