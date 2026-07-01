@@ -350,6 +350,72 @@ function fetchPageTitle(url: string, depth = 0): Promise<string> {
   });
 }
 
+// ── T26.3: server-to-server federation fetch API (capability-grant auth) ──────────────────────────────
+// A capability grant = base64url({uuid,exp}).HMAC-SHA256(secret): short-lived, scoped to one uuid's subtree,
+// minted by the origin at drag-start, embedded in fetchUrl?grant=, held only by the drag recipient.
+const FED_GRANT_SECRET = crypto.randomBytes(32).toString('hex'); // per-process; grants are minutes-lived so restart-loss is fine
+const FED_TRUST_LIST: string[] = []; // standing federation: canonical origins whose keypair-signed requests are trusted (empty = capability-only)
+function mintFederationGrant(uuid: string, ttlMs = 5 * 60_000): string {
+  const payload = Buffer.from(JSON.stringify({ uuid, exp: Date.now() + ttlMs })).toString('base64url');
+  const sig = crypto.createHmac('sha256', FED_GRANT_SECRET).update(payload).digest('base64url');
+  return `${payload}.${sig}`;
+}
+function verifyFederationGrant(grant: string, uuid: string): boolean {
+  try {
+    const [payload, sig] = String(grant || '').split('.');
+    if (!payload || !sig) return false;
+    const expect = crypto.createHmac('sha256', FED_GRANT_SECRET).update(payload).digest('base64url');
+    const a = Buffer.from(sig), b = Buffer.from(expect);
+    if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return false;
+    const { uuid: u, exp } = JSON.parse(Buffer.from(payload, 'base64url').toString());
+    return u === uuid && typeof exp === 'number' && Date.now() < exp; // scope: this uuid + its /content + /children
+  } catch { return false; }
+}
+// Standing federation (AC auth-standing): a caller server signs with its per-server keypair; origin verifies
+// signature + explicit trust list. Stub: honour the trust list header until server keypairs are wired.
+function verifyTrustedServer(req: http.IncomingMessage): boolean {
+  const origin = String(req.headers['x-rawbin-origin'] || '');
+  return !!origin && FED_TRUST_LIST.includes(origin); // (signature verification lands with per-server keypairs)
+}
+// Rate-limit federated fetches per remote IP (abuse guard + audit).
+const fedRate = new Map<string, number[]>();
+function fedRateOk(ip: string, limit = 60, windowMs = 60_000): boolean {
+  const now = Date.now(); const hits = (fedRate.get(ip) || []).filter(t => now - t < windowMs);
+  hits.push(now); fedRate.set(ip, hits); return hits.length <= limit;
+}
+
+// [impl:uuid:3089d066-07bf-4e79-9b8b-ea4c2fcca50a] R26.3 FederationApi.fetchScenario — GET /api/scenario/<uuid>{,/content,/children}
+async function fetchScenario(uuid: string, sub: string, req: http.IncomingMessage, res: http.ServerResponse, urlParams: URLSearchParams): Promise<void> {
+  const ip = req.socket.remoteAddress || 'unknown';
+  if (!fedRateOk(ip)) { res.writeHead(429); res.end('federation: rate limited'); return; }
+  // auth: a valid capability grant for this uuid, OR a trusted signing server (standing federation)
+  if (!verifyFederationGrant(urlParams.get('grant') || '', uuid) && !verifyTrustedServer(req)) {
+    res.writeHead(403); res.end('federation: no valid grant/signature'); return;
+  }
+  addLog(`[federation] fetch ${uuid.slice(0, 8)}/${sub || 'unit'} ← ${ip}`); // audit every federated fetch
+  const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+  const unit = idx.get(uuid);
+  if (!unit) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'not found' })); return; }
+  const m = unit.model as any;
+  if (sub === 'content') {
+    // content-addressable: skip the byte transfer if the receiver already stores this hash
+    if (m.contentHash && urlParams.get('have') === m.contentHash) { res.writeHead(304); res.end(); return; }
+    const { readFileUnitContent } = await import('../scenario/file-unit.js');
+    const bytes = readFileUnitContent(idx, uuid);
+    if (!bytes) { res.writeHead(404); res.end('no content'); return; }
+    res.writeHead(200, { 'Content-Type': m.mimeType || 'application/octet-stream', 'Content-Length': String(bytes.byteLength), 'X-Content-Hash': m.contentHash || '' });
+    res.end(bytes); return;
+  }
+  if (sub === 'children') {
+    // forward children (mirrors /api/trace/children forward-only) — each stamped with this origin for lazy federated resolve
+    const originHost = `https://${String(req.headers.host || '').replace(/^https?:\/\//, '')}`;
+    const refs = Array.isArray(m.children) ? m.children : [];
+    const children = refs.map((r: string) => { const cu = String(r).replace('ior:instance:', ''); const c = idx.get(cu); return { ior: `ior:instance:${cu}@${originHost}`, uuid: cu, type: (c?.ior || '').replace('ior:class:', ''), name: String((c?.model as any)?.name || '') }; });
+    res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ uuid, children })); return;
+  }
+  res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ unit, contentHash: m.contentHash })); // the unit JSON
+}
+
 function maskName(name: string): string {
   if (!name) return 'an existing user';
   const parts = name.trim().split(/\s+/);
@@ -686,6 +752,16 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     }
 
     // [impl:uuid:e872cf5c-b500-49c0-9836-b3779f33dd78] R19.68 file-access auth
+    // T26.3: federation grant mint — an identified origin user gets a short-lived capability for a uuid (at drag-start).
+    if (req.method === 'GET' && filepath.match(/^\/api\/scenario\/[^/]+\/grant$/)) {
+      const guuid = filepath.split('/')[3];
+      if (!userProfiles.has(urlParams.get('token') || '')) { res.writeHead(403); res.end('federation: identify first'); return; }
+      res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ grant: mintFederationGrant(guuid) })); return;
+    }
+    // T26.3: federation fetch API — GET /api/scenario/<uuid>{,/content,/children} (server-to-server, grant/signature auth)
+    const fedMatch = filepath.match(/^\/api\/scenario\/([^/]+)(?:\/(content|children))?$/);
+    if (req.method === 'GET' && fedMatch) { await fetchScenario(fedMatch[1], fedMatch[2] || '', req, res, urlParams); return; }
+
     if (req.method === 'GET' && filepath.match(/^\/api\/room\/file\/[^/]+\/content$/)) {
       const fileUuid = filepath.split('/')[4];
       try {
