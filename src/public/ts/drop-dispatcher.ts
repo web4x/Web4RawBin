@@ -133,6 +133,24 @@ export class DropDispatcher {
       return null;
     }
   }
+
+  // [impl:uuid:f484952c-03b5-411d-8816-79adb0fcac17] R26.2 DropDispatcher.buildFederatedRef
+  // T26.2: build the application/rb-federated-ref DataTransfer payload — a self-contained REFERENCE
+  // (ior@host + fetchUrl), NOT the full scenario JSON (files are MB; DataTransfer is size-limited + sync).
+  // The receiver asks ITS OWN server to import from fetchUrl (server-to-server). Tiny units MAY inline `unit`.
+  buildFederatedRef(input: { uuid: string; type: string; name: string; originHost: string; contentHash?: string; grant?: string; inline?: unknown }): string {
+    const grant = input.grant ? `?grant=${encodeURIComponent(input.grant)}` : ''; // capability token minted by the origin (R26.3)
+    const ref: Record<string, unknown> = {
+      ior: `ior:instance:${input.uuid}@${input.originHost}`,
+      originHost: input.originHost,
+      type: input.type,
+      name: input.name,
+      fetchUrl: `${input.originHost}/api/scenario/${input.uuid}${grant}`,
+    };
+    if (input.contentHash) ref.contentHash = input.contentHash;      // File units: cross-server content dedup
+    if (input.inline !== undefined) ref.inline = input.inline;       // optimization: tiny units skip the round-trip
+    return JSON.stringify(ref);
+  }
 }
 
 export const dropDispatcher = new DropDispatcher();
