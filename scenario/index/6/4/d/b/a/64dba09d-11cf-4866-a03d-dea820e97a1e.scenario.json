@@ -6,7 +6,9 @@
     "description": "DESIGN-AHEAD (scenario-first #126; fix not yet shipped): base src/ts/server/server.ts; expert attaches [impl:uuid] at code time.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "designAhead": true,
-    "tests": []
+    "tests": [
+      "ior:instance:c4b17a15-0e68-40e3-b2aa-23c048155c1c"
+    ]
   },
   "ownerIor": "ior:instance:bb4a357f-7e25-4a99-8ca6-2cc02593dc6c"
 }

@@ -1,3 +1,4 @@
+// [test:uuid:c4b17a15-0e68-40e3-b2aa-23c048155c1c] R25.7 evictAbsorbedFromRooms — orphan-ghost skip, Heartspaces 1 Marcel
 // [test:uuid:cca392d6-7cb4-4751-ae3f-9be13a99542f] R25.7 dedupMembersOnLoad — Heartspaces 1 Marcel
 // v0.7.0 gate — R25.7 room identity dedup + 3 drop/scenario fixes. SystemTester ONLY, reuse dnd
 // room, NO pollution (item 3 drops about:blank which the guard BLOCKS -> nothing created).
