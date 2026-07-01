@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+    "name": "server",
+    "file": "",
+    "methods": [
+      "ior:instance:fabb5ae3-3dbb-4e51-8229-18d887d80860",
+      "ior:instance:02c81235-e1af-4ac8-9c60-84d7fdd04ca1",
+      "ior:instance:26a79fa6-adf1-4628-9da8-5df4cc64b19b",
+      "ior:instance:5f02d53c-9ccd-41cc-9035-d56cd2b9f524",
+      "ior:instance:6ec7440d-31e8-4d74-be88-c5fae090cad4",
+      "ior:instance:7f3d785e-c881-43b4-bbfb-40f8bb4f3817"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:orphan"
+}

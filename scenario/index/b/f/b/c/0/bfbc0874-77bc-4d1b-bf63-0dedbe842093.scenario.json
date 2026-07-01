@@ -3,11 +3,11 @@
   "model": {
     "uuid": "bfbc0874-77bc-4d1b-bf63-0dedbe842093",
     "name": "RbDetailView.renderAllChildren",
-    "description": "Render All Children section: iterate ALL forward array fields on model, resolve each IOR, render as rb-object-item list. No chain narrowing \u2014 shows full adjacency.",
+    "description": "Render All Children section: iterate ALL forward array fields on model, resolve each IOR, render as rb-object-item list. No chain narrowing — shows full adjacency.",
     "implementations": [
       "ior:instance:308008bf-70eb-4b87-82ef-d76c97590c07"
     ],
     "tests": []
   },
-  "ownerIor": "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5"
+  "ownerIor": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
 }

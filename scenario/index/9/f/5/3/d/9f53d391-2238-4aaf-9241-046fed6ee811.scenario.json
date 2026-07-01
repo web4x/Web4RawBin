@@ -11,8 +11,6 @@
     ],
     "parent": "ior:instance:792246f1-346e-4337-9619-b38d8641769f",
     "unitLinks": [],
-    "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented).",
     "tests": []
   },
   "ownerIor": "ior:instance:792246f1-346e-4337-9619-b38d8641769f"

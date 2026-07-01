@@ -5,7 +5,6 @@
     "name": "MigrateToScenario.convertLegacy",
     "className": "MigrateToScenario",
     "methodName": "convertLegacy",
-    "orphanReason": "completed-migration: one-shot migration script",
     "implementation": "ior:instance:72748f3a-05cd-49fa-b5e1-404fef48a6c3",
     "implementations": [
       "ior:instance:d7abe1d3-d4bd-4384-8068-d3b64d450291"

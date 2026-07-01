@@ -3,7 +3,7 @@
   "model": {
     "uuid": "09611d71-f2b2-4fab-9961-def94165c470",
     "name": "RbDetailView.renderSingularChain",
-    "description": "Render Traceability Chain section: walk forward-only from this node using FORWARD_KEYS but narrow Class\u2192Method to UC.method (singular, not methods[] fan-out). renderLinks filters to chain-relevant nodes only.",
+    "description": "Render Traceability Chain section: walk forward-only from this node using FORWARD_KEYS but narrow Class→Method to UC.method (singular, not methods[] fan-out). renderLinks filters to chain-relevant nodes only.",
     "implementations": [
       "ior:instance:4947f284-3c25-4c8a-b0fa-b31e4cf049e4",
       "ior:instance:07942a94-4713-4985-b618-9d9717e86cda",
@@ -15,5 +15,5 @@
     ],
     "tests": []
   },
-  "ownerIor": "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5"
+  "ownerIor": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
 }

@@ -30,9 +30,7 @@
       "ior:instance:4ffa86ed-ca7b-4e73-9371-89b113e2ae77",
       "ior:instance:8cc75226-527e-4c87-bed8-9885e98d46e1"
     ],
-    "tests": [],
-    "orphanByDesign": true,
-    "orphanReason": "Superseded by DocumentFragment sync-render fix. Microtask defer reverted."
+    "tests": []
   },
   "ownerIor": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
 }
