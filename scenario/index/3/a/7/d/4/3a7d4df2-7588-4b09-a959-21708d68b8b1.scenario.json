@@ -1,0 +1,66 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "3a7d4df2-7588-4b09-a959-21708d68b8b1",
+    "name": "Repair the true-dangling refs surfaced by the ref-slot registry",
+    "altId": "R27.6",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-28-graph-integrity-foundation/requirements.md",
+    "sourceLine": 1,
+    "parent": "ior:instance:fabc9784-533b-49a8-a0ce-40d36d2338d8",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:a07def59-1e57-40bc-9b92-7c64b1229516"
+    ],
+    "priority": "medium",
+    "description": "Repair the REAL dangling references the canonical ref-slot registry surfaces once token false-positives + walk-gaps are removed: Method.implementation DEAD 51 + Test.parent DEAD 32 + Test.verifies DEAD 12 + Test.methods DEAD 1 = 96 true-dangling refs pointing at units that do not exist. Each is triaged repoint-to-live-target OR drop-the-ref (dry-run + count first, atomic + rollbackable), so every ref-slot resolves. This is the honest debt under the ~2207/token noise; R27.4's fcf6dae1 in Test.methods was the first visible instance.",
+    "tronQuote": "> PO-derived from the architect's ref-slot registry inventory (05da0584a / 76c3a102b), 2026-07-01: repair the true-dangling debt the honest instrument surfaces.",
+    "discoverySource": {
+      "type": "tool-measurement",
+      "discoveredBy": "robbin-architect (ref-slot registry slot inventory 76c3a102b) + robbin-req (R27.4 all-slot post-verify surfaced the broad dangling)",
+      "date": "2026-07-01",
+      "measured": "TRUE-dangling (post token/walk-gap exclusion): Method.implementation 51 + Test.parent 32 + Test.verifies 12 + Test.methods 1 = 96. Distinct from the ~500 token false-positives + benign walk-gap."
+    },
+    "auditRef": "architect ref-slot registry 05da0584a + slot inventory 76c3a102b",
+    "crossRef": [
+      "ior:instance:e205f7c3-97d8-474a-a4e6-053a7a7f30aa",
+      "ior:instance:f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc",
+      "ior:instance:79bc8e34-9acb-4338-bbd0-c1f7e817ca7d"
+    ],
+    "crossRefNote": "R27.6 repairs the DEBT that R27.5's registry makes MEASURABLE (instrument-vs-debt). R27.4 fixed the 12 UC-dangling + fcf Test.methods=1 (the first true-dangling instance); R27.6 is the systematic rest. R24.5 trace:audit:strict is the recurrence gate.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-inventory",
+        "group": "repair",
+        "text": "The true-dangling inventory is enumerated per slot: Method.implementation (51) + Test.parent (32) + Test.verifies (12) + Test.methods (1), full-uuid verified (no prefix collisions), token false-positives excluded."
+      },
+      {
+        "id": "AC-triage",
+        "group": "repair",
+        "text": "Each true-dangling ref is triaged repoint-to-live-target OR drop-the-ref with a reason; dry-run + count FIRST, never silently drop a real edge."
+      },
+      {
+        "id": "AC-atomic",
+        "group": "repair",
+        "text": "Repair is atomic + rollbackable + self-reassert (all four slot counts -> 0 on the mutated disk), same gated discipline as R27.4."
+      },
+      {
+        "id": "AC-allslot",
+        "group": "repair",
+        "text": "Post-repair, every ref-slot in the canonical registry (R27.5) resolves; no back-edge (ownerIor/Test.methods/Test.parent/Test.verifies) or forward-edge dangles."
+      },
+      {
+        "id": "AC-ci",
+        "group": "ci-gate",
+        "text": "trace:audit:strict (R24.5) using the R27.5 registry FAILS on any true-dangling ref -> recurrence prevented by construction."
+      },
+      {
+        "id": "AC-verify",
+        "group": "verify",
+        "text": "Post-repair re-measure via the registry: Method.implementation/Test.parent/Test.verifies/Test.methods dangling all = 0."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:fabc9784-533b-49a8-a0ce-40d36d2338d8"
+}

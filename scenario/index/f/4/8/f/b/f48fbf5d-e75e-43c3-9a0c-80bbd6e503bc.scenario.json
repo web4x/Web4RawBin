@@ -2,20 +2,20 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc",
-    "name": "Calibrate trace-audit orphan metric to be meaningful",
+    "name": "Canonical ref-slot registry + trace-audit calibration",
     "altId": "R27.5",
     "tasks": [],
     "tests": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-27-detail-view-enhancements/requirements.md",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-28-graph-integrity-foundation/requirements.md",
     "sourceLine": 71,
-    "parent": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a",
+    "parent": "ior:instance:fabc9784-533b-49a8-a0ce-40d36d2338d8",
     "unitLinks": [],
     "useCases": [
       "ior:instance:5ff15c57-503c-45f7-a4c0-82f7969d3646"
     ],
-    "priority": "low",
-    "scheduleNote": "Metric is reported-only (not hard-gated); planner schedules, likely S28. R27.4 proceeds FIRST + is insulated (METHOD-scoped gate).",
-    "description": "Calibrate the trace-audit orphan metric so a non-zero count means REAL chain debt, not benign data. Today it reports ~2207 orphans by walking forward from Requirement roots via CANONICAL_FORWARD (Requirement->useCases, NOT tasks) over ALL unit types - so every Task + all non-chain data (TestCase/Device/File/Room/Skill/Bug/Phone/Profile) is counted 'orphan' and the number can NEVER reach 0. Fix: (1) add the non-chain unit types to ORPHAN_BY_DESIGN_TYPES (excluded from reachability), (2) add Requirement->tasks to CANONICAL_FORWARD + walk from Sprint roots (Sprint->tasks/requirements) to close the ~382-unit walk-gap. Expected: ~2207 -> real-chain-orphans only, making the instrument trustworthy.",
+    "priority": "medium",
+    "scheduleNote": "MOVED S27->S28 2026-07-01 (PO re-scope). Foundational; planner builds T27.5 under S28 on Tron's go. Architect design 05da0584a + slot inventory 76c3a102b.",
+    "description": "Establish a CANONICAL ref-slot registry {class, classes[], method, methods[], ownerIor, children, implementations, tests, requirements, tasks, useCases, parent, coveredRequirements, subtasks, verifies} that every migration + audit imports, each slot tagged forward/back/cross + token/edge/self classified - so NO ref-slot hides (root fix for the ownerIor + Test.methods slot-misses in R27.4) and ~500 auth-token false-positives are excluded. THEN calibrate trace-audit's orphan metric: add non-chain types to ORPHAN_BY_DESIGN, add Requirement->tasks + Sprint-roots to the walk. Result: the orphan + dangling metrics become HONEST (a non-zero count = real debt), which is what makes R27.6's TRUE-dangling inventory measurable.",
     "tronQuote": "> Derived from reconciling the trace-audit 2207-orphan metric vs R27.4's 51 orphan-Methods; PO ratified capture 2026-07-01. Make the INSTRUMENT honest.",
     "discoverySource": {
       "type": "tool-measurement",
@@ -26,36 +26,42 @@
     "auditRef": "scripts/trace-audit.ts (CANONICAL_FORWARD, ORPHAN_BY_DESIGN_TYPES, line ~230 defer logic)",
     "crossRef": [
       "ior:instance:e205f7c3-97d8-474a-a4e6-053a7a7f30aa",
-      "ior:instance:79bc8e34-9acb-4338-bbd0-c1f7e817ca7d"
+      "ior:instance:79bc8e34-9acb-4338-bbd0-c1f7e817ca7d",
+      "ior:instance:3a7d4df2-7588-4b09-a959-21708d68b8b1"
     ],
-    "crossRefNote": "R27.4 fixes the 51 REAL orphan-Methods (the defect); R27.5 fixes the METRIC that over-counts (the instrument). R24.5 owns trace:audit:strict. Order: R27.4 FIRST (insulated by METHOD-scoped gate); R27.5 later calibrates the broad metric so it can eventually be hard-gated honestly.",
+    "crossRefNote": "R27.5 = the INSTRUMENT (registry + honest metric); R27.6 = the DEBT it surfaces; R27.4 = where the first hidden slots (ownerIor, Test.methods) appeared; R24.5 owns trace:audit:strict.",
     "acceptanceCriteria": [
       {
-        "id": "AC-exempt-types",
-        "group": "instrument",
-        "text": "Non-chain unit types (TestCase/Device/File/Room/Skill/Bug/Phone/Profile/WebItem/Message/Company/Email/User/Gate/CurrentSprint) are added to ORPHAN_BY_DESIGN_TYPES so they are excluded from the reachability orphan count."
+        "id": "AC-registry",
+        "group": "registry",
+        "text": "A canonical ref-slot registry lists every ref-bearing slot {class, classes[], method, methods[], ownerIor, children, implementations, tests, requirements, tasks, useCases, parent, coveredRequirements, subtasks, verifies}; every migration + audit imports it so no slot is scanned ad-hoc."
       },
       {
-        "id": "AC-walk-gap",
-        "group": "instrument",
-        "text": "CANONICAL_FORWARD adds Requirement->tasks and the walk also roots from Sprint units (Sprint->tasks/requirements), so Tasks + subtrees are reachable, closing the ~382-unit walk-gap."
+        "id": "AC-slot-tags",
+        "group": "registry",
+        "text": "Each slot is tagged forward / back / cross and classified token/edge/self, so back-edges (ownerIor, Test.methods) and cross-refs are covered, not just forward chain."
       },
       {
-        "id": "AC-expected",
-        "group": "instrument",
-        "text": "After calibration the orphan metric drops from ~2207 to the real chain-orphans only (aligns with R27.4 METHOD-scoped count, ~0 post-R27.4)."
+        "id": "AC-token-exclude",
+        "group": "registry",
+        "text": "~500 auth-token false-positives (non-ref token strings) are classified as token (not edge) and excluded from the dangling/orphan counts."
+      },
+      {
+        "id": "AC-calibrate",
+        "group": "calibrate",
+        "text": "trace-audit orphan metric calibrated: non-chain types added to ORPHAN_BY_DESIGN + Requirement->tasks + Sprint-roots added to the walk (the benign ~2207 metric drops to real chain-orphans)."
       },
       {
         "id": "AC-honest",
-        "group": "instrument",
-        "text": "A non-zero orphan count now indicates REAL chain debt, not benign non-chain data; the metric becomes trustworthy enough to hard-gate."
+        "group": "calibrate",
+        "text": "After the registry + calibration, a non-zero orphan/dangling count indicates REAL debt (trustworthy enough to hard-gate); R27.6's true-dangling inventory is measurable against it."
       },
       {
         "id": "AC-verify",
         "group": "verify",
-        "text": "Re-run trace:audit post-calibration: benign non-chain data no longer counted; the number reflects only real chain-orphans."
+        "text": "Re-run trace:audit: token false-positives excluded, all slots covered, metric reflects only real chain debt."
       }
     ]
   },
-  "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
+  "ownerIor": "ior:instance:fabc9784-533b-49a8-a0ce-40d36d2338d8"
 }
