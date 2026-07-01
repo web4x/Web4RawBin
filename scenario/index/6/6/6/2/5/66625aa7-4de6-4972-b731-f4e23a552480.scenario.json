@@ -5,7 +5,8 @@
     "name": "MigrateToScenario",
     "file": "scripts/migrate-to-scenario.ts",
     "methods": [
-      "ior:instance:ef16193a-5533-4237-8b83-b040f706db29"
+      "ior:instance:ef16193a-5533-4237-8b83-b040f706db29",
+      "ior:instance:8c296fa6-a726-4dad-b550-47192cb92328"
     ],
     "useCases": [],
     "method": "ior:instance:ef16193a-5533-4237-8b83-b040f706db29",

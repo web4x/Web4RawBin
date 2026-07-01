@@ -3,11 +3,11 @@
   "model": {
     "uuid": "5211afac-5f86-45c9-8f10-714e94079e20",
     "name": "room.canonicalDir",
-    "description": "One canonical room dir under data/users/<token>/rooms/<roomUuid>/ \u2014 all room artifacts (room.json symlink, files/, messages/) live here. No scenario/rooms/ strays.",
-    "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "description": "One canonical room dir under data/users/<token>/rooms/<roomUuid>/ — all room artifacts (room.json symlink, files/, messages/) live here. No scenario/rooms/ strays.",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
     "method": "ior:instance:b1494bad-4198-4f8e-b92a-6e7b899c49a2",
     "classes": [
-      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
     ],
     "tasks": [],
     "implementations": [],

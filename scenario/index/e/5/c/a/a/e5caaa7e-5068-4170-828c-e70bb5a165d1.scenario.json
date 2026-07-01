@@ -4,10 +4,10 @@
     "uuid": "e5caaa7e-5068-4170-828c-e70bb5a165d1",
     "name": "traceGraph.buildFromIndex",
     "description": "Build the traceability graph by walking scenario index units (forward-keys per type), replacing scanRepo markdown parsing.",
-    "class": "ior:instance:10de8452-6506-4306-ba77-c606ee583ea2",
+    "class": "ior:instance:809e65ee-1e6e-43dc-8f9c-d87e6aafda54",
     "method": "ior:instance:a3839bd8-ead3-497b-9327-ce86f79a27f6",
     "classes": [
-      "ior:instance:10de8452-6506-4306-ba77-c606ee583ea2"
+      "ior:instance:809e65ee-1e6e-43dc-8f9c-d87e6aafda54"
     ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

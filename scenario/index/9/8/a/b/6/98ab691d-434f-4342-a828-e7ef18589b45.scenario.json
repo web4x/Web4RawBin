@@ -3,13 +3,13 @@
   "model": {
     "uuid": "98ab691d-434f-4342-a828-e7ef18589b45",
     "name": "room.acceptInvite",
-    "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
     "method": "ior:instance:ddbc51a0-760b-4726-9f87-81484833de20",
     "tasks": [],
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"

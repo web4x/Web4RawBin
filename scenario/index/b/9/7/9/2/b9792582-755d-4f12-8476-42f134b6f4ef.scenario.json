@@ -4,9 +4,9 @@
     "uuid": "b9792582-755d-4f12-8476-42f134b6f4ef",
     "name": "preview.renderAudio",
     "description": "Audio files (mp3/wav/ogg/m4a) render an HTML5 <audio controls> player in the preview pane; audio MIME added to the mime map and the fillPreviewPane dispatch.",
-    "class": "ior:instance:828e5328-f62e-4dfe-9907-6ed2e5d00265",
+    "class": "ior:instance:4cf1d1de-37e2-42e8-bf8b-9776bf87f061",
     "classes": [
-      "ior:instance:828e5328-f62e-4dfe-9907-6ed2e5d00265"
+      "ior:instance:4cf1d1de-37e2-42e8-bf8b-9776bf87f061"
     ],
     "method": "ior:instance:ccbd2bdf-a5f1-4f78-b71a-b46c81d4383f",
     "tasks": [],

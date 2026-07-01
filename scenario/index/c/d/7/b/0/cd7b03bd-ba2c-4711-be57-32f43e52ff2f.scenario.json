@@ -3,13 +3,13 @@
   "model": {
     "uuid": "cd7b03bd-ba2c-4711-be57-32f43e52ff2f",
     "name": "detailView.singularChain",
-    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
     "method": "ior:instance:e945e562-9cb4-4543-97d2-3865441f838c",
     "tasks": [],
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"

@@ -10,7 +10,7 @@
       "ior:instance:6315a667-59c4-420b-90db-f60bca2d315d"
     ],
     "classes": [
-      "ior:instance:c8060ced-11f7-4fc1-bbc6-5c7683cf6463"
+      "ior:instance:015b1ac0-eb5d-4b4b-9749-84d3b2214421"
     ],
     "source": {
       "file": "scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml",
@@ -22,8 +22,8 @@
       "repo": "Web4RawBin",
       "ior": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml?commit=1316b7e&lines=71-78"
     },
-    "class": "ior:instance:c8060ced-11f7-4fc1-bbc6-5c7683cf6463",
-    "method": "ior:instance:a40eec5b-636c-4e18-9526-01e0f1bfdcc8",
+    "class": "ior:instance:015b1ac0-eb5d-4b4b-9749-84d3b2214421",
+    "method": "ior:instance:500661d4-e086-4ed1-b33b-0838d16bd645",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-124.3-architect-storage-layout.md",
     "sourceLine": 33,
     "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",

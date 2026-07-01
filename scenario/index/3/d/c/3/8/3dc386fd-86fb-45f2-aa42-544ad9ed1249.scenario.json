@@ -4,7 +4,7 @@
     "uuid": "3dc386fd-86fb-45f2-aa42-544ad9ed1249",
     "name": "detailDrawer.showGrabBar",
     "description": "Default detail drawer renders the SAME wide grab-bar as the chat drawer (DRY shared component/class). Replace the stub pill+X with the chat-drawer grab-bar element. Drag-resize (R19.84) applies to this bar.",
-    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
     "method": "ior:instance:32384f12-1bc4-4214-ba05-da252dd766b9",
     "tasks": [
       "ior:instance:fe8c43a5-cd15-4aed-ac5b-97df558d8fea"
@@ -12,7 +12,7 @@
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
     ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

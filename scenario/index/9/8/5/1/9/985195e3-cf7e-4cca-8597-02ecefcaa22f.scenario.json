@@ -4,10 +4,10 @@
     "uuid": "985195e3-cf7e-4cca-8597-02ecefcaa22f",
     "name": "traceChildren.roomForwardRefs",
     "description": "/api/trace/children for Room type returns files[] + members[] as children. Add Room: ['files','members'] to SCENARIO_FWD + TRACE_FWD in server.ts.",
-    "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
     "method": "ior:instance:79ee7486-499b-49de-81dc-77f8682da420",
     "classes": [
-      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
     ],
     "tasks": [],
     "implementations": [],

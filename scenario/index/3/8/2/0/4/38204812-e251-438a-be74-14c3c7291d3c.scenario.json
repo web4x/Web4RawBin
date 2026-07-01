@@ -4,10 +4,10 @@
     "uuid": "38204812-e251-438a-be74-14c3c7291d3c",
     "name": "collectionDetail.resolveViaParent",
     "description": "Synthetic collection detail fetches children from parent Room's trace-children API instead of fetching the synthetic UUID as a unit.",
-    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
     "method": "ior:instance:0a902bff-b5c3-47ef-a1b3-37fe52b4c82d",
     "classes": [
-      "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
     ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

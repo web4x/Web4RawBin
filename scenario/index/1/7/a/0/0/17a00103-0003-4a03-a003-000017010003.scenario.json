@@ -10,8 +10,8 @@
       "ior:instance:20cca741-0a93-4d93-8a51-9c72bdb77d92"
     ],
     "classes": [
-      "ior:instance:fdc768a6-8779-42e1-9e7c-775338733c09",
-      "ior:instance:4dfd37fd-d30f-4ec1-af8c-2647ff865ba7"
+      "ior:instance:b4eaa489-6096-46e9-b7e0-4fc8aa72ea08",
+      "ior:instance:b4eaa489-6096-46e9-b7e0-4fc8aa72ea08"
     ],
     "source": {
       "file": "scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml",
@@ -23,8 +23,8 @@
       "repo": "Web4RawBin",
       "ior": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml?commit=1316b7e&lines=32-38"
     },
-    "class": "ior:instance:fdc768a6-8779-42e1-9e7c-775338733c09",
-    "method": "ior:instance:e0351edf-ee2d-4795-944f-144809b7b618",
+    "class": "ior:instance:b4eaa489-6096-46e9-b7e0-4fc8aa72ea08",
+    "method": "ior:instance:ca54a3eb-c39a-4b85-b985-dcb61ed431a9",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/task-124.1-architect-data-model.md",
     "sourceLine": 33,
     "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",

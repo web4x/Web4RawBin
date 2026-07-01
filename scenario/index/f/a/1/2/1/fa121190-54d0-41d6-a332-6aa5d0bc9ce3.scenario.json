@@ -3,10 +3,10 @@
   "model": {
     "uuid": "fa121190-54d0-41d6-a332-6aa5d0bc9ce3",
     "name": "room.rejoinDedup",
-    "description": "R19.8.B: persistent rejoin flips existing member ONLINE (never adds duplicate). addMember matches by playerToken \u2014 if found+disconnected, updates existing entry instead of inserting new. Distinct behavior from retainOnDisconnect (R19.8 = keep offline, R19.8.B = rejoin flip).",
-    "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "description": "R19.8.B: persistent rejoin flips existing member ONLINE (never adds duplicate). addMember matches by playerToken — if found+disconnected, updates existing entry instead of inserting new. Distinct behavior from retainOnDisconnect (R19.8 = keep offline, R19.8.B = rejoin flip).",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
     "classes": [
-      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
     ],
     "method": "ior:instance:6c3cfb82-c2c9-4048-bba6-40888e239da6",
     "tasks": [

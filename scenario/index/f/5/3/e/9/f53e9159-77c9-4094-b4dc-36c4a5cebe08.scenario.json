@@ -4,7 +4,7 @@
     "uuid": "f53e9159-77c9-4094-b4dc-36c4a5cebe08",
     "name": "detailDrawer.filePreviewButton",
     "description": "Preview button in FileUnit detail card triggers ContentPreviewer for the file UUID. Reuses existing openFilePreview path.",
-    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
     "method": "ior:instance:4ce43a9a-1722-4f34-a66f-9ee9dd22862e",
     "tasks": [
       "ior:instance:5ab2d3b9-0813-4398-9b58-4d4bfddaeefc"
@@ -12,7 +12,7 @@
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"

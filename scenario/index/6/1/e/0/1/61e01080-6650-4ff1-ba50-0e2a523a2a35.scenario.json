@@ -4,7 +4,7 @@
     "uuid": "61e01080-6650-4ff1-ba50-0e2a523a2a35",
     "name": "room.retainOnDisconnect",
     "description": "On ws.close or LEAVE_ROOM, branch on room.mode: persistent rooms call markDisconnected (member stays listed, offline flag set, persist(), MEMBER_DISCONNECTED broadcast); live rooms call removeMember (prune as today). UC for T-persistent-retention.",
-    "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
     "method": "ior:instance:f82d09a5-fd35-4019-afd4-d2848c88267c",
     "tasks": [
       "ior:instance:fa8fffc8-d75a-43b3-abaa-edb97149da92"
@@ -12,7 +12,7 @@
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"

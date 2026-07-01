@@ -5,7 +5,10 @@
     "name": "IORResolver",
     "description": "IORResolver — RawBin federation (S26). Design-ahead greenfield.",
     "methods": [
-      "ior:instance:7be6b225-7067-4924-b715-08d3800fc5a0"
+      "ior:instance:7be6b225-7067-4924-b715-08d3800fc5a0",
+      "ior:instance:9d5369a9-17af-4884-bfdd-f981450f3852",
+      "ior:instance:f426d4c2-64c0-4e66-8a22-98b6706c8020",
+      "ior:instance:ca54a3eb-c39a-4b85-b985-dcb61ed431a9"
     ]
   },
   "ownerIor": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d"

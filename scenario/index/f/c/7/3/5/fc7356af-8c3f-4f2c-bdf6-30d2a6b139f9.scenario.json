@@ -4,9 +4,9 @@
     "uuid": "fc7356af-8c3f-4f2c-bdf6-30d2a6b139f9",
     "name": "membership.cleanupOnMerge",
     "description": "When two identities merge (alt-index -> primary), the room member list collapses the consolidated (redirectTo) member into the PRIMARY so no ghost/duplicate members remain. Impl base: Room.resolveToken (server.ts injects = profile.redirectTo || token), v0.6.84 a30315bcc.",
-    "class": "ior:instance:2bf13995-e045-44d1-8a7d-9db6670116be",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
     "classes": [
-      "ior:instance:2bf13995-e045-44d1-8a7d-9db6670116be"
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
     ],
     "method": "ior:instance:1671bcb7-bae6-4591-8bd0-323bbc8066db",
     "tasks": [

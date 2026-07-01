@@ -3,8 +3,8 @@
   "model": {
     "uuid": "3d091420-0f5e-4247-9e4f-9fabd9543936",
     "name": "detailDrawer.openForRef",
-    "description": "R16.2: open the drawer for a given ref \u2014 setAttribute open + renderDetailForRef. Expert extracts from attributeChangedCallback (line 68-77) into a named method openForRef(ref). Replaces the split-for cluster.",
-    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "description": "R16.2: open the drawer for a given ref — setAttribute open + renderDetailForRef. Expert extracts from attributeChangedCallback (line 68-77) into a named method openForRef(ref). Replaces the split-for cluster.",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
     "method": "ior:instance:0a902bff-b5c3-47ef-a1b3-37fe52b4c82d",
     "tasks": [
       "ior:instance:3c7d1853-a5ee-4c7c-9c94-04b2e4f5bbb4"
@@ -12,7 +12,7 @@
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
     ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

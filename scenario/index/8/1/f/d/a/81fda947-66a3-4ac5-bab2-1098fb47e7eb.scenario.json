@@ -3,13 +3,13 @@
   "model": {
     "uuid": "81fda947-66a3-4ac5-bab2-1098fb47e7eb",
     "name": "detailView.browseFileLine",
-    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
     "method": "ior:instance:048bb842-c525-423f-b3a8-e70fc14d219b",
     "tasks": [],
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"

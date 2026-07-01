@@ -3,10 +3,10 @@
   "model": {
     "uuid": "f604fe2f-aa04-4314-b50c-caa247e1b0aa",
     "name": "file.clickPreview",
-    "class": "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
     "method": "ior:instance:4999f5a8-0302-4e92-90d1-4f3ce5fb7f7d",
     "classes": [
-      "ior:instance:7af8178b-051b-4057-81ad-9b818f7be2c0"
+      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
     ],
     "tasks": [],
     "implementations": [],

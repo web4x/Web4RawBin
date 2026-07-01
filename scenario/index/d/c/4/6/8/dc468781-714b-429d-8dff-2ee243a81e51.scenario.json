@@ -4,9 +4,9 @@
     "uuid": "dc468781-714b-429d-8dff-2ee243a81e51",
     "name": "detail.scenarioLink",
     "description": "Uniform clickable Scenario link (scenarioBrowserLinkFromIor -> /md/scenario/index/<shard>/) rendered on ALL rb-*-detail views (task/file/webitem/req/uc/class/method/impl/test).",
-    "class": "ior:instance:2eeda38d-2cd1-4be3-9f11-07fae3836cdd",
+    "class": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07",
     "classes": [
-      "ior:instance:2eeda38d-2cd1-4be3-9f11-07fae3836cdd"
+      "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
     ],
     "method": "ior:instance:0ce8290f-b79e-471d-8f69-302cdc13fe4e",
     "tasks": [],

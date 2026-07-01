@@ -4,9 +4,9 @@
     "uuid": "4d0e454a-124a-43f7-8487-28aa61c12fbf",
     "name": "detailView.singleChainSection",
     "description": "Task/Req/UseCase detail shows ONE Traceability Chain section (the renderChainPathSection server-walk), not a duplicate inline \"No chain\"; Forward Links render as real <a href> to the targets scenario MD.",
-    "class": "ior:instance:1420a915-e9bd-402c-acd8-a0e82183de23",
+    "class": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07",
     "classes": [
-      "ior:instance:1420a915-e9bd-402c-acd8-a0e82183de23"
+      "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
     ],
     "method": "ior:instance:edb49bb5-dd67-4d07-9aff-37c0bf44d531",
     "tasks": [],

@@ -5,7 +5,8 @@
     "name": "ContentPreviewer",
     "description": "Design-ahead class for preview.embedYouTube (R23.2).",
     "methods": [
-      "ior:instance:efe1d17e-04b2-422d-b69d-00e5023eeb24"
+      "ior:instance:efe1d17e-04b2-422d-b69d-00e5023eeb24",
+      "ior:instance:ccbd2bdf-a5f1-4f78-b71a-b46c81d4383f"
     ]
   },
   "ownerIor": "ior:instance:4a4a5d66-d9ff-42be-8d17-201531dbb53e"

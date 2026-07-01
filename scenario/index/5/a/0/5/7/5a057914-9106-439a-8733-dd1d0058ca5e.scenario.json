@@ -7,7 +7,10 @@
     "methods": [
       "ior:instance:32ae650c-d936-4696-89cd-8f9369fdc52e",
       "ior:instance:637afb30-7621-4fbd-beed-5ce7f0340b46",
-      "ior:instance:1f7d3758-61cc-47eb-a7ff-b953535ed6a2"
+      "ior:instance:1f7d3758-61cc-47eb-a7ff-b953535ed6a2",
+      "ior:instance:1a1aeb5f-6d7b-4b22-a7b0-b0b16c502ab8",
+      "ior:instance:158c1304-f202-4273-b822-ec1270b92be9",
+      "ior:instance:252e9b98-84f2-4744-bd51-4cac5deb25a6"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",

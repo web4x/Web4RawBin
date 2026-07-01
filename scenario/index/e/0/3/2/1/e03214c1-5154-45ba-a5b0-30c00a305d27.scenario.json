@@ -3,13 +3,13 @@
   "model": {
     "uuid": "e03214c1-5154-45ba-a5b0-30c00a305d27",
     "name": "detailDrawer.stickyClose",
-    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
     "method": "ior:instance:3a671bfc-12c2-4922-938e-01572d90808e",
     "tasks": [],
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"

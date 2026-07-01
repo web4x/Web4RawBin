@@ -4,10 +4,10 @@
     "uuid": "8dd6e157-c2a6-4031-8252-74334046a545",
     "name": "room.loadBeforeWrite",
     "description": "Room constructor accepts persisted members/files/chat/messages in opts. persist() at construction writes correct data from the start. Eliminates the restart race where persist() overwrites scenario unit with empty state before load code populates members/files.",
-    "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
     "method": "ior:instance:e8c36413-35e7-4ac3-8b96-c2f6869d3261",
     "classes": [
-      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
     ],
     "tasks": [],
     "implementations": [],
