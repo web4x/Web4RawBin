@@ -2,41 +2,41 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 26.6: Federation import wiring (end-to-end receive orchestration)",
+    "name": "Current: Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
     "chain": {
-      "req": "e289f96e-0afc-4568-9c26-16cd9b8272eb",
-      "uc": "32f30eee-b0c8-4fca-b4d1-9ee6a1c0cdb1",
-      "class": "6456d811-496f-4389-80b5-3c23f7fdde73",
-      "method": "c4506b11-deff-4ea5-8966-b54f04e7ce9c",
-      "impl": "3132c189-4027-49d5-ab1b-7da4a2e4bd87",
-      "test": "638f94d3-2c51-40ae-8f43-b606e34d0ec0"
+      "req": "4f6d6402-fc8d-4d5d-9523-7e35af641944",
+      "uc": "",
+      "class": "",
+      "method": "",
+      "impl": "",
+      "test": ""
     },
-    "activeHop": 0,
-    "sprintName": "Sprint 26",
-    "taskName": "Task 26.6: Federation import wiring (end-to-end receive orchestration)",
+    "activeHop": 1,
+    "sprintName": "Sprint 27",
+    "taskName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-01T15:21:50.627Z"
+        "updatedAt": "2026-07-01T15:46:47.209Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "7dd49936-1075-45ff-9eff-bd4309289b38",
-    "lastCompletedName": "Task 26.5: Conflict reconcile — uuid already exists locally",
-    "lastCompletedReqUuid": "f7e4c1cc-c2a5-423c-bbaa-d010a2d1fa79",
+    "lastCompletedUuid": "026af82c-3668-4d94-ae01-51e5276f851b",
+    "lastCompletedName": "Task 26.6: Federation import wiring (end-to-end receive orchestration)",
+    "lastCompletedReqUuid": "e289f96e-0afc-4568-9c26-16cd9b8272eb",
     "slots": {
       "current": {
-        "taskUuid": "026af82c-3668-4d94-ae01-51e5276f851b",
-        "taskName": "Task 26.6: Federation import wiring (end-to-end receive orchestration)",
-        "reqUuid": "e289f96e-0afc-4568-9c26-16cd9b8272eb"
+        "taskUuid": "8b15788a-e881-4bff-b9bf-ada1c48b262f",
+        "taskName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
+        "reqUuid": "4f6d6402-fc8d-4d5d-9523-7e35af641944"
       },
-      "lastCompleted": {
-        "taskUuid": "7dd49936-1075-45ff-9eff-bd4309289b38",
-        "taskName": "Task 26.5: Conflict reconcile — uuid already exists locally",
-        "reqUuid": "f7e4c1cc-c2a5-423c-bbaa-d010a2d1fa79"
-      },
-      "nextBacklog": null
+      "lastCompleted": null,
+      "nextBacklog": {
+        "taskUuid": "dbd7e30d-263c-4d01-81eb-b687854ca961",
+        "taskName": "Task 27.1: Task detail renders the status checklist visually",
+        "reqUuid": "90b82d00-7af1-40e9-992c-c55ca177c542"
+      }
     }
   },
   "ownerIor": null
