@@ -337,6 +337,7 @@ export class Room {
     return { id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken ? Room.resolveToken(m.playerToken) : m.playerToken, disconnected: !!m.disconnected };
   }
 
+  // [impl:uuid:7899449b-9d07-4b8c-80c6-58f229ce3129] R25.7 Room.allMemberInfo (dedupMembersOnLoad — display-layer dedup + orphan skip)
   private allMemberInfo() {
     // collapse members whose token redirects to the same PRIMARY (consolidated identities show once)
     const byPrimary = new Map<string, RoomMember>();
