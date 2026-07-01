@@ -15,7 +15,13 @@
       "ior:instance:71b44e05-555f-4db2-a485-f375cd7ad70b",
       "ior:instance:f7e4c1cc-c2a5-423c-bbaa-d010a2d1fa79"
     ],
-    "tasks": [],
+    "tasks": [
+      "ior:instance:906e391d-ae21-40e9-8d97-210704b491ab",
+      "ior:instance:491028f2-8fed-49de-b528-98ed03cc95ea",
+      "ior:instance:e36f7645-2e76-4e6f-a7ec-90c9f03fdfcc",
+      "ior:instance:9e94c188-89f4-4fb9-b631-f306a1213ec0",
+      "ior:instance:7dd49936-1075-45ff-9eff-bd4309289b38"
+    ],
     "securityNote": "Cross-cutting security/trust: capability grants are signed + expiring + scoped (no ambient authority); server-federation signatures use a per-server keypair + explicit trust list (no open fetch). Never trust incoming JSON blindly \u2014 validate schema, cap size, sanitize, NEVER execute; foreign identities NEVER become local auth principals.",
     "createdAt": "2026-07-01",
     "createdBy": "robbin-req",
