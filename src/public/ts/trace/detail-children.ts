@@ -49,6 +49,7 @@ export function scenarioBrowserHref(uuid: string): string {
   return `/md/scenario/index/${shard}/?highlight=${encodeURIComponent(uuid + '.scenario.json')}`;
 }
 // R26.2: direct link to the scenario unit ON DISK (source of truth): /md/scenario/index/<shard>/<uuid>.scenario.json
+// [impl:uuid:459d3aef-fa07-4968-a5d2-82185a1caf65] R25.6 RbDetailView.scenarioFileHref (scenarioLinkHref)
 export function scenarioFileHref(uuid: string): string {
   if (!uuid) return '';
   const hex = uuid.replace(/-/g, '');

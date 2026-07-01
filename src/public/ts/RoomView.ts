@@ -289,6 +289,13 @@ export class RoomView {
     // R26.1: show WHAT will be imported BEFORE asking.
     if (!confirm(`Upload from clipboard?\n\n${this.clipboardPreview(files, text)}`)) return;
 
+    this.readAndRoute(files, text, log);
+  }
+
+  // R25.5: route the read clipboard payload through the SAME path as DnD — images → File upload;
+  // URL/scheme → dispatchUrl → WebItem; plain text → .txt File — with human-readable names.
+  // [impl:uuid:eb25b473-84ba-4cb2-9dad-598efa6e1e93] R25.5 RoomView.readAndRoute (ClipboardImport.readAndRoute)
+  private readAndRoute(files: File[], text: string, log: (t: string) => void): void {
     if (files.length > 0) this.container.dispatchEvent(new CustomEvent('rb-room-files-dropped', { detail: { files }, bubbles: true }));
     if (text) {
       const url = text.split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || '';
