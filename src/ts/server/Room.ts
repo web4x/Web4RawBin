@@ -177,6 +177,7 @@ export class Room {
 
   // --- Members ---
 // [impl:uuid:4246c0a8-cfbf-43cd-8677-3367f3ac21d9] Room.addMember
+  // [impl:uuid:96be5441-67c2-45f9-9220-a7791f5e0631] R25.7 Room.addMember (addMemberIdempotent — idempotent by resolved token via rejoinDedup)
 
   addMember(member: RoomMember): boolean {
     if (this.state !== 'active') return false;
