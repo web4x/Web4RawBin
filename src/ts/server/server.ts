@@ -435,6 +435,7 @@ function fedGet(url: string): Promise<any> {
 
 // T26.7: import a federated unit — (1)/(2) fetch from the origin (server-to-server), (3) resolve children
 // lazily (T26.4), (4) reconcile uuid conflicts (T26.5), (5) store locally with originHost provenance (T26.1).
+// [impl:uuid:3132c189-4027-49d5-ab1b-7da4a2e4bd87] R26.7 FederationApi.federationImport (/api/federation/import)
 async function federationImport(ref: any, roomId: string): Promise<{ uuid: string; action: string } | { error: string }> {
   const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
   const originHost = String(ref?.originHost || '');
