@@ -327,6 +327,29 @@ function resolveKeyToProfile(phone?: string, email?: string): string | null {
   return null;
 }
 
+// v0.6.98 (R25.5): fetch a page <title> for an http(s) WebItem name (async, 3s timeout, ≤3 redirects,
+// 200KB cap). Resolves '' on any failure → caller falls back to deriveName (hostname). Never throws.
+function fetchPageTitle(url: string, depth = 0): Promise<string> {
+  return new Promise((resolve) => {
+    if (depth > 3 || !/^https?:/i.test(url)) return resolve('');
+    let settled = false; const ok = (s: string) => { if (!settled) { settled = true; resolve(s); } };
+    try {
+      const lib = url.startsWith('https:') ? https : http;
+      const req = lib.get(url, { headers: { 'User-Agent': 'Web4RawBin/0.6 (+https://prod.wo-da.de)', 'Accept': 'text/html' }, timeout: 3000 } as any, (r) => {
+        const sc = r.statusCode || 0;
+        if (sc >= 300 && sc < 400 && r.headers.location) { r.resume(); try { fetchPageTitle(new URL(r.headers.location, url).href, depth + 1).then(ok); } catch { ok(''); } return; }
+        if (sc !== 200) { r.resume(); return ok(''); }
+        let body = ''; let len = 0;
+        r.on('data', (c: Buffer) => { len += c.length; body += c.toString('utf8'); if (len > 200000 || /<\/title>/i.test(body)) r.destroy(); });
+        const done = () => { const m = /<title[^>]*>([\s\S]*?)<\/title>/i.exec(body); ok(m ? m[1].replace(/\s+/g, ' ').trim().slice(0, 120) : ''); };
+        r.on('end', done); r.on('close', done);
+      });
+      req.on('timeout', () => { req.destroy(); ok(''); });
+      req.on('error', () => ok(''));
+    } catch { ok(''); }
+  });
+}
+
 function maskName(name: string): string {
   if (!name) return 'an existing user';
   const parts = name.trim().split(/\s+/);
@@ -662,18 +685,17 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // F1 auth: fail CLOSED — require valid token + room membership
         const authToken = urlParams.get('token') || '';
         if (!authToken) { res.writeHead(403); res.end('Forbidden: token required'); return; }
-        const fileRoomUuid = (() => {
-          const scenarioDir2 = path.join(__dirname, '../../../scenario/index');
-          const idx2 = new ScenarioIndex(scenarioDir2);
-          const fu = idx2.get(fileUuid);
-          return fu ? String((fu.model as any).roomUuid || '') : '';
-        })();
-        if (!fileRoomUuid) { res.writeHead(403); res.end('Forbidden: file has no room'); return; }
-        const authRoom = roomManager.getRoom(fileRoomUuid);
-        if (!authRoom) { res.writeHead(403); res.end('Forbidden: room not found'); return; }
-        const isCreator = authRoom.creatorToken === authToken;
-        const isMember = [...authRoom.members.values()].some(m => m.playerToken === authToken);
-        if (!isCreator && !isMember) { res.writeHead(403); res.end('Forbidden'); return; }
+        // v0.6.98: authorize the requester as UPLOADER, member of the file's stored room, OR member of
+        // ANY loaded room that references the file (files can be shared across rooms, and the stored
+        // roomUuid may point at a room that is no longer loaded — that used to 403 valid viewers → broken image).
+        const fu0 = (() => { const idx2 = new ScenarioIndex(path.join(__dirname, '../../../scenario/index')); return idx2.get(fileUuid); })();
+        const fileRoomUuid = fu0 ? String((fu0.model as any).roomUuid || '') : '';
+        const uploaderToken = fu0 ? String((fu0.model as any).uploaderToken || '') : '';
+        const memberOf = (r: any) => !!r && (r.creatorToken === authToken || [...r.members.values()].some((m: any) => m.playerToken === authToken));
+        let authorized = !!uploaderToken && uploaderToken === authToken;
+        if (!authorized && fileRoomUuid) authorized = memberOf(roomManager.getRoom(fileRoomUuid));
+        if (!authorized) authorized = roomManager.roomsWithFile(fileUuid).some(memberOf);
+        if (!authorized) { res.writeHead(403); res.end('Forbidden'); return; }
         const scenarioDir = path.join(__dirname, '../../../scenario/index');
         const idx = new ScenarioIndex(scenarioDir);
         const unit = idx.get(fileUuid);
@@ -703,7 +725,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const chunks: Buffer[] = [];
       let totalSize = 0;
       req.on('data', (chunk: Buffer) => { totalSize += chunk.length; if (totalSize <= MAX_UPLOAD) chunks.push(chunk); });
-      req.on('end', () => {
+      req.on('end', async () => {
         try {
           if (totalSize > MAX_UPLOAD) { res.writeHead(413); res.end(JSON.stringify({ error: `File too large (max ${MAX_UPLOAD / 1024 / 1024}MB)` })); return; }
           const body = Buffer.concat(chunks);
@@ -751,6 +773,12 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             if (url) {
               unit = createWebItemUnit(idx, { uuid: crypto.randomUUID(), url, name: fileName, uploaderToken: playerToken, roomUuid: roomId, relatedFile: relatedFile || undefined });
               addLog(`[upload] WebItem: ${(unit.model as any).badge} ${(unit.model as any).name} (${(unit.model as any).scheme}) url=${url.slice(0,60)}`);
+              // v0.6.98 (R25.5): for http(s), fetch the page <title> as the NAME (distinct from description=url);
+              // falls back to deriveName's hostname on timeout/failure. Only overrides a generic (non-fetched) name.
+              if (/^https?:/i.test(url)) {
+                const title = await fetchPageTitle(url);
+                if (title) { (unit.model as any).name = title; idx.put((unit.model as any).uuid, unit); addLog(`[upload] WebItem title → ${title.slice(0,60)}`); }
+              }
               // v0.6.92: the WebItem is PRIMARY; its source file (.eml) becomes its child (WebItem.children),
               // NOT a room sibling — so demote it from the room's top-level file list (no duplicate entry).
               if (relatedFile) { room.removeFileUnit(relatedFile); addLog(`[upload] demoted source ${relatedFile.slice(0,8)} → child of WebItem`); }

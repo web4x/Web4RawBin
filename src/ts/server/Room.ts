@@ -396,6 +396,12 @@ export class RoomManager {
     return this.rooms.get(roomId);
   }
 
+  // R25.5/v0.6.98: loaded rooms that reference this file — for content auth when a file is shared into
+  // several rooms, or its stored roomUuid points at a room that is no longer loaded.
+  roomsWithFile(fileUuid: string): Room[] {
+    return [...this.rooms.values()].filter(r => r.fileUnits.has(fileUuid));
+  }
+
   removeRoom(roomId: string, requesterId?: string): boolean {
     const room = this.rooms.get(roomId);
     if (!room) return false;
