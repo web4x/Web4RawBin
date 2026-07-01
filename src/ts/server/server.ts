@@ -1255,6 +1255,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const dirs = entries.filter(e => isDir(e) && !e.name.startsWith('.')).map(e => `<li>📁 <a href="/md/${relPath}${e.name}/">${e.name}/</a>${symlinkIcon(e)}</li>`);
         const mds = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.md')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>📄 <a href="/md/${relPath}${e.name}">${e.name}</a>${inSprintsMd ? scenarioLink(e) : symlinkIcon(e)}${editIcon(e.name)}</li>`);
         // R22.4: ALL image types clickable like SVG (was .svg-only) — PNG/JPG/GIF/etc now open in /md viewer
+        // [impl:uuid:8eff3378-347e-4d3a-aaec-f3c6dc324b9d] R22.4 FileBrowser.isImage (clickable image links)
         const isImage = (n: string) => /\.(svg|png|jpe?g|gif|webp|bmp|ico|avif)$/i.test(n);
         const images = entries.filter(e => isFileOrLink(e) && isImage(e.name)).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>🖼 <a href="/md/${relPath}${e.name}">${e.name}</a>${symlinkIcon(e)}</li>`);
         const jsons = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.json')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>📋 <a href="${jsonHref(e)}">${e.name}</a>${symlinkIcon(e)}${editIcon(e.name)}</li>`);

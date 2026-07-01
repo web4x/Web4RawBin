@@ -27,6 +27,7 @@ export function renderContentPreview(uuid: string, mimeType: string, name: strin
  * v0.6.80: audio MIME → <audio controls>; text/uri-list YouTube URL → embedded player.
  */
 // [impl:uuid:ca54081e-42cb-4a0e-a9a6-2af559091783] R22.5 ContentPreviewer.fillPreviewPane — audio + YouTube preview
+// [impl:uuid:deed6186-139c-4fa9-bd25-eb8c29f83f75] R25.2 ContentPreviewer.fillPreviewPane
 export function fillPreviewPane(pane: RbPreviewPane, uuid: string, mimeType: string, name: string, token?: string): void {
   const contentUrl = `/api/room/file/${uuid}/content${token ? '?token=' + encodeURIComponent(token) : ''}`;
   const imgStyle = 'display:block;max-width:100%;height:auto';
@@ -118,6 +119,7 @@ const MIME_MAP: Record<string, string> = {
 };
 
 /** v0.6.80: extract a YouTube video id from watch?v=ID / youtu.be/ID / embed/ID, else null. */
+// [impl:uuid:839f55f6-1c95-40ff-a824-80fa8d1274ba] R22.5 ContentPreviewer.youtubeId (embed)
 function youtubeId(url: string): string | null {
   const m = url.match(/(?:youtube\.com\/(?:watch\?(?:[^&]*&)*v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
   return m ? m[1] : null;

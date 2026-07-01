@@ -197,6 +197,7 @@ export class ProfileEditor {
 
   // v0.6.93: the dropped vCard's phone matches an existing profile → flip the gate to "unlock device"
   // (DEVICE_ENROLL to that profile on correct secret code) instead of creating a new one.
+  // [impl:uuid:b3c5a6f5-62c5-422f-8a81-bd750657b791] R25.x ProfileEditor.switchToUnlock (recognizeIdentity)
   private switchToUnlock(profileUuid: string, maskedName: string): void {
     if (!this.overlay) return;
     this.existingProfileUuid = profileUuid;

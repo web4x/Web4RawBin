@@ -102,6 +102,7 @@ export class Room {
 
   // Room.resolveToken — collapse consolidated (redirectTo) members to PRIMARY.
   // server.ts injects the profile redirect resolver at startup; default identity (no profiles in tests).
+  // [impl:uuid:123c4c40-30b6-43c4-8d68-33f1d0bb566d] Room.resolveToken
   static resolveToken: (token: string) => string = (t) => t;
   private _chatHistory: ChatMessage[] = [];
   private creatorId: string = '';

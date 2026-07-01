@@ -100,6 +100,7 @@ export class RoomBrowser {
     this.setupEvents();
   }
 
+  // [impl:uuid:7dbff12b-98c4-42b4-9bf8-ba4fc34f6528] R21.2 RoomBrowser.setupEvents (renderNameOnConnect)
   private setupEvents(): void {
     const nameInput = document.getElementById('member-name') as HTMLInputElement;
     nameInput?.addEventListener('change', () => {

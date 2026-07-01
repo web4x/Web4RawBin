@@ -250,6 +250,7 @@ export class RbDetailDrawer extends HTMLElement {
   };
 
   // BUG3: minimize to a peek bar (header only); click the bar to expand. ESC still fully closes.
+  // [impl:uuid:bfe09645-5e91-42e1-a843-c882b61be9b5] R25.4 RbDetailDrawer.minimize
   minimize(): void {
     if (this.hasAttribute('minimized')) return;
     this._restoreHeight = this.style.height || `${this.offsetHeight}px`;
@@ -267,6 +268,7 @@ export class RbDetailDrawer extends HTMLElement {
 
   // BUG2: desktop grab-bar resize — mirrors the touch handlers; move/up on document so the drag
   // continues off the handle. A mousedown with no movement falls through to the grab-bar peek toggle.
+  // [impl:uuid:9d095150-0c3b-42bc-9763-1d79a46383f7] R25.4 RbDetailDrawer.onMouseDown (grab-bar pointer)
   private onMouseDown = (e: MouseEvent): void => {
     const handle = this.querySelector('.drawer-handle');
     if (!handle || !(handle.contains(e.target as Node) || e.target === handle)) return;

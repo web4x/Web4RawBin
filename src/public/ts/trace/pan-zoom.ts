@@ -38,6 +38,7 @@ export class RbPanZoom {
     this.boundoff.push(() => this.viewport.removeEventListener(t, fn as EventListener, opts));
   }
 
+  // [impl:uuid:0564d93b-b492-4314-9dad-a53f7ea131af] R22.2 RbPanZoom.attach (mouse handlers)
   private attach(): void {
     this.on('wheel', (e) => { // AC-c1
       e.preventDefault();
