@@ -2,44 +2,44 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 26.3: Server-to-server scenario fetch API (on the origin)",
+    "name": "Current: Task 26.4: Lazy child resolve — structure eager, payload lazy, members by-reference",
     "chain": {
-      "req": "05d21385-766a-426d-9045-77255d5234a0",
-      "uc": "e205f1b0-7e8f-4b52-932c-dc9ae2350ef6",
-      "class": "6456d811-496f-4389-80b5-3c23f7fdde73",
-      "method": "f762297b-9445-4ea5-acd1-671d0589d4dd",
-      "impl": "3089d066-07bf-4e79-9b8b-ea4c2fcca50a",
+      "req": "71b44e05-555f-4db2-a485-f375cd7ad70b",
+      "uc": "67859edd-c0a6-4cb0-8834-4d11c50e7ec1",
+      "class": "c4290554-9b09-4a20-8308-f161bec0d039",
+      "method": "4257570e-dc89-42e6-b3e4-c0130e6a29c2",
+      "impl": "3b17aad3-0587-48f6-8da6-3eaf54a9a84d",
       "test": ""
     },
     "activeHop": 5,
     "sprintName": "Sprint 26",
-    "taskName": "Task 26.3: Server-to-server scenario fetch API (on the origin)",
+    "taskName": "Task 26.4: Lazy child resolve — structure eager, payload lazy, members by-reference",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-01T12:12:39.927Z"
+        "updatedAt": "2026-07-01T12:33:29.183Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "491028f2-8fed-49de-b528-98ed03cc95ea",
-    "lastCompletedName": "Task 26.2: Cross-origin DnD federated-reference protocol",
-    "lastCompletedReqUuid": "e36d585c-cbb1-4715-a175-fa844f375cde",
+    "lastCompletedUuid": "e36f7645-2e76-4e6f-a7ec-90c9f03fdfcc",
+    "lastCompletedName": "Task 26.3: Server-to-server scenario fetch API (on the origin)",
+    "lastCompletedReqUuid": "05d21385-766a-426d-9045-77255d5234a0",
     "slots": {
       "current": {
+        "taskUuid": "9e94c188-89f4-4fb9-b631-f306a1213ec0",
+        "taskName": "Task 26.4: Lazy child resolve — structure eager, payload lazy, members by-reference",
+        "reqUuid": "71b44e05-555f-4db2-a485-f375cd7ad70b"
+      },
+      "lastCompleted": {
         "taskUuid": "e36f7645-2e76-4e6f-a7ec-90c9f03fdfcc",
         "taskName": "Task 26.3: Server-to-server scenario fetch API (on the origin)",
         "reqUuid": "05d21385-766a-426d-9045-77255d5234a0"
       },
-      "lastCompleted": {
-        "taskUuid": "491028f2-8fed-49de-b528-98ed03cc95ea",
-        "taskName": "Task 26.2: Cross-origin DnD federated-reference protocol",
-        "reqUuid": "e36d585c-cbb1-4715-a175-fa844f375cde"
-      },
       "nextBacklog": {
-        "taskUuid": "9e94c188-89f4-4fb9-b631-f306a1213ec0",
-        "taskName": "Task 26.4: Lazy child resolve — structure eager, payload lazy, members by-reference",
-        "reqUuid": "71b44e05-555f-4db2-a485-f375cd7ad70b"
+        "taskUuid": "7dd49936-1075-45ff-9eff-bd4309289b38",
+        "taskName": "Task 26.5: Conflict reconcile — uuid already exists locally",
+        "reqUuid": "f7e4c1cc-c2a5-423c-bbaa-d010a2d1fa79"
       }
     }
   },
