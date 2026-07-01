@@ -6,7 +6,9 @@
     "description": "DESIGN-AHEAD (scenario-first #126, GREENFIELD federation — no code yet): planned src/ts/server/federation-transfer.ts; expert attaches [impl:uuid] at code time.",
     "sourceFile": "ior:file:src/ts/server/federation-transfer.ts",
     "designAhead": true,
-    "tests": []
+    "tests": [
+      "ior:instance:5ad927a9-4229-47bc-bb8c-21e52d6a923c"
+    ]
   },
   "ownerIor": "ior:instance:90aabe21-df2b-40c9-a16d-60b57beebd59"
 }
