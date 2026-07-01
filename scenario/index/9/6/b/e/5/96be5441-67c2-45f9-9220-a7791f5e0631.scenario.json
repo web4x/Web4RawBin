@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "96be5441-67c2-45f9-9220-a7791f5e0631",
+    "name": "Room.addMember impl",
+    "description": "DESIGN-AHEAD (scenario-first #126; fix not yet shipped): base src/ts/server/Room.ts; expert attaches [impl:uuid] at code time.",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:52ed9ab9-1a51-42e9-8b72-d8d4c0b2012e"
+}

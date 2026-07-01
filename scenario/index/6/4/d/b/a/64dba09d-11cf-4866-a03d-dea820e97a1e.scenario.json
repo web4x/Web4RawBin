@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "64dba09d-11cf-4866-a03d-dea820e97a1e",
+    "name": "Room.evictAbsorbedFromRooms impl",
+    "description": "DESIGN-AHEAD (scenario-first #126; fix not yet shipped): base src/ts/server/server.ts; expert attaches [impl:uuid] at code time.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:bb4a357f-7e25-4a99-8ca6-2cc02593dc6c"
+}

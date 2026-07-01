@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "e03132c7-ea09-4ec3-9b6a-e685e2b0f546",
+    "name": "room.dedupMembersOnLoad",
+    "description": "On room load, map every persisted members playerToken through resolveToken and collapse members sharing a resolved-primary token to ONE (drop tombstones).",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
+    "classes": [
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
+    ],
+    "method": "ior:instance:0c8b2e2f-1b33-40fa-947f-3325fdbad470",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:585b6b9c-2fa7-48e2-8fab-a7e8a31e516e"
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "85f40027-3b56-4a6e-94a2-c4b561f985e2",
+    "name": "room.addMemberIdempotent",
+    "description": "addMember is idempotent by RESOLVED token: if a member with the same resolveToken(playerToken) exists, re-key it (update ws/id) instead of inserting a dup; memberCount + JOIN output use allMemberInfo (resolved+deduped), not raw members.",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
+    "classes": [
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
+    ],
+    "method": "ior:instance:52ed9ab9-1a51-42e9-8b72-d8d4c0b2012e",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:585b6b9c-2fa7-48e2-8fab-a7e8a31e516e"
+}
