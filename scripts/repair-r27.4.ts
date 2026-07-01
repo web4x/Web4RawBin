@@ -59,6 +59,7 @@ function deadRefCount(): { bbbc: number; fcf: number; todo: number } {
   for (const u of all()) {
     if (bare(String(u.ownerIor || '')) === DEAD_BBBC) bbbc++;
     const m = u.model as any;
+    if (Array.isArray(m.methods)) for (const mi of m.methods) if (bare(mi).startsWith(DEAD_METHOD)) fcf++;   // ALL methods[] slots (Class/Test back-edges), not just UC.method
     if (u.ior === 'ior:class:UseCase') {
       for (const c of [m.class, ...(Array.isArray(m.classes) ? m.classes : [])].filter(Boolean)) { if (bare(c) === DEAD_BBBC) bbbc++; if (/todo-server-class/i.test(bare(c))) todo++; }
       if (m.method && bare(m.method).startsWith(DEAD_METHOD)) fcf++;
@@ -72,7 +73,7 @@ function danglingCount(): number { // UC class/classes/method → nonexistent
 // A LYING marker = any of {designStage, orphanByDesign, orphanReason} set AND the Method's Impl HAS a sourceFile
 // (code shipped → the "design-stage/orphan" claim is false). Architect refinement: clear ALL such (not just
 // orphan-scoped) so R27.4 fully aligns with the R27.2 strict lying-marker audit check (one criteria, one pass).
-const LYING_FIELDS = ['designStage', 'orphanByDesign', 'orphanReason'] as const;
+const LYING_FIELDS = ['designStage', 'orphanByDesign', 'orphanReason', 'orphanRationale'] as const; // orphanRationale TEXT lies too when code shipped
 function isLyingMarker(m: any): boolean { return LYING_FIELDS.some(f => m[f] !== undefined) && (((m.implementations) || []).some((i: string) => implSource(i))); }
 function staleMarkers(): ScenarioUnit[] {
   return all().filter(u => u.ior === 'ior:class:Method' && isLyingMarker(u.model as any));
@@ -140,9 +141,10 @@ if (serverClass) for (const u of idx.list()) { const x = idx.get(u); if (!x || x
   if (ch) idx.put(u, x); }
 // clear ALL 53 lying markers by criteria (any of the 3 fields + Impl-has-sourceFile), orphan AND attached
 for (const m of staleMarkers()) { const x = idx.get(String((m.model as any).uuid))!; for (const f of LYING_FIELDS) delete (x.model as any)[f]; delete (x.model as any).designStageNote; idx.put(String((m.model as any).uuid), x); }
-// fcf6dae1 dead-Method refs + TODO: clear the offending UC.method / class refs
-for (const u of idx.list()) { const x = idx.get(u); if (!x || x.ior !== 'ior:class:UseCase') continue; const m = x.model as any; let ch = false;
-  if (m.method && (bare(m.method).startsWith(DEAD_METHOD) || !idx.has(bare(m.method)))) { delete m.method; ch = true; }
+// drop dead fcf6dae1 Method refs from ALL ref-slots (UC.method AND any unit's methods[] back-edge, e.g. Test.methods[])
+for (const u of idx.list()) { const x = idx.get(u); if (!x) continue; const m = x.model as any; let ch = false;
+  if (Array.isArray(m.methods)) { const nm = m.methods.filter((mi: string) => !bare(mi).startsWith(DEAD_METHOD)); if (nm.length !== m.methods.length) { m.methods = nm; ch = true; } }
+  if (x.ior === 'ior:class:UseCase' && m.method && bare(m.method).startsWith(DEAD_METHOD)) { delete m.method; ch = true; }
   if (ch) idx.put(u, x);
 }
 // post-apply reassert — ALL gates on ACTUAL mutated disk (any miss → revert this atomic commit)

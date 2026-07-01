@@ -6,8 +6,7 @@
     "implementations": [
       "ior:instance:811e9fa5-75a6-4d39-a750-545aacded4f2"
     ],
-    "tests": [],
-    "orphanRationale": "No code found in source — legacy migration/one-shot/future feature"
+    "tests": []
   },
   "ownerIor": "ior:instance:c8bdae18-88e1-4829-813b-0e5ecc21c56c"
 }
