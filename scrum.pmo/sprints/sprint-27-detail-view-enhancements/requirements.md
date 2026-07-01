@@ -52,6 +52,21 @@
   → [UC27.3: sprintMd.emitPerTask](./planning.md#uc27-3) `[uc:uuid:10ef702c-3141-45c9-b669-b5bed5f373b9]` *(placeholder — architect to refine; Class generate-sprint-md/ViewGenerator)*
 
 
+- [ ] **R27.4 — Graph integrity: resolve/prune dangling UC refs + orphan Methods**
+  [requirement:uuid:e205f7c3-97d8-474a-a4e6-053a7a7f30aa]
+  > Derived: robbin-req baseline (verify_r27_2_migration.py) surfaced 12 dangling UC refs + 51 orphan Methods as PRE-EXISTING graph debt (not from R27.2 dedup). PO ratified capture as a separate cleanup req.
+  Resolve/prune the pre-existing dangling UC references + orphan Methods so the graph has ZERO broken edges; then a CI gate prevents recurrence. Baseline: 12 dangling (10 -> dead RbDetailView f2f84ce3 repoint to canonical, 1 -> dead Method, 1 -> a 'TODO-' placeholder string) + 51 orphan Methods.
+  *(measured: verify_r27_2_migration.py; enforce via trace:audit:strict (R24.5). Independent of R27.2 — 0 of the 12 intersect the dup-collapse set.)*
+  **Acceptance criteria:**
+  - [ ] **(no-dangling)** Every UseCase class / classes[] / method reference resolves to an existing unit — 0 dangling UC refs.
+  - [ ] **(no-orphan)** Every Method unit is owned by a Class that lists it in methods[] — 0 orphan Methods.
+  - [ ] **(repair-dangling)** The 12 dangling are repaired: the 10 dead-RbDetailView refs are repointed to the live canonical RbDetailView; the dead-Method ref + the 'TODO-' placeholder ref are triaged (repoint OR remove) with a reason.
+  - [ ] **(repair-orphan)** The 51 orphan Methods are triaged: attached to their owning Class OR pruned if truly dead — dry-run + count FIRST, never silently drop a real Method.
+  - [ ] **(by-construction)** trace:audit:strict (R24.5) FAILS on any dangling UC ref or orphan Method — recurrence is prevented at the CI gate.
+  - [ ] **(verify)** Post-cleanup re-measure: 0 dangling UC refs, 0 orphan Methods.
+  → [UC27.4: graph.repairIntegrity](./planning.md#uc27-4) `[uc:uuid:f7a06e18-5237-4640-a731-0575bc965917]` *(placeholder — architect to refine; gated migration task)*
+
+
 ---
 
 ## Traceability Matrix
@@ -61,5 +76,6 @@
 | R27.1 | Task detail renders status checklist visually | 90b82d00-7af1-40e9-992c-c55ca177c542 | 050c5b9a-e5f4-46da-843f-44eb2b70994e |
 | R27.2 | One canonical Class unit per code class | 64965538-2725-4ef2-92e7-c1be6cd58d6f | 37c52953-654f-47c1-8710-b851b706849d |
 | R27.3 | Per-task MD view generation (📄 links resolve) | 4f6d6402-fc8d-4d5d-9523-7e35af641944 | 10ef702c-3141-45c9-b669-b5bed5f373b9 |
+| R27.4 | Graph integrity: dangling UC refs + orphan Methods | e205f7c3-97d8-474a-a4e6-053a7a7f30aa | f7a06e18-5237-4640-a731-0575bc965917 |
 
 *Captured by robbin-req 2026-07-01. MD-link = R22.1 (covered). statusChecklist render = R27.1 (new, v0.7.6 retroactive-chain).*
