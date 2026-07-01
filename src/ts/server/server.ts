@@ -366,6 +366,8 @@ function saveDevices(): void {
 loadProfiles();
 // Inject the redirect resolver so rooms collapse consolidated (redirectTo) members to the PRIMARY profile.
 Room.resolveToken = (token: string) => userProfiles.get(token)?.redirectTo || token;
+// v0.7.1 (R25.7): let room-load dedup detect orphan members (token whose profile was deleted) and self-heal.
+Room.profileExists = (token: string) => userProfiles.has(token);
 
 function generateSecretCode(): string {
   return String(1000 + Math.floor(Math.random() * 9000));

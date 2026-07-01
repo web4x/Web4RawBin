@@ -104,6 +104,9 @@ export class Room {
   // server.ts injects the profile redirect resolver at startup; default identity (no profiles in tests).
   // [impl:uuid:123c4c40-30b6-43c4-8d68-33f1d0bb566d] Room.resolveToken
   static resolveToken: (token: string) => string = (t) => t;
+  // v0.7.1: does a token have ANY profile? Injected by server.ts (default true so profile-less tests keep members).
+  // A persisted member with NO profile = an orphan from a deleted profile → dropped on load (self-heal).
+  static profileExists: (token: string) => boolean = () => true;
   private _chatHistory: ChatMessage[] = [];
   private creatorId: string = '';
   creatorToken: string = '';
@@ -130,6 +133,9 @@ export class Room {
       // in one display path. Prefer the entry whose token IS the primary, else a connected one; re-key to primary.
       const byIdentity = new Map<string, { id: string; name: string; playerToken: string; disconnected: boolean }>();
       for (const pm of opts.persistedMembers) {
+        // v0.7.1 (R25.7): orphan self-heal — a persisted member whose token has NO profile (profile deleted
+        // in a purge) is a ghost; drop it. Persisted members have no live WS at load, so this is safe.
+        if (pm.playerToken && !Room.profileExists(pm.playerToken)) continue;
         const resolved = Room.resolveToken(pm.playerToken || '') || pm.playerToken || pm.id;
         const cur = byIdentity.get(resolved);
         const better = !cur || (pm.playerToken === resolved && cur.playerToken !== resolved) || (cur.disconnected && !(pm.disconnected ?? true));
