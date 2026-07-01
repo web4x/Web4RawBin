@@ -84,6 +84,7 @@ function slugifySprint(name: string): string {
   return String(name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 // v0.7.6: link to the task's MD file — model.sourceFile if present, else derive from sprint slug + task slug.
+// [impl:uuid:d6b29c09-132b-4828-b9c6-d59c9929ccb8] R22.1 RbTaskDetail.taskMdHref (Forward-Links → MD-file link)
 function taskMdHref(model: Record<string, any>, sprintName: string): string {
   if (model.sourceFile) return `/md/${String(model.sourceFile).replace(/^ior:file:/, '')}`;
   const slug = String(model.slug || ''); const dir = slugifySprint(sprintName);
