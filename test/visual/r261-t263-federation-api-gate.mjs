@@ -1,3 +1,4 @@
+// [test:uuid:9907f272-0cfb-4c8e-8732-797fd679b9fb] R26.3 FederationApi.fetchScenario — grant auth + unit/content/children
 // T26.3 v0.7.4 gate — server-to-server federation fetch API (capability-grant auth). HTTP-only,
 // stateless HMAC grants (no storage) → ZERO pollution. SystemTester token mints grants. DET-3x.
 //   (1) GET /api/scenario/<uuid> without grant → 403.
