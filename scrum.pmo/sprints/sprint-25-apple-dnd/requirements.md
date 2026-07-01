@@ -77,7 +77,8 @@
   - [ ] **(read)** On yes, the clipboard is read via navigator.clipboard.read / readText and its MIME types are detected (same recognition as DnD).
   - [ ] **(route)** Content is routed the same as drop-dispatcher: URLs -> WebItem units, images/bytes -> File, text -> file.
   - [ ] **(cancel)** On no, nothing is imported.
-  → [UC-CB.1: clipboard.previewAndImport](./planning.md#uc-cb1) `[uc:uuid:10af6d46-b5b7-46d8-8fe8-3289d8f09d72]` *(placeholder)*
+  → AC-listener/preview/ask → [UC-CB.1: clipboard.previewAndImport](./planning.md#uc-cb1) `[uc:uuid:10af6d46-b5b7-46d8-8fe8-3289d8f09d72]`
+  → AC-read/route/no → [UC-CB.2: clipboard.readAndRoute](./planning.md#uc-cb2) `[uc:uuid:1aa5b1c5]`
 
 - [ ] **R25.6 — Scenario link on ALL detail views**
   [requirement:uuid:24509e35-8627-402a-ba93-ed959fef3a5b]
@@ -89,7 +90,8 @@
   - [ ] **(target)** The link resolves to the underlying scenario unit (the /scenario or /md view of that unit's uuid).
   - [ ] **(universal)** The link appears on ALL detail components uniformly (task, WebItem, member, file, requirement, drawer, ...), not just one.
   - [ ] **(consistent)** The 📄 Scenario affordance is placed/styled consistently across detail views.
-  → [UC-SL.1: detail.scenarioLink](./planning.md#uc-sl1) `[uc:uuid:dc468781-714b-429d-8dff-2ee243a81e51]` *(placeholder)*
+  → AC-link/all/consistent → [UC-SL.1: detail.scenarioLink](./planning.md#uc-sl1) `[uc:uuid:dc468781-714b-429d-8dff-2ee243a81e51]`
+  → AC-target → [UC-SL.2: detail.scenarioLinkResolve](./planning.md#uc-sl2) `[uc:uuid:f81594b4]`
 
 ### Deferred (Phase 3 — per-scheme preview refinements)
 - **R25.3+** per-scheme MEANINGFUL preview bodies (email preview, calendar-event preview, map preview, contact card) on top of the WebItem launcher card. Created as Tron exercises each scheme.
