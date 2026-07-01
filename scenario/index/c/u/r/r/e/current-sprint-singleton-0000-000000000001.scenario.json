@@ -2,40 +2,44 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 26.1: Federated IOR — provenance via originHost",
+    "name": "Current: Task 26.2: Cross-origin DnD federated-reference protocol",
     "chain": {
-      "req": "e8744de9-ca4a-4f8b-a6d9-c7c971999d8b",
-      "uc": "9b4a8c02-a913-45e9-b984-640defa70b33",
-      "class": "b4eaa489-6096-46e9-b7e0-4fc8aa72ea08",
-      "method": "7be6b225-7067-4924-b715-08d3800fc5a0",
-      "impl": "d2cde3fc-a97f-4b12-9746-25c201d8e901",
+      "req": "e36d585c-cbb1-4715-a175-fa844f375cde",
+      "uc": "13ce665c-0f13-4d1e-8d7d-1818f1e80ee1",
+      "class": "3854affc-0859-4a13-a2d1-893266a3d50a",
+      "method": "c8a17dcc-0bba-44aa-9aac-86049ba65c31",
+      "impl": "f484952c-03b5-411d-8816-79adb0fcac17",
       "test": ""
     },
     "activeHop": 5,
     "sprintName": "Sprint 26",
-    "taskName": "Task 26.1: Federated IOR — provenance via originHost",
+    "taskName": "Task 26.2: Cross-origin DnD federated-reference protocol",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-01T11:25:29.848Z"
+        "updatedAt": "2026-07-01T12:08:04.168Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "d01c38b3-3a56-4586-88ae-e267708c30d1",
-    "lastCompletedName": "Task 25.7: Room membership dedup by resolved identity (structural, no duplicate members ever)",
-    "lastCompletedReqUuid": "585b6b9c-2fa7-48e2-8fab-a7e8a31e516e",
+    "lastCompletedUuid": "906e391d-ae21-40e9-8d97-210704b491ab",
+    "lastCompletedName": "Task 26.1: Federated IOR — provenance via originHost",
+    "lastCompletedReqUuid": "e8744de9-ca4a-4f8b-a6d9-c7c971999d8b",
     "slots": {
       "current": {
+        "taskUuid": "491028f2-8fed-49de-b528-98ed03cc95ea",
+        "taskName": "Task 26.2: Cross-origin DnD federated-reference protocol",
+        "reqUuid": "e36d585c-cbb1-4715-a175-fa844f375cde"
+      },
+      "lastCompleted": {
         "taskUuid": "906e391d-ae21-40e9-8d97-210704b491ab",
         "taskName": "Task 26.1: Federated IOR — provenance via originHost",
         "reqUuid": "e8744de9-ca4a-4f8b-a6d9-c7c971999d8b"
       },
-      "lastCompleted": null,
       "nextBacklog": {
-        "taskUuid": "491028f2-8fed-49de-b528-98ed03cc95ea",
-        "taskName": "Task 26.2: Cross-origin DnD federated-reference protocol",
-        "reqUuid": "e36d585c-cbb1-4715-a175-fa844f375cde"
+        "taskUuid": "e36f7645-2e76-4e6f-a7ec-90c9f03fdfcc",
+        "taskName": "Task 26.3: Server-to-server scenario fetch API (on the origin)",
+        "reqUuid": "05d21385-766a-426d-9045-77255d5234a0"
       }
     }
   },
