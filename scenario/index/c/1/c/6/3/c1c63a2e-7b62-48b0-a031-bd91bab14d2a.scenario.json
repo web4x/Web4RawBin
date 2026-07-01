@@ -13,7 +13,8 @@
       "ior:instance:4f6d6402-fc8d-4d5d-9523-7e35af641944"
     ],
     "tasks": [
-      "ior:instance:8b15788a-e881-4bff-b9bf-ada1c48b262f"
+      "ior:instance:8b15788a-e881-4bff-b9bf-ada1c48b262f",
+      "ior:instance:dbd7e30d-263c-4d01-81eb-b687854ca961"
     ],
     "createdAt": "2026-07-01",
     "createdBy": "robbin-req",

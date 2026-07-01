@@ -13,3 +13,4 @@ Enhance the scenario/task detail views. R27.1: render the task status checklist 
 ## Tasks
 
 - [ ] [Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)](./task-27.3-per-task-md-view-generation.md)
+- [ ] [Task 27.1: Task detail renders the status checklist visually](./task-27.1-task-detail-status-checklist.md)
