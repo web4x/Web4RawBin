@@ -10,9 +10,9 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
@@ -40,15 +40,15 @@ Tron-visible 404 fix: every task-detail 📄 Scenario/MD link must open its OWN 
 
 ## Acceptance Criteria
 
-- [ ] (emit) generate-sprint-md emits ONE task-<slug>.md per Task unit (title + ACs + statusChecklist + chain links)
-- [ ] (no-collapse) Task units do NOT set model.sourceFile to planning.md (which collapses all tasks into one view)
-- [ ] (resolve-200) taskMdHref (rb-task-detail.ts:88) resolves to the per-task MD -> HTTP 200, never 404 (via the pinned model.slug / actual dir, not a re-slugified name)
-- [ ] (roundtrip) The per-task MD is a generated VIEW (law #100); --check (check:sprint-md) byte-match holds
-- [ ] (verify) Verified live: every task's 📄 link opens its own MD file
+- [x] (emit) generate-sprint-md emits ONE task-<slug>.md per Task unit (title + ACs + statusChecklist + chain links)
+- [x] (no-collapse) Task units do NOT set model.sourceFile to planning.md (which collapses all tasks into one view)
+- [x] (resolve-200) taskMdHref (rb-task-detail.ts:88) resolves to the per-task MD -> HTTP 200, never 404 (via the pinned model.slug / actual dir, not a re-slugified name)
+- [x] (roundtrip) The per-task MD is a generated VIEW (law #100); --check (check:sprint-md) byte-match holds
+- [x] (verify) Verified live: every task's 📄 link opens its own MD file
 
 ## Implementation
 
-ROUTED TO EXPERT (PO: ship fast). Fix: (1) taskMdHref resolves the MD path from the sprint's PINNED model.slug / actual dir, not slugify(sprintName); (2) generate-sprint-md emits one task-<slug>.md per Task unit; (3) tasks stop setting model.sourceFile=planning.md. Planner-side: pinned S27 model.slug='sprint-27-detail-view-enhancements' (matches compoundSource). testing OPEN.
+ROUTED TO EXPERT (PO: ship fast). Fix: (1) taskMdHref resolves the MD path from the sprint's PINNED model.slug / actual dir, not slugify(sprintName); (2) generate-sprint-md emits one task-<slug>.md per Task unit; (3) tasks stop setting model.sourceFile=planning.md. Planner-side: pinned S27 model.slug='sprint-27-detail-view-enhancements' (matches compoundSource). testing OPEN. GREEN -> QA Review: SHIPPED v0.7.8 + tester GREEN DET-3x (161515308, gate r265-v078-per-task-md-gate.mjs): 📄 link for a task WITHOUT sourceFile now serves 200 (fix resolves dir from the sprint PINNED slug + ignores sourceFile=planning.md) + --check byte-match sprint-26+27 + live headless. 5/5 ACs. Validated my slug-pinning fix (used my T26.6 026af82c + T27.2 788bc972 as the 404 test cases).
 
 ## Subtasks
 
