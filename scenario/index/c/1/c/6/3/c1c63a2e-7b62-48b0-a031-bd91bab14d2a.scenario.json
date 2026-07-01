@@ -8,7 +8,8 @@
     "status": "Planned",
     "compoundSource": "scrum.pmo/sprints/sprint-27-detail-view-enhancements/requirements.md",
     "requirements": [
-      "ior:instance:90b82d00-7af1-40e9-992c-c55ca177c542"
+      "ior:instance:90b82d00-7af1-40e9-992c-c55ca177c542",
+      "ior:instance:64965538-2725-4ef2-92e7-c1be6cd58d6f"
     ],
     "tasks": [],
     "createdAt": "2026-07-01",

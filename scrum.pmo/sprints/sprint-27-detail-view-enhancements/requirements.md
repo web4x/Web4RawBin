@@ -23,6 +23,21 @@
   - [ ] **(verify)** Verified live (headless): a task carrying a statusChecklist renders the visual checklist matching the unit field.
   → [UC27.1: taskDetail.renderStatusChecklist](./planning.md#uc27-1) `[uc:uuid:050c5b9a-e5f4-46da-843f-44eb2b70994e]` *(placeholder — architect to refine + wire to RbTaskDetail.renderStatusChecklist)*
 
+- [ ] **R27.2 — One canonical Class unit per code class (no per-req Class duplication)**
+  [requirement:uuid:64965538-2725-4ef2-92e7-c1be6cd58d6f]
+  > TRON (via PO): ONE canonical Class unit per code class — no per-req Class duplication; the chain reuses the existing Class node. By-construction fix (cannot-happen-again).
+  The scenario graph holds AT MOST ONE canonical Class unit per code class. Wiring a UseCase to a Class REUSES the existing Class node (adds the method), never mints a duplicate. The existing 55 duplicate Class units (23 code classes) are collapsed to one canonical each — by-construction, this cannot happen again.
+  *(audit: scrum.pmo/design-notes/class-unit-dedup-audit.md — 163 Class units / 108 code classes / 55 collapsible; architect flagged 4x RbTaskDetail.)*
+  **Acceptance criteria:**
+  - [ ] **(invariant)** The scenario graph holds AT MOST ONE Class unit per code class (by class name/identity); no per-req duplication.
+  - [ ] **(reuse-on-wire)** Wiring a UC to a Class REUSES the existing Class node for that code class (adds the method to it), NEVER mints a new Class unit (the R27.1 pattern).
+  - [ ] **(cleanup)** The 55 existing duplicate Class units (23 code classes, per audit) are collapsed to one canonical each: methods repointed + every UC.class ref rewritten to the canonical + emptied duplicates removed.
+  - [ ] **(canonical-select)** The canonical is the unit with the most methods / already on the active chain; the collapse is dry-run + count FIRST (never silently drop a method or break a UC.class ref).
+  - [ ] **(by-construction)** After the fix, minting a chain for a NEW req on an EXISTING code class cannot create a duplicate Class unit (wiring reuses).
+  - [ ] **(verify)** A trace audit shows exactly ONE Class unit per code class; no chain fans out through duplicate Class nodes.
+  → [UC27.2: chain.reuseCanonicalClass](./planning.md#uc27-2) `[uc:uuid:37c52953-654f-47c1-8710-b851b706849d]` *(placeholder — architect to refine; cleanup = a gated migration task)*
+
+
 ---
 
 ## Traceability Matrix
@@ -30,5 +45,6 @@
 | Req | Name | Requirement UUID | UC placeholder UUID |
 |-----|------|------------------|---------------------|
 | R27.1 | Task detail renders status checklist visually | 90b82d00-7af1-40e9-992c-c55ca177c542 | 050c5b9a-e5f4-46da-843f-44eb2b70994e |
+| R27.2 | One canonical Class unit per code class | 64965538-2725-4ef2-92e7-c1be6cd58d6f | 37c52953-654f-47c1-8710-b851b706849d |
 
 *Captured by robbin-req 2026-07-01. MD-link = R22.1 (covered). statusChecklist render = R27.1 (new, v0.7.6 retroactive-chain).*
