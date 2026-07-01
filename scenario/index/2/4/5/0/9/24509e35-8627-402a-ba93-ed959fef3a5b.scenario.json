@@ -14,9 +14,9 @@
       "ior:instance:dc468781-714b-429d-8dff-2ee243a81e51",
       "ior:instance:f81594b4-f0cc-46fc-9761-e480b57a1d75"
     ],
-    "description": "Every detail-view component renders a 📄 Scenario link to its own underlying scenario unit, so any detail view (task, WebItem, member, file, requirement, etc.) exposes a one-click path to the unit that backs it - uniformly across ALL detail components.",
-    "tronQuote": "> TRON: every detail view shall show a 📄 Scenario link to its underlying scenario unit (all detail components, uniformly).",
-    "implRef": "ior:file:src/public/ts/trace/rb-*-detail.ts (the detail-view components: rb-task-detail, rb-webitem-detail, rb-detail-drawer, member/file detail) — add a uniform 📄 Scenario link to each.",
+    "description": "Every detail-view component renders a \ud83d\udcc4 Scenario link to its own underlying scenario unit, so any detail view (task, WebItem, member, file, requirement, etc.) exposes a one-click path to the unit that backs it - uniformly across ALL detail components.",
+    "tronQuote": "> TRON: every detail view shall show a \ud83d\udcc4 Scenario link to its underlying scenario unit (all detail components, uniformly).",
+    "implRef": "ior:file:src/public/ts/trace/rb-*-detail.ts (the detail-view components: rb-task-detail, rb-webitem-detail, rb-detail-drawer, member/file detail) \u2014 add a uniform \ud83d\udcc4 Scenario link to each.",
     "crossRef": [
       "ior:instance:2c1fd942-a6f1-414c-976f-ea7af7008201"
     ],
@@ -24,7 +24,7 @@
       {
         "id": "AC-link",
         "group": "link",
-        "text": "Every detail-view component renders a 📄 Scenario link."
+        "text": "Every detail-view component renders a \ud83d\udcc4 Scenario link."
       },
       {
         "id": "AC-target",
@@ -39,10 +39,11 @@
       {
         "id": "AC-consistent",
         "group": "consistent",
-        "text": "The 📄 Scenario affordance is placed/styled consistently across detail views."
+        "text": "The \ud83d\udcc4 Scenario affordance is placed/styled consistently across detail views."
       }
     ],
-    "crossRefNote": "Sibling concern to R22.3 (chain-node source links): R22.3 links chain nodes to their source artifacts; R25.6 adds a 📄 Scenario link on every DETAIL view to its own unit."
+    "crossRefNote": "Sibling concern to R22.3 (chain-node source links): R22.3 links chain nodes to their source artifacts; R25.6 adds a \ud83d\udcc4 Scenario link on every DETAIL view to its own unit.",
+    "gateLabelDrift": "The v0.6.97/98 test gates label this behaviour \"R26.2\" \u2014 that is a DOWNSTREAM MISLABEL. The canonical requirement is R25.6 (this unit, on disk = source of truth per TRON #126). Rule 9 dedupe: NO R26.x requirement unit was minted; the gate should reference R25.6 / uuid 24509e35-8627-402a-ba93-ed959fef3a5b. Recorded by robbin-req 2026-07-01 per planner flag."
   },
   "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"
 }
