@@ -2,45 +2,41 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 25.5: Drop-area clipboard preview + import",
+    "name": "Current: Task 25.7: Room membership dedup by resolved identity (structural, no duplicate members ever)",
     "chain": {
-      "req": "2066ba12-6bd8-42b1-9377-25c82fd944e0",
-      "uc": "",
-      "class": "",
-      "method": "",
-      "impl": "",
+      "req": "585b6b9c-2fa7-48e2-8fab-a7e8a31e516e",
+      "uc": "e03132c7-ea09-4ec3-9b6a-e685e2b0f546",
+      "class": "2172dc56-83c8-4818-9981-3b942b5d7e78",
+      "method": "0c8b2e2f-1b33-40fa-947f-3325fdbad470",
+      "impl": "7899449b-9d07-4b8c-80c6-58f229ce3129",
       "test": ""
     },
-    "activeHop": 1,
+    "activeHop": 5,
     "sprintName": "Sprint 25",
-    "taskName": "Task 25.5: Drop-area clipboard preview + import",
+    "taskName": "Task 25.7: Room membership dedup by resolved identity (structural, no duplicate members ever)",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-01T08:20:35.042Z"
+        "updatedAt": "2026-07-01T09:37:10.132Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "b9deaf57-0e85-44a4-be94-3aa68f914c67",
-    "lastCompletedName": "Task 25.4: Drawer interaction — grab-bar mouse parity + X-minimize",
-    "lastCompletedReqUuid": "225b18a6-684d-4bec-9a4d-42ed4f23fd09",
+    "lastCompletedUuid": "7158a210-c5af-4e06-89f1-df60a2226828",
+    "lastCompletedName": "Task 25.5: Drop-area clipboard preview + import",
+    "lastCompletedReqUuid": "2066ba12-6bd8-42b1-9377-25c82fd944e0",
     "slots": {
       "current": {
+        "taskUuid": "d01c38b3-3a56-4586-88ae-e267708c30d1",
+        "taskName": "Task 25.7: Room membership dedup by resolved identity (structural, no duplicate members ever)",
+        "reqUuid": "585b6b9c-2fa7-48e2-8fab-a7e8a31e516e"
+      },
+      "lastCompleted": {
         "taskUuid": "7158a210-c5af-4e06-89f1-df60a2226828",
         "taskName": "Task 25.5: Drop-area clipboard preview + import",
         "reqUuid": "2066ba12-6bd8-42b1-9377-25c82fd944e0"
       },
-      "lastCompleted": {
-        "taskUuid": "b9deaf57-0e85-44a4-be94-3aa68f914c67",
-        "taskName": "Task 25.4: Drawer interaction — grab-bar mouse parity + X-minimize",
-        "reqUuid": "225b18a6-684d-4bec-9a4d-42ed4f23fd09"
-      },
-      "nextBacklog": {
-        "taskUuid": "ee367cbd-913b-4153-8c3b-0cdd9a703e01",
-        "taskName": "Task 25.6: Scenario link on ALL detail views",
-        "reqUuid": "24509e35-8627-402a-ba93-ed959fef3a5b"
-      }
+      "nextBacklog": null
     }
   },
   "ownerIor": null
