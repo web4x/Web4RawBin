@@ -6,7 +6,8 @@
     "description": "ClipboardImport (R25.5). Base src/public/ts/drop-dispatcher.ts",
     "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
     "methods": [
-      "ior:instance:e8983bc2-1227-4629-a99d-b639b84668ba"
+      "ior:instance:e8983bc2-1227-4629-a99d-b639b84668ba",
+      "ior:instance:ea55be35-73c3-49f9-8781-9011ef9c4a14"
     ]
   },
   "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"

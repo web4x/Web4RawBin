@@ -6,7 +6,8 @@
     "description": "RbDetailView (R25.6). Base src/public/ts/trace/detail-children.ts",
     "sourceFile": "ior:file:src/public/ts/trace/detail-children.ts",
     "methods": [
-      "ior:instance:0ce8290f-b79e-471d-8f69-302cdc13fe4e"
+      "ior:instance:0ce8290f-b79e-471d-8f69-302cdc13fe4e",
+      "ior:instance:a51c3e97-7e73-4b7f-99f2-5f47e5f96be5"
     ]
   },
   "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"

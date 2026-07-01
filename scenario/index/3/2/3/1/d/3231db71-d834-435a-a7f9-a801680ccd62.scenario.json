@@ -20,28 +20,21 @@
         "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1782894526332
+        "joinedAt": 1782894928855
       },
       {
         "ior": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
         "name": "SystemTester",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1782894526332
+        "joinedAt": 1782894928855
       },
       {
         "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
         "name": "Marcel Donges",
         "role": "owner",
-        "status": "offline",
-        "joinedAt": 1782894526332
-      },
-      {
-        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
-        "name": "",
-        "role": "owner",
         "status": "online",
-        "joinedAt": 1782894526332
+        "joinedAt": 1782894928855
       }
     ],
     "files": [
@@ -52,7 +45,8 @@
       "ior:instance:ee8ba451-9340-43ef-8f89-28e880fff506",
       "ior:instance:ac90d742-dcd6-4475-8d13-f1607b185d0e",
       "ior:instance:90322673-f687-46b5-85d0-9ffca09f671c",
-      "ior:instance:5316df18-5d24-4325-b467-a759ae69ca9f"
+      "ior:instance:5316df18-5d24-4325-b467-a759ae69ca9f",
+      "ior:instance:5e380e73-41d0-40ad-bdb9-d258e7c846cd"
     ],
     "lastMessageIor": null,
     "firstMessageIor": null,

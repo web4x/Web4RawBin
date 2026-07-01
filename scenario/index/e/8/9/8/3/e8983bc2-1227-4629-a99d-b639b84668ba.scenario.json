@@ -6,7 +6,8 @@
     "description": "Click/tap the drop-area reads the clipboard, previews its content, and imports it via drop-dispatcher MIME routing (dispatchUrl->WebItem, files->File, etc.).",
     "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
     "implementations": [
-      "ior:instance:7d92ce31-5518-4398-a2b1-a000344e2ef8"
+      "ior:instance:7d92ce31-5518-4398-a2b1-a000344e2ef8",
+      "ior:instance:bd080edb-3738-4a6c-ae84-51e59fff8560"
     ],
     "tests": []
   },

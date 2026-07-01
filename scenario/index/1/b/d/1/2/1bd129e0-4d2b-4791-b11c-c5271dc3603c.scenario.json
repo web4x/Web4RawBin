@@ -4,7 +4,8 @@
     "uuid": "1bd129e0-4d2b-4791-b11c-c5271dc3603c",
     "name": "detail-children.scenarioFileHref",
     "sourceFile": "src/public/ts/trace/detail-children.ts",
-    "tests": []
+    "tests": [],
+    "parent": "ior:instance:0ce8290f-b79e-471d-8f69-302cdc13fe4e"
   },
-  "ownerIor": "ior:instance:c182d22f-3fa9-4257-827a-c1deff6e40d6"
+  "ownerIor": "ior:instance:ee367cbd-913b-4153-8c3b-0cdd9a703e01"
 }
