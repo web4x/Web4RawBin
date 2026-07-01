@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b3c5a6f5-62c5-422f-8a81-bd750657b791",
+    "name": "Onboarding.recognizeIdentity impl",
+    "description": "Implementation in src/public/ts/ProfileEditor.ts (vCard onboarding identity recognition via R21.4 resolveKeyToProfile).",
+    "sourceFile": "ior:file:src/public/ts/ProfileEditor.ts",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:152fed3e-af30-4ae3-89d6-f131778fadd3"
+}

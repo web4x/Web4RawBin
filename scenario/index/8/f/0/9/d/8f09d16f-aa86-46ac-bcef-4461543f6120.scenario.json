@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "8f09d16f-aa86-46ac-bcef-4461543f6120",
+    "name": "Posteingang für Cerulean Circle GmbH [SKW-DMS.FID1344872].eml",
+    "contentPath": "index/8/f/0/9/d/8f09d16f-aa86-46ac-bcef-4461543f6120.content",
+    "size": 30397,
+    "mimeType": "message/rfc822",
+    "uploadedAt": "2026-06-30T14:19:39.434Z",
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+    "roomUuid": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "contentHash": "dc2c1b7d0ee80e8800b4606a682ba027bc19748a0ce31a9128fcaa34016d433b",
+    "unitLinks": [
+      "content/dc2c1b7d0ee80e8800b4606a682ba027bc19748a0ce31a9128fcaa34016d433b.file.scenario.json",
+      "../data/users/8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd/rooms/3231db71-d834-435a-a7f9-a801680ccd62/files/8f09d16f-aa86-46ac-bcef-4461543f6120.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62"
+}

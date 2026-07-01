@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "152fed3e-af30-4ae3-89d6-f131778fadd3",
+    "name": "Onboarding.recognizeIdentity",
+    "description": "On vCard onboarding, recognize an existing identity: if the dropped vCards phone/email is already in the alt-index (R21.4 resolveKeyToProfile), prompt device-link to the existing profile instead of minting a new user.",
+    "sourceFile": "ior:file:src/public/ts/ProfileEditor.ts",
+    "implementations": [
+      "ior:instance:b3c5a6f5-62c5-422f-8a81-bd750657b791"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:97d6e2bf-6c02-4c36-82f6-c0c6178d1163"
+}

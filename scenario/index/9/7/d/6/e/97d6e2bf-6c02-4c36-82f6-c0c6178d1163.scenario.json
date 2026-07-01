@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "97d6e2bf-6c02-4c36-82f6-c0c6178d1163",
+    "name": "Onboarding",
+    "description": "vCard onboarding identity recognition (R25.3). Formalizes src/public/ts/ProfileEditor.ts",
+    "sourceFile": "ior:file:src/public/ts/ProfileEditor.ts",
+    "methods": [
+      "ior:instance:152fed3e-af30-4ae3-89d6-f131778fadd3"
+    ]
+  },
+  "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"
+}

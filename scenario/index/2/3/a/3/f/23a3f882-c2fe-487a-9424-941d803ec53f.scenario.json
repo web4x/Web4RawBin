@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "23a3f882-c2fe-487a-9424-941d803ec53f",
+    "kind": "link",
+    "name": "Posteingang für Cerulean Circle GmbH [SKW-DMS.FID1344872]",
+    "description": "",
+    "url": "message:%3CAM9P189MB1508693DBB55F95D0AA6DA13F9E42@AM9P189MB1508.EURP189.PROD.OUTLOOK.COM%3E",
+    "scheme": "message",
+    "icon": "",
+    "badge": "📧",
+    "mimeType": "text/uri-list",
+    "roomUuid": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "parentFolder": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62",
+    "children": [
+      "ior:instance:8f09d16f-aa86-46ac-bcef-4461543f6120"
+    ],
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd"
+  },
+  "ownerIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62"
+}

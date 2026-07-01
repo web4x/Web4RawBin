@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "ee8ba451-9340-43ef-8f89-28e880fff506",
+    "kind": "link",
+    "name": "5Z5WaOOjsGsxKRDK1ILibI?si=yxfZWghNQDKhJ8bgqVXccA&nd=1&utm_medium=organic&_branch_referrer=H4sIAAAAAAAAA72NQQrCMBRET5MuW2xVRCgiFkUrii5U3Eia%2FjSxaRJ%2FUtSNZ7cKXkGYxTCPxwjvrRtHkbPGS%2F4MqbWhkrqOJhZN2TKfGgs6IHGft0pdWlSp%2BCgkmZJ43uWDw5%2FNTNNNYKUzJXRtcB4c6XZ7dQv3yPdZ3luuZbEkydxJkmTPBz8fK7HZZblYjYrqdjgxNv1%2BUaUKyup%2F%2FJF4qMuO9gIO1LcIqcGKasmCFwIHRKmrS4Hm7gDTmUDTwBt4xWbTNQEAAA%3D%3D&product=open&%24full_url=https%3A%2F%2Fopen.spotify.com%2Fepisode%2F5Z5WaOOjsGsxKRDK1ILibI%3Fsi%3DyxfZWghNQDKhJ8bgqVXccA&feature=organic&_branch_match_id=1600766239477387055",
+    "description": "",
+    "url": "https://open.spotify.com/episode/5Z5WaOOjsGsxKRDK1ILibI?si=yxfZWghNQDKhJ8bgqVXccA&nd=1&utm_medium=organic&_branch_referrer=H4sIAAAAAAAAA72NQQrCMBRET5MuW2xVRCgiFkUrii5U3Eia%2FjSxaRJ%2FUtSNZ7cKXkGYxTCPxwjvrRtHkbPGS%2F4MqbWhkrqOJhZN2TKfGgs6IHGft0pdWlSp%2BCgkmZJ43uWDw5%2FNTNNNYKUzJXRtcB4c6XZ7dQv3yPdZ3luuZbEkydxJkmTPBz8fK7HZZblYjYrqdjgxNv1%2BUaUKyup%2F%2FJF4qMuO9gIO1LcIqcGKasmCFwIHRKmrS4Hm7gDTmUDTwBt4xWbTNQEAAA%3D%3D&product=open&%24full_url=https%3A%2F%2Fopen.spotify.com%2Fepisode%2F5Z5WaOOjsGsxKRDK1ILibI%3Fsi%3DyxfZWghNQDKhJ8bgqVXccA&feature=organic&_branch_match_id=1600766239477387055",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=open.spotify.com&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "parentFolder": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62",
+    "children": [],
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd"
+  },
+  "ownerIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62"
+}

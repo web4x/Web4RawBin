@@ -1,0 +1,565 @@
+Return-Path: <W.Schmitt@skwschwarz.de>
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on
+	dd28926.kasserver.com
+X-Original-To: marcel.donges@ceruleancircle.com
+Delivered-To: m03cba11@dd28926.kasserver.com
+Authentication-Results: dd28926.kasserver.com;
+	dkim=pass (1024-bit key; unprotected) header.d=skwschwarz.de header.i=@skwschwarz.de header.a=rsa-sha256 header.s=selector1 header.b=MlUPiKOm;
+	dkim-atps=neutral
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023108.outbound.protection.outlook.com [52.101.83.108])
+	by dd28926.kasserver.com (Postfix) with ESMTPS id DFB6493A0359
+	for <marcel.donges@ceruleancircle.com>; Wed, 17 Jun 2026 13:41:39 +0200 (CEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H2byRgb+2TAikuvLd4N8RJJChXt+9r4RhOcyGJHdDF+eRU5hR56rGv6a/qtfM10EOoPF7zWsnNorY2HbAqYQ7GCutEF6lcvFAr/jgPyqdi6XTyjWmyoFlBzv7GwaBPQI02dmlF/Gxm3SU2s4t0mfyn+ADJgNQ5kh8Lr7OqSPofJ9UgUfgR3raQSavo+rWuMni81e0mVYzfSbFWlBF+ucYZjM0vqghAcCgTTRLGFY93RTmjzspPe2KaJJ2HvO0E+voaLHIHaDtkwc9fp1cBfNgOcQEMpC5R2fzGCh6C1cNVg0q1Vtt1I8yaezb4uoMnVk7hSEFTTkut2HEnULubU/3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CCSjnp3TnWb4i4QFyrLrNyqxSeAFktRVP2zpaMXz4wk=;
+ b=DiXWdTRRhrZOgRSjhSf7rEACI/h7x4Lj3FZnDN6tQd88Ubj9E/i054/DNzyuRAWcZyQYrc5ymvSoBjZGKsQWTfYhqUz9MoeO+J/LlX4Yke6Le0jxE/JGUj1e4/ijc5tLlsgvdT1YSw+ciQB/h5DNxUTcLLPl8JI9QX8YUm5BfuWJN/keyMW26k3aatjbjLtZiLRVsz1tkK7roZ0KB7eNchXKlCpBX1NmG8biK2ey1b6An1Z1MeoF+d7lbhIfWzDzIwvMTGgebj7OMKOzNtif2649skoYvvyupPyBKI9mptro7aJb25N/9OMTy1KHOJGpTF1I6DAccRD5j7fGwczOcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=skwschwarz.de; dmarc=pass action=none
+ header.from=skwschwarz.de; dkim=pass header.d=skwschwarz.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=skwschwarz.de;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CCSjnp3TnWb4i4QFyrLrNyqxSeAFktRVP2zpaMXz4wk=;
+ b=MlUPiKOmcYZjIGhgPE9sqLLS3vmwux+KuaSU/hC7et8wZ/++yS6X/A+0nBgfSXCj8tC2+8/c5Ovp6yOxF6AhC1dIMyVfPykruoTKgDmqQRYMLMEbwme1e7tFNwIhBNFpc1RRmmof3DDu8mN5kOQX8v4e04s2GUnu8qtWohmpWck=
+Received: from AM9P189MB1508.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:305::8)
+ by AM7PPFABCC8967D.EURP189.PROD.OUTLOOK.COM (2603:10a6:20f:fff1::6a1) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Wed, 17 Jun
+ 2026 11:41:36 +0000
+Received: from AM9P189MB1508.EURP189.PROD.OUTLOOK.COM
+ ([fe80::fabf:6d03:682e:e22d]) by AM9P189MB1508.EURP189.PROD.OUTLOOK.COM
+ ([fe80::fabf:6d03:682e:e22d%3]) with mapi id 15.21.0139.009; Wed, 17 Jun 2026
+ 11:41:36 +0000
+From: "Schmitt, Wenke" <W.Schmitt@skwschwarz.de>
+To: "marcel.donges@ceruleancircle.com" <marcel.donges@ceruleancircle.com>
+CC: "Schicker, Stefan" <S.Schicker@skwschwarz.de>
+Subject:
+ =?iso-8859-1?Q?Posteingang_f=FCr_Cerulean_Circle_GmbH_[SKW-DMS.FID1344872?=
+ =?iso-8859-1?Q?]?=
+Thread-Topic:
+ =?iso-8859-1?Q?Posteingang_f=FCr_Cerulean_Circle_GmbH_[SKW-DMS.FID1344872?=
+ =?iso-8859-1?Q?]?=
+Thread-Index: Adz+Tj73C8Mm1ocQTmCEG626W1/b8A==
+Date: Wed, 17 Jun 2026 11:41:35 +0000
+Message-ID:
+ <AM9P189MB1508693DBB55F95D0AA6DA13F9E42@AM9P189MB1508.EURP189.PROD.OUTLOOK.COM>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+x-wsguid: SKW-7bab717c91354ea9916ffc4ab81cca35
+msip_labels:
+ MSIP_Label_4f9eb207-c745-4be1-a1a0-5d1faab5765a_ActionId=32f9a6c0-1674-4ebc-a027-418d43a52cd0;MSIP_Label_4f9eb207-c745-4be1-a1a0-5d1faab5765a_ContentBits=0;MSIP_Label_4f9eb207-c745-4be1-a1a0-5d1faab5765a_Enabled=true;MSIP_Label_4f9eb207-c745-4be1-a1a0-5d1faab5765a_Method=Standard;MSIP_Label_4f9eb207-c745-4be1-a1a0-5d1faab5765a_Name=Extern;MSIP_Label_4f9eb207-c745-4be1-a1a0-5d1faab5765a_SetDate=2026-06-17T11:39:05Z;MSIP_Label_4f9eb207-c745-4be1-a1a0-5d1faab5765a_SiteId=283f81d4-8724-4b6c-b974-92ebec2cafc7;MSIP_Label_4f9eb207-c745-4be1-a1a0-5d1faab5765a_Tag=10,
+ 3, 0, 1;
+x-processedbytemplafy: true
+x-templafyemailsigvstoversion: 9.31.0.0
+imanage.sendandfile.filinglocations: dms!1344872
+imanage.sendandfile.filinglocations.firmid: SKW
+imanage-send-identifier: 9c9810fe-f554-4cae-98e4-0db1533e9839
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=skwschwarz.de;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM9P189MB1508:EE_|AM7PPFABCC8967D:EE_
+x-ms-office365-filtering-correlation-id: cc1c9f78-1252-4ebf-8826-08decc656331
+x-sm-ruleversion: 2.0.4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|1800799024|376014|6049299003|366016|56012099006|6133799003|18002099003|8096899003|38070700021|13003099007|4053099003;
+x-microsoft-antispam-message-info:
+ mnZs8k3OqryOq8fy9XVHrcf7WwsPLTvgQK8e+THubbMAEy9Bcjgf7AbZlet1QJ6jG0v3c+XhMoJNTS+9/cw1rSdOgi1FoOTluJHBXe4Rk59jPL418JmYzdZnxgo1Bzyw3vzGJgODWS9cpkBX0qnyHnhjsItPnZ6VCllzaBs99nJVD4TDt8+tvBDJ7y3gHQt6X0mKeHLvInpjSUKxuYifzYlwmOvigcaMvqbVcOhgu1WR4hbkVBwltKTlWu6FncQgobyk7k3bo+yY+FV9KwLMfCkv5sBFtVqD7mmnXy/HeoZ8BKUCFfppqhsFi2AUn75+1YVj1xCRD/if9g/6wOI0cOSzJ2xUsPj16qOKhCibYPdwQbS6UWQH+lXVTT5dyIL8nXnqRLplcVK4YtDFQ9etU7eRyvI3uilmPoquvHd67C/SiSJpNol3auKEMuccww4d/l+o7bTr9O47Rkm74OGP/4MKit0TLfaWZgS5Jm4HP4LFY2PwthN8mIG4ffRjMc+0wBuQkfAkri1/QaOcgnvIgiCvy1rCnd/iO0cUQi128iyol+vmR3Jqi4KckAu3D9NiUu2Wyf4vJbfwvxMiv0DzhCAvqXK+7RJwzrFtxXcyy9l2qBPfeaYbakgEeCEyde7Gw0Nvoy6YT6XD4jBXXXTEYg==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:de;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9P189MB1508.EURP189.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(6049299003)(366016)(56012099006)(6133799003)(18002099003)(8096899003)(38070700021)(13003099007)(4053099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?Pa0ugAM6teDKKABQ+OM9oX8ErP+oEeqFYbYpAXMG3D2mK8XR+CwCb9yBVQ?=
+ =?iso-8859-1?Q?UyEnFypcxENY82gwXxMUNeJh0CW7tfbmoUl7cQVMDs2+CqnAYbuAl1kiCL?=
+ =?iso-8859-1?Q?mE0ZA4qY4W3eQ0BOlfXXIbOyArRBPhdwXfNkRVspzVibsR249Z0S+gYR55?=
+ =?iso-8859-1?Q?D8OtkWFceZlPZuB6w85DH29BwULqPEb+pA1B3qvwV4LgPEeAaFzdwND8DV?=
+ =?iso-8859-1?Q?7uwZOKObaLTDEIwCmRsqdLvS49oZIXBhDcOICWcc4HMHDX9NJLogF9z+9E?=
+ =?iso-8859-1?Q?ZSupxs3TZY/TtAKIEOX6gyljuR2UFwFrAYoiKovur05+G11qJkmComYO13?=
+ =?iso-8859-1?Q?ot5wRV0BMPv0TvQXdHq+dBFGOBEUlW+ioGKhFZL7UCETgGyCeNU8QjsMq9?=
+ =?iso-8859-1?Q?HT0EhFyBwAt0mfVOeKx3/ra2lUoQ1h16xWUmTAG11xrG9ojhsn3xI89LQ+?=
+ =?iso-8859-1?Q?OuS282TPkrvOWsAxAX3Ny+82Y8KcGt2NnkR/pLzVxxcvl2flmkNlRky1Fw?=
+ =?iso-8859-1?Q?Be2dWz20buY6C0syND/2oAupDoeCDuCa5dhX5k+dSjpsfIwdRRUtrb4iT8?=
+ =?iso-8859-1?Q?RCiB5GWRoe2Me6GkTwk2Pq+n/Wk5tXvYRH1Cq224q/uwIXQ/Z/o4nNloTB?=
+ =?iso-8859-1?Q?8c4fPN/UdPZUKax45uVAfYzrEYbDliJhZk2gUi7VHVvpiCvJCj9RQlc2xf?=
+ =?iso-8859-1?Q?f0rzzMg3pBBvFlCkBNLItT0lVK1D8sfp2YFlgvAW2SvWSyWBORDosOj3QN?=
+ =?iso-8859-1?Q?NHBc/nFYv8fnSD8i0I7pdwCm/fILMNiguBb1tBKulCgNxEo2Stinig5Sv6?=
+ =?iso-8859-1?Q?zodtRCK94o8r/rAITngZSU+THM1iC0VRIpoqX9JqDXDHGRSZ2CgKCNr/mr?=
+ =?iso-8859-1?Q?MqqnMZ8BVds3y508fDdwqvLMOolrWuc9dmnFSsIMcYQvcFWMIU/jnc0wNP?=
+ =?iso-8859-1?Q?NWFtGMJzuRGPPhElvNiAnY+xhpda+Xb0/cBk87eGG8obUJJv+8FD+PtfVL?=
+ =?iso-8859-1?Q?7E3isOYIXJNOHk8vu8j6sDpmXUswJ+cxUkZCsdHdkrhJ2Av35sFBSX1byl?=
+ =?iso-8859-1?Q?VMdjFJeOacvtF+gGkEgcP8VQetBG1VObef8yeyNYpAjWZFN5dcef+VqiMW?=
+ =?iso-8859-1?Q?mnKZMWe3QMhYMNPDQ1t2pgTRBOu9dZCQm1sGspERk0XdT3xlvo3vny3zF/?=
+ =?iso-8859-1?Q?G7OARQgDwAMDcyxDptSaK0kD17HlHMBL9ZgumWhPQBPgANljY1djlwbVJ8?=
+ =?iso-8859-1?Q?mxHBArQn8lRd3ZUTaWD7tgh0E2T35+6fCgmxihwLcjOsBpduHpidu+1myF?=
+ =?iso-8859-1?Q?wHsy2u/sEIxX/uZwC00lT6Isod9UYxNLDPuAZJhtDmrsbsy4fZgOvvUBgb?=
+ =?iso-8859-1?Q?vrZHzCz44v+U4DFgTYqC+WLcbX5u98S07Njg6yR5UuOb14rGxDrk/QVY4j?=
+ =?iso-8859-1?Q?q4iab8TYRb6BjsC8njPXFyvmVTmpNX0qMMxFbdyxj4V8MfjDx8MX4vmxuQ?=
+ =?iso-8859-1?Q?LbgXw0/UrIJk2MLIxOBtlxXsmVT4GqdWcZ9JYsTk2hUjBoOxSUzMWdiknI?=
+ =?iso-8859-1?Q?Oy4AY03523uPXEXGivTkQLRbjX9btZGa4UM5S6uyt1ghaA/rKh3x3vFM3u?=
+ =?iso-8859-1?Q?9AWtaNVTCgmTjlk9kGR/5s+oQJF15UATvysO2DztD5ZOfZ3zfdFh/XZgVa?=
+ =?iso-8859-1?Q?zm5+rE4ukYK+3A3JzPVOLafsrPwHaCsuMTo1hAg+HYGS6pAZ32ovcifga2?=
+ =?iso-8859-1?Q?WQTjXwNNI38qFoecy/Ws/M4iTNT1EpW0t1mFnX4Xb3KeBIfFL41cyMzSAj?=
+ =?iso-8859-1?Q?f42DmuHd8Q=3D=3D?=
+Content-Type: multipart/mixed;
+	boundary="_011_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_"
+MIME-Version: 1.0
+X-OriginatorOrg: skwschwarz.de
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM9P189MB1508.EURP189.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc1c9f78-1252-4ebf-8826-08decc656331
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jun 2026 11:41:36.0784
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 283f81d4-8724-4b6c-b974-92ebec2cafc7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: I2z91BSxJHsSHUte+ctMqF2d9XoRCVbfsLXhaWJe61pZ9a6CGeffpgCyv1I/l0Bkq6sQYxDVSccHpAZTWDyZ/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PPFABCC8967D
+X-Dmarc-Test: Allow
+X-Spamd-Bar: -----
+X-KasLoop: m03cba11
+
+--_011_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_
+Content-Type: multipart/related;
+	boundary="_010_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_";
+	type="multipart/alternative"
+
+--_010_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_
+Content-Type: multipart/alternative;
+	boundary="_000_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_"
+
+--_000_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Sehr geehrter Herr Donges,
+
+anbei =FCbersenden wir das Schreiben der Continentale BKK (Beitragsbescheid=
+ / Mahnung) vom 12.06.2026, welches heute bei uns einging, mit der Bitte um=
+ Beachtung der gesetzten Zahlungsfrist von 7 Tagen.
+
+Beste Gr=FC=DFe
+
+Wenke Schmitt
+Assistentin von Stefan Schicker, LL.M.
+Rechtsanwalt
+
+T +49 89 28640-210
+F +49 89 28094-32
+w.schmitt@skwschwarz.de<mailto:w.schmitt@skwschwarz.de>
+
+[SKW Schwarz]
+Wittelsbacherplatz 1
+80333 M=FCnchen
+www.skwschwarz.de<https://www.skwschwarz.de>
+[cid:image002.png@01DCFE5E.AB7932E0]<https://www.linkedin.com/company/skwsc=
+hwarz/>  [cid:image003.png@01DCFE5E.AB7932E0] <https://www.xing.com/pages/s=
+kwschwarz>   [cid:image004.png@01DCFE5E.AB7932E0] <https://twitter.com/skws=
+chwarz>   [cid:image005.png@01DCFE5E.AB7932E0] <https://www.facebook.com/sk=
+wschwarz/>   [cid:image006.png@01DCFE5E.AB7932E0] <https://www.instagram.co=
+m/skwschwarz/>
+
+
+
+
+SKW Schwarz Rechtsanw=E4lte Steuerberater Partnerschaft mbB
+AG M=FCnchen PR 884
+
+Berlin | Frankfurt | M=FCnchen
+
+Member of TerraLex, Global Network of Law Firms
+
+Datenschutzhinweise<https://www.skwschwarz.de/datenschutz/> / Privacy Polic=
+y<https://www.skwschwarz.de/en/privacy-policy>
+
+Diese E-Mail und alle beigef=FCgten Dateien sind vertraulich und nur f=FCr =
+den Adressaten bestimmt. Wenn Sie nicht der richtige Adressat sind, leiten =
+Sie diese E-Mail bitte nicht weiter, =F6ffnen Sie etwaige Anh=E4nge nicht, =
+machen Sie keine Kopien und speichern Sie diese E-Mail nicht. Informieren S=
+ie uns bitte, indem Sie uns eine Antwort-Mail senden oder uns telefonisch u=
+nter +49 (0)89 286 40-0 verst=E4ndigen. L=F6schen Sie bitte anschlie=DFend =
+die erhaltene E-Mail aus Ihrem System. Vielen Dank!
+
+This email is only intended for the addressee. The content of this email, i=
+ncluding all attachments is confidential and includes privileged material. =
+If you are not the intended recipient, please do not forward or disclose th=
+is email, do not open any attachments or make copies or save this email any=
+where. Please inform us about the error by returning this email or by calli=
+ng us on our phone +49 (0)89 286 40-0. Please then finally delete this emai=
+l from your system. Thank you very much.
+
+
+--_000_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Aptos;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:11.0pt;
+	font-family:"Aptos",sans-serif;
+	mso-ligatures:standardcontextual;
+	mso-fareast-language:EN-US;}
+span.E-MailFormatvorlage17
+	{mso-style-type:personal-compose;
+	font-family:"Arial",sans-serif;
+	color:black;
+	font-weight:normal;
+	font-style:normal;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:11.0pt;
+	mso-fareast-language:EN-US;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:70.85pt 70.85pt 2.0cm 70.85pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"DE" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:bre=
+ak-word">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif;color:black">Sehr geehrter Herr Donges,
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif;color:black">anbei =FCbersenden wir das Schreiben der =
+Continentale BKK (Beitragsbescheid / Mahnung) vom 12.06.2026, welches heute=
+ bei uns einging, mit der Bitte um
+<b><u>Beachtung der gesetzten Zahlungsfrist von 7 Tagen.</u></b><o:p></o:p>=
+</span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
+<table class=3D"MsoNormalTable" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0" summary=3D"Email signature" width=3D"100%" style=3D"width:100.0%;bor=
+der-collapse:collapse">
+<tbody>
+<tr>
+<td width=3D"100%" style=3D"width:100.0%;padding:0cm 0cm 0cm 0cm">
+<div id=3D"signature">
+<div>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures=
+:none;mso-fareast-language:DE">Beste Gr=FC=DFe<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures=
+:none;mso-fareast-language:DE"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><b><span style=3D"font-=
+size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatu=
+res:none;mso-fareast-language:DE">Wenke Schmitt</span></b><span style=3D"fo=
+nt-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-lig=
+atures:none;mso-fareast-language:DE"><o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures=
+:none;mso-fareast-language:DE">Assistentin von Stefan Schicker, LL.M.<o:p><=
+/o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures=
+:none;mso-fareast-language:DE">Rechtsanwalt<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures=
+:none;mso-fareast-language:DE"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures=
+:none;mso-fareast-language:DE">T +49 89 28640-210<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures=
+:none;mso-fareast-language:DE">F +49 89 28094-32<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures=
+:none;mso-fareast-language:DE"><a href=3D"mailto:w.schmitt@skwschwarz.de"><=
+span style=3D"color:black;text-decoration:none">w.schmitt@skwschwarz.de</sp=
+an></a><o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;line-height:13.0pt"><s=
+pan style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;colo=
+r:black;mso-ligatures:none;mso-fareast-language:DE"><o:p>&nbsp;</o:p></span=
+></p>
+<table class=3D"MsoNormalTable" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0" style=3D"border-collapse:collapse">
+<tbody>
+<tr>
+<td width=3D"105" rowspan=3D"2" valign=3D"top" style=3D"width:78.75pt;paddi=
+ng:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-fareast-l=
+anguage:DE"><img border=3D"0" width=3D"80" height=3D"80" style=3D"width:.83=
+33in;height:.8333in" id=3D"Picture_x0020_0" src=3D"cid:image001.png@01DCFE5=
+E.AB7932E0" alt=3D"SKW Schwarz"><span style=3D"mso-ligatures:none"><o:p></o=
+:p></span></span></p>
+</td>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures=
+:none;mso-fareast-language:DE">Wittelsbacherplatz 1<br>
+80333 M=FCnchen<br>
+<a href=3D"https://www.skwschwarz.de"><b><span style=3D"color:black;text-de=
+coration:none">www.skwschwarz.de</span></b></a>
+<o:p></o:p></span></p>
+</td>
+</tr>
+<tr>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal" style=3D"margin-top:3.0pt;line-height:13.0pt"><a hre=
+f=3D"https://www.linkedin.com/company/skwschwarz/"><span style=3D"font-size=
+:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue;mso-fareast-lan=
+guage:DE;text-decoration:none"><img border=3D"0" width=3D"20" height=3D"20"=
+ style=3D"width:.2083in;height:.2083in" id=3D"Picture_x0020_1" src=3D"cid:i=
+mage002.png@01DCFE5E.AB7932E0"></span></a><span style=3D"font-size:1.0pt;fo=
+nt-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:none;mso-f=
+areast-language:DE">&nbsp;</span><span style=3D"font-size:10.0pt;font-famil=
+y:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:none;mso-fareast-l=
+anguage:DE">
+</span><a href=3D"https://www.xing.com/pages/skwschwarz"><span style=3D"fon=
+t-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue;mso-farea=
+st-language:DE;text-decoration:none"><img border=3D"0" width=3D"20" height=
+=3D"20" style=3D"width:.2083in;height:.2083in" id=3D"Picture_x0020_2" src=
+=3D"cid:image003.png@01DCFE5E.AB7932E0"></span></a><span style=3D"font-size=
+:1.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:n=
+one;mso-fareast-language:DE">&nbsp;</span><span style=3D"font-size:10.0pt;f=
+ont-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:none;mso-=
+fareast-language:DE">
+</span><a href=3D"https://twitter.com/skwschwarz"><span style=3D"font-size:=
+10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue;mso-fareast-lang=
+uage:DE;text-decoration:none"><img border=3D"0" width=3D"20" height=3D"20" =
+style=3D"width:.2083in;height:.2083in" id=3D"Picture_x0020_3" src=3D"cid:im=
+age004.png@01DCFE5E.AB7932E0"></span></a><span style=3D"font-size:1.0pt;fon=
+t-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:none;mso-fa=
+reast-language:DE">&nbsp;</span><span style=3D"font-size:10.0pt;font-family=
+:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:none;mso-fareast-la=
+nguage:DE">
+</span><a href=3D"https://www.facebook.com/skwschwarz/"><span style=3D"font=
+-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue;mso-fareas=
+t-language:DE;text-decoration:none"><img border=3D"0" width=3D"20" height=
+=3D"20" style=3D"width:.2083in;height:.2083in" id=3D"Picture_x0020_4" src=
+=3D"cid:image005.png@01DCFE5E.AB7932E0"></span></a><span style=3D"font-size=
+:1.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:n=
+one;mso-fareast-language:DE">&nbsp;</span><span style=3D"font-size:10.0pt;f=
+ont-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:none;mso-=
+fareast-language:DE">
+</span><a href=3D"https://www.instagram.com/skwschwarz/"><span style=3D"fon=
+t-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:blue;mso-farea=
+st-language:DE;text-decoration:none"><img border=3D"0" width=3D"20" height=
+=3D"20" style=3D"width:.2083in;height:.2083in" id=3D"Picture_x0020_5" src=
+=3D"cid:image006.png@01DCFE5E.AB7932E0"></span></a><span style=3D"font-size=
+:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:=
+none;mso-fareast-language:DE"><o:p></o:p></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:10.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures=
+:none;mso-fareast-language:DE"><br>
+</span><span style=3D"font-size:1.0pt;font-family:&quot;Arial&quot;,sans-se=
+rif;color:black;mso-ligatures:none;mso-fareast-language:DE"><br>
+</span><span style=3D"font-size:1.0pt;font-family:&quot;Arial&quot;,sans-se=
+rif;color:black;mso-ligatures:none;mso-fareast-language:DE">&nbsp;</span><s=
+pan style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;colo=
+r:black;mso-ligatures:none;mso-fareast-language:DE">
+<o:p></o:p></span></p>
+</div>
+</div>
+<div id=3D"disclaimer">
+<table class=3D"MsoNormalTable" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0" width=3D"450" style=3D"width:337.5pt;border-collapse:collapse">
+<tbody>
+<tr>
+<td style=3D"padding:0cm 0cm 0cm 0cm">
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:8.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:=
+none;mso-fareast-language:DE"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:8.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:=
+none;mso-fareast-language:DE">SKW Schwarz Rechtsanw=E4lte Steuerberater Par=
+tnerschaft mbB
+<br>
+AG M=FCnchen PR 884<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:8.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:=
+none;mso-fareast-language:DE"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span lang=3D"EN-US" st=
+yle=3D"font-size:8.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black=
+;mso-ligatures:none;mso-fareast-language:DE">Berlin | Frankfurt | M=FCnchen
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span lang=3D"EN-US" st=
+yle=3D"font-size:8.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black=
+;mso-ligatures:none;mso-fareast-language:DE"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><b><span lang=3D"EN-US"=
+ style=3D"font-size:8.0pt;font-family:&quot;Arial&quot;,sans-serif;color:bl=
+ack;mso-ligatures:none;mso-fareast-language:DE">Member of TerraLex, Global =
+Network of Law Firms</span></b><span lang=3D"EN-US" style=3D"font-size:8.0p=
+t;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:none;m=
+so-fareast-language:DE"><o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span lang=3D"EN-US" st=
+yle=3D"font-size:8.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black=
+;mso-ligatures:none;mso-fareast-language:DE"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:8.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:=
+none;mso-fareast-language:DE"><a href=3D"https://www.skwschwarz.de/datensch=
+utz/"><span style=3D"color:blue">Datenschutzhinweise</span></a>
+ / <a href=3D"https://www.skwschwarz.de/en/privacy-policy"><span style=3D"c=
+olor:blue">Privacy Policy</span></a><o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:8.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:=
+none;mso-fareast-language:DE"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span style=3D"font-siz=
+e:8.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black;mso-ligatures:=
+none;mso-fareast-language:DE">Diese E-Mail und alle beigef=FCgten Dateien s=
+ind vertraulich und nur f=FCr den Adressaten bestimmt.
+ Wenn Sie nicht der richtige Adressat sind, leiten Sie diese E-Mail bitte n=
+icht weiter, =F6ffnen Sie etwaige Anh=E4nge nicht, machen Sie keine Kopien =
+und speichern Sie diese E-Mail nicht. Informieren Sie uns bitte, indem Sie =
+uns eine Antwort-Mail senden oder uns
+ telefonisch unter +49 (0)89 286 40-0 verst=E4ndigen. L=F6schen Sie bitte a=
+nschlie=DFend die erhaltene E-Mail aus Ihrem System.
+</span><span lang=3D"EN-US" style=3D"font-size:8.0pt;font-family:&quot;Aria=
+l&quot;,sans-serif;color:black;mso-ligatures:none;mso-fareast-language:DE">=
+Vielen Dank!
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span lang=3D"EN-US" st=
+yle=3D"font-size:8.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black=
+;mso-ligatures:none;mso-fareast-language:DE"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"line-height:13.0pt"><span lang=3D"EN-US" st=
+yle=3D"font-size:8.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black=
+;mso-ligatures:none;mso-fareast-language:DE">This email is only intended fo=
+r the addressee. The content of this email, including
+ all attachments is confidential and includes privileged material. If you a=
+re not the intended recipient, please do not forward or disclose this email=
+, do not open any attachments or make copies or save this email anywhere. P=
+lease inform us about the error
+ by returning this email or by calling us on our phone +49 (0)89 286 40-0. =
+Please then finally delete this email from your system. Thank you very much=
+.
+<o:p></o:p></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+</div>
+</body>
+</html>
+
+--_000_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_--
+
+--_010_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_
+Content-Type: image/png; name="image001.png"
+Content-Description: image001.png
+Content-Disposition: inline; filename="image001.png"; size=26177;
+	creation-date="Wed, 17 Jun 2026 11:41:34 GMT";
+	modification-date="Wed, 17 Jun 2026 11:41:34 GMT"
+Content-ID: <image001.png@01DCFE5E.AB7932E0>
+Content-Transfer-Encoding: base64
+X-Apple-Content-Length: 35824
+
+
+--_010_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_
+Content-Type: image/png; name="image002.png"
+Content-Description: image002.png
+Content-Disposition: inline; filename="image002.png"; size=3164;
+	creation-date="Wed, 17 Jun 2026 11:41:34 GMT";
+	modification-date="Wed, 17 Jun 2026 11:41:34 GMT"
+Content-ID: <image002.png@01DCFE5E.AB7932E0>
+Content-Transfer-Encoding: base64
+X-Apple-Content-Length: 4332
+
+
+--_010_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_
+Content-Type: image/png; name="image003.png"
+Content-Description: image003.png
+Content-Disposition: inline; filename="image003.png"; size=3968;
+	creation-date="Wed, 17 Jun 2026 11:41:34 GMT";
+	modification-date="Wed, 17 Jun 2026 11:41:34 GMT"
+Content-ID: <image003.png@01DCFE5E.AB7932E0>
+Content-Transfer-Encoding: base64
+X-Apple-Content-Length: 5432
+
+
+--_010_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_
+Content-Type: image/png; name="image004.png"
+Content-Description: image004.png
+Content-Disposition: inline; filename="image004.png"; size=7069;
+	creation-date="Wed, 17 Jun 2026 11:41:35 GMT";
+	modification-date="Wed, 17 Jun 2026 11:41:35 GMT"
+Content-ID: <image004.png@01DCFE5E.AB7932E0>
+Content-Transfer-Encoding: base64
+X-Apple-Content-Length: 9678
+
+
+--_010_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_
+Content-Type: image/png; name="image005.png"
+Content-Description: image005.png
+Content-Disposition: inline; filename="image005.png"; size=2792;
+	creation-date="Wed, 17 Jun 2026 11:41:35 GMT";
+	modification-date="Wed, 17 Jun 2026 11:41:35 GMT"
+Content-ID: <image005.png@01DCFE5E.AB7932E0>
+Content-Transfer-Encoding: base64
+X-Apple-Content-Length: 3822
+
+
+--_010_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_
+Content-Type: image/png; name="image006.png"
+Content-Description: image006.png
+Content-Disposition: inline; filename="image006.png"; size=4694;
+	creation-date="Wed, 17 Jun 2026 11:41:35 GMT";
+	modification-date="Wed, 17 Jun 2026 11:41:35 GMT"
+Content-ID: <image006.png@01DCFE5E.AB7932E0>
+Content-Transfer-Encoding: base64
+X-Apple-Content-Length: 6426
+
+
+--_010_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_--
+
+--_011_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_
+Content-Type: application/pdf;
+	name="Continentale BKK - Beitragsbescheid _ Mahnung vom
+ 12.06.2026(11590743.1).pdf"
+Content-Description: Continentale BKK - Beitragsbescheid _ Mahnung vom
+ 12.06.2026(11590743.1).pdf
+Content-Disposition: attachment;
+	filename="Continentale BKK - Beitragsbescheid _ Mahnung vom
+ 12.06.2026(11590743.1).pdf"; size=287800;
+	creation-date="Wed, 17 Jun 2026 11:39:06 GMT";
+	modification-date="Wed, 17 Jun 2026 11:41:35 GMT"
+Content-Transfer-Encoding: base64
+X-Apple-Content-Length: 393836
+
+
+--_011_AM9P189MB1508693DBB55F95D0AA6DA13F9E42AM9P189MB1508EURP_--
