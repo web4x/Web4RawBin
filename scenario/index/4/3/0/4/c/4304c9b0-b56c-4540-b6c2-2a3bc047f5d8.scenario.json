@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "4304c9b0-b56c-4540-b6c2-2a3bc047f5d8",
+    "name": "GraphIntegrity",
+    "description": "Graph integrity repair (R27.4). Repoints dangling + attaches orphan Methods. Base scripts/graph-integrity-repair.ts",
+    "sourceFile": "ior:file:scripts/graph-integrity-repair.ts",
+    "methods": [
+      "ior:instance:d9a3f4f4-ea76-44be-a7af-a74e68da4c09"
+    ]
+  },
+  "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
+}

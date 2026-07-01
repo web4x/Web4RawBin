@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c1213af8-452f-4071-ae05-cb024bad1699",
+    "name": "GraphIntegrity.repairIntegrity impl",
+    "description": "DESIGN-AHEAD (scenario-first #126, greenfield repair tool): planned scripts/graph-integrity-repair.ts; gated dry-run+count, atomic. Expert attaches [impl:uuid] at code time.",
+    "sourceFile": "ior:file:scripts/graph-integrity-repair.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d9a3f4f4-ea76-44be-a7af-a74e68da4c09"
+}
