@@ -46,7 +46,7 @@
       {
         "id": "AC-repair-orphan",
         "group": "cleanup",
-        "text": "All 51 orphan Methods attach to their name-derived Class (resolver: live ownerIor Class -> UC.class of a using UC -> R27.2-canonical). All 51 carry impls with REAL sourceFiles, so 0 prune (deletes nothing). The 37 STALE orphanByDesign markers (marker asserts no-source but the impl HAS a sourceFile) are CLEARED as part of the repair. Dry-run+count FIRST; distinct Impl 431==431 (nothing deleted)."
+        "text": "All 51 orphan Methods attach to their name-derived Class (resolver: live ownerIor Class -> UC.class of a using UC -> R27.2-canonical). All 51 carry impls with REAL sourceFiles, so 0 prune (deletes nothing). The 37 STALE orphanByDesign markers (marker asserts no-source but the impl HAS a sourceFile) are CLEARED as part of the repair. Dry-run+count FIRST; distinct Impl 434==434 (nothing deleted)."
       },
       {
         "id": "AC-by-construction",
@@ -76,7 +76,9 @@
       "staleMarkersTo\u0421lear": 37,
       "genuineDesignAheadExempt": 0,
       "dangling": 12,
-      "note": "PO-LOCKED 2026-07-01. All 51 orphan Methods have impls with real sourceFiles -> attach all + clear 37 stale orphanByDesign markers. Exempt set empty now; CI marker-keyed for future genuine design-stage (impl with no sourceFile). trace:audit:strict also flags lying-marker + attach-on-wire auto-clears."
+      "note": "PO-LOCKED 2026-07-01. All 51 orphan Methods have impls with real sourceFiles -> attach all + clear 37 stale orphanByDesign markers. Exempt set empty now; CI marker-keyed for future genuine design-stage (impl with no sourceFile). trace:audit:strict also flags lying-marker + attach-on-wire auto-clears.",
+      "implBaseline": "434 (was 431 pre-guard; R27.2 guard-chain nodes 61f24d2c/33ccac7f +1 added 3 post-landing)",
+      "attachMap": "scrum.pmo/design-notes/r27.4-attach-map.md (40 className + 10 UC.class + 1 create server; 0 prune)"
     },
     "orphanTypeReconcile": {
       "r27_4_scope": "51 orphan-Methods (Method not in any Class.methods[]) - the real defect",
