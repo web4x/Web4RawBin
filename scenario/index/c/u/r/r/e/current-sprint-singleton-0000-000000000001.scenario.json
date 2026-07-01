@@ -2,41 +2,41 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 25.7: Room membership dedup by resolved identity (structural, no duplicate members ever)",
+    "name": "Current: Task 26.1: Federated IOR — provenance via originHost",
     "chain": {
-      "req": "585b6b9c-2fa7-48e2-8fab-a7e8a31e516e",
-      "uc": "e03132c7-ea09-4ec3-9b6a-e685e2b0f546",
-      "class": "2172dc56-83c8-4818-9981-3b942b5d7e78",
-      "method": "0c8b2e2f-1b33-40fa-947f-3325fdbad470",
-      "impl": "7899449b-9d07-4b8c-80c6-58f229ce3129",
+      "req": "e8744de9-ca4a-4f8b-a6d9-c7c971999d8b",
+      "uc": "9b4a8c02-a913-45e9-b984-640defa70b33",
+      "class": "b4eaa489-6096-46e9-b7e0-4fc8aa72ea08",
+      "method": "7be6b225-7067-4924-b715-08d3800fc5a0",
+      "impl": "d2cde3fc-a97f-4b12-9746-25c201d8e901",
       "test": ""
     },
     "activeHop": 5,
-    "sprintName": "Sprint 25",
-    "taskName": "Task 25.7: Room membership dedup by resolved identity (structural, no duplicate members ever)",
+    "sprintName": "Sprint 26",
+    "taskName": "Task 26.1: Federated IOR — provenance via originHost",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-01T09:37:10.132Z"
+        "updatedAt": "2026-07-01T11:25:29.848Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "7158a210-c5af-4e06-89f1-df60a2226828",
-    "lastCompletedName": "Task 25.5: Drop-area clipboard preview + import",
-    "lastCompletedReqUuid": "2066ba12-6bd8-42b1-9377-25c82fd944e0",
+    "lastCompletedUuid": "d01c38b3-3a56-4586-88ae-e267708c30d1",
+    "lastCompletedName": "Task 25.7: Room membership dedup by resolved identity (structural, no duplicate members ever)",
+    "lastCompletedReqUuid": "585b6b9c-2fa7-48e2-8fab-a7e8a31e516e",
     "slots": {
       "current": {
-        "taskUuid": "d01c38b3-3a56-4586-88ae-e267708c30d1",
-        "taskName": "Task 25.7: Room membership dedup by resolved identity (structural, no duplicate members ever)",
-        "reqUuid": "585b6b9c-2fa7-48e2-8fab-a7e8a31e516e"
+        "taskUuid": "906e391d-ae21-40e9-8d97-210704b491ab",
+        "taskName": "Task 26.1: Federated IOR — provenance via originHost",
+        "reqUuid": "e8744de9-ca4a-4f8b-a6d9-c7c971999d8b"
       },
-      "lastCompleted": {
-        "taskUuid": "7158a210-c5af-4e06-89f1-df60a2226828",
-        "taskName": "Task 25.5: Drop-area clipboard preview + import",
-        "reqUuid": "2066ba12-6bd8-42b1-9377-25c82fd944e0"
-      },
-      "nextBacklog": null
+      "lastCompleted": null,
+      "nextBacklog": {
+        "taskUuid": "491028f2-8fed-49de-b528-98ed03cc95ea",
+        "taskName": "Task 26.2: Cross-origin DnD federated-reference protocol",
+        "reqUuid": "e36d585c-cbb1-4715-a175-fa844f375cde"
+      }
     }
   },
   "ownerIor": null
