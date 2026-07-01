@@ -91,6 +91,7 @@ function taskMdHref(model: Record<string, any>, sprintName: string): string {
 }
 // v0.7.6: render the markdown statusChecklist ("- [x] Planned\n- [ ] In Progress\n  - [x] refinement…")
 // as a hierarchical visual checklist (☑/☐ + indentation).
+// [impl:uuid:31f420b0-e99e-458f-9c29-df4152940f77] R27.1 RbTaskDetail.renderStatusChecklist
 function renderStatusChecklist(md: string): string {
   const rows = md.split('\n').filter(l => /^\s*-\s*\[[ xX]\]/.test(l)).map(l => {
     const indent = (l.match(/^\s*/)?.[0].length || 0);
