@@ -2130,11 +2130,17 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       if (!myProfile.consolidatedFrom) myProfile.consolidatedFrom = [];
       myProfile.consolidatedFrom.push(friend.token);
 
-      friend.redirectTo = myToken;
+      friend.redirectTo = myToken; // v0.7.0 (c): a tombstone — immutable; resolveToken + saveProfiles preserve it, IDENTIFY redirects it (never re-mints)
       friend.secretCode = '';
       friend.bugReports = [];
       saveProfiles();
       saveDevices();
+
+      // v0.7.0 (b): actively evict the absorbed profile from ALL loaded rooms (live), collapsing onto the
+      // primary — not just on next load. So a consolidation never leaves a duplicate member behind.
+      let evictedRooms = 0;
+      for (const rm of roomManager.allRooms()) if (rm.collapseAbsorbedMember(targetToken, myToken)) evictedRooms++;
+      addLog(`[consolidate] evicted ${targetToken.slice(0,8)} → ${myToken.slice(0,8)} from ${evictedRooms} room(s)`);
 
       send({ type: MSG.CONSOLIDATE_OK, mergedDevices: mergedDeviceCount });
       break;

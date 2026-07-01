@@ -112,6 +112,8 @@ export class DropDispatcher {
 
   // [impl:uuid:b05fcdf3-0d44-4d7d-bee2-b5edc55daa3a] R19.62 DropDispatcher.urlDrop
   async dispatchUrl(url: string, roomId: string, playerToken: string, sendChat: (text: string) => void, displayName?: string, relatedFileUuid?: string): Promise<{ uuid: string; name: string; size: number } | null> {
+    // v0.7.0 (2): about:blank (and about:blank#blocked) is a placeholder, never a real resource — never mint a WebItem for it.
+    if (!url || /^about:/i.test(url.trim())) { this.statusCb?.('idle', ''); return null; }
     this.state = 'uploading';
     this.statusCb?.('uploading', `Fetching ${url}...`);
     try {

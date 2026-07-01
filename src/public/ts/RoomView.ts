@@ -14,6 +14,7 @@ import type { RbQrPopup } from './components/rb-qr-popup.js';
 import './components/rb-member-list.js';
 import './components/rb-avatar.js';
 import './trace/rb-object-item.js';
+import { scenarioEditorHref } from './trace/detail-children.js'; // v0.7.0 (3): ✏️ editor deep-link
 import './trace/rb-trace-tree.js';
 import { dropDispatcher } from './drop-dispatcher.js';
 import type { RbMemberList } from './components/rb-member-list.js';
@@ -162,7 +163,7 @@ export class RoomView {
     this.container.innerHTML = `
       <div class="room-view">
         <rb-header title="${this.roomName}" show-leave show-home ${isHost ? 'show-delete show-edit' : ''} show-reload show-fullscreen></rb-header>
-        <div style="padding:0 16px 4px;display:flex;gap:8px;align-items:center"><a href="/scenario?ior=${this.roomId}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="View room scenario unit">📄 Scenario</a><span style="color:rgba(255,255,255,0.3);font-size:0.65rem">${this.roomId.slice(0,8)}</span></div>
+        <div style="padding:0 16px 4px;display:flex;gap:8px;align-items:center"><a href="/scenario?ior=${this.roomId}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="View room scenario unit">📄 Scenario</a><a href="${scenarioEditorHref(this.roomId)}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="Edit room scenario unit">✏️ Edit</a><span style="color:rgba(255,255,255,0.3);font-size:0.65rem">${this.roomId.slice(0,8)}</span></div>
         <div id="offline-banner" class="offline-banner" style="display:none">Offline — messages queued</div>
         <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="rrc-upload-status" id="rrc-upload-status" style="display:none"></div><rb-trace-tree id="room-tree" data-seed-ior="${this.roomId}"></rb-trace-tree></div></div>
         <rb-detail-drawer id="room-file-preview"></rb-detail-drawer>
@@ -214,13 +215,19 @@ export class RoomView {
           schemeUrl = hrefM ? hrefM[1] : '';
         }
         const hasScheme = /^[a-z][a-z0-9+.\-]*:/i.test(schemeUrl);
+        // v0.7.0 (1): iOS Mail's text/html carries the human label in the <a> TEXT (e.g.
+        // "Warmintro Marcel Donges <> Atilade Gabriel Oke") — prefer it over the message: URL / filename.
+        let linkLabel = '';
+        const aM = /<a\b[^>]*>([\s\S]*?)<\/a>/i.exec(dt.getData('text/html') || '');
+        if (aM) linkLabel = aM[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
         if (files.length > 0) {
-          // v0.6.90/91: pass the scheme URL + subject through to the upload handler, which uploads the
-          // file(s) first then mints a WebItem forward-referencing the stored file (email BOTH archived AND launchable).
-          const schemeName = hasScheme ? ((files[0].name || '').replace(/\.(eml|ics|vcs|msg)$/i, '').trim() || undefined) : undefined;
+          // v0.6.90/91: pass the scheme URL + label through; the upload handler uploads the file(s) first,
+          // then mints a WebItem forward-referencing the stored file (email BOTH archived AND launchable).
+          const emlName = (files[0].name || '').replace(/\.(eml|ics|vcs|msg)$/i, '').trim();
+          const schemeName = hasScheme ? (linkLabel || emlName || undefined) : undefined;
           dz.dispatchEvent(new CustomEvent("rb-room-files-dropped", { detail: { files, schemeUrl: hasScheme ? schemeUrl : '', schemeName }, bubbles: true }));
         } else if (hasScheme) {
-          dropDispatcher.dispatchUrl(schemeUrl, this.roomId, this.client.playerToken, (text) => log(text));
+          dropDispatcher.dispatchUrl(schemeUrl, this.roomId, this.client.playerToken, (text) => log(text), linkLabel || undefined);
         }
       });
     }

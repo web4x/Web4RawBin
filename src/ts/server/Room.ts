@@ -126,9 +126,16 @@ export class Room {
     this.creatorId = creator.id;
     this.creatorToken = opts?.creatorToken || '';
     if (opts?.persistedMembers) {
+      // v0.7.0 (a): collapse persisted members by RESOLVED identity — ≤1 entry per real person, not just
+      // in one display path. Prefer the entry whose token IS the primary, else a connected one; re-key to primary.
+      const byIdentity = new Map<string, { id: string; name: string; playerToken: string; disconnected: boolean }>();
       for (const pm of opts.persistedMembers) {
-        this.members.set(pm.id, { id: pm.id, ws: null as any, name: pm.name, avatarUrl: '', playerToken: pm.playerToken, disconnected: pm.disconnected ?? true });
+        const resolved = Room.resolveToken(pm.playerToken || '') || pm.playerToken || pm.id;
+        const cur = byIdentity.get(resolved);
+        const better = !cur || (pm.playerToken === resolved && cur.playerToken !== resolved) || (cur.disconnected && !(pm.disconnected ?? true));
+        if (better) byIdentity.set(resolved, { id: pm.id, name: pm.name, playerToken: resolved, disconnected: pm.disconnected ?? true });
       }
+      for (const m of byIdentity.values()) this.members.set(m.id, { id: m.id, ws: null as any, name: m.name, avatarUrl: '', playerToken: m.playerToken, disconnected: m.disconnected });
     }
     if (opts?.persistedFiles) {
       for (const fuuid of opts.persistedFiles) this.fileUnits.add(fuuid);
@@ -172,7 +179,7 @@ export class Room {
     if (this.state !== 'active') return false;
     if (this.rejoinDedup(member)) return true;
     this.members.set(member.id, { ...member, disconnected: false });
-    this.broadcast({ type: MSG.MEMBER_JOINED, member: this.memberInfo(member.id), memberCount: this.members.size });
+    this.broadcast({ type: MSG.MEMBER_JOINED, member: this.memberInfo(member.id), memberCount: this.dedupCount() });
     this.sendTo(member.id, { type: MSG.ROOM_JOINED, room: this.info(), members: this.allMemberInfo() });
     if (this._chatHistory.length > 0) {
       this.sendTo(member.id, { type: MSG.CHAT_HISTORY, messages: this._chatHistory });
@@ -181,14 +188,34 @@ export class Room {
     return true;
   }
 
+  // v0.7.0 (d): deduped member count — one per RESOLVED identity (never the raw map size).
+  private dedupCount(): number { return this.allMemberInfo().length; }
+
+  // v0.7.0 (b): evict an absorbed (tombstoned) token from this room's LIVE members — drop it if the primary
+  // is already present, else re-key it to the primary (preserve presence). Broadcasts the corrected count.
+  collapseAbsorbedMember(absorbedToken: string, primaryToken: string): boolean {
+    const hasPrimary = [...this.members.values()].some(m => m.playerToken === primaryToken);
+    let changed = false;
+    for (const [id, m] of [...this.members.entries()]) {
+      if (m.playerToken !== absorbedToken) continue;
+      if (hasPrimary) this.members.delete(id); else m.playerToken = primaryToken;
+      changed = true;
+    }
+    if (changed) { this.broadcast({ type: MSG.MEMBER_LEFT, memberId: absorbedToken, memberCount: this.dedupCount() }); this.persist(); }
+    return changed;
+  }
+
   // [impl:uuid:4c8a91a5-35af-48b1-a2e9-4bbd9f18bc10] Room.rejoinDedup
   private rejoinDedup(member: RoomMember): boolean {
-    const existing = member.playerToken ? [...this.members.values()].find(m => m.playerToken && m.playerToken === member.playerToken) : undefined;
+    // v0.7.0 (d): idempotent by RESOLVED identity — a tombstoned/re-keyed token collapses onto its primary
+    // instead of inserting a second member entry.
+    const rtok = Room.resolveToken(member.playerToken || '') || member.playerToken;
+    const existing = member.playerToken ? [...this.members.values()].find(m => m.playerToken && Room.resolveToken(m.playerToken) === rtok) : undefined;
     if (!existing) return false;
     if (existing.ws && existing.ws.readyState === 1) { try { existing.ws.close(); } catch {} }
     this.members.delete(existing.id);
-    this.members.set(member.id, { ...member, disconnected: false });
-    this.broadcast({ type: MSG.MEMBER_RECONNECTED, member: this.memberInfo(member.id), oldMemberId: existing.id, memberCount: this.members.size });
+    this.members.set(member.id, { ...member, playerToken: rtok, disconnected: false });
+    this.broadcast({ type: MSG.MEMBER_RECONNECTED, member: this.memberInfo(member.id), oldMemberId: existing.id, memberCount: this.dedupCount() });
     this.sendTo(member.id, { type: MSG.ROOM_JOINED, room: this.info(), members: this.allMemberInfo() });
     if (this._chatHistory.length > 0) {
       this.sendTo(member.id, { type: MSG.CHAT_HISTORY, messages: this._chatHistory });
@@ -199,7 +226,7 @@ export class Room {
 
   removeMember(id: string): void {
     this.members.delete(id);
-    this.broadcast({ type: MSG.MEMBER_LEFT, memberId: id, memberCount: this.members.size });
+    this.broadcast({ type: MSG.MEMBER_LEFT, memberId: id, memberCount: this.dedupCount() });
     if (id === this.hostId && this.members.size > 0) {
       const next = [...this.members.values()].find(m => !m.disconnected);
       this.hostId = next?.id || this.members.keys().next().value!;
@@ -288,7 +315,7 @@ export class Room {
       name: this.name,
       hostId: this.hostId,
       hostConnected: this.members.has(this.hostId),
-      memberCount: this.members.size,
+      memberCount: this.dedupCount(),
       isPrivate: this.isPrivate,
       visibility: this.visibility,
       mode: this.mode,
@@ -401,6 +428,9 @@ export class RoomManager {
   roomsWithFile(fileUuid: string): Room[] {
     return [...this.rooms.values()].filter(r => r.fileUnits.has(fileUuid));
   }
+
+  // v0.7.0 (b): all loaded rooms — for consolidation to evict an absorbed token everywhere.
+  allRooms(): Room[] { return [...this.rooms.values()]; }
 
   removeRoom(roomId: string, requesterId?: string): boolean {
     const room = this.rooms.get(roomId);

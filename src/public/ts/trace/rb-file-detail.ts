@@ -41,9 +41,6 @@ export class RbFileDetail extends HTMLElement {
         const token = m.uploaderToken || '';
         const sizeLabel = size > 1024 ? `${(size / 1024).toFixed(1)} KB` : `${size} B`;
 
-        const hex = uuid.replace(/-/g, '');
-        const shard = `${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}`;
-        const editHref = `/edit/scenario/index/${shard}/${uuid}.scenario.json`;
 
         const contentUrl = `/api/room/file/${uuid}/content${token ? '?token=' + encodeURIComponent(token) : ''}`;
         // R21.9 reorder: buttons TOP → 75vh preview MIDDLE → metadata BOTTOM
@@ -62,7 +59,6 @@ export class RbFileDetail extends HTMLElement {
             ${mimeType ? `<div class="dv-field"><label>Type</label><span>${esc(mimeType)}</span></div>` : ''}
             ${size ? `<div class="dv-field"><label>Size</label><span>${sizeLabel}</span></div>` : ''}
             ${scenarioBrowserLinkFromIor(uuid)}
-            <div class="dv-field"><a href="${editHref}" class="dv-file-link" style="color:#ff9800;font-size:0.75rem;text-decoration:none">✏️ Edit scenario</a></div>
           </div>
           <div class="dv-links"></div>`;
 
