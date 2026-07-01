@@ -13,8 +13,8 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -48,7 +48,7 @@ Tron: on the drop area add a click/tap listener that asks 'Upload from clipboard
 
 ## Implementation
 
- GREEN → QA Review: impl shipped v0.6.97/v0.6.98 (RoomView.importFromClipboard bd080edb); tester GREEN DET-3x — gate 91df459ae item4 (tap drop-zone → preview clipboard content-type in confirm → CANCEL) covers listener/preview/confirm/cancel; gate 414eb2ecb item5 (clipboard text File name = first line) covers read/route; URL→WebItem routing proven via WebItem name-harvest. PO RULED (2026-07-01): R26.1/R26.2 are DUPLICATE LABELS of R25.5/R25.6 — there is NO Sprint 26; canonical = THIS task. The dup scenario units (803f7c6c4) were already deleted in the reconcile (598ec1e/cd5e5ea60); 0 R26 scenario units remain. Gate-file R26.1/R26.2 comment-labels (91df459ae/414eb2ecb) flagged to tester for cosmetic relabel → R25.5/R25.6.
+ GREEN → QA Review: impl shipped v0.6.97/v0.6.98 (RoomView.importFromClipboard bd080edb); tester GREEN DET-3x — gate 91df459ae item4 (tap drop-zone → preview clipboard content-type in confirm → CANCEL) covers listener/preview/confirm/cancel; gate 414eb2ecb item5 (clipboard text File name = first line) covers read/route; URL→WebItem routing proven via WebItem name-harvest. PO RULED (2026-07-01): R26.1/R26.2 are DUPLICATE LABELS of R25.5/R25.6 — there is NO Sprint 26; canonical = THIS task. The dup scenario units (803f7c6c4) were already deleted in the reconcile (598ec1e/cd5e5ea60); 0 R26 scenario units remain. Gate-file R26.1/R26.2 comment-labels (91df459ae/414eb2ecb) flagged to tester for cosmetic relabel → R25.5/R25.6. ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC).
 
 ## Subtasks
 

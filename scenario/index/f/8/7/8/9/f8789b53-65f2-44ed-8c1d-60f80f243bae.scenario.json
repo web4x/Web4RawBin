@@ -6,11 +6,11 @@
     "slug": "task-22.1.2-forward-links-to-md-file",
     "description": "Repoint the Forward Links section of the Task detail view to link to the MD task documentation file (the sprint task `.md` path) instead of the raw `useCases` IOR reference, so the link is navigable to the human-readable task doc.",
     "intention": "Issue 2 of R22.1: Forward Links → MD task file.",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "traceability": "  - up\n    - [Task 22.1: Task detail — one chain + MD links](./task-22.1-task-detail-one-chain-and-md-links.md)\n    - Requirement R22.1 `[requirement:uuid:661836fd-2db8-4863-8556-0d698c897cd5]`\n  - down\n    - [UC-VF.1: taskDetail.renderSingleChainAndMdLink](./planning.md#uc-vf1) `[uc:uuid:4d0e454a-124a-43f7-8487-28aa61c12fbf]`",
     "acceptanceCriteria": "- [x] The Forward Links section links to the MD task documentation file (sprint task file path)\n- [x] The link is no longer the raw `useCases` IOR reference\n- [x] The link resolves/opens the task's `.md` file in the sprint directory\n- [x] Verified live (headless) — tester GREEN DET-3x v0.6.75 (c6560f97f)",
     "subtasks": "None (atomic task).",
-    "status": "QA Review",
+    "status": "Done",
     "coveredRequirements": [
       "ior:instance:661836fd-2db8-4863-8556-0d698c897cd5"
     ],
@@ -20,7 +20,9 @@
     "parent": "ior:instance:270107db-88a7-425e-9950-a03846e41d8e",
     "sprintName": "Sprint 22",
     "createdBy": "robbin-planner",
-    "createdAt": "2026-06-29"
+    "createdAt": "2026-06-29",
+    "tronAccepted": "2026-07-01",
+    "implementation": " ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC)."
   },
   "ownerIor": null
 }

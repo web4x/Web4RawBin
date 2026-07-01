@@ -13,8 +13,8 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -48,7 +48,7 @@ Tron: "in the heartspaces are 2 marcel donges users. i tried to link accounts bu
 
 ## Implementation
 
-Shipped v0.6.84 (a30315bcc, LIVE): collapse consolidated (redirectTo) members to PRIMARY in room member list — Room.ts (membership collapse) + server.ts; sw.js + version bumped (#15/#16). Tester GREEN DET-3x (verdict 549012182, gate r232-heartspaces-member-dedup-gate.mjs): member-dedup proven on real Heartspaces (1 Marcel, primary token, retroactive). Link-flow now GREEN too: gate 23bafb1db (r233-link-account-gate.mjs, DET-3x) proves CORRECT-secret → CONSOLIDATE_OK, WRONG-secret → CONSOLIDATE_FAILED, and no-phantom (profile count before == after). ALL 7 ACs gated GREEN. Tron's original 'link did not work' complaint resolved.
+Shipped v0.6.84 (a30315bcc, LIVE): collapse consolidated (redirectTo) members to PRIMARY in room member list — Room.ts (membership collapse) + server.ts; sw.js + version bumped (#15/#16). Tester GREEN DET-3x (verdict 549012182, gate r232-heartspaces-member-dedup-gate.mjs): member-dedup proven on real Heartspaces (1 Marcel, primary token, retroactive). Link-flow now GREEN too: gate 23bafb1db (r233-link-account-gate.mjs, DET-3x) proves CORRECT-secret → CONSOLIDATE_OK, WRONG-secret → CONSOLIDATE_FAILED, and no-phantom (profile count before == after). ALL 7 ACs gated GREEN. Tron's original 'link did not work' complaint resolved. ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC).
 
 ## Subtasks
 

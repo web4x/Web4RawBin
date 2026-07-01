@@ -13,8 +13,8 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,6 +38,10 @@ Issue 2 of R22.1: Forward Links → MD task file.
 - [x] The link is no longer the raw `useCases` IOR reference
 - [x] The link resolves/opens the task's `.md` file in the sprint directory
 - [x] Verified live (headless) — tester GREEN DET-3x v0.6.75 (c6560f97f)
+
+## Implementation
+
+ ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC).
 
 ## Subtasks
 

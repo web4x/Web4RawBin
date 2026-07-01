@@ -13,8 +13,8 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -44,6 +44,10 @@ Tron: "the implementation should be a link to the source code... The Class a lin
 - [x] Every chain detail-view node renders as a clickable link to its real artifact (not raw text/IOR)
 - [x] Links resolve to the actual file:line / diagram (open in the browser)
 - [x] Verified live (headless) — tester source-links GREEN DET-3x v0.6.78 (adddd7ae5); impl v0.6.77 (5a3e794d6, 3 prereq fixes architect-diagnosed) + v0.6.79 RbFileDetail sourceFile data-gap fill (4e3c3df0d)
+
+## Implementation
+
+ ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC).
 
 ## Subtasks
 

@@ -13,8 +13,8 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,16 +38,16 @@ PO 2026-06-29: formalize the scattered traceability + MD-planning TS tools as a 
 
 ## Acceptance Criteria
 
-- [ ] (generate) generate-sprint-md builds planning.md + per-task MD files from the Sprint/Task scenario units (markdown is a view, never hand-authored source)
-- [ ] (list-all) --list enumerates sprints; --all (re)generates every sprint's MD
-- [ ] (roundtrip) --check (check:sprint-md) asserts on-disk MD is a byte-match of the regenerated view; any drift fails
-- [ ] (task-files) Task MD files are created from Task units with their coveredRequirements + chain, speaking-name slugs
-- [ ] (law100) Scenario units are the source of truth; MD is derived (law #100)
-- [ ] (drift-scope) --check (check:sprint-md) drift detection also catches EXTRA/orphan stale MD files (e.g. left by a slug rename), scoped to the GENERATED_HEADER region - not just content byte-diff of expected files
+- [x] (generate) generate-sprint-md builds planning.md + per-task MD files from the Sprint/Task scenario units (markdown is a view, never hand-authored source)
+- [x] (list-all) --list enumerates sprints; --all (re)generates every sprint's MD
+- [x] (roundtrip) --check (check:sprint-md) asserts on-disk MD is a byte-match of the regenerated view; any drift fails
+- [x] (task-files) Task MD files are created from Task units with their coveredRequirements + chain, speaking-name slugs
+- [x] (law100) Scenario units are the source of truth; MD is derived (law #100)
+- [x] (drift-scope) --check (check:sprint-md) drift detection also catches EXTRA/orphan stale MD files (e.g. left by a slug rename), scoped to the GENERATED_HEADER region - not just content byte-diff of expected files
 
 ## Implementation
 
-Impl on existing generate-sprint-md.ts ([test:uuid:9dbf5538]); Test hop wired d33440e1c; chain COMPLETE (32/297). Tested via the tool's INHERENT gate — the round-trip --check (check:sprint-md) which the planner runs every cycle, byte-match GREEN. No separate per-task DET-3x gate commit; flagged to PO.
+Impl on existing generate-sprint-md.ts ([test:uuid:9dbf5538]); Test hop wired d33440e1c; chain COMPLETE (32/297). Tested via the tool's INHERENT gate — the round-trip --check (check:sprint-md) which the planner runs every cycle, byte-match GREEN. No separate per-task DET-3x gate commit; flagged to PO. ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC).
 
 ## Subtasks
 

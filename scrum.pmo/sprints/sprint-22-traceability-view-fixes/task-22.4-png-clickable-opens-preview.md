@@ -13,8 +13,8 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
@@ -46,6 +46,10 @@ Tron: "in the /md/ file browser, PNG files should be clickable and open in a pre
 - [x] Clicking a PNG opens it in the SAME preview/viewer that SVG files use — RED (404) v0.6.78 → fix v0.6.79 (404→200) → GREEN
 - [x] SVG behaviour is unchanged (no regression)
 - [x] Verified live (headless) on the /md/ test/visual listing — tester GREEN DET-3x v0.6.79 (verdict 4d6474790; 9/9, PNG HTTP 200 image/png, 124 clickable anchors)
+
+## Implementation
+
+ ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC).
 
 ## Subtasks
 

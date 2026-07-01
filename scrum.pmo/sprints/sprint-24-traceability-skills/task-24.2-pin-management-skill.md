@@ -13,8 +13,8 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,20 +38,20 @@ PO 2026-06-29: formalize the scattered traceability + MD-planning TS tools as a 
 
 ## Acceptance Criteria
 
-- [ ] (focus) focus <task> auto-derives the chain from the focused task; blocked if the current task test hop is not gate-proven (unless --force)
-- [ ] (hop) hop <hop> <status> [agent] applies a per-agent realtime hop update over req|uc|class|method|impl|test with statuses pending|in-progress|done|gate-proven
-- [ ] (gate) gate reports whether the task-switch gate is proven (test hop gate-proven)
-- [ ] (setChain) setChain wires req/uc/class/method/impl/test + sprint + task into the pin
-- [ ] (advance) advance increments the active-hop pointer (req->uc->class->method->impl->test); pin/status report the current pin (pinCurrent). NOTE: the gate-proven block currently lives on focus/task-switch (AC-1), not advance - gating advance on gate-proven is TARGET behaviour for the formalized skill
-- [ ] (object-verb) The Pin lifecycle verbs (focus/hop/gate/setChain/advance/pin/status) are Object.verb methods on a Pin/CurrentSprint class, NOT ad-hoc argv handlers
-- [ ] (shim-parity) Removal of the planner-drive shim is gated on pin-parity: the Object.verb Pin surface must reproduce planner-drive behaviour before the shim is retired
-- [ ] (three-slot) getThreeSlots returns the 3-slot pin - current / lastCompleted / nextBacklog - the core Current-Sprint pin model
-- [ ] (backlog-slot) setNextBacklog / clearNextBacklog pin and clear the nextBacklog slot (a real planner-drive verb, part of the 3-slot pin)
-- [ ] (owner) hopUpdate records the acting agent on the hop; owner-rejection (rejecting a wrong owner) is NOT enforced today - TARGET behaviour for the formalized skill
+- [x] (focus) focus <task> auto-derives the chain from the focused task; blocked if the current task test hop is not gate-proven (unless --force)
+- [x] (hop) hop <hop> <status> [agent] applies a per-agent realtime hop update over req|uc|class|method|impl|test with statuses pending|in-progress|done|gate-proven
+- [x] (gate) gate reports whether the task-switch gate is proven (test hop gate-proven)
+- [x] (setChain) setChain wires req/uc/class/method/impl/test + sprint + task into the pin
+- [x] (advance) advance increments the active-hop pointer (req->uc->class->method->impl->test); pin/status report the current pin (pinCurrent). NOTE: the gate-proven block currently lives on focus/task-switch (AC-1), not advance - gating advance on gate-proven is TARGET behaviour for the formalized skill
+- [x] (object-verb) The Pin lifecycle verbs (focus/hop/gate/setChain/advance/pin/status) are Object.verb methods on a Pin/CurrentSprint class, NOT ad-hoc argv handlers
+- [x] (shim-parity) Removal of the planner-drive shim is gated on pin-parity: the Object.verb Pin surface must reproduce planner-drive behaviour before the shim is retired
+- [x] (three-slot) getThreeSlots returns the 3-slot pin - current / lastCompleted / nextBacklog - the core Current-Sprint pin model
+- [x] (backlog-slot) setNextBacklog / clearNextBacklog pin and clear the nextBacklog slot (a real planner-drive verb, part of the 3-slot pin)
+- [x] (owner) hopUpdate records the acting agent on the hop; owner-rejection (rejecting a wrong owner) is NOT enforced today - TARGET behaviour for the formalized skill
 
 ## Implementation
 
-Tested GREEN DET-3x — explicit gate test(v0.6.85) getThreeSlots sprint-scope c0bbecb2f; impl markers 7dd6a762c (named pin methods); chain COMPLETE (scoreboard 32/297). Formalizes planner-drive.ts/CurrentSprint. NOTE: the advance-gate, owner-rejection and shim-parity ACs are TARGET (forward) skill behaviour, NOT yet enforced today — left unchecked honestly.
+Tested GREEN DET-3x — explicit gate test(v0.6.85) getThreeSlots sprint-scope c0bbecb2f; impl markers 7dd6a762c (named pin methods); chain COMPLETE (scoreboard 32/297). Formalizes planner-drive.ts/CurrentSprint. NOTE: the advance-gate, owner-rejection and shim-parity ACs are TARGET (forward) skill behaviour, NOT yet enforced today — left unchecked honestly. ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC).
 
 ## Subtasks
 

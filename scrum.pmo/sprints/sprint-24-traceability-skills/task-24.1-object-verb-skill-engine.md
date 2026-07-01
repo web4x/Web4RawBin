@@ -13,8 +13,8 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,18 +38,18 @@ PO 2026-06-29: formalize the scattered traceability + MD-planning TS tools as a 
 
 ## Acceptance Criteria
 
-- [ ] (introspect) A public method on a skill class (typed params string/string[]/number/boolean) is discovered by objectVerb.introspect; private methods are invisible
-- [ ] (help) Help text is derived from the JSDoc first line (missing JSDoc = broken help, rejected)
-- [ ] (complete) Tab-completion candidates come from param names + the class complete(verb,param) method (OOSH c2 contract)
-- [ ] (generate) The OOSH wrapper, skill docs, and Claude Code SKILL.md are GENERATED (emitOoshText / emitDocsText / emitClaudeSkills), never hand-written
-- [ ] (no-flags) No skill exposes argv --flag parsers; verbs are methods, one canonical measure per metric
-- [ ] (completable) Every Object.verb skill is Tab-completable on WODA.prod (the c2/complete() contract resolves live)
-- [ ] (ci-drift) The committed OOSH wrapper is byte-equal to emitOosh output; a CI/precommit drift gate fails if they diverge (no hand-edited wrapper)
-- [ ] (ownership) Each skill object has a named expert+tester owner and at least one test (no unowned skill surface)
+- [x] (introspect) A public method on a skill class (typed params string/string[]/number/boolean) is discovered by objectVerb.introspect; private methods are invisible
+- [x] (help) Help text is derived from the JSDoc first line (missing JSDoc = broken help, rejected)
+- [x] (complete) Tab-completion candidates come from param names + the class complete(verb,param) method (OOSH c2 contract)
+- [x] (generate) The OOSH wrapper, skill docs, and Claude Code SKILL.md are GENERATED (emitOoshText / emitDocsText / emitClaudeSkills), never hand-written
+- [x] (no-flags) No skill exposes argv --flag parsers; verbs are methods, one canonical measure per metric
+- [x] (completable) Every Object.verb skill is Tab-completable on WODA.prod (the c2/complete() contract resolves live)
+- [x] (ci-drift) The committed OOSH wrapper is byte-equal to emitOosh output; a CI/precommit drift gate fails if they diverge (no hand-edited wrapper)
+- [x] (ownership) Each skill object has a named expert+tester owner and at least one test (no unowned skill surface)
 
 ## Implementation
 
-Tested GREEN DET-3x — explicit gate test(T24.1) b810aa690 (r241-objectverb-gate.mjs); impl [impl:uuid:5453f58d] on named introspect(); chain scores COMPLETE (27->28/297). Formalizes existing objectVerb.ts.
+Tested GREEN DET-3x — explicit gate test(T24.1) b810aa690 (r241-objectverb-gate.mjs); impl [impl:uuid:5453f58d] on named introspect(); chain scores COMPLETE (27->28/297). Formalizes existing objectVerb.ts. ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC).
 
 ## Subtasks
 

@@ -13,8 +13,8 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -46,7 +46,7 @@ Tron: every detail view shall show a 📄 Scenario link to its underlying scenar
 
 ## Implementation
 
- GREEN → QA Review: impl shipped v0.6.97 (universal 📄 Scenario link, detail-children.scenarioFileHref 1bd129e0); tester GREEN DET-3x — gate 91df459ae item3 (📄 Scenario link on WebItem detail AND every detail view) + gate 414eb2ecb item3 (photo File preview renders). Covers link/target/universal/consistent. PO RULED (2026-07-01): R26.1/R26.2 are DUPLICATE LABELS of R25.5/R25.6 — there is NO Sprint 26; canonical = THIS task. The dup scenario units (803f7c6c4) were already deleted in the reconcile (598ec1e/cd5e5ea60); 0 R26 scenario units remain. Gate-file R26.1/R26.2 comment-labels (91df459ae/414eb2ecb) flagged to tester for cosmetic relabel → R25.5/R25.6.
+ GREEN → QA Review: impl shipped v0.6.97 (universal 📄 Scenario link, detail-children.scenarioFileHref 1bd129e0); tester GREEN DET-3x — gate 91df459ae item3 (📄 Scenario link on WebItem detail AND every detail view) + gate 414eb2ecb item3 (photo File preview renders). Covers link/target/universal/consistent. PO RULED (2026-07-01): R26.1/R26.2 are DUPLICATE LABELS of R25.5/R25.6 — there is NO Sprint 26; canonical = THIS task. The dup scenario units (803f7c6c4) were already deleted in the reconcile (598ec1e/cd5e5ea60); 0 R26 scenario units remain. Gate-file R26.1/R26.2 comment-labels (91df459ae/414eb2ecb) flagged to tester for cosmetic relabel → R25.5/R25.6. ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC).
 
 ## Subtasks
 

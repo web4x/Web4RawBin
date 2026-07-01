@@ -16,6 +16,6 @@ Support Apple drag-and-drop items (URL schemes: mailto/webcal/calshow/maps/geo/t
 - [ ] [Task 25.2: Unified WebItem scenario unit (bookmark / .url / .webloc)](./task-25.2-webitem-unified-url-unit.md)
 - [ ] [Task 25.3: vCard onboarding recognizes existing users (device-link, no new UUID)](./task-25.3-vcard-onboarding-device-link.md)
 - [ ] [Task 25.4: Drawer interaction — grab-bar mouse parity + X-minimize](./task-25.4-drawer-grab-bar-mouse-x-minimize.md)
-- [ ] [Task 25.5: Drop-area clipboard preview + import](./task-25.5-clipboard-preview-import.md)
-- [ ] [Task 25.6: Scenario link on ALL detail views](./task-25.6-scenario-link-all-detail-views.md)
+- [x] [Task 25.5: Drop-area clipboard preview + import](./task-25.5-clipboard-preview-import.md)
+- [x] [Task 25.6: Scenario link on ALL detail views](./task-25.6-scenario-link-all-detail-views.md)
 - [ ] [Task 25.7: Room membership dedup by resolved identity (structural, no duplicate members ever)](./task-25.7-room-membership-dedup-structural.md)

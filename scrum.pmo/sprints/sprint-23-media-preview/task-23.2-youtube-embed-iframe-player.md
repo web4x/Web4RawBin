@@ -13,8 +13,8 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,15 +38,15 @@ Tron: "when a YouTube URL is discovered in the room... automatically render it a
 
 ## Acceptance Criteria
 
-- [ ] A YouTube URL discovered in the room (text/uri-list drop or chat paste) is detected
-- [ ] The video ID is extracted from the URL (watch?v=<id>, youtu.be/<id>, and embed/<id> forms)
-- [ ] The preview renders an embedded iframe at `https://www.youtube.com/embed/<id>` (not raw text)
-- [ ] The existing Heartspaces `.url` (youtube.com/watch?v=a-_CuBOu6BA) renders as an embedded player, not text
-- [ ] Verified live (headless) — a YouTube URL in a room renders the embed
+- [x] A YouTube URL discovered in the room (text/uri-list drop or chat paste) is detected
+- [x] The video ID is extracted from the URL (watch?v=<id>, youtu.be/<id>, and embed/<id> forms)
+- [x] The preview renders an embedded iframe at `https://www.youtube.com/embed/<id>` (not raw text)
+- [x] The existing Heartspaces `.url` (youtube.com/watch?v=a-_CuBOu6BA) renders as an embedded player, not text
+- [x] Verified live (headless) — a YouTube URL in a room renders the embed
 
 ## Implementation
 
-Shipped v0.6.80 (3a02318ce, LIVE on prod): YouTube .url auto-embed in content-preview.ts (ContentPreviewer / rb-preview-pane, R21.9) — video-id extraction → youtube.com/embed/<id> iframe; sw.js + version bumped (#15/#16). Architect design 72b582092 (single fillPreviewPane landing). Tester GREEN DET-3x (verdict 0eb5f64cc, gate r225-audio-youtube-gate.mjs) — testing hop CLEARED → QA Review (Tron gate).
+Shipped v0.6.80 (3a02318ce, LIVE on prod): YouTube .url auto-embed in content-preview.ts (ContentPreviewer / rb-preview-pane, R21.9) — video-id extraction → youtube.com/embed/<id> iframe; sw.js + version bumped (#15/#16). Architect design 72b582092 (single fillPreviewPane landing). Tester GREEN DET-3x (verdict 0eb5f64cc, gate r225-audio-youtube-gate.mjs) — testing hop CLEARED → QA Review (Tron gate). ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC).
 
 ## Subtasks
 

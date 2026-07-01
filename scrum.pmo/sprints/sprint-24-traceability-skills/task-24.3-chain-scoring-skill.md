@@ -13,8 +13,8 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,16 +38,16 @@ PO 2026-06-29: formalize the scattered traceability + MD-planning TS tools as a 
 
 ## Acceptance Criteria
 
-- [ ] (followUp) Chain.followUp(reqUuids, sprint?) is the single canonical completion measure - one summary row per Requirement, dedup by methodUuid (UUID identity), NOT display name (display names collide: two *.render on one Req = the R15.6 over-credit bug)
-- [ ] (scoreboard) Chain.scoreboard renders the canonical markdown: table + dispatch list + Summary line
-- [ ] (listComplete) Chain.listComplete emits one diffable line per COMPLETE requirement (TSV-stable)
-- [ ] (lintMarkers) Chain.lintMarkers reports invented-suffix uuids, prefix collisions, shared Impls, and orphan markers before any re-measure
-- [ ] (one-measure) There is exactly ONE completion measure (followUp); no competing/duplicate scoreboard logic
-- [ ] (one-measure-confirmed) scoreboard, listComplete, generateMatrix, and Velocity ALL delegate to Chain.followUp - verified no competing count (skill-expert confirmed)
+- [x] (followUp) Chain.followUp(reqUuids, sprint?) is the single canonical completion measure - one summary row per Requirement, dedup by methodUuid (UUID identity), NOT display name (display names collide: two *.render on one Req = the R15.6 over-credit bug)
+- [x] (scoreboard) Chain.scoreboard renders the canonical markdown: table + dispatch list + Summary line
+- [x] (listComplete) Chain.listComplete emits one diffable line per COMPLETE requirement (TSV-stable)
+- [x] (lintMarkers) Chain.lintMarkers reports invented-suffix uuids, prefix collisions, shared Impls, and orphan markers before any re-measure
+- [x] (one-measure) There is exactly ONE completion measure (followUp); no competing/duplicate scoreboard logic
+- [x] (one-measure-confirmed) scoreboard, listComplete, generateMatrix, and Velocity ALL delegate to Chain.followUp - verified no competing count (skill-expert confirmed)
 
 ## Implementation
 
-Impl markers 7dd6a762c (named Chain methods); Test hop wired d33440e1c; chain scores COMPLETE (28->32/297) via the Chain.followUp measure itself. Tested via the scoreboard (objectVerb Chain) + Test unit — NO separate per-task DET-3x gate commit (vs T24.1/T24.2 explicit gates); flagged to PO.
+Impl markers 7dd6a762c (named Chain methods); Test hop wired d33440e1c; chain scores COMPLETE (28->32/297) via the Chain.followUp measure itself. Tested via the scoreboard (objectVerb Chain) + Test unit — NO separate per-task DET-3x gate commit (vs T24.1/T24.2 explicit gates); flagged to PO. ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC).
 
 ## Subtasks
 

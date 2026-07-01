@@ -13,8 +13,8 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -46,6 +46,10 @@ Tron screenshot directive (2026-06-29): one chain section only, and Forward Link
 - [x] (issue 2 — Forward Links → MD) The Forward Links section links to the MD task documentation file, not the raw `useCases` IOR reference
 - [x] The link resolves/opens the task's `.md` file in the sprint directory
 - [x] Verified live (headless) — tester GREEN DET-3x v0.6.75 (commit c6560f97f); impl v0.6.75 (61b21fbf6, architect 35bec7d)
+
+## Implementation
+
+ ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC).
 
 ## Subtasks
 

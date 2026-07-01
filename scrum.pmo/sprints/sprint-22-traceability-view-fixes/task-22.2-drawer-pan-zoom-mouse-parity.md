@@ -13,8 +13,8 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -44,6 +44,10 @@ Tron: "the drawer works well on touch and it shall be touch first, but it shall 
 - [x] Double-click resets/toggles the zoom, identical to double-tap
 - [x] Behaviour is identical across input types (no mouse-only or touch-only divergence)
 - [x] Verified live (headless) — tester RED→GREEN v0.6.75→v0.6.76 (RED baseline cb8d3eceb; impl 073378b7d); GREEN DET-3x
+
+## Implementation
+
+ ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC).
 
 ## Subtasks
 

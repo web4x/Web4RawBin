@@ -13,8 +13,8 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,6 +38,10 @@ Issue 1 of R22.1: one chain section only.
 - [x] The empty/false "Traceability Chain: No chain" section above the real chain is gone
 - [x] The remaining single chain section renders the real chain correctly (no regression)
 - [x] Verified live (headless) — tester GREEN DET-3x v0.6.75 (c6560f97f)
+
+## Implementation
+
+ ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC).
 
 ## Subtasks
 
