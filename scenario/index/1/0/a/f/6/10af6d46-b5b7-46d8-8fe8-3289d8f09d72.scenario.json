@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "10af6d46-b5b7-46d8-8fe8-3289d8f09d72",
+    "name": "clipboard.previewAndImport",
+    "description": "Click/tap the drop-area reads the clipboard, previews its content, and imports it via drop-dispatcher MIME routing (dispatchUrl->WebItem, files->File, etc.).",
+    "class": "ior:instance:0cabde12-858a-4342-a00d-f5cf73d7822c",
+    "classes": [
+      "ior:instance:0cabde12-858a-4342-a00d-f5cf73d7822c"
+    ],
+    "method": "ior:instance:e8983bc2-1227-4629-a99d-b639b84668ba",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2066ba12-6bd8-42b1-9377-25c82fd944e0"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7d92ce31-5518-4398-a2b1-a000344e2ef8",
+    "name": "ClipboardImport.previewAndImport impl",
+    "description": "DESIGN-AHEAD (scenario-first per TRON #126; not yet shipped): base src/public/ts/drop-dispatcher.ts; expert attaches [impl:uuid] marker at code time.",
+    "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:e8983bc2-1227-4629-a99d-b639b84668ba"
+}

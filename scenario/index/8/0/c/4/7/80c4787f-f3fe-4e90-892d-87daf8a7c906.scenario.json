@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "80c4787f-f3fe-4e90-892d-87daf8a7c906",
+    "name": "Implement clipboard dialog preview + name harvesting",
+    "altId": "T26.1",
+    "parent": "ior:instance:30dbd5e4-633d-4f06-9e8e-1ad4b0fb2024",
+    "tests": [],
+    "implementations": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-26-clipboard-traceability/tasks.md",
+    "sourceLine": 1,
+    "description": "RoomView.importFromClipboard: read clipboard first → build a typed preview → confirm → route (same DnD path) with derived names. Add deriveClipboardName + a preview summarizer."
+  },
+  "ownerIor": "ior:instance:30dbd5e4-633d-4f06-9e8e-1ad4b0fb2024"
+}

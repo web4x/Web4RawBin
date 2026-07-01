@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "9e9e52b6-6846-4b02-b20d-71dd73295917",
+    "name": "Sprint 26 — Clipboard UX + Universal Traceability",
+    "number": 26,
+    "requirements": [
+      "ior:instance:30dbd5e4-633d-4f06-9e8e-1ad4b0fb2024",
+      "ior:instance:ceef6168-d85f-44e0-8362-bfb4e15ab7fb"
+    ],
+    "tasks": [
+      "ior:instance:80c4787f-f3fe-4e90-892d-87daf8a7c906",
+      "ior:instance:c182d22f-3fa9-4257-827a-c1deff6e40d6"
+    ],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-26-clipboard-traceability/sprint.md",
+    "sourceLine": 1
+  },
+  "ownerIor": null
+}

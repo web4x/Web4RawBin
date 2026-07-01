@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "2179d235-be01-4f0b-a1cb-bcfda316a5b4",
+    "name": "RbDetailView.renderScenarioLink impl",
+    "description": "DESIGN-AHEAD (scenario-first per TRON #126; not yet shipped): base src/public/ts/trace/detail-children.ts; expert attaches [impl:uuid] marker at code time.",
+    "sourceFile": "ior:file:src/public/ts/trace/detail-children.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0ce8290f-b79e-471d-8f69-302cdc13fe4e"
+}

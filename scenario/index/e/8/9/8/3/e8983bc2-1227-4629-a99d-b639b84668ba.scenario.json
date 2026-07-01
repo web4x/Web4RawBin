@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e8983bc2-1227-4629-a99d-b639b84668ba",
+    "name": "ClipboardImport.previewAndImport",
+    "description": "Click/tap the drop-area reads the clipboard, previews its content, and imports it via drop-dispatcher MIME routing (dispatchUrl->WebItem, files->File, etc.).",
+    "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
+    "implementations": [
+      "ior:instance:7d92ce31-5518-4398-a2b1-a000344e2ef8"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0cabde12-858a-4342-a00d-f5cf73d7822c"
+}

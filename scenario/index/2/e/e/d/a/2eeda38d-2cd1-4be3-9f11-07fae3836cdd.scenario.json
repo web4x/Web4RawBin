@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "2eeda38d-2cd1-4be3-9f11-07fae3836cdd",
+    "name": "RbDetailView",
+    "description": "RbDetailView (R25.6). Base src/public/ts/trace/detail-children.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/detail-children.ts",
+    "methods": [
+      "ior:instance:0ce8290f-b79e-471d-8f69-302cdc13fe4e"
+    ]
+  },
+  "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"
+}
