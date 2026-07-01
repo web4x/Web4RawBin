@@ -369,6 +369,11 @@ Room.resolveToken = (token: string) => userProfiles.get(token)?.redirectTo || to
 // v0.7.1 (R25.7): let room-load dedup detect orphan members (token whose profile was deleted) and self-heal.
 Room.profileExists = (token: string) => userProfiles.has(token);
 
+// [impl:uuid:6b459f04-e326-4f8a-b375-ddb33f2d4ffb] R25.7 redirectTombstoneToPrimary — resolve a connecting (possibly tombstoned)
+// token to its PRIMARY. IDENTIFY uses this to redirect a consolidated token → primary (TOKEN_REDIRECT),
+// never re-minting/clearing the immutable redirectTo.
+function redirectTombstoneToPrimary(token: string): string { return userProfiles.get(token)?.redirectTo || token; }
+
 function generateSecretCode(): string {
   return String(1000 + Math.floor(Math.random() * 9000));
 }
@@ -2015,11 +2020,10 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
     case MSG.IDENTIFY: {
       let token = msg.playerToken;
       if (!token) break;
-      let redirectProfile = userProfiles.get(token);
-      if (redirectProfile?.redirectTo) {
-        const newToken = redirectProfile.redirectTo;
-        send({ type: MSG.TOKEN_REDIRECT, newToken });
-        token = newToken;
+      const primaryToken = redirectTombstoneToPrimary(token); // v0.7.1 (R25.7): tombstone → primary (never re-mint)
+      if (primaryToken !== token) {
+        send({ type: MSG.TOKEN_REDIRECT, newToken: primaryToken });
+        token = primaryToken;
       }
       tokenToClient.set(token, clientId);
       const thisClient = [...wsClients].find(c => c.id === clientId);
