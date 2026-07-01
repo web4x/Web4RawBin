@@ -211,6 +211,7 @@ export class Room {
   }
 
   // [impl:uuid:4c8a91a5-35af-48b1-a2e9-4bbd9f18bc10] Room.rejoinDedup
+  // [impl:uuid:dffda1dc-053e-4513-ab4e-39c3ed9863bb] R25.7 Room.rejoinDedup (idempotent match by resolved token)
   private rejoinDedup(member: RoomMember): boolean {
     // v0.7.0 (d): idempotent by RESOLVED identity — a tombstoned/re-keyed token collapses onto its primary
     // instead of inserting a second member entry.
