@@ -329,29 +329,28 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
         const fileLine = body.split('\n').find(l => l.trim() && !l.trim().startsWith('+'));
         const sourcePath = fileLine?.trim() || '';
         const methodLines = body.split('\n').filter(l => l.trim().startsWith('+'));
-        const classUuid = crypto.randomUUID();
-        const methodIors: string[] = [];
+        // R27.2 AC-canonical (REUSE-ON-WIRE): look up an EXISTING Class unit by code-class NAME and REUSE it —
+        // NEVER mint a 2nd Class for a name that already exists (this is exactly where the 55 dups came from).
+        // Union any new methods into the existing Class (dedup by method name); mint only when none exists.
+        const existingClass = [...idx.list()].map(u => idx.get(u)).find(u => !!u && u.ior === 'ior:class:Class' && String((u.model as any).name) === className);
+        const classUuid = existingClass ? String((existingClass.model as any).uuid) : crypto.randomUUID();
+        const existingMethodIors: string[] = existingClass ? (((existingClass.model as any).methods) || []) : [];
+        const existingMethodNames = new Set(existingMethodIors.map(mi => { const mu = idx.get(String(mi).replace('ior:instance:', '')); return String((mu?.model as any)?.methodName || ''); }));
+        const methodIors: string[] = [...existingMethodIors];
         for (const ml of methodLines) {
           const mName = ml.replace(/^\s*\+\s*/, '').trim();
-          if (!mName) continue;
+          if (!mName || existingMethodNames.has(mName)) continue; // reuse the existing method for this name — no dup Method
           const mUuid = crypto.randomUUID();
-          const methodUnit: ScenarioUnit = {
-            ior: 'ior:class:Method',
-            model: { uuid: mUuid, name: `${className}.${mName}`, className, methodName: mName },
-            ownerIor: `ior:instance:${classUuid}`,
-          };
-          idx.put(mUuid, methodUnit);
+          idx.put(mUuid, { ior: 'ior:class:Method', model: { uuid: mUuid, name: `${className}.${mName}`, className, methodName: mName }, ownerIor: `ior:instance:${classUuid}` });
           methodUuids.push(mUuid);
           methodIors.push(`ior:instance:${mUuid}`);
         }
-        const classUnit: ScenarioUnit = {
-          ior: 'ior:class:Class',
-          model: { uuid: classUuid, name: className, file: sourcePath, methods: methodIors, useCases: [] },
-          ownerIor: `ior:instance:${sprintUuid}`,
-        };
+        const classUnit: ScenarioUnit = existingClass
+          ? { ...existingClass, model: { ...(existingClass.model as any), methods: methodIors } }   // REUSE: union methods onto the existing Class
+          : { ior: 'ior:class:Class', model: { uuid: classUuid, name: className, file: sourcePath, methods: methodIors, useCases: [] }, ownerIor: `ior:instance:${sprintUuid}` };
         idx.put(classUuid, classUnit);
-        classUuids.push(classUuid);
-        console.log(`  Created class unit: ${classUuid} — ${className} (${methodIors.length} methods)`);
+        if (!classUuids.includes(classUuid)) classUuids.push(classUuid);
+        console.log(`  ${existingClass ? 'REUSED' : 'Created'} class unit: ${classUuid} — ${className} (${methodIors.length} methods)`);
       }
     }
   }
