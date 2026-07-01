@@ -41,7 +41,7 @@
       {
         "id": "AC-repair-dangling",
         "group": "cleanup",
-        "text": "The 12 dangling are repaired: the 10 dead-RbDetailView refs repointed to the live canonical RbDetailView; the dead-Method ref + the 'TODO-' placeholder ref triaged (repoint OR remove) with a reason."
+        "text": "The 12 dangling are repaired: the 10 refs at the DEAD f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5 are repointed to the LIVE canonical RbDetailView f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07 (PO-ratified canonical; it holds those UCs methods by name); the dead Method ref fcf6dae1-69c7 + the literal string TODO-server-class are triaged (repoint OR remove) with a reason."
       },
       {
         "id": "AC-repair-orphan",
@@ -58,7 +58,17 @@
         "group": "verify",
         "text": "Post-cleanup re-measure: 0 dangling UC refs, 0 orphan Methods."
       }
-    ]
+    ],
+    "danglingSet": {
+      "total": 12,
+      "detail": {
+        "10x_dead_RbDetailView": "f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5 -> repoint to canonical f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07",
+        "1x_dead_method": "fcf6dae1-69c7-418d-a68a-6fca1d0a9137",
+        "1x_malformed": "literal string TODO-server-class"
+      },
+      "orphanMethods": 51,
+      "note": "0 of 12 intersect the R27.2 dup-collapse set; PO decision RbDetailView canonical = f2f84ce3-6f8f; measured full-uuid vs current disk (raw JSON + os.path.exists)."
+    }
   },
   "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
 }
