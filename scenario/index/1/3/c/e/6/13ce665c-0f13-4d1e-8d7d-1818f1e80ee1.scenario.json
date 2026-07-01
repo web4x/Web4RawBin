@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "13ce665c-0f13-4d1e-8d7d-1818f1e80ee1",
+    "name": "dnd.federatedReference",
+    "description": "Cross-origin DnD carries application/rb-federated-ref {ior@host, originHost, type, name, fetchUrl, contentHash?} — a reference+fetchUrl, NOT the full JSON; receiver hands it to its own server to import.",
+    "class": "ior:instance:3854affc-0859-4a13-a2d1-893266a3d50a",
+    "classes": [
+      "ior:instance:3854affc-0859-4a13-a2d1-893266a3d50a"
+    ],
+    "method": "ior:instance:c8a17dcc-0bba-44aa-9aac-86049ba65c31",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:e36d585c-cbb1-4715-a175-fa844f375cde"
+}

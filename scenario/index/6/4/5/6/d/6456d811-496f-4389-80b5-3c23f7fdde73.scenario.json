@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "6456d811-496f-4389-80b5-3c23f7fdde73",
+    "name": "FederationApi",
+    "description": "FederationApi — RawBin federation (S26). Design-ahead greenfield.",
+    "methods": [
+      "ior:instance:f762297b-9445-4ea5-acd1-671d0589d4dd"
+    ]
+  },
+  "ownerIor": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d"
+}

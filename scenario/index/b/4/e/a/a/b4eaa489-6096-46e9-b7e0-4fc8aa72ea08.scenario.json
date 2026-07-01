@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "b4eaa489-6096-46e9-b7e0-4fc8aa72ea08",
+    "name": "IORResolver",
+    "description": "IORResolver — RawBin federation (S26). Design-ahead greenfield.",
+    "methods": [
+      "ior:instance:7be6b225-7067-4924-b715-08d3800fc5a0"
+    ]
+  },
+  "ownerIor": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d"
+}

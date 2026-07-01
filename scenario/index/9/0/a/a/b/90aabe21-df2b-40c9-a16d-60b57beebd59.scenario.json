@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "90aabe21-df2b-40c9-a16d-60b57beebd59",
+    "name": "Transfer.reconcileConflict",
+    "description": "uuid conflict: same-origin -> idempotent update-if-newer; different-origin -> re-mint fresh local uuid + originIor + reference-rewrite all inbound refs; content dedup by hash; record provenance (crossRef R25.7).",
+    "sourceFile": "ior:file:src/ts/server/federation-transfer.ts",
+    "implementations": [
+      "ior:instance:8d34ad57-e1ec-4d71-8348-4efa345a07f3"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c4290554-9b09-4a20-8308-f161bec0d039"
+}

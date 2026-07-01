@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8d34ad57-e1ec-4d71-8348-4efa345a07f3",
+    "name": "Transfer.reconcileConflict impl",
+    "description": "DESIGN-AHEAD (scenario-first #126, GREENFIELD federation — no code yet): planned src/ts/server/federation-transfer.ts; expert attaches [impl:uuid] at code time.",
+    "sourceFile": "ior:file:src/ts/server/federation-transfer.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:90aabe21-df2b-40c9-a16d-60b57beebd59"
+}

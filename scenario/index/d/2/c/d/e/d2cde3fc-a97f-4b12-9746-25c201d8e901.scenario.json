@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d2cde3fc-a97f-4b12-9746-25c201d8e901",
+    "name": "IORResolver.resolveFederated impl",
+    "description": "DESIGN-AHEAD (scenario-first #126, GREENFIELD federation — no code yet): planned src/ts/scenario/federated-ior.ts; expert attaches [impl:uuid] at code time.",
+    "sourceFile": "ior:file:src/ts/scenario/federated-ior.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:7be6b225-7067-4924-b715-08d3800fc5a0"
+}

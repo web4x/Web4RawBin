@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "4257570e-dc89-42e6-b3e4-c0130e6a29c2",
+    "name": "Transfer.resolveChildrenLazily",
+    "description": "Structure eager / payload lazy: primary unit eager, file bytes+deep subtrees+member profiles lazy; contentHash cross-server dedup; ROOM MEMBERS stay federated references, never minted locally (crossRef R25.7).",
+    "sourceFile": "ior:file:src/ts/server/federation-transfer.ts",
+    "implementations": [
+      "ior:instance:3b17aad3-0587-48f6-8da6-3eaf54a9a84d"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c4290554-9b09-4a20-8308-f161bec0d039"
+}

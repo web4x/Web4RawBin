@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "1f097e01-7d45-4e8c-b403-5a5ff5f0bfe6",
+    "name": "federation.conflictReconcile",
+    "description": "uuid conflict: same-origin -> idempotent update-if-newer; different-origin -> re-mint fresh local uuid + originIor + reference-rewrite all inbound refs; content dedup by hash; record provenance (crossRef R25.7).",
+    "class": "ior:instance:c4290554-9b09-4a20-8308-f161bec0d039",
+    "classes": [
+      "ior:instance:c4290554-9b09-4a20-8308-f161bec0d039"
+    ],
+    "method": "ior:instance:90aabe21-df2b-40c9-a16d-60b57beebd59",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f7e4c1cc-c2a5-423c-bbaa-d010a2d1fa79"
+}
