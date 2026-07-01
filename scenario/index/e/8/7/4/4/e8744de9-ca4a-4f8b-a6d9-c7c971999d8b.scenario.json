@@ -1,0 +1,56 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "e8744de9-ca4a-4f8b-a6d9-c7c971999d8b",
+    "name": "Federated IOR \u2014 provenance via originHost",
+    "altId": "R26.1",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-26-federation/requirements.md",
+    "sourceLine": 15,
+    "parent": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:9b4a8c02-a913-45e9-b984-640defa70b33"
+    ],
+    "description": "An IOR gains an OPTIONAL host suffix (ior:instance:<uuid>@<originHost>) so a reference is resolvable across servers; local IORs omit @host (implicit self), 100% back-compatible. An imported unit records provenance in model.originHost + model.originIor. Resolution is polymorphic via a pluggable loader registry: no-@host resolves locally (ScenarioIndex.get), @remote resolves via a registered federated loader (fetch), so a federated IOR dereferences lazily anywhere it appears.",
+    "tronQuote": "> TRON (screenshots): dragging items between two RawBin servers (home.donges.it <-> prod.wo-da.de) must TRANSFER the scenario unit \u2014 the receiving server recreates it locally with all unitLinks \u2014 not just make a WebItem pointing at the source URL.",
+    "discoverySource": {
+      "type": "architect-diagnosis",
+      "diagnosedBy": "robbin-architect",
+      "date": "2026-07-01",
+      "designNote": "scrum.pmo/design-notes/federated-scenario-transfer.md",
+      "designCommit": "7e940cf81"
+    },
+    "designRef": "scrum.pmo/design-notes/federated-scenario-transfer.md (architect 7e940cf81)",
+    "securityNote": "Cross-cutting security/trust: capability grants are signed + expiring + scoped (no ambient authority); server-federation signatures use a per-server keypair + explicit trust list (no open fetch). Never trust incoming JSON blindly \u2014 validate schema, cap size, sanitize, NEVER execute; foreign identities NEVER become local auth principals.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-suffix",
+        "group": "format",
+        "text": "The IOR string supports an optional host suffix: ior:instance:<uuid>@<originHost>; a local IOR omits @host (implicit self) and stays 100% back-compatible with every existing ior:instance:<uuid>."
+      },
+      {
+        "id": "AC-provenance",
+        "group": "provenance",
+        "text": "An imported unit stores provenance: model.originHost (source server canonical https:// URL) + model.originIor (the original ior:instance:<uuid>@host). Local-born units omit both."
+      },
+      {
+        "id": "AC-loader",
+        "group": "resolver",
+        "text": "Resolution is polymorphic via a pluggable loader registry: no-@host/@self -> local ScenarioIndex.get; @remote -> a registered federated loader (fetches via R26.3), keyed on @host exactly as FileLoader is registered locally."
+      },
+      {
+        "id": "AC-lazy",
+        "group": "resolver",
+        "text": "A federated IOR can be dereferenced lazily anywhere it appears (ISR-style), not only at import."
+      },
+      {
+        "id": "AC-host",
+        "group": "identity",
+        "text": "originHost is the server's canonical https:// origin (reuses per-server host identity), never an IP."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d"
+}

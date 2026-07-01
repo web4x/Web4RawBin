@@ -1,0 +1,66 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "05d21385-766a-426d-9045-77255d5234a0",
+    "name": "Server-to-server scenario fetch API (on the origin)",
+    "altId": "R26.3",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-26-federation/requirements.md",
+    "sourceLine": 39,
+    "parent": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:e205f1b0-7e8f-4b52-932c-dc9ae2350ef6"
+    ],
+    "description": "The origin server exposes GET /api/scenario/<uuid> (unit JSON), /content (file bytes, content-addressable, only when the receiver lacks the contentHash), and /children?mode=trace (forward children). Fetched server-to-server (receiver's server calls origin, NOT browser) so there is no CORS and auth is server-presented: a short-lived signed CAPABILITY grant for ad-hoc DnD, or a per-server keypair signature + trust list for standing federation. Every federated fetch is rate-limited + audit-logged.",
+    "tronQuote": "> TRON (screenshots): dragging items between two RawBin servers (home.donges.it <-> prod.wo-da.de) must TRANSFER the scenario unit \u2014 the receiving server recreates it locally with all unitLinks \u2014 not just make a WebItem pointing at the source URL.",
+    "discoverySource": {
+      "type": "architect-diagnosis",
+      "diagnosedBy": "robbin-architect",
+      "date": "2026-07-01",
+      "designNote": "scrum.pmo/design-notes/federated-scenario-transfer.md",
+      "designCommit": "7e940cf81"
+    },
+    "designRef": "scrum.pmo/design-notes/federated-scenario-transfer.md (architect 7e940cf81)",
+    "securityNote": "Cross-cutting security/trust: capability grants are signed + expiring + scoped (no ambient authority); server-federation signatures use a per-server keypair + explicit trust list (no open fetch). Never trust incoming JSON blindly \u2014 validate schema, cap size, sanitize, NEVER execute; foreign identities NEVER become local auth principals.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-unit",
+        "group": "endpoint",
+        "text": "GET /api/scenario/<uuid> returns the unit JSON (ScenarioIndex.get)."
+      },
+      {
+        "id": "AC-content",
+        "group": "endpoint",
+        "text": "GET /api/scenario/<uuid>/content returns file bytes (content-addressable), served only when the receiver lacks the contentHash."
+      },
+      {
+        "id": "AC-children",
+        "group": "endpoint",
+        "text": "GET /api/scenario/<uuid>/children?mode=trace returns forward children (reuses /api/trace/children) for the tree walk."
+      },
+      {
+        "id": "AC-s2s",
+        "group": "transport",
+        "text": "Fetches are server-to-server (receiver's server calls origin), NOT browser->origin \u2014 no CORS; auth is server-presented."
+      },
+      {
+        "id": "AC-cap",
+        "group": "auth",
+        "text": "Ad-hoc DnD auth = a short-lived SIGNED capability grant scoped to {uuid + its transferable subtree}, minutes-expiry, embedded in fetchUrl?grant=; only the drag recipient holds it."
+      },
+      {
+        "id": "AC-sig",
+        "group": "auth",
+        "text": "Standing federation auth = the caller server signs requests with its per-server keypair; the origin verifies the signature + an explicit trust list."
+      },
+      {
+        "id": "AC-audit",
+        "group": "safety",
+        "text": "Every federated fetch is rate-limited + audit-logged (addLog)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d"
+}

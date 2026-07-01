@@ -1,0 +1,60 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "f7e4c1cc-c2a5-423c-bbaa-d010a2d1fa79",
+    "name": "Conflict reconcile \u2014 uuid already exists locally",
+    "altId": "R26.5",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-26-federation/requirements.md",
+    "sourceLine": 65,
+    "parent": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:1f097e01-7d45-4e8c-b403-5a5ff5f0bfe6"
+    ],
+    "description": "On import, a uuid that already exists locally is RECONCILED, never blind-duplicated. Same uuid + same originHost = idempotent re-transfer (update only if the remote is newer, else no-op). Same uuid + different originHost = a genuine collision: re-mint under a fresh local uuid, keep model.originIor for provenance, and rewrite all inbound forward refs (the import remap pass). Content files dedup by contentHash regardless of uuid. A reference-rewrite pass keeps the chain intact across the boundary.",
+    "tronQuote": "> TRON (screenshots): dragging items between two RawBin servers (home.donges.it <-> prod.wo-da.de) must TRANSFER the scenario unit \u2014 the receiving server recreates it locally with all unitLinks \u2014 not just make a WebItem pointing at the source URL.",
+    "discoverySource": {
+      "type": "architect-diagnosis",
+      "diagnosedBy": "robbin-architect",
+      "date": "2026-07-01",
+      "designNote": "scrum.pmo/design-notes/federated-scenario-transfer.md",
+      "designCommit": "7e940cf81"
+    },
+    "designRef": "scrum.pmo/design-notes/federated-scenario-transfer.md (architect 7e940cf81)",
+    "securityNote": "Cross-cutting security/trust: capability grants are signed + expiring + scoped (no ambient authority); server-federation signatures use a per-server keypair + explicit trust list (no open fetch). Never trust incoming JSON blindly \u2014 validate schema, cap size, sanitize, NEVER execute; foreign identities NEVER become local auth principals.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-same",
+        "group": "idempotent",
+        "text": "Same uuid + same originHost -> idempotent re-transfer: update the local copy IF the remote is newer (updatedAt/version), else no-op (re-dragging is safe)."
+      },
+      {
+        "id": "AC-diff",
+        "group": "remint",
+        "text": "Same uuid + DIFFERENT originHost -> re-mint under a fresh local uuid, set model.originIor = ior:instance:<oldUuid>@<host>, and rewrite all inbound forward refs to the new uuid (import remap)."
+      },
+      {
+        "id": "AC-content-dedup",
+        "group": "dedup",
+        "text": "Content files dedup by contentHash regardless of uuid (same bytes = same content unit)."
+      },
+      {
+        "id": "AC-rewrite",
+        "group": "remap",
+        "text": "Reference-rewrite pass on import: for every forward ref (children[]/parentFolder/class/etc) \u2014 target in this transfer -> remap to its new local uuid; stays remote -> keep as a federated @host IOR (lazy resolve); already local -> relink. The chain stays intact across the boundary."
+      },
+      {
+        "id": "AC-attribute",
+        "group": "provenance",
+        "text": "Always record originHost + originIor so a federated copy can attribute + re-sync later."
+      }
+    ],
+    "crossRef": [
+      "ior:instance:585b6b9c-2fa7-48e2-8fab-a7e8a31e516e"
+    ],
+    "crossRefNote": "Ties to R25.7 room-dedup: foreign members stay federated references, NEVER minted as local profiles (would re-create the duplication R25.7 fixed)."
+  },
+  "ownerIor": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d"
+}

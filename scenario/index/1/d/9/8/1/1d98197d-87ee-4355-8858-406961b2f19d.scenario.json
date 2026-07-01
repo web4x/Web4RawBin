@@ -1,0 +1,29 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "1d98197d-87ee-4355-8858-406961b2f19d",
+    "name": "Sprint 26 \u2014 RawBin Federation",
+    "number": 26,
+    "goal": "Federated scenario transfer via DnD: dragging an item between two RawBin servers transfers the scenario unit (receiver recreates it locally with provenance + unitLinks), not just a WebItem pointing at the source. Structure eager, payload lazy, identity by-reference. Greenfield federation, design-ahead chain before code (#126).",
+    "status": "Planned",
+    "compoundSource": "scrum.pmo/sprints/sprint-26-federation/requirements.md",
+    "designNote": "scrum.pmo/design-notes/federated-scenario-transfer.md (architect 7e940cf81)",
+    "requirements": [
+      "ior:instance:e8744de9-ca4a-4f8b-a6d9-c7c971999d8b",
+      "ior:instance:e36d585c-cbb1-4715-a175-fa844f375cde",
+      "ior:instance:05d21385-766a-426d-9045-77255d5234a0",
+      "ior:instance:71b44e05-555f-4db2-a485-f375cd7ad70b",
+      "ior:instance:f7e4c1cc-c2a5-423c-bbaa-d010a2d1fa79"
+    ],
+    "tasks": [],
+    "securityNote": "Cross-cutting security/trust: capability grants are signed + expiring + scoped (no ambient authority); server-federation signatures use a per-server keypair + explicit trust list (no open fetch). Never trust incoming JSON blindly \u2014 validate schema, cap size, sanitize, NEVER execute; foreign identities NEVER become local auth principals.",
+    "createdAt": "2026-07-01",
+    "createdBy": "robbin-req",
+    "joint": [
+      "robbin-req",
+      "robbin-architect",
+      "robbin-planner"
+    ]
+  },
+  "ownerIor": null
+}
