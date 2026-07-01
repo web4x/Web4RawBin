@@ -196,6 +196,7 @@ export class Room {
 
   // v0.7.0 (b): evict an absorbed (tombstoned) token from this room's LIVE members — drop it if the primary
   // is already present, else re-key it to the primary (preserve presence). Broadcasts the corrected count.
+  // [impl:uuid:64dba09d-11cf-4866-a03d-dea820e97a1e] R25.7 Room.collapseAbsorbedMember (evictAbsorbedFromRooms — CONSOLIDATE evicts the absorbed token from every room)
   collapseAbsorbedMember(absorbedToken: string, primaryToken: string): boolean {
     const hasPrimary = [...this.members.values()].some(m => m.playerToken === primaryToken);
     let changed = false;
