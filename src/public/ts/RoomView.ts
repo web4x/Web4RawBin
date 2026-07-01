@@ -192,6 +192,17 @@ export class RoomView {
         const dt = (e as DragEvent).dataTransfer;
         if (!dt) return;
         const log = (text: string) => this.chatSheet?.addMessage('system', 'System', text);
+        // T26.7: a cross-origin FEDERATED reference — hand it to OUR server (fetch origin + reconcile + store),
+        // NOT to dispatchUrl (which would store it as a plain URL). Read sync — DataTransfer is event-scoped.
+        const fedRef = dt.getData('application/rb-federated-ref');
+        if (fedRef) {
+          fetch('/api/federation/import', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: JSON.parse(fedRef), roomId: this.roomId, token: this.client.playerToken }) })
+            .then(r => r.json()).then(res => {
+              if (res?.uuid) { log(`[federation] imported ${res.uuid.slice(0, 8)} (${res.action})`); (document.getElementById('room-tree') as any)?.renderSeed?.(this.roomId); }
+              else log(`[federation] import failed: ${res?.error || '?'}`);
+            }).catch(err => log(`[federation] import error: ${err?.message || err}`));
+          return;
+        }
         // v0.6.86 DnD DIAGNOSTIC: Apple drops emails/calendar/locations as scheme URLs
         // (mailto:/webcal:/calshow:/maps:/geo:/tel:/x-apple-reminder:) in the text data, NOT as files.
         // Dump EVERYTHING synchronously (DataTransfer is only readable during the event) so we can see

@@ -32,6 +32,8 @@ import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
+import { Transfer } from './federation-transfer.js'; // T26.7: federation import wiring
+import { parseFederatedIor, isLocalOrigin } from '../scenario/federated-ior.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
 const execAsync = promisify(exec);
@@ -416,6 +418,46 @@ async function fetchScenario(uuid: string, sub: string, req: http.IncomingMessag
   res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ unit, contentHash: m.contentHash })); // the unit JSON
 }
 
+// T26.7: server-to-server GET → JSON (federation import fetches the origin's /api/scenario). Self-signed OK.
+function fedGet(url: string): Promise<any> {
+  return new Promise((resolve, reject) => {
+    try {
+      const lib = url.startsWith('https:') ? https : http;
+      const opts: any = url.startsWith('https:') ? { rejectUnauthorized: false } : {};
+      const rq = lib.get(url, opts, (r) => {
+        if ((r.statusCode || 0) !== 200) { r.resume(); return reject(new Error(`origin ${r.statusCode}`)); }
+        let body = ''; r.on('data', (c) => body += c); r.on('end', () => { try { resolve(JSON.parse(body)); } catch (e) { reject(e); } });
+      });
+      rq.on('error', reject); rq.setTimeout(5000, () => { rq.destroy(); reject(new Error('timeout')); });
+    } catch (e) { reject(e); }
+  });
+}
+
+// T26.7: import a federated unit — (1)/(2) fetch from the origin (server-to-server), (3) resolve children
+// lazily (T26.4), (4) reconcile uuid conflicts (T26.5), (5) store locally with originHost provenance (T26.1).
+async function federationImport(ref: any, roomId: string): Promise<{ uuid: string; action: string } | { error: string }> {
+  const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+  const originHost = String(ref?.originHost || '');
+  const uuid = parseFederatedIor(String(ref?.ior || '')).uuid;
+  if (!uuid) return { error: 'bad ref' };
+  let unit: any = ref?.inline || null; // inline optimization for tiny units
+  if (!unit) {
+    if (isLocalOrigin(originHost || null) || !ref?.fetchUrl) { unit = idx.get(uuid) || null; }       // self-origin → local
+    else { try { const d = await fedGet(String(ref.fetchUrl)); unit = d?.unit || d; } catch (e: any) { return { error: `origin fetch failed: ${e?.message || e}` }; } }
+  }
+  if (!unit || !unit.ior) return { error: 'unit not resolved' };
+  const contentDir = path.join(__dirname, '../../../scenario/content');
+  const t = new Transfer({ index: idx, hasContentHash: (h) => { try { return fsSync.existsSync(path.join(contentDir, `${h}.file.scenario.json`)); } catch { return false; } } });
+  const remap = new Map<string, string>();
+  const rc = t.reconcileConflict(unit, originHost, remap);                 // T26.5
+  if (rc.action !== 'noop') idx.put(rc.localUuid, t.rewriteForwardRefs(rc.unit, originHost, remap)); // T26.5 remap + T26.1 provenance
+  t.resolveChildrenLazily(rc.unit, originHost);                            // T26.4 — children/members stay lazy federated refs, never minted
+  const room = roomManager.getRoom(roomId);
+  if (room) room.addFileUnit(rc.localUuid);                               // link into the receiving room
+  addLog(`[federation] import ${uuid.slice(0, 8)}@${originHost} → ${rc.localUuid.slice(0, 8)} (${rc.action}) room ${roomId.slice(0, 8)}`);
+  return { uuid: rc.localUuid, action: rc.action };
+}
+
 function maskName(name: string): string {
   if (!name) return 'an existing user';
   const parts = name.trim().split(/\s+/);
@@ -752,6 +794,21 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     }
 
     // [impl:uuid:e872cf5c-b500-49c0-9836-b3779f33dd78] R19.68 file-access auth
+    // T26.7: federation import — the RECEIVER posts a dropped rb-federated-ref; the server fetches from the
+    // origin, reconciles + resolves children lazily, and stores locally (wires T26.1-T26.5 into the drop flow).
+    if (req.method === 'POST' && filepath === '/api/federation/import') {
+      let body = '';
+      req.on('data', (c) => body += c);
+      req.on('end', async () => {
+        try {
+          const { ref, roomId, token } = JSON.parse(body || '{}');
+          if (!userProfiles.has(String(token || ''))) { res.writeHead(403, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'identify first' })); return; }
+          const result = await federationImport(ref, String(roomId || ''));
+          res.writeHead((result as any).error ? 400 : 200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(result));
+        } catch (e: any) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'bad request' })); }
+      });
+      return;
+    }
     // T26.3: federation grant mint — an identified origin user gets a short-lived capability for a uuid (at drag-start).
     if (req.method === 'GET' && filepath.match(/^\/api\/scenario\/[^/]+\/grant$/)) {
       const guuid = filepath.split('/')[3];
