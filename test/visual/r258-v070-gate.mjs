@@ -1,3 +1,4 @@
+// [test:uuid:6b97c836-ee97-4568-9419-3150b41d4a46] R25.7 addMember — resolve+dedup on add, Heartspaces 1 Marcel
 // [test:uuid:3b96a897-6d44-41ff-b20c-d5fadaedfb3c] R25.7 redirectTombstoneToPrimary — tombstone->primary, Heartspaces 1 Marcel
 // [test:uuid:c4b17a15-0e68-40e3-b2aa-23c048155c1c] R25.7 evictAbsorbedFromRooms — orphan-ghost skip, Heartspaces 1 Marcel
 // [test:uuid:cca392d6-7cb4-4751-ae3f-9be13a99542f] R25.7 dedupMembersOnLoad — Heartspaces 1 Marcel
