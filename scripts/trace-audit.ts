@@ -49,6 +49,7 @@ interface AuditResult {
   orphans: { uuid: string; type: string; name: string }[];
   backRefs: { uuid: string; type: string; field: string }[];
   cardinalityIssues: string[];
+  duplicateClasses: { name: string; count: number; uuids: string[] }[]; // R27.2 AC-canonical: exactly ONE Class unit per code-class name
   hopResults: { total: number; reachable: number; unreachable: { uuid: string; name: string; breakHop: string }[] };
 }
 
@@ -167,12 +168,18 @@ function auditAll(idx: ScenarioIndex): AuditResult {
   const hopReachable = hopResults.filter(r => r.reachable).length;
   const hopUnreachable = hopResults.filter(r => !r.reachable);
 
+  // R27.2 AC-canonical: exactly ONE Class unit per code-class name (prevents the 55-dup recurrence).
+  const classByName = new Map<string, string[]>();
+  for (const [uuid, unit] of units) if (getType(unit) === 'Class') { const n = String(unit.model.name || ''); (classByName.get(n) || classByName.set(n, []).get(n)!).push(uuid); }
+  const duplicateClasses = [...classByName.entries()].filter(([, us]) => us.length > 1).map(([name, uuids]) => ({ name, count: uuids.length, uuids })).sort((a, b) => a.name.localeCompare(b.name));
+
   return {
     total: allUuids.length,
     reachable: visited.size,
     orphans,
     backRefs,
     cardinalityIssues,
+    duplicateClasses,
     hopResults: { total: testUnits.length, reachable: hopReachable, unreachable: hopUnreachable },
   };
 }
@@ -211,7 +218,10 @@ if (hop.unreachable.length > 0) {
   for (const t of hop.unreachable) console.log(`  ${t.name}  break: ${t.breakHop || 'unknown'}`);
 }
 
-const structuralIssues = result.orphans.length + result.backRefs.length + result.cardinalityIssues.length;
+console.log(`\nDuplicate Class units (R27.2 AC-canonical, 1 per code-class name): ${result.duplicateClasses.length} (${result.duplicateClasses.length === 0 ? 'PASS' : 'FAIL'})`);
+for (const d of result.duplicateClasses) console.log(`  - ${d.name}: ${d.count} units [${d.uuids.map(u => u.slice(0, 8)).join(', ')}] — collapse to ONE`);
+
+const structuralIssues = result.orphans.length + result.backRefs.length + result.cardinalityIssues.length + result.duplicateClasses.length;
 const structuralPass = structuralIssues === 0;
 console.log(`\n=== STRUCTURAL AUDIT ${structuralPass ? 'PASSED' : `FAILED (${structuralIssues} issues)`} ===`);
 console.log(`(Completion measure: npx tsx scripts/po-chain-follow-up.ts --all)\n`);
