@@ -133,9 +133,6 @@ export class Room {
       // in one display path. Prefer the entry whose token IS the primary, else a connected one; re-key to primary.
       const byIdentity = new Map<string, { id: string; name: string; playerToken: string; disconnected: boolean }>();
       for (const pm of opts.persistedMembers) {
-        // v0.7.1 (R25.7): orphan self-heal — a persisted member whose token has NO profile (profile deleted
-        // in a purge) is a ghost; drop it. Persisted members have no live WS at load, so this is safe.
-        if (pm.playerToken && !Room.profileExists(pm.playerToken)) continue;
         const resolved = Room.resolveToken(pm.playerToken || '') || pm.playerToken || pm.id;
         const cur = byIdentity.get(resolved);
         const better = !cur || (pm.playerToken === resolved && cur.playerToken !== resolved) || (cur.disconnected && !(pm.disconnected ?? true));
@@ -344,6 +341,10 @@ export class Room {
     // collapse members whose token redirects to the same PRIMARY (consolidated identities show once)
     const byPrimary = new Map<string, RoomMember>();
     for (const m of this.members.values()) {
+      // v0.7.1 (R25.7): hide a DISCONNECTED orphan — a member whose token has no profile (deleted in a
+      // purge) with no live connection. It's a ghost; skipping it (not deleting) is safe — a connected or
+      // profiled member is always shown. This is what resolveToken alone couldn't collapse (no profile → no redirect).
+      if (m.disconnected && m.playerToken && !Room.profileExists(m.playerToken)) continue;
       const key = m.playerToken ? Room.resolveToken(m.playerToken) : m.id;
       const existing = byPrimary.get(key);
       if (!existing || (existing.disconnected && !m.disconnected)) byPrimary.set(key, m); // prefer a connected representative
