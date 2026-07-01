@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e4147df1-3143-4ea0-a8a4-fc277a03f1b0",
+    "name": "test:R25.5 previewAndImport gate",
+    "description": "Bridged to test/visual/r256-v0697-gate.mjs — verifies previewAndImport",
+    "sourceFile": "ior:file:test/visual/r256-v0697-gate.mjs",
+    "implementations": [
+      "ior:instance:7d92ce31-5518-4398-a2b1-a000344e2ef8"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7d92ce31-5518-4398-a2b1-a000344e2ef8"
+}

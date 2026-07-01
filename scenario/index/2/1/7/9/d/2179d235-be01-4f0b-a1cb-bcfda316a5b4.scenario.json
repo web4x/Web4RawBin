@@ -6,7 +6,9 @@
     "description": "DESIGN-AHEAD (scenario-first per TRON #126; not yet shipped): base src/public/ts/trace/detail-children.ts; expert attaches [impl:uuid] marker at code time.",
     "sourceFile": "ior:file:src/public/ts/trace/detail-children.ts",
     "designAhead": true,
-    "tests": []
+    "tests": [
+      "ior:instance:a7ae9ea8-940b-4125-a259-70b8f3b66785"
+    ]
   },
   "ownerIor": "ior:instance:0ce8290f-b79e-471d-8f69-302cdc13fe4e"
 }
