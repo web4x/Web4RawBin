@@ -1,0 +1,58 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "90b82d00-7af1-40e9-992c-c55ca177c542",
+    "name": "Task detail renders the status checklist visually",
+    "altId": "R27.1",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-27-detail-view-enhancements/requirements.md",
+    "sourceLine": 14,
+    "parent": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:050c5b9a-e5f4-46da-843f-44eb2b70994e"
+    ],
+    "description": "The Task detail view renders the task's status checklist VISUALLY from the unit's model.statusChecklist field (markdown) - showing the lifecycle states Planned / In Progress [refinement, creating test cases, implementing, testing] / QA Review / Done with per-item checked/unchecked state and nested sub-items indented - rather than leaving the status as raw text or unshown.",
+    "tronQuote": "> TRON: render the task STATUS CHECKLIST from the MD (Planned/In Progress[refinement/creating test cases/implementing/testing]/QA Review/Done) directly in the detail view. The status is already in the task scenario unit (statusChecklist field) \u2014 render it visually.",
+    "discoverySource": {
+      "type": "po-directive-retroactive",
+      "flaggedBy": "robbin-po",
+      "date": "2026-07-01",
+      "note": "Task-detail-view enhancement. v0.7.6 shipped renderStatusChecklist (rb-task-detail.ts) BEFORE the req = #126 slip; chain completed retroactively. Companion MD-link is covered by R22.1 (not re-captured)."
+    },
+    "implRef": "ior:file:src/public/ts/trace/rb-task-detail.ts renderStatusChecklist (v0.7.6, from model.statusChecklist); Class RbTaskDetail. Impl marker to be tagged by expert.",
+    "crossRef": [
+      "ior:instance:661836fd-2db8-4863-8556-0d698c897cd5"
+    ],
+    "crossRefNote": "Sibling detail-view enhancement to R22.1 (Task detail: chain + MD-file link). The MD-link half of this Tron request is COVERED by R22.1 AC-2a/AC-2b; R27.1 is the NEW statusChecklist-render half.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-source",
+        "group": "source",
+        "text": "The status checklist is read from the task unit's model.statusChecklist field (markdown), NOT re-parsed from the .md file on disk."
+      },
+      {
+        "id": "AC-render",
+        "group": "render",
+        "text": "The detail view renders it as a VISUAL checklist showing Planned / In Progress / QA Review / Done, each with a checked/unchecked state."
+      },
+      {
+        "id": "AC-nested",
+        "group": "render",
+        "text": "Nested sub-items under 'In Progress' render indented: refinement, creating test cases, implementing, testing."
+      },
+      {
+        "id": "AC-placement",
+        "group": "placement",
+        "text": "The status checklist appears in the Task detail view alongside the MD-file link (R22.1)."
+      },
+      {
+        "id": "AC-verify",
+        "group": "verify",
+        "text": "Verified live (headless): a task carrying a statusChecklist renders the visual checklist matching the unit field."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
+}
