@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "026af82c-3668-4d94-ae01-51e5276f851b",
+    "name": "Task 26.6: Federation import wiring (end-to-end receive orchestration)",
+    "slug": "task-26.6-federation-import-wiring",
+    "description": "The receiver exposes POST /api/federation/import which composes R26.1-R26.5 end-to-end: fetch the unit from the origin (R26.3) -> validate -> recreate locally with provenance (R26.1 originHost/originIor) -> resolve children per eager/lazy policy (R26.4) -> reconcile uuid conflict (R26.5) -> link the chain. The INTEGRATION that connects the federation pieces into the drop flow.",
+    "intention": "RawBin Federation: the receiver-side endpoint that orchestrates a federated import end-to-end (v0.7.7 wiring T26.1-T26.5 into the drop flow). R26.6 <<include>>s R26.1-R26.5.",
+    "context": "R26.6 is the INTEGRATION composing R26.1-R26.5. Chain: R26.6 e289f96e -> UC federation.import 32f30eee -> Class FederationApi 6456d811 -> Method importScenario c4506b11 -> Impl 3132c189 (server.ts). designNote federated-scenario-transfer.md (architect 7e940cf81).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "Code SHIPPED v0.7.7 (004c0934f — /api/federation/import, server.ts). Impl 3132c189 attached in code. ⚠ MARKER ALIGNMENT PENDING (expert, 2 fixes): (1) rename fn federationImport -> importScenario (architect method-owner ruling — matches the fetchScenario sibling on FederationApi); (2) fix the marker tag R26.7 -> R26.6 (req RULED R26.6, not R26.7). testing OPEN — no committed tester GREEN yet.",
+    "traceability": "  - up\n    - [Sprint 26 Planning](./planning.md)\n    - Requirement R26.6 `[requirement:uuid:e289f96e-0afc-4568-9c26-16cd9b8272eb]`\n  - includes\n    - R26.1 (federated IOR) + R26.2 (DnD ref) + R26.3 (fetch API) + R26.4 (lazy resolve) + R26.5 (conflict reconcile) — the composed capabilities\n  - down\n    - [UC26.6: federation.import](./planning.md#uc26-6) `[uc:uuid:32f30eee-b0c8-4fca-b4d1-9ee6a1c0cdb1]`",
+    "acceptanceCriteria": "- [ ] (endpoint) The receiver exposes POST /api/federation/import accepting a federated reference (or fetchUrl) and returning the imported unit's local IOR\n- [ ] (orchestrate) Import sequences: fetch unit JSON from origin (R26.3) -> validate -> recreate locally with provenance (R26.1 originHost/originIor) -> resolve children per eager/lazy policy (R26.4) -> reconcile uuid conflict (R26.5) -> link the chain\n- [ ] (security) Incoming JSON is validated (schema + size-cap + sanitize), NEVER executed; foreign identities never become local auth principals (per securityNote + R25.7 members-by-reference)\n- [ ] (result) After import the transferred unit exists locally (recreated) with intact unitLinks + provenance, appearing in the target room/context\n- [ ] (idempotent) Re-import of the same reference is safe - it delegates to the R26.5 reconcile (no blind duplicate)\n- [ ] (integration) R26.6 is the INTEGRATION that composes R26.1-R26.5 (<<include>>); the constituent capabilities live in those reqs",
+    "subtasks": "None (atomic task).",
+    "status": "In Progress",
+    "coveredRequirements": [
+      "ior:instance:e289f96e-0afc-4568-9c26-16cd9b8272eb"
+    ],
+    "useCases": [
+      "ior:instance:32f30eee-b0c8-4fca-b4d1-9ee6a1c0cdb1"
+    ],
+    "parent": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d",
+    "sprintName": "Sprint 26",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-01"
+  },
+  "ownerIor": null
+}
