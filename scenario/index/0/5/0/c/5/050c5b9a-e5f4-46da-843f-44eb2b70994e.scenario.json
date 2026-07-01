@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "050c5b9a-e5f4-46da-843f-44eb2b70994e",
+    "name": "taskDetail.renderStatusChecklist",
+    "description": "Task detail view renders the statusChecklist markdown as a checkbox list (v0.7.6).",
+    "class": "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5",
+    "classes": [
+      "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5"
+    ],
+    "method": "ior:instance:bfd21995-5843-4bde-b72a-37e10d38badf",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:90b82d00-7af1-40e9-992c-c55ca177c542"
+}

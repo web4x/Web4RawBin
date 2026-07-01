@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "bfd21995-5843-4bde-b72a-37e10d38badf",
+    "name": "RbTaskDetail.renderStatusChecklist",
+    "description": "Render the Task statusChecklist markdown (- [x] Planned / - [ ] In Progress / nested) as checkboxes in the task detail view.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-task-detail.ts",
+    "implementations": [
+      "ior:instance:31f420b0-e99e-458f-9c29-df4152940f77"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5"
+}
