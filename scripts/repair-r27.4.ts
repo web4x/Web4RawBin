@@ -52,16 +52,30 @@ function orphanMethods(): ScenarioUnit[] {
   for (const u of all()) if (u.ior === 'ior:class:Class') for (const mi of (((u.model as any).methods) || [])) inClass.add(bare(mi));
   return all().filter(u => u.ior === 'ior:class:Method' && !inClass.has(String((u.model as any).uuid)));
 }
+// bbbc counted by REF-POSITION only (unit.ownerIor + UC.class/classes[]/method) — NOT raw-JSON (req's requirement
+// unit records the dead uuid in prose as EVIDENCE; that must survive, so the gate is ref-position=0, not string=0).
 function deadRefCount(): { bbbc: number; fcf: number; todo: number } {
   let bbbc = 0, fcf = 0, todo = 0;
-  for (const u of all()) { const s = JSON.stringify(u.model); if (s.includes(DEAD_BBBC)) bbbc += (s.split(DEAD_BBBC).length - 1); if (s.includes(DEAD_METHOD)) fcf++; if (u.ior === 'ior:class:UseCase' && /todo-server-class|TODO/i.test(s)) todo++; }
+  for (const u of all()) {
+    if (bare(String(u.ownerIor || '')) === DEAD_BBBC) bbbc++;
+    const m = u.model as any;
+    if (u.ior === 'ior:class:UseCase') {
+      for (const c of [m.class, ...(Array.isArray(m.classes) ? m.classes : [])].filter(Boolean)) { if (bare(c) === DEAD_BBBC) bbbc++; if (/todo-server-class/i.test(bare(c))) todo++; }
+      if (m.method && bare(m.method).startsWith(DEAD_METHOD)) fcf++;
+    }
+  }
   return { bbbc, fcf, todo };
 }
 function danglingCount(): number { // UC class/classes/method → nonexistent
   let n = 0; for (const u of all()) { if (u.ior !== 'ior:class:UseCase') continue; const m = u.model as any; for (const c of [m.class, ...(Array.isArray(m.classes) ? m.classes : [])].filter(Boolean)) if (!idx.has(bare(c))) n++; if (m.method && !idx.has(bare(m.method))) n++; } return n;
 }
-function staleMarkers(): ScenarioUnit[] { // orphanByDesign set AND the Method's impl has a sourceFile
-  return all().filter(u => u.ior === 'ior:class:Method' && (u.model as any).designStage !== undefined && (((u.model as any).implementations) || []).some((i: string) => implSource(i)));
+// A LYING marker = any of {designStage, orphanByDesign, orphanReason} set AND the Method's Impl HAS a sourceFile
+// (code shipped → the "design-stage/orphan" claim is false). Architect refinement: clear ALL such (not just
+// orphan-scoped) so R27.4 fully aligns with the R27.2 strict lying-marker audit check (one criteria, one pass).
+const LYING_FIELDS = ['designStage', 'orphanByDesign', 'orphanReason'] as const;
+function isLyingMarker(m: any): boolean { return LYING_FIELDS.some(f => m[f] !== undefined) && (((m.implementations) || []).some((i: string) => implSource(i))); }
+function staleMarkers(): ScenarioUnit[] {
+  return all().filter(u => u.ior === 'ior:class:Method' && isLyingMarker(u.model as any));
 }
 const implCount = () => all().filter(u => u.ior === 'ior:class:Implementation').length;
 const classCount = () => all().filter(u => u.ior === 'ior:class:Class').length;
@@ -89,13 +103,13 @@ for (const m of orphanMethods()) {
   }
   attachPlan.push({ method: String((m.model as any).uuid), className: r.className, classUuid, path: r.path });
 }
-// stale markers scoped to the 51 orphans (criteria: orphanByDesign set AND impl has sourceFile)
-const staleOnOrphans = orphanMethods().filter(m => (m.model as any).designStage !== undefined && (((m.model as any).implementations) || []).some((i: string) => implSource(i))).length;
+// 37 of the 53 lying markers sit on the orphans being attached; the other 16 on already-attached methods (all cleared).
+const staleOnOrphans = orphanMethods().filter(m => isLyingMarker(m.model as any)).length;
 
 if (!APPLY) {
   console.log('PLAN: 51 orphans → paths { ownerIor=' + pathCount.ownerIor + ', className=' + pathCount.className + ', UC.class=' + pathCount['UC.class'] + ', CREATE=' + pathCount.create + ' } → ' + mintedClasses + ' new Class(es) (0 prune, all carry real impl)');
-  console.log('PREDICT AFTER: orphan Methods=0 | dead-refs bbbc=0 fcf6dae1=0 TODO=0 | dangling≤' + dangBefore + ' (0-new) | stale-markers cleared=' + staleOnOrphans + ' | Impl=' + implBefore + '==' + implBefore + ' | Class=' + classBefore + '+' + mintedClasses);
-  console.log('\nGATE: orphans→0 ✓plan | Impl 434==434 ' + (implBefore === 434 ? '✓' : '(baseline ' + implBefore + ')') + ' | new Classes single-per-name ✓(mintOrReuseClass) | dead-refs→0 planned | vs req map: className+UC+create = ' + (pathCount.className + pathCount['UC.class'] + pathCount.create));
+  console.log('PREDICT AFTER: orphan Methods=0 | dead-refs bbbc=0 fcf6dae1=0 TODO=0 (ref-position; req evidence-prose kept) | dangling≤' + dangBefore + ' (0-new) | stale-markers cleared=' + staleBefore + ' (' + staleOnOrphans + ' orphan + ' + (staleBefore - staleOnOrphans) + ' attached) | Impl=' + implBefore + '==' + implBefore + ' | Class=' + classBefore + '+' + mintedClasses);
+  console.log('\nGATE: orphans→0 ✓plan | Impl 434==434 ' + (implBefore === 434 ? '✓' : '(baseline ' + implBefore + ')') + ' | bbbc ' + dRefBefore.bbbc + ' ref-positions (10 UC + 5 ownerIor) → 0 | new Class single-per-name ✓(mintOrReuseClass) | vs req map: className+UC+create = ' + (pathCount.className + pathCount['UC.class'] + pathCount.create));
   console.log('\nDRY-RUN only — no writes. Dual-verify (architect PDCA + req map b16720332) → --apply.');
   process.exit(0);
 }
@@ -107,19 +121,26 @@ for (const p of attachPlan) {
   cm.methods = [...new Set([...(cm.methods || []).map(bare), p.method])].map(ii); idx.put(p.classUuid, cU);
   const mU = idx.get(p.method); if (mU) { mU.ownerIor = ii(p.classUuid); idx.put(p.method, mU); }
 }
-// repoint dead-bbbc + triage fcf6dae1 + TODO + clear stale markers
-for (const u of idx.list()) { const x = idx.get(u); if (!x) continue; let s = JSON.stringify(x.model); let ch = false;
-  if (s.includes(DEAD_BBBC)) { s = s.split(DEAD_BBBC).join(LIVE_RBDV); ch = true; }
-  if (ch) { x.model = JSON.parse(s); idx.put(u, x); }
+// repoint dead-bbbc in REF POSITIONS ONLY (ownerIor + UC.class/classes/method) — NEVER prose: req's R27.4
+// requirement-unit records the dead uuid in acceptanceCriteria/danglingSet as EVIDENCE (rewriting = corrupting its bug-desc).
+for (const u of idx.list()) { const x = idx.get(u); if (!x) continue; const m = x.model as any; let ch = false;
+  if (bare(String(x.ownerIor || '')) === DEAD_BBBC) { x.ownerIor = ii(LIVE_RBDV); ch = true; }       // the 5 Method.ownerIor → dead Class
+  if (x.ior === 'ior:class:UseCase') {
+    if (m.class && bare(m.class) === DEAD_BBBC) { m.class = ii(LIVE_RBDV); ch = true; }
+    if (Array.isArray(m.classes)) { const nc = m.classes.map((c: string) => bare(c) === DEAD_BBBC ? ii(LIVE_RBDV) : c); if (JSON.stringify(nc) !== JSON.stringify(m.classes)) { m.classes = nc; ch = true; } }
+    if (m.method && bare(m.method) === DEAD_BBBC) { m.method = ii(LIVE_RBDV); ch = true; }
+  }
+  if (ch) idx.put(u, x);
 }
-for (const m of staleMarkers()) { const x = idx.get(String((m.model as any).uuid))!; delete (x.model as any).designStage; delete (x.model as any).designStageNote; idx.put(String((m.model as any).uuid), x); }
+// clear ALL 53 lying markers by criteria (any of the 3 fields + Impl-has-sourceFile), orphan AND attached
+for (const m of staleMarkers()) { const x = idx.get(String((m.model as any).uuid))!; for (const f of LYING_FIELDS) delete (x.model as any)[f]; delete (x.model as any).designStageNote; idx.put(String((m.model as any).uuid), x); }
 // fcf6dae1 dead-Method refs + TODO: clear the offending UC.method / class refs
 for (const u of idx.list()) { const x = idx.get(u); if (!x || x.ior !== 'ior:class:UseCase') continue; const m = x.model as any; let ch = false;
   if (m.method && (bare(m.method).startsWith(DEAD_METHOD) || !idx.has(bare(m.method)))) { delete m.method; ch = true; }
   if (ch) idx.put(u, x);
 }
-// post-apply reassert
-const orphAfter = orphanMethods().length, dRefAfter = deadRefCount(), dangAfter = danglingCount(), implAfter = implCount();
-const ok = orphAfter === 0 && dRefAfter.bbbc === 0 && implAfter === implBefore && dangAfter <= dangBefore;
-console.log('POST-APPLY: orphan=' + orphAfter + ' | bbbc=' + dRefAfter.bbbc + ' | dangling=' + dangAfter + '(was ' + dangBefore + ') | Impl=' + implAfter + '(was ' + implBefore + ') | minted Classes=' + mintedClasses);
-console.log(ok ? '★ POST-APPLY REASSERT GREEN' : '✗ REASSERT FAILED — git revert this commit');
+// post-apply reassert — ALL gates on ACTUAL mutated disk (any miss → revert this atomic commit)
+const orphAfter = orphanMethods().length, dRefAfter = deadRefCount(), dangAfter = danglingCount(), implAfter = implCount(), staleAfter = staleMarkers().length;
+const ok = orphAfter === 0 && dRefAfter.bbbc === 0 && dRefAfter.fcf === 0 && dRefAfter.todo === 0 && staleAfter === 0 && implAfter === implBefore && dangAfter <= dangBefore;
+console.log('POST-APPLY: orphan=' + orphAfter + ' | bbbc=' + dRefAfter.bbbc + ' fcf=' + dRefAfter.fcf + ' todo=' + dRefAfter.todo + ' | stale=' + staleAfter + ' | dangling=' + dangAfter + '(was ' + dangBefore + ') | Impl=' + implAfter + '(was ' + implBefore + ') | minted Class=' + mintedClasses);
+console.log(ok ? '★ POST-APPLY REASSERT GREEN — all gates hold on mutated disk' : '✗ REASSERT FAILED — git revert this commit (atomic rollback)');
