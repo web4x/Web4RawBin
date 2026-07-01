@@ -6,7 +6,8 @@
     "description": "TraceAudit skill class (R24.5). Formalizes src/ts/server/trace-cli.ts.",
     "sourceFile": "ior:file:src/ts/server/trace-cli.ts",
     "methods": [
-      "ior:instance:db58f0c5-a2d9-47f8-af51-d5359a038c94"
+      "ior:instance:db58f0c5-a2d9-47f8-af51-d5359a038c94",
+      "ior:instance:3fafc3da-f8ff-4ea7-a9c6-56d76270a798"
     ]
   },
   "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"

@@ -5,7 +5,8 @@
     "name": "chain.reuseCanonicalClass",
     "description": "Wiring a UC to a Class REUSES the existing canonical Class node for that code class (never mints a 2nd) + the trace:audit:strict CI fails on any duplicate — the R27.2 by-construction recurrence guard.",
     "classes": [
-      "ior:instance:20a51ba2-9fc6-47bd-bf72-120f3226d2c4"
+      "ior:instance:66625aa7-4de6-4972-b731-f4e23a552480",
+      "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b"
     ]
   },
   "ownerIor": "ior:instance:64965538-2725-4ef2-92e7-c1be6cd58d6f"
