@@ -46,6 +46,8 @@ export class RbPanZoom {
       this.zoomAbout(e.offsetX, e.offsetY, factor);
     }, { passive: false });
 
+    // v0.6.99: suppress the browser's native image/link drag so a mouse pan doesn't spawn a drag-ghost overlay.
+    this.on('dragstart', (e) => e.preventDefault());
     this.on('mousedown', (e) => {
       if (this.scale <= 1) return; // AC-c2: pan only when zoomed
       this.dragging = true; this.lastX = e.clientX; this.lastY = e.clientY;

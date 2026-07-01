@@ -37,7 +37,7 @@ export function fillPreviewPane(pane: RbPreviewPane, uuid: string, mimeType: str
   if (mimeType === 'image/svg+xml') {
     pane.setContent(`<object data="${contentUrl}" type="image/svg+xml" style="${imgStyle};background:white;border-radius:8px"></object>`);
   } else if (mimeType.startsWith('image/')) {
-    pane.setContent(`<img src="${contentUrl}" alt="${esc(name)}" style="${imgStyle}">`);
+    pane.setContent(`<img src="${contentUrl}" alt="${esc(name)}" draggable="false" ondragstart="return false" style="${imgStyle}">`); // v0.6.99: no native drag ghost while panning
   } else if (mimeType === 'application/pdf' || mimeType === 'text/html') {
     pane.setContent(`<iframe src="${contentUrl}" sandbox="allow-same-origin" style="${frameStyle}"></iframe>`);
   } else if (mimeType.startsWith('audio/')) {
