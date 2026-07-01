@@ -192,7 +192,7 @@ export class RoomView {
         const dt = (e as DragEvent).dataTransfer;
         if (!dt) return;
         const log = (text: string) => this.chatSheet?.addMessage('system', 'System', text);
-        // T26.7: a cross-origin FEDERATED reference — hand it to OUR server (fetch origin + reconcile + store),
+        // T26.6: a cross-origin FEDERATED reference — hand it to OUR server (fetch origin + reconcile + store),
         // NOT to dispatchUrl (which would store it as a plain URL). Read sync — DataTransfer is event-scoped.
         const fedRef = dt.getData('application/rb-federated-ref');
         if (fedRef) {

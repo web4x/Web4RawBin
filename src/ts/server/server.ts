@@ -32,7 +32,7 @@ import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
-import { Transfer } from './federation-transfer.js'; // T26.7: federation import wiring
+import { Transfer } from './federation-transfer.js'; // T26.6: federation import wiring
 import { parseFederatedIor, isLocalOrigin } from '../scenario/federated-ior.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
@@ -418,7 +418,7 @@ async function fetchScenario(uuid: string, sub: string, req: http.IncomingMessag
   res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ unit, contentHash: m.contentHash })); // the unit JSON
 }
 
-// T26.7: server-to-server GET → JSON (federation import fetches the origin's /api/scenario). Self-signed OK.
+// T26.6: server-to-server GET → JSON (federation import fetches the origin's /api/scenario). Self-signed OK.
 function fedGet(url: string): Promise<any> {
   return new Promise((resolve, reject) => {
     try {
@@ -433,9 +433,9 @@ function fedGet(url: string): Promise<any> {
   });
 }
 
-// T26.7: import a federated unit — (1)/(2) fetch from the origin (server-to-server), (3) resolve children
+// T26.6: import a federated unit — (1)/(2) fetch from the origin (server-to-server), (3) resolve children
 // lazily (T26.4), (4) reconcile uuid conflicts (T26.5), (5) store locally with originHost provenance (T26.1).
-// [impl:uuid:3132c189-4027-49d5-ab1b-7da4a2e4bd87] R26.7 FederationApi.federationImport (/api/federation/import)
+// [impl:uuid:3132c189-4027-49d5-ab1b-7da4a2e4bd87] R26.6 FederationApi.federationImport (/api/federation/import)
 async function federationImport(ref: any, roomId: string): Promise<{ uuid: string; action: string } | { error: string }> {
   const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
   const originHost = String(ref?.originHost || '');
@@ -795,7 +795,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     }
 
     // [impl:uuid:e872cf5c-b500-49c0-9836-b3779f33dd78] R19.68 file-access auth
-    // T26.7: federation import — the RECEIVER posts a dropped rb-federated-ref; the server fetches from the
+    // T26.6: federation import — the RECEIVER posts a dropped rb-federated-ref; the server fetches from the
     // origin, reconciles + resolves children lazily, and stores locally (wires T26.1-T26.5 into the drop flow).
     if (req.method === 'POST' && filepath === '/api/federation/import') {
       let body = '';
