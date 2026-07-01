@@ -56,12 +56,12 @@ export function scenarioFileHref(uuid: string): string {
   if (hex.length < 5) return '';
   return `/md/scenario/index/${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}/${uuid}.scenario.json`;
 }
-// v0.7.0 (3): editor deep-link for a unit — /editor?file=scenario/index/<shard>/<uuid>.scenario.json
+// v0.7.0 (3): editor deep-link for a unit — /edit/scenario/index/<shard>/<uuid>.scenario.json (existing editor route)
 export function scenarioEditorHref(uuid: string): string {
   if (!uuid) return '';
   const hex = uuid.replace(/-/g, '');
   if (hex.length < 5) return '';
-  return `/editor?file=scenario/index/${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}/${uuid}.scenario.json`;
+  return `/edit/scenario/index/${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}/${uuid}.scenario.json`;
 }
 // R26.2: EVERY detail view renders this 📄 Scenario link — no view may lack it (source of truth).
 // v0.7.0 (3): + a ✏️ pencil next to it that opens the EDITOR directly.
