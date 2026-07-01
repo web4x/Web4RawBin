@@ -8,7 +8,7 @@
     "intention": "Tron: every detail view shall show a 📄 Scenario link to its underlying scenario unit (all detail components, uniformly).",
     "context": "Impl base: src/public/ts/trace/rb-*-detail.ts (the detail-view components: rb-task-detail, rb-webitem-detail, rb-detail-drawer, member/file detail) — add a uniform 📄 Scenario link to each. Scenario-first (RULE #126): unit exists before impl — no code yet. Dogfoods law #100/#103 (every view points back to its source unit).",
     "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "traceability": "  - up\n    - [Sprint 25 Planning](./planning.md)\n    - Requirement R25.6 `[requirement:uuid:24509e35-8627-402a-ba93-ed959fef3a5b]`\n  - down\n    - [UC-SL.1: detail.scenarioLink](./planning.md#uc-sl1) `[uc:uuid:dc468781-714b-429d-8dff-2ee243a81e51]`",
+    "traceability": "  - up\n    - [Sprint 25 Planning](./planning.md)\n    - Requirement R25.6 `[requirement:uuid:24509e35-8627-402a-ba93-ed959fef3a5b]`\n  - down\n    - [UC-SL.1: detail.scenarioLink](./planning.md#uc-sl1) `[uc:uuid:dc468781-714b-429d-8dff-2ee243a81e51]`\n    - [UC-SL.2: detail.scenarioLinkResolve](./planning.md#uc-sl2) `[uc:uuid:f81594b4-f0cc-46fc-9761-e480b57a1d75]`",
     "acceptanceCriteria": "- [ ] (link) Every detail-view component renders a 📄 Scenario link\n- [ ] (target) The link resolves to the underlying scenario unit (the /scenario or /md view of that unit's uuid)\n- [ ] (universal) The link appears on ALL detail components uniformly (task, WebItem, member, file, requirement, drawer, ...), not just one\n- [ ] (consistent) The 📄 Scenario affordance is placed/styled consistently across detail views",
     "subtasks": "None (atomic task).",
     "status": "Planned",
@@ -16,7 +16,8 @@
       "ior:instance:24509e35-8627-402a-ba93-ed959fef3a5b"
     ],
     "useCases": [
-      "ior:instance:dc468781-714b-429d-8dff-2ee243a81e51"
+      "ior:instance:dc468781-714b-429d-8dff-2ee243a81e51",
+      "ior:instance:f81594b4-f0cc-46fc-9761-e480b57a1d75"
     ],
     "parent": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d",
     "sprintName": "Sprint 25",

@@ -23,6 +23,7 @@
     - Requirement R25.6 `[requirement:uuid:24509e35-8627-402a-ba93-ed959fef3a5b]`
   - down
     - [UC-SL.1: detail.scenarioLink](./planning.md#uc-sl1) `[uc:uuid:dc468781-714b-429d-8dff-2ee243a81e51]`
+    - [UC-SL.2: detail.scenarioLinkResolve](./planning.md#uc-sl2) `[uc:uuid:f81594b4-f0cc-46fc-9761-e480b57a1d75]`
 
 ## Task Description
 

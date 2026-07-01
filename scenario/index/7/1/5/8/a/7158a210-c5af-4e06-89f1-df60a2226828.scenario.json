@@ -8,7 +8,7 @@
     "intention": "Tron: on the drop area add a click/tap listener that asks 'Upload from clipboard?' — but first PREVIEW what is in the clipboard (type icon + content preview) before yes/no; on yes read clipboard and route by MIME same as DnD.",
     "context": "Impl base: src/public/ts/drop-dispatcher.ts (dispatch MIME routing + dispatchUrl->WebItem, REUSED) + src/public/ts/RoomView.ts (drop area rrc-drop). NEW: the click/tap listener + clipboard-read + preview-dialog; routing reuses the existing dispatcher. Scenario-first (RULE #126): unit exists before impl — no code yet.",
     "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "traceability": "  - up\n    - [Sprint 25 Planning](./planning.md)\n    - Requirement R25.5 `[requirement:uuid:2066ba12-6bd8-42b1-9377-25c82fd944e0]`\n  - down\n    - [UC-CB.1: clipboard.previewAndImport](./planning.md#uc-cb1) `[uc:uuid:10af6d46-b5b7-46d8-8fe8-3289d8f09d72]`",
+    "traceability": "  - up\n    - [Sprint 25 Planning](./planning.md)\n    - Requirement R25.5 `[requirement:uuid:2066ba12-6bd8-42b1-9377-25c82fd944e0]`\n  - down\n    - [UC-CB.1: clipboard.previewAndImport](./planning.md#uc-cb1) `[uc:uuid:10af6d46-b5b7-46d8-8fe8-3289d8f09d72]`\n    - [UC-CB.2: clipboard.readAndRoute](./planning.md#uc-cb2) `[uc:uuid:1aa5b1c5-3685-48f6-b90f-9c90eae59ed2]`",
     "acceptanceCriteria": "- [ ] (listener) The drop area has a click/tap listener that opens the clipboard dialog\n- [ ] (preview) BEFORE asking yes/no, the dialog previews the clipboard content: a type icon + a content preview (the user sees WHAT is in the clipboard)\n- [ ] (confirm) The dialog asks 'Upload from clipboard?' (yes/no)\n- [ ] (read) On yes, the clipboard is read via navigator.clipboard.read / readText and its MIME types are detected (same recognition as DnD)\n- [ ] (route) Content is routed the same as drop-dispatcher: URLs -> WebItem units, images/bytes -> File, text -> file\n- [ ] (cancel) On no, nothing is imported",
     "subtasks": "None (atomic task).",
     "status": "Planned",
@@ -16,7 +16,8 @@
       "ior:instance:2066ba12-6bd8-42b1-9377-25c82fd944e0"
     ],
     "useCases": [
-      "ior:instance:10af6d46-b5b7-46d8-8fe8-3289d8f09d72"
+      "ior:instance:10af6d46-b5b7-46d8-8fe8-3289d8f09d72",
+      "ior:instance:1aa5b1c5-3685-48f6-b90f-9c90eae59ed2"
     ],
     "parent": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d",
     "sprintName": "Sprint 25",

@@ -23,6 +23,7 @@
     - Requirement R25.5 `[requirement:uuid:2066ba12-6bd8-42b1-9377-25c82fd944e0]`
   - down
     - [UC-CB.1: clipboard.previewAndImport](./planning.md#uc-cb1) `[uc:uuid:10af6d46-b5b7-46d8-8fe8-3289d8f09d72]`
+    - [UC-CB.2: clipboard.readAndRoute](./planning.md#uc-cb2) `[uc:uuid:1aa5b1c5-3685-48f6-b90f-9c90eae59ed2]`
 
 ## Task Description
 
