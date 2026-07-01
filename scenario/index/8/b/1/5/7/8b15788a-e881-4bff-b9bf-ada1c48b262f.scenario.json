@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "8b15788a-e881-4bff-b9bf-ada1c48b262f",
+    "name": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
+    "slug": "task-27.3-per-task-md-view-generation",
+    "description": "generate-sprint-md emits ONE task-<slug>.md per Task unit (title + ACs + statusChecklist + chain links) and taskMdHref resolves to it -> HTTP 200, never 404. Root cause is SLUG DRIFT: slugify(sprintName) != the actual sprint dir (same flaw as the dup sprint-26 dir, fixed via model.slug pinning). Fix = resolve the MD path from the pinned model.slug / actual dir (not a re-slugified name) + tasks stop pointing model.sourceFile at planning.md (which collapses all tasks to one view).",
+    "intention": "Tron-visible 404 fix: every task-detail 📄 Scenario/MD link must open its OWN task MD file, not 404. Ship FAST (ahead of the R27.2 migration).",
+    "context": "SLUG-DRIFT root cause (expert-confirmed, PO): taskMdHref (rb-task-detail.ts:88) re-slugifies sprintName -> mismatches the actual dir when name != compoundSource. FIX pattern = the model.slug pinning I used to reconcile the dup sprint-26 dir (pinned slug -> generator + link resolver agree). crossRef R22.1 (this makes the 📄 link tagged d6b29c09 RESOLVE — R22.1 is the link, R27.3 makes its target file EXIST) + R27.1 (renderStatusChecklist detail view).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "ROUTED TO EXPERT (PO: ship fast). Fix: (1) taskMdHref resolves the MD path from the sprint's PINNED model.slug / actual dir, not slugify(sprintName); (2) generate-sprint-md emits one task-<slug>.md per Task unit; (3) tasks stop setting model.sourceFile=planning.md. Planner-side: pinned S27 model.slug='sprint-27-detail-view-enhancements' (matches compoundSource). testing OPEN.",
+    "traceability": "  - up\n    - [Sprint 27 Planning](./planning.md)\n    - Requirement R27.3 `[requirement:uuid:4f6d6402-fc8d-4d5d-9523-7e35af641944]`\n  - crossRef\n    - R22.1 (the 📄 taskMdHref link this makes resolve) + R27.1 (statusChecklist detail view)\n  - down\n    - [UC27.3: sprintMd.emitPerTask](./planning.md#uc27-3) `[uc:uuid:10ef702c-3141-45c9-b669-b5bed5f373b9]`",
+    "acceptanceCriteria": "- [ ] (emit) generate-sprint-md emits ONE task-<slug>.md per Task unit (title + ACs + statusChecklist + chain links)\n- [ ] (no-collapse) Task units do NOT set model.sourceFile to planning.md (which collapses all tasks into one view)\n- [ ] (resolve-200) taskMdHref (rb-task-detail.ts:88) resolves to the per-task MD -> HTTP 200, never 404 (via the pinned model.slug / actual dir, not a re-slugified name)\n- [ ] (roundtrip) The per-task MD is a generated VIEW (law #100); --check (check:sprint-md) byte-match holds\n- [ ] (verify) Verified live: every task's 📄 link opens its own MD file",
+    "subtasks": "None (atomic task).",
+    "status": "In Progress",
+    "coveredRequirements": [
+      "ior:instance:4f6d6402-fc8d-4d5d-9523-7e35af641944"
+    ],
+    "useCases": [
+      "ior:instance:10ef702c-3141-45c9-b669-b5bed5f373b9"
+    ],
+    "parent": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a",
+    "sprintName": "Sprint 27",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-01"
+  },
+  "ownerIor": null
+}
