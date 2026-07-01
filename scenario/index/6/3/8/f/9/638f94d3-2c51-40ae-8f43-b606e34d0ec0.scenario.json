@@ -2,7 +2,7 @@
   "ior": "ior:class:Test",
   "model": {
     "uuid": "638f94d3-2c51-40ae-8f43-b606e34d0ec0",
-    "name": "test:R26.7 FederationApi.federationImport gate",
+    "name": "test:R26.6 FederationApi.importScenario gate",
     "description": "Bridged to test/visual/r263-t267-federation-e2e-gate.mjs — e2e import: real unit+provenance / lazy @host children / idempotent noop (DET-3x GREEN)",
     "sourceFile": "ior:file:test/visual/r263-t267-federation-e2e-gate.mjs",
     "implementations": [

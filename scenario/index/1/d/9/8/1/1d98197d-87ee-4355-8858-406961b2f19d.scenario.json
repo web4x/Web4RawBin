@@ -31,7 +31,8 @@
       "robbin-req",
       "robbin-architect",
       "robbin-planner"
-    ]
+    ],
+    "slug": "sprint-26-federation"
   },
   "ownerIor": null
 }
