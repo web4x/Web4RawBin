@@ -58,12 +58,17 @@ export class RbTaskDetail extends HTMLElement {
     Promise.all([
       fetchDetailData(uuid),
       fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.ok ? r.json() : null).catch(() => null),
-    ]).then(([{ children, parent, sourceFile, sourceLine }, iorData]) => {
+    ]).then(async ([{ children, parent, sourceFile, sourceLine }, iorData]) => {
       // v0.7.6: task MD-file link + visual statusChecklist, from the full scenario model.
       const model = (iorData?.unit?.model || {}) as Record<string, any>;
+      // R27.3: the MD dir is the parent sprint's PINNED slug (drift-proof), fetched from the sprint unit.
+      let sprintSlug = slugifySprint(parent?.name || model.sprintName || '');
+      if (parent?.uuid) {
+        try { const sd = await fetch(`/api/ior/ior:instance:${parent.uuid}`).then(r => r.ok ? r.json() : null); const sm = sd?.unit?.model || {}; if (sm.slug) sprintSlug = String(sm.slug); else if (sm.name) sprintSlug = slugifySprint(String(sm.name)); } catch { /* keep the name-derived fallback */ }
+      }
       const fields = this.querySelector('.dv-fields');
       if (fields) {
-        const mdHref = taskMdHref(model, parent?.name || model.sprintName || '');
+        const mdHref = taskMdHref(model, sprintSlug);
         if (mdHref) fields.insertAdjacentHTML('beforeend', `<div class="dv-field"><a href="${mdHref}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="Open the task markdown file">📄 Task file</a></div>`);
         if (model.statusChecklist) fields.insertAdjacentHTML('beforeend', renderStatusChecklist(String(model.statusChecklist)));
       }
@@ -83,12 +88,15 @@ export class RbTaskDetail extends HTMLElement {
 function slugifySprint(name: string): string {
   return String(name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
-// v0.7.6: link to the task's MD file — model.sourceFile if present, else derive from sprint slug + task slug.
+// R27.3: link to the task's OWN MD file. IGNORE sourceFile=planning.md (that collapses every task to the
+// shared planning view → 404 on the real per-task file). Use the sprint's PINNED slug for the dir (drift-proof,
+// matches the generator) — NOT slugify(sprintName), which drifted from the actual sprint dir.
 // [impl:uuid:d6b29c09-132b-4828-b9c6-d59c9929ccb8] R22.1 RbTaskDetail.taskMdHref (Forward-Links → MD-file link)
-function taskMdHref(model: Record<string, any>, sprintName: string): string {
-  if (model.sourceFile) return `/md/${String(model.sourceFile).replace(/^ior:file:/, '')}`;
-  const slug = String(model.slug || ''); const dir = slugifySprint(sprintName);
-  return (slug && dir) ? `/md/scrum.pmo/sprints/${dir}/${slug}.md` : '';
+function taskMdHref(model: Record<string, any>, sprintSlug: string): string {
+  const sf = String(model.sourceFile || '').replace(/^ior:file:/, '');
+  if (sf && !/(^|\/)planning\.md$/.test(sf)) return `/md/${sf}`;
+  const slug = String(model.slug || '');
+  return (slug && sprintSlug) ? `/md/scrum.pmo/sprints/${sprintSlug}/${slug}.md` : '';
 }
 // v0.7.6: render the markdown statusChecklist ("- [x] Planned\n- [ ] In Progress\n  - [x] refinement…")
 // as a hierarchical visual checklist (☑/☐ + indentation).
