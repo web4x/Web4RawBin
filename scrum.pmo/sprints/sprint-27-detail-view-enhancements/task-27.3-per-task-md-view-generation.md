@@ -14,7 +14,7 @@
   - [x] implementing
   - [x] testing
 - [ ] QA Review
-- [ ] Done
+- [x] Done
 
 ## Traceability
 
@@ -48,7 +48,7 @@ Tron-visible 404 fix: every task-detail 📄 Scenario/MD link must open its OWN 
 
 ## Implementation
 
-ROUTED TO EXPERT (PO: ship fast). Fix: (1) taskMdHref resolves the MD path from the sprint's PINNED model.slug / actual dir, not slugify(sprintName); (2) generate-sprint-md emits one task-<slug>.md per Task unit; (3) tasks stop setting model.sourceFile=planning.md. Planner-side: pinned S27 model.slug='sprint-27-detail-view-enhancements' (matches compoundSource). testing OPEN. GREEN -> QA Review: SHIPPED v0.7.8 + tester GREEN DET-3x (161515308, gate r265-v078-per-task-md-gate.mjs): 📄 link for a task WITHOUT sourceFile now serves 200 (fix resolves dir from the sprint PINNED slug + ignores sourceFile=planning.md) + --check byte-match sprint-26+27 + live headless. 5/5 ACs. Validated my slug-pinning fix (used my T26.6 026af82c + T27.2 788bc972 as the 404 test cases).
+ROUTED TO EXPERT (PO: ship fast). Fix: (1) taskMdHref resolves the MD path from the sprint's PINNED model.slug / actual dir, not slugify(sprintName); (2) generate-sprint-md emits one task-<slug>.md per Task unit; (3) tasks stop setting model.sourceFile=planning.md. Planner-side: pinned S27 model.slug='sprint-27-detail-view-enhancements' (matches compoundSource). testing OPEN. GREEN -> QA Review: SHIPPED v0.7.8 + tester GREEN DET-3x (161515308, gate r265-v078-per-task-md-gate.mjs): 📄 link for a task WITHOUT sourceFile now serves 200 (fix resolves dir from the sprint PINNED slug + ignores sourceFile=planning.md) + --check byte-match sprint-26+27 + live headless. 5/5 ACs. Validated my slug-pinning fix (used my T26.6 026af82c + T27.2 788bc972 as the 404 test cases). ✓ DONE 2026-07-02 (PO): chain-to-Test complete (UC 10ef702c->SprintViewGenerator->generateTaskMd 0a542620->Impl 88744d89->Test dfd28fdd r265, expert full-uuid marker ae3d99a88), 6 hops, 56/317, gate GREEN DET-3x. Feature Tron QA gate.
 
 ## Subtasks
 
