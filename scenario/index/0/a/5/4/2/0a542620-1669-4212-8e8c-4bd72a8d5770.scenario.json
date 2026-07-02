@@ -2,7 +2,7 @@
   "ior": "ior:class:Method",
   "model": {
     "uuid": "0a542620-1669-4212-8e8c-4bd72a8d5770",
-    "name": "GenerateSprintMd.generateTaskMd",
+    "name": "SprintViewGenerator.generateTaskMd",
     "description": "Emit ONE task-<slug>.md per Task unit (title, acceptance criteria, statusChecklist, chain) so every task 📄 MD link resolves (no 404). Roundtrip byte-identical.",
     "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
     "implementations": [
