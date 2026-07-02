@@ -10,7 +10,7 @@
  * One-shot; only prereq = npm exists. Works with no prior `npm i` or build.
  */
 import { spawnSync, spawn, execSync } from 'node:child_process';
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, realpathSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -41,8 +41,10 @@ if (major(process.version) < 18) {
   process.exit(r.status ?? 1);
 }
 
-// running under node18+ from here — put its bindir first so `npm`/child node calls also use it
-const env = { ...process.env, PATH: `${path.dirname(node18)}:${process.env.PATH}` };
+// running under node18+ from here — put its REAL bindir first so `npm`/child node calls also use it (resolve the
+// `node22` symlink → /opt/node22/bin, which actually holds node/npm/npx; a symlink dir would leave `node`=system node)
+let realNode = node18; try { realNode = realpathSync(node18); } catch { /* keep */ }
+const env = { ...process.env, PATH: `${path.dirname(realNode)}:${process.env.PATH}` };
 const run = (cmd, args) => { const r = spawnSync(cmd, args, { stdio: 'inherit', cwd: ROOT, env }); if (r.status !== 0) { console.error(`✗ start: '${cmd} ${args.join(' ')}' exited ${r.status}`); process.exit(r.status ?? 1); } };
 
 console.log(`▸ start: node ${ver(node18)} @ ${node18}`);
