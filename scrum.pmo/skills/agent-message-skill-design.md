@@ -27,11 +27,29 @@ Sits alongside Requirement/UseCase/Class/Method/Implementation/Test/Task/Sprint 
 - **Loader**: `AgentMessageLoader` in classes.ts, same factory pattern as TaskLoader/RequirementLoader (adding it bumps ClassRegistry count — update the `toBe(N)` test).
 - Shard path: normal uuid-sharded `scenario/index/<h0>/<h1>/../<uuid>.scenario.json`.
 
+## ★ THE INTERRUPTION PROBLEM (Tron caught this — corrects my first draft)
+The CURRENT transport — raw `otmux send <pane> "..." Enter` / `tmux send-keys` — INJECTS text+Enter
+into the recipient agent's LIVE prompt. If that agent is mid-generation, the Enter SUBMITS input and
+INTERRUPTS its turn (this is the source of the `[Request interrupted by user]` events — agents
+interrupt each other, including me). My first draft ended `send` with `otmux send ... Enter` → it
+would KEEP interrupting. WRONG. The point of first-class AgentMessage units is an ASYNC MAILBOX:
+- `send` writes the AgentMessage unit to the recipient's INBOX (scenario unit) + commits it. It does
+  NOT inject keystrokes into their active turn. Delivery = the durable unit on disk, full stop.
+- The recipient PULLS via `agentMessage.inbox <me>` at THEIR turn boundary (post-turn / on wake /
+  per-loop), reads, marks read. No mid-turn interruption — ever.
+- OPTIONAL notify: a NON-submitting signal only (e.g. a status-line/file poke, or send WITHOUT Enter
+  so nothing is submitted) — never text+Enter into a live prompt. Default = no notify; pull-based.
+- The git-committed unit IS the delivery guarantee (survives rewind); tmux keystroke-injection is
+  RETIRED for task-comms. This turns sync-interrupt into async-mailbox — the real fix Tron is after.
+This becomes a hard REQUIREMENT (R.2a): agentMessage.send MUST NOT submit input to a recipient's
+live prompt. Lint-flag any raw `otmux send <team>:* ... Enter` in agent output.
+
 ## (2) The skill (OOSH external, on top of `otmux send`)
 `agentMessage` — Object.verb, thin dispatch to a TS `AgentMessage` class (like `taskChain` → Chain).
 | verb | signature | does |
 |------|-----------|------|
-| `agentMessage.send` | `<taskUuid> <toPane> <kind> <body>` | (a) mint AgentMessage unit (fresh uuid, from=me, to/toPane, task, kind, body, sentAt); (b) wire `Task.messages[]` += msg; (c) `git add`+commit the unit (explicit-path); (d) THEN `otmux send <toPane> "<body>" Enter` (transport). Atomic: record-then-deliver. |
+| `agentMessage.send` | `<taskUuid> <to> <kind> <body>` | (a) mint AgentMessage unit (fresh uuid, from=me, to, task, kind, body, sentAt, read=false); (b) wire `Task.messages[]` += msg; (c) `git add`+commit (explicit-path). **That is the whole delivery — NO keystroke injection into the recipient's live prompt.** The recipient pulls at their own turn boundary. (Optional non-submitting notify only; never text+Enter.) |
+| `agentMessage.read` | `<msgUuid>` | mark a message read (recipient, after consuming) |
 | `agentMessage.list` | `<taskUuid>` | list all AgentMessages for a task (the thread), sorted by sentAt |
 | `agentMessage.thread` | `<taskUuid>` | render the conversation (from→to, kind, body) as markdown |
 | `agentMessage.inbox` | `<agentRole>` | all messages TO an agent across tasks (their queue) |
