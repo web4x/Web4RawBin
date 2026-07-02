@@ -1,3 +1,4 @@
+// [test:uuid:fc9ed257-a711-4803-bf91-8279aa5f4fa7] R27.8 closeAndMinimize — X closes / first-open minimized / grab-bar expands (DET-3x GREEN)
 // R27.8 drawer UX fix (7029d8728). SystemTester ONLY, reuse dnd room + existing WebItem (no drop).
 // serviceWorkers:'block' bypasses the SW cache → loads the fresh bundle. DET-3x.
 //   AC-2: on FIRST open the drawer is MINIMIZED (peek) — [minimized] attr set (R27.8 line 85), not expanded.
