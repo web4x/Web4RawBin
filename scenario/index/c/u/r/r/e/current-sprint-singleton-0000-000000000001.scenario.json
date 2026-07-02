@@ -5,23 +5,23 @@
     "name": "Current: Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
     "chain": {
       "req": "4f6d6402-fc8d-4d5d-9523-7e35af641944",
-      "uc": "",
-      "class": "",
-      "method": "",
-      "impl": "",
-      "test": ""
+      "uc": "10ef702c-3141-45c9-b669-b5bed5f373b9",
+      "class": "93f9afc7-364d-4dd4-a9d7-3e49333cc16c",
+      "method": "0a542620-1669-4212-8e8c-4bd72a8d5770",
+      "impl": "88744d89-4520-471e-b732-2d2d2504f817",
+      "test": "dfd28fdd-0fd4-4c3a-8fc4-0d9db43fb221"
     },
-    "activeHop": 1,
+    "activeHop": 0,
     "sprintName": "Sprint 27",
     "taskName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-02T14:55:31.254Z"
+        "updatedAt": "2026-07-02T15:14:46.375Z"
       }
     },
-    "nextBacklogOverride": "179fafeb-0f00-4d64-be9f-e007f9801721",
+    "nextBacklogOverride": "",
     "lastCompletedUuid": "dbd7e30d-263c-4d01-81eb-b687854ca961",
     "lastCompletedName": "Task 27.1: Task detail renders the status checklist visually",
     "lastCompletedReqUuid": "90b82d00-7af1-40e9-992c-c55ca177c542",
