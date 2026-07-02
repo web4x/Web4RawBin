@@ -6,7 +6,13 @@
     "description": "DESIGN-AHEAD (#126): SSRF HARD-GUARD (pure predicate, socket-free): http/https-only; block loopback/private/link-local/unique-local/0.0.0.0 + cloud-metadata(169.254.169.254) on the RESOLVED IP; DNS-rebinding pin; re-check every redirect hop. Adversarial tests up front.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "designAhead": true,
-    "tests": []
+    "tests": [
+      "ior:instance:56b4283e-299a-46cb-b26e-c6c25b302cae",
+      "ior:instance:5459c7b6-58d0-49e9-801d-86670d091aeb",
+      "ior:instance:53cc58c5-8ee0-46b8-b641-44efb6b28710",
+      "ior:instance:96928159-a79f-4154-81c6-cd91075b47b5",
+      "ior:instance:ba0b8aa7-eb2d-4530-94b8-ca82df96e0d7"
+    ]
   },
   "ownerIor": "ior:instance:441b7f34-8f32-48d0-af2b-2e55ec07956a"
 }

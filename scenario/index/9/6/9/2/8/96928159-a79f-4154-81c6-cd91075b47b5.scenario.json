@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "96928159-a79f-4154-81c6-cd91075b47b5",
+    "name": "guardUrl blocks non-http schemes",
+    "description": "DESIGN-AHEAD adversarial SSRF test: file:// gopher:// data:// dict:// ftp:// are denied (scheme allowlist http/https only)",
+    "testCases": []
+  },
+  "ownerIor": "ior:instance:ba8f38c0-99b6-401c-9fa6-5c7e3ea55e35"
+}

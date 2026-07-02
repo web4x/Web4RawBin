@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "53cc58c5-8ee0-46b8-b641-44efb6b28710",
+    "name": "guardUrl blocks redirect-to-internal",
+    "description": "DESIGN-AHEAD adversarial SSRF test: a 302 to http://127.0.0.1 / http://10.x is denied on the redirect hop (per-hop recheck)",
+    "testCases": []
+  },
+  "ownerIor": "ior:instance:ba8f38c0-99b6-401c-9fa6-5c7e3ea55e35"
+}
