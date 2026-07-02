@@ -14,8 +14,9 @@ const REPO = path.join(__dirname, '..');
 const cs = CurrentSprint.getInstance(new ScenarioIndex(path.join(REPO, 'scenario/index')) as any);
 const [verb, ...a] = process.argv.slice(2);
 if (verb === 'focus') {
-  const ok = cs.setFocus(a[0], a.includes('--force'));
-  if (!ok && !a.includes('--force')) console.log('BLOCKED: current task test hop not gate-proven. Use --force to override.');
+  // #111: focus advances NATURALLY — no --force (removed/forbidden). false only = the arg is not a Task unit.
+  const ok = cs.setFocus(a[0]);
+  if (!ok) console.log('focus FAILED: ' + a[0] + ' is not an ior:class:Task unit');
   console.log('focus ok=' + ok + ' task=' + a[0]);
 }
 if (verb === 'hop') {

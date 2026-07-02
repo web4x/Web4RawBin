@@ -324,31 +324,28 @@ export class CurrentSprint {
 
   /** Set focus on a task. BLOCKED unless current task's test is gate-proven (or no current task). */
   // [impl:uuid:c07efc21-153c-4e02-81c5-ae2e919ad03b] R24.2 CurrentSprint.setFocus (Pin lifecycle)
-  setFocus(taskUuid: string, force?: boolean): boolean {
-    if (this.chain && !force && !this.isGateProven()) {
-      return false; // task-switch gate: current chain not gate-proven
+  // #111 (BUG-A): NO gate / NO --force. Re-focusing the CURRENT task, or advancing to a task whose prior is done,
+  // advances NATURALLY. And focus must NOT rotate the unfocused task into lastCompleted (that set current==last on
+  // re-focus). lastCompleted is DERIVED from a PRIOR DONE task in getThreeSlots → current / last / next are 3 DISTINCT
+  // slots. An explicit lastCompleted override is a separate deliberate action, so focus CLEARS any stale auto-set.
+  setFocus(taskUuid: string): boolean {
+    let taskUnit = this.index.get(taskUuid);
+    if (!taskUnit) { // resolve an 8-char (or any) prefix → the unique Task unit (planner passes short uuids)
+      const hits = [...this.index.list()].filter(u => String(u).startsWith(taskUuid) && this.index.get(u)?.ior === 'ior:class:Task');
+      if (hits.length === 1) { taskUuid = hits[0]; taskUnit = this.index.get(taskUuid); }
     }
-    const taskUnit = this.index.get(taskUuid);
     if (!taskUnit || taskUnit.ior !== 'ior:class:Task') return false;
     for (const uuid of this.index.list()) {
       const u = this.index.get(uuid);
       if (!u) continue;
       const m = u.model as Record<string, unknown>;
       if (!m.focus) continue;
-      // BUG-D: only REAL feature Tasks rotate into lastCompleted (the "last delivered"
-      // slot). Internal/housekeeping units (ChangeRequest, Bug) clear focus but KEEP the
-      // previous lastCompleted — focus rotating past a CR/Bug must not overwrite it.
-      if (u.ior === 'ior:class:Task') {
-        this.lastCompletedUuid = uuid;
-        this.lastCompletedName = String(m.name || '');
-        const reqIors = (m.coveredRequirements as string[]) || [];
-        this.lastCompletedReqUuid = reqIors.length > 0 ? ior(reqIors[0]) : '';
-      }
-      delete m.focus;
+      delete m.focus; // just un-focus — do NOT rotate into lastCompleted (getThreeSlots derives it from prior-done)
       this.index.put(uuid, u);
     }
     (taskUnit.model as Record<string, unknown>).focus = true;
     this.index.put(taskUuid, taskUnit);
+    this.lastCompletedUuid = ''; this.lastCompletedName = ''; this.lastCompletedReqUuid = ''; // let derivation rule; clears corruption
     this.hopStates = {};
     this.hopStates.req = { status: 'done', owner: 'req-eng', updatedAt: new Date().toISOString() };
     return this.autoFollow();
