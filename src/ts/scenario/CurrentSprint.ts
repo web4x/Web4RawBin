@@ -156,10 +156,11 @@ export class CurrentSprint {
 
   // [impl:uuid:d20855e7-4a1b-4c2d-8e3f-5a6b7c8d9e0f] R20.22 getThreeSlots
   getThreeSlots(): ThreeSlots {
-    // Tron redesign: ALL 3 slots derive from the CURRENT SPRINT's tasks[] — the sprint boundary IS
-    // the scope. No global task scan (which surfaced DONE tasks from old sprints, e.g. a Sprint-20
-    // task as a phantom backlog item). current=focused; lastCompleted=prior task in-sprint;
-    // nextBacklog=next not-done task in-sprint (null if the sprint has no more).
+    // Tron redesign + forward-fall: current & lastCompleted derive from the CURRENT SPRINT's tasks[]
+    // (no global scan of DONE past-sprint tasks — that was the phantom Sprint-20 backlog bug).
+    // nextBacklog = next not-done task in-sprint, and if the sprint has none left, the FIRST open task
+    // of the next sprint (by number) — so the pin ALWAYS shows current/last/next. Forward-only + not-
+    // done-only keeps the phantom (done/past) out while still surfacing genuine upcoming work.
     type Slot = { uuid: string; name: string; reqUuid: string; focus: boolean; done: boolean };
     const slotInfo = (uuid: string): Slot | null => {
       const unit = this.index.get(uuid);
@@ -176,25 +177,26 @@ export class CurrentSprint {
 
     // 1) resolve the current sprint's ordered task list: match by sprintName; fallback = the sprint
     //    whose tasks[] contains the focused task.
-    const sprintUnits: Array<{ name: string; tasks: string[] }> = [];
+    const sprintUnits: Array<{ name: string; number: number; tasks: string[] }> = [];
     for (const u of this.index.list()) {
       const unit = this.index.get(u);
       if (!unit || unit.ior !== 'ior:class:Sprint') continue;
       const sm = unit.model as Record<string, unknown>;
-      sprintUnits.push({ name: String(sm.name || sm.altId || ''), tasks: ((sm.tasks as string[]) || []).map(t => ior(t)) });
+      sprintUnits.push({ name: String(sm.name || sm.altId || ''), number: Number(sm.number) || 0, tasks: ((sm.tasks as string[]) || []).map(t => ior(t)) });
     }
     const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
     let sprintTaskUuids: string[] = [];
+    let currentSprint: { name: string; number: number; tasks: string[] } | undefined;
     if (this.sprintName) {
       const key = norm(this.sprintName);
       const match = key ? sprintUnits.find(s => norm(s.name).includes(key)) : undefined;
-      if (match) sprintTaskUuids = match.tasks;
+      if (match) { sprintTaskUuids = match.tasks; currentSprint = match; }
     }
     if (!sprintTaskUuids.length) {
       let focusUuid = '';
       for (const u of this.index.list()) { const unit = this.index.get(u); if (unit?.ior === 'ior:class:Task' && (unit.model as Record<string, unknown>).focus) { focusUuid = u; break; } }
       const owner = focusUuid ? sprintUnits.find(s => s.tasks.includes(focusUuid)) : undefined;
-      if (owner) sprintTaskUuids = owner.tasks;
+      if (owner) { sprintTaskUuids = owner.tasks; currentSprint = owner; }
     }
     const sprintTasks = sprintTaskUuids.map(slotInfo).filter((t): t is Slot => !!t);
 
@@ -216,12 +218,23 @@ export class CurrentSprint {
     // honor an explicit lastCompleted pin ONLY if it's in the current sprint (else it's stale)
     if (this.lastCompletedUuid) { const o = sprintTasks.find(t => t.uuid === this.lastCompletedUuid); if (o && o.uuid !== currentUuid) lastCompleted = o; }
 
-    // 4) nextBacklog = first NOT-done task after current in-sprint; null if the sprint has no more.
+    // 4) nextBacklog = first NOT-done task after current in-sprint. If the sprint has no more open
+    //    tasks, FALL FORWARD to the next sprint's first open task — the pin ALWAYS shows current/
+    //    last/next (a nearly-done sprint wraps into the next). The phantom bug was a DONE/PAST task
+    //    surfacing as backlog; a NOT-DONE task in a LATER sprint is legit upcoming work, so forward
+    //    look-ahead is safe (we never pick a done task, never a lower-numbered/past sprint).
     let nextBacklog: Slot | null = null;
     for (let k = i + 1; k < sprintTasks.length; k++) { if (!sprintTasks[k].done) { nextBacklog = sprintTasks[k]; break; } }
-    // honor an explicit nextBacklog pin ONLY if it points to a task IN THE CURRENT SPRINT (a stale
-    // cross-sprint override was the source of the phantom Sprint-20 backlog item).
-    if (this.nextBacklogOverride) { const o = sprintTasks.find(t => t.uuid === this.nextBacklogOverride); if (o && o.uuid !== currentUuid) nextBacklog = o; }
+    if (!nextBacklog && currentSprint) {
+      const forward = sprintUnits.filter(s => s.number > currentSprint!.number).sort((a, b) => a.number - b.number);
+      for (const sp of forward) {
+        const open = sp.tasks.map(slotInfo).find((t): t is Slot => !!t && !t.done);
+        if (open) { nextBacklog = open; break; }
+      }
+    }
+    // honor an explicit nextBacklog pin if it points to a NOT-DONE task (forward across sprints is
+    // fine — that's real upcoming work; reject only a stale DONE/past override = the phantom source).
+    if (this.nextBacklogOverride) { const o = slotInfo(this.nextBacklogOverride); if (o && !o.done && o.uuid !== currentUuid) nextBacklog = o; }
 
     // BUG-C invariant: no UUID appears in more than one slot.
     const lcUuid = lastCompleted?.uuid || '';
