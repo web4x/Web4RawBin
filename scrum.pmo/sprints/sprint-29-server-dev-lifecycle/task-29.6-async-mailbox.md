@@ -26,7 +26,7 @@
 
 ## Task Description
 
-Async mailbox: send writes+commits a unit; recipient pulls at turn boundary (no keystroke injection)
+Implement the async mailbox: send() WRITES+COMMITS an AgentMessage unit to the recipient's mailbox (no keystroke, no live pane injection); pull() lets the recipient READ its inbox on its OWN turn-boundary (never interrupted mid-work). The async-mailbox interrupt fix — sender/recipient decoupled via the persisted unit, so sent==delivered without racing a busy pane.
 
 ## Context
 

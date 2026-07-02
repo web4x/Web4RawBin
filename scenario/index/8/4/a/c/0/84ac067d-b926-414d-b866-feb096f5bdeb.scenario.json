@@ -4,7 +4,7 @@
     "uuid": "84ac067d-b926-414d-b866-feb096f5bdeb",
     "name": "Task 29.8: Task.messages[] link + agentMessage skill verbs",
     "slug": "task-29.8-task-messages-skill-verbs",
-    "description": "Task.messages[] link + agentMessage skill verbs (send/inbox/read/list/thread)",
+    "description": "Implement Task.messages[] (link messages to their task context) + the agentMessage skill verbs (send / inbox / read / list / thread), and make the mailbox the CANONICAL agent-to-agent comms path — replacing raw tmux send-keys as the default channel.",
     "intention": "S29 Agent Messaging — the STRUCTURAL fix for sent!=delivered (async mailbox, no live injection). Stood up scenario-first (Task layer was missing: reqs+UCs captured plan-now, tasks never built).",
     "context": "Moved into S29 (Agent Intercom per Tron). crossRef the AgentMessaging track (R29.5-8). Chain-build awaits architect.",
     "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",

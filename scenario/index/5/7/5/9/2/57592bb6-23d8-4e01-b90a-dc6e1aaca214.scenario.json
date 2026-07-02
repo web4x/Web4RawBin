@@ -4,7 +4,7 @@
     "uuid": "57592bb6-23d8-4e01-b90a-dc6e1aaca214",
     "name": "Task 29.5: First-class AgentMessage scenario unit",
     "slug": "task-29.5-agentmessage-unit",
-    "description": "First-class AgentMessage scenario unit (peer to Task/Req/UC)",
+    "description": "Implement the first-class AgentMessage scenario unit type (ior:class:AgentMessage, peer to Task/Requirement): message schema (from/to/subject/body/thread/ts), template + tagMap registration so it's discoverable, PERSISTED to the scenario store as a committed unit (NOT a keystroke). The message IS an addressable, auditable unit on disk.",
     "intention": "S29 Agent Messaging — the STRUCTURAL fix for sent!=delivered (async mailbox, no live injection). Stood up scenario-first (Task layer was missing: reqs+UCs captured plan-now, tasks never built).",
     "context": "Moved into S29 (Agent Intercom per Tron). crossRef the AgentMessaging track (R29.5-8). Chain-build awaits architect.",
     "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",

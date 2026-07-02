@@ -26,7 +26,7 @@
 
 ## Task Description
 
-Task.messages[] link + agentMessage skill verbs (send/inbox/read/list/thread)
+Implement Task.messages[] (link messages to their task context) + the agentMessage skill verbs (send / inbox / read / list / thread), and make the mailbox the CANONICAL agent-to-agent comms path — replacing raw tmux send-keys as the default channel.
 
 ## Context
 

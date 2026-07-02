@@ -26,7 +26,7 @@
 
 ## Task Description
 
-First-class AgentMessage scenario unit (peer to Task/Req/UC)
+Implement the first-class AgentMessage scenario unit type (ior:class:AgentMessage, peer to Task/Requirement): message schema (from/to/subject/body/thread/ts), template + tagMap registration so it's discoverable, PERSISTED to the scenario store as a committed unit (NOT a keystroke). The message IS an addressable, auditable unit on disk.
 
 ## Context
 
