@@ -20,14 +20,14 @@
         "name": "SystemTester",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1782993155612
+        "joinedAt": 1782994900149
       },
       {
         "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
         "name": "Marcel Donges",
         "role": "owner",
-        "status": "online",
-        "joinedAt": 1782993155612
+        "status": "offline",
+        "joinedAt": 1782994900149
       }
     ],
     "files": [

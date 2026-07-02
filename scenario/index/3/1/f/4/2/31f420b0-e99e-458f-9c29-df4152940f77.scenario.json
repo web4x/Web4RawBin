@@ -5,7 +5,9 @@
     "name": "RbTaskDetail.renderStatusChecklist impl",
     "description": "Shipped v0.7.6 in src/public/ts/trace/rb-task-detail.ts (renderStatusChecklist renders the markdown statusChecklist checkboxes). RETROACTIVE chain (code shipped before chain) — expert should add [impl:uuid:31f420b0-e99e-458f-9c29-df4152940f77] marker on the fn.",
     "sourceFile": "ior:file:src/public/ts/trace/rb-task-detail.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:dc94cff0-ec9d-416b-8d9f-cfca9f225f3f"
+    ]
   },
   "ownerIor": "ior:instance:bfd21995-5843-4bde-b72a-37e10d38badf"
 }

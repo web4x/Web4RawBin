@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "dc94cff0-ec9d-416b-8d9f-cfca9f225f3f",
+    "name": "test:R27.1 renderStatusChecklist gate",
+    "description": "Bridged to test/visual/r264-v076-task-detail-gate.mjs — statusChecklist renders ☑/☐ hierarchy (DET-3x GREEN)",
+    "sourceFile": "ior:file:test/visual/r264-v076-task-detail-gate.mjs",
+    "implementations": [
+      "ior:instance:31f420b0-e99e-458f-9c29-df4152940f77"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:31f420b0-e99e-458f-9c29-df4152940f77"
+}

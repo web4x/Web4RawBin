@@ -1,3 +1,4 @@
+// [test:uuid:dc94cff0-ec9d-416b-8d9f-cfca9f225f3f] R27.1 renderStatusChecklist — statusChecklist ☑/☐ hierarchy
 // v0.7.6 gate — task detail: 📄 Task-file MD link (serves 200) + visual statusChecklist (☑/☐
 // hierarchy). READ-ONLY mount of a real Task unit (0c1b375e, sourceFile→sprint-21 planning.md).
 // 0 pollution. DET-3x.
