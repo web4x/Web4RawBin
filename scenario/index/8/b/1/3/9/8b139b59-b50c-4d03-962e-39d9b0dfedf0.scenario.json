@@ -2,7 +2,7 @@
   "ior": "ior:class:Class",
   "model": {
     "uuid": "8b139b59-b50c-4d03-962e-39d9b0dfedf0",
-    "name": "ServerLauncher",
+    "name": "StartLauncher",
     "description": "Self-healing npm start launcher (scripts/start.mjs): re-exec node18+/deps/kill-old/build one-shot, then run the server FOREGROUND (owns the controlling TTY for the readline request-log TUI).",
     "sourceFile": "ior:file:scripts/start.mjs",
     "methods": [

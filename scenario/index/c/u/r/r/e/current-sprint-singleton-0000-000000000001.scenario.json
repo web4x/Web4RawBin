@@ -2,41 +2,41 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
+    "name": "Current: Task 27.5: Canonical ref-slot registry + trace-audit calibration",
     "chain": {
-      "req": "4f6d6402-fc8d-4d5d-9523-7e35af641944",
-      "uc": "10ef702c-3141-45c9-b669-b5bed5f373b9",
-      "class": "93f9afc7-364d-4dd4-a9d7-3e49333cc16c",
-      "method": "0a542620-1669-4212-8e8c-4bd72a8d5770",
-      "impl": "88744d89-4520-471e-b732-2d2d2504f817",
-      "test": "dfd28fdd-0fd4-4c3a-8fc4-0d9db43fb221"
+      "req": "f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc",
+      "uc": "",
+      "class": "",
+      "method": "",
+      "impl": "",
+      "test": ""
     },
-    "activeHop": 0,
-    "sprintName": "Sprint 27",
-    "taskName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
+    "activeHop": 1,
+    "sprintName": "Sprint 28",
+    "taskName": "Task 27.5: Canonical ref-slot registry + trace-audit calibration",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-02T15:14:46.375Z"
+        "updatedAt": "2026-07-02T15:36:40.399Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "dbd7e30d-263c-4d01-81eb-b687854ca961",
-    "lastCompletedName": "Task 27.1: Task detail renders the status checklist visually",
-    "lastCompletedReqUuid": "90b82d00-7af1-40e9-992c-c55ca177c542",
+    "lastCompletedUuid": "8b15788a-e881-4bff-b9bf-ada1c48b262f",
+    "lastCompletedName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
+    "lastCompletedReqUuid": "4f6d6402-fc8d-4d5d-9523-7e35af641944",
     "slots": {
       "current": {
-        "taskUuid": "8b15788a-e881-4bff-b9bf-ada1c48b262f",
-        "taskName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
-        "reqUuid": "4f6d6402-fc8d-4d5d-9523-7e35af641944"
+        "taskUuid": "179fafeb-0f00-4d64-be9f-e007f9801721",
+        "taskName": "Task 27.5: Canonical ref-slot registry + trace-audit calibration",
+        "reqUuid": "f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc"
       },
-      "lastCompleted": {
-        "taskUuid": "dbd7e30d-263c-4d01-81eb-b687854ca961",
-        "taskName": "Task 27.1: Task detail renders the status checklist visually",
-        "reqUuid": "90b82d00-7af1-40e9-992c-c55ca177c542"
-      },
-      "nextBacklog": null
+      "lastCompleted": null,
+      "nextBacklog": {
+        "taskUuid": "600fa089-c8a4-4977-a89b-504969e78170",
+        "taskName": "Task 27.6: Repair the true-dangling refs surfaced by the ref-slot registry",
+        "reqUuid": "3a7d4df2-7588-4b09-a959-21708d68b8b1"
+      }
     }
   },
   "ownerIor": null

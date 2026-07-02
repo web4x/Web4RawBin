@@ -23,8 +23,7 @@
     "sprintName": "Sprint 27",
     "createdBy": "robbin-planner",
     "createdAt": "2026-07-01",
-    "tronDelivered": "2026-07-02 (chain-complete, 56/317, feature Tron QA gate)",
-    "focus": true
+    "tronDelivered": "2026-07-02 (chain-complete, 56/317, feature Tron QA gate)"
   },
   "ownerIor": null
 }
