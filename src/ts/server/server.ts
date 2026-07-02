@@ -575,7 +575,7 @@ function getLogFileName(): string {
 // [impl:uuid:b1751446-effd-45f2-a4e2-e70ae5a19d27] server.ucScopedMethodResolve
 // [impl:uuid:dcc18fd3-48ca-4e9a-a8b7-23fcd05cee5f] server.detailNavSync
 // [impl:uuid:7f1774c9-1f78-403e-b078-c1b21d8a6b8e] Logger.logAtLevel
-// [impl:uuid:c8888f6d-4177-4a1f-abdf-027752dc76db] R29.1 AC-2 ServerTUI.addLog — stream to pane on isTTY (below)
+// [impl:uuid:c8888f6d-4177-4a1f-abdf-027752dc76db] R29.1 ServerTUI.addLog (stream to pane on isTTY)
 function addLog(message: string): void {
   const timestamp = new Date().toLocaleTimeString();
   const entry = `[${timestamp}] ${message}`;
@@ -2579,7 +2579,7 @@ function showClients(): void {
   displayLogTail(lines);
 }
 
-// [impl:uuid:02ef2352-b8b3-4f93-8e69-f3ac8b41e0b2] R29.1 AC-2 ServerTUI.setupTUI — full boxed dashboard, gated on isTTY (below)
+// [impl:uuid:02ef2352-b8b3-4f93-8e69-f3ac8b41e0b2] R29.1 ServerTUI.setupTUI (full boxed dashboard, isTTY-gated)
 function setupTUI(): void {
   if (process.stdin.isTTY) { readline.emitKeypressEvents(process.stdin); process.stdin.setRawMode(true); }
   let currentView: 'help' | 'status' | 'clients' | 'live' = 'help';
