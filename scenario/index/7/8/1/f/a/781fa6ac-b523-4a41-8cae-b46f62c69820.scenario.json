@@ -1,0 +1,68 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "781fa6ac-b523-4a41-8cae-b46f62c69820",
+    "name": "First-class Server config scenario unit (replaces .env)",
+    "altId": "R29.3",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-29-server-dev-lifecycle/requirements.md",
+    "sourceLine": 42,
+    "parent": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:21b0dc9a-5ca1-4461-be90-cfe59fd52838"
+    ],
+    "priority": "medium",
+    "backlog": true,
+    "description": "A NEW first-class ior:class:Server scenario unit holds the server's identity + config: domain, Let's-Encrypt cert (config/path per domain), ossh config name, and hostname (for later inter-server communication, ties R26 federation). The server reads its config from this Server scenario unit, NOT the .env file - migrating BASE_DOMAIN/LE_DOMAIN/NODE_ENV off .env with back-compat. It AUTO-selects the correct LE cert for the CURRENT domain it publishes share links on (prod.wo-da.de -> prod cert; test.wo-da.de -> test cert), so WODA.prod and WODA.test each use their own Server scenario - verifiable in remoteShells 0.2 (prod) / 0.3 (test), not .env - and share links carry the correct domain + cert per server.",
+    "tronQuote": "> TRON 2026-07-02: a NEW first-class ior:class:Server scenario unit (domain / LE cert per-domain / ossh config name / hostname for inter-server comms). Server reads config from the Server unit NOT .env; auto-selects the right LE cert for the current share-link domain; prod+test each their own; migrate/back-compat from .env.",
+    "discoverySource": {
+      "type": "tron-directive",
+      "flaggedBy": "Tron via robbin-po",
+      "date": "2026-07-02",
+      "note": "First-class Server config scenario replacing .env. BACKLOG (plan now, build when scheduled). Placed in S29 (existing infra sprint) per the new no-new-sprint rule. Ties R26 federation via hostname."
+    },
+    "crossRef": [
+      "ior:instance:e8744de9-ca4a-4f8b-a6d9-c7c971999d8b"
+    ],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-server-unit",
+        "group": "config",
+        "text": "A NEW first-class ior:class:Server scenario unit holds: domain, Let's-Encrypt cert (config/path per domain), ossh config name, hostname (for later inter-server communication)."
+      },
+      {
+        "id": "AC-reads-unit-not-env",
+        "group": "config",
+        "text": "The server reads its config from the Server scenario unit, NOT the .env file; the current .env (BASE_DOMAIN / LE_DOMAIN / NODE_ENV) is migrated into the Server unit."
+      },
+      {
+        "id": "AC-auto-cert",
+        "group": "tls",
+        "text": "The server AUTO-selects the correct Let's-Encrypt cert for the CURRENT domain it publishes share links on (prod.wo-da.de -> prod cert; test.wo-da.de -> test cert)."
+      },
+      {
+        "id": "AC-per-host",
+        "group": "tls",
+        "text": "WODA.prod uses its Server scenario (prod.wo-da.de + prod cert); WODA.test uses its (test.wo-da.de + test cert) - VERIFIABLE via remoteShells 0.2 (prod) + 0.3 (test), NOT .env."
+      },
+      {
+        "id": "AC-share-links",
+        "group": "tls",
+        "text": "Share links carry the correct domain + cert per server."
+      },
+      {
+        "id": "AC-hostname-federation",
+        "group": "federation",
+        "text": "The hostname field enables inter-server communication (ties R26 federation)."
+      },
+      {
+        "id": "AC-migration",
+        "group": "config",
+        "text": "Migration + back-compat from .env: existing .env values are read once and migrated into the Server unit; the server no longer depends on .env after migration."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e"
+}

@@ -2,13 +2,15 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "186ccb53-07ca-4c5a-96fd-6fc94443b45e",
-    "name": "Sprint 29 — Server & Dev Lifecycle",
+    "name": "Sprint 29 \u2014 Server & Dev Lifecycle",
     "number": 29,
     "goal": "Infra: self-healing npm start preserving the interactive server TUI (foreground, readline + live request-log), consistent WODA.prod+test, driven in remoteShells otmux (0.2=prod, 0.3=test). Retroactive #126 for the shipped start.mjs self-heal.",
     "status": "Planned",
     "compoundSource": "scrum.pmo/sprints/sprint-29-server-dev-lifecycle/requirements.md",
     "requirements": [
-      "ior:instance:e25f1437-4273-4fe0-8b26-76249fa15604"
+      "ior:instance:e25f1437-4273-4fe0-8b26-76249fa15604",
+      "ior:instance:781fa6ac-b523-4a41-8cae-b46f62c69820",
+      "ior:instance:9e49041e-29f3-443d-9351-67810da314f3"
     ],
     "tasks": [
       "ior:instance:2d1a0704-f3db-426c-85b3-963c860a29a2"
