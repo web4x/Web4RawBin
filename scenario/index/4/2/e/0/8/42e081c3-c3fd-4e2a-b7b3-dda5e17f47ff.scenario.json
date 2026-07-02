@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "42e081c3-c3fd-4e2a-b7b3-dda5e17f47ff",
+    "name": "ServerTUI.addLog",
+    "description": "Append a log line: always to file; ALSO echo to stdout (the live dashboard log stream) when process.stdout.isTTY — not gated on IS_PRODUCTION.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:c8888f6d-4177-4a1f-abdf-027752dc76db"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:987788e2-7d58-4245-ab18-13fd0ba0b420"
+}

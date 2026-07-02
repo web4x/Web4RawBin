@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "02ef2352-b8b3-4f93-8e69-f3ac8b41e0b2",
+    "name": "ServerTUI.setupTUI impl",
+    "description": "DESIGN-AHEAD (fix not shipped): change server.ts:2619 gate from `!IS_PRODUCTION` to `process.stdout.isTTY` so setupTUI() runs whenever a TTY exists (prod-in-pane shows the full dashboard like test 0.3).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:8614cea4-ab50-4a83-97db-c67f95bc3202"
+}

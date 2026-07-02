@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "987788e2-7d58-4245-ab18-13fd0ba0b420",
+    "name": "ServerTUI",
+    "description": "Server terminal dashboard + live request-log (server.ts). Renders the boxed TUI + streams log lines to stdout WHEN a terminal is present (process.stdout.isTTY), independent of NODE_ENV. server.ts is an allowlisted multi-concern monolith (Axis-3 exception).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "methods": [
+      "ior:instance:8614cea4-ab50-4a83-97db-c67f95bc3202",
+      "ior:instance:42e081c3-c3fd-4e2a-b7b3-dda5e17f47ff"
+    ]
+  },
+  "ownerIor": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e"
+}

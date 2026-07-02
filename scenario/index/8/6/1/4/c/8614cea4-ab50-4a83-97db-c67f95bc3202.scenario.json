@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "8614cea4-ab50-4a83-97db-c67f95bc3202",
+    "name": "ServerTUI.setupTUI",
+    "description": "Render the boxed terminal dashboard when process.stdout.isTTY (a terminal is present) — prod-in-a-pane AND test, NOT gated on NODE_ENV. Headless prod (no TTY) skips it (no ANSI in log files).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:02ef2352-b8b3-4f93-8e69-f3ac8b41e0b2"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:987788e2-7d58-4245-ab18-13fd0ba0b420"
+}

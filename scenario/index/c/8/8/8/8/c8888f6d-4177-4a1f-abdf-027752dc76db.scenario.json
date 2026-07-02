@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c8888f6d-4177-4a1f-abdf-027752dc76db",
+    "name": "ServerTUI.addLog impl",
+    "description": "DESIGN-AHEAD (fix not shipped): change server.ts:583 so the stdout echo is gated on process.stdout.isTTY (present->stream into dashboard) instead of file-only-when-IS_PRODUCTION.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:42e081c3-c3fd-4e2a-b7b3-dda5e17f47ff"
+}

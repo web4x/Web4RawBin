@@ -6,7 +6,8 @@
     "description": "npm start self-heals (re-exec/deps/kill/build one-shot, npm-only prereq) then runs the server FOREGROUND preserving the interactive TUI (readline + live request-log), consistent prod+test, idempotent restart. Retroactive #126 for shipped start.mjs.",
     "class": "ior:instance:8b139b59-b50c-4d03-962e-39d9b0dfedf0",
     "classes": [
-      "ior:instance:8b139b59-b50c-4d03-962e-39d9b0dfedf0"
+      "ior:instance:8b139b59-b50c-4d03-962e-39d9b0dfedf0",
+      "ior:instance:987788e2-7d58-4245-ab18-13fd0ba0b420"
     ],
     "method": "ior:instance:1c5039bc-dd67-4607-afe1-3496ad252b84",
     "tasks": [],
