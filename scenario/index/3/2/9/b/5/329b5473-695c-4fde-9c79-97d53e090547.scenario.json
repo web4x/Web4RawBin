@@ -2,8 +2,8 @@
   "ior": "ior:class:Implementation",
   "model": {
     "uuid": "329b5473-695c-4fde-9c79-97d53e090547",
-    "name": "ServerLauncher.selfHealingStart impl",
-    "description": "SHIPPED (real) in scripts/start.mjs: self-heal one-shot (re-exec node18+ :40, npm i if missing :53, kill ports :56, build :65) THEN foreground server via BLOCKING spawnSync(node,[tsx,server.ts],{stdio:inherit}) + process.exit(srv.status) :72 (commit 9b97021dd = the TUI-preserve foreground fix). RETROACTIVE #126 (code before chain). Expert places [impl:uuid:329b5473-695c-4fde-9c79-97d53e090547] on start.mjs.",
+    "name": "StartLauncher.selfHealingStart impl (orchestration)",
+    "description": "SHIPPED (real) in scripts/start.mjs: self-heal ORCHESTRATION one-shot — re-exec under node18+ (:40), npm i if node_modules missing (:53), kill stale port owners (:56), build (:65) — prereq npm only, idempotent. Then CALLS runServerForeground (:72). AC1/3/5. Marker PENDING (expert).",
     "sourceFile": "ior:file:scripts/start.mjs",
     "tests": []
   },

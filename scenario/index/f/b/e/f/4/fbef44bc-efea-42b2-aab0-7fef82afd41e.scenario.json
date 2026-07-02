@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "fbef44bc-efea-42b2-aab0-7fef82afd41e",
+    "name": "StartLauncher.runServerForeground impl",
+    "description": "SHIPPED (real) at scripts/start.mjs:72 (commit 9b97021dd = the TUI-preserve fix Tron flagged): run the tsx server in the FOREGROUND via BLOCKING spawnSync(node,[tsx,server.ts],{stdio:inherit}) + process.exit(srv.status). Holds the pane controlling TTY -> readline TUI + live request-log stream; NEVER backgrounds/detaches/swallows-stdio (the async spawn regression). AC-2 (TUI-preserve). Marker PENDING (expert places [impl:uuid:fbef44bc-efea-42b2-aab0-7fef82afd41e] at :72).",
+    "sourceFile": "ior:file:scripts/start.mjs",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2db35706-dd03-46a1-9623-52806d0a60c8"
+}

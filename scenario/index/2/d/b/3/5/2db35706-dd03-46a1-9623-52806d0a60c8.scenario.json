@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "2db35706-dd03-46a1-9623-52806d0a60c8",
+    "name": "StartLauncher.runServerForeground",
+    "description": "Run the built tsx server in the FOREGROUND so it owns the controlling terminal (spawnSync stdio:inherit + process.exit with the server status) — the interactive readline TUI + live request-log stream live in the pane, consistent prod+test. The AC-2 TUI-preserve handoff; the TUI-verify Test targets THIS node.",
+    "sourceFile": "ior:file:scripts/start.mjs",
+    "implementations": [
+      "ior:instance:fbef44bc-efea-42b2-aab0-7fef82afd41e"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:8b139b59-b50c-4d03-962e-39d9b0dfedf0"
+}
