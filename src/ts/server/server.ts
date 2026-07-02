@@ -575,6 +575,7 @@ function getLogFileName(): string {
 // [impl:uuid:b1751446-effd-45f2-a4e2-e70ae5a19d27] server.ucScopedMethodResolve
 // [impl:uuid:dcc18fd3-48ca-4e9a-a8b7-23fcd05cee5f] server.detailNavSync
 // [impl:uuid:7f1774c9-1f78-403e-b078-c1b21d8a6b8e] Logger.logAtLevel
+// [impl:uuid:c8888f6d-4177-4a1f-abdf-027752dc76db] R29.1 AC-2 ServerTUI.addLog — stream to pane on isTTY (below)
 function addLog(message: string): void {
   const timestamp = new Date().toLocaleTimeString();
   const entry = `[${timestamp}] ${message}`;
@@ -585,8 +586,10 @@ function addLog(message: string): void {
       fsSync.mkdirSync(LOGS_DIR, { recursive: true });
       fsSync.appendFileSync(path.join(LOGS_DIR, getLogFileName()), entry + '\n');
     } catch {}
-    process.stdout.write(entry + '\n'); // R29.1 AC-2: prod has no interactive TUI → ALSO stream the request-log to the pane (was file-only → silent pane)
   }
+  // R29.1 AC-2: stream the request-log to the pane when a TTY is present (isTTY, NOT IS_PRODUCTION: env-agnostic —
+  // headless prod → file only, no ANSI/log-noise on a non-TTY stdout). [marker on the addLog declaration above]
+  if (process.stdout.isTTY) process.stdout.write(entry + '\n');
 }
 
 function cleanupOldLogs(): void {
@@ -2576,6 +2579,7 @@ function showClients(): void {
   displayLogTail(lines);
 }
 
+// [impl:uuid:02ef2352-b8b3-4f93-8e69-f3ac8b41e0b2] R29.1 AC-2 ServerTUI.setupTUI — full boxed dashboard, gated on isTTY (below)
 function setupTUI(): void {
   if (process.stdin.isTTY) { readline.emitKeypressEvents(process.stdin); process.stdin.setRawMode(true); }
   let currentView: 'help' | 'status' | 'clients' | 'live' = 'help';
@@ -2617,10 +2621,12 @@ async function main(): Promise<void> {
     if (cleaned > 0) { addLog(`Periodic cleanup: ${cleaned} stale room(s)`); broadcastRoomList(); }
   }, 2 * 60 * 1000);
   setInterval(cleanupOldLogs, 24 * 60 * 60 * 1000);
-  if (!IS_PRODUCTION) {
+  // R29.1 AC-2: render the FULL boxed dashboard whenever a terminal is present (isTTY, NOT !IS_PRODUCTION:
+  // prod-in-a-pane gets the same dashboard as WODA.test; headless prod skips it). [marker on the setupTUI decl above]
+  if (process.stdout.isTTY) {
     setupTUI();
   } else {
-    addLog('Server started (production mode)');
+    addLog('Server started (headless — no TTY; request-log → file only)');
     addLog(`HTTPS: https://localhost:${HTTPS_PORT}`);
   }
 }
