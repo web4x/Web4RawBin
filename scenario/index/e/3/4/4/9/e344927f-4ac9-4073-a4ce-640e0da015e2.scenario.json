@@ -1,0 +1,54 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "e344927f-4ac9-4073-a4ce-640e0da015e2",
+    "name": "Generate requirements.md from Requirement units (close the law #100 hand-drift gap)",
+    "altId": "R28.1",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-28-graph-integrity-foundation/requirements.md",
+    "sourceLine": 1,
+    "parent": "ior:instance:fabc9784-533b-49a8-a0ce-40d36d2338d8",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:c2ac1391-3d05-441e-bc73-3f1e98877b20"
+    ],
+    "priority": "medium",
+    "backlog": true,
+    "description": "requirements.md becomes a GENERATED view emitted from the sprint's Requirement units (like planning.md + task MDs already are), with a --check byte-match round-trip - so requirements.md can never hand-drift from the units. Today requirements.md is HAND-MAINTAINED (generate-sprint-md only emits planning.md + task MDs); its 'GENERATED-FROM-SCENARIO-UNITS / DO-NOT-HAND-EDIT' header is aspirational. This closes the law #100 gap by construction: the Requirement unit is the single source, the .md is derived.",
+    "tronQuote": "> PO 2026-07-02: requirements.md is hand-maintained (no generator) - the law #100 gap. Make it GENERATED from Requirement units + --check byte-match, so no hand-drift.",
+    "discoverySource": {
+      "type": "po-directive",
+      "flaggedBy": "robbin-po (+ planner measured no generator exists)",
+      "date": "2026-07-02",
+      "note": "generate-sprint-md emits planning.md + task MDs ONLY, NOT requirements.md -> requirements.md is hand-maintained + its law-#100 header is aspirational. Surfaced during the S30 re-scope (hand-edit drift). Place in S28 backlog (existing sprint, R29.4 governance - no new mint)."
+    },
+    "crossRef": [
+      "ior:instance:79bc8e34-9acb-4338-bbd0-c1f7e817ca7d"
+    ],
+    "crossRefNote": "Sibling to generate-sprint-md (R27.3 emits planning.md + task MDs). R28.1 extends the generator to requirements.md. Same --check byte-match discipline. Closes law #100 by construction (like R27.2 reuse-on-wire / R27.5 self-honest-marker: make the invariant structural, not a header).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-generated",
+        "group": "generator",
+        "text": "requirements.md is GENERATED (emitted) from the sprint's Requirement units - altId, name, requirement:uuid, tronQuote, description, acceptanceCriteria, UC arrow - matching the current format, like planning.md is generated."
+      },
+      {
+        "id": "AC-check",
+        "group": "generator",
+        "text": "generate-requirements-md --check does a byte-match round-trip (like generate-sprint-md --check / check:sprint-md); any hand-drift between requirements.md and the units FAILS CI."
+      },
+      {
+        "id": "AC-single-source",
+        "group": "generator",
+        "text": "After this, requirements.md is NEVER hand-edited; the Requirement unit is the single source and the .md is derived (the law #100 header becomes TRUE, not aspirational)."
+      },
+      {
+        "id": "AC-verify",
+        "group": "verify",
+        "text": "Regenerating requirements.md for any sprint from its Requirement units produces output byte-identical to the committed file; ci:gates includes the --check."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:fabc9784-533b-49a8-a0ce-40d36d2338d8"
+}
