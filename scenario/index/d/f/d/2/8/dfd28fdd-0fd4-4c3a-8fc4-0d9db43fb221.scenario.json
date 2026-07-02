@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "dfd28fdd-0fd4-4c3a-8fc4-0d9db43fb221",
+    "name": "test:R27.3 per-task-MD gate (every 📄 resolves 200, no collapse, roundtrip)",
+    "description": "r265-v078-per-task-md-gate.mjs (DET-3x): taskMdHref 📄 link -> HTTP 200 via pinned slug (not 404), tasks don't collapse sourceFile at planning.md, generate-sprint-md --check byte-match. Gate for generateTaskMd emit + taskMdHref (R22.1).",
+    "sourceFile": "ior:file:test/visual/r265-v078-per-task-md-gate.mjs",
+    "verifies": [
+      "ior:instance:0a542620-1669-4212-8e8c-4bd72a8d5770"
+    ]
+  },
+  "ownerIor": "ior:instance:88744d89-4520-471e-b732-2d2d2504f817"
+}
