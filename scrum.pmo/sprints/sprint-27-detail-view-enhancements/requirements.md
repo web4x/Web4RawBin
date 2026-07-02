@@ -97,7 +97,7 @@
   - [ ] **(action-row)** The action buttons (Preview / NewTab / Open) sit immediately below the drawer handle.
   - [ ] **(routing-by-type)** Routing is BY WebItem type (url-scheme / content-type) via a type-dispatch; adding a NEW scheme can never kill preview for other types (regression-proof, correct-by-construction).
   - [ ] **(proxy-ssrf-guard)** The server proxy is SSRF-hard-guarded: guardUrl (http/https only; block loopback/private/link-local/unique-local/metadata on the RESOLVED IP; DNS-rebind pin; re-check every redirect hop) + fetchSanitized (size/timeout cap, content-type allowlist, sanitize-never-execute, rate-limit/audit); guardUrl independently testable (adversarial).
-  → [UC27.7b: webItem.serverProxyFetch](./planning.md#uc27-7b)  *(server proxy + SSRF hard-guard chain)*
+  → [UC27.7b: webItem.serverProxyFetch](./planning.md#uc27-7b) `[uc:uuid:543ff7aa-506e-460a-b617-1aa6aa33a557]` *(server proxy + SSRF hard-guard chain)*
   → [UC27.7: webItemDrawer.previewByType](./planning.md#uc27-7) `[uc:uuid:d48b4dda-ee20-4af5-9136-d492f4702e1a]` *(placeholder — architect to refine; Class RbDetailDrawer/WebItemPreview + server proxy)*
 
 
