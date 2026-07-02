@@ -5,7 +5,9 @@
     "name": "ServerTUI.setupTUI impl (SHIPPED)",
     "description": "SHIPPED 8600829e4 at server.ts:2626 — setupTUI() call-gate is now process.stdout.isTTY (was !IS_PRODUCTION), so the FULL boxed dashboard renders whenever a terminal is present: prod-in-pane 0.2 = test 0.3 ([h][s][c][l][p][r][d] + --- Server Log --- live). Headless prod (no TTY) -> file-only, no ANSI. Marker [impl:uuid:02ef2352] at server.ts:2582.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:34ff57ed-919b-46cd-998e-23e362ea34ea"
+    ]
   },
   "ownerIor": "ior:instance:8614cea4-ab50-4a83-97db-c67f95bc3202"
 }

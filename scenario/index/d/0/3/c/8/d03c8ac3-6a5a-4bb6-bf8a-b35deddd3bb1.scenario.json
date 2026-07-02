@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d03c8ac3-6a5a-4bb6-bf8a-b35deddd3bb1",
+    "name": "test:R29.1 selfHealingStart (AC integration)",
+    "description": "Bridged to test/visual/r291-tui-stream-gate.mjs — TUI streaming in 0.2 proves the self-healing FOREGROUND start worked end-to-end (else no stream), DET-3x GREEN",
+    "sourceFile": "ior:file:test/visual/r291-tui-stream-gate.mjs",
+    "implementations": [
+      "ior:instance:329b5473-695c-4fde-9c79-97d53e090547"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:329b5473-695c-4fde-9c79-97d53e090547"
+}

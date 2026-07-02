@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "76fa996e-97c9-4605-bf15-d6b5d653ef80",
+    "name": "test:R29.1 addLog (AC-4 TUI-verify)",
+    "description": "Bridged to test/visual/r291-tui-stream-gate.mjs — request-log TUI streams in remoteShells:0.2 (prod)=0.3 (test), DET-3x GREEN",
+    "sourceFile": "ior:file:test/visual/r291-tui-stream-gate.mjs",
+    "implementations": [
+      "ior:instance:c8888f6d-4177-4a1f-abdf-027752dc76db"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:c8888f6d-4177-4a1f-abdf-027752dc76db"
+}
