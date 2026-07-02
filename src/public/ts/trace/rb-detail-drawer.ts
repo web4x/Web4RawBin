@@ -169,8 +169,9 @@ export class RbDetailDrawer extends HTMLElement {
         <div class="drawer-panel-detail" style="display:none"></div>
         <div class="drawer-panel-preview" style="display:none"></div>
       </div>`;
-    // [impl:uuid:e42b85e8-d844-4e7b-be17-561a82d780b9] R27.8 closeAndMinimize: grab-bar toggles peek/expand; X CLOSES (Tron intent-change, overrides R25.4 X=minimize); ESC also closes.
-    this.querySelector('.drawer-handle')!.addEventListener('click', () => { if (this.mouseMoved) return; if (this.hasAttribute('minimized')) this.expand(); else this.minimize(); });
+    // R27.8: grab-bar toggles peek/expand via closeAndMinimize() [impl marker on the method]; X CLOSES (Tron
+    // intent-change, overrides R25.4 X=minimize); ESC also closes.
+    this.querySelector('.drawer-handle')!.addEventListener('click', () => { if (this.mouseMoved) return; this.closeAndMinimize(); });
     this.querySelector('.drawer-close')!.addEventListener('click', () => this.close());
   }
 
@@ -265,6 +266,13 @@ export class RbDetailDrawer extends HTMLElement {
     const body = this.querySelector('.drawer-body') as HTMLElement | null;
     if (body) body.style.display = 'flex';
     if (this._restoreHeight) this.style.height = this._restoreHeight;
+  }
+
+  // [impl:uuid:e42b85e8-d844-4e7b-be17-561a82d780b9] R27.8 RbDetailDrawer.closeAndMinimize
+  // Grab-bar peek/expand orchestration: toggles minimized↔expanded (reuses R25.4 minimize()/expand()). Paired with
+  // X→close() + open-minimized default (7029d8728): closed → open+minimized(peek) → grab-bar → expanded; X/ESC → close.
+  closeAndMinimize(): void {
+    if (this.hasAttribute('minimized')) this.expand(); else this.minimize();
   }
 
   // BUG2: desktop grab-bar resize — mirrors the touch handlers; move/up on document so the drag
