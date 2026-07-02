@@ -101,6 +101,17 @@
   → [UC27.7: webItemDrawer.previewByType](./planning.md#uc27-7) `[uc:uuid:d48b4dda-ee20-4af5-9136-d492f4702e1a]` *(placeholder — architect to refine; Class RbDetailDrawer/WebItemPreview + server proxy)*
 
 
+- [ ] **R27.8 — Detail drawer regression: X closes + minimized-on-open** *(moved from S30 R30.2; Tron re-scope)*
+  [requirement:uuid:a5da3f93-0341-4856-90eb-bb25954c72a2]
+  > TRON 2026-07-02: drawer regression - the detail drawer must CLOSE on the X (currently doesn't), open MINIMIZED on first call, and restore the pre-regression grab-bar/minimize behavior.
+  Fix the detail-drawer regression: X (top-right) closes/collapses, drawer opens minimized on first call, restore grab-bar/minimize (ties R25.4); preserves R22.2 pan/zoom.
+  **Acceptance criteria:**
+  - [ ] **(drawer)** The detail drawer CLOSES/collapses when the X (top-right) is clicked - currently it does NOT.
+  - [ ] **(drawer)** The drawer opens MINIMIZED on first call (not expanded/empty).
+  - [ ] **(drawer)** The pre-regression grab-bar / minimize behavior is restored (ties R25.4 drawer grab-bar + X-minimize).
+  → [UC27.8: detailDrawer.closeAndMinimize](./planning.md#uc27-8) `[uc:uuid:3b6e58e3-f38b-4f88-9566-81c6be3e3a7b]` *(architect-wired -> RbDetailDrawer d86af73d closeAndMinimize, a2ec6128a)*
+
+
 ---
 
 ## Traceability Matrix
@@ -112,6 +123,7 @@
 | R27.3 | Per-task MD view generation (📄 links resolve) | 4f6d6402-fc8d-4d5d-9523-7e35af641944 | 10ef702c-3141-45c9-b669-b5bed5f373b9 |
 | R27.4 | Graph integrity: dangling UC refs + orphan Methods | e205f7c3-97d8-474a-a4e6-053a7a7f30aa | f7a06e18-5237-4640-a731-0575bc965917 |
 | R27.7 | WebItem type-aware preview drawer | 54002f11-89de-42c6-9c56-6b670053a435 | d48b4dda-ee20-4af5-9136-d492f4702e1a |
+| R27.8 | Detail drawer regression (X closes + minimized) | a5da3f93-0341-4856-90eb-bb25954c72a2 | 3b6e58e3-f38b-4f88-9566-81c6be3e3a7b |
 | R27.5 | Calibrate trace-audit orphan metric (meaningful) | f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc | 5ff15c57-503c-45f7-a4c0-82f7969d3646 |
 
 *Captured by robbin-req 2026-07-01. MD-link = R22.1 (covered). statusChecklist render = R27.1 (new, v0.7.6 retroactive-chain).*

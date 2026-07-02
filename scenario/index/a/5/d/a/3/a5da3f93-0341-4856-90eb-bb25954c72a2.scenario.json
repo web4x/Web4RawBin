@@ -3,12 +3,12 @@
   "model": {
     "uuid": "a5da3f93-0341-4856-90eb-bb25954c72a2",
     "name": "Detail drawer regression: X closes + minimized-on-open",
-    "altId": "R30.2",
+    "altId": "R27.8",
     "tasks": [],
     "tests": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-27-detail-view-enhancements/requirements.md",
     "sourceLine": 70,
-    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "parent": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a",
     "unitLinks": [],
     "useCases": [
       "ior:instance:3b6e58e3-f38b-4f88-9566-81c6be3e3a7b"
@@ -43,7 +43,8 @@
         "text": "The pre-regression grab-bar / minimize behavior is restored (ties R25.4 drawer grab-bar + X-minimize)."
       }
     ],
-    "sprintName": "Sprint 30"
+    "sprintName": "Sprint 30",
+    "movedNote": "Moved S30->S27 2026-07-02 (Tron re-scope: S30=Traceability only; drawer regression belongs in S27 detail-view). altId R30.2->R27.8. Chains reference UUIDs -> survive untouched (architect confirmed). Planner owns the sprint.requirements[] arrays + T27.8 + pin."
   },
-  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+  "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
 }
