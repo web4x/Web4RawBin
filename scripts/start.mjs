@@ -9,7 +9,7 @@
  *   (5) spawns the tsx server under node18+.
  * One-shot; only prereq = npm exists. Works with no prior `npm i` or build.
  */
-import { spawnSync, spawn, execSync } from 'node:child_process';
+import { spawnSync, execSync } from 'node:child_process';
 import { existsSync, readdirSync, realpathSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -64,7 +64,10 @@ try { execSync('sleep 1'); } catch { /* let the ports free (server uses SO_REUSE
 // (4) build
 console.log('▸ build'); run(node18, [path.join(ROOT, 'build.mjs')]);
 
-// (5) spawn the tsx server under node18+
-console.log('▸ server (tsx under node18+)');
-const srv = spawn(node18, [path.join(ROOT, 'node_modules/tsx/dist/cli.mjs'), path.join(ROOT, 'src/ts/server/server.ts')], { stdio: 'inherit', cwd: ROOT, env });
-srv.on('exit', (code) => process.exit(code ?? 0));
+// (5) run the tsx server in the FOREGROUND (BLOCKING spawnSync) so it holds the pane's controlling TTY → the
+// readline request-log TUI streams live in the pane (like WODA.test). An async spawn returns + detaches the child
+// from the TTY → silent pane. spawnSync waits on the server + inherits stdio, matching the build-step + the old
+// direct-`tsx server.ts` behavior. All self-heal (re-exec/deps/kill/build) above is unchanged.
+console.log('▸ server (tsx under node18+, foreground TTY)');
+const srv = spawnSync(node18, [path.join(ROOT, 'node_modules/tsx/dist/cli.mjs'), path.join(ROOT, 'src/ts/server/server.ts')], { stdio: 'inherit', cwd: ROOT, env });
+process.exit(srv.status ?? 0);
