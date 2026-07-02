@@ -92,10 +92,10 @@ describe('T125.1: Unit + IOR primitives', () => {
 describe('T125.2: Class loaders + registry', () => {
   it('ClassRegistry resolves all 7 class loaders', () => {
     const reg = new ClassRegistry();
-    for (const name of ['Sprint', 'Task', 'Requirement', 'UseCase', 'Class', 'Method', 'Test']) {
+    for (const name of ['Sprint', 'Task', 'Requirement', 'UseCase', 'Class', 'Method', 'Test', 'AgentMessage']) {
       expect(reg.has(iorClass(name))).toBe(true);
     }
-    expect(reg.all().length).toBe(16);
+    expect(reg.all().length).toBe(17); // +AgentMessage (S30 R30.1)
   });
 
   it('TaskLoader.create populates defaults + overrides', () => {
