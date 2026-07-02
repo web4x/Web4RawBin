@@ -73,12 +73,29 @@
         "text": "Routing is BY WebItem type (url-scheme / content-type) via a type-dispatch; adding a NEW scheme can never kill preview for other types (regression-proof, correct-by-construction)."
       },
       {
-        "id": "AC-proxy-ssrf-guard",
+        "id": "AC-proxy-guardurl",
         "group": "security",
-        "text": "The server proxy is SSRF-hard-guarded (prod, per PO): a pure socket-free guardUrl predicate allows http/https only and BLOCKS loopback/private/link-local/unique-local/metadata (169.254.169.254) on the RESOLVED IP, pins against DNS-rebind, and RE-CHECKS every redirect hop; fetchSanitized then caps size/timeout, enforces a content-type allowlist, sanitizes (never executes) the payload, and rate-limits+audits. guardUrl is independently testable with adversarial cases."
+        "text": "PRE-fetch SSRF gate: guardUrl (pure socket-free predicate) DENIES non-http/https schemes, cloud-metadata (169.254.169.254/metadata.google.internal/fd00:ec2::254, all encodings), the RESOLVED IP in private/loopback/link-local/unique-local ranges (10/8,172.16/12,192.168/16,127/8,169.254/16,0.0.0.0/8,::1,fc00::/7,fe80::/10), DNS-rebind (check+pin the resolved IP, no 2nd resolution), and re-checks EVERY redirect hop. Gated by 5 adversarial Tests (cloud-metadata / DNS-rebind / redirect-to-internal / non-http-scheme / private+loopback)."
+      },
+      {
+        "id": "AC-proxy-sanitized",
+        "group": "security",
+        "text": "POST-fetch safety: fetchSanitized caps size + timeout, enforces a content-type ALLOWLIST (html/pdf/image only), SANITIZES and NEVER executes the payload, and rate-limits + audits. Gated by >=1 sanitize-never-execute Test (+ size-cap / allowlist-reject / rate-limit). NOTE: the sanitize-never-execute Test must NOT blanket-green (same rule as T26.6 never-execute-foreign-JSON)."
       }
     ],
-    "securityNote": "SSRF hard-guard folded per PO (prod, NEW risk beyond T26.6). guardUrl (441b7f34) = pure predicate; fetchSanitized (ee3fad72) = capped/allowlisted/sanitized fetch. Class ProxyFetch 09f4cdce."
+    "securityNote": "SSRF hard-guard folded per PO (prod, NEW risk beyond T26.6). guardUrl (441b7f34) = pure predicate; fetchSanitized (ee3fad72) = capped/allowlisted/sanitized fetch. Class ProxyFetch 09f4cdce.",
+    "acTestMapping": {
+      "AC-proxy-guardurl": [
+        "guardUrl blocks cloud-metadata 169.254.169.254",
+        "guardUrl blocks DNS-rebinding",
+        "guardUrl blocks redirect-to-internal",
+        "guardUrl blocks non-http schemes",
+        "guardUrl blocks private+loopback ranges"
+      ],
+      "AC-proxy-sanitized": [
+        "(GAP) needs sanitize-never-execute + size-cap + content-type-allowlist-reject + rate-limit Tests \u2014 fetchSanitized has 0 tests"
+      ]
+    }
   },
   "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
 }
