@@ -3,7 +3,7 @@
   "model": {
     "uuid": "e42b85e8-d844-4e7b-be17-561a82d780b9",
     "name": "RbDetailDrawer.closeAndMinimize impl",
-    "description": "DESIGN-AHEAD: rb-detail-drawer.ts: wire X-click -> close/collapse; open-minimized default; restore grab-bar to re-expand. Preserve pan/zoom(R22.2) + drawer chrome(R25.4).",
+    "description": "DESIGN-AHEAD (R27.8 drawer regression fix). MEASURED ROOT CAUSE in rb-detail-drawer.ts: (1) X doesnt close = .drawer-close click wired to minimize() at :173 (R25.4/BUG3 designed X=minimize-peek, ESC=close — Tron reverses: X must close). (2) not-minimized-on-open = attributeChangedCallback :84 sets open but NOT minimized -> opens expanded/empty. (3) grab-bar regressed = open-expanded + X=minimize makes the peek/restore states read backwards. FIX: (a) :173 .drawer-close -> this.close() not minimize(); (b) :84 also setAttribute(minimized) on first open (open-minimized peek); (c) grab-bar :172 already toggles minimized->expand = the restore, works once open-minimized is default. Preserve R22.2 pan/zoom + the R25.4 minimize()/expand() (reused, not removed). ESC->close (:303) unchanged.",
     "sourceFile": "ior:file:src/public/ts/room/rb-detail-drawer.ts",
     "designAhead": true,
     "tests": []
