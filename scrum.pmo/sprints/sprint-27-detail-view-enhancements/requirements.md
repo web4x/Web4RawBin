@@ -81,6 +81,24 @@
   → [UC27.5: traceAudit.calibrateOrphanMetric](./planning.md#uc27-5) `[uc:uuid:5ff15c57-503c-45f7-a4c0-82f7969d3646]` *(placeholder — architect to refine; Class trace-audit)*
 
 
+- [ ] **R27.7 — WebItem type-aware preview drawer** *(Tron directive 2026-07-02; regression v0.7.8 + enhancement)*
+  [requirement:uuid:54002f11-89de-42c6-9c56-6b670053a435]
+  > TRON: v0.6.56 had a WebItem preview; v0.7.8 KILLED it when mailto handling routed ALL webitems to the launcher-card. Restore + enhance: type-aware preview (http/https live + proxy fallback, pdf embed), launcher only for mailto/message/tel/calendar, preview-first layout, zoom preserved with reset-overlay, routing BY type so a new scheme never regresses preview.
+  The WebItem detail drawer renders a TYPE-AWARE preview (http/https live iframe + server-proxy fallback, pdf embed; launcher for mailto/message/tel/calendar), preview-first layout, zoom+pan preserved with a reset-zoom overlay, routed BY WebItem type so adding a scheme never kills preview for others.
+  *(regression: v0.7.8 mailto->launcher routed ALL webitems; v0.6.56 had preview. crossRef R22.2 drawer pan/zoom.)*
+  **Acceptance criteria:**
+  - [ ] **(http-preview)** An http/https WebItem shows a LIVE preview (iframe/embed of the URL) in the detail drawer.
+  - [ ] **(proxy-fallback)** When CORS/X-Frame-Options blocks the iframe, the server SIDE-PROXIES the URL (server fetches it) and the preview renders the server-proxied content - never a dead/blank frame.
+  - [ ] **(pdf-embed)** A pdf WebItem/file renders a pdf preview embed.
+  - [ ] **(launcher-only)** mailto / message: / tel / calendar show NO preview and a launcher/Open card that opens in the original app; this 'different handling' must NOT kill http/https preview.
+  - [ ] **(layout-previewable)** Previewable items (http/https/pdf) layout order = [handle] -> [action buttons: Preview / NewTab] -> [PREVIEW pane] -> [file details BELOW]; preview-first, details below (reversed from the old details-first order).
+  - [ ] **(layout-launcher)** Non-previewable items use the launcher layout: details + Open below the handle.
+  - [ ] **(zoom-preserved)** Zoom + pan is preserved (R22.2 / R25.x); the RESET-ZOOM control is an OVERLAY button INSIDE the preview pane, NOT in the action-button row.
+  - [ ] **(action-row)** The action buttons (Preview / NewTab / Open) sit immediately below the drawer handle.
+  - [ ] **(routing-by-type)** Routing is BY WebItem type (url-scheme / content-type) via a type-dispatch; adding a NEW scheme can never kill preview for other types (regression-proof, correct-by-construction).
+  → [UC27.7: webItemDrawer.previewByType](./planning.md#uc27-7) `[uc:uuid:d48b4dda-ee20-4af5-9136-d492f4702e1a]` *(placeholder — architect to refine; Class RbDetailDrawer/WebItemPreview + server proxy)*
+
+
 ---
 
 ## Traceability Matrix
@@ -91,6 +109,7 @@
 | R27.2 | One canonical Class unit per code class | 64965538-2725-4ef2-92e7-c1be6cd58d6f | 37c52953-654f-47c1-8710-b851b706849d |
 | R27.3 | Per-task MD view generation (📄 links resolve) | 4f6d6402-fc8d-4d5d-9523-7e35af641944 | 10ef702c-3141-45c9-b669-b5bed5f373b9 |
 | R27.4 | Graph integrity: dangling UC refs + orphan Methods | e205f7c3-97d8-474a-a4e6-053a7a7f30aa | f7a06e18-5237-4640-a731-0575bc965917 |
+| R27.7 | WebItem type-aware preview drawer | 54002f11-89de-42c6-9c56-6b670053a435 | d48b4dda-ee20-4af5-9136-d492f4702e1a |
 | R27.5 | Calibrate trace-audit orphan metric (meaningful) | f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc | 5ff15c57-503c-45f7-a4c0-82f7969d3646 |
 
 *Captured by robbin-req 2026-07-01. MD-link = R22.1 (covered). statusChecklist render = R27.1 (new, v0.7.6 retroactive-chain).*
