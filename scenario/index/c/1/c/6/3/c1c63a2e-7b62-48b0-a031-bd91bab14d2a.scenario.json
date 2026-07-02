@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "c1c63a2e-7b62-48b0-a031-bd91bab14d2a",
-    "name": "Sprint 27 \u2014 Detail View Enhancements",
+    "name": "Sprint 27 — Detail View Enhancements",
     "number": 27,
     "goal": "Enhance the scenario/task detail views. R27.1: render the task status checklist visually from the unit's statusChecklist field. MD-file link is covered by R22.1. Home for future detail-view enhancements.",
     "status": "Planned",
@@ -18,7 +18,8 @@
       "ior:instance:8b15788a-e881-4bff-b9bf-ada1c48b262f",
       "ior:instance:dbd7e30d-263c-4d01-81eb-b687854ca961",
       "ior:instance:788bc972-145d-476a-877b-8fecbf037ef4",
-      "ior:instance:cd974edc-1a71-4f47-80f0-966e6a252abd"
+      "ior:instance:cd974edc-1a71-4f47-80f0-966e6a252abd",
+      "ior:instance:b849fda2-b15d-4567-8a73-79d2567ec396"
     ],
     "createdAt": "2026-07-01",
     "createdBy": "robbin-req",

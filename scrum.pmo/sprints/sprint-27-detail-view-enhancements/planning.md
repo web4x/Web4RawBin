@@ -16,4 +16,4 @@ Enhance the scenario/task detail views. R27.1: render the task status checklist 
 - [ ] [Task 27.1: Task detail renders the status checklist visually](./task-27.1-task-detail-status-checklist.md)
 - [x] [Task 27.2: Class-unit dedup gated migration (one canonical Class per code class)](./task-27.2-class-unit-dedup-migration.md)
 - [ ] [Task 27.4: Graph integrity — resolve/prune dangling UC refs + orphan Methods](./task-27.4-graph-integrity-cleanup.md)
-| <a id="uc27-7"></a>UC27.7 | webItemDrawer.previewByType | d48b4dda-ee20-4af5-9136-d492f4702e1a | R27.7 | RbDetailDrawer/WebItemPreview |
+- [ ] [Task 27.7: WebItem type-aware preview drawer](./task-27.7-webitem-type-aware-preview-drawer.md)
