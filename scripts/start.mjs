@@ -31,43 +31,52 @@ function findNode18() {
   return null;
 }
 
-const node18 = findNode18();
-if (!node18) { console.error('✗ start: no node18+ found (tsx needs node18+). Install node18+ or expose it on PATH as node18/node20/node22, or via a vscode-server node / nvm.'); process.exit(1); }
+// [impl:uuid:329b5473-695c-4fde-9c79-97d53e090547] R29.1 ServerLauncher.selfHealingStart — orchestrate the self-heal
+function selfHealingStart() {
+  const node18 = findNode18();
+  if (!node18) { console.error('✗ start: no node18+ found (tsx needs node18+). Install node18+ or expose it on PATH as node18/node20/node22, or via a vscode-server node / nvm.'); process.exit(1); }
 
-// (1) re-exec self under node18+ if the current process is too old
-if (major(process.version) < 18) {
-  console.log(`↻ start: current node ${process.version} <18 → re-exec under ${node18} (${ver(node18)})`);
-  const r = spawnSync(node18, [SELF, ...process.argv.slice(2)], { stdio: 'inherit', cwd: ROOT });
-  process.exit(r.status ?? 1);
+  // (1) re-exec self under node18+ if the current process is too old
+  if (major(process.version) < 18) {
+    console.log(`↻ start: current node ${process.version} <18 → re-exec under ${node18} (${ver(node18)})`);
+    const r = spawnSync(node18, [SELF, ...process.argv.slice(2)], { stdio: 'inherit', cwd: ROOT });
+    process.exit(r.status ?? 1);
+  }
+
+  // running under node18+ from here — put its REAL bindir first so `npm`/child node calls also use it (resolve the
+  // `node22` symlink → /opt/node22/bin, which actually holds node/npm/npx; a symlink dir would leave `node`=system node)
+  let realNode = node18; try { realNode = realpathSync(node18); } catch { /* keep */ }
+  const env = { ...process.env, PATH: `${path.dirname(realNode)}:${process.env.PATH}` };
+  const run = (cmd, args) => { const r = spawnSync(cmd, args, { stdio: 'inherit', cwd: ROOT, env }); if (r.status !== 0) { console.error(`✗ start: '${cmd} ${args.join(' ')}' exited ${r.status}`); process.exit(r.status ?? 1); } };
+
+  console.log(`▸ start: node ${ver(node18)} @ ${node18}`);
+
+  // (2) npm i if node_modules missing
+  if (!existsSync(path.join(ROOT, 'node_modules'))) { console.log('▸ node_modules missing → npm i'); run('npm', ['i']); }
+
+  // (3) kill any server already on the ports (fresh restart)
+  for (const port of PORTS) {
+    try {
+      const pids = execSync(`lsof -ti tcp:${port} 2>/dev/null || true`, { shell: '/bin/bash' }).toString().trim().split(/\s+/).filter(Boolean);
+      for (const pid of pids) { try { process.kill(parseInt(pid, 10), 'SIGTERM'); console.log(`▸ killed pid ${pid} on :${port}`); } catch { /* already gone */ } }
+    } catch { /* lsof miss */ }
+  }
+  try { execSync('sleep 1'); } catch { /* let the ports free (server uses SO_REUSEADDR anyway) */ }
+
+  // (4) build
+  console.log('▸ build'); run(node18, [path.join(ROOT, 'build.mjs')]);
+
+  // (5) foreground server (holds the pane TTY)
+  runServerForeground(node18, env);
 }
 
-// running under node18+ from here — put its REAL bindir first so `npm`/child node calls also use it (resolve the
-// `node22` symlink → /opt/node22/bin, which actually holds node/npm/npx; a symlink dir would leave `node`=system node)
-let realNode = node18; try { realNode = realpathSync(node18); } catch { /* keep */ }
-const env = { ...process.env, PATH: `${path.dirname(realNode)}:${process.env.PATH}` };
-const run = (cmd, args) => { const r = spawnSync(cmd, args, { stdio: 'inherit', cwd: ROOT, env }); if (r.status !== 0) { console.error(`✗ start: '${cmd} ${args.join(' ')}' exited ${r.status}`); process.exit(r.status ?? 1); } };
-
-console.log(`▸ start: node ${ver(node18)} @ ${node18}`);
-
-// (2) npm i if node_modules missing
-if (!existsSync(path.join(ROOT, 'node_modules'))) { console.log('▸ node_modules missing → npm i'); run('npm', ['i']); }
-
-// (3) kill any server already on the ports (fresh restart)
-for (const port of PORTS) {
-  try {
-    const pids = execSync(`lsof -ti tcp:${port} 2>/dev/null || true`, { shell: '/bin/bash' }).toString().trim().split(/\s+/).filter(Boolean);
-    for (const pid of pids) { try { process.kill(parseInt(pid, 10), 'SIGTERM'); console.log(`▸ killed pid ${pid} on :${port}`); } catch { /* already gone */ } }
-  } catch { /* lsof miss */ }
+// [impl:uuid:fbef44bc-efea-42b2-aab0-7fef82afd41e] R29.1 ServerLauncher.runServerForeground — blocking foreground server spawn (holds pane TTY)
+// An async spawn detaches the child from the pane's controlling TTY → silent pane; blocking spawnSync waits on the
+// server + inherits stdio, so the request-log streams live in the pane (matches the build-step + old direct-tsx).
+function runServerForeground(node, environ) {
+  console.log('▸ server (tsx under node18+, foreground TTY)');
+  const srv = spawnSync(node, [path.join(ROOT, 'node_modules/tsx/dist/cli.mjs'), path.join(ROOT, 'src/ts/server/server.ts')], { stdio: 'inherit', cwd: ROOT, env: environ });
+  process.exit(srv.status ?? 0);
 }
-try { execSync('sleep 1'); } catch { /* let the ports free (server uses SO_REUSEADDR anyway) */ }
 
-// (4) build
-console.log('▸ build'); run(node18, [path.join(ROOT, 'build.mjs')]);
-
-// (5) run the tsx server in the FOREGROUND (BLOCKING spawnSync) so it holds the pane's controlling TTY → the
-// readline request-log TUI streams live in the pane (like WODA.test). An async spawn returns + detaches the child
-// from the TTY → silent pane. spawnSync waits on the server + inherits stdio, matching the build-step + the old
-// direct-`tsx server.ts` behavior. All self-heal (re-exec/deps/kill/build) above is unchanged.
-console.log('▸ server (tsx under node18+, foreground TTY)');
-const srv = spawnSync(node18, [path.join(ROOT, 'node_modules/tsx/dist/cli.mjs'), path.join(ROOT, 'src/ts/server/server.ts')], { stdio: 'inherit', cwd: ROOT, env });
-process.exit(srv.status ?? 0);
+selfHealingStart();
