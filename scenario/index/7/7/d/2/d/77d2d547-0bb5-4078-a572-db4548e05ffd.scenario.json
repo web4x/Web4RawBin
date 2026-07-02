@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "77d2d547-0bb5-4078-a572-db4548e05ffd",
+    "name": "fetchSanitized rate-limits + audit-logs",
+    "description": "DESIGN-AHEAD adversarial POST-fetch test: repeated proxied fetches are rate-limited; every fetch is audit-logged (origin, url, resolved-IP, verdict) like the Nominatim worker.",
+    "testCases": []
+  },
+  "ownerIor": "ior:instance:31c58c73-c52d-4785-b4ea-7c0ecb38ba56"
+}

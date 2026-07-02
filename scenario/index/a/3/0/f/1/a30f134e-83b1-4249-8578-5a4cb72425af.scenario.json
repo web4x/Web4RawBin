@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a30f134e-83b1-4249-8578-5a4cb72425af",
+    "name": "fetchSanitized rejects non-allowlisted content-type",
+    "description": "DESIGN-AHEAD adversarial POST-fetch test: content-type outside {text/html, application/pdf, image/*} is REJECTED (application/octet-stream, application/javascript, text/xml -> deny).",
+    "testCases": []
+  },
+  "ownerIor": "ior:instance:31c58c73-c52d-4785-b4ea-7c0ecb38ba56"
+}

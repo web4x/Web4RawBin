@@ -6,7 +6,12 @@
     "description": "DESIGN-AHEAD (#126): After guardUrl passes: fetch with size-cap+timeout, content-type allowlist (html/pdf/image), SANITIZE (strip script/handlers/js:+data: uris) + restrictive CSP, NEVER execute, rate-limit+audit-log. Reuse federation/T26.6 sanitize discipline.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "designAhead": true,
-    "tests": []
+    "tests": [
+      "ior:instance:12e2f21a-4e30-475a-bf23-acd5a8b73a8e",
+      "ior:instance:ec56967a-af76-49e3-8c80-3cacf5f55a69",
+      "ior:instance:a30f134e-83b1-4249-8578-5a4cb72425af",
+      "ior:instance:77d2d547-0bb5-4078-a572-db4548e05ffd"
+    ]
   },
   "ownerIor": "ior:instance:ee3fad72-cfa1-411a-92d3-b11941b8123d"
 }
