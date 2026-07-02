@@ -10,9 +10,8 @@
     ],
     "tests": [
       "ior:instance:dfd28fdd-0fd4-4c3a-8fc4-0d9db43fb221"
-    ],
-    "ownerIor": "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c"
+    ]
   },
-  "ownerIor": "ior:instance:435cb4ea-1434-490a-8522-102c611bd1c1",
+  "ownerIor": "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c",
   "__f": "/var/dev/Workspaces/web4x/Web4RawBin/scenario/index/0/a/5/4/2/0a542620-1669-4212-8e8c-4bd72a8d5770.scenario.json"
 }

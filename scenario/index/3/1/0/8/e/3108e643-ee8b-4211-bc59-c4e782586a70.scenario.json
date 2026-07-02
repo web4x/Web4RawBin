@@ -11,9 +11,8 @@
     "implementations": [
       "ior:instance:ee738f5f-ad04-4435-a38b-ccf1d124332f"
     ],
-    "parent": "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c",
-    "ownerIor": "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c"
+    "parent": "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c"
   },
-  "ownerIor": "ior:instance:efbaa376-b0bb-4e1e-8269-4959d941e96b",
+  "ownerIor": "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c",
   "__f": "/var/dev/Workspaces/web4x/Web4RawBin/scenario/index/3/1/0/8/e/3108e643-ee8b-4211-bc59-c4e782586a70.scenario.json"
 }
