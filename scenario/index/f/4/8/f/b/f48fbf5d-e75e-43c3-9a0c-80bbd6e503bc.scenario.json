@@ -27,8 +27,7 @@
     "crossRef": [
       "ior:instance:e205f7c3-97d8-474a-a4e6-053a7a7f30aa",
       "ior:instance:79bc8e34-9acb-4338-bbd0-c1f7e817ca7d",
-      "ior:instance:3a7d4df2-7588-4b09-a959-21708d68b8b1",
-      "ior:instance:ad69dfa4-00a0-4874-b7e3-0075f6c6d927"
+      "ior:instance:3a7d4df2-7588-4b09-a959-21708d68b8b1"
     ],
     "crossRefNote": "R27.5 = the INSTRUMENT (registry + honest metric); R27.6 = the DEBT it surfaces; R27.4 = where the first hidden slots (ownerIor, Test.methods) appeared; R24.5 owns trace:audit:strict.",
     "acceptanceCriteria": [
