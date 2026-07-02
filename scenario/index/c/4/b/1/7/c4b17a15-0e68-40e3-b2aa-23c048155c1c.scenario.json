@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c4b17a15-0e68-40e3-b2aa-23c048155c1c",
+    "name": "test:R25.7 evictAbsorbedFromRooms gate",
+    "description": "Bridged to test/visual/r258-v070-gate.mjs — orphan-ghost member skipped, Heartspaces 1 Marcel (DET-3x GREEN)",
+    "sourceFile": "ior:file:test/visual/r258-v070-gate.mjs",
+    "implementations": [
+      "ior:instance:64dba09d-11cf-4866-a03d-dea820e97a1e"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:64dba09d-11cf-4866-a03d-dea820e97a1e"
+}

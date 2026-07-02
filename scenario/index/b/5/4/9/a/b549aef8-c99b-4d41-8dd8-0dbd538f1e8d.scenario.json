@@ -6,7 +6,9 @@
     "sourceFile": "src/public/ts/components/rb-member-list.ts",
     "sourceLine": 1,
     "unitLinks": [],
-    "tests": []
+    "tests": [
+      "ior:instance:11d5925a-f714-4164-a23a-97e1a8be2aed"
+    ]
   },
   "ownerIor": null
 }

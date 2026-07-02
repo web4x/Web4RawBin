@@ -5,7 +5,8 @@
     "name": "RbUseCaseDetail",
     "file": "[class:uuid:84a94745-95b3-406c-8180-56ccef63b31b]",
     "methods": [
-      "ior:instance:4d954650-f352-46f5-b992-a905628c84b2"
+      "ior:instance:4d954650-f352-46f5-b992-a905628c84b2",
+      "ior:instance:00d9e37e-46ef-40d1-9e1c-7243ace69729"
     ],
     "useCases": []
   },

@@ -16,6 +16,11 @@
       "class": "RbDetailDrawer / per-type detail view",
       "method": "renderSourceLinks (per-type dispatch)",
       "test": "RED: open R20.26 detail \u2192 assert source link(s) present + clickable. Links must be CLICKABLE (navigate on click, not just text). Currently FAILS."
+    },
+    "architectDesign": {
+      "pattern": "Test units have model.file (the test spec file path). Render a clickable link: \ud83e\uddea Test source \u2192 /edit/<path>?line=<line>. fill-source-locations.ts already populates model.sourceFile for Test from [test:uuid:] markers.",
+      "gate": "Open a Test detail \u2192 test file:line link renders and navigates to /edit at the correct line.",
+      "status": "design-ahead-queued"
     }
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

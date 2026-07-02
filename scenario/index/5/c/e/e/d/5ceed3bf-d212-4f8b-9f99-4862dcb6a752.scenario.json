@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "5ceed3bf-d212-4f8b-9f99-4862dcb6a752",
+    "name": "Profile",
+    "description": "Sprint 21 design-ahead class for profile.dropVCard.",
+    "methods": [
+      "ior:instance:1f796020-d825-40cb-b22c-4003eb12921e"
+    ]
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:1f44dc44-f502-491f-b8cc-396fe38542e8",
+  "model": {
+    "uuid": "e06ac168-d68d-48b8-82d8-2bfa65f22f74",
+    "name": "impl:RbObjectItem.selectedCSS",
+    "status": "active",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml"
+  }
+}

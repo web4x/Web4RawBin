@@ -53,6 +53,11 @@ fs.writeFileSync(path.join(distDir, 'build-manifest.json'), JSON.stringify(manif
 // Stamp CACHE_NAME + STATIC_SHELL in sw.js with current version + hashed bundles
 const swPath = 'src/public/sw.js';
 let swContent = fs.readFileSync(swPath, 'utf-8');
+// R21.x guard: sw.js is stamped by regex-replace, which cannot regenerate an emptied
+// file. An empty/truncated sw.js → silent dead PWA (regressed v0.6.55). Fail loudly.
+if (!swContent.includes('CACHE_NAME') || !swContent.includes('STATIC_SHELL')) {
+  throw new Error(`sw.js is empty or malformed (${swContent.length} bytes) — cannot stamp. Restore from a known-good commit.`);
+}
 swContent = swContent.replace(/const CACHE_NAME = 'rawbin-v[^']*';/, `const CACHE_NAME = 'rawbin-v${pkg.version}';`);
 const shellEntries = [
   '/app', '/app.css', '/manifest.json', '/icon-180.png', '/icon-192.png', '/icon-512.png',

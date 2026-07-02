@@ -4,7 +4,9 @@
     "uuid": "79601135-a1b2-4c3d-8e4f-5a6b7c8d9e03",
     "name": "rb-detail-drawer impl marker",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:0b7d18d9-247e-4261-8430-ef5fbc88ad10"
+    ]
   },
   "ownerIor": null
 }

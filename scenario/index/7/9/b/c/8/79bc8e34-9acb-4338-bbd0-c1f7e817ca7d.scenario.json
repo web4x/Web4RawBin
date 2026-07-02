@@ -1,0 +1,49 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "79bc8e34-9acb-4338-bbd0-c1f7e817ca7d",
+    "name": "Traceability audit skill (chain integrity + CI gate)",
+    "altId": "R24.5",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-24-traceability-skills/requirements.md",
+    "sourceLine": 66,
+    "parent": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:099aa3ed-9e0b-44af-9333-938927f24b6f"
+    ],
+    "description": "Chain integrity is audited by an Object.verb skill surface (trace-cli.ts + scripts/trace-audit.ts) exposing trace:check, trace:fix, trace:audit and trace:audit:strict: the audit walks the chain and asserts every Test is reachable from a Requirement root via the 6-step canonical chain, strict mode fails on any gap, and it is wired into the ci:gates pipeline.",
+    "implRef": "ior:file:src/ts/server/trace-cli.ts (check/fix) + scripts/trace-audit.ts (auditAll/walk, --strict) + npm trace:check/trace:fix/trace:audit:strict + ci:gates",
+    "poDirective": "PO directive 2026-06-29: formalize the scattered traceability + MD-planning TS tools (planner-drive.ts, objectVerb.ts, generate-sprint-md.ts, trace-cli.ts/trace-audit.ts) as a coherent OOSH-like SKILL set - pin management, chain scoring, sprint planning, traceability audit.",
+    "sourceNote": "PO-formulated main goal (not a verbatim Tron literal); formalizes existing impl. Grounded per implRef.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1",
+        "group": "check",
+        "text": "trace:check reports chain-integrity issues (missing/dangling links) across the scenario index."
+      },
+      {
+        "id": "AC-2",
+        "group": "fix",
+        "text": "trace:fix repairs the mechanically-fixable chain issues."
+      },
+      {
+        "id": "AC-3",
+        "group": "strict",
+        "text": "trace:audit:strict asserts every Test is reachable from a Requirement root via the 6-step chain and FAILS on any gap."
+      },
+      {
+        "id": "AC-4",
+        "group": "ci",
+        "text": "trace:audit:strict is part of the ci:gates pipeline (nothing ships chain-open)."
+      },
+      {
+        "id": "AC-5",
+        "group": "walk",
+        "text": "The audit walks the forward chain per type (FORWARD_KEYS), reporting per-Test reachable depth and offending UUIDs."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"
+}

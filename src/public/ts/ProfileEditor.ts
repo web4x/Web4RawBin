@@ -18,15 +18,25 @@ export class ProfileEditor {
   private overlay: HTMLElement | null = null;
   private mode: 'normal' | 'gate' = 'normal';
   private onSave: ((data: ProfileData) => void) | null = null;
+  private existingProfileUuid = ''; // v0.6.93: set when a dropped vCard's phone matches an existing profile → unlock-mode
 
   constructor(client: RawBinClient) {
     this.client = client;
+    // v0.6.93 identity recognition: unlock-mode enroll outcomes
+    this.client.on(MSG.DEVICE_ENROLL_OK, () => {
+      if (this.existingProfileUuid) { this.existingProfileUuid = ''; this.close(); } // re-identify + proceed handled by the TOKEN_REDIRECT flow
+    });
+    this.client.on(MSG.DEVICE_ENROLL_FAILED, (msg: any) => {
+      if (this.existingProfileUuid) { const e = document.getElementById('pe-unlock-err'); if (e) e.textContent = msg?.reason || 'Wrong secret code — try again'; }
+    });
     this.client.on(MSG.PROFILE_UPDATED, (msg) => {
+      // R21.2: always persist the canonical name (not only on the gate onSave path)
+      // so the lobby reads it on next construction even if the live update is missed.
+      if (msg.profile?.name) localStorage.setItem('rawbin-name', msg.profile.name);
       if (this.onSave && msg.profile) {
         const cb = this.onSave;
         this.onSave = null;        // clear BEFORE invoking — one-shot
         cb(msg.profile);
-        if (msg.profile.name) localStorage.setItem('rawbin-name', msg.profile.name);
       }
       this.close();
     });
@@ -35,6 +45,7 @@ export class ProfileEditor {
   open(initial: Partial<ProfileData> = {}, mode: 'normal' | 'gate' = 'normal', onSave?: (data: ProfileData) => void): void {
     this.mode = mode;
     this.onSave = onSave || null;
+    this.existingProfileUuid = ''; // v0.6.93: reset unlock-mode on each open
     if (this.overlay) this.close();
 
     this.overlay = document.createElement('div');
@@ -89,6 +100,13 @@ export class ProfileEditor {
   private setupEvents(): void {
     document.getElementById('pe-close')?.addEventListener('click', () => this.close());
 
+    // R21.4: for a NEW (uncommitted) identity, a phone already in the index triggers a
+    // device-link challenge instead of minting a new user. Check on phone blur.
+    document.getElementById('pe-phone')?.addEventListener('blur', (e) => {
+      const phone = (e.target as HTMLInputElement).value.trim();
+      if (phone) this.client.checkKnownKey(phone, undefined);
+    });
+
     // T142: vCard import handlers
     document.getElementById('pe-import-vcard')?.addEventListener('click', () => {
       (document.getElementById('pe-vcf-input') as HTMLInputElement)?.click();
@@ -97,8 +115,15 @@ export class ProfileEditor {
       const file = (e.target as HTMLInputElement).files?.[0];
       if (!file) return;
       try {
-        const vcf = parseVCard(await file.text());
+        const text = await file.text();
+        const vcf = parseVCard(text);
         this.applyVCard(vcf);
+        // R20.31: store .vcf on server
+        const token = this.client.playerToken; // R21.1 fix: was localStorage('rawbin-player-token') which is never set (key is 'rawbin-player-id')
+        if (token) {
+          const b64 = btoa(unescape(encodeURIComponent(text)));
+          fetch('/api/vcard', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playerToken: token, data: b64 }) }).catch(() => {});
+        }
       } catch { this.showVCardError('Could not parse this vCard'); }
     });
     const overlay = this.overlay!;
@@ -109,9 +134,15 @@ export class ProfileEditor {
       const file = e.dataTransfer?.files[0];
       if (!file || (!file.name.endsWith('.vcf') && file.type !== 'text/vcard')) { this.showVCardError('Please drop a .vcf file'); return; }
       try {
-        const vcf = parseVCard(await file.text());
+        const text = await file.text();
+        const vcf = parseVCard(text);
         if (!vcf.fn && !vcf.tel && !vcf.url && !vcf.photo) { this.showVCardError('No profile data found'); return; }
         this.applyVCard(vcf);
+        const token = this.client.playerToken; // R21.1 fix: was localStorage('rawbin-player-token') which is never set (key is 'rawbin-player-id')
+        if (token) {
+          const b64 = btoa(unescape(encodeURIComponent(text)));
+          fetch('/api/vcard', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playerToken: token, data: b64 }) }).catch(() => {});
+        }
       } catch { this.showVCardError('Could not read this file'); }
     });
 
@@ -128,6 +159,13 @@ export class ProfileEditor {
     }
 
     document.getElementById('pe-save')?.addEventListener('click', () => {
+      // v0.6.93: unlock-mode → DEVICE_ENROLL to the matched existing profile (no new UUID)
+      if (this.existingProfileUuid) {
+        const code = (document.getElementById('pe-code') as HTMLInputElement).value.trim();
+        if (!/^\d{4}$/.test(code)) { const e = document.getElementById('pe-unlock-err'); if (e) e.textContent = 'Enter your 4-digit secret code'; return; }
+        this.client.send({ type: MSG.DEVICE_ENROLL_REQUEST, profileUuid: this.existingProfileUuid, secretCode: code });
+        return;
+      }
       const name = (document.getElementById('pe-name') as HTMLInputElement).value.trim();
       const phone = (document.getElementById('pe-phone') as HTMLInputElement).value.trim();
       const url = (document.getElementById('pe-url') as HTMLInputElement).value.trim();
@@ -157,13 +195,45 @@ export class ProfileEditor {
     }
   }
 
+  // v0.6.93: the dropped vCard's phone matches an existing profile → flip the gate to "unlock device"
+  // (DEVICE_ENROLL to that profile on correct secret code) instead of creating a new one.
+  // [impl:uuid:b3c5a6f5-62c5-422f-8a81-bd750657b791] R25.x ProfileEditor.switchToUnlock (recognizeIdentity)
+  private switchToUnlock(profileUuid: string, maskedName: string): void {
+    if (!this.overlay) return;
+    this.existingProfileUuid = profileUuid;
+    const sheet = this.overlay.querySelector('.profile-sheet');
+    const h3 = sheet?.querySelector('h3'); if (h3) h3.textContent = 'User already exists';
+    const imp = sheet?.querySelector('.profile-vcard-import') as HTMLElement | null; if (imp) imp.style.display = 'none';
+    const hdr = sheet?.querySelector('.profile-header');
+    if (hdr && !document.getElementById('pe-unlock-banner')) {
+      const banner = document.createElement('div');
+      banner.id = 'pe-unlock-banner';
+      banner.style.cssText = 'padding:12px;margin:8px 0;background:rgba(255,152,0,0.12);border-radius:8px;color:#e0e0e0;font-size:0.85rem';
+      banner.innerHTML = `🔓 Unlock device with your secret code${maskedName ? ` — <strong>${maskedName.replace(/[<>]/g, '')}</strong>` : ''}<div id="pe-unlock-err" style="color:#ff6b6b;font-size:0.8rem;margin-top:6px"></div>`;
+      hdr.insertAdjacentElement('afterend', banner);
+    }
+    const save = document.getElementById('pe-save') as HTMLButtonElement | null;
+    if (save) { save.textContent = '🔓 Unlock'; save.disabled = false; }
+    (document.getElementById('pe-code') as HTMLInputElement | null)?.focus();
+  }
+
+  // [impl:uuid:d1337706-80fa-48ba-a0a0-5b9cc42e2511] R21.1 Profile.applyVCard — vCard drop/import → photo→avatar + POST /api/vcard
   private applyVCard(vcf: VCardData): void {
     if (vcf.fn) {
       const nameInput = document.getElementById('pe-name') as HTMLInputElement;
       nameInput.value = vcf.fn;
       nameInput.dispatchEvent(new Event('input'));
     }
-    if (vcf.tel) (document.getElementById('pe-phone') as HTMLInputElement).value = vcf.tel;
+    if (vcf.tel) {
+      (document.getElementById('pe-phone') as HTMLInputElement).value = vcf.tel;
+      // v0.6.93 identity recognition: if this phone already has a profile, switch to device-unlock
+      // (DEVICE_ENROLL to the existing profile) instead of minting a new one. Server normalizes the number.
+      if (this.mode === 'gate') {
+        fetch(`/api/phone/${encodeURIComponent(vcf.tel)}`).then(r => r.ok ? r.json() : null).then(d => {
+          if (d?.profileUuid) this.switchToUnlock(d.profileUuid, d.maskedName || '');
+        }).catch(() => {});
+      }
+    }
     if (vcf.url) (document.getElementById('pe-url') as HTMLInputElement).value = vcf.url;
     if (vcf.photo) {
       const avatar = document.getElementById('pe-avatar') as any;

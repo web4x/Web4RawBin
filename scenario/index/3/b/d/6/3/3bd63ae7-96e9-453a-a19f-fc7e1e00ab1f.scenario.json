@@ -1,0 +1,195 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "3bd63ae7-96e9-453a-a19f-fc7e1e00ab1f",
+    "name": "Phones as scenario units, seed Tron",
+    "altId": "R21.6",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/requirements.md",
+    "sourceLine": 77,
+    "parent": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:4242f9be-20c4-47c7-8035-d395413d7915"
+    ],
+    "description": "Each phone is an ior:class:Phone scenario unit linked to its profile via the relationship pattern, with the standardized +CountryCode-digits format enforced at creation; a profile may carry multiple phones, and Tron's phone +4915253844085 is seeded as the first Phone unit on his WODA.prod profile.",
+    "tronQuote": "> TRON: \"ior:class:Phone linked to profile. Multiple phones per profile. Standardized format enforced at creation.\" | TRON (seed answer #1): \"Seed Tron's phone +4915253844085 as the FIRST Phone unit linked to his profile on WODA.prod.\"",
+    "architectureRef": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/architecture.md#1-object-graph + #2-alternate-uuid-index (lines 16-63)",
+    "implRef": "ior:file:src/ts/scenario/PhoneIndex.ts (v0.6.69 shipped): normalizePhone L18-23, isValidPhoneKey L26-28, mintAndLink L53-78 [impl:uuid:801f53b3-c710-4204-91db-d71bcb773cd9], registerSymlink L38-44",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-a1",
+        "group": "unit-shape",
+        "text": "A phone is minted as an ior:class:Phone unit with model { uuid, e164, ownerIor } AND a top-level ownerIor; both ownerIor === ior:instance:<profileUuid>."
+      },
+      {
+        "id": "AC-a2",
+        "group": "unit-shape",
+        "text": "model.e164 stores the NORMALIZED canonical key (normalizePhone output), never the raw input string."
+      },
+      {
+        "id": "AC-a3",
+        "group": "unit-shape",
+        "text": "The caller supplies the v4 uuid (PhoneIndex is runtime-crypto-free); the server passes crypto.randomUUID()."
+      },
+      {
+        "id": "AC-b1",
+        "group": "format",
+        "text": "normalizePhone(raw) strips ALL non-digit characters and returns +<digits> (e.g. '+49 1525 384-4085' -> '+4915253844085')."
+      },
+      {
+        "id": "AC-b2",
+        "group": "format",
+        "text": "Input with no digits returns '' (empty), which is rejected downstream."
+      },
+      {
+        "id": "AC-b3",
+        "group": "format",
+        "text": "isValidPhoneKey enforces /^\\+\\d{6,15}$/ — a leading + then 6..15 digits; an invalid key causes mintAndLink to return null and mint NOTHING."
+      },
+      {
+        "id": "AC-b4",
+        "group": "format",
+        "text": "The standardized +CountryDigits format is enforced AT creation: mintAndLink normalizes and validates before any unit is written."
+      },
+      {
+        "id": "AC-c1",
+        "group": "profile-link",
+        "text": "On success the Phone IOR ior:instance:<phoneUuid> is appended to Profile.model.phones[]."
+      },
+      {
+        "id": "AC-c2",
+        "group": "profile-link",
+        "text": "A profile may carry MULTIPLE distinct phones — different normalized keys produce multiple Phone units and multiple phones[] entries."
+      },
+      {
+        "id": "AC-c3",
+        "group": "idempotent",
+        "text": "IDEMPOTENT: minting a phone whose normalized key already exists in phones[] adds NO duplicate unit and NO duplicate phones[] entry."
+      },
+      {
+        "id": "AC-c4",
+        "group": "idempotent",
+        "text": "Idempotency is keyed on the NORMALIZED value — raw variants like '+49 1525 3844085' and '+4915253844085' collapse to the same single entry."
+      },
+      {
+        "id": "AC-d1",
+        "group": "mintAndLink",
+        "text": "mintAndLink(profileUuid, rawPhone, phoneUuid) returns the normalized key on success, null on an invalid key OR a missing profile."
+      },
+      {
+        "id": "AC-d2",
+        "group": "mintAndLink",
+        "text": "If the profile does not exist, mintAndLink returns null and mints no unit."
+      },
+      {
+        "id": "AC-d3",
+        "group": "alt-index",
+        "text": "On success an alt/phone/<key>.scenario.json symlink is registered pointing to the PROFILE's canonical file, declared on the Profile's unitLinks[] (self-syncs on write, self-removes on profile remove)."
+      },
+      {
+        "id": "AC-d4",
+        "group": "alt-index",
+        "text": "resolveToProfile(rawPhone) normalizes, follows the symlink, and returns the profile uuid — i.e. the phone is an alternate UUID for the profile (feeds R21.3/R21.4)."
+      },
+      {
+        "id": "AC-e1",
+        "group": "seed",
+        "text": "Tron's phone +4915253844085 exists as the first Phone unit on his WODA.prod profile (real seed data from the start)."
+      }
+    ],
+    "testScenarios": [
+      {
+        "id": "TS1",
+        "gates": [
+          "AC-a1",
+          "AC-a2",
+          "AC-a3"
+        ],
+        "name": "Phone unit shape",
+        "given": "an existing profile P and a caller-supplied uuid U",
+        "when": "mintAndLink(P, '+4915253844085', U) is called",
+        "then": "an ior:class:Phone unit exists with model {uuid:U, e164:'+4915253844085', ownerIor:'ior:instance:P'} and top-level ownerIor === 'ior:instance:P'"
+      },
+      {
+        "id": "TS2",
+        "gates": [
+          "AC-b1",
+          "AC-b2"
+        ],
+        "name": "normalizePhone strips to +digits",
+        "given": "raw inputs",
+        "when": "normalizePhone is applied",
+        "then": "normalizePhone('+49 1525 384-4085') === '+4915253844085' AND normalizePhone('no-digits') === ''"
+      },
+      {
+        "id": "TS3",
+        "gates": [
+          "AC-b3",
+          "AC-b4",
+          "AC-d1"
+        ],
+        "name": "invalid key rejected at creation",
+        "given": "profile P and a too-short/invalid number '12345'",
+        "when": "mintAndLink(P, '12345', U) is called",
+        "then": "it returns null, no Phone unit is written, and P.phones[] is unchanged"
+      },
+      {
+        "id": "TS4",
+        "gates": [
+          "AC-c1",
+          "AC-c2"
+        ],
+        "name": "multiple phones per profile",
+        "given": "profile P",
+        "when": "mintAndLink is called with two different valid numbers",
+        "then": "P.model.phones[] has length 2 and two distinct ior:class:Phone units exist"
+      },
+      {
+        "id": "TS5",
+        "gates": [
+          "AC-c3",
+          "AC-c4"
+        ],
+        "name": "idempotent by normalized key",
+        "given": "profile P already carrying +4915253844085",
+        "when": "mintAndLink(P, '+49 1525 3844085', U2) is called (same normalized key)",
+        "then": "P.phones[] still has length 1 and no second Phone unit is minted"
+      },
+      {
+        "id": "TS6",
+        "gates": [
+          "AC-d2"
+        ],
+        "name": "missing profile -> null",
+        "given": "a uuid that is not an existing profile",
+        "when": "mintAndLink('does-not-exist', '+4915253844085', U) is called",
+        "then": "it returns null and mints no unit"
+      },
+      {
+        "id": "TS7",
+        "gates": [
+          "AC-d3",
+          "AC-d4"
+        ],
+        "name": "alt symlink + resolve",
+        "given": "mintAndLink(P, '+4915253844085', U) succeeded",
+        "when": "the alt index is inspected and resolveToProfile('+49 1525 384 4085') is called",
+        "then": "alt/phone/+4915253844085.scenario.json points to P's canonical file, the link is declared on P.unitLinks[], and resolveToProfile returns P"
+      },
+      {
+        "id": "TS8",
+        "gates": [
+          "AC-e1"
+        ],
+        "name": "Tron seed on WODA.prod",
+        "given": "the WODA.prod profile for Tron",
+        "when": "its phones[] is read",
+        "then": "it contains an ior:class:Phone unit with e164 === '+4915253844085' as the first Phone"
+      }
+    ],
+    "refinementNote": "R21.6 refined 2026-06-28 per PO directive, after expert shipped v0.6.69. MEASURED against shipped src/ts/scenario/PhoneIndex.ts (code is law): 16 ACs in 6 groups (unit-shape / format / profile-link / idempotent / mintAndLink / alt-index / seed) + 8 gateable TS; every AC gated by >=1 TS. NOTE the symlink is declared on Profile.unitLinks[] (shipped reality), whereas architecture.md prose said the Phone unit's unitLinks — AC follows the code. Chain (parent/owner/useCases) + name/description/tronQuote unchanged."
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

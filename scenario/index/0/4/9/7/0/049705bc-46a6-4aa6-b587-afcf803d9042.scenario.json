@@ -3,7 +3,7 @@
   "model": {
     "uuid": "049705bc-46a6-4aa6-b587-afcf803d9042",
     "name": "RbObjectItem.renderTestStatus",
-    "description": "In render(): read getAttribute('status'). Normalize case-insensitive: pass/PASS/GREEN → green checkmark span. FAIL/RED → red X span. Empty → gray dash. Append after .oi-name. Server: /api/trace/children child entry adds status: String(childModel.status) at server.ts:785.",
+    "description": "In render(): read getAttribute('status'). Normalize case-insensitive: pass/PASS/GREEN \u2192 green checkmark span. FAIL/RED \u2192 red X span. Empty \u2192 gray dash. Append after .oi-name. Server: /api/trace/children child entry adds status: String(childModel.status) at server.ts:785.",
     "implementations": [
       "ior:instance:0b57d139-2df7-4024-a725-b24f558341b6",
       "ior:instance:a1e11e85-98a7-4be0-a8f4-ec54e938d329",
@@ -25,7 +25,7 @@
       "ior:instance:b4c8bf40-6b31-4acd-ad4a-0f93d6f7326b",
       "ior:instance:cc1dcd0e-93b2-43d5-80bb-b162cd685403",
       "ior:instance:4256aef7-3aee-432f-bab0-70dfc3c26e7a",
-      "ior:instance:5ac05259-20b4-4120-84d5-c1920d6b22da",
+      "ior:instance:d26ff6be-af36-4757-a6c6-941cc2883aba",
       "ior:instance:4256aef7-7580-4410-a0f3-987987d71cfd",
       "ior:instance:4ffa86ed-ca7b-4e73-9371-89b113e2ae77",
       "ior:instance:8cc75226-527e-4c87-bed8-9885e98d46e1"

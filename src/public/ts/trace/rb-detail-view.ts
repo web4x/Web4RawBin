@@ -16,7 +16,8 @@ import { navigate } from './nav.js';
 import { selectionModel } from './selection-model.js';
 import { forwardOnly } from './forward-only.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
-import { renderContentPreview, loadTextPreview, wireUrlActions } from './content-preview.js';
+import { renderContentPreview, wireUrlActions } from './content-preview.js';
+import { downloadVCard } from '../vcard-download.js';
 import { renderSupersededSection, renderAllChildrenSection } from './detail-superseded.js';
 
 export class RbDetailView extends HTMLElement {
@@ -45,6 +46,31 @@ export class RbDetailView extends HTMLElement {
           head.querySelector('.dv-type')!.textContent = data.type || ref.split(':')[0] || '?';
           head.querySelector('.dv-title')!.textContent = data.name || uuid;
           head.insertAdjacentHTML('beforeend', `${scenarioBrowserLinkFromIor(uuid)}`);
+          // R20.31: vCard download button for Member/User types
+          const detectedType = (data.type || ref.split(':')[0] || '').toLowerCase();
+          if (detectedType === 'member' || detectedType === 'user') {
+            // Resolve real playerToken from the unit's model (may differ from scenario uuid)
+            fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.ok ? r.json() : null).then(iorData => {
+              const model = iorData?.unit?.model || {};
+              const realToken = model.playerToken || model.token || uuid;
+              const vcardBtn = document.createElement('button');
+              vcardBtn.className = 'btn btn-secondary';
+              vcardBtn.style.cssText = 'margin-top:8px;width:100%;font-size:0.8rem';
+              vcardBtn.textContent = '📇 Download vCard';
+              vcardBtn.addEventListener('click', () => {
+                downloadVCard({ name: data.name || uuid, playerToken: realToken, phone: model.phone, url: model.url, avatar: model.avatar });
+              });
+              head!.insertAdjacentElement('afterend', vcardBtn);
+            }).catch(() => {
+              // Fallback: render button without profile enrichment
+              const vcardBtn = document.createElement('button');
+              vcardBtn.className = 'btn btn-secondary';
+              vcardBtn.style.cssText = 'margin-top:8px;width:100%;font-size:0.8rem';
+              vcardBtn.textContent = '📇 Download vCard';
+              vcardBtn.addEventListener('click', () => { downloadVCard({ name: data.name || uuid, playerToken: uuid }); });
+              head!.insertAdjacentElement('afterend', vcardBtn);
+            });
+          }
         }
       }).catch(() => {});
       fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
@@ -144,8 +170,7 @@ export class RbDetailView extends HTMLElement {
   private renderFilePreview(uuid: string, mimeType: string, name: string, token: string, btn: HTMLElement): void {
     const preview = renderContentPreview(uuid, mimeType, name, token);
     btn.insertAdjacentHTML('afterend', preview);
-    loadTextPreview(this, uuid, token);
-    wireUrlActions(this);
+    wireUrlActions(this); // R21.9: toggle lazily fills the rb-preview-pane (RbPanZoom)
     btn.remove();
   }
 }

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "93f9afc7-364d-4dd4-a9d7-3e49333cc16c",
+    "name": "SprintViewGenerator",
+    "description": "SprintViewGenerator skill class (R24.4). Formalizes scripts/generate-sprint-md.ts.",
+    "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
+    "methods": [
+      "ior:instance:1584807f-b315-4279-b3ad-8f9001285839"
+    ]
+  },
+  "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"
+}

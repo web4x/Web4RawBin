@@ -5,9 +5,10 @@
     "name": "RbFileDetail.renderActionButtons",
     "description": "Renders Preview + Open-in-new-tab buttons in rb-file-detail.ts:54-57. Preview: btn-file-preview click toggles ContentPreviewer in #file-preview-{uuid}. New-tab: anchor to /api/file-content/{uuid} target=_blank. Live at v0.6.49.",
     "implementations": [
-      "ior:instance:d932447e-7791-4ed8-98d6-517f2699a5ed"
+      "ior:instance:3bdd9eac-1a36-481e-8ea2-6be9dee98809"
     ],
-    "tests": []
+    "tests": [],
+    "sourceFile": "src/public/ts/trace/rb-file-detail.ts"
   },
   "ownerIor": "ior:instance:37103cf0-c1db-4c94-84d4-163b05f9a8dd"
 }

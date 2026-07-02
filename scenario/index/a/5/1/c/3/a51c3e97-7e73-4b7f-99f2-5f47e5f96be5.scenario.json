@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "a51c3e97-7e73-4b7f-99f2-5f47e5f96be5",
+    "name": "RbDetailView.scenarioLinkHref",
+    "description": "The Scenario link target resolves to the underlying scenario unit (the /scenario or /md/scenario/index/<shard> view of that unit uuid), placed/styled consistently across all detail views.",
+    "sourceFile": "ior:file:src/public/ts/trace/detail-children.ts",
+    "implementations": [
+      "ior:instance:459d3aef-fa07-4968-a5d2-82185a1caf65"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
+}

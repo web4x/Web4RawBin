@@ -31,7 +31,10 @@ import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanU
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
-import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit } from '../scenario/index.js';
+import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
+import { Transfer } from './federation-transfer.js'; // T26.6: federation import wiring
+import { ProxyFetch } from './proxy-fetch.js'; // R27.7 UC27.7b: SSRF-guarded CORS/X-Frame fallback proxy
+import { parseFederatedIor, isLocalOrigin } from '../scenario/federated-ior.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
 const execAsync = promisify(exec);
@@ -191,6 +194,278 @@ function saveProfiles(): void {
   } catch {}
 }
 
+// Ensure an ior:class:Profile scenario unit exists for this token, then register
+// alt/phone/<+digits> → that profile unit. Wrapped: phone-index failure never breaks profile save.
+function indexProfilePhone(token: string, name: string, phone: string): void {
+  try {
+    const scenarioDir = path.join(__dirname, '../../../scenario/index');
+    const idx = new ScenarioIndex(scenarioDir);
+    let unit = idx.get(token);
+    if (!unit) {
+      unit = { ior: 'ior:class:Profile', model: { uuid: token, name, phones: [], emails: [], addresses: [], companies: [], unitLinks: [] }, ownerIor: null };
+      idx.put(token, unit);
+    }
+    new PhoneIndex(idx).mintAndLink(token, phone, crypto.randomUUID()); // R21.6: Phone unit + Profile.phones[] + symlink
+  } catch (e: any) { addLog(`phone index error: ${e?.message || e}`); }
+}
+
+// Mint ior:class:Email unit(s) + link into Profile.emails[] + alt/email symlink.
+// Ensures a Profile scenario unit exists (mirrors indexProfilePhone). Self-healing.
+function indexProfileEmail(token: string, name: string, emails: string[]): void {
+  try {
+    const scenarioDir = path.join(__dirname, '../../../scenario/index');
+    const idx = new ScenarioIndex(scenarioDir);
+    let unit = idx.get(token);
+    if (!unit) {
+      unit = { ior: 'ior:class:Profile', model: { uuid: token, name, phones: [], emails: [], addresses: [], companies: [], unitLinks: [] }, ownerIor: null };
+      idx.put(token, unit);
+    }
+    const ei = new EmailIndex(idx);
+    for (const e of emails) { if (e) ei.mintAndLink(token, e, crypto.randomUUID()); }
+  } catch (e: any) { addLog(`email index error: ${e?.message || e}`); }
+}
+
+// Background, off the request path, rate-limited <=1 req/s, cached by oneLine (AC-c2/c3/c5).
+const addrVerifyQueue: Array<{ uuid: string; oneLine: string }> = [];
+const addrVerifyCache = new Map<string, { lat: string; lon: string } | null>();
+let addrVerifyPumping = false;
+
+function enqueueAddressVerify(uuid: string, oneLine: string): void {
+  addrVerifyQueue.push({ uuid, oneLine });
+  if (!addrVerifyPumping) { addrVerifyPumping = true; setTimeout(pumpAddressVerify, 0); }
+}
+
+function pumpAddressVerify(): void {
+  const job = addrVerifyQueue.shift();
+  if (!job) { addrVerifyPumping = false; return; }
+  const finish = () => setTimeout(pumpAddressVerify, 1100); // <=1 req/s
+  const cached = addrVerifyCache.get(job.oneLine);
+  if (cached !== undefined) {
+    if (cached) { try { const sd = path.join(__dirname, '../../../scenario/index'); new AddressIndex(new ScenarioIndex(sd)).applyVerification(job.uuid, cached.lat, cached.lon); } catch {} }
+    return finish();
+  }
+  try {
+    const q = encodeURIComponent(job.oneLine);
+    const opts = { hostname: 'nominatim.openstreetmap.org', path: `/search?q=${q}&format=json&limit=1`, headers: { 'User-Agent': 'Web4RawBin/0.6 (contact-address-verify; https://prod.wo-da.de)' } };
+    https.get(opts, (r) => {
+      let body = '';
+      r.on('data', (c) => body += c);
+      r.on('end', () => {
+        try {
+          const arr = JSON.parse(body);
+          if (Array.isArray(arr) && arr[0] && arr[0].lat && arr[0].lon) {
+            const hit = { lat: String(arr[0].lat), lon: String(arr[0].lon) };
+            addrVerifyCache.set(job.oneLine, hit);
+            const sd = path.join(__dirname, '../../../scenario/index');
+            new AddressIndex(new ScenarioIndex(sd)).applyVerification(job.uuid, hit.lat, hit.lon);
+            addLog(`Address verified: ${job.uuid.slice(0,8)} (${job.oneLine.slice(0,30)})`);
+          } else {
+            addrVerifyCache.set(job.oneLine, null); // miss → stays unverified (AC-c5)
+          }
+        } catch { addrVerifyCache.set(job.oneLine, null); }
+        finish();
+      });
+    }).on('error', (e) => { addLog(`Address verify net err: ${e.message}`); finish(); });
+  } catch (e: any) { addLog(`Address verify err: ${e?.message || e}`); finish(); }
+}
+
+// Mint Address unit(s) + Profile.addresses[] (sync) then enqueue async OSM verify. Self-healing.
+function indexProfileAddress(token: string, name: string, addresses: string[]): void {
+  try {
+    const scenarioDir = path.join(__dirname, '../../../scenario/index');
+    const idx = new ScenarioIndex(scenarioDir);
+    let unit = idx.get(token);
+    if (!unit) {
+      unit = { ior: 'ior:class:Profile', model: { uuid: token, name, phones: [], emails: [], addresses: [], companies: [], unitLinks: [] }, ownerIor: null };
+      idx.put(token, unit);
+    }
+    const ai = new AddressIndex(idx);
+    for (const line of addresses) {
+      if (!line) continue;
+      const u = crypto.randomUUID();
+      const addrUuid = ai.mintAddress(token, line, u); // synchronous, no network (AC-c1)
+      if (addrUuid) enqueueAddressVerify(addrUuid, String(line).trim().replace(/\s+/g, ' '));
+    }
+  } catch (e: any) { addLog(`address index error: ${e?.message || e}`); }
+}
+
+// Mint-or-reuse SHARED Company unit (dedup by domain then nameKey) + link into Profile.companies[].
+function indexProfileCompany(token: string, name: string, companies: Array<string | { name: string; domain?: string }>): void {
+  try {
+    const scenarioDir = path.join(__dirname, '../../../scenario/index');
+    const idx = new ScenarioIndex(scenarioDir);
+    let unit = idx.get(token);
+    if (!unit) {
+      unit = { ior: 'ior:class:Profile', model: { uuid: token, name, phones: [], emails: [], addresses: [], companies: [], unitLinks: [] }, ownerIor: null };
+      idx.put(token, unit);
+    }
+    const ci = new CompanyIndex(idx);
+    for (const c of companies) {
+      const cname = typeof c === 'string' ? c : c?.name;
+      const dom = typeof c === 'string' ? undefined : c?.domain;
+      if (!cname) continue;
+      const cuuid = ci.mintOrReuseShared(cname, crypto.randomUUID(), dom); // reuses existing → no dup
+      if (cuuid) ci.linkToProfile(token, cuuid);
+    }
+  } catch (e: any) { addLog(`company index error: ${e?.message || e}`); }
+}
+
+// [impl:uuid:ff91e891-57b8-4d82-b3d5-fa45219b9db1] R21.4 identity.deviceLinkOnKnownKey
+// Resolve a phone OR email to an existing profile uuid via the alt-UUID index.
+// Identical mechanism for both keys (AC5). Returns null on miss/invalid.
+// [impl:uuid:cc6df739-135f-46a9-a53b-e8441571abbc] R21.4 server.resolveKeyToProfile
+function resolveKeyToProfile(phone?: string, email?: string): string | null {
+  try {
+    const scenarioDir = path.join(__dirname, '../../../scenario/index');
+    const idx = new ScenarioIndex(scenarioDir);
+    if (phone) {
+      const hit = new PhoneIndex(idx).resolveToProfile(phone);
+      if (hit) return hit;
+    }
+    if (email) {
+      const hit = new EmailIndex(idx).resolveToProfile(email);
+      if (hit) return hit;
+    }
+  } catch (e: any) { addLog(`resolveKeyToProfile error: ${e?.message || e}`); }
+  return null;
+}
+
+// v0.6.98 (R25.5): fetch a page <title> for an http(s) WebItem name (async, 3s timeout, ≤3 redirects,
+// 200KB cap). Resolves '' on any failure → caller falls back to deriveName (hostname). Never throws.
+function fetchPageTitle(url: string, depth = 0): Promise<string> {
+  return new Promise((resolve) => {
+    if (depth > 3 || !/^https?:/i.test(url)) return resolve('');
+    let settled = false; const ok = (s: string) => { if (!settled) { settled = true; resolve(s); } };
+    try {
+      const lib = url.startsWith('https:') ? https : http;
+      const req = lib.get(url, { headers: { 'User-Agent': 'Web4RawBin/0.6 (+https://prod.wo-da.de)', 'Accept': 'text/html' }, timeout: 3000 } as any, (r) => {
+        const sc = r.statusCode || 0;
+        if (sc >= 300 && sc < 400 && r.headers.location) { r.resume(); try { fetchPageTitle(new URL(r.headers.location, url).href, depth + 1).then(ok); } catch { ok(''); } return; }
+        if (sc !== 200) { r.resume(); return ok(''); }
+        let body = ''; let len = 0;
+        r.on('data', (c: Buffer) => { len += c.length; body += c.toString('utf8'); if (len > 200000 || /<\/title>/i.test(body)) r.destroy(); });
+        const done = () => { const m = /<title[^>]*>([\s\S]*?)<\/title>/i.exec(body); ok(m ? m[1].replace(/\s+/g, ' ').trim().slice(0, 120) : ''); };
+        r.on('end', done); r.on('close', done);
+      });
+      req.on('timeout', () => { req.destroy(); ok(''); });
+      req.on('error', () => ok(''));
+    } catch { ok(''); }
+  });
+}
+
+// ── T26.3: server-to-server federation fetch API (capability-grant auth) ──────────────────────────────
+// A capability grant = base64url({uuid,exp}).HMAC-SHA256(secret): short-lived, scoped to one uuid's subtree,
+// minted by the origin at drag-start, embedded in fetchUrl?grant=, held only by the drag recipient.
+const FED_GRANT_SECRET = crypto.randomBytes(32).toString('hex'); // per-process; grants are minutes-lived so restart-loss is fine
+const FED_TRUST_LIST: string[] = []; // standing federation: canonical origins whose keypair-signed requests are trusted (empty = capability-only)
+function mintFederationGrant(uuid: string, ttlMs = 5 * 60_000): string {
+  const payload = Buffer.from(JSON.stringify({ uuid, exp: Date.now() + ttlMs })).toString('base64url');
+  const sig = crypto.createHmac('sha256', FED_GRANT_SECRET).update(payload).digest('base64url');
+  return `${payload}.${sig}`;
+}
+function verifyFederationGrant(grant: string, uuid: string): boolean {
+  try {
+    const [payload, sig] = String(grant || '').split('.');
+    if (!payload || !sig) return false;
+    const expect = crypto.createHmac('sha256', FED_GRANT_SECRET).update(payload).digest('base64url');
+    const a = Buffer.from(sig), b = Buffer.from(expect);
+    if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return false;
+    const { uuid: u, exp } = JSON.parse(Buffer.from(payload, 'base64url').toString());
+    return u === uuid && typeof exp === 'number' && Date.now() < exp; // scope: this uuid + its /content + /children
+  } catch { return false; }
+}
+// Standing federation (AC auth-standing): a caller server signs with its per-server keypair; origin verifies
+// signature + explicit trust list. Stub: honour the trust list header until server keypairs are wired.
+function verifyTrustedServer(req: http.IncomingMessage): boolean {
+  const origin = String(req.headers['x-rawbin-origin'] || '');
+  return !!origin && FED_TRUST_LIST.includes(origin); // (signature verification lands with per-server keypairs)
+}
+// Rate-limit federated fetches per remote IP (abuse guard + audit).
+const fedRate = new Map<string, number[]>();
+function fedRateOk(ip: string, limit = 60, windowMs = 60_000): boolean {
+  const now = Date.now(); const hits = (fedRate.get(ip) || []).filter(t => now - t < windowMs);
+  hits.push(now); fedRate.set(ip, hits); return hits.length <= limit;
+}
+
+// [impl:uuid:3089d066-07bf-4e79-9b8b-ea4c2fcca50a] R26.3 FederationApi.fetchScenario — GET /api/scenario/<uuid>{,/content,/children}
+async function fetchScenario(uuid: string, sub: string, req: http.IncomingMessage, res: http.ServerResponse, urlParams: URLSearchParams): Promise<void> {
+  const ip = req.socket.remoteAddress || 'unknown';
+  if (!fedRateOk(ip)) { res.writeHead(429); res.end('federation: rate limited'); return; }
+  // auth: a valid capability grant for this uuid, OR a trusted signing server (standing federation)
+  if (!verifyFederationGrant(urlParams.get('grant') || '', uuid) && !verifyTrustedServer(req)) {
+    res.writeHead(403); res.end('federation: no valid grant/signature'); return;
+  }
+  addLog(`[federation] fetch ${uuid.slice(0, 8)}/${sub || 'unit'} ← ${ip}`); // audit every federated fetch
+  const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+  const unit = idx.get(uuid);
+  if (!unit) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'not found' })); return; }
+  const m = unit.model as any;
+  if (sub === 'content') {
+    // content-addressable: skip the byte transfer if the receiver already stores this hash
+    if (m.contentHash && urlParams.get('have') === m.contentHash) { res.writeHead(304); res.end(); return; }
+    const { readFileUnitContent } = await import('../scenario/file-unit.js');
+    const bytes = readFileUnitContent(idx, uuid);
+    if (!bytes) { res.writeHead(404); res.end('no content'); return; }
+    res.writeHead(200, { 'Content-Type': m.mimeType || 'application/octet-stream', 'Content-Length': String(bytes.byteLength), 'X-Content-Hash': m.contentHash || '' });
+    res.end(bytes); return;
+  }
+  if (sub === 'children') {
+    // forward children (mirrors /api/trace/children forward-only) — each stamped with this origin for lazy federated resolve
+    const originHost = `https://${String(req.headers.host || '').replace(/^https?:\/\//, '')}`;
+    const refs = Array.isArray(m.children) ? m.children : [];
+    const children = refs.map((r: string) => { const cu = String(r).replace('ior:instance:', ''); const c = idx.get(cu); return { ior: `ior:instance:${cu}@${originHost}`, uuid: cu, type: (c?.ior || '').replace('ior:class:', ''), name: String((c?.model as any)?.name || '') }; });
+    res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ uuid, children })); return;
+  }
+  res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ unit, contentHash: m.contentHash })); // the unit JSON
+}
+
+// T26.6: server-to-server GET → JSON (federation import fetches the origin's /api/scenario). Self-signed OK.
+function fedGet(url: string): Promise<any> {
+  return new Promise((resolve, reject) => {
+    try {
+      const lib = url.startsWith('https:') ? https : http;
+      const opts: any = url.startsWith('https:') ? { rejectUnauthorized: false } : {};
+      const rq = lib.get(url, opts, (r) => {
+        if ((r.statusCode || 0) !== 200) { r.resume(); return reject(new Error(`origin ${r.statusCode}`)); }
+        let body = ''; r.on('data', (c) => body += c); r.on('end', () => { try { resolve(JSON.parse(body)); } catch (e) { reject(e); } });
+      });
+      rq.on('error', reject); rq.setTimeout(5000, () => { rq.destroy(); reject(new Error('timeout')); });
+    } catch (e) { reject(e); }
+  });
+}
+
+// T26.6: import a federated unit — (1)/(2) fetch from the origin (server-to-server), (3) resolve children
+// lazily (T26.4), (4) reconcile uuid conflicts (T26.5), (5) store locally with originHost provenance (T26.1).
+// [impl:uuid:3132c189-4027-49d5-ab1b-7da4a2e4bd87] R26.6 FederationApi.federationImport (/api/federation/import)
+async function federationImport(ref: any, roomId: string): Promise<{ uuid: string; action: string } | { error: string }> {
+  const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+  const originHost = String(ref?.originHost || '');
+  const uuid = parseFederatedIor(String(ref?.ior || '')).uuid;
+  if (!uuid) return { error: 'bad ref' };
+  let unit: any = ref?.inline || null; // inline optimization for tiny units
+  if (!unit) {
+    if (isLocalOrigin(originHost || null) || !ref?.fetchUrl) { unit = idx.get(uuid) || null; }       // self-origin → local
+    else { try { const d = await fedGet(String(ref.fetchUrl)); unit = d?.unit || d; } catch (e: any) { return { error: `origin fetch failed: ${e?.message || e}` }; } }
+  }
+  if (!unit || !unit.ior) return { error: 'unit not resolved' };
+  const contentDir = path.join(__dirname, '../../../scenario/content');
+  const t = new Transfer({ index: idx, hasContentHash: (h) => { try { return fsSync.existsSync(path.join(contentDir, `${h}.file.scenario.json`)); } catch { return false; } } });
+  const remap = new Map<string, string>();
+  const rc = t.reconcileConflict(unit, originHost, remap);                 // T26.5
+  if (rc.action !== 'noop') idx.put(rc.localUuid, t.rewriteForwardRefs(rc.unit, originHost, remap)); // T26.5 remap + T26.1 provenance
+  t.resolveChildrenLazily(rc.unit, originHost);                            // T26.4 — children/members stay lazy federated refs, never minted
+  const room = roomManager.getRoom(roomId);
+  if (room) room.addFileUnit(rc.localUuid);                               // link into the receiving room
+  addLog(`[federation] import ${uuid.slice(0, 8)}@${originHost} → ${rc.localUuid.slice(0, 8)} (${rc.action}) room ${roomId.slice(0, 8)}`);
+  return { uuid: rc.localUuid, action: rc.action };
+}
+
+function maskName(name: string): string {
+  if (!name) return 'an existing user';
+  const parts = name.trim().split(/\s+/);
+  return parts.map(p => p.length <= 1 ? p : p[0] + '*'.repeat(Math.min(p.length - 1, 4))).join(' ');
+}
+
 function saveDevices(): void {
   try {
     fsSync.mkdirSync(DATA_DIR, { recursive: true });
@@ -199,6 +474,15 @@ function saveDevices(): void {
 }
 
 loadProfiles();
+// Inject the redirect resolver so rooms collapse consolidated (redirectTo) members to the PRIMARY profile.
+Room.resolveToken = (token: string) => userProfiles.get(token)?.redirectTo || token;
+// v0.7.1 (R25.7): let room-load dedup detect orphan members (token whose profile was deleted) and self-heal.
+Room.profileExists = (token: string) => userProfiles.has(token);
+
+// [impl:uuid:6b459f04-e326-4f8a-b375-ddb33f2d4ffb] R25.7 redirectTombstoneToPrimary — resolve a connecting (possibly tombstoned)
+// token to its PRIMARY. IDENTIFY uses this to redirect a consolidated token → primary (TOKEN_REDIRECT),
+// never re-minting/clearing the immutable redirectTo.
+function redirectTombstoneToPrimary(token: string): string { return userProfiles.get(token)?.redirectTo || token; }
 
 function generateSecretCode(): string {
   return String(1000 + Math.floor(Math.random() * 9000));
@@ -434,6 +718,36 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
+    // [impl:uuid:f15434f9-b6c9-45ba-b9b8-b8d025ce39e4] R20.31 storeVCard POST /api/vcard
+    if (req.method === 'POST' && filepath === '/api/vcard') {
+      let body = '';
+      req.on('data', (chunk: Buffer) => body += chunk);
+      req.on('end', () => {
+        try {
+          const { playerToken, data } = JSON.parse(body);
+          if (!playerToken || !tokenToClient.has(playerToken)) { res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unauthenticated' })); return; }
+          if (!data) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Missing data' })); return; }
+          const buf = Buffer.from(data, 'base64');
+          const profile = userProfiles.get(playerToken);
+          if (!profile) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'No profile' })); return; }
+          createUserHome(playerToken);
+          generateUserKeypair(playerToken);
+          if (!profile.sshKeysGenerated) { profile.sshKeysGenerated = true; saveProfiles(); }
+          try {
+            encryptFile(playerToken, buf, 'text/vcard', 'contact.vcf', 'vcard');
+          } catch (encErr: any) {
+            addLog(`vCard POST: encrypt failed, rekeying — ${encErr?.message || encErr}`);
+            rekeyUser(playerToken);
+            encryptFile(playerToken, buf, 'text/vcard', 'contact.vcf', 'vcard');
+          }
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: true, vcardUrl: `/api/vcard/${playerToken}` }));
+          addLog(`vCard uploaded: ${playerToken.slice(0,8)} (${buf.length} bytes)`);
+        } catch (e: any) { addLog(`vCard POST error: ${e?.message || e}`); res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Upload failed' })); }
+      });
+      return;
+    }
+
     if (filepath === '/api/bugs') {
       const allBugs: any[] = [];
       userProfiles.forEach((p, token) => {
@@ -482,30 +796,62 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     }
 
     // [impl:uuid:e872cf5c-b500-49c0-9836-b3779f33dd78] R19.68 file-access auth
+    // T26.6: federation import — the RECEIVER posts a dropped rb-federated-ref; the server fetches from the
+    // origin, reconciles + resolves children lazily, and stores locally (wires T26.1-T26.5 into the drop flow).
+    if (req.method === 'POST' && filepath === '/api/federation/import') {
+      let body = '';
+      req.on('data', (c) => body += c);
+      req.on('end', async () => {
+        try {
+          const { ref, roomId, token } = JSON.parse(body || '{}');
+          if (!userProfiles.has(String(token || ''))) { res.writeHead(403, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'identify first' })); return; }
+          const result = await federationImport(ref, String(roomId || ''));
+          res.writeHead((result as any).error ? 400 : 200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(result));
+        } catch (e: any) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'bad request' })); }
+      });
+      return;
+    }
+    // T26.3: federation grant mint — an identified origin user gets a short-lived capability for a uuid (at drag-start).
+    if (req.method === 'GET' && filepath.match(/^\/api\/scenario\/[^/]+\/grant$/)) {
+      const guuid = filepath.split('/')[3];
+      if (!userProfiles.has(urlParams.get('token') || '')) { res.writeHead(403); res.end('federation: identify first'); return; }
+      res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ grant: mintFederationGrant(guuid) })); return;
+    }
+    // T26.3: federation fetch API — GET /api/scenario/<uuid>{,/content,/children} (server-to-server, grant/signature auth)
+    const fedMatch = filepath.match(/^\/api\/scenario\/([^/]+)(?:\/(content|children))?$/);
+    if (req.method === 'GET' && fedMatch) { await fetchScenario(fedMatch[1], fedMatch[2] || '', req, res, urlParams); return; }
+
     if (req.method === 'GET' && filepath.match(/^\/api\/room\/file\/[^/]+\/content$/)) {
       const fileUuid = filepath.split('/')[4];
       try {
         // F1 auth: fail CLOSED — require valid token + room membership
         const authToken = urlParams.get('token') || '';
         if (!authToken) { res.writeHead(403); res.end('Forbidden: token required'); return; }
-        const fileRoomUuid = (() => {
-          const scenarioDir2 = path.join(__dirname, '../../../scenario/index');
-          const idx2 = new ScenarioIndex(scenarioDir2);
-          const fu = idx2.get(fileUuid);
-          return fu ? String((fu.model as any).roomUuid || '') : '';
-        })();
-        if (!fileRoomUuid) { res.writeHead(403); res.end('Forbidden: file has no room'); return; }
-        const authRoom = roomManager.getRoom(fileRoomUuid);
-        if (!authRoom) { res.writeHead(403); res.end('Forbidden: room not found'); return; }
-        const isCreator = authRoom.creatorToken === authToken;
-        const isMember = [...authRoom.members.values()].some(m => m.playerToken === authToken);
-        if (!isCreator && !isMember) { res.writeHead(403); res.end('Forbidden'); return; }
+        // v0.6.98: authorize the requester as UPLOADER, member of the file's stored room, OR member of
+        // ANY loaded room that references the file (files can be shared across rooms, and the stored
+        // roomUuid may point at a room that is no longer loaded — that used to 403 valid viewers → broken image).
+        const fu0 = (() => { const idx2 = new ScenarioIndex(path.join(__dirname, '../../../scenario/index')); return idx2.get(fileUuid); })();
+        const fileRoomUuid = fu0 ? String((fu0.model as any).roomUuid || '') : '';
+        const uploaderToken = fu0 ? String((fu0.model as any).uploaderToken || '') : '';
+        const memberOf = (r: any) => !!r && (r.creatorToken === authToken || [...r.members.values()].some((m: any) => m.playerToken === authToken));
+        let authorized = !!uploaderToken && uploaderToken === authToken;
+        if (!authorized && fileRoomUuid) authorized = memberOf(roomManager.getRoom(fileRoomUuid));
+        if (!authorized) authorized = roomManager.roomsWithFile(fileUuid).some(memberOf);
+        if (!authorized) { res.writeHead(403); res.end('Forbidden'); return; }
         const scenarioDir = path.join(__dirname, '../../../scenario/index');
         const idx = new ScenarioIndex(scenarioDir);
-        const { readFileUnitContent } = await import('../scenario/file-unit.js');
         const unit = idx.get(fileUuid);
+        if (!unit) { res.writeHead(404); res.end('File not found'); return; }
+        // R25.2: a WebItem is a reference, not stored bytes — serve its url as text/uri-list so the
+        // existing preview (scheme launcher card / iframe / YouTube embed) renders it.
+        if (unit.ior === 'ior:class:WebItem') {
+          res.writeHead(200, { 'Content-Type': 'text/uri-list', 'Cache-Control': 'no-cache' });
+          res.end(String((unit.model as any).url || ''));
+          return;
+        }
+        const { readFileUnitContent } = await import('../scenario/file-unit.js');
         const content = readFileUnitContent(idx, fileUuid);
-        if (!content || !unit) { res.writeHead(404); res.end('File not found'); return; }
+        if (!content) { res.writeHead(404); res.end('File not found'); return; }
         const mimeType = (unit.model as any).mimeType || 'application/octet-stream';
         res.writeHead(200, { 'Content-Type': mimeType, 'Content-Length': content.byteLength.toString(), 'Cache-Control': 'no-cache', 'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'" });
         res.end(content);
@@ -521,7 +867,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const chunks: Buffer[] = [];
       let totalSize = 0;
       req.on('data', (chunk: Buffer) => { totalSize += chunk.length; if (totalSize <= MAX_UPLOAD) chunks.push(chunk); });
-      req.on('end', () => {
+      req.on('end', async () => {
         try {
           if (totalSize > MAX_UPLOAD) { res.writeHead(413); res.end(JSON.stringify({ error: `File too large (max ${MAX_UPLOAD / 1024 / 1024}MB)` })); return; }
           const body = Buffer.concat(chunks);
@@ -529,14 +875,19 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const boundary = (req.headers['content-type'] || '').split('boundary=')[1];
           if (!boundary) { addLog(`[upload] ERROR: no boundary in content-type`); res.writeHead(400); res.end(JSON.stringify({ error: 'No boundary' })); return; }
           const parts = body.toString('binary').split('--' + boundary);
-          let fileName = '', mimeType = 'application/octet-stream', fileData = Buffer.alloc(0), playerToken = '';
+          let fileName = '', mimeType = 'application/octet-stream', fileData = Buffer.alloc(0), playerToken = '', relatedFile = '';
           for (const part of parts) {
             if (part.includes('name="playerToken"')) {
               playerToken = part.split('\r\n\r\n')[1]?.trim().split('\r\n')[0] || '';
             }
+            if (part.includes('name="relatedFile"')) { // v0.6.91: WebItem forward-ref to its source file
+              relatedFile = part.split('\r\n\r\n')[1]?.trim().split('\r\n')[0] || '';
+            }
             if (part.includes('name="file"')) {
               const disp = part.match(/filename="([^"]+)"/);
-              if (disp) fileName = disp[1];
+              // v0.6.92: the body is read as 'binary' (Latin-1) for safe multipart split, so a UTF-8
+              // filename (e.g. "…für…") arrives mojibake'd ("…fÃ¼r…") → re-decode the bytes as UTF-8.
+              if (disp) fileName = Buffer.from(disp[1], 'binary').toString('utf-8');
               const ct = part.match(/Content-Type:\s*(\S+)/i);
               if (ct) mimeType = ct[1];
               const dataStart = part.indexOf('\r\n\r\n');
@@ -551,10 +902,31 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (!playerToken || !tokenToClient.has(playerToken)) { addLog(`[upload] ERROR: auth failed token=${playerToken.slice(0,8)}`); res.writeHead(401); res.end(JSON.stringify({ error: 'Unauthenticated' })); return; }
           const room = roomManager.getRoom(roomId);
           if (!room) { addLog(`[upload] ERROR: room ${roomId.slice(0,8)} not found`); res.writeHead(404); res.end(JSON.stringify({ error: 'Room not found' })); return; }
-          addLog(`[upload] creating file unit...`);
+          addLog(`[upload] creating unit...`);
           const scenarioDir = path.join(__dirname, '../../../scenario/index');
           const idx = new ScenarioIndex(scenarioDir);
-          const unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, roomUuid: roomId });
+          // R25.2 drop-router (single dispatch point): url-types (uri-list / .url / .webloc / .desktop) → WebItem
+          // (a reference to a remote resource), NOT a File (a stored byte artifact). Everything else → File.
+          const lname = fileName.toLowerCase();
+          const isWebItem = mimeType === 'text/uri-list' || lname.endsWith('.url') || lname.endsWith('.webloc') || lname.endsWith('.desktop');
+          let unit;
+          if (isWebItem) {
+            const url = extractUrl(fileData.toString('utf-8'), fileName);
+            if (url) {
+              unit = createWebItemUnit(idx, { uuid: crypto.randomUUID(), url, name: fileName, uploaderToken: playerToken, roomUuid: roomId, relatedFile: relatedFile || undefined });
+              addLog(`[upload] WebItem: ${(unit.model as any).badge} ${(unit.model as any).name} (${(unit.model as any).scheme}) url=${url.slice(0,60)}`);
+              // v0.6.98 (R25.5): for http(s), fetch the page <title> as the NAME (distinct from description=url);
+              // falls back to deriveName's hostname on timeout/failure. Only overrides a generic (non-fetched) name.
+              if (/^https?:/i.test(url)) {
+                const title = await fetchPageTitle(url);
+                if (title) { (unit.model as any).name = title; idx.put((unit.model as any).uuid, unit); addLog(`[upload] WebItem title → ${title.slice(0,60)}`); }
+              }
+              // v0.6.92: the WebItem is PRIMARY; its source file (.eml) becomes its child (WebItem.children),
+              // NOT a room sibling — so demote it from the room's top-level file list (no duplicate entry).
+              if (relatedFile) { room.removeFileUnit(relatedFile); addLog(`[upload] demoted source ${relatedFile.slice(0,8)} → child of WebItem`); }
+            }
+          }
+          if (!unit) unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, roomUuid: roomId });
           const fileUuid = (unit.model as any).uuid;
           addLog(`[upload] unit created: ${fileUuid} contentPath=${(unit.model as any).contentPath}`);
           room.addFileUnit(fileUuid);
@@ -567,6 +939,26 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           res.writeHead(500); res.end(JSON.stringify({ error: 'Upload failed' }));
         }
       });
+      return;
+    }
+
+    // R27.7 UC27.7b: CORS/X-Frame fallback proxy — GET /api/proxy?url= (SSRF-guarded, rate-limited, audit-logged, sanitized)
+    if (req.method === 'GET' && filepath === '/api/proxy') {
+      const pip = req.socket.remoteAddress || 'unknown';
+      if (!fedRateOk(pip, 30)) { res.writeHead(429, { 'Content-Type': 'text/plain' }); res.end('proxy: rate limited'); return; }
+      const target = urlParams.get('url') || '';
+      const guard = await ProxyFetch.guardUrl(target);
+      addLog(`PROXY ${guard.allow ? 'ALLOW' : 'DENY:' + guard.reason} ${target.slice(0, 120)} ip=${pip}`); // audit-log every fetch
+      if (!guard.allow) { res.writeHead(403, { 'Content-Type': 'text/plain' }); res.end(`proxy blocked: ${guard.reason}`); return; }
+      try {
+        const out = await ProxyFetch.fetchSanitized(target);
+        res.writeHead(out.status || 200, {
+          'Content-Type': out.contentType || 'text/html',
+          'Content-Security-Policy': "default-src 'none'; img-src data: https:; style-src 'unsafe-inline'; font-src data: https:; sandbox",
+          'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'no-store',
+        });
+        res.end(out.body);
+      } catch (e) { res.writeHead(502, { 'Content-Type': 'text/plain' }); res.end(`proxy fetch failed: ${(e as Error).message}`); }
       return;
     }
 
@@ -788,14 +1180,18 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const forwardArrays = ['tasks','useCases','classes','methods','implementations','tests','children'].map(k => childModel[k]).filter(Array.isArray);
             const childCount = forwardArrays.reduce((sum, arr) => sum + arr.length, 0);
             const childStatus = ct === 'Gate' ? String(childModel.verdict || childModel.status || '') : String(childModel.status || '');
-            const entry: Record<string, unknown> = { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: childCount > 0, childCount, ...(childModel.assigned ? { assignee: String(childModel.assigned) } : {}), ...(childStatus ? { status: childStatus } : {}) };
+            // R22.3 per-child sourceFile+sourceLine (mirrors top-level logic below) — plumbing in an anon route callback, no chain Method
+            const cRawSrc = String(childModel.sourceFile || '').replace('ior:file:', '');
+            const cSrc = (cRawSrc && !cRawSrc.includes('.scenario.json')) ? cRawSrc : undefined;
+            const cLine = cSrc ? ((childModel.sourceLine as number) || undefined) : undefined;
+            const entry: Record<string, unknown> = { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: childCount > 0, childCount, ...(childModel.assigned ? { assignee: String(childModel.assigned) } : {}), ...(childStatus ? { status: childStatus } : {}), ...(cSrc ? { sourceFile: cSrc, sourceLine: cLine } : {}) };
             if (queryMode === 'trace' && type === 'UseCase' && ct === 'Class' && ucMethodIor) {
               const meth = idx.get(ucMethodIor);
               if (meth) entry.chainMethod = { uuid: ucMethodIor, type: 'Method', name: String(meth.model?.name || '') };
             }
             return entry;
           }
-          return { uuid: ref, type: 'unknown', name: ref.slice(0, 8), hasChildren: false };
+          return null; // v0.6.92: skip dangling refs (unit removed/missing) — never render a raw UUID as a name
         }).filter(Boolean);
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         const ownerIor = String(unit.ownerIor || '').replace('ior:instance:', '');
@@ -934,6 +1330,55 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
+    // [impl:uuid:50a26658-8fac-4fa5-aa8b-cc57ff50870a] R20.31 serveVCard GET /api/vcard/:token
+    if (filepath.startsWith('/api/vcard/')) {
+      const token = filepath.slice('/api/vcard/'.length).split('/')[0];
+      if (!token || !fileExists(token, 'vcard')) { res.writeHead(404); res.end('No vCard stored'); return; }
+      try {
+        const { data, mimeType } = decryptFile(token, 'vcard');
+        res.writeHead(200, { 'Content-Type': (mimeType || 'text/vcard') + '; charset=utf-8', 'Cache-Control': 'no-cache, must-revalidate' });
+        res.end(data.toString('utf-8'));
+      } catch { res.writeHead(500); res.end('Decrypt error'); }
+      return;
+    }
+
+        if (filepath.startsWith('/api/phone/')) {
+      const raw = decodeURIComponent(filepath.slice('/api/phone/'.length).split('/')[0]);
+      const scenarioDir = path.join(__dirname, '../../../scenario/index');
+      const phoneIdx = new PhoneIndex(new ScenarioIndex(scenarioDir));
+      const phoneIdx2 = phoneIdx;
+      let profileUuid = phoneIdx2.resolveToProfile(raw);
+      if (!profileUuid) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'not found', key: normalizePhone(raw) })); return; }
+      // v0.6.93: follow a consolidated (redirectTo) profile to its PRIMARY, and return the masked name
+      // so onboarding can recognise an existing user ("Unlock device with your secret code — M••• D•••").
+      const resolved = userProfiles.get(profileUuid);
+      if (resolved?.redirectTo) profileUuid = resolved.redirectTo;
+      const maskedName = maskName(userProfiles.get(profileUuid)?.name || '');
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+      res.end(JSON.stringify({ key: normalizePhone(raw), profileUuid, maskedName }));
+      return;
+    }
+
+        if (filepath === '/api/company/suggest') {
+      const q = urlParams.get('q') || '';
+      const scenarioDir = path.join(__dirname, '../../../scenario/index');
+      const suggestions = q ? new CompanyIndex(new ScenarioIndex(scenarioDir)).suggest(q, 5) : [];
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+      // AC-c2: always include a permanent "Create <typed>" bottom row
+      res.end(JSON.stringify({ suggestions, create: q ? `Create "${q}"` : null }));
+      return;
+    }
+
+        if (filepath.startsWith('/api/address/')) {
+      const uuid = decodeURIComponent(filepath.slice('/api/address/'.length).split('/')[0]);
+      const scenarioDir = path.join(__dirname, '../../../scenario/index');
+      const state = new AddressIndex(new ScenarioIndex(scenarioDir)).badgeState(uuid);
+      if (!state) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'not found' })); return; }
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+      res.end(JSON.stringify(state));
+      return;
+    }
+
     // Docs
     const PROJECT_ROOT = path.join(__dirname, '../../../');
     const DOCS_DIR = path.join(__dirname, '../../../docs');
@@ -999,11 +1444,14 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const isDir = (e: any) => { if (e.isDirectory()) return true; if (e.isSymbolicLink()) { try { return fsSync.statSync(path.join(dirPath, e.name)).isDirectory(); } catch { return false; } } return false; };
         const dirs = entries.filter(e => isDir(e) && !e.name.startsWith('.')).map(e => `<li>📁 <a href="/md/${relPath}${e.name}/">${e.name}/</a>${symlinkIcon(e)}</li>`);
         const mds = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.md')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>📄 <a href="/md/${relPath}${e.name}">${e.name}</a>${inSprintsMd ? scenarioLink(e) : symlinkIcon(e)}${editIcon(e.name)}</li>`);
-        const svgs = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.svg')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>🖼 <a href="/md/${relPath}${e.name}">${e.name}</a>${symlinkIcon(e)}</li>`);
+        // R22.4: ALL image types clickable like SVG (was .svg-only) — PNG/JPG/GIF/etc now open in /md viewer
+        // [impl:uuid:8eff3378-347e-4d3a-aaec-f3c6dc324b9d] R22.4 FileBrowser.isImage (clickable image links)
+        const isImage = (n: string) => /\.(svg|png|jpe?g|gif|webp|bmp|ico|avif)$/i.test(n);
+        const images = entries.filter(e => isFileOrLink(e) && isImage(e.name)).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>🖼 <a href="/md/${relPath}${e.name}">${e.name}</a>${symlinkIcon(e)}</li>`);
         const jsons = entries.filter(e => isFileOrLink(e) && e.name.endsWith('.json')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>📋 <a href="${jsonHref(e)}">${e.name}</a>${symlinkIcon(e)}${editIcon(e.name)}</li>`);
-        const others = entries.filter(e => isFileOrLink(e) && !e.name.endsWith('.md') && !e.name.endsWith('.svg') && !e.name.endsWith('.json') && !e.name.startsWith('.')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>${e.name}${symlinkIcon(e)}${editIcon(e.name)}</li>`);
+        const others = entries.filter(e => isFileOrLink(e) && !e.name.endsWith('.md') && !isImage(e.name) && !e.name.endsWith('.json') && !e.name.startsWith('.')).map(e => `<li${isHighlighted(e.name) ? ' style="background:rgba(255,152,0,0.15);border-radius:4px;padding:2px 4px"' : ''}>${e.name}${symlinkIcon(e)}${editIcon(e.name)}</li>`);
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(`${pageHead(relPath || '/')}<style>${MD_CSS}</style>${pageNav('/md/', 'Browse')}<div style="max-width:700px;margin:0 auto;padding:0 20px">${breadcrumb(relPath)}<ul>${dirs.join('')}${mds.join('')}${svgs.join('')}${jsons.join('')}${others.join('')}</ul></div></body></html>`);
+        res.end(`${pageHead(relPath || '/')}<style>${MD_CSS}</style>${pageNav('/md/', 'Browse')}<div style="max-width:700px;margin:0 auto;padding:0 20px">${breadcrumb(relPath)}<ul>${dirs.join('')}${mds.join('')}${images.join('')}${jsons.join('')}${others.join('')}</ul></div></body></html>`);
       } catch { res.writeHead(404); res.end('Directory not found'); }
       return;
     }
@@ -1139,6 +1587,18 @@ if(window.visualViewport)window.visualViewport.addEventListener('resize',onViewp
       const lockedHead = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>${title} — RawBin</title><link rel="stylesheet" href="/app.css"><script type="module" src="${getBannerScript()}"></script><style>html,body{margin:0;padding:0;overflow:hidden;height:100vh}</style></head><body><rb-update-banner></rb-update-banner>`;
       res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache' });
       res.end(`${lockedHead}${pageNav('/md/' + dirPath + '/', 'Back')}<iframe src="/svg-viewer?src=${encodeURIComponent('/md/raw/' + relPath)}" style="width:100vw;height:calc(100vh - 60px - env(safe-area-inset-top));border:none;display:block;background:white"></iframe></body></html>`);
+      return;
+    }
+    // R22.4 fix: serve raster images raw so the clickable /md image links RESOLVE (were 404 — only .svg had a handler)
+    if (filepath.startsWith('/md/') && /\.(png|jpe?g|gif|webp|bmp|ico|avif)$/i.test(filepath)) {
+      const relPath = filepath.slice(4);
+      if (relPath.includes('..')) { res.writeHead(403); res.end('Forbidden'); return; }
+      const imgFile = path.join(PROJECT_ROOT, relPath);
+      try {
+        const buf = fsSync.readFileSync(imgFile);
+        res.writeHead(200, { 'Content-Type': MIME_TYPES[path.extname(relPath).toLowerCase()] || 'application/octet-stream', 'Cache-Control': 'no-cache' });
+        res.end(buf);
+      } catch { res.writeHead(404); res.end('Image not found'); }
       return;
     }
     if (filepath.startsWith('/md/') && filepath.endsWith('.puml')) {
@@ -1715,11 +2175,10 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
     case MSG.IDENTIFY: {
       let token = msg.playerToken;
       if (!token) break;
-      let redirectProfile = userProfiles.get(token);
-      if (redirectProfile?.redirectTo) {
-        const newToken = redirectProfile.redirectTo;
-        send({ type: MSG.TOKEN_REDIRECT, newToken });
-        token = newToken;
+      const primaryToken = redirectTombstoneToPrimary(token); // v0.7.1 (R25.7): tombstone → primary (never re-mint)
+      if (primaryToken !== token) {
+        send({ type: MSG.TOKEN_REDIRECT, newToken: primaryToken });
+        token = primaryToken;
       }
       tokenToClient.set(token, clientId);
       const thisClient = [...wsClients].find(c => c.id === clientId);
@@ -1735,6 +2194,15 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
 
       let profile = userProfiles.get(token);
       if (!profile) {
+        // R21.4: a phone/email already in the index → device-link to the EXISTING user,
+        // do NOT mint a new profile. Challenge for that user's secret code first.
+        const knownUuid = resolveKeyToProfile(msg.phone, msg.email);
+        if (knownUuid && knownUuid !== token) {
+          const kp = userProfiles.get(knownUuid);
+          send({ type: MSG.KNOWN_KEY_CHALLENGE, profileUuid: knownUuid, maskedName: maskName(kp?.name || '') });
+          addLog(`Known-key challenge: ${token.slice(0,8)} → existing ${knownUuid.slice(0,8)}`);
+          break; // no mint, no attach — await DEVICE_ENROLL_REQUEST{profileUuid, secretCode}
+        }
         profile = { token, name: '', phone: '', url: '', avatar: '', avatarCrop: null, secretCode: generateSecretCode(), profileCommitted: false, sshKeysGenerated: false, sshKeyGeneratedAt: '', consolidatedFrom: [], bugReports: [] };
         userProfiles.set(token, profile);
       }
@@ -1823,11 +2291,17 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       if (!myProfile.consolidatedFrom) myProfile.consolidatedFrom = [];
       myProfile.consolidatedFrom.push(friend.token);
 
-      friend.redirectTo = myToken;
+      friend.redirectTo = myToken; // v0.7.0 (c): a tombstone — immutable; resolveToken + saveProfiles preserve it, IDENTIFY redirects it (never re-mints)
       friend.secretCode = '';
       friend.bugReports = [];
       saveProfiles();
       saveDevices();
+
+      // v0.7.0 (b): actively evict the absorbed profile from ALL loaded rooms (live), collapsing onto the
+      // primary — not just on next load. So a consolidation never leaves a duplicate member behind.
+      let evictedRooms = 0;
+      for (const rm of roomManager.allRooms()) if (rm.collapseAbsorbedMember(targetToken, myToken)) evictedRooms++;
+      addLog(`[consolidate] evicted ${targetToken.slice(0,8)} → ${myToken.slice(0,8)} from ${evictedRooms} room(s)`);
 
       send({ type: MSG.CONSOLIDATE_OK, mergedDevices: mergedDeviceCount });
       break;
@@ -1883,12 +2357,25 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       const profile = userProfiles.get(myToken);
       if (!profile) { send({ type: MSG.ERROR, message: 'No profile' }); break; }
       if (typeof msg.name === 'string') profile.name = msg.name;
-      if (typeof msg.phone === 'string') profile.phone = msg.phone.slice(0, 30);
+      if (typeof msg.phone === 'string') profile.phone = (normalizePhone(msg.phone) || msg.phone.slice(0, 30)); // R21.3: standardize to +CountryDigits
       if (typeof msg.url === 'string') profile.url = msg.url.slice(0, 200);
       if (typeof msg.avatar === 'string' && msg.avatar.startsWith('/api/avatar/')) profile.avatar = msg.avatar;
       if (msg.avatarCrop && typeof msg.avatarCrop === 'object') profile.avatarCrop = { scale: Number(msg.avatarCrop.scale) || 1, x: Number(msg.avatarCrop.x) || 0, y: Number(msg.avatarCrop.y) || 0 };
       if (typeof msg.secretCode === 'string' && /^\d{4}$/.test(msg.secretCode)) profile.secretCode = msg.secretCode;
       if (profile.name) profile.profileCommitted = true;
+      // R21.3: index the phone as an alt-UUID symlink → profile scenario unit (self-healing; never blocks save)
+      if (profile.profileCommitted && profile.phone) indexProfilePhone(profile.token, profile.name, profile.phone);
+      // R21.5: index email(s) as Email units + alt-UUID symlinks (msg.email single or msg.emails[])
+      if (profile.profileCommitted) {
+        const emails: string[] = Array.isArray(msg.emails) ? msg.emails.filter((e: any) => typeof e === 'string') : (typeof msg.email === 'string' && msg.email ? [msg.email] : []);
+        if (emails.length) indexProfileEmail(profile.token, profile.name, emails);
+        // R21.7: addresses — mint sync, verify async (never blocks)
+        const addresses: string[] = Array.isArray(msg.addresses) ? msg.addresses.filter((a: any) => typeof a === 'string') : (typeof msg.address === 'string' && msg.address ? [msg.address] : []);
+        if (addresses.length) indexProfileAddress(profile.token, profile.name, addresses);
+        // R21.8: companies — mint-or-reuse SHARED unit + link (msg.companies[] of string|{name,domain})
+        const companies = Array.isArray(msg.companies) ? msg.companies : (msg.company ? [msg.company] : []);
+        if (companies.length) indexProfileCompany(profile.token, profile.name, companies);
+      }
       if (profile.profileCommitted && !profile.sshKeysGenerated) {
         createUserHome(profile.token);
         generateUserKeypair(profile.token);
@@ -1924,16 +2411,29 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
     }
 
     case MSG.DEVICE_ENROLL_REQUEST: {
-      const enrollToken = [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
+      // R21.4: if msg.profileUuid is set, this is a known-key device-link — enroll the
+      // new device under the EXISTING profile (not the connecting fresh token).
+      const connectingToken = [...tokenToClient.entries()].find(([, cid]) => cid === clientId)?.[0];
+      const targetUuid = (typeof msg.profileUuid === 'string' && msg.profileUuid) ? msg.profileUuid : connectingToken;
+      const enrollToken = targetUuid;
       if (!enrollToken) { send({ type: MSG.DEVICE_ENROLL_FAILED, reason: 'Not identified' }); break; }
       const enrollProfile = userProfiles.get(enrollToken);
       if (!enrollProfile) { send({ type: MSG.DEVICE_ENROLL_FAILED, reason: 'No profile' }); break; }
       if (!enrollProfile.sshKeysGenerated) { send({ type: MSG.DEVICE_ENROLL_FAILED, reason: 'Keys not generated' }); break; }
       if (msg.secretCode !== enrollProfile.secretCode) { send({ type: MSG.DEVICE_ENROLL_FAILED, reason: 'Wrong secret code' }); break; }
+      // R21.4: device-link success — redirect the connecting fresh token to the existing
+      // profile so this device becomes that same user (no new profile, no merge).
+      const isDeviceLink = !!(typeof msg.profileUuid === 'string' && msg.profileUuid && msg.profileUuid !== connectingToken);
       const enrollClient = [...wsClients].find(c => c.id === clientId);
       const enrollDeviceId = enrollClient?.deviceId || clientId;
       const result = enrollDevice(enrollToken, enrollDeviceId);
-      const deviceRec = deviceRecords.find(d => d.ownerToken === enrollToken && d.deviceId === enrollDeviceId);
+      let deviceRec = deviceRecords.find(d => d.ownerToken === enrollToken && d.deviceId === enrollDeviceId);
+      if (!deviceRec && isDeviceLink) {
+        // R21.4: the new device was never tracked under the existing profile (IDENTIFY
+        // short-circuited at the challenge) — create its record now under the existing user.
+        deviceRec = { deviceId: enrollDeviceId, ownerToken: enrollToken, userAgent: enrollClient?.userAgent || '', ip: enrollClient?.ip || '', screenSize: '', platform: '', firstSeen: new Date().toISOString(), lastSeen: new Date().toISOString(), connectionCount: 1, enrolled: false, devicePublicKey: '', enrolledAt: '' };
+        deviceRecords.push(deviceRec);
+      }
       if (deviceRec) {
         deviceRec.enrolled = true;
         deviceRec.devicePublicKey = result.devicePublicKey;
@@ -1941,7 +2441,15 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       }
       saveDevices();
       send({ type: MSG.DEVICE_ENROLL_OK, devicePublicKey: result.devicePublicKey, devicePrivateKey: result.devicePrivateKey, signature: result.signature });
-      addLog(`Device enrolled: ${enrollToken.slice(0,8)} / ${enrollDeviceId.slice(0,8)}`);
+      addLog(`Device enrolled: ${enrollToken.slice(0,8)} / ${enrollDeviceId.slice(0,8)}${isDeviceLink ? ' (R21.4 device-link)' : ''}`);
+      if (isDeviceLink) {
+        // Adopt the existing identity on this device: redirect token + bind this client.
+        tokenToClient.set(enrollToken, clientId);
+        if (enrollClient) enrollClient.playerToken = enrollToken;
+        send({ type: MSG.TOKEN_REDIRECT, newToken: enrollToken });
+        const linkedDevices = deviceRecords.filter(d => d.ownerToken === enrollToken);
+        send({ type: MSG.PROFILE, profile: { ...enrollProfile, devices: linkedDevices }, connectedDeviceIds: [...wsClients].filter(c => c.playerToken === enrollToken && c.deviceId).map(c => c.deviceId) });
+      }
       break;
     }
 

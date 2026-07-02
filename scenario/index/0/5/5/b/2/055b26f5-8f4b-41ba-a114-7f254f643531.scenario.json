@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "055b26f5-8f4b-41ba-a114-7f254f643531",
+    "name": "test:R22.4 renderImageLink gate",
+    "description": "Bridged to test/visual/r224-clickable-png-gate.mjs — verifies renderImageLink",
+    "sourceFile": "ior:file:test/visual/r224-clickable-png-gate.mjs",
+    "implementations": [
+      "ior:instance:8eff3378-347e-4d3a-aaec-f3c6dc324b9d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:8eff3378-347e-4d3a-aaec-f3c6dc324b9d"
+}

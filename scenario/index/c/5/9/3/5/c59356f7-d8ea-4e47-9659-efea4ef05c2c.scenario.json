@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "c59356f7-d8ea-4e47-9659-efea4ef05c2c",
+    "name": "email.mintAndLink",
+    "description": "Mint ior:class:Email unit, link to profile via emails[] (class->method shape), register alt/email symlink; known email triggers device-link.",
+    "class": "ior:instance:3bb26ebe-ebd9-4d65-91d9-d73b1eb31f59",
+    "classes": [
+      "ior:instance:3bb26ebe-ebd9-4d65-91d9-d73b1eb31f59"
+    ],
+    "method": "ior:instance:1b9a429b-01b3-424f-8c75-d2f2c924e8b8",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:a8be009e-8d1c-41ae-8f38-96515a72a929"
+}

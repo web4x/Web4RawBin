@@ -6,7 +6,9 @@
     "className": "RbDetailDrawer",
     "methodName": "close",
     "implementations": [
-      "ior:instance:b53858c3-89ba-48ee-a659-2d03a3c88e51"
+      "ior:instance:b53858c3-89ba-48ee-a659-2d03a3c88e51",
+      "ior:instance:2e4ff35c-6286-4400-a2c8-d6ebfde62638",
+      "ior:instance:c1e90fe2-ea6d-4ada-abbd-09286a75bdfd"
     ],
     "implementation": "ior:instance:d96ae23b-802f-4452-b8b1-90b11dd6e84e",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
@@ -16,5 +18,5 @@
     ],
     "parent": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
   },
-  "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+  "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
 }

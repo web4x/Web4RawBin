@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "5925b6e3-e6a1-4464-a538-47964a05608d",
+    "name": "page.url",
+    "contentPath": "index/5/9/2/5/b/5925b6e3-e6a1-4464-a538-47964a05608d.content",
+    "size": 39,
+    "mimeType": "text/uri-list",
+    "uploadedAt": "2026-06-30T08:19:51.926Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "9590a28c-fec1-4cef-bde7-0967eb9967d0",
+    "contentHash": "e5fa034b50230b08e800411ba2669dae2cf91f69dacfc5a3957e9f4a3607eebc",
+    "unitLinks": [
+      "content/e5fa034b50230b08e800411ba2669dae2cf91f69dacfc5a3957e9f4a3607eebc.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/9590a28c-fec1-4cef-bde7-0967eb9967d0/files/5925b6e3-e6a1-4464-a538-47964a05608d.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:9590a28c-fec1-4cef-bde7-0967eb9967d0"
+}

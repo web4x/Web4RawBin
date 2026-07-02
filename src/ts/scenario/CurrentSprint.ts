@@ -67,6 +67,9 @@ export class CurrentSprint {
   private taskName = '';
   private hopStates: Record<string, HopState> = {};
   private nextBacklogOverride = '';
+  private lastCompletedUuid = '';
+  private lastCompletedName = '';
+  private lastCompletedReqUuid = '';
 
   private constructor(index: ScenarioIndex) {
     this.index = index;
@@ -88,6 +91,9 @@ export class CurrentSprint {
       this.taskName = (m.taskName as string) || '';
       this.hopStates = (m.hopStates as Record<string, HopState>) || {};
       this.nextBacklogOverride = (m.nextBacklogOverride as string) || '';
+      this.lastCompletedUuid = (m.lastCompletedUuid as string) || '';
+      this.lastCompletedName = (m.lastCompletedName as string) || '';
+      this.lastCompletedReqUuid = (m.lastCompletedReqUuid as string) || '';
     }
   }
 
@@ -103,6 +109,9 @@ export class CurrentSprint {
         taskName: this.taskName,
         hopStates: this.hopStates,
         nextBacklogOverride: this.nextBacklogOverride,
+        lastCompletedUuid: this.lastCompletedUuid,
+        lastCompletedName: this.lastCompletedName,
+        lastCompletedReqUuid: this.lastCompletedReqUuid,
         slots: this.getThreeSlots(),
       },
       ownerIor: null,
@@ -138,54 +147,88 @@ export class CurrentSprint {
       sprintName: this.sprintName,
       taskName: this.taskName,
       chainDepth: this.activeHop,
-      wipStatus: this.chain ? CHAIN_ORDER[this.activeHop] || 'done' : 'none',
+      wipStatus: this.chain
+        ? (this.activeHop >= CHAIN_ORDER.length - 1 && this.hopStates.test?.status === 'gate-proven' ? 'done' : CHAIN_ORDER[this.activeHop] || 'done')
+        : 'none',
       slots: this.getThreeSlots(),
     };
   }
 
   // [impl:uuid:d20855e7-4a1b-4c2d-8e3f-5a6b7c8d9e0f] R20.22 getThreeSlots
   getThreeSlots(): ThreeSlots {
-    const tasks: Array<{ uuid: string; name: string; reqUuid: string; focus: boolean; testGateProven: boolean; hasUcChain: boolean; updatedAt: string }> = [];
-    for (const uuid of this.index.list()) {
+    // Tron redesign: ALL 3 slots derive from the CURRENT SPRINT's tasks[] — the sprint boundary IS
+    // the scope. No global task scan (which surfaced DONE tasks from old sprints, e.g. a Sprint-20
+    // task as a phantom backlog item). current=focused; lastCompleted=prior task in-sprint;
+    // nextBacklog=next not-done task in-sprint (null if the sprint has no more).
+    type Slot = { uuid: string; name: string; reqUuid: string; focus: boolean; done: boolean };
+    const slotInfo = (uuid: string): Slot | null => {
       const unit = this.index.get(uuid);
-      if (!unit || unit.ior !== 'ior:class:Task') continue;
+      if (!unit || unit.ior !== 'ior:class:Task') return null;
       const m = unit.model as Record<string, unknown>;
       const reqIors = (m.coveredRequirements as string[]) || [];
-      const reqUuid = reqIors.length > 0 ? ior(reqIors[0]) : '';
-      const ucIors = (m.useCases as string[]) || [];
-      tasks.push({
-        uuid, name: String(m.name || ''), reqUuid,
+      return {
+        uuid, name: String(m.name || ''),
+        reqUuid: reqIors.length > 0 ? ior(reqIors[0]) : '',
         focus: !!m.focus,
-        testGateProven: this.hopStates.test?.status === 'gate-proven' && !!m.focus,
-        hasUcChain: ucIors.length > 0,
-        updatedAt: String(m.updatedAt || m.statusChecklist || ''),
-      });
-    }
+        done: String(m.status || '').toLowerCase() === 'done',
+      };
+    };
 
-    // Derive current from canonical WIP chain (not just focus-Task — WIP can be Bug/CR/any setChain'd item)
-    let current: typeof tasks[0] | null = null;
-    if (this.chain?.req) {
-      const chainReqUuid = this.chain.req;
-      current = tasks.find(t => t.reqUuid === chainReqUuid) || null;
-      if (!current) {
-        // Chain points to a non-Task (Bug, CR) — synthesize a slot from chain data
-        const chainUnit = this.index.get(chainReqUuid);
-        if (chainUnit) {
-          current = { uuid: chainReqUuid, name: this.taskName || String(chainUnit.model?.name || ''), reqUuid: chainReqUuid, focus: true, testGateProven: this.hopStates.test?.status === 'gate-proven', hasUcChain: true, updatedAt: '' };
-        }
-      }
+    // 1) resolve the current sprint's ordered task list: match by sprintName; fallback = the sprint
+    //    whose tasks[] contains the focused task.
+    const sprintUnits: Array<{ name: string; tasks: string[] }> = [];
+    for (const u of this.index.list()) {
+      const unit = this.index.get(u);
+      if (!unit || unit.ior !== 'ior:class:Sprint') continue;
+      const sm = unit.model as Record<string, unknown>;
+      sprintUnits.push({ name: String(sm.name || sm.altId || ''), tasks: ((sm.tasks as string[]) || []).map(t => ior(t)) });
     }
-    if (!current) current = tasks.find(t => t.focus) || null;
-    const completed = tasks.filter(t => !t.focus && t.reqUuid);
-    const lastCompleted = completed.length > 0 ? completed[completed.length - 1] : null;
-    const backlog = tasks.filter(t => !t.focus && t.reqUuid && !t.hasUcChain);
-    let nextBacklog: typeof tasks[0] | null = null;
-    if (this.nextBacklogOverride) {
-      nextBacklog = tasks.find(t => t.uuid === this.nextBacklogOverride) || null;
+    const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+    let sprintTaskUuids: string[] = [];
+    if (this.sprintName) {
+      const key = norm(this.sprintName);
+      const match = key ? sprintUnits.find(s => norm(s.name).includes(key)) : undefined;
+      if (match) sprintTaskUuids = match.tasks;
     }
-    if (!nextBacklog) nextBacklog = backlog.length > 0 ? backlog[0] : null;
+    if (!sprintTaskUuids.length) {
+      let focusUuid = '';
+      for (const u of this.index.list()) { const unit = this.index.get(u); if (unit?.ior === 'ior:class:Task' && (unit.model as Record<string, unknown>).focus) { focusUuid = u; break; } }
+      const owner = focusUuid ? sprintUnits.find(s => s.tasks.includes(focusUuid)) : undefined;
+      if (owner) sprintTaskUuids = owner.tasks;
+    }
+    const sprintTasks = sprintTaskUuids.map(slotInfo).filter((t): t is Slot => !!t);
 
-    const toSlot = (t: typeof tasks[0] | null): TaskSlot | null =>
+    // 2) current = focused sprint task, else the sprint task covering the WIP chain req.
+    let i = sprintTasks.findIndex(t => t.focus);
+    if (i < 0 && this.chain?.req) i = sprintTasks.findIndex(t => t.reqUuid === this.chain!.req);
+    let current: Slot | null = i >= 0 ? sprintTasks[i] : null;
+    if (!current && this.chain?.req) {
+      // chain points to a non-Task (Bug/CR) or a task outside any sprint → current-only slot
+      const cu = this.index.get(this.chain.req);
+      if (cu) current = { uuid: this.chain.req, name: this.taskName || String(cu.model?.name || ''), reqUuid: this.chain.req, focus: true, done: false };
+    }
+    const currentUuid = current?.uuid || '';
+
+    // 3) lastCompleted = nearest DONE task before current; fallback = immediate predecessor in-sprint.
+    let lastCompleted: Slot | null = null;
+    for (let k = i - 1; k >= 0; k--) { if (sprintTasks[k].done) { lastCompleted = sprintTasks[k]; break; } }
+    if (!lastCompleted && i > 0) lastCompleted = sprintTasks[i - 1];
+    // honor an explicit lastCompleted pin ONLY if it's in the current sprint (else it's stale)
+    if (this.lastCompletedUuid) { const o = sprintTasks.find(t => t.uuid === this.lastCompletedUuid); if (o && o.uuid !== currentUuid) lastCompleted = o; }
+
+    // 4) nextBacklog = first NOT-done task after current in-sprint; null if the sprint has no more.
+    let nextBacklog: Slot | null = null;
+    for (let k = i + 1; k < sprintTasks.length; k++) { if (!sprintTasks[k].done) { nextBacklog = sprintTasks[k]; break; } }
+    // honor an explicit nextBacklog pin ONLY if it points to a task IN THE CURRENT SPRINT (a stale
+    // cross-sprint override was the source of the phantom Sprint-20 backlog item).
+    if (this.nextBacklogOverride) { const o = sprintTasks.find(t => t.uuid === this.nextBacklogOverride); if (o && o.uuid !== currentUuid) nextBacklog = o; }
+
+    // BUG-C invariant: no UUID appears in more than one slot.
+    const lcUuid = lastCompleted?.uuid || '';
+    if (lastCompleted && lcUuid === currentUuid) lastCompleted = null;
+    if (nextBacklog && (nextBacklog.uuid === currentUuid || nextBacklog.uuid === lcUuid)) nextBacklog = null;
+
+    const toSlot = (t: Slot | null): TaskSlot | null =>
       t ? { taskUuid: t.uuid, taskName: t.name, reqUuid: t.reqUuid } : null;
 
     return { current: toSlot(current), lastCompleted: toSlot(lastCompleted), nextBacklog: toSlot(nextBacklog) };
@@ -255,6 +298,7 @@ export class CurrentSprint {
   }
 
   /** Set focus on a task. BLOCKED unless current task's test is gate-proven (or no current task). */
+  // [impl:uuid:c07efc21-153c-4e02-81c5-ae2e919ad03b] R24.2 CurrentSprint.setFocus (Pin lifecycle)
   setFocus(taskUuid: string, force?: boolean): boolean {
     if (this.chain && !force && !this.isGateProven()) {
       return false; // task-switch gate: current chain not gate-proven
@@ -263,9 +307,20 @@ export class CurrentSprint {
     if (!taskUnit || taskUnit.ior !== 'ior:class:Task') return false;
     for (const uuid of this.index.list()) {
       const u = this.index.get(uuid);
-      if (!u || u.ior !== 'ior:class:Task') continue;
+      if (!u) continue;
       const m = u.model as Record<string, unknown>;
-      if (m.focus) { delete m.focus; this.index.put(uuid, u); }
+      if (!m.focus) continue;
+      // BUG-D: only REAL feature Tasks rotate into lastCompleted (the "last delivered"
+      // slot). Internal/housekeeping units (ChangeRequest, Bug) clear focus but KEEP the
+      // previous lastCompleted — focus rotating past a CR/Bug must not overwrite it.
+      if (u.ior === 'ior:class:Task') {
+        this.lastCompletedUuid = uuid;
+        this.lastCompletedName = String(m.name || '');
+        const reqIors = (m.coveredRequirements as string[]) || [];
+        this.lastCompletedReqUuid = reqIors.length > 0 ? ior(reqIors[0]) : '';
+      }
+      delete m.focus;
+      this.index.put(uuid, u);
     }
     (taskUnit.model as Record<string, unknown>).focus = true;
     this.index.put(taskUuid, taskUnit);
@@ -293,8 +348,11 @@ export class CurrentSprint {
       const ucUuid = ucIors.length > 0 ? ior(ucIors[0]) : '';
       if (!ucUuid) continue;
       const ucUnit = this.index.get(ucUuid);
-      if (!ucUnit) continue;
-      const ucM = ucUnit.model as Record<string, unknown>;
+      // R23-fix (skill-expert): when the UC unit is not on disk yet, do NOT abandon the focused
+      // task and fall back to a 2-sprint-stale pin. Anchor on req and mark uc+ as PENDING (the
+      // partial branch below). ucUnit-missing => refs.uc drops to '' so activeHop lands on the
+      // uc hop. This never fabricates credit — it just keeps /trace honest about the CURRENT task.
+      const ucM = (ucUnit?.model as Record<string, unknown>) || {};
       const clsUuid = ior(((ucM.classes as string[]) || [])[0] || '');
       const methUuid = ior(String(ucM.method || ''));
       const methUnit = methUuid ? this.index.get(methUuid) : null;
@@ -303,15 +361,16 @@ export class CurrentSprint {
       const implUnit = implUuid ? this.index.get(implUuid) : null;
       const implM = implUnit?.model as Record<string, unknown> | undefined;
       const testUuid = ior(((implM?.tests as string[]) || [])[0] || '');
-      const refs: ChainRefs = { req: reqUuid, uc: ucUuid, class: clsUuid, method: methUuid, impl: implUuid, test: testUuid };
+      const refs: ChainRefs = { req: reqUuid, uc: ucUnit ? ucUuid : '', class: clsUuid, method: methUuid, impl: implUuid, test: testUuid };
       const complete = CHAIN_ORDER.every(k => !!refs[k]);
+      const taskSprint = String(m.sprintName || m.sprint || '');
       if (complete) {
-        return this.setChain(refs, String(m.sprint || ''), String(m.name || ''));
+        return this.setChain(refs, taskSprint, String(m.name || ''));
       }
       this.chain = refs;
       this.activeHop = CHAIN_ORDER.findIndex(k => !refs[k]);
       if (this.activeHop < 0) this.activeHop = 0;
-      this.sprintName = String(m.sprint || this.sprintName);
+      this.sprintName = taskSprint || this.sprintName;
       this.taskName = String(m.name || this.taskName);
       this.persist();
       this.emit();

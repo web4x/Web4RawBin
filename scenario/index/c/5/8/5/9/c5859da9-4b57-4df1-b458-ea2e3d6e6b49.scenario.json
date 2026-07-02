@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:d932447e-7791-4ed8-98d6-517f2699a5ed",
+  "model": {
+    "uuid": "c5859da9-4b57-4df1-b458-ea2e3d6e6b49",
+    "name": "impl:RbFileDetail.renderWithBrowseLink",
+    "status": "active",
+    "sourceFile": "src/public/ts/trace/rb-file-detail.ts"
+  }
+}

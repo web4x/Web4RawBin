@@ -1,0 +1,91 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "e205f7c3-97d8-474a-a4e6-053a7a7f30aa",
+    "name": "Graph integrity: resolve/prune dangling UC refs + orphan Methods",
+    "altId": "R27.4",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-27-detail-view-enhancements/requirements.md",
+    "sourceLine": 56,
+    "parent": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:f7a06e18-5237-4640-a731-0575bc965917"
+    ],
+    "description": "Resolve or prune the graph's pre-existing dangling references and orphan Methods so the traceability graph has ZERO broken edges: every UseCase class / classes[] / method reference resolves to an existing unit, and every Method is owned by a Class that lists it. The measured baseline has 12 dangling UC refs (10 point at a DEAD RbDetailView uuid f2f84ce3 - repoint to the live canonical; 1 at a dead Method fcf6dae1; 1 is a literal 'TODO-...' placeholder string) + 51 orphan Methods. These are PRE-EXISTING debt (not from the R27.2 dedup; measured by verify_r27_2_migration.py). A CI gate (trace:audit:strict) then prevents recurrence.",
+    "tronQuote": "> Derived from robbin-req baseline measurement (verify_r27_2_migration.py); PO ratified 2026-07-01 as a separate scenario-first cleanup req.",
+    "discoverySource": {
+      "type": "tool-measurement",
+      "discoveredBy": "robbin-req (baseline-running the R27.2 gated verifier)",
+      "date": "2026-07-01",
+      "measured": "12 dangling UC refs (6 class, 5 classes[], 1 method) + 51 orphan Methods. 0 of 12 intersect the R27.2 dup-collapse set (all point at dead uuids: 10 dead RbDetailView f2f84ce3, 1 dead Method fcf6dae1, 1 literal 'TODO-' placeholder string)."
+    },
+    "auditRef": "verify_r27_2_migration.py baseline; scrum.pmo/design-notes/r27.2-class-dedup-migration.md (INV2 delta note)",
+    "crossRef": [
+      "ior:instance:64965538-2725-4ef2-92e7-c1be6cd58d6f",
+      "ior:instance:79bc8e34-9acb-4338-bbd0-c1f7e817ca7d"
+    ],
+    "crossRefNote": "Sibling graph-integrity cleanup to R27.2 (class-dedup) \u2014 SEPARATE (0 of 12 dangling intersect the dup-collapse set). Enforced by R24.5 trace:audit:strict as the recurrence gate. Ordering: independent of R27.2; run either order (orphan re-measure after R27.2 may reduce the 51 since dedup repoints some methods).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-no-dangling",
+        "group": "invariant",
+        "text": "Every UseCase class / classes[] / method reference resolves to an existing unit - 0 dangling UC refs."
+      },
+      {
+        "id": "AC-no-orphan",
+        "group": "invariant",
+        "text": "Every Method unit is owned by a Class that lists it in methods[] - 0 UNINTENTIONAL orphan Methods. A Method carrying an explicit orphanByDesign marker whose impl has NO sourceFile is legitimately exempt (design-stage); that exempt set is currently EMPTY (all 51 have real source)."
+      },
+      {
+        "id": "AC-repair-dangling",
+        "group": "cleanup",
+        "text": "The 12 dangling are repaired: the 10 refs at the DEAD f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5 are repointed to the LIVE canonical RbDetailView f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07 (PO-ratified canonical; it holds those UCs methods by name); the dead Method ref fcf6dae1-69c7 + the literal string TODO-server-class are triaged (repoint OR remove) with a reason."
+      },
+      {
+        "id": "AC-repair-orphan",
+        "group": "cleanup",
+        "text": "All 51 orphan Methods attach to their name-derived Class (resolver: live ownerIor Class -> UC.class of a using UC -> R27.2-canonical). All 51 carry impls with REAL sourceFiles, so 0 prune (deletes nothing). The 37 STALE orphanByDesign markers (marker asserts no-source but the impl HAS a sourceFile) are CLEARED as part of the repair. Dry-run+count FIRST; distinct Impl 434==434 (nothing deleted)."
+      },
+      {
+        "id": "AC-by-construction",
+        "group": "ci-gate",
+        "text": "trace:audit:strict (R24.5) FAILS on: (a) any dangling UC ref; (b) any UNINTENTIONAL orphan Method - METHOD-SCOPED = Method not in any Class.methods[] (+ orphan Impls), NOT the tools BROAD all-types unreachable-from-Requirement metric (=2207, benign: Tasks+TestCase/Device/Room/File that can NEVER be 0 - stays REPORTED-only, not hard-gated); (c) a LYING orphanByDesign marker (asserts no-source but a real sourceFile EXISTS). Attach-on-wire AUTO-CLEARS orphanByDesign when source appears. Exemption MARKER-KEYED (impl-with-no-sourceFile only)."
+      },
+      {
+        "id": "AC-verify",
+        "group": "verify",
+        "text": "Post-cleanup re-measure: 0 dangling UC refs, 0 orphan Methods."
+      }
+    ],
+    "danglingSet": {
+      "total": 12,
+      "detail": {
+        "10x_dead_RbDetailView": "f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5 -> repoint to canonical f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07",
+        "1x_dead_method": "fcf6dae1-69c7-418d-a68a-6fca1d0a9137",
+        "1x_malformed": "literal string TODO-server-class"
+      },
+      "orphanMethods": 51,
+      "note": "0 of 12 intersect the R27.2 dup-collapse set; PO decision RbDetailView canonical = f2f84ce3-6f8f; measured full-uuid vs current disk (raw JSON + os.path.exists)."
+    },
+    "orphanScope": {
+      "total": 51,
+      "attachAll": 51,
+      "realSource": 51,
+      "staleMarkersTo\u0421lear": 37,
+      "genuineDesignAheadExempt": 0,
+      "dangling": 12,
+      "note": "PO-LOCKED 2026-07-01. All 51 orphan Methods have impls with real sourceFiles -> attach all + clear 37 stale orphanByDesign markers. Exempt set empty now; CI marker-keyed for future genuine design-stage (impl with no sourceFile). trace:audit:strict also flags lying-marker + attach-on-wire auto-clears.",
+      "implBaseline": "434 (was 431 pre-guard; R27.2 guard-chain nodes 61f24d2c/33ccac7f +1 added 3 post-landing)",
+      "attachMap": "scrum.pmo/design-notes/r27.4-attach-map.md (40 className + 10 UC.class + 1 create server; 0 prune)"
+    },
+    "orphanTypeReconcile": {
+      "r27_4_scope": "51 orphan-Methods (Method not in any Class.methods[]) - the real defect",
+      "trace_audit_2207": "BENIGN broad metric: units unreachable from Requirement roots via CANONICAL_FORWARD edges (Requirement->useCases NOT tasks), all-types, excludes TraceLink+Sprint. ~2207 = mostly Tasks + non-chain data (TestCase/Device/Room/File) that can never be 0. NOT debt, NOT R27.4 scope.",
+      "ci_gate": "METHOD-scoped orphan (+orphan-Impls), broad-metric reported-only",
+      "confirmedBy": "req read trace-audit.ts CANONICAL_FORWARD + expert + architect + PO, 2026-07-01"
+    }
+  },
+  "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
+}

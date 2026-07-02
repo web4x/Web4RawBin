@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "4d198344-a462-42f6-964c-f4f893236eb4",
+    "name": "Grüße-für-0f44524b.eml",
+    "contentPath": "index/4/d/1/9/8/4d198344-a462-42f6-964c-f4f893236eb4.content",
+    "size": 47,
+    "mimeType": "message/rfc822",
+    "uploadedAt": "2026-06-30T11:59:42.665Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "contentHash": "f82ff85cfa79dd6bed53d58849d4e5da2d38aa66dafbcec93742e0f18f053aed",
+    "unitLinks": [
+      "content/f82ff85cfa79dd6bed53d58849d4e5da2d38aa66dafbcec93742e0f18f053aed.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/3231db71-d834-435a-a7f9-a801680ccd62/files/4d198344-a462-42f6-964c-f4f893236eb4.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62"
+}

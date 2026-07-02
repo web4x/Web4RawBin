@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ea55be35-73c3-49f9-8781-9011ef9c4a14",
+    "name": "ClipboardImport.readAndRoute",
+    "description": "On yes, read the clipboard (navigator.clipboard.read/readText), detect MIME types, and route the same as drop-dispatcher: URLs->WebItem, images/bytes->File, text->file; on no, import nothing.",
+    "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
+    "implementations": [
+      "ior:instance:eb25b473-84ba-4cb2-9dad-598efa6e1e93"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0cabde12-858a-4342-a00d-f5cf73d7822c"
+}

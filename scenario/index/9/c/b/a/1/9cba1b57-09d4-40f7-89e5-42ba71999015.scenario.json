@@ -5,9 +5,11 @@
     "name": "RbFileDetail.render",
     "description": "Fetch /api/trace/children/<fileUuid> for file metadata. Render header (type+name+uuid+mimeType+size). Call renderContentPreview(uuid, mimeType, name, token) for inline preview. Wire URL action buttons via wireUrlActions. Show parent link + scenario browser link. Follows rb-task-detail pattern.",
     "implementations": [
-      "ior:instance:d932447e-7791-4ed8-98d6-517f2699a5ed"
+      "ior:instance:974511f3-8551-4cc5-b752-ef05cbd80524"
     ],
-    "tests": []
+    "tests": [],
+    "sourceFile": "src/public/ts/trace/rb-file-detail.ts",
+    "sourceLine": 25
   },
   "ownerIor": "ior:instance:37103cf0-c1db-4c94-84d4-163b05f9a8dd"
 }

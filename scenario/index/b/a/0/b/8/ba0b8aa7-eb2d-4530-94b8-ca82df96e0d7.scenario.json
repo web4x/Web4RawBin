@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ba0b8aa7-eb2d-4530-94b8-ca82df96e0d7",
+    "name": "guardUrl blocks private+loopback ranges",
+    "description": "DESIGN-AHEAD adversarial SSRF test: 10/8 172.16/12 192.168/16 127/8 169.254/16 ::1 fc00::/7 fe80::/10 0.0.0.0/8 denied",
+    "testCases": []
+  },
+  "ownerIor": "ior:instance:ba8f38c0-99b6-401c-9fa6-5c7e3ea55e35"
+}

@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "63462717-1771-4775-aeda-d9947d7bcbd2",
+    "name": "Ed Sheeran - I See Fire (Music Video).mp3",
+    "contentPath": "index/6/3/4/6/2/63462717-1771-4775-aeda-d9947d7bcbd2.content",
+    "size": 4717922,
+    "mimeType": "audio/mpeg",
+    "uploadedAt": "2026-06-29T15:43:11.777Z",
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+    "roomUuid": "6c04f959-f3d6-42eb-818f-5e2e4498bf91",
+    "contentHash": "1927b4267eb494ee87b20afa396b8d0ae832c24edca1e6ed7fbda8f0833a1f81",
+    "unitLinks": [
+      "content/1927b4267eb494ee87b20afa396b8d0ae832c24edca1e6ed7fbda8f0833a1f81.file.scenario.json",
+      "../data/users/8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd/rooms/6c04f959-f3d6-42eb-818f-5e2e4498bf91/files/63462717-1771-4775-aeda-d9947d7bcbd2.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:6c04f959-f3d6-42eb-818f-5e2e4498bf91"
+}

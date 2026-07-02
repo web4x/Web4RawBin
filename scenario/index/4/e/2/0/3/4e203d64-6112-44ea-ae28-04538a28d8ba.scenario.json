@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "4e203d64-6112-44ea-ae28-04538a28d8ba",
+    "name": "IdentityResolver.resolveOrEnroll",
+    "description": "On IDENTIFY with a phone/email already in the alt-index, do not mint: challenge for secret CODE and attach a new device to the existing profile.",
+    "implementations": [
+      "ior:instance:cc6df739-135f-46a9-a53b-e8441571abbc"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3c0910a7-d9ee-4b9e-858a-49435ca29d9d"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "7be6b225-7067-4924-b715-08d3800fc5a0",
+    "name": "IORResolver.resolveFederated",
+    "description": "Federated IOR ior:instance:<uuid>@<originHost> (local omits @host); model.originHost/originIor provenance; resolve via pluggable federated loader: @self->ScenarioIndex.get, @remote->fetch.",
+    "sourceFile": "ior:file:src/ts/scenario/federated-ior.ts",
+    "implementations": [
+      "ior:instance:d2cde3fc-a97f-4b12-9746-25c201d8e901"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:b4eaa489-6096-46e9-b7e0-4fc8aa72ea08"
+}

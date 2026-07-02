@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "edee3e37-76e2-4a0a-820e-291bfd9ef8e5",
+    "name": "Chain.scoreboard",
+    "description": "Chain scoring instruments: scoreboard/followUp/listComplete/snapshotComplete + wireImplNode/wireAllMissing + generateMatrix/lintMarkers. Measurement source for the /trace scoreboard.",
+    "sourceFile": "ior:file:src/ts/scenario/skill-classes.ts",
+    "implementations": [
+      "ior:instance:cd939148-5588-4c43-a211-599ad266b790"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0bbe576f-d527-42c7-bf80-a72c87f76767"
+}

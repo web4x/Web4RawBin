@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "56b4283e-299a-46cb-b26e-c6c25b302cae",
+    "name": "guardUrl blocks cloud-metadata 169.254.169.254",
+    "description": "DESIGN-AHEAD adversarial SSRF test: deny fetch to 169.254.169.254 / metadata.google.internal / fd00:ec2::254 (all forms)",
+    "testCases": []
+  },
+  "ownerIor": "ior:instance:ba8f38c0-99b6-401c-9fa6-5c7e3ea55e35"
+}

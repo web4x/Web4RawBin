@@ -2,46 +2,40 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: T-file-detail-preview-buttons: BUILD+DEPLOY+GATE-VISIBLE the open-in-preview + open-in-new-tab buttons",
+    "name": "Current: Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
     "chain": {
-      "req": "607146d1-80d3-4aed-be81-b8eb4ebb43e1",
-      "uc": "62290aa8-48f5-41c9-b749-a7202c5c9940",
-      "class": "37103cf0-c1db-4c94-84d4-163b05f9a8dd",
-      "method": "63d58e0f-1e9c-40d8-9189-35239ae81096",
+      "req": "4f6d6402-fc8d-4d5d-9523-7e35af641944",
+      "uc": "",
+      "class": "",
+      "method": "",
       "impl": "",
       "test": ""
     },
-    "activeHop": 5,
-    "sprintName": "Sprint 20",
-    "taskName": "T-file-detail-preview-buttons: BUILD+DEPLOY+GATE-VISIBLE the open-in-preview + open-in-new-tab buttons",
+    "activeHop": 1,
+    "sprintName": "Sprint 27",
+    "taskName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-06-15T23:29:21.865Z"
-      },
-      "test": {
-        "status": "gate-proven",
-        "owner": "tester",
-        "updatedAt": "2026-06-15T23:29:39.464Z"
+        "updatedAt": "2026-07-01T15:46:47.209Z"
       }
     },
-    "nextBacklogOverride": "56cc23b5-aca1-49f5-9037-e2c58110643c",
+    "nextBacklogOverride": "",
+    "lastCompletedUuid": "026af82c-3668-4d94-ae01-51e5276f851b",
+    "lastCompletedName": "Task 26.6: Federation import wiring (end-to-end receive orchestration)",
+    "lastCompletedReqUuid": "e289f96e-0afc-4568-9c26-16cd9b8272eb",
     "slots": {
       "current": {
-        "taskUuid": "3852fdd7-f091-47fc-8239-93433fef4dfe",
-        "taskName": "T-file-detail-preview-buttons: BUILD+DEPLOY+GATE-VISIBLE the open-in-preview + open-in-new-tab buttons",
-        "reqUuid": "607146d1-80d3-4aed-be81-b8eb4ebb43e1"
+        "taskUuid": "8b15788a-e881-4bff-b9bf-ada1c48b262f",
+        "taskName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
+        "reqUuid": "4f6d6402-fc8d-4d5d-9523-7e35af641944"
       },
-      "lastCompleted": {
-        "taskUuid": "fe8c43a5-cd15-4aed-ac5b-97df558d8fea",
-        "taskName": "T-detail-drawer-grab-bar: default detail drawer nudge becomes the wide grab-bar (DRY with chat drawer)",
-        "reqUuid": "9993091a-aa45-4c4f-9c62-e4d5377ba3e8"
-      },
+      "lastCompleted": null,
       "nextBacklog": {
-        "taskUuid": "56cc23b5-aca1-49f5-9037-e2c58110643c",
-        "taskName": "T-rename-champagne-to-traceability: 'Champagne Chain' → 'Traceability Chain' in all user-facing UI",
-        "reqUuid": "b04fc9af-19ca-46d6-b4bd-c16663df1212"
+        "taskUuid": "dbd7e30d-263c-4d01-81eb-b687854ca961",
+        "taskName": "Task 27.1: Task detail renders the status checklist visually",
+        "reqUuid": "90b82d00-7af1-40e9-992c-c55ca177c542"
       }
     }
   },

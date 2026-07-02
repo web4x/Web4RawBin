@@ -1,0 +1,266 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "21e792e0-0431-4ffd-a4d4-c8d85df23299",
+    "name": "File detail: buttons and preview first, metadata last",
+    "altId": "R21.9",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/requirements.md",
+    "sourceLine": 115,
+    "parent": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:5826ca42-e01a-4ab5-8cd9-67bfb02b2e67"
+    ],
+    "description": "The in-room file detail view is reordered so action buttons (open-in-preview, open-in-new-tab) come first at the top, then a pan- and zoom-capable preview pane sized at 75% of screen height, then the metadata detail (name, size, type, scenario info) last - reversed from the current order where detail is on top and buttons/preview are at the bottom.",
+    "tronQuote": "> TRON: \"the in room file details shall START with the action button and the preview pane, then the detail. reverse order. preview 75% screen size. preview needs to pan zoom its content.\"",
+    "architectureRef": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/architecture.md#6-in-room-file-detail-reorder-pan-zoom (RbPanZoom transform gesture handler, reorder, correctness rules)",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-a1",
+        "group": "reorder",
+        "text": "Action buttons (open-in-preview, open-in-new-tab) render at the TOP of the file detail view."
+      },
+      {
+        "id": "AC-a2",
+        "group": "reorder",
+        "text": "The preview pane renders BELOW the buttons at height 75vh with overflow:hidden."
+      },
+      {
+        "id": "AC-a3",
+        "group": "reorder",
+        "text": "Metadata (.dv-fields: name/size/type/scenario) renders BELOW the preview (last)."
+      },
+      {
+        "id": "AC-a4",
+        "group": "reorder",
+        "text": "Order is reversed from the current layout (was: metadata top, preview+buttons bottom at 400px)."
+      },
+      {
+        "id": "AC-a5",
+        "group": "reorder",
+        "text": "The 75vh preview pane is an in-flow block (NOT position:fixed) so it never intercepts taps outside its own box."
+      },
+      {
+        "id": "AC-b1",
+        "group": "transform",
+        "text": "Pan/zoom is applied as CSS transform: translate(tx,ty) scale(s) with transform-origin:0 0 on .pz-content inside .pz-viewport."
+      },
+      {
+        "id": "AC-b2",
+        "group": "transform",
+        "text": "scale is clamped to [1, 8] (MIN..MAX)."
+      },
+      {
+        "id": "AC-b3",
+        "group": "transform",
+        "text": "Zoom-about-a-point keeps the cursor/pinch-midpoint point stationary: tx'=px-f*(px-tx), ty'=py-f*(py-ty), f=newScale/oldScale."
+      },
+      {
+        "id": "AC-b4",
+        "group": "transform",
+        "text": "tx,ty are clamped after every gesture so content cannot be dragged fully out of view; recenters when scale==1."
+      },
+      {
+        "id": "AC-c1",
+        "group": "desktop",
+        "text": "Mouse wheel zooms about the cursor position (offsetX/offsetY); the handler is passive:false and preventDefaults the wheel."
+      },
+      {
+        "id": "AC-c2",
+        "group": "desktop",
+        "text": "Mouse drag pans the content only when scale>1; cursor shows grab/grabbing."
+      },
+      {
+        "id": "AC-d1",
+        "group": "touch",
+        "text": "One-finger drag pans when scale>1; when scale==1 it does NOT hijack page scroll."
+      },
+      {
+        "id": "AC-d2",
+        "group": "touch",
+        "text": "Two-finger pinch zooms about the midpoint and pans by the midpoint delta."
+      },
+      {
+        "id": "AC-d3",
+        "group": "touch",
+        "text": "Double-tap toggles reset (scale 1, tx/ty 0) <-> 2x zoom at the tap point."
+      },
+      {
+        "id": "AC-e1",
+        "group": "correctness",
+        "text": "The double-tap detector requires touchend with touches.length===0 AND a single-finger touchstart AND duration<250ms AND movement<10px AND gap<300ms — so a pinch release (two touchend, changedTouches.length===1 each) never misfires a reset."
+      },
+      {
+        "id": "AC-e2",
+        "group": "correctness",
+        "text": "Hit-testing during touch uses e.target, never document.elementFromPoint."
+      },
+      {
+        "id": "AC-e3",
+        "group": "correctness",
+        "text": "Gesture listeners are attached to the .pz-viewport element ONLY, not the detail/drawer root."
+      },
+      {
+        "id": "AC-e4",
+        "group": "correctness",
+        "text": "destroy() removes all listeners; on re-render (ViewBus) the old controller is torn down before a new one attaches (no leaked/stacked listeners)."
+      },
+      {
+        "id": "AC-e5",
+        "group": "correctness",
+        "text": "While a gesture is active, an iframe preview gets pointer-events:none (re-enabled on idle) so drags pan instead of being swallowed by the iframe."
+      },
+      {
+        "id": "AC-e6",
+        "group": "correctness",
+        "text": "State resets to {scale:1, tx:0, ty:0} whenever the previewed file changes."
+      },
+      {
+        "id": "AC-f1",
+        "group": "reuse",
+        "text": "RbPanZoom is content-type agnostic — works for image (img), text (pre), and iframe content."
+      },
+      {
+        "id": "AC-f2",
+        "group": "reuse",
+        "text": "DRY: the same RbPanZoom is reused by the room file view and content-preview.ts (no duplicate gesture code)."
+      }
+    ],
+    "testScenarios": [
+      {
+        "id": "TS1",
+        "gates": [
+          "AC-a1",
+          "AC-a2",
+          "AC-a3",
+          "AC-a4",
+          "AC-a5"
+        ],
+        "name": "reorder DOM emit order",
+        "given": "a File unit opened in the in-room detail view",
+        "when": "rb-file-detail renders",
+        "then": "DOM order is [buttons row] -> [.pz-viewport height:75vh overflow:hidden, in-flow not fixed] -> [.dv-fields metadata]; reversed from prior layout"
+      },
+      {
+        "id": "TS2",
+        "gates": [
+          "AC-b1",
+          "AC-b2",
+          "AC-b3"
+        ],
+        "name": "zoom about cursor keeps point stationary",
+        "given": "a preview at scale 1",
+        "when": "wheel-zoom in over a content point (px,py)",
+        "then": "transform = translate(tx,ty) scale(s) with the same content point still under (px,py); scale clamps at 8"
+      },
+      {
+        "id": "TS3",
+        "gates": [
+          "AC-b4"
+        ],
+        "name": "pan clamp + recenter",
+        "given": "a zoomed preview (scale>1)",
+        "when": "the user pans far past an edge, then zooms back to scale 1",
+        "then": "content is edge-stopped (never fully out of view) and recenters at scale==1"
+      },
+      {
+        "id": "TS4",
+        "gates": [
+          "AC-c1",
+          "AC-c2"
+        ],
+        "name": "desktop wheel + drag",
+        "given": "desktop pointer over the preview",
+        "when": "wheel then click-drag",
+        "then": "wheel zooms about cursor (event default prevented); drag pans only when scale>1 with grab cursor"
+      },
+      {
+        "id": "TS5",
+        "gates": [
+          "AC-d1"
+        ],
+        "name": "one-finger pan vs page scroll",
+        "given": "touch device, preview at scale 1 then scale 2",
+        "when": "one finger drags",
+        "then": "at scale 1 the page scrolls normally (no hijack); at scale 2 the content pans"
+      },
+      {
+        "id": "TS6",
+        "gates": [
+          "AC-d2"
+        ],
+        "name": "pinch zoom about midpoint",
+        "given": "touch device, two fingers on the preview",
+        "when": "fingers pinch apart/together and move",
+        "then": "content zooms about the finger midpoint and pans by the midpoint delta"
+      },
+      {
+        "id": "TS7",
+        "gates": [
+          "AC-d3",
+          "AC-e1"
+        ],
+        "name": "double-tap toggle + pinch-release guard",
+        "given": "a preview and (a) a genuine double-tap, (b) a pinch release",
+        "when": "each gesture completes",
+        "then": "(a) toggles reset<->2x at the tap point; (b) does NOT reset (pinch release with touches.length>0 / changedTouches===1 is rejected by the detector)"
+      },
+      {
+        "id": "TS8",
+        "gates": [
+          "AC-e2"
+        ],
+        "name": "hit-test uses e.target",
+        "given": "a touch where the DOM mutated mid-gesture",
+        "when": "the handler resolves the touched element",
+        "then": "it uses e.target (correct), not document.elementFromPoint (which would return a wrong node)"
+      },
+      {
+        "id": "TS9",
+        "gates": [
+          "AC-e3",
+          "AC-e4"
+        ],
+        "name": "scoped listeners + teardown",
+        "given": "a file detail that re-renders via ViewBus",
+        "when": "the view re-renders several times",
+        "then": "listeners live only on .pz-viewport; each re-render calls destroy() first so listener count stays constant (no leak/stack), and taps elsewhere in the drawer are unaffected"
+      },
+      {
+        "id": "TS10",
+        "gates": [
+          "AC-e5"
+        ],
+        "name": "iframe pointer-events during gesture",
+        "given": "an iframe (e.g. PDF/HTML) preview",
+        "when": "the user drags to pan",
+        "then": "the iframe has pointer-events:none during the gesture (drag pans) and regains pointer-events when idle"
+      },
+      {
+        "id": "TS11",
+        "gates": [
+          "AC-e6"
+        ],
+        "name": "reset on file change",
+        "given": "a preview zoomed/panned to scale 3",
+        "when": "a different file is opened in the same detail view",
+        "then": "state resets to {scale:1,tx:0,ty:0} for the new content"
+      },
+      {
+        "id": "TS12",
+        "gates": [
+          "AC-f1",
+          "AC-f2"
+        ],
+        "name": "content-agnostic + DRY reuse",
+        "given": "image, text (pre), and iframe previews, and the room file view",
+        "when": "each is rendered",
+        "then": "the SAME RbPanZoom drives all three content types and is shared with the room file view (no duplicated gesture code)"
+      }
+    ],
+    "refinementNote": "R21.9 refined 2026-06-28 per PO directive (design deep-dive): detailed ACs (a:reorder, b:transform-model, c:desktop, d:touch, e:correctness, f:reuse) + 12 gateable test scenarios, grounded in architecture.md section 6 (RbPanZoom transform gesture handler). Correctness ACs (e1-e6) encode hard-won touch-gesture rules: double-tap requires touches.length===0 (pinch-release guard), e.target over elementFromPoint, viewport-scoped listeners, destroy() teardown, iframe pointer-events, reset-on-change. Chain (parent/owner/useCases) unchanged; name/description/tronQuote unchanged."
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

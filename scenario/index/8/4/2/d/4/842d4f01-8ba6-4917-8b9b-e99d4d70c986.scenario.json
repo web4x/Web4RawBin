@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "842d4f01-8ba6-4917-8b9b-e99d4d70c986",
+    "name": "T21.8: Companies as shared dedup units",
+    "slug": "task-t21-8",
+    "description": "CompanyIndex.mintOrReuseShared: companyNameKey (NFKD+diacritics, lowercase, &->and, strip legal suffixes, strip non-alnum) is the recall key; domain (from email/URL) is the AUTHORITATIVE key. Domain-hit reuses; domain present-but-miss mints DISTINCT (AC-b3); no-domain nameKey collision dedups (Tron \"do not duplicate\"). ownerIor:null shared; Profile.companies[] forward-only; /api/company/suggest autocomplete.",
+    "status": "In Progress",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [ ] QA Review\n- [ ] Done",
+    "coveredRequirements": [
+      "ior:instance:bf6a0433-6e85-4341-92e5-79acb725e0bf"
+    ],
+    "useCases": [
+      "ior:instance:a62c6e37-139f-4107-a157-1c67b3e06bfb"
+    ],
+    "acceptanceCriteria": "See requirement unit bf6a0433-6e85-4341-92e5-79acb725e0bf (architect-refined AC + gateable test scenarios).",
+    "dependencies": "- Requires: Sprint 21 requirement + UC/Class/Method chain seeds\n- Enables: tester DET gate",
+    "definitionOfDone": "- [ ] All req ACs met; chain resolves Req->UC->Class->Method->Impl->Test\n- [ ] Tester DET gate PASS\n- [ ] Tron QA approved",
+    "qaAudit": "Shipped: v0.6.72 a52245de1 + b3 fix v0.6.74 2a1357a69. Architect PDCA: PDCA: AC-b3 gap -> FIXED v0.6.74 (verified GREEN).",
+    "traceability": "- up\n  - requirement:uuid:bf6a0433-6e85-4341-92e5-79acb725e0bf (R-unit, architect-refined AC/TS)\n  - Sprint 21 Planning\n- chain\n  - use case: uc:uuid:a62c6e37-139f-4107-a157-1c67b3e06bfb\n- context\n  - Sprint 21 shipped without scenario-first planning (no planner on WODA.prod); tasks backfilled by architect per PO directive 2026-06-29.",
+    "subtasks": "None (atomic task).",
+    "children": [],
+    "requirements": [],
+    "implementations": []
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

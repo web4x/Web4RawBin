@@ -9,7 +9,7 @@
       "ior:instance:471b9c4a-378f-4e56-a990-28f82a998b80"
     ],
     "classes": [
-      "ior:instance:f09de66b-34af-47a1-8d0b-8b0c0e9f689f"
+      "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5"
     ],
     "source": {
       "file": "scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml",
@@ -21,8 +21,8 @@
       "repo": "Web4RawBin",
       "ior": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml?commit=d87e826&lines=39-45"
     },
-    "class": "ior:instance:f09de66b-34af-47a1-8d0b-8b0c0e9f689f",
-    "method": "ior:instance:7bbe05d0-8e72-47c2-a619-708ff660ab16",
+    "class": "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5",
+    "method": "ior:instance:e9e78526-d44e-4920-8ef1-c0e8f0c62fe6",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-111-detail-views.md",
     "sourceLine": 30,
     "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",

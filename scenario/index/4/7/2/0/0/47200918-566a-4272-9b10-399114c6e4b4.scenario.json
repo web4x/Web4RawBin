@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "47200918-566a-4272-9b10-399114c6e4b4",
+    "name": "test:R25.1 DropDispatcher.routeUnknown gate",
+    "description": "Bridged to test/vitest/file-dnd-chain.test.ts — DnD logging — unknown/url drops routed + logged",
+    "sourceFile": "ior:file:test/vitest/file-dnd-chain.test.ts",
+    "implementations": [
+      "ior:instance:4a159912-978e-46bc-a839-5201857461c5"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4a159912-978e-46bc-a839-5201857461c5"
+}

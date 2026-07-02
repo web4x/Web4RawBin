@@ -2,9 +2,9 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "dc1149a4-f639-4b52-9ae2-7634a3a7321e",
-    "name": "T56: `<rb-avatar>` Web Component — Clickable Photo with Fullscreen Overlay",
+    "name": "T56: `<rb-avatar>` Web Component \u2014 Clickable Photo with Fullscreen Overlay",
     "slug": "task-56-avatar-component",
-    "description": "",
+    "description": "Build the <rb-avatar> web component: a clickable photo with a fullscreen overlay.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",
@@ -13,7 +13,7 @@
     "intention": "",
     "role": "",
     "acceptanceCriteria": "- [x] Tapping avatar anywhere opens fullscreen zoomable overlay\n- [x] Upload button in overlay uploads + replaces avatar\n- [x] Close button dismisses overlay\n- [x] Pinch-to-zoom works on iPhone\n- [x] Works at all sizes (24px badge, 80px editor, fullscreen overlay)\n- [x] Safe-area padding on overlay buttons",
-    "qaAudit": "- 2026-05-24: Tron — circular photo area should be a clickable web component opening fullscreen zoomable overlay with upload button bottom-left and close button bottom-right.",
+    "qaAudit": "- 2026-05-24: Tron \u2014 circular photo area should be a clickable web component opening fullscreen zoomable overlay with upload button bottom-left and close button bottom-right.",
     "subtasks": "None (atomic task).",
     "assigned": "",
     "architectDesign": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:74d3060c-3e61-41ac-874d-0a0bdb768609"
+  "ownerIor": "ior:instance:a9eb4565-6a74-4f82-802f-01373b9cf59c"
 }

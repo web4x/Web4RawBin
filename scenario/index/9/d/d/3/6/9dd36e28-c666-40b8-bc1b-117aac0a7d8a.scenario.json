@@ -1,0 +1,55 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "9dd36e28-c666-40b8-bc1b-117aac0a7d8a",
+    "name": "Sprint planning skill (scenario->MD ViewGenerator)",
+    "altId": "R24.4",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-24-traceability-skills/requirements.md",
+    "sourceLine": 53,
+    "parent": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:4a606188-2812-42ef-9e13-f44e652ab4b0"
+    ],
+    "description": "Sprint planning markdown is a GENERATED VIEW of the scenario units (law #100, markdown=VIEW): generate-sprint-md.ts builds planning.md and per-task MD files FROM the Sprint/Task/Requirement scenario units, supports --list and --all, and a round-trip --check that asserts the on-disk MD is a byte-match of the regenerated view (drift = fail).",
+    "implRef": "ior:file:scripts/generate-sprint-md.ts (generateTaskMd/generatePlanningMd/buildSprintOutput/generateSprint/checkSprint) + npm check:sprint-md",
+    "poDirective": "PO directive 2026-06-29: formalize the scattered traceability + MD-planning TS tools (planner-drive.ts, objectVerb.ts, generate-sprint-md.ts, trace-cli.ts/trace-audit.ts) as a coherent OOSH-like SKILL set - pin management, chain scoring, sprint planning, traceability audit.",
+    "sourceNote": "PO-formulated main goal (not a verbatim Tron literal); formalizes existing impl. Grounded per implRef.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1",
+        "group": "generate",
+        "text": "generate-sprint-md builds planning.md + per-task MD files from the Sprint/Task scenario units (markdown is a view, never hand-authored source)."
+      },
+      {
+        "id": "AC-2",
+        "group": "list-all",
+        "text": "--list enumerates sprints; --all (re)generates every sprint's MD."
+      },
+      {
+        "id": "AC-3",
+        "group": "roundtrip",
+        "text": "--check (check:sprint-md) asserts on-disk MD is a byte-match of the regenerated view; any drift fails."
+      },
+      {
+        "id": "AC-4",
+        "group": "task-files",
+        "text": "Task MD files are created from Task units with their coveredRequirements + chain, speaking-name slugs."
+      },
+      {
+        "id": "AC-5",
+        "group": "law100",
+        "text": "Scenario units are the source of truth; MD is derived (law #100)."
+      },
+      {
+        "id": "AC-6",
+        "group": "drift-scope",
+        "text": "--check (check:sprint-md) drift detection also catches EXTRA/orphan stale MD files (e.g. left by a slug rename), scoped to the GENERATED_HEADER region - not just content byte-diff of expected files."
+      }
+    ],
+    "measuredReviewNote": "Planner verified R24.4 ACs ACCURATE vs generate-sprint-md.ts; AC-6 added for the orphan/stale-file + GENERATED_HEADER --check nuance (folded into T24.4 context)."
+  },
+  "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"
+}

@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:9ed45878-98cb-4fc5-9014-ee7a553d62f1",
+  "model": {
+    "uuid": "d05043b5-bd76-407b-a0f5-ceb1e24d2c28",
+    "name": "impl:RbDetailView.unifyChainLabel",
+    "status": "active",
+    "sourceFile": ""
+  }
+}

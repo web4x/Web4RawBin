@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a579f0f4-8035-437c-a787-6ae84174a9c3",
+    "name": "test:R23.3 resolveToken gate",
+    "description": "Bridged to test/visual/r232-heartspaces-member-dedup-gate.mjs — verifies resolveToken",
+    "sourceFile": "ior:file:test/visual/r232-heartspaces-member-dedup-gate.mjs",
+    "implementations": [
+      "ior:instance:123c4c40-30b6-43c4-8d68-33f1d0bb566d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:123c4c40-30b6-43c4-8d68-33f1d0bb566d"
+}

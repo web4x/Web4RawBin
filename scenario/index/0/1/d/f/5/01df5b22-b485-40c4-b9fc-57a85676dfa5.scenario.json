@@ -4,7 +4,7 @@
     "uuid": "01df5b22-b485-40c4-b9fc-57a85676dfa5",
     "name": "Task 4: Strip server.ts of Game Logic",
     "slug": "task-4-strip-server",
-    "description": "",
+    "description": "Strip game-specific logic out of server.ts to leave a generic room server.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",

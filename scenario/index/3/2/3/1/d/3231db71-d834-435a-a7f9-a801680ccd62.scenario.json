@@ -1,0 +1,63 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "id": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "name": "Marcel dnd test room ",
+    "ownerToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1782991175726,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA74xNrG7jd1wLeUJfMqjK\naA7jpI9xeGbcgt/TXlNUMKwvjAs57KmxZwwFpCtxbjLe7NwQyn/r2nxgf1YJqLKB\nkeTZkbxT9/ekt/d8QsoP3horBqVlSzlO5bBVjaUNNGd0yHaqhC9e+vXszmAVpdtu\nugkQZ4EkUTtFbx0dbWxOB4ftcrPssYqpk3Ya9z2BTkKJIfwLKzcUSSO1Q+ncdNaL\nSr3sFAQ0kXRrTAWADJrXk5FKWtZIWtdd4hZRKkGvJLo6CQOGYPm/O7Oz8gLCUVq9\nyZamknoXoB731dOy6ao6rJ9pWWysq4rP6Wi3WvuhP5Ydumkcq9xBsMQyKP9aXq7F\n7wIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+        "name": "SystemTester",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1782991175726
+      },
+      {
+        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+        "name": "Marcel Donges",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1782991175726
+      },
+      {
+        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+        "name": "",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1782991175726
+      }
+    ],
+    "files": [
+      "ior:instance:b57d2f42-0cc4-4fa4-84c6-acaebe40a48a",
+      "ior:instance:c8dc9d0d-ad6d-4d1e-a3af-7967cccdb37d",
+      "ior:instance:45b3aa61-1218-4bf9-a43f-7bdb1f573477",
+      "ior:instance:23a3f882-c2fe-487a-9424-941d803ec53f",
+      "ior:instance:ee8ba451-9340-43ef-8f89-28e880fff506",
+      "ior:instance:ac90d742-dcd6-4475-8d13-f1607b185d0e",
+      "ior:instance:90322673-f687-46b5-85d0-9ffca09f671c",
+      "ior:instance:5316df18-5d24-4325-b467-a759ae69ca9f",
+      "ior:instance:5e380e73-41d0-40ad-bdb9-d258e7c846cd",
+      "ior:instance:f54293d2-8034-483a-9884-8ad5abc91d88",
+      "ior:instance:6332b98c-1fc5-4f48-8589-9c0cef092178",
+      "ior:instance:41b3fb3d-bbee-4da2-bca5-1a434f0e0e4d"
+    ],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/3/2/3/1/d/3231db71-d834-435a-a7f9-a801680ccd62.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd/3231db71-d834-435a-a7f9-a801680ccd62.json"
+    ]
+  },
+  "ownerIor": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd"
+}

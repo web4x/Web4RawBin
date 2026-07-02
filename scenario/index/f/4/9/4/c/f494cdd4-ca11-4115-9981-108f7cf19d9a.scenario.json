@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f494cdd4-ca11-4115-9981-108f7cf19d9a",
+    "name": "test:R21.4 resolveOrEnroll gate",
+    "description": "Bridged to test/visual/r214-deviceLink-challenge-gate.mjs — known-key -> KNOWN_KEY_CHALLENGE, no mint (DET-3x GREEN on prod)",
+    "sourceFile": "ior:file:test/visual/r214-deviceLink-challenge-gate.mjs",
+    "implementations": [
+      "ior:instance:cc6df739-135f-46a9-a53b-e8441571abbc"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cc6df739-135f-46a9-a53b-e8441571abbc"
+}

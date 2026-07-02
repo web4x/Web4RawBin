@@ -4,7 +4,9 @@
     "uuid": "50708a40-b1d4-431f-987f-0b003e94caf5",
     "name": "RbDetailDrawer.parentNav",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:0b7d18d9-247e-4261-8430-ef5fbc88ad10"
+    ]
   },
   "ownerIor": null
 }

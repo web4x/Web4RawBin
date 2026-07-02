@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "df10141a-4d8a-4647-885e-a54ca44a9da8",
-    "name": "Traceability chain includes the Class level between UseCase and Method \u2014 no skip.",
+    "name": "Chain includes Class between UseCase and Method",
     "altId": "R18.16",
     "tasks": [
       "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"

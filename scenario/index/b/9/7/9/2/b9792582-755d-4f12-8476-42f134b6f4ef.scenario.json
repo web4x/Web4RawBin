@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "b9792582-755d-4f12-8476-42f134b6f4ef",
+    "name": "preview.renderAudio",
+    "description": "Audio files (mp3/wav/ogg/m4a) render an HTML5 <audio controls> player in the preview pane; audio MIME added to the mime map and the fillPreviewPane dispatch.",
+    "class": "ior:instance:4cf1d1de-37e2-42e8-bf8b-9776bf87f061",
+    "classes": [
+      "ior:instance:4cf1d1de-37e2-42e8-bf8b-9776bf87f061"
+    ],
+    "method": "ior:instance:ccbd2bdf-a5f1-4f78-b71a-b46c81d4383f",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:480b40aa-c0ba-40dc-8876-823ebe3af91b"
+}

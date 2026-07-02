@@ -1,0 +1,34 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "04339450-9c01-449f-88a8-a09a55970d5b",
+    "name": "Sprint 24 \u2014 Traceability Skills",
+    "number": 24,
+    "goal": "Formalize the existing scattered traceability + MD-planning TS tools as one coherent Object.verb SKILL set (pin management, chain scoring, sprint planning, traceability audit) - OOSH-for-TS per how-to-write-skills.md, no hand-written flags, markdown=VIEW.",
+    "status": "Planned",
+    "compoundSource": "scrum.pmo/sprints/sprint-24-traceability-skills/requirements.md",
+    "requirements": [
+      "ior:instance:527f154f-004d-4ef4-a245-65862e1d3455",
+      "ior:instance:a545f899-b733-46ac-8fc7-2ef79e401cfe",
+      "ior:instance:fc9a7079-5324-4867-95de-784666d7fc5a",
+      "ior:instance:9dd36e28-c666-40b8-bc1b-117aac0a7d8a",
+      "ior:instance:79bc8e34-9acb-4338-bbd0-c1f7e817ca7d"
+    ],
+    "tasks": [
+      "ior:instance:8bbd1727-041e-456f-a645-67f2b2cd4bb5",
+      "ior:instance:d40f1040-f7c8-4702-a31b-9b34af89df19",
+      "ior:instance:1f6d9fc6-19e8-429b-959a-6581738c354f",
+      "ior:instance:1c0181ab-5aff-499f-aeff-53c839c1ad87",
+      "ior:instance:b59f4d46-bffb-435d-a376-a480a517efe6"
+    ],
+    "createdAt": "2026-06-29",
+    "createdBy": "robbin-req",
+    "joint": [
+      "robbin-req",
+      "robbin-planner",
+      "robbin-architect",
+      "skill-expert"
+    ]
+  },
+  "ownerIor": null
+}

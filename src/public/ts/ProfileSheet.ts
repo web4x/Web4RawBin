@@ -3,6 +3,7 @@ import { RawBinClient } from './RawBinClient.js';
 import { MSG } from '../../shared/MessageTypes.js';
 import './components/rb-avatar.js';
 import { viewBus } from './ViewBus.js';
+import { downloadVCard } from './vcard-download.js';
 
 interface PublicProfile {
   name: string;
@@ -70,7 +71,7 @@ export class ProfileSheet {
     });
 
     document.getElementById('us-vcard')?.addEventListener('click', () => {
-      this.downloadVCard(profile);
+      downloadVCard(profile);
     });
 
     // T83: self-only Edit button → ProfileEditor via the onEdit callback (ProfileSheet stays
@@ -100,46 +101,4 @@ export class ProfileSheet {
     }, { passive: true });
   }
 
-  private async downloadVCard(profile: PublicProfile): Promise<void> {
-    const lines = ['BEGIN:VCARD', 'VERSION:3.0', `FN:${profile.name}`];
-    if (profile.phone) lines.push(`TEL:${profile.phone}`);
-    if (profile.url) lines.push(`URL:${profile.url}`);
-    // PHOTO — source from the token (the SAME source the sheet displays via rb-avatar), NOT the
-    // possibly-empty profile.avatar string. So "sheet shows a photo" ⇒ "vCard has that photo".
-    const photoSrc = profile.avatar && profile.avatar.startsWith('data:')
-      ? profile.avatar
-      : (profile.playerToken ? `/api/avatar/${profile.playerToken}` : (profile.avatar || ''));
-    if (photoSrc) {
-      try {
-        let dataUrl = photoSrc;
-        if (!dataUrl.startsWith('data:')) {
-          const res = await fetch(photoSrc);
-          const buf = await res.arrayBuffer();
-          const type = res.headers.get('content-type') || 'image/jpeg';
-          dataUrl = `data:${type};base64,${bufToBase64(buf)}`;
-        }
-        // widen subtype to [\w+.-]+ so svg+xml etc. are not dropped
-        const match = dataUrl.match(/^data:image\/([\w+.-]+);base64,(.+)$/);
-        if (match) lines.push(`PHOTO;ENCODING=b;TYPE=${match[1].toUpperCase()}:${match[2]}`);
-      } catch (e) { console.warn('vCard photo fetch failed (silent to user)', e); }
-    }
-    // UUID — Tron: vCard must carry the user's uuid (was missing).
-    lines.push(`NOTE:RawBin User${profile.playerToken ? ` — UUID: ${profile.playerToken}` : ''}`);
-    lines.push('END:VCARD');
-    const blob = new Blob([lines.join('\r\n')], { type: 'text/vcard' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `${profile.name.replace(/[^a-zA-Z0-9 ]/g, '')}.vcf`;
-    a.click();
-    URL.revokeObjectURL(a.href);
-  }
-}
-
-/** Loop-based base64 — spread `btoa(String.fromCharCode(...))` stack-overflows on >10KB buffers
- * (real JPEG avatars), which silently dropped the vCard photo. */
-function bufToBase64(buf: ArrayBuffer): string {
-  const bytes = new Uint8Array(buf);
-  let bin = '';
-  for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
-  return btoa(bin);
 }

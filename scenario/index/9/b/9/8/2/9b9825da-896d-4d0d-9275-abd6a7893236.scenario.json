@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "9b9825da-896d-4d0d-9275-abd6a7893236",
+    "name": "VCard.storeVCard — POST /api/vcard store .vcf encrypted next to avatar",
+    "implementations": [
+      "ior:instance:f15434f9-b6c9-45ba-b9b8-b8d025ce39e4"
+    ],
+    "sourceLocation": "src/ts/server/server.ts:438"
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

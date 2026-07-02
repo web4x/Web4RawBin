@@ -1,0 +1,53 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "661836fd-2db8-4863-8556-0d698c897cd5",
+    "name": "Task detail: one chain section + MD-file Forward Links",
+    "altId": "R22.1",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-22-traceability-view-fixes/requirements.md",
+    "sourceLine": 13,
+    "parent": "ior:instance:9996b46a-66b7-4f8a-9298-cbea3c2edabf",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:4d0e454a-124a-43f7-8487-28aa61c12fbf"
+    ],
+    "description": "The Task detail view must render exactly ONE Traceability Chain section - removing the false-duplicate empty 'Traceability Chain: No chain' section that currently appears above the correctly-rendered chain - and its Forward Links section must show a link to the MD task documentation file (the sprint task file path) instead of the raw useCases reference.",
+    "tronQuote": "> TRON (screenshot directive): \"Task detail view has two issues: (1) 'Traceability Chain: No chain' appears as a FALSE DUPLICATE above the real chain (which renders correctly below it) - the empty first section must be removed or merged, one chain section only. (2) Forward Links shows raw useCases reference - should instead show a LINK TO THE MD TASK FILE (the sprint task documentation file path).\"",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1a",
+        "group": "chain-dedup",
+        "text": "The Task detail view shows only ONE Traceability Chain section."
+      },
+      {
+        "id": "AC-1b",
+        "group": "chain-dedup",
+        "text": "The empty/false 'Traceability Chain: No chain' section that rendered ABOVE the real chain is gone (removed or merged)."
+      },
+      {
+        "id": "AC-1c",
+        "group": "chain-dedup",
+        "text": "The remaining single chain section still renders the real chain correctly (no regression)."
+      },
+      {
+        "id": "AC-2a",
+        "group": "forward-links-md",
+        "text": "The Forward Links section links to the MD task documentation file (the sprint task .md file path), not the raw useCases IOR reference."
+      },
+      {
+        "id": "AC-2b",
+        "group": "forward-links-md",
+        "text": "The link resolves/opens the task's .md file in the sprint directory."
+      },
+      {
+        "id": "AC-3",
+        "group": "verify",
+        "text": "Verified live (headless) against the running app: the Task detail view matches the corrected layout."
+      }
+    ],
+    "riNote": "Bundles two atomic behaviours (chain dedup + Forward Links->MD). Captured as one unit R22.1 per PO directive; split into R22.1+R22.2 available if independent tasking is wanted."
+  },
+  "ownerIor": "ior:instance:9996b46a-66b7-4f8a-9298-cbea3c2edabf"
+}

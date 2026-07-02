@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "27d4d8ca-2d67-480d-8eae-4f96ba3e28c6",
+    "name": "test:R21.9 renderActionsFirst gate",
+    "description": "Bridged to test/visual/r219-file-detail-layout-gate.mjs — file-detail order buttons<preview<metadata + 75vh pan/zoom (DET-3x GREEN on prod)",
+    "sourceFile": "ior:file:test/visual/r219-file-detail-layout-gate.mjs",
+    "implementations": [
+      "ior:instance:f8b113b7-29a9-400e-b3fa-f3be7e5798cf"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f8b113b7-29a9-400e-b3fa-f3be7e5798cf"
+}

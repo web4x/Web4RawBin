@@ -5,7 +5,9 @@
     "name": "// Room.stripSizeLimits R19.23",
     "sourceFile": "src/public/ts/RawBinClient.ts",
     "sourceLine": 217,
-    "tests": [],
+    "tests": [
+      "ior:instance:ffab35a3-554b-4c80-ac3e-7a6216461e4a"
+    ],
     "unitLinks": []
   },
   "ownerIor": null

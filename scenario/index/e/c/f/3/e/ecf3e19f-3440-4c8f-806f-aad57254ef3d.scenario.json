@@ -4,7 +4,7 @@
     "uuid": "ecf3e19f-3440-4c8f-806f-aad57254ef3d",
     "name": "T7.0: MD Browser PlantUML SVG Support",
     "slug": "task-7.0-md-puml-viewer",
-    "description": "",
+    "description": "Add PlantUML SVG rendering support to the markdown browser.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:27b6a05a-7acb-4481-9353-165dddf865ad"
+  "ownerIor": "ior:instance:7f004379-b327-4853-bc2f-947bd4e781d8"
 }

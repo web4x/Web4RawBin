@@ -5,7 +5,7 @@
     "name": "traceGraph.buildModel",
     "description": "Build typed object graph from flat scenario JSON",
     "classes": [
-      "ior:instance:b9589ec2-89fa-44b3-99a7-c7ea436d3469",
+      "ior:instance:809e65ee-1e6e-43dc-8f9c-d87e6aafda54",
       "ior:instance:57a0c96c-ff48-4f3f-9859-291687e897a2"
     ],
     "source": {
@@ -13,7 +13,7 @@
       "commit": "2ab12654",
       "ior": "ior:file:src/ts/shared/TraceModel.ts?commit=2ab12654"
     },
-    "class": "ior:instance:b9589ec2-89fa-44b3-99a7-c7ea436d3469",
+    "class": "ior:instance:809e65ee-1e6e-43dc-8f9c-d87e6aafda54",
     "method": "ior:instance:0887265f-6652-451b-8986-34b6a7f909b1",
     "sourceFile": "ior:file:scenario/index/f5abd/f5abd427-4a1d-4824-ae65-9038de6031d3.scenario.json",
     "sourceLine": 1,

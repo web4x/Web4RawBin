@@ -1,0 +1,37 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "c7d700c6-eaf6-4ba7-9d14-bfa8700a101d",
+    "name": "Sprint 25 \u2014 Apple DnD",
+    "number": 25,
+    "goal": "Support Apple drag-and-drop items (URL schemes: mailto/webcal/calshow/maps/geo/tel/x-apple-reminder, NOT files) as URL-scheme routing on the R23.2 YouTube model (detect scheme -> preview -> Open-in-New-Tab native app). Phase 1 R25.1 = comprehensive DnD logging to reveal which schemes Apple sends; R25.2+ per-scheme handlers deferred to measure-first.",
+    "status": "Planned",
+    "compoundSource": "scrum.pmo/sprints/sprint-25-apple-dnd/requirements.md",
+    "requirements": [
+      "ior:instance:649e9f4c-5e19-4a68-aa80-3378b1e1a9cc",
+      "ior:instance:f8097d7c-07f7-4ef5-90fc-7512b57c1bc2",
+      "ior:instance:d0acb05d-982f-418b-a0d4-667d13435371",
+      "ior:instance:225b18a6-684d-4bec-9a4d-42ed4f23fd09",
+      "ior:instance:2066ba12-6bd8-42b1-9377-25c82fd944e0",
+      "ior:instance:24509e35-8627-402a-ba93-ed959fef3a5b",
+      "ior:instance:585b6b9c-2fa7-48e2-8fab-a7e8a31e516e"
+    ],
+    "tasks": [
+      "ior:instance:06544a45-382b-4747-9692-0ad444e905ac",
+      "ior:instance:7c526ba6-4eb6-4ad9-a52b-de715947af0e",
+      "ior:instance:92bdca8b-6c08-459d-a540-98073b80c020",
+      "ior:instance:b9deaf57-0e85-44a4-be94-3aa68f914c67",
+      "ior:instance:7158a210-c5af-4e06-89f1-df60a2226828",
+      "ior:instance:ee367cbd-913b-4153-8c3b-0cdd9a703e01",
+      "ior:instance:d01c38b3-3a56-4586-88ae-e267708c30d1"
+    ],
+    "createdAt": "2026-06-29",
+    "createdBy": "robbin-req",
+    "joint": [
+      "robbin-req",
+      "robbin-planner",
+      "robbin-architect"
+    ]
+  },
+  "ownerIor": null
+}

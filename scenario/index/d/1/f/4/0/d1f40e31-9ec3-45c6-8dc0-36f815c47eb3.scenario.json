@@ -5,7 +5,9 @@
     "name": "RoomView.awaitItemUpgrade impl",
     "sourceFile": "ior:file:src/public/ts/RoomView.ts",
     "sourceLine": 236,
-    "tests": []
+    "tests": [
+      "ior:instance:6a03bcb6-7719-4125-8f63-265a6479cf68"
+    ]
   },
   "ownerIor": "ior:instance:a696ec72-fe0b-47c7-9852-af15de977226"
 }

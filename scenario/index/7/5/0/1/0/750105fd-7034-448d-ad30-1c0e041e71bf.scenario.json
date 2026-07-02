@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "750105fd-7034-448d-ad30-1c0e041e71bf",
+    "name": "ObjectVerbEngine.introspect",
+    "description": "Generic Object.verb dispatcher: introspect() reflects method sigs + JSDoc as the single source of truth; mapArgs/render/helpText + emitOosh/emitDocs/emitClaudeSkill emitters derive from it (DRY).",
+    "sourceFile": "ior:file:scripts/objectVerb.ts",
+    "implementations": [
+      "ior:instance:5453f58d-6dca-4aa7-89ca-9faa92badf03"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:dbcd870e-664e-43da-89ae-9d56514f7846"
+}

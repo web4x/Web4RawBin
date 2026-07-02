@@ -9,7 +9,7 @@
       "ior:instance:01168fc2-d36a-4e57-b804-7f6ec2935b16"
     ],
     "classes": [
-      "ior:instance:fbd7573d-af75-4ddd-8a29-336e06239c78"
+      "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
     ],
     "source": {
       "file": "scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml",
@@ -21,14 +21,14 @@
       "repo": "Web4RawBin",
       "ior": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml?commit=d87e826&lines=133-139"
     },
-    "class": "ior:instance:fbd7573d-af75-4ddd-8a29-336e06239c78",
-    "method": "ior:instance:415c9e2d-8e89-4019-851a-4e7a57de48ee",
+    "class": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9",
+    "method": "ior:instance:055a7f68-1d98-4a95-9572-22dcb0c40712",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-116-chain-review.md",
     "sourceLine": 31,
     "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
     "unitLinks": [],
     "orphanByDesign": true,
-    "orphanReason": "Pre-standard UC (S4 traceability sprint) \u2014 orphan audit chain tool. No atomic requirement captured (tool predates R-standard). Related to orphan-by-design R17.38."
+    "orphanReason": "Pre-standard UC (S4 traceability sprint) — orphan audit chain tool. No atomic requirement captured (tool predates R-standard). Related to orphan-by-design R17.38."
   },
   "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }

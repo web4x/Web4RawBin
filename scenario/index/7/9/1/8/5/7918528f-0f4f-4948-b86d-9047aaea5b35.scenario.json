@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "7918528f-0f4f-4948-b86d-9047aaea5b35",
-    "name": "Tree narrowed chain continues past Method through Implementation to Test.",
+    "name": "Narrowed chain continues to Implementation and Test",
     "altId": "R18.25",
     "tasks": [
       "ior:instance:08e46ce3-69f3-40fe-87d7-5ee875a4e94a"

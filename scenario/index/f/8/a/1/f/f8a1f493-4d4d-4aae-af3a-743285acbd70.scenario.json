@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:1fe727fe-5f40-4c2d-a466-66ec4ee9ca36",
+  "model": {
+    "uuid": "f8a1f493-4d4d-4aae-af3a-743285acbd70",
+    "name": "impl:RbObjectItem.collapse, expand, expandChildren",
+    "status": "active",
+    "sourceFile": "",
+    "tests": [
+      "ior:instance:b6086e8c-f138-4c42-9b98-e8173f75c56b"
+    ]
+  }
+}

@@ -4,7 +4,7 @@
     "uuid": "d5a44c9b-f933-4d99-9203-a8d4d53a8c89",
     "name": "traceChildren.bugForwardKeys",
     "description": "Add Bug + ChangeRequest to server SCENARIO_FWD, TRACE_FWD, and EXPECTED_CHILD_TYPE maps. Same forward keys as Requirement (useCases[]). Bug/ChangeRequest extend Requirement per R20.4.",
-    "class": "ior:instance:TODO-server-class",
+    "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
     "method": "ior:instance:fabb5ae3-3dbb-4e51-8229-18d887d80860",
     "classes": [],
     "tasks": [],

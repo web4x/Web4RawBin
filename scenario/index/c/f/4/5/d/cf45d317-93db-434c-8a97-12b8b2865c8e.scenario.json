@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "cf45d317-93db-434c-8a97-12b8b2865c8e",
+    "kind": "link",
+    "name": "message:%3Ch2T09I_ZS7qHdRBkD5gOuQ@geopod-ismtpd-49%3E",
+    "description": "message:%3Ch2T09I_ZS7qHdRBkD5gOuQ@geopod-ismtpd-49%3E",
+    "url": "message:%3Ch2T09I_ZS7qHdRBkD5gOuQ@geopod-ismtpd-49%3E",
+    "scheme": "message",
+    "icon": "",
+    "badge": "📧",
+    "mimeType": "text/uri-list",
+    "roomUuid": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "parentFolder": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62",
+    "children": [],
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd"
+  },
+  "ownerIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62"
+}

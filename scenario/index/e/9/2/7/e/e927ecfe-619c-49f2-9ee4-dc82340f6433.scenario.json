@@ -5,7 +5,9 @@
     "name": "RbDetailDrawer.onSelectionChanged impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "sourceLine": 0,
-    "tests": []
+    "tests": [
+      "ior:instance:0b7d18d9-247e-4261-8430-ef5fbc88ad10"
+    ]
   },
   "ownerIor": "ior:instance:94f6e1f8-84a8-4ca5-9a44-6108ef6201bc"
 }

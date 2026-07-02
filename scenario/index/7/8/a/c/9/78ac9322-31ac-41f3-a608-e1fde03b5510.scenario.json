@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "78ac9322-31ac-41f3-a608-e1fde03b5510",
+    "name": "Room.redirectTombstoneToPrimary",
+    "description": "On connect/IDENTIFY, if profile.redirectTo set -> TOKEN_REDIRECT to primary + addMember under the primary token (no 2nd entry); redirectTo is IMMUTABLE (every save preserves it; IDENTIFY on a tombstone redirects, never re-mints).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:6b459f04-e326-4f8a-b375-ddb33f2d4ffb"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
+}

@@ -2,9 +2,9 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "f55a0b01-9c12-4d3e-b456-006677889900",
-    "name": "T55: Avatar Fixes — Tron QA Findings",
+    "name": "T55: Avatar Fixes \u2014 Tron QA Findings",
     "slug": "task-55-avatar-fixes",
-    "description": "",
+    "description": "Fix the avatar issues raised in Tron QA findings.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",
@@ -13,7 +13,7 @@
     "intention": "",
     "role": "",
     "acceptanceCriteria": "- [x] Existing users get thispersondoesnotexist avatar on next connect\n- [x] \"Change Photo\" / \"Add Photo\" button clearly visible in ProfileEditor\n- [x] Avatar shown consistently in member badges, lobby, profile page, editor",
-    "qaAudit": "- 2026-05-24: Tron — random initial picture gone, only default R icon shown. Upload button not visible.",
+    "qaAudit": "- 2026-05-24: Tron \u2014 random initial picture gone, only default R icon shown. Upload button not visible.",
     "subtasks": "None (atomic task).",
     "assigned": "",
     "architectDesign": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:74d3060c-3e61-41ac-874d-0a0bdb768609"
+  "ownerIor": "ior:instance:a9eb4565-6a74-4f82-802f-01373b9cf59c"
 }

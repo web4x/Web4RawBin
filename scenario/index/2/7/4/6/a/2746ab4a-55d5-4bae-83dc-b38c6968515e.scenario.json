@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "2746ab4a-55d5-4bae-83dc-b38c6968515e",
+    "name": "BABËL - A Music Organization for the World",
+    "contentPath": "index/2/7/4/6/a/2746ab4a-55d5-4bae-83dc-b38c6968515e.content",
+    "size": 43,
+    "mimeType": "text/uri-list",
+    "uploadedAt": "2026-06-29T15:12:17.089Z",
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+    "roomUuid": "6c04f959-f3d6-42eb-818f-5e2e4498bf91",
+    "contentHash": "7dc5b28d9835cb40fb64ef6a19c1542f4671eb010e4ba4396e54ea12e4f20bf4",
+    "unitLinks": [
+      "content/7dc5b28d9835cb40fb64ef6a19c1542f4671eb010e4ba4396e54ea12e4f20bf4.file.scenario.json",
+      "../data/users/8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd/rooms/6c04f959-f3d6-42eb-818f-5e2e4498bf91/files/2746ab4a-55d5-4bae-83dc-b38c6968515e.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:6c04f959-f3d6-42eb-818f-5e2e4498bf91"
+}

@@ -2,21 +2,22 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "1a8b7485-ca53-4d06-8a05-02cf40541981",
-    "name": "Scenario browser shows ALL methods; traceability browser shows ONLY the chain-relevant method.",
+    "name": "Scenario shows all methods; trace shows one",
     "altId": "R18.1",
     "tasks": [
       "ior:instance:292d8931-efff-45ab-b66e-772fac16c6ea"
     ],
     "tests": [],
     "orphanByDesign": true,
-    "orphanReason": "infra-process: all tasks are infrastructure/process — no user-facing use case",
+    "orphanReason": "infra-process: all tasks are infrastructure/process \u2014 no user-facing use case",
     "sourceFile": "ior:file:scenario/index/1/a/8/b/7/1a8b7485-ca53-4d06-8a05-02cf40541981.scenario.json",
     "sourceLine": 1,
     "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
     "unitLinks": [],
     "useCases": [
       "ior:instance:cdd9137b-c83d-4323-a537-94467964397b"
-    ]
+    ],
+    "description": "Scenario browser shows ALL methods; traceability browser shows ONLY the chain-relevant method."
   },
   "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
 }

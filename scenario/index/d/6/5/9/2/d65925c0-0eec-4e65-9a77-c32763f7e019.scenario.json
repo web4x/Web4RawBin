@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "d65925c0-0eec-4e65-9a77-c32763f7e019",
+    "name": "VCard (vcard-download shared module + /api/vcard handlers)",
+    "methods": [
+      "ior:instance:b4d16f80-aebb-437d-bfd2-df46424d4b59",
+      "ior:instance:9b9825da-896d-4d0d-9275-abd6a7893236",
+      "ior:instance:3c548aae-fe0c-4d39-a9ff-585050446f61"
+    ],
+    "sourceLocation": "src/public/ts/vcard-download.ts"
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

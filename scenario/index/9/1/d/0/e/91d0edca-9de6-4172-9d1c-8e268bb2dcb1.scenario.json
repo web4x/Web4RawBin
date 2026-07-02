@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "91d0edca-9de6-4172-9d1c-8e268bb2dcb1",
+    "name": "test:R22.3 renderChainNodeSourceLink gate",
+    "description": "Bridged to test/visual/r223-source-links-gate.mjs — verifies renderChainNodeSourceLink",
+    "sourceFile": "ior:file:test/visual/r223-source-links-gate.mjs",
+    "implementations": [
+      "ior:instance:bd8e5d6f-d289-494b-891f-3572f62ce3c7"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:bd8e5d6f-d289-494b-891f-3572f62ce3c7"
+}

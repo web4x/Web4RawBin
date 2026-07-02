@@ -418,6 +418,7 @@ export class Chain {
   }
 
   /** Render the canonical scoreboard (table + dispatch list + Summary line) as markdown */
+  // [impl:uuid:cd939148-5588-4c43-a211-599ad266b790] R24.3 Chain.scoreboard
   scoreboard(reqUuids: string[], sprint?: string): string {
     const { rows, complete, total, excluded } = this.followUp(reqUuids, sprint);
     const out: string[] = [];
@@ -867,6 +868,7 @@ export class Audit {
   }
 
   /** Structural trace audit, strict mode (orphans, back-refs, cardinality) — dispatches trace:audit:strict */
+  // [impl:uuid:08706df5-02be-433b-b9c8-a4cb9ac7443a] R24.5 Audit.strict (trace audit check)
   strict(): string { return this.npmRun('trace:audit:strict'); }
 
   /** Ship rule-pair gate #66/#67 (version bump + STATIC_SHELL) — dispatches rule-pair:strict */

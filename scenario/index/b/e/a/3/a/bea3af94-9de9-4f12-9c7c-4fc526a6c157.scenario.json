@@ -4,7 +4,7 @@
     "uuid": "bea3af94-9de9-4f12-9c7c-4fc526a6c157",
     "name": "T22: Lobby & Server Fixes (Tron Live Testing)",
     "slug": "task-22-lobby-fixes",
-    "description": "",
+    "description": "Fix the lobby and server issues found during Tron live testing.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",
@@ -13,7 +13,7 @@
     "intention": "",
     "role": "",
     "acceptanceCriteria": "",
-    "qaAudit": "- 2026-05-23 UTC: Tron QA REJECT — private room join STILL broken. Server line 672 reads `if (room.isPrivate)` which blocks ALL private room joins unconditionally. Should be `if (room.isPrivate && room.roomKey !== msg.roomKey)` to allow joins with correct key. The fix from T22.2 was overwritten or never applied correctly.",
+    "qaAudit": "- 2026-05-23 UTC: Tron QA REJECT \u2014 private room join STILL broken. Server line 672 reads `if (room.isPrivate)` which blocks ALL private room joins unconditionally. Should be `if (room.isPrivate && room.roomKey !== msg.roomKey)` to allow joins with correct key. The fix from T22.2 was overwritten or never applied correctly.",
     "subtasks": "None (atomic task).",
     "assigned": "",
     "architectDesign": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:2aaa509c-16e4-4900-a439-ec2857f97b14"
+  "ownerIor": "ior:instance:29d92990-3514-4627-8780-eb0d2e462eeb"
 }

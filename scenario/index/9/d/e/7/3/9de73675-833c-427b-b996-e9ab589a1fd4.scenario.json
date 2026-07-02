@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "9de73675-833c-427b-b996-e9ab589a1fd4",
-    "name": "Static back button does not shift position on scroll or drawer state change.",
+    "name": "Static back button never shifts",
     "altId": "R18.15",
     "tasks": [
       "ior:instance:08e46ce3-69f3-40fe-87d7-5ee875a4e94a"

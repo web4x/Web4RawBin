@@ -1,0 +1,56 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "fc9a7079-5324-4867-95de-784666d7fc5a",
+    "name": "Chain scoring skill (measurement instruments)",
+    "altId": "R24.3",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-24-traceability-skills/requirements.md",
+    "sourceLine": 40,
+    "parent": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:4b66c336-c740-4cbf-b9b4-4cbee596fee1"
+    ],
+    "description": "Chain completion is measured by one Object.verb skill class (skill-classes.ts Chain) exposing scoreboard, followUp, listComplete, lintMarkers (and snapshotComplete): followUp is the ONE canonical completion measure (one summary row per Requirement), scoreboard renders the table + dispatch list + Summary line, listComplete emits one diffable line per complete requirement, and lintMarkers catches invented-suffix uuids / prefix collisions / shared Impls / orphan markers BEFORE a re-measure.",
+    "implRef": "ior:file:src/ts/scenario/skill-classes.ts class Chain (followUp/listComplete/scoreboard/lintMarkers/snapshotComplete/wireImplNode/generateMatrix)",
+    "poDirective": "PO directive 2026-06-29: formalize the scattered traceability + MD-planning TS tools (planner-drive.ts, objectVerb.ts, generate-sprint-md.ts, trace-cli.ts/trace-audit.ts) as a coherent OOSH-like SKILL set - pin management, chain scoring, sprint planning, traceability audit.",
+    "sourceNote": "PO-formulated main goal (not a verbatim Tron literal); formalizes existing impl. Grounded per implRef.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1",
+        "group": "followUp",
+        "text": "Chain.followUp(reqUuids, sprint?) is the single canonical completion measure - one summary row per Requirement, dedup by methodUuid (UUID identity), NOT display name (display names collide: two *.render on one Req = the R15.6 over-credit bug)."
+      },
+      {
+        "id": "AC-2",
+        "group": "scoreboard",
+        "text": "Chain.scoreboard renders the canonical markdown: table + dispatch list + Summary line."
+      },
+      {
+        "id": "AC-3",
+        "group": "listComplete",
+        "text": "Chain.listComplete emits one diffable line per COMPLETE requirement (TSV-stable)."
+      },
+      {
+        "id": "AC-4",
+        "group": "lintMarkers",
+        "text": "Chain.lintMarkers reports invented-suffix uuids, prefix collisions, shared Impls, and orphan markers before any re-measure."
+      },
+      {
+        "id": "AC-5",
+        "group": "one-measure",
+        "text": "There is exactly ONE completion measure (followUp); no competing/duplicate scoreboard logic."
+      },
+      {
+        "id": "AC-6",
+        "group": "one-measure-confirmed",
+        "text": "scoreboard, listComplete, generateMatrix, and Velocity ALL delegate to Chain.followUp - verified no competing count (skill-expert confirmed)."
+      }
+    ],
+    "architectRef": "ior:file:scrum.pmo/sprints/sprint-24-traceability-skills/architecture.md \u2014 UC chain.score (76df40fbb).",
+    "refinementNote": "Refined 2026-06-29 from skill-expert AC sanity-check (verified vs objectVerb.ts/skill-classes.ts) + architect design hop (commit 76df40fbb, UCs wired, architecture.md 3 design decisions). skill-expert fixes: R24.1 emitClaudeSkills (plural verb); R24.3 dedup by methodUuid not display name (R15.6 over-credit). architect governance ACs folded in (Tab-completable, wrapper==emitOosh CI gate, owner+test, Pin-as-Object.verb, shim-parity gate)."
+  },
+  "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b"
+}

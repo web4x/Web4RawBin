@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "3b17aad3-0587-48f6-8da6-3eaf54a9a84d",
+    "name": "Transfer.resolveChildrenLazily impl",
+    "description": "DESIGN-AHEAD (scenario-first #126, GREENFIELD federation — no code yet): planned src/ts/server/federation-transfer.ts; expert attaches [impl:uuid] at code time.",
+    "sourceFile": "ior:file:src/ts/server/federation-transfer.ts",
+    "designAhead": true,
+    "tests": [
+      "ior:instance:f6de8f4d-78b9-472e-8f1d-4aab2944304c"
+    ]
+  },
+  "ownerIor": "ior:instance:4257570e-dc89-42e6-b3e4-c0130e6a29c2"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "3bb26ebe-ebd9-4d65-91d9-d73b1eb31f59",
+    "name": "Email",
+    "description": "Sprint 21 design-ahead class for email.mintAndLink.",
+    "methods": [
+      "ior:instance:1b9a429b-01b3-424f-8c75-d2f2c924e8b8"
+    ]
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

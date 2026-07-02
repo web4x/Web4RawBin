@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ec56967a-af76-49e3-8c80-3cacf5f55a69",
+    "name": "fetchSanitized enforces size-cap + timeout",
+    "description": "DESIGN-AHEAD adversarial POST-fetch test: response exceeding the byte cap is rejected/truncated; a slow origin hits the hard timeout; redirect count capped.",
+    "testCases": []
+  },
+  "ownerIor": "ior:instance:31c58c73-c52d-4785-b4ea-7c0ecb38ba56"
+}

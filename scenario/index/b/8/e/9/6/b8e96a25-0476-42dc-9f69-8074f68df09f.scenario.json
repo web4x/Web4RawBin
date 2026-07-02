@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "b8e96a25-0476-42dc-9f69-8074f68df09f",
+    "name": "RbWebItemDetail",
+    "file": "src/public/ts/trace/rb-webitem-detail.ts",
+    "methods": [
+      "ior:instance:187a1c5e-125c-4af7-bb11-49585f8321d7"
+    ],
+    "useCases": []
+  },
+  "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+}

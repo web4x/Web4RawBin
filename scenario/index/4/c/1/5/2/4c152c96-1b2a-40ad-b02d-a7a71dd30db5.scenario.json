@@ -2,11 +2,13 @@
   "ior": "ior:class:Implementation",
   "model": {
     "uuid": "4c152c96-1b2a-40ad-b02d-a7a71dd30db5",
-    "name": "avatar-fallback fix — re-encrypt files/* on identity rekey",
+    "name": "avatar-fallback fix \u2014 re-encrypt files/* on identity rekey",
     "sourceFile": "src/ts/server/UserCrypto.ts",
     "sourceLine": 125,
     "unitLinks": [],
-    "tests": []
+    "tests": [
+      "ior:instance:cbde8942-6f7e-4889-85ea-eb3365dde403"
+    ]
   },
   "ownerIor": null
 }

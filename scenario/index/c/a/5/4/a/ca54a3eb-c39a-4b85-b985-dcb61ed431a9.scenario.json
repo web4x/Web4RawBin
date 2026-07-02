@@ -6,7 +6,13 @@
     "className": "IORResolver",
     "methodName": "resolveInstance(ior): ScenarioUnit",
     "implementations": [
-      "ior:instance:4b13fc8b-cc5d-40c9-a6a7-7cf061b92cca"
+      "ior:instance:4b13fc8b-cc5d-40c9-a6a7-7cf061b92cca",
+      "ior:instance:bcbfa945-633a-4f62-950c-7d8d39b0dd15",
+      "ior:instance:4a74b1c1-78cf-44ba-88e1-8b3fb6f6df9a",
+      "ior:instance:c3c95f15-db0e-4690-bc20-380f82b9fc48",
+      "ior:instance:664314f1-1503-4f48-9cd3-231afd198570",
+      "ior:instance:0e05da50-8dae-48fe-b4b2-361525a398c4",
+      "ior:instance:9b96ae64-dfbc-4cdf-b62c-4394b647c6b9"
     ],
     "implementation": "ior:instance:04a1dea7-58f6-4b40-983f-fe13bd32b01a",
     "sourceFile": "ior:file:src/ts/scenario/ior-resolver.ts",
@@ -14,5 +20,5 @@
     "parent": "ior:instance:4dfd37fd-d30f-4ec1-af8c-2647ff865ba7",
     "unitLinks": []
   },
-  "ownerIor": "ior:instance:4dfd37fd-d30f-4ec1-af8c-2647ff865ba7"
+  "ownerIor": "ior:instance:b4eaa489-6096-46e9-b7e0-4fc8aa72ea08"
 }

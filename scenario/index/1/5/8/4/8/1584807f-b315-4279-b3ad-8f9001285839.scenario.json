@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "1584807f-b315-4279-b3ad-8f9001285839",
+    "name": "SprintViewGenerator.generateSprint",
+    "description": "Scenario->MD ViewGenerator: scenario units are truth, MD is the generated VIEW; generateSprint/generateTaskMd/generatePlanningMd + checkSprint (--check round-trip byte-match gate).",
+    "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
+    "implementations": [
+      "ior:instance:41c86206-87ee-4e91-b563-a3c41c54819e"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c"
+}

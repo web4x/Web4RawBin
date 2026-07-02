@@ -4,7 +4,7 @@
     "uuid": "7051e416-1087-422b-a271-a5575d2475fc",
     "name": "T19: Room Member List Parity with UpDown",
     "slug": "task-19-member-list-parity",
-    "description": "",
+    "description": "Bring the room member list to parity with the UpDown app.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:2aaa509c-16e4-4900-a439-ec2857f97b14"
+  "ownerIor": "ior:instance:29d92990-3514-4627-8780-eb0d2e462eeb"
 }

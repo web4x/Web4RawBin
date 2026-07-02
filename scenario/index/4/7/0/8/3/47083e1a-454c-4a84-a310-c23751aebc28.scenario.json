@@ -4,7 +4,7 @@
     "uuid": "47083e1a-454c-4a84-a310-c23751aebc28",
     "name": "T59: Floating Back Button on /md/ File Views",
     "slug": "task-59-back-button",
-    "description": "",
+    "description": "Add a floating back button to the /md/ file views.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",
@@ -13,7 +13,7 @@
     "intention": "",
     "role": "",
     "acceptanceCriteria": "- [x] Floating button visible bottom-right on all /md/ file views\n- [x] Click navigates back (history.back)\n- [x] Safe-area padding for iPhone\n- [x] Doesn't overlap content",
-    "qaAudit": "- 2026-05-24: Tron — no way back to browser from file view. Add floating CLOSE button bottom-right that does history.back(). On all file views: SVG, markdown, any file.",
+    "qaAudit": "- 2026-05-24: Tron \u2014 no way back to browser from file view. Add floating CLOSE button bottom-right that does history.back(). On all file views: SVG, markdown, any file.",
     "subtasks": "None (atomic task).",
     "assigned": "",
     "architectDesign": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:74d3060c-3e61-41ac-874d-0a0bdb768609"
+  "ownerIor": "ior:instance:a9eb4565-6a74-4f82-802f-01373b9cf59c"
 }

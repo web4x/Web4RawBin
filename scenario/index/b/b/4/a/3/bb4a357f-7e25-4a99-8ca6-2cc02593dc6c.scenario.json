@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "bb4a357f-7e25-4a99-8ca6-2cc02593dc6c",
+    "name": "Room.evictAbsorbedFromRooms",
+    "description": "On CONSOLIDATE, after setting friend.redirectTo, remove/rekey every member with playerToken==absorbed from ALL rooms (broadcast MEMBER_LEFT + corrected memberCount).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:64dba09d-11cf-4866-a03d-dea820e97a1e"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
+}

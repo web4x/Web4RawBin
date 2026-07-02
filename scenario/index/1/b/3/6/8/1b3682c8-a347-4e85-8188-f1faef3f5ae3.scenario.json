@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "1b3682c8-a347-4e85-8188-f1faef3f5ae3",
+    "name": "test:T24.5 Audit.strict gate",
+    "description": "Bridged to test/visual/r245-s24-tooling-gate.mjs — trace audit strict (DET-3x GREEN)",
+    "sourceFile": "ior:file:test/visual/r245-s24-tooling-gate.mjs",
+    "implementations": [
+      "ior:instance:08706df5-02be-433b-b9c8-a4cb9ac7443a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:08706df5-02be-433b-b9c8-a4cb9ac7443a"
+}

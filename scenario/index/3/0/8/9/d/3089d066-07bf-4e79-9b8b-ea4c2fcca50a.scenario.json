@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "3089d066-07bf-4e79-9b8b-ea4c2fcca50a",
+    "name": "FederationApi.fetchScenario impl",
+    "description": "DESIGN-AHEAD (scenario-first #126, GREENFIELD federation — no code yet): planned src/ts/server/server.ts; expert attaches [impl:uuid] at code time.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": true,
+    "tests": [
+      "ior:instance:9907f272-0cfb-4c8e-8732-797fd679b9fb"
+    ]
+  },
+  "ownerIor": "ior:instance:f762297b-9445-4ea5-acd1-671d0589d4dd"
+}

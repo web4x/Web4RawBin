@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "ff91e891-57b8-4d82-b3d5-fa45219b9db1",
+    "name": "identity.deviceLinkOnKnownKey",
+    "description": "On IDENTIFY with a phone/email already in the alt-index, do not mint: challenge for secret CODE and attach a new device to the existing profile.",
+    "class": "ior:instance:3c0910a7-d9ee-4b9e-858a-49435ca29d9d",
+    "classes": [
+      "ior:instance:3c0910a7-d9ee-4b9e-858a-49435ca29d9d"
+    ],
+    "method": "ior:instance:4e203d64-6112-44ea-ae28-04538a28d8ba",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:04dff687-ae49-4d9c-9150-6e2419a1c0b9"
+}

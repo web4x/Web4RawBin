@@ -20,6 +20,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { ScenarioIndex, defaultTemplateRegistry, ViewGenerator, createTraceLink, extractPumlUseCaseRanges, makeSource, type ScenarioUnit } from '../src/ts/scenario/index.js';
+import { mintOrReuseClass } from '../src/ts/scenario/class-mint.js'; // R27.2 AC-canonical: single Class mint-or-reuse choke-point
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SPRINTS_DIR = path.join(__dirname, '../scrum.pmo/sprints');
@@ -329,29 +330,12 @@ function migrateSprint(sprintSlug: string, dryRun: boolean): void {
         const fileLine = body.split('\n').find(l => l.trim() && !l.trim().startsWith('+'));
         const sourcePath = fileLine?.trim() || '';
         const methodLines = body.split('\n').filter(l => l.trim().startsWith('+'));
-        const classUuid = crypto.randomUUID();
-        const methodIors: string[] = [];
-        for (const ml of methodLines) {
-          const mName = ml.replace(/^\s*\+\s*/, '').trim();
-          if (!mName) continue;
-          const mUuid = crypto.randomUUID();
-          const methodUnit: ScenarioUnit = {
-            ior: 'ior:class:Method',
-            model: { uuid: mUuid, name: `${className}.${mName}`, className, methodName: mName },
-            ownerIor: `ior:instance:${classUuid}`,
-          };
-          idx.put(mUuid, methodUnit);
-          methodUuids.push(mUuid);
-          methodIors.push(`ior:instance:${mUuid}`);
-        }
-        const classUnit: ScenarioUnit = {
-          ior: 'ior:class:Class',
-          model: { uuid: classUuid, name: className, file: sourcePath, methods: methodIors, useCases: [] },
-          ownerIor: `ior:instance:${sprintUuid}`,
-        };
-        idx.put(classUuid, classUnit);
-        classUuids.push(classUuid);
-        console.log(`  Created class unit: ${classUuid} — ${className} (${methodIors.length} methods)`);
+        // R27.2 AC-canonical: route through the single mint-or-reuse choke-point (never a 2nd Class per name).
+        const methodNames = methodLines.map(ml => ml.replace(/^\s*\+\s*/, '').trim()).filter(Boolean);
+        const { classUuid, methodUuids: newMethodUuids, reused } = mintOrReuseClass(idx, className, `ior:instance:${sprintUuid}`, sourcePath, methodNames);
+        methodUuids.push(...newMethodUuids);
+        if (!classUuids.includes(classUuid)) classUuids.push(classUuid);
+        console.log(`  ${reused ? 'REUSED' : 'Created'} class unit: ${classUuid} — ${className}`);
       }
     }
   }

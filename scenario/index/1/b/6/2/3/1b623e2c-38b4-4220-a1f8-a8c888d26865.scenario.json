@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "1b623e2c-38b4-4220-a1f8-a8c888d26865",
+    "name": "Address.mintAndVerifyAsync",
+    "description": "Mint ior:class:Address (Country City PostalCode Street HouseNumber), save immediately, verify async against OpenStreetMap, set badge + OSM/GMaps links on success.",
+    "implementations": [
+      "ior:instance:ce2501d3-0c49-4148-8c4a-795d2fbaba24"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:151d6d8e-b2b0-46c2-a880-671a1fbb9b88"
+}

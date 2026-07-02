@@ -4,7 +4,7 @@
     "uuid": "db9091a2-9cc9-4b2f-967a-b37355b9fc88",
     "name": "T11: vCard Download for Other Users",
     "slug": "task-11-vcard",
-    "description": "",
+    "description": "Allow downloading another user's contact details as a vCard (.vcf).",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:27b6a05a-7acb-4481-9353-165dddf865ad"
+  "ownerIor": "ior:instance:7f004379-b327-4853-bc2f-947bd4e781d8"
 }

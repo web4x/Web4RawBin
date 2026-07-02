@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "41b3fb3d-bbee-4da2-bca5-1a434f0e0e4d",
+    "kind": "link",
+    "name": "fiverr.com: I will mvp business model design and make it production ready",
+    "description": "https://www.fiverr.com/donges/mvp-business-model-design-and-make-it-production-ready?utm_medium=shared&utm_source=copy_link&utm_campaign=base_gig_create_share&utm_term=yvzEmrb&view=gig&gig_id=496467439",
+    "url": "https://www.fiverr.com/donges/mvp-business-model-design-and-make-it-production-ready?utm_medium=shared&utm_source=copy_link&utm_campaign=base_gig_create_share&utm_term=yvzEmrb&view=gig&gig_id=496467439",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=www.fiverr.com&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "parentFolder": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62",
+    "children": [],
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd"
+  },
+  "ownerIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62"
+}

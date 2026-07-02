@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "f7a06e18-5237-4640-a731-0575bc965917",
+    "name": "graph.repairIntegrity",
+    "description": "Repair the 12 dangling UC refs + 51 orphan Methods (attach-not-prune) so the graph derives clean; gated dry-run, atomic.",
+    "class": "ior:instance:4304c9b0-b56c-4540-b6c2-2a3bc047f5d8",
+    "classes": [
+      "ior:instance:4304c9b0-b56c-4540-b6c2-2a3bc047f5d8"
+    ],
+    "method": "ior:instance:d9a3f4f4-ea76-44be-a7af-a74e68da4c09",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:e205f7c3-97d8-474a-a4e6-053a7a7f30aa"
+}

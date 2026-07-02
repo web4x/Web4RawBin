@@ -50,10 +50,12 @@ export class DropDispatcher {
   }
 
   // [impl:uuid:d6ec181b-3e6f-4b95-9b67-196cdb137ad3] DropDispatcher.uploadFile
-  async uploadFile(file: File, roomId: string, playerToken: string): Promise<{ uuid: string; name: string; size: number } | null> {
+  async uploadFile(file: File, roomId: string, playerToken: string, relatedFileUuid?: string): Promise<{ uuid: string; name: string; size: number } | null> {
     const fd = new FormData();
     fd.append('file', file);
     fd.append('playerToken', playerToken);
+    if (relatedFileUuid) fd.append('relatedFile', relatedFileUuid); // v0.6.91: WebItem forward-ref to its source file
+
     const resp = await fetch(`${this.baseUrl}/api/room/${roomId}/upload`, { method: 'POST', body: fd });
     if (!resp.ok) return null;
     return resp.json();
@@ -78,6 +80,7 @@ export class DropDispatcher {
   }
 
   // [impl:uuid:971bdde0-004b-4896-bc8c-4570832f6304] DropDispatcher.routeUnknown
+  // [impl:uuid:4a159912-978e-46bc-a839-5201857461c5] R25.1 DropDispatcher.routeUnknown
   async routeUnknown(file: File, roomId: string, playerToken: string, sendChat: (text: string) => void): Promise<void> {
     for (const [prefix, handler] of this.handlers) {
       if (file.type.startsWith(prefix)) {
@@ -89,11 +92,12 @@ export class DropDispatcher {
   }
 
   // [impl:uuid:05ed9488-cef2-41f5-83b2-f8e046fcd77a] DropDispatcher.feedbackCycle
+  // [impl:uuid:12f2331b-47d5-45df-aed7-f643e57233e6] DropDispatcher.dispatch — MIME allowlist (v0.6.81 audio/+video/)
   async dispatch(file: File, roomId: string, playerToken: string, sendChat: (text: string) => void): Promise<{ uuid: string; name: string; size: number } | null> {
     this.state = 'uploading';
     this.statusCb?.('uploading', `Uploading ${file.name}...`);
     let result: { uuid: string; name: string; size: number } | null = null;
-    if (file.type.startsWith('image/') || file.type.startsWith('text/') || file.type.startsWith('application/')) {
+    if (file.type.startsWith('image/') || file.type.startsWith('text/') || file.type.startsWith('application/') || file.type.startsWith('audio/') || file.type.startsWith('video/') || file.type.startsWith('message/')) { // v0.6.81: audio/+video/; v0.6.90: message/ (iOS .eml email drop)
       result = await this.uploadWithProgress(file, roomId, playerToken, (pct) => {
         this.statusCb?.('uploading', `${file.name} ${pct}%`);
       });
@@ -107,14 +111,17 @@ export class DropDispatcher {
   }
 
   // [impl:uuid:b05fcdf3-0d44-4d7d-bee2-b5edc55daa3a] R19.62 DropDispatcher.urlDrop
-  async dispatchUrl(url: string, roomId: string, playerToken: string, sendChat: (text: string) => void): Promise<{ uuid: string; name: string; size: number } | null> {
+  async dispatchUrl(url: string, roomId: string, playerToken: string, sendChat: (text: string) => void, displayName?: string, relatedFileUuid?: string): Promise<{ uuid: string; name: string; size: number } | null> {
+    // v0.7.0 (2): about:blank (and about:blank#blocked) is a placeholder, never a real resource — never mint a WebItem for it.
+    if (!url || /^about:/i.test(url.trim())) { this.statusCb?.('idle', ''); return null; }
     this.state = 'uploading';
     this.statusCb?.('uploading', `Fetching ${url}...`);
     try {
-      const name = url.split('/').pop() || 'link';
+      // v0.6.90: caller may pass a display name (e.g. an email subject) → the WebItem name derives from it.
+      const name = (displayName && displayName.trim()) || url.split('/').pop() || 'link';
       const blob = new Blob([url], { type: 'text/uri-list' });
       const file = new File([blob], `${name}.url`, { type: 'text/uri-list' });
-      const result = await this.uploadFile(file, roomId, playerToken);
+      const result = await this.uploadFile(file, roomId, playerToken, relatedFileUuid); // v0.6.91: link WebItem→source file
       this.state = 'complete';
       this.statusCb?.(result ? 'complete' : 'error', result ? `Saved ${name}` : `Failed: ${url}`);
       setTimeout(() => { if (this.state === 'complete') { this.state = 'idle'; this.statusCb?.('idle'); } }, 2000);
@@ -125,6 +132,24 @@ export class DropDispatcher {
       sendChat(`[url-drop] failed: ${url}`);
       return null;
     }
+  }
+
+  // [impl:uuid:f484952c-03b5-411d-8816-79adb0fcac17] R26.2 DropDispatcher.buildFederatedRef
+  // T26.2: build the application/rb-federated-ref DataTransfer payload — a self-contained REFERENCE
+  // (ior@host + fetchUrl), NOT the full scenario JSON (files are MB; DataTransfer is size-limited + sync).
+  // The receiver asks ITS OWN server to import from fetchUrl (server-to-server). Tiny units MAY inline `unit`.
+  buildFederatedRef(input: { uuid: string; type: string; name: string; originHost: string; contentHash?: string; grant?: string; inline?: unknown }): string {
+    const grant = input.grant ? `?grant=${encodeURIComponent(input.grant)}` : ''; // capability token minted by the origin (R26.3)
+    const ref: Record<string, unknown> = {
+      ior: `ior:instance:${input.uuid}@${input.originHost}`,
+      originHost: input.originHost,
+      type: input.type,
+      name: input.name,
+      fetchUrl: `${input.originHost}/api/scenario/${input.uuid}${grant}`,
+    };
+    if (input.contentHash) ref.contentHash = input.contentHash;      // File units: cross-server content dedup
+    if (input.inline !== undefined) ref.inline = input.inline;       // optimization: tiny units skip the round-trip
+    return JSON.stringify(ref);
   }
 }
 

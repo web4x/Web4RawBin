@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:3820c432-39a6-45ce-9ad0-02a9f6b2693b",
+  "model": {
+    "uuid": "5b28cede-11ab-487f-9f60-93cc43fe02fa",
+    "name": "impl:RbObjectItem.deferRenderToMicrotask",
+    "status": "active",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml"
+  }
+}

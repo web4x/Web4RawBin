@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "6084db12-1d75-4e51-bef8-c3d17c6cf693",
+    "name": "Company",
+    "description": "Sprint 21 design-ahead class for company.mintOrReuseShared.",
+    "methods": [
+      "ior:instance:696545ed-a067-44bc-85a0-a70720b33383"
+    ]
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

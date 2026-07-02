@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9907f272-0cfb-4c8e-8732-797fd679b9fb",
+    "name": "test:R26.3 FederationApi.fetchScenario gate",
+    "description": "Bridged to test/visual/r261-t263-federation-api-gate.mjs — grant 403/mint/unit/content/children@host, DET-3x GREEN",
+    "sourceFile": "ior:file:test/visual/r261-t263-federation-api-gate.mjs",
+    "implementations": [
+      "ior:instance:3089d066-07bf-4e79-9b8b-ea4c2fcca50a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:3089d066-07bf-4e79-9b8b-ea4c2fcca50a"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "59c2d69f-9545-49f4-9eee-10866b530f0c",
+    "name": "RoomBrowser",
+    "description": "Sprint 21 design-ahead class for lobby.renderName.",
+    "methods": [
+      "ior:instance:5e9eaeb4-3467-4d4d-9afe-485c8293a573"
+    ]
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

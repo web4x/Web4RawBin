@@ -4,7 +4,7 @@
     "uuid": "f68def2b-cb7f-44e5-a7b5-2ffcf898f6ce",
     "name": "room.stripSizeLimits",
     "description": "Remove maxMembers/maxPlayers from Room model, addMember guard, info(), persist, createRoom opts, UI config editor, RoomBrowser display, and existing Room scenario units. Rooms become unbounded.",
-    "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
     "method": "ior:instance:f1dd0d77-edaf-4d15-b1e6-f6b0ba33867b",
     "tasks": [
       "ior:instance:e90c223d-4f81-4199-be48-13e234849e31"
@@ -12,7 +12,7 @@
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"

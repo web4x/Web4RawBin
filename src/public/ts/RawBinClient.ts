@@ -14,6 +14,7 @@ export class RawBinClient {
   private ws: WebSocket | null = null;
   private handlers: Map<string, MessageHandler[]> = new Map();
   private _profile: UserProfile | null = null;
+  private _pendingKnownKeyLink = false; // R21.4: awaiting device-link enroll after code prompt
   private messageQueue: string[] = [];
   private backoffMs: number = 0;
   private backoffTimer: ReturnType<typeof setTimeout> | null = null;
@@ -48,6 +49,21 @@ export class RawBinClient {
 
   isProfileCommitted(): boolean { return this._profile?.profileCommitted === true; }
   getProfile(): UserProfile | null { return this._profile; }
+
+  /**
+   * R21.4: before committing a brand-new profile, check whether the entered phone/email
+   * already belongs to an existing user. If so the server replies KNOWN_KEY_CHALLENGE
+   * and we prompt for their secret code to link this device instead of minting a new user.
+   * Only meaningful for an uncommitted (new) identity.
+   */
+  checkKnownKey(phone?: string, email?: string): void {
+    if (this.isProfileCommitted()) return; // existing committed user — no device-link needed
+    if (!phone && !email) return;
+    this.send({
+      type: MSG.IDENTIFY, playerToken: this.playerToken, deviceId: this.deviceId,
+      name: localStorage.getItem('rawbin-name') || '', phone: phone || '', email: email || '',
+    });
+  }
   isOnline(): boolean { return this.online; }
   getBackoffMs(): number { return this.backoffMs; }
   getQueueLength(): number { return this.messageQueue.length; }
@@ -92,6 +108,25 @@ export class RawBinClient {
           }
           if (msg.type === MSG.TOKEN_REDIRECT && msg.newToken) {
             localStorage.setItem('rawbin-player-id', msg.newToken);
+          }
+          // R21.4: a provided phone/email already belongs to an existing user → prompt for
+          // their secret code and link THIS device to that profile (no new user).
+          if (msg.type === MSG.KNOWN_KEY_CHALLENGE && msg.profileUuid) {
+            const who = msg.maskedName || 'an existing user';
+            const code = (typeof window !== 'undefined')
+              ? window.prompt(`This contact already belongs to ${who}. Enter their 4-digit secret code to link this device:`)
+              : null;
+            if (code && /^\d{4}$/.test(code.trim())) {
+              this._pendingKnownKeyLink = true;
+              this.send({ type: MSG.DEVICE_ENROLL_REQUEST, profileUuid: msg.profileUuid, secretCode: code.trim() });
+            }
+          }
+          if (msg.type === MSG.DEVICE_ENROLL_OK && this._pendingKnownKeyLink) {
+            this._pendingKnownKeyLink = false;
+            if (typeof window !== 'undefined') window.location.reload(); // adopt redirected identity
+          }
+          if (msg.type === MSG.DEVICE_ENROLL_FAILED && this._pendingKnownKeyLink) {
+            this._pendingKnownKeyLink = false; // wrong/absent code → nothing created (AC4)
           }
           if ((msg.type === MSG.PROFILE || msg.type === MSG.PROFILE_UPDATED) && msg.profile) {
             this._profile = msg.profile;

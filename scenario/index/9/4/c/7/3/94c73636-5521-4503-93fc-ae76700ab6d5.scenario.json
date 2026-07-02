@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:95b287f9-f0aa-487c-af45-d7cb79166294",
+  "model": {
+    "uuid": "94c73636-5521-4503-93fc-ae76700ab6d5",
+    "name": "impl:RbDetailDrawer.open, close, swipeDismiss",
+    "status": "active",
+    "sourceFile": "",
+    "tests": [
+      "ior:instance:fda5a23e-c40a-445e-8a3e-de237cc4b988"
+    ]
+  }
+}

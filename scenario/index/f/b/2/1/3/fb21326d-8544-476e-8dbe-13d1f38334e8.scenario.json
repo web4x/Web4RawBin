@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "fb21326d-8544-476e-8dbe-13d1f38334e8",
+    "name": "det-3x: PASS",
+    "gateType": "det-3x",
+    "verdict": "PASS",
+    "evidence": "R20.31 vCard: B(NOTE has date 2026-06-16) C(Maps q=48.1351,11.582 mocked) D(denied=date+no-maps). Valid vCard 3.0, escaped newlines, 849KB real PHOTO, right member. DET-3x consistent. Screenshots r2031-v662-member.png r2031-v662-denied.png",
+    "gatedItems": [
+      "ior:instance:708ec0a5-2027-433d-9e69-54a3bed73a06",
+      "ior:instance:f3f26cab-792e-4e65-9cf8-98d907023396"
+    ],
+    "timestamp": "2026-06-16T19:21:14.183Z",
+    "gatedBy": "tester"
+  },
+  "ownerIor": "ior:instance:708ec0a5-2027-433d-9e69-54a3bed73a06"
+}

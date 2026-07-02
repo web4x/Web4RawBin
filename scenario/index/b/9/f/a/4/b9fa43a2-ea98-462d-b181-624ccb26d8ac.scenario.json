@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "b9fa43a2-ea98-462d-b181-624ccb26d8ac",
+    "name": "LinkedIn Banner.png",
+    "contentPath": "index/b/9/f/a/4/b9fa43a2-ea98-462d-b181-624ccb26d8ac.content",
+    "size": 10916416,
+    "mimeType": "image/png",
+    "uploadedAt": "2026-06-29T15:10:24.374Z",
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+    "roomUuid": "6c04f959-f3d6-42eb-818f-5e2e4498bf91",
+    "contentHash": "a2da183e53b77e979d4da10f175dd8cc82c88d5832b9781d77778c2ccd75a39a",
+    "unitLinks": [
+      "content/a2da183e53b77e979d4da10f175dd8cc82c88d5832b9781d77778c2ccd75a39a.file.scenario.json",
+      "../data/users/8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd/rooms/6c04f959-f3d6-42eb-818f-5e2e4498bf91/files/b9fa43a2-ea98-462d-b181-624ccb26d8ac.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:6c04f959-f3d6-42eb-818f-5e2e4498bf91"
+}

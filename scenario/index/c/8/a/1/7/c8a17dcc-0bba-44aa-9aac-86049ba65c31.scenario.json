@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "c8a17dcc-0bba-44aa-9aac-86049ba65c31",
+    "name": "DropDispatcher.buildFederatedRef",
+    "description": "Cross-origin DnD carries application/rb-federated-ref {ior@host, originHost, type, name, fetchUrl, contentHash?} — a reference+fetchUrl, NOT the full JSON; receiver hands it to its own server to import.",
+    "sourceFile": "ior:file:src/public/ts/trace/drop-dispatcher.ts",
+    "implementations": [
+      "ior:instance:f484952c-03b5-411d-8816-79adb0fcac17"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3fca4816-cc22-45ea-aa59-d7b23ac19d8d"
+}

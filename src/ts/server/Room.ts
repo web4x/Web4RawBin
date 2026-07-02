@@ -99,6 +99,14 @@ export class Room {
 
   members: Map<string, RoomMember> = new Map();
   fileUnits: Set<string> = new Set();
+
+  // Room.resolveToken — collapse consolidated (redirectTo) members to PRIMARY.
+  // server.ts injects the profile redirect resolver at startup; default identity (no profiles in tests).
+  // [impl:uuid:123c4c40-30b6-43c4-8d68-33f1d0bb566d] Room.resolveToken
+  static resolveToken: (token: string) => string = (t) => t;
+  // v0.7.1: does a token have ANY profile? Injected by server.ts (default true so profile-less tests keep members).
+  // A persisted member with NO profile = an orphan from a deleted profile → dropped on load (self-heal).
+  static profileExists: (token: string) => boolean = () => true;
   private _chatHistory: ChatMessage[] = [];
   private creatorId: string = '';
   creatorToken: string = '';
@@ -121,9 +129,16 @@ export class Room {
     this.creatorId = creator.id;
     this.creatorToken = opts?.creatorToken || '';
     if (opts?.persistedMembers) {
+      // v0.7.0 (a): collapse persisted members by RESOLVED identity — ≤1 entry per real person, not just
+      // in one display path. Prefer the entry whose token IS the primary, else a connected one; re-key to primary.
+      const byIdentity = new Map<string, { id: string; name: string; playerToken: string; disconnected: boolean }>();
       for (const pm of opts.persistedMembers) {
-        this.members.set(pm.id, { id: pm.id, ws: null as any, name: pm.name, avatarUrl: '', playerToken: pm.playerToken, disconnected: pm.disconnected ?? true });
+        const resolved = Room.resolveToken(pm.playerToken || '') || pm.playerToken || pm.id;
+        const cur = byIdentity.get(resolved);
+        const better = !cur || (pm.playerToken === resolved && cur.playerToken !== resolved) || (cur.disconnected && !(pm.disconnected ?? true));
+        if (better) byIdentity.set(resolved, { id: pm.id, name: pm.name, playerToken: resolved, disconnected: pm.disconnected ?? true });
       }
+      for (const m of byIdentity.values()) this.members.set(m.id, { id: m.id, ws: null as any, name: m.name, avatarUrl: '', playerToken: m.playerToken, disconnected: m.disconnected });
     }
     if (opts?.persistedFiles) {
       for (const fuuid of opts.persistedFiles) this.fileUnits.add(fuuid);
@@ -162,12 +177,13 @@ export class Room {
 
   // --- Members ---
 // [impl:uuid:4246c0a8-cfbf-43cd-8677-3367f3ac21d9] Room.addMember
+  // [impl:uuid:96be5441-67c2-45f9-9220-a7791f5e0631] R25.7 Room.addMember (addMemberIdempotent — idempotent by resolved token via rejoinDedup)
 
   addMember(member: RoomMember): boolean {
     if (this.state !== 'active') return false;
     if (this.rejoinDedup(member)) return true;
     this.members.set(member.id, { ...member, disconnected: false });
-    this.broadcast({ type: MSG.MEMBER_JOINED, member: this.memberInfo(member.id), memberCount: this.members.size });
+    this.broadcast({ type: MSG.MEMBER_JOINED, member: this.memberInfo(member.id), memberCount: this.dedupCount() });
     this.sendTo(member.id, { type: MSG.ROOM_JOINED, room: this.info(), members: this.allMemberInfo() });
     if (this._chatHistory.length > 0) {
       this.sendTo(member.id, { type: MSG.CHAT_HISTORY, messages: this._chatHistory });
@@ -176,14 +192,36 @@ export class Room {
     return true;
   }
 
+  // v0.7.0 (d): deduped member count — one per RESOLVED identity (never the raw map size).
+  private dedupCount(): number { return this.allMemberInfo().length; }
+
+  // v0.7.0 (b): evict an absorbed (tombstoned) token from this room's LIVE members — drop it if the primary
+  // is already present, else re-key it to the primary (preserve presence). Broadcasts the corrected count.
+  // [impl:uuid:64dba09d-11cf-4866-a03d-dea820e97a1e] R25.7 Room.collapseAbsorbedMember (evictAbsorbedFromRooms — CONSOLIDATE evicts the absorbed token from every room)
+  collapseAbsorbedMember(absorbedToken: string, primaryToken: string): boolean {
+    const hasPrimary = [...this.members.values()].some(m => m.playerToken === primaryToken);
+    let changed = false;
+    for (const [id, m] of [...this.members.entries()]) {
+      if (m.playerToken !== absorbedToken) continue;
+      if (hasPrimary) this.members.delete(id); else m.playerToken = primaryToken;
+      changed = true;
+    }
+    if (changed) { this.broadcast({ type: MSG.MEMBER_LEFT, memberId: absorbedToken, memberCount: this.dedupCount() }); this.persist(); }
+    return changed;
+  }
+
   // [impl:uuid:4c8a91a5-35af-48b1-a2e9-4bbd9f18bc10] Room.rejoinDedup
+  // [impl:uuid:dffda1dc-053e-4513-ab4e-39c3ed9863bb] R25.7 Room.rejoinDedup (idempotent match by resolved token)
   private rejoinDedup(member: RoomMember): boolean {
-    const existing = member.playerToken ? [...this.members.values()].find(m => m.playerToken && m.playerToken === member.playerToken) : undefined;
+    // v0.7.0 (d): idempotent by RESOLVED identity — a tombstoned/re-keyed token collapses onto its primary
+    // instead of inserting a second member entry.
+    const rtok = Room.resolveToken(member.playerToken || '') || member.playerToken;
+    const existing = member.playerToken ? [...this.members.values()].find(m => m.playerToken && Room.resolveToken(m.playerToken) === rtok) : undefined;
     if (!existing) return false;
     if (existing.ws && existing.ws.readyState === 1) { try { existing.ws.close(); } catch {} }
     this.members.delete(existing.id);
-    this.members.set(member.id, { ...member, disconnected: false });
-    this.broadcast({ type: MSG.MEMBER_RECONNECTED, member: this.memberInfo(member.id), oldMemberId: existing.id, memberCount: this.members.size });
+    this.members.set(member.id, { ...member, playerToken: rtok, disconnected: false });
+    this.broadcast({ type: MSG.MEMBER_RECONNECTED, member: this.memberInfo(member.id), oldMemberId: existing.id, memberCount: this.dedupCount() });
     this.sendTo(member.id, { type: MSG.ROOM_JOINED, room: this.info(), members: this.allMemberInfo() });
     if (this._chatHistory.length > 0) {
       this.sendTo(member.id, { type: MSG.CHAT_HISTORY, messages: this._chatHistory });
@@ -194,7 +232,7 @@ export class Room {
 
   removeMember(id: string): void {
     this.members.delete(id);
-    this.broadcast({ type: MSG.MEMBER_LEFT, memberId: id, memberCount: this.members.size });
+    this.broadcast({ type: MSG.MEMBER_LEFT, memberId: id, memberCount: this.dedupCount() });
     if (id === this.hostId && this.members.size > 0) {
       const next = [...this.members.values()].find(m => !m.disconnected);
       this.hostId = next?.id || this.members.keys().next().value!;
@@ -283,7 +321,7 @@ export class Room {
       name: this.name,
       hostId: this.hostId,
       hostConnected: this.members.has(this.hostId),
-      memberCount: this.members.size,
+      memberCount: this.dedupCount(),
       isPrivate: this.isPrivate,
       visibility: this.visibility,
       mode: this.mode,
@@ -298,12 +336,27 @@ export class Room {
   private memberInfo(id: string) {
     const m = this.members.get(id);
     if (!m) return null;
-    return { id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken, disconnected: !!m.disconnected };
+    // expose the PRIMARY token so badges/Link-Account never carry a consolidated tombstone token
+    return { id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken ? Room.resolveToken(m.playerToken) : m.playerToken, disconnected: !!m.disconnected };
   }
 
+  // [impl:uuid:7899449b-9d07-4b8c-80c6-58f229ce3129] R25.7 Room.allMemberInfo (dedupMembersOnLoad — display-layer dedup + orphan skip)
   private allMemberInfo() {
-    return [...this.members.values()].map(m => ({
-      id: m.id, name: m.name, avatarUrl: m.avatarUrl, playerToken: m.playerToken, disconnected: !!m.disconnected,
+    // collapse members whose token redirects to the same PRIMARY (consolidated identities show once)
+    const byPrimary = new Map<string, RoomMember>();
+    for (const m of this.members.values()) {
+      // v0.7.1 (R25.7): hide a DISCONNECTED orphan — a member whose token has no profile (deleted in a
+      // purge) with no live connection. It's a ghost; skipping it (not deleting) is safe — a connected or
+      // profiled member is always shown. This is what resolveToken alone couldn't collapse (no profile → no redirect).
+      if (m.disconnected && m.playerToken && !Room.profileExists(m.playerToken)) continue;
+      const key = m.playerToken ? Room.resolveToken(m.playerToken) : m.id;
+      const existing = byPrimary.get(key);
+      if (!existing || (existing.disconnected && !m.disconnected)) byPrimary.set(key, m); // prefer a connected representative
+    }
+    return [...byPrimary.values()].map(m => ({
+      id: m.id, name: m.name, avatarUrl: m.avatarUrl,
+      playerToken: m.playerToken ? Room.resolveToken(m.playerToken) : m.playerToken,
+      disconnected: !!m.disconnected,
     }));
   }
 
@@ -380,6 +433,15 @@ export class RoomManager {
   getRoom(roomId: string): Room | undefined {
     return this.rooms.get(roomId);
   }
+
+  // R25.5/v0.6.98: loaded rooms that reference this file — for content auth when a file is shared into
+  // several rooms, or its stored roomUuid points at a room that is no longer loaded.
+  roomsWithFile(fileUuid: string): Room[] {
+    return [...this.rooms.values()].filter(r => r.fileUnits.has(fileUuid));
+  }
+
+  // v0.7.0 (b): all loaded rooms — for consolidation to evict an absorbed token everywhere.
+  allRooms(): Room[] { return [...this.rooms.values()]; }
 
   removeRoom(roomId: string, requesterId?: string): boolean {
     const room = this.rooms.get(roomId);

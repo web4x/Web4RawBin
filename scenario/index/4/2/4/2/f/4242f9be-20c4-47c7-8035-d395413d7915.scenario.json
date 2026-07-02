@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "4242f9be-20c4-47c7-8035-d395413d7915",
+    "name": "phone.mintAndLink",
+    "description": "Mint ior:class:Phone unit with standardized format, link to profile via phones[]; seed Tron +4915253844085 as first Phone on WODA.prod profile.",
+    "class": "ior:instance:a8326f43-69b5-4ec4-9222-bb776cc21833",
+    "classes": [
+      "ior:instance:a8326f43-69b5-4ec4-9222-bb776cc21833"
+    ],
+    "method": "ior:instance:d5630047-8bd8-42ce-8e3e-f3f09b528a5e",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3bd63ae7-96e9-453a-a19f-fc7e1e00ab1f"
+}

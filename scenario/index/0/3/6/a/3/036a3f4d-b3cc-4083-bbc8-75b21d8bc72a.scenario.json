@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "036a3f4d-b3cc-4083-bbc8-75b21d8bc72a",
+    "name": "test:R23.2 embedYouTube gate",
+    "description": "Bridged to test/visual/r225-audio-youtube-gate.mjs — verifies embedYouTube",
+    "sourceFile": "ior:file:test/visual/r225-audio-youtube-gate.mjs",
+    "implementations": [
+      "ior:instance:839f55f6-1c95-40ff-a824-80fa8d1274ba"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:839f55f6-1c95-40ff-a824-80fa8d1274ba"
+}

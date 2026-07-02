@@ -80,22 +80,40 @@ it('renders the wide grab-bar', () => { /* ... */ });
 
 Wire `Impl.tests[]` to point to the Test unit UUID.
 
-### Step 5 — planner drives via CurrentSprint 3-slot pin (planner, ~10s)
+### Step 5 — ALL agents mark hops + planner drives 3-slot pin
+
+**CRITICAL: all uuid arguments require the FULL 36-character uuid.**
+Short 8-char prefixes cause misleading "BLOCKED" errors. Copy verbatim, never truncate.
+
+**Per-agent realtime hop marking** (Tron directive — every agent, on YOUR hop):
 
 ```bash
-# PREFERRED: focus sets current slot + auto-derives chain from task's req
-npx tsx scripts/planner-drive.ts focus <task-uuid>
+# As you START your hop:
+npx tsx scripts/planner-drive.ts hop impl in-progress expert
 
-# Optional: pin the NEXT task (Tron's priority, not lowest-open)
-npx tsx scripts/planner-drive.ts setNextBacklog <next-task-uuid>
+# When you FINISH (commit + marker):
+npx tsx scripts/planner-drive.ts hop impl done expert
+
+# Tester after det-3x + deploy:
+npx tsx scripts/planner-drive.ts hop test gate-proven tester
 ```
 
-The 3-slot pin (current/lastCompleted/nextBacklog) syncs automatically:
-- **current** = the focused task's chain (auto-derived via autoFollow)
-- **lastCompleted** = most recent gate-proven task (auto)
-- **nextBacklog** = Tron's chosen next OR first task without UC chain (auto/override)
+**Planner drives the 3-slot pin:**
 
-See planner-current-sprint-driving.md for the full 3-slot model.
+```bash
+# Set current WIP (auto-derives chain from task's req)
+npx tsx scripts/planner-drive.ts focus <full-36-char-task-uuid>
+
+# Pin the NEXT task (Tron's priority, not lowest-open)
+npx tsx scripts/planner-drive.ts setNextBacklog <full-36-char-task-uuid>
+```
+
+The 3-slot pin syncs automatically:
+- **current** = focused task's chain (auto-derived via autoFollow)
+- **lastCompleted** = most recent gate-proven task (auto)
+- **nextBacklog** = Tron's chosen next OR first without UC chain (auto/override)
+
+Full drive API at planner-current-sprint-driving.md.
 
 ### Step 6 — verify on /trace (anyone, ~5s)
 
@@ -306,38 +324,45 @@ The server hook is a 1-line addition BUT must go in the expert's rewritten unit-
 /api/trace handler (Phase 2), NOT the current scanRepo-based one. Until then, the pin
 auto-derives via the CLI `focus` verb (planner calls it when WIP switches).
 
-## Per-agent realtime hop update (Tron directive 2026-06-14)
+## Per-agent realtime-set protocol (Tron directive — ALL agents, mandatory)
 
-Each agent updates THEIR hop's status as they work — the pin reflects who is
-working which hop in realtime.
+**Every agent marks its OWN hop as it works.** The pin reflects real-time who is
+working which hop. YOUR hop, YOUR call — don't leave it for planner to backfill (#102).
+SM flags any hop-completion without the agent's own hop-call.
 
-### CLI verb
+**CRITICAL: all uuid arguments require the FULL 36-character uuid.**
+Short 8-char prefixes cause misleading "BLOCKED" errors. Copy verbatim, never truncate.
+
+### Per-agent commands
 
 ```bash
-# Architect starts working on UseCase
-npx tsx scripts/planner-drive.ts hop uc in-progress architect
+# START your hop:
+npx tsx scripts/planner-drive.ts hop <hop> in-progress <your-role>
 
-# Expert finishes Implementation
-npx tsx scripts/planner-drive.ts hop impl done expert
+# FINISH your hop:
+npx tsx scripts/planner-drive.ts hop <hop> done <your-role>
 
-# Tester marks test gate-proven (after det-3x + deploy green)
+# Tester GATE-PROVES (after det-3x + deploy):
 npx tsx scripts/planner-drive.ts hop test gate-proven tester
+
+# WIP SWITCH (any agent directed by Tron):
+npx tsx scripts/planner-drive.ts focus <full-36-char-task-uuid>
 ```
 
 ### Role → hop ownership
 
-| Hop | Owner | When they call |
-|---|---|---|
-| req | req-eng | after capture |
-| uc | architect | designing UC |
-| class | architect | wiring class |
-| method | expert | coding the method |
-| impl | expert | marker placed + wireImplNode |
-| test | tester | test written + det-3x proven |
+| Hop | Owner | Start call | Finish call |
+|---|---|---|---|
+| req | req-eng | `hop req in-progress req-eng` | `hop req done req-eng` |
+| uc | architect | `hop uc in-progress architect` | `hop uc done architect` |
+| class | architect | `hop class in-progress architect` | `hop class done architect` |
+| method | expert | `hop method in-progress expert` | `hop method done expert` |
+| impl | expert | `hop impl in-progress expert` | `hop impl done expert` |
+| test | tester | `hop test in-progress tester` | `hop test gate-proven tester` |
 
 ### Pin reads per-hop state
 
-`getActiveChain()` now returns `hopState` per hop:
+`getActiveChain()` returns `hopState` per hop:
 
 ```json
 { "type": "impl", "uuid": "...", "status": "active",

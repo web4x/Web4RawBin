@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "32f30eee-b0c8-4fca-b4d1-9ee6a1c0cdb1",
+    "name": "federation.import",
+    "altId": "UC26.6",
+    "class": "ior:instance:6456d811-496f-4389-80b5-3c23f7fdde73",
+    "method": "ior:instance:c4506b11-deff-4ea5-8966-b54f04e7ce9c",
+    "covers": "ior:instance:e289f96e-0afc-4568-9c26-16cd9b8272eb",
+    "sourceFile": "ior:file:scrum.pmo/design-notes/federated-scenario-transfer.md",
+    "note": "End-to-end federation import orchestration. Class FederationApi, Method FederationApi.importScenario (planner-minted c4506b11) -> Impl 3132c189. req-eng wired UC->class+method to complete the retroactive chain 2026-07-01.",
+    "classes": [
+      "ior:instance:6456d811-496f-4389-80b5-3c23f7fdde73"
+    ]
+  },
+  "ownerIor": "ior:instance:e289f96e-0afc-4568-9c26-16cd9b8272eb"
+}

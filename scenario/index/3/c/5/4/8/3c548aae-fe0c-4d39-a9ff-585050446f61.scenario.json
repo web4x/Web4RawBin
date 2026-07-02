@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "3c548aae-fe0c-4d39-a9ff-585050446f61",
+    "name": "VCard.serveVCard — GET /api/vcard/:token serve stored .vcf",
+    "implementations": [
+      "ior:instance:50a26658-8fac-4fa5-aa8b-cc57ff50870a"
+    ],
+    "sourceLocation": "src/ts/server/server.ts:968"
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "0ce8290f-b79e-471d-8f69-302cdc13fe4e",
+    "name": "RbDetailView.renderScenarioLink",
+    "description": "Uniform clickable Scenario link (scenarioBrowserLinkFromIor -> /md/scenario/index/<shard>/) rendered on ALL rb-*-detail views (task/file/webitem/req/uc/class/method/impl/test).",
+    "sourceFile": "ior:file:src/public/ts/trace/detail-children.ts",
+    "implementations": [
+      "ior:instance:2179d235-be01-4f0b-a1cb-bcfda316a5b4",
+      "ior:instance:1bd129e0-4d2b-4791-b11c-c5271dc3603c"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "c4290554-9b09-4a20-8308-f161bec0d039",
+    "name": "Transfer",
+    "description": "Transfer — RawBin federation (S26). Design-ahead greenfield.",
+    "methods": [
+      "ior:instance:4257570e-dc89-42e6-b3e4-c0130e6a29c2",
+      "ior:instance:90aabe21-df2b-40c9-a16d-60b57beebd59"
+    ]
+  },
+  "ownerIor": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d"
+}

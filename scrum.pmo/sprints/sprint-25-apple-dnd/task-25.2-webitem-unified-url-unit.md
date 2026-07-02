@@ -1,0 +1,56 @@
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
+
+# Task 25.2: Unified WebItem scenario unit (bookmark / .url / .webloc)
+
+[task:uuid:7c526ba6-4eb6-4ad9-a52b-de715947af0e]
+
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [ ] QA Review
+- [ ] Done
+
+## Traceability
+
+  - up
+    - [Sprint 25 Planning](./planning.md)
+    - Requirement R25.2 `[requirement:uuid:f8097d7c-07f7-4ef5-90fc-7512b57c1bc2]`
+  - down
+    - [UC-WI.1: webItem.createAndLaunch](./planning.md#uc-wi1) `[uc:uuid:2dc9f063-9c98-40af-9097-fd497804c008]`
+
+## Task Description
+
+A dropped URL of any scheme becomes ONE unified ior:class:WebItem scenario unit that plays the role of a Google bookmark, a Windows .url, and a macOS .webloc. Model: { uuid, name (page title/bookmark name), description, icon (favicon), badge (scheme icon), url, scheme (http/mailto/tel/maps/calshow/…), parentFolder (ior ref), children[] }. Preview renders the scheme launcher card; Open-in-New-Tab does window.open(url) so the native app handles the scheme. Imports from .url (INI), .webloc (plist), and Google bookmarks HTML.
+
+## Context
+
+designRef: architect 9ae3ac6f5 (WebItem unified URL/bookmark scenario unit) + expert v0.6.87 018398f17 (accept ALL URI schemes on drop + scheme launcher preview). Impl surface: src/public/ts/RoomView.ts (drop) + src/public/ts/trace/content-preview.ts (launcher card). Closes the orphan that 9ae3ac6f5+018398f17 had no req unit (now anchored on req f8097d7c, abaa0d0d3).
+
+## Intention
+
+Tron: "create a scenario WebItem for URLs that acts like a Google bookmark (drag-droppable), a .url file (Windows), and a .webloc (Mac) — unified as ONE ior:class:WebItem unit." S25 measure-first Phase 2: the first per-scheme handler, modeled on R23.2 (YouTube).
+
+## Acceptance Criteria
+
+- [x] (model) ior:class:WebItem has model fields: uuid, name, description, icon (favicon), badge (scheme icon), url, scheme, parentFolder (ior ref), children[] — GREEN: WebItem.ts model + helpers (deriveScheme/deriveBadge/deriveFavicon/deriveName) + createWebItemUnit (v0.6.88-89). NOTE deriveFavicon = lazy favicon URL (http(s) only); favicon image-render deferred
+- [x] (drop->unit) Dropped URLs create WebItem units, NOT bare text/uri-list files — GREEN DET-3x (gate r252-webitem-gate.mjs, verdict 92dca4478; bare-URL fix v0.6.89 603be9b57, full RED->GREEN)
+- [x] (preview) The preview renders the scheme launcher card (v0.6.87) with name + icon + badge — GREEN
+- [x] (open) Open-in-New-Tab does window.open(url) → the native app handles the scheme URL — GREEN (v0.6.87)
+- [ ] (folders) WebItems organise into folders via parentFolder/children[] (parent/children like the file tree) — DEFERRED (model has the fields; folder-org behaviour not yet shipped)
+- [x] (import .url) Import from Windows .url (INI format) yields WebItem units — GREEN (v0.6.88)
+- [x] (import .webloc) Import from macOS .webloc (plist) yields WebItem units — GREEN (v0.6.88)
+- [ ] (import bookmarks) Import from Google bookmarks HTML yields WebItem units (with folder hierarchy preserved) — DEFERRED
+
+## Implementation
+
+GREEN (partial, honest per-AC). Arc: v0.6.87 (018398f17) preview-launcher-card + open + accept-all-schemes → v0.6.88 (8ac5645d3) WebItem MODEL (WebItem.ts, URLs become WebItems not Files) + .url/.webloc import → tester per-AC RED on bare-URL drop (d2496c395) → v0.6.89 (603be9b57) extractUrl bare-line fallback → tester GREEN DET-3x (verdict 92dca4478, gate r252-webitem-gate.mjs, full RED→GREEN). 6/8 ACs GREEN [x] (model, drop->unit, preview, open, import .url, import .webloc). DEFERRED [ ] (PO): (folders) parentFolder/children ORG behaviour, (import bookmarks) Google bookmarks HTML. ALSO deferred per PO: favicon IMAGE-render (deriveFavicon URL helper exists), and migration of pre-existing .url/.webloc artifacts (not in the 8-AC scope). testing[x] → QA Review on the shipped scope; deferred ACs stay unchecked honest (#27). Split-trigger NOT fired — PO chose per-AC marking on the unified task (the deferred set is coherent backlog, not a partial-failure needing R25.2.A-E siblings). EMAIL-DROP HARDENING (v0.6.90-92, reinforces the already-GREEN model + drop->unit + preview ACs on the mailto/email path; does NOT touch the 2 deferred ACs): iOS/Apple email drop stores .eml (File) AND mints a launchable message:WebItem with forward-ref to the source .eml (v0.6.90 420ddc6bc, launcher+ref v0.6.91 4c8598745); fixed 3 email-drop bugs — UTF-8 names, WebItem/.eml duplicate, raw-UUID names (v0.6.92 0f838b156) + purged 8 dangling file-refs from Room units (b3fdbe259). Tester GREEN DET-3x: v0.6.90 iOS email drop (f77fe4059), v0.6.92 email-drop fixes UTF-8 + WebItem-primary/.eml-child (ab3a84c2f), read-only no-raw-uuid verifier (d5bea8e86). NET: 6/8 ACs unchanged GREEN, folders + Google-bookmarks still DEFERRED; T25.2 stays QA Review, now hardened on the email scheme. TRON BUG (PO triage 2026-06-30): 'WebItem mail drawer empty' for the message: scheme = a message:-scheme impl gap that folds HERE under (preview)+(open) ACs — req triage = NO new req/task. content-preview.ts has the 'message' launcher mapping (✉️ 'Mail message'); the gap is wiring the launcher card + Open + 📧 badge on the message:WebItem detail-drawer path. Verified under AC-preview/AC-open when the fix lands; ACs/status unchanged (the launcher infra exists, this is a scheme-wiring refinement, not an AC regression).
+
+## Subtasks
+
+None (atomic task). NOTE: req offers an R-I split R25.2.A-E (model / drop->unit / preview+open / folders / import) for per-feature tasking if the single task proves too coarse — currently unified per PO's singular T25.2 directive + single v0.6.87 impl landing.

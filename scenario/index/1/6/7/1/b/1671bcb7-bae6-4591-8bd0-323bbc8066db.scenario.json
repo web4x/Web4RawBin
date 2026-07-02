@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "1671bcb7-bae6-4591-8bd0-323bbc8066db",
+    "name": "Room.resolveToken",
+    "description": "Resolve a member token to its canonical profile after a merge (redirectTo||token), so membership cleans up on merge.",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "implementations": [
+      "ior:instance:123c4c40-30b6-43c4-8d68-33f1d0bb566d"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
+}

@@ -4,13 +4,13 @@
     "uuid": "f7a2ed01-208f-4678-b9dc-948030fe2d7b",
     "name": "room.persistMembers",
     "description": "Room.persist() includes members[] IOR refs (ior:instance:<playerToken>) with name/role/status/joinedAt. Synced at addMember/removeMember/markDisconnected/reconnect.",
-    "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
     "method": "ior:instance:2dabc43d-6277-4595-864a-c16dde810283",
     "tasks": [],
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
     ]
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"

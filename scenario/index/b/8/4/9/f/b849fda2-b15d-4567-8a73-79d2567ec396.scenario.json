@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "b849fda2-b15d-4567-8a73-79d2567ec396",
+    "name": "Task 27.7: WebItem type-aware preview drawer",
+    "slug": "task-27.7-webitem-type-aware-preview-drawer",
+    "description": "The WebItem detail drawer previews/routes BY TYPE: http/https show a LIVE iframe preview (server side-proxy on CORS/X-Frame block), pdf renders a pdf embed, mailto/message/tel/calendar show NO preview + a launcher Open card that opens the native app. Previewable vs launcher layouts, action buttons below the handle, zoom/pan + reset-zoom overlay preserved. Type-dispatch by url-scheme/content-type.",
+    "intention": "Tron directive. REGRESSION+ENHANCEMENT: v0.7.8 killed the v0.6.56 preview by routing ALL webitems through mailto — restore + generalise to a type-aware drawer.",
+    "context": "Regression root cause: v0.7.8 mailto-routing-all-webitems. crossRef R22.2 (drawer zoom/pan parity) + R25.x. Type-dispatch (url-scheme/content-type) so a NEW type is add-a-handler, not edit-everywhere.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "STOOD UP (planning) — status Planned; implementation awaits architect design + TRON GO. 9 ACs from R27.7.",
+    "traceability": "  - up\n    - [Sprint 27 Planning](./planning.md)\n    - Requirement R27.7 `[requirement:uuid:54002f11]`\n  - crossRef\n    - R22.2 (drawer zoom/pan parity) + R25.x\n  - down\n    - [UC: webItem.typeAwarePreviewDrawer](./planning.md) `[uc:uuid:d48b4dda-ee20-4af5-9136-d492f4702e1a]`",
+    "acceptanceCriteria": "- [ ] (preview) An http/https WebItem shows a LIVE preview (iframe/embed of the URL) in the detail drawer.\n- [ ] (preview) When CORS/X-Frame-Options blocks the iframe, the server SIDE-PROXIES the URL (server fetches it) and the preview renders the server-proxied content - never a dead/blank frame.\n- [ ] (preview) A pdf WebItem/file renders a pdf preview embed.\n- [ ] (routing) mailto / message: / tel / calendar show NO preview and a launcher/Open card that opens in the original app; this different handling must NOT kill http/https preview.\n- [ ] (layout) Previewable items (http/https/pdf) layout order = [handle] -> [action buttons: Preview / NewTab] -> [PREVIEW pane] -> [file details BELOW]; preview-first, details below (reversed from the old details-first order).\n- [ ] (layout) Non-previewable items use the launcher layout: details + Open below the handle.\n- [ ] (zoom) Zoom + pan is preserved (R22.2 / R25.x); the RESET-ZOOM control is an OVERLAY button INSIDE the preview pane, NOT in the action-button row.\n- [ ] (layout) The action buttons (Preview / NewTab / Open) sit immediately below the drawer handle.\n- [ ] (routing) Routing is BY WebItem type (url-scheme / content-type) via a type-dispatch; adding a NEW scheme can never kill preview for other types (regression-proof, correct-by-construction).",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:54002f11-89de-42c6-9c56-6b670053a435"
+    ],
+    "useCases": [
+      "ior:instance:d48b4dda-ee20-4af5-9136-d492f4702e1a"
+    ],
+    "parent": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a",
+    "sprintName": "Sprint 27",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-02"
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "459d3aef-fa07-4968-a5d2-82185a1caf65",
+    "name": "RbDetailView.scenarioLinkHref impl",
+    "description": "DESIGN-AHEAD (scenario-first #126): base src/public/ts/trace/detail-children.ts; expert attaches [impl:uuid] at code time.",
+    "sourceFile": "ior:file:src/public/ts/trace/detail-children.ts",
+    "designAhead": true,
+    "tests": [
+      "ior:instance:a8cde9fc-a227-454a-8ff3-aabb97d432b4"
+    ]
+  },
+  "ownerIor": "ior:instance:a51c3e97-7e73-4b7f-99f2-5f47e5f96be5"
+}

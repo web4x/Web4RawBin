@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "name": "webItem.serverProxyFetch",
+    "description": "Server-side SSRF-guarded proxy fetch for http/https WebItem preview when the browser iframe is blocked (X-Frame/CSP/CORS). guardUrl gates BEFORE any socket; fetchSanitized then caps/sanitizes/audits. Security-critical, independently testable (adversarial guardUrl cases).",
+    "class": "ior:instance:09f4cdce-7604-4550-9aab-d484fe5d8322",
+    "classes": [
+      "ior:instance:09f4cdce-7604-4550-9aab-d484fe5d8322"
+    ],
+    "method": "ior:instance:ee3fad72-cfa1-411a-92d3-b11941b8123d",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "uuid": "543ff7aa-506e-460a-b617-1aa6aa33a557"
+  },
+  "ownerIor": "ior:instance:54002f11-89de-42c6-9c56-6b670053a435"
+}

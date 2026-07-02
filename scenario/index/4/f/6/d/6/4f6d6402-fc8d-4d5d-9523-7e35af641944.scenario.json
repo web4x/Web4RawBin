@@ -1,0 +1,59 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "4f6d6402-fc8d-4d5d-9523-7e35af641944",
+    "name": "Per-task MD view generation (every \ud83d\udcc4 link resolves, no 404)",
+    "altId": "R27.3",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-27-detail-view-enhancements/requirements.md",
+    "sourceLine": 42,
+    "parent": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:10ef702c-3141-45c9-b669-b5bed5f373b9"
+    ],
+    "description": "generate-sprint-md emits ONE task-<slug>.md per Task unit (title, acceptance criteria, statusChecklist, chain) so every task's \ud83d\udcc4 MD link resolves to a real file (HTTP 200) instead of 404. Task units must NOT set model.sourceFile to planning.md - that collapses all tasks into one shared view; each task gets its own generated MD file. Fixes the Tron-visible 404 on \ud83d\udcc4 links.",
+    "tronQuote": "> TRON (screenshot): the \ud83d\udcc4 task links 404. FIX: generate-sprint-md emits one task-<slug>.md per task unit so every \ud83d\udcc4 resolves; tasks must not point sourceFile at planning.md.",
+    "discoverySource": {
+      "type": "planner-diagnosis",
+      "diagnosedBy": "robbin-planner",
+      "date": "2026-07-01",
+      "note": "taskMdHref (rb-task-detail.ts:88) uses model.sourceFile if set (=planning.md collapses all tasks to one view) ELSE /md/<dir>/<slug>.md (404 when no per-task MD emitted). Fix: generate-sprint-md emits per-task MD + tasks stop pointing sourceFile at planning.md."
+    },
+    "implRef": "ior:file:scripts/generate-sprint-md.ts (generateTaskMd/checkSprint) + src/public/ts/trace/rb-task-detail.ts:88 taskMdHref",
+    "crossRef": [
+      "ior:instance:661836fd-2db8-4863-8556-0d698c897cd5",
+      "ior:instance:90b82d00-7af1-40e9-992c-c55ca177c542"
+    ],
+    "crossRefNote": "Makes the R22.1 \ud83d\udcc4 MD-link (taskMdHref, tagged R22.1 d6b29c09) actually RESOLVE - R22.1 is the link, R27.3 makes its target file EXIST. Sibling of R27.1 (statusChecklist render) in the same task-detail family.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-emit",
+        "group": "emit",
+        "text": "generate-sprint-md emits ONE task-<slug>.md per Task unit (title + ACs + statusChecklist + chain), not only planning.md."
+      },
+      {
+        "id": "AC-no-collapse",
+        "group": "no-collapse",
+        "text": "Task units do NOT set model.sourceFile to planning.md (which collapses all tasks into one shared view); each task MD is its own file."
+      },
+      {
+        "id": "AC-resolve",
+        "group": "resolve-200",
+        "text": "taskMdHref (rb-task-detail.ts:88) resolves to the per-task MD -> HTTP 200, never 404 (the Tron-visible bug is gone)."
+      },
+      {
+        "id": "AC-roundtrip",
+        "group": "roundtrip",
+        "text": "The per-task MD is a generated VIEW (law #100); --check (check:sprint-md) byte-match holds for the per-task files."
+      },
+      {
+        "id": "AC-verify",
+        "group": "verify",
+        "text": "Verified live: every task's \ud83d\udcc4 link opens its own MD file."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
+}

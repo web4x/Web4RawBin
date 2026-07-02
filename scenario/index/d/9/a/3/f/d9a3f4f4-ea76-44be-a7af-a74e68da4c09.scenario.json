@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "d9a3f4f4-ea76-44be-a7af-a74e68da4c09",
+    "name": "GraphIntegrity.repairIntegrity",
+    "description": "Repair graph debt: repoint 12 dangling UC refs (10->live RbDetailView canonical, 1 dead-method triage, 1 literal-TODO fix) + ATTACH all 51 orphan Methods to a live Class (0 prune - all carry impl, INV1b). Gated dry-run+count, atomic.",
+    "sourceFile": "ior:file:scripts/graph-integrity-repair.ts",
+    "implementations": [
+      "ior:instance:c1213af8-452f-4071-ae05-cb024bad1699"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:4304c9b0-b56c-4540-b6c2-2a3bc047f5d8"
+}

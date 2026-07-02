@@ -6,11 +6,7 @@
     "implementations": [
       "ior:instance:811e9fa5-75a6-4d39-a750-545aacded4f2"
     ],
-    "tests": [],
-    "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented).",
-    "orphanByDesign": true,
-    "orphanRationale": "No code found in source — legacy migration/one-shot/future feature"
+    "tests": []
   },
-  "ownerIor": "ior:instance:f5cf7284-59d4-4e76-8f80-b67ee9ca89f9"
+  "ownerIor": "ior:instance:c8bdae18-88e1-4829-813b-0e5ecc21c56c"
 }

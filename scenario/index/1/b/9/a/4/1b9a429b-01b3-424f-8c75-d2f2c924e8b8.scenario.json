@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "1b9a429b-01b3-424f-8c75-d2f2c924e8b8",
+    "name": "Email.mintAndLink",
+    "description": "Mint ior:class:Email unit, link to profile via emails[] (class->method shape), register alt/email symlink; known email triggers device-link.",
+    "implementations": [
+      "ior:instance:c709147a-5596-43a7-9354-8b936b5ec3ea"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3bb26ebe-ebd9-4d65-91d9-d73b1eb31f59"
+}

@@ -4,7 +4,7 @@
     "uuid": "d0c3abf8-8a7d-4efa-9156-45b84b079a56",
     "name": "T27: Sprint CLI Tool (OOSH Script)",
     "slug": "task-27-sprint-cli",
-    "description": "",
+    "description": "Build the Sprint CLI tool as an OOSH script.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",

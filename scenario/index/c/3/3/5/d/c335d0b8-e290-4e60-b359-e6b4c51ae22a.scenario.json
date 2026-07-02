@@ -6,7 +6,9 @@
     "sourceFile": "src/public/ts/components/rb-file-tree.ts",
     "sourceLine": 1,
     "unitLinks": [],
-    "tests": []
+    "tests": [
+      "ior:instance:7390b7e2-0744-48b9-bcd8-f0c9a746e421"
+    ]
   },
   "ownerIor": null
 }

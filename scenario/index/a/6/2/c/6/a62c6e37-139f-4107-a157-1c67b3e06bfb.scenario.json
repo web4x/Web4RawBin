@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "a62c6e37-139f-4107-a157-1c67b3e06bfb",
+    "name": "company.mintOrReuseShared",
+    "description": "Mint or reuse a shared ior:class:Company by normalized nameKey (alt/company symlink); many profiles reference the same unit, no duplication.",
+    "class": "ior:instance:6084db12-1d75-4e51-bef8-c3d17c6cf693",
+    "classes": [
+      "ior:instance:6084db12-1d75-4e51-bef8-c3d17c6cf693"
+    ],
+    "method": "ior:instance:696545ed-a067-44bc-85a0-a70720b33383",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:bf6a0433-6e85-4341-92e5-79acb725e0bf"
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "1aa5b1c5-3685-48f6-b90f-9c90eae59ed2",
+    "name": "clipboard.readAndRoute",
+    "description": "On yes, read the clipboard (navigator.clipboard.read/readText), detect MIME types, and route the same as drop-dispatcher: URLs->WebItem, images/bytes->File, text->file; on no, import nothing.",
+    "class": "ior:instance:0cabde12-858a-4342-a00d-f5cf73d7822c",
+    "classes": [
+      "ior:instance:0cabde12-858a-4342-a00d-f5cf73d7822c"
+    ],
+    "method": "ior:instance:ea55be35-73c3-49f9-8781-9011ef9c4a14",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2066ba12-6bd8-42b1-9377-25c82fd944e0"
+}

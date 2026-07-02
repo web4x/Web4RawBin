@@ -5,7 +5,9 @@
     "name": "fs.writeFileSync(path.join(srcDir, 's.ts'), `// shared\\n// orphan marker no unit",
     "sourceFile": "test/vitest/object-verb.test.ts",
     "sourceLine": 198,
-    "tests": [],
+    "tests": [
+      "ior:instance:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d"
+    ],
     "unitLinks": []
   },
   "ownerIor": null

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a392d306-4b01-40ff-bfc8-db74d8e1e720",
+    "name": "test:R22.1 renderChainPathSection gate",
+    "description": "Bridged to test/visual/r221-detail-chain-gate.mjs — verifies renderChainPathSection",
+    "sourceFile": "ior:file:test/visual/r221-detail-chain-gate.mjs",
+    "implementations": [
+      "ior:instance:ef1c4bcd-9f1f-4800-80ce-deccbde02323"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ef1c4bcd-9f1f-4800-80ce-deccbde02323"
+}

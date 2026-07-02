@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "0802991c-b3af-4e70-a5bb-cdc8ddde57c0",
+    "name": "test:R21.7 mintAndVerifyAsync gate",
+    "description": "Bridged to test/visual/r217-address-units-gate.mjs — address unit + async OSM verify flip + badge (DET-3x GREEN on prod)",
+    "sourceFile": "ior:file:test/visual/r217-address-units-gate.mjs",
+    "implementations": [
+      "ior:instance:ce2501d3-0c49-4148-8c4a-795d2fbaba24"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ce2501d3-0c49-4148-8c4a-795d2fbaba24"
+}

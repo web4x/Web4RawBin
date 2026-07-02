@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f2174329-7319-4c4b-920c-b906b2439629",
+    "name": "PhoneIndex.registerSymlink impl",
+    "sourceLocation": "src/ts/scenario/PhoneIndex.ts",
+    "tests": [
+      "ior:instance:4c93e285-1cd5-4be2-a051-a3a1891b26ee"
+    ]
+  },
+  "ownerIor": "ior:instance:237027ad-be3a-4904-9448-abe806840087"
+}

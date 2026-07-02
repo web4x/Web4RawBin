@@ -14,12 +14,13 @@ import type { RbQrPopup } from './components/rb-qr-popup.js';
 import './components/rb-member-list.js';
 import './components/rb-avatar.js';
 import './trace/rb-object-item.js';
+import { scenarioEditorHref } from './trace/detail-children.js'; // v0.7.0 (3): ✏️ editor deep-link
 import './trace/rb-trace-tree.js';
 import { dropDispatcher } from './drop-dispatcher.js';
 import type { RbMemberList } from './components/rb-member-list.js';
 import './trace/rb-detail-drawer.js';
 import type { RbDetailDrawer } from './trace/rb-detail-drawer.js';
-import { renderContentPreview, loadTextPreview, wireUrlActions } from './trace/content-preview.js';
+import { renderContentPreview, wireUrlActions } from './trace/content-preview.js';
 
 interface MemberInfo {
   id: string; name: string; avatarUrl: string; playerToken: string; avatarCrop?: { scale: number; x: number; y: number } | null; disconnected?: boolean;
@@ -92,11 +93,19 @@ export class RoomView {
     // [impl:uuid:1a938c60-876d-4e74-bf4c-5b3af6a155b4] DropDispatcher.route
     this.container.addEventListener('rb-room-files-dropped', (async (e: CustomEvent) => {
       const files: File[] = e.detail?.files || [];
+      let firstFileUuid = '';
       for (const file of files) {
         try {
           const result = await dropDispatcher.dispatch(file, this.roomId, this.client.playerToken, (text) => this.chatSheet?.addMessage('system', 'System', text));
           if (!result) this.chatSheet?.addMessage('system', 'System', `Upload failed: ${file.name}`);
+          else if (!firstFileUuid) firstFileUuid = result.uuid;
         } catch { this.chatSheet?.addMessage('system', 'System', `Upload error: ${file.name}`); }
+      }
+      // v0.6.91: a drop carrying BOTH a file and a launchable scheme URL (Apple email/calendar) → mint a
+      // WebItem that FORWARD-REFERENCES the stored file (children=[file]) so the message: link knows its .eml source.
+      const schemeUrl: string = e.detail?.schemeUrl || '';
+      if (schemeUrl) {
+        try { await dropDispatcher.dispatchUrl(schemeUrl, this.roomId, this.client.playerToken, (text) => this.chatSheet?.addMessage('system', 'System', text), e.detail?.schemeName, firstFileUuid || undefined); } catch {}
       }
     }) as EventListener);
     this.container.addEventListener('rb-leave', () => { this.client.leaveRoom(); this.onLeave(); });
@@ -154,7 +163,7 @@ export class RoomView {
     this.container.innerHTML = `
       <div class="room-view">
         <rb-header title="${this.roomName}" show-leave show-home ${isHost ? 'show-delete show-edit' : ''} show-reload show-fullscreen></rb-header>
-        <div style="padding:0 16px 4px;display:flex;gap:8px;align-items:center"><a href="/scenario?ior=${this.roomId}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="View room scenario unit">📄 Scenario</a><span style="color:rgba(255,255,255,0.3);font-size:0.65rem">${this.roomId.slice(0,8)}</span></div>
+        <div style="padding:0 16px 4px;display:flex;gap:8px;align-items:center"><a href="/scenario?ior=${this.roomId}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="View room scenario unit">📄 Scenario</a><a href="${scenarioEditorHref(this.roomId)}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="Edit room scenario unit">✏️ Edit</a><span style="color:rgba(255,255,255,0.3);font-size:0.65rem">${this.roomId.slice(0,8)}</span></div>
         <div id="offline-banner" class="offline-banner" style="display:none">Offline — messages queued</div>
         <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="rrc-upload-status" id="rrc-upload-status" style="display:none"></div><rb-trace-tree id="room-tree" data-seed-ior="${this.roomId}"></rb-trace-tree></div></div>
         <rb-detail-drawer id="room-file-preview"></rb-detail-drawer>
@@ -172,6 +181,8 @@ export class RoomView {
     });
     if (dz && !(dz as any).__wired) {
       (dz as any).__wired = true;
+      dz.addEventListener("click", () => this.importFromClipboard()); // v0.6.96: tap the drop zone → clipboard import (same routing as DnD)
+      dz.addEventListener("keydown", (e) => { if ((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') { e.preventDefault(); this.importFromClipboard(); } });
       dz.addEventListener("dragenter", (e) => { e.preventDefault(); dropDispatcher.onDropEnter(dz); });
       dz.addEventListener("dragover", (e) => { e.preventDefault(); });
       dz.addEventListener("dragleave", () => { dropDispatcher.onDropExit(dz); });
@@ -180,14 +191,54 @@ export class RoomView {
         dropDispatcher.resetDrag(dz);
         const dt = (e as DragEvent).dataTransfer;
         if (!dt) return;
-        const files = Array.from(dt.files || []);
-        if (files.length > 0) {
-          dz.dispatchEvent(new CustomEvent("rb-room-files-dropped", { detail: { files }, bubbles: true }));
-        } else {
-          const url = dt.getData('text/uri-list') || dt.getData('text/plain');
-          if (url && url.startsWith('http')) {
-            dropDispatcher.dispatchUrl(url, this.roomId, this.client.playerToken, (text) => this.chatSheet?.addMessage('system', 'System', text));
+        const log = (text: string) => this.chatSheet?.addMessage('system', 'System', text);
+        // T26.6: a cross-origin FEDERATED reference — hand it to OUR server (fetch origin + reconcile + store),
+        // NOT to dispatchUrl (which would store it as a plain URL). Read sync — DataTransfer is event-scoped.
+        const fedRef = dt.getData('application/rb-federated-ref');
+        if (fedRef) {
+          fetch('/api/federation/import', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: JSON.parse(fedRef), roomId: this.roomId, token: this.client.playerToken }) })
+            .then(r => r.json()).then(res => {
+              if (res?.uuid) { log(`[federation] imported ${res.uuid.slice(0, 8)} (${res.action})`); (document.getElementById('room-tree') as any)?.renderSeed?.(this.roomId); }
+              else log(`[federation] import failed: ${res?.error || '?'}`);
+            }).catch(err => log(`[federation] import error: ${err?.message || err}`));
+          return;
+        }
+        // v0.6.86 DnD DIAGNOSTIC: Apple drops emails/calendar/locations as scheme URLs
+        // (mailto:/webcal:/calshow:/maps:/geo:/tel:/x-apple-reminder:) in the text data, NOT as files.
+        // Dump EVERYTHING synchronously (DataTransfer is only readable during the event) so we can see
+        // exactly what Apple sends and build scheme handlers (same pattern as the YouTube embed).
+        try {
+          const types = Array.from(dt.types || []);
+          const items = Array.from(dt.items || []).map(it => `${it.kind}/${it.type || '?'}`);
+          const files = Array.from(dt.files || []).map(f => `${f.name}(${f.type || '?'},${f.size}b)`);
+          log(`[dnd-debug] types=[${types.join(', ')}] items=[${items.join(', ') || 'none'}] files=[${files.join(', ') || 'none'}]`);
+          for (const t of types) {
+            try { const v = dt.getData(t); if (v) log(`[dnd-debug] getData('${t}') = ${v.length > 800 ? v.slice(0, 800) + '…' : v}`); } catch (err) { log(`[dnd-debug] getData('${t}') threw ${(err as Error)?.message}`); }
           }
+        } catch (err) { log(`[dnd-debug] dump failed: ${(err as Error)?.message}`); }
+        const files = Array.from(dt.files || []);
+        // v0.6.87/90: extract any scheme URL from uri-list / plain / an html href. Apple email & calendar
+        // drops carry BOTH a file (.eml/.ics) AND a launchable scheme URL (message:/webcal:).
+        const rawUri = (dt.getData('text/uri-list') || dt.getData('text/plain') || '').trim();
+        let schemeUrl = rawUri.split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || '';
+        if (!/^[a-z][a-z0-9+.\-]*:/i.test(schemeUrl)) {
+          const hrefM = /href\s*=\s*["']([a-z][a-z0-9+.\-]*:[^"']+)["']/i.exec(dt.getData('text/html') || '');
+          schemeUrl = hrefM ? hrefM[1] : '';
+        }
+        const hasScheme = /^[a-z][a-z0-9+.\-]*:/i.test(schemeUrl);
+        // v0.7.0 (1): iOS Mail's text/html carries the human label in the <a> TEXT (e.g.
+        // "Warmintro Marcel Donges <> Atilade Gabriel Oke") — prefer it over the message: URL / filename.
+        let linkLabel = '';
+        const aM = /<a\b[^>]*>([\s\S]*?)<\/a>/i.exec(dt.getData('text/html') || '');
+        if (aM) linkLabel = aM[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+        if (files.length > 0) {
+          // v0.6.90/91: pass the scheme URL + label through; the upload handler uploads the file(s) first,
+          // then mints a WebItem forward-referencing the stored file (email BOTH archived AND launchable).
+          const emlName = (files[0].name || '').replace(/\.(eml|ics|vcs|msg)$/i, '').trim();
+          const schemeName = hasScheme ? (linkLabel || emlName || undefined) : undefined;
+          dz.dispatchEvent(new CustomEvent("rb-room-files-dropped", { detail: { files, schemeUrl: hasScheme ? schemeUrl : '', schemeName }, bubbles: true }));
+        } else if (hasScheme) {
+          dropDispatcher.dispatchUrl(schemeUrl, this.roomId, this.client.playerToken, (text) => log(text), linkLabel || undefined);
         }
       });
     }
@@ -230,6 +281,80 @@ export class RoomView {
     this.renderMemberList();
   }
 
+  // R26.1 (v0.6.97): tap the drop zone → clipboard import. READ FIRST, PREVIEW what it contains in the
+  // confirm dialog, THEN route through the same path as DnD with human-readable NAMES (never raw URL/timestamp).
+  // [impl:uuid:7d92ce31-5518-4398-a2b1-a000344e2ef8] R25.5 RoomView.importFromClipboard (ClipboardImport.previewAndImport)
+  private async importFromClipboard(): Promise<void> {
+    const log = (t: string) => this.chatSheet?.addMessage('system', 'System', t);
+    const files: File[] = [];
+    let text = '';
+    try {
+      const items = await (navigator.clipboard as any).read();
+      for (const item of items) {
+        for (const type of item.types as string[]) {
+          if (type.startsWith('image/')) {
+            const blob = await item.getType(type);
+            files.push(new File([blob], `Pasted image.${type.split('/')[1] || 'png'}`, { type })); // R26.1: real name, not clipboard-<ts>
+          } else if ((type === 'text/plain' || type === 'text/uri-list') && !text) {
+            text = (await (await item.getType(type)).text()).trim();
+          }
+        }
+      }
+    } catch { /* clipboard.read unsupported/denied → text fallback */ }
+    if (!text && !files.length) { try { text = (await navigator.clipboard.readText()).trim(); } catch {} }
+    if (!text && !files.length) { log('[clipboard] nothing to import'); return; }
+
+    // R26.1: show WHAT will be imported BEFORE asking.
+    if (!confirm(`Upload from clipboard?\n\n${this.clipboardPreview(files, text)}`)) return;
+
+    this.readAndRoute(files, text, log);
+  }
+
+  // R25.5: route the read clipboard payload through the SAME path as DnD — images → File upload;
+  // URL/scheme → dispatchUrl → WebItem; plain text → .txt File — with human-readable names.
+  // [impl:uuid:eb25b473-84ba-4cb2-9dad-598efa6e1e93] R25.5 RoomView.readAndRoute (ClipboardImport.readAndRoute)
+  private readAndRoute(files: File[], text: string, log: (t: string) => void): void {
+    if (files.length > 0) this.container.dispatchEvent(new CustomEvent('rb-room-files-dropped', { detail: { files }, bubbles: true }));
+    if (text) {
+      const url = text.split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || '';
+      if (/^[a-z][a-z0-9+.\-]*:/i.test(url)) {
+        dropDispatcher.dispatchUrl(url, this.roomId, this.client.playerToken, log, this.deriveClipUrlName(url)); // R26.1: meaningful name, not the raw URL
+      } else {
+        const first = (text.split('\n')[0].trim().replace(/[\/\\:*?"<>|]/g, ' ').slice(0, 60)) || 'Clipboard text';
+        const tf = new File([text], `${first}.txt`, { type: 'text/plain' }); // R26.1: first line as name, not clipboard-<ts>
+        this.container.dispatchEvent(new CustomEvent('rb-room-files-dropped', { detail: { files: [tf] }, bubbles: true }));
+      }
+    }
+  }
+
+  // R26.1: typed one-line summary of the clipboard content for the confirm dialog.
+  private clipboardPreview(files: File[], text: string): string {
+    const parts: string[] = [];
+    for (const f of files) if (f.type.startsWith('image/')) parts.push(`🖼 Image (${f.type.split('/')[1]}, ${Math.round(f.size / 1024)} KB)`);
+    if (text) {
+      const url = text.split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || '';
+      if (/^(mailto|message):/i.test(url)) parts.push(`📧 Email: ${this.deriveClipUrlName(url)}`);
+      else if (/^[a-z][a-z0-9+.\-]*:/i.test(url)) parts.push(`🔗 URL: ${url.replace(/^https?:\/\//i, '').slice(0, 60)}`);
+      else parts.push(`📄 Text (${text.length} chars): ${text.split('\n')[0].trim().slice(0, 60)}`);
+    }
+    return parts.join('\n') || '(clipboard empty)';
+  }
+
+  // R26.1: human-readable name from a URL — brand + path hint (open.spotify.com/episode/… → "Spotify Episode").
+  private deriveClipUrlName(url: string): string {
+    try {
+      if (/^https?:/i.test(url)) {
+        const u = new URL(url);
+        const brand = u.hostname.replace(/^www\./, '').split('.')[0].replace(/^./, c => c.toUpperCase());
+        const seg = u.pathname.split('/').filter(Boolean)[0] || '';
+        return seg ? `${brand} ${seg.replace(/^./, c => c.toUpperCase())}` : brand;
+      }
+      const scheme = (url.match(/^([a-z][a-z0-9+.\-]*):/i) || [])[1] || '';
+      const rest = decodeURIComponent(url.slice(scheme.length + 1).replace(/^\/*/, ''));
+      return `${scheme}: ${rest.slice(0, 50)}`;
+    } catch { return url.slice(0, 50); }
+  }
+
   // [impl:uuid:852101d1-ec42-478a-bc73-59ddff7feb49] R19.86 openFilePreview (split)
   private async openFilePreview(uuid: string): Promise<void> {
     const drawer = document.getElementById('room-file-preview') as any;
@@ -238,16 +363,33 @@ export class RoomView {
       const resp = await fetch(`/api/ior/ior:instance:${uuid}`);
       if (!resp.ok) return;
       const res = await resp.json();
-      const fm = res.unit?.model || {};
+      const unit = res.unit || {};
+      const fm = unit.model || {};
+      const panel = (drawer as RbDetailDrawer).previewPanel || (drawer as any).body;
+      const esc2 = (s: string) => String(s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] as string));
+      // v0.6.91: a WebItem renders an Open launcher card DIRECTLY from its model (badge + url + Open
+      // button → launches Mail/Calendar/Maps) + a forward-ref to its source file (.eml/.ics) when linked.
+      if (unit.ior === 'ior:class:WebItem' && fm.url) {
+        const childUuid = String((fm.children || [])[0] || '').replace('ior:instance:', '');
+        const srcLink = childUuid ? `<div style="margin-top:18px;font-size:0.8rem"><a href="#" data-src-uuid="${childUuid}" style="color:#42a5f5;text-decoration:none">📎 Source file</a></div>` : '';
+        panel.innerHTML = `<div style="padding:32px 20px;text-align:center"><div style="font-size:3rem">${esc2(fm.badge || '🔗')}</div>`
+          + `<h3 style="color:white;margin:12px 0;font-size:0.95rem">${esc2(fm.name || fm.url)}</h3>`
+          + `<div style="word-break:break-all;color:#a1887f;font-size:0.75rem;margin-bottom:20px">${esc2(fm.url)}</div>`
+          + `<a href="${esc2(fm.url)}" target="_blank" rel="noopener" style="display:inline-block;padding:12px 28px;background:#ff9800;color:#000;border-radius:8px;text-decoration:none;font-weight:600">↗ Open</a>${srcLink}</div>`;
+        const srcEl = panel.querySelector('[data-src-uuid]');
+        if (srcEl) srcEl.addEventListener('click', (ev: Event) => { ev.preventDefault(); this.openFilePreview(childUuid); });
+        if ((drawer as RbDetailDrawer).setMode) (drawer as RbDetailDrawer).setMode('preview');
+        drawer.setAttribute('ref', `file:${uuid}`);
+        drawer.setAttribute('open', '');
+        return;
+      }
       const preview = renderContentPreview(uuid, fm.mimeType || '', fm.name || uuid, this.client.playerToken);
       // [impl:uuid:b8714c1d-58b2-4324-93ba-da5e0f760221] R19.78 buttons above filename
-      const panel = (drawer as RbDetailDrawer).previewPanel || (drawer as any).body;
       panel.innerHTML = `${preview}<h3 style="margin:8px 0 0;font-size:0.9rem;color:white">${(fm.name || uuid).replace(/[<>]/g, '')}</h3>`;
       if ((drawer as RbDetailDrawer).setMode) (drawer as RbDetailDrawer).setMode('preview');
       drawer.setAttribute('ref', `file:${uuid}`);
       drawer.setAttribute('open', '');
-      loadTextPreview(panel, uuid, this.client.playerToken);
-      wireUrlActions(panel);
+      wireUrlActions(panel); // R21.9: toggle lazily fills the rb-preview-pane (RbPanZoom)
     } catch {}
   }
 

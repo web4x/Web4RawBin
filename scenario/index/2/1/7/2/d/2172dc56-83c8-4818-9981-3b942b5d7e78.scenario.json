@@ -1,0 +1,35 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "2172dc56-83c8-4818-9981-3b942b5d7e78",
+    "name": "Room",
+    "description": "Room identity dedup (R25.7). Membership collapses by resolved identity; consolidation evicts tombstones; redirectTo immutable. Base src/ts/server/Room.ts + identity handlers.",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "methods": [
+      "ior:instance:0c8b2e2f-1b33-40fa-947f-3325fdbad470",
+      "ior:instance:bb4a357f-7e25-4a99-8ca6-2cc02593dc6c",
+      "ior:instance:78ac9322-31ac-41f3-a608-e1fde03b5510",
+      "ior:instance:52ed9ab9-1a51-42e9-8b72-d8d4c0b2012e",
+      "ior:instance:2d189279-0f36-4efc-8107-9862ae259dca",
+      "ior:instance:ea02fa6d-5116-4466-82ee-81866c81a164",
+      "ior:instance:4fed4fda-5fc1-4340-a976-a473d2366513",
+      "ior:instance:7144f6ca-70f9-4816-b4db-88f9a08594df",
+      "ior:instance:f82d09a5-fd35-4019-afd4-d2848c88267c",
+      "ior:instance:f1dd0d77-edaf-4d15-b1e6-f6b0ba33867b",
+      "ior:instance:a83cd5a4-2d3c-4113-b4cf-6148803d9f7b",
+      "ior:instance:2dabc43d-6277-4595-864a-c16dde810283",
+      "ior:instance:548a67b2-ab42-43a3-8302-bce7b4a2b2d3",
+      "ior:instance:b98868fc-e801-4698-9b30-164eb289fb8f",
+      "ior:instance:b1494bad-4198-4f8e-b92a-6e7b899c49a2",
+      "ior:instance:e8c36413-35e7-4ac3-8b96-c2f6869d3261",
+      "ior:instance:0a7bd183-d861-498e-96b6-a6375b7da6ea",
+      "ior:instance:79ee7486-499b-49de-81dc-77f8682da420",
+      "ior:instance:f2a2129b-ae2e-45a8-854c-a4b9446f2033",
+      "ior:instance:6c3cfb82-c2c9-4048-bba6-40888e239da6",
+      "ior:instance:1671bcb7-bae6-4591-8bd0-323bbc8066db",
+      "ior:instance:ae9c1952-6d9a-4d1d-a972-106a7099ca02",
+      "ior:instance:ddbc51a0-760b-4726-9f87-81484833de20"
+    ]
+  },
+  "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"
+}

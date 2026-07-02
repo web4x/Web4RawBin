@@ -154,6 +154,7 @@ function buildSprintOutput(sprintUuid: string, units: Map<string, ScenarioUnit>)
   return { sprintSlug, files };
 }
 
+// [impl:uuid:41c86206-87ee-4e91-b563-a3c41c54819e] R24.4 generateSprint (sprint view generator)
 function generateSprint(sprintUuid: string, units: Map<string, ScenarioUnit>) {
   const out = buildSprintOutput(sprintUuid, units);
   if (!out) { console.log(`Not a Sprint: ${sprintUuid}`); return; }

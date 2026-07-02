@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:63d58e0f-1e9c-40d8-9189-35239ae81096",
+  "model": {
+    "uuid": "3bdd9eac-1a36-481e-8ea2-6be9dee98809",
+    "name": "impl:RbFileDetail.renderActionButtons",
+    "status": "active",
+    "sourceFile": "src/public/ts/trace/rb-file-detail.ts"
+  }
+}

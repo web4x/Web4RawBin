@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "fc7356af-8c3f-4f2c-bdf6-30d2a6b139f9",
+    "name": "membership.cleanupOnMerge",
+    "description": "When two identities merge (alt-index -> primary), the room member list collapses the consolidated (redirectTo) member into the PRIMARY so no ghost/duplicate members remain. Impl base: Room.resolveToken (server.ts injects = profile.redirectTo || token), v0.6.84 a30315bcc.",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
+    "classes": [
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
+    ],
+    "method": "ior:instance:1671bcb7-bae6-4591-8bd0-323bbc8066db",
+    "tasks": [
+      "ior:instance:5f282c18-fa43-4a95-be10-65694949f981"
+    ],
+    "implementations": [],
+    "tests": [],
+    "createdBy": "robbin-skill-expert",
+    "createdAt": "2026-06-29",
+    "note": "Minted per PO directive (architect's 6 UCs omitted R23.3). UC node + req/task back-refs wired; class/method pointer to Room.resolveToken PENDING architect (Class/Method units not yet on disk)."
+  },
+  "ownerIor": "ior:instance:75853976-72f9-464a-9f23-d35173a8b48e"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "db58f0c5-a2d9-47f8-af51-d5359a038c94",
+    "name": "TraceAudit.check",
+    "description": "Traceability audit: trace-cli check/fix + trace-audit auditAll/walk (--strict) as the chain-integrity CI gate (forward-only, dangling-ref, marker lint).",
+    "sourceFile": "ior:file:src/ts/server/trace-cli.ts",
+    "implementations": [
+      "ior:instance:08706df5-02be-433b-b9c8-a4cb9ac7443a"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b"
+}

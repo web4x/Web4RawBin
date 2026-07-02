@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "24bc38c5-24ae-41fe-90d3-10671bc4f6d2",
+    "name": "test:R20.31 vCard member-drawer download (det-3x, tester-verified v0.6.62)",
+    "gates": [
+      "ior:instance:fb21326d-8544-476e-8dbe-13d1f38334e8"
+    ],
+    "sourceLocation": "tester DET-3x visible gate"
+  },
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+}

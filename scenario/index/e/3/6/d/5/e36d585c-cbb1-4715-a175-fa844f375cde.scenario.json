@@ -1,0 +1,56 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "e36d585c-cbb1-4715-a175-fa844f375cde",
+    "name": "Cross-origin DnD federated-reference protocol",
+    "altId": "R26.2",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-26-federation/requirements.md",
+    "sourceLine": 27,
+    "parent": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:13ce665c-0f13-4d1e-8d7d-1818f1e80ee1"
+    ],
+    "description": "Cross-origin drag puts a self-contained FEDERATED REFERENCE in the DataTransfer (application/rb-federated-ref = {ior@host, originHost, type, name, fetchUrl, contentHash?}) rather than the full scenario JSON (files are MB; DataTransfer is size-limited + sync-read). The receiver reads the ref and asks ITS OWN server to import from fetchUrl. A text/uri-list fallback stays for human/browser. Tiny units MAY inline full JSON to skip the round-trip.",
+    "tronQuote": "> TRON (screenshots): dragging items between two RawBin servers (home.donges.it <-> prod.wo-da.de) must TRANSFER the scenario unit \u2014 the receiving server recreates it locally with all unitLinks \u2014 not just make a WebItem pointing at the source URL.",
+    "discoverySource": {
+      "type": "architect-diagnosis",
+      "diagnosedBy": "robbin-architect",
+      "date": "2026-07-01",
+      "designNote": "scrum.pmo/design-notes/federated-scenario-transfer.md",
+      "designCommit": "7e940cf81"
+    },
+    "designRef": "scrum.pmo/design-notes/federated-scenario-transfer.md (architect 7e940cf81)",
+    "securityNote": "Cross-cutting security/trust: capability grants are signed + expiring + scoped (no ambient authority); server-federation signatures use a per-server keypair + explicit trust list (no open fetch). Never trust incoming JSON blindly \u2014 validate schema, cap size, sanitize, NEVER execute; foreign identities NEVER become local auth principals.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-ref",
+        "group": "protocol",
+        "text": "DataTransfer carries application/rb-federated-ref = { ior:'ior:instance:<uuid>@<originHost>', originHost, type, name, fetchUrl:'<originHost>/api/scenario/<uuid>?grant=<capabilityToken>', contentHash? }."
+      },
+      {
+        "id": "AC-no-json",
+        "group": "protocol",
+        "text": "The full scenario JSON is NOT serialized into DataTransfer (files are MB; size-limited + synchronous-read); the ref is a reference + fetch URL."
+      },
+      {
+        "id": "AC-fallback",
+        "group": "fallback",
+        "text": "A text/uri-list fallback = '<originHost>/app#<hash>' remains for human/browser (unchanged)."
+      },
+      {
+        "id": "AC-receiver",
+        "group": "flow",
+        "text": "The receiver reads the federated-ref and asks ITS OWN server to import from fetchUrl (server-to-server, never browser->origin)."
+      },
+      {
+        "id": "AC-inline",
+        "group": "optimization",
+        "text": "For tiny units (URL WebItem, short text) the full JSON MAY be inlined in the ref to skip the round-trip; the canonical path stays reference+fetch."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d"
+}

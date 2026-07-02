@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4a159912-978e-46bc-a839-5201857461c5",
+    "name": "DropDispatcher.routeUnknown impl",
+    "description": "Existing implementation in src/public/ts/drop-dispatcher.ts.",
+    "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
+    "tests": [
+      "ior:instance:47200918-566a-4272-9b10-399114c6e4b4"
+    ]
+  },
+  "ownerIor": "ior:instance:3d4ceb1d-6ed6-4073-a047-cd90e6291a27"
+}

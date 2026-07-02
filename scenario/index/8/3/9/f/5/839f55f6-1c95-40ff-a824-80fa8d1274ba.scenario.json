@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "839f55f6-1c95-40ff-a824-80fa8d1274ba",
+    "name": "ContentPreviewer.embedYouTube impl",
+    "description": "Shipped implementation in src/public/ts/trace/content-preview.ts (verified present in PDCA review). [R23.2]",
+    "sourceFile": "ior:file:src/public/ts/trace/content-preview.ts",
+    "tests": [
+      "ior:instance:036a3f4d-b3cc-4083-bbc8-75b21d8bc72a"
+    ]
+  },
+  "ownerIor": "ior:instance:efe1d17e-04b2-422d-b69d-00e5023eeb24"
+}

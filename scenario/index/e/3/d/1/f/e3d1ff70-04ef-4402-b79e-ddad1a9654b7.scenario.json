@@ -4,7 +4,7 @@
     "uuid": "e3d1ff70-04ef-4402-b79e-ddad1a9654b7",
     "name": "detailDrawer.renderFilePreview",
     "description": "R19.63: render file preview content in the drawer (image/html/pdf/url preview via renderContentPreview). Expert extracts from openFilePreview or creates a named renderFilePreview() on RbDetailDrawer (distinct from createFilePreviewButton which is the BUTTON, not the CONTENT).",
-    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
     "method": "ior:instance:e4395c35-4087-4df8-a602-9a236c102106",
     "tasks": [
       "ior:instance:3c7d1853-a5ee-4c7c-9c94-04b2e4f5bbb4"
@@ -12,7 +12,7 @@
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
     ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

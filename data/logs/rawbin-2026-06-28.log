@@ -1,0 +1,1492 @@
+[3:03:24 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[3:03:25 PM] Server started (production mode)
+[3:03:25 PM] HTTPS: https://localhost:4444
+[3:04:07 PM] New client: ::1
+[3:04:07 PM] GET /api/health - ::1
+[3:05:02 PM] New client: ::ffff:87.123.39.123
+[3:05:02 PM] GET /app - ::ffff:87.123.39.123
+[3:05:02 PM] GET /manifest.json - ::ffff:87.123.39.123
+[3:05:02 PM] GET /app.css - ::ffff:87.123.39.123
+[3:05:03 PM] GET /dist/app-Y4B6C7GU.js - ::ffff:87.123.39.123
+[3:05:03 PM] GET /api/config - ::ffff:87.123.39.123
+[3:05:03 PM] GET /api/config - ::ffff:87.123.39.123
+[3:05:03 PM] GET /sw.js - ::ffff:87.123.39.123
+[3:05:03 PM] GET /icon-192.png - ::ffff:87.123.39.123
+[3:05:03 PM] GET /icon-180.png - ::ffff:87.123.39.123
+[3:05:03 PM] WS connected: ::ffff:87.123.39.123 (1 online)
+[3:05:03 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22 - ::ffff:87.123.39.123
+[3:05:11 PM] GET / - ::ffff:87.123.39.123
+[3:05:11 PM] GET /manifest.json - ::ffff:87.123.39.123
+[3:05:11 PM] WS disconnected: ::ffff:87.123.39.123 (0 online)
+[3:05:11 PM] GET /api/config - ::ffff:87.123.39.123
+[3:05:11 PM] GET /favicon.ico - ::ffff:87.123.39.123
+[3:05:12 PM] GET /sw.js - ::ffff:87.123.39.123
+[3:05:26 PM] GET /md/README.md - ::ffff:87.123.39.123
+[3:05:26 PM] GET /dist/rb-update-banner-KJZKKXC6.js - ::ffff:87.123.39.123
+[3:05:26 PM] GET /app.css - ::ffff:87.123.39.123
+[3:05:26 PM] GET /api/config - ::ffff:87.123.39.123
+[3:05:27 PM] GET /sw.js - ::ffff:87.123.39.123
+[3:05:30 PM] GET /trace - ::ffff:87.123.39.123
+[3:05:30 PM] GET /dist/trace-page-7QPOKRWU.js - ::ffff:87.123.39.123
+[3:05:30 PM] GET /app.css - ::ffff:87.123.39.123
+[3:05:30 PM] GET /api/config - ::ffff:87.123.39.123
+[3:05:30 PM] GET /api/trace - ::ffff:87.123.39.123
+[3:05:30 PM] GET /api/trace/sprints - ::ffff:87.123.39.123
+[3:05:31 PM] GET /sw.js - ::ffff:87.123.39.123
+[3:05:31 PM] GET /api/trace/children/current-sprint-singleton-0000-000000000001?mode=trace - ::ffff:87.123.39.123
+[3:05:31 PM] GET /api/trace/children/a4b96c49-f670-4645-bee6-573dee20d5c2?mode=trace - ::ffff:87.123.39.123
+[3:05:31 PM] GET /api/trace/children/7f004379-b327-4853-bc2f-947bd4e781d8?mode=trace - ::ffff:87.123.39.123
+[3:05:32 PM] GET /api/trace/children/9e1952d5-f4a6-4947-9ac6-d063ffb6b385?mode=trace - ::ffff:87.123.39.123
+[3:05:32 PM] GET /api/trace/children/00fcab21-b05e-4242-a694-eee83aa1b95a?mode=trace - ::ffff:87.123.39.123
+[3:05:33 PM] GET /api/trace/children/a9eb4565-6a74-4f82-802f-01373b9cf59c?mode=trace - ::ffff:87.123.39.123
+[3:05:33 PM] GET /api/trace/children/036e545a-34b4-4fd2-b78c-b744b475bdab?mode=trace - ::ffff:87.123.39.123
+[3:05:34 PM] GET /api/trace/children/d56c45de-bde0-4f11-bece-c6e8f461bf84?mode=trace - ::ffff:87.123.39.123
+[3:05:34 PM] GET /api/trace/children/2aac7676-bc88-4eb0-a81b-07c913fda5ee?mode=trace - ::ffff:87.123.39.123
+[3:05:34 PM] GET /api/trace/children/86e3077a-3fda-4c0a-a120-f6811d6252e1?mode=trace - ::ffff:87.123.39.123
+[3:05:35 PM] GET /api/trace/children/9c74be11-4e42-4b77-8296-194a604f084b?mode=trace - ::ffff:87.123.39.123
+[3:05:35 PM] GET /api/trace/children/29d92990-3512-48c8-8648-e08ee757bb57?mode=trace - ::ffff:87.123.39.123
+[3:05:35 PM] GET /api/trace/children/1018cc11-be1d-44a4-bc8d-6c96461e3647?mode=trace - ::ffff:87.123.39.123
+[3:05:36 PM] GET /api/trace/children/afb010c8-1402-42ff-bba8-9859e9c36962?mode=trace - ::ffff:87.123.39.123
+[3:05:36 PM] GET /api/trace/children/71290950-9a19-4043-bbaf-68c72d00894e?mode=trace - ::ffff:87.123.39.123
+[3:05:37 PM] GET /api/trace/children/e6a9de8c-2479-4785-8bf7-b9b38b37a42f?mode=trace - ::ffff:87.123.39.123
+[3:05:37 PM] GET /api/trace/children/2370d3b3-f0ee-4865-855f-f47880e8c6b3?mode=trace - ::ffff:87.123.39.123
+[3:05:37 PM] GET /api/trace/children/5b950725-a6f6-4d45-b802-4784ee6ef962?mode=trace - ::ffff:87.123.39.123
+[3:05:37 PM] GET /api/trace/children/7f9ae8c9-e10e-47fe-ac92-8b590cacd297?mode=trace - ::ffff:87.123.39.123
+[3:05:38 PM] GET /api/trace/children/64af2638-d011-48c1-9d5a-dbfd9784efd6?mode=trace - ::ffff:87.123.39.123
+[3:05:38 PM] GET /api/trace/children/current-sprint-singleton-0000-000000000001?mode=trace - ::ffff:87.123.39.123
+[3:05:38 PM] GET /api/trace/children/56cc23b5-aca1-49f5-9037-e2c58110643c?mode=trace - ::ffff:87.123.39.123
+[3:05:38 PM] GET /api/trace/children/a4b96c49-f670-4645-bee6-573dee20d5c2?mode=trace - ::ffff:87.123.39.123
+[3:05:38 PM] GET /api/trace/children/97f513a1-db0b-4216-87c2-a85c93daae28?mode=trace - ::ffff:87.123.39.123
+[3:05:39 PM] GET /api/trace/children/606277ca-dd09-4409-a460-fa91fa334893?mode=trace - ::ffff:87.123.39.123
+[3:05:39 PM] GET /api/trace/children/adf00ff5-d8e0-48b5-bb6e-07886064ebe4?mode=trace - ::ffff:87.123.39.123
+[3:05:39 PM] GET /api/trace/children/01df5b22-b485-40c4-b9fc-57a85676dfa5?mode=trace - ::ffff:87.123.39.123
+[3:05:39 PM] GET /api/trace/children/4e4f3530-db7c-479f-902b-a5aefefba3e6?mode=trace - ::ffff:87.123.39.123
+[3:05:39 PM] GET /api/trace/children/a7f3c1d2-8b4e-4f9a-b6c5-3d2e1f0a9b8c?mode=trace - ::ffff:87.123.39.123
+[3:05:39 PM] GET /api/trace/children/036e545a-34b4-4fd2-b78c-b744b475bdab?mode=trace - ::ffff:87.123.39.123
+[3:05:39 PM] GET /api/trace/children/c7e2d6f1-3a84-4b29-9d05-6e1f2a8b4c70?mode=trace - ::ffff:87.123.39.123
+[3:05:39 PM] GET /api/trace/children/e8d3a7b2-5c61-4f08-a3d9-2b7c4e1f9a06?mode=trace - ::ffff:87.123.39.123
+[3:05:39 PM] GET /api/trace/children/e9a3b7c2-5f16-4d80-b3a9-2c7e4f1d6058?mode=trace - ::ffff:87.123.39.123
+[3:05:39 PM] GET /api/trace/children/cfb01bc2-1119-47d6-909e-2873734f5817?mode=trace - ::ffff:87.123.39.123
+[3:05:39 PM] GET /api/trace/children/d56c45de-bde0-4f11-bece-c6e8f461bf84?mode=trace - ::ffff:87.123.39.123
+[3:05:39 PM] GET /api/trace/children/86e3077a-3fda-4c0a-a120-f6811d6252e1?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/f7a2c4e6-3b8d-4f10-a5c7-9e1d3f5b7a90?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/9c74be11-4e42-4b77-8296-194a604f084b?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/cd8eb61a-a182-4592-9ac1-391ce9005541?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/c2118a07-d18e-4e1b-b9a2-5f8e2c1f0d77?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/c481a2b9-b61d-4a0f-a077-690a9e2e1aa9?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/b2e72ab1-0111-420b-b82b-387a3b339567?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/6461b45e-3b73-4023-bc66-f753662ff798?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/ee527264-01d6-452a-9c73-b692e65a3a42?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/84c9d362-fad3-4325-8d9e-bf7c06cd04b6?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/428edbf7-ae00-4979-a3b7-3e32eecdc496?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/1c6c4aa1-7201-4ca8-a8b3-d4491f52ef35?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/71290950-9a19-4043-bbaf-68c72d00894e?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/105e4f50-6172-4384-895b-e05050505105?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/e6a9de8c-2479-4785-8bf7-b9b38b37a42f?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/6d2225b7-d96b-4452-8719-b3667b344816?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/471b9c4a-378f-4e56-a990-28f82a998b80?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/a9341bae-656e-4e87-ab50-c9a17a7c9222?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/09dd41a7-8712-4012-ba05-1d34f6d94e07?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/f1157eb1-c259-4d46-a7f3-6e5db1824a05?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/01168fc2-d36a-4e57-b804-7f6ec2935b16?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/d1f826f8-f667-45cf-ac4a-a293e41679c4?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/e7cb6434-97a2-4752-8d63-f8bea13646b6?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/05e394aa-d21b-4aaa-88ba-611cd427c2f1?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/bbca5514-a5c0-4a32-8be4-bf1133290c7a?mode=trace - ::ffff:87.123.39.123
+[3:05:40 PM] GET /api/trace/children/2370d3b3-f0ee-4865-855f-f47880e8c6b3?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/f96a9da3-366c-491f-b2e6-78cbb837f203?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/b94d2681-54f0-47e3-a431-f3d84e469b30?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/dce1bdf8-7076-4376-a32c-9c8b08422bdc?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/32af18ad-b6be-4987-b677-1507fdec0851?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/306f1ca2-0e9e-4071-a653-994262904463?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/2c314fbb-6e07-4917-ac34-81f8ce987fcb?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/d0f39414-dfb4-4944-ac1b-56dcad0a66fe?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/f0af3251-3884-4238-9159-7eeac15c46d6?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/ea70d80c-66e8-459a-af3d-74b137341303?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/d03a73ff-0329-47a3-8610-bf5c18053221?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/df4ea98b-b47c-4129-be73-a4047e919a6f?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/bce39256-6743-406e-b090-92ea2d13cde8?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/95e93fd2-de9e-4579-a857-59f69608f982?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/0da44cbe-6f10-4fb5-a11a-6c4a7e9c17f4?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/9937a1f1-5674-48fb-92fe-6dc4a38089b0?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/ec8e7a0f-18e4-418c-8242-4555c8106b7a?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/35ed4168-f575-4df4-9a87-43f5ca4912ab?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/6da66c11-558a-4718-8ca8-0b61a664260d?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/d0881ad6-ade5-4d60-94a2-fbe5347fd4b6?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/75628241-9157-4385-a7f0-f4f7a3142737?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/7a5f0eb9-7a33-492b-991a-b13c431dc695?mode=trace - ::ffff:87.123.39.123
+[3:05:41 PM] GET /api/trace/children/5b950725-a6f6-4d45-b802-4784ee6ef962?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/292d8931-efff-45ab-b66e-772fac16c6ea?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/8a31ba75-22b6-48ff-9532-d5da21458543?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/a7f7f216-8389-475c-96b7-3593b185cb01?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/08e46ce3-69f3-40fe-87d7-5ee875a4e94a?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/7f9ae8c9-e10e-47fe-ac92-8b590cacd297?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/42819b8b-02f6-4104-8b6c-e0156783e38f?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/fe8c43a5-cd15-4aed-ac5b-97df558d8fea?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/767dd241-127e-4a3f-a491-052b91118a3d?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/b1c93799-9fd6-4c8a-b006-f8e0822d128a?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/64af2638-d011-48c1-9d5a-dbfd9784efd6?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/18ee26a2-bff1-43ab-8ecf-1665a56b96d1?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/7047d04f-3226-46ff-a058-39f53f9aed58?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/1fac9d23-6647-45e5-a0a5-458bc1892974?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/15aeb43d-83da-4a02-bfcf-35ec59b3b070?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/56cc23b5-aca1-49f5-9037-e2c58110643c?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/cd6a817d-a64d-4c1e-a6df-deb09f03063a?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/54519bc4-2704-4484-a83f-5b88019d62c3?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/5baef26a-8331-4feb-850f-2a38e4434ce7?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/6c4949fa-04b8-40ee-afa8-449f71a3f2e0?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/164d8114-3008-4683-93e8-c96d40cd93cc?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/97f513a1-db0b-4216-87c2-a85c93daae28?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/1805f7db-f57c-4a6a-b5d2-5e413d1643a3?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/67b2763e-57d7-4d3e-ac16-11c0f905c3dc?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/312cb103-17fe-4817-b1e9-8bffaabbbf27?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/ae090710-3fee-4dc6-8dd1-d5b8501483eb?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/834fe55b-8885-47f9-bdf9-3fb2f4fe7d40?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/6e0240a9-b0ad-4955-82f7-9fd2025fedf2?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/755a2b09-9a50-4321-a3fe-5ff12c29034a?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/be3ea56d-ea84-4b60-ab1e-9d619d1bc90e?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/e90c223d-4f81-4199-be48-13e234849e31?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/787e88ab-63d8-4999-897b-19b5c17e3eb5?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/fa8fffc8-d75a-43b3-abaa-edb97149da92?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/ce98e242-bf6a-4460-aa03-3668874aa2da?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/f3e0b558-116b-4659-8de7-efa0322451ac?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/322d0fcd-b928-41e2-a49f-33656e718b8c?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/4c19b50f-48be-4f46-8da0-bfa02976fea9?mode=trace - ::ffff:87.123.39.123
+[3:05:42 PM] GET /api/trace/children/1cbad4ef-1428-4594-9a48-b7892ab36f48?mode=trace - ::ffff:87.123.39.123
+[3:06:59 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[3:06:59 PM] Server started (production mode)
+[3:06:59 PM] HTTPS: https://localhost:4444
+[3:07:03 PM] New client: ::1
+[3:07:03 PM] GET /api/health - ::1
+[3:10:25 PM] New client: ::ffff:87.123.39.123
+[3:10:25 PM] GET /trace - ::ffff:87.123.39.123
+[3:10:25 PM] GET /api/config - ::ffff:87.123.39.123
+[3:10:25 PM] GET /app.css - ::ffff:87.123.39.123
+[3:10:25 PM] GET /api/trace - ::ffff:87.123.39.123
+[3:10:26 PM] GET /api/trace/sprints - ::ffff:87.123.39.123
+[3:10:26 PM] GET /sw.js - ::ffff:87.123.39.123
+[3:10:26 PM] GET /api/trace/children/current-sprint-singleton-0000-000000000001?mode=trace - ::ffff:87.123.39.123
+[3:10:26 PM] GET /api/trace/children/a4b96c49-f670-4645-bee6-573dee20d5c2?mode=trace - ::ffff:87.123.39.123
+[3:10:26 PM] GET /api/trace/children/7f004379-b327-4853-bc2f-947bd4e781d8?mode=trace - ::ffff:87.123.39.123
+[3:10:27 PM] GET /api/trace/children/a9eb4565-6a74-4f82-802f-01373b9cf59c?mode=trace - ::ffff:87.123.39.123
+[3:10:27 PM] GET /api/trace/children/9e1952d5-f4a6-4947-9ac6-d063ffb6b385?mode=trace - ::ffff:87.123.39.123
+[3:10:28 PM] GET /api/trace/children/2aac7676-bc88-4eb0-a81b-07c913fda5ee?mode=trace - ::ffff:87.123.39.123
+[3:10:28 PM] GET /api/trace/children/00fcab21-b05e-4242-a694-eee83aa1b95a?mode=trace - ::ffff:87.123.39.123
+[3:10:29 PM] GET /api/trace/children/d56c45de-bde0-4f11-bece-c6e8f461bf84?mode=trace - ::ffff:87.123.39.123
+[3:10:29 PM] GET /api/trace/children/86e3077a-3fda-4c0a-a120-f6811d6252e1?mode=trace - ::ffff:87.123.39.123
+[3:10:30 PM] GET /api/trace/children/036e545a-34b4-4fd2-b78c-b744b475bdab?mode=trace - ::ffff:87.123.39.123
+[3:10:30 PM] GET /api/trace/children/9c74be11-4e42-4b77-8296-194a604f084b?mode=trace - ::ffff:87.123.39.123
+[3:10:30 PM] GET /api/trace/children/7f9ae8c9-e10e-47fe-ac92-8b590cacd297?mode=trace - ::ffff:87.123.39.123
+[3:10:30 PM] GET /api/trace/children/29d92990-3512-48c8-8648-e08ee757bb57?mode=trace - ::ffff:87.123.39.123
+[3:10:31 PM] GET /api/trace/children/1018cc11-be1d-44a4-bc8d-6c96461e3647?mode=trace - ::ffff:87.123.39.123
+[3:10:31 PM] GET /api/trace/children/afb010c8-1402-42ff-bba8-9859e9c36962?mode=trace - ::ffff:87.123.39.123
+[3:10:32 PM] GET /api/trace/children/e6a9de8c-2479-4785-8bf7-b9b38b37a42f?mode=trace - ::ffff:87.123.39.123
+[3:10:32 PM] GET /api/trace/children/2370d3b3-f0ee-4865-855f-f47880e8c6b3?mode=trace - ::ffff:87.123.39.123
+[3:10:32 PM] GET /api/trace/children/5b950725-a6f6-4d45-b802-4784ee6ef962?mode=trace - ::ffff:87.123.39.123
+[3:10:32 PM] GET /api/trace/children/97f513a1-db0b-4216-87c2-a85c93daae28?mode=trace - ::ffff:87.123.39.123
+[3:10:33 PM] GET /api/trace/children/71290950-9a19-4043-bbaf-68c72d00894e?mode=trace - ::ffff:87.123.39.123
+[3:10:33 PM] GET /api/trace/children/current-sprint-singleton-0000-000000000001?mode=trace - ::ffff:87.123.39.123
+[3:10:33 PM] GET /api/trace/children/56cc23b5-aca1-49f5-9037-e2c58110643c?mode=trace - ::ffff:87.123.39.123
+[3:10:33 PM] GET /api/trace/children/a4b96c49-f670-4645-bee6-573dee20d5c2?mode=trace - ::ffff:87.123.39.123
+[3:10:33 PM] GET /api/trace/children/a7f3c1d2-8b4e-4f9a-b6c5-3d2e1f0a9b8c?mode=trace - ::ffff:87.123.39.123
+[3:10:33 PM] GET /api/trace/children/64af2638-d011-48c1-9d5a-dbfd9784efd6?mode=trace - ::ffff:87.123.39.123
+[3:10:34 PM] GET /api/trace/children/adf00ff5-d8e0-48b5-bb6e-07886064ebe4?mode=trace - ::ffff:87.123.39.123
+[3:10:34 PM] GET /api/trace/children/01df5b22-b485-40c4-b9fc-57a85676dfa5?mode=trace - ::ffff:87.123.39.123
+[3:10:34 PM] GET /api/trace/children/4e4f3530-db7c-479f-902b-a5aefefba3e6?mode=trace - ::ffff:87.123.39.123
+[3:10:34 PM] GET /api/trace/children/cfb01bc2-1119-47d6-909e-2873734f5817?mode=trace - ::ffff:87.123.39.123
+[3:10:34 PM] GET /api/trace/children/606277ca-dd09-4409-a460-fa91fa334893?mode=trace - ::ffff:87.123.39.123
+[3:10:34 PM] GET /api/trace/children/d56c45de-bde0-4f11-bece-c6e8f461bf84?mode=trace - ::ffff:87.123.39.123
+[3:10:34 PM] GET /api/trace/children/86e3077a-3fda-4c0a-a120-f6811d6252e1?mode=trace - ::ffff:87.123.39.123
+[3:10:34 PM] GET /api/trace/children/f7a2c4e6-3b8d-4f10-a5c7-9e1d3f5b7a90?mode=trace - ::ffff:87.123.39.123
+[3:10:34 PM] GET /api/trace/children/036e545a-34b4-4fd2-b78c-b744b475bdab?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/c7e2d6f1-3a84-4b29-9d05-6e1f2a8b4c70?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/e8d3a7b2-5c61-4f08-a3d9-2b7c4e1f9a06?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/9c74be11-4e42-4b77-8296-194a604f084b?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/cd8eb61a-a182-4592-9ac1-391ce9005541?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/e9a3b7c2-5f16-4d80-b3a9-2c7e4f1d6058?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/c2118a07-d18e-4e1b-b9a2-5f8e2c1f0d77?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/c481a2b9-b61d-4a0f-a077-690a9e2e1aa9?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/6461b45e-3b73-4023-bc66-f753662ff798?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/b2e72ab1-0111-420b-b82b-387a3b339567?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/ee527264-01d6-452a-9c73-b692e65a3a42?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/84c9d362-fad3-4325-8d9e-bf7c06cd04b6?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/428edbf7-ae00-4979-a3b7-3e32eecdc496?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/1c6c4aa1-7201-4ca8-a8b3-d4491f52ef35?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/7f9ae8c9-e10e-47fe-ac92-8b590cacd297?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/e6a9de8c-2479-4785-8bf7-b9b38b37a42f?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/471b9c4a-378f-4e56-a990-28f82a998b80?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/6d2225b7-d96b-4452-8719-b3667b344816?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/09dd41a7-8712-4012-ba05-1d34f6d94e07?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/a9341bae-656e-4e87-ab50-c9a17a7c9222?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/d1f826f8-f667-45cf-ac4a-a293e41679c4?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/f1157eb1-c259-4d46-a7f3-6e5db1824a05?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/01168fc2-d36a-4e57-b804-7f6ec2935b16?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/05e394aa-d21b-4aaa-88ba-611cd427c2f1?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/e7cb6434-97a2-4752-8d63-f8bea13646b6?mode=trace - ::ffff:87.123.39.123
+[3:10:35 PM] GET /api/trace/children/bbca5514-a5c0-4a32-8be4-bf1133290c7a?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/2370d3b3-f0ee-4865-855f-f47880e8c6b3?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/b94d2681-54f0-47e3-a431-f3d84e469b30?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/f96a9da3-366c-491f-b2e6-78cbb837f203?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/dce1bdf8-7076-4376-a32c-9c8b08422bdc?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/32af18ad-b6be-4987-b677-1507fdec0851?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/306f1ca2-0e9e-4071-a653-994262904463?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/2c314fbb-6e07-4917-ac34-81f8ce987fcb?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/d0f39414-dfb4-4944-ac1b-56dcad0a66fe?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/f0af3251-3884-4238-9159-7eeac15c46d6?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/d03a73ff-0329-47a3-8610-bf5c18053221?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/df4ea98b-b47c-4129-be73-a4047e919a6f?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/ea70d80c-66e8-459a-af3d-74b137341303?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/95e93fd2-de9e-4579-a857-59f69608f982?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/bce39256-6743-406e-b090-92ea2d13cde8?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/0da44cbe-6f10-4fb5-a11a-6c4a7e9c17f4?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/9937a1f1-5674-48fb-92fe-6dc4a38089b0?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/ec8e7a0f-18e4-418c-8242-4555c8106b7a?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/6da66c11-558a-4718-8ca8-0b61a664260d?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/35ed4168-f575-4df4-9a87-43f5ca4912ab?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/d0881ad6-ade5-4d60-94a2-fbe5347fd4b6?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/75628241-9157-4385-a7f0-f4f7a3142737?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/7a5f0eb9-7a33-492b-991a-b13c431dc695?mode=trace - ::ffff:87.123.39.123
+[3:10:36 PM] GET /api/trace/children/5b950725-a6f6-4d45-b802-4784ee6ef962?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/292d8931-efff-45ab-b66e-772fac16c6ea?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/8a31ba75-22b6-48ff-9532-d5da21458543?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/a7f7f216-8389-475c-96b7-3593b185cb01?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/08e46ce3-69f3-40fe-87d7-5ee875a4e94a?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/97f513a1-db0b-4216-87c2-a85c93daae28?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/164d8114-3008-4683-93e8-c96d40cd93cc?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/1805f7db-f57c-4a6a-b5d2-5e413d1643a3?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/67b2763e-57d7-4d3e-ac16-11c0f905c3dc?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/312cb103-17fe-4817-b1e9-8bffaabbbf27?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/6c4949fa-04b8-40ee-afa8-449f71a3f2e0?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/ae090710-3fee-4dc6-8dd1-d5b8501483eb?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/834fe55b-8885-47f9-bdf9-3fb2f4fe7d40?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/6e0240a9-b0ad-4955-82f7-9fd2025fedf2?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/755a2b09-9a50-4321-a3fe-5ff12c29034a?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/e90c223d-4f81-4199-be48-13e234849e31?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/be3ea56d-ea84-4b60-ab1e-9d619d1bc90e?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/787e88ab-63d8-4999-897b-19b5c17e3eb5?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/fa8fffc8-d75a-43b3-abaa-edb97149da92?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/ce98e242-bf6a-4460-aa03-3668874aa2da?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/f3e0b558-116b-4659-8de7-efa0322451ac?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/322d0fcd-b928-41e2-a49f-33656e718b8c?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/4c19b50f-48be-4f46-8da0-bfa02976fea9?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/71290950-9a19-4043-bbaf-68c72d00894e?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/1cbad4ef-1428-4594-9a48-b7892ab36f48?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/105e4f50-6172-4384-895b-e05050505105?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/42819b8b-02f6-4104-8b6c-e0156783e38f?mode=trace - ::ffff:87.123.39.123
+[3:10:37 PM] GET /api/trace/children/64af2638-d011-48c1-9d5a-dbfd9784efd6?mode=trace - ::ffff:87.123.39.123
+[3:10:38 PM] GET /api/trace/children/fe8c43a5-cd15-4aed-ac5b-97df558d8fea?mode=trace - ::ffff:87.123.39.123
+[3:10:38 PM] GET /api/trace/children/b1c93799-9fd6-4c8a-b006-f8e0822d128a?mode=trace - ::ffff:87.123.39.123
+[3:10:38 PM] GET /api/trace/children/56cc23b5-aca1-49f5-9037-e2c58110643c?mode=trace - ::ffff:87.123.39.123
+[3:10:38 PM] GET /api/trace/children/18ee26a2-bff1-43ab-8ecf-1665a56b96d1?mode=trace - ::ffff:87.123.39.123
+[3:10:38 PM] GET /api/trace/children/767dd241-127e-4a3f-a491-052b91118a3d?mode=trace - ::ffff:87.123.39.123
+[3:10:38 PM] GET /api/trace/children/7047d04f-3226-46ff-a058-39f53f9aed58?mode=trace - ::ffff:87.123.39.123
+[3:10:38 PM] GET /api/trace/children/1fac9d23-6647-45e5-a0a5-458bc1892974?mode=trace - ::ffff:87.123.39.123
+[3:10:38 PM] GET /api/trace/children/15aeb43d-83da-4a02-bfcf-35ec59b3b070?mode=trace - ::ffff:87.123.39.123
+[3:10:38 PM] GET /api/trace/children/cd6a817d-a64d-4c1e-a6df-deb09f03063a?mode=trace - ::ffff:87.123.39.123
+[3:10:38 PM] GET /api/trace/children/54519bc4-2704-4484-a83f-5b88019d62c3?mode=trace - ::ffff:87.123.39.123
+[3:10:38 PM] GET /api/trace/children/5baef26a-8331-4feb-850f-2a38e4434ce7?mode=trace - ::ffff:87.123.39.123
+[3:15:43 PM] New client: ::ffff:18.97.19.233
+[3:15:43 PM] GET / - ::ffff:18.97.19.233
+[4:34:35 PM] New client: ::ffff:3.130.168.2
+[4:34:35 PM] GET / - ::ffff:3.130.168.2
+[5:25:34 PM] New client: ::ffff:16.58.56.214
+[5:25:34 PM] GET / - ::ffff:16.58.56.214
+[5:34:53 PM] New client: ::ffff:18.116.101.220
+[5:34:53 PM] GET / - ::ffff:18.116.101.220
+[5:49:26 PM] New client: ::ffff:8.211.45.42
+[5:49:26 PM] GET / - ::ffff:8.211.45.42
+[5:49:26 PM] New client: ::ffff:8.211.45.42
+[5:49:26 PM] GET / - ::ffff:8.211.45.42
+[6:12:20 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[6:12:20 PM] Server started (production mode)
+[6:12:20 PM] HTTPS: https://localhost:4444
+[6:12:59 PM] New client: ::ffff:87.123.39.123
+[6:12:59 PM] GET /app - ::ffff:87.123.39.123
+[6:12:59 PM] GET /manifest.json - ::ffff:87.123.39.123
+[6:12:59 PM] GET /app.css - ::ffff:87.123.39.123
+[6:12:59 PM] GET /api/config - ::ffff:87.123.39.123
+[6:12:59 PM] GET /api/config - ::ffff:87.123.39.123
+[6:12:59 PM] WS connected: ::ffff:87.123.39.123 (1 online)
+[6:12:59 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22 - ::ffff:87.123.39.123
+[6:13:00 PM] GET /sw.js - ::ffff:87.123.39.123
+[6:13:03 PM] WS disconnected: ::ffff:87.123.39.123 (0 online)
+[6:13:15 PM] WS connected: ::ffff:87.123.39.123 (1 online)
+[6:13:16 PM] POST /api/avatar - ::ffff:87.123.39.123
+[6:13:17 PM] Avatar POST: token=3effa1fc buf=64597bytes mime=image/jpeg
+[6:13:17 PM] Avatar uploaded: 3effa1fc (64597 bytes)
+[6:13:17 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22?t=1782666797454 - ::ffff:87.123.39.123
+[6:13:17 PM] Avatar GET: token=3effa1fc mime=image/jpeg size=64597
+[6:13:17 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22?t=1782666797457 - ::ffff:87.123.39.123
+[6:13:17 PM] Avatar GET: token=3effa1fc mime=image/jpeg size=64597
+[6:13:26 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22?t=1782666806926 - ::ffff:87.123.39.123
+[6:13:26 PM] Avatar GET: token=3effa1fc mime=image/jpeg size=64597
+[6:13:31 PM] Device enrolled: 3effa1fc / c6cb3d67
+[6:13:44 PM] GET /app - ::ffff:87.123.39.123
+[6:13:44 PM] GET /manifest.json - ::ffff:87.123.39.123
+[6:13:44 PM] WS disconnected: ::ffff:87.123.39.123 (0 online)
+[6:13:44 PM] GET /app.css - ::ffff:87.123.39.123
+[6:13:44 PM] GET /api/config - ::ffff:87.123.39.123
+[6:13:44 PM] GET /api/config - ::ffff:87.123.39.123
+[6:13:44 PM] WS connected: ::ffff:87.123.39.123 (1 online)
+[6:13:44 PM] Owner 3effa1fc connected — 0 room(s) (0 newly registered)
+[6:13:45 PM] GET /sw.js - ::ffff:87.123.39.123
+[6:13:53 PM] WS disconnected: ::ffff:87.123.39.123 (0 online)
+[6:20:42 PM] New client: ::ffff:195.90.209.56
+[6:20:42 PM] GET /api/health - ::ffff:195.90.209.56
+[6:20:59 PM] GET /app - ::ffff:195.90.209.56
+[6:20:59 PM] GET /sw.js - ::ffff:195.90.209.56
+[6:21:08 PM] GET /sw.js - ::ffff:195.90.209.56
+[6:21:15 PM] GET /sw.js - ::ffff:195.90.209.56
+[6:21:24 PM] GET /sw.js - ::ffff:195.90.209.56
+[6:22:04 PM] GET /sw.js - ::ffff:195.90.209.56
+[6:23:53 PM] GET /sw.js - ::ffff:195.90.209.56
+[6:26:52 PM] New client: ::ffff:123.160.223.73
+[6:26:52 PM] GET / - ::ffff:123.160.223.73
+[6:26:53 PM] New client: ::ffff:47.251.188.82
+[6:26:53 PM] GET / - ::ffff:47.251.188.82
+[6:26:54 PM] GET /api/config - ::ffff:47.251.188.82
+[6:27:04 PM] New client: ::ffff:123.160.223.75
+[6:27:04 PM] GET /favicon.ico - ::ffff:123.160.223.75
+[6:27:11 PM] New client: ::ffff:111.7.96.179
+[6:27:11 PM] GET / - ::ffff:111.7.96.179
+[6:27:12 PM] New client: ::ffff:47.251.89.134
+[6:27:12 PM] GET / - ::ffff:47.251.89.134
+[6:27:14 PM] GET /api/config - ::ffff:47.251.89.134
+[6:27:18 PM] GET /favicon.ico - ::ffff:111.7.96.179
+[6:27:21 PM] New client: ::ffff:111.7.96.180
+[6:27:21 PM] GET / - ::ffff:111.7.96.180
+[6:27:22 PM] New client: ::ffff:111.7.96.180
+[6:27:22 PM] GET / - ::ffff:111.7.96.180
+[6:27:23 PM] GET /api/config - ::ffff:111.7.96.180
+[6:27:28 PM] GET /favicon.ico - ::ffff:111.7.96.180
+[6:27:31 PM] New client: ::ffff:123.160.223.74
+[6:27:31 PM] GET / - ::ffff:123.160.223.74
+[6:27:32 PM] New client: ::ffff:185.126.82.201
+[6:27:32 PM] GET / - ::ffff:185.126.82.201
+[6:27:34 PM] GET /api/config - ::ffff:185.126.82.201
+[6:27:36 PM] New client: ::ffff:123.160.223.72
+[6:27:36 PM] GET /favicon.ico - ::ffff:123.160.223.72
+[6:40:12 PM] New client: ::1
+[6:40:12 PM] GET /api/health - ::1
+[7:25:28 PM] WS connected: ::ffff:61.8.154.128 (1 online)
+[7:25:28 PM] Owner 3effa1fc connected — 0 room(s) (0 newly registered)
+[7:25:28 PM] New client: ::ffff:61.8.154.128
+[7:25:28 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22?t=1782671128824 - ::ffff:61.8.154.128
+[7:25:28 PM] Avatar GET: token=3effa1fc mime=image/jpeg size=64597
+[7:25:35 PM] GET /trace - ::ffff:61.8.154.128
+[7:25:36 PM] GET /app.css - ::ffff:61.8.154.128
+[7:25:36 PM] GET /api/trace - ::ffff:61.8.154.128
+[7:25:36 PM] GET /api/config - ::ffff:61.8.154.128
+[7:25:36 PM] GET /sw.js - ::ffff:61.8.154.128
+[7:25:36 PM] GET /icon-180.png - ::ffff:61.8.154.128
+[7:25:36 PM] GET /icon-192.png - ::ffff:61.8.154.128
+[7:25:36 PM] GET /dist/app-WQDP5CFI.js - ::ffff:61.8.154.128
+[7:25:36 PM] GET /app.css - ::ffff:61.8.154.128
+[7:25:36 PM] GET /trace - ::ffff:61.8.154.128
+[7:25:36 PM] GET /manifest.json - ::ffff:61.8.154.128
+[7:25:36 PM] GET /scenario - ::ffff:61.8.154.128
+[7:25:36 PM] GET /icon-512.png - ::ffff:61.8.154.128
+[7:25:36 PM] GET /dist/scenario-view-JGC6M3Q3.js - ::ffff:61.8.154.128
+[7:25:36 PM] GET /app - ::ffff:61.8.154.128
+[7:25:36 PM] GET /api/trace/sprints - ::ffff:61.8.154.128
+[7:25:37 PM] GET /api/trace/children/current-sprint-singleton-0000-000000000001?mode=trace - ::ffff:61.8.154.128
+[7:25:37 PM] GET /api/trace/children/a4b96c49-f670-4645-bee6-573dee20d5c2?mode=trace - ::ffff:61.8.154.128
+[7:25:37 PM] GET /api/trace/children/7f004379-b327-4853-bc2f-947bd4e781d8?mode=trace - ::ffff:61.8.154.128
+[7:25:38 PM] GET /api/trace/children/a9eb4565-6a74-4f82-802f-01373b9cf59c?mode=trace - ::ffff:61.8.154.128
+[7:25:38 PM] GET /api/trace/children/1018cc11-be1d-44a4-bc8d-6c96461e3647?mode=trace - ::ffff:61.8.154.128
+[7:25:39 PM] GET /api/trace/children/29d92990-3512-48c8-8648-e08ee757bb57?mode=trace - ::ffff:61.8.154.128
+[7:25:39 PM] GET /api/trace/children/afb010c8-1402-42ff-bba8-9859e9c36962?mode=trace - ::ffff:61.8.154.128
+[7:25:40 PM] GET /api/trace/children/9e1952d5-f4a6-4947-9ac6-d063ffb6b385?mode=trace - ::ffff:61.8.154.128
+[7:25:40 PM] GET /api/trace/children/2aac7676-bc88-4eb0-a81b-07c913fda5ee?mode=trace - ::ffff:61.8.154.128
+[7:25:41 PM] GET /api/trace/children/036e545a-34b4-4fd2-b78c-b744b475bdab?mode=trace - ::ffff:61.8.154.128
+[7:25:41 PM] GET /api/trace/children/d56c45de-bde0-4f11-bece-c6e8f461bf84?mode=trace - ::ffff:61.8.154.128
+[7:25:41 PM] GET /api/trace/children/86e3077a-3fda-4c0a-a120-f6811d6252e1?mode=trace - ::ffff:61.8.154.128
+[7:25:41 PM] GET /api/trace/children/00fcab21-b05e-4242-a694-eee83aa1b95a?mode=trace - ::ffff:61.8.154.128
+[7:25:42 PM] GET /api/trace/children/9c74be11-4e42-4b77-8296-194a604f084b?mode=trace - ::ffff:61.8.154.128
+[7:25:42 PM] WS disconnected: ::ffff:61.8.154.128 (0 online)
+[7:25:42 PM] GET /api/config - ::ffff:61.8.154.128
+[7:25:42 PM] GET /api/config - ::ffff:61.8.154.128
+[7:25:42 PM] GET /api/trace - ::ffff:61.8.154.128
+[7:25:43 PM] GET /sw.js - ::ffff:61.8.154.128
+[7:25:43 PM] GET /api/config - ::ffff:61.8.154.128
+[7:25:43 PM] WS connected: ::ffff:61.8.154.128 (1 online)
+[7:25:43 PM] Owner 3effa1fc connected — 0 room(s) (0 newly registered)
+[7:25:43 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22 - ::ffff:61.8.154.128
+[7:25:43 PM] Avatar GET: token=3effa1fc mime=image/jpeg size=64597
+[7:25:43 PM] GET /api/trace/sprints - ::ffff:61.8.154.128
+[7:25:43 PM] GET /api/trace/children/current-sprint-singleton-0000-000000000001?mode=trace - ::ffff:61.8.154.128
+[7:25:43 PM] GET /api/trace/children/a4b96c49-f670-4645-bee6-573dee20d5c2?mode=trace - ::ffff:61.8.154.128
+[7:25:44 PM] GET /api/trace/children/7f004379-b327-4853-bc2f-947bd4e781d8?mode=trace - ::ffff:61.8.154.128
+[7:25:44 PM] GET /api/trace/children/a9eb4565-6a74-4f82-802f-01373b9cf59c?mode=trace - ::ffff:61.8.154.128
+[7:25:45 PM] GET /api/trace/children/29d92990-3512-48c8-8648-e08ee757bb57?mode=trace - ::ffff:61.8.154.128
+[7:25:45 PM] GET /api/trace/children/afb010c8-1402-42ff-bba8-9859e9c36962?mode=trace - ::ffff:61.8.154.128
+[7:25:46 PM] GET /api/trace/children/9e1952d5-f4a6-4947-9ac6-d063ffb6b385?mode=trace - ::ffff:61.8.154.128
+[7:25:46 PM] GET /api/trace/children/2aac7676-bc88-4eb0-a81b-07c913fda5ee?mode=trace - ::ffff:61.8.154.128
+[7:25:47 PM] GET /api/trace/children/036e545a-34b4-4fd2-b78c-b744b475bdab?mode=trace - ::ffff:61.8.154.128
+[7:25:47 PM] GET /api/trace/children/d56c45de-bde0-4f11-bece-c6e8f461bf84?mode=trace - ::ffff:61.8.154.128
+[7:25:47 PM] GET /api/trace/children/00fcab21-b05e-4242-a694-eee83aa1b95a?mode=trace - ::ffff:61.8.154.128
+[7:25:48 PM] GET /api/trace/children/9c74be11-4e42-4b77-8296-194a604f084b?mode=trace - ::ffff:61.8.154.128
+[7:25:48 PM] GET /api/trace/children/7f9ae8c9-e10e-47fe-ac92-8b590cacd297?mode=trace - ::ffff:61.8.154.128
+[7:25:48 PM] GET /api/trace/children/71290950-9a19-4043-bbaf-68c72d00894e?mode=trace - ::ffff:61.8.154.128
+[7:25:48 PM] GET /api/trace/children/86e3077a-3fda-4c0a-a120-f6811d6252e1?mode=trace - ::ffff:61.8.154.128
+[7:25:49 PM] GET /api/trace/children/2370d3b3-f0ee-4865-855f-f47880e8c6b3?mode=trace - ::ffff:61.8.154.128
+[7:25:49 PM] GET /api/trace/children/5b950725-a6f6-4d45-b802-4784ee6ef962?mode=trace - ::ffff:61.8.154.128
+[7:25:49 PM] GET /api/trace/children/97f513a1-db0b-4216-87c2-a85c93daae28?mode=trace - ::ffff:61.8.154.128
+[7:25:49 PM] GET /api/trace/children/e6a9de8c-2479-4785-8bf7-b9b38b37a42f?mode=trace - ::ffff:61.8.154.128
+[7:25:50 PM] GET /api/trace/children/1018cc11-be1d-44a4-bc8d-6c96461e3647?mode=trace - ::ffff:61.8.154.128
+[7:25:50 PM] GET /api/trace/children/1bdfaafa-9042-40d3-8046-744cd18f22f7?mode=trace - ::ffff:61.8.154.128
+[7:25:51 PM] GET /api/trace/children/current-sprint-singleton-0000-000000000001?mode=trace - ::ffff:61.8.154.128
+[7:25:51 PM] GET /api/trace/children/01d9fb64-20a3-449c-b421-43cf64fec919?mode=trace - ::ffff:61.8.154.128
+[7:25:51 PM] GET /api/trace/children/56cc23b5-aca1-49f5-9037-e2c58110643c?mode=trace - ::ffff:61.8.154.128
+[7:25:51 PM] GET /api/trace/children/64af2638-d011-48c1-9d5a-dbfd9784efd6?mode=trace - ::ffff:61.8.154.128
+[7:25:51 PM] GET /api/trace/children/a4b96c49-f670-4645-bee6-573dee20d5c2?mode=trace - ::ffff:61.8.154.128
+[7:25:51 PM] GET /api/trace/children/606277ca-dd09-4409-a460-fa91fa334893?mode=trace - ::ffff:61.8.154.128
+[7:25:51 PM] GET /api/trace/children/a7f3c1d2-8b4e-4f9a-b6c5-3d2e1f0a9b8c?mode=trace - ::ffff:61.8.154.128
+[7:25:51 PM] GET /api/trace/children/adf00ff5-d8e0-48b5-bb6e-07886064ebe4?mode=trace - ::ffff:61.8.154.128
+[7:25:51 PM] GET /api/trace/children/03917f53-bafe-485e-9169-dece4d3ffec2?mode=trace - ::ffff:61.8.154.128
+[7:25:51 PM] GET /api/trace/children/4e4f3530-db7c-479f-902b-a5aefefba3e6?mode=trace - ::ffff:61.8.154.128
+[7:25:51 PM] GET /api/trace/children/cfb01bc2-1119-47d6-909e-2873734f5817?mode=trace - ::ffff:61.8.154.128
+[7:25:51 PM] GET /api/trace/children/01df5b22-b485-40c4-b9fc-57a85676dfa5?mode=trace - ::ffff:61.8.154.128
+[7:25:51 PM] GET /api/trace/children/036e545a-34b4-4fd2-b78c-b744b475bdab?mode=trace - ::ffff:61.8.154.128
+[7:25:52 PM] GET /api/trace/children/c7e2d6f1-3a84-4b29-9d05-6e1f2a8b4c70?mode=trace - ::ffff:61.8.154.128
+[7:25:52 PM] GET /api/trace/children/e8d3a7b2-5c61-4f08-a3d9-2b7c4e1f9a06?mode=trace - ::ffff:61.8.154.128
+[7:25:52 PM] GET /api/trace/children/e9a3b7c2-5f16-4d80-b3a9-2c7e4f1d6058?mode=trace - ::ffff:61.8.154.128
+[7:25:52 PM] GET /api/trace/children/d56c45de-bde0-4f11-bece-c6e8f461bf84?mode=trace - ::ffff:61.8.154.128
+[7:25:52 PM] GET /api/trace/children/9c74be11-4e42-4b77-8296-194a604f084b?mode=trace - ::ffff:61.8.154.128
+[7:25:52 PM] GET /api/trace/children/6461b45e-3b73-4023-bc66-f753662ff798?mode=trace - ::ffff:61.8.154.128
+[7:25:52 PM] GET /api/trace/children/c2118a07-d18e-4e1b-b9a2-5f8e2c1f0d77?mode=trace - ::ffff:61.8.154.128
+[7:25:52 PM] GET /api/trace/children/c481a2b9-b61d-4a0f-a077-690a9e2e1aa9?mode=trace - ::ffff:61.8.154.128
+[7:25:52 PM] GET /api/trace/children/b2e72ab1-0111-420b-b82b-387a3b339567?mode=trace - ::ffff:61.8.154.128
+[7:25:52 PM] GET /api/trace/children/cd8eb61a-a182-4592-9ac1-391ce9005541?mode=trace - ::ffff:61.8.154.128
+[7:25:52 PM] GET /api/trace/children/ee527264-01d6-452a-9c73-b692e65a3a42?mode=trace - ::ffff:61.8.154.128
+[7:25:52 PM] GET /api/trace/children/84c9d362-fad3-4325-8d9e-bf7c06cd04b6?mode=trace - ::ffff:61.8.154.128
+[7:25:52 PM] GET /api/trace/children/428edbf7-ae00-4979-a3b7-3e32eecdc496?mode=trace - ::ffff:61.8.154.128
+[7:25:52 PM] GET /api/trace/children/1c6c4aa1-7201-4ca8-a8b3-d4491f52ef35?mode=trace - ::ffff:61.8.154.128
+[7:25:52 PM] GET /api/trace/children/71290950-9a19-4043-bbaf-68c72d00894e?mode=trace - ::ffff:61.8.154.128
+[7:25:53 PM] GET /api/trace/children/7f9ae8c9-e10e-47fe-ac92-8b590cacd297?mode=trace - ::ffff:61.8.154.128
+[7:25:53 PM] GET /api/trace/children/105e4f50-6172-4384-895b-e05050505105?mode=trace - ::ffff:61.8.154.128
+[7:25:53 PM] GET /api/trace/children/86e3077a-3fda-4c0a-a120-f6811d6252e1?mode=trace - ::ffff:61.8.154.128
+[7:25:53 PM] GET /api/trace/children/f7a2c4e6-3b8d-4f10-a5c7-9e1d3f5b7a90?mode=trace - ::ffff:61.8.154.128
+[7:25:53 PM] GET /api/trace/children/2370d3b3-f0ee-4865-855f-f47880e8c6b3?mode=trace - ::ffff:61.8.154.128
+[7:25:53 PM] GET /api/trace/children/dce1bdf8-7076-4376-a32c-9c8b08422bdc?mode=trace - ::ffff:61.8.154.128
+[7:25:53 PM] GET /api/trace/children/b94d2681-54f0-47e3-a431-f3d84e469b30?mode=trace - ::ffff:61.8.154.128
+[7:25:53 PM] GET /api/trace/children/32af18ad-b6be-4987-b677-1507fdec0851?mode=trace - ::ffff:61.8.154.128
+[7:25:53 PM] GET /api/trace/children/306f1ca2-0e9e-4071-a653-994262904463?mode=trace - ::ffff:61.8.154.128
+[7:25:53 PM] GET /api/trace/children/f96a9da3-366c-491f-b2e6-78cbb837f203?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/2c314fbb-6e07-4917-ac34-81f8ce987fcb?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/f0af3251-3884-4238-9159-7eeac15c46d6?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/d03a73ff-0329-47a3-8610-bf5c18053221?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/df4ea98b-b47c-4129-be73-a4047e919a6f?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/d0f39414-dfb4-4944-ac1b-56dcad0a66fe?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/ea70d80c-66e8-459a-af3d-74b137341303?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/bce39256-6743-406e-b090-92ea2d13cde8?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/95e93fd2-de9e-4579-a857-59f69608f982?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/0da44cbe-6f10-4fb5-a11a-6c4a7e9c17f4?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/9937a1f1-5674-48fb-92fe-6dc4a38089b0?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/ec8e7a0f-18e4-418c-8242-4555c8106b7a?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/6da66c11-558a-4718-8ca8-0b61a664260d?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/35ed4168-f575-4df4-9a87-43f5ca4912ab?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/d0881ad6-ade5-4d60-94a2-fbe5347fd4b6?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/7a5f0eb9-7a33-492b-991a-b13c431dc695?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/75628241-9157-4385-a7f0-f4f7a3142737?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/5b950725-a6f6-4d45-b802-4784ee6ef962?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/292d8931-efff-45ab-b66e-772fac16c6ea?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/8a31ba75-22b6-48ff-9532-d5da21458543?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/a7f7f216-8389-475c-96b7-3593b185cb01?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/08e46ce3-69f3-40fe-87d7-5ee875a4e94a?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/97f513a1-db0b-4216-87c2-a85c93daae28?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/312cb103-17fe-4817-b1e9-8bffaabbbf27?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/164d8114-3008-4683-93e8-c96d40cd93cc?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/1805f7db-f57c-4a6a-b5d2-5e413d1643a3?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/67b2763e-57d7-4d3e-ac16-11c0f905c3dc?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/6c4949fa-04b8-40ee-afa8-449f71a3f2e0?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/ae090710-3fee-4dc6-8dd1-d5b8501483eb?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/6e0240a9-b0ad-4955-82f7-9fd2025fedf2?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/be3ea56d-ea84-4b60-ab1e-9d619d1bc90e?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/755a2b09-9a50-4321-a3fe-5ff12c29034a?mode=trace - ::ffff:61.8.154.128
+[7:25:54 PM] GET /api/trace/children/834fe55b-8885-47f9-bdf9-3fb2f4fe7d40?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/787e88ab-63d8-4999-897b-19b5c17e3eb5?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/e90c223d-4f81-4199-be48-13e234849e31?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/fa8fffc8-d75a-43b3-abaa-edb97149da92?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/ce98e242-bf6a-4460-aa03-3668874aa2da?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/f3e0b558-116b-4659-8de7-efa0322451ac?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/322d0fcd-b928-41e2-a49f-33656e718b8c?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/4c19b50f-48be-4f46-8da0-bfa02976fea9?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/e6a9de8c-2479-4785-8bf7-b9b38b37a42f?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/1cbad4ef-1428-4594-9a48-b7892ab36f48?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/a1102f6c-7d04-4e91-b2a8-1f0e6c3d9b50?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/471b9c4a-378f-4e56-a990-28f82a998b80?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/6d2225b7-d96b-4452-8719-b3667b344816?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/09dd41a7-8712-4012-ba05-1d34f6d94e07?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/a9341bae-656e-4e87-ab50-c9a17a7c9222?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/f1157eb1-c259-4d46-a7f3-6e5db1824a05?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/01168fc2-d36a-4e57-b804-7f6ec2935b16?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/d1f826f8-f667-45cf-ac4a-a293e41679c4?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/e7cb6434-97a2-4752-8d63-f8bea13646b6?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/bbca5514-a5c0-4a32-8be4-bf1133290c7a?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/05e394aa-d21b-4aaa-88ba-611cd427c2f1?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/767dd241-127e-4a3f-a491-052b91118a3d?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/b1c93799-9fd6-4c8a-b006-f8e0822d128a?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/fe8c43a5-cd15-4aed-ac5b-97df558d8fea?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/64af2638-d011-48c1-9d5a-dbfd9784efd6?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/1fac9d23-6647-45e5-a0a5-458bc1892974?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/7047d04f-3226-46ff-a058-39f53f9aed58?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/42819b8b-02f6-4104-8b6c-e0156783e38f?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/56cc23b5-aca1-49f5-9037-e2c58110643c?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/18ee26a2-bff1-43ab-8ecf-1665a56b96d1?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/15aeb43d-83da-4a02-bfcf-35ec59b3b070?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/cd6a817d-a64d-4c1e-a6df-deb09f03063a?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/54519bc4-2704-4484-a83f-5b88019d62c3?mode=trace - ::ffff:61.8.154.128
+[7:25:55 PM] GET /api/trace/children/5baef26a-8331-4feb-850f-2a38e4434ce7?mode=trace - ::ffff:61.8.154.128
+[7:26:11 PM] GET /api/trace/children/dceda100-434b-4ef7-9af3-9a69ccfac6b2?mode=trace - ::ffff:61.8.154.128
+[7:26:13 PM] GET /api/trace/children/61cec7ea-1051-4b6f-8845-eac939d83d10?mode=trace - ::ffff:61.8.154.128
+[7:26:15 PM] GET /api/trace/children/0dd08b2f-30ba-433f-a9de-285065f3fb8e?mode=trace - ::ffff:61.8.154.128
+[7:26:19 PM] GET /api/trace/children/da9462f5-72fd-49df-bedb-72c8b3248fc2?mode=trace - ::ffff:61.8.154.128
+[7:26:19 PM] GET /api/trace/children/ff684e10-e57c-45ae-97b9-8f866264c737?mode=trace - ::ffff:61.8.154.128
+[7:26:21 PM] GET /api/trace/children/0b7d18d9-247e-4261-8430-ef5fbc88ad10?mode=trace - ::ffff:61.8.154.128
+[7:26:24 PM] GET /api/trace/children/da9462f5-72fd-49df-bedb-72c8b3248fc2?mode=trace - ::ffff:61.8.154.128
+[7:26:24 PM] GET /api/trace/children/ff684e10-e57c-45ae-97b9-8f866264c737?mode=trace - ::ffff:61.8.154.128
+[7:26:24 PM] GET /api/trace/children/da9462f5-72fd-49df-bedb-72c8b3248fc2?mode=scenario - ::ffff:61.8.154.128
+[7:26:24 PM] GET /api/trace/children/0b7d18d9-247e-4261-8430-ef5fbc88ad10?mode=trace - ::ffff:61.8.154.128
+[7:26:24 PM] GET /api/ior/ior:instance:da9462f5-72fd-49df-bedb-72c8b3248fc2 - ::ffff:61.8.154.128
+[7:26:27 PM] GET /api/trace/children/0dd08b2f-30ba-433f-a9de-285065f3fb8e?mode=trace - ::ffff:61.8.154.128
+[7:26:27 PM] GET /api/trace/children/d2935088-2a32-41e7-afd0-4e8195471ae2?mode=trace - ::ffff:61.8.154.128
+[7:26:27 PM] GET /api/trace/children/0dd08b2f-30ba-433f-a9de-285065f3fb8e?mode=scenario - ::ffff:61.8.154.128
+[7:26:27 PM] GET /api/trace/children/b708531d-4274-4987-b573-94fbf2e2cb88?mode=trace - ::ffff:61.8.154.128
+[7:26:27 PM] GET /api/ior/ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e - ::ffff:61.8.154.128
+[7:26:27 PM] GET /api/trace/children/d3513d2b-85be-46d5-8cd9-bf52ffc67bed?mode=trace - ::ffff:61.8.154.128
+[7:26:59 PM] GET /api/trace/children/0b7d18d9-247e-4261-8430-ef5fbc88ad10?mode=trace - ::ffff:61.8.154.128
+[7:26:59 PM] GET /api/trace/children/0b7d18d9-247e-4261-8430-ef5fbc88ad10?mode=scenario - ::ffff:61.8.154.128
+[7:27:00 PM] GET /api/ior/ior:instance:0b7d18d9-247e-4261-8430-ef5fbc88ad10 - ::ffff:61.8.154.128
+[7:27:10 PM] GET /api/trace/children/e2807a7b-b72f-4030-97b6-67f73a043ae7?mode=trace - ::ffff:61.8.154.128
+[7:27:15 PM] GET /api/trace/children/f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5 - ::ffff:61.8.154.128
+[7:27:15 PM] GET /api/trace/children/f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5?mode=scenario - ::ffff:61.8.154.128
+[7:27:50 PM] WS disconnected: ::ffff:61.8.154.128 (0 online)
+[7:33:01 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[7:33:01 PM] Server started (production mode)
+[7:33:01 PM] HTTPS: https://localhost:4444
+[7:37:31 PM] New client: ::ffff:195.90.209.56
+[7:37:31 PM] GET /api/health - ::ffff:195.90.209.56
+[7:37:31 PM] GET /app - ::ffff:195.90.209.56
+[7:40:19 PM] New client: ::1
+[7:40:19 PM] GET /api/health - ::1
+[7:47:03 PM] GET /api/phone/%2B4915253844085 - ::ffff:195.90.209.56
+[7:47:03 PM] GET /api/health - ::ffff:195.90.209.56
+[7:47:55 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[7:47:55 PM] Server started (production mode)
+[7:47:55 PM] HTTPS: https://localhost:4444
+[7:48:05 PM] New client: ::ffff:195.90.209.56
+[7:48:05 PM] GET /api/health - ::ffff:195.90.209.56
+[7:48:05 PM] GET /api/phone/%2B4915253844085 - ::ffff:195.90.209.56
+[7:51:27 PM] New client: ::1
+[7:51:27 PM] GET /api/phone/%2B4915253844085 - ::1
+[7:52:03 PM] GET /sw.js - ::ffff:195.90.209.56
+[7:52:03 PM] GET /sw.js - ::ffff:195.90.209.56
+[7:52:03 PM] GET /sw.js - ::ffff:195.90.209.56
+[7:52:03 PM] GET /sw.js - ::ffff:195.90.209.56
+[7:52:03 PM] GET /sw.js - ::ffff:195.90.209.56
+[7:52:03 PM] GET /sw.js - ::ffff:195.90.209.56
+[7:52:04 PM] GET /sw.js - ::ffff:195.90.209.56
+[7:54:02 PM] GET /app - ::ffff:195.90.209.56
+[7:59:06 PM] New client: ::ffff:195.90.209.56
+[7:59:06 PM] GET /app - ::ffff:195.90.209.56
+[7:59:06 PM] GET /app.css - ::ffff:195.90.209.56
+[7:59:06 PM] GET /dist/app-IVT25JQ5.js - ::ffff:195.90.209.56
+[7:59:07 PM] GET /sw.js - ::ffff:195.90.209.56
+[7:59:07 PM] GET /api/config - ::ffff:195.90.209.56
+[7:59:07 PM] GET /api/config - ::ffff:195.90.209.56
+[7:59:07 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[7:59:07 PM] GET /manifest.json - ::ffff:195.90.209.56
+[7:59:07 PM] GET /app - ::ffff:195.90.209.56
+[7:59:07 PM] GET /app.css - ::ffff:195.90.209.56
+[7:59:07 PM] GET /api/avatar/3150ccfa-57a6-43ed-96a6-5e7911bc53bc - ::ffff:195.90.209.56
+[7:59:07 PM] GET /icon-180.png - ::ffff:195.90.209.56
+[7:59:07 PM] GET /icon-192.png - ::ffff:195.90.209.56
+[7:59:07 PM] GET /icon-512.png - ::ffff:195.90.209.56
+[7:59:07 PM] GET /trace - ::ffff:195.90.209.56
+[7:59:07 PM] GET /dist/trace-page-7QPOKRWU.js - ::ffff:195.90.209.56
+[7:59:07 PM] GET /scenario - ::ffff:195.90.209.56
+[7:59:07 PM] GET /dist/scenario-view-JGC6M3Q3.js - ::ffff:195.90.209.56
+[7:59:11 PM] Avatar assigned: 3150ccfa (image/jpeg)
+[7:59:32 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:00:12 PM] GET /app - ::ffff:195.90.209.56
+[8:00:12 PM] GET /app.css - ::ffff:195.90.209.56
+[8:00:12 PM] GET /dist/app-IVT25JQ5.js - ::ffff:195.90.209.56
+[8:00:12 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:00:12 PM] GET /api/config - ::ffff:195.90.209.56
+[8:00:12 PM] GET /api/config - ::ffff:195.90.209.56
+[8:00:12 PM] GET /app - ::ffff:195.90.209.56
+[8:00:12 PM] GET /manifest.json - ::ffff:195.90.209.56
+[8:00:12 PM] GET /app.css - ::ffff:195.90.209.56
+[8:00:12 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:00:12 PM] GET /icon-180.png - ::ffff:195.90.209.56
+[8:00:12 PM] GET /icon-192.png - ::ffff:195.90.209.56
+[8:00:12 PM] GET /icon-512.png - ::ffff:195.90.209.56
+[8:00:12 PM] GET /trace - ::ffff:195.90.209.56
+[8:00:12 PM] GET /api/avatar/0136db07-aed3-4323-acff-2fa887f9f310 - ::ffff:195.90.209.56
+[8:00:12 PM] GET /dist/trace-page-7QPOKRWU.js - ::ffff:195.90.209.56
+[8:00:12 PM] GET /scenario - ::ffff:195.90.209.56
+[8:00:12 PM] GET /dist/scenario-view-JGC6M3Q3.js - ::ffff:195.90.209.56
+[8:00:16 PM] Avatar assigned: 0136db07 (image/jpeg)
+[8:00:20 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:01:21 PM] GET /app - ::ffff:195.90.209.56
+[8:01:21 PM] GET /app.css - ::ffff:195.90.209.56
+[8:01:21 PM] GET /dist/app-IVT25JQ5.js - ::ffff:195.90.209.56
+[8:01:21 PM] GET /api/config - ::ffff:195.90.209.56
+[8:01:21 PM] GET /api/config - ::ffff:195.90.209.56
+[8:01:21 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:01:21 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:01:21 PM] GET /api/avatar/01d449ba-1513-412d-aa28-aee0f963b9a6 - ::ffff:195.90.209.56
+[8:01:21 PM] GET /app - ::ffff:195.90.209.56
+[8:01:21 PM] GET /manifest.json - ::ffff:195.90.209.56
+[8:01:21 PM] GET /app.css - ::ffff:195.90.209.56
+[8:01:21 PM] GET /icon-180.png - ::ffff:195.90.209.56
+[8:01:21 PM] GET /icon-192.png - ::ffff:195.90.209.56
+[8:01:21 PM] GET /icon-512.png - ::ffff:195.90.209.56
+[8:01:21 PM] GET /trace - ::ffff:195.90.209.56
+[8:01:21 PM] GET /dist/trace-page-7QPOKRWU.js - ::ffff:195.90.209.56
+[8:01:21 PM] GET /scenario - ::ffff:195.90.209.56
+[8:01:21 PM] GET /dist/scenario-view-JGC6M3Q3.js - ::ffff:195.90.209.56
+[8:01:25 PM] Avatar assigned: 01d449ba (image/jpeg)
+[8:01:25 PM] GET /api/avatar/01d449ba-1513-412d-aa28-aee0f963b9a6?t=1782673285156 - ::ffff:195.90.209.56
+[8:01:25 PM] Avatar GET: token=01d449ba mime=image/jpeg size=4527
+[8:01:27 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:01:27 PM] GET /api/config - ::ffff:195.90.209.56
+[8:01:27 PM] GET /api/config - ::ffff:195.90.209.56
+[8:01:27 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:01:27 PM] Owner 01d449ba connected — 0 room(s) (0 newly registered)
+[8:01:29 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:01:50 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:02:13 PM] GET /app - ::ffff:195.90.209.56
+[8:02:13 PM] GET /app.css - ::ffff:195.90.209.56
+[8:02:13 PM] GET /dist/app-IVT25JQ5.js - ::ffff:195.90.209.56
+[8:02:13 PM] GET /api/config - ::ffff:195.90.209.56
+[8:02:13 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:02:13 PM] GET /api/config - ::ffff:195.90.209.56
+[8:02:13 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:02:13 PM] GET /app - ::ffff:195.90.209.56
+[8:02:13 PM] GET /manifest.json - ::ffff:195.90.209.56
+[8:02:13 PM] GET /app.css - ::ffff:195.90.209.56
+[8:02:13 PM] GET /icon-180.png - ::ffff:195.90.209.56
+[8:02:13 PM] GET /api/avatar/b03c6ce6-e584-46f8-be3a-f636121b38d1 - ::ffff:195.90.209.56
+[8:02:13 PM] GET /icon-192.png - ::ffff:195.90.209.56
+[8:02:13 PM] GET /icon-512.png - ::ffff:195.90.209.56
+[8:02:13 PM] GET /trace - ::ffff:195.90.209.56
+[8:02:13 PM] GET /dist/trace-page-7QPOKRWU.js - ::ffff:195.90.209.56
+[8:02:13 PM] GET /scenario - ::ffff:195.90.209.56
+[8:02:13 PM] GET /dist/scenario-view-JGC6M3Q3.js - ::ffff:195.90.209.56
+[8:02:17 PM] Avatar assigned: b03c6ce6 (image/jpeg)
+[8:02:17 PM] GET /api/avatar/b03c6ce6-e584-46f8-be3a-f636121b38d1?t=1782673337432 - ::ffff:195.90.209.56
+[8:02:17 PM] Avatar GET: token=b03c6ce6 mime=image/jpeg size=4527
+[8:02:20 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:02:20 PM] GET /api/config - ::ffff:195.90.209.56
+[8:02:20 PM] GET /api/config - ::ffff:195.90.209.56
+[8:02:20 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:02:20 PM] Owner b03c6ce6 connected — 0 room(s) (0 newly registered)
+[8:02:21 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:02:24 PM] GET /api/avatar/b03c6ce6-e584-46f8-be3a-f636121b38d1?t=1782673344140 - ::ffff:195.90.209.56
+[8:02:24 PM] Avatar GET: token=b03c6ce6 mime=image/jpeg size=4527
+[8:02:34 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:02:34 PM] GET /api/config - ::ffff:195.90.209.56
+[8:02:34 PM] GET /api/config - ::ffff:195.90.209.56
+[8:02:34 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:02:34 PM] Owner b03c6ce6 connected — 0 room(s) (0 newly registered)
+[8:02:35 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:02:38 PM] GET /api/avatar/b03c6ce6-e584-46f8-be3a-f636121b38d1?t=1782673358420 - ::ffff:195.90.209.56
+[8:02:38 PM] Avatar GET: token=b03c6ce6 mime=image/jpeg size=4527
+[8:02:38 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:02:38 PM] GET /api/config - ::ffff:195.90.209.56
+[8:02:38 PM] GET /api/config - ::ffff:195.90.209.56
+[8:02:38 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:02:38 PM] Owner b03c6ce6 connected — 0 room(s) (0 newly registered)
+[8:02:40 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:02:42 PM] GET /api/avatar/b03c6ce6-e584-46f8-be3a-f636121b38d1?t=1782673362572 - ::ffff:195.90.209.56
+[8:02:42 PM] Avatar GET: token=b03c6ce6 mime=image/jpeg size=4527
+[8:02:52 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:04:56 PM] GET /app - ::ffff:195.90.209.56
+[8:04:56 PM] GET /app.css - ::ffff:195.90.209.56
+[8:04:56 PM] GET /dist/app-IVT25JQ5.js - ::ffff:195.90.209.56
+[8:04:56 PM] GET /api/config - ::ffff:195.90.209.56
+[8:04:56 PM] GET /api/config - ::ffff:195.90.209.56
+[8:04:56 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:04:56 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:04:56 PM] GET /api/avatar/5bbbfcd8-4d05-48a4-bcd7-c29561d10a38 - ::ffff:195.90.209.56
+[8:04:56 PM] GET /app - ::ffff:195.90.209.56
+[8:04:56 PM] GET /app.css - ::ffff:195.90.209.56
+[8:04:56 PM] GET /manifest.json - ::ffff:195.90.209.56
+[8:04:56 PM] GET /icon-180.png - ::ffff:195.90.209.56
+[8:04:56 PM] GET /icon-192.png - ::ffff:195.90.209.56
+[8:04:56 PM] GET /icon-512.png - ::ffff:195.90.209.56
+[8:04:56 PM] GET /trace - ::ffff:195.90.209.56
+[8:04:56 PM] GET /dist/trace-page-7QPOKRWU.js - ::ffff:195.90.209.56
+[8:04:56 PM] GET /scenario - ::ffff:195.90.209.56
+[8:04:56 PM] GET /dist/scenario-view-JGC6M3Q3.js - ::ffff:195.90.209.56
+[8:04:59 PM] Avatar assigned: 5bbbfcd8 (image/jpeg)
+[8:04:59 PM] GET /api/avatar/5bbbfcd8-4d05-48a4-bcd7-c29561d10a38?t=1782673499989 - ::ffff:195.90.209.56
+[8:04:59 PM] Avatar GET: token=5bbbfcd8 mime=image/jpeg size=4527
+[8:05:02 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:05:02 PM] GET /api/config - ::ffff:195.90.209.56
+[8:05:02 PM] GET /api/config - ::ffff:195.90.209.56
+[8:05:02 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:05:02 PM] Owner 5bbbfcd8 connected — 0 room(s) (0 newly registered)
+[8:05:04 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:05:06 PM] GET /api/avatar/5bbbfcd8-4d05-48a4-bcd7-c29561d10a38?t=1782673506751 - ::ffff:195.90.209.56
+[8:05:06 PM] Avatar GET: token=5bbbfcd8 mime=image/jpeg size=4527
+[8:05:17 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:05:17 PM] GET /api/config - ::ffff:195.90.209.56
+[8:05:17 PM] GET /api/config - ::ffff:195.90.209.56
+[8:05:17 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:05:17 PM] Owner 5bbbfcd8 connected — 0 room(s) (0 newly registered)
+[8:05:18 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:05:21 PM] GET /api/avatar/5bbbfcd8-4d05-48a4-bcd7-c29561d10a38?t=1782673521051 - ::ffff:195.90.209.56
+[8:05:21 PM] Avatar GET: token=5bbbfcd8 mime=image/jpeg size=4527
+[8:05:31 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:05:31 PM] GET /api/config - ::ffff:195.90.209.56
+[8:05:31 PM] GET /api/config - ::ffff:195.90.209.56
+[8:05:31 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:05:31 PM] Owner 5bbbfcd8 connected — 0 room(s) (0 newly registered)
+[8:05:32 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:05:35 PM] GET /api/avatar/5bbbfcd8-4d05-48a4-bcd7-c29561d10a38?t=1782673535282 - ::ffff:195.90.209.56
+[8:05:35 PM] Avatar GET: token=5bbbfcd8 mime=image/jpeg size=4527
+[8:05:45 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:05:46 PM] GET /app - ::ffff:195.90.209.56
+[8:05:46 PM] GET /app.css - ::ffff:195.90.209.56
+[8:05:46 PM] GET /dist/app-IVT25JQ5.js - ::ffff:195.90.209.56
+[8:05:46 PM] GET /api/config - ::ffff:195.90.209.56
+[8:05:46 PM] GET /api/config - ::ffff:195.90.209.56
+[8:05:46 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:05:46 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:05:46 PM] GET /api/avatar/24f31816-f5c7-4a6d-bb1f-ef572bd88b76 - ::ffff:195.90.209.56
+[8:05:46 PM] GET /app - ::ffff:195.90.209.56
+[8:05:46 PM] GET /manifest.json - ::ffff:195.90.209.56
+[8:05:46 PM] GET /app.css - ::ffff:195.90.209.56
+[8:05:46 PM] GET /icon-180.png - ::ffff:195.90.209.56
+[8:05:46 PM] GET /icon-192.png - ::ffff:195.90.209.56
+[8:05:46 PM] GET /icon-512.png - ::ffff:195.90.209.56
+[8:05:46 PM] GET /trace - ::ffff:195.90.209.56
+[8:05:46 PM] GET /dist/trace-page-7QPOKRWU.js - ::ffff:195.90.209.56
+[8:05:46 PM] GET /scenario - ::ffff:195.90.209.56
+[8:05:46 PM] GET /dist/scenario-view-JGC6M3Q3.js - ::ffff:195.90.209.56
+[8:05:50 PM] Avatar assigned: 24f31816 (image/jpeg)
+[8:05:50 PM] GET /api/avatar/24f31816-f5c7-4a6d-bb1f-ef572bd88b76?t=1782673550180 - ::ffff:195.90.209.56
+[8:05:50 PM] Avatar GET: token=24f31816 mime=image/jpeg size=4527
+[8:05:52 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:05:52 PM] GET /api/config - ::ffff:195.90.209.56
+[8:05:52 PM] GET /api/config - ::ffff:195.90.209.56
+[8:05:52 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:05:52 PM] Owner 24f31816 connected — 0 room(s) (0 newly registered)
+[8:05:54 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:05:56 PM] GET /api/avatar/24f31816-f5c7-4a6d-bb1f-ef572bd88b76?t=1782673556966 - ::ffff:195.90.209.56
+[8:05:56 PM] Avatar GET: token=24f31816 mime=image/jpeg size=4527
+[8:05:56 PM] GET /api/avatar/24f31816-f5c7-4a6d-bb1f-ef572bd88b76?t=1782673556967 - ::ffff:195.90.209.56
+[8:05:56 PM] Avatar GET: token=24f31816 mime=image/jpeg size=4527
+[8:06:07 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:06:07 PM] GET /api/config - ::ffff:195.90.209.56
+[8:06:07 PM] GET /api/config - ::ffff:195.90.209.56
+[8:06:07 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:06:07 PM] Owner 24f31816 connected — 0 room(s) (0 newly registered)
+[8:06:08 PM] WS connected: ::ffff:61.8.154.167 (2 online)
+[8:06:08 PM] Owner 3effa1fc connected — 0 room(s) (0 newly registered)
+[8:06:08 PM] New client: ::ffff:61.8.154.167
+[8:06:08 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22?t=1782673568987 - ::ffff:61.8.154.167
+[8:06:08 PM] Avatar GET: token=3effa1fc mime=image/jpeg size=64597
+[8:06:08 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:06:11 PM] GET /api/avatar/24f31816-f5c7-4a6d-bb1f-ef572bd88b76?t=1782673571277 - ::ffff:195.90.209.56
+[8:06:11 PM] Avatar GET: token=24f31816 mime=image/jpeg size=4527
+[8:06:11 PM] WS disconnected: ::ffff:195.90.209.56 (1 online)
+[8:06:11 PM] GET /api/config - ::ffff:195.90.209.56
+[8:06:11 PM] GET /api/config - ::ffff:195.90.209.56
+[8:06:11 PM] WS connected: ::ffff:195.90.209.56 (2 online)
+[8:06:11 PM] Owner 24f31816 connected — 0 room(s) (0 newly registered)
+[8:06:12 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:06:15 PM] WS disconnected: ::ffff:195.90.209.56 (1 online)
+[8:06:16 PM] GET /app - ::ffff:195.90.209.56
+[8:06:16 PM] GET /app.css - ::ffff:195.90.209.56
+[8:06:16 PM] GET /dist/app-IVT25JQ5.js - ::ffff:195.90.209.56
+[8:06:16 PM] GET /api/config - ::ffff:195.90.209.56
+[8:06:16 PM] GET /api/config - ::ffff:195.90.209.56
+[8:06:16 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:06:16 PM] WS connected: ::ffff:195.90.209.56 (2 online)
+[8:06:16 PM] GET /api/avatar/45230769-cdca-4218-9d93-8b271093a568 - ::ffff:195.90.209.56
+[8:06:16 PM] GET /app - ::ffff:195.90.209.56
+[8:06:16 PM] GET /manifest.json - ::ffff:195.90.209.56
+[8:06:16 PM] GET /app.css - ::ffff:195.90.209.56
+[8:06:16 PM] GET /icon-180.png - ::ffff:195.90.209.56
+[8:06:16 PM] GET /icon-192.png - ::ffff:195.90.209.56
+[8:06:16 PM] GET /icon-512.png - ::ffff:195.90.209.56
+[8:06:16 PM] GET /trace - ::ffff:195.90.209.56
+[8:06:16 PM] GET /dist/trace-page-7QPOKRWU.js - ::ffff:195.90.209.56
+[8:06:16 PM] GET /scenario - ::ffff:195.90.209.56
+[8:06:16 PM] GET /dist/scenario-view-JGC6M3Q3.js - ::ffff:195.90.209.56
+[8:06:20 PM] Avatar assigned: 45230769 (image/jpeg)
+[8:06:20 PM] GET /api/avatar/45230769-cdca-4218-9d93-8b271093a568?t=1782673580067 - ::ffff:195.90.209.56
+[8:06:20 PM] Avatar GET: token=45230769 mime=image/jpeg size=4527
+[8:06:22 PM] WS disconnected: ::ffff:195.90.209.56 (1 online)
+[8:06:22 PM] GET /api/config - ::ffff:195.90.209.56
+[8:06:22 PM] GET /api/config - ::ffff:195.90.209.56
+[8:06:22 PM] WS connected: ::ffff:195.90.209.56 (2 online)
+[8:06:22 PM] Owner 45230769 connected — 0 room(s) (0 newly registered)
+[8:06:24 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:06:26 PM] GET /api/avatar/45230769-cdca-4218-9d93-8b271093a568?t=1782673586812 - ::ffff:195.90.209.56
+[8:06:26 PM] Avatar GET: token=45230769 mime=image/jpeg size=4527
+[8:06:37 PM] WS disconnected: ::ffff:195.90.209.56 (1 online)
+[8:06:37 PM] GET /api/config - ::ffff:195.90.209.56
+[8:06:37 PM] GET /api/config - ::ffff:195.90.209.56
+[8:06:37 PM] WS connected: ::ffff:195.90.209.56 (2 online)
+[8:06:37 PM] Owner 45230769 connected — 0 room(s) (0 newly registered)
+[8:06:38 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:06:41 PM] WS disconnected: ::ffff:195.90.209.56 (1 online)
+[8:06:41 PM] GET /api/config - ::ffff:195.90.209.56
+[8:06:41 PM] GET /api/config - ::ffff:195.90.209.56
+[8:06:41 PM] WS connected: ::ffff:195.90.209.56 (2 online)
+[8:06:41 PM] Owner 45230769 connected — 0 room(s) (0 newly registered)
+[8:06:42 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:06:44 PM] WS disconnected: ::ffff:195.90.209.56 (1 online)
+[8:06:55 PM] WS disconnected: ::ffff:61.8.154.167 (0 online)
+[8:08:29 PM] GET /api/phone/%2B4915253844085 - ::ffff:195.90.209.56
+[8:08:29 PM] GET /api/phone/%2B4915253844085 - ::ffff:195.90.209.56
+[8:08:29 PM] GET /api/phone/%2B4915253844085 - ::ffff:195.90.209.56
+[8:08:29 PM] GET /api/phone/%2B4915253844085 - ::ffff:195.90.209.56
+[8:08:29 PM] GET /api/phone/%2B4915253844085 - ::ffff:195.90.209.56
+[8:08:29 PM] GET /api/phone/%2B4915253844085 - ::ffff:195.90.209.56
+[8:09:55 PM] GET /app - ::ffff:195.90.209.56
+[8:09:55 PM] GET /app.css - ::ffff:195.90.209.56
+[8:09:55 PM] GET /dist/app-IVT25JQ5.js - ::ffff:195.90.209.56
+[8:09:55 PM] GET /api/config - ::ffff:195.90.209.56
+[8:09:55 PM] GET /api/config - ::ffff:195.90.209.56
+[8:09:55 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:09:55 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:09:55 PM] GET /api/avatar/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:09:55 PM] GET /app - ::ffff:195.90.209.56
+[8:09:55 PM] GET /manifest.json - ::ffff:195.90.209.56
+[8:09:55 PM] GET /app.css - ::ffff:195.90.209.56
+[8:09:55 PM] GET /icon-180.png - ::ffff:195.90.209.56
+[8:09:55 PM] GET /icon-192.png - ::ffff:195.90.209.56
+[8:09:55 PM] GET /icon-512.png - ::ffff:195.90.209.56
+[8:09:55 PM] GET /trace - ::ffff:195.90.209.56
+[8:09:55 PM] GET /dist/trace-page-7QPOKRWU.js - ::ffff:195.90.209.56
+[8:09:55 PM] GET /scenario - ::ffff:195.90.209.56
+[8:09:55 PM] GET /dist/scenario-view-JGC6M3Q3.js - ::ffff:195.90.209.56
+[8:09:59 PM] Avatar assigned: 0c0b8dff (image/jpeg)
+[8:09:59 PM] GET /api/avatar/0c0b8dff-3d5d-429a-8490-3700b9e2149c?t=1782673799234 - ::ffff:195.90.209.56
+[8:09:59 PM] Avatar GET: token=0c0b8dff mime=image/jpeg size=4527
+[8:10:01 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:01 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:10:01 PM] GET /api/config - ::ffff:195.90.209.56
+[8:10:01 PM] GET /api/config - ::ffff:195.90.209.56
+[8:10:01 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:10:01 PM] Owner 0c0b8dff connected — 0 room(s) (0 newly registered)
+[8:10:03 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:10:04 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:05 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:05 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:05 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:05 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:06 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:06 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:06 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:06 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:06 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:07 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:07 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:07 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:07 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:07 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:08 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:08 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:08 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:08 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:08 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:09 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:09 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:09 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:09 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:10 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:10 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:10 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:10 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:10 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:11 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:11 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:11 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:11 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:11 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:12 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:12 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:12 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:12 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:12 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:13 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:13 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:13 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:13 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:13 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:14 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:14 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:14 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:14 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:15 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:15 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:15 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:10:15 PM] GET /api/config - ::ffff:195.90.209.56
+[8:10:15 PM] GET /api/config - ::ffff:195.90.209.56
+[8:10:15 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:10:15 PM] Owner 0c0b8dff connected — 0 room(s) (0 newly registered)
+[8:10:17 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:10:18 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:18 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:18 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:19 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:19 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:19 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:19 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:20 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:20 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:20 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:20 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:20 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:21 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:21 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:21 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:21 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:21 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:22 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:22 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:22 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:22 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:22 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:23 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:23 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:23 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:23 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:23 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:24 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:24 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:24 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:24 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:25 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:25 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:25 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:25 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:25 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:26 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:26 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:26 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:26 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:26 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:27 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:27 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:27 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:27 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:27 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:28 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:28 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:28 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:28 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:28 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:10:28 PM] GET /api/config - ::ffff:195.90.209.56
+[8:10:28 PM] GET /api/config - ::ffff:195.90.209.56
+[8:10:29 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:10:29 PM] Owner 0c0b8dff connected — 0 room(s) (0 newly registered)
+[8:10:30 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:10:32 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:32 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:32 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:32 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:32 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:33 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:33 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:33 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:33 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:33 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:34 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:34 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:34 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:34 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:34 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:35 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:35 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:35 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:35 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:36 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:36 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:36 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:36 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:36 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:37 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:37 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:37 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:37 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:37 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:38 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:38 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:38 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:38 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:38 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:39 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:39 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:39 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:39 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:39 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:40 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:40 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:40 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:40 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:41 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:41 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:41 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:41 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:41 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:42 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:42 PM] GET /api/vcard/0c0b8dff-3d5d-429a-8490-3700b9e2149c - ::ffff:195.90.209.56
+[8:10:42 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:11:41 PM] GET /app - ::ffff:195.90.209.56
+[8:11:41 PM] GET /app.css - ::ffff:195.90.209.56
+[8:11:41 PM] GET /dist/app-IVT25JQ5.js - ::ffff:195.90.209.56
+[8:11:41 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:11:41 PM] GET /api/config - ::ffff:195.90.209.56
+[8:11:41 PM] GET /api/config - ::ffff:195.90.209.56
+[8:11:41 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:11:41 PM] GET /api/avatar/5a4bb4fa-f333-42d3-b2fc-e9d85b49e064 - ::ffff:195.90.209.56
+[8:11:41 PM] GET /app - ::ffff:195.90.209.56
+[8:11:41 PM] GET /manifest.json - ::ffff:195.90.209.56
+[8:11:41 PM] GET /app.css - ::ffff:195.90.209.56
+[8:11:41 PM] GET /icon-180.png - ::ffff:195.90.209.56
+[8:11:41 PM] GET /icon-192.png - ::ffff:195.90.209.56
+[8:11:41 PM] GET /icon-512.png - ::ffff:195.90.209.56
+[8:11:41 PM] GET /trace - ::ffff:195.90.209.56
+[8:11:41 PM] GET /dist/trace-page-7QPOKRWU.js - ::ffff:195.90.209.56
+[8:11:41 PM] GET /scenario - ::ffff:195.90.209.56
+[8:11:41 PM] GET /dist/scenario-view-JGC6M3Q3.js - ::ffff:195.90.209.56
+[8:11:45 PM] Avatar assigned: 5a4bb4fa (image/jpeg)
+[8:11:45 PM] GET /api/avatar/5a4bb4fa-f333-42d3-b2fc-e9d85b49e064?t=1782673905109 - ::ffff:195.90.209.56
+[8:11:45 PM] Avatar GET: token=5a4bb4fa mime=image/jpeg size=4527
+[8:11:47 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:11:47 PM] GET /api/config - ::ffff:195.90.209.56
+[8:11:47 PM] GET /api/config - ::ffff:195.90.209.56
+[8:11:47 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:11:47 PM] Owner 5a4bb4fa connected — 0 room(s) (0 newly registered)
+[8:11:49 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:11:51 PM] POST /api/vcard - ::ffff:195.90.209.56
+[8:11:51 PM] vCard uploaded: 5a4bb4fa (60 bytes)
+[8:11:51 PM] GET /api/vcard/5a4bb4fa-f333-42d3-b2fc-e9d85b49e064 - ::ffff:195.90.209.56
+[8:11:51 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:14:23 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[8:14:24 PM] Server started (production mode)
+[8:14:24 PM] HTTPS: https://localhost:4444
+[8:14:33 PM] New client: ::ffff:195.90.209.56
+[8:14:33 PM] GET /api/health - ::ffff:195.90.209.56
+[8:14:33 PM] GET /app - ::ffff:195.90.209.56
+[8:17:01 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[8:17:01 PM] Server started (production mode)
+[8:17:01 PM] HTTPS: https://localhost:4444
+[8:17:20 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[8:17:20 PM] Server started (production mode)
+[8:17:20 PM] HTTPS: https://localhost:4444
+[8:17:34 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[8:17:34 PM] Server started (production mode)
+[8:17:34 PM] HTTPS: https://localhost:4444
+[8:17:53 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[8:17:53 PM] Server started (production mode)
+[8:17:53 PM] HTTPS: https://localhost:4444
+[8:18:22 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[8:18:22 PM] Server started (production mode)
+[8:18:22 PM] HTTPS: https://localhost:4444
+[8:21:01 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[8:21:02 PM] Server started (production mode)
+[8:21:02 PM] HTTPS: https://localhost:4444
+[8:21:04 PM] New client: ::ffff:195.90.209.56
+[8:21:04 PM] GET /api/health - ::ffff:195.90.209.56
+[8:21:43 PM] WS connected: ::ffff:127.0.0.1 (1 online)
+[8:21:43 PM] Known-key challenge: 00000000 → existing 3effa1fc
+[8:21:43 PM] WS disconnected: ::ffff:127.0.0.1 (0 online)
+[8:22:14 PM] WS connected: ::ffff:127.0.0.1 (1 online)
+[8:22:14 PM] Known-key challenge: 00000000 → existing 3effa1fc
+[8:22:14 PM] WS disconnected: ::ffff:127.0.0.1 (0 online)
+[8:22:14 PM] WS connected: ::ffff:127.0.0.1 (1 online)
+[8:22:14 PM] Known-key challenge: 00000000 → existing 3effa1fc
+[8:22:14 PM] Device enrolled: 3effa1fc / dev-AC3- (R21.4 device-link)
+[8:22:14 PM] WS disconnected: ::ffff:127.0.0.1 (0 online)
+[8:23:42 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[8:23:43 PM] Server started (production mode)
+[8:23:43 PM] HTTPS: https://localhost:4444
+[8:23:45 PM] New client: ::ffff:195.90.209.56
+[8:23:45 PM] GET /api/health - ::ffff:195.90.209.56
+[8:41:52 PM] New client: ::1
+[8:41:52 PM] GET /api/health - ::1
+[8:42:29 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:42:30 PM] New client: ::ffff:195.90.209.56
+[8:42:30 PM] GET /app - ::ffff:195.90.209.56
+[8:42:30 PM] GET /app.css - ::ffff:195.90.209.56
+[8:42:30 PM] GET /dist/app-FZJHOLVI.js - ::ffff:195.90.209.56
+[8:42:30 PM] GET /api/config - ::ffff:195.90.209.56
+[8:42:30 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:42:30 PM] GET /api/config - ::ffff:195.90.209.56
+[8:42:30 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:42:30 PM] GET /manifest.json - ::ffff:195.90.209.56
+[8:42:30 PM] GET /app - ::ffff:195.90.209.56
+[8:42:30 PM] GET /app.css - ::ffff:195.90.209.56
+[8:42:30 PM] GET /icon-180.png - ::ffff:195.90.209.56
+[8:42:30 PM] GET /api/avatar/62ac5d50-979e-4435-b41a-71f5215003e3 - ::ffff:195.90.209.56
+[8:42:30 PM] GET /icon-192.png - ::ffff:195.90.209.56
+[8:42:30 PM] GET /icon-512.png - ::ffff:195.90.209.56
+[8:42:30 PM] GET /trace - ::ffff:195.90.209.56
+[8:42:30 PM] GET /dist/trace-page-7QPOKRWU.js - ::ffff:195.90.209.56
+[8:42:30 PM] GET /scenario - ::ffff:195.90.209.56
+[8:42:30 PM] GET /dist/scenario-view-JGC6M3Q3.js - ::ffff:195.90.209.56
+[8:42:33 PM] Avatar assigned: 62ac5d50 (image/jpeg)
+[8:42:33 PM] GET /api/avatar/62ac5d50-979e-4435-b41a-71f5215003e3?t=1782675753981 - ::ffff:195.90.209.56
+[8:42:33 PM] Avatar GET: token=62ac5d50 mime=image/jpeg size=4527
+[8:42:36 PM] GET /api/vcard/62ac5d50-979e-4435-b41a-71f5215003e3 - ::ffff:195.90.209.56
+[8:42:36 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:42:36 PM] GET /api/config - ::ffff:195.90.209.56
+[8:42:36 PM] GET /api/config - ::ffff:195.90.209.56
+[8:42:36 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:42:36 PM] Owner 62ac5d50 connected — 0 room(s) (0 newly registered)
+[8:42:38 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:42:39 PM] POST /api/vcard - ::ffff:195.90.209.56
+[8:42:39 PM] vCard uploaded: 62ac5d50 (95 bytes)
+[8:42:39 PM] GET /api/vcard/62ac5d50-979e-4435-b41a-71f5215003e3 - ::ffff:195.90.209.56
+[8:42:39 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:42:39 PM] GET /api/config - ::ffff:195.90.209.56
+[8:42:39 PM] GET /api/config - ::ffff:195.90.209.56
+[8:42:39 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:42:39 PM] Owner 62ac5d50 connected — 0 room(s) (0 newly registered)
+[8:42:41 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:42:43 PM] POST /api/vcard - ::ffff:195.90.209.56
+[8:42:43 PM] vCard uploaded: 62ac5d50 (95 bytes)
+[8:42:43 PM] GET /api/vcard/62ac5d50-979e-4435-b41a-71f5215003e3 - ::ffff:195.90.209.56
+[8:42:43 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:42:43 PM] GET /api/config - ::ffff:195.90.209.56
+[8:42:43 PM] GET /api/config - ::ffff:195.90.209.56
+[8:42:43 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:42:43 PM] Owner 62ac5d50 connected — 0 room(s) (0 newly registered)
+[8:42:44 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:42:46 PM] POST /api/vcard - ::ffff:195.90.209.56
+[8:42:46 PM] vCard uploaded: 62ac5d50 (95 bytes)
+[8:42:46 PM] GET /api/vcard/62ac5d50-979e-4435-b41a-71f5215003e3 - ::ffff:195.90.209.56
+[8:42:46 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:42:47 PM] GET /app - ::ffff:195.90.209.56
+[8:42:47 PM] GET /app.css - ::ffff:195.90.209.56
+[8:42:47 PM] GET /dist/app-FZJHOLVI.js - ::ffff:195.90.209.56
+[8:42:47 PM] GET /api/config - ::ffff:195.90.209.56
+[8:42:47 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:42:47 PM] GET /api/config - ::ffff:195.90.209.56
+[8:42:47 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:42:47 PM] GET /app - ::ffff:195.90.209.56
+[8:42:47 PM] GET /manifest.json - ::ffff:195.90.209.56
+[8:42:47 PM] GET /app.css - ::ffff:195.90.209.56
+[8:42:47 PM] GET /api/avatar/baa7f922-de33-4159-80e4-92430f2562f1 - ::ffff:195.90.209.56
+[8:42:47 PM] GET /icon-180.png - ::ffff:195.90.209.56
+[8:42:47 PM] GET /icon-192.png - ::ffff:195.90.209.56
+[8:42:47 PM] GET /icon-512.png - ::ffff:195.90.209.56
+[8:42:47 PM] GET /trace - ::ffff:195.90.209.56
+[8:42:47 PM] GET /dist/trace-page-7QPOKRWU.js - ::ffff:195.90.209.56
+[8:42:47 PM] GET /scenario - ::ffff:195.90.209.56
+[8:42:47 PM] GET /dist/scenario-view-JGC6M3Q3.js - ::ffff:195.90.209.56
+[8:42:51 PM] Avatar assigned: baa7f922 (image/jpeg)
+[8:42:51 PM] GET /api/avatar/baa7f922-de33-4159-80e4-92430f2562f1?t=1782675771491 - ::ffff:195.90.209.56
+[8:42:51 PM] Avatar GET: token=baa7f922 mime=image/jpeg size=4527
+[8:42:53 PM] GET /api/vcard/baa7f922-de33-4159-80e4-92430f2562f1 - ::ffff:195.90.209.56
+[8:42:53 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:42:53 PM] GET /api/config - ::ffff:195.90.209.56
+[8:42:53 PM] GET /api/config - ::ffff:195.90.209.56
+[8:42:53 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:42:53 PM] Owner baa7f922 connected — 0 room(s) (0 newly registered)
+[8:42:55 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:42:57 PM] POST /api/vcard - ::ffff:195.90.209.56
+[8:42:57 PM] vCard uploaded: baa7f922 (95 bytes)
+[8:42:57 PM] GET /api/vcard/baa7f922-de33-4159-80e4-92430f2562f1 - ::ffff:195.90.209.56
+[8:42:57 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:42:57 PM] GET /api/config - ::ffff:195.90.209.56
+[8:42:57 PM] GET /api/config - ::ffff:195.90.209.56
+[8:42:57 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:42:57 PM] Owner baa7f922 connected — 0 room(s) (0 newly registered)
+[8:42:58 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:43:00 PM] POST /api/vcard - ::ffff:195.90.209.56
+[8:43:00 PM] vCard uploaded: baa7f922 (95 bytes)
+[8:43:00 PM] GET /api/vcard/baa7f922-de33-4159-80e4-92430f2562f1 - ::ffff:195.90.209.56
+[8:43:00 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:43:00 PM] GET /api/config - ::ffff:195.90.209.56
+[8:43:00 PM] GET /api/config - ::ffff:195.90.209.56
+[8:43:00 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:43:00 PM] Owner baa7f922 connected — 0 room(s) (0 newly registered)
+[8:43:01 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:43:03 PM] POST /api/vcard - ::ffff:195.90.209.56
+[8:43:03 PM] vCard uploaded: baa7f922 (95 bytes)
+[8:43:03 PM] GET /api/vcard/baa7f922-de33-4159-80e4-92430f2562f1 - ::ffff:195.90.209.56
+[8:43:03 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:43:04 PM] GET /app - ::ffff:195.90.209.56
+[8:43:04 PM] GET /app.css - ::ffff:195.90.209.56
+[8:43:04 PM] GET /dist/app-FZJHOLVI.js - ::ffff:195.90.209.56
+[8:43:04 PM] GET /api/config - ::ffff:195.90.209.56
+[8:43:04 PM] GET /api/config - ::ffff:195.90.209.56
+[8:43:04 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:43:04 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:43:04 PM] GET /api/avatar/8b29c095-1d78-4cc8-8d30-fb00520a4026 - ::ffff:195.90.209.56
+[8:43:04 PM] GET /manifest.json - ::ffff:195.90.209.56
+[8:43:04 PM] GET /app - ::ffff:195.90.209.56
+[8:43:04 PM] GET /app.css - ::ffff:195.90.209.56
+[8:43:04 PM] GET /icon-180.png - ::ffff:195.90.209.56
+[8:43:04 PM] GET /icon-192.png - ::ffff:195.90.209.56
+[8:43:04 PM] GET /icon-512.png - ::ffff:195.90.209.56
+[8:43:04 PM] GET /trace - ::ffff:195.90.209.56
+[8:43:04 PM] GET /dist/trace-page-7QPOKRWU.js - ::ffff:195.90.209.56
+[8:43:04 PM] GET /scenario - ::ffff:195.90.209.56
+[8:43:04 PM] GET /dist/scenario-view-JGC6M3Q3.js - ::ffff:195.90.209.56
+[8:43:08 PM] Avatar assigned: 8b29c095 (image/jpeg)
+[8:43:08 PM] GET /api/avatar/8b29c095-1d78-4cc8-8d30-fb00520a4026?t=1782675788174 - ::ffff:195.90.209.56
+[8:43:08 PM] Avatar GET: token=8b29c095 mime=image/jpeg size=4527
+[8:43:10 PM] GET /api/vcard/8b29c095-1d78-4cc8-8d30-fb00520a4026 - ::ffff:195.90.209.56
+[8:43:10 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:43:10 PM] GET /api/config - ::ffff:195.90.209.56
+[8:43:10 PM] GET /api/config - ::ffff:195.90.209.56
+[8:43:10 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:43:10 PM] Owner 8b29c095 connected — 0 room(s) (0 newly registered)
+[8:43:12 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:43:14 PM] POST /api/vcard - ::ffff:195.90.209.56
+[8:43:14 PM] vCard uploaded: 8b29c095 (95 bytes)
+[8:43:14 PM] GET /api/vcard/8b29c095-1d78-4cc8-8d30-fb00520a4026 - ::ffff:195.90.209.56
+[8:43:14 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:43:14 PM] GET /api/config - ::ffff:195.90.209.56
+[8:43:14 PM] GET /api/config - ::ffff:195.90.209.56
+[8:43:14 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:43:14 PM] Owner 8b29c095 connected — 0 room(s) (0 newly registered)
+[8:43:15 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:43:17 PM] POST /api/vcard - ::ffff:195.90.209.56
+[8:43:17 PM] vCard uploaded: 8b29c095 (95 bytes)
+[8:43:17 PM] GET /api/vcard/8b29c095-1d78-4cc8-8d30-fb00520a4026 - ::ffff:195.90.209.56
+[8:43:17 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:43:17 PM] GET /api/config - ::ffff:195.90.209.56
+[8:43:17 PM] GET /api/config - ::ffff:195.90.209.56
+[8:43:17 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:43:17 PM] Owner 8b29c095 connected — 0 room(s) (0 newly registered)
+[8:43:18 PM] GET /sw.js - ::ffff:195.90.209.56
+[8:43:20 PM] POST /api/vcard - ::ffff:195.90.209.56
+[8:43:20 PM] vCard uploaded: 8b29c095 (95 bytes)
+[8:43:20 PM] GET /api/vcard/8b29c095-1d78-4cc8-8d30-fb00520a4026 - ::ffff:195.90.209.56
+[8:43:20 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:43:55 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[8:43:56 PM] Server started (production mode)
+[8:43:56 PM] HTTPS: https://localhost:4444
+[8:44:06 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[8:44:06 PM] Server started (production mode)
+[8:44:06 PM] HTTPS: https://localhost:4444
+[8:44:22 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[8:44:22 PM] Server started (production mode)
+[8:44:22 PM] HTTPS: https://localhost:4444
+[8:44:31 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[8:44:32 PM] Server started (production mode)
+[8:44:32 PM] HTTPS: https://localhost:4444
+[8:44:45 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[8:44:45 PM] Server started (production mode)
+[8:44:45 PM] HTTPS: https://localhost:4444
+[8:44:57 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[8:44:57 PM] Server started (production mode)
+[8:44:57 PM] HTTPS: https://localhost:4444
+[8:46:02 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[8:46:02 PM] Server started (production mode)
+[8:46:02 PM] HTTPS: https://localhost:4444
+[8:46:04 PM] New client: ::ffff:195.90.209.56
+[8:46:04 PM] GET /api/health - ::ffff:195.90.209.56
+[8:46:05 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:46:05 PM] Known-key challenge: f8227722 → existing 3effa1fc
+[8:46:08 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:46:08 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:46:08 PM] Known-key challenge: d362db5e → existing 3effa1fc
+[8:46:11 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:46:11 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:46:11 PM] Known-key challenge: 84234f4f → existing 3effa1fc
+[8:46:14 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:46:14 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[8:46:17 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[8:46:17 PM] WS connected: ::ffff:127.0.0.1 (1 online)
+[8:46:17 PM] Known-key challenge: 00000000 → existing 3effa1fc
+[8:46:17 PM] WS disconnected: ::ffff:127.0.0.1 (0 online)
+[8:48:59 PM] New client: ::ffff:61.8.154.121
+[8:48:59 PM] GET /api/config - ::ffff:61.8.154.121
+[8:49:00 PM] GET /api/config - ::ffff:61.8.154.121
+[8:49:00 PM] WS connected: ::ffff:61.8.154.121 (1 online)
+[8:49:00 PM] Owner 3effa1fc connected — 0 room(s) (0 newly registered)
+[8:49:00 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22 - ::ffff:61.8.154.121
+[8:49:00 PM] GET /sw.js - ::ffff:61.8.154.121
+[8:49:00 PM] GET /app - ::ffff:61.8.154.121
+[8:49:00 PM] GET /trace - ::ffff:61.8.154.121
+[8:49:01 PM] GET /scenario - ::ffff:61.8.154.121
+[8:49:01 PM] GET /dist/app-3NFMVNW4.js - ::ffff:61.8.154.121
+[8:49:01 PM] GET /manifest.json - ::ffff:61.8.154.121
+[8:49:01 PM] GET /app.css - ::ffff:61.8.154.121
+[8:49:02 PM] WS disconnected: ::ffff:61.8.154.121 (0 online)
+[8:49:02 PM] GET /api/config - ::ffff:61.8.154.121
+[8:49:03 PM] GET /api/config - ::ffff:61.8.154.121
+[8:49:03 PM] WS connected: ::ffff:61.8.154.121 (1 online)
+[8:49:03 PM] Owner 3effa1fc connected — 0 room(s) (0 newly registered)
+[8:49:03 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22 - ::ffff:61.8.154.121
+[8:49:03 PM] GET /sw.js - ::ffff:61.8.154.121
+[8:49:26 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22 - ::ffff:61.8.154.121
+[8:49:36 PM] Room created: Marcel Donges's Room (8be52aa9) by 3effa1fc with SSH keypair
+[8:49:37 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22 - ::ffff:61.8.154.121
+[8:49:37 PM] GET /api/trace/children/8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:61.8.154.121
+[8:49:37 PM] GET /api/trace/children/8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:61.8.154.121
+[8:49:37 PM] GET /api/trace/children/8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:61.8.154.121
+[8:49:37 PM] GET /api/trace/children/8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:61.8.154.121
+[8:50:13 PM] WS disconnected: ::ffff:61.8.154.121 (0 online)
+[8:50:13 PM] ::ffff:6 disconnected from room Marcel Donges's Room
+[9:40:45 PM] GET /sw.js - ::ffff:195.90.209.56
+[10:24:22 PM] New client: ::ffff:195.96.139.186
+[10:24:22 PM] GET / - ::ffff:195.96.139.186
+[10:24:23 PM] New client: ::ffff:87.236.176.197
+[10:24:23 PM] GET /icon-180.png - ::ffff:87.236.176.197
+[10:33:54 PM] New client: ::ffff:45.79.181.251
+[10:33:54 PM] GET / - ::ffff:45.79.181.251
+[11:36:15 PM] New client: ::ffff:87.123.39.123
+[11:36:15 PM] GET /api/config - ::ffff:87.123.39.123
+[11:36:15 PM] GET /api/config - ::ffff:87.123.39.123
+[11:36:15 PM] WS connected: ::ffff:87.123.39.123 (1 online)
+[11:36:15 PM] Owner 3effa1fc connected — 1 room(s) (0 newly registered)
+[11:36:15 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22 - ::ffff:87.123.39.123
+[11:36:16 PM] GET /sw.js - ::ffff:87.123.39.123
+[11:36:18 PM] Marcel Donges joined room Marcel Donges's Room
+[11:36:18 PM] [files] restored 0 files for room 8be52aa9 from room.fileUnits
+[11:36:18 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22 - ::ffff:87.123.39.123
+[11:36:18 PM] GET /api/trace/children/8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:87.123.39.123
+[11:36:18 PM] GET /api/trace/children/8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:87.123.39.123
+[11:36:18 PM] GET /api/trace/children/8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:87.123.39.123
+[11:36:18 PM] GET /api/trace/children/8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:87.123.39.123
+[11:36:18 PM] GET /api/trace/children/members-8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:87.123.39.123
+[11:36:18 PM] GET /api/trace/children/members-8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:87.123.39.123
+[11:36:30 PM] WS disconnected: ::ffff:87.123.39.123 (0 online)
+[11:36:30 PM] ::ffff:8 disconnected from room Marcel Donges's Room
+[11:36:55 PM] New client: ::ffff:45.79.172.21
+[11:36:55 PM] GET / - ::ffff:45.79.172.21
+[11:37:59 PM] WS connected: ::ffff:87.123.39.123 (1 online)
+[11:37:59 PM] Owner 3effa1fc connected — 1 room(s) (0 newly registered)
+[11:37:59 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22?t=1782686279264 - ::ffff:87.123.39.123
+[11:37:59 PM] Avatar GET: token=3effa1fc mime=image/jpeg size=64597
+[11:38:00 PM] POST /api/room/8be52aa9-7db8-4e3a-8356-eed920dd1f1a/upload - ::ffff:87.123.39.123
+[11:38:01 PM] [upload] received 7615732b for room 8be52aa9 content-type=multipart/form-data; boundary=----WebKitFormBoundaryBCRBaBY8
+[11:38:01 PM] [upload] parsed: file=CV CCC.pdf mime=application/pdf size=7615409b token=3effa1fc
+[11:38:01 PM] [upload] creating file unit...
+[11:38:01 PM] [upload] unit created: 2bd2bdb0-dd9e-497d-a21b-57413af6a310 contentPath=index/2/b/d/2/b/2bd2bdb0-dd9e-497d-a21b-57413af6a310.content
+[11:38:01 PM] [upload] SUCCESS: CV CCC.pdf (7615409b) uuid=2bd2bdb0-dd9e-497d-a21b-57413af6a310 room=8be52aa9
+[11:38:06 PM] GET / - ::ffff:87.123.39.123
+[11:38:07 PM] WS disconnected: ::ffff:87.123.39.123 (0 online)
+[11:38:07 PM] GET /api/config - ::ffff:87.123.39.123
+[11:38:07 PM] GET /sw.js - ::ffff:87.123.39.123
+[11:38:08 PM] GET /favicon.ico - ::ffff:87.123.39.123
+[11:38:08 PM] GET /api/config - ::ffff:87.123.39.123
+[11:38:08 PM] GET /api/config - ::ffff:87.123.39.123
+[11:38:08 PM] WS connected: ::ffff:87.123.39.123 (1 online)
+[11:38:08 PM] Owner 3effa1fc connected — 1 room(s) (0 newly registered)
+[11:38:08 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22 - ::ffff:87.123.39.123
+[11:38:09 PM] GET /sw.js - ::ffff:87.123.39.123
+[11:38:09 PM] Marcel Donges joined room Marcel Donges's Room
+[11:38:09 PM] [files] restored 1 files for room 8be52aa9 from room.fileUnits
+[11:38:09 PM] GET /api/avatar/3effa1fc-a548-4619-a3ff-fb96382eca22 - ::ffff:87.123.39.123
+[11:38:09 PM] GET /api/trace/children/8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:87.123.39.123
+[11:38:09 PM] GET /api/trace/children/8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:87.123.39.123
+[11:38:09 PM] GET /api/trace/children/members-8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:87.123.39.123
+[11:38:09 PM] GET /api/trace/children/8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:87.123.39.123
+[11:38:09 PM] GET /api/trace/children/members-8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:87.123.39.123
+[11:38:09 PM] GET /api/trace/children/files-8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:87.123.39.123
+[11:38:09 PM] GET /api/trace/children/8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:87.123.39.123
+[11:38:09 PM] GET /api/trace/children/files-8be52aa9-7db8-4e3a-8356-eed920dd1f1a - ::ffff:87.123.39.123
+[11:38:13 PM] GET /api/trace/children/2bd2bdb0-dd9e-497d-a21b-57413af6a310?mode=scenario - ::ffff:87.123.39.123
+[11:38:13 PM] GET /api/ior/ior:instance:2bd2bdb0-dd9e-497d-a21b-57413af6a310 - ::ffff:87.123.39.123
+[11:38:13 PM] GET /api/ior/ior:instance:2bd2bdb0-dd9e-497d-a21b-57413af6a310 - ::ffff:87.123.39.123
+[11:38:13 PM] GET /api/room/file/2bd2bdb0-dd9e-497d-a21b-57413af6a310/content?token=3effa1fc-a548-4619-a3ff-fb96382eca22 - ::ffff:87.123.39.123
+[11:38:13 PM] GET /api/room/file/2bd2bdb0-dd9e-497d-a21b-57413af6a310/content?token=3effa1fc-a548-4619-a3ff-fb96382eca22 - ::ffff:87.123.39.123
+[11:38:27 PM] WS disconnected: ::ffff:87.123.39.123 (0 online)
+[11:38:27 PM] ::ffff:8 disconnected from room Marcel Donges's Room
+[11:46:06 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[11:46:06 PM] Server started (production mode)
+[11:46:06 PM] HTTPS: https://localhost:4444
+[11:46:22 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[11:46:22 PM] Server started (production mode)
+[11:46:22 PM] HTTPS: https://localhost:4444
+[11:46:39 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[11:46:40 PM] Server started (production mode)
+[11:46:40 PM] HTTPS: https://localhost:4444
+[11:48:02 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[11:48:02 PM] Server started (production mode)
+[11:48:02 PM] HTTPS: https://localhost:4444
+[11:48:04 PM] New client: ::ffff:195.90.209.56
+[11:48:04 PM] GET /api/health - ::ffff:195.90.209.56
+[11:51:21 PM] GET /api/health - ::ffff:195.90.209.56
+[11:55:59 PM] GET /sw.js - ::ffff:195.90.209.56
+[11:55:59 PM] GET /api/email/marcel.donges%40gmail.com - ::ffff:195.90.209.56
+[11:55:59 PM] GET /api/email/marcel.donges%40gmail.com - ::ffff:195.90.209.56
+[11:56:48 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[11:56:48 PM] Server started (production mode)
+[11:56:48 PM] HTTPS: https://localhost:4444
+[11:57:07 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[11:57:07 PM] Server started (production mode)
+[11:57:07 PM] HTTPS: https://localhost:4444
+[11:57:22 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[11:57:22 PM] Server started (production mode)
+[11:57:22 PM] HTTPS: https://localhost:4444
+[11:57:45 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[11:57:45 PM] Server started (production mode)
+[11:57:45 PM] HTTPS: https://localhost:4444
+[11:57:57 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[11:57:57 PM] Server started (production mode)
+[11:57:57 PM] HTTPS: https://localhost:4444
+[11:58:10 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[11:58:10 PM] Server started (production mode)
+[11:58:10 PM] HTTPS: https://localhost:4444
+[11:58:36 PM] New client: ::ffff:195.90.209.56
+[11:58:36 PM] GET /api/phone/%2B4915253844085 - ::ffff:195.90.209.56
+[11:58:36 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[11:58:36 PM] Known-key challenge: d1d65ee2 → existing 3effa1fc
+[11:58:39 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[11:58:39 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[11:58:39 PM] Avatar assigned: 7477fcf7 (image/jpeg)
+[11:58:40 PM] GET /api/phone/%2B499914033041 - ::ffff:195.90.209.56
+[11:58:42 PM] GET /api/phone/%2B499914033041 - ::ffff:195.90.209.56
+[11:58:42 PM] WS connected: ::ffff:195.90.209.56 (2 online)
+[11:58:42 PM] Known-key challenge: 7bc1750b → existing 7477fcf7
+[11:58:45 PM] WS disconnected: ::ffff:195.90.209.56 (1 online)
+[11:58:45 PM] GET /api/phone/%2B499914033042 - ::ffff:195.90.209.56
+[11:58:47 PM] GET /api/phone/%2B499914033042 - ::ffff:195.90.209.56
+[11:58:47 PM] WS connected: ::ffff:195.90.209.56 (2 online)
+[11:58:47 PM] Known-key challenge: 88e00c6c → existing 7477fcf7
+[11:58:49 PM] WS disconnected: ::ffff:195.90.209.56 (1 online)
+[11:58:49 PM] GET /api/phone/%2B499914033043 - ::ffff:195.90.209.56
+[11:58:51 PM] GET /api/phone/%2B499914033043 - ::ffff:195.90.209.56
+[11:58:51 PM] WS connected: ::ffff:195.90.209.56 (2 online)
+[11:58:51 PM] Known-key challenge: ce20615b → existing 7477fcf7
+[11:58:54 PM] WS disconnected: ::ffff:195.90.209.56 (1 online)
+[11:58:54 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[11:59:18 PM] SSL: Let's Encrypt cert (prod.wo-da.de)
+[11:59:18 PM] Server started (production mode)
+[11:59:18 PM] HTTPS: https://localhost:4444
+[11:59:19 PM] WS connected: ::ffff:195.90.209.56 (1 online)
+[11:59:20 PM] New client: ::ffff:195.90.209.56
+[11:59:20 PM] GET /api/health - ::ffff:195.90.209.56
+[11:59:20 PM] GET /api/address/9af050fc-810b-4eaf-b467-9badec909587 - ::ffff:195.90.209.56
+[11:59:20 PM] Avatar assigned: ab914ec8 (image/jpeg)
+[11:59:21 PM] New client: ::ffff:195.90.209.56
+[11:59:21 PM] GET /api/phone/%2B499918572781 - ::ffff:195.90.209.56
+[11:59:23 PM] GET /api/phone/%2B499918572781 - ::ffff:195.90.209.56
+[11:59:23 PM] WS connected: ::ffff:195.90.209.56 (2 online)
+[11:59:23 PM] Known-key challenge: 2e9a0182 → existing ab914ec8
+[11:59:25 PM] WS disconnected: ::ffff:195.90.209.56 (1 online)
+[11:59:25 PM] GET /api/phone/%2B499918572782 - ::ffff:195.90.209.56
+[11:59:27 PM] GET /api/phone/%2B499918572782 - ::ffff:195.90.209.56
+[11:59:27 PM] WS connected: ::ffff:195.90.209.56 (2 online)
+[11:59:27 PM] Known-key challenge: 6f16164a → existing ab914ec8
+[11:59:30 PM] WS disconnected: ::ffff:195.90.209.56 (1 online)
+[11:59:30 PM] GET /api/phone/%2B499918572783 - ::ffff:195.90.209.56
+[11:59:32 PM] GET /api/phone/%2B499918572783 - ::ffff:195.90.209.56
+[11:59:32 PM] WS connected: ::ffff:195.90.209.56 (2 online)
+[11:59:32 PM] Known-key challenge: bbe997e2 → existing ab914ec8
+[11:59:35 PM] WS disconnected: ::ffff:195.90.209.56 (1 online)
+[11:59:35 PM] WS disconnected: ::ffff:195.90.209.56 (0 online)
+[11:59:53 PM] GET /api/phone/%2B4915253844085 - ::ffff:195.90.209.56
+[11:59:53 PM] GET /api/phone/%2B4915253844085 - ::ffff:195.90.209.56
+[11:59:53 PM] GET /api/phone/%2B4915253844085 - ::ffff:195.90.209.56
+[11:59:53 PM] GET /api/phone/%2B4915253844085 - ::ffff:195.90.209.56
+[11:59:53 PM] GET /api/phone/%2B4915253844085 - ::ffff:195.90.209.56
+[11:59:53 PM] GET /api/phone/%2B4915253844085 - ::ffff:195.90.209.56

@@ -13,8 +13,6 @@
     "sourceLine": 1,
     "parent": "ior:instance:b4824ba0-c1ca-451d-81da-94f7bb558046",
     "unitLinks": [],
-    "orphanByDesign": true,
-    "orphanRationale": "No code found in source — legacy migration/one-shot/future feature",
     "tests": []
   },
   "ownerIor": "ior:instance:b4824ba0-c1ca-451d-81da-94f7bb558046"

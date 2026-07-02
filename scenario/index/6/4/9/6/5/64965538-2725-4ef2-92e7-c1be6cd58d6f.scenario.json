@@ -1,0 +1,80 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "64965538-2725-4ef2-92e7-c1be6cd58d6f",
+    "name": "One canonical Class unit per code class (no per-req Class duplication)",
+    "altId": "R27.2",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-27-detail-view-enhancements/requirements.md",
+    "sourceLine": 27,
+    "parent": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:37c52953-654f-47c1-8710-b851b706849d"
+    ],
+    "description": "The scenario graph holds AT MOST ONE canonical Class unit per code class - no per-requirement Class duplication. When a chain wires a UseCase to a Class, it REUSES the existing Class node for that code class (adding the method to it), never mints a new Class unit. The existing 55 duplicate Class units (23 code classes, per the audit) are collapsed to one canonical each - methods repointed, every UC.class ref rewritten to the canonical, emptied duplicates removed - so the chain can NEVER again fan out through duplicate Class nodes (by-construction, cannot-happen-again).",
+    "tronQuote": "> TRON (via PO): ONE canonical Class unit per code class \u2014 no per-req Class duplication; the chain reuses the existing Class node. By-construction fix (cannot-happen-again).",
+    "discoverySource": {
+      "type": "team-discovery",
+      "discoveredBy": "robbin-architect (wiring R27.1) + robbin-req (whole-graph audit)",
+      "date": "2026-07-01",
+      "auditNote": "scrum.pmo/design-notes/class-unit-dedup-audit.md",
+      "measured": "163 Class units / 108 distinct code classes / 23 dup names / 55 collapsible duplicate units. Class-per-req sprawl: chains minted a new Class per req instead of reusing the node."
+    },
+    "auditRef": "scrum.pmo/design-notes/class-unit-dedup-audit.md",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-invariant",
+        "group": "invariant",
+        "text": "The scenario graph holds AT MOST ONE Class unit per code class (by class name/identity); no per-req duplication."
+      },
+      {
+        "id": "AC-reuse",
+        "group": "reuse-on-wire",
+        "text": "Wiring a UC to a Class REUSES the existing Class node for that code class (adds the method to it), NEVER mints a new Class unit (the R27.1 pattern)."
+      },
+      {
+        "id": "AC-cleanup",
+        "group": "cleanup",
+        "text": "The 55 existing duplicate Class units (23 code classes, per audit) are collapsed to one canonical each: methods repointed + every UC.class ref rewritten to the canonical + emptied duplicates removed."
+      },
+      {
+        "id": "AC-canonical",
+        "group": "cleanup",
+        "text": "The canonical is the unit ON AN ACTIVE CHAIN if one exists (keep its uuid + UC.class refs UNCHANGED, merge the others INTO it) - protecting R26.1 IORResolver b4eaa489 / R25.7+R26.4-5 Room 2172dc56 / R25.4 RbDetailDrawer d86af73d; ELSE the most-methods unit (tiebreak: lowest uuid). The collapse is dry-run + count FIRST, never silently drop a method or break a UC.class ref."
+      },
+      {
+        "id": "AC-by-construction",
+        "group": "invariant",
+        "text": "After the fix, minting a chain for a NEW req on an EXISTING code class cannot create a duplicate Class unit (wiring reuses)."
+      },
+      {
+        "id": "AC-verify",
+        "group": "verify",
+        "text": "A trace audit shows exactly ONE Class unit per code class; no chain fans out through duplicate Class nodes."
+      }
+    ],
+    "migrationDesignRef": "scrum.pmo/design-notes/r27.2-class-dedup-migration.md (architect a3fcf1196)",
+    "gateVerifyCriteria": {
+      "target": "Class units 163 -> 108 (-55 collapsible across 23 code classes)",
+      "hardInvariants": [
+        "1 no method lost (distinct method-names per code class BEFORE==AFTER on canonical)",
+        "2 no dangling UC.class (every UC.class/classes[]/method resolves)",
+        "3 no orphan UC/Method (every Method has Class owner; every UC still derives Req->UC->Class->Method)",
+        "4 active chains STILL derive end-to-end: R26.1(IORResolver) R25.7(Room 4 UCs) R25.4(RbDetailDrawer 2 UCs) R26.4-5(Transfer)",
+        "5 idempotent (re-apply = no-op, 0 dups remain)"
+      ],
+      "countTable": [
+        "canonical",
+        "dupsRemoved",
+        "methodsMoved",
+        "nameCollisionsCollapsed",
+        "ucClassRefsRewritten",
+        "ucMethodRefsRewritten"
+      ],
+      "gate": "--dry-run + count first; --apply only after all 5 invariants PASS. req 3-point verifies against the count table + re-measures 163->108."
+    }
+  },
+  "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
+}

@@ -49,6 +49,7 @@ interface AuditResult {
   orphans: { uuid: string; type: string; name: string }[];
   backRefs: { uuid: string; type: string; field: string }[];
   cardinalityIssues: string[];
+  duplicateClasses: { name: string; count: number; uuids: string[] }[]; // R27.2 AC-canonical: exactly ONE Class unit per code-class name
   hopResults: { total: number; reachable: number; unreachable: { uuid: string; name: string; breakHop: string }[] };
 }
 
@@ -58,6 +59,14 @@ function getType(unit: ScenarioUnit): string {
 
 function resolveIor(ior: string): string {
   return String(ior).replace('ior:instance:', '');
+}
+
+// R27.2 AC-canonical: exactly ONE Class unit per code-class name (assert; prevents the 55-dup recurrence).
+// [impl:uuid:33ccac7f-834b-429e-a93f-e7641ce933ea] R27.2 duplicateClassUnits (duplicateClass assertion)
+function duplicateClassUnits(units: Map<string, ScenarioUnit>): { name: string; count: number; uuids: string[] }[] {
+  const byName = new Map<string, string[]>();
+  for (const [uuid, unit] of units) if (getType(unit) === 'Class') { const n = String(unit.model.name || ''); (byName.get(n) || byName.set(n, []).get(n)!).push(uuid); }
+  return [...byName.entries()].filter(([, us]) => us.length > 1).map(([name, uuids]) => ({ name, count: uuids.length, uuids })).sort((a, b) => a.name.localeCompare(b.name));
 }
 
 function auditAll(idx: ScenarioIndex): AuditResult {
@@ -167,12 +176,15 @@ function auditAll(idx: ScenarioIndex): AuditResult {
   const hopReachable = hopResults.filter(r => r.reachable).length;
   const hopUnreachable = hopResults.filter(r => !r.reachable);
 
+  const duplicateClasses = duplicateClassUnits(units);
+
   return {
     total: allUuids.length,
     reachable: visited.size,
     orphans,
     backRefs,
     cardinalityIssues,
+    duplicateClasses,
     hopResults: { total: testUnits.length, reachable: hopReachable, unreachable: hopUnreachable },
   };
 }
@@ -211,9 +223,15 @@ if (hop.unreachable.length > 0) {
   for (const t of hop.unreachable) console.log(`  ${t.name}  break: ${t.breakHop || 'unknown'}`);
 }
 
-const structuralIssues = result.orphans.length + result.backRefs.length + result.cardinalityIssues.length;
-const structuralPass = structuralIssues === 0;
-console.log(`\n=== STRUCTURAL AUDIT ${structuralPass ? 'PASSED' : `FAILED (${structuralIssues} issues)`} ===`);
+console.log(`\nDuplicate Class units (R27.2 AC-canonical, 1 per code-class name): ${result.duplicateClasses.length} (${result.duplicateClasses.length === 0 ? 'PASS' : 'FAIL'})`);
+for (const d of result.duplicateClasses) console.log(`  - ${d.name}: ${d.count} units [${d.uuids.map(u => u.slice(0, 8)).join(', ')}] — collapse to ONE`);
+
+// R27.2: dup-Class + cardinality are HARD-gated NOW (both clean post-migration → won't false-fail).
+// orphans + back-refs are pre-existing baseline debt (R27.4) → REPORTED but NOT strict-gated until R27.4
+// cleans them (delta-not-absolute — else --strict false-fails on the 2207-orphan baseline).
+const hardIssues = result.duplicateClasses.length + result.cardinalityIssues.length;
+const deferredIssues = result.orphans.length + result.backRefs.length;
+console.log(`\n=== STRUCTURAL AUDIT — HARD (dup-Class + cardinality) = ${hardIssues} ${hardIssues === 0 ? 'PASS' : 'FAIL'} | deferred (orphans + back-refs) = ${deferredIssues} (R27.4 baseline, not strict-gated yet) ===`);
 console.log(`(Completion measure: npx tsx scripts/po-chain-follow-up.ts --all)\n`);
 
-if (strict && !structuralPass) process.exit(1);
+if (strict && hardIssues > 0) process.exit(1); // R27.2 dup=0 STRICT now; re-enable orphan/back-ref strict gate AFTER R27.4

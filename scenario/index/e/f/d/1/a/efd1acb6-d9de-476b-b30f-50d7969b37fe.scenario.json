@@ -1,0 +1,135 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "efd1acb6-d9de-476b-b30f-50d7969b37fe",
+    "name": "vCard drop stores with photo",
+    "altId": "R21.1",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/requirements.md",
+    "sourceLine": 22,
+    "parent": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:9cd5cc65-58d9-4417-8480-86531ed3cf4e"
+    ],
+    "description": "Dropping a vCard onto a profile stores the .vcf file alongside the user's avatar photo in the same user directory.",
+    "tronQuote": "> TRON: \"drop vCard into profile stores .vcf alongside user avatar photo in same user dir.\"",
+    "architectureRef": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/architecture.md (UC Profile.dropVCard)",
+    "implRef": "ior:file:src/public/ts/ProfileEditor.ts:102-139 [impl:uuid:d1337706-80fa-48ba-a0a0-5b9cc42e2511] R21.1 profile.dropVCard | server src/ts/server/server.ts:495-523 [impl:uuid:f15434f9-...] POST /api/vcard storeVCard",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-a1",
+        "group": "drop-ingest",
+        "text": "A .vcf can be added by drag-drop onto the profile overlay OR via the file picker (accept='.vcf,text/vcard')."
+      },
+      {
+        "id": "AC-a2",
+        "group": "drop-ingest",
+        "text": "A dropped file that is not .vcf / text/vcard is rejected with a 'Please drop a .vcf file' message."
+      },
+      {
+        "id": "AC-a3",
+        "group": "drop-ingest",
+        "text": "A vCard with none of fn/tel/url/photo is rejected with 'No profile data found' (no empty import)."
+      },
+      {
+        "id": "AC-b1",
+        "group": "apply",
+        "text": "On valid drop the vCard is parsed (parseVCard) and applyVCard maps photo->avatar, fn->name, plus tel/url into the profile fields."
+      },
+      {
+        "id": "AC-b2",
+        "group": "apply",
+        "text": "The photo from the vCard becomes the user avatar (feeds the same avatar pipeline as /api/avatar)."
+      },
+      {
+        "id": "AC-c1",
+        "group": "store",
+        "text": "After apply, the client POSTs /api/vcard { playerToken, data:<base64 of the raw .vcf text> } using client.playerToken (not the stale localStorage key)."
+      },
+      {
+        "id": "AC-c2",
+        "group": "store",
+        "text": "The server authenticates the playerToken (must be in tokenToClient) and rejects unauthenticated/missing-data/no-profile with 401/400."
+      },
+      {
+        "id": "AC-c3",
+        "group": "store",
+        "text": "The server stores the .vcf in the user's home via encryptFile(playerToken, buf, 'text/vcard', 'contact.vcf', 'vcard') \u2014 i.e. as contact.vcf in the SAME user directory and SAME encrypted-file mechanism as the avatar (avatar.<ext>)."
+      },
+      {
+        "id": "AC-c4",
+        "group": "store",
+        "text": "On encrypt failure the server rekeys the user and retries the store (no silent loss); success returns { ok:true, vcardUrl:'/api/vcard/<token>' }."
+      }
+    ],
+    "testScenarios": [
+      {
+        "id": "TS1",
+        "gates": [
+          "AC-a1",
+          "AC-b1",
+          "AC-b2"
+        ],
+        "name": "drop applies photo+fields",
+        "given": "a profile overlay and a valid .vcf containing fn, tel, url, photo",
+        "when": "the file is dropped (or picked)",
+        "then": "parseVCard+applyVCard set name=fn, the avatar = the vCard photo, and tel/url populate the profile"
+      },
+      {
+        "id": "TS2",
+        "gates": [
+          "AC-a2"
+        ],
+        "name": "non-vcf rejected",
+        "given": "a .png dragged onto the overlay",
+        "when": "it is dropped",
+        "then": "a 'Please drop a .vcf file' error shows and nothing is imported"
+      },
+      {
+        "id": "TS3",
+        "gates": [
+          "AC-a3"
+        ],
+        "name": "empty vcard rejected",
+        "given": "a .vcf with no fn/tel/url/photo",
+        "when": "it is dropped",
+        "then": "'No profile data found' shows and nothing is applied or stored"
+      },
+      {
+        "id": "TS4",
+        "gates": [
+          "AC-c1",
+          "AC-c2"
+        ],
+        "name": "store POST authenticated",
+        "given": "an authenticated client with playerToken T",
+        "when": "a valid vCard is applied",
+        "then": "POST /api/vcard fires with { playerToken:T, data:base64(text) }; an unauthenticated token gets 401, missing data 400"
+      },
+      {
+        "id": "TS5",
+        "gates": [
+          "AC-c3"
+        ],
+        "name": "stored as contact.vcf beside avatar",
+        "given": "a successful POST /api/vcard",
+        "when": "the user home is inspected",
+        "then": "contact.vcf exists in the same user directory as avatar.<ext>, written through encryptFile (encrypted at rest)"
+      },
+      {
+        "id": "TS6",
+        "gates": [
+          "AC-c4"
+        ],
+        "name": "encrypt-failure rekey+retry",
+        "given": "the first encryptFile throws",
+        "when": "POST /api/vcard runs",
+        "then": "the server rekeys the user, retries the store, and returns { ok:true, vcardUrl }"
+      }
+    ],
+    "refinementNote": "R21.1 backfill 2026-06-28 per PO directive (impl already shipped+gated). MEASURED vs ProfileEditor.ts:102-139 + server.ts:495-523 (code is law): 9 ACs (drop-ingest/apply/store) + 6 gateable TS; every AC gated. NOTE storage is ENCRYPTED contact.vcf via encryptFile in the user home, same dir+mechanism as avatar.<ext> \u2014 'alongside the avatar' = same encrypted user dir. Chain + name/description/tronQuote unchanged."
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "2dc9f063-9c98-40af-9097-fd497804c008",
+    "name": "webItem.createAndLaunch",
+    "description": "Create a unified ior:class:WebItem (bookmark/.url/.webloc) and launch/open its url; folder tree via children[]/parentFolder. DESIGN per scrum.pmo/design-notes/r25.2-webitem-design.md.",
+    "class": "ior:instance:7c486fcb-8092-47ee-ab03-345c185a4f95",
+    "classes": [
+      "ior:instance:7c486fcb-8092-47ee-ab03-345c185a4f95"
+    ],
+    "method": "ior:instance:35c7d530-dfc5-43d6-a6d5-9c314a91a55b",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f8097d7c-07f7-4ef5-90fc-7512b57c1bc2"
+}

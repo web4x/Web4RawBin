@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7dbff12b-98c4-42b4-9bf8-ba4fc34f6528",
+    "name": "RoomBrowser.renderNameOnConnect impl",
+    "description": "Shipped implementation in src/public/ts/RoomBrowser.ts (verified present in PDCA review). [R21.2]",
+    "sourceFile": "ior:file:src/public/ts/RoomBrowser.ts",
+    "tests": [
+      "ior:instance:8f464c84-cb62-41b7-aa55-55344725e075"
+    ]
+  },
+  "ownerIor": "ior:instance:5e9eaeb4-3467-4d4d-9afe-485c8293a573"
+}

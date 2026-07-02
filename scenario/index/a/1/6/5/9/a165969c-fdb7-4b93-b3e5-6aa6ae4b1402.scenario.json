@@ -4,7 +4,7 @@
     "uuid": "a165969c-fdb7-4b93-b3e5-6aa6ae4b1402",
     "name": "T8: Mandatory Profile Gate",
     "slug": "task-8-profile-gate",
-    "description": "",
+    "description": "Add a mandatory profile gate that requires a profile before entering the app.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",
@@ -12,7 +12,7 @@
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [x] First-time user sees editor immediately (no room list visible)\n- [x] Editor has no close/skip button in gate mode\n- [x] Name is required — submit disabled if empty\n- [x] After commit, room browser appears\n- [x] Returning user with committed profile goes straight to browser\n- [x] Server rejects room create/join for uncommitted profiles with ERROR message\n- [x] All tests pass",
+    "acceptanceCriteria": "- [x] First-time user sees editor immediately (no room list visible)\n- [x] Editor has no close/skip button in gate mode\n- [x] Name is required \u2014 submit disabled if empty\n- [x] After commit, room browser appears\n- [x] Returning user with committed profile goes straight to browser\n- [x] Server rejects room create/join for uncommitted profiles with ERROR message\n- [x] All tests pass",
     "qaAudit": "## Subtasks\nNone (atomic task).",
     "subtasks": "None (atomic task).",
     "assigned": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:27b6a05a-7acb-4481-9353-165dddf865ad"
+  "ownerIor": "ior:instance:7f004379-b327-4853-bc2f-947bd4e781d8"
 }

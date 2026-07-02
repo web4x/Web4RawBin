@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "90f9bfe3-6d57-4003-be77-6ce8ade76058",
+    "name": "pin.manageLifecycle",
+    "description": "Pin object wraps CurrentSprint lifecycle as Object.verb: focus/advance/hop/gate/setChain/setNextBacklog/clearNextBacklog/pin. Replaces ad-hoc planner-drive.ts verbs (which become a deprecation shim).",
+    "class": "ior:instance:836ecc9c-c55a-4168-87f1-175193d7ca28",
+    "classes": [
+      "ior:instance:836ecc9c-c55a-4168-87f1-175193d7ca28"
+    ],
+    "method": "ior:instance:c0eb9e24-b7a9-4bfb-8455-55091182d62d",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:a545f899-b733-46ac-8fc7-2ef79e401cfe"
+}

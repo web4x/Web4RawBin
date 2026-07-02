@@ -3,11 +3,11 @@
   "model": {
     "uuid": "36fdbba4-58dd-4ab8-a711-d50718f7fc8c",
     "name": "detailView.unifiedTraceability",
-    "description": "All 7 detail views show one unified 'Traceability' section: fullChainThrough(graph, uuid) walks UP to Requirement root + DOWN to Test leaf. renderTraceabilitySection() renders ancestors(dimmed)\u2192SELF(highlighted)\u2192descendants. Replaces 3 inconsistent patterns. 'All children' stays separate.",
-    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "description": "All 7 detail views show one unified 'Traceability' section: fullChainThrough(graph, uuid) walks UP to Requirement root + DOWN to Test leaf. renderTraceabilitySection() renders ancestors(dimmed)→SELF(highlighted)→descendants. Replaces 3 inconsistent patterns. 'All children' stays separate.",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
     "method": "ior:instance:67fd08c3-f43c-4f53-bd3e-d81d2bdebd8a",
     "classes": [
-      "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
     ],
     "tasks": [],
     "implementations": [],

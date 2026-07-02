@@ -1,0 +1,63 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d0acb05d-982f-418b-a0d4-667d13435371",
+    "name": "vCard onboarding recognizes existing users (device-link, no new UUID)",
+    "altId": "R25.3",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-25-apple-dnd/requirements.md",
+    "sourceLine": 45,
+    "parent": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:c461d975-729b-4d60-bd45-6b1a1b62be33"
+    ],
+    "description": "During onboarding, the moment a dragged vCard fills the profile (phone/email), those keys are checked against the alt-UUID index BEFORE any profile is minted: if the phone or email is already known, the onboarding dialog switches from 'Authorize This Device' to 'User already exists. Unlock device with your secret code' WITHOUT creating a new user UUID/profile, and on the correct secret code the device is linked to the EXISTING profile. Today the vCard onboarding path mints a new profile first and then requires a manual Link Account.",
+    "tronQuote": "> TRON: \"the moment I dragged the vCard and it filled out the profile it should switch to Authorize This Device WITHOUT creating a new user UUID and profile, but asking for my existing secret code. The dialog shall ask User already exists. Unlock device with your secret code instead of Authorize This Device and then just add the device to my existing user.\"",
+    "implRef": "ior:file:src/public/ts/ProfileEditor.ts (applyVCard fills profile during onboarding gate) + src/ts/server/server.ts resolveKeyToProfile:230 / KNOWN_KEY_CHALLENGE / DEVICE_ENROLL_REQUEST:2054 (the R21.4 device-link mechanism the onboarding path must invoke before minting)",
+    "crossRef": [
+      "ior:instance:04dff687-ae49-4d9c-9150-6e2419a1c0b9",
+      "ior:instance:efd1acb6-d9de-476b-b30f-50d7969b37fe"
+    ],
+    "crossRefNote": "Per Rule 9 dedupe: R25.3 is the vCard-ONBOARDING application of the EXISTING R21.4 device-link-on-known-key mechanism (resolveKeyToProfile/KNOWN_KEY_CHALLENGE/DEVICE_ENROLL_REQUEST) + R21.1 vCard fill. R21.4 covers the mechanism; R25.3 is the gap: the vCard onboarding path mints a new profile instead of routing the filled phone/email through the known-key check first. Not a duplicate - the integration/UX requirement (onboarding dialog switch).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-check",
+        "group": "check-on-fill",
+        "text": "When a vCard fills the onboarding profile, the filled phone AND email are checked against the alt-UUID index (resolveKeyToProfile) BEFORE minting any profile."
+      },
+      {
+        "id": "AC-switch",
+        "group": "dialog",
+        "text": "If a key is FOUND, the dialog switches from 'Authorize This Device' to 'User already exists. Unlock device with your secret code'."
+      },
+      {
+        "id": "AC-no-uuid",
+        "group": "no-mint",
+        "text": "No new user UUID / profile is created while a known key awaits the secret code."
+      },
+      {
+        "id": "AC-link",
+        "group": "device-link",
+        "text": "On the correct secret code, the device is linked to the EXISTING profile (device-link, R21.4) - no new UUID."
+      },
+      {
+        "id": "AC-wrong",
+        "group": "device-link",
+        "text": "A wrong secret code is rejected explicitly; still no new profile."
+      },
+      {
+        "id": "AC-replaces",
+        "group": "replaces",
+        "text": "This replaces today's behaviour (mint new profile then manual Link Account)."
+      },
+      {
+        "id": "AC-unknown",
+        "group": "fallthrough",
+        "text": "If neither key is known, onboarding proceeds normally with 'Authorize This Device' (new profile)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6b459f04-e326-4f8a-b375-ddb33f2d4ffb",
+    "name": "Room.redirectTombstoneToPrimary impl",
+    "description": "DESIGN-AHEAD (scenario-first #126; fix not yet shipped): base src/ts/server/server.ts; expert attaches [impl:uuid] at code time.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": true,
+    "tests": [
+      "ior:instance:3b96a897-6d44-41ff-b20c-d5fadaedfb3c"
+    ]
+  },
+  "ownerIor": "ior:instance:78ac9322-31ac-41f3-a608-e1fde03b5510"
+}

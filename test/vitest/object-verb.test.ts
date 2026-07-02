@@ -1,3 +1,4 @@
+// [test:uuid:c961832e-0c7d-4fb6-8183-cb51ad4d831f] T24.1 ObjectVerbEngine.introspect — Chain scoreboard/followUp/lintMarkers/emitClaudeSkills (gate r241-objectverb-gate.mjs DET-3x GREEN)
 /**
  * objectVerb dispatcher + Chain canonical semantics tests.
  * [test:uuid:7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d] Object.verb migration (introspection, dispatch, emit, canonical chain)

@@ -4,7 +4,7 @@
     "uuid": "b1a959d9-0388-4f9e-97fb-991dc73b4441",
     "name": "Task 2: Define RawBin Architecture (Fork from QnD Stack)",
     "slug": "task-2-rawbin-architecture",
-    "description": "",
+    "description": "Define the RawBin architecture, forking from the QnD stack.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",

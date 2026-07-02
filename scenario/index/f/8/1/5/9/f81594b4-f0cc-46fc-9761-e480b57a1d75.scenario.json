@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "f81594b4-f0cc-46fc-9761-e480b57a1d75",
+    "name": "detail.scenarioLinkResolve",
+    "description": "The Scenario link target resolves to the underlying scenario unit (the /scenario or /md/scenario/index/<shard> view of that unit uuid), placed/styled consistently across all detail views.",
+    "class": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07",
+    "classes": [
+      "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
+    ],
+    "method": "ior:instance:a51c3e97-7e73-4b7f-99f2-5f47e5f96be5",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:24509e35-8627-402a-ba93-ed959fef3a5b"
+}

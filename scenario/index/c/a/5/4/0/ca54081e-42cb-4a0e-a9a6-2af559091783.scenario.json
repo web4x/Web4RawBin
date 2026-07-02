@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ca54081e-42cb-4a0e-a9a6-2af559091783",
+    "name": "ContentPreviewer.fillPreviewPane",
+    "sourceFile": "src/public/ts/trace/content-preview.ts",
+    "tests": []
+  },
+  "ownerIor": null
+}

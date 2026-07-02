@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "123c4c40-30b6-43c4-8d68-33f1d0bb566d",
+    "name": "Room.resolveToken impl",
+    "description": "server.ts injects resolveToken = profile.redirectTo||token (v0.6.84 a30315bcc); cleanup-on-merge token redirect.",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "tests": [
+      "ior:instance:a579f0f4-8035-437c-a787-6ae84174a9c3"
+    ]
+  },
+  "ownerIor": "ior:instance:1671bcb7-bae6-4591-8bd0-323bbc8066db"
+}

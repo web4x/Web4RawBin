@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "e575ebf0-812a-4345-95f4-f69e54410efb",
-    "name": "Sprint numbers are zero-padded 2-digit (01-09, 10-18) for correct lexicographic ordering.",
+    "name": "Sprint numbers zero-padded two-digit",
     "altId": "R18.19",
     "tasks": [
       "ior:instance:8a31ba75-22b6-48ff-9532-d5da21458543"

@@ -1,0 +1,60 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "71b44e05-555f-4db2-a485-f375cd7ad70b",
+    "name": "Lazy child resolve \u2014 structure eager, payload lazy, members by-reference",
+    "altId": "R26.4",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-26-federation/requirements.md",
+    "sourceLine": 53,
+    "parent": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:67859edd-c0a6-4cb0-8834-4d11c50e7ec1"
+    ],
+    "description": "Transfer is STRUCTURE-eager / PAYLOAD-lazy: the primary unit + light metadata mint immediately (item appears instantly); file BYTES, deep subtrees, and member profiles resolve lazily on first need. Content dedups across servers by contentHash (skip the byte transfer + relink if the receiver already has it). Room MEMBERS stay federated identity references (ior@originHost), NEVER minted as local profiles \u2014 a foreign member only materializes locally on later connect+consolidate \u2014 so federation does NOT re-create the duplication R25.7 fixed.",
+    "tronQuote": "> TRON (screenshots): dragging items between two RawBin servers (home.donges.it <-> prod.wo-da.de) must TRANSFER the scenario unit \u2014 the receiving server recreates it locally with all unitLinks \u2014 not just make a WebItem pointing at the source URL.",
+    "discoverySource": {
+      "type": "architect-diagnosis",
+      "diagnosedBy": "robbin-architect",
+      "date": "2026-07-01",
+      "designNote": "scrum.pmo/design-notes/federated-scenario-transfer.md",
+      "designCommit": "7e940cf81"
+    },
+    "designRef": "scrum.pmo/design-notes/federated-scenario-transfer.md (architect 7e940cf81)",
+    "securityNote": "Cross-cutting security/trust: capability grants are signed + expiring + scoped (no ambient authority); server-federation signatures use a per-server keypair + explicit trust list (no open fetch). Never trust incoming JSON blindly \u2014 validate schema, cap size, sanitize, NEVER execute; foreign identities NEVER become local auth principals.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-eager",
+        "group": "eager",
+        "text": "Eager: the primary unit + light metadata are minted immediately so the item appears in the target room instantly."
+      },
+      {
+        "id": "AC-lazy-bytes",
+        "group": "lazy",
+        "text": "Lazy: file BYTES fetch on first preview/open (via R26.3 /content); deep subtrees and member profiles resolve on demand."
+      },
+      {
+        "id": "AC-dedup",
+        "group": "dedup",
+        "text": "Content dedups across servers by contentHash: on import, if the receiver already stores that hash, SKIP the byte transfer and just relink."
+      },
+      {
+        "id": "AC-members-ref",
+        "group": "members",
+        "text": "Room members transfer as federated identity references (ior:instance:<memberUuid>@originHost), NOT minted as local profiles; a foreign member materializes locally only on later connect+consolidate (ties to R25.7 redirectTo)."
+      },
+      {
+        "id": "AC-no-dup",
+        "group": "invariant",
+        "text": "Federating a room NEVER mints foreign identities as local members \u2014 it must not re-create the duplication R25.7 eliminated."
+      }
+    ],
+    "crossRef": [
+      "ior:instance:585b6b9c-2fa7-48e2-8fab-a7e8a31e516e"
+    ],
+    "crossRefNote": "Ties to R25.7 room-dedup: foreign members stay federated references, NEVER minted as local profiles (would re-create the duplication R25.7 fixed)."
+  },
+  "ownerIor": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d"
+}

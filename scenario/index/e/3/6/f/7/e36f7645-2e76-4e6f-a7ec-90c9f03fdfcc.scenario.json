@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "e36f7645-2e76-4e6f-a7ec-90c9f03fdfcc",
+    "name": "Task 26.3: Server-to-server scenario fetch API (on the origin)",
+    "slug": "task-26.3-server-to-server-fetch-api",
+    "description": "The origin server exposes GET /api/scenario/<uuid> (unit JSON), /content (file bytes, content-addressable, only when the receiver lacks the contentHash), and /children?mode=trace (forward children). Fetched server-to-server (receiver's server calls origin, NOT browser) so there is no CORS and auth is server-presented: a short-lived signed CAPABILITY grant for ad-hoc DnD, or a per-server keypair signature + trust list for standing federation. Every federated fetch is rate-limited + audit-logged.",
+    "intention": "RawBin Federation: the origin exposes a safe, authenticated server-to-server API so the receiver's server (not the browser) fetches units/bytes/children — no CORS, no ambient authority.",
+    "context": "Greenfield federation, scenario-first (#126). Design: federated-scenario-transfer.md (architect 7e940cf81). Class server. Consumed by R26.2 (fetchUrl) + R26.4 (lazy resolve).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [ ] QA Review\n- [ ] Done",
+    "traceability": "  - up\n    - [Sprint 26 Planning](./planning.md)\n    - Requirement R26.3 `[requirement:uuid:05d21385-766a-426d-9045-77255d5234a0]`\n  - down\n    - [UC26.3: federation.scenarioFetchApi](./planning.md#uc26-3) `[uc:uuid:e205f1b0-7e8f-4b52-932c-dc9ae2350ef6]`",
+    "acceptanceCriteria": "- [x] (endpoint-unit) GET /api/scenario/<uuid> returns the unit JSON (ScenarioIndex.get)\n- [x] (endpoint-content) GET /api/scenario/<uuid>/content returns file bytes (content-addressable), served only when the receiver lacks the contentHash\n- [x] (endpoint-children) GET /api/scenario/<uuid>/children?mode=trace returns forward children (reuses /api/trace/children) for the tree walk\n- [x] (transport) Fetches are server-to-server (receiver's server calls origin), NOT browser->origin — no CORS; auth is server-presented\n- [x] (auth-adhoc) Ad-hoc DnD auth = a short-lived SIGNED capability grant scoped to {uuid + its transferable subtree}, minutes-expiry, embedded in fetchUrl?grant=; only the drag recipient holds it\n- [ ] (auth-standing) Standing federation auth = the caller server signs requests with its per-server keypair; the origin verifies the signature + an explicit trust list\n- [x] (safety) Every federated fetch is rate-limited + audit-logged (addLog)",
+    "subtasks": "None (atomic task).",
+    "status": "QA Review",
+    "coveredRequirements": [
+      "ior:instance:05d21385-766a-426d-9045-77255d5234a0"
+    ],
+    "useCases": [
+      "ior:instance:e205f1b0-7e8f-4b52-932c-dc9ae2350ef6"
+    ],
+    "parent": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d",
+    "sprintName": "Sprint 26",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-01",
+    "implementation": " GREEN → QA Review: impl v0.7.4 (3bedda07e); tester GREEN DET-3x df5b2ac6b — grant auth + unit/content/children. NOTE: gate covered capability-GRANT auth; the STANDING-federation keypair+trust-list AC (auth-standing) was NOT in this gate → left [ ]. (#27 per-AC honest.)"
+  },
+  "ownerIor": null
+}

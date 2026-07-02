@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "d6a5fc5a-eda6-4621-bba9-15e5153d1436",
+    "name": "User 102: Servus",
+    "text": "Servus",
+    "timestamp": 1781623863402,
+    "senderIor": "ior:instance:d48617b6-bfa4-4696-a1ee-d66687ea1896",
+    "senderName": "User 102",
+    "roomIor": "ior:instance:fe4d5664-ffc4-4ecd-a3c0-c4732e5bd35b",
+    "prevMessage": null,
+    "nextMessage": null,
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:d48617b6-bfa4-4696-a1ee-d66687ea1896"
+}

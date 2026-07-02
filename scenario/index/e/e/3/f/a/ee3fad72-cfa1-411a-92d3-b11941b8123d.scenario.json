@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ee3fad72-cfa1-411a-92d3-b11941b8123d",
+    "name": "ProxyFetch.fetchSanitized",
+    "description": "Guarded server-side proxy fetch: guardUrl-gated, size/timeout-capped, content-type-allowlisted, sanitized-never-executed, audited. The CORS/X-Frame fallback renderer for http/https preview.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:31c58c73-c52d-4785-b4ea-7c0ecb38ba56"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:09f4cdce-7604-4550-9aab-d484fe5d8322"
+}

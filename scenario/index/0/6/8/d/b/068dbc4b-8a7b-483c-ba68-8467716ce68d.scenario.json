@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "068dbc4b-8a7b-483c-ba68-8467716ce68d",
+    "name": "test:R21.1 dropVCard gate",
+    "description": "Bridged to test/visual/r211-vcard-persist-gate.mjs — vCard import persists (GET /api/vcard 200+FN) (DET-3x GREEN on prod)",
+    "sourceFile": "ior:file:test/visual/r211-vcard-persist-gate.mjs",
+    "implementations": [
+      "ior:instance:d1337706-80fa-48ba-a0a0-5b9cc42e2511"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:d1337706-80fa-48ba-a0a0-5b9cc42e2511"
+}

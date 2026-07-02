@@ -4,7 +4,7 @@
     "uuid": "c361dcf1-ba62-4888-a73c-c5ab924265a7",
     "name": "T21: Tron Live Feedback Fixes",
     "slug": "task-21-tron-feedback",
-    "description": "",
+    "description": "Address the fixes raised during Tron live feedback.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:2aaa509c-16e4-4900-a439-ec2857f97b14"
+  "ownerIor": "ior:instance:29d92990-3514-4627-8780-eb0d2e462eeb"
 }

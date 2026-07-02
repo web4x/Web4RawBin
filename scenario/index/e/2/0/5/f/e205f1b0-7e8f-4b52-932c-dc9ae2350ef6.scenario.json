@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "e205f1b0-7e8f-4b52-932c-dc9ae2350ef6",
+    "name": "federation.scenarioFetchApi",
+    "description": "GET /api/scenario/<uuid>{,/content,/children} on the origin, fetched server-to-server (no CORS); auth = capability token (ad-hoc) + server-keypair signature + trust-list (standing federation).",
+    "class": "ior:instance:6456d811-496f-4389-80b5-3c23f7fdde73",
+    "classes": [
+      "ior:instance:6456d811-496f-4389-80b5-3c23f7fdde73"
+    ],
+    "method": "ior:instance:f762297b-9445-4ea5-acd1-671d0589d4dd",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:05d21385-766a-426d-9045-77255d5234a0"
+}

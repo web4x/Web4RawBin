@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "574f9ac1-8471-4d26-bd29-2c1dfbeefb6f",
-    "name": "Drawer shadow is not rendered when the drawer is closed.",
+    "name": "No drawer shadow when closed",
     "altId": "R18.14",
     "tasks": [
       "ior:instance:08e46ce3-69f3-40fe-87d7-5ee875a4e94a"

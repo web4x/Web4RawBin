@@ -6,7 +6,8 @@
     "className": "RbDetailDrawer",
     "methodName": "swipeDismiss",
     "implementations": [
-      "ior:instance:19654b84-90e4-4a89-a9a8-10221f883d25"
+      "ior:instance:19654b84-90e4-4a89-a9a8-10221f883d25",
+      "ior:instance:d0235605-5d79-4411-a6ff-c72099ffd2f9"
     ],
     "implementation": "ior:instance:39e0ab19-3de9-405b-ac47-1b054db2f63c",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
@@ -16,5 +17,5 @@
     ],
     "parent": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
   },
-  "ownerIor": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+  "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
 }

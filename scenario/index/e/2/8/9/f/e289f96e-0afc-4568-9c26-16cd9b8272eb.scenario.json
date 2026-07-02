@@ -1,0 +1,68 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "e289f96e-0afc-4568-9c26-16cd9b8272eb",
+    "name": "Federation import wiring (end-to-end receive orchestration)",
+    "altId": "R26.6",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-26-federation/requirements.md",
+    "sourceLine": 77,
+    "parent": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:32f30eee-b0c8-4fca-b4d1-9ee6a1c0cdb1"
+    ],
+    "description": "The receiver's end-to-end federation IMPORT endpoint (POST /api/federation/import) that ORCHESTRATES R26.1-R26.5 into one working receive: it takes a federated reference (R26.2), fetches the unit from the origin (R26.3), validates + recreates it locally with provenance (R26.1 originHost/originIor), resolves children per the eager-structure/lazy-payload policy (R26.4), and reconciles any uuid conflict (R26.5) \u2014 leaving the transferred unit present locally with intact unitLinks. Foreign identities are never minted as local principals; incoming JSON is validated, size-capped, sanitized, never executed.",
+    "tronQuote": "> Derived: end-to-end federation receive is the wiring that composes R26.1-R26.5 (PO-flagged 2026-07-01; /api/federation/import v0.7.7).",
+    "discoverySource": {
+      "type": "integration-gap",
+      "flaggedBy": "robbin-po + robbin-planner",
+      "date": "2026-07-01",
+      "note": "R26.1-5 spec the capabilities + origin fetch API + import behaviours, but none names the RECEIVER end-to-end import orchestration endpoint /api/federation/import. Code shipped v0.7.7 BEFORE the req = #126 slip; chain completed retroactively."
+    },
+    "designRef": "scrum.pmo/design-notes/federated-scenario-transfer.md (7e940cf81)",
+    "implRef": "ior:file:src (POST /api/federation/import, v0.7.7) \u2014 Impl 3132c189, Method FederationApi.importScenario c4506b11, Class FederationApi 6456d811 (planner bottom-minted).",
+    "crossRef": [
+      "ior:instance:e8744de9-ca4a-4f8b-a6d9-c7c971999d8b",
+      "ior:instance:e36d585c-cbb1-4715-a175-fa844f375cde",
+      "ior:instance:05d21385-766a-426d-9045-77255d5234a0",
+      "ior:instance:71b44e05-555f-4db2-a485-f375cd7ad70b",
+      "ior:instance:f7e4c1cc-c2a5-423c-bbaa-d010a2d1fa79"
+    ],
+    "crossRefNote": "R26.6 COMPOSES R26.1-R26.5 (the integration/orchestration <<include>>): R26.2 ref -> R26.3 fetch -> R26.1 recreate+provenance -> R26.4 lazy children -> R26.5 reconcile. Not a duplicate \u2014 it is the end-to-end glue none of them names.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-endpoint",
+        "group": "endpoint",
+        "text": "The receiver exposes POST /api/federation/import accepting a federated reference (or fetchUrl) and returning the imported unit's local IOR."
+      },
+      {
+        "id": "AC-orchestrate",
+        "group": "orchestrate",
+        "text": "Import sequences: fetch unit JSON from origin (R26.3) -> validate -> recreate locally with provenance (R26.1 originHost/originIor) -> resolve children per eager/lazy policy (R26.4) -> reconcile uuid conflict (R26.5) -> link the chain."
+      },
+      {
+        "id": "AC-security-gate",
+        "group": "security",
+        "text": "Incoming JSON is validated (schema + size-cap + sanitize), NEVER executed; foreign identities never become local auth principals (per securityNote + R25.7 members-by-reference)."
+      },
+      {
+        "id": "AC-result",
+        "group": "result",
+        "text": "After import the transferred unit exists locally (recreated) with intact unitLinks + provenance, appearing in the target room/context."
+      },
+      {
+        "id": "AC-idempotent",
+        "group": "idempotent",
+        "text": "Re-import of the same reference is safe - it delegates to the R26.5 reconcile (no blind duplicate)."
+      },
+      {
+        "id": "AC-composes",
+        "group": "integration",
+        "text": "R26.6 is the INTEGRATION that composes R26.1-R26.5 (<<include>>); the constituent capabilities live in those reqs."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d"
+}

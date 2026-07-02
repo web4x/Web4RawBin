@@ -2,9 +2,9 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "8975ff1f-c486-4f4d-be1b-750b70c2ec25",
-    "name": "T57: rb-avatar Fixes — Lobby DRY, Pinch-Zoom, Crop Position",
+    "name": "T57: rb-avatar Fixes \u2014 Lobby DRY, Pinch-Zoom, Crop Position",
     "slug": "task-57-avatar-fixes-2",
-    "description": "",
+    "description": "Fix rb-avatar: lobby DRY cleanup, pinch-zoom, and crop position.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",
@@ -13,7 +13,7 @@
     "intention": "",
     "role": "",
     "acceptanceCriteria": "- [x] Lobby avatar is rb-avatar component (clickable, opens overlay)\n- [x] Pinch-zoom works on iPhone Safari in overlay\n- [x] Crop button saves zoom+pan position\n- [x] Saved crop applied when rendering avatar everywhere\n- [x] No actual image modification (only viewport transform)",
-    "qaAudit": "- 2026-05-24: Tron — avatar not clickable in lobby (DRY violation: inline img, not rb-avatar). Pinch-zoom doesn't work on iPhone. Add crop button that saves zoom+pan position.",
+    "qaAudit": "- 2026-05-24: Tron \u2014 avatar not clickable in lobby (DRY violation: inline img, not rb-avatar). Pinch-zoom doesn't work on iPhone. Add crop button that saves zoom+pan position.",
     "subtasks": "None (atomic task).",
     "assigned": "",
     "architectDesign": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:74d3060c-3e61-41ac-874d-0a0bdb768609"
+  "ownerIor": "ior:instance:a9eb4565-6a74-4f82-802f-01373b9cf59c"
 }

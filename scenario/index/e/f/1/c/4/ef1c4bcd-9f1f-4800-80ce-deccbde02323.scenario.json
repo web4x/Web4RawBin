@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ef1c4bcd-9f1f-4800-80ce-deccbde02323",
+    "name": "RbDetailView.renderChainPathSection impl",
+    "description": "Shipped implementation in src/public/ts/trace/detail-superseded.ts (verified present in PDCA review). [R22.1]",
+    "sourceFile": "ior:file:src/public/ts/trace/detail-superseded.ts",
+    "tests": [
+      "ior:instance:a392d306-4b01-40ff-bfc8-db74d8e1e720"
+    ]
+  },
+  "ownerIor": "ior:instance:edb49bb5-dd67-4d07-9aff-37c0bf44d531"
+}

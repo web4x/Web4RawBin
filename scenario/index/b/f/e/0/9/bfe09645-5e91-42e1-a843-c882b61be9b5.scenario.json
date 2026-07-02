@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "bfe09645-5e91-42e1-a843-c882b61be9b5",
+    "name": "RbDetailDrawer.minimize impl",
+    "description": "TO ADD in src/public/ts/trace/rb-detail-drawer.ts (bug-fix, not yet shipped): X button collapses the drawer to a MINIMIZED peek state (not close/hide); works on touch + mouse click.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "designAhead": true,
+    "tests": [
+      "ior:instance:ee18399f-f40f-4b01-ad8f-b0672b6e883b"
+    ]
+  },
+  "ownerIor": "ior:instance:c777e3e1-a569-408b-a546-615aa243e003"
+}

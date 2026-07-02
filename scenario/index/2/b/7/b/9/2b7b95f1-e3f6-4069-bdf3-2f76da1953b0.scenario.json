@@ -14,9 +14,9 @@
       "ior:instance:67b2763e-57d7-4d3e-ac16-11c0f905c3dc"
     ],
     "classes": [
-      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
     ],
-    "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
     "method": "ior:instance:ea02fa6d-5116-4466-82ee-81866c81a164",
     "source": {
       "file": "scrum.pmo/sprints/sprint-19-room-handling/diagrams/s19-task-chain.puml",

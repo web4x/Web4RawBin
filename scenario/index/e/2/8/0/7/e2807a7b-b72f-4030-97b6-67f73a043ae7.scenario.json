@@ -4,7 +4,7 @@
     "uuid": "e2807a7b-b72f-4030-97b6-67f73a043ae7",
     "name": "detailView.unifyChainLabel",
     "description": "Rename 'Champagne Chain' to 'Traceability Chain' in ALL detail views. No champagne/marketing terms in product UI (champagne stays internal scoring). Unify label via shared constant CHAIN_SECTION_TITLE='Traceability Chain'. 3 files to fix: rb-usecase-detail, rb-requirement-detail, rb-task-detail. rb-class-detail 'Traceability Chain (narrowed)' stays (accurate qualifier).",
-    "class": "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5",
+    "class": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07",
     "method": "ior:instance:9ed45878-98cb-4fc5-9014-ee7a553d62f1",
     "tasks": [
       "ior:instance:56cc23b5-aca1-49f5-9037-e2c58110643c"
@@ -12,7 +12,7 @@
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5"
+      "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
     ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

@@ -1,0 +1,277 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "bf6a0433-6e85-4341-92e5-79acb725e0bf",
+    "name": "Companies as shared scenario units",
+    "altId": "R21.8",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/requirements.md",
+    "sourceLine": 104,
+    "parent": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:a62c6e37-139f-4107-a157-1c67b3e06bfb"
+    ],
+    "description": "Each company is an ior:class:Company scenario unit; multiple profiles reference the SAME company unit (dedup by name) with no duplication, making Company a first-class shared entity in the object graph.",
+    "tronQuote": "> TRON: \"ior:class:Company. Multiple profiles reference SAME company unit, no duplication. Company is first-class entity in object graph.\"",
+    "architectureRef": "ior:file:scrum.pmo/sprints/sprint-21-contact-identity/architecture.md#4-company-dedup-shared-scenario-units (section 4; companyNameKey algo, domain strong key, autocomplete UX, unit shape, mintOrReuseShared)",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-a1",
+        "group": "namekey",
+        "text": "companyNameKey(raw) is deterministic and pure — identical input always yields identical output; the SAME implementation is shared by server and client."
+      },
+      {
+        "id": "AC-a2",
+        "group": "namekey",
+        "text": "Normalization steps, in order: NFKD unicode-fold + strip diacritics, lowercase, replace & with \" and \", repeat-strip legal suffixes until stable, strip all non-alphanumerics."
+      },
+      {
+        "id": "AC-a3",
+        "group": "namekey",
+        "text": "Canonical collapse: \"Cerulean Circle\", \"cerulean circle GmbH\", and \"CeruleanCircle\" all map to nameKey \"ceruleancircle\"."
+      },
+      {
+        "id": "AC-a4",
+        "group": "namekey",
+        "text": "Legal-suffix strip is token-wise, case-insensitive, repeated until stable, and covers at least: gmbh, mbh, ag, se, kg, ug, inc, llc, ltd, limited, corp, corporation, co, company, plc, lp, llp, sa, sarl, bv, nv, oy, ab, as, spa, srl, pty (so \"GmbH & Co KG\" fully strips)."
+      },
+      {
+        "id": "AC-a5",
+        "group": "namekey",
+        "text": "nameKey is a RECALL/suggestion key ONLY: a nameKey collision NEVER by itself triggers an automatic merge of two companies."
+      },
+      {
+        "id": "AC-b1",
+        "group": "domain",
+        "text": "When a company email or URL is available, domain = the registrable host derived from it (e.g. cerulean.circle); otherwise domain is null."
+      },
+      {
+        "id": "AC-b2",
+        "group": "domain",
+        "text": "Domain is AUTHORITATIVE: two inputs with the same domain resolve to the SAME company unit even if their names (and nameKeys) differ."
+      },
+      {
+        "id": "AC-b3",
+        "group": "domain",
+        "text": "Two inputs with DIFFERENT domains resolve to SEPARATE company units even if their nameKeys collide (e.g. \"Apple Inc\" vs an unrelated \"Apple\")."
+      },
+      {
+        "id": "AC-b4",
+        "group": "domain",
+        "text": "Where a domain is present it overrides nameKey in both lookup and mint decisions."
+      },
+      {
+        "id": "AC-c1",
+        "group": "autocomplete",
+        "text": "GET /api/company/suggest?q=<typed> returns up to 5 existing units ranked: exact nameKey > domain match > nameKey prefix > token-overlap fuzzy (Jaccard on word-set)."
+      },
+      {
+        "id": "AC-c2",
+        "group": "autocomplete",
+        "text": "The suggestion list ALWAYS includes a permanent bottom row \"Create \\\"<typed>\\\"\"."
+      },
+      {
+        "id": "AC-c3",
+        "group": "autocomplete",
+        "text": "Selecting an existing suggestion reuses that Company uuid — NO new unit is minted."
+      },
+      {
+        "id": "AC-c4",
+        "group": "autocomplete",
+        "text": "Choosing Create mints a NEW unit even if a nameKey neighbour exists (explicit user override = distinct company): no silent merge ever happens from normalization alone."
+      },
+      {
+        "id": "AC-c5",
+        "group": "autocomplete",
+        "text": "When a user confirms a typed variant onto an existing unit, the raw typed string is appended to that unit aliases[] (for future recall + audit)."
+      },
+      {
+        "id": "AC-c6",
+        "group": "autocomplete",
+        "text": "The company input is debounced (~150 ms) before querying /api/company/suggest."
+      },
+      {
+        "id": "AC-d1",
+        "group": "dedup",
+        "text": "mintOrReuseShared(name, domain?) step 1: if domain present and alt/company-domain/<domain> exists, return that unit uuid (no mint)."
+      },
+      {
+        "id": "AC-d2",
+        "group": "dedup",
+        "text": "Step 2: else if alt/company/<nameKey> exists, return that unit uuid (no mint)."
+      },
+      {
+        "id": "AC-d3",
+        "group": "dedup",
+        "text": "Step 3: else mint a new ior:class:Company, declare unitLinks (nameKey + domain when known), and index.put (which self-syncs the symlinks)."
+      },
+      {
+        "id": "AC-d4",
+        "group": "dedup",
+        "text": "Concurrent first-mint of the same nameKey does NOT create a duplicate: the alt/company/<nameKey> symlink is created with an atomic exclusive (wx) write — first writer wins, the loser re-reads the winner."
+      },
+      {
+        "id": "AC-e1",
+        "group": "unit-shape",
+        "text": "Each company is an ior:class:Company unit whose model carries: { uuid, name (display = first-entered form), nameKey, domain|null, aliases[], unitLinks[] }."
+      },
+      {
+        "id": "AC-e2",
+        "group": "unit-shape",
+        "text": "unitLinks include alt/company/<nameKey>.scenario.json and, when domain is known, alt/company-domain/<domain>.scenario.json — both symlinks point to the Company unit ITSELF (not to a profile)."
+      },
+      {
+        "id": "AC-e3",
+        "group": "unit-shape",
+        "text": "Profile.model.companies[] holds the forward IOR(s) to Company unit(s); a profile may reference multiple companies."
+      },
+      {
+        "id": "AC-f1",
+        "group": "shared",
+        "text": "Company.ownerIor === null — a company is owned by NO single profile (legitimate null, like a Skill unit)."
+      },
+      {
+        "id": "AC-f2",
+        "group": "shared",
+        "text": "Multiple profiles reference the SAME Company uuid via their own companies[]; there is exactly one unit, no duplication."
+      },
+      {
+        "id": "AC-f3",
+        "group": "shared",
+        "text": "There is NO back-pointer/members[] array on Company (forward-only): \"who works here\" is answered by walking all profiles companies[]; any member count shown in UI is a derived read, never stored as source of truth."
+      }
+    ],
+    "testScenarios": [
+      {
+        "id": "TS1",
+        "gates": [
+          "AC-a1",
+          "AC-a2",
+          "AC-a3",
+          "AC-a4"
+        ],
+        "name": "normalization collapses variants",
+        "given": "the three strings \"Cerulean Circle\", \"cerulean circle GmbH\", \"CeruleanCircle\"",
+        "when": "companyNameKey is applied to each",
+        "then": "all three return \"ceruleancircle\"; the function is pure (repeat calls identical)"
+      },
+      {
+        "id": "TS2",
+        "gates": [
+          "AC-a5",
+          "AC-c4"
+        ],
+        "name": "nameKey never auto-merges",
+        "given": "an existing company with nameKey \"apple\" (domain apple.com) and a user typing \"Apple\" with no/different domain",
+        "when": "the user chooses Create instead of selecting the suggestion",
+        "then": "a SECOND distinct Company unit is minted — nameKey collision alone did not merge them"
+      },
+      {
+        "id": "TS3",
+        "gates": [
+          "AC-b1",
+          "AC-b2",
+          "AC-b4",
+          "AC-d1"
+        ],
+        "name": "domain authoritative — same",
+        "given": "an existing company unit with domain cerulean.circle named \"Cerulean Circle\"",
+        "when": "mintOrReuseShared(\"Cerulean Circle GmbH\", \"cerulean.circle\") is called",
+        "then": "the existing uuid is returned via the domain index; no new unit minted even though the name differs"
+      },
+      {
+        "id": "TS4",
+        "gates": [
+          "AC-b3"
+        ],
+        "name": "domain authoritative — distinct",
+        "given": "two inputs \"Apple\" domain apple.com and \"Apple\" domain apple-fruitstand.de (same nameKey \"apple\")",
+        "when": "both are minted",
+        "then": "TWO separate Company units exist — different domains keep them apart despite the nameKey collision"
+      },
+      {
+        "id": "TS5",
+        "gates": [
+          "AC-c1",
+          "AC-c2",
+          "AC-c6"
+        ],
+        "name": "autocomplete ranking + create row",
+        "given": "company units {Cerulean Circle, Cerulean Cloud, Circle K} and the user types \"cer\" (debounced)",
+        "when": "GET /api/company/suggest?q=cer resolves",
+        "then": "returns ranked matches (exact/domain/prefix/fuzzy, <=5) AND a permanent row Create \"cer\""
+      },
+      {
+        "id": "TS6",
+        "gates": [
+          "AC-c3",
+          "AC-c4",
+          "AC-c5"
+        ],
+        "name": "select reuses, create mints, alias recorded",
+        "given": "an existing unit \"Cerulean Circle\" (nameKey ceruleancircle)",
+        "when": "user A selects it from suggestions, user B types \"cerulean circle gmbh\" and selects the same suggestion",
+        "then": "both reference the one uuid (no new unit); \"cerulean circle gmbh\" is appended to that unit aliases[]"
+      },
+      {
+        "id": "TS7",
+        "gates": [
+          "AC-d1",
+          "AC-d2",
+          "AC-d3"
+        ],
+        "name": "mintOrReuseShared dedup order",
+        "given": "an empty company index",
+        "when": "mintOrReuseShared(\"Cerulean Circle\") then mintOrReuseShared(\"CeruleanCircle\") are called",
+        "then": "the first mints a unit + alt/company/ceruleancircle symlink; the second returns the SAME uuid via the nameKey hit (no duplicate)"
+      },
+      {
+        "id": "TS8",
+        "gates": [
+          "AC-d4"
+        ],
+        "name": "concurrent first-mint no duplicate",
+        "given": "two profiles minting \"NewCo\" (nameKey newco) at the same instant",
+        "when": "both call mintOrReuseShared concurrently",
+        "then": "exactly ONE Company unit exists; the wx-exclusive symlink create lets the first win and the second re-reads the winner uuid"
+      },
+      {
+        "id": "TS9",
+        "gates": [
+          "AC-e1",
+          "AC-e2"
+        ],
+        "name": "unit shape + alt symlinks",
+        "given": "mintOrReuseShared(\"Cerulean Circle\", \"cerulean.circle\")",
+        "when": "the unit is written",
+        "then": "unit.model = {uuid, name:\"Cerulean Circle\", nameKey:\"ceruleancircle\", domain:\"cerulean.circle\", aliases:[], unitLinks:[alt/company/ceruleancircle..., alt/company-domain/cerulean.circle...]}; both symlinks resolve to THIS unit file"
+      },
+      {
+        "id": "TS10",
+        "gates": [
+          "AC-f1",
+          "AC-f2",
+          "AC-e3"
+        ],
+        "name": "shared ownership, no duplication",
+        "given": "two profiles P1, P2 both adding \"Cerulean Circle\"",
+        "when": "each adds the company",
+        "then": "one Company unit with ownerIor===null exists; P1.companies[] and P2.companies[] both contain the SAME company IOR; a profile may also hold a second, different company IOR"
+      },
+      {
+        "id": "TS11",
+        "gates": [
+          "AC-f3"
+        ],
+        "name": "no back-pointer; members derived",
+        "given": "a Company referenced by P1 and P2",
+        "when": "the unit is inspected and \"who works here\" is queried",
+        "then": "the Company unit has NO members[]/profiles[] field; the answer is computed by walking all profiles companies[] (P1,P2)"
+      }
+    ],
+    "refinementNote": "R21.8 refined 2026-06-28 per PO directive: detailed ACs (a:namekey, b:domain, c:autocomplete, d:dedup, e:unit-shape, f:shared) + 11 gateable test scenarios, grounded in architecture.md section 4 (architect, commit f1a49e3c1). Core split: recall-key (nameKey, suggests) vs precision-key (domain/user-confirm, merges). Chain (parent/owner/useCases) unchanged; name/description/tronQuote unchanged."
+  },
+  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+}

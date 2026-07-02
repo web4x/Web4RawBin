@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "bd080edb-3738-4a6c-ae84-51e59fff8560",
+    "name": "RoomView.importFromClipboard",
+    "sourceFile": "src/public/ts/RoomView.ts",
+    "tests": [],
+    "parent": "ior:instance:e8983bc2-1227-4629-a99d-b639b84668ba"
+  },
+  "ownerIor": "ior:instance:7158a210-c5af-4e06-89f1-df60a2226828"
+}

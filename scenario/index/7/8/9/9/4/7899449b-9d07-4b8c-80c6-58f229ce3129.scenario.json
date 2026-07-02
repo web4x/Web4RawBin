@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7899449b-9d07-4b8c-80c6-58f229ce3129",
+    "name": "Room.dedupMembersOnLoad impl",
+    "description": "DESIGN-AHEAD (scenario-first #126; fix not yet shipped): base src/ts/server/Room.ts; expert attaches [impl:uuid] at code time.",
+    "sourceFile": "ior:file:src/ts/server/Room.ts",
+    "designAhead": true,
+    "tests": [
+      "ior:instance:cca392d6-7cb4-4751-ae3f-9be13a99542f"
+    ]
+  },
+  "ownerIor": "ior:instance:0c8b2e2f-1b33-40fa-947f-3325fdbad470"
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "3ab76d13-2ef6-4ca2-b597-7692cb2a30f6",
+    "name": "filePreview.imageClickable",
+    "description": "PNG (and all image types) are clickable in the /md file browser and open in the preview pane, same as SVG (R22.4 widened the .svg-only handling to all images).",
+    "class": "ior:instance:0cb4be1b-e2b6-46de-9656-9f87857559df",
+    "classes": [
+      "ior:instance:0cb4be1b-e2b6-46de-9656-9f87857559df"
+    ],
+    "method": "ior:instance:af4e16c1-c580-4562-9d4d-109c610694f3",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c13ee707-0099-45ef-9d4d-f5541d21b2bd"
+}

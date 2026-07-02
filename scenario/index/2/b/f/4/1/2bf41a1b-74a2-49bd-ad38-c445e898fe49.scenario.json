@@ -4,7 +4,7 @@
     "uuid": "2bf41a1b-74a2-49bd-ad38-c445e898fe49",
     "name": "detailDrawer.dragResize",
     "description": "R19.84: drag the grab-bar to resize drawer height. Expert extracts drag logic from onTouchStart/Move/End (lines 172-214) into a named method handleDragResize(). Real uuidgen marker on the named method (replaces fake-suffix 01771d5b-a1b2-4c3d-8e4f).",
-    "class": "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
     "method": "ior:instance:dc130f76-b938-497c-ba45-3b90ae8817d6",
     "tasks": [
       "ior:instance:3c7d1853-a5ee-4c7c-9c94-04b2e4f5bbb4"
@@ -12,7 +12,7 @@
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:0dd08b2f-30ba-433f-a9de-285065f3fb8e"
+      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
     ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

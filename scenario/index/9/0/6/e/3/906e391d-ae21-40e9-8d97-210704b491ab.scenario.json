@@ -1,0 +1,29 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "906e391d-ae21-40e9-8d97-210704b491ab",
+    "name": "Task 26.1: Federated IOR — provenance via originHost",
+    "slug": "task-26.1-federated-ior-provenance",
+    "description": "An IOR gains an OPTIONAL host suffix (ior:instance:<uuid>@<originHost>) so a reference is resolvable across servers; local IORs omit @host (implicit self), 100% back-compatible. An imported unit records provenance in model.originHost + model.originIor. Resolution is polymorphic via a pluggable loader registry: no-@host resolves locally (ScenarioIndex.get), @remote via a registered federated loader (fetch), so a federated IOR dereferences lazily anywhere it appears.",
+    "intention": "RawBin Federation (Tron 2026-07-01: dragging items between two RawBin servers). Principle: STRUCTURE eager, PAYLOAD lazy, IDENTITY by-reference. R26.1 = the federated IOR + resolver foundation.",
+    "context": "Greenfield federation, scenario-first (#126) — full design-ahead chain minted BEFORE the expert codes. Design: scrum.pmo/design-notes/federated-scenario-transfer.md (architect 7e940cf81). Class IOR / resolver.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "traceability": "  - up\n    - [Sprint 26 Planning](./planning.md)\n    - Requirement R26.1 `[requirement:uuid:e8744de9-ca4a-4f8b-a6d9-c7c971999d8b]`\n  - down\n    - [UC26.1: ior.federatedOrigin](./planning.md#uc26-1) `[uc:uuid:9b4a8c02-a913-45e9-b984-640defa70b33]`",
+    "acceptanceCriteria": "- [x] (format) The IOR string supports an optional host suffix: ior:instance:<uuid>@<originHost>; a local IOR omits @host (implicit self) and stays 100% back-compatible with every existing ior:instance:<uuid>\n- [x] (provenance) An imported unit stores provenance: model.originHost (source server canonical https:// URL) + model.originIor (the original ior:instance:<uuid>@host). Local-born units omit both\n- [x] (resolver) Resolution is polymorphic via a pluggable loader registry: no-@host/@self -> local ScenarioIndex.get; @remote -> a registered federated loader (fetches via R26.3), keyed on @host exactly as FileLoader is registered locally\n- [x] (resolver-lazy) A federated IOR can be dereferenced lazily anywhere it appears (ISR-style), not only at import\n- [x] (identity) originHost is the server's canonical https:// origin (reuses per-server host identity), never an IP",
+    "subtasks": "None (atomic task).",
+    "status": "Done",
+    "coveredRequirements": [
+      "ior:instance:e8744de9-ca4a-4f8b-a6d9-c7c971999d8b"
+    ],
+    "useCases": [
+      "ior:instance:9b4a8c02-a913-45e9-b984-640defa70b33"
+    ],
+    "parent": "ior:instance:1d98197d-87ee-4355-8858-406961b2f19d",
+    "sprintName": "Sprint 26",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-01",
+    "implementation": " GREEN → QA Review: impl v0.7.2 (8db73bfcc); tester GREEN DET-3x — bare/remote/@self/back-compat. (#27 per-AC honest.) ✓ TRON-ACCEPTED 2026-07-01 (Tron QA review pass) -> DONE (full-AC).",
+    "tronAccepted": "2026-07-01"
+  },
+  "ownerIor": null
+}

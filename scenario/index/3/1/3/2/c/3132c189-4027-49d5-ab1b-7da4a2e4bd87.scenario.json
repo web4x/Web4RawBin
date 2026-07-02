@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "3132c189-4027-49d5-ab1b-7da4a2e4bd87",
+    "name": "FederationApi.importScenario impl (/api/federation/import)",
+    "description": "SHIPPED v0.7.7 (004c0934f, FEDERATION WIRING — connect T26.1-T26.5 into the drop flow). The /api/federation/import receiver endpoint. Expert attaches [impl:uuid:3132c189-4027-49d5-ab1b-7da4a2e4bd87] at code time. NEW capability beyond R26.1-5 -> to be captured as R26.6 (req+UC federation.import) scenario-first; this Impl/Method are the bottom of that chain, awaiting the R26.6 req+UC top.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": false,
+    "tests": [
+      "ior:instance:638f94d3-2c51-40ae-8f43-b606e34d0ec0"
+    ]
+  },
+  "ownerIor": "ior:instance:c4506b11-deff-4ea5-8966-b54f04e7ce9c"
+}

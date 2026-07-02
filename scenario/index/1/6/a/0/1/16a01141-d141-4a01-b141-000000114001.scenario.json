@@ -9,7 +9,7 @@
       "ior:instance:a9341bae-656e-4e87-ab50-c9a17a7c9222"
     ],
     "classes": [
-      "ior:instance:311ff74e-7024-4827-a9ee-d9a09c22c1b0"
+      "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff"
     ],
     "source": {
       "file": "scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml",
@@ -21,8 +21,8 @@
       "repo": "Web4RawBin",
       "ior": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml?commit=d87e826&lines=94-100"
     },
-    "class": "ior:instance:311ff74e-7024-4827-a9ee-d9a09c22c1b0",
-    "method": "ior:instance:0ab3b64a-a93e-4a74-80e6-744c5c0fc7c4",
+    "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
+    "method": "ior:instance:0a78eab3-f3e8-4391-89c8-0b764ed28f8d",
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-16-traceability-ux/task-114-tree-item-drag.md",
     "sourceLine": 30,
     "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",

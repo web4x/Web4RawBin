@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "12e2f21a-4e30-475a-bf23-acd5a8b73a8e",
+    "name": "fetchSanitized never executes foreign content (PROD-CRITICAL)",
+    "description": "DESIGN-AHEAD adversarial POST-fetch test: adversarial page with <script>, onerror=/onload= handlers, javascript: + data: URIs, <iframe>, <object> -> ALL neutralized/stripped; served inert under a restrictive CSP; NEVER eval/execute. Must NOT blanket-green (same never-execute rule as T26.6 foreign JSON).",
+    "testCases": []
+  },
+  "ownerIor": "ior:instance:31c58c73-c52d-4785-b4ea-7c0ecb38ba56"
+}

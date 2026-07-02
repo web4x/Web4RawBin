@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f9395ad8-66df-46b5-90ac-e0bb65df2d1f",
+    "name": "test:T24.3 Chain.scoreboard gate",
+    "description": "Bridged to test/visual/r241-objectverb-gate.mjs — chain scoreboard/followUp (DET-3x GREEN)",
+    "sourceFile": "ior:file:test/visual/r241-objectverb-gate.mjs",
+    "implementations": [
+      "ior:instance:cd939148-5588-4c43-a211-599ad266b790"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cd939148-5588-4c43-a211-599ad266b790"
+}

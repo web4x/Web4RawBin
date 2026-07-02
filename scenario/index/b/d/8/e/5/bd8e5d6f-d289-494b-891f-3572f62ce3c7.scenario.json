@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "bd8e5d6f-d289-494b-891f-3572f62ce3c7",
+    "name": "RbDetailView.renderChainNodeSourceLink impl",
+    "description": "DESIGN-AHEAD (renderer not yet shipped): planned in src/public/ts/trace/detail-superseded.ts [R22.3]",
+    "sourceFile": "ior:file:src/public/ts/trace/detail-superseded.ts",
+    "designAhead": true,
+    "tests": [
+      "ior:instance:91d0edca-9de6-4172-9d1c-8e268bb2dcb1"
+    ]
+  },
+  "ownerIor": "ior:instance:5d56d674-2522-45d1-b587-64a359c225ea"
+}

@@ -4,7 +4,7 @@
     "uuid": "19442916-8dac-490a-bdc1-61f2c1e27da8",
     "name": "Task 2: RawBin Architecture Definition",
     "slug": "task-2-rawbin-architecture-definition",
-    "description": "",
+    "description": "Define the RawBin architecture: scope, layers, and component boundaries.",
     "status": "Done",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "remainingIssues": "",

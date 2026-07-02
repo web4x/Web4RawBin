@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "2bf3d075-e485-4dd8-8cf0-0cdceac6bb2e",
+    "name": "ClassMint",
+    "description": "src/ts/scenario/class-mint.ts — the reuse-by-name mint helper (mintOrReuseClass) enforcing one Class unit per code-module. First Class unit for a NEW module (not a dup-violation).",
+    "methods": [
+      "ior:instance:ee1aa197-b7c8-4235-a8ba-98819dbfe493"
+    ]
+  },
+  "ownerIor": "ior:instance:37c52953-654f-47c1-8710-b851b706849d"
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5ad927a9-4229-47bc-bb8c-21e52d6a923c",
+    "name": "test:R26.5 reconcileConflict gate",
+    "description": "Bridged to test/visual/r262-t264-t265-federation-transfer-gate.mjs — verifies reconcileConflict",
+    "sourceFile": "ior:file:test/visual/r262-t264-t265-federation-transfer-gate.mjs",
+    "implementations": [
+      "ior:instance:8d34ad57-e1ec-4d71-8348-4efa345a07f3"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:8d34ad57-e1ec-4d71-8348-4efa345a07f3"
+}

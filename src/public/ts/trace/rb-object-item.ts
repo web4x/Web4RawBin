@@ -29,6 +29,7 @@ import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { TRACE_ICONS } from './icons.js';
 import { selectionModel } from './selection-model.js';
+import { dropDispatcher } from '../drop-dispatcher.js'; // T26.2: application/rb-federated-ref builder
 
 export class RbObjectItem extends HTMLElement {
   static get observedAttributes() { return ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count', 'assignee', 'verdict']; }
@@ -128,6 +129,9 @@ export class RbObjectItem extends HTMLElement {
     dt.setData('text/plain', refs.length > 1 ? refs.join('\n') : hash);
     dt.setData('text/uri-list', `${origin}/app${hash}`);
     dt.setData('application/rb-object-ref', refs.join(','));
+    // T26.2: cross-origin federated reference for the PRIMARY unit — receiver's server imports from fetchUrl.
+    // originHost = this server's canonical origin; text/uri-list above stays the human/browser fallback.
+    if (origin) dt.setData('application/rb-federated-ref', dropDispatcher.buildFederatedRef({ uuid, type, name: this.getAttribute('name') || uuid, originHost: origin }));
     dt.effectAllowed = 'copyLink';
     if (dt.setDragImage) dt.setDragImage(this, 20, 20);
   };

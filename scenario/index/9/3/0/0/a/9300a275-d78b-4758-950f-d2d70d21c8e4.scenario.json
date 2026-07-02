@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "9300a275-d78b-4758-950f-d2d70d21c8e4",
+    "name": "consolidate.evictAbsorbedFromRooms",
+    "description": "On CONSOLIDATE, after setting friend.redirectTo, remove/rekey every member with playerToken==absorbed from ALL rooms (broadcast MEMBER_LEFT + corrected memberCount).",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
+    "classes": [
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
+    ],
+    "method": "ior:instance:bb4a357f-7e25-4a99-8ca6-2cc02593dc6c",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:585b6b9c-2fa7-48e2-8fab-a7e8a31e516e"
+}

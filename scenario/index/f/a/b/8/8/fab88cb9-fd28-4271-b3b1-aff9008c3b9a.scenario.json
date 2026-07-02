@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "fab88cb9-fd28-4271-b3b1-aff9008c3b9a",
+    "name": "address.mintAndVerifyAsync",
+    "description": "Mint ior:class:Address (Country City PostalCode Street HouseNumber), save immediately, verify async against OpenStreetMap, set badge + OSM/GMaps links on success.",
+    "class": "ior:instance:151d6d8e-b2b0-46c2-a880-671a1fbb9b88",
+    "classes": [
+      "ior:instance:151d6d8e-b2b0-46c2-a880-671a1fbb9b88"
+    ],
+    "method": "ior:instance:1b623e2c-38b4-4220-a1f8-a8c888d26865",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5d3b5e6e-75da-4b66-8d44-75df5f9ceb7f"
+}

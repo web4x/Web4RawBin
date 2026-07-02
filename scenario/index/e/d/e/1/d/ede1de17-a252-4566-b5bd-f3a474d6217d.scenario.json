@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "ede1de17-a252-4566-b5bd-f3a474d6217d",
+    "name": "connect.redirectTombstoneToPrimary",
+    "description": "On connect/IDENTIFY, if profile.redirectTo set -> TOKEN_REDIRECT to primary + addMember under the primary token (no 2nd entry); redirectTo is IMMUTABLE (every save preserves it; IDENTIFY on a tombstone redirects, never re-mints).",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
+    "classes": [
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
+    ],
+    "method": "ior:instance:78ac9322-31ac-41f3-a608-e1fde03b5510",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:585b6b9c-2fa7-48e2-8fab-a7e8a31e516e"
+}

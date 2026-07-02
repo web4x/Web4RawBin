@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "d0543bec-d879-4daf-85ad-ad2b631f0f8e",
+    "name": "Hansi Heaven: 💖",
+    "text": "💖",
+    "timestamp": 1781623924875,
+    "senderIor": "ior:instance:d48617b6-bfa4-4696-a1ee-d66687ea1896",
+    "senderName": "Hansi Heaven",
+    "roomIor": "ior:instance:440ccc82-368c-4b8c-9c8b-d8a81f9d4ae7",
+    "prevMessage": null,
+    "nextMessage": null,
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:d48617b6-bfa4-4696-a1ee-d66687ea1896"
+}

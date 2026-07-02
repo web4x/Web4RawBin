@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "accc6a00-5c92-4de0-b38f-029a45b86852",
+    "name": "RbDetailDrawer.previewByType impl",
+    "description": "DESIGN-AHEAD (#126): type-dispatch on WebItem scheme/content-type -> previewable(iframe+proxy-fallback)/pdf(embed)/launcher(card); declared kind-map, regression-proof; preview-first layout, reset-zoom overlay preserving RbPanZoom(R22.2).",
+    "sourceFile": "ior:file:src/public/ts/room/rb-detail-drawer.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:187a1c5e-125c-4af7-bb11-49585f8321d7"
+}

@@ -5,7 +5,11 @@
     "name": "RbTaskDetail",
     "file": "src/public/ts/trace/rb-task-detail.ts",
     "methods": [
-      "ior:instance:e9e78526-d44e-4920-8ef1-c0e8f0c62fe6"
+      "ior:instance:e9e78526-d44e-4920-8ef1-c0e8f0c62fe6",
+      "ior:instance:bfd21995-5843-4bde-b72a-37e10d38badf",
+      "ior:instance:55a462aa-cfbd-4510-9695-4fb056daa451",
+      "ior:instance:755401de-b7ec-48e8-be08-60b50d4c3a53",
+      "ior:instance:cfbcbb42-5642-45c1-b202-1822fefbbbeb"
     ],
     "useCases": [],
     "method": "ior:instance:e9e78526-d44e-4920-8ef1-c0e8f0c62fe6",

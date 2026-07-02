@@ -8,13 +8,13 @@
 // [impl:uuid:c3c95f15-db0e-4690-bc20-380f82b9fc48] R17.12 (split for IORResolver.resolveClass(ior): ClassLoader
  * [impl:uuid:664314f1-1503-4f48-9cd3-231afd198570] R17.12
  */
-// [impl:uuid:0e05da50-8dae-48fe-b4b2-361525a398c4] IORResolver.resolve(ior): ScenarioUnit | ClassLoader (split 
-// [impl:uuid:9b96ae64-dfbc-4cdf-b62c-4394b647c6b9] IORResolver.resolve(ior): ScenarioUnit | ClassLoader
+// [impl:uuid:0e05da50-8dae-48fe-b4b2-361525a398c4] IORResolver.resolve(ior): ScenarioUnit | ClassLoader (split
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseIor, type ScenarioUnit } from './types.js';
 import { ScenarioIndex } from './index-store.js';
 import { type ViewTemplateRegistry } from './templates.js';
+import { parseFederatedIor, isLocalOrigin } from './federated-ior.js'; // T26.1: federated @originHost
 
 export interface IORResolution {
   ior: string;
@@ -24,6 +24,8 @@ export interface IORResolution {
   unit?: ScenarioUnit;
   html?: string;
   md?: string;
+  federated?: boolean;   // T26.1: a remote @originHost IOR — dereference lazily via the federated loader
+  originHost?: string;
 }
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -33,6 +35,7 @@ export class IORResolver {
     private index: ScenarioIndex,
     private registry: ViewTemplateRegistry,
     private projectRoot: string,
+    private selfHost?: string, // T26.1: this server's canonical https:// origin (for @self / same-origin resolution)
   ) {}
 
   private normalize(ior: string): string {
@@ -44,9 +47,16 @@ export class IORResolver {
     return trimmed;
   }
 
+  // [impl:uuid:9b96ae64-dfbc-4cdf-b62c-4394b647c6b9] IORResolver.resolve — + T26.1 federated @originHost dispatch
   resolve(ior: string): IORResolution {
     const normalized = this.normalize(ior);
-    const parsed = parseIor(normalized);
+    // T26.1: split off an optional @originHost. A REMOTE origin → federated (resolved lazily via the
+    // federated loader, R26.3), not synchronously here. A local/@self origin → resolve the bare uuid below.
+    const fed = parseFederatedIor(normalized);
+    if (fed.originHost && !isLocalOrigin(fed.originHost, this.selfHost)) {
+      return { ior, type: 'instance', className: 'federated', federated: true, originHost: fed.originHost };
+    }
+    const parsed = parseIor(fed.originHost ? `ior:instance:${fed.uuid}` : normalized);
     if (!parsed) return { ior, type: 'unknown' };
     // use normalized for all downstream, keep original in response
 

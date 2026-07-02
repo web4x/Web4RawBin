@@ -8,7 +8,9 @@ import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
-import { renderContentPreview, loadTextPreview, wireUrlActions, guessMimeFromName } from './content-preview.js';
+import { guessMimeFromName, fillPreviewPane } from './content-preview.js';
+import './rb-preview-pane.js';
+import type { RbPreviewPane } from './rb-preview-pane.js';
 
 export class RbFileDetail extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -19,6 +21,7 @@ export class RbFileDetail extends HTMLElement {
   disconnectedCallback(): void { for (const u of this.unsubs) u(); this.unsubs = []; }
   attributeChangedCallback(): void { if (this.isConnected) this.render(); }
 
+  // [impl:uuid:f8b113b7-29a9-400e-b3fa-f3be7e5798cf] R21.9 RbFileDetail.render — actions-first reorder + 75vh pan/zoom pane
   render(): void {
     for (const u of this.unsubs) u(); this.unsubs = [];
     const ref = this.getAttribute('ref') || '';
@@ -38,32 +41,31 @@ export class RbFileDetail extends HTMLElement {
         const token = m.uploaderToken || '';
         const sizeLabel = size > 1024 ? `${(size / 1024).toFixed(1)} KB` : `${size} B`;
 
-        const hex = uuid.replace(/-/g, '');
-        const shard = `${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}`;
-        const editHref = `/edit/scenario/index/${shard}/${uuid}.scenario.json`;
 
+        const contentUrl = `/api/room/file/${uuid}/content${token ? '?token=' + encodeURIComponent(token) : ''}`;
+        // R21.9 reorder: buttons TOP → 75vh preview MIDDLE → metadata BOTTOM
         this.innerHTML = `
           <div class="dv-head">
             <span class="dv-type-badge" style="background:rgba(78,52,46,0.25);color:#a1887f">File</span>
             <h3>${esc(name)}</h3>
             <code class="dv-uuid">${uuid}</code>
           </div>
+          <div class="cv-actions" style="display:flex;gap:8px;margin:8px 0;flex-wrap:wrap">
+            <button class="btn cv-newtab" style="flex:1;font-size:0.8rem">↗ New tab</button>
+            <button class="btn pz-reset" style="flex:1;font-size:0.8rem">⤢ Reset zoom</button>
+          </div>
+          <rb-preview-pane></rb-preview-pane>
           <div class="dv-fields">
             ${mimeType ? `<div class="dv-field"><label>Type</label><span>${esc(mimeType)}</span></div>` : ''}
             ${size ? `<div class="dv-field"><label>Size</label><span>${sizeLabel}</span></div>` : ''}
             ${scenarioBrowserLinkFromIor(uuid)}
-            <div class="dv-field"><a href="${editHref}" class="dv-file-link" style="color:#ff9800;font-size:0.75rem;text-decoration:none">✏️ Edit scenario</a></div>
           </div>
           <div class="dv-links"></div>`;
 
-        // Embed content-preview.ts (DRY — same buttons as room file view)
-        const previewHtml = renderContentPreview(uuid, mimeType, name, token);
-        const previewDiv = document.createElement('div');
-        previewDiv.className = 'dv-content-preview';
-        previewDiv.innerHTML = previewHtml;
-        this.querySelector('.dv-fields')?.insertAdjacentElement('afterend', previewDiv);
-        loadTextPreview(previewDiv, uuid, token);
-        wireUrlActions(previewDiv);
+        const pane = this.querySelector('rb-preview-pane') as RbPreviewPane;
+        fillPreviewPane(pane, uuid, mimeType, name, token); // DRY: shared mime→content builder
+        this.querySelector('.cv-newtab')?.addEventListener('click', () => window.open(contentUrl, '_blank'));
+        this.querySelector('.pz-reset')?.addEventListener('click', () => pane.reset());
 
         if (sourceFile) {
           const sh = this.querySelector('.dv-head');

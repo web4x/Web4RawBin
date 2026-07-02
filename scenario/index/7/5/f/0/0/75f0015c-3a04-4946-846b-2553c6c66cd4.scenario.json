@@ -6,7 +6,8 @@
     "className": "SpeakingTree",
     "methodName": "symlinkJson(sprint",
     "implementations": [
-      "ior:instance:7958f8bf-25de-43e2-a022-287c809d84cb"
+      "ior:instance:7958f8bf-25de-43e2-a022-287c809d84cb",
+      "ior:instance:7bab1a71-8d2e-4d19-bd4a-ce5547291b03"
     ],
     "implementation": "ior:instance:b539d1d8-5cc9-488e-bb18-160ee73f5a56",
     "sourceFile": "ior:file:scenario/index/7/5/f/0/0/75f0015c-3a04-4946-846b-2553c6c66cd4.scenario.json",
@@ -17,5 +18,5 @@
     "parent": "ior:instance:a4f056d2-463c-4613-8f3b-d3af2069b26c",
     "tests": []
   },
-  "ownerIor": "ior:instance:a4f056d2-463c-4613-8f3b-d3af2069b26c"
+  "ownerIor": "ior:instance:015b1ac0-eb5d-4b4b-9749-84d3b2214421"
 }

@@ -6,7 +6,10 @@
     "className": "RbRequirementDetail",
     "methodName": "render",
     "implementations": [
-      "ior:instance:660cb423-30cd-4d32-8a3f-d7bad22f6f5e"
+      "ior:instance:660cb423-30cd-4d32-8a3f-d7bad22f6f5e",
+      "ior:instance:9846e4d2-b1d6-4c2e-a77d-77b33a48460d",
+      "ior:instance:e1ad6c89-269b-47d2-96b5-1fa356cbc226",
+      "ior:instance:7fcca3cf-7c87-4a3d-a64b-089c6d92cc0a"
     ],
     "implementation": "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61",
     "sourceFile": "ior:file:src/public/ts/trace/rb-requirement-detail.ts",

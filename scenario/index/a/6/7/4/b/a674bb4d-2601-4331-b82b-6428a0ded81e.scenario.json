@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "a674bb4d-2601-4331-b82b-6428a0ded81e",
-    "name": "Chain cycles eliminated \u2014 forward-only traversal with cycle guard.",
+    "name": "Forward-only chain with cycle guard",
     "altId": "R18.9",
     "tasks": [
       "ior:instance:08e46ce3-69f3-40fe-87d7-5ee875a4e94a"

@@ -7,9 +7,7 @@
     "implementations": [
       "ior:instance:a6e5e49d-520f-4a80-9e51-1d8001e4bccb"
     ],
-    "tests": [],
-    "designStage": true,
-    "designStageNote": "Dangling impl refs removed by planner 2026-06-11 — no sourceFile on disk. Method is design-stage (architect-designed, not yet implemented)."
+    "tests": []
   },
-  "ownerIor": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+  "ownerIor": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
 }

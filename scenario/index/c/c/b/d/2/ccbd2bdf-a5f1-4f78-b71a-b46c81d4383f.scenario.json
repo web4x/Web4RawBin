@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ccbd2bdf-a5f1-4f78-b71a-b46c81d4383f",
+    "name": "ContentPreviewer.fillPreviewPane",
+    "description": "Audio files (mp3/wav/ogg/m4a) render an HTML5 <audio controls> player in the preview pane; audio MIME added to the mime map and the fillPreviewPane dispatch.",
+    "implementations": [
+      "ior:instance:deed6186-139c-4fa9-bd25-eb8c29f83f75"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:4cf1d1de-37e2-42e8-bf8b-9776bf87f061"
+}

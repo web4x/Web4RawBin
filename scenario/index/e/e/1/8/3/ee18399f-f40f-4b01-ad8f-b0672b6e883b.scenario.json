@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ee18399f-f40f-4b01-ad8f-b0672b6e883b",
+    "name": "test:R25.4 minimize gate",
+    "description": "Bridged to test/visual/r255-v0694-gate.mjs — item(3) ✕->minimize-to-peek + grab-bar expand (DET-3x GREEN)",
+    "sourceFile": "ior:file:test/visual/r255-v0694-gate.mjs",
+    "implementations": [
+      "ior:instance:bfe09645-5e91-42e1-a843-c882b61be9b5"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:bfe09645-5e91-42e1-a843-c882b61be9b5"
+}

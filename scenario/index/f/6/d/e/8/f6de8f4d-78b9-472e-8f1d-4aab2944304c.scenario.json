@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f6de8f4d-78b9-472e-8f1d-4aab2944304c",
+    "name": "test:R26.4 resolveChildrenLazily gate",
+    "description": "Bridged to test/visual/r262-t264-t265-federation-transfer-gate.mjs — verifies resolveChildrenLazily",
+    "sourceFile": "ior:file:test/visual/r262-t264-t265-federation-transfer-gate.mjs",
+    "implementations": [
+      "ior:instance:3b17aad3-0587-48f6-8da6-3eaf54a9a84d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:3b17aad3-0587-48f6-8da6-3eaf54a9a84d"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "0cb4be1b-e2b6-46de-9656-9f87857559df",
+    "name": "FileBrowser",
+    "description": "Design-ahead class for filePreview.imageClickable (R22.4).",
+    "methods": [
+      "ior:instance:af4e16c1-c580-4562-9d4d-109c610694f3",
+      "ior:instance:c6ce5d1e-ab54-41b8-814d-01909df7071f",
+      "ior:instance:635545cd-c483-4cfe-a385-b57fafc768ac"
+    ]
+  },
+  "ownerIor": "ior:instance:9996b46a-66b7-4f8a-9298-cbea3c2edabf"
+}

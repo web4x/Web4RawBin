@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d6b29c09-132b-4828-b9c6-d59c9929ccb8",
+    "name": "RbTaskDetail.taskMdHref impl (Forward Links -> MD file)",
+    "description": "R22.1 Forward-Links-to-MD-file link. Expert attaches [impl:uuid:d6b29c09-132b-4828-b9c6-d59c9929ccb8] at rb-task-detail.ts:62-66.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-task-detail.ts",
+    "designAhead": false,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:55a462aa-cfbd-4510-9695-4fb056daa451"
+}

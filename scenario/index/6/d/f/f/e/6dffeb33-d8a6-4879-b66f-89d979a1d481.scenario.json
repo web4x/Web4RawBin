@@ -6,10 +6,10 @@
     "object": "lobby",
     "verb": "multiRoom",
     "classes": [
-      "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8"
+      "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78"
     ],
     "tasks": [],
-    "class": "ior:instance:1165c293-3152-4e17-a242-8b7a03e5f3f8",
+    "class": "ior:instance:2172dc56-83c8-4818-9981-3b942b5d7e78",
     "method": "ior:instance:b98868fc-e801-4698-9b30-164eb289fb8f",
     "sourceFile": "ior:file:test/e2e/mobile-viewport.spec.ts",
     "sourceLine": 12,

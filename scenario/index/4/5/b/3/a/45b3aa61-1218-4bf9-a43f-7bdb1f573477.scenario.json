@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "45b3aa61-1218-4bf9-a43f-7bdb1f573477",
+    "name": "Cerulean Circle Gmbh: Haben Sie schon genug Bewerbungen für Vollzeitangestellter?.eml",
+    "contentPath": "index/4/5/b/3/a/45b3aa61-1218-4bf9-a43f-7bdb1f573477.content",
+    "size": 19083,
+    "mimeType": "message/rfc822",
+    "uploadedAt": "2026-06-30T11:29:25.104Z",
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+    "roomUuid": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "contentHash": "5b9fd3ee538f857f518ebdc49b6ca5391886deb73f1037eff8b3a9c060a3cc6a",
+    "unitLinks": [
+      "content/5b9fd3ee538f857f518ebdc49b6ca5391886deb73f1037eff8b3a9c060a3cc6a.file.scenario.json",
+      "../data/users/8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd/rooms/3231db71-d834-435a-a7f9-a801680ccd62/files/45b3aa61-1218-4bf9-a43f-7bdb1f573477.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62"
+}

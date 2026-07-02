@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "5316df18-5d24-4325-b467-a759ae69ca9f",
+    "kind": "link",
+    "name": "Parisii™ QFS™ — Four Paths Suite",
+    "description": "https://monumental-praline-249f71.netlify.app/",
+    "url": "https://monumental-praline-249f71.netlify.app/",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=monumental-praline-249f71.netlify.app&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "parentFolder": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62",
+    "children": [],
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd"
+  },
+  "ownerIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62"
+}

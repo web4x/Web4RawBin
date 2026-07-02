@@ -6,7 +6,8 @@
     "file": "-- 7 loaders --",
     "methods": [
       "ior:instance:0f5e0c40-f24d-4dbf-9990-f7e6d771ae17",
-      "ior:instance:c935e249-2fc6-4717-9130-b1db849ce8f2"
+      "ior:instance:c935e249-2fc6-4717-9130-b1db849ce8f2",
+      "ior:instance:ea19db5f-4850-47d8-8c4d-3726b743e96b"
     ],
     "useCases": [],
     "method": "ior:instance:0f5e0c40-f24d-4dbf-9990-f7e6d771ae17",

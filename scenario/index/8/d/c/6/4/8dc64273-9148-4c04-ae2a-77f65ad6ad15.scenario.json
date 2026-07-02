@@ -3,8 +3,8 @@
   "model": {
     "uuid": "8dc64273-9148-4c04-ae2a-77f65ad6ad15",
     "name": "detailView.chainExcludesSelf",
-    "description": "Traceability Chain section excludes the current node (self) and non-chain nodes. Task viewing its own detail must NOT show itself as a chain node (Task is NAVIGATION per 6-step standard). Only req\u2192uc\u2192class\u2192method\u2192impl\u2192test nodes appear. Filter: skip nodes where uuid===current uuid, skip nodes whose type is not in the LOCKED chain types.",
-    "class": "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5",
+    "description": "Traceability Chain section excludes the current node (self) and non-chain nodes. Task viewing its own detail must NOT show itself as a chain node (Task is NAVIGATION per 6-step standard). Only req→uc→class→method→impl→test nodes appear. Filter: skip nodes where uuid===current uuid, skip nodes whose type is not in the LOCKED chain types.",
+    "class": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07",
     "method": "ior:instance:3542dcb3-aae6-48ac-b3a2-ac3cd2c0dded",
     "tasks": [
       "ior:instance:18ee26a2-bff1-43ab-8ecf-1665a56b96d1"
@@ -12,7 +12,7 @@
     "implementations": [],
     "tests": [],
     "classes": [
-      "ior:instance:f2f84ce3-bbbc-4bf7-9345-6a9d4dc64fb5"
+      "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
     ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"

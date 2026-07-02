@@ -42,12 +42,35 @@ export function renderParentLink(parent: DetailParent | null): string {
 }
 
 // [impl:uuid:ed71d42a-8b9c-4831-963a-973ff28d0819] R19.70 scenarioBrowserLinkFromIor
-export function scenarioBrowserLinkFromIor(uuid: string): string {
-  if (!uuid) return '';
+/** R20.30 — shared /md scenario-browser URL for a unit uuid (DRY: forward-link rows + Scenario field). */
+export function scenarioBrowserHref(uuid: string): string {
   const hex = uuid.replace(/-/g, '');
   const shard = `${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}`;
-  const href = `/md/scenario/index/${shard}/?highlight=${encodeURIComponent(uuid + '.scenario.json')}`;
-  return `<div class="dv-field"><a href="${href}" style="color:#ff9800;font-size:0.75rem;text-decoration:none">📄 Scenario</a></div>`;
+  return `/md/scenario/index/${shard}/?highlight=${encodeURIComponent(uuid + '.scenario.json')}`;
+}
+// R26.2: direct link to the scenario unit ON DISK (source of truth): /md/scenario/index/<shard>/<uuid>.scenario.json
+// [impl:uuid:459d3aef-fa07-4968-a5d2-82185a1caf65] R25.6 RbDetailView.scenarioFileHref (scenarioLinkHref)
+export function scenarioFileHref(uuid: string): string {
+  if (!uuid) return '';
+  const hex = uuid.replace(/-/g, '');
+  if (hex.length < 5) return '';
+  return `/md/scenario/index/${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}/${uuid}.scenario.json`;
+}
+// v0.7.0 (3): editor deep-link for a unit — /edit/scenario/index/<shard>/<uuid>.scenario.json (existing editor route)
+export function scenarioEditorHref(uuid: string): string {
+  if (!uuid) return '';
+  const hex = uuid.replace(/-/g, '');
+  if (hex.length < 5) return '';
+  return `/edit/scenario/index/${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}/${uuid}.scenario.json`;
+}
+// R26.2: EVERY detail view renders this 📄 Scenario link — no view may lack it (source of truth).
+// v0.7.0 (3): + a ✏️ pencil next to it that opens the EDITOR directly.
+// [impl:uuid:2179d235-be01-4f0b-a1cb-bcfda316a5b4] R25.6 RbDetailView.scenarioBrowserLinkFromIor (renderScenarioLink)
+export function scenarioBrowserLinkFromIor(uuid: string): string {
+  if (!uuid) return '';
+  const lnk = 'color:#ff9800;font-size:0.75rem;text-decoration:none';
+  return `<div class="dv-field"><a href="${scenarioFileHref(uuid)}" style="${lnk}" title="Scenario unit on disk (source of truth)">📄 Scenario</a>`
+    + `<a href="${scenarioEditorHref(uuid)}" style="${lnk};margin-left:10px" title="Edit this scenario unit">✏️ Edit</a></div>`;
 }
 
 export function renderSourceLink(sourceFile?: string, sourceLine?: number): string {

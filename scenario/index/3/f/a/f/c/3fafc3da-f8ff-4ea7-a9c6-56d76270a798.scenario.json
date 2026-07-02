@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "3fafc3da-f8ff-4ea7-a9c6-56d76270a798",
+    "name": "TraceAudit.duplicateClassAssertion",
+    "description": "CI guard (3e9a3556d, scripts/trace-audit.ts): trace:audit:strict FAILS on ANY duplicate Class unit (>1 per code-class name) — recurrence caught at the gate.",
+    "implementations": [
+      "ior:instance:33ccac7f-834b-429e-a93f-e7641ce933ea"
+    ]
+  },
+  "ownerIor": "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b"
+}
