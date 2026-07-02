@@ -8,7 +8,9 @@
     "implementations": [
       "ior:instance:accc6a00-5c92-4de0-b38f-029a45b86852"
     ],
-    "tests": [],
+    "tests": [
+      "ior:instance:3458dd89-5a4d-443c-8e29-ac91cb795ad2"
+    ],
     "className": "RbWebItemDetail",
     "methodName": "previewByType"
   },

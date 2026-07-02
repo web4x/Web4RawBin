@@ -5,7 +5,10 @@
     "name": "routing regression-proof gate (mailto->launcher AND http->previewable)",
     "description": "REAL DET-3x gate test/visual/r252-webitem-gate.mjs: asserts kindOf mailto->launcher AND http->previewable in ONE case, so a future route-all-to-launcher edit (the v0.7.8 regression) fails CI. Gates AC-routing-by-type / http-preview / launcher-only.",
     "sourceFile": "ior:file:test/visual/r252-webitem-gate.mjs",
-    "testCases": []
+    "testCases": [],
+    "verifies": [
+      "ior:instance:187a1c5e-125c-4af7-bb11-49585f8321d7"
+    ]
   },
   "ownerIor": "ior:instance:accc6a00-5c92-4de0-b38f-029a45b86852"
 }
