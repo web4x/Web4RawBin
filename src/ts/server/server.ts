@@ -33,6 +33,7 @@ import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
 import { Transfer } from './federation-transfer.js'; // T26.6: federation import wiring
+import { ProxyFetch } from './proxy-fetch.js'; // R27.7 UC27.7b: SSRF-guarded CORS/X-Frame fallback proxy
 import { parseFederatedIor, isLocalOrigin } from '../scenario/federated-ior.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
 
@@ -938,6 +939,26 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           res.writeHead(500); res.end(JSON.stringify({ error: 'Upload failed' }));
         }
       });
+      return;
+    }
+
+    // R27.7 UC27.7b: CORS/X-Frame fallback proxy — GET /api/proxy?url= (SSRF-guarded, rate-limited, audit-logged, sanitized)
+    if (req.method === 'GET' && filepath === '/api/proxy') {
+      const pip = req.socket.remoteAddress || 'unknown';
+      if (!fedRateOk(pip, 30)) { res.writeHead(429, { 'Content-Type': 'text/plain' }); res.end('proxy: rate limited'); return; }
+      const target = urlParams.get('url') || '';
+      const guard = await ProxyFetch.guardUrl(target);
+      addLog(`PROXY ${guard.allow ? 'ALLOW' : 'DENY:' + guard.reason} ${target.slice(0, 120)} ip=${pip}`); // audit-log every fetch
+      if (!guard.allow) { res.writeHead(403, { 'Content-Type': 'text/plain' }); res.end(`proxy blocked: ${guard.reason}`); return; }
+      try {
+        const out = await ProxyFetch.fetchSanitized(target);
+        res.writeHead(out.status || 200, {
+          'Content-Type': out.contentType || 'text/html',
+          'Content-Security-Policy': "default-src 'none'; img-src data: https:; style-src 'unsafe-inline'; font-src data: https:; sandbox",
+          'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'no-store',
+        });
+        res.end(out.body);
+      } catch (e) { res.writeHead(502, { 'Content-Type': 'text/plain' }); res.end(`proxy fetch failed: ${(e as Error).message}`); }
       return;
     }
 
