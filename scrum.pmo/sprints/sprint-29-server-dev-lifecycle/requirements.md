@@ -24,7 +24,7 @@
   - [ ] **(idempotent)** Each start is an idempotent fresh restart (kill-old → clean boot); repeated starts leave one fresh server.
   → [UC29.1: serverLifecycle.selfHealingStart](./planning.md#uc29-1) `[uc:uuid:db5835f5-4080-43af-bf7d-e43e2f89d15c]` *(placeholder — architect to refine; Class start.mjs/ServerLauncher)*
 
-- [ ] **R29.2 — Chain-before-ship gate (no impl marker ships without a Requirement chain)**
+- [~] **R29.2 — Chain-before-ship gate** — ★ SUPERSEDED/FOLDED into R27.5 (AC-marker-chain-detect + AC-chain-gate-enforce) per PO one-home ruling 2026-07-02. Kept as tombstone.
   [requirement:uuid:ad69dfa4-00a0-4874-b7e3-0075f6c6d927]
   > PO 2026-07-02: FAIL the build if a NEW [impl:uuid] on src has no linked Requirement chain (UC->Class->Method->Impl->Req resolves). DELTA-scoped (new only; legacy deferred, no false-red). The by-construction END of the retroactive-#126 tax (4x this session, twice PO's slip).
   A pre-commit + CI gate that HARD-FAILS when a NEW [impl:uuid] marker on src lacks a resolving Requirement chain; DELTA-scoped (legacy chain-less = deferred/reported). Makes code-before-chain impossible, not corrected-after.

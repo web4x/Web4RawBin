@@ -54,7 +54,10 @@
         "group": "verify",
         "text": "A NEW impl marker with no Requirement chain -> RED build; a fully-chained impl -> GREEN; a legacy chain-less marker -> reported, not failed. Verified against the 4 retroactive-#126 cases as regression fixtures."
       }
-    ]
+    ],
+    "status": "superseded",
+    "supersededBy": "ior:instance:f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc",
+    "supersededNote": "RETIRED 2026-07-02 per PO one-home ruling (do not double-own the chain-gate). Content folded into R27.5 as AC-marker-chain-detect (detection, Axis-4) + AC-chain-gate-enforce (delta-scoped enforcement). The detection-vs-enforcement split the architect wanted is preserved as those 2 ACs within R27.5. Kept as tombstone for traceability (wer schreibt der bleibt)."
   },
   "ownerIor": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e"
 }

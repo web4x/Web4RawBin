@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc",
-    "name": "Canonical ref-slot registry + trace-audit calibration",
+    "name": "Canonical ref-slot registry + trace-audit calibration + chain-before-ship gate",
     "altId": "R27.5",
     "tasks": [],
     "tests": [],
@@ -66,8 +66,19 @@
         "id": "AC-no-uuid-audit",
         "group": "registry",
         "text": "trace:audit FLAGS any unit with no model.uuid OR a path/uuid mismatch (file basename != model.uuid) - catching bash/tooling artifacts like the undefined.scenario.json where a backtick ate the uuid field. This is a structural no-uuid gate, cheap + recurrence-proof."
+      },
+      {
+        "id": "AC-marker-chain-detect",
+        "group": "marker-chain",
+        "text": "(Axis-4 DETECTION) trace:audit:strict scans the codebase for [impl:uuid] markers and flags any marker whose Impl unit does not resolve OR is not reachable Requirement->UseCase->Class->Method->Impl (marker-has-chain). Single-source audit logic."
+      },
+      {
+        "id": "AC-chain-gate-enforce",
+        "group": "marker-chain",
+        "text": "(ENFORCEMENT, delta-scoped) The marker-has-chain check is a build gate: a NEW chain-less [impl:uuid] marker on src HARD-FAILS the build at pre-commit + ci:gates; pre-existing legacy chain-less markers are DEFERRED/reported (no false-red) - same delta-vs-absolute discipline as R27.2 INV2. Makes code-before-chain impossible by construction; the 4 retroactive-#126 reqs (R26.6/R27.1/R27.3/R29.1) are regression fixtures. (Absorbed from the retired R29.2; detection AC above + this enforcement AC = the detection-vs-enforcement split, housed in ONE req per PO.)"
       }
-    ]
+    ],
+    "absorbed": "R29.2 chain-before-ship gate (ad69dfa4) folded here 2026-07-02 per PO one-home ruling: R27.5 = the trace-audit registry IS the gate's home. Detection (Axis-4) + delta-scoped enforcement live as ACs here, not a separate req."
   },
   "ownerIor": "ior:instance:fabc9784-533b-49a8-a0ce-40d36d2338d8"
 }
