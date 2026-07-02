@@ -2,39 +2,39 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 27.7: WebItem type-aware preview drawer",
+    "name": "Current: Task 27.1: Task detail renders the status checklist visually",
     "chain": {
-      "req": "54002f11-89de-42c6-9c56-6b670053a435",
-      "uc": "d48b4dda-ee20-4af5-9136-d492f4702e1a",
-      "class": "d86af73d-4a89-4ce3-ae7d-36b840e8117e",
-      "method": "187a1c5e-125c-4af7-bb11-49585f8321d7",
-      "impl": "accc6a00-5c92-4de0-b38f-029a45b86852",
+      "req": "90b82d00-7af1-40e9-992c-c55ca177c542",
+      "uc": "050c5b9a-e5f4-46da-843f-44eb2b70994e",
+      "class": "4df19279-f2b8-438d-97b8-03fb37e049d5",
+      "method": "bfd21995-5843-4bde-b72a-37e10d38badf",
+      "impl": "31f420b0-e99e-458f-9c29-df4152940f77",
       "test": ""
     },
     "activeHop": 5,
     "sprintName": "Sprint 27",
-    "taskName": "Task 27.7: WebItem type-aware preview drawer",
+    "taskName": "Task 27.1: Task detail renders the status checklist visually",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-02T11:51:04.718Z"
+        "updatedAt": "2026-07-02T14:34:52.490Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "8b15788a-e881-4bff-b9bf-ada1c48b262f",
-    "lastCompletedName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
-    "lastCompletedReqUuid": "4f6d6402-fc8d-4d5d-9523-7e35af641944",
+    "lastCompletedUuid": "b849fda2-b15d-4567-8a73-79d2567ec396",
+    "lastCompletedName": "Task 27.7: WebItem type-aware preview drawer",
+    "lastCompletedReqUuid": "54002f11-89de-42c6-9c56-6b670053a435",
     "slots": {
       "current": {
+        "taskUuid": "dbd7e30d-263c-4d01-81eb-b687854ca961",
+        "taskName": "Task 27.1: Task detail renders the status checklist visually",
+        "reqUuid": "90b82d00-7af1-40e9-992c-c55ca177c542"
+      },
+      "lastCompleted": {
         "taskUuid": "b849fda2-b15d-4567-8a73-79d2567ec396",
         "taskName": "Task 27.7: WebItem type-aware preview drawer",
         "reqUuid": "54002f11-89de-42c6-9c56-6b670053a435"
-      },
-      "lastCompleted": {
-        "taskUuid": "8b15788a-e881-4bff-b9bf-ada1c48b262f",
-        "taskName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
-        "reqUuid": "4f6d6402-fc8d-4d5d-9523-7e35af641944"
       },
       "nextBacklog": null
     }
