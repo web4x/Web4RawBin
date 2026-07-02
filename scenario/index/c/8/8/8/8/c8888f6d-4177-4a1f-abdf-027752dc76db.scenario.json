@@ -2,10 +2,9 @@
   "ior": "ior:class:Implementation",
   "model": {
     "uuid": "c8888f6d-4177-4a1f-abdf-027752dc76db",
-    "name": "ServerTUI.addLog impl",
-    "description": "DESIGN-AHEAD (fix not shipped): change server.ts:583 so the stdout echo is gated on process.stdout.isTTY (present->stream into dashboard) instead of file-only-when-IS_PRODUCTION.",
+    "name": "ServerTUI.addLog impl (SHIPPED, partial)",
+    "description": "SHIPPED 4d2f1803c at server.ts:588 — addLog also process.stdout.write(entry) so per-request logs STREAM to the pane. ⚠ PARTIAL vs PO direction: gated on IS_PRODUCTION, NOT process.stdout.isTTY (headless prod would write to a non-terminal). RECOMMENDED refinement: gate the stdout echo on isTTY. Expert: tag [impl:uuid:c8888f6d-4177-4a1f-abdf-027752dc76db] here.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "designAhead": true,
     "tests": []
   },
   "ownerIor": "ior:instance:42e081c3-c3fd-4e2a-b7b3-dda5e17f47ff"
