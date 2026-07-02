@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "2173e549-ca99-43e5-aea8-946b02141c13",
-    "name": "Sprint 30 \u2014 Agent Messaging (Async Mailbox)",
+    "name": "Sprint 30 — Agent Messaging (Async Mailbox)",
     "number": 30,
     "goal": "First-class AgentMessage unit + ASYNC MAILBOX: send=write+commit a unit, recipient pulls at turn boundary, NO keystroke injection - the structural fix for agent-to-agent messaging (ends sent-!=-delivered). R30.1 unit type / R30.2 async mailbox / R30.3 no-live-injection / R30.4 Task.messages[] + skill verbs.",
     "status": "Planned",
@@ -25,9 +25,11 @@
     "theme": "agent messaging / async mailbox",
     "tronAuthorization": {
       "authorizedBy": "Tron",
-      "ref": "AgentMessage skill directive (skill-expert design 4546a59d9), relayed via robbin-po 2026-07-02",
-      "at": "2026-07-02"
-    }
+      "via": "PO",
+      "at": "2026-07-02",
+      "ref": "PO directive robbinTeam2:0.0 2026-07-02 — Tron authorized Sprint 30 for AgentMessage (first R29.4-authorized increment)"
+    },
+    "slug": "sprint-30-agent-messaging"
   },
   "ownerIor": null
 }
