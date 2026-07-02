@@ -2,41 +2,41 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
+    "name": "Current: Task 27.7: WebItem type-aware preview drawer",
     "chain": {
-      "req": "4f6d6402-fc8d-4d5d-9523-7e35af641944",
-      "uc": "",
-      "class": "",
-      "method": "",
-      "impl": "",
+      "req": "54002f11-89de-42c6-9c56-6b670053a435",
+      "uc": "d48b4dda-ee20-4af5-9136-d492f4702e1a",
+      "class": "d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+      "method": "187a1c5e-125c-4af7-bb11-49585f8321d7",
+      "impl": "accc6a00-5c92-4de0-b38f-029a45b86852",
       "test": ""
     },
-    "activeHop": 1,
+    "activeHop": 5,
     "sprintName": "Sprint 27",
-    "taskName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
+    "taskName": "Task 27.7: WebItem type-aware preview drawer",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-01T15:46:47.209Z"
+        "updatedAt": "2026-07-02T11:51:04.718Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "026af82c-3668-4d94-ae01-51e5276f851b",
-    "lastCompletedName": "Task 26.6: Federation import wiring (end-to-end receive orchestration)",
-    "lastCompletedReqUuid": "e289f96e-0afc-4568-9c26-16cd9b8272eb",
+    "lastCompletedUuid": "8b15788a-e881-4bff-b9bf-ada1c48b262f",
+    "lastCompletedName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
+    "lastCompletedReqUuid": "4f6d6402-fc8d-4d5d-9523-7e35af641944",
     "slots": {
       "current": {
+        "taskUuid": "b849fda2-b15d-4567-8a73-79d2567ec396",
+        "taskName": "Task 27.7: WebItem type-aware preview drawer",
+        "reqUuid": "54002f11-89de-42c6-9c56-6b670053a435"
+      },
+      "lastCompleted": {
         "taskUuid": "8b15788a-e881-4bff-b9bf-ada1c48b262f",
         "taskName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
         "reqUuid": "4f6d6402-fc8d-4d5d-9523-7e35af641944"
       },
-      "lastCompleted": null,
-      "nextBacklog": {
-        "taskUuid": "dbd7e30d-263c-4d01-81eb-b687854ca961",
-        "taskName": "Task 27.1: Task detail renders the status checklist visually",
-        "reqUuid": "90b82d00-7af1-40e9-992c-c55ca177c542"
-      }
+      "nextBacklog": null
     }
   },
   "ownerIor": null
