@@ -17,4 +17,3 @@ Enhance the scenario/task detail views. R27.1: render the task status checklist 
 - [x] [Task 27.2: Class-unit dedup gated migration (one canonical Class per code class)](./task-27.2-class-unit-dedup-migration.md)
 - [ ] [Task 27.4: Graph integrity — resolve/prune dangling UC refs + orphan Methods](./task-27.4-graph-integrity-cleanup.md)
 - [ ] [Task 27.7: WebItem type-aware preview drawer](./task-27.7-webitem-type-aware-preview-drawer.md)
-| <a id="uc27-7b"></a>UC27.7b | webItem.serverProxyFetch | 543ff7aa-506e-460a-b617-1aa6aa33a557 | R27.7 | ProxyFetch (guardUrl+fetchSanitized, SSRF-hard) |
