@@ -13,3 +13,4 @@ Infra: self-healing npm start preserving the interactive server TUI (foreground,
 ## Tasks
 
 - [ ] [Task 29.1: Self-healing npm start that preserves the interactive server TUI](./task-29.1-self-healing-npm-start-tui.md)
+- [ ] [Task 29.2: Chain-before-ship gate (no impl marker ships without a Requirement chain)](./task-29.2-chain-before-ship-gate.md)
