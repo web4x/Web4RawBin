@@ -2,13 +2,15 @@
   "ior": "ior:class:Method",
   "model": {
     "uuid": "187a1c5e-125c-4af7-bb11-49585f8321d7",
-    "name": "RbDetailDrawer.previewByType",
+    "name": "RbWebItemDetail.previewByType",
     "description": "Render the WebItem drawer by TYPE via a declared kind-map (adding a scheme never kills other previews). previewable=iframe+server-proxy-fallback, pdf=embed, mailto/tel/message/calendar=launcher card.",
-    "sourceFile": "ior:file:src/public/ts/room/rb-detail-drawer.ts",
+    "sourceFile": "src/public/ts/trace/rb-webitem-detail.ts",
     "implementations": [
       "ior:instance:accc6a00-5c92-4de0-b38f-029a45b86852"
     ],
-    "tests": []
+    "tests": [],
+    "className": "RbWebItemDetail",
+    "methodName": "previewByType"
   },
-  "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+  "ownerIor": "ior:instance:b8e96a25-0476-42dc-9f69-8074f68df09f"
 }

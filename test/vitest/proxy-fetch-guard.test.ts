@@ -30,6 +30,11 @@ describe('ProxyFetch.guardUrl — adversarial SSRF suite', () => {
     // hostname that RESOLVES to a private IP is also blocked
     const r = await ProxyFetch.guardUrl('http://intranet.corp/', resolveOf({ 'intranet.corp': ['10.0.0.9'] }));
     expect(r.allow).toBe(false); expect(r.reason).toMatch(/private-10/);
+    // GAP1 regression: IPv4-mapped IPv6 (Node normalizes ::ffff:127.0.0.1 → HEX ::ffff:7f00:1) must be blocked
+    expect((await ProxyFetch.guardUrl('http://[::ffff:127.0.0.1]/')).allow).toBe(false);
+    expect((await ProxyFetch.guardUrl('http://[::ffff:169.254.169.254]/')).allow).toBe(false);
+    expect(blockedIp('::ffff:7f00:1')).toBeTruthy();       // hex loopback
+    expect(blockedIp('::ffff:a9fe:a9fe')).toBeTruthy();    // hex 169.254.169.254 metadata
   });
 
   // [test:uuid:56b4283e-299a-46cb-b26e-c6c25b302cae] guardUrl blocks cloud-metadata 169.254.169.254
@@ -59,11 +64,48 @@ describe('ProxyFetch.guardUrl — adversarial SSRF suite', () => {
     await expect(ProxyFetch.fetchSanitized('http://169.254.169.254/', resolveOf(pub))).rejects.toThrow(/ssrf-blocked/);
   });
 
-  it('sanitizeHtml strips script / inline handlers / javascript: URIs', () => {
-    const dirty = '<div onclick="steal()"><script>evil()</script><a href="javascript:x()">y</a></div>';
+  it('sanitizeHtml strips script / handlers / javascript: (incl data= + object/embed)', () => {
+    const dirty = '<div onclick="steal()"><script>evil()</script><a href="javascript:x()">y</a><object data="javascript:z()"></object><embed src="q"></div>';
     const clean = ProxyFetch.sanitizeHtml(dirty);
     expect(clean).not.toMatch(/<script/i);
     expect(clean).not.toMatch(/onclick=/i);
     expect(clean).not.toMatch(/javascript:/i);
+    expect(clean).not.toMatch(/<object/i);
+    expect(clean).not.toMatch(/<embed/i);
+  });
+
+  // [test:uuid:1b0b7123-dbe1-4659-aab1-a73be7e74dfd] guardUrl blocks IPv4-mapped IPv6 (hex-normal form)
+  // GAP1 (architect independent-PDCA): `http://[::ffff:127.0.0.1]` — net.isIP normalizes the host to the
+  // HEX-normal `::ffff:7f00:1`; blockedIp caught the dotted `::ffff:127.0.0.1` but NOT the hex form → bypass.
+  it('blocks IPv4-mapped IPv6 in BOTH dotted and hex-normal form (::ffff:7f00:1 = 127.0.0.1, ::ffff:a9fe:a9fe = metadata)', async () => {
+    for (const url of [
+      'http://[::ffff:127.0.0.1]/',          // dotted → net.isIP returns hex ::ffff:7f00:1
+      'http://[::ffff:7f00:1]/',             // hex-normal loopback
+      'http://[::ffff:169.254.169.254]/',    // IPv4-mapped cloud metadata
+      'http://[::ffff:a9fe:a9fe]/',          // hex-normal metadata
+      'http://[::ffff:10.0.0.1]/',           // IPv4-mapped private
+      'http://[::ffff:a00:1]/',              // hex-normal private (10.0.0.1)
+    ]) {
+      const r = await ProxyFetch.guardUrl(url);
+      expect(r.allow, url).toBe(false);
+      expect(r.reason, url).toMatch(/blocked-ip/);
+    }
+    // blockedIp MUST catch the hex-normal form (net.isIP yields hex, never the dotted embedded IPv4)
+    expect(blockedIp('::ffff:7f00:1'), '::ffff:7f00:1 (127.0.0.1)').toBeTruthy();
+    expect(blockedIp('::ffff:a9fe:a9fe'), '::ffff:a9fe:a9fe (169.254.169.254)').toBeTruthy();
+    expect(blockedIp('::ffff:a00:1'), '::ffff:a00:1 (10.0.0.1)').toBeTruthy();
+  });
+
+  // [test:uuid:8ce68dcc-70c5-4f98-9ef1-f0f418c8087d] DNS-rebind — connect pins guard.ip (no re-resolve)
+  // GAP2 (architect independent-PDCA): a TTL-0 rebind resolves PUBLIC at check time then INTERNAL at connect.
+  // guardUrl must RETURN the vetted IP so fetchSanitized connects to guard.ip (never re-resolving the host).
+  it('DNS-rebind: guardUrl PINS the vetted IP (returned), and ANY internal in the resolved set denies', async () => {
+    const ok = await ProxyFetch.guardUrl('http://rebind.test/', resolveOf({ 'rebind.test': ['93.184.216.34'] }));
+    expect(ok.allow).toBe(true);
+    expect(ok.ip).toBe('93.184.216.34');               // vetted IP is pinned + returned → caller connects to THIS
+    // public-decoy + internal in one resolve → deny (the pinned-IP defense never trusts a re-resolve)
+    const decoy = await ProxyFetch.guardUrl('http://rebind.test/', resolveOf({ 'rebind.test': ['93.184.216.34', '127.0.0.1'] }));
+    expect(decoy.allow).toBe(false);
+    expect(decoy.reason).toMatch(/blocked-ip/);
   });
 });

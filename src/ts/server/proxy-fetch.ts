@@ -34,11 +34,20 @@ export function blockedIp(ip: string): string | null {
   if (fam === 6) {
     const a = ip.toLowerCase().replace(/^\[|\]$/g, '');
     if (a === '::1' || a === '0:0:0:0:0:0:0:1') return 'loopback-v6';
-    if (a === '::' ) return 'unspecified-v6';
+    if (a === '::') return 'unspecified-v6';
     if (/^fe[89ab]/.test(a)) return 'link-local-fe80::/10';
     if (/^f[cd]/.test(a)) return 'unique-local-fc00::/7';       // fc00::/7 incl fd00:ec2::254 (AWS metadata v6)
-    // IPv4-mapped ::ffff:a.b.c.d → re-check the embedded v4
-    const m = a.match(/::ffff:(\d+\.\d+\.\d+\.\d+)$/); if (m) return blockedIp(m[1]);
+    // IPv4-mapped ::ffff:a.b.c.d — Node normalizes the DOTTED form to HEX (::ffff:7f00:1). Extract the embedded v4
+    // from EITHER form and re-check as v4 (fixed GAP1: the old dotted-only regex let ::ffff:7f00:1 through).
+    const mapped = a.match(/^::ffff:(.+)$/) || a.match(/^0:0:0:0:0:ffff:(.+)$/);
+    if (mapped) {
+      const tail = mapped[1];
+      if (/^\d+\.\d+\.\d+\.\d+$/.test(tail)) return blockedIp(tail) || 'ipv4-mapped'; // dotted
+      const g = tail.split(':'); // hex form: two 16-bit groups → 4 octets
+      if (g.length === 2) { const hi = parseInt(g[0] || '0', 16), lo = parseInt(g[1] || '0', 16); return blockedIp(`${(hi >> 8) & 255}.${hi & 255}.${(lo >> 8) & 255}.${lo & 255}`) || 'ipv4-mapped'; }
+      return 'ipv4-mapped-unparsed'; // fail-closed on any mapped form we can't decode
+    }
+    if (/^(::ffff:|64:ff9b::|2002:)/.test(a)) return 'ipv4-embedded-v6'; // NAT64/6to4 embed v4 → fail-closed
     return null;
   }
   return 'not-an-ip';
@@ -69,9 +78,10 @@ export class ProxyFetch {
   static sanitizeHtml(html: string): string {
     return String(html)
       .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, '')
+      .replace(/<(object|embed|iframe)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, '')
+      .replace(/<(object|embed)\b[^>]*\/?>/gi, '')
       .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, '')
-      .replace(/(href|src)\s*=\s*("|')?\s*javascript:[^"'>\s]*/gi, '$1="#"')
-      .replace(/<iframe\b[^>]*>[\s\S]*?<\/iframe\s*>/gi, '');
+      .replace(/(href|src|data|action|formaction)\s*=\s*("|')?\s*javascript:[^"'>\s]*/gi, '$1="#"'); // incl data=/object (CSP+sandbox is primary; this closes the hole)
   }
 
   /**
@@ -82,11 +92,20 @@ export class ProxyFetch {
   static async fetchSanitized(rawUrl: string, resolve?: Resolver, hop = 0): Promise<{ status: number; contentType: string; body: Buffer }> {
     if (hop > MAX_REDIRECTS) throw new Error('too-many-redirects');
     const guard = await ProxyFetch.guardUrl(rawUrl, resolve);
-    if (!guard.allow) throw new Error(`ssrf-blocked:${guard.reason}`);
+    if (!guard.allow || !guard.ip) throw new Error(`ssrf-blocked:${guard.reason}`);
     const u = new URL(rawUrl);
-    const lib = u.protocol === 'https:' ? https : http;
+    const isHttps = u.protocol === 'https:';
+    const lib = isHttps ? https : http;
     return await new Promise((resolve2, reject) => {
-      const req = lib.request(rawUrl, { method: 'GET', timeout: TIMEOUT_MS, headers: { 'User-Agent': 'RawBin-Proxy/1.0', Accept: 'text/html,application/pdf,image/*' } }, res => {
+      // GAP2 fix (DNS-rebind TOCTOU): CONNECT to the vetted guard.ip — do NOT pass rawUrl (that re-resolves at the
+      // socket, letting a TTL-0 rebind swap in an internal IP between check and connect). Host header + TLS SNI keep
+      // vhost routing + cert validation against the ORIGINAL hostname.
+      const opts: http.RequestOptions = {
+        host: guard.ip, port: Number(u.port) || (isHttps ? 443 : 80), path: u.pathname + u.search, method: 'GET',
+        timeout: TIMEOUT_MS, headers: { Host: u.host, 'User-Agent': 'RawBin-Proxy/1.0', Accept: 'text/html,application/pdf,image/*' },
+        ...(isHttps ? { servername: u.hostname, rejectUnauthorized: true } : {}),
+      };
+      const req = lib.request(opts, res => {
         const status = res.statusCode || 0;
         if (status >= 300 && status < 400 && res.headers.location) { // re-guard the redirect target
           res.resume();

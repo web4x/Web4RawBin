@@ -6,7 +6,8 @@
     "description": "WebItem drawer renders BY TYPE: http/https=iframe+SSRF-guarded server-proxy fallback, pdf=embed, mailto/tel/message/calendar=launcher card; declared kind-map so a new scheme never kills other previews (fixes v0.7.8 regression); preview-first layout; reset-zoom overlay preserving pan/zoom (R22.2).",
     "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
     "classes": [
-      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+      "ior:instance:b8e96a25-0476-42dc-9f69-8074f68df09f"
     ],
     "method": "ior:instance:187a1c5e-125c-4af7-bb11-49585f8321d7",
     "tasks": [],
