@@ -1,21 +1,15 @@
-# Sprint 29 — Server & Dev Lifecycle — Planning
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
 
-**Requirements:** [requirements.md](./requirements.md). **Source:** Tron 2026-07-02 (retroactive #126 for shipped start.mjs self-heal).
+[Back to Sprints](../sprints.overview.md)
+
+# Sprint 29 Planning — Sprint 29 — Server & Dev Lifecycle
 
 ## Sprint Goal
 
-Infra: a self-healing `npm start` that boots the server AND preserves its interactive foreground TUI (readline + live request-log), consistent across WODA.prod + WODA.test, driven in the remoteShells otmux session.
+Infra: self-healing npm start preserving the interactive server TUI (foreground, readline + live request-log), consistent WODA.prod+test, driven in remoteShells otmux (0.2=prod, 0.3=test). Retroactive #126 for the shipped start.mjs self-heal.
 
-## Use Cases
+**Status:** Planned
 
-| Anchor | UseCase | UC UUID | Covers | Class |
-|--------|---------|---------|--------|-------|
-| <a id="uc29-1"></a>UC29.1 | serverLifecycle.selfHealingStart | db5835f5-4080-43af-bf7d-e43e2f89d15c | R29.1 | start.mjs / ServerLauncher |
+## Tasks
 
-## Definition of Done
-
-- `npm start` self-heals (node18+, deps, kill-old, build) from npm-only prereq; server runs foreground with TUI + live log stream identical to `tsx server.ts`; prod+test identical; verified live in remoteShells:0.2 (prod) + 0.3 (test); idempotent restart.
-
----
-
-*Planned by robbin-req 2026-07-02. Sprint 29 — Server & Dev Lifecycle (infra).*
+- [ ] [Task 29.1: Self-healing npm start that preserves the interactive server TUI](./task-29.1-self-healing-npm-start-tui.md)
