@@ -43,7 +43,7 @@
         "text": "The pre-regression grab-bar / minimize behavior is restored (ties R25.4 drawer grab-bar + X-minimize)."
       }
     ],
-    "sprintName": "Sprint 30",
+    "sprintName": "Sprint 27",
     "movedNote": "Moved S30->S27 2026-07-02 (Tron re-scope: S30=Traceability only; drawer regression belongs in S27 detail-view). altId R30.2->R27.8. Chains reference UUIDs -> survive untouched (architect confirmed). Planner owns the sprint.requirements[] arrays + T27.8 + pin."
   },
   "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
