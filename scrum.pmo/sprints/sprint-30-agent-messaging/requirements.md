@@ -54,6 +54,28 @@
   - [ ] **(integration)** The mailbox skill is the canonical agent-comms path - replaces otmux send-keys / keystroke messaging for agent-to-agent communication.
   → [UC30.4: agentMessage.skillVerbs](./planning.md#uc30-4) `[uc:uuid:d90db09d-0b3f-4c89-951e-d467ceb36174]`
 
+- [ ] **R30.5 — Traceability tree: CurrentSprint top + eager-lazy Sprints collection** *(Tron placed in S30; traceability-UX theme)*
+  [requirement:uuid:6f796898-4dbb-47a3-ab8a-914b4c80b353]
+  > TRON 2026-07-02 (plan in Sprint 30): traceability tree top = CurrentSprint: Sprint <N> (3 eager children Current/Last/Next); 2nd node = Sprints 01-<N> collection, collapsed, badge=count, eager sprint-nodes + LAZY tasks (load on expand); exactly 2 top-level nodes; structure-eager/payload-lazy scales like R26 federation.
+  The traceability tree grows well as sprints accumulate: exactly TWO top-level nodes. (1) top = 'CurrentSprint: Sprint <N>' - the CURRENT sprint, not 'Current: Task X' - with 3 EAGER children Current / Last Completed / Next Backlog. (2) 2nd top = 'Sprints 01-<N>' COLLECTION parent, COLLAPSED, badge = sprint count; it EAGER-loads all sprint NODES but LAZY-loads their TASKS (tasks load only when a sprint node is expanded). Structure-eager / payload-lazy - the same scaling pattern as R26 federation loading - so the tree stays fast as sprints grow.
+  **Acceptance criteria:**
+  - [ ] **(tree)** The top node is 'CurrentSprint: Sprint <N>' - the CURRENT sprint (not 'Current: Task X').
+  - [ ] **(tree)** The CurrentSprint node has 3 EAGER children: Current / Last Completed / Next Backlog (task) - loaded as-is.
+  - [ ] **(tree)** The 2nd top-level node = 'Sprints 01-<N>' COLLECTION parent, COLLAPSED, with a badge = sprint count.
+  - [ ] **(scaling)** EAGER-LAZY: the collection eager-loads all sprint NODES but LAZY-loads their TASKS - a sprint's tasks load ONLY when that sprint node is expanded.
+  - [ ] **(tree)** Exactly TWO top-level nodes (CurrentSprint + Sprints-collection); tasks never load until their sprint is expanded.
+  - [ ] **(scaling)** Structure-eager / payload-lazy so the tree scales as sprints grow - the same loading pattern as R26 federation (structure eager, payload lazy).
+  → [UC30.5: traceTree.currentSprintEagerLazy](./planning.md#uc30-5) `[uc:uuid:e22113cd-022d-48f0-b434-9ec4636e2081]`
+- [ ] **R30.6 — Detail drawer regression: X closes + minimized-on-open** *(Tron placed in S30; drawer regression)*
+  [requirement:uuid:a5da3f93-0341-4856-90eb-bb25954c72a2]
+  > TRON 2026-07-02 (plan in Sprint 30): drawer regression - the detail drawer must CLOSE on the X (currently doesn't), open MINIMIZED on first call, and restore the pre-regression grab-bar/minimize behavior.
+  Fix the detail-drawer regression: (1) the drawer CLOSES/collapses when the X (top-right) is clicked - currently it does NOT. (2) the drawer opens MINIMIZED on first call (not expanded/empty). (3) restore the pre-regression grab-bar / minimize behavior (ties R25.4). A regression fix + restoration of the drawer chrome interaction.
+  **Acceptance criteria:**
+  - [ ] **(drawer)** The detail drawer CLOSES/collapses when the X (top-right) is clicked - currently it does NOT.
+  - [ ] **(drawer)** The drawer opens MINIMIZED on first call (not expanded/empty).
+  - [ ] **(drawer)** The pre-regression grab-bar / minimize behavior is restored (ties R25.4 drawer grab-bar + X-minimize).
+  → [UC30.6: detailDrawer.closeAndMinimize](./planning.md#uc30-6) `[uc:uuid:3b6e58e3-f38b-4f88-9566-81c6be3e3a7b]`
+
 ---
 
 ## Traceability Matrix
@@ -66,3 +88,5 @@
 | R30.4 | Task.messages[] link + agentMessage skill ve | 8f65a0b4-0d22-453b-bf60-0490736d8e8f | d90db09d-0b3f-4c89-951e-d467ceb36174 |
 
 *Captured by robbin-req 2026-07-02. Tron-authorized S30 (R29.4 tronAuthorization record set). Structural fix for agent messaging.*
+| R30.5 | Traceability tree CurrentSprint + eager-lazy collection | 6f796898-4dbb-47a3-ab8a-914b4c80b353 | e22113cd-022d-48f0-b434-9ec4636e2081 |
+| R30.6 | Detail drawer regression (X closes + minimized) | a5da3f93-0341-4856-90eb-bb25954c72a2 | 3b6e58e3-f38b-4f88-9566-81c6be3e3a7b |

@@ -1,0 +1,62 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "6f796898-4dbb-47a3-ab8a-914b4c80b353",
+    "name": "Traceability tree: CurrentSprint top + eager-lazy Sprints collection",
+    "altId": "R30.5",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
+    "sourceLine": 58,
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:e22113cd-022d-48f0-b434-9ec4636e2081"
+    ],
+    "description": "The traceability tree grows well as sprints accumulate: exactly TWO top-level nodes. (1) top = 'CurrentSprint: Sprint <N>' - the CURRENT sprint, not 'Current: Task X' - with 3 EAGER children Current / Last Completed / Next Backlog. (2) 2nd top = 'Sprints 01-<N>' COLLECTION parent, COLLAPSED, badge = sprint count; it EAGER-loads all sprint NODES but LAZY-loads their TASKS (tasks load only when a sprint node is expanded). Structure-eager / payload-lazy - the same scaling pattern as R26 federation loading - so the tree stays fast as sprints grow.",
+    "tronQuote": "> TRON 2026-07-02 (plan in Sprint 30): traceability tree top = CurrentSprint: Sprint <N> (3 eager children Current/Last/Next); 2nd node = Sprints 01-<N> collection, collapsed, badge=count, eager sprint-nodes + LAZY tasks (load on expand); exactly 2 top-level nodes; structure-eager/payload-lazy scales like R26 federation.",
+    "discoverySource": {
+      "type": "tron-directive",
+      "flaggedBy": "Tron via robbin-po",
+      "date": "2026-07-02",
+      "note": "Traceability tree grows-well: CurrentSprint top + eager-lazy Sprints collection. Structure-eager/payload-lazy scaling (R26 federation pattern). Tron placed in S30."
+    },
+    "crossRef": [
+      "ior:instance:71b44e05-555f-4db2-a485-f375cd7ad70b"
+    ],
+    "crossRefNote": "Tron explicitly placed in S30 (his authority - do NOT mint S31); theme is traceability/detail-view UX, not agent-messaging, but Tron's sprint placement governs.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-currentsprint-top",
+        "group": "tree",
+        "text": "The top node is 'CurrentSprint: Sprint <N>' - the CURRENT sprint (not 'Current: Task X')."
+      },
+      {
+        "id": "AC-eager-children",
+        "group": "tree",
+        "text": "The CurrentSprint node has 3 EAGER children: Current / Last Completed / Next Backlog (task) - loaded as-is."
+      },
+      {
+        "id": "AC-collection-node",
+        "group": "tree",
+        "text": "The 2nd top-level node = 'Sprints 01-<N>' COLLECTION parent, COLLAPSED, with a badge = sprint count."
+      },
+      {
+        "id": "AC-eager-lazy",
+        "group": "scaling",
+        "text": "EAGER-LAZY: the collection eager-loads all sprint NODES but LAZY-loads their TASKS - a sprint's tasks load ONLY when that sprint node is expanded."
+      },
+      {
+        "id": "AC-two-top-level",
+        "group": "tree",
+        "text": "Exactly TWO top-level nodes (CurrentSprint + Sprints-collection); tasks never load until their sprint is expanded."
+      },
+      {
+        "id": "AC-scales",
+        "group": "scaling",
+        "text": "Structure-eager / payload-lazy so the tree scales as sprints grow - the same loading pattern as R26 federation (structure eager, payload lazy)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

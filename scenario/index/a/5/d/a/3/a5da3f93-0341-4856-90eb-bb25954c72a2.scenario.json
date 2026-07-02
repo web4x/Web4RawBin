@@ -1,0 +1,48 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "a5da3f93-0341-4856-90eb-bb25954c72a2",
+    "name": "Detail drawer regression: X closes + minimized-on-open",
+    "altId": "R30.6",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
+    "sourceLine": 70,
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:3b6e58e3-f38b-4f88-9566-81c6be3e3a7b"
+    ],
+    "description": "Fix the detail-drawer regression: (1) the drawer CLOSES/collapses when the X (top-right) is clicked - currently it does NOT. (2) the drawer opens MINIMIZED on first call (not expanded/empty). (3) restore the pre-regression grab-bar / minimize behavior (ties R25.4). A regression fix + restoration of the drawer chrome interaction.",
+    "tronQuote": "> TRON 2026-07-02 (plan in Sprint 30): drawer regression - the detail drawer must CLOSE on the X (currently doesn't), open MINIMIZED on first call, and restore the pre-regression grab-bar/minimize behavior.",
+    "discoverySource": {
+      "type": "tron-directive",
+      "flaggedBy": "Tron via robbin-po",
+      "date": "2026-07-02",
+      "note": "Drawer regression: X must close, minimized-on-open, restore grab-bar/minimize (R25.4). Tron placed in S30."
+    },
+    "crossRef": [
+      "ior:instance:225b18a6-684d-4bec-9a4d-42ed4f23fd09",
+      "ior:instance:b7000fa1-01d6-4757-a211-b24051eea7eb"
+    ],
+    "crossRefNote": "Tron explicitly placed in S30 (his authority - do NOT mint S31); theme is traceability/detail-view UX, not agent-messaging, but Tron's sprint placement governs.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-x-closes",
+        "group": "drawer",
+        "text": "The detail drawer CLOSES/collapses when the X (top-right) is clicked - currently it does NOT."
+      },
+      {
+        "id": "AC-minimized-open",
+        "group": "drawer",
+        "text": "The drawer opens MINIMIZED on first call (not expanded/empty)."
+      },
+      {
+        "id": "AC-restore-grabbar",
+        "group": "drawer",
+        "text": "The pre-regression grab-bar / minimize behavior is restored (ties R25.4 drawer grab-bar + X-minimize)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}
