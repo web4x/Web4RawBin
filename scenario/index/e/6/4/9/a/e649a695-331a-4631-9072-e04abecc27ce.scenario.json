@@ -3,7 +3,7 @@
   "model": {
     "uuid": "e649a695-331a-4631-9072-e04abecc27ce",
     "name": "RbTraceTree.renderCurrentSprintEagerLazy impl",
-    "description": "DESIGN-AHEAD: rb-trace-tree.ts: 2 top-level nodes (CurrentSprint + Sprints-collection); eager sprint nodes, lazy task fetch on expand-click.",
+    "description": "DESIGN-AHEAD: rb-trace-tree.ts — 2 top nodes; on sprint-expand call the SHARED R26.1 pluggable loader (resolveIor: local ScenarioIndex.get on demand; same loader federation uses @host) to fetch tasks[]; NO bespoke tree loader. Reuses R26.4 lazy-children pattern.",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "designAhead": true,
     "tests": []

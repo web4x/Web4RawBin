@@ -3,7 +3,7 @@
   "model": {
     "uuid": "71f34bf9-46eb-44ef-82c8-84ed26a7b1e4",
     "name": "Async mailbox: send writes+commits a unit; recipient pulls at turn boundary (no keystroke injection)",
-    "altId": "R30.2",
+    "altId": "R29.6",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
@@ -50,7 +50,8 @@
         "text": "Verified: a message sent while the recipient is mid-turn is NOT injected; it is committed and read on the recipient's next turn-boundary pull, intact."
       }
     ],
-    "crossRefNote": "Structural fix for the sent-!=-delivered / keystroke-injection failure hit repeatedly this session; R30.3 no-injection guard enforces R30.2 async mailbox by construction."
+    "crossRefNote": "Structural fix for the sent-!=-delivered / keystroke-injection failure hit repeatedly this session; R30.3 no-injection guard enforces R30.2 async mailbox by construction.",
+    "sprintName": "Sprint 29"
   },
   "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

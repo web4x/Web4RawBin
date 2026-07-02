@@ -3,7 +3,7 @@
   "model": {
     "uuid": "1aeac13e-d073-46f2-8c29-2590a7f6d072",
     "name": "No live prompt/keystroke injection between agents",
-    "altId": "R30.3",
+    "altId": "R29.7",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
@@ -42,7 +42,8 @@
         "text": "A message delivered while the recipient is mid-turn is NOT injected into its prompt; it waits for the pull. No keystroke-into-busy-pane path remains for agent messaging."
       }
     ],
-    "crossRefNote": "Structural fix for the sent-!=-delivered / keystroke-injection failure hit repeatedly this session; R30.3 no-injection guard enforces R30.2 async mailbox by construction."
+    "crossRefNote": "Structural fix for the sent-!=-delivered / keystroke-injection failure hit repeatedly this session; R30.3 no-injection guard enforces R30.2 async mailbox by construction.",
+    "sprintName": "Sprint 29"
   },
   "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

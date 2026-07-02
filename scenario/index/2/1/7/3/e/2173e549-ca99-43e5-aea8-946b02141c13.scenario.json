@@ -2,18 +2,14 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "2173e549-ca99-43e5-aea8-946b02141c13",
-    "name": "Sprint 30 \u2014 Agent Messaging (Async Mailbox)",
+    "name": "Sprint 30 — Traceability Improvement",
     "number": 30,
     "goal": "First-class AgentMessage unit + ASYNC MAILBOX: send=write+commit a unit, recipient pulls at turn boundary, NO keystroke injection - the structural fix for agent-to-agent messaging (ends sent-!=-delivered). R30.1 unit type / R30.2 async mailbox / R30.3 no-live-injection / R30.4 Task.messages[] + skill verbs.",
     "status": "Planned",
-    "compoundSource": "scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
+    "compoundSource": "scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
     "requirements": [
-      "ior:instance:51b87013-45a2-417b-9d5f-6e8242559c03",
-      "ior:instance:71f34bf9-46eb-44ef-82c8-84ed26a7b1e4",
-      "ior:instance:1aeac13e-d073-46f2-8c29-2590a7f6d072",
-      "ior:instance:8f65a0b4-0d22-453b-bf60-0490736d8e8f",
-      "ior:instance:6f796898-4dbb-47a3-ab8a-914b4c80b353",
-      "ior:instance:a5da3f93-0341-4856-90eb-bb25954c72a2"
+      "ior:instance:6f796898",
+      "ior:instance:a5da3f93"
     ],
     "tasks": [],
     "createdAt": "2026-07-02",
@@ -29,9 +25,9 @@
       "authorizedBy": "Tron",
       "via": "PO",
       "at": "2026-07-02",
-      "ref": "PO directive robbinTeam2:0.0 2026-07-02 \u2014 Tron authorized Sprint 30 for AgentMessage (first R29.4-authorized increment)"
+      "ref": "PO directive robbinTeam2:0.0 2026-07-02 — Tron authorized Sprint 30 for AgentMessage (first R29.4-authorized increment)"
     },
-    "slug": "sprint-30-agent-messaging"
+    "slug": "sprint-30-traceability-improvement"
   },
   "ownerIor": null
 }

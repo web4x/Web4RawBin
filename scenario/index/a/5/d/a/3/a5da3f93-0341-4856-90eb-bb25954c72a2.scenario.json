@@ -3,7 +3,7 @@
   "model": {
     "uuid": "a5da3f93-0341-4856-90eb-bb25954c72a2",
     "name": "Detail drawer regression: X closes + minimized-on-open",
-    "altId": "R30.6",
+    "altId": "R30.2",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
@@ -42,7 +42,8 @@
         "group": "drawer",
         "text": "The pre-regression grab-bar / minimize behavior is restored (ties R25.4 drawer grab-bar + X-minimize)."
       }
-    ]
+    ],
+    "sprintName": "Sprint 30"
   },
   "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

@@ -3,7 +3,7 @@
   "model": {
     "uuid": "8f65a0b4-0d22-453b-bf60-0490736d8e8f",
     "name": "Task.messages[] link + agentMessage skill verbs (send/inbox/read/list/thread)",
-    "altId": "R30.4",
+    "altId": "R29.8",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
@@ -46,7 +46,8 @@
         "group": "integration",
         "text": "The mailbox skill is the canonical agent-comms path - replaces otmux send-keys / keystroke messaging for agent-to-agent communication."
       }
-    ]
+    ],
+    "sprintName": "Sprint 29"
   },
   "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

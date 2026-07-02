@@ -3,7 +3,7 @@
   "model": {
     "uuid": "51b87013-45a2-417b-9d5f-6e8242559c03",
     "name": "First-class AgentMessage scenario unit (peer to Task/Req/UC)",
-    "altId": "R30.1",
+    "altId": "R29.5",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
@@ -44,7 +44,8 @@
         "group": "type",
         "text": "The AgentMessage type is registered in templates.ts (AgentMessageTemplate) + the tagMap so it renders + resolves (a new scenario type without its template + tagMap will not render/resolve - the R29.3 lesson)."
       }
-    ]
+    ],
+    "sprintName": "Sprint 29"
   },
   "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

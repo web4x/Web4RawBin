@@ -3,7 +3,7 @@
   "model": {
     "uuid": "6f796898-4dbb-47a3-ab8a-914b4c80b353",
     "name": "Traceability tree: CurrentSprint top + eager-lazy Sprints collection",
-    "altId": "R30.5",
+    "altId": "R30.1",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
@@ -56,7 +56,8 @@
         "group": "scaling",
         "text": "Structure-eager / payload-lazy so the tree scales as sprints grow - the same loading pattern as R26 federation (structure eager, payload lazy)."
       }
-    ]
+    ],
+    "sprintName": "Sprint 30"
   },
   "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

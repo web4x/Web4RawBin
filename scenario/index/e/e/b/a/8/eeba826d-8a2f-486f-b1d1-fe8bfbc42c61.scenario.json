@@ -3,7 +3,7 @@
   "model": {
     "uuid": "eeba826d-8a2f-486f-b1d1-fe8bfbc42c61",
     "name": "RbTraceTree.renderCurrentSprintEagerLazy",
-    "description": "Render the trace tree with exactly TWO top-level nodes: (1) CurrentSprint node at top; (2) an eager-lazy Sprints collection — sprint NODES render eager, each sprint's TASKS load LAZILY on expand (structure-eager/payload-lazy, like R26 federation). Keeps the tree scalable as sprints accumulate.",
+    "description": "Render the trace tree: (1) CurrentSprint node top; (2) eager-lazy Sprints collection — sprint NODES eager, each sprint's TASKS resolved LAZILY on expand via the SHARED lazy-resolve loader (R26.1 pluggable IOR loader / R26.4 resolveChildrenLazily) — the SAME primitive federation uses for @host children, NOT a 2nd tree-specific loader. Structure-eager/payload-lazy, correct-by-construction single loader.",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "implementations": [
       "ior:instance:e649a695-331a-4631-9072-e04abecc27ce"
