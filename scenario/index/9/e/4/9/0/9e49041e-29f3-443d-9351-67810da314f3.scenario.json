@@ -21,7 +21,8 @@
       "type": "tron-rule",
       "flaggedBy": "Tron via robbin-po",
       "date": "2026-07-02",
-      "note": "Governance rule feedback on robbin-req behavior: auto-minted S28 + S29 this session. From S30 on, only Tron authorizes new sprints. By-construction guard (planner + trace:audit), delta-scoped (grandfather S1-29)."
+      "note": "Governance rule feedback on robbin-req behavior: auto-minted S28 + S29 this session. From S30 on, only Tron authorizes new sprints. By-construction guard (planner + trace:audit), delta-scoped (grandfather S1-29).",
+      "tier": "TIER-2 (agent-transcribed, unsigned). Architect measured be763f818 (the S30 auth-record commit) = authored by freemium-user (agent), UNSIGNED. Tron CHOSE to keep TIER-2 2026-07-02. KNOWN WEAKNESS: a lying agent could forge {authorizedBy:Tron}; relies on #17-no-fabricate. Tier-1 (cryptographic sign) is a future upgrade path (planner-flagged)."
     },
     "crossRef": [
       "ior:instance:f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc",
@@ -36,12 +37,12 @@
       {
         "id": "AC-authorization-record",
         "group": "governance",
-        "text": "A new Sprint unit created under Tron authorization carries a Tron-authorization record (authorizedBy: Tron + date) proving it was sanctioned."
+        "text": "A new Sprint unit created under Tron authorization carries a Tron-authorization record (authorizedBy: Tron, ref: <directive>, at: <ts>). This is a TIER-2 audit-anchor (agent-transcribed, UNSIGNED) - it proves intent + gives an audit trail, but is not cryptographically fail-closed (Tron chose TIER-2 2026-07-02)."
       },
       {
         "id": "AC-by-construction-guard",
         "group": "gate",
-        "text": "A guard (planner check + trace:audit) HARD-FLAGS any NEW Sprint unit (number >= 30) minted without a Tron-authorization record - DELTA-scoped so grandfathered S1-S29 (incl the auto-minted S28/S29) do NOT false-red."
+        "text": "A guard (planner mint-choke + trace:audit) HARD-FLAGS any NEW Sprint unit (number >= 30) minted WITHOUT a Tron-authorization record - blocking SILENT/ACCIDENTAL auto-minting (the recurring behavior). It does NOT block a MALICIOUS/forged mint: the authorization record is TIER-2 (agent-transcribed, unsigned - a lying agent could fabricate {authorizedBy:Tron}); #17-no-fabricate is the backstop for that case, NOT this guard. DELTA-scoped so grandfathered S1-S29 do NOT false-red."
       },
       {
         "id": "AC-existing-backlog",
@@ -51,7 +52,7 @@
       {
         "id": "AC-verify",
         "group": "verify",
-        "text": "Attempting to mint S30 without a Tron-authorization record -> flagged/blocked; a Tron-authorized S30 -> allowed; existing S1-29 -> not flagged."
+        "text": "Attempting to mint S30+ WITHOUT an auth record -> flagged (silent/accidental blocked); a Tron-authorized mint WITH the record -> allowed; existing S1-29 -> not flagged. KNOWN LIMIT: a forged record passes the guard (TIER-2) - covered by #17-no-fabricate, not this gate."
       }
     ],
     "crossRefNote": "By-construction guard is a trace:audit gate sibling to R27.5's chain-gate (marker-has-chain) - the audit host, delta-scoped like R27.2 INV2. R24.5 = trace:audit:strict. Distinct check (sprint-mint-authorization, not marker-has-chain) -> its own req, not folded."
