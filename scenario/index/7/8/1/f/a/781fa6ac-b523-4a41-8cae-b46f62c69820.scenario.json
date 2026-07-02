@@ -61,8 +61,14 @@
         "id": "AC-migration",
         "group": "config",
         "text": "Migration + back-compat from .env: existing .env values are read once and migrated into the Server unit; the server no longer depends on .env after migration."
+      },
+      {
+        "id": "AC-type-registration",
+        "group": "config",
+        "text": "The NEW ior:class:Server scenario type is registered in templates.ts (ServerTemplate) + the tagMap, so it renders + resolves like other unit types - a new scenario type without its template + tagMap registration will not render/resolve (architect flag, d81d60409)."
       }
-    ]
+    ],
+    "designRef": "scrum.pmo/design-notes/r29.3-server-config-scenario-unit.md (architect d81d60409). Server shape {name, mode(prod|test), domain, hostname(FQDN=fed id), leDomain, leCertName, osshConfigName}; 2 units rawbin-prod(0.2)/rawbin-test(0.3), resolve by hostname. Class ServerConfig (server-config.ts, focused module, Axis-3 clean). NOTE: mode(cert-select) ORTHOGONAL to R29.1 isTTY(TUI-gate)."
   },
   "ownerIor": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e"
 }
