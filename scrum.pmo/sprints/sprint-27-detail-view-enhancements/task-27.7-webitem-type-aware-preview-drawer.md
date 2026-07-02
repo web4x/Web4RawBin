@@ -14,7 +14,7 @@
   - [x] implementing
   - [x] testing
 - [x] QA Review
-- [ ] Done
+- [x] Done
 
 ## Traceability
 
@@ -54,7 +54,7 @@ Tron directive. REGRESSION+ENHANCEMENT: v0.7.8 killed the v0.6.56 preview by rou
 
 ## Implementation
 
-SHIPPED v0.7.9 (9d2213b2e type-aware drawer + SSRF-guarded CORS proxy) -> v0.7.10 (474671bf0: architect PDCA fixed 2 exploitable SSRF bypasses). GATED GREEN: 8/8 adversarial + drawer tests DET-3x node22; security chain = 9 tests (5 guardUrl pre-fetch + 4 fetchSanitized post-fetch), never-execute gated. Architect SIGNED OFF. 11 ACs (grew from 9: +2 security — guardUrl SSRF gate + fetchSanitized size/timeout/content-type). 2 UCs: webItem.typeAwarePreviewDrawer d48b4dda + webItem.serverProxyFetch 543ff7aa (SSRF chain, independently traceable). QA Review = Tron QA gate (feature). Regression-proofed: type-dispatch so mailto can't swallow all webitems again.
+SHIPPED v0.7.9 (9d2213b2e type-aware drawer + SSRF-guarded CORS proxy) -> v0.7.10 (474671bf0: architect PDCA fixed 2 exploitable SSRF bypasses). GATED GREEN: 8/8 adversarial + drawer tests DET-3x node22; security chain = 9 tests (5 guardUrl pre-fetch + 4 fetchSanitized post-fetch), never-execute gated. Architect SIGNED OFF. 11 ACs (grew from 9: +2 security — guardUrl SSRF gate + fetchSanitized size/timeout/content-type). 2 UCs: webItem.typeAwarePreviewDrawer d48b4dda + webItem.serverProxyFetch 543ff7aa (SSRF chain, independently traceable). QA Review = Tron QA gate (feature). Regression-proofed: type-dispatch so mailto can't swallow all webitems again. ✓ DONE-DELIVERED 2026-07-02: skill-expert clean-tree canonical GREEN (a5b6cd99c det-3x, 54/317, ALL 6 R27.7 hops credit req+uc+class+method+impl accc6a00-full+test 3458dd89, 0 open action tasks). Full-uuid markers 6b03dc1bc + 4 test markers landed. Tron-ordered feature LIVE+safe; Tron tests live (don't-ask-obvious). dist false-red was MOOT (trace-audit.ts:25 excludes dist).
 
 ## Subtasks
 
