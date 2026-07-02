@@ -6,9 +6,9 @@
     "altId": "R29.8",
     "tasks": [],
     "tests": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-29-server-dev-lifecycle/requirements.md",
     "sourceLine": 47,
-    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "parent": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e",
     "unitLinks": [],
     "useCases": [
       "ior:instance:d90db09d-0b3f-4c89-951e-d467ceb36174"
@@ -47,7 +47,8 @@
         "text": "The mailbox skill is the canonical agent-comms path - replaces otmux send-keys / keystroke messaging for agent-to-agent communication."
       }
     ],
-    "sprintName": "Sprint 29"
+    "sprintName": "Sprint 29",
+    "movedNote": "Moved S30->S29 2026-07-02 (Tron re-scope: Agent Messaging -> S29). altId (R29.x) + S29.requirements[] by planner; parent+sprintName+sourceFile+symlink by req 0.4. Chains reference UUIDs -> survive untouched."
   },
-  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+  "ownerIor": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e"
 }

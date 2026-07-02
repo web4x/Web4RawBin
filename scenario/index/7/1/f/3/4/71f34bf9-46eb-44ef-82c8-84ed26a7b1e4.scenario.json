@@ -6,9 +6,9 @@
     "altId": "R29.6",
     "tasks": [],
     "tests": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-29-server-dev-lifecycle/requirements.md",
     "sourceLine": 25,
-    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "parent": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e",
     "unitLinks": [],
     "useCases": [
       "ior:instance:3a74e3b2-6c60-4dea-be72-6a3850dcbec8"
@@ -51,7 +51,8 @@
       }
     ],
     "crossRefNote": "Structural fix for the sent-!=-delivered / keystroke-injection failure hit repeatedly this session; R30.3 no-injection guard enforces R30.2 async mailbox by construction.",
-    "sprintName": "Sprint 29"
+    "sprintName": "Sprint 29",
+    "movedNote": "Moved S30->S29 2026-07-02 (Tron re-scope: Agent Messaging -> S29). altId (R29.x) + S29.requirements[] by planner; parent+sprintName+sourceFile+symlink by req 0.4. Chains reference UUIDs -> survive untouched."
   },
-  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+  "ownerIor": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e"
 }

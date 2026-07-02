@@ -6,9 +6,9 @@
     "altId": "R29.5",
     "tasks": [],
     "tests": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-29-server-dev-lifecycle/requirements.md",
     "sourceLine": 14,
-    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "parent": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e",
     "unitLinks": [],
     "useCases": [
       "ior:instance:2a150baf-9a0c-4745-85c6-021053ad0d8b"
@@ -45,7 +45,8 @@
         "text": "The AgentMessage type is registered in templates.ts (AgentMessageTemplate) + the tagMap so it renders + resolves (a new scenario type without its template + tagMap will not render/resolve - the R29.3 lesson)."
       }
     ],
-    "sprintName": "Sprint 29"
+    "sprintName": "Sprint 29",
+    "movedNote": "Moved S30->S29 2026-07-02 (Tron re-scope: Agent Messaging -> S29). altId (R29.x) + S29.requirements[] by planner; parent+sprintName+sourceFile+symlink by req 0.4. Chains reference UUIDs -> survive untouched."
   },
-  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+  "ownerIor": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e"
 }
