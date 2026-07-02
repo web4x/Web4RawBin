@@ -7,7 +7,7 @@
     "build": "node build.mjs",
     "build:watch": "esbuild src/public/ts/app.ts --bundle --format=esm --target=es2020 --outfile=src/public/dist/app.js --sourcemap --watch",
     "dev": "tsx watch src/ts/server/server.ts",
-    "start": "npm run build && tsx src/ts/server/server.ts",
+    "start": "node scripts/start.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "trace:check": "tsx src/ts/server/trace-cli.ts check",
