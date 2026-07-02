@@ -12,4 +12,4 @@ Infra: self-healing npm start preserving the interactive server TUI (foreground,
 
 ## Tasks
 
-- [x] [Task 29.1: Self-healing npm start that preserves the interactive server TUI](./task-29.1-self-healing-npm-start-tui.md)
+- [ ] [Task 29.1: Self-healing npm start that preserves the interactive server TUI](./task-29.1-self-healing-npm-start-tui.md)
