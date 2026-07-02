@@ -11,7 +11,8 @@
     "parent": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a",
     "unitLinks": [],
     "useCases": [
-      "ior:instance:d48b4dda-ee20-4af5-9136-d492f4702e1a"
+      "ior:instance:d48b4dda-ee20-4af5-9136-d492f4702e1a",
+      "ior:instance:543ff7aa-506e-460a-b617-1aa6aa33a557"
     ],
     "description": "The WebItem detail drawer renders a type-aware preview: http/https URLs show a LIVE iframe/embed preview (server-side proxied when CORS/X-Frame-Options blocks the frame), pdf shows a pdf embed, while mailto/message/tel/calendar show NO preview and a launcher/Open card that opens in the original app. Layout for previewable items is preview-FIRST: [handle]->[action buttons Preview/NewTab]->[PREVIEW pane]->[file details below]; non-previewable items use the launcher layout. Zoom+pan is preserved (R22.2) with a RESET-ZOOM overlay button INSIDE the preview pane. Routing is BY WebItem type (url-scheme/content-type) so adding a new scheme can NEVER kill preview for other types - regression-proof (v0.7.8 killed http/https preview when mailto handling routed ALL webitems to the launcher card; v0.6.56 had the preview).",
     "tronQuote": "> TRON 2026-07-02: v0.6.56 had a WebItem preview; v0.7.8 KILLED it when mailto handling routed ALL webitems to the launcher-card. Restore + enhance: type-aware preview (http/https live + proxy fallback, pdf embed), launcher only for mailto/message/tel/calendar, preview-first layout, zoom preserved with reset-overlay, routing BY type so a new scheme never regresses preview.",
@@ -70,8 +71,14 @@
         "id": "AC-routing-by-type",
         "group": "routing",
         "text": "Routing is BY WebItem type (url-scheme / content-type) via a type-dispatch; adding a NEW scheme can never kill preview for other types (regression-proof, correct-by-construction)."
+      },
+      {
+        "id": "AC-proxy-ssrf-guard",
+        "group": "security",
+        "text": "The server proxy is SSRF-hard-guarded (prod, per PO): a pure socket-free guardUrl predicate allows http/https only and BLOCKS loopback/private/link-local/unique-local/metadata (169.254.169.254) on the RESOLVED IP, pins against DNS-rebind, and RE-CHECKS every redirect hop; fetchSanitized then caps size/timeout, enforces a content-type allowlist, sanitizes (never executes) the payload, and rate-limits+audits. guardUrl is independently testable with adversarial cases."
       }
-    ]
+    ],
+    "securityNote": "SSRF hard-guard folded per PO (prod, NEW risk beyond T26.6). guardUrl (441b7f34) = pure predicate; fetchSanitized (ee3fad72) = capped/allowlisted/sanitized fetch. Class ProxyFetch 09f4cdce."
   },
   "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
 }
