@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "7e51e40c-ec65-4e68-a15c-c8bacb648d85",
+    "name": "ServerConfig.selectLECert",
+    "description": "Auto-select the Lets-Encrypt cert for the current share-link domain from the resolved Server unit (prod domain->prod cert, test->test); share-links carry domain+cert. AC3/5.",
+    "sourceFile": "ior:file:src/ts/server/server-config.ts",
+    "implementations": [
+      "ior:instance:1c21f521-f95f-4f0d-888b-d8e6c0dd71dd"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:ed94e371-97df-48e3-a3f0-f05652ba1c8d"
+}

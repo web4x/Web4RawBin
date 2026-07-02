@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "21b0dc9a-5ca1-4461-be90-cfe59fd52838",
+    "name": "server.configFromScenarioUnit",
+    "description": "Server reads its identity+config from a first-class ior:class:Server scenario unit (domain/LE-cert/ossh-name/hostname) instead of .env; auto-selects LE cert per share-link domain; hostname enables inter-server comms (R26.1); migrate+back-compat. NEW unit type needs templates.ts+tagMap registration.",
+    "class": "ior:instance:ed94e371-97df-48e3-a3f0-f05652ba1c8d",
+    "classes": [
+      "ior:instance:ed94e371-97df-48e3-a3f0-f05652ba1c8d"
+    ],
+    "method": "ior:instance:7d9e03f3-e9b5-420f-95bf-242f9af0721a",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "crossRef": [
+      "ior:instance:e8744de9-ca4a-4f8b-a6d9-c7c971999d8b"
+    ]
+  },
+  "ownerIor": "ior:instance:781fa6ac-b523-4a41-8cae-b46f62c69820"
+}

@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "dd203674-32fc-46b8-9e74-45cd8d2d66d7",
+    "name": "sprintGovernance.tronAuthorizedMint",
+    "description": "No agent auto-mints a Sprint>=30 without a Tron-authorization record; trace:audit:strict flags violations (delta-scoped grandfather S1-29). Planner mint-path refuses unauthorized mint (choke-point) + audit backstop. Sibling to R27.5 chain-gate, same audit host.",
+    "class": "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b",
+    "classes": [
+      "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b"
+    ],
+    "method": "ior:instance:a72b2b57-14c2-4b12-810d-27e4010a8908",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "crossRef": [
+      "ior:instance:f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc",
+      "ior:instance:79bc8e34-9acb-4338-bbd0-c1f7e817ca7d"
+    ]
+  },
+  "ownerIor": "ior:instance:9e49041e-29f3-443d-9351-67810da314f3"
+}

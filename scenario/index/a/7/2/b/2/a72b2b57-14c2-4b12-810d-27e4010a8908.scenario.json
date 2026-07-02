@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "a72b2b57-14c2-4b12-810d-27e4010a8908",
+    "name": "TraceAudit.assertSprintAuthorized",
+    "description": "Governance axis on trace:audit:strict: HARD-FAIL any Sprint>=30 lacking a valid tronAuthorization record; DELTA-scoped grandfather S1-29. Sibling to the chain-gate; single-source audit host, no dup logic.",
+    "sourceFile": "ior:file:scripts/trace-audit.ts",
+    "implementations": [
+      "ior:instance:1a02d064-98a5-459f-8a44-9b6ae03885c9"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b"
+}

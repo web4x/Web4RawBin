@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "1a02d064-98a5-459f-8a44-9b6ae03885c9",
+    "name": "TraceAudit.assertSprintAuthorized impl",
+    "description": "DESIGN-AHEAD (backlog): Governance axis on trace:audit:strict: HARD-FAIL any Sprint>=30 lacking a valid tronAuthorization record; DELTA-scoped grandfather S1-29. Sibling to the chain-gate; single-source audit host, no dup logic.",
+    "sourceFile": "ior:file:scripts/trace-audit.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:a72b2b57-14c2-4b12-810d-27e4010a8908"
+}
