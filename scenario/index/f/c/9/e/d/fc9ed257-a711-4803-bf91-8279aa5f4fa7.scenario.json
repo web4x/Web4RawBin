@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "fc9ed257-a711-4803-bf91-8279aa5f4fa7",
+    "name": "test:R27.8 drawer close+minimize gate (X closes / open-minimized / grab-bar + ESC + pan-zoom)",
+    "description": "r278-drawer-close-minimize-gate.mjs (DET-3x, 0 pollution): X (top-right) closes/collapses the drawer; opens MINIMIZED on first call; grab-bar/minimize restored; ESC closes; pan-zoom preserved. Gates RbDetailDrawer.closeAndMinimize (R27.8).",
+    "sourceFile": "ior:file:test/visual/r278-drawer-close-minimize-gate.mjs",
+    "verifies": [
+      "ior:instance:22f951cc-2e9f-4fc5-9031-2f06a529ed0e"
+    ]
+  },
+  "ownerIor": "ior:instance:e42b85e8-d844-4e7b-be17-561a82d780b9"
+}

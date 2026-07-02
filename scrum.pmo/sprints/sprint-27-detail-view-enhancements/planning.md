@@ -17,4 +17,4 @@ Enhance the scenario/task detail views. R27.1: render the task status checklist 
 - [x] [Task 27.2: Class-unit dedup gated migration (one canonical Class per code class)](./task-27.2-class-unit-dedup-migration.md)
 - [x] [Task 27.4: Graph integrity — resolve/prune dangling UC refs + orphan Methods](./task-27.4-graph-integrity-cleanup.md)
 - [x] [Task 27.7: WebItem type-aware preview drawer](./task-27.7-webitem-type-aware-preview-drawer.md)
-- [ ] [Task 27.8: Detail drawer regression — X closes + minimized-on-open](./task-27.8-detail-drawer-regression.md)
+- [x] [Task 27.8: Detail drawer regression — X closes + minimized-on-open](./task-27.8-detail-drawer-regression.md)

@@ -8,7 +8,9 @@
     "implementations": [
       "ior:instance:e42b85e8-d844-4e7b-be17-561a82d780b9"
     ],
-    "tests": []
+    "tests": [
+      "ior:instance:fc9ed257-a711-4803-bf91-8279aa5f4fa7"
+    ]
   },
   "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
 }

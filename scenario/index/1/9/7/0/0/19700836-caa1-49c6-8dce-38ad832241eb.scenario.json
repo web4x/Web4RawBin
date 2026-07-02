@@ -7,12 +7,12 @@
     "description": "Restore the detail drawer regression: X (top-right) CLOSES/collapses the drawer; the drawer opens MINIMIZED on first call (not expanded/empty); the pre-regression grab-bar/minimize behavior is restored (ties R25.4 drawer grab-bar).",
     "intention": "Tron: drawer regression fix. Moved from S30->S27 (it's a regression of S27's drawer work) + set as the pin nextBacklog.",
     "context": "Covers R27.8 drawer-regression (req a5da3f93, moved S30->S27 by req). crossRef R25.4 (drawer grab-bar). Set as pin nextBacklog per PO/Tron.",
-    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "implementation": "STOOD UP (planning) — status Planned; the pin's nextBacklog. Chain-build awaits architect UC-wire.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "implementation": "STOOD UP (planning) — status Planned; the pin's nextBacklog. Chain-build awaits architect UC-wire. ✓ DONE 2026-07-02 (PO): R27.8 GREEN DET-3x (038310a71 r278-drawer-close-minimize-gate.mjs — X closes/open-minimized/grab-bar+ESC+pan-zoom, 0 pollution). ⚠ chain-to-Test was INCOMPLETE (Impl e42b85e8 closeAndMinimize had 0 Test despite the GREEN gate) — I minted+wired the r278 Test unit fc9ed257 under e42b85e8 -> chain complete. behavior-live + gated. [test:uuid] marker on r278 file pending tester (scoreboard credit, like R27.3).",
     "traceability": "  - up\n    - [Sprint 27 Planning](./planning.md)\n    - Requirement R27.8 `[requirement:uuid:a5da3f93-0341-4856-90eb-bb25954c72a2]`\n  - crossRef\n    - R25.4 (detail drawer grab-bar)\n  - down\n    - [UC: drawer.regressionFix](./planning.md) `[uc:uuid:3b6e58e3-f38b-4f88-9566-81c6be3e3a7b]`",
-    "acceptanceCriteria": "- [ ] (drawer) The detail drawer CLOSES/collapses when the X (top-right) is clicked - currently it does NOT.\n- [ ] (drawer) The drawer opens MINIMIZED on first call (not expanded/empty).\n- [ ] (drawer) The pre-regression grab-bar / minimize behavior is restored (ties R25.4 drawer grab-bar + X-minimize).",
+    "acceptanceCriteria": "- [x] (drawer) The detail drawer CLOSES/collapses when the X (top-right) is clicked - currently it does NOT.\n- [x] (drawer) The drawer opens MINIMIZED on first call (not expanded/empty).\n- [x] (drawer) The pre-regression grab-bar / minimize behavior is restored (ties R25.4 drawer grab-bar + X-minimize).",
     "subtasks": "None (atomic task).",
-    "status": "Planned",
+    "status": "Done",
     "coveredRequirements": [
       "ior:instance:a5da3f93-0341-4856-90eb-bb25954c72a2"
     ],
@@ -23,7 +23,8 @@
     "sprintName": "Sprint 27",
     "createdBy": "robbin-planner",
     "createdAt": "2026-07-02",
-    "focus": true
+    "focus": true,
+    "tronDelivered": "2026-07-02 (R27.8 GREEN DET-3x, chain-to-Test complete)"
   },
   "ownerIor": null
 }

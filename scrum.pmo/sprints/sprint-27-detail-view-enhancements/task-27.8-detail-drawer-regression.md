@@ -8,13 +8,13 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -40,13 +40,13 @@ Tron: drawer regression fix. Moved from S30->S27 (it's a regression of S27's dra
 
 ## Acceptance Criteria
 
-- [ ] (drawer) The detail drawer CLOSES/collapses when the X (top-right) is clicked - currently it does NOT.
-- [ ] (drawer) The drawer opens MINIMIZED on first call (not expanded/empty).
-- [ ] (drawer) The pre-regression grab-bar / minimize behavior is restored (ties R25.4 drawer grab-bar + X-minimize).
+- [x] (drawer) The detail drawer CLOSES/collapses when the X (top-right) is clicked - currently it does NOT.
+- [x] (drawer) The drawer opens MINIMIZED on first call (not expanded/empty).
+- [x] (drawer) The pre-regression grab-bar / minimize behavior is restored (ties R25.4 drawer grab-bar + X-minimize).
 
 ## Implementation
 
-STOOD UP (planning) — status Planned; the pin's nextBacklog. Chain-build awaits architect UC-wire.
+STOOD UP (planning) — status Planned; the pin's nextBacklog. Chain-build awaits architect UC-wire. ✓ DONE 2026-07-02 (PO): R27.8 GREEN DET-3x (038310a71 r278-drawer-close-minimize-gate.mjs — X closes/open-minimized/grab-bar+ESC+pan-zoom, 0 pollution). ⚠ chain-to-Test was INCOMPLETE (Impl e42b85e8 closeAndMinimize had 0 Test despite the GREEN gate) — I minted+wired the r278 Test unit fc9ed257 under e42b85e8 -> chain complete. behavior-live + gated. [test:uuid] marker on r278 file pending tester (scoreboard credit, like R27.3).
 
 ## Subtasks
 
