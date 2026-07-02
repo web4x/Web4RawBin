@@ -28,6 +28,10 @@ export const MethodLoader = loader('Method', { class: null, implementations: [],
 export const TestLoader = loader('Test', { file: null, methods: [], status: '' });
 export const UserLoader = loader('User', { displayName: '', token: '', avatarHash: '', deviceId: '', sshPubKey: '', createdAt: '', updatedAt: '' });
 export const SkillLoader = loader('Skill', { description: '', object: '', verb: '', parameters: [], returns: {}, impl: '', requirement: '', roles: [], examples: [] });
+// S30 R30.1: AgentMessage — first-class inter-agent message (owned by its Task, forward-linked from
+// Task.messages[]). Async mailbox: written+committed by AgentMessage.send, pulled via inbox — never
+// injected into a live prompt. Default shape mirrors AgentMessage.defineUnitType() in agent-message.ts.
+export const AgentMessageLoader = loader('AgentMessage', { from: '', to: '', task: '', kind: 'report', body: '', sentAt: '', read: false });
 // T-file-unit R19.14: files become unique scenario units (<uuid>.content + <uuid>.scenario.json + unitLinks[])
 export const FileLoader = loader('File', { contentPath: '', size: 0, mimeType: '', uploadedAt: '', uploaderToken: '', roomUuid: '' });
 export const MessageLoader = loader('Message', { text: '', timestamp: 0, senderIor: '', senderName: '', roomIor: '', prevMessage: null, nextMessage: null, kind: 'chat' });
@@ -56,7 +60,7 @@ export class ClassRegistry {
   private loaders = new Map<string, ClassLoader>();
 
   constructor() {
-    for (const l of [SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader, TraceLinkLoader, UserLoader, SkillLoader, FileLoader, MessageLoader, BugLoader, ChangeRequestLoader, TestCaseLoader, GateLoader]) {
+    for (const l of [SprintLoader, TaskLoader, RequirementLoader, UseCaseLoader, ClassObjLoader, MethodLoader, TestLoader, TraceLinkLoader, UserLoader, SkillLoader, FileLoader, MessageLoader, BugLoader, ChangeRequestLoader, TestCaseLoader, GateLoader, AgentMessageLoader]) {
       this.loaders.set(l.className, l);
     }
   }
