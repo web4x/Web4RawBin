@@ -1,3 +1,4 @@
+// [test:uuid:3458dd89-5a4d-443c-8e29-ac91cb795ad2] R27.7 previewByType — type-router regression (http/pdf→preview-first, mailto/message/tel/calendar→launcher)
 // [test:uuid:b0a7a27d-8205-4399-a574-c39472a409fa] R25.2 WebItem.createAndLaunch — bare/scheme URL + .url/.webloc drop -> WebItem + launcher card (DET-3x GREEN)
 // v0.6.88 R25.2 WebItem gate. URLs dropped into a room now become ior:class:WebItem (not
 // bare text/uri-list File): server /upload drop-router (server.ts:739) routes url-types
