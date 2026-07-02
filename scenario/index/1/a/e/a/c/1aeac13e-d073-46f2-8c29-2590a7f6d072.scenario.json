@@ -1,0 +1,48 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "1aeac13e-d073-46f2-8c29-2590a7f6d072",
+    "name": "No live prompt/keystroke injection between agents",
+    "altId": "R30.3",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
+    "sourceLine": 37,
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:2fbd9ff5-b54b-4d1c-b8ff-4e34f85ac249"
+    ],
+    "description": "No agent writes to another agent's stdin / prompt / keystroke buffer to communicate; ALL agent-to-agent communication goes via AgentMessage units + the mailbox pull. A by-construction guard flags any tmux send-keys / stdin-write to a peer agent pane used for messaging (only the mailbox is the sanctioned path). This makes live-prompt-injection - the source of this session's sent-!=-delivered + capture-pane-verify workarounds - impossible.",
+    "tronQuote": "> TRON via skill-expert (4546a59d9): no-live-prompt-injection.",
+    "discoverySource": {
+      "type": "tron-directive",
+      "flaggedBy": "Tron via robbin-po (skill-expert design 4546a59d9)",
+      "date": "2026-07-02",
+      "note": "Tron-authorized S30. structural fix for the sent-!=-delivered pattern (this session's keystroke-into-busy-pane failures: messages queued in an agent's input buffer, Enter never submitted, capture-pane workarounds)."
+    },
+    "designRef": "scrum.pmo/design-notes skill-expert AgentMessage design 4546a59d9",
+    "crossRef": [
+      "ior:instance:71f34bf9-46eb-44ef-82c8-84ed26a7b1e4"
+    ],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-no-injection",
+        "group": "guard",
+        "text": "No agent writes to another agent's stdin / prompt / keystroke buffer to communicate; all agent-to-agent comms go via AgentMessage units + the mailbox pull."
+      },
+      {
+        "id": "AC-guard",
+        "group": "guard",
+        "text": "A by-construction guard (lint/audit) flags any tmux send-keys / stdin-write to a peer AGENT pane used for messaging - only the mailbox is the sanctioned path (agent panes, not the interactive server TUI which is R29.1)."
+      },
+      {
+        "id": "AC-verify",
+        "group": "verify",
+        "text": "A message delivered while the recipient is mid-turn is NOT injected into its prompt; it waits for the pull. No keystroke-into-busy-pane path remains for agent messaging."
+      }
+    ],
+    "crossRefNote": "Structural fix for the sent-!=-delivered / keystroke-injection failure hit repeatedly this session; R30.3 no-injection guard enforces R30.2 async mailbox by construction."
+  },
+  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

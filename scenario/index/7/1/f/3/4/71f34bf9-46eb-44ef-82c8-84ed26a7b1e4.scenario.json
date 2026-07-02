@@ -1,0 +1,56 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "71f34bf9-46eb-44ef-82c8-84ed26a7b1e4",
+    "name": "Async mailbox: send writes+commits a unit; recipient pulls at turn boundary (no keystroke injection)",
+    "altId": "R30.2",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
+    "sourceLine": 25,
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:3a74e3b2-6c60-4dea-be72-6a3850dcbec8"
+    ],
+    "description": "The STRUCTURAL interrupt fix. Sending a message = WRITE + COMMIT the AgentMessage unit ONLY - NO keystroke injection into the recipient's pane/input. The recipient PULLS its inbox at a TURN BOUNDARY (reads unread AgentMessage units addressed to it), never mid-turn. The sender never interrupts the recipient's running turn; delivery is decoupled from the recipient's execution state. This structurally ends the sent-!=-delivered / keystroke-into-busy-pane failure (messages queued in an agent's input buffer, Enter never submitted).",
+    "tronQuote": "> TRON via skill-expert (4546a59d9): ASYNC MAILBOX - send = write+commit unit only; recipient PULLS at turn boundary; NO keystroke injection = the STRUCTURAL interrupt fix.",
+    "discoverySource": {
+      "type": "tron-directive",
+      "flaggedBy": "Tron via robbin-po (skill-expert design 4546a59d9)",
+      "date": "2026-07-02",
+      "note": "Tron-authorized S30. structural fix for the sent-!=-delivered pattern (this session's keystroke-into-busy-pane failures: messages queued in an agent's input buffer, Enter never submitted, capture-pane workarounds)."
+    },
+    "designRef": "scrum.pmo/design-notes skill-expert AgentMessage design 4546a59d9",
+    "crossRef": [],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-send-writes-only",
+        "group": "mailbox",
+        "text": "Sending a message = write + commit the AgentMessage unit ONLY; NO keystroke injection into the recipient's pane or input buffer."
+      },
+      {
+        "id": "AC-pull-at-turn-boundary",
+        "group": "mailbox",
+        "text": "The recipient PULLS its inbox at a TURN BOUNDARY (reads unread AgentMessage units addressed to it), not mid-turn."
+      },
+      {
+        "id": "AC-no-interrupt",
+        "group": "mailbox",
+        "text": "The sender never interrupts the recipient's running turn; delivery is decoupled from the recipient's execution state (structural fix for keystroke-into-busy-pane = the sent-!=-delivered problem)."
+      },
+      {
+        "id": "AC-durable",
+        "group": "mailbox",
+        "text": "Messages persist (committed) until pulled + read; no message is lost to a busy input buffer or an un-submitted Enter."
+      },
+      {
+        "id": "AC-verify",
+        "group": "verify",
+        "text": "Verified: a message sent while the recipient is mid-turn is NOT injected; it is committed and read on the recipient's next turn-boundary pull, intact."
+      }
+    ],
+    "crossRefNote": "Structural fix for the sent-!=-delivered / keystroke-injection failure hit repeatedly this session; R30.3 no-injection guard enforces R30.2 async mailbox by construction."
+  },
+  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

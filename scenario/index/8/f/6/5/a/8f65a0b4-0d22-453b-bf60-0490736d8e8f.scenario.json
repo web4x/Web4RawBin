@@ -1,0 +1,52 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "8f65a0b4-0d22-453b-bf60-0490736d8e8f",
+    "name": "Task.messages[] link + agentMessage skill verbs (send/inbox/read/list/thread)",
+    "altId": "R30.4",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
+    "sourceLine": 47,
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:d90db09d-0b3f-4c89-951e-d467ceb36174"
+    ],
+    "description": "Task units gain a messages[] field linking related AgentMessage units (a message thread on a task). An agentMessage skill exposes the verbs send / inbox / read / list / thread: send writes+commits a message; inbox lists unread to me; read marks read; list shows a mailbox; thread shows a conversation by threadId. The mailbox skill is the canonical agent-comms path (replaces otmux send-keys for messaging).",
+    "tronQuote": "> TRON via skill-expert (4546a59d9): Task.messages[] + skill verbs (send/inbox/read/list/thread).",
+    "discoverySource": {
+      "type": "tron-directive",
+      "flaggedBy": "Tron via robbin-po (skill-expert design 4546a59d9)",
+      "date": "2026-07-02",
+      "note": "Tron-authorized S30. AgentMessage as first-class unit + async mailbox."
+    },
+    "designRef": "scrum.pmo/design-notes skill-expert AgentMessage design 4546a59d9",
+    "crossRef": [
+      "ior:instance:71f34bf9-46eb-44ef-82c8-84ed26a7b1e4"
+    ],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-task-messages",
+        "group": "integration",
+        "text": "Task units gain a messages[] field linking related AgentMessage units (thread the conversation on a task)."
+      },
+      {
+        "id": "AC-skill-verbs",
+        "group": "integration",
+        "text": "An agentMessage skill exposes verbs: send / inbox / read / list / thread (Object.verb per OOSH), each an addressable use case."
+      },
+      {
+        "id": "AC-thread",
+        "group": "integration",
+        "text": "Messages thread by threadId; the thread verb shows the full conversation in order."
+      },
+      {
+        "id": "AC-canonical-path",
+        "group": "integration",
+        "text": "The mailbox skill is the canonical agent-comms path - replaces otmux send-keys / keystroke messaging for agent-to-agent communication."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

@@ -1,0 +1,50 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "51b87013-45a2-417b-9d5f-6e8242559c03",
+    "name": "First-class AgentMessage scenario unit (peer to Task/Req/UC)",
+    "altId": "R30.1",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-agent-messaging/requirements.md",
+    "sourceLine": 14,
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:2a150baf-9a0c-4745-85c6-021053ad0d8b"
+    ],
+    "description": "A NEW first-class ior:class:AgentMessage scenario unit type, peer to Task/Requirement/UseCase. An AgentMessage is a committed unit on disk holding from (sender agent+pane), to (recipient), subject/body, threadId, timestamp, and status (unread/read) - durable + auditable (wer schreibt der bleibt). It is registered in templates.ts + tagMap so it renders/resolves like other unit types.",
+    "tronQuote": "> TRON via skill-expert (4546a59d9): AgentMessage becomes a first-class unit type, a peer to Task/Req/UC.",
+    "discoverySource": {
+      "type": "tron-directive",
+      "flaggedBy": "Tron via robbin-po (skill-expert design 4546a59d9)",
+      "date": "2026-07-02",
+      "note": "Tron-authorized S30. AgentMessage as first-class unit + async mailbox."
+    },
+    "designRef": "scrum.pmo/design-notes skill-expert AgentMessage design 4546a59d9",
+    "crossRef": [],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-new-type",
+        "group": "type",
+        "text": "A NEW first-class ior:class:AgentMessage scenario unit type exists, peer to Task/Requirement/UseCase."
+      },
+      {
+        "id": "AC-fields",
+        "group": "type",
+        "text": "An AgentMessage holds: from (sender agent + pane), to (recipient agent), subject/body, threadId, timestamp, status (unread/read), and an optional ref to a related Task/Requirement."
+      },
+      {
+        "id": "AC-persisted",
+        "group": "type",
+        "text": "A message is a COMMITTED scenario unit on disk (durable + auditable) - not an ephemeral keystroke; wer schreibt der bleibt."
+      },
+      {
+        "id": "AC-type-registration",
+        "group": "type",
+        "text": "The AgentMessage type is registered in templates.ts (AgentMessageTemplate) + the tagMap so it renders + resolves (a new scenario type without its template + tagMap will not render/resolve - the R29.3 lesson)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}
