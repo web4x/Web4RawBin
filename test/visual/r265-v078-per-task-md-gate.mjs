@@ -1,3 +1,4 @@
+// [test:uuid:dfd28fdd-0fd4-4c3a-8fc4-0d9db43fb221] R27.3 generateTaskMd — per-task-MD gate (every 📄 resolves 200, no collapse, roundtrip)
 // v0.7.8 R27.3 gate — per-task-MD 404 fix (slug drift + planning.md collapse). READ-ONLY, 0 pollution.
 //   (1) AC-resolve: rb-task-detail 📄 link for a task WITHOUT sourceFile (previously 404) now serves 200
 //       — the fix resolves the dir from the sprint's PINNED slug + ignores sourceFile=planning.md.
