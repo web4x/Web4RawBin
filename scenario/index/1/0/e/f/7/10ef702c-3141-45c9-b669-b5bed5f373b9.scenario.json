@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "10ef702c-3141-45c9-b669-b5bed5f373b9",
+    "name": "sprintMd.perTaskGeneration",
+    "description": "generate-sprint-md emits one task-<slug>.md per Task unit so every task MD link resolves (v0.7.8 404 fix: slug from pinned sprint.slug, ignore planning.md sourceFile). Retroactive #126 chain for shipped code.",
+    "class": "ior:instance:435cb4ea-1434-490a-8522-102c611bd1c1",
+    "classes": [
+      "ior:instance:435cb4ea-1434-490a-8522-102c611bd1c1"
+    ],
+    "method": "ior:instance:0a542620-1669-4212-8e8c-4bd72a8d5770",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:4f6d6402-fc8d-4d5d-9523-7e35af641944"
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "88744d89-4520-471e-b732-2d2d2504f817",
+    "name": "GenerateSprintMd.generateTaskMd impl",
+    "description": "SHIPPED v0.7.8 (08bd6e55b) at scripts/generate-sprint-md.ts:54 — generateTaskMd emits one task-<slug>.md per Task (AC-emit); sourceFile=planning.md cleared on 9 Tasks (AC-no-collapse) for byte-identical roundtrip. RETROACTIVE #126 chain (code shipped before chain). Expert to place [impl:uuid:88744d89-4520-471e-b732-2d2d2504f817] marker on generateTaskMd.",
+    "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0a542620-1669-4212-8e8c-4bd72a8d5770"
+}
