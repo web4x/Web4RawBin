@@ -60,6 +60,11 @@
         "id": "AC-verify",
         "group": "verify",
         "text": "Re-run trace:audit: token false-positives excluded, all slots covered, metric reflects only real chain debt."
+      },
+      {
+        "id": "AC-no-uuid-audit",
+        "group": "registry",
+        "text": "trace:audit FLAGS any unit with no model.uuid OR a path/uuid mismatch (file basename != model.uuid) - catching bash/tooling artifacts like the undefined.scenario.json where a backtick ate the uuid field. This is a structural no-uuid gate, cheap + recurrence-proof."
       }
     ]
   },
