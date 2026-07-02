@@ -51,6 +51,7 @@ function normalize(s: string): string {
   return s.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\n+$/g, '') + '\n';
 }
 
+// [impl:uuid:88744d89-4520-471e-b732-2d2d2504f817] R27.3 generateTaskMd — per-task-MD (slug-drift + planning.md-collapse fix)
 function generateTaskMd(task: ScenarioUnit): string {
   const m = task.model as Record<string, unknown>;
   const lines = [
