@@ -26,7 +26,7 @@
 
 ## Task Description
 
-No live prompt/keystroke injection between agents
+Implement the by-construction guard that flags/forbids any tmux send-keys or stdin-write into a peer AGENT pane for messaging; route ALL agent-to-agent comms via AgentMessage units + async mailbox pull (recipient reads on its own turn, never a keystroke injected into a busy pane). Verify post-build that no keystroke-into-busy-pane path remains (the sent!=delivered / staging-not-submit failure mode). Ties R29.6 mailbox + R30-track no-live-injection.
 
 ## Context
 

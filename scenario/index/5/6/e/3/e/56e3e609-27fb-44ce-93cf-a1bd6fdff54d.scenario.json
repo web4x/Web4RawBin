@@ -4,7 +4,7 @@
     "uuid": "56e3e609-27fb-44ce-93cf-a1bd6fdff54d",
     "name": "Task 29.7: No live prompt/keystroke injection between agents",
     "slug": "task-29.7-no-live-injection",
-    "description": "No live prompt/keystroke injection between agents",
+    "description": "Implement the by-construction guard that flags/forbids any tmux send-keys or stdin-write into a peer AGENT pane for messaging; route ALL agent-to-agent comms via AgentMessage units + async mailbox pull (recipient reads on its own turn, never a keystroke injected into a busy pane). Verify post-build that no keystroke-into-busy-pane path remains (the sent!=delivered / staging-not-submit failure mode). Ties R29.6 mailbox + R30-track no-live-injection.",
     "intention": "S29 Agent Messaging — the STRUCTURAL fix for sent!=delivered (async mailbox, no live injection). Stood up scenario-first (Task layer was missing: reqs+UCs captured plan-now, tasks never built).",
     "context": "Moved into S29 (Agent Intercom per Tron). crossRef the AgentMessaging track (R29.5-8). Chain-build awaits architect.",
     "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
