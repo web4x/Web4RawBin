@@ -346,6 +346,7 @@ export class CurrentSprint {
     (taskUnit.model as Record<string, unknown>).focus = true;
     this.index.put(taskUuid, taskUnit);
     this.lastCompletedUuid = ''; this.lastCompletedName = ''; this.lastCompletedReqUuid = ''; // let derivation rule; clears corruption
+    if (this.nextBacklogOverride && ior(this.nextBacklogOverride) === taskUuid) this.nextBacklogOverride = ''; // symmetric (#111): t is now CURRENT → can't also be the next-override (latent current==next)
     this.hopStates = {};
     this.hopStates.req = { status: 'done', owner: 'req-eng', updatedAt: new Date().toISOString() };
     return this.autoFollow();
