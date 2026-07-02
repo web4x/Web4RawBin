@@ -97,9 +97,19 @@
         "fetchSanitized enforces size-cap + timeout",
         "fetchSanitized rejects non-allowlisted content-type",
         "fetchSanitized rate-limits + audit-logs"
+      ],
+      "AC-routing-by-type": [
+        "routing regression-proof gate (mailto->launcher AND http->previewable) [test/visual/r252-webitem-gate.mjs, DET-3x]"
+      ],
+      "AC-http-preview": [
+        "routing regression-proof gate (mailto->launcher AND http->previewable) [test/visual/r252-webitem-gate.mjs, DET-3x]"
+      ],
+      "AC-launcher-only": [
+        "routing regression-proof gate (mailto->launcher AND http->previewable) [test/visual/r252-webitem-gate.mjs, DET-3x]"
       ]
     },
-    "securityChainStatus": "COMPLETE: guardUrl 5 PRE-fetch + fetchSanitized 4 POST-fetch = 9 adversarial Tests; both facet-ACs gated. never-execute test present (must-not-blanket-green)."
+    "securityChainStatus": "COMPLETE + QA-SIGNED (11/11 chain-to-Test): previewByType 1 (r252 regression gate) + guardUrl 5 (PRE-SSRF) + fetchSanitized 4 (POST) = 10 Tests. All 11 ACs chain-to-Test. Well-formedness clean (3839 units, 0 malformed/dup).",
+    "qaStatus": "QA re-verified 11/11 by robbin-req 2026-07-02 (v0.7.10, commit 9f106f9a2). Security 9 adversarial + routing regression-proof DET-3x, all in-chain."
   },
   "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
 }
