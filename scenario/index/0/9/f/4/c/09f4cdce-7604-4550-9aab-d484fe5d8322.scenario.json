@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "09f4cdce-7604-4550-9aab-d484fe5d8322",
+    "name": "ProxyFetch",
+    "description": "Server-side SSRF-guarded URL proxy for WebItem http/https preview fallback (R27.7). guardUrl predicate + fetchSanitized. Base src/ts/server/server.ts",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "methods": [
+      "ior:instance:441b7f34-8f32-48d0-af2b-2e55ec07956a",
+      "ior:instance:ee3fad72-cfa1-411a-92d3-b11941b8123d"
+    ]
+  },
+  "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
+}

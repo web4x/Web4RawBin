@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "441b7f34-8f32-48d0-af2b-2e55ec07956a",
+    "name": "ProxyFetch.guardUrl",
+    "description": "Pure allow/deny predicate on a user URL BEFORE any socket: scheme allowlist + resolved-IP range block + metadata block + DNS-rebind pin + per-redirect re-check.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:ba8f38c0-99b6-401c-9fa6-5c7e3ea55e35"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:09f4cdce-7604-4550-9aab-d484fe5d8322"
+}

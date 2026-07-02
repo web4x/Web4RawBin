@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "31c58c73-c52d-4785-b4ea-7c0ecb38ba56",
+    "name": "ProxyFetch.fetchSanitized impl",
+    "description": "DESIGN-AHEAD (#126): After guardUrl passes: fetch with size-cap+timeout, content-type allowlist (html/pdf/image), SANITIZE (strip script/handlers/js:+data: uris) + restrictive CSP, NEVER execute, rate-limit+audit-log. Reuse federation/T26.6 sanitize discipline.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:ee3fad72-cfa1-411a-92d3-b11941b8123d"
+}

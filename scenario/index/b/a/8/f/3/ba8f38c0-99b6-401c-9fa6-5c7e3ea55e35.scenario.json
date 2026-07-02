@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ba8f38c0-99b6-401c-9fa6-5c7e3ea55e35",
+    "name": "ProxyFetch.guardUrl impl",
+    "description": "DESIGN-AHEAD (#126): SSRF HARD-GUARD (pure predicate, socket-free): http/https-only; block loopback/private/link-local/unique-local/0.0.0.0 + cloud-metadata(169.254.169.254) on the RESOLVED IP; DNS-rebinding pin; re-check every redirect hop. Adversarial tests up front.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:441b7f34-8f32-48d0-af2b-2e55ec07956a"
+}
