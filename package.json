@@ -8,8 +8,8 @@
     "build:watch": "esbuild src/public/ts/app.ts --bundle --format=esm --target=es2020 --outfile=src/public/dist/app.js --sourcemap --watch",
     "dev": "tsx watch src/ts/server/server.ts",
     "start": "node scripts/start.mjs",
-    "test": "vitest run",
-    "test:watch": "vitest",
+    "test": "node scripts/with-node20.mjs vitest run",
+    "test:watch": "node scripts/with-node20.mjs vitest",
     "trace:check": "tsx src/ts/server/trace-cli.ts check",
     "trace:fix": "tsx src/ts/server/trace-cli.ts fix",
     "trace:audit": "tsx scripts/trace-audit.ts",
@@ -17,7 +17,8 @@
     "rule-pair:check": "tsx scripts/rule-pair-check.ts",
     "rule-pair:strict": "tsx scripts/rule-pair-check.ts --strict",
     "check:sprint-md": "tsx scripts/generate-sprint-md.ts --check --all",
-    "ci:gates": "npm run trace:audit:strict && npm run rule-pair:strict && npm run check:sprint-md",
+    "ci:gates:raw": "npm run trace:audit:strict && npm run rule-pair:strict && npm run check:sprint-md",
+    "ci:gates": "node scripts/with-node20.mjs npm run ci:gates:raw",
     "migrate": "tsx src/ts/server/migrate-cli.ts all",
     "migrate:rooms": "tsx src/ts/server/migrate-cli.ts rooms",
     "migrate:userdirs": "tsx src/ts/server/migrate-cli.ts userdirs",
@@ -25,7 +26,7 @@
     "test:e2e": "playwright test",
     "test:e2e:editor": "playwright test test/e2e/editor.spec.ts",
     "test:e2e:rooms": "playwright test test/e2e/room-identity.spec.ts",
-    "test:all": "vitest run && playwright test"
+    "test:all": "npm test && npm run test:e2e"
   },
   "keywords": [
     "server-management",
