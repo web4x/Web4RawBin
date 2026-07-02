@@ -8,8 +8,7 @@
     "status": "Planned",
     "compoundSource": "scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
     "requirements": [
-      "ior:instance:6f796898",
-      "ior:instance:a5da3f93"
+      "ior:instance:6f796898"
     ],
     "tasks": [],
     "createdAt": "2026-07-02",
