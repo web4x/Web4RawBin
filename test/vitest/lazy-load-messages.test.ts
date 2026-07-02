@@ -16,7 +16,7 @@ import path from 'node:path';
 import { ScenarioIndex } from '../../src/ts/scenario/index-store.js';
 import { createMessageUnit } from '../../src/ts/scenario/message-unit.js';
 
-describe('[test:uuid:9e1cb105] R19.40 lazy-load message pagination', () => {
+describe('[test:uuid:9e1cb105-27b1-4268-b9c3-d2110563fdeb] R19.40 lazy-load message pagination', () => {
   let tmp: string;
   let idx: ScenarioIndex;
   const roomUuid = 'test-room-lazy';

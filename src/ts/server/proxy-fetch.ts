@@ -59,7 +59,7 @@ export class ProxyFetch {
    * scheme allowlist (http/https only) + metadata-host block + resolved-IP blocklist (loopback/private/link-local/
    * ULA/metadata/0.0.0.0). Returns the pinned IP so the caller connects to THAT (DNS-rebinding defense).
    */
-  // [impl:uuid:ba8f38c0] R27.7 ProxyFetch.guardUrl (SSRF allow/deny predicate)
+  // [impl:uuid:ba8f38c0-99b6-401c-9fa6-5c7e3ea55e35] R27.7 ProxyFetch.guardUrl (SSRF allow/deny predicate)
   static async guardUrl(rawUrl: string, resolve?: Resolver): Promise<GuardResult> {
     let u: URL;
     try { u = new URL(rawUrl); } catch { return { allow: false, reason: 'invalid-url' }; }
@@ -88,7 +88,7 @@ export class ProxyFetch {
    * Fetch a guarded URL, re-checking the guard on EVERY redirect hop (a 302→169.254.169.254 must be blocked),
    * capping bytes/redirects/timeout, enforcing the content-type allowlist, sanitizing HTML. Returns inert content.
    */
-  // [impl:uuid:31c58c73] R27.7 ProxyFetch.fetchSanitized (guarded proxy fetch)
+  // [impl:uuid:31c58c73-c52d-4785-b4ea-7c0ecb38ba56] R27.7 ProxyFetch.fetchSanitized (guarded proxy fetch)
   static async fetchSanitized(rawUrl: string, resolve?: Resolver, hop = 0): Promise<{ status: number; contentType: string; body: Buffer }> {
     if (hop > MAX_REDIRECTS) throw new Error('too-many-redirects');
     const guard = await ProxyFetch.guardUrl(rawUrl, resolve);

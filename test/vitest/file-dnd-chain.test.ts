@@ -27,7 +27,7 @@ import { createFileUnit, readFileUnitContent } from '../../src/ts/scenario/file-
 
 // ── TC-1: createFileUnit + .content sidecar + unitLinks[] ──────────────────
 
-describe('[test:uuid:1e763397] R19.14 DnD file chain', () => {
+describe('[test:uuid:1e763397-5c56-4288-aac6-ee6f874b64a6] R19.14 DnD file chain', () => {
   let tmp: string;
   let idx: ScenarioIndex;
 
@@ -83,7 +83,7 @@ describe('[test:uuid:1e763397] R19.14 DnD file chain', () => {
 
 // ── TC-6: DropDispatcher routing ───────────────────────────────────────────
 
-describe('[test:uuid:1e763397] DropDispatcher routing', () => {
+describe('[test:uuid:1e763397-5c56-4288-aac6-ee6f874b64a6] DropDispatcher routing', () => {
   it('TC-6: known file types route to uploadFile', async () => {
     const { DropDispatcher } = await import('../../src/public/ts/drop-dispatcher.js');
     const dd = new DropDispatcher('https://localhost:4444');
@@ -124,7 +124,7 @@ describe('[test:uuid:1e763397] DropDispatcher routing', () => {
 // upload endpoint calls addLog() at 5 points (L458,L460,L480,L484,L492,L496).
 // This test validates the log entry format contract used by addLog consumers.
 
-describe('[test:uuid:b543e1ad] R19.41 Logger.logAtLevel (integration)', () => {
+describe('[test:uuid:b543e1ad-9b87-4545-9a18-6b7f6286ec1f] R19.41 Logger.logAtLevel (integration)', () => {
   it('TC-9: log entry format matches [timestamp] message pattern', () => {
     const timestamp = new Date().toLocaleTimeString();
     const entry = `[${timestamp}] test log message`;

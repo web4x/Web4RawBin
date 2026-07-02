@@ -48,7 +48,7 @@ export class RbWebItemDetail extends HTMLElement {
     }).catch(() => { this.innerHTML = '<div class="dv-empty">Failed to load WebItem</div>'; });
   }
 
-  // [impl:uuid:accc6a00] R27.7 RbWebItemDetail.previewByType — declared type-router → previewable vs launcher layout
+  // [impl:uuid:accc6a00-5c92-4de0-b38f-029a45b86852] R27.7 RbWebItemDetail.previewByType — declared type-router → previewable vs launcher layout
   previewByType(m: Record<string, unknown>, uuid: string): void {
     const url = String(m.url || '');
     const kind = kindOf(url, String(m.contentType || ''));

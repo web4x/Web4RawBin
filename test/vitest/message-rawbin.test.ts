@@ -17,7 +17,7 @@ import { ensureRawBinUser } from '../../src/ts/scenario/classes.js';
 
 // ── R19.38: Message scenario unit ──────────────────────────────────────────
 
-describe('[test:uuid:8289ef98] R19.38 Message scenario unit', () => {
+describe('[test:uuid:8289ef98-6aba-49a2-be74-89e95658f1a7] R19.38 Message scenario unit', () => {
   let tmp: string;
   let idx: ScenarioIndex;
 
@@ -90,7 +90,7 @@ describe('[test:uuid:8289ef98] R19.38 Message scenario unit', () => {
 
 // ── R19.39: RawBin system user ─────────────────────────────────────────────
 
-describe('[test:uuid:f2122854] R19.39 RawBin system user', () => {
+describe('[test:uuid:f2122854-51e0-4e5e-850e-9d86acebed3b] R19.39 RawBin system user', () => {
   let tmp: string;
   let idx: ScenarioIndex;
 

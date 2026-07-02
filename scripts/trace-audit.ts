@@ -12,8 +12,30 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ScenarioIndex, type ScenarioUnit } from '../src/ts/scenario/index.js';
 
+// R27.7: a full uuid is 8-4-4-4-12. Traceability markers with a TRUNCATED uuid credit by prefix but FAIL clean-tree
+// measure + risk prefix-collision (bitten 3×: R27.4 prefix-collision, R27.7 credit-miss). Hard CI failure by construction.
+const FULL_UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const MARKER_RE = /\[(impl|test|task|uc|usecase|requirement|req|uuid):uuid:([0-9a-fA-F-]+)\]/g;
+function truncatedUuidMarkers(roots: string[]): { file: string; marker: string; prefix: string }[] {
+  const out: { file: string; marker: string; prefix: string }[] = [];
+  const walk = (dir: string) => {
+    let entries: fs.Dirent[]; try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch { return; }
+    for (const e of entries) {
+      const p = path.join(dir, e.name);
+      if (e.isDirectory()) { if (!/node_modules|\.git|dist|coverage/.test(p)) walk(p); }
+      else if (/\.(ts|tsx|mjs|js|md)$/.test(e.name)) {
+        let text: string; try { text = fs.readFileSync(p, 'utf8'); } catch { continue; }
+        for (const m of text.matchAll(MARKER_RE)) if (!FULL_UUID.test(m[2])) out.push({ file: p, marker: m[0], prefix: m[2] });
+      }
+    }
+  };
+  for (const r of roots) walk(r);
+  return out;
+}
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INDEX_DIR = path.join(__dirname, '../scenario/index');
+const REPO_ROOT = path.join(__dirname, '..');
 
 const CANONICAL_FORWARD: Record<string, string[]> = {
   Requirement: ['useCases'],
@@ -226,10 +248,20 @@ if (hop.unreachable.length > 0) {
 console.log(`\nDuplicate Class units (R27.2 AC-canonical, 1 per code-class name): ${result.duplicateClasses.length} (${result.duplicateClasses.length === 0 ? 'PASS' : 'FAIL'})`);
 for (const d of result.duplicateClasses) console.log(`  - ${d.name}: ${d.count} units [${d.uuids.map(u => u.slice(0, 8)).join(', ')}] — collapse to ONE`);
 
-// R27.2: dup-Class + cardinality are HARD-gated NOW (both clean post-migration → won't false-fail).
-// orphans + back-refs are pre-existing baseline debt (R27.4) → REPORTED but NOT strict-gated until R27.4
-// cleans them (delta-not-absolute — else --strict false-fails on the 2207-orphan baseline).
-const hardIssues = result.duplicateClasses.length + result.cardinalityIssues.length;
+// Split truncated markers: LIVE (prefix matches a real unit → a crediting marker written short = the recurrence to
+// hard-gate) vs STALE (matches no unit → orphan marker = deferred cleanup, don't false-red CI on pre-existing debt).
+const allUuidSet = new Set(idx.list().map(u => String(u)));
+const truncated = truncatedUuidMarkers([path.join(REPO_ROOT, 'src'), path.join(REPO_ROOT, 'test'), path.join(REPO_ROOT, 'scripts')]);
+const liveTruncated = truncated.filter(t => [...allUuidSet].some(u => u.startsWith(t.prefix)));
+const staleTruncated = truncated.filter(t => !liveTruncated.includes(t));
+console.log(`\nTruncated-uuid markers (R27.7, must be full 36-char): LIVE (prefix→real unit) = ${liveTruncated.length} (${liveTruncated.length === 0 ? 'PASS' : 'FAIL'}) | stale (no unit, deferred) = ${staleTruncated.length}`);
+for (const t of liveTruncated) console.log(`  ✗ LIVE ${t.marker} in ${path.relative(REPO_ROOT, t.file)} — expand to full uuid`);
+for (const t of staleTruncated.slice(0, 25)) console.log(`  · stale ${t.marker} in ${path.relative(REPO_ROOT, t.file)}`);
+
+// R27.2/R27.7: dup-Class + cardinality + LIVE truncated-uuid markers are HARD-gated NOW (all clean → won't false-fail).
+// orphans + back-refs + STALE truncated markers are pre-existing baseline debt → REPORTED but NOT strict-gated
+// (delta-not-absolute — else --strict false-fails on the 2207-orphan / 18-stale-marker baseline).
+const hardIssues = result.duplicateClasses.length + result.cardinalityIssues.length + liveTruncated.length;
 const deferredIssues = result.orphans.length + result.backRefs.length;
 console.log(`\n=== STRUCTURAL AUDIT — HARD (dup-Class + cardinality) = ${hardIssues} ${hardIssues === 0 ? 'PASS' : 'FAIL'} | deferred (orphans + back-refs) = ${deferredIssues} (R27.4 baseline, not strict-gated yet) ===`);
 console.log(`(Completion measure: npx tsx scripts/po-chain-follow-up.ts --all)\n`);

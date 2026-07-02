@@ -20,7 +20,7 @@ describe('[test:uuid:a7e34f12] R19.52 detailDrawer.fullWidth', () => {
     expect(rule).not.toContain('max-width: 480px');
   });
 
-  it('[impl:uuid:da9462f5] marker present in app.css source context', () => {
+  it('[impl:uuid:da9462f5-72fd-49df-bedb-72c8b3248fc2] marker present in app.css source context', () => {
     const src = fsSync.readFileSync('src/public/ts/trace/rb-detail-drawer.ts', 'utf-8');
     expect(src).toContain('drawer-header');
     expect(src).toContain('drawer-body');
@@ -51,9 +51,9 @@ describe('[test:uuid:c9f56d34] R19.33 stickyClose pinned X', () => {
   });
 });
 
-// ── [test:uuid:7d6badb4] R19.57 pageNav z-index above drawer ──────────────
+// ── [test:uuid:7d6badb4-a27d-4c9d-b7f8-385fc9636e90] R19.57 pageNav z-index above drawer ──────────────
 
-describe('[test:uuid:7d6badb4] R19.57 PageNav.raiseAboveDrawer', () => {
+describe('[test:uuid:7d6badb4-a27d-4c9d-b7f8-385fc9636e90] R19.57 PageNav.raiseAboveDrawer', () => {
   const serverSrc = fsSync.readFileSync('src/ts/server/server.ts', 'utf-8');
 
   it('pageNav z-index=101 (above drawer z-index=100)', () => {
@@ -61,7 +61,7 @@ describe('[test:uuid:7d6badb4] R19.57 PageNav.raiseAboveDrawer', () => {
     expect(css).toContain('z-index: 100');
   });
 
-  it('[impl:uuid:de0847e2] marker present', () => {
+  it('[impl:uuid:de0847e2-9351-4dce-80e6-70a2be803417] marker present', () => {
     expect(serverSrc).toContain('[impl:uuid:de0847e2');
   });
 });
