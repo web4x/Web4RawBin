@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "e362e461-ba05-4528-962d-1caafefa1094",
+    "name": "TorontTechWeek Web4AI Prometheus.url",
+    "contentPath": "index/e/3/6/2/e/e362e461-ba05-4528-962d-1caafefa1094.content",
+    "size": 196,
+    "mimeType": "text/uri-list",
+    "uploadedAt": "2026-06-17T09:13:18.702Z",
+    "uploaderToken": "c5163b82-df27-415c-b2f9-e1f6a5e7a0ad",
+    "roomUuid": "fb98a84f-13ab-4b36-b42d-2486940974d8",
+    "contentHash": "2705605949aec485aec14aff779bfa43872d64063429093c88a1da186555a2b5",
+    "unitLinks": [
+      "content/2705605949aec485aec14aff779bfa43872d64063429093c88a1da186555a2b5.file.scenario.json",
+      "../data/users/c5163b82-df27-415c-b2f9-e1f6a5e7a0ad/rooms/fb98a84f-13ab-4b36-b42d-2486940974d8/files/e362e461-ba05-4528-962d-1caafefa1094.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:fb98a84f-13ab-4b36-b42d-2486940974d8"
+}

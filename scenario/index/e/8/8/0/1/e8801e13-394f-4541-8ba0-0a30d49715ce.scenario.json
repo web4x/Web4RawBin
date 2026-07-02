@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "e8801e13-394f-4541-8ba0-0a30d49715ce",
+    "name": "Where do we help",
+    "contentPath": "index/e/8/8/0/1/e8801e13-394f-4541-8ba0-0a30d49715ce.content",
+    "size": 442016,
+    "mimeType": "image/jpeg",
+    "uploadedAt": "2026-06-19T15:22:10.508Z",
+    "uploaderToken": "c5163b82-df27-415c-b2f9-e1f6a5e7a0ad",
+    "roomUuid": "00265820-a49c-4028-90ba-727bb884b2e0",
+    "contentHash": "8985169f2313aa6c9d34097d57d4d3565335e6a6114e1cd647372fef6150fc9e",
+    "unitLinks": [
+      "content/8985169f2313aa6c9d34097d57d4d3565335e6a6114e1cd647372fef6150fc9e.file.scenario.json",
+      "../data/users/c5163b82-df27-415c-b2f9-e1f6a5e7a0ad/rooms/00265820-a49c-4028-90ba-727bb884b2e0/files/e8801e13-394f-4541-8ba0-0a30d49715ce.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:00265820-a49c-4028-90ba-727bb884b2e0"
+}

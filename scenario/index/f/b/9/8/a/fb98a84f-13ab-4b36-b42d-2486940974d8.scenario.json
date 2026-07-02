@@ -1,0 +1,127 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "fb98a84f-13ab-4b36-b42d-2486940974d8",
+    "id": "fb98a84f-13ab-4b36-b42d-2486940974d8",
+    "name": "wo-da.de Web4x Sovereign Infrastructure ",
+    "ownerToken": "bb002386-2141-4b7d-9cf8-d5f3200b2487",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1782990424105,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtQzZYAroRb1O5IgDe7JR\n5DUfEfJMLOhXaGOgL+R84879ww+nU7FVnHh9tqme9JNvF00aOvImeuqCBRJgnZ1l\nVgtJ2jj8/EcIDLX4UJdEvUSpI6OE7V7WyT3l3UhHl+Korg8S/MPCuKVNkAn8/CBy\nVF7eGcbTYBzhUuiz6KRsHNXpfmCvL/1dkZl44GvsuHdM8UFRkJNx6p673fvmQ5ai\nNaUDHaA0gKTtxLAtBHTlVKfhr6uEexfO2npV60nYqySwCuDJSS5ek5banRTVHFcS\nO8YbgLbyAHqgN7JCXgl36T0AHQPhHbk9voRErs5bSVVsONYKGpWH4XZcxZElxqyi\nPQIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:bb002386-2141-4b7d-9cf8-d5f3200b2487",
+        "name": "Marcel Donges OG White Hat",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1782990424105
+      },
+      {
+        "ior": "ior:instance:52ebb30b-2c1e-4145-b770-8ced6fc9bc37",
+        "name": "Max  Reisinger",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1782990424105
+      },
+      {
+        "ior": "ior:instance:a8007541-04e1-4f09-8a0f-47382834ec58",
+        "name": "User 215",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1782990424105
+      },
+      {
+        "ior": "ior:instance:d9c13c92-4a6e-4e23-8f4a-7f8950420ab1",
+        "name": "User 140",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1782990424105
+      },
+      {
+        "ior": "ior:instance:a56c831e-b1ff-4a50-82f4-ffce887e58be",
+        "name": "Atzmüller Andreas",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1782990424105
+      },
+      {
+        "ior": "ior:instance:48826f43-321e-4b5b-9f24-66f7d55bb294",
+        "name": "Jo",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1782990424105
+      },
+      {
+        "ior": "ior:instance:e7145a0a-ac2f-4dc3-b408-45baa4717866",
+        "name": "VE",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1782990424105
+      },
+      {
+        "ior": "ior:instance:0541891b-c868-4905-84b6-96bb919332e9",
+        "name": "Marcel Donges",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1782990424105
+      },
+      {
+        "ior": "ior:instance:424e2871-c485-40ec-9861-3cc264e0632b",
+        "name": "Franz Humpert",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1782990424105
+      },
+      {
+        "ior": "ior:instance:3a251582-66f4-48ea-aa5d-7c8e491782b3",
+        "name": "Franz  Humpert",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1782990424105
+      },
+      {
+        "ior": "ior:instance:c5163b82-df27-415c-b2f9-e1f6a5e7a0ad",
+        "name": "Marcel Donges",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1782990424105
+      },
+      {
+        "ior": "ior:instance:20b45725-83f8-4208-a49b-6f2f03597e81",
+        "name": "User 246",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1782990424105
+      },
+      {
+        "ior": "ior:instance:bb002386-2141-4b7d-9cf8-d5f3200b2487",
+        "name": "",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1782990424105
+      }
+    ],
+    "files": [
+      "ior:instance:c4aad0f8-fe5d-4407-bb88-0bf07906b5d6",
+      "ior:instance:a2351f0d-ae25-407d-a3c1-420c23818dca",
+      "ior:instance:f3bb1fb2-f70d-4a33-bdef-46dc4d196038",
+      "ior:instance:af65e267-6a54-49ad-a619-3d7fc1541bb0",
+      "ior:instance:6b6365a6-70b3-4b09-982e-fcc26f5a27a9",
+      "ior:instance:e362e461-ba05-4528-962d-1caafefa1094"
+    ],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/f/b/9/8/a/fb98a84f-13ab-4b36-b42d-2486940974d8.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/bb002386-2141-4b7d-9cf8-d5f3200b2487/fb98a84f-13ab-4b36-b42d-2486940974d8.json"
+    ]
+  },
+  "ownerIor": "ior:instance:bb002386-2141-4b7d-9cf8-d5f3200b2487"
+}

@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "d3074884-dacd-4adc-ac2a-b5970d515829",
+    "name": "CV CCC.pdf",
+    "contentPath": "index/d/3/0/7/4/d3074884-dacd-4adc-ac2a-b5970d515829.content",
+    "size": 7615409,
+    "mimeType": "application/pdf",
+    "uploadedAt": "2026-06-27T06:00:48.484Z",
+    "uploaderToken": "c5163b82-df27-415c-b2f9-e1f6a5e7a0ad",
+    "roomUuid": "3b1b93af-f201-4ee2-b667-2a3584642a87",
+    "contentHash": "3bba267d04285dd660b4eeffbcf33b0ee75b0639ddae629e2461ca1ee1aac1cb",
+    "unitLinks": [
+      "content/3bba267d04285dd660b4eeffbcf33b0ee75b0639ddae629e2461ca1ee1aac1cb.file.scenario.json",
+      "../data/users/c5163b82-df27-415c-b2f9-e1f6a5e7a0ad/rooms/3b1b93af-f201-4ee2-b667-2a3584642a87/files/d3074884-dacd-4adc-ac2a-b5970d515829.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:3b1b93af-f201-4ee2-b667-2a3584642a87"
+}

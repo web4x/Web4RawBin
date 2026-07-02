@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "a2351f0d-ae25-407d-a3c1-420c23818dca",
+    "name": "TechRaiders App.url",
+    "contentPath": "index/a/2/3/5/1/a2351f0d-ae25-407d-a3c1-420c23818dca.content",
+    "size": 27,
+    "mimeType": "text/uri-list",
+    "uploadedAt": "2026-06-17T08:25:52.342Z",
+    "uploaderToken": "c5163b82-df27-415c-b2f9-e1f6a5e7a0ad",
+    "roomUuid": "fb98a84f-13ab-4b36-b42d-2486940974d8",
+    "contentHash": "1dd6ab97584e9f3db702c739a5e8ae9a693cd41d2594b0f2c9574cc1ba01931d",
+    "unitLinks": [
+      "content/1dd6ab97584e9f3db702c739a5e8ae9a693cd41d2594b0f2c9574cc1ba01931d.file.scenario.json",
+      "../data/users/c5163b82-df27-415c-b2f9-e1f6a5e7a0ad/rooms/fb98a84f-13ab-4b36-b42d-2486940974d8/files/a2351f0d-ae25-407d-a3c1-420c23818dca.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:fb98a84f-13ab-4b36-b42d-2486940974d8"
+}

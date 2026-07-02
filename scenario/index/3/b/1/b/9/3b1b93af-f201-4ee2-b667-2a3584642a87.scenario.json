@@ -1,0 +1,52 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "3b1b93af-f201-4ee2-b667-2a3584642a87",
+    "id": "3b1b93af-f201-4ee2-b667-2a3584642a87",
+    "name": "Job Messe 2026",
+    "ownerToken": "c5163b82-df27-415c-b2f9-e1f6a5e7a0ad",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1782990424107,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnidYc3Tq1g2GtMg+9wqD\n6ijQjBbKcy0ak6bgshPPyFFsKesohTCOA6SlUmTYRHxzztXovYw+ZOKOlxA8ySdz\nqh1ohdsWDfA0YH1MLwAR2hlqJpZJHc4RGi5B218J566PAbxhNgblBMP01xZjoOnl\nMoA8EoOim5Urmc3E8VvZvMT2yh960n+5BUEdIsc/ykaQdSZRRN3CTBYI/Cqmc3xx\ny7S5wNxdQwa59ocNGAXidHYar0IS9LyxOz1QR7ik8SJJdmEA1EvZLGaZSwIAIhP+\n71zCndwZjQpX+f3HDoxP3ELzyEu5bspTSOsDxwfc+4VZKsA3I+eKca3sE0alMuEj\nlwIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:c8199223-64dc-4e9a-931a-71070a7740d4",
+        "name": "Petra Sonneck",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1782990424107
+      },
+      {
+        "ior": "ior:instance:c5163b82-df27-415c-b2f9-e1f6a5e7a0ad",
+        "name": "Marcel Donges",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1782990424107
+      },
+      {
+        "ior": "ior:instance:c5163b82-df27-415c-b2f9-e1f6a5e7a0ad",
+        "name": "",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1782990424107
+      }
+    ],
+    "files": [
+      "ior:instance:d3074884-dacd-4adc-ac2a-b5970d515829"
+    ],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/3/b/1/b/9/3b1b93af-f201-4ee2-b667-2a3584642a87.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/c5163b82-df27-415c-b2f9-e1f6a5e7a0ad/3b1b93af-f201-4ee2-b667-2a3584642a87.json"
+    ]
+  },
+  "ownerIor": "ior:instance:c5163b82-df27-415c-b2f9-e1f6a5e7a0ad"
+}

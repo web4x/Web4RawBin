@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "a7511111-4d1b-48d0-9199-f3e2d913587c",
+    "name": "User 17: hi hi",
+    "text": "hi hi",
+    "timestamp": 1781882755197,
+    "senderIor": "ior:instance:e7145a0a-ac2f-4dc3-b408-45baa4717866",
+    "senderName": "User 17",
+    "roomIor": "ior:instance:00265820-a49c-4028-90ba-727bb884b2e0",
+    "prevMessage": null,
+    "nextMessage": "ior:instance:6ea9537d-5c42-4aa3-822d-0b88a0abcac7",
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e7145a0a-ac2f-4dc3-b408-45baa4717866"
+}

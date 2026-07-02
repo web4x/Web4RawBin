@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "f3bb1fb2-f70d-4a33-bdef-46dc4d196038",
+    "name": "Web4x wo-da.de.url",
+    "contentPath": "index/f/3/b/b/1/f3bb1fb2-f70d-4a33-bdef-46dc4d196038.content",
+    "size": 17,
+    "mimeType": "text/uri-list",
+    "uploadedAt": "2026-06-17T08:27:39.357Z",
+    "uploaderToken": "c5163b82-df27-415c-b2f9-e1f6a5e7a0ad",
+    "roomUuid": "fb98a84f-13ab-4b36-b42d-2486940974d8",
+    "contentHash": "23c87461cf7a046a751da9fac507be77fb3803dccae0390e028b611488b4a6d2",
+    "unitLinks": [
+      "content/23c87461cf7a046a751da9fac507be77fb3803dccae0390e028b611488b4a6d2.file.scenario.json",
+      "../data/users/c5163b82-df27-415c-b2f9-e1f6a5e7a0ad/rooms/fb98a84f-13ab-4b36-b42d-2486940974d8/files/f3bb1fb2-f70d-4a33-bdef-46dc4d196038.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:fb98a84f-13ab-4b36-b42d-2486940974d8"
+}

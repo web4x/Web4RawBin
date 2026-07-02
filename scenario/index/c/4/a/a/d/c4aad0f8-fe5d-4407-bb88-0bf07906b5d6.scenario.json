@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "c4aad0f8-fe5d-4407-bb88-0bf07906b5d6",
+    "name": "WODA.ide",
+    "contentPath": "index/c/4/a/a/d/c4aad0f8-fe5d-4407-bb88-0bf07906b5d6.content",
+    "size": 25,
+    "mimeType": "text/uri-list",
+    "uploadedAt": "2026-06-16T17:45:35.622Z",
+    "uploaderToken": "bb002386-2141-4b7d-9cf8-d5f3200b2487",
+    "roomUuid": "fb98a84f-13ab-4b36-b42d-2486940974d8",
+    "contentHash": "a46c40bc2f3ff48e73d39fc3dc175b30d82bf976aecb9eb6e0aa2fddd4a9b625",
+    "unitLinks": [
+      "content/a46c40bc2f3ff48e73d39fc3dc175b30d82bf976aecb9eb6e0aa2fddd4a9b625.file.scenario.json",
+      "../data/users/bb002386-2141-4b7d-9cf8-d5f3200b2487/rooms/fb98a84f-13ab-4b36-b42d-2486940974d8/files/c4aad0f8-fe5d-4407-bb88-0bf07906b5d6.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:fb98a84f-13ab-4b36-b42d-2486940974d8"
+}

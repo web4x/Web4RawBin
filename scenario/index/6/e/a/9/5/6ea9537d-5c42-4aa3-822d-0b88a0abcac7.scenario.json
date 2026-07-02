@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "6ea9537d-5c42-4aa3-822d-0b88a0abcac7",
+    "name": "VE: hi eute",
+    "text": "hi eute",
+    "timestamp": 1781882862042,
+    "senderIor": "ior:instance:e7145a0a-ac2f-4dc3-b408-45baa4717866",
+    "senderName": "VE",
+    "roomIor": "ior:instance:00265820-a49c-4028-90ba-727bb884b2e0",
+    "prevMessage": "ior:instance:a7511111-4d1b-48d0-9199-f3e2d913587c",
+    "nextMessage": "ior:instance:aee5e037-657f-4947-96e5-44444f5e2cce",
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e7145a0a-ac2f-4dc3-b408-45baa4717866"
+}

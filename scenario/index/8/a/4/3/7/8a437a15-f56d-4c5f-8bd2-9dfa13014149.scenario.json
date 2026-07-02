@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "8a437a15-f56d-4c5f-8bd2-9dfa13014149",
+    "name": "Offer Prof. Volker Engels: Phase 1",
+    "contentPath": "index/8/a/4/3/7/8a437a15-f56d-4c5f-8bd2-9dfa13014149.content",
+    "size": 277533,
+    "mimeType": "image/jpeg",
+    "uploadedAt": "2026-06-19T15:07:17.598Z",
+    "uploaderToken": "c5163b82-df27-415c-b2f9-e1f6a5e7a0ad",
+    "roomUuid": "00265820-a49c-4028-90ba-727bb884b2e0",
+    "contentHash": "bf816ce8f7f71dfc4cf2703b813ab55dc5ec87e1c7285f846281395c434f3eec",
+    "unitLinks": [
+      "content/bf816ce8f7f71dfc4cf2703b813ab55dc5ec87e1c7285f846281395c434f3eec.file.scenario.json",
+      "../data/users/c5163b82-df27-415c-b2f9-e1f6a5e7a0ad/rooms/00265820-a49c-4028-90ba-727bb884b2e0/files/8a437a15-f56d-4c5f-8bd2-9dfa13014149.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:00265820-a49c-4028-90ba-727bb884b2e0"
+}

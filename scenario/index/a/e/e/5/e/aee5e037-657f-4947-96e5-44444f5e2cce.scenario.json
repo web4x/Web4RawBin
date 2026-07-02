@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "aee5e037-657f-4947-96e5-44444f5e2cce",
+    "name": "VE: going asleep",
+    "text": "going asleep",
+    "timestamp": 1781882956266,
+    "senderIor": "ior:instance:e7145a0a-ac2f-4dc3-b408-45baa4717866",
+    "senderName": "VE",
+    "roomIor": "ior:instance:00265820-a49c-4028-90ba-727bb884b2e0",
+    "prevMessage": "ior:instance:6ea9537d-5c42-4aa3-822d-0b88a0abcac7",
+    "nextMessage": "ior:instance:1edf49fb-9389-447d-97de-d371761791b3",
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e7145a0a-ac2f-4dc3-b408-45baa4717866"
+}

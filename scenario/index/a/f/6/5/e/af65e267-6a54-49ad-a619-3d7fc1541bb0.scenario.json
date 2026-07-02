@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "af65e267-6a54-49ad-a619-3d7fc1541bb0",
+    "name": "Cerulean Circle GmbH Services.url",
+    "contentPath": "index/a/f/6/5/e/af65e267-6a54-49ad-a619-3d7fc1541bb0.content",
+    "size": 43,
+    "mimeType": "text/uri-list",
+    "uploadedAt": "2026-06-17T08:32:12.639Z",
+    "uploaderToken": "c5163b82-df27-415c-b2f9-e1f6a5e7a0ad",
+    "roomUuid": "fb98a84f-13ab-4b36-b42d-2486940974d8",
+    "contentHash": "b706aa6e89b52bbc856954a357c33e1cfb2f1a64c034ed03b67681edd038186d",
+    "unitLinks": [
+      "content/b706aa6e89b52bbc856954a357c33e1cfb2f1a64c034ed03b67681edd038186d.file.scenario.json",
+      "../data/users/c5163b82-df27-415c-b2f9-e1f6a5e7a0ad/rooms/fb98a84f-13ab-4b36-b42d-2486940974d8/files/af65e267-6a54-49ad-a619-3d7fc1541bb0.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:fb98a84f-13ab-4b36-b42d-2486940974d8"
+}

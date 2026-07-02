@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "c6968e53-65be-41e7-abe9-b63243638a2d",
+    "name": "Project_Sanctuary_Prospectus.html.url",
+    "contentPath": "index/c/6/9/6/8/c6968e53-65be-41e7-abe9-b63243638a2d.content",
+    "size": 120,
+    "mimeType": "text/uri-list",
+    "uploadedAt": "2026-06-17T08:57:29.528Z",
+    "uploaderToken": "c5163b82-df27-415c-b2f9-e1f6a5e7a0ad",
+    "roomUuid": "ff65fda6-659f-423a-92d7-46e3aa665a26",
+    "contentHash": "edf1613165d7c7a0067d305954dcfbba32bdf441620356f5cec210b69c4a7342",
+    "unitLinks": [
+      "content/edf1613165d7c7a0067d305954dcfbba32bdf441620356f5cec210b69c4a7342.file.scenario.json",
+      "../data/users/c5163b82-df27-415c-b2f9-e1f6a5e7a0ad/rooms/ff65fda6-659f-423a-92d7-46e3aa665a26/files/c6968e53-65be-41e7-abe9-b63243638a2d.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:ff65fda6-659f-423a-92d7-46e3aa665a26"
+}

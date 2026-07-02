@@ -1,0 +1,80 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "00265820-a49c-4028-90ba-727bb884b2e0",
+    "id": "00265820-a49c-4028-90ba-727bb884b2e0",
+    "name": "From Legacy Systems to Production-Ready Al",
+    "ownerToken": "c5163b82-df27-415c-b2f9-e1f6a5e7a0ad",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1782990424106,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwBUm5rbwtmV5y5n59uo2\nJ8o3xa9D2qoTwJW80Vox9W0fe2S55PvLoTG8yxgf07MTST1RjPAu7IYTI/gZ3QMa\nca2tPIOqmC0vCbR9hPmZ1qNXHMQGEnOe8Dug7w9upsDCbDwGEq1Tea2OjY1nXrxd\nN1R7iT/Ru6eExRbB6rSJqba10kkSn1c278YTqAlj7h/zVwpYy+Ok5R2Ywf+FECMw\nAqfPcJohpz1lUctpcJXmVLbuuQdmxsc7F79dZSJ19rGJ9MybRacx4polhkWcZu2D\nu7FPrNFfZzsgCDOBOQpQUP+2y5yrBcSrZvkbVGv6jFKjv6ZcfccVTssSx7GSqDj4\nPwIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [
+      {
+        "senderId": "::ffff:78.94.89.93-1781882723742",
+        "senderName": "User 17",
+        "text": "hi hi",
+        "timestamp": 1781882755197
+      },
+      {
+        "senderId": "::ffff:78.94.89.93-1781882839982",
+        "senderName": "VE",
+        "text": "hi eute",
+        "timestamp": 1781882862042
+      },
+      {
+        "senderId": "::ffff:78.94.89.93-1781882839982",
+        "senderName": "VE",
+        "text": "going asleep",
+        "timestamp": 1781882956265
+      },
+      {
+        "senderId": "::ffff:78.94.89.93-1781882977075",
+        "senderName": "VE",
+        "text": "show 5Phases",
+        "timestamp": 1781883047679
+      }
+    ],
+    "members": [
+      {
+        "ior": "ior:instance:e7145a0a-ac2f-4dc3-b408-45baa4717866",
+        "name": "VE",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1782990424106
+      },
+      {
+        "ior": "ior:instance:c5163b82-df27-415c-b2f9-e1f6a5e7a0ad",
+        "name": "Marcel Donges",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1782990424106
+      },
+      {
+        "ior": "ior:instance:c5163b82-df27-415c-b2f9-e1f6a5e7a0ad",
+        "name": "",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1782990424106
+      }
+    ],
+    "files": [
+      "ior:instance:8a437a15-f56d-4c5f-8bd2-9dfa13014149",
+      "ior:instance:e8801e13-394f-4541-8ba0-0a30d49715ce",
+      "ior:instance:2615ed26-d652-4707-8f00-f67f8e5df0f5",
+      "ior:instance:9bca3ed8-bdbb-470f-8bca-8f40cc5ead7e"
+    ],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/0/0/2/6/5/00265820-a49c-4028-90ba-727bb884b2e0.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/c5163b82-df27-415c-b2f9-e1f6a5e7a0ad/00265820-a49c-4028-90ba-727bb884b2e0.json"
+    ]
+  },
+  "ownerIor": "ior:instance:c5163b82-df27-415c-b2f9-e1f6a5e7a0ad"
+}
