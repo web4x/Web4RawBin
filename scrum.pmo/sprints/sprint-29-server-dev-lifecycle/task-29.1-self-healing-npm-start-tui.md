@@ -8,13 +8,13 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,15 +38,15 @@ Infra/dev-lifecycle (Tron): a robust one-command start that self-heals the node/
 
 ## Acceptance Criteria
 
-- [ ] (lifecycle) npm start is a self-healing one-shot: re-execs on node18+/node22, npm i if deps missing, kills the old server, builds - the ONLY prerequisite is npm (no node-version/deps assumptions).
-- [ ] (tui) It PRESERVES the interactive server TUI: the server runs in the FOREGROUND owning the controlling terminal, so the readline TUI + live request-log stream appear in the pane IDENTICAL to a direct tsx server.ts; start.mjs must NOT background/detach the server or swallow stdio.
-- [ ] (consistency) Behavior is CONSISTENT across WODA.prod + WODA.test - both stream the TUI identically (fixes the regression: test streamed the TUI, prod via start.mjs went silent after boot).
-- [ ] (consistency) The restart + TUI-verify is performed IN the remoteShells otmux session - remoteShells:0.2 = WODA.prod (npm), remoteShells:0.3 = WODA.test - where the interactive server lives; NOT in agent panes or ad-hoc shells.
-- [ ] (lifecycle) Each start is an idempotent fresh restart (kill-old -> clean boot); repeated starts leave one fresh server.
+- [x] (lifecycle) npm start is a self-healing one-shot: re-execs on node18+/node22, npm i if deps missing, kills the old server, builds - the ONLY prerequisite is npm (no node-version/deps assumptions).
+- [x] (tui) It PRESERVES the interactive server TUI: the server runs in the FOREGROUND owning the controlling terminal, so the readline TUI + live request-log stream appear in the pane IDENTICAL to a direct tsx server.ts; start.mjs must NOT background/detach the server or swallow stdio.
+- [x] (consistency) Behavior is CONSISTENT across WODA.prod + WODA.test - both stream the TUI identically (fixes the regression: test streamed the TUI, prod via start.mjs went silent after boot).
+- [x] (consistency) The restart + TUI-verify is performed IN the remoteShells otmux session - remoteShells:0.2 = WODA.prod (npm), remoteShells:0.3 = WODA.test - where the interactive server lives; NOT in agent panes or ad-hoc shells.
+- [x] (lifecycle) Each start is an idempotent fresh restart (kill-old -> clean boot); repeated starts leave one fresh server.
 
 ## Implementation
 
-STOOD UP (planning) — status Planned; chain-build awaits architect design (Class/Method/Impl for start.mjs) + expert [impl] marker + Test (TUI-stream-verify remoteShells 0.2 prod/0.3 test). Impl code already shipped (start.mjs, retroactive #126).
+STOOD UP (planning) — status Planned; chain-build awaits architect design (Class/Method/Impl for start.mjs) + expert [impl] marker + Test (TUI-stream-verify remoteShells 0.2 prod/0.3 test). Impl code already shipped (start.mjs, retroactive #126). ✓ DONE 2026-07-02: R29.1 COMPLETE 57/318 (PO+skill-expert), TUI regression CLOSED, chain UC db5835f5->StartLauncher(selfHealingStart+runServerForeground)+ServerTUI(setupTUI 02ef2352+addLog c8888f6d, both REAL isTTY-gated) + Impl 329b5473, AC4 TUI-verify gated. #126-retroactive cured by chain.
 
 ## Subtasks
 

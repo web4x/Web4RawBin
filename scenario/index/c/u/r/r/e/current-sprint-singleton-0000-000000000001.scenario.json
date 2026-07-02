@@ -18,20 +18,24 @@
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-02T15:36:40.399Z"
+        "updatedAt": "2026-07-02T16:41:40.737Z"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "8b15788a-e881-4bff-b9bf-ada1c48b262f",
-    "lastCompletedName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
-    "lastCompletedReqUuid": "4f6d6402-fc8d-4d5d-9523-7e35af641944",
+    "lastCompletedUuid": "179fafeb-0f00-4d64-be9f-e007f9801721",
+    "lastCompletedName": "Task 27.5: Canonical ref-slot registry + trace-audit calibration",
+    "lastCompletedReqUuid": "f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc",
     "slots": {
       "current": {
         "taskUuid": "179fafeb-0f00-4d64-be9f-e007f9801721",
         "taskName": "Task 27.5: Canonical ref-slot registry + trace-audit calibration",
         "reqUuid": "f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc"
       },
-      "lastCompleted": null,
+      "lastCompleted": {
+        "taskUuid": "b849fda2-b15d-4567-8a73-79d2567ec396",
+        "taskName": "Task 27.7: WebItem type-aware preview drawer",
+        "reqUuid": "54002f11-89de-42c6-9c56-6b670053a435"
+      },
       "nextBacklog": {
         "taskUuid": "600fa089-c8a4-4977-a89b-504969e78170",
         "taskName": "Task 27.6: Repair the true-dangling refs surfaced by the ref-slot registry",
