@@ -1,3 +1,4 @@
+// [test:uuid:fdd45d61-71d7-4a48-8218-63cba35f761c] R29.1 runServerForeground — AC-2 foreground handoff (TUI stream ⟹ foreground, not silent)
 // [test:uuid:d03c8ac3-6a5a-4bb6-bf8a-b35deddd3bb1] R29.1 selfHealingStart — TUI stream proves foreground self-healed start (integration)
 // [test:uuid:76fa996e-97c9-4605-bf15-d6b5d653ef80] R29.1 addLog — AC-4 TUI streams in remoteShells:0.2
 // [test:uuid:34ff57ed-919b-46cd-998e-23e362ea34ea] R29.1 setupTUI — AC-4 TUI streams in remoteShells:0.2

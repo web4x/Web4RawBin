@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "fdd45d61-71d7-4a48-8218-63cba35f761c",
+    "name": "test:R29.1 runServerForeground (AC-2 foreground handoff)",
+    "description": "Bridged to test/visual/r291-tui-stream-gate.mjs — TUI/request-log streams live in remoteShells:0.2 ⟹ blocking-spawnSync foreground handoff succeeded (server owns controlling TTY, not backgrounded/silent). DET-3x GREEN",
+    "sourceFile": "ior:file:test/visual/r291-tui-stream-gate.mjs",
+    "implementations": [
+      "ior:instance:fbef44bc-efea-42b2-aab0-7fef82afd41e"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:fbef44bc-efea-42b2-aab0-7fef82afd41e"
+}
