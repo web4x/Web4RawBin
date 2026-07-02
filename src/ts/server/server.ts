@@ -585,6 +585,7 @@ function addLog(message: string): void {
       fsSync.mkdirSync(LOGS_DIR, { recursive: true });
       fsSync.appendFileSync(path.join(LOGS_DIR, getLogFileName()), entry + '\n');
     } catch {}
+    process.stdout.write(entry + '\n'); // R29.1 AC-2: prod has no interactive TUI → ALSO stream the request-log to the pane (was file-only → silent pane)
   }
 }
 
