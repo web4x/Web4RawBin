@@ -93,9 +93,13 @@
         "guardUrl blocks private+loopback ranges"
       ],
       "AC-proxy-sanitized": [
-        "(GAP) needs sanitize-never-execute + size-cap + content-type-allowlist-reject + rate-limit Tests \u2014 fetchSanitized has 0 tests"
+        "fetchSanitized never executes foreign content (PROD-CRITICAL)",
+        "fetchSanitized enforces size-cap + timeout",
+        "fetchSanitized rejects non-allowlisted content-type",
+        "fetchSanitized rate-limits + audit-logs"
       ]
-    }
+    },
+    "securityChainStatus": "COMPLETE: guardUrl 5 PRE-fetch + fetchSanitized 4 POST-fetch = 9 adversarial Tests; both facet-ACs gated. never-execute test present (must-not-blanket-green)."
   },
   "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
 }
