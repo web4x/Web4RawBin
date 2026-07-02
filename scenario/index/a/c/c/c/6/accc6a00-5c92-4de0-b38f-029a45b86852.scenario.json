@@ -6,7 +6,9 @@
     "description": "DESIGN-AHEAD (#126): type-dispatch on WebItem scheme/content-type -> previewable(iframe+proxy-fallback)/pdf(embed)/launcher(card); declared kind-map, regression-proof; preview-first layout, reset-zoom overlay preserving RbPanZoom(R22.2).",
     "sourceFile": "ior:file:src/public/ts/room/rb-detail-drawer.ts",
     "designAhead": true,
-    "tests": []
+    "tests": [
+      "ior:instance:3458dd89-5a4d-443c-8e29-ac91cb795ad2"
+    ]
   },
   "ownerIor": "ior:instance:187a1c5e-125c-4af7-bb11-49585f8321d7"
 }
