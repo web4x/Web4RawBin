@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "84ac067d-b926-414d-b866-feb096f5bdeb",
+    "name": "Task 29.8: Task.messages[] link + agentMessage skill verbs",
+    "slug": "task-29.8-task-messages-skill-verbs",
+    "description": "Task.messages[] link + agentMessage skill verbs (send/inbox/read/list/thread)",
+    "intention": "S29 Agent Messaging — the STRUCTURAL fix for sent!=delivered (async mailbox, no live injection). Stood up scenario-first (Task layer was missing: reqs+UCs captured plan-now, tasks never built).",
+    "context": "Moved into S29 (Agent Intercom per Tron). crossRef the AgentMessaging track (R29.5-8). Chain-build awaits architect.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "STOOD UP (planning) — status Planned; chain-build awaits architect UC-refine + expert impl. Reqs+UCs already exist (architect wired UCs).",
+    "traceability": "  - up\n    - [Sprint 29 Planning](./planning.md)\n    - Requirement `[requirement:uuid:8f65a0b4-0d22-453b-bf60-0490736d8e8f]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:d90db09d-0b3f-4c89-951e-d467ceb36174]`",
+    "acceptanceCriteria": "- [ ] (integration) Task units gain a messages[] field linking related AgentMessage units (thread the conversation on a task).\n- [ ] (integration) An agentMessage skill exposes verbs: send / inbox / read / list / thread (Object.verb per OOSH), each an addressable use case.\n- [ ] (integration) Messages thread by threadId; the thread verb shows the full conversation in order.\n- [ ] (integration) The mailbox skill is the canonical agent-comms path - replaces otmux send-keys / keystroke messaging for agent-to-agent communication.",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:8f65a0b4-0d22-453b-bf60-0490736d8e8f"
+    ],
+    "useCases": [
+      "ior:instance:d90db09d-0b3f-4c89-951e-d467ceb36174"
+    ],
+    "parent": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e",
+    "sprintName": "Sprint 29",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-02"
+  },
+  "ownerIor": null
+}

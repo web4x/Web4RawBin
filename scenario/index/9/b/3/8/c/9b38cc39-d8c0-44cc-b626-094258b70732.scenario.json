@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "9b38cc39-d8c0-44cc-b626-094258b70732",
+    "name": "Task 29.6: Async mailbox — send writes+commits a unit; recipient pulls",
+    "slug": "task-29.6-async-mailbox",
+    "description": "Async mailbox: send writes+commits a unit; recipient pulls at turn boundary (no keystroke injection)",
+    "intention": "S29 Agent Messaging — the STRUCTURAL fix for sent!=delivered (async mailbox, no live injection). Stood up scenario-first (Task layer was missing: reqs+UCs captured plan-now, tasks never built).",
+    "context": "Moved into S29 (Agent Intercom per Tron). crossRef the AgentMessaging track (R29.5-8). Chain-build awaits architect.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "STOOD UP (planning) — status Planned; chain-build awaits architect UC-refine + expert impl. Reqs+UCs already exist (architect wired UCs).",
+    "traceability": "  - up\n    - [Sprint 29 Planning](./planning.md)\n    - Requirement `[requirement:uuid:71f34bf9-46eb-44ef-82c8-84ed26a7b1e4]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:3a74e3b2-6c60-4dea-be72-6a3850dcbec8]`",
+    "acceptanceCriteria": "- [ ] (mailbox) Sending a message = write + commit the AgentMessage unit ONLY; NO keystroke injection into the recipient's pane or input buffer.\n- [ ] (mailbox) The recipient PULLS its inbox at a TURN BOUNDARY (reads unread AgentMessage units addressed to it), not mid-turn.\n- [ ] (mailbox) The sender never interrupts the recipient's running turn; delivery is decoupled from the recipient's execution state (structural fix for keystroke-into-busy-pane = the sent-!=-delivered problem).\n- [ ] (mailbox) Messages persist (committed) until pulled + read; no message is lost to a busy input buffer or an un-submitted Enter.\n- [ ] (verify) Verified: a message sent while the recipient is mid-turn is NOT injected; it is committed and read on the recipient's next turn-boundary pull, intact.",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:71f34bf9-46eb-44ef-82c8-84ed26a7b1e4"
+    ],
+    "useCases": [
+      "ior:instance:3a74e3b2-6c60-4dea-be72-6a3850dcbec8"
+    ],
+    "parent": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e",
+    "sprintName": "Sprint 29",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-02"
+  },
+  "ownerIor": null
+}

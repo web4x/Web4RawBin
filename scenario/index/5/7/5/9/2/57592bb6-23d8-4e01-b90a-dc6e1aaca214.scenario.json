@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "57592bb6-23d8-4e01-b90a-dc6e1aaca214",
+    "name": "Task 29.5: First-class AgentMessage scenario unit",
+    "slug": "task-29.5-agentmessage-unit",
+    "description": "First-class AgentMessage scenario unit (peer to Task/Req/UC)",
+    "intention": "S29 Agent Messaging — the STRUCTURAL fix for sent!=delivered (async mailbox, no live injection). Stood up scenario-first (Task layer was missing: reqs+UCs captured plan-now, tasks never built).",
+    "context": "Moved into S29 (Agent Intercom per Tron). crossRef the AgentMessaging track (R29.5-8). Chain-build awaits architect.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "STOOD UP (planning) — status Planned; chain-build awaits architect UC-refine + expert impl. Reqs+UCs already exist (architect wired UCs).",
+    "traceability": "  - up\n    - [Sprint 29 Planning](./planning.md)\n    - Requirement `[requirement:uuid:51b87013-45a2-417b-9d5f-6e8242559c03]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:2a150baf-9a0c-4745-85c6-021053ad0d8b]`",
+    "acceptanceCriteria": "- [ ] (type) A NEW first-class ior:class:AgentMessage scenario unit type exists, peer to Task/Requirement/UseCase.\n- [ ] (type) An AgentMessage holds: from (sender agent + pane), to (recipient agent), subject/body, threadId, timestamp, status (unread/read), and an optional ref to a related Task/Requirement.\n- [ ] (type) A message is a COMMITTED scenario unit on disk (durable + auditable) - not an ephemeral keystroke; wer schreibt der bleibt.\n- [ ] (type) The AgentMessage type is registered in templates.ts (AgentMessageTemplate) + the tagMap so it renders + resolves (a new scenario type without its template + tagMap will not render/resolve - the R29.3 lesson).",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:51b87013-45a2-417b-9d5f-6e8242559c03"
+    ],
+    "useCases": [
+      "ior:instance:2a150baf-9a0c-4745-85c6-021053ad0d8b"
+    ],
+    "parent": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e",
+    "sprintName": "Sprint 29",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-02"
+  },
+  "ownerIor": null
+}
