@@ -10,10 +10,10 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Traceability
@@ -40,16 +40,16 @@ Measurement-surfaced debt (req baseline verify_r27_2_migration.py): the graph ca
 
 ## Acceptance Criteria
 
-- [ ] (no-dangling) Every UseCase class / classes[] / method reference resolves to an existing unit - 0 dangling UC refs
-- [ ] (no-orphan) Every Method unit is owned by a Class that lists it in methods[] - 0 orphan Methods
-- [ ] (repair-dangling) The 12 dangling are repaired: the 10 dead-RbDetailView refs repointed to the live canonical RbDetailView, the 1 dead-method + 1 TODO-placeholder pruned
-- [ ] (repair-orphan) The 51 orphan Methods triaged: attached to their owning Class OR pruned if truly dead - dry-run + count FIRST
-- [ ] (ci-gate) trace:audit:strict (R24.5) FAILS on any dangling UC ref or orphan Method - recurrence prevented at the gate
-- [ ] (verify) Post-cleanup re-measure: 0 dangling UC refs, 0 orphan Methods
+- [x] (no-dangling) Every UseCase class / classes[] / method reference resolves to an existing unit - 0 dangling UC refs
+- [x] (no-orphan) Every Method unit is owned by a Class that lists it in methods[] - 0 orphan Methods
+- [x] (repair-dangling) The 12 dangling are repaired: the 10 dead-RbDetailView refs repointed to the live canonical RbDetailView, the 1 dead-method + 1 TODO-placeholder pruned
+- [x] (repair-orphan) The 51 orphan Methods triaged: attached to their owning Class OR pruned if truly dead - dry-run + count FIRST
+- [x] (ci-gate) trace:audit:strict (R24.5) FAILS on any dangling UC ref or orphan Method - recurrence prevented at the gate
+- [x] (verify) Post-cleanup re-measure: 0 dangling UC refs, 0 orphan Methods
 
 ## Implementation
 
-GATED REPAIR MIGRATION (finalized w/ PO/req targets 2026-07-01; architect designing the repair body + wiring UC f7a06e18). CONCRETE TARGETS: (dangling, 12) repoint the 10 dead-bbbc* UC refs -> canonical RbDetailView f2f84ce3-6f8f (the R27.2-locked canonical, EXISTS); prune the 1 dead Method ref fcf6dae1 (no unit on disk) + the 1 literal TODO-string placeholder. (orphan, 51) triage the 51 orphan Methods -> attach each to its owning Class (add to Class.methods[]) OR prune if truly dead — PRESERVING IMPLS (0 impl lost, same INV1b discipline R27.2 used). DISCIPLINE (same as R27.2 18a8703e2): expert implements DRY-RUN+COUNT body -> gateOk self-assert -> planner delta-verify + req 3-point delta-verify (DUAL) -> ATOMIC + ROLLBACKABLE --apply -> post-apply re-verify (dangling->0, orphan->0, 0 impl lost). RECURRENCE-PREVENTION: trace:audit:strict (R24.5) FAILS CI on any dangling/orphan. INDEPENDENT of R27.2 (0/12 intersect; R27.2 DONE 18a8703e2 left the 12+51 unchanged). testing OPEN — expert runs, I verify the gate. Wire T27.4.useCases f7a06e18 once architect mints the UC.
+GATED REPAIR MIGRATION (finalized w/ PO/req targets 2026-07-01; architect designing the repair body + wiring UC f7a06e18). CONCRETE TARGETS: (dangling, 12) repoint the 10 dead-bbbc* UC refs -> canonical RbDetailView f2f84ce3-6f8f (the R27.2-locked canonical, EXISTS); prune the 1 dead Method ref fcf6dae1 (no unit on disk) + the 1 literal TODO-string placeholder. (orphan, 51) triage the 51 orphan Methods -> attach each to its owning Class (add to Class.methods[]) OR prune if truly dead — PRESERVING IMPLS (0 impl lost, same INV1b discipline R27.2 used). DISCIPLINE (same as R27.2 18a8703e2): expert implements DRY-RUN+COUNT body -> gateOk self-assert -> planner delta-verify + req 3-point delta-verify (DUAL) -> ATOMIC + ROLLBACKABLE --apply -> post-apply re-verify (dangling->0, orphan->0, 0 impl lost). RECURRENCE-PREVENTION: trace:audit:strict (R24.5) FAILS CI on any dangling/orphan. INDEPENDENT of R27.2 (0/12 intersect; R27.2 DONE 18a8703e2 left the 12+51 unchanged). testing OPEN — expert runs, I verify the gate. Wire T27.4.useCases f7a06e18 once architect mints the UC. ✓ REPAIR DONE + GATED 8/8: expert ran repair-r27.4.ts (dry-run 45f49da63/20d536298 -> apply 7dae77ca9: attach 51 orphan Methods + repoint 15 bbbc/fcf6dae1/TODO refs + clear 53 lying markers, 0-new-dangling, 434==434 impls preserved) -> closure d2e2ba173 (drop dead fcf6dae1 from Test.methods back-edge + null 8 lying orphanRationale = 8/8). UC f7a06e18 MINTED (architect). req 3-point independently verified. QA Review -> Done pending architect+PO sign-off (internal-migration gate, same as R27.2).
 
 ## Subtasks
 
