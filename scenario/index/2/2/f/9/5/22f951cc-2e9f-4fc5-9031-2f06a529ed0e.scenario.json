@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "22f951cc-2e9f-4fc5-9031-2f06a529ed0e",
+    "name": "RbDetailDrawer.closeAndMinimize",
+    "description": "Fix the drawer regression: X (top-right) CLOSES/collapses the drawer; drawer opens MINIMIZED (not full); a restore grab-bar re-expands it. Preserve R22.2 RbPanZoom + R25.4 chrome.",
+    "sourceFile": "ior:file:src/public/ts/room/rb-detail-drawer.ts",
+    "implementations": [
+      "ior:instance:e42b85e8-d844-4e7b-be17-561a82d780b9"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+}

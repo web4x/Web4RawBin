@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "3b6e58e3-f38b-4f88-9566-81c6be3e3a7b",
+    "name": "detailDrawer.closeAndMinimize",
+    "description": "Detail drawer regression fix: X closes/collapses, opens minimized-on-open, restore grab-bar re-expands. Preserves R22.2 pan/zoom + R25.4 chrome.",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+    "classes": [
+      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+    ],
+    "method": "ior:instance:22f951cc-2e9f-4fc5-9031-2f06a529ed0e",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "crossRef": [
+      "ior:instance:225b18a6-684d-4bec-9a4d-42ed4f23fd09",
+      "ior:instance:b7000fa1-01d6-4757-a211-b24051eea7eb"
+    ]
+  },
+  "ownerIor": "ior:instance:a5da3f93-0341-4856-90eb-bb25954c72a2"
+}

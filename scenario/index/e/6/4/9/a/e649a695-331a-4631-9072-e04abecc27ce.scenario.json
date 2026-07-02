@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e649a695-331a-4631-9072-e04abecc27ce",
+    "name": "RbTraceTree.renderCurrentSprintEagerLazy impl",
+    "description": "DESIGN-AHEAD: rb-trace-tree.ts: 2 top-level nodes (CurrentSprint + Sprints-collection); eager sprint nodes, lazy task fetch on expand-click.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:eeba826d-8a2f-486f-b1d1-fe8bfbc42c61"
+}

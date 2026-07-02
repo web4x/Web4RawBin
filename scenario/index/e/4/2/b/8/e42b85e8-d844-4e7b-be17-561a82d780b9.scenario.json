@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e42b85e8-d844-4e7b-be17-561a82d780b9",
+    "name": "RbDetailDrawer.closeAndMinimize impl",
+    "description": "DESIGN-AHEAD: rb-detail-drawer.ts: wire X-click -> close/collapse; open-minimized default; restore grab-bar to re-expand. Preserve pan/zoom(R22.2) + drawer chrome(R25.4).",
+    "sourceFile": "ior:file:src/public/ts/room/rb-detail-drawer.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:22f951cc-2e9f-4fc5-9031-2f06a529ed0e"
+}

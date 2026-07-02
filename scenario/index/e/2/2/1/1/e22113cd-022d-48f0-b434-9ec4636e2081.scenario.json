@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "e22113cd-022d-48f0-b434-9ec4636e2081",
+    "name": "traceTree.currentSprintEagerLazy",
+    "description": "Trace tree = CurrentSprint node (top) + eager-lazy Sprints collection (eager sprint nodes, lazy tasks-on-expand; structure-eager/payload-lazy like R26 fed). Scales as sprints grow.",
+    "class": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e",
+    "classes": [
+      "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e"
+    ],
+    "method": "ior:instance:eeba826d-8a2f-486f-b1d1-fe8bfbc42c61",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "crossRef": [
+      "ior:instance:71b44e05-555f-4db2-a485-f375cd7ad70b"
+    ]
+  },
+  "ownerIor": "ior:instance:6f796898-4dbb-47a3-ab8a-914b4c80b353"
+}
