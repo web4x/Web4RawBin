@@ -4,14 +4,15 @@
     "uuid": "10ef702c-3141-45c9-b669-b5bed5f373b9",
     "name": "sprintMd.emitPerTask",
     "description": "generate-sprint-md emits ONE task-<slug>.md per Task unit (title, acceptance criteria, statusChecklist, chain) so every task's per-task MD file EXISTS and its detail-view link resolves HTTP 200 instead of 404; Task units must NOT set model.sourceFile to planning.md (which collapses all tasks into one shared view). The per-task MD is a generated VIEW (law #100), --check byte-match holds. Shipped v0.7.8.",
-    "class": null,
+    "class": "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c",
     "classes": [
-      "ior:instance:435cb4ea-1434-490a-8522-102c611bd1c1"
+      "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c"
     ],
     "method": "ior:instance:0a542620-1669-4212-8e8c-4bd72a8d5770",
     "coveredRequirement": "ior:instance:4f6d6402-fc8d-4d5d-9523-7e35af641944",
     "implRef": "ior:file:scripts/generate-sprint-md.ts (generateTaskMd/checkSprint) + src/public/ts/trace/rb-task-detail.ts:88 taskMdHref",
     "note": "Class/Method/Impl/Test to be wired by planner (r265 gate). Target Class = generate-sprint-md / SprintMdGenerator."
   },
-  "ownerIor": "ior:instance:4f6d6402-fc8d-4d5d-9523-7e35af641944"
+  "ownerIor": "ior:instance:4f6d6402-fc8d-4d5d-9523-7e35af641944",
+  "__f": "/var/dev/Workspaces/web4x/Web4RawBin/scenario/index/1/0/e/f/7/10ef702c-3141-45c9-b669-b5bed5f373b9.scenario.json"
 }

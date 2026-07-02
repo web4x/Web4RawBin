@@ -5,11 +5,12 @@
     "name": "viewGen.dogfood",
     "object": "viewGen",
     "verb": "dogfood",
-    "class": "ior:instance:efbaa376-b0bb-4e1e-8269-4959d941e96b",
+    "class": "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c",
     "method": "ior:instance:3108e643-ee8b-4211-bc59-c4e782586a70",
     "classes": [
-      "ior:instance:efbaa376-b0bb-4e1e-8269-4959d941e96b"
+      "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c"
     ]
   },
-  "ownerIor": "ior:instance:8a31ba75-22b6-48ff-9532-d5da21458543"
+  "ownerIor": "ior:instance:8a31ba75-22b6-48ff-9532-d5da21458543",
+  "__f": "/var/dev/Workspaces/web4x/Web4RawBin/scenario/index/e/c/3/a/0/ec3a0206-a1ec-4d98-a041-63a5a7903d65.scenario.json"
 }

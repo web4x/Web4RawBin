@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1782992617834,
+    "createdAt": 1783004460870,
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA74xNrG7jd1wLeUJfMqjK\naA7jpI9xeGbcgt/TXlNUMKwvjAs57KmxZwwFpCtxbjLe7NwQyn/r2nxgf1YJqLKB\nkeTZkbxT9/ekt/d8QsoP3horBqVlSzlO5bBVjaUNNGd0yHaqhC9e+vXszmAVpdtu\nugkQZ4EkUTtFbx0dbWxOB4ftcrPssYqpk3Ya9z2BTkKJIfwLKzcUSSO1Q+ncdNaL\nSr3sFAQ0kXRrTAWADJrXk5FKWtZIWtdd4hZRKkGvJLo6CQOGYPm/O7Oz8gLCUVq9\nyZamknoXoB731dOy6ao6rJ9pWWysq4rP6Wi3WvuhP5Ydumkcq9xBsMQyKP9aXq7F\n7wIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [],
@@ -20,14 +20,21 @@
         "name": "SystemTester",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1782994900149
+        "joinedAt": 1783004460870
       },
       {
         "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
         "name": "Marcel Donges",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1782994900149
+        "joinedAt": 1783004460870
+      },
+      {
+        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+        "name": "",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1783004460870
       }
     ],
     "files": [
