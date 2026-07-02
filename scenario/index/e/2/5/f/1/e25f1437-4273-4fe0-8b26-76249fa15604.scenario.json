@@ -1,0 +1,54 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "e25f1437-4273-4fe0-8b26-76249fa15604",
+    "name": "Self-healing npm start that preserves the interactive server TUI",
+    "altId": "R29.1",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-29-server-dev-lifecycle/requirements.md",
+    "sourceLine": 15,
+    "parent": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:db5835f5-4080-43af-bf7d-e43e2f89d15c"
+    ],
+    "description": "npm start is a self-healing one-shot that boots the RawBin server AND preserves its interactive foreground TUI. It re-execs on node18+/node22, npm-installs if deps are missing, kills the old server, and builds - prerequisite is npm ONLY. Critically it runs the server in the FOREGROUND owning the controlling terminal, so the readline TUI + live request-log stream appear in the pane IDENTICAL to a direct 'tsx server.ts' (start.mjs must NOT background/detach or swallow stdio). Behavior is CONSISTENT across WODA.prod and WODA.test, and the restart + TUI-verify happens IN the remoteShells otmux session (0.2=WODA.prod npm, 0.3=WODA.test), where the interactive server actually lives - never in agent panes or ad-hoc shells. Each start is an idempotent fresh restart.",
+    "tronQuote": "> TRON 2026-07-02: npm start = self-healing one-shot (re-exec node18+, deps, kill-old, build; prereq=npm only) that PRESERVES the interactive server TUI (foreground, readline + live request-log stream, like tsx server.ts), CONSISTENT prod+test, restart IN remoteShells (0.2=prod, 0.3=test), idempotent fresh restart. Regression: prod via start.mjs went silent after boot; test streams the TUI.",
+    "discoverySource": {
+      "type": "tron-directive-retroactive",
+      "flaggedBy": "Tron via robbin-po",
+      "date": "2026-07-02",
+      "note": "Server lifecycle / npm start. PO skipped scenario-first, Tron corrected -> captured scenario-first. RETROACTIVELY covers the already-shipped self-heal (start.mjs) = #126 slip. remoteShells:0.2=WODA.prod(npm), 0.3=WODA.test."
+    },
+    "implRef": "ior:file:start.mjs + package.json start script (self-heal shipped; TUI-preservation is the fix)",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-self-heal",
+        "group": "lifecycle",
+        "text": "npm start is a self-healing one-shot: re-execs on node18+/node22, npm i if deps missing, kills the old server, builds - the ONLY prerequisite is npm (no node-version/deps assumptions)."
+      },
+      {
+        "id": "AC-tui-preserve",
+        "group": "tui",
+        "text": "It PRESERVES the interactive server TUI: the server runs in the FOREGROUND owning the controlling terminal, so the readline TUI + live request-log stream appear in the pane IDENTICAL to a direct tsx server.ts; start.mjs must NOT background/detach the server or swallow stdio."
+      },
+      {
+        "id": "AC-consistent",
+        "group": "consistency",
+        "text": "Behavior is CONSISTENT across WODA.prod + WODA.test - both stream the TUI identically (fixes the regression: test streamed the TUI, prod via start.mjs went silent after boot)."
+      },
+      {
+        "id": "AC-remoteShells",
+        "group": "consistency",
+        "text": "The restart + TUI-verify is performed IN the remoteShells otmux session - remoteShells:0.2 = WODA.prod (npm), remoteShells:0.3 = WODA.test - where the interactive server lives; NOT in agent panes or ad-hoc shells."
+      },
+      {
+        "id": "AC-idempotent",
+        "group": "lifecycle",
+        "text": "Each start is an idempotent fresh restart (kill-old -> clean boot); repeated starts leave one fresh server."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e"
+}
