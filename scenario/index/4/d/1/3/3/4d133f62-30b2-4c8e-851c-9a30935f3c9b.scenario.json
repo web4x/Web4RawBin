@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Sprint",
+  "model": {
+    "uuid": "4d133f62-30b2-4c8e-851c-9a30935f3c9b",
+    "name": "Sprint 30 — Agent Inter-Comms",
+    "number": 30,
+    "slug": "sprint-30-agent-inter-comms",
+    "compoundSource": "scrum.pmo/sprints/sprint-30-agent-inter-comms/requirements.md",
+    "description": "Agent inter-communication (AgentMessage) — structured messaging between agents. FIRST Tron-authorized sprint increment under R29.4 governance.",
+    "tronAuthorization": {
+      "authorizedBy": "Tron",
+      "via": "PO",
+      "at": "2026-07-02",
+      "ref": "PO directive robbinTeam2:0.0 2026-07-02 — Tron authorized Sprint 30 for AgentMessage (first R29.4-authorized increment)"
+    },
+    "requirements": [],
+    "tasks": []
+  },
+  "ownerIor": null
+}
