@@ -2,7 +2,7 @@
   "ior": "ior:class:UseCase",
   "model": {
     "uuid": "10ef702c-3141-45c9-b669-b5bed5f373b9",
-    "name": "sprintMd.emitPerTask",
+    "name": "sprintMd.perTaskGeneration",
     "description": "generate-sprint-md emits ONE task-<slug>.md per Task unit (title, acceptance criteria, statusChecklist, chain) so every task's per-task MD file EXISTS and its detail-view link resolves HTTP 200 instead of 404; Task units must NOT set model.sourceFile to planning.md (which collapses all tasks into one shared view). The per-task MD is a generated VIEW (law #100), --check byte-match holds. Shipped v0.7.8.",
     "class": "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c",
     "classes": [
