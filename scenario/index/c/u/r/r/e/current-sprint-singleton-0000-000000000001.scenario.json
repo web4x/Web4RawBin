@@ -21,7 +21,7 @@
         "updatedAt": "2026-07-02T14:34:52.490Z"
       }
     },
-    "nextBacklogOverride": "",
+    "nextBacklogOverride": "8b15788a-e881-4bff-b9bf-ada1c48b262f",
     "lastCompletedUuid": "b849fda2-b15d-4567-8a73-79d2567ec396",
     "lastCompletedName": "Task 27.7: WebItem type-aware preview drawer",
     "lastCompletedReqUuid": "54002f11-89de-42c6-9c56-6b670053a435",
@@ -36,7 +36,11 @@
         "taskName": "Task 27.7: WebItem type-aware preview drawer",
         "reqUuid": "54002f11-89de-42c6-9c56-6b670053a435"
       },
-      "nextBacklog": null
+      "nextBacklog": {
+        "taskUuid": "8b15788a-e881-4bff-b9bf-ada1c48b262f",
+        "taskName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
+        "reqUuid": "4f6d6402-fc8d-4d5d-9523-7e35af641944"
+      }
     }
   },
   "ownerIor": null
