@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "dfd834eb-c6ae-4ae7-a799-859de6fc0aae",
+    "name": "AgentMessage.defineUnitType impl",
+    "description": "DESIGN-AHEAD: Register ior:class:AgentMessage (AgentMessageTemplate) + tagMap so the new type renders (/api/trace) + resolves (resolveIor). New-type completeness gate (R29.3 lesson).",
+    "sourceFile": "ior:file:src/ts/scenario/templates.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:78812043-436f-4c05-9661-01453cd2bb1e"
+}

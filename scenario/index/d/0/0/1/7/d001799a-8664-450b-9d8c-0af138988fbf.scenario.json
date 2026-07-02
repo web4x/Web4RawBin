@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d001799a-8664-450b-9d8c-0af138988fbf",
+    "name": "TraceAudit.assertNoLiveInjection impl",
+    "description": "DESIGN-AHEAD: Governance/guard axis: FLAG any code that send-keys/writes stdin to a PEER AGENT pane (live prompt injection) — messaging must go via the async mailbox (write+commit unit). Orthogonal to R29.1 server TUI (that is the servers OWN stdout, allowed).",
+    "sourceFile": "ior:file:scripts/trace-audit.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1849fc15-3d5f-4af2-b86f-32aea5d50406"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "38652124-aab4-4282-9921-e713e062e774",
+    "name": "AgentMailbox.list impl",
+    "description": "DESIGN-AHEAD: skill verb: list messages (filter by from/re/thread).",
+    "sourceFile": "ior:file:src/ts/scenario/agent-mailbox.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:04d14737-dcd9-48d8-b21b-e583b23cd274"
+}

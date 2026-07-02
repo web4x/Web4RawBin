@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d431820d-d4dd-4e40-ae7f-83cfaa86224e",
+    "name": "AgentMailbox.inbox impl",
+    "description": "DESIGN-AHEAD: skill verb: list unread messages for me (the mailbox query).",
+    "sourceFile": "ior:file:src/ts/scenario/agent-mailbox.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5dbe8b9f-7261-4410-adcd-f382f30b3232"
+}

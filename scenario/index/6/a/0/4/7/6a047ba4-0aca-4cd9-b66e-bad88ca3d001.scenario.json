@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "6a047ba4-0aca-4cd9-b66e-bad88ca3d001",
+    "name": "AgentMailbox.pull",
+    "description": "Recipient PULLS its inbox (AgentMessages to==me, unread) at its OWN turn boundary — async, no live interruption of a busy pane.",
+    "sourceFile": "ior:file:src/ts/scenario/agent-mailbox.ts",
+    "implementations": [
+      "ior:instance:37e57cb2-72e7-4327-bcb0-b848dd30cbe0"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:62793302-78be-4bc5-9e60-c7f5dd88368e"
+}

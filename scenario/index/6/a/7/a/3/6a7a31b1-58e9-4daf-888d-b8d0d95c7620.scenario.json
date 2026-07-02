@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6a7a31b1-58e9-4daf-888d-b8d0d95c7620",
+    "name": "AgentMailbox.thread impl",
+    "description": "DESIGN-AHEAD: skill verb: walk a replyTo thread.",
+    "sourceFile": "ior:file:src/ts/scenario/agent-mailbox.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:85ccf54b-7c35-43d9-8e6c-fb40d638bbae"
+}

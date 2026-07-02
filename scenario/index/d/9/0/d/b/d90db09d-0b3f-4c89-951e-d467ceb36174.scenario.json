@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "d90db09d-0b3f-4c89-951e-d467ceb36174",
+    "name": "agentMessage.skillVerbs",
+    "description": "Task.messages[] wiring + agentMessage skill verbs send/inbox/read/list/thread.",
+    "class": "ior:instance:62793302-78be-4bc5-9e60-c7f5dd88368e",
+    "classes": [
+      "ior:instance:62793302-78be-4bc5-9e60-c7f5dd88368e"
+    ],
+    "method": "ior:instance:5dbe8b9f-7261-4410-adcd-f382f30b3232",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "crossRef": []
+  },
+  "ownerIor": "ior:instance:8f65a0b4-0d22-453b-bf60-0490736d8e8f"
+}

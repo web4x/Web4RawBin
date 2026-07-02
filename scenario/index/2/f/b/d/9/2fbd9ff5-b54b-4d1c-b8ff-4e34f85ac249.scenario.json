@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "2fbd9ff5-b54b-4d1c-b8ff-4e34f85ac249",
+    "name": "mailbox.noLiveInjection",
+    "description": "By-construction guard: flag send-keys/stdin to a peer AGENT pane; messaging via async mailbox only. NOT the R29.1 server TUI (orthogonal).",
+    "class": "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b",
+    "classes": [
+      "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b"
+    ],
+    "method": "ior:instance:1849fc15-3d5f-4af2-b86f-32aea5d50406",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "crossRef": []
+  },
+  "ownerIor": "ior:instance:1aeac13e-d073-46f2-8c29-2590a7f6d072"
+}

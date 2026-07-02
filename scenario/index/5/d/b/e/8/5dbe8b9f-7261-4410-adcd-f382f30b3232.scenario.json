@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "5dbe8b9f-7261-4410-adcd-f382f30b3232",
+    "name": "AgentMailbox.inbox",
+    "description": "skill verb: list unread messages for me (the mailbox query).",
+    "sourceFile": "ior:file:src/ts/scenario/agent-mailbox.ts",
+    "implementations": [
+      "ior:instance:d431820d-d4dd-4e40-ae7f-83cfaa86224e"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:62793302-78be-4bc5-9e60-c7f5dd88368e"
+}

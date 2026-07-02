@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "01f73240-0a21-49c0-803a-268013bef56c",
+    "name": "AgentMailbox.read",
+    "description": "skill verb: read a message + mark status read/acked.",
+    "sourceFile": "ior:file:src/ts/scenario/agent-mailbox.ts",
+    "implementations": [
+      "ior:instance:de324e94-37db-4448-82fb-ca8fdac4780c"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:62793302-78be-4bc5-9e60-c7f5dd88368e"
+}

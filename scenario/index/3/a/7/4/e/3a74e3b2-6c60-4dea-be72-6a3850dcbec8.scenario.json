@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "3a74e3b2-6c60-4dea-be72-6a3850dcbec8",
+    "name": "mailbox.sendAndPull",
+    "description": "Async mailbox: send WRITES+commits an AgentMessage unit only; recipient PULLS at its turn boundary. No keystroke injection.",
+    "class": "ior:instance:62793302-78be-4bc5-9e60-c7f5dd88368e",
+    "classes": [
+      "ior:instance:62793302-78be-4bc5-9e60-c7f5dd88368e"
+    ],
+    "method": "ior:instance:0260208a-aa10-4e28-bf1b-bd0ca50dbccd",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "crossRef": []
+  },
+  "ownerIor": "ior:instance:71f34bf9-46eb-44ef-82c8-84ed26a7b1e4"
+}

@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "62793302-78be-4bc5-9e60-c7f5dd88368e",
+    "name": "AgentMailbox",
+    "description": "Async agent mailbox: send=write+commit unit (no keystroke), recipient pulls at turn boundary; skill verbs send/inbox/read/list/thread; Task.messages[] holds the thread. The structural fix for sent!=delivered keystroke-into-busy-pane.",
+    "sourceFile": "ior:file:src/ts/scenario/agent-mailbox.ts",
+    "methods": [
+      "ior:instance:0260208a-aa10-4e28-bf1b-bd0ca50dbccd",
+      "ior:instance:6a047ba4-0aca-4cd9-b66e-bad88ca3d001",
+      "ior:instance:5dbe8b9f-7261-4410-adcd-f382f30b3232",
+      "ior:instance:01f73240-0a21-49c0-803a-268013bef56c",
+      "ior:instance:04d14737-dcd9-48d8-b21b-e583b23cd274",
+      "ior:instance:85ccf54b-7c35-43d9-8e6c-fb40d638bbae"
+    ]
+  },
+  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

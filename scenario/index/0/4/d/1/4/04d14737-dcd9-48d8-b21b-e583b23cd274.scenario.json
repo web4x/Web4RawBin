@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "04d14737-dcd9-48d8-b21b-e583b23cd274",
+    "name": "AgentMailbox.list",
+    "description": "skill verb: list messages (filter by from/re/thread).",
+    "sourceFile": "ior:file:src/ts/scenario/agent-mailbox.ts",
+    "implementations": [
+      "ior:instance:38652124-aab4-4282-9921-e713e062e774"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:62793302-78be-4bc5-9e60-c7f5dd88368e"
+}

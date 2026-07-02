@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "2a150baf-9a0c-4745-85c6-021053ad0d8b",
+    "name": "agentMessage.unitType",
+    "description": "First-class ior:class:AgentMessage scenario unit (peer to Task/Req/UC) + templates.ts AgentMessageTemplate + tagMap so it renders+resolves.",
+    "class": "ior:instance:8758e33a-5ce2-4afc-8029-f1eaa01ae35b",
+    "classes": [
+      "ior:instance:8758e33a-5ce2-4afc-8029-f1eaa01ae35b"
+    ],
+    "method": "ior:instance:78812043-436f-4c05-9661-01453cd2bb1e",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "crossRef": []
+  },
+  "ownerIor": "ior:instance:51b87013-45a2-417b-9d5f-6e8242559c03"
+}

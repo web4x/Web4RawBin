@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "de324e94-37db-4448-82fb-ca8fdac4780c",
+    "name": "AgentMailbox.read impl",
+    "description": "DESIGN-AHEAD: skill verb: read a message + mark status read/acked.",
+    "sourceFile": "ior:file:src/ts/scenario/agent-mailbox.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:01f73240-0a21-49c0-803a-268013bef56c"
+}

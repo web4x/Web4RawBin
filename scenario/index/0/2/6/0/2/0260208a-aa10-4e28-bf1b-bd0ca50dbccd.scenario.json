@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "0260208a-aa10-4e28-bf1b-bd0ca50dbccd",
+    "name": "AgentMailbox.send",
+    "description": "Send = WRITE an AgentMessage unit + git-commit it ONLY. No keystroke/stdin injection into the peer pane. Durable, auditable.",
+    "sourceFile": "ior:file:src/ts/scenario/agent-mailbox.ts",
+    "implementations": [
+      "ior:instance:09fc9f11-deef-4ff1-a61f-a3200e1eb15f"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:62793302-78be-4bc5-9e60-c7f5dd88368e"
+}

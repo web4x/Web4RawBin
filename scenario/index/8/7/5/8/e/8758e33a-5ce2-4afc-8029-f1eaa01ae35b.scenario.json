@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "8758e33a-5ce2-4afc-8029-f1eaa01ae35b",
+    "name": "AgentMessage",
+    "description": "First-class ior:class:AgentMessage unit (peer to Task/Req/UC): from/to/subject/body/at/re/replyTo/status. Async durable message, not a TTY keystroke. Needs template+tagMap.",
+    "sourceFile": "ior:file:src/ts/scenario/agent-message.ts",
+    "methods": [
+      "ior:instance:78812043-436f-4c05-9661-01453cd2bb1e"
+    ]
+  },
+  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}
