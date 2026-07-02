@@ -2,45 +2,41 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 27.1: Task detail renders the status checklist visually",
+    "name": "Current: Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
     "chain": {
-      "req": "90b82d00-7af1-40e9-992c-c55ca177c542",
-      "uc": "050c5b9a-e5f4-46da-843f-44eb2b70994e",
-      "class": "4df19279-f2b8-438d-97b8-03fb37e049d5",
-      "method": "bfd21995-5843-4bde-b72a-37e10d38badf",
-      "impl": "31f420b0-e99e-458f-9c29-df4152940f77",
+      "req": "4f6d6402-fc8d-4d5d-9523-7e35af641944",
+      "uc": "",
+      "class": "",
+      "method": "",
+      "impl": "",
       "test": ""
     },
-    "activeHop": 5,
+    "activeHop": 1,
     "sprintName": "Sprint 27",
-    "taskName": "Task 27.1: Task detail renders the status checklist visually",
+    "taskName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-02T14:34:52.490Z"
+        "updatedAt": "2026-07-02T14:55:31.254Z"
       }
     },
-    "nextBacklogOverride": "8b15788a-e881-4bff-b9bf-ada1c48b262f",
-    "lastCompletedUuid": "b849fda2-b15d-4567-8a73-79d2567ec396",
-    "lastCompletedName": "Task 27.7: WebItem type-aware preview drawer",
-    "lastCompletedReqUuid": "54002f11-89de-42c6-9c56-6b670053a435",
+    "nextBacklogOverride": "179fafeb-0f00-4d64-be9f-e007f9801721",
+    "lastCompletedUuid": "dbd7e30d-263c-4d01-81eb-b687854ca961",
+    "lastCompletedName": "Task 27.1: Task detail renders the status checklist visually",
+    "lastCompletedReqUuid": "90b82d00-7af1-40e9-992c-c55ca177c542",
     "slots": {
       "current": {
+        "taskUuid": "8b15788a-e881-4bff-b9bf-ada1c48b262f",
+        "taskName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
+        "reqUuid": "4f6d6402-fc8d-4d5d-9523-7e35af641944"
+      },
+      "lastCompleted": {
         "taskUuid": "dbd7e30d-263c-4d01-81eb-b687854ca961",
         "taskName": "Task 27.1: Task detail renders the status checklist visually",
         "reqUuid": "90b82d00-7af1-40e9-992c-c55ca177c542"
       },
-      "lastCompleted": {
-        "taskUuid": "b849fda2-b15d-4567-8a73-79d2567ec396",
-        "taskName": "Task 27.7: WebItem type-aware preview drawer",
-        "reqUuid": "54002f11-89de-42c6-9c56-6b670053a435"
-      },
-      "nextBacklog": {
-        "taskUuid": "8b15788a-e881-4bff-b9bf-ada1c48b262f",
-        "taskName": "Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)",
-        "reqUuid": "4f6d6402-fc8d-4d5d-9523-7e35af641944"
-      }
+      "nextBacklog": null
     }
   },
   "ownerIor": null
