@@ -2,23 +2,23 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 27.5: Canonical ref-slot registry + trace-audit calibration",
+    "name": "Current: Task 27.8: Detail drawer regression — X closes + minimized-on-open",
     "chain": {
-      "req": "f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc",
-      "uc": "",
-      "class": "",
-      "method": "",
-      "impl": "",
+      "req": "a5da3f93-0341-4856-90eb-bb25954c72a2",
+      "uc": "3b6e58e3-f38b-4f88-9566-81c6be3e3a7b",
+      "class": "d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+      "method": "22f951cc-2e9f-4fc5-9031-2f06a529ed0e",
+      "impl": "e42b85e8-d844-4e7b-be17-561a82d780b9",
       "test": ""
     },
-    "activeHop": 1,
-    "sprintName": "Sprint 28",
-    "taskName": "Task 27.5: Canonical ref-slot registry + trace-audit calibration",
+    "activeHop": 5,
+    "sprintName": "Sprint 27",
+    "taskName": "Task 27.8: Detail drawer regression — X closes + minimized-on-open",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-02T16:54:02.796Z"
+        "updatedAt": "2026-07-02T17:51:48.536Z"
       }
     },
     "nextBacklogOverride": "19700836-caa1-49c6-8dce-38ad832241eb",
@@ -27,9 +27,9 @@
     "lastCompletedReqUuid": "",
     "slots": {
       "current": {
-        "taskUuid": "179fafeb-0f00-4d64-be9f-e007f9801721",
-        "taskName": "Task 27.5: Canonical ref-slot registry + trace-audit calibration",
-        "reqUuid": "f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc"
+        "taskUuid": "19700836-caa1-49c6-8dce-38ad832241eb",
+        "taskName": "Task 27.8: Detail drawer regression — X closes + minimized-on-open",
+        "reqUuid": "a5da3f93-0341-4856-90eb-bb25954c72a2"
       },
       "lastCompleted": {
         "taskUuid": "b849fda2-b15d-4567-8a73-79d2567ec396",
@@ -37,9 +37,9 @@
         "reqUuid": "54002f11-89de-42c6-9c56-6b670053a435"
       },
       "nextBacklog": {
-        "taskUuid": "19700836-caa1-49c6-8dce-38ad832241eb",
-        "taskName": "Task 27.8: Detail drawer regression — X closes + minimized-on-open",
-        "reqUuid": "a5da3f93-0341-4856-90eb-bb25954c72a2"
+        "taskUuid": "179fafeb-0f00-4d64-be9f-e007f9801721",
+        "taskName": "Task 27.5: Canonical ref-slot registry + trace-audit calibration",
+        "reqUuid": "f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc"
       }
     }
   },
