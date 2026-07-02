@@ -211,12 +211,24 @@ export class CurrentSprint {
     }
     const currentUuid = current?.uuid || '';
 
-    // 3) lastCompleted = nearest DONE task before current; fallback = immediate predecessor in-sprint.
+    // 3) lastCompleted = nearest DONE task before current in-sprint; else immediate predecessor.
     let lastCompleted: Slot | null = null;
     for (let k = i - 1; k >= 0; k--) { if (sprintTasks[k].done) { lastCompleted = sprintTasks[k]; break; } }
     if (!lastCompleted && i > 0) lastCompleted = sprintTasks[i - 1];
-    // honor an explicit lastCompleted pin ONLY if it's in the current sprint (else it's stale)
-    if (this.lastCompletedUuid) { const o = sprintTasks.find(t => t.uuid === this.lastCompletedUuid); if (o && o.uuid !== currentUuid) lastCompleted = o; }
+    // if none in-sprint (e.g. current is the FIRST task of a new sprint), fall BACK to the previous
+    // sprint's most-recent DONE task — lastCompleted stays populated across the boundary. Backward +
+    // done-only (a done prior-sprint task IS a real completion, not the phantom; symmetric to the
+    // nextBacklog forward-fall).
+    if (!lastCompleted && currentSprint) {
+      const backward = sprintUnits.filter(s => s.number < currentSprint!.number).sort((a, b) => b.number - a.number);
+      for (const sp of backward) {
+        const done = sp.tasks.map(slotInfo).filter((t): t is Slot => !!t && t.done);
+        if (done.length) { lastCompleted = done[done.length - 1]; break; }
+      }
+    }
+    // honor an explicit lastCompleted pin if it points to a DONE task (cross-sprint back is fine —
+    // it's a genuine completion; reject only a not-done/stale override).
+    if (this.lastCompletedUuid) { const o = slotInfo(this.lastCompletedUuid); if (o && o.done && o.uuid !== currentUuid) lastCompleted = o; }
 
     // 4) nextBacklog = first NOT-done task after current in-sprint. If the sprint has no more open
     //    tasks, FALL FORWARD to the next sprint's first open task — the pin ALWAYS shows current/
