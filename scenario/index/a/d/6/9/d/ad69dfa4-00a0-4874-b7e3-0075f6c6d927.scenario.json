@@ -1,0 +1,60 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "ad69dfa4-00a0-4874-b7e3-0075f6c6d927",
+    "name": "Chain-before-ship gate (no impl marker ships without a Requirement chain)",
+    "altId": "R29.2",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-29-server-dev-lifecycle/requirements.md",
+    "sourceLine": 28,
+    "parent": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:0ec831d0-3c6b-4fea-aa22-78be9e8f7151"
+    ],
+    "priority": "high",
+    "description": "A chain-before-ship GATE that makes code-before-scenario IMPOSSIBLE by construction: trace:audit:strict + a pre-commit hook HARD-FAIL the build when a NEW [impl:uuid] marker on src has no linked Requirement chain (the marker's Impl unit must resolve AND be reachable Requirement->UseCase->Class->Method->Impl). It is DELTA-scoped - only NEW chain-less impls fail; pre-existing legacy chain-less markers are deferred/reported (no false-red), same delta-not-absolute discipline as the R27.2 INV2 gate. The detection reuses R27.5's marker-has-chain audit (no duplicate logic); R29.2 is the ENFORCEMENT that blocks the ship. This ends the retroactive-#126 tax (4x this session: R26.6/R27.1/R27.3/R29.1) structurally, not by 'try harder'.",
+    "tronQuote": "> PO 2026-07-02: FAIL the build if a NEW [impl:uuid] on src has no linked Requirement chain (UC->Class->Method->Impl->Req resolves). DELTA-scoped (new only; legacy deferred, no false-red). The by-construction END of the retroactive-#126 tax.",
+    "discoverySource": {
+      "type": "team-discovery",
+      "discoveredBy": "robbin-architect (R27.5 Axis-4 design a2222e139) + robbin-req (measured 4 retroactive-#126 reqs) + robbin-po (delta-scope)",
+      "date": "2026-07-02",
+      "measured": "4 retroactive-#126 reqs this session: R26.6 federation-import, R27.1 statusChecklist, R27.3 per-task-MD, R29.1 self-heal. Code shipping chain-less is recurring; a delta-scoped build gate makes it impossible by construction."
+    },
+    "crossRef": [
+      "ior:instance:f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc",
+      "ior:instance:79bc8e34-9acb-4338-bbd0-c1f7e817ca7d",
+      "ior:instance:e25f1437-4273-4fe0-8b26-76249fa15604"
+    ],
+    "crossRefNote": "R27.5 Axis-4 (marker-has-chain) = the DETECTION; R29.2 = the delta-scoped ENFORCEMENT gate (pre-commit + CI) that blocks the ship. NO duplicate logic - R29.2 reuses R27.5's check. R24.5 = trace:audit:strict host. Same by-construction spirit as R27.2 mint-guard/reuse-on-wire, one level up (the marker, not the Class). \u26a0 ARCHITECT COORDINATE: confirm R27.5-Axis4-detection vs R29.2-enforcement split (avoid overlap; they should mutually crossRef).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-delta-gate",
+        "group": "gate",
+        "text": "trace:audit:strict + a pre-commit hook HARD-FAIL the build when a NEW [impl:uuid] marker on src has no linked Requirement chain (marker's Impl unit resolves AND is reachable Requirement->UseCase->Class->Method->Impl)."
+      },
+      {
+        "id": "AC-delta-scoped",
+        "group": "gate",
+        "text": "DELTA not absolute: ONLY new chain-less impls fail; pre-existing legacy chain-less markers are deferred/reported (no false-red) - same delta-vs-absolute discipline as R27.2 INV2."
+      },
+      {
+        "id": "AC-pre-commit",
+        "group": "gate",
+        "text": "The gate runs at PRE-COMMIT (block before the commit lands) AND in CI (ci:gates), so code-before-chain is caught at the earliest point."
+      },
+      {
+        "id": "AC-single-source",
+        "group": "gate",
+        "text": "Detection REUSES R27.5's marker-has-chain audit (Axis 4) - no duplicate audit logic; R29.2 is the enforcement layer."
+      },
+      {
+        "id": "AC-verify",
+        "group": "verify",
+        "text": "A NEW impl marker with no Requirement chain -> RED build; a fully-chained impl -> GREEN; a legacy chain-less marker -> reported, not failed. Verified against the 4 retroactive-#126 cases as regression fixtures."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e"
+}

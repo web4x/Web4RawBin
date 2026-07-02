@@ -24,6 +24,20 @@
   - [ ] **(idempotent)** Each start is an idempotent fresh restart (kill-old → clean boot); repeated starts leave one fresh server.
   → [UC29.1: serverLifecycle.selfHealingStart](./planning.md#uc29-1) `[uc:uuid:db5835f5-4080-43af-bf7d-e43e2f89d15c]` *(placeholder — architect to refine; Class start.mjs/ServerLauncher)*
 
+- [ ] **R29.2 — Chain-before-ship gate (no impl marker ships without a Requirement chain)**
+  [requirement:uuid:ad69dfa4-00a0-4874-b7e3-0075f6c6d927]
+  > PO 2026-07-02: FAIL the build if a NEW [impl:uuid] on src has no linked Requirement chain (UC->Class->Method->Impl->Req resolves). DELTA-scoped (new only; legacy deferred, no false-red). The by-construction END of the retroactive-#126 tax (4x this session, twice PO's slip).
+  A pre-commit + CI gate that HARD-FAILS when a NEW [impl:uuid] marker on src lacks a resolving Requirement chain; DELTA-scoped (legacy chain-less = deferred/reported). Makes code-before-chain impossible, not corrected-after.
+  *(reuses R27.5 marker-has-chain audit (Axis 4) for detection; enforces it as a blocking gate. Fits R24.5 trace:audit:strict / ci:gates.)*
+  **Acceptance criteria:**
+  - [ ] **(delta-gate)** trace:audit:strict + a pre-commit hook HARD-FAIL the build when a NEW [impl:uuid] marker on src has no linked Requirement chain (marker's Impl unit resolves AND is reachable Requirement->UseCase->Class->Method->Impl).
+  - [ ] **(delta-scoped)** DELTA not absolute: ONLY new chain-less impls fail; pre-existing legacy chain-less markers are deferred/reported (no false-red) - same delta-vs-absolute discipline as R27.2 INV2.
+  - [ ] **(pre-commit + CI)** The gate runs at PRE-COMMIT (block before the commit lands) AND in CI (ci:gates), so code-before-chain is caught at the earliest point.
+  - [ ] **(single-source detection)** Detection REUSES R27.5's marker-has-chain audit (Axis 4) - no duplicate audit logic; R29.2 is the enforcement layer.
+  - [ ] **(verify)** A NEW impl marker with no Requirement chain -> RED build; a fully-chained impl -> GREEN; a legacy chain-less marker -> reported, not failed. Verified against the 4 retroactive-#126 cases as regression fixtures.
+  → [UC29.2: buildGate.chainBeforeShip](./planning.md#uc29-2) `[uc:uuid:0ec831d0-3c6b-4fea-aa22-78be9e8f7151]` *(placeholder - architect to refine; Class trace-audit / pre-commit hook)*
+
+
 ---
 
 ## Traceability Matrix
@@ -31,5 +45,6 @@
 | Req | Name | Requirement UUID | UC UUID |
 |-----|------|------------------|---------|
 | R29.1 | Self-healing npm start preserving server TUI | e25f1437-4273-4fe0-8b26-76249fa15604 | db5835f5-4080-43af-bf7d-e43e2f89d15c |
+| R29.2 | Chain-before-ship gate (marker needs chain) | ad69dfa4-00a0-4874-b7e3-0075f6c6d927 | 0ec831d0-3c6b-4fea-aa22-78be9e8f7151 |
 
 *Captured by robbin-req 2026-07-02. Infra sprint. Retroactive #126 chain for the shipped self-heal.*
