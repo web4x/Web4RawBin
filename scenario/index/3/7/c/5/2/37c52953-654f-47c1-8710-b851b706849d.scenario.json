@@ -7,7 +7,9 @@
     "classes": [
       "ior:instance:2bf3d075-e485-4dd8-8cf0-0cdceac6bb2e",
       "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b"
-    ]
+    ],
+    "class": "ior:instance:2bf3d075-e485-4dd8-8cf0-0cdceac6bb2e",
+    "method": "ior:instance:ee1aa197-b7c8-4235-a8ba-98819dbfe493"
   },
   "ownerIor": "ior:instance:64965538-2725-4ef2-92e7-c1be6cd58d6f"
 }

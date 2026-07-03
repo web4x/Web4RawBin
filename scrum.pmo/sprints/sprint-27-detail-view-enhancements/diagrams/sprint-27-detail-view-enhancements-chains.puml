@@ -10,6 +10,7 @@ rectangle "R27.2 One canonical Class unit per code class no per-req Cla" as R_64
 rectangle "UC chain.reuseCanonicalClass" as U_37c52953
 rectangle "Class ClassMint" as C_2bf3d075
 rectangle "Class TraceAudit" as C_bf626dad
+rectangle "Method ClassMint.mintOrReuseClass" as M_ee1aa197
 rectangle "R27.3 Per-task MD view generation every 📄 link resolves, no" as R_4f6d6402
 rectangle "UC sprintMd.perTaskGeneration" as U_10ef702c
 rectangle "Class SprintViewGenerator" as C_93f9afc7
@@ -36,6 +37,7 @@ C_4df19279 --> M_bfd21995
 R_64965538 --> U_37c52953
 U_37c52953 --> C_2bf3d075
 U_37c52953 --> C_bf626dad
+C_2bf3d075 --> M_ee1aa197
 R_4f6d6402 --> U_10ef702c
 U_10ef702c --> C_93f9afc7
 C_93f9afc7 --> M_0a542620
