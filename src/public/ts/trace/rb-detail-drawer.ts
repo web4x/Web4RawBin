@@ -169,10 +169,10 @@ export class RbDetailDrawer extends HTMLElement {
         <div class="drawer-panel-detail" style="display:none"></div>
         <div class="drawer-panel-preview" style="display:none"></div>
       </div>`;
-    // R27.8: grab-bar toggles peek/expand via closeAndMinimize() [impl marker on the method]; X CLOSES (Tron
-    // intent-change, overrides R25.4 X=minimize); ESC also closes.
+    // R27.8 (corrected): X MINIMIZES/collapses to peek (Tron: "collapse on the x" — R25.4 X=minimize stands); the
+    // grab-bar toggles peek↔expand via closeAndMinimize(); ESC fully CLOSES.
     this.querySelector('.drawer-handle')!.addEventListener('click', () => { if (this.mouseMoved) return; this.closeAndMinimize(); });
-    this.querySelector('.drawer-close')!.addEventListener('click', () => this.close());
+    this.querySelector('.drawer-close')!.addEventListener('click', () => this.minimize());
   }
 
   setMode(m: 'chat' | 'detail' | 'preview'): void {
