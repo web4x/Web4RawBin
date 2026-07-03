@@ -294,6 +294,11 @@ rb-detail-drawer {
 .drawer-body { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 0 16px 16px; }
 rb-detail-drawer pre, rb-detail-drawer code { overflow-x: auto; max-width: 100%; }
 rb-detail-drawer[open] { box-shadow: 0 -2px 10px rgba(0,0,0,0.3); }
+/* R27.8(c): minimized = a VISIBLE, clickable peek bar (header + grab-bar); body hidden — NOT removed. */
+rb-detail-drawer[minimized] { max-height: none; overflow: hidden; }
+rb-detail-drawer[minimized] .drawer-body { display: none !important; }
+rb-detail-drawer[minimized] .drawer-header { min-height: 40px; }
+rb-detail-drawer[minimized] .drawer-handle { display: flex !important; }
 rb-detail-drawer .drawer-handle {
   width: 40px; height: 4px; background: rgba(255,255,255,0.25); border-radius: 2px;
   margin: 0 auto 12px; cursor: grab;

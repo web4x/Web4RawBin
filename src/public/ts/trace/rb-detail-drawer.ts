@@ -67,7 +67,16 @@ export class RbDetailDrawer extends HTMLElement {
   private onSelectionChanged = (e: Event): void => {
     const selected = (e as CustomEvent).detail?.selected || [];
     if (selected.length === 1) {
-      this.setAttribute('ref', selected[0]);
+      // R27.8(d) HARD INVARIANT (Tron): EACH select opens the drawer to peek + re-renders, from ANY prior state
+      // (closed/removed/minimized/expanded), even re-selecting the SAME node. Clear currentRef so a same-ref re-render
+      // isn't skipped; render directly when the ref attr is unchanged (attributeChangedCallback won't fire for it).
+      const ref = selected[0];
+      const dp = this.detailPanel; if (dp) dp.dataset.currentRef = '';
+      const sameRef = this.getAttribute('ref') === ref;
+      this.setAttribute('open', '');
+      this.setAttribute('minimized', '');
+      this.setAttribute('ref', ref);
+      if (sameRef) this.renderDetailForRef(ref);
     } else if (selected.length === 0) {
       // [impl:uuid:c3c70517-b56c-4765-94ae-cb677601f99c] R20.6 emptyShowsChat
       this.removeAttribute('ref');
@@ -140,8 +149,11 @@ export class RbDetailDrawer extends HTMLElement {
   close(): void {
     this.removeAttribute('ref');
     this.removeAttribute('open');
+    this.removeAttribute('minimized');                                     // R27.8(b): clean slate
     this.style.height = '';
     this.style.maxHeight = '';
+    const dp = this.detailPanel; if (dp) dp.dataset.currentRef = '';        // R27.8(b): so a later reopen RE-RENDERS (not the stale-ref no-op)
+    const body = this.querySelector('.drawer-body') as HTMLElement | null; if (body) body.style.display = 'flex'; // R27.8(b): restore body (minimize set it none)
     selectionModel.clear();
   }
 
