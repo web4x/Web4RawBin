@@ -3,7 +3,7 @@
   "model": {
     "uuid": "22f951cc-2e9f-4fc5-9031-2f06a529ed0e",
     "name": "RbDetailDrawer.closeAndMinimize",
-    "description": "R27.8: correct the drawer close/minimize state machine — X(.drawer-close)->close (was minimize), open-MINIMIZED by default (peek, not expanded), grab-bar restores/expands. Reverses R25.4 X=minimize per Tron; reuses R25.4 minimize/expand + R22.2 pan-zoom.",
+    "description": "R27.8 (full-lifecycle, corrected): the drawer state machine per Tron — X->MINIMIZE (not close), open-minimized peek, grab-bar toggles peek<->expand, close->reopens-on-select, HARD INVARIANT every select opens (any prior state). closeAndMinimize orchestrates the grab-bar toggle; paired with X->minimize + unconditional select->open + visible [minimized] peek.",
     "sourceFile": "ior:file:src/public/ts/room/rb-detail-drawer.ts",
     "implementations": [
       "ior:instance:e42b85e8-d844-4e7b-be17-561a82d780b9"
