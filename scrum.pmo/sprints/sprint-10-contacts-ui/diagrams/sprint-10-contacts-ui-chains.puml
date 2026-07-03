@@ -1,0 +1,19 @@
+@startuml sprint-10-contacts-ui-chains
+title Sprint 10 — Contacts Ui - Requirement Chains (scenario-derived)
+left to right direction
+
+rectangle "R10.2 — In the opened profile sheet, the Download vCard..." as R_99897fb4
+rectangle "UC contacts.memberClick" as U_856c9b1e
+rectangle "Class RbObjectItem" as C_3bc876b5
+rectangle "Method RbObjectItem.onClickDelegate" as M_8474594f
+rectangle "Requirement  Task  Use case  PUML  Class/method" as R_30c3d4e5
+rectangle "R10.3 — Tapping your OWN member item opens the read-only ..." as R_b252bd78
+rectangle "UC contacts.vcardVisible" as U_019d98ca
+
+R_99897fb4 --> U_856c9b1e
+U_856c9b1e --> C_3bc876b5
+C_3bc876b5 --> M_8474594f
+R_b252bd78 --> U_019d98ca
+U_019d98ca --> C_3bc876b5
+
+@enduml

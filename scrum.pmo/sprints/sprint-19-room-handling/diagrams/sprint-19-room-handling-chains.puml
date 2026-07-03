@@ -1,0 +1,543 @@
+@startuml sprint-19-room-handling-chains
+title Sprint 19 — Room Handling - Requirement Chains (scenario-derived)
+left to right direction
+
+rectangle "R19.1 R19.1: A room is a scenario unit like every other req/" as R_3e14d73c
+rectangle "UC room.bootstrapAsUnit" as U_745f233a
+rectangle "Class Room" as C_2172dc56
+rectangle "Method Room.init" as M_4fed4fda
+rectangle "R19.2 R19.2: Clicking the room name opens the room config sc" as R_18ecdab4
+rectangle "UC room.editConfig" as U_5de1b235
+rectangle "Class RbRoomDetail" as C_5a6d931a
+rectangle "Method RbRoomDetail.editOpen" as M_6fc898ab
+rectangle "R19.3 R19.3: Room visibility is one of three modes: PUBLIC, " as R_1f1849b5
+rectangle "UC room.enforceVisibility" as U_018ff1e4
+rectangle "Method Room.visibilityCheck" as M_2d189279
+rectangle "R19.4 R19.4: PRIVATE rooms are listed only for their owners." as R_bcaa8cda
+rectangle "R19.5 R19.5: BY-INVITE rooms show an 'Apply' button instead " as R_97bb40eb
+rectangle "UC room.applyAndAccept" as U_39734975
+rectangle "Class JoinRequestFlow" as C_76d7c1e0
+rectangle "Method JoinRequestFlow.applySend" as M_0e11cfb4
+rectangle "R19.6 R19.6: PUBLIC rooms show a join button current behavio" as R_8bd2f61f
+rectangle "R19.7 R19.7: Each room has a lifecycle mode of either LIVE o" as R_b6b9c0ab
+rectangle "UC room.maintainPersistentMembers" as U_2b7b95f1
+rectangle "Method Room.memberAdd" as M_ea02fa6d
+rectangle "R19.8 R19.8: PERSISTENT rooms keep every member on the membe" as R_30dcb1a0
+rectangle "UC room.retainOnDisconnect" as U_61e01080
+rectangle "Method Room.retainOrPrune" as M_f82d09a5
+rectangle "R19.9 R19.9: Members contacts can be added to and removed fr" as R_d6c4604a
+rectangle "R19.10 R19.10: LIVE is the current default lifecycle mode; a" as R_1350d422
+rectangle "UC room.setDefaultPersistent" as U_08151f85
+rectangle "Method RbRoomDetail.modeSet" as M_2686a446
+rectangle "R19.11 R19.11: The room content area gets a 'drop content he" as R_61c2661a
+rectangle "UC roomContent.composeLayout" as U_3c2daa94
+rectangle "Class RbRoomContent" as C_792246f1
+rectangle "Method RbRoomContent.render" as M_9f53d391
+rectangle "R19.12 R19.12: Below the drop area sits a tree with exactly " as R_dc2e99eb
+rectangle "R19.13 R19.13: Members are displayed as item views below the" as R_409ea58b
+rectangle "R19.14 R19.14: Files uploaded into a room are stored in the " as R_f1ca3cc9
+rectangle "UC file.persistAsUnit" as U_79871ec1
+rectangle "Class FileUnit" as C_3e0ceb94
+rectangle "Method FileUnit.upload" as M_ed543211
+rectangle "R19.15 R19.15: The room scenario json passes the same json t" as R_4efd2fb6
+rectangle "UC room.validateScenarioShape" as U_63f4f562
+rectangle "Method Room.validateScenarioShape" as M_ae9c1952
+rectangle "R19.16 R19.16: BY-INVITE rooms show an Apply button instead " as R_e61b4760
+rectangle "UC room.applyButton" as U_5ecb8607
+rectangle "Method RbRoomContent.applyButton" as M_d275e6ba
+rectangle "R19.17 R19.17: Accepting the invite-request message joins th" as R_4ca31ded
+rectangle "UC room.acceptInvite" as U_98ab691d
+rectangle "Method Room.acceptApply" as M_ddbc51a0
+rectangle "R19.18 R19.18: No contact is ever lost from a room member li" as R_ba3fa399
+rectangle "R19.19 R19.19: The room mode can be switched from PERSISTENT" as R_c31aaa02
+rectangle "R19.20 R19.20: The file scenario unit carries unitLinks[] re" as R_4a9d1728
+rectangle "UC file.unitLinks" as U_e253fec9
+rectangle "Method FileUnit.linkToRoom" as M_1778e59d
+rectangle "R19.21 R19.21: In-room Members/Files tree reuses the trace b" as R_d1391ee3
+rectangle "UC room.mountTraceTree" as U_bfd99ec4
+rectangle "Method RbRoomContent.mountTraceTree" as M_777293c9
+rectangle "R19.2.A R19.2.A: Room name shows a pencil edit icon that ope" as R_9311987c
+rectangle "R19.22 R19.22: Every per-user room.json is a symlink to the " as R_d3416a23
+rectangle "UC room.symlinkCanonical" as U_4421b0c1
+rectangle "Method Room.persistAsSymlink" as M_7144f6ca
+rectangle "UC room.linkToScenario" as U_9d3a0ced
+rectangle "Method RbRoomDetail.scenarioLinkRender" as M_81d53df2
+rectangle "R19.22.A R19.22.A: Every data/users/u/rooms/r/room.json is a" as R_e9618d93
+rectangle "R19.22.B R19.22.B: UI link next to the edit pencil button th" as R_b748b4f1
+rectangle "R19.23 R19.23: Remove all room size and capacity limits — ro" as R_17fd9704
+rectangle "UC room.stripSizeLimits" as U_f68def2b
+rectangle "Method Room.stripSizeLimits" as M_f1dd0d77
+rectangle "R19.24 R19.24: Remove spectator functionality entirely." as R_7d6c95ce
+rectangle "UC room.stripSpectator" as U_35fac08e
+rectangle "Method Room.stripSpectator" as M_a83cd5a4
+rectangle "R19.8.A R19.8.A: Persistent rooms flip a leaving member to o" as R_f3b61367
+rectangle "R19.8.B R19.8.B: Persistent rejoin flips the existing member" as R_417918a5
+rectangle "UC room.rejoinDedup" as U_fa121190
+rectangle "Method Room.rejoinDedup" as M_6c3cfb82
+rectangle "R19.21.A R19.21.A: Members and Files nodes are rb-object-ite" as R_f732d200
+rectangle "UC room.folderNodeRender" as U_34c24320
+rectangle "Method RbRoomContent.folderNodeRender" as M_b4980b4a
+rectangle "R19.21.B R19.21.B: Drag preview shows the full item card, no" as R_f0943631
+rectangle "UC objectItem.dragGhost" as U_32daf90e
+rectangle "Class RbObjectItem" as C_3bc876b5
+rectangle "Method RbObjectItem.dragGhost" as M_19499830
+rectangle "R19.25 R19.25: rb-object-item shows a red child-count badge " as R_6ed53825
+rectangle "UC objectItem.badge" as U_41fbdb92
+rectangle "Method RbObjectItem.badgeRender" as M_dc07e631
+rectangle "R19.26 R19.26: Drag is only activated when grabbing the icon" as R_ad2a7074
+rectangle "UC objectItem.iconDrag" as U_2966abcc
+rectangle "Method RbObjectItem.iconDrag" as M_cdb9eefa
+rectangle "R19.27 R19.27: Clicking the icon once collapses item width t" as R_4603db83
+rectangle "UC objectItem.squareCollapse" as U_1f7175d3
+rectangle "Method RbObjectItem.squareCollapse" as M_04e17267
+rectangle "R19.28 R19.28: Tree prefetch is one-layer-ahead eager — prel" as R_e790f0bc
+rectangle "UC traceTree.prefetchLayer" as U_40a60fa9
+rectangle "Class T108: Traceability Browser — tree-navigable graph in Documen" as C_46bc1d8e
+rectangle "Method RbTraceTree.prefetchLayer" as M_365aa095
+rectangle "R19.29 R19.29: Tree owns badge calculation and lazy-eager pr" as R_a688978b
+rectangle "UC traceTree.computeBadges" as U_8c9d0e1f
+rectangle "Method RbTraceTree.computeBadges" as M_9d0e1f2a
+rectangle "R19.30 R19.30: Edit pen ✏️ opens the canonical room scenario" as R_ca351869
+rectangle "UC room.editCanonical" as U_3d2c4fd1
+rectangle "Method RbRoomDetail.editCanonical" as M_d9c83e7b
+rectangle "R19.31 R19.31: Chain link 🔗 navigates to VIEW the canonical" as R_836c97f9
+rectangle "UC room.linkResolve" as U_8d5e34cc
+rectangle "Method RbRoomContent.linkResolve" as M_e55b3f4a
+rectangle "R19.32 R19.32: Shared room link loads the app and join flow," as R_1935258b
+rectangle "UC sw.ignoreSearchNav" as U_3f49e52e
+rectangle "Class ServiceWorker" as C_8bd3bd6b
+rectangle "Method ServiceWorker.ignoreSearchNav" as M_0aea0992
+rectangle "R19.33 R19.33: Detail drawer close affordance stays sticky i" as R_553be449
+rectangle "UC detailDrawer.stickyClose" as U_e03214c1
+rectangle "Class RbDetailDrawer" as C_d86af73d
+rectangle "Method RbDetailDrawer.stickyClose" as M_3a671bfc
+rectangle "R19.35 R19.35: Room scenario unit model holds IOR references" as R_c99083ba
+rectangle "UC room.persistMembers" as U_f7a2ed01
+rectangle "Method Room.persistMembers" as M_2dabc43d
+rectangle "R19.36 R19.36: DnD file-upload chain is fully traceable from" as R_573d5b87
+rectangle "UC dropZone.uploadFile" as U_d2ab1540
+rectangle "Class DropDispatcher" as C_3fca4816
+rectangle "Method DropDispatcher.uploadFile" as M_9905fbfa
+rectangle "R19.37 R19.37: Unknown drop format logs the event to room ch" as R_46d49877
+rectangle "UC dropZone.dispatchUnknown" as U_95a70f06
+rectangle "Method DropDispatcher.routeUnknown" as M_3d4ceb1d
+rectangle "R19.38 R19.38: Chat messages are scenario units with ownerIo" as R_2d4fefed
+rectangle "UC chat.lazyLoad" as U_52cfbd70
+rectangle "Class Message" as C_95686685
+rectangle "Method Message.lazyLoadChain" as M_94bc8f6e
+rectangle "UC message.persistAsUnit" as U_631bac17
+rectangle "Method Message.createMessageUnit" as M_7a983076
+rectangle "R19.39 R19.39: A system RawBin User unit owns the DnD debug/" as R_4ed793f1
+rectangle "UC user.ensureSystemOwner" as U_b7b2b9a7
+rectangle "Class User" as C_12c8982e
+rectangle "Method User.ensureRawBinUser" as M_0eda72b1
+rectangle "R19.40 R19.40: Room holds lastMessageIor; chat lazy-loads 5 " as R_a0d3791e
+rectangle "R19.41 R19.41: Server has a configurable log level that gate" as R_e0bcf6ec
+rectangle "UC server.leveledLog" as U_06634d4e
+rectangle "Class Logger" as C_76443e28
+rectangle "Method Logger.logAtLevel" as M_fc2c04b2
+rectangle "R19.42 R19.42: Drop-zone has clear onDragEnter/onDragExit vi" as R_9e8b678b
+rectangle "UC dropZone.feedbackCycle" as U_3bfb242c
+rectangle "Method DropDispatcher.feedbackCycle" as M_481b1a1c
+rectangle "R19.43 R19.43: After drop, show an upload status bar with pr" as R_fd822bbe
+rectangle "R19.44 R19.44: Upload success or failure posts a correspondi" as R_65151a56
+rectangle "R19.45 R19.45: Offline page has a red Flush PWA Cache button" as R_9b468b6d
+rectangle "UC offlinePage.flushCache" as U_d8872aa3
+rectangle "Method ServiceWorker.flushAndReload" as M_fd5059c5
+rectangle "R19.46 R19.46: Room file-restore is driven by the scenario's" as R_124d9eec
+rectangle "UC room.restoreFilesFromScenario" as U_0224263f
+rectangle "Method Room.restoreFilesFromScenario" as M_548a67b2
+rectangle "UC file.dedupByContentHash" as U_0da815f4
+rectangle "Method FileUnit.dedupByContentHash" as M_d42ad180
+rectangle "R19.47 R19.47: Identical file content reuses the existing Fi" as R_89502cba
+rectangle "UC file.reuseByContentHash" as U_f0b3cd73
+rectangle "Method FileUnit.reuseByContentHash" as M_5397634d
+rectangle "R19.48 R19.48: Different file content with same name registe" as R_160039ef
+rectangle "UC file.versionByName" as U_5b9193ae
+rectangle "Method FileUnit.versionByName" as M_20a5703b
+rectangle "R19.49 R19.49: Each file scenario unit stores a content hash" as R_49a447cf
+rectangle "UC file.storeContentHash" as U_1dabd60a
+rectangle "Method FileUnit.computeContentHash" as M_5afb6fc2
+rectangle "R19.50 R19.50: File scenario unit has a version[] array of v" as R_fe9922f0
+rectangle "UC file.uploadEndpoint" as U_b7b31a9d
+rectangle "Method FileUnit.uploadEndpoint" as M_acbedb76
+rectangle "R19.51 R19.51: Content-hash index at scenario/content/ with " as R_33677612
+rectangle "UC file.indexByContentHash" as U_0eeb1bb1
+rectangle "Method FileUnit.indexByContentHash" as M_1ae8de15
+rectangle "R19.52 R19.52: Detail drawer is full width — no max-width ca" as R_dceda100
+rectangle "UC detailDrawer.fullWidth" as U_61cec7ea
+rectangle "Method RbDetailDrawer.fullWidth" as M_da9462f5
+rectangle "R19.53 R19.53: ONE canonical room location on disk — data/us" as R_4c442530
+rectangle "UC room.canonicalDir" as U_5211afac
+rectangle "Method Room.canonicalDir" as M_b1494bad
+rectangle "R19.54 R19.54: Users become first-class scenario units ior:c" as R_3544a030
+rectangle "UC user.scenarioUnit" as U_164a1371
+rectangle "Method User.createUserUnit" as M_827ac2a0
+rectangle "R19.55 R19.55: Devices become first-class scenario units ior" as R_53820063
+rectangle "UC device.scenarioUnit" as U_7f241b91
+rectangle "Class Device" as C_6388a348
+rectangle "Method Device.createDeviceUnit" as M_2811473d
+rectangle "R19.56 R19.56: Cleanup legacy multi-char index shards — migr" as R_b8db5c65
+rectangle "UC index.canonicalShard" as U_2884c5cd
+rectangle "Class ScenarioIndex" as C_c8bdae18
+rectangle "Method ScenarioIndex.canonicalShard" as M_e6168daa
+rectangle "R19.57 R19.57: Full-width drawer must not cover the top-nav " as R_8b823df5
+rectangle "UC pageNav.backButtonVisible" as U_27d71119
+rectangle "Class PageNav" as C_409c52a9
+rectangle "Method PageNav.raiseAboveDrawer" as M_adde3420
+rectangle "R19.58 R19.58: All 7 type DetailViews show ONE consistent Tr" as R_af607390
+rectangle "UC detailView.unifiedTraceability" as U_36fdbba4
+rectangle "Method RbDetailDrawer.unifiedTraceability" as M_67fd08c3
+rectangle "R19.59 R19.59: Room construction persist must load persisted" as R_5a181bc4
+rectangle "UC room.loadBeforeWrite" as U_8dd6e157
+rectangle "Method Room.loadBeforeWrite" as M_e8c36413
+rectangle "R19.60 R19.60: Pre-existing rooms backfill files[] from on-d" as R_fd5ab4b4
+rectangle "UC room.backfillFiles" as U_5080b8a8
+rectangle "Method Room.backfillFiles" as M_0a7bd183
+rectangle "R19.61 R19.61: Every scenario type generates both .md and .h" as R_9473a0be
+rectangle "UC viewTemplate.registerAllTypes" as U_06058dca
+rectangle "Class ViewTemplateRegistry" as C_6fdc9ac6
+rectangle "Method ViewTemplateRegistry.registerAllTypes" as M_f56b488f
+rectangle "R19.55.A R19.55.A: Device↔User association modeled like Room" as R_150333f7
+rectangle "UC user.deviceAssociation" as U_490a59e0
+rectangle "Method User.deviceAssociation" as M_36119fbe
+rectangle "R19.62 R19.62: Dropping a URL/link into a room creates a url" as R_4885d7cb
+rectangle "UC dropZone.urlDrop" as U_a7a05f12
+rectangle "Method DropDispatcher.urlDrop" as M_352ae8e8
+rectangle "R19.63 R19.63: Clicking a file unit in the room tree shows a" as R_6052570f
+rectangle "UC detailDrawer.renderFilePreview" as U_e3d1ff70
+rectangle "Method RbDetailDrawer.renderFilePreview" as M_e4395c35
+rectangle "R19.64 R19.64: Preview renders by content type — href in ifr" as R_8d90d7ec
+rectangle "UC detailView.byTypeRender" as U_0fe9b0c2
+rectangle "Method RbDetailDrawer.byTypeRender" as M_c3164c1e
+rectangle "R19.65 R19.65: Generalize SVG viewer into a generic previewe" as R_b03701b6
+rectangle "UC contentPreviewer.render" as U_3b6a5ce6
+rectangle "Class SvgViewer" as C_7dd2f3c3
+rectangle "Method ContentPreviewer.render" as M_c3efb22c
+rectangle "R19.66 R19.66: Room Scenario button opens a Room detail view" as R_e6495d45
+rectangle "UC scenarioView.typeDispatch" as U_5fd0119f
+rectangle "Class TraceRouter" as C_740385cb
+rectangle "Method TraceRouter.typeDispatch" as M_9b45ad1a
+rectangle "R19.67 R19.67: Room scenario detail shows type 'Room', speak" as R_a99486b6
+rectangle "UC detailView.roomScenarioDetail" as U_744d67f9
+rectangle "Class RbDetailView" as C_f2f84ce3
+rectangle "Method RbDetailView.roomScenarioDetail" as M_bb01d630
+rectangle "R19.68 R19.68: File access is room-scoped — only room member" as R_f7d15a93
+rectangle "UC fileApi.roomScopedAccess" as U_85f44adb
+rectangle "Class FileApi" as C_2592c3c9
+rectangle "Method FileApi.roomScopedAccess" as M_31fa49b3
+rectangle "R19.69 R19.69: Iframe previews of untrusted uploads use sand" as R_d989c0c4
+rectangle "UC contentPreviewer.iframeSandbox" as U_570c7fbb
+rectangle "Method ContentPreviewer.iframeSandbox" as M_8410c58c
+rectangle "R19.70 R19.70: Scenario link navigates to file browser highl" as R_b1aaaa0d
+rectangle "UC detailView.scenarioBrowserLink" as U_f1028183
+rectangle "Method RbDetailView.scenarioBrowserLink" as M_6ae25e44
+rectangle "R19.71 R19.71: Room scenario detail lists files[] as childre" as R_91ba9fbd
+rectangle "UC traceChildren.roomForwardRefs" as U_985195e3
+rectangle "Method Room.forwardRefs" as M_79ee7486
+rectangle "R19.72 R19.72: Secret-code page has a red 'Remove current ID" as R_380dc7c0
+rectangle "UC profile.removeLocalIdentity" as U_1df1d3ce
+rectangle "Class ProfileGate" as C_1480f4ee
+rectangle "Method DeviceEnrollDialog.removeLocalIdentity" as M_27e289a5
+rectangle "R19.73 R19.73: In-room file click opens ContentPreviewer — i" as R_02af5fc2
+rectangle "UC roomContent.filePreview" as U_f20d9dff
+rectangle "Method RbRoomContent.filePreview" as M_1608977f
+rectangle "R19.74 R19.74: text/html file preview renders in a sandboxed" as R_7d80452e
+rectangle "UC contentPreviewer.htmlSandboxed" as U_c8e9099b
+rectangle "Method ContentPreviewer.htmlSandboxed" as M_aee04064
+rectangle "R19.75 R19.75: ContentPreviewer passes auth token in content" as R_b2057a60
+rectangle "UC contentPreviewer.authToken" as U_29397b2e
+rectangle "Method ContentPreviewer.authToken" as M_2be7ba71
+rectangle "R19.76 R19.76: Replace playerToken-in-URL with short-lived p" as R_d99ae5ba
+rectangle "R19.77 R19.77: URL file preview shows two buttons — Open in " as R_32e42144
+rectangle "UC contentPreviewer.urlFileActions" as U_d35defb1
+rectangle "Method ContentPreviewer.urlFileActions" as M_057b6b5d
+rectangle "R19.78 R19.78: Action buttons render ABOVE the filename, not" as R_684cc684
+rectangle "UC contentPreviewer.buttonsAboveName" as U_1a61ea80
+rectangle "Method RbDetailDrawer.buttonsAboveName" as M_fa014bf5
+rectangle "R19.79 R19.79: Drawer nudge/drag handle visible above action" as R_bd35b1c8
+rectangle "UC drawer.nudgeAboveButtons" as U_ccbf5736
+rectangle "Method RbDetailDrawer.nudgeAboveButtons" as M_779bdd6f
+rectangle "R19.80 R19.80: Drawer can be sized up to 95% of viewport hei" as R_034c4842
+rectangle "UC drawer.resize95vh" as U_363920d4
+rectangle "Method RbDetailDrawer.resize95vh" as M_5ecea757
+rectangle "R19.81 R19.81: Pinch-zoom works in the preview iframe, not j" as R_f5e7b9cd
+rectangle "UC contentPreviewer.iframePinchZoom" as U_988b66cb
+rectangle "Method ContentPreviewer.iframePinchZoom" as M_7021b77e
+rectangle "R19.82 R19.82: Joining a room from lobby must succeed — stal" as R_14a5a9ca
+rectangle "UC room.addMemberTakeover" as U_30059fca
+rectangle "Method Room.addMemberTakeover" as M_f2a2129b
+rectangle "R19.83 R19.83: File items in room tree must survive re-rende" as R_8ba2d9ef
+rectangle "R19.84 R19.84: Drawer nudge DRAG-RESIZES the drawer height, " as R_0be510a8
+rectangle "UC detailDrawer.dragResize" as U_2bf41a1b
+rectangle "Method RbDetailDrawer.handleDragResize" as M_dc130f76
+rectangle "R19.85 R19.85: Iframe pinch gesture SCALES the preview conte" as R_e29dcae1
+rectangle "R19.86 R19.86: URL/webitem files clicked in room must open t" as R_01b055f1
+rectangle "R19.87 R19.87: iOS — all file types must open preview drawer" as R_c639acdf
+rectangle "R19.88 R19.88: Every rb-object-item must initialize all inte" as R_26b5f7c1
+rectangle "R19.89 R19.89: Red Remove-Local-Identity button must be on D" as R_2ad3fd18
+rectangle "R19.88.A R19.88.A: Stop destroy+recreate of file items — DIF" as R_3785b104
+rectangle "R19.90 R19.90: In-room tree REUSES rb-trace-tree component —" as R_20fc59cc
+rectangle "R19.91 R19.91: Remove Local Identity clears ALL browser stat" as R_4b4b61c1
+rectangle "R19.92a R19.92a: In-room file items use the same data path a" as R_71a8954e
+rectangle "R19.93 R19.93: File detail view has a Preview button to open" as R_36becf02
+rectangle "R19.94 R19.94: App header shows version string on all screen" as R_a5e4fb82
+rectangle "R19.95 R19.95: Main route / has a red Reset PWA Cache button" as R_c8a480fa
+rectangle "R19.96 R19.96: Profile page shows the user's UUID — restore " as R_5c325047
+rectangle "R19.99 R19.99: One link still renders broken in md-safari ro" as R_aaa36d91
+rectangle "R19.100 R19.100: Identical files must render in ALL rooms — " as R_ca4f8758
+rectangle "R19.101 R19.101: In-room tree shows BOTH Members AND Files c" as R_4d185684
+rectangle "R19.102 R19.102: Room tree supports user actions — create ne" as R_754be820
+
+R_3e14d73c --> U_745f233a
+U_745f233a --> C_2172dc56
+C_2172dc56 --> M_4fed4fda
+R_18ecdab4 --> U_5de1b235
+U_5de1b235 --> C_5a6d931a
+C_5a6d931a --> M_6fc898ab
+R_18ecdab4 --> U_745f233a
+R_1f1849b5 --> U_018ff1e4
+U_018ff1e4 --> C_2172dc56
+C_2172dc56 --> M_2d189279
+R_bcaa8cda --> U_018ff1e4
+R_97bb40eb --> U_39734975
+U_39734975 --> C_76d7c1e0
+C_76d7c1e0 --> M_0e11cfb4
+R_8bd2f61f --> U_39734975
+R_b6b9c0ab --> U_2b7b95f1
+U_2b7b95f1 --> C_2172dc56
+C_2172dc56 --> M_ea02fa6d
+R_30dcb1a0 --> U_2b7b95f1
+R_30dcb1a0 --> U_61e01080
+U_61e01080 --> C_2172dc56
+C_2172dc56 --> M_f82d09a5
+R_d6c4604a --> U_2b7b95f1
+R_1350d422 --> U_08151f85
+U_08151f85 --> C_5a6d931a
+C_5a6d931a --> M_2686a446
+R_61c2661a --> U_3c2daa94
+U_3c2daa94 --> C_792246f1
+C_792246f1 --> M_9f53d391
+R_dc2e99eb --> U_3c2daa94
+R_409ea58b --> U_3c2daa94
+R_f1ca3cc9 --> U_79871ec1
+U_79871ec1 --> C_3e0ceb94
+C_3e0ceb94 --> M_ed543211
+R_4efd2fb6 --> U_63f4f562
+U_63f4f562 --> C_2172dc56
+C_2172dc56 --> M_ae9c1952
+R_e61b4760 --> U_5ecb8607
+U_5ecb8607 --> C_792246f1
+C_792246f1 --> M_d275e6ba
+R_4ca31ded --> U_98ab691d
+U_98ab691d --> C_2172dc56
+C_2172dc56 --> M_ddbc51a0
+R_ba3fa399 --> U_61e01080
+R_c31aaa02 --> U_08151f85
+R_4a9d1728 --> U_e253fec9
+U_e253fec9 --> C_3e0ceb94
+C_3e0ceb94 --> M_1778e59d
+R_d1391ee3 --> U_bfd99ec4
+U_bfd99ec4 --> C_792246f1
+C_792246f1 --> M_777293c9
+R_9311987c --> U_5de1b235
+R_d3416a23 --> U_4421b0c1
+U_4421b0c1 --> C_2172dc56
+C_2172dc56 --> M_7144f6ca
+R_d3416a23 --> U_9d3a0ced
+U_9d3a0ced --> C_5a6d931a
+C_5a6d931a --> M_81d53df2
+R_e9618d93 --> U_4421b0c1
+R_b748b4f1 --> U_9d3a0ced
+R_17fd9704 --> U_f68def2b
+U_f68def2b --> C_2172dc56
+C_2172dc56 --> M_f1dd0d77
+R_7d6c95ce --> U_35fac08e
+U_35fac08e --> C_2172dc56
+C_2172dc56 --> M_a83cd5a4
+R_f3b61367 --> U_61e01080
+R_417918a5 --> U_fa121190
+U_fa121190 --> C_2172dc56
+C_2172dc56 --> M_6c3cfb82
+R_f732d200 --> U_34c24320
+U_34c24320 --> C_792246f1
+C_792246f1 --> M_b4980b4a
+R_f0943631 --> U_32daf90e
+U_32daf90e --> C_3bc876b5
+C_3bc876b5 --> M_19499830
+R_6ed53825 --> U_41fbdb92
+U_41fbdb92 --> C_3bc876b5
+C_3bc876b5 --> M_dc07e631
+R_ad2a7074 --> U_2966abcc
+U_2966abcc --> C_3bc876b5
+C_3bc876b5 --> M_cdb9eefa
+R_4603db83 --> U_1f7175d3
+U_1f7175d3 --> C_3bc876b5
+C_3bc876b5 --> M_04e17267
+R_e790f0bc --> U_40a60fa9
+U_40a60fa9 --> C_46bc1d8e
+C_46bc1d8e --> M_365aa095
+R_a688978b --> U_8c9d0e1f
+U_8c9d0e1f --> C_46bc1d8e
+C_46bc1d8e --> M_9d0e1f2a
+R_ca351869 --> U_3d2c4fd1
+U_3d2c4fd1 --> C_5a6d931a
+C_5a6d931a --> M_d9c83e7b
+R_836c97f9 --> U_8d5e34cc
+U_8d5e34cc --> C_792246f1
+C_792246f1 --> M_e55b3f4a
+R_1935258b --> U_3f49e52e
+U_3f49e52e --> C_8bd3bd6b
+C_8bd3bd6b --> M_0aea0992
+R_553be449 --> U_e03214c1
+U_e03214c1 --> C_d86af73d
+C_d86af73d --> M_3a671bfc
+R_c99083ba --> U_f7a2ed01
+U_f7a2ed01 --> C_2172dc56
+C_2172dc56 --> M_2dabc43d
+R_573d5b87 --> U_d2ab1540
+U_d2ab1540 --> C_3fca4816
+C_3fca4816 --> M_9905fbfa
+R_46d49877 --> U_95a70f06
+U_95a70f06 --> C_3fca4816
+C_3fca4816 --> M_3d4ceb1d
+R_2d4fefed --> U_52cfbd70
+U_52cfbd70 --> C_95686685
+C_95686685 --> M_94bc8f6e
+R_2d4fefed --> U_631bac17
+U_631bac17 --> C_95686685
+C_95686685 --> M_7a983076
+R_4ed793f1 --> U_b7b2b9a7
+U_b7b2b9a7 --> C_12c8982e
+C_12c8982e --> M_0eda72b1
+R_a0d3791e --> U_52cfbd70
+R_e0bcf6ec --> U_06634d4e
+U_06634d4e --> C_76443e28
+C_76443e28 --> M_fc2c04b2
+R_9e8b678b --> U_3bfb242c
+U_3bfb242c --> C_3fca4816
+C_3fca4816 --> M_481b1a1c
+R_fd822bbe --> U_3bfb242c
+R_65151a56 --> U_3bfb242c
+R_9b468b6d --> U_d8872aa3
+U_d8872aa3 --> C_8bd3bd6b
+C_8bd3bd6b --> M_fd5059c5
+R_124d9eec --> U_0224263f
+U_0224263f --> C_2172dc56
+C_2172dc56 --> M_548a67b2
+R_124d9eec --> U_0da815f4
+U_0da815f4 --> C_3e0ceb94
+C_3e0ceb94 --> M_d42ad180
+R_89502cba --> U_f0b3cd73
+U_f0b3cd73 --> C_3e0ceb94
+C_3e0ceb94 --> M_5397634d
+R_160039ef --> U_5b9193ae
+U_5b9193ae --> C_3e0ceb94
+C_3e0ceb94 --> M_20a5703b
+R_49a447cf --> U_1dabd60a
+U_1dabd60a --> C_3e0ceb94
+C_3e0ceb94 --> M_5afb6fc2
+R_fe9922f0 --> U_b7b31a9d
+U_b7b31a9d --> C_3e0ceb94
+C_3e0ceb94 --> M_acbedb76
+R_33677612 --> U_0eeb1bb1
+U_0eeb1bb1 --> C_3e0ceb94
+C_3e0ceb94 --> M_1ae8de15
+R_dceda100 --> U_61cec7ea
+U_61cec7ea --> C_d86af73d
+C_d86af73d --> M_da9462f5
+R_4c442530 --> U_5211afac
+U_5211afac --> C_2172dc56
+C_2172dc56 --> M_b1494bad
+R_3544a030 --> U_164a1371
+U_164a1371 --> C_12c8982e
+C_12c8982e --> M_827ac2a0
+R_53820063 --> U_7f241b91
+U_7f241b91 --> C_6388a348
+C_6388a348 --> M_2811473d
+R_b8db5c65 --> U_2884c5cd
+U_2884c5cd --> C_c8bdae18
+C_c8bdae18 --> M_e6168daa
+R_8b823df5 --> U_27d71119
+U_27d71119 --> C_409c52a9
+C_409c52a9 --> M_adde3420
+R_af607390 --> U_36fdbba4
+U_36fdbba4 --> C_d86af73d
+C_d86af73d --> M_67fd08c3
+R_5a181bc4 --> U_8dd6e157
+U_8dd6e157 --> C_2172dc56
+C_2172dc56 --> M_e8c36413
+R_fd5ab4b4 --> U_5080b8a8
+U_5080b8a8 --> C_2172dc56
+C_2172dc56 --> M_0a7bd183
+R_9473a0be --> U_06058dca
+U_06058dca --> C_6fdc9ac6
+C_6fdc9ac6 --> M_f56b488f
+R_150333f7 --> U_490a59e0
+U_490a59e0 --> C_12c8982e
+C_12c8982e --> M_36119fbe
+R_4885d7cb --> U_a7a05f12
+U_a7a05f12 --> C_3fca4816
+C_3fca4816 --> M_352ae8e8
+R_6052570f --> U_e3d1ff70
+U_e3d1ff70 --> C_d86af73d
+C_d86af73d --> M_e4395c35
+R_8d90d7ec --> U_0fe9b0c2
+U_0fe9b0c2 --> C_d86af73d
+C_d86af73d --> M_c3164c1e
+R_b03701b6 --> U_3b6a5ce6
+U_3b6a5ce6 --> C_7dd2f3c3
+C_7dd2f3c3 --> M_c3efb22c
+R_e6495d45 --> U_5fd0119f
+U_5fd0119f --> C_740385cb
+C_740385cb --> M_9b45ad1a
+R_a99486b6 --> U_744d67f9
+U_744d67f9 --> C_f2f84ce3
+C_f2f84ce3 --> M_bb01d630
+R_f7d15a93 --> U_85f44adb
+U_85f44adb --> C_2592c3c9
+C_2592c3c9 --> M_31fa49b3
+R_d989c0c4 --> U_570c7fbb
+U_570c7fbb --> C_7dd2f3c3
+C_7dd2f3c3 --> M_8410c58c
+R_b1aaaa0d --> U_f1028183
+U_f1028183 --> C_f2f84ce3
+C_f2f84ce3 --> M_6ae25e44
+R_91ba9fbd --> U_985195e3
+U_985195e3 --> C_2172dc56
+C_2172dc56 --> M_79ee7486
+R_380dc7c0 --> U_1df1d3ce
+U_1df1d3ce --> C_1480f4ee
+C_1480f4ee --> M_27e289a5
+R_02af5fc2 --> U_f20d9dff
+U_f20d9dff --> C_792246f1
+C_792246f1 --> M_1608977f
+R_7d80452e --> U_c8e9099b
+U_c8e9099b --> C_7dd2f3c3
+C_7dd2f3c3 --> M_aee04064
+R_b2057a60 --> U_29397b2e
+U_29397b2e --> C_7dd2f3c3
+C_7dd2f3c3 --> M_2be7ba71
+R_32e42144 --> U_d35defb1
+U_d35defb1 --> C_7dd2f3c3
+C_7dd2f3c3 --> M_057b6b5d
+R_684cc684 --> U_1a61ea80
+U_1a61ea80 --> C_d86af73d
+C_d86af73d --> M_fa014bf5
+R_bd35b1c8 --> U_ccbf5736
+U_ccbf5736 --> C_d86af73d
+C_d86af73d --> M_779bdd6f
+R_034c4842 --> U_363920d4
+U_363920d4 --> C_d86af73d
+C_d86af73d --> M_5ecea757
+R_f5e7b9cd --> U_988b66cb
+U_988b66cb --> C_7dd2f3c3
+C_7dd2f3c3 --> M_7021b77e
+R_14a5a9ca --> U_30059fca
+U_30059fca --> C_2172dc56
+C_2172dc56 --> M_f2a2129b
+R_0be510a8 --> U_2bf41a1b
+U_2bf41a1b --> C_d86af73d
+C_d86af73d --> M_dc130f76
+
+@enduml

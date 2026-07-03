@@ -1,0 +1,110 @@
+@startuml sprint-18-chain-method-scope-chains
+title Sprint 18 — Chain Method-Scope & Role Skills - Requirement Chains (scenario-derived)
+left to right direction
+
+rectangle "R18.9: Chain cycles are completely eliminated — forward-only" as R_f3ee66eb
+rectangle "UC traceTree.cycleGuard" as U_65ce93ad
+rectangle "Class T108: Traceability Browser — tree-navigable graph in Documen" as C_46bc1d8e
+rectangle "Method RbTraceTree.cycleGuard" as M_92dc9f4c
+rectangle "R18.10: Tree lazy-loads only the NEXT layer per expand — not" as R_3a88164d
+rectangle "UC traceTree.lazyExpand" as U_39728038
+rectangle "Method RbTraceTree.fetchAndRenderChildren" as M_aeb301b1
+rectangle "R18.11: Cycle guard is ancestor-path-precise — only break tr" as R_9d187326
+rectangle "UC traceTree.ancestorGuard" as U_efdc9761
+rectangle "Method RbTraceTree.ancestorGuard" as M_e2d6db4c
+rectangle "R18.12: True-cycle nodes are omitted cleanly — no visible cu" as R_700b2e94
+rectangle "UC traceTree.cycleOmit" as U_a04183ae
+rectangle "Method RbTraceTree.cycleOmit" as M_8e96674f
+rectangle "R18.16: Traceability chain includes the Class level between " as R_b55fe0f5
+rectangle "R18.17: /trace sprint list shows each sprint exactly ONCE — " as R_f917bc66
+rectangle "UC sprintList.dedupe" as U_35b90d2f
+rectangle "Class TraceConsistency" as C_f5cf7284
+rectangle "Method server.sprintsDedupe" as M_26a79fa6
+rectangle "R18.18: Sprint names in /trace include their sprint number." as R_8c19e98b
+rectangle "UC sprintList.numberLabel" as U_2be4bb75
+rectangle "Method server.sprintNameFormat" as M_6ec7440d
+rectangle "R18.19: Sprint numbers are zero-padded 2-digit 01-09, 10-18 " as R_8af89ef9
+rectangle "UC sprintList.zeroPad" as U_f75d6dbc
+rectangle "Method server.sprintZeroPad" as M_5f02d53c
+rectangle "R18.20: Detail view right pane shows ALL methods/children of" as R_c16ab068
+rectangle "UC detailView.showFullObject" as U_889a8aa4
+rectangle "Class RbTaskDetail" as C_4df19279
+rectangle "Method RbClassDetail.renderAll" as M_cfbcbb42
+rectangle "R18.21: Parent link ABOVE the Scenario view link in the deta" as R_293f04ea
+rectangle "UC detailView.parentNav" as U_5b773d3c
+rectangle "Class RbDetailDrawer" as C_d86af73d
+rectangle "Method RbDetailDrawer.parentNav" as M_d9d4eeb7
+rectangle "R18.22: Browse File link BELOW the Scenario view link jumps " as R_f07e7f82
+rectangle "UC detailView.browseFile" as U_c394e771
+rectangle "Method RbDetailDrawer.browseFile" as M_497e70fe
+rectangle "R18.23: Browse-File link carries LINE information so the Mon" as R_e53964ae
+rectangle "UC detailView.browseFileLine" as U_81fda947
+rectangle "Method RbDetailDrawer.browseFileLine" as M_048bb842
+rectangle "R18.27: Browse-File link opens the file-browser FOLDER with " as R_ad721573
+rectangle "UC fileBrowser.highlightFile" as U_a5b7650c
+rectangle "Class FileApi" as C_2592c3c9
+rectangle "Method FileApi.highlightFile" as M_6a52a207
+rectangle "R18.25: Tree narrowed chain continues past Method through Im" as R_cacdf662
+rectangle "UC traceTree.chainToTest" as U_b3c850e9
+rectangle "Method RbTraceTree.chainToTest" as M_f8737405
+rectangle "R18.26: Source link on ALL types — not just Implementation. " as R_884bad43
+rectangle "UC detailView.sourceLink" as U_158ed75e
+rectangle "Method RbDetailDrawer.sourceLink" as M_49fad36b
+rectangle "R18.24: Detail-view Traceability-Chain section shows the nar" as R_72f4ac57
+rectangle "UC detailView.narrowChain" as U_e04dbcf1
+rectangle "Method RbDetailDrawer.narrowChain" as M_19f0d4e0
+rectangle "R18.28: Line info carried through file-browser to Monaco so " as R_48d8c0cd
+rectangle "UC fileBrowser.lineInfo" as U_3413cd86
+rectangle "Method FileApi.lineParam" as M_d979e1a6
+rectangle "R-placeholder-T202 R-placeholder T202 sibling of R18.13: Sha" as R_4d525a4d
+
+R_f3ee66eb --> U_65ce93ad
+U_65ce93ad --> C_46bc1d8e
+C_46bc1d8e --> M_92dc9f4c
+R_3a88164d --> U_39728038
+U_39728038 --> C_46bc1d8e
+C_46bc1d8e --> M_aeb301b1
+R_9d187326 --> U_efdc9761
+U_efdc9761 --> C_46bc1d8e
+C_46bc1d8e --> M_e2d6db4c
+R_700b2e94 --> U_a04183ae
+U_a04183ae --> C_46bc1d8e
+C_46bc1d8e --> M_8e96674f
+R_f917bc66 --> U_35b90d2f
+U_35b90d2f --> C_f5cf7284
+C_f5cf7284 --> M_26a79fa6
+R_8c19e98b --> U_2be4bb75
+U_2be4bb75 --> C_f5cf7284
+C_f5cf7284 --> M_6ec7440d
+R_8af89ef9 --> U_f75d6dbc
+U_f75d6dbc --> C_f5cf7284
+C_f5cf7284 --> M_5f02d53c
+R_c16ab068 --> U_889a8aa4
+U_889a8aa4 --> C_4df19279
+C_4df19279 --> M_cfbcbb42
+R_293f04ea --> U_5b773d3c
+U_5b773d3c --> C_d86af73d
+C_d86af73d --> M_d9d4eeb7
+R_f07e7f82 --> U_c394e771
+U_c394e771 --> C_d86af73d
+C_d86af73d --> M_497e70fe
+R_e53964ae --> U_81fda947
+U_81fda947 --> C_d86af73d
+C_d86af73d --> M_048bb842
+R_ad721573 --> U_a5b7650c
+U_a5b7650c --> C_2592c3c9
+C_2592c3c9 --> M_6a52a207
+R_cacdf662 --> U_b3c850e9
+U_b3c850e9 --> C_46bc1d8e
+C_46bc1d8e --> M_f8737405
+R_884bad43 --> U_158ed75e
+U_158ed75e --> C_d86af73d
+C_d86af73d --> M_49fad36b
+R_72f4ac57 --> U_e04dbcf1
+U_e04dbcf1 --> C_d86af73d
+C_d86af73d --> M_19f0d4e0
+R_48d8c0cd --> U_3413cd86
+U_3413cd86 --> C_2592c3c9
+C_2592c3c9 --> M_d979e1a6
+
+@enduml

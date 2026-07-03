@@ -1,0 +1,86 @@
+@startuml sprint-25-apple-dnd-chains
+title Sprint 25 — Apple DnD - Requirement Chains (scenario-derived)
+left to right direction
+
+rectangle "R25.1 Comprehensive DnD logging capture every dropped URL sc" as R_649e9f4c
+rectangle "UC drop.logSchemes" as U_5fc59adc
+rectangle "Class DropDispatcher" as C_3fca4816
+rectangle "Method DropDispatcher.routeUnknown" as M_3d4ceb1d
+rectangle "R25.2 Unified WebItem scenario unit bookmark / .url / .weblo" as R_f8097d7c
+rectangle "UC webItem.createAndLaunch" as U_2dc9f063
+rectangle "Class WebItem" as C_7c486fcb
+rectangle "Method WebItem.createAndLaunch" as M_35c7d530
+rectangle "R25.3 vCard onboarding recognizes existing users device-link" as R_d0acb05d
+rectangle "UC onboarding.recognizeIdentity" as U_c461d975
+rectangle "Class Onboarding" as C_97d6e2bf
+rectangle "Method Onboarding.recognizeIdentity" as M_152fed3e
+rectangle "R25.4 Drawer interaction: grab-bar mouse parity + X-minimize" as R_225b18a6
+rectangle "UC drawer.grabBarMouseParity" as U_c6df9164
+rectangle "Class RbDetailDrawer" as C_d86af73d
+rectangle "Method RbDetailDrawer.onGrabBarPointer" as M_2aded7b5
+rectangle "UC drawer.minimizeToggle" as U_2438307a
+rectangle "Method RbDetailDrawer.minimize" as M_c777e3e1
+rectangle "R25.5 Drop-area clipboard preview + import" as R_2066ba12
+rectangle "UC clipboard.previewAndImport" as U_10af6d46
+rectangle "Class ClipboardImport" as C_0cabde12
+rectangle "Method ClipboardImport.previewAndImport" as M_e8983bc2
+rectangle "UC clipboard.readAndRoute" as U_1aa5b1c5
+rectangle "Method ClipboardImport.readAndRoute" as M_ea55be35
+rectangle "R25.6 Scenario link on ALL detail views" as R_24509e35
+rectangle "UC detail.scenarioLink" as U_dc468781
+rectangle "Class RbDetailView" as C_f2f84ce3
+rectangle "Method RbDetailView.renderScenarioLink" as M_0ce8290f
+rectangle "UC detail.scenarioLinkResolve" as U_f81594b4
+rectangle "Method RbDetailView.scenarioLinkHref" as M_a51c3e97
+rectangle "R25.7 Room membership dedup by resolved identity structural," as R_585b6b9c
+rectangle "UC room.dedupMembersOnLoad" as U_e03132c7
+rectangle "Class Room" as C_2172dc56
+rectangle "Method Room.dedupMembersOnLoad" as M_0c8b2e2f
+rectangle "UC consolidate.evictAbsorbedFromRooms" as U_9300a275
+rectangle "Method Room.evictAbsorbedFromRooms" as M_bb4a357f
+rectangle "UC connect.redirectTombstoneToPrimary" as U_ede1de17
+rectangle "Method Room.redirectTombstoneToPrimary" as M_78ac9322
+rectangle "UC room.addMemberIdempotent" as U_85f40027
+rectangle "Method Room.addMember" as M_52ed9ab9
+
+R_649e9f4c --> U_5fc59adc
+U_5fc59adc --> C_3fca4816
+C_3fca4816 --> M_3d4ceb1d
+R_f8097d7c --> U_2dc9f063
+U_2dc9f063 --> C_7c486fcb
+C_7c486fcb --> M_35c7d530
+R_d0acb05d --> U_c461d975
+U_c461d975 --> C_97d6e2bf
+C_97d6e2bf --> M_152fed3e
+R_225b18a6 --> U_c6df9164
+U_c6df9164 --> C_d86af73d
+C_d86af73d --> M_2aded7b5
+R_225b18a6 --> U_2438307a
+U_2438307a --> C_d86af73d
+C_d86af73d --> M_c777e3e1
+R_2066ba12 --> U_10af6d46
+U_10af6d46 --> C_0cabde12
+C_0cabde12 --> M_e8983bc2
+R_2066ba12 --> U_1aa5b1c5
+U_1aa5b1c5 --> C_0cabde12
+C_0cabde12 --> M_ea55be35
+R_24509e35 --> U_dc468781
+U_dc468781 --> C_f2f84ce3
+C_f2f84ce3 --> M_0ce8290f
+R_24509e35 --> U_f81594b4
+U_f81594b4 --> C_f2f84ce3
+C_f2f84ce3 --> M_a51c3e97
+R_585b6b9c --> U_e03132c7
+U_e03132c7 --> C_2172dc56
+C_2172dc56 --> M_0c8b2e2f
+R_585b6b9c --> U_9300a275
+U_9300a275 --> C_2172dc56
+C_2172dc56 --> M_bb4a357f
+R_585b6b9c --> U_ede1de17
+U_ede1de17 --> C_2172dc56
+C_2172dc56 --> M_78ac9322
+R_585b6b9c --> U_85f40027
+U_85f40027 --> C_2172dc56
+C_2172dc56 --> M_52ed9ab9
+
+@enduml

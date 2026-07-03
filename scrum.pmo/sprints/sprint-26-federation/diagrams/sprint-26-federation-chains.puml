@@ -1,0 +1,47 @@
+@startuml sprint-26-federation-chains
+title Sprint 26 — RawBin Federation - Requirement Chains (scenario-derived)
+left to right direction
+
+rectangle "R26.1 Federated IOR — provenance via originHost" as R_e8744de9
+rectangle "UC ior.federatedOrigin" as U_9b4a8c02
+rectangle "Class IORResolver" as C_b4eaa489
+rectangle "Method IORResolver.resolveFederated" as M_7be6b225
+rectangle "R26.2 Cross-origin DnD federated-reference protocol" as R_e36d585c
+rectangle "UC dnd.federatedReference" as U_13ce665c
+rectangle "Class DropDispatcher" as C_3fca4816
+rectangle "Method DropDispatcher.buildFederatedRef" as M_c8a17dcc
+rectangle "R26.3 Server-to-server scenario fetch API on the origin" as R_05d21385
+rectangle "UC federation.scenarioFetchApi" as U_e205f1b0
+rectangle "Class FederationApi" as C_6456d811
+rectangle "Method FederationApi.fetchScenario" as M_f762297b
+rectangle "R26.4 Lazy child resolve — structure eager, payload lazy, me" as R_71b44e05
+rectangle "UC federation.lazyChildResolve" as U_67859edd
+rectangle "Class Transfer" as C_c4290554
+rectangle "Method Transfer.resolveChildrenLazily" as M_4257570e
+rectangle "R26.5 Conflict reconcile — uuid already exists locally" as R_f7e4c1cc
+rectangle "UC federation.conflictReconcile" as U_1f097e01
+rectangle "Method Transfer.reconcileConflict" as M_90aabe21
+rectangle "R26.6 Federation import wiring end-to-end receive orchestrat" as R_e289f96e
+rectangle "UC federation.import" as U_32f30eee
+rectangle "Method FederationApi.importScenario" as M_c4506b11
+
+R_e8744de9 --> U_9b4a8c02
+U_9b4a8c02 --> C_b4eaa489
+C_b4eaa489 --> M_7be6b225
+R_e36d585c --> U_13ce665c
+U_13ce665c --> C_3fca4816
+C_3fca4816 --> M_c8a17dcc
+R_05d21385 --> U_e205f1b0
+U_e205f1b0 --> C_6456d811
+C_6456d811 --> M_f762297b
+R_71b44e05 --> U_67859edd
+U_67859edd --> C_c4290554
+C_c4290554 --> M_4257570e
+R_f7e4c1cc --> U_1f097e01
+U_1f097e01 --> C_c4290554
+C_c4290554 --> M_90aabe21
+R_e289f96e --> U_32f30eee
+U_32f30eee --> C_6456d811
+C_6456d811 --> M_c4506b11
+
+@enduml

@@ -1,0 +1,10 @@
+@startuml sprint-28-graph-integrity-foundation-chains
+title Sprint 28 — Graph-Integrity Foundation - Requirement Chains (scenario-derived)
+left to right direction
+
+rectangle "R27.5 Canonical ref-slot registry + trace-audit calibration " as R_f48fbf5d
+rectangle "R27.6 Repair the true-dangling refs surfaced by the ref-slot" as R_3a7d4df2
+rectangle "R28.1 Generate requirements.md from Requirement units close " as R_e344927f
+
+
+@enduml

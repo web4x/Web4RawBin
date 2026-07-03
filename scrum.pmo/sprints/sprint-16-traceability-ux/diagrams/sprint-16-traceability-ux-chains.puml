@@ -1,0 +1,29 @@
+@startuml sprint-16-traceability-ux-chains
+title Sprint 16 — Traceability Ux - Requirement Chains (scenario-derived)
+left to right direction
+
+rectangle "Requirement  UUID short  Task  Category" as R_e61d14c0
+rectangle "R16.3: pageNav sticky to top" as R_bca276d9
+rectangle "UC detailDrawer.stickyBottom" as U_84298ac0
+rectangle "Class RbDetailDrawer" as C_d86af73d
+rectangle "Method RbDetailDrawer.stickyBottom" as M_d67af41f
+rectangle "R16.4: Traceability chain data diagnosis + fix" as R_b2237873
+rectangle "UC pageNav.stickyTop" as U_24501668
+rectangle "Class PageNav" as C_409c52a9
+rectangle "Method PageNav.stickyTop" as M_fda3b1b3
+rectangle "R16.2: DetailsViewContainer sticky to bottom" as R_9186094e
+rectangle "UC detailView.setBackground" as U_a51a9ed3
+rectangle "Class RbDetailView" as C_f2f84ce3
+rectangle "Method RbDetailDrawer.setBackground" as M_5188d967
+
+R_bca276d9 --> U_84298ac0
+U_84298ac0 --> C_d86af73d
+C_d86af73d --> M_d67af41f
+R_b2237873 --> U_24501668
+U_24501668 --> C_409c52a9
+C_409c52a9 --> M_fda3b1b3
+R_9186094e --> U_a51a9ed3
+U_a51a9ed3 --> C_f2f84ce3
+C_f2f84ce3 --> M_5188d967
+
+@enduml

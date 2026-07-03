@@ -1,0 +1,27 @@
+@startuml sprint-23-media-preview-chains
+title Sprint 23 — Media Preview - Requirement Chains (scenario-derived)
+left to right direction
+
+rectangle "R23.1 Audio files play in the preview HTML5 player" as R_480b40aa
+rectangle "UC preview.renderAudio" as U_b9792582
+rectangle "Class ContentPreviewer" as C_4cf1d1de
+rectangle "Method ContentPreviewer.fillPreviewPane" as M_ccbd2bdf
+rectangle "R23.2 YouTube URLs render as embedded iframe player" as R_8f34c3e5
+rectangle "UC preview.embedYouTube" as U_d0d09ff8
+rectangle "Method ContentPreviewer.embedYouTube" as M_efe1d17e
+rectangle "R23.3 Identity merge cleans up room membership no ghost memb" as R_75853976
+rectangle "UC membership.cleanupOnMerge" as U_fc7356af
+rectangle "Class Room" as C_2172dc56
+rectangle "Method Room.resolveToken" as M_1671bcb7
+
+R_480b40aa --> U_b9792582
+U_b9792582 --> C_4cf1d1de
+C_4cf1d1de --> M_ccbd2bdf
+R_8f34c3e5 --> U_d0d09ff8
+U_d0d09ff8 --> C_4cf1d1de
+C_4cf1d1de --> M_efe1d17e
+R_75853976 --> U_fc7356af
+U_fc7356af --> C_2172dc56
+C_2172dc56 --> M_1671bcb7
+
+@enduml

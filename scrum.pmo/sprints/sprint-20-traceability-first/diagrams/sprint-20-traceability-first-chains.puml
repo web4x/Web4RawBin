@@ -1,0 +1,113 @@
+@startuml sprint-20-traceability-first-chains
+title Sprint 20 — Radical Forward Planning Traceability-First - Requirement Chains (scenario-derived)
+left to right direction
+
+rectangle "R19.99 R19.99: One link still renders broken in md-safari ro" as R_aaa36d91
+rectangle "R19.100 R19.100: Identical files must render in ALL rooms — " as R_ca4f8758
+rectangle "R19.102 R19.102: Room tree supports user actions — create ne" as R_754be820
+rectangle "R20.2 R20.2: Default detail drawer nudge becomes the wide gr" as R_9993091a
+rectangle "R20.3 R20.3: All item views default to COLLAPSED on render —" as R_eeeabe81
+rectangle "UC itemView.defaultCollapsed" as U_709c458d
+rectangle "Class RbObjectItem" as C_3bc876b5
+rectangle "Method RbObjectItem.defaultChildrenHidden" as M_76bbedda
+rectangle "R20.4 R20.4: Bug and ChangeRequest are OOP extensions of Req" as R_ea212274
+rectangle "R20.5 R20.5: Detail-view Traceability Chain shows ONLY trace" as R_7734f4e1
+rectangle "UC detailView.singularChain" as U_cd7b03bd
+rectangle "Class RbDetailDrawer" as C_d86af73d
+rectangle "Method RbDetailDrawer.singularChain" as M_e945e562
+rectangle "CR1 CR1: Rename 'Champagne Chain' label to 'Traceability Cha" as R_b04fc9af
+rectangle "UC detailView.unifyChainLabel" as U_e2807a7b
+rectangle "Class RbDetailView" as C_f2f84ce3
+rectangle "Method RbDetailView.unifyChainLabel" as M_9ed45878
+rectangle "BUG1 BUG1: Chain section shows Task as its own chain node + " as R_2d5f151e
+rectangle "R20.6a R20.6a: Global SelectionModel — app-wide selection ar" as R_2ad98e53
+rectangle "R20.6b R20.6b: Nothing selected → default drawer shows in-ro" as R_4bc97fdc
+rectangle "R20.6c R20.6c: Tap item middle → single-select, shown in det" as R_c1dbd4c3
+rectangle "R20.6d R20.6d: Long-press toggles add/remove from selection " as R_300a8952
+rectangle "R20.6e R20.6e: Selected items get CSS selected+active highli" as R_697965f7
+rectangle "R20.6f R20.6f: Drag one selected item → drags ALL selected i" as R_66a40392
+rectangle "R20.6g R20.6g: Consolidate multiple drawer implementations i" as R_7cda92d6
+rectangle "R20.6h R20.6h: Remove awkward CSS highlight on default drawe" as R_d6305209
+rectangle "BUG2 BUG2: Short tap accumulates selection instead of switch" as R_853d0c81
+rectangle "BUG3 BUG3: CSS regression — drawer layout must be grab-bar →" as R_8c1f37d1
+rectangle "BUG4 BUG4: Deselect must return drawer to CHAT mode, not clo" as R_76a2e5a4
+rectangle "R20.9 R20.9: Landscape orientation uses the wide space — sid" as R_678ed4f1
+rectangle "R20.10 R20.10: Selecting a ref opens the detail drawer for t" as R_0690ce5e
+rectangle "UC detailDrawer.openForRef" as U_3d091420
+rectangle "Method RbDetailDrawer.renderDetailForRef" as M_0a902bff
+rectangle "R20.11 R20.11: Drawer close action dismisses the drawer." as R_c83f86f6
+rectangle "UC detailDrawer.close" as U_8d5182ba
+rectangle "Method RbDetailDrawer.close" as M_f4b0acec
+rectangle "R20.12 R20.12: Current Sprint pinned at TOP of the traceabil" as R_0171efa2
+rectangle "UC sprintList.pinCurrent" as U_5d0686e4
+rectangle "Class TracePage" as C_e0fcc6a3
+rectangle "Method TracePage.renderPinnedSprint" as M_91af4ca4
+rectangle "R20.13 R20.13: CurrentSprint is a dedicated class that sets " as R_c559452e
+rectangle "R20.13.A R20.13.A: Always-visible realtime view of the curre" as R_0665cb0a
+rectangle "R20.14 R20.14: Realtime Traceability Skill — CMM3 automated:" as R_03e0a816
+rectangle "R20.17 R20.17: /trace shows the current tasks CurrentSprint " as R_b7894ac3
+rectangle "R20.16 R20.16: Test node in the chain displays its test-case" as R_a43dbb8d
+rectangle "R20.19 R20.19: Markdown is NOT source — /api/trace builds gr" as R_a7dcf3f8
+rectangle "UC traceGraph.buildFromIndex" as U_e5caaa7e
+rectangle "Class TraceGraph" as C_809e65ee
+rectangle "Method TraceGraph.buildFromScenarioIndex" as M_a3839bd8
+rectangle "R20.20 R20.20: Each describe/it test case = its own scenario" as R_1e3f9799
+rectangle "UC testCase.parseFromSource" as U_e4f5b693
+rectangle "Class TestCase" as C_68f356c1
+rectangle "Method TestCase.parseFromSource" as M_499b453f
+rectangle "R20.21 R20.21: Each verification gate = a scenario unit ior:" as R_102ab818
+rectangle "UC gate.recordVerdict" as U_37a27ef3
+rectangle "Class Gate" as C_2ed0fefa
+rectangle "Method Gate.recordVerdict" as M_569198e9
+rectangle "R20.22 R20.22: Pinned Current Sprint = Sprint node with 3 ta" as R_ba274db6
+rectangle "R20.23 R20.23: Every scenario type shows a source file:line " as R_0bf80613
+rectangle "R20.24 R20.24: Class detail links to its PUML file + rendere" as R_c3d6d560
+rectangle "R20.25 R20.25: Method detail links to PUML + TypeScript sour" as R_f5b37dcd
+rectangle "R20.26 R20.26: Test detail links to the test source file:lin" as R_2c514b18
+rectangle "R20.27 R20.27: Gate detail links to its source/evidence." as R_4d059f6a
+rectangle "R20.28 R20.28: rb-file-detail shows 'Open in preview' + 'Ope" as R_607146d1
+rectangle "UC fileDetail.previewAndNewTabButtons" as U_62290aa8
+rectangle "Class RbFileDetail" as C_37103cf0
+rectangle "Method RbFileDetail.renderActionButtons" as M_63d58e0f
+rectangle "R20.29 R20.29: Trace tree renders Method→Impl→Test→Gate chai" as R_edb3c4fe
+rectangle "R20.30 R20.30: Traceability Chain ≠ All Children — they must" as R_d7299c88
+rectangle "UC detailView.distinctSections" as U_d63bf19b
+rectangle "R20.31 R20.31: vCard enrich+store — upload stores .vcf next " as R_f3f26cab
+rectangle "UC vcard.enrichAndStore — store uploaded vCard next to avatar, " as U_3d9daab4
+rectangle "Class VCard vcard-download shared module + /api/vcard handlers" as C_d65925c0
+
+R_eeeabe81 --> U_709c458d
+U_709c458d --> C_3bc876b5
+C_3bc876b5 --> M_76bbedda
+R_7734f4e1 --> U_cd7b03bd
+U_cd7b03bd --> C_d86af73d
+C_d86af73d --> M_e945e562
+R_b04fc9af --> U_e2807a7b
+U_e2807a7b --> C_f2f84ce3
+C_f2f84ce3 --> M_9ed45878
+R_0690ce5e --> U_3d091420
+U_3d091420 --> C_d86af73d
+C_d86af73d --> M_0a902bff
+R_c83f86f6 --> U_8d5182ba
+U_8d5182ba --> C_d86af73d
+C_d86af73d --> M_f4b0acec
+R_0171efa2 --> U_5d0686e4
+U_5d0686e4 --> C_e0fcc6a3
+C_e0fcc6a3 --> M_91af4ca4
+R_a7dcf3f8 --> U_e5caaa7e
+U_e5caaa7e --> C_809e65ee
+C_809e65ee --> M_a3839bd8
+R_1e3f9799 --> U_e4f5b693
+U_e4f5b693 --> C_68f356c1
+C_68f356c1 --> M_499b453f
+R_102ab818 --> U_37a27ef3
+U_37a27ef3 --> C_2ed0fefa
+C_2ed0fefa --> M_569198e9
+R_607146d1 --> U_62290aa8
+U_62290aa8 --> C_37103cf0
+C_37103cf0 --> M_63d58e0f
+R_d7299c88 --> U_d63bf19b
+R_f3f26cab --> U_3d9daab4
+U_3d9daab4 --> C_d65925c0
+
+@enduml

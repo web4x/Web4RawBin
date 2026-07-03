@@ -1,0 +1,42 @@
+@startuml sprint-24-traceability-skills-chains
+title Sprint 24 — Traceability Skills - Requirement Chains (scenario-derived)
+left to right direction
+
+rectangle "R24.1 Object.verb skill introspection + generation engine" as R_527f154f
+rectangle "UC objectVerb.introspectAndEmit" as U_b77a3494
+rectangle "Class ObjectVerbEngine" as C_dbcd870e
+rectangle "Method ObjectVerbEngine.introspect" as M_750105fd
+rectangle "R24.2 Pin management skill CurrentSprint lifecycle" as R_a545f899
+rectangle "UC pin.manageLifecycle" as U_90f9bfe3
+rectangle "Class Pin" as C_836ecc9c
+rectangle "Method Pin.focus" as M_c0eb9e24
+rectangle "R24.3 Chain scoring skill measurement instruments" as R_fc9a7079
+rectangle "UC chain.score" as U_4b66c336
+rectangle "Class Chain" as C_0bbe576f
+rectangle "Method Chain.scoreboard" as M_edee3e37
+rectangle "R24.4 Sprint planning skill scenario-MD ViewGenerator" as R_9dd36e28
+rectangle "UC sprint.generateView" as U_4a606188
+rectangle "Class SprintViewGenerator" as C_93f9afc7
+rectangle "Method SprintViewGenerator.generateSprint" as M_1584807f
+rectangle "R24.5 Traceability audit skill chain integrity + CI gate" as R_79bc8e34
+rectangle "UC trace.audit" as U_099aa3ed
+rectangle "Class TraceAudit" as C_bf626dad
+rectangle "Method TraceAudit.check" as M_db58f0c5
+
+R_527f154f --> U_b77a3494
+U_b77a3494 --> C_dbcd870e
+C_dbcd870e --> M_750105fd
+R_a545f899 --> U_90f9bfe3
+U_90f9bfe3 --> C_836ecc9c
+C_836ecc9c --> M_c0eb9e24
+R_fc9a7079 --> U_4b66c336
+U_4b66c336 --> C_0bbe576f
+C_0bbe576f --> M_edee3e37
+R_9dd36e28 --> U_4a606188
+U_4a606188 --> C_93f9afc7
+C_93f9afc7 --> M_1584807f
+R_79bc8e34 --> U_099aa3ed
+U_099aa3ed --> C_bf626dad
+C_bf626dad --> M_db58f0c5
+
+@enduml

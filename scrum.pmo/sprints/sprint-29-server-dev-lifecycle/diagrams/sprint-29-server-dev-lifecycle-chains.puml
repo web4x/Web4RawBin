@@ -1,0 +1,56 @@
+@startuml sprint-29-server-dev-lifecycle-chains
+title Sprint 29 — Server & Dev Lifecycle - Requirement Chains (scenario-derived)
+left to right direction
+
+rectangle "R29.1 Self-healing npm start that preserves the interactive " as R_e25f1437
+rectangle "UC serverLifecycle.selfHealingStart" as U_db5835f5
+rectangle "Class StartLauncher" as C_8b139b59
+rectangle "Class ServerTUI" as C_987788e2
+rectangle "Method StartLauncher.selfHealingStart" as M_1c5039bc
+rectangle "R29.3 First-class Server config scenario unit replaces .env" as R_781fa6ac
+rectangle "UC server.configFromScenarioUnit" as U_21b0dc9a
+rectangle "Class ServerConfig" as C_ed94e371
+rectangle "Method ServerConfig.fromScenarioUnit" as M_7d9e03f3
+rectangle "R29.4 Governance: no auto-minting of new sprints Tron author" as R_9e49041e
+rectangle "UC sprintGovernance.tronAuthorizedMint" as U_dd203674
+rectangle "Class TraceAudit" as C_bf626dad
+rectangle "Method TraceAudit.assertSprintAuthorized" as M_a72b2b57
+rectangle "R29.5 First-class AgentMessage scenario unit peer to Task/Re" as R_51b87013
+rectangle "UC agentMessage.unitType" as U_2a150baf
+rectangle "Class AgentMessage" as C_8758e33a
+rectangle "Method AgentMessage.defineUnitType" as M_78812043
+rectangle "R29.6 Async mailbox: send writes+commits a unit; recipient p" as R_71f34bf9
+rectangle "UC mailbox.sendAndPull" as U_3a74e3b2
+rectangle "Class AgentMailbox" as C_62793302
+rectangle "Method AgentMailbox.send" as M_0260208a
+rectangle "R29.7 No live prompt/keystroke injection between agents" as R_1aeac13e
+rectangle "UC mailbox.noLiveInjection" as U_2fbd9ff5
+rectangle "Method TraceAudit.assertNoLiveInjection" as M_1849fc15
+rectangle "R29.8 Task.messages[] link + agentMessage skill verbs send/i" as R_8f65a0b4
+rectangle "UC agentMessage.skillVerbs" as U_d90db09d
+rectangle "Method AgentMailbox.inbox" as M_5dbe8b9f
+
+R_e25f1437 --> U_db5835f5
+U_db5835f5 --> C_8b139b59
+U_db5835f5 --> C_987788e2
+C_8b139b59 --> M_1c5039bc
+R_781fa6ac --> U_21b0dc9a
+U_21b0dc9a --> C_ed94e371
+C_ed94e371 --> M_7d9e03f3
+R_9e49041e --> U_dd203674
+U_dd203674 --> C_bf626dad
+C_bf626dad --> M_a72b2b57
+R_51b87013 --> U_2a150baf
+U_2a150baf --> C_8758e33a
+C_8758e33a --> M_78812043
+R_71f34bf9 --> U_3a74e3b2
+U_3a74e3b2 --> C_62793302
+C_62793302 --> M_0260208a
+R_1aeac13e --> U_2fbd9ff5
+U_2fbd9ff5 --> C_bf626dad
+C_bf626dad --> M_1849fc15
+R_8f65a0b4 --> U_d90db09d
+U_d90db09d --> C_62793302
+C_62793302 --> M_5dbe8b9f
+
+@enduml

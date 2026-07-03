@@ -1,0 +1,8 @@
+@startuml sprint-11-traceability-chains
+title Sprint 11 — Traceability - Requirement Chains (scenario-derived)
+left to right direction
+
+rectangle "Requirement  UUID short  Task  Category" as R_41c68a9a
+
+
+@enduml

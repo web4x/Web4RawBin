@@ -1,0 +1,56 @@
+@startuml sprint-27-detail-view-enhancements-chains
+title Sprint 27 — Detail View Enhancements - Requirement Chains (scenario-derived)
+left to right direction
+
+rectangle "R27.1 Task detail renders the status checklist visually" as R_90b82d00
+rectangle "UC taskDetail.renderStatusChecklist" as U_050c5b9a
+rectangle "Class RbTaskDetail" as C_4df19279
+rectangle "Method RbTaskDetail.renderStatusChecklist" as M_bfd21995
+rectangle "R27.2 One canonical Class unit per code class no per-req Cla" as R_64965538
+rectangle "UC chain.reuseCanonicalClass" as U_37c52953
+rectangle "Class ClassMint" as C_2bf3d075
+rectangle "Class TraceAudit" as C_bf626dad
+rectangle "R27.3 Per-task MD view generation every 📄 link resolves, no" as R_4f6d6402
+rectangle "UC sprintMd.perTaskGeneration" as U_10ef702c
+rectangle "Class SprintViewGenerator" as C_93f9afc7
+rectangle "Method SprintViewGenerator.generateTaskMd" as M_0a542620
+rectangle "R27.4 Graph integrity: resolve/prune dangling UC refs + orph" as R_e205f7c3
+rectangle "UC graph.repairIntegrity" as U_f7a06e18
+rectangle "Class GraphIntegrity" as C_4304c9b0
+rectangle "Method GraphIntegrity.repairIntegrity" as M_d9a3f4f4
+rectangle "R27.7 WebItem type-aware preview drawer" as R_54002f11
+rectangle "UC webItemDrawer.previewByType" as U_d48b4dda
+rectangle "Class RbDetailDrawer" as C_d86af73d
+rectangle "Class RbWebItemDetail" as C_b8e96a25
+rectangle "Method RbWebItemDetail.previewByType" as M_187a1c5e
+rectangle "UC webItem.serverProxyFetch" as U_543ff7aa
+rectangle "Class ProxyFetch" as C_09f4cdce
+rectangle "Method ProxyFetch.fetchSanitized" as M_ee3fad72
+rectangle "R27.8 Detail drawer regression: X closes + minimized-on-open" as R_a5da3f93
+rectangle "UC detailDrawer.closeAndMinimize" as U_3b6e58e3
+rectangle "Method RbDetailDrawer.closeAndMinimize" as M_22f951cc
+
+R_90b82d00 --> U_050c5b9a
+U_050c5b9a --> C_4df19279
+C_4df19279 --> M_bfd21995
+R_64965538 --> U_37c52953
+U_37c52953 --> C_2bf3d075
+U_37c52953 --> C_bf626dad
+R_4f6d6402 --> U_10ef702c
+U_10ef702c --> C_93f9afc7
+C_93f9afc7 --> M_0a542620
+R_e205f7c3 --> U_f7a06e18
+U_f7a06e18 --> C_4304c9b0
+C_4304c9b0 --> M_d9a3f4f4
+R_54002f11 --> U_d48b4dda
+U_d48b4dda --> C_d86af73d
+U_d48b4dda --> C_b8e96a25
+C_d86af73d --> M_187a1c5e
+R_54002f11 --> U_543ff7aa
+U_543ff7aa --> C_09f4cdce
+C_09f4cdce --> M_ee3fad72
+R_a5da3f93 --> U_3b6e58e3
+U_3b6e58e3 --> C_d86af73d
+C_d86af73d --> M_22f951cc
+
+@enduml

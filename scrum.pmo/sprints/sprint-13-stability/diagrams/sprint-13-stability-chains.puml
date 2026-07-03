@@ -1,0 +1,61 @@
+@startuml sprint-13-stability-chains
+title Sprint 13 — Stability - Requirement Chains (scenario-derived)
+left to right direction
+
+rectangle "R-V1: Version update bar must appear on new version PRIO..." as R_67bde18f
+rectangle "UC avatar.rekeyFix" as U_ba4fa0ee
+rectangle "Class Assets" as C_819aacf9
+rectangle "Method Assets.rekeyFix" as M_9357333d
+rectangle "UC lobby.newestFirst" as U_b94ec300
+rectangle "Class RbListOverview" as C_d48dc6bc
+rectangle "Method RbListOverview.newestFirst" as M_6a9bc473
+rectangle "UC lobby.multiRoom" as U_6dffeb33
+rectangle "Class Room" as C_2172dc56
+rectangle "Method Room.multiRoomLoad" as M_b98868fc
+rectangle "UC vcard.uploadOnboarding" as U_a631f79b
+rectangle "Class VCard" as C_bf440a63
+rectangle "Method VCard.uploadOnboarding" as M_0fc2b48d
+rectangle "Proper fix for the room-flood the same prod-pollution th..." as R_80ca8e83
+rectangle "R-A2: Avatar upload must work without exposing key errors..." as R_64328225
+rectangle "UC avatar.persist" as U_cd1ebb36
+rectangle "Method Assets.avatarPersist" as M_2dffbdab
+rectangle "R-ED1: Markdown preview must render hierarchical lists n..." as R_c32974c5
+rectangle "UC mdPreview.renderList" as U_774033af
+rectangle "Class MdPreview" as C_4f11ade5
+rectangle "Method MdPreview.renderList" as M_c01ecb88
+rectangle "R-R1: All user rooms load from disk on connect and appear..." as R_39a189d2
+rectangle "UC avatar.keylessUpload" as U_42d5a881
+rectangle "Method Assets.keylessUpload" as M_2787c403
+rectangle "Requirement  UUID short  Task  Workflow  Priority" as R_b2dfe117
+rectangle "FLAG: This may mean Tron's device is not receiving update..." as R_5b6122fe
+rectangle "UC pwa.updateBanner" as U_c3a3dc3a
+rectangle "Class ServiceWorker" as C_8bd3bd6b
+rectangle "Method ServiceWorker.updateBanner" as M_a91d7726
+rectangle "B2 B2: Recurring test-pollution — E2E specs leak users/rooms" as R_b548d481
+
+R_67bde18f --> U_ba4fa0ee
+U_ba4fa0ee --> C_819aacf9
+C_819aacf9 --> M_9357333d
+R_67bde18f --> U_b94ec300
+U_b94ec300 --> C_d48dc6bc
+C_d48dc6bc --> M_6a9bc473
+R_67bde18f --> U_6dffeb33
+U_6dffeb33 --> C_2172dc56
+C_2172dc56 --> M_b98868fc
+R_67bde18f --> U_a631f79b
+U_a631f79b --> C_bf440a63
+C_bf440a63 --> M_0fc2b48d
+R_64328225 --> U_cd1ebb36
+U_cd1ebb36 --> C_819aacf9
+C_819aacf9 --> M_2dffbdab
+R_c32974c5 --> U_774033af
+U_774033af --> C_4f11ade5
+C_4f11ade5 --> M_c01ecb88
+R_39a189d2 --> U_42d5a881
+U_42d5a881 --> C_819aacf9
+C_819aacf9 --> M_2787c403
+R_5b6122fe --> U_c3a3dc3a
+U_c3a3dc3a --> C_8bd3bd6b
+C_8bd3bd6b --> M_a91d7726
+
+@enduml

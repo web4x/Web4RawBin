@@ -1,0 +1,34 @@
+@startuml sprint-22-traceability-view-fixes-chains
+title Sprint 22 — Traceability View Fixes - Requirement Chains (scenario-derived)
+left to right direction
+
+rectangle "R22.1 Task detail: one chain section + MD-file Forward Links" as R_661836fd
+rectangle "UC detailView.singleChainSection" as U_4d0e454a
+rectangle "Class RbDetailView" as C_f2f84ce3
+rectangle "Method RbDetailView.renderChainPathSection" as M_edb49bb5
+rectangle "R22.2 Drawer pan/zoom: full mouse parity touch-first" as R_b7000fa1
+rectangle "UC panZoom.mouseParity" as U_ada54a0e
+rectangle "Class RbPanZoom" as C_e5e3c885
+rectangle "Method RbPanZoom.attachMouse" as M_09db9916
+rectangle "R22.3 Chain nodes link to their source artifacts per type" as R_2c1fd942
+rectangle "UC chainNode.sourceLink" as U_1371923a
+rectangle "Method RbDetailView.renderChainNodeSourceLink" as M_5d56d674
+rectangle "R22.4 PNG files clickable + open in preview same as SVG" as R_c13ee707
+rectangle "UC filePreview.imageClickable" as U_3ab76d13
+rectangle "Class FileBrowser" as C_0cb4be1b
+rectangle "Method FileBrowser.renderImageLink" as M_af4e16c1
+
+R_661836fd --> U_4d0e454a
+U_4d0e454a --> C_f2f84ce3
+C_f2f84ce3 --> M_edb49bb5
+R_b7000fa1 --> U_ada54a0e
+U_ada54a0e --> C_e5e3c885
+C_e5e3c885 --> M_09db9916
+R_2c1fd942 --> U_1371923a
+U_1371923a --> C_f2f84ce3
+C_f2f84ce3 --> M_5d56d674
+R_c13ee707 --> U_3ab76d13
+U_3ab76d13 --> C_0cb4be1b
+C_0cb4be1b --> M_af4e16c1
+
+@enduml
