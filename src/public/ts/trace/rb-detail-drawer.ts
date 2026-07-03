@@ -73,8 +73,9 @@ export class RbDetailDrawer extends HTMLElement {
       const ref = selected[0];
       const dp = this.detailPanel; if (dp) dp.dataset.currentRef = '';
       const sameRef = this.getAttribute('ref') === ref;
+      const wasOpen = this.hasAttribute('open');                // capture BEFORE mutating
       this.setAttribute('open', '');
-      this.setAttribute('minimized', '');
+      if (!wasOpen) this.setAttribute('minimized', '');         // R27.8(B, Tron): closed→open+peek; ALREADY OPEN (peek or expanded)→PRESERVE state, never force-collapse
       this.setAttribute('ref', ref);
       if (sameRef) this.renderDetailForRef(ref);
     } else if (selected.length === 0) {
@@ -90,8 +91,9 @@ export class RbDetailDrawer extends HTMLElement {
     if (name === 'ref') {
       const ref = this.getAttribute('ref');
       if (ref) {
+        const wasOpen = this.hasAttribute('open');            // capture BEFORE opening
         this.setAttribute('open', '');
-        this.setAttribute('minimized', ''); // R27.8: open MINIMIZED (peek) on first open; grab-bar expands
+        if (!wasOpen) this.setAttribute('minimized', '');     // R27.8(B, Tron): peek only when it was CLOSED; already-open → PRESERVE peek/expanded
         this.renderDetailForRef(ref);
       } else {
         this.removeAttribute('open');
