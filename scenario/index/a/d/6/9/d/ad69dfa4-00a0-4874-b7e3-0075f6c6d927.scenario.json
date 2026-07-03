@@ -10,9 +10,7 @@
     "sourceLine": 28,
     "parent": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e",
     "unitLinks": [],
-    "useCases": [
-      "ior:instance:0ec831d0-3c6b-4fea-aa22-78be9e8f7151"
-    ],
+    "useCases": [],
     "priority": "high",
     "description": "A chain-before-ship GATE that makes code-before-scenario IMPOSSIBLE by construction: trace:audit:strict + a pre-commit hook HARD-FAIL the build when a NEW [impl:uuid] marker on src has no linked Requirement chain (the marker's Impl unit must resolve AND be reachable Requirement->UseCase->Class->Method->Impl). It is DELTA-scoped - only NEW chain-less impls fail; pre-existing legacy chain-less markers are deferred/reported (no false-red), same delta-not-absolute discipline as the R27.2 INV2 gate. The detection reuses R27.5's marker-has-chain audit (no duplicate logic); R29.2 is the ENFORCEMENT that blocks the ship. This ends the retroactive-#126 tax (4x this session: R26.6/R27.1/R27.3/R29.1) structurally, not by 'try harder'.",
     "tronQuote": "> PO 2026-07-02: FAIL the build if a NEW [impl:uuid] on src has no linked Requirement chain (UC->Class->Method->Impl->Req resolves). DELTA-scoped (new only; legacy deferred, no false-red). The by-construction END of the retroactive-#126 tax.",
@@ -57,7 +55,8 @@
     ],
     "status": "superseded",
     "supersededBy": "ior:instance:f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc",
-    "supersededNote": "RETIRED 2026-07-02 per PO one-home ruling (do not double-own the chain-gate). Content folded into R27.5 as AC-marker-chain-detect (detection, Axis-4) + AC-chain-gate-enforce (delta-scoped enforcement). The detection-vs-enforcement split the architect wanted is preserved as those 2 ACs within R27.5. Kept as tombstone for traceability (wer schreibt der bleibt)."
+    "supersededNote": "RETIRED 2026-07-02 per PO one-home ruling (do not double-own the chain-gate). Content folded into R27.5 as AC-marker-chain-detect (detection, Axis-4) + AC-chain-gate-enforce (delta-scoped enforcement). The detection-vs-enforcement split the architect wanted is preserved as those 2 ACs within R27.5. Kept as tombstone for traceability (wer schreibt der bleibt).",
+    "useCasesClearedNote": "useCases cleared 2026-07-03 (retired->R27.5 tombstone; placeholder UC 0ec831d0 never minted, showed as dangling in the chain-diagram audit). Content lives in R27.5 AC-marker-chain-detect + AC-chain-gate-enforce."
   },
   "ownerIor": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e"
 }
