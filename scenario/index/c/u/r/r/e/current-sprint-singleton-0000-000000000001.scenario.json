@@ -21,10 +21,10 @@
         "updatedAt": "2026-07-02T18:20:28.174Z"
       }
     },
-    "nextBacklogOverride": "",
-    "lastCompletedUuid": "",
-    "lastCompletedName": "",
-    "lastCompletedReqUuid": "",
+    "nextBacklogOverride": "600fa089-c8a4-4977-a89b-504969e78170",
+    "lastCompletedUuid": "19700836-caa1-49c6-8dce-38ad832241eb",
+    "lastCompletedName": "Task 27.8: Detail drawer regression — X closes + minimized-on-open",
+    "lastCompletedReqUuid": "a5da3f93-0341-4856-90eb-bb25954c72a2",
     "slots": {
       "current": {
         "taskUuid": "179fafeb-0f00-4d64-be9f-e007f9801721",
