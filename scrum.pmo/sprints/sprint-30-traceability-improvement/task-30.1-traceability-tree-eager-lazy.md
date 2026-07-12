@@ -8,11 +8,11 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [ ] testing (in progress — tester runtime-gating)
 - [ ] QA Review
 - [ ] Done
 
@@ -38,16 +38,16 @@ Tron S30 Traceability Improvement: the traceability tree must scale (structure-e
 
 ## Acceptance Criteria
 
-- [ ] (tree) The top node is 'CurrentSprint: Sprint <N>' - the CURRENT sprint (not 'Current: Task X').
-- [ ] (tree) The CurrentSprint node has 3 EAGER children: Current / Last Completed / Next Backlog (task) - loaded as-is.
-- [ ] (tree) The 2nd top-level node = 'Sprints 01-<N>' COLLECTION parent, COLLAPSED, with a badge = sprint count.
-- [ ] (scaling) EAGER-LAZY: the collection eager-loads all sprint NODES but LAZY-loads their TASKS - a sprint's tasks load ONLY when that sprint node is expanded.
-- [ ] (tree) Exactly TWO top-level nodes (CurrentSprint + Sprints-collection); tasks never load until their sprint is expanded.
-- [ ] (scaling) Structure-eager / payload-lazy so the tree scales as sprints grow - the same loading pattern as R26 federation (structure eager, payload lazy).
+- [x] (tree) The top node is 'CurrentSprint: Sprint <N>' - the CURRENT sprint (not 'Current: Task X').
+- [x] (tree) The CurrentSprint node has 3 EAGER children: Current / Last Completed / Next Backlog (task) - loaded as-is.
+- [x] (tree) The 2nd top-level node = 'Sprints 01-<N>' COLLECTION parent, COLLAPSED, with a badge = sprint count.
+- [x] (scaling) EAGER-LAZY: the collection eager-loads all sprint NODES but LAZY-loads their TASKS - a sprint's tasks load ONLY when that sprint node is expanded.
+- [x] (tree) Exactly TWO top-level nodes (CurrentSprint + Sprints-collection); tasks never load until their sprint is expanded.
+- [x] (scaling) Structure-eager / payload-lazy so the tree scales as sprints grow - the same loading pattern as R26 federation (structure eager, payload lazy).
 
 ## Implementation
 
-STOOD UP (planning) — status Planned; chain-build awaits architect UC-refine + expert impl.
+BUILT + DEPLOYED (expert e649a695, commit 6ededd4bb, prod v0.7.10). Architect PDCA GREEN 6/6 (all ACs independently verified). Tester runtime-gating (testing hop in progress → QA Review once gated). ACs marked per architect independent verification.
 
 ## Subtasks
 
