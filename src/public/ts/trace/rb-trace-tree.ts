@@ -69,8 +69,9 @@ export class RbTraceTree extends HTMLElement {
     this.upgradeProperty('items');
     this.upgradeProperty('graph');
     try { this.expanded = new Set(JSON.parse(localStorage.getItem(this.lsKey) || '[]')); } catch { /* ignore */ }
-    if (this._items) { this.renderItems(); } else { this.render(); }
-    if (!this.getAttribute('data-seed-ior')) {
+    if (this.hasAttribute('data-eager-lazy')) { void this.renderCurrentSprintEagerLazy(); } // T30.1: 2-node eager-lazy tree
+    else if (this._items) { this.renderItems(); } else { this.render(); }
+    if (!this.getAttribute('data-seed-ior') && !this.hasAttribute('data-eager-lazy')) {
       this.unsub = ViewBus.subscribe('graph', () => this.render());
     }
     this.addEventListener('toggle-children', this.onToggleChildren as EventListener);
@@ -353,6 +354,41 @@ export class RbTraceTree extends HTMLElement {
       }) as EventListener);
     }
     return node;
+  }
+
+  // [impl:uuid:e649a695-331a-4631-9072-e04abecc27ce] R30.1 RbTraceTree.renderCurrentSprintEagerLazy
+  // T30.1 eager-lazy tree: exactly TWO top-level nodes — (1) "CurrentSprint: Sprint <N>" with 3 EAGER slot children
+  // (Current/Last Completed/Next Backlog); (2) "Sprints 01-<N>" COLLAPSED collection (badge=sprint count) with EAGER
+  // sprint-nodes whose TASKS load LAZILY on expand — via the SHARED R26.1 loader (buildSeedNode → fetchAndRenderChildren),
+  // never a 2nd loader. Structure eager / payload lazy.
+  async renderCurrentSprintEagerLazy(): Promise<void> {
+    const CS = 'current-sprint-singleton-0000-000000000001';
+    let sprints: Array<{ uuid: string; name: string; number?: number; hasChildren?: boolean }> = [];
+    let slots: Array<{ uuid: string; type: string; name: string; hasChildren?: boolean; status?: string }> = [];
+    let sprintName = 'Current Sprint';
+    try {
+      const [spRes, csRes, iorRes] = await Promise.all([
+        fetch('/api/trace/sprints'),
+        fetch(`${this.childrenUrl}${encodeURIComponent(CS)}?mode=trace`),
+        fetch(`/api/ior/ior:instance:${CS}`),
+      ]);
+      sprints = await spRes.json();
+      slots = (await csRes.json()).children || [];
+      const model = (await iorRes.json())?.unit?.model || {};
+      sprintName = String(model.sprintName || 'Current Sprint');
+    } catch { /* degrade to whatever loaded */ }
+    sprints = (sprints || []).slice().sort((a, b) => (a.number || 0) - (b.number || 0));
+    const N = sprints.length ? (sprints[sprints.length - 1].number || sprints.length) : 0;
+    const pad2 = (n: number) => String(n).padStart(2, '0');
+
+    this.innerHTML = '';
+    // (1) CurrentSprint — 3 EAGER slot children, OPEN
+    const csKids = slots.map(s => ({ uuid: s.uuid, type: s.type || 'Task', name: s.name, hasChildren: s.hasChildren !== false, status: s.status }));
+    this.appendChild(this.buildSeedNode(CS, 'CurrentSprint', `CurrentSprint: ${sprintName}`, csKids, true, undefined, undefined, undefined, true));
+    // (2) Sprints collection — EAGER sprint-nodes (tasks LAZY on expand), COLLAPSED, badge=sprint count
+    const spKids = sprints.map(sp => ({ uuid: sp.uuid, type: 'Sprint', name: sp.name, hasChildren: sp.hasChildren !== false }));
+    this.appendChild(this.buildSeedNode('sprints-collection-30-1', 'collection', `Sprints 01-${pad2(N)}`, spKids, true, undefined, undefined, undefined, false));
+    this.computeBadges();
   }
 
   async revealNode(uuid: string): Promise<void> {

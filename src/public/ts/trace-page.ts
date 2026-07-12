@@ -19,36 +19,17 @@ async function load(): Promise<void> {
     const traceData = await traceRes.json();
     const graph = deserialize(traceData.objects || []);
 
-    // Fetch Sprint nav roots
-    const sprintRes = await fetch('/api/trace/sprints');
-    const sprints: { uuid: string; type: string; name: string; hasChildren: boolean }[] = await sprintRes.json();
-
     treeMount.innerHTML = '';
 
-    // [impl:uuid:062b6920-e2a6-4774-b369-afac243dc46d] R20.12+R20.22 renderCurrentSprint
-    const CURRENT_SPRINT_UUID = 'current-sprint-singleton-0000-000000000001';
-    const renderCurrentSprint = () => {
-      const existing = treeMount.querySelector('.current-sprint-tree');
-      if (existing) existing.remove();
-      const tree = document.createElement('rb-trace-tree') as any;
-      tree.className = 'current-sprint-tree';
-      tree.setAttribute('data-seed-ior', CURRENT_SPRINT_UUID);
-      tree.setAttribute('data-mode', 'trace');
-      tree.setAttribute('data-always-expanded', '');
-      treeMount.insertBefore(tree, treeMount.firstChild);
-      tree.graph = graph;
-    };
-    renderCurrentSprint();
-    document.addEventListener('current-sprint-changed', () => renderCurrentSprint());
-
-    // Build Sprint root nodes as seed trees with mode=trace
-    for (const sprint of sprints) {
-      const tree = document.createElement('rb-trace-tree') as HTMLElement & { setGraph(g: unknown, broken: string[]): void };
-      tree.setAttribute('data-seed-ior', sprint.uuid);
-      tree.setAttribute('data-mode', 'trace');
-      treeMount.appendChild(tree);
-      (tree as any).graph = graph;
-    }
+    // T30.1: ONE eager-lazy tree = exactly TWO top-level nodes — "CurrentSprint: Sprint N" (3 eager slots) +
+    // "Sprints 01-N" COLLAPSED collection (eager sprint-nodes, each sprint's tasks LAZY on expand via the shared
+    // R26.1 loader). [impl marker on RbTraceTree.renderCurrentSprintEagerLazy.]
+    const tree = document.createElement('rb-trace-tree') as any;
+    tree.setAttribute('data-mode', 'trace');
+    tree.setAttribute('data-eager-lazy', '');
+    tree.graph = graph;
+    treeMount.appendChild(tree);
+    document.addEventListener('current-sprint-changed', () => tree.renderCurrentSprintEagerLazy());
 
     // Detail drawer
     const drawer = document.createElement('rb-detail-drawer');
