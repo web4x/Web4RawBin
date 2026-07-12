@@ -6,8 +6,10 @@
 
 ## Sprint Goal
 
-First-class AgentMessage unit + ASYNC MAILBOX: send=write+commit a unit, recipient pulls at turn boundary, NO keystroke injection - the structural fix for agent-to-agent messaging (ends sent-!=-delivered). R30.1 unit type / R30.2 async mailbox / R30.3 no-live-injection / R30.4 Task.messages[] + skill verbs.
+Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' with 3 EAGER children (Current / Last Completed / Next Backlog) + a 'Sprints 01-<N>' collection (collapsed, count badge). Structure-eager / payload-lazy: sprint nodes eager, their TASKS load only when the sprint is expanded — so the tree scales as sprints grow (same eager-structure/lazy-payload pattern as R26 federation).
 
 **Status:** Planned
 
 ## Tasks
+
+- [ ] [Task 30.1: Traceability tree — CurrentSprint top + eager-lazy Sprints collection](./task-30.1-traceability-tree-eager-lazy.md)
