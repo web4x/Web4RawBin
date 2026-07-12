@@ -22,7 +22,8 @@
     "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
     "sprintName": "Sprint 30",
     "createdBy": "robbin-planner",
-    "createdAt": "2026-07-12"
+    "createdAt": "2026-07-12",
+    "focus": true
   },
   "ownerIor": null
 }
