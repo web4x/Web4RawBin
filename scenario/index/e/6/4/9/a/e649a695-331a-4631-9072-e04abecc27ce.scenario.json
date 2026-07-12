@@ -6,7 +6,9 @@
     "description": "DESIGN-AHEAD (T30.1, rb-trace-tree.ts). 6 ACs: (1) exactly 2 TOP nodes = CurrentSprint node + Sprints-collection node; (2) CurrentSprint has 3 EAGER children = Current / Last / Next; (3) the Sprints-collection renders sprint NODES eager; (4) each sprint's TASKS load LAZILY on expand-click; (5) structure-eager/payload-lazy = the R26-federation pattern (shared R26.1 lazy-resolve loader, NOT a 2nd loader); (6) scales as sprints accumulate. Expert places [impl:uuid] on the method.",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "designAhead": true,
-    "tests": []
+    "tests": [
+      "ior:instance:7b37982c-11a8-4ff9-9353-58e136a3b84b"
+    ]
   },
   "ownerIor": "ior:instance:eeba826d-8a2f-486f-b1d1-fe8bfbc42c61"
 }

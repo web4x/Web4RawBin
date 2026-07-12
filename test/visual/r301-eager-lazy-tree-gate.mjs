@@ -1,3 +1,4 @@
+// [test:uuid:7b37982c-11a8-4ff9-9353-58e136a3b84b] R30.1 RbTraceTree.renderCurrentSprintEagerLazy — eager-lazy trace tree (DET-3x GREEN)
 // T30.1 gate — eager-lazy traceability tree (RbTraceTree.renderCurrentSprintEagerLazy, impl
 // e649a695, LIVE prod v0.7.10 6ededd4bb). READ-ONLY, 0 pollution (trace page, no user/room).
 // serviceWorkers:'block' = hard-refresh past SW cache. DET-3x.

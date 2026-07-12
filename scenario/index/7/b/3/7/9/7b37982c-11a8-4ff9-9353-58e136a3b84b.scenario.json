@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7b37982c-11a8-4ff9-9353-58e136a3b84b",
+    "name": "test:T30.1 RbTraceTree.renderCurrentSprintEagerLazy gate",
+    "description": "Bridged to test/visual/r301-eager-lazy-tree-gate.mjs — eager-lazy trace tree: CurrentSprint top + 3 eager slots + Sprints 01-30 collapsed(badge30) + lazy tasks via R26.1 loader (DET-3x GREEN)",
+    "sourceFile": "ior:file:test/visual/r301-eager-lazy-tree-gate.mjs",
+    "implementations": [
+      "ior:instance:e649a695-331a-4631-9072-e04abecc27ce"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e649a695-331a-4631-9072-e04abecc27ce"
+}
