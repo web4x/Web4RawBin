@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "222b84b6-b806-4412-b477-5e0a2db90e1f",
+    "kind": "link",
+    "name": "Services | Cerulean Circle",
+    "description": "https://shop.ceruleancircle.com/en/services",
+    "url": "https://shop.ceruleancircle.com/en/services",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=shop.ceruleancircle.com&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "8be52aa9-7db8-4e3a-8356-eed920dd1f1a",
+    "parentFolder": "ior:instance:8be52aa9-7db8-4e3a-8356-eed920dd1f1a",
+    "children": [],
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd"
+  },
+  "ownerIor": "ior:instance:8be52aa9-7db8-4e3a-8356-eed920dd1f1a"
+}

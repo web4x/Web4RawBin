@@ -1,0 +1,45 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "3ec1bf6e-a14b-45fa-86a3-2c27182659be",
+    "id": "3ec1bf6e-a14b-45fa-86a3-2c27182659be",
+    "name": "GRG TREFF",
+    "ownerToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1783785011564,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2hihUoKEgVIWE89Vf6F6\nuY+Pz890NNy5toU42oGD9i2dWgHdnqhgkO4Df5DJb84rGnoAUrO04zcpmc294hkS\nlimGIa5MyatdgWC9Aj5k6RNlEaM2EdupFa5n9NgAP4nwp52hQzHYmcv9VIJ4GGuM\nCG19hQmo0ctu3m7IMvLqjHaQSdRl72wX980K5jqTIXnP0VD3AFAao7z23xOLbMWa\nAEcd0tUHjhczxD9WAgZM9AMCmS8GWoC/0K8sQxpa6zzcSA8PkyJIMxf/CHoKimbT\n10tQDjB3EYbXGMrAuSPKlH2X9nsFQ5Rau1Xr+89n/tzoyUTaQlsnc+bF1lvOPE8A\ndQIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:b4f57923-4abf-4fbf-8a0e-f923c107f60a",
+        "name": "Kirsten",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1783864283443
+      },
+      {
+        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+        "name": "Marcel Donges",
+        "role": "owner",
+        "status": "offline",
+        "joinedAt": 1783864283443
+      }
+    ],
+    "files": [
+      "ior:instance:c8ca83bb-84bd-4223-a15a-3421da0ac86f"
+    ],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/3/e/c/1/b/3ec1bf6e-a14b-45fa-86a3-2c27182659be.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd/3ec1bf6e-a14b-45fa-86a3-2c27182659be.json"
+    ]
+  },
+  "ownerIor": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd"
+}

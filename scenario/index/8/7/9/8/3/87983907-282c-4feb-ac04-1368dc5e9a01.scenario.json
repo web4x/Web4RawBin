@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "87983907-282c-4feb-ac04-1368dc5e9a01",
+    "name": "TraceAudit.refSlots impl",
+    "description": "DESIGN-AHEAD: REF_SLOTS registry (per-unitType fwd/back/cross/data-tier + EXCLUDE tokens) driving trace:audit:strict — Axis1 ref-integrity (dangling over all slots) + Axis2 node-well-formedness (missing-uuid/filename!=uuid) + Axis3 one-class-per-file + Axis4 marker-has-chain. Design r27.5-canonical-ref-slot-registry.md.",
+    "sourceFile": "ior:file:scripts/trace-audit.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:a3b0bd66-fa9e-41e8-9134-84677b7aeb0b"
+}

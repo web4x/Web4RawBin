@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "e194f914-2f17-4372-9bc1-4cea694d60d2",
+    "name": "Investor PitchDeck V22 6Mil.pdf",
+    "contentPath": "index/e/1/9/4/f/e194f914-2f17-4372-9bc1-4cea694d60d2.content",
+    "size": 1757029,
+    "mimeType": "application/pdf",
+    "uploadedAt": "2026-07-09T12:16:44.308Z",
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+    "roomUuid": "8be52aa9-7db8-4e3a-8356-eed920dd1f1a",
+    "contentHash": "6a17beca6586275d61da67a6f864c15c26b9012c4008bd15b9555bb17544c742",
+    "unitLinks": [
+      "content/6a17beca6586275d61da67a6f864c15c26b9012c4008bd15b9555bb17544c742.file.scenario.json",
+      "../data/users/8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd/rooms/8be52aa9-7db8-4e3a-8356-eed920dd1f1a/files/e194f914-2f17-4372-9bc1-4cea694d60d2.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:8be52aa9-7db8-4e3a-8356-eed920dd1f1a"
+}

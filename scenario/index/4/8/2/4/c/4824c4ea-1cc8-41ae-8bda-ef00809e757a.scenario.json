@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Profile",
+  "model": {
+    "uuid": "4824c4ea-1cc8-41ae-8bda-ef00809e757a",
+    "name": "Lindar Winnie Otieno",
+    "phones": [],
+    "emails": [],
+    "addresses": [],
+    "companies": [],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

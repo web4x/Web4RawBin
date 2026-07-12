@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "3aca9d59-7f87-4ba3-8567-97b1cfa2ae75",
+    "kind": "link",
+    "name": "app#file.show?uuid=d4869809-d65a-46b1-a1e3-46333a20bd8d",
+    "description": "https://home.donges.it:4444/app#file.show?uuid=d4869809-d65a-46b1-a1e3-46333a20bd8d",
+    "url": "https://home.donges.it:4444/app#file.show?uuid=d4869809-d65a-46b1-a1e3-46333a20bd8d",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=home.donges.it:4444&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "6c04f959-f3d6-42eb-818f-5e2e4498bf91",
+    "parentFolder": "ior:instance:6c04f959-f3d6-42eb-818f-5e2e4498bf91",
+    "children": [],
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd"
+  },
+  "ownerIor": "ior:instance:6c04f959-f3d6-42eb-818f-5e2e4498bf91"
+}

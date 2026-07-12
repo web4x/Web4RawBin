@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "f08ec274-8665-4bd6-a3bb-e60c9870cd36",
+    "kind": "link",
+    "name": "Maps 8CwQRZVJXvxB6iXV6",
+    "description": "https://maps.app.goo.gl/8CwQRZVJXvxB6iXV6?g_st=iw",
+    "url": "https://maps.app.goo.gl/8CwQRZVJXvxB6iXV6?g_st=iw",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=maps.app.goo.gl&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "parentFolder": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62",
+    "children": [],
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd"
+  },
+  "ownerIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62"
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "5ff15c57-503c-45f7-a4c0-82f7969d3646",
+    "name": "audit.canonicalRefSlots",
+    "description": "trace:audit:strict scans via the canonical REF_SLOTS registry (2+2 axes: ref-integrity + node-well-formedness + one-class-per-file + marker-has-chain; token/edge/self classification excludes ~500 auth-token false-pos). Detect + delta-scoped enforce (folded R29.2).",
+    "class": "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b",
+    "classes": [
+      "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b"
+    ],
+    "method": "ior:instance:a3b0bd66-fa9e-41e8-9134-84677b7aeb0b",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc"
+}

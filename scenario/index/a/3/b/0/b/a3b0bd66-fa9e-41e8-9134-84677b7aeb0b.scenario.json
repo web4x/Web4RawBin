@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "a3b0bd66-fa9e-41e8-9134-84677b7aeb0b",
+    "name": "TraceAudit.refSlots",
+    "description": "The canonical REF_SLOTS registry + the 4-axis scan (ref-integrity / node-well-formedness / one-class-per-file / marker-has-chain). Single-source detection; reachability walk seeds Requirement+Sprint roots traversing forward only.",
+    "sourceFile": "ior:file:scripts/trace-audit.ts",
+    "implementations": [
+      "ior:instance:87983907-282c-4feb-ac04-1368dc5e9a01"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b"
+}

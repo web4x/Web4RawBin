@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "c8ca83bb-84bd-4223-a15a-3421da0ac86f",
+    "kind": "link",
+    "name": "aim2balance.ai | Bergwaldprojekt e.V.",
+    "description": "https://www.bergwaldprojekt.de/projekte/aim2balanceai",
+    "url": "https://www.bergwaldprojekt.de/projekte/aim2balanceai",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=www.bergwaldprojekt.de&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "3ec1bf6e-a14b-45fa-86a3-2c27182659be",
+    "parentFolder": "ior:instance:3ec1bf6e-a14b-45fa-86a3-2c27182659be",
+    "children": [],
+    "uploaderToken": "b4f57923-4abf-4fbf-8a0e-f923c107f60a"
+  },
+  "ownerIor": "ior:instance:3ec1bf6e-a14b-45fa-86a3-2c27182659be"
+}

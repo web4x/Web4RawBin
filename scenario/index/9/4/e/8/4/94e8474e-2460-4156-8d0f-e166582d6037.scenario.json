@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "94e8474e-2460-4156-8d0f-e166582d6037",
+    "kind": "link",
+    "name": "app#file.show?uuid=af65e267-6a54-49ad-a619-3d7fc1541bb0",
+    "description": "https://test.wo-da.de:4444/app#file.show?uuid=af65e267-6a54-49ad-a619-3d7fc1541bb0",
+    "url": "https://test.wo-da.de:4444/app#file.show?uuid=af65e267-6a54-49ad-a619-3d7fc1541bb0",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=test.wo-da.de:4444&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "parentFolder": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62",
+    "children": [],
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd"
+  },
+  "ownerIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62"
+}

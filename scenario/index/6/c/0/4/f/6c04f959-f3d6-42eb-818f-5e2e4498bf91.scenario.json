@@ -20,35 +20,36 @@
         "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1783069513113
+        "joinedAt": 1783520549040
       },
       {
         "ior": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
         "name": "SystemTester",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1783069513113
+        "joinedAt": 1783520549040
       },
       {
         "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
         "name": "Marcel Donges",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1783069513113
+        "joinedAt": 1783520549040
       },
       {
-        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
-        "name": "",
-        "role": "owner",
-        "status": "online",
-        "joinedAt": 1783069513113
+        "ior": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+        "name": "Marcel Donges",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1783520549040
       }
     ],
     "files": [
       "ior:instance:b9fa43a2-ea98-462d-b181-624ccb26d8ac",
       "ior:instance:2746ab4a-55d5-4bae-83dc-b38c6968515e",
       "ior:instance:63462717-1771-4775-aeda-d9947d7bcbd2",
-      "ior:instance:799a0e7b-8eb6-473b-90bb-d88f57f95197"
+      "ior:instance:799a0e7b-8eb6-473b-90bb-d88f57f95197",
+      "ior:instance:3aca9d59-7f87-4ba3-8567-97b1cfa2ae75"
     ],
     "lastMessageIor": null,
     "firstMessageIor": null,
