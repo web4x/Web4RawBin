@@ -12,8 +12,8 @@
   - [x] refinement
   - [x] creating test cases
   - [x] implementing
-  - [ ] testing (in progress — tester runtime-gating)
-- [ ] QA Review
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Traceability
@@ -47,7 +47,7 @@ Tron S30 Traceability Improvement: the traceability tree must scale (structure-e
 
 ## Implementation
 
-BUILT + DEPLOYED (expert e649a695, commit 6ededd4bb, prod v0.7.10). Architect PDCA GREEN 6/6 (all ACs independently verified). Tester runtime-gating (testing hop in progress → QA Review once gated). ACs marked per architect independent verification.
+BUILT+DEPLOYED (expert e649a695, prod v0.7.10). Gated GREEN DET-3x (tester f760f1559, 6/6 ACs + 3/3 det, payload-lazy network-verified); Test 7b37982c wired; chain-complete, credited 59/327. Architect PDCA GREEN 6/6. QA Review — Done-gate = Tron QA (Tron-requested live-tree feature).
 
 ## Subtasks
 
