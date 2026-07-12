@@ -2,9 +2,9 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 27.5: Canonical ref-slot registry + trace-audit calibration",
+    "name": "Current: Task 30.1: Traceability tree — CurrentSprint top + eager-lazy Sprints collection",
     "chain": {
-      "req": "f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc",
+      "req": "6f796898-4dbb-47a3-ab8a-914b4c80b353",
       "uc": "",
       "class": "",
       "method": "",
@@ -12,24 +12,24 @@
       "test": ""
     },
     "activeHop": 1,
-    "sprintName": "Sprint 28",
-    "taskName": "Task 27.5: Canonical ref-slot registry + trace-audit calibration",
+    "sprintName": "Sprint 30",
+    "taskName": "Task 30.1: Traceability tree — CurrentSprint top + eager-lazy Sprints collection",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-02T18:20:28.174Z"
+        "updatedAt": "2026-07-12T00:00:00.000Z"
       }
     },
-    "nextBacklogOverride": "600fa089-c8a4-4977-a89b-504969e78170",
+    "nextBacklogOverride": "179fafeb-0f00-4d64-be9f-e007f9801721",
     "lastCompletedUuid": "19700836-caa1-49c6-8dce-38ad832241eb",
     "lastCompletedName": "Task 27.8: Detail drawer regression — X closes + minimized-on-open",
     "lastCompletedReqUuid": "a5da3f93-0341-4856-90eb-bb25954c72a2",
     "slots": {
       "current": {
-        "taskUuid": "179fafeb-0f00-4d64-be9f-e007f9801721",
-        "taskName": "Task 27.5: Canonical ref-slot registry + trace-audit calibration",
-        "reqUuid": "f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc"
+        "taskUuid": "5665a0dd-750d-486b-964c-1bd221163ae4",
+        "taskName": "Task 30.1: Traceability tree — CurrentSprint top + eager-lazy Sprints collection",
+        "reqUuid": "6f796898-4dbb-47a3-ab8a-914b4c80b353"
       },
       "lastCompleted": {
         "taskUuid": "19700836-caa1-49c6-8dce-38ad832241eb",
@@ -37,9 +37,9 @@
         "reqUuid": "a5da3f93-0341-4856-90eb-bb25954c72a2"
       },
       "nextBacklog": {
-        "taskUuid": "600fa089-c8a4-4977-a89b-504969e78170",
-        "taskName": "Task 27.6: Repair the true-dangling refs surfaced by the ref-slot registry",
-        "reqUuid": "3a7d4df2-7588-4b09-a959-21708d68b8b1"
+        "taskUuid": "179fafeb-0f00-4d64-be9f-e007f9801721",
+        "taskName": "Task 27.5: Canonical ref-slot registry + trace-audit calibration",
+        "reqUuid": "f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc"
       }
     }
   },
