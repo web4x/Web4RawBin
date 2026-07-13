@@ -8,13 +8,13 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,12 +38,12 @@ S30 R30.6 3-way diff/merge editor (decomposed). Sub-task covering R30.6.1.
 
 ## Acceptance Criteria
 
-- [ ] (panes) Three panes: LEFT + RIGHT (the two compared versions) + CENTER (the merged result), side by side.
-- [ ] (highlight) Line-level diff highlighting between left<->center AND right<->center (changed/added/removed lines marked).
+- [x] (panes) Three panes: LEFT + RIGHT (the two compared versions) + CENTER (the merged result), side by side.
+- [x] (highlight) Line-level diff highlighting between left<->center AND right<->center (changed/added/removed lines marked).
 
 ## Implementation
 
-STOOD UP (planning) — status Planned. Chain DESIGNED by architect (d75d9b141), req minting the chain nodes now. Class = RbDiffEditor. Advance on architect T30.6.x build hop-signal.
+DONE-DELIVERED 2026-07-13: R30.6 3-way diff-editor core GATED GREEN 6/6 DET-3x (tester c16aad856), 70/338, all diff-editor (RbDiffEditor) methods GREEN. Chain-complete. (R30.6 umbrella stays open pending T30.6.6 entry-point + T30.6.7 OOSH-repo-targeting usability tasks.)
 
 ## Subtasks
 
