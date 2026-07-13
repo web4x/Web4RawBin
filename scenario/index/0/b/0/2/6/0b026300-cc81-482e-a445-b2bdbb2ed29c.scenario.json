@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0b026300-cc81-482e-a445-b2bdbb2ed29c",
+    "name": "RbFileTree.loadDir root-relPath fix",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-file-tree.ts",
+    "designAhead": false,
+    "fixPending": true,
+    "description": "loadDir is SHIPPED code; R30.5 = a 1-line bugfix at rb-file-tree.ts:31 (drop the ||'/' fallback so the root relPath stays '' instead of '/', which the server safePath rejects as Forbidden). Marker attaches to the existing loadDir decl once the expert applies the 1-line fix.",
+    "note": "R30.5 fix-pending: designAhead=false (code exists), marker attaches on the existing decl after the 1-line fix + [impl] tag."
+  },
+  "ownerIor": "ior:instance:b712d5bb-f4a4-4b3c-b7a7-bebe4441e100"
+}

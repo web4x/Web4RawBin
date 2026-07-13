@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "0916d007-6af3-49ba-8f7e-aac32d5ded6a",
+    "name": "RbFileTree",
+    "sourceFile": "ior:file:src/public/ts/components/rb-file-tree.ts",
+    "methods": [
+      "ior:instance:b712d5bb-f4a4-4b3c-b7a7-bebe4441e100"
+    ],
+    "note": "NEW Class (architect measured 0 existing RbFileTree; task 'reuse' was wrong -> mint fresh, no dup). rb-file-tree.ts. Minted by robbin-req single-minter (R29.9)."
+  },
+  "ownerIor": null
+}

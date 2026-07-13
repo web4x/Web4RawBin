@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "b712d5bb-f4a4-4b3c-b7a7-bebe4441e100",
+    "name": "RbFileTree.loadDir",
+    "implementations": [
+      "ior:instance:0b026300-cc81-482e-a445-b2bdbb2ed29c"
+    ],
+    "tests": [],
+    "note": "R30.5. Name EXACT = shipped code decl at rb-file-tree.ts:29, so the expert's [impl:uuid] marker AST-attaches (RoomBrowser.applyProfileName discipline)."
+  },
+  "ownerIor": "ior:instance:0916d007-6af3-49ba-8f7e-aac32d5ded6a"
+}
