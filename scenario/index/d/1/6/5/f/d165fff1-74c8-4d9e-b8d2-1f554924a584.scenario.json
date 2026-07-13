@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "d165fff1-74c8-4d9e-b8d2-1f554924a584",
+    "name": "Task 30.6.6: [Open Diff] toolbar button (editor entry point)",
+    "slug": "task-30.6.6-open-diff-entry",
+    "description": "Add an [Open Diff] toolbar button as the entry point to RbDiffEditor (currently there is NO way to open the editor). The button launches the 3-way diff editor with the LEFT pane = the current file. Gives users a discoverable way to open the diff/merge editor.",
+    "intention": "S30 R30.6 diff-editor USABILITY completion (R30.6.6): make the editor reachable + repo-safe.",
+    "context": "Covers R30.6.6 (91e06cc8). Class RbDiffEditor (code rb-diff-editor). Usability completion of R30.6 umbrella.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "STOOD UP (planning) — status Planned; expert builds impl (per PO). Advance on architect/PO build hop-signal.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.6.6 `[requirement:uuid:91e06cc8-57ce-482a-91ae-4c9f13751059]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:32effc0a-657d-4c5a-a187-4e073ebdafa7]`",
+    "acceptanceCriteria": "- [ ] (entry) An '📊 Open Diff' button appears in the editor toolbar (rb-editor-toolbar, next to View/Preview + Save), NOT a tab; works in both desktop and mobile form factors.\n- [ ] (entry) Clicking the button dispatches a bubbling toolbar-open-diff event; edit.ts handles it and calls RbEditorLayout.showDiff(currentFilePath).\n- [ ] (mount) showDiff lazily mounts <rb-diff-editor> (like rb-file-tree/rb-code-editor) — not eagerly loaded before first use.\n- [ ] (preselect) The diff opens with the LEFT pane preselected to the CURRENT editor file — its path AND current content (reuse the editor's current-file state / rb-code-editor.getValue()) — ready to compare; the user then picks the RIGHT side.",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:91e06cc8-57ce-482a-91ae-4c9f13751059"
+    ],
+    "useCases": [
+      "ior:instance:32effc0a-657d-4c5a-a187-4e073ebdafa7"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-13"
+  },
+  "ownerIor": null
+}

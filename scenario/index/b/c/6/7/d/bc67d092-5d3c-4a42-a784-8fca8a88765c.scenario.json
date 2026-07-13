@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "bc67d092-5d3c-4a42-a784-8fca8a88765c",
+    "name": "Task 30.6.7: OOSH-repo targeting via RepoRegistry allowlist",
+    "slug": "task-30.6.7-oosh-repo-targeting",
+    "description": "Target the correct OOSH repo in RbDiffEditor via a RepoRegistry key-allowlist: resolve which repo/path the diff operates on from an allow-listed registry key (not arbitrary paths), so the editor safely targets the intended OOSH repository.",
+    "intention": "S30 R30.6 diff-editor USABILITY completion (R30.6.7): make the editor reachable + repo-safe.",
+    "context": "Covers R30.6.7 (e8d2ac99). Class RbDiffEditor (code rb-diff-editor). Usability completion of R30.6 umbrella.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "STOOD UP (planning) — status Planned; expert builds impl (per PO). Advance on architect/PO build hop-signal.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.6.7 `[requirement:uuid:e8d2ac99-a844-4794-9f11-86911bb4e058]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:522473f3-f7b8-4444-91ec-101fd2bfee77]`",
+    "acceptanceCriteria": "- [ ] (security) The client supplies a repo KEY only (e.g. ?repo=oosh); the absolute path lives server-side in a RepoRegistry allowlist. A client-supplied absolute path is NEVER resolved.\n- [ ] (registry) RepoRegistry.resolve(key) returns the allowlisted absolute root for the key, else null; RepoRegistry.list() returns [{key,label}] for a repo picker. Allowlist config {rawbin:PROJECT_ROOT, oosh:<abs OOSH root>}.\n- [ ] (git) GitApi's hardcoded ROOT is replaced by a per-request RepoRegistry.resolve(req.repo) seam that BOTH OPTS.cwd and safeRelPath read; branches/commits/fileAtRef run with cwd=resolvedRoot. Unknown ?repo -> 400.\n- [ ] (security) safePath still applies WITHIN the resolved root (no '..', no leading '/', resolve(root,p).startsWith(root+sep)); read-only across all repos.\n- [ ] (wiring) /api/files accepts optional ?repo=<key>; RbFileTree.setRepo(key) sets a repo attr + reloads (loadDir appends ?repo); rb-diff-editor exposes a repo selector from RepoRegistry.list() feeding loadSide/pickFile/pickRef.\n- [ ] (back-compat) ?repo absent -> rawbin=PROJECT_ROOT; R30.5 and existing callers are unchanged.",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:e8d2ac99-a844-4794-9f11-86911bb4e058"
+    ],
+    "useCases": [
+      "ior:instance:522473f3-f7b8-4444-91ec-101fd2bfee77"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-13"
+  },
+  "ownerIor": null
+}
