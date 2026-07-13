@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "4f6e5b5c-c83a-45e6-b3f2-95c268761e1c",
+    "name": "test:R27.5 TraceAudit.auditDir gate",
+    "description": "Bridged to test/visual/r275-ref-slot-registry-gate.mjs — AC5: --dir retargets index-audit + well-formedness at the fixture tree (DET-3x GREEN)",
+    "sourceFile": "ior:file:test/visual/r275-ref-slot-registry-gate.mjs",
+    "verifies": [
+      "ior:instance:6f507bbf-f10f-4516-8ce6-41a9e95aec65"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:6f507bbf-f10f-4516-8ce6-41a9e95aec65"
+}

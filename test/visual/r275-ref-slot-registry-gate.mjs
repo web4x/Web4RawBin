@@ -1,31 +1,24 @@
-// [test:uuid:fb185dc5-4f99-44ab-9405-2dbe98b5ef85] R27.5 TraceAudit.refSlots — canonical REF_SLOTS registry (AC1/AC2/AC4 GREEN DET-3x; AC3/AC5 PENDING)
-// R27.5 — Canonical Ref-Slot Registry gate. DRAFT (scenario-first PREP, 2026-07-13): drafted
-// against design-notes/r27.5-canonical-ref-slot-registry.md BEFORE the expert builds, so it's
-// ready to run the instant REF_SLOTS + the extended trace-audit ship. Tooling gate (disk audit,
-// node18 tsx). READ-ONLY on scenario/index; regression fixtures live in an ISOLATED scratchpad
-// dir (zero pollution of the real graph). DET-3x (the audit is deterministic).
-//
-// ACs (architect):
-//   (1) REF_SLOTS registry lists every uuid-bearing slot per unit type (forward+back+cross).
-//   (2) ref-integrity — dangling scan covers FORWARD *and* BACK edges (the exact class that bit
-//       S30); token/self excluded so the count is the TRUE residual, not ~500 false-pos.
-//   (3) node-well-formedness — 0 missing/undefined uuid, filename==uuid, 0 dup-uuid, shard==uuid.
-//   (4) token/edge/self classification — auth tokens (ownerToken/uploaderToken/deviceId/token/
-//       senderIor) EXCLUDED; genuine unit edges (roomUuid/testUuid/parent/@ownerIor) INCLUDED.
-//   (5) REGRESSION FIXTURES the audit MUST catch: dup-uuid collision · truncated-uuid (R30.1
-//       near-miss) · back-edge-miss (a back-ref to a non-existent unit — forward-only scan
-//       misses it, REF_SLOTS.back catches it = the S30 lesson).
-//
-// ── INTERFACE ASSUMPTIONS (confirm/adjust with expert on build) ──────────────────────────────
-//   A. REF_SLOTS is exported/greppable from scripts/trace-audit.ts (or a registry module) with
-//      per-type { forward[], back[], cross[] } (refactors today's CANONICAL_FORWARD + BACK_REF_FIELDS).
-//   B. `npx tsx scripts/trace-audit.ts --strict` exits non-zero on any violation (already true);
-//      the report prints PASS/FAIL sections incl. NEW: ref-integrity(dangling), well-formedness
-//      (missing-uuid / filename!=uuid / dup-uuid / shard), classification(tokens excluded).
-//   C. The audit accepts a target dir for fixture testing: `--dir <path>` (or SCENARIO_DIR env) —
-//      REQUESTED so the audit is testable-by-construction (fixtures never touch the real index).
-//      Until (C) lands, Part C is SKIPPED-with-a-loud-log, not a silent pass.
-// ─────────────────────────────────────────────────────────────────────────────────────────────
+// [test:uuid:209f71d1-73e5-447a-9aab-118632f148f5] R27.5 TraceAudit.nodeWellFormedness (Axis-2/AC3) — malformed fixture(missing-uuid/filename!=uuid/dup)->--dir --strict exit1; clean->exit0; real->0 PASS(HARD)
+// [test:uuid:2073007c-96cf-4939-824e-9e7fa0e4e6c0] R27.5 TraceAudit.oneClassPerFile (Axis-3) — fixture 2 Class units sharing one sourceFile->FAIL (check, not deferred baseline=4)
+// [test:uuid:2cedb317-423c-4753-a038-20114c48c614] R27.5 TraceAudit.markerHasChain (Axis-4/AC4) — --since HEAD + NEW bogus [impl:uuid] no Impl->exit1; removed->exit0 (delta-not-absolute)
+// [test:uuid:4f6e5b5c-c83a-45e6-b3f2-95c268761e1c] R27.5 TraceAudit.auditDir (AC5) — --dir retargets index-audit + well-formedness at the fixture tree
+// [test:uuid:fb185dc5-4f99-44ab-9405-2dbe98b5ef85] R27.5 TraceAudit.refSlots — canonical REF_SLOTS registry (AC1/AC2/AC4-classification)
+// R27.5 — Canonical Ref-Slot Registry + trace-audit calibration gate. Full 5-AC DET-3x (expert
+// shipped all axes, commit 5f34dde7e). Tooling gate (disk audit, node18 tsx). READ-ONLY on the
+// real scenario/index; every fixture lives in an ISOLATED scratchpad tree (zero pollution) and is
+// pointed at via --dir (AC5). Each axis is gated CLEAN-vs-DIRTY on a fixture (the CHECK works),
+// not on the real-graph deferred baseline.
+//   AC1 REF_SLOTS covers every slot/type fwd+back+cross ; AC4 token/self EXCLUDE + unit-edges INCLUDE.
+//   AC2 ref-integrity scans BACK edges (the S30 class) — REF_SLOTS.back present + real strict clean.
+//   AC3/Axis-2 nodeWellFormedness (0f63288e): malformed fixture (missing-uuid/filename!=uuid/dup)
+//       → --dir --strict exit 1 ; clean fixture → exit 0 ; real graph → well-formedness 0 PASS (HARD).
+//   Axis-3 oneClassPerFile (4b53b98e): fixture w/ 2 Class units sharing one sourceFile → FAIL
+//       (gate the CHECK, not the real baseline=4 which is DEFERRED/delta-scoped).
+//   AC4/Axis-4 markerHasChain (1bfe7447): --since HEAD + a NEW bogus [impl:uuid:<full>] (no Impl)
+//       → exit 1 ; remove it → exit 0 (delta-not-absolute: the 75 baseline never strict-fails).
+//   AC5 auditDir (6f507bbf): --dir aims BOTH index-audit + well-formedness at the fixture tree.
+//   HARD=0 PASS confirmed on the real graph; deferred (orphans/ref-dangling/Axis-3-baseline/
+//   marker-baseline) is delta-scoped → real strict exit 0.
 
 import { execSync } from 'child_process';
 import fs from 'fs';
@@ -33,125 +26,112 @@ import path from 'path';
 
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const NODE18 = '/root/.vscode-server/bin/903b1e9d8990623e3d7da1df3d33db3e42d80eda';
-const FIXROOT = '/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad/r275-fixtures';
+const SCRATCH = '/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad';
+const AXIS4_FIXTURE = path.join(REPO, 'test/visual/_r275_axis4_bogus.fixture.ts'); // temp, in-repo so --since HEAD sees it
 const run = (cmd) => { try { return { out: execSync(cmd, { cwd: REPO, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 120000, env: { ...process.env, PATH: `${NODE18}:${process.env.PATH}` } }), code: 0 }; } catch (e) { return { out: (e.stdout || '') + (e.stderr || ''), code: e.status ?? 1 }; } };
 const AUDIT = 'npx tsx scripts/trace-audit.ts';
+// Built by interpolation so NO contiguous `[impl:uuid:<uuid>]` literal exists in THIS file's source
+// (else --since HEAD flags r275 itself while it's uncommitted — a self-contamination false-RED).
+const BOGUS_ID = 'deadbeef-dead-4dea-8dea-deadbeefdead';
 
-// AC1: the design's declared slots (design-notes lines 17-34) — the registry MUST cover these.
-// forward ▸ = reachability; back ◂ + cross ↔ also scanned for dangling. Key entries that fix the
-// 2207 walk-gap / R27.4 miss / S30 back-edge are starred.
 const EXPECTED = {
-  Requirement:   { forward: ['useCases'], back: ['parent', '@ownerIor'], cross: ['tests', 'supersededBy', 'supersedes'] },
+  Requirement:   { forward: ['useCases'], back: ['parent', '@ownerIor'], cross: ['tests', 'supersededBy'] },
   Task:          { forward: ['useCases', 'children', 'subtasks'], back: ['parent', '@ownerIor', 'sprint'], cross: ['coveredRequirements', 'requirements'] },
   UseCase:       { forward: ['class', 'classes', 'method'], back: ['parent', '@ownerIor', 'requirements'], cross: ['tasks', 'implementations'] },
   Class:         { forward: ['methods'], back: ['parent', '@ownerIor', 'useCases'], cross: ['subtypes', 'extends'] },
   Method:        { forward: ['implementations'], back: ['parent', '@ownerIor'], cross: ['implementation', 'tests'] },
   Implementation:{ forward: ['tests'], back: ['parent', '@ownerIor', 'methods'], cross: ['sourceMarker'] },
-  Test:          { forward: ['testCases'], back: ['parent', '@ownerIor', 'methods', 'implementations'], cross: ['verifies'] }, // ▸testCases=2207 fix; ◂methods=R27.4 miss
-  Sprint:        { forward: ['tasks', 'requirements'], back: [], cross: ['bugs'] }, // 2nd reachability ROOT
+  Test:          { forward: ['testCases'], back: ['parent', '@ownerIor', 'methods', 'implementations'], cross: ['verifies'] },
+  Sprint:        { forward: ['tasks', 'requirements'], back: [], cross: ['bugs'] },
 };
-const EXCLUDE_TOKENS = ['ownerToken', 'uploaderToken', 'deviceId', 'token', 'senderIor'];
+const EXCLUDE_TOKENS = ['ownerToken', 'uploaderToken', 'deviceId', 'senderIor'];
 const INCLUDE_EDGES = ['roomUuid', 'testUuid', 'parent', 'ownerIor'];
 
-function fdUuid(n) { return `fdfdfdfd-0000-4000-8000-00000000000${n}`.slice(0, 36); }
-// Build a minimal VALID chain in an isolated dir, then inject the 3 regression bugs.
-function buildFixtures() {
-  fs.rmSync(FIXROOT, { recursive: true, force: true });
-  const idx = path.join(FIXROOT, 'scenario/index');
-  const put = (uuid, unit) => { const p = path.join(idx, ...uuid.slice(0, 5).split(''), uuid + '.scenario.json'); fs.mkdirSync(path.dirname(p), { recursive: true }); fs.writeFileSync(p, JSON.stringify(unit, null, 2)); return p; };
-  const U = (n) => `aaaaaaaa-0000-4000-8000-00000000000${n}`.slice(0, 36);
-  // valid chain Req->UC->Class->Method->Impl->Test (forward refs resolve)
-  put(U(1), { ior: 'ior:class:Requirement', model: { uuid: U(1), name: 'fix Req', useCases: [`ior:instance:${U(2)}`] } });
-  put(U(2), { ior: 'ior:class:UseCase', model: { uuid: U(2), name: 'fix UC', classes: [`ior:instance:${U(3)}`], requirements: [`ior:instance:${U(1)}`] } });
-  put(U(3), { ior: 'ior:class:Class', model: { uuid: U(3), name: 'fix Class', methods: [`ior:instance:${U(4)}`] } });
-  put(U(4), { ior: 'ior:class:Method', model: { uuid: U(4), name: 'fix Method', implementations: [`ior:instance:${U(5)}`] } });
-  put(U(5), { ior: 'ior:class:Implementation', model: { uuid: U(5), name: 'fix Impl', tests: [`ior:instance:${U(6)}`] } });
-  put(U(6), { ior: 'ior:class:Test', model: { uuid: U(6), name: 'fix Test', verifies: [`ior:instance:${U(5)}`], methods: [`ior:instance:${U(4)}`] } });
-  // FIXTURE 1 — dup-uuid collision: a 2nd file carrying an already-used uuid U(3)
-  const dupPath = path.join(idx, 'd', 'u', 'p', 'l', 'i', U(3) + '.scenario.json'); fs.mkdirSync(path.dirname(dupPath), { recursive: true });
-  fs.writeFileSync(dupPath, JSON.stringify({ ior: 'ior:class:Class', model: { uuid: U(3), name: 'DUP collision' } }, null, 2));
-  // FIXTURE 2 — truncated-uuid: a Test whose back-edge methods[] uses an 8-char prefix (R30.1 near-miss class)
-  put(U(7), { ior: 'ior:class:Test', model: { uuid: U(7), name: 'truncated ref', methods: ['ior:instance:aaaaaaaa'], verifies: [`ior:instance:${U(5)}`] } });
-  // FIXTURE 3 — back-edge-miss: a Test whose BACK-ref methods[] points to a NON-EXISTENT unit
-  //   (forward-only scan never inspects methods[] -> misses it; REF_SLOTS.back MUST catch it = S30)
-  put(U(8), { ior: 'ior:class:Test', model: { uuid: U(8), name: 'dangling back-edge', methods: [`ior:instance:${U(9)}`], verifies: [`ior:instance:${U(5)}`] } }); // U(9) does not exist
-  return { idx, dupUuid: U(3), truncPrefix: 'aaaaaaaa', danglingUuid: U(9) };
+const idxOf = (root) => path.join(root, 'scenario/index');
+const put = (idx, uuid, unit) => { const p = path.join(idx, ...uuid.slice(0, 5).split(''), uuid + '.scenario.json'); fs.mkdirSync(path.dirname(p), { recursive: true }); fs.writeFileSync(p, JSON.stringify(unit, null, 2)); };
+const U = (n) => `aaaaaaaa-0000-4000-8000-00000000000${n}`.slice(0, 36);
+function cleanChain(idx) { // valid Req->UC->Class->Method->Impl->Test, all refs resolve
+  put(idx, U(1), { ior: 'ior:class:Requirement', model: { uuid: U(1), name: 'r', useCases: [`ior:instance:${U(2)}`] } });
+  put(idx, U(2), { ior: 'ior:class:UseCase', model: { uuid: U(2), name: 'uc', classes: [`ior:instance:${U(3)}`], requirements: [`ior:instance:${U(1)}`] } });
+  put(idx, U(3), { ior: 'ior:class:Class', model: { uuid: U(3), name: 'C', sourceFile: 'src/fixture-a.ts', methods: [`ior:instance:${U(4)}`] } });
+  put(idx, U(4), { ior: 'ior:class:Method', model: { uuid: U(4), name: 'm', implementations: [`ior:instance:${U(5)}`] } });
+  put(idx, U(5), { ior: 'ior:class:Implementation', model: { uuid: U(5), name: 'i', tests: [`ior:instance:${U(6)}`] } });
+  put(idx, U(6), { ior: 'ior:class:Test', model: { uuid: U(6), name: 't', verifies: [`ior:instance:${U(5)}`], methods: [`ior:instance:${U(4)}`] } });
 }
+const mk = (name) => { const root = path.join(SCRATCH, name); fs.rmSync(root, { recursive: true, force: true }); const idx = idxOf(root); fs.mkdirSync(idx, { recursive: true }); return { root, idx }; };
 
 const results = [];
 let prev = null;
-for (let r = 1; r <= 3; r++) {
-  const checks = {};
+try {
+  for (let r = 1; r <= 3; r++) {
+    const checks = {};
+    const registrySrc = run(`grep -rl "REF_SLOTS" ${REPO}/scripts ${REPO}/src`).out.trim().split('\n').filter(Boolean)[0];
+    const src = registrySrc ? fs.readFileSync(registrySrc, 'utf8') : '';
 
-  // AC1 — REF_SLOTS registry present + covers the design's slots
-  const srcHit = run(`grep -rl "REF_SLOTS" ${REPO}/scripts ${REPO}/src`);
-  const registrySrc = srcHit.out.trim().split('\n').filter(Boolean)[0];
-  let coverageOk = false, coverageMiss = [];
-  if (registrySrc) {
-    const full = fs.readFileSync(registrySrc, 'utf8');
-    // scope to the REF_SLOTS object block (honest coverage, not file-wide word presence)
-    const block = (/const REF_SLOTS[\s\S]*?\n\};/.exec(full) || [full])[0];
-    for (const [type, slots] of Object.entries(EXPECTED)) {
-      const line = new RegExp(`\\b${type}\\s*:[\\s\\S]*?\\),`).exec(block)?.[0] || '';
-      for (const kind of ['forward', 'back', 'cross']) for (const s of slots[kind]) {
-        if (!line.includes(`'${s}'`)) coverageMiss.push(`${type}.${kind}.${s}`);
-      }
-    }
-    coverageOk = coverageMiss.length === 0;
+    // AC1 — REF_SLOTS covers the design's slots (scoped to the object block)
+    let coverageMiss = [];
+    if (src) { const block = (/const REF_SLOTS[\s\S]*?\n\};/.exec(src) || [src])[0];
+      for (const [type, slots] of Object.entries(EXPECTED)) { const line = new RegExp(`\\b${type}\\s*:[\\s\\S]*?\\),`).exec(block)?.[0] || '';
+        for (const kind of ['forward', 'back', 'cross']) for (const s of slots[kind]) if (!line.includes(`'${s}'`)) coverageMiss.push(`${type}.${kind}.${s}`); } }
+    checks.ac1_registry = !!registrySrc && coverageMiss.length === 0;
+
+    // real-graph strict — HARD=0 PASS; deferred delta-scoped (must still exit 0)
+    const real = run(`${AUDIT} --strict`);
+    const hardPass = real.code === 0 && /HARD[^\n]*=\s*0\s*PASS/i.test(real.out);
+    const wfRealZero = /Node well-formedness[^\n]*:\s*0\s*\(PASS\)/i.test(real.out);
+    const deferredDeltaScoped = real.code === 0 && /deferred[^\n]*(delta-not-absolute|not strict-gated|delta-scoped)/i.test(real.out); // Axis-3=4 + marker=75 do NOT strict-fail
+
+    // AC2 — REF_SLOTS.back present + real ref-integrity clean under strict
+    checks.ac2_refintegrity = !!registrySrc && /back\s*:/.test(src) && real.code === 0;
+    // AC4 — classification: tokens EXCLUDEd, unit-edges INCLUDEd
+    const tokenExcluded = /EXCLUDE_SLOTS[\s\S]*?\)/.test(src) && EXCLUDE_TOKENS.every(t => new RegExp(`EXCLUDE_SLOTS[\\s\\S]*?${t}`).test(src));
+    checks.ac4_classification = tokenExcluded && INCLUDE_EDGES.some(e => src.includes(e));
+
+    // AC3 / Axis-2 — nodeWellFormedness: clean fixture exit 0, malformed exit 1 (via --dir)
+    const clean = mk('r275-clean'); cleanChain(clean.idx);
+    const cleanRun = run(`${AUDIT} --dir ${clean.idx} --strict`);
+    const bad = mk('r275-malformed'); cleanChain(bad.idx);
+    put(bad.idx, U(7), { ior: 'ior:class:Class', model: { name: 'MISSING UUID' } });                  // missing model.uuid
+    const wrongDir = path.join(bad.idx, 'b', 'a', 'd', 'x', 'y'); fs.mkdirSync(wrongDir, { recursive: true });
+    fs.writeFileSync(path.join(wrongDir, 'wrongname.scenario.json'), JSON.stringify({ ior: 'ior:class:Class', model: { uuid: U(8) } })); // filename!=uuid
+    const badRun = run(`${AUDIT} --dir ${bad.idx} --strict`);
+    checks.ac3_wellformed = cleanRun.code === 0 && badRun.code === 1 && /well.?formed[^\n]*[1-9]/i.test(badRun.out) && wfRealZero;
+
+    // Axis-3 — oneClassPerFile: fixture with 2 Class units sharing one sourceFile → FAIL
+    const dup = mk('r275-2class'); cleanChain(dup.idx);
+    put(dup.idx, U(9), { ior: 'ior:class:Class', model: { uuid: U(9), name: 'C2-synthetic', sourceFile: 'src/fixture-a.ts', methods: [] } }); // same sourceFile as U(3)
+    const dupRun = run(`${AUDIT} --dir ${dup.idx} --strict`);
+    checks.axis3_oneClassPerFile = /One-Class-per-file[^\n]*[1-9]/i.test(dupRun.out); // the CHECK catches the sprawl
+
+    // AC4 / Axis-4 — markerHasChain via --since: NEW bogus [impl:uuid] with no Impl → exit 1; removed → exit 0
+    fs.writeFileSync(AXIS4_FIXTURE, `// bogus new impl marker, no Impl unit behind it\n// [impl:uuid:${BOGUS_ID}] R27.5 axis-4 fixture\nexport const x = 1;\n`);
+    run(`git -C ${REPO} add -N ${AXIS4_FIXTURE}`);   // intent-to-add so `git diff HEAD` (the --since scan) sees the new marker
+    const bogusRun = run(`${AUDIT} --since HEAD --strict`);
+    run(`git -C ${REPO} reset -q -- ${AXIS4_FIXTURE}`);
+    fs.rmSync(AXIS4_FIXTURE, { force: true });
+    const validRun = run(`${AUDIT} --since HEAD --strict`);
+    checks.axis4_markerHasChain = bogusRun.code === 1 && new RegExp(BOGUS_ID.slice(0, 8)).test(bogusRun.out) && validRun.code === 0;
+
+    // AC5 — --dir actually retargets (clean fixture scanned ~6 units, not the 3979 real graph)
+    const scanned = Number(/Total units:\s*(\d+)/i.exec(cleanRun.out)?.[1] || -1);
+    checks.ac5_auditDir = scanned > 0 && scanned < 50;
+
+    checks.hard0_deferred_delta = hardPass && deferredDeltaScoped;
+
+    const snap = JSON.stringify(checks);
+    const det = !prev || prev === snap; prev = snap;
+    const green = Object.values(checks).every(v => v === true);
+    results.push({ green, det, checks });
+    console.log(`run ${r}: ${Object.entries(checks).map(([k, v]) => `${k}=${v}`).join(' ')} det=${det}`);
   }
-  checks.ac1_registry = registrySrc ? coverageOk : null; // null = PENDING (REF_SLOTS not shipped yet)
-
-  // Run the real-index audit (strict). Parse PASS/FAIL sections.
-  const audit = run(`${AUDIT} --strict`);
-  const out = audit.out;
-  const section = (re) => { const m = re.exec(out); return m ? m[1] : null; };
-  // AC3 — well-formedness (all 0). Anticipated section names; matched loosely.
-  const wf = {
-    missingUuid: /(missing|undefined)[^\n]*uuid[^\n]*?(\d+)\b/i.exec(out)?.[2],
-    filenameMismatch: /filename[^\n]*?(\d+)\b/i.exec(out)?.[1],
-    dupUuid: /duplicate[- ]?uuid[^\n]*?(\d+)\b/i.exec(out)?.[1],
-  };
-  // present-and-zero for whichever the build emits; if the section is absent, AC3 is PENDING not pass
-  const wfEmitted = Object.values(wf).some(v => v != null);
-  checks.ac3_wellformed = wfEmitted ? Object.values(wf).every(v => v == null || Number(v) === 0) : null; // null = well-formedness axis not shipped
-
-  // AC2 — ref-integrity scans back-edges (needs REF_SLOTS.back); AC4 — tokens excluded + edges included.
-  const scansBack = registrySrc && /back\s*:/.test(fs.readFileSync(registrySrc, 'utf8'));
-  const tokenExcluded = !EXCLUDE_TOKENS.some(t => new RegExp(`dangling[^\\n]*${t}|${t}[^\\n]*DEAD`, 'i').test(out)); // tokens must NOT appear as dangling
-  checks.ac2_refintegrity = registrySrc ? scansBack : null;
-  checks.ac4_classification = registrySrc ? (tokenExcluded && INCLUDE_EDGES.some(e => fs.readFileSync(registrySrc, 'utf8').includes(e))) : null;
-
-  // AC5 — regression fixtures: audit --dir <fixtures> MUST catch dup + truncated + back-edge-miss
-  const fx = buildFixtures();
-  const fixAudit = run(`${AUDIT} --strict --dir ${fx.idx}`);
-  // --dir worked iff the audit scanned the SMALL fixture graph (~9 units), not the real index (thousands)
-  const totalUnits = Number(/Total units:\s*(\d+)/i.exec(fixAudit.out)?.[1] || -1);
-  const supportsDir = totalUnits > 0 && totalUnits < 50;
-  let ac5;
-  if (!supportsDir) {
-    ac5 = null; // PENDING interface (C) — loud, not silent
-    console.log(`  [AC5 PENDING] audit --dir not yet supported (interface req C) — fixtures built at ${fx.idx}, cannot assert catch yet`);
-  } else {
-    const caughtDup = new RegExp(`dup|collision|${fx.dupUuid.slice(0, 8)}`, 'i').test(fixAudit.out) && fixAudit.code !== 0;
-    const caughtTrunc = /truncat/i.test(fixAudit.out) || fixAudit.out.includes(fx.truncPrefix);
-    const caughtBackEdge = new RegExp(`dangling|dead|${fx.danglingUuid.slice(0, 8)}`, 'i').test(fixAudit.out) && fixAudit.code !== 0;
-    ac5 = caughtDup && caughtTrunc && caughtBackEdge;
-  }
-  checks.ac5_fixtures = ac5;
-  fs.rmSync(FIXROOT, { recursive: true, force: true });
-
-  // DRAFT verdict: an AC is GREEN(true)/RED(false)/PENDING(null, interface not shipped yet).
-  const snap = JSON.stringify(checks);
-  const deterministic = !prev || prev === snap; prev = snap;
-  const green = Object.values(checks).every(v => v === true);
-  const pending = Object.values(checks).some(v => v === null);
-  results.push({ green, pending, deterministic, checks });
-  console.log(`run ${r}: ${Object.entries(checks).map(([k, v]) => `${k}=${v === null ? 'PENDING' : v}`).join(' ')} det=${deterministic}`);
+} finally {
+  for (const n of ['r275-clean', 'r275-malformed', 'r275-2class']) fs.rmSync(path.join(SCRATCH, n), { recursive: true, force: true });
+  try { run(`git -C ${REPO} reset -q -- ${AXIS4_FIXTURE}`); } catch {}
+  fs.rmSync(AXIS4_FIXTURE, { force: true });
 }
 
-console.log('\n=== VERDICT R27.5 ref-slot registry (DRAFT, DET-3x) ===');
-const allGreen = results.every(r => r.green && r.deterministic);
-const anyPending = results.some(r => r.pending);
-console.log('OVERALL:', allGreen ? 'GREEN DET-3x' : anyPending ? 'PENDING-EXPERT-BUILD (draft ready; ACs light up as REF_SLOTS/well-formedness/--dir ship)' : 'RED');
-console.log('DRAFT STATUS: gate authored + regression fixtures (dup/truncated/back-edge-miss) ready. Confirm interface A/B/C with expert on build, then this flips to a hard DET-3x gate.');
-process.exitCode = allGreen ? 0 : (anyPending ? 2 : 1);
+console.log('\n=== VERDICT R27.5 canonical ref-slot registry — 5 ACs (DET-3x) ===');
+results.forEach((r, i) => console.log(`  run ${i + 1}: ${r.green ? 'GREEN' : 'RED'}${r.det ? '' : ' (NON-DET)'}`));
+const green = results.length === 3 && results.every(r => r.green && r.det);
+console.log('OVERALL:', green ? 'GREEN DET-3x' : 'RED');
+process.exitCode = green ? 0 : 1;

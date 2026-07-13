@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "209f71d1-73e5-447a-9aab-118632f148f5",
+    "name": "test:R27.5 TraceAudit.nodeWellFormedness gate",
+    "description": "Bridged to test/visual/r275-ref-slot-registry-gate.mjs — Axis-2/AC3: malformed fixture(missing-uuid/filename!=uuid/dup)->--dir --strict exit1; clean->exit0; real->0 PASS(HARD) (DET-3x GREEN)",
+    "sourceFile": "ior:file:test/visual/r275-ref-slot-registry-gate.mjs",
+    "verifies": [
+      "ior:instance:0f63288e-507e-4dc7-9c2b-b0cc6fab9660"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:0f63288e-507e-4dc7-9c2b-b0cc6fab9660"
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2cedb317-423c-4753-a038-20114c48c614",
+    "name": "test:R27.5 TraceAudit.markerHasChain gate",
+    "description": "Bridged to test/visual/r275-ref-slot-registry-gate.mjs — Axis-4/AC4: --since HEAD + NEW bogus [impl:uuid] no Impl->exit1; removed->exit0 (delta-not-absolute) (DET-3x GREEN)",
+    "sourceFile": "ior:file:test/visual/r275-ref-slot-registry-gate.mjs",
+    "verifies": [
+      "ior:instance:1bfe7447-c90c-4e42-b197-b6dc5b1c5c09"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:1bfe7447-c90c-4e42-b197-b6dc5b1c5c09"
+}

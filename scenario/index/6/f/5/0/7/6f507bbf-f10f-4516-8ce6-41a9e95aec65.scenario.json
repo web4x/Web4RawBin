@@ -6,7 +6,9 @@
     "description": "Tooling: --dir driver that runs all axes over a directory tree (reachability seeds {Requirement,Sprint} roots, forward only). Maps R27.5 tooling AC. Built by expert (--dir, uncommitted); marker attaches on placement.",
     "sourceFile": "ior:file:scripts/trace-audit.ts",
     "designAhead": false,
-    "tests": []
+    "tests": [
+      "ior:instance:4f6e5b5c-c83a-45e6-b3f2-95c268761e1c"
+    ]
   },
   "ownerIor": "ior:instance:d4875fd9-1ea8-40e2-8870-3be495795905"
 }

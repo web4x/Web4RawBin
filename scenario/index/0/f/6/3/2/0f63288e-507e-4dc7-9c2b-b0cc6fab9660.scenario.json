@@ -6,7 +6,9 @@
     "description": "Axis-2 node well-formedness: every unit has model.uuid + filename==uuid (no missing-uuid, no filename!=uuid). Maps R27.5 AC-no-uuid-audit. Built by expert (uncommitted); marker attaches on placement.",
     "sourceFile": "ior:file:scripts/trace-audit.ts",
     "designAhead": false,
-    "tests": []
+    "tests": [
+      "ior:instance:209f71d1-73e5-447a-9aab-118632f148f5"
+    ]
   },
   "ownerIor": "ior:instance:a7b780bc-5ef5-4990-9c2c-5cbd572129fa"
 }

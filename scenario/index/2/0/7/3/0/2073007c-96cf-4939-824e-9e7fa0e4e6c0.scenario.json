@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2073007c-96cf-4939-824e-9e7fa0e4e6c0",
+    "name": "test:R27.5 TraceAudit.oneClassPerFile gate",
+    "description": "Bridged to test/visual/r275-ref-slot-registry-gate.mjs — Axis-3: fixture 2 Class units sharing one sourceFile->FAIL (check, not deferred baseline=4) (DET-3x GREEN)",
+    "sourceFile": "ior:file:test/visual/r275-ref-slot-registry-gate.mjs",
+    "verifies": [
+      "ior:instance:4b53b98e-7659-4de9-ae0c-564ab6c2f620"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4b53b98e-7659-4de9-ae0c-564ab6c2f620"
+}

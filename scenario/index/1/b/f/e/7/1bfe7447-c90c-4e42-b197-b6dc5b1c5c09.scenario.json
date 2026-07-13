@@ -6,7 +6,9 @@
     "description": "Axis-4 marker-has-chain: every [impl:uuid] marker in source resolves to an Impl on a real chain (detect) + delta-scoped enforce gate (R29.2 folded in). Maps R27.5 AC-marker-chain-detect + AC-chain-gate-enforce. Design-ahead: expert building.",
     "sourceFile": "ior:file:scripts/trace-audit.ts",
     "designAhead": true,
-    "tests": []
+    "tests": [
+      "ior:instance:2cedb317-423c-4753-a038-20114c48c614"
+    ]
   },
   "ownerIor": "ior:instance:d921f943-7537-4702-a089-618e79412db9"
 }

@@ -6,7 +6,9 @@
     "description": "Axis-3 one-class-per-source-file: each .ts declares one class (server.ts allowlisted monolith). Distinct from duplicateClassAssertion (that dedups Class UNITS; this checks source structure). Maps R27.5 AC per req. Design-ahead: expert building.",
     "sourceFile": "ior:file:scripts/trace-audit.ts",
     "designAhead": true,
-    "tests": []
+    "tests": [
+      "ior:instance:2073007c-96cf-4939-824e-9e7fa0e4e6c0"
+    ]
   },
   "ownerIor": "ior:instance:8f4622df-fc8a-4290-95ed-f5e2213e7282"
 }
