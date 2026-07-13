@@ -60,12 +60,14 @@ export class RbDiffEditor extends HTMLElement {
   private status(msg: string): void { const s = this.querySelector('.de-status'); if (s) s.textContent = msg; }
 
   // [impl:uuid:c4da837c-b59f-4c02-9522-2e8599206abf] RbDiffEditor.loadSide
-  async loadSide(side: 'left' | 'right', src: { path: string; ref?: string }): Promise<void> {
+  async loadSide(side: 'left' | 'right', src: { path: string; ref?: string; content?: string }): Promise<void> {
     const st = side === 'left' ? this.left : this.right;
     st.path = src.path; st.ref = src.ref || '';
     try {
       let content = '';
-      if (st.ref) {
+      if (src.content != null) {                    // R30.6.6: preloaded content (current editor buffer, LEFT-preselect) — no fetch
+        content = src.content; st.mtime = 0;
+      } else if (st.ref) {
         const res = await fetch(`/api/git/file?ref=${encodeURIComponent(st.ref)}&path=${encodeURIComponent(st.path)}`);
         if (!res.ok) { this.status(`load ${side} @${st.ref} failed (${res.status})`); return; }
         content = (await res.json()).content ?? '';

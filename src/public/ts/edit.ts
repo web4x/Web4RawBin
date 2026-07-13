@@ -98,6 +98,8 @@ async function openFile(path: string): Promise<void> {
 
 // Toolbar events
 document.addEventListener('toolbar-save', () => { if (filePath) saveFile(filePath, codeEditor?.getValue() || ''); });
+// R30.6.6: [Open Diff] → mount the diff/merge editor with LEFT preselected to the current file.
+document.addEventListener('toolbar-open-diff', () => { if (filePath) layout.showDiff(filePath); });
 document.addEventListener('mode-change', ((e: CustomEvent) => applyMode(e.detail.mode)) as EventListener);
 document.addEventListener('dirty-change', ((e: CustomEvent) => { toolbar.setDirty(e.detail.dirty); updatePreview(); }) as EventListener);
 

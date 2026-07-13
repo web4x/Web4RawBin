@@ -44,6 +44,30 @@ export class RbEditorLayout extends HTMLElement {
   showPreview(): void { this.state.previewVisible = true; this.applyState(); saveState(this.state); }
   hidePreview(): void { this.state.previewVisible = false; this.applyState(); saveState(this.state); }
 
+  // [impl:uuid:dc302e8e-9689-4f67-a221-6003f27c4df4] RbEditorLayout.showDiff — R30.6.6 [Open Diff] entry: mount the
+  // diff/merge editor as an overlay with the LEFT pane preselected to the CURRENT file (path + current editor content).
+  showDiff(currentFilePath: string): void {
+    let overlay = this.querySelector('.el-diff') as HTMLElement | null;
+    if (!overlay) {                                          // AC-mount: lazily created on first use (not eager)
+      overlay = document.createElement('div');
+      overlay.className = 'el-diff';
+      overlay.style.cssText = 'position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;background:#1e1e1e';
+      const bar = document.createElement('div');
+      bar.style.cssText = 'display:flex;justify-content:space-between;align-items:center;padding:4px 8px;background:#252526;border-bottom:1px solid #3c3c3c;font-size:0.8rem;color:#ddd';
+      bar.innerHTML = '<b>🔀 Diff / Merge</b><button class="el-diff-close" style="background:none;border:1px solid #555;color:#ccc;padding:3px 10px;border-radius:4px;cursor:pointer">✕ Close</button>';
+      const diff = document.createElement('rb-diff-editor');
+      diff.style.cssText = 'flex:1;min-height:0';
+      overlay.appendChild(bar);
+      overlay.appendChild(diff);
+      this.appendChild(overlay);
+      bar.querySelector('.el-diff-close')?.addEventListener('click', () => { if (overlay) overlay.style.display = 'none'; });
+    }
+    overlay.style.display = 'flex';
+    const diff = overlay.querySelector('rb-diff-editor') as unknown as { loadSide(side: string, src: { path: string; content?: string }): void };
+    const content = (this.querySelector('rb-code-editor') as unknown as { getValue?(): string } | null)?.getValue?.(); // AC-left-preselect: current buffer
+    diff.loadSide('left', { path: currentFilePath, content });
+  }
+
   private render(): void {
     this.style.cssText = 'display:flex;width:100%;height:100%;overflow:hidden;position:relative';
     this.innerHTML = `

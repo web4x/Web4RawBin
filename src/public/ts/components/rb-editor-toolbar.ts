@@ -42,8 +42,11 @@ export class RbEditorToolbar extends HTMLElement {
       ${this._path && (this._path.endsWith('.md') || this._path.endsWith('.puml')) ? `<a href="/md/${this._path}" style="color:#ff9800;text-decoration:none;font-size:0.75rem" title="View rendered">👁 View</a>` : ''}
       <span id="tb-status" style="font-size:0.75rem;opacity:0.8"></span>
       <button class="tb-btn" id="tb-mode" style="background:none;border:1px solid #555;color:#ccc;padding:3px 10px;border-radius:4px;cursor:pointer;font-size:0.75rem">${this.modeLabel()}</button>
+      <button class="tb-btn" id="tb-diff" title="Open diff/merge editor (compare this file)" style="background:none;border:1px solid #555;color:#ccc;padding:3px 10px;border-radius:4px;cursor:pointer;font-size:0.75rem">🔀 Open Diff</button>
       <button class="tb-btn" id="tb-save" style="background:none;border:1px solid #555;color:#ccc;padding:3px 10px;border-radius:4px;cursor:pointer;font-size:0.75rem">Save</button>`;
     this.querySelector('#tb-save')?.addEventListener('click', () => this.dispatchEvent(new CustomEvent('toolbar-save', { bubbles: true })));
+    // R30.6.6: [Open Diff] entry — bubbling toolbar-open-diff carrying the current file path (LEFT-preselect).
+    this.querySelector('#tb-diff')?.addEventListener('click', () => this.dispatchEvent(new CustomEvent('toolbar-open-diff', { bubbles: true, detail: { path: this._path } })));
     this.querySelector('#tb-mode')?.addEventListener('click', () => this.cycleMode());
   }
 
