@@ -1,12 +1,14 @@
 {
- "ior": "ior:class:Implementation",
- "model": {
-  "uuid": "e9cfaab3-5166-4ab4-ab7c-699481b3d681",
-  "name": "GitApi.fileHistory impl",
-  "tests": [],
-  "sourceFile": "ior:file:src/ts/server/server.ts",
-  "designAhead": true,
-  "description": "DESIGN-AHEAD: git log --follow for a path -> newest-first commit list; RepoRegistry.resolve + safeRelPath guard. Expert builds + tags [impl] marker (=this Impl uuid)."
- },
- "ownerIor": "ior:instance:0e3f8c07-4ef3-48f7-abc2-f19914d2f167"
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e9cfaab3-5166-4ab4-ab7c-699481b3d681",
+    "name": "GitApi.fileHistory impl",
+    "tests": [
+      "ior:instance:9c6cfdbc-107d-40af-adfc-90450149eb81"
+    ],
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: git log --follow for a path -> newest-first commit list; RepoRegistry.resolve + safeRelPath guard. Expert builds + tags [impl] marker (=this Impl uuid)."
+  },
+  "ownerIor": "ior:instance:0e3f8c07-4ef3-48f7-abc2-f19914d2f167"
 }

@@ -1,12 +1,14 @@
 {
- "ior": "ior:class:Implementation",
- "model": {
-  "uuid": "58c11039-3f11-464d-a8fe-641722f78e2b",
-  "name": "RbDiffEditor.populateRightHistory impl",
-  "tests": [],
-  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-  "designAhead": true,
-  "description": "DESIGN-AHEAD: populate right history select + default newest -> loadSide right; no-history fallback. Expert builds + tags [impl] marker (=this Impl uuid)."
- },
- "ownerIor": "ior:instance:3dd2173b-a639-455d-b2b3-ac03adfdcfe5"
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "58c11039-3f11-464d-a8fe-641722f78e2b",
+    "name": "RbDiffEditor.populateRightHistory impl",
+    "tests": [
+      "ior:instance:16b2721a-dfac-4a8a-8433-f7fedfe5728e"
+    ],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: populate right history select + default newest -> loadSide right; no-history fallback. Expert builds + tags [impl] marker (=this Impl uuid)."
+  },
+  "ownerIor": "ior:instance:3dd2173b-a639-455d-b2b3-ac03adfdcfe5"
 }
