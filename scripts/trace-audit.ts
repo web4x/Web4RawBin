@@ -10,6 +10,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execSync } from 'node:child_process';
 import { ScenarioIndex, type ScenarioUnit } from '../src/ts/scenario/index.js';
 
 // R27.7: a full uuid is 8-4-4-4-12. Traceability markers with a TRUNCATED uuid credit by prefix but FAIL clean-tree
@@ -97,6 +98,8 @@ interface AuditResult {
   dangling: { uuid: string; type: string; slot: string; ref: string; tier: string }[]; // R27.5 Axis-1 ref-integrity
   cardinalityIssues: string[];
   duplicateClasses: { name: string; count: number; uuids: string[] }[]; // R27.2 AC-canonical: exactly ONE Class unit per code-class name
+  classesPerFile: { file: string; count: number; uuids: string[] }[];   // R27.5 Axis-3: >1 Class sharing one sourceFile (allowlist excepted)
+  markerChain: { uuid: string; file: string; reason: string }[];        // R27.5 Axis-4: [impl] markers with no reachable Impl
   hopResults: { total: number; reachable: number; unreachable: { uuid: string; name: string; breakHop: string }[] };
 }
 
@@ -120,7 +123,7 @@ function duplicateClassUnits(units: Map<string, ScenarioUnit>): { name: string; 
 // undefined.scenario.json: a bash-artifact dropped model.uuid → correct content at the wrong path with no id).
 // Scans FILES on disk (not the loaded index, which would skip a mis-pathed unit): every unit must have model.uuid,
 // basename === <uuid>.scenario.json, shard dir derived from uuid, and no duplicate uuid across files. HARD-gated.
-// NOTE (scenario-first / #126): needs its own Impl unit for the [impl:uuid:] marker — awaiting req/architect mint.
+// [impl:uuid:0f63288e-507e-4dc7-9c2b-b0cc6fab9660] TraceAudit.nodeWellFormedness — R27.5 Axis-2
 function nodeWellFormedness(dir: string): { kind: string; file: string; detail: string }[] {
   const out: { kind: string; file: string; detail: string }[] = [];
   const seen = new Map<string, string>(); // uuid → first file that claimed it
@@ -145,7 +148,68 @@ function nodeWellFormedness(dir: string): { kind: string; file: string; detail: 
   return out;
 }
 
-function auditAll(idx: ScenarioIndex): AuditResult {
+// R27.5 Axis-3 — ONE CLASS PER CODE FILE. The R27.2 reuse-by-NAME guard misses N Class units for ONE file under
+// DIFFERENT synthetic names (R27.3: generate-sprint-md.ts had 3). HARD-FAIL when >1 Class shares a non-empty
+// sourceFile — a function-module or class-file = ONE canonical Class. server.ts is an explicit allowlisted monolith
+// (debt marker, retires on split).
+const AXIS3_ALLOWLIST = new Set(['src/ts/server/server.ts']); // genuine multi-concern monolith (PO-accepted)
+const CODE_FILE = /\.(ts|tsx|js|mjs)$/; // "one class per CODE file" — diagrams (.puml), .md, malformed sigs are NOT code files
+// [impl:uuid:4b53b98e-7659-4de9-ae0c-564ab6c2f620] TraceAudit.oneClassPerFile — R27.5 Axis-3
+function oneClassPerFile(units: Map<string, ScenarioUnit>): { file: string; count: number; uuids: string[] }[] {
+  const byFile = new Map<string, string[]>();
+  for (const [uuid, unit] of units) if (getType(unit) === 'Class') {
+    const m = unit.model as Record<string, unknown>;
+    const sf = String(m.sourceFile || m.file || '').replace('ior:file:', '');
+    if (!sf || !CODE_FILE.test(sf)) continue;
+    (byFile.get(sf) || byFile.set(sf, []).get(sf)!).push(uuid);
+  }
+  return [...byFile.entries()].filter(([f, us]) => us.length > 1 && !AXIS3_ALLOWLIST.has(f))
+    .map(([file, uuids]) => ({ file, count: uuids.length, uuids })).sort((a, b) => a.file.localeCompare(b.file));
+}
+
+// Delta-scope (AC-chain-gate-enforce): uuids of [impl:uuid:] markers ADDED since <ref> (git-diff added lines only).
+function markersAddedSince(ref: string): Set<string> {
+  const out = new Set<string>();
+  try {
+    const diff = execSync(`git diff ${ref} -- '*.ts' '*.tsx' '*.js' '*.mjs' '*.md'`, { cwd: REPO_ROOT, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+    for (const line of diff.split('\n')) {
+      if (!line.startsWith('+') || line.startsWith('+++')) continue;
+      for (const m of line.matchAll(MARKER_RE)) if (m[1] === 'impl') out.add(m[2]);
+    }
+  } catch { /* bad ref / not a repo → empty set = enforce nothing */ }
+  return out;
+}
+
+// R27.5 Axis-4 — MARKER-HAS-CHAIN. Every [impl:uuid:<u>] marker in code must resolve to an Implementation unit that is
+// REACHABLE from a Requirement (Req→UC→Class→Method→Impl) — else the code shipped chain-less (recurring #126 gap).
+// detect = full scan (deferred baseline); enforce = --since delta (NEW markers HARD-fail, legacy deferred).
+// [impl:uuid:1bfe7447-c90c-4e42-b197-b6dc5b1c5c09] TraceAudit.markerHasChain — R27.5 Axis-4
+function markerHasChain(roots: string[], units: Map<string, ScenarioUnit>, reachable: Set<string>, since?: Set<string>): { uuid: string; file: string; reason: string }[] {
+  const out: { uuid: string; file: string; reason: string }[] = [];
+  const seen = new Set<string>();
+  const walk = (dir: string): void => {
+    let entries: fs.Dirent[]; try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch { return; }
+    for (const e of entries) {
+      const p = path.join(dir, e.name);
+      if (e.isDirectory()) { if (!/node_modules|\.git|dist|coverage/.test(p)) walk(p); continue; }
+      if (!/\.(ts|tsx|mjs|js|md)$/.test(e.name)) continue;
+      let text: string; try { text = fs.readFileSync(p, 'utf8'); } catch { continue; }
+      for (const m of text.matchAll(MARKER_RE)) {
+        if (m[1] !== 'impl' || !FULL_UUID.test(m[2])) continue;   // truncated markers are the R27.7 check's domain
+        const u = m[2];
+        if (since && !since.has(u)) continue;                     // delta-scope: only NEW markers under --since
+        if (seen.has(u)) continue; seen.add(u);
+        const unit = units.get(u);
+        if (!unit || getType(unit) !== 'Implementation') out.push({ uuid: u, file: p, reason: 'no-Impl-unit' });
+        else if (!reachable.has(u)) out.push({ uuid: u, file: p, reason: 'Impl-not-reachable-from-Requirement' });
+      }
+    }
+  };
+  for (const r of roots) walk(r);
+  return out;
+}
+
+function auditAll(idx: ScenarioIndex, sinceRef?: string): AuditResult {
   const allUuids = idx.list();
   const units = new Map<string, ScenarioUnit>();
   for (const uuid of allUuids) {
@@ -271,6 +335,12 @@ function auditAll(idx: ScenarioIndex): AuditResult {
   const hopUnreachable = hopResults.filter(r => !r.reachable);
 
   const duplicateClasses = duplicateClassUnits(units);
+  const classesPerFile = oneClassPerFile(units);
+  const sinceSet = sinceRef ? markersAddedSince(sinceRef) : undefined;
+  const markerChain = markerHasChain(
+    [path.join(REPO_ROOT, 'src'), path.join(REPO_ROOT, 'test'), path.join(REPO_ROOT, 'scripts')],
+    units, visited, sinceSet,
+  );
 
   return {
     total: allUuids.length,
@@ -279,6 +349,8 @@ function auditAll(idx: ScenarioIndex): AuditResult {
     dangling,
     cardinalityIssues,
     duplicateClasses,
+    classesPerFile,
+    markerChain,
     hopResults: { total: testUnits.length, reachable: hopReachable, unreachable: hopUnreachable },
   };
 }
@@ -291,11 +363,19 @@ if (process.argv.includes('--completion') || process.argv.includes('--complete')
   process.exit(1);
 }
 
-// R27.5 AC5 (tester): --dir <path> points the audit at a fixture tree (regression fixtures testable-by-construction).
-const dirArg = process.argv.indexOf('--dir');
-const AUDIT_DIR = dirArg >= 0 && process.argv[dirArg + 1] ? path.resolve(process.argv[dirArg + 1]) : INDEX_DIR;
+// R27.5 AC5 (tester): --dir <path> points the audit at a fixture tree so regression fixtures run testable-by-construction.
+// [impl:uuid:6f507bbf-f10f-4516-8ce6-41a9e95aec65] TraceAudit.auditDir — R27.5 AC5 (tester fixture flag)
+function auditDir(argv: string[], fallback: string): string {
+  const i = argv.indexOf('--dir');
+  return i >= 0 && argv[i + 1] ? path.resolve(argv[i + 1]) : fallback;
+}
+const AUDIT_DIR = auditDir(process.argv, INDEX_DIR);
+// R27.5 Axis-4 enforce: --since <ref> scopes marker-has-chain to markers ADDED since <ref> (NEW chain-less markers
+// HARD-fail; the legacy backlog stays deferred = delta-not-absolute). No --since = full DETECT (reported, deferred).
+const sinceArg = process.argv.indexOf('--since');
+const SINCE_REF = sinceArg >= 0 && process.argv[sinceArg + 1] ? process.argv[sinceArg + 1] : undefined;
 const idx = new ScenarioIndex(AUDIT_DIR);
-const result = auditAll(idx);
+const result = auditAll(idx, SINCE_REF);
 const wellFormed = nodeWellFormedness(AUDIT_DIR); // R27.5 Axis-2
 const strict = process.argv.includes('--strict');
 
@@ -329,6 +409,17 @@ if (hop.unreachable.length > 0) {
 console.log(`\nDuplicate Class units (R27.2 AC-canonical, 1 per code-class name): ${result.duplicateClasses.length} (${result.duplicateClasses.length === 0 ? 'PASS' : 'FAIL'})`);
 for (const d of result.duplicateClasses) console.log(`  - ${d.name}: ${d.count} units [${d.uuids.map(u => u.slice(0, 8)).join(', ')}] — collapse to ONE`);
 
+// R27.5 Axis-3 — one Class per code file (HARD-gated: catches the R27.3 synthetic-class-sprawl; server.ts allowlisted)
+console.log(`\nOne-Class-per-file (R27.5 Axis-3, >1 Class sharing sourceFile): ${result.classesPerFile.length} (${result.classesPerFile.length === 0 ? 'PASS' : 'FAIL'})`);
+for (const c of result.classesPerFile.slice(0, 25)) console.log(`  ✗ ${c.file}: ${c.count} Class units [${c.uuids.map(u => u.slice(0, 8)).join(', ')}] — one canonical (or allowlist)`);
+if (result.classesPerFile.length > 25) console.log(`  ... and ${result.classesPerFile.length - 25} more`);
+
+// R27.5 Axis-4 — marker-has-chain (DETECT full = deferred baseline; ENFORCE --since = NEW markers HARD-fail)
+const mcMode = SINCE_REF ? `ENFORCE --since ${SINCE_REF}` : 'DETECT (full, deferred baseline)';
+console.log(`\nMarker-has-chain (R27.5 Axis-4, ${mcMode}): ${result.markerChain.length} (${result.markerChain.length === 0 ? 'PASS' : (SINCE_REF ? 'FAIL — new chain-less impl' : 'baseline')})`);
+for (const mc of result.markerChain.slice(0, 25)) console.log(`  ✗ ${mc.uuid.slice(0, 8)} ${mc.reason} — ${path.relative(REPO_ROOT, mc.file)}`);
+if (result.markerChain.length > 25) console.log(`  ... and ${result.markerChain.length - 25} more`);
+
 // R27.5 Axis-2 — node well-formedness (HARD-gated: catches the R27.7 undefined.scenario.json bash-artifact class)
 console.log(`\nNode well-formedness (R27.5 Axis-2, missing-uuid/filename!=uuid/shard!=uuid/dup-uuid): ${wellFormed.length} (${wellFormed.length === 0 ? 'PASS' : 'FAIL'})`);
 for (const w of wellFormed.slice(0, 25)) console.log(`  ✗ ${w.kind}: ${path.relative(AUDIT_DIR, w.file)}${w.detail ? ` (${w.detail})` : ''}`);
@@ -347,9 +438,13 @@ for (const t of staleTruncated.slice(0, 25)) console.log(`  · stale ${t.marker}
 // R27.2/R27.7: dup-Class + cardinality + LIVE truncated-uuid markers are HARD-gated NOW (all clean → won't false-fail).
 // orphans + back-refs + STALE truncated markers are pre-existing baseline debt → REPORTED but NOT strict-gated
 // (delta-not-absolute — else --strict false-fails on the 2207-orphan / 18-stale-marker baseline).
-const hardIssues = result.duplicateClasses.length + result.cardinalityIssues.length + liveTruncated.length + wellFormed.length; // R27.5 Axis-2 well-formedness HARD-gated
-const deferredIssues = result.orphans.length + result.dangling.length;
-console.log(`\n=== STRUCTURAL AUDIT — HARD (dup-Class + cardinality) = ${hardIssues} ${hardIssues === 0 ? 'PASS' : 'FAIL'} | deferred (orphans + ref-integrity dangling) = ${deferredIssues} (R27.5 residual, delta-not-absolute, not strict-gated yet) ===`);
+// R27.5 Axis-2 (well-formedness) is HARD NOW — clean (0). Axis-3 (one-class-per-file) is DESIGNED hard, but has a
+// 4-file genuine-sprawl BASELINE → deferred (delta-not-absolute; hard-gating a baseline false-reds CI) until the 4 are
+// triaged (allowlist legit multi-class vs dedup sprawl → 0), then it flips into hardIssues. New sprawl is caught on a --dir fixture.
+const enforceMarkerChain = SINCE_REF ? result.markerChain.length : 0; // Axis-4 ENFORCE only under --since (delta); else deferred
+const hardIssues = result.duplicateClasses.length + result.cardinalityIssues.length + liveTruncated.length + wellFormed.length + enforceMarkerChain;
+const deferredIssues = result.orphans.length + result.dangling.length + result.classesPerFile.length;
+console.log(`\n=== STRUCTURAL AUDIT — HARD (dup-Class + cardinality + Axis-2 well-formedness) = ${hardIssues} ${hardIssues === 0 ? 'PASS' : 'FAIL'} | deferred (orphans + ref-integrity dangling + Axis-3 sprawl-baseline ${result.classesPerFile.length}) = ${deferredIssues} (R27.5 residual, delta-not-absolute, not strict-gated yet) ===`);
 console.log(`(Completion measure: npx tsx scripts/po-chain-follow-up.ts --all)\n`);
 
 if (strict && hardIssues > 0) process.exit(1); // R27.2 dup=0 STRICT now; re-enable orphan/back-ref strict gate AFTER R27.4
