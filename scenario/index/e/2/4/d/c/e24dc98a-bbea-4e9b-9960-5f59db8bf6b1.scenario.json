@@ -1,12 +1,14 @@
 {
- "ior": "ior:class:Implementation",
- "model": {
-  "uuid": "e24dc98a-bbea-4e9b-9960-5f59db8bf6b1",
-  "name": "RbDiffEditor.renderMergeGutter impl",
-  "tests": [],
-  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-  "designAhead": true,
-  "description": "DESIGN-AHEAD: IntelliJ gutter accept-arrows. Expert builds + tags [impl] marker (=this Impl uuid)."
- },
- "ownerIor": "ior:instance:e5540621-6e90-4553-aa56-2d17d68b0e57"
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e24dc98a-bbea-4e9b-9960-5f59db8bf6b1",
+    "name": "RbDiffEditor.renderMergeGutter impl",
+    "tests": [
+      "ior:instance:8fa42d89-0e86-45c4-b88b-f0a978782da0"
+    ],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: IntelliJ gutter accept-arrows. Expert builds + tags [impl] marker (=this Impl uuid)."
+  },
+  "ownerIor": "ior:instance:e5540621-6e90-4553-aa56-2d17d68b0e57"
 }

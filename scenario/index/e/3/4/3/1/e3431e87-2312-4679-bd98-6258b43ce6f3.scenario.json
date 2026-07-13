@@ -1,12 +1,14 @@
 {
- "ior": "ior:class:Implementation",
- "model": {
-  "uuid": "e3431e87-2312-4679-bd98-6258b43ce6f3",
-  "name": "RbDiffEditor.syncScroll3 impl",
-  "tests": [],
-  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-  "designAhead": true,
-  "description": "DESIGN-AHEAD: 3-pane sync scroll. Expert builds + tags [impl] marker (=this Impl uuid)."
- },
- "ownerIor": "ior:instance:f014576e-f100-4a48-a3c6-d3827b78b3ea"
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e3431e87-2312-4679-bd98-6258b43ce6f3",
+    "name": "RbDiffEditor.syncScroll3 impl",
+    "tests": [
+      "ior:instance:de62d07f-b366-4d60-82fa-5d916c1f8e31"
+    ],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: 3-pane sync scroll. Expert builds + tags [impl] marker (=this Impl uuid)."
+  },
+  "ownerIor": "ior:instance:f014576e-f100-4a48-a3c6-d3827b78b3ea"
 }

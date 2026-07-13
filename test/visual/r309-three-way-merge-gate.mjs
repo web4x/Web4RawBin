@@ -1,3 +1,6 @@
+// [test:uuid:8fa42d89-0e86-45c4-b88b-f0a978782da0] R30.9 RbDiffEditor.renderMergeGutter — per-conflict gutter ◄/► controls rendered ([data-cid])
+// [test:uuid:555a3077-104a-4535-a8dc-4e4815d5a14e] R30.9 RbDiffEditor.acceptChange — accept RIGHT pushes that side hunk into CENTER Result (RIGHT_Q in, LEFT_P out)
+// [test:uuid:de62d07f-b366-4d60-82fa-5d916c1f8e31] R30.9 RbDiffEditor.syncScroll3 — 3-pane locked scroll: scroll LOCAL -> CENTER+REMOTE follow
 // [test:uuid:02117d3d-798a-4695-a140-219fd0265676] R30.9 RbDiffEditor.mountThreePane — 3-pane Local|Result|Repository shell + 3 Monaco panes
 // [test:uuid:2b3b0d79-53bf-4c00-ad3d-eb35b7800c10] R30.9 RbDiffEditor.monacoLoader — Monaco panes load (panes>=3 rendered)
 // [test:uuid:79139c01-754f-4867-9e77-bf9a255ce54f] R30.9 RbDiffEditor.applyAllNonConflicting — ✨Apply-All-Non-Conflicting control present
@@ -85,9 +88,41 @@ try {
     const mbReject = [400, 403].includes((await api('/api/git/merge-base?repo=rawbin&a=main&b=' + encodeURIComponent('; id'))).status);
     const mergeBaseOk = mbOk && mbReject;
 
-    const pass = diff3Ok && mountOk && mergeBaseOk;
+    // PART D — conflict interaction: renderMergeGutter (per-conflict ◄/►), acceptChange (push side into
+    // CENTER Result — mutates the editable in-memory center = EXPECTED, no file write), syncScroll3 (3-pane lock).
+    const ctx2 = await browser.newContext({ ignoreHTTPSErrors: true, serviceWorkers: 'block', viewport: { width: 1400, height: 1000 } });
+    const page2 = await ctx2.newPage();
+    await page2.goto(`${BASE}/edit`, { waitUntil: 'networkidle' });
+    await page2.waitForFunction(() => !!customElements.get('rb-diff-editor'), { timeout: 20000 }).catch(() => {});
+    const dd = await page2.evaluate(async () => {
+      const nap = (ms) => new Promise(r => setTimeout(r, ms));
+      const el = document.createElement('rb-diff-editor'); document.body.appendChild(el); await nap(2000);
+      const out = {};
+      // inject a true conflict + flatten -> renderMergeGutter draws the per-conflict ◄/► controls
+      el.conflicts = [{ id: 0, a: ['LEFT_P'], b: ['RIGHT_Q'], pick: 'a', span: [0, 0] }];
+      el.centerSeq = [{ ok: ['a'] }, { cid: 0 }, { ok: ['c'] }];
+      el.rebuildCenter(); await nap(250);
+      out.gutter = !!el.querySelector('[data-cid]'); // renderMergeGutter created the accept ◄/► button(s) for the conflict
+      // acceptChange: pick RIGHT -> CENTER Result (Monaco edCenter) gets RIGHT_Q, drops LEFT_P
+      const before = el.edCenter?.getValue?.() || '';
+      el.acceptChange(0, 'right'); await nap(250);
+      const after = el.edCenter?.getValue?.() || '';
+      out.accept = before.includes('LEFT_P') && after.includes('RIGHT_Q') && !after.includes('LEFT_P');
+      // syncScroll3: load scrollable content (else setScrollTop clamps to 0), scroll LOCAL -> CENTER+REMOTE lock
+      if (el.edLocal && el.edCenter && el.edRemote) {
+        const long = Array.from({ length: 200 }, (_, k) => 'line ' + k).join('\n');
+        el.edLocal.setValue(long); el.edCenter.setValue(long); el.edRemote.setValue(long); await nap(200);
+        el.edLocal.setScrollTop(150); await nap(300);
+        out.sync = Math.abs(el.edCenter.getScrollTop() - 150) < 40 && Math.abs(el.edRemote.getScrollTop() - 150) < 40;
+      } else out.sync = false;
+      el.remove(); return out;
+    });
+    await ctx2.close();
+    const interactionOk = dd.gutter && dd.accept && dd.sync;
+
+    const pass = diff3Ok && mountOk && mergeBaseOk && interactionOk;
     results.push(pass);
-    console.log(`iter ${i}: diff3[oL=${d.onlyLocal} oR=${d.onlyRemote} both=${d.bothNonAdj} overlap→conflict=${d.overlap} ident=${d.identical}]=${diff3Ok} | 3pane[labels=${b.threePaneLabels} panes=${b.panes} applyAll=${b.applyAll}]=${mountOk} | mergeBase[live=${mbOk} rejectBadRef=${mbReject}]=${mergeBaseOk} => ${pass ? 'GREEN' : 'RED'}`);
+    console.log(`iter ${i}: diff3[oL=${d.onlyLocal} oR=${d.onlyRemote} both=${d.bothNonAdj} overlap→conflict=${d.overlap} ident=${d.identical}]=${diff3Ok} | 3pane[labels=${b.threePaneLabels} panes=${b.panes} applyAll=${b.applyAll}]=${mountOk} | mergeBase[live=${mbOk} reject=${mbReject}]=${mergeBaseOk} | interaction[gutter=${dd.gutter} accept=${dd.accept} sync=${dd.sync}]=${interactionOk} => ${pass ? 'GREEN' : 'RED'}`);
   }
 
   console.log('\n=== VERDICT R30.9 3-way merge (DET-3x) ===');
