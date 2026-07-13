@@ -114,6 +114,18 @@
   → [UC29.8](./planning.md) `[uc:uuid:d90db09d-0b3f-4c89-951e-d467ceb36174]`
 
 
+- [ ] **R29.9 - Mint-lock / one-mover-per-req guard (no dup-req/dup-task/truncated-ref under churn)** *(governance guard; backlog)*
+  [requirement:uuid:b05666be-d5c7-48f3-8ea4-adaace612d14]
+  > PO/architect 2026-07-13 (ratified from robbin-req root-cause): parallel-mint under outage produced dup-req + dup-task + truncated-ref - add a mint-lock / one-mover-per-req guard + reject truncated uuid refs at write. By-construction, same class as R27.2.
+  A by-construction mint-lock so a parallel/outage race cannot produce dup-req / dup-task / truncated-ref. ONE-MOVER-PER-REQ: a req-number (altId) or task may have only ONE in-flight mint; a second concurrent mint of the same altId must REUSE the existing unit or ABORT, never double-mint a second unit with the same altId. And uuid refs shorter than 36 chars are REJECTED at write time (extends the uuid-truncation guard from Class/markers to req/task refs), so a truncated ref cannot dangle. Structural fix for the S30 R30.2/R30.3 dup-req + dup-task + truncated-R30.1 race under the classifier outage - same class as R27.2 reuse-on-wire, applied to the mint path itself.
+  **Acceptance criteria:**
+  - [ ] **(guard)** A req-number (altId) or task may have only ONE in-flight mint at a time; a mint-lock prevents a second concurrent mint of the same altId.
+  - [ ] **(guard)** A parallel/outage mint that finds the altId already minted must REUSE the existing unit or ABORT - never double-mint a second unit with the same altId (R27.2 reuse-on-wire, applied to req/task mints).
+  - [ ] **(guard)** uuid refs shorter than 36 chars are REJECTED at write time (extends the uuid-truncation guard from Class/markers to req/task refs), so no truncated ref (like the R30.1 6f796898 truncation) can dangle.
+  - [ ] **(guard)** During a re-scope / churn, one-mover-per-req is enforced by construction (the field-owner writes; a parallel writer reuses-or-defers), not left to discipline.
+  - [ ] **(verify)** A simulated parallel double-mint of the same altId -> the second reuses/aborts (0 dup); a truncated uuid ref -> rejected. Regression fixtures = the S30 R30.2/R30.3 dup-req + dup-task + truncated-R30.1 cases.
+  -> UC29.9 mintLock.oneMoverPerReq [uc:uuid:d5fcbfdd-e6d3-4d82-9f24-828ee9a3da62]
+
 ---
 
 ## Traceability Matrix

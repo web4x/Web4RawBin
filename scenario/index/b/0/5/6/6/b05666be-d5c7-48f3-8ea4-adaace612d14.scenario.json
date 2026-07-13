@@ -1,0 +1,62 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b05666be-d5c7-48f3-8ea4-adaace612d14",
+    "name": "Mint-lock / one-mover-per-req guard (no dup-req/dup-task/truncated-ref under churn)",
+    "altId": "R29.9",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-29-server-dev-lifecycle/requirements.md",
+    "sourceLine": 1,
+    "parent": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e",
+    "sprintName": "Sprint 29",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:d5fcbfdd-e6d3-4d82-9f24-828ee9a3da62"
+    ],
+    "priority": "medium",
+    "backlog": true,
+    "description": "A by-construction mint-lock so a parallel/outage race cannot produce dup-req / dup-task / truncated-ref. ONE-MOVER-PER-REQ: a req-number (altId) or task may have only ONE in-flight mint; a second concurrent mint of the same altId must REUSE the existing unit or ABORT, never double-mint a second unit with the same altId. And uuid refs shorter than 36 chars are REJECTED at write time (extends the uuid-truncation guard from Class/markers to req/task refs), so a truncated ref cannot dangle. Structural fix for the S30 R30.2/R30.3 dup-req + dup-task + truncated-R30.1 race under the classifier outage - same class as R27.2 reuse-on-wire, applied to the mint path itself.",
+    "tronQuote": "> PO/architect 2026-07-13 (ratified from robbin-req root-cause): parallel-mint under outage produced dup-req + dup-task + truncated-ref - add a mint-lock / one-mover-per-req guard + reject truncated uuid refs at write. By-construction, same class as R27.2.",
+    "discoverySource": {
+      "type": "team-discovery",
+      "discoveredBy": "robbin-req (S30 R30.2/R30.3 parallel-mint race root-cause) + robbin-architect (ratified) + robbin-po (greenlit)",
+      "date": "2026-07-13",
+      "note": "dup-req/dup-task/truncated-R30.1 race under the classifier outage; R27.2 reuse-on-wire + uuid-truncation guard do NOT cover req/task mints. S29 governance backlog per R29.4 (no new sprint)."
+    },
+    "crossRef": [
+      "ior:instance:9e49041e-29f3-443d-9351-67810da314f3",
+      "ior:instance:64965538-2725-4ef2-92e7-c1be6cd58d6f",
+      "ior:instance:79bc8e34-9acb-4338-bbd0-c1f7e817ca7d"
+    ],
+    "crossRefNote": "Governance sibling of R29.4 (no-auto-mint-sprints). Extends R27.2 reuse-on-wire + the uuid-truncation guard to the req/task mint path. Enforced via trace:audit / mint-path (R24.5). Backlog.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-mint-lock",
+        "group": "guard",
+        "text": "A req-number (altId) or task may have only ONE in-flight mint at a time; a mint-lock prevents a second concurrent mint of the same altId."
+      },
+      {
+        "id": "AC-reuse-or-abort",
+        "group": "guard",
+        "text": "A parallel/outage mint that finds the altId already minted must REUSE the existing unit or ABORT - never double-mint a second unit with the same altId (R27.2 reuse-on-wire, applied to req/task mints)."
+      },
+      {
+        "id": "AC-reject-truncated",
+        "group": "guard",
+        "text": "uuid refs shorter than 36 chars are REJECTED at write time (extends the uuid-truncation guard from Class/markers to req/task refs), so no truncated ref (like the R30.1 6f796898 truncation) can dangle."
+      },
+      {
+        "id": "AC-one-mover",
+        "group": "guard",
+        "text": "During a re-scope / churn, one-mover-per-req is enforced by construction (the field-owner writes; a parallel writer reuses-or-defers), not left to discipline."
+      },
+      {
+        "id": "AC-verify",
+        "group": "verify",
+        "text": "A simulated parallel double-mint of the same altId -> the second reuses/aborts (0 dup); a truncated uuid ref -> rejected. Regression fixtures = the S30 R30.2/R30.3 dup-req + dup-task + truncated-R30.1 cases."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e"
+}
