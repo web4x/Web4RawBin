@@ -2,7 +2,7 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: R30.9: IntelliJ-faithful base-aware 3-way merge",
+    "name": "Current: Task 30.9: IntelliJ-faithful base-aware 3-way merge view",
     "chain": {
       "req": "0d6f18cd-1496-4672-8fee-5a38eeb728dc",
       "uc": "",
@@ -13,7 +13,7 @@
     },
     "activeHop": 1,
     "sprintName": "Sprint 30",
-    "taskName": "R30.9: IntelliJ-faithful base-aware 3-way merge",
+    "taskName": "Task 30.9: IntelliJ-faithful base-aware 3-way merge view",
     "hopStates": {
       "req": {
         "status": "done",
@@ -22,18 +22,18 @@
       }
     },
     "nextBacklogOverride": "600fa089-c8a4-4977-a89b-504969e78170",
-    "lastCompletedUuid": "3618036e-d605-4e30-8651-9a14d0a863f6",
-    "lastCompletedName": "R30.7: Uniform git-ref validation guard",
+    "lastCompletedUuid": "2a873503-e498-454c-af76-8a737a04fe62",
+    "lastCompletedName": "Task 30.7: Uniform ref-guard across editor targeting",
     "lastCompletedReqUuid": "3618036e-d605-4e30-8651-9a14d0a863f6",
     "slots": {
       "current": {
-        "taskUuid": "0d6f18cd-1496-4672-8fee-5a38eeb728dc",
-        "taskName": "R30.9: IntelliJ-faithful base-aware 3-way merge",
+        "taskUuid": "6a6a56d3-3e06-44e9-9ca2-b7c11d574bff",
+        "taskName": "Task 30.9: IntelliJ-faithful base-aware 3-way merge view",
         "reqUuid": "0d6f18cd-1496-4672-8fee-5a38eeb728dc"
       },
       "lastCompleted": {
-        "taskUuid": "3618036e-d605-4e30-8651-9a14d0a863f6",
-        "taskName": "R30.7: Uniform git-ref validation guard",
+        "taskUuid": "2a873503-e498-454c-af76-8a737a04fe62",
+        "taskName": "Task 30.7: Uniform ref-guard across editor targeting",
         "reqUuid": "3618036e-d605-4e30-8651-9a14d0a863f6"
       },
       "nextBacklog": {
