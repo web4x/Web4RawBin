@@ -3,7 +3,9 @@
   "model": {
     "uuid": "0b026300-cc81-482e-a445-b2bdbb2ed29c",
     "name": "RbFileTree.loadDir root-relPath fix",
-    "tests": [],
+    "tests": [
+      "ior:instance:5ef5b43f-aa5d-49d6-b79d-e5247bdc80d2"
+    ],
     "sourceFile": "ior:file:src/public/ts/components/rb-file-tree.ts",
     "designAhead": false,
     "fixPending": true,

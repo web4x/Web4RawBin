@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5ef5b43f-aa5d-49d6-b79d-e5247bdc80d2",
+    "name": "test:R30.5 RbFileTree.loadDir gate",
+    "description": "Bridged to test/visual/r305-edit-filetree-gate.mjs — /edit Files pane populates FULL project tree on load (root relPath='' -> /api/files/ project-root, not %2F Forbidden); subdir expand regression. DET-3x GREEN, prod v0.7.13, READ-ONLY (no writes/seed).",
+    "sourceFile": "ior:file:test/visual/r305-edit-filetree-gate.mjs",
+    "verifies": [
+      "ior:instance:0b026300-cc81-482e-a445-b2bdbb2ed29c"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:0b026300-cc81-482e-a445-b2bdbb2ed29c"
+}
