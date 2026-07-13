@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "4bc24d24-ffcb-4adc-a3bb-27819ae63b7d",
+    "name": "test:R30.4 RoomBrowser.applyProfileName gate",
+    "description": "Bridged to test/visual/r304-lobby-profile-name-gate.mjs — lobby resolves the saved profile name on INITIAL load (MSG.PROFILE→applyProfileName), member-name='SystemTester' not 'User NNN'. DET-3x GREEN, prod v0.7.12, NON-POLLUTING (no rawbin-name seed).",
+    "sourceFile": "ior:file:test/visual/r304-lobby-profile-name-gate.mjs",
+    "verifies": [
+      "ior:instance:9b9732be-f378-4030-969c-7b27032b46a3"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:9b9732be-f378-4030-969c-7b27032b46a3"
+}

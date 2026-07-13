@@ -3,7 +3,9 @@
   "model": {
     "uuid": "9b9732be-f378-4030-969c-7b27032b46a3",
     "name": "RoomBrowser.applyProfileName impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:4bc24d24-ffcb-4adc-a3bb-27819ae63b7d"
+    ],
     "sourceFile": "ior:file:src/public/ts/RoomBrowser.ts",
     "description": "DESIGN-AHEAD: applyProfileName sets the lobby member name from the LOADED profile + dual-subscribes (MSG.PROFILE + PROFILE_UPDATED) to re-render on profile-load; random fallback only when no profile exists. Expert builds + tags the [impl:uuid] marker.",
     "note": "R30.4. Design-ahead per architect note r30.4-lobby-name-from-loaded-profile.md (87ca3d02f); expert builds applyProfileName + dual subscribe.",
