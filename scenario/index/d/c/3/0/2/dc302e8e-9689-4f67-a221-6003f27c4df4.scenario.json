@@ -1,12 +1,14 @@
 {
- "ior": "ior:class:Implementation",
- "model": {
-  "uuid": "dc302e8e-9689-4f67-a221-6003f27c4df4",
-  "name": "RbEditorLayout.showDiff impl",
-  "tests": [],
-  "sourceFile": "ior:file:src/public/ts/components/rb-editor-layout.ts",
-  "designAhead": true,
-  "description": "DESIGN-AHEAD: mount rb-diff-editor lazily, LEFT=current file. Toolbar [Open Diff] button + edit.ts toolbar-open-diff glue. Expert builds + tags [impl] marker."
- },
- "ownerIor": "ior:instance:66b5dbc1-1c3d-4fc2-b9db-d59b58f21c77"
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "dc302e8e-9689-4f67-a221-6003f27c4df4",
+    "name": "RbEditorLayout.showDiff impl",
+    "tests": [
+      "ior:instance:43f0c9f5-e657-419e-af4e-d0e3f7d4b90c"
+    ],
+    "sourceFile": "ior:file:src/public/ts/components/rb-editor-layout.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: mount rb-diff-editor lazily, LEFT=current file. Toolbar [Open Diff] button + edit.ts toolbar-open-diff glue. Expert builds + tags [impl] marker."
+  },
+  "ownerIor": "ior:instance:66b5dbc1-1c3d-4fc2-b9db-d59b58f21c77"
 }
