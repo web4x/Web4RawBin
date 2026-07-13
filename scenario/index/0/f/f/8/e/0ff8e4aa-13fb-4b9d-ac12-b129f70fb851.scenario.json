@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "0ff8e4aa-13fb-4b9d-ac12-b129f70fb851",
+    "name": "Task 30.3: Sprint selection populates detail drawer",
+    "slug": "task-30.3-sprint-selection-detail-drawer",
+    "description": "Selecting a Sprint node in the trace tree populates the detail drawer with that sprint's detail (name/goal/task-slots) instead of an empty/stale drawer.",
+    "intention": "Tron S30 Traceability Improvement: sprint selection fills the detail drawer.",
+    "context": "Covers R30.3. Impl RbDetailDrawer.renderDetailForRef sprint-case, deployed v0.7.11 (PO fix).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] implementing (deployed v0.7.11)\n  - [ ] testing (needs gate)\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "DEPLOYED v0.7.11 (drawer fixed by PO). Chain minted retroactively by skill-expert (drive: req/planner rate-limited). Needs tester gate + architect chain-down (class/method/impl).",
+    "traceability": "  - up\n    - Requirement R30.3 `[requirement:uuid:6cd770df-0034-406e-b20c-bb8bddaadbf7]`\n  - down\n    - [UC30.3: detailDrawer.sprintCase] `[uc:uuid:9095cd05-5528-4450-a830-f9b858129ad2]`",
+    "status": "In Progress",
+    "coveredRequirements": [
+      "ior:instance:6cd770df-0034-406e-b20c-bb8bddaadbf7"
+    ],
+    "useCases": [
+      "ior:instance:9095cd05-5528-4450-a830-f9b858129ad2"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-skill-expert",
+    "createdAt": "2026-07-13"
+  },
+  "ownerIor": null
+}
