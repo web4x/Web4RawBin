@@ -2,9 +2,9 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 27.5: Canonical ref-slot registry + trace-audit calibration",
+    "name": "Current: R30.9: IntelliJ-faithful base-aware 3-way merge",
     "chain": {
-      "req": "f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc",
+      "req": "0d6f18cd-1496-4672-8fee-5a38eeb728dc",
       "uc": "",
       "class": "",
       "method": "",
@@ -12,8 +12,8 @@
       "test": ""
     },
     "activeHop": 1,
-    "sprintName": "Sprint 28",
-    "taskName": "Task 27.5: Canonical ref-slot registry + trace-audit calibration",
+    "sprintName": "Sprint 30",
+    "taskName": "R30.9: IntelliJ-faithful base-aware 3-way merge",
     "hopStates": {
       "req": {
         "status": "done",
@@ -22,19 +22,19 @@
       }
     },
     "nextBacklogOverride": "600fa089-c8a4-4977-a89b-504969e78170",
-    "lastCompletedUuid": "5665a0dd-750d-486b-964c-1bd221163ae4",
-    "lastCompletedName": "Task 30.1: Traceability tree — CurrentSprint top + eager-lazy Sprints collection",
-    "lastCompletedReqUuid": "6f796898-4dbb-47a3-ab8a-914b4c80b353",
+    "lastCompletedUuid": "3618036e-d605-4e30-8651-9a14d0a863f6",
+    "lastCompletedName": "R30.7: Uniform git-ref validation guard",
+    "lastCompletedReqUuid": "3618036e-d605-4e30-8651-9a14d0a863f6",
     "slots": {
       "current": {
-        "taskUuid": "179fafeb-0f00-4d64-be9f-e007f9801721",
-        "taskName": "Task 27.5: Canonical ref-slot registry + trace-audit calibration",
-        "reqUuid": "f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc"
+        "taskUuid": "0d6f18cd-1496-4672-8fee-5a38eeb728dc",
+        "taskName": "R30.9: IntelliJ-faithful base-aware 3-way merge",
+        "reqUuid": "0d6f18cd-1496-4672-8fee-5a38eeb728dc"
       },
       "lastCompleted": {
-        "taskUuid": "5665a0dd-750d-486b-964c-1bd221163ae4",
-        "taskName": "Task 30.1: Traceability tree — CurrentSprint top + eager-lazy Sprints collection",
-        "reqUuid": "6f796898-4dbb-47a3-ab8a-914b4c80b353"
+        "taskUuid": "3618036e-d605-4e30-8651-9a14d0a863f6",
+        "taskName": "R30.7: Uniform git-ref validation guard",
+        "reqUuid": "3618036e-d605-4e30-8651-9a14d0a863f6"
       },
       "nextBacklog": {
         "taskUuid": "600fa089-c8a4-4977-a89b-504969e78170",
