@@ -20,9 +20,9 @@
 
   - up
     - [Sprint 30 Planning](./planning.md)
-    - Requirement R30.3 `[requirement:uuid:6cd770df-0034-406e-b20c-bb8bddaadbf7]`
+    - Requirement R30.3 `[requirement:uuid:c1a0b382-9d57-4f33-820e-b05f56e25dd3]`
   - down
-    - [UC](./planning.md) `[uc:uuid:9095cd05-5528-4450-a830-f9b858129ad2]`
+    - [UC](./planning.md) `[uc:uuid:23745b79-3181-40e3-9766-6b9f2f795b3b]`
 
 ## Task Description
 
@@ -30,7 +30,7 @@ Wire tree sprint-selection → detail drawer: when a sprint node is selected in 
 
 ## Context
 
-Covers R30.3 (6cd770df). Part of the S30 traceability-tree track (ties T30.1 CurrentSprint tree).
+Covers R30.3 (c1a0b382, canonical after req dedup b2f473634). S30 traceability-tree track. v0.7.11 deployed (retroactive).
 
 ## Intention
 
@@ -38,8 +38,9 @@ S30 Traceability Improvement — keep the traceability tree scaling + navigable.
 
 ## Acceptance Criteria
 
-- [ ] (drawer) Selecting a Sprint node populates the detail drawer with that sprint's detail (name/goal/slots).
-- [ ] (drawer) The drawer is never empty/stale on sprint selection — renderDetailForRef handles the sprint case.
+- [ ] (selection) Selecting/clicking a SPRINT node updates the detail drawer to show THAT sprint details.
+- [ ] (bug) THE BUG: selecting a sprint did NOT change the drawer content.
+- [ ] (selection) selection->drawer works for ALL tree node types (sprint/task/etc) - shows the selected unit details.
 
 ## Implementation
 
