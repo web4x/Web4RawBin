@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ae6fb0cb-ca13-4c66-be09-0f8733a07ff5",
+    "name": "RoomBrowser.applyProfileName",
+    "implementations": [
+      "ior:instance:9b9732be-f378-4030-969c-7b27032b46a3"
+    ],
+    "tests": [],
+    "note": "R30.4 lobby-name-from-loaded-profile. Name = EXACTLY the factored code method the expert adds, so the [impl:uuid] marker AST-attaches (R30.2/R30.3 lesson). Minted by robbin-req one-mover (R29.9) per architect design 87ca3d02f."
+  },
+  "ownerIor": "ior:instance:59c2d69f-9545-49f4-9eee-10866b530f0c"
+}

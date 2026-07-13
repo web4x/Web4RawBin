@@ -5,7 +5,8 @@
     "name": "RoomBrowser",
     "description": "Sprint 21 design-ahead class for lobby.renderName.",
     "methods": [
-      "ior:instance:5e9eaeb4-3467-4d4d-9afe-485c8293a573"
+      "ior:instance:5e9eaeb4-3467-4d4d-9afe-485c8293a573",
+      "ior:instance:ae6fb0cb-ca13-4c66-be09-0f8733a07ff5"
     ]
   },
   "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"

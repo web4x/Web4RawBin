@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "d6d8f55a-0300-4249-b7f8-c13a80a47490",
+    "name": "lobby.memberNameFromLoadedProfile",
+    "description": "The lobby member name is resolved from the LOADED profile (await profile / re-render on profile-load), not computed synchronously before the profile loads; random 'User NNN' only as a true last resort (no profile at all).",
+    "class": "ior:instance:59c2d69f-9545-49f4-9eee-10866b530f0c",
+    "classes": [
+      "ior:instance:59c2d69f-9545-49f4-9eee-10866b530f0c"
+    ],
+    "method": "ior:instance:ae6fb0cb-ca13-4c66-be09-0f8733a07ff5",
+    "coveredRequirement": "ior:instance:17e12898-9720-4d29-af29-18bddb929f40"
+  },
+  "ownerIor": "ior:instance:17e12898-9720-4d29-af29-18bddb929f40"
+}
