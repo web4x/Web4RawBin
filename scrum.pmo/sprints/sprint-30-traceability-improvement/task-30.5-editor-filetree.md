@@ -8,13 +8,13 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,14 +38,14 @@ Tron regression (S30): the Editor file pane must show the full project filetree,
 
 ## Acceptance Criteria
 
-- [ ] (tree) The /edit Files pane shows the FULL project filetree (src / scenario / scrum.pmo / scripts / test / data / etc), expandable.
-- [ ] (bug) THE BUG: rb-file-tree.ts:31 requests /api/files/'/' for root -> server safePath('/') resolves to FS-root, fails startsWith(PROJECT_ROOT) -> {error:Forbidden} -> empty tree.
-- [ ] (bug) PROVEN: /api/files/ (empty relPath) returns the full tree; /api/files/%2F -> Forbidden - confirming the root request must use empty relPath, not '/'.
-- [ ] (fix) Fix = the file-tree root request uses an EMPTY relPath (not '/') - one-line at rb-file-tree.ts:31, drop the "|| '/'" fallback.
+- [x] (tree) The /edit Files pane shows the FULL project filetree (src / scenario / scrum.pmo / scripts / test / data / etc), expandable.
+- [x] (bug) THE BUG: rb-file-tree.ts:31 requests /api/files/'/' for root -> server safePath('/') resolves to FS-root, fails startsWith(PROJECT_ROOT) -> {error:Forbidden} -> empty tree.
+- [x] (bug) PROVEN: /api/files/ (empty relPath) returns the full tree; /api/files/%2F -> Forbidden - confirming the root request must use empty relPath, not '/'.
+- [x] (fix) Fix = the file-tree root request uses an EMPTY relPath (not '/') - one-line at rb-file-tree.ts:31, drop the "|| '/'" fallback.
 
 ## Implementation
 
-STOOD UP (planning) — status Planned; chain-build awaits architect design + req chain mint. Advance on architect/PO signal.
+DONE-DELIVERED 2026-07-13: R30.5 editor-filetree GATED GREEN DET-3x (tester 20647465d), deployed v0.7.13, PO-verified /api/files/ returns full tree, Tron-reported regression fixed+live. 64/332. rb-file-tree.ts:31 empty-relPath fix.
 
 ## Subtasks
 
