@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "6f954137-200e-4ef0-9ece-85a991f23232",
+  "name": "RepoRegistry.resolve",
+  "implementations": [
+   "ior:instance:d7dc0059-b300-4469-9518-1cfaf07599f6"
+  ],
+  "tests": [],
+  "note": "R30.6.7. Name EXACT for [impl] AST-attach. resolve(repoKey):string|null -> allowlisted absolute root or null. The repo-safety predicate; GitApi.OPTS.cwd + safeRelPath read it per-request. Never resolves a client-supplied absolute path."
+ },
+ "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+}

@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "da84a394-d27c-411b-b07a-ee04b9faef93",
+  "name": "RbFileTree.setRepo",
+  "implementations": [
+   "ior:instance:84cff75f-0819-4d1b-97e7-523d55ea0a35"
+  ],
+  "tests": [],
+  "note": "R30.6.7. Name EXACT. setRepo(key) -> set repo attr + reload; loadDir appends ?repo=<key>. On Class RbFileTree REUSE."
+ },
+ "ownerIor": "ior:instance:0916d007-6af3-49ba-8f7e-aac32d5ded6a"
+}

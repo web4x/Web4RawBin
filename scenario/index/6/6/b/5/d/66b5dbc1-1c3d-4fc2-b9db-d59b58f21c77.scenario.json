@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "66b5dbc1-1c3d-4fc2-b9db-d59b58f21c77",
+  "name": "RbEditorLayout.showDiff",
+  "implementations": [
+   "ior:instance:dc302e8e-9689-4f67-a221-6003f27c4df4"
+  ],
+  "tests": [],
+  "note": "R30.6.6. Name EXACT for [impl] AST-attach. Param currentFilePath:string. Mount <rb-diff-editor> lazily with LEFT preselected to current file (path+content via rb-code-editor.getValue())."
+ },
+ "ownerIor": "ior:instance:94e7bf82-f867-4352-88b4-8c2a45bff4d4"
+}

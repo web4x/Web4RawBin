@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "32effc0a-657d-4c5a-a187-4e073ebdafa7",
+  "name": "diffEditor.openDiffButton",
+  "description": "An [Open Diff] toolbar button opens the 3-way diff/merge editor with the current file preselected on the LEFT: dispatches toolbar-open-diff -> edit.ts -> RbEditorLayout.showDiff(currentFilePath) mounts rb-diff-editor lazily, LEFT = current file (path+content).",
+  "class": "ior:instance:94e7bf82-f867-4352-88b4-8c2a45bff4d4",
+  "classes": [
+   "ior:instance:94e7bf82-f867-4352-88b4-8c2a45bff4d4"
+  ],
+  "method": "ior:instance:66b5dbc1-1c3d-4fc2-b9db-d59b58f21c77",
+  "coveredRequirement": "ior:instance:91e06cc8-57ce-482a-91ae-4c9f13751059"
+ },
+ "ownerIor": "ior:instance:91e06cc8-57ce-482a-91ae-4c9f13751059"
+}

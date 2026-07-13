@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "2368167a-6efd-4079-aaab-cd41705d6add",
+  "name": "RepoRegistry.list",
+  "implementations": [
+   "ior:instance:ef022b16-b998-4d82-84a0-6ad51c94c1e5"
+  ],
+  "tests": [],
+  "note": "R30.6.7. Name EXACT. list():{key,label}[] -> allowlisted repos for the diff-UI repo picker."
+ },
+ "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+}

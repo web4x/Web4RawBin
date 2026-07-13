@@ -1,0 +1,16 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "522473f3-f7b8-4444-91ec-101fd2bfee77",
+  "name": "diffEditor.repoTargeting",
+  "description": "The diff/file tooling targets a selectable repo (e.g. OOSH) via a server-side key-allowlist: client sends a repo KEY (?repo=oosh), RepoRegistry.resolve maps it to an allowlisted absolute root (else null->400), RepoRegistry.list feeds a repo picker, GitApi de-hardcodes ROOT to the resolved root, and RbFileTree.setRepo reloads the tree for the chosen repo. Default rawbin.",
+  "class": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+  "classes": [
+   "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+   "ior:instance:0916d007-6af3-49ba-8f7e-aac32d5ded6a"
+  ],
+  "method": "ior:instance:6f954137-200e-4ef0-9ece-85a991f23232",
+  "coveredRequirement": "ior:instance:e8d2ac99-a844-4794-9f11-86911bb4e058"
+ },
+ "ownerIor": "ior:instance:e8d2ac99-a844-4794-9f11-86911bb4e058"
+}

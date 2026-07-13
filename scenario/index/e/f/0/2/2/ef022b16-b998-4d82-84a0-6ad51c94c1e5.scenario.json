@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "ef022b16-b998-4d82-84a0-6ad51c94c1e5",
+  "name": "RepoRegistry.list impl",
+  "tests": [],
+  "sourceFile": "ior:file:src/ts/server/repo-registry.ts",
+  "designAhead": true,
+  "description": "DESIGN-AHEAD: return [{key,label}] over the allowlist for the repo picker. Expert builds + tags [impl]."
+ },
+ "ownerIor": "ior:instance:2368167a-6efd-4079-aaab-cd41705d6add"
+}

@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "84cff75f-0819-4d1b-97e7-523d55ea0a35",
+  "name": "RbFileTree.setRepo impl",
+  "tests": [],
+  "sourceFile": "ior:file:src/public/ts/components/rb-file-tree.ts",
+  "designAhead": true,
+  "description": "DESIGN-AHEAD: set repo attribute + reload; loadDir appends ?repo=<key>. Expert builds + tags [impl]."
+ },
+ "ownerIor": "ior:instance:da84a394-d27c-411b-b07a-ee04b9faef93"
+}
