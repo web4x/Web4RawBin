@@ -24,3 +24,5 @@ Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' w
 - [x] [Task 30.6.5: Swap sides](./task-30.6.5-swap.md)
 - [x] [Task 30.6.6: [Open Diff] toolbar button (editor entry point)](./task-30.6.6-open-diff-entry.md)
 - [x] [Task 30.6.7: OOSH-repo targeting via RepoRegistry allowlist](./task-30.6.7-oosh-repo-targeting.md)
+- [ ] [Task 30.9: IntelliJ-faithful base-aware 3-way merge view](./task-30.9-intellij-3way-merge.md)
+- [ ] [Task 30.7: Uniform ref-guard across editor targeting](./task-30.7-uniform-ref-guard.md)

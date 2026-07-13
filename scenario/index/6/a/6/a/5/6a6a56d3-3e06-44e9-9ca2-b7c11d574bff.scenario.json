@@ -1,0 +1,29 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "6a6a56d3-3e06-44e9-9ca2-b7c11d574bff",
+    "name": "Task 30.9: IntelliJ-faithful base-aware 3-way merge view",
+    "slug": "task-30.9-intellij-3way-merge",
+    "description": "Rebuild the RbDiffEditor merge view to be IntelliJ-faithful and base-aware: render the 3-way merge with IntelliJ visual fidelity (base-aware conflict resolution, gutter actions), superseding the in-house-LCS merge (R30.6.1/3).",
+    "intention": "S30: minted for #126 traceability (R30.9 was requirement-only; pin held the req uuid as workaround).",
+    "context": "Covers R30.9 (0d6f18cd). Class RbDiffEditor.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "implementation": "TRON-ACCEPTED 2026-07-13 (fidelity gate PASSED — Tron: the current implementation is amazing; IntelliJ 3-way visual-fidelity check passed). Tester finishing last 3 interaction hops for full chain-credit. status QA Review (Tron-accepted = the real acceptance; full scoreboard credit pending 3 hops).",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.9 `[requirement:uuid:0d6f18cd-1496-4672-8fee-5a38eeb728dc]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:829f010e-e811-4a64-89a3-f324fc48995d]`",
+    "acceptanceCriteria": "- [x] (merge) Two refs -> GitApi.mergeBase -> CENTER starts as the base-aware auto-merge (non-conflicting changes from either side pre-applied via node-diff3), true conflicts flagged; layout is LEFT=local | CENTER=result | RIGHT=remote (IntelliJ column order).\n- [x] (gutter) Per-change accept-left / accept-right gutter arrows (renderMergeGutter + acceptChange) apply that side's chunk into CENTER at the aligned range; conflicts are highlighted for resolution.\n- [x] (actions) 'Apply All Non-Conflicting Changes' (applyAllNonConflicting) is one click; syncScroll3 keeps all three panes scroll-aligned.\n- [x] (fidelity) CENTER is a full Monaco editor (autocomplete/lint/keybindings) — IntelliJ's fully-functional center; the 3 editors share one Monaco via monacoLoader (reuse rb-code-editor's).\n- [x] (git) BASE = GitApi.mergeBase(leftRef,rightRef) via read-only git merge-base (execFile + ref-allowlist / R30.7 guardRef).\n- [x] (fallback) No merge-base (unrelated histories / working-file vs arbitrary ref / non-git) -> documented 2-way take-over fallback (CENTER=local, accept-arrows work as plain take-over).\n- [x] (supersede) The in-house LCS is retired: R30.6.1 computeDiff (15843ac9) + R30.6.3 renderHunks (37636aaa)/takeHunk (6ebfac12) markers removed + Impl units noted 'superseded by IntelliJ 3-way merge (R30.9)'; node-diff3 owns diffing. save writes CENTER via /api/files.\n- [x] (verify) computeMergedCenter unit test: diff3Merge auto-applies non-conflicting changes + flags true conflicts (pure, DOM-free).",
+    "subtasks": "None (atomic task).",
+    "status": "QA Review",
+    "coveredRequirements": [
+      "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+    ],
+    "useCases": [
+      "ior:instance:829f010e-e811-4a64-89a3-f324fc48995d"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-13",
+    "tronDelivered": "2026-07-13 (Tron-accepted, IntelliJ fidelity gate passed)"
+  },
+  "ownerIor": null
+}
