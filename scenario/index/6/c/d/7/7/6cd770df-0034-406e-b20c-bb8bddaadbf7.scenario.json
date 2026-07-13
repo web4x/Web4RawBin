@@ -1,0 +1,41 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "6cd770df-0034-406e-b20c-bb8bddaadbf7",
+    "name": "Sprint selection populates detail drawer",
+    "altId": "R30.3",
+    "tasks": [
+      "ior:instance:0ff8e4aa-13fb-4b9d-ac12-b129f70fb851"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "useCases": [
+      "ior:instance:9095cd05-5528-4450-a830-f9b858129ad2"
+    ],
+    "description": "Selecting a Sprint node in the traceability tree POPULATES the detail drawer with that sprint's detail (name, goal, task slots), instead of an empty/stale drawer. Impl: RbDetailDrawer.renderDetailForRef sprint-case (deployed v0.7.11).",
+    "discoverySource": {
+      "type": "tron-directive",
+      "flaggedBy": "Tron via robbin-architect",
+      "date": "2026-07-13",
+      "note": "S30 traceability improvement \u2014 sprint selection populates the detail drawer; minted by skill-expert (drive: req/planner rate-limited) to trace deployed v0.7.11 fix."
+    },
+    "acceptanceCriteria": [
+      {
+        "id": "AC-sprint-select-drawer",
+        "group": "drawer",
+        "text": "Selecting a Sprint node populates the detail drawer with that sprint's detail (name/goal/slots)."
+      },
+      {
+        "id": "AC-no-empty-drawer",
+        "group": "drawer",
+        "text": "The drawer is never empty/stale on sprint selection \u2014 renderDetailForRef handles the sprint case."
+      }
+    ],
+    "sprintName": "Sprint 30",
+    "status": "superseded",
+    "supersededBy": "ior:instance:c1a0b382-9d57-4f33-820e-b05f56e25dd3",
+    "supersededNote": "Dup of R30.3 minted in parallel during the classifier outage; retired 2026-07-13 in favour of the MORE-COMPLETE unit c1a0b382-9d57-4f33-820e-b05f56e25dd3 (all Tron ACs). Kept as tombstone."
+  },
+  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

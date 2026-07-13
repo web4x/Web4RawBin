@@ -2,15 +2,15 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "2173e549-ca99-43e5-aea8-946b02141c13",
-    "name": "Sprint 30 — Traceability Improvement",
+    "name": "Sprint 30 \u2014 Traceability Improvement",
     "number": 30,
-    "goal": "Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' with 3 EAGER children (Current / Last Completed / Next Backlog) + a 'Sprints 01-<N>' collection (collapsed, count badge). Structure-eager / payload-lazy: sprint nodes eager, their TASKS load only when the sprint is expanded — so the tree scales as sprints grow (same eager-structure/lazy-payload pattern as R26 federation).",
+    "goal": "Traceability tree \u2014 exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' with 3 EAGER children (Current / Last Completed / Next Backlog) + a 'Sprints 01-<N>' collection (collapsed, count badge). Structure-eager / payload-lazy: sprint nodes eager, their TASKS load only when the sprint is expanded \u2014 so the tree scales as sprints grow (same eager-structure/lazy-payload pattern as R26 federation).",
     "status": "Planned",
     "compoundSource": "scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
     "requirements": [
-      "ior:instance:6f796898",
-      "ior:instance:850a339d-c7e5-4308-b2c7-65536bd5271e",
-      "ior:instance:6cd770df-0034-406e-b20c-bb8bddaadbf7"
+      "ior:instance:15c8fe45-b1ff-4c08-b589-be741ae95d85",
+      "ior:instance:c1a0b382-9d57-4f33-820e-b05f56e25dd3",
+      "ior:instance:6f796898-4dbb-47a3-ab8a-914b4c80b353"
     ],
     "tasks": [
       "ior:instance:5665a0dd-750d-486b-964c-1bd221163ae4",
@@ -25,12 +25,12 @@
       "robbin-architect",
       "robbin-planner"
     ],
-    "theme": "agent messaging / async mailbox",
+    "theme": "traceability tree improvement",
     "tronAuthorization": {
       "authorizedBy": "Tron",
       "via": "PO",
       "at": "2026-07-02",
-      "ref": "PO directive robbinTeam2:0.0 2026-07-02 — Tron authorized Sprint 30 for AgentMessage (first R29.4-authorized increment)"
+      "ref": "PO directive robbinTeam2:0.0 2026-07-02 \u2014 Tron authorized Sprint 30 for AgentMessage (first R29.4-authorized increment)"
     },
     "slug": "sprint-30-traceability-improvement"
   },

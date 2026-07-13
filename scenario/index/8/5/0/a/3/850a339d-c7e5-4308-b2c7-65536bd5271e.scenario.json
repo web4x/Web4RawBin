@@ -1,0 +1,46 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "850a339d-c7e5-4308-b2c7-65536bd5271e",
+    "name": "Eager child-count badges",
+    "altId": "R30.2",
+    "tasks": [
+      "ior:instance:76e8683d-4154-4101-98a0-eb23d8bd7249"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "useCases": [
+      "ior:instance:80cb8336-c758-49f6-80d9-dafe068ad71f"
+    ],
+    "description": "Every collapsed trace-tree node shows a child-count BADGE reflecting its real childCount from server metadata BEFORE its children are loaded (structure+count eager, payload lazy). The CurrentSprint node and each Sprint node in the Sprints collection carry a badge = their true child count without expanding. Impl: RbTraceTree.computeBadges + renderCurrentSprintEagerLazy (nodeChildCount from server metadata), deployed v0.7.11.",
+    "discoverySource": {
+      "type": "tron-directive",
+      "flaggedBy": "Tron via robbin-architect",
+      "date": "2026-07-13",
+      "note": "S30 traceability improvement \u2014 eager child-count badges; minted by skill-expert (drive: req/planner rate-limited) to trace deployed v0.7.11 fix."
+    },
+    "acceptanceCriteria": [
+      {
+        "id": "AC-badge-precount",
+        "group": "tree",
+        "text": "A collapsed node's badge shows its real childCount from server metadata BEFORE children load."
+      },
+      {
+        "id": "AC-eager-count",
+        "group": "scaling",
+        "text": "Counts are eager (from structure metadata); child PAYLOADS stay lazy until expand."
+      },
+      {
+        "id": "AC-currentsprint-badge",
+        "group": "tree",
+        "text": "CurrentSprint node + each Sprint node carry a correct child-count badge without expanding."
+      }
+    ],
+    "sprintName": "Sprint 30",
+    "status": "superseded",
+    "supersededBy": "ior:instance:15c8fe45-b1ff-4c08-b589-be741ae95d85",
+    "supersededNote": "Dup of R30.2 minted in parallel during the classifier outage; retired 2026-07-13 in favour of the MORE-COMPLETE unit 15c8fe45-b1ff-4c08-b589-be741ae95d85 (all Tron ACs). Kept as tombstone."
+  },
+  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

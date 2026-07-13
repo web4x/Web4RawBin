@@ -1,0 +1,50 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "c1a0b382-9d57-4f33-820e-b05f56e25dd3",
+    "name": "Sprint selection updates the detail drawer",
+    "altId": "R30.3",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+    "sourceLine": 37,
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:23745b79-3181-40e3-9766-6b9f2f795b3b"
+    ],
+    "description": "Selecting/clicking a SPRINT node in the traceability tree updates the detail drawer to show THAT sprint's details. The selection->drawer binding works for ALL tree node types (sprint/task/etc), always showing the selected unit's details. THE BUG: selecting a sprint did NOT change the drawer content.",
+    "tronQuote": "> TRON 2026-07-13: clicking a sprint node must update the detail drawer to that sprint details - currently selecting a sprint does NOT change the drawer.",
+    "discoverySource": {
+      "type": "tron-directive-retroactive",
+      "flaggedBy": "Tron via robbin-architect/robbin-po",
+      "date": "2026-07-13",
+      "note": "S30 traceability-tree bug. Bugs FIXED + deployed v0.7.11 BEFORE the req = #126 slip; chain completed scenario-first retroactively."
+    },
+    "crossRef": [
+      "ior:instance:6f796898-4dbb-47a3-ab8a-914b4c80b353",
+      "ior:instance:225b18a6-684d-4bec-9a4d-42ed4f23fd09",
+      "ior:instance:a5da3f93-0341-4856-90eb-bb25954c72a2"
+    ],
+    "crossRefNote": "S30 traceability-tree family (R30.1). R30.2 eager-count reuses R26.4 structure-eager-payload-lazy; R30.3 selection->drawer ties R25.4/R27.8.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-sprint-drawer",
+        "group": "selection",
+        "text": "Selecting/clicking a SPRINT node updates the detail drawer to show THAT sprint details."
+      },
+      {
+        "id": "AC-bug",
+        "group": "bug",
+        "text": "THE BUG: selecting a sprint did NOT change the drawer content."
+      },
+      {
+        "id": "AC-all-types",
+        "group": "selection",
+        "text": "selection->drawer works for ALL tree node types (sprint/task/etc) - shows the selected unit details."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}
