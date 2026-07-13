@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "d9223804-e123-4632-8b92-d38421c0dd16",
+  "name": "RbDiffEditor.mountThreePane",
+  "implementations": [
+   "ior:instance:c4c84142-191c-4ed5-af2a-568534f2807c"
+  ],
+  "tests": [],
+  "note": "R30.9. Name EXACT. 3 Monaco editors (local|result|remote), CENTER full-functional. IntelliJ layout."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

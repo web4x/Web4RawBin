@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "2d3b5c12-1fd2-4b63-8b5f-9c63b116f131",
+  "name": "merge.syncScroll",
+  "description": "Synchronized scroll + row-alignment across the 3 Monaco editors.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:f014576e-f100-4a48-a3c6-d3827b78b3ea",
+  "coveredRequirement": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+ },
+ "ownerIor": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+}

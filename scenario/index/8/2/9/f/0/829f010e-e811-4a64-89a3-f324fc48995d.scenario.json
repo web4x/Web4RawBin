@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "829f010e-e811-4a64-89a3-f324fc48995d",
+  "name": "merge.diff3Center",
+  "description": "diff3Merge(local, base, remote) computes the CENTER as the base-aware auto-merge (non-conflicting changes from either side pre-applied) + a list of true conflict regions. BASE = GitApi.mergeBase. This is IntelliJ's merge model.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:09af8c8d-591f-4746-8f2a-8bba5c1e682a",
+  "coveredRequirement": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+ },
+ "ownerIor": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+}

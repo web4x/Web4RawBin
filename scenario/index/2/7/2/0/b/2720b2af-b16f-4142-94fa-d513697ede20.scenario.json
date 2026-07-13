@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "2720b2af-b16f-4142-94fa-d513697ede20",
+  "name": "RbDiffEditor.monacoLoader",
+  "implementations": [
+   "ior:instance:e09a8327-bb1f-4d7c-8b46-d0f1802cfb89"
+  ],
+  "tests": [],
+  "note": "R30.9. Name EXACT (design 'editor.monacoLoader->monacoLoader'; minted RbDiffEditor.monacoLoader for class-prefix consistency \u2014 architect derive-confirm the owner/name). Shared Monaco loader, reuse rb-code-editor's."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "c4c84142-191c-4ed5-af2a-568534f2807c",
+  "name": "RbDiffEditor.mountThreePane impl",
+  "tests": [],
+  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+  "designAhead": true,
+  "description": "DESIGN-AHEAD: mount 3 Monaco editors IntelliJ layout. Expert builds + tags [impl] marker (=this Impl uuid)."
+ },
+ "ownerIor": "ior:instance:d9223804-e123-4632-8b92-d38421c0dd16"
+}

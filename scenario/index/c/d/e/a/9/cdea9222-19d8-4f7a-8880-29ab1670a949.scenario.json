@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "cdea9222-19d8-4f7a-8880-29ab1670a949",
+  "name": "editor.monacoLoader",
+  "description": "Lazy-load/reuse the Monaco runtime (the same one rb-code-editor already loads) so the 3 merge editors share one Monaco instance.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:2720b2af-b16f-4142-94fa-d513697ede20",
+  "coveredRequirement": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+ },
+ "ownerIor": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+}

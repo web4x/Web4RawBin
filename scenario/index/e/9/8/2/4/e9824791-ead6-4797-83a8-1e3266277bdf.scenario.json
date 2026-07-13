@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "e9824791-ead6-4797-83a8-1e3266277bdf",
+  "name": "merge.acceptChange",
+  "description": "acceptChange(changeId, side) applies that side's chunk into CENTER at the aligned range (the accept-left/right action).",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:dfbbd057-a492-4760-a3a1-78e31de894a6",
+  "coveredRequirement": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+ },
+ "ownerIor": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+}

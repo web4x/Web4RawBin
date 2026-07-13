@@ -8,7 +8,9 @@
   ],
   "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
   "designAhead": true,
-  "description": "DESIGN-AHEAD: Apply a side's hunk text into the Center merged buffer; re-render + mark dirty. Expert builds + tags [impl] marker."
+  "description": "DESIGN-AHEAD: Apply a side's hunk text into the Center merged buffer; re-render + mark dirty. Expert builds + tags [impl] marker.",
+  "supersededBy": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc",
+  "supersededNote": "Superseded by IntelliJ 3-way merge (R30.9) \u2014 LCS/manual-gutter retired; expert removes the [impl] marker."
  },
  "ownerIor": "ior:instance:b507c987-96d9-4186-ae3f-51f0438a6a4d"
 }

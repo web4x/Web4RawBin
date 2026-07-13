@@ -1,0 +1,89 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "0d6f18cd-1496-4672-8fee-5a38eeb728dc",
+  "name": "IntelliJ-faithful base-aware 3-way merge (Monaco 3-pane + node-diff3)",
+  "altId": "R30.9",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:829f010e-e811-4a64-89a3-f324fc48995d",
+   "ior:instance:cd353f5f-9f5a-4aea-9c33-d4ddec80fe4f",
+   "ior:instance:009e9cb7-d486-4d24-ad44-43d4030f0245",
+   "ior:instance:e9824791-ead6-4797-83a8-1e3266277bdf",
+   "ior:instance:9d95ce6b-d405-47f7-870f-34f854e14650",
+   "ior:instance:2d3b5c12-1fd2-4b63-8b5f-9c63b116f131",
+   "ior:instance:e7fc6679-4490-4c85-9fbd-2730df1a79ab",
+   "ior:instance:cdea9222-19d8-4f7a-8880-29ab1670a949"
+  ],
+  "description": "An IntelliJ-faithful base-aware 3-way merge editor: LEFT=local (read-only) | CENTER=result (editable full-Monaco, autocomplete) | RIGHT=remote (read-only), IntelliJ column order. node-diff3 computes the CENTER as the base-aware auto-merge (non-conflicting changes pre-applied) + true conflict regions, with BASE from GitApi.mergeBase (git merge-base). Per-change accept-left/accept-right gutter arrows apply a side into CENTER, plus 'Apply All Non-Conflicting Changes' and synchronized 3-pane scroll. Retires the in-house LCS (R30.6.1) + manual hunk gutter (R30.6.3). No merge-base -> documented 2-way take-over fallback. Custom build chosen over monaco-vscode-api (that is VS Code UX, not IntelliJ) and over CM5 MergeView (not base-aware, no Monaco autocomplete center).",
+  "tronQuote": "> TRON 2026-07-13 RULING: IntelliJ 3-way merge at ANY overhead cost \u2014 max fidelity to IntelliJ specifically (left local | editable result | right remote, per-change accept arrows, base-aware auto-apply, Apply-All-Non-Conflicting, sync scroll). Weight/effort no object.",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron via robbin-architect / robbin-po",
+   "date": "2026-07-13",
+   "note": "R30.6 diff-editor RE-ARCHITECTURE, Tron-FINAL. Architect design 0b9fd5364 (r30.9-intellij-3way-merge.md) pick C custom (Monaco 3-pane + node-diff3 + IntelliJ gutter) \u2014 rejected (A) monaco-vscode-api (VS Code UX not IntelliJ) + CM5 MergeView (not base-aware, no Monaco center). NOTE: an earlier CM5 R30.9 mint was backed out clean before this final spec (premature-ping crossed signal, architect-owned). Sole-minter FULL chain."
+  },
+  "designRef": "scrum.pmo/design-notes/r30.9-intellij-3way-merge.md (0b9fd5364)",
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:fda2dc4f-d14f-466f-992d-b93413a5c8f2",
+   "ior:instance:1d0cf9b9-b0c2-4881-b53b-65d187654f68",
+   "ior:instance:7eb81522-7098-483f-9554-325b0c6017cd",
+   "ior:instance:e8d2ac99-a844-4794-9f11-86911bb4e058"
+  ],
+  "crossRefNote": "Re-architecture of the R30.6 diff/merge editor (umbrella 12922d5d). SUPERSEDES R30.6.1 (computeDiff/LCS) + R30.6.3 (renderHunks/takeHunk) -> node-diff3 + IntelliJ gutter. KEEPS R30.6.2 pick/save, R30.6.4 GitApi (+mergeBase, routes R30.7 guardRef), R30.6.7 RepoRegistry. RE-SCOPES connectedCallback/loadSide/swapSides.",
+  "supersedes": [
+   "ior:instance:fda2dc4f-d14f-466f-992d-b93413a5c8f2",
+   "ior:instance:1d0cf9b9-b0c2-4881-b53b-65d187654f68"
+  ],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-base-aware",
+    "group": "merge",
+    "text": "Two refs -> GitApi.mergeBase -> CENTER starts as the base-aware auto-merge (non-conflicting changes from either side pre-applied via node-diff3), true conflicts flagged; layout is LEFT=local | CENTER=result | RIGHT=remote (IntelliJ column order)."
+   },
+   {
+    "id": "AC-gutter-arrows",
+    "group": "gutter",
+    "text": "Per-change accept-left / accept-right gutter arrows (renderMergeGutter + acceptChange) apply that side's chunk into CENTER at the aligned range; conflicts are highlighted for resolution."
+   },
+   {
+    "id": "AC-apply-all",
+    "group": "actions",
+    "text": "'Apply All Non-Conflicting Changes' (applyAllNonConflicting) is one click; syncScroll3 keeps all three panes scroll-aligned."
+   },
+   {
+    "id": "AC-center-fidelity",
+    "group": "fidelity",
+    "text": "CENTER is a full Monaco editor (autocomplete/lint/keybindings) \u2014 IntelliJ's fully-functional center; the 3 editors share one Monaco via monacoLoader (reuse rb-code-editor's)."
+   },
+   {
+    "id": "AC-base-source",
+    "group": "git",
+    "text": "BASE = GitApi.mergeBase(leftRef,rightRef) via read-only git merge-base (execFile + ref-allowlist / R30.7 guardRef)."
+   },
+   {
+    "id": "AC-fallback",
+    "group": "fallback",
+    "text": "No merge-base (unrelated histories / working-file vs arbitrary ref / non-git) -> documented 2-way take-over fallback (CENTER=local, accept-arrows work as plain take-over)."
+   },
+   {
+    "id": "AC-retire",
+    "group": "supersede",
+    "text": "The in-house LCS is retired: R30.6.1 computeDiff (15843ac9) + R30.6.3 renderHunks (37636aaa)/takeHunk (6ebfac12) markers removed + Impl units noted 'superseded by IntelliJ 3-way merge (R30.9)'; node-diff3 owns diffing. save writes CENTER via /api/files."
+   },
+   {
+    "id": "AC-unit",
+    "group": "verify",
+    "text": "computeMergedCenter unit test: diff3Merge auto-applies non-conflicting changes + flags true conflicts (pure, DOM-free)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

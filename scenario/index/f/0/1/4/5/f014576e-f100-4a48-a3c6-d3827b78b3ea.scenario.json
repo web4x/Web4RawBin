@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "f014576e-f100-4a48-a3c6-d3827b78b3ea",
+  "name": "RbDiffEditor.syncScroll3",
+  "implementations": [
+   "ior:instance:e3431e87-2312-4679-bd98-6258b43ce6f3"
+  ],
+  "tests": [],
+  "note": "R30.9. Name EXACT. Sync-scroll + row-align across the 3 panes."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

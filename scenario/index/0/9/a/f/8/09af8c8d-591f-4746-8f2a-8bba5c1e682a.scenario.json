@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "09af8c8d-591f-4746-8f2a-8bba5c1e682a",
+  "name": "RbDiffEditor.computeMergedCenter",
+  "implementations": [
+   "ior:instance:a0b30550-71c8-4497-9eaf-f73551f7bb0f"
+  ],
+  "tests": [],
+  "note": "R30.9. Name EXACT for AST-attach. node-diff3 diff3Merge(local,base,remote) -> base-aware auto-merged center + conflict regions. Pure/DOM-free (unit-testable). SUPERSEDES R30.6.1 computeDiff (LCS)."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

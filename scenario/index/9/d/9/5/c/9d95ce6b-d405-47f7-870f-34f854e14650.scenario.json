@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "9d95ce6b-d405-47f7-870f-34f854e14650",
+  "name": "merge.applyAllNonConflicting",
+  "description": "IntelliJ's 'Apply All Non-Conflicting Changes' one-click (diff3 pre-applies them; this confirms/applies any remaining trivial ones).",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:2b630af1-6190-42fc-b986-6f0b70a30fa0",
+  "coveredRequirement": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+ },
+ "ownerIor": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+}

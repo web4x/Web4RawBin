@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "e7fc6679-4490-4c85-9fbd-2730df1a79ab",
+  "name": "git.mergeBase",
+  "description": "GitApi.mergeBase(leftRef, rightRef) returns the merge base commit (git merge-base, read-only execFile + ref-allowlist) \u2014 the BASE for base-aware diff3. Empty -> no-base 2-way fallback.",
+  "class": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04",
+  "classes": [
+   "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+  ],
+  "method": "ior:instance:f3176c22-4202-476b-89df-703321134e30",
+  "coveredRequirement": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+ },
+ "ownerIor": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+}

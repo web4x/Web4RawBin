@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "f3176c22-4202-476b-89df-703321134e30",
+  "name": "GitApi.mergeBase",
+  "implementations": [
+   "ior:instance:b17ad1df-b277-44e9-adab-74ee087cbccb"
+  ],
+  "tests": [],
+  "note": "R30.9. Name EXACT. git merge-base(leftRef,rightRef), read-only execFile + ref-allowlist (routes GitApi.guardRef R30.7). NEW method on GitApi."
+ },
+ "ownerIor": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+}

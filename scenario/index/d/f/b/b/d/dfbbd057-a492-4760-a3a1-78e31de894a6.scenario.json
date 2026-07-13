@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "dfbbd057-a492-4760-a3a1-78e31de894a6",
+  "name": "RbDiffEditor.acceptChange",
+  "implementations": [
+   "ior:instance:843d79d4-b07a-4f8c-8f15-297211017cb4"
+  ],
+  "tests": [],
+  "note": "R30.9. Name EXACT. Apply a side's chunk into CENTER at aligned range. RE-SCOPES R30.6.3 takeHunk (now base-aware + IntelliJ-styled)."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

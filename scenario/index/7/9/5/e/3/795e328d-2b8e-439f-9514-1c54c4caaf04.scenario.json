@@ -8,7 +8,8 @@
    "ior:instance:34cf3b1a-124b-403d-8fa7-281334f7bc90",
    "ior:instance:e2759591-0744-4683-ae98-052bd81d9f9e",
    "ior:instance:57ddbeda-4ef3-4916-a897-b7bbdbe861e2",
-   "ior:instance:a251e9a9-2ec0-47bc-b956-a0a38e153c31"
+   "ior:instance:a251e9a9-2ec0-47bc-b956-a0a38e153c31",
+   "ior:instance:f3176c22-4202-476b-89df-703321134e30"
   ],
   "note": "NEW (0 existing). Read-only git endpoints (branches/commits/fileAtRef) in server.ts monolith, allowlisted (R27.5 axis-3). R30.6."
  },

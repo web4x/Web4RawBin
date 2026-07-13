@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "2b630af1-6190-42fc-b986-6f0b70a30fa0",
+  "name": "RbDiffEditor.applyAllNonConflicting",
+  "implementations": [
+   "ior:instance:91c452ae-d41c-49bc-8efe-f656d628fd62"
+  ],
+  "tests": [],
+  "note": "R30.9. Name EXACT. IntelliJ Apply-All-Non-Conflicting one-click."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "e5540621-6e90-4553-aa56-2d17d68b0e57",
+  "name": "RbDiffEditor.renderMergeGutter",
+  "implementations": [
+   "ior:instance:e24dc98a-bbea-4e9b-9960-5f59db8bf6b1"
+  ],
+  "tests": [],
+  "note": "R30.9. Name EXACT. IntelliJ accept-left/accept-right gutter arrows aligned to diff3 ranges. SUPERSEDES R30.6.3 renderHunks (manual gutter)."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

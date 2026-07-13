@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "009e9cb7-d486-4d24-ad44-43d4030f0245",
+  "name": "merge.gutterAcceptArrows",
+  "description": "Render per-change accept-left (arrow) and accept-right (arrow) in the gutters between LEFT-CENTER and CENTER-RIGHT (Monaco decorations + gutter overlay aligned to diff3 change ranges); non-conflicting subtle, true conflicts highlighted. Matches IntelliJ's gutter.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:e5540621-6e90-4553-aa56-2d17d68b0e57",
+  "coveredRequirement": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+ },
+ "ownerIor": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+}

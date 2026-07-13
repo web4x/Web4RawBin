@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "cd353f5f-9f5a-4aea-9c33-d4ddec80fe4f",
+  "name": "merge.threePane",
+  "description": "Mount three Monaco editors in IntelliJ column order: LEFT=local (read-only), CENTER=result (read-write, full Monaco autocomplete/lint), RIGHT=remote (read-only), via a shared monacoLoader.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:d9223804-e123-4632-8b92-d38421c0dd16",
+  "coveredRequirement": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+ },
+ "ownerIor": "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+}
