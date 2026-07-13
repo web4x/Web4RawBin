@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c6f9a76b-6264-47dc-8633-15c20736f6e5",
+    "name": "test:R30.7 GitApi.guardRef uniform ref-guard gate",
+    "description": "Bridged to test/visual/r307-uniform-ref-guard-gate.mjs — uniform ref-allowlist choke point: commits+file BOTH reject bad refs (;id/$(id)/backtick/../ ->400), no shell injection (execFile), valid ref=main->200, absent->HEAD. RED->GREEN of my R30.6.7 commits-leniency finding (200@v0.7.16->400@v0.7.17). DET-3x GREEN, READ-ONLY.",
+    "sourceFile": "ior:file:test/visual/r307-uniform-ref-guard-gate.mjs",
+    "verifies": [
+      "ior:instance:4e52b300-aa7d-46dd-ad1c-f932d624c011"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4e52b300-aa7d-46dd-ad1c-f932d624c011"
+}

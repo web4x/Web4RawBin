@@ -1,12 +1,14 @@
 {
- "ior": "ior:class:Implementation",
- "model": {
-  "uuid": "4e52b300-aa7d-46dd-ad1c-f932d624c011",
-  "name": "GitApi.guardRef impl",
-  "tests": [],
-  "sourceFile": "ior:file:src/ts/server/server.ts",
-  "designAhead": true,
-  "description": "DESIGN-AHEAD: shared ref-allowlist guard applied to all git endpoints (choke point). Expert builds + tags [impl] marker (=this Impl uuid)."
- },
- "ownerIor": "ior:instance:a251e9a9-2ec0-47bc-b956-a0a38e153c31"
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4e52b300-aa7d-46dd-ad1c-f932d624c011",
+    "name": "GitApi.guardRef impl",
+    "tests": [
+      "ior:instance:c6f9a76b-6264-47dc-8633-15c20736f6e5"
+    ],
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: shared ref-allowlist guard applied to all git endpoints (choke point). Expert builds + tags [impl] marker (=this Impl uuid)."
+  },
+  "ownerIor": "ior:instance:a251e9a9-2ec0-47bc-b956-a0a38e153c31"
 }

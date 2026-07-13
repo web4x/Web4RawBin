@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1783975614472,
+    "createdAt": 1783976538046,
     "sshKeysGenerated": false,
     "sshPublicKey": "",
     "chatHistory": [],
@@ -20,35 +20,35 @@
         "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1783975614473
+        "joinedAt": 1783976538046
       },
       {
         "ior": "ior:instance:2a244a61-0892-4071-a479-87b2c6134056",
         "name": "Sebastian Roscher",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1783975614473
+        "joinedAt": 1783976538046
       },
       {
         "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
         "name": "Marcel Donges",
         "role": "owner",
         "status": "offline",
-        "joinedAt": 1783975614473
+        "joinedAt": 1783976538046
       },
       {
         "ior": "ior:instance:4824c4ea-1cc8-41ae-8bda-ef00809e757a",
         "name": "Lindar Winnie Otieno",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1783975614473
+        "joinedAt": 1783976538046
       },
       {
         "ior": "ior:instance:3effa1fc-a548-4619-a3ff-fb96382eca22",
         "name": "",
         "role": "member",
         "status": "online",
-        "joinedAt": 1783975614473
+        "joinedAt": 1783976538046
       }
     ],
     "files": [
