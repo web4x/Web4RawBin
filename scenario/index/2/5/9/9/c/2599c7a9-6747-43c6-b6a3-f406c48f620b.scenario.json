@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2599c7a9-6747-43c6-b6a3-f406c48f620b",
+    "name": "test:R30.6 RbDiffEditor.connectedCallback gate",
+    "description": "Bridged to test/visual/r306-diff-editor-gate.mjs — mounting renders the diff-editor UI (.de-file/.de-swap + panes) (DET-3x GREEN, prod v0.7.14, read-only)",
+    "sourceFile": "ior:file:test/visual/r306-diff-editor-gate.mjs",
+    "verifies": [
+      "ior:instance:ef6708f6-735c-4a59-a2cd-350aa0ec795d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ef6708f6-735c-4a59-a2cd-350aa0ec795d"
+}

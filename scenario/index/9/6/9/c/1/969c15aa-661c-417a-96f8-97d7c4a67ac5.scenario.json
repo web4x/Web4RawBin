@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "969c15aa-661c-417a-96f8-97d7c4a67ac5",
+    "name": "test:R30.6.1 RbDiffEditor.computeDiff gate",
+    "description": "Bridged to test/visual/r306-diff-editor-gate.mjs — pure LCS: [a,b,c,d]vs[a,x,c,d,e]->change b->x[1,2] + add e[4,4]/[4,5]; identical->0 hunks (DET-3x GREEN, prod v0.7.14, read-only)",
+    "sourceFile": "ior:file:test/visual/r306-diff-editor-gate.mjs",
+    "verifies": [
+      "ior:instance:15843ac9-9ca1-4cd5-bf5b-dffdff72b19c"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:15843ac9-9ca1-4cd5-bf5b-dffdff72b19c"
+}

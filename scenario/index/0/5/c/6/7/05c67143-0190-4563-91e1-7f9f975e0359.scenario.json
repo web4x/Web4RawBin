@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "05c67143-0190-4563-91e1-7f9f975e0359",
+    "name": "test:R30.6.3 RbDiffEditor.takeHunk gate",
+    "description": "Bridged to test/visual/r306-diff-editor-gate.mjs — choosing a hunk right side rebuilds Center with that side (DET-3x GREEN, prod v0.7.14, read-only)",
+    "sourceFile": "ior:file:test/visual/r306-diff-editor-gate.mjs",
+    "verifies": [
+      "ior:instance:6ebfac12-8114-40fe-b0e4-54709f102711"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:6ebfac12-8114-40fe-b0e4-54709f102711"
+}
