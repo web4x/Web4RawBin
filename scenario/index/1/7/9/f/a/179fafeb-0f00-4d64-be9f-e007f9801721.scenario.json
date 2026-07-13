@@ -7,12 +7,12 @@
     "description": "Build the canonical ref-slot registry (every ref-bearing slot: class/classes[]/method/parent/ownerIor/implementation/verifies/methods), tag each forward/back/cross + classify token/edge/self so back-edges and ~500 auth-token false-positives are excluded, and calibrate the trace-audit orphan metric so a non-zero count means REAL debt.",
     "intention": "S28 Graph-Integrity Foundation. STOOD UP scenario-first; implementation awaits Tron go (not urgent, foundational).",
     "context": "Foundational (architect registry 05da0584a/76c3a102b): today's ~2207 orphan/dangling count is mostly token/walk-gap noise -> untrustworthy. The registry + calibration make the metric honest. Correct-by-construction root fix (fixes slot-miss + miscalibration in ONE registry).",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [~] testing (tester gating axes 2-4 + bridging Test hops)\n- [ ] QA Review\n- [ ] Done",
-    "implementation": "IN PROGRESS. All 5 axes built + credited (5f34dde7e): refSlot registry + ref-integrity axes. implementing[x]. testing[~] — tester gating axes 2-4 + bridging the Test hops. Status stays In-Progress until tester GREEN -> QA Review/Done.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "implementation": "DONE 2026-07-13 (architect+PO sign-off, internal-infra gate). All 5 ACs GATED GREEN DET-3x (tester 06c9dae4d); 4 axis Test hops bridged (architect-designed+committed f6ac09521); strict HARD=0 PASS; refSlot registry + 5 axes built+credited (5f34dde7e), 62/330 (R27.5 = ONE Req, axes = supporting methods not separate rows). Ref-integrity registry LIVE.",
     "traceability": "  - up\n    - [Sprint 28 Planning](./planning.md)\n    - Requirement (uuid:f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc)\n  - crossRef\n    - R27.6 (consumes the registry's honest inventory) + R24.5 (the trace-audit tool)\n  - down\n    - [UC: traceAudit.refSlotRegistry](./planning.md) `[uc:uuid:5ff15c57-503c-45f7-a4c0-82f7969d3646]`",
-    "acceptanceCriteria": "- [ ] (registry) A canonical ref-slot registry lists every ref-bearing slot {class, classes[], method, methods[], ownerIor, children, implementations, tests, requirements, tasks, useCases, parent, coveredRequirements, subtasks, verifies}; every migration + audit imports it so no slot is scanned ad-hoc.\n- [ ] (registry) Each slot is tagged forward / back / cross and classified token/edge/self, so back-edges (ownerIor, Test.methods) and cross-refs are covered, not just forward chain.\n- [ ] (registry) ~500 auth-token false-positives (non-ref token strings) are classified as token (not edge) and excluded from the dangling/orphan counts.\n- [ ] (calibrate) trace-audit orphan metric calibrated: non-chain types added to ORPHAN_BY_DESIGN + Requirement->tasks + Sprint-roots added to the walk (the benign ~2207 metric drops to real chain-orphans).\n- [ ] (calibrate) After the registry + calibration, a non-zero orphan/dangling count indicates REAL debt (trustworthy enough to hard-gate); R27.6's true-dangling inventory is measurable against it.\n- [ ] (verify) Re-run trace:audit: token false-positives excluded, all slots covered, metric reflects only real chain debt.",
+    "acceptanceCriteria": "- [x] (registry) A canonical ref-slot registry lists every ref-bearing slot {class, classes[], method, methods[], ownerIor, children, implementations, tests, requirements, tasks, useCases, parent, coveredRequirements, subtasks, verifies}; every migration + audit imports it so no slot is scanned ad-hoc.\n- [x] (registry) Each slot is tagged forward / back / cross and classified token/edge/self, so back-edges (ownerIor, Test.methods) and cross-refs are covered, not just forward chain.\n- [x] (registry) ~500 auth-token false-positives (non-ref token strings) are classified as token (not edge) and excluded from the dangling/orphan counts.\n- [x] (calibrate) trace-audit orphan metric calibrated: non-chain types added to ORPHAN_BY_DESIGN + Requirement->tasks + Sprint-roots added to the walk (the benign ~2207 metric drops to real chain-orphans).\n- [x] (calibrate) After the registry + calibration, a non-zero orphan/dangling count indicates REAL debt (trustworthy enough to hard-gate); R27.6's true-dangling inventory is measurable against it.\n- [x] (verify) Re-run trace:audit: token false-positives excluded, all slots covered, metric reflects only real chain debt.",
     "subtasks": "None (atomic task).",
-    "status": "In Progress",
+    "status": "Done",
     "coveredRequirements": [
       "ior:instance:f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc"
     ],
@@ -23,7 +23,8 @@
     "sprintName": "Sprint 28",
     "createdBy": "robbin-planner",
     "createdAt": "2026-07-01",
-    "focus": true
+    "focus": true,
+    "signedOffBy": "architect+PO 2026-07-13 (internal-infra gate, like R27.2/R27.4)"
   },
   "ownerIor": null
 }

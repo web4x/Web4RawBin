@@ -12,9 +12,9 @@
   - [x] refinement
   - [x] creating test cases
   - [x] implementing
-  - [~] testing (tester gating axes 2-4 + bridging Test hops)
-- [ ] QA Review
-- [ ] Done
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -40,16 +40,16 @@ S28 Graph-Integrity Foundation. STOOD UP scenario-first; implementation awaits T
 
 ## Acceptance Criteria
 
-- [ ] (registry) A canonical ref-slot registry lists every ref-bearing slot {class, classes[], method, methods[], ownerIor, children, implementations, tests, requirements, tasks, useCases, parent, coveredRequirements, subtasks, verifies}; every migration + audit imports it so no slot is scanned ad-hoc.
-- [ ] (registry) Each slot is tagged forward / back / cross and classified token/edge/self, so back-edges (ownerIor, Test.methods) and cross-refs are covered, not just forward chain.
-- [ ] (registry) ~500 auth-token false-positives (non-ref token strings) are classified as token (not edge) and excluded from the dangling/orphan counts.
-- [ ] (calibrate) trace-audit orphan metric calibrated: non-chain types added to ORPHAN_BY_DESIGN + Requirement->tasks + Sprint-roots added to the walk (the benign ~2207 metric drops to real chain-orphans).
-- [ ] (calibrate) After the registry + calibration, a non-zero orphan/dangling count indicates REAL debt (trustworthy enough to hard-gate); R27.6's true-dangling inventory is measurable against it.
-- [ ] (verify) Re-run trace:audit: token false-positives excluded, all slots covered, metric reflects only real chain debt.
+- [x] (registry) A canonical ref-slot registry lists every ref-bearing slot {class, classes[], method, methods[], ownerIor, children, implementations, tests, requirements, tasks, useCases, parent, coveredRequirements, subtasks, verifies}; every migration + audit imports it so no slot is scanned ad-hoc.
+- [x] (registry) Each slot is tagged forward / back / cross and classified token/edge/self, so back-edges (ownerIor, Test.methods) and cross-refs are covered, not just forward chain.
+- [x] (registry) ~500 auth-token false-positives (non-ref token strings) are classified as token (not edge) and excluded from the dangling/orphan counts.
+- [x] (calibrate) trace-audit orphan metric calibrated: non-chain types added to ORPHAN_BY_DESIGN + Requirement->tasks + Sprint-roots added to the walk (the benign ~2207 metric drops to real chain-orphans).
+- [x] (calibrate) After the registry + calibration, a non-zero orphan/dangling count indicates REAL debt (trustworthy enough to hard-gate); R27.6's true-dangling inventory is measurable against it.
+- [x] (verify) Re-run trace:audit: token false-positives excluded, all slots covered, metric reflects only real chain debt.
 
 ## Implementation
 
-IN PROGRESS. All 5 axes built + credited (5f34dde7e): refSlot registry + ref-integrity axes. implementing[x]. testing[~] — tester gating axes 2-4 + bridging the Test hops. Status stays In-Progress until tester GREEN -> QA Review/Done.
+DONE 2026-07-13 (architect+PO sign-off, internal-infra gate). All 5 ACs GATED GREEN DET-3x (tester 06c9dae4d); 4 axis Test hops bridged (architect-designed+committed f6ac09521); strict HARD=0 PASS; refSlot registry + 5 axes built+credited (5f34dde7e), 62/330 (R27.5 = ONE Req, axes = supporting methods not separate rows). Ref-integrity registry LIVE.
 
 ## Subtasks
 

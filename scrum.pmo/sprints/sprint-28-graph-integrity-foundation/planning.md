@@ -12,5 +12,5 @@ Foundational graph-integrity instrument + repair. R27.5: canonical ref-slot regi
 
 ## Tasks
 
-- [ ] [Task 27.5: Canonical ref-slot registry + trace-audit calibration](./task-27.5-ref-slot-registry-calibration.md)
+- [x] [Task 27.5: Canonical ref-slot registry + trace-audit calibration](./task-27.5-ref-slot-registry-calibration.md)
 - [ ] [Task 27.6: Repair the true-dangling refs surfaced by the ref-slot registry](./task-27.6-true-dangling-repair.md)
