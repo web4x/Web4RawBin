@@ -1,14 +1,14 @@
 {
-  "ior": "ior:class:Implementation",
-  "model": {
-    "uuid": "6ebfac12-8114-40fe-b0e4-54709f102711",
-    "name": "RbDiffEditor.takeHunk impl",
-    "tests": [
-      "ior:instance:05c67143-0190-4563-91e1-7f9f975e0359"
-    ],
-    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-    "designAhead": true,
-    "description": "DESIGN-AHEAD: Apply a side's hunk text into the Center merged buffer; re-render + mark dirty. Expert builds + tags [impl] marker."
-  },
-  "ownerIor": "ior:instance:b507c987-96d9-4186-ae3f-51f0438a6a4d"
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "6ebfac12-8114-40fe-b0e4-54709f102711",
+  "name": "RbDiffEditor.takeHunk impl",
+  "tests": [
+   "ior:instance:05c67143-0190-4563-91e1-7f9f975e0359"
+  ],
+  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+  "designAhead": true,
+  "description": "DESIGN-AHEAD: Apply a side's hunk text into the Center merged buffer; re-render + mark dirty. Expert builds + tags [impl] marker."
+ },
+ "ownerIor": "ior:instance:b507c987-96d9-4186-ae3f-51f0438a6a4d"
 }
