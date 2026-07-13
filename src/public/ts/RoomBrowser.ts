@@ -28,18 +28,11 @@ export class RoomBrowser {
     // localStorage snapshot (which is empty before the profile loads → "User <rand>").
     this.memberName = params.get('name') || this.client.getProfile()?.name || localStorage.getItem('rawbin-name') || `User ${Math.floor(Math.random() * 1000)}`;
 
-    // R21.2: lobby self-heals to the live name when the profile updates (e.g. after
-    // vCard import + save) — without this the member-name field stays stale until reload.
-    this.client.on(MSG.PROFILE_UPDATED, (msg) => {
-      const n = msg.profile?.name;
-      if (!n) return;
-      this.memberName = n;
-      localStorage.setItem('rawbin-name', n);
-      const input = document.getElementById('member-name') as HTMLInputElement | null;
-      if (input) input.value = n;
-      const av = this.container.querySelector('rb-avatar') as HTMLElement | null;
-      if (av) av.setAttribute('name', n);
-    });
+    // R30.4: lobby self-heals to the authoritative profile name on BOTH initial load (MSG.PROFILE) AND edits
+    // (MSG.PROFILE_UPDATED). Was PROFILE_UPDATED-only → a reload never re-resolved the name and the random
+    // construction-time fallback ("User NNN") stuck. applyProfileName is idempotent + pre/post-render safe.
+    this.client.on(MSG.PROFILE, (msg) => this.applyProfileName(msg.profile?.name));
+    this.client.on(MSG.PROFILE_UPDATED, (msg) => this.applyProfileName(msg.profile?.name));
 
     this.client.on(MSG.ROOM_LIST, (msg) => { this.rooms = msg.rooms; this.renderRoomList(); });
     this.client.on(MSG.ROOM_JOINED, (msg) => { this.onEnterRoom(msg.room.id); });
@@ -53,6 +46,20 @@ export class RoomBrowser {
       this.client.listRooms();
       if (joinId) this.client.joinRoom(joinId, this.memberName);
     });
+  }
+
+  // R30.4: apply the authoritative profile name to state + persisted store + live DOM. Idempotent (same name → no-op)
+  // and pre/post-render safe (the input/avatar guards no-op before render, re-apply after). Random fallback ONLY when
+  // there is no profile name (never overwrites a real name with a random one).
+  // NOTE (scenario-first / #126): [impl:uuid:] marker (RoomBrowser.applyProfileName) awaits architect mint.
+  private applyProfileName(name: string | undefined): void {
+    if (!name) return;
+    this.memberName = name;
+    localStorage.setItem('rawbin-name', name);
+    const input = document.getElementById('member-name') as HTMLInputElement | null;
+    if (input) input.value = name;
+    const av = this.container.querySelector('rb-avatar') as HTMLElement | null;
+    if (av) av.setAttribute('name', name);
   }
 
   show(): void { this.render(); this.client.listRooms(); }
