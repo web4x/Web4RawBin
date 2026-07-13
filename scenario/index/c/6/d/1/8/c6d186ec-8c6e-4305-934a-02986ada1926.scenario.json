@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "c6d186ec-8c6e-4305-934a-02986ada1926",
+    "name": "diffMerge.threeWayView",
+    "description": "The editor shows THREE panes: left + right (the two compared versions) + center (the merged result), with line-level diff highlighting between left<->center and right<->center.",
+    "class": null,
+    "classes": [],
+    "method": null,
+    "coveredRequirement": "ior:instance:fda2dc4f-d14f-466f-992d-b93413a5c8f2",
+    "note": "Class DiffMergeEditor - architect wires Class->Method->Impl (design-only + hold; req=sole minter)."
+  },
+  "ownerIor": "ior:instance:fda2dc4f-d14f-466f-992d-b93413a5c8f2"
+}

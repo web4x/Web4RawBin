@@ -1,0 +1,43 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "1d0cf9b9-b0c2-4881-b53b-65d187654f68",
+    "name": "TAKE-OVER diffs (per-hunk left->center / right->center)",
+    "altId": "R30.6.3",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+    "sourceLine": 1,
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:73d0fd09-ad4b-4a19-8eda-09eabd261700"
+    ],
+    "description": "Per-hunk take-over buttons: left->center and right->center (+ the reverse) apply a diff hunk into the center pane, incrementally building the merged file.",
+    "tronQuote": "> TRON 2026-07-13 (R30.6 sub-feature): TAKE-OVER diffs (per-hunk left->center / right->center).",
+    "discoverySource": {
+      "type": "tron-directive",
+      "flaggedBy": "Tron via robbin-architect/robbin-po",
+      "date": "2026-07-13",
+      "note": "R30.6 sub-feature (3/5) of the 3-way diff/merge editor. Scenario-first; planner tasks T30.6.3."
+    },
+    "crossRef": [
+      "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44"
+    ],
+    "crossRefNote": "3-way diff/merge editor (R30.6 umbrella) to resolve the OOSH version issue. Class DiffMergeEditor (architect wires). ",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-per-hunk",
+        "group": "per-hunk",
+        "text": "Per-hunk buttons: left->center and right->center (+ the reverse center->side) to take over a diff hunk."
+      },
+      {
+        "id": "AC-merged-build",
+        "group": "merged-build",
+        "text": "Applying take-overs incrementally BUILDS the center merged file from the chosen hunks."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

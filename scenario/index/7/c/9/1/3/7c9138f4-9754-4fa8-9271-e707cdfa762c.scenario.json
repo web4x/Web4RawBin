@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "7c9138f4-9754-4fa8-9271-e707cdfa762c",
+    "name": "diffMerge.threeWayEditor",
+    "description": "An IntelliJ-style 3-WAY diff/merge editor to resolve the OOSH version issue: left + right (the two compared versions) merged into a center pane, with per-hunk take-over, file selectors (RbFileTree), a git branch/commit chooser, and a swap. Decomposed into R30.6.1-5.",
+    "class": null,
+    "classes": [],
+    "method": null,
+    "coveredRequirement": "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+    "note": "Class DiffMergeEditor - architect wires Class->Method->Impl (design-only + hold; req=sole minter)."
+  },
+  "ownerIor": "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44"
+}

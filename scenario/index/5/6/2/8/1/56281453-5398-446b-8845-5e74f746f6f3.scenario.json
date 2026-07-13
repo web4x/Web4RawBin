@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "56281453-5398-446b-8845-5e74f746f6f3",
+    "name": "diffMerge.swapSides",
+    "description": "A SWAP button swaps the left and right panes (and their file selections/diffs).",
+    "class": null,
+    "classes": [],
+    "method": null,
+    "coveredRequirement": "ior:instance:d32e29cd-5d94-49fb-93b2-4302aae6f11e",
+    "note": "Class DiffMergeEditor - architect wires Class->Method->Impl (design-only + hold; req=sole minter)."
+  },
+  "ownerIor": "ior:instance:d32e29cd-5d94-49fb-93b2-4302aae6f11e"
+}

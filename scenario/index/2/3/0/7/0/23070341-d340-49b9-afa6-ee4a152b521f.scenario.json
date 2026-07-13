@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "23070341-d340-49b9-afa6-ee4a152b521f",
+    "name": "diffMerge.gitBranchChooser",
+    "description": "A git branch/commit chooser lets the user pick a file from a specific branch or commit to feed into the left or right pane.",
+    "class": null,
+    "classes": [],
+    "method": null,
+    "coveredRequirement": "ior:instance:7eb81522-7098-483f-9554-325b0c6017cd",
+    "note": "Class DiffMergeEditor - architect wires Class->Method->Impl (design-only + hold; req=sole minter)."
+  },
+  "ownerIor": "ior:instance:7eb81522-7098-483f-9554-325b0c6017cd"
+}
