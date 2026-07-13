@@ -10,6 +10,7 @@ import type { RbCodeEditor } from './components/rb-code-editor.js';
 import './components/rb-preview.js';
 import type { RbPreview } from './components/rb-preview.js';
 import './components/rb-editor-toolbar.js';
+import './components/rb-diff-editor.js'; // R30.6 3-pane diff/merge editor (registers <rb-diff-editor>)
 import type { RbEditorToolbar } from './components/rb-editor-toolbar.js';
 
 if (!document.querySelector('rb-update-banner')) {

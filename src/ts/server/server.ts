@@ -490,6 +490,51 @@ function generateSecretCode(): string {
 
 // Bug report forwarding
 const execFileAsync = promisify(execFile);
+
+// R30.6 — GitApi: read-only git endpoints for the diff/merge editor. SECURITY: execFile with ARRAY args only
+// (never exec/shell → no injection), ref validated against an allowlist, path resolved within PROJECT_ROOT
+// (no `..`), read-only verbs (branch/log/show) only, timeout + maxBuffer like the plantuml call.
+// R27.5 axis-3: server.ts is the allowlisted monolith; GitApi is a distinct logical class here.
+class GitApi {
+  private static readonly ROOT = path.join(__dirname, '../../../');
+  private static readonly REF_RE = /^[\w./-]+$/;
+  private static readonly OPTS = { cwd: GitApi.ROOT, timeout: 15000, maxBuffer: 8 * 1024 * 1024 } as const;
+
+  // path must be relative, within PROJECT_ROOT, no traversal — returns the safe rel path or null.
+  private static safeRelPath(p: string): string | null {
+    if (!p || p.includes('..') || p.startsWith('/')) return null;
+    const abs = path.resolve(GitApi.ROOT, p);
+    return abs.startsWith(path.resolve(GitApi.ROOT) + path.sep) ? p : null;
+  }
+
+  // [impl:uuid:5b367f7e-cd62-470f-8636-675669b2aad0] GitApi.branches
+  static async branches(): Promise<string[]> {
+    const { stdout } = await execFileAsync('git', ['branch', '--format=%(refname:short)'], GitApi.OPTS);
+    return stdout.split('\n').map(s => s.trim()).filter(Boolean);
+  }
+
+  // [impl:uuid:e2c70b0f-a4de-4ac8-8d35-d72890327d47] GitApi.commits
+  static async commits(pathArg: string, limit: number): Promise<{ hash: string; subject: string; author: string; date: string }[]> {
+    const n = String(Math.max(1, Math.min(200, Math.floor(limit) || 20)));
+    const args = ['log', '--format=%H%x00%s%x00%an%x00%aI', '-n', n];
+    if (pathArg) { const rel = GitApi.safeRelPath(pathArg); if (!rel) throw new Error('bad path'); args.push('--', rel); }
+    const { stdout } = await execFileAsync('git', args, GitApi.OPTS);
+    return stdout.split('\n').filter(Boolean).map(l => {
+      const [hash, subject, author, date] = l.split('\0');
+      return { hash, subject, author, date };
+    });
+  }
+
+  // [impl:uuid:9bd3b360-e4d9-4bcc-9af2-ec78a72f6cb3] GitApi.fileAtRef
+  static async fileAtRef(ref: string, p: string): Promise<string> {
+    if (!GitApi.REF_RE.test(ref)) throw new Error('bad ref');
+    const rel = GitApi.safeRelPath(p);
+    if (!rel) throw new Error('bad path');
+    const { stdout } = await execFileAsync('git', ['show', `${ref}:${rel}`], GitApi.OPTS);
+    return stdout;
+  }
+}
+
 let bugReportTarget = 'robbinTeam:0.0';
 const PAIRING_PATH = path.join(DATA_DIR, 'agent-pairing.json');
 try { const p = JSON.parse(fsSync.readFileSync(PAIRING_PATH, 'utf-8')); if (p.bugReportTarget) bugReportTarget = p.bugReportTarget; } catch {}
@@ -1308,6 +1353,32 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         res.end(JSON.stringify(result));
       }
       return;
+    }
+
+    // R30.6 — GitApi read-only endpoints (diff/merge editor). Authorized same as /api/files.
+    if (filepath.startsWith('/api/git/')) {
+      const origin = req.headers['origin'] || req.headers['referer'] || '';
+      const isSameOrigin = origin.includes(`localhost:${HTTPS_PORT}`) || origin.includes(BASE_DOMAIN);
+      const playerToken = req.headers['x-player-token'] as string || '';
+      if (!(isSameOrigin || (playerToken && tokenToClient.has(playerToken)))) {
+        res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unauthorized' })); return;
+      }
+      try {
+        if (filepath === '/api/git/branches') {
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ branches: await GitApi.branches() })); return;
+        }
+        if (filepath === '/api/git/commits') {
+          const commits = await GitApi.commits(urlParams.get('path') || '', Number(urlParams.get('limit') || 20));
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ commits })); return;
+        }
+        if (filepath === '/api/git/file') {
+          const content = await GitApi.fileAtRef(urlParams.get('ref') || '', urlParams.get('path') || '');
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ content })); return;
+        }
+        res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unknown git endpoint' })); return;
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: String((e as Error)?.message || e) })); return;
+      }
     }
 
     if (filepath.startsWith('/api/avatar/')) {
