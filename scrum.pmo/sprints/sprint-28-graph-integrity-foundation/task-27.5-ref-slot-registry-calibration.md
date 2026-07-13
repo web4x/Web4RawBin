@@ -8,10 +8,10 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [~] implementing (step-1 ref-slot registry DONE + credited 62/330; axes 2-4 + AC3/AC5 building)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
@@ -49,7 +49,7 @@ S28 Graph-Integrity Foundation. STOOD UP scenario-first; implementation awaits T
 
 ## Implementation
 
-STOOD UP (planning) — status Planned, implementation awaits Tron go. Grounded in architect ref-slot registry design (05da0584a/76c3a102b).
+IN PROGRESS. Step-1 = canonical ref-slot registry (refSlots) DONE + credited (62/330). Remaining: AC3/AC5 + axes 2-4 (by-file / back-edge / etc) still building. Status stays In Progress (implementing partial) per PO hop-signal.
 
 ## Subtasks
 
