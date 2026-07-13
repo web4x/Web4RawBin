@@ -59,6 +59,7 @@ export class RbDiffEditor extends HTMLElement {
                 : `<select class="de-repo" data-side="${s === 'local' ? 'left' : 'right'}" style="background:#1e1e1e;color:#ccc;border:1px solid #333;border-radius:3px;font-size:0.65rem;max-width:70px"></select>
                    <button class="de-file" data-side="${s === 'local' ? 'left' : 'right'}" title="Choose file">📁</button>
                    <button class="de-ref" data-side="${s === 'local' ? 'left' : 'right'}" title="Choose git ref">⎇</button>
+                   ${s === 'remote' ? `<select class="de-history" title="File version history (git log --follow)" style="background:#1e1e1e;color:#ccc;border:1px solid #333;border-radius:3px;font-size:0.65rem;max-width:130px"></select>` : ''}
                    <span class="de-title" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:0.7"></span>
                    ${s === 'local' ? `<button class="de-swap" title="Swap Local↔Repository">⇄</button>` : ''}`}
             </div>
@@ -141,6 +142,7 @@ export class RbDiffEditor extends HTMLElement {
       const title = this.querySelector(`.de-${side === 'left' ? 'local' : 'remote'} .de-title`) as HTMLElement;
       if (title) title.textContent = st.ref ? `${st.path}@${st.ref}` : st.path;
       await this.computeMergedCenter();
+      if (side === 'left') void this.populateRightHistory(); // R30.10: default RIGHT to this file's git history
     } catch { this.status(`load ${side} error`); }
   }
 
@@ -332,6 +334,30 @@ export class RbDiffEditor extends HTMLElement {
       this.status(`saved ${this.left.path}`);
     } catch { this.status('save error'); }
   }
+
+  // [impl:uuid:58c11039-3f11-464d-a8fe-641722f78e2b] RbDiffEditor.populateRightHistory
+  // R30.10: default the RIGHT side to the current LOCAL file's git history (git log --follow). Fills the .de-history
+  // select newest-first, auto-loads the newest version into RIGHT, and picking an older commit re-loads RIGHT at that
+  // sha. No history (untracked / non-git) → 'no history' + the manual ⎇ pickRef fallback is preserved.
+  async populateRightHistory(): Promise<void> {
+    const sel = this.querySelector('.de-history') as HTMLSelectElement | null;
+    if (!sel || !this.left.path) return;
+    let history: { hash: string; subject: string }[] = [];
+    try {
+      const rq = this.left.repo ? `&repo=${encodeURIComponent(this.left.repo)}` : '';
+      history = (await (await fetch(`/api/git/file-history?path=${encodeURIComponent(this.left.path)}${rq}`)).json()).history ?? [];
+    } catch { /* non-git / error → fallback below */ }
+    if (!history.length) { sel.innerHTML = '<option>no history</option>'; sel.disabled = true; this.status('no git history for this file — use ⎇ to pick a ref'); return; }
+    sel.disabled = false;
+    sel.innerHTML = history.map((h, i) => `<option value="${h.hash}">${i === 0 ? '● latest ' : ''}${h.hash.slice(0, 7)} ${h.subject}</option>`).join('');
+    this.right.repo = this.left.repo; // the file's history lives in the same repo as the local file
+    if (!this._historyWired) {
+      this._historyWired = true;
+      sel.addEventListener('change', () => { if (sel.value) void this.loadSide('right', { path: this.left.path, ref: sel.value }); });
+    }
+    void this.loadSide('right', { path: this.left.path, ref: history[0].hash }); // default = newest version
+  }
+  private _historyWired = false;
 
   private async populateRepos(): Promise<void> {
     let repos: { key: string; label: string }[] = [];

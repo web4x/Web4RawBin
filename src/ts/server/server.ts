@@ -554,6 +554,19 @@ class GitApi {
       return stdout.trim();
     } catch { return ''; } // no common ancestor → empty (fallback path), not a 500
   }
+
+  // [impl:uuid:e9cfaab3-5166-4ab4-ab7c-699481b3d681] GitApi.fileHistory — R30.10: the version history of ONE file
+  // (`git log --follow -- <path>`), newest-first, for the diff editor's right-side default. Path guarded via
+  // safeRelPath (it is a PATH, not a ref → no guardRef); read-only execFile array-args; cwd = resolved repo root.
+  static async fileHistory(root: string, p: string): Promise<{ hash: string; subject: string; author: string; date: string }[]> {
+    const rel = GitApi.safeRelPath(root, p);
+    if (!rel) throw new Error('bad path');
+    const { stdout } = await execFileAsync('git', ['log', '--follow', '--format=%H%x00%s%x00%an%x00%aI', '--', rel], GitApi.opts(root));
+    return stdout.split('\n').filter(Boolean).map(l => {
+      const [hash, subject, author, date] = l.split('\0');
+      return { hash, subject, author, date };
+    });
+  }
 }
 
 let bugReportTarget = 'robbinTeam:0.0';
@@ -1411,6 +1424,10 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         if (filepath === '/api/git/merge-base') { // R30.9: common ancestor of two refs (base for diff3)
           const base = await GitApi.mergeBase(root, urlParams.get('a') || '', urlParams.get('b') || '');
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ base })); return;
+        }
+        if (filepath === '/api/git/file-history') { // R30.10: version history of one file (right-side default)
+          const history = await GitApi.fileHistory(root, urlParams.get('path') || '');
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ history })); return;
         }
         res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unknown git endpoint' })); return;
       } catch (e) {
