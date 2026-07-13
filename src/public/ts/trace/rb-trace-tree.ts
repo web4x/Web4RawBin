@@ -490,11 +490,15 @@ export class RbTraceTree extends HTMLElement {
       const count = children ? children.querySelectorAll(':scope > .tt-node').length : 0;
       const uuid = item.getAttribute('ref')?.split(':')[1] || '';
       const cached = this.prefetchCache.get(uuid);
-      // [impl:uuid:d28ee95a-1135-4e1c-be50-fe2368614171] RbTraceTree.eagerChildCountBadges — R30.2 eager child-count badge (structure+count eager / payload lazy)
-      // R30.2: prefer the eager server childCount (known before children load) so the badge is never a false 0
-      const eager = this.nodeChildCount.get(uuid);
-      item.setAttribute('child-count', String(count > 0 ? count : (cached?.length ?? eager ?? count)));
+      item.setAttribute('child-count', String(this.eagerChildCountBadges(uuid, count, cached?.length)));
     });
+  }
+
+  // [impl:uuid:d28ee95a-1135-4e1c-be50-fe2368614171] RbTraceTree.eagerChildCountBadges — R30.2 eager child-count badge (structure+count eager / payload lazy)
+  // R30.2: prefer the eager server childCount (known before children load) so the badge is never a false 0
+  private eagerChildCountBadges(uuid: string, domCount: number, cachedLen?: number): number {
+    const eager = this.nodeChildCount.get(uuid);
+    return domCount > 0 ? domCount : (cachedLen ?? eager ?? domCount);
   }
 
   private prefetchLayer(node: HTMLElement): Promise<void> {
