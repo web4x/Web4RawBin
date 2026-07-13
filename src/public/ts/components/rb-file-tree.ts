@@ -26,9 +26,12 @@ export class RbFileTree extends HTMLElement {
     });
   }
 
+  // [impl:uuid:0b026300-cc81-482e-a445-b2bdbb2ed29c] RbFileTree.loadDir — R30.5 root relPath stays '' (drop ||'/')
   private async loadDir(dirPath: string): Promise<void> {
     try {
-      const res = await fetch(`/api/files/${encodeURIComponent(dirPath || '/')}`);
+      // R30.5: root dirPath='' must stay '' → /api/files/ hits readDir('')=project-root. '/' → %2F → server safePath
+      // rejects as FS-root Forbidden → empty tree. Subdirs unaffected (lines 34/36 already treat '' as root).
+      const res = await fetch(`/api/files/${encodeURIComponent(dirPath)}`);
       if (!res.ok) return;
       const data = await res.json();
       const container = dirPath ? this.querySelector(`[data-children="${dirPath}"]`) as HTMLElement : this;
