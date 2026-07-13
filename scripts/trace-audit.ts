@@ -116,6 +116,35 @@ function duplicateClassUnits(units: Map<string, ScenarioUnit>): { name: string; 
   return [...byName.entries()].filter(([, us]) => us.length > 1).map(([name, uuids]) => ({ name, count: uuids.length, uuids })).sort((a, b) => a.name.localeCompare(b.name));
 }
 
+// R27.5 Axis-2 — NODE WELL-FORMEDNESS. Ref-integrity is BLIND to a node that exists-but-is-malformed (R27.7
+// undefined.scenario.json: a bash-artifact dropped model.uuid → correct content at the wrong path with no id).
+// Scans FILES on disk (not the loaded index, which would skip a mis-pathed unit): every unit must have model.uuid,
+// basename === <uuid>.scenario.json, shard dir derived from uuid, and no duplicate uuid across files. HARD-gated.
+// NOTE (scenario-first / #126): needs its own Impl unit for the [impl:uuid:] marker — awaiting req/architect mint.
+function nodeWellFormedness(dir: string): { kind: string; file: string; detail: string }[] {
+  const out: { kind: string; file: string; detail: string }[] = [];
+  const seen = new Map<string, string>(); // uuid → first file that claimed it
+  const walk = (d: string): void => {
+    let entries: fs.Dirent[]; try { entries = fs.readdirSync(d, { withFileTypes: true }); } catch { return; }
+    for (const e of entries) {
+      const p = path.join(d, e.name);
+      if (e.isDirectory()) { walk(p); continue; }
+      if (!e.name.endsWith('.scenario.json')) continue;
+      let model: Record<string, unknown> | undefined;
+      try { model = JSON.parse(fs.readFileSync(p, 'utf8')).model; } catch { out.push({ kind: 'unparseable', file: p, detail: '' }); continue; }
+      const uuid = model && typeof model.uuid === 'string' ? model.uuid : '';
+      if (!uuid) { out.push({ kind: 'missing-uuid', file: p, detail: e.name }); continue; }
+      if (e.name !== `${uuid}.scenario.json`) out.push({ kind: 'filename!=uuid', file: p, detail: uuid });
+      const shard = uuid.slice(0, 5).split('').join('/');
+      if (!path.dirname(p).replace(/\\/g, '/').endsWith(shard)) out.push({ kind: 'shard!=uuid', file: p, detail: uuid });
+      if (seen.has(uuid)) out.push({ kind: 'dup-uuid', file: p, detail: `also ${path.relative(dir, seen.get(uuid)!)}` });
+      else seen.set(uuid, p);
+    }
+  };
+  walk(dir);
+  return out;
+}
+
 function auditAll(idx: ScenarioIndex): AuditResult {
   const allUuids = idx.list();
   const units = new Map<string, ScenarioUnit>();
@@ -262,8 +291,12 @@ if (process.argv.includes('--completion') || process.argv.includes('--complete')
   process.exit(1);
 }
 
-const idx = new ScenarioIndex(INDEX_DIR);
+// R27.5 AC5 (tester): --dir <path> points the audit at a fixture tree (regression fixtures testable-by-construction).
+const dirArg = process.argv.indexOf('--dir');
+const AUDIT_DIR = dirArg >= 0 && process.argv[dirArg + 1] ? path.resolve(process.argv[dirArg + 1]) : INDEX_DIR;
+const idx = new ScenarioIndex(AUDIT_DIR);
 const result = auditAll(idx);
+const wellFormed = nodeWellFormedness(AUDIT_DIR); // R27.5 Axis-2
 const strict = process.argv.includes('--strict');
 
 console.log(`\n=== RawBin Trace Data Quality Audit (STRUCTURAL ONLY) ===`);
@@ -296,6 +329,11 @@ if (hop.unreachable.length > 0) {
 console.log(`\nDuplicate Class units (R27.2 AC-canonical, 1 per code-class name): ${result.duplicateClasses.length} (${result.duplicateClasses.length === 0 ? 'PASS' : 'FAIL'})`);
 for (const d of result.duplicateClasses) console.log(`  - ${d.name}: ${d.count} units [${d.uuids.map(u => u.slice(0, 8)).join(', ')}] — collapse to ONE`);
 
+// R27.5 Axis-2 — node well-formedness (HARD-gated: catches the R27.7 undefined.scenario.json bash-artifact class)
+console.log(`\nNode well-formedness (R27.5 Axis-2, missing-uuid/filename!=uuid/shard!=uuid/dup-uuid): ${wellFormed.length} (${wellFormed.length === 0 ? 'PASS' : 'FAIL'})`);
+for (const w of wellFormed.slice(0, 25)) console.log(`  ✗ ${w.kind}: ${path.relative(AUDIT_DIR, w.file)}${w.detail ? ` (${w.detail})` : ''}`);
+if (wellFormed.length > 25) console.log(`  ... and ${wellFormed.length - 25} more`);
+
 // Split truncated markers: LIVE (prefix matches a real unit → a crediting marker written short = the recurrence to
 // hard-gate) vs STALE (matches no unit → orphan marker = deferred cleanup, don't false-red CI on pre-existing debt).
 const allUuidSet = new Set(idx.list().map(u => String(u)));
@@ -309,7 +347,7 @@ for (const t of staleTruncated.slice(0, 25)) console.log(`  · stale ${t.marker}
 // R27.2/R27.7: dup-Class + cardinality + LIVE truncated-uuid markers are HARD-gated NOW (all clean → won't false-fail).
 // orphans + back-refs + STALE truncated markers are pre-existing baseline debt → REPORTED but NOT strict-gated
 // (delta-not-absolute — else --strict false-fails on the 2207-orphan / 18-stale-marker baseline).
-const hardIssues = result.duplicateClasses.length + result.cardinalityIssues.length + liveTruncated.length;
+const hardIssues = result.duplicateClasses.length + result.cardinalityIssues.length + liveTruncated.length + wellFormed.length; // R27.5 Axis-2 well-formedness HARD-gated
 const deferredIssues = result.orphans.length + result.dangling.length;
 console.log(`\n=== STRUCTURAL AUDIT — HARD (dup-Class + cardinality) = ${hardIssues} ${hardIssues === 0 ? 'PASS' : 'FAIL'} | deferred (orphans + ref-integrity dangling) = ${deferredIssues} (R27.5 residual, delta-not-absolute, not strict-gated yet) ===`);
 console.log(`(Completion measure: npx tsx scripts/po-chain-follow-up.ts --all)\n`);
