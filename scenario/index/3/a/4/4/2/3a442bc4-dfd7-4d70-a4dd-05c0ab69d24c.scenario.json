@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "3a442bc4-dfd7-4d70-a4dd-05c0ab69d24c",
+  "name": "git.fileHistory",
+  "description": "GitApi.fileHistory(root, path) runs git log --follow for a path and returns the newest-first [{sha,date,author,subject}] commit list (read-only, execFile array-args, path-guarded).",
+  "class": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04",
+  "classes": [
+   "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+  ],
+  "method": "ior:instance:0e3f8c07-4ef3-48f7-abc2-f19914d2f167",
+  "coveredRequirement": "ior:instance:168d5c58-2373-45f4-9018-0cd1e3528677"
+ },
+ "ownerIor": "ior:instance:168d5c58-2373-45f4-9018-0cd1e3528677"
+}

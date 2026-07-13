@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "0e3f8c07-4ef3-48f7-abc2-f19914d2f167",
+  "name": "GitApi.fileHistory",
+  "implementations": [
+   "ior:instance:e9cfaab3-5166-4ab4-ab7c-699481b3d681"
+  ],
+  "tests": [],
+  "note": "R30.10. Name EXACT for AST-attach. git log --follow --pretty=format (NUL-delimited) --  path, cwd=RepoRegistry.resolve(repo), path-guarded via safeRelPath (NOT guardRef \u2014 path not ref). Endpoint GET /api/git/file-history?repo=&path=. Read-only execFile array-args."
+ },
+ "ownerIor": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+}

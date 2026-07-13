@@ -1,0 +1,62 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "168d5c58-2373-45f4-9018-0cd1e3528677",
+  "name": "Right-side default = the file's git history",
+  "altId": "R30.10",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:3a442bc4-dfd7-4d70-a4dd-05c0ab69d24c",
+   "ior:instance:bd62ccde-f333-4d49-ad54-77bd9c709bab"
+  ],
+  "description": "When the diff/merge opens for a git-tracked file, the RIGHT side defaults to that file's git history: a right-side history select is populated with all committed versions of THAT file (newest-first, git log --follow so renames are tracked) and defaults to the most-recent committed version, while LEFT stays the current working file - so the default view is 'working vs last commit', with older versions a dropdown away. Untracked/non-git files show 'no history' and fall back to manual pickFile/pickRef (no default). Path-guarded (RepoRegistry.resolve + safeRelPath), read-only execFile.",
+  "tronQuote": "> Tron 2026-07-13 (after R30.9 'amazing'): on opening the diff for a git-tracked file, the right side should default to all versions of THAT file in history (LEFT=current working file, RIGHT=browse-its-history, default=most-recent committed).",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron via robbin-architect",
+   "date": "2026-07-13",
+   "note": "Follow-on to R30.9 IntelliJ merge. Architect design 415828497 (r30.10-right-default-file-history.md). Sole-minter FULL chain. GitApi 5->6m + RbDiffEditor 16->17m, RepoRegistry consumed."
+  },
+  "designRef": "scrum.pmo/design-notes/r30.10-right-default-file-history.md (415828497)",
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc",
+   "ior:instance:e8d2ac99-a844-4794-9f11-86911bb4e058"
+  ],
+  "crossRefNote": "Builds on R30.9 (rb-diff-editor 3-way merge) \u2014 supplies the RIGHT (remote) side's default content from the file's git history. Consumes R30.6.7 RepoRegistry (repo key-allowlist) for path resolution. GitApi REUSE + RbDiffEditor REUSE; RepoRegistry consumed (no new method).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-history-default",
+    "group": "history",
+    "text": "Opening the diff on a git-tracked file populates a RIGHT-side history select (newest-first, git log --follow) and defaults it to the most-recent committed version; LEFT stays the current working file (default view = working vs last commit)."
+   },
+   {
+    "id": "AC-pick-older",
+    "group": "history",
+    "text": "Selecting an older commit reloads the RIGHT side to that version (loadSide -> fileAtRef -> git show <sha>:<path>); the R30.9 base-aware merge recomputes."
+   },
+   {
+    "id": "AC-fallback",
+    "group": "fallback",
+    "text": "Untracked / new / non-git file -> history select shows 'no history', no default; RIGHT falls back to manual pickFile/pickRef (unchanged, graceful)."
+   },
+   {
+    "id": "AC-path-guard",
+    "group": "security",
+    "text": "fileHistory is PATH-guarded via RepoRegistry.resolve(repo key) + safeRelPath (no '..', within-root) \u2014 NOT guardRef (guardRef is for the ref on the subsequent git show, not the path); execFile array-args (no shell), read-only; unknown repo key -> 400."
+   },
+   {
+    "id": "AC-unit",
+    "group": "verify",
+    "text": "GitApi.fileHistory returns the correct newest-first [{sha,date,author,subject}] list for a known path (NUL-delimited parse test)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

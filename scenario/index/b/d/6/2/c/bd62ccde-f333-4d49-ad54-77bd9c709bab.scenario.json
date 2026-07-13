@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "bd62ccde-f333-4d49-ad54-77bd9c709bab",
+  "name": "diffEditor.rightHistoryDefault",
+  "description": "On diff open for a git file, RbDiffEditor.populateRightHistory(path) fills a right-side history select from GitApi.fileHistory and default-selects the newest commit (loadSide right -> git show sha:path); LEFT = current working file.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:3dd2173b-a639-455d-b2b3-ac03adfdcfe5",
+  "coveredRequirement": "ior:instance:168d5c58-2373-45f4-9018-0cd1e3528677"
+ },
+ "ownerIor": "ior:instance:168d5c58-2373-45f4-9018-0cd1e3528677"
+}
