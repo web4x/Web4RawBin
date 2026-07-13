@@ -51,7 +51,7 @@ export class RoomBrowser {
   // R30.4: apply the authoritative profile name to state + persisted store + live DOM. Idempotent (same name → no-op)
   // and pre/post-render safe (the input/avatar guards no-op before render, re-apply after). Random fallback ONLY when
   // there is no profile name (never overwrites a real name with a random one).
-  // NOTE (scenario-first / #126): [impl:uuid:] marker (RoomBrowser.applyProfileName) awaits architect mint.
+  // [impl:uuid:9b9732be-f378-4030-969c-7b27032b46a3] RoomBrowser.applyProfileName — R30.4 lobby name from loaded profile
   private applyProfileName(name: string | undefined): void {
     if (!name) return;
     this.memberName = name;
