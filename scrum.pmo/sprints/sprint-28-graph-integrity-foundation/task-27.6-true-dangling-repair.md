@@ -32,7 +32,7 @@ Repair the 96 TRUE-dangling refs the R27.5 registry surfaces (Method.implementat
 
 ## Context
 
-The REAL debt hidden under the token/walk-gap noise (only visible AFTER R27.5's honest inventory). GATED repair, same discipline as R27.2/R27.4. Depends on R27.5 (needs the registry first).
+The REAL debt hidden under the token/walk-gap noise (only visible AFTER R27.5's honest inventory). GATED repair, same discipline as R27.2/R27.4. Depends on R27.5 (needs the registry first). ★ MEASURED SCOPE (R27.5 registry, architect): true-dangling repair inputs = dangling chain=212 / data=9; orphans ~397 real (+~394 orphan-by-design EXEMPT + TestCase706 back-edge under-pop); Axis-3 sprawl=4 (triage allowlist-vs-dedup); chain-less markers=75. These are R27.6 build inputs.
 
 ## Intention
 

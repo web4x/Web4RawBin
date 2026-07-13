@@ -11,8 +11,8 @@
 - [x] In Progress
   - [x] refinement
   - [x] creating test cases
-  - [~] implementing (step-1 ref-slot registry DONE + credited 62/330; axes 2-4 + AC3/AC5 building)
-  - [ ] testing
+  - [x] implementing
+  - [~] testing (tester gating axes 2-4 + bridging Test hops)
 - [ ] QA Review
 - [ ] Done
 
@@ -49,7 +49,7 @@ S28 Graph-Integrity Foundation. STOOD UP scenario-first; implementation awaits T
 
 ## Implementation
 
-IN PROGRESS. Step-1 = canonical ref-slot registry (refSlots) DONE + credited (62/330). Remaining: AC3/AC5 + axes 2-4 (by-file / back-edge / etc) still building. Status stays In Progress (implementing partial) per PO hop-signal.
+IN PROGRESS. All 5 axes built + credited (5f34dde7e): refSlot registry + ref-integrity axes. implementing[x]. testing[~] — tester gating axes 2-4 + bridging the Test hops. Status stays In-Progress until tester GREEN -> QA Review/Done.
 
 ## Subtasks
 
