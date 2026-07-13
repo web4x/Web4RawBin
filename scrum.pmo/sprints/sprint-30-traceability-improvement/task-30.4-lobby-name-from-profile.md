@@ -8,10 +8,10 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
-  - [ ] implementing
+  - [~] implementing (architect chaining UC->RoomBrowser->Method->Impl + expert fix in flight)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
@@ -45,7 +45,7 @@ Tron regression (S30 reopened): lobby must show the real profile name, stably ac
 
 ## Implementation
 
-STOOD UP (planning) — status Planned; chain-build awaits architect UC-wire.
+IN PROGRESS (architect chain + expert fix in flight). Architect one-mover on the chain Method/Impl (RoomBrowser.ts:29 sync-before-async-load fix); I hold Task-side only (hands-off the chain). Awaiting architect chain + tester gate.
 
 ## Subtasks
 
