@@ -1,0 +1,96 @@
+@startuml Sprint 30 — Class Diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam class {
+  BackgroundColor<<r309>> LightYellow
+  BackgroundColor<<r306>> LightGreen
+  BackgroundColor<<git>> Wheat
+  BackgroundColor<<trace>> LightCyan
+  BackgroundColor<<pending>> #EEEEEE
+}
+
+title Sprint 30 — Class Diagram (scenario-derived, law#100). superseded/pending marked.
+
+package "Diff / Merge (client)" {
+  class RbDiffEditor <<r309>> {
+    .. R30.6 shell ..
+    + connectedCallback()
+    + loadSide(side, src)
+    + pickFile(side) / pickRef(side)
+    + swapSides() / save()
+    .. R30.9 IntelliJ 3-way (base-aware) ..
+    + computeMergedCenter()  : diff3Merge
+    + mountThreePane()       : 3 Monaco
+    + renderMergeGutter()    : accept ◄/►
+    + acceptChange(id, side)
+    + applyAllNonConflicting()
+    + syncScroll3()
+    + monacoLoader()         : reuse CDN/AMD
+    .. superseded by R30.9 ..
+    - <s>computeDiff()</s>   <color:red>«superseded»</color>
+    - <s>renderHunks()</s>   <color:red>«superseded»</color>
+    - <s>takeHunk()</s>      <color:red>«superseded»</color>
+    .. R30.10 (design-ahead) ..
+    + populateRightHistory(path) <color:gray>«pending»</color>
+  }
+
+  class RbEditorLayout <<r306>> {
+    + backNav() / backButton()
+    + showDiff(currentFilePath)  : [Open Diff] (R30.6.6)
+  }
+  class RbFileTree <<r306>> {
+    + loadDir(dirPath)   : root = '' (R30.5)
+    + setRepo(key)       : repo targeting (R30.6.7)
+  }
+}
+
+package "Git / repo (server, server.ts)" {
+  class GitApi <<git>> {
+    + {static} branches(root)
+    + {static} commits(root, path, limit)
+    + {static} fileAtRef(root, ref, path)
+    + {static} guardRef(ref)      : uniform allowlist (R30.7)
+    + {static} mergeBase(root, a, b) : base (R30.9)
+    + {static} fileHistory(root, path) <color:gray>«pending R30.10»</color>
+  }
+  class RepoRegistry <<git>> {
+    + {static} resolve(key) : allowlisted abs root
+    + {static} list()       : {key,label}[]
+  }
+}
+
+package "Traceability (client)" {
+  class RbTraceTree <<trace>> {
+    + renderCurrentSprintEagerLazy() : R30.1
+    + eagerChildCountBadges()        : R30.2
+    .. (+ 17 existing methods) ..
+  }
+  class RbDetailDrawer <<trace>> {
+    + renderSprintDetail() : R30.3
+    .. (+ 36 existing methods) ..
+  }
+  class RoomBrowser <<trace>> {
+    + applyProfileName(name) : R30.4 (MSG.PROFILE + PROFILE_UPDATED)
+  }
+}
+
+' Relationships
+RbEditorLayout "1" *-- "1" RbDiffEditor : mounts (showDiff)
+RbDiffEditor ..> GitApi : fileAtRef / commits / branches / mergeBase / fileHistory
+RbDiffEditor ..> RbFileTree : pickFile chooser
+GitApi ..> RepoRegistry : resolve(repo) root
+GitApi ..> GitApi : guardRef (all refs)
+RbFileTree ..> RepoRegistry : setRepo(key)
+
+legend right
+  |= Style |= Meaning |
+  | <<r309>> | R30.9 IntelliJ 3-way merge |
+  | <<r306>> | R30.5/R30.6 diff editor + layout |
+  | <<git>> | Git/repo (server) |
+  | <<trace>> | Traceability tree/drawer |
+  | <s>strike</s> «superseded» | Retired by R30.9 (markers removed) |
+  | <color:gray>«pending»</color> | R30.10 design-ahead |
+end legend
+
+footer GitApi = 6 methods (5 built + fileHistory R30.10 design-ahead). RbDiffEditor = 17 methods (computeDiff/renderHunks/takeHunk superseded by R30.9; populateRightHistory R30.10 design-ahead).
+@enduml

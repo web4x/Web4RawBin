@@ -1,0 +1,94 @@
+@startuml Sprint 30 — Use Cases
+!theme plain
+skinparam usecase {
+  BackgroundColor<<trace>> LightBlue
+  BackgroundColor<<diff>> LightGreen
+  BackgroundColor<<merge>> LightYellow
+  BackgroundColor<<git>> Wheat
+  BackgroundColor<<pending>> #EEEEEE
+}
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+
+title RawBin Sprint 30 — Traceability + Diff/Merge Use Cases (scenario-derived, law#100)
+
+actor "Developer\n(Browser)" as Dev
+actor "Server\n(server.ts)" as Server
+database "Git repos\n(rawbin / oosh\nvia RepoRegistry)" as Git
+
+rectangle "Traceability tree (R30.1-R30.3)" {
+  usecase "traceTree.currentSprintEagerLazy\nCurrentSprint top + eager-lazy\nSprints collection (R30.1)" as UT1 <<trace>>
+  usecase "traceTree.eagerChildCountBadges\nreal child-count before\nchildren load (R30.2)" as UT2 <<trace>>
+  usecase "detailDrawer.selectionUpdatesDrawer\nsprint selection renders\nsprint detail (R30.3)" as UT3 <<trace>>
+  UT1 -down-> UT2 : <<include>>
+}
+
+rectangle "Lobby + File tree (R30.4-R30.5)" {
+  usecase "lobby.memberNameFromLoadedProfile\nname from loaded profile,\nnot random (R30.4)" as UL <<trace>>
+  usecase "fileTree.rootUsesEmptyRelPath\nroot = empty relPath\n(not '/') (R30.5)" as UF <<trace>>
+}
+
+rectangle "Diff editor (R30.6.x)" {
+  usecase "diffEditor.threeWayEditor\n3-pane shell (R30.6)" as UD0 <<diff>>
+  usecase "diffEditor.openDiffButton\n[Open Diff] toolbar btn,\nLEFT=current file (R30.6.6)" as UD6 <<diff>>
+  usecase "diffEditor.pickFile\nfile chooser (R30.6.2)" as UD2 <<diff>>
+  usecase "diffEditor.gitRefPicker\nbranch/commit (R30.6.4)" as UD4 <<diff>>
+  usecase "diffEditor.swapSides\n(R30.6.5)" as UD5 <<diff>>
+  usecase "diffEditor.computeLineDiff\n(R30.6.1 — SUPERSEDED\nby R30.9)" as UD1 <<pending>>
+  usecase "diffEditor.hunkTakeover\n(R30.6.3 — SUPERSEDED\nby R30.9)" as UD3 <<pending>>
+}
+
+rectangle "Repo targeting + ref guard (R30.6.7, R30.7)" {
+  usecase "diffEditor.repoTargeting\nRepoRegistry key-allowlist\n(rawbin/oosh) (R30.6.7)" as UR <<git>>
+  usecase "gitApi.uniformRefGuard\nsingle ref-allowlist choke\n(R30.7)" as UG <<git>>
+}
+
+rectangle "IntelliJ 3-way merge (R30.9)" {
+  usecase "merge.diff3Center\nbase-aware auto-merge center" as UM1 <<merge>>
+  usecase "merge.threePane\nlocal | result | remote" as UM2 <<merge>>
+  usecase "merge.gutterAcceptArrows\naccept-left/right per change" as UM3 <<merge>>
+  usecase "merge.acceptChange" as UM4 <<merge>>
+  usecase "merge.applyAllNonConflicting" as UM5 <<merge>>
+  usecase "merge.syncScroll" as UM6 <<merge>>
+  usecase "git.mergeBase\ncommon ancestor" as UM7 <<merge>>
+  usecase "editor.monacoLoader\nreuse CDN/AMD Monaco" as UM8 <<merge>>
+  UM1 -down-> UM7 : <<include>>
+  UM1 -down-> UM2 : <<include>>
+  UM2 -down-> UM3 : <<include>>
+  UM3 -down-> UM4 : <<include>>
+  UM4 -down-> UM5 : <<include>>
+}
+
+rectangle "File history (R30.10 — design-ahead)" {
+  usecase "git.fileHistory\ngit log --follow (R30.10)" as UH1 <<pending>>
+  usecase "diffEditor.rightHistoryDefault\nRIGHT defaults to file's\ngit history (R30.10)" as UH2 <<pending>>
+  UH2 ..> UH1 : <<include>>
+}
+
+Dev --> UT1
+Dev --> UT3
+Dev --> UL
+Dev --> UF
+Dev --> UD6
+Dev --> UM4
+Server --> UG
+Git --> UR
+Git --> UM7
+Git --> UH1
+
+UD6 ..> UM1 : <<triggers>>
+UM1 ..> UR : <<uses>>
+UM7 ..> UG : <<guards ref>>
+UH2 ..> UM2 : <<feeds RIGHT>>
+
+legend right
+  |= Color |= Category |
+  | <back:LightBlue>   </back> | Traceability |
+  | <back:LightGreen>   </back> | Diff editor |
+  | <back:LightYellow>   </back> | 3-way merge (R30.9) |
+  | <back:Wheat>   </back> | Git / repo targeting |
+  | <back:#EEEEEE>   </back> | Superseded / design-ahead |
+end legend
+
+footer Sprint 30 — traceability tree + IntelliJ-faithful base-aware 3-way merge. Superseded: computeLineDiff/hunkTakeover (R30.9). Design-ahead: R30.10 file-history.
+@enduml

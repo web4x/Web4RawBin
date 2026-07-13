@@ -1,0 +1,68 @@
+@startuml Sprint 30 — IntelliJ 3-way Merge Flow
+!theme plain
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+title Sprint 30 (R30.9) — IntelliJ-faithful base-aware 3-way merge flow
+
+actor "Developer" as Dev
+participant "RbEditorLayout" as Layout
+participant "RbDiffEditor" as Diff
+participant "GitApi\n(server.ts)" as Git
+participant "RepoRegistry" as Reg
+database "Git repo\n(rawbin / oosh)" as Repo
+
+== Open (R30.6.6) ==
+Dev -> Layout : click [Open Diff]
+Layout -> Diff : showDiff(currentFilePath)
+Diff -> Diff : monacoLoader() — reuse CDN/AMD Monaco (dedup)
+Diff -> Diff : mountThreePane() — LEFT local | CENTER result | RIGHT remote
+note over Diff : LEFT = current working file (preselected)
+
+== Pick RIGHT (R30.6.4 / R30.10 default) ==
+Dev -> Diff : pick ref (or R30.10: RIGHT defaults to file history)
+Diff -> Git : GET /api/git/file?repo&ref&path  (loadSide 'right')
+Git -> Reg : resolve(repo) -> abs root
+Reg -> Git : root (allowlist)
+Git -> Git : guardRef(ref)  (R30.7 uniform allowlist)
+Git -> Repo : git show <ref>:<path>
+Repo -> Git : remote content
+Git -> Diff : RIGHT content
+
+== Base-aware merge (R30.9 computeMergedCenter) ==
+Diff -> Git : GET /api/git/merge-base?repo&a=leftRef&b=rightRef
+Git -> Reg : resolve(repo)
+Git -> Git : guardRef(a), guardRef(b)
+Git -> Repo : git merge-base a b
+Repo -> Git : base sha (common ancestor)
+Git -> Diff : base sha
+
+alt base exists (git-version merge)
+  Diff -> Git : fileAtRef(base, path) -> BASE content
+  Diff -> Diff : diff3Merge(local, base, remote)
+  note over Diff #LightGreen : CENTER = non-conflicting AUTO-MERGED\n+ true conflict regions flagged
+else no common base (unrelated / working-only)
+  note over Diff : fall back to 2-way\n(CENTER = local, manual take-over)
+end
+
+Diff -> Diff : renderMergeGutter() — ◄ accept-left / ► accept-right per conflict
+
+== Resolve (R30.9) ==
+Dev -> Diff : acceptChange(conflictId, side)
+Diff -> Diff : apply side's chunk into CENTER (aligned range)
+Dev -> Diff : applyAllNonConflicting()
+note over Diff : diff3 already pre-applied ok-chunks;\nconfirms remaining trivial merges
+Dev -> Diff : scroll
+Diff -> Diff : syncScroll3() — lock scroll across 3 editors
+
+== Save ==
+Dev -> Diff : save
+Diff -> Git : POST /api/files/<path>  (CENTER, mtime-guard)
+Git -> Repo : write merged result
+Git -> Diff : ok
+
+note over Dev, Repo #FFF8DC
+  Verified live v0.7.18: OOSH(main,dev) -> common ancestor 6571a8a4
+  (base-aware), rawbin(main,main) -> HEAD, bad-ref -> 400.
+end note
+@enduml
