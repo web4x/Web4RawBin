@@ -1,0 +1,51 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "21ced567-d47f-4f3c-9b28-225a45dfecce",
+    "name": "Editor file pane shows full project filetree",
+    "altId": "R30.5",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+    "sourceLine": 1,
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:18d6a337-efea-4dc1-8de4-7c65dde053b4"
+    ],
+    "description": "The /edit Files pane shows the FULL project filetree (src / scenario / scrum.pmo / scripts / test / data / etc), expandable. THE BUG: rb-file-tree.ts:31 requests /api/files/'/' for the root -> the server's safePath('/') resolves to FS-root, fails startsWith(PROJECT_ROOT) -> {error:Forbidden} -> empty tree. PROVEN: /api/files/ (empty relPath) returns the full tree; /api/files/%2F -> Forbidden. FIX: the file-tree root request uses an EMPTY relPath (not '/') - a one-line fix at rb-file-tree.ts:31 (drop the \"|| '/'\" fallback).",
+    "tronQuote": "> TRON 2026-07-13: the /edit Files pane shows an EMPTY tree. rb-file-tree.ts:31 requests /api/files/'/' -> safePath('/') = FS-root -> fails startsWith(PROJECT_ROOT) -> Forbidden. Root request must use EMPTY relPath (not '/').",
+    "discoverySource": {
+      "type": "tron-directive",
+      "flaggedBy": "Tron via robbin-architect/robbin-po",
+      "date": "2026-07-13",
+      "note": "Regression, S30 (reopened). Scenario-first #126. Root: rb-file-tree.ts:31 '/'-fallback -> server safePath('/') Forbidden. Fix = empty relPath. robbin-req one-mover (R29.9)."
+    },
+    "crossRef": [],
+    "crossRefNote": "Class RbFileTree (rb-file-tree.ts) + server /api/files safePath (PROJECT_ROOT guard). One-line fix + a Test that /api/files/ (empty) returns full tree, /api/files/%2F stays Forbidden (SSRF-adjacent path guard preserved).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-full-tree",
+        "group": "tree",
+        "text": "The /edit Files pane shows the FULL project filetree (src / scenario / scrum.pmo / scripts / test / data / etc), expandable."
+      },
+      {
+        "id": "AC-bug",
+        "group": "bug",
+        "text": "THE BUG: rb-file-tree.ts:31 requests /api/files/'/' for root -> server safePath('/') resolves to FS-root, fails startsWith(PROJECT_ROOT) -> {error:Forbidden} -> empty tree."
+      },
+      {
+        "id": "AC-proven",
+        "group": "bug",
+        "text": "PROVEN: /api/files/ (empty relPath) returns the full tree; /api/files/%2F -> Forbidden - confirming the root request must use empty relPath, not '/'."
+      },
+      {
+        "id": "AC-fix",
+        "group": "fix",
+        "text": "Fix = the file-tree root request uses an EMPTY relPath (not '/') - one-line at rb-file-tree.ts:31, drop the \"|| '/'\" fallback."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

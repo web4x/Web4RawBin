@@ -53,6 +53,17 @@
   - [ ] **(identity)** The profile token/uuid is stable (05e58f81) - only the displayed NAME regresses; the fix must not change the stable identity token, only the name resolution.
   -> UC30.4 lobby.nameFromProfile [uc:uuid:d6d8f55a-0300-4249-b7f8-c13a80a47490]
 
+- [ ] **R30.5 - Editor file pane shows full project filetree** *(Tron regression 2026-07-13; S30)*
+  [requirement:uuid:21ced567-d47f-4f3c-9b28-225a45dfecce]
+  > TRON 2026-07-13: the /edit Files pane shows an EMPTY tree. rb-file-tree.ts:31 requests /api/files/'/' -> safePath('/') = FS-root -> fails startsWith(PROJECT_ROOT) -> Forbidden. Root request must use EMPTY relPath (not '/').
+  The /edit Files pane shows the FULL project filetree (src / scenario / scrum.pmo / scripts / test / data / etc), expandable. THE BUG: rb-file-tree.ts:31 requests /api/files/'/' for the root -> the server's safePath('/') resolves to FS-root, fails startsWith(PROJECT_ROOT) -> {error:Forbidden} -> empty tree. PROVEN: /api/files/ (empty relPath) returns the full tree; /api/files/%2F -> Forbidden. FIX: the file-tree root request uses an EMPTY relPath (not '/') - a one-line fix at rb-file-tree.ts:31 (drop the "|| '/'" fallback).
+  **Acceptance criteria:**
+  - [ ] **(tree)** The /edit Files pane shows the FULL project filetree (src / scenario / scrum.pmo / scripts / test / data / etc), expandable.
+  - [ ] **(bug)** THE BUG: rb-file-tree.ts:31 requests /api/files/'/' for root -> server safePath('/') resolves to FS-root, fails startsWith(PROJECT_ROOT) -> {error:Forbidden} -> empty tree.
+  - [ ] **(bug)** PROVEN: /api/files/ (empty relPath) returns the full tree; /api/files/%2F -> Forbidden - confirming the root request must use empty relPath, not '/'.
+  - [ ] **(fix)** Fix = the file-tree root request uses an EMPTY relPath (not '/') - one-line at rb-file-tree.ts:31, drop the "|| '/'" fallback.
+  -> UC30.5 fileTree.rootUsesEmptyRelPath [uc:uuid:18d6a337-efea-4dc1-8de4-7c65dde053b4]
+
 ---
 
 ## Traceability Matrix
