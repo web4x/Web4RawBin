@@ -8,13 +8,13 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,16 +38,16 @@ S30 R30.6 diff-editor USABILITY completion (R30.6.7): make the editor reachable 
 
 ## Acceptance Criteria
 
-- [ ] (security) The client supplies a repo KEY only (e.g. ?repo=oosh); the absolute path lives server-side in a RepoRegistry allowlist. A client-supplied absolute path is NEVER resolved.
-- [ ] (registry) RepoRegistry.resolve(key) returns the allowlisted absolute root for the key, else null; RepoRegistry.list() returns [{key,label}] for a repo picker. Allowlist config {rawbin:PROJECT_ROOT, oosh:<abs OOSH root>}.
-- [ ] (git) GitApi's hardcoded ROOT is replaced by a per-request RepoRegistry.resolve(req.repo) seam that BOTH OPTS.cwd and safeRelPath read; branches/commits/fileAtRef run with cwd=resolvedRoot. Unknown ?repo -> 400.
-- [ ] (security) safePath still applies WITHIN the resolved root (no '..', no leading '/', resolve(root,p).startsWith(root+sep)); read-only across all repos.
-- [ ] (wiring) /api/files accepts optional ?repo=<key>; RbFileTree.setRepo(key) sets a repo attr + reloads (loadDir appends ?repo); rb-diff-editor exposes a repo selector from RepoRegistry.list() feeding loadSide/pickFile/pickRef.
-- [ ] (back-compat) ?repo absent -> rawbin=PROJECT_ROOT; R30.5 and existing callers are unchanged.
+- [x] (security) The client supplies a repo KEY only (e.g. ?repo=oosh); the absolute path lives server-side in a RepoRegistry allowlist. A client-supplied absolute path is NEVER resolved.
+- [x] (registry) RepoRegistry.resolve(key) returns the allowlisted absolute root for the key, else null; RepoRegistry.list() returns [{key,label}] for a repo picker. Allowlist config {rawbin:PROJECT_ROOT, oosh:<abs OOSH root>}.
+- [x] (git) GitApi's hardcoded ROOT is replaced by a per-request RepoRegistry.resolve(req.repo) seam that BOTH OPTS.cwd and safeRelPath read; branches/commits/fileAtRef run with cwd=resolvedRoot. Unknown ?repo -> 400.
+- [x] (security) safePath still applies WITHIN the resolved root (no '..', no leading '/', resolve(root,p).startsWith(root+sep)); read-only across all repos.
+- [x] (wiring) /api/files accepts optional ?repo=<key>; RbFileTree.setRepo(key) sets a repo attr + reloads (loadDir appends ?repo); rb-diff-editor exposes a repo selector from RepoRegistry.list() feeding loadSide/pickFile/pickRef.
+- [x] (back-compat) ?repo absent -> rawbin=PROJECT_ROOT; R30.5 and existing callers are unchanged.
 
 ## Implementation
 
-STOOD UP (planning) — status Planned; expert builds impl (per PO). Advance on architect/PO build hop-signal.
+DONE-DELIVERED 2026-07-13: OOSH-repo targeting via RepoRegistry allowlist GATED GREEN DET-3x (dd70d49d5), 72/341, live+secure (RepoRegistry.resolve/list + RbFileTree.setRepo + GitApi de-hardcode). Closes R30.6 umbrella (R30.6.1-7 all built+gated). NOTE: in-house-LCS parts R30.6.1/3 to be superseded by merge-view rebuild R30.9 (pending Tron A/B pick).
 
 ## Subtasks
 
