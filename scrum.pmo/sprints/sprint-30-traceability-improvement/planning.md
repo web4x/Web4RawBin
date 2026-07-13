@@ -12,6 +12,6 @@ Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' w
 
 ## Tasks
 
-- [ ] [Task 30.1: Traceability tree — CurrentSprint top + eager-lazy Sprints collection](./task-30.1-traceability-tree-eager-lazy.md)
+- [x] [Task 30.1: Traceability tree — CurrentSprint top + eager-lazy Sprints collection](./task-30.1-traceability-tree-eager-lazy.md)
 - [ ] [Task 30.2: Eager child-count badges](./task-30.2-eager-child-count-badges.md)
 - [ ] [Task 30.3: Sprint selection populates the detail drawer](./task-30.3-sprint-selection-detail-drawer.md)

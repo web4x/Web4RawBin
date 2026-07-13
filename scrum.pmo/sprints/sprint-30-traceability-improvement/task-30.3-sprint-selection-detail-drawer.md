@@ -20,9 +20,9 @@
 
   - up
     - [Sprint 30 Planning](./planning.md)
-    - Requirement R30.3 `[requirement:uuid:c1a0b382-9d57-4f33-820e-b05f56e25dd3]`
+    - Requirement R30.3 `[requirement:uuid:6cd770df-0034-406e-b20c-bb8bddaadbf7]`
   - down
-    - [UC](./planning.md) `[uc:uuid:23745b79-3181-40e3-9766-6b9f2f795b3b]`
+    - [UC](./planning.md) `[uc:uuid:9095cd05-5528-4450-a830-f9b858129ad2]`
 
 ## Task Description
 
@@ -30,7 +30,7 @@ Wire tree sprint-selection → detail drawer: when a sprint node is selected in 
 
 ## Context
 
-Covers R30.3 (c1a0b382, canonical after req dedup b2f473634). S30 traceability-tree track. v0.7.11 deployed (retroactive).
+Covers R30.3 (6cd770df, canonical survivor after parallel-mint dedup). S30 traceability-tree track. v0.7.11 deployed (retroactive).
 
 ## Intention
 

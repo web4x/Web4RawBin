@@ -7,12 +7,12 @@
     "description": "Render the traceability tree with exactly two top-level nodes: a 'CurrentSprint: Sprint <N>' node (3 eager children — Current/Last/Next task slots) and a 'Sprints 01-<N>' collection (collapsed, badge=sprint count). Eager-load sprint structure, lazy-load each sprint's tasks only on expand, so the tree scales as sprints grow.",
     "intention": "Tron S30 Traceability Improvement: the traceability tree must scale (structure-eager/payload-lazy) + show the CurrentSprint pin (Current/Last/Next) at the top.",
     "context": "Covers R30.1 (traceability tree). Eager-structure/lazy-payload = the R26 federation loading pattern. Ties the CurrentSprint pin (Current/Last/Next slots).",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
-    "implementation": "BUILT+DEPLOYED (expert e649a695, prod v0.7.10). Gated GREEN DET-3x (tester f760f1559, 6/6 ACs + 3/3 det, payload-lazy network-verified); Test 7b37982c wired; chain-complete, credited 59/327. Architect PDCA GREEN 6/6. QA Review — Done-gate = Tron QA (Tron-requested live-tree feature).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "implementation": "BUILT+DEPLOYED (expert e649a695, prod v0.7.10). Gated GREEN DET-3x (tester f760f1559, 6/6 ACs + 3/3 det, payload-lazy network-verified); Test 7b37982c wired; chain-complete, credited 59/327. Architect PDCA GREEN 6/6. QA Review — Done-gate = Tron QA (Tron-requested live-tree feature). DONE-DELIVERED 2026-07-13 (PO): Tron-reviewed + in-use (live tree, badge/drawer bugs found+fixed+live v0.7.11), gated GREEN DET-3x, chain-complete 59/327, accepted-in-use.",
     "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.1 `[requirement:uuid:6f796898-4dbb-47a3-ab8a-914b4c80b353]`\n  - down\n    - [UC30.1: traceabilityTree.eagerLazy](./planning.md) `[uc:uuid:e22113cd-022d-48f0-b434-9ec4636e2081]`",
     "acceptanceCriteria": "- [x] (tree) The top node is 'CurrentSprint: Sprint <N>' - the CURRENT sprint (not 'Current: Task X').\n- [x] (tree) The CurrentSprint node has 3 EAGER children: Current / Last Completed / Next Backlog (task) - loaded as-is.\n- [x] (tree) The 2nd top-level node = 'Sprints 01-<N>' COLLECTION parent, COLLAPSED, with a badge = sprint count.\n- [x] (scaling) EAGER-LAZY: the collection eager-loads all sprint NODES but LAZY-loads their TASKS - a sprint's tasks load ONLY when that sprint node is expanded.\n- [x] (tree) Exactly TWO top-level nodes (CurrentSprint + Sprints-collection); tasks never load until their sprint is expanded.\n- [x] (scaling) Structure-eager / payload-lazy so the tree scales as sprints grow - the same loading pattern as R26 federation (structure eager, payload lazy).",
     "subtasks": "None (atomic task).",
-    "status": "QA Review",
+    "status": "Done",
     "coveredRequirements": [
       "ior:instance:6f796898-4dbb-47a3-ab8a-914b4c80b353"
     ],
@@ -23,7 +23,8 @@
     "sprintName": "Sprint 30",
     "createdBy": "robbin-planner",
     "createdAt": "2026-07-12",
-    "focus": false
+    "focus": false,
+    "tronDelivered": "2026-07-13 (Tron-reviewed + in-use, live tree v0.7.11, GREEN DET-3x)"
   },
   "ownerIor": null
 }

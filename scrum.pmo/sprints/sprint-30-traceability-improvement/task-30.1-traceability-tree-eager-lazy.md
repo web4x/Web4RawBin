@@ -14,7 +14,7 @@
   - [x] implementing
   - [x] testing
 - [x] QA Review
-- [ ] Done
+- [x] Done
 
 ## Traceability
 
@@ -47,7 +47,7 @@ Tron S30 Traceability Improvement: the traceability tree must scale (structure-e
 
 ## Implementation
 
-BUILT+DEPLOYED (expert e649a695, prod v0.7.10). Gated GREEN DET-3x (tester f760f1559, 6/6 ACs + 3/3 det, payload-lazy network-verified); Test 7b37982c wired; chain-complete, credited 59/327. Architect PDCA GREEN 6/6. QA Review — Done-gate = Tron QA (Tron-requested live-tree feature).
+BUILT+DEPLOYED (expert e649a695, prod v0.7.10). Gated GREEN DET-3x (tester f760f1559, 6/6 ACs + 3/3 det, payload-lazy network-verified); Test 7b37982c wired; chain-complete, credited 59/327. Architect PDCA GREEN 6/6. QA Review — Done-gate = Tron QA (Tron-requested live-tree feature). DONE-DELIVERED 2026-07-13 (PO): Tron-reviewed + in-use (live tree, badge/drawer bugs found+fixed+live v0.7.11), gated GREEN DET-3x, chain-complete 59/327, accepted-in-use.
 
 ## Subtasks
 

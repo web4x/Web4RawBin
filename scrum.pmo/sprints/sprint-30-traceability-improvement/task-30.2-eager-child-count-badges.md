@@ -20,9 +20,9 @@
 
   - up
     - [Sprint 30 Planning](./planning.md)
-    - Requirement R30.2 `[requirement:uuid:15c8fe45-b1ff-4c08-b589-be741ae95d85]`
+    - Requirement R30.2 `[requirement:uuid:850a339d-c7e5-4308-b2c7-65536bd5271e]`
   - down
-    - [UC](./planning.md) `[uc:uuid:fe0d394c-5f2e-4003-8941-ad2f390f59a5]`
+    - [UC](./planning.md) `[uc:uuid:80cb8336-c758-49f6-80d9-dafe068ad71f]`
 
 ## Task Description
 
@@ -30,7 +30,7 @@ Render an EAGER child-count badge on each collapsed sprint node in the traceabil
 
 ## Context
 
-Covers R30.2 (15c8fe45, canonical after req dedup b2f473634). S30 traceability-tree track. v0.7.11 deployed (retroactive).
+Covers R30.2 (850a339d, canonical survivor after parallel-mint dedup). S30 traceability-tree track. v0.7.11 deployed (retroactive).
 
 ## Intention
 
