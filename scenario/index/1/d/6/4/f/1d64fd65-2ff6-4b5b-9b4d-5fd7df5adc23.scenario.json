@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "1d64fd65-2ff6-4b5b-9b4d-5fd7df5adc23",
+    "name": "test:R30.6.4 RbDiffEditor.pickRef gate",
+    "description": "Bridged to test/visual/r306-diff-editor-gate.mjs — git branch/commit picker (GitApi) -> setSideRef -> loadSide(/api/git/file?ref=main) sets ref+lines (DET-3x GREEN, prod v0.7.14 post-restart, read-only GET)",
+    "sourceFile": "ior:file:test/visual/r306-diff-editor-gate.mjs",
+    "verifies": [
+      "ior:instance:f0b7ef57-ae79-408c-8f19-a82702d78101"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f0b7ef57-ae79-408c-8f19-a82702d78101"
+}

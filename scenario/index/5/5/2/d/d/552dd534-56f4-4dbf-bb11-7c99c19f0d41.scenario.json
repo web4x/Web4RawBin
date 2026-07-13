@@ -3,7 +3,9 @@
   "model": {
     "uuid": "552dd534-56f4-4dbf-bb11-7c99c19f0d41",
     "name": "RbDiffEditor.pickFile impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:663de4ee-043a-43b1-9eed-60fef19c8691"
+    ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,
     "description": "DESIGN-AHEAD: Open an rb-file-tree chooser (REUSE R30.5), on file-select set the side's path, loadSide. Expert builds + tags [impl] marker."

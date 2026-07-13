@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "663de4ee-043a-43b1-9eed-60fef19c8691",
+    "name": "test:R30.6.2 RbDiffEditor.pickFile gate",
+    "description": "Bridged to test/visual/r306-diff-editor-gate.mjs — overlay reuses rb-file-tree; file-select -> loadSide(/api/files) sets path+lines (DET-3x GREEN, prod v0.7.14 post-restart, read-only GET)",
+    "sourceFile": "ior:file:test/visual/r306-diff-editor-gate.mjs",
+    "verifies": [
+      "ior:instance:552dd534-56f4-4dbf-bb11-7c99c19f0d41"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:552dd534-56f4-4dbf-bb11-7c99c19f0d41"
+}

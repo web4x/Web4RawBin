@@ -1,3 +1,5 @@
+// [test:uuid:663de4ee-043a-43b1-9eed-60fef19c8691] R30.6.2 RbDiffEditor.pickFile — overlay reuses rb-file-tree; file-select -> loadSide(/api/files) sets path+lines
+// [test:uuid:1d64fd65-2ff6-4b5b-9b4d-5fd7df5adc23] R30.6.4 RbDiffEditor.pickRef — git branch/commit picker (GitApi) -> setSideRef -> loadSide(/api/git/file?ref=main) sets ref+lines
 // [test:uuid:2599c7a9-6747-43c6-b6a3-f406c48f620b] R30.6 RbDiffEditor.connectedCallback — mounting renders the diff-editor UI (.de-file/.de-swap + panes)
 // [test:uuid:969c15aa-661c-417a-96f8-97d7c4a67ac5] R30.6.1 RbDiffEditor.computeDiff — pure LCS: [a,b,c,d]vs[a,x,c,d,e]->change b->x[1,2] + add e[4,4]/[4,5]; identical->0 hunks
 // [test:uuid:05c67143-0190-4563-91e1-7f9f975e0359] R30.6.3 RbDiffEditor.takeHunk — choosing a hunk right side rebuilds Center with that side
@@ -11,8 +13,9 @@
 //           change b->x (left[1,2]/right[1,2]) + add e@end (left[4,4]/right[4,5]); identical -> 0 hunks.
 //   R30.6.3 takeHunk (6ebfac12): choosing a hunk's right side rebuilds Center with that side.
 //   R30.6.5 swapSides (97b584c6): swaps left<->right + recomputes.
-// DEFERRED (needs GitApi endpoints = SERVER RESTART, flagged to 0.0): R30.6.4 pickRef
-//   (/api/git/branches|commits) ; R30.6.2 pickFile ref-load path. Reported PENDING, not silent-pass.
+//   R30.6.2 pickFile (552dd534): overlay reuses rb-file-tree; file-select -> loadSide(/api/files).
+//   R30.6.4 pickRef (f0b7ef57): git branch/commit picker (GET /api/git/branches|commits) ->
+//           setSideRef -> loadSide(GET /api/git/file?ref=main). ALL 6/6 GREEN (GitApi live post-restart).
 
 import { chromium } from '@playwright/test';
 const BASE = 'https://prod.wo-da.de:4444';
@@ -63,20 +66,41 @@ try {
       el.swapSides();
       await new Promise(r => setTimeout(r, 100));
       out.swapSides = el.left.lines.join(',') === 'a,x,c,d,e' && el.right.lines.join(',') === beforeLeft;
-
       el.remove();
+
+      // ---- GitApi-live methods (now that the server restarted) ----
+      const nap = (ms) => new Promise(r => setTimeout(r, ms));
+      const el2 = document.createElement('rb-diff-editor'); document.body.appendChild(el2); await nap(200);
+
+      // (R30.6.2) pickFile: overlay reuses rb-file-tree; file-select -> loadSide(/api/files) sets path+lines
+      el2.pickFile('left'); await nap(300);
+      let box = document.querySelector('.de-overlay-box');
+      box?.dispatchEvent(new CustomEvent('file-select', { detail: { path: 'package.json' }, bubbles: true }));
+      await nap(1800);
+      out.pickFile = el2.left?.path === 'package.json' && (el2.left?.lines?.length || 0) > 0;
+
+      // (R30.6.4) pickRef: git branch/commit picker -> setSideRef -> loadSide(/api/git/file?ref=) sets ref+lines
+      await el2.pickRef('left'); await nap(1500);
+      const btns = [...document.querySelectorAll('.de-overlay-box button')];
+      const mainBtn = btns.find(b => /(⎇\s*)?main\b/.test(b.textContent || ''));
+      out.pickRefOverlay = btns.length > 0 && !!mainBtn; // picker listed branches (GitApi served)
+      mainBtn?.click();
+      await nap(1800);
+      out.pickRef = el2.left?.ref === 'main' && (el2.left?.lines?.length || 0) > 0;
+      el2.remove();
+      document.querySelectorAll('.de-overlay').forEach(o => o.remove());
       return out;
     });
 
-    const pass = defined && r.connected && r.computeDiff && r.computeDiffIdentity && r.takeHunk && r.swapSides;
+    const pass = defined && r.connected && r.computeDiff && r.computeDiffIdentity && r.takeHunk && r.swapSides && r.pickFile && r.pickRef;
     results.push(pass);
-    console.log(`iter ${i}: defined=${defined} connectedCallback=${r.connected} computeDiff=${r.computeDiff} identity0=${r.computeDiffIdentity} takeHunk=${r.takeHunk} swapSides=${r.swapSides} => ${pass ? 'GREEN' : 'RED'}`);
+    console.log(`iter ${i}: connectedCallback=${r.connected} computeDiff=${r.computeDiff} identity0=${r.computeDiffIdentity} takeHunk=${r.takeHunk} swapSides=${r.swapSides} | pickFile=${r.pickFile} pickRef=${r.pickRef}(overlay=${r.pickRefOverlay}) => ${pass ? 'GREEN' : 'RED'}`);
     await ctx.close();
   }
 
   console.log('\n=== VERDICT R30.6 rb-diff-editor (DET-3x) ===');
   results.forEach((p, i) => console.log(`  iter ${i + 1}: ${p ? 'GREEN' : 'RED'}`));
-  console.log('DEFERRED (GitApi restart pending, flagged 0.0): R30.6.4 pickRef, R30.6.2 pickFile ref-load.');
+  console.log('ALL 6/6 methods gated GREEN (GitApi live post-restart). READ-ONLY: GET /api/files + /api/git/*.');
   const green = results.length === 3 && results.every(Boolean);
   console.log('OVERALL:', green ? 'GREEN DET-3x' : 'RED');
   process.exitCode = green ? 0 : 1;
