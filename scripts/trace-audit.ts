@@ -37,39 +37,64 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INDEX_DIR = path.join(__dirname, '../scenario/index');
 const REPO_ROOT = path.join(__dirname, '..');
 
-const CANONICAL_FORWARD: Record<string, string[]> = {
-  Requirement: ['useCases'],
-  Task: ['useCases', 'children', 'subtasks'],
-  UseCase: ['classes'],
-  Class: ['methods'],
-  Method: ['implementations'],
-  Implementation: ['tests'],
-  Sprint: ['tasks', 'requirements'],
-  Test: [],
-  TraceLink: [],
+// ── R27.5 STEP-1: Canonical Ref-Slot Registry (design: design-notes/r27.5-canonical-ref-slot-registry.md) ──
+// Every place a unit-uuid can live is declared ONCE — the single source for migrations, audit, and repair-
+// reasserts, so a slot-miss (R27.4 ownerIor/Test.methods) is impossible by construction. forward▸ = chain
+// reachability; back◂ + cross↔ = also dangling-scanned (must resolve); data◇ = room-app tier (separate).
+// Slot keys prefixed '@' live OUTSIDE model (unit.<key>, e.g. @ownerIor). token/self fields are EXCLUDEd —
+// uuid-shaped but NOT unit edges. Classified by RESOLUTION+INTENT, never by name-heuristic.
+interface SlotSet { forward: string[]; back: string[]; cross: string[]; data: string[] }
+const S = (forward: string[] = [], back: string[] = [], cross: string[] = [], data: string[] = []): SlotSet => ({ forward, back, cross, data });
+const REF_SLOTS: Record<string, SlotSet> = {
+  // CHAIN TIER — reachability walk traverses forward▸ only
+  Requirement:    S(['useCases'], ['parent', '@ownerIor'], ['crossRef', 'refinedBy', 'refinementOf', 'splitInto', 'siblingOf', 'supersededBy', 'supersedes', 'gates', 'tests']),
+  Task:           S(['useCases', 'children', 'subtasks'], ['parent', '@ownerIor', 'sprint'], ['coveredRequirements', 'requirements', 'gates']),
+  UseCase:        S(['class', 'classes', 'method'], ['parent', '@ownerIor', 'requirements'], ['tasks', 'covers', 'implementations']),
+  Class:          S(['methods'], ['parent', '@ownerIor', 'useCases'], ['method', 'subtypes', 'extends']),
+  Method:         S(['implementations'], ['parent', '@ownerIor'], ['implementation', 'tests']),
+  Implementation: S(['tests'], ['parent', '@ownerIor', 'methods'], ['sourceMarker']),
+  Test:           S(['testCases'], ['parent', '@ownerIor', 'methods', 'implementations'], ['verifies', 'gates']), // ▸testCases = the 2207 fix; ◂methods = the R27.4 fcf miss
+  TestCase:       S([], ['@ownerIor', 'testUuid']),
+  Sprint:         S(['tasks', 'requirements'], [], ['bugs']),                                                     // 2nd reachability ROOT
+  Bug:            S([], ['parent', '@ownerIor'], ['crossRef', 'useCases', 'tasks', 'coveredBy', 'implementations', 'supersededBy']),
+  Gate:           S([], [], ['gatedItems']),
+  TraceLink:      S([], [], ['from', 'to']),
+  CurrentSprint:  S([], ['lastCompletedUuid', 'lastCompletedReqUuid']),
+  // DATA TIER (◇) — not chain-reachable; dangling-scanned separately
+  Room:           S([], [], [], ['files']),
+  File:           S([], [], [], ['roomUuid', 'parentFolder']),
+  WebItem:        S([], [], [], ['roomUuid', 'parentFolder', 'children']),
+  Message:        S([], [], [], ['roomIor', 'prevMessage', 'nextMessage']),
+  Profile:        S([], [], [], ['phones', 'emails', 'companies']),
 };
+// uuid-shaped but NOT unit edges — verified all-dead / self (Device.ownerToken 195/195, File.uploaderToken 71,
+// Message.senderIor 6/6). Including them = ~500 false dangling.
+const EXCLUDE_SLOTS = new Set(['uuid', 'ownerToken', 'uploaderToken', 'deviceId', 'token', 'id', 'senderIor']);
+
+// [impl:uuid:87983907-282c-4feb-ac04-1368dc5e9a01] TraceAudit.refSlots — the canonical ref-slot accessor: the single
+// pinned source of "where a unit-ref can live". Migrations/audit/repair import THIS; CANONICAL_FORWARD derives from it.
+function refSlots(type: string): SlotSet {
+  return REF_SLOTS[type] || S();
+}
+
+// DERIVED (forward only) — no hand-list; the reachability walk consumes this.
+const CANONICAL_FORWARD: Record<string, string[]> = Object.fromEntries(Object.keys(REF_SLOTS).map(t => [t, refSlots(t).forward]));
+
+// R27.5: reachability seeds Requirement AND Sprint roots (Sprint promoted from orphan-by-design to a 2nd root).
+const REACHABILITY_ROOTS = new Set(['Requirement', 'Sprint']);
 
 /**
- * Orphan-by-design types: excluded from reachability audit.
- * - TraceLink: edge metadata, not a chain node
- * - Sprint: navigation container; S01-S09 have empty tasks[] (deferred historical
- *   migration, PO decision — see task-planner-s2-s9-backfill.md)
+ * Orphan-by-design types: excluded from the reachability orphan report.
+ * - TraceLink: edge metadata, not a chain node.
+ * (Sprint was here; R27.5 promotes it to a reachability ROOT so its tasks/requirements traverse — the 2207-fix.)
  */
-const ORPHAN_BY_DESIGN_TYPES = new Set(['TraceLink', 'Sprint']);
-
-const BACK_REF_FIELDS: Record<string, string[]> = {
-  Task: ['requirements'],
-  UseCase: ['requirements'],
-  Class: ['useCases'],
-  Method: ['classes', 'useCases', 'tests'],
-  TraceLink: [],
-};
+const ORPHAN_BY_DESIGN_TYPES = new Set(['TraceLink']);
 
 interface AuditResult {
   total: number;
   reachable: number;
   orphans: { uuid: string; type: string; name: string }[];
-  backRefs: { uuid: string; type: string; field: string }[];
+  dangling: { uuid: string; type: string; slot: string; ref: string; tier: string }[]; // R27.5 Axis-1 ref-integrity
   cardinalityIssues: string[];
   duplicateClasses: { name: string; count: number; uuids: string[] }[]; // R27.2 AC-canonical: exactly ONE Class unit per code-class name
   hopResults: { total: number; reachable: number; unreachable: { uuid: string; name: string; breakHop: string }[] };
@@ -109,15 +134,15 @@ function auditAll(idx: ScenarioIndex): AuditResult {
     const type = getType(unit);
     const fwdKeys = CANONICAL_FORWARD[type] || [];
     for (const key of fwdKeys) {
-      const refs = (unit.model as Record<string, unknown>)[key];
-      if (!Array.isArray(refs)) continue;
+      const val = (unit.model as Record<string, unknown>)[key];
+      const refs = Array.isArray(val) ? val : (val ? [val] : []);   // R27.5: forward slot may be single-value (UseCase.class/method)
       for (const ref of refs) walk(resolveIor(String(ref)));
     }
   }
 
-  // T172: walk from Requirement roots ONLY (strict forward chain)
+  // R27.5: walk from Requirement AND Sprint roots (strict forward chain) — was Requirement-only (T172)
   for (const [uuid, unit] of units) {
-    if (getType(unit) === 'Requirement') walk(uuid);
+    if (REACHABILITY_ROOTS.has(getType(unit))) walk(uuid);
   }
 
   const orphans: AuditResult['orphans'] = [];
@@ -129,17 +154,35 @@ function auditAll(idx: ScenarioIndex): AuditResult {
     }
   }
 
-  // Pass 2: No back-refs
-  const backRefs: AuditResult['backRefs'] = [];
-  for (const [uuid, unit] of units) {
+  // Pass 2 (R27.5 Axis-1 — REF INTEGRITY): every slot ref (forward+back+cross, chain tier; data separately) must
+  // resolve to a live unit. Replaces the old forward-only "prohibited back-ref" check — R27.5 reclassifies
+  // parent/@ownerIor/requirements as LEGITIMATE back-edges that must RESOLVE (not chaos). token/self are EXCLUDEd.
+  const bareRef = (ref: string): string | null => {
+    const s = String(ref);
+    if (s.startsWith('ior:file:') || s.startsWith('ior:class:')) return null; // not a unit-instance ref
+    const at = s.replace('ior:instance:', '').split('@');
+    if (at[1] && at[1] !== 'self' && at[1] !== 'local') return null;           // remote federated ref — not local dangling
+    return FULL_UUID.test(at[0]) ? at[0] : null;                               // a ref is uuid-shaped; prose ("None (at…)") is NOT a ref
+  };
+  const readSlot = (unit: ScenarioUnit, key: string): unknown =>
+    key.startsWith('@') ? (unit as unknown as Record<string, unknown>)[key.slice(1)] : (unit.model as Record<string, unknown>)[key];
+  const dangling: AuditResult['dangling'] = [];
+  const scanDangling = (unit: ScenarioUnit, keys: string[], tier: string): void => {
     const type = getType(unit);
-    const banned = BACK_REF_FIELDS[type] || [];
-    for (const field of banned) {
-      const val = (unit.model as Record<string, unknown>)[field];
-      if (val && ((Array.isArray(val) && val.length > 0) || (!Array.isArray(val) && val !== ''))) {
-        backRefs.push({ uuid, type, field });
+    for (const key of keys) {
+      if (EXCLUDE_SLOTS.has(key.replace('@', ''))) continue;
+      const val = readSlot(unit, key);
+      const refs = Array.isArray(val) ? val : (val ? [val] : []);
+      for (const r of refs) {
+        const b = bareRef(String(r));
+        if (b && !units.has(b)) dangling.push({ uuid: String(unit.model.uuid), type, slot: key, ref: b, tier });
       }
     }
+  };
+  for (const [, unit] of units) {
+    const slots = refSlots(getType(unit));
+    scanDangling(unit, [...slots.forward, ...slots.back, ...slots.cross], 'chain');
+    scanDangling(unit, slots.data, 'data');
   }
 
   // Pass 3: Cardinality
@@ -161,8 +204,8 @@ function auditAll(idx: ScenarioIndex): AuditResult {
     const type = getType(unit);
     const fwdKeys = CANONICAL_FORWARD[type] || [];
     for (const key of fwdKeys) {
-      const refs = (unit.model as Record<string, unknown>)[key];
-      if (!Array.isArray(refs)) continue;
+      const val = (unit.model as Record<string, unknown>)[key];
+      const refs = Array.isArray(val) ? val : (val ? [val] : []);   // R27.5: forward slot may be single-value
       for (const ref of refs) {
         const childUuid = resolveIor(String(ref));
         if (!reverseMap.has(childUuid)) reverseMap.set(childUuid, new Set());
@@ -204,7 +247,7 @@ function auditAll(idx: ScenarioIndex): AuditResult {
     total: allUuids.length,
     reachable: visited.size,
     orphans,
-    backRefs,
+    dangling,
     cardinalityIssues,
     duplicateClasses,
     hopResults: { total: testUnits.length, reachable: hopReachable, unreachable: hopUnreachable },
@@ -228,11 +271,16 @@ console.log(`⚠ NOT a completion measure — for completion use: npx tsx script
 console.log(`Total units: ${result.total}`);
 
 console.log(`\nOrphans: ${result.orphans.length} (${result.orphans.length === 0 ? 'PASS' : 'FAIL'})`);
+const orphanByType = [...result.orphans.reduce((m, o) => m.set(o.type, (m.get(o.type) || 0) + 1), new Map<string, number>()).entries()].sort((a, b) => b[1] - a[1]);
+console.log(`  by-type: ${orphanByType.map(([t, n]) => `${t}=${n}`).join(' ')}`);   // R27.5: calibration view — chain-types (real debt) vs non-chain data (orphan-by-design candidates)
 for (const o of result.orphans.slice(0, 20)) console.log(`  - ${o.uuid.slice(0, 8)} (${o.type}: ${o.name})`);
 if (result.orphans.length > 20) console.log(`  ... and ${result.orphans.length - 20} more`);
 
-console.log(`\nBack-refs: ${result.backRefs.length} (${result.backRefs.length === 0 ? 'PASS' : 'FAIL'})`);
-for (const b of result.backRefs.slice(0, 20)) console.log(`  - ${b.uuid.slice(0, 8)} (${b.type}): prohibited field '${b.field}'`);
+const chainDangling = result.dangling.filter(d => d.tier === 'chain');
+const dataDangling = result.dangling.filter(d => d.tier === 'data');
+console.log(`\nRef-integrity dangling (R27.5 Axis-1, all REF_SLOTS must resolve): chain=${chainDangling.length} data=${dataDangling.length} (${result.dangling.length === 0 ? 'PASS' : 'residual → R27.6 repair, delta-not-absolute'})`);
+for (const d of result.dangling.slice(0, 25)) console.log(`  - ${d.uuid.slice(0, 8)} (${d.type}).${d.slot} → ${d.ref.slice(0, 8)} [${d.tier}]`);
+if (result.dangling.length > 25) console.log(`  ... and ${result.dangling.length - 25} more`);
 
 console.log(`\nCardinality: ${result.cardinalityIssues.length} (${result.cardinalityIssues.length === 0 ? 'PASS' : 'FAIL'})`);
 for (const c of result.cardinalityIssues) console.log(`  - ${c}`);
@@ -262,8 +310,8 @@ for (const t of staleTruncated.slice(0, 25)) console.log(`  · stale ${t.marker}
 // orphans + back-refs + STALE truncated markers are pre-existing baseline debt → REPORTED but NOT strict-gated
 // (delta-not-absolute — else --strict false-fails on the 2207-orphan / 18-stale-marker baseline).
 const hardIssues = result.duplicateClasses.length + result.cardinalityIssues.length + liveTruncated.length;
-const deferredIssues = result.orphans.length + result.backRefs.length;
-console.log(`\n=== STRUCTURAL AUDIT — HARD (dup-Class + cardinality) = ${hardIssues} ${hardIssues === 0 ? 'PASS' : 'FAIL'} | deferred (orphans + back-refs) = ${deferredIssues} (R27.4 baseline, not strict-gated yet) ===`);
+const deferredIssues = result.orphans.length + result.dangling.length;
+console.log(`\n=== STRUCTURAL AUDIT — HARD (dup-Class + cardinality) = ${hardIssues} ${hardIssues === 0 ? 'PASS' : 'FAIL'} | deferred (orphans + ref-integrity dangling) = ${deferredIssues} (R27.5 residual, delta-not-absolute, not strict-gated yet) ===`);
 console.log(`(Completion measure: npx tsx scripts/po-chain-follow-up.ts --all)\n`);
 
 if (strict && hardIssues > 0) process.exit(1); // R27.2 dup=0 STRICT now; re-enable orphan/back-ref strict gate AFTER R27.4
