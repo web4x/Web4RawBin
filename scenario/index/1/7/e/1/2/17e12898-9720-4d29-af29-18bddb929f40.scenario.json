@@ -1,0 +1,54 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "17e12898-9720-4d29-af29-18bddb929f40",
+    "name": "Lobby name from profile, not random",
+    "altId": "R30.4",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+    "sourceLine": 1,
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:d6d8f55a-0300-4249-b7f8-c13a80a47490"
+    ],
+    "description": "The lobby 'Your Name' shows the PROFILE name (Marcel Donges), not a random 'User NNN'. THE BUG: RoomBrowser.ts:29 computes memberName SYNCHRONOUSLY before the profile has loaded (an async race) - so profile?.name is null, the random fallback fires, and a different name shows every reload. FIX: use the profile name once it is LOADED (await the profile / re-render on profile-load); the random 'User NNN' is used ONLY as a TRUE last resort (no profile at all). The profile token/uuid is stable (05e58f81) - only the displayed NAME regresses.",
+    "tronQuote": "> TRON 2026-07-13: the lobby 'Your Name' shows a random 'User NNN' instead of the profile name (Marcel Donges). RoomBrowser.ts:29 computes memberName sync before the profile loads (async race). Use the profile name once loaded; random only as a true last resort.",
+    "discoverySource": {
+      "type": "tron-directive",
+      "flaggedBy": "Tron via robbin-architect/robbin-po",
+      "date": "2026-07-13",
+      "note": "Regression - Tron reopened S30 for it (authorized). Scenario-first #126 (units before code). Root: RoomBrowser.ts:29 sync memberName before async profile load; token 05e58f81 stable, only name regresses. robbin-req = one-mover (R29.9)."
+    },
+    "crossRef": [
+      "ior:instance:efd1acb6-d9de-476b-b30f-50d7969b37fe",
+      "ior:instance:d0acb05d-982f-418b-a0d4-667d13435371"
+    ],
+    "crossRefNote": "Profile-name resolution ties the contact-identity family (R21.1 vCard profile, R25.3 vCard onboarding). Bug is an async-race on profile-load (sync-before-loaded), not an identity-token issue (token 05e58f81 stable).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-profile-name",
+        "group": "name",
+        "text": "The lobby 'Your Name' shows the PROFILE name (Marcel Donges), NOT a random 'User NNN'."
+      },
+      {
+        "id": "AC-bug",
+        "group": "bug",
+        "text": "THE BUG: RoomBrowser.ts:29 computes memberName SYNC before the profile loads (async race) -> profile?.name null -> random fallback -> a different name every reload."
+      },
+      {
+        "id": "AC-fix",
+        "group": "fix",
+        "text": "Fix = use the profile name once LOADED (await profile / re-render on profile-load); random 'User NNN' only as a TRUE last resort (no profile at all)."
+      },
+      {
+        "id": "AC-stable-token",
+        "group": "identity",
+        "text": "The profile token/uuid is stable (05e58f81) - only the displayed NAME regresses; the fix must not change the stable identity token, only the name resolution."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

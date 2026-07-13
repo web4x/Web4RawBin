@@ -10,7 +10,8 @@
     "requirements": [
       "ior:instance:6f796898-4dbb-47a3-ab8a-914b4c80b353",
       "ior:instance:850a339d-c7e5-4308-b2c7-65536bd5271e",
-      "ior:instance:6cd770df-0034-406e-b20c-bb8bddaadbf7"
+      "ior:instance:6cd770df-0034-406e-b20c-bb8bddaadbf7",
+      "ior:instance:17e12898-9720-4d29-af29-18bddb929f40"
     ],
     "tasks": [
       "ior:instance:5665a0dd-750d-486b-964c-1bd221163ae4",
