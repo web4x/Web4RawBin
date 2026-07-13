@@ -22,25 +22,33 @@
     },
     "acceptanceCriteria": [
       {
-        "id": "AC-badge-precount",
-        "group": "tree",
-        "text": "A collapsed node's badge shows its real childCount from server metadata BEFORE children load."
+        "id": "AC-eager-badge",
+        "group": "badge",
+        "text": "Every tree node child-count BADGE shows the correct count from when its PARENT loads (eager) - NOT 0-until-expand."
       },
       {
-        "id": "AC-eager-count",
-        "group": "scaling",
-        "text": "Counts are eager (from structure metadata); child PAYLOADS stay lazy until expand."
+        "id": "AC-from-parent-meta",
+        "group": "badge",
+        "text": "The count comes from the PARENT /children response metadata (childCount per child), not a per-node prefetch."
       },
       {
-        "id": "AC-currentsprint-badge",
-        "group": "tree",
-        "text": "CurrentSprint node + each Sprint node carry a correct child-count badge without expanding."
+        "id": "AC-lazy-level",
+        "group": "loading",
+        "text": "Lazy level-by-level: expanding a node loads its children WITH their own child-counts (next level badges correct); deeper content on further expand."
+      },
+      {
+        "id": "AC-bug",
+        "group": "bug",
+        "text": "THE BUG: all sprint nodes showed badge=0 initially - must show the real task-count before expand."
+      },
+      {
+        "id": "AC-payload-lazy",
+        "group": "loading",
+        "text": "Still PAYLOAD-LAZY: children CONTENT loads on expand; only COUNTS are eager (structure+count eager / payload lazy - R26 pattern)."
       }
     ],
     "sprintName": "Sprint 30",
-    "status": "superseded",
-    "supersededBy": "ior:instance:15c8fe45-b1ff-4c08-b589-be741ae95d85",
-    "supersededNote": "Dup of R30.2 minted in parallel during the classifier outage; retired 2026-07-13 in favour of the MORE-COMPLETE unit 15c8fe45-b1ff-4c08-b589-be741ae95d85 (all Tron ACs). Kept as tombstone."
+    "reconcileNote": "CANONICAL (task-covered). Un-tombstoned + ACs enriched to the full Tron set 2026-07-13 by robbin-req; the parallel-mint dup (my 15c8fe45/c1a0b382) was deleted. v0.7.11 retroactive #126."
   },
   "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

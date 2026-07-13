@@ -22,20 +22,23 @@
     },
     "acceptanceCriteria": [
       {
-        "id": "AC-sprint-select-drawer",
-        "group": "drawer",
-        "text": "Selecting a Sprint node populates the detail drawer with that sprint's detail (name/goal/slots)."
+        "id": "AC-sprint-drawer",
+        "group": "selection",
+        "text": "Selecting/clicking a SPRINT node updates the detail drawer to show THAT sprint details."
       },
       {
-        "id": "AC-no-empty-drawer",
-        "group": "drawer",
-        "text": "The drawer is never empty/stale on sprint selection \u2014 renderDetailForRef handles the sprint case."
+        "id": "AC-bug",
+        "group": "bug",
+        "text": "THE BUG: selecting a sprint did NOT change the drawer content."
+      },
+      {
+        "id": "AC-all-types",
+        "group": "selection",
+        "text": "selection->drawer works for ALL tree node types (sprint/task/etc) - shows the selected unit details (fix on RbDetailDrawer.renderDetailForRef)."
       }
     ],
     "sprintName": "Sprint 30",
-    "status": "superseded",
-    "supersededBy": "ior:instance:c1a0b382-9d57-4f33-820e-b05f56e25dd3",
-    "supersededNote": "Dup of R30.3 minted in parallel during the classifier outage; retired 2026-07-13 in favour of the MORE-COMPLETE unit c1a0b382-9d57-4f33-820e-b05f56e25dd3 (all Tron ACs). Kept as tombstone."
+    "reconcileNote": "CANONICAL (task-covered). Un-tombstoned + ACs enriched to the full Tron set 2026-07-13 by robbin-req; the parallel-mint dup (my 15c8fe45/c1a0b382) was deleted. v0.7.11 retroactive #126."
   },
   "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }
