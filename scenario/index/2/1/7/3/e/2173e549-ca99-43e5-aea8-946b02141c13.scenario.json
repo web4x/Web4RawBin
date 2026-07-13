@@ -2,9 +2,9 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "2173e549-ca99-43e5-aea8-946b02141c13",
-    "name": "Sprint 30 \u2014 Traceability Improvement",
+    "name": "Sprint 30 — Traceability Improvement",
     "number": 30,
-    "goal": "Traceability tree \u2014 exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' with 3 EAGER children (Current / Last Completed / Next Backlog) + a 'Sprints 01-<N>' collection (collapsed, count badge). Structure-eager / payload-lazy: sprint nodes eager, their TASKS load only when the sprint is expanded \u2014 so the tree scales as sprints grow (same eager-structure/lazy-payload pattern as R26 federation).",
+    "goal": "Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' with 3 EAGER children (Current / Last Completed / Next Backlog) + a 'Sprints 01-<N>' collection (collapsed, count badge). Structure-eager / payload-lazy: sprint nodes eager, their TASKS load only when the sprint is expanded — so the tree scales as sprints grow (same eager-structure/lazy-payload pattern as R26 federation).",
     "status": "Planned",
     "compoundSource": "scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
     "requirements": [
@@ -18,7 +18,8 @@
       "ior:instance:5665a0dd-750d-486b-964c-1bd221163ae4",
       "ior:instance:fc744c38-1c7f-4855-a8fe-b48a5545285f",
       "ior:instance:db8c2753-37c7-4dbf-94b3-6263da8310b9",
-      "ior:instance:b4bc80c7-f48b-46d7-9b47-21f0289f3f63"
+      "ior:instance:b4bc80c7-f48b-46d7-9b47-21f0289f3f63",
+      "ior:instance:c80ae70e-9542-4c44-a199-adb6ad51ea17"
     ],
     "createdAt": "2026-07-02",
     "createdBy": "robbin-req",
@@ -33,7 +34,7 @@
       "authorizedBy": "Tron",
       "via": "PO",
       "at": "2026-07-02",
-      "ref": "PO directive robbinTeam2:0.0 2026-07-02 \u2014 Tron authorized Sprint 30 for AgentMessage (first R29.4-authorized increment)"
+      "ref": "PO directive robbinTeam2:0.0 2026-07-02 — Tron authorized Sprint 30 for AgentMessage (first R29.4-authorized increment)"
     },
     "slug": "sprint-30-traceability-improvement"
   },

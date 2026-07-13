@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "c80ae70e-9542-4c44-a199-adb6ad51ea17",
+    "name": "Task 30.5: Editor file pane shows the full project filetree",
+    "slug": "task-30.5-editor-filetree",
+    "description": "Fix the Editor file-pane empty-filetree regression in RbFileTree: it requests /api/files/<slash> for the root (rb-file-tree.ts:31), which the server FORBIDS -> empty tree. Fix = request the root with an EMPTY relPath (not a leading slash) so the server returns the full project filetree.",
+    "intention": "Tron regression (S30): the Editor file pane must show the full project filetree, not empty.",
+    "context": "Covers R30.5 (21ced567). Class RbFileTree (rb-file-tree.ts:31 slash-root-forbidden bug). Tron regression.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "STOOD UP (planning) — status Planned; chain-build awaits architect design + req chain mint. Advance on architect/PO signal.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.5 `[requirement:uuid:21ced567-d47f-4f3c-9b28-225a45dfecce]`\n  - down\n    - [UC30.5: editor.fullFiletree](./planning.md) `[uc:uuid:18d6a337-efea-4dc1-8de4-7c65dde053b4]`",
+    "acceptanceCriteria": "- [ ] (tree) The /edit Files pane shows the FULL project filetree (src / scenario / scrum.pmo / scripts / test / data / etc), expandable.\n- [ ] (bug) THE BUG: rb-file-tree.ts:31 requests /api/files/'/' for root -> server safePath('/') resolves to FS-root, fails startsWith(PROJECT_ROOT) -> {error:Forbidden} -> empty tree.\n- [ ] (bug) PROVEN: /api/files/ (empty relPath) returns the full tree; /api/files/%2F -> Forbidden - confirming the root request must use empty relPath, not '/'.\n- [ ] (fix) Fix = the file-tree root request uses an EMPTY relPath (not '/') - one-line at rb-file-tree.ts:31, drop the \"|| '/'\" fallback.",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:21ced567-d47f-4f3c-9b28-225a45dfecce"
+    ],
+    "useCases": [
+      "ior:instance:18d6a337-efea-4dc1-8de4-7c65dde053b4"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-13"
+  },
+  "ownerIor": null
+}
