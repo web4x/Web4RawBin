@@ -1,12 +1,14 @@
 {
- "ior": "ior:class:Implementation",
- "model": {
-  "uuid": "91c452ae-d41c-49bc-8efe-f656d628fd62",
-  "name": "RbDiffEditor.applyAllNonConflicting impl",
-  "tests": [],
-  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-  "designAhead": true,
-  "description": "DESIGN-AHEAD: apply all non-conflicting. Expert builds + tags [impl] marker (=this Impl uuid)."
- },
- "ownerIor": "ior:instance:2b630af1-6190-42fc-b986-6f0b70a30fa0"
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "91c452ae-d41c-49bc-8efe-f656d628fd62",
+    "name": "RbDiffEditor.applyAllNonConflicting impl",
+    "tests": [
+      "ior:instance:79139c01-754f-4867-9e77-bf9a255ce54f"
+    ],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: apply all non-conflicting. Expert builds + tags [impl] marker (=this Impl uuid)."
+  },
+  "ownerIor": "ior:instance:2b630af1-6190-42fc-b986-6f0b70a30fa0"
 }

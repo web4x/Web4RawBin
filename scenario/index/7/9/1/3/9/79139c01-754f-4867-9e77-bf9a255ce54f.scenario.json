@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "79139c01-754f-4867-9e77-bf9a255ce54f",
+    "name": "test:R30.9 RbDiffEditor.applyAllNonConflicting gate",
+    "description": "Bridged to test/visual/r309-three-way-merge-gate.mjs — ✨Apply-All-Non-Conflicting control present (DET-3x GREEN, prod v0.7.18, read-only)",
+    "sourceFile": "ior:file:test/visual/r309-three-way-merge-gate.mjs",
+    "verifies": [
+      "ior:instance:91c452ae-d41c-49bc-8efe-f656d628fd62"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:91c452ae-d41c-49bc-8efe-f656d628fd62"
+}
