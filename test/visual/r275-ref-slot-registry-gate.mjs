@@ -1,3 +1,4 @@
+// [test:uuid:fb185dc5-4f99-44ab-9405-2dbe98b5ef85] R27.5 TraceAudit.refSlots — canonical REF_SLOTS registry (AC1/AC2/AC4 GREEN DET-3x; AC3/AC5 PENDING)
 // R27.5 — Canonical Ref-Slot Registry gate. DRAFT (scenario-first PREP, 2026-07-13): drafted
 // against design-notes/r27.5-canonical-ref-slot-registry.md BEFORE the expert builds, so it's
 // ready to run the instant REF_SLOTS + the extended trace-audit ship. Tooling gate (disk audit,

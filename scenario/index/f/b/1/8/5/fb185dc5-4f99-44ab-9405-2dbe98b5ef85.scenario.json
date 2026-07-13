@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "fb185dc5-4f99-44ab-9405-2dbe98b5ef85",
+    "name": "test:R27.5 TraceAudit.refSlots gate",
+    "description": "Bridged to test/visual/r275-ref-slot-registry-gate.mjs — canonical REF_SLOTS registry: AC1 covers every slot/type fwd+back+cross, AC2 back-edge scan (S30 class), AC4 token/edge/self classification — GREEN DET-3x vs the real registry. NOTE task T27.5 stays In-Progress: AC3(well-formedness)+AC5(--dir fixtures) PENDING remaining build.",
+    "sourceFile": "ior:file:test/visual/r275-ref-slot-registry-gate.mjs",
+    "verifies": [
+      "ior:instance:87983907-282c-4feb-ac04-1368dc5e9a01"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:87983907-282c-4feb-ac04-1368dc5e9a01"
+}
