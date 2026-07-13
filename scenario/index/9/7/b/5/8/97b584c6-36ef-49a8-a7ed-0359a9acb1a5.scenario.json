@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "97b584c6-36ef-49a8-a7ed-0359a9acb1a5",
+    "name": "RbDiffEditor.swapSides impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: Exchange Left<->Right content + refs, recompute. Expert builds + tags [impl] marker."
+  },
+  "ownerIor": "ior:instance:dc882feb-1ed9-4bba-8807-32e54fcc71a0"
+}

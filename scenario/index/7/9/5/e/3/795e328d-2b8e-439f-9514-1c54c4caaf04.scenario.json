@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "795e328d-2b8e-439f-9514-1c54c4caaf04",
+    "name": "GitApi",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "methods": [
+      "ior:instance:34cf3b1a-124b-403d-8fa7-281334f7bc90",
+      "ior:instance:e2759591-0744-4683-ae98-052bd81d9f9e",
+      "ior:instance:57ddbeda-4ef3-4916-a897-b7bbdbe861e2"
+    ],
+    "note": "NEW (0 existing). Read-only git endpoints (branches/commits/fileAtRef) in server.ts monolith, allowlisted (R27.5 axis-3). R30.6."
+  },
+  "ownerIor": null
+}

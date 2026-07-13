@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "b507c987-96d9-4186-ae3f-51f0438a6a4d",
+    "name": "RbDiffEditor.takeHunk",
+    "implementations": [
+      "ior:instance:6ebfac12-8114-40fe-b0e4-54709f102711"
+    ],
+    "tests": [],
+    "note": "R30.6. Name EXACT for [impl] AST-attach. Apply a side's hunk text into the Center merged buffer; re-render + mark dirty."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

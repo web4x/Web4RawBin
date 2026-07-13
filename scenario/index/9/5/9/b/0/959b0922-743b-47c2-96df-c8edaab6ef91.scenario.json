@@ -2,13 +2,14 @@
   "ior": "ior:class:UseCase",
   "model": {
     "uuid": "959b0922-743b-47c2-96df-c8edaab6ef91",
-    "name": "diffMerge.fileSelectors",
+    "name": "diffEditor.pickFile",
     "description": "Each pane has a file selector: a full-path selector above left + right, and a merged-path selector in the center, each with an 'open file chooser' button that browses the project tree via RbFileTree (reused from R30.5).",
-    "class": null,
-    "classes": [],
-    "method": null,
-    "coveredRequirement": "ior:instance:e4c9ffbf-d368-4ac3-8cbc-93859e5a2fce",
-    "note": "Class DiffMergeEditor - architect wires Class->Method->Impl (design-only + hold; req=sole minter)."
+    "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+    "classes": [
+      "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+    ],
+    "method": "ior:instance:794de9b3-1f82-44f6-b085-0e0d2f0d4abc",
+    "coveredRequirement": "ior:instance:e4c9ffbf-d368-4ac3-8cbc-93859e5a2fce"
   },
   "ownerIor": "ior:instance:e4c9ffbf-d368-4ac3-8cbc-93859e5a2fce"
 }

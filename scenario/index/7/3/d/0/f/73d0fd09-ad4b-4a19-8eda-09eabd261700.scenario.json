@@ -2,13 +2,14 @@
   "ior": "ior:class:UseCase",
   "model": {
     "uuid": "73d0fd09-ad4b-4a19-8eda-09eabd261700",
-    "name": "diffMerge.hunkTakeover",
+    "name": "diffEditor.hunkTakeover",
     "description": "Per-hunk take-over buttons: left->center and right->center (+ the reverse) apply a diff hunk into the center pane, incrementally building the merged file.",
-    "class": null,
-    "classes": [],
-    "method": null,
-    "coveredRequirement": "ior:instance:1d0cf9b9-b0c2-4881-b53b-65d187654f68",
-    "note": "Class DiffMergeEditor - architect wires Class->Method->Impl (design-only + hold; req=sole minter)."
+    "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+    "classes": [
+      "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+    ],
+    "method": "ior:instance:b507c987-96d9-4186-ae3f-51f0438a6a4d",
+    "coveredRequirement": "ior:instance:1d0cf9b9-b0c2-4881-b53b-65d187654f68"
   },
   "ownerIor": "ior:instance:1d0cf9b9-b0c2-4881-b53b-65d187654f68"
 }

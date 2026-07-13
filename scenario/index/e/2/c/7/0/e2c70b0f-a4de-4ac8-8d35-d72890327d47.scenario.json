@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e2c70b0f-a4de-4ac8-8d35-d72890327d47",
+    "name": "GitApi.commits impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: GET /api/git/commits: execFile('git',['log',...]) -> [{hash,subject,author,date}]. Read-only, array args. Expert builds + tags [impl] marker."
+  },
+  "ownerIor": "ior:instance:e2759591-0744-4683-ae98-052bd81d9f9e"
+}

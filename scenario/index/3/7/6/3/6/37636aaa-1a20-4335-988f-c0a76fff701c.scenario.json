@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "37636aaa-1a20-4335-988f-c0a76fff701c",
+    "name": "RbDiffEditor.renderHunks impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: Paint hunk highlights + per-hunk take-over buttons in the Center gutter. Expert builds + tags [impl] marker."
+  },
+  "ownerIor": "ior:instance:4644db23-ce03-462a-9a17-44a32bf38134"
+}

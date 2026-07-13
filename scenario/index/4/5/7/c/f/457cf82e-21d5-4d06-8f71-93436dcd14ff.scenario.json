@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "457cf82e-21d5-4d06-8f71-93436dcd14ff",
+    "name": "RbDiffEditor.pickRef",
+    "implementations": [
+      "ior:instance:f0b7ef57-ae79-408c-8f19-a82702d78101"
+    ],
+    "tests": [],
+    "note": "R30.6. Name EXACT for [impl] AST-attach. Open the git-ref picker (branch+commit from GitApi), set the side's ref, loadSide."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

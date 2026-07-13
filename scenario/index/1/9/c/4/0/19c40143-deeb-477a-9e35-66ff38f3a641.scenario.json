@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "19c40143-deeb-477a-9e35-66ff38f3a641",
+    "name": "RbDiffEditor.loadSide",
+    "implementations": [
+      "ior:instance:c4da837c-b59f-4c02-9522-2e8599206abf"
+    ],
+    "tests": [],
+    "note": "R30.6. Name EXACT for [impl] AST-attach. Fetch content from a working file (/api/files) or file@ref (/api/git/file), set the pane, recompute."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

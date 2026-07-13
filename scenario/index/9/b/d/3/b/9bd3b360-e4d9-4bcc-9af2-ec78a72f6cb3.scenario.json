@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "9bd3b360-e4d9-4bcc-9af2-ec78a72f6cb3",
+    "name": "GitApi.fileAtRef impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: GET /api/git/file: execFile('git',['show',ref:path]). ref validated ^[w./-]+$, path via safePath. Read-only. Expert builds + tags [impl] marker."
+  },
+  "ownerIor": "ior:instance:57ddbeda-4ef3-4916-a897-b7bbdbe861e2"
+}

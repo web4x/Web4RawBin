@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "57ddbeda-4ef3-4916-a897-b7bbdbe861e2",
+    "name": "GitApi.fileAtRef",
+    "implementations": [
+      "ior:instance:9bd3b360-e4d9-4bcc-9af2-ec78a72f6cb3"
+    ],
+    "tests": [],
+    "note": "R30.6. Name EXACT for [impl] AST-attach. GET /api/git/file: execFile('git',['show',ref:path]). ref validated ^[w./-]+$, path via safePath. Read-only."
+  },
+  "ownerIor": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+}

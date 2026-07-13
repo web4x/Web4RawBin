@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "dc882feb-1ed9-4bba-8807-32e54fcc71a0",
+    "name": "RbDiffEditor.swapSides",
+    "implementations": [
+      "ior:instance:97b584c6-36ef-49a8-a7ed-0359a9acb1a5"
+    ],
+    "tests": [],
+    "note": "R30.6. Name EXACT for [impl] AST-attach. Exchange Left<->Right content + refs, recompute."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "18165081-16d4-4b3b-9e9f-047f304d5886",
+    "name": "RbDiffEditor",
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "methods": [
+      "ior:instance:63413d35-1282-4b24-9bc6-32483efddf1d",
+      "ior:instance:19c40143-deeb-477a-9e35-66ff38f3a641",
+      "ior:instance:54ccfa63-ed2c-4675-a329-cf40d6497604",
+      "ior:instance:4644db23-ce03-462a-9a17-44a32bf38134",
+      "ior:instance:b507c987-96d9-4186-ae3f-51f0438a6a4d",
+      "ior:instance:dc882feb-1ed9-4bba-8807-32e54fcc71a0",
+      "ior:instance:457cf82e-21d5-4d06-8f71-93436dcd14ff",
+      "ior:instance:794de9b3-1f82-44f6-b085-0e0d2f0d4abc",
+      "ior:instance:11a8ea6e-8797-4aaf-8549-8958cd138ce5"
+    ],
+    "note": "NEW (0 existing). Name = code component rb-diff-editor.ts (RbFileTree/RbTraceTree convention), NOT DiffMergeEditor. R30.6 3-pane diff/merge editor. Sole-minter."
+  },
+  "ownerIor": null
+}

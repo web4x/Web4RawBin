@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "11a8ea6e-8797-4aaf-8549-8958cd138ce5",
+    "name": "RbDiffEditor.save",
+    "implementations": [
+      "ior:instance:a88b2b53-0cc7-42c7-8a63-dfebe737a7c9"
+    ],
+    "tests": [],
+    "note": "R30.6. Name EXACT for [impl] AST-attach. POST the Center merged content via /api/files (mtime-guarded)."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

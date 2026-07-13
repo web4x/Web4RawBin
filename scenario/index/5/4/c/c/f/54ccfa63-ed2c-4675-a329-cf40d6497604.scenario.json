@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "54ccfa63-ed2c-4675-a329-cf40d6497604",
+    "name": "RbDiffEditor.computeDiff",
+    "implementations": [
+      "ior:instance:15843ac9-9ca1-4cd5-bf5b-dffdff72b19c"
+    ],
+    "tests": [],
+    "note": "R30.6. Name EXACT for [impl] AST-attach. Pure in-house LCS line-diff of Left vs Right -> hunks[]; DOM-free, unit-testable."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

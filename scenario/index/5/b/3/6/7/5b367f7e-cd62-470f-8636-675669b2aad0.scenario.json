@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5b367f7e-cd62-470f-8636-675669b2aad0",
+    "name": "GitApi.branches impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: GET /api/git/branches: execFile('git',['branch',...],{cwd:PROJECT_ROOT,timeout}). Read-only, array args. Expert builds + tags [impl] marker."
+  },
+  "ownerIor": "ior:instance:34cf3b1a-124b-403d-8fa7-281334f7bc90"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "794de9b3-1f82-44f6-b085-0e0d2f0d4abc",
+    "name": "RbDiffEditor.pickFile",
+    "implementations": [
+      "ior:instance:552dd534-56f4-4dbf-bb11-7c99c19f0d41"
+    ],
+    "tests": [],
+    "note": "R30.6. Name EXACT for [impl] AST-attach. Open an rb-file-tree chooser (REUSE R30.5), on file-select set the side's path, loadSide."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

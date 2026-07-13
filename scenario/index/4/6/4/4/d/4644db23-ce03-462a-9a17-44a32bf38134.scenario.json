@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "4644db23-ce03-462a-9a17-44a32bf38134",
+    "name": "RbDiffEditor.renderHunks",
+    "implementations": [
+      "ior:instance:37636aaa-1a20-4335-988f-c0a76fff701c"
+    ],
+    "tests": [],
+    "note": "R30.6. Name EXACT for [impl] AST-attach. Paint hunk highlights + per-hunk take-over buttons in the Center gutter."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "34cf3b1a-124b-403d-8fa7-281334f7bc90",
+    "name": "GitApi.branches",
+    "implementations": [
+      "ior:instance:5b367f7e-cd62-470f-8636-675669b2aad0"
+    ],
+    "tests": [],
+    "note": "R30.6. Name EXACT for [impl] AST-attach. GET /api/git/branches: execFile('git',['branch',...],{cwd:PROJECT_ROOT,timeout}). Read-only, array args."
+  },
+  "ownerIor": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+}

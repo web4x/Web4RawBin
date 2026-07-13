@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e2759591-0744-4683-ae98-052bd81d9f9e",
+    "name": "GitApi.commits",
+    "implementations": [
+      "ior:instance:e2c70b0f-a4de-4ac8-8d35-d72890327d47"
+    ],
+    "tests": [],
+    "note": "R30.6. Name EXACT for [impl] AST-attach. GET /api/git/commits: execFile('git',['log',...]) -> [{hash,subject,author,date}]. Read-only, array args."
+  },
+  "ownerIor": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+}

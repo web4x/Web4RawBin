@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "63413d35-1282-4b24-9bc6-32483efddf1d",
+    "name": "RbDiffEditor.connectedCallback",
+    "implementations": [
+      "ior:instance:ef6708f6-735c-4a59-a2cd-350aa0ec795d"
+    ],
+    "tests": [],
+    "note": "R30.6. Name EXACT for [impl] AST-attach. Build the 3-pane shell + per-side toolbar (file-chooser/ref-picker/swap/save)."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}
