@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "30ad99c2-3f8f-459e-91ff-6a4feefeb752",
+    "name": "RbDetailDrawer.renderSprintDetail",
+    "description": "Selecting a sprint node populates the drawer: renderDetailForRef sprint-case fetches the sprint + renders name/goal/tasks (via selectionModel.replaceWith on node-body click -> selection-changed -> onSelectionChanged).",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "implementations": [
+      "ior:instance:0267036c-ec5a-4e13-a74e-1a89f45412b3"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+}

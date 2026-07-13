@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d28ee95a-1135-4e1c-be50-fe2368614171",
+    "name": "RbTraceTree.eagerChildCountBadges impl",
+    "description": "SHIPPED v0.7.11 (retroactive #126): rb-trace-tree.ts computeBadges + nodeChildCount (+ server /api/trace/sprints childCount). Expert places [impl:uuid:d28ee95a-1135-4e1c-be50-fe2368614171] on the deployed member.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
+    "tests": [
+      "ior:instance:c470b1c1-856b-484a-b777-17be1a600e8b"
+    ]
+  },
+  "ownerIor": "ior:instance:baf91567-048c-4610-860c-5ad08a6ffc55"
+}

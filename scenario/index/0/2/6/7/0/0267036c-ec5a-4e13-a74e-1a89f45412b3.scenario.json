@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0267036c-ec5a-4e13-a74e-1a89f45412b3",
+    "name": "RbDetailDrawer.renderSprintDetail impl",
+    "description": "SHIPPED v0.7.11 (retroactive #126): rb-detail-drawer.ts renderDetailForRef sprint-case (v0.7.11). Expert places [impl:uuid:0267036c-ec5a-4e13-a74e-1a89f45412b3] on the deployed member.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "tests": [
+      "ior:instance:3f583965-6bef-4c38-ba98-6d9fc8768d97"
+    ]
+  },
+  "ownerIor": "ior:instance:30ad99c2-3f8f-459e-91ff-6a4feefeb752"
+}

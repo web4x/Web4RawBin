@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "baf91567-048c-4610-860c-5ad08a6ffc55",
+    "name": "RbTraceTree.eagerChildCountBadges",
+    "description": "Eager child-count badges: /api/trace/sprints returns childCount per child; client nodeChildCount map -> computeBadges sets the badge even when children[] empty (lazy). Structure+count eager, content lazy.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
+    "implementations": [
+      "ior:instance:d28ee95a-1135-4e1c-be50-fe2368614171"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e"
+}
