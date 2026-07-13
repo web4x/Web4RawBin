@@ -8,13 +8,13 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,14 +38,14 @@ S30 R30.6 diff-editor USABILITY completion (R30.6.6): make the editor reachable 
 
 ## Acceptance Criteria
 
-- [ ] (entry) An '📊 Open Diff' button appears in the editor toolbar (rb-editor-toolbar, next to View/Preview + Save), NOT a tab; works in both desktop and mobile form factors.
-- [ ] (entry) Clicking the button dispatches a bubbling toolbar-open-diff event; edit.ts handles it and calls RbEditorLayout.showDiff(currentFilePath).
-- [ ] (mount) showDiff lazily mounts <rb-diff-editor> (like rb-file-tree/rb-code-editor) — not eagerly loaded before first use.
-- [ ] (preselect) The diff opens with the LEFT pane preselected to the CURRENT editor file — its path AND current content (reuse the editor's current-file state / rb-code-editor.getValue()) — ready to compare; the user then picks the RIGHT side.
+- [x] (entry) An '📊 Open Diff' button appears in the editor toolbar (rb-editor-toolbar, next to View/Preview + Save), NOT a tab; works in both desktop and mobile form factors.
+- [x] (entry) Clicking the button dispatches a bubbling toolbar-open-diff event; edit.ts handles it and calls RbEditorLayout.showDiff(currentFilePath).
+- [x] (mount) showDiff lazily mounts <rb-diff-editor> (like rb-file-tree/rb-code-editor) — not eagerly loaded before first use.
+- [x] (preselect) The diff opens with the LEFT pane preselected to the CURRENT editor file — its path AND current content (reuse the editor's current-file state / rb-code-editor.getValue()) — ready to compare; the user then picks the RIGHT side.
 
 ## Implementation
 
-STOOD UP (planning) — status Planned; expert builds impl (per PO). Advance on architect/PO build hop-signal.
+DONE-DELIVERED 2026-07-13: Tron-VERIFIED + accepted the live [Open Diff] toolbar entry-point button (RbEditorLayout.showDiff). Editor now openable. R30.6 umbrella still open pending T30.6.7 (RepoRegistry, expert building).
 
 ## Subtasks
 
