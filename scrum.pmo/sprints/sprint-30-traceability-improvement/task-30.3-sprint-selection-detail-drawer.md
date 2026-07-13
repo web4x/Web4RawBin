@@ -8,10 +8,10 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
@@ -43,7 +43,7 @@ S30 Traceability Improvement — keep the traceability tree scaling + navigable.
 
 ## Implementation
 
-STOOD UP (planning) — status Planned; chain-build awaits architect UC-refine.
+CODE DEPLOYED (per PO signal — R30.3 built+deployed, prod). status In Progress: implementing[x]; testing[ ] pending tester gate; ACs [ ] pending verification. Awaiting PO's next hop-signal (tester GREEN -> testing[x] -> QA Review).
 
 ## Subtasks
 

@@ -7,12 +7,12 @@
     "description": "Render an EAGER child-count badge on each collapsed sprint node in the traceability tree — show the number of tasks/children as a badge WITHOUT expanding (loading) the node, so counts are visible at a glance while the payload stays lazy (structure-eager/count-eager, task-payload-lazy).",
     "intention": "S30 Traceability Improvement — keep the traceability tree scaling + navigable. Stood up scenario-first on req's R30.2/R30.3 mint.",
     "context": "Covers R30.2 (850a339d). Part of the S30 traceability-tree track (ties T30.1 CurrentSprint tree).",
-    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "implementation": "STOOD UP (planning) — status Planned; chain-build awaits architect UC-refine.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "CODE DEPLOYED (per PO signal — R30.2 built+deployed, prod). status In Progress: implementing[x]; testing[ ] pending tester gate; ACs [ ] pending verification. Awaiting PO's next hop-signal (tester GREEN -> testing[x] -> QA Review).",
     "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.2 `[requirement:uuid:850a339d-c7e5-4308-b2c7-65536bd5271e]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:80cb8336-c758-49f6-80d9-dafe068ad71f]`",
     "acceptanceCriteria": "- [ ] (tree) A collapsed node's badge shows its real childCount from server metadata BEFORE children load.\n- [ ] (scaling) Counts are eager (from structure metadata); child PAYLOADS stay lazy until expand.\n- [ ] (tree) CurrentSprint node + each Sprint node carry a correct child-count badge without expanding.",
     "subtasks": "None (atomic task).",
-    "status": "Planned",
+    "status": "In Progress",
     "coveredRequirements": [
       "ior:instance:850a339d-c7e5-4308-b2c7-65536bd5271e"
     ],
