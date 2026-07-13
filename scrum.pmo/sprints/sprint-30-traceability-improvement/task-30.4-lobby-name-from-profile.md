@@ -10,11 +10,11 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [~] implementing (architect chaining UC->RoomBrowser->Method->Impl + expert fix in flight)
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,14 +38,14 @@ Tron regression (S30 reopened): lobby must show the real profile name, stably ac
 
 ## Acceptance Criteria
 
-- [ ] (name) The lobby 'Your Name' shows the PROFILE name (Marcel Donges), NOT a random 'User NNN'.
-- [ ] (bug) THE BUG: RoomBrowser.ts:29 computes memberName SYNC before the profile loads (async race) -> profile?.name null -> random fallback -> a different name every reload.
-- [ ] (fix) Fix = use the profile name once LOADED (await profile / re-render on profile-load); random 'User NNN' only as a TRUE last resort (no profile at all).
-- [ ] (identity) The profile token/uuid is stable (05e58f81) - only the displayed NAME regresses; the fix must not change the stable identity token, only the name resolution.
+- [x] (name) The lobby 'Your Name' shows the PROFILE name (Marcel Donges), NOT a random 'User NNN'.
+- [x] (bug) THE BUG: RoomBrowser.ts:29 computes memberName SYNC before the profile loads (async race) -> profile?.name null -> random fallback -> a different name every reload.
+- [x] (fix) Fix = use the profile name once LOADED (await profile / re-render on profile-load); random 'User NNN' only as a TRUE last resort (no profile at all).
+- [x] (identity) The profile token/uuid is stable (05e58f81) - only the displayed NAME regresses; the fix must not change the stable identity token, only the name resolution.
 
 ## Implementation
 
-IN PROGRESS (architect chain + expert fix in flight). Architect one-mover on the chain Method/Impl (RoomBrowser.ts:29 sync-before-async-load fix); I hold Task-side only (hands-off the chain). Awaiting architect chain + tester gate.
+DONE-DELIVERED 2026-07-13: Tron VISUAL-confirmed the lobby-name fix live (v0.7.12 reload shows Marcel Donges, not random User NNN). Fixed+deployed+live-served-verified+tester-gating, Tron-accepted. RoomBrowser.ts:29 sync-before-async-load -> use profile name once loaded.
 
 ## Subtasks
 

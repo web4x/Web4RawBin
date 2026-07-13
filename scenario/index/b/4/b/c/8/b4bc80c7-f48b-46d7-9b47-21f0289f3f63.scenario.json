@@ -7,12 +7,12 @@
     "description": "Fix the lobby profile-name regression in RoomBrowser: the lobby shows a random \"User NNN\" instead of the real profile name (Marcel Donges) because RoomBrowser.ts:29 syncs memberName BEFORE the async profile load resolves -> re-randomizes every reload. Use the profile name once LOADED (async), fall back to a random name only as a true last resort. The room token (05e58f81) stays stable; only the display name regresses.",
     "intention": "Tron regression (S30 reopened): lobby must show the real profile name, stably across reloads.",
     "context": "Covers R30.4 (17e12898) lobby.nameFromProfile. Class RoomBrowser (RoomBrowser.ts:29 sync-before-async-load bug). req minted solo (one-mover, R29.9).",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [~] implementing (architect chaining UC->RoomBrowser->Method->Impl + expert fix in flight)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "implementation": "IN PROGRESS (architect chain + expert fix in flight). Architect one-mover on the chain Method/Impl (RoomBrowser.ts:29 sync-before-async-load fix); I hold Task-side only (hands-off the chain). Awaiting architect chain + tester gate.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "implementation": "DONE-DELIVERED 2026-07-13: Tron VISUAL-confirmed the lobby-name fix live (v0.7.12 reload shows Marcel Donges, not random User NNN). Fixed+deployed+live-served-verified+tester-gating, Tron-accepted. RoomBrowser.ts:29 sync-before-async-load -> use profile name once loaded.",
     "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.4 `[requirement:uuid:17e12898-9720-4d29-af29-18bddb929f40]`\n  - down\n    - [UC30.4: lobby.nameFromProfile](./planning.md) `[uc:uuid:d6d8f55a-0300-4249-b7f8-c13a80a47490]`",
-    "acceptanceCriteria": "- [ ] (name) The lobby 'Your Name' shows the PROFILE name (Marcel Donges), NOT a random 'User NNN'.\n- [ ] (bug) THE BUG: RoomBrowser.ts:29 computes memberName SYNC before the profile loads (async race) -> profile?.name null -> random fallback -> a different name every reload.\n- [ ] (fix) Fix = use the profile name once LOADED (await profile / re-render on profile-load); random 'User NNN' only as a TRUE last resort (no profile at all).\n- [ ] (identity) The profile token/uuid is stable (05e58f81) - only the displayed NAME regresses; the fix must not change the stable identity token, only the name resolution.",
+    "acceptanceCriteria": "- [x] (name) The lobby 'Your Name' shows the PROFILE name (Marcel Donges), NOT a random 'User NNN'.\n- [x] (bug) THE BUG: RoomBrowser.ts:29 computes memberName SYNC before the profile loads (async race) -> profile?.name null -> random fallback -> a different name every reload.\n- [x] (fix) Fix = use the profile name once LOADED (await profile / re-render on profile-load); random 'User NNN' only as a TRUE last resort (no profile at all).\n- [x] (identity) The profile token/uuid is stable (05e58f81) - only the displayed NAME regresses; the fix must not change the stable identity token, only the name resolution.",
     "subtasks": "None (atomic task).",
-    "status": "In Progress",
+    "status": "Done",
     "coveredRequirements": [
       "ior:instance:17e12898-9720-4d29-af29-18bddb929f40"
     ],
@@ -22,7 +22,8 @@
     "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
     "sprintName": "Sprint 30",
     "createdBy": "robbin-planner",
-    "createdAt": "2026-07-13"
+    "createdAt": "2026-07-13",
+    "tronDelivered": "2026-07-13 (Tron VISUAL-confirmed lobby name Marcel Donges live v0.7.12)"
   },
   "ownerIor": null
 }
