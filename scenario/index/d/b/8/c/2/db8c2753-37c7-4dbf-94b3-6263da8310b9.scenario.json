@@ -7,12 +7,12 @@
     "description": "Wire tree sprint-selection → detail drawer: when a sprint node is selected in the traceability tree, populate the detail drawer with that sprint's detail (goal + req/task summary) by routing the tree-selection event to the drawer render path.",
     "intention": "S30 Traceability Improvement — keep the traceability tree scaling + navigable. Stood up scenario-first on req's R30.2/R30.3 mint.",
     "context": "Covers R30.3 (6cd770df, canonical survivor after parallel-mint dedup). S30 traceability-tree track. v0.7.11 deployed (retroactive).",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "implementation": "CODE DEPLOYED (per PO signal — R30.3 built+deployed, prod). status In Progress: implementing[x]; testing[ ] pending tester gate; ACs [ ] pending verification. Awaiting PO's next hop-signal (tester GREEN -> testing[x] -> QA Review).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "implementation": "DONE-DELIVERED 2026-07-13 (PO): R30.3 Tron-reported badge/drawer bug, fixed+deployed v0.7.11 (Impl 0267036c), tester-GREEN DET-3x, chain-complete+credited, Tron-reviewed+in-use.",
     "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.3 `[requirement:uuid:6cd770df-0034-406e-b20c-bb8bddaadbf7]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:9095cd05-5528-4450-a830-f9b858129ad2]`",
-    "acceptanceCriteria": "- [ ] (selection) Selecting/clicking a SPRINT node updates the detail drawer to show THAT sprint details.\n- [ ] (bug) THE BUG: selecting a sprint did NOT change the drawer content.\n- [ ] (selection) selection->drawer works for ALL tree node types (sprint/task/etc) - shows the selected unit details.",
+    "acceptanceCriteria": "- [x] (selection) Selecting/clicking a SPRINT node updates the detail drawer to show THAT sprint details.\n- [x] (bug) THE BUG: selecting a sprint did NOT change the drawer content.\n- [x] (selection) selection->drawer works for ALL tree node types (sprint/task/etc) - shows the selected unit details.",
     "subtasks": "None (atomic task).",
-    "status": "In Progress",
+    "status": "Done",
     "coveredRequirements": [
       "ior:instance:6cd770df-0034-406e-b20c-bb8bddaadbf7"
     ],
@@ -22,7 +22,8 @@
     "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
     "sprintName": "Sprint 30",
     "createdBy": "robbin-planner",
-    "createdAt": "2026-07-13"
+    "createdAt": "2026-07-13",
+    "tronDelivered": "2026-07-13 (Tron-reviewed+in-use, v0.7.11, GREEN DET-3x)"
   },
   "ownerIor": null
 }

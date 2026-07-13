@@ -7,12 +7,12 @@
     "description": "Render an EAGER child-count badge on each collapsed sprint node in the traceability tree — show the number of tasks/children as a badge WITHOUT expanding (loading) the node, so counts are visible at a glance while the payload stays lazy (structure-eager/count-eager, task-payload-lazy).",
     "intention": "S30 Traceability Improvement — keep the traceability tree scaling + navigable. Stood up scenario-first on req's R30.2/R30.3 mint.",
     "context": "Covers R30.2 (850a339d, canonical survivor after parallel-mint dedup). S30 traceability-tree track. v0.7.11 deployed (retroactive).",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "implementation": "CODE DEPLOYED (per PO signal — R30.2 built+deployed, prod). status In Progress: implementing[x]; testing[ ] pending tester gate; ACs [ ] pending verification. Awaiting PO's next hop-signal (tester GREEN -> testing[x] -> QA Review).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "implementation": "DONE-DELIVERED 2026-07-13 (PO): R30.2 Tron-reported badge/drawer bug, fixed+deployed v0.7.11 (Impl d28ee95a), tester-GREEN DET-3x, chain-complete+credited, Tron-reviewed+in-use.",
     "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.2 `[requirement:uuid:850a339d-c7e5-4308-b2c7-65536bd5271e]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:80cb8336-c758-49f6-80d9-dafe068ad71f]`",
-    "acceptanceCriteria": "- [ ] (badge) Every tree node child-count BADGE shows the correct count from when its PARENT loads (eager) - NOT 0-until-expand.\n- [ ] (badge) The count comes from the PARENT /children response metadata (childCount per child), not a per-node prefetch.\n- [ ] (loading) Lazy level-by-level: expanding a node loads its children WITH their own child-counts (next level badges correct); deeper content on further expand.\n- [ ] (bug) THE BUG: all sprint nodes showed badge=0 initially - must show the real task-count before expand.\n- [ ] (loading) Still PAYLOAD-LAZY: children CONTENT loads on expand; only COUNTS are eager (structure+count eager / payload lazy - R26 pattern).",
+    "acceptanceCriteria": "- [x] (badge) Every tree node child-count BADGE shows the correct count from when its PARENT loads (eager) - NOT 0-until-expand.\n- [x] (badge) The count comes from the PARENT /children response metadata (childCount per child), not a per-node prefetch.\n- [x] (loading) Lazy level-by-level: expanding a node loads its children WITH their own child-counts (next level badges correct); deeper content on further expand.\n- [x] (bug) THE BUG: all sprint nodes showed badge=0 initially - must show the real task-count before expand.\n- [x] (loading) Still PAYLOAD-LAZY: children CONTENT loads on expand; only COUNTS are eager (structure+count eager / payload lazy - R26 pattern).",
     "subtasks": "None (atomic task).",
-    "status": "In Progress",
+    "status": "Done",
     "coveredRequirements": [
       "ior:instance:850a339d-c7e5-4308-b2c7-65536bd5271e"
     ],
@@ -22,7 +22,8 @@
     "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
     "sprintName": "Sprint 30",
     "createdBy": "robbin-planner",
-    "createdAt": "2026-07-13"
+    "createdAt": "2026-07-13",
+    "tronDelivered": "2026-07-13 (Tron-reviewed+in-use, v0.7.11, GREEN DET-3x)"
   },
   "ownerIor": null
 }

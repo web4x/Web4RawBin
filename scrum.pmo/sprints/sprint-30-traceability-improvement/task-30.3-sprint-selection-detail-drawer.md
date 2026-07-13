@@ -10,11 +10,11 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,13 +38,13 @@ S30 Traceability Improvement — keep the traceability tree scaling + navigable.
 
 ## Acceptance Criteria
 
-- [ ] (selection) Selecting/clicking a SPRINT node updates the detail drawer to show THAT sprint details.
-- [ ] (bug) THE BUG: selecting a sprint did NOT change the drawer content.
-- [ ] (selection) selection->drawer works for ALL tree node types (sprint/task/etc) - shows the selected unit details.
+- [x] (selection) Selecting/clicking a SPRINT node updates the detail drawer to show THAT sprint details.
+- [x] (bug) THE BUG: selecting a sprint did NOT change the drawer content.
+- [x] (selection) selection->drawer works for ALL tree node types (sprint/task/etc) - shows the selected unit details.
 
 ## Implementation
 
-CODE DEPLOYED (per PO signal — R30.3 built+deployed, prod). status In Progress: implementing[x]; testing[ ] pending tester gate; ACs [ ] pending verification. Awaiting PO's next hop-signal (tester GREEN -> testing[x] -> QA Review).
+DONE-DELIVERED 2026-07-13 (PO): R30.3 Tron-reported badge/drawer bug, fixed+deployed v0.7.11 (Impl 0267036c), tester-GREEN DET-3x, chain-complete+credited, Tron-reviewed+in-use.
 
 ## Subtasks
 

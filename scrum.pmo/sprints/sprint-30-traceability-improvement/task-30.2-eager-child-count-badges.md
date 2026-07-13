@@ -10,11 +10,11 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,15 +38,15 @@ S30 Traceability Improvement — keep the traceability tree scaling + navigable.
 
 ## Acceptance Criteria
 
-- [ ] (badge) Every tree node child-count BADGE shows the correct count from when its PARENT loads (eager) - NOT 0-until-expand.
-- [ ] (badge) The count comes from the PARENT /children response metadata (childCount per child), not a per-node prefetch.
-- [ ] (loading) Lazy level-by-level: expanding a node loads its children WITH their own child-counts (next level badges correct); deeper content on further expand.
-- [ ] (bug) THE BUG: all sprint nodes showed badge=0 initially - must show the real task-count before expand.
-- [ ] (loading) Still PAYLOAD-LAZY: children CONTENT loads on expand; only COUNTS are eager (structure+count eager / payload lazy - R26 pattern).
+- [x] (badge) Every tree node child-count BADGE shows the correct count from when its PARENT loads (eager) - NOT 0-until-expand.
+- [x] (badge) The count comes from the PARENT /children response metadata (childCount per child), not a per-node prefetch.
+- [x] (loading) Lazy level-by-level: expanding a node loads its children WITH their own child-counts (next level badges correct); deeper content on further expand.
+- [x] (bug) THE BUG: all sprint nodes showed badge=0 initially - must show the real task-count before expand.
+- [x] (loading) Still PAYLOAD-LAZY: children CONTENT loads on expand; only COUNTS are eager (structure+count eager / payload lazy - R26 pattern).
 
 ## Implementation
 
-CODE DEPLOYED (per PO signal — R30.2 built+deployed, prod). status In Progress: implementing[x]; testing[ ] pending tester gate; ACs [ ] pending verification. Awaiting PO's next hop-signal (tester GREEN -> testing[x] -> QA Review).
+DONE-DELIVERED 2026-07-13 (PO): R30.2 Tron-reported badge/drawer bug, fixed+deployed v0.7.11 (Impl d28ee95a), tester-GREEN DET-3x, chain-complete+credited, Tron-reviewed+in-use.
 
 ## Subtasks
 
