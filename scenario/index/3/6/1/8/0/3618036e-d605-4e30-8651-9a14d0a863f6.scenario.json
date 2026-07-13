@@ -1,0 +1,61 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "3618036e-d605-4e30-8651-9a14d0a863f6",
+  "name": "Uniform git-ref validation guard (one shared guard, all endpoints)",
+  "altId": "R30.7",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:8d6743e0-5788-4b57-9467-b5c10cfcad3a"
+  ],
+  "description": "Every git endpoint validates its ref through ONE shared guard (GitApi.guardRef, allowlist ^[A-Za-z0-9._/-]+$) instead of per-endpoint checks: /api/git/file already rejects a bad ref (400) but /api/git/commits is lenient (200) - inconsistent. Route file + branches + commits + any future endpoint through the single guard so behaviour is uniform AND a newly added endpoint cannot forget the check (correct-by-construction). Defense-in-depth belt-and-suspenders over execFile (no-shell, already injection-safe) - a hardening layer, reject-first before any git invocation.",
+  "tronQuote": "> Tester finding (LOW, safe) via robbin-po 2026-07-13: /api/git/commits is lenient on bad refs (200) where /api/git/file validates (400) \u2014 SAFE (execFile no-shell, zero injection) but INCONSISTENT. Capture: uniform git-ref validation guard.",
+  "discoverySource": {
+   "type": "tester-finding",
+   "flaggedBy": "robbin-tester via robbin-po",
+   "date": "2026-07-13",
+   "severity": "low",
+   "note": "execFile (no shell) already blocks injection; this is a defense-in-depth + consistency hardening. correct-by-construction: one shared guard so a new git endpoint cannot miss it. Expert applies when scheduled."
+  },
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:7eb81522-7098-483f-9554-325b0c6017cd",
+   "ior:instance:e8d2ac99-a844-4794-9f11-86911bb4e058"
+  ],
+  "crossRefNote": "Hardens the R30.6.4 GitApi endpoints (branches/commits/fileAtRef); security sibling of R30.6.7 (RepoRegistry key-allowlist). One shared ref-guard = the same correct-by-construction shape as R27.2 (one canonical) / RepoRegistry (one allowlist).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-shared",
+    "group": "guard",
+    "text": "A single shared ref-validation guard (GitApi.guardRef, allowlist ^[A-Za-z0-9._/-]+$) is applied to ALL git endpoints \u2014 file, branches, commits, and any future one \u2014 NOT duplicated per endpoint."
+   },
+   {
+    "id": "AC-consistency",
+    "group": "guard",
+    "text": "/api/git/commits (currently 200 on a bad ref) rejects invalid refs with 400, matching /api/git/file \u2014 behaviour is uniform across every git endpoint."
+   },
+   {
+    "id": "AC-by-construction",
+    "group": "by-construction",
+    "text": "The guard is a single choke point every git handler routes through, so a NEWLY added git endpoint cannot bypass ref validation (correct-by-construction, not opt-in per endpoint)."
+   },
+   {
+    "id": "AC-defense-in-depth",
+    "group": "security",
+    "text": "The guard is belt-and-suspenders OVER execFile (no-shell, already injection-safe) \u2014 a hardening layer, and rejects a bad ref BEFORE any git process is invoked (reject-first)."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "A probe of every git endpoint with a bad ref (traversal, shell metachars, out-of-allowlist) returns 400 (not 200); valid refs still resolve normally."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

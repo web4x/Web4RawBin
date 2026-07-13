@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "a251e9a9-2ec0-47bc-b956-a0a38e153c31",
+  "name": "GitApi.guardRef",
+  "implementations": [
+   "ior:instance:4e52b300-aa7d-46dd-ad1c-f932d624c011"
+  ],
+  "tests": [],
+  "note": "R30.7. Name EXACT for [impl] AST-attach. Single shared ref guard: allowlist ^[A-Za-z0-9._/-]+$, throw/400 on miss. branches/commits/fileAtRef + any new endpoint route through it (reject-first, before execFile)."
+ },
+ "ownerIor": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+}

@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "8d6743e0-5788-4b57-9467-b5c10cfcad3a",
+  "name": "gitApi.uniformRefGuard",
+  "description": "All git endpoints validate their ref through one shared GitApi.guardRef (allowlist), rejecting bad refs with 400 before any git call \u2014 uniform + correct-by-construction.",
+  "class": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04",
+  "classes": [
+   "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+  ],
+  "method": "ior:instance:a251e9a9-2ec0-47bc-b956-a0a38e153c31",
+  "coveredRequirement": "ior:instance:3618036e-d605-4e30-8651-9a14d0a863f6"
+ },
+ "ownerIor": "ior:instance:3618036e-d605-4e30-8651-9a14d0a863f6"
+}
