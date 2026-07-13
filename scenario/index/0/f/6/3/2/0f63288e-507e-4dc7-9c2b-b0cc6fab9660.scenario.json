@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0f63288e-507e-4dc7-9c2b-b0cc6fab9660",
+    "name": "TraceAudit.nodeWellFormedness impl",
+    "description": "Axis-2 node well-formedness: every unit has model.uuid + filename==uuid (no missing-uuid, no filename!=uuid). Maps R27.5 AC-no-uuid-audit. Built by expert (uncommitted); marker attaches on placement.",
+    "sourceFile": "ior:file:scripts/trace-audit.ts",
+    "designAhead": false,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:a7b780bc-5ef5-4990-9c2c-5cbd572129fa"
+}

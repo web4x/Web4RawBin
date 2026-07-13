@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "1bfe7447-c90c-4e42-b197-b6dc5b1c5c09",
+    "name": "TraceAudit.markerHasChain impl",
+    "description": "Axis-4 marker-has-chain: every [impl:uuid] marker in source resolves to an Impl on a real chain (detect) + delta-scoped enforce gate (R29.2 folded in). Maps R27.5 AC-marker-chain-detect + AC-chain-gate-enforce. Design-ahead: expert building.",
+    "sourceFile": "ior:file:scripts/trace-audit.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d921f943-7537-4702-a089-618e79412db9"
+}

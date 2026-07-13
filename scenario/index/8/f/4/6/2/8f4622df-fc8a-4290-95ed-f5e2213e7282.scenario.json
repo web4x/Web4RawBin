@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "8f4622df-fc8a-4290-95ed-f5e2213e7282",
+    "name": "TraceAudit.oneClassPerFile",
+    "description": "Axis-3 one-class-per-source-file: each .",
+    "sourceFile": "ior:file:scripts/trace-audit.ts",
+    "implementations": [
+      "ior:instance:4b53b98e-7659-4de9-ae0c-564ab6c2f620"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "d4875fd9-1ea8-40e2-8870-3be495795905",
+    "name": "TraceAudit.auditDir",
+    "description": "Tooling: --dir driver that runs all axes over a directory tree (reachability seeds {Requirement,Sprint} roots, forward only).",
+    "sourceFile": "ior:file:scripts/trace-audit.ts",
+    "implementations": [
+      "ior:instance:6f507bbf-f10f-4516-8ce6-41a9e95aec65"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b"
+}
