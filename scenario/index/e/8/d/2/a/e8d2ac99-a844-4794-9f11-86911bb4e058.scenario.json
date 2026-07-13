@@ -1,0 +1,63 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "e8d2ac99-a844-4794-9f11-86911bb4e058",
+  "name": "OOSH-repo targeting via RepoRegistry key-allowlist",
+  "altId": "R30.6.7",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:522473f3-f7b8-4444-91ec-101fd2bfee77"
+  ],
+  "description": "The diff/file tooling can target a DIFFERENT repo (e.g. the OOSH repo) safely, without hardcoding RawBin's root. The client sends a repo KEY (?repo=oosh), never an absolute path; a server-side allowlist (new Class RepoRegistry) maps the key to a configured absolute root, unknown key -> 400. GitApi's currently-hardcoded ROOT (shipped 7c9554494) is de-hardcoded to a per-request RepoRegistry.resolve(req.repo) seam that OPTS.cwd + safeRelPath read; /api/files, RbFileTree.setRepo, and the rb-diff-editor repo selector consume the same registry. Default remains rawbin=PROJECT_ROOT (R30.5 unaffected).",
+  "tronQuote": "> TRON 2026-07-13 (R30.6.7): the diff tool must work on the OOSH repo, not just RawBin \u2014 target the OOSH repo safely.",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron via robbin-architect/robbin-po",
+   "date": "2026-07-13",
+   "note": "R30.6 sub-feature (7/7): repo targeting for the diff editor. GitApi ROOT already shipped hardcoded (7c9554494) -> R30.6.7 is the clean de-hardcode to a resolve(repo) seam. Scenario-first; planner tasks T30.6.7. Fold into the in-flight GitApi build (server.ts:495), no retrofit."
+  },
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44"
+  ],
+  "crossRefNote": "Lets the R30.6 diff editor (umbrella) operate on the OOSH repo. New Class RepoRegistry (0 existing, MINT-NEW) resolve/list = the security-critical key->abs allowlist shared by GitApi + files handler; new Method RbFileTree.setRepo on Class RbFileTree REUSE 0916d007-6af3-49ba-8f7e-aac32d5ded6a (the sole RbFileTree Class, 1 method; architect-confirmed). GitApi de-hardcodes ROOT->RepoRegistry.resolve seam. Open decision for PO/Tron: RepoRegistry-class (architect rec) vs GitApi.resolveRepoRoot.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-key-only",
+    "group": "security",
+    "text": "The client supplies a repo KEY only (e.g. ?repo=oosh); the absolute path lives server-side in a RepoRegistry allowlist. A client-supplied absolute path is NEVER resolved."
+   },
+   {
+    "id": "AC-resolve",
+    "group": "registry",
+    "text": "RepoRegistry.resolve(key) returns the allowlisted absolute root for the key, else null; RepoRegistry.list() returns [{key,label}] for a repo picker. Allowlist config {rawbin:PROJECT_ROOT, oosh:<abs OOSH root>}."
+   },
+   {
+    "id": "AC-dehardcode",
+    "group": "git",
+    "text": "GitApi's hardcoded ROOT is replaced by a per-request RepoRegistry.resolve(req.repo) seam that BOTH OPTS.cwd and safeRelPath read; branches/commits/fileAtRef run with cwd=resolvedRoot. Unknown ?repo -> 400."
+   },
+   {
+    "id": "AC-safepath",
+    "group": "security",
+    "text": "safePath still applies WITHIN the resolved root (no '..', no leading '/', resolve(root,p).startsWith(root+sep)); read-only across all repos."
+   },
+   {
+    "id": "AC-consumers",
+    "group": "wiring",
+    "text": "/api/files accepts optional ?repo=<key>; RbFileTree.setRepo(key) sets a repo attr + reloads (loadDir appends ?repo); rb-diff-editor exposes a repo selector from RepoRegistry.list() feeding loadSide/pickFile/pickRef."
+   },
+   {
+    "id": "AC-default",
+    "group": "back-compat",
+    "text": "?repo absent -> rawbin=PROJECT_ROOT; R30.5 and existing callers are unchanged."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

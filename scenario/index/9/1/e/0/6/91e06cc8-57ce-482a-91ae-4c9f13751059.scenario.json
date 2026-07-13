@@ -1,0 +1,53 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "91e06cc8-57ce-482a-91ae-4c9f13751059",
+  "name": "[Open Diff] toolbar button (LEFT=current file)",
+  "altId": "R30.6.6",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:32effc0a-657d-4c5a-a187-4e073ebdafa7"
+  ],
+  "description": "An '\ud83d\udcca Open Diff' BUTTON in the editor toolbar (rb-editor-toolbar, not a tab) opens the 3-way diff/merge editor preloaded with the current file on the LEFT: clicking it dispatches toolbar-open-diff -> edit.ts calls RbEditorLayout.showDiff(currentFilePath), which lazily mounts <rb-diff-editor> with the LEFT pane preselected to the file being edited (its path + current content), so the diff opens ready-to-compare and the user only picks the RIGHT side.",
+  "tronQuote": "> TRON 2026-07-13 (R30.6.6, REFINED): reaching the diff editor is an [Open Diff] BUTTON in the toolbar (not a tab) that opens it on what I'm editing \u2014 LEFT preselected to the current file.",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron via robbin-architect/robbin-po",
+   "date": "2026-07-13",
+   "note": "R30.6 sub-feature (6/7): the entry point to the 3-way diff/merge editor. Tron refined tab->button. Scenario-first; planner tasks T30.6.6."
+  },
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44"
+  ],
+  "crossRefNote": "Entry point to the R30.6 3-way diff/merge editor (umbrella). New Method RbEditorLayout.showDiff(currentFilePath) mounts rb-diff-editor LEFT=current; Class RbEditorLayout REUSE 94e7bf82-f867-4352-88b4-8c2a45bff4d4 (the sole RbEditorLayout Class, 2 methods; architect-confirmed). Toolbar button + edit.ts toolbar-open-diff wiring = glue under showDiff.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-button",
+    "group": "entry",
+    "text": "An '\ud83d\udcca Open Diff' button appears in the editor toolbar (rb-editor-toolbar, next to View/Preview + Save), NOT a tab; works in both desktop and mobile form factors."
+   },
+   {
+    "id": "AC-dispatch",
+    "group": "entry",
+    "text": "Clicking the button dispatches a bubbling toolbar-open-diff event; edit.ts handles it and calls RbEditorLayout.showDiff(currentFilePath)."
+   },
+   {
+    "id": "AC-mount",
+    "group": "mount",
+    "text": "showDiff lazily mounts <rb-diff-editor> (like rb-file-tree/rb-code-editor) \u2014 not eagerly loaded before first use."
+   },
+   {
+    "id": "AC-left-preselect",
+    "group": "preselect",
+    "text": "The diff opens with the LEFT pane preselected to the CURRENT editor file \u2014 its path AND current content (reuse the editor's current-file state / rb-code-editor.getValue()) \u2014 ready to compare; the user then picks the RIGHT side."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

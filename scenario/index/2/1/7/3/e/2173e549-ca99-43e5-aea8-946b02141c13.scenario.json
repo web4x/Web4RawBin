@@ -1,53 +1,55 @@
 {
-  "ior": "ior:class:Sprint",
-  "model": {
-    "uuid": "2173e549-ca99-43e5-aea8-946b02141c13",
-    "name": "Sprint 30 — Traceability Improvement",
-    "number": 30,
-    "goal": "Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' with 3 EAGER children (Current / Last Completed / Next Backlog) + a 'Sprints 01-<N>' collection (collapsed, count badge). Structure-eager / payload-lazy: sprint nodes eager, their TASKS load only when the sprint is expanded — so the tree scales as sprints grow (same eager-structure/lazy-payload pattern as R26 federation).",
-    "status": "Planned",
-    "compoundSource": "scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
-    "requirements": [
-      "ior:instance:6f796898-4dbb-47a3-ab8a-914b4c80b353",
-      "ior:instance:850a339d-c7e5-4308-b2c7-65536bd5271e",
-      "ior:instance:6cd770df-0034-406e-b20c-bb8bddaadbf7",
-      "ior:instance:17e12898-9720-4d29-af29-18bddb929f40",
-      "ior:instance:21ced567-d47f-4f3c-9b28-225a45dfecce",
-      "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
-      "ior:instance:fda2dc4f-d14f-466f-992d-b93413a5c8f2",
-      "ior:instance:e4c9ffbf-d368-4ac3-8cbc-93859e5a2fce",
-      "ior:instance:1d0cf9b9-b0c2-4881-b53b-65d187654f68",
-      "ior:instance:7eb81522-7098-483f-9554-325b0c6017cd",
-      "ior:instance:d32e29cd-5d94-49fb-93b2-4302aae6f11e"
-    ],
-    "tasks": [
-      "ior:instance:5665a0dd-750d-486b-964c-1bd221163ae4",
-      "ior:instance:fc744c38-1c7f-4855-a8fe-b48a5545285f",
-      "ior:instance:db8c2753-37c7-4dbf-94b3-6263da8310b9",
-      "ior:instance:b4bc80c7-f48b-46d7-9b47-21f0289f3f63",
-      "ior:instance:c80ae70e-9542-4c44-a199-adb6ad51ea17",
-      "ior:instance:5fd13f50-e07b-4cdc-ae26-46c15cc98218",
-      "ior:instance:9753220e-f681-44b4-a21e-8c11018ba614",
-      "ior:instance:ec368634-9acf-4104-bec8-8a46b3c47144",
-      "ior:instance:c7b46b72-b0a2-4556-b03d-2f298a738c47",
-      "ior:instance:bf6da13d-c9da-4eba-afcd-b5134bbb35bd"
-    ],
-    "createdAt": "2026-07-02",
-    "createdBy": "robbin-req",
-    "joint": [
-      "robbin-req",
-      "robbin-skill-expert",
-      "robbin-architect",
-      "robbin-planner"
-    ],
-    "theme": "traceability tree improvement",
-    "tronAuthorization": {
-      "authorizedBy": "Tron",
-      "via": "PO",
-      "at": "2026-07-02",
-      "ref": "PO directive robbinTeam2:0.0 2026-07-02 — Tron authorized Sprint 30 for AgentMessage (first R29.4-authorized increment)"
-    },
-    "slug": "sprint-30-traceability-improvement"
+ "ior": "ior:class:Sprint",
+ "model": {
+  "uuid": "2173e549-ca99-43e5-aea8-946b02141c13",
+  "name": "Sprint 30 \u2014 Traceability Improvement",
+  "number": 30,
+  "goal": "Traceability tree \u2014 exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' with 3 EAGER children (Current / Last Completed / Next Backlog) + a 'Sprints 01-<N>' collection (collapsed, count badge). Structure-eager / payload-lazy: sprint nodes eager, their TASKS load only when the sprint is expanded \u2014 so the tree scales as sprints grow (same eager-structure/lazy-payload pattern as R26 federation).",
+  "status": "Planned",
+  "compoundSource": "scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "requirements": [
+   "ior:instance:6f796898-4dbb-47a3-ab8a-914b4c80b353",
+   "ior:instance:850a339d-c7e5-4308-b2c7-65536bd5271e",
+   "ior:instance:6cd770df-0034-406e-b20c-bb8bddaadbf7",
+   "ior:instance:17e12898-9720-4d29-af29-18bddb929f40",
+   "ior:instance:21ced567-d47f-4f3c-9b28-225a45dfecce",
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:fda2dc4f-d14f-466f-992d-b93413a5c8f2",
+   "ior:instance:e4c9ffbf-d368-4ac3-8cbc-93859e5a2fce",
+   "ior:instance:1d0cf9b9-b0c2-4881-b53b-65d187654f68",
+   "ior:instance:7eb81522-7098-483f-9554-325b0c6017cd",
+   "ior:instance:d32e29cd-5d94-49fb-93b2-4302aae6f11e",
+   "ior:instance:91e06cc8-57ce-482a-91ae-4c9f13751059",
+   "ior:instance:e8d2ac99-a844-4794-9f11-86911bb4e058"
+  ],
+  "tasks": [
+   "ior:instance:5665a0dd-750d-486b-964c-1bd221163ae4",
+   "ior:instance:fc744c38-1c7f-4855-a8fe-b48a5545285f",
+   "ior:instance:db8c2753-37c7-4dbf-94b3-6263da8310b9",
+   "ior:instance:b4bc80c7-f48b-46d7-9b47-21f0289f3f63",
+   "ior:instance:c80ae70e-9542-4c44-a199-adb6ad51ea17",
+   "ior:instance:5fd13f50-e07b-4cdc-ae26-46c15cc98218",
+   "ior:instance:9753220e-f681-44b4-a21e-8c11018ba614",
+   "ior:instance:ec368634-9acf-4104-bec8-8a46b3c47144",
+   "ior:instance:c7b46b72-b0a2-4556-b03d-2f298a738c47",
+   "ior:instance:bf6da13d-c9da-4eba-afcd-b5134bbb35bd"
+  ],
+  "createdAt": "2026-07-02",
+  "createdBy": "robbin-req",
+  "joint": [
+   "robbin-req",
+   "robbin-skill-expert",
+   "robbin-architect",
+   "robbin-planner"
+  ],
+  "theme": "traceability tree improvement",
+  "tronAuthorization": {
+   "authorizedBy": "Tron",
+   "via": "PO",
+   "at": "2026-07-02",
+   "ref": "PO directive robbinTeam2:0.0 2026-07-02 \u2014 Tron authorized Sprint 30 for AgentMessage (first R29.4-authorized increment)"
   },
-  "ownerIor": null
+  "slug": "sprint-30-traceability-improvement"
+ },
+ "ownerIor": null
 }
