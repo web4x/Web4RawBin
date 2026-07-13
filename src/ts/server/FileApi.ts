@@ -14,12 +14,15 @@ const PROJECT_ROOT = path.resolve(__dirname, '../../../');
 const BINARY_EXTS = new Set(['.png', '.jpg', '.jpeg', '.gif', '.ico', '.enc', '.key', '.woff', '.woff2', '.ttf', '.zip', '.gz', '.tar', '.pdf']);
 const RESTRICTED_DIRS = ['node_modules', '.git', 'data/users'];
 
-export function sanitizePath(relPath: string): string | null {
+// R30.6.7: `root` defaults to PROJECT_ROOT (rawbin — existing callers unchanged). RepoRegistry-resolved roots (e.g.
+// OOSH) are passed in; the guard applies WITHIN whichever root. root+sep prefix check (no /a vs /ab-evil escape).
+export function sanitizePath(relPath: string, root: string = PROJECT_ROOT): string | null {
+  const base = path.resolve(root);
   const cleaned = relPath.replace(/\\/g, '/');
-  if (cleaned.includes('..')) return null;
-  const resolved = path.resolve(PROJECT_ROOT, cleaned);
-  if (!resolved.startsWith(PROJECT_ROOT)) return null;
-  const rel = path.relative(PROJECT_ROOT, resolved);
+  if (cleaned.includes('..') || cleaned.startsWith('/')) return null;
+  const resolved = path.resolve(base, cleaned);
+  if (resolved !== base && !resolved.startsWith(base + path.sep)) return null;
+  const rel = path.relative(base, resolved);
   for (const dir of RESTRICTED_DIRS) {
     if (rel.startsWith(dir + '/') || rel === dir) return null;
   }
@@ -34,8 +37,8 @@ export interface DirEntry {
   symlink?: boolean;
 }
 
-export function readDir(relPath: string): { path: string; entries: DirEntry[] } | { error: string; status: number } {
-  const absPath = sanitizePath(relPath);
+export function readDir(relPath: string, root?: string): { path: string; entries: DirEntry[] } | { error: string; status: number } {
+  const absPath = sanitizePath(relPath, root);
   if (!absPath) return { error: 'Forbidden', status: 403 };
   if (!fs.existsSync(absPath)) return { error: 'Not found', status: 404 };
   const stat = fs.statSync(absPath);
@@ -70,8 +73,8 @@ export function readDir(relPath: string): { path: string; entries: DirEntry[] } 
   return { path: relPath, entries };
 }
 
-export function readFile(relPath: string): { path: string; content: string; size: number; mtime: string } | { error: string; status: number } {
-  const absPath = sanitizePath(relPath);
+export function readFile(relPath: string, root?: string): { path: string; content: string; size: number; mtime: string } | { error: string; status: number } {
+  const absPath = sanitizePath(relPath, root);
   if (!absPath) return { error: 'Forbidden', status: 403 };
   if (!fs.existsSync(absPath)) return { error: 'Not found', status: 404 };
   let realPath = absPath;

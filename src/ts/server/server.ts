@@ -36,6 +36,7 @@ import { Transfer } from './federation-transfer.js'; // T26.6: federation import
 import { ProxyFetch } from './proxy-fetch.js'; // R27.7 UC27.7b: SSRF-guarded CORS/X-Frame fallback proxy
 import { parseFederatedIor, isLocalOrigin } from '../scenario/federated-ior.js';
 import { readDir, readFile, writeFile } from './FileApi.js';
+import { RepoRegistry } from './repo-registry.js'; // R30.6.7 repo key→root allowlist
 
 const execAsync = promisify(exec);
 const ADMIN_KEY = process.env.ADMIN_KEY || crypto.randomUUID();
@@ -492,33 +493,33 @@ function generateSecretCode(): string {
 const execFileAsync = promisify(execFile);
 
 // R30.6 — GitApi: read-only git endpoints for the diff/merge editor. SECURITY: execFile with ARRAY args only
-// (never exec/shell → no injection), ref validated against an allowlist, path resolved within PROJECT_ROOT
-// (no `..`), read-only verbs (branch/log/show) only, timeout + maxBuffer like the plantuml call.
+// (never exec/shell → no injection), ref validated against an allowlist, path resolved within the per-request repo
+// ROOT (R30.6.7: RepoRegistry.resolve, no `..`), read-only verbs (branch/log/show) only, timeout + maxBuffer.
 // R27.5 axis-3: server.ts is the allowlisted monolith; GitApi is a distinct logical class here.
 class GitApi {
-  private static readonly ROOT = path.join(__dirname, '../../../');
   private static readonly REF_RE = /^[\w./-]+$/;
-  private static readonly OPTS = { cwd: GitApi.ROOT, timeout: 15000, maxBuffer: 8 * 1024 * 1024 } as const;
+  private static opts(root: string) { return { cwd: root, timeout: 15000, maxBuffer: 8 * 1024 * 1024 }; }
 
-  // path must be relative, within PROJECT_ROOT, no traversal — returns the safe rel path or null.
-  private static safeRelPath(p: string): string | null {
+  // path must be relative, within the resolved repo root, no traversal — returns the safe rel path or null.
+  private static safeRelPath(root: string, p: string): string | null {
     if (!p || p.includes('..') || p.startsWith('/')) return null;
-    const abs = path.resolve(GitApi.ROOT, p);
-    return abs.startsWith(path.resolve(GitApi.ROOT) + path.sep) ? p : null;
+    const base = path.resolve(root);
+    const abs = path.resolve(base, p);
+    return (abs === base || abs.startsWith(base + path.sep)) ? p : null;
   }
 
   // [impl:uuid:5b367f7e-cd62-470f-8636-675669b2aad0] GitApi.branches
-  static async branches(): Promise<string[]> {
-    const { stdout } = await execFileAsync('git', ['branch', '--format=%(refname:short)'], GitApi.OPTS);
+  static async branches(root: string): Promise<string[]> {
+    const { stdout } = await execFileAsync('git', ['branch', '--format=%(refname:short)'], GitApi.opts(root));
     return stdout.split('\n').map(s => s.trim()).filter(Boolean);
   }
 
   // [impl:uuid:e2c70b0f-a4de-4ac8-8d35-d72890327d47] GitApi.commits
-  static async commits(pathArg: string, limit: number): Promise<{ hash: string; subject: string; author: string; date: string }[]> {
+  static async commits(root: string, pathArg: string, limit: number): Promise<{ hash: string; subject: string; author: string; date: string }[]> {
     const n = String(Math.max(1, Math.min(200, Math.floor(limit) || 20)));
     const args = ['log', '--format=%H%x00%s%x00%an%x00%aI', '-n', n];
-    if (pathArg) { const rel = GitApi.safeRelPath(pathArg); if (!rel) throw new Error('bad path'); args.push('--', rel); }
-    const { stdout } = await execFileAsync('git', args, GitApi.OPTS);
+    if (pathArg) { const rel = GitApi.safeRelPath(root, pathArg); if (!rel) throw new Error('bad path'); args.push('--', rel); }
+    const { stdout } = await execFileAsync('git', args, GitApi.opts(root));
     return stdout.split('\n').filter(Boolean).map(l => {
       const [hash, subject, author, date] = l.split('\0');
       return { hash, subject, author, date };
@@ -526,11 +527,11 @@ class GitApi {
   }
 
   // [impl:uuid:9bd3b360-e4d9-4bcc-9af2-ec78a72f6cb3] GitApi.fileAtRef
-  static async fileAtRef(ref: string, p: string): Promise<string> {
+  static async fileAtRef(root: string, ref: string, p: string): Promise<string> {
     if (!GitApi.REF_RE.test(ref)) throw new Error('bad ref');
-    const rel = GitApi.safeRelPath(p);
+    const rel = GitApi.safeRelPath(root, p);
     if (!rel) throw new Error('bad path');
-    const { stdout } = await execFileAsync('git', ['show', `${ref}:${rel}`], GitApi.OPTS);
+    const { stdout } = await execFileAsync('git', ['show', `${ref}:${rel}`], GitApi.opts(root));
     return stdout;
   }
 }
@@ -1328,6 +1329,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const relPath = decodeURIComponent(filepath.slice('/api/files/'.length));
 
       if (req.method === 'PUT') {
+        // R30.6.7: writes target the DEFAULT repo only (read-only across other repos) — reject ?repo=<non-rawbin>.
+        const wRepo = urlParams.get('repo');
+        if (wRepo && wRepo !== 'rawbin') { res.writeHead(403, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Read-only repo' })); return; }
         let body = '';
         req.on('data', (chunk: Buffer) => { body += chunk; if (body.length > 1100000) { res.writeHead(413); res.end('Too large'); } });
         req.on('end', () => {
@@ -1343,8 +1347,11 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         return;
       }
 
+      // R30.6.7: optional ?repo=<key> → allowlisted root (default rawbin); unknown key → 400. READ across repos.
+      const fileRoot = RepoRegistry.resolve(urlParams.get('repo'));
+      if (!fileRoot) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unknown repo' })); return; }
       const isDir = relPath.endsWith('/') || relPath === '';
-      const result = isDir ? readDir(relPath) : readFile(relPath);
+      const result = isDir ? readDir(relPath, fileRoot) : readFile(relPath, fileRoot);
       if ('error' in result) {
         res.writeHead(result.status, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: result.error }));
@@ -1364,15 +1371,21 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unauthorized' })); return;
       }
       try {
+        if (filepath === '/api/git/repos') { // R30.6.7: repo picker source (key+label allowlist)
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ repos: RepoRegistry.list() })); return;
+        }
+        // R30.6.7: resolve the repo KEY → allowlisted abs root (default rawbin); unknown key → 400 (never a client path).
+        const root = RepoRegistry.resolve(urlParams.get('repo'));
+        if (!root) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unknown repo' })); return; }
         if (filepath === '/api/git/branches') {
-          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ branches: await GitApi.branches() })); return;
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ branches: await GitApi.branches(root) })); return;
         }
         if (filepath === '/api/git/commits') {
-          const commits = await GitApi.commits(urlParams.get('path') || '', Number(urlParams.get('limit') || 20));
+          const commits = await GitApi.commits(root, urlParams.get('path') || '', Number(urlParams.get('limit') || 20));
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ commits })); return;
         }
         if (filepath === '/api/git/file') {
-          const content = await GitApi.fileAtRef(urlParams.get('ref') || '', urlParams.get('path') || '');
+          const content = await GitApi.fileAtRef(root, urlParams.get('ref') || '', urlParams.get('path') || '');
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ content })); return;
         }
         res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unknown git endpoint' })); return;

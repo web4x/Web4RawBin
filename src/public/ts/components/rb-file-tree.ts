@@ -12,6 +12,7 @@ function saveExpanded(s: Set<string>): void { localStorage.setItem(STORAGE_KEY, 
 export class RbFileTree extends HTMLElement {
   private expanded: Set<string> = new Set();
   private activePath: string = '';
+  private repo = ''; // R30.6.7: target repo KEY ('' = default rawbin); appended as ?repo to /api/files fetches
 
   connectedCallback(): void {
     this.expanded = loadExpanded();
@@ -26,12 +27,22 @@ export class RbFileTree extends HTMLElement {
     });
   }
 
+  // [impl:uuid:84cff75f-0819-4d1b-97e7-523d55ea0a35] RbFileTree.setRepo — R30.6.7: retarget the tree to a repo KEY
+  // (server RepoRegistry allowlist resolves it; loadDir appends ?repo). Empty/absent → default rawbin (unchanged).
+  setRepo(key: string): void {
+    this.repo = key || '';
+    this.expanded.clear();
+    this.innerHTML = '';
+    this.loadDir(''); // reload from the new repo root
+  }
+
   // [impl:uuid:0b026300-cc81-482e-a445-b2bdbb2ed29c] RbFileTree.loadDir — R30.5 root relPath stays '' (drop ||'/')
   private async loadDir(dirPath: string): Promise<void> {
     try {
       // R30.5: root dirPath='' must stay '' → /api/files/ hits readDir('')=project-root. '/' → %2F → server safePath
       // rejects as FS-root Forbidden → empty tree. Subdirs unaffected (lines 34/36 already treat '' as root).
-      const res = await fetch(`/api/files/${encodeURIComponent(dirPath)}`);
+      const q = this.repo ? `?repo=${encodeURIComponent(this.repo)}` : ''; // R30.6.7: repo key (default rawbin)
+      const res = await fetch(`/api/files/${encodeURIComponent(dirPath)}${q}`);
       if (!res.ok) return;
       const data = await res.json();
       const container = dirPath ? this.querySelector(`[data-children="${dirPath}"]`) as HTMLElement : this;

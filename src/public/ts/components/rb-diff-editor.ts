@@ -12,9 +12,9 @@ export interface DiffHunk {
   right: string[];               // the hunk's right lines
 }
 
-interface SideState { path: string; ref: string; lines: string[]; mtime: number }
+interface SideState { path: string; ref: string; repo: string; lines: string[]; mtime: number }
 
-const emptySide = (): SideState => ({ path: '', ref: '', lines: [], mtime: 0 });
+const emptySide = (): SideState => ({ path: '', ref: '', repo: '', lines: [], mtime: 0 }); // R30.6.7: repo key ('' = rawbin)
 
 export class RbDiffEditor extends HTMLElement {
   private left: SideState = emptySide();
@@ -36,7 +36,8 @@ export class RbDiffEditor extends HTMLElement {
               ${s === 'center'
                 ? `<span class="de-title" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
                    <button class="de-save" title="Save merged result">💾</button>`
-                : `<button class="de-file" data-side="${s}" title="Choose file">📁</button>
+                : `<select class="de-repo" data-side="${s}" title="Repo" style="background:#1e1e1e;color:#ccc;border:1px solid #333;border-radius:3px;font-size:0.7rem;max-width:80px"></select>
+                   <button class="de-file" data-side="${s}" title="Choose file">📁</button>
                    <button class="de-ref" data-side="${s}" title="Choose git ref">🔀</button>
                    <span class="de-title" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
                    ${s === 'left' ? `<button class="de-swap" title="Swap sides">⇄</button>` : ''}`}
@@ -52,6 +53,25 @@ export class RbDiffEditor extends HTMLElement {
     this.querySelector('.de-swap')?.addEventListener('click', () => this.swapSides());
     this.querySelector('.de-save')?.addEventListener('click', () => void this.save());
     this.centerEl.addEventListener('input', () => { this.dirty = true; });
+    void this.populateRepos(); // R30.6.7 AC-consumers: repo selector from RepoRegistry.list()
+  }
+
+  // R30.6.7: fill each side's repo <select> from /api/git/repos (RepoRegistry.list); on change retarget that side.
+  private async populateRepos(): Promise<void> {
+    let repos: { key: string; label: string }[] = [];
+    try { repos = (await (await fetch('/api/git/repos')).json()).repos ?? []; } catch { return; }
+    if (!repos.length) return;
+    this.querySelectorAll('.de-repo').forEach(el => {
+      const sel = el as HTMLSelectElement;
+      sel.innerHTML = repos.map(r => `<option value="${r.key}">${r.label}</option>`).join('');
+      sel.addEventListener('change', () => {
+        const side = sel.dataset.side as 'left' | 'right';
+        const st = side === 'left' ? this.left : this.right;
+        st.repo = sel.value === 'rawbin' ? '' : sel.value; // '' = default rawbin
+        st.ref = '';                                        // refs are repo-specific → reset
+        if (st.path) void this.loadSide(side, { path: st.path });
+      });
+    });
   }
 
   private get centerEl(): HTMLTextAreaElement { return this.querySelector('.de-text[data-side="center"]') as HTMLTextAreaElement; }
@@ -68,11 +88,13 @@ export class RbDiffEditor extends HTMLElement {
       if (src.content != null) {                    // R30.6.6: preloaded content (current editor buffer, LEFT-preselect) — no fetch
         content = src.content; st.mtime = 0;
       } else if (st.ref) {
-        const res = await fetch(`/api/git/file?ref=${encodeURIComponent(st.ref)}&path=${encodeURIComponent(st.path)}`);
+        const rq = st.repo ? `&repo=${encodeURIComponent(st.repo)}` : ''; // R30.6.7 repo key
+        const res = await fetch(`/api/git/file?ref=${encodeURIComponent(st.ref)}&path=${encodeURIComponent(st.path)}${rq}`);
         if (!res.ok) { this.status(`load ${side} @${st.ref} failed (${res.status})`); return; }
         content = (await res.json()).content ?? '';
       } else {
-        const res = await fetch(`/api/files/${encodeURIComponent(st.path)}`);
+        const rq = st.repo ? `?repo=${encodeURIComponent(st.repo)}` : ''; // R30.6.7 repo key
+        const res = await fetch(`/api/files/${encodeURIComponent(st.path)}${rq}`);
         if (!res.ok) { this.status(`load ${side} failed (${res.status})`); return; }
         const data = await res.json();
         content = data.content ?? ''; st.mtime = data.mtime ?? 0;
@@ -185,9 +207,10 @@ export class RbDiffEditor extends HTMLElement {
   async pickRef(side: 'left' | 'right'): Promise<void> {
     let branches: string[] = [], commits: { hash: string; subject: string }[] = [];
     try {
-      branches = (await (await fetch('/api/git/branches')).json()).branches ?? [];
       const st = side === 'left' ? this.left : this.right;
-      const q = st.path ? `?path=${encodeURIComponent(st.path)}&limit=20` : '?limit=20';
+      const rq = st.repo ? `&repo=${encodeURIComponent(st.repo)}` : ''; // R30.6.7 repo key
+      branches = (await (await fetch(`/api/git/branches${st.repo ? `?repo=${encodeURIComponent(st.repo)}` : ''}`)).json()).branches ?? [];
+      const q = (st.path ? `?path=${encodeURIComponent(st.path)}&limit=20` : '?limit=20') + rq;
       commits = (await (await fetch(`/api/git/commits${q}`)).json()).commits ?? [];
     } catch { this.status('git ref list failed'); return; }
     const opts = [...branches.map(b => ({ ref: b, label: `⎇ ${b}` })),
@@ -204,10 +227,12 @@ export class RbDiffEditor extends HTMLElement {
   // [impl:uuid:552dd534-56f4-4dbf-bb11-7c99c19f0d41] RbDiffEditor.pickFile
   // REUSE rb-file-tree (R30.5) as the file chooser; on file-select set the side's path + loadSide.
   pickFile(side: 'left' | 'right'): void {
+    const st = side === 'left' ? this.left : this.right;
     const box = this.overlay(`Choose file for ${side}`, []);
     const tree = document.createElement('rb-file-tree');
     tree.style.cssText = 'display:block;max-height:50vh;overflow:auto';
     box.appendChild(tree);
+    if (st.repo) (tree as unknown as { setRepo(k: string): void }).setRepo(st.repo); // R30.6.7: browse the side's repo
     box.addEventListener('file-select', (e: Event) => {
       const p = (e as CustomEvent).detail?.path;
       if (p) { void this.loadSide(side, { path: p }); this.closeOverlay(); }
