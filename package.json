@@ -1,7 +1,7 @@
 {
   "name": "rawbin",
-  "version": "0.7.17",
-  "description": "RawBin \u2014 AI Server Management Interface",
+  "version": "0.7.18",
+  "description": "RawBin — AI Server Management Interface",
   "type": "module",
   "scripts": {
     "build": "node build.mjs",

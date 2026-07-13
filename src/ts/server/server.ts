@@ -543,6 +543,17 @@ class GitApi {
     const { stdout } = await execFileAsync('git', ['show', `${ref}:${rel}`], GitApi.opts(root));
     return stdout;
   }
+
+  // [impl:uuid:b17ad1df-b277-44e9-adab-74ee087cbccb] GitApi.mergeBase — R30.9: the common ancestor of two refs
+  // (`git merge-base a b`) = the BASE for base-aware 3-way diff3. Both refs uniform-guarded; read-only. Empty
+  // stdout (unrelated histories / no common ancestor) → '' → client falls back to 2-way (design no-base fallback).
+  static async mergeBase(root: string, refA: string, refB: string): Promise<string> {
+    GitApi.guardRef(refA); GitApi.guardRef(refB);
+    try {
+      const { stdout } = await execFileAsync('git', ['merge-base', refA, refB], GitApi.opts(root));
+      return stdout.trim();
+    } catch { return ''; } // no common ancestor → empty (fallback path), not a 500
+  }
 }
 
 let bugReportTarget = 'robbinTeam:0.0';
@@ -1396,6 +1407,10 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         if (filepath === '/api/git/file') {
           const content = await GitApi.fileAtRef(root, urlParams.get('ref') || '', urlParams.get('path') || '');
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ content })); return;
+        }
+        if (filepath === '/api/git/merge-base') { // R30.9: common ancestor of two refs (base for diff3)
+          const base = await GitApi.mergeBase(root, urlParams.get('a') || '', urlParams.get('b') || '');
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ base })); return;
         }
         res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unknown git endpoint' })); return;
       } catch (e) {
