@@ -7,12 +7,12 @@
     "description": "Apply a uniform ref-guard so all editor/repo targeting resolves refs through one guarded path (allow-listed, no arbitrary/unsafe refs) — consistent with the RepoRegistry allowlist, applied uniformly across the targeting surface.",
     "intention": "S30: minted for #126 traceability (R30.7 was requirement-only; pin held the req uuid as workaround).",
     "context": "Covers R30.7 (3618036e). Class RbDiffEditor.",
-    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "implementation": "STOOD UP (planning) — status Planned; chain-build awaits architect. (Was requirement-only; minted for #126 traceability so pin references a real Task.)",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "implementation": "DONE (retroactive task for completed+gated work): R30.7 uniform ref-guard ALREADY shipped + gated GREEN (v0.7.17, guardRef 73/342, tester Done). Minted this Task for #126 traceability (was requirement-only) -> marked Done to reflect reality.",
     "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.7 `[requirement:uuid:3618036e-d605-4e30-8651-9a14d0a863f6]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:8d6743e0-5788-4b57-9467-b5c10cfcad3a]`",
-    "acceptanceCriteria": "- [ ] (guard) A single shared ref-validation guard (GitApi.guardRef, allowlist ^[A-Za-z0-9._/-]+$) is applied to ALL git endpoints — file, branches, commits, and any future one — NOT duplicated per endpoint.\n- [ ] (guard) /api/git/commits (currently 200 on a bad ref) rejects invalid refs with 400, matching /api/git/file — behaviour is uniform across every git endpoint.\n- [ ] (by-construction) The guard is a single choke point every git handler routes through, so a NEWLY added git endpoint cannot bypass ref validation (correct-by-construction, not opt-in per endpoint).\n- [ ] (security) The guard is belt-and-suspenders OVER execFile (no-shell, already injection-safe) — a hardening layer, and rejects a bad ref BEFORE any git process is invoked (reject-first).\n- [ ] (verify) A probe of every git endpoint with a bad ref (traversal, shell metachars, out-of-allowlist) returns 400 (not 200); valid refs still resolve normally.",
+    "acceptanceCriteria": "- [x] (guard) A single shared ref-validation guard (GitApi.guardRef, allowlist ^[A-Za-z0-9._/-]+$) is applied to ALL git endpoints — file, branches, commits, and any future one — NOT duplicated per endpoint.\n- [x] (guard) /api/git/commits (currently 200 on a bad ref) rejects invalid refs with 400, matching /api/git/file — behaviour is uniform across every git endpoint.\n- [x] (by-construction) The guard is a single choke point every git handler routes through, so a NEWLY added git endpoint cannot bypass ref validation (correct-by-construction, not opt-in per endpoint).\n- [x] (security) The guard is belt-and-suspenders OVER execFile (no-shell, already injection-safe) — a hardening layer, and rejects a bad ref BEFORE any git process is invoked (reject-first).\n- [x] (verify) A probe of every git endpoint with a bad ref (traversal, shell metachars, out-of-allowlist) returns 400 (not 200); valid refs still resolve normally.",
     "subtasks": "None (atomic task).",
-    "status": "Planned",
+    "status": "Done",
     "coveredRequirements": [
       "ior:instance:3618036e-d605-4e30-8651-9a14d0a863f6"
     ],
@@ -22,7 +22,8 @@
     "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
     "sprintName": "Sprint 30",
     "createdBy": "robbin-planner",
-    "createdAt": "2026-07-13"
+    "createdAt": "2026-07-13",
+    "tronDelivered": "2026-07-13 (R30.7 shipped+gated GREEN v0.7.17, guardRef 73/342)"
   },
   "ownerIor": null
 }
