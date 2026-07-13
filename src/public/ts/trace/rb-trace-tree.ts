@@ -40,6 +40,8 @@ export class RbTraceTree extends HTMLElement {
   private pendingReveal: string | null = null;
   private prefetchCache = new Map<string, any[]>();
   private prefetchInFlight = new Set<string>();
+  // R30.2: eager child-count from server metadata (badge shows real count before children load; structure+count eager / payload lazy)
+  private nodeChildCount = new Map<string, number>();
   private _items: { uuid: string; type: string; name: string; description?: string; children?: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean }[] }[] | null = null;
   private _seedRafId = 0;
   private _seedAbort: AbortController | null = null;
@@ -363,7 +365,7 @@ export class RbTraceTree extends HTMLElement {
   // never a 2nd loader. Structure eager / payload lazy.
   async renderCurrentSprintEagerLazy(): Promise<void> {
     const CS = 'current-sprint-singleton-0000-000000000001';
-    let sprints: Array<{ uuid: string; name: string; number?: number; hasChildren?: boolean }> = [];
+    let sprints: Array<{ uuid: string; name: string; number?: number; hasChildren?: boolean; childCount?: number }> = [];
     let slots: Array<{ uuid: string; type: string; name: string; hasChildren?: boolean; status?: string }> = [];
     let sprintName = 'Current Sprint';
     try {
@@ -386,6 +388,8 @@ export class RbTraceTree extends HTMLElement {
     const csKids = slots.map(s => ({ uuid: s.uuid, type: s.type || 'Task', name: s.name, hasChildren: s.hasChildren !== false, status: s.status }));
     this.appendChild(this.buildSeedNode(CS, 'CurrentSprint', `CurrentSprint: ${sprintName}`, csKids, true, undefined, undefined, undefined, true));
     // (2) Sprints collection — EAGER sprint-nodes (tasks LAZY on expand), COLLAPSED, badge=sprint count
+    // R30.2: record each sprint's eager task-count so its badge shows the real number before its tasks lazy-load
+    sprints.forEach(sp => { if (typeof sp.childCount === 'number') this.nodeChildCount.set(sp.uuid, sp.childCount); });
     const spKids = sprints.map(sp => ({ uuid: sp.uuid, type: 'Sprint', name: sp.name, hasChildren: sp.hasChildren !== false }));
     this.appendChild(this.buildSeedNode('sprints-collection-30-1', 'collection', `Sprints 01-${pad2(N)}`, spKids, true, undefined, undefined, undefined, false));
     this.computeBadges();
@@ -484,8 +488,12 @@ export class RbTraceTree extends HTMLElement {
       const node = item.closest('.tt-node');
       const children = node?.querySelector(':scope > .tt-children');
       const count = children ? children.querySelectorAll(':scope > .tt-node').length : 0;
-      const cached = this.prefetchCache.get(item.getAttribute('ref')?.split(':')[1] || '');
-      item.setAttribute('child-count', String(cached?.length ?? count));
+      const uuid = item.getAttribute('ref')?.split(':')[1] || '';
+      const cached = this.prefetchCache.get(uuid);
+      // [impl:uuid:d28ee95a-1135-4e1c-be50-fe2368614171] RbTraceTree.eagerChildCountBadges — R30.2 eager child-count badge (structure+count eager / payload lazy)
+      // R30.2: prefer the eager server childCount (known before children load) so the badge is never a false 0
+      const eager = this.nodeChildCount.get(uuid);
+      item.setAttribute('child-count', String(count > 0 ? count : (cached?.length ?? eager ?? count)));
     });
   }
 
@@ -523,6 +531,8 @@ export class RbTraceTree extends HTMLElement {
         children = data.children || [];
       }
       for (const child of children) {
+        // R30.2: record the child's eager count (level-by-level) so its badge is correct before ITS children load
+        if (typeof (child as any).childCount === 'number') this.nodeChildCount.set(child.uuid, (child as any).childCount);
         container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchVisited), (child as any).chainMethod, (child as any).description, false, (child as any).status));
       }
       const parentItem = container.parentElement?.querySelector(':scope > .tt-row rb-object-item');

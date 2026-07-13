@@ -1053,7 +1053,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const u = idx.get(uuid);
           if (!u || u.ior !== 'ior:class:Sprint') return null;
           const tasks = (u.model.tasks as string[]) || [];
-          return { uuid, type: 'Sprint', name: String(u.model?.name || ''), number: u.model?.number || 0, hasChildren: tasks.length > 0 };
+          return { uuid, type: 'Sprint', name: String(u.model?.name || ''), number: u.model?.number || 0, hasChildren: tasks.length > 0, childCount: tasks.length };
         }).filter(Boolean);
         sprints.sort((a: any, b: any) => (a.number || 0) - (b.number || 0));
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });

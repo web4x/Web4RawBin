@@ -131,6 +131,29 @@ export class RbDetailDrawer extends HTMLElement {
       } catch { panel.innerHTML = '<div class="dv-empty">Failed to load</div>'; }
       return;
     }
+    // [impl:uuid:0267036c-ec5a-4e13-a74e-1a89f45412b3] RbDetailDrawer.renderSprintDetail (sprint-case) — R30.3 sprint selection populates the detail drawer
+    // R30.3: Sprint / CurrentSprint nodes come from /api/trace/sprints (not the in-memory graph), so the
+    // generic rb-detail-view resolves empty. Render sprint details directly (name, goal, task list) — like the collection case.
+    if (type.toLowerCase() === 'sprint' || type.toLowerCase() === 'currentsprint') {
+      panel.dataset.currentRef = ref;
+      panel.innerHTML = '<div class="dv-loading">Loading...</div>';
+      try {
+        const res = await fetch(`/api/ior/ior:instance:${uuid}`);
+        const m = (await res.json())?.unit?.model || {};
+        const goal = String(m.goal || m.sprintGoal || m.description || '');
+        const tasks: string[] = Array.isArray(m.tasks) ? m.tasks : [];
+        const childRes = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}`);
+        const kids = (await childRes.json().catch(() => ({})))?.children || [];
+        panel.innerHTML =
+          `<div class="dv-head"><span class="dv-type">${type}</span><h3 class="dv-title">${String(m.name || uuid)}</h3><code class="dv-uuid">${uuid}</code></div>` +
+          (goal ? `<p style="color:rgba(255,255,255,0.7);font-size:0.78rem;margin:8px 0">${goal}</p>` : '') +
+          `<div class="dv-scenario-children"><h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:4px">Tasks (${tasks.length || kids.length})</h4>` +
+          (kids.length === 0 ? '<div class="dv-empty">no tasks</div>' :
+            kids.map((c: any) => `<div class="dv-link" data-ref="${String(c.type || 'task').toLowerCase()}:${c.uuid}"><span class="dv-rel">${c.type || 'Task'}</span><span class="dv-link-title">${c.name || c.uuid}</span></div>`).join('')) +
+          `</div>`;
+      } catch { panel.innerHTML = '<div class="dv-empty">Failed to load sprint</div>'; }
+      return;
+    }
     panel.dataset.currentRef = ref;
     const tagMap: Record<string, string> = {
       requirement: 'rb-requirement-detail', task: 'rb-task-detail', usecase: 'rb-usecase-detail',
