@@ -2,13 +2,15 @@
   "ior": "ior:class:UseCase",
   "model": {
     "uuid": "9095cd05-5528-4450-a830-f9b858129ad2",
-    "name": "detailDrawer.sprintCase",
-    "description": "renderDetailForRef handles the sprint case: selecting a Sprint node fills the detail drawer with the sprint's name/goal/task-slots. Impl: RbDetailDrawer.renderDetailForRef sprint-case (deployed v0.7.11).",
-    "class": "",
-    "classes": [],
-    "method": "",
+    "name": "detailDrawer.selectionUpdatesDrawer",
+    "description": "Selecting a sprint node updates the drawer content (name/goal/tasks) via the SelectionModel path.",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+    "classes": [
+      "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+    ],
+    "method": "ior:instance:30ad99c2-3f8f-459e-91ff-6a4feefeb752",
     "tasks": [
-      "ior:instance:0ff8e4aa-13fb-4b9d-ac12-b129f70fb851"
+      "ior:instance:db8c2753-37c7-4dbf-94b3-6263da8310b9"
     ],
     "implementations": [],
     "tests": []

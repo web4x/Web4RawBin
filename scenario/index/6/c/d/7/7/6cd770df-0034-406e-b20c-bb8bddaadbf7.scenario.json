@@ -5,7 +5,7 @@
     "name": "Sprint selection populates detail drawer",
     "altId": "R30.3",
     "tasks": [
-      "ior:instance:0ff8e4aa-13fb-4b9d-ac12-b129f70fb851"
+      "ior:instance:db8c2753-37c7-4dbf-94b3-6263da8310b9"
     ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",

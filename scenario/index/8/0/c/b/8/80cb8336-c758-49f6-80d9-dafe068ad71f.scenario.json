@@ -3,12 +3,14 @@
   "model": {
     "uuid": "80cb8336-c758-49f6-80d9-dafe068ad71f",
     "name": "traceTree.eagerChildCountBadges",
-    "description": "Trace-tree nodes render a child-count badge from eager server metadata (nodeChildCount) before children load. Impl: RbTraceTree.computeBadges + renderCurrentSprintEagerLazy (deployed v0.7.11). Structure+count eager, payload lazy.",
-    "class": "",
-    "classes": [],
-    "method": "",
+    "description": "Trace-tree nodes show real child count eagerly (structure+count eager, content lazy).",
+    "class": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e",
+    "classes": [
+      "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e"
+    ],
+    "method": "ior:instance:baf91567-048c-4610-860c-5ad08a6ffc55",
     "tasks": [
-      "ior:instance:76e8683d-4154-4101-98a0-eb23d8bd7249"
+      "ior:instance:fc744c38-1c7f-4855-a8fe-b48a5545285f"
     ],
     "implementations": [],
     "tests": []
