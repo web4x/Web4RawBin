@@ -26,11 +26,11 @@
 
 ## Task Description
 
-Render the 3-way diff/merge view in DiffMergeEditor: three panes (base / ours / theirs) showing the diff side-by-side so the user sees all three versions for merge resolution.
+Render the 3-way diff/merge view in RbDiffEditor: three panes (base / ours / theirs) showing the diff side-by-side so the user sees all three versions for merge resolution.
 
 ## Context
 
-Covers R30.6.1 (fda2dc4f). Class DiffMergeEditor. Part of R30.6 umbrella (12922d5d).
+Covers R30.6.1 (fda2dc4f). Class RbDiffEditor (code rb-diff-editor, RbFileTree/RbTraceTree convention). Part of R30.6 umbrella (12922d5d).
 
 ## Intention
 
@@ -43,7 +43,7 @@ S30 R30.6 3-way diff/merge editor (decomposed). Sub-task covering R30.6.1.
 
 ## Implementation
 
-STOOD UP (planning) — status Planned; chain-build awaits architect design.
+STOOD UP (planning) — status Planned. Chain DESIGNED by architect (d75d9b141), req minting the chain nodes now. Class = RbDiffEditor. Advance on architect T30.6.x build hop-signal.
 
 ## Subtasks
 

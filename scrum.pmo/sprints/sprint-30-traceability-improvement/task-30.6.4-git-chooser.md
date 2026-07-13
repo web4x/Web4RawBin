@@ -30,7 +30,7 @@ Add a git chooser to select the refs/commits/branches to 3-way-merge (base + two
 
 ## Context
 
-Covers R30.6.4 (7eb81522). Class DiffMergeEditor. Part of R30.6 umbrella (12922d5d).
+Covers R30.6.4 (7eb81522). Class RbDiffEditor (code rb-diff-editor, RbFileTree/RbTraceTree convention). Part of R30.6 umbrella (12922d5d).
 
 ## Intention
 
@@ -42,7 +42,7 @@ S30 R30.6 3-way diff/merge editor (decomposed). Sub-task covering R30.6.4.
 
 ## Implementation
 
-STOOD UP (planning) — status Planned; chain-build awaits architect design.
+STOOD UP (planning) — status Planned. Chain DESIGNED by architect (d75d9b141), req minting the chain nodes now. Class = RbDiffEditor. Advance on architect T30.6.x build hop-signal.
 
 ## Subtasks
 
