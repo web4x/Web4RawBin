@@ -508,6 +508,14 @@ class GitApi {
     return (abs === base || abs.startsWith(base + path.sep)) ? p : null;
   }
 
+  // [impl:uuid:4e52b300-aa7d-46dd-ad1c-f932d624c011] GitApi.guardRef — R30.7 uniform ref-allowlist CHOKE POINT: every
+  // git endpoint routes its ref through here; a ref outside ^[\w./-]+$ throws → 400 before any git call (defense-in-depth
+  // over execFile array-args). Empty/malformed rejected. Callers with an OPTIONAL ref call this only when a ref is present.
+  static guardRef(ref: string): string {
+    if (!GitApi.REF_RE.test(ref)) throw new Error('bad ref');
+    return ref;
+  }
+
   // [impl:uuid:5b367f7e-cd62-470f-8636-675669b2aad0] GitApi.branches
   static async branches(root: string): Promise<string[]> {
     const { stdout } = await execFileAsync('git', ['branch', '--format=%(refname:short)'], GitApi.opts(root));
@@ -515,9 +523,10 @@ class GitApi {
   }
 
   // [impl:uuid:e2c70b0f-a4de-4ac8-8d35-d72890327d47] GitApi.commits
-  static async commits(root: string, pathArg: string, limit: number): Promise<{ hash: string; subject: string; author: string; date: string }[]> {
+  static async commits(root: string, ref: string, pathArg: string, limit: number): Promise<{ hash: string; subject: string; author: string; date: string }[]> {
     const n = String(Math.max(1, Math.min(200, Math.floor(limit) || 20)));
     const args = ['log', '--format=%H%x00%s%x00%an%x00%aI', '-n', n];
+    if (ref) args.splice(1, 0, GitApi.guardRef(ref)); // R30.7: optional git log <ref>, routed through the uniform guard
     if (pathArg) { const rel = GitApi.safeRelPath(root, pathArg); if (!rel) throw new Error('bad path'); args.push('--', rel); }
     const { stdout } = await execFileAsync('git', args, GitApi.opts(root));
     return stdout.split('\n').filter(Boolean).map(l => {
@@ -528,7 +537,7 @@ class GitApi {
 
   // [impl:uuid:9bd3b360-e4d9-4bcc-9af2-ec78a72f6cb3] GitApi.fileAtRef
   static async fileAtRef(root: string, ref: string, p: string): Promise<string> {
-    if (!GitApi.REF_RE.test(ref)) throw new Error('bad ref');
+    GitApi.guardRef(ref); // R30.7: uniform ref guard (was an inline REF_RE check)
     const rel = GitApi.safeRelPath(root, p);
     if (!rel) throw new Error('bad path');
     const { stdout } = await execFileAsync('git', ['show', `${ref}:${rel}`], GitApi.opts(root));
@@ -1381,7 +1390,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ branches: await GitApi.branches(root) })); return;
         }
         if (filepath === '/api/git/commits') {
-          const commits = await GitApi.commits(root, urlParams.get('path') || '', Number(urlParams.get('limit') || 20));
+          const commits = await GitApi.commits(root, urlParams.get('ref') || '', urlParams.get('path') || '', Number(urlParams.get('limit') || 20));
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ commits })); return;
         }
         if (filepath === '/api/git/file') {
