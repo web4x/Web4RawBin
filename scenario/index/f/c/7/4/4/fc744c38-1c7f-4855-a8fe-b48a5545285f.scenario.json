@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "fc744c38-1c7f-4855-a8fe-b48a5545285f",
+    "name": "Task 30.2: Eager child-count badges",
+    "slug": "task-30.2-eager-child-count-badges",
+    "description": "Render an EAGER child-count badge on each collapsed sprint node in the traceability tree — show the number of tasks/children as a badge WITHOUT expanding (loading) the node, so counts are visible at a glance while the payload stays lazy (structure-eager/count-eager, task-payload-lazy).",
+    "intention": "S30 Traceability Improvement — keep the traceability tree scaling + navigable. Stood up scenario-first on req's R30.2/R30.3 mint.",
+    "context": "Covers R30.2 (850a339d). Part of the S30 traceability-tree track (ties T30.1 CurrentSprint tree).",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "STOOD UP (planning) — status Planned; chain-build awaits architect UC-refine.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.2 `[requirement:uuid:850a339d-c7e5-4308-b2c7-65536bd5271e]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:80cb8336-c758-49f6-80d9-dafe068ad71f]`",
+    "acceptanceCriteria": "- [ ] (tree) A collapsed node's badge shows its real childCount from server metadata BEFORE children load.\n- [ ] (scaling) Counts are eager (from structure metadata); child PAYLOADS stay lazy until expand.\n- [ ] (tree) CurrentSprint node + each Sprint node carry a correct child-count badge without expanding.",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:850a339d-c7e5-4308-b2c7-65536bd5271e"
+    ],
+    "useCases": [
+      "ior:instance:80cb8336-c758-49f6-80d9-dafe068ad71f"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-13"
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "db8c2753-37c7-4dbf-94b3-6263da8310b9",
+    "name": "Task 30.3: Sprint selection populates the detail drawer",
+    "slug": "task-30.3-sprint-selection-detail-drawer",
+    "description": "Wire tree sprint-selection → detail drawer: when a sprint node is selected in the traceability tree, populate the detail drawer with that sprint's detail (goal + req/task summary) by routing the tree-selection event to the drawer render path.",
+    "intention": "S30 Traceability Improvement — keep the traceability tree scaling + navigable. Stood up scenario-first on req's R30.2/R30.3 mint.",
+    "context": "Covers R30.3 (6cd770df). Part of the S30 traceability-tree track (ties T30.1 CurrentSprint tree).",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "STOOD UP (planning) — status Planned; chain-build awaits architect UC-refine.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.3 `[requirement:uuid:6cd770df-0034-406e-b20c-bb8bddaadbf7]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:9095cd05-5528-4450-a830-f9b858129ad2]`",
+    "acceptanceCriteria": "- [ ] (drawer) Selecting a Sprint node populates the detail drawer with that sprint's detail (name/goal/slots).\n- [ ] (drawer) The drawer is never empty/stale on sprint selection — renderDetailForRef handles the sprint case.",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:6cd770df-0034-406e-b20c-bb8bddaadbf7"
+    ],
+    "useCases": [
+      "ior:instance:9095cd05-5528-4450-a830-f9b858129ad2"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-13"
+  },
+  "ownerIor": null
+}
