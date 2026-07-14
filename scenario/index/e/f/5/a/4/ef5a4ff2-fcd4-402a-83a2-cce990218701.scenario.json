@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "ef5a4ff2-fcd4-402a-83a2-cce990218701",
+  "name": "RbDiffEditor.renderSideChangeBlocks",
+  "implementations": [
+   "ior:instance:eb994dcd-d9dc-4b55-84e8-13b2be3b47d5"
+  ],
+  "tests": [],
+  "note": "R30.19. Name EXACT. Mirror renderCenterChangeBlocks onto edLocal (aStart, a.length lines) + edRemote (bStart, b.length lines) via deltaDecorations, SAME de-block-{kind} class -> color-matches center+ribbon by construction (CONFLICT_PALETTE). Origin-gated (left iff a.length>0, right iff b.length>0, reuse R30.17). Line-anchored = no off-by-one. renderCenterChangeBlocks stays CENTER-ONLY."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

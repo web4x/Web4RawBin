@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "eb994dcd-d9dc-4b55-84e8-13b2be3b47d5",
+  "name": "RbDiffEditor.renderSideChangeBlocks impl",
+  "tests": [],
+  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+  "designAhead": true,
+  "description": "DESIGN-AHEAD: source-pane change-block decorations (Local a-lines + Remote b-lines), origin-gated, shared palette. computeMergedCenter render tail calls it after renderCenterChangeBlocks (impl-edit, marker stays). Expert builds + tags [impl] marker."
+ },
+ "ownerIor": "ior:instance:ef5a4ff2-fcd4-402a-83a2-cce990218701"
+}

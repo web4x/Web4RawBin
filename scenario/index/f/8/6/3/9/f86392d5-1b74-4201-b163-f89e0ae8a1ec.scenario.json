@@ -2,13 +2,13 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "f86392d5-1b74-4201-b163-f89e0ae8a1ec",
-  "name": "diffEditor.sourceChangeBlocks",
-  "description": "Change-blocks are highlighted on the LEFT + RIGHT source panes (a-lines / b-lines) in the matching CONFLICT_PALETTE color, not only the CENTER - one-sided changes highlight only the changed side(s).",
+  "name": "diffEditor.sourcePaneChangeBlocks",
+  "description": "Change-blocks highlighted on LEFT (Local a-lines)+RIGHT (Repository b-lines) source panes via renderSideChangeBlocks, origin-gated, matching CONFLICT_PALETTE color (block-coverage==ribbon-coverage); renderCenterChangeBlocks stays center-only.",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
   ],
-  "method": "ior:instance:afb868e1-3f36-4dea-ac69-caf82d6349c9",
+  "method": "ior:instance:ef5a4ff2-fcd4-402a-83a2-cce990218701",
   "coveredRequirement": "ior:instance:d74360d2-41ca-4d6d-9015-0194629b40eb"
  },
  "ownerIor": "ior:instance:d74360d2-41ca-4d6d-9015-0194629b40eb"

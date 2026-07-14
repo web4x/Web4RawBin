@@ -20,13 +20,14 @@
    "type": "tron-directive",
    "flaggedBy": "Tron (screenshot IMG_4518) via robbin-po",
    "date": "2026-07-14",
-   "note": "IMPL-EDIT to R30.16 renderCenterChangeBlocks (Method afb868e1 / Impl 37c9694c, marker STAYS - NO new method): extend it to render change-blocks on LEFT (a-lines) + RIGHT (b-lines) source panes in the matching CONFLICT_PALETTE color. Sole-minter; requirements.md block written same-commit."
+   "note": "NEW Method renderSideChangeBlocks per architect df243841a (REVISED from my initial impl-edit-of-renderCenterChangeBlocks; PO+architect aligned: keep renderCenterChangeBlocks center-only, name accurate). RbDiffEditor REUSE 24->25m. requirements.md block updated same-commit."
   },
   "crossRef": [
    "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f",
+   "ior:instance:5aa71554-03ee-410f-b0d4-d00e9a7f2efa",
    "ior:instance:9b525a80-5d8d-4533-a194-f63da132dd37"
   ],
-  "crossRefNote": "Extends R30.16 renderCenterChangeBlocks (center change blocks) to all 3 panes; the source block colors match R30.13 connector ribbons + the center block via the shared CONFLICT_PALETTE (blocks+ribbons match by construction). IMPL-EDIT to the existing renderCenterChangeBlocks (Method afb868e1 / Impl 37c9694c) - marker STAYS, no new unit.",
+  "crossRefNote": "NEW Method renderSideChangeBlocks (architect design df243841a) mirrors R30.16 renderCenterChangeBlocks onto LEFT+RIGHT source panes, SAME de-block-{kind} class -> color-matches center+ribbon by construction (shared CONFLICT_PALETTE); origin-gated via R30.17 (block-coverage==ribbon-coverage); line-anchored=no off-by-one. Build-note (impl-edit marker STAYS): computeMergedCenter render tail adds renderSideChangeBlocks() AFTER renderCenterChangeBlocks. REUSED unchanged: renderCenterChangeBlocks 37c9694c (center-only, name accurate), conflictColor/CONFLICT_PALETTE, de-block-* CSS, R30.17 origin gate.",
   "acceptanceCriteria": [
    {
     "id": "AC-all-3-panes",

@@ -293,7 +293,7 @@
   - [ ] **(sides)** A right-only change (c.b.length>0, c.a.length===0) highlights a block in Repository + Center, NOT Local.
   - [ ] **(sides)** A both-sided change highlights a matching-color block in ALL 3 panes; the ribbon visibly connects the highlighted source block(s) to the highlighted center block.
   - [ ] **(verify)** Tron visual (IMG_4518 case): the changed source block is highlighted in its pane(s) in the same color as the center block + ribbon; DET-3x asserts the source-pane decorations exist per side.
-  -> [diffEditor.sourceChangeBlocks uc:uuid:f86392d5-1b74-4201-b163-f89e0ae8a1ec]
+  -> [diffEditor.sourcePaneChangeBlocks uc:uuid:f86392d5-1b74-4201-b163-f89e0ae8a1ec] -> RbDiffEditor.renderSideChangeBlocks (NEW)
 
 ---
 
