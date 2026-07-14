@@ -464,6 +464,7 @@ export class RbDiffEditor extends HTMLElement {
   private setSideRef(side: 'left' | 'right', ref: string): void {
     const st = side === 'left' ? this.left : this.right;
     if (!st.path) { this.status('choose a file first'); return; }
+    if (side === 'right') this._rightUserPicked = true; // R30.15 (b): an explicit right ref-pick WINS over the async auto-default
     void this.loadSide(side, { path: st.path, ref });
   }
 
@@ -503,22 +504,30 @@ export class RbDiffEditor extends HTMLElement {
   async populateRightHistory(): Promise<void> {
     const sel = this.querySelector('.de-history') as HTMLSelectElement | null;
     if (!sel || !this.left.path) return;
+    this._rightUserPicked = false; // R30.15 (b): new LEFT context → a prior right-pick no longer applies
+    const rq = this.left.repo ? `&repo=${encodeURIComponent(this.left.repo)}` : '';
     let history: { hash: string; subject: string }[] = [];
     try {
-      const rq = this.left.repo ? `&repo=${encodeURIComponent(this.left.repo)}` : '';
       history = (await (await fetch(`/api/git/file-history?path=${encodeURIComponent(this.left.path)}${rq}`)).json()).history ?? [];
     } catch { /* non-git / error → fallback below */ }
     if (!history.length) { sel.innerHTML = '<option>no history</option>'; sel.disabled = true; this.status('no git history for this file — use ⎇ to pick a ref'); return; }
     sel.disabled = false;
-    sel.innerHTML = history.map((h, i) => `<option value="${h.hash}">${i === 0 ? '● latest ' : ''}${h.hash.slice(0, 7)} ${h.subject}</option>`).join('');
     this.right.repo = this.left.repo; // the file's history lives in the same repo as the local file
     if (!this._historyWired) {
       this._historyWired = true;
-      sel.addEventListener('change', () => { if (sel.value) void this.loadSide('right', { path: this.left.path, ref: sel.value }); });
+      sel.addEventListener('change', () => { if (sel.value) { this._rightUserPicked = true; void this.loadSide('right', { path: this.left.path, ref: sel.value }); } }); // R30.15 (b): explicit history pick WINS
     }
-    void this.loadSide('right', { path: this.left.path, ref: history[0].hash }); // default = newest version
+    // R30.15 (a) MEANINGFUL-DEFAULT: default RIGHT to the newest version that DIFFERS from LEFT — HEAD~1 when the
+    // working file is clean (content == newest commit), else HEAD — so Open-Diff shows a REAL diff, not 0 hunks.
+    let newestContent = '';
+    try { newestContent = (await (await fetch(`/api/git/file?ref=${encodeURIComponent(history[0].hash)}&path=${encodeURIComponent(this.left.path)}${rq}`)).json()).content ?? ''; } catch {}
+    const defaultIdx = (newestContent === this.left.content && history.length > 1) ? 1 : 0;
+    sel.innerHTML = history.map((h, i) => `<option value="${h.hash}"${i === defaultIdx ? ' selected' : ''}>${i === 0 ? '● latest ' : ''}${h.hash.slice(0, 7)} ${h.subject}</option>`).join('');
+    // R30.15 (b) PICK-WINS: only auto-load the default if the user hasn't picked a right ref during our async fetch.
+    if (!this._rightUserPicked) void this.loadSide('right', { path: this.left.path, ref: history[defaultIdx].hash });
   }
   private _historyWired = false;
+  private _rightUserPicked = false;
 
   private async populateRepos(): Promise<void> {
     let repos: { key: string; label: string }[] = [];
