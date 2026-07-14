@@ -1,16 +1,18 @@
 {
-  "ior": "ior:class:Class",
-  "model": {
-    "uuid": "8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133",
-    "name": "ServiceWorker",
-    "sourceFile": "ior:file:src/public/sw.js",
-    "methods": [
-      "ior:instance:0aea0992-334e-473f-948e-afd426574a68",
-      "ior:instance:fd5059c5-89be-42b4-a5cd-f38ab61c42d6",
-      "ior:instance:a91d7726-d359-4eb0-98dd-8af67e04552f"
-    ],
-    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
-    "unitLinks": []
-  },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+ "ior": "ior:class:Class",
+ "model": {
+  "uuid": "8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133",
+  "name": "ServiceWorker",
+  "sourceFile": "ior:file:src/public/sw.js",
+  "methods": [
+   "ior:instance:0aea0992-334e-473f-948e-afd426574a68",
+   "ior:instance:fd5059c5-89be-42b4-a5cd-f38ab61c42d6",
+   "ior:instance:a91d7726-d359-4eb0-98dd-8af67e04552f",
+   "ior:instance:82e5ba83-cd95-4873-b3df-27f522522b24",
+   "ior:instance:55ca881d-6f20-4bac-af66-6771d119c276"
+  ],
+  "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }

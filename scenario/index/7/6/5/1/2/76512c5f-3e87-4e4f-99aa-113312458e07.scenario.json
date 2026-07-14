@@ -1,0 +1,60 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "76512c5f-3e87-4e4f-99aa-113312458e07",
+  "name": "Service-Worker auto-update (deploys visible without hard-refresh)",
+  "altId": "R30.14",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:ba7b15ab-c785-4c94-a8fe-936016b0023c",
+   "ior:instance:decc53f9-13b9-4785-bddf-b1f001bb2b9c"
+  ],
+  "description": "A new deploy becomes visible to open pages WITHOUT a hard-refresh. Root cause: the update detection (updatefound -> banner, /api/config version compare) is correct but only fires on load/navigation, so a PWA left open never re-checks. Two targeted additions reusing the existing banner/skipWaiting flow: (1) ServiceWorker.pollForWorkerUpdate periodically (interval + visibilitychange/focus, debounced) forces registration.update() + the version compare so updatefound/the banner lights up while the app is open; (2) ServiceWorker.claimClients adds self.clients.claim() to the sw.js activate handler so the new SW controls open pages and the existing controllerchange->reload fires. Primary UX = the existing one-tap 'New version - reload' banner (no surprise mid-edit reload). Pure client, no server restart.",
+  "tronQuote": "> Tron/PO 2026-07-14: Tron hard-refreshes every deploy because the SW serves the stale cached bundle. Make new deploys auto-detected -> one-tap 'New version - reload', no hard-refresh.",
+  "discoverySource": {
+   "type": "team-discovery",
+   "discoveredBy": "robbin-po (measured stale-SW-cache: PO merge header old vs tester fresh-browser R30.13 live) + robbin-architect (root-cause: detection only fires on load)",
+   "date": "2026-07-14",
+   "note": "SW auto-update. Architect design ac6f245cb (r30x-sw-auto-update-design.md). MEASURE-BEFORE-MINT: RbUpdateBanner Class = 0 units (does NOT exist); the banner concern is modeled under Class ServiceWorker 8bd3bd6b (3m). Both new methods go on ServiceWorker REUSE (3->5m). Sole-minter; pure client."
+  },
+  "designRef": "scrum.pmo/design-notes/r30x-sw-auto-update-design.md (ac6f245cb)",
+  "crossRef": [
+   "ior:instance:b054dfca-951d-4355-8d59-24d3f61c3665"
+  ],
+  "crossRefNote": "crossRef T39 (ServiceWorker.updateBanner original). Class ServiceWorker 8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133 REUSE (NOT a new RbUpdateBanner Class \u2014 that has 0 units; the banner is already modeled under ServiceWorker). 2 new Methods; the fix ALSO impl-edits EXISTING pieces (markers STAY): sw.js activate gains clients.claim (in claimClients), checkForUpdate/registerServiceWorker (ServiceWorker.updateBanner) re-scoped callable-periodically; SKIP_WAITING handler + showBanner + controllerchange->reload + ignoreSearchNav/flushAndReload REUSED unchanged.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-poll",
+    "group": "detect",
+    "text": "ServiceWorker.pollForWorkerUpdate: while the app is open, periodically (setInterval ~60s + on visibilitychange-visible / focus, debounced) calls registration.update() AND re-runs the /api/config version compare -> a new deploy triggers updatefound / the version-mismatch -> the EXISTING banner, WITHOUT a hard-refresh."
+   },
+   {
+    "id": "AC-claim",
+    "group": "takeover",
+    "text": "ServiceWorker.claimClients: the sw.js activate handler calls self.clients.claim() (after old-cache cleanup) so the newly-activated SW controls open pages -> the existing controllerchange -> location.reload() fires (with the existing SKIP_WAITING = reliable takeover)."
+   },
+   {
+    "id": "AC-reuse",
+    "group": "reuse",
+    "text": "The existing flow is reused UNCHANGED (markers stay): registerServiceWorker updatefound wiring, showBanner + SKIP_WAITING post, controllerchange->reload, the sw.js SKIP_WAITING handler; checkForUpdate re-scoped to be callable periodically (impl-edit); ignoreSearchNav/flushAndReload untouched."
+   },
+   {
+    "id": "AC-ux",
+    "group": "ux",
+    "text": "Primary UX = the existing one-tap banner ('New version - reload') \u2014 no surprise reload mid-edit. (Auto-reload-on-idle is a flagged nice-to-have follow-up, NOT in this scope.)"
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "Tron deploy-visibility re-check: after a deploy, the banner appears within the poll interval WITHOUT a hard-refresh; DET-3x on the poll/claim behavior."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

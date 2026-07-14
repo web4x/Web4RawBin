@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "decc53f9-13b9-4785-bddf-b1f001bb2b9c",
+  "name": "swUpdate.claimClients",
+  "description": "Add self.clients.claim() to the sw.js activate handler (after old-cache cleanup) so the newly-activated Service Worker immediately controls all open pages, so the existing controllerchange -> location.reload() fires. Pairs with the existing SKIP_WAITING handler (skipWaiting + claim = standard reliable takeover).",
+  "class": "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133",
+  "classes": [
+   "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133"
+  ],
+  "method": "ior:instance:55ca881d-6f20-4bac-af66-6771d119c276",
+  "coveredRequirement": "ior:instance:76512c5f-3e87-4e4f-99aa-113312458e07"
+ },
+ "ownerIor": "ior:instance:76512c5f-3e87-4e4f-99aa-113312458e07"
+}

@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "ba7b15ab-c785-4c94-a8fe-936016b0023c",
+  "name": "swUpdate.pollForUpdate",
+  "description": "While the app is open, periodically force an update check (setInterval ~60s + on visibilitychange-visible / window focus, debounced): call registration.update() to force the browser to re-fetch sw.js (bytes change per deploy via CACHE_NAME bump -> updatefound -> existing banner path) AND re-run the /api/config version compare. Makes a new deploy visible WITHOUT a hard-refresh.",
+  "class": "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133",
+  "classes": [
+   "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133"
+  ],
+  "method": "ior:instance:82e5ba83-cd95-4873-b3df-27f522522b24",
+  "coveredRequirement": "ior:instance:76512c5f-3e87-4e4f-99aa-113312458e07"
+ },
+ "ownerIor": "ior:instance:76512c5f-3e87-4e4f-99aa-113312458e07"
+}

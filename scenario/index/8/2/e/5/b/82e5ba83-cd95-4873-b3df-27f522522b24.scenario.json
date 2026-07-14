@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "82e5ba83-cd95-4873-b3df-27f522522b24",
+  "name": "ServiceWorker.pollForWorkerUpdate",
+  "implementations": [
+   "ior:instance:f1456992-163b-40ed-abb5-b5f2d4730dc6"
+  ],
+  "tests": [],
+  "note": "R30.14. Name EXACT. setInterval(~60s)+visibilitychange/focus (debounced) -> reg.update() + periodic /api/config version compare -> existing updatefound->banner. THE piece that makes deploys visible without reload."
+ },
+ "ownerIor": "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133"
+}

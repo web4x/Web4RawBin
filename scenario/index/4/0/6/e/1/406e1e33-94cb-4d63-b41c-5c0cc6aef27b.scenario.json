@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "406e1e33-94cb-4d63-b41c-5c0cc6aef27b",
+  "name": "ServiceWorker.claimClients impl",
+  "tests": [],
+  "sourceFile": "ior:file:src/public/sw.js",
+  "designAhead": true,
+  "description": "DESIGN-AHEAD: clients.claim() in sw.js activate for reliable takeover. Expert builds + tags [impl] marker (=this Impl uuid)."
+ },
+ "ownerIor": "ior:instance:55ca881d-6f20-4bac-af66-6771d119c276"
+}
