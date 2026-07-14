@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "afb868e1-3f36-4dea-ac69-caf82d6349c9",
+  "name": "RbDiffEditor.renderCenterChangeBlocks",
+  "implementations": [
+   "ior:instance:37c9694c-8af3-41fd-9cbc-69b505642b05"
+  ],
+  "tests": [],
+  "note": "R30.16. Name EXACT. Monaco deltaDecorations on CENTER hunk spans -> colored rounded-block backgrounds by hunk type (conflictColor()/CONFLICT_PALETTE: blue #3a6ea5 one-side / green #3a8a5a resolvable / brown #a5603a conflict). Shared color helper used by BOTH this + renderConnectorRibbons. Supersedes renderMergeGutter center flat deco (impl-edit, marker stays)."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

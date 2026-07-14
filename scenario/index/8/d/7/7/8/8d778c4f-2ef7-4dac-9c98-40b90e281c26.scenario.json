@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "8d778c4f-2ef7-4dac-9c98-40b90e281c26",
+  "name": "diffEditor.centerChangeBlocks",
+  "description": "Render Monaco range decorations on the CENTER editor over each hunk span: colored rounded-block backgrounds by hunk type (blue one-side / green resolvable / brown conflict), replacing the flat maroon de-conflict-line, so changes read as IntelliJ colored blocks.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:afb868e1-3f36-4dea-ac69-caf82d6349c9",
+  "coveredRequirement": "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f"
+ },
+ "ownerIor": "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f"
+}

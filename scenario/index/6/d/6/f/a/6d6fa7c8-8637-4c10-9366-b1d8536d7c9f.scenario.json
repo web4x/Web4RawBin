@@ -2,7 +2,7 @@
  "ior": "ior:class:Requirement",
  "model": {
   "uuid": "6d6fa7c8-8637-4c10-9366-b1d8536d7c9f",
-  "name": "IntelliJ 3-pane line alignment + scroll-to-last-line",
+  "name": "IntelliJ 3-pane: line alignment + center change blocks + scroll-to-last-line",
   "altId": "R30.16",
   "tasks": [],
   "tests": [],
@@ -12,7 +12,8 @@
   "sprintName": "Sprint 30",
   "unitLinks": [],
   "useCases": [
-   "ior:instance:0faad449-02fd-46f0-abb5-b731826b7ac8"
+   "ior:instance:0faad449-02fd-46f0-abb5-b731826b7ac8",
+   "ior:instance:8d778c4f-2ef7-4dac-9c98-40b90e281c26"
   ],
   "description": "Align the 3 merge panes so each change's region lines up horizontally Local<->Center<->Right (IntelliJ), and fix scroll-to-last-line. alignPaneRows walks centerSeq and inserts Monaco viewZone blank-row spacers at each conflict (spacer = maxH - hPane after each pane's block, maxH = max(local.len, picked.len, remote.len)) so every pane reaches the next equal-run at the same visual row; real line numbers stay the file's own; recompute on rebuildCenter + mount. Because all 3 panes then have equal total height, the syncScroll3 length-mismatch clamp-drag is gone (synced scroll reaches each file's full extent); combined with flipping scrollBeyondLastLine to true on all 3 editors, the last line can scroll to the TOP. Ribbons (R30.13) then connect aligned rows (near-horizontal, legible).",
   "tronQuote": "> Tron R30.13 feedback #2+#3 2026-07-14: the panes are numbered independently so you cannot trace a change across panes (should line up like IntelliJ); and synced scroll will not bring a file's last line to the top.",
@@ -27,7 +28,7 @@
    "ior:instance:9b525a80-5d8d-4533-a194-f63da132dd37",
    "ior:instance:c6f127bc-9f13-4f5f-945a-55a6293101eb"
   ],
-  "crossRefNote": "Aligns the R30.13 3-pane merge (renderConnectorRibbons ab145dab draw on the aligned rows) + R30.12 (2-way centerSeq). Class RbDiffEditor REUSE 18165081. 1 new Method alignPaneRows. Build-note (impl-edits, markers STAY): rebuildCenter/render tail calls alignPaneRows AFTER spans set + BEFORE renderConnectorRibbons; mountThreePane (c4c84142) flips scrollBeyondLastLine->true; REUSED unchanged computeTwoWayHunks/computeMergedCenter/acceptChange/syncScroll3/renderConnectorRibbons (endpoint math reads post-align Y free). RIBBON-VISIBILITY widen-gutter = R30.13-impl (renderInterPaneGutters 98c5a33a / renderConnectorRibbons ab145dab), NOT minted here.",
+  "crossRefNote": "Aligns the R30.13 3-pane merge (renderConnectorRibbons ab145dab draw on the aligned rows) + R30.12 (2-way centerSeq). Class RbDiffEditor REUSE 18165081. 1 new Method alignPaneRows. Build-note (impl-edits, markers STAY): rebuildCenter/render tail calls alignPaneRows AFTER spans set + BEFORE renderConnectorRibbons; mountThreePane (c4c84142) flips scrollBeyondLastLine->true; REUSED unchanged computeTwoWayHunks/computeMergedCenter/acceptChange/syncScroll3/renderConnectorRibbons (endpoint math reads post-align Y free). RIBBON-VISIBILITY widen-gutter = R30.13-impl (renderInterPaneGutters 98c5a33a / renderConnectorRibbons ab145dab), NOT minted here. PLUS renderCenterChangeBlocks (2nd new Method) = colored rounded CENTER change blocks (shared conflictColor()/CONFLICT_PALETTE with renderConnectorRibbons); supersedes renderMergeGutter center flat deco (impl-edit, marker stays).",
   "acceptanceCriteria": [
    {
     "id": "AC-align",
@@ -38,6 +39,11 @@
     "id": "AC-ribbons-aligned",
     "group": "align",
     "text": "alignPaneRows runs BEFORE renderConnectorRibbons so the ribbons connect aligned rows (near-horizontal, legible); renderConnectorRibbons endpoint math is unchanged (getTopForLineNumber returns the post-align Y)."
+   },
+   {
+    "id": "AC-center-blocks",
+    "group": "blocks",
+    "text": "renderCenterChangeBlocks renders Monaco range decorations on the CENTER over each hunk span as colored rounded-block backgrounds by hunk type (blue one-side / green resolvable / brown conflict), replacing the flat maroon de-conflict-line; uses the shared conflictColor()/CONFLICT_PALETTE (same helper as renderConnectorRibbons), and supersedes renderMergeGutter center flat deco (impl-edit, marker stays)."
    },
    {
     "id": "AC-scroll-extent",
