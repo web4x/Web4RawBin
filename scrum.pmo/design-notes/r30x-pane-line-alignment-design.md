@@ -23,6 +23,12 @@ The R30.13 ribbons render but are INVISIBLE — expert's root cause: `.de-panes 
 - **`syncScroll3` UNCHANGED:** alignment makes cumulative heights equal at each conflict boundary, so `setScrollTop(sameValue)` keeps aligned rows aligned across panes.
 - Works in BOTH 2-way + 3-way (both populate `centerSeq`/`conflicts`).
 
+## ★ COVERAGE decision (expert scoping) — R30.16 = v1 (conflicts[]-only), v2 = fast-follow
+Both `renderCenterChangeBlocks` and `renderConnectorRibbons` iterate the SAME `conflicts[]` → **they agree on coverage by construction** (same source set), regardless of what's in it. The only open decision = does `conflicts[]` include 3-way auto-applied one-sided changes:
+- **2-way: FULLY covered either way** — every hunk is a `Conflict` (kind=change) → blue blocks + ribbons for all. This is Tron's CURRENT primary use (README-vs-version compares, the screenshots).
+- **3-way:** diff3 auto-applies non-conflicting one-sided changes into `ok`-runs (NOT `conflicts[]`) → v1 shows blocks/ribbons for TRUE CONFLICTS only (red), not the blue one-sided changes IntelliJ also shows.
+- **DECISION (architect): R30.16 = v1 (conflicts[]-only).** Ships full 2-way coverage + 3-way conflicts NOW, keeps the co-build shippable, ribbons+blocks always agree (same `conflicts[]`). **v2 = a clean fast-follow req:** `computeMergedCenter` impl-edit surfaces each 3-way one-sided diff3 region (an `ok`-run whose content ≠ its base slice) as a `kind:'change'` hunk (auto-picked to the changed side, but tracked so it gets a blue block + ribbon + take-over arrow) — full IntelliJ 3-way coverage. Bounded impl-edit, no new Class/Method. Reason to phase: 3-way merges (real merge-base) are currently rare in RawBin; v1 delivers the visible value for the active 2-way use immediately; v2 completes 3-way fidelity without bloating this co-build.
+
 ## ★ Scroll-to-last-line (Tron R30.13#3) — FOLD into R30.16 (2 causes, MEASURED)
 Symptom: synced scroll won't bring a file's LAST line to the top; stops wrong. TWO causes:
 1. **Pane length-mismatch → syncScroll3 clamp-drag.** `syncScroll3` sets raw `setScrollTop(e.scrollTop)` on all 3; with different scrollHeights the shorter pane CLAMPS, and since each pane is also a scroll SOURCE, the clamped one fires back and drags the others → wrong stop. **`alignPaneRows` FIXES this:** spacers make all 3 panes EQUAL total height (equal-runs identical + each conflict padded to maxH) → one consistent scroll range → no clamp-drag. ✔
