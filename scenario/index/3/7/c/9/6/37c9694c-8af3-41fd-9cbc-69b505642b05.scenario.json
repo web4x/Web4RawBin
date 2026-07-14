@@ -1,12 +1,14 @@
 {
- "ior": "ior:class:Implementation",
- "model": {
-  "uuid": "37c9694c-8af3-41fd-9cbc-69b505642b05",
-  "name": "RbDiffEditor.renderCenterChangeBlocks impl",
-  "tests": [],
-  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-  "designAhead": true,
-  "description": "DESIGN-AHEAD: colored rounded-block Monaco decorations on CENTER hunk spans via shared conflictColor()/CONFLICT_PALETTE. Expert builds + tags [impl] marker (=this Impl uuid)."
- },
- "ownerIor": "ior:instance:afb868e1-3f36-4dea-ac69-caf82d6349c9"
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "37c9694c-8af3-41fd-9cbc-69b505642b05",
+    "name": "RbDiffEditor.renderCenterChangeBlocks impl",
+    "tests": [
+      "ior:instance:ae075854-70b7-4760-96a1-2ee6b84b3e4e"
+    ],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: colored rounded-block Monaco decorations on CENTER hunk spans via shared conflictColor()/CONFLICT_PALETTE. Expert builds + tags [impl] marker (=this Impl uuid)."
+  },
+  "ownerIor": "ior:instance:afb868e1-3f36-4dea-ac69-caf82d6349c9"
 }

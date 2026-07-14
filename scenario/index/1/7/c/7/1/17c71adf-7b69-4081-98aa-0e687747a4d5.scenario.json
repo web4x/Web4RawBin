@@ -1,12 +1,14 @@
 {
- "ior": "ior:class:Implementation",
- "model": {
-  "uuid": "17c71adf-7b69-4081-98aa-0e687747a4d5",
-  "name": "RbDiffEditor.alignPaneRows impl",
-  "tests": [],
-  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-  "designAhead": true,
-  "description": "DESIGN-AHEAD: viewZone spacer alignment. Called from rebuildCenter tail before renderConnectorRibbons. Companion impl-edit flips mountThreePane scrollBeyondLastLine->true. Expert builds + tags [impl] marker (=this Impl uuid)."
- },
- "ownerIor": "ior:instance:3488e2eb-7c3f-451f-8053-d071807cbf0d"
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "17c71adf-7b69-4081-98aa-0e687747a4d5",
+    "name": "RbDiffEditor.alignPaneRows impl",
+    "tests": [
+      "ior:instance:4ca2ff58-1f79-4299-80c9-4dd6edf9c725"
+    ],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: viewZone spacer alignment. Called from rebuildCenter tail before renderConnectorRibbons. Companion impl-edit flips mountThreePane scrollBeyondLastLine->true. Expert builds + tags [impl] marker (=this Impl uuid)."
+  },
+  "ownerIor": "ior:instance:3488e2eb-7c3f-451f-8053-d071807cbf0d"
 }
