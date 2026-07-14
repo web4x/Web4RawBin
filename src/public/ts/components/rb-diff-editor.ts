@@ -6,7 +6,7 @@
 // (R30.6.1/6.3) SUPERSEDED by computeMergedCenter/renderMergeGutter/acceptChange; loadSide/pickFile/pickRef/save/
 // swapSides KEPT (re-scoped). Monaco via the shared CDN/AMD loader (reuse rb-code-editor); node-diff3 vendored.
 import './rb-file-tree.js';
-import { diff3Merge, type Diff3Region } from '../vendor/diff3.js';
+import { diff3Merge, diffIndices, type Diff3Region } from '../vendor/diff3.js';
 
 const MONACO_VS = 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs';
 let _monacoPromise: Promise<any> | null = null;
@@ -158,9 +158,10 @@ export class RbDiffEditor extends HTMLElement {
     this.conflicts = [];
     this.centerSeq = [];
     if (this.base === '') {
-      // No merge-base → 2-way fallback: CENTER starts as LOCAL; accept-arrows act as plain take-over.
+      // R30.12: no merge-base → 2-way TAKE-OVER. LCS(local,remote) → conflicts[] as take-over hunks so the gutter
+      // renders ◄/► (pick='a' keep Local default, ► take Version). Previously centerSeq was flat local → no arrows.
       this.twoWay = true;
-      this.centerSeq = [{ ok: localLines.slice() }];
+      this.computeTwoWayHunks(localLines, remoteLines);
     } else {
       this.twoWay = false;
       let cid = 0;
@@ -176,6 +177,24 @@ export class RbDiffEditor extends HTMLElement {
     if (ct) ct.textContent = this.left.path ? `merged: ${this.left.path}` : 'merged';
     const nc = this.conflicts.length;
     this.status(this.twoWay ? '2-way (no merge-base) — accept ◄/► as take-over' : `${nc} conflict${nc === 1 ? '' : 's'} to resolve${nc ? '' : ' — clean auto-merge'}${this.dirty ? ' • modified' : ''}`);
+  }
+
+  // [impl:uuid:def2c0f2-0ded-430b-9d4e-3d54665f27bc] RbDiffEditor.computeTwoWayHunks
+  // R30.12 two-way take-over: LCS(local,remote) via the vendored diffIndices → each mismatched chunk becomes a
+  // Conflict (a=Local lines, b=Version lines, pick='a' = keep Local; ► = take Version). Equal runs go in as ok
+  // segments, mismatches as conflict segments — so centerSeq/rebuildCenter + renderMergeGutter show ◄/► arrows.
+  private computeTwoWayHunks(localLines: string[], remoteLines: string[]): void {
+    let cid = 0, cursor = 0;
+    for (const d of diffIndices(localLines, remoteLines)) {
+      const [lStart, lLen] = d.buffer1; // local chunk
+      const [rStart, rLen] = d.buffer2; // version chunk
+      if (lStart > cursor) this.centerSeq.push({ ok: localLines.slice(cursor, lStart) }); // equal run (local==version here)
+      this.conflicts.push({ id: cid, a: localLines.slice(lStart, lStart + lLen), b: remoteLines.slice(rStart, rStart + rLen), pick: 'a', span: [0, 0] });
+      this.centerSeq.push({ cid });
+      cid++;
+      cursor = lStart + lLen;
+    }
+    if (cursor < localLines.length) this.centerSeq.push({ ok: localLines.slice(cursor) }); // trailing equal run
   }
 
   // Deterministic flatten of centerSeq → CENTER text, recomputing each conflict's current line span (for the gutter).
@@ -231,7 +250,7 @@ export class RbDiffEditor extends HTMLElement {
     }
     bar.innerHTML = this.conflicts.length
       ? this.conflicts.map(c => `<span style="display:inline-flex;gap:2px;align-items:center;border:1px solid #a33;border-radius:3px;padding:1px 4px">`
-        + `<b style="opacity:0.7;font-size:0.65rem">conflict #${c.id}${c.pick === 'a' ? ' (Local)' : c.pick === 'b' ? ' (Repo)' : ''}</b>`
+        + `<b style="opacity:0.7;font-size:0.65rem">${this.twoWay ? 'take-over' : 'conflict'} #${c.id}${c.pick === 'a' ? ' (Local)' : c.pick === 'b' ? ' (Repo)' : ''}</b>`
         + `<button class="de-accept" data-cid="${c.id}" data-side="left" title="Accept Local">◄</button>`
         + `<button class="de-accept" data-cid="${c.id}" data-side="right" title="Accept Repository">►</button></span>`).join('')
       : '<span style="opacity:0.5">no conflicts</span>';

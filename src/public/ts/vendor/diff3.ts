@@ -39,7 +39,8 @@ function LCS(buffer1: string[], buffer2: string[]): Candidate {
 interface DiffIndex { buffer1: [number, number]; buffer2: [number, number] }
 
 // Offsets + LENGTHS of mismatched chunks (buffer[0]=start, buffer[1]=length).
-function diffIndices(buffer1: string[], buffer2: string[]): DiffIndex[] {
+// Exported for R30.12 2-way take-over (LCS local-vs-remote hunks; same faithful LCS as diff3Merge).
+export function diffIndices(buffer1: string[], buffer2: string[]): DiffIndex[] {
   const lcs = LCS(buffer1, buffer2);
   const result: DiffIndex[] = [];
   let tail1 = buffer1.length;
