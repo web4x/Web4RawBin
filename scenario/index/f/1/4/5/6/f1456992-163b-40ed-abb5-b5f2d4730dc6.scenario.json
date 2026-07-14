@@ -1,12 +1,14 @@
 {
- "ior": "ior:class:Implementation",
- "model": {
-  "uuid": "f1456992-163b-40ed-abb5-b5f2d4730dc6",
-  "name": "ServiceWorker.pollForWorkerUpdate impl",
-  "tests": [],
-  "sourceFile": "ior:file:src/public/ts/components/rb-update-banner.ts",
-  "designAhead": true,
-  "description": "DESIGN-AHEAD: periodic reg.update()+visibility/focus poll re-runs the existing update detection. Expert builds + tags [impl] marker (=this Impl uuid)."
- },
- "ownerIor": "ior:instance:82e5ba83-cd95-4873-b3df-27f522522b24"
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f1456992-163b-40ed-abb5-b5f2d4730dc6",
+    "name": "ServiceWorker.pollForWorkerUpdate impl",
+    "tests": [
+      "ior:instance:0ad9eaa2-ff76-4aa0-b280-5ba0710a03fb"
+    ],
+    "sourceFile": "ior:file:src/public/ts/components/rb-update-banner.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: periodic reg.update()+visibility/focus poll re-runs the existing update detection. Expert builds + tags [impl] marker (=this Impl uuid)."
+  },
+  "ownerIor": "ior:instance:82e5ba83-cd95-4873-b3df-27f522522b24"
 }
