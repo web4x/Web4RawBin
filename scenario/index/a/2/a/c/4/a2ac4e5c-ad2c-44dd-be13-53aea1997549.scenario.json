@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "a2ac4e5c-ad2c-44dd-be13-53aea1997549",
+    "name": "Task 30.10: Right pane defaults to the files git history",
+    "slug": "task-30.10-right-git-history-default",
+    "description": "Default the RIGHT pane of the diff/merge editor to the files git history (prior committed version) so opening a file shows a meaningful base-vs-current comparison by default.",
+    "intention": "S30 diff/merge editor completion (R30.10). Minted for #126 traceability (was requirement-only).",
+    "context": "Covers R30.10 (168d5c58). Class RbDiffEditor.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "STOOD UP (planning) — status Planned; was requirement-only, minted for #126 traceability. Status to be advanced per PO/architect hop-signals (some R30.1x may already be shipped/gated — verify).",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.10 `[requirement:uuid:168d5c58-2373-45f4-9018-0cd1e3528677]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:3a442bc4-dfd7-4d70-a4dd-05c0ab69d24c]`",
+    "acceptanceCriteria": "- [ ] (history) Opening the diff on a git-tracked file populates a RIGHT-side history select (newest-first, git log --follow) and defaults it to the most-recent committed version; LEFT stays the current working file (default view = working vs last commit).\n- [ ] (history) Selecting an older commit reloads the RIGHT side to that version (loadSide -> fileAtRef -> git show <sha>:<path>); the R30.9 base-aware merge recomputes.\n- [ ] (fallback) Untracked / new / non-git file -> history select shows 'no history', no default; RIGHT falls back to manual pickFile/pickRef (unchanged, graceful).\n- [ ] (security) fileHistory is PATH-guarded via RepoRegistry.resolve(repo key) + safeRelPath (no '..', within-root) — NOT guardRef (guardRef is for the ref on the subsequent git show, not the path); execFile array-args (no shell), read-only; unknown repo key -> 400.\n- [ ] (verify) GitApi.fileHistory returns the correct newest-first [{sha,date,author,subject}] list for a known path (NUL-delimited parse test).",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:168d5c58-2373-45f4-9018-0cd1e3528677"
+    ],
+    "useCases": [
+      "ior:instance:3a442bc4-dfd7-4d70-a4dd-05c0ab69d24c"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-14"
+  },
+  "ownerIor": null
+}

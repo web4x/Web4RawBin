@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "5e2ec981-3d12-4c4a-bd2f-7188f82952a9",
+    "name": "Task 30.15: Right-history default meaningful + usable",
+    "slug": "task-30.15-right-history-usable",
+    "description": "Make the right-pane history default meaningful and usable: pick a sensible default git ref and let the user change it.",
+    "intention": "S30 diff/merge editor completion (R30.15). Minted for #126 traceability (was requirement-only).",
+    "context": "Covers R30.15 (c2472818). Class RbDiffEditor.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "STOOD UP (planning) — status Planned; was requirement-only, minted for #126 traceability. Status to be advanced per PO/architect hop-signals (some R30.1x may already be shipped/gated — verify).",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.15 `[requirement:uuid:c2472818-0d33-4d4d-9f34-a858c03bb346]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:2fff4ee3-f84d-491e-9043-6f63bf3a8c69]`",
+    "acceptanceCriteria": "- [ ] (default) On Open-Diff for a git-tracked file, RIGHT defaults to the newest committed version that DIFFERS from LEFT: HEAD~1 when the clean working file already equals the newest commit, HEAD when there are uncommitted changes - so the diff is non-empty (not a file compared to itself = 0 changes).\n- [ ] (race) The async newest-autoload must NOT overwrite a user ref/file pick made while it is in flight: guard with a sequence-token/flag so a later user pick wins over the in-flight autoload.\n- [ ] (verify) Open-Diff on a clean git file shows working-vs-HEAD~1 (non-empty diff); a user ref-pick during autoload is preserved; DET-3x.",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:c2472818-0d33-4d4d-9f34-a858c03bb346"
+    ],
+    "useCases": [
+      "ior:instance:2fff4ee3-f84d-491e-9043-6f63bf3a8c69"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-14"
+  },
+  "ownerIor": null
+}

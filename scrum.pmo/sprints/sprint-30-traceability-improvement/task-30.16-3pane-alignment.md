@@ -1,0 +1,55 @@
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
+
+# Task 30.16: IntelliJ 3-pane line alignment + center
+
+[task:uuid:60cc5603-7fac-4021-abcf-af1684d5fd84]
+
+## Status
+- [x] Planned
+- [ ] In Progress
+  - [ ] refinement
+  - [ ] creating test cases
+  - [ ] implementing
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
+
+## Traceability
+
+  - up
+    - [Sprint 30 Planning](./planning.md)
+    - Requirement R30.16 `[requirement:uuid:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f]`
+  - down
+    - [UC](./planning.md) `[uc:uuid:0faad449-02fd-46f0-abb5-b731826b7ac8]`
+
+## Task Description
+
+IntelliJ 3-pane line alignment: align corresponding lines across left/center/right with the center as the merge result.
+
+## Context
+
+Covers R30.16 (6d6fa7c8). Class RbDiffEditor.
+
+## Intention
+
+S30 diff/merge editor completion (R30.16). Minted for #126 traceability (was requirement-only).
+
+## Acceptance Criteria
+
+- [ ] (align) alignPaneRows inserts Monaco viewZone blank-row spacers at each conflict (spacer = maxH - hPane after each pane's block, maxH = max(local.len, picked.len, remote.len)) so each change region lines up horizontally Local<->Center<->Right; real line numbers stay the file's own; recompute on rebuildCenter + mount.
+- [ ] (align) alignPaneRows runs BEFORE renderConnectorRibbons so the ribbons connect aligned rows (near-horizontal, legible); renderConnectorRibbons endpoint math is unchanged (getTopForLineNumber returns the post-align Y).
+- [ ] (blocks) renderCenterChangeBlocks renders Monaco range decorations on the CENTER over each hunk span as colored rounded-block backgrounds by hunk type (blue one-side / green resolvable / brown conflict), replacing the flat maroon de-conflict-line; uses the shared conflictColor()/CONFLICT_PALETTE (same helper as renderConnectorRibbons), and supersedes renderMergeGutter center flat deco (impl-edit, marker stays).
+- [ ] (scroll) Post-alignment all 3 panes have EQUAL total height, so the syncScroll3 length-mismatch clamp-drag is gone and synced scroll reaches each file's full extent (no wrong stop from a shorter pane clamping).
+- [ ] (scroll) scrollBeyondLastLine is set to TRUE on all 3 editors (companion impl-edit to mountThreePane c4c84142, currently false @ rb-diff-editor.ts:114) so the LAST line can scroll to the TOP.
+- [ ] (modes) Alignment + scroll fixes work in BOTH 2-way (R30.12) and 3-way (R30.9) — both populate centerSeq/conflicts.
+- [ ] (verify) Tron visual: change rows line up Local<->Center<->Right + ribbons connect aligned rows + last line scrolls to the top + synced scroll reaches full extent; DET-3x on alignPaneRows.
+
+## Implementation
+
+STOOD UP (planning) — status Planned; was requirement-only, minted for #126 traceability. Status to be advanced per PO/architect hop-signals (some R30.1x may already be shipped/gated — verify).
+
+## Subtasks
+
+None (atomic task).
