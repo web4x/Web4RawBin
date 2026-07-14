@@ -259,6 +259,7 @@ export class RbDiffEditor extends HTMLElement {
     if (!this.edCenter || !this.monaco) return;
     this.alignPaneRows();            // (2) viewZone blank-row spacers → blocks line up L↔C↔R
     this.renderCenterChangeBlocks(); // (3) colored rounded change-blocks (replaces the flat de-conflict-line)
+    this.renderSideChangeBlocks();   // (3b) R30.19: same-colored blocks in the Local + Repository source panes
     this.querySelector('.de-accept-bar')?.remove();
     this.renderInterPaneGutters();   // (4) ≫/≪/✕ icons in the widened gutter
     this.renderConnectorRibbons();   // (5) SVG ribbons, palette-matched to the blocks
@@ -307,6 +308,24 @@ export class RbDiffEditor extends HTMLElement {
     this._blockDecoIds = this.edCenter.deltaDecorations(this._blockDecoIds, decos);
   }
   private _blockDecoIds: string[] = [];
+
+  // [impl:uuid:eb994dcd-d9dc-4b55-84e8-13b2be3b47d5] RbDiffEditor.renderSideChangeBlocks
+  // R30.19: colored change-block backgrounds in the SOURCE panes too — Local shows its a-lines, Repository its b-lines,
+  // both with the SAME de-block-<kind> class (shared CONFLICT_PALETTE) → source blocks color-MATCH the center block +
+  // the ribbon by construction. Origin-aware (a.length>0 → Local, b.length>0 → Repository, R30.17 gate). LINE-anchored
+  // on the real source lines (Monaco Range on aStart/bStart) — no getTopForLineNumber, no off-by-one.
+  private renderSideChangeBlocks(): void {
+    if (!this.edLocal || !this.edRemote || !this.monaco) return;
+    const m = this.monaco;
+    const live = this.conflicts.filter(c => !this.dismissed.has(c.id));
+    const decosFor = (startKey: 'aStart' | 'bStart', linesKey: 'a' | 'b') => live.filter(c => c[linesKey].length > 0).map(c => ({
+      range: new m.Range(c[startKey] + 1, 1, c[startKey] + c[linesKey].length, 1),
+      options: { isWholeLine: true, className: `de-block-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}` },
+    }));
+    this._sideDecoIds.local = this.edLocal.deltaDecorations(this._sideDecoIds.local, decosFor('aStart', 'a'));
+    this._sideDecoIds.remote = this.edRemote.deltaDecorations(this._sideDecoIds.remote, decosFor('bStart', 'b'));
+  }
+  private _sideDecoIds: { local: string[]; remote: string[] } = { local: [], remote: [] };
   private dismissed = new Set<number>();   // R30.13: changes the user ✕-ignored (visual dismiss; center untouched)
   private _jumpIdx = -1;
   private _ribbonSvg: SVGSVGElement | null = null;
