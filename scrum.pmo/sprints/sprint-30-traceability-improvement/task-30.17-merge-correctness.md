@@ -8,10 +8,10 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
-  - [ ] implementing
+  - [~] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
@@ -47,7 +47,7 @@ S30 diff/merge editor completion (R30.17). Minted for #126 traceability (was req
 
 ## Implementation
 
-STOOD UP (planning) — status Planned; was requirement-only, minted for #126 traceability. Status to be advanced per PO/architect hop-signals (some R30.1x may already be shipped/gated — verify).
+IN PROGRESS (active — PO: awaiting derive-confirm->build-go). NOTE: PO referenced cdeda1bb1 for T30.17 but not on disk; my b74f8023 is the task. FLAG for reconcile.
 
 ## Subtasks
 

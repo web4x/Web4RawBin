@@ -47,7 +47,7 @@ S30 diff/merge editor completion (R30.11). Minted for #126 traceability (was req
 
 ## Implementation
 
-STOOD UP (planning) — status Planned; was requirement-only, minted for #126 traceability. Status to be advanced per PO/architect hop-signals (some R30.1x may already be shipped/gated — verify).
+BACKLOG (not built) — status Planned per PO.
 
 ## Subtasks
 
