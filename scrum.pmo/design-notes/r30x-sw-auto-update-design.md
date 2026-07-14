@@ -9,7 +9,8 @@
 **Root cause:** the detection is correct BUT only fires on load/navigation. A PWA left open never re-checks sw.js (`updatefound` dormant) and never re-runs `checkForUpdate` → Tron must hard-refresh to trigger it. Plus, without `clients.claim()`, even after skipWaiting the new SW may not grab the open page → controllerchange unreliable.
 
 ## Fix — 2 targeted additions (reuse the existing banner/skipWaiting flow)
-### (1) Proactive detection — Method `RbUpdateBanner.pollForWorkerUpdate` (NEW)
+### (1) Proactive detection — Method `ServiceWorker.pollForWorkerUpdate` (NEW)
+<!-- CORRECTED: was RbUpdateBanner.pollForWorkerUpdate (slip) — RbUpdateBanner is NOT a scenario Class; the method is on Class ServiceWorker 8bd3bd6b. req caught it, minted ServiceWorker.pollForWorkerUpdate. AST decl name = pollForWorkerUpdate() in rb-update-banner.ts. -->
 While the app is open, periodically force a check so the user never has to reload to be told:
 - `setInterval(~60s)` + on `document.visibilitychange`(visible) / window `focus`: call `reg.update()` (forces the browser to re-fetch sw.js; if its bytes changed via the CACHE_NAME bump → `updatefound` fires → the EXISTING banner path lights up) AND re-run the `/api/config` version compare (the existing checkForUpdate logic, now periodic, as a belt-and-suspenders trigger).
 - Debounce so a burst of focus/visibility events = one check. This is the piece that makes deploys visible WITHOUT a hard-refresh.
@@ -20,8 +21,8 @@ Add `self.clients.claim()` to the sw.js `activate` handler (after the old-cache 
 ### REUSE unchanged (build-note — markers STAY)
 `RbUpdateBanner.registerServiceWorker` (updatefound wiring) + `showBanner` (banner + SKIP_WAITING post) + the `controllerchange → reload`; sw.js `SKIP_WAITING` message handler; the unrelated sw.js impls (flushAndReload 4bb96a28/79505a42, ignoreSearchNav cec00d7f, OfflinePage.reloadButton 3f6a9ce1) UNTOUCHED. `checkForUpdate` re-scoped to be callable periodically (impl-edit, marker stays).
 
-## UX decision (flag to PO/Tron)
-Primary = the existing **one-tap banner** ("New version — reload") — the single tap replaces the hard-refresh, no surprise reload mid-edit. OPTION (nice-to-have): auto-reload when the page is idle/hidden (reload on next visibilitychange→visible if an update is pending) so it's zero-tap without interrupting active work. Recommend banner-first; auto-reload-on-idle as a follow-up if Tron wants zero-tap.
+## UX decision — DECIDED (PO 2026-07-14): BANNER-FIRST, auto-reload REJECTED
+The existing **one-tap banner** ("New version — reload") is the behavior — the single tap replaces the hard-refresh, non-disruptive. **Auto-reload-on-idle is REJECTED**: a reload would nuke in-progress state — critically the merge editor's take-over/CENTER-result state (R30.12/R30.13) — so an unattended reload could lose an unsaved merge. `pollForWorkerUpdate` DETECTS + shows the banner; the USER chooses when to reload. Never auto-reload while work is pending.
 
 ## Chain to mint (scenario-first — req)
 ★ **MEASURED (uuid-file): `RbUpdateBanner` Class = 0 units (does NOT exist — the 'RbUpdateBanner' component is modeled under Class `ServiceWorker`). `ServiceWorker` Class = 8bd3bd6b, 3 methods (ignoreSearchNav, updateBanner, flushAndReload) — it already groups BOTH sw.js AND the banner concern.** So BOTH new methods go on the ONE existing `ServiceWorker` Class — do NOT mint a RbUpdateBanner Class.
