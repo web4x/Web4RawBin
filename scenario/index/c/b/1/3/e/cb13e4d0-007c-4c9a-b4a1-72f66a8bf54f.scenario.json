@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "cb13e4d0-007c-4c9a-b4a1-72f66a8bf54f",
+  "name": "TraceAudit.repointSupersededTests impl",
+  "tests": [],
+  "sourceFile": "ior:file:src/ts/server/trace-cli.ts",
+  "designAhead": true,
+  "description": "DESIGN-AHEAD: gated repoint/retire of superseded Test->Impl + triage 7. Expert/planner builds + tags [impl] marker (=this Impl uuid)."
+ },
+ "ownerIor": "ior:instance:304f67d1-10fd-4dca-85c4-bfe6c427c59c"
+}

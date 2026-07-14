@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "5ae6ac40-1ce3-415c-82bf-622b53c242bd",
+  "name": "scoreboard.walkChainForTests",
+  "description": "Compute a Requirement's test/impl coverage by WALKING Req->UC->Class->Method->Impl and reading Impl.tests[] + [impl] markers, not the denormalized Req.tests[]/Req.tasks[].",
+  "class": "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b",
+  "classes": [
+   "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b"
+  ],
+  "method": "ior:instance:9c6904f7-615d-4dd2-bcf8-07dde8db66c2",
+  "coveredRequirement": "ior:instance:651442ca-bc0d-4422-b324-fb1715f84c61"
+ },
+ "ownerIor": "ior:instance:651442ca-bc0d-4422-b324-fb1715f84c61"
+}

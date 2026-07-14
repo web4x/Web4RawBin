@@ -1,0 +1,68 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "651442ca-bc0d-4422-b324-fb1715f84c61",
+  "name": "Scoreboard/audit measures the walked chain, not denormalized/superseded artifacts",
+  "altId": "R30.11",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:5ae6ac40-1ce3-415c-82bf-622b53c242bd",
+   "ior:instance:b048bb13-4923-4cdc-89a3-4b67e2c0b4d2",
+   "ior:instance:de033e6d-091d-42b6-8d6f-4ba378b73fcd"
+  ],
+  "description": "The traceability scoreboard/audit measures TRUTH by walking the chain, not by reading denormalized or superseded artifacts: (1) a Requirement's coverage is computed by walking Req->UC->Class->Method->Impl to Impl.tests[]/[impl] markers, NOT the denormalized Req.tests[] (which falsely showed R22.3 as no-Test though its Impl bd8e5d6f has Test 91d0edca); (2) Impls annotated supersededBy are excluded from open/uncovered counts (R30.6.1/6.3, retired by R30.9, were falsely scored 'open' \u2014 the tester's -2); (3) the 19 dangling Test->Impl left by the R30.9 supersede are repointed to R30.9's Impls or retired, and 7 other orphans triaged, leaving 0 dangling. By-construction: the scoreboard cannot again false-flag a tested-but-denormalized or superseded unit.",
+  "tronQuote": "> robbin-po directive 2026-07-14 (R27.5 instrument-honesty theme): make the scoreboard measure TRUTH \u2014 walk Req->chain->Impl.tests[]/markers (not denormalized Req.tests[]), honor supersededBy, and repoint/retire the R30.9-supersede dangling. Origin: R22.3 false no-Test (req verify) + tester -2 false open + planner's 26-dangling measure.",
+  "discoverySource": {
+   "type": "team-discovery",
+   "discoveredBy": "robbin-req (R22.3 false-positive) + robbin-tester (-2 supersede false-open) + robbin-planner (26 dangling repo-wide)",
+   "date": "2026-07-14",
+   "note": "Fallout of the R30.9 supersede (R30.6.1 15843ac9 + R30.6.3 37636aaa/6ebfac12): 19 dangling Test->Impl + 7 orphans (0 in S21-25 chains). SAME root cause as the R22.3 audit false-positive: the scoreboard reads denormalized/stale fields instead of walking the chain. Sole-minter FULL chain; planner builds the gated task post-rewind."
+  },
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc",
+   "ior:instance:2c1fd942-a6f1-414c-976f-ea7af7008201",
+   "ior:instance:f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc"
+  ],
+  "crossRefNote": "Instrument-honesty (R27.5 theme: the measurer measures truth). Cleans up the R30.9 supersede fallout + fixes the R22.3-style false no-Test in ONE scoreboard-calibration. Class TraceAudit (trace-cli.ts) REUSE.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-walk",
+    "group": "walk-not-denorm",
+    "text": "A Requirement's test/impl coverage is computed by WALKING Req->UC->Class->Method->Impl to Impl.tests[]/[impl] markers, NOT the denormalized Req.tests[] \u2014 fixing the R22.3-style false 'no-Test' (R22.3 IS tested via Impl bd8e5d6f -> Test 91d0edca)."
+   },
+   {
+    "id": "AC-honor",
+    "group": "honor-superseded",
+    "text": "Impls (and their Methods/Tests) annotated supersededBy are EXCLUDED from open/uncovered counts, fixing the R30.6.1/6.3 false 'open' (the tester's -2)."
+   },
+   {
+    "id": "AC-repoint",
+    "group": "cleanup",
+    "text": "The 19 dangling Test->Impl (Tests of the R30.6.1/6.3 impls retired by R30.9) are repointed to R30.9's replacement Impls OR retired-with-superseded; dry-run + count FIRST; 0 such dangling after."
+   },
+   {
+    "id": "AC-triage7",
+    "group": "cleanup",
+    "text": "The 7 other dangling (4 Req->UC / 2 Req->Test / 1 Task->UC) are triaged (repoint or retire) each with a reason; never silently drop a real edge."
+   },
+   {
+    "id": "AC-by-construction",
+    "group": "by-construction",
+    "text": "After the fix, a tested-but-denormalized-empty Requirement or a superseded Impl cannot produce a false gap/open in the scoreboard (it measures the walked chain, not stale fields)."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "Re-run scoreboard: R22.3 scores TESTED, R30.6.1/6.3 score superseded-not-open, 0 dangling repo-wide (planner dry-run + count evidence)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

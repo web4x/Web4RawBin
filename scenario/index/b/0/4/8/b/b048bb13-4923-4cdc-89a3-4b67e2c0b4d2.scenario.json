@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "b048bb13-4923-4cdc-89a3-4b67e2c0b4d2",
+  "name": "scoreboard.honorSupersededBy",
+  "description": "Exclude Impls (and their Methods/Tests) annotated supersededBy from open/uncovered counts, so a superseded artifact is not scored as an open gap.",
+  "class": "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b",
+  "classes": [
+   "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b"
+  ],
+  "method": "ior:instance:58bbe7fe-062b-483e-91ce-e6ee983e41ff",
+  "coveredRequirement": "ior:instance:651442ca-bc0d-4422-b324-fb1715f84c61"
+ },
+ "ownerIor": "ior:instance:651442ca-bc0d-4422-b324-fb1715f84c61"
+}

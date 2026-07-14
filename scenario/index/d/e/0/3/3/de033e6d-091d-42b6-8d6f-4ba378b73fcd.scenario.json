@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "de033e6d-091d-42b6-8d6f-4ba378b73fcd",
+  "name": "supersede.repointOrRetireTests",
+  "description": "Repoint the 19 dangling Test->Impl (Tests of the R30.6.1/6.3 impls retired by R30.9) to R30.9's replacement Impls, OR retire the Test with its superseded Impl; triage the 7 other dangling (4 Req->UC / 2 Req->Test / 1 Task->UC). Dry-run + count first, 0-dangling after.",
+  "class": "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b",
+  "classes": [
+   "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b"
+  ],
+  "method": "ior:instance:304f67d1-10fd-4dca-85c4-bfe6c427c59c",
+  "coveredRequirement": "ior:instance:651442ca-bc0d-4422-b324-fb1715f84c61"
+ },
+ "ownerIor": "ior:instance:651442ca-bc0d-4422-b324-fb1715f84c61"
+}
