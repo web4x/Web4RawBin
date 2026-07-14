@@ -46,10 +46,13 @@ export class RbDiffEditor extends HTMLElement {
       <div class="de-toolbar" style="display:flex;gap:6px;align-items:center;padding:5px 8px;background:#252526;border-bottom:1px solid #333">
         <b style="font-size:0.75rem">🔀 3-Way Merge</b>
         <button class="de-apply-all" title="Apply All Non-Conflicting Changes">✨ Apply All Non-Conflicting</button>
+        <span class="de-count" style="font-size:0.7rem;opacity:0.85" title="changes / conflicts"></span>
+        <button class="de-jump-prev" title="Previous change">▲</button>
+        <button class="de-jump-next" title="Next change">▼</button>
         <span class="de-status" style="flex:1;font-size:0.7rem;opacity:0.7"></span>
         <button class="de-save" title="Save merged Result">💾 Save</button>
       </div>
-      <div class="de-panes" style="display:flex;flex:1;min-height:0;gap:1px;background:#111">
+      <div class="de-panes" style="display:flex;flex:1;min-height:0;gap:1px;background:#111;position:relative">
         ${(['local', 'center', 'remote'] as const).map(s => `
           <div class="de-pane de-${s}" style="display:flex;flex-direction:column;flex:1;min-width:0;background:#1e1e1e">
             <div class="de-sub" style="display:flex;gap:4px;align-items:center;padding:3px 5px;background:#2d2d2d;border-bottom:1px solid #333;font-size:0.7rem">
@@ -71,6 +74,8 @@ export class RbDiffEditor extends HTMLElement {
     this.querySelector('.de-swap')?.addEventListener('click', () => this.swapSides());
     this.querySelector('.de-save')?.addEventListener('click', () => void this.save());
     this.querySelector('.de-apply-all')?.addEventListener('click', () => this.applyAllNonConflicting());
+    this.querySelector('.de-jump-prev')?.addEventListener('click', () => this.jumpToChange(-1));
+    this.querySelector('.de-jump-next')?.addEventListener('click', () => this.jumpToChange(1));
     void this.mountThreePane();
     void this.populateRepos();
   }
@@ -157,6 +162,7 @@ export class RbDiffEditor extends HTMLElement {
     this.twoWay = this.base === '' && !!(this.left.ref && this.right.ref) ? false : this.base === '';
     this.conflicts = [];
     this.centerSeq = [];
+    this.dismissed.clear(); this._jumpIdx = -1; // R30.13: fresh merge → clear ignored set + jump cursor
     if (this.base === '') {
       // R30.12: no merge-base → 2-way TAKE-OVER. LCS(local,remote) → conflicts[] as take-over hunks so the gutter
       // renders ◄/► (pick='a' keep Local default, ► take Version). Previously centerSeq was flat local → no arrows.
@@ -236,26 +242,114 @@ export class RbDiffEditor extends HTMLElement {
       options: { isWholeLine: true, className: 'de-conflict-line', linesDecorationsClassName: 'de-conflict-gutter', glyphMarginClassName: 'de-conflict-glyph' },
     }));
     this._conflictDecoIds = this.edCenter.deltaDecorations(this._conflictDecoIds || [], decos);
-    // accept arrows overlay (one row per conflict) — ◄ take Local / ► take Repository
-    let bar = this.querySelector('.de-accept-bar') as HTMLElement;
-    if (!bar) {
-      bar = document.createElement('div');
-      bar.className = 'de-accept-bar';
-      bar.style.cssText = 'display:flex;flex-wrap:wrap;gap:4px;padding:3px 8px;background:#252526;border-top:1px solid #333;max-height:64px;overflow:auto';
-      this.querySelector('.de-panes')?.after(bar);
-      bar.addEventListener('click', e => {
-        const b = (e.target as HTMLElement).closest('.de-accept') as HTMLElement | null;
-        if (b) this.acceptChange(Number(b.dataset.cid), b.dataset.side as 'left' | 'right');
-      });
-    }
-    bar.innerHTML = this.conflicts.length
-      ? this.conflicts.map(c => `<span style="display:inline-flex;gap:2px;align-items:center;border:1px solid #a33;border-radius:3px;padding:1px 4px">`
-        + `<b style="opacity:0.7;font-size:0.65rem">${this.twoWay ? 'take-over' : 'conflict'} #${c.id}${c.pick === 'a' ? ' (Local)' : c.pick === 'b' ? ' (Repo)' : ''}</b>`
-        + `<button class="de-accept" data-cid="${c.id}" data-side="left" title="Accept Local">◄</button>`
-        + `<button class="de-accept" data-cid="${c.id}" data-side="right" title="Accept Repository">►</button></span>`).join('')
-      : '<span style="opacity:0.5">no conflicts</span>';
+    // R30.13: the cramped bottom .de-accept-bar is REPLACED by inter-pane gutter icons + connector ribbons (IntelliJ desktop).
+    this.querySelector('.de-accept-bar')?.remove();
+    this.renderInterPaneGutters();
+    this.renderConnectorRibbons();
+    const nc2 = this.conflicts.filter(c => !this.dismissed.has(c.id)).length;
+    const cnt = this.querySelector('.de-count') as HTMLElement;
+    if (cnt) cnt.textContent = `${this.conflicts.length} change${this.conflicts.length === 1 ? '' : 's'}, ${nc2} ${this.twoWay ? 'take-over' : 'conflict'}${nc2 === 1 ? '' : 's'}`;
   }
   private _conflictDecoIds: string[] = [];
+  private dismissed = new Set<number>();   // R30.13: changes the user ✕-ignored (visual dismiss; center untouched)
+  private _jumpIdx = -1;
+  private _ribbonSvg: SVGSVGElement | null = null;
+
+  // Visible Y (px, relative to .de-panes top) of the TOP of 0-based `line0` in Monaco editor `ed`.
+  private lineY(ed: any, line0: number): number {
+    const node = ed?.getDomNode?.(); const panes = this.querySelector('.de-panes') as HTMLElement;
+    if (!node || !panes) return 0;
+    return (node.getBoundingClientRect().top - panes.getBoundingClientRect().top) + (ed.getTopForLineNumber(line0 + 1) - ed.getScrollTop());
+  }
+
+  // [impl:uuid:fd99c520-a56b-46ce-b37b-4108daed1132] RbDiffEditor.renderInterPaneGutters
+  // IntelliJ inter-pane gutters: two slim strips at the Local↔Result and Result↔Repository boundaries. Per change,
+  // icons aligned to its Result row — left ≫ take Local / ✕ ignore, right ≪ take Repository / ✕ ignore, 🪄 at conflicts.
+  // THE DESKTOP FIX: replaces the cramped/invisible bottom .de-accept-bar. Wired to the existing acceptChange.
+  private renderInterPaneGutters(): void {
+    if (!this.edCenter || !this.monaco) return;
+    const panes = this.querySelector('.de-panes') as HTMLElement; if (!panes) return;
+    const pr = panes.getBoundingClientRect();
+    const centerLeft = this.mount('center').getBoundingClientRect().left - pr.left;
+    const remoteLeft = this.mount('remote').getBoundingClientRect().left - pr.left;
+    const mk = (cls: string, leftPx: number): HTMLElement => {
+      let s = this.querySelector('.' + cls) as HTMLElement;
+      if (!s) {
+        s = document.createElement('div'); s.className = cls;
+        s.style.cssText = 'position:absolute;top:0;bottom:0;width:22px;z-index:6;pointer-events:none';
+        s.addEventListener('click', e => {
+          const b = (e.target as HTMLElement).closest('[data-cid]') as HTMLElement | null; if (!b) return;
+          const id = Number(b.dataset.cid);
+          if (b.dataset.act === 'ignore') { this.dismissed.add(id); this.renderInterPaneGutters(); this.renderConnectorRibbons(); }
+          else this.acceptChange(id, b.dataset.act as 'left' | 'right');
+        });
+        panes.appendChild(s);
+      }
+      s.style.left = (leftPx - 11) + 'px';
+      return s;
+    };
+    const leftStrip = mk('de-gutter-left', centerLeft);
+    const rightStrip = mk('de-gutter-right', remoteLeft);
+    const btn = (act: string, id: number, glyph: string, title: string) =>
+      `<button data-cid="${id}" data-act="${act}" title="${title}" style="pointer-events:auto;display:block;width:20px;height:15px;line-height:13px;margin:1px 0;padding:0;font-size:0.65rem;background:#333;border:1px solid #666;color:#ddd;border-radius:3px;cursor:pointer">${glyph}</button>`;
+    const rows = (side: 'left' | 'right') => this.conflicts.filter(c => !this.dismissed.has(c.id)).map(c => {
+      const y = Math.max(0, this.lineY(this.edCenter, c.span[0]));
+      const take = side === 'left' ? btn('left', c.id, '≫', 'Take Local → Result') : btn('right', c.id, '≪', 'Take Repository → Result');
+      const ignore = btn('ignore', c.id, '✕', 'Ignore this change');
+      const wand = (c.a.length && c.b.length) ? `<div style="text-align:center;font-size:0.65rem" title="conflict — resolve">🪄</div>` : '';
+      return `<div style="position:absolute;top:${y}px;left:0;right:0">${side === 'left' ? take + ignore : ignore + take}${wand}</div>`;
+    }).join('');
+    leftStrip.innerHTML = rows('left');
+    rightStrip.innerHTML = rows('right');
+  }
+
+  // [impl:uuid:5051b2a4-6102-41fe-a352-a50e6b8ae03e] RbDiffEditor.renderConnectorRibbons
+  // SVG connector ribbons (IntelliJ): filled diagonal bands from each changed block in Local/Repository to its landing
+  // rows in Result. Source ranges via diffIndices(side,center). blue=non-conflict change, green=one-sided, red-brown=conflict.
+  private renderConnectorRibbons(): void {
+    if (!this.edCenter || !this.edLocal || !this.edRemote) return;
+    const panes = this.querySelector('.de-panes') as HTMLElement; if (!panes) return;
+    const pr = panes.getBoundingClientRect();
+    if (!this._ribbonSvg) {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('class', 'de-ribbons');
+      svg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none';
+      panes.insertBefore(svg, panes.firstChild);
+      this._ribbonSvg = svg;
+    }
+    const lRight = this.mount('local').getBoundingClientRect().right - pr.left;
+    const cM = this.mount('center').getBoundingClientRect();
+    const cLeft = cM.left - pr.left, cRight = cM.right - pr.left;
+    const rLeft = this.mount('remote').getBoundingClientRect().left - pr.left;
+    const center = this.edCenter.getValue().split('\n');
+    const inConflict = (ln: number) => this.conflicts.some(c => !this.dismissed.has(c.id) && ln >= c.span[0] && ln < c.span[1]);
+    const cy = (ln0: number) => this.lineY(this.edCenter, ln0);
+    const band = (x1: number, y1a: number, y1b: number, x2: number, y2a: number, y2b: number, color: string) =>
+      `<path d="M${x1.toFixed(1)},${y1a.toFixed(1)} L${x2.toFixed(1)},${y2a.toFixed(1)} L${x2.toFixed(1)},${y2b.toFixed(1)} L${x1.toFixed(1)},${y1b.toFixed(1)} Z" fill="${color}" fill-opacity="0.20" stroke="${color}" stroke-opacity="0.55" stroke-width="1"/>`;
+    const parts: string[] = [];
+    for (const d of diffIndices(this.left.content.split('\n'), center)) {
+      const [ls, ll] = d.buffer1, [cs, cl] = d.buffer2;
+      const color = inConflict(cs) ? '#a5603a' : (ll === 0 || cl === 0) ? '#3a8a4a' : '#3a6ea5';
+      parts.push(band(lRight, this.lineY(this.edLocal, ls), this.lineY(this.edLocal, ls + Math.max(ll, 1)), cLeft, cy(cs), cy(cs + Math.max(cl, 1)), color));
+    }
+    for (const d of diffIndices(center, this.right.content.split('\n'))) {
+      const [cs, cl] = d.buffer1, [rs, rl] = d.buffer2;
+      const color = inConflict(cs) ? '#a5603a' : (cl === 0 || rl === 0) ? '#3a8a4a' : '#3a6ea5';
+      parts.push(band(cRight, cy(cs), cy(cs + Math.max(cl, 1)), rLeft, this.lineY(this.edRemote, rs), this.lineY(this.edRemote, rs + Math.max(rl, 1)), color));
+    }
+    this._ribbonSvg.innerHTML = parts.join('');
+  }
+
+  // [impl:uuid:65c465fa-1c45-497c-a3f9-f95829cff06d] RbDiffEditor.jumpToChange
+  // Change navigation: reveal the next/prev (dir ±1) non-ignored change region in Result (wraps). Counter lives in the toolbar.
+  jumpToChange(dir: number): void {
+    const list = this.conflicts.filter(c => !this.dismissed.has(c.id));
+    if (!list.length || !this.edCenter) return;
+    this._jumpIdx = (((this._jumpIdx + dir) % list.length) + list.length) % list.length;
+    const c = list[this._jumpIdx];
+    this.edCenter.revealLineInCenter(c.span[0] + 1);
+    this.edCenter.setPosition({ lineNumber: c.span[0] + 1, column: 1 });
+  }
 
   // [impl:uuid:843d79d4-b07a-4f8c-8f15-297211017cb4] RbDiffEditor.acceptChange
   // Apply one side's chunk of a conflict into CENTER at its aligned range (the ◄/► gutter action). Re-scopes the old
@@ -288,6 +382,7 @@ export class RbDiffEditor extends HTMLElement {
         syncing = true;
         for (const dst of eds) if (dst !== src) dst.setScrollTop(e.scrollTop);
         syncing = false;
+        this.renderInterPaneGutters(); this.renderConnectorRibbons(); // R30.13: keep gutter icons + ribbons aligned on scroll
       });
     }
   }
