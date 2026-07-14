@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rawbin-v0.7.21';
+const CACHE_NAME = 'rawbin-v0.7.22';
 // [test:uuid:ed935b58-cea8-4e8a-8079-e592d21ecda2]
 // [impl:uuid:3f6a9ce1-c9b9-43fa-9bd1-b2bfa38e92f2] OfflinePage.reloadButton
 
@@ -13,7 +13,7 @@ const STATIC_SHELL = [
   '/dist/trace-page-GIANP5BH.js',
   '/scenario',
   '/dist/scenario-view-BE2YPQ7M.js',
-  '/dist/app-5DDSUKRD.js',
+  '/dist/app-TO3CCSVF.js',
 ];
 
 const OFFLINE_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -46,11 +46,18 @@ self.addEventListener('install', (event) => {
   );
 });
 
+// [impl:uuid:406e1e33-94cb-4d63-b41c-5c0cc6aef27b] ServiceWorker.claimClients
+// R30.14: reclaim already-open tabs so the NEW SW controls them → 'controllerchange' fires (the existing banner
+// →reload-on-tap flow completes). Without claim, an activated SW never takes over an open page = stale bundle.
+async function claimClients() { await self.clients.claim(); }
+
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
-    )
+    (async () => {
+      const keys = await caches.keys();
+      await Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)));
+      await claimClients();
+    })()
   );
 });
 

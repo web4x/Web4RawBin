@@ -20,11 +20,23 @@ class RbUpdateBanner extends HTMLElement {
           }
         });
       });
+      this.pollForWorkerUpdate(reg); // R30.14: keep re-checking sw.js while the app stays open → banner on deploy
     }).catch(() => {});
 
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       location.reload();
     });
+  }
+
+  // [impl:uuid:f1456992-163b-40ed-abb5-b5f2d4730dc6] ServiceWorker.pollForWorkerUpdate
+  // R30.14 deploy-visibility: a left-open PWA never re-checks sw.js on its own, so a deploy stays invisible until
+  // reopen (Tron's stale-bundle). Periodically — and on tab focus / visibility — call reg.update() to re-fetch sw.js;
+  // a newer sw.js fires 'updatefound' → the EXISTING banner lights up (banner-first; no reload until the user taps).
+  private pollForWorkerUpdate(reg: ServiceWorkerRegistration): void {
+    const check = () => { if (document.visibilityState === 'visible') reg.update().catch(() => {}); };
+    setInterval(check, 60_000);
+    document.addEventListener('visibilitychange', check);
+    window.addEventListener('focus', check);
   }
 
   private async checkForUpdate(): Promise<void> {
