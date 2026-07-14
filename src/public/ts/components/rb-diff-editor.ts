@@ -74,7 +74,7 @@ export class RbDiffEditor extends HTMLElement {
                 : `<select class="de-repo" data-side="${s === 'local' ? 'left' : 'right'}" style="background:#1e1e1e;color:#ccc;border:1px solid #333;border-radius:3px;font-size:0.65rem;max-width:70px"></select>
                    <button class="de-file" data-side="${s === 'local' ? 'left' : 'right'}" title="Choose file">📁</button>
                    <button class="de-ref" data-side="${s === 'local' ? 'left' : 'right'}" title="Choose git ref">⎇</button>
-                   ${s === 'remote' ? `<select class="de-history" title="File version history (git log --follow)" style="background:#1e1e1e;color:#ccc;border:1px solid #333;border-radius:3px;font-size:0.65rem;max-width:130px"></select>` : ''}
+                   ${s === 'local' ? `<select class="de-history" title="File version history (git log --follow) — older version on the LEFT" style="background:#1e1e1e;color:#ccc;border:1px solid #333;border-radius:3px;font-size:0.65rem;max-width:130px"></select>` : ''}
                    <span class="de-title" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:0.7"></span>
                    ${s === 'local' ? `<button class="de-swap" title="Swap Local↔Repository">⇄</button>` : ''}`}
             </div>
@@ -128,6 +128,15 @@ export class RbDiffEditor extends HTMLElement {
     this.edCenter = m.editor.create(this.mount('center'), { ...common, value: '', readOnly: false, theme: 'vs-dark' });
     this.edRemote = m.editor.create(this.mount('remote'), { ...common, value: this.right.content, readOnly: true, theme: 'vs-dark' });
     this.edCenter.onDidChangeModelContent(() => { this.dirty = true; });
+    // R30.17 (TRON1): delegate the gutter-icon clicks from the STABLE component root (attached ONCE) — the old
+    // per-strip listener was orphaned each time renderInterPaneGutters re-rendered the strip's innerHTML → accept did nothing.
+    this.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest('[data-cid]') as HTMLElement | null;
+      if (!b || !this.contains(b)) return;
+      const id = Number(b.dataset.cid); const act = b.dataset.act;
+      if (act === 'ignore') { this.dismissed.add(id); this.renderInterPaneGutters(); this.renderConnectorRibbons(); }
+      else if (act === 'left' || act === 'right') this.acceptChange(id, act); // ►►/◄◄ → center CONTENT mutates (rebuildCenter setValue)
+    });
     this.syncScroll3();
     void this.computeMergedCenter();
   }
@@ -159,7 +168,7 @@ export class RbDiffEditor extends HTMLElement {
       const title = this.querySelector(`.de-${side === 'left' ? 'local' : 'remote'} .de-title`) as HTMLElement;
       if (title) title.textContent = st.ref ? `${st.path}@${st.ref}` : st.path;
       await this.computeMergedCenter();
-      if (side === 'left') void this.populateRightHistory(); // R30.10: default RIGHT to this file's git history
+      if (side === 'left' && !st.ref) void this.populateLeftHistory(); // R30.17 (TRON4): working-file load (no ref) → promote to RIGHT + fill LEFT history (older-left); guard !st.ref so the older-ref reload doesn't recurse
     } catch { this.status(`load ${side} error`); }
   }
 
@@ -324,13 +333,7 @@ export class RbDiffEditor extends HTMLElement {
       if (!s) {
         s = document.createElement('div'); s.className = cls;
         s.style.cssText = 'position:absolute;top:0;bottom:0;width:22px;z-index:6;pointer-events:none';
-        s.addEventListener('click', e => {
-          const b = (e.target as HTMLElement).closest('[data-cid]') as HTMLElement | null; if (!b) return;
-          const id = Number(b.dataset.cid);
-          if (b.dataset.act === 'ignore') { this.dismissed.add(id); this.renderInterPaneGutters(); this.renderConnectorRibbons(); }
-          else this.acceptChange(id, b.dataset.act as 'left' | 'right');
-        });
-        panes.appendChild(s);
+        panes.appendChild(s); // R30.17 (TRON1): clicks handled by ROOT delegation in mountThreePane — a per-strip listener was orphaned when innerHTML re-rendered the strip's buttons
       }
       s.style.left = (leftPx - 11) + 'px';
       return s;
@@ -339,7 +342,9 @@ export class RbDiffEditor extends HTMLElement {
     const rightStrip = mk('de-gutter-right', remoteLeft);
     const btn = (act: string, id: number, glyph: string, title: string) =>
       `<button data-cid="${id}" data-act="${act}" title="${title}" style="pointer-events:auto;display:block;width:20px;height:15px;line-height:13px;margin:1px 0;padding:0;font-size:0.65rem;background:#333;border:1px solid #666;color:#ddd;border-radius:3px;cursor:pointer">${glyph}</button>`;
-    const rows = (side: 'left' | 'right') => this.conflicts.filter(c => !this.dismissed.has(c.id)).map(c => {
+    // R30.17 (TRON2/3): gate each strip's arrows by ORIGIN — Local ≫ only where the change has local lines (a>0),
+    // Repository ≪ only where it has repo lines (b>0) → a one-sided change shows an arrow on ONE side only.
+    const rows = (side: 'left' | 'right') => this.conflicts.filter(c => !this.dismissed.has(c.id) && (side === 'left' ? c.a.length > 0 : c.b.length > 0)).map(c => {
       const y = Math.max(0, this.lineY(this.edCenter, c.span[0]));
       const take = side === 'left' ? btn('left', c.id, '≫', 'Take Local → Result') : btn('right', c.id, '≪', 'Take Repository → Result');
       const ignore = btn('ignore', c.id, '✕', 'Ignore this change');
@@ -377,12 +382,15 @@ export class RbDiffEditor extends HTMLElement {
     const parts: string[] = [];
     for (const c of this.conflicts.filter(x => !this.dismissed.has(x.id))) {
       const color = conflictColor(c);
+      // R30.17 (TRON3): PIN both endpoints to the aligned center-block Y — alignPaneRows lines the L/C/R blocks up on
+      // the same rows, so lineY(local,aStart)==lineY(remote,bStart)==lineY(center,span[0]); using cTop/cBot for both
+      // ends draws a straight horizontal band with NO '70 maps to 71' drift.
       const cTop = this.lineY(this.edCenter, c.span[0]);
-      const h = this.lineY(this.edCenter, c.span[1]) - cTop; // aligned block visual height (same in all 3 panes)
-      const lTop = this.lineY(this.edLocal, c.aStart);
-      const rTop = this.lineY(this.edRemote, c.bStart);
-      parts.push(band(lRight, lTop, lTop + h, cLeft, cTop, cTop + h, color));   // Local → Result
-      parts.push(band(cRight, cTop, cTop + h, rLeft, rTop, rTop + h, color));   // Result → Repository
+      const cBot = this.lineY(this.edCenter, c.span[1]);
+      // R30.17 (TRON2): ORIGIN-GATE — draw the Local↔Result band only where the change has local lines (a>0), and the
+      // Result↔Repository band only where it has repo lines (b>0) → a one-sided change shows a ribbon on ONE side only.
+      if (c.a.length > 0) parts.push(band(lRight, cTop, cBot, cLeft, cTop, cBot, color));   // Local → Result
+      if (c.b.length > 0) parts.push(band(cRight, cTop, cBot, rLeft, cTop, cBot, color));   // Result → Repository
     }
     this._ribbonSvg.innerHTML = parts.join('');
   }
@@ -464,7 +472,7 @@ export class RbDiffEditor extends HTMLElement {
   private setSideRef(side: 'left' | 'right', ref: string): void {
     const st = side === 'left' ? this.left : this.right;
     if (!st.path) { this.status('choose a file first'); return; }
-    if (side === 'right') this._rightUserPicked = true; // R30.15 (b): an explicit right ref-pick WINS over the async auto-default
+    if (side === 'left') this._leftUserPicked = true; // R30.17 (TRON4): an explicit LEFT ref-pick WINS over the async older-default
     void this.loadSide(side, { path: st.path, ref });
   }
 
@@ -497,37 +505,38 @@ export class RbDiffEditor extends HTMLElement {
     } catch { this.status('save error'); }
   }
 
-  // [impl:uuid:58c11039-3f11-464d-a8fe-641722f78e2b] RbDiffEditor.populateRightHistory
-  // R30.10: default the RIGHT side to the current LOCAL file's git history (git log --follow). Fills the .de-history
-  // select newest-first, auto-loads the newest version into RIGHT, and picking an older commit re-loads RIGHT at that
-  // sha. No history (untracked / non-git) → 'no history' + the manual ⎇ pickRef fallback is preserved.
-  async populateRightHistory(): Promise<void> {
+  // [impl:uuid:751934c1-96d7-4d9b-ab64-4882b7b6e042] RbDiffEditor.populateLeftHistory
+  // R30.17 (TRON4): file-history selector on the LEFT — OLDER version on the left, current/working on the right. When
+  // the working file loads on the LEFT, promote it to the RIGHT, then fill the LEFT .de-history (git log --follow) and
+  // default LEFT to the newest version that DIFFERS from the working file (HEAD~1 when clean, else HEAD) → Open-Diff
+  // shows a real diff, older-on-the-left. Picking an older commit reloads LEFT. Supersedes populateRightHistory (R30.10/15).
+  async populateLeftHistory(): Promise<void> {
     const sel = this.querySelector('.de-history') as HTMLSelectElement | null;
-    if (!sel || !this.left.path) return;
-    this._rightUserPicked = false; // R30.15 (b): new LEFT context → a prior right-pick no longer applies
+    const path = this.left.path;
+    if (!sel || !path) return;
+    // promote the just-loaded working file to the RIGHT (current) so the LEFT can carry an older version
+    this.right = { path: this.left.path, ref: '', repo: this.left.repo, content: this.left.content };
+    if (this.edRemote) this.edRemote.setValue(this.right.content);
+    const rt = this.querySelector('.de-remote .de-title') as HTMLElement; if (rt) rt.textContent = this.right.path;
+    this._leftUserPicked = false;
     const rq = this.left.repo ? `&repo=${encodeURIComponent(this.left.repo)}` : '';
     let history: { hash: string; subject: string }[] = [];
-    try {
-      history = (await (await fetch(`/api/git/file-history?path=${encodeURIComponent(this.left.path)}${rq}`)).json()).history ?? [];
-    } catch { /* non-git / error → fallback below */ }
+    try { history = (await (await fetch(`/api/git/file-history?path=${encodeURIComponent(path)}${rq}`)).json()).history ?? []; } catch { /* non-git → fallback */ }
     if (!history.length) { sel.innerHTML = '<option>no history</option>'; sel.disabled = true; this.status('no git history for this file — use ⎇ to pick a ref'); return; }
     sel.disabled = false;
-    this.right.repo = this.left.repo; // the file's history lives in the same repo as the local file
     if (!this._historyWired) {
       this._historyWired = true;
-      sel.addEventListener('change', () => { if (sel.value) { this._rightUserPicked = true; void this.loadSide('right', { path: this.left.path, ref: sel.value }); } }); // R30.15 (b): explicit history pick WINS
+      sel.addEventListener('change', () => { if (sel.value) { this._leftUserPicked = true; void this.loadSide('left', { path, ref: sel.value }); } }); // explicit LEFT pick WINS
     }
-    // R30.15 (a) MEANINGFUL-DEFAULT: default RIGHT to the newest version that DIFFERS from LEFT — HEAD~1 when the
-    // working file is clean (content == newest commit), else HEAD — so Open-Diff shows a REAL diff, not 0 hunks.
+    // MEANINGFUL-DEFAULT: newest version that DIFFERS from the working (right) file — HEAD~1 when clean, else HEAD.
     let newestContent = '';
-    try { newestContent = (await (await fetch(`/api/git/file?ref=${encodeURIComponent(history[0].hash)}&path=${encodeURIComponent(this.left.path)}${rq}`)).json()).content ?? ''; } catch {}
-    const defaultIdx = (newestContent === this.left.content && history.length > 1) ? 1 : 0;
+    try { newestContent = (await (await fetch(`/api/git/file?ref=${encodeURIComponent(history[0].hash)}&path=${encodeURIComponent(path)}${rq}`)).json()).content ?? ''; } catch {}
+    const defaultIdx = (newestContent === this.right.content && history.length > 1) ? 1 : 0;
     sel.innerHTML = history.map((h, i) => `<option value="${h.hash}"${i === defaultIdx ? ' selected' : ''}>${i === 0 ? '● latest ' : ''}${h.hash.slice(0, 7)} ${h.subject}</option>`).join('');
-    // R30.15 (b) PICK-WINS: only auto-load the default if the user hasn't picked a right ref during our async fetch.
-    if (!this._rightUserPicked) void this.loadSide('right', { path: this.left.path, ref: history[defaultIdx].hash });
+    if (!this._leftUserPicked) void this.loadSide('left', { path, ref: history[defaultIdx].hash }); // PICK-WINS guard
   }
   private _historyWired = false;
-  private _rightUserPicked = false;
+  private _leftUserPicked = false;
 
   private async populateRepos(): Promise<void> {
     let repos: { key: string; label: string }[] = [];
