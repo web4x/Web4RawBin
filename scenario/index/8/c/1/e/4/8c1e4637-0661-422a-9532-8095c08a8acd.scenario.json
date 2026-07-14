@@ -4,9 +4,9 @@
   "uuid": "8c1e4637-0661-422a-9532-8095c08a8acd",
   "name": "TraceAudit.honorSupersededBy impl",
   "tests": [],
-  "sourceFile": "ior:file:src/ts/server/trace-cli.ts",
+  "sourceFile": "ior:file:src/ts/scenario/skill-classes.ts",
   "designAhead": true,
-  "description": "DESIGN-AHEAD: scoreboard honors supersededBy (excludes superseded from open). Expert builds + tags [impl] marker (=this Impl uuid)."
+  "description": "DESIGN-AHEAD: extend the chain scorer to honor IMPL-level supersededBy. TODAY skill-classes.ts:193 honors only REQ-level (T-TOOL-1: if m.supersededBy return true). ADD: a chain HOP whose Impl (or Method) is supersededBy is EXCLUDED from open/uncovered (retired-not-open) - so an impl-level-superseded hop (R30.10 populateRightHistory 58c11039; R30.6.1/6.3 15843ac9/37636aaa/6ebfac12) no longer reads open. Guard T-TOOL-2 @583 stays for req-with-live-chain. Expert builds + tags [impl] marker."
  },
  "ownerIor": "ior:instance:58bbe7fe-062b-483e-91ce-e6ee983e41ff"
 }
