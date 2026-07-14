@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "af9bcfef-384a-4639-9527-06b6f8853ab7",
+  "name": "RbDiffEditor.populateLeftHistory",
+  "implementations": [
+   "ior:instance:751934c1-96d7-4d9b-ab64-4882b7b6e042"
+  ],
+  "tests": [],
+  "note": "R30.17 #5. Name EXACT for AST-attach. Move .de-history select to LEFT (s==='local'); populate LEFT pane with the file git history (default older), RIGHT=working. Refines R30.10 populateRightHistory (right->left convention); architect derive-confirms whether populateRightHistory is retired or kept."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

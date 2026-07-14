@@ -1,0 +1,65 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "5aa71554-03ee-410f-b0d4-d00e9a7f2efa",
+  "name": "R30.16 merge functional correctness (accept-mutates / one-sided ribbons / Y-align / left-history)",
+  "altId": "R30.17",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:e322c683-0c92-406e-abb4-322390b1a973"
+  ],
+  "description": "Make the R30.16 3-pane merge FUNCTIONALLY correct (it shipped visually but the merge did not mutate). Five root-caused bugs: #4 accept/cancel arrows had ZERO effect - the per-strip click listener was attached once inside if(!s) and orphaned by the R30.16 re-render; fix = delegate click from the stable component ROOT once in mountThreePane, drop the per-strip listener. #1+#3 both-sided/ghost ribbons - renderConnectorRibbons drew both bands unconditionally; fix = draw Local->Result iff a.length>0 and Result->Repo iff b.length>0 (origin from a/b), gate the take-arrows the same. #2 off-by-one row/ribbon Y - alignPaneRows mixed 0-indexed block arithmetic with Monaco 1-indexed afterLineNumber (len-0 blocks shift by one); fix = pin anchors + handle len===0, with a MANDATORY lineY(remote,bStart)==lineY(center,span[0]) test. #5 history selector on the RIGHT - move it to the LEFT (old-on-left / new-on-right convention) via populateLeftHistory. Tester gate must assert FUNCTION (click mutates CENTER), not appearance (button renders) - the exact R30.16-gate miss.",
+  "tronQuote": "> Tron 2026-07-14 (diligent review): R30.16 merge visuals shipped but it is FUNCTIONALLY broken - the accept arrows do nothing, ribbons draw from empty sides, rows are off by one, and the history selector is on the wrong side. The gate verified appearance, not function.",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron diligent review via robbin-architect",
+   "date": "2026-07-14",
+   "note": "Architect design a2ff49697 (r30.17-merge-functional-fixes-design.md), per-bug root-caused from shipped rb-diff-editor.ts. Mostly IMPL-EDITS to existing R30.16 methods (markers STAY); ONE new Method populateLeftHistory (#5). crossRef R30.16. Sole-minter. KEY: the R30.16 gate verified appearance-not-function - R30.17 tester gate asserts click->CENTER-content-mutation."
+  },
+  "designRef": "scrum.pmo/design-notes/r30.17-merge-functional-fixes-design.md (a2ff49697)",
+  "crossRef": [
+   "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f",
+   "ior:instance:168d5c58-2373-45f4-9018-0cd1e3528677"
+  ],
+  "crossRefNote": "Functional-correctness fixes for R30.16. Class RbDiffEditor REUSE 18165081. ONE new Method populateLeftHistory (#5, moves the history selector RIGHT->LEFT = old-on-left convention, refining R30.10's right-side-history; ARCHITECT derive-confirm the populateRightHistory disposition - I minted populateLeftHistory as NEW to avoid breaking R30.10/R30.15 chains on 58c11039). Build-note (impl-edits, markers STAY): #4 mountThreePane c4c84142 (delegated click at ROOT) + renderInterPaneGutters fd99c520 (drop per-strip listener + gate arrows); #1/#3 renderConnectorRibbons 5051b2a4 (origin-gate bands) + renderInterPaneGutters fd99c520; #2 renderConnectorRibbons 5051b2a4 + alignPaneRows 17c71adf (index fix).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-4-accept-mutates",
+    "group": "click",
+    "text": "#4: accept take-arrows WORK - a single delegated click listener on the stable component ROOT (attached once in mountThreePane) routes [data-cid] clicks to acceptChange(id,side)/dismiss; renderInterPaneGutters drops its per-strip addEventListener (only sets innerHTML). Clicking take-Local/take-Repo MUTATES the CENTER Result text content (not just renders a button)."
+   },
+   {
+    "id": "AC-1-both-sided",
+    "group": "ribbons",
+    "text": "#1: renderConnectorRibbons draws the Local->Result band ONLY iff c.a.length>0 and the Result->Repository band ONLY iff c.b.length>0 - a one-sided change no longer draws both bands."
+   },
+   {
+    "id": "AC-3-ghost",
+    "group": "ribbons",
+    "text": "#3: no ghost ribbon from an empty side (origin taken from a/b length); the gutter take-arrows are gated the same (take-Local shown iff a.length, take-Repo iff b.length)."
+   },
+   {
+    "id": "AC-2-align-Y",
+    "group": "align",
+    "text": "#2: alignPaneRows afterLineNumber uses a consistent index base (handles len===0 blocks, spacer BEFORE the gap); anchors pinned to the hunk first-changed line. MANDATORY: post-alignment lineY(edRemote, c.bStart) === lineY(edCenter, c.span[0]) (and Local) - source row and its center landing share Y (+-0)."
+   },
+   {
+    "id": "AC-5-left-history",
+    "group": "history",
+    "text": "#5: the .de-history <select> renders on the LEFT pane (s==='local'); populateLeftHistory populates the LEFT with the file's git history (old-on-left), RIGHT = working/current; pane labels read old(left)/new(right); swapSides + acceptChange left/right semantics preserved."
+   },
+   {
+    "id": "AC-tester-gate-function",
+    "group": "gate",
+    "text": "\u2605 Tester DET-3x asserts FUNCTION not appearance (the R30.16 miss): (a) click take-arrow -> CENTER editor value CONTENT changes; (b) click ignore -> that change's arrows/ribbon disappear + CENTER unchanged; (c) one-sided hunk -> ribbon from ONE side only (no ghost); (d) lineY(remote,bStart)===lineY(center,span[0]); (e) history <select> on LEFT."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "e322c683-0c92-406e-abb4-322390b1a973",
+  "name": "diffEditor.leftHistoryDefault",
+  "description": "The file-history selector lives on the LEFT (old) pane: populateLeftHistory fills LEFT with the file git history, RIGHT stays working/current (old-on-left / new-on-right convention).",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:af9bcfef-384a-4639-9527-06b6f8853ab7",
+  "coveredRequirement": "ior:instance:5aa71554-03ee-410f-b0d4-d00e9a7f2efa"
+ },
+ "ownerIor": "ior:instance:5aa71554-03ee-410f-b0d4-d00e9a7f2efa"
+}
