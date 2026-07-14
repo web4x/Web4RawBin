@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "ae075854-70b7-4760-96a1-2ee6b84b3e4e",
+  "name": "test:R30.16 renderCenterChangeBlocks gate",
+  "description": "Bridged to test/visual/r3016-intellij-layout-gate.mjs (DET-3x) - verifies RbDiffEditor.renderCenterChangeBlocks (colored CENTER change blocks). R30.16 IntelliJ merge layout gate GREEN.",
+  "sourceFile": "ior:file:test/visual/r3016-intellij-layout-gate.mjs",
+  "implementations": [
+   "ior:instance:37c9694c-8af3-41fd-9cbc-69b505642b05"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:37c9694c-8af3-41fd-9cbc-69b505642b05"
+}

@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "4ca2ff58-1f79-4299-80c9-4dd6edf9c725",
+  "name": "test:R30.16 alignPaneRows gate",
+  "description": "Bridged to test/visual/r3016-intellij-layout-gate.mjs (DET-3x) - verifies RbDiffEditor.alignPaneRows (viewZone line-alignment + scroll-to-last-line). R30.16 IntelliJ merge layout gate GREEN.",
+  "sourceFile": "ior:file:test/visual/r3016-intellij-layout-gate.mjs",
+  "implementations": [
+   "ior:instance:17c71adf-7b69-4081-98aa-0e687747a4d5"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:17c71adf-7b69-4081-98aa-0e687747a4d5"
+}
