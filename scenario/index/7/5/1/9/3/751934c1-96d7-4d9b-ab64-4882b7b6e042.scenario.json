@@ -1,12 +1,14 @@
 {
- "ior": "ior:class:Implementation",
- "model": {
-  "uuid": "751934c1-96d7-4d9b-ab64-4882b7b6e042",
-  "name": "RbDiffEditor.populateLeftHistory impl",
-  "tests": [],
-  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-  "designAhead": true,
-  "description": "DESIGN-AHEAD: history select on LEFT + populate LEFT with git history (old-on-left). Expert builds + tags [impl] marker (=this Impl uuid). Same commit impl-edits #4/#1/#3/#2 on existing methods (markers stay)."
- },
- "ownerIor": "ior:instance:af9bcfef-384a-4639-9527-06b6f8853ab7"
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "751934c1-96d7-4d9b-ab64-4882b7b6e042",
+    "name": "RbDiffEditor.populateLeftHistory impl",
+    "tests": [
+      "ior:instance:4dca421e-1702-4ecd-bb5a-3e2dc3ebd7a9"
+    ],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: history select on LEFT + populate LEFT with git history (old-on-left). Expert builds + tags [impl] marker (=this Impl uuid). Same commit impl-edits #4/#1/#3/#2 on existing methods (markers stay)."
+  },
+  "ownerIor": "ior:instance:af9bcfef-384a-4639-9527-06b6f8853ab7"
 }
