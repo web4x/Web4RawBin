@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "c1a2e5b7-6f30-4d18-9a7c-3e8b1f0d24a9",
+  "name": "test:R30.12 two-way take-over gate",
+  "description": "Bridged to test/visual/r30merge-visual-gate.mjs (CASE 1 take-over assertion) \u2014 verifies RbDiffEditor.computeTwoWayHunks populates conflicts[] so the 2-way accept arrows pull a compared-version line into CENTER (UC diffEditor.twoWayTakeOver). Tron-proven green.",
+  "sourceFile": "ior:file:test/visual/r30merge-visual-gate.mjs",
+  "implementations": [
+   "ior:instance:def2c0f2-0ded-430b-9d4e-3d54665f27bc"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:def2c0f2-0ded-430b-9d4e-3d54665f27bc"
+}
