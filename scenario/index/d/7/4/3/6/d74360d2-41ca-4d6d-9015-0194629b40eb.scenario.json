@@ -1,0 +1,64 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "d74360d2-41ca-4d6d-9015-0194629b40eb",
+  "name": "3-pane change-block highlights (source panes too, not just center)",
+  "altId": "R30.19",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:f86392d5-1b74-4201-b163-f89e0ae8a1ec"
+  ],
+  "description": "Highlight the changed block in ALL THREE panes, not just CENTER. Today renderCenterChangeBlocks draws the colored rounded-block background only on the CENTER Result pane; the LEFT (Local) + RIGHT (Repository) SOURCE panes show the changed lines with just gutter arrows, no block highlight. IntelliJ highlights the changed block in all 3 panes in a MATCHING color so you SEE which source block merges into center and the ribbon visibly connects highlighted-source -> highlighted-center. Fix: extend renderCenterChangeBlocks to ALSO render change-blocks on the LEFT (a-lines) + RIGHT (b-lines) source panes, using the SAME center CONFLICT_PALETTE color (shared color = blocks + ribbons match by construction, like R30.16). Impl-edit to the existing renderCenterChangeBlocks (marker stays); one-sided changes highlight only the side(s) that changed.",
+  "tronQuote": "> TRON 2026-07-14 (screenshot IMG_4518): the colored change-block highlights only show in the CENTER pane; the LEFT + RIGHT source panes show the changed lines with no block highlight. IntelliJ highlights the changed block in ALL 3 panes (matching color) so you see which source block merges into center.",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron (screenshot IMG_4518) via robbin-po",
+   "date": "2026-07-14",
+   "note": "IMPL-EDIT to R30.16 renderCenterChangeBlocks (Method afb868e1 / Impl 37c9694c, marker STAYS - NO new method): extend it to render change-blocks on LEFT (a-lines) + RIGHT (b-lines) source panes in the matching CONFLICT_PALETTE color. Sole-minter; requirements.md block written same-commit."
+  },
+  "crossRef": [
+   "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f",
+   "ior:instance:9b525a80-5d8d-4533-a194-f63da132dd37"
+  ],
+  "crossRefNote": "Extends R30.16 renderCenterChangeBlocks (center change blocks) to all 3 panes; the source block colors match R30.13 connector ribbons + the center block via the shared CONFLICT_PALETTE (blocks+ribbons match by construction). IMPL-EDIT to the existing renderCenterChangeBlocks (Method afb868e1 / Impl 37c9694c) - marker STAYS, no new unit.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-all-3-panes",
+    "group": "render",
+    "text": "renderCenterChangeBlocks ALSO renders colored rounded change-blocks on the LEFT (Local, a-lines) + RIGHT (Repository, b-lines) source panes - not only the CENTER Result pane."
+   },
+   {
+    "id": "AC-color-match",
+    "group": "color",
+    "text": "The source-pane block color MATCHES the center block + the connector ribbon for that hunk (shared CONFLICT_PALETTE / conflictColor) - blocks and ribbons match by construction (like R30.16)."
+   },
+   {
+    "id": "AC-left-only",
+    "group": "sides",
+    "text": "A left-only change (c.a.length>0, c.b.length===0) highlights a block in Local + Center, NOT Repository."
+   },
+   {
+    "id": "AC-right-only",
+    "group": "sides",
+    "text": "A right-only change (c.b.length>0, c.a.length===0) highlights a block in Repository + Center, NOT Local."
+   },
+   {
+    "id": "AC-both",
+    "group": "sides",
+    "text": "A both-sided change highlights a matching-color block in ALL 3 panes; the ribbon visibly connects the highlighted source block(s) to the highlighted center block."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "Tron visual (IMG_4518 case): the changed source block is highlighted in its pane(s) in the same color as the center block + ribbon; DET-3x asserts the source-pane decorations exist per side."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

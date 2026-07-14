@@ -282,6 +282,19 @@
   - [ ] **(verify)** After the change: regen S30 -> requirements.md is byte-generated from the 23 units (matches/supersedes the hand-written e190db49f); --check green across all sprints.
   -> [sprintMd.generateRequirementsMd uc:uuid:c9fe8823-16fd-4599-b99f-2a2568caba2e]
 
+- [ ] **R30.19 - 3-pane change-block highlights (source panes too, not just center)**
+  [requirement:uuid:d74360d2-41ca-4d6d-9015-0194629b40eb]
+  > TRON 2026-07-14 (screenshot IMG_4518): the colored change-block highlights only show in the CENTER pane; the LEFT + RIGHT source panes show the changed lines with no block highlight. IntelliJ highlights the changed block in ALL 3 panes (matching color) so you see which source block merges into center.
+  Highlight the changed block in ALL THREE panes, not just CENTER. Today renderCenterChangeBlocks draws the colored rounded-block background only on the CENTER Result pane; the LEFT (Local) + RIGHT (Repository) SOURCE panes show the changed lines with just gutter arrows, no block highlight. IntelliJ highlights the changed block in all 3 panes in a MATCHING color so you SEE which source block merges into center and the ribbon visibly connects highlighted-source -> highlighted-center. Fix: extend renderCenterChangeBlocks to ALSO render change-blocks on the LEFT (a-lines) + RIGHT (b-lines) source panes, using the SAME center CONFLICT_PALETTE color (shared color = blocks + ribbons match by construction, like R30.16). Impl-edit to the existing renderCenterChangeBlocks (marker stays); one-sided changes highlight only the side(s) that changed.
+  **Acceptance criteria:**
+  - [ ] **(render)** renderCenterChangeBlocks ALSO renders colored rounded change-blocks on the LEFT (Local, a-lines) + RIGHT (Repository, b-lines) source panes - not only the CENTER Result pane.
+  - [ ] **(color)** The source-pane block color MATCHES the center block + the connector ribbon for that hunk (shared CONFLICT_PALETTE / conflictColor) - blocks and ribbons match by construction (like R30.16).
+  - [ ] **(sides)** A left-only change (c.a.length>0, c.b.length===0) highlights a block in Local + Center, NOT Repository.
+  - [ ] **(sides)** A right-only change (c.b.length>0, c.a.length===0) highlights a block in Repository + Center, NOT Local.
+  - [ ] **(sides)** A both-sided change highlights a matching-color block in ALL 3 panes; the ribbon visibly connects the highlighted source block(s) to the highlighted center block.
+  - [ ] **(verify)** Tron visual (IMG_4518 case): the changed source block is highlighted in its pane(s) in the same color as the center block + ribbon; DET-3x asserts the source-pane decorations exist per side.
+  -> [diffEditor.sourceChangeBlocks uc:uuid:f86392d5-1b74-4201-b163-f89e0ae8a1ec]
+
 ---
 
 ## Traceability Matrix
@@ -312,5 +325,6 @@
 | R30.16 | IntelliJ 3-pane: line alignment + center cha | 6d6fa7c8-8637-4c10-9366-b1d8536d7c9f | 0faad449,8d778c4f |
 | R30.17 | R30.16 merge functional correctness (accept- | 5aa71554-03ee-410f-b0d4-d00e9a7f2efa | e322c683 |
 | R30.18 | requirements.md is a generated view | 34ed73fd-7756-4479-ad2c-65674bb13fc9 | c9fe8823 |
+| R30.19 | 3-pane change-block highlights | d74360d2-41ca-4d6d-9015-0194629b40eb | f86392d5 |
 
 *Requirements R30.6-R30.17 written from scenario units by robbin-req 2026-07-14 (hand-maintained requirements.md, per line-6 WARN). All 23 S30 reqs now visible; the diff/merge-editor arc (R30.9-R30.17) + SW auto-update (R30.14) + scoreboard-calibration (R30.11) are on disk as full chains.*
