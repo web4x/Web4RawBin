@@ -16,7 +16,14 @@ const emptySide = (): SideState => ({ path: '', ref: '', repo: '', content: '' }
 
 // A conflict alternative (local vs remote) + current pick. `span` = its CURRENT line range in CENTER (recomputed on
 // every (re)flatten so it never drifts, even after other conflicts change length).
-interface Conflict { id: number; a: string[]; b: string[]; pick: 'a' | 'b'; span: [number, number] }
+// R30.16: `kind` set ONCE at hunk creation (classify-at-source) → conflictColor() is a pure fn; center-blocks +
+// ribbons read the SAME Conflict → same color by construction. aStart/bStart = the hunk's start line in Local/Repository
+// (for viewZone row-alignment + ribbon endpoints).
+type ConflictKind = 'conflict' | 'resolvable' | 'change';
+interface Conflict { id: number; a: string[]; b: string[]; pick: 'a' | 'b'; span: [number, number]; kind: ConflictKind; aStart: number; bStart: number }
+// R30.16 shared palette (DRY, single source for center-blocks + ribbons): blue=one-side change / green=cleanly-resolvable / brown=conflict.
+const CONFLICT_PALETTE: Record<ConflictKind, string> = { conflict: '#a5603a', resolvable: '#3a8a5a', change: '#3a6ea5' };
+const conflictColor = (c: Conflict): string => CONFLICT_PALETTE[c.kind];
 // CENTER is a deterministic flatten of this sequence: literal ok-runs + conflict placeholders (by id). Rebuilding
 // from the sequence (never by splicing the live buffer) means resolving one conflict can't drift another's offsets.
 type CenterSeq = Array<{ ok: string[] } | { cid: number }>;
@@ -38,9 +45,14 @@ export class RbDiffEditor extends HTMLElement {
     this.style.cssText = 'display:flex;flex-direction:column;height:100%;font-size:0.8rem;color:#ddd';
     this.innerHTML = `
       <style>
-        .de-conflict-line { background: rgba(200,60,60,0.16); }
-        .de-conflict-gutter { background: #a33; width: 3px !important; margin-left: 2px; }
         .de-conflict-glyph::before { content: '⚠'; color: #e66; font-size: 0.7rem; }
+        /* R30.16: colored rounded change-blocks in CENTER (replaces the flat maroon de-conflict-line), palette-matched to ribbons. */
+        .de-block-conflict { background: rgba(165,96,58,0.22); border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(165,96,58,0.5); }
+        .de-block-resolvable { background: rgba(58,138,90,0.20); border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(58,138,90,0.5); }
+        .de-block-change { background: rgba(58,110,165,0.20); border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(58,110,165,0.5); }
+        .de-gutter-conflict { background: #a5603a; width: 3px !important; margin-left: 2px; }
+        .de-gutter-resolvable { background: #3a8a5a; width: 3px !important; margin-left: 2px; }
+        .de-gutter-change { background: #3a6ea5; width: 3px !important; margin-left: 2px; }
         rb-diff-editor .de-toolbar button, rb-diff-editor .de-sub button, rb-diff-editor .de-accept-bar button { background:#333;border:1px solid #555;color:#ccc;border-radius:4px;cursor:pointer;font-size:0.7rem;padding:2px 6px }
       </style>
       <div class="de-toolbar" style="display:flex;gap:6px;align-items:center;padding:5px 8px;background:#252526;border-bottom:1px solid #333">
@@ -52,7 +64,7 @@ export class RbDiffEditor extends HTMLElement {
         <span class="de-status" style="flex:1;font-size:0.7rem;opacity:0.7"></span>
         <button class="de-save" title="Save merged Result">💾 Save</button>
       </div>
-      <div class="de-panes" style="display:flex;flex:1;min-height:0;gap:1px;background:#111;position:relative">
+      <div class="de-panes" style="display:flex;flex:1;min-height:0;gap:34px;background:#111;position:relative">
         ${(['local', 'center', 'remote'] as const).map(s => `
           <div class="de-pane de-${s}" style="display:flex;flex-direction:column;flex:1;min-width:0;background:#1e1e1e">
             <div class="de-sub" style="display:flex;gap:4px;align-items:center;padding:3px 5px;background:#2d2d2d;border-bottom:1px solid #333;font-size:0.7rem">
@@ -111,7 +123,7 @@ export class RbDiffEditor extends HTMLElement {
   async mountThreePane(): Promise<void> {
     this.monaco = await RbDiffEditor.monacoLoader();
     const m = this.monaco;
-    const common = { automaticLayout: true, minimap: { enabled: false }, fontSize: 12, scrollBeyondLastLine: false, renderLineHighlight: 'none' as const };
+    const common = { automaticLayout: true, minimap: { enabled: false }, fontSize: 12, scrollBeyondLastLine: true, renderLineHighlight: 'none' as const }; // R30.16: true → last line can reach the top
     this.edLocal = m.editor.create(this.mount('local'), { ...common, value: this.left.content, readOnly: true, theme: 'vs-dark' });
     this.edCenter = m.editor.create(this.mount('center'), { ...common, value: '', readOnly: false, theme: 'vs-dark' });
     this.edRemote = m.editor.create(this.mount('remote'), { ...common, value: this.right.content, readOnly: true, theme: 'vs-dark' });
@@ -173,7 +185,7 @@ export class RbDiffEditor extends HTMLElement {
       let cid = 0;
       for (const r of diff3Merge(localLines, this.base.split('\n'), remoteLines)) {
         if ('ok' in r) { this.centerSeq.push({ ok: r.ok }); continue; }
-        this.conflicts.push({ id: cid, a: r.conflict.a, b: r.conflict.b, pick: 'a', span: [0, 0] }); // default LOCAL; ► → remote
+        this.conflicts.push({ id: cid, a: r.conflict.a, b: r.conflict.b, pick: 'a', span: [0, 0], kind: 'conflict', aStart: r.conflict.aIndex, bStart: r.conflict.bIndex }); // R30.16: 3-way true conflict → brown; aIndex/bIndex = Local/Repo start lines
         this.centerSeq.push({ cid: cid });
         cid++;
       }
@@ -195,7 +207,7 @@ export class RbDiffEditor extends HTMLElement {
       const [lStart, lLen] = d.buffer1; // local chunk
       const [rStart, rLen] = d.buffer2; // version chunk
       if (lStart > cursor) this.centerSeq.push({ ok: localLines.slice(cursor, lStart) }); // equal run (local==version here)
-      this.conflicts.push({ id: cid, a: localLines.slice(lStart, lStart + lLen), b: remoteLines.slice(rStart, rStart + rLen), pick: 'a', span: [0, 0] });
+      this.conflicts.push({ id: cid, a: localLines.slice(lStart, lStart + lLen), b: remoteLines.slice(rStart, rStart + rLen), pick: 'a', span: [0, 0], kind: 'change', aStart: lStart, bStart: rStart }); // R30.16: 2-way take-over → blue; lStart/rStart = Local/Repo start lines
       this.centerSeq.push({ cid });
       cid++;
       cursor = lStart + lLen;
@@ -232,25 +244,60 @@ export class RbDiffEditor extends HTMLElement {
   }
 
   // [impl:uuid:e24dc98a-bbea-4e9b-9960-5f59db8bf6b1] RbDiffEditor.renderMergeGutter
-  // IntelliJ gutter: highlight each conflict region in CENTER + a ◄ (accept Local) / ► (accept Repository) control.
-  // Non-conflicting changes are already applied (rendered subtly); true conflicts stand out for resolution.
+  // R30.16 orchestrator (full IntelliJ layout): align rows (viewZones) → colored center blocks → inter-pane gutter
+  // icons → connector ribbons — Y (alignment) BEFORE X (gutter/ribbon geometry). Counter in the toolbar.
   renderMergeGutter(): void {
     if (!this.edCenter || !this.monaco) return;
-    const m = this.monaco;
-    const decos = this.conflicts.map(c => ({
-      range: new m.Range(c.span[0] + 1, 1, Math.max(c.span[0] + 1, c.span[1]), 1),
-      options: { isWholeLine: true, className: 'de-conflict-line', linesDecorationsClassName: 'de-conflict-gutter', glyphMarginClassName: 'de-conflict-glyph' },
-    }));
-    this._conflictDecoIds = this.edCenter.deltaDecorations(this._conflictDecoIds || [], decos);
-    // R30.13: the cramped bottom .de-accept-bar is REPLACED by inter-pane gutter icons + connector ribbons (IntelliJ desktop).
+    this.alignPaneRows();            // (2) viewZone blank-row spacers → blocks line up L↔C↔R
+    this.renderCenterChangeBlocks(); // (3) colored rounded change-blocks (replaces the flat de-conflict-line)
     this.querySelector('.de-accept-bar')?.remove();
-    this.renderInterPaneGutters();
-    this.renderConnectorRibbons();
+    this.renderInterPaneGutters();   // (4) ≫/≪/✕ icons in the widened gutter
+    this.renderConnectorRibbons();   // (5) SVG ribbons, palette-matched to the blocks
     const nc2 = this.conflicts.filter(c => !this.dismissed.has(c.id)).length;
     const cnt = this.querySelector('.de-count') as HTMLElement;
     if (cnt) cnt.textContent = `${this.conflicts.length} change${this.conflicts.length === 1 ? '' : 's'}, ${nc2} ${this.twoWay ? 'take-over' : 'conflict'}${nc2 === 1 ? '' : 's'}`;
   }
-  private _conflictDecoIds: string[] = [];
+
+  private _maxH(c: Conflict): number { return Math.max(c.a.length, c.b.length, 1); } // aligned block height (rows) across all 3 panes
+
+  // [impl:uuid:17c71adf-7b69-4081-98aa-0e687747a4d5] RbDiffEditor.alignPaneRows
+  // R30.16: Monaco viewZone BLANK-ROW spacers so each conflict block occupies maxH=max(a,b) rows in ALL 3 panes →
+  // change regions line up L↔C↔R (getTopForLineNumber already counts viewZones → ribbon endpoints get aligned Y →
+  // near-horizontal bands). Pad = maxH − that pane's real block length, inserted AFTER the block.
+  private alignPaneRows(): void {
+    if (!this.edLocal || !this.edCenter || !this.edRemote) return;
+    const live = this.conflicts.filter(c => !this.dismissed.has(c.id));
+    const specs: Array<['local' | 'center' | 'remote', any, (c: Conflict) => { after: number; pad: number }]> = [
+      ['local', this.edLocal, c => ({ after: c.aStart + c.a.length, pad: this._maxH(c) - c.a.length })],
+      ['center', this.edCenter, c => ({ after: c.span[1], pad: this._maxH(c) - (c.pick === 'b' ? c.b.length : c.a.length) })],
+      ['remote', this.edRemote, c => ({ after: c.bStart + c.b.length, pad: this._maxH(c) - c.b.length })],
+    ];
+    for (const [key, ed, fn] of specs) {
+      ed.changeViewZones((acc: any) => {
+        for (const id of this._zoneIds[key]) acc.removeZone(id);
+        this._zoneIds[key] = [];
+        for (const c of live) {
+          const { after, pad } = fn(c);
+          if (pad > 0) this._zoneIds[key].push(acc.addZone({ afterLineNumber: Math.max(0, after), heightInLines: pad, domNode: document.createElement('div') }));
+        }
+      });
+    }
+  }
+  private _zoneIds: { local: string[]; center: string[]; remote: string[] } = { local: [], center: [], remote: [] };
+
+  // [impl:uuid:37c9694c-8af3-41fd-9cbc-69b505642b05] RbDiffEditor.renderCenterChangeBlocks
+  // R30.16: colored ROUNDED-block backgrounds on each CENTER hunk span (Monaco whole-line decorations, class by
+  // conflictColor kind) — replaces the flat maroon de-conflict-line. Same conflicts[] as the ribbons → colors match.
+  private renderCenterChangeBlocks(): void {
+    if (!this.edCenter || !this.monaco) return;
+    const m = this.monaco;
+    const decos = this.conflicts.filter(c => !this.dismissed.has(c.id)).map(c => ({
+      range: new m.Range(c.span[0] + 1, 1, Math.max(c.span[0] + 1, c.span[1]), 1),
+      options: { isWholeLine: true, className: `de-block-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}`, glyphMarginClassName: c.kind === 'conflict' ? 'de-conflict-glyph' : undefined },
+    }));
+    this._blockDecoIds = this.edCenter.deltaDecorations(this._blockDecoIds, decos);
+  }
+  private _blockDecoIds: string[] = [];
   private dismissed = new Set<number>();   // R30.13: changes the user ✕-ignored (visual dismiss; center untouched)
   private _jumpIdx = -1;
   private _ribbonSvg: SVGSVGElement | null = null;
@@ -304,8 +351,9 @@ export class RbDiffEditor extends HTMLElement {
   }
 
   // [impl:uuid:5051b2a4-6102-41fe-a352-a50e6b8ae03e] RbDiffEditor.renderConnectorRibbons
-  // SVG connector ribbons (IntelliJ): filled diagonal bands from each changed block in Local/Repository to its landing
-  // rows in Result. Source ranges via diffIndices(side,center). blue=non-conflict change, green=one-sided, red-brown=conflict.
+  // R30.16: one filled band per Conflict — Local-block → Result-block and Result-block → Repository-block — colored by
+  // the SHARED conflictColor(c) so ribbons MATCH the center rounded-block. alignPaneRows makes the blocks share rows →
+  // near-horizontal Bézier ribbons across the widened (~34px) inter-pane gutter. SVG z-ABOVE editors, pointer-events:none.
   private renderConnectorRibbons(): void {
     if (!this.edCenter || !this.edLocal || !this.edRemote) return;
     const panes = this.querySelector('.de-panes') as HTMLElement; if (!panes) return;
@@ -313,7 +361,7 @@ export class RbDiffEditor extends HTMLElement {
     if (!this._ribbonSvg) {
       const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
       svg.setAttribute('class', 'de-ribbons');
-      svg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none';
+      svg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none'; // above editors, below the z-6 icon strips
       panes.insertBefore(svg, panes.firstChild);
       this._ribbonSvg = svg;
     }
@@ -321,21 +369,20 @@ export class RbDiffEditor extends HTMLElement {
     const cM = this.mount('center').getBoundingClientRect();
     const cLeft = cM.left - pr.left, cRight = cM.right - pr.left;
     const rLeft = this.mount('remote').getBoundingClientRect().left - pr.left;
-    const center = this.edCenter.getValue().split('\n');
-    const inConflict = (ln: number) => this.conflicts.some(c => !this.dismissed.has(c.id) && ln >= c.span[0] && ln < c.span[1]);
-    const cy = (ln0: number) => this.lineY(this.edCenter, ln0);
-    const band = (x1: number, y1a: number, y1b: number, x2: number, y2a: number, y2b: number, color: string) =>
-      `<path d="M${x1.toFixed(1)},${y1a.toFixed(1)} L${x2.toFixed(1)},${y2a.toFixed(1)} L${x2.toFixed(1)},${y2b.toFixed(1)} L${x1.toFixed(1)},${y1b.toFixed(1)} Z" fill="${color}" fill-opacity="0.20" stroke="${color}" stroke-opacity="0.55" stroke-width="1"/>`;
+    // A closed Bézier band: top edge x1,ya → x2,ya' (S-curve), down x2, back along a mirrored curve, close.
+    const band = (x1: number, ya1: number, yb1: number, x2: number, ya2: number, yb2: number, color: string) => {
+      const mx = ((x1 + x2) / 2).toFixed(1);
+      return `<path d="M${x1.toFixed(1)},${ya1.toFixed(1)} C${mx},${ya1.toFixed(1)} ${mx},${ya2.toFixed(1)} ${x2.toFixed(1)},${ya2.toFixed(1)} L${x2.toFixed(1)},${yb2.toFixed(1)} C${mx},${yb2.toFixed(1)} ${mx},${yb1.toFixed(1)} ${x1.toFixed(1)},${yb1.toFixed(1)} Z" fill="${color}" fill-opacity="0.22" stroke="${color}" stroke-opacity="0.6" stroke-width="1"/>`;
+    };
     const parts: string[] = [];
-    for (const d of diffIndices(this.left.content.split('\n'), center)) {
-      const [ls, ll] = d.buffer1, [cs, cl] = d.buffer2;
-      const color = inConflict(cs) ? '#a5603a' : (ll === 0 || cl === 0) ? '#3a8a4a' : '#3a6ea5';
-      parts.push(band(lRight, this.lineY(this.edLocal, ls), this.lineY(this.edLocal, ls + Math.max(ll, 1)), cLeft, cy(cs), cy(cs + Math.max(cl, 1)), color));
-    }
-    for (const d of diffIndices(center, this.right.content.split('\n'))) {
-      const [cs, cl] = d.buffer1, [rs, rl] = d.buffer2;
-      const color = inConflict(cs) ? '#a5603a' : (cl === 0 || rl === 0) ? '#3a8a4a' : '#3a6ea5';
-      parts.push(band(cRight, cy(cs), cy(cs + Math.max(cl, 1)), rLeft, this.lineY(this.edRemote, rs), this.lineY(this.edRemote, rs + Math.max(rl, 1)), color));
+    for (const c of this.conflicts.filter(x => !this.dismissed.has(x.id))) {
+      const color = conflictColor(c);
+      const cTop = this.lineY(this.edCenter, c.span[0]);
+      const h = this.lineY(this.edCenter, c.span[1]) - cTop; // aligned block visual height (same in all 3 panes)
+      const lTop = this.lineY(this.edLocal, c.aStart);
+      const rTop = this.lineY(this.edRemote, c.bStart);
+      parts.push(band(lRight, lTop, lTop + h, cLeft, cTop, cTop + h, color));   // Local → Result
+      parts.push(band(cRight, cTop, cTop + h, rLeft, rTop, rTop + h, color));   // Result → Repository
     }
     this._ribbonSvg.innerHTML = parts.join('');
   }
