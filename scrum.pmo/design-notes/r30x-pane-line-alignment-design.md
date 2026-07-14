@@ -23,6 +23,13 @@ The R30.13 ribbons render but are INVISIBLE — expert's root cause: `.de-panes 
 - **`syncScroll3` UNCHANGED:** alignment makes cumulative heights equal at each conflict boundary, so `setScrollTop(sameValue)` keeps aligned rows aligned across panes.
 - Works in BOTH 2-way + 3-way (both populate `centerSeq`/`conflicts`).
 
+## ★ Scroll-to-last-line (Tron R30.13#3) — FOLD into R30.16 (2 causes, MEASURED)
+Symptom: synced scroll won't bring a file's LAST line to the top; stops wrong. TWO causes:
+1. **Pane length-mismatch → syncScroll3 clamp-drag.** `syncScroll3` sets raw `setScrollTop(e.scrollTop)` on all 3; with different scrollHeights the shorter pane CLAMPS, and since each pane is also a scroll SOURCE, the clamped one fires back and drags the others → wrong stop. **`alignPaneRows` FIXES this:** spacers make all 3 panes EQUAL total height (equal-runs identical + each conflict padded to maxH) → one consistent scroll range → no clamp-drag. ✔
+2. **`scrollBeyondLastLine: false` (MEASURED, mountThreePane common opts line 114) → last line can NEVER reach the TOP** (can't scroll past it). Even with equal heights, last-line-to-top needs `scrollBeyondLastLine: TRUE`. This is a SEPARATE, direct cause. **Companion impl-edit** to `mountThreePane` (c4c84142): flip `scrollBeyondLastLine` to `true` on all 3 editors (marker STAYS).
+Optional hardening (not required once aligned): sync by TOP-LINE (getTopForLineNumber map) instead of raw pixels. Not needed — equal heights + scrollBeyondLastLine:true suffice.
+**ADD ACs to R30.16:** (a) post-alignment all 3 panes equal total height + synced scroll reaches each file's full extent (no mismatch clamp); (b) `scrollBeyondLastLine:true` on all 3 → last line scrolls to the TOP.
+
 ## Chain to mint (scenario-first — req). Class RbDiffEditor 18165081 REUSE (21→22m, +1), 0-dup, name-exact, designAhead.
 | UC | Method (NEW, name-matching) | sourceFile | Impl |
 |----|-----------------------------|-----------|------|
