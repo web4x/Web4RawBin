@@ -1,12 +1,14 @@
 {
- "ior": "ior:class:Implementation",
- "model": {
-  "uuid": "fd99c520-a56b-46ce-b37b-4108daed1132",
-  "name": "RbDiffEditor.renderInterPaneGutters impl",
-  "tests": [],
-  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-  "designAhead": true,
-  "description": "DESIGN-AHEAD: inter-pane action gutters replacing .de-accept-bar; icons wired to acceptChange. Expert builds + tags [impl] marker (=this Impl uuid)."
- },
- "ownerIor": "ior:instance:98c5a33a-5fec-4b08-800f-0a8a60f26877"
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "fd99c520-a56b-46ce-b37b-4108daed1132",
+    "name": "RbDiffEditor.renderInterPaneGutters impl",
+    "tests": [
+      "ior:instance:79bb0097-6735-4dab-acd0-c61583266395"
+    ],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: inter-pane action gutters replacing .de-accept-bar; icons wired to acceptChange. Expert builds + tags [impl] marker (=this Impl uuid)."
+  },
+  "ownerIor": "ior:instance:98c5a33a-5fec-4b08-800f-0a8a60f26877"
 }
