@@ -1,15 +1,15 @@
 {
-  "ior": "ior:class:Test",
-  "model": {
-    "uuid": "9c6cfdbc-107d-40af-adfc-90450149eb81",
-    "name": "test:R30.10 GitApi.fileHistory gate",
-    "description": "Bridged to test/visual/r3010-file-history-gate.mjs — /api/git/file-history newest-first + cross-repo + reject-first (traversal/abs/bad-repo->400) (DET-3x GREEN, prod v0.7.19, READ-ONLY GET)",
-    "sourceFile": "ior:file:test/visual/r3010-file-history-gate.mjs",
-    "verifies": [
-      "ior:instance:e9cfaab3-5166-4ab4-ab7c-699481b3d681"
-    ],
-    "status": "pass",
-    "unitLinks": []
-  },
-  "ownerIor": "ior:instance:e9cfaab3-5166-4ab4-ab7c-699481b3d681"
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "9c6cfdbc-107d-40af-adfc-90450149eb81",
+  "name": "test:R30.10 GitApi.fileHistory gate",
+  "description": "Bridged to r3010-file-history-gate.mjs (DET-3x) - verifies GitApi.fileHistory. R30.10 merge-editor gate GREEN.",
+  "sourceFile": "ior:file:test/visual/r3010-file-history-gate.mjs",
+  "implementations": [
+   "ior:instance:e9cfaab3-5166-4ab4-ab7c-699481b3d681"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:e9cfaab3-5166-4ab4-ab7c-699481b3d681"
 }

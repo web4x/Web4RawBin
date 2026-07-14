@@ -1,15 +1,15 @@
 {
-  "ior": "ior:class:Test",
-  "model": {
-    "uuid": "16b2721a-dfac-4a8a-8433-f7fedfe5728e",
-    "name": "test:R30.10 RbDiffEditor.populateRightHistory gate",
-    "description": "Bridged to test/visual/r3010-file-history-gate.mjs — Open Diff local file -> RIGHT .de-history auto-populates that file versions (newest loaded) (DET-3x GREEN, prod v0.7.19, READ-ONLY GET)",
-    "sourceFile": "ior:file:test/visual/r3010-file-history-gate.mjs",
-    "verifies": [
-      "ior:instance:58c11039-3f11-464d-a8fe-641722f78e2b"
-    ],
-    "status": "pass",
-    "unitLinks": []
-  },
-  "ownerIor": "ior:instance:58c11039-3f11-464d-a8fe-641722f78e2b"
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "16b2721a-dfac-4a8a-8433-f7fedfe5728e",
+  "name": "test:R30.10 RbDiffEditor.populateRightHistory gate",
+  "description": "Bridged to r3010-file-history-gate.mjs (DET-3x) - verifies RbDiffEditor.populateRightHistory. R30.10 merge-editor gate GREEN.",
+  "sourceFile": "ior:file:test/visual/r3010-file-history-gate.mjs",
+  "implementations": [
+   "ior:instance:58c11039-3f11-464d-a8fe-641722f78e2b"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:58c11039-3f11-464d-a8fe-641722f78e2b"
 }

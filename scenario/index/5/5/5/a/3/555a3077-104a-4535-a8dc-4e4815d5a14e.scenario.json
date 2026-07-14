@@ -1,15 +1,15 @@
 {
-  "ior": "ior:class:Test",
-  "model": {
-    "uuid": "555a3077-104a-4535-a8dc-4e4815d5a14e",
-    "name": "test:R30.9 RbDiffEditor.acceptChange gate",
-    "description": "Bridged to test/visual/r309-three-way-merge-gate.mjs — accept RIGHT pushes that side hunk into CENTER Result (RIGHT_Q in, LEFT_P out) (DET-3x GREEN, prod v0.7.18, accept mutates in-memory center=expected, no file write)",
-    "sourceFile": "ior:file:test/visual/r309-three-way-merge-gate.mjs",
-    "verifies": [
-      "ior:instance:843d79d4-b07a-4f8c-8f15-297211017cb4"
-    ],
-    "status": "pass",
-    "unitLinks": []
-  },
-  "ownerIor": "ior:instance:843d79d4-b07a-4f8c-8f15-297211017cb4"
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "555a3077-104a-4535-a8dc-4e4815d5a14e",
+  "name": "test:R30.9 RbDiffEditor.acceptChange gate",
+  "description": "Bridged to r309-three-way-merge-gate.mjs (DET-3x) - verifies RbDiffEditor.acceptChange. R30.9 merge-editor gate GREEN.",
+  "sourceFile": "ior:file:test/visual/r309-three-way-merge-gate.mjs",
+  "implementations": [
+   "ior:instance:843d79d4-b07a-4f8c-8f15-297211017cb4"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:843d79d4-b07a-4f8c-8f15-297211017cb4"
 }
