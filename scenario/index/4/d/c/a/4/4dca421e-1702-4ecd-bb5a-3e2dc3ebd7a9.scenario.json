@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "4dca421e-1702-4ecd-bb5a-3e2dc3ebd7a9",
+  "name": "test:R30.17 populateLeftHistory gate",
+  "description": "Bridged to test/visual/r3017-left-history-gate.mjs (DET-3x) - verifies RbDiffEditor.populateLeftHistory (left-history: older-on-LEFT HEAD~1 non-zero diff + pick-wins). R30.17 merge-functional-fixes gate GREEN.",
+  "sourceFile": "ior:file:test/visual/r3017-left-history-gate.mjs",
+  "implementations": [
+   "ior:instance:751934c1-96d7-4d9b-ab64-4882b7b6e042"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:751934c1-96d7-4d9b-ab64-4882b7b6e042"
+}

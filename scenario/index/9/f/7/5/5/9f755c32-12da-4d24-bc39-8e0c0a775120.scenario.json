@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "9f755c32-12da-4d24-bc39-8e0c0a775120",
+  "name": "test:R30.17 renderInterPaneGutters gate",
+  "description": "Bridged to test/visual/r3017-left-history-gate.mjs (DET-3x) - verifies RbDiffEditor.renderInterPaneGutters (one-sided origin-gating: arrow on one side only). R30.17 merge-functional-fixes gate GREEN.",
+  "sourceFile": "ior:file:test/visual/r3017-left-history-gate.mjs",
+  "implementations": [
+   "ior:instance:fd99c520-a56b-46ce-b37b-4108daed1132"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:fd99c520-a56b-46ce-b37b-4108daed1132"
+}
