@@ -1,4 +1,5 @@
-// [test:uuid:0ad9eaa2-ff76-4aa0-b280-5ba0710a03fb] R30.14 SW auto-update reload path (pollForWorkerUpdate f1456992 + claimClients 406e1e33)
+// [test:uuid:0ad9eaa2-ff76-4aa0-b280-5ba0710a03fb] R30.14 ServiceWorker.pollForWorkerUpdate (impl f1456992) — arm A: reg.update() detects the deploy → updatefound → 'Update Now' banner appears (verified v1→v2, DET-3x)
+// [test:uuid:35a6bbff-cd12-48d3-bb80-e2879ae8d2b0] R30.14 ServiceWorker.claimClients (impl 406e1e33) — arm B: tap → SKIP_WAITING → skipWaiting + clients.claim → controllerchange → reload → new version live, no auto-reload pre-tap (verified v1→v2, DET-3x)
 // DETERMINISTIC v1→v2 harness for the register-vN → deploy-vN+1 → banner → reload path (the committed regression gate;
 // the live-catch on a real deploy is the fidelity complement). Mirrors prod sw.js: message→SKIP_WAITING→skipWaiting,
 // activate→clients.claim; page: reg.update() (pollForWorkerUpdate) → updatefound → 'Update Now' banner (arm A),
