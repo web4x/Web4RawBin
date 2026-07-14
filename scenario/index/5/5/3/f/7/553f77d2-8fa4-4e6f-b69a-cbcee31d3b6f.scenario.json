@@ -9,7 +9,9 @@
    "ior:instance:58c11039-3f11-464d-a8fe-641722f78e2b"
   ],
   "status": "pass",
-  "unitLinks": []
+  "unitLinks": [],
+  "supersededBy": "ior:instance:4dca421e-1702-4ecd-bb5a-3e2dc3ebd7a9",
+  "supersededNote": "RETIRED: R30.15 right-meaningful-default test - the right-history behavior it verified was superseded by R30.17 (auto history moved right->left, populateRightHistory->populateLeftHistory). Replaced by the R30.17 left-history test 4dca421e. Removed from Impl 58c11039.tests[] by the tester (df875176b); retired-not-open."
  },
  "ownerIor": "ior:instance:58c11039-3f11-464d-a8fe-641722f78e2b"
 }

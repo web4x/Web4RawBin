@@ -42,7 +42,9 @@
     "group": "verify",
     "text": "Open-Diff on a clean git file shows working-vs-HEAD~1 (non-empty diff); a user ref-pick during autoload is preserved; DET-3x."
    }
-  ]
+  ],
+  "supersededBy": "ior:instance:5aa71554-03ee-410f-b0d4-d00e9a7f2efa",
+  "supersededNote": "SUPERSEDED by R30.17: R30.15 right-meaningful-default+pick-wins behavior moved to the LEFT side (populateLeftHistory). R30.15 impl-edited populateRightHistory (Impl 58c11039), which R30.17 supersedes; R30.15 has no non-superseded chain -> req is retired-not-open. (walkChainCoverage/honorSupersededBy R30.11 reads supersededBy as retired.)"
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }
