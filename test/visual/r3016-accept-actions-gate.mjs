@@ -40,30 +40,28 @@ try {
   setup();
   for (let i = 1; i <= 3; i++) {
     const { ctx, page } = await mount3way(browser);
-    const r = await page.evaluate(async () => {
-      const el = document.querySelector('rb-diff-editor'); const nap = (ms) => new Promise(r => setTimeout(r, ms));
-      const center = () => el.edCenter.getValue();
-      const click = (strip, act) => document.querySelector(`rb-diff-editor .${strip} [data-cid="0"][data-act="${act}"]`)?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-      const line0 = el.conflicts?.[0]?.span?.[0]; // 0-based center row of the conflict
-      // default pick='a' (Local) → center starts as SIX-LOCAL. Test ≪ THEN ≫ (both meaningful; ≫-first would be a no-op).
-      // (1) CLICK ≪ take Repository → center swaps to SIX-REMOTE (800ms: rebuildCenter→setValue must apply)
-      const preR = center(); click('de-gutter-right', 'right'); await nap(800);
-      const takeRepo = center() !== preR && center().includes('SIX-REMOTE') && !center().includes('SIX-LOCAL');
-      const rowCorrectR = line0 != null && (center().split('\n')[line0] || '').includes('SIX-REMOTE'); // off-by-one guard
-      // (2) CLICK ≫ take Local → center swaps back to SIX-LOCAL
-      const preL = center(); click('de-gutter-left', 'left'); await nap(800);
-      const takeLocal = center() !== preL && center().includes('SIX-LOCAL') && !center().includes('SIX-REMOTE');
-      // (3) CLICK ✕ ignore → conflict dismissed: its gutter buttons + ribbon gone (no ghost)
-      const ribBefore = document.querySelectorAll('rb-diff-editor .de-ribbons path').length;
-      const gutBefore = document.querySelectorAll('rb-diff-editor [data-cid="0"][data-act]').length;
-      click('de-gutter-left', 'ignore'); await nap(800);
-      const ignore = document.querySelectorAll('rb-diff-editor [data-cid="0"][data-act]').length < gutBefore; // buttons for cid 0 removed
-      const noGhostRibbons = document.querySelectorAll('rb-diff-editor .de-ribbons path').length <= ribBefore;
-      return { takeRepo, rowCorrectR, takeLocal, ignore, noGhostRibbons, line0 };
-    });
+    // REAL hit-tested clicks (page.click = real mouse + actionability + hit-testing), not synthetic dispatch — matches a user.
+    const center = () => page.evaluate(() => document.querySelector('rb-diff-editor').edCenter.getValue());
+    const counts = () => page.evaluate(() => ({ gut: document.querySelectorAll('rb-diff-editor [data-cid="0"][data-act]').length, rib: document.querySelectorAll('rb-diff-editor .de-ribbons path').length }));
+    const realClick = async (sel) => { try { await page.click(sel, { timeout: 5000 }); return true; } catch { return false; } };
+    // reveal the conflict row so the real click has an on-screen target; get its 0-based center row
+    const line0 = await page.evaluate(() => { const el = document.querySelector('rb-diff-editor'); const c = el.conflicts?.[0]; if (c) el.edCenter.revealLineInCenter((c.span?.[0] || 0) + 1); return c?.span?.[0]; });
+    await sleep(300);
+    // default pick='a' (Local) → center starts SIX-LOCAL. ≪ then ≫ (both meaningful; ≫-first is a no-op).
+    // (1) REAL click ≪ take Repository → CENTER CONTENT becomes SIX-REMOTE
+    const preR = await center(); const cR = await realClick('rb-diff-editor .de-gutter-right [data-cid="0"][data-act="right"]'); await sleep(800);
+    const aR = await center(); const takeRepo = cR && aR !== preR && aR.includes('SIX-REMOTE') && !aR.includes('SIX-LOCAL');
+    const rowCorrectR = line0 != null && (aR.split('\n')[line0] || '').includes('SIX-REMOTE'); // off-by-one guard: accepted line at line N, not N±1
+    // (2) REAL click ≫ take Local → CENTER becomes SIX-LOCAL
+    const preL = await center(); const cL = await realClick('rb-diff-editor .de-gutter-left [data-cid="0"][data-act="left"]'); await sleep(800);
+    const aL = await center(); const takeLocal = cL && aL !== preL && aL.includes('SIX-LOCAL') && !aL.includes('SIX-REMOTE');
+    // (3) REAL click ✕ ignore → dismissed (gutter buttons + ribbon gone, no ghost)
+    const bef = await counts(); const cI = await realClick('rb-diff-editor .de-gutter-left [data-cid="0"][data-act="ignore"]'); await sleep(800);
+    const aft = await counts();
+    const r = { takeRepo, rowCorrectR, takeLocal, ignore: cI && aft.gut < bef.gut, noGhostRibbons: aft.rib <= bef.rib, clicksLanded: { R: cR, L: cL, I: cI }, line0 };
     const pass = r.takeRepo && r.rowCorrectR && r.takeLocal && r.ignore && r.noGhostRibbons;
     results.push({ pass, r });
-    console.log(`iter ${i}: ≪takeRepo=${r.takeRepo} rowCorrect(no-off-by-1)=${r.rowCorrectR} ≫takeLocal=${r.takeLocal} ✕ignore-dismiss=${r.ignore} no-ghost-ribbons=${r.noGhostRibbons} => ${pass ? 'GREEN' : 'RED'}`);
+    console.log(`iter ${i}: real-clicks-landed(R/L/✕)=${r.clicksLanded.R}/${r.clicksLanded.L}/${r.clicksLanded.I} | ≪takeRepo=${r.takeRepo} rowCorrect(no-off-by-1)=${r.rowCorrectR} ≫takeLocal=${r.takeLocal} ✕ignore-dismiss=${r.ignore} no-ghost=${r.noGhostRibbons} => ${pass ? 'GREEN' : 'RED'}`);
     await ctx.close();
   }
 } finally { teardown(); await browser.close(); }
