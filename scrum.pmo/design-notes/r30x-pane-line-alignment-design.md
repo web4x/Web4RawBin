@@ -30,10 +30,16 @@ Symptom: synced scroll won't bring a file's LAST line to the top; stops wrong. T
 Optional hardening (not required once aligned): sync by TOP-LINE (getTopForLineNumber map) instead of raw pixels. Not needed — equal heights + scrollBeyondLastLine:true suffice.
 **ADD ACs to R30.16:** (a) post-alignment all 3 panes equal total height + synced scroll reaches each file's full extent (no mismatch clamp); (b) `scrollBeyondLastLine:true` on all 3 → last line scrolls to the TOP.
 
-## Chain to mint (scenario-first — req). Class RbDiffEditor 18165081 REUSE (21→22m, +1), 0-dup, name-exact, designAhead.
+## ★ CENTER colored rounded-block decorations (Tron IntelliJ fidelity) — 2nd R30.16 method
+Tron: the CENTER (Result) change regions need COLORED ROUNDED-BLOCK backgrounds matching the ribbon colors — marking WHERE+WHAT each incoming change is as it lands. Rider palette: **BLUE = change from one side, GREEN = cleanly-resolvable one-sided, RED/BROWN = conflict/deletion**; rounded corners; ribbons flow INTO these blocks. Current RawBin = FLAT maroon full-width row highlights (renderMergeGutter's `de-conflict-line`), not shaped/typed.
+- **NEW Method `RbDiffEditor.renderCenterChangeBlocks`:** Monaco range decorations on each CENTER hunk's Result span, className = color-by-type + `border-radius` (rounded block; top-radius on first line / bottom-radius on last line of the hunk for a continuous rounded block; slight inset via margin so it reads as a block not a full-bleed bar). SUPERSEDES renderMergeGutter's flat `de-conflict-line` center deco (renderMergeGutter impl-edit: delegate/drop the center flat deco; marker STAYS).
+- **Shared color classifier (DRY):** one helper `conflictColor(c)`/`CONFLICT_PALETTE` — `blue #3a6ea5` (one-side change) / `green #3a8a5a` (cleanly-resolvable one-sided) / `brown #a5603a` (conflict/deletion). Type: 2-way → every hunk = one-side change (blue); 3-way → diff3 true-conflict (both sides diverge from base) = brown, one-sided auto-merged = green, plain change = blue. **BOTH `renderCenterChangeBlocks` AND `renderConnectorRibbons` (expert) read this ONE palette** → center blocks + ribbons color-match by construction. Coordination point w/ expert.
+
+## Chain to mint (scenario-first — req). Class RbDiffEditor 18165081 REUSE (21→23m, +2 NEW methods), 0-dup, name-exact, designAhead.
 | UC | Method (NEW, name-matching) | sourceFile | Impl |
 |----|-----------------------------|-----------|------|
 | `diffEditor.paneLineAlignment` | `RbDiffEditor.alignPaneRows` | src/public/ts/components/rb-diff-editor.ts | designAhead |
+| `diffEditor.centerChangeBlocks` | `RbDiffEditor.renderCenterChangeBlocks` | src/public/ts/components/rb-diff-editor.ts | designAhead |
 
 **Build-note (impl-edit, marker STAYS):** the existing recompute path (`rebuildCenter` / the computeMergedCenter render tail) calls `alignPaneRows` after spans are set + before `renderConnectorRibbons`. REUSED unchanged: `computeTwoWayHunks`/`computeMergedCenter`/`acceptChange`/`syncScroll3`/`renderConnectorRibbons` (endpoint math unchanged — reads aligned Y). crossRef R30.13 (renderConnectorRibbons ab145dab) + R30.12.
 
