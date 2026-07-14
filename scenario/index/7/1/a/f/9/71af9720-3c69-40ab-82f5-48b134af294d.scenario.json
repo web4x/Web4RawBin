@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "71af9720-3c69-40ab-82f5-48b134af294d",
+  "name": "diffEditor.interPaneGutters",
+  "description": "Replace the invisible .de-accept-bar bottom bar with slim inter-pane action gutters (Gutter A local<->result, Gutter B result<->repository): per-change icon rows positioned at the change's Result-row Y \u2014 left gutter ignore + take-Local, right gutter take-Repo + ignore, magic-wand at conflict rows \u2014 wired to the existing acceptChange. Visible on desktop AND phone.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:98c5a33a-5fec-4b08-800f-0a8a60f26877",
+  "coveredRequirement": "ior:instance:9b525a80-5d8d-4533-a194-f63da132dd37"
+ },
+ "ownerIor": "ior:instance:9b525a80-5d8d-4533-a194-f63da132dd37"
+}

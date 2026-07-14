@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "98c5a33a-5fec-4b08-800f-0a8a60f26877",
+  "name": "RbDiffEditor.renderInterPaneGutters",
+  "implementations": [
+   "ior:instance:fd99c520-a56b-46ce-b37b-4108daed1132"
+  ],
+  "tests": [],
+  "note": "R30.13. Name EXACT. Two absolutely-positioned inter-pane overlay gutters with per-change action icons at each change's Result-row Y; icons call acceptChange(id,side); re-position on scroll/resize/rebuildCenter. THE desktop fix (bottom bar was invisible)."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

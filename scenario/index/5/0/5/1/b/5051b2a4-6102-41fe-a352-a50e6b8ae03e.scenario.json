@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "5051b2a4-6102-41fe-a352-a50e6b8ae03e",
+  "name": "RbDiffEditor.renderConnectorRibbons impl",
+  "tests": [],
+  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+  "designAhead": true,
+  "description": "DESIGN-AHEAD: colored diagonal connector ribbons source-block->Result, scroll-aligned. Expert builds + tags [impl] marker (=this Impl uuid)."
+ },
+ "ownerIor": "ior:instance:ab145dab-4d2f-46d0-be62-ce90c46177e6"
+}

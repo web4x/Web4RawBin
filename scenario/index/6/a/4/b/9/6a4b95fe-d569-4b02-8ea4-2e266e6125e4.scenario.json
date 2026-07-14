@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "6a4b95fe-d569-4b02-8ea4-2e266e6125e4",
+  "name": "RbDiffEditor.jumpToChange",
+  "implementations": [
+   "ior:instance:65c465fa-1c45-497c-a3f9-f95829cff06d"
+  ],
+  "tests": [],
+  "note": "R30.13. Name EXACT. jumpToChange(+-1) reveals prev/next change Result line; toolbar counter N changes M conflicts."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "115034bd-ae97-4284-b95e-9acaf761610e",
+  "name": "diffEditor.connectorRibbons",
+  "description": "Draw colored diagonal filled SVG ribbons in each inter-pane gutter linking a changed source block (Local for Gutter A, Repo for Gutter B, ranges via diffIndices) to its landing rows in Result; Y via getTopForLineNumber-getScrollTop; blue=non-conflict, green=resolvable, red/brown=conflict/deletion; redraw scroll-synced (via syncScroll3, rAF-throttled) + on resize/rebuildCenter.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:ab145dab-4d2f-46d0-be62-ce90c46177e6",
+  "coveredRequirement": "ior:instance:9b525a80-5d8d-4533-a194-f63da132dd37"
+ },
+ "ownerIor": "ior:instance:9b525a80-5d8d-4533-a194-f63da132dd37"
+}

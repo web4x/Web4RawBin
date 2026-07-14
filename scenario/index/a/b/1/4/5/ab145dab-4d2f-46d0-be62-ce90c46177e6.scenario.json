@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "ab145dab-4d2f-46d0-be62-ce90c46177e6",
+  "name": "RbDiffEditor.renderConnectorRibbons",
+  "implementations": [
+   "ior:instance:5051b2a4-6102-41fe-a352-a50e6b8ae03e"
+  ],
+  "tests": [],
+  "note": "R30.13. Name EXACT. Per-change SVG quadrilateral source-range->Result span; color by conflict type/pick; source ranges computed internally via diffIndices (decoupled from R30.12). Redraw on scroll/resize/rebuildCenter."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

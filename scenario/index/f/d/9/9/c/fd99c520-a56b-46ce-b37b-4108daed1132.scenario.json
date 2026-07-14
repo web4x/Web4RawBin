@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "fd99c520-a56b-46ce-b37b-4108daed1132",
+  "name": "RbDiffEditor.renderInterPaneGutters impl",
+  "tests": [],
+  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+  "designAhead": true,
+  "description": "DESIGN-AHEAD: inter-pane action gutters replacing .de-accept-bar; icons wired to acceptChange. Expert builds + tags [impl] marker (=this Impl uuid)."
+ },
+ "ownerIor": "ior:instance:98c5a33a-5fec-4b08-800f-0a8a60f26877"
+}

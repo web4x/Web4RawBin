@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "77e8b3b1-7549-430a-a2c3-1d2a2da9662f",
+  "name": "diffEditor.changeNavigation",
+  "description": "Toolbar 'N changes, M conflicts' counter (from conflicts.length + true-conflict count) plus up/down buttons that jump to the previous/next change's Result line (revealLineInCenter + scroll-sync).",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:6a4b95fe-d569-4b02-8ea4-2e266e6125e4",
+  "coveredRequirement": "ior:instance:9b525a80-5d8d-4533-a194-f63da132dd37"
+ },
+ "ownerIor": "ior:instance:9b525a80-5d8d-4533-a194-f63da132dd37"
+}

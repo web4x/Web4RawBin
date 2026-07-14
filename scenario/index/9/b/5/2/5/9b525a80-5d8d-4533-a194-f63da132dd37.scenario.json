@@ -1,0 +1,73 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "9b525a80-5d8d-4533-a194-f63da132dd37",
+  "name": "IntelliJ inter-pane merge gutters + connector ribbons",
+  "altId": "R30.13",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:71af9720-3c69-40ab-82f5-48b134af294d",
+   "ior:instance:115034bd-ae97-4284-b95e-9acaf761610e",
+   "ior:instance:77e8b3b1-7549-430a-a2c3-1d2a2da9662f"
+  ],
+  "description": "IntelliJ/Rider-faithful inter-pane merge gutters + connector ribbons for the 3-pane diff/merge editor. Replaces the .de-accept-bar bottom bar (cramped on phone, invisible on desktop = effectively no controls) with two slim inter-pane action gutters (local<->result, result<->repository) carrying per-change take-over icons wired to acceptChange, plus colored diagonal SVG connector ribbons linking each changed source block to its landing rows in Result (blue non-conflict / green resolvable / red-brown conflict), scroll-synced, and a 'N changes, M conflicts' counter with up/down change navigation. Works in BOTH 2-way (R30.12) and 3-way (diff3) since they share conflicts[]. Pure client, IntelliJ column order.",
+  "tronQuote": "> Tron 2026-07-14 (Rider/IntelliJ merge screenshot = gold standard): inter-pane gutters with per-change accept icons + colored diagonal connector ribbons from source block to result, plus a change/conflict counter with navigation.",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron (Rider screenshot) via robbin-architect",
+   "date": "2026-07-14",
+   "note": "IntelliJ merge UX gold-standard. Architect design 44be66090 (r30.13-interpane-gutters-ribbons-design.md). Fixes: (a) take-over controls were an invisible-on-desktop bottom bar; (b) no cross-pane change graphics. Builds ON R30.12 (2-way now populates conflicts[]) so gutters+ribbons work in both 2-way + 3-way. Sole-minter; 3 new Methods on RbDiffEditor REUSE."
+  },
+  "designRef": "scrum.pmo/design-notes/r30.13-interpane-gutters-ribbons-design.md (44be66090)",
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:c6f127bc-9f13-4f5f-945a-55a6293101eb",
+   "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+  ],
+  "crossRefNote": "Builds on R30.12 (2-way conflicts[]) + R30.9 (3-way diff3 conflicts[]) \u2014 the gutters+ribbons render from the shared conflicts[] in BOTH modes. Class RbDiffEditor REUSE 18165081. 3 new Methods; the fix ALSO impl-edits EXISTING renderMergeGutter (e24dc98a: keep center line-decos, drop .de-accept-bar) + syncScroll3 (e3431e87: throttled ribbon-redraw hook) \u2014 markers STAY (no new units); acceptChange (843d79d4) / computeMergedCenter (a0b30550) / computeTwoWayHunks (R30.12) REUSED unchanged.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-gutters",
+    "group": "gutters",
+    "text": "renderInterPaneGutters replaces the .de-accept-bar bottom bar with TWO slim inter-pane action gutters (local<->result, result<->repository); per-change icons at the change's Result-row Y \u2014 take-Local / take-Repo / ignore / magic-wand at conflicts \u2014 call the existing acceptChange. Controls visible on desktop AND phone (fixes the invisible-desktop bar)."
+   },
+   {
+    "id": "AC-ribbons",
+    "group": "ribbons",
+    "text": "renderConnectorRibbons draws colored diagonal filled SVG ribbons linking each changed source block (ranges via diffIndices) to its landing rows in Result; blue=non-conflict, green=resolvable, red/brown=conflict."
+   },
+   {
+    "id": "AC-scroll-align",
+    "group": "align",
+    "text": "Gutter icons AND ribbons stay row-aligned: redraw on scroll (via syncScroll3 onDidScrollChange, requestAnimationFrame-throttled) + on resize + on rebuildCenter."
+   },
+   {
+    "id": "AC-nav",
+    "group": "nav",
+    "text": "jumpToChange gives a toolbar 'N changes, M conflicts' counter + up/down buttons that reveal the prev/next change's Result line (revealLineInCenter + scroll-sync)."
+   },
+   {
+    "id": "AC-both-modes",
+    "group": "modes",
+    "text": "Gutters + ribbons light up in BOTH 2-way (R30.12 conflicts[]) and 3-way (diff3 conflicts[]) \u2014 they render from the shared conflicts[]."
+   },
+   {
+    "id": "AC-impl-edits",
+    "group": "scope",
+    "text": "renderMergeGutter (e24dc98a) keeps its in-CENTER line-decorations but DROPS the .de-accept-bar; syncScroll3 (e3431e87) gains the throttled ribbon-redraw hook (impl-edits, markers unchanged); acceptChange/computeMergedCenter/computeTwoWayHunks reused UNCHANGED."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "Tron visual: inter-pane gutters visible on desktop with working take-over icons + ribbons align on scroll; DET-3x on the render/nav methods."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}
