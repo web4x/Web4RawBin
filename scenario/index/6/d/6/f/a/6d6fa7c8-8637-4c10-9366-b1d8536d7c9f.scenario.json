@@ -1,0 +1,65 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "6d6fa7c8-8637-4c10-9366-b1d8536d7c9f",
+  "name": "IntelliJ 3-pane line alignment + scroll-to-last-line",
+  "altId": "R30.16",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:0faad449-02fd-46f0-abb5-b731826b7ac8"
+  ],
+  "description": "Align the 3 merge panes so each change's region lines up horizontally Local<->Center<->Right (IntelliJ), and fix scroll-to-last-line. alignPaneRows walks centerSeq and inserts Monaco viewZone blank-row spacers at each conflict (spacer = maxH - hPane after each pane's block, maxH = max(local.len, picked.len, remote.len)) so every pane reaches the next equal-run at the same visual row; real line numbers stay the file's own; recompute on rebuildCenter + mount. Because all 3 panes then have equal total height, the syncScroll3 length-mismatch clamp-drag is gone (synced scroll reaches each file's full extent); combined with flipping scrollBeyondLastLine to true on all 3 editors, the last line can scroll to the TOP. Ribbons (R30.13) then connect aligned rows (near-horizontal, legible).",
+  "tronQuote": "> Tron R30.13 feedback #2+#3 2026-07-14: the panes are numbered independently so you cannot trace a change across panes (should line up like IntelliJ); and synced scroll will not bring a file's last line to the top.",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron (R30.13 feedback) via robbin-architect",
+   "date": "2026-07-14",
+   "note": "Architect design e6d338769 (r30x-pane-line-alignment-design.md). 1 NEW Method alignPaneRows on RbDiffEditor REUSE (21->22m) + folds the scroll-to-last-line fix (2 causes). NOTE: the ribbon-VISIBILITY widen-gutter (Tron R30.13#1) is NOT a new chain - it is the correct IMPL of the already-minted R30.13 renderInterPaneGutters 98c5a33a (designed 28-40px, shipped 1px) + renderConnectorRibbons ab145dab; delivered by R30.13-impl, co-built with this. Only alignPaneRows needs minting."
+  },
+  "designRef": "scrum.pmo/design-notes/r30x-pane-line-alignment-design.md (e6d338769)",
+  "crossRef": [
+   "ior:instance:9b525a80-5d8d-4533-a194-f63da132dd37",
+   "ior:instance:c6f127bc-9f13-4f5f-945a-55a6293101eb"
+  ],
+  "crossRefNote": "Aligns the R30.13 3-pane merge (renderConnectorRibbons ab145dab draw on the aligned rows) + R30.12 (2-way centerSeq). Class RbDiffEditor REUSE 18165081. 1 new Method alignPaneRows. Build-note (impl-edits, markers STAY): rebuildCenter/render tail calls alignPaneRows AFTER spans set + BEFORE renderConnectorRibbons; mountThreePane (c4c84142) flips scrollBeyondLastLine->true; REUSED unchanged computeTwoWayHunks/computeMergedCenter/acceptChange/syncScroll3/renderConnectorRibbons (endpoint math reads post-align Y free). RIBBON-VISIBILITY widen-gutter = R30.13-impl (renderInterPaneGutters 98c5a33a / renderConnectorRibbons ab145dab), NOT minted here.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-align",
+    "group": "align",
+    "text": "alignPaneRows inserts Monaco viewZone blank-row spacers at each conflict (spacer = maxH - hPane after each pane's block, maxH = max(local.len, picked.len, remote.len)) so each change region lines up horizontally Local<->Center<->Right; real line numbers stay the file's own; recompute on rebuildCenter + mount."
+   },
+   {
+    "id": "AC-ribbons-aligned",
+    "group": "align",
+    "text": "alignPaneRows runs BEFORE renderConnectorRibbons so the ribbons connect aligned rows (near-horizontal, legible); renderConnectorRibbons endpoint math is unchanged (getTopForLineNumber returns the post-align Y)."
+   },
+   {
+    "id": "AC-scroll-extent",
+    "group": "scroll",
+    "text": "Post-alignment all 3 panes have EQUAL total height, so the syncScroll3 length-mismatch clamp-drag is gone and synced scroll reaches each file's full extent (no wrong stop from a shorter pane clamping)."
+   },
+   {
+    "id": "AC-scroll-lastline",
+    "group": "scroll",
+    "text": "scrollBeyondLastLine is set to TRUE on all 3 editors (companion impl-edit to mountThreePane c4c84142, currently false @ rb-diff-editor.ts:114) so the LAST line can scroll to the TOP."
+   },
+   {
+    "id": "AC-both-modes",
+    "group": "modes",
+    "text": "Alignment + scroll fixes work in BOTH 2-way (R30.12) and 3-way (R30.9) \u2014 both populate centerSeq/conflicts."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "Tron visual: change rows line up Local<->Center<->Right + ribbons connect aligned rows + last line scrolls to the top + synced scroll reaches full extent; DET-3x on alignPaneRows."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "0faad449-02fd-46f0-abb5-b731826b7ac8",
+  "name": "diffEditor.paneLineAlignment",
+  "description": "Insert viewZone spacer rows so each change lines up horizontally across the 3 panes (equal pane heights -> aligned ribbons + no scroll clamp-drag); IntelliJ row alignment.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:3488e2eb-7c3f-451f-8053-d071807cbf0d",
+  "coveredRequirement": "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f"
+ },
+ "ownerIor": "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f"
+}
