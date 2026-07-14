@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "a3ad0177-b80c-445a-9c87-72bf827b8c16",
+  "name": "test:R30.19 renderSideChangeBlocks gate",
+  "description": "Bridged to test/visual/r3019-side-blocks-gate.mjs (DET-3x) - verifies RbDiffEditor.renderSideChangeBlocks: side de-block-{kind} decorations render in Local+Repository panes, color-match center/ribbon, origin-aware (del->Local only, add->Repo only), line-anchored (no off-by-one). R30.19 3-pane change-block highlights gate GREEN.",
+  "sourceFile": "ior:file:test/visual/r3019-side-blocks-gate.mjs",
+  "implementations": [
+   "ior:instance:eb994dcd-d9dc-4b55-84e8-13b2be3b47d5"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:eb994dcd-d9dc-4b55-84e8-13b2be3b47d5"
+}
