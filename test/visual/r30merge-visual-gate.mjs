@@ -55,6 +55,9 @@ async function openReadmeVsFirstVersion(page) {
     return { ok: true, n: opts.length, oldest: (last.value || '').slice(0, 8) };
   });
   await sleep(3000); // loadSide(right@oldest) + computeMergedCenter → computeTwoWayHunks
+  // R30.13: gutter/ribbon geometry settles after content loads — nudge one scroll to fire the wired redraw
+  await page.evaluate(async () => { const el = document.querySelector('rb-diff-editor'); if (el?.edCenter) { el.edCenter.setScrollTop(24); await new Promise(r => setTimeout(r, 200)); el.edCenter.setScrollTop(0); } });
+  await sleep(500);
   return pick;
 }
 
@@ -78,8 +81,8 @@ try {
       const before = el?.edCenter?.getValue?.() || '';
       return {
         twoWay: el?.twoWay, nhunks: (el?.conflicts || []).length,
-        arrows: document.querySelectorAll('rb-diff-editor .de-accept').length,
-        takeoverLabel: /take-?over/i.test(document.querySelector('rb-diff-editor .de-accept-bar')?.textContent || ''),
+        arrows: document.querySelectorAll('rb-diff-editor .de-gutter-left [data-act="left"], rb-diff-editor .de-gutter-right [data-act="right"]').length, // R30.13: take-over moved from .de-accept-bar → inter-pane gutters
+        takeoverLabel: /take-?over/i.test(document.querySelector('rb-diff-editor .de-count')?.textContent || ''),
         status: (document.querySelector('rb-diff-editor .de-status')?.textContent || '').trim(),
         remoteTitle: (document.querySelector('rb-diff-editor .de-remote .de-title')?.textContent || '').trim(),
         versionLines: h0 ? h0.b : [], localLines: h0 ? h0.a : [],
@@ -94,7 +97,7 @@ try {
       const h0 = (el?.conflicts || [])[0] || null;
       const versionLines = h0 ? h0.b : [];
       const before = el?.edCenter?.getValue?.() || '';
-      const btn = document.querySelector('rb-diff-editor .de-accept[data-cid="0"][data-side="right"]');
+      const btn = document.querySelector('rb-diff-editor .de-gutter-right [data-cid="0"][data-act="right"]'); // R30.13 ≪ Take Repository → Result
       let clicked = false;
       if (btn) { btn.dispatchEvent(new MouseEvent('click', { bubbles: true })); clicked = true; await new Promise(r => setTimeout(r, 500)); }
       const after = el?.edCenter?.getValue?.() || '';
@@ -127,10 +130,12 @@ try {
     await el.computeMergedCenter();
   }, DEMO);
   for (let k = 0; k < 20; k++) { const ok = await page2.evaluate(() => { const el = document.querySelector('rb-diff-editor'); return el && el.right?.ref === 'rb-merge-remote' && el.base !== '' && (el.conflicts || []).length >= 1; }); if (ok) break; await sleep(300); }
+  await page2.evaluate(async () => { const el = document.querySelector('rb-diff-editor'); if (el?.edCenter) { el.edCenter.setScrollTop(24); await new Promise(r => setTimeout(r, 200)); el.edCenter.setScrollTop(0); } }); // R30.13 gutter/ribbon settle
+  await sleep(500);
   const c2 = await page2.evaluate(() => {
     const el = document.querySelector('rb-diff-editor'); const center = el?.edCenter?.getValue?.() || '';
     return { twoWay: el?.twoWay, baseResolved: (el?.base || '') !== '', conflicts: (el?.conflicts || []).length,
-      chevrons: document.querySelectorAll('rb-diff-editor .de-accept').length,
+      chevrons: document.querySelectorAll('rb-diff-editor .de-gutter-left [data-act="left"], rb-diff-editor .de-gutter-right [data-act="right"]').length, // R30.13 inter-pane gutters
       conflictDecos: document.querySelectorAll('rb-diff-editor .de-conflict-line, rb-diff-editor .de-conflict-glyph, rb-diff-editor .de-conflict-gutter').length,
       autoAppliedLocal: center.includes('TWO-local'), autoAppliedRemote: center.includes('FOUR-remote'),
       status: (document.querySelector('rb-diff-editor .de-status')?.textContent || '').trim() };
@@ -142,7 +147,7 @@ try {
   R.shots.push(await shot(page2, 'case2-02-apply-all-nonconflicting.png'));
   const c2acc = await page2.evaluate(async () => {
     const el = document.querySelector('rb-diff-editor'); const before = el?.edCenter?.getValue?.() || '';
-    document.querySelector('rb-diff-editor .de-accept[data-cid="0"][data-side="right"]')?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    document.querySelector('rb-diff-editor .de-gutter-right [data-cid="0"][data-act="right"]')?.dispatchEvent(new MouseEvent('click', { bubbles: true })); // R30.13 ≪ Take Repository
     await new Promise(r => setTimeout(r, 500)); const after = el?.edCenter?.getValue?.() || '';
     return { after: after.includes('SIX-REMOTE') && !after.includes('SIX-LOCAL'), changed: before !== after };
   });
