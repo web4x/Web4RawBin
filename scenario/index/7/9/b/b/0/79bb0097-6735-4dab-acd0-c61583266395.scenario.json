@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "79bb0097-6735-4dab-acd0-c61583266395",
+  "name": "test:R30.13 renderInterPaneGutters gate",
+  "description": "Bridged to test/visual/r3013-gutters-ribbons-gate.mjs (DET-3x) - verifies RbDiffEditor.renderInterPaneGutters. R30.13 inter-pane gutters/ribbons/nav gate GREEN.",
+  "sourceFile": "ior:file:test/visual/r3013-gutters-ribbons-gate.mjs",
+  "implementations": [
+   "ior:instance:fd99c520-a56b-46ce-b37b-4108daed1132"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:fd99c520-a56b-46ce-b37b-4108daed1132"
+}

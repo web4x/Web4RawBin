@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "72808ca7-5eaf-4b40-a0e5-7907b5e4585e",
+  "name": "test:R30.13 jumpToChange gate",
+  "description": "Bridged to test/visual/r3013-gutters-ribbons-gate.mjs (DET-3x) - verifies RbDiffEditor.jumpToChange. R30.13 inter-pane gutters/ribbons/nav gate GREEN.",
+  "sourceFile": "ior:file:test/visual/r3013-gutters-ribbons-gate.mjs",
+  "implementations": [
+   "ior:instance:65c465fa-1c45-497c-a3f9-f95829cff06d"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:65c465fa-1c45-497c-a3f9-f95829cff06d"
+}
