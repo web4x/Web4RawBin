@@ -7,7 +7,9 @@
    "ior:instance:58c11039-3f11-464d-a8fe-641722f78e2b"
   ],
   "tests": [],
-  "note": "R30.10. Name EXACT for AST-attach. On open: fileHistory(repo,path) -> populate new right-side .de-history select (distinct from repo select) -> default newest -> loadSide('right',{ref:sha,path}). Older pick -> same loadSide. Empty -> 'no history', manual fallback."
+  "note": "R30.10. Name EXACT for AST-attach. On open: fileHistory(repo,path) -> populate new right-side .de-history select (distinct from repo select) -> default newest -> loadSide('right',{ref:sha,path}). Older pick -> same loadSide. Empty -> 'no history', manual fallback.",
+  "supersededBy": "ior:instance:af9bcfef-384a-4639-9527-06b6f8853ab7",
+  "supersededNote": "Superseded by populateLeftHistory (R30.17 5aa71554) - the AUTO file-history default moves RIGHT->LEFT (old-on-left convention). Unit STAYS for R30.10/R30.15 historical credit (R30.10 chain NOT broken); the expert removes the right-history code + [impl] marker 58c11039 in the SAME build as adding populateLeftHistory (no orphan). pickRef (manual ref, both sides) UNCHANGED - only the auto-history-default moves."
  },
  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }

@@ -27,7 +27,7 @@
    "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f",
    "ior:instance:168d5c58-2373-45f4-9018-0cd1e3528677"
   ],
-  "crossRefNote": "Functional-correctness fixes for R30.16. Class RbDiffEditor REUSE 18165081. ONE new Method populateLeftHistory (#5, moves the history selector RIGHT->LEFT = old-on-left convention, refining R30.10's right-side-history; ARCHITECT derive-confirm the populateRightHistory disposition - I minted populateLeftHistory as NEW to avoid breaking R30.10/R30.15 chains on 58c11039). Build-note (impl-edits, markers STAY): #4 mountThreePane c4c84142 (delegated click at ROOT) + renderInterPaneGutters fd99c520 (drop per-strip listener + gate arrows); #1/#3 renderConnectorRibbons 5051b2a4 (origin-gate bands) + renderInterPaneGutters fd99c520; #2 renderConnectorRibbons 5051b2a4 + alignPaneRows 17c71adf (index fix).",
+  "crossRefNote": "Functional-correctness fixes for R30.16. Class RbDiffEditor REUSE 18165081. ONE new Method populateLeftHistory (#5, moves the history selector RIGHT->LEFT = old-on-left convention, refining R30.10's right-side-history; ARCHITECT derive-confirm the populateRightHistory disposition - I minted populateLeftHistory as NEW to avoid breaking R30.10/R30.15 chains on 58c11039). Build-note (impl-edits, markers STAY): #4 mountThreePane c4c84142 (delegated click at ROOT) + renderInterPaneGutters fd99c520 (drop per-strip listener + gate arrows); #1/#3 renderConnectorRibbons 5051b2a4 (origin-gate bands) + renderInterPaneGutters fd99c520; #2 renderConnectorRibbons 5051b2a4 + alignPaneRows 17c71adf (index fix). SUPERSEDE (architect-ruled): populateRightHistory Method 3dd2173b + Impl 58c11039 supersededBy populateLeftHistory (auto history right->left); units STAY (R30.10/R30.15 historical credit, not broken); expert removes right-history code+marker WITH adding populateLeftHistory in one build (no orphan). Tester: retire R30.10 right-history test 16b2721a; R30.17 populateLeftHistory test covers left-history. pickRef unchanged.",
   "acceptanceCriteria": [
    {
     "id": "AC-4-accept-mutates",
@@ -59,6 +59,9 @@
     "group": "gate",
     "text": "\u2605 Tester DET-3x asserts FUNCTION not appearance (the R30.16 miss): (a) click take-arrow -> CENTER editor value CONTENT changes; (b) click ignore -> that change's arrows/ribbon disappear + CENTER unchanged; (c) one-sided hunk -> ribbon from ONE side only (no ghost); (d) lineY(remote,bStart)===lineY(center,span[0]); (e) history <select> on LEFT."
    }
+  ],
+  "supersedes": [
+   "ior:instance:3dd2173b-a639-455d-b2b3-ac03adfdcfe5"
   ]
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
