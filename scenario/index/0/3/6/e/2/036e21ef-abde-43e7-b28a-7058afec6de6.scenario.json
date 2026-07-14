@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "036e21ef-abde-43e7-b28a-7058afec6de6",
+  "name": "RbDiffEditor.computeTwoWayHunks",
+  "implementations": [
+   "ior:instance:def2c0f2-0ded-430b-9d4e-3d54665f27bc"
+  ],
+  "tests": [],
+  "note": "R30.12. Name EXACT for [impl] AST-attach. LCS local-vs-remote line-diff -> Conflict{a,b,pick:'a',span} per differing region (reintroduces the R30.6-superseded LCS as a focused 2-way helper). Called from computeMergedCenter base==='' branch. Pure/DOM-free."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

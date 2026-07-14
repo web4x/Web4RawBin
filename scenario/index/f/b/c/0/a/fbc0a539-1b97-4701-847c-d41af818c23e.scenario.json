@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "fbc0a539-1b97-4701-847c-d41af818c23e",
+  "name": "diffEditor.twoWayTakeOver",
+  "description": "In no-merge-base 2-way mode, populate the conflicts[] hunk set (LCS local-vs-remote) so the existing gutter accept arrows appear and pull a compared-version line into CENTER.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:036e21ef-abde-43e7-b28a-7058afec6de6",
+  "coveredRequirement": "ior:instance:c6f127bc-9f13-4f5f-945a-55a6293101eb"
+ },
+ "ownerIor": "ior:instance:c6f127bc-9f13-4f5f-945a-55a6293101eb"
+}

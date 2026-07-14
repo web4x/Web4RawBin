@@ -1,0 +1,65 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "c6f127bc-9f13-4f5f-945a-55a6293101eb",
+  "name": "2-way take-over wiring (no-base fallback accept arrows)",
+  "altId": "R30.12",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:fbc0a539-1b97-4701-847c-d41af818c23e"
+  ],
+  "description": "Wire the 2-way take-over (no-merge-base fallback) so the accept arrows actually appear and pull lines into CENTER. Root cause: computeMergedCenter's base==='' branch left this.conflicts=[] , so renderMergeGutter drew nothing (Tron's symptom: comparing LOCAL to a version with no merge-base shows no arrows). Fix: a NEW RbDiffEditor.computeTwoWayHunks does an LCS local-vs-remote line-diff and populates this.conflicts with the SAME Conflict{a,b,pick,span} shape (pick='a' = keep Local by default), so the EXISTING renderMergeGutter + acceptChange + rebuildCenter machinery lights up in 2-way mode. The 3-way base-aware path is untouched. Pure/DOM-free/unit-testable, like the diff3 core.",
+  "tronQuote": "> Tron visual proof (tester) 2026-07-14: the 2-way take-over is LABELED but NOT WIRED \u2014 comparing LOCAL to a version (no merge-base) shows NO gutter arrows, so you cannot pull a compared-version line into CENTER (README-vs-first-version screenshot).",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron (visual) via robbin-tester / robbin-architect",
+   "date": "2026-07-14",
+   "note": "Live-bug re-raise wiring R30.9's AC-fallback (2-way take-over shipped labeled-but-not-wired). Architect design 42dbee96e (r30x-two-way-takeover-design.md). Root cause: computeMergedCenter base==='' left conflicts=[] -> renderMergeGutter drew nothing; the R30.6 2-way LCS was superseded by R30.9 diff3 so 2-way lost its hunk set. Sole-minter; ONE new Method+Impl (computeTwoWayHunks). Same new-actionable-req-crossRef-original pattern as R22.3 re-raising R20.23-27."
+  },
+  "designRef": "scrum.pmo/design-notes/r30x-two-way-takeover-design.md (42dbee96e)",
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+  ],
+  "crossRefNote": "Wires R30.9's AC-fallback (no-merge-base -> 2-way take-over) that shipped labeled-but-not-wired. Class RbDiffEditor REUSE 18165081. ONE new Method computeTwoWayHunks; the fix ALSO impl-edits the EXISTING computeMergedCenter (a0b30550, call it in base==='' branch) + renderMergeGutter (e24dc98a, 2-way take-over labeling) \u2014 those keep their markers (no new units); acceptChange (843d79d4) reused unchanged; 3-way path UNTOUCHED.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-compute",
+    "group": "compute",
+    "text": "NEW RbDiffEditor.computeTwoWayHunks(localLines, remoteLines) does an LCS 2-way line-diff, emitting one Conflict{a,b,pick,span} per differing region (change / pure-add remote-only / pure-del local-only), pick='a' default (keep Local). Pure, DOM-free, unit-testable."
+   },
+   {
+    "id": "AC-populate",
+    "group": "wire",
+    "text": "computeMergedCenter's base==='' branch sets this.conflicts = computeTwoWayHunks(...) instead of leaving [] ; twoWay=true stays; CENTER still starts = LOCAL (impl-edit to existing a0b30550, marker stays)."
+   },
+   {
+    "id": "AC-render",
+    "group": "wire",
+    "text": "renderMergeGutter (twoWay branch) draws the SAME gutter decos + accept-left/accept-right bar, labeled 'change #N (take-over)' with take-over styling (NOT 'conflict'); accept-left=keep Local, accept-right=take Version (impl-edit to existing e24dc98a, marker stays)."
+   },
+   {
+    "id": "AC-accept",
+    "group": "reuse",
+    "text": "acceptChange (843d79d4, UNCHANGED) resolves a 2-way hunk by id (pick side -> rebuildCenter re-flattens CENTER) \u2014 works once conflicts[] is populated (same Conflict shape)."
+   },
+   {
+    "id": "AC-regression",
+    "group": "regression",
+    "text": "The 3-way base-aware path (merge-base present) is UNTOUCHED \u2014 same diff3 conflicts, conflict styling, behavior."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "Tron visual re-check: comparing LOCAL to a version with NO merge-base now shows accept arrows that pull a compared-version line into CENTER (README-vs-first-version case); DET-3x on computeTwoWayHunks."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}
