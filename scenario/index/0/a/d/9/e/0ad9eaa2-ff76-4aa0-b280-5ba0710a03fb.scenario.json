@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "0ad9eaa2-ff76-4aa0-b280-5ba0710a03fb",
+  "name": "test:R30.14 pollForWorkerUpdate gate",
+  "description": "Bridged to test/visual/r3014-sw-update-harness.mjs (v1->v2 harness, arm A: deploy->banner) - verifies ServiceWorker.pollForWorkerUpdate. R30.14 SW auto-update GREEN DET-3x.",
+  "sourceFile": "ior:file:test/visual/r3014-sw-update-harness.mjs",
+  "implementations": [
+   "ior:instance:f1456992-163b-40ed-abb5-b5f2d4730dc6"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:f1456992-163b-40ed-abb5-b5f2d4730dc6"
+}

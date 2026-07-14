@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "35a6bbff-cd12-48d3-bb80-e2879ae8d2b0",
+  "name": "test:R30.14 claimClients gate",
+  "description": "Bridged to test/visual/r3014-sw-update-harness.mjs (v1->v2 harness, arm B: tap->claim->controllerchange->reload) - verifies ServiceWorker.claimClients. R30.14 SW auto-update GREEN DET-3x.",
+  "sourceFile": "ior:file:test/visual/r3014-sw-update-harness.mjs",
+  "implementations": [
+   "ior:instance:406e1e33-94cb-4d63-b41c-5c0cc6aef27b"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:406e1e33-94cb-4d63-b41c-5c0cc6aef27b"
+}
