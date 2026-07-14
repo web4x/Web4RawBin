@@ -1,0 +1,48 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "c2472818-0d33-4d4d-9f34-a858c03bb346",
+  "name": "Right-history default is meaningful + user-pick wins",
+  "altId": "R30.15",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:2fff4ee3-f84d-491e-9043-6f63bf3a8c69"
+  ],
+  "description": "Fix two real bugs in the right-side git-history default (R30.10 populateRightHistory) so Open-Diff shows a meaningful diff and respects the user: (a) MEANINGFUL-DEFAULT - RIGHT defaults to the newest committed version that DIFFERS from LEFT (HEAD~1 when the clean working file already equals the newest commit, HEAD when there are uncommitted changes), so the diff is non-empty instead of comparing a file to itself (0 changes); (b) PICK-WINS - the async newest-autoload must not overwrite a user ref/file pick made while it was in flight (sequence-token/flag so the user pick wins). Impl-edits the existing populateRightHistory.",
+  "tronQuote": "> Tron/PO 2026-07-14 (expert confirmed 2 real bugs, big contributor to Tron seeing no changes): (a) Open-Diff right side should default to a version that DIFFERS from left so you see a real diff, not 0; (b) my ref pick must not get overwritten by the auto-load of the newest version.",
+  "discoverySource": {
+   "type": "team-discovery",
+   "discoveredBy": "robbin-expert (confirmed 2 real bugs) via robbin-po; Tron-relevant (no-changes)",
+   "date": "2026-07-14",
+   "note": "Fix to R30.10 populateRightHistory. ONE req, impl-edits the existing Method/Impl (populateRightHistory 3dd2173b / Impl 58c11039) - marker STAYS, NO new method (PO-scoped). Sole-minter; UC points at the existing populateRightHistory chain."
+  },
+  "crossRef": [
+   "ior:instance:168d5c58-2373-45f4-9018-0cd1e3528677"
+  ],
+  "crossRefNote": "Refines R30.10 (right-side default = file git-history). Impl-edits the EXISTING RbDiffEditor.populateRightHistory (Method 3dd2173b / Impl 58c11039, marker STAYS - no new unit). REUSE the R30.10 chain; this req covers the two correctness bugs (meaningful default ref + pick-wins race guard).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-meaningful-default",
+    "group": "default",
+    "text": "On Open-Diff for a git-tracked file, RIGHT defaults to the newest committed version that DIFFERS from LEFT: HEAD~1 when the clean working file already equals the newest commit, HEAD when there are uncommitted changes - so the diff is non-empty (not a file compared to itself = 0 changes)."
+   },
+   {
+    "id": "AC-pick-wins",
+    "group": "race",
+    "text": "The async newest-autoload must NOT overwrite a user ref/file pick made while it is in flight: guard with a sequence-token/flag so a later user pick wins over the in-flight autoload."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "Open-Diff on a clean git file shows working-vs-HEAD~1 (non-empty diff); a user ref-pick during autoload is preserved; DET-3x."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

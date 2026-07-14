@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "2fff4ee3-f84d-491e-9043-6f63bf3a8c69",
+  "name": "diffEditor.meaningfulRightDefault",
+  "description": "populateRightHistory defaults RIGHT to the newest version that DIFFERS from LEFT (HEAD~1 clean / HEAD dirty) and guards the async autoload so a user ref/file pick wins.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:3dd2173b-a639-455d-b2b3-ac03adfdcfe5",
+  "coveredRequirement": "ior:instance:c2472818-0d33-4d4d-9f34-a858c03bb346"
+ },
+ "ownerIor": "ior:instance:c2472818-0d33-4d4d-9f34-a858c03bb346"
+}
