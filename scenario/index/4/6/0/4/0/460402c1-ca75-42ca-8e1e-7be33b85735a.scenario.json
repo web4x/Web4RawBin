@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "460402c1-ca75-42ca-8e1e-7be33b85735a",
+  "name": "SprintViewGenerator.generateRequirementsMd",
+  "implementations": [
+   "ior:instance:72c57f72-9609-4272-8738-d7548659ceb3"
+  ],
+  "tests": [],
+  "note": "R30.18. Name EXACT for AST-attach. Render requirements.md from the sprint's Requirement units (altId/name/uuid/tronQuote/desc/ACs/UC + matrix), GENERATED header, into out.files so checkRoundTrip byte-matches it. Extends generate-sprint-md (currently planning.md + task-MDs only)."
+ },
+ "ownerIor": "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c"
+}

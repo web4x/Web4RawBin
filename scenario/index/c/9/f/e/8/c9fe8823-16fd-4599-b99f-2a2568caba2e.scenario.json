@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "c9fe8823-16fd-4599-b99f-2a2568caba2e",
+  "name": "sprintMd.generateRequirementsMd",
+  "description": "SprintViewGenerator emits requirements.md from a sprint's Requirement units (blocks + traceability matrix + GENERATED header), like planning.md - never-stale generated view.",
+  "class": "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c",
+  "classes": [
+   "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c"
+  ],
+  "method": "ior:instance:460402c1-ca75-42ca-8e1e-7be33b85735a",
+  "coveredRequirement": "ior:instance:34ed73fd-7756-4479-ad2c-65674bb13fc9"
+ },
+ "ownerIor": "ior:instance:34ed73fd-7756-4479-ad2c-65674bb13fc9"
+}

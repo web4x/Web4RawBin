@@ -1,0 +1,63 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "34ed73fd-7756-4479-ad2c-65674bb13fc9",
+  "name": "requirements.md is a generated view (extend generate-sprint-md)",
+  "altId": "R30.18",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:c9fe8823-16fd-4599-b99f-2a2568caba2e"
+  ],
+  "description": "requirements.md becomes a GENERATED VIEW (law #100), emitted by generate-sprint-md from the scenario Requirement units - like planning.md + the task-MDs - so it can NEVER go stale and needs NO hand-maintenance. SprintViewGenerator.generateRequirementsMd renders each sprint's requirements.md from its Requirement units (altId/name/uuid/tronQuote/description/acceptanceCriteria/UC links + the traceability matrix), with the GENERATED-FROM-SCENARIO-UNITS header + a --check byte-match round-trip. Fixes the root cause of the invisible-plannings bug (R30.6-R30.17 were minted as units but the hand-maintained requirements.md never updated); ONE --all regen brings every sprint (S21-S28) in sync, and the regen+git-diff IS the staleness audit.",
+  "tronQuote": "> Tron 2026-07-14 (caught it live): where are all the scenario-first plannings? R30.6-R30.17 were minted as units but invisible in requirements.md. PO durable fix: auto-generate requirements.md from the scenario units (law#100 VIEW) so it is never stale + no hand-maintenance.",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron (live app) via robbin-po",
+   "date": "2026-07-14",
+   "note": "Correct-by-construction fix for the invisible-plannings miss (requirements.md was hand-maintained, I skipped it all session; fixed S30 e190db49f manually). Better than update-every-mint (fragile): make requirements.md a generated VIEW. Class SprintViewGenerator REUSE (scripts/generate-sprint-md.ts, currently emits planning.md+task-MDs only). LOW-pri/post-rewind. Sole-minter. requirements.md block written same-commit as this mint (interim rule applied to R30.18 itself)."
+  },
+  "crossRef": [
+   "ior:instance:9dd36e28-c666-40b8-bc1b-117aac0a7d8a"
+  ],
+  "crossRefNote": "Extends SprintViewGenerator (R24.4 generateSprint / generate-sprint-md) to emit requirements.md as a generated view. Correct-by-construction: a minted Requirement unit auto-appears in requirements.md on next regen -> cannot be invisible (the R30.6-R30.17 bug class). Regen-all = the audit for S21-S28 staleness.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-generate",
+    "group": "generate",
+    "text": "generate-sprint-md emits requirements.md per sprint from the scenario Requirement units (altId / name / uuid / tronQuote / description / acceptanceCriteria / UC links + traceability matrix), the same way it emits planning.md."
+   },
+   {
+    "id": "AC-header",
+    "group": "view",
+    "text": "The generated requirements.md carries the GENERATED-FROM-SCENARIO-UNITS header (law #100); the hand-maintained WARN is removed - no hand-maintenance."
+   },
+   {
+    "id": "AC-roundtrip",
+    "group": "ci",
+    "text": "--check (checkRoundTrip) byte-match round-trip covers requirements.md; regen -> --check is green; CI gates drift."
+   },
+   {
+    "id": "AC-regen-audit",
+    "group": "audit",
+    "text": "ONE `--all` regen brings every sprint's requirements.md in sync (fixes S21-S28 staleness at once); regen + git diff IS the staleness audit - no per-sprint manual audit."
+   },
+   {
+    "id": "AC-by-construction",
+    "group": "by-construction",
+    "text": "A newly-minted Requirement unit appears in requirements.md on the next regen automatically - a req unit on disk can NEVER again be invisible in the doc humans read (fixes the R30.6-R30.17 invisible-plannings class)."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "After the change: regen S30 -> requirements.md is byte-generated from the 23 units (matches/supersedes the hand-written e190db49f); --check green across all sprints."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

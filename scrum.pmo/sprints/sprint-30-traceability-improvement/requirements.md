@@ -269,6 +269,19 @@
   - [ ] **(gate)** ★ Tester DET-3x asserts FUNCTION not appearance (the R30.16 miss): (a) click take-arrow -> CENTER editor value CONTENT changes; (b) click ignore -> that change's arrows/ribbon disappear + CENTER unchanged; (c) one-sided hunk -> ribbon from ONE side only (no ghost); (d) lineY(remote,bStart)===lineY(center,span[0]); (e) history <select> on LEFT.
   -> [diffEditor.leftHistoryDefault uc:uuid:e322c683-0c92-406e-abb4-322390b1a973]
 
+- [ ] **R30.18 - requirements.md is a generated view (extend generate-sprint-md)**
+  [requirement:uuid:34ed73fd-7756-4479-ad2c-65674bb13fc9]
+  > Tron 2026-07-14 (caught it live): where are all the scenario-first plannings? R30.6-R30.17 were minted as units but invisible in requirements.md. PO durable fix: auto-generate requirements.md from the scenario units (law#100 VIEW) so it is never stale + no hand-maintenance.
+  requirements.md becomes a GENERATED VIEW (law #100), emitted by generate-sprint-md from the scenario Requirement units - like planning.md + the task-MDs - so it can NEVER go stale and needs NO hand-maintenance. SprintViewGenerator.generateRequirementsMd renders each sprint's requirements.md from its Requirement units (altId/name/uuid/tronQuote/description/acceptanceCriteria/UC links + the traceability matrix), with the GENERATED-FROM-SCENARIO-UNITS header + a --check byte-match round-trip. Fixes the root cause of the invisible-plannings bug (R30.6-R30.17 were minted as units but the hand-maintained requirements.md never updated); ONE --all regen brings every sprint (S21-S28) in sync, and the regen+git-diff IS the staleness audit.
+  **Acceptance criteria:**
+  - [ ] **(generate)** generate-sprint-md emits requirements.md per sprint from the scenario Requirement units (altId / name / uuid / tronQuote / description / acceptanceCriteria / UC links + traceability matrix), the same way it emits planning.md.
+  - [ ] **(view)** The generated requirements.md carries the GENERATED-FROM-SCENARIO-UNITS header (law #100); the hand-maintained WARN is removed - no hand-maintenance.
+  - [ ] **(ci)** --check (checkRoundTrip) byte-match round-trip covers requirements.md; regen -> --check is green; CI gates drift.
+  - [ ] **(audit)** ONE `--all` regen brings every sprint's requirements.md in sync (fixes S21-S28 staleness at once); regen + git diff IS the staleness audit - no per-sprint manual audit.
+  - [ ] **(by-construction)** A newly-minted Requirement unit appears in requirements.md on the next regen automatically - a req unit on disk can NEVER again be invisible in the doc humans read (fixes the R30.6-R30.17 invisible-plannings class).
+  - [ ] **(verify)** After the change: regen S30 -> requirements.md is byte-generated from the 23 units (matches/supersedes the hand-written e190db49f); --check green across all sprints.
+  -> [sprintMd.generateRequirementsMd uc:uuid:c9fe8823-16fd-4599-b99f-2a2568caba2e]
+
 ---
 
 ## Traceability Matrix
@@ -298,5 +311,6 @@
 | R30.15 | Right-history default is meaningful + user-p | c2472818-0d33-4d4d-9f34-a858c03bb346 | 2fff4ee3 |
 | R30.16 | IntelliJ 3-pane: line alignment + center cha | 6d6fa7c8-8637-4c10-9366-b1d8536d7c9f | 0faad449,8d778c4f |
 | R30.17 | R30.16 merge functional correctness (accept- | 5aa71554-03ee-410f-b0d4-d00e9a7f2efa | e322c683 |
+| R30.18 | requirements.md is a generated view | 34ed73fd-7756-4479-ad2c-65674bb13fc9 | c9fe8823 |
 
 *Requirements R30.6-R30.17 written from scenario units by robbin-req 2026-07-14 (hand-maintained requirements.md, per line-6 WARN). All 23 S30 reqs now visible; the diff/merge-editor arc (R30.9-R30.17) + SW auto-update (R30.14) + scoreboard-calibration (R30.11) are on disk as full chains.*

@@ -1,16 +1,17 @@
 {
-  "ior": "ior:class:Class",
-  "model": {
-    "uuid": "93f9afc7-364d-4dd4-a9d7-3e49333cc16c",
-    "name": "SprintViewGenerator",
-    "description": "SprintViewGenerator skill class (R24.4). Formalizes scripts/generate-sprint-md.ts.",
-    "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
-    "methods": [
-      "ior:instance:1584807f-b315-4279-b3ad-8f9001285839",
-      "ior:instance:3108e643-ee8b-4211-bc59-c4e782586a70",
-      "ior:instance:0a542620-1669-4212-8e8c-4bd72a8d5770"
-    ]
-  },
-  "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b",
-  "__f": "/var/dev/Workspaces/web4x/Web4RawBin/scenario/index/9/3/f/9/a/93f9afc7-364d-4dd4-a9d7-3e49333cc16c.scenario.json"
+ "ior": "ior:class:Class",
+ "model": {
+  "uuid": "93f9afc7-364d-4dd4-a9d7-3e49333cc16c",
+  "name": "SprintViewGenerator",
+  "description": "SprintViewGenerator skill class (R24.4). Formalizes scripts/generate-sprint-md.ts.",
+  "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
+  "methods": [
+   "ior:instance:1584807f-b315-4279-b3ad-8f9001285839",
+   "ior:instance:3108e643-ee8b-4211-bc59-c4e782586a70",
+   "ior:instance:0a542620-1669-4212-8e8c-4bd72a8d5770",
+   "ior:instance:460402c1-ca75-42ca-8e1e-7be33b85735a"
+  ]
+ },
+ "ownerIor": "ior:instance:04339450-9c01-449f-88a8-a09a55970d5b",
+ "__f": "/var/dev/Workspaces/web4x/Web4RawBin/scenario/index/9/3/f/9/a/93f9afc7-364d-4dd4-a9d7-3e49333cc16c.scenario.json"
 }
