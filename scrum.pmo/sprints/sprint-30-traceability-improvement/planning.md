@@ -33,4 +33,4 @@ Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' w
 - [x] [Task 30.14: Service-Worker auto-update (visible deploys)](./task-30.14-sw-auto-update.md)
 - [x] [Task 30.15: Right-history default meaningful + usable](./task-30.15-right-history-usable.md)
 - [x] [Task 30.16: IntelliJ 3-pane line alignment + center](./task-30.16-3pane-alignment.md)
-- [ ] [Task 30.17: 3-pane merge functional correctness](./task-30.17-merge-correctness.md)
+- [x] [Task 30.17: 3-pane merge functional correctness](./task-30.17-merge-correctness.md)

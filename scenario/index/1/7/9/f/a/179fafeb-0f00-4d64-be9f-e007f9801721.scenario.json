@@ -23,7 +23,6 @@
     "sprintName": "Sprint 28",
     "createdBy": "robbin-planner",
     "createdAt": "2026-07-01",
-    "focus": true,
     "signedOffBy": "architect+PO 2026-07-13 (internal-infra gate, like R27.2/R27.4)"
   },
   "ownerIor": null

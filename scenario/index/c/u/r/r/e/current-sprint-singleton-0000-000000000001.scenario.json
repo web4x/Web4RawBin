@@ -2,39 +2,44 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 30.9: IntelliJ-faithful base-aware 3-way merge view",
+    "name": "Current: Task 30.17: 3-pane merge functional correctness",
     "chain": {
-      "req": "0d6f18cd-1496-4672-8fee-5a38eeb728dc",
-      "uc": "",
-      "class": "",
-      "method": "",
-      "impl": "",
-      "test": ""
+      "req": "5aa71554-03ee-410f-b0d4-d00e9a7f2efa",
+      "uc": "e322c683-0c92-406e-abb4-322390b1a973",
+      "class": "18165081-16d4-4b3b-9e9f-047f304d5886",
+      "method": "af9bcfef-384a-4639-9527-06b6f8853ab7",
+      "impl": "751934c1-96d7-4d9b-ab64-4882b7b6e042",
+      "test": "4dca421e-1702-4ecd-bb5a-3e2dc3ebd7a9"
     },
-    "activeHop": 1,
+    "activeHop": 5,
     "sprintName": "Sprint 30",
-    "taskName": "Task 30.9: IntelliJ-faithful base-aware 3-way merge view",
+    "taskName": "Task 30.17: 3-pane merge functional correctness",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "req-eng",
-        "updatedAt": "2026-07-13T00:00:00.000Z"
+        "updatedAt": "2026-07-14T19:26:35.808Z"
+      },
+      "test": {
+        "status": "gate-proven",
+        "owner": "planner",
+        "updatedAt": "2026-07-14T19:27:50.961Z"
       }
     },
     "nextBacklogOverride": "600fa089-c8a4-4977-a89b-504969e78170",
-    "lastCompletedUuid": "2a873503-e498-454c-af76-8a737a04fe62",
-    "lastCompletedName": "Task 30.7: Uniform ref-guard across editor targeting",
-    "lastCompletedReqUuid": "3618036e-d605-4e30-8651-9a14d0a863f6",
+    "lastCompletedUuid": "",
+    "lastCompletedName": "",
+    "lastCompletedReqUuid": "",
     "slots": {
       "current": {
-        "taskUuid": "6a6a56d3-3e06-44e9-9ca2-b7c11d574bff",
-        "taskName": "Task 30.9: IntelliJ-faithful base-aware 3-way merge view",
-        "reqUuid": "0d6f18cd-1496-4672-8fee-5a38eeb728dc"
+        "taskUuid": "b74f8023-b501-426a-af6f-86d0d9f378f8",
+        "taskName": "Task 30.17: 3-pane merge functional correctness",
+        "reqUuid": "5aa71554-03ee-410f-b0d4-d00e9a7f2efa"
       },
       "lastCompleted": {
-        "taskUuid": "2a873503-e498-454c-af76-8a737a04fe62",
-        "taskName": "Task 30.7: Uniform ref-guard across editor targeting",
-        "reqUuid": "3618036e-d605-4e30-8651-9a14d0a863f6"
+        "taskUuid": "60cc5603-7fac-4021-abcf-af1684d5fd84",
+        "taskName": "Task 30.16: IntelliJ 3-pane line alignment + center",
+        "reqUuid": "6d6fa7c8-8637-4c10-9366-b1d8536d7c9f"
       },
       "nextBacklog": {
         "taskUuid": "600fa089-c8a4-4977-a89b-504969e78170",

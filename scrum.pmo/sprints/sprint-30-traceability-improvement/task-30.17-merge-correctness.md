@@ -10,11 +10,11 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [~] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Traceability
 
@@ -38,16 +38,16 @@ S30 diff/merge editor completion (R30.17). Minted for #126 traceability (was req
 
 ## Acceptance Criteria
 
-- [ ] (click) #4: accept take-arrows WORK - a single delegated click listener on the stable component ROOT (attached once in mountThreePane) routes [data-cid] clicks to acceptChange(id,side)/dismiss; renderInterPaneGutters drops its per-strip addEventListener (only sets innerHTML). Clicking take-Local/take-Repo MUTATES the CENTER Result text content (not just renders a button).
-- [ ] (ribbons) #1: renderConnectorRibbons draws the Local->Result band ONLY iff c.a.length>0 and the Result->Repository band ONLY iff c.b.length>0 - a one-sided change no longer draws both bands.
-- [ ] (ribbons) #3: no ghost ribbon from an empty side (origin taken from a/b length); the gutter take-arrows are gated the same (take-Local shown iff a.length, take-Repo iff b.length).
-- [ ] (align) #2: alignPaneRows afterLineNumber uses a consistent index base (handles len===0 blocks, spacer BEFORE the gap); anchors pinned to the hunk first-changed line. MANDATORY: post-alignment lineY(edRemote, c.bStart) === lineY(edCenter, c.span[0]) (and Local) - source row and its center landing share Y (+-0).
-- [ ] (history) #5: the .de-history <select> renders on the LEFT pane (s==='local'); populateLeftHistory populates the LEFT with the file's git history (old-on-left), RIGHT = working/current; pane labels read old(left)/new(right); swapSides + acceptChange left/right semantics preserved.
-- [ ] (gate) ★ Tester DET-3x asserts FUNCTION not appearance (the R30.16 miss): (a) click take-arrow -> CENTER editor value CONTENT changes; (b) click ignore -> that change's arrows/ribbon disappear + CENTER unchanged; (c) one-sided hunk -> ribbon from ONE side only (no ghost); (d) lineY(remote,bStart)===lineY(center,span[0]); (e) history <select> on LEFT.
+- [x] (click) #4: accept take-arrows WORK - a single delegated click listener on the stable component ROOT (attached once in mountThreePane) routes [data-cid] clicks to acceptChange(id,side)/dismiss; renderInterPaneGutters drops its per-strip addEventListener (only sets innerHTML). Clicking take-Local/take-Repo MUTATES the CENTER Result text content (not just renders a button).
+- [x] (ribbons) #1: renderConnectorRibbons draws the Local->Result band ONLY iff c.a.length>0 and the Result->Repository band ONLY iff c.b.length>0 - a one-sided change no longer draws both bands.
+- [x] (ribbons) #3: no ghost ribbon from an empty side (origin taken from a/b length); the gutter take-arrows are gated the same (take-Local shown iff a.length, take-Repo iff b.length).
+- [x] (align) #2: alignPaneRows afterLineNumber uses a consistent index base (handles len===0 blocks, spacer BEFORE the gap); anchors pinned to the hunk first-changed line. MANDATORY: post-alignment lineY(edRemote, c.bStart) === lineY(edCenter, c.span[0]) (and Local) - source row and its center landing share Y (+-0).
+- [x] (history) #5: the .de-history <select> renders on the LEFT pane (s==='local'); populateLeftHistory populates the LEFT with the file's git history (old-on-left), RIGHT = working/current; pane labels read old(left)/new(right); swapSides + acceptChange left/right semantics preserved.
+- [x] (gate) ★ Tester DET-3x asserts FUNCTION not appearance (the R30.16 miss): (a) click take-arrow -> CENTER editor value CONTENT changes; (b) click ignore -> that change's arrows/ribbon disappear + CENTER unchanged; (c) one-sided hunk -> ribbon from ONE side only (no ghost); (d) lineY(remote,bStart)===lineY(center,span[0]); (e) history <select> on LEFT.
 
 ## Implementation
 
-IN PROGRESS (active — PO: awaiting derive-confirm->build-go). NOTE: PO referenced cdeda1bb1 for T30.17 but not on disk; my b74f8023 is the task. FLAG for reconcile.
+DONE (PO-ruled complete + tester DET-3x GREEN v0.7.27). All ACs gated by 07ad75585 test/visual/r3017-left-history-gate.mjs (function-asserting, source-verified 95-line gate): accept-mutates (click #4 CENTER content changes) / one-sided ribbon+arrows no-ghost (ribbons #1+#3) / Y-align lineY(remote,bStart)===lineY(center,span[0]) (align #2) / history <select> on LEFT (history #5). Retirement pushed clean (630394b91, R30.15 cleared, 2 right-history tests retired supersededBy). Chain check 751934c1|4dca421e on origin. Advanced -> Done + pin->current per PO.
 
 ## Subtasks
 
