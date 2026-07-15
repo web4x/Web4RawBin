@@ -129,6 +129,49 @@ function generatePlanningMd(sprint: ScenarioUnit, units: Map<string, ScenarioUni
   return normalize(lines.join('\n'));
 }
 
+// [impl:uuid:72c57f72-9609-4272-8738-d7548659ceb3] R30.18 SprintViewGenerator.generateRequirementsMd
+// Emit requirements.md as a GENERATED VIEW from the sprint's Requirement units (by-construction fix for
+// invisible plannings — Tron's 'where is R30.10-17'). Deterministic: requirements[] order, LF, single trailing NL.
+function generateRequirementsMd(sprint: ScenarioUnit, units: Map<string, ScenarioUnit>): string {
+  const m = sprint.model as Record<string, unknown>;
+  const reqIors = ((m.requirements as string[]) || []).slice();
+  const lines = [
+    GENERATED_HEADER,
+    '',
+    `[Back to Planning](./planning.md)`,
+    '',
+    `# Sprint ${m.number || '?'} Requirements — ${m.name || '(untitled)'}`,
+    '',
+    '## Requirements',
+    '',
+  ];
+  for (const ior of reqIors) {
+    const uuid = String(ior).replace('ior:instance:', '');
+    const req = units.get(uuid);
+    if (!req) { lines.push(`- [ ] *${uuid} (not found)*`, ''); continue; }
+    const rm = req.model as Record<string, unknown>;
+    const done = String(rm.status || '').toLowerCase() === 'done';
+    const alt = rm.altId ? `${rm.altId} — ` : '';
+    lines.push(`- [${done ? 'x' : ' '}] **${alt}${rm.name || '(untitled)'}**`);
+    lines.push(`  [requirement:uuid:${rm.uuid || uuid}]`);
+    if (rm.tronQuote) lines.push(`  ${String(rm.tronQuote).replace(/\n/g, '\n  ')}`);
+    if (rm.description) lines.push(`  ${String(rm.description).replace(/\n/g, '\n  ')}`);
+    const acs = (rm.acceptanceCriteria as Array<Record<string, unknown>>) || [];
+    if (acs.length) {
+      lines.push('  **Acceptance criteria:**');
+      for (const ac of acs) lines.push(`  - [ ] **(${ac.group || ac.id || ''})** ${ac.text || ''}`);
+    }
+    for (const uc of ((rm.useCases as string[]) || [])) {
+      const ucu = String(uc).replace('ior:instance:', '');
+      const ucUnit = units.get(ucu);
+      const ucLabel = ucUnit ? String((ucUnit.model as Record<string, unknown>).altId || (ucUnit.model as Record<string, unknown>).name || ucu.slice(0, 8)) : ucu.slice(0, 8);
+      lines.push(`  -> ${ucLabel} [uc:uuid:${ucu}]`);
+    }
+    lines.push('');
+  }
+  return normalize(lines.join('\n'));
+}
+
 interface SprintOutput {
   sprintSlug: string;
   files: Map<string, string>; // filename → content
@@ -140,6 +183,7 @@ function buildSprintOutput(sprintUuid: string, units: Map<string, ScenarioUnit>)
   const sprintSlug = speakingSlug(sprint);
   const files = new Map<string, string>();
   files.set('planning.md', generatePlanningMd(sprint, units));
+  files.set('requirements.md', generateRequirementsMd(sprint, units)); // R30.18: requirements.md = generated view
 
   const m = sprint.model as Record<string, unknown>;
   const taskIors = ((m.tasks as string[]) || []).slice();
