@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "ea1e97b8-1fbf-4687-a6cd-c181580873b5",
+  "name": "test:R30.20 RbDetailDrawer.closeOrReturn gate",
+  "description": "Bridged to test/visual/r3020-drawer-close-gate.mjs (DET-3x) - verifies RbDetailDrawer.closeOrReturn mode-aware close: trace-view+detail->minimize (R27.8 kept); in-room+detail->setMode(chat) (regression FIXED); in-room+chat->minimize; ESC->close. Detection this.chatPanel!==null=in-room. R30.20 gate GREEN all cases.",
+  "sourceFile": "ior:file:test/visual/r3020-drawer-close-gate.mjs",
+  "implementations": [
+   "ior:instance:65f43714-97e3-4e70-b8ef-a0e6d88ed31d"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:65f43714-97e3-4e70-b8ef-a0e6d88ed31d"
+}
