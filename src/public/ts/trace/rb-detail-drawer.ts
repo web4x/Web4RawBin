@@ -20,8 +20,20 @@
 
 import { selectionModel } from './selection-model.js';
 import { ChatPanel } from './ChatPanel.js';
+import { TraceGraph, makeObject, type ObjectType } from '../../../ts/shared/TraceModel.js';
 import './rb-file-detail.js';
 import './rb-webitem-detail.js';
+// R30.21: the drawer instantiates these type-specific detail elements via createElement in renderDetailForRef —
+// it must register them itself so they render on ANY host page (scenario-view, /app), not only where the page
+// happened to import them. Undefined element = empty render (Tron's "select task/class → no content").
+import './rb-requirement-detail.js';
+import './rb-task-detail.js';
+import './rb-usecase-detail.js';
+import './rb-class-detail.js';
+import './rb-method-detail.js';
+import './rb-implementation-detail.js';
+import './rb-test-detail.js';
+import './rb-detail-view.js';
 
 export class RbDetailDrawer extends HTMLElement {
   static get observedAttributes() { return ['ref', 'open']; }
@@ -103,6 +115,7 @@ export class RbDetailDrawer extends HTMLElement {
 
   private _graph: any = null;
   set graph(g: any) { this._graph = g; }
+  private _fallbackGraph: TraceGraph | null = null; // R30.21: holds units fetched when the real graph is absent/incomplete
 
   // [impl:uuid:dbddf408-60f3-4094-91b6-268861d651c6] R20.10 renderDetailForRef
   private async renderDetailForRef(ref: string): Promise<void> {
@@ -143,12 +156,36 @@ export class RbDetailDrawer extends HTMLElement {
       test: 'rb-test-detail', file: 'rb-file-detail', webitem: 'rb-webitem-detail',
     };
     const tag = tagMap[type] || 'rb-detail-view';
+    // R30.21: resolve a graph that HAS the unit (real graph, or a fetched fallback) BEFORE the element mounts,
+    // so type-specific details render in scenario-view (no drawer.graph) + for chain-only units (impl/test).
+    const detailGraph = await this.resolveDetailUnit(uuid, type);
     panel.innerHTML = '';
     const el = document.createElement(tag) as any;
     el.setAttribute('ref', ref);
     el.setAttribute('uuid', uuid);
-    if (this._graph) el.graph = this._graph;
+    if (detailGraph) el.graph = detailGraph;
     panel.appendChild(el);
+  }
+
+  // [impl:uuid:159fb8f0-856e-4c89-afd8-19b7579d91cd] R30.21 RbDetailDrawer.resolveDetailUnit
+  // Graph-INDEPENDENT detail resolution. The type-specific detail elements read this.graph.get(uuid) and hard-fail
+  // to "not found" when the drawer has no graph (scenario-view never sets drawer.graph) or the unit is chain-only
+  // (impl/test aren't tree nodes). Mirror renderSprintDetail: fetch /api/ior and register a minimal TraceObject into
+  // the (real or fallback) graph so the element resolves + renders, then loads its own rich detail. Returns the graph
+  // to hand to the element. File/WebItem types fetch by uuid themselves (makeObject throws → caught → harmless).
+  private async resolveDetailUnit(uuid: string, type: string): Promise<TraceGraph | null> {
+    if (this._graph?.get(uuid)) return this._graph;                        // real graph already has it
+    const g: TraceGraph = this._graph || (this._fallbackGraph ??= new TraceGraph());
+    if (!g.has(uuid)) {
+      try {
+        const res = await fetch(`/api/ior/ior:instance:${uuid}`);
+        const model = (await res.json())?.unit?.model || {};
+        const obj = makeObject(g, type as ObjectType, uuid, String(model.name || model.title || uuid));
+        if (model.status) obj.status = String(model.status);
+        if (model.sprint) obj.sprint = String(model.sprint);
+      } catch { /* unknown type (file/webitem) or fetch failure → element degrades gracefully */ }
+    }
+    return g;
   }
 
   // [impl:uuid:0267036c-ec5a-4e13-a74e-1a89f45412b3] RbDetailDrawer.renderSprintDetail — R30.3 sprint selection populates the detail drawer
