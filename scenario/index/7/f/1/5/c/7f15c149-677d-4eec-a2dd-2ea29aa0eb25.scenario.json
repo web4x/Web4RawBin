@@ -2,9 +2,9 @@
  "ior": "ior:class:Implementation",
  "model": {
   "uuid": "7f15c149-677d-4eec-a2dd-2ea29aa0eb25",
-  "name": "TraceAudit.walkChainCoverage impl",
+  "name": "Chain.implRetiredBySupersede impl",
   "tests": [],
-  "sourceFile": "ior:file:src/ts/server/trace-cli.ts",
+  "sourceFile": "ior:file:src/ts/scenario/skill-classes.ts",
   "designAhead": true,
   "description": "DESIGN-AHEAD: scoreboard walks Req->chain->Impl.tests[]/markers. Expert builds + tags [impl] marker (=this Impl uuid)."
  },

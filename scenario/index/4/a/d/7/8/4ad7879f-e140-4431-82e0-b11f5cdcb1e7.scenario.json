@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "4ad7879f-e140-4431-82e0-b11f5cdcb1e7",
+  "name": "test:R30.11 Chain.implRetiredBySupersede gate",
+  "description": "Bridged to test/visual/r3011-honor-supersede-gate.ts (DET-3x) - verifies Chain.implRetiredBySupersede: retires only on valid supersededBy->live-successor + anti-green-wash (dangling/chained do NOT clear) + integration (clears exactly R30.6.1/6.3/R30.10). R30.11 gate GREEN.",
+  "sourceFile": "ior:file:test/visual/r3011-honor-supersede-gate.ts",
+  "implementations": [
+   "ior:instance:7f15c149-677d-4eec-a2dd-2ea29aa0eb25"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:7f15c149-677d-4eec-a2dd-2ea29aa0eb25"
+}

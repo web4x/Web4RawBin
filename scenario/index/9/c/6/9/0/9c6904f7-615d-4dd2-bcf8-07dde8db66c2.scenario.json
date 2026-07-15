@@ -2,12 +2,12 @@
  "ior": "ior:class:Method",
  "model": {
   "uuid": "9c6904f7-615d-4dd2-bcf8-07dde8db66c2",
-  "name": "TraceAudit.walkChainCoverage",
+  "name": "Chain.implRetiredBySupersede",
   "implementations": [
    "ior:instance:7f15c149-677d-4eec-a2dd-2ea29aa0eb25"
   ],
   "tests": [],
-  "note": "R30.11. Name EXACT. Coverage = walk the chain to Impl.tests[]/markers, NOT read denormalized Req.tests[] (that gives the R22.3-style false no-Test)."
+  "note": "R30.11. Name EXACT. Coverage = walk the chain to Impl.tests[]/markers, NOT read denormalized Req.tests[] (that gives the R22.3-style false no-Test). RE-POINTED to reality (expert build 15856b8d1, data=truth #103): the R30.11 honor-supersede code is Chain.implRetiredBySupersede @ skill-classes.ts (was minted as TraceAudit.walkChainCoverage @ trace-cli.ts, which does not exist)."
  },
- "ownerIor": "ior:instance:bf626dad-5fab-43f9-b847-b7e3c1ecdb5b"
+ "ownerIor": "ior:instance:0bbe576f-d527-42c7-bf80-a72c87f76767"
 }
