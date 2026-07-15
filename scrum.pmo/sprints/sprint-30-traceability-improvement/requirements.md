@@ -330,6 +330,19 @@
   - [ ] **(verify)** Tron visual + DET-3x: select task/class/impl in scenario-view (no graph) -> content renders; trace-page still renders; sprint unchanged. Client-facing -> shipped WITH a version-bump.
   -> [detailDrawer.graphIndependentDetail uc:uuid:ab7595ea-0b2b-4a7f-9570-f6124b125272] -> RbDetailDrawer.resolveDetailUnit (NEW)
 
+- [ ] **R30.22 - Drawer select opens content-visible (not peek-clipped)**
+  [requirement:uuid:e9432c13-0898-4a04-82cd-7c45f573ede4]
+  > TRON 2026-07-15: selecting a node opens the drawer clipped to peek - the detail content is there but hidden below the fold; I should not have to drag the grab-bar to see it.
+  On selecting a node with detail content, the drawer opens EXPANDED (body visible, content-height) so the content is VISIBLE immediately - not the R27.8(B) minimized-peek (drawerH=40px + .drawer-body display:none) that hides the rendered content (8633 chars in DOM) below the fold until a grab-bar expand. X still minimizes to peek (R27.8/R30.20), the grab-bar toggle still works, ESC still closes. Impl-edit to selectionDriven (the select->open path); supersedes R27.8(B) closed->peek for content-select.
+  **Acceptance criteria:**
+  - [ ] **(open)** Selecting a node with detail content opens the drawer EXPANDED (body display:flex, content-height) so the content is VISIBLE immediately - no grab-bar click needed (was drawerH=40px peek + body display:none = hidden).
+  - [ ] **(close)** X still minimizes to peek (R27.8 minimize / R30.20 closeOrReturn) - the X-behavior is unchanged.
+  - [ ] **(toggle)** The grab-bar toggle still expands/collapses the drawer (unchanged).
+  - [ ] **(close)** ESC still closes the drawer (unchanged).
+  - [ ] **(supersede)** Supersedes R27.8(B): the closed->open+peek behavior for a content-select becomes open->expanded; R27.8 X=minimize (via R30.20) is preserved.
+  - [ ] **(verify)** Tron visual + DET-3x: select task/class/impl -> content visible immediately (no grab-bar, body display:flex, content-height); X->peek; grab-bar toggles; ESC closes. Client-facing -> version-bump.
+  -> [detailDrawer.selectOpensContentVisible uc:uuid:4c794d6c-32a6-4cae-9a65-cbe2e8e4e368] -> RbDetailDrawer.selectionDriven (impl-edit, marker stays)
+
 ---
 
 ## Traceability Matrix

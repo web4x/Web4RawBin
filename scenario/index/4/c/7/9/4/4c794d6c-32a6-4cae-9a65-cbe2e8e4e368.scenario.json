@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "4c794d6c-32a6-4cae-9a65-cbe2e8e4e368",
+  "name": "detailDrawer.selectOpensContentVisible",
+  "description": "On select-with-detail-content, selectionDriven opens the drawer EXPANDED (body visible, content-height) not minimized-peek - content visible immediately; X still peeks, grab-bar toggles, ESC closes.",
+  "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+  "classes": [
+   "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+  ],
+  "method": "ior:instance:94f6e1f8-84a8-4ca5-9a44-6108ef6201bc",
+  "coveredRequirement": "ior:instance:e9432c13-0898-4a04-82cd-7c45f573ede4"
+ },
+ "ownerIor": "ior:instance:e9432c13-0898-4a04-82cd-7c45f573ede4"
+}

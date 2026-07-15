@@ -1,0 +1,64 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "e9432c13-0898-4a04-82cd-7c45f573ede4",
+  "name": "Drawer select opens content-visible (not peek-clipped)",
+  "altId": "R30.22",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:4c794d6c-32a6-4cae-9a65-cbe2e8e4e368"
+  ],
+  "description": "On selecting a node with detail content, the drawer opens EXPANDED (body visible, content-height) so the content is VISIBLE immediately - not the R27.8(B) minimized-peek (drawerH=40px + .drawer-body display:none) that hides the rendered content (8633 chars in DOM) below the fold until a grab-bar expand. X still minimizes to peek (R27.8/R30.20), the grab-bar toggle still works, ESC still closes. Impl-edit to selectionDriven (the select->open path); supersedes R27.8(B) closed->peek for content-select.",
+  "tronQuote": "> TRON 2026-07-15: selecting a node opens the drawer clipped to peek - the detail content is there but hidden below the fold; I should not have to drag the grab-bar to see it.",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron via robbin-po (expert-confirmed: content in DOM 8633 chars but drawerH=40px peek + body display:none)",
+   "date": "2026-07-15",
+   "note": "Drawer refinement, distinct from R30.21 (render-content-exists): R30.22 = open-tall-enough. Fix = impl-edit selectionDriven 94f6e1f8 (the select->open path): on select-with-detail-content open EXPANDED not peek. Marker STAYS. Supersedes R27.8(B) closed->peek for content-select. RbDetailDrawer d86af73d REUSE. Sole-minter; requirements.md same-commit; version-bump."
+  },
+  "crossRef": [
+   "ior:instance:a5da3f93-0341-4856-90eb-bb25954c72a2",
+   "ior:instance:6af715df-826f-4a91-962d-e6c0e388f9f7"
+  ],
+  "crossRefNote": "Impl-edit to the EXISTING RbDetailDrawer.selectionDriven (Method 94f6e1f8 / Impl e927ecfe, marker STAYS - no new method): on select-with-detail open expanded/content-height not peek. Supersedes R27.8(B) (closed->open+peek for content-select; peek->expanded). Sibling of R30.20 (X close, R27.8 minimize kept) + R30.21 (render-content-exists) - R30.22 is open-tall-enough; select needs BOTH R30.21 + R30.22.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-select-visible",
+    "group": "open",
+    "text": "Selecting a node with detail content opens the drawer EXPANDED (body display:flex, content-height) so the content is VISIBLE immediately - no grab-bar click needed (was drawerH=40px peek + body display:none = hidden)."
+   },
+   {
+    "id": "AC-x-minimize",
+    "group": "close",
+    "text": "X still minimizes to peek (R27.8 minimize / R30.20 closeOrReturn) - the X-behavior is unchanged."
+   },
+   {
+    "id": "AC-grabbar",
+    "group": "toggle",
+    "text": "The grab-bar toggle still expands/collapses the drawer (unchanged)."
+   },
+   {
+    "id": "AC-esc",
+    "group": "close",
+    "text": "ESC still closes the drawer (unchanged)."
+   },
+   {
+    "id": "AC-supersede",
+    "group": "supersede",
+    "text": "Supersedes R27.8(B): the closed->open+peek behavior for a content-select becomes open->expanded; R27.8 X=minimize (via R30.20) is preserved."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "Tron visual + DET-3x: select task/class/impl -> content visible immediately (no grab-bar, body display:flex, content-height); X->peek; grab-bar toggles; ESC closes. Client-facing -> version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}
