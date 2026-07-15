@@ -75,7 +75,7 @@ export class RbDetailDrawer extends HTMLElement {
     document.removeEventListener('selection-changed', this.onSelectionChanged);
   }
 
-  // [impl:uuid:e927ecfe-6fba-4a91-aa74-ed13da8e8fe4] RbDetailDrawer.onSelectionChanged
+  // [impl:uuid:e927ecfe-619c-49f2-9ee4-dc82340f6433] R30.22 RbDetailDrawer.onSelectionChanged — selection-driven open (content-visible)
   private onSelectionChanged = (e: Event): void => {
     const selected = (e as CustomEvent).detail?.selected || [];
     if (selected.length === 1) {
@@ -87,7 +87,7 @@ export class RbDetailDrawer extends HTMLElement {
       const sameRef = this.getAttribute('ref') === ref;
       const wasOpen = this.hasAttribute('open');                // capture BEFORE mutating
       this.setAttribute('open', '');
-      if (!wasOpen) this.setAttribute('minimized', '');         // R27.8(B, Tron): closed→open+peek; ALREADY OPEN (peek or expanded)→PRESERVE state, never force-collapse
+      if (!wasOpen) this.openExpanded();                        // R30.22: content-select opens EXPANDED (visible), not peek — supersedes R27.8(B) closed→peek for content. ALREADY OPEN → PRESERVE state.
       this.setAttribute('ref', ref);
       if (sameRef) this.renderDetailForRef(ref);
     } else if (selected.length === 0) {
@@ -99,13 +99,22 @@ export class RbDetailDrawer extends HTMLElement {
     }
   };
 
+  // R30.22: open the drawer EXPANDED with the body visible (content-height), NOT the R27.8 peek — so a
+  // detail-select shows its content immediately (no grab-bar click). X→minimize-peek, grab-bar→toggle,
+  // ESC→close all remain unchanged; only the closed→open transition for a content-select changes.
+  private openExpanded(): void {
+    this.removeAttribute('minimized');
+    const body = this.querySelector('.drawer-body') as HTMLElement | null;
+    if (body) body.style.display = 'flex';
+  }
+
   attributeChangedCallback(name: string): void {
     if (name === 'ref') {
       const ref = this.getAttribute('ref');
       if (ref) {
         const wasOpen = this.hasAttribute('open');            // capture BEFORE opening
         this.setAttribute('open', '');
-        if (!wasOpen) this.setAttribute('minimized', '');     // R27.8(B, Tron): peek only when it was CLOSED; already-open → PRESERVE peek/expanded
+        if (!wasOpen) this.openExpanded();                    // R30.22: content-ref opens EXPANDED (visible), not peek; already-open → PRESERVE state
         this.renderDetailForRef(ref);
       } else {
         this.removeAttribute('open');
