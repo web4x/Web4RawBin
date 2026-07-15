@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "7fb32104-2ef5-4bb6-8a66-978c09f2a4b4",
+  "name": "test:R30.18 generateRequirementsMd gate",
+  "description": "Bridged to test/visual/r3018-requirements-view-gate.mjs (DET-3x) - verifies SprintViewGenerator.generateRequirementsMd: requirements.md is emitted from the scenario Requirement units (generated view, law #100 header) with --check byte-match round-trip; a minted req auto-appears (by-construction). R30.18 gate GREEN.",
+  "sourceFile": "ior:file:test/visual/r3018-requirements-view-gate.mjs",
+  "implementations": [
+   "ior:instance:72c57f72-9609-4272-8738-d7548659ceb3"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:72c57f72-9609-4272-8738-d7548659ceb3"
+}
