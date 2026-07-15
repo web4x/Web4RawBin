@@ -211,10 +211,10 @@ export class RbDetailDrawer extends HTMLElement {
         <div class="drawer-panel-detail" style="display:none"></div>
         <div class="drawer-panel-preview" style="display:none"></div>
       </div>`;
-    // R27.8 (corrected): X MINIMIZES/collapses to peek (Tron: "collapse on the x" — R25.4 X=minimize stands); the
-    // grab-bar toggles peek↔expand via closeAndMinimize(); ESC fully CLOSES.
+    // R30.20 (mode-aware close): X returns detail→chat when a chat panel exists (in-room), else minimizes to peek
+    // (trace context, or already in chat). ESC still fully CLOSES; grab-bar toggles peek↔expand via closeAndMinimize().
     this.querySelector('.drawer-handle')!.addEventListener('click', () => { if (this.mouseMoved) return; this.closeAndMinimize(); });
-    this.querySelector('.drawer-close')!.addEventListener('click', () => this.minimize());
+    this.querySelector('.drawer-close')!.addEventListener('click', () => this.closeOrReturn());
   }
 
   setMode(m: 'chat' | 'detail' | 'preview'): void {
@@ -223,6 +223,14 @@ export class RbDetailDrawer extends HTMLElement {
       const el = this.querySelector(`.drawer-panel-${cls}`) as HTMLElement;
       if (el) el.style.display = active ? (cls === 'chat' ? 'flex' : 'block') : 'none';
     }
+  }
+
+  // [impl:uuid:65f43714-97e3-4e70-b8ef-a0e6d88ed31d] R30.20 RbDetailDrawer.closeOrReturn
+  // Mode-aware X: in a room (chat panel exists) a detail view steps BACK to chat instead of vanishing the room;
+  // in trace context (no chat panel) or already in chat, minimize to peek. ESC still fully closes (separate handler).
+  closeOrReturn(): void {
+    if (this.chatPanel && this._mode === 'detail') this.setMode('chat');
+    else this.minimize();
   }
 
   get chat(): ChatPanel | null {
