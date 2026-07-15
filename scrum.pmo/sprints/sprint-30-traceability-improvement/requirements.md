@@ -304,7 +304,7 @@
   - [ ] **(verify)** Tron visual (IMG_4518 case): the changed source block is highlighted in its pane(s) in the same color as the center block + ribbon; DET-3x asserts the source-pane decorations exist per side.
   -> diffEditor.sourcePaneChangeBlocks [uc:uuid:f86392d5-1b74-4201-b163-f89e0ae8a1ec]
 
-- [ ] **R30.20 - Detail-drawer mode-aware close (in-room X->chat, trace X->minimize)**
+- [ ] **R30.20 — Detail-drawer mode-aware close (in-room X->chat, trace X->minimize)**
   [requirement:uuid:ecb4e62a-3367-4c4e-9e51-4d4fe358735a]
   > TRON 2026-07-15: the in-room drawer X should return to the chat view, but the R27.8 universal-minimize made X minimize everywhere - it broke in-room X->chat.
   The detail-drawer X button is MODE-AWARE (fix the R27.8 universal-minimize regression that broke in-room X). Today rb-detail-drawer.ts:217 wires .drawer-close -> this.minimize() UNIVERSALLY (R27.8), which broke the in-room flow where X should RETURN to the chat view. Detection (measured, already the signal @ line 86): this.chatPanel!==null means IN-ROOM (ChatPanel is created ONLY via RoomView drawer.chat; the trace-view never creates it). FIX (new RbDetailDrawer.closeOrReturn): .drawer-close click -> if (this.chatPanel && this._mode==='detail') this.setMode('chat'); else this.minimize(). So in-room detail X returns to chat (regression fixed), trace-view X still minimizes (R27.8 kept, mobile+desktop), in-room chat X minimizes, ESC still closes.
@@ -315,8 +315,4 @@
   - [ ] **(case4)** CASE 4 - ESC closes the drawer (unchanged).
   - [ ] **(detection)** The in-room-vs-trace signal is this.chatPanel!==null (ChatPanel is created ONLY via RoomView drawer.chat; the trace-view never creates it - the existing signal @ rb-detail-drawer.ts:86). No new state flag.
   - [ ] **(verify)** Tron visual + DET-3x all cases: in-room detail X -> chat; trace-view X -> minimize (mobile+desktop); in-room chat X -> minimize; ESC -> close. Built WITH a version-bump.
-  -> [detailDrawer.modeAwareClose uc:uuid:856a8929-05bf-4070-93f1-132cd745b2b6] -> RbDetailDrawer.closeOrReturn (NEW)
-
----
-
-## Traceability Matrix
+  -> detailDrawer.modeAwareClose [uc:uuid:856a8929-05bf-4070-93f1-132cd745b2b6]
