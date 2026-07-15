@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "856a8929-05bf-4070-93f1-132cd745b2b6",
+  "name": "detailDrawer.modeAwareClose",
+  "description": "The .drawer-close X is mode-aware: in-room detail -> setMode('chat') (return to chat), else minimize (trace-view, in-room-chat); detection via this.chatPanel!==null; ESC unchanged.",
+  "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+  "classes": [
+   "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+  ],
+  "method": "ior:instance:d0475c8f-3a83-4c90-adb8-6d2aa3b32f89",
+  "coveredRequirement": "ior:instance:ecb4e62a-3367-4c4e-9e51-4d4fe358735a"
+ },
+ "ownerIor": "ior:instance:ecb4e62a-3367-4c4e-9e51-4d4fe358735a"
+}

@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "d0475c8f-3a83-4c90-adb8-6d2aa3b32f89",
+  "name": "RbDetailDrawer.closeOrReturn",
+  "implementations": [
+   "ior:instance:65f43714-97e3-4e70-b8ef-a0e6d88ed31d"
+  ],
+  "tests": [],
+  "note": "R30.20. Name EXACT for AST-attach. The mode-aware .drawer-close handler (rb-detail-drawer.ts:217): if (this.chatPanel && this._mode==='detail') this.setMode('chat'); else this.minimize(). Detection this.chatPanel!==null=in-room (existing @line 86). Fixes R27.8 universal-minimize regression."
+ },
+ "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+}

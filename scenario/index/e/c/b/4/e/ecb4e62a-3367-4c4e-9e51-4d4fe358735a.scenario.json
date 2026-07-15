@@ -1,0 +1,63 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "ecb4e62a-3367-4c4e-9e51-4d4fe358735a",
+  "name": "Detail-drawer mode-aware close (in-room X->chat, trace X->minimize)",
+  "altId": "R30.20",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:856a8929-05bf-4070-93f1-132cd745b2b6"
+  ],
+  "description": "The detail-drawer X button is MODE-AWARE (fix the R27.8 universal-minimize regression that broke in-room X). Today rb-detail-drawer.ts:217 wires .drawer-close -> this.minimize() UNIVERSALLY (R27.8), which broke the in-room flow where X should RETURN to the chat view. Detection (measured, already the signal @ line 86): this.chatPanel!==null means IN-ROOM (ChatPanel is created ONLY via RoomView drawer.chat; the trace-view never creates it). FIX (new RbDetailDrawer.closeOrReturn): .drawer-close click -> if (this.chatPanel && this._mode==='detail') this.setMode('chat'); else this.minimize(). So in-room detail X returns to chat (regression fixed), trace-view X still minimizes (R27.8 kept, mobile+desktop), in-room chat X minimizes, ESC still closes.",
+  "tronQuote": "> TRON 2026-07-15: the in-room drawer X should return to the chat view, but the R27.8 universal-minimize made X minimize everywhere - it broke in-room X->chat.",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron via robbin-po (spec PO-produced, architect rate-limited backstop-review)",
+   "date": "2026-07-15",
+   "note": "R27.8 regression fix. Measured: rb-detail-drawer.ts:217 .drawer-close->minimize() universal broke in-room X->chat. Detection this.chatPanel!==null=in-room (ChatPanel only via RoomView drawer.chat; @line 86 already). NEW Method RbDetailDrawer.closeOrReturn on Class RbDetailDrawer d86af73d REUSE (canonical, 37->38m). Sole-minter; requirements.md block same-commit; expert builds WITH version-bump."
+  },
+  "crossRef": [
+   "ior:instance:a5da3f93-0341-4856-90eb-bb25954c72a2"
+  ],
+  "crossRefNote": "Fixes R27.8 (drawer X=minimize universal) which regressed the in-room X->chat flow. Class RbDetailDrawer REUSE d86af73d. NEW Method closeOrReturn = the mode-aware .drawer-close handler; keeps R27.8 minimize for trace-view + in-room-chat, adds setMode('chat') for in-room-detail. Detection this.chatPanel!==null (existing signal @ line 86).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-trace-minimize",
+    "group": "case1",
+    "text": "CASE 1 - trace-view (this.chatPanel===null) + detail mode: .drawer-close MINIMIZES the drawer (R27.8 behavior kept, both mobile AND desktop)."
+   },
+   {
+    "id": "AC-inroom-chat",
+    "group": "case2",
+    "text": "CASE 2 (REGRESSION FIXED) - in-room (this.chatPanel!==null) + detail mode: .drawer-close calls setMode('chat') -> the X RETURNS to the chat view instead of minimizing."
+   },
+   {
+    "id": "AC-inroom-minimize",
+    "group": "case3",
+    "text": "CASE 3 - in-room + chat mode: .drawer-close MINIMIZES (already in chat, so X minimizes)."
+   },
+   {
+    "id": "AC-esc",
+    "group": "case4",
+    "text": "CASE 4 - ESC closes the drawer (unchanged)."
+   },
+   {
+    "id": "AC-detection",
+    "group": "detection",
+    "text": "The in-room-vs-trace signal is this.chatPanel!==null (ChatPanel is created ONLY via RoomView drawer.chat; the trace-view never creates it - the existing signal @ rb-detail-drawer.ts:86). No new state flag."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "Tron visual + DET-3x all cases: in-room detail X -> chat; trace-view X -> minimize (mobile+desktop); in-room chat X -> minimize; ESC -> close. Built WITH a version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}
