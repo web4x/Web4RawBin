@@ -194,6 +194,24 @@ export class Chain {
     return String(m.tags || '').includes('orphanByDesign');
   }
 
+  /** R30.11: extend honorSupersededBy from REQ-level (isOrphanByDesign) to IMPL/hop-level.
+   *  An Impl hop is RETIRED (reads not-open) when its Impl unit is supersededBy a LIVE,
+   *  NON-superseded successor — the live successor carries the coverage, scored on its own hop.
+   *  Guards (anti-green-wash): a dangling/unresolvable successor does NOT retire the hop (AC4);
+   *  a successor that is itself superseded is not a valid live successor (AC2). Returns the
+   *  successor's short-uuid when validly retired, else null. */
+  // [impl:uuid:7f15c149-677d-4eec-a2dd-2ea29aa0eb25] R30.11 Chain.implRetiredBySupersede — honorSupersededBy at IMPL/hop level
+  private implRetiredBySupersede(implUuid: string): string | null {
+    const m = this.model(implUuid);
+    const sup = m?.supersededBy;
+    if (!sup) return null;
+    const succUuid = ior(String(sup));
+    const succM = this.model(succUuid);
+    if (!succM) return null;             // AC4: dangling supersededBy pointer does NOT clear a hop
+    if (succM.supersededBy) return null; // AC2: successor must be LIVE and NON-superseded
+    return short(succUuid);
+  }
+
   private sprintReqs(sprint: string): string[] {
     const num = sprint.replace(/^S/i, '');
     return this.idx.list().filter(u => {
@@ -291,6 +309,13 @@ export class Chain {
 
           for (const implIorStr of implIors) {
             const implUuid = ior(implIorStr);
+            const retiredTo = this.implRetiredBySupersede(implUuid);
+            if (retiredTo) {
+              // R30.11: superseded Impl → RETIRED, not open. Coverage lives on the successor's hop.
+              results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, methodUuid: methUuid,
+                impl: `retired→${retiredTo} ${short(implUuid)}`, test: 'retired', complete: false, retired: true, openNodes: [] });
+              continue;
+            }
             const refCount = implRefs.get(implUuid) || 0;
             if (refCount > 1) {
               // HARD RULE: one marker = one unit = one method. Shared Impl = NEVER credited.
@@ -341,10 +366,15 @@ export class Chain {
       dedupRows.push(r);
     }
     const complete = dedupRows.filter(r => r.complete);
-    const incomplete = dedupRows.filter(r => !r.complete);
+    const retired = dedupRows.filter(r => r.retired);                    // R30.11
+    const incomplete = dedupRows.filter(r => !r.complete && !r.retired); // R30.11: retired hops are not open
 
-    if (complete.length > 0 && incomplete.length === 0) {
-      return { row: { ...complete[0], openNodes: [] }, isComplete: true };
+    // Cleared when nothing is genuinely open AND at least one hop is satisfied (complete OR retired).
+    // Retired-only reqs (all hops superseded by live successors) read complete; a single real open
+    // still holds the req open (AC2: retirement never masks a genuine open hop).
+    if (incomplete.length === 0 && (complete.length > 0 || retired.length > 0)) {
+      const rep = complete[0] || retired[0];
+      return { row: { ...rep, openNodes: [] }, isComplete: true };
     }
     if (dedupRows.length === 0) {
       const reqM = this.model(reqUuid);
@@ -891,6 +921,7 @@ export interface ChainRow {
   complete: boolean;
   openNodes: OpenNode[];
   methodUuid?: string; // dedup identity — display names collide (e.g. two *.render on one Req)
+  retired?: boolean;   // R30.11: hop is supersededBy a live successor → RETIRED, not open (not a chain debt)
 }
 
 export interface FollowUpResult { rows: ChainRow[]; complete: number; total: number; excluded: number; }
