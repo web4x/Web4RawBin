@@ -49,9 +49,23 @@ try {
     await setup(true, 'detail'); await sleep(150); await page.keyboard.press('Escape'); await sleep(300); const s4 = await state();
     const case4 = s4.open === false; // fully closed
 
-    const pass = hasShell && case1 && case2 && case3 && case4;
+    // (5) R30.20 SELECT → detail CONTENT renders for a NON-SPRINT node (task) — Tron's regression: task/class rendered EMPTY.
+    //     Render the sprint (works), grab a REAL task ref from its dv-links, then render that task → assert real content (dv-title/dv-link).
+    const s5 = await page.evaluate(async (sprintRef) => {
+      const d = window.__d;
+      d.setAttribute('ref', sprintRef); await new Promise(r => setTimeout(r, 1400));
+      const taskRef = d.querySelector('.drawer-panel-detail [data-ref^="task:"]')?.getAttribute('data-ref');
+      if (!taskRef) return { taskRef: null, len: 0, hasContent: false };
+      d.removeAttribute('ref'); await new Promise(r => setTimeout(r, 100));
+      d.setAttribute('ref', taskRef); await new Promise(r => setTimeout(r, 1500));
+      const dp = d.querySelector('.drawer-panel-detail');
+      return { taskRef, len: (dp?.innerHTML || '').length, hasContent: /dv-title|dv-head|dv-link/.test(dp?.innerHTML || ''), sample: (dp?.textContent || '').replace(/\s+/g, ' ').slice(0, 40) };
+    }, 'sprint:2173e549-ca99-43e5-aea8-946b02141c13');
+    const case5 = s5.taskRef != null && s5.hasContent === true; // NON-sprint detail renders real content
+
+    const pass = hasShell && case1 && case2 && case3 && case4 && case5;
     results.push(pass);
-    console.log(`iter ${i}: shell=${hasShell} | (1)TRACE+detail→min=${case1}(${JSON.stringify(s1)}) | (2)room+detail→chat=${case2}(${JSON.stringify(s2)}) | (3)room+chat→min=${case3}(${JSON.stringify(s3)}) | (4)ESC→close=${case4}(${JSON.stringify(s4)}) => ${pass ? 'GREEN' : 'RED'}`);
+    console.log(`iter ${i}: shell=${hasShell} | (1)TRACE+detail→min=${case1} | (2)room+detail→chat=${case2} | (3)room+chat→min=${case3} | (4)ESC→close=${case4} | (5)SELECT task→content=${case5}(task ${s5.taskRef ? s5.taskRef.slice(0, 18) : 'none'} len=${s5.len} "${s5.sample || ''}") => ${pass ? 'GREEN' : 'RED'}`);
     await ctx.close();
   }
 } finally { await browser.close(); }
