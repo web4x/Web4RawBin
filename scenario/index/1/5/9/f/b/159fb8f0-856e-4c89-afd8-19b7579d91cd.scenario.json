@@ -1,12 +1,14 @@
 {
- "ior": "ior:class:Implementation",
- "model": {
-  "uuid": "159fb8f0-856e-4c89-afd8-19b7579d91cd",
-  "name": "RbDetailDrawer.resolveDetailUnit impl",
-  "tests": [],
-  "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
-  "designAhead": true,
-  "description": "DESIGN-AHEAD: graph-or-/api/ior unit resolver for the type-specific detail renders (task/req/class/method/impl/usecase/test/file/webitem). Expert builds + tags [impl] marker (=this Impl uuid) WITH version-bump."
- },
- "ownerIor": "ior:instance:cabb64b8-e39f-4c08-9e61-ca29949dd388"
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "159fb8f0-856e-4c89-afd8-19b7579d91cd",
+    "name": "RbDetailDrawer.resolveDetailUnit impl",
+    "tests": [
+      "ior:instance:cc76beea-de3f-46ba-9aad-09728ebd803a"
+    ],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: graph-or-/api/ior unit resolver for the type-specific detail renders (task/req/class/method/impl/usecase/test/file/webitem). Expert builds + tags [impl] marker (=this Impl uuid) WITH version-bump."
+  },
+  "ownerIor": "ior:instance:cabb64b8-e39f-4c08-9e61-ca29949dd388"
 }
