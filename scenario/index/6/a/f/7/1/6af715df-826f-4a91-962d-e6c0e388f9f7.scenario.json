@@ -1,0 +1,64 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "6af715df-826f-4a91-962d-e6c0e388f9f7",
+  "name": "Drawer non-sprint detail render (graph-independent /api/ior fetch-fallback)",
+  "altId": "R30.21",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:ab7595ea-0b2b-4a7f-9570-f6124b125272"
+  ],
+  "description": "The type-specific detail renderers (task/requirement/class/method/implementation/usecase/test/file/webitem) render CONTENT even when the drawer has no graph (scenario-view) or the unit is not in the graph (chain-only impl/test). BUG: they resolve via this.graph.get(uuid) -> 'not found' -> empty (~125 chars) when graph is null OR the unit is not in the graph; only renderSprintDetail + rb-detail-view fetch /api/ior. FIX: a graph-independent unit resolver (resolveDetailUnit) that uses this.graph.get(uuid) when present ELSE fetches /api/ior (mirroring renderSprintDetail), used by every type-specific render - so task/class/impl detail renders content in scenario-view AND trace-page AND for chain-only units. Sprint render unchanged. Client-facing -> version-bump.",
+  "tronQuote": "> TRON 2026-07-15: selecting a task / class / impl in the drawer shows NO content (empty). (Sprint detail renders; the type-specific detail elements render empty when there is no graph.)",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron via robbin-po (expert-measured cause)",
+   "date": "2026-07-15",
+   "note": "Split from R30.20 (PO-ruled: R30.20=closeOrReturn CLOSE, R30.21=non-sprint RENDER). CAUSE (expert): type-specific detail elements (rb-task/class/method/implementation/requirement/usecase/test/file/webitem-detail) use this.graph.get(uuid) -> empty when graph null (scenario-view) OR unit not-in-graph (chain-only). renderSprintDetail + rb-detail-view already /api/ior fetch; type-specific ones LACK it. FIX: shared /api/ior fetch-fallback. RbDetailDrawer d86af73d REUSE 38->39m. Sole-minter; requirements.md same-commit; version-bump (client-facing). Impl shared-vs-per-element = expert call."
+  },
+  "crossRef": [
+   "ior:instance:6cd770df-0034-406e-b20c-bb8bddaadbf7",
+   "ior:instance:ecb4e62a-3367-4c4e-9e51-4d4fe358735a"
+  ],
+  "crossRefNote": "Mirrors R30.3 renderSprintDetail (6cd770df) which fetches /api/ior - extend the SAME fetch-fallback to the type-specific detail renders. Sibling of R30.20 (drawer closeOrReturn); the SPLIT (R30.20=close, R30.21=render). Class RbDetailDrawer REUSE d86af73d. NEW Method resolveDetailUnit = the graph-independent resolver (graph.get else /api/ior); each type-specific render routes through it. Expert resolves shared-helper vs per-element at build.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-resolver",
+    "group": "fetch",
+    "text": "A graph-independent unit resolver (RbDetailDrawer.resolveDetailUnit) uses this.graph.get(uuid) when available ELSE fetches /api/ior (mirroring renderSprintDetail) - so a detail renders whether the graph is set (trace-page) or null (scenario-view)."
+   },
+   {
+    "id": "AC-all-types",
+    "group": "types",
+    "text": "ALL type-specific detail renders resolve through it: task / requirement / class / method / implementation / usecase / test / file / webitem - each renders CONTENT (not the ~125-char empty) in scenario-view AND trace-page."
+   },
+   {
+    "id": "AC-chain-only",
+    "group": "chain",
+    "text": "Chain-only units NOT in the graph (e.g. impl 7f15c149, real task 5665a0dd) render via the /api/ior fetch - no longer empty."
+   },
+   {
+    "id": "AC-sprint",
+    "group": "regression",
+    "text": "renderSprintDetail (R30.3) still works unchanged; the sprint detail (~5135 chars) is not affected."
+   },
+   {
+    "id": "AC-case5",
+    "group": "gate",
+    "text": "The R30.20-drawer case-5 (SELECT node -> content) flips GREEN: selecting a task/class/impl node in scenario-view renders its detail content (was the RED baseline)."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "Tron visual + DET-3x: select task/class/impl in scenario-view (no graph) -> content renders; trace-page still renders; sprint unchanged. Client-facing -> shipped WITH a version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

@@ -316,3 +316,20 @@
   - [ ] **(detection)** The in-room-vs-trace signal is this.chatPanel!==null (ChatPanel is created ONLY via RoomView drawer.chat; the trace-view never creates it - the existing signal @ rb-detail-drawer.ts:86). No new state flag.
   - [ ] **(verify)** Tron visual + DET-3x all cases: in-room detail X -> chat; trace-view X -> minimize (mobile+desktop); in-room chat X -> minimize; ESC -> close. Built WITH a version-bump.
   -> detailDrawer.modeAwareClose [uc:uuid:856a8929-05bf-4070-93f1-132cd745b2b6]
+
+- [ ] **R30.21 - Drawer non-sprint detail render (graph-independent /api/ior fetch-fallback)**
+  [requirement:uuid:6af715df-826f-4a91-962d-e6c0e388f9f7]
+  > TRON 2026-07-15: selecting a task / class / impl in the drawer shows NO content (empty). (Sprint detail renders; the type-specific detail elements render empty when there is no graph.)
+  The type-specific detail renderers (task/requirement/class/method/implementation/usecase/test/file/webitem) render CONTENT even when the drawer has no graph (scenario-view) or the unit is not in the graph (chain-only impl/test). BUG: they resolve via this.graph.get(uuid) -> 'not found' -> empty (~125 chars) when graph is null OR the unit is not in the graph; only renderSprintDetail + rb-detail-view fetch /api/ior. FIX: a graph-independent unit resolver (resolveDetailUnit) that uses this.graph.get(uuid) when present ELSE fetches /api/ior (mirroring renderSprintDetail), used by every type-specific render - so task/class/impl detail renders content in scenario-view AND trace-page AND for chain-only units. Sprint render unchanged. Client-facing -> version-bump.
+  **Acceptance criteria:**
+  - [ ] **(fetch)** A graph-independent unit resolver (RbDetailDrawer.resolveDetailUnit) uses this.graph.get(uuid) when available ELSE fetches /api/ior (mirroring renderSprintDetail) - so a detail renders whether the graph is set (trace-page) or null (scenario-view).
+  - [ ] **(types)** ALL type-specific detail renders resolve through it: task / requirement / class / method / implementation / usecase / test / file / webitem - each renders CONTENT (not the ~125-char empty) in scenario-view AND trace-page.
+  - [ ] **(chain)** Chain-only units NOT in the graph (e.g. impl 7f15c149, real task 5665a0dd) render via the /api/ior fetch - no longer empty.
+  - [ ] **(regression)** renderSprintDetail (R30.3) still works unchanged; the sprint detail (~5135 chars) is not affected.
+  - [ ] **(gate)** The R30.20-drawer case-5 (SELECT node -> content) flips GREEN: selecting a task/class/impl node in scenario-view renders its detail content (was the RED baseline).
+  - [ ] **(verify)** Tron visual + DET-3x: select task/class/impl in scenario-view (no graph) -> content renders; trace-page still renders; sprint unchanged. Client-facing -> shipped WITH a version-bump.
+  -> [detailDrawer.graphIndependentDetail uc:uuid:ab7595ea-0b2b-4a7f-9570-f6124b125272] -> RbDetailDrawer.resolveDetailUnit (NEW)
+
+---
+
+## Traceability Matrix

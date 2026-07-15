@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "cabb64b8-e39f-4c08-9e61-ca29949dd388",
+  "name": "RbDetailDrawer.resolveDetailUnit",
+  "implementations": [
+   "ior:instance:159fb8f0-856e-4c89-afd8-19b7579d91cd"
+  ],
+  "tests": [],
+  "note": "R30.21. Name EXACT for AST-attach. Graph-independent unit resolver: this.graph.get(uuid) if present ELSE fetch /api/ior (mirror renderSprintDetail). Each type-specific detail render routes through it -> renders in scenario-view (graph null) + trace-page + chain-only units. Expert resolves shared-helper vs per-element inline."
+ },
+ "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+}

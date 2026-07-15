@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "ab7595ea-0b2b-4a7f-9570-f6124b125272",
+  "name": "detailDrawer.graphIndependentDetail",
+  "description": "Type-specific detail renders resolve their unit graph-independently (graph.get else /api/ior fetch, mirroring renderSprintDetail) so they render content in scenario-view (no-graph) + trace-page + for chain-only units.",
+  "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+  "classes": [
+   "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+  ],
+  "method": "ior:instance:cabb64b8-e39f-4c08-9e61-ca29949dd388",
+  "coveredRequirement": "ior:instance:6af715df-826f-4a91-962d-e6c0e388f9f7"
+ },
+ "ownerIor": "ior:instance:6af715df-826f-4a91-962d-e6c0e388f9f7"
+}
