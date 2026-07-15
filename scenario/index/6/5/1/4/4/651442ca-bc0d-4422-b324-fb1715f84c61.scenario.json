@@ -12,9 +12,7 @@
   "sprintName": "Sprint 30",
   "unitLinks": [],
   "useCases": [
-   "ior:instance:5ae6ac40-1ce3-415c-82bf-622b53c242bd",
-   "ior:instance:b048bb13-4923-4cdc-89a3-4b67e2c0b4d2",
-   "ior:instance:de033e6d-091d-42b6-8d6f-4ba378b73fcd"
+   "ior:instance:5ae6ac40-1ce3-415c-82bf-622b53c242bd"
   ],
   "description": "The traceability scoreboard/audit measures TRUTH by walking the chain, not by reading denormalized or superseded artifacts: (1) a Requirement's coverage is computed by walking Req->UC->Class->Method->Impl to Impl.tests[]/[impl] markers, NOT the denormalized Req.tests[] (which falsely showed R22.3 as no-Test though its Impl bd8e5d6f has Test 91d0edca); (2) Impls annotated supersededBy are excluded from open/uncovered counts (R30.6.1/6.3, retired by R30.9, were falsely scored 'open' \u2014 the tester's -2); (3) the 19 dangling Test->Impl left by the R30.9 supersede are repointed to R30.9's Impls or retired, and 7 other orphans triaged, leaving 0 dangling. By-construction: the scoreboard cannot again false-flag a tested-but-denormalized or superseded unit.",
   "tronQuote": "> robbin-po directive 2026-07-14 (R27.5 instrument-honesty theme): make the scoreboard measure TRUTH \u2014 walk Req->chain->Impl.tests[]/markers (not denormalized Req.tests[]), honor supersededBy, and repoint/retire the R30.9-supersede dangling. Origin: R22.3 false no-Test (req verify) + tester -2 false open + planner's 26-dangling measure.",
@@ -30,7 +28,7 @@
    "ior:instance:2c1fd942-a6f1-414c-976f-ea7af7008201",
    "ior:instance:f48fbf5d-e75e-43c3-9a0c-80bbd6e503bc"
   ],
-  "crossRefNote": "Instrument-honesty (R27.5 theme: the measurer measures truth). Cleans up the R30.9 supersede fallout + fixes the R22.3-style false no-Test in ONE scoreboard-calibration. Class TraceAudit (trace-cli.ts) REUSE.",
+  "crossRefNote": "Instrument-honesty (R27.5 theme: the measurer measures truth). Cleans up the R30.9 supersede fallout + fixes the R22.3-style false no-Test in ONE scoreboard-calibration. Class TraceAudit (trace-cli.ts) REUSE. COLLAPSE (PO-approved, #103 data=truth): R30.11 was minted as 3 methods (walkChainCoverage/honorSupersededBy/repointSupersededTests) but the expert built ONE - Chain.implRetiredBySupersede (walkChainCoverage renamed, marker @ skill-classes.ts:203). The 2 phantoms (honorSupersededBy 58bbe7fe/8c1e4637 + repointSupersededTests 304f67d1/cb13e4d0, NO code markers) RETIRED clean (units deleted, refs removed). R30.11 chain = 1 UC scoreboard.walkChainForTests -> Chain.implRetiredBySupersede -> Impl 7f15c149 -> Test 4ad7879f.",
   "acceptanceCriteria": [
    {
     "id": "AC-walk",
