@@ -215,7 +215,7 @@ export class RbDiffEditor extends HTMLElement {
     this.rebuildCenter();
     const ct = this.querySelector('.de-center .de-title') as HTMLElement;
     if (ct) ct.textContent = this.left.path ? `merged: ${this.left.path}` : 'merged';
-    const nc = this.conflicts.length;
+    const nc = this.conflicts.filter(c => c.kind === 'conflict').length; // R30.23.1: TRUE conflicts only — kind:'change' (one-sided, auto-applied) is not something "to resolve"
     this.status(this.twoWay ? '2-way (no merge-base) — accept ◄/► as take-over' : `${nc} conflict${nc === 1 ? '' : 's'} to resolve${nc ? '' : ' — clean auto-merge'}${this.dirty ? ' • modified' : ''}`);
   }
 
@@ -297,7 +297,7 @@ export class RbDiffEditor extends HTMLElement {
     this.querySelector('.de-accept-bar')?.remove();
     this.renderInterPaneGutters();   // (4) ≫/≪/✕ icons in the widened gutter
     this.renderConnectorRibbons();   // (5) SVG ribbons, palette-matched to the blocks
-    const nc2 = this.conflicts.filter(c => !this.dismissed.has(c.id)).length;
+    const nc2 = this.conflicts.filter(c => (this.twoWay || c.kind === 'conflict') && !this.dismissed.has(c.id)).length; // R30.23.1: M = TRUE conflicts (3-way); in 2-way every hunk is a take-over so count all
     const cnt = this.querySelector('.de-count') as HTMLElement;
     if (cnt) cnt.textContent = `${this.conflicts.length} change${this.conflicts.length === 1 ? '' : 's'}, ${nc2} ${this.twoWay ? 'take-over' : 'conflict'}${nc2 === 1 ? '' : 's'}`;
   }
