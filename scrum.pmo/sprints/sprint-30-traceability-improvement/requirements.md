@@ -317,7 +317,7 @@
   - [ ] **(verify)** Tron visual + DET-3x all cases: in-room detail X -> chat; trace-view X -> minimize (mobile+desktop); in-room chat X -> minimize; ESC -> close. Built WITH a version-bump.
   -> detailDrawer.modeAwareClose [uc:uuid:856a8929-05bf-4070-93f1-132cd745b2b6]
 
-- [ ] **R30.21 - Drawer non-sprint detail render (graph-independent /api/ior fetch-fallback)**
+- [ ] **R30.21 — Drawer non-sprint detail render (graph-independent /api/ior fetch-fallback)**
   [requirement:uuid:6af715df-826f-4a91-962d-e6c0e388f9f7]
   > TRON 2026-07-15: selecting a task / class / impl in the drawer shows NO content (empty). (Sprint detail renders; the type-specific detail elements render empty when there is no graph.)
   The type-specific detail renderers (task/requirement/class/method/implementation/usecase/test/file/webitem) render CONTENT even when the drawer has no graph (scenario-view) or the unit is not in the graph (chain-only impl/test). BUG: they resolve via this.graph.get(uuid) -> 'not found' -> empty (~125 chars) when graph is null OR the unit is not in the graph; only renderSprintDetail + rb-detail-view fetch /api/ior. FIX: a graph-independent unit resolver (resolveDetailUnit) that uses this.graph.get(uuid) when present ELSE fetches /api/ior (mirroring renderSprintDetail), used by every type-specific render - so task/class/impl detail renders content in scenario-view AND trace-page AND for chain-only units. Sprint render unchanged. Client-facing -> version-bump.
@@ -328,9 +328,9 @@
   - [ ] **(regression)** renderSprintDetail (R30.3) still works unchanged; the sprint detail (~5135 chars) is not affected.
   - [ ] **(gate)** The R30.20-drawer case-5 (SELECT node -> content) flips GREEN: selecting a task/class/impl node in scenario-view renders its detail content (was the RED baseline).
   - [ ] **(verify)** Tron visual + DET-3x: select task/class/impl in scenario-view (no graph) -> content renders; trace-page still renders; sprint unchanged. Client-facing -> shipped WITH a version-bump.
-  -> [detailDrawer.graphIndependentDetail uc:uuid:ab7595ea-0b2b-4a7f-9570-f6124b125272] -> RbDetailDrawer.resolveDetailUnit (NEW)
+  -> detailDrawer.graphIndependentDetail [uc:uuid:ab7595ea-0b2b-4a7f-9570-f6124b125272]
 
-- [ ] **R30.22 - Drawer select opens content-visible (not peek-clipped)**
+- [ ] **R30.22 — Drawer select opens content-visible (not peek-clipped)**
   [requirement:uuid:e9432c13-0898-4a04-82cd-7c45f573ede4]
   > TRON 2026-07-15: selecting a node opens the drawer clipped to peek - the detail content is there but hidden below the fold; I should not have to drag the grab-bar to see it.
   On selecting a node with detail content, the drawer opens EXPANDED (body visible, content-height) so the content is VISIBLE immediately - not the R27.8(B) minimized-peek (drawerH=40px + .drawer-body display:none) that hides the rendered content (8633 chars in DOM) below the fold until a grab-bar expand. X still minimizes to peek (R27.8/R30.20), the grab-bar toggle still works, ESC still closes. Impl-edit to selectionDriven (the select->open path); supersedes R27.8(B) closed->peek for content-select.
@@ -341,24 +341,24 @@
   - [ ] **(close)** ESC still closes the drawer (unchanged).
   - [ ] **(supersede)** Supersedes R27.8(B): the closed->open+peek behavior for a content-select becomes open->expanded; R27.8 X=minimize (via R30.20) is preserved.
   - [ ] **(verify)** Tron visual + DET-3x: select task/class/impl -> content visible immediately (no grab-bar, body display:flex, content-height); X->peek; grab-bar toggles; ESC closes. Client-facing -> version-bump.
-  -> [detailDrawer.selectOpensContentVisible uc:uuid:4c794d6c-32a6-4cae-9a65-cbe2e8e4e368] -> RbDetailDrawer.selectionDriven (impl-edit, marker stays)
+  -> detailDrawer.selectOpensContentVisible [uc:uuid:4c794d6c-32a6-4cae-9a65-cbe2e8e4e368]
 
-- [ ] **R30.23 - Diff completeness: 3-way one-sided changes surfaced (no one-sided visibility)**
+- [ ] **R30.23 — Diff completeness: 3-way one-sided changes surfaced (no one-sided visibility)**
   [requirement:uuid:940a92d8-9254-44dc-99aa-ad6f8b1d2e1c]
-  > TRON (IMG_4522): the diff shows 'merged, 0 conflicts' but the changes are only visible on one side / not shown as blocks - I want to SEE every change (local + repo) completely, origin-correct.
+  > TRON 2026-07 (IMG_4522): the diff shows 'merged, 0 conflicts' but the changes are only visible on one side / not shown as blocks — I want to SEE every change (local + repo) completely, origin-correct.
   For each diff3 ok-region, computeMergedCenter compares its content to the corresponding BASE slice: if DIFFERENT (a one-sided change diff3 auto-applied), it emits a Conflict{kind:'change', pick:<changed side>, span} into conflicts[]/centerSeq instead of a stable ok-run; if SAME, it keeps the ok-run. The auto-pick keeps the MERGE RESULT byte-identical (the change stays applied) - this ONLY adds visibility: each one-sided change now gets a change block + connector ribbon + take-over arrow on its origin side. Fixes the IMG_4522 one-sided-visibility gap where a 'merged, 0 conflicts' file rendered ZERO change blocks. Origin-exact: local-only -> Local block, repo-only -> Repository block, both-sides -> true conflict (not double-counted). Bounded impl-edit; no new Class/Method.
   **Acceptance criteria:**
-  - [ ] **(origin-local)** A local-only change (diff3 ok-region whose content differs from its BASE slice) is emitted as Conflict{kind:'change', pick:'local'} into conflicts[]/centerSeq -> renders as a change block on the LOCAL (left) side, not swallowed as a stable ok-run.
-  - [ ] **(origin-repo)** A repo-only change is emitted as Conflict{kind:'change', pick:'repo'} -> renders as a change block on the REPOSITORY (right) side.
-  - [ ] **(both-conflict)** A both-sides divergence stays a true conflict (kind:'conflict'), NOT double-counted as a repo change.
-  - [ ] **(result-unchanged)** Auto-pick keeps the MERGE RESULT byte-identical (the change stays applied) - this ADDS visibility + a take-over arrow only; a truly-stable ok-region (content == BASE) remains an ok-run.
-  - [ ] **(downstream-free)** Downstream renderCenterChangeBlocks + R30.19 renderSideChangeBlocks + renderConnectorRibbons + jumpToChange iterate the SAME conflicts[] -> each surfaced change gets block + ribbon + arrow with NO new rendering code (impl-edit to computeMergedCenter only, marker a0b30550 stays).
+  - [ ] **(origin)** A local-only change (diff3 ok-region whose content differs from its BASE slice) is emitted as Conflict{kind:'change', pick:'local'} into conflicts[]/centerSeq -> renders as a change block on the LOCAL (left) side, not swallowed as a stable ok-run.
+  - [ ] **(origin)** A repo-only change is emitted as Conflict{kind:'change', pick:'repo'} -> renders as a change block on the REPOSITORY (right) side.
+  - [ ] **(both)** A both-sides divergence stays a true conflict (kind:'conflict'), NOT double-counted as a repo change.
+  - [ ] **(result)** Auto-pick keeps the MERGE RESULT byte-identical (the change stays applied) - this ADDS visibility + a take-over arrow only; a truly-stable ok-region (content == BASE) remains an ok-run.
+  - [ ] **(downstream)** Downstream renderCenterChangeBlocks + R30.19 renderSideChangeBlocks + renderConnectorRibbons + jumpToChange iterate the SAME conflicts[] -> each surfaced change gets block + ribbon + arrow with NO new rendering code (impl-edit to computeMergedCenter only, marker a0b30550 stays).
   - [ ] **(verify)** IMG_4522 repro + DET-3x: a 'merged, 0 true-conflicts' file still shows every one-sided change as a block/ribbon/arrow (no ZERO-blocks / one-sided-visibility); merge output byte-identical. Client-facing -> version-bump.
-  -> [diffEditor.threeWayChangeCoverage uc:uuid:18604655-55c6-4b4c-953a-8b18659a3f89] -> RbDiffEditor.computeMergedCenter (impl-edit, marker a0b30550-71c8-4497-9eaf-f73551f7bb0f stays)
+  -> diffEditor.threeWayChangeCoverage [uc:uuid:18604655-55c6-4b4c-953a-8b18659a3f89]
 
-- [ ] **R30.24 - 3-way diff is URL-addressable (deep-linkable + shareable)**
+- [ ] **R30.24 — 3-way diff is URL-addressable (deep-linkable + shareable)**
   [requirement:uuid:9a2c9c46-4def-4273-b896-60ad17b79a6a]
-  > TRON: i need links for IMG_4522 verification - a clickable link like /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1 that opens the exact 3-way diff; and the diff should generate a shareable link (copy-link button).
+  > TRON 2026-07-16: i need links for IMG_4522 verification — a clickable link like /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1 that opens the exact 3-way diff; and the diff should generate a shareable link (copy-link button). Today the diff has no URL (state via selectors).
   The 3-way diff/merge editor is URL-addressable: its state (repo key, file path, left ref, right ref, optional 3way flag) lives in the URL so a diff can be OPENED/RESTORED from a link (e.g. /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1), and the diff exposes a copy-link / share affordance that generates that URL from the current state. edit.ts reads the diff params on load and initializes rb-diff-editor to the exact diff; the repo param is a KEY resolved via R30.6.7 RepoRegistry (no client path abuse). Today the diff has NO URL (state lives only in the selectors) — so IMG_4522-style verification cannot be linked; this makes it a shareable, restorable link. Client-facing -> version-bump.
   **Acceptance criteria:**
   - [ ] **(deep-link)** Loading /edit/<path>?repo=<key>&left=<ref>&right=<ref>&3way=1 opens rb-diff-editor to that EXACT diff (repo + path + left + right + 3way), restoring the state — edit.ts reads the params on load and initializes the diff.
@@ -367,8 +367,5 @@
   - [ ] **(share)** Open->share->open round-trips: the generated link, when opened, restores the identical diff view.
   - [ ] **(security)** The ?repo= param is a KEY resolved server-side (R30.6.7); an unknown/absent key falls back to the diff's existing repo-targeting default (rawbin), no path abuse.
   - [ ] **(verify)** IMG_4522 becomes a clickable link (e.g. /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1) that opens the exact diff; DET-3x + Tron visual; client-facing -> version-bump.
-  -> [diffEditor.openFromUrl uc:uuid:cc47d004-47a6-4ac9-b18d-fe95f3b69b25] -> RbDiffEditor.openFromParams (new) | [diffEditor.shareLink uc:uuid:8e88026a-f2bc-4a7a-bd4b-c3077a5b13ad] -> RbDiffEditor.buildShareLink (new) | crossRef R30.6.6 + R30.6.7; architect derive-confirm names/schema
-
----
-
-## Traceability Matrix
+  -> diffEditor.openFromUrl [uc:uuid:cc47d004-47a6-4ac9-b18d-fe95f3b69b25]
+  -> diffEditor.shareLink [uc:uuid:8e88026a-f2bc-4a7a-bd4b-c3077a5b13ad]

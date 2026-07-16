@@ -27,7 +27,7 @@ Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' w
 - [ ] [Task 30.9: IntelliJ-faithful base-aware 3-way merge view](./task-30.9-intellij-3way-merge.md)
 - [x] [Task 30.7: Uniform ref-guard across editor targeting](./task-30.7-uniform-ref-guard.md)
 - [x] [Task 30.10: Right pane defaults to the files git history](./task-30.10-right-git-history-default.md)
-- [ ] [Task 30.11: Scoreboard measures the walked chain](./task-30.11-scoreboard-walked-chain.md)
+- [x] [Task 30.11: Scoreboard measures the walked chain](./task-30.11-scoreboard-walked-chain.md)
 - [x] [Task 30.12: 2-way take-over (no-base fallback)](./task-30.12-2way-takeover.md)
 - [x] [Task 30.13: IntelliJ inter-pane merge gutters + connectors](./task-30.13-gutters-connectors.md)
 - [x] [Task 30.14: Service-Worker auto-update (visible deploys)](./task-30.14-sw-auto-update.md)
@@ -36,3 +36,4 @@ Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' w
 - [x] [Task 30.17: 3-pane merge functional correctness](./task-30.17-merge-correctness.md)
 - [x] [Task 30.23: Diff completeness — 3-way one-sided changes surfaced](./task-30.23-diff-completeness-one-sided.md)
 - [ ] [Task 30.24: 3-way diff is URL-addressable (deep-linkable + shareable)](./task-30.24-url-addressable-diff.md)
+- [x] [Task 30.19: 3-pane change-block highlights (source panes too, not just center)](./task-30.19-side-pane-change-blocks.md)

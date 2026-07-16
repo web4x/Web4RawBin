@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "fa115b1b-354a-445a-b15a-b64c898afcd0",
+    "name": "Task 30.19: 3-pane change-block highlights (source panes too, not just center)",
+    "slug": "task-30.19-side-pane-change-blocks",
+    "description": "renderCenterChangeBlocks ALSO renders colored rounded change-blocks on the LEFT (Local, a-lines) + RIGHT (Repository, b-lines) source panes, not only the CENTER Result pane. Source-pane block color matches the center block + connector ribbon (shared CONFLICT_PALETTE/conflictColor). Side-gating: left-only highlights Local+Center (not Repo), right-only highlights Repo+Center (not Local), both-sided highlights all 3 panes.",
+    "intention": "S30 diff/merge editor (R30.19, IMG_4518) — change highlights on the SOURCE panes too, matching-color with center + ribbon, so a changed source block is visibly highlighted where it lives.",
+    "context": "Covers R30.19 (d74360d2) → UC f86392d5 (renderSideChangeBlocks). Class RbDiffEditor. Matching-by-construction like R30.16 (shared palette). ⚠ BACKFILL: task unit minted post-hoc — R30.19 was requirement-only (#126 gap; code+chain+gate shipped v0.7.28 before this Task unit existed). Surfaced by PO's board-status query post-rewind.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "implementation": "DONE v0.7.28 GREEN DET-3x (gate c776ea55f test/visual/r3019-side-blocks-gate.mjs 98-line, edit-YCBWO635.js; expert 68922236e). Chain-to-Test on origin: Test a3ad0177 (b148e78d5) wired onto Impl renderSideChangeBlocks (ad54851f2, chain COMPLETE, side-blocks money-shot). New Method renderSideChangeBlocks per architect df243841a (revised from impl-edit to new-method, 4b92a96ac). Tron visual-verified (IMG_4518), board 0-false-open.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.19 `[requirement:uuid:d74360d2-41ca-4d6d-9015-0194629b40eb]`\n  - crossRef\n    - R30.16 (matching block/ribbon color by construction, shared CONFLICT_PALETTE)\n  - down\n    - [UC renderSideChangeBlocks](./planning.md) `[uc:uuid:f86392d5-1b74-4201-b163-f89e0ae8a1ec]`",
+    "acceptanceCriteria": "- [x] (render) renderCenterChangeBlocks ALSO renders colored rounded change-blocks on the LEFT (Local, a-lines) + RIGHT (Repository, b-lines) source panes — not only the CENTER Result pane\n- [x] (color) The source-pane block color MATCHES the center block + the connector ribbon for that hunk (shared CONFLICT_PALETTE / conflictColor) — blocks and ribbons match by construction (like R30.16)\n- [x] (sides) A left-only change (c.a.length>0, c.b.length===0) highlights a block in Local + Center, NOT Repository\n- [x] (sides) A right-only change (c.b.length>0, c.a.length===0) highlights a block in Repository + Center, NOT Local\n- [x] (sides) A both-sided change highlights a matching-color block in ALL 3 panes; the ribbon visibly connects the highlighted source block(s) to the highlighted center block\n- [x] (verify) Tron visual (IMG_4518): the changed source block is highlighted in its pane(s) in the same color as the center block + ribbon; DET-3x asserts the source-pane decorations exist per side",
+    "subtasks": "None (atomic task).",
+    "status": "Done",
+    "coveredRequirements": [
+      "ior:instance:d74360d2-41ca-4d6d-9015-0194629b40eb"
+    ],
+    "useCases": [
+      "ior:instance:f86392d5-1b74-4201-b163-f89e0ae8a1ec"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-16"
+  },
+  "ownerIor": null
+}
