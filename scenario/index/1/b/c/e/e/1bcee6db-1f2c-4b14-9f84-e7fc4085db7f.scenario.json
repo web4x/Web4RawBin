@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "1bcee6db-1f2c-4b14-9f84-e7fc4085db7f",
+  "name": "diffEditor.rightPickPreservesLeft",
+  "description": "A user RIGHT ref-pick wins over the async left-history auto-promote: _rightUserPicked guard + serialized promote (generation token) + working-content snapshot ensure populateLeftHistory never reloads/blanks LEFT after a right-pick. Impl-edit to populateLeftHistory (+loadSide/setSideRef); markers stay.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:af9bcfef-384a-4639-9527-06b6f8853ab7",
+  "coveredRequirement": "ior:instance:a604a1b5-9d7b-4b31-a465-d684dfc256c2"
+ },
+ "ownerIor": "ior:instance:a604a1b5-9d7b-4b31-a465-d684dfc256c2"
+}

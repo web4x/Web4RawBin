@@ -369,3 +369,16 @@
   - [ ] **(verify)** IMG_4522 becomes a clickable link (e.g. /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1) that opens the exact diff; DET-3x + Tron visual; client-facing -> version-bump.
   -> diffEditor.openFromUrl [uc:uuid:cc47d004-47a6-4ac9-b18d-fe95f3b69b25]
   -> diffEditor.shareLink [uc:uuid:8e88026a-f2bc-4a7a-bd4b-c3077a5b13ad]
+
+- [ ] **R30.25 — Picking a RIGHT ref preserves the LEFT side (no blanking)**
+  [requirement:uuid:a604a1b5-9d7b-4b31-a465-d684dfc256c2]
+  > TRON 2026-07-16 (live bug): in the 3-way diff editor, selecting a branch on the RIGHT (Repository) editor makes the LEFT (Local) editor go EMPTY.
+  Selecting a branch/ref on the RIGHT (Repository) editor must NOT blank the LEFT (Local) editor. Root cause (architect-measured): an asymmetric race - the R30.17 left-history auto-promote (populateLeftHistory) fires fire-and-forget, has no _rightUserPicked guard, and reads live this.right.content mid-flight; when a RIGHT ref-pick lands while the promote is in flight, the promote re-derives from the mutated this.right and reloads LEFT, racing the pick's computeMergedCenter on the shared this.left/this.right so LEFT ends blank. Fix (impl-edits, markers STAY, no new Method): (1) a symmetric _rightUserPicked guard set in setSideRef('right') so a user-driven RIGHT wins over the auto-promote (mirrors _leftUserPicked); (2) serialize the promote (await + a generation token; a stale promote's left-reload tail aborts on token mismatch); (3) snapshot this.left.content before the awaits and use it for defaultIdx instead of the live this.right.content.
+  **Acceptance criteria:**
+  - [ ] **(fires)** Open a working file (promote -> older-on-left), then pick a branch on the RIGHT: LEFT still renders its content, RIGHT = file@branch, center recomputes - LEFT NEVER blanks. Includes the RACE WINDOW (pick RIGHT immediately after open, promote still in flight).
+  - [ ] **(fix)** A symmetric _rightUserPicked guard (set in setSideRef('right')/the right ref path) makes a user-driven RIGHT WIN over the auto-promote: populateLeftHistory does NOT replace this.right and does NOT run its default left-reload when _rightUserPicked (mirrors _leftUserPicked).
+  - [ ] **(fix)** The promote is serialized (await populateLeftHistory + a generation token); a stale promote's left-reload tail aborts on token mismatch so it can never reload LEFT over a fresh user pick. defaultIdx is computed from a snapshot of this.left.content taken BEFORE the awaits, not the live this.right.content.
+  - [ ] **(no-regression)** TRON4 preserved: a working-file left load with NO right interaction still auto-promotes (older-on-left) as before.
+  - [ ] **(no-regression)** R30.17 left PICK-WINS (_leftUserPicked) + R30.24 _deepLink promote-suppression both still hold; buildShareLink/openFromParams (R30.24) still round-trip after the right-pick.
+  - [ ] **(verify)** DET-3x + instrumentation trace (addLog at promote entry/exit, loadSide(side,ref), setSideRef(side)): on the repro the event order shows NO post-pick left-reload. Client fix (pure client, no restart) -> version-bump; Tron visual verify.
+  -> diffEditor.rightPickPreservesLeft [uc:uuid:1bcee6db-1f2c-4b14-9f84-e7fc4085db7f]
