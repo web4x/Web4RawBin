@@ -34,3 +34,5 @@ Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' w
 - [x] [Task 30.15: Right-history default meaningful + usable](./task-30.15-right-history-usable.md)
 - [x] [Task 30.16: IntelliJ 3-pane line alignment + center](./task-30.16-3pane-alignment.md)
 - [x] [Task 30.17: 3-pane merge functional correctness](./task-30.17-merge-correctness.md)
+- [x] [Task 30.23: Diff completeness — 3-way one-sided changes surfaced](./task-30.23-diff-completeness-one-sided.md)
+- [ ] [Task 30.24: 3-way diff is URL-addressable (deep-linkable + shareable)](./task-30.24-url-addressable-diff.md)

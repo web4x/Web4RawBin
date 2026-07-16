@@ -1,0 +1,29 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "d35812b6-aeed-4dff-a426-02aeaf5b2577",
+    "name": "Task 30.24: 3-way diff is URL-addressable (deep-linkable + shareable)",
+    "slug": "task-30.24-url-addressable-diff",
+    "description": "The 3-way diff editor is deep-linkable + shareable: /edit/<path>?repo=<key>&left=<ref>&right=<ref>&3way=1 opens rb-diff-editor to that EXACT diff (repo+path+left+right+3way), and a copy-link affordance generates the shareable URL from the current diff state. repo is a KEY resolved server-side via R30.6.7 RepoRegistry allowlist (no client-supplied absolute path honored).",
+    "intention": "S30 diff/merge editor (R30.24, IMG_4522) — make a diff a clickable, shareable link that round-trips to the identical view.",
+    "context": "Covers R30.24 (9a2c9c46) → 2 UCs: diffEditor.openFromUrl (cc47d004) + diffEditor.shareLink (8e88026a). Class RbDiffEditor + edit.ts param-read on load. Security: ?repo= is a KEY via R30.6.7 (unknown/absent → fallback rawbin, no path abuse). ⚠ BACKFILL: task unit minted post-hoc to repair the PO-acknowledged pipeline-skip (#126 gap). Status IN PROGRESS — architect designing the chain (openFromUrl + shareLink); I hold Task-side + advance on gates.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "IN PROGRESS — architect designing (per PO). Two UCs: openFromUrl (edit.ts reads /edit/<path>?repo&left&right&3way on load → initializes diff) + shareLink (copy-link affordance builds URL from current diff state → clipboard). repo KEY resolved server-side via R30.6.7 RepoRegistry allowlist. Awaiting architect derive → expert build → tester DET-3x (open→share→open round-trip). Planner advances status on gate.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.24 `[requirement:uuid:9a2c9c46-4def-4273-b896-60ad17b79a6a]`\n  - crossRef\n    - R30.6.7 RepoRegistry allowlist (repo KEY resolution)\n  - down\n    - [UC diffEditor.openFromUrl](./planning.md) `[uc:uuid:cc47d004-47a6-4ac9-b18d-fe95f3b69b25]` + [UC diffEditor.shareLink](./planning.md) `[uc:uuid:8e88026a-f2bc-4a7a-bd4b-c3077a5b13ad]`",
+    "acceptanceCriteria": "- [ ] (deep-link) Loading /edit/<path>?repo=<key>&left=<ref>&right=<ref>&3way=1 opens rb-diff-editor to that EXACT diff, restoring the state — edit.ts reads the params on load and initializes the diff\n- [ ] (deep-link) The URL carries repo (KEY, resolved via R30.6.7 RepoRegistry allowlist), path, left ref, right ref, optional 3way flag; no client-supplied absolute path is honored\n- [ ] (share) A copy-link / share affordance generates the shareable URL from the CURRENT diff state (repo+path+left+right+3way) and copies it to the clipboard\n- [ ] (share) Open→share→open round-trips: the generated link, when opened, restores the identical diff view\n- [ ] (security) The ?repo= param is a KEY resolved server-side (R30.6.7); an unknown/absent key falls back to the diff's existing repo-targeting default (rawbin), no path abuse\n- [ ] (verify) IMG_4522 becomes a clickable link (e.g. /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1) that opens the exact diff; DET-3x + Tron visual; client-facing → version-bump",
+    "subtasks": "None (atomic task).",
+    "status": "In Progress",
+    "coveredRequirements": [
+      "ior:instance:9a2c9c46-4def-4273-b896-60ad17b79a6a"
+    ],
+    "useCases": [
+      "ior:instance:cc47d004-47a6-4ac9-b18d-fe95f3b69b25",
+      "ior:instance:8e88026a-f2bc-4a7a-bd4b-c3077a5b13ad"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-16"
+  },
+  "ownerIor": null
+}
