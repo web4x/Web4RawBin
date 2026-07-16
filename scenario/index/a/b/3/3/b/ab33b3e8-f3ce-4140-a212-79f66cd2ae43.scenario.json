@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "ab33b3e8-f3ce-4140-a212-79f66cd2ae43",
+  "name": "test:R30.23 diff-completeness (one-sided change coverage) gate",
+  "description": "Bridged to r3023-diff-completeness-gate.mjs (DET-3x) - verifies RbDiffEditor.computeMergedCenter surfaces each 3-way one-sided diff3 region (ok-run != base slice) as Conflict{kind:'change', pick:changedSide} (block+ribbon+arrow, merge result byte-identical). R30.23 one-sided-completeness gate GREEN. computeOneSidedHunks is a private helper; traceability on a0b30550 (computeMergedCenter) per the code comment.",
+  "sourceFile": "ior:file:test/visual/r3023-diff-completeness-gate.mjs",
+  "implementations": [
+   "ior:instance:a0b30550-71c8-4497-9eaf-f73551f7bb0f"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:a0b30550-71c8-4497-9eaf-f73551f7bb0f"
+}
