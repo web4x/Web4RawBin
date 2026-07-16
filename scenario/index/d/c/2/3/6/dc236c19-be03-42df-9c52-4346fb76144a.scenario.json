@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "dc236c19-be03-42df-9c52-4346fb76144a",
+  "name": "RbDiffEditor.openFromParams impl",
+  "tests": [],
+  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+  "designAhead": true,
+  "description": "DESIGN-AHEAD: open/restore a diff from URL params (repo+path+left+right+3way). Expert builds + tags [impl] marker (=this Impl uuid)."
+ },
+ "ownerIor": "ior:instance:f52b6941-7c1d-4f44-8bfe-1df5208336d0"
+}

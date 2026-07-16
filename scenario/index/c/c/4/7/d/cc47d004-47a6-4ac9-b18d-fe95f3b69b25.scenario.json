@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "cc47d004-47a6-4ac9-b18d-fe95f3b69b25",
+  "name": "diffEditor.openFromUrl",
+  "description": "On /edit load, edit.ts reads the URL diff params (repo, path, left, right, 3way) and calls RbDiffEditor.openFromParams to initialize the diff to that EXACT state (repo-target via R30.6.7, left/right refs, 3-way flag) \u2014 opening/restoring the linked diff.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:f52b6941-7c1d-4f44-8bfe-1df5208336d0",
+  "coveredRequirement": "ior:instance:9a2c9c46-4def-4273-b896-60ad17b79a6a"
+ },
+ "ownerIor": "ior:instance:9a2c9c46-4def-4273-b896-60ad17b79a6a"
+}

@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "8e88026a-f2bc-4a7a-bd4b-c3077a5b13ad",
+  "name": "diffEditor.shareLink",
+  "description": "A copy-link / share affordance on the diff generates the shareable URL from the CURRENT diff state (repo key + path + left ref + right ref + 3way) and copies it to the clipboard, so the exact diff can be shared/reopened.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:3fffd212-bf91-49fb-86f8-644a3c6aff65",
+  "coveredRequirement": "ior:instance:9a2c9c46-4def-4273-b896-60ad17b79a6a"
+ },
+ "ownerIor": "ior:instance:9a2c9c46-4def-4273-b896-60ad17b79a6a"
+}

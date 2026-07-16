@@ -356,6 +356,19 @@
   - [ ] **(verify)** IMG_4522 repro + DET-3x: a 'merged, 0 true-conflicts' file still shows every one-sided change as a block/ribbon/arrow (no ZERO-blocks / one-sided-visibility); merge output byte-identical. Client-facing -> version-bump.
   -> [diffEditor.threeWayChangeCoverage uc:uuid:18604655-55c6-4b4c-953a-8b18659a3f89] -> RbDiffEditor.computeMergedCenter (impl-edit, marker a0b30550-71c8-4497-9eaf-f73551f7bb0f stays)
 
+- [ ] **R30.24 - 3-way diff is URL-addressable (deep-linkable + shareable)**
+  [requirement:uuid:9a2c9c46-4def-4273-b896-60ad17b79a6a]
+  > TRON: i need links for IMG_4522 verification - a clickable link like /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1 that opens the exact 3-way diff; and the diff should generate a shareable link (copy-link button).
+  The 3-way diff/merge editor is URL-addressable: its state (repo key, file path, left ref, right ref, optional 3way flag) lives in the URL so a diff can be OPENED/RESTORED from a link (e.g. /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1), and the diff exposes a copy-link / share affordance that generates that URL from the current state. edit.ts reads the diff params on load and initializes rb-diff-editor to the exact diff; the repo param is a KEY resolved via R30.6.7 RepoRegistry (no client path abuse). Today the diff has NO URL (state lives only in the selectors) — so IMG_4522-style verification cannot be linked; this makes it a shareable, restorable link. Client-facing -> version-bump.
+  **Acceptance criteria:**
+  - [ ] **(deep-link)** Loading /edit/<path>?repo=<key>&left=<ref>&right=<ref>&3way=1 opens rb-diff-editor to that EXACT diff (repo + path + left + right + 3way), restoring the state — edit.ts reads the params on load and initializes the diff.
+  - [ ] **(deep-link)** The URL carries repo (KEY, resolved via R30.6.7 RepoRegistry allowlist), path, left ref, right ref, and an optional 3way flag; no client-supplied absolute path is honored.
+  - [ ] **(share)** A copy-link / share affordance on the diff generates the shareable URL from the CURRENT diff state (repo+path+left+right+3way) and copies it to the clipboard.
+  - [ ] **(share)** Open->share->open round-trips: the generated link, when opened, restores the identical diff view.
+  - [ ] **(security)** The ?repo= param is a KEY resolved server-side (R30.6.7); an unknown/absent key falls back to the diff's existing repo-targeting default (rawbin), no path abuse.
+  - [ ] **(verify)** IMG_4522 becomes a clickable link (e.g. /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1) that opens the exact diff; DET-3x + Tron visual; client-facing -> version-bump.
+  -> [diffEditor.openFromUrl uc:uuid:cc47d004-47a6-4ac9-b18d-fe95f3b69b25] -> RbDiffEditor.openFromParams (new) | [diffEditor.shareLink uc:uuid:8e88026a-f2bc-4a7a-bd4b-c3077a5b13ad] -> RbDiffEditor.buildShareLink (new) | crossRef R30.6.6 + R30.6.7; architect derive-confirm names/schema
+
 ---
 
 ## Traceability Matrix

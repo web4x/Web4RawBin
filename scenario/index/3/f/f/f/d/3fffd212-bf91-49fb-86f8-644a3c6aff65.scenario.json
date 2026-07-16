@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "3fffd212-bf91-49fb-86f8-644a3c6aff65",
+  "name": "RbDiffEditor.buildShareLink",
+  "implementations": [
+   "ior:instance:bcd06c77-0b71-45be-b432-cad7d2a54a99"
+  ],
+  "tests": [],
+  "note": "R30.24. Name EXACT (architect derive-confirm). Build a URL from current diff state (repo/path/left/right/3way) for a copy-link button; round-trips with openFromParams."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

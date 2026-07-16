@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "bcd06c77-0b71-45be-b432-cad7d2a54a99",
+  "name": "RbDiffEditor.buildShareLink impl",
+  "tests": [],
+  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+  "designAhead": true,
+  "description": "DESIGN-AHEAD: build+copy a shareable diff URL from current state. Expert builds + tags [impl] marker (=this Impl uuid)."
+ },
+ "ownerIor": "ior:instance:3fffd212-bf91-49fb-86f8-644a3c6aff65"
+}

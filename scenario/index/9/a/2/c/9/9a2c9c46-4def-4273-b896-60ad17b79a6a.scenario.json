@@ -1,0 +1,66 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "9a2c9c46-4def-4273-b896-60ad17b79a6a",
+  "name": "3-way diff is URL-addressable (deep-linkable + shareable)",
+  "altId": "R30.24",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:cc47d004-47a6-4ac9-b18d-fe95f3b69b25",
+   "ior:instance:8e88026a-f2bc-4a7a-bd4b-c3077a5b13ad"
+  ],
+  "description": "The 3-way diff/merge editor is URL-addressable: its state (repo key, file path, left ref, right ref, optional 3way flag) lives in the URL so a diff can be OPENED/RESTORED from a link (e.g. /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1), and the diff exposes a copy-link / share affordance that generates that URL from the current state. edit.ts reads the diff params on load and initializes rb-diff-editor to the exact diff; the repo param is a KEY resolved via R30.6.7 RepoRegistry (no client path abuse). Today the diff has NO URL (state lives only in the selectors) \u2014 so IMG_4522-style verification cannot be linked; this makes it a shareable, restorable link. Client-facing -> version-bump.",
+  "tronQuote": "> TRON 2026-07-16: i need links for IMG_4522 verification \u2014 a clickable link like /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1 that opens the exact 3-way diff; and the diff should generate a shareable link (copy-link button). Today the diff has no URL (state via selectors).",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron via robbin-po",
+   "date": "2026-07-16",
+   "note": "Deep-linkable diffs. NO architect design note yet \u2014 minted from the PO directive; architect designs the URL schema + confirms the unit-set (edit.ts reads repo+diff params -> initializes rb-diff-editor; copy-link/share affordance). Method names + URL param schema FLAGGED for architect derive-confirm (may re-point like R30.11). Sole-minter."
+  },
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:91e06cc8-57ce-482a-91ae-4c9f13751059",
+   "ior:instance:e8d2ac99-a844-4794-9f11-86911bb4e058"
+  ],
+  "crossRefNote": "Builds on R30.6.6 (showDiff = the [Open Diff] entry; openFromParams is the URL-driven entry) + R30.6.7 (RepoRegistry repo-key targeting = the ?repo= param). Class RbDiffEditor REUSE. edit.ts URL-read glue = same shape as R30.6.6 toolbar-open-diff. ARCHITECT DERIVE-CONFIRM: exact method names (openFromParams/buildShareLink), owner (RbDiffEditor vs RbEditorLayout for the open side), and the URL param schema (repo/path/left/right/3way).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-url-open",
+    "group": "deep-link",
+    "text": "Loading /edit/<path>?repo=<key>&left=<ref>&right=<ref>&3way=1 opens rb-diff-editor to that EXACT diff (repo + path + left + right + 3way), restoring the state \u2014 edit.ts reads the params on load and initializes the diff."
+   },
+   {
+    "id": "AC-url-schema",
+    "group": "deep-link",
+    "text": "The URL carries repo (KEY, resolved via R30.6.7 RepoRegistry allowlist), path, left ref, right ref, and an optional 3way flag; no client-supplied absolute path is honored."
+   },
+   {
+    "id": "AC-share",
+    "group": "share",
+    "text": "A copy-link / share affordance on the diff generates the shareable URL from the CURRENT diff state (repo+path+left+right+3way) and copies it to the clipboard."
+   },
+   {
+    "id": "AC-round-trip",
+    "group": "share",
+    "text": "Open->share->open round-trips: the generated link, when opened, restores the identical diff view."
+   },
+   {
+    "id": "AC-repo-safety",
+    "group": "security",
+    "text": "The ?repo= param is a KEY resolved server-side (R30.6.7); an unknown/absent key falls back to the diff's existing repo-targeting default (rawbin), no path abuse."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "IMG_4522 becomes a clickable link (e.g. /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1) that opens the exact diff; DET-3x + Tron visual; client-facing -> version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}
