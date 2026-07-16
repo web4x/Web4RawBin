@@ -10,10 +10,10 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+  - [x] creating test cases
+  - [x] implementing
   - [ ] testing
-- [ ] QA Review
+- [x] QA Review
 - [ ] Done
 
 ## Traceability
@@ -49,7 +49,7 @@ S30 diff/merge editor (R30.24, IMG_4522) — make a diff a clickable, shareable 
 
 ## Implementation
 
-IN PROGRESS — architect derive-PASS (d2f79572b: URL schema accepted; owner-split OVERRIDE → BOTH methods on RbDiffEditor 18165081 per state-owner principle), EXPERT BUILDING now. Chain: UC openFromUrl (cc47d004) + UC shareLink (8e88026a) → Class RbDiffEditor 18165081 → Methods openFromParams + buildShareLink. openFromParams reads /edit/<path>?repo&left&right&3way on load; buildShareLink builds URL from current diff state → clipboard; repo KEY resolved server-side via R30.6.7 RepoRegistry allowlist. → expert deploy → tester DET-3x (open→share→open round-trip, clickable link works) → I flip to QA-Review (per PO). Status HELD In-Progress until the link works.
+IN PROGRESS — architect derive-PASS (d2f79572b: URL schema accepted; owner-split OVERRIDE → BOTH methods on RbDiffEditor 18165081 per state-owner principle), EXPERT BUILDING now. Chain: UC openFromUrl (cc47d004) + UC shareLink (8e88026a) → Class RbDiffEditor 18165081 → Methods openFromParams + buildShareLink. openFromParams reads /edit/<path>?repo&left&right&3way on load; buildShareLink builds URL from current diff state → clipboard; repo KEY resolved server-side via R30.6.7 RepoRegistry allowlist. → expert deploy → tester DET-3x (open→share→open round-trip, clickable link works) → I flip to QA-Review (per PO). → QA-REVIEW (PO: DONE+LIVE v0.7.35 7efa252f7, link render-verified). Chain-to-Impl COMPLETE: openFromParams f52b6941→Impl dc236c19 + buildShareLink 3fffd212→Impl bcd06c77 (both Impls present; Impl.tests[] EMPTY → tester DET-3x pending). ACs held UNCHECKED — the tester DET-3x gate (open→share→open round-trip + ?repo= KEY security + IMG_4522 clickable) proves them; on tester GREEN I mark 6/6 + Done. Render-verified ≠ gate-proven.
 
 ## Subtasks
 
