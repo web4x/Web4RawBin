@@ -11,6 +11,7 @@ import './components/rb-preview.js';
 import type { RbPreview } from './components/rb-preview.js';
 import './components/rb-editor-toolbar.js';
 import './components/rb-diff-editor.js'; // R30.6 3-pane diff/merge editor (registers <rb-diff-editor>)
+import type { RbDiffEditor } from './components/rb-diff-editor.js';
 import type { RbEditorToolbar } from './components/rb-editor-toolbar.js';
 
 if (!document.querySelector('rb-update-banner')) {
@@ -136,6 +137,15 @@ async function init(): Promise<void> {
     if (fileTree) fileTree.setActive(filePath);
     if (!file) toolbar.setStatus('File not found', '#e74c3c');
   } else { toolbar.setStatus('Select a file from the tree'); }
+
+  // R30.24: deep-linkable diffs — if the URL carries diff params (repo/left/right/3way), mount the diff overlay and
+  // restore the EXACT diff (e.g. /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1 → the IMG_4522 diff). preselect:false
+  // so openFromParams owns the state instead of the current-file preselect.
+  const sp = new URLSearchParams(location.search);
+  if (sp.has('left') || sp.has('right') || sp.has('repo') || sp.has('3way')) {
+    const diff = layout.showDiff(filePath, { preselect: false }) as unknown as RbDiffEditor;
+    void diff.openFromParams(sp, filePath);
+  }
 }
 
 init();

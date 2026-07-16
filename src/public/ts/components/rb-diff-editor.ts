@@ -63,6 +63,7 @@ export class RbDiffEditor extends HTMLElement {
         <button class="de-jump-next" title="Next change">▼</button>
         <span class="de-status" style="flex:1;font-size:0.7rem;opacity:0.7"></span>
         <button class="de-save" title="Save merged Result">💾 Save</button>
+        <button class="de-share" title="Copy a shareable deep-link to this exact diff">🔗</button>
       </div>
       <div class="de-panes" style="display:flex;flex:1;min-height:0;gap:34px;background:#111;position:relative">
         ${(['local', 'center', 'remote'] as const).map(s => `
@@ -85,6 +86,7 @@ export class RbDiffEditor extends HTMLElement {
     this.querySelectorAll('.de-ref').forEach(b => b.addEventListener('click', () => this.pickRef((b as HTMLElement).dataset.side as 'left' | 'right')));
     this.querySelector('.de-swap')?.addEventListener('click', () => this.swapSides());
     this.querySelector('.de-save')?.addEventListener('click', () => void this.save());
+    this.querySelector('.de-share')?.addEventListener('click', () => void this.buildShareLink());
     this.querySelector('.de-apply-all')?.addEventListener('click', () => this.applyAllNonConflicting());
     this.querySelector('.de-jump-prev')?.addEventListener('click', () => this.jumpToChange(-1));
     this.querySelector('.de-jump-next')?.addEventListener('click', () => this.jumpToChange(1));
@@ -168,7 +170,7 @@ export class RbDiffEditor extends HTMLElement {
       const title = this.querySelector(`.de-${side === 'left' ? 'local' : 'remote'} .de-title`) as HTMLElement;
       if (title) title.textContent = st.ref ? `${st.path}@${st.ref}` : st.path;
       await this.computeMergedCenter();
-      if (side === 'left' && !st.ref) void this.populateLeftHistory(); // R30.17 (TRON4): working-file load (no ref) → promote to RIGHT + fill LEFT history (older-left); guard !st.ref so the older-ref reload doesn't recurse
+      if (side === 'left' && !st.ref && !this._deepLink) void this.populateLeftHistory(); // R30.17 (TRON4): working-file load (no ref) → promote to RIGHT + fill LEFT history (older-left); guard !st.ref so the older-ref reload doesn't recurse. R30.24: skip during a deep-link restore so it can't overwrite the URL-specified RIGHT side.
     } catch { this.status(`load ${side} error`); }
   }
 
@@ -558,6 +560,42 @@ export class RbDiffEditor extends HTMLElement {
     } catch { this.status('save error'); }
   }
 
+  // [impl:uuid:dc236c19-be03-42df-9c52-4346fb76144a] RbDiffEditor.openFromParams
+  // R30.24: restore/open a diff to an EXACT state from URL params — repo=<RepoRegistry key>&path=&left=<ref>&right=<ref>&3way=1.
+  // path may come from ?path= or the /edit/<path> pathname (fallbackPath). left/right are git refs ('' = the working file).
+  // repo key maps to SideState.repo exactly like the .de-repo <select> ('rawbin' → '', else the key), so R30.6.7 repo-safety
+  // (server-side allow-list on ?repo=) is reused unchanged. Loads both sides; 3-way vs 2-way then emerges from resolveBase.
+  async openFromParams(params: URLSearchParams, fallbackPath?: string): Promise<void> {
+    const key = params.get('repo') || '';
+    const repo = key && key !== 'rawbin' ? key : '';           // mirror populateRepos: 'rawbin'/empty = the primary repo ('')
+    const path = params.get('path') || fallbackPath || '';
+    if (!path) { this.status('deep-link: missing path'); return; }
+    const left = params.get('left') || '';                     // git ref, or '' = working file
+    const right = params.get('right') || '';
+    this._deepLink = true;                                      // suppress the auto left-history promote (would clobber RIGHT)
+    this.left = { path, ref: left, repo, content: '' };
+    this.right = { path, ref: right, repo, content: '' };
+    this.querySelectorAll('.de-repo').forEach(el => { (el as HTMLSelectElement).value = key || 'rawbin'; }); // reflect in UI (best-effort; load uses st.repo)
+    try {
+      await this.loadSide('left', { path, ref: left });
+      await this.loadSide('right', { path, ref: right });      // loaded last → authoritative RIGHT (deep-link guard blocks the promote race)
+    } finally { this._deepLink = false; }
+  }
+
+  // [impl:uuid:bcd06c77-0b71-45be-b432-cad7d2a54a99] RbDiffEditor.buildShareLink
+  // R30.24: current diff state → a shareable deep-link (the inverse of openFromParams) + copy to clipboard. Path goes in the
+  // /edit/<path> pathname; repo (RepoRegistry key, '' → 'rawbin'), left/right refs, and 3way go in the query. Round-trips:
+  // buildShareLink() → openFromParams() reopens the identical diff.
+  async buildShareLink(): Promise<void> {
+    const path = this.left.path;
+    if (!path) { this.status('nothing to link (no file)'); return; }
+    const key = this.left.repo || 'rawbin';
+    const qs = new URLSearchParams({ repo: key, left: this.left.ref, right: this.right.ref, '3way': this.twoWay ? '0' : '1' });
+    const url = `${location.origin}/edit/${encodeURIComponent(path)}?${qs.toString()}`;
+    try { await navigator.clipboard.writeText(url); this.status(`🔗 link copied: ${url}`); }
+    catch { this.status(`🔗 ${url}`); } // clipboard denied (no HTTPS/permission) → still surface the URL to copy manually
+  }
+
   // [impl:uuid:751934c1-96d7-4d9b-ab64-4882b7b6e042] RbDiffEditor.populateLeftHistory
   // R30.17 (TRON4): file-history selector on the LEFT — OLDER version on the left, current/working on the right. When
   // the working file loads on the LEFT, promote it to the RIGHT, then fill the LEFT .de-history (git log --follow) and
@@ -590,6 +628,7 @@ export class RbDiffEditor extends HTMLElement {
   }
   private _historyWired = false;
   private _leftUserPicked = false;
+  private _deepLink = false; // R30.24: true while openFromParams restores a URL-linked diff (suppresses auto left-history promote)
 
   private async populateRepos(): Promise<void> {
     let repos: { key: string; label: string }[] = [];

@@ -46,7 +46,7 @@ export class RbEditorLayout extends HTMLElement {
 
   // [impl:uuid:dc302e8e-9689-4f67-a221-6003f27c4df4] RbEditorLayout.showDiff — R30.6.6 [Open Diff] entry: mount the
   // diff/merge editor as an overlay with the LEFT pane preselected to the CURRENT file (path + current editor content).
-  showDiff(currentFilePath: string): void {
+  showDiff(currentFilePath: string, opts?: { preselect?: boolean }): HTMLElement {
     let overlay = this.querySelector('.el-diff') as HTMLElement | null;
     if (!overlay) {                                          // AC-mount: lazily created on first use (not eager)
       overlay = document.createElement('div');
@@ -63,9 +63,12 @@ export class RbEditorLayout extends HTMLElement {
       bar.querySelector('.el-diff-close')?.addEventListener('click', () => { if (overlay) overlay.style.display = 'none'; });
     }
     overlay.style.display = 'flex';
-    const diff = overlay.querySelector('rb-diff-editor') as unknown as { loadSide(side: string, src: { path: string; content?: string }): void };
+    const diffEl = overlay.querySelector('rb-diff-editor') as HTMLElement;
+    if (opts?.preselect === false) return diffEl; // R30.24 deep-link: caller (openFromParams) sets the exact state — skip the current-file preselect
+    const diff = diffEl as unknown as { loadSide(side: string, src: { path: string; content?: string }): void };
     const content = (this.querySelector('rb-code-editor') as unknown as { getValue?(): string } | null)?.getValue?.(); // AC-left-preselect: current buffer
     diff.loadSide('left', { path: currentFilePath, content });
+    return diffEl;
   }
 
   private render(): void {
