@@ -1,0 +1,68 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "940a92d8-9254-44dc-99aa-ad6f8b1d2e1c",
+  "name": "Diff completeness: 3-way one-sided changes surfaced (no one-sided visibility)",
+  "altId": "R30.23",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:18604655-55c6-4b4c-953a-8b18659a3f89"
+  ],
+  "description": "For each diff3 ok-region, computeMergedCenter compares its content to the corresponding BASE slice: if DIFFERENT (a one-sided change diff3 auto-applied), it emits a Conflict{kind:'change', pick:<changed side>, span} into conflicts[]/centerSeq instead of a stable ok-run; if SAME, it keeps the ok-run. The auto-pick keeps the MERGE RESULT byte-identical (the change stays applied) - this ONLY adds visibility: each one-sided change now gets a change block + connector ribbon + take-over arrow on its origin side. Fixes the IMG_4522 one-sided-visibility gap where a 'merged, 0 conflicts' file rendered ZERO change blocks. Origin-exact: local-only -> Local block, repo-only -> Repository block, both-sides -> true conflict (not double-counted). Bounded impl-edit; no new Class/Method.",
+  "tronQuote": "> TRON 2026-07 (IMG_4522): the diff shows 'merged, 0 conflicts' but the changes are only visible on one side / not shown as blocks \u2014 I want to SEE every change (local + repo) completely, origin-correct.",
+  "discoverySource": {
+   "type": "po-confirmed-spec",
+   "flaggedBy": "Tron (IMG_4522) via robbin-po; architect v2 FAST-FOLLOW spec",
+   "date": "2026-07-16",
+   "note": "v2 fast-follow of R30.16 (v1 conflicts[]-only). PO-confirmed spec on disk: scrum.pmo/design-notes/r30x-pane-line-alignment-design.md 'v2 FAST-FOLLOW' (84f013855). IMPL-EDIT to existing computeMergedCenter (Method 09af8c8d / Impl-marker a0b30550 STAYS), NO new Class/Method \u2014 downstream renderers already iterate conflicts[]. Sole-minter; architect derive-confirms the impl-edit method-set on recovery."
+  },
+  "designRef": "scrum.pmo/design-notes/r30x-pane-line-alignment-design.md v2 FAST-FOLLOW (84f013855)",
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc",
+   "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f",
+   "ior:instance:d74360d2-41ca-4d6d-9015-0194629b40eb"
+  ],
+  "crossRefNote": "v2 fast-follow completing R30.16 (v1 shipped conflicts[]-only 2-way coverage). IMPL-EDIT to computeMergedCenter (R30.9). Downstream FREE: renderCenterChangeBlocks + R30.19 renderSideChangeBlocks + renderConnectorRibbons + jumpToChange already iterate conflicts[]. NO new units \u2014 architect derive-confirms the impl-edit reuse (method-set = {computeMergedCenter}).",
+  "implEdit": "ior:instance:09af8c8d-591f-4746-8f2a-8bba5c1e682a (RbDiffEditor.computeMergedCenter); marker a0b30550-71c8-4497-9eaf-f73551f7bb0f STAYS (Impl-edit, no new unit)",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-origin-local",
+    "group": "origin",
+    "text": "A local-only change (diff3 ok-region whose content differs from its BASE slice) is emitted as Conflict{kind:'change', pick:'local'} into conflicts[]/centerSeq -> renders as a change block on the LOCAL (left) side, not swallowed as a stable ok-run."
+   },
+   {
+    "id": "AC-origin-repo",
+    "group": "origin",
+    "text": "A repo-only change is emitted as Conflict{kind:'change', pick:'repo'} -> renders as a change block on the REPOSITORY (right) side."
+   },
+   {
+    "id": "AC-both-conflict",
+    "group": "both",
+    "text": "A both-sides divergence stays a true conflict (kind:'conflict'), NOT double-counted as a repo change."
+   },
+   {
+    "id": "AC-result-unchanged",
+    "group": "result",
+    "text": "Auto-pick keeps the MERGE RESULT byte-identical (the change stays applied) - this ADDS visibility + a take-over arrow only; a truly-stable ok-region (content == BASE) remains an ok-run."
+   },
+   {
+    "id": "AC-downstream-free",
+    "group": "downstream",
+    "text": "Downstream renderCenterChangeBlocks + R30.19 renderSideChangeBlocks + renderConnectorRibbons + jumpToChange iterate the SAME conflicts[] -> each surfaced change gets block + ribbon + arrow with NO new rendering code (impl-edit to computeMergedCenter only, marker a0b30550 stays)."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "IMG_4522 repro + DET-3x: a 'merged, 0 true-conflicts' file still shows every one-sided change as a block/ribbon/arrow (no ZERO-blocks / one-sided-visibility); merge output byte-identical. Client-facing -> version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

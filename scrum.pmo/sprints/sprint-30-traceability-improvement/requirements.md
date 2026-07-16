@@ -343,6 +343,19 @@
   - [ ] **(verify)** Tron visual + DET-3x: select task/class/impl -> content visible immediately (no grab-bar, body display:flex, content-height); X->peek; grab-bar toggles; ESC closes. Client-facing -> version-bump.
   -> [detailDrawer.selectOpensContentVisible uc:uuid:4c794d6c-32a6-4cae-9a65-cbe2e8e4e368] -> RbDetailDrawer.selectionDriven (impl-edit, marker stays)
 
+- [ ] **R30.23 - Diff completeness: 3-way one-sided changes surfaced (no one-sided visibility)**
+  [requirement:uuid:940a92d8-9254-44dc-99aa-ad6f8b1d2e1c]
+  > TRON (IMG_4522): the diff shows 'merged, 0 conflicts' but the changes are only visible on one side / not shown as blocks - I want to SEE every change (local + repo) completely, origin-correct.
+  For each diff3 ok-region, computeMergedCenter compares its content to the corresponding BASE slice: if DIFFERENT (a one-sided change diff3 auto-applied), it emits a Conflict{kind:'change', pick:<changed side>, span} into conflicts[]/centerSeq instead of a stable ok-run; if SAME, it keeps the ok-run. The auto-pick keeps the MERGE RESULT byte-identical (the change stays applied) - this ONLY adds visibility: each one-sided change now gets a change block + connector ribbon + take-over arrow on its origin side. Fixes the IMG_4522 one-sided-visibility gap where a 'merged, 0 conflicts' file rendered ZERO change blocks. Origin-exact: local-only -> Local block, repo-only -> Repository block, both-sides -> true conflict (not double-counted). Bounded impl-edit; no new Class/Method.
+  **Acceptance criteria:**
+  - [ ] **(origin-local)** A local-only change (diff3 ok-region whose content differs from its BASE slice) is emitted as Conflict{kind:'change', pick:'local'} into conflicts[]/centerSeq -> renders as a change block on the LOCAL (left) side, not swallowed as a stable ok-run.
+  - [ ] **(origin-repo)** A repo-only change is emitted as Conflict{kind:'change', pick:'repo'} -> renders as a change block on the REPOSITORY (right) side.
+  - [ ] **(both-conflict)** A both-sides divergence stays a true conflict (kind:'conflict'), NOT double-counted as a repo change.
+  - [ ] **(result-unchanged)** Auto-pick keeps the MERGE RESULT byte-identical (the change stays applied) - this ADDS visibility + a take-over arrow only; a truly-stable ok-region (content == BASE) remains an ok-run.
+  - [ ] **(downstream-free)** Downstream renderCenterChangeBlocks + R30.19 renderSideChangeBlocks + renderConnectorRibbons + jumpToChange iterate the SAME conflicts[] -> each surfaced change gets block + ribbon + arrow with NO new rendering code (impl-edit to computeMergedCenter only, marker a0b30550 stays).
+  - [ ] **(verify)** IMG_4522 repro + DET-3x: a 'merged, 0 true-conflicts' file still shows every one-sided change as a block/ribbon/arrow (no ZERO-blocks / one-sided-visibility); merge output byte-identical. Client-facing -> version-bump.
+  -> [diffEditor.threeWayChangeCoverage uc:uuid:18604655-55c6-4b4c-953a-8b18659a3f89] -> RbDiffEditor.computeMergedCenter (impl-edit, marker a0b30550-71c8-4497-9eaf-f73551f7bb0f stays)
+
 ---
 
 ## Traceability Matrix

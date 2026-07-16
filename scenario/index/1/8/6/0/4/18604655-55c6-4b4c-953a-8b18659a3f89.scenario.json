@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "18604655-55c6-4b4c-953a-8b18659a3f89",
+  "name": "diffEditor.threeWayChangeCoverage",
+  "description": "computeMergedCenter surfaces each 3-way one-sided diff3 region (ok-run whose content differs from base) as a Conflict{kind:'change', pick:changedSide} so it gets a block+ribbon+arrow; merge result unchanged. Origin-exact, no double-count.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:09af8c8d-591f-4746-8f2a-8bba5c1e682a",
+  "coveredRequirement": "ior:instance:940a92d8-9254-44dc-99aa-ad6f8b1d2e1c"
+ },
+ "ownerIor": "ior:instance:940a92d8-9254-44dc-99aa-ad6f8b1d2e1c"
+}
