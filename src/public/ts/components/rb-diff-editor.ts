@@ -6,7 +6,7 @@
 // (R30.6.1/6.3) SUPERSEDED by computeMergedCenter/renderMergeGutter/acceptChange; loadSide/pickFile/pickRef/save/
 // swapSides KEPT (re-scoped). Monaco via the shared CDN/AMD loader (reuse rb-code-editor); node-diff3 vendored.
 import './rb-file-tree.js';
-import { diff3Merge, diffIndices, type Diff3Region } from '../vendor/diff3.js';
+import { diff3MergeRegions, diffIndices, type StableRegion } from '../vendor/diff3.js';
 
 const MONACO_VS = 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs';
 let _monacoPromise: Promise<any> | null = null;
@@ -192,11 +192,24 @@ export class RbDiffEditor extends HTMLElement {
     } else {
       this.twoWay = false;
       let cid = 0;
-      for (const r of diff3Merge(localLines, this.base.split('\n'), remoteLines)) {
-        if ('ok' in r) { this.centerSeq.push({ ok: r.ok }); continue; }
-        this.conflicts.push({ id: cid, a: r.conflict.a, b: r.conflict.b, pick: 'a', span: [0, 0], kind: 'conflict', aStart: r.conflict.aIndex, bStart: r.conflict.bIndex }); // R30.16: 3-way true conflict → brown; aIndex/bIndex = Local/Repo start lines
-        this.centerSeq.push({ cid: cid });
-        cid++;
+      // R30.23: iterate the RICHER region list (not the collapsed diff3Merge) so each stable region carries its
+      // `buffer` origin tag — 'o'=truly stable (== base), 'a'=local-only change, 'b'=repo-only change (diff3
+      // already auto-applied it into CENTER). A one-sided change is surfaced as a Conflict{kind:'change'} so it
+      // renders a block+ribbon+arrow (IMG_4522 gap: a 'merged, 0 conflicts' file showed ZERO blocks). The picked
+      // side's content stays in CENTER → merge RESULT byte-identical; this ONLY adds visibility.
+      for (const region of diff3MergeRegions(localLines, this.base.split('\n'), remoteLines)) {
+        if (region.stable) {
+          if (region.buffer === 'o') { this.centerSeq.push({ ok: region.bufferContent }); continue; } // stable == base → ok-run
+          this.conflicts.push(this.computeOneSidedHunks(region, cid)); // one-sided auto-applied change → surface origin-exact
+          this.centerSeq.push({ cid: cid });
+          cid++;
+        } else if (region.aContent.length === region.bContent.length && region.aContent.every((x, i) => x === region.bContent[i])) {
+          this.centerSeq.push({ ok: region.aContent }); // false conflict: both sides made the SAME change → agreed, keep as ok (not one-sided, no double-count)
+        } else {
+          this.conflicts.push({ id: cid, a: region.aContent, b: region.bContent, pick: 'a', span: [0, 0], kind: 'conflict', aStart: region.aStart, bStart: region.bStart }); // R30.16: 3-way true divergence → brown; aStart/bStart = Local/Repo start lines
+          this.centerSeq.push({ cid: cid });
+          cid++;
+        }
       }
     }
     this.rebuildCenter();
@@ -204,6 +217,27 @@ export class RbDiffEditor extends HTMLElement {
     if (ct) ct.textContent = this.left.path ? `merged: ${this.left.path}` : 'merged';
     const nc = this.conflicts.length;
     this.status(this.twoWay ? '2-way (no merge-base) — accept ◄/► as take-over' : `${nc} conflict${nc === 1 ? '' : 's'} to resolve${nc ? '' : ' — clean auto-merge'}${this.dirty ? ' • modified' : ''}`);
+  }
+
+  // R30.23 private helper (traceability stays on computeMergedCenter's a0b30550 — one-sided detection is the same
+  // concern that already owns merge+conflict tracking; NOT a minted Method). Maps a diff3 one-sided stable region
+  // to a change-Conflict, origin-EXACT: buffer 'a' = LOCAL-only (a=content, b=[], pick='a') → renders a Local block +
+  // Local↔Result ribbon + arrow only; buffer 'b' = REPO-only (a=[], b=content, pick='b') → Repository side only.
+  // Downstream (renderCenterChangeBlocks via c.span, renderSideChangeBlocks/renderConnectorRibbons gate on a/b.length,
+  // jumpToChange counts) all iterate conflicts[] with NO new rendering code. pick keeps the changed content in CENTER
+  // (rebuildCenter: pick==='b'?c.b:c.a) → merge RESULT byte-identical; span [0,0] is set by rebuildCenter.
+  private computeOneSidedHunks(region: StableRegion, cid: number): Conflict {
+    const local = region.buffer === 'a';
+    return {
+      id: cid,
+      a: local ? region.bufferContent : [],
+      b: local ? [] : region.bufferContent,
+      pick: local ? 'a' : 'b',
+      span: [0, 0],
+      kind: 'change',
+      aStart: local ? region.bufferStart : 0,
+      bStart: local ? 0 : region.bufferStart,
+    };
   }
 
   // [impl:uuid:def2c0f2-0ded-430b-9d4e-3d54665f27bc] RbDiffEditor.computeTwoWayHunks

@@ -59,11 +59,14 @@ export function diffIndices(buffer1: string[], buffer2: string[]): DiffIndex[] {
 }
 
 interface Hunk { ab: 'a' | 'b'; oStart: number; oLength: number; abStart: number; abLength: number }
-type StableRegion = { stable: true; buffer: 'o' | 'a' | 'b'; bufferStart: number; bufferLength: number; bufferContent: string[] };
-type ConflictRegion = { stable: false; aStart: number; aLength: number; aContent: string[]; oStart: number; oLength: number; oContent: string[]; bStart: number; bLength: number; bContent: string[] };
-type Region = StableRegion | ConflictRegion;
+// R30.23: exported so RbDiffEditor.computeMergedCenter can read the per-region `buffer` origin tag
+// ('o'=stable/base, 'a'=local-only change, 'b'=repo-only change) and surface diff3-auto-applied one-sided
+// changes as visible change-blocks. diff3Merge() collapses these into flat {ok:[…]}, losing origin.
+export type StableRegion = { stable: true; buffer: 'o' | 'a' | 'b'; bufferStart: number; bufferLength: number; bufferContent: string[] };
+export type ConflictRegion = { stable: false; aStart: number; aLength: number; aContent: string[]; oStart: number; oLength: number; oContent: string[]; bStart: number; bLength: number; bContent: string[] };
+export type Region = StableRegion | ConflictRegion;
 
-function diff3MergeRegions(a: string[], o: string[], b: string[]): Region[] {
+export function diff3MergeRegions(a: string[], o: string[], b: string[]): Region[] {
   const hunks: Hunk[] = [];
   const addHunk = (h: DiffIndex, ab: 'a' | 'b') => {
     hunks.push({ ab, oStart: h.buffer1[0], oLength: h.buffer1[1], abStart: h.buffer2[0], abLength: h.buffer2[1] });
