@@ -4,7 +4,8 @@
     "uuid": "a0b30550-71c8-4497-9eaf-f73551f7bb0f",
     "name": "RbDiffEditor.computeMergedCenter impl",
     "tests": [
-      "ior:instance:eb4a550e-1151-49b0-a52a-db3ecaa16ee5"
+      "ior:instance:eb4a550e-1151-49b0-a52a-db3ecaa16ee5",
+      "ior:instance:ab33b3e8-f3ce-4140-a212-79f66cd2ae43"
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,
