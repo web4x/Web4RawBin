@@ -21,10 +21,10 @@ for (const r of diff3Merge(localLines, base, remoteLines)) {
 
 …a clean auto-merge yields **0 hunks → 0 blocks → 0 count → "clean auto-merge"**. The insertion is invisible and uncounted. **It is the highlighter/counter coverage, gated on `conflicts[]`, that has no entry for one-sided auto-merged changes.**
 
-## FIX — surface one-sided auto-merged regions as `resolvable` hunks
-Reuse Class **RbDiffEditor `18165081`** (NO new class). ONE NEW name-matching Method.
+## FIX — surface one-sided auto-merged regions (IMPL-EDIT to computeMergedCenter)
+**DECIDED (PO, 2026-07-16): IMPL-EDIT to the existing `computeMergedCenter` — marker `a0b30550` STAYS, NO new minted units.** The one-sided detection is a **PRIVATE HELPER `computeOneSidedHunks`** *inside* the impl-edit, NOT a minted Method — a private helper is an implementation detail credited under `computeMergedCenter`'s Impl (`a0b30550`); minting a separate Method would be over-decomposition (cf. R30.11 phantom-method collapse) and force a re-mint delay. Honors the v2 spec's boundedness (`84f013855`). Class **RbDiffEditor `18165081`** REUSE, no new Class/Method/Impl.
 
-**NEW Method `RbDiffEditor.computeOneSidedHunks`** — after the diff3 loop in `computeMergedCenter`, derive non-conflicting one-sided changes vs BASE and push them as `kind:'resolvable'` hunks (green), `autoApplied:true`:
+**Private helper `computeOneSidedHunks` (within `computeMergedCenter` impl-edit)** — after the diff3 loop, derive non-conflicting one-sided changes vs BASE and push them as `autoApplied:true` hunks:
 ```
 localD  = diffIndices(baseLines, localLines)     // regions where Local differs from base
 remoteD = diffIndices(baseLines, remoteLines)    // regions where Repository differs from base
@@ -37,7 +37,7 @@ for each base-region changed on EXACTLY ONE side (in localD XOR remoteD),
   })
 ```
 - Origin by construction: Local-only → `a.length>0` → renders in Local pane; Repo-only → `b.length>0` → Repository pane (renderSideChangeBlocks R30.19 gate already does this).
-- Color by construction: `kind:'resolvable'` → `CONFLICT_PALETTE.resolvable` `#3a8a5a` (green) → `de-block-resolvable` (CSS already present) in center + both source panes. Green = "auto-merged, no action needed", distinct from blue 2-way take-over `change` and brown `conflict`.
+- Color: minted spec uses `kind:'change'` (blue). RECOMMENDED `kind:'resolvable'` (green `#3a8a5a`, `de-block-resolvable` CSS already present) to stay visually distinct from 2-way take-over `change` — **build-decided**. The hard invariant either way: `autoApplied:true` ⇒ counted + origin-highlighted + NO accept-arrow. Both render via `de-block-${c.kind}` by construction.
 
 **Counter / status:** count `resolvable` in its own bucket. A one-sided-only merge reads **"N auto-merged, 0 conflicts"** (NOT "clean auto-merge"). Conflicts bucket unchanged.
 
@@ -45,17 +45,16 @@ for each base-region changed on EXACTLY ONE side (in localD XOR remoteD),
 
 **Reused unchanged:** diff3 conflict branch, computeTwoWayHunks, acceptChange, syncScroll3, renderCenterChangeBlocks/renderSideChangeBlocks (they iterate `conflicts[]` and key on `de-block-${c.kind}` → pick up `resolvable` for free).
 
-## Chain to mint (scenario-first — req). RbDiffEditor 18165081 REUSE, 0-dup, name-exact, designAhead.
-| Hop | Unit | name (EXACT) | sourceFile |
-|-----|------|--------------|-----------|
-| Req  | (new R30.23) | Every diff is visible — one-sided auto-merged changes are highlighted + counted, not hidden by "clean auto-merge" | — |
-| UC   | new | `diffEditor.oneSidedChangeVisibility` | — |
-| Class| REUSE | `RbDiffEditor` (18165081) | — |
-| Method | NEW | `RbDiffEditor.computeOneSidedHunks` | src/public/ts/components/rb-diff-editor.ts |
-| Impl | designAhead | `RbDiffEditor.computeOneSidedHunks impl` | src/public/ts/components/rb-diff-editor.ts |
-| Test | new | one-sided-visibility DET-3x (AC below) | — |
+## Chain (MINTED — req ddc01b2e0). RbDiffEditor 18165081 REUSE, impl-edit, 0 new Method/Impl.
+| Hop | Unit uuid | name (EXACT) | note |
+|-----|-----------|--------------|------|
+| Req  | `940a92d8` (R30.23) | Diff completeness: 3-way one-sided changes surfaced | new |
+| UC   | `18604655` | `diffEditor.threeWayChangeCoverage` | new |
+| Class| `18165081` | `RbDiffEditor` | REUSE |
+| Method | `09af8c8d` | `RbDiffEditor.computeMergedCenter` | REUSE |
+| Impl | `a0b30550` | `RbDiffEditor.computeMergedCenter impl` | **impl-edit, marker STAYS** |
 
-Also impl-edits (markers STAY): `computeMergedCenter` (call tail), the counter/status producer, `renderMergeGutter` (autoApplied arrow-skip), `Conflict` interface (`autoApplied?:boolean`).
+Impl-edit lands inside `computeMergedCenter` (private helper `computeOneSidedHunks` + counter/status wording + `renderMergeGutter` autoApplied arrow-skip + `Conflict.autoApplied?:boolean`). All under marker `a0b30550` — no new units, no marker churn. Derive-confirm PASS `808144a5e`.
 
 ## LOCKED AC (anti-regression, DET-3x)
 1. **FIRES:** IMG_4522 repro (OOSH latest `516ebb3` vs `@dev`) → ≥1 **green** `resolvable` block in Center + Repository panes; counter "≥1 auto-merged, 0 conflicts"; status NOT "clean auto-merge". Tron SEES the `CURRENT|...` insertion.
