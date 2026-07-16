@@ -49,7 +49,7 @@ S30 diff/merge editor (R30.24, IMG_4522) — make a diff a clickable, shareable 
 
 ## Implementation
 
-IN PROGRESS — architect designing (per PO). Two UCs: openFromUrl (edit.ts reads /edit/<path>?repo&left&right&3way on load → initializes diff) + shareLink (copy-link affordance builds URL from current diff state → clipboard). repo KEY resolved server-side via R30.6.7 RepoRegistry allowlist. Awaiting architect derive → expert build → tester DET-3x (open→share→open round-trip). Planner advances status on gate.
+IN PROGRESS — architect derive-PASS (d2f79572b: URL schema accepted; owner-split OVERRIDE → BOTH methods on RbDiffEditor 18165081 per state-owner principle), EXPERT BUILDING now. Chain: UC openFromUrl (cc47d004) + UC shareLink (8e88026a) → Class RbDiffEditor 18165081 → Methods openFromParams + buildShareLink. openFromParams reads /edit/<path>?repo&left&right&3way on load; buildShareLink builds URL from current diff state → clipboard; repo KEY resolved server-side via R30.6.7 RepoRegistry allowlist. → expert deploy → tester DET-3x (open→share→open round-trip, clickable link works) → I flip to QA-Review (per PO). Status HELD In-Progress until the link works.
 
 ## Subtasks
 
