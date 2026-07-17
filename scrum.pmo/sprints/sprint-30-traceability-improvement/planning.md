@@ -38,7 +38,7 @@ Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' w
 - [x] [Task 30.24: 3-way diff is URL-addressable (deep-linkable + shareable)](./task-30.24-url-addressable-diff.md)
 - [x] [Task 30.19: 3-pane change-block highlights (source panes too, not just center)](./task-30.19-side-pane-change-blocks.md)
 - [x] [Task 30.25: Picking a RIGHT ref preserves the LEFT side (no blanking)](./task-30.25-right-pick-preserves-left.md)
-- [ ] [Task 30.27: 3-pane rows align — corresponding lines share one visual row](./task-30.27-three-pane-row-alignment.md)
+- [x] [Task 30.27: 3-pane rows align — corresponding lines share one visual row](./task-30.27-three-pane-row-alignment.md)
 - [x] [Task 30.26: Deep-link right-pick preserves the user's pick (BUG-1)](./task-30.26-deeplink-right-pick-preserved.md)
 - [ ] [Task 30.34: Mobile-first responsive 3-way merge — ONE continuous spline (both orientations)](./task-30.34-responsive-spline-ribbon.md)
 - [x] [Task 30.21: Drawer non-sprint detail render (graph-independent /api/ior fetch-fallback)](./task-30.21-drawer-graph-independent-detail.md)
