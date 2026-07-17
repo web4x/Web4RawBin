@@ -4,7 +4,8 @@
     "uuid": "37c9694c-8af3-41fd-9cbc-69b505642b05",
     "name": "RbDiffEditor.renderCenterChangeBlocks impl",
     "tests": [
-      "ior:instance:ae075854-70b7-4760-96a1-2ee6b84b3e4e"
+      "ior:instance:ae075854-70b7-4760-96a1-2ee6b84b3e4e",
+      "ior:instance:6b1d4e83-5a29-4c7f-9e14-8d3f0a72c561"
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,

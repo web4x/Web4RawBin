@@ -4,7 +4,8 @@
     "uuid": "eb994dcd-d9dc-4b55-84e8-13b2be3b47d5",
     "name": "RbDiffEditor.renderSideChangeBlocks impl",
     "tests": [
-      "ior:instance:a3ad0177-b80c-445a-9c87-72bf827b8c16"
+      "ior:instance:a3ad0177-b80c-445a-9c87-72bf827b8c16",
+      "ior:instance:6b1d4e83-5a29-4c7f-9e14-8d3f0a72c561"
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,

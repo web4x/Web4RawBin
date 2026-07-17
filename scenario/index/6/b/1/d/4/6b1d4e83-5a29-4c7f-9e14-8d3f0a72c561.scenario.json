@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "6b1d4e83-5a29-4c7f-9e14-8d3f0a72c561",
+    "name": "test:R30.32 connector bands + box-outlines (L↔C/C↔R curves + IntelliJ change boxes)",
+    "description": "Bridged to test/visual/r3032-connector-bands-gate.mjs (DET-3x GREEN on v0.7.44 4767376d1). Deep-link 516ebb3/dev 3-way: (1) L↔C + C↔R SVG connector bands present, width >20px; (2) de-block-outline-<kind> box elements on change blocks in all 3 panes; (3) origin-gated modification=both-bands / insertion=one-band (band count == Σ(a>0)+(b>0)); (4) ribbon SVG pointer-events:none + re-rendered after scroll. Three-key: renderConnectorRibbons (bands) + renderCenterChangeBlocks (center box) + renderSideChangeBlocks (Local/Repository box).",
+    "sourceFile": "ior:file:test/visual/r3032-connector-bands-gate.mjs",
+    "implementations": [
+      "ior:instance:5051b2a4-6102-41fe-a352-a50e6b8ae03e",
+      "ior:instance:37c9694c-8af3-41fd-9cbc-69b505642b05",
+      "ior:instance:eb994dcd-d9dc-4b55-84e8-13b2be3b47d5"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5051b2a4-6102-41fe-a352-a50e6b8ae03e"
+}

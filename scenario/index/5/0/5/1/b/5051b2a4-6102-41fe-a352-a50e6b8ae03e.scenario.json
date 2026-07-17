@@ -4,7 +4,8 @@
     "uuid": "5051b2a4-6102-41fe-a352-a50e6b8ae03e",
     "name": "RbDiffEditor.renderConnectorRibbons impl",
     "tests": [
-      "ior:instance:f3300b75-8776-46c3-907f-83acef59eea1"
+      "ior:instance:f3300b75-8776-46c3-907f-83acef59eea1",
+      "ior:instance:6b1d4e83-5a29-4c7f-9e14-8d3f0a72c561"
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,
