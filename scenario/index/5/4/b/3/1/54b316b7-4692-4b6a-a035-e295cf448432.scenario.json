@@ -1,0 +1,68 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "54b316b7-4692-4b6a-a035-e295cf448432",
+  "name": "Vendor diff3 emits pure-deletion regions so alignment resyncs (send.verified)",
+  "altId": "R30.33",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:ba2f99e0-7ca8-443d-a151-1aed9d50a317"
+  ],
+  "description": "Vendor diff3 emits PURE-DELETION regions so 3-pane alignment resyncs at send.verified. Shipped root cause (expert, deeper than the geometry-re-anchor design): base->dev has a pure DELETION (abLength===0, oLength=2 - lines removed, nothing added), and vendor diff3MergeRegions' abLength>0 guard DROPPED that single-hunk region entirely - so the model was 2 lines short from L1813 (send.verified) and the R30.29/R30.30 re-anchor could not fix a region that was not even present. FIX (shipped v0.7.43, a61258a39; vendor/diff3.ts infra under a0b30550 + 17c71adf, markers STAY, no new units): emit the single-hunk region even for abLength===0 (bufferContent=[]); computeOneSidedHunks then puts the M=oLength base lines on the non-changed (retaining) pane and spacers on the deleting pane, advancing la/lb by oLength - so the deletion region has correct per-pane counts and the existing re-anchor resyncs at send.verified. (Deletion = block on the retaining side, origin-correct.)",
+  "tronQuote": "> Tester/Tron (v0.7.4x): send.verified still drifts 2 lines from L1813 - the re-anchor could not fix it. (Expert root: a pure-deletion region was being DROPPED by the vendor diff3 guard.)",
+  "discoverySource": {
+   "type": "expert-root-cause-shipped-ahead",
+   "flaggedBy": "robbin-expert (deletion-probe, deeper root than the re-anchor-geometry design) via robbin-po/SM",
+   "date": "2026-07-17",
+   "note": "R30.30 CONTINUATION, RE-POINTED to the BUILT reality (R30.11/R30.21 pattern): the fix SHIPPED AHEAD as a61258a39 (v0.7.43) - deeper root than the architect's geometry-re-anchor design (294139d6c). Vendor diff3 abLength>0 guard dropped a pure-DELETION region (abLength=0,oLength=2); fix EMITS it, computeOneSidedHunks handles it, existing re-anchor resyncs. IMPL-EDIT: vendor/diff3.ts infra under computeMergedCenter (a0b30550) + alignPaneRows (17c71adf); markers STAY, no new units. Minted to what SHIPPED, not the superseded design. Sole-minter."
+  },
+  "designRef": "scrum.pmo/design-notes/r3030-absolute-blank-reanchor.md R30.30-OPEN; SHIPPED a61258a39 (deletion-emit, deeper root - re-pointed to built reality)",
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f",
+   "ior:instance:61241686-e982-4928-aaa0-3aed895d565d",
+   "ior:instance:b4f0f0db-720a-41b8-a998-6b7e86ce2135"
+  ],
+  "crossRefNote": "R30.30 continuation, RE-POINTED to the shipped fix a61258a39 (deeper root than the geometry-re-anchor design 294139d6c): vendor diff3 was DROPPING a pure-deletion region so the re-anchor had nothing to resync. IMPL-EDIT to vendor/diff3.ts (emit deletion, infra) + computeOneSidedHunks under RbDiffEditor.computeMergedCenter (Impl-marker a0b30550 STAYS) + alignPaneRows (Impl-marker 17c71adf STAYS). Alignment arc: R30.23->27->29->30->33(deletion-emit). Architect derive-confirms the impl-edit reuse vs built code.",
+  "implEdit": "markers STAY: computeMergedCenter a0b30550-71c8-4497-9eaf-f73551f7bb0f (Method 09af8c8d, PRIMARY - computeOneSidedHunks handles the emitted deletion) + alignPaneRows 17c71adf + vendor/diff3.ts emit (infra under those markers). NO new units. Shipped a61258a39 v0.7.43.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-0",
+    "group": "root",
+    "text": "Vendor diff3MergeRegions dropped a pure-DELETION region (abLength===0, oLength=2 - base->dev, 2 removed lines) via its abLength>0 guard, so the model was 2 lines short from L1813 (send.verified) and the re-anchor could not resync a region absent from the model."
+   },
+   {
+    "id": "AC-1",
+    "group": "emit-deletion",
+    "text": "vendor/diff3.ts emits the single-hunk region even for abLength===0 (bufferContent=[]), so pure deletions ARE represented in the region stream."
+   },
+   {
+    "id": "AC-2",
+    "group": "one-sided",
+    "text": "computeOneSidedHunks puts the M=oLength base lines on the non-changed (retaining) pane + spacers on the deleting pane and advances la/lb by oLength - the deletion has correct per-pane counts and renders origin-correct (block on the retaining side)."
+   },
+   {
+    "id": "AC-3",
+    "group": "resync-gate",
+    "text": "With the deletion region present, the existing R30.29/R30.30 re-anchor resyncs at send.verified: the CORRECTED gate is GREEN (content-located, notFound=0) on ALL corresponding lines including send.verified. Deployed v0.7.43."
+   },
+   {
+    "id": "AC-4",
+    "group": "no-regression",
+    "text": "Insertions / modifications / conflicts / agreed-both-sides all still 0px at every stable anchor; RESULT byte-identical (deletion adds base lines on the retaining pane + spacers, no content change)."
+   },
+   {
+    "id": "AC-5",
+    "group": "verify",
+    "text": "Vendor diff3.ts emit + computeOneSidedHunks (under computeMergedCenter [a0b30550]) + alignPaneRows [17c71adf] - markers STAY, no new units. Covers deployed v0.7.43 (a61258a39). DET-3x corrected strict-0px gate + Tron pixel-perfect. (Tester independently re-gating v0.7.43 = the real close.)"
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

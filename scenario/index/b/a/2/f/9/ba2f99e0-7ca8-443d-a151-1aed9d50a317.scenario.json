@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "ba2f99e0-7ca8-443d-a151-1aed9d50a317",
+  "name": "diffEditor.deletionRegionResync",
+  "description": "vendor/diff3.ts emits pure-deletion regions (abLength===0) that its guard was dropping; computeOneSidedHunks puts the base lines on the retaining pane and advances la/lb by oLength so the existing re-anchor resyncs at send.verified. Impl-edit to computeMergedCenter (+alignPaneRows + vendor diff3.ts infra); markers stay.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:09af8c8d-591f-4746-8f2a-8bba5c1e682a",
+  "coveredRequirement": "ior:instance:54b316b7-4692-4b6a-a035-e295cf448432"
+ },
+ "ownerIor": "ior:instance:54b316b7-4692-4b6a-a035-e295cf448432"
+}

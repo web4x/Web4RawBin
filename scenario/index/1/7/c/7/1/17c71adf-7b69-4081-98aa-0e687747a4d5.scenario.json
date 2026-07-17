@@ -4,7 +4,8 @@
     "uuid": "17c71adf-7b69-4081-98aa-0e687747a4d5",
     "name": "RbDiffEditor.alignPaneRows impl",
     "tests": [
-      "ior:instance:4ca2ff58-1f79-4299-80c9-4dd6edf9c725"
+      "ior:instance:4ca2ff58-1f79-4299-80c9-4dd6edf9c725",
+      "ior:instance:3c8a5f19-2e74-4d61-b9a3-7f0c6e28d5b4"
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,

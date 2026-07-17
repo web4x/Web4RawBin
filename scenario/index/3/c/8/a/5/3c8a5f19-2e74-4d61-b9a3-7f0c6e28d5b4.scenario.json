@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3c8a5f19-2e74-4d61-b9a3-7f0c6e28d5b4",
+    "name": "test:R30.27/29/30 3-pane row alignment — every corresponding line shares a visual row (strict 0px)",
+    "description": "Bridged to test/visual/r3027-three-pane-alignment-gate.mjs (DET-3x, RED→GREEN on v0.7.43 a61258a39). Correspondence via centerSeq {ok} stable segments (diff structure, NOT content-uniqueness); each stable line located at its ACTUAL row in every pane (structural position = search hint only, notFound=0 = full coverage). Asserts getTopForLineNumber EQUAL (±1px) across edLocal/edCenter/edRemote for ALL 2031 anchors + all 424 blank-resync witnesses (R30.29). R30.30 re-anchors residual to 0px at every stable/blank line. Two-key: computeMergedCenter (la/lb threading + re-anchor) + alignPaneRows (spacer placement).",
+    "sourceFile": "ior:file:test/visual/r3027-three-pane-alignment-gate.mjs",
+    "implementations": [
+      "ior:instance:a0b30550-71c8-4497-9eaf-f73551f7bb0f",
+      "ior:instance:17c71adf-7b69-4081-98aa-0e687747a4d5"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a0b30550-71c8-4497-9eaf-f73551f7bb0f"
+}
