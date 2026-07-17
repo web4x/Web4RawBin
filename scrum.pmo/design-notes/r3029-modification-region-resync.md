@@ -9,6 +9,20 @@ R30.27 killed the big drift, but a CUMULATIVE residual remains: at `private.comp
 ## ROOT CAUSE (confirmed)
 R30.27's `computeOneSidedHunks` models the non-changed side as EMPTY (`b=[]` for buffer 'a', `a=[]` for buffer 'b') and advances ONLY the changed counter (:216-217). Correct for **INSERTIONS** (`oLength==0`, the other side genuinely has nothing). **WRONG for MODIFICATIONS** (`oLength>0`): a diff3 stable buffer='a' region means local changed base while **remote == base** there — so the REMOTE pane still shows the M = `oLength` base lines. The model drops them (`b=[]`) and never advances `lb` by M → every modification region leaks M rows → cumulative drift.
 
+## ★ TRON'S ALGORITHM — empty-line-anchored resync (PRIMARY mechanism, 2026-07-17)
+"Discover correct empty lines and resync around them with the next full line." Reframed language-agnostically and mapped to the diff3 structure:
+
+**A corresponding blank line across all 3 panes IS a diff3 STABLE region** (`buffer='o'`, content identical in local/base/remote). Stable regions are therefore the universal resync ANCHORS — blank lines are the most common, but ANY unchanged line qualifies. Zero syntax parsing; it falls out of the line-diff.
+
+**Mechanism (self-correcting, drift-bounded-to-one-block):**
+1. Track a running VISUAL ROW per pane (`rowL`, `rowC`, `rowR`) = real lines + viewZone spacer rows emitted so far.
+2. **Between anchors** (a changed/modification region): advance each pane's row by its REAL visible line count — changed side = its `N` lines; **non-changed side = the `M` base lines it retains = `oLength`**; center = picked. (Within a changed block the two sides don't line-correspond — that's fine, it's a block; only the boundaries must meet.)
+3. **At each STABLE anchor** (blank line / any `buffer='o'`): RESYNC — `maxRow = max(rowL,rowC,rowR)`; pad each lagging pane with `maxRow − rowThatPane` blank viewZone rows BEFORE the stable line, so all 3 panes land the NEXT FULL (stable) line on the SAME row. Emit the K stable lines; advance all three by K.
+
+This SNAPS cumulative drift to zero at every block boundary regardless of any within-block imbalance — exactly Tron's "drift builds within a block, resyncs at the blank line." It is strictly more robust than pure counter-threading: even if a region's accounting is slightly off, the next stable/blank anchor hard-realigns. `private.resolve.target()` stays aligned, and `private.otmux.target.isPane()` + every following method re-align at their leading blank line.
+
+**The base-slice (below) supplies the one datum the anchor-resync needs — `M = oLength`, the non-changed pane's real line count between anchors** — plus (optionally) renders those base lines in the block. The anchor-resync is the guarantee; the base-slice/`oLength` is the correct per-region count that makes each anchor land precisely.
+
 ## FIX (impl-edit computeMergedCenter + computeOneSidedHunks [a0b30550 STAYS] + MINIMAL vendor extension)
 **1. Vendor extension (vendor/diff3.ts):** `StableRegion` (buffer 'a'/'b') exposes `oStart` + `oLength`. Populate at :104 from the in-scope `hunk.oStart`/`hunk.oLength` (Hunk already carries them, :61). Two fields — no logic change.
 ```
@@ -51,7 +65,7 @@ Alignment is GOOD at `private.resolve.target()` (1st method), then drift STARTS 
 ## LOCKED AC (DET-3x + Tron visual)
 1. **Drift-onset gate:** `private.resolve.target()` stays aligned AND `private.otmux.target.isPane()` (the first drift point) + every method after it are re-aligned — corresponding lines share one visual row across all 3 panes. `private.complete.sessions()`: LEFT line 72 and CENTER line 73 on the SAME row.
 2. otmux (50 modification regions): 0px cumulative LEFT drift (was 368px).
-3. At EVERY stable a/b region with `oLength>0`: opposite pane shows its M base lines + pad to maxH; `la`/`lb` advance by `oLength`.
+3. **Anchor-resync:** at EVERY stable/blank anchor (`buffer='o'`) all 3 panes land the next full line on the SAME row (laggards padded to `maxRow`); at EVERY modification region the non-changed pane advances by its real `M=oLength` base lines. Drift is bounded to within one block and snaps to 0 at each anchor.
 4. Insertions (`oLength=0`) still one-sided — R30.27 behavior preserved (regression guard).
 5. Connector curves span the aligned region across gap rows (both bands on a modification).
 6. RESULT byte-identical; assertion-grade `getTopForLineNumber` equal across all 3 panes per corresponding line INCLUDING modification regions.
