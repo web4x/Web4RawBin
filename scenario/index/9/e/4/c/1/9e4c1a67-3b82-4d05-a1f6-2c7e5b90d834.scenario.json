@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9e4c1a67-3b82-4d05-a1f6-2c7e5b90d834",
+    "name": "test:R30.34 responsive connector spline — INDEPENDENT pixel gate (both orientations + prominence-vs-Rider)",
+    "description": "Bridged to test/visual/r3034-spline-pixel-gate.mjs (DET-3x GREEN on v0.7.47 834bd5830). Screenshot+pixel sampling (NEVER DOM-count; independent of the expert orientation-probe), chroma-filtered ribbon detection. STRUCTURE: desktop >820px one continuous spline sweeps ACROSS (colored ribbon in both L↔C + C↔R gutters); mobile 390px panes STACK + spline flows DOWN left margin. PROMINENCE: our ribbon-fill-vs-gutter-bg (157) vs the Rider target diagrams/R30.32-TARGET-rider-merge-connectors.png (164) = as-prominent (95%), not fainter — the 0.30 spline reads prominent (the rejected 0.28 boxes were faint). Supersedes the R30.32 box approach.",
+    "sourceFile": "ior:file:test/visual/r3034-spline-pixel-gate.mjs",
+    "implementations": [
+      "ior:instance:5051b2a4-6102-41fe-a352-a50e6b8ae03e"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5051b2a4-6102-41fe-a352-a50e6b8ae03e"
+}
