@@ -149,6 +149,10 @@ export class RbDiffEditor extends HTMLElement {
   async loadSide(side: 'left' | 'right', src: { path: string; ref?: string; content?: string }): Promise<void> {
     const st = side === 'left' ? this.left : this.right;
     st.path = src.path; st.ref = src.ref || '';
+    // R30.25: a fresh LEFT working-file load = a new diff context → re-enable the auto-promote for it (clears any prior
+    // RIGHT-pick flag). Done HERE (before the content-load awaits) so a subsequent user RIGHT-pick — which fires as a
+    // later event — re-sets the flag and WINS over the promote (populateLeftHistory's early-guard then aborts).
+    if (side === 'left' && !st.ref && !this._deepLink) this._rightUserPicked = false;
     try {
       let content = '';
       if (src.content != null) {
@@ -606,11 +610,13 @@ export class RbDiffEditor extends HTMLElement {
     const sel = this.querySelector('.de-history') as HTMLSelectElement | null;
     const path = this.left.path;
     if (!sel || !path) return;
-    // R30.25: fresh left-context — clear any prior RIGHT-pick flag (so THIS file still auto-promotes), take a generation
-    // token + snapshot the LEFT content BEFORE any await. A RIGHT ref-pick that lands during the awaits re-sets
-    // _rightUserPicked and bumps _promoteToken → the token/flag checks below abort the LEFT-reload tail, so a RIGHT pick
-    // can NEVER blank or reload LEFT (Tron's invariant: a RIGHT pick touches only right + center).
-    this._rightUserPicked = false;
+    // R30.25: a RIGHT pick that already won for this context (it beat the promote to the punch — loadSide awaits
+    // computeMergedCenter first, so a same-tick setSideRef('right') runs before this) must WIN: don't promote, don't
+    // reload LEFT (AC-fix). The flag is reset per fresh left working-file load at the top of loadSide, not here.
+    if (this._rightUserPicked) return;
+    // Take a generation token + snapshot the LEFT content BEFORE any await. A RIGHT ref-pick that lands DURING the awaits
+    // re-sets _rightUserPicked and bumps _promoteToken → the token/flag checks below abort the LEFT-reload tail, so a
+    // RIGHT pick can NEVER blank or reload LEFT (Tron's invariant: a RIGHT pick touches only right + center).
     const token = ++this._promoteToken;
     const leftSnapshot = this.left.content;
     // promote the just-loaded working file to the RIGHT (current) so the LEFT can carry an older version
