@@ -204,6 +204,7 @@ export class RbDiffEditor extends HTMLElement {
     } else {
       this.twoWay = false;
       let cid = 0;
+      let la = 0, lb = 0; // R30.27: running LOCAL / REMOTE line positions — one-sided spacers land at the aligned position (la/lb), not line 0
       // R30.23: iterate the RICHER region list (not the collapsed diff3Merge) so each stable region carries its
       // `buffer` origin tag — 'o'=truly stable (== base), 'a'=local-only change, 'b'=repo-only change (diff3
       // already auto-applied it into CENTER). A one-sided change is surfaced as a Conflict{kind:'change'} so it
@@ -211,14 +212,16 @@ export class RbDiffEditor extends HTMLElement {
       // side's content stays in CENTER → merge RESULT byte-identical; this ONLY adds visibility.
       for (const region of diff3MergeRegions(localLines, this.base.split('\n'), remoteLines)) {
         if (region.stable) {
-          if (region.buffer === 'o') { this.centerSeq.push({ ok: region.bufferContent }); continue; } // stable == base → ok-run
-          this.conflicts.push(this.computeOneSidedHunks(region, cid)); // one-sided auto-applied change → surface origin-exact
+          if (region.buffer === 'o') { this.centerSeq.push({ ok: region.bufferContent }); la += region.bufferContent.length; lb += region.bufferContent.length; continue; } // stable == base → ok-run; advances BOTH panes
+          this.conflicts.push(this.computeOneSidedHunks(region, cid, la, lb)); // R30.27: pass aligned per-pane positions → spacers land at la/lb, not line 0
+          if (region.buffer === 'a') la += region.bufferLength; else lb += region.bufferLength; // R30.27: advance ONLY the changed side; the opposite pane gets spacer rows AT its current position
           this.centerSeq.push({ cid: cid });
           cid++;
         } else if (region.aContent.length === region.bContent.length && region.aContent.every((x, i) => x === region.bContent[i])) {
-          this.centerSeq.push({ ok: region.aContent }); // false conflict: both sides made the SAME change → agreed, keep as ok (not one-sided, no double-count)
+          this.centerSeq.push({ ok: region.aContent }); la += region.aContent.length; lb += region.bContent.length; // false conflict: both sides made the SAME change → agreed ok-run; advances BOTH
         } else {
           this.conflicts.push({ id: cid, a: region.aContent, b: region.bContent, pick: 'a', span: [0, 0], kind: 'conflict', aStart: region.aStart, bStart: region.bStart }); // R30.16: 3-way true divergence → brown; aStart/bStart = Local/Repo start lines
+          la = region.aStart + region.aContent.length; lb = region.bStart + region.bContent.length; // R30.27: conflict carries REAL indices → resync the counters (regression guard: conflict path untouched otherwise)
           this.centerSeq.push({ cid: cid });
           cid++;
         }
@@ -238,7 +241,7 @@ export class RbDiffEditor extends HTMLElement {
   // Downstream (renderCenterChangeBlocks via c.span, renderSideChangeBlocks/renderConnectorRibbons gate on a/b.length,
   // jumpToChange counts) all iterate conflicts[] with NO new rendering code. pick keeps the changed content in CENTER
   // (rebuildCenter: pick==='b'?c.b:c.a) → merge RESULT byte-identical; span [0,0] is set by rebuildCenter.
-  private computeOneSidedHunks(region: StableRegion, cid: number): Conflict {
+  private computeOneSidedHunks(region: StableRegion, cid: number, la: number, lb: number): Conflict {
     const local = region.buffer === 'a';
     return {
       id: cid,
@@ -247,8 +250,11 @@ export class RbDiffEditor extends HTMLElement {
       pick: local ? 'a' : 'b',
       span: [0, 0],
       kind: 'change',
-      aStart: local ? region.bufferStart : 0,
-      bStart: local ? 0 : region.bufferStart,
+      // R30.27: aligned per-pane line positions threaded from the region loop (StableRegion only carries the CHANGED
+      // buffer's start). For the changed side la/lb == bufferStart; for the opposite side it's the running counter —
+      // so alignPaneRows places the opposite pane's spacer rows AT the change position, not piled at line 0.
+      aStart: la,
+      bStart: lb,
     };
   }
 
