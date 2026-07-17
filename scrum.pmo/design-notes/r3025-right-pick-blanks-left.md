@@ -51,5 +51,14 @@ Rides existing Impls (markers unchanged): `loadSide` `c4da837c`, `populateLeftHi
 ## Instrumentation (tester CONFIRM the interleave — measure, don't assume)
 Add `addLog` at promote entry/exit, `loadSide(side,ref)`, `setSideRef(side)` → on the repro, capture the event order (server log ring / tmux `-S -2000 -J -p`) and verify the promote's :627 left-reload fires AFTER the right-pick. Gate the fix by re-running the same trace showing NO post-pick left-reload.
 
+## ★ SHARPENED INVARIANT (TRON re-confirmed live, 2026-07-17)
+**"RIGHT-pick touches ONLY right + center, NEVER left."** Setting the RIGHT (3rd/Repository) editor to a branch (e.g. `dev`) must → CENTER re-evaluates the LEFT↔RIGHT diff, and the LEFT editor stays COMPLETELY UNTOUCHED (no reload, no blank, no promote).
+
+**Confirmed enforcement (measured):** every RIGHT action (`setSideRef`/`pickRef`/repo-selector) routes to `loadSide('right')`, which writes ONLY `this.right` + `edRemote` + `computeMergedCenter` (center re-eval reads `this.left.content` READ-ONLY). No RIGHT path directly writes left. The ONLY invariant violator is the promote race: `populateLeftHistory`'s fire-and-forget `loadSide('left')` (:627, or the promote's `this.right` replace :609) resuming during/after a right-pick. The 3-part fix maps exactly:
+- `_rightUserPicked` (set in `setSideRef('right')`) ⇒ `populateLeftHistory` skips BOTH the `this.right` replace (:609) AND the left-default reload (:627) — so a user-driven right can never trigger a left touch/promote.
+- serialize + generation token ⇒ any promote already in flight when the right-pick starts aborts its :627 tail on token-mismatch (never reloads left over the pick).
+- working-content snapshot ⇒ :625 default never reads a right-mutated buffer.
+Net: right-pick → right + center only; left byte-untouched. Add an assertion-grade AC: capture `edLocal` value + `this.left` {path,ref,content} BEFORE and AFTER a right-pick — MUST be identical.
+
 ## Handoff
 req mints (scenario-first) → planner tasks → I derive-confirm the impl-edit reuse (markers stay, no new units) → PO build-go → expert (pure client, no restart) → tester DET-3x + instrumentation trace → Tron verify.
