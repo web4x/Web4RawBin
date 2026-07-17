@@ -1,0 +1,67 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "674bae73-43ae-403a-9feb-ce8784ab1f20",
+  "name": "3-pane rows align - corresponding lines share one visual row (Local/Center/Repository)",
+  "altId": "R30.27",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:a01ee01d-e77e-4d37-99ea-bb3dbd7e423e"
+  ],
+  "description": "Corresponding lines sit on the SAME VISUAL ROW across all 3 panes (line 1 == line 1 == line 1 on Local/Center/Repository). R30.23 REGRESSION: computeOneSidedHunks hardcoded the NON-changed side's start to 0 (StableRegion only carries bufferStart for the changed buffer), so alignPaneRows dumped a one-sided change's opposite-pane spacer rows at line 0 (top) instead of the aligned change position - cumulative drift = 'random' rows (a pure-conflict diff aligned fine; real diffs are mostly one-sided). FIX (impl-edit to computeMergedCenter/computeOneSidedHunks, marker a0b30550 STAYS): thread running per-buffer line counters la/lb through the region loop and pass the aligned opposite offset into computeOneSidedHunks (aStart:la, bStart:lb; drop the 0 fallbacks); advance la/lb on ok-runs and the conflict path too. alignPaneRows / render* / ribbons unchanged - they read correct starts so spacers land at the aligned positions by construction.",
+  "tronQuote": "> TRON 2026-07-17 (4 screenshots): identical/corresponding lines must sit on the SAME visual row across all 3 panes (line 1 == line 1 == line 1); right now the rows look random.",
+  "discoverySource": {
+   "type": "tron-bug-regression",
+   "flaggedBy": "Tron via robbin-po; architect root-cause+fix spec",
+   "date": "2026-07-17",
+   "note": "R30.23 REGRESSION. Architect design r3027-three-pane-row-alignment.md (8f6884af3): computeOneSidedHunks (added by R30.23, under computeMergedCenter a0b30550) hardcodes opposite-side start=0 -> alignPaneRows puts one-sided spacers at line 0. IMPL-EDIT to computeMergedCenter (Method 09af8c8d / marker a0b30550 STAYS), NO new units. Sole-minter."
+  },
+  "designRef": "scrum.pmo/design-notes/r3027-three-pane-row-alignment.md (8f6884af3)",
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f",
+   "ior:instance:940a92d8-9254-44dc-99aa-ad6f8b1d2e1c"
+  ],
+  "crossRefNote": "Fixes an R30.23 REGRESSION in computeOneSidedHunks (private helper under computeMergedCenter). IMPL-EDIT to RbDiffEditor.computeMergedCenter (Method 09af8c8d, Impl-marker a0b30550 STAYS) - thread la/lb line counters, set aStart/bStart to aligned offsets. crossRef R30.16 (alignPaneRows 17c71adf, the consumer) + R30.23 (the regression source). alignPaneRows/render*/ribbons unchanged. Architect derive-confirms the impl-edit reuse.",
+  "implEdit": "ior:instance:09af8c8d-591f-4746-8f2a-8bba5c1e682a (RbDiffEditor.computeMergedCenter); marker a0b30550-71c8-4497-9eaf-f73551f7bb0f STAYS. NO new Method/Class.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-0",
+    "group": "aligned",
+    "text": "A 3-way diff with >=1 one-sided change: the top stable line sits on the SAME visual row in all 3 panes; every corresponding stable line thereafter shares a row across Local/Center/Repository."
+   },
+   {
+    "id": "AC-1",
+    "group": "aligned",
+    "text": "A LEFT (local-only) insertion of N lines shows N blank spacer rows in the REMOTE pane AT that position (not piled at the top); content below stays row-matched. Symmetric for repo-only."
+   },
+   {
+    "id": "AC-2",
+    "group": "no-regression",
+    "text": "Repo-only changes AND pure conflicts both still align - the conflict path's real aStart/bStart are untouched (regression guard)."
+   },
+   {
+    "id": "AC-3",
+    "group": "result",
+    "text": "The merge RESULT is byte-identical - pick/kind semantics unchanged; this only moves where spacer rows are inserted."
+   },
+   {
+    "id": "AC-4",
+    "group": "fix",
+    "text": "Running per-buffer line counters la/lb are threaded through the region loop; computeOneSidedHunks(region, cid, la, lb) sets aStart:la / bStart:lb (the 0 fallbacks removed); ok-runs (la+=len, lb+=len) and the conflict path advance the counters. alignPaneRows / renderCenterChangeBlocks / renderSideChangeBlocks / ribbons unchanged."
+   },
+   {
+    "id": "AC-5",
+    "group": "verify",
+    "text": "Assertion-grade: for each stable line, getTopForLineNumber is equal (+/-0) across edLocal/edCenter/edRemote. DET-3x + Tron visual on the 4-screenshot repro. Client fix (no restart) -> version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

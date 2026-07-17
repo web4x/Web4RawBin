@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "a01ee01d-e77e-4d37-99ea-bb3dbd7e423e",
+  "name": "diffEditor.threePaneRowAlignment",
+  "description": "computeMergedCenter threads running per-buffer line counters (la/lb) and passes aligned opposite offsets into computeOneSidedHunks (aStart:la, bStart:lb) so alignPaneRows places one-sided spacer rows at the aligned change position, not line 0 - corresponding lines share one visual row across all 3 panes. Impl-edit; marker a0b30550 stays.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:09af8c8d-591f-4746-8f2a-8bba5c1e682a",
+  "coveredRequirement": "ior:instance:674bae73-43ae-403a-9feb-ce8784ab1f20"
+ },
+ "ownerIor": "ior:instance:674bae73-43ae-403a-9feb-ce8784ab1f20"
+}

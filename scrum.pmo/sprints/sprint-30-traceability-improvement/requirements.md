@@ -382,3 +382,16 @@
   - [ ] **(no-regression)** R30.17 left PICK-WINS (_leftUserPicked) + R30.24 _deepLink promote-suppression both still hold; buildShareLink/openFromParams (R30.24) still round-trip after the right-pick.
   - [ ] **(verify)** DET-3x + instrumentation trace (addLog at promote entry/exit, loadSide(side,ref), setSideRef(side)): on the repro the event order shows NO post-pick left-reload. Client fix (pure client, no restart) -> version-bump; Tron visual verify.
   -> diffEditor.rightPickPreservesLeft [uc:uuid:1bcee6db-1f2c-4b14-9f84-e7fc4085db7f]
+
+- [ ] **R30.27 — 3-pane rows align - corresponding lines share one visual row (Local/Center/Repository)**
+  [requirement:uuid:674bae73-43ae-403a-9feb-ce8784ab1f20]
+  > TRON 2026-07-17 (4 screenshots): identical/corresponding lines must sit on the SAME visual row across all 3 panes (line 1 == line 1 == line 1); right now the rows look random.
+  Corresponding lines sit on the SAME VISUAL ROW across all 3 panes (line 1 == line 1 == line 1 on Local/Center/Repository). R30.23 REGRESSION: computeOneSidedHunks hardcoded the NON-changed side's start to 0 (StableRegion only carries bufferStart for the changed buffer), so alignPaneRows dumped a one-sided change's opposite-pane spacer rows at line 0 (top) instead of the aligned change position - cumulative drift = 'random' rows (a pure-conflict diff aligned fine; real diffs are mostly one-sided). FIX (impl-edit to computeMergedCenter/computeOneSidedHunks, marker a0b30550 STAYS): thread running per-buffer line counters la/lb through the region loop and pass the aligned opposite offset into computeOneSidedHunks (aStart:la, bStart:lb; drop the 0 fallbacks); advance la/lb on ok-runs and the conflict path too. alignPaneRows / render* / ribbons unchanged - they read correct starts so spacers land at the aligned positions by construction.
+  **Acceptance criteria:**
+  - [ ] **(aligned)** A 3-way diff with >=1 one-sided change: the top stable line sits on the SAME visual row in all 3 panes; every corresponding stable line thereafter shares a row across Local/Center/Repository.
+  - [ ] **(aligned)** A LEFT (local-only) insertion of N lines shows N blank spacer rows in the REMOTE pane AT that position (not piled at the top); content below stays row-matched. Symmetric for repo-only.
+  - [ ] **(no-regression)** Repo-only changes AND pure conflicts both still align - the conflict path's real aStart/bStart are untouched (regression guard).
+  - [ ] **(result)** The merge RESULT is byte-identical - pick/kind semantics unchanged; this only moves where spacer rows are inserted.
+  - [ ] **(fix)** Running per-buffer line counters la/lb are threaded through the region loop; computeOneSidedHunks(region, cid, la, lb) sets aStart:la / bStart:lb (the 0 fallbacks removed); ok-runs (la+=len, lb+=len) and the conflict path advance the counters. alignPaneRows / renderCenterChangeBlocks / renderSideChangeBlocks / ribbons unchanged.
+  - [ ] **(verify)** Assertion-grade: for each stable line, getTopForLineNumber is equal (+/-0) across edLocal/edCenter/edRemote. DET-3x + Tron visual on the 4-screenshot repro. Client fix (no restart) -> version-bump.
+  -> diffEditor.threePaneRowAlignment [uc:uuid:a01ee01d-e77e-4d37-99ea-bb3dbd7e423e]
