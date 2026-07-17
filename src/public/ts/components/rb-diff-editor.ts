@@ -475,7 +475,7 @@ export class RbDiffEditor extends HTMLElement {
     // A closed Bézier band: top edge x1,ya → x2,ya' (S-curve), down x2, back along a mirrored curve, close.
     const band = (x1: number, ya1: number, yb1: number, x2: number, ya2: number, yb2: number, color: string) => {
       const mx = ((x1 + x2) / 2).toFixed(1);
-      return `<path d="M${x1.toFixed(1)},${ya1.toFixed(1)} C${mx},${ya1.toFixed(1)} ${mx},${ya2.toFixed(1)} ${x2.toFixed(1)},${ya2.toFixed(1)} L${x2.toFixed(1)},${yb2.toFixed(1)} C${mx},${yb2.toFixed(1)} ${mx},${yb1.toFixed(1)} ${x1.toFixed(1)},${yb1.toFixed(1)} Z" fill="${color}" fill-opacity="0.55" stroke="${color}" stroke-opacity="1" stroke-width="2.5"/>`; // R30.32: BOLD fill+stroke — the 0.28 fill was invisible against the ~#111 gutter (Tron "I see NO change"); connector bands must read clearly across L↔C + C↔R.
+      return `<path d="M${x1.toFixed(1)},${ya1.toFixed(1)} C${mx},${ya1.toFixed(1)} ${mx},${ya2.toFixed(1)} ${x2.toFixed(1)},${ya2.toFixed(1)} L${x2.toFixed(1)},${yb2.toFixed(1)} C${mx},${yb2.toFixed(1)} ${mx},${yb1.toFixed(1)} ${x1.toFixed(1)},${yb1.toFixed(1)} Z" fill="${color}" fill-opacity="0.9" stroke="#fff" stroke-opacity="0.85" stroke-width="1.5"/>`; // R30.32: near-opaque fill + WHITE hairline edge — a muted-blue 0.55 fill on the near-black gutter read as nothing (pixel [39,67,98] ≈ invisible); high-contrast so the L↔C + C↔R connectors are unmistakable.
     };
     const parts: string[] = [];
     for (const c of this.conflicts.filter(x => !this.dismissed.has(x.id))) {
