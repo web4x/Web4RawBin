@@ -20,42 +20,50 @@
         "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1783985870269
+        "joinedAt": 1784194945373
       },
       {
         "ior": "ior:instance:2a244a61-0892-4071-a479-87b2c6134056",
         "name": "Sebastian Roscher",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1783985870269
-      },
-      {
-        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
-        "name": "Marcel Donges",
-        "role": "owner",
-        "status": "offline",
-        "joinedAt": 1783985870269
+        "joinedAt": 1784194945373
       },
       {
         "ior": "ior:instance:4824c4ea-1cc8-41ae-8bda-ef00809e757a",
         "name": "Lindar Winnie Otieno",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1783985870269
+        "joinedAt": 1784194945373
       },
       {
-        "ior": "ior:instance:3effa1fc-a548-4619-a3ff-fb96382eca22",
-        "name": "",
+        "ior": "ior:instance:41ad88c4-4dee-49ac-afcb-8a2026657b2d",
+        "name": "Marcel Donges",
         "role": "member",
-        "status": "online",
-        "joinedAt": 1783985870269
+        "status": "offline",
+        "joinedAt": 1784194945373
+      },
+      {
+        "ior": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+        "name": "Marcel Donges",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1784194945373
+      },
+      {
+        "ior": "ior:instance:a398945a-4bb1-4400-bf77-40d1a3a735d9",
+        "name": "Werner Hölzl",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1784194945373
       }
     ],
     "files": [
       "ior:instance:2bd2bdb0-dd9e-497d-a21b-57413af6a310",
       "ior:instance:15396f88-6f65-4021-8b9f-2447fe30818b",
       "ior:instance:222b84b6-b806-4412-b477-5e0a2db90e1f",
-      "ior:instance:e194f914-2f17-4372-9bc1-4cea694d60d2"
+      "ior:instance:e194f914-2f17-4372-9bc1-4cea694d60d2",
+      "ior:instance:d5d8989f-7cf3-40a2-bbd9-19b409b5a9c2"
     ],
     "lastMessageIor": null,
     "firstMessageIor": null,

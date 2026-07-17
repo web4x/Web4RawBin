@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "1f7c9a04-3d2b-4e58-9c61-2a8b4f0d7e33",
+    "name": "test:R30.24 deep-link restore (openFromParams) gate",
+    "description": "Bridged to test/visual/r3024-deeplink-diff-gate.mjs (DET-3x GREEN) - verifies RbDiffEditor.openFromParams restores the EXACT diff state from URL params (repo/path/left/right): /edit/otmux?repo=oosh&left=516ebb3&right=dev loads left+right SideState exactly (ref/repo/path, both content loaded), and an unknown ?repo= / path-traversal is server-rejected (404, R30.6.7 allow-list) serving 0b. AC1/2/5/6.",
+    "sourceFile": "ior:file:test/visual/r3024-deeplink-diff-gate.mjs",
+    "implementations": [
+      "ior:instance:dc236c19-be03-42df-9c52-4346fb76144a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:dc236c19-be03-42df-9c52-4346fb76144a"
+}

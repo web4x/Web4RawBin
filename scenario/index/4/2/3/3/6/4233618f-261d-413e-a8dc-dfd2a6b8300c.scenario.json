@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Profile",
+  "model": {
+    "uuid": "4233618f-261d-413e-a8dc-dfd2a6b8300c",
+    "name": "Markus",
+    "phones": [],
+    "emails": [],
+    "addresses": [],
+    "companies": [],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

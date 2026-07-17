@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "a18bc40d-5965-49b6-8271-8e079eafdd60",
+    "name": "Markus: https://semvec-docs.pages.dev/user-guide/in-proces",
+    "text": "https://semvec-docs.pages.dev/user-guide/in-process-library/?h=exam#semvecsession-api-overview",
+    "timestamp": 1784110900169,
+    "senderIor": "ior:instance:1204eb32-9532-4290-9806-e6df3274a409",
+    "senderName": "Markus",
+    "roomIor": "ior:instance:b3efa337-5b32-4776-a1e2-967890fa2f84",
+    "prevMessage": null,
+    "nextMessage": null,
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:1204eb32-9532-4290-9806-e6df3274a409"
+}

@@ -20,21 +20,21 @@
         "name": "Kirsten",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1783985870271
+        "joinedAt": 1784199348092
       },
       {
-        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+        "ior": "ior:instance:41ad88c4-4dee-49ac-afcb-8a2026657b2d",
         "name": "Marcel Donges",
-        "role": "owner",
+        "role": "member",
         "status": "offline",
-        "joinedAt": 1783985870271
+        "joinedAt": 1784199348092
       },
       {
-        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
-        "name": "",
-        "role": "owner",
-        "status": "online",
-        "joinedAt": 1783985870271
+        "ior": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+        "name": "Marcel Donges",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1784199348092
       }
     ],
     "files": [

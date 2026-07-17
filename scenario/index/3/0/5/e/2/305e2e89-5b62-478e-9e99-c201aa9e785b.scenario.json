@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "305e2e89-5b62-478e-9e99-c201aa9e785b",
+    "kind": "link",
+    "name": "Using Semvec as an in-process library — no server required - Semvec",
+    "description": "https://semvec-docs.pages.dev/user-guide/in-process-library/?h=exam#semvecsession-api-overview",
+    "url": "https://semvec-docs.pages.dev/user-guide/in-process-library/?h=exam#semvecsession-api-overview",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=semvec-docs.pages.dev&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "b3efa337-5b32-4776-a1e2-967890fa2f84",
+    "parentFolder": "ior:instance:b3efa337-5b32-4776-a1e2-967890fa2f84",
+    "children": [],
+    "uploaderToken": "8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd"
+  },
+  "ownerIor": "ior:instance:b3efa337-5b32-4776-a1e2-967890fa2f84"
+}

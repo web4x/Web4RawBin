@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "1f010e35-ebc3-42d1-aba4-7feace64baee",
+    "name": "test:R30.24 share round-trip (buildShareLink) gate",
+    "description": "Bridged to test/visual/r3024-deeplink-diff-gate.mjs (DET-3x GREEN) - verifies RbDiffEditor.buildShareLink is the exact INVERSE of openFromParams: clicking 🔗 (.de-share) emits origin/edit/<path>?repo=&left=&right=&3way= (status 🔗 link copied), and navigating that URL reopens the identical diff state. AC3/4.",
+    "sourceFile": "ior:file:test/visual/r3024-deeplink-diff-gate.mjs",
+    "implementations": [
+      "ior:instance:bcd06c77-0b71-45be-b432-cad7d2a54a99"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:bcd06c77-0b71-45be-b432-cad7d2a54a99"
+}

@@ -1,4 +1,5 @@
 // [test:uuid:1f7c9a04-3d2b-4e58-9c61-2a8b4f0d7e33] R30.24 RbDiffEditor.openFromParams (Impl dc236c19) + RbDiffEditor.buildShareLink (Impl bcd06c77) — deep-linkable diffs: a diff opens to an EXACT state from URL params (repo/path/left/right) and buildShareLink is the exact inverse that round-trips. AC1/2/6 deep-link restore, AC3/4 share round-trip, AC5 repo/traversal security (server allow-list reject).
+// [test:uuid:1f010e35-ebc3-42d1-aba4-7feace64baee] R30.24 RbDiffEditor.buildShareLink (Impl bcd06c77) — share round-trip: 🔗 .de-share builds the exact-inverse deep-link and navigating it reopens identical state (AC3/4, verified in this gate).
 // R30.24 (prod v0.7.35). Behavior-first: real /edit navigation + real .de-share click → assert restored SideState + shared URL round-trip + server-side security reject. DET-3x. SystemTester-only (read-only: same-origin GET loads + a clipboard write; no profile/room mint).
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
