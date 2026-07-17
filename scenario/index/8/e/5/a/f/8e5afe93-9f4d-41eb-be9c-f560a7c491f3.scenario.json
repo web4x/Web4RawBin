@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "8e5afe93-9f4d-41eb-be9c-f560a7c491f3",
+    "name": "Task 30.29: 3-pane rows resync at modification regions (non-changed side = base slice, no cumulative drift)",
+    "slug": "task-30.29-modification-region-resync",
+    "description": "3-pane rows resync at modification regions (non-changed side = base slice, no cumulative drift) (#126 backfill, active build).",
+    "intention": "S30 #126 gap-closure backfill (PO-approved gap audit).",
+    "context": "BACKFILL (2026-07-17 gap audit): IN-PROGRESS #126 backfill (HONEST — NOT green-washed): gate still RED (de7dc9e73 v0.7.42 STILL RED, tester caught own false-GREEN; architect 294139d6c re-anchor no-op root cause). ACTIVE build (separate from T30.27/T30.34 — do not touch those). Class RbDiffEditor 18165081. Advance to Done only on tester DET-3x GREEN + chain-to-Test + served==gated.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [~] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "IN-PROGRESS #126 backfill (HONEST — NOT green-washed): gate still RED (de7dc9e73 v0.7.42 STILL RED, tester caught own false-GREEN; architect 294139d6c re-anchor no-op root cause). ACTIVE build (separate from T30.27/T30.34 — do not touch those). Class RbDiffEditor 18165081. Advance to Done only on tester DET-3x GREEN + chain-to-Test + served==gated.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement `[requirement:uuid:61241686-e982-4928-aaa0-3aed895d565d]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:9b088010-5b4c-44ac-8997-d25df2f657c3]`",
+    "acceptanceCriteria": "- [ ] (drift-onset) private.resolve.target() stays aligned AND private.otmux.target.isPane() (the first drift point)\n- [ ] (cumulative) otmux (~50 modification regions): 0px cumulative LEFT drift (was 368px)\n- [ ] (anchor-resync) At EVERY stable/blank anchor (buffer='o') all 3 panes land the next full line on the SAME row\n- [ ] (base-slice) The vendor diff3.ts StableRegion exposes oStart+oLength; the one-sided base slice advances the base counter\n- [ ] (regression) Insertions (oLength=0) stay one-sided - R30.27 origin-exact behavior preserved\n- [ ] (verify) RESULT byte-identical; assertion-grade getTopForLineNumber equal across all 3 panes per corresponding line",
+    "subtasks": "None (atomic task).",
+    "status": "In Progress",
+    "coveredRequirements": [
+      "ior:instance:61241686-e982-4928-aaa0-3aed895d565d"
+    ],
+    "useCases": [
+      "ior:instance:9b088010-5b4c-44ac-8997-d25df2f657c3"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-17"
+  },
+  "ownerIor": null
+}

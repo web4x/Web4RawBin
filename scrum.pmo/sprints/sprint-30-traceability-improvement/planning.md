@@ -46,3 +46,6 @@ Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' w
 - [x] [Task 30.30: 3-pane rows re-anchor to 0px at every blank/stable line (no persistent residual)](./task-30.30-absolute-blank-reanchor.md)
 - [x] [Task 30.18: requirements.md is a generated view (extend generate-sprint-md)](./task-30.18-requirements-md-generated-view.md)
 - [x] [Task 30.33: Vendor diff3 emits pure-deletion regions so alignment resyncs (send.verified)](./task-30.33-diff3-deletion-region-resync.md)
+- [x] [Task 30.20: Detail-drawer mode-aware close (in-room X->chat, trace X->minimize)](./task-30.20-drawer-mode-aware-close.md)
+- [x] [Task 30.28: Deploy commits atomically - served == committed == HEAD (no phantom-version window)](./task-30.28-atomic-deploy-invariant.md)
+- [ ] [Task 30.29: 3-pane rows resync at modification regions (non-changed side = base slice, no cumulative drift)](./task-30.29-modification-region-resync.md)

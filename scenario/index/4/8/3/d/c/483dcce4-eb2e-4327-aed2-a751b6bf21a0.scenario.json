@@ -1,0 +1,29 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "483dcce4-eb2e-4327-aed2-a751b6bf21a0",
+    "name": "Task 30.28: Deploy commits atomically - served == committed == HEAD (no phantom-version window)",
+    "slug": "task-30.28-atomic-deploy-invariant",
+    "description": "Deploy commits atomically - served == committed == HEAD (no phantom-version window) (retroactive #126 backfill).",
+    "intention": "S30 #126 gap-closure backfill (PO-approved gap audit).",
+    "context": "BACKFILL (2026-07-17 gap audit): DONE #126 backfill, CORRECT-BY-CONSTRUCTION (PO ruling). Closure path = INVARIANT/CI CHECK (served==committed==HEAD guard, the phantom-version-window eliminator), NOT a functional Test unit. Built 548856f76 by-construction sole-minter. Class b6946e59. The guard trips on a deliberate version mismatch = the gate. This directly serves the served==gated lesson (eliminates the ungateable phantom window).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "implementation": "DONE #126 backfill, CORRECT-BY-CONSTRUCTION (PO ruling). Closure path = INVARIANT/CI CHECK (served==committed==HEAD guard, the phantom-version-window eliminator), NOT a functional Test unit. Built 548856f76 by-construction sole-minter. Class b6946e59. The guard trips on a deliberate version mismatch = the gate. This directly serves the served==gated lesson (eliminates the ungateable phantom window).",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement `[requirement:uuid:06ac71d5-5308-44ea-9720-ec5c01921915]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:fd00cbc6-4f0f-4ef1-aebc-17e75d7a178b]`\n    - [UC](./planning.md) `[uc:uuid:9eff5d30-4c78-4334-8c05-cc465ba957b4]`",
+    "acceptanceCriteria": "- [x] (atomic) The deploy commits the version-bump + built dist BEFORE (or atomically with) serving the new bundle\n- [x] (invariant) served == committed == HEAD at all times: the version served equals the committed dist equals HEAD package.json\n- [x] (guard) A guard FAILS the deploy/startup if the running prod version != HEAD package.json version\n- [x] (invariant) The phantom-version window (served != committed, ungateable) is eliminated\n- [x] (by-construction) Atomicity is structural (commit-then-serve ordering + the guard), not a manual step\n- [x] (verify) A deploy leaves served==committed==HEAD; the guard trips on a deliberate version mismatch (INVARIANT/CI closure, not functional test)",
+    "subtasks": "None (atomic task).",
+    "status": "Done",
+    "coveredRequirements": [
+      "ior:instance:06ac71d5-5308-44ea-9720-ec5c01921915"
+    ],
+    "useCases": [
+      "ior:instance:fd00cbc6-4f0f-4ef1-aebc-17e75d7a178b",
+      "ior:instance:9eff5d30-4c78-4334-8c05-cc465ba957b4"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-17"
+  },
+  "ownerIor": null
+}

@@ -8,8 +8,8 @@
       "ior:instance:6b1d4e83-5a29-4c7f-9e14-8d3f0a72c561"
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-    "designAhead": true,
-    "description": "DESIGN-AHEAD: colored diagonal connector ribbons source-block->Result, scroll-aligned. Expert builds + tags [impl] marker (=this Impl uuid)."
+    "designAhead": false,
+    "description": "DESIGN-AHEAD: colored diagonal connector ribbons source-block->Result, scroll-aligned. Expert builds + tags [impl] marker (=this Impl uuid). | BUILT v0.7.47 (834bd5830 R30.34 responsive continuous-spline connectors; architect 68fb84842 orientation-aware renderConnectorRibbons 5051b2a4, impl-edit). PO marker-reconcile (R30.11 chain->shipped-code): design-ahead -> built reality. Method ab145dab.implementations=[5051b2a4] intact."
   },
   "ownerIor": "ior:instance:ab145dab-4d2f-46d0-be62-ce90c46177e6"
 }
