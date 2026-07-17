@@ -37,4 +37,4 @@ Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' w
 - [x] [Task 30.23: Diff completeness — 3-way one-sided changes surfaced](./task-30.23-diff-completeness-one-sided.md)
 - [x] [Task 30.24: 3-way diff is URL-addressable (deep-linkable + shareable)](./task-30.24-url-addressable-diff.md)
 - [x] [Task 30.19: 3-pane change-block highlights (source panes too, not just center)](./task-30.19-side-pane-change-blocks.md)
-- [x] [Task 30.25: Picking a RIGHT ref preserves the LEFT side (no blanking)](./task-30.25-right-pick-preserves-left.md)
+- [ ] [Task 30.25: Picking a RIGHT ref preserves the LEFT side (no blanking)](./task-30.25-right-pick-preserves-left.md)
