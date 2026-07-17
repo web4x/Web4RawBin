@@ -3,7 +3,9 @@
   "model": {
     "uuid": "c4da837c-b59f-4c02-9522-2e8599206abf",
     "name": "RbDiffEditor.loadSide impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:7d3e1a52-9c48-4b6f-a0d1-6e2f8b5c3a94"
+    ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,
     "description": "DESIGN-AHEAD: Fetch content from a working file (/api/files) or file@ref (/api/git/file), set the pane, recompute. Expert builds + tags [impl] marker."

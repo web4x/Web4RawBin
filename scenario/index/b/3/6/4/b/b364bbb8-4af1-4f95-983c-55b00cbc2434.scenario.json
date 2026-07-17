@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "b364bbb8-4af1-4f95-983c-55b00cbc2434",
+    "name": "Marcel Donges: wo?",
+    "text": "wo?",
+    "timestamp": 1784294565887,
+    "senderIor": "ior:instance:41ad88c4-4dee-49ac-afcb-8a2026657b2d",
+    "senderName": "Marcel Donges",
+    "roomIor": "ior:instance:8be52aa9-7db8-4e3a-8356-eed920dd1f1a",
+    "prevMessage": null,
+    "nextMessage": null,
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:41ad88c4-4dee-49ac-afcb-8a2026657b2d"
+}

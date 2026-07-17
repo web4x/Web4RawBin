@@ -4,7 +4,8 @@
     "uuid": "dc236c19-be03-42df-9c52-4346fb76144a",
     "name": "RbDiffEditor.openFromParams impl",
     "tests": [
-      "ior:instance:1f7c9a04-3d2b-4e58-9c61-2a8b4f0d7e33"
+      "ior:instance:1f7c9a04-3d2b-4e58-9c61-2a8b4f0d7e33",
+      "ior:instance:7d3e1a52-9c48-4b6f-a0d1-6e2f8b5c3a94"
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,

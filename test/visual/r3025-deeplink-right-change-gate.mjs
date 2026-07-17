@@ -47,7 +47,7 @@ async function runWindow(browser, delayRef, waitFn) {
 
 const WINS = {
   A: { name: 'WIN-A pick during LEFT-load  (R30.25.1 target)', delay: LEFT_REF, wait: `(dr)=>{const e=document.querySelector('rb-diff-editor'); return e && e.right && e.right.ref===dr && (e.left?.content?.length||0)===0;}` },
-  B: { name: 'WIN-B pick during RIGHT-load (residual window)', delay: DEEP_RIGHT, wait: `(dr)=>{const e=document.querySelector('rb-diff-editor'); return e && (e.left?.content?.length>0) && (e.right?.content?.length||0)===0 && e.right.ref===dr;}` },
+  B: { name: 'WIN-B pick during RIGHT-load (R30.25.2 seq-discard)', delay: DEEP_RIGHT, wait: `(dr)=>{const e=document.querySelector('rb-diff-editor'); return e && (e.left?.content?.length>0) && (e.right?.content?.length||0)===0 && e.right.ref===dr;}` },
 };
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
 const out = {}; let leftEmptySeen = false;
@@ -63,10 +63,10 @@ try {
   }
 } finally { await browser.close(); }
 
-console.log('\n===== R30.25.1 deep-link change-RIGHT (Tron refs 516ebb3/dev), v0.7.38 =====');
-console.log('  WIN-A (pick during left-load, fix target):', out.A.map((p, i) => `${i + 1}:${p ? 'G' : 'R'}`).join(' '));
-console.log('  WIN-B (pick during right-load, residual):  ', out.B.map((p, i) => `${i + 1}:${p ? 'G' : 'R'}`).join(' '));
-console.log('  LEFT-EMPTY (visual blank) reproduced anywhere:', leftEmptySeen ? 'YES' : 'NO');
-const aGreen = out.A.length === 3 && out.A.every(Boolean);
-console.log('OVERALL WIN-A:', aGreen ? 'GREEN DET-3x' : 'RED');
-process.exitCode = aGreen ? 0 : 1;
+console.log('\n===== R30.25.1/.2 deep-link change-RIGHT (Tron refs 516ebb3/dev), BUG-1 gate =====');
+console.log('  WIN-A (pick during left-load,  openFromParams guard R30.25.1):', out.A.map((p, i) => `${i + 1}:${p ? 'G' : 'R'}`).join(' '));
+console.log('  WIN-B (pick during right-load, loadSide seq-discard R30.25.2):', out.B.map((p, i) => `${i + 1}:${p ? 'G' : 'R'}`).join(' '));
+console.log('  LEFT-EMPTY (BUG-2, visual blank) reproduced anywhere:', leftEmptySeen ? 'YES' : 'NO (still not hit — needs Tron steps)');
+const bothGreen = out.A.length === 3 && out.B.length === 3 && [...out.A, ...out.B].every(Boolean);
+console.log('OVERALL (both windows):', bothGreen ? 'GREEN DET-3x — BUG-1 (RIGHT-corrupt) closed' : 'RED');
+process.exitCode = bothGreen ? 0 : 1;

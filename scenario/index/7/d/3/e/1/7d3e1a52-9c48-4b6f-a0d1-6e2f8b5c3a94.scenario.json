@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7d3e1a52-9c48-4b6f-a0d1-6e2f8b5c3a94",
+    "name": "test:R30.25.1/.2 deep-link change-RIGHT (BUG-1) — pick during left-load + right-load",
+    "description": "Bridged to test/visual/r3025-deeplink-right-change-gate.mjs (DET-3x, RED→GREEN on v0.7.39 466dd417d). Tron exact flow: deep-link openFromParams (left=516ebb3,right=dev) then pick a RIGHT branch. TWO race windows both GREEN: WIN-A pick during the deep-link LEFT-load (openFromParams token/guard, impl dc236c19) + WIN-B pick during the deep-link RIGHT-load (loadSide _rightLoadSeq last-write-wins discard, impl c4da837c). Asserts LEFT correct+visually-non-empty, RIGHT pick WINS (ref+content), CENTER re-evaluated, no post-pick left-reload. BUG-2 (Tron left-empty) NOT covered here — separate, still open.",
+    "sourceFile": "ior:file:test/visual/r3025-deeplink-right-change-gate.mjs",
+    "implementations": [
+      "ior:instance:dc236c19-be03-42df-9c52-4346fb76144a",
+      "ior:instance:c4da837c-b59f-4c02-9522-2e8599206abf"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:dc236c19-be03-42df-9c52-4346fb76144a"
+}
