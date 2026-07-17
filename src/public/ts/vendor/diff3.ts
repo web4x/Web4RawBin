@@ -101,11 +101,14 @@ export function diff3MergeRegions(a: string[], o: string[], b: string[]): Region
     }
 
     if (regionHunks.length === 1) {
-      // Single hunk → one side inserts into an o-region the other left unchanged: NO conflict.
-      if (hunk.abLength > 0) {
-        const buffer = hunk.ab === 'a' ? a : b;
-        results.push({ stable: true, buffer: hunk.ab, bufferStart: hunk.abStart, bufferLength: hunk.abLength, bufferContent: buffer.slice(hunk.abStart, hunk.abStart + hunk.abLength), oStart: hunk.oStart, oLength: hunk.oLength });
-      }
+      // Single hunk → one side changed an o-region the other left unchanged: NO conflict. R30.30-fix: emit the region
+      // even for a pure DELETION (abLength===0). The deleted base lines still SHOW on the non-changed pane, so the
+      // region must exist (bufferContent=[]) for computeMergedCenter to reserve its aligned block + advance the base
+      // counter by oLength. Previously the `abLength>0` guard DROPPED deletions → model line-counts desynced from the
+      // rendered panes → misplaced spacers → cumulative drift (the L1813 send.verified residual). Harmless to
+      // diff3Merge (an empty bufferContent contributes nothing to the collapsed ok-buffer).
+      const buffer = hunk.ab === 'a' ? a : b;
+      results.push({ stable: true, buffer: hunk.ab, bufferStart: hunk.abStart, bufferLength: hunk.abLength, bufferContent: buffer.slice(hunk.abStart, hunk.abStart + hunk.abLength), oStart: hunk.oStart, oLength: hunk.oLength });
     } else {
       const bounds: Record<'a' | 'b', [number, number, number, number]> = { a: [a.length, -1, o.length, -1], b: [b.length, -1, o.length, -1] };
       while (regionHunks.length) {
