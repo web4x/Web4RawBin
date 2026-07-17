@@ -578,12 +578,17 @@ export class RbDiffEditor extends HTMLElement {
     const left = params.get('left') || '';                     // git ref, or '' = working file
     const right = params.get('right') || '';
     this._deepLink = true;                                      // suppress the auto left-history promote (would clobber RIGHT)
+    this._rightUserPicked = false;                             // R30.25.1: fresh deep-link context (no user pick yet)
+    const token = ++this._promoteToken;                        // R30.25.1: our generation — a user RIGHT-pick during the loads bumps this
     this.left = { path, ref: left, repo, content: '' };
     this.right = { path, ref: right, repo, content: '' };
     this.querySelectorAll('.de-repo').forEach(el => { (el as HTMLSelectElement).value = key || 'rawbin'; }); // reflect in UI (best-effort; load uses st.repo)
     try {
       await this.loadSide('left', { path, ref: left });
-      await this.loadSide('right', { path, ref: right });      // loaded last → authoritative RIGHT (deep-link guard blocks the promote race)
+      // R30.25.1: same token/guard as populateLeftHistory — if a user RIGHT ref-pick landed during the left-load, HONOR it
+      // (don't let the deep-link's in-flight right-load resolve last and clobber the user's pick / corrupt RIGHT).
+      if (token !== this._promoteToken || this._rightUserPicked) return;
+      await this.loadSide('right', { path, ref: right });      // no pick intervened → authoritative RIGHT from the deep-link
     } finally { this._deepLink = false; }
   }
 
