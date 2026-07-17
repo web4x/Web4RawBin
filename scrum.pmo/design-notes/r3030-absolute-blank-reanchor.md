@@ -48,5 +48,17 @@ Anchors = diff3 STABLE regions (identical content across all 3 panes); blank lin
 4. Assertion-grade: `getTopForLineNumber` equal (±0px) across edLocal/edCenter/edRemote at EVERY stable/blank line, scrollTop=0 and mid-scroll.
 5. Language-agnostic (works on any language / plain text).
 
+## ★ R30.30-OPEN (v0.7.4x): the built re-anchor is a STRUCTURAL NO-OP — send.verified still drifts (9 rows/171px by L2088, 213/424 blanks)
+Measured `alignPaneRows` (:344-360): it tracks `vL/vC/vR` and at each stable {ok} does `target = max(vL,vC,vR); pad laggards by target−v`. BUT **every branch advances all three equally** — stable `+K` to all (:351), changed `+maxH` to all (:359). Starting `0,0,0`, therefore **`vL==vC==vR` at ALL times**, so `max−v == 0` always → **the re-anchor NEVER pads. It corrects nothing.** That is why 213/424 blank witnesses still drift and send.verified accumulates: the "self-heal" is inert.
+
+The REAL drift is the CHANGED-region pad itself: the pad `maxH − c.a.length` at `afterLineNumber: rL + c.a.length` (:356-358) uses the CONFLICT's ASSUMED per-pane lengths (`c.a`=base-slice/`oLength`, `picked`), and `rL/rC/rR` advance by those same assumed lengths (:359). In the long send.verified modification these assumed lengths diverge from each editor's ACTUAL content lines (diff3 oLength ≠ the pane's real rows, or a near-conflict mis-modeled as clean one-sided), so per sub-region the spacer is off by ~1 row → ~9 rows accrue — and the no-op re-anchor never catches it because the v-tracker is computed from the SAME wrong assumed lengths (model agrees with itself, disagrees with reality).
+
+### FIX — re-anchor against ACTUAL rendered geometry, not the self-consistent model
+Two-phase `alignPaneRows`:
+1. **Phase 1 (unchanged):** emit per-region `maxH` pads.
+2. **Phase 2 — geometry re-anchor:** after Phase 1 zones are applied, at each stable/blank anchor MEASURE the anchor line's real Y in each pane via `getTopForLineNumber(actualContentLine)` (viewZone-aware = reality); if the three Y differ, add a corrective spacer to the lagging pane(s) so the anchor line shares a row. This measures REALITY, so it heals ANY per-region length/pad error regardless of diff3/base-slice correctness — genuinely self-healing (the current pass only re-checks its own arithmetic).
+   - Alternative (analytic, if a second measure pass is undesirable): drive `rL/rC/rR` and the v-tracker from the ACTUAL per-editor content-line indices (localLines/remoteLines/center-model line consumed), NOT the conflict's assumed `c.a/c.b/picked` — then max−v is real and the existing re-anchor starts doing work. But geometry-measurement (getTopForLineNumber) is the robust choice — it can't be fooled by a wrong length model.
+**Gate:** send.verified/L1815+ → 0px through L2088 and to EOF; ALL 424 blank witnesses 0px (was 213 drifting); inject a deliberate per-region length error → still 0px at the next blank (proves it heals reality, not the model). Stays under `alignPaneRows` [17c71adf] + `computeMergedCenter` [a0b30550], impl-edit — R30.30-OPEN, no new units.
+
 ## Handoff
 req mints R30.30 → I derive-confirm the impl-edit reuse (markers a0b30550 + 17c71adf stay, no new units) → PO build-go → expert (pure client) → I backstop (single-pass re-anchor present + L1823 0px + self-heal) → tester DET-3x + Tron.
