@@ -1,0 +1,67 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "b4f0f0db-720a-41b8-a998-6b7e86ce2135",
+  "name": "3-pane rows re-anchor to 0px at every blank/stable line - no persistent residual shift",
+  "altId": "R30.30",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:1d74c00e-e13a-4e10-9103-575dbd3e5240"
+  ],
+  "description": "Corresponding lines land on the SAME visual row at EVERY stable/blank anchor with ZERO persistent residual - a single forward pass ABSOLUTELY re-anchors each pane at every unchanged line. R30.29 advanced content counters + padded each region to maxH but TRUSTED every region's pad to be exact - so one modification region near L1823 (send.verified) mis-pads by 2 rows and, with no re-equalize at the next stable line, that 32px delta rides to EOF (741 anchors all 32px, single non-cumulative shift). FIX (impl-edit to computeMergedCenter [a0b30550 STAYS] + alignPaneRows [17c71adf STAYS], no new units): track cumulative VISUAL rows per pane (vL/vC/vR = real + spacer rows emitted); at each STABLE region (buffer='o', blanks the common case) RE-ANCHOR FIRST - target=max(vL,vC,vR), pad each laggard up to target, set vL=vC=vR=target - THEN emit the stable lines. This MEASURES the actual accumulated rows and snaps any single-region mis-pad to 0 at the very next anchor (bounded to one block, self-healing) - correctness no longer depends on every oLength/maxH being perfect. Deterministic (analytic row counts). Scope: 0px at all corresponding ANCHORS + block boundaries; within-change INTERIOR non-alignment is correct-by-nature (IntelliJ-same) and NOT gated.",
+  "tronQuote": "> Tron/tester (v0.7.41): a clean 2-row (32px) misalignment starts at L1823 and persists to EOF - pixel-perfect alignment needed. Re-sync absolutely at the blank/stable lines.",
+  "discoverySource": {
+   "type": "tester-finding-refinement",
+   "flaggedBy": "robbin-tester (v0.7.41 DET-3x, 741 anchors 32px) via robbin-po/SM",
+   "date": "2026-07-17",
+   "note": "Follow-on to R30.29 (content counters PREVENT accumulation but do NOT SNAP a residual to 0 - needs absolute re-anchor). Architect design r3030-absolute-blank-reanchor.md (db9346949) + feasibility 784bf029e. IMPL-EDIT to computeMergedCenter (Method 09af8c8d / marker a0b30550 STAYS) + alignPaneRows (Method 3488e2eb / marker 17c71adf STAYS) merged into ONE forward pass; NO new units. Sole-minter."
+  },
+  "designRef": "scrum.pmo/design-notes/r3030-absolute-blank-reanchor.md (db9346949) + feasibility 784bf029e",
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f",
+   "ior:instance:61241686-e982-4928-aaa0-3aed895d565d"
+  ],
+  "crossRefNote": "Completes the R30.23->R30.27->R30.29 alignment arc: R30.29's counters prevent accumulation, R30.30 ABSOLUTELY re-anchors at every stable/blank line to snap the residual to 0 (self-healing). IMPL-EDIT to RbDiffEditor.computeMergedCenter (Impl-marker a0b30550 STAYS) + RbDiffEditor.alignPaneRows (Impl-marker 17c71adf STAYS) - merged into one forward pass, no new units. Architect derive-confirms the impl-edit reuse.",
+  "implEdit": "markers STAY: computeMergedCenter a0b30550-71c8-4497-9eaf-f73551f7bb0f (Method 09af8c8d-591f-4746-8f2a-8bba5c1e682a) + alignPaneRows 17c71adf (Method 3488e2eb), merged into ONE forward pass. Optional secondary: mountThreePane c4c84142 lineHeight/wordWrap. NO new Method/Class.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-0",
+    "group": "l1823",
+    "text": "The send.verified/debug.log-isPane-guard region -> 0px at its next stable line and to EOF: all 741 anchors 0px (was a clean 32px whole-region shift)."
+   },
+   {
+    "id": "AC-1",
+    "group": "self-heal",
+    "text": "Inject a deliberate single-region 2-row mis-pad -> it snaps to 0 at the next stable/blank line (not carried forward) - self-healing, bounded to one block."
+   },
+   {
+    "id": "AC-2",
+    "group": "anchors-scope",
+    "text": "0px at ALL corresponding anchors (every diff3 stable/blank region + block boundaries). Within-change INTERIOR non-alignment is correct-by-nature (IntelliJ-same, the two sides don't line-correspond inside a change) and is explicitly NOT gated."
+   },
+   {
+    "id": "AC-3",
+    "group": "no-regression",
+    "text": "Insertions, modifications, conflicts, agreed-both-sides all still 0px at every stable anchor; RESULT byte-identical (re-anchor only inserts corrective blank spacer rows)."
+   },
+   {
+    "id": "AC-4",
+    "group": "mechanism",
+    "text": "Single forward pass over VISUAL rows: changed/conflict region adds maxH to each pane; a stable region re-anchors (target=max, pad laggards, vL=vC=vR=target) BEFORE emitting its lines. Impl-edit to computeMergedCenter (a0b30550) + alignPaneRows (17c71adf) merged into one pass; markers STAY, no new units. (Optional sub-pixel: pin lineHeight:19/wordWrap:off on mountThreePane c4c84142 - the residual is a whole-row miscount so re-anchor is primary.)"
+   },
+   {
+    "id": "AC-5",
+    "group": "verify",
+    "text": "Assertion-grade: getTopForLineNumber equal (+/-0px) across edLocal/edCenter/edRemote at EVERY stable/blank line, at scrollTop=0 AND mid-scroll. Language-agnostic (any language / plain text). DET-3x strict-0px gate + Tron pixel-perfect. Client fix -> version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

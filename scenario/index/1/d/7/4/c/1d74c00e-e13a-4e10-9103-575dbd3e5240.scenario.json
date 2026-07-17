@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "1d74c00e-e13a-4e10-9103-575dbd3e5240",
+  "name": "diffEditor.absoluteBlankReanchor",
+  "description": "A single forward pass tracks cumulative visual rows per pane and, at every diff3 stable/blank anchor, re-anchors each pane to the max (pads laggards) before emitting - snapping any single-region mis-pad to 0 at the next anchor (self-healing, 0px at all anchors). Impl-edit to computeMergedCenter + alignPaneRows; markers stay.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:09af8c8d-591f-4746-8f2a-8bba5c1e682a",
+  "coveredRequirement": "ior:instance:b4f0f0db-720a-41b8-a998-6b7e86ce2135"
+ },
+ "ownerIor": "ior:instance:b4f0f0db-720a-41b8-a998-6b7e86ce2135"
+}
