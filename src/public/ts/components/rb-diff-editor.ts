@@ -153,6 +153,7 @@ export class RbDiffEditor extends HTMLElement {
     // RIGHT-pick flag). Done HERE (before the content-load awaits) so a subsequent user RIGHT-pick — which fires as a
     // later event — re-sets the flag and WINS over the promote (populateLeftHistory's early-guard then aborts).
     if (side === 'left' && !st.ref && !this._deepLink) this._rightUserPicked = false;
+    const seq = side === 'right' ? ++this._rightLoadSeq : 0; // R30.25.2: RIGHT-load generation — captured before the fetch await; a newer right-load bumps _rightLoadSeq and supersedes this one
     try {
       let content = '';
       if (src.content != null) {
@@ -168,6 +169,11 @@ export class RbDiffEditor extends HTMLElement {
         if (!res.ok) { this.status(`load ${side} failed (${res.status})`); return; }
         content = (await res.json()).content ?? '';
       }
+      // R30.25.2 (WIN-B residual): if a NEWER right-load started while this one's fetch was in flight (e.g. a user
+      // ref-pick landing DURING the deep-link's own loadSide('right',dev)), discard THIS result — otherwise the
+      // late-resolving content lands under the newer ref (RIGHT-corrupt: right.ref=pick but right.content=dev). Only
+      // the latest right-load applies. LEFT is unaffected (no seq check) so a right-pick never aborts a left-load.
+      if (side === 'right' && seq !== this._rightLoadSeq) return;
       st.content = content;
       const ed = side === 'left' ? this.edLocal : this.edRemote;
       if (ed) ed.setValue(content);
@@ -652,6 +658,7 @@ export class RbDiffEditor extends HTMLElement {
   private _leftUserPicked = false;
   private _rightUserPicked = false; // R30.25: symmetric to _leftUserPicked — a user-driven RIGHT ref-pick wins over the auto-promote (populateLeftHistory won't reload LEFT while set)
   private _promoteToken = 0;         // R30.25: generation token — a stale in-flight promote aborts its LEFT-reload tail when this no longer matches (bumped by a RIGHT ref-pick / each new promote)
+  private _rightLoadSeq = 0;         // R30.25.2: RIGHT-load generation — each loadSide('right') bumps it; a superseded in-flight right-load discards its result (last right-load wins, no ref/content mismatch)
   private _deepLink = false; // R30.24: true while openFromParams restores a URL-linked diff (suppresses auto left-history promote)
 
   private async populateRepos(): Promise<void> {
