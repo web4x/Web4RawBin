@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "1cc5ed1c-726e-47a0-aba8-821c1d2e4829",
+  "name": "diffEditor.deepLinkRightPickPreserved",
+  "description": "openFromParams guard + loadSide _rightLoadSeq discard ensure a user RIGHT ref-pick (or the newest right-load) wins over an in-flight deep-link/right load - the pick is never clobbered. Impl-edit to openFromParams (+loadSide); markers stay.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:f52b6941-7c1d-4f44-8bfe-1df5208336d0",
+  "coveredRequirement": "ior:instance:2fd1c9fb-b03c-438f-b760-115a1ddbefd3"
+ },
+ "ownerIor": "ior:instance:2fd1c9fb-b03c-438f-b760-115a1ddbefd3"
+}

@@ -1,0 +1,66 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "2fd1c9fb-b03c-438f-b760-115a1ddbefd3",
+  "name": "Deep-link right-pick preserves the user's pick (no in-flight-load clobber)",
+  "altId": "R30.26",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:1cc5ed1c-726e-47a0-aba8-821c1d2e4829"
+  ],
+  "description": "When a diff is opened from a deep-link URL and the user then picks a RIGHT ref (or a right-load is in flight), the user's pick is PRESERVED - an in-flight deep-link/right load can no longer clobber it. Two guards (impl-edits, both markers STAY): (1) openFromParams guards against overwriting a user pick that lands while the deep-link load is in flight (R30.25.1); (2) loadSide carries a _rightLoadSeq sequence token so a stale in-flight load whose result arrives after a newer pick is DISCARDED - the newest load wins (R30.25.2). Retroactive #126 chain-completion: the fix shipped + is DET-3x gated on v0.7.39 (Test 7d3e1a52) but had no requirement unit - this mints it over the built impl-edits (markers dc236c19 openFromParams + c4da837c loadSide), no new units. Status DONE (already gated).",
+  "tronQuote": "> TRON (BUG-1): deep-link diff corrupts the RIGHT side / loses the user's ref pick when a load is in flight.",
+  "discoverySource": {
+   "type": "126-retroactive-backfill",
+   "flaggedBy": "robbin-planner (caught the #126 gap) via robbin-po",
+   "date": "2026-07-17",
+   "note": "BUG-1 (deep-link RIGHT-corrupt) shipped CLOSED+GATED on v0.7.39 (R30.25.1 openFromParams guard dc236c19 + R30.25.2 loadSide _rightLoadSeq discard c4da837c, Test 7d3e1a52) with NO req/task unit = a #126 slip. This mints the requirement RETROACTIVELY over the built impl-edits (markers stay, no new units). Status DONE. Sole-minter; planner backfills T30.26."
+  },
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:9a2c9c46-4def-4273-b896-60ad17b79a6a",
+   "ior:instance:a604a1b5-9d7b-4b31-a465-d684dfc256c2"
+  ],
+  "crossRefNote": "Companion to R30.24 (deep-link openFromParams - the entry this guards) + R30.25 (right-pick-preserves-left - the same in-flight-clobber class on the LEFT). IMPL-EDIT method-set: RbDiffEditor.openFromParams (Impl dc236c19, PRIMARY) + RbDiffEditor.loadSide (Impl c4da837c, _rightLoadSeq). Test 7d3e1a52 already covers both (status pass). Architect derive-confirms the retroactive impl-edit reuse.",
+  "implEdit": "markers STAY: openFromParams dc236c19-be03-42df-9c52-4346fb76144a (Method f52b6941-7c1d-4f44-8bfe-1df5208336d0) + loadSide c4da837c (Method 19c40143). NO new units. Test 7d3e1a52 pass.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-0",
+    "group": "preserved",
+    "text": "Open a diff from a deep-link URL, then pick a RIGHT ref: the user's pick is preserved (RIGHT = the picked ref), NOT clobbered by the in-flight deep-link/right load."
+   },
+   {
+    "id": "AC-1",
+    "group": "guard",
+    "text": "openFromParams guards against overwriting a user pick that lands while the deep-link load is still in flight (R30.25.1)."
+   },
+   {
+    "id": "AC-2",
+    "group": "seq",
+    "text": "loadSide uses a _rightLoadSeq sequence token: a stale in-flight load whose result returns AFTER a newer pick is discarded - the newest load wins (R30.25.2)."
+   },
+   {
+    "id": "AC-3",
+    "group": "no-regression",
+    "text": "R30.24 deep-link open/restore + share round-trip still work; R30.25 right-pick-preserves-left still holds."
+   },
+   {
+    "id": "AC-4",
+    "group": "impl-edit",
+    "text": "Impl-edits to EXISTING RbDiffEditor.openFromParams (Impl dc236c19) + RbDiffEditor.loadSide (Impl c4da837c) - markers STAY, no new Method/Class."
+   },
+   {
+    "id": "AC-5",
+    "group": "verify",
+    "text": "DET-3x GREEN on v0.7.39 (Test 7d3e1a52 R30.25.1/.2 deep-link change-RIGHT, status pass, on both Impls). Status DONE - retroactive #126 completion; planner backfills T30.26."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

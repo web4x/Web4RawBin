@@ -395,3 +395,16 @@
   - [ ] **(fix)** Running per-buffer line counters la/lb are threaded through the region loop; computeOneSidedHunks(region, cid, la, lb) sets aStart:la / bStart:lb (the 0 fallbacks removed); ok-runs (la+=len, lb+=len) and the conflict path advance the counters. alignPaneRows / renderCenterChangeBlocks / renderSideChangeBlocks / ribbons unchanged.
   - [ ] **(verify)** Assertion-grade: for each stable line, getTopForLineNumber is equal (+/-0) across edLocal/edCenter/edRemote. DET-3x + Tron visual on the 4-screenshot repro. Client fix (no restart) -> version-bump.
   -> diffEditor.threePaneRowAlignment [uc:uuid:a01ee01d-e77e-4d37-99ea-bb3dbd7e423e]
+
+- [ ] **R30.26 — Deep-link right-pick preserves the user's pick (no in-flight-load clobber)**
+  [requirement:uuid:2fd1c9fb-b03c-438f-b760-115a1ddbefd3]
+  > TRON (BUG-1): deep-link diff corrupts the RIGHT side / loses the user's ref pick when a load is in flight.
+  When a diff is opened from a deep-link URL and the user then picks a RIGHT ref (or a right-load is in flight), the user's pick is PRESERVED - an in-flight deep-link/right load can no longer clobber it. Two guards (impl-edits, both markers STAY): (1) openFromParams guards against overwriting a user pick that lands while the deep-link load is in flight (R30.25.1); (2) loadSide carries a _rightLoadSeq sequence token so a stale in-flight load whose result arrives after a newer pick is DISCARDED - the newest load wins (R30.25.2). Retroactive #126 chain-completion: the fix shipped + is DET-3x gated on v0.7.39 (Test 7d3e1a52) but had no requirement unit - this mints it over the built impl-edits (markers dc236c19 openFromParams + c4da837c loadSide), no new units. Status DONE (already gated).
+  **Acceptance criteria:**
+  - [ ] **(preserved)** Open a diff from a deep-link URL, then pick a RIGHT ref: the user's pick is preserved (RIGHT = the picked ref), NOT clobbered by the in-flight deep-link/right load.
+  - [ ] **(guard)** openFromParams guards against overwriting a user pick that lands while the deep-link load is still in flight (R30.25.1).
+  - [ ] **(seq)** loadSide uses a _rightLoadSeq sequence token: a stale in-flight load whose result returns AFTER a newer pick is discarded - the newest load wins (R30.25.2).
+  - [ ] **(no-regression)** R30.24 deep-link open/restore + share round-trip still work; R30.25 right-pick-preserves-left still holds.
+  - [ ] **(impl-edit)** Impl-edits to EXISTING RbDiffEditor.openFromParams (Impl dc236c19) + RbDiffEditor.loadSide (Impl c4da837c) - markers STAY, no new Method/Class.
+  - [ ] **(verify)** DET-3x GREEN on v0.7.39 (Test 7d3e1a52 R30.25.1/.2 deep-link change-RIGHT, status pass, on both Impls). Status DONE - retroactive #126 completion; planner backfills T30.26.
+  -> diffEditor.deepLinkRightPickPreserved [uc:uuid:1cc5ed1c-726e-47a0-aba8-821c1d2e4829]
