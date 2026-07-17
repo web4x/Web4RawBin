@@ -62,7 +62,10 @@ interface Hunk { ab: 'a' | 'b'; oStart: number; oLength: number; abStart: number
 // R30.23: exported so RbDiffEditor.computeMergedCenter can read the per-region `buffer` origin tag
 // ('o'=stable/base, 'a'=local-only change, 'b'=repo-only change) and surface diff3-auto-applied one-sided
 // changes as visible change-blocks. diff3Merge() collapses these into flat {ok:[…]}, losing origin.
-export type StableRegion = { stable: true; buffer: 'o' | 'a' | 'b'; bufferStart: number; bufferLength: number; bufferContent: string[] };
+// R30.29: oStart/oLength = the region's span in the BASE buffer. For buffer 'a'/'b' (one-sided change) this is the
+// count of base lines the NON-changed side still shows (oLength=0 for a pure insertion, >0 for a modification) →
+// computeMergedCenter renders the opposite pane's base slice + advances its counter, resyncing modification regions.
+export type StableRegion = { stable: true; buffer: 'o' | 'a' | 'b'; bufferStart: number; bufferLength: number; bufferContent: string[]; oStart: number; oLength: number };
 export type ConflictRegion = { stable: false; aStart: number; aLength: number; aContent: string[]; oStart: number; oLength: number; oContent: string[]; bStart: number; bLength: number; bContent: string[] };
 export type Region = StableRegion | ConflictRegion;
 
@@ -79,7 +82,7 @@ export function diff3MergeRegions(a: string[], o: string[], b: string[]): Region
   let currOffset = 0;
   const advanceTo = (endOffset: number) => {
     if (endOffset > currOffset) {
-      results.push({ stable: true, buffer: 'o', bufferStart: currOffset, bufferLength: endOffset - currOffset, bufferContent: o.slice(currOffset, endOffset) });
+      results.push({ stable: true, buffer: 'o', bufferStart: currOffset, bufferLength: endOffset - currOffset, bufferContent: o.slice(currOffset, endOffset), oStart: currOffset, oLength: endOffset - currOffset });
       currOffset = endOffset;
     }
   };
@@ -101,7 +104,7 @@ export function diff3MergeRegions(a: string[], o: string[], b: string[]): Region
       // Single hunk → one side inserts into an o-region the other left unchanged: NO conflict.
       if (hunk.abLength > 0) {
         const buffer = hunk.ab === 'a' ? a : b;
-        results.push({ stable: true, buffer: hunk.ab, bufferStart: hunk.abStart, bufferLength: hunk.abLength, bufferContent: buffer.slice(hunk.abStart, hunk.abStart + hunk.abLength) });
+        results.push({ stable: true, buffer: hunk.ab, bufferStart: hunk.abStart, bufferLength: hunk.abLength, bufferContent: buffer.slice(hunk.abStart, hunk.abStart + hunk.abLength), oStart: hunk.oStart, oLength: hunk.oLength });
       }
     } else {
       const bounds: Record<'a' | 'b', [number, number, number, number]> = { a: [a.length, -1, o.length, -1], b: [b.length, -1, o.length, -1] };

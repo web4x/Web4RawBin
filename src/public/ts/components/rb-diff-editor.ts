@@ -205,16 +205,18 @@ export class RbDiffEditor extends HTMLElement {
       this.twoWay = false;
       let cid = 0;
       let la = 0, lb = 0; // R30.27: running LOCAL / REMOTE line positions — one-sided spacers land at the aligned position (la/lb), not line 0
+      const baseLines = this.base.split('\n'); // R30.29: base buffer — a one-sided MODIFICATION's non-changed pane still shows these base lines
       // R30.23: iterate the RICHER region list (not the collapsed diff3Merge) so each stable region carries its
       // `buffer` origin tag — 'o'=truly stable (== base), 'a'=local-only change, 'b'=repo-only change (diff3
       // already auto-applied it into CENTER). A one-sided change is surfaced as a Conflict{kind:'change'} so it
       // renders a block+ribbon+arrow (IMG_4522 gap: a 'merged, 0 conflicts' file showed ZERO blocks). The picked
       // side's content stays in CENTER → merge RESULT byte-identical; this ONLY adds visibility.
-      for (const region of diff3MergeRegions(localLines, this.base.split('\n'), remoteLines)) {
+      for (const region of diff3MergeRegions(localLines, baseLines, remoteLines)) {
         if (region.stable) {
           if (region.buffer === 'o') { this.centerSeq.push({ ok: region.bufferContent }); la += region.bufferContent.length; lb += region.bufferContent.length; continue; } // stable == base → ok-run; advances BOTH panes
-          this.conflicts.push(this.computeOneSidedHunks(region, cid, la, lb)); // R30.27: pass aligned per-pane positions → spacers land at la/lb, not line 0
-          if (region.buffer === 'a') la += region.bufferLength; else lb += region.bufferLength; // R30.27: advance ONLY the changed side; the opposite pane gets spacer rows AT its current position
+          this.conflicts.push(this.computeOneSidedHunks(region, cid, la, lb, baseLines)); // R30.27/29: aligned per-pane positions; opposite side = base slice for a modification
+          // R30.29: advance the CHANGED side by its N lines AND the NON-changed side by oLength (the M base lines it retains — 0 for a pure insertion, M for a modification). la/lb now track each pane's TRUE consumed lines → resync at EVERY region, no cumulative drift.
+          if (region.buffer === 'a') { la += region.bufferLength; lb += region.oLength; } else { lb += region.bufferLength; la += region.oLength; }
           this.centerSeq.push({ cid: cid });
           cid++;
         } else if (region.aContent.length === region.bContent.length && region.aContent.every((x, i) => x === region.bContent[i])) {
@@ -241,12 +243,16 @@ export class RbDiffEditor extends HTMLElement {
   // Downstream (renderCenterChangeBlocks via c.span, renderSideChangeBlocks/renderConnectorRibbons gate on a/b.length,
   // jumpToChange counts) all iterate conflicts[] with NO new rendering code. pick keeps the changed content in CENTER
   // (rebuildCenter: pick==='b'?c.b:c.a) → merge RESULT byte-identical; span [0,0] is set by rebuildCenter.
-  private computeOneSidedHunks(region: StableRegion, cid: number, la: number, lb: number): Conflict {
+  private computeOneSidedHunks(region: StableRegion, cid: number, la: number, lb: number, baseLines: string[]): Conflict {
     const local = region.buffer === 'a';
+    // R30.29: the NON-changed pane still shows the M base lines this region replaced (M = oLength). [] for a pure
+    // insertion (oLength=0 → one-sided, R30.23/27 preserved); the M base lines for a modification → both panes align
+    // (maxH = max(N,M)) + both highlight. The changed side stays bufferContent → CENTER pick unchanged → byte-identical.
+    const baseSlice = baseLines.slice(region.oStart, region.oStart + region.oLength);
     return {
       id: cid,
-      a: local ? region.bufferContent : [],
-      b: local ? [] : region.bufferContent,
+      a: local ? region.bufferContent : baseSlice,
+      b: local ? baseSlice : region.bufferContent,
       pick: local ? 'a' : 'b',
       span: [0, 0],
       kind: 'change',
