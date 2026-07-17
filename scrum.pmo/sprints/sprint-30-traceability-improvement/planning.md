@@ -48,4 +48,4 @@ Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' w
 - [x] [Task 30.33: Vendor diff3 emits pure-deletion regions so alignment resyncs (send.verified)](./task-30.33-diff3-deletion-region-resync.md)
 - [x] [Task 30.20: Detail-drawer mode-aware close (in-room X->chat, trace X->minimize)](./task-30.20-drawer-mode-aware-close.md)
 - [x] [Task 30.28: Deploy commits atomically - served == committed == HEAD (no phantom-version window)](./task-30.28-atomic-deploy-invariant.md)
-- [ ] [Task 30.29: 3-pane rows resync at modification regions (non-changed side = base slice, no cumulative drift)](./task-30.29-modification-region-resync.md)
+- [x] [Task 30.29: 3-pane rows resync at modification regions (non-changed side = base slice, no cumulative drift)](./task-30.29-modification-region-resync.md)
