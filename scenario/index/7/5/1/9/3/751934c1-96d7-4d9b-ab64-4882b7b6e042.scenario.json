@@ -4,7 +4,8 @@
     "uuid": "751934c1-96d7-4d9b-ab64-4882b7b6e042",
     "name": "RbDiffEditor.populateLeftHistory impl",
     "tests": [
-      "ior:instance:4dca421e-1702-4ecd-bb5a-3e2dc3ebd7a9"
+      "ior:instance:4dca421e-1702-4ecd-bb5a-3e2dc3ebd7a9",
+      "ior:instance:2b9f6c17-8a4e-4d3c-b1f0-5e7a9c2d84b6"
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,

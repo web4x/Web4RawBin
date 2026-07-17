@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2b9f6c17-8a4e-4d3c-b1f0-5e7a9c2d84b6",
+    "name": "test:R30.25 RIGHT-pick preserves LEFT (no post-pick left-reload) gate",
+    "description": "Bridged to test/visual/r3025-right-pick-preserves-left-gate.mjs (DET-3x, RED→GREEN on v0.7.36 fix 771f82903) - verifies RbDiffEditor.populateLeftHistory (+_rightUserPicked guard/serialized promote) no longer clobbers LEFT when a RIGHT ref is picked mid-promote. Deterministic race: setSideRef(right) injected synchronously after the promote sets this.right (line 609). Asserts AC-verify: LEFT byte-identical + CENTER re-evaluated (right changed) + ZERO post-pick loadSide(left). Distinct from R30.17 test 4dca421e (left-history default) on the same impl.",
+    "sourceFile": "ior:file:test/visual/r3025-right-pick-preserves-left-gate.mjs",
+    "implementations": [
+      "ior:instance:751934c1-96d7-4d9b-ab64-4882b7b6e042"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:751934c1-96d7-4d9b-ab64-4882b7b6e042"
+}
