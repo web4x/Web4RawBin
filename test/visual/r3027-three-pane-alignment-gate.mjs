@@ -19,9 +19,14 @@ const measure = (page) => page.evaluate(() => {
   // past any blank. Flag postBlank = the line is the first non-blank after a blank in the LOCAL pane — a direct resync
   // witness. The generic "every unique-common line shares a visual row" assertion is a SUPERSET of "post-blank aligned".
   const raw = [];
-  for (let i = 0; i < ll.length; i++) { const s = ll[i]; if (!s || s.trim().length < 8) continue;
+  for (let i = 1; i < ll.length - 1; i++) { const s = ll[i]; if (!s || s.trim().length < 8) continue;
     const ci = uniqIdx(cl, s), ri = uniqIdx(rl, s), li = uniqIdx(ll, s);
-    if (li === i && ci >= 0 && ri >= 0) raw.push({ lL: i + 1, lC: ci + 1, lR: ri + 1, s: s.slice(0, 48), postBlank: i > 0 && ll[i - 1].trim() === '' }); }
+    if (li !== i || ci < 1 || ri < 1) continue;
+    // NEIGHBOR-CONTEXT match: require prev+next line identical across all 3 panes → a TRULY corresponding line, not a
+    // coincidental same-text dup in a different function (which would be unique-per-pane but map to the wrong region).
+    if (ll[i - 1] !== cl[ci - 1] || ll[i - 1] !== rl[ri - 1]) continue;
+    if (ll[i + 1] !== cl[ci + 1] || ll[i + 1] !== rl[ri + 1]) continue;
+    raw.push({ lL: i + 1, lC: ci + 1, lR: ri + 1, s: s.slice(0, 48), postBlank: ll[i - 1].trim() === '' }); }
   // FALSE-ANCHOR filter: a line can be unique in each pane yet map to DIFFERENT diff regions (→ garbage drift).
   // True corresponding anchors are MONOTONIC — as lL increases, lC and lR only increase, and center/right sit at or
   // below local + the total expansion (center has cl-ll extra lines). Keep the monotonic non-decreasing chain within bounds.
