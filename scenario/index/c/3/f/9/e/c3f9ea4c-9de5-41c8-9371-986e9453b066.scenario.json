@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "c3f9ea4c-9de5-41c8-9371-986e9453b066",
+  "name": "merge.responsiveSplineRibbon",
+  "description": "One continuous cubic-bezier spline ribbon per change flows across the 3 editors (Local->Result->Repository), absorbing per-pane Y offsets; responsive - mobile stacks the panes (spline flows down), desktop is side-by-side (spline across); subtle kind-colored shading, no boxes. Impl-edit anchor renderConnectorRibbons (replace boxes/bands); architect adds the responsive-layout method-set (re-point to built).",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:ab145dab-4d2f-46d0-be62-ce90c46177e6",
+  "coveredRequirement": "ior:instance:53ab62ed-7ced-429a-945f-8b639faa4237"
+ },
+ "ownerIor": "ior:instance:53ab62ed-7ced-429a-945f-8b639faa4237"
+}

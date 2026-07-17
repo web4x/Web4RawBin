@@ -63,7 +63,9 @@
     "group": "verify",
     "text": "DET-3x + Tron visual (screenshot-3 repro): both band sets non-zero width, boxed blocks all 3 panes, modification=both-bands, scroll-tracked. Client fix -> version-bump. (If a dedicated box-drawing Method is preferred over impl-editing the two block renderers, architect re-derives it as a NEW name-exact Method; default is impl-edit under the existing markers.)"
    }
-  ]
+  ],
+  "supersededBy": "ior:instance:53ab62ed-7ced-429a-945f-8b639faa4237",
+  "supersededNote": "Superseded by R30.34 (Tron rejected the box-outlines v0.7.46; unified mobile-first spline-ribbon req). Box work did NOT ship."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

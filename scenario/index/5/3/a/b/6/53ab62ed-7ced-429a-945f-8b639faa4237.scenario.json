@@ -1,0 +1,71 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "53ab62ed-7ced-429a-945f-8b639faa4237",
+  "name": "Mobile-first responsive 3-way merge with ONE continuous spline ribbon (both orientations)",
+  "altId": "R30.34",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:c3f9ea4c-9de5-41c8-9371-986e9453b066"
+  ],
+  "description": "The 3-way merge is mobile-first responsive and draws ONE continuous spline ribbon per change across all 3 editors (Rider 'Merge Revisions' fidelity), in BOTH orientations. Tron REJECTED the R30.32 box-outlines (v0.7.46): isolated per-pane rectangles show PRESENCE not MAPPING. Instead: for each change region compute its top/bottom Y in Local/Result/Repository and emit ONE SVG path that enters at Local's range, cubic-bezier across the left gutter into Result's range, bezier across the right gutter into Repository's range - a SINGLE filled ribbon whose curves absorb the per-pane Y offset so any change is traceable Local->Result-> Repository at a glance. Responsive: on mobile (<=~820px) the 3 panes STACK and the spline flows DOWN across them; on desktop the panes are side-by-side and the spline flows ACROSS. Splines not boxes - subtle translucent shading color-coded by kind (change/ conflict/active), readable on the ~#111 gutter, NO hard outlines. Mobile-first (390px) + desktop-reliable. SUPERSEDES R30.32 (delete the box-outline renderers). Client-facing -> version-bump + atomic (R30.28).",
+  "tronQuote": "> TRON: use SPLINES instead of boxes. clear CONTINUOUS mapping. ONE spline ACROSS 3 editors. [+ mobile <=~820px = 3 stacked panes, spline flows DOWN; desktop side-by-side, spline ACROSS; Rider-fidelity; gate by 390px-mobile+desktop screenshot+pixel, never DOM-count.]",
+  "discoverySource": {
+   "type": "tron-directive-redesign",
+   "flaggedBy": "Tron (rejected R30.32 boxes) via robbin-po",
+   "date": "2026-07-17",
+   "note": "R30.32 (box-outlines, v0.7.46) REJECTED by Tron - did NOT ship. This ONE unified req SUPERSEDES R30.32 + absorbs the mobile concern. Design brief: R30.32-spline-ribbon-design-brief.md (Rider Merge-Revisions target). NO landed architect impl-design yet (brief = the design task) - minted the req + UC anchored on renderConnectorRibbons (brief names it) with Tron-LOCKED ACs; ARCHITECT designs the full method-set (single-spline geometry + responsive stacked/side-by-side layout) -> I re-point to built reality (R30.11/R30.21/R30.33 pattern). Sole-minter."
+  },
+  "designRef": "scrum.pmo/sprints/sprint-30-traceability-improvement/R30.32-spline-ribbon-design-brief.md (Rider Merge-Revisions target)",
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:4e0b50f2-49a6-4e2f-b5ca-8b022b3044b0",
+   "ior:instance:9b525a80-5d8d-4533-a194-f63da132dd37",
+   "ior:instance:06ac71d5-5308-44ea-9720-ec5c01921915"
+  ],
+  "supersedes": [
+   "ior:instance:4e0b50f2-49a6-4e2f-b5ca-8b022b3044b0"
+  ],
+  "crossRefNote": "SUPERSEDES R30.32 (box-outlines, Tron-rejected v0.7.46, did not ship) - replaces the box/trapezoid renderers with ONE continuous spline ribbon + mobile-first responsive layout. IMPL-EDIT anchor = RbDiffEditor.renderConnectorRibbons (Impl-marker 5051b2a4, trapezoids->single cubic-bezier spline path + delete boxes); ARCHITECT designs the full method-set incl the responsive stacked/side-by-side layout (likely a new layout method + mountThreePane) - flagged for derive-confirm, I re-point to built code. crossRef R30.13 (renderConnectorRibbons origin) + R30.28 (atomic deploy for the client ship).",
+  "implEdit": "anchor: renderConnectorRibbons 5051b2a4 (Method ab145dab, trapezoids->single spline, delete boxes). ARCHITECT to add responsive-layout method(s) (mobile stacked / desktop side-by-side) - method-set NOT final, derive-confirm + re-point. Supersedes R30.32 box impl-edits.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-0",
+    "group": "one-spline",
+    "text": "ONE continuous filled spline ribbon per change flows Local -> Result -> Repository as a SINGLE SVG path (cubic-bezier across each gutter, absorbing the per-pane Y offset) - NOT per-pane boxes/bands. The box-outline + trapezoid-band renderers are REPLACED/deleted (supersedes R30.32)."
+   },
+   {
+    "id": "AC-1",
+    "group": "both-orientations",
+    "text": "Responsive BOTH orientations: mobile (viewport <=~820px) = 3 STACKED panes with the spline flowing DOWN across them; desktop = side-by-side panes with the spline flowing ACROSS. Both render the continuous ribbon correctly."
+   },
+   {
+    "id": "AC-2",
+    "group": "subtle-shading",
+    "text": "Splines not boxes: subtle translucent shading color-coded by kind (change=blue / conflict=red-pink / active=green), opaque enough to read on the ~#111 gutter, NO hard outlines."
+   },
+   {
+    "id": "AC-3",
+    "group": "legible-mapping",
+    "text": "At a glance ANY change is traceable from the Local pane through the merged Result to the Repository pane - the continuous mapping IS the requirement (Rider 'Merge Revisions' fidelity target). Inline accept controls (x reject / >> accept-toward-result / <<) sit ON the ribbon edge without occluding it."
+   },
+   {
+    "id": "AC-4",
+    "group": "mobile-first",
+    "text": "Mobile-FIRST (works at 390px) and desktop-reliable; the layout + spline are correct on a 390px phone and on desktop."
+   },
+   {
+    "id": "AC-5",
+    "group": "gate",
+    "text": "GATE = 390px-mobile screenshot + desktop screenshot + PIXEL comparison vs the Rider target image - NEVER DOM/element-count (a 3rd false-green is unacceptable). Client-facing -> version-bump + atomic deploy (R30.28)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}
