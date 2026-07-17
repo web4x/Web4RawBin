@@ -41,3 +41,8 @@ Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' w
 - [ ] [Task 30.27: 3-pane rows align — corresponding lines share one visual row](./task-30.27-three-pane-row-alignment.md)
 - [x] [Task 30.26: Deep-link right-pick preserves the user's pick (BUG-1)](./task-30.26-deeplink-right-pick-preserved.md)
 - [ ] [Task 30.34: Mobile-first responsive 3-way merge — ONE continuous spline (both orientations)](./task-30.34-responsive-spline-ribbon.md)
+- [x] [Task 30.21: Drawer non-sprint detail render (graph-independent /api/ior fetch-fallback)](./task-30.21-drawer-graph-independent-detail.md)
+- [x] [Task 30.22: Drawer select opens content-visible (not peek-clipped)](./task-30.22-drawer-select-content-visible.md)
+- [x] [Task 30.30: 3-pane rows re-anchor to 0px at every blank/stable line (no persistent residual)](./task-30.30-absolute-blank-reanchor.md)
+- [x] [Task 30.18: requirements.md is a generated view (extend generate-sprint-md)](./task-30.18-requirements-md-generated-view.md)
+- [x] [Task 30.33: Vendor diff3 emits pure-deletion regions so alignment resyncs (send.verified)](./task-30.33-diff3-deletion-region-resync.md)

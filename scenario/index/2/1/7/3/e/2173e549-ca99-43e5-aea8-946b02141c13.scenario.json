@@ -77,7 +77,12 @@
       "ior:instance:1ea9288f-abc9-4afe-b70a-befeb976fa55",
       "ior:instance:316ebf29-a9a6-42ea-b0dc-677b816cf6d2",
       "ior:instance:9a6947db-0f48-4a79-bae9-e584bda9827e",
-      "ior:instance:b6effc2c-71f3-4c24-834d-fc5f92e43d18"
+      "ior:instance:b6effc2c-71f3-4c24-834d-fc5f92e43d18",
+      "ior:instance:7c88d3b8-04cb-447f-a752-a10662919308",
+      "ior:instance:9153e980-43b0-445b-b109-2f514bcaa12d",
+      "ior:instance:e0b9c682-a339-44c4-8783-428d5c88b374",
+      "ior:instance:206615f3-4828-4a10-b836-872a9dce461d",
+      "ior:instance:bf311940-526d-4d2b-8147-a5c3d789877e"
     ],
     "createdAt": "2026-07-02",
     "createdBy": "robbin-req",

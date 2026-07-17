@@ -1,0 +1,54 @@
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
+
+# Task 30.18: requirements.md is a generated view (extend generate-sprint-md)
+
+[task:uuid:206615f3-4828-4a10-b836-872a9dce461d]
+
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
+
+## Traceability
+
+  - up
+    - [Sprint 30 Planning](./planning.md)
+    - Requirement `[requirement:uuid:34ed73fd-7756-4479-ad2c-65674bb13fc9]`
+  - down
+    - [UC](./planning.md) `[uc:uuid:c9fe8823-16fd-4599-b99f-2a2568caba2e]`
+
+## Task Description
+
+requirements.md is a generated view (extend generate-sprint-md) (retroactive #126 backfill — req was taskless; code+chain shipped+gated before the task unit existed).
+
+## Context
+
+BACKFILL (2026-07-17 gap audit): DONE #126 backfill. generate-sprint-md extended to emit requirements.md (d0f591ea8); chain tests pass/GREEN. Class 93f9afc7. law#100 by-construction (a minted Requirement appears on next regen). served==gated.
+
+## Intention
+
+S30 #126 gap-closure backfill (PO-approved gap audit): give the gated req its scenario Task unit.
+
+## Acceptance Criteria
+
+- [x] (generate) generate-sprint-md emits requirements.md per sprint from the scenario Requirement units (altId/name/ACs)
+- [x] (view) The generated requirements.md carries the GENERATED-FROM-SCENARIO-UNITS header (law #100); hand-edits are overwritten
+- [x] (ci) --check (checkRoundTrip) byte-match round-trip covers requirements.md; regen->--check is green
+- [x] (audit) ONE --all regen brings every sprint's requirements.md in sync (fixes S21-S28 staleness at once)
+- [x] (by-construction) A newly-minted Requirement unit appears in requirements.md on the next regen automatically
+- [x] (verify) After the change: regen S30 -> requirements.md is byte-generated from the units (matches/supersedes tracked)
+
+## Implementation
+
+DONE #126 backfill. generate-sprint-md extended to emit requirements.md (d0f591ea8); chain tests pass/GREEN. Class 93f9afc7. law#100 by-construction (a minted Requirement appears on next regen). served==gated. Retroactive #126 completion — status-sync to the gated reality; chain-to-Test verified before Done.
+
+## Subtasks
+
+None (atomic task).

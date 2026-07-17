@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "bf311940-526d-4d2b-8147-a5c3d789877e",
+    "name": "Task 30.33: Vendor diff3 emits pure-deletion regions so alignment resyncs (send.verified)",
+    "slug": "task-30.33-diff3-deletion-region-resync",
+    "description": "Vendor diff3 emits pure-deletion regions so alignment resyncs (send.verified) (retroactive #126 backfill — req was taskless; code+chain shipped+gated before the task unit existed).",
+    "intention": "S30 #126 gap-closure backfill (PO-approved gap audit): give the gated req its scenario Task unit.",
+    "context": "BACKFILL (2026-07-17 gap audit): DONE #126 backfill. vendor/diff3.ts emits pure-deletion regions (5ead5828d, a61258a39 v0.7.43); gated via the R30.30 re-anchor gate (fff313ba9 strict-0px GREEN). Class RbDiffEditor 18165081 + vendor/diff3.ts. served==gated v0.7.43.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "implementation": "DONE #126 backfill. vendor/diff3.ts emits pure-deletion regions (5ead5828d, a61258a39 v0.7.43); gated via the R30.30 re-anchor gate (fff313ba9 strict-0px GREEN). Class RbDiffEditor 18165081 + vendor/diff3.ts. served==gated v0.7.43. Retroactive #126 completion — status-sync to the gated reality; chain-to-Test verified before Done.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement `[requirement:uuid:54b316b7-4692-4b6a-a035-e295cf448432]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:ba2f99e0-7ca8-443d-a151-1aed9d50a317]`",
+    "acceptanceCriteria": "- [x] (root) Vendor diff3MergeRegions dropped a pure-DELETION region (abLength===0, oLength=2 base->dev, 2 removed) -> alignment couldn't resync there\n- [x] (emit-deletion) vendor/diff3.ts emits the single-hunk region even for abLength===0 (bufferContent=[]), so pure deletions surface\n- [x] (one-sided) computeOneSidedHunks puts the M=oLength base lines on the non-changed (retaining) pane + spacers opposite\n- [x] (resync-gate) With the deletion region present, the existing R30.29/R30.30 re-anchor resyncs at send.verified\n- [x] (no-regression) Insertions/modifications/conflicts/agreed-both-sides all still 0px at every stable anchor; RESULT byte-identical\n- [x] (verify) Vendor diff3.ts emit + computeOneSidedHunks (a0b30550) + alignPaneRows -> resync at the deletion; DET-3x",
+    "subtasks": "None (atomic task).",
+    "status": "Done",
+    "coveredRequirements": [
+      "ior:instance:54b316b7-4692-4b6a-a035-e295cf448432"
+    ],
+    "useCases": [
+      "ior:instance:ba2f99e0-7ca8-443d-a151-1aed9d50a317"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-17"
+  },
+  "ownerIor": null
+}
