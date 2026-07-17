@@ -46,14 +46,16 @@ export class RbDiffEditor extends HTMLElement {
     this.innerHTML = `
       <style>
         .de-conflict-glyph::before { content: '⚠'; color: #e66; font-size: 0.7rem; }
-        /* R30.16: colored rounded change-blocks (fill), palette-matched to ribbons. R30.32: outline split into a
-           de-block-outline-<kind> class = 1px SOLID CONFLICT_PALETTE border (IntelliJ boxed region, Tron screenshot 3). */
-        .de-block-conflict { background: rgba(165,96,58,0.22); border-radius: 4px; }
-        .de-block-resolvable { background: rgba(58,138,90,0.20); border-radius: 4px; }
-        .de-block-change { background: rgba(58,110,165,0.20); border-radius: 4px; }
-        .de-block-outline-conflict { box-shadow: inset 0 0 0 1px #a5603a; }
-        .de-block-outline-resolvable { box-shadow: inset 0 0 0 1px #3a8a5a; }
-        .de-block-outline-change { box-shadow: inset 0 0 0 1px #3a6ea5; }
+        /* R30.34: SUBTLE line-tint only (NO box-outline, NO border-radius — Tron rejected boxes). The changed lines
+           get a translucent kind-colored background that the continuous spline ribbon ties into at the pane edges. */
+        .de-block-conflict { background: rgba(165,96,58,0.16); }
+        .de-block-resolvable { background: rgba(58,138,90,0.15); }
+        .de-block-change { background: rgba(58,110,165,0.15); }
+        /* R30.34: responsive — stack the 3 panes vertically on mobile (≤820px), spline flows DOWN in the vertical gaps. */
+        @media (max-width: 819.98px) {
+          rb-diff-editor .de-panes { flex-direction: column !important; gap: 28px !important; }
+          rb-diff-editor .de-pane { flex: 1 1 0; min-height: 32vh; }
+        }
         .de-gutter-conflict { background: #a5603a; width: 3px !important; margin-left: 2px; }
         .de-gutter-resolvable { background: #3a8a5a; width: 3px !important; margin-left: 2px; }
         .de-gutter-change { background: #3a6ea5; width: 3px !important; margin-left: 2px; }
@@ -96,6 +98,21 @@ export class RbDiffEditor extends HTMLElement {
     this.querySelector('.de-jump-next')?.addEventListener('click', () => this.jumpToChange(1));
     void this.mountThreePane();
     void this.populateRepos();
+    this.wireResponsive();
+  }
+
+  // [impl:uuid:5051b2a4-6102-41fe-a352-a50e6b8ae03e] R30.34: responsive layout register (under connectedCallback's concern).
+  // The CSS media query flips .de-panes flex row↔column at 820px; this sets data-orient + re-lays-out Monaco and
+  // re-renders the orientation-aware ribbon/gutters on breakpoint-cross and resize (the SVG ribbons are pixel-positioned
+  // so they must recompute). syncScroll3 already keeps the 3 editors in register in both orientations.
+  private wireResponsive(): void {
+    const panes = this.querySelector('.de-panes') as HTMLElement; if (!panes) return;
+    const mq = matchMedia('(max-width: 819.98px)');
+    const apply = () => { panes.dataset.orient = mq.matches ? 'v' : 'h'; };
+    const rerender = () => { if (!this.edCenter) return; [this.edLocal, this.edCenter, this.edRemote].forEach(e => e?.layout?.()); this.renderMergeGutter(); };
+    apply();
+    mq.addEventListener('change', () => { apply(); rerender(); });
+    let t: any = 0; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(rerender, 120); }); // debounced: reposition pixel overlays after a resize
   }
 
   private status(msg: string): void { const s = this.querySelector('.de-status'); if (s) s.textContent = msg; }
@@ -382,7 +399,7 @@ export class RbDiffEditor extends HTMLElement {
     const m = this.monaco;
     const decos = this.conflicts.filter(c => !this.dismissed.has(c.id)).map(c => ({
       range: new m.Range(c.span[0] + 1, 1, Math.max(c.span[0] + 1, c.span[1]), 1),
-      options: { isWholeLine: true, className: `de-block-${c.kind} de-block-outline-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}`, glyphMarginClassName: c.kind === 'conflict' ? 'de-conflict-glyph' : undefined }, // R30.32: +outline = IntelliJ box
+      options: { isWholeLine: true, className: `de-block-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}`, glyphMarginClassName: c.kind === 'conflict' ? 'de-conflict-glyph' : undefined }, // R30.34: subtle line-tint (boxes dropped)
     }));
     this._blockDecoIds = this.edCenter.deltaDecorations(this._blockDecoIds, decos);
   }
@@ -399,7 +416,7 @@ export class RbDiffEditor extends HTMLElement {
     const live = this.conflicts.filter(c => !this.dismissed.has(c.id));
     const decosFor = (startKey: 'aStart' | 'bStart', linesKey: 'a' | 'b') => live.filter(c => c[linesKey].length > 0).map(c => ({
       range: new m.Range(c[startKey] + 1, 1, c[startKey] + c[linesKey].length, 1),
-      options: { isWholeLine: true, className: `de-block-${c.kind} de-block-outline-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}` }, // R30.32: +outline = IntelliJ box (Local/Repository panes)
+      options: { isWholeLine: true, className: `de-block-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}` }, // R30.34: subtle line-tint (boxes dropped)
     }));
     this._sideDecoIds.local = this.edLocal.deltaDecorations(this._sideDecoIds.local, decosFor('aStart', 'a'));
     this._sideDecoIds.remote = this.edRemote.deltaDecorations(this._sideDecoIds.remote, decosFor('bStart', 'b'));
@@ -454,9 +471,12 @@ export class RbDiffEditor extends HTMLElement {
   }
 
   // [impl:uuid:5051b2a4-6102-41fe-a352-a50e6b8ae03e] RbDiffEditor.renderConnectorRibbons
-  // R30.16: one filled band per Conflict — Local-block → Result-block and Result-block → Repository-block — colored by
-  // the SHARED conflictColor(c) so ribbons MATCH the center rounded-block. alignPaneRows makes the blocks share rows →
-  // near-horizontal Bézier ribbons across the widened (~34px) inter-pane gutter. SVG z-ABOVE editors, pointer-events:none.
+  // R30.34 (Tron/Rider): ONE continuous cubic-Bézier ribbon PER change spanning Local→Result→Repository as a single
+  // SVG <path> — no boxes, no disjoint per-gutter bands. Orientation-aware from the same per-change data (3 pane
+  // Y-ranges + kind): HORIZONTAL when side-by-side (>820px, spline sweeps ACROSS the 2 column gutters, curve absorbs
+  // the Y-offset via horizontal tangents at the gutter midlines) or VERTICAL when stacked (≤820px, a left-margin
+  // ribbon flows DOWN with necks in the 2 vertical gaps). Origin-gated (a>0 left / b>0 right), color by kind,
+  // translucent so code reads through. syncScroll3 keeps all 3 in register in BOTH layouts. z-5, pointer-events:none.
   private renderConnectorRibbons(): void {
     if (!this.edCenter || !this.edLocal || !this.edRemote) return;
     const panes = this.querySelector('.de-panes') as HTMLElement; if (!panes) return;
@@ -464,31 +484,35 @@ export class RbDiffEditor extends HTMLElement {
     if (!this._ribbonSvg) {
       const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
       svg.setAttribute('class', 'de-ribbons');
-      svg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none'; // above editors, below the z-6 icon strips
+      svg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none';
       panes.insertBefore(svg, panes.firstChild);
       this._ribbonSvg = svg;
     }
-    const lRight = this.mount('local').getBoundingClientRect().right - pr.left;
-    const cM = this.mount('center').getBoundingClientRect();
-    const cLeft = cM.left - pr.left, cRight = cM.right - pr.left;
-    const rLeft = this.mount('remote').getBoundingClientRect().left - pr.left;
-    // A closed Bézier band: top edge x1,ya → x2,ya' (S-curve), down x2, back along a mirrored curve, close.
-    const band = (x1: number, ya1: number, yb1: number, x2: number, ya2: number, yb2: number, color: string) => {
-      const mx = ((x1 + x2) / 2).toFixed(1);
-      return `<path d="M${x1.toFixed(1)},${ya1.toFixed(1)} C${mx},${ya1.toFixed(1)} ${mx},${ya2.toFixed(1)} ${x2.toFixed(1)},${ya2.toFixed(1)} L${x2.toFixed(1)},${yb2.toFixed(1)} C${mx},${yb2.toFixed(1)} ${mx},${yb1.toFixed(1)} ${x1.toFixed(1)},${yb1.toFixed(1)} Z" fill="${color}" fill-opacity="0.9" stroke="#fff" stroke-opacity="0.85" stroke-width="1.5"/>`; // R30.32: near-opaque fill + WHITE hairline edge — a muted-blue 0.55 fill on the near-black gutter read as nothing (pixel [39,67,98] ≈ invisible); high-contrast so the L↔C + C↔R connectors are unmistakable.
-    };
+    const lm = this.mount('local').getBoundingClientRect(), cm = this.mount('center').getBoundingClientRect(), rm = this.mount('remote').getBoundingClientRect();
+    const vertical = cm.top > lm.bottom - 2; // stacked when Result sits below Local
+    const n = (v: number) => v.toFixed(1);
     const parts: string[] = [];
     for (const c of this.conflicts.filter(x => !this.dismissed.has(x.id))) {
-      const color = conflictColor(c);
-      // R30.17 (TRON3): PIN both endpoints to the aligned center-block Y — alignPaneRows lines the L/C/R blocks up on
-      // the same rows, so lineY(local,aStart)==lineY(remote,bStart)==lineY(center,span[0]); using cTop/cBot for both
-      // ends draws a straight horizontal band with NO '70 maps to 71' drift.
-      const cTop = this.lineY(this.edCenter, c.span[0]);
-      const cBot = this.lineY(this.edCenter, c.span[1]);
-      // R30.17 (TRON2): ORIGIN-GATE — draw the Local↔Result band only where the change has local lines (a>0), and the
-      // Result↔Repository band only where it has repo lines (b>0) → a one-sided change shows a ribbon on ONE side only.
-      if (c.a.length > 0) parts.push(band(lRight, cTop, cBot, cLeft, cTop, cBot, color));   // Local → Result
-      if (c.b.length > 0) parts.push(band(cRight, cTop, cBot, rLeft, cTop, cBot, color));   // Result → Repository
+      const color = conflictColor(c), left = c.a.length > 0, right = c.b.length > 0;
+      // each pane's OWN Y-range (viewzone-aware), max(...,1) so a pure deletion still has a 1-row anchor
+      const aT = this.lineY(this.edLocal, c.aStart), aB = this.lineY(this.edLocal, c.aStart + Math.max(c.a.length, 1));
+      const cT = this.lineY(this.edCenter, c.span[0]), cB = this.lineY(this.edCenter, c.span[1]);
+      const bT = this.lineY(this.edRemote, c.bStart), bB = this.lineY(this.edRemote, c.bStart + Math.max(c.b.length, 1));
+      let d = '';
+      if (!vertical) {
+        const Lr = lm.right - pr.left, Rl = cm.left - pr.left, Rr = cm.right - pr.left, Sl = rm.left - pr.left;
+        const mL = (Lr + Rl) / 2, mR = (Rr + Sl) / 2; // gutter midlines — control X → horizontal tangents (Rider S-curve)
+        if (left && right) d = `M${n(Lr)},${n(aT)} C${n(mL)},${n(aT)} ${n(mL)},${n(cT)} ${n(Rl)},${n(cT)} L${n(Rr)},${n(cT)} C${n(mR)},${n(cT)} ${n(mR)},${n(bT)} ${n(Sl)},${n(bT)} L${n(Sl)},${n(bB)} C${n(mR)},${n(bB)} ${n(mR)},${n(cB)} ${n(Rr)},${n(cB)} L${n(Rl)},${n(cB)} C${n(mL)},${n(cB)} ${n(mL)},${n(aB)} ${n(Lr)},${n(aB)} Z`;
+        else if (left) d = `M${n(Lr)},${n(aT)} C${n(mL)},${n(aT)} ${n(mL)},${n(cT)} ${n(Rl)},${n(cT)} L${n(Rl)},${n(cB)} C${n(mL)},${n(cB)} ${n(mL)},${n(aB)} ${n(Lr)},${n(aB)} Z`;
+        else if (right) d = `M${n(Rr)},${n(cT)} C${n(mR)},${n(cT)} ${n(mR)},${n(bT)} ${n(Sl)},${n(bT)} L${n(Sl)},${n(bB)} C${n(mR)},${n(bB)} ${n(mR)},${n(cB)} ${n(Rr)},${n(cB)} Z`;
+      } else {
+        const W = 12, x0 = Math.max(2, lm.left - pr.left + 2), x1 = x0 + W; // left-margin ribbon, necks bow inward by W
+        const g1 = (aB + cT) / 2, g2 = (cB + bT) / 2; // vertical gap midlines
+        if (left && right) d = `M${n(x1)},${n(aT)} L${n(x1)},${n(aB)} C${n(x1 - W)},${n(g1)} ${n(x1 - W)},${n(g1)} ${n(x1)},${n(cT)} L${n(x1)},${n(cB)} C${n(x1 - W)},${n(g2)} ${n(x1 - W)},${n(g2)} ${n(x1)},${n(bT)} L${n(x1)},${n(bB)} L${n(x0)},${n(bB)} L${n(x0)},${n(bT)} C${n(x0 + W)},${n(g2)} ${n(x0 + W)},${n(g2)} ${n(x0)},${n(cB)} L${n(x0)},${n(cT)} C${n(x0 + W)},${n(g1)} ${n(x0 + W)},${n(g1)} ${n(x0)},${n(aT)} Z`;
+        else if (left) d = `M${n(x1)},${n(aT)} L${n(x1)},${n(aB)} C${n(x1 - W)},${n(g1)} ${n(x1 - W)},${n(g1)} ${n(x1)},${n(cT)} L${n(x1)},${n(cB)} L${n(x0)},${n(cB)} L${n(x0)},${n(cT)} C${n(x0 + W)},${n(g1)} ${n(x0 + W)},${n(g1)} ${n(x0)},${n(aT)} Z`;
+        else if (right) d = `M${n(x1)},${n(cT)} L${n(x1)},${n(cB)} C${n(x1 - W)},${n(g2)} ${n(x1 - W)},${n(g2)} ${n(x1)},${n(bT)} L${n(x1)},${n(bB)} L${n(x0)},${n(bB)} L${n(x0)},${n(bT)} C${n(x0 + W)},${n(g2)} ${n(x0 + W)},${n(g2)} ${n(x0)},${n(cB)} Z`;
+      }
+      if (d) parts.push(`<path d="${d}" fill="${color}" fill-opacity="0.30" stroke="${color}" stroke-opacity="0.85" stroke-width="1.5"/>`);
     }
     this._ribbonSvg.innerHTML = parts.join('');
   }
