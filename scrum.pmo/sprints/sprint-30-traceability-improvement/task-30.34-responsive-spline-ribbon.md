@@ -11,9 +11,9 @@
 - [x] In Progress
   - [x] refinement
   - [x] creating test cases
-  - [~] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Traceability
@@ -40,16 +40,16 @@ S30 diff/merge editor, R30.34 (supersedes R30.32 boxes, Tron-rejected). Rider 'M
 
 ## Acceptance Criteria
 
-- [ ] (one-spline) ONE continuous filled spline ribbon per change flows Local→Result→Repository as a SINGLE SVG path (cubic-bezier across each gutter, absorbing per-pane Y offset) — NOT per-pane boxes/bands; the box-outline + trapezoid-band renderers are REPLACED/deleted (supersedes R30.32)
-- [ ] (both-orientations) Responsive BOTH orientations: mobile (viewport <=~820px) = 3 STACKED panes with the spline flowing DOWN; desktop = side-by-side panes with the spline flowing ACROSS; both render the continuous ribbon correctly
-- [ ] (subtle-shading) Splines not boxes: subtle translucent shading color-coded by kind (change=blue / conflict=red-pink / active=green), opaque enough to read on the ~#111 gutter, NO hard outlines
-- [ ] (legible-mapping) At a glance ANY change is traceable Local→merged Result→Repository — the continuous mapping IS the requirement (Rider fidelity); inline accept controls (x reject / >> accept-toward-result / <<) sit ON the ribbon edge without occluding it
-- [ ] (mobile-first) Mobile-FIRST (works at 390px) and desktop-reliable; layout + spline correct on a 390px phone and on desktop
-- [ ] (gate) GATE = 390px-mobile screenshot + desktop screenshot + PIXEL comparison vs the Rider target image — NEVER DOM/element-count (a 3rd false-green is unacceptable); client-facing → version-bump + atomic deploy (R30.28)
+- [x] (one-spline) ONE continuous filled spline ribbon per change flows Local→Result→Repository as a SINGLE SVG path (cubic-bezier across each gutter, absorbing per-pane Y offset) — NOT per-pane boxes/bands; the box-outline + trapezoid-band renderers are REPLACED/deleted (supersedes R30.32)
+- [x] (both-orientations) Responsive BOTH orientations: mobile (viewport <=~820px) = 3 STACKED panes with the spline flowing DOWN; desktop = side-by-side panes with the spline flowing ACROSS; both render the continuous ribbon correctly
+- [x] (subtle-shading) Splines not boxes: subtle translucent shading color-coded by kind (change=blue / conflict=red-pink / active=green), opaque enough to read on the ~#111 gutter, NO hard outlines
+- [x] (legible-mapping) At a glance ANY change is traceable Local→merged Result→Repository — the continuous mapping IS the requirement (Rider fidelity); inline accept controls (x reject / >> accept-toward-result / <<) sit ON the ribbon edge without occluding it
+- [x] (mobile-first) Mobile-FIRST (works at 390px) and desktop-reliable; layout + spline correct on a 390px phone and on desktop
+- [x] (gate) GATE = 390px-mobile screenshot + desktop screenshot + PIXEL comparison vs the Rider target image — NEVER DOM/element-count (a 3rd false-green is unacceptable); client-facing → version-bump + atomic deploy (R30.28)
 
 ## Implementation
 
-IN PROGRESS — EXPERT BUILDING now (version-bump pending), architect backstops. Replace box-outline + trapezoid-band renderers with ONE continuous SVG spline path per change (cubic-bezier across each gutter, absorbing per-pane Y offset); responsive layout mobile<=820px stacked spline-down / desktop side-by-side spline-across. → deploy → QA-Review → tester VISUAL-gate. ★ GATE (AC-gate): 390px-mobile screenshot + desktop screenshot + PIXEL comparison vs the Rider target image — NEVER DOM/element-count (a 3rd false-green is UNACCEPTABLE). → Done only on the PIXEL gate GREEN + chain-to-Test wired + served==gated (R30.25/R30.24 lessons). Client-facing → version-bump + atomic deploy (R30.28).
+IN PROGRESS — EXPERT BUILDING now (version-bump pending), architect backstops. Replace box-outline + trapezoid-band renderers with ONE continuous SVG spline path per change (cubic-bezier across each gutter, absorbing per-pane Y offset); responsive layout mobile<=820px stacked spline-down / desktop side-by-side spline-across. → deploy → QA-Review → tester VISUAL-gate. ★ GATE (AC-gate): 390px-mobile screenshot + desktop screenshot + PIXEL comparison vs the Rider target image — NEVER DOM/element-count (a 3rd false-green is UNACCEPTABLE). → Done only on the PIXEL gate GREEN + chain-to-Test wired + served==gated (R30.25/R30.24 lessons). Client-facing → version-bump + atomic deploy (R30.28). | -> QA-REVIEW / AWAITING-TRON-SIGN-OFF (PO accuracy-reconcile: expert measured IDLE, NOT active-building). Gate GREEN + chain-complete: pixel-gate e35d7bfaa (5-check, INDEPENDENT PIXEL comparison NOT DOM-count per AC-gate), Test 9e4c1a67 status=pass wired onto Impl 5051b2a4 renderConnectorRibbons (the marker-reconciled unit). served==gated v0.7.47 (no newer deploy). Per rule #9 HOLD at QA-Review — NOT Done until TRON sign-off (the spline visual verdict). On Tron sign-off -> DONE + R30.31 line-mapping UNHOLDS.
 
 ## Subtasks
 
