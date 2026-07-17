@@ -12,9 +12,9 @@
   - [x] refinement
   - [x] creating test cases
   - [x] implementing
-  - [ ] testing
+  - [x] testing
 - [x] QA Review
-- [ ] Done
+- [x] Done
 
 ## Traceability
 
@@ -40,16 +40,16 @@ S30 diff/merge editor (R30.24, IMG_4522) — make a diff a clickable, shareable 
 
 ## Acceptance Criteria
 
-- [ ] (deep-link) Loading /edit/<path>?repo=<key>&left=<ref>&right=<ref>&3way=1 opens rb-diff-editor to that EXACT diff, restoring the state — edit.ts reads the params on load and initializes the diff
-- [ ] (deep-link) The URL carries repo (KEY, resolved via R30.6.7 RepoRegistry allowlist), path, left ref, right ref, optional 3way flag; no client-supplied absolute path is honored
-- [ ] (share) A copy-link / share affordance generates the shareable URL from the CURRENT diff state (repo+path+left+right+3way) and copies it to the clipboard
-- [ ] (share) Open→share→open round-trips: the generated link, when opened, restores the identical diff view
-- [ ] (security) The ?repo= param is a KEY resolved server-side (R30.6.7); an unknown/absent key falls back to the diff's existing repo-targeting default (rawbin), no path abuse
-- [ ] (verify) IMG_4522 becomes a clickable link (e.g. /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1) that opens the exact diff; DET-3x + Tron visual; client-facing → version-bump
+- [x] (deep-link) Loading /edit/<path>?repo=<key>&left=<ref>&right=<ref>&3way=1 opens rb-diff-editor to that EXACT diff, restoring the state — edit.ts reads the params on load and initializes the diff
+- [x] (deep-link) The URL carries repo (KEY, resolved via R30.6.7 RepoRegistry allowlist), path, left ref, right ref, optional 3way flag; no client-supplied absolute path is honored
+- [x] (share) A copy-link / share affordance generates the shareable URL from the CURRENT diff state (repo+path+left+right+3way) and copies it to the clipboard
+- [x] (share) Open→share→open round-trips: the generated link, when opened, restores the identical diff view
+- [x] (security) The ?repo= param is a KEY resolved server-side (R30.6.7); an unknown/absent key falls back to the diff's existing repo-targeting default (rawbin), no path abuse
+- [x] (verify) IMG_4522 becomes a clickable link (e.g. /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1) that opens the exact diff; DET-3x + Tron visual; client-facing → version-bump
 
 ## Implementation
 
-IN PROGRESS — architect derive-PASS (d2f79572b: URL schema accepted; owner-split OVERRIDE → BOTH methods on RbDiffEditor 18165081 per state-owner principle), EXPERT BUILDING now. Chain: UC openFromUrl (cc47d004) + UC shareLink (8e88026a) → Class RbDiffEditor 18165081 → Methods openFromParams + buildShareLink. openFromParams reads /edit/<path>?repo&left&right&3way on load; buildShareLink builds URL from current diff state → clipboard; repo KEY resolved server-side via R30.6.7 RepoRegistry allowlist. → expert deploy → tester DET-3x (open→share→open round-trip, clickable link works) → I flip to QA-Review (per PO). → QA-REVIEW (PO: DONE+LIVE v0.7.35 7efa252f7, link render-verified). Chain-to-Impl COMPLETE: openFromParams f52b6941→Impl dc236c19 + buildShareLink 3fffd212→Impl bcd06c77 (both Impls present; Impl.tests[] EMPTY → tester DET-3x pending). ACs held UNCHECKED — the tester DET-3x gate (open→share→open round-trip + ?repo= KEY security + IMG_4522 clickable) proves them; on tester GREEN I mark 6/6 + Done. Render-verified ≠ gate-proven.
+IN PROGRESS — architect derive-PASS (d2f79572b: URL schema accepted; owner-split OVERRIDE → BOTH methods on RbDiffEditor 18165081 per state-owner principle), EXPERT BUILDING now. Chain: UC openFromUrl (cc47d004) + UC shareLink (8e88026a) → Class RbDiffEditor 18165081 → Methods openFromParams + buildShareLink. openFromParams reads /edit/<path>?repo&left&right&3way on load; buildShareLink builds URL from current diff state → clipboard; repo KEY resolved server-side via R30.6.7 RepoRegistry allowlist. → expert deploy → tester DET-3x (open→share→open round-trip, clickable link works) → I flip to QA-Review (per PO). → QA-REVIEW (PO: DONE+LIVE v0.7.35 7efa252f7, link render-verified). Chain-to-Impl COMPLETE: openFromParams f52b6941→Impl dc236c19 + buildShareLink 3fffd212→Impl bcd06c77 (both Impls present; Impl.tests[] EMPTY → tester DET-3x pending). ACs held UNCHECKED — the tester DET-3x gate (open→share→open round-trip + ?repo= KEY security + IMG_4522 clickable) proves them; on tester GREEN I mark 6/6 + Done. Render-verified ≠ gate-proven. → DONE 6/6: tester GREEN DET-3x + CHAIN-TO-TEST CLOSED (92d64a306, 89/357) — the empty-tests[] gap I flagged is RESOLVED: Impl openFromParams dc236c19 → Test 1f7c9a04 (deep-link restore, pass) + Impl buildShareLink bcd06c77 → Test 1f010e35 (share round-trip, pass). Verified both tests wired + passing before marking Done, not relayed.
 
 ## Subtasks
 
