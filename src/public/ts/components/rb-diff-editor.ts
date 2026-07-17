@@ -170,7 +170,7 @@ export class RbDiffEditor extends HTMLElement {
       const title = this.querySelector(`.de-${side === 'left' ? 'local' : 'remote'} .de-title`) as HTMLElement;
       if (title) title.textContent = st.ref ? `${st.path}@${st.ref}` : st.path;
       await this.computeMergedCenter();
-      if (side === 'left' && !st.ref && !this._deepLink) void this.populateLeftHistory(); // R30.17 (TRON4): working-file load (no ref) → promote to RIGHT + fill LEFT history (older-left); guard !st.ref so the older-ref reload doesn't recurse. R30.24: skip during a deep-link restore so it can't overwrite the URL-specified RIGHT side.
+      if (side === 'left' && !st.ref && !this._deepLink) await this.populateLeftHistory(); // R30.17 (TRON4): working-file load (no ref) → promote to RIGHT + fill LEFT history (older-left); guard !st.ref so the older-ref reload doesn't recurse. R30.24: skip during a deep-link restore. R30.25: AWAIT (serialize) so the promote's async tail can't race a later RIGHT ref-pick and blank LEFT.
     } catch { this.status(`load ${side} error`); }
   }
 
@@ -528,6 +528,7 @@ export class RbDiffEditor extends HTMLElement {
     const st = side === 'left' ? this.left : this.right;
     if (!st.path) { this.status('choose a file first'); return; }
     if (side === 'left') this._leftUserPicked = true; // R30.17 (TRON4): an explicit LEFT ref-pick WINS over the async older-default
+    else { this._rightUserPicked = true; this._promoteToken++; } // R30.25: symmetric — a user RIGHT-pick WINS over the auto-promote AND invalidates any in-flight promote (its LEFT-reload tail aborts on the token mismatch), so a RIGHT pick never touches LEFT
     void this.loadSide(side, { path: st.path, ref });
   }
 
@@ -605,29 +606,41 @@ export class RbDiffEditor extends HTMLElement {
     const sel = this.querySelector('.de-history') as HTMLSelectElement | null;
     const path = this.left.path;
     if (!sel || !path) return;
+    // R30.25: fresh left-context — clear any prior RIGHT-pick flag (so THIS file still auto-promotes), take a generation
+    // token + snapshot the LEFT content BEFORE any await. A RIGHT ref-pick that lands during the awaits re-sets
+    // _rightUserPicked and bumps _promoteToken → the token/flag checks below abort the LEFT-reload tail, so a RIGHT pick
+    // can NEVER blank or reload LEFT (Tron's invariant: a RIGHT pick touches only right + center).
+    this._rightUserPicked = false;
+    const token = ++this._promoteToken;
+    const leftSnapshot = this.left.content;
     // promote the just-loaded working file to the RIGHT (current) so the LEFT can carry an older version
-    this.right = { path: this.left.path, ref: '', repo: this.left.repo, content: this.left.content };
+    this.right = { path: this.left.path, ref: '', repo: this.left.repo, content: leftSnapshot };
     if (this.edRemote) this.edRemote.setValue(this.right.content);
     const rt = this.querySelector('.de-remote .de-title') as HTMLElement; if (rt) rt.textContent = this.right.path;
     this._leftUserPicked = false;
     const rq = this.left.repo ? `&repo=${encodeURIComponent(this.left.repo)}` : '';
     let history: { hash: string; subject: string }[] = [];
     try { history = (await (await fetch(`/api/git/file-history?path=${encodeURIComponent(path)}${rq}`)).json()).history ?? []; } catch { /* non-git → fallback */ }
+    if (token !== this._promoteToken || this._rightUserPicked) return; // R30.25: a RIGHT pick landed mid-flight → this promote is stale, abort before touching LEFT
     if (!history.length) { sel.innerHTML = '<option>no history</option>'; sel.disabled = true; this.status('no git history for this file — use ⎇ to pick a ref'); return; }
     sel.disabled = false;
     if (!this._historyWired) {
       this._historyWired = true;
       sel.addEventListener('change', () => { if (sel.value) { this._leftUserPicked = true; void this.loadSide('left', { path, ref: sel.value }); } }); // explicit LEFT pick WINS
     }
-    // MEANINGFUL-DEFAULT: newest version that DIFFERS from the working (right) file — HEAD~1 when clean, else HEAD.
+    // MEANINGFUL-DEFAULT: newest version that DIFFERS from the working file — HEAD~1 when clean, else HEAD. R30.25: compare
+    // to leftSnapshot (the working content captured before the awaits), NOT live this.right — which a RIGHT pick may have mutated.
     let newestContent = '';
     try { newestContent = (await (await fetch(`/api/git/file?ref=${encodeURIComponent(history[0].hash)}&path=${encodeURIComponent(path)}${rq}`)).json()).content ?? ''; } catch {}
-    const defaultIdx = (newestContent === this.right.content && history.length > 1) ? 1 : 0;
+    if (token !== this._promoteToken || this._rightUserPicked) return; // R30.25: re-check after the 2nd await — never reload LEFT over a fresh user RIGHT pick
+    const defaultIdx = (newestContent === leftSnapshot && history.length > 1) ? 1 : 0;
     sel.innerHTML = history.map((h, i) => `<option value="${h.hash}"${i === defaultIdx ? ' selected' : ''}>${i === 0 ? '● latest ' : ''}${h.hash.slice(0, 7)} ${h.subject}</option>`).join('');
-    if (!this._leftUserPicked) void this.loadSide('left', { path, ref: history[defaultIdx].hash }); // PICK-WINS guard
+    if (!this._leftUserPicked) void this.loadSide('left', { path, ref: history[defaultIdx].hash }); // PICK-WINS guard (LEFT); _rightUserPicked/token already re-checked above
   }
   private _historyWired = false;
   private _leftUserPicked = false;
+  private _rightUserPicked = false; // R30.25: symmetric to _leftUserPicked — a user-driven RIGHT ref-pick wins over the auto-promote (populateLeftHistory won't reload LEFT while set)
+  private _promoteToken = 0;         // R30.25: generation token — a stale in-flight promote aborts its LEFT-reload tail when this no longer matches (bumped by a RIGHT ref-pick / each new promote)
   private _deepLink = false; // R30.24: true while openFromParams restores a URL-linked diff (suppresses auto left-history promote)
 
   private async populateRepos(): Promise<void> {
