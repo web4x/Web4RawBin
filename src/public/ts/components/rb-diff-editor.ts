@@ -125,7 +125,7 @@ export class RbDiffEditor extends HTMLElement {
   async mountThreePane(): Promise<void> {
     this.monaco = await RbDiffEditor.monacoLoader();
     const m = this.monaco;
-    const common = { automaticLayout: true, minimap: { enabled: false }, fontSize: 12, scrollBeyondLastLine: true, renderLineHighlight: 'none' as const }; // R30.16: true → last line can reach the top
+    const common = { automaticLayout: true, minimap: { enabled: false }, fontSize: 12, lineHeight: 19, wordWrap: 'off' as const, scrollBeyondLastLine: true, renderLineHighlight: 'none' as const }; // R30.16: scrollBeyondLastLine → last line can reach the top. R30.30: pin lineHeight+wordWrap on ALL 3 panes so a font-load/wrap variance can never add a per-row px delta (0px by construction, complements the row re-anchor).
     this.edLocal = m.editor.create(this.mount('local'), { ...common, value: this.left.content, readOnly: true, theme: 'vs-dark' });
     this.edCenter = m.editor.create(this.mount('center'), { ...common, value: '', readOnly: false, theme: 'vs-dark' });
     this.edRemote = m.editor.create(this.mount('remote'), { ...common, value: this.right.content, readOnly: true, theme: 'vs-dark' });
@@ -334,20 +334,37 @@ export class RbDiffEditor extends HTMLElement {
   // near-horizontal bands). Pad = maxH − that pane's real block length, inserted AFTER the block.
   private alignPaneRows(): void {
     if (!this.edLocal || !this.edCenter || !this.edRemote) return;
-    const live = this.conflicts.filter(c => !this.dismissed.has(c.id));
-    const specs: Array<['local' | 'center' | 'remote', any, (c: Conflict) => { after: number; pad: number }]> = [
-      ['local', this.edLocal, c => ({ after: c.aStart + c.a.length, pad: this._maxH(c) - c.a.length })],
-      ['center', this.edCenter, c => ({ after: c.span[1], pad: this._maxH(c) - (c.pick === 'b' ? c.b.length : c.a.length) })],
-      ['remote', this.edRemote, c => ({ after: c.bStart + c.b.length, pad: this._maxH(c) - c.b.length })],
-    ];
-    for (const [key, ed, fn] of specs) {
+    // R30.30: SINGLE forward pass over centerSeq (the full region sequence: {ok}=stable/blank anchor, {cid}=changed
+    // region). Track REAL content lines per pane (rL/rC/rR → the viewZone afterLineNumber) AND VISUAL rows
+    // (vL/vC/vR = real + spacer rows emitted so far). Changed region → pad each pane to maxH. Stable region →
+    // RE-ANCHOR FIRST: pad the lagging panes up to max(vL,vC,vR) BEFORE emitting the stable lines, so ALL 3 land the
+    // next full line on the same visual row. Any single-region mis-pad thus snaps to 0 at the very next stable/blank
+    // line — self-healing, bounded to one block (fixes the L1823 32px residual that R30.29's counters-only froze to EOF).
+    const plan: Record<'local' | 'center' | 'remote', Array<{ after: number; pad: number }>> = { local: [], center: [], remote: [] };
+    let rL = 0, rC = 0, rR = 0, vL = 0, vC = 0, vR = 0;
+    const push = (pane: 'local' | 'center' | 'remote', after: number, pad: number) => { if (pad > 0) plan[pane].push({ after, pad }); };
+    for (const seg of this.centerSeq) {
+      if ('ok' in seg) {
+        const target = Math.max(vL, vC, vR);                                   // re-anchor: snap laggards to the max
+        push('local', rL, target - vL); push('center', rC, target - vC); push('remote', rR, target - vR);
+        vL = vC = vR = target;
+        const k = seg.ok.length; rL += k; rC += k; rR += k; vL += k; vC += k; vR += k; // emit K stable lines (advance all)
+      } else {
+        const c = this.conflicts.find(x => x.id === seg.cid);
+        if (!c) continue;
+        const picked = c.pick === 'b' ? c.b.length : c.a.length, maxH = this._maxH(c);
+        push('local', rL + c.a.length, maxH - c.a.length);                     // pad each pane's block up to maxH
+        push('center', rC + picked, maxH - picked);
+        push('remote', rR + c.b.length, maxH - c.b.length);
+        rL += c.a.length; rC += picked; rR += c.b.length; vL += maxH; vC += maxH; vR += maxH;
+      }
+    }
+    const specs: Array<['local' | 'center' | 'remote', any]> = [['local', this.edLocal], ['center', this.edCenter], ['remote', this.edRemote]];
+    for (const [key, ed] of specs) {
       ed.changeViewZones((acc: any) => {
         for (const id of this._zoneIds[key]) acc.removeZone(id);
         this._zoneIds[key] = [];
-        for (const c of live) {
-          const { after, pad } = fn(c);
-          if (pad > 0) this._zoneIds[key].push(acc.addZone({ afterLineNumber: Math.max(0, after), heightInLines: pad, domNode: document.createElement('div') }));
-        }
+        for (const { after, pad } of plan[key]) this._zoneIds[key].push(acc.addZone({ afterLineNumber: Math.max(0, after), heightInLines: pad, domNode: document.createElement('div') }));
       });
     }
   }
