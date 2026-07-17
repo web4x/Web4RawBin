@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "28ddba38-e259-47f9-8168-45178a3abb0e",
+  "name": "Build.assertVersionAtHead impl",
+  "tests": [],
+  "sourceFile": "ior:file:build.mjs",
+  "designAhead": true,
+  "description": "DESIGN-AHEAD: guard fails if prod version != HEAD package.json. Expert builds + tags [impl] marker (=this Impl uuid)."
+ },
+ "ownerIor": "ior:instance:71931179-03b9-487a-9abf-550af65d42c7"
+}

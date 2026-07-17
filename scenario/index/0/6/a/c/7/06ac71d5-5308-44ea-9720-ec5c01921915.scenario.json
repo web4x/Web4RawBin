@@ -1,0 +1,65 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "06ac71d5-5308-44ea-9720-ec5c01921915",
+  "name": "Deploy commits atomically - served == committed == HEAD (no phantom-version window)",
+  "altId": "R30.28",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:fd00cbc6-4f0f-4ef1-aebc-17e75d7a178b",
+   "ior:instance:9eff5d30-4c78-4334-8c05-cc465ba957b4"
+  ],
+  "description": "The deploy workflow commits ATOMICALLY: build.mjs/deploy commits the version-bump + built dist BEFORE (or with) serving the new bundle, so the invariant served == committed == HEAD holds at all times - eliminating the phantom-version window where the served bundle differs from any commit (ungateable: a user hits a version that does not exist in git). A guard fails the deploy/startup if the running prod version != HEAD package.json version, so a serve-before-commit cannot recur silently. By-construction: the commit-then-serve ordering + the guard are structural, not a manual step. (2nd phantom-version class the ScrumMaster caught - companion to R30.14 SW-auto-update which fixed the CLIENT stale-cache side; this fixes the SERVER serve-before-commit side.)",
+  "tronQuote": "> robbin-po/ScrumMaster 2026-07-17 (2nd phantom-version caught): the deploy serves BEFORE committing -> a phantom window each deploy (served != committed, ungateable). Fix by-construction: commit version-bump+dist before/with serving; served==committed==HEAD always; a guard fails if prod version != HEAD package.json.",
+  "discoverySource": {
+   "type": "team-discovery",
+   "discoveredBy": "scrum-master (2nd phantom-version) via robbin-po",
+   "date": "2026-07-17",
+   "note": "Systemic deploy-atomicity. NO architect design note - PO gave the by-construction spec directly. NEW Class Build (build.mjs, 0 existing - measured). Companion to R30.14 (SW auto-update = client stale-cache side); this = server serve-before-commit side. Sole-minter FULL chain."
+  },
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:76512c5f-3e87-4e4f-99aa-113312458e07"
+  ],
+  "crossRefNote": "By-construction deploy-atomicity (same shape as R27.2 one-canonical / R30.7 uniform-guard). NEW Class Build (build.mjs). Companion to R30.14 (SW auto-update fixed the CLIENT stale-cache; R30.28 fixes the SERVER serve-before-commit) - together they close the phantom-version class both ends. Architect derive-confirms the new Class + 2 methods.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-commit-before-serve",
+    "group": "atomic",
+    "text": "The deploy commits the version-bump + built dist BEFORE (or atomically with) serving the new bundle - it never serves an uncommitted build."
+   },
+   {
+    "id": "AC-invariant",
+    "group": "invariant",
+    "text": "served == committed == HEAD at all times: the version the server serves equals the committed dist equals HEAD package.json version. No phantom window (served != committed)."
+   },
+   {
+    "id": "AC-guard",
+    "group": "guard",
+    "text": "A guard FAILS the deploy/startup if the running prod version != HEAD package.json version - a serve-before-commit is caught, not silent."
+   },
+   {
+    "id": "AC-no-phantom",
+    "group": "invariant",
+    "text": "The phantom-version window (served != committed, ungateable) is eliminated: every served bundle is reproducible from a commit."
+   },
+   {
+    "id": "AC-by-construction",
+    "group": "by-construction",
+    "text": "Atomicity is structural (commit-then-serve ordering + the guard), not a manual step - a new deploy path cannot skip it."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "A deploy leaves served==committed==HEAD; the guard trips on a deliberate version mismatch (gate the guard). Companion to R30.14 (client side)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

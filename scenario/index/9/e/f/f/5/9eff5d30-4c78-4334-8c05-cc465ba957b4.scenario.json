@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "9eff5d30-4c78-4334-8c05-cc465ba957b4",
+  "name": "deploy.assertVersionAtHead",
+  "description": "A guard FAILS the deploy/startup if the running prod version != HEAD package.json version - so a serve-before-commit (phantom-version window) cannot recur silently; it is caught by construction.",
+  "class": "ior:instance:b6946e59-44a2-4460-8811-7682775912b5",
+  "classes": [
+   "ior:instance:b6946e59-44a2-4460-8811-7682775912b5"
+  ],
+  "method": "ior:instance:71931179-03b9-487a-9abf-550af65d42c7",
+  "coveredRequirement": "ior:instance:06ac71d5-5308-44ea-9720-ec5c01921915"
+ },
+ "ownerIor": "ior:instance:06ac71d5-5308-44ea-9720-ec5c01921915"
+}

@@ -408,3 +408,17 @@
   - [ ] **(impl-edit)** Impl-edits to EXISTING RbDiffEditor.openFromParams (Impl dc236c19) + RbDiffEditor.loadSide (Impl c4da837c) - markers STAY, no new Method/Class.
   - [ ] **(verify)** DET-3x GREEN on v0.7.39 (Test 7d3e1a52 R30.25.1/.2 deep-link change-RIGHT, status pass, on both Impls). Status DONE - retroactive #126 completion; planner backfills T30.26.
   -> diffEditor.deepLinkRightPickPreserved [uc:uuid:1cc5ed1c-726e-47a0-aba8-821c1d2e4829]
+
+- [ ] **R30.28 — Deploy commits atomically - served == committed == HEAD (no phantom-version window)**
+  [requirement:uuid:06ac71d5-5308-44ea-9720-ec5c01921915]
+  > robbin-po/ScrumMaster 2026-07-17 (2nd phantom-version caught): the deploy serves BEFORE committing -> a phantom window each deploy (served != committed, ungateable). Fix by-construction: commit version-bump+dist before/with serving; served==committed==HEAD always; a guard fails if prod version != HEAD package.json.
+  The deploy workflow commits ATOMICALLY: build.mjs/deploy commits the version-bump + built dist BEFORE (or with) serving the new bundle, so the invariant served == committed == HEAD holds at all times - eliminating the phantom-version window where the served bundle differs from any commit (ungateable: a user hits a version that does not exist in git). A guard fails the deploy/startup if the running prod version != HEAD package.json version, so a serve-before-commit cannot recur silently. By-construction: the commit-then-serve ordering + the guard are structural, not a manual step. (2nd phantom-version class the ScrumMaster caught - companion to R30.14 SW-auto-update which fixed the CLIENT stale-cache side; this fixes the SERVER serve-before-commit side.)
+  **Acceptance criteria:**
+  - [ ] **(atomic)** The deploy commits the version-bump + built dist BEFORE (or atomically with) serving the new bundle - it never serves an uncommitted build.
+  - [ ] **(invariant)** served == committed == HEAD at all times: the version the server serves equals the committed dist equals HEAD package.json version. No phantom window (served != committed).
+  - [ ] **(guard)** A guard FAILS the deploy/startup if the running prod version != HEAD package.json version - a serve-before-commit is caught, not silent.
+  - [ ] **(invariant)** The phantom-version window (served != committed, ungateable) is eliminated: every served bundle is reproducible from a commit.
+  - [ ] **(by-construction)** Atomicity is structural (commit-then-serve ordering + the guard), not a manual step - a new deploy path cannot skip it.
+  - [ ] **(verify)** A deploy leaves served==committed==HEAD; the guard trips on a deliberate version mismatch (gate the guard). Companion to R30.14 (client side).
+  -> deploy.commitBeforeServe [uc:uuid:fd00cbc6-4f0f-4ef1-aebc-17e75d7a178b]
+  -> deploy.assertVersionAtHead [uc:uuid:9eff5d30-4c78-4334-8c05-cc465ba957b4]

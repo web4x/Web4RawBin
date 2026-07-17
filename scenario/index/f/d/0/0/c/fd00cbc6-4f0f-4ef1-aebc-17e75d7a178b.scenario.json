@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "fd00cbc6-4f0f-4ef1-aebc-17e75d7a178b",
+  "name": "deploy.commitBeforeServe",
+  "description": "The deploy commits the version-bump + built dist BEFORE (or atomically with) serving the new bundle - it never serves an uncommitted build, so served == committed == HEAD at all times.",
+  "class": "ior:instance:b6946e59-44a2-4460-8811-7682775912b5",
+  "classes": [
+   "ior:instance:b6946e59-44a2-4460-8811-7682775912b5"
+  ],
+  "method": "ior:instance:2612e2fe-2000-4a46-a0f7-ffa0df9a1fac",
+  "coveredRequirement": "ior:instance:06ac71d5-5308-44ea-9720-ec5c01921915"
+ },
+ "ownerIor": "ior:instance:06ac71d5-5308-44ea-9720-ec5c01921915"
+}

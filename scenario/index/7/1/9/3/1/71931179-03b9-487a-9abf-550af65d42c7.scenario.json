@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "71931179-03b9-487a-9abf-550af65d42c7",
+  "name": "Build.assertVersionAtHead",
+  "implementations": [
+   "ior:instance:28ddba38-e259-47f9-8168-45178a3abb0e"
+  ],
+  "tests": [],
+  "note": "R30.28. Name EXACT. Guard: assert served/prod version == HEAD package.json version; fail loudly on mismatch. By-construction anti-recurrence."
+ },
+ "ownerIor": "ior:instance:b6946e59-44a2-4460-8811-7682775912b5"
+}

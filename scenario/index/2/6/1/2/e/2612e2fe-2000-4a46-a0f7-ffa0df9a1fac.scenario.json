@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "2612e2fe-2000-4a46-a0f7-ffa0df9a1fac",
+  "name": "Build.commitBeforeServe",
+  "implementations": [
+   "ior:instance:50541bb3-3d3b-4958-9687-ca23c8b0961b"
+  ],
+  "tests": [],
+  "note": "R30.28. Name EXACT. Order the deploy so the version-bump + dist commit lands BEFORE/with serving; no serve of an uncommitted build."
+ },
+ "ownerIor": "ior:instance:b6946e59-44a2-4460-8811-7682775912b5"
+}
