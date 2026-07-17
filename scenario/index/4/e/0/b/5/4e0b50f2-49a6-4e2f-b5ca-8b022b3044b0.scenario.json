@@ -1,0 +1,69 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "4e0b50f2-49a6-4e2f-b5ca-8b022b3044b0",
+  "name": "SVG connector overlays visible - L<->C + C<->R curves + IntelliJ change boxes (line mapping)",
+  "altId": "R30.32",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:3f641eb5-5f5e-47a7-a6c9-d88ac757a1ad"
+  ],
+  "description": "The SVG connector overlays that map corresponding change regions Local<->Center and Center<->Repository are VISIBLE and IntelliJ-styled. renderConnectorRibbons already draws both trapezoid bands (SVG .de-ribbons, z-5, pointer-events:none, origin-gated, colored by conflictColor) and the blocks are backgrounded on all 3 panes - so this is VERIFY-VISIBLE + IntelliJ-parity ENHANCE, NOT a new overlay (must not duplicate). PRIMARY fix: the bands span the inter-pane GUTTER (lRight->cLeft, cRight->rLeft); if a later layout change (R30.16/R30.30) narrowed the gutter to ~0 the bands collapse to invisible (same class as R30.13: visibility was WIDTH not z/opacity) - restore the ~34px inter-pane gutter so the bands have width. ENHANCE (IntelliJ screenshot 3): add a 1px STROKE OUTLINE box (de-block-outline-<kind>, CONFLICT_PALETTE[kind]) around each change block on all 3 panes (complement the fill); draw bands for MODIFICATIONS too (post-R30.29 a>0 AND b>0 -> both bands connect a modification across all 3 panes); keep pointer-events:none/z-5. Impl-edit; markers STAY (renderConnectorRibbons + the two block renderers), no new units unless a dedicated box helper is preferred.",
+  "tronQuote": "> TRON (screenshot 3, HARD req): WE NEED THESE - the connector overlays between the panes (left<->center and center<->right) showing how the lines map, IntelliJ-style boxes on the connectors. They are invisible right now.",
+  "discoverySource": {
+   "type": "tron-directive-enhance",
+   "flaggedBy": "Tron (screenshot 3) via robbin-po/SM",
+   "date": "2026-07-17",
+   "note": "Architect assessment+spec r3032-svg-connector-overlays.md (84c116cbc): renderConnectorRibbons (5051b2a4) already draws both bands - R30.32 = VERIFY-VISIBLE (restore inter-pane gutter width, regressed to invisible) + IntelliJ box outlines. IMPL-EDIT to renderConnectorRibbons (Method ab145dab / marker 5051b2a4) + renderCenterChangeBlocks (37c9694c) + renderSideChangeBlocks (eb994dcd); markers STAY, no new units (unless a box helper is preferred - architect re-derives). Priority FIRST before R30.31 (held). Sole-minter."
+  },
+  "designRef": "scrum.pmo/design-notes/r3032-svg-connector-overlays.md (84c116cbc)",
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:9b525a80-5d8d-4533-a194-f63da132dd37",
+   "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f",
+   "ior:instance:d74360d2-41ca-4d6d-9015-0194629b40eb",
+   "ior:instance:5aa71554-03ee-410f-b0d4-d00e9a7f2efa"
+  ],
+  "crossRefNote": "VERIFY-VISIBLE + IntelliJ-parity ENHANCE of the EXISTING overlay - NOT a duplicate. IMPL-EDIT to RbDiffEditor.renderConnectorRibbons (Impl-marker 5051b2a4, PRIMARY: visibility/gutter + modification bands) + renderCenterChangeBlocks (37c9694c) + renderSideChangeBlocks (eb994dcd) (box outlines); markers STAY. Gutter-width restore = same class as R30.13 (visibility=WIDTH). crossRef R30.13/16/17 (renderConnectorRibbons) + R30.19 (side blocks). Architect derive-confirms the impl-edit reuse (or a dedicated box Method).",
+  "implEdit": "markers STAY: renderConnectorRibbons 5051b2a4 (Method ab145dab, PRIMARY) + renderCenterChangeBlocks 37c9694c + renderSideChangeBlocks eb994dcd. + .de-panes gutter-width restore (layout). Optional NEW box-drawing Method (architect re-derive). NO new units by default.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-0",
+    "group": "visible",
+    "text": "Both connector sets are VISIBLE: Local<->Center AND Center<->Repository trapezoid curves render with NON-ZERO width for every change region (measure lRight<cLeft and cRight<rLeft with gap > ~20px)."
+   },
+   {
+    "id": "AC-1",
+    "group": "gutter",
+    "text": "PRIMARY: a real inter-pane gutter (~34px each side, .de-panes) is restored so the bands have width - the invisibility was a WIDTH regression (gutter->~0), same class as R30.13, not a z/opacity issue. No duplicate overlay is minted (renderConnectorRibbons already draws them)."
+   },
+   {
+    "id": "AC-2",
+    "group": "boxes",
+    "text": "Each change block shows a BOXED outline on all 3 panes (existing fill + a 1px stroke de-block-outline-<kind> colored by kind: conflict/change/resolvable) - IntelliJ screenshot 3."
+   },
+   {
+    "id": "AC-3",
+    "group": "mod-both-bands",
+    "text": "A MODIFICATION connects across all 3 panes (both L<->C and C<->R bands, post-R30.29 a>0 AND b>0); a one-sided INSERTION shows ONE band (origin-exact, R30.17/R30.19 preserved)."
+   },
+   {
+    "id": "AC-4",
+    "group": "scroll-legible",
+    "text": "Curves track the aligned rows on scroll (re-render, already wired via syncScroll3); pointer-events:none + z-5 under the z-6 icon strips (don't block the editor). The overlay makes the mapping legible: unchanged lines read straight/aligned, changes fan through trapezoids. Language-agnostic (geometry from lineY/getTopForLineNumber, no syntax parsing)."
+   },
+   {
+    "id": "AC-5",
+    "group": "verify",
+    "text": "DET-3x + Tron visual (screenshot-3 repro): both band sets non-zero width, boxed blocks all 3 panes, modification=both-bands, scroll-tracked. Client fix -> version-bump. (If a dedicated box-drawing Method is preferred over impl-editing the two block renderers, architect re-derives it as a NEW name-exact Method; default is impl-edit under the existing markers.)"
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

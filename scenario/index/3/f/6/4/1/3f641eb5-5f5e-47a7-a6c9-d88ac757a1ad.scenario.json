@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "3f641eb5-5f5e-47a7-a6c9-d88ac757a1ad",
+  "name": "diffEditor.connectorOverlays",
+  "description": "renderConnectorRibbons draws visible L<->C and C<->R trapezoid bands (gutter restored to non-zero width) mapping every change region across the 3 panes, with IntelliJ box outlines on the change blocks; modifications draw both bands, insertions one. Impl-edit to renderConnectorRibbons (+ the two block renderers for boxes); markers stay.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:ab145dab-4d2f-46d0-be62-ce90c46177e6",
+  "coveredRequirement": "ior:instance:4e0b50f2-49a6-4e2f-b5ca-8b022b3044b0"
+ },
+ "ownerIor": "ior:instance:4e0b50f2-49a6-4e2f-b5ca-8b022b3044b0"
+}
