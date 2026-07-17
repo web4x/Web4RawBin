@@ -46,10 +46,14 @@ export class RbDiffEditor extends HTMLElement {
     this.innerHTML = `
       <style>
         .de-conflict-glyph::before { content: '⚠'; color: #e66; font-size: 0.7rem; }
-        /* R30.16: colored rounded change-blocks in CENTER (replaces the flat maroon de-conflict-line), palette-matched to ribbons. */
-        .de-block-conflict { background: rgba(165,96,58,0.22); border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(165,96,58,0.5); }
-        .de-block-resolvable { background: rgba(58,138,90,0.20); border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(58,138,90,0.5); }
-        .de-block-change { background: rgba(58,110,165,0.20); border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(58,110,165,0.5); }
+        /* R30.16: colored rounded change-blocks (fill), palette-matched to ribbons. R30.32: outline split into a
+           de-block-outline-<kind> class = 1px SOLID CONFLICT_PALETTE border (IntelliJ boxed region, Tron screenshot 3). */
+        .de-block-conflict { background: rgba(165,96,58,0.22); border-radius: 4px; }
+        .de-block-resolvable { background: rgba(58,138,90,0.20); border-radius: 4px; }
+        .de-block-change { background: rgba(58,110,165,0.20); border-radius: 4px; }
+        .de-block-outline-conflict { box-shadow: inset 0 0 0 1px #a5603a; }
+        .de-block-outline-resolvable { box-shadow: inset 0 0 0 1px #3a8a5a; }
+        .de-block-outline-change { box-shadow: inset 0 0 0 1px #3a6ea5; }
         .de-gutter-conflict { background: #a5603a; width: 3px !important; margin-left: 2px; }
         .de-gutter-resolvable { background: #3a8a5a; width: 3px !important; margin-left: 2px; }
         .de-gutter-change { background: #3a6ea5; width: 3px !important; margin-left: 2px; }
@@ -378,7 +382,7 @@ export class RbDiffEditor extends HTMLElement {
     const m = this.monaco;
     const decos = this.conflicts.filter(c => !this.dismissed.has(c.id)).map(c => ({
       range: new m.Range(c.span[0] + 1, 1, Math.max(c.span[0] + 1, c.span[1]), 1),
-      options: { isWholeLine: true, className: `de-block-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}`, glyphMarginClassName: c.kind === 'conflict' ? 'de-conflict-glyph' : undefined },
+      options: { isWholeLine: true, className: `de-block-${c.kind} de-block-outline-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}`, glyphMarginClassName: c.kind === 'conflict' ? 'de-conflict-glyph' : undefined }, // R30.32: +outline = IntelliJ box
     }));
     this._blockDecoIds = this.edCenter.deltaDecorations(this._blockDecoIds, decos);
   }
@@ -395,7 +399,7 @@ export class RbDiffEditor extends HTMLElement {
     const live = this.conflicts.filter(c => !this.dismissed.has(c.id));
     const decosFor = (startKey: 'aStart' | 'bStart', linesKey: 'a' | 'b') => live.filter(c => c[linesKey].length > 0).map(c => ({
       range: new m.Range(c[startKey] + 1, 1, c[startKey] + c[linesKey].length, 1),
-      options: { isWholeLine: true, className: `de-block-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}` },
+      options: { isWholeLine: true, className: `de-block-${c.kind} de-block-outline-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}` }, // R30.32: +outline = IntelliJ box (Local/Repository panes)
     }));
     this._sideDecoIds.local = this.edLocal.deltaDecorations(this._sideDecoIds.local, decosFor('aStart', 'a'));
     this._sideDecoIds.remote = this.edRemote.deltaDecorations(this._sideDecoIds.remote, decosFor('bStart', 'b'));
@@ -471,7 +475,7 @@ export class RbDiffEditor extends HTMLElement {
     // A closed Bézier band: top edge x1,ya → x2,ya' (S-curve), down x2, back along a mirrored curve, close.
     const band = (x1: number, ya1: number, yb1: number, x2: number, ya2: number, yb2: number, color: string) => {
       const mx = ((x1 + x2) / 2).toFixed(1);
-      return `<path d="M${x1.toFixed(1)},${ya1.toFixed(1)} C${mx},${ya1.toFixed(1)} ${mx},${ya2.toFixed(1)} ${x2.toFixed(1)},${ya2.toFixed(1)} L${x2.toFixed(1)},${yb2.toFixed(1)} C${mx},${yb2.toFixed(1)} ${mx},${yb1.toFixed(1)} ${x1.toFixed(1)},${yb1.toFixed(1)} Z" fill="${color}" fill-opacity="0.22" stroke="${color}" stroke-opacity="0.6" stroke-width="1"/>`;
+      return `<path d="M${x1.toFixed(1)},${ya1.toFixed(1)} C${mx},${ya1.toFixed(1)} ${mx},${ya2.toFixed(1)} ${x2.toFixed(1)},${ya2.toFixed(1)} L${x2.toFixed(1)},${yb2.toFixed(1)} C${mx},${yb2.toFixed(1)} ${mx},${yb1.toFixed(1)} ${x1.toFixed(1)},${yb1.toFixed(1)} Z" fill="${color}" fill-opacity="0.28" stroke="${color}" stroke-opacity="0.9" stroke-width="1.5"/>`; // R30.32: stronger stroke/fill so the L↔C + C↔R connector bands read clearly (Tron "WE NEED THESE")
     };
     const parts: string[] = [];
     for (const c of this.conflicts.filter(x => !this.dismissed.has(x.id))) {
