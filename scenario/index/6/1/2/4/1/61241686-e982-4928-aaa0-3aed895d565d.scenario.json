@@ -1,0 +1,68 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "61241686-e982-4928-aaa0-3aed895d565d",
+  "name": "3-pane rows resync at modification regions - non-changed side shows base lines, no cumulative drift",
+  "altId": "R30.29",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:9b088010-5b4c-44ac-8997-d25df2f657c3"
+  ],
+  "description": "Corresponding lines share one visual row across all 3 panes at MODIFICATION regions too (not just insertions), with NO cumulative drift. R30.27 fixed insertions but modeled a modification's non-changed side as EMPTY - so for a diff3 stable buffer='a'/'b' region with oLength>0 (local/remote changed base while the OTHER side == base), the opposite pane still shows M=oLength base lines that R30.27 dropped, leaking M rows per region -> cumulative drift (otmux: 368px over ~50 modification regions). FIX (impl-edit to computeMergedCenter/computeOneSidedHunks, marker a0b30550 STAYS, + minimal vendor diff3.ts extension - infra under the same Impl, no new units): (1) vendor StableRegion exposes oStart+oLength (populated from the in-scope Hunk); (2) the one-sided branch sets the non-changed side to baseLines.slice(oStart, oStart+oLength) (M base lines, drop the []) and advances its counter by oLength; (3) empty-line-anchored resync - stable regions (buffer='o', incl blank lines) are universal language-agnostic anchors: pad each lagging pane to maxRow before the stable line so all 3 land the next full line on the SAME row -> drift snaps to 0 at every anchor. maxH=max(N,M) so alignPaneRows pads correctly; center=picked -> RESULT byte-identical. Zero syntax/AST parsing - all inputs are line indices/arrays from the line-diff3.",
+  "tronQuote": "> TRON 2026-07-17 (v0.7.40): alignment is good at the 1st method then drift starts at the next and accumulates - each new block must re-align. Discover the correct (empty) lines and resync around them with the next full line.",
+  "discoverySource": {
+   "type": "tron-bug-refinement",
+   "flaggedBy": "Tron (drift-onset diagnostic) via robbin-po; architect design",
+   "date": "2026-07-17",
+   "note": "Follow-on to R30.27 (la/lb counters - right for insertions, incomplete for modifications). Architect design r3029-modification-region-resync.md (74c844c33 + 8fa2b811a): empty-line-anchored resync + opposite-side=base-slice (oLength) + minimal vendor diff3.ts oStart/oLength exposure. IMPL-EDIT to computeMergedCenter (Method 09af8c8d / marker a0b30550 STAYS); vendor extension is infra under the same Impl, NO new units. Sole-minter."
+  },
+  "designRef": "scrum.pmo/design-notes/r3029-modification-region-resync.md (74c844c33 + 8fa2b811a)",
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f",
+   "ior:instance:940a92d8-9254-44dc-99aa-ad6f8b1d2e1c",
+   "ior:instance:674bae73-43ae-403a-9feb-ce8784ab1f20"
+  ],
+  "crossRefNote": "Completes R30.27 (3-pane row alignment - la/lb counters fixed insertions but leaked modifications' M base lines). IMPL-EDIT to RbDiffEditor.computeMergedCenter (Method 09af8c8d, Impl-marker a0b30550 STAYS) + minimal vendor diff3.ts StableRegion oStart/oLength exposure (infra under the same Impl, no new units). Empty-line-anchored resync (Tron): stable buffer='o' regions = universal language-agnostic anchors; opposite side = base.slice(oStart,oLength). alignPaneRows/render*/ribbons unchanged. Architect derive-confirms the impl-edit + vendor-infra reuse.",
+  "implEdit": "ior:instance:09af8c8d-591f-4746-8f2a-8bba5c1e682a (RbDiffEditor.computeMergedCenter); marker a0b30550-71c8-4497-9eaf-f73551f7bb0f STAYS. + vendor/diff3.ts StableRegion +oStart/+oLength (infra under same Impl). NO new Method/Class.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-0",
+    "group": "drift-onset",
+    "text": "private.resolve.target() stays aligned AND private.otmux.target.isPane() (the first drift point) + every method after it re-align - corresponding lines share one visual row across all 3 panes. private.complete.sessions(): LEFT line 72 and CENTER line 73 land on the SAME row."
+   },
+   {
+    "id": "AC-1",
+    "group": "cumulative",
+    "text": "otmux (~50 modification regions): 0px cumulative LEFT drift (was 368px)."
+   },
+   {
+    "id": "AC-2",
+    "group": "anchor-resync",
+    "text": "At EVERY stable/blank anchor (buffer='o') all 3 panes land the next full line on the SAME row (laggards padded to maxRow); at EVERY modification region the non-changed pane advances by its real M=oLength base lines. Drift is bounded to within one block and snaps to 0 at each anchor."
+   },
+   {
+    "id": "AC-3",
+    "group": "base-slice",
+    "text": "The vendor diff3.ts StableRegion exposes oStart+oLength (from the in-scope Hunk); the one-sided branch shows baseLines.slice(oStart, oStart+oLength) on the non-changed side (drop []) and advances la/lb by oLength - infra under the same Impl a0b30550, no new units."
+   },
+   {
+    "id": "AC-4",
+    "group": "regression",
+    "text": "Insertions (oLength=0) stay one-sided - R30.27 origin-exact behavior preserved (regression guard). Connector curves span the aligned modification region across gap rows (both bands draw when a=N>0 and b=M>0)."
+   },
+   {
+    "id": "AC-5",
+    "group": "verify",
+    "text": "RESULT byte-identical; assertion-grade getTopForLineNumber equal across all 3 panes per corresponding line INCLUDING modification regions. DET-3x + Tron on the otmux repro. Client fix -> version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}
