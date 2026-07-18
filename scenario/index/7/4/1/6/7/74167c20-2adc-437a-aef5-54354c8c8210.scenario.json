@@ -1,0 +1,18 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "74167c20-2adc-437a-aef5-54354c8c8210",
+  "name": "mergeAction.delete_dismiss",
+  "description": "BEHAVIOUR (DELETE block, 'x' dismiss): Dismisses the block (removes the change indicator); Result keeps its current state (the deletion stands). Block removed from center.",
+  "given": "DELETE block, 'x' dismiss",
+  "expectedBehaviour": "Dismisses the block (removes the change indicator); Result keeps its current state (the deletion stands). Block removed from center.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:dfbbd057-a492-4760-a3a1-78e31de894a6",
+  "coveredRequirement": "ior:instance:96634144-2069-4d3d-809c-f804873d7401",
+  "matrixOf": "R30.35 merge-action behaviour matrix (ConflictKind x action + edges); dual-link source of truth for the architect PUML/SVG. Method acceptChange dispatches (dismiss variant per architect)."
+ },
+ "ownerIor": "ior:instance:96634144-2069-4d3d-809c-f804873d7401"
+}

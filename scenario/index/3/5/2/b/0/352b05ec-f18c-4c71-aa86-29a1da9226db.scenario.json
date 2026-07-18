@@ -1,0 +1,18 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "352b05ec-f18c-4c71-aa86-29a1da9226db",
+  "name": "mergeAction.modify_takeRepo",
+  "description": "BEHAVIOUR (MODIFY block, '<<' take-Repo): The Result gets the REPO version of the modified region. Block resolves.",
+  "given": "MODIFY block, '<<' take-Repo",
+  "expectedBehaviour": "The Result gets the REPO version of the modified region. Block resolves.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:dfbbd057-a492-4760-a3a1-78e31de894a6",
+  "coveredRequirement": "ior:instance:96634144-2069-4d3d-809c-f804873d7401",
+  "matrixOf": "R30.35 merge-action behaviour matrix (ConflictKind x action + edges); dual-link source of truth for the architect PUML/SVG. Method acceptChange dispatches (dismiss variant per architect)."
+ },
+ "ownerIor": "ior:instance:96634144-2069-4d3d-809c-f804873d7401"
+}
