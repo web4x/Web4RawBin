@@ -84,5 +84,8 @@ note bottom
   vs the new model. REWORK: pick:'a'|'b' → included-line SET per region (left ∪ right − removed); acceptChange→addSide;
   NEW removeLine(id,lineRef); render older-dark/newer-highlighted. Same 16 UC uuids (dual-links intact); req reworked the
   UC names+expectedBehaviour to putLeft/putRight/removeLine. HARD GATE: build NOTHING until Tron approves this model + SVG.
+  RESOLUTION (R30.37): wording = RESOLVED (never commit/committed). ONE resolved-state per CHANGE — a both-versions change
+  drawn as 2 per-side SVG blocks (R30.35 AC-two-per-side) is still ONE change / ONE checkmark (outlined=unresolved,
+  solid=resolved) / ONE openChangeCount unit; the 2 blocks are VISUAL only, NOT 2 resolve targets. Any ≫/≪/✕ RESETS to unresolved.
 end note
 @enduml

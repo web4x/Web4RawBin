@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1040" font-family="Segoe UI,Arial,sans-serif">
-<rect width="1240" height="1040" fill="#fbfbfb"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1080" font-family="Segoe UI,Arial,sans-serif">
+<rect width="1240" height="1080" fill="#fbfbfb"/>
 <text x="20" y="34" font-size="19" font-weight="700">R30.35 REWORKED — Center holds BOTH versions · ≫ add-Left · ≪ add-Right (coexist) · ✕ remove-line — EXPECTED vs v0.7.51</text>
 <text x="20" y="55" font-size="12" fill="#555">Tron model: no ignore/pick-side. DUAL LINKS: cell ⟷ req mergeAction unit (uuid, camelCase). Grounded: /edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1 line 38. HARD GATE: build nothing.</text>
 <rect x="120" y="64" width="362" height="30" fill="#2c3e50"/>
@@ -108,12 +108,13 @@
 <text x="866" y="705" font-size="11" fill="#7b241c" font-weight="600">NOW: today ✕ only hides the overlay</text>
 <text x="866" y="720" font-size="11" fill="#7b241c" font-weight="600">(dismissed set)</text>
 <text x="866" y="773" font-size="10" fill="#2c3e50" font-style="italic">edgeBothVersionsInCenter 45cac75f / edgeCenterShowsBothVersions bc52e3ed</text>
-<rect x="10" y="802" width="1220" height="134" fill="#fef9e7" stroke="#b7950b" rx="6"/>
+<rect x="10" y="802" width="1220" height="160" fill="#fef9e7" stroke="#b7950b" rx="6"/>
 <text x="22" y="824" font-size="14" font-weight="700" fill="#7d6608">ROOT: v0.7.51 uses a SINGLE-PICK center (Conflict.pick:'a'|'b'; rebuildCenter emits ONE side). Tron's model = COMPOSABLE BOTH-VERSIONS center.</text>
 <text x="22" y="844" font-size="11.5" fill="#5b4409">REWORK (3 changes, FOR TRON REVIEW — build nothing): (1) CENTER holds BOTH versions per changed region — older=DARK, newer=HIGHLIGHTED (line-38 shows mcdonges.latest AND dev).</text>
 <text x="22" y="864" font-size="11.5" fill="#5b4409">(2) ≫ = ADD-left / ≪ = ADD-right into center (idempotent, COEXIST — click both → both present); NOT replace/pick. (3) ✕ = REMOVE the line from center ALWAYS (drop an unwanted version); NOT dismiss-overlay.</text>
 <text x="22" y="884" font-size="11.5" fill="#5b4409">DATA MODEL: replace Conflict.pick:&#x27;a&#x27;|&#x27;b&#x27; with an included-line SET per region (left ∪ right − removed); rebuildCenter emits the set styled by age; acceptChange→addSide(id,side); NEW removeLine(id,lineRef).</text>
 <text x="22" y="904" font-size="11.5" fill="#5b4409">VERDICT: nearly all cells BROKEN vs the new model — it is a MODEL replacement, not per-cell tweaks. Same 16 UC uuids (dual-links intact); req reworks each UC.expectedBehaviour to add/remove semantics.</text>
+<text x="22" y="924" font-size="11.5" fill="#5b4409">RESOLUTION (R30.37): wording = RESOLVED (button/label/tooltip), NEVER commit/committed. ONE resolved-state per CHANGE — a both-versions change that renders as 2 per-side SVG blocks (R30.35) is still ONE change / ONE green checkmark (outlined=unresolved, solid=resolved) / ONE openChangeCount unit. The 2 blocks are VISUAL only, NOT 2 resolve targets. Any ≫/≪/✕ action RESETS the change to unresolved.</text>
 <rect x="910" y="62" width="14" height="14" fill="#f1948a"/><text x="928" y="74" font-size="11">BROKEN vs new model</text>
 <rect x="1075" y="62" width="14" height="14" fill="#f5b041"/><text x="1093" y="74" font-size="11">PARTIAL</text>
 </svg>
