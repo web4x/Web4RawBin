@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3f7b9d21-6c48-4a0e-b1d5-8e2f4c69a730",
+    "name": "test:R30.36 brighter-current — current nav change renders brighter (kind-hue preserved)",
+    "description": "Bridged to test/visual/r3036-brighter-current-gate.mjs (DET-3x GREEN on v0.7.54). Screenshot+pixel, NEVER DOM-count. jumpToChange sets _currentId → de-block-current (brightness 1.35 + 2px kind border + white glow). Samples the SAME block current-vs-non-current: current has ~7x the saturated-border+glow emphasis pixels (7453 vs 1014) = pixel-distinguishable; kind hue preserved. (openChangeCount is a SEPARATE gate, held for Tron checkmark/unresolved model.)",
+    "sourceFile": "ior:file:test/visual/r3036-brighter-current-gate.mjs",
+    "implementations": [
+      "ior:instance:65c465fa-1c45-497c-a3f9-f95829cff06d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:65c465fa-1c45-497c-a3f9-f95829cff06d"
+}

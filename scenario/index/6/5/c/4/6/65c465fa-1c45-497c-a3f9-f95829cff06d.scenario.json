@@ -4,7 +4,8 @@
     "uuid": "65c465fa-1c45-497c-a3f9-f95829cff06d",
     "name": "RbDiffEditor.jumpToChange impl",
     "tests": [
-      "ior:instance:72808ca7-5eaf-4b40-a0e5-7907b5e4585e"
+      "ior:instance:72808ca7-5eaf-4b40-a0e5-7907b5e4585e",
+      "ior:instance:3f7b9d21-6c48-4a0e-b1d5-8e2f4c69a730"
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,
