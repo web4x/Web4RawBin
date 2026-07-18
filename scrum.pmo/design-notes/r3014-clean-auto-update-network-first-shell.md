@@ -44,5 +44,37 @@ Architect will re-derive exact new-Method vs impl-edit split once req drafts (sw
 5. Hashed bundles stay cacheFirst (immutable); no regression to offline/PWA install.
 6. Version compare is against the RUNNING build (`__BUILD_VERSION__`), not a drifting localStorage baseline.
 
+## ★ DERIVE-CONFIRM against refined R30.14 (req d5ac7de75) = FAIL (cross-wired) — req must fix
+Measured Req `96634144` (altId R30.14 "Service-Worker auto-update"): `useCases = [9c41a415, d7493e80]`.
+- `9c41a415` = **merge.kindColoring** (Class RbDiffEditor 18165081, method computeMergedCenter 09af8c8d)
+- `d7493e80` = **merge.blockActions** (Class RbDiffEditor, method dfbbd057)
+These are **R30.35 coloring+actions** content wrongly parented to R30.14. The genuine R30.14 auto-update units EXIST but aren't the req's UCs: `ServiceWorker.pollForWorkerUpdate` `82e5ba83`, `ServiceWorker.claimClients` `406e1e33`, `RbUpdateBanner` `18ebf760`. And the NEW **network-first-shell** UC/Method is ABSENT.
+**Fix for req:** (a) MOVE `9c41a415`/`d7493e80` off R30.14 → onto the new R30.35 req (coloring+actions); (b) wire R30.14's real UCs — `serviceWorker.networkFirstShell` (new, below) + poll + claimClients + one-click banner; (c) mint the network-first UC/Method. Then I re-derive.
+
+## EXPERT IMPL SPEC — network-first shell (exact)
+**Decision: NEW named ServiceWorker method `ServiceWorker.navigationStrategy` (mark it) + REUSE existing `networkFirst`.** The routing change is a genuinely new named behavior (THE clean-release fix, tester-gated) → a champagne unit; the delivery mechanism (`networkFirst`) already exists and keeps offline intact. The banner changes are impl-edits under `RbUpdateBanner` markers.
+
+**sw.js fetch handler (`self.addEventListener('fetch')`, :64):** route shell + bundles network-first; keep offline fallback via the existing `networkFirst`:
+```
+self.addEventListener('fetch', (event) => {
+  const url = new URL(event.request.url);
+  if (url.protocol === 'ws:' || url.protocol === 'wss:') return;
+  event.respondWith(navigationStrategy(event.request, url));   // R30.14
+});
+
+// [impl:uuid:<mint>] ServiceWorker.navigationStrategy — R30.14 network-first shell (deploys reach the running client)
+function navigationStrategy(request, url) {
+  // /api + /md already network-first; NAV + shell HTML + hashed bundles → network-first so a deploy is fetched fresh.
+  if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/md/')) return networkFirst(request);
+  if (request.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname.startsWith('/dist/')
+      || ['/app','/edit','/trace','/scenario'].includes(url.pathname)) return networkFirst(request);
+  return cacheFirst(request);   // icons, css, other immutable static → cache-first (fast); still refreshed by networkFirst’s cache.put path when fetched
+}
+```
+- **Offline stays intact BY CONSTRUCTION:** `networkFirst` (:94) = try fetch → on success `cache.put` + return → on network FAIL → `caches.match` (last-cached shell/bundle) → else `offlineResponse()`. So online = always fresh; offline = last-cached; `install` still pre-caches `STATIC_SHELL`, `activate` purges non-current caches + `claimClients()`. No offline regression.
+- **Hashed bundles (`/dist/*-[hash].js`) note:** immutable by content-hash, so `cacheFirst` is also safe+faster (a new deploy = new hash = cache-miss = fresh fetch). PO directive = network-first for bundles too (belt-and-suspenders / guaranteed) — spec'd above; if latency matters, flip `/dist/` back to `cacheFirst` with ZERO freshness loss (the network-first HTML shell already guarantees the new hashes are requested). **Recommend: shell+nav network-first is the essential fix; `/dist/` cacheFirst is the faster equivalent — PO's call; both reach the client.**
+
+**Banner (`RbUpdateBanner` 18ebf760 impl-edits):** `checkForUpdate` → periodic (60s + focus/visibility), compare `/api/config` version to `__BUILD_VERSION__`; `showBanner` one-click → `SKIP_WAITING` (if waiting) then `location.reload()` (now network-first → fresh). `pollForWorkerUpdate` (f1456992) + `claimClients` (406e1e33) unchanged. Deploy-atomic per R30.28.
+
 ## Handoff
 req folds NETWORK-FIRST-SHELL into R30.14's AC (+ the network-first UC/method) → I derive-confirm against R30.14 (ServiceWorker navigation-strategy + RbUpdateBanner impl-edits; markers) → PO build-go → expert (sw.js + banner + version-bump atomic) → tester DET (left-open deploy → prompt ≤60s → one-click, no hard reload) + Tron. **R30.31/R30.32 unaffected.**
