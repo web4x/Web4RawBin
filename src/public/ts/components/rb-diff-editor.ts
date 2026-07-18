@@ -236,7 +236,7 @@ export class RbDiffEditor extends HTMLElement {
     this.twoWay = this.base === '' && !!(this.left.ref && this.right.ref) ? false : this.base === '';
     this.conflicts = [];
     this.centerSeq = [];
-    this.dismissed.clear(); this._jumpIdx = -1; this._resolved.clear(); this._currentId = null; // R30.13/36: fresh merge → clear jump cursor + resolved set + current-change emphasis
+    this.dismissed.clear(); this._jumpIdx = -1; this._currentId = null; // R30.13/36: fresh merge → clear jump cursor + current-change emphasis (resolution is derived, no set to clear)
     if (this.base === '') {
       // R30.12: no merge-base → 2-way TAKE-OVER. LCS(local,remote) → conflicts[] as take-over hunks so the gutter
       // renders ◄/► (pick='a' keep Local default, ► take Version). Previously centerSeq was flat local → no arrows.
@@ -434,7 +434,7 @@ export class RbDiffEditor extends HTMLElement {
       if (c.olderLen > 0) out.push({ range: new m.Range(c.span[0] + 1, 1, oEnd, 1), options: { isWholeLine: true, className: `de-block-${c.kind}${cur}`, linesDecorationsClassName: `de-gutter-${c.kind}` } });
       if (c.span[1] > oEnd) out.push({ range: new m.Range(oEnd + 1, 1, c.span[1], 1), options: { isWholeLine: true, className: `de-block-${c.kind} de-newer-${c.kind}${cur}`, linesDecorationsClassName: `de-gutter-${c.kind}` } });
       // R30.37: ONE glyph per CHANGE on its first block — solid-green ✓ badge when RESOLVED, else the conflict ⚠ (if any).
-      if (out.length) out[0].options.glyphMarginClassName = this._resolved.has(c.id) ? 'de-resolved-badge' : (c.kind === 'conflict' ? 'de-conflict-glyph' : undefined);
+      if (out.length) out[0].options.glyphMarginClassName = this.isResolved(c) ? 'de-resolved-badge' : (c.kind === 'conflict' ? 'de-conflict-glyph' : undefined);
       return out;
     });
     this._blockDecoIds = this.edCenter.deltaDecorations(this._blockDecoIds, decos);
@@ -461,7 +461,6 @@ export class RbDiffEditor extends HTMLElement {
   private dismissed = new Set<number>();   // R30.13: (legacy; unused post-R30.35 — x is now removeLine, not dismiss)
   private _jumpIdx = -1;
   private _currentId: number | null = null; // R30.36: the change under the up/down nav cursor → rendered brighter
-  private _resolved = new Set<number>();     // R30.36: changes the user has ACTED on (≫/≪/✕) → openChangeCount excludes them
   private _ribbonSvg: SVGSVGElement | null = null;
 
   // Visible Y (px, relative to .de-panes top) of the TOP of 0-based `line0` in Monaco editor `ed`.
@@ -495,13 +494,17 @@ export class RbDiffEditor extends HTMLElement {
     const rightStrip = mk('de-gutter-right', remoteLeft);
     const btn = (act: string, id: number, glyph: string, title: string) =>
       `<button data-cid="${id}" data-act="${act}" title="${title}" style="pointer-events:auto;display:block;width:20px;height:15px;line-height:13px;margin:1px 0;padding:0;font-size:0.65rem;background:#333;border:1px solid #666;color:#ddd;border-radius:3px;cursor:pointer">${glyph}</button>`;
-    // R30.35: each strip gets ADD + REMOVE for ITS side — left ≫=add-Local / ✕=remove-Local · right ≪=add-Repo / ✕=remove-Repo.
-    // Gated by side origin (a>0 left / b>0 right) so a pure one-sided change only shows controls where that side has lines.
+    // R30.35/37 OPTION A: per-side control keyed on center-INCLUSION (content-aware), not a fixed add+remove pair —
+    //   BOTH versions in center → ✕ (remove this side) · this side NOT in center → add(≫/≪) · this side is the SOLE version → nothing.
+    // Outer gate: a side only shows controls if it HAS a version (a>0 left / b>0 right). Matches the AC visibility table.
     const rows = (side: 'left' | 'right') => this.conflicts.filter(c => (side === 'left' ? c.a.length > 0 : c.b.length > 0)).map(c => {
       const y = Math.max(0, this.lineY(this.edCenter, c.span[0]));
-      const add = side === 'left' ? btn('add-left', c.id, '≫', 'Add Local → Result') : btn('add-right', c.id, '≪', 'Add Repository → Result');
-      const rm = side === 'left' ? btn('rm-left', c.id, '✕', 'Remove Local from Result') : btn('rm-right', c.id, '✕', 'Remove Repository from Result');
-      return `<div style="position:absolute;top:${y}px;left:0;right:0">${side === 'left' ? add + rm : rm + add}</div>`;
+      const both = this.leftIn(c) && this.rightIn(c), thisIn = side === 'left' ? this.leftIn(c) : this.rightIn(c);
+      let ctrl = '';
+      if (both) ctrl = side === 'left' ? btn('rm-left', c.id, '✕', 'Remove Local from Result') : btn('rm-right', c.id, '✕', 'Remove Repository from Result');
+      else if (!thisIn) ctrl = side === 'left' ? btn('add-left', c.id, '≫', 'Add Local → Result') : btn('add-right', c.id, '≪', 'Add Repository → Result');
+      // else: this side is the SOLE version in center → no control (nothing to add, can't drop the only version)
+      return ctrl ? `<div style="position:absolute;top:${y}px;left:0;right:0">${ctrl}</div>` : '';
     }).join('');
     leftStrip.innerHTML = rows('left');
     rightStrip.innerHTML = rows('right');
@@ -572,23 +575,21 @@ export class RbDiffEditor extends HTMLElement {
     this.updateResolveButton(); // R30.37: reflect the new current change's resolved state on the ✓ button
   }
 
-  // [impl:uuid:c86a104d-9777-4e00-a7d9-891e1a69334c] RbDiffEditor.toggleResolved — R30.37: the green-✓ toggles the
-  // CURRENT (nav-focused) change RESOLVED ⇄ unresolved. Resolution is EXPLICIT (only this checkmark, never an action)
-  // and ONE per CHANGE (by id — a change that later renders as 2 side-blocks still has ONE resolved-state).
+  // [impl:uuid:c86a104d-9777-4e00-a7d9-891e1a69334c] RbDiffEditor.toggleResolved — R30.35/37 OPTION A: resolution is now
+  // PURELY DERIVED from center inclusion (isResolved), so the green ✓ is a READ-ONLY indicator — this refreshes the
+  // indicator and mutates NO state (kept as the named entry point; the checkmark is non-interactive). Tron may layer a
+  // manual override at QA review; if so it re-enters here.
   toggleResolved(): void {
-    if (this._currentId == null) return;
-    if (this._resolved.has(this._currentId)) this._resolved.delete(this._currentId); // solid → outlined
-    else this._resolved.add(this._currentId);                                        // outlined → solid
-    this.updateResolveButton();
-    this.renderMergeGutter(); // refresh the 'K to resolve' counter + the per-change resolved badge
+    this.updateResolveButton(); // derived-indicator refresh only — no state change
   }
 
   // R30.37: reflect the CURRENT change's resolved flag on the toolbar ✓ (solid=resolved / outlined=unresolved;
   // disabled when no current change). Called from jumpToChange, toggleResolved, and after every ≫/≪/✕ action.
   private updateResolveButton(): void {
     const el = this.querySelector('.de-resolve') as HTMLButtonElement | null; if (!el) return;
-    el.disabled = this._currentId == null;
-    el.classList.toggle('resolved', this._currentId != null && this._resolved.has(this._currentId));
+    const c = this._currentId == null ? null : this.conflicts.find(x => x.id === this._currentId);
+    el.disabled = c == null;
+    el.classList.toggle('resolved', !!c && this.isResolved(c)); // solid = resolved (one version) / outlined = unresolved (both coexist) — DERIVED
   }
 
   // [impl:uuid:843d79d4-b07a-4f8c-8f15-297211017cb4] RbDiffEditor.addSide — R30.35 REWORK = ADD-SIDE semantic.
@@ -600,8 +601,7 @@ export class RbDiffEditor extends HTMLElement {
     const c = this.conflicts.find(x => x.id === changeId);
     if (!c) return;
     if (side === 'left') c.incl.a = true; else c.incl.b = true;
-    this._resolved.delete(changeId); // R30.37: any ≫/≪ RESETS the change to UNRESOLVED (composition changed → re-confirm via ✓)
-    this.rebuildCenter(); // re-flatten center from the included sets, re-render blocks+ribbons+counter
+    this.rebuildCenter(); // re-flatten center from the included sets → blocks+ribbons+counter re-derive (resolution derives from inclusion, no jump)
     this.updateResolveButton();
     this.dirty = true;
   }
@@ -613,17 +613,41 @@ export class RbDiffEditor extends HTMLElement {
     const c = this.conflicts.find(x => x.id === changeId);
     if (!c) return;
     if (side === 'left') c.incl.a = false; else c.incl.b = false;
-    this._resolved.delete(changeId); // R30.37: ✕ is an action → RESETS the change to UNRESOLVED
     this.rebuildCenter();
     this.updateResolveButton();
     this.dirty = true;
+    // R30.35/37 OPTION A: dropping a side leaves one version → the change is now RESOLVED → advance to the next UNRESOLVED change.
+    if (this.isResolved(c)) { this._jumpIdx = this.conflicts.findIndex(x => x.id === changeId); this.jumpToNextUnresolved(); }
   }
 
-  // [impl:uuid:8b6abf77-b1d7-4eca-a0cd-a90b41372495] RbDiffEditor.openChangeCount — R30.37: # of UNRESOLVED changes
-  // (resolved ONLY via the green ✓ toggleResolved). = total at load; −1 when a change is checkmarked; +1 when a ≫/≪/✕
-  // action resets a resolved change; = 0 only when the user has checkmarked EVERY change.
+  // R30.35/37 OPTION A: after a ✕ resolves the current change, jump to the next change that still holds BOTH versions
+  // (unresolved), searching forward from the acted-on change and wrapping. No-op if none remain unresolved.
+  private jumpToNextUnresolved(): void {
+    const list = this.conflicts; if (!list.length || !this.edCenter) return;
+    for (let k = 1; k <= list.length; k++) {
+      const idx = (((this._jumpIdx + k) % list.length) + list.length) % list.length;
+      const c = list[idx];
+      if (!this.isResolved(c)) {
+        this._jumpIdx = idx; this._currentId = c.id;
+        this.edCenter.revealLineInCenter(c.span[0] + 1);
+        this.edCenter.setPosition({ lineNumber: c.span[0] + 1, column: 1 });
+        this.renderMergeGutter(); this.updateResolveButton();
+        return;
+      }
+    }
+  }
+
+  // R30.35/37 OPTION A (architect design decision, Tron-directed): resolution DERIVES from center inclusion — no stored
+  // _resolved set. Content-aware (a side only "counts" if it is included AND has lines) so a genuine one-sided change
+  // (only one version exists) is RESOLVED, not perpetually open — the raw incl.a&&incl.b would wrongly count it unresolved.
+  private leftIn(c: Conflict): boolean { return c.incl.a && c.a.length > 0; }   // Local(older) version present in center
+  private rightIn(c: Conflict): boolean { return c.incl.b && c.b.length > 0; }  // Repository(newer) version present in center
+  private isResolved(c: Conflict): boolean { return !(this.leftIn(c) && this.rightIn(c)); } // resolved UNLESS both versions coexist
+  // [impl:uuid:8b6abf77-b1d7-4eca-a0cd-a90b41372495] RbDiffEditor.openChangeCount — R30.35/37 OPTION A: # of UNRESOLVED
+  // changes = # with BOTH versions still in center (leftIn && rightIn). Derived, not stored; auto-decrements when a ✕ drops
+  // a side (→ one version → resolved), increments when a ≫/≪ re-adds the second version. 0 when every change holds one version.
   openChangeCount(): number {
-    return this.conflicts.filter(c => !this._resolved.has(c.id)).length;
+    return this.conflicts.filter(c => this.leftIn(c) && this.rightIn(c)).length;
   }
 
   // [impl:uuid:91c452ae-d41c-49bc-8efe-f656d628fd62] RbDiffEditor.applyAllNonConflicting
